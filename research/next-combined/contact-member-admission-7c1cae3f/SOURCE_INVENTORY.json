@@ -1,0 +1,109 @@
+{
+  "published_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+  "tested_core_head": "e68123d81fb9064ad057425d7c954f923b50097c",
+  "census_producer_head": "6685a48c78a18e70c6a2775c8c0d7cc34dd5db28",
+  "scope": "Read-only archive, exact local artifact/source identity checks and full saved CSV row reconciliation. No replay of trajectory payloads, byte-mask census, solver, selector, test or experiment.",
+  "files": {
+    "research/sipp-routing/FULL_MEMBER_SUPPORT_CENSUS.md": {
+      "archive_path": "contact-member-admission-7c1cae3f/FULL_MEMBER_SUPPORT_CENSUS.md",
+      "sha256": "d231e1e24de04208fc622cd63040402113557d025dc9f8b9386cedc630eb316a",
+      "verbatim": true
+    },
+    "research/sipp-routing/census_saved_member_support.py": {
+      "archive_path": "contact-member-admission-7c1cae3f/census_saved_member_support.py",
+      "sha256": "3371c98e0827318c7622f0c4caf5bb278df5c36fe0c7d3f76a6b5e2df2e30c80",
+      "verbatim": true
+    },
+    "research/sipp-routing/full-member-support-census-20261030/RESULTS.json": {
+      "archive_path": "contact-member-admission-7c1cae3f/full-member-support-census-20261030/RESULTS.json",
+      "sha256": "87bf592ae3f3ed674fb21d6b4707083d9bcdd0f5cac429af8a3c9b30f16f756c",
+      "verbatim": true
+    },
+    "research/sipp-routing/full-member-support-census-20261030/RECEIPT.json": {
+      "archive_path": "contact-member-admission-7c1cae3f/full-member-support-census-20261030/RECEIPT.json",
+      "sha256": "628503559c7a82aa7b3702fe82811aa5abf344071bcf03e99f5e02b78c64cda6",
+      "verbatim": true
+    },
+    "research/sipp-routing/full-member-support-census-20261030/MEMBER_SUPPORT.csv": {
+      "archive_path": "contact-member-admission-7c1cae3f/full-member-support-census-20261030/MEMBER_SUPPORT.csv",
+      "sha256": "4752747c8b73a7a9011da2101cea2fa223bcde9c096d9d1465843d45c35687d7",
+      "verbatim": true
+    },
+    "research/sipp-routing/audit_member_scaling.py": {
+      "archive_path": "contact-member-admission-7c1cae3f/audit_member_scaling.py",
+      "sha256": "7dcab65089140a699204dbfd4f3d82c3d92b7cb23089e708f2375ce5986f66e7",
+      "verbatim": true
+    },
+    "research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md": {
+      "archive_path": "contact-member-admission-7c1cae3f/MEMBER_SCALING_FEASIBILITY.md",
+      "sha256": "3aa6234dd3cfb6ad69c8d5fa2ad61a794132d7c8ccf430f2ea57e35b0d342bbc",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030/FAILURE.json": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030/FAILURE.json",
+      "sha256": "eaf3e36f2af85b9261430ca6d3510659417fda79ac3e6952884e541fd68b3e44",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py",
+      "sha256": "ffb7a87a54a325f08ee33e7580771d384a5bb4594174fa70c1c37595385e401f",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv",
+      "sha256": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv",
+      "sha256": "89b99df0ac86ed4f0a51f58687f6572110fdcacc35781e082f424733b8131d41",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv",
+      "sha256": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+      "verbatim": true
+    },
+    "research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json": {
+      "archive_path": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030-v2/RESULTS.json",
+      "sha256": "cc833cbde7d40e85cfa9fc0b3256a3dff93f0b05ae3b01d70fab1a6dad608f08",
+      "verbatim": true
+    },
+    "research/scenario-members/TRACK_STATUS.json": {
+      "archive_path": "contact-member-admission-7c1cae3f/SCENARIO_TRACK_STATUS.json",
+      "sha256": "c5c985c48ace3f6d3f9fbcafbfd32fee73e3aeda95dfe9163f5f193eb90060d6",
+      "verbatim": true
+    }
+  },
+  "csv_reconciliation": {
+    "domains": 15,
+    "missions_reported": 20,
+    "indices_per_domain": 1024,
+    "complete_indices": true,
+    "rows": 15360,
+    "supported_rows": 0,
+    "all_unknown_cells_positive": true,
+    "unknown_mask_digests_per_domain": 1,
+    "domain_histograms_match_report": true
+  },
+  "owner_direct_byte_comparison": "Matching producer explicitly compares every original Boolean unknown-mask byte string against a reference per domain. Owner report says all1024equal per domain; readiness pass checks source/report identity, not a fresh payload read.",
+  "fixed_native_counter_table": {
+    "rows": 52,
+    "distinct_K": [
+      4
+    ],
+    "different_internal_counter_units": true,
+    "not_a_K_scaling_series": true
+  },
+  "prior_artifacts_unchanged_vs_receipt_and_668_git_objects": 8,
+  "core_source_sha256": {
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/scenario-members/src/wfg_scenario_members/reduction.py": "513ecaa49959021630a2e7eab12c2aaa39ee7f5b609e8e12e3d48556357265cc"
+  },
+  "producer_output_receipt_hashes_match": true,
+  "K_scaling_status": "NOT_RUN_CONTACT_ADMISSION",
+  "figure_status": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES",
+  "contract_implication": "Each saved member on each exact audited contact domain has unknown cells. Any nonempty selection fails the current whole-declared-domain bridge support predicate before preparation/search.",
+  "limits": "Current strict contact-input contract and saved pools only. No statement of physical impossibility or failure of every local/pessimistic checker; A physics and full-policy truth-risk gates are separate."
+}

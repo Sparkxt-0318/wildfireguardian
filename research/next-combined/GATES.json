@@ -91,7 +91,7 @@
       }
     },
     "1C": {
-      "published_head": "1e646b164c18d0dd924c68adefea18f02c6b4d34",
+      "published_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
       "software_head": "e68123d81fb9064ad057425d7c954f923b50097c",
       "status": "DRAFT_SOFTWARE_REVIEWABLE_SCIENCE_HOLD_PARTIAL",
       "native_contact_pairs": {
@@ -125,7 +125,29 @@
       "alignment_review": "caldor-rim-alignment-1e646b164/CALDOR_RIM_ALIGNMENT_AUDIT.md",
       "alignment_inventory": "caldor-rim-alignment-1e646b164/SOURCE_INVENTORY.json",
       "Caldor_Rim_native_export": "NOT_RUN_ALIGNMENT_UNESTABLISHED",
-      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/86"
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/86",
+      "source_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+      "contact_support_census": {
+        "producer_head": "6685a48c78a18e70c6a2775c8c0d7cc34dd5db28",
+        "review": "contact-member-admission-7c1cae3f/FULL_MEMBER_SUPPORT_CENSUS.md",
+        "inventory": "contact-member-admission-7c1cae3f/SOURCE_INVENTORY.json",
+        "domains": 15,
+        "missions": 20,
+        "saved_members_per_domain": 1024,
+        "domain_member_checks": 15360,
+        "supported_domain_members": 0,
+        "selection_implication": "Any nonempty selection from each saved pool fails current strict contact support admission",
+        "readiness_reconciliation": "Full CSV index/count/histogram/digest reconciliation; owner direct source-payload byte comparison separately attributed"
+      },
+      "K_scaling": {
+        "state": "NOT_RUN_CONTACT_ADMISSION",
+        "reason": "No saved member on any audited declared domain satisfies the current strict contact predicate",
+        "fixed_K_counter_table": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv",
+        "fixed_K": 4,
+        "fixed_K_rows": 52,
+        "multi_K_search_series": false,
+        "figure": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES"
+      }
     }
   },
   "cross_track_checks": {
@@ -144,6 +166,10 @@
     "Caldor_Rim_native_forecast_exports": {
       "state": "NOT_RUN_ALIGNMENT_UNESTABLISHED",
       "reason": "Six causal input channels, exact grid and compatible cutoff binding not established in bounded sealed-study inventory"
+    },
+    "contact_member_count_scaling": {
+      "state": "NOT_RUN_CONTACT_ADMISSION",
+      "reason": "All1024 saved members on all15audited contact domains contain unknown cells; any nonempty selection fails current strict contact admission before search. Separate from Aphysics/risk truth."
     }
   },
   "publication": {
@@ -182,7 +208,8 @@
     "B_admission": "Readiness auditor independent tiny synthetic tests with mocked numerical producers, no study data",
     "graph": "Current owned reports not_tracked at integration generation02:27:27Z; direct source read. NewC reports not_tracked at e681 generation03:54:43Z; direct report read.",
     "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning",
-    "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access"
+    "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access",
+    "C_contact_census": "Owner streamed original payloads and directly compared mask bytes; readiness auditor independently checked saved CSV completeness/counts/histograms/digests, producer/source/output hashes and retained8prior artifact Git identities. No payload/solver rerun."
   },
-  "updated_utc": "2026-10-30T06:05:49.722728+00:00"
+  "updated_utc": "2026-10-30T06:44:23.379644+00:00"
 }

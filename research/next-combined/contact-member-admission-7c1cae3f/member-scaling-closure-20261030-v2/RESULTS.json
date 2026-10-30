@@ -1,0 +1,619 @@
+{
+  "initial_audit_disclosure": "Initial exact full-grid comparison stopped at documented KFS_01 regional windows. Initial source and fixed-K extraction retained in member-scaling-closure-20261030. Final audit verifies and applies only existing inclusive integer regional views, preserving values and masks; no resampling or new grid.",
+  "status": "FIG02_NOT_PRODUCED_NO_ADMITTED_MEMBER_COUNT_SEARCH_SERIES",
+  "source_head": "1e646b164c18d0dd924c68adefea18f02c6b4d34",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "producer_sha256": "7dcab65089140a699204dbfd4f3d82c3d92b7cb23089e708f2375ce5986f66e7",
+  "inputs": {
+    "research/sipp-routing/native-panel-20261030/CASES.json": "5a6cb7ab5fcd4f224f0bf3b724cdf2baec5d8a63b74c2d47de6841e7a9f33a02",
+    "research/sipp-routing/native-panel-20261030/EXECUTIONS.jsonl": "b6db82b0e5bdb5bce54a8005cfca82fcdb0720472ab88e66dbe9ab13cf946794",
+    "research/sipp-routing/native-panel-20261030/MEASURED_SOURCE_SHA256.json": "0d9e16e3f62826c15adb77a1a23b57547a1bbe0309c1281442330afc37e0ed17",
+    "research/sipp-routing/native-panel-20261030/RESULTS.json": "c7ccae30bf3389a60de816c335f3525c4690f547ca5d35b86d2ca8582ba70912"
+  },
+  "sealed_input_pins": {
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T030000Z_FX1.json": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z/NATIVE_METADATA.json": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z/constructed_arrays.npz": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/graph.json": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/requests/20220601T080000Z_FX1.json": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T080000Z/NATIVE_METADATA.json": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T080000Z/constructed_arrays.npz": "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/graph.json": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/requests/20230402T070000Z_FX1.json": "10cd3f6a745b5c1a00589db9dac0a906ad6ee8e9466f770fe586990a5febf7cd",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T070000Z/NATIVE_METADATA.json": "4140641d5e76cc443ebf1565ecede7712731a3b7f3f06fdb29a022d32aa1addd",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T070000Z/constructed_arrays.npz": "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/graph.json": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/requests/20250323T010000Z_FX2.json": "3f2b7889369d7b91bf0f8bd96290281f7162256ff1d1f5b1825c928d5776d501",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250323T010000Z/NATIVE_METADATA.json": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250323T010000Z/constructed_arrays.npz": "e471830a42223cb59ef2ed56da8a948d4387233efe7e51adca2a20f5a6aaea13",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T190000Z_FX2.json": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z/NATIVE_METADATA.json": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z/constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T060000Z_FL1.json": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T060000Z/NATIVE_METADATA.json": "06a4bd0a8f7d8d332c7ac5c26c481bcebd6a905f2ee106bf7ccfd7efde837709",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T060000Z/constructed_arrays.npz": "c6aa5e6185a60269122f395bf88dfa7e9e23d2c3c6636f8410e6f1e4b357d992",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/requests/20220601T020000Z_FW1.json": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T020000Z/NATIVE_METADATA.json": "4e836009eafe57d1d70d6d5595f94b398452eea3ac0c38cc8e752d3293a9fb13",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T020000Z/constructed_arrays.npz": "7a170bb4acb449bd28b44bec481cdafd2d0d424561a36a5fa7ec460cd992a718",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/requests/20230402T140000Z_FW2.json": "36da8b90cd927c2d8605de1cea6afe17683d090acd4e03707723178061796079",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T140000Z/NATIVE_METADATA.json": "46fcabbe4e95aaaf561ae70d9ca3613322442ddef385181800d435f23b6c7481",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T140000Z/constructed_arrays.npz": "6173521b86c79b526159c414a2ed66ad8cf49a65ab4e456ba4935a90caa0cff0",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/requests/20250324T090000Z_FL2.json": "c7bb784df79f58f2a5daf2b6af57177b66213b886a2d447f49027a1b8e4898ef",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250324T090000Z/NATIVE_METADATA.json": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250324T090000Z/constructed_arrays.npz": "21325e301191d93f2fceab58d391ef828d6ed5e05c7bc77ecc0c64588462363e",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T230000Z_FL2.json": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T230000Z/NATIVE_METADATA.json": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T230000Z/constructed_arrays.npz": "7dd677f41f1ef8927283c20bddbc1d4f404dc64e81dc5b5d7dc04e630e674af5",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T120000Z_FW2.json": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T120000Z/NATIVE_METADATA.json": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T120000Z/constructed_arrays.npz": "3edfe49bb169437c80e641a8031756ff7ad6d9885d857863d2c08fd53f5d8707",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/requests/20220601T080000Z_FD1.json": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/requests/20230402T230000Z_FD1.json": "8ed4ad99d4b7952dfb6795c801fb58584f850b7343c33a5c86740638da422e1b",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T230000Z/NATIVE_METADATA.json": "6513b60205a420a8e5d916fb62b4f23b0a7e3c4f8faf51c432c9f98e2606973f",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T230000Z/constructed_arrays.npz": "911ba7ad026d480c504c8091f8f37cabd9ff1ccb2ca965e7c76ec63d117a167b",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/requests/20250325T170000Z_FW1.json": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250325T170000Z/NATIVE_METADATA.json": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250325T170000Z/constructed_arrays.npz": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250326T080000Z_FW1.json": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250326T080000Z/NATIVE_METADATA.json": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250326T080000Z/constructed_arrays.npz": "645c363012c1c7237d30da2393dec877ec92bd0d444ee9b7df28a2cab7aa5356",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T030000Z_FD1.json": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/requests/20220531T100000Z_FN1.json": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220531T100000Z/NATIVE_METADATA.json": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220531T100000Z/constructed_arrays.npz": "246335bad833f6c70bdd11514af8835ad1dc1f484b87054ba0c165bcc298f1bf",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/requests/20230402T070000Z_FN1.json": "e75116faedfc78ac37e8a05ebd6839a4a56c7df87f151b6edb310b5da9c7ba56",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/requests/20250323T010000Z_FD1.json": "e6ea78c9ac1cfd26440633dff55f6f5f0698ad891c1052c925510b8a108b3c7a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T190000Z_FD1.json": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/GRAPH.json": "c9cae5cbaf14c730a6cb2fcd960f6474bbc3bc5fa8500738fe289e367026d223",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G1.request.json": "9426bce13e2778fbdbd0abb5f45cd232095cf007413d5c0d47c7e114e9bc5c8a",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/NATIVE_METADATA.json": "bcab96e4dab29d5cd00b8a88e727c458b411cff250d86b402667af2371b72603",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/constructed_arrays.npz": "a16d628c96a889cda05373c54b90043c4fd5df19b158dc2ca25080c42f535ef6",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G2.request.json": "bd179748f5bd1f1aa523ef02237ce1f7dfc9fbde7d55ff086c2144783d539c6d",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G3.request.json": "58354cb30ea366baf680afa8ee4577a9f8b0f1ef4d8997ae4a1f1a0875b3bbf8",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/GRAPH.json": "af984cda55ad7affc85251d2e30818a445ab8ec1f276c6242521d58cda852312",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G1.request.json": "c10897969912a8221c6c917adced01889ffdde1182c8ae9beef26a54dfcf6bb3",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/NATIVE_METADATA.json": "eb9678201d29545de0bb50a23f872e8b01c8bdf27803e5d5ee3b40262521b086",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/constructed_arrays.npz": "8ff68ded734dc87a5027a923b6531eeee29097fdac0ad307b26e65cb90d57521",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G2.request.json": "6dad8ee9576d7a6cce15ced8f67fea16e8f904ef0a638c11551309f21a4bde30",
+    "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G3.request.json": "b2188631985a9c9224deeb0f51b1a8cfcf0726658ee0d70f0de99edd4cc4d12f"
+  },
+  "measured_counter_source": {
+    "commit": "e8a492aeff71f13495652fcbe5a8d21a2a982627",
+    "files": {
+      "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+      "experimental/sipp-routing/src/wfg_sipp/frontend.py": "fa370e79760eb3cd9abcdbcb7dc1f80b63fa144a98adc33f717ce73c427b7471",
+      "experimental/sipp-routing/src/wfg_sipp/adapter.py": "289518b9109039cb73f881d9712bf341153180f57cdeff34cebc31a670871d98",
+      "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+      "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+      "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+      "experimental/scenario-members/src/wfg_scenario_members/contact.py": "fbe067db8977b3d6f876208eca1c2a8e3c6d5c2113cac3a4bd215dc45869eb6b",
+      "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+    }
+  },
+  "analysis_scope": "Existing counter extraction and read-only presearch admission. No algorithm, simulation, rerun, resource benchmark or new panel executed.",
+  "fixed_native": {
+    "missions": 26,
+    "pairs": 52,
+    "executions": 104,
+    "distinct_K": [
+      4
+    ],
+    "table": "NATIVE_FIXED_K_COUNTERS.csv",
+    "counter_units": "SIPP pieces and expansions count interval pieces; sweep states_reached is a distinct internal reachability counter. No ratio or common-work-unit claim.",
+    "original_seed": "Frozen constructed packet members; no new draws in this audit",
+    "repetitions": "two per mission, not independent missions"
+  },
+  "existing_admission_records": [
+    {
+      "campaign": "C1",
+      "records": 6000,
+      "K_counts": {
+        "4": 4000,
+        "16": 2000
+      },
+      "reasons": {
+        "UNKNOWN_GLOBAL_SOURCE_SUPPORT": 6000
+      },
+      "search_counter_records": 0,
+      "path": "research/synthetic-truth/strict-support-20261030/C1.jsonl.gz",
+      "sha256": "34dfe3a9adf372a85f637a77a871b2b6cc61f99ed578c4f1c6e8179b586f4d11"
+    },
+    {
+      "campaign": "C2",
+      "records": 12000,
+      "K_counts": {
+        "16": 12000
+      },
+      "reasons": {
+        "UNKNOWN_GLOBAL_SOURCE_SUPPORT": 12000
+      },
+      "search_counter_records": 0,
+      "path": "research/synthetic-truth/strict-support-20261030/C2.jsonl.gz",
+      "sha256": "a7da118f157f879c797dcc959b461edc07923965fa2f6bfa82275b432a16bad0"
+    },
+    {
+      "campaign": "C3",
+      "records": 24000,
+      "K_counts": {
+        "4": 6000,
+        "8": 6000,
+        "16": 6000,
+        "32": 6000
+      },
+      "reasons": {
+        "UNKNOWN_GLOBAL_SOURCE_SUPPORT": 24000
+      },
+      "search_counter_records": 0,
+      "path": "research/synthetic-truth/strict-support-20261030/C3.jsonl.gz",
+      "sha256": "e171dc2c7e36bf46c59f8bc0c0a9118ae7fb36b4b0bc994527539abec1f63e41"
+    },
+    {
+      "campaign": "C4",
+      "records": 8,
+      "K_counts": {
+        "16": 8
+      },
+      "reasons": {
+        "UNKNOWN_GLOBAL_SOURCE_SUPPORT": 8
+      },
+      "search_counter_records": 0,
+      "path": "research/synthetic-truth/strict-support-20261030/C4.jsonl.gz",
+      "sha256": "fd44b4fe08b9e7e62d4b6327dfa409fa7533be44a4b703b52d2e216bbb1d3cab"
+    }
+  ],
+  "actual_export_windows": [
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "66a62368d0444e62c86c33ad7126ee297734e49cce5797bc1788a553ea695acb",
+      "npz_sha256": "d7c95b54781a5ca36aed118322a1e6f02b861de6134efd37ab8ada26bc2fcbda",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "eac7ac90e1176374b002d2e914f3553cb75505e0da8871cc308bb9e07c4a13b3",
+      "event": "KFS_01",
+      "cutoff": "2025-03-23T01:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 32
+      }
+    },
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "8aa1cd4a8ce1666e4aab8f7e4b35cd2e785579722dcb318d0582d9cac538cf24",
+      "npz_sha256": "857abafcc1f09b4f42b33fdde78a4f216da763544bf430e05bb91b98297426e7",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "066f5c641e5ba0195e87e3f2f13e412cc64a2c9814420f05a4e4046b9dbf42ce",
+      "event": "KFS_01",
+      "cutoff": "2025-03-24T09:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 32
+      }
+    },
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "5549a48c8b85acbfe0d9191a5926c99828e06c2ef1c40355c4237fccabea26f8",
+      "npz_sha256": "9577b16a94a0aba195aebacf926a060f3464dba75166e5c03de225ed4b0434a7",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "114550f31af28cd17b51b0dd12388ba1f3e9eae930225d157c099d2b8d379118",
+      "event": "KFS_01",
+      "cutoff": "2025-03-25T17:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 32
+      }
+    },
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "a30551fccaa2429d1640f890cd2479ddb5dc47b995743553651230319e74d9b8",
+      "npz_sha256": "f2b79fe2b302f173b40567a0cdebd58941f3dcbf0575c0bd6d421c702d0c35a7",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "fce174a12ac382bd24657eab4682d404c149af0ad7a2ee9327d173679f6ae1ac",
+      "event": "KFS_01",
+      "cutoff": "2025-03-25T19:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 32
+      }
+    },
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "3494f425c8bd1129a4978cae403730dbc40ad3ee1d66d21bc86bd1019e07f41c",
+      "npz_sha256": "018df271320208fe65d87c3986e26c1c5a47ffecd1074ab56bb2600c8ad1d1b1",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "ef3b74fbcd8bad0a5f219e9b4a4f08f772ba512af765cc16f6b05fa2d32351bd",
+      "event": "KFS_01",
+      "cutoff": "2025-03-25T23:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 31
+      }
+    },
+    {
+      "shape": [
+        1024,
+        79,
+        237
+      ],
+      "source_record_sha256": "7e4e05b5055109654f8b0f21d5a2de3d559ad525482d331c56fe4f8c0943b33c",
+      "npz_sha256": "59ffc5d71f938a9d701d06de349d2834bed71935b22095786fbb7ade2b71eb22",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "be35f701c1cbc0e757c0ac414b287981e370fbad0ecd1cbbb58eaeccf85560d8",
+      "event": "KFS_01",
+      "cutoff": "2025-03-26T08:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        62,
+        58
+      ],
+      "source_record_sha256": "4727ffd7e829af04713627b71d63ae3ea23950e41055863356d1d802cf7607a4",
+      "npz_sha256": "b17ee1eb13543e4f406d892f04412cbbb02b6a095fb3cbf413060b8a44311ba7",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "cc20856dfe44013cce85ba0d96e3f17eebebbd50a3c5d9f35453435c2a195955",
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T03:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1149000.0,
+        0.0,
+        -375.0,
+        1912125.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 2,
+        "32": 2
+      }
+    },
+    {
+      "shape": [
+        1024,
+        62,
+        58
+      ],
+      "source_record_sha256": "a54aba44f5827c9a786c8abc86bc16700f86a68816f1430866a11beb60d07110",
+      "npz_sha256": "ad87b55e736d26a092e78cb93ba6aa5b2d79ea3e0b7fd82f4a0e2a7599376f2f",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "d3a9040204ad35e43bc6537dd1899e4f9278450b5748493b45033f12f911ce15",
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T06:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1149000.0,
+        0.0,
+        -375.0,
+        1912125.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 3,
+        "8": 5,
+        "16": 10,
+        "32": 22
+      }
+    },
+    {
+      "shape": [
+        1024,
+        62,
+        58
+      ],
+      "source_record_sha256": "296f9af05bae0f1970a80c2eb85b1f0cb061e3f223e48e64e7c82c70d2fab314",
+      "npz_sha256": "542330ad273f863b4b8f969310de3b14d2ec3bb04183998362a7785592baa52f",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "3d7cab5c1fd738464208467cda0bd41fcd73bbaccf3e61f0197cff11e24df167",
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T12:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1149000.0,
+        0.0,
+        -375.0,
+        1912125.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 4,
+        "8": 8,
+        "16": 16,
+        "32": 26
+      }
+    },
+    {
+      "shape": [
+        1024,
+        18,
+        18
+      ],
+      "source_record_sha256": "83322c504b9f07ccc578b13a908dbd48957d524612e5a5708b2314ea746cfa7f",
+      "npz_sha256": "ef4b3480c17fb400bb72b671f8c6b866d9c88c0eced8cc5a6e15c1bab58b605d",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "7525f454ad0e21c3fcfc086bf2855e92c58c2d3b84dc7b47c3d9ab15a6642ec7",
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T07:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        907500.0,
+        0.0,
+        -375.0,
+        1844625.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        18,
+        18
+      ],
+      "source_record_sha256": "a4f020604e6a0632e6bbe9d63e1e11b0334757075fea5d47813c2f21a8c1ffc4",
+      "npz_sha256": "e667474decc39af702037a8459e899e5b58c77e48d5a514059c7115aecd5eda7",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "c95f1b57b9288defba1a3a759ea645c70c7f29902cd53cece0df2733fd9da31b",
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T14:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        907500.0,
+        0.0,
+        -375.0,
+        1844625.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        18,
+        18
+      ],
+      "source_record_sha256": "c57e9cde8f2dbe4500e70b941e9b3f9c1249adc173073e9963247eabece21a09",
+      "npz_sha256": "78f99460e1e798be3e840732c91a8172e4cd34e9a348d93b5c445e10437a64f1",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "1eecfd0f83db3e8a813f5af3765dc455d3bdc9ba3961f94e11713760e40baee7",
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T23:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        907500.0,
+        0.0,
+        -375.0,
+        1844625.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        17,
+        11
+      ],
+      "source_record_sha256": "e1bf536e23d65cb327e2b0b9ca04751187d7b95b046899c261b64fac182965fb",
+      "npz_sha256": "3ba70f0ea3519a164f03576f469fa21e5eecd62db25a717f6a03ea4a52c13978",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "7b4e9953928f0648629fa55540fbe93990c2d927f3c79abcf480e4d9a8315b32",
+      "event": "KFS_11",
+      "cutoff": "2022-05-31T10:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1111125.0,
+        0.0,
+        -375.0,
+        1729875.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        17,
+        11
+      ],
+      "source_record_sha256": "d5ed38c6480419e4c6f0cface5fa1ee802d582823c45296dbf6ad74f85f8aa98",
+      "npz_sha256": "2e5235ac94e282b5b2afbe2cc4368ddcd3b17dd971a52571f3241f1c9aff97f9",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "3d2cac368d358e1d8cabb81c1dcea8d21943ffd2732276c6927517bd92ff45a5",
+      "event": "KFS_11",
+      "cutoff": "2022-06-01T02:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1111125.0,
+        0.0,
+        -375.0,
+        1729875.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    },
+    {
+      "shape": [
+        1024,
+        17,
+        11
+      ],
+      "source_record_sha256": "0390162d8e30b341c546dbd53e8c2be7b78fdd18b81d501c0294bd46944d3179",
+      "npz_sha256": "b0a6e964805fd38745adeca348aa18574783cb91fae4ea1c53c526356ac3c96a",
+      "base_seed": 0,
+      "batch_size": 32,
+      "prefix_sha256": "3fc3b30907591f18631ac1c4e5face79cfc33e3fea9feedaf93411e404efccd2",
+      "event": "KFS_11",
+      "cutoff": "2022-06-01T08:00:00Z",
+      "affine": [
+        375.0,
+        0.0,
+        1111125.0,
+        0.0,
+        -375.0,
+        1729875.0
+      ],
+      "unique_actual_prefix_fields": {
+        "4": 1,
+        "8": 1,
+        "16": 1,
+        "32": 1
+      }
+    }
+  ],
+  "presearch": {
+    "cases": 80,
+    "missions": 20,
+    "K": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "admitted": 0,
+    "table": "KOREAN_PRESEARCH_ADMISSION.csv",
+    "obstacle": "Every selected actual prefix contains unknown trajectory cells, including after its existing exact regional window when applicable. bridge_v2.to_contact_model sets supported=False for any such cell, and frontend.sipp_plan returns unresolved before graph preparation/search.",
+    "point_scope": "Issue-cell trajectory unknown is a spatial future-arrival-support diagnostic, not proof that current contact occurs. Known cutoff state is retained separately. No route-local feasibility claim is made."
+  },
+  "classification": "The missing figure is separately unexecuted, and the audited first-K K4/8/16/32 study on the existing exports is blocked by current input admission. The1A physics gate is not a prerequisite for a pure contact solver study.",
+  "proposed_campaign": "NOT_SCHEDULED_NO_ADMITTED_SEARCHES under current contract. No empty benchmark or global-support override is proposed.",
+  "conditional_future_protocol": "Only after admissible actual contact inputs or a separately justified spatial/temporal support contract: fixed20Korean missions, exact grids/clocks, first-K original identities K4/8/16/32, paired sweep/SIPP, two ABBA repetitions,30s/3072MiB limits, serialized HEAVY lease after B. No replicated members, threshold changes, unknown fill or thermal/risk interpretation.",
+  "remaining_boundary": "A future local/pessimistically bounded contact checker might admit some routes; this audit neither implements it nor proves it impossible. Unknown global emitting support is a separate thermal issue. Fixed-K counters cannot identify a slope versus K.",
+  "current_source_sha256": {
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "research/synthetic-truth/run_strict_support_campaigns.py": "20e2f7ac74b6f3ce0061e5a7726b51e6aa4fc38ddaad0f3742fe7295595ef5d2"
+  },
+  "outputs": {
+    "NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "KOREAN_PRESEARCH_ADMISSION.csv": "89b99df0ac86ed4f0a51f58687f6572110fdcacc35781e082f424733b8131d41"
+  },
+  "numpy": "1.26.4",
+  "selector_scope": "Only first-K controls0..K-1 are audited. Exactly32actual trajectory fields per window were read. Full-N unknown-mask sharing and other selectors were not assessed; no rejection claim for uninspected selectors."
+}
