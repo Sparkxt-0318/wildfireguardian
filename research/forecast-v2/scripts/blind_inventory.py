@@ -35,6 +35,12 @@ registered before future source access or forecasts. Wiring this adapter into
 the frozen scorer and independent public-release verification remain separate
 requirements. Geometry policy: reject invalid/empty/non-Polygon records,
 malformed rings, deleted DBF records and non-WGS84 sources; never repair.
+Custody policy: reject filesystem symlinks, including source path ancestors,
+non-GeoTIFF canonical rasters, and raster dependencies outside snapshot pins.
+Archive members are restricted to the five parsed SHP bundle components,
+UTF-8 plain-text .txt/.md metadata, and matching UTF-8 .shp.xml metadata.
+Other sidecars/formats, including every nested archive, fail closed. DBF bytes
+must be exactly the header and declared records, with at most one 0x1A EOF.
 """
 from __future__ import annotations
 
@@ -84,10 +90,20 @@ def _digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def _no_symlink_components(path):
+    """Check lexical ancestors before resolve() can erase a symlink hop."""
+    absolute = Path(path).absolute()
+    for component in (*reversed(absolute.parents), absolute):
+        if component.is_symlink():
+            raise InventoryError(f"Filesystem symlinks are not admitted: {component}")
+
+
 def _inside(root, relative):
     if not isinstance(relative, str) or not relative or Path(relative).is_absolute():
         raise InventoryError("Input paths must be nonempty relative paths")
-    path = (root / relative).resolve()
+    lexical = root / relative
+    _no_symlink_components(lexical)
+    path = lexical.resolve()
     if not path.is_relative_to(root.resolve()):
         raise InventoryError("Input path escaped the declared input root")
     return path
@@ -119,7 +135,16 @@ def _snapshot(root, pins):
     if not isinstance(pins, dict) or not pins:
         raise InventoryError("Complete environmental snapshot pins are required")
     folder = root / "environment"
-    files = {str(p.relative_to(root)) for p in folder.rglob("*") if p.is_file()}
+    _no_symlink_components(folder)
+    files = set()
+    for path in folder.rglob("*"):
+        # rglob yields directory symlinks without traversing their targets.
+        # Reject the node before filtering it with is_file()/is_dir().
+        _no_symlink_components(path)
+        if path.is_file():
+            files.add(str(path.relative_to(root)))
+        elif not path.is_dir():
+            raise InventoryError(f"Unsupported environmental filesystem node: {path}")
     if files != set(pins) or "environment/events.json" not in pins:
         raise InventoryError("Environmental snapshot file set differs from its complete pins")
     for relative, expected in sorted(pins.items()):
@@ -175,16 +200,31 @@ def _archive(root, release):
             if (path.is_absolute() or ".." in path.parts or "\\" in entry.filename
                     or ((entry.external_attr >> 16) & 0o170000) == 0o120000):
                 raise InventoryError("Unsafe archive member path or symlink")
+            if entry.is_dir() and entry.file_size:
+                raise InventoryError("Archive directory entries must not contain payload bytes")
             if not entry.is_dir():
                 member_hashes[entry.filename] = _digest(source.read(entry))
         if member_hashes != release.get("member_sha256"):
             raise InventoryError("Complete archive member set or member bytes differ from pins")
         lookup = {n.casefold(): n for n in names}
         layers = sorted(n for n in names if n.lower().endswith(".shp"))
-        unsupported = (".zip", ".7z", ".tar", ".gz", ".gpkg", ".geojson", ".gdb", ".kml", ".kmz", ".gml")
-        if not layers or any(PurePosixPath(n).suffix.lower() in unsupported
-                             or any(p.lower().endswith(".gdb") for p in PurePosixPath(n).parts) for n in names):
-            raise InventoryError("Archive has no SHP source or contains an unhandled nested/geospatial source")
+        if not layers:
+            raise InventoryError("Archive has no SHP source")
+        components = (".shp", ".dbf", ".shx", ".prj", ".cpg")
+        for name in names:
+            lower = name.casefold()
+            if PurePosixPath(lower).suffix in components:
+                continue
+            text_metadata = PurePosixPath(lower).suffix in (".txt", ".md")
+            linked_xml = lower.endswith(".shp.xml") and lower[:-4] in lookup
+            if not (text_metadata or linked_xml):
+                raise InventoryError(f"Archive contains an unhandled member format: {name}")
+            try:
+                text = source.read(name).decode("utf-8-sig", errors="strict")
+            except UnicodeError as error:
+                raise InventoryError(f"Allowed metadata must be UTF-8 plain text: {name}") from error
+            if any(ord(c) < 32 and c not in "\t\n\r" for c in text):
+                raise InventoryError(f"Allowed metadata contains binary/control payload: {name}")
         if any(PurePosixPath(n).suffix.lower() in (".dbf", ".shx", ".prj", ".cpg")
                and (n[:-4] + ".shp").casefold() not in lookup for n in names):
             raise InventoryError("Orphaned source bundle component without its SHP")
@@ -205,8 +245,13 @@ def _archive(root, release):
                 raise InventoryError("Malformed/truncated source headers")
             count = struct.unpack_from("<I", dbf, 4)[0]
             header, record_size = struct.unpack_from("<HH", dbf, 8)
-            if count != (len(shx) - 100) // 8 or header + count * record_size > len(dbf):
+            if count != (len(shx) - 100) // 8:
                 raise InventoryError("SHP/DBF/SHX record counts or byte lengths disagree")
+            payload_end = header + count * record_size
+            if (payload_end > len(dbf)
+                    or len(dbf) not in (payload_end, payload_end + 1)
+                    or (len(dbf) == payload_end + 1 and dbf[payload_end:] != b"\x1a")):
+                raise InventoryError("DBF payload must contain exactly declared records and at most one EOF byte")
             if struct.unpack_from(">I", shp, 24)[0] * 2 != len(shp):
                 raise InventoryError("SHP declared byte length differs from archive bytes")
             source_layers.append(dict(shapefile_member=layer, record_count=count, source_members=members))
@@ -283,7 +328,7 @@ def _intervals(times):
     return [(a, b) for a, b in zip(times, times[1:]) if 0 < b.value - a.value <= limit]
 
 
-def _availability(root, event, cutoffs):
+def _availability(root, event, cutoffs, environment_pins):
     """Objectively inspect canonical source paths; never accept supplied exclusions."""
     from wildfire.data import load_data
     import rasterio
@@ -295,6 +340,17 @@ def _availability(root, event, cutoffs):
             reasons.append(dict(code="MISSING_SOURCE_FILE", path=relative))
             continue
         with rasterio.open(_inside(root, relative)) as source:
+            if source.driver != "GTiff":
+                raise InventoryError(f"Canonical source must be a GeoTIFF, not {source.driver}: {relative}")
+            for dependency in source.files:
+                path = Path(dependency)
+                if not path.is_absolute():
+                    path = _inside(root, relative).parent / path
+                _no_symlink_components(path)
+                path = path.resolve()
+                if (not path.is_relative_to((root / "environment").resolve())
+                        or str(path.relative_to(root)) not in environment_pins):
+                    raise InventoryError(f"Raster dependency is outside the pinned environmental snapshot: {dependency}")
             if (source.crs is None or source.crs.to_epsg() != event["epsg"]
                     or list(source.transform)[:6] != event["transform"]
                     or source.shape != (event["height"], event["width"])):
@@ -372,7 +428,9 @@ def validate_inventory(input_root, manifest_path, expected_manifest_sha256):
     independent release verification and preregistration of this exact source
     closure. The supplied manifest hash alone establishes neither condition.
     """
-    root, manifest_path = Path(input_root).resolve(), Path(manifest_path)
+    root, manifest_path = Path(input_root).absolute(), Path(manifest_path)
+    _no_symlink_components(root)
+    root = root.resolve()
     if sha256(manifest_path) != expected_manifest_sha256:
         raise InventoryError("Inventory input manifest differs from its previously pinned hash")
     manifest = json.loads(manifest_path.read_text())
@@ -442,7 +500,7 @@ def validate_inventory(input_root, manifest_path, expected_manifest_sha256):
         _grid(event)
         supported = []
         for a, b in intervals:
-            missing = _availability(root, event, [a])
+            missing = _availability(root, event, [a], manifest["environment_sha256"])
             if missing:
                 report["exclusions"].append(dict(event=name, cutoff=a.isoformat(), endpoint=b.isoformat(),
                                                    reason="OBJECTIVELY_VERIFIED_LOCAL_MISSING_INPUTS", evidence=missing))

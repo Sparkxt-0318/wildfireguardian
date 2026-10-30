@@ -2,11 +2,14 @@
 from __future__ import annotations
 
 import importlib.util
+import io
 import json
 from pathlib import Path
+import shutil
 import struct
 import subprocess
 import sys
+import tarfile
 import zipfile
 
 import numpy as np
@@ -443,4 +446,147 @@ def test_orphaned_source_bundle_cannot_be_silently_ignored(release):
     release.write_zip()
     release.pin()
     with pytest.raises(inventory.InventoryError, match="Orphaned source bundle"):
+        release.validate()
+
+
+@pytest.mark.parametrize("component", ["environment", "regions", "incident", "source_file", "dangling"])
+def test_environmental_symlinks_cannot_hide_unpinned_source_bytes(release, component):
+    assert release.validate()["case_count"] == 2
+    if component == "dangling":
+        (release.root / "environment/unused-link").symlink_to(release.root / "missing-target")
+    else:
+        relative = {"environment": "environment", "regions": "environment/regions",
+                    "incident": "environment/regions/SYNTHETIC_A",
+                    "source_file": "environment/regions/SYNTHETIC_A/terrain/slope_degrees_375m.tif"}[component]
+        path = release.root / relative
+        borrowed = release.root / f"borrowed-{component}"
+        shutil.move(str(path), str(borrowed))
+        path.symlink_to(borrowed, target_is_directory=component != "source_file")
+    # This reproduces rglob's old omission of linked directories. Even a
+    # freshly pinned manifest cannot bless a symlinked source tree.
+    release.pin()
+    with pytest.raises(inventory.InventoryError, match="Filesystem symlinks"):
+        release.validate()
+
+
+def test_source_ancestor_symlink_is_rejected_even_when_root_itself_is_a_directory(release, tmp_path):
+    alias = tmp_path / "parent-alias"
+    alias.symlink_to(release.root.parent, target_is_directory=True)
+    with pytest.raises(inventory.InventoryError, match="Filesystem symlinks"):
+        inventory.validate_inventory(alias / release.root.name, release.manifest_path, release.pinned_manifest_sha)
+
+
+@pytest.mark.parametrize("component", ["publisher.zip", "attestation.json", "perimeters/SYNTHETIC_A"])
+def test_canonical_pinned_inputs_reject_file_and_ancestor_symlinks(release, component):
+    assert release.validate()["case_count"] == 2
+    path = release.root / component
+    borrowed = release.root / "borrowed-pinned-input"
+    directory = path.is_dir()
+    shutil.move(str(path), str(borrowed))
+    path.symlink_to(borrowed, target_is_directory=directory)
+    with pytest.raises(inventory.InventoryError, match="Filesystem symlinks"):
+        release.validate()
+
+
+def test_ordinary_source_mutation_requires_new_snapshot_pins(release):
+    assert release.validate()["case_count"] == 2
+    release.raster("terrain.slope_degrees", np.full((1, 3, 3), 99, dtype=np.float32))
+    with pytest.raises(inventory.InventoryError, match="Environmental source identity changed"):
+        release.validate()
+
+
+def test_gdal_vrt_indirection_cannot_hide_unpinned_raster_bytes(release):
+    from rasterio.shutil import copy as raster_copy
+    assert release.validate()["case_count"] == 2
+    source = release.raster_path("terrain.slope_degrees")
+    borrowed = release.root / "borrowed-slope.tif"
+    shutil.move(str(source), str(borrowed))
+    # A .tif suffix does not establish its actual GDAL driver or file closure.
+    raster_copy(borrowed, source, driver="VRT")
+    release.pin()
+    assert str(borrowed.relative_to(release.root)) not in release.manifest["environment_sha256"]
+    with pytest.raises(inventory.InventoryError, match="Canonical source must be a GeoTIFF"):
+        release.validate()
+
+
+def test_regular_pinned_geotiff_mask_sidecar_remains_admissible(release):
+    source = release.raster_path("terrain.slope_degrees")
+    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=False):
+        with rasterio.open(source, "r+") as raster:
+            raster.write_mask(np.zeros((3, 3), dtype=np.uint8))
+    sidecar = Path(str(source) + ".msk")
+    assert sidecar.is_file()
+    release.pin()
+    assert str(sidecar.relative_to(release.root)) in release.manifest["environment_sha256"]
+    assert release.validate()["case_count"] == 2
+
+
+@pytest.mark.parametrize("trailer", [b"", b"\x1a"], ids=["no_eof", "single_eof"])
+def test_exact_dbf_payload_accepts_only_documented_optional_eof(release, trailer):
+    blob = release.zip_members["nested/source.dbf"]
+    count = struct.unpack_from("<I", blob, 4)[0]
+    header, size = struct.unpack_from("<HH", blob, 8)
+    release.zip_members["nested/source.dbf"] = blob[:header + count * size] + trailer
+    release.write_zip()
+    release.pin()
+    report = release.validate()
+    assert report["case_count"] == 2 and report["raw_inventory"]["raw_record_count"] == count == 3
+
+
+@pytest.mark.parametrize("trailer", ["full_record", "eof_then_record", "double_eof", "nul", "space", "truncated"])
+def test_unindexed_dbf_payload_cannot_be_ignored(release, trailer):
+    blob = release.zip_members["nested/source.dbf"]
+    count = struct.unpack_from("<I", blob, 4)[0]
+    header, size = struct.unpack_from("<HH", blob, 8)
+    payload = blob[:header + count * size]
+    extra = {"full_record": blob[header:header + size], "eof_then_record": b"\x1a" + blob[header:header + size],
+             "double_eof": b"\x1a\x1a", "nul": b"\x00", "space": b" "}
+    release.zip_members["nested/source.dbf"] = payload[:-1] if trailer == "truncated" else payload + extra[trailer]
+    release.write_zip()
+    release.pin()
+    with pytest.raises(inventory.InventoryError, match="DBF payload must contain exactly"):
+        release.validate()
+
+
+def nested_second_incident(tmp_path, release):
+    records = [("SYNTHETIC_B", "SYN-B", timestamp, geometry)
+               for _, _, timestamp, geometry in release.records]
+    second = SyntheticRelease(tmp_path / "nested-builder", extra_layers={"second/source": records})
+    buffer = io.BytesIO()
+    with tarfile.open(fileobj=buffer, mode="w:gz") as archive:
+        for name, data in sorted(second.zip_members.items()):
+            if name.startswith("second/"):
+                entry = tarfile.TarInfo(name)
+                entry.size = len(data)
+                archive.addfile(entry, io.BytesIO(data))
+    return buffer.getvalue()
+
+
+@pytest.mark.parametrize("suffix", ["tgz", "TGZ", "tar", "tar.gz", "tar.bz2", "7z", "unknown", "sbn"])
+def test_unknown_archive_member_formats_cannot_hide_a_second_complete_incident(release, tmp_path, suffix):
+    assert release.validate()["case_count"] == 2
+    release.zip_members[f"other/archive.{suffix}"] = nested_second_incident(tmp_path, release)
+    release.write_zip()
+    release.pin()
+    with pytest.raises(inventory.InventoryError, match="unhandled member format"):
+        release.validate()
+
+
+def test_allowlisted_text_metadata_is_authenticated_and_preserves_complete_inventory(release):
+    release.zip_members["README.txt"] = b"Synthetic publisher release\n"
+    release.zip_members["docs/field-contract.md"] = "# Synthetic metadata\nUTC timestamps\n".encode()
+    release.zip_members["nested/source.shp.xml"] = b"<metadata><description>Synthetic SHP</description></metadata>"
+    release.write_zip()
+    release.pin()
+    report = release.validate()
+    assert report["case_count"] == 2 and report["raw_inventory"]["raw_record_count"] == 3
+    assert set(report["raw_inventory"]["member_sha256"]) == set(release.zip_members)
+
+
+@pytest.mark.parametrize("member", ["other/disguised.txt", "nested/source.shp.xml", "hidden.tgz/"])
+def test_binary_archives_cannot_hide_in_allowed_metadata_or_directory_payload(release, tmp_path, member):
+    release.zip_members[member] = nested_second_incident(tmp_path, release)
+    release.write_zip()
+    release.pin()
+    with pytest.raises(inventory.InventoryError, match="Allowed metadata|directory entries"):
         release.validate()
