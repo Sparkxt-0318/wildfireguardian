@@ -1,0 +1,6 @@
+{
+  "script_sha256": "ab5e5ee61c9b5c3c363e8c48b1a005ef460c6b872b2b04439f9bd1c9b10ac67a",
+  "log_sha256": "47b415762a157371739c879b2d4b3c189e779d2ce872275409aece265193ae7d",
+  "error": "NumPy int64 crop metadata could not be JSON serialized after audit reads; no receipt was written",
+  "scientific_input_or_fit_modified": false
+}

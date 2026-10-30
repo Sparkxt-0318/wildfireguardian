@@ -1,0 +1,197 @@
+........................................................................ [  2%]
+........................................................................ [  4%]
+........................................................................ [  7%]
+........................................................................ [  9%]
+........................................................................ [ 12%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................................................................ [ 19%]
+........................................................................ [ 22%]
+........................................................................ [ 24%]
+........................................................................ [ 27%]
+........................................................................ [ 29%]
+........................................................................ [ 32%]
+........................................................................ [ 34%]
+........................................................................ [ 37%]
+........................................................................ [ 39%]
+........................................................................ [ 42%]
+........................................................................ [ 44%]
+........................................................................ [ 47%]
+........................................................................ [ 49%]
+........................................................................ [ 52%]
+........................................................................ [ 54%]
+........................................................................ [ 57%]
+........................................................................ [ 59%]
+........................................................................ [ 62%]
+........................................................................ [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 69%]
+........................................................................ [ 72%]
+........................................................................ [ 74%]
+........................................................................ [ 77%]
+........................................................................ [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 84%]
+........................................................................ [ 87%]
+........................................................................ [ 89%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+........................................................................ [ 99%]
+...........                                                              [100%]
+=============================== warnings summary ===============================
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: 6 warnings
+tests/probability/test_kernel_search_mixed.py: 25 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: 6 warnings
+tests/probability/test_kernel_search_mixed.py: 25 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:45
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2010: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    p.space          = oneOf(self._space_widths)("space")
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2012: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    p.style_literal  = oneOf(
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2020: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    )("sym").leaveWhitespace()
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2024: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    p.start_group    = Optional(r"\math" + oneOf(self._fontnames)("font")) + "{"
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2027: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    p.delim          = oneOf(self._delims)
+
+tests/probability/test_kernel_search_mixed.py: 47 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:1984: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    val.setName(key)
+
+tests/probability/test_kernel_search_mixed.py: 44 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:1987: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    val.setParseAction(getattr(self, key))
+
+tests/probability/test_kernel_search_mixed.py: 16 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:1748: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    return Empty().setParseAction(raise_error)
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2088: PyparsingDeprecationWarning: 'endQuoteChar' argument is deprecated, use 'end_quote_char'
+    p.text = cmd(r"\text", QuotedString('{', '\\', endQuoteChar="}"))
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2097: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    + OneOrMore(oneOf(["_", "^"]) - p.placeable)("subsuper")
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2146: PyparsingDeprecationWarning: 'unquoteResults' argument is deprecated, use 'unquote_results'
+    p.math_string   = QuotedString('$', '\\', unquoteResults=False)
+
+tests/probability/test_kernel_search_mixed.py::test_complete_small_search_scores_27_models_with_five_long_finalists_and_guards_test
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2147: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    p.non_math      = Regex(r"(?:(?:\\[$])|[^$])*").leaveWhitespace()
+
+tests/probability/test_kernel_search_mixed.py: 6 warnings
+tests/probability/test_kernel_search_multiscale.py: 6 warnings
+tests/probability/test_kernel_search_portable.py: 8 warnings
+tests/probability/test_search_row_split.py: 3 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2170: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    result = self._expression.parseString(s)
+
+tests/probability/test_kernel_search_mixed.py: 6 warnings
+tests/probability/test_kernel_search_multiscale.py: 6 warnings
+tests/probability/test_kernel_search_portable.py: 8 warnings
+tests/probability/test_search_row_split.py: 3 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2197: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    return self._math_expression.parseString(toks[0][1:-1], parseAll=True)
+
+tests/probability/test_kernel_search_mixed.py: 6 warnings
+tests/probability/test_kernel_search_multiscale.py: 6 warnings
+tests/probability/test_kernel_search_portable.py: 8 warnings
+tests/probability/test_search_row_split.py: 3 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/pyparsing/util.py:466: PyparsingDeprecationWarning: 'parseAll' argument is deprecated, use 'parse_all'
+    return fn(self, *args, **kwargs)
+
+tests/probability/test_kernel_search_mixed.py: 6 warnings
+tests/probability/test_kernel_search_multiscale.py: 6 warnings
+tests/probability/test_kernel_search_portable.py: 8 warnings
+tests/probability/test_search_row_split.py: 3 warnings
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:2178: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    ParserElement.resetCache()
+
+tests/test_kriging_cutoff.py::test_kriged_state_is_derived_at_the_exact_claimed_cutoff
+tests/test_kriging_cutoff.py::test_kriged_state_is_derived_at_the_exact_claimed_cutoff
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/rasterio/transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_observed_evaluation.py:35: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = transform * (first_col, 0)
+
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_reference_rejects_rounded_or_interpolated_endpoint
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_observed_evaluation.py:36: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = transform * (last_col, 1)
+
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/observed_evaluation.py:157: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = transform * (0, 0)
+
+tests/test_observed_evaluation.py::test_reference_uses_actual_endpoint_unions_without_future_polygon_leak
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/observed_evaluation.py:158: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = transform * (width, height)
+
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_observed_evaluation.py:241: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = affine * (0, 0)
+
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_observed_evaluation.py:242: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = affine * (6, 5)
+
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_observed_evaluation.py:254: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, bottom = affine * (0, 5)
+
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/observed_evaluation.py:492: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = transform * (0, 0)
+
+tests/test_observed_evaluation.py::test_matched_runner_exports_every_score_from_identical_observed_entries
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/observed_evaluation.py:493: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = transform * (grid["width"], grid["height"])
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2891 passed, 301 warnings in 103.33s (0:01:43)

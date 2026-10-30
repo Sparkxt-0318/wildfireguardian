@@ -189,10 +189,20 @@ def sample_forecast(model, sample: PerimeterSample, *, dtype=torch.float32, use_
     spotting = None
     if use_spotting and getattr(model, "spotting_radius", 0):
         spot_env = env
+        # The branch direction is a domain mean, so remote missing wind is a
+        # global dependency, independent of its finite source transport radius.
+        wind_valid = feature_valid[..., list(model.wind_index), :, :]
+        global_wind_valid = wind_valid.all(dim=(-3, -2, -1), keepdim=True)
 
         def spotting(source, step):
-            return model.spot_rate(source, spot_env, boundary="zero")
+            rate = model.spot_rate(source, spot_env, boundary="zero")
+            # Zero is only an internal placeholder for an unavailable branch.
+            # global_feature_valid removes its unobserved targets from support.
+            if bool(global_wind_valid.all()):
+                return rate
+            return torch.where(global_wind_valid, rate, torch.zeros_like(rate))
         spotting.source_radius = model.spotting_radius
+        spotting.global_feature_valid = global_wind_valid
     result = propagate_mean_field(model, t["initial"], env, step_durations(sample.hours),
                                   channel_names=getattr(model, "channel_names", None),
                                   p0_valid=torch.ones_like(t["initial"], dtype=torch.bool),
@@ -317,6 +327,8 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
                    seed: int = 0, patience: int = 3, d4: bool = False, samples_per_step: int = 4,
                    balance: dict[int, float] | None = None, biome_channels: dict[int, int] | None = None,
                    intervals_per_epoch: int | None = None, validate_each_epoch: bool = True,
+                   runtime_case_id_fn=None, runtime_object_sha_fn=None,
+                   runtime_sample_manifest_sha256: str | None = None,
                    log=print) -> dict:
     """Minimize the interval-censored endpoint Brier through the mean field.
 
@@ -334,6 +346,14 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
     import time
     if not train or epochs < 1 or samples_per_step < 1:
         raise ValueError("Fitting requires nonempty training samples and positive budgets")
+    recording = runtime_case_id_fn is not None
+    if any(value is not None for value in (runtime_case_id_fn, runtime_object_sha_fn,
+                                           runtime_sample_manifest_sha256)) and not (
+            callable(runtime_case_id_fn) and callable(runtime_object_sha_fn)
+            and isinstance(runtime_sample_manifest_sha256, str)
+            and len(runtime_sample_manifest_sha256) == 64):
+        raise ValueError("Runtime membership requires both identity callbacks and a prefit manifest hash")
+    runtime_epochs = []
     rng = np.random.default_rng(seed)
     torch.manual_seed(seed)
     positives = sum(float((s.endpoint & s.score_mask).sum()) for s in train)
@@ -350,12 +370,16 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
             order = order[:intervals_per_epoch]
         running = 0.0
         skipped, optimizer_steps = [], 0
+        attempted_ids, skipped_ids = [], []
         for start in range(0, len(order), samples_per_step):
             optimizer.zero_grad(set_to_none=True)
             w_total = 0.0
             losses = []
             for index in order[start:start + samples_per_step]:
                 sample = train[index]
+                if recording:
+                    original_case_id = runtime_case_id_fn(sample)
+                    attempted_ids.append(original_case_id)
                 if d4:
                     k, flip = int(rng.integers(4)), bool(rng.integers(2))
                     sample = augment(sample, k, flip, model.wind_index)
@@ -372,6 +396,8 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
                 if float(w) <= 0:
                     skipped.append(dict(event=sample.event_id, cutoff=sample.t1,
                                         reason="no_supported_positive_weight_cells"))
+                    if recording:
+                        skipped_ids.append(original_case_id)
                     continue
                 losses.append(a)
                 w_total += float(w)
@@ -386,6 +412,10 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
             running += float(loss) * len(losses)
         if optimizer_steps == 0:
             raise ValueError("No supported positive-weight cells remain in the training epoch")
+        if recording:
+            runtime_epochs.append(dict(epoch=epoch, attempted_case_ids=attempted_ids,
+                                       attempted_case_ids_sha256=runtime_object_sha_fn(attempted_ids),
+                                       skipped_case_ids=skipped_ids, optimizer_steps=optimizer_steps))
         if not validate_each_epoch:
             record = dict(epoch=epoch, train_scaled_loss=running / max(len(order), 1),
                           seconds=time.perf_counter() - started, selected=epoch == epochs,
@@ -409,6 +439,12 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
         if validation and stale >= patience:
             break
     if not validate_each_epoch:
-        return dict(history=history, best_validation_brier=None, train_prevalence=prevalence)
-    model.load_state_dict(best_state)
-    return dict(history=history, best_validation_brier=best, train_prevalence=prevalence)
+        result = dict(history=history, best_validation_brier=None, train_prevalence=prevalence)
+    else:
+        model.load_state_dict(best_state)
+        result = dict(history=history, best_validation_brier=best, train_prevalence=prevalence)
+    if recording:
+        result["runtime_membership"] = dict(schema="wfg.forecast-fit-runtime-membership/1",
+                                            sample_manifest_sha256=runtime_sample_manifest_sha256,
+                                            epochs=runtime_epochs)
+    return result

@@ -1956,6 +1956,8 @@ class StructuredKernelModel(EnvironmentConditionedConvolution):
         raw = environmental_data.reshape(-1, environmental_data.shape[-3], h, w)
         src = source.reshape(-1, 1, h, w)
         iu, iv = self.wind_index
+        if not bool(torch.isfinite(raw[:, [iu, iv]]).all()):
+            raise ValueError("Domain-mean spotting direction requires globally known wind")
         radius = self.spotting_radius
         offsets = torch.arange(-radius, radius + 1, dtype=src.dtype, device=src.device)
         dy, dx = torch.meshgrid(offsets, offsets, indexing="ij")

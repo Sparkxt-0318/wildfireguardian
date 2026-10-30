@@ -1,7 +1,7 @@
 # Forecast v2, current execution
 
-All 21 bounded development fits completed on real inputs. Full eligible-cohort
-final fitting is in progress. No heldout forecast-quality result or model
+All 21 bounded development fits completed on real inputs. Six full eligible-cohort final fits completed. The mixed-source final fit
+is pending its actual input and epoch-membership ledger. No heldout forecast-quality result or model
 superiority claim is available. These counts come from
 `scripts/status.py` and `REQUIREMENTS_STATUS.json`, which authenticate current
 phase output hashes and exclude earlier attempts from primary totals.
@@ -25,7 +25,10 @@ chooses the training crop. No heldout outcome chooses a model or checkpoint.
 ```sh
 python research/forecast-v2/scripts/run_campaign.py fits --attempt 3
 python research/forecast-v2/scripts/run_campaign.py baselines --attempt 3
-python research/forecast-v2/scripts/run_campaign.py compare --attempt 3
+python research/forecast-v2/scripts/run_campaign.py compare --attempt 4
+# After all fits, run audit_caches.py to CACHE_AUDIT_FINAL.json, then
+# audit_fit_coverage.py to FIT_COVERAGE.json, preserving the original audit.
+python research/forecast-v2/scripts/run_campaign.py freeze --attempt 3
 # Only after MODEL_SELECTION.json freezes exact checkpoint identities:
 python research/forecast-v2/scripts/run_campaign.py heldout --attempt 3
 python research/forecast-v2/scripts/status.py
@@ -61,3 +64,26 @@ calibrated joint forecast, evacuation-safety or universal speed claim is made.
 Current 2024 testing will remain retrospective; it is not the blind 2026 test.
 The proposed blind protocol retains NOT_READY until exact registry and execution
 closure are complete and the owner performs external registration.
+
+## Global spotting input custody
+
+`RUN_PROTOCOL_EXTENSION_9.json` records the global-wind availability repair.
+The original missing-wind failure and the audit serializer failure remain in
+`review/`. Source-authenticated produced tensors contain no missing wind for
+any of the four completed spotting phases. `GLOBAL_WIND_PHASE_BINDINGS.json`
+distinguishes 1,372 role-specific records (69 development plus 1,303 full fit),
+1,303 distinct source cases and tensor contents, and 1,510 phase visits across
+23 fires. The 69 development cases recur in the full fit and across folds.
+These are not 1,510 independent examples.
+
+Known-wind forward values and every parameter gradient match the prior callback
+bit for bit in functional controls. Existing spotting fits are retained with
+their original producers. Missing domain wind now makes unobserved spotting
+targets unsupported; it cannot silently become known zero. The separate c651
+comparison has no spotting callback. Its failed prior report is preserved;
+the full twelve-cutoff comparison resumes with explicit empty-support states.
+
+The final mixed fit records its actual prefit sample identities and every
+epoch attempt and skip. Controls verify that logging consumes no RNG and
+leaves fitted parameters unchanged. The six historical pure fits retain
+source-derived schedule evidence, not retrospectively claimed runtime IDs.

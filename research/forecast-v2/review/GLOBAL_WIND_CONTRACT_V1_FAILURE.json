@@ -1,0 +1,21 @@
+{
+  "evidence_class": "MECHANISM_FIXTURE_ONLY_NOT_STUDY",
+  "unknown_wind_cell": [
+    0,
+    0
+  ],
+  "tested_target": [
+    30,
+    30
+  ],
+  "target_outside_local_and_radius15_unknown_envelope": true,
+  "missing_wind_is_global_direction_dependency": true,
+  "current_target_valid": true,
+  "current_target_probability": 1.6700530977686867e-05,
+  "source_sha256": {
+    "forecast/wildfire/models.py": "dfcbd2b37e7a14b5e3fff5f513fd47b9d1e0342ed4b08a5e0ac3a93777ac159a",
+    "forecast/wildfire/meanfield.py": "12d98a3c3b972f366404bf57f3d7ce4b46ea216a69af0c4ecd49eea02465735b",
+    "forecast/wildfire/survival.py": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711"
+  },
+  "interpretation": "Known target availability is a contract defect because domain-mean spotting wind depends on unavailable remote wind; preserved before repair"
+}

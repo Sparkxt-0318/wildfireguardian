@@ -200,7 +200,10 @@ def propagate_mean_field(
             cutoff (used only with ``burnout``; default zero).
         extra_rate_fn: optional ``f(source, step_index) -> rate`` added to the
             kernel rate (long-range branch); it must be nonnegative and
-            should return NaN-free values.
+            should return NaN-free values. A callback using global covariates
+            declares ``global_feature_valid`` as a Boolean tensor broadcastable
+            to p0. Unknown global inputs remove unobserved targets from support;
+            a finite internal placeholder never makes them known probabilities.
 
     Gradients flow through ``p0``, the environment and model parameters. The
     validity envelope is computed without gradients from the binary base
@@ -280,6 +283,17 @@ def propagate_mean_field(
                 source = states[j]
             else:
                 source = burnout.source(clean, age0, history[j], clock, current=states[j])
+            if extra_rate_fn is not None:
+                global_valid = getattr(extra_rate_fn, "global_feature_valid", None)
+                if global_valid is not None:
+                    if (not isinstance(global_valid, Tensor) or global_valid.dtype != torch.bool
+                            or global_valid.device != masks[j].device):
+                        raise ValueError("Extra-rate global_feature_valid must be a Boolean tensor on the forecast device")
+                    try:
+                        global_valid = torch.broadcast_to(global_valid, masks[j].shape)
+                    except RuntimeError as error:
+                        raise ValueError("Extra-rate global_feature_valid must broadcast to the forecast grid") from error
+                    masks[j] = masks[j] & (observed_burns | global_valid)
             extra = None if extra_rate_fn is None else extra_rate_fn(source, k)
             if extra_rate_fn is not None:
                 radius = getattr(extra_rate_fn, "source_radius", None)

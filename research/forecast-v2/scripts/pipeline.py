@@ -421,11 +421,25 @@ def command_final(args):
     balance, channels = balance_for(train, names) if args.balance else (None, None)
     out = args.run / "final" / f"{args.variant}_seed{args.seed}"
     out.mkdir(parents=True, exist_ok=True)
+    runtime = {}
+    fit_input_manifest = None
+    intended_kriged_fit_events = None
+    if spec.get("mixed", False):
+        import audit_fit_coverage as coverage
+        expected = coverage.expected_membership(REPO, args.data_root.parent)
+        manifest = coverage.capture_sample_manifest(train, regime="mixed",
+                    producer_source_sha256=coverage.producer_sources(REPO), input_sha256=expected["input_sha256"])
+        manifest_path = out / "input_manifest.json"
+        coverage.write_new(manifest_path, manifest)
+        fit_input_manifest = dict(path=str(manifest_path.relative_to(REPO)), sha256=sha256(manifest_path))
+        intended_kriged_fit_events = expected["intended_kriged_fit_events"]
+        runtime = dict(runtime_case_id_fn=coverage.case_id, runtime_object_sha_fn=coverage.object_sha,
+                       runtime_sample_manifest_sha256=fit_input_manifest["sha256"])
     started = time.perf_counter()
     result = fit_mean_field(model, train, [], epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
                             d4=spec["d4"], samples_per_step=args.samples_per_step, balance=balance,
                             biome_channels=channels, intervals_per_epoch=args.intervals_per_epoch or None,
-                            validate_each_epoch=False)
+                            validate_each_epoch=False, **runtime)
     elapsed = time.perf_counter() - started
     checkpoint = out / "checkpoint.pt"
     torch.save(dict(configuration=model.configuration(), state_dict=model.state_dict(), variant=args.variant,
@@ -434,6 +448,8 @@ def command_final(args):
                   train_events=train_events, train_samples=len(train), checkpoint_sha256=sha256(checkpoint),
                   parameters=sum(p.numel() for p in model.parameters()), host=host_record(),
                   data_root=str(args.data_root), data_manifest_sha256=args.data_manifest_sha256)
+    if fit_input_manifest is not None:
+        record.update(fit_input_manifest=fit_input_manifest, intended_kriged_fit_events=intended_kriged_fit_events)
     (out / "result.json").write_text(json.dumps(record, indent=1) + "\n")
     print(json.dumps(dict(variant=args.variant, seed=args.seed, checkpoint_sha256=record["checkpoint_sha256"])))
 

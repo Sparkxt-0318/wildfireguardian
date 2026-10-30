@@ -1,0 +1,45 @@
+{
+  "recorded_utc": "2026-10-30T06:56:22.988887+00:00",
+  "before_heldout_prediction_or_score": true,
+  "original_protocol_sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+  "wind_input_audit": {
+    "path": "research/forecast-v2/GLOBAL_WIND_INPUT_AUDIT.json",
+    "sha256": "212a4f1a65879b37b76cc7863539df738f5f48aa63a17c798a99c14cbdaa0da3"
+  },
+  "wind_phase_bindings": {
+    "path": "research/forecast-v2/GLOBAL_WIND_PHASE_BINDINGS.json",
+    "sha256": "54ae0c60ce039107acff91d26bf70d0238ae074cbfe034dfab22c432030a0e8f"
+  },
+  "source_sha256": {
+    "forecast/wildfire/meanfield.py": "99ce687b07f399bb09fd48e56759df75b9ba765e3ca88ccd74be11b81adadf74",
+    "forecast/wildfire/survival.py": "816f144e3bf2084ba1d05a57093b57c9ace37a1c837833838ec264c7300766d4",
+    "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+    "research/forecast-v2/scripts/pipeline.py": "43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e",
+    "research/forecast-v2/scripts/run_campaign.py": "69ca9ebe2344fc407159cc169a9931fe05b745db31f4a4d9352cb00eee36052d",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "e500b92244e4f298e9b8f60f6c05fb5971c5848aea64a143b004d9da8512828e",
+    "forecast/tests/test_spotting_global_wind.py": "a096f5fa421e06d77705d1e743a21b5b40ae0da5bd503d21bf66f3859a93d1dd",
+    "forecast/tests/test_fit_runtime_membership.py": "d9177a85b0468b0d62e0b46b1ac2d5c1ded9a8b96debc0435ba88bd7f21808c8"
+  },
+  "role_specific_records": 1372,
+  "development_records": 69,
+  "full_fit_records": 1303,
+  "unique_source_cases": 1303,
+  "unique_tensor_contents": 1303,
+  "phase_visits": 1510,
+  "independent_fires": 23,
+  "missing_wind_samples": 0,
+  "retained_phases": [
+    "a03_fold_2020_burnout_spotting",
+    "a03_fold_2021_burnout_spotting",
+    "a03_fold_2022_burnout_spotting",
+    "a03_final_burnout_spotting"
+  ],
+  "retention_evidence": "Exact produced pre-cleaning tensors, phase source/recipe bindings and bit-identical known-wind forward/parameter-gradient controls; no model quality or heldout outcome inspected.",
+  "guard_contract": "Domain-mean spotting requires every wind value on the produced domain known. Unknown wind invalidates all unobserved targets. Known initial burns remain known. Explicit zero-exterior convolution is a declared scenario, not missing observed wind.",
+  "other_variants": "No spotting callback: additional global availability metadata has no effect. Existing legacy c651 definitions remain unchanged.",
+  "fit_reruns_required": [],
+  "mixed_logging": "Capture actual complete prefit list and each actual epoch attempt/skip ID before augmentation; metadata callbacks do not consume RNG or change tensor/optimizer operations.",
+  "postfit_freeze": "Require a new source-recomputed CACHE_AUDIT_FINAL.json and independently rederived FIT_COVERAGE.json before MODEL_SELECTION. Preserve original cache/wind audits. Historical six pure schedules are source-derived inference; new mixed IDs are runtime logged.",
+  "tests": "149 targeted tests passed, including nine global-wind and two runtime-logging controls; see validation/wind-membership-coverage.log",
+  "heldout_gate": "NOT_RUN; complete seven fit identities, full membership audit, immutable selection/registry and independent review required."
+}

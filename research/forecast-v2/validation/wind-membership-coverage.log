@@ -1,0 +1,12 @@
+........................................................................ [ 48%]
+........................................................................ [ 96%]
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+tests/test_blind_forecast_protocol.py::test_consumed_baseline_geotiff_and_pinned_external_mask_are_admitted
+tests/test_blind_forecast_protocol.py::test_consumed_baseline_terrain_rejects_indirect_or_unpinned_dependencies[canonical_vrt]
+tests/test_blind_forecast_protocol.py::test_consumed_baseline_terrain_rejects_indirect_or_unpinned_dependencies[mask_vrt]
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/rasterio/__init__.py:356: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    dataset = DatasetReader(path, driver=driver, sharing=sharing, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+149 passed, 3 warnings in 33.82s

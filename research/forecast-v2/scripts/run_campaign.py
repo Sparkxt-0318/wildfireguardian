@@ -60,7 +60,8 @@ def job(name, command, expected):
             raise RuntimeError("Coordinator requested resource handoff before the next job")
         source_paths = sorted(p for p in (REPO / "forecast/wildfire").rglob("*")
                               if p.is_file() and p.suffix in (".py", ".json"))
-        source_paths += [HERE, HERE.with_name("pipeline.py"), EVIDENCE / "RUN_PROTOCOL.json"]
+        source_paths += [HERE, HERE.with_name("pipeline.py"), HERE.with_name("audit_fit_coverage.py"),
+                         EVIDENCE / "RUN_PROTOCOL.json"]
         source = {str(p.relative_to(REPO)): sha(p) for p in source_paths}
         # A queued job authenticates the exact bytes it will execute after the
         # lease arrives. Preserve content-addressed snapshots for independent replay.
@@ -98,7 +99,7 @@ def job(name, command, expected):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=["fits", "baselines", "compare", "heldout"])
+    parser.add_argument("stage", choices=["fits", "freeze", "baselines", "compare", "heldout"])
     parser.add_argument("--attempt", type=int, default=3)
     args = parser.parse_args()
     RUN.mkdir(parents=True, exist_ok=True)
@@ -117,6 +118,14 @@ def main():
                 command = [sys.executable, str(pipeline), "fold", *shared, "--fold", fold,
                            "--variant", variant, "--artifact-suffix", suffix]
                 job(name, command, RUN / "folds" / f"{variant}_fold{fold}_seed0{suffix}/result.json")
+        for variant in VARIANTS:
+            command = [sys.executable, str(pipeline), "final", *shared, "--variant", variant,
+                       "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
+            job(f"a{args.attempt:02d}_final_{variant}", command, RUN / "final" / f"{variant}_seed0/result.json")
+        print("FITS_COMPLETE_AWAITING_POSTFIT_AUDIT: run final cache and full-membership audits before freeze", flush=True)
+        return
+    if args.stage == "freeze":
+        import audit_fit_coverage as coverage
         by_variant = {}
         for variant in VARIANTS:
             values = []
@@ -126,10 +135,6 @@ def main():
                 values.extend(s["brier"] for s in data["validation_per_fire"].values())
             by_variant[variant] = sum(values) / len(values)
         selected = min(VARIANTS, key=lambda v: (by_variant[v], VARIANTS.index(v)))
-        for variant in VARIANTS:
-            command = [sys.executable, str(pipeline), "final", *shared, "--variant", variant,
-                       "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
-            job(f"a{args.attempt:02d}_final_{variant}", command, RUN / "final" / f"{variant}_seed0/result.json")
         identities = {}
         for variant in VARIANTS:
             path = RUN / "final" / f"{variant}_seed0/checkpoint.pt"
@@ -144,13 +149,17 @@ def main():
         baselines = {name: dict(path=str(path.relative_to(REPO)), sha256=sha(path)) for name, path in
                      {"logistic": RUN / "baselines/logistic.pkl", "logistic_parameters": RUN / "baselines/logistic.json",
                       "dilation_choice": dilation}.items()}
-        cache_audit_path = EVIDENCE / "CACHE_AUDIT.json"
+        cache_audit_path = EVIDENCE / "CACHE_AUDIT_FINAL.json"
         cache_audit = json.loads(cache_audit_path.read_text())
         if cache_audit["status"] != "PASS_NO_CONSUMED_VALUES_CHANGED" or not cache_audit["producer_unchanged_during_audit"]:
             raise ValueError("Consumed-input cache audit must pass before the model freeze")
+        coverage_identity, _ = coverage.verify_coverage(REPO, RUN,
+                dict(path=str((EVIDENCE / "FIT_COVERAGE.json").relative_to(REPO)), sha256=sha(EVIDENCE / "FIT_COVERAGE.json")))
         selection = dict(selected_variant=selected, criterion="lowest equal-fire development Brier across three year folds",
                          development_brier=by_variant, checkpoints=identities,
                          baselines=baselines, baseline_execution_sha256=sha(baseline_receipt),
+                         fit_coverage=coverage_identity,
+                         cache_audit=dict(path=str(cache_audit_path.relative_to(REPO)), sha256=sha(cache_audit_path)),
                          cache_audit_sha256=sha(cache_audit_path),
                          input_manifests_sha256={name: sha(DATA / name) for name in
                             ["EXTRACTION_MANIFEST.json", "BASELINE_TERRAIN_MANIFEST.json", "perimeters/PERIMETER_MANIFEST.json"]},
