@@ -1,0 +1,75 @@
+{
+  "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "state": "SCOPED_CLOSED_VERSION_SOURCE_ONLY_PASS_ACTUAL_COVERAGE_HOLD",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/C9_PRESERVATION.json",
+      "archive": "coverage-recipe-v2-review-65a79178/C9_PRESERVATION.json",
+      "bytes": 1141,
+      "sha256": "4200dc969b530aa8f512b3155e06825c78e2dac600af696a3f23150c6e10eef1"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/INITIAL_HARNESS_PATH.log",
+      "archive": "coverage-recipe-v2-review-65a79178/INITIAL_HARNESS_PATH.log",
+      "bytes": 1086,
+      "sha256": "abd114d274c248c5e0d1fb8481687fe040bd5664dbed5b61fee9b8946caf8803"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/RECHECK_V2.json",
+      "archive": "coverage-recipe-v2-review-65a79178/RECHECK_V2.json",
+      "bytes": 21413,
+      "sha256": "b27f9942df499277c34108092d0376f2fb851e74bd96d26d28e64e7f69bb9002"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/RECHECK_V2.log",
+      "archive": "coverage-recipe-v2-review-65a79178/RECHECK_V2.log",
+      "bytes": 87,
+      "sha256": "8b177fe02c5277ad68d7f6ddbd504e28c337807aeef7a9b1ad80df340a903ab6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/REVIEW_V2.md",
+      "archive": "coverage-recipe-v2-review-65a79178/REVIEW_V2.md",
+      "bytes": 6876,
+      "sha256": "819c0abc3ce257b1516d271124f70b8e146f4c9c008cbff22301ac4965c4c3f5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/guard_under_review.py",
+      "archive": "coverage-recipe-v2-review-65a79178/guard_under_review.py",
+      "bytes": 105526,
+      "sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/initial_harness_path.py",
+      "archive": "coverage-recipe-v2-review-65a79178/initial_harness_path.py",
+      "bytes": 11033,
+      "sha256": "67af5e565e5d81328942b260b0e0e02c43ef4b3d68c6dd78ed24c8ba07caf43c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/recheck_v2.py",
+      "archive": "coverage-recipe-v2-review-65a79178/recheck_v2.py",
+      "bytes": 11033,
+      "sha256": "3853758e557079dc5fd8c50f707bcfd3c79833a3b57f2ee91d3a08753e39ba1f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-recipe-independent-review/v2/MANIFEST.json",
+      "archive": "coverage-recipe-v2-review-65a79178/MANIFEST.json",
+      "bytes": 737,
+      "sha256": "808776ec9cb0a29168169ee5082b0a6c6315cc2e6a6dbd1ccb02c8be0be6bbf9"
+    }
+  ],
+  "checks": 99,
+  "passed": 99,
+  "other_independent_reviewer_execution": true,
+  "readiness_rerun": false,
+  "review_scope": "Six exact source profiles and28phase/source metadata mappings,81originalsource identities. Five priorc9source-recognizer gaps closed at exact reviewed/trusted executable only. No universal equivalence, actual cache/value/schema/member coverage, registry or promotion.",
+  "initial_harness": "Wrong metadata receipt parent path, source/log retained; corrected harness99/99, not source defect.",
+  "replay_scope": "Archived scripts retain original work/repo assumptions. This custody copy alone is not an independently verified relocated replay.",
+  "actual_preflight": "QUEUED_PROVISIONAL_NOT_OPENED_OR_ARCHIVED",
+  "actual_coverage": "HOLD",
+  "graph_context_supplied_by_review": {
+    "tier": 2,
+    "project": "wfg-next-1b-coverage-v2-65a79178-20261030",
+    "generation": "2026-10-30T11:40:54Z",
+    "coverage": "research scripts excluded/not_tracked; reviewer/parent exact direct-source fallback. No new structural audit by readiness."
+  }
+}

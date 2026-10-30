@@ -38,8 +38,8 @@
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
-      "current_assessment_clearance": "Saved owner software gate PASS3373tests+367release with199source/loghashes bound to Git376. Seven trained/versioned checkpoints do not clear actual fit coverage: audit exit1HOLD before FIT_COVERAGE output. No registryfreeze, heldout or actual final-checker execution.",
-      "numerical_evidence": "21_DEVELOPMENT_AND_7_TRAINED_FINAL_ARTIFACTS_VERSIONED_ACTUAL_COVERAGE_HOLD_5_COMPARISONS_PENDING",
+      "current_assessment_clearance": "Saved owner software PASS3373+367 and7trained/versionedcheckpoints remain separate from actualfitcoverageHOLD. Exact65aV2source-onlyrepair99/99cleared; all12comparisoncases+aggregate and mandatorycompleteactualcache/schema/memberaudit stillrequired. Registry/heldout/actualcheckerNOT_RUN.",
+      "numerical_evidence": "21_DEVELOPMENT_7_TRAINED_FINALS_VERSIONED_SOURCE_ONLY_V2_PASS_ACTUAL_COVERAGE_HOLD_9_OF_12_COMPARISONS_REPORTED",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
       "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
@@ -172,7 +172,7 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "Fullspot completed and Git376versions7trainedcheckpoints. First7of12a06cutoffs complete;US07active and5remaining plus aggregate/sourceclosure before any live F repair. No registry/heldout.",
+        "controllers": "Coordinator intermediate9of12a06cutoffs complete; all12plusaggregate/sourcebookends remainrequired. One provisionalactualpreflight queued, no receipt/outputs opened or archivedhere. No registry/heldout.",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
@@ -188,7 +188,7 @@
         "reported_elapsed_is_performance_evidence": false,
         "development_fits_complete": 21,
         "final_fits_complete": 7,
-        "comparison_cutoffs_complete": 7,
+        "comparison_cutoffs_complete": 9,
         "comparison_cutoffs_required": 12,
         "final_integrated_owner_gate": "PASS_3373_TESTS_367_RELEASE_EXIT0_SAVED_RECEIPT"
       },
@@ -492,6 +492,32 @@
         "selection_registry_frozen": false
       },
       "coverage_recipe_candidate_review": {
+        "state": "SCOPED_SOURCE_ONLY_REPAIR_PASS_ACTUAL_COVERAGE_HOLD",
+        "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+        "review": "coverage-recipe-v2-review-65a79178/REVIEW_V2.md",
+        "inventory": "coverage-recipe-v2-review-65a79178/SOURCE_INVENTORY.json",
+        "audit": "coverage-recipe-v2-review-65a79178/RECHECK_V2.json",
+        "candidate_inventory": "coverage-recipe-v2-candidate-65a79178/SOURCE_INVENTORY.json",
+        "checks": 99,
+        "passed": 99,
+        "owner_tests_reported": 133,
+        "owner_adapted_matrix_reported": 54,
+        "overlapping_counts_not_pooled": true,
+        "source_archive_identities": 81,
+        "source_profiles": 6,
+        "phase_source_mappings": 28,
+        "five_prior_recognizer_gaps": "CLOSED_ONLY_AT_EXACT_REVIEWED_TRUSTED_EXECUTABLE_AND_SOURCE_VERSION_BOUNDARIES",
+        "whole_data_audit_pass": false,
+        "candidate_applied_by_readiness": false,
+        "actual_preflight": "QUEUED_PROVISIONAL_NOT_ARCHIVED",
+        "actual_coverage": "HOLD",
+        "scope": "Other independent source-only99controlreview. Readiness verifies fixedmanifest/patch/threechangedfiles/81sourcearchive identities andmetadata counts only; no reruns or actual data/model/quality inspection.",
+        "trust_boundary": "New five repair functions and three version constants excluded by auditor numeric-surface selfcheck; external executable pin and independent review required. Not cryptographic self-authentication.",
+        "conditions": "All12fixeda06cases plus aggregate/sourcebookends before liveapply, then complete authenticated actualcache/schema/value/memberaudit mustPASS. Any real mismatch remainsHOLD.",
+        "original_failed_review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
+        "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json"
+      },
+      "historical_coverage_recipe_candidate_failure": {
         "state": "HOLD_INITIAL_CANDIDATE_53_CHECKS_48_PASS_V2_NOT_CLEARED",
         "candidate_sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
         "review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
@@ -699,7 +725,8 @@
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
     "integration_published_head": "3fa170b9dfb06c3807c3c28e16fe6579d2689c71",
-    "coordinator_unpublished_head_reported": "93, coordinator-reported short head only; separate root worktree, no publication claim"
+    "coordinator_unpublished_head_reported": "fd4d4ed91a6d1170733f3b48a124354fdf3ec962",
+    "coordinator_plan_sync": "coordinator-plan-sync-v2-source-review.json"
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -732,7 +759,9 @@
     "pre_farsite_repair_summary": "history/pre-farsite-repair-1178cb05/README.md",
     "pre_farsite_repair_inventory": "history/pre-farsite-repair-1178cb05/ARCHIVE_INDEX.json",
     "pre_software_coverage_summary": "history/pre-software-coverage-507906ba/README.md",
-    "pre_software_coverage_inventory": "history/pre-software-coverage-507906ba/ARCHIVE_INDEX.json"
+    "pre_software_coverage_inventory": "history/pre-software-coverage-507906ba/ARCHIVE_INDEX.json",
+    "pre_v2_source_review_summary": "history/pre-v2-source-review-f948fc38/README.md",
+    "pre_v2_source_review_inventory": "history/pre-v2-source-review-f948fc38/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -755,5 +784,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T11:25:36.393579+00:00"
+  "updated_utc": "2026-10-30T12:01:31.139805+00:00"
 }

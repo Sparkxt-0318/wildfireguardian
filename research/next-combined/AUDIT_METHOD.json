@@ -87,7 +87,8 @@
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
     "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
-    "Owner final software gate3373tests+367release passed; readiness exactreceipt/log/199sourceGit hashes only, no rerun. Seven trained/versioned models are metadata only. Actual coverage audit exit1HOLD before output; source-only28positives/23refusals/old116tests do not clear candidate53/48fivegaps, helperv2 or whole-data admission. Registry/heldout/actualchecker remainNOT_RUN; no data/modelpayload read here."
+    "Owner final software gate3373tests+367release passed; readiness exactreceipt/log/199sourceGit hashes only, no rerun. Seven trained/versioned models are metadata only. Actualcoverage exit1HOLD before output remains unchanged. Separate exact65aV2source-only99/99review closesfivec9recognizer gaps, with133owner/54adaptedoverlappingcounts; complete actualcache/schema/memberadmission stillrequired. Registry/heldout/actualchecker remainNOT_RUN; no data/modelpayload read here.",
+    "Exact65aV2source-only99/99review closesfivec9recognizer gaps for6profiles/28metadata mappings, not actualcoverage.133owner/54adapted counts overlap. All81compressedoriginalsources authenticated duringarchive, no execution. Originalc9failureunchanged; provisionalpreflightnotread/archived, currentactualcoverageHOLD/all12plusaggregatepending."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -647,5 +648,31 @@
       "owned_paths": "not_tracked; direct full generator/current-summary reads and exact archival/Git source hashes used",
       "scope": "No structural discovery or new source correctness audit; no graph completeness claim"
     }
+  },
+  "B_coverage_recipe_v2_archive": {
+    "state": "SCOPED_SOURCE_ONLY_REPAIR_PASS_ACTUAL_COVERAGE_HOLD",
+    "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+    "review": "coverage-recipe-v2-review-65a79178/REVIEW_V2.md",
+    "inventory": "coverage-recipe-v2-review-65a79178/SOURCE_INVENTORY.json",
+    "audit": "coverage-recipe-v2-review-65a79178/RECHECK_V2.json",
+    "candidate_inventory": "coverage-recipe-v2-candidate-65a79178/SOURCE_INVENTORY.json",
+    "checks": 99,
+    "passed": 99,
+    "owner_tests_reported": 133,
+    "owner_adapted_matrix_reported": 54,
+    "overlapping_counts_not_pooled": true,
+    "source_archive_identities": 81,
+    "source_profiles": 6,
+    "phase_source_mappings": 28,
+    "five_prior_recognizer_gaps": "CLOSED_ONLY_AT_EXACT_REVIEWED_TRUSTED_EXECUTABLE_AND_SOURCE_VERSION_BOUNDARIES",
+    "whole_data_audit_pass": false,
+    "candidate_applied_by_readiness": false,
+    "actual_preflight": "QUEUED_PROVISIONAL_NOT_ARCHIVED",
+    "actual_coverage": "HOLD",
+    "scope": "Other independent source-only99controlreview. Readiness verifies fixedmanifest/patch/threechangedfiles/81sourcearchive identities andmetadata counts only; no reruns or actual data/model/quality inspection.",
+    "trust_boundary": "New five repair functions and three version constants excluded by auditor numeric-surface selfcheck; external executable pin and independent review required. Not cryptographic self-authentication.",
+    "conditions": "All12fixeda06cases plus aggregate/sourcebookends before liveapply, then complete authenticated actualcache/schema/value/memberaudit mustPASS. Any real mismatch remainsHOLD.",
+    "original_failed_review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
+    "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json"
   }
 }

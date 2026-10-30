@@ -1,0 +1,3 @@
+patching file 'research/forecast-v2/scripts/audit_fit_coverage.py'
+patching file 'forecast/tests/test_source_recipe_compatibility.py'
+patching file 'forecast/tests/test_blind_forecast_protocol.py'

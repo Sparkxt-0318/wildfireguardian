@@ -1,0 +1,842 @@
+{
+  "status": "PASS_SCOPED_CLOSED_VERSION_SOURCE_RECHECK",
+  "checks": 99,
+  "passed": 99,
+  "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "script_sha256": "3853758e557079dc5fd8c50f707bcfd3c79833a3b57f2ee91d3a08753e39ba1f",
+  "source_receipt_metadata_read": 28,
+  "source_archive_identities_verified": 81,
+  "profile_file_counts": {
+    "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6": 58,
+    "7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123": 61,
+    "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6": 58,
+    "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17": 61,
+    "366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44": 59,
+    "01c3a616a200c348e2a1165bc4c81bbf8e131c85a9dd4cc1ebb89d6003d117dc": 60
+  },
+  "observations": [
+    {
+      "id": "81_immutable_source_and_compressed_hashes",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "final_manifest_and_patch_pins",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "all_manifest_evidence_pins",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "six_profile_digests_and_exact_phase_inventory",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_3a5eeeca_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_3a5eeeca_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_43b6ac43_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_43b6ac43_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_80a806e1_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_80a806e1_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_88d376d2_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_88d376d2_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_e59d157a_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_e59d157a_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_fe230450_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "known_pipeline_fe230450_mixed_base",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_consumed_else",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_consumed_cache_transform",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_crop_global",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_copied_crop_helper",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_definition_time_reassignment",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_consumed_prefix",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_header_default",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_header_decorator",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_source_kind",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_availability_order",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "refuse_unknown_pipeline_model_construction",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-pipeline source version; no recipe compatibility is admitted"
+      }
+    },
+    {
+      "id": "internal_normalizer_keeps_consumed_else_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Pure mixed-branch proof requires the exact known branch without an else"
+      }
+    },
+    {
+      "id": "source_receipt_mapping_base_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_base_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_wind_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_wind_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_ellipse_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_ellipse_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_fold2020_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_spotting_fold2020_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_spotting_fold2020_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_mixed_base_fold2020_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_mixed_base_fold2020_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_base_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_base_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_wind_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_wind_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_ellipse_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_ellipse_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_fold2021_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_spotting_fold2021_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_spotting_fold2021_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_mixed_base_fold2021_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_mixed_base_fold2021_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_base_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_base_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_wind_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_wind_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_ellipse_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_ellipse_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_fold2022_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_spotting_fold2022_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_spotting_fold2022_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_mixed_base_fold2022_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_mixed_base_fold2022_seed0_utc_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_base_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_base_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_d4_wind_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_d4_wind_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_ellipse_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_ellipse_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_burnout_spotting_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_burnout_spotting_seed0_flaming_only",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_receipt_mapping_mixed_base_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "actual_phase_source_contract_mixed_base_seed0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "refuse_profile_missing_file",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-producer source closure or intended phase"
+      }
+    },
+    {
+      "id": "refuse_profile_extra_file",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-producer source closure or intended phase"
+      }
+    },
+    {
+      "id": "refuse_profile_changed_model_hash",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-producer source closure or intended phase"
+      }
+    },
+    {
+      "id": "refuse_profile_known_wrong_phase",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed whole-producer source closure or intended phase"
+      }
+    },
+    {
+      "id": "refuse_wrong_variant_phase_context",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Producer recipe context must bind the exact intended phase, variant and stage"
+      }
+    },
+    {
+      "id": "refuse_wrong_stage_phase_context",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Producer recipe context must bind the exact intended phase, variant and stage"
+      }
+    },
+    {
+      "id": "refuse_current_dependency_drift_models.py",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed current producer dependency: forecast/wildfire/models.py"
+      }
+    },
+    {
+      "id": "refuse_current_dependency_drift_pipeline.py",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Unreviewed current producer dependency: research/forecast-v2/scripts/pipeline.py"
+      }
+    },
+    {
+      "id": "refuse_current_dependency_drift_audit_fit_coverage.py",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Current auditor changed a numerical/member identity dependency outside the recipe repair"
+      }
+    },
+    {
+      "id": "refuse_corrupted_preserved_source_bytes",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Compressed immutable source snapshot differs from the recorded original bytes"
+      }
+    },
+    {
+      "id": "refuse_changed_protocol_split_pin",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Whole producer recipe requires the protocol-pinned SPLIT bytes"
+      }
+    },
+    {
+      "id": "refuse_loader_hash_assertion_without_matching_bytes",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual immutable producer bytes differ from their reviewed version"
+      }
+    },
+    {
+      "id": "auditor_unchanged_member_numeric_surface",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "repair_surface_is_not_self_authentication",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "externally_reviewed_executable_stayed_byte_fixed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    }
+  ],
+  "actual_input_cache_model_or_heldout_quality_accessed": false,
+  "actual_fit_coverage_audit_run": false,
+  "limits": [
+    "Trusted reviewer-pinned executable context is required; numeric surface comparison is not authentication of the new auditor implementation.",
+    "Known source-only profile compatibility remains conditional on actual complete input/cache/value/schema membership authentication; no runtime IDs are inferred as logged."
+  ]
+}

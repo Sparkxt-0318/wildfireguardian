@@ -1,0 +1,79 @@
+{
+  "scope": "SCRATCH_V2_ONLY_PENDING_INDEPENDENT_REVIEW",
+  "files": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": {
+      "sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+      "bytes": 105526,
+      "before_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4"
+    },
+    "forecast/tests/test_source_recipe_compatibility.py": {
+      "sha256": "8566661c0dfeda98842c5fddf62e5fc57ac4584f8b4d2dc83965771b70a9f60b",
+      "bytes": 20841,
+      "before_sha256": null
+    },
+    "forecast/tests/test_blind_forecast_protocol.py": {
+      "sha256": "c6190001ddfa5d0c44b07d992818d2a9a2635bc5eb07d66b719628181ee2cf1d",
+      "bytes": 105352,
+      "before_sha256": "0b0920111e0786f95c238e75d19ad208dc3360bf6064c8fcf6931d84fad98b82"
+    }
+  },
+  "patch": {
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/v2/SOURCE_RECIPE_V2.patch",
+    "sha256": "5c640e3e3710d6fac8324f46cc22950ebdf7f28a89afd31ba23f304d0dde977d"
+  },
+  "preserved_c9": {
+    "SOURCE_RECIPE_REPAIR.patch": "0d01e73448f3470e6ea5d6693fd2ca1b24be5f04d8905d62a8f4a6dc16c82b88",
+    "SOURCE_RECIPE_REPAIR.json": "90586f8dd5da874779571a14f2e167ebf16311795c7a5af87e0547332437ea6c",
+    "repo/research/forecast-v2/scripts/audit_fit_coverage.py": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+    "repo/forecast/tests/test_source_recipe_compatibility.py": "22566bd953a2771a1c4aca933c97a46d96784ff193bd8ba2fedc43b999043266"
+  },
+  "live_unchanged": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+  },
+  "tests": {
+    "bounded_passed": 133,
+    "deselected": 131,
+    "seconds": 94.97,
+    "output": "TESTS_V2_BOUNDED_FINAL.txt",
+    "source_only_adapted_matrix_passed": 54,
+    "actual_source_profiles_passed": 28
+  },
+  "source_inventory": {
+    "profiles": 6,
+    "files_per_profile": [
+      58,
+      59,
+      60,
+      61
+    ],
+    "verified_original_source_identities": 81,
+    "changed_paths": 9
+  },
+  "conditions": [
+    "Only exact whole-P byte pairs and complete source/profile/phase bindings",
+    "Actual bytes recomputed; no caller assertions or new version CLI flags",
+    "Current declared dependencies and auditor numerical/member surfaces remain bound",
+    "Exact mixed branch without nonempty else; def-time headers/defaults/decorators/returns retained",
+    "Known old UTC source never admitted for mixed or wrong phase",
+    "Independent source/cache complete membership/values/schema/dtype/names/order mandatory before recipe compatibility"
+  ],
+  "evidence_sha256": {
+    "V2_DIAGNOSIS.md": "8bb866eb6e03ab0a86d1147b940792b8c85fff618b6d91894f8ce889f3f33b34",
+    "WHOLE_CLOSURE_INVENTORY.json": "ef6df215338e8b3026ac703f4662fac7c30672cb336a3b45921b9e97ac9144a4",
+    "WHOLE_SOURCE_DELTAS.diff": "ed2c6e42afdac752115ebcfc4febbf3841bc1fa54af82ca2f3faea1900a23e6e",
+    "ACTUAL_SOURCE_VERSION_CHECK.json": "c3fdae33c165226efe9449fab900c22f73fb2aa4367acf54e9f3c115e58d9930",
+    "MATRIX_V2_FINAL.json": "da830b3d44c7ff0d66ebc46b12c10636f15bc38cd30a47168c83b51263c34243",
+    "TESTS_V2_BOUNDED_FINAL.txt": "6a894165bc4ec5fe82cb041089f569bad484ee276f7cdc4bf7a6a795aafa158a",
+    "ARCHIVED_SOURCE_V2.json": "88e691094e5a0f0319250dd0da99a052c4ee5a0987f25174f6226da5d5593508"
+  },
+  "test_boundary": "Only synthetic fixtures install explicit fixture-local version catalogs, frozen before mutation; fresh registry auditor loaders retain the real verifier. Production has no such fallback.",
+  "integration": "No live application before all12 a06 cases AND aggregate/receipt closure; independent review, actual preflight/main gate and broad regression remain separate",
+  "limits": [
+    "No live repo/data/Git mutations",
+    "No raw actual arrays, caches, checkpoints, heldout quality or numerical jobs",
+    "No universal equivalence or historical runtime replay claim",
+    "Original c9 gaps and 53-control results preserved; adapted54 is not independent clearance",
+    "Actual coverage remains HOLD until real admission completes"
+  ]
+}

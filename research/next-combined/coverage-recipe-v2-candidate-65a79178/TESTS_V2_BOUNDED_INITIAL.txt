@@ -1,0 +1,51 @@
+.......................................................................F [ 54%]
+
+=================================== FAILURES ===================================
+_ test_saved_registry_development_admission_relocates_without_original_training_inputs _
+
+freezer = <module 'blind_registry_fixture' from '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/v2/repo/research/forecast-v2/scripts/freeze_registry.py'>
+freeze_inputs = (PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-115/test_saved_registry_devel...684af732545db4e5e67c'}, 'cache_audit_sha256': '8f584bffc524d45a35ab6b6fe470e6fb9f318b856845684af732545db4e5e67c', ...})
+tmp_path = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-115/test_saved_registry_developmen0')
+
+    def test_saved_registry_development_admission_relocates_without_original_training_inputs(freezer, freeze_inputs, tmp_path):
+        root, run, selection_path, comparator, selection = freeze_inputs
+        module = fit_coverage_module(freezer)
+        registry_path = root / "research/forecast-v2/BLIND_REGISTRY.json"
+>       registry = freezer.build_registry(root, run, selection_path, comparator)
+
+forecast/tests/test_development_fit_coverage.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+research/forecast-v2/scripts/freeze_registry.py:127: in build_registry
+    fit_coverage, fit_coverage_record = verified_fit_coverage(root, run, selection)
+research/forecast-v2/scripts/freeze_registry.py:111: in verified_fit_coverage
+    return coverage.verify_coverage(root, run, selection.get("fit_coverage"))
+research/forecast-v2/scripts/audit_fit_coverage.py:1469: in verify_coverage
+    current = audit_coverage(root, recorded["input_root"], recorded["cache_root"], run, recorded["cache_audit"]["path"])
+research/forecast-v2/scripts/audit_fit_coverage.py:1353: in audit_coverage
+    development, development_cache_files = development_coverage(root, inputs, caches, run, audit, expected, mixed)
+research/forecast-v2/scripts/audit_fit_coverage.py:1281: in development_coverage
+    contract = _schedule_contract(root, source, stage="fold", variant=variant, phase_id=phase["phase_id"])
+research/forecast-v2/scripts/audit_fit_coverage.py:892: in _schedule_contract
+    producer_version = _verified_producer_version(root, source, phase_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-115/test_saved_registry_developmen0/freeze-repo')
+source = {'forecast/wildfire/burnout.py': '6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e', 'forecast/wildfir...1009a2fadbbe1', 'forecast/wildfire/module.py': '44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32', ...}
+phase_id = 'base_fold2020_seed0'
+
+    def _verified_producer_version(root, source, phase_id):
+        """Recompute every declared source byte, reject unknown complete versions.
+    
+        This permits only the enumerated producer phases on independently authenticated
+        actual cached inputs. It is neither universal equivalence nor runtime replay.
+        """
+        declared = object_sha(source)
+        if declared not in _RECIPE_SOURCE_VERSIONS or phase_id not in _RECIPE_SOURCE_VERSIONS[declared]:
+>           raise ValueError("Unreviewed whole-producer source closure or intended phase")
+E           ValueError: Unreviewed whole-producer source closure or intended phase
+
+research/forecast-v2/scripts/audit_fit_coverage.py:865: ValueError
+=========================== short test summary info ============================
+FAILED forecast/tests/test_development_fit_coverage.py::test_saved_registry_development_admission_relocates_without_original_training_inputs
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 71 passed, 131 deselected in 31.79s

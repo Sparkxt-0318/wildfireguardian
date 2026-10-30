@@ -1,0 +1,69 @@
+{
+  "scope": "SCRATCH_ONLY_SOURCE_RECIPE_COMPATIBILITY",
+  "live_source_unchanged": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+  },
+  "files": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": {
+      "sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+      "bytes": 87763,
+      "before_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4"
+    },
+    "forecast/tests/test_source_recipe_compatibility.py": {
+      "sha256": "22566bd953a2771a1c4aca933c97a46d96784ff193bd8ba2fedc43b999043266",
+      "bytes": 10696,
+      "before_sha256": null
+    }
+  },
+  "patch": {
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/SOURCE_RECIPE_REPAIR.patch",
+    "sha256": "0d01e73448f3470e6ea5d6693fd2ca1b24be5f04d8905d62a8f4a6dc16c82b88"
+  },
+  "diagnostics": {
+    "actual_intended_phase_metadata_count": 28,
+    "original_source_contract_refusals": 23,
+    "development_refusals": 18,
+    "final_refusals": 5,
+    "repaired_source_contract_passes": 28,
+    "actual_data_coverage_gate_rerun": false
+  },
+  "tests": {
+    "new_focused_passes": 18,
+    "bounded_passes": 116,
+    "deselected": 131,
+    "seconds": 81.82,
+    "output": "TESTS_BOUNDED_FINAL.txt",
+    "sha256": "eab5200039a8561bd302469f7229a93d45ad0134cc2b28c9cd66aa214c627b9b"
+  },
+  "evidence_sha256": {
+    "DIAGNOSIS.json": "56c3c6c24c6214535e47902ca14a52b3d6b852ad2215bc6b8245d060906b98c0",
+    "SOURCE_DELTAS.diff": "58b1b8c95810a6d47bbc71675f644736f5706d7543d82b1fec46ae30017612fd",
+    "REPAIRED_SOURCE_CONTRACTS.json": "55f3c86dfb4c14b11fb9c31f69db0e3cc91f6668690486442808cfd6e8bf026a",
+    "ARCHIVED_SOURCES.json": "d7154039c317aebec2e0750eb96a30ab77a69c991923fea5347d86c6520ed2e9",
+    "DIAGNOSIS.md": "aa1519dca9d56eaad60187510f8608668eb07cb5523d518f53c49d14f17ffbac",
+    "final_fit_coverage_audit_original.json": "ce7727c10e68cce536dbb0f1a56b68add941a46fab8c244f12ddf23e527d5633",
+    "final_fit_coverage_audit_original.log": "5b9c483aa96e5894fc11d347dfcae14d616dd3b423d00dfe85b31d20355116c6"
+  },
+  "compatibility": "Conditional only on independently source/cache-authenticated actual inputs, complete membership, schemas and values. New custody checks still change bad-input admission.",
+  "preserved_guards": [
+    "Exact known custody prefix only; no generic statement/docstring stripping",
+    "Immutable fixed variant table and exact command train/validation call resolve pure mixed=False",
+    "Only unused kriged BODY ignored; its full definition header/defaults/decorators/returns retained",
+    "Consumed UTC label, model constructor, available/event, crop, interval, complete population, optimizer, budget, cap and skip rules remain"
+  ],
+  "integration_prerequisite": "All12 a06 case outputs PLUS aggregate/receipt closure before any live source change; independent review and fresh actual full coverage gate still required",
+  "graph": {
+    "tier": 2,
+    "project": "wfg-next-1b-20261030",
+    "generation": "2026-10-30T02:11:43Z",
+    "limitation": "F/P not_tracked, new test missing, best effort; exact source fallback, no reindex"
+  },
+  "limits": [
+    "No live repository source/test/data or Git mutation",
+    "No raw actual arrays/caches/checkpoints/heldout metrics accessed",
+    "Actual phase_result and source-byte metadata only; no historical metrics inspected",
+    "No training/MC/native jobs or HEAVY lease used",
+    "No claim of full real fit coverage, registry readiness, or runtime-logged IDs for historical fits"
+  ]
+}

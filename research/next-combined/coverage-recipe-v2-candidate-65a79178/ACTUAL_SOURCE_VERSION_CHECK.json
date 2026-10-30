@@ -1,0 +1,2031 @@
+{
+  "source_only": true,
+  "actual_input_cache_model_or_quality_access": false,
+  "actual_coverage_gate_pass": false,
+  "phases": [
+    {
+      "phase": "base_fold2020_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "base_fold2020_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "base",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_fold2020_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_fold2020_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_wind_fold2020_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_wind_fold2020_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4_wind",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "ellipse_fold2020_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "ellipse_fold2020_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "ellipse",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_fold2020_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "burnout_fold2020_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_spotting_fold2020_seed0_flaming_only",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123",
+          "verified_source_files": 61,
+          "intended_phase": "burnout_spotting_fold2020_seed0_flaming_only",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout_spotting",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+        "survival_sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+        "fit_mean_field_ast_sha256": "48800b2b14b4fcffb5bfdd6c482861d63d10b8bbf8731cf2e2951ef3ddb13585",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "mixed_base_fold2020_seed0_utc_fixed",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6",
+          "verified_source_files": 58,
+          "intended_phase": "mixed_base_fold2020_seed0_utc_fixed",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "mixed_base",
+          "resolved_mixed": true,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "normalized_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_KRIGED_CUSTODY_CHECK"
+              ]
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "base_fold2021_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "base_fold2021_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "base",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_fold2021_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_fold2021_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_wind_fold2021_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_wind_fold2021_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4_wind",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "ellipse_fold2021_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "ellipse_fold2021_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "ellipse",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_fold2021_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "burnout_fold2021_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_spotting_fold2021_seed0_flaming_only",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123",
+          "verified_source_files": 61,
+          "intended_phase": "burnout_spotting_fold2021_seed0_flaming_only",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout_spotting",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+        "survival_sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+        "fit_mean_field_ast_sha256": "48800b2b14b4fcffb5bfdd6c482861d63d10b8bbf8731cf2e2951ef3ddb13585",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "mixed_base_fold2021_seed0_utc_fixed",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6",
+          "verified_source_files": 58,
+          "intended_phase": "mixed_base_fold2021_seed0_utc_fixed",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "mixed_base",
+          "resolved_mixed": true,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "normalized_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_KRIGED_CUSTODY_CHECK"
+              ]
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "base_fold2022_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "base_fold2022_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "base",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_fold2022_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_fold2022_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_wind_fold2022_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_wind_fold2022_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4_wind",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "ellipse_fold2022_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "ellipse_fold2022_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "ellipse",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_fold2022_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "burnout_fold2022_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_spotting_fold2022_seed0_flaming_only",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "verified_source_files": 61,
+          "intended_phase": "burnout_spotting_fold2022_seed0_flaming_only",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout_spotting",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+        "survival_sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+        "fit_mean_field_ast_sha256": "48800b2b14b4fcffb5bfdd6c482861d63d10b8bbf8731cf2e2951ef3ddb13585",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "mixed_base_fold2022_seed0_utc_fixed",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6",
+          "verified_source_files": 58,
+          "intended_phase": "mixed_base_fold2022_seed0_utc_fixed",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "mixed_base",
+          "resolved_mixed": true,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "normalized_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_KRIGED_CUSTODY_CHECK"
+              ]
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "base_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "base_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "base",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9e7ac2a450aef11ca8a2b594ba0a8cdaf5f38b6d15169893a19b943a7089160",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "a3d306e63cf8c9e8a629ae97ccf9b9fc7b24185f107d3ca39e018c0754e363e7",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "d4_wind_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6",
+          "verified_source_files": 58,
+          "intended_phase": "d4_wind_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "d4_wind",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "ellipse_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44",
+          "verified_source_files": 59,
+          "intended_phase": "ellipse_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "ellipse",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44",
+          "verified_source_files": 59,
+          "intended_phase": "burnout_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38",
+        "survival_sha256": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+        "fit_mean_field_ast_sha256": "09f59f74ee4df6cb57ab103f77d8d8136db3922961a2dcf6d8bc45175ba62265",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "burnout_spotting_seed0_flaming_only",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "verified_source_files": 61,
+          "intended_phase": "burnout_spotting_seed0_flaming_only",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "burnout_spotting",
+          "resolved_mixed": false,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "40657153e728fdc68ebe1f585a0d9c740e7c30965106012e7c5100b9567d0f56",
+              "immutable_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ],
+              "current_normalization": [
+                "MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT"
+              ]
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": false,
+              "immutable_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "definition_header_ast_sha256": "94f074979636638b9c6f90a93efdeda1f0c55c3427b1da0bafa36c66099d1698",
+              "nonconsumption_proof": "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+        "survival_sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+        "fit_mean_field_ast_sha256": "48800b2b14b4fcffb5bfdd6c482861d63d10b8bbf8731cf2e2951ef3ddb13585",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    },
+    {
+      "phase": "mixed_base_seed0",
+      "status": "PASS",
+      "error": null,
+      "proof": {
+        "producer_version": {
+          "closure_sha256": "01c3a616a200c348e2a1165bc4c81bbf8e131c85a9dd4cc1ebb89d6003d117dc",
+          "verified_source_files": 60,
+          "intended_phase": "mixed_base_seed0",
+          "current_baseline_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+          "evidence": "EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES"
+        },
+        "input_recipe": {
+          "immutable_pipeline_sha256": "43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e",
+          "current_pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+          "variant": "mixed_base",
+          "resolved_mixed": true,
+          "functions": {
+            "fit_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "current_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "normalized_ast_sha256": "07f436af3a4a971e58515ac9ce0dab2e317b19ced66e218b765c4eb43b4877e4",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "available": {
+              "consumed": true,
+              "immutable_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "current_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "normalized_ast_sha256": "a9239a20dd7e1fb8b0299777f771ee4e0ee41199089457cde13be5b9df1a9768",
+              "immutable_normalization": [],
+              "current_normalization": []
+            },
+            "perimeter_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "current_ast_sha256": "87d90061fca3364d748b959ac742687af868bbd41297fb5460abe5909df553c1",
+              "normalized_ast_sha256": "013eed69f8bdd458ccdbd3ffbaf15666b4467a41c6dcaa497dbb2f11bf81179d",
+              "immutable_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"
+              ]
+            },
+            "kriged_samples": {
+              "consumed": true,
+              "immutable_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "current_ast_sha256": "d1e4601740292e8e27007a03a6d72a6bd136c7083ee0dac1cde5456ba5da294c",
+              "normalized_ast_sha256": "9f97ba3c2f1e3b7fe695c32e79657687d56e4687f60d3e4cb0d10c158a9f06f1",
+              "immutable_normalization": [
+                "EXACT_CURRENT_KRIGED_CUSTODY_CHECK"
+              ],
+              "current_normalization": [
+                "EXACT_CURRENT_KRIGED_CUSTODY_CHECK"
+              ]
+            },
+            "build_model": {
+              "consumed": true,
+              "immutable_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "current_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "normalized_ast_sha256": "1553890c79e73a86292f5be35c3d2074592e5bbd3be411867b3c8d89015f93c0",
+              "immutable_normalization": [],
+              "current_normalization": []
+            }
+          },
+          "evidence": "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
+        },
+        "pipeline_sha256": "43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e",
+        "survival_sha256": "816f144e3bf2084ba1d05a57093b57c9ace37a1c837833838ec264c7300766d4",
+        "fit_mean_field_ast_sha256": "48800b2b14b4fcffb5bfdd6c482861d63d10b8bbf8731cf2e2951ef3ddb13585",
+        "evidence": "BOUNDED_SOURCE_CONTRACT_CHECKED"
+      }
+    }
+  ]
+}

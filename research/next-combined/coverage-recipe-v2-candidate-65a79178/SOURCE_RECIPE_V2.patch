@@ -1,0 +1,764 @@
+--- a/research/forecast-v2/scripts/audit_fit_coverage.py
++++ b/research/forecast-v2/scripts/audit_fit_coverage.py
+@@ -629,14 +629,274 @@
+                 source_sha256={relative: source[relative] for relative in functions}, ast_sha256=hashes,
+                 evidence="IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION")
+ 
+-def _schedule_contract(root, source, stage="final"):
++# Closed immutable producer versions, pending independent review. Membership/cache
++# authentication remains mandatory; these pins do not assert universal equivalence.
++_RECIPE_PIPELINE_VERSIONS = {'3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting',
++                                                                      'mixed_base'],
++ '43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting',
++                                                                      'mixed_base'],
++ '80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting',
++                                                                      'mixed_base'],
++ '88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting',
++                                                                      'mixed_base'],
++ 'e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting',
++                                                                      'mixed_base'],
++ 'fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978': ['base',
++                                                                      'd4',
++                                                                      'd4_wind',
++                                                                      'ellipse',
++                                                                      'burnout',
++                                                                      'burnout_spotting']}
++_RECIPE_SOURCE_VERSIONS = {'01c3a616a200c348e2a1165bc4c81bbf8e131c85a9dd4cc1ebb89d6003d117dc': ['mixed_base_seed0'],
++ '366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44': ['ellipse_seed0', 'burnout_seed0'],
++ '7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6': ['base_fold2020_seed0',
++                                                                      'd4_fold2020_seed0',
++                                                                      'd4_wind_fold2020_seed0',
++                                                                      'ellipse_fold2020_seed0',
++                                                                      'burnout_fold2020_seed0',
++                                                                      'base_fold2021_seed0',
++                                                                      'd4_fold2021_seed0',
++                                                                      'd4_wind_fold2021_seed0',
++                                                                      'ellipse_fold2021_seed0',
++                                                                      'burnout_fold2021_seed0',
++                                                                      'base_fold2022_seed0',
++                                                                      'd4_fold2022_seed0',
++                                                                      'd4_wind_fold2022_seed0',
++                                                                      'ellipse_fold2022_seed0',
++                                                                      'burnout_fold2022_seed0',
++                                                                      'base_seed0',
++                                                                      'd4_seed0'],
++ '7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123': ['burnout_spotting_fold2020_seed0_flaming_only',
++                                                                      'burnout_spotting_fold2021_seed0_flaming_only'],
++ 'b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6': ['mixed_base_fold2020_seed0_utc_fixed',
++                                                                      'mixed_base_fold2021_seed0_utc_fixed',
++                                                                      'mixed_base_fold2022_seed0_utc_fixed',
++                                                                      'd4_wind_seed0'],
++ 'eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17': ['burnout_spotting_fold2022_seed0_flaming_only',
++                                                                      'burnout_spotting_seed0_flaming_only']}
++_RECIPE_CURRENT_BASELINE = {'forecast/wildfire/__init__.py': '55706f5bd10ae03a088b336c4ffaf06cf83b607414f7c7bcb4932f045ff893bc',
++ 'forecast/wildfire/__main__.py': 'f696d93d71ce8b94cebed980d68a9f541b71f855778dc44430f27e9782e9fc06',
++ 'forecast/wildfire/api.py': '71e0397874e781b56b7091b8a2c5535acd088fbeb94e63ac0d44b6bd11dc8c11',
++ 'forecast/wildfire/baselines.py': '325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f',
++ 'forecast/wildfire/bundle.py': '2fe131cd7f54bbee9d85acaa537ff77c80faf7975c374c3574ca0e9f5117a391',
++ 'forecast/wildfire/burnout.py': '6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e',
++ 'forecast/wildfire/cache.py': '62f82f0c22be47ae6da18b4c81e6da7860843b7b8fe17952762b14adb8c50030',
++ 'forecast/wildfire/canonical.py': 'aa4b500bc7c2c3d36af1a5639d89e22cf6de7b68a9a900a53fe5feb991b6fe81',
++ 'forecast/wildfire/catalog.py': '04f774efdd5925c0a6e9b7af4f16f189a3df7fd78103dbf880b203101fc06ad7',
++ 'forecast/wildfire/checks.py': '8af868dc6298cb7fcbffdb87d28222b66bfc28f519fe41ab25b429ea187bf21e',
++ 'forecast/wildfire/cohort.py': '68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a',
++ 'forecast/wildfire/coordinates.py': '9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3',
++ 'forecast/wildfire/cumulative.py': '0334ecacbfed8d31397378172c325a0ac2385798023c6a3efadc34ab1db119a7',
++ 'forecast/wildfire/cumulative_evaluation.py': '071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01',
++ 'forecast/wildfire/cumulative_report.py': 'a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81',
++ 'forecast/wildfire/cumulative_report_plots.py': 'effb7221f730195b77ebbf149bd37d5ca28c500cad9d957630e9cac5ee735b53',
++ 'forecast/wildfire/data.py': '8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230',
++ 'forecast/wildfire/environment.py': 'c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af',
++ 'forecast/wildfire/evaluate.py': 'a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9',
++ 'forecast/wildfire/examples.py': '2da0787fb7507a64036b7ca5de85b959f87e9e2c02c060d8a403081822d35c76',
++ 'forecast/wildfire/farsite_build.py': 'd1c9830de57a21688e0c8c64bc38bd4334eff53d9a533fe818b28264f617d783',
++ 'forecast/wildfire/farsite_evaluation.py': '85d80c050b44f7548ae7511cdccf258e5dd85856aea38fd9953c1e6090aaf048',
++ 'forecast/wildfire/farsite_inputs.py': '259faf189bf0a94d11682d7845060f89dcc86c45e0c4bac21e698a4d00c564e6',
++ 'forecast/wildfire/farsite_observed_build.py': '187f210d990361864d52c4ae1d1a1a15452b63688969b4e2b50eb081da5328c4',
++ 'forecast/wildfire/farsite_report.py': '52c8879021278eeb4942ba6eb60bd87b6c824e09bd87c66ae619e86839ed0e06',
++ 'forecast/wildfire/forest_inference.py': 'c09ba84a709be6bc37aca7a2a2025461e900c053b0ee6bc8f547633794a92e51',
++ 'forecast/wildfire/heat.py': 'e6c07d4d23d377c00a76542ba4f70441ce40913aa4a3d5ca5ee60aecaa41da3b',
++ 'forecast/wildfire/heat_duration.py': '47f80924a3222d8a95822f75da49ed8decc9974dad770bf31b6317c80c9cef1f',
++ 'forecast/wildfire/heat_parameters.py': '2b904247d987a1244b6a738d7513577274f1f1cbf2b44985c9bba57d67590750',
++ 'forecast/wildfire/heat_sources.json': '2f2dadeca8dfb7aa18ee11ae52bc0ee038c0bbda1e56a51b4b2f0df239f7d660',
++ 'forecast/wildfire/heat_timing.py': '653712d90cc273a892d400bfe7cc8ff9d02262b49bee886d6cc47c96c97b4a9b',
++ 'forecast/wildfire/heat_transfer.py': '1eb6625d577c4562ca6702f0e45d9b4be396baf40152ef974cb6d44af90c92ed',
++ 'forecast/wildfire/inference.py': 'c1278e491a23633e693854417e21bd1376060b638f3c3bf9f81ecc147c17dce6',
++ 'forecast/wildfire/meanfield.py': 'cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885',
++ 'forecast/wildfire/metrics.py': '7e3277e50f31c18ae042aa649793791d77840efaf9c0d3b02b8207bd2d1f9a93',
++ 'forecast/wildfire/models.py': '791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1',
++ 'forecast/wildfire/observed_catalog_data.py': 'ab8613df1d68f04f26794212c45ce55737dfaa0df60189f44b0662cc83988da3',
++ 'forecast/wildfire/observed_combined.py': 'a0b82434c8cc393c11c522b57ab4e400dab0e42396cfe186f88aa3f2e6999491',
++ 'forecast/wildfire/observed_data.py': '1476966182e6bf0016bbe4e48f44ad9381a3d3cb2ab618e888b5e1c2df6209ff',
++ 'forecast/wildfire/observed_evaluation.py': 'bcae46bde09fcc3be9766037000e6f1168cb35ee2d848f7b466479669daf4a75',
++ 'forecast/wildfire/observed_inventory.py': '5f352dfcc02ac7389377af6d90c15fae2262398bfcaccd87565397a64ee7e16b',
++ 'forecast/wildfire/observed_report_plots.py': 'a306e3558db50d39bf79b180c711a6b9a7cd5f12cd64d7bc6d96e2fd65d2cc15',
++ 'forecast/wildfire/observed_reuse.py': '5236c4bf9680dad71bcc9e5f9cdf92fd6e3466c76517944df2810d3806bf0b95',
++ 'forecast/wildfire/paths.py': 'b26f7cc4621366582f253ff6962eeb371016931324d5787bcb1c99b486a5b4a5',
++ 'forecast/wildfire/plotting.py': 'c9f4dda1eefad50ecc95bc183065ba6e57b3cf7d881c348aff7d131c69bbcd59',
++ 'forecast/wildfire/prediction.py': 'c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578',
++ 'forecast/wildfire/prepare.py': 'e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0',
++ 'forecast/wildfire/progress.py': 'df758b3bc6ce3477aa039dc39c6ce034f733f5a93f1924f15cc1e6c98254549b',
++ 'forecast/wildfire/report.py': '436546b52c6a8fa761341995cebe74e20f078b40e1fad3ffdbbc65a2416cfceb',
++ 'forecast/wildfire/rollout.py': '116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe',
++ 'forecast/wildfire/rollout_cache.py': '3b9fded7e050b947ff27e0e2742adb7aa530f182c9ee8fe24935f9995816e3c4',
++ 'forecast/wildfire/schema.py': '91d498f2c40e5f64138b0fe7a7845b2e4f522d086cdb9c4950ca9ed2c2043605',
++ 'forecast/wildfire/search.py': '136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4',
++ 'forecast/wildfire/survival.py': 'c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b',
++ 'forecast/wildfire/train.py': '9c8a62150589b7d7785205e160f32e6a0d209dd4c01de27736c38d4244244b0e',
++ 'forecast/wildfire/utils.py': '4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92',
++ 'research/forecast-v2/RUN_PROTOCOL.json': 'c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243',
++ 'research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json': 'c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb',
++ 'research/forecast-v2/scripts/audit_fit_coverage.py': '1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4',
++ 'research/forecast-v2/scripts/pipeline.py': '88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67',
++ 'research/forecast-v2/scripts/run_campaign.py': '7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d'}
++
++def _normalized_input_recipe(node, name, *, pure):
++    """Only known custody insertions and a proven-unconsumed mixed branch.
++
++    Raw source identities remain preserved. Membership/value cache audits remain
++    mandatory; normalization does not attest that old runs enforced new checks.
++    """
++    node = ast.parse(ast.unparse(node)).body[0]
++    applied = []
++    if name == "perimeter_samples":
++        custody = ast.parse('''manifest_path = perimeters / "PERIMETER_MANIFEST.json"
++manifest = json.loads(manifest_path.read_text())
++states_path = perimeters / event / "states.npz"
++if sha256(states_path) != manifest["events"][event]["states_sha256"]:
++    raise ValueError("Perimeter reference identity differs from its source manifest")
++data = np.load(states_path, allow_pickle=False)
++''').body
++        if [_dump(n) for n in node.body[:len(custody)]] == [_dump(n) for n in custody]:
++            node.body[:len(custody)] = ast.parse('data = np.load(perimeters / event / "states.npz")').body
++            applied.append("EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX")
++    if name == "kriged_samples":
++        custody = ast.parse('''if hasattr(env, "_verify_sources"):
++    env._verify_sources(event)
++''').body[0]
++        if len(node.body) > 1 and _dump(node.body[1]) == _dump(custody):
++            node.body.pop(1)
++            applied.append("EXACT_CURRENT_KRIGED_CUSTODY_CHECK")
++    if name == "fit_samples" and pure:
++        branches = [n for n in node.body if isinstance(n, ast.If) and _same(n.test, "mixed")]
++        if len(branches) != 1 or branches[0].orelse:
++            raise ValueError("Pure mixed-branch proof requires the exact known branch without an else")
++        body = [n for n in node.body if n is not branches[0]]
++        if len(body) != len(node.body):
++            node.body = body
++            applied.append("MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT")
++    return node, applied
++
++
++def _input_recipe_contract(pipeline, current_pipeline, variant, table):
++    immutable_sha = hashlib.sha256(pipeline.encode("utf-8")).hexdigest()
++    current_sha = hashlib.sha256(current_pipeline.encode("utf-8")).hexdigest()
++    if (current_sha != "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67" or immutable_sha not in _RECIPE_PIPELINE_VERSIONS
++            or variant not in _RECIPE_PIPELINE_VERSIONS[immutable_sha]):
++        raise ValueError("Unreviewed whole-pipeline source version; no recipe compatibility is admitted")
++    pure = variant in table and not table[variant].get("mixed", False)
++    records = {}
++    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
++        old, current = _function(pipeline, name), _function(current_pipeline, name)
++        consumed = name != "kriged_samples" or not pure
++        record = dict(consumed=consumed, immutable_ast_sha256=object_sha(_dump(old)),
++                      current_ast_sha256=object_sha(_dump(current)))
++        if consumed:
++            a, old_steps = _normalized_input_recipe(old, name, pure=pure)
++            b, new_steps = _normalized_input_recipe(current, name, pure=pure)
++            if _dump(a) != _dump(b):
++                raise ValueError("Frozen producer consumed input recipe differs: " + name)
++            record.update(normalized_ast_sha256=object_sha(_dump(a)), immutable_normalization=old_steps,
++                          current_normalization=new_steps)
++        else:
++            headers = []
++            for definition in (old, current):
++                header = ast.parse(ast.unparse(definition)).body[0]
++                header.body = [ast.Pass()]
++                headers.append(_dump(header))
++            if headers[0] != headers[1]:
++                raise ValueError("Frozen producer unconsumed definition header differs: " + name)
++            record["definition_header_ast_sha256"] = object_sha(headers[0])
++            record["nonconsumption_proof"] = "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
++        records[name] = record
++    return dict(immutable_pipeline_sha256=immutable_sha, current_pipeline_sha256=current_sha, variant=variant, resolved_mixed=not pure if variant in table else None, functions=records,
++                evidence="SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES")
++
++
++@lru_cache(maxsize=16)
++def _auditor_numeric_surface(source):
++    """Exclude only this reviewed auditor repair, retaining every other declaration."""
++    tree = ast.parse(source)
++    repair_names = {"_normalized_input_recipe", "_input_recipe_contract", "_auditor_numeric_surface",
++                    "_verified_producer_version", "_schedule_contract"}
++    repair_constants = {"_RECIPE_PIPELINE_VERSIONS", "_RECIPE_SOURCE_VERSIONS", "_RECIPE_CURRENT_BASELINE"}
++    # The two original audit entrypoints retain every guard. Normalize only
++    # the exact reviewed extra source-context keywords at their schedule call.
++    for function in [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name in ("development_coverage", "audit_coverage")]:
++        phase = 'phase["phase_id"]' if function.name == "development_coverage" else 'intended_phase(variant, "final")["phase_id"]'
++        for call in [n for n in ast.walk(function) if isinstance(n, ast.Call) and _same(n.func, "_schedule_contract")]:
++            added = {k.arg: k.value for k in call.keywords if k.arg in ("variant", "phase_id")}
++            if set(added) == {"variant", "phase_id"} and _same(added["variant"], "variant") and _same(added["phase_id"], phase):
++                call.keywords = [k for k in call.keywords if k.arg not in added]
++    tree.body = [node for node in tree.body if not (
++        isinstance(node, ast.FunctionDef) and node.name in repair_names or
++        isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id in repair_constants for t in node.targets))]
++    return _dump(tree)
++
++
++def _verified_producer_version(root, source, phase_id):
++    """Recompute every declared source byte, reject unknown complete versions.
++
++    This permits only the enumerated producer phases on independently authenticated
++    actual cached inputs. It is neither universal equivalence nor runtime replay.
++    """
++    declared = object_sha(source)
++    if declared not in _RECIPE_SOURCE_VERSIONS or phase_id not in _RECIPE_SOURCE_VERSIONS[declared]:
++        raise ValueError("Unreviewed whole-producer source closure or intended phase")
++    actual = {}
++    for relative, expected in source.items():
++        original = _source_blob(root, relative, expected)
++        actual[relative] = hashlib.sha256(original.encode("utf-8")).hexdigest()
++    if object_sha(actual) != declared:
++        raise ValueError("Actual immutable producer bytes differ from their reviewed version")
++    auditor = "research/forecast-v2/scripts/audit_fit_coverage.py"
++    for relative, expected in _RECIPE_CURRENT_BASELINE.items():
++        if relative == auditor:
++            continue
++        if sha(_inside(root, relative)) != expected:
++            raise ValueError("Unreviewed current producer dependency: " + relative)
++    original_auditor = _source_blob(root, auditor, _RECIPE_CURRENT_BASELINE[auditor])
++    for current_auditor in (_inside(root, auditor), HERE):
++        if _auditor_numeric_surface(original_auditor) != _auditor_numeric_surface(current_auditor.read_text()):
++            raise ValueError("Current auditor changed a numerical/member identity dependency outside the recipe repair")
++    protocol_path = "research/forecast-v2/RUN_PROTOCOL.json"
++    protocol = json.loads(_source_blob(root, protocol_path, _RECIPE_CURRENT_BASELINE[protocol_path]))
++    if sha(_inside(root, "research/forecast-v2/SPLIT.json")) != protocol.get("split_sha256"):
++        raise ValueError("Whole producer recipe requires the protocol-pinned SPLIT bytes")
++    return dict(closure_sha256=declared, verified_source_files=len(actual), intended_phase=phase_id,
++                current_baseline_sha256=object_sha(_RECIPE_CURRENT_BASELINE),
++                evidence="EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES")
++
++
++def _schedule_contract(root, source, stage="final", variant=None, phase_id=None):
+     """Bounded source checks for full permutations and the recorded skip paths."""
++    phase = next((p for p in current_phase_identity()["phases"] if p["phase_id"] == phase_id), None)
++    if phase is None or phase["variant"] != variant or phase["stage"] != stage:
++        raise ValueError("Producer recipe context must bind the exact intended phase, variant and stage")
++    producer_version = _verified_producer_version(root, source, phase_id)
+     pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source["research/forecast-v2/scripts/pipeline.py"])
+     survival = _source_blob(root, "forecast/wildfire/survival.py", source["forecast/wildfire/survival.py"])
+     current_pipeline = (root / "research/forecast-v2/scripts/pipeline.py").read_text()
+-    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
+-        if ast.dump(_function(pipeline, name), include_attributes=False) != ast.dump(_function(current_pipeline, name), include_attributes=False):
+-            raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
+     tables = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign)
+               and any(isinstance(t, ast.Name) and t.id == "VARIANTS" for t in n.targets)]
+     if len(tables) != 1:
+@@ -645,6 +905,7 @@
+     if (table != FIXED_VARIANT_POLICY or table["mixed_base"].get("mixed") is not True
+             or any(table[name].get("mixed", False) for name in VARIANTS if name != "mixed_base")):
+         raise ValueError("The producer's mixed extra-source regime differs from the intended fit policy")
++    recipe = _input_recipe_contract(pipeline, current_pipeline, variant, table)
+     final = _function(pipeline, "command_" + stage)
+     required_origins = {"spec": "VARIANTS[args.variant]",
+                         "train_events": 'available(args, SPLIT["fit"]["us_perimeter_and_kriged"])',
+@@ -729,7 +990,7 @@
+             ancestor = parents[ancestor]
+         if not isinstance(ancestor, ast.If) or not _same(ancestor.test, "validation and stale >= patience"):
+             raise ValueError("Unaccounted historical early stopping prevents a full-epoch coverage inference")
+-    return dict(pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
++    return dict(producer_version=producer_version, input_recipe=recipe, pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
+                 survival_sha256=source["forecast/wildfire/survival.py"],
+                 fit_mean_field_ast_sha256=object_sha(ast.dump(fitting, include_attributes=False)),
+                 evidence="BOUNDED_SOURCE_CONTRACT_CHECKED")
+@@ -1021,7 +1282,7 @@
+                     or result["train_samples"] != len(train) or result["validation_samples"] != len(validation)):
+                 raise ValueError("Development counts must equal every independently derived first3 training and validation sample")
+             budget = development_budget(root, receipt, result, expected_count=len(train))
+-            contract = _schedule_contract(root, source, stage="fold")
++            contract = _schedule_contract(root, source, stage="fold", variant=variant, phase_id=phase["phase_id"])
+             epochs = _historical_development_epochs(root, variant, source, train, result["fit"]["history"], files)
+             records[phase["phase_id"]] = dict(intended_phase=phase, fit_result=identity(root, path), execution=identity(root, receipt_path),
+                 train_events=train_events, validation_events=validation_events, budget=budget,
+@@ -1113,7 +1374,7 @@
+                 or _option(command, "--data-manifest-sha256") != expected["input_sha256"]["EXTRACTION_MANIFEST.json"]):
+             raise ValueError("Source inputs, complete caches and result root must be the actual effective execution arguments")
+         source = receipt.get("source_sha256", {})
+-        contract = _schedule_contract(root, source)
++        contract = _schedule_contract(root, source, variant=variant, phase_id=intended_phase(variant, "final")["phase_id"])
+         spotting_contract = spotting_source_contract(root, source) if variant == "burnout_spotting" else None
+         samples = mixed if variant == "mixed_base" else perimeter
+         cases = expected["mixed_cases" if variant == "mixed_base" else "perimeter_cases"]
+--- /dev/null
++++ b/forecast/tests/test_source_recipe_compatibility.py
+@@ -0,0 +1,354 @@
++"""Pure synthetic source equivalence, conditional on authenticated input values."""
++import ast
++import hashlib
++import importlib.util
++import json
++import math
++from pathlib import Path
++from types import SimpleNamespace
++import sys
++
++import numpy as np
++import pandas as pd
++import pytest
++
++
++def module():
++    path = Path(__file__).resolve().parents[2] / "research/forecast-v2/scripts/audit_fit_coverage.py"
++    spec = importlib.util.spec_from_file_location("recipe_compatibility_fixture", path)
++    value = importlib.util.module_from_spec(spec); sys.modules[spec.name] = value; spec.loader.exec_module(value)
++    return value
++
++
++@pytest.fixture
++def recipe():
++    value = module()
++    source = (Path(value.__file__).with_name("pipeline.py")).read_text()
++    return value, source
++
++
++def without_custody(source):
++    begin = source.index('    manifest_path = perimeters / "PERIMETER_MANIFEST.json"', source.index('def perimeter_samples'))
++    end = source.index('    times = ', begin)
++    source = source[:begin] + '    data = np.load(perimeters / event / "states.npz")\n' + source[end:]
++    source = source.replace('    if hasattr(env, "_verify_sources"):\n        env._verify_sources(event)\n', '', 1)
++    return source
++
++
++def check(recipe, immutable, variant):
++    F, current = recipe
++    return F._input_recipe_contract(immutable, current, variant, F.FIXED_VARIANT_POLICY)
++
++
++@pytest.mark.parametrize("variant", ["d4_wind", "mixed_base"])
++def test_exact_source_and_exact_known_custody_insertions_preserve_consumed_recipe(recipe, variant):
++    F, current = recipe
++    exact = check(recipe, current, variant)
++    historical = check(recipe, F._source_blob(F.REPO, "research/forecast-v2/scripts/pipeline.py",
++        "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439"), variant)
++    assert exact["functions"]["available"]["immutable_ast_sha256"] == exact["functions"]["available"]["current_ast_sha256"]
++    assert historical["functions"]["perimeter_samples"]["current_normalization"] == ["EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"]
++    assert "CONDITIONAL" in historical["evidence"]
++    assert historical["functions"]["kriged_samples"]["consumed"] is (variant == "mixed_base")
++
++
++def old_utc_and_key(source):
++    F = module()
++    return F._source_blob(F.REPO, "research/forecast-v2/scripts/pipeline.py",
++        "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978")
++
++
++def test_real_unfloored_utc_label_recipe_is_never_waived_for_a_mixed_fit(recipe):
++    F, current = recipe
++    old = old_utc_and_key(current)
++    pure = check(recipe, old, "base")
++    assert pure["functions"]["kriged_samples"]["consumed"] is False
++    with pytest.raises(ValueError, match="whole-pipeline source version"):
++        check(recipe, old, "mixed_base")
++    old_new_key = old.replace('kriged_first', 'kriged_utc_v2_first')
++    with pytest.raises(ValueError, match="whole-pipeline source version"):
++        check(recipe, old_new_key, "mixed_base")
++
++
++@pytest.mark.parametrize("mutation", ["available_subset", "model_hidden", "perimeter_subset", "endpoint", "crop", "custody_side_effect"])
++def test_real_consumed_event_sample_model_or_label_changes_still_refuse(recipe, mutation):
++    F, current = recipe
++    changes = {
++        "available_subset": ('return [e for e in events if e in known', 'return [e for e in events[:1] if e in known'),
++        "model_hidden": ('StructuredKernelModel(len(names), 9, hidden, 0.0', 'StructuredKernelModel(len(names), 9, 1, 0.0'),
++        "perimeter_subset": ('for i, j, hours in consecutive_intervals(times, 48.0):', 'for i, j, hours in consecutive_intervals(times, 24.0):'),
++        "endpoint": ('initial, endpoint = states[i], states[j]', 'initial, endpoint = states[i], states[i]'),
++        "crop": ('result.append(cropped(sample) if crop else sample)', 'result.append(sample)'),
++        "custody_side_effect": ('    data = np.load(states_path, allow_pickle=False)', '    states_path = perimeters / event / "other.npz"\n    data = np.load(states_path, allow_pickle=False)'),
++    }
++    before, after = changes[mutation]
++    assert before in current
++    with pytest.raises(ValueError, match="whole-pipeline source version"):
++        check(recipe, current.replace(before, after, 1), "base")
++
++
++def extracted(F, source, name, namespace):
++    code = "from __future__ import annotations\n" + ast.unparse(F._function(source, name))
++    exec(compile(code, "synthetic_source_only", "exec"), namespace)
++    return namespace[name]
++
++
++def test_legacy_mixed_cache_key_and_utc_code_are_not_executed_in_pure_fit(recipe, tmp_path):
++    F, current = recipe
++    args = SimpleNamespace(max_fit_intervals_per_fire=3, work=tmp_path, perimeters=tmp_path,
++                           data_root=tmp_path)
++    all_calls = []
++    for source in (old_utc_and_key(current), current):
++        calls = []
++        def loader(work, name, builder):
++            calls.append(name); return builder()
++        def kriged(*args, **kwargs): pytest.fail("Pure recipe reached an unconsumed kriged branch")
++        function = extracted(F, source, "fit_samples", dict(load_or_build=loader,
++            perimeter_samples=lambda *args, **kwargs: ["first", "second", "third"], kriged_samples=kriged,
++            SPLIT=dict(fit=dict(korean_kriged_only=["KR_SYNTHETIC"]))))
++        assert function(args, ["US_SYNTHETIC"], object(), mixed=False) == ["first", "second", "third"]
++        all_calls.append(calls)
++    assert all_calls == [["perimeter_crop_first3_US_SYNTHETIC"]] * 2
++
++
++def sample_namespace():
++    from wildfire.survival import PerimeterSample, consecutive_intervals, ages_from_states, kriging_weight
++    return dict(np=np, pd=pd, Path=Path, json=json, math=math, PerimeterSample=PerimeterSample,
++                consecutive_intervals=consecutive_intervals, ages_from_states=ages_from_states, kriging_weight=kriging_weight,
++                cropped=lambda value: value,
++                sha256=lambda path: hashlib.sha256(path.read_bytes()).hexdigest())
++
++
++def environment():
++    return SimpleNamespace(available_at=lambda *args: True, at=lambda *args: np.ones((2, 2, 2)),
++                           residence=lambda *args: np.full((2, 2), 6.), _verify_sources=lambda *args: None)
++
++
++def test_current_and_historical_perimeter_functions_reproduce_identical_authenticated_samples(recipe, tmp_path):
++    F, current = recipe
++    event = "US_SYNTHETIC"; path = tmp_path / event / "states.npz"; path.parent.mkdir()
++    states = np.zeros((3, 2, 2), bool); states[:, 0, 0] = True; states[1:, 0, 1] = True
++    np.savez_compressed(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-02T00:00:00Z"]), states=states)
++    manifest = dict(events={event: dict(states_sha256=hashlib.sha256(path.read_bytes()).hexdigest())})
++    (tmp_path / "PERIMETER_MANIFEST.json").write_text(json.dumps(manifest))
++    samples = []
++    for source in (without_custody(current), current):
++        function = extracted(F, source, "perimeter_samples", sample_namespace())
++        samples.append(function(event, tmp_path, environment(), crop=True, max_intervals=3))
++    assert len(samples[0]) == len(samples[1]) == 2
++    assert F.sample_list_identity(samples[0]) == F.sample_list_identity(samples[1])
++
++
++def test_unfloored_utc_recipe_has_an_actual_synthetic_counterexample_not_a_naming_only_difference(recipe, tmp_path):
++    import rasterio
++    from affine import Affine
++    F, current = recipe
++    event = "KR_SYNTHETIC"; region = tmp_path / "regions" / event; region.mkdir(parents=True)
++    for filename, array in [("arrival_time_hours.tif", np.array([[0., .25], [11.75, 13.]], dtype=np.float32)),
++                             ("kriging_std_hours.tif", np.ones((2, 2), dtype=np.float32))]:
++        with rasterio.open(region / filename, "w", driver="GTiff", count=1, height=2, width=2, dtype="float32",
++                           transform=Affine(375, 0, 500000, 0, -375, 5000000), crs="EPSG:32610") as out:
++            out.write(array, 1)
++    (tmp_path / "events.json").write_text(json.dumps([dict(id=event, t0_utc="2020-01-01T00:30:00Z",
++        start_utc="2019-12-31T23:00:00Z", end_utc="2020-01-03T00:00:00Z")]))
++    outputs = []
++    for source in (old_utc_and_key(current), current):
++        function = extracted(F, source, "kriged_samples", sample_namespace())
++        outputs.append(function(event, tmp_path, environment()))
++    assert len(outputs[0]) == 2 and len(outputs[1]) == 1
++    assert F.sample_list_identity(outputs[0]) != F.sample_list_identity(outputs[1])
++    with pytest.raises(ValueError): check(recipe, old_utc_and_key(current), "mixed_base")
++
++
++@pytest.mark.parametrize("change", ["default", "default_side_effect", "decorator", "returns", "annotation"])
++def test_unused_kriged_body_does_not_waive_definition_time_header_effects(recipe, change):
++    F, current = recipe
++    original = F._function(current, "kriged_samples")
++    definition = ast.parse(ast.unparse(original)).body[0]
++    if change == "default": definition.args.kw_defaults[0] = ast.Constant(11.)
++    if change == "default_side_effect": definition.args.kw_defaults[0] = ast.Call(ast.Name("unlogged_definition_effect", ast.Load()), [], [])
++    if change == "decorator": definition.decorator_list = [ast.Name("unlogged_decorator", ast.Load())]
++    if change == "returns": definition.returns = ast.Name("DifferentReturnAnnotation", ast.Load())
++    if change == "annotation": definition.args.args[0].annotation = ast.Name("DifferentArgumentAnnotation", ast.Load())
++    lines = current.splitlines(keepends=True)
++    changed = ''.join(lines[:original.lineno - 1]) + ast.unparse(definition) + '\n' + ''.join(lines[original.end_lineno:])
++    with pytest.raises(ValueError, match="whole-pipeline source version"):
++        check(recipe, changed, "base")
++
++
++def test_custody_equivalence_is_conditional_and_legacy_did_not_enforce_the_new_manifest_check(recipe, tmp_path):
++    F, current = recipe
++    event = "US_SYNTHETIC"; path = tmp_path / event / "states.npz"; path.parent.mkdir()
++    states = np.zeros((2, 2, 2), bool); states[:, 0, 0] = True
++    np.savez_compressed(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z"]), states=states)
++    (tmp_path / "PERIMETER_MANIFEST.json").write_text(json.dumps(dict(events={event: dict(states_sha256="0" * 64)})))
++    old = extracted(F, without_custody(current), "perimeter_samples", sample_namespace())
++    guarded = extracted(F, current, "perimeter_samples", sample_namespace())
++    assert len(old(event, tmp_path, environment(), crop=True)) == 1
++    with pytest.raises(ValueError, match="Perimeter reference identity differs"):
++        guarded(event, tmp_path, environment(), crop=True)
++    proof = check(recipe, old_utc_and_key(current), "base")
++    assert proof["evidence"] == "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"
++
++
++@pytest.mark.parametrize("mutation", ["consumed_else", "loader", "margin", "cropped", "module_reassignment"])
++def test_five_independent_review_mutations_are_unknown_whole_producers(recipe, mutation):
++    F, current = recipe
++    tree = ast.parse(current)
++    if mutation == "consumed_else":
++        node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "fit_samples")
++        next(n for n in node.body if isinstance(n, ast.If) and ast.unparse(n.test) == 'mixed').orelse = ast.parse('samples = samples[:1]').body
++    if mutation == "loader":
++        node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "load_or_build")
++        node.body = ast.parse('return builder()[:1]').body
++    if mutation == "margin":
++        node = next(n for n in tree.body if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'MARGIN' for t in n.targets))
++        node.value = ast.Constant(0)
++    if mutation == "cropped":
++        node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "cropped")
++        node.body = ast.parse('return sample').body
++    if mutation == "module_reassignment": tree.body += ast.parse('perimeter_samples = lambda *a, **k: []').body
++    changed = ast.unparse(ast.fix_missing_locations(tree))
++    with pytest.raises(ValueError, match="whole-pipeline source version"):
++        check(recipe, changed, "base")
++
++
++def test_consumed_else_is_not_stripped_even_by_the_internal_normalizer(recipe):
++    F, current = recipe
++    node = ast.parse(ast.unparse(F._function(current, 'fit_samples'))).body[0]
++    next(n for n in node.body if isinstance(n, ast.If) and ast.unparse(n.test) == 'mixed').orelse = ast.parse('samples = samples[:1]').body
++    with pytest.raises(ValueError, match="without an else"):
++        F._normalized_input_recipe(node, 'fit_samples', pure=True)
++    args = SimpleNamespace(max_fit_intervals_per_fire=0, work=Path('SYNTHETIC'), perimeters=Path('SYNTHETIC'), data_root=Path('SYNTHETIC'))
++    namespace = dict(load_or_build=lambda w, n, builder: builder(), perimeter_samples=lambda *a, **k: ['first','second'])
++    fn = extracted(F, ast.unparse(node), 'fit_samples', namespace)
++    assert fn(args, ['US_SYNTHETIC'], None, mixed=False) == ['first']
++    fn = extracted(F, current, 'fit_samples', namespace)
++    assert fn(args, ['US_SYNTHETIC'], None, mixed=False) == ['first','second']
++
++
++def test_closed_actual_current_source_profile_recomputes_every_source_byte(recipe):
++    F, current = recipe
++    proof = F._verified_producer_version(F.REPO, F._RECIPE_CURRENT_BASELINE, 'burnout_spotting_seed0_flaming_only')
++    assert proof['verified_source_files'] == 61
++    assert proof['closure_sha256'] == F.object_sha(F._RECIPE_CURRENT_BASELINE)
++    assert 'CONDITIONAL' in proof['evidence']
++
++
++def test_caller_hash_assertion_cannot_substitute_for_the_actual_source_bytes(recipe, monkeypatch):
++    F, current = recipe
++    real = F._source_blob
++    victim = 'forecast/wildfire/models.py'
++    def bad(root, relative, expected):
++        blob = real(root, relative, expected)
++        return blob + '\n# unexpected actual bytes\n' if relative == victim else blob
++    monkeypatch.setattr(F, '_source_blob', bad)
++    with pytest.raises(ValueError, match="Actual immutable producer bytes differ"):
++        F._verified_producer_version(F.REPO, F._RECIPE_CURRENT_BASELINE, 'burnout_spotting_seed0_flaming_only')
++
++
++def test_unknown_whole_dependency_version_and_wrong_phase_refuse_before_loading_source(recipe, monkeypatch):
++    F, current = recipe
++    changed = dict(F._RECIPE_CURRENT_BASELINE); changed['forecast/wildfire/models.py'] = '0' * 64
++    monkeypatch.setattr(F, '_source_blob', lambda *a: pytest.fail('Unknown producer reached its source reader'))
++    with pytest.raises(ValueError, match="whole-producer source closure"):
++        F._verified_producer_version(F.REPO, changed, 'burnout_spotting_seed0_flaming_only')
++    with pytest.raises(ValueError, match="whole-producer source closure"):
++        F._verified_producer_version(F.REPO, F._RECIPE_CURRENT_BASELINE, 'mixed_base_seed0')
++
++
++def copied_baseline(F, target):
++    import shutil
++    for relative in F._RECIPE_CURRENT_BASELINE:
++        p = target / relative; p.parent.mkdir(parents=True, exist_ok=True)
++        shutil.copyfile(F.REPO / relative, p)
++    path = target / 'research/forecast-v2/SPLIT.json';shutil.copyfile(F.REPO / 'research/forecast-v2/SPLIT.json',path)
++    shutil.copytree(F.REPO / 'research/forecast-v2/source_snapshots', target / 'research/forecast-v2/source_snapshots')
++
++
++@pytest.mark.parametrize('relative', ['forecast/wildfire/models.py', 'research/forecast-v2/scripts/pipeline.py', 'research/forecast-v2/scripts/audit_fit_coverage.py'])
++def test_current_dependency_or_auditor_global_drift_cannot_hide_behind_preserved_historical_bytes(recipe, tmp_path, relative):
++    F, current = recipe
++    copied_baseline(F, tmp_path)
++    path = tmp_path / relative
++    path.write_text(path.read_text() + '\nUNREVIEWED_DEFINITION_TIME_VALUE = 1\n')
++    with pytest.raises(ValueError, match='Unreviewed current producer dependency|numerical/member identity dependency'):
++        F._verified_producer_version(tmp_path, F._RECIPE_CURRENT_BASELINE, 'burnout_spotting_seed0_flaming_only')
++
++
++def test_known_legacy_cache_loader_matches_only_for_authenticated_complete_values(recipe, tmp_path):
++    import pickle
++    from wildfire.survival import PerimeterSample
++    F, current = recipe
++    sample = PerimeterSample('SYNTHETIC', '2020-01-01T00:00:00Z', 1., np.ones((2,2,2)), np.zeros((2,2),bool),
++                             np.zeros((2,2),bool), np.ones((2,2),bool), np.ones((2,2)), np.zeros((2,2)))
++    samples = [sample]
++    path = tmp_path / 'samples/synthetic.pkl';path.parent.mkdir();path.write_bytes(pickle.dumps(samples))
++    ns = dict(Path=Path, pickle=pickle, json=json, pd=pd,
++        sha256=lambda p: hashlib.sha256(p.read_bytes()).hexdigest(),sample_list_identity=F.sample_list_identity)
++    calls = []
++    def builder(): calls.append(True); return samples
++    old = extracted(F, old_utc_and_key(current), 'load_or_build', dict(ns))
++    guarded = extracted(F, current, 'load_or_build', dict(ns))
++    assert F.sample_list_identity(old(tmp_path,'synthetic',builder)) == F.sample_list_identity(guarded(tmp_path,'synthetic',builder))
++    assert len(calls) == 1  # Legacy cache hit never invoked the source builder.
++    sample.environment = np.full((2,2,2), 9.)
++    corrupt = pickle.loads(path.read_bytes());corrupt[0].environment[:] = -1.;path.write_bytes(pickle.dumps(corrupt))
++    assert old(tmp_path,'synthetic',builder)[0].environment[0,0,0] == -1.
++    with pytest.raises(ValueError, match='Cached training samples differ'):
++        guarded(tmp_path,'synthetic',builder)
++
++
++def environment_class(F, source):
++    node = next(n for n in ast.parse(source).body if isinstance(n, ast.ClassDef) and n.name == 'Environment')
++    canonical = ast.parse(source)
++    channels = ast.literal_eval(next(n.value for n in canonical.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id == 'SOURCE_CHANNELS' for t in n.targets)))
++    namespace = dict(Path=Path, np=np, pd=pd, json=json, SOURCE_CHANNELS=channels,
++                     CLASSES={'biome.biome_class': list(range(1,15))},
++                     sha256=lambda p: hashlib.sha256(p.read_bytes()).hexdigest())
++    exec(compile('from __future__ import annotations\n'+ast.unparse(node),'synthetic-environment-only','exec'),namespace)
++    return namespace['Environment'], tuple(channels[:-1]+[f'biome.biome_class={i}' for i in range(1,15)])
++
++
++@pytest.mark.parametrize('cache_change', [None, 'values', 'schema'])
++def test_environment_rewrite_matches_only_authenticated_values_and_channel_schema(recipe, tmp_path, monkeypatch, cache_change):
++    import torch
++    import wildfire.data as D
++    F, current = recipe
++    old_cls,names = environment_class(F, old_utc_and_key(current));new_cls,_ = environment_class(F,current)
++    root = tmp_path/'inputs/environment';root.mkdir(parents=True)
++    event='SYNTHETIC';hour=pd.Timestamp('2020-01-01T00:00:00Z')
++    catalog=root/'events.json';catalog.write_text(json.dumps([dict(id=event,start_utc=hour.isoformat(),end_utc=(hour+pd.Timedelta(hours=1)).isoformat())]))
++    pins={'environment/events.json':hashlib.sha256(catalog.read_bytes()).hexdigest()}
++    raw=np.zeros((len(names),2,2),np.float32);raw[0]=20;raw[1]=3;raw[3]=1;raw[4]=60;raw[5]=1
++    calls=[]
++    class Dataset:
++        channel_names=names
++        def __enter__(self):return self
++        def __exit__(self,*args):return None
++        def __len__(self):return 1
++        def __getitem__(self,index):return dict(features=torch.from_numpy(raw[None]),feature_valid=torch.ones((1,*raw.shape),dtype=torch.bool))
++    def provider(*args,**kwargs):calls.append(True);return Dataset()
++    monkeypatch.setattr(D,'load_data',provider)
++    cache=tmp_path/'cache';cache.mkdir();path=cache/f'{event}_20200101T00.npz'
++    cached=raw.copy();cached_names=list(names)
++    if cache_change=='values':cached+=1
++    if cache_change=='schema':cached_names=cached_names[::-1]
++    np.savez_compressed(path,raw=cached,names=np.array(cached_names))
++    old=old_cls(root,cache);new=new_cls(root,cache,pins)
++    old_values=old.at(event,hour)
++    assert calls==[]  # Historical Environment.at used cached values directly.
++    if cache_change:
++        with pytest.raises(ValueError,match='Cached environmental values differ'):
++            new.at(event,hour)
++        if cache_change=='schema':assert old.names != names
++    else:
++        np.testing.assert_array_equal(old_values,new.at(event,hour))
++        assert old.names==new.names==names and len(calls)==1
++        assert old.residence(event) is new.residence(event) is None
++
++
++def test_a_known_phase_cannot_be_relabelled_pure_to_skip_its_actual_mixed_branch(recipe):
++    F,current = recipe
++    with pytest.raises(ValueError,match='exact intended phase, variant and stage'):
++        F._schedule_contract(F.REPO,F._RECIPE_CURRENT_BASELINE,stage='final',variant='base',phase_id='burnout_spotting_seed0_flaming_only')
+--- a/forecast/tests/test_blind_forecast_protocol.py
++++ b/forecast/tests/test_blind_forecast_protocol.py
+@@ -487,6 +487,34 @@
+     spec = importlib.util.spec_from_file_location("fit_coverage_fixture", path)
+     module = importlib.util.module_from_spec(spec)
+     spec.loader.exec_module(module)
++    return _synthetic_recipe_boundary(module)
++
++
++_SYNTHETIC_RECIPE_VERSIONS = {}
++
++
++def _synthetic_recipe_boundary(module):
++    """Use explicit fixture-local reviewed pins, never auto-admit later mutation."""
++    if getattr(module, "_synthetic_recipe_bound", False):
++        return module
++    real = module._verified_producer_version
++    def verify(root, source, phase_id):
++        fixture = _SYNTHETIC_RECIPE_VERSIONS.get(str(Path(root).resolve()))
++        if fixture is None:
++            # Relocation preserves the exact already reviewed source closure.
++            fixture = next((item for item in _SYNTHETIC_RECIPE_VERSIONS.values()
++                            if module.object_sha(source) in item["versions"]), None)
++        if fixture is None:
++            return real(root, source, phase_id)
++        original = module._RECIPE_SOURCE_VERSIONS, module._RECIPE_CURRENT_BASELINE
++        module._RECIPE_SOURCE_VERSIONS = {**original[0], **fixture["versions"]}
++        module._RECIPE_CURRENT_BASELINE = fixture["current"]
++        try:
++            return real(root, source, phase_id)
++        finally:
++            module._RECIPE_SOURCE_VERSIONS, module._RECIPE_CURRENT_BASELINE = original
++    module._verified_producer_version = verify
++    module._synthetic_recipe_bound = True
+     return module
+ 
+ 
+@@ -496,6 +524,11 @@
+     import rasterio
+     from affine import Affine
+     coverage = fit_coverage_module(freezer)
++    _synthetic_recipe_boundary(freezer.F)
++    # The registry dynamically loads a fresh auditor; retain its real verifier
++    # with this same explicit synthetic source-version catalog.
++    monkeypatch.setattr(freezer, "verified_fit_coverage", lambda root, run, selection:
++        fit_coverage_module(freezer).verify_coverage(root, run, selection.get("fit_coverage")))
+     root = tmp_path / "freeze-repo"
+     run = root / "forecast/runs/synthetic"
+     inputs, caches = tmp_path / "synthetic-fit-inputs", tmp_path / "synthetic-fit-work"
+@@ -550,9 +583,12 @@
+     extraction.write_text(json.dumps(dict(members=[dict(path=str(p.relative_to(inputs)), sha256=coverage.sha(p))
+                                                    for p in (inputs / "environment").rglob("*") if p.is_file()])))
+     (inputs / "BASELINE_TERRAIN_MANIFEST.json").write_text(json.dumps(dict(files=[])))
+-    (evidence / "RUN_PROTOCOL.json").write_text(json.dumps(dict(data_manifest_sha256=coverage.sha(extraction))))
++    (evidence / "RUN_PROTOCOL.json").write_text(json.dumps(dict(data_manifest_sha256=coverage.sha(extraction),
++        split_sha256=coverage.sha(evidence / "SPLIT.json"))))
+     expected = coverage.expected_membership(root, inputs)
+     source = coverage.producer_sources(root)
++    monkeypatch.setitem(_SYNTHETIC_RECIPE_VERSIONS, str(root.resolve()), dict(current=dict(source),
++        versions={coverage.object_sha(source): [phase["phase_id"] for phase in coverage.current_phase_identity()["phases"]]}))
+     groups, audit_rows = {}, []
+     for kind, ledger in expected["ledger"].items():
+         for event, entry in ledger.items():
+@@ -1191,7 +1227,7 @@
+     receipt = json.loads(receipt_path.read_text())
+     receipt["source_sha256"]["forecast/wildfire/survival.py"] = module.sha(source_path)
+     receipt_path.write_text(json.dumps(receipt))
+-    with pytest.raises(ValueError, match="actual indexed member"):
++    with pytest.raises(ValueError, match="actual indexed member|Unreviewed current producer dependency|Unreviewed whole-producer"):
+         module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+ 
+ 
+@@ -1266,6 +1302,9 @@
+     snapshot.parent.mkdir(parents=True)
+     snapshot.write_bytes(original)
+     source.write_bytes(original + b"\n# Later metadata-only source comment, never attributed to old runtime.\n")
++    # This synthetic comment-only current version is explicitly reviewed here;
++    # its historical producer remains pinned to the original archived bytes.
++    _SYNTHETIC_RECIPE_VERSIONS[str(root.resolve())]["current"]["forecast/wildfire/survival.py"] = module.sha(source)
+     audited = module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+     assert audited["variants"]["base"]["source_schedule_contract"]["survival_sha256"] == digest
+     assert audited["source_sha256"]["forecast/wildfire/survival.py"] != digest
+@@ -1313,7 +1352,7 @@
+     receipt = json.loads(receipt_path.read_text())
+     receipt["source_sha256"]["research/forecast-v2/scripts/pipeline.py"] = module.sha(path)
+     receipt_path.write_text(json.dumps(receipt))
+-    with pytest.raises(ValueError, match="mixed extra-source regime"):
++    with pytest.raises(ValueError, match="mixed extra-source regime|Unreviewed current producer dependency|Unreviewed whole-producer"):
+         module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+ 
+ 
