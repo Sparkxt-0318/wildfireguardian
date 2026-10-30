@@ -21,7 +21,8 @@ def _inputs(member, fuel):
     if not isinstance(member,dict) or "ignition_time_s" not in member:
         raise ValueError("member mapping with ignition_time_s required")
     tau=np.asarray(member["ignition_time_s"],dtype=float)
-    if tau.ndim!=2 or min(tau.shape)<2:raise UnsupportedGeometry("at least two cell centres per axis are needed to identify a front")
+    if tau.ndim!=2 or min(tau.shape)<1:raise ValueError("nonempty ignition matrix required")
+    if min(tau.shape)<2 and not np.isposinf(tau).all():raise UnsupportedGeometry("at least two cell centres per axis are needed to identify a front")
     for name in ("unknown_mask","valid"):
         if name in member:
             mask=np.asarray(member[name])
@@ -72,7 +73,7 @@ def flux_at_points(points_xy,times_s,member,grid,fuel=None,receiver="worst_case"
         for i,point in enumerate(points):
             values=[]
             for segment in segments:
-                values.append(rectangle_flux(point,segment.start_xy,segment.end_xy,segment.flame_height_m,float(power[segment.cell]),tip_shift_xy=segment.tip_shift_xy,receiver=receiver,transmissivity=trans))
+                values.append(rectangle_flux(point,segment.start_xy,segment.end_xy,segment.flame_height_m,float(power[segment.cell]),tip_shift_xy=segment.tip_shift_xy,receiver=receiver,transmissivity=trans,receiver_height_m=f.get("receiver_height_m",0.)))
             output[i,j]=math.fsum(values)
     return output
 
@@ -95,6 +96,7 @@ def flux_enclosure(box_xy,interval_s,member,grid,fuel=None):
     if box.shape!=(4,) or interval.shape!=(2,) or not np.isfinite(box).all() or not np.isfinite(interval).all() or box[0]>box[1] or box[2]>box[3] or interval[0]>interval[1]:
         raise ValueError("box (xmin,xmax,ymin,ymax) and ordered interval required")
     tau,residence,power,_,f=_inputs(member,fuel)
+    if np.isposinf(tau).all():return 0.,0.
     if "never_time_s" in f:tau=np.where(np.isposinf(tau),float(f["never_time_s"]),tau)
     if np.any(~np.isfinite(tau)) and f.get("unsupported_policy","raise")!="exclude":
         raise UnsupportedGeometry("unknown or infinite-boundary cells do not identify a finite front")

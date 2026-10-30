@@ -119,6 +119,8 @@ def front_segments(ignition_time_s, t, grid, residence_s=11.52, *, fuel=None):
         for col in range(w-1):
             cells = [(row,col),(row,col+1),(row+1,col+1),(row+1,col)]
             val = np.array([tau[c] for c in cells])
+            if np.isposinf(val).all():
+                continue
             if not np.isfinite(val).all():
                 out.unsupported_cells.extend(c for c,v in zip(cells,val) if not np.isfinite(v))
                 continue

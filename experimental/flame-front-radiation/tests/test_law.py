@@ -89,6 +89,11 @@ class FrontGeometry(unittest.TestCase):
         member={"ignition_time_s":np.zeros((3,3)),"present_fire_representation":"SCALAR_MAX_REMAINING_ENCLOSURE"}
         with self.assertRaises(W.UnsupportedGeometry):W.flux_at_points([[1,1]],[1],member,(1,0,0,0,1,0))
 
+    def test_known_no_ignition_is_zero(self):
+        member={"ignition_time_s":np.full((3,3),np.inf)}
+        np.testing.assert_array_equal(W.flux_at_points([[1,1]],[1],member,(1,0,0,0,1,0)),[[0.]])
+        self.assertEqual(W.flux_enclosure((0,1,0,1),(0,5),member,(1,0,0,0,1,0)),(0.,0.))
+
     def test_shear_planar(self):
         grid=W.AffineGrid((2,1,10,0,3,20));rows,cols=np.indices((4,4))
         tau=(2*(cols+.5)+(rows+.5)+10)/.5
@@ -136,6 +141,16 @@ class EnclosuresAndDose(unittest.TestCase):
         self.assertEqual(fireline_intensity(.5),9304)
         h,a,s=flame_geometry(float(flame_length(9304)),(0,0));self.assertEqual(a,0);self.assertEqual(s,(0,0))
         self.assertGreater(h,0)
+
+    def test_full_journey_gate_stays_closed(self):
+        import importlib.util
+        path=Path(__file__).resolve().parents[1]/"adapters/journey_check.py"
+        spec=importlib.util.spec_from_file_location("gated_journey_check",path)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        with self.assertRaises(NotImplementedError):module.evaluate_decision({},radiation_law="v2")
+        with self.assertRaises(ValueError):module.evaluate_decision({},radiation_law="v1")
+        expected={"status":"unresolved"}
+        self.assertIs(module.evaluate_decision({},v1_evaluator=lambda decision:expected),expected)
 
 
 if __name__=="__main__":unittest.main()

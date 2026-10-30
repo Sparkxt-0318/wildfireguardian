@@ -81,13 +81,13 @@ def rectangle_vertices(start_xy,end_xy,height_m,tip_shift_xy=(0.,0.)):
     return np.array([[*p,0.],[*q,0.],[*(q+shift),h],[*(p+shift),h]])
 
 
-def rectangle_flux(point_xy,start_xy,end_xy,height_m,emissive_power_kw_m2=100.,*,tip_shift_xy=(0.,0.),receiver="worst_case",transmissivity=1.):
+def rectangle_flux(point_xy,start_xy,end_xy,height_m,emissive_power_kw_m2=100.,*,tip_shift_xy=(0.,0.),receiver="worst_case",transmissivity=1.,receiver_height_m=0.):
     e=float(emissive_power_kw_m2);trans=float(transmissivity)
     if not math.isfinite(e) or e<0 or not math.isfinite(trans) or not 0<=trans<=1:
         raise ValueError("emissive power nonnegative and transmissivity in [0,1] required")
     if height_m==0 or np.array_equal(start_xy,end_xy):return 0.0
     vertices=rectangle_vertices(start_xy,end_xy,height_m,tip_shift_xy)
-    return e*trans*polygon_view_factor(vertices,[*point_xy,0.],receiver)
+    return e*trans*polygon_view_factor(vertices,[*point_xy,float(receiver_height_m)],receiver)
 
 
 def infinite_wall_view_factor(height_m,distance_m):
@@ -100,10 +100,10 @@ def infinite_wall_view_factor(height_m,distance_m):
     return .5*h/math.hypot(h,d)
 
 
-def finite_panel_view_factor(width_m,height_m,distance_m,*,receiver="vertical_facing(0)"):
+def finite_panel_view_factor(width_m,height_m,distance_m,*,receiver="vertical_facing(0)",receiver_height_m=0.):
     w=float(width_m)
     if not math.isfinite(w) or w<=0:raise ValueError("width must be positive")
-    return polygon_view_factor(rectangle_vertices((distance_m,-w/2),(distance_m,w/2),height_m),(0,0,0),receiver)
+    return polygon_view_factor(rectangle_vertices((distance_m,-w/2),(distance_m,w/2),height_m),(0,0,float(receiver_height_m)),receiver)
 
 
 def omitted_absolute_bound(emissive_powers_kw_m2):
