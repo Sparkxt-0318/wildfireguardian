@@ -83,10 +83,25 @@ fresh pinned interpreter. A cohort scorer's HOLD exit is preserved and does not
 cancel the other mandatory cohort. The original a04 comparison case and source
 remain historical; all twelve a06 cutoffs form one current source phase.
 
-The full forecast regression passed 3,259 tests. The future admission repair
-passed 314 targeted new and existing blind controls; the report repair passed
-20 targeted controls and an independent 21-control arithmetic/gate review.
-These software checks are distinct from scientific and external-release gates.
+The latest integrated forecast regression passed 3,373 tests, and the release
+verifier passed all 367 frozen file identities. Its source capture remained
+unchanged throughout the gate. Earlier 3,259-test and targeted reviews retain
+separate receipts; their counts are not pooled. These software checks are
+distinct from scientific and external-release gates.
+
+A separately reviewed source-recipe compatibility candidate passed a
+provisional audit of the actual artifacts: all 21 intended development phases,
+six pure final sets of 1,303 samples, and the mixed final set of 4,391 samples.
+The exact candidate and all 61 active comparison sources remained unchanged.
+The exposed record is `PROVISIONAL_NOT_FOR_REGISTRY`; its compressed raw result
+is diagnostic evidence, with the actual executed candidate identity recorded
+separately from the checked live auditor. Old-main refusal was tested only on
+the exposed wrapper, not the raw diagnostic. The original live audit HOLD
+remains authoritative until the twelve-cutoff source phase closes, the reviewed
+candidate becomes the live auditor, and a new full software gate and live
+coverage audit pass. No model selection, blind registry or heldout inference
+has run. `review/provisional_coverage_F65/` preserves the exact receipt and
+qualification.
 
 ## Mathematical and validation boundaries
 

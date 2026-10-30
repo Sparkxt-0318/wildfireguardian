@@ -46,9 +46,11 @@ bytes, this draft is not ready for registration.
   8 hours, the single best dilation rate selected using fit fires only, and
   training-fitted logistic hand features. The registry pins the chosen rate,
   logistic parameters, normalization and every candidate checkpoint.
-- Existing FARSITE deterministic scenario results may be a separate secondary
-  comparator when exact 2026 inputs and an authenticated native scenario
-  exist. Their absence cannot remove a case from the primary comparison.
+- The supplied 2024 FARSITE deterministic scenarios belong to the separate
+  current retrospective supplement. This registered future test has no FARSITE
+  prediction column or discretionary native-scenario addition. Any future
+  native scenario study requires its own prospectively specified analysis;
+  it cannot change this test's cohort, baselines or primary comparison.
 
 Inspecting 2024 results never permits a checkpoint, hyperparameter or primary
 candidate change for this protocol. Any such change makes a new prospective
