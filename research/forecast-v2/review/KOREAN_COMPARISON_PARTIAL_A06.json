@@ -1,0 +1,192 @@
+{
+  "status": "PARTIAL_DEVELOPMENT_COMPARISON_NOT_FINAL_STUDY",
+  "cases_complete": 6,
+  "cases_expected": 12,
+  "cutoff_count": 6,
+  "country": "KR",
+  "evidence_class": "Real fit-year covariates and kriged reconstruction labels; not observed NIROPS truth",
+  "by_horizon": {
+    "1": {
+      "executed_cutoffs": 6,
+      "field_status_counts": {
+        "COMPARABLE": 6
+      },
+      "reference_status_counts": {
+        "SCORED": 6
+      },
+      "shared_cells_by_cutoff": [
+        2519,
+        2104,
+        1651,
+        437,
+        323,
+        75
+      ],
+      "active_cells_by_cutoff": [
+        206,
+        377,
+        426,
+        249,
+        220,
+        71
+      ],
+      "active_rmse_available_cutoffs": 6,
+      "active_rmse_median": 0.0029519336530938745
+    },
+    "3": {
+      "executed_cutoffs": 6,
+      "field_status_counts": {
+        "COMPARABLE": 6
+      },
+      "reference_status_counts": {
+        "SCORED": 5,
+        "UNAVAILABLE_REFERENCE_SUPPORT": 1
+      },
+      "shared_cells_by_cutoff": [
+        2063,
+        1907,
+        1497,
+        272,
+        237,
+        8
+      ],
+      "active_cells_by_cutoff": [
+        144,
+        315,
+        400,
+        151,
+        170,
+        6
+      ],
+      "active_rmse_available_cutoffs": 6,
+      "active_rmse_median": 0.004127968335524201
+    },
+    "6": {
+      "executed_cutoffs": 6,
+      "field_status_counts": {
+        "COMPARABLE": 5,
+        "UNAVAILABLE_SHARED_SUPPORT": 1
+      },
+      "reference_status_counts": {
+        "SCORED": 5,
+        "UNAVAILABLE_REFERENCE_SUPPORT": 1
+      },
+      "shared_cells_by_cutoff": [
+        1323,
+        1393,
+        1160,
+        90,
+        103,
+        0
+      ],
+      "active_cells_by_cutoff": [
+        52,
+        180,
+        291,
+        33,
+        69,
+        0
+      ],
+      "active_rmse_available_cutoffs": 5,
+      "active_rmse_median": 0.005579318851232529
+    },
+    "12": {
+      "executed_cutoffs": 6,
+      "field_status_counts": {
+        "COMPARABLE": 3,
+        "UNAVAILABLE_SHARED_SUPPORT": 3
+      },
+      "reference_status_counts": {
+        "UNAVAILABLE_REFERENCE_SUPPORT": 4,
+        "SCORED": 2
+      },
+      "shared_cells_by_cutoff": [
+        9,
+        81,
+        108,
+        0,
+        0,
+        0
+      ],
+      "active_cells_by_cutoff": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "active_rmse_available_cutoffs": 0,
+      "active_rmse_median": null
+    },
+    "24": {
+      "executed_cutoffs": 6,
+      "field_status_counts": {
+        "UNAVAILABLE_SHARED_SUPPORT": 6
+      },
+      "reference_status_counts": {
+        "UNAVAILABLE_REFERENCE_SUPPORT": 6
+      },
+      "shared_cells_by_cutoff": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "active_cells_by_cutoff": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "active_rmse_available_cutoffs": 0,
+      "active_rmse_median": null
+    }
+  },
+  "source_receipts": [
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case00.json",
+      "receipt_sha256": "afcb80cab500e6138563cac6f9fcb5f8a1b65489d5a0fa20d99175e7f7bb2743",
+      "output_sha256": "e90350c3b8baae0033628f2ebbfaf928d6f7b196ae31962cbec58d5e82fde9c7"
+    },
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case01.json",
+      "receipt_sha256": "b388aed81718f959c1be0d9b345c168c7aeb5e5e315c9c6755844eda43cd29ea",
+      "output_sha256": "e729f9bd74a45dc2b66d8613f17029daf5e4d8bb9b10e17527ce8dfdca56e57c"
+    },
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case02.json",
+      "receipt_sha256": "e63d089ad5a0e09f738ff6c767548906659d1811aa433d145b286a9770250809",
+      "output_sha256": "90a17899e2e06f36c3f8fc89aba3b28ea4306b6c94ee341bdfd3dcb5d42e7f90"
+    },
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case03.json",
+      "receipt_sha256": "616c4f44301419741167b50e7e4c2bee52321a592745f494285e96be31af7e86",
+      "output_sha256": "b985695d78318549ac113cddffd4a44203452aa1f7099a0489640e4653d600b3"
+    },
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case04.json",
+      "receipt_sha256": "db6a5c17801909b87631c789fb0ad106adf657a8da2c8ec8e2c160a513f35e48",
+      "output_sha256": "df96112f7ca5f23246d00ad7fc783aec019ce85b22924e8f13e78b6fc50ec0b6"
+    },
+    {
+      "receipt": "research/forecast-v2/executions/a06_compare_case05.json",
+      "receipt_sha256": "59932eb4e45dd2d8bb9dd65a013ae7214c3b7c6fec7894ac899cb677ca516a64",
+      "output_sha256": "3af8590c1be1b1b07b2c0c40647c3b4d1a3d7e87d9c396fbde20147a147b1757"
+    }
+  ],
+  "limits": [
+    "Six dependent cutoffs from3catalogevents; statistical independence is not asserted",
+    "Finite1024trajectory discrepancy includes Monte Carlo noise",
+    "Active means either probability>0.001; unavailable horizons never become zero RMSE",
+    "Uncached publicAPI fixed-horizon timings differ from cached fractional-backend timings",
+    "US6cutoffs and final66-row aggregation pending"
+  ],
+  "distinct_catalog_events": 3,
+  "active_threshold": 0.001,
+  "active_definition": "Cells where either forecast new-burn probability exceeds0.001; not physical flaming activity"
+}
