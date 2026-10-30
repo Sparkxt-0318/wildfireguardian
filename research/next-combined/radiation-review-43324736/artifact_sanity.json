@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "scope": "One fixed public counterexample, existing CSV arithmetic differences and byte comparisons; not an experimental or physical validation.",
+  "source_commit": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+  "counterexample": {
+    "point_kw_m2": 5.844308577232327e-26,
+    "enclosure_kw_m2": [
+      0.0,
+      5.865954053640389e-25
+    ]
+  },
+  "tables": [
+    {
+      "table": "MODEL_TABLE.csv",
+      "rows": 18,
+      "changed_flux_values": 10,
+      "max_absolute_flux_change_kw_m2": 1.4210854715202004e-14
+    },
+    {
+      "table": "TORNADO.csv",
+      "rows": 9,
+      "changed_flux_values": 4,
+      "max_absolute_flux_change_kw_m2": 1.7763568394002505e-15
+    },
+    {
+      "table": "INCOMPARABLE_DIAGNOSTICS.csv",
+      "rows": 9,
+      "changed_flux_values": 4,
+      "max_absolute_flux_change_kw_m2": 3.552713678800501e-15
+    }
+  ],
+  "figures": [
+    {
+      "name": "fig01_flux_vs_distance.png",
+      "byte_identical": true,
+      "sha256": "3bce782e4ea15030c4c6fcef99e0af53a95a45dd21b6f0e3aa18e3b1a86e8f42",
+      "pixel_dimensions": [
+        2160,
+        1020
+      ]
+    },
+    {
+      "name": "fig01_flux_vs_distance.svg",
+      "byte_identical": true,
+      "sha256": "8508b8f9b014a7761e70f1e49bfcfc7c1f8818c8e789009faedb4b9c879b2a91"
+    },
+    {
+      "name": "fig02_parameter_sweep.png",
+      "byte_identical": true,
+      "sha256": "602218dee52a0dfbd237c0054b15c4ffbf144db745c023691fb55b0a45ec16b2",
+      "pixel_dimensions": [
+        2160,
+        1080
+      ]
+    },
+    {
+      "name": "fig02_parameter_sweep.svg",
+      "byte_identical": true,
+      "sha256": "3763a6f850583021f34429eeec908b84a2b9a8f531a0386c4e28bf852bc709ba"
+    }
+  ]
+}

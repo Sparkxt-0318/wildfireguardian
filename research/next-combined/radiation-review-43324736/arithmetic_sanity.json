@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scope": "Fixed exact-rational software sanity checks only; no timing, universal proof, platform census, or physical validation.",
+  "source_commit": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+  "source_sha256": "2ec65356bee50e552d0958f42521e6a09f73d3acd4d17b4d7423f2b5530e5d02",
+  "passed_counts": {
+    "sqrt": 16,
+    "atan": 8,
+    "pi": 2,
+    "atan2": 8,
+    "lower_float": 8
+  }
+}

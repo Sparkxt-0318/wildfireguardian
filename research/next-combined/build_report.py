@@ -482,9 +482,58 @@ The repaired C software is available for draft review in [PR 86](https://github.
     print(json.dumps({"b_repair_checks": audit["checks"], "passed": audit["passed"], "state": b["status"]}))
 
 
+def extend_scoped_admission_clearance_and_math_review():
+    """Add final bounded software clearance without promoting a scientific gate."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path, required=True)
+    parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    out = args.out_dir
+    gates = json.loads((out / "GATES.json").read_text())
+    audit = json.loads((out / "audit/1b-final-admission-a6d15519.json").read_text())
+    assert audit["passed"] == audit["checks"] == 57
+    b = gates["track_evidence"]["1B"]
+    b["previous_fresh_admission_review"] = b.pop("software_review")
+    b["head"] = audit["track_head"]
+    b["status"] = "SCOPED_ADMISSION_REPAIRS_VERIFIED_FINAL_SELECTION_AND_NUMERICAL_EVIDENCE_PENDING"
+    b["software_review"] = audit
+    b["current_US2024_KR2025_admission_clearance"] = {"state": "PASS_SCOPED_SOFTWARE_ONLY", "preconditions": "Complete final checkpoint/baseline/input/source identities and selection must be frozen before assessment", "actual_heldout_predictions_or_scores_inspected": False}
+    b["future_2026_blind_protocol"] = "NOT_READY_PENDING_AUTHENTICATED_RAW_RELEASE_INVENTORY_EXCLUSIONS_AND_EXTERNAL_REGISTRATION"
+    inventory = json.loads((out / "radiation-review-43324736/SOURCE_INVENTORY.json").read_text())
+    gates["track_evidence"]["1A"]["separate_math_review_43324736"] = inventory
+    gates["open_work"][1] = "1B complete final fit/baseline/input/source selection freeze before qualified current-cohort assessment; future raw-release completeness remains separate"
+    gates["commands"].append({"command": "../venv-forecast/bin/python research/next-combined/audit_1b_final_admission.py --track-b ../audit-1b --out research/next-combined/audit/1b-final-admission-a6d15519.json", "exit_code": 0, "checks": 57, "passed": 57, "scope": "Tiny synthetic positive/negative controls only; no heldout input/prediction/score read and no heavy lease"})
+    (out / "GATES.json").write_text(json.dumps(gates, indent=2, allow_nan=False) + "\n")
+    text = (out / "README.md").read_text()
+    text = text.replace("Original five guard mechanisms repaired; 50/52 independent synthetic checks pass, with two fresh-assessment admissions open; no heldout scores inspected", "57/57 independent software admission checks pass at a6d15519; final fits, selection and numerical evidence pending; no heldout scores inspected")
+    text = text.replace("| HOLD; repair and independent review required before scoring |", "| Scoped software clearance; complete final identities and selection required before qualified assessment |")
+    text += '''
+
+## Scoped B admission clearance at a6d15519
+
+The separately pinned repair `a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d` passes all 57 independent synthetic admission checks, exit 0, in `audit/1b-final-admission-a6d15519.json`. The historical be678bb65 and 08ac32c7 failures and their producer scripts remain unchanged. The owner separately reports 21 targeted tests passed; these are not added to the independent count.
+
+The executed-baseline control first supplies matching frozen logistic, logistic-parameter and dilation bytes and passes; changing each actual consumed file separately then refuses. A finite three-cell control reaches all 16 model outputs and independently reconstructed support before the otherwise identical MC-NaN fixture raises the expected numerical-failure error. Both `logistic_features` and `logistic_predict` are mocked consistently for the synthetic fixture channel. An unrelated early channel or model-set error therefore cannot masquerade as verification of the deeper support guard. Earlier individual reference/coordinate/label/probability/source/checkpoint/receipt checks also pass. Full scoring scripts were directly read because their subtree is deliberately excluded from the graph; pipeline and blind-tool bytes are unchanged from the independently read 08 snapshot.
+
+This removes the two confirmed software-admission blockers for the qualified US2024/Korean2025 assessment, conditional on complete final model/baseline/source/input identities and selection being frozen first. It does not certify an actual assessment result, cache integrity for data not opened here, or the future 2026 blind protocol. No heldout data, predictions or scores were inspected, no heavy numerical lease was taken, and no fit or selection decision changed during this audit. Future release-inventory/exclusion and external-registration obligations remain NOT_READY.
+
+## Separate independent radiation math review at 43324736
+
+`radiation-review-43324736/` archives the independent review and its exact producer/result bytes for source `43324736fc5301a0444b01b918ef14a0372b1ec3`. The reviewer found no confirmed actionable defect in the bounded directed arithmetic/polygon and swept-hull argument under its declared domain. This is a source/proof review with fixed checks, not a machine-checked proof or universal census. The review explicitly assumes represented panel geometry and Python Decimal, exact rational and NumPy runtime behavior; it does not prove those runtimes or cover every malformed/extreme input or rounding environment.
+
+The reviewer reports 42 fixed arithmetic sanity checks, a reproduced public counterexample with point flux 5.844308577232327e-26 and upper 5.865954053640389e-25 kW/m2, retained-table arithmetic comparisons, and four byte-identical PNG/SVG files. This readiness audit read those artifacts and checked their source hash and counterexample values against the pinned source/result; it did not rerun their scripts or count them as its own new numerical study. `SOURCE_INVENTORY.json` preserves original paths/hashes and the execution layout needed to reproduce the verbatim archived scripts.
+
+This 433 math record is separate from the prior f9 radiation evidence row. The orchestrator's fresh 42-test suite was still queued when this record was added. The lower bound remains zero, a unit fallback remains outside the separation cone, whole-quad hull refinement need not converge, and adaptive precision has no uniform runtime/memory guarantee. An outer consumer still needs a budget and an unresolved state. Physics remains HOLD, with no new empirical accuracy, useful routing-certificate tightness, thermal threshold, law-v2 routing or operational-safety claim. All cross-track scientific experiments remain NOT_RUN_GATED.
+'''
+    (out / "README.md").write_text(text)
+    print(json.dumps({"b_admission": audit["status"], "checks": 57, "a_math_source": inventory["source_commit"], "physics": "HOLD"}))
+
+
 if __name__ == "__main__":
     main()
     extend_interim_report()
     extend_repaired_core_and_reader_audit()
     extend_reader_repair_and_preheldout_review()
     extend_b_repair_recheck()
+    extend_scoped_admission_clearance_and_math_review()

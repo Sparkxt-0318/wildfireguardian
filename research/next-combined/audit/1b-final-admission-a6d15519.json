@@ -1,0 +1,528 @@
+{
+  "scope": "Independent synthetic guard tests and mocked numerical producers only; no actual study inputs/predictions/scores inspected. This does not imply actual caches were corrupted.",
+  "track_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "torch": "2.5.1",
+  "script_sha256": "bf14bcdfbd5f026b261be4174c137b7676889fd6f88c1dc1934effc9f10eb8ab",
+  "source_sha256": {
+    "research/forecast-v2/scripts/score_cohorts.py": "2aa54de786c49714a5a346029aefe95f15d12e9646eac5737d30071d8764eaa9",
+    "research/forecast-v2/scripts/blind_test.py": "4ab30235aeef4383147822cdcc63460f4b20b515ce26a1ee4141551a018d429c",
+    "research/forecast-v2/scripts/pipeline.py": "1bfe658abc441c893531e35971dbc538370e9e4b7ed8ddc9f1c0fe45987ee658",
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+    "forecast/documents/preregistration_blind_test.md": "c4a61c7f7a8946e24ffa71a309268c9cd9280810992a34fa3b8d6ab2974145ea"
+  },
+  "checks": 57,
+  "passed": 57,
+  "observations": [
+    {
+      "id": "original_unauthenticated_cache_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Environmental sources need the frozen input manifest; a cache is not source evidence"
+      }
+    },
+    {
+      "id": "assessment_valid_16_model_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "assessment_receipt_initial_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: initial_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_endpoint_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: endpoint_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_environmental_snapshot_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: environmental_snapshot_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_reference_mask_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: reference_mask_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_initial_age_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: initial_age_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_residence_sha256",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: residence_sha256"
+      }
+    },
+    {
+      "id": "assessment_receipt_rectangle",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: rectangle"
+      }
+    },
+    {
+      "id": "assessment_receipt_reference_cells",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: reference_cells"
+      }
+    },
+    {
+      "id": "assessment_receipt_weather_hour",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipt differs from current verified source: weather_hour"
+      }
+    },
+    {
+      "id": "assessment_fractional_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Scored coordinates must be integer arrays"
+      }
+    },
+    {
+      "id": "assessment_integral_float_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Scored coordinates must be integer arrays"
+      }
+    },
+    {
+      "id": "assessment_out_of_range_col",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_negative_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_reordered_coordinates",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_duplicate_coordinate",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_subset",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_wrong_label",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact ordered source coordinates, full mask and endpoint labels are required"
+      }
+    },
+    {
+      "id": "assessment_missing_model",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "All and only the complete expected model probability columns are required"
+      }
+    },
+    {
+      "id": "assessment_extra_model",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "All and only the complete expected model probability columns are required"
+      }
+    },
+    {
+      "id": "assessment_nonfinite_probability",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered forecast must be finite in[0,1] on the exact same entries"
+      }
+    },
+    {
+      "id": "assessment_probability_above_one",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered forecast must be finite in[0,1] on the exact same entries"
+      }
+    },
+    {
+      "id": "assessment_probability_shape",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered forecast must be finite in[0,1] on the exact same entries"
+      }
+    },
+    {
+      "id": "assessment_wrong_complete_mask_hash",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Stored entries or complete common-support mask changed"
+      }
+    },
+    {
+      "id": "assessment_wrong_count",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case entry counts differ from actual source-bound entries"
+      }
+    },
+    {
+      "id": "fresh_full_support_16_model_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "fresh_mc_nonfinite_cannot_trim_deterministic_support",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "reason": "c651_mc numerical failure on declared valid support cannot trim the scored population"
+      }
+    },
+    {
+      "id": "blind_valid_source_bound_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "blind_fractional_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_integral_float_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_out_of_range_col",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_negative_row",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_reordered_coordinates",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_duplicate_coordinate",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_subset",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "blind_wrong_label",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Endpoint labels must match the pinned source at every scored coordinate"
+      }
+    },
+    {
+      "id": "blind_missing_model",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact registered prediction models and coordinate columns are required"
+      }
+    },
+    {
+      "id": "blind_extra_model",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact registered prediction models and coordinate columns are required"
+      }
+    },
+    {
+      "id": "blind_nonfinite_probability",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered probability must be finite, in [0,1] and cover the full common support"
+      }
+    },
+    {
+      "id": "blind_probability_above_one",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered probability must be finite, in [0,1] and cover the full common support"
+      }
+    },
+    {
+      "id": "blind_probability_shape",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every registered probability must be finite, in [0,1] and cover the full common support"
+      }
+    },
+    {
+      "id": "blind_receipt_source_identity",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Validated predictions must bind the exact source, checkpoints, inputs, registry and cohort"
+      }
+    },
+    {
+      "id": "blind_receipt_checkpoint_identity",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Validated predictions must bind the exact source, checkpoints, inputs, registry and cohort"
+      }
+    },
+    {
+      "id": "blind_receipt_input_identity",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Validated predictions must bind the exact source, checkpoints, inputs, registry and cohort"
+      }
+    },
+    {
+      "id": "blind_receipt_old_receipt",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Validated predictions must bind the exact source, checkpoints, inputs, registry and cohort"
+      }
+    },
+    {
+      "id": "blind_receipt_case_metadata",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Case receipts must match the exact validated cohort metadata"
+      }
+    },
+    {
+      "id": "original_direct_score_year1999_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Declared year or evidence class differs from source metadata"
+      }
+    },
+    {
+      "id": "blind_current_source_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Executed source identity changed: forecast/wildfire/example.py"
+      }
+    },
+    {
+      "id": "blind_current_checkpoint_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Frozen model or baseline bytes changed"
+      }
+    },
+    {
+      "id": "blind_current_input_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Blind input bytes changed: environment/events.json"
+      }
+    },
+    {
+      "id": "original_incomplete_cohort_all_promotion_flags_false",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "executed_baselines_matching_frozen_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "executed_baseline_logistic_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "The baseline bytes actually executed differ from frozen model selection"
+      }
+    },
+    {
+      "id": "executed_baseline_logistic_parameters_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "The baseline bytes actually executed differ from frozen model selection"
+      }
+    },
+    {
+      "id": "executed_baseline_dilation_choice_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "The baseline bytes actually executed differ from frozen model selection"
+      }
+    },
+    {
+      "id": "fresh_assessment_executed_baselines_match_frozen_selection",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "The baseline bytes actually executed differ from frozen model selection"
+      }
+    }
+  ],
+  "status": "PASS_SCOPED_ADMISSION_REPAIR"
+}
