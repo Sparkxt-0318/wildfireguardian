@@ -38,7 +38,7 @@ def test_development_aggregate_scores_never_establish_a_common_cell_effect(repor
 
 
 def test_receipt_bound_common_cell_ablation_matches_manual_whole_fire_bootstrap(report, tmp_path, monkeypatch):
-    fixture = build_fixture(report, tmp_path, outcome="complete")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="complete")
     monkeypatch.setattr(report, "REPO", fixture.root)
     heldout = fixture.run / "heldout"
     # Unequal cell populations across fires distinguish pooling from equal-fire averaging.
@@ -75,7 +75,7 @@ def test_receipt_bound_common_cell_ablation_matches_manual_whole_fire_bootstrap(
 
 @pytest.mark.parametrize("outcome", ["empty", "partial", "complete"])
 def test_fig03_uses_only_heldout_common_cells_and_never_reopens_hold_gate(report, tmp_path, monkeypatch, outcome):
-    fixture = build_fixture(report, tmp_path, outcome=outcome)
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome=outcome)
     result = execute(report, fixture, monkeypatch)
     paired = result["heldout_ablation"]
     evidence = result["figure_evidence"]["fig03_ablation_forest_plot"]
@@ -98,7 +98,7 @@ def test_fig03_uses_only_heldout_common_cells_and_never_reopens_hold_gate(report
 
 
 def test_development_only_report_generates_unavailable_paired_panel(report, tmp_path, monkeypatch):
-    fixture = build_fixture(report, tmp_path, outcome="empty")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="empty")
     for path in (fixture.run / "heldout").iterdir(): path.unlink()
     result = execute(report, fixture, monkeypatch)
     assert len(result["ablation"]) == 7 and (fixture.out / "ablation.csv").is_file()

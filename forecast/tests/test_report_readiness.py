@@ -1,4 +1,5 @@
 """Synthetic report outputs, never study data, checkpoints, or MC executions."""
+import copy
 import importlib.util
 import json
 from pathlib import Path
@@ -25,17 +26,25 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=1) + "\n")
 
 
-def build_fixture(report, root, *, outcome="empty", primary="base", zero_growth=False):
+def build_fixture(report, root, *, monkeypatch, outcome="empty", primary="base", zero_growth=False):
     """Generate actual tiny receipt-bound arrays plus fixed synthetic phase metadata."""
     # Reuse the independently source-audited synthetic training population.
     # Plot controls must not bypass the shared development membership freeze.
     if __package__:
         from .test_blind_forecast_protocol import freezer as freezer_fixture, freeze_inputs as fit_fixture
+        from .test_blind_forecast_protocol import _SYNTHETIC_RECIPE_VERSIONS as fixture_versions
     else:
         from test_blind_forecast_protocol import freezer as freezer_fixture, freeze_inputs as fit_fixture
+        from test_blind_forecast_protocol import _SYNTHETIC_RECIPE_VERSIONS as fixture_versions
     with pytest.MonkeyPatch.context() as metadata_patch:
         freezer = freezer_fixture.__wrapped__()
         root, run, selection_path, _, selection = fit_fixture.__wrapped__(freezer, Path(root), metadata_patch)
+        fixture_key = str(root.resolve())
+        frozen_fixture_version = copy.deepcopy(fixture_versions[fixture_key])
+    # Keep only the source catalog, frozen before later mutations, through this
+    # test's second audit and reporting. All other temporary metadata mocks have
+    # already been undone; pytest removes this registration at test teardown.
+    monkeypatch.setitem(fixture_versions, fixture_key, frozen_fixture_version)
     out, inputs = root / "research/forecast-v2", root / "synthetic-heldout-inputs"
     for phase in report.F.current_phase_identity()["phases"]:
         if phase["stage"] != "fold":
@@ -110,6 +119,29 @@ def report():
     return load_report()
 
 
+def test_reporting_source_catalog_is_frozen_before_mutation_and_removed_at_teardown(report, tmp_path):
+    from .test_blind_forecast_protocol import _SYNTHETIC_RECIPE_VERSIONS as fixture_versions
+
+    before = copy.deepcopy(fixture_versions)
+    producer_versions = copy.deepcopy(report.F._RECIPE_SOURCE_VERSIONS)
+    with pytest.MonkeyPatch.context() as lifetime:
+        fixture = build_fixture(report, tmp_path, monkeypatch=lifetime)
+        key = str(fixture.root.resolve())
+        registered = copy.deepcopy(fixture_versions[key])
+        phase = report.F.intended_phase("base", "fold", "2020")["phase_id"]
+        original = report.F.producer_sources(fixture.root)
+        report.F._verified_producer_version(fixture.root, original, phase)
+        pipeline = fixture.root / "research/forecast-v2/scripts/pipeline.py"
+        pipeline.write_text(pipeline.read_text() + "\n# Mutation after fixture source freeze.\n")
+        changed = report.F.producer_sources(fixture.root)
+        with pytest.raises(ValueError, match="Unreviewed|source|closure"):
+            report.F._verified_producer_version(fixture.root, changed, phase)
+        assert fixture_versions[key] == registered
+        assert report.F._RECIPE_SOURCE_VERSIONS == producer_versions
+    assert fixture_versions == before
+    assert report.F._RECIPE_SOURCE_VERSIONS == producer_versions
+
+
 def execute(report, fixture, monkeypatch):
     monkeypatch.setattr(report, "REPO", fixture.root)
     monkeypatch.setattr(sys, "argv", ["report.py", "--run", str(fixture.run), "--out", str(fixture.out), "--label", "SYNTHETIC FIXTURE"])
@@ -119,7 +151,7 @@ def execute(report, fixture, monkeypatch):
 
 @pytest.mark.parametrize("outcome", ["empty", "partial", "complete"])
 def test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct(report, tmp_path, monkeypatch, outcome):
-    fixture = build_fixture(report, tmp_path, outcome=outcome)
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome=outcome)
     result = execute(report, fixture, monkeypatch)
     heldout, gate = result["heldout"], result["retrospective_superiority_gate"]
     assert heldout["unscored_outcomes"] == fixture.assessment["failed_or_unavailable"]
@@ -161,7 +193,7 @@ def test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct
 
 
 def test_corrected_spotting_phase_uses_stable_metric_alias_and_keeps_intended_path(report, tmp_path, monkeypatch):
-    fixture = build_fixture(report, tmp_path, outcome="complete", primary="burnout_spotting")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="complete", primary="burnout_spotting")
     result = execute(report, fixture, monkeypatch)
     assert result["primary_candidate"]["run"] == "burnout_spotting_seed0_flaming_only"
     assert "burnout_spotting_seed0" in result["heldout"]["models"]
@@ -170,7 +202,7 @@ def test_corrected_spotting_phase_uses_stable_metric_alias_and_keeps_intended_pa
 
 
 def test_metrics_and_fixed_bootstrap_are_unchanged_for_positive_scored_entries(report, tmp_path, monkeypatch):
-    fixture = build_fixture(report, tmp_path, outcome="complete")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="complete")
     monkeypatch.setattr(report, "REPO", fixture.root)
     entries, assessment = report.load_assessment(fixture.run / "heldout")
     reference = report.B.score_entries(entries, draws=10000, seed=20261030)
@@ -183,7 +215,7 @@ def test_metrics_and_fixed_bootstrap_are_unchanged_for_positive_scored_entries(r
 
 @pytest.mark.parametrize("tamper", ["frozen_binding", "n_samples", "seed", "input_hash", "entry_hash", "missing_file"])
 def test_re_signed_handoff_or_missing_scored_bytes_cannot_change_report_evidence(report, tmp_path, monkeypatch, tamper):
-    fixture = build_fixture(report, tmp_path, outcome="partial")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="partial")
     monkeypatch.setattr(report, "REPO", fixture.root)
     path = fixture.run / "report_inputs.json"; inputs = json.loads(path.read_text())
     if tamper == "frozen_binding": inputs["frozen_assessment_sha256"] = "0" * 64
@@ -200,7 +232,7 @@ def test_re_signed_handoff_or_missing_scored_bytes_cannot_change_report_evidence
 
 
 def test_empty_secondary_reconstruction_hold_is_reported_with_all_reasons(report, tmp_path, monkeypatch):
-    fixture = build_fixture(report, tmp_path, outcome="empty")
+    fixture = build_fixture(report, tmp_path, monkeypatch=monkeypatch, outcome="empty")
     korea = fixture.run / "korean2025"; korea.mkdir()
     for name in ("ASSESSMENT.json", "FROZEN_ASSESSMENT.json"):
         shutil.copyfile(fixture.run / "heldout" / name, korea / name)

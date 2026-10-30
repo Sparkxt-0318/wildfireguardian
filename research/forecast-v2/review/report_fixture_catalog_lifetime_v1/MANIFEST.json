@@ -1,0 +1,34 @@
+{
+  "command": [
+    "../venv-forecast/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "forecast/tests/test_report_readiness.py",
+    "forecast/tests/test_report_ablation.py",
+    "forecast/tests/test_report_comparison.py"
+  ],
+  "created_utc": "2026-10-30T12:51:16.398386+00:00",
+  "exit_code": 0,
+  "files_sha256": {
+    "forecast/tests/test_report_ablation.py": "8e249210abb5ed2111e3be86fcba0500e06355ebd593ed0668b9383fd5d2581f",
+    "forecast/tests/test_report_readiness.py": "2b76b959738ee702bca38466da2b5d43882bcdd87eff72c947022aa6de905e6a"
+  },
+  "log_sha256": "66ee6d3defb20467ffbe667f5ca4fd73562ddcde76e71c2de2d1395b3a830c85",
+  "original_failure": "research/forecast-v2/review/comparison_report_argv_repair_v1/PREARGV_EXISTING_FIXTURE_FAILURE.json",
+  "passed": 118,
+  "patch_gzip_sha256": "6d737af2b9801ac97e6ccd94b7d7bca6ec65308708ad61f1869fa2e264a8157c",
+  "patch_sha256": "266e4b475d2169f9bc5a66f22f88f8a2df991de073c81a79064643f0bef994f3",
+  "policy": [
+    "Retain only a deep copy of the existing explicit fixture catalog entry, frozen before later mutations.",
+    "All other temporary metadata mocks still undo before the second audit.",
+    "The pytest per-test monkeypatch removes the retained entry at teardown.",
+    "A dedicated positive then mutated-producer refusal and final cleanup test passes.",
+    "No production F65, model, data, scoring, source profile or real admission rule changed."
+  ],
+  "production_auditor_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "schema": "wfg.fixture-catalog-lifetime-repair/1",
+  "seconds": 27.15,
+  "status": "PASS_TEST_SCOPE_ONLY",
+  "warnings": 420
+}
