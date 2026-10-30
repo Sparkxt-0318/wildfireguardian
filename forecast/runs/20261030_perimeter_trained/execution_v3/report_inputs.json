@@ -1,0 +1,19 @@
+{
+  "perimeters": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/perimeters",
+  "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+  "fitted_models": [
+    "base_seed0",
+    "burnout_seed0",
+    "burnout_spotting_seed0",
+    "d4_seed0",
+    "d4_wind_seed0",
+    "ellipse_seed0",
+    "mixed_base_seed0"
+  ],
+  "best_dilation_hours_per_cell": 8,
+  "n_samples": 1024,
+  "seed": 0,
+  "frozen_assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "cohort": "US2024 NIROPS mapped extent",
+  "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

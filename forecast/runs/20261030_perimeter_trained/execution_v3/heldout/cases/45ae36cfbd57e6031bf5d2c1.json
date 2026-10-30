@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "WY-BTF-002416_FishCreek",
+    "cutoff": "2024-10-23T04:59:00+00:00",
+    "endpoint": "2024-10-24T01:22:00+00:00",
+    "hours": 20.383333333333333
+  },
+  "case_id": "45ae36cfbd57e6031bf5d2c1",
+  "assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "c6eebcdfbc6eeca59512a259b619fcc3c67db9f02e7f74882b5f7be08b62c7bc",
+  "endpoint_sha256": "32689d4148b64259af4bc6c73fe4514ac338aeb22a8e28b7ee29f7ce4307a817",
+  "environmental_snapshot_sha256": "e918c39cf3c62f3773a03bf1901358eca901de504d3210325b23556b0e57ad14",
+  "reference_mask_sha256": "ef4348d00abe1e6c94512400958524476df549b2e259a8840f879a7c402ef285",
+  "initial_age_sha256": "a847612de7751bd2c7f7e49cf8534ad6037383003a2bef88ec732a617cf4a53f",
+  "residence_sha256": "3af17287b7a77cf6627f4e34f36de52b2a975d167f54ca86e0d307a664b2befb",
+  "rectangle": [
+    103,
+    73
+  ],
+  "reference_cells": 4893,
+  "weather_hour": "2024-10-23T04:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "bc2f0871a9b539e597aeebdf9705cb2a2247224edfbf88cc613a2369663f10c3",
+  "scored_cells": 4893,
+  "positives": 7,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "ef4348d00abe1e6c94512400958524476df549b2e259a8840f879a7c402ef285",
+  "model_seconds": {
+    "c651_mc": 49.08372112503275,
+    "c651_meanfield": 0.04726287501398474,
+    "base_seed0": 0.028006083972286433,
+    "d4_seed0": 0.02682233403902501,
+    "d4_wind_seed0": 0.21074445801787078,
+    "ellipse_seed0": 0.027368334005586803,
+    "burnout_seed0": 0.029775624978356063,
+    "burnout_spotting_seed0": 0.44810941600007936,
+    "mixed_base_seed0": 0.02579737501218915,
+    "admission_support_replay": 0.8873975410242565
+  },
+  "seconds": 50.82395579095464,
+  "completed_utc": "2026-10-30T18:01:46.529869+00:00"
+}
