@@ -93,8 +93,9 @@
     "PreparedMFMCchecker24/24syntheticrecordpreserved; separateactualsavedreconciliationPASSunderF175beforeauthorized65applyafter12case/66rowclosure. Nopercellfieldssavedso norawRMSE/MC/mask/checkpointreplay; separatefrom38preparedheldoutchecker.",
     "ActualMFMCsavedJSON/CSV/receipt/sourceclosurePASS covers12cutoffs66rows,56comparable10unavailable;reference24scored12unavailable30fixedUSnoreference. No rawfield/mask/MC/model/checkpointreplay or speed/scientificpromotion. Exact65appliedb803onlyafteractualreconciliation; newupdatedsuite/release/livecoverage andreportonly68ownercontrolindependentreviewpending; canonicalHOLD, no selection/registry/heldout.",
     "Historicalreport7e59P2argparsegrammar defect, closedonlyby275scoped22/13review: trailing--seed=7override canbypassdeclaredseed. All12actualargvcanonicalunderseparaterootinspection, actualMFMCunaffected/noMC rerun. Originalfailedprobespreserved; completedrepairreviewnowarchived, noactualcomparisonrerun.",
-    "Separate275report22command/13closurecontrolsPASSand49fixture52correlatedpredicatesPASS, notpooled. Source201Gitidentitychecks andowner3507+367softwarePASS do notclearcanonicalcoverage. LatercompletedownercanonicalPASSarchivedonlyafterexplicitparentcompletionpins, independentreviewpending. PriorgrammarHOLDpreserved; previewQAisnotfinalfivefigQA.",
-    "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; independentcanonicalreviewactive/pending, nooutcomeinferred. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting."
+    "Separate275report22command/13closurecontrolsPASSand49fixture52correlatedpredicatesPASS, notpooled. Source201Gitidentitychecks andowner3507+367softwarePASS do notclearcanonicalcoverage. LatercompletedownercanonicalPASSarchivedonlyafterexplicitparentcompletionpins, laterindependentsavedmetadatareviewPASSwithscope, notscientificvalidation. PriorgrammarHOLDpreserved; previewQAisnotfinalfivefigQA.",
+    "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; laterindependentcanonicalreview9841scopedPASSrecordedseparately, noactualarray/value/modelreplay. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting.",
+    "Canonicalreview9841correlatedmetadata/custodypredicatesPASS, notscientificsamples. Owneractualruntimeattestationandreviewercurrent61/201byteverificationarescope-distinct. Nocache/member/array/modelreplay. RootfreezeCOMMITauthorizedandinprogress, activeoutputsunopened, noUS/KRor2026inferenceauthorization. Step4stillgated."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -763,7 +764,7 @@
     "MC_model_or_checkpoint_byte_replay": false,
     "scientific_speed_or_model_promotion": false,
     "shared_24h_call_counts_not_five_independent_timings": true,
-    "canonical_coverage": "RUNNING_SEPARATE_FRESH_GATE_NOT_CLEARED_BY_RECONCILIATION",
+    "canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE_SEPARATE_GATE",
     "actual_command_form_inspection": "mfmc-final-actual-reconciliation-a06/ACTUAL_COMMAND_FORM_INSPECTION.json",
     "actual_command_inspection_scope": "Parent12actualargv canonical/onlycaseindexvaries, noequals/duplicate/separator, allknownflags. Exactrootreceiptarchived, notMC rerun."
   },
@@ -772,7 +773,7 @@
     "candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
     "updated_full_software_suite": "PASS3507_TESTS_OWNER_RECEIPT_V2",
     "updated_release_check": "PASS367_HASHES_OWNER_RECEIPT_V2",
-    "fresh_live_canonical_coverage": "OWNER_PASS_PENDING_INDEPENDENT_REVIEW",
+    "fresh_live_canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
     "selection_registry_heldout": "NOT_RUN",
     "readiness_source_apply": false,
     "previous_3373_suite": "Originalpreapplysourcepassonly, notsubstituteforfreshupdatedsuite",
@@ -833,7 +834,7 @@
     "readiness_rerun": false
   },
   "B_canonical_coverage_current": {
-    "state": "OWNER_PASS_PENDING_INDEPENDENT_REVIEW",
+    "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
     "receipt": "canonical-coverage-owner-ab7fda8d/final_fit_coverage_audit_v2.json",
     "output": "canonical-coverage-owner-ab7fda8d/FIT_COVERAGE.json",
     "log": "canonical-coverage-owner-ab7fda8d/final_fit_coverage_audit_v2.log",
@@ -847,11 +848,50 @@
     "development_phases": 21,
     "final_variants": 7,
     "source_unchanged": true,
-    "independent_review": "ACTIVE_NOT_ARCHIVED_NO_OUTCOME_CLAIM",
+    "independent_review": "COMPLETED_BOUNDED_SAVED_METADATA_CUSTODY_REVIEW",
     "readiness_actual_array_cache_member_model_replay": false,
     "readiness_rerun": false,
     "registry_frozen": false,
     "heldout": "NOT_RUN",
-    "actual_result_checker": "NOT_RUN"
+    "actual_result_checker": "NOT_RUN",
+    "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
+    "independent_review_inventory": "canonical-coverage-independent-ab7fda8d/SOURCE_INVENTORY.json",
+    "independent_correlated_predicates": 9841,
+    "not_independent_scientific_samples": true,
+    "source_window_scope": "Saved canonical receipt attests unchanged three critical sources and 201 gate sources; independently rehashed current61 and201 maps, not independently observed both historical runtime bookends.",
+    "raw_array_cache_value_model_replay": false
+  },
+  "B_canonical_independent_review": {
+    "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
+    "review": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
+    "inventory": "canonical-coverage-independent-ab7fda8d/SOURCE_INVENTORY.json",
+    "checks": 9841,
+    "passed": 9841,
+    "counts_are_correlated_metadata_predicates": true,
+    "all21_development_and7_finals": true,
+    "pure_updates_per_epoch": 1303,
+    "mixed_attempts_updates_skips": [
+      4391,
+      4376,
+      15
+    ],
+    "canonical_vs_provisional_leaf_changes": 1,
+    "changed_leaf": "CheckedF175auditoridentitytofreshliveF65, allmembershipandlimitationsunchanged",
+    "source_hashes_verified_by_independent_reviewer": [
+      61,
+      201
+    ],
+    "historical_bookends_vs_current_bytes_distinct": true,
+    "actual_array_cache_member_model_replay": false,
+    "readiness_rerun": false
+  },
+  "B_freeze_process": {
+    "state": "ROOT_AUTHORIZED_DEVELOPMENT_ONLY_SELECTION_EXACT_PROTOCOL_REGISTRY_FREEZE_COMMIT_IN_PROGRESS",
+    "handoff": "PENDING_OWNER_SEPARATE_DELIVERY",
+    "active_freeze_outputs_read": false,
+    "freeze_readiness_inferred": false,
+    "US_KR_inference_authorized": false,
+    "future2026_inference_authorized": false,
+    "checkpoint_promoted": false
   }
 }

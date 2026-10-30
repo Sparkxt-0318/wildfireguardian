@@ -1,0 +1,13 @@
+{
+  "status": "PASS_BOUNDED_CANONICAL_COVERAGE_METADATA_CUSTODY_REVIEW",
+  "source_head": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
+  "checks": 9841,
+  "passed": 9841,
+  "canonical_vs_provisional_changes": [
+    {
+      "path": "/source_sha256/research/forecast-v2/scripts/audit_fit_coverage.py",
+      "old": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+      "new": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536"
+    }
+  ]
+}

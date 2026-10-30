@@ -1,0 +1,36 @@
+{
+  "source_commit": "22c9d9bd1e11c3a0c2ce5327ea05ae9f73f7afc3",
+  "scope": "ExactownercanonicalPASS/pendingindependentstage beforeseparatecompletedcanonicalreview, nooriginalevidenceoverwritten",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 28592,
+      "sha256": "c1bf9f2e17c8a0c2f262005aa40684c35021199edc0329e2c52580ed4f3d3550"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 59637,
+      "sha256": "cbe570a1de19236f16a71126a3e46d1e77392debde1cad19f9d92b0c5224df47"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 59637,
+      "sha256": "cbe570a1de19236f16a71126a3e46d1e77392debde1cad19f9d92b0c5224df47"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 50333,
+      "sha256": "f57973adde590b6f8a52b8b511788623ce0f3e76144d726169bd1de2b49b2161"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 32154,
+      "sha256": "695746f33440e959872cb3d416ecbf3e4e418fd40e9576517ca5f2b1012c3218"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 86525,
+      "sha256": "21be51e74a717c272cc0fd671a16072eaa12de049c8e5d75ac663216d50319d8"
+    }
+  ]
+}
