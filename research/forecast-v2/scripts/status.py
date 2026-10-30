@@ -12,10 +12,50 @@ import audit_fit_coverage as F
 ROOT = Path(__file__).resolve().parents[3]
 EVIDENCE = Path(__file__).resolve().parents[1]
 RUN = ROOT / "forecast/runs/20261030_perimeter_trained/execution_v3"
+CURRENT_COMPARISON_ATTEMPT = 6
 
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def comparison_evidence(receipts):
+    """Separate executed frozen rows from the availability of their populations."""
+    protocol = json.loads((EVIDENCE / "RUN_PROTOCOL.json").read_text())["mean_field_compare"]
+    by_name = {r["job"]: r for r in receipts}
+    rows, cutoffs = [], []
+    for index, case in enumerate(protocol["cases"]):
+        name = f"a{CURRENT_COMPARISON_ATTEMPT:02d}_compare_case{index:02d}"
+        receipt = by_name.get(name)
+        relative = F.comparison_case_relative(index, F.comparison_suffix(CURRENT_COMPARISON_ATTEMPT))
+        output = RUN / relative / "meanfield_vs_mc.json"
+        status, records = "PENDING", []
+        if receipt is not None and Path(receipt["output"]) == output:
+            records = json.loads(output.read_text())["rows"]
+            expected = [("fixed", float(h)) for h in protocol["horizons_hours"]]
+            if case["survey_hours"] is not None:
+                expected.append(("survey", float(case["survey_hours"])))
+            actual = [(r["horizon_kind"], float(r["hours"])) for r in records]
+            if (actual != expected or any(r["event"] != case["event"] or r["cutoff"] != case["cutoff"]
+                                         or r["country"] != case["country"] for r in records)):
+                status = "HOLD_METADATA_MISMATCH"
+            else:
+                status = "COMPLETE"
+        cutoffs.append(dict(id=f"1B-meanfield-cutoff-{index:02d}", status=status, case=case,
+                            evidence=str(output.relative_to(ROOT)), executable="scripts/run_campaign.py compare --attempt 6"))
+        for record in records:
+            rows.append(dict(id=f"1B-meanfield-cutoff-{index:02d}-{record['horizon_kind']}-{record['hours']}h",
+                             status=record.get("status", "UNKNOWN"), execution_status=status,
+                             reference_status=record.get("reference_status"), scored_cells=record.get("cells"),
+                             label_cells=record.get("label_cells"), evidence=str(output.relative_to(ROOT))))
+    aggregate = by_name.get(f"a{CURRENT_COMPARISON_ATTEMPT:02d}_compare")
+    complete = len(cutoffs) == 12 and all(c["status"] == "COMPLETE" for c in cutoffs)
+    complete = complete and aggregate is not None and len(rows) == 66
+    if complete:
+        expected_receipts = [dict(path=str((EVIDENCE / "executions" / f"a{CURRENT_COMPARISON_ATTEMPT:02d}_compare_case{i:02d}.json").relative_to(ROOT)),
+                                  sha256=digest(EVIDENCE / "executions" / f"a{CURRENT_COMPARISON_ATTEMPT:02d}_compare_case{i:02d}.json")) for i in range(12)]
+        complete = aggregate.get("case_receipts") == expected_receipts and Path(aggregate["output"]) == RUN / "meanfield_vs_mc/meanfield_vs_mc.json"
+    return bool(complete), cutoffs, rows
 
 
 def main():
@@ -26,6 +66,7 @@ def main():
         if record["exit_code"] == 0 and output.is_file() and digest(output) == record["output_sha256"]:
             receipts.append(record)
     names = {r["job"] for r in receipts}
+    comparison_complete, comparison_cutoffs, comparison_rows = comparison_evidence(receipts)
     phase_receipts, folds, finals = [], [], []
     for phase in F.current_phase_identity()["phases"]:
         try:
@@ -39,10 +80,18 @@ def main():
                    [("us2024", us_path), ("korea2025", kr_path)]}
     report_path = EVIDENCE / "RESULTS.json"
     report = json.loads(report_path.read_text()) if report_path.exists() else {}
+    qa_path = EVIDENCE / "FIGURE_QA.json"
+    qa = json.loads(qa_path.read_text()) if qa_path.exists() else {}
+    registry_path = EVIDENCE / "BLIND_REGISTRY.json"
+    registry = json.loads(registry_path.read_text()) if registry_path.exists() else {}
+    registry_current = bool(registry and all((ROOT / path).is_file() and digest(ROOT / path) == value
+                            for path, value in registry.get("producer_source_sha256", {}).items()))
+    farsite_path = EVIDENCE / "FARSITE_SCORES.json"
+    farsite = json.loads(farsite_path.read_text()) if farsite_path.exists() else {}
     requirements = [
         dict(id="1B-1-library", status="IMPLEMENTED_TESTED", evidence="forecast/wildfire/meanfield.py and forecast/tests/test_meanfield.py",
              limit="Multi-step closure approximation, not exact MC expectation"),
-        dict(id="1B-1-12cutoffs", status="COMPLETE" if names & {"a03_compare", "a04_compare"} else "PENDING",
+        dict(id="1B-1-12cutoffs", status="COMPLETE" if comparison_complete else "PENDING",
              expected="12cutoffs,6Korean+6US; all1/3/6/12/24h,1024trajectories; actualsurvey-endpoint checks where available",
              evidence="meanfield_vs_mc/meanfield_vs_mc.json"),
         dict(id="1B-2-development", status="COMPLETE" if len(folds) == 21 else "IN_PROGRESS",
@@ -57,9 +106,11 @@ def main():
              expected="persistence,4dilationrates,training-chosenbestdilation,weightedlogistic,c651"),
         dict(id="1B-4-heldout-scoring", status="COMPLETE" if all(r.get("status") == "COMPLETE" for r in assessments.values()) else "PENDING",
              expected="sixUS2024fires,fullrectangles,alleligibleintervals,exactcommoncohort; fourKR2025separate"),
-        dict(id="1B-4-FARSITE-matched-subset", status="PENDING",
-             expected="authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals"),
-        dict(id="1B-5-pre-registration", status="NOT_READY",
+        dict(id="1B-4-FARSITE-matched-subset", status="COMPLETE" if "scores" in farsite else farsite.get("status", "PENDING"),
+             expected="authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals",
+             evidence="research/forecast-v2/FARSITE_SCORES.json", limit="Stored deterministic scenario subset with explicit configuration differences; not a new native campaign"),
+        dict(id="1B-5-pre-registration", status=registry.get("protocol_status", "NOT_READY") if registry_current else "NOT_READY",
+             execution_status=registry.get("execution_status", "NOT_READY_FOR_2026_EXECUTION"),
              expected="exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"),
     ]
     requirements.extend([
@@ -86,7 +137,8 @@ def main():
         final = [r for r in phase_receipts if r["output"] == str(RUN / F.intended_phase(variant, "final")["result"])]
         requirements.append(dict(id=f"1B-ablation-{variant}",
              development="COMPLETE" if len(current_folds) == 3 else "PENDING",
-             status="COMPLETE" if final else "IN_PROGRESS", executable="scripts/run_campaign.py fits",
+             status="COMPLETE" if final else "IN_PROGRESS",
+             executable="scripts/run_campaign.py spotting-repair --attempt 5" if variant == "burnout_spotting" else "scripts/run_campaign.py fits --attempt 3",
              evidence=str((RUN / F.intended_phase(variant, "final")["result"]).relative_to(ROOT))))
     for cohort, result in assessments.items():
         requirements.append(dict(id="1B-assessment-" + cohort, status=result.get("status", "PENDING"),
@@ -100,17 +152,26 @@ def main():
     for metric in ("Brier", "BSS-persistence", "BSS-best-dilation", "AP", "ROC-AUC", "fixed-bin-ECE", "clipped-NLL",
                    "per-fire-values", "whole-fire-bootstrap", "lowest-bin-calibration"):
         requirements.append(dict(id="1B-metric-" + metric,
-            status="COMPLETE" if assessments["us2024"].get("status") == "COMPLETE" and
-            "heldout" in report else "PENDING",
+            status=("COMPLETE" if assessments["us2024"].get("status") == "COMPLETE" else "DESCRIPTIVE_SUBSET_HOLD")
+            if report.get("heldout", {}).get("models") else
+            "UNAVAILABLE_NO_SUPPORTED_ENTRIES" if "heldout" in report else "PENDING",
             executable="scripts/report.py", evidence="research/forecast-v2/RESULTS.json"))
     for number, name in enumerate(["reliability_all_models", "per_fire_brier_paired", "ablation_forest_plot",
                                     "meanfield_vs_mc_rmse_by_horizon", "example_forecast_vs_perimeter"], 1):
         stem = f"fig{number:02d}_{name}"
         paths = [EVIDENCE / "figures" / (stem + extension) for extension in (".png", ".svg")]
-        requirements.append(dict(id=stem, status="GENERATED_PENDING_VISUAL_QA" if all(p.exists() for p in paths) else "PENDING",
+        figure = report.get("figure_evidence", {}).get(stem, {})
+        authenticated = figure and all(p.is_file() and digest(p) == figure.get("files_sha256", {}).get(p.suffix[1:]) for p in paths)
+        reviewed = qa.get("figures", {}).get(stem, {})
+        qa_current = authenticated and reviewed.get("status") == "PASS" and reviewed.get("files_sha256") == figure.get("files_sha256")
+        requirements.append(dict(id=stem, status=figure.get("status") if authenticated else "PENDING",
+                                 visual_qa="PASS" if qa_current else "PENDING_SEPARATE_VISUAL_RECEIPT", metric_data_available=figure.get("metric_data_available", False),
                                  evidence=[str(p.relative_to(ROOT)) for p in paths]))
+    requirements.extend(comparison_cutoffs)
+    requirements.extend(comparison_rows)
     result = dict(current_phase=F.current_phase_identity(), schema="wfg.forecast-v2.requirements/1", evidence_class="current real-input executions, earlier attempts excluded from primary totals",
                   authenticated_development_fits=len(folds), authenticated_final_fits=len(finals),
+                  promotion_authority=False, comparison_execution_complete=comparison_complete,
                   receipts=[dict(job=r["job"], output=r["output"], sha256=r["output_sha256"]) for r in receipts],
                   requirements=requirements)
     (EVIDENCE / "REQUIREMENTS_STATUS.json").write_text(json.dumps(result, indent=2) + "\n")

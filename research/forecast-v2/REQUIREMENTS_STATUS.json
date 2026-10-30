@@ -315,8 +315,10 @@
   },
   "schema": "wfg.forecast-v2.requirements/1",
   "evidence_class": "current real-input executions, earlier attempts excluded from primary totals",
-  "authenticated_development_fits": 18,
+  "authenticated_development_fits": 21,
   "authenticated_final_fits": 6,
+  "promotion_authority": false,
+  "comparison_execution_complete": false,
   "receipts": [
     {
       "job": "a02_fold_2020_base",
@@ -507,6 +509,31 @@
       "job": "a03_fold_2022_mixed_base_utc_fixed",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
       "sha256": "efbc6a31a7a3d22692710274298dc232053bd3b0ac158731d48f16bbd2009210"
+    },
+    {
+      "job": "a04_compare_case00",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00/meanfield_vs_mc.json",
+      "sha256": "a7a6893ca62e80403f8676f2035705250bb845d3f023582b6baed570fec53046"
+    },
+    {
+      "job": "a05_fold_2020_burnout_spotting_flaming_only",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+      "sha256": "ff3c9f5cf75ec8877007c3dba51ba5af259b4b96a2802cc624a0eb490f893961"
+    },
+    {
+      "job": "a05_fold_2021_burnout_spotting_flaming_only",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+      "sha256": "0d1ee371f1551b2acf6a0e2aa0d312ea5e7d5411000b28e675954af93cccf870"
+    },
+    {
+      "job": "a05_fold_2022_burnout_spotting_flaming_only",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+      "sha256": "e4b749f288d5a8634905344ea16190527ebe425caeda502856597601d30b10ea"
+    },
+    {
+      "job": "a06_compare_case00",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
+      "sha256": "e90350c3b8baae0033628f2ebbfaf928d6f7b196ae31962cbec58d5e82fde9c7"
     }
   ],
   "requirements": [
@@ -524,8 +551,8 @@
     },
     {
       "id": "1B-2-development",
-      "status": "IN_PROGRESS",
-      "authenticated_fits": 18,
+      "status": "COMPLETE",
+      "authenticated_fits": 21,
       "expected_fits": 21,
       "limit": "Earliest3eligible intervals per fire, bounded development subset; not full-cohort final fitting"
     },
@@ -554,11 +581,14 @@
     {
       "id": "1B-4-FARSITE-matched-subset",
       "status": "PENDING",
-      "expected": "authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals"
+      "expected": "authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals",
+      "evidence": "research/forecast-v2/FARSITE_SCORES.json",
+      "limit": "Stored deterministic scenario subset with explicit configuration differences; not a new native campaign"
     },
     {
       "id": "1B-5-pre-registration",
       "status": "NOT_READY",
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION",
       "expected": "exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"
     },
     {
@@ -598,49 +628,49 @@
       "id": "1B-ablation-base",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/result.json"
     },
     {
       "id": "1B-ablation-d4",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/result.json"
     },
     {
       "id": "1B-ablation-d4_wind",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/result.json"
     },
     {
       "id": "1B-ablation-ellipse",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/result.json"
     },
     {
       "id": "1B-ablation-burnout",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/result.json"
     },
     {
       "id": "1B-ablation-burnout_spotting",
-      "development": "PENDING",
+      "development": "COMPLETE",
       "status": "IN_PROGRESS",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py spotting-repair --attempt 5",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/result.json"
     },
     {
       "id": "1B-ablation-mixed_base",
       "development": "COMPLETE",
       "status": "COMPLETE",
-      "executable": "scripts/run_campaign.py fits",
+      "executable": "scripts/run_campaign.py fits --attempt 3",
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/result.json"
     },
     {
@@ -774,6 +804,8 @@
     {
       "id": "fig01_reliability_all_models",
       "status": "PENDING",
+      "visual_qa": "PENDING_SEPARATE_VISUAL_RECEIPT",
+      "metric_data_available": false,
       "evidence": [
         "research/forecast-v2/figures/fig01_reliability_all_models.png",
         "research/forecast-v2/figures/fig01_reliability_all_models.svg"
@@ -782,6 +814,8 @@
     {
       "id": "fig02_per_fire_brier_paired",
       "status": "PENDING",
+      "visual_qa": "PENDING_SEPARATE_VISUAL_RECEIPT",
+      "metric_data_available": false,
       "evidence": [
         "research/forecast-v2/figures/fig02_per_fire_brier_paired.png",
         "research/forecast-v2/figures/fig02_per_fire_brier_paired.svg"
@@ -789,7 +823,9 @@
     },
     {
       "id": "fig03_ablation_forest_plot",
-      "status": "GENERATED_PENDING_VISUAL_QA",
+      "status": "PENDING",
+      "visual_qa": "PENDING_SEPARATE_VISUAL_RECEIPT",
+      "metric_data_available": false,
       "evidence": [
         "research/forecast-v2/figures/fig03_ablation_forest_plot.png",
         "research/forecast-v2/figures/fig03_ablation_forest_plot.svg"
@@ -798,6 +834,8 @@
     {
       "id": "fig04_meanfield_vs_mc_rmse_by_horizon",
       "status": "PENDING",
+      "visual_qa": "PENDING_SEPARATE_VISUAL_RECEIPT",
+      "metric_data_available": false,
       "evidence": [
         "research/forecast-v2/figures/fig04_meanfield_vs_mc_rmse_by_horizon.png",
         "research/forecast-v2/figures/fig04_meanfield_vs_mc_rmse_by_horizon.svg"
@@ -806,10 +844,261 @@
     {
       "id": "fig05_example_forecast_vs_perimeter",
       "status": "PENDING",
+      "visual_qa": "PENDING_SEPARATE_VISUAL_RECEIPT",
+      "metric_data_available": false,
       "evidence": [
         "research/forecast-v2/figures/fig05_example_forecast_vs_perimeter.png",
         "research/forecast-v2/figures/fig05_example_forecast_vs_perimeter.svg"
       ]
+    },
+    {
+      "id": "1B-meanfield-cutoff-00",
+      "status": "COMPLETE",
+      "case": {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-04T16:00:00+00:00",
+        "initial_sha256": "9e2be274a2ad926c7343bc19d66f3017a7f767b8c725464f82db9213e7fd10fd",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01",
+      "status": "PENDING",
+      "case": {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-05T05:00:00+00:00",
+        "initial_sha256": "15ea495f4cbb5c50fc2721cd92bf6abe53fd26daffd768bb5f0c0fdb24d1f07d",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02",
+      "status": "PENDING",
+      "case": {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-07T10:00:00+00:00",
+        "initial_sha256": "ef719f6138cec3f89167ac4f6052487d8a0b16a8901418646827c19e81fa4098",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03",
+      "status": "PENDING",
+      "case": {
+        "country": "KR",
+        "event": "KFS_03",
+        "cutoff": "2022-03-05T04:00:00+00:00",
+        "initial_sha256": "20b1d9e0369bd6e24c1ba115598a3b4eaed28db0fcab31a26aa9327400df44a5",
+        "shape": [
+          20,
+          33
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04",
+      "status": "PENDING",
+      "case": {
+        "country": "KR",
+        "event": "KFS_03",
+        "cutoff": "2022-03-05T08:00:00+00:00",
+        "initial_sha256": "5f3c1554b8eba8ba4bff8cd4c20a1fa3e559c14446c3dfdaca31b62c4bfecb72",
+        "shape": [
+          20,
+          33
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05",
+      "status": "PENDING",
+      "case": {
+        "country": "KR",
+        "event": "KFS_05",
+        "cutoff": "2023-04-02T13:00:00+00:00",
+        "initial_sha256": "13b457f5ca1f0e9045179a5a1880ede9a0e2b851c2034029576c3533bcd3aac2",
+        "shape": [
+          18,
+          18
+        ],
+        "survey_hours": null
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "CA-PNF-001308_PNFNorthComplex",
+        "cutoff": "2020-09-23T02:40:00+00:00",
+        "initial_sha256": "c075c198d193bb8fea0dd0970407da217bbc6f3cc186389a2efb01392ebe6867",
+        "shape": [
+          128,
+          195
+        ],
+        "survey_hours": 30.083333333333332
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "CA-SNF-001391_Creek",
+        "cutoff": "2020-10-06T06:30:00+00:00",
+        "initial_sha256": "3e675e58b3b3d70f1f791a6d6c6c330f613ba32227e5cdb8dbaff64c973ade19",
+        "shape": [
+          200,
+          151
+        ],
+        "survey_hours": 24.75
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "OR-UPF-000450_DevilsKnob",
+        "cutoff": "2021-09-01T04:40:00+00:00",
+        "initial_sha256": "db75c399329b2f50922a3f5d42be8077e51f8f79e0d3a0c0337f86affe30ff77",
+        "shape": [
+          111,
+          77
+        ],
+        "survey_hours": 24.233333333333334
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "MT-LNF-000893_WestLolo",
+        "cutoff": "2021-07-29T04:40:00+00:00",
+        "initial_sha256": "daf8a34b7c858dff205ee42f2a3165a8156ceeacc57a2bc609035ceeb82ef864",
+        "shape": [
+          67,
+          63
+        ],
+        "survey_hours": 23.833333333333332
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "ID-SCF-022105_Moose",
+        "cutoff": "2022-08-16T06:03:00+00:00",
+        "initial_sha256": "4e4c5af8c148a24884180e5809bf23221cbd17953b856330d781d41069c3dda7",
+        "shape": [
+          81,
+          113
+        ],
+        "survey_hours": 24.666666666666668
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11",
+      "status": "PENDING",
+      "case": {
+        "country": "US",
+        "event": "OR-WIF-220180_CedarCreek",
+        "cutoff": "2022-09-11T05:45:00+00:00",
+        "initial_sha256": "86f76420d6e45cfff2474c3312115d66cecd47322e605c59fe62b036d2b337d8",
+        "shape": [
+          95,
+          112
+        ],
+        "survey_hours": 46.266666666666666
+      },
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json",
+      "executable": "scripts/run_campaign.py compare --attempt 6"
+    },
+    {
+      "id": "1B-meanfield-cutoff-00-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 2519,
+      "label_cells": 1369,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-00-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 2063,
+      "label_cells": 1070,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-00-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1323,
+      "label_cells": 643,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-00-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 9,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-00-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
     }
   ]
 }

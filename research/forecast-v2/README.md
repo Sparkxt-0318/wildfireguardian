@@ -1,8 +1,8 @@
 # Forecast v2, current execution
 
-Eighteen intended development fits and six intended full final fits are
-complete. The three corrected spotting folds and corrected full spotting fit
-remain pending. Three earlier spotting folds and one full fit remain historical
+Twenty-one intended development fits and six intended full final fits are
+complete. The corrected full spotting fit is running. Three earlier spotting
+folds and one full fit remain historical
 smouldering-inclusive variants; they do not satisfy intended completeness or
 selection. No heldout forecast-quality result or superiority claim is available.
 The mixed final fit attempted all 4,391 inputs in each of three epochs, with
@@ -13,6 +13,29 @@ The selected integration checkpoint c651 remains unchanged. This branch adds
 opt-in mean-field propagation, interval-endpoint losses, structural kernels,
 baselines and a draft blind protocol. It reuses prior implementation source
 with independent repairs and tests; `REUSE_MANIFEST.json` identifies those bytes.
+
+The frozen equal-fire development rule selects D4 with local wind
+canonicalization. These are absolute scores on each variant's own support,
+from 23 validation fires across three year folds and seed 0. Aggregate receipts
+do not retain exact scored coordinates, so paired common-cell development
+effects and confidence intervals are unavailable, even when weights match.
+`DEVELOPMENT_SCORES.json` retains all per-fire values and producer identities.
+
+| Variant | Mean fire Brier, selection criterion | Pooled Brier | Parameters |
+| --- | ---: | ---: | ---: |
+| Base | 0.040321559 | 0.043309534 | 26,018 |
+| D4 | 0.038817948 | 0.046971023 | 26,018 |
+| D4 with local wind | 0.037495116 | 0.040814821 | 26,018 |
+| Ellipse prior | 0.041327574 | 0.045037051 | 26,018 |
+| Burnout | 0.038401654 | 0.042176448 | 26,019 |
+| Burnout with flaming-only spotting | 0.038446229 | 0.042240116 | 26,023 |
+| Mixed training | 0.046886875 | 0.046095678 | 26,018 |
+
+Each pooled development score uses total validation weight 198,193. Equal-fire
+and pooled statistics use different weighting; their differences are distinct
+estimands. These development values establish neither heldout superiority nor
+a physical improvement. All seven final identities and the exact fit-coverage
+audit must be frozen before current heldout assessment.
 
 ## Frozen design and commands
 
@@ -27,13 +50,17 @@ chooses the training crop. No heldout outcome chooses a model or checkpoint.
 
 ```sh
 python research/forecast-v2/scripts/run_campaign.py fits --attempt 3
+python research/forecast-v2/scripts/run_campaign.py spotting-repair --attempt 5
 python research/forecast-v2/scripts/run_campaign.py baselines --attempt 3
-python research/forecast-v2/scripts/run_campaign.py compare --attempt 4
+python research/forecast-v2/scripts/run_campaign.py compare --attempt 6
 # After all fits, run audit_caches.py to CACHE_AUDIT_FINAL.json, then
 # audit_fit_coverage.py to FIT_COVERAGE.json, preserving the original audit.
 python research/forecast-v2/scripts/run_campaign.py freeze --attempt 3
 # Only after MODEL_SELECTION.json freezes exact checkpoint identities:
-python research/forecast-v2/scripts/run_campaign.py heldout --attempt 3
+# freeze_registry.py then binds the final protocol and exact executable closure.
+# Run both guarded cohort commands, retaining each exit independently:
+python research/forecast-v2/scripts/score_cohorts.py --cohort us2024 --data "$DATA" --work "$DATA/campaign-work" --run "$RUN" --registry research/forecast-v2/BLIND_REGISTRY.json
+python research/forecast-v2/scripts/score_cohorts.py --cohort korea2025 --data "$DATA" --work "$DATA/campaign-work" --run "$RUN" --registry research/forecast-v2/BLIND_REGISTRY.json
 python research/forecast-v2/scripts/status.py
 ```
 
@@ -43,6 +70,16 @@ exit codes, source/input/output hashes, seeds, host and elapsed time. Earlier
 failed commands remain separate. Data are real aligned covariates and NIROPS
 survey perimeters recovered from the source-supplied archive, with fresh
 archive/member verification documented in `DATA_PROVENANCE.md`.
+`DATA` denotes the task-local verified `work/data/forecast-v2` root and `RUN`
+denotes `forecast/runs/20261030_perimeter_trained/execution_v3`; `python` is the
+fresh pinned interpreter. A cohort scorer's HOLD exit is preserved and does not
+cancel the other mandatory cohort. The original a04 comparison case and source
+remain historical; all twelve a06 cutoffs form one current source phase.
+
+The full forecast regression passed 3,259 tests. The future admission repair
+passed 314 targeted new and existing blind controls; the report repair passed
+20 targeted controls and an independent 21-control arithmetic/gate review.
+These software checks are distinct from scientific and external-release gates.
 
 ## Mathematical and validation boundaries
 
@@ -62,11 +99,16 @@ is no full survey coverage mask. Weather is repeated from the cutoff unless a
 sample explicitly records otherwise. Training crops use a declared zero-exterior
 scenario, while heldout scoring uses full fixed rectangles and common support.
 Point residence on an hourly lattice, midpoint ignition and unsupported-fuel
-fallbacks are coarse model choices. No field validation, physical flame accuracy,
+fallbacks are coarse model choices. Residence below a half-step can alias the
+midpoint source schedule, and initial ages use survey-interval proxies. The
+domain-mean spotting wind is a coarse global scenario assumption. No field validation, physical flame accuracy,
 calibrated joint forecast, evacuation-safety or universal speed claim is made.
 Current 2024 testing will remain retrospective; it is not the blind 2026 test.
-The proposed blind protocol retains NOT_READY until exact registry and execution
-closure are complete and the owner performs external registration.
+The prospective protocol is pending current model/source freeze. Completion
+will make it ready for owner registration; future 2026 execution separately
+remains NOT_READY until independently reviewed documentary release, chronology
+and registration prerequisites are satisfied. No external OSF registration is
+claimed by this task.
 
 ## Global spotting input custody
 
