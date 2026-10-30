@@ -1,0 +1,11 @@
+{
+  "cohort_statuses": {
+    "korea2025": "UNAVAILABLE_COMPLETE_CANONICAL_SUPPORT",
+    "us2024": "AVAILABLE_DESCRIPTIVE_COMPLETE_COHORT"
+  },
+  "executed_source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "promotion_criteria_pass": false,
+  "readme_sha256": "be84a725f030fe8eefad540a6db3b640a7e6111ce02051f6cdefbbb203c8b930",
+  "result_sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c",
+  "status": "COMPLETED_SAVED_OUTPUT_COMPUTATION"
+}
