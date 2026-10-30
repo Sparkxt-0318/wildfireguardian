@@ -8,6 +8,8 @@ def test_weighted_acceptance_and_unknown_never_silently_pass():
     assert accept([True, None], rule="all")["outcome"] == "unresolved"
     assert accept([False, None], rule="all")["outcome"] == "rejected_candidate"
     assert accept([True, True], rule="all")["outcome"] == "checked_route"
+    # A numerical tolerance must not turn below-threshold mass into acceptance.
+    assert accept([True, False], rule="k_of_m", k=1, weights=[0.5 - 1e-16, 0.5 + 1e-16])["outcome"] == "rejected_candidate"
 
 
 def test_cvar_splits_boundary_mass_and_refusal_costs_horizon():

@@ -1,3 +1,21 @@
 {
-  "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+  "current_overlay_sources": {
+    "experimental/synthetic-truth/README.md": "37e9f81db0100267a2a8d969569cac59cde8a21b623da2c08aa9716dc2af3699",
+    "experimental/synthetic-truth/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/__init__.py": "602e6b67c7988891fd63663ee850ba0a8a42578ec4d2999a70dc0cbe90ad7f01",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/checker.py": "77691255d74492709ac321f68369cf40ec58bfd0223c80bf748854a6f27ebd27",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2c3f949d7c007a578950842c97ca1a4f12704a5c6f81c630108ec2302fe09709",
+    "experimental/synthetic-truth/tests/test_full_checker.py": "b81ddeec58af8726e3a1c2bfa7a7a092015856331ddc92ad7a8b7c518775c535",
+    "experimental/synthetic-truth/tests/test_score.py": "5bfa7cfc4881bfe6d35174ed6c01471dc50c245d602ba2854b4ed69a9ed330bb"
+  },
+  "original_base_sources": {
+    "forecast/wildfire/rollout.py": "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe",
+    "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+    "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+  },
+  "base_commit": "59f3187d70b612bb00b191afa00954ad4b8356a2"
 }

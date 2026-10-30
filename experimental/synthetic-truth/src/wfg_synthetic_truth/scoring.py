@@ -32,9 +32,12 @@ def score_decision(decision, *, evaluator, clairvoyant, cutoff, truth_source,
                arrival_s=None, clairvoyant_arrival_s=oracle_arrival,
                false_safe=None, false_refusal=None, regret_s=None)
     if outcome == "checked_route":
+        row["false_refusal"] = False
         checked = evaluator(decision)
         row.update(true_contact=checked.get("contact"), true_peak=checked.get("peak"),
                    true_dose=checked.get("dose"), arrival_s=decision["arrival_s"])
+        if checked.get("contact") is True or checked.get("definite_thermal_violation") is True:
+            row["false_safe"] = True
         if checked.get("supported") is True and isinstance(checked.get("passed"), bool):
             row["false_safe"] = not checked["passed"]
             row["false_refusal"] = False
@@ -43,10 +46,12 @@ def score_decision(decision, *, evaluator, clairvoyant, cutoff, truth_source,
                 if regret < 0:
                     raise ValueError("TRUTH_ROUTE_BEATS_CLAIRVOYANT, inconsistent reference")
                 row["regret_s"] = regret
-    elif exists:
-        row["false_refusal"] = True
-    elif oracle.get("outcome") == "model_no_route":
-        row["false_refusal"] = False
+    else:
+        row["false_safe"] = False
+        if exists:
+            row["false_refusal"] = True
+        elif oracle.get("outcome") == "model_no_route":
+            row["false_refusal"] = False
     row["clairvoyant_outcome"] = oracle.get("outcome", "unresolved")
     return row
 

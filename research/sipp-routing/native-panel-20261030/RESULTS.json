@@ -1,0 +1,532 @@
+{
+  "cases": 26,
+  "pairs": 52,
+  "equivalent_pairs": 52,
+  "unresolved_executions": 0,
+  "pair_results": [
+    {
+      "mission": "20220304T030000Z_FX1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 3119,
+      "sipp_arrival": 3119
+    },
+    {
+      "mission": "20220304T030000Z_FX1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 3119,
+      "sipp_arrival": 3119
+    },
+    {
+      "mission": "20220601T080000Z_FX1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20220601T080000Z_FX1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20230402T070000Z_FX1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20230402T070000Z_FX1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20250323T010000Z_FX2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2540,
+      "sipp_arrival": 2540
+    },
+    {
+      "mission": "20250323T010000Z_FX2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2540,
+      "sipp_arrival": 2540
+    },
+    {
+      "mission": "20250325T190000Z_FX2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2512,
+      "sipp_arrival": 2512
+    },
+    {
+      "mission": "20250325T190000Z_FX2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2512,
+      "sipp_arrival": 2512
+    },
+    {
+      "mission": "20220304T060000Z_FL1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2067,
+      "sipp_arrival": 2067
+    },
+    {
+      "mission": "20220304T060000Z_FL1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2067,
+      "sipp_arrival": 2067
+    },
+    {
+      "mission": "20220601T020000Z_FW1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1270,
+      "sipp_arrival": 1270
+    },
+    {
+      "mission": "20220601T020000Z_FW1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1270,
+      "sipp_arrival": 1270
+    },
+    {
+      "mission": "20230402T140000Z_FW2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1459,
+      "sipp_arrival": 1459
+    },
+    {
+      "mission": "20230402T140000Z_FW2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1459,
+      "sipp_arrival": 1459
+    },
+    {
+      "mission": "20250324T090000Z_FL2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2143,
+      "sipp_arrival": 2143
+    },
+    {
+      "mission": "20250324T090000Z_FL2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2143,
+      "sipp_arrival": 2143
+    },
+    {
+      "mission": "20250325T230000Z_FL2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1922,
+      "sipp_arrival": 1922
+    },
+    {
+      "mission": "20250325T230000Z_FL2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1922,
+      "sipp_arrival": 1922
+    },
+    {
+      "mission": "20220304T120000Z_FW2",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1655,
+      "sipp_arrival": 1655
+    },
+    {
+      "mission": "20220304T120000Z_FW2",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1655,
+      "sipp_arrival": 1655
+    },
+    {
+      "mission": "20220601T080000Z_FD1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20220601T080000Z_FD1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20230402T230000Z_FD1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 531,
+      "sipp_arrival": 531
+    },
+    {
+      "mission": "20230402T230000Z_FD1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 531,
+      "sipp_arrival": 531
+    },
+    {
+      "mission": "20250325T170000Z_FW1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1064,
+      "sipp_arrival": 1064
+    },
+    {
+      "mission": "20250325T170000Z_FW1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1064,
+      "sipp_arrival": 1064
+    },
+    {
+      "mission": "20250326T080000Z_FW1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 896,
+      "sipp_arrival": 896
+    },
+    {
+      "mission": "20250326T080000Z_FW1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 896,
+      "sipp_arrival": 896
+    },
+    {
+      "mission": "20220304T030000Z_FD1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1589,
+      "sipp_arrival": 1589
+    },
+    {
+      "mission": "20220304T030000Z_FD1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1589,
+      "sipp_arrival": 1589
+    },
+    {
+      "mission": "20220531T100000Z_FN1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1142,
+      "sipp_arrival": 1142
+    },
+    {
+      "mission": "20220531T100000Z_FN1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 1142,
+      "sipp_arrival": 1142
+    },
+    {
+      "mission": "20230402T070000Z_FN1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20230402T070000Z_FN1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20250323T010000Z_FD1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2460,
+      "sipp_arrival": 2460
+    },
+    {
+      "mission": "20250323T010000Z_FD1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 2460,
+      "sipp_arrival": 2460
+    },
+    {
+      "mission": "20250325T190000Z_FD1",
+      "panel": "Korean",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "20250325T190000Z_FD1",
+      "panel": "Korean",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Caldor2021_G1",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 11657,
+      "sipp_arrival": 11657
+    },
+    {
+      "mission": "Caldor2021_G1",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 11657,
+      "sipp_arrival": 11657
+    },
+    {
+      "mission": "Caldor2021_G2",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 34279,
+      "sipp_arrival": 34279
+    },
+    {
+      "mission": "Caldor2021_G2",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 34279,
+      "sipp_arrival": 34279
+    },
+    {
+      "mission": "Caldor2021_G3",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 55670,
+      "sipp_arrival": 55670
+    },
+    {
+      "mission": "Caldor2021_G3",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "ROUTE",
+      "sipp_status": "ROUTE",
+      "sweep_arrival": 55670,
+      "sipp_arrival": 55670
+    },
+    {
+      "mission": "Rim2013_G1",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Rim2013_G1",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Rim2013_G2",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Rim2013_G2",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Rim2013_G3",
+      "panel": "Caldor/Rim",
+      "repetition": 1,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    },
+    {
+      "mission": "Rim2013_G3",
+      "panel": "Caldor/Rim",
+      "repetition": 2,
+      "equivalent": true,
+      "sweep_status": "NO_ROUTE",
+      "sipp_status": "NO_ROUTE",
+      "sweep_arrival": null,
+      "sipp_arrival": null
+    }
+  ],
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "source_sha256": "1cd5d05ad47f790dec6b98a78353ed1a4e61871f480f879388aa5fabef3f833a",
+  "scope": "contact relaxation only, cold complete child time, no physical claim"
+}

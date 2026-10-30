@@ -28,6 +28,17 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def completion_stop(elapsed_s, sampled_rss_mib, reported_peak_rss_mib, previous_stop=None):
+    """Admission after communicate, including a child exiting between polls."""
+    if previous_stop is not None:
+        return previous_stop
+    if elapsed_s >= 30:
+        return "DEADLINE_AFTER_EXIT"
+    if max(sampled_rss_mib, reported_peak_rss_mib or 0) > 3072:
+        return "RSS_LIMIT_AFTER_EXIT"
+    return None
+
+
 def make_cases(korean_jobs, caldor_jobs):
     cases = {}
     for folder, panel in ((korean_jobs, "Korean"), (caldor_jobs, "Caldor/Rim")):
@@ -77,6 +88,8 @@ def parent(args):
     if (out / "EXECUTIONS.jsonl").exists():
         raise RuntimeError("WRITE_ONCE_OUTPUT")
     cases = make_cases(args.korean_jobs, args.caldor_jobs)
+    if {name: sum(c["panel"] == name for c in cases) for name in ("Korean", "Caldor/Rim")} != {"Korean": 20, "Caldor/Rim": 6}:
+        raise RuntimeError("EXACT_PANEL_INCOMPLETE")
     (out / "CASES.json").write_text(json.dumps(cases, indent=2) + "\n")
     rows = []
     with open("/tmp/wfg/HEAVY.lock", "a+") as lease:
@@ -101,15 +114,21 @@ def parent(args):
                             pass
                         if elapsed >= 30 or maximum > 3072:
                             stop = "DEADLINE" if elapsed >= 30 else "RSS_LIMIT"
-                            os.killpg(proc.pid, signal.SIGKILL)
+                            try:
+                                os.killpg(proc.pid, signal.SIGKILL)
+                            except ProcessLookupError:
+                                pass
                             break
                         time.sleep(0.05)
                     stdout, stderr = proc.communicate()
+                    elapsed = time.monotonic() - started
+                    child_result = json.loads(dest.read_text()) if proc.returncode == 0 and dest.exists() else {}
+                    stop = completion_stop(elapsed, maximum, child_result.get("peak_rss_mib"), stop)
                     row = dict(case_index=index, mission=case["mission"], region=case["region"], panel=case["panel"],
-                               repetition=rep, method=method, complete_wall_s=time.monotonic() - started,
+                               repetition=rep, method=method, complete_wall_s=elapsed,
                                sampled_child_rss_mib=maximum, exit_code=proc.returncode, stop=stop)
                     if proc.returncode == 0 and stop is None and dest.exists():
-                        row.update(json.loads(dest.read_text()))
+                        row.update(child_result)
                     else:
                         row.update(status="UNRESOLVED", arrival=None, error=stderr.decode()[-3000:])
                     rows.append(row)

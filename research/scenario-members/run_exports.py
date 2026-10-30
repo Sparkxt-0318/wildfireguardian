@@ -33,7 +33,7 @@ def main():
             dest = out / event / cutoff.replace(":", "").replace("-", "")
             if dest.exists():
                 raise RuntimeError("EXPORT_OUTPUT_EXISTS:" + str(dest))
-            cmd = [sys.executable, "-I", str(ROOT / "integration/src/wfg_latest/export.py"),
+            cmd = [sys.executable, "-I", str(ROOT / "experimental/scenario-members/export_v3.py"),
                    "--source-root", str(ROOT / "forecast"), "--data-root", a.data_root,
                    "--checkpoint", str(checkpoint), "--event", event, "--cutoff", cutoff, "--out", str(dest),
                    "--export-version", "3", "--trajectory-count", "1024", "--trajectory-samples", "1024",

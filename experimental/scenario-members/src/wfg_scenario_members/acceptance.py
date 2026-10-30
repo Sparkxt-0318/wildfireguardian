@@ -1,5 +1,6 @@
 """Empirical weighted acceptance and upper-tail CVaR, not calibrated risk."""
 import math
+from fractions import Fraction
 import numpy as np
 
 
@@ -18,24 +19,29 @@ def accept(passed, *, rule="all", k=None, m=None, weights=None):
     if m != len(flags) or isinstance(m, bool):
         raise ValueError("Member count mismatch")
     q = _weights(np.ones(m) if weights is None else weights, m)
+    raw = np.ones(m) if weights is None else np.asarray(weights, dtype=float)
+    exact = [Fraction(float(w)) for w in raw]
+    mass = sum(exact, Fraction(0))
+    exact = [w / mass for w in exact]
     if rule == "all":
-        threshold = 1.0
+        threshold = Fraction(1)
     elif rule == "k_of_m" and isinstance(k, int) and not isinstance(k, bool) and 1 <= k <= m:
-        threshold = k / m
+        threshold = Fraction(k, m)
     else:
         raise ValueError("Invalid acceptance rule")
     # Explicit uncertainty interval, never silently count unknown as passing.
-    lower = math.fsum(float(w) for x, w in zip(flags, q) if x is True or isinstance(x, np.bool_) and x)
-    upper = lower + math.fsum(float(w) for x, w in zip(flags, q) if x is None)
-    if lower >= threshold or math.isclose(lower, threshold, rel_tol=0, abs_tol=2e-15):
+    lower = sum((w for x, w in zip(flags, exact) if x is True or isinstance(x, np.bool_) and x), Fraction(0))
+    upper = lower + sum((w for x, w in zip(flags, exact) if x is None), Fraction(0))
+    if lower >= threshold:
         outcome = "checked_route"
-    elif upper < threshold and not math.isclose(upper, threshold, rel_tol=0, abs_tol=2e-15):
+    elif upper < threshold:
         outcome = "rejected_candidate"
     else:
         outcome = "unresolved"
-    return {"outcome": outcome, "retained_pass_weight": lower, "possible_pass_weight": upper,
+    return {"outcome": outcome, "retained_pass_weight": float(lower), "possible_pass_weight": float(upper),
+            "retained_pass_weight_exact": str(lower), "possible_pass_weight_exact": str(upper),
             "acceptance": {"rule": rule, "k": m if rule == "all" else k, "m": m},
-            "threshold_weight": threshold, "weights": q.tolist(),
+            "threshold_weight": float(threshold), "threshold_weight_exact": str(threshold), "weights": q.tolist(),
             "interpretation": "empirical retained scenario weight, not a population probability"}
 
 

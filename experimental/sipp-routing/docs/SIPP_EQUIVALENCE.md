@@ -1,0 +1,17 @@
+# Interval-span equivalence to the contact-only lattice
+
+Source: Phillips and Likhachev, SIPP, ICRA 2011, https://www.cs.cmu.edu/~maxim/files/sipp_icra11.pdf (read 2026-10-30). This overlay generalizes the waiting argument to retain nonwaitable arrival runs. It does not claim classic earliest-label dominance at nonwaitable nodes.
+
+Let state s identify the incoming directed edge, including an issue sentinel. At each integer second t, an EDGE successor j is legal exactly when its turn is legal, its departure is outside the edge's blocked integer intervals and t+D_j is within the horizon. WAIT is legal only at a waitable node outside its blocked wait-start intervals. EDGE grants destination admission; WAIT removes it. Goal acceptance uses an admitted arrival and the original opening and dwell rule.
+
+For an occupancy fraction [z_a,z_b] and an exact half-open burning interval [b,e), departure t has contact iff t+D*z_a < e and t+D*z_b >= b. The exact integer blocked interval is [ceil(b-D*z_b), ceil(e-D*z_a)-1]. Taking unions over member cells gives precisely the frozen sweep's transition set. Node wait and dwell use the same inequality with their duration. Fraction arithmetic is used before the integer ceilings.
+
+A piece (s,[lo,hi],arrival_hi,parent) represents every reachable lattice time in the closed integer span. Times no greater than arrival_hi are admitted edge arrivals; later times are reachable by waiting within one connected wait component. At a nonwaitable node the span keeps every admitted arrival, and there is no waiting extension. New successors intersect this span with edge departure complements and shift the resulting intervals by D_j. This enumerates all legal EDGE transitions. Extending inside a wait component enumerates exactly all legal WAIT transitions.
+
+Coverage dominance is set inclusion of reachable times at the same incoming-edge state. It never replaces a later nonwaitable arrival with an earlier arrival. Goal candidates are extracted from raw admitted arrival spans before coverage subtraction, so a previously covered wait-time cannot suppress a later admission at a newly opened destination. This detail is essential.
+
+By induction every represented time has a legal finite witness, and every legal timed walk is represented or covered. Reconstruction maps an edge arrival back by its fixed duration; a time beyond arrival_hi maps to the last admitted arrival plus legal one-second waits. The static reverse-Dijkstra travel bound is admissible and consistent. Piece keys are lo+h; goal keys are exact arrival. Therefore the first popped goal has the earliest admitted arrival. Exhausting the finite queue proves no journey in this represented contact relaxation. Deadline or label stops prove nothing and return unresolved.
+
+Assumptions: positive integer travel seconds, integer issue/horizon, node issue position, fixed FIFO durations, fixed incoming-edge turn rules, waiting only where declared, arrival-time objective, complete declared activity/support for any global claim. Dose is a cumulative resource and is outside these intervals. A route must still pass the independent full-policy checker. Thermal rejection followed by arbitrary lazy edge cuts cannot establish a global no-route result.
+
+The source argument is a mathematical review, not a machine-checked proof. The fresh differential census and exact panels are finite evidence; their commands and identities are recorded separately.

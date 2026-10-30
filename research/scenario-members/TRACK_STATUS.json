@@ -1,0 +1,139 @@
+{
+  "overall": "HOLD_PARTIAL, not all orchestrator acceptance gates pass",
+  "requirements": [
+    {
+      "id": "1C-1-export-default",
+      "status": "PASS",
+      "evidence": "Three fresh forecast tests verify original rollout equality, observation isolation and first-burn/seed/missingness controls."
+    },
+    {
+      "id": "1C-1-real-export",
+      "status": "PASS",
+      "evidence": "15 actual Korean windows, 1024 trajectories each; all v2 arrays identical and full-N means exact on known support."
+    },
+    {
+      "id": "1C-1-regeneration-contract",
+      "status": "QUALIFIED",
+      "evidence": "Old streams are block based; uint64 seed bits in int64 plus block offset and batch size required, not seed alone."
+    },
+    {
+      "id": "1C-1-bridge",
+      "status": "PARTIAL",
+      "evidence": "Known fixture writes inherited four-file packet, loads in unchanged FFI Packet parser, matches sweep/SIPP arrival and passes complete copied centre checker. Actual unknown-source trajectories remain unsupported."
+    },
+    {
+      "id": "1C-1-reduction-library",
+      "status": "PASS_UNIT_SCOPE",
+      "evidence": "Three distances and three selectors, weight redistribution, extreme append and CVaR tested. Road-arrival feature extraction and full panel reduction not established."
+    },
+    {
+      "id": "1C-1-K-panel-coverage",
+      "status": "UNRESOLVED",
+      "evidence": "No all-N route coverage or comparative outcome certificate on unknown global source support. No zero fill or exposure-history invention."
+    },
+    {
+      "id": "1C-1-Caldor-v3",
+      "status": "NOT_RUN",
+      "evidence": "Sealed packets exist but c651 weather/data alignment to those exact graph grids is not established."
+    },
+    {
+      "id": "1C-2-abstract-equivalence",
+      "status": "PASS",
+      "evidence": "10000/10000 independent abstract time-expanded comparisons and 8312 legal returned witnesses; seeds and census retained."
+    },
+    {
+      "id": "1C-2-native-equivalence-cost",
+      "status": "PASS_BOUNDED",
+      "evidence": "52/52 pairs across 26 missions, two repetitions, 104 child executions, zero unresolved. 156/156 sealed-job field matches."
+    },
+    {
+      "id": "1C-2-native-controller",
+      "status": "QUALIFIED",
+      "evidence": "Final-after-exit deadline/RSS admission fixed and boundary tests added after original run; all original rows <5.21 s and <488 MiB, so no classification changes. Original producer retained."
+    },
+    {
+      "id": "1C-2-trajectory-packet-equivalence",
+      "status": "PASS_FIXTURE_ONLY",
+      "evidence": "One complete trajectory fixture, same arrival in both solvers and full centre check. Real trajectory packets remain unsupported."
+    },
+    {
+      "id": "1C-2-proof-predicate",
+      "status": "PASS_REVIEW_SCOPE",
+      "evidence": "Waitable components, nonwaitable arrival runs and pre-dominance admission goals documented. Finite tests and human-readable proof, not machine checked."
+    },
+    {
+      "id": "1C-2-K-scaling",
+      "status": "NOT_RUN",
+      "evidence": "Unknown global source support blocks represented-trajectory decisions; fixed four-member native timings are separate."
+    },
+    {
+      "id": "1C-2-chance-subset",
+      "status": "NOT_IMPLEMENTED_OPTIONAL",
+      "evidence": "Weighted post-hoc acceptance exists, union exhaustion cannot certify chance refusal. No exact subset-search or bitset optimality claim."
+    },
+    {
+      "id": "1C-2-dose-lazy",
+      "status": "PARTIAL",
+      "evidence": "Dose remains outside intervals. Bounded heuristic singleton cuts return unresolved on cap/exhaustion, never a global refusal after cuts."
+    },
+    {
+      "id": "1C-3-C1",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "6000 case records, three matched-support configurations, null truth scores. One-hour single predictor has no multi-step coherence contrast."
+    },
+    {
+      "id": "1C-3-C2",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "12000 records, diagnostic Brier on joint known cells, no identifiable false-safe/refusal rates."
+    },
+    {
+      "id": "1C-3-C3",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "24000 records over member counts and rules, no scored acceptance trade-off."
+    },
+    {
+      "id": "1C-3-C4",
+      "status": "PARTIAL_ADMISSION_ONLY",
+      "evidence": "Eight Gyeongbuk mission records unresolved. Reconstructed truth scoring and executed-route maps not run; Caldor alignment unestablished."
+    },
+    {
+      "id": "1C-3-NIROPS-external",
+      "status": "NOT_IMPLEMENTED",
+      "evidence": "Native observed-perimeter and external-simulator truth adapters remain open."
+    },
+    {
+      "id": "1C-3-Uljin-truth-members",
+      "status": "PASS_CENTRE_REGRESSION",
+      "evidence": "Fresh complete copied centre checker passed all four original Uljin members on the SIPP witness, arrival3119s, zero false-safe members. This is not a withheld-truth or whole-road campaign."
+    },
+    {
+      "id": "1C-law-v2",
+      "status": "NOT_RUN_REQUIRED_GATE",
+      "evidence": "Track1A physics/enclosure gate unresolved; explicit NotImplementedError, no fabricated fronts."
+    },
+    {
+      "id": "release-source-manifest",
+      "status": "PASS_REPAIRED_OVERLAY",
+      "evidence": "Frozen integration exporter restored; opt-in wrapper added. verify_release.py passes367hashes. One actual1024-trajectory wrapper export is NPZ-byte-identical to archived producer output.",
+      "history": [
+        "Initial in-place prototype failed frozen exporter identity check.",
+        "Exact producers archived, wrapper relocated, no frozen manifest edit."
+      ]
+    }
+  ],
+  "fresh_tests": {
+    "routing": {
+      "passed": 29,
+      "skipped": 1,
+      "seconds": 22.49,
+      "reason_for_skip": "Torch export tests run separately in forecast environment",
+      "post_suite_targeted_packet_guard_checks": "5passed0.20s"
+    },
+    "forecast_export": {
+      "passed": 3,
+      "seconds": 0.64,
+      "entrypoint": "experimental/scenario-members/export_v3.py"
+    }
+  },
+  "figures": "PNG300dpi plusSVG with captions; selected cost/risk-availability figures visually inspected. Missing requested reduction/scaling/retrospective figures explicitly unrun."
+}

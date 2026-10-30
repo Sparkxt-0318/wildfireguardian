@@ -170,12 +170,12 @@ def _cell_contact(cells, cell, lo, hi):
 def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_labels=None):
     """Planner interface (same result layout as wfg_members.planner.sweep_plan)."""
     t0 = time.perf_counter()
+    if getattr(model, "supported", True) is not True:
+        return _normalise({"status": "UNSUPPORTED", "reason": "UNKNOWN_TRAJECTORY_SUPPORT", "metrics": {}}, "sipp", time.perf_counter() - t0)
     dep = F(request["departure"])
     pg = prepared(graph)
     cells = model.cell_intervals
     origin = request["position"]["node"]
-    if getattr(model, "supported", True) is not True:
-        return _normalise({"status": "UNSUPPORTED", "reason": "UNKNOWN_TRAJECTORY_SUPPORT", "metrics": {}}, "sipp", time.perf_counter() - t0)
     budgets = request["budgets"]["dose"]
     if _cell_contact(cells, pg.node_cells[pg.nidx[origin]], dep, dep) or any(
             F(request["incurred"][m]) > F(budgets[m]) for m in request["incurred"]):

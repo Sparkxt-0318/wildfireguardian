@@ -1,0 +1,8 @@
+{
+  "original_exporter_sha256": "f70944d8e700353d8c0066f8b51a597bd89dd48b7114f5fe9438bfef915ef326",
+  "all15_records_match_archived_exporter": true,
+  "archived_runner_sha256": "7ecab2517c200c51ee0060b6e07f779003a641c3e32cae4d364a8cf54537e2ed",
+  "wrapper_sha256": "cdd857752cf9304922311436eec4ceaba7a990776bfe2e82802707872b65b4a9",
+  "restored_frozen_exporter_sha256": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+  "note": "Existing output identities remain the original producer. Wrapper equivalence is checked separately; record exporter hashes legitimately differ."
+}

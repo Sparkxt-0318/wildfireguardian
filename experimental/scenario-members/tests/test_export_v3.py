@@ -2,12 +2,13 @@ import importlib.util
 from pathlib import Path
 import subprocess
 import numpy as np
-import torch
+import pytest
+torch = pytest.importorskip("torch", reason="trajectory export tests require the pinned forecast environment")
 from wildfire.models import BurnProbability
 from wildfire.rollout import simulate, _generator
 
 ROOT = Path(__file__).resolve().parents[3]
-spec = importlib.util.spec_from_file_location("_v3_export", ROOT / "integration/src/wfg_latest/export.py")
+spec = importlib.util.spec_from_file_location("_v3_export", ROOT / "experimental/scenario-members/export_v3.py")
 export = importlib.util.module_from_spec(spec); spec.loader.exec_module(export)
 
 

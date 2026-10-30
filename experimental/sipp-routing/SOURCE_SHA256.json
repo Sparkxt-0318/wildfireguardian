@@ -1,0 +1,31 @@
+{
+  "current_overlay_sources": {
+    "experimental/sipp-routing/README.md": "189c480f3d52c34525511ae21fccd6ae0e7c060480b6600281a912ee24e9e029",
+    "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md": "a541c76cd1a789fa45b7adefd27fdba236898abea694932d255f9da8ea07f04a",
+    "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md": "56ce23d42d4bd84aa442ee52ec23c83de8124200adaffefff5bfeffb50638752",
+    "experimental/sipp-routing/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/adapter.py": "289518b9109039cb73f881d9712bf341153180f57cdeff34cebc31a670871d98",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py": "4e70b61d5b84eeffa79eaed13e55a0c2ee69febe26ca45edf7e9bddefc34b61c",
+    "experimental/sipp-routing/tests/test_native_guard.py": "9ab3525813089edd01a519f79bf375d2282ff76cd1358c8fc2765d33c7850a02",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d"
+  },
+  "original_base_sources": {
+    "forecast/wildfire/rollout.py": "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe",
+    "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+    "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+  },
+  "base_commit": "59f3187d70b612bb00b191afa00954ad4b8356a2"
+}

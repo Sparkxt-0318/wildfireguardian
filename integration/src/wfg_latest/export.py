@@ -30,95 +30,10 @@ def sha(p):
     return h.hexdigest()
 
 
-def collect_trajectories(model, sample, *, horizon_hours=1, n_samples=1024,
-                         trajectory_count=64, seed=0, trajectory_batch_size=32,
-                         boundary="unknown", missing_burned_area="unknown"):
-    """Additive v3 collector, with unchanged engine draws and explicit identity.
-
-    Seeds are block stream seeds encoded as signed int64 bit patterns. A seed
-    alone cannot regenerate a trajectory: offset, full batch size and horizon
-    are also required because the existing engine draws full blocks per hour.
-    Conservative coverage is recorded; unknown is never converted to unburned.
-    """
-    import numpy as np
-    import torch
-    from wildfire.rollout import simulate, _generator, validate_controls
-    from wildfire.models import BayesianBurnModel
-    if isinstance(horizon_hours, bool) or not isinstance(horizon_hours, int) or not 1 <= horizon_hours <= 32767:
-        raise ValueError("horizon_hours must fit positive int16")
-    validate_controls([float(horizon_hours)], n_samples, seed, trajectory_batch_size)
-    if isinstance(trajectory_count, bool) or not isinstance(trajectory_count, int) or not 1 <= trajectory_count <= n_samples:
-        raise ValueError("trajectory_count must be in 1..n_samples")
-    inputs, geometry = model._prepare_prediction_inputs(sample)
-    inputs, initialization = model._initialize_burned_area(inputs, geometry, missing_burned_area)
-    initial = inputs["burned_area"]
-    if initial.numel() != initial.shape[-2] * initial.shape[-1]:
-        raise ValueError("One cutoff is required per export")
-    initial_np = initial.detach().cpu().numpy().reshape(initial.shape[-2:])
-    known = inputs["burned_area_valid"].detach().cpu().numpy().reshape(initial.shape[-2:]) & np.isfinite(initial_np)
-    first = np.full((n_samples, *initial_np.shape), -1, dtype=np.int16)
-    first[:, known & (initial_np == 1)] = 0
-    first[:, ~known] = -2
-
-    def callback(block, states, hour):
-        start = block * trajectory_batch_size
-        active = states.detach().cpu().numpy()[:, 0]
-        block_first = first[start:start + len(active)]
-        block_first[(block_first == -1) & active] = hour
-
-    outputs = simulate(model.predictor, **inputs, hours=list(range(1, horizon_hours + 1)),
-                       n_samples=n_samples, seed=seed, trajectory_batch_size=trajectory_batch_size,
-                       boundary=boundary, missing_burned_area=missing_burned_area,
-                       assumed_unburned_cells=initialization["assumed_unburned_cells"],
-                       trajectory_callback=callback)
-    valid = np.stack([o["details"].valid.detach().cpu().numpy().reshape(initial_np.shape) for o in outputs])
-    first[:, ~valid[-1]] = -2
-    seeds, offsets, components = [], [], []
-    predictor = model.predictor
-    if isinstance(predictor, BayesianBurnModel):
-        supported = torch.isfinite(predictor.log_posterior_weights)
-        original_indices = torch.nonzero(supported, as_tuple=False).flatten().cpu().numpy()
-        weights = torch.softmax(predictor.log_posterior_weights[supported].detach().cpu().double(), dim=0)
-    else:
-        original_indices = np.array([0])
-        weights = torch.ones(1, dtype=torch.float64)
-    if len(original_indices) and int(max(original_indices)) > 32767:
-        raise ValueError("Bayesian component index does not fit int16")
-    for block, start in enumerate(range(0, trajectory_count, trajectory_batch_size)):
-        count = min(trajectory_batch_size, trajectory_count - start)
-        block_seed = _generator(seed, 0, block, 0).initial_seed()
-        assignment = torch.multinomial(weights, trajectory_batch_size, replacement=True,
-                                       generator=_generator(seed, 0, block, 1)).numpy()
-        seeds.extend([block_seed] * count)
-        offsets.extend(range(count))
-        components.extend(original_indices[assignment[:count]])
-    arrays = {"trajectory_first_burn_hour": first[:trajectory_count],
-              "trajectory_seed": np.asarray(seeds, dtype=np.uint64).view(np.int64),
-              "trajectory_component": np.asarray(components, dtype=np.int16),
-              "trajectory_offset_in_block": np.asarray(offsets, dtype=np.int32),
-              "trajectory_cumulative_probability": np.stack([o["burned_probability"].detach().cpu().numpy().reshape(initial_np.shape) for o in outputs]),
-              "trajectory_valid_by_hour": valid}
-    metadata = {"export_version": "wfg.latest-forecast-export/3", "trajectory_count": trajectory_count,
-                "trajectory_simulated_count": n_samples, "trajectory_horizon_hours": horizon_hours,
-                "trajectory_boundary": boundary, "trajectory_missing_policy": missing_burned_area,
-                "trajectory_base_seed": seed, "trajectory_batch_size": trajectory_batch_size,
-                "trajectory_seed_encoding": "uint64 block ignition-stream seed, bit-preserved in int64",
-                "trajectory_identity": "base seed + cutoff index 0 + block index + offset + batch size + source/checkpoint + inputs/policies",
-                "trajectory_environment": "repeated cutoff, no future labels",
-                "trajectory_coverage": "conservative all-supported-component envelope; final unknown encoded -2"}
-    return arrays, metadata
-
-
 def main():
     ap = argparse.ArgumentParser()
     for k in ("--source-root", "--data-root", "--checkpoint", "--event", "--cutoff", "--out"):
         ap.add_argument(k, required=True)
-    ap.add_argument("--export-version", choices=("2", "3"), default="2")
-    ap.add_argument("--trajectory-count", type=int, default=64)
-    ap.add_argument("--trajectory-samples", type=int, default=1024)
-    ap.add_argument("--trajectory-horizon-hours", type=int, default=1)
-    ap.add_argument("--trajectory-seed", type=int, default=0)
-    ap.add_argument("--trajectory-batch-size", type=int, default=32)
     a = ap.parse_args()
     iso, epoch = C.normalize_cutoff(a.cutoff)
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
@@ -183,14 +98,6 @@ def main():
               "heat__initial_burning_valid": two_d(heat.initial_burning_valid, "initial_valid")}
     summary = C.validate_raw(arrays, T)          # fail closed before anything is written
     arrays = C.embed_clock(arrays, clock, a.event, T, epsg)
-    trajectory_metadata = {}
-    if a.export_version == "3":
-        trajectory_arrays, trajectory_metadata = collect_trajectories(
-            model, sample, horizon_hours=a.trajectory_horizon_hours,
-            n_samples=a.trajectory_samples, trajectory_count=a.trajectory_count,
-            seed=a.trajectory_seed, trajectory_batch_size=a.trajectory_batch_size,
-            boundary=P["boundary"], missing_burned_area=P["missing_burned_area"])
-        arrays.update(trajectory_arrays)
     tmp = out / (npz_path.name + ".partial.npz")
     np.savez_compressed(tmp, **arrays); os.replace(tmp, npz_path)
     data = Path(a.data_root)
@@ -210,7 +117,6 @@ def main():
            "timing_s": {"model_load": t_load, "data_load": t_data, "probability": t_prob, "heat": t_heat},
            "versions": {"torch": torch.__version__, "numpy": np.__version__, "python": sys.version.split()[0]},
            "utc": datetime.datetime.now(datetime.timezone.utc).isoformat()}
-    rec.update(trajectory_metadata)
     with rec_path.open("x") as f:
         json.dump(rec, f, indent=1, default=str); f.write("\n")
     print(json.dumps({k: rec[k] for k in ("event", "cutoff_utc", "npz_sha256", "raw_summary", "timing_s")}, default=str))

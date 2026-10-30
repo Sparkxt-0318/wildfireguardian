@@ -53,6 +53,8 @@ class ContactModel:
 
     def _g(self, native_index):
         H, W = self.shape
+        if not 0 <= native_index < H * W:
+            raise ValueError("native cell outside grid")
         r, c = divmod(native_index, W)
         return (H - 1 - r) * W + c
 
@@ -65,7 +67,9 @@ class ContactModel:
     @classmethod
     def from_arrays(cls, ignition_time_s, current_active, T, R, ids=None, weights=None, label=None):
         ign = np.asarray(ignition_time_s, dtype=float)
-        cur = np.asarray(current_active, dtype=bool)
+        cur = np.asarray(current_active)
+        if cur.dtype != np.bool_:
+            raise ValueError("current activity must be a genuine Boolean array")
         if ign.ndim != 3 or cur.shape != ign.shape[1:]:
             raise ValueError("ignition [S,H,W] and current [H,W] required")
         if np.isnan(ign).any() or np.isneginf(ign).any() or (ign[np.isfinite(ign)] < 0).any():
