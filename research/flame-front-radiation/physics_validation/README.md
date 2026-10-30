@@ -18,6 +18,8 @@ The requested Pimont numerical bands, original Packham geometry, full Silvani se
 
 `fig02_parameter_sweep`: snapshot parameter perturbations at fixed receiver distance, including emission, width, receiver orientation, residence labels and sourced wind tilt. Residence does not change a fixed snapshot panel; a time-dependent front calculation would change its trailing geometry. These bars are sensitivity cases, not error bars.
 
+Both figures use a fixed 7.2-inch canvas, exported at nominal 300 dpi with a 2160-pixel width. Their SVG width is 518.4 points. The producer records image dimensions, file hashes and unchanged scientific-table hashes in `FIGURE_QA.json`. Legends and labels fit within the fixed canvas; the legend remains outside plotted data.
+
 ## Scope and limits
 
 No field validation. No measurements were generated or altered. A factor-of-three test is meaningful only after identifying compatible source geometry, sensor geometry, timing and measured quantity. Incomparable hypothetical ratios remain explicitly incomparable. Optical equation checks cannot close unknown source phases, luminous flame geometry, convection, smoke, embers or vehicle shielding. The routed binding/cost figures requested by the track are unavailable because the empirical gate did not pass.

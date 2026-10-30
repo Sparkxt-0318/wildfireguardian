@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 from pathlib import Path
 import sys
+import xml.etree.ElementTree as ET
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -38,8 +40,9 @@ def write_csv(path,rows):
 
 
 def save(fig,path):
-    fig.savefig(str(path)+".png",dpi=300,bbox_inches="tight",facecolor="white")
-    fig.savefig(str(path)+".svg",bbox_inches="tight",facecolor="white",metadata={"Date":None})
+    # Keep the declared 7.2-inch canvas; tight bounding boxes expand its width.
+    fig.savefig(str(path)+".png",dpi=300,facecolor="white")
+    fig.savefig(str(path)+".svg",facecolor="white",metadata={"Date":None})
     svg=Path(str(path)+".svg")
     svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines())+"\n")
     plt.close(fig)
@@ -57,6 +60,7 @@ def run():
             rows.append({"case":"declared_straight_front","intensity_kw_m":intensity,"height_m":h,"width_m":20,"distance_m":d,"E_kw_m2":100,"receiver_height_m":0,"flux_kw_m2":100*finite_panel_view_factor(20,h,d,receiver="worst_case"),"wall_facing_base_kw_m2":100*infinite_wall_view_factor(h,d),"comparison":"MODEL_ONLY","reference_kw_m2":"","source":"byram_putnam"})
     ax.set(xlabel="Distance from front (m)",ylabel="Incident radiation (kW/m2)",xscale="log")
     ax.legend(loc="upper left",bbox_to_anchor=(1.01,1),frameon=False)
+    fig.subplots_adjust(left=.11,right=.63,bottom=.20,top=.96)
     save(fig,out/"fig01_flux_vs_distance")
     blackbody=5.670374419e-11*1200**4
     cohen=[]
@@ -83,10 +87,24 @@ def run():
     fig,ax=plt.subplots(figsize=(7.2,3.6));vals=np.array([r["flux_kw_m2"] for r in tornado]);idx=np.arange(len(vals))
     ax.barh(idx,vals-base,left=base,color=["#D55E00" if v>base else "#0072B2" for v in vals]);ax.axvline(base,color="black",lw=.8)
     ax.set(yticks=idx,yticklabels=[r["parameter"] for r in tornado],xlabel="Snapshot radiation at 20 m (kW/m2)")
+    fig.subplots_adjust(left=.40,right=.98,bottom=.17,top=.98)
     save(fig,out/"fig02_parameter_sweep")
     result={"overall_gate":"UNRESOLVED_DO_NOT_RUN_ROUTING","optical_model_checks":"PASS","empirical_factor_three_gate":"UNRESOLVED_INCOMPARABLE_OR_UNLOCATED_INPUTS","cohen_model_rows":cohen,"incomparable_diagnostics_max_ratio":max(d["ratio"] for d in diagnostics),"max_ratio_is_not_a_physical_validation_error":True,"finite_20m_panel_at_80m_base_view_factor":finite_panel_view_factor(20,20,80),"infinite_wall_at_2h_base_view_factor":infinite_wall_view_factor(20,40),"sources":SOURCES,"corrections":["Morandini 2.5m is shrub height, not verified flame height; plot width is not instantaneous front width.","Cohen 2004 has three wall ignitions at10m; only one involved observed flame contact. The prompt's only-contact claim is contradicted.","Cohen's79,45,27 are ideal-model values, not the measured flux table.","In-flame irradiance does not uniquely identify an extended uniform emitting panel's emissive power."]}
     (out/"RESULTS.json").write_text(json.dumps(result,indent=2)+"\n")
     (out/"SOURCES.json").write_text(json.dumps(SOURCES,indent=2)+"\n")
+    from PIL import Image
+    figures={}
+    for name in ("fig01_flux_vs_distance","fig02_parameter_sweep"):
+        png=out/(name+".png");svg=out/(name+".svg")
+        with Image.open(png) as image:
+            pixels=image.size;dpi=image.info["dpi"]
+        svg_root=ET.parse(svg).getroot()
+        width_pt=float(svg_root.attrib["width"].removesuffix("pt"))
+        assert pixels[0]==2160 and abs(width_pt-518.4)<1e-9
+        assert all(abs(value-300)<.01 for value in dpi)
+        figures[name]={"png_pixels":list(pixels),"png_dpi":list(dpi),"svg_width_pt":width_pt,"canvas_width_in":7.2,"png_sha256":hashlib.sha256(png.read_bytes()).hexdigest(),"svg_sha256":hashlib.sha256(svg.read_bytes()).hexdigest()}
+    qa={"command":"python research/flame-front-radiation/physics_validation/run_physics.py","producer_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),"status":"PASS_FIXED_DOUBLE_COLUMN_CANVAS","figures":figures,"scientific_table_sha256":{name:hashlib.sha256((out/name).read_bytes()).hexdigest() for name in ("MODEL_TABLE.csv","INCOMPARABLE_DIAGNOSTICS.csv","TORNADO.csv")}}
+    (out/"FIGURE_QA.json").write_text(json.dumps(qa,indent=2)+"\n")
     return result
 
 
