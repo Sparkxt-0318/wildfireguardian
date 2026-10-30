@@ -37,14 +37,14 @@ def style():
 def save(fig, out: Path, name: str):
     out.mkdir(parents=True, exist_ok=True)
     for ext in ("png", "svg"):
-        fig.savefig(out / f"{name}.{ext}", dpi=300, bbox_inches="tight")
+        fig.savefig(out / f"{name}.{ext}", dpi=300)
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def ablation(run: Path, draws: int = 10000, seed: int = 20261029) -> dict:
+def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
     """Variant minus base on development folds, paired by development fire."""
     rows = []
     active = run / "ACTIVE_PHASE.json"
@@ -90,6 +90,35 @@ def primary_candidate(abl: dict) -> str | None:
     return min(abl, key=lambda v: (abl[v]["mean_fire_brier"], priority.index(v))) if abl else None
 
 
+def detailed_scores(entries, draws=10000, seed=20261030):
+    """Add honest exact-NLL limits and paired whole-fire skill intervals."""
+    scored = B.score_entries(entries, draws=draws, seed=seed)
+    fire, y = entries["fire"], entries["y"]
+    fires = np.unique(fire)
+    sampled = np.random.default_rng(seed).integers(0, len(fires), size=(draws, len(fires)))
+    errors = {n: np.array([np.sum((p[fire == f] - y[fire == f]) ** 2) for f in fires])
+              for n, p in entries["predictions"].items()}
+    for name, record in scored["models"].items():
+        p = entries["predictions"][name]
+        wrong = int((((p == 0) & (y == 1)) | ((p == 1) & (y == 0))).sum())
+        exact = None if wrong else float((-np.log(p[y == 1]).sum() - np.log1p(-p[y == 0]).sum()) / len(y))
+        record["pooled"]["exact_nll"] = dict(value=exact, infinite=bool(wrong), certainty_wrong_entries=wrong)
+        for reference in ("persistence", "dilation_best"):
+            denominator = errors[reference].sum()
+            metric = "bss_vs_" + ("best_dilation" if reference == "dilation_best" else "persistence")
+            record["pooled"][metric] = float(1 - errors[name].sum() / denominator) if denominator else None
+            resampled_denominator = errors[reference][sampled].sum(1)
+            supported = resampled_denominator > 0
+            values = 1 - errors[name][sampled].sum(1)[supported] / resampled_denominator[supported]
+            interval = np.quantile(values, [.025, .975]).tolist() if len(values) else None
+            record[metric + "_paired_fire_95_interval"] = dict(interval=interval, draws=draws, seed=seed,
+                undefined_zero_reference_draws=int((~supported).sum()), unit="whole fire, pooled error ratio")
+            for event, per_fire in record["per_fire"].items():
+                db = scored["models"][reference]["per_fire"][event]["brier"]
+                per_fire[metric] = 1 - per_fire["brier"] / db if db else None
+    return scored
+
+
 def figure_reliability(plt, scored, entries, out, label):
     fig, (ax, low) = plt.subplots(1, 2, figsize=(DOUBLE, 3.0))
     names = [n for n in ("c651_mc", "c651_meanfield", "logistic", "dilation_best") if n in scored["models"]]
@@ -122,8 +151,9 @@ def figure_reliability(plt, scored, entries, out, label):
     low.set_xlabel("Mean forecast probability in bin\n(log bins, >= 50 entries; values floored at 1e-5)")
     ax.set_title(f"Reliability, held-out 2024 intervals{label}")
     low.set_title("Low-probability range")
-    ax.legend(loc="upper left", frameon=False)
-    fig.tight_layout()
+    fig.legend(*ax.get_legend_handles_labels(), loc="lower center", ncol=4, frameon=False,
+               bbox_to_anchor=(0.5, 0.01))
+    fig.subplots_adjust(left=0.09, right=0.985, top=0.89, bottom=0.35, wspace=0.30)
     save(fig, out, "fig01_reliability_all_models")
     plt.close(fig)
 
@@ -136,13 +166,17 @@ def figure_per_fire(plt, scored, out, label, primary):
     for k, (colour, name) in enumerate(zip(OKABE_ITO, names)):
         values = [scored["models"][name]["per_fire"][f]["brier"] for f in fires]
         ax.scatter(x + (k - len(names) / 2) * 0.12, values, s=10, color=colour, label=name, zorder=3)
-    for i, f in enumerate(fires):
-        vals = [scored["models"][n]["per_fire"][f]["brier"] for n in names]
-        ax.plot([i - 0.3, i + 0.3], [min(vals), min(vals)], color="#dddddd", lw=0.5, zorder=1)
+    if primary and "dilation_best" in names:
+        left, right = names.index("dilation_best"), names.index(primary)
+        for i, fire in enumerate(fires):
+            xs = [i + (k - len(names) / 2) * .12 for k in (left, right)]
+            ys = [scored["models"][n]["per_fire"][fire]["brier"] for n in ("dilation_best", primary)]
+            ax.plot(xs, ys, color="#bbbbbb", lw=.6, zorder=1)
     ax.set_xticks(x, [f.split("_")[1] if "_" in f else f for f in fires])
     ax.set_ylabel("Brier score per fire (lower is better)")
-    ax.set_title(f"Per-fire Brier on held-out 2024 fires, same cells for every model{label}")
+    ax.set_title(f"Held-out 2024 fires, common cells for every model{label}")
     ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1), frameon=False)
+    fig.subplots_adjust(left=.09, right=.74, bottom=.24, top=.88)
     save(fig, out, "fig02_per_fire_brier_paired")
     plt.close(fig)
 
@@ -157,8 +191,9 @@ def figure_ablation(plt, abl, out, label):
                     fmt="o", ms=3, color=OKABE_ITO[5], ecolor=OKABE_ITO[5], lw=0.8, capsize=2)
     ax.axvline(0, color="#999999", lw=0.6, ls="--")
     ax.set_yticks(range(len(variants)), variants)
-    ax.set_xlabel("Development Brier minus base (paired by fire, 95% bootstrap)")
-    ax.set_title(f"Structural ablations on 2020 to 2022 folds{label}")
+    ax.set_xlabel("Development Brier minus base\n(whole-fire bootstrap, 95% interval)")
+    ax.set_title(f"Structural ablations, 2020 to 2022 folds{label}")
+    fig.subplots_adjust(left=.35, right=.98, bottom=.25, top=.88)
     save(fig, out, "fig03_ablation_forest_plot")
     plt.close(fig)
 
@@ -173,9 +208,10 @@ def figure_meanfield(plt, frame, out, label):
     ax.set_xscale("log")
     ax.set_xticks([1, 3, 6, 12, 24], ["1", "3", "6", "12", "24"])
     ax.set_xlabel("Forecast horizon (h)")
-    ax.set_ylabel("RMSE, mean field vs Monte Carlo\n(cells with p > 0.001)")
-    ax.set_title(f"c651 mean field against 1,024 trajectories{label}")
+    ax.set_ylabel("Mean field vs Monte Carlo RMSE\n(cells where either probability > 0.001)")
+    ax.set_title(f"c651, 1,024 trajectories{label}")
     ax.legend(frameon=False)
+    fig.subplots_adjust(left=.24, right=.98, bottom=.22, top=.87)
     save(fig, out, "fig04_meanfield_vs_mc_rmse_by_horizon")
     plt.close(fig)
 
@@ -205,20 +241,23 @@ def figure_example(plt, run, scored_entries, primary, out, label):
     for name in ("c651_mc", primary):
         field = np.full(initial.shape, np.nan)
         field[rows, cols] = data[f"p_{name}"][use]
+        field[initial] = 1.0
         fields[name] = field
     r = np.flatnonzero((initial | later).any(1))
     c = np.flatnonzero((initial | later).any(0))
     window = (slice(max(r[0] - 8, 0), r[-1] + 9), slice(max(c[0] - 8, 0), c[-1] + 9))
     fig, axes = plt.subplots(1, 4, figsize=(DOUBLE, 2.0))
-    panels = [("Initial mapped extent", initial.astype(float)), (f"c651 Monte Carlo", fields["c651_mc"]),
-              (f"{primary} mean field", fields[primary]), ("Later mapped extent", later.astype(float))]
+    panels = [("Initial mapped extent", initial.astype(float)), ("c651 Monte Carlo", fields["c651_mc"]),
+              (f"{primary}\nmean field", fields[primary]), ("Later mapped extent", later.astype(float))]
     for ax, (title, image) in zip(axes, panels):
         shown = ax.imshow(image[window], vmin=0, vmax=1, cmap="viridis", interpolation="nearest")
         ax.set_title(title)
         ax.set_xticks([])
         ax.set_yticks([])
-    fig.colorbar(shown, ax=axes, fraction=0.02, pad=0.01, label="Probability or mapped (1)")
-    fig.suptitle(f"{fire}, {t1.isoformat()} plus {float(data['hours'][interval]):.1f} h, {count} newly mapped cells{label}", y=1.05)
+    fig.subplots_adjust(left=.02, right=.89, bottom=.08, top=.70, wspace=.12)
+    colour_axis = fig.add_axes([.915, .18, .013, .46])
+    fig.colorbar(shown, cax=colour_axis, label="Cumulative probability or mapped (1)")
+    fig.suptitle(f"{fire}\n{t1.isoformat()}, +{float(data['hours'][interval]):.1f} h, {count} newly mapped cells{label}", y=.98, fontsize=7)
     save(fig, out, "fig05_example_forecast_vs_perimeter")
     plt.close(fig)
     return dict(fire=fire, interval=interval, t1=t1.isoformat(), positives=count,
@@ -255,7 +294,7 @@ def main():
     heldout = args.run / "heldout"
     if heldout.exists() and list(heldout.glob("*.npz")):
         entries = B.load_scored_entries(heldout)
-        scored = B.score_entries(entries)
+        scored = detailed_scores(entries)
         inputs = json.loads((args.run / "report_inputs.json").read_text())
         if "c651_mc" in entries["predictions"]:
             # A finite-trajectory frequency adds its sampling variance to the Brier

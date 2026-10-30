@@ -86,6 +86,7 @@ class Environment:
         self.names = None
         self.catalog = {e["id"]: e for e in json.loads((self.root / "events.json").read_text())}
         self._residence = {}
+        self._terrain_gradients = {}
         cached = next(iter(sorted(self.cache.glob("*.npz"))), None)
         if cached is not None:
             self.names = tuple(str(n) for n in np.load(cached)["names"])
@@ -93,6 +94,23 @@ class Environment:
     def available_at(self, event, hour):
         record = self.catalog[event]
         return pd.Timestamp(record["start_utc"]) <= hour <= pd.Timestamp(record["end_utc"])
+
+    def terrain_gradient(self, event):
+        """East/north elevation gradient from the separately hashed baseline supplement."""
+        if event not in self._terrain_gradients:
+            import rasterio
+            path = self.root.parent / "baseline-terrain" / event / "elevation_m_375m.tif"
+            with rasterio.open(path) as source:
+                if not source.crs.is_projected or abs(source.crs.linear_units_factor[1] - 1) > 1e-12:
+                    raise ValueError("Directional slope requires a projected grid measured in metres")
+                elevation = source.read(1, masked=True).filled(np.nan).astype(float)
+                row, col = np.gradient(elevation)
+                t = source.transform
+                inverse = np.linalg.inv(np.array([[t.a, t.b], [t.d, t.e]]).T)
+                east = inverse[0, 0] * col + inverse[0, 1] * row
+                north = inverse[1, 0] * col + inverse[1, 1] * row
+            self._terrain_gradients[event] = east, north
+        return self._terrain_gradients[event]
 
     def residence(self, event):
         """Point duration from supported FBFM40 cells; declared 6h fallback elsewhere."""
@@ -424,7 +442,7 @@ def command_heldout(args):
             for k in B.DILATION_HOURS:
                 preds[f"dilation_{k}h"] = B.dilation(sample.initial, sample.hours, k)
             preds["dilation_best"] = preds[f"dilation_{best_k}h"]
-            preds["logistic"] = logistic_predict(logistic, sample, names)
+            preds["logistic"] = logistic_predict(logistic, sample, names, env.terrain_gradient(event))
             known_env = np.isfinite(sample.environment).all(axis=0)
             mask = (~sample.initial) & known_env & np.logical_and.reduce(valids)
             for name in preds:
@@ -444,19 +462,27 @@ def command_heldout(args):
     (out / f"timings_{int(time.time())}.json").write_text(json.dumps(dict(host=host_record(), rows=timings)) + "\n")
 
 
-def logistic_features(sample: PerimeterSample, names) -> np.ndarray:
+def logistic_features(sample: PerimeterSample, names, elevation_gradient) -> np.ndarray:
     i = {n: k for k, n in enumerate(names)}
     biome = np.zeros(sample.initial.shape)
     for code in range(1, 15):
         biome = np.where(sample.environment[i[f"biome.biome_class={code}"]] == 1, code, biome)
+    if "crop" in sample.meta:
+        r0, r1, c0, c1 = sample.meta["crop"]
+        elevation_gradient = tuple(g[r0:r1, c0:c1] for g in elevation_gradient)
     return B.hand_features(sample.initial, sample.hours,
                            np.nan_to_num(sample.environment[i["weather.wind_eastward_10m"]]),
                            np.nan_to_num(sample.environment[i["weather.wind_northward_10m"]]),
-                           sample.environment[i["terrain.slope_degrees"]], biome, list(range(1, 15)))
+                           sample.environment[i["terrain.slope_degrees"]], biome, list(range(1, 15)),
+                           elevation_gradient=elevation_gradient)
 
 
-def logistic_predict(fitted, sample, names):
-    return B.predict_logistic(fitted, logistic_features(sample, names)).reshape(sample.initial.shape)
+def logistic_predict(fitted, sample, names, elevation_gradient):
+    features = logistic_features(sample, names, elevation_gradient)
+    finite = np.isfinite(features).all(1)
+    probability = np.full(len(features), np.nan)
+    probability[finite] = B.predict_logistic(fitted, features[finite])
+    return probability.reshape(sample.initial.shape)
 
 
 def command_baselines(args):
@@ -469,22 +495,23 @@ def command_baselines(args):
     xs, ys = [], []
     dilation_sq = {k: [0.0, 0] for k in B.DILATION_HOURS}
     for sample in train:
-        feats = logistic_features(sample, names)
+        feats = logistic_features(sample, names, env.terrain_gradient(sample.event_id))
         mask = sample.score_mask.ravel()
+        mask = mask & np.isfinite(sample.environment).all(axis=0).ravel() & np.isfinite(feats).all(axis=1)
         y = sample.endpoint.ravel()[mask]
         x = feats[mask]
         keep = (y == 1) | (rng.random(len(y)) < args.negative_fraction)
         xs.append(x[keep])
         ys.append(y[keep])
         for k in B.DILATION_HOURS:
-            d = B.dilation(sample.initial, sample.hours, k)[sample.score_mask]
-            dilation_sq[k][0] += float(((d - sample.endpoint[sample.score_mask]) ** 2).sum())
-            dilation_sq[k][1] += int(sample.score_mask.sum())
+            d = B.dilation(sample.initial, sample.hours, k).ravel()[mask]
+            dilation_sq[k][0] += float(((d - sample.endpoint.ravel()[mask]) ** 2).sum())
+            dilation_sq[k][1] += int(mask.sum())
     x, y = np.concatenate(xs), np.concatenate(ys)
     weights = np.where(y == 1, 1.0, 1.0 / args.negative_fraction)
     from sklearn.linear_model import LogisticRegression
     from sklearn.preprocessing import StandardScaler
-    scaler = StandardScaler().fit(x)
+    scaler = StandardScaler().fit(x, sample_weight=weights)
     model = LogisticRegression(max_iter=3000, random_state=args.seed)
     model.fit(scaler.transform(x), y.astype(int), sample_weight=weights)
     out = args.run / "baselines"
@@ -498,7 +525,7 @@ def command_baselines(args):
     (out / "logistic.json").write_text(json.dumps(dict(
         coefficients=model.coef_.tolist(), intercept=model.intercept_.tolist(), rows=int(len(y)),
         positives=int(y.sum()), negative_fraction=args.negative_fraction, seed=args.seed,
-        features=["log1p(distance)", "distance/hours", "alignment", "alignment*speed", "speed", "slope/45",
+        features=["log1p(distance)", "distance/hours", "alignment", "alignment*speed", "speed", "directional_slope_degrees/45",
                   "log(hours)"] + [f"biome={c}" for c in range(1, 15)],
         weighting="negatives subsampled at the stated fraction and weighted by its inverse"), indent=1) + "\n")
     print(json.dumps(dict(best_dilation=choice, scores=scores)))

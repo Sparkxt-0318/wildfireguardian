@@ -70,15 +70,22 @@ def nearest_burned_features(initial: np.ndarray):
 
 def hand_features(initial: np.ndarray, hours: float, u: np.ndarray, v: np.ndarray,
                   slope: np.ndarray, biome: np.ndarray | None, biome_codes: Sequence[int],
-                  max_distance: float = 40.0) -> np.ndarray:
+                  max_distance: float = 40.0, *, elevation_gradient: tuple[np.ndarray, np.ndarray] | None = None) -> np.ndarray:
     """``[H*W, F]`` features: log distance, alignment, slope, interactions, biome one-hot."""
     distance, east, north = nearest_burned_features(initial)
     speed = np.hypot(u, v)
     with np.errstate(invalid="ignore", divide="ignore"):
         alignment = np.where(speed > 1e-9, (east * u + north * v) / speed, 0.0)
     d = np.minimum(distance, max_distance)
+    if elevation_gradient is None:
+        directional_slope = np.nan_to_num(slope, nan=0.0)
+    else:
+        gradient_east, gradient_north = elevation_gradient
+        if gradient_east.shape != initial.shape or gradient_north.shape != initial.shape:
+            raise ValueError("Elevation gradients must match the forecast rectangle")
+        directional_slope = np.rad2deg(np.arctan(east * gradient_east + north * gradient_north))
     columns = [np.log1p(d), d / max(hours, 1e-9), alignment, alignment * speed, speed,
-               np.nan_to_num(slope, nan=0.0) / 45.0, np.full(d.shape, math.log(hours))]
+               directional_slope / 45.0, np.full(d.shape, math.log(hours))]
     if biome is not None:
         columns += [(biome == code).astype(np.float64) for code in biome_codes]
     return np.stack([c.astype(np.float64).ravel() for c in columns], axis=1)

@@ -1,0 +1,29 @@
+{
+  "schema": "wfg.forecast-v2.protocol-extension/1",
+  "recorded_utc": "2026-10-30T03:37:58.496432+00:00",
+  "before_heldout_score_inspection": true,
+  "reason": "Audit found reused logistic baseline used scalar slope magnitude, not slope along the nearest-fire direction. Complete aligned elevation inputs are available.",
+  "baseline_feature": "Positive-uphill directional slope in degrees is atan of the dot product between the nearest-burned-cell direction and the affine-corrected elevation gradient; divide by45 for scaling. Unknown elevation remains unsupported.",
+  "baseline_fitting": "Same all-eligible fit interval policy and frozen negative inclusion fraction; weighted StandardScaler and logistic loss use inverse inclusion weights. Best dilation uses finite environment and hand-feature cells on the same cropped training rectangles.",
+  "supplement_manifest_sha256": "0e8546d9d4d3bd19ab835e10c3951ef5762ba35eafd25e36e0c369211ad01aa2",
+  "supplement_events": 44,
+  "supplement_bytes": 1542666,
+  "source_archive_sha256": "b9e000e8661128416fe7561690f78b1955d5a32189ac71536c1cd4110cd5dd65",
+  "active_fitting_source_commit": "7ddcf0b68",
+  "unchanged_fitting_functions_ast_verified": [
+    "command_final",
+    "command_fold",
+    "build_model",
+    "fit_samples",
+    "perimeter_samples",
+    "kriged_samples",
+    "cropped",
+    "load_structured",
+    "c651_monte_carlo"
+  ],
+  "model_fitting_policy_changed": false,
+  "input_extraction_manifest_changed": false,
+  "reconstruction_time_repair_extension": 3,
+  "bootstrap_seed": 20261030,
+  "scope": "Baseline and reporting corrections only; no model selection change or heldout-based tuning."
+}

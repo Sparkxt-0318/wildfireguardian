@@ -1,0 +1,187 @@
+"""Run and score a frozen 2026 mapped-extent cohort without model reselection.
+
+The registry pins fitted checkpoints and logistic/dilation baselines. A cohort
+manifest pins the case list and every input byte. Raw prediction generation and
+metric recomputation are separate commands, both retaining exact identities.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import pickle
+import sys
+
+HERE = Path(__file__).resolve()
+REPO = HERE.parents[3]
+sys.path.insert(0, str(REPO / "forecast"))
+
+import numpy as np
+import pandas as pd
+import torch
+
+from wildfire import baselines as B
+from wildfire.api import load_model
+
+
+def sha(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as reader:
+        for block in iter(lambda: reader.read(4 * 1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def write(path, value):
+    Path(path).write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
+
+
+def validate(registry_path, cohort_path, model_root, input_root):
+    registry = json.loads(registry_path.read_text())
+    cohort = json.loads(cohort_path.read_text())
+    if registry.get("status") != "FROZEN" or not registry.get("selected_model"):
+        raise ValueError("A complete frozen registry with an exact selected model is required")
+    if cohort.get("registry_sha256") != sha(registry_path):
+        raise ValueError("Cohort is not bound to this exact frozen registry")
+    cases = cohort.get("cases", [])
+    if not cases or any(c.get("year") != 2026 for c in cases):
+        raise ValueError("Every blind case must belong to the prespecified 2026 cohort")
+    keys = [(c["event"], c["cutoff"], c["endpoint"]) for c in cases]
+    if len(set(keys)) != len(keys):
+        raise ValueError("Duplicate blind cases are not independent evidence")
+    for case in cases:
+        hours = (pd.Timestamp(case["endpoint"]) - pd.Timestamp(case["cutoff"])).total_seconds() / 3600
+        if not 0 < hours <= 48:
+            raise ValueError("Blind intervals must be consecutive eligible endpoint pairs in (0,48] hours")
+        if case.get("reference_kind") not in ("nirops_mapped_extent", "korean_arrival_reconstruction"):
+            raise ValueError("Reference evidence class must be explicit")
+    for item in [*registry["models"].values(), registry["logistic"]]:
+        path = (model_root / item["path"]).resolve()
+        if not path.is_relative_to(model_root.resolve()) or sha(path) != item["sha256"]:
+            raise ValueError("A frozen model or baseline identity changed")
+    for relative, expected in registry["producer_source_sha256"].items():
+        if sha(model_root / relative) != expected:
+            raise ValueError(f"Frozen blind producer source changed: {relative}")
+    for relative, expected in cohort["input_sha256"].items():
+        path = (input_root / relative).resolve()
+        if not path.is_relative_to(input_root.resolve()) or sha(path) != expected:
+            raise ValueError(f"Blind input identity changed: {relative}")
+    return registry, cohort
+
+
+def run(args):
+    registry, cohort = validate(args.registry, args.cohort, args.model_root, args.input_root)
+    if args.out.exists() and any(args.out.iterdir()):
+        raise FileExistsError("Blind outputs must be new; preserve existing predictions")
+    args.out.mkdir(parents=True, exist_ok=True)
+    spec = importlib.util.spec_from_file_location("frozen_forecast_v2_pipeline", HERE.with_name("pipeline.py"))
+    pipeline = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = pipeline
+    spec.loader.exec_module(pipeline)
+    torch.set_num_threads(2)
+    environment = pipeline.Environment(args.input_root / "environment", args.out / "environment_cache")
+    c651 = load_model(args.model_root / registry["models"]["c651_mc"]["path"], device="cpu")
+    models = {name: pipeline.load_structured(args.model_root / item["path"])
+              for name, item in registry["models"].items() if name != "c651_mc"}
+    logistic = pickle.loads((args.model_root / registry["logistic"]["path"]).read_bytes())
+    groups = {"nirops_mapped_extent": {}, "korean_arrival_reconstruction": {}}
+    unavailable = []
+    for case in cohort["cases"]:
+        event = case["event"]
+        # The cohort's prepared sample file pins endpoint, masks, ages and
+        # environment bytes. It is local, trusted and hash-verified above.
+        sample_path = args.input_root / case["sample_pickle"]
+        if case["sample_pickle"] not in cohort["input_sha256"]:
+            raise ValueError("Every prepared sample must have an explicit input hash")
+        sample = pickle.loads(sample_path.read_bytes())
+        if sample.event_id != event or pd.Timestamp(sample.t1) != pd.Timestamp(case["cutoff"]):
+            raise ValueError("Prepared sample identity differs from the frozen blind case")
+        expected_hours = (pd.Timestamp(case["endpoint"]) - pd.Timestamp(case["cutoff"])).total_seconds() / 3600
+        if abs(sample.hours - expected_hours) > 1e-10:
+            raise ValueError("Prepared sample endpoint differs from the frozen blind case")
+        raw = environment.at(event, pd.Timestamp(case["cutoff"]).floor("h"))
+        if not np.array_equal(raw, sample.environment, equal_nan=True):
+            raise ValueError("Prepared sample does not use the exact cutoff environmental snapshot")
+        predictions, validities = {}, []
+        predictions["c651_mc"], valid = pipeline.c651_monte_carlo(c651.predictor, sample, environment.names, 1024, 0)
+        validities.append(valid)
+        for name, model in models.items():
+            with torch.no_grad():
+                value, supported = pipeline.sample_forecast(model, sample)
+            predictions[name] = value.numpy()
+            validities.append(supported.numpy())
+        predictions["persistence"] = B.persistence(sample.initial)
+        for rate in B.DILATION_HOURS:
+            predictions[f"dilation_{rate}h"] = B.dilation(sample.initial, sample.hours, rate)
+        predictions["dilation_best"] = predictions[f"dilation_{registry['best_dilation_hours_per_cell']}h"]
+        predictions["logistic"] = pipeline.logistic_predict(logistic, sample, environment.names)
+        mask = sample.score_mask & np.isfinite(sample.environment).all(0) & np.logical_and.reduce(validities)
+        for value in predictions.values():
+            mask &= np.isfinite(value)
+        if not mask.any():
+            unavailable.append(dict(event=event, cutoff=case["cutoff"], reason="no common supported cells"))
+            continue
+        group = groups[case["reference_kind"]].setdefault(event, [])
+        group.append(dict(y=sample.endpoint[mask], predictions={name: value[mask] for name, value in predictions.items()}))
+    for kind, fires in groups.items():
+        directory = args.out / kind
+        directory.mkdir(exist_ok=True)
+        for event, cases in fires.items():
+            values = dict(y=np.concatenate([c["y"] for c in cases]),
+                          interval=np.concatenate([np.full(len(c["y"]), i) for i, c in enumerate(cases)]))
+            for name in cases[0]["predictions"]:
+                values[f"p_{name}"] = np.concatenate([c["predictions"][name] for c in cases])
+            np.savez_compressed(directory / f"{event}.npz", **values)
+    write(args.out / "RECEIPT.json", dict(registry_sha256=sha(args.registry), cohort_sha256=sha(args.cohort),
+                                        unavailable=unavailable, primary_selected_model=registry["selected_model"],
+                                        output_sha256={str(p.relative_to(args.out)): sha(p) for p in args.out.rglob("*.npz")}))
+
+
+def score(args):
+    registry = json.loads(args.registry.read_text())
+    receipt = json.loads((args.entries / "RECEIPT.json").read_text())
+    if receipt["registry_sha256"] != sha(args.registry):
+        raise ValueError("Predictions do not belong to the exact frozen registry")
+    for relative, expected in receipt["output_sha256"].items():
+        if sha(args.entries / relative) != expected:
+            raise ValueError("Stored blind predictions changed")
+    results = {}
+    for kind in ("nirops_mapped_extent", "korean_arrival_reconstruction"):
+        directory = args.entries / kind
+        if not list(directory.glob("*.npz")):
+            results[kind] = dict(status="UNAVAILABLE")
+            continue
+        entries = B.load_scored_entries(directory)
+        result = B.score_entries(entries, draws=10000, seed=20261030)
+        result["status"] = "EXPLORATORY" if len(result["fires"]) < 10 else "COMPLETE"
+        results[kind] = result
+    write(args.out, dict(registry_sha256=sha(args.registry), selected_model=registry["selected_model"], results=results))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest="command", required=True)
+    for name in ("validate", "run"):
+        p = sub.add_parser(name)
+        p.add_argument("--registry", type=Path, required=True)
+        p.add_argument("--cohort", type=Path, required=True)
+        p.add_argument("--model-root", type=Path, default=REPO)
+        p.add_argument("--input-root", type=Path, required=True)
+        if name == "run":
+            p.add_argument("--out", type=Path, required=True)
+    p = sub.add_parser("score")
+    p.add_argument("--registry", type=Path, required=True)
+    p.add_argument("--entries", type=Path, required=True)
+    p.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+    if args.command == "validate":
+        validate(args.registry, args.cohort, args.model_root, args.input_root)
+        print("Frozen identities and cohort validated")
+    else:
+        {"run": run, "score": score}[args.command](args)
+
+
+if __name__ == "__main__":
+    main()
