@@ -72,7 +72,8 @@ def job(name, command, expected):
         write(lease, record)
         print(f"running {name}", flush=True)
         started = time.perf_counter()
-        environment = dict(os.environ, PYTHONPATH=str(REPO / "forecast"), OMP_NUM_THREADS="2", MKL_NUM_THREADS="2")
+        environment = dict(os.environ, PYTHONPATH=str(REPO / "forecast"), OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
+                           PYTHONUNBUFFERED="1")
         with log.open("w") as output:
             completed = subprocess.run(command, cwd=REPO, env=environment, stdout=output, stderr=subprocess.STDOUT)
         seconds = time.perf_counter() - started
