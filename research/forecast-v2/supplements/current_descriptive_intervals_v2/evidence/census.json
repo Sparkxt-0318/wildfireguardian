@@ -1,0 +1,65 @@
+{
+  "status": "COMPLETE_FROZEN_306_CASE_CENSUS",
+  "scope": "Saved case membership/identity/status census only. Honest unavailable and failed cases remain represented. No arrays, metrics, masks, field values, model identity, inference or scientific criterion checked.",
+  "frozen_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "total_expected_cases": 306,
+  "total_represented_cases": 306,
+  "cohorts": {
+    "us2024": {
+      "status": "COMPLETE_FROZEN_CASE_CENSUS",
+      "cohort": "us2024",
+      "expected_cases": 273,
+      "represented_cases": 273,
+      "unique_cases": 273,
+      "expected_fires": 6,
+      "per_fire_counts": {
+        "ID-BOF-000683_Wapiti_Wapiti": 52,
+        "ID-BOF-000904_Goat": 42,
+        "ID-BOF-001080_Lava": 47,
+        "ID-SCF-240202_RedRock": 40,
+        "WA-SES-000173_Pioneer": 55,
+        "WY-BTF-002416_FishCreek": 37
+      },
+      "outcome_counts": {
+        "SCORED": 273
+      },
+      "assessment_status": "COMPLETE",
+      "case_order_matches_inventory": true,
+      "declared_event_order_matches_inventory": true,
+      "case_population_sha256": "0387181eabdd0257fba8fa1eaf5d08651c6114e36e16a318aaa0c2112fb18104",
+      "inventory_path": "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "inventory_sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    },
+    "korea2025": {
+      "status": "COMPLETE_FROZEN_CASE_CENSUS",
+      "cohort": "korea2025",
+      "expected_cases": 33,
+      "represented_cases": 33,
+      "unique_cases": 33,
+      "expected_fires": 4,
+      "per_fire_counts": {
+        "KFS_01": 8,
+        "KFS_04": 14,
+        "KFS_06": 8,
+        "KFS_13": 3
+      },
+      "outcome_counts": {
+        "UNAVAILABLE": 7,
+        "SCORED": 26
+      },
+      "assessment_status": "HOLD",
+      "case_order_matches_inventory": true,
+      "declared_event_order_matches_inventory": true,
+      "case_population_sha256": "881a3c41d2fd255a69e30efd00dc9b0fcd91a7655ac68110433a7014acbee4b4",
+      "inventory_path": "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json",
+      "inventory_sha256": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d"
+    }
+  },
+  "scientific_clearance": false,
+  "companion_metric_checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+  "assessment_sha256": {
+    "us2024": "4eb6a0a0c4fd7c20027cb0f5defd4728362364647c3432eb1b3aeae8d3080e94",
+    "korea2025": "96761b3a16856775e10dcafeca4a713ed06328f71fd4c0c2f4611e3b40fb9422"
+  },
+  "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9"
+}

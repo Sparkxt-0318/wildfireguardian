@@ -1,0 +1,17 @@
+{
+  "scope": "invented fixture only",
+  "nonfinite_full_chain_received_completion": true,
+  "result_status": "COMPLETE_DESCRIPTIVE_SUPPLEMENT",
+  "completion_status": "COMPLETED_SAVED_OUTPUT_COMPUTATION",
+  "canonical_report_contains_1e999": true,
+  "artifacts": {
+    "independent-test-tmp/test_nonfinite_exponent_cannot0/invented-root/research/forecast-v2/supplements/INVENTED_ONLY/COMPLETION.json": {
+      "sha256": "ef623e80238a70e405d7e8c5d77be0a569913c8f977495e723f2cbf797d280ed",
+      "bytes": 499
+    },
+    "independent-test-tmp/test_nonfinite_exponent_cannot0/invented-root/research/forecast-v2/supplements/INVENTED_ONLY/DESCRIPTIVE_INTERVALS.json": {
+      "sha256": "dea87da0519a1f627bd12ec34433a1d214c1daf606782b3845a8d79c40b61535",
+      "bytes": 1137635
+    }
+  }
+}

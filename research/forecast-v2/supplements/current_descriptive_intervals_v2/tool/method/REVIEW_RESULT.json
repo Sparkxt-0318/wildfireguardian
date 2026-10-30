@@ -1,0 +1,62 @@
+{
+  "scope": "frozen_source_documentary_interval_inventory_and_invented_controls",
+  "status": "DESCRIPTIVE_SUPPLEMENT_RECOMMENDED",
+  "actual_study_outputs_opened": false,
+  "actual_study_computations": "NOT_RUN",
+  "production_edits": false,
+  "frozen_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "current_headline_gap": [
+    "absolute pooled Brier95 interval",
+    "pooled average precision95 interval"
+  ],
+  "existing_current_intervals": [
+    "paired pooled Brier difference",
+    "pooled SSE ratio BSS vs persistence",
+    "pooled SSE ratio BSS vs best dilation"
+  ],
+  "frozen_primary_criteria_unchanged": true,
+  "synthetic_arithmetic_checks": 12,
+  "synthetic_cached_ap_literal_comparisons": 994,
+  "synthetic_cached_ap_sklearn_defined_comparisons": 978,
+  "synthetic_cached_ap_null_vectors": 16,
+  "ap_full_interval_when_any_undefined_draw": "UNAVAILABLE",
+  "field_arrays_available_to_this_review": false,
+  "host": {
+    "system": "Darwin",
+    "release": "27.0.0",
+    "machine": "arm64"
+  },
+  "graph": {
+    "tier": 2,
+    "project": "wfg-next-1b-fixture-49a7cccc-20261030",
+    "generation": "2026-10-30T12:52:57Z",
+    "scripts": "excluded/not_tracked; immutable direct-source fallback used",
+    "baselines": "metadata_match/no_recorded_issue; graph and frozen source read",
+    "protocol_markdown": "metadata_changed; frozen Git source read",
+    "trace": "score_entries both depth2:12callees2callers no truncation; excluded-script callers read directly"
+  },
+  "current_descriptive_interval_gap": [
+    "absolute pooled raw Brier",
+    "pooled AP",
+    "pooled ROC AUC",
+    "pooled fixed-bin ECE",
+    "pooled clipped NLL"
+  ],
+  "recommended_paired_secondary_fields": [
+    "pooled AP difference vs persistence",
+    "pooled AP difference vs dilation_best"
+  ],
+  "fixed_model_count": 16,
+  "source_model_constant": "score_cohorts.EXPECTED_MODELS lines37-39",
+  "rng": "np.random.default_rng(20261030).integers(0,F,size=(10000,F))",
+  "fire_order": "np.unique(fire), exact complete expected SPLIT IDs",
+  "quantile": "np.quantile(values,[0.025,0.975],method=linear)",
+  "bin_definition": "np.linspace(0.,1.,11); np.digitize(p,BINS[1:-1],right=False), clipped to0..9",
+  "clipping_epsilon": 1e-07,
+  "undefined_ap": "no positives",
+  "undefined_auc": "either class absent",
+  "full_ap_auc_interval_when_any_undefined": "UNAVAILABLE; optional separate explicitly conditional interval",
+  "synthetic_paired_ap_comparisons": 1988,
+  "synthetic_diagnostic_draw_checks": 7,
+  "synthetic_diagnostic_boundary_checks": 3
+}
