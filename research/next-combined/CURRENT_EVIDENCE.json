@@ -10,14 +10,26 @@
       "review": "radiation-review-43324736/REVIEW.md",
       "inventory": "radiation-review-43324736/SOURCE_INVENTORY.json",
       "independent_fixed_arithmetic_checks": 42,
-      "fresh_parent_unit_suite": "PENDING",
+      "fresh_parent_unit_suite": {
+        "status": "PASS",
+        "passed": 42,
+        "exit_code": 0,
+        "scope": "Untimed functional checks, no performance evidence"
+      },
       "earlier_unit_evidence_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
       "physics_gate": "HOLD",
       "full_journey_replays": "NOT_RUN_GATED",
       "previous_routes_rejected_under_v2": null,
       "peak_binding_missions": null,
       "dose_binding_missions": null,
-      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/85"
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/85",
+      "fresh_parent_release_check": {
+        "status": "PASS",
+        "copied_hashes": 367,
+        "exit_code": 0
+      },
+      "functional_receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
+      "functional_inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json"
     },
     "1B": {
       "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
@@ -125,6 +137,8 @@
     "C_alignment": "Track-owner read-only report; readiness auditor checked exact report/inventory hashes and internal counts, not every external file",
     "future_adapter_review": "Other independent reviewer; archived unchanged, source SHA matched exact Git object, no own fixture rerun",
     "B_admission": "Readiness auditor independent tiny synthetic tests with mocked numerical producers, no study data",
-    "graph": "Current owned reports not_tracked at integration generation02:27:27Z; direct source read. NewC reports not_tracked at e681 generation03:54:43Z; direct report read."
-  }
+    "graph": "Current owned reports not_tracked at integration generation02:27:27Z; direct source read. NewC reports not_tracked at e681 generation03:54:43Z; direct report read.",
+    "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning"
+  },
+  "updated_utc": "2026-10-30T05:21:45.925613+00:00"
 }

@@ -35,8 +35,15 @@
   "limitations": [
     "Graph coverage is a best-effort signal, not a completeness proof",
     "B numerical evidence and global-wind dependency review pending",
-    "A fresh42unit suite pending and empiricalphysics HOLD",
+    "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
     "Future raw-release/exclusion/registration authentication unresolved; adapter unwired with three reported gaps under owner repair",
     "C risk records unscorable, whole-road and full-policy validation open"
-  ]
+  ],
+  "A_current_functional_evidence": {
+    "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
+    "inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json",
+    "source_head": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+    "readiness_action": "Archive and verify exact log digests, no rerun",
+    "performance_claim": false
+  }
 }

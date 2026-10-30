@@ -1,0 +1,29 @@
+{
+  "source_head": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+  "scope": "Untimed functional and source-integrity checks. Tiny suite allowed alongside existing serialized heavy job; recorded test-run wall output is not performance evidence.",
+  "files": {
+    "test-1a-bounds-independent.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/test-1a-bounds-independent.json",
+      "sha256": "a16e4ec78609d1f7826ceb62daba72bc0587a729d2c763b8e2deb8fee1d4b2d4",
+      "verbatim": true
+    },
+    "test-1a-bounds-independent-0.log": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/test-1a-bounds-independent-0.log",
+      "sha256": "65bb8bae218f11ff629a2a8922d8ec872c59d42b8bed7a8cb99966460be573af",
+      "verbatim": true
+    },
+    "test-1a-bounds-independent-1.log": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/test-1a-bounds-independent-1.log",
+      "sha256": "4dbc489656fe6f19f55dfb4ba4f47965bc5bdde0d8eebd57f8b3f5780da39183",
+      "verbatim": true
+    }
+  },
+  "checks": {
+    "functional_tests": 42,
+    "release_copied_hashes": 367,
+    "both_exit_zero": true
+  },
+  "execution_origin": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning",
+  "earlier_queued_attempt": "Canceled before execution; not counted",
+  "performance_claim": false
+}
