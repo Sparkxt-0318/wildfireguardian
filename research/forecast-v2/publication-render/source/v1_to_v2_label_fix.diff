@@ -1,0 +1,23 @@
+--- v1
++++ v2
+@@ -34,7 +34,7 @@
+     u=json.loads((ROOT.parent/'FREEZE_PARENT_VERIFICATION.json').read_text())['verified_file_sha256']; custody=json.loads((E/'executions/current_assessment_closed_custody.json').read_text())
+     protected=dict(u,**custody['artifacts_sha256']); protected.update({str(p.relative_to(ROOT)):sha(p) for p in [E/'RESULTS.json',E/'FARSITE_SCORES.json',E/'FIGURE_QA_ORIGINAL.json']+list((E/'figures').glob('*.png'))+list((E/'figures').glob('*.svg'))})
+     check=lambda:[n for n,h in protected.items() if sha(ROOT/n)!=h]
+-    assert len(u)==223 and not check(); results=json.loads((E/'RESULTS.json').read_text())
++    assert len(u)==223 and not check(); results=json.loads((E/'RESULTS.json').read_text()); canonical_execution=E/'executions/final_canonical_report.json'; assert sha(canonical_execution)=='f83f860c540b5f6ef2a2ca300581f048070890d1a3c57adfb9a1c772fb935f0d'; assert '--label' not in json.loads(canonical_execution.read_text())['command']; display_label=''
+     record=dict(schema='wfg.publication-layout-sidecar/1',source_sha256=sha(__file__),canonical_results_sha256=RESULTS_SHA,canonical_report_source_sha256=REPORT_SHA,started_utc=datetime.now(timezone.utc).isoformat(),changes={'fig03_ablation_forest_plot':'Right margin .98 to .91; preserve original tick positions/text and all numeric artists.','fig05_example_forecast_vs_perimeter':'Insert one line break in the existing colorbar label; preserve all words and numeric artists.'},protected_artifacts_sha256=protected,figures={})
+     with open('/tmp/wfg/HEAVY.lock','a+') as lock:
+         fcntl.flock(lock,fcntl.LOCK_EX); record['lease_acquired_utc']=datetime.now(timezone.utc).isoformat(); assert not check()
+@@ -45,9 +45,9 @@
+         def save(fig,out,name):
+             state=layout_only(fig,name); original_save(fig,out,name); record['figures'][name]=dict(operation='LAYOUT_ONLY_RERENDER',numeric_artist_state_sha256=hashlib.sha256(json.dumps(state,sort_keys=True,allow_nan=True).encode()).hexdigest())
+         report.save=save
+-        report.figure_ablation(plt,results['heldout_ablation'],output,results['label'])
++        report.figure_ablation(plt,results['heldout_ablation'],output,display_label)
+         entries,assessment=report.load_assessment(RUN/'heldout')
+-        example=report.figure_example(plt,RUN,entries,results['primary_candidate']['run'],output,results['label'])
++        example=report.figure_example(plt,RUN,entries,results['primary_candidate']['run'],output,display_label)
+         assert example==results['example_figure'], 'Example selection changed'
+         for name in results['figure_evidence']:
+             if name not in record['figures']:
