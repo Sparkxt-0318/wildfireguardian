@@ -46,3 +46,33 @@ A subsequent separate all-saved-member census closes the other-selector admissio
 The subsequent known-footprint census makes the conservative default's scope concrete. It audits all 20 original Korean missions and 15 exact source domains, finding six spatially known, turn-aware issue-to-destination topologies. All 14 failures have an unknown issue or destination cell under this restriction. These are source-support findings, not timed safe routes or a replacement for the strict zero-of-15,360 whole-domain result. No source/default was changed and no adapter or timed K campaign was run.
 
 See KNOWN_FOOTPRINT_TOPOLOGY_RESULT.md for the exact table and receipts, and KNOWN_FOOTPRINT_CONTACT_PLAN.md for the proposed locality proof, original-data witness checks, finite clock support and restricted-failure-to-unresolved protocol. The five bounded graph children released HEAVY between graphs and left no owned process groups. The 512-mask fixture and exact producer/input/flag hashes are retained separately. KNOWN_FOOTPRINT_SOURCE_SCOPE.md explains why the actual one-hour source duration cannot be assumed to demonstrate increasing edge-interval fragmentation with K. The mandatory fig02 still awaits a separately reviewed opt-in adapter and an actual paired K study; static reachability counts cannot supply its data. Radiation, full-policy and risk gates remain closed.
+
+## Implemented contact-only opt-in, software fixture scope
+
+The separately reviewed implementation stage now supplies
+experimental/sipp-routing/src/wfg_sipp/known_footprint.py and a separately
+versioned support-restricted copied sweep. Both use identical exact support
+barriers and represented contact activity. The independent raw-data checker
+does not trust planner flags, intervals or event caches. The strict bridge,
+frozen sweep/geometry and all earlier source/census evidence remain unchanged.
+This later implementation does not alter the historical proposal/static-audit
+statements above. No native timed journey or K campaign has run at this stage.
+
+The exact contract and explicit omission of thermal history from the private
+contact relaxation are documented in
+experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md. Public results retain
+the original request/history verbatim and leave peak, dose and risk unknown.
+Only independent raw-data checking can return the typed contact result;
+restricted exhaustion remains unresolved about the original unknown domain.
+
+Reproduce fixture/regression counts and unchanged-artifact hashes with:
+
+```sh
+python research/sipp-routing/verify_known_footprint_adapter.py --out FRESH_RECEIPT.json
+```
+
+KNOWN_FOOTPRINT_ADAPTER_RECEIPT.json records the actual command, host, versions,
+source hashes, test counts and preserved prior evidence. No timing chart is
+created from software fixture runtimes. The fixed native paired K protocol,
+all thermal/full-policy checks and scientific risk remain on hold pending
+independent review and their separate execution gates.

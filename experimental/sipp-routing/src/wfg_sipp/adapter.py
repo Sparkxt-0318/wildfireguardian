@@ -26,6 +26,9 @@ def normalise(raw, planner_name, wall):
 def sweep_plan(graph, request, model, *, wall_s=30):
     import time
     from . import geometry
+    if getattr(model, "certificate_scope", None) == "wfg.known-footprint.contact-only/1":
+        return normalise({"status": "UNSUPPORTED", "reason": "EXPLICIT_CONTACT_ONLY_ENTRYPOINT_REQUIRED"},
+                         "copied_frozen_sweep", 0.0)
     checker = install()["independent"]
 
     class Core:
