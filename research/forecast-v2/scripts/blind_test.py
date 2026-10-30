@@ -74,6 +74,7 @@ def reference_cases(root, cohort):
     expected, references = [], {}
     for event in events:
         name = event["id"]
+        checked_input(root, cohort, f"baseline-terrain/{name}/elevation_m_375m.tif")
         if pd.Timestamp(event["t0_utc"]).year != 2026 or event["country"] not in ("US", "KR"):
             raise ValueError("Fire year and evidence class must agree with source metadata")
         shape = (event["height"], event["width"])
@@ -133,7 +134,8 @@ def validate(registry_path, cohort_path, model_root, input_root):
         raise ValueError("Primary selection must be one of the seven development-selected variants")
     if registry["models"]["c651_mc"]["sha256"] != C651_SHA or registry.get("best_dilation_hours_per_cell") not in (1, 2, 4, 8):
         raise ValueError("Frozen comparator identity or dilation choice is invalid")
-    required = {str(p.relative_to(REPO)) for p in (REPO / "forecast/wildfire").glob("*.py")}
+    required = {str(p.relative_to(REPO)) for p in (REPO / "forecast/wildfire").rglob("*")
+                if p.is_file() and p.suffix in (".py", ".json")}
     required |= {"research/forecast-v2/scripts/pipeline.py", "research/forecast-v2/scripts/blind_test.py",
                  "research/forecast-v2/SPLIT.json"}
     if not required <= registry.get("producer_source_sha256", {}).keys():

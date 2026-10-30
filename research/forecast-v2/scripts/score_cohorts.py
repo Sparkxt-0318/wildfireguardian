@@ -86,7 +86,8 @@ def identities(args):
             raise ValueError("A frozen checkpoint changed")
     if sha(P.C651) != P.C651_SHA256:
         raise ValueError("Integration checkpoint c651 changed")
-    source = {str(p.relative_to(REPO)): sha(p) for p in (REPO / "forecast/wildfire").glob("*.py")}
+    source = {str(p.relative_to(REPO)): sha(p) for p in (REPO / "forecast/wildfire").rglob("*")
+              if p.is_file() and p.suffix in (".py", ".json")}
     source |= {str(p.relative_to(REPO)): sha(p) for p in [HERE, HERE.with_name("pipeline.py")]}
     return dict(selection_sha256=sha(selection_path), checkpoints=selection["checkpoints"],
                 c651_sha256=sha(P.C651), source_sha256=source,

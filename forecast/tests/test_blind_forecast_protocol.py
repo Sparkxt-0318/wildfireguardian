@@ -43,6 +43,9 @@ def registered(blind, tmp_path, monkeypatch):
     events = [dict(id="fixture", year=2026, country="US", t0_utc="2026-01-01T00:00:00Z",
                    start_utc="2026-01-01T00:00:00Z", end_utc="2026-01-03T00:00:00Z", height=1, width=2)]
     blind.write(root / "environment/events.json", events)
+    terrain = root / "baseline-terrain/fixture/elevation_m_375m.tif"
+    terrain.parent.mkdir(parents=True)
+    terrain.write_bytes(b"identity-only fixture; this test never runs environmental inference")
     states = root / "perimeters/fixture/states.npz"
     states.parent.mkdir(parents=True)
     np.savez(states, times=np.array(["2026-01-01T00:00:00Z", "2026-01-02T00:00:00Z"]),

@@ -1,0 +1,23 @@
+{
+  "evidence_class": "MECHANISM_FIXTURE_ONLY",
+  "fixture": "3x3 training-mode local-wind StructuredKernelModel, two channels, seed0, one process thread, cutoff tensor repeated, all feature masks known, no data from heldout fires",
+  "rows": [
+    {
+      "hours": 1,
+      "kernel_generation_calls": 1,
+      "kernel_forward_seconds": 0.0012180000194348395,
+      "forward_and_backward_seconds": 0.01594666700111702,
+      "finite_parameter_gradients": true
+    },
+    {
+      "hours": 24,
+      "kernel_generation_calls": 1,
+      "kernel_forward_seconds": 0.00046916701830923557,
+      "forward_and_backward_seconds": 0.0027547909994609654,
+      "finite_parameter_gradients": true
+    }
+  ],
+  "conclusion": "Kernel generator already runs once per forward call, independently of horizon count. No source optimization or numerical policy change is justified by the proposed redundant-hourly-generation hypothesis.",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "torch": "2.5.1"
+}

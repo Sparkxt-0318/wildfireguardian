@@ -58,7 +58,9 @@ def job(name, command, expected):
         fcntl.flock(lock, fcntl.LOCK_EX)
         if (TASK / "work/forecast-pause-before-next-job").exists():
             raise RuntimeError("Coordinator requested resource handoff before the next job")
-        source_paths = sorted((REPO / "forecast/wildfire").glob("*.py")) + [HERE, HERE.with_name("pipeline.py"), EVIDENCE / "RUN_PROTOCOL.json"]
+        source_paths = sorted(p for p in (REPO / "forecast/wildfire").rglob("*")
+                              if p.is_file() and p.suffix in (".py", ".json"))
+        source_paths += [HERE, HERE.with_name("pipeline.py"), EVIDENCE / "RUN_PROTOCOL.json"]
         source = {str(p.relative_to(REPO)): sha(p) for p in source_paths}
         # A queued job authenticates the exact bytes it will execute after the
         # lease arrives. Preserve content-addressed snapshots for independent replay.
