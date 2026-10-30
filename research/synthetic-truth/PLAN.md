@@ -1,0 +1,13 @@
+# Track 1C reading notes and execution plan
+
+The frozen bridge draws independent cell ignitions from one-hour marginals and uniform sub-hour times. Its source law is a finite horizontal cell sheet, not a flame-front law. Current fire is a scalar maximum-remaining enclosure. The frozen sweep retains incoming edges, integer seconds and admission; waits remove admission. The independent checker checks full journey grammar and cell-centre peak/dose, while the separate FFI checker additionally reconstructs native exact activity and whole-road contact.
+
+The public cumulative API does not forward a trajectory callback. Export v3 must invoke the private simulate engine with the same prepared input and missingness policies. Its RNG is block-based: _generator(seed, cutoff, block, stream). A block seed alone is not an individual trajectory identity, so v3 must also record offset and batch size. Signed int64 storage uses the exact uint64 seed bit pattern, not a changed RNG.
+
+The requested standard SIPP dominance is invalid at nonwaitable nodes. Destination windows also require admission-aware treatment: waiting at a destination does not create admission. Implement exact reachable integer spans through nonwaitable nodes, wait-connected intervals at waitable nodes, retain incoming edge context, and check destination acceptance only on admitted arrivals. This hybrid interval algorithm is scoped explicitly rather than claiming the prompt's false dominance theorem.
+
+OSSE reference skim: Sparkxt-0318/wildfireguardian-osse README, default branch claude/exciting-albattani-40jnzp, accessed 2026-10-30. Reuse the conceptual hidden truth/planner-visible split and available-time discipline only; no source code reused. Its synthetic worlds are not Korean forecast evidence.
+
+Read sources: README, FUTURE_EXTENSIONS, export/bridge/contract, rollout simulate and predict_cumulative, sweep, road core, journey decision, FFI checker, request-window evidence/protocol, final-input ablation and API/OpenAPI contract. Integration is excluded from the graph, so direct source reads supplement Tier 2 graph search and rollout trace. Graph project wfg-next-1c-20261030 generation 2026-10-30T02:11:41Z. No recorded gaps is best effort, not completeness.
+
+Steps: implement truth scoring and invariants; implement additive callback/export and trajectory bridge/reduction; implement interval relaxation and independent differential testing; run available exact panels with explicit budgets; generate reproducible evidence and retain all unavailable or failed gates. No frozen-kit changes, threshold changes, default promotion or physical claims.

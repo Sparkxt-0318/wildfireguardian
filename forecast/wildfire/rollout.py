@@ -53,6 +53,7 @@ def simulate(
     trajectory_batch_size, boundary, environmental_forecast=None,
     forecast_valid=None, missing_burned_area="unknown", assumed_unburned_cells=0,
     step_durations=None, progress_callback=None, cache_environment_kernels=False,
+    trajectory_callback=None,
 ):
     """Return one details/optional-output mapping per supplied horizon.
 
@@ -207,6 +208,8 @@ def simulate(
                     safe_q = torch.where(required, transition.probability, 0)
                     ignite = required & (uniforms[indices] < safe_q)
                     states[indices] = torch.logical_or(member_states == 1, ignite).to(initial.dtype)
+                if trajectory_callback is not None:
+                    trajectory_callback(block, states[:size] == 1, k + 1)
                 if k + 1 in requested:
                     index = requested[k + 1]
                     counts[index, cutoff] += ((states[:size] == 1) & ~observed_burns).sum(dim=0)

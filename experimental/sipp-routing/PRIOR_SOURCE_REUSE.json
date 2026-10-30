@@ -1,0 +1,16 @@
+{
+  "reference_commit": "49a36210e890babc783c4ac051ac973c26c3a119",
+  "purpose": "Read-only code reuse, independently retested on this host",
+  "files": {
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "27a6212eeeab77b7e52d67dcc490bcd0d7fea760a0c16b0d82e168aa7d76fff7",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/scenario-members/src/wfg_members/contact.py": "e46618b30d83821d36bb9773407810a304a274670d43ac703bd2dca3171d3fec"
+  }
+}
