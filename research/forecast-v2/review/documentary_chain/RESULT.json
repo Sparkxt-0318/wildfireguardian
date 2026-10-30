@@ -1,0 +1,19 @@
+{
+  "recorded_utc": "2026-10-30T09:51:38.372186+00:00",
+  "tests": "2 passed in 1.51s",
+  "exit_code": 0,
+  "actual_synthetic_raw_inventory_records": 3,
+  "actual_synthetic_admitted_cases": 2,
+  "machine_authentication": false,
+  "source_change": "blind_inventory module docstring only; remaining full module AST identical to reviewed cc801 source",
+  "source_sha256": "abffeb0082c2db1ac8d805c077fe9c1ed91964d03797a8c333566a1a729f38c0",
+  "scope": "Separately pinned pre/post documentary receipts admit through the actual raw adapter without changing scientific input digests; naive self-inclusion refuses",
+  "freeze_order": [
+    "FIT_COVERAGE",
+    "MODEL_SELECTION",
+    "protocol_with_exact_checkpoint_table",
+    "BLIND_REGISTRY",
+    "external registration/release/review sidecars"
+  ],
+  "current_final_registry": "PENDING_SEVENTH_CHECKPOINT"
+}

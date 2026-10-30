@@ -1,4 +1,4 @@
-"""Proposed future NIROPS raw-release admission, independent of frozen scoring.
+"""Future NIROPS raw-release admission required by the frozen blind scorer.
 
 This adapter never runs forecasts or reads reconstructed arrival labels. It
 authenticates the *whole* pinned ZIP, visits every record of every shapefile,
@@ -19,7 +19,7 @@ JSON must bind ``archive_sha256``, ``public_release_utc`` and the literal claim
 ``first_public_release_containing_2026_surveys``. Hashing an attestation does
 not independently verify that claim. No result from this module means READY.
 
-The proposed exact eligibility policy is deliberately explicit: first survey
+The exact eligibility policy is deliberately explicit: first survey
 year 2026, catalog nominal year 2026, at least two distinct surveys and at least
 one strictly consecutive interval <=48 hours; a cutoff must have all six
 source files aligned to the full 375 m rectangle and a matching source band.
@@ -31,9 +31,9 @@ entry, including incident_number and grid metadata, is mandatory for every
 raw incident whose first survey is in 2026. Missing catalog entries fail closed.
 
 This policy and this adapter's source/dependency closure must themselves be
-registered before future source access or forecasts. Wiring this adapter into
-the frozen scorer and independent public-release verification remain separate
-requirements. Geometry policy: reject invalid/empty/non-Polygon records,
+registered before future source access or forecasts. The frozen scorer requires
+this adapter; independent public-release verification and documentary clearance
+remain prerequisites. Geometry policy: reject invalid/empty/non-Polygon records,
 malformed rings, deleted DBF records and non-WGS84 sources; never repair.
 Custody policy: reject filesystem symlinks, including source path ancestors,
 non-GeoTIFF canonical rasters, and raster dependencies outside snapshot pins.

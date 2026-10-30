@@ -1,0 +1,8 @@
+{
+  "exit_code": 1,
+  "result": "1 failed, 1 passed in 1.56s",
+  "reason": "SyntheticRelease fixture publishes2027-01-10; current documentary verification correctly refuses its future signed review in2026",
+  "classification": "SYNTHETIC_FIXTURE_DATE_NOT_SOURCE_DEFECT",
+  "source_test_sha256": "193c9042b85114b08325a5abd88b65217fc81bf37d6abba41c1d9ff936913c1d",
+  "scientific_source_changed": false
+}
