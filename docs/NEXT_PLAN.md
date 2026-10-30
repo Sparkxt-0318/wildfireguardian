@@ -39,21 +39,23 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 
 | ID | Deliverable | Status |
 |---|---|---|
-| 1A-1 | Radiation library | pending |
-| 1A-2 | Physics comparisons | pending |
-| 1A-3 | Binding statistics | pending |
-| 1B-1 | Differentiable mean field | pending |
-| 1B-2 | Survival training | pending |
-| 1B-3 | Structural ablations | pending |
-| 1B-4 | Baselines | pending |
-| 1B-5 | Blind pre-registration | pending |
-| 1C-1 | Export v3, members and reduction | pending |
-| 1C-2 | SIPP equivalence and cost | pending |
-| 1C-3 | Synthetic-truth harness and campaigns | pending |
+| 1A-1 | Radiation library | in progress |
+| 1A-2 | Physics comparisons | in progress |
+| 1A-3 | Binding statistics | in progress |
+| 1B-1 | Differentiable mean field | in progress |
+| 1B-2 | Survival training | in progress |
+| 1B-3 | Structural ablations | in progress |
+| 1B-4 | Baselines | in progress |
+| 1B-5 | Blind pre-registration | in progress |
+| 1C-1 | Export v3, members and reduction | in progress |
+| 1C-2 | SIPP equivalence and cost | in progress |
+| 1C-3 | Synthetic-truth harness and campaigns | in progress |
 | INT | Integration checks | pending, gated on track acceptance |
-| EVIDENCE | Combined evidence README | pending |
-| PR | Four pull requests opened | pending |
+| EVIDENCE | Combined evidence README | in progress |
+| PR | Four pull requests opened | in progress |
 
 ## Progress log
 
 - 2026-10-30: Verified repository identity and case-sensitive Main. Fetched remote Main; existing checkouts and branches preserved. Copied all six supplied documents, with canonical prompt names, and identical shared interfaces into docs/NEXT_INTERFACES.md.
+
+- 2026-10-30: Contracts and all supplied prompts committed 00f33f8d; plan committed 59f3187d7. Launched 1A, 1B, 1C in separate worktrees on track/1a-flame-front-radiation, track/1b-forecast-v2, track/1c-routing-v2. User instructed us to locate data independently; no further data-root questions. Parent has located the sealed Caldor/Rim study and partial forecast rasters, track owners verifying exact input availability.
