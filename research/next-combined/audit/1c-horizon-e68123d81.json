@@ -1,0 +1,60 @@
+{
+  "scope": "synthetic 1470-minute finite-run boundary only, no actual Wapiti file read",
+  "track_head": "e68123d81fb9064ad057425d7c954f923b50097c",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "script_sha256": "2db7723853c66b369e1058c64b0f9f2a0c40217e4fa1d34904e4d909a6d28602",
+  "adapter_sha256": "27e3309e42acbe0fa068c76c9577dbfadd26282b468048aae63fefb2cb4493dc",
+  "cases": [
+    {
+      "horizon_s": null,
+      "status": "UNSCORABLE",
+      "expected": "UNSCORABLE",
+      "pass_check": true,
+      "arrival_if_supported": null
+    },
+    {
+      "horizon_s": 3600,
+      "status": "MODEL_RELATIVE_BOUNDED_ARRIVAL_ONLY",
+      "expected": "MODEL_RELATIVE_BOUNDED_ARRIVAL_ONLY",
+      "pass_check": true,
+      "arrival_if_supported": [
+        [
+          0.0,
+          3600.0
+        ],
+        [
+          "inf",
+          "inf"
+        ]
+      ]
+    },
+    {
+      "horizon_s": 88200,
+      "status": "MODEL_RELATIVE_BOUNDED_ARRIVAL_ONLY",
+      "expected": "MODEL_RELATIVE_BOUNDED_ARRIVAL_ONLY",
+      "pass_check": true,
+      "arrival_if_supported": [
+        [
+          0.0,
+          3600.0
+        ],
+        [
+          88200.0,
+          "inf"
+        ]
+      ]
+    },
+    {
+      "horizon_s": 88201,
+      "status": "UNSCORABLE",
+      "expected": "UNSCORABLE",
+      "pass_check": true,
+      "arrival_if_supported": null
+    }
+  ],
+  "global_never_cells": 0,
+  "right_censored_cells": 1,
+  "valid_until_s": 88200,
+  "pass_check": true
+}

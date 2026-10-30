@@ -233,7 +233,7 @@ def extend_interim_report():
 
 ## Immutable 1C snapshot audit
 
-Snapshot `{c["head"]}` has {n["executions"]} native contact-relaxation executions across {n["missions"]} missions, with {n["equivalent_pairs"]}/{n["pairs"]} paired status-and-arrival matches. SIPP was slower in {n["sipp_slower_pairs"]}/{n["pairs"]} pairs. The raw CSV independently reproduces these counts. The custody ledger is internally consistent with its {custody["job_matches"]}/{custody["pinned_fields"]} reported original-job field matches. Original controller bytes remain retained; its final-after-exit guard was repaired after these executions, which were far below both limits. These are bounded contact-relaxation results, not full thermal-planner or universal runtime claims.
+Historical core snapshot `{audit_c["track_head"]}` has {n["executions"]} native contact-relaxation executions across {n["missions"]} missions, with {n["equivalent_pairs"]}/{n["pairs"]} paired status-and-arrival matches. SIPP was slower in {n["sipp_slower_pairs"]}/{n["pairs"]} pairs. The raw CSV independently reproduces these counts. The custody ledger is internally consistent with its {custody["job_matches"]}/{custody["pinned_fields"]} reported original-job field matches. Original controller bytes remain retained; its final-after-exit guard was repaired after these executions, which were far below both limits. These are bounded contact-relaxation results, not full thermal-planner or universal runtime claims.
 
 All {exports["windows"]} real exports pass the producing v2-array equality checks and full-N mean checks on known support. That script uses `array_equal`, including equal-NaN handling; this is not a general dtype or NaN-bit identity proof. A separate real {wrapper["event"]} cutoff establishes identical whole-NPZ hashes between the relocated wrapper and archived producer for that cutoff. The frozen exporter was restored; the default rollout diff adds only the optional observer and guarded call. The Boolean observer state is separately allocated. Block identity, offset and batch size are required for individual trajectory replay; seed alone is insufficient.
 
@@ -292,8 +292,10 @@ def extend_repaired_core_and_reader_audit():
     c["post_repair_test_receipt"] = receipt
     for path, expected in receipt["artifacts"].items():
         assert digest(root / path) == expected
-    for path, expected in receipt["source_manifests"].items():
-        assert digest(root / path) == expected
+    # Historical manifests can change in a later independently audited repair.
+    # Keep that generation's expected digest rather than asserting that it is current.
+    c["historical_source_manifests_match_current"] = {path: digest(root / path) == expected
+                                                       for path, expected in receipt["source_manifests"].items()}
     c["post_repair_artifact_hashes_match_receipt"] = True
     summaries = []
     for row in smoke["readers"]:
@@ -319,7 +321,7 @@ def extend_repaired_core_and_reader_audit():
 
 ## Repaired core and new reader review
 
-The current immutable 1C snapshot is `{c["head"]}`. The original core failure record at `393f37748` is unchanged. The independent post-repair core audit passes {repaired["passed"]}/{repaired["checks"]} fixtures, recorded separately in `audit/1c-core-a2c6f8a69.json`; it repairs the earlier known-contact, oracle-consistency, nonfinite-arrival and weight-normalization failures. It does not discharge physical, whole-road or risk-study gates.
+The prior repaired-core snapshot is `{repaired["track_head"]}`. The original core failure record at `393f37748` is unchanged. The independent post-repair core audit passes {repaired["passed"]}/{repaired["checks"]} fixtures, recorded separately in `audit/1c-core-a2c6f8a69.json`; it repairs the earlier known-contact, oracle-consistency, nonfinite-arrival and weight-normalization failures. It does not discharge physical, whole-road or risk-study gates.
 
 The stronger export method is now separate from the historical value-equality method: {byte_audit["exact_array_window_passes"]}/{byte_audit["windows"]} windows match dtype, shape, exact payload bytes including NaN bits, and {byte_audit["exact_npy_window_passes"]}/{byte_audit["windows"]} match the uncompressed NPY entries for every shared v2 array. The earlier `array_equal` limitation remains documented as history, not the final method. A regression verifies that different NaN payloads fail this stronger method even when value equality passes. This is shared-array identity; the separate one-cutoff whole-NPZ wrapper comparison has its narrower scope.
 
@@ -343,7 +345,86 @@ The current A evidence remains the immutable f9fa03290 radiation snapshot, not t
     print(json.dumps({"core_repair": repaired["status"], "reader_audit": readers["status"], "byte_identity_windows": byte_audit["windows"]}))
 
 
+def extend_reader_repair_and_preheldout_review():
+    """Record the separately audited reader repair and preheldout tool failures."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track-a", type=Path, required=True)
+    parser.add_argument("--track-c", type=Path, required=True)
+    parser.add_argument("--out-dir", type=Path, default=Path(__file__).resolve().parent)
+    args = parser.parse_args()
+    out, root = args.out_dir, args.track_c.resolve()
+    gates = json.loads((out / "GATES.json").read_text())
+    c, b = gates["track_evidence"]["1C"], gates["track_evidence"]["1B"]
+    readers = json.loads((out / "audit/1c-readers-e68123d81.json").read_text())
+    assert c["head"] == readers["track_head"], "Review the next immutable repair independently before regenerating"
+    core = json.loads((out / "audit/1c-core-e68123d81.json").read_text())
+    horizon = json.loads((out / "audit/1c-horizon-e68123d81.json").read_text())
+    review = json.loads((out / "audit/1b-blind-tools-be678bb65.json").read_text())
+    metrics = json.loads((out / "audit/1b-metric-reference-be678bb65.json").read_text())
+    receipt = json.loads((root / "research/synthetic-truth/READERS_REPAIR_RECEIPT.json").read_text())
+    native = json.loads((root / "research/synthetic-truth/NATIVE_FARSITE_AVAILABILITY.json").read_text())
+    smoke = json.loads((root / "research/synthetic-truth/REAL_READERS_SMOKE_POST_REPAIR.json").read_text())
+    matches = {}
+    for group in ("current_sources", "artifacts", "historical_artifacts_preserved"):
+        matches[group] = {p: digest(root / p) == expected for p, expected in receipt[group].items()}
+        assert all(matches[group].values())
+    native_root = root.parent / "data/forecast-v2/native-farsite"
+    matches["native_files"] = {p: digest(native_root / p) == row["sha256"] == row["expected_sha256"] for p, row in native["identities"].items()}
+    matches["native_outputs"] = {kind: digest(Path(native["usage"][kind + "_path"])) == native["usage"][kind + "_sha256"] for kind in ("stdout", "stderr")}
+    assert all(matches["native_files"].values()) and all(matches["native_outputs"].values())
+    summary = {"scope": "Independent source/receipt/file custody checks, targeted fixtures and finite-run boundaries; no new native execution", "head": c["head"], "reader_fixture": readers["status"], "core_fixture": core["status"], "horizon_fixture": horizon, "matches": matches, "owner_receipt": receipt,
+               "native_availability": {"usage_exit": native["usage"]["exit_code"], "elapsed_s": native["usage"]["elapsed_s"], "timeout_s": native["usage"]["timeout_s"], "timed_out": native["usage"]["timed_out"], "cleanup": native["usage"]["cleanup"], "availability": native["availability"], "clock": native["clock"]},
+               "post_repair_smoke": [{k: v for k, v in row.items() if k != "source"} for row in smoke["readers"]]}
+    (out / "audit/1c-repair-custody-e68123d81.json").write_text(json.dumps(summary, indent=2, allow_nan=False) + "\n")
+    c["status"] = "SOFTWARE_TARGETED_REPAIRS_VERIFIED_DRAFT_REVIEWABLE_SCIENCE_HOLD_PARTIAL"
+    c["reader_targeted_audit_historical"] = c.pop("reader_targeted_audit")
+    c["reader_repaired_audit"] = readers
+    c["core_recheck"] = core
+    c["reader_repair_custody"] = "audit/1c-repair-custody-e68123d81.json"
+    c["native_execution_scope"] = summary["native_availability"]
+    c["post_reader_repair_smoke"] = summary["post_repair_smoke"]
+    b.update(status="PREHELDOUT_TOOL_REVIEW_FAIL_OWNER_REPAIR_REQUIRED", head=review["track_head"], software_review=review, synthetic_metric_reference=metrics, heldout_scores_inspected=False)
+    gates["open_work"] = ["1A physics and journey-adapter gate, separately from unaudited live enclosure work", "1B source/cache/resume/reference binding, completeness gate and independent repaired-tool review before heldout", "1B remaining final fits, frozen selection, baselines and 12-cutoff comparison", "real reduction/coverage and risk campaigns under a declared supported policy", "final publication by orchestrator"]
+    for script, record, exit_code in [("audit_1c_readers.py", "audit/1c-readers-e68123d81.json", 0), ("audit_1c_semantics.py", "audit/1c-core-e68123d81.json", 0), ("audit_1c_horizon.py", "audit/1c-horizon-e68123d81.json", 0), ("audit_1b_blind_tools.py", "audit/1b-blind-tools-be678bb65.json", 1), ("audit_1b_metric_reference.py", "audit/1b-metric-reference-be678bb65.json", 0)]:
+        track = "c" if "1c" in script else "b"
+        gates["commands"].append({"command": f"../venv-{'routing' if track == 'c' else 'forecast'}/bin/python research/next-combined/{script} --track-{track} ../audit-1{track} --out research/next-combined/{record}", "exit_code": exit_code, "scope": "synthetic fixtures only; immutable source, no heldout study input read"})
+    (out / "GATES.json").write_text(json.dumps(gates, indent=2, allow_nan=False) + "\n")
+    text = (out / "README.md").read_text()
+    text = text.replace("| 1B forecast | Pending final owner evidence | Pending, no headline assigned |", "| 1B forecast | Final fits pending; pre-heldout tool audit finds five admission failures; no heldout scores inspected | HOLD; repair and independent review required before scoring |")
+    text = text.replace("prior core defects repaired; reader admission findings open", "core and reader defects repaired; software draft-reviewable, science HOLD_PARTIAL")
+    text = text.replace("Five new reader boundary fixtures currently fail defensive admission or qualification", "At the prior a2c6f8a69 snapshot, five reader boundary fixtures failed defensive admission or qualification")
+    text += '''
+
+## Reader repairs verified and pre-heldout tool review
+
+The immutable 1C snapshot is now `e68123d81fb9064ad057425d7c954f923b50097c`. Separate repaired records retain 5/5 reader admissions and 9/9 core interface checks. Four additional synthetic finite-run boundary queries pass: an explicit horizon is required, 3600 s and the inclusive 88200 s endpoint are supported, and 88201 s is unscorable. Infinity from a bounded query means no arrival through that query only. The actual Wapiti smoke now retains 11,215 right-censored cells and zero global-never cells, with arrival-model validity through 88,200 s. Its metadata is qualified as a declared deterministic stored FARSITE model, not a new simulation or observed ignition truth.
+
+All repair-receipt source/artifact/historical digests match their archived bytes. The owner reports 44 routing tests passed with four skips and 24 selected forecast/GIS tests passed; the selectors overlap and are not summed. The release receipt reports 367 copied hashes passed. Five archived native binary/source/manifest identities and the recorded stdout/stderr hashes were independently checked. The isolated no-argument native usage probe exited 1 as expected in 1.414 s under a 5 s timeout, with its process group absent at completion. This establishes execution availability on this host only. The optional clock probe was NOT_RUN_HEAVY_LOCK_BUSY. No native spread simulation or physical validity result is claimed. These checks make the repaired software reviewable for draft publication; the track's whole-road, supported risk-campaign and scientific gates remain open.
+
+The independent pre-heldout review of 1B is pinned to `be678bb655cb2b3f7985d2b6f73b4f20b044a2ce`. Both complete scoring scripts and the directly called pipeline helpers were read from that immutable snapshot. All research-script code is excluded from the graph by design, so direct source was required. Baseline metric functions and the draft registration were checked against the indexed snapshot. No actual heldout predictions, scores or source datasets were inspected.
+
+Five synthetic probes expose these open admission defects:
+
+| Tool and source | Reproduced behavior | Required repair |
+|---|---|---|
+| `score_cohorts.py:164-210` | Resume accepts deliberately wrong initial, endpoint, environment and reference hashes; stale label 0 is reused against current endpoint 1, with only a persistence model column, and the assessment becomes COMPLETE | Recompute and compare every executed input identity; authenticate exact labels, ordered coordinates, common support and model set before reuse |
+| `pipeline.py:136-141` | A cache with raw value 123456 and an invented channel is returned without any source rasters | Bind cache entries to input/source contract and verify metadata/payload; refuse unauthenticated entries |
+| `blind_test.py:264-297` | Fractional coordinates and columns beyond 100000 enter scoring; no pinned reference labels or common-support identity is checked | Bind scoring to validated references, integer in-range ordered coordinates, exact endpoint labels and the registered common support |
+| `blind_test.py:264-274` | A 1999 cohort with a minimally shaped registry and a self-consistent receipt enters the score path | Revalidate eligibility/model/source/input closure or verify a complete authenticated validated-run receipt before scoring |
+| `blind_test.py:280-320` | Ten scored synthetic fires plus one failed eligible case yield a primary statistical pass flag and SCORED_PENDING_RELOCATION_REPLAY | Make full cohort completion an explicit necessary decision gate; retain failures and hold any promotion |
+
+The last fixture does not issue a superiority claim: the top-level flag remains false. Its concern is the misleading intermediate pass/completion state, which must not become eligible for promotion merely after relocation. The resume fixture replaces only numerical producers and identity setup with synthetic objects to isolate the existing resume branch. These are defensive mechanism failures, not allegations of wrong numbers in an actual heldout campaign. Exact scripts, immutable-source hashes, observations and exit codes are preserved in `audit/1b-blind-tools-be678bb65.json` and its producer `audit_1b_blind_tools.py`, exit 1. The owner has been notified before heldout execution.
+
+The draft's primary metric is pooled cell-interval Brier, distinct from equal-fire development model selection. The code correctly pools error sums/counts within each whole-fire bootstrap draw. A separate unequal-fire synthetic arithmetic fixture reproduces pooled difference -0.8 versus equal-fire difference 0.0, the expected bootstrap endpoints, and fixed calibration-bin boundaries. This pass does not repair input custody. The fixed model set, both baseline comparisons, low-bin comparison, ten-fire minimum and separate Korean evidence class are present, but dataset-release completeness and external registration authenticity remain documentary obligations beyond a self-declared catalog or URL. The blind protocol remains NOT_READY.
+
+All historical failures are preserved. C software repair evidence, B tool failures, pending B numerical evidence and the unresolved A physics gate remain separate. No track merge, new default checkpoint, heldout score inspection or scientific integration experiment has occurred.
+'''
+    (out / "README.md").write_text(text)
+    print(json.dumps({"c_reader_repair": readers["status"], "c_core": core["status"], "b_tools": review["status"], "cross_track": "NOT_RUN_GATED"}))
+
+
 if __name__ == "__main__":
     main()
     extend_interim_report()
     extend_repaired_core_and_reader_audit()
+    extend_reader_repair_and_preheldout_review()

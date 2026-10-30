@@ -1,0 +1,109 @@
+{
+  "scope": "Synthetic files and mocked numerical producers only; no study inputs/predictions/scores read; not evidence of errors in an actual heldout campaign",
+  "track_head": "be678bb655cb2b3f7985d2b6f73b4f20b044a2ce",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "pandas": "2.2.3",
+  "audit_script_sha256": "9e3395ca268f1c604e3be1330df97dc8aa966a14be378611c92b4b85c0534863",
+  "source_sha256": {
+    "research/forecast-v2/scripts/score_cohorts.py": "40b21cbbcbfef6f14f1ba4d0c7b74be0a6d100328a84090eb7df25d3e3960a48",
+    "research/forecast-v2/scripts/blind_test.py": "c8a13ae4795ca59ac5550e80cdd8f7a5e6ea46034bdbcca652f506f10643f634",
+    "research/forecast-v2/scripts/pipeline.py": "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38",
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+    "forecast/documents/preregistration_blind_test.md": "c4a61c7f7a8946e24ffa71a309268c9cd9280810992a34fa3b8d6ab2974145ea",
+    "research/forecast-v2/SPLIT.json": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2"
+  },
+  "observations": [
+    {
+      "id": "unbound_reference_coordinates",
+      "pass_defensive_admission": false,
+      "fixture": {
+        "bad_coordinates": true
+      },
+      "observed": {
+        "state": "ACCEPTED",
+        "result_status": "INCONCLUSIVE",
+        "entries": 21,
+        "fires": 1,
+        "primary_criteria": false,
+        "failed_cases": 0,
+        "superiority_claim_permitted": false
+      }
+    },
+    {
+      "id": "scoring_bypasses_2026_eligibility",
+      "pass_defensive_admission": false,
+      "fixture": {
+        "year": 1999
+      },
+      "observed": {
+        "state": "ACCEPTED",
+        "result_status": "INCONCLUSIVE",
+        "entries": 21,
+        "fires": 1,
+        "primary_criteria": false,
+        "failed_cases": 0,
+        "superiority_claim_permitted": false
+      }
+    },
+    {
+      "id": "incomplete_cohort_primary_flag",
+      "pass_defensive_admission": false,
+      "fixture": {
+        "failed": true
+      },
+      "observed": {
+        "state": "ACCEPTED",
+        "result_status": "SCORED_PENDING_RELOCATION_REPLAY",
+        "entries": 210,
+        "fires": 10,
+        "primary_criteria": true,
+        "failed_cases": 1,
+        "superiority_claim_permitted": false
+      }
+    },
+    {
+      "id": "unauthenticated_environment_cache",
+      "pass_defensive_admission": false,
+      "observed": {
+        "state": "RETURNED",
+        "raw": [
+          [
+            [
+              123456.0,
+              123456.0
+            ]
+          ]
+        ],
+        "names": [
+          "invented_channel"
+        ],
+        "source_files_present": [
+          "events.json"
+        ]
+      }
+    },
+    {
+      "id": "resume_ignores_source_array_hashes_and_modelset",
+      "pass_defensive_admission": false,
+      "observed": {
+        "state": "ACCEPTED",
+        "status": "COMPLETE",
+        "source_endpoint": [
+          true
+        ],
+        "reused_y": [
+          0
+        ],
+        "all_four_input_hashes_deliberately_wrong": true,
+        "model_columns": [
+          "p_persistence"
+        ]
+      }
+    }
+  ],
+  "checks": 5,
+  "passed": 0,
+  "status": "FAIL_TARGETED_BLIND_TOOL_ADMISSION"
+}

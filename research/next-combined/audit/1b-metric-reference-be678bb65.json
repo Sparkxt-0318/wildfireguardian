@@ -1,0 +1,38 @@
+{
+  "scope": "Synthetic unequal-fire metric reference; no study data read.",
+  "head": "be678bb655cb2b3f7985d2b6f73b4f20b044a2ce",
+  "source_sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+  "script_sha256": "16e1a1b6dcd5fbb9a41ed4872ac333a79dadfaf7fa851f7e1915cf905fede6c8",
+  "pooled_point_expected": -0.8,
+  "equal_fire_point_would_be": 0.0,
+  "observed": {
+    "point_difference": -0.8,
+    "percentile_95_interval": [
+      -1.0,
+      1.0
+    ],
+    "excludes_zero": false,
+    "fires": 2,
+    "draws": 10000,
+    "seed": 20261030,
+    "per_fire_difference": {
+      "a": 1.0,
+      "b": -1.0
+    },
+    "fires_favouring_candidate": 1,
+    "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+  },
+  "fixed_bin_boundary_counts": [
+    2,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "pass_check": true
+}

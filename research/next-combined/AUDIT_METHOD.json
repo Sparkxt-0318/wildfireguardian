@@ -1,34 +1,43 @@
 {
   "tier": "Tier 2 task-directed verification",
-  "scope": "Immutable f9fa03290 A evidence; repaired 1C core interfaces, new truth readers and road feature source, strong export byte method and separate receipts",
+  "scope": "Immutable f9fa03290 A evidence; repaired C core/readers at e68123d81, receipt/native-usage custody; preheldout B scoring tools at be678bb65, synthetic admission/statistic fixtures only",
   "track_a_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
-  "track_c_head": "a2c6f8a69c46b5c678eea1d83bf9441f63a7e414",
+  "track_c_head": "e68123d81fb9064ad057425d7c954f923b50097c",
   "graph": {
     "1A": {
       "project": "wfg-next-1a-20261030",
       "generation": "2026-10-30T02:38:59Z"
     },
     "1C": {
-      "project": "wfg-next-1c-audit-a2c6f8a69-20261030",
-      "generation": "2026-10-30T03:27:56Z"
+      "project": "wfg-next-1c-audit-e68123d81-20261030",
+      "generation": "2026-10-30T03:54:43Z"
+    },
+    "1B": {
+      "project": "wfg-next-1b-audit-be678bb65-20261030",
+      "generation": "2026-10-30T03:54:55Z"
     }
   },
   "query_pagination": "All targeted search and trace results read had has_more false or no continuation; no graph-completeness claim.",
   "fallbacks": [
     "integration/src/wfg_latest/export.py excluded: direct git diff against Main was empty in clean immutable audit worktree.",
     "Compressed campaign files excluded: directly decompressed and parsed every record for count/outcome/null-score consistency.",
-    "New combined report files untracked in graph generation: directly read and validated as UTF-8/JSON."
+    "New combined report files untracked in graph generation: directly read and validated as UTF-8/JSON.",
+    "B research/forecast-v2/scripts entire subtree excluded: directly read complete score_cohorts.py, blind_test.py and all directly called pipeline helpers. Source review pinned to immutable snapshot; not a graph-trace completeness claim.",
+    "Initially requested research/forecast-v2/PREREGISTRATION.md was missing. Located and read exact forecast/documents/preregistration_blind_test.md, metadata_match."
   ],
   "trace_limits": "Generic get/accept method edges included obvious heuristic cross-file noise; material conclusions use exact snippets and executions.",
   "not_audited": [
     "1B held-out scores",
     "later live A enclosure implementation",
-    "1C implementation after a2c6f8a69",
     "new native simulator execution",
     "empirical radiation validation",
     "whole-road checker proof",
     "new scored risk campaign",
-    "scientific integration"
+    "scientific integration",
+    "1C implementation after e68123d81",
+    "B changes after be678bb65",
+    "actual 1B heldout input datasets/predictions/scores",
+    "authentication of an external OSF registration or complete future NIROPS release inventory"
   ],
   "native_custody_scope": "Independent raw-CSV count/pair reconciliation and internal custody-ledger consistency, not a new native campaign or an independent rehash of every external job file.",
   "export_equality_scope": "New15-window dtype/shape/exactpayload/NPY byte audit receipt preserved separately from the older value-equality method. Artifact and source-manifest file digests match receipt; owner regression distinguishes NaN payloads.",
@@ -37,12 +46,26 @@
     "count": 5,
     "fixture_source": "audit_1c_readers.py",
     "record": "audit/1c-readers-a2c6f8a69.json",
-    "scope": "Synthetic malformed/boundary cases; not a claim actual Wapiti output has wrong family, out-of-range arrivals or grid mismatch"
+    "scope": "Synthetic malformed/boundary cases; not a claim actual Wapiti output has wrong family, out-of-range arrivals or grid mismatch",
+    "repaired_record": "audit/1c-readers-e68123d81.json",
+    "repaired_passed": 5
   },
   "core_repair": {
     "record": "audit/1c-core-a2c6f8a69.json",
     "checks": 9,
     "passed": 9,
-    "original_failure_retained": true
-  }
+    "original_failure_retained": true,
+    "latest_record": "audit/1c-core-e68123d81.json"
+  },
+  "track_b_head": "be678bb655cb2b3f7985d2b6f73b4f20b044a2ce",
+  "reader_horizon": "audit/1c-horizon-e68123d81.json: four synthetic horizon boundaries pass; no actual Wapiti source read",
+  "blind_tool_review": {
+    "record": "audit/1b-blind-tools-be678bb65.json",
+    "checks": 5,
+    "passed_defensive_admission": 0,
+    "heldout_results_inspected": false,
+    "scope": "Synthetic files and mocked numerical producers; no inference that an actual heldout campaign contains wrong numbers"
+  },
+  "native_execution_availability": "Independently rehashed recorded five native source/binary/manifest files and stdout/stderr, reviewed probe source/process-group/timeout policy. No new execution; usage only, expected exit1, clock skipped heavy lock.",
+  "historical_manifest_caveat": "The old POST_REPAIR_RECEIPT source-manifest digest for synthetic-truth differs from the final current manifest after reader repair. Historical failure and receipt bytes retained; latest READERS_REPAIR_RECEIPT identities independently match."
 }
