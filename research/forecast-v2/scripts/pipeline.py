@@ -84,9 +84,35 @@ class Environment:
         self.root, self.cache = Path(data_root), Path(cache)
         self.cache.mkdir(parents=True, exist_ok=True)
         self.names = None
+        self.catalog = {e["id"]: e for e in json.loads((self.root / "events.json").read_text())}
+        self._residence = {}
         cached = next(iter(sorted(self.cache.glob("*.npz"))), None)
         if cached is not None:
             self.names = tuple(str(n) for n in np.load(cached)["names"])
+
+    def available_at(self, event, hour):
+        record = self.catalog[event]
+        return pd.Timestamp(record["start_utc"]) <= hour <= pd.Timestamp(record["end_utc"])
+
+    def residence(self, event):
+        """Point duration from supported FBFM40 cells; declared 6h fallback elsewhere."""
+        if event in self._residence:
+            return self._residence[event]
+        import rasterio
+        from wildfire.heat import FlameResidenceTime
+        path = self.root / "regions" / event / "fuel/landfire_2016_fbfm40_375m.tif"
+        if not path.exists():
+            self._residence[event] = None
+            return None
+        with rasterio.open(path) as source:
+            codes = source.read(1, masked=True).filled(0)
+        supported = np.isin(codes, list(range(101, 110)) + list(range(121, 125)) + list(range(141, 150))
+                            + list(range(161, 166)) + list(range(181, 190)) + list(range(201, 205)))
+        duration = np.full(codes.shape, 6.0, dtype=np.float32)
+        if supported.any():
+            duration[supported] = np.asarray(FlameResidenceTime.from_fbfm40(codes[supported]).duration_s) / 3600
+        self._residence[event] = duration
+        return duration
 
     def at(self, event: str, hour: pd.Timestamp) -> np.ndarray:
         key = self.cache / f"{event}_{hour.strftime('%Y%m%dT%H')}.npz"
@@ -126,28 +152,36 @@ def cropped(sample: PerimeterSample) -> PerimeterSample:
     return PerimeterSample(sample.event_id, sample.t1, sample.hours, sample.environment[:, r, c].copy(),
                            sample.initial[r, c].copy(), sample.endpoint[r, c].copy(), sample.score_mask[r, c].copy(),
                            sample.label_weight[r, c].copy(), sample.initial_age_hours[r, c].copy(), sample.kind,
-                           sample.weather, dict(sample.meta, crop=[r.start, r.stop, c.start, c.stop]))
+                           sample.weather, dict(sample.meta, crop=[r.start, r.stop, c.start, c.stop]),
+                           None if sample.residence_hours is None else sample.residence_hours[r, c].copy())
 
 
-def perimeter_samples(event: str, perimeters: Path, env: Environment, *, crop: bool) -> list[PerimeterSample]:
+def perimeter_samples(event: str, perimeters: Path, env: Environment, *, crop: bool,
+                      max_intervals: int | None = None) -> list[PerimeterSample]:
     data = np.load(perimeters / event / "states.npz")
     times = list(pd.to_datetime(data["times"], utc=True))
     states = data["states"].astype(bool)
     result = []
     for i, j, hours in consecutive_intervals(times, 48.0):
+        if not env.available_at(event, times[i].floor("h")):
+            continue
         raw = env.at(event, times[i].floor("h"))
         initial, endpoint = states[i], states[j]
         age = ages_from_states(times, states.astype(np.uint8), i)
         sample = PerimeterSample(
             event, times[i].isoformat(), hours, raw, initial, endpoint, ~initial,
             np.ones(initial.shape, np.float32), np.nan_to_num(age, nan=0.0).astype(np.float32),
-            meta=dict(t2=times[j].isoformat(), interval_index=i))
+            meta=dict(t2=times[j].isoformat(), interval_index=i,
+                      residence_policy="FBFM40 point duration where supported, declared 6h otherwise"),
+            residence_hours=env.residence(event))
         result.append(cropped(sample) if crop else sample)
+        if max_intervals is not None and len(result) >= max_intervals:
+            break
     return result
 
 
 def kriged_samples(event: str, data_root: Path, env: Environment, *, window: float = 12.0,
-                   every: float = 12.0) -> list[PerimeterSample]:
+                   every: float = 12.0, max_intervals: int | None = None) -> list[PerimeterSample]:
     import rasterio
     region = data_root / "regions" / event
     with rasterio.open(region / "arrival_time_hours.tif") as src:
@@ -168,13 +202,15 @@ def kriged_samples(event: str, data_root: Path, env: Environment, *, window: flo
             continue
         initial = finite & (arrival <= t)
         endpoint = finite & (arrival <= t + window)
-        if not initial.any() or not (endpoint & ~initial).any():
+        if not initial.any():
             continue
         age = np.where(initial, t - arrival, 0.0)
         sample = PerimeterSample(event, hour.isoformat(), window, env.at(event, hour), initial, endpoint, finite & ~initial,
                                  kriging_weight(std, window).astype(np.float32), age.astype(np.float32),
-                                 kind="kriged", meta=dict(start_hours=float(t)))
+                                 kind="kriged", meta=dict(start_hours=float(t)), residence_hours=env.residence(event))
         result.append(cropped(sample))
+        if max_intervals is not None and len(result) >= max_intervals:
+            break
     return result
 
 
@@ -208,13 +244,15 @@ def build_model(variant: str, train: list[PerimeterSample], names, seed: int, hi
 def fit_samples(args, events: list[str], env: Environment, *, mixed: bool) -> list[PerimeterSample]:
     samples = []
     for event in events:
-        samples += load_or_build(args.work, f"perimeter_crop_{event}",
-                                 lambda e=event: perimeter_samples(e, args.perimeters, env, crop=True))
+        samples += load_or_build(args.work, f"perimeter_crop_first{args.max_fit_intervals_per_fire}_{event}",
+                                 lambda e=event: perimeter_samples(e, args.perimeters, env, crop=True,
+                                                 max_intervals=args.max_fit_intervals_per_fire))
     if mixed:
         for event in events + SPLIT["fit"]["korean_kriged_only"]:
             if (args.data_root / "regions" / event).exists():
-                samples += load_or_build(args.work, f"kriged_{event}",
-                                         lambda e=event: kriged_samples(e, args.data_root, env))
+                samples += load_or_build(args.work, f"kriged_first{args.max_fit_intervals_per_fire}_{event}",
+                                         lambda e=event: kriged_samples(e, args.data_root, env,
+                                                         max_intervals=args.max_fit_intervals_per_fire))
     return samples
 
 
@@ -321,7 +359,7 @@ def c651_monte_carlo(predictor, sample: PerimeterSample, names, n_samples: int, 
     outputs = simulate(predictor, burned, env, channel_names=names,
                        burned_area_valid=torch.ones_like(burned, dtype=torch.bool), feature_valid=fv,
                        hours=(float(sum(durations)),), n_samples=n_samples,
-                       seed=case_seed(seed, sample.event_id, sample.t1), trajectory_batch_size=64,
+                       seed=case_seed(seed, sample.event_id, sample.t1), trajectory_batch_size=32,
                        boundary="zero", missing_burned_area="unburned", step_durations=durations,
                        cache_environment_kernels=True)
     details = outputs[0]["details"]
@@ -525,21 +563,43 @@ def command_compare(args):
         horizons = [("fixed", float(h), [1.0] * h) for h in COMPARE_HOURS]
         if case["country"] == "US":
             horizons.append(("survey", case["survey_hours"], step_durations(case["survey_hours"])))
+        # One recursive call produces every whole-hour endpoint, avoiding
+        # repeated simulation of identical trajectory prefixes.
+        started = time.perf_counter()
+        mc_joint = simulate(model.predictor, burned, e, channel_names=env.names,
+                            burned_area_valid=ones, feature_valid=fv, hours=COMPARE_HOURS,
+                            n_samples=args.n_samples, seed=args.seed, trajectory_batch_size=32,
+                            boundary="zero", missing_burned_area="unburned",
+                            cache_environment_kernels=True)
+        mc_joint_seconds = time.perf_counter() - started
+        started = time.perf_counter()
+        with torch.no_grad():
+            mf_joint = propagate_mean_field(model.predictor, burned, e, [1.] * max(COMPARE_HOURS),
+                                            channel_names=env.names, p0_valid=ones,
+                                            feature_valid=fv, boundary="zero")
+        mf_joint_seconds = time.perf_counter() - started
         for kind, hours, durations in horizons:
-            started = time.perf_counter()
-            mc = simulate(model.predictor, burned, e, channel_names=env.names, burned_area_valid=ones,
-                          feature_valid=fv, hours=(float(sum(durations)),), n_samples=args.n_samples,
-                          seed=args.seed, trajectory_batch_size=64, boundary="zero",
-                          missing_burned_area="unburned", step_durations=durations,
-                          cache_environment_kernels=True)[0]["details"]
-            mc_seconds = time.perf_counter() - started
-            started = time.perf_counter()
-            with torch.no_grad():
-                mf = propagate_mean_field(model.predictor, burned, e, durations, channel_names=env.names,
-                                          p0_valid=ones, feature_valid=fv, boundary="zero")
-            mf_seconds = time.perf_counter() - started
+            if kind == "fixed":
+                mc = mc_joint[COMPARE_HOURS.index(int(hours))]["details"]
+                mf = mf_joint
+                mf_index = int(hours) - 1
+                mc_seconds, mf_seconds = mc_joint_seconds, mf_joint_seconds
+            else:
+                started = time.perf_counter()
+                mc = simulate(model.predictor, burned, e, channel_names=env.names, burned_area_valid=ones,
+                              feature_valid=fv, hours=(float(sum(durations)),), n_samples=args.n_samples,
+                              seed=args.seed, trajectory_batch_size=32, boundary="zero",
+                              missing_burned_area="unburned", step_durations=durations,
+                              cache_environment_kernels=True)[0]["details"]
+                mc_seconds = time.perf_counter() - started
+                started = time.perf_counter()
+                with torch.no_grad():
+                    mf = propagate_mean_field(model.predictor, burned, e, durations, channel_names=env.names,
+                                              p0_valid=ones, feature_valid=fv, boundary="zero")
+                mf_seconds = time.perf_counter() - started
+                mf_index = -1
             p_mc, v_mc = mc.probability[0, 0].numpy(), mc.valid[0, 0].numpy()
-            p_mf, v_mf = mf.new_burn_probability[-1][0, 0].numpy(), mf.valid[-1][0, 0].numpy()
+            p_mf, v_mf = mf.new_burn_probability[mf_index][0, 0].numpy(), mf.valid[mf_index][0, 0].numpy()
             mask = v_mc & v_mf & ~case["initial"]
             if not np.array_equal(v_mc, v_mf):
                 raise AssertionError("Mean-field and Monte Carlo validity differ")
@@ -553,7 +613,8 @@ def command_compare(args):
                        mean_mc=float(a.mean()), mean_mf=float(b.mean()),
                        expected_new_cells_mc=float(a.sum()), expected_new_cells_mf=float(b.sum()),
                        max_abs_difference=float(np.abs(a - b).max()),
-                       mc_seconds=mc_seconds, mf_seconds=mf_seconds, n_samples=args.n_samples, seed=args.seed)
+                       mc_seconds=mc_seconds, mf_seconds=mf_seconds, n_samples=args.n_samples, seed=args.seed,
+                       timing_scope="one joint 24h call, shared across five horizon rows" if kind == "fixed" else "one fractional survey-endpoint call")
             if label is not None:
                 y = label[mask].astype(np.float64)
                 row.update(label_kind=case["label_kind"], positives=int(y.sum()),
@@ -579,13 +640,15 @@ def main():
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--intervals-per-epoch", type=int, default=160)
+    parser.add_argument("--max-fit-intervals-per-fire", type=int, default=3,
+                        help="Fixed earliest timestamp-selected development intervals per fire; heldout is uncapped")
     parser.add_argument("--patience", type=int, default=2)
     parser.add_argument("--lr", type=float, default=3e-3)
     parser.add_argument("--hidden", type=int, default=16)
     parser.add_argument("--samples-per-step", type=int, default=4)
     parser.add_argument("--balance", action="store_true")
     parser.add_argument("--threads", type=int, default=2)
-    parser.add_argument("--n-samples", type=int, default=128)
+    parser.add_argument("--n-samples", type=int, default=1024)
     parser.add_argument("--negative-fraction", type=float, default=0.05)
     parser.add_argument("--events", nargs="*", default=None)
     args = parser.parse_args()

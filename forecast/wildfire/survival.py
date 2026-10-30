@@ -171,6 +171,7 @@ class PerimeterSample:
     kind: str = "perimeter"  # or "kriged"
     weather: str = "cutoff_repeated"
     meta: dict[str, Any] = field(default_factory=dict)
+    residence_hours: np.ndarray | None = None
 
 
 def sample_forecast(model, sample: PerimeterSample, *, dtype=torch.float32, use_burnout: bool = True,
@@ -182,6 +183,9 @@ def sample_forecast(model, sample: PerimeterSample, *, dtype=torch.float32, use_
     feature_valid = torch.isfinite(env)
     env = torch.where(feature_valid, env, torch.zeros_like(env))
     burnout = model.flaming_window() if use_burnout and hasattr(model, "flaming_window") else None
+    if burnout is not None and sample.residence_hours is not None:
+        from .burnout import FlamingWindow
+        burnout = FlamingWindow(torch.as_tensor(sample.residence_hours, dtype=dtype), model.smoulder())
     spotting = None
     if use_spotting and getattr(model, "spotting_radius", 0):
         spot_env = env
@@ -281,9 +285,13 @@ def augment(sample: PerimeterSample, k: int, flip: bool, wind_index: tuple[int, 
         torch.from_numpy(sample.initial), torch.from_numpy(sample.endpoint),
         torch.from_numpy(sample.score_mask), torch.from_numpy(sample.label_weight),
         torch.from_numpy(sample.initial_age_hours))
+    residence = None
+    if sample.residence_hours is not None:
+        from .canonical import d4_spatial
+        residence = d4_spatial(torch.from_numpy(sample.residence_hours), k, flip).numpy()
     return PerimeterSample(sample.event_id, sample.t1, sample.hours, env.numpy(), initial.numpy(),
                            endpoint.numpy(), mask.numpy(), weight.numpy(), age.numpy(), sample.kind,
-                           sample.weather, dict(sample.meta, d4=[k, flip]))
+                           sample.weather, dict(sample.meta, d4=[k, flip]), residence)
 
 
 def evaluate_samples(model, samples: Sequence[PerimeterSample]) -> dict:
