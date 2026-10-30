@@ -1,0 +1,34 @@
+{
+  "acquired_utc": "2026-10-30T10:34:38.459037+00:00",
+  "changed_source": [],
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py",
+    "--model-root",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b",
+    "--input-root",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2",
+    "--cache-root",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/campaign-work",
+    "--run-root",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3",
+    "--cache-audit",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/CACHE_AUDIT_FINAL.json",
+    "--out",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/FIT_COVERAGE.json"
+  ],
+  "elapsed_seconds": 9.277989291993435,
+  "exit_code": 1,
+  "finished_utc": "2026-10-30T10:34:47.736990+00:00",
+  "log_sha256": "5b9c483aa96e5894fc11d347dfcae14d616dd3b423d00dfe85b31d20355116c6",
+  "output_sha256": null,
+  "pid": 62370,
+  "queued_utc": "2026-10-30T10:25:27.367162+00:00",
+  "software_gate_sha256": "2a8aaf17d26ecedf19ab1d03e1cdba857c43addb5c080f3bf360d6c53b984bec",
+  "source_sha256": {
+    "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+  },
+  "status": "HOLD"
+}

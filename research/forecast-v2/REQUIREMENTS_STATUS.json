@@ -617,10 +617,12 @@
     },
     {
       "id": "1B-2-complete-fit-membership",
-      "status": "PENDING",
+      "status": "HOLD_SOURCE_RECIPE_ADMISSION",
       "evidence": "research/forecast-v2/FIT_COVERAGE.json",
       "executable": "scripts/audit_fit_coverage.py",
-      "limit": "Historical pure schedules are source-derived inference; new mixed IDs are actual runtime records"
+      "limit": "Historical pure schedules are source-derived inference; new mixed IDs are actual runtime records",
+      "failed_audit_receipt": "research/forecast-v2/executions/final_fit_coverage_audit.json",
+      "failed_audit_receipt_sha256": "ce7727c10e68cce536dbb0f1a56b68add941a46fab8c244f12ddf23e527d5633"
     },
     {
       "id": "1B-global-spotting-wind-inputs",
@@ -1112,5 +1114,20 @@
       "label_cells": 0,
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
     }
-  ]
+  ],
+  "observed_gate_history": [
+    {
+      "name": "final_software_gate",
+      "status": "PASS",
+      "evidence": "research/forecast-v2/executions/final_software_gate.json"
+    },
+    {
+      "name": "complete_fit_coverage",
+      "status": "HOLD_SOURCE_RECIPE_ADMISSION",
+      "exit_code": 1,
+      "evidence": "research/forecast-v2/executions/final_fit_coverage_audit.json",
+      "interpretation": "Metadata recipe guard failure; no cache-value or fit corruption inferred"
+    }
+  ],
+  "annotation_provenance": "Observed immutable command receipts; this descriptive ledger has no promotion authority"
 }

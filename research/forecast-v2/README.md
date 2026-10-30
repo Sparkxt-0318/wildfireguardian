@@ -7,6 +7,11 @@ Three earlier spotting
 folds and one full fit remain historical
 smouldering-inclusive variants; they do not satisfy intended completeness or
 selection. No heldout forecast-quality result or superiority claim is available.
+The complete source-derived membership audit is on HOLD: its exact recipe
+guard refused historical producer functions that predate added input-custody
+checks. The failed receipt/log are preserved; compatibility is being checked
+against each consumed immutable path. This does not yet establish complete
+fit admission, even though all seven fitting commands completed.
 The mixed final fit attempted all 4,391 inputs in each of three epochs, with
 4,376 optimizer updates and 15 logged source-unsupported windows per epoch.
 Complete attempted input coverage is distinct from optimizer coverage.
