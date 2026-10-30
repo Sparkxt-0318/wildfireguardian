@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 661, in <module>
+    main()
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 656, in main
+    dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout,
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 282, in command_fold
+    train = fit_samples(args, train_events, env, mixed=spec.get("mixed", False))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 247, in fit_samples
+    samples += load_or_build(args.work, f"perimeter_crop_first{args.max_fit_intervals_per_fire}_{event}",
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 221, in load_or_build
+    value = builder()
+            ^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 248, in <lambda>
+    lambda e=event: perimeter_samples(e, args.perimeters, env, crop=True,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 176, in perimeter_samples
+    residence_hours=env.residence(event))
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 113, in residence
+    duration[supported] = np.asarray(FlameResidenceTime.from_fbfm40(codes[supported]).duration_s) / 3600
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/heat.py", line 1497, in from_fbfm40
+    code_array = _real_array(codes, "codes", allow_missing=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/heat.py", line 1280, in _real_array
+    raise ValueError(f"{name} must be a scalar or a nonempty spatial matrix [H,W]")
+ValueError: codes must be a scalar or a nonempty spatial matrix [H,W]

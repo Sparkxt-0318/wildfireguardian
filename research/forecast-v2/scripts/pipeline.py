@@ -109,8 +109,9 @@ class Environment:
         supported = np.isin(codes, list(range(101, 110)) + list(range(121, 125)) + list(range(141, 150))
                             + list(range(161, 166)) + list(range(181, 190)) + list(range(201, 205)))
         duration = np.full(codes.shape, 6.0, dtype=np.float32)
-        if supported.any():
-            duration[supported] = np.asarray(FlameResidenceTime.from_fbfm40(codes[supported]).duration_s) / 3600
+        for code in np.unique(codes[supported]):
+            seconds = float(np.asarray(FlameResidenceTime.from_fbfm40(int(code)).duration_s))
+            duration[codes == code] = seconds / 3600
         self._residence[event] = duration
         return duration
 
@@ -242,17 +243,18 @@ def build_model(variant: str, train: list[PerimeterSample], names, seed: int, hi
 
 
 def fit_samples(args, events: list[str], env: Environment, *, mixed: bool) -> list[PerimeterSample]:
+    limit = args.max_fit_intervals_per_fire if args.max_fit_intervals_per_fire > 0 else None
     samples = []
     for event in events:
         samples += load_or_build(args.work, f"perimeter_crop_first{args.max_fit_intervals_per_fire}_{event}",
                                  lambda e=event: perimeter_samples(e, args.perimeters, env, crop=True,
-                                                 max_intervals=args.max_fit_intervals_per_fire))
+                                                 max_intervals=limit))
     if mixed:
         for event in events + SPLIT["fit"]["korean_kriged_only"]:
             if (args.data_root / "regions" / event).exists():
                 samples += load_or_build(args.work, f"kriged_first{args.max_fit_intervals_per_fire}_{event}",
                                          lambda e=event: kriged_samples(e, args.data_root, env,
-                                                         max_intervals=args.max_fit_intervals_per_fire))
+                                                         max_intervals=limit))
     return samples
 
 
@@ -291,7 +293,7 @@ def command_fold(args):
     result = fit_mean_field(model, train, validation, epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
                             patience=args.patience, d4=spec["d4"], samples_per_step=args.samples_per_step,
                             balance=balance, biome_channels=channels,
-                            intervals_per_epoch=args.intervals_per_epoch, validate_each_epoch=False,
+                            intervals_per_epoch=args.intervals_per_epoch or None, validate_each_epoch=False,
                             log=lambda line: (print(line, flush=True), log.write(line + "\n"), log.flush()))
     elapsed = time.perf_counter() - started
     scores = evaluate_samples(model, validation)
@@ -322,7 +324,7 @@ def command_final(args):
     started = time.perf_counter()
     result = fit_mean_field(model, train, [], epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
                             d4=spec["d4"], samples_per_step=args.samples_per_step, balance=balance,
-                            biome_channels=channels, intervals_per_epoch=args.intervals_per_epoch,
+                            biome_channels=channels, intervals_per_epoch=args.intervals_per_epoch or None,
                             validate_each_epoch=False)
     elapsed = time.perf_counter() - started
     checkpoint = out / "checkpoint.pt"
@@ -641,7 +643,7 @@ def main():
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--intervals-per-epoch", type=int, default=160)
     parser.add_argument("--max-fit-intervals-per-fire", type=int, default=3,
-                        help="Fixed earliest timestamp-selected development intervals per fire; heldout is uncapped")
+                        help="Earliest timestamp-selected development intervals per fire; 0 uses all eligible fit intervals")
     parser.add_argument("--patience", type=int, default=2)
     parser.add_argument("--lr", type=float, default=3e-3)
     parser.add_argument("--hidden", type=int, default=16)

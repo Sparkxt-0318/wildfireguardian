@@ -91,6 +91,7 @@ def job(name, command, expected):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=["fits", "baselines", "compare", "heldout"])
+    parser.add_argument("--attempt", type=int, default=2)
     args = parser.parse_args()
     RUN.mkdir(parents=True, exist_ok=True)
     pipeline = HERE.with_name("pipeline.py")
@@ -103,7 +104,7 @@ def main():
     if args.stage == "fits":
         for fold in ("2020", "2021", "2022"):
             for variant in VARIANTS:
-                name = f"fold_{fold}_{variant}"
+                name = f"a{args.attempt:02d}_fold_{fold}_{variant}"
                 command = [sys.executable, str(pipeline), "fold", *shared, "--fold", fold, "--variant", variant]
                 job(name, command, RUN / "folds" / f"{variant}_fold{fold}_seed0/result.json")
         by_variant = {}
@@ -115,8 +116,9 @@ def main():
             by_variant[variant] = sum(values) / len(values)
         selected = min(VARIANTS, key=lambda v: (by_variant[v], VARIANTS.index(v)))
         for variant in VARIANTS:
-            command = [sys.executable, str(pipeline), "final", *shared, "--variant", variant]
-            job(f"final_{variant}", command, RUN / "final" / f"{variant}_seed0/result.json")
+            command = [sys.executable, str(pipeline), "final", *shared, "--variant", variant,
+                       "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
+            job(f"a{args.attempt:02d}_final_{variant}", command, RUN / "final" / f"{variant}_seed0/result.json")
         identities = {}
         for variant in VARIANTS:
             path = RUN / "final" / f"{variant}_seed0/checkpoint.pt"
@@ -136,7 +138,10 @@ def main():
         expected = {"baselines": RUN / "baselines/dilation_choice.json",
                     "compare": RUN / "meanfield_vs_mc/meanfield_vs_mc.json",
                     "heldout": RUN / "report_inputs.json"}[args.stage]
-        job(args.stage, [sys.executable, str(pipeline), args.stage, *shared], expected)
+        command = [sys.executable, str(pipeline), args.stage, *shared]
+        if args.stage == "baselines":
+            command += ["--max-fit-intervals-per-fire", "0"]
+        job(f"a{args.attempt:02d}_{args.stage}", command, expected)
 
 
 if __name__ == "__main__":
