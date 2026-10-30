@@ -1,0 +1,23 @@
+{
+  "80a806e1_Environment.diff": "140876a6629200117df99a4338d38b7ae3726e7b3d64288feb41726ac03d7b42",
+  "80a806e1_load_or_build.diff": "5284a12bd3b48df51d48439d977c24ea40158e2871086cef15d1409e16186065",
+  "IMMUTABLE_CLOSURE_DISCOVERY.json": "92be2f18ed8cc821781084f7bacd1a08e62182b91596b703a97688e51a7d8257",
+  "INITIAL_FINDINGS.md": "dda50f267426f7431522211c972910dc098fc9792521068cb2208ea846386c8e",
+  "SURVIVAL_DEPENDENCIES.json": "cbad17599e459d27cf93347b6457223f028d544e5a6d5727a272b46e61a8c944",
+  "SURVIVAL_DEPENDENCIES_system_environment.json": "b503d94c0da4763024bf4b85af33674f0850c667533d69aa4860c8963f31ac9c",
+  "candidate_F.py": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+  "candidate_pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+  "dependency_mutation_repro.json": "0f4bbe9d05364c3c05ff8a951465debd72f06b4499d2647f51223f8974b339eb",
+  "dependency_mutation_repro.py": "dac32f3618c9d2733adaec4900b9af0ae743508272d3cedb04bd08a7a7f3de52",
+  "e59d157a_Environment.diff": "0a92559d1753a2ed65e13892796f89388e6b36d2338e497361c76ae161e6fe63",
+  "e59d157a_load_or_build.diff": "5284a12bd3b48df51d48439d977c24ea40158e2871086cef15d1409e16186065",
+  "fe230450_Environment.diff": "140876a6629200117df99a4338d38b7ae3726e7b3d64288feb41726ac03d7b42",
+  "fe230450_load_or_build.diff": "5284a12bd3b48df51d48439d977c24ea40158e2871086cef15d1409e16186065",
+  "matrix_initial_c9d7335b.json": "46cd4bb79b5fddc1e30bd3c1488f0e343f72424ea2a7c859c6d1a1e59e2489cc",
+  "matrix_initial_c9d7335b.log": "3267dfe6a17bd1ddd0d33ca63dc53ce3e4bac94d3c4548a7e200dca51c24666b",
+  "mutated_pipeline_consumed_else.py": "1e5033c703c9321f0335d7ce329105d2ba0154f84e02d189ab6b6a4fcf585aec",
+  "pure_else_repro.json": "2ddd9b55ec32b24696f2ea1c6e64512df961ae661fd09c5ccef38c830c38d648",
+  "pure_else_repro.py": "6946497a1f9fde3cc35f1ddb73b71b77f5037d01f10287e224be433d1955ebe5",
+  "recipe_matrix.py": "8d96c69e2a25edcdc481cc91148206283c688054f97a6bf6e8f3ab03773f4258",
+  "recipe_matrix_initial_c9d7335b.py": "312b5b2aa7af43d81262ba972d649aaa17a3c932dc31db671750e5eb094869fc"
+}

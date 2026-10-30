@@ -1,0 +1,43 @@
+{"status": "HOLD_RECOGNIZER", "checks": 53, "passed": 48}
+[
+  {
+    "id": "negative_consumed_else",
+    "pass_check": false,
+    "observed": {
+      "state": "RETURNED",
+      "value": true
+    }
+  },
+  {
+    "id": "negative_cache_transform",
+    "pass_check": false,
+    "observed": {
+      "state": "RETURNED",
+      "value": true
+    }
+  },
+  {
+    "id": "negative_crop_global",
+    "pass_check": false,
+    "observed": {
+      "state": "RETURNED",
+      "value": true
+    }
+  },
+  {
+    "id": "negative_copied_crop_helper",
+    "pass_check": false,
+    "observed": {
+      "state": "RETURNED",
+      "value": true
+    }
+  },
+  {
+    "id": "negative_definition_time_global_effect",
+    "pass_check": false,
+    "observed": {
+      "state": "RETURNED",
+      "value": true
+    }
+  }
+]

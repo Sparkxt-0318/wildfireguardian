@@ -33,13 +33,13 @@
       "published_head": "43324736fc5301a0444b01b918ef14a0372b1ec3"
     },
     "1B": {
-      "source_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
-      "status": "ALL_SOFTWARE_SCOPED_REVIEWS_PASS_NUMERICAL_AND_REAL_RESULT_VALIDATION_PENDING",
+      "source_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+      "status": "SOFTWARE_GATE_PASS_FIT_COVERAGE_HOLD_NUMERICAL_COMPARISON_AND_REAL_RESULT_PENDING",
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
-      "current_assessment_clearance": "All current software reviews have scoped passes. Actual seventhfinalcheckpoint, all7coverage/selection/registryfreeze, heldout, actualbaselinequality and independent final real-report review remain pending.",
-      "numerical_evidence": "PENDING_OWNER_DELIVERY",
+      "current_assessment_clearance": "Saved owner software gate PASS3373tests+367release with199source/loghashes bound to Git376. Seven trained/versioned checkpoints do not clear actual fit coverage: audit exit1HOLD before FIT_COVERAGE output. No registryfreeze, heldout or actual final-checker execution.",
+      "numerical_evidence": "21_DEVELOPMENT_AND_7_TRAINED_FINAL_ARTIFACTS_VERSIONED_ACTUAL_COVERAGE_HOLD_5_COMPARISONS_PENDING",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
       "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
@@ -113,7 +113,7 @@
         "owner_tests_reported": 181,
         "owner_suite_rerun": false
       },
-      "source_class_model_compatibility_review": "PENDING",
+      "source_class_model_compatibility_review": "KNOWN_SOURCE_CONDITIONAL_COMPATIBILITY_PENDING_MANDATORY_CACHE_SCHEMA_AND_COMPLETE_ACTUAL_AUDIT",
       "source_phase_review": {
         "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
         "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
@@ -172,25 +172,25 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "FullspotPID47477 unchangednumericalA5source since08:52:29Z, nofinalizedreceipt;1of12a06done,11queued. Ownerfinalintegratedfulltests/release367/source-defaultgatePID60325 queued10:07:57ZunderHEAVYatjobboundary, not yet evidence.",
+        "controllers": "Fullspot completed and Git376versions7trainedcheckpoints. First7of12a06cutoffs complete;US07active and5remaining plus aggregate/sourceclosure before any live F repair. No registry/heldout.",
         "heldout": "NOT_RUN",
         "last_full_suite": {
-          "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
-          "reported_passed": 3259,
-          "reported_warnings": 455,
-          "reported_whole_suite_seconds": 199.28,
+          "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+          "reported_passed": 3373,
+          "reported_warnings": 551,
+          "reported_pytest_summary_seconds": 204.94,
           "rerun_by_readiness_auditor": false,
           "performance_evidence": false
         },
-        "scope": "Coordinator progress only; no actual fit/sample/cache/checkpoint inspected by readiness archivist, no current final registry clearance",
+        "scope": "Coordinator saved receipts/metadata only; readiness checked199sourceGit hashes and exact logs, did not open models/actual arrays or certify actual fit admission.",
         "dirty_patch_snapshot": "Earlier02cdf53c plus dirty repair patch was superseded by reviewed clean sourcea5ba; untracked numerical evidence is ongoing and was not inspected here",
         "third_development_fit_reported_whole_job_seconds": 59.295,
         "reported_elapsed_is_performance_evidence": false,
         "development_fits_complete": 21,
-        "final_fits_complete": 6,
-        "comparison_cutoffs_complete": 1,
+        "final_fits_complete": 7,
+        "comparison_cutoffs_complete": 7,
         "comparison_cutoffs_required": 12,
-        "final_integrated_owner_gate": "QUEUED_NOT_RUN_NO_PASS_CLAIM"
+        "final_integrated_owner_gate": "PASS_3373_TESTS_367_RELEASE_EXIT0_SAVED_RECEIPT"
       },
       "earlier_assessment_admission": {
         "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
@@ -285,7 +285,7 @@
       },
       "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "numerical_source_files": 61,
-      "publication_status": "Coordinator verified publishedD251andallCIgreen; packagingEAmetadata is newer and not claimed published here.",
+      "publication_status": "Coordinator confirmed publishedD251allCIgreen; pinned checkpoint milestone376 is newer and not claimed published here.",
       "review_source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "future_numerical_guard": {
         "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
@@ -398,11 +398,11 @@
         "training_hold": false,
         "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality."
       },
-      "current_packaging_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
+      "current_packaging_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
       "current_software_head": "d2512cbcc2debc1b00074c99efb329089823549e",
       "current_packaging_not_yet_published": true,
       "prospective_protocol_metadata": {
-        "state": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+        "state": "PENDING_ACTUAL_COVERAGE_REGISTRY_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
         "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
         "inventory": "protocol-status-parent-d2512cbc/SOURCE_INVENTORY.json",
         "parent_ast_receipt": "protocol-status-parent-d2512cbc/protocol-d2512cbc-parent-AST.json",
@@ -411,7 +411,8 @@
         "runtime_inventory_ast_equal_cc_outside_docstring": true,
         "protocol_lines_reported": 305,
         "clearance_receipts": "Coordinator-described acyclic workflow; no actual registration/clearance executed",
-        "external_registration": "NOT_RUN"
+        "external_registration": "NOT_RUN",
+        "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS"
       },
       "preassessment_timestamp_metadata": {
         "packaging_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
@@ -442,6 +443,77 @@
         "scores_available": false,
         "scored_cases": 0,
         "scope": "Identity metadata only; native horizon availability does not override frozen48hcohorteligibility or establish comparative quality."
+      },
+      "final_software_gate": {
+        "state": "PASS_SAVED_OWNER_EXECUTION_AND_SOURCE_LOG_CUSTODY",
+        "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+        "receipt": "software-coverage-376292bc/final_software_gate.json",
+        "parent_check": "software-coverage-376292bc/final-software-gate-parent-check.json",
+        "inventory": "software-coverage-376292bc/SOURCE_INVENTORY.json",
+        "pytest_passed": 3373,
+        "pytest_warnings": 551,
+        "pytest_summary_seconds": 204.94,
+        "release_copied_hashes_passed": 367,
+        "exit_codes": [
+          0,
+          0
+        ],
+        "source_hashes_checked": 199,
+        "source_hash_mismatches": 0,
+        "readiness_rerun": false,
+        "performance_evidence": false
+      },
+      "actual_fit_coverage": {
+        "state": "HOLD_ACTUAL_AUDIT_EXIT1_BEFORE_OUTPUT",
+        "receipt": "software-coverage-376292bc/final_fit_coverage_audit.json",
+        "log": "software-coverage-376292bc/final_fit_coverage_audit.log",
+        "exit_code": 1,
+        "elapsed_seconds": 9.277989291993435,
+        "acquired_utc": "2026-10-30T10:34:38.459037+00:00",
+        "finished_utc": "2026-10-30T10:34:47.736990+00:00",
+        "FIT_COVERAGE_output_sha256": null,
+        "failure": "Frozen producer fit input selection differs from the audited full-sample recipe",
+        "limits": "This admission recognizer refusal is not proof fits are wrong. All actual sources conditionally compatible only under mandatory complete cache/value/schema/membership authentication. No generic helper closure or current actual coverage clearance.",
+        "registry_frozen": false,
+        "heldout": "NOT_RUN",
+        "actual_result_checker": "NOT_RUN",
+        "readiness_rerun": false
+      },
+      "seven_final_checkpoint_metadata": {
+        "state": "7_TRAINED_VERSIONED_IDENTITIES_NOT_FIT_ADMISSION",
+        "head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+        "receipt": "software-coverage-376292bc/seven-final-checkpoints-parent.json",
+        "new_fit_receipt": "software-coverage-376292bc/a05_final_burnout_spotting_flaming_only.json",
+        "parent_new_identity": "software-coverage-376292bc/final-spotting-checkpoint-parent.json",
+        "matches": 7,
+        "bytes": 769401,
+        "checkpoint_payloads_read_by_readiness": false,
+        "models_deserialized": false,
+        "selection_registry_frozen": false
+      },
+      "coverage_recipe_candidate_review": {
+        "state": "HOLD_INITIAL_CANDIDATE_53_CHECKS_48_PASS_V2_NOT_CLEARED",
+        "candidate_sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+        "review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
+        "inventory": "coverage-recipe-review-c9d7335b/SOURCE_INVENTORY.json",
+        "audit": "coverage-recipe-review-c9d7335b/matrix_initial_c9d7335b.json",
+        "checks": 53,
+        "passed": 48,
+        "gaps": [
+          "Consumed pure else discarded",
+          "Cache transformation dependency unchecked",
+          "MARGIN global unchecked",
+          "Copied crop helper unchecked",
+          "Definition-time global effect unchecked"
+        ],
+        "actual_phase_source_only_positives": 28,
+        "old_schedule_refusals": 23,
+        "old_owner_bounded_tests": 116,
+        "whole_data_audit_pass": false,
+        "old_candidate_applied": false,
+        "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json",
+        "helper_v2": "NOT_CLEARED_NO_GENERIC_CLOSURE_CLAIM",
+        "scope": "Exact other independent source-only review archive, not rerun here; no actual arrays/caches/models/quality outcomes opened by readiness."
       }
     },
     "1C": {
@@ -627,7 +699,7 @@
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
     "integration_published_head": "3fa170b9dfb06c3807c3c28e16fe6579d2689c71",
-    "coordinator_unpublished_head_reported": "218e1382, separate coordinator worktree metadata only"
+    "coordinator_unpublished_head_reported": "93, coordinator-reported short head only; separate root worktree, no publication claim"
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -658,7 +730,9 @@
     "pre_static_milestones_summary": "history/pre-static-milestones-df480887/README.md",
     "pre_static_milestones_inventory": "history/pre-static-milestones-df480887/ARCHIVE_INDEX.json",
     "pre_farsite_repair_summary": "history/pre-farsite-repair-1178cb05/README.md",
-    "pre_farsite_repair_inventory": "history/pre-farsite-repair-1178cb05/ARCHIVE_INDEX.json"
+    "pre_farsite_repair_inventory": "history/pre-farsite-repair-1178cb05/ARCHIVE_INDEX.json",
+    "pre_software_coverage_summary": "history/pre-software-coverage-507906ba/README.md",
+    "pre_software_coverage_inventory": "history/pre-software-coverage-507906ba/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -681,5 +755,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T10:20:11.301729+00:00"
+  "updated_utc": "2026-10-30T11:25:36.393579+00:00"
 }

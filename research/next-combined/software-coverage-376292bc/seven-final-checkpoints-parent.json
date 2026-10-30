@@ -1,0 +1,57 @@
+{
+  "scope": "Byte identity of the seven versioned final artifacts only; no model loading, inference or quality claim",
+  "source_commit": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+  "models": [
+    {
+      "variant": "base",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/checkpoint.pt",
+      "bytes": 109604,
+      "sha256": "007720f6bb5cd19e5fc8afc0abc47cb5b0fb320aae7ce3830e261cdb98c31ec8",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "d4",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/checkpoint.pt",
+      "bytes": 109604,
+      "sha256": "969a47025d5d9b322f1413ba0922e29fac9f453474bbe73b9aca6950f476fb74",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "d4_wind",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt",
+      "bytes": 109604,
+      "sha256": "33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "ellipse",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/checkpoint.pt",
+      "bytes": 109668,
+      "sha256": "b8f13c01536b0507bd16ec64b7fd8fdfc969cc7e0f05e73d0f9257ca29eab569",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "burnout",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/checkpoint.pt",
+      "bytes": 109923,
+      "sha256": "d552c221348a28477c2eeb411156e47d1b56653aca424e0487085570d2957559",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "burnout_spotting",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+      "bytes": 111330,
+      "sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b",
+      "matches_versioned_git_payload": true
+    },
+    {
+      "variant": "mixed_base",
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/checkpoint.pt",
+      "bytes": 109668,
+      "sha256": "e0330c3d92f5cd92471a434f6d062f16c7a14be4163b44c98fa334d9573dba76",
+      "matches_versioned_git_payload": true
+    }
+  ],
+  "status": "PASS_7_VERSIONED_FINAL_CHECKPOINT_IDENTITIES",
+  "selection_registry_frozen": false
+}

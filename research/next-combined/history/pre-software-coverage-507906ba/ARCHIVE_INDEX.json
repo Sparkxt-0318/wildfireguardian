@@ -1,0 +1,36 @@
+{
+  "source_commit": "507906ba5fd3e34b2fb96e557cf6426d7f9df09c",
+  "scope": "Exact prior current summary/generator/method/hash ledger, preserved before actual software PASS and coverage HOLD update",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 19229,
+      "sha256": "35d30f3cea1f20efd83a9fd8608e567ec71c9ca8c6fb3ef28d28ec04e476c8db"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 39939,
+      "sha256": "7b338e750e07b4617a2b29250d4a662e816fc78de95f0688771a05482e8e15bf"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 39939,
+      "sha256": "7b338e750e07b4617a2b29250d4a662e816fc78de95f0688771a05482e8e15bf"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 32849,
+      "sha256": "e8e2b5d94af0343571d00edc9772ed54aa66d6d9224e8fc35b5e5435886a7407"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 21039,
+      "sha256": "17b3e976bdef35c21b926bf54deb7aaf1ea7b460bb594c0c3bdeec1133a8e082"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 29735,
+      "sha256": "f6577edc29804b251bec184436bba85b6a86b1011f96bcd9798b7027cde640c8"
+    }
+  ]
+}

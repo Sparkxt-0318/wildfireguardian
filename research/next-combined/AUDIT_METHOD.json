@@ -16,7 +16,8 @@
     "B_current_overlay": "d2512cbcc2debc1b00074c99efb329089823549e",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "ea010ff622a0ed82c06825de65ffe4b194043408"
+    "B_current_packaging": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+    "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61"
   },
   "graphs": {
     "integration": {
@@ -81,12 +82,12 @@
   "limitations": [
     "Graph coverage is a best-effort signal, not proof of source completeness.",
     "A empirical physics remains HOLD;42functional and367release checks are not physical validation.",
-    "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual seven-fit coverage/development-only selection/registry and heldout remain pending.",
+    "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual fit coverage is HOLD after exit1 before output; development-only selection/registry and heldout remain unrun.",
     "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
     "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
-    "OptionalFARSITEtwo-gap failure is closed only by separateD251synthetic22repaircontrols/41ownersuite; actualquality unrun. Timestamp273cases and30nativehorizons are owner metadata, not new sourcecasecensus. Ownerintegratedfinalgate queued, no passclaim; prepared finalcheckeractualNOT_RUN pendingexplicitfreezeauthorization."
+    "Owner final software gate3373tests+367release passed; readiness exactreceipt/log/199sourceGit hashes only, no rerun. Seven trained/versioned models are metadata only. Actual coverage audit exit1HOLD before output; source-only28positives/23refusals/old116tests do not clear candidate53/48fivegaps, helperv2 or whole-data admission. Registry/heldout/actualchecker remainNOT_RUN; no data/modelpayload read here."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -524,7 +525,7 @@
     "actual_baseline_quality": "NOT_RUN"
   },
   "B_protocol_parent_metadata": {
-    "state": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+    "state": "PENDING_ACTUAL_COVERAGE_REGISTRY_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
     "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
     "inventory": "protocol-status-parent-d2512cbc/SOURCE_INVENTORY.json",
     "parent_ast_receipt": "protocol-status-parent-d2512cbc/protocol-d2512cbc-parent-AST.json",
@@ -533,7 +534,8 @@
     "runtime_inventory_ast_equal_cc_outside_docstring": true,
     "protocol_lines_reported": 305,
     "clearance_receipts": "Coordinator-described acyclic workflow; no actual registration/clearance executed",
-    "external_registration": "NOT_RUN"
+    "external_registration": "NOT_RUN",
+    "historical_state_at_D251": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS"
   },
   "B_preassessment_metadata": {
     "preassessment_timestamp_metadata": {
@@ -565,6 +567,85 @@
       "scores_available": false,
       "scored_cases": 0,
       "scope": "Identity metadata only; native horizon availability does not override frozen48hcohorteligibility or establish comparative quality."
+    }
+  },
+  "B_software_and_coverage_archive": {
+    "software": {
+      "state": "PASS_SAVED_OWNER_EXECUTION_AND_SOURCE_LOG_CUSTODY",
+      "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+      "receipt": "software-coverage-376292bc/final_software_gate.json",
+      "parent_check": "software-coverage-376292bc/final-software-gate-parent-check.json",
+      "inventory": "software-coverage-376292bc/SOURCE_INVENTORY.json",
+      "pytest_passed": 3373,
+      "pytest_warnings": 551,
+      "pytest_summary_seconds": 204.94,
+      "release_copied_hashes_passed": 367,
+      "exit_codes": [
+        0,
+        0
+      ],
+      "source_hashes_checked": 199,
+      "source_hash_mismatches": 0,
+      "readiness_rerun": false,
+      "performance_evidence": false
+    },
+    "actual_coverage": {
+      "state": "HOLD_ACTUAL_AUDIT_EXIT1_BEFORE_OUTPUT",
+      "receipt": "software-coverage-376292bc/final_fit_coverage_audit.json",
+      "log": "software-coverage-376292bc/final_fit_coverage_audit.log",
+      "exit_code": 1,
+      "elapsed_seconds": 9.277989291993435,
+      "acquired_utc": "2026-10-30T10:34:38.459037+00:00",
+      "finished_utc": "2026-10-30T10:34:47.736990+00:00",
+      "FIT_COVERAGE_output_sha256": null,
+      "failure": "Frozen producer fit input selection differs from the audited full-sample recipe",
+      "limits": "This admission recognizer refusal is not proof fits are wrong. All actual sources conditionally compatible only under mandatory complete cache/value/schema/membership authentication. No generic helper closure or current actual coverage clearance.",
+      "registry_frozen": false,
+      "heldout": "NOT_RUN",
+      "actual_result_checker": "NOT_RUN",
+      "readiness_rerun": false
+    },
+    "checkpoint_metadata": {
+      "state": "7_TRAINED_VERSIONED_IDENTITIES_NOT_FIT_ADMISSION",
+      "head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+      "receipt": "software-coverage-376292bc/seven-final-checkpoints-parent.json",
+      "new_fit_receipt": "software-coverage-376292bc/a05_final_burnout_spotting_flaming_only.json",
+      "parent_new_identity": "software-coverage-376292bc/final-spotting-checkpoint-parent.json",
+      "matches": 7,
+      "bytes": 769401,
+      "checkpoint_payloads_read_by_readiness": false,
+      "models_deserialized": false,
+      "selection_registry_frozen": false
+    },
+    "initial_candidate_review": {
+      "state": "HOLD_INITIAL_CANDIDATE_53_CHECKS_48_PASS_V2_NOT_CLEARED",
+      "candidate_sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+      "review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
+      "inventory": "coverage-recipe-review-c9d7335b/SOURCE_INVENTORY.json",
+      "audit": "coverage-recipe-review-c9d7335b/matrix_initial_c9d7335b.json",
+      "checks": 53,
+      "passed": 48,
+      "gaps": [
+        "Consumed pure else discarded",
+        "Cache transformation dependency unchecked",
+        "MARGIN global unchecked",
+        "Copied crop helper unchecked",
+        "Definition-time global effect unchecked"
+      ],
+      "actual_phase_source_only_positives": 28,
+      "old_schedule_refusals": 23,
+      "old_owner_bounded_tests": 116,
+      "whole_data_audit_pass": false,
+      "old_candidate_applied": false,
+      "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json",
+      "helper_v2": "NOT_CLEARED_NO_GENERIC_CLOSURE_CLAIM",
+      "scope": "Exact other independent source-only review archive, not rerun here; no actual arrays/caches/models/quality outcomes opened by readiness."
+    },
+    "archival_graph_context": {
+      "integration_project": "wfg-next-integration-20261030",
+      "generation": "2026-10-30T02:27:27Z",
+      "owned_paths": "not_tracked; direct full generator/current-summary reads and exact archival/Git source hashes used",
+      "scope": "No structural discovery or new source correctness audit; no graph completeness claim"
     }
   }
 }
