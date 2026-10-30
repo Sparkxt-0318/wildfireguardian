@@ -1,0 +1,58 @@
+{
+ "coefficients": [
+  [
+   -1.5650213203879266,
+   -0.10587423778076302,
+   -0.01592825374499676,
+   0.0840838213260456,
+   0.11585525611779825,
+   -0.04958059790900619,
+   -0.17106837754006446,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.25716203078611266,
+   0.0,
+   0.0,
+   -0.17202383355764164,
+   0.0,
+   0.0,
+   0.0,
+   -0.1835580999631383,
+   -0.06976691616948158,
+   0.0
+  ]
+ ],
+ "intercept": [
+  -6.091565722195008
+ ],
+ "rows": 703848,
+ "positives": 108722,
+ "negative_fraction": 0.05,
+ "seed": 0,
+ "features": [
+  "log1p(distance)",
+  "distance/hours",
+  "alignment",
+  "alignment*speed",
+  "speed",
+  "directional_slope_degrees/45",
+  "log(hours)",
+  "biome=1",
+  "biome=2",
+  "biome=3",
+  "biome=4",
+  "biome=5",
+  "biome=6",
+  "biome=7",
+  "biome=8",
+  "biome=9",
+  "biome=10",
+  "biome=11",
+  "biome=12",
+  "biome=13",
+  "biome=14"
+ ],
+ "weighting": "negatives subsampled at the stated fraction and weighted by its inverse"
+}

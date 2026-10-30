@@ -60,7 +60,7 @@ def test_standalone_spotting_rate_refuses_unknown_domain_wind():
 
 
 @pytest.mark.parametrize("missing_nonwind", [False, True])
-def test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback(missing_nonwind):
+def test_known_wind_guard_preserves_forward_and_parameter_gradients_with_fixed_source_law(missing_nonwind):
     model, sample = fixture(temperature_missing=missing_nonwind, hours=2)
     old = deepcopy(model)
     tensors = sample_tensors(sample)
@@ -70,6 +70,9 @@ def test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_c
     def prior_callback(source, step):
         return old.spot_rate(source, environment, boundary="zero")
     prior_callback.source_radius = 15
+    # Isolate availability metadata under the same corrected emitter law.
+    # Historical smouldering-inclusive fits require their separate rerun.
+    prior_callback.source_mode = "flaming_only"
     before = propagate_mean_field(old, tensors["initial"], environment, step_durations(sample.hours),
         channel_names=old.channel_names, p0_valid=torch.ones_like(tensors["initial"], dtype=torch.bool),
         feature_valid=fv, boundary="zero", burnout=old.flaming_window(),

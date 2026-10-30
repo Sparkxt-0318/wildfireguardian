@@ -1,10 +1,13 @@
 # Forecast v2, current execution
 
-All 21 bounded development fits completed on real inputs. Six full eligible-cohort final fits completed. The mixed-source final fit
-is pending its actual input and epoch-membership ledger. No heldout forecast-quality result or model
-superiority claim is available. These counts come from
-`scripts/status.py` and `REQUIREMENTS_STATUS.json`, which authenticate current
-phase output hashes and exclude earlier attempts from primary totals.
+Eighteen intended development fits and six intended full final fits are
+complete. The three corrected spotting folds and corrected full spotting fit
+remain pending. Three earlier spotting folds and one full fit remain historical
+smouldering-inclusive variants; they do not satisfy intended completeness or
+selection. No heldout forecast-quality result or superiority claim is available.
+The mixed final fit attempted all 4,391 inputs in each of three epochs, with
+4,376 optimizer updates and 15 logged source-unsupported windows per epoch.
+Complete attempted input coverage is distinct from optimizer coverage.
 
 The selected integration checkpoint c651 remains unchanged. This branch adds
 opt-in mean-field propagation, interval-endpoint losses, structural kernels,
@@ -87,3 +90,21 @@ The final mixed fit records its actual prefit sample identities and every
 epoch attempt and skip. Controls verify that logging consumes no RNG and
 leaves fitted parameters unchanged. The six historical pure fits retain
 source-derived schedule evidence, not retrospectively claimed runtime IDs.
+
+## Flaming-only emitter correction
+
+`RUN_PROTOCOL_EXTENSION_10.json` preserves the concrete emitter failure and
+requires fresh corrected spotting phases. The original branch received local
+flaming plus old-cell smouldering occupancy. The corrected extra branch uses
+only occupancy still in its residence window; local spread retains learned
+smouldering. The historical four spotting phases remain versioned. The earlier
+global-wind retention proof addresses only missing-wind availability and does
+not waive this independent emitter-law correction. No heldout outcome selected
+the repair.
+
+`scripts/check_nonspotting_compatibility.py` reproduces the bounded source and
+fixture comparison with the exact pre-repair mean field. Its six controls retain
+outputs, masks and every parameter gradient bit for bit without spotting. The
+local burnout source method is unchanged. This supports retaining the other
+six variants and the unchanged c651 comparison, without asserting equivalence
+of the old spotting model.

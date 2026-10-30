@@ -1,0 +1,200 @@
+{
+ "variant": "burnout_spotting",
+ "spec": {
+  "prior": "free",
+  "frame": "none",
+  "d4": false,
+  "residence_hours": 6.0,
+  "spotting_radius": 15
+ },
+ "fold": "2021",
+ "seed": 0,
+ "hidden": 16,
+ "train_events": [
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "UT-ASF-100340_EastFork",
+  "ID-SCF-022105_Moose",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-WIF-220180_CedarCreek"
+ ],
+ "validation_events": [
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-SHF-001187_Monument",
+  "CA-SRF-000651_McCash",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "train_samples": 30,
+ "validation_samples": 39,
+ "validation": {
+  "brier": 0.04085349048532458,
+  "clipped_nll": 0.17269646087462157,
+  "weight": 53104.0
+ },
+ "validation_per_fire": {
+  "CA-BTU-009205_Dixie": {
+   "brier": 0.06011925572092789,
+   "clipped_nll": 0.25361434165377006,
+   "weight": 4927.0
+  },
+  "CA-KNF-006385_RiverComplex_RiverComplex": {
+   "brier": 0.030971721024580404,
+   "clipped_nll": 0.10679487779106893,
+   "weight": 9088.0
+  },
+  "CA-KNF-006454_Antelope": {
+   "brier": 0.10831124595377196,
+   "clipped_nll": 0.5186666441515605,
+   "weight": 6394.0
+  },
+  "CA-SHF-001187_Monument": {
+   "brier": 0.10966325440604344,
+   "clipped_nll": 0.4681606581814163,
+   "weight": 2969.0
+  },
+  "CA-SRF-000651_McCash": {
+   "brier": 0.007075565937406145,
+   "clipped_nll": 0.034836366723146155,
+   "weight": 2107.0
+  },
+  "MT-BDF-006269_AlderCreek": {
+   "brier": 0.026638659810632227,
+   "clipped_nll": 0.11217358596925812,
+   "weight": 1845.0
+  },
+  "MT-BDF-006272_TrailCreek": {
+   "brier": 0.05960633140742579,
+   "clipped_nll": 0.2242655368154264,
+   "weight": 2990.0
+  },
+  "MT-LNF-000893_WestLolo": {
+   "brier": 0.004568970152906698,
+   "clipped_nll": 0.02504052994661621,
+   "weight": 2597.0
+  },
+  "OR-UMF-000659_GreenRidge": {
+   "brier": 0.0019124517342648827,
+   "clipped_nll": 0.012869708956434177,
+   "weight": 1664.0
+  },
+  "OR-UMP-000373_RoughPatchCpx": {
+   "brier": 0.004256554476212021,
+   "clipped_nll": 0.019340740737094676,
+   "weight": 6417.0
+  },
+  "OR-UPF-000265_Jack": {
+   "brier": 0.05060519606023896,
+   "clipped_nll": 0.18197729361256956,
+   "weight": 3403.0
+  },
+  "OR-UPF-000450_DevilsKnob": {
+   "brier": 0.006880859394144539,
+   "clipped_nll": 0.03368993626525071,
+   "weight": 4832.0
+  },
+  "WA-OWF-000453_SchneiderSprings": {
+   "brier": 0.021589604867764203,
+   "clipped_nll": 0.07773487403453767,
+   "weight": 3871.0
+  }
+ },
+ "fit": {
+  "history": [
+   {
+    "epoch": 1,
+    "train_scaled_loss": 0.9786477075268825,
+    "seconds": 11.640378000040073,
+    "selected": false,
+    "optimizer_steps": 30,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 2,
+    "train_scaled_loss": 0.9376332703977823,
+    "seconds": 11.596802874992136,
+    "selected": false,
+    "optimizer_steps": 30,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 3,
+    "train_scaled_loss": 1.0672158548608421,
+    "seconds": 11.540760417003185,
+    "selected": true,
+    "optimizer_steps": 30,
+    "skipped_unsupported_intervals": []
+   }
+  ],
+  "best_validation_brier": null,
+  "train_prevalence": 0.04877695759154726
+ },
+ "fit_seconds": 35.05106795899337,
+ "parameters": 26023,
+ "configuration": {
+  "architecture": "StructuredKernelModel",
+  "in_channels": 19,
+  "kernel_size": 9,
+  "hidden_channels": 16,
+  "dropout": 0.0,
+  "channel_names": [
+   "weather.temperature_2m",
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m",
+   "terrain.slope_degrees",
+   "vegetation.tree_cover_percent",
+   "biome.biome_class=1",
+   "biome.biome_class=2",
+   "biome.biome_class=3",
+   "biome.biome_class=4",
+   "biome.biome_class=5",
+   "biome.biome_class=6",
+   "biome.biome_class=7",
+   "biome.biome_class=8",
+   "biome.biome_class=9",
+   "biome.biome_class=10",
+   "biome.biome_class=11",
+   "biome.biome_class=12",
+   "biome.biome_class=13",
+   "biome.biome_class=14"
+  ],
+  "wind_channels": [
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m"
+  ],
+  "prior": "free",
+  "frame": "none",
+  "residence_hours": 6.0,
+  "spotting_radius": 15,
+  "wind_adjustment_factor": 0.4
+ },
+ "smoulder": 0.12600401043891907,
+ "host": {
+  "python": "3.12.1",
+  "torch": "2.5.1",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "cpu_count": 15,
+  "torch_threads": 2,
+  "load_average_1_5_15": [
+   3.11279296875,
+   2.3671875,
+   2.54833984375
+  ],
+  "note": "Current execution host; heavy numerical runs share an exclusive advisory lock. Timings are host-specific"
+ },
+ "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+ "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

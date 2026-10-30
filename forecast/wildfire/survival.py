@@ -203,6 +203,7 @@ def sample_forecast(model, sample: PerimeterSample, *, dtype=torch.float32, use_
             return torch.where(global_wind_valid, rate, torch.zeros_like(rate))
         spotting.source_radius = model.spotting_radius
         spotting.global_feature_valid = global_wind_valid
+        spotting.source_mode = "flaming_only"
     result = propagate_mean_field(model, t["initial"], env, step_durations(sample.hours),
                                   channel_names=getattr(model, "channel_names", None),
                                   p0_valid=torch.ones_like(t["initial"], dtype=torch.bool),

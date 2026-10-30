@@ -1,0 +1,4 @@
+{"epoch": 1, "train_scaled_loss": 1.3444497257063106, "seconds": 1885.854478083027, "selected": false, "optimizer_steps": 1303, "skipped_unsupported_intervals": []}
+{"epoch": 2, "train_scaled_loss": 1.345255187128188, "seconds": 1743.2570905419998, "selected": false, "optimizer_steps": 1303, "skipped_unsupported_intervals": []}
+{"epoch": 3, "train_scaled_loss": 1.339808398280684, "seconds": 1744.3577772090212, "selected": true, "optimizer_steps": 1303, "skipped_unsupported_intervals": []}
+{"variant": "burnout_spotting", "seed": 0, "checkpoint_sha256": "c8d044ae82f0159323bf40df9a914715d68a106ea3a31b01b949bbcd33096832"}

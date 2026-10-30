@@ -204,6 +204,9 @@ def propagate_mean_field(
             declares ``global_feature_valid`` as a Boolean tensor broadcastable
             to p0. Unknown global inputs remove unobserved targets from support;
             a finite internal placeholder never makes them known probabilities.
+            ``source_mode='flaming_only'`` explicitly excludes old-cell
+            smouldering from the extra branch, while local spread retains it.
+            The default ``shared`` mode preserves the existing source law.
 
     Gradients flow through ``p0``, the environment and model parameters. The
     validity envelope is computed without gradients from the binary base
@@ -294,7 +297,16 @@ def propagate_mean_field(
                     except RuntimeError as error:
                         raise ValueError("Extra-rate global_feature_valid must broadcast to the forecast grid") from error
                     masks[j] = masks[j] & (observed_burns | global_valid)
-            extra = None if extra_rate_fn is None else extra_rate_fn(source, k)
+            extra_source = source
+            if extra_rate_fn is not None:
+                source_mode = getattr(extra_rate_fn, "source_mode", "shared")
+                if source_mode not in ("shared", "flaming_only"):
+                    raise ValueError("extra-rate source_mode must be shared or flaming_only")
+                if source_mode == "flaming_only":
+                    if burnout is None or not callable(getattr(burnout, "flaming_source", None)):
+                        raise ValueError("flaming_only extra rates require a flaming-window source law")
+                    extra_source = burnout.flaming_source(clean, age0, history[j], clock, current=states[j])
+            extra = None if extra_rate_fn is None else extra_rate_fn(extra_source, k)
             if extra_rate_fn is not None:
                 radius = getattr(extra_rate_fn, "source_radius", None)
                 if radius is None:

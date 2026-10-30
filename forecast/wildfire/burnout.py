@@ -84,6 +84,23 @@ class FlamingWindow:
             total = total + increment * source_weight(age, self.residence_hours, self.smoulder)
         return total
 
+    def flaming_source(self, initial: Tensor, initial_age_hours: Tensor, history, clock_hours: float,
+                       current: Tensor | None = None) -> Tensor:
+        """Only occupancy still in its flaming window, without old-cell smoulder."""
+        residence = torch.as_tensor(self.residence_hours)
+        if current is not None and residence.ndim == 0:
+            young = initial * (initial_age_hours + clock_hours < residence).to(current.dtype)
+            for ignition_time, increment in reversed(history):
+                if clock_hours - ignition_time >= float(residence):
+                    break
+                young = young + increment
+            return young
+        total = initial * source_weight(initial_age_hours + clock_hours, self.residence_hours, 0.0)
+        for ignition_time, increment in history:
+            age = torch.full_like(increment, clock_hours - ignition_time)
+            total = total + increment * source_weight(age, self.residence_hours, 0.0)
+        return total
+
 
 def cell_window_hours(crossing_hours: float, fbfm40_codes: np.ndarray | None = None,
                       fallback_sav_m_inv: float | None = None) -> np.ndarray | float:

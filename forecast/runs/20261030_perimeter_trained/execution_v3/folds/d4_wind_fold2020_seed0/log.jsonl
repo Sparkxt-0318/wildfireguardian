@@ -1,0 +1,3 @@
+{"epoch": 1, "train_scaled_loss": 0.943644256730901, "seconds": 3.0706544580170885, "selected": false, "optimizer_steps": 48, "skipped_unsupported_intervals": []}
+{"epoch": 2, "train_scaled_loss": 0.7927821301612615, "seconds": 3.062894958013203, "selected": false, "optimizer_steps": 48, "skipped_unsupported_intervals": []}
+{"epoch": 3, "train_scaled_loss": 0.7644866562720077, "seconds": 3.053971749963239, "selected": true, "optimizer_steps": 48, "skipped_unsupported_intervals": []}

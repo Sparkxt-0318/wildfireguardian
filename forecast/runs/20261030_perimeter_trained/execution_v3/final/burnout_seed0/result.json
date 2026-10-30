@@ -1,0 +1,80 @@
+{
+ "variant": "burnout",
+ "seed": 0,
+ "epochs": 3,
+ "fit": {
+  "history": [
+   {
+    "epoch": 1,
+    "train_scaled_loss": 1.3505899139491881,
+    "seconds": 169.98478054103907,
+    "selected": false,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 2,
+    "train_scaled_loss": 1.4199613671343505,
+    "seconds": 174.10929308400955,
+    "selected": false,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 3,
+    "train_scaled_loss": 1.340858392905205,
+    "seconds": 171.75565345794894,
+    "selected": true,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   }
+  ],
+  "best_validation_brier": null,
+  "train_prevalence": 0.009059232810751092
+ },
+ "fit_seconds": 516.2848193340469,
+ "train_events": [
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SHF-001187_Monument",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000651_McCash",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "ID-SCF-022105_Moose",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "OR-WIF-220180_CedarCreek",
+  "UT-ASF-100340_EastFork",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "train_samples": 1303,
+ "checkpoint_sha256": "d552c221348a28477c2eeb411156e47d1b56653aca424e0487085570d2957559",
+ "parameters": 26019,
+ "host": {
+  "python": "3.12.1",
+  "torch": "2.5.1",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "cpu_count": 15,
+  "torch_threads": 2,
+  "load_average_1_5_15": [
+   3.08642578125,
+   3.28759765625,
+   3.5458984375
+  ],
+  "note": "Current execution host; heavy numerical runs share an exclusive advisory lock. Timings are host-specific"
+ },
+ "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+ "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

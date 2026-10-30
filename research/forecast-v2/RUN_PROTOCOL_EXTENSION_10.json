@@ -1,0 +1,48 @@
+{
+  "schema": "wfg.forecast-v2.protocol-extension/1",
+  "recorded_utc": "2026-10-30T07:37:33.666276+00:00",
+  "before_heldout_prediction_or_score": true,
+  "original_protocol_sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+  "unchanged_split_sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+  "failure": {
+    "path": "research/forecast-v2/review/SPOTTING_SOURCE_V1_FAILURE.json",
+    "sha256": "7c3f1d39dd5b0188f983a21765abf985ef268f7a0a8361c285f387069be5d0d0"
+  },
+  "reason": "The specified spotting branch must emit only still-flaming occupancy. Prior callback received local flaming-plus-smouldering sources.",
+  "corrected_source": "Extra callback source_mode flaming_only uses FlamingWindow.flaming_source; the local branch retains learned old-cell smouldering.",
+  "historical_phases": [
+    "a03_fold_2020_burnout_spotting",
+    "a03_fold_2021_burnout_spotting",
+    "a03_fold_2022_burnout_spotting",
+    "a03_final_burnout_spotting"
+  ],
+  "historical_checkpoint_sha256": "c8d044ae82f0159323bf40df9a914715d68a106ea3a31b01b949bbcd33096832",
+  "corrected_required": "Three fresh development spotting folds plus one fresh full spotting fit, suffix _flaming_only, attempt5, same seeds/budgets/data policy. Historical paths/receipts remain byte-identical and cannot satisfy intended completeness or selection.",
+  "unchanged": [
+    "fire/year split",
+    "all eligible perimeter intervals",
+    "mixed reconstruction windows",
+    "three epochs",
+    "seed0",
+    "hidden16 and9x9kernel",
+    "learning rate.003 and weight decay.0001",
+    "biome emphasis",
+    "no checkpoint promotion",
+    "all12fit-year cutoff comparisons/horizons",
+    "all heldout cells/cohorts/metrics"
+  ],
+  "other_six_variants": "No extra callback; normalized source AST, unchanged local burnout.source and six fixture output/mask/gradient controls support retention. These controls do not assert spotting identity.",
+  "unsupported_policy": {
+    "path": "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
+    "sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+    "interpretation": "Complete input attempts with explicitly logged source-bound unsupported intervals are distinct from complete optimizer coverage; no zero-error imputation or changed exclusions."
+  },
+  "core_source_sha256": {
+    "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+    "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+    "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+  },
+  "admission": "Shared intended-phase paths and immutable source-law/receipt checks must clear before selection/registry. Old experimental pipeline heldout route must refuse; guarded scorer required.",
+  "status": "AWAITING_CORRECTED_FITS_AND_FINAL_PHASE_ADMISSION",
+  "heldout": "NOT_RUN"
+}

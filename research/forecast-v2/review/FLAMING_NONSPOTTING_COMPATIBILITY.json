@@ -1,0 +1,40 @@
+{
+  "evidence_class": "BOUNDED_SOURCE_AND_MECHANISM_CHECK_NOT_STUDY",
+  "prior_meanfield_sha256": "99ce687b07f399bb09fd48e56759df75b9ba765e3ca88ccd74be11b81adadf74",
+  "current_meanfield_sha256": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+  "non_extra_ast_identical_after_removing_only_new_metadata_branch": true,
+  "local_burnout_source_ast_unchanged": true,
+  "controls": [
+    {
+      "frame": "none",
+      "residence_hours": null,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    },
+    {
+      "frame": "none",
+      "residence_hours": 6.0,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    },
+    {
+      "frame": "wind",
+      "residence_hours": null,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    },
+    {
+      "frame": "wind",
+      "residence_hours": 6.0,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    },
+    {
+      "frame": "d4",
+      "residence_hours": null,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    },
+    {
+      "frame": "d4",
+      "residence_hours": 6.0,
+      "outputs_masks_all_parameter_gradients_bit_identical": true
+    }
+  ],
+  "limit": "No spotting identity is asserted; four old spotting phases are historical and must be rerun under flaming-only law."
+}
