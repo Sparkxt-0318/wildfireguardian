@@ -1,0 +1,39 @@
+{
+  "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+  "scope": "Synthetic report control: valid base winner first, corrected spotting second.\n\nNumerical scores, source admission and plotting are mocked. Exact production\nphase-result parsing and report/main model-name use execute on temporary dummy\nartifacts. No heldout data, prediction, actual checkpoint or training is read.\n",
+  "script_sha256": "52d77c16c71b9c53c612175499702077ce270b6e9330a6c52fe9476d0c0b64e4",
+  "source_sha256": {
+    "research/forecast-v2/scripts/report.py": "624572c30d5c1ce948263e7635bd2a43a0083df32614abe7de9d3c4f414b51f6",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+    "research/forecast-v2/scripts/score_cohorts.py": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333",
+    "forecast/tests/test_blind_forecast_protocol.py": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4"
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "observations": [
+    {
+      "id": "base_winner_report",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "primary_candidate": {
+          "variant": "base",
+          "run": "base_seed0",
+          "checkpoint_sha256": "98b7327ba792cac5f91196f1ad23cba4ea1bdcc642e047f5dafa57b2f0a3090e"
+        }
+      }
+    },
+    {
+      "id": "burnout_spotting_winner_report",
+      "pass_check": false,
+      "observed": {
+        "state": "RAISED",
+        "type": "KeyError",
+        "reason": "'burnout_spotting_seed0_flaming_only'"
+      }
+    }
+  ],
+  "checks": 2,
+  "passed": 1,
+  "actual_study_inputs_or_models_accessed": false,
+  "status": "FAIL_REPORT_MODEL_NAME"
+}

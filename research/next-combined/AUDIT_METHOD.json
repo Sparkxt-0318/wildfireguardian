@@ -6,7 +6,8 @@
     "B_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
     "C_software": "e68123d81fb9064ad057425d7c954f923b50097c",
     "C_report_publication": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
-    "B_future_adapter": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
+    "B_future_adapter": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+    "B_phase_support": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2"
   },
   "graphs": {
     "integration": {
@@ -42,6 +43,11 @@
       "project": "wfg-next-1b-audit-6c586d52-20261030",
       "generation": "2026-10-30T06:53:56Z",
       "coverage": "Scripts excluded, complete539line helper and registry builder directly read; blindtool exact9b bytes reused after git-diff verification; indexed test source metadata_match. No exhaustive AST proof claimed."
+    },
+    "B_phase_support": {
+      "project": "wfg-next-1b-audit-bbb49a38-20261030",
+      "generation": "2026-10-30T07:46:44Z",
+      "coverage": "Core4files and relevant indexed tests metadata_match. Entire research scripts subtree excluded/not_tracked, one recorded scope gap, no pagination remaining. Complete coverage helper, registry builder and public runner directly read; material pipeline/report/scorer source read in chunks, unchanged blind-tool body reused from prior full9b read after exact11added/2removed diff. No exhaustive graph or source-proof claim."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -50,11 +56,11 @@
   "history": "history/AUDIT_METHOD-before-current-63944855.json",
   "limitations": [
     "Graph coverage is a best-effort signal, not a completeness proof",
-    "B numerical evidence and global-wind dependency review pending",
     "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
     "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
     "C risk records unscorable, whole-road and full-policy validation open",
-    "Scoped completeness software repair passes; actual final artifacts, source-class/model compatibility and wind semantics remain unverified by this readiness audit. Historical source inference is not runtime logging."
+    "Scoped completeness software repair passes; actual final artifacts, source-class/model compatibility and wind semantics remain unverified by this readiness audit. Historical source inference is not runtime logging.",
+    "Currentbbb phase admission/report remains HOLD with two independently reproduced software findings. Earlier a6/6c passes are preserved and cannot confer current admission. Wind12control clearance is separately coordinator-reported, not rerun here."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -134,5 +140,37 @@
     "shared_heavy_lease": false,
     "owner_tests_reported": 212,
     "owner_suite_rerun": false
+  },
+  "B_phase_support": {
+    "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+    "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
+    "review": "phase-support-review-bbb49a38/REVIEW.md",
+    "inventory": "phase-support-review-bbb49a38/SOURCE_INVENTORY.json",
+    "audit": "audit/1b-phase-support-bbb49a38.json",
+    "checks": 30,
+    "passed": 26,
+    "exit_code": 1,
+    "report_control": {
+      "audit": "audit/1b-report-name-bbb49a38.json",
+      "checks": 2,
+      "passed": 1,
+      "exit_code": 1,
+      "scope": "Overlapping report-name control, valid base report first"
+    },
+    "nonspotting_compatibility": {
+      "audit": "audit/1b-nonspotting-compatibility-bbb49a38.json",
+      "owner_fixture_controls_rerun": 6,
+      "exit_code": 0
+    },
+    "counts_not_summed": true,
+    "findings": [
+      "Development budget/train-fire/sample completeness not bound despite exact validation fire keys",
+      "Corrected spotting directory suffix used as prediction model alias, report KeyError if selected"
+    ],
+    "flaming_core": "SCOPED_PASS",
+    "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
+    "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
+    "actual_study_inputs_or_models_accessed": false,
+    "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit"
   }
 }

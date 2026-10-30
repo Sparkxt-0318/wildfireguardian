@@ -33,17 +33,17 @@
     },
     "1B": {
       "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
-      "status": "SCOPED_ADMISSION_PASS_NUMERICAL_EVIDENCE_PENDING",
+      "status": "HOLD_CURRENT_PHASE_ADMISSION_AND_REPORT_ALIAS",
       "review": "audit/1b-final-admission-a6d15519.json",
       "checks": 57,
       "passed": 57,
-      "current_assessment_clearance": "Conditional on complete final checkpoint/baseline/source/input registry and frozen selection",
+      "current_assessment_clearance": "HOLD at bbb49a38 pending complete development policy/accounting and report alias repair; earlier a6 57-control clearance remains scoped history",
       "numerical_evidence": "PENDING_OWNER_DELIVERY",
-      "global_wind_dependency_review": "PENDING",
+      "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
       "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
-      "future_adapter_wiring": "PROSPECTIVE_TOOL_WIRING_SCOPED_REVIEW_PASS_AT_6c586d52",
+      "future_adapter_wiring": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
       "published_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
@@ -112,7 +112,40 @@
         "owner_tests_reported": 181,
         "owner_suite_rerun": false
       },
-      "source_class_model_compatibility_review": "PENDING"
+      "source_class_model_compatibility_review": "PENDING",
+      "source_phase_review": {
+        "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+        "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
+        "review": "phase-support-review-bbb49a38/REVIEW.md",
+        "inventory": "phase-support-review-bbb49a38/SOURCE_INVENTORY.json",
+        "audit": "audit/1b-phase-support-bbb49a38.json",
+        "checks": 30,
+        "passed": 26,
+        "exit_code": 1,
+        "report_control": {
+          "audit": "audit/1b-report-name-bbb49a38.json",
+          "checks": 2,
+          "passed": 1,
+          "exit_code": 1,
+          "scope": "Overlapping report-name control, valid base report first"
+        },
+        "nonspotting_compatibility": {
+          "audit": "audit/1b-nonspotting-compatibility-bbb49a38.json",
+          "owner_fixture_controls_rerun": 6,
+          "exit_code": 0
+        },
+        "counts_not_summed": true,
+        "findings": [
+          "Development budget/train-fire/sample completeness not bound despite exact validation fire keys",
+          "Corrected spotting directory suffix used as prediction model alias, report KeyError if selected"
+        ],
+        "flaming_core": "SCOPED_PASS",
+        "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
+        "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
+        "actual_study_inputs_or_models_accessed": false,
+        "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit"
+      },
+      "current_review_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2"
     },
     "1C": {
       "published_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
@@ -235,5 +268,5 @@
     "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access",
     "C_contact_census": "Owner streamed original payloads and directly compared mask bytes; readiness auditor independently checked saved CSV completeness/counts/histograms/digests, producer/source/output hashes and retained8prior artifact Git identities. No payload/solver rerun."
   },
-  "updated_utc": "2026-10-30T07:00:51.375457+00:00"
+  "updated_utc": "2026-10-30T07:58:32.913237+00:00"
 }

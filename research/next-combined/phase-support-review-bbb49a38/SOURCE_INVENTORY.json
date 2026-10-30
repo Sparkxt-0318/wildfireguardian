@@ -1,0 +1,60 @@
+{
+  "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+  "graph_project": "wfg-next-1b-audit-bbb49a38-20261030",
+  "generation": "2026-10-30T07:46:44Z",
+  "source_sha256": {
+    "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+    "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+    "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+    "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+    "forecast/tests/test_blind_forecast_protocol.py": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4",
+    "forecast/tests/test_spotting_flaming_only.py": "36d4f33749e969f64bee0cafd1fd36c93d4e0ace755761e70ab7904d064c0273",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+    "research/forecast-v2/scripts/freeze_registry.py": "2d952bbc58cf261a1910e0bace9a3b5f01ac03ce74543cef9bd9425216cdad38",
+    "research/forecast-v2/scripts/run_campaign.py": "6f0ceb4ec4f7b56cebae6f06f108a87531eca67f016b90b575c70e5cde2e848c",
+    "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+    "research/forecast-v2/scripts/score_cohorts.py": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333",
+    "research/forecast-v2/scripts/blind_test.py": "00d7b3f7fef76eed0d55e493d15243b0b402477520b7e57507f5e4da1556d911",
+    "research/forecast-v2/scripts/status.py": "339e564c05a1fac7324788c98ded5c3ccee37b30cf2689a18b935ab7734c039a",
+    "research/forecast-v2/scripts/report.py": "624572c30d5c1ce948263e7635bd2a43a0083df32614abe7de9d3c4f414b51f6",
+    "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+    "research/forecast-v2/RUN_PROTOCOL_EXTENSION_10.json": "486ff44000b4aca9d3ec936e5ccdb09b0ee36354d8250a3ed236c9cf802fabf0",
+    "research/forecast-v2/scripts/check_nonspotting_compatibility.py": "9426d96f96f26358ae09f81e055df3b76da39fab20323b01de799e1a4f13b9cd"
+  },
+  "audit_files_sha256": {
+    "audit_1b_phase_support_bbb49a38.py": "ec7846933e333c1afc8a9a7d561dfac49625dcacc8dc84cee2f7f70c128eb143",
+    "audit_1b_report_name_bbb49a38.py": "52d77c16c71b9c53c612175499702077ce270b6e9330a6c52fe9476d0c0b64e4",
+    "audit/1b-phase-support-bbb49a38.json": "d80b2ca567a684cd615829f890f2e4258ecc4348bee00c94d1553bb964883751",
+    "audit/1b-report-name-bbb49a38.json": "c4886053e707d7d45437cd391277615e2483374c4f2ca74e9e6bd06465510f77",
+    "audit/1b-nonspotting-compatibility-bbb49a38.json": "af52e17f3c71c8cfbbf05f77b32909c16f430fc49abcd041e584c8b9402e8e6c",
+    "phase-support-review-bbb49a38/REVIEW.md": "6e3f7c417376cbd2b85eb59475fad70721ed8171da42e1aaffda1074bdf43454"
+  },
+  "coverage": "Core4files and relevant indexed tests metadata_match. Entire research scripts subtree excluded/not_tracked, one recorded scope gap, no pagination remaining. Complete coverage helper, registry builder and public runner directly read; material pipeline/report/scorer source read in chunks, unchanged blind-tool body reused from prior full9b read after exact11added/2removed diff. No exhaustive graph or source-proof claim.",
+  "scope": "Tiny independent synthetic controls; dummy registry and mocked report, no actual study/trained checkpoint/heldout source or score, no numerical fit or HEAVY lease. Separate rerun of owner6tiny compatibility fixtures, not6new independently designed tests.",
+  "commands": [
+    {
+      "command": "PYTHONPATH=../audit-1b/forecast ../venv-forecast/bin/python research/next-combined/audit_1b_phase_support_bbb49a38.py --track-b ../audit-1b --out research/next-combined/audit/1b-phase-support-bbb49a38.json",
+      "exit_code": 1,
+      "checks": 30,
+      "passed": 26
+    },
+    {
+      "command": "PYTHONPATH=../audit-1b/forecast ../venv-forecast/bin/python research/next-combined/audit_1b_report_name_bbb49a38.py --track-b ../audit-1b --out research/next-combined/audit/1b-report-name-bbb49a38.json",
+      "exit_code": 1,
+      "checks": 2,
+      "passed": 1
+    },
+    {
+      "command": "../venv-forecast/bin/python ../audit-1b/research/forecast-v2/scripts/check_nonspotting_compatibility.py --out research/next-combined/audit/1b-nonspotting-compatibility-bbb49a38.json",
+      "exit_code": 0,
+      "owner_fixture_controls_rerun": 6
+    }
+  ],
+  "counts_not_summed": true,
+  "graph_traces": "flaming_source both directions depth1, sample_forecast both directions depth1; all pages returned. Some generic edges heuristic; exact snippets/direct source control claims.",
+  "initial_harness_correction": "The first draft stopped on an expected membership refusal raised during mutation/rederive; the final harness counts that refusal and continues. No completed failure record or original track artifact was overwritten.",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "torch": "2.5.1"
+}
