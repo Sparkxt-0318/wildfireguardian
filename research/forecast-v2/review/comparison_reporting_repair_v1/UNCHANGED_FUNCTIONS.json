@@ -1,0 +1,35 @@
+{
+  "changed_existing_functions": [
+    "figure_meanfield",
+    "main"
+  ],
+  "new_functions": [
+    "_comparison_csv",
+    "_comparison_json",
+    "_comparison_metrics",
+    "_comparison_rows",
+    "_comparison_sources",
+    "comparison_support",
+    "load_comparison"
+  ],
+  "scope": "EXACT_AST_OF_EVERY_EXISTING_FUNCTION_EXCEPT_MAIN_AND_FIGURE04",
+  "unchanged_existing_function_ast_sha256": {
+    "ablation": "c832e10459edb2857a5aef5760b37911712f96ee45f3d9a72df291f34c62048c",
+    "absence_reason": "0fb9543b3307dab0c341084ce8eb0bd6bbb3bdfff048b089507846e0cc18a25f",
+    "assessment_scores": "2ae1360dd0fc45881aab39813fa071e0f4f2aeafa36128f138f3eb6c55ceff1f",
+    "detailed_scores": "192da0e4c73a4e9b181e116bce20840190b20ddc5de9e5ba795b78098eb012e4",
+    "figure_ablation": "2198367a93cc9899556e0e4b83e0756e5c8a8fce96dd783ea1119b890d7728b0",
+    "figure_example": "ec3ba00cd3b1dc1ae5b660ae6a6df17d3378078f84b55a10e96cdd49b262d6c4",
+    "figure_per_fire": "eaa45bf4d4b8c4794a6daa1c8cbd541968c2f7c7c162d79ece9665183f3176c5",
+    "figure_reliability": "cdb22faf2d3a6a8896b8760dbf9fccf4278134a608abb5179c922f2934380b7a",
+    "figure_unavailable": "a6263bd51038ae0775ecad7e7d74c50c30c2c968779ddf2a6c3a6ad9f45b5e47",
+    "heldout_ablation": "3d73af394136e1634fc5ba8e5c865d23e7e9dd82bd6b7b6c838bbf3dd2b0f51b",
+    "load_assessment": "52459863eb59467fea2f90c644315f21af3d8dbe95cb609d8c948246e3e46a91",
+    "load_report_inputs": "87ca668734b0c3d169320ed0e4b943b5e8462559da69a6392a7289d26f48ca7c",
+    "primary_candidate": "c08dc8f679ab19464be5b7133b6a628f1f8c8a5a6e546ea26ea9f3d4bd926de1",
+    "retrospective_gate": "71645acadb773df75b17bd070a1e37ebacf1efd5b35d20d2eac8b8a298ce5040",
+    "save": "fffbd05474a348950d056dbd045cfa12b16cc3f2d52ac9f6d2bbf1b514aaa64f",
+    "sha256": "976c44efc509f4d7851bd15f79a751f25c228c2fff9e01edfaa26245d9ed797f",
+    "style": "424ee113c0f0174ca4000e6880e4bddb8305cbda64d7d9988b6d93feabb6b66c"
+  }
+}

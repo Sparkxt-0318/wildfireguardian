@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 import textwrap
 from pathlib import Path
@@ -25,6 +26,15 @@ from wildfire import baselines as B  # noqa: E402
 OKABE_ITO = ["#000000", "#E69F00", "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7"]
 FINE_BINS = np.array([0, 1e-4, 1e-3, 3e-3, 1e-2, 3e-2, 0.1, 0.3, 1.0])
 SINGLE, DOUBLE = 3.5, 7.2
+
+# The completed a06 producer is immutable, even after the reviewed auditor repair.
+COMPARISON_PROTOCOL_SHA256 = "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243"
+COMPARISON_SOURCE_SHA256 = "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17"
+COMPARISON_AUDITOR_SHA256 = "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4"
+COMPARISON_CURRENT_AUDITORS = {COMPARISON_AUDITOR_SHA256,
+    "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536"}
+COMPARISON_CHECKPOINT_SHA256 = "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843"
+COMPARISON_HOURS = (1, 3, 6, 12, 24)
 
 
 def style():
@@ -46,6 +56,253 @@ def save(fig, out: Path, name: str):
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _comparison_json(path):
+    def invalid(value):
+        raise ValueError(f"Comparison JSON contains nonfinite {value}")
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Comparison JSON contains duplicate object keys")
+            result[key] = value
+        return result
+    return json.loads(Path(path).read_text(), parse_constant=invalid, object_pairs_hook=unique)
+
+
+def _comparison_sources():
+    """Authenticate the entire original producer, without opening scientific inputs."""
+    evidence = REPO / "research/forecast-v2"
+    paths = sorted(p for p in (REPO / "forecast/wildfire").rglob("*")
+                   if p.is_file() and p.suffix in (".py", ".json"))
+    paths += [evidence / "scripts" / name for name in
+              ("run_campaign.py", "pipeline.py", "audit_fit_coverage.py")]
+    paths += [evidence / "RUN_PROTOCOL.json", evidence / "RUN_PROTOCOL_EXTENSION_2.json"]
+    sources = {str(p.relative_to(REPO)): sha256(p) for p in paths}
+    auditor = "research/forecast-v2/scripts/audit_fit_coverage.py"
+    current = sources[auditor]
+    if current not in COMPARISON_CURRENT_AUDITORS:
+        raise ValueError("Comparison requires a reviewed current auditor and exact original F1753")
+    original = F._source_blob(REPO, auditor, COMPARISON_AUDITOR_SHA256).encode("utf-8")
+    if hashlib.sha256(original).hexdigest() != COMPARISON_AUDITOR_SHA256:
+        raise ValueError("Comparison original auditor bytes changed")
+    sources[auditor] = COMPARISON_AUDITOR_SHA256
+    digest = hashlib.sha256(json.dumps(sources, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    if digest != COMPARISON_SOURCE_SHA256:
+        raise ValueError("Comparison complete original producer source closure changed")
+    protocol = evidence / "RUN_PROTOCOL.json"
+    if sha256(protocol) != COMPARISON_PROTOCOL_SHA256:
+        raise ValueError("Comparison frozen protocol bytes changed")
+    return sources, current, _comparison_json(protocol)
+
+
+def _comparison_metrics(row, reference):
+    """Check saved support/absence semantics, without claiming an array recomputation."""
+    def count(name, upper=None):
+        value = row[name]
+        if type(value) is not int or value < 0 or upper is not None and value > upper:
+            raise ValueError(f"Comparison {name} must be an exact supported cell count")
+        return value
+
+    def number(name, upper=None):
+        value = row[name]
+        if type(value) not in (int, float) or not math.isfinite(value) or value < 0 or upper is not None and value > upper:
+            raise ValueError(f"Comparison {name} must be finite and within its declared range")
+        return value
+
+    cells = count("cells")
+    active = count("active_cells", cells)
+    if row["status"] != ("COMPARABLE" if cells else "UNAVAILABLE_SHARED_SUPPORT"):
+        raise ValueError("Comparison status differs from its shared support")
+    all_metrics = ("rmse_all", "mean_mc", "mean_mf", "expected_new_cells_mc",
+                   "expected_new_cells_mf", "max_abs_difference")
+    if not cells:
+        if active or any(row[key] is not None for key in (*all_metrics, "rmse_active")):
+            raise ValueError("Unavailable comparison support must retain null metrics, never zero error")
+    else:
+        for key in all_metrics:
+            number(key, cells if key.startswith("expected_new_cells") else 1)
+        if active:
+            number("rmse_active", 1)
+        elif row["rmse_active"] is not None:
+            raise ValueError("No probability-active cells means active RMSE is unavailable")
+    for key in ("mc_seconds", "mf_seconds"):
+        number(key)
+    if reference:
+        label_cells = count("label_cells", cells)
+        if reference == "US" and label_cells != cells:
+            raise ValueError("US next-survey reference must retain the full declared shared support")
+        if row["reference_status"] != ("SCORED" if label_cells else "UNAVAILABLE_REFERENCE_SUPPORT"):
+            raise ValueError("Comparison reference status differs from its supported label count")
+        if label_cells:
+            count("positives", label_cells)
+            for key in ("brier_mc", "brier_mf", "brier_persistence"):
+                number(key, 1)
+            if not math.isclose(row["brier_persistence"], row["positives"] / label_cells, rel_tol=1e-12, abs_tol=1e-12):
+                raise ValueError("Comparison persistence Brier differs from saved binary label counts")
+        elif any(row[key] is not None for key in ("positives", "brier_mc", "brier_mf", "brier_persistence")):
+            raise ValueError("Unavailable comparison reference must retain null scores")
+
+
+def _comparison_rows(rows, case, settings):
+    base = {"country", "event", "cutoff", "horizon_kind", "hours", "mc_seconds", "mf_seconds", "n_samples", "seed",
+            "timing_scope", "status", "cells", "active_cells", "rmse_all", "rmse_active", "mean_mc", "mean_mf",
+            "expected_new_cells_mc", "expected_new_cells_mf", "max_abs_difference"}
+    reference_keys = {"reference_status", "label_cells", "positives", "brier_mc", "brier_mf", "brier_persistence", "label_kind"}
+    horizons = [("fixed", h) for h in COMPARISON_HOURS]
+    if case["country"] == "US":
+        horizons.append(("survey", case["survey_hours"]))
+    if not isinstance(rows, list) or len(rows) != len(horizons):
+        raise ValueError("Every comparison cutoff requires five fixed horizons and its exact US survey endpoint")
+    for row, (kind, hours) in zip(rows, horizons):
+        reference = case["country"] if kind == "survey" or case["country"] == "KR" else None
+        if not isinstance(row, dict) or row.keys() != base | (reference_keys if reference else set()):
+            raise ValueError("Comparison row fields differ from the fixed producer schema")
+        if (any(row[key] != case[key] for key in ("country", "event", "cutoff"))
+                or row["horizon_kind"] != kind or type(row["hours"]) not in (int, float) or row["hours"] != hours):
+            raise ValueError("Comparison ordered cutoff/horizon identities differ from the frozen protocol")
+        if (type(row["n_samples"]) is not int or row["n_samples"] != settings["n_samples"]
+                or type(row["seed"]) is not int or row["seed"] != settings["seed"]):
+            raise ValueError("Comparison must retain c651, 1,024 trajectories and seed0")
+        timing = "one joint 24h call, shared across five horizon rows" if kind == "fixed" else "one fractional survey-endpoint call"
+        if row["timing_scope"] != timing:
+            raise ValueError("Comparison timing scope changed")
+        if reference and row["label_kind"] != ("kriged reconstruction (not observed)" if reference == "KR"
+                                                else "NIROPS mapped extent at the next survey"):
+            raise ValueError("Comparison reference kind changed")
+        _comparison_metrics(row, reference)
+    if any(row[key] != rows[0][key] for row in rows[:5] for key in ("mc_seconds", "mf_seconds")):
+        raise ValueError("Five fixed horizons must share each cutoff's single joint24h call timings")
+
+
+def _comparison_csv(path, rows):
+    frame = pd.read_csv(path, float_precision="round_trip")
+    expected = pd.DataFrame(rows)
+    if list(frame.columns) != list(expected.columns) or len(frame) != len(expected):
+        raise ValueError("Comparison CSV columns/row count differ from authenticated JSON")
+    for name in expected.columns:
+        for actual, wanted in zip(frame[name], expected[name]):
+            if pd.isna(actual) and pd.isna(wanted):
+                continue
+            if pd.isna(actual) or pd.isna(wanted) or actual != wanted:
+                raise ValueError("Comparison CSV values or ordered rows differ from authenticated JSON")
+    return frame
+
+
+def comparison_support(frame):
+    """Available cutoff and unique catalog-event counts for every fixed position."""
+    fixed = frame[frame.horizon_kind == "fixed"]
+    rows = []
+    for country, group in fixed.groupby("country", sort=True):
+        cutoffs = group[["event", "cutoff"]].drop_duplicates()
+        for hours in COMPARISON_HOURS:
+            at = group[group.hours == hours]
+            active = at[at.rmse_active.notna()]
+            known = at[at.cells > 0]
+            rows.append(dict(country=country, hours=hours, available_cutoffs=len(active),
+                declared_cutoffs=len(cutoffs), available_catalog_events=active.event.nunique(),
+                declared_catalog_events=cutoffs.event.nunique(), known_support_cutoffs=len(known),
+                known_support_catalog_events=known.event.nunique(),
+                status="AVAILABLE" if len(active) else "UNAVAILABLE_ACTIVE_SUPPORT"))
+    return rows
+
+
+def load_comparison(run):
+    """Authenticate completed a06 summaries; unsaved numerical fields are not replayed."""
+    run = Path(run).resolve()
+    sources, current_auditor, protocol = _comparison_sources()
+    settings = protocol["mean_field_compare"]
+    cases = settings["cases"]
+    if (len(cases) != 12 or [c["country"] for c in cases] != ["KR"] * 6 + ["US"] * 6
+            or settings["horizons_hours"] != list(COMPARISON_HOURS) or settings["n_samples"] != 1024
+            or settings["seed"] != 0 or settings["trajectory_batch_size"] != 32):
+        raise ValueError("Comparison requires the complete frozen twelve-case/66-row prescription")
+    root = REPO / "research/forecast-v2"
+    artifacts = {}
+
+    def pin(path):
+        path = Path(path)
+        artifacts[str(path.resolve().relative_to(REPO.resolve()))] = sha256(path)
+        return artifacts[str(path.resolve().relative_to(REPO.resolve()))]
+
+    def receipt(path, output, name):
+        obj = _comparison_json(path)
+        if (obj.get("job") != name or type(obj.get("exit_code")) is not int or obj["exit_code"] != 0
+                or Path(obj.get("output", "")).resolve() != output.resolve()
+                or obj.get("output_sha256") != pin(output) or obj.get("source_sha256") != sources):
+            raise ValueError("Comparison receipt/output/complete source closure authentication failed")
+        pin(path)
+        return obj
+
+    destination = run / "meanfield_vs_mc/meanfield_vs_mc.json"
+    aggregate_receipt = root / "executions/a06_compare.json"
+    final = receipt(aggregate_receipt, destination, "a06_compare")
+    aggregate = _comparison_json(destination)
+    if (aggregate.keys() != {"rows", "checkpoint_sha256", "case_receipts", "host", "timing"}
+            or aggregate["checkpoint_sha256"] != COMPARISON_CHECKPOINT_SHA256
+            or aggregate["timing"] != "Each fixed-horizon group shares one joint24h MC and MF call"):
+        raise ValueError("Comparison aggregate model or schema differs from the frozen producer")
+    all_rows, pins, joint_calls, survey_calls = [], [], [], []
+    last_host = None
+    for index, case in enumerate(cases):
+        name = f"a06_compare_case{index:02d}"
+        path = root / f"executions/{name}.json"
+        output = run / f"meanfield_vs_mc/case_{index:02d}_a06/meanfield_vs_mc.json"
+        rec = receipt(path, output, name)
+        log = path.with_suffix(".log")
+        if rec.get("log_sha256") != pin(log) or rec.get("data_manifest_sha256") != protocol["data_manifest_sha256"]:
+            raise ValueError("Comparison case log/input-manifest identity changed")
+        command = rec.get("command", [])
+        if len(command) < 3 or command[2] != "compare" or Path(command[1]).resolve() != root / "scripts/pipeline.py":
+            raise ValueError("Comparison case must retain its original pipeline command")
+        for key, value in {"--compare-case-index": str(index), "--artifact-suffix": "_a06", "--n-samples": "1024",
+                           "--seed": "0", "--data-manifest-sha256": protocol["data_manifest_sha256"]}.items():
+            positions = [i for i, token in enumerate(command) if token == key]
+            if not positions or positions[-1] + 1 == len(command) or command[positions[-1] + 1] != value:
+                raise ValueError("Comparison effective command controls changed")
+        result = _comparison_json(output)
+        if result.keys() != {"rows", "host", "checkpoint_sha256"} or result["checkpoint_sha256"] != COMPARISON_CHECKPOINT_SHA256:
+            raise ValueError("Comparison case checkpoint or schema changed")
+        _comparison_rows(result["rows"], case, settings)
+        csv = output.with_suffix(".csv")
+        _comparison_csv(csv, result["rows"])
+        pin(csv)
+        pins.append(dict(path=str(path.relative_to(REPO)), sha256=pin(path)))
+        all_rows.extend(result["rows"])
+        identity = {key: case[key] for key in ("country", "event", "cutoff")}
+        joint_calls.append(dict(**identity, **{key: result["rows"][0][key] for key in ("mc_seconds", "mf_seconds")}))
+        if case["country"] == "US":
+            survey_calls.append(dict(**identity, hours=case["survey_hours"],
+                **{key: result["rows"][-1][key] for key in ("mc_seconds", "mf_seconds")}))
+        last_host = result["host"]
+    if (len(all_rows) != 66
+            or json.dumps(aggregate["rows"], sort_keys=True, separators=(",", ":")) != json.dumps(all_rows, sort_keys=True, separators=(",", ":"))
+            or aggregate["case_receipts"] != pins
+            or final.get("case_receipts") != pins or aggregate["host"] != last_host):
+        raise ValueError("Comparison aggregate must equal all twelve ordered receipt-bound case outputs")
+    frame = _comparison_csv(destination.with_suffix(".csv"), all_rows)
+    pin(destination.with_suffix(".csv"))
+    pin(root / "RUN_PROTOCOL.json")
+    aggregate.update(execution_complete=True, execution_status="COMPLETE_AUTHENTICATED_12_CASES_66_ROWS",
+        metric_data_available=bool(frame.rmse_all.notna().any()),
+        metric_availability=dict(known_support_rmse=bool(frame.rmse_all.notna().any()),
+            fixed_horizon_active_rmse=bool(frame.loc[frame.horizon_kind == "fixed", "rmse_active"].notna().any()),
+            reference_brier=bool(frame.brier_mc.notna().any())),
+        support_by_horizon=comparison_support(frame),
+        authentication=dict(artifacts_sha256=artifacts, producer_source_sha256=sources,
+            producer_source_closure_sha256=COMPARISON_SOURCE_SHA256, current_auditor_sha256=current_auditor,
+            original_auditor_sha256=COMPARISON_AUDITOR_SHA256,
+            limit="Authenticates saved identities and summary consistency; unsaved arrays, support masks and numerical values are not independently recomputed"),
+        runtime=dict(joint24h=dict(cutoffs=joint_calls, mc_calls=len(joint_calls), mf_calls=len(joint_calls),
+            mc_seconds=sum(r["mc_seconds"] for r in joint_calls), mf_seconds=sum(r["mf_seconds"] for r in joint_calls),
+            mc_path="public predict_cumulative; cache_environment_kernels=False; each total shared across five horizons"),
+            survey_endpoint=dict(cutoffs=survey_calls, mc_calls=len(survey_calls), mf_calls=len(survey_calls),
+                mc_seconds=sum(r["mc_seconds"] for r in survey_calls), mf_seconds=sum(r["mf_seconds"] for r in survey_calls),
+                mc_path="private fractional-endpoint simulate; cache_environment_kernels=True"),
+            scope="Host-specific measured calls; preparation/model load/job wait excluded. Repeated cutoff timings are not independent horizon runtimes."),
+        interpretation="Model agreement on known initially-unburned support, not physical validation. Cutoffs repeat catalog fires. KR Brier uses reconstruction; US Brier only the observed next-survey endpoint.")
+    return frame, aggregate
 
 
 def load_assessment(directory):
@@ -354,21 +611,46 @@ def figure_ablation(plt, paired, out, label):
 
 
 def figure_meanfield(plt, frame, out, label):
-    fig, ax = plt.subplots(figsize=(SINGLE, 2.4))
+    fig = plt.figure(figsize=(SINGLE, 2.4))
+    grid = fig.add_gridspec(2, 1, height_ratios=(3, 1.1), hspace=.65)
+    ax, counts = fig.add_subplot(grid[0]), fig.add_subplot(grid[1])
     fixed = frame[frame.horizon_kind == "fixed"]
+    support = comparison_support(frame)
+    available = bool(fixed.rmse_active.notna().any())
     for colour, (country, group) in zip(OKABE_ITO[1:], fixed.groupby("country")):
-        stats = group.groupby("hours").rmse_active.agg(["median", "min", "max"])
-        ax.plot(stats.index, stats["median"], marker="o", ms=3, color=colour, label=f"{country} median")
+        stats = group.groupby("hours").rmse_active.agg(["median", "min", "max"]).reindex(COMPARISON_HOURS)
+        ax.plot(stats.index, stats["median"], marker="o", ms=3, color=colour, label=f"{country} cutoff median")
         ax.fill_between(stats.index, stats["min"], stats["max"], color=colour, alpha=0.2, lw=0)
     ax.set_xscale("log")
     ax.set_xticks([1, 3, 6, 12, 24], ["1", "3", "6", "12", "24"])
-    ax.set_xlabel("Forecast horizon (h)")
-    ax.set_ylabel("Mean field vs Monte Carlo RMSE\n(cells where either probability > 0.001)")
+    ax.set_xlabel("Forecast horizon (h)", labelpad=1)
+    ax.set_ylabel("MF vs MC RMSE")
     ax.set_title(f"c651, 1,024 trajectories{label}")
     ax.legend(frameon=False)
-    fig.subplots_adjust(left=.24, right=.98, bottom=.22, top=.87)
+    if not available:
+        ax.set_yticks([])
+        ax.text(.5, .5, "UNAVAILABLE: no active supported cells", ha="center", va="center",
+                transform=ax.transAxes, fontsize=6)
+    countries = sorted(fixed.country.unique())
+    values = [[f"C {row['available_cutoffs']}/{row['declared_cutoffs']}\nE {row['available_catalog_events']}/{row['declared_catalog_events']}"
+               + (" U" if not row["available_cutoffs"] else "")
+               for row in support if row["country"] == country] for country in countries]
+    counts.set_axis_off()
+    table = counts.table(cellText=values, rowLabels=countries, colLabels=[str(h) for h in COMPARISON_HOURS],
+                         cellLoc="center", loc="center")
+    table.auto_set_font_size(False)
+    table.set_fontsize(5.5)
+    table.scale(1, 1.18)
+    fig.text(.25, .095, "Available/all: C cutoffs; E unique catalog events; U unavailable", fontsize=5)
+    fig.text(.25, .055, "Active: known initially unburned; either probability > 0.001.", fontsize=5)
+    fig.text(.25, .015, "Band: cutoff min/max, not CI. Probability-active, not physical flaming.", fontsize=5)
+    fig.subplots_adjust(left=.24, right=.98, bottom=.17, top=.87)
     save(fig, out, "fig04_meanfield_vs_mc_rmse_by_horizon")
     plt.close(fig)
+    return dict(status="GENERATED_FROM_AUTHENTICATED_COMPARISON" if available else "GENERATED_WITH_UNAVAILABLE_EVIDENCE",
+                metric_data_available=available, support_by_horizon=support,
+                band="Descriptive minimum/maximum over available cutoffs, not a confidence interval",
+                active="Known initially-unburned cells where max(MC probability, MF probability) > 0.001; not physical flaming")
 
 
 def figure_example(plt, run, scored_entries, primary, out, label):
@@ -534,16 +816,17 @@ def main():
     elif korea.exists() and list(korea.glob("*.npz")):
         raise ValueError("Scored Korean files require an authenticated ASSESSMENT.json before reporting")
     mf = args.run / "meanfield_vs_mc" / "meanfield_vs_mc.csv"
-    if mf.exists():
-        frame = pd.read_csv(mf)
-        results["meanfield_vs_mc"] = json.loads((args.run / "meanfield_vs_mc" / "meanfield_vs_mc.json").read_text())
-        figure_meanfield(plt, frame, figures, label)
+    if mf.exists() or mf.with_suffix(".json").exists() or (REPO / "research/forecast-v2/executions/a06_compare.json").exists():
+        frame, results["meanfield_vs_mc"] = load_comparison(args.run)
+        results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"] = figure_meanfield(plt, frame, figures, label)
+        results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"]["execution_complete"] = True
         frame.to_csv(args.out / "meanfield_vs_mc.csv", index=False)
-        results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"] = dict(status="GENERATED_FROM_COMPARISON_DATA", metric_data_available=True)
     else:
         figure_unavailable(plt, figures, "fig04_meanfield_vs_mc_rmse_by_horizon", "Mean field versus Monte Carlo",
                            "No mean-field/Monte Carlo comparison artifact is available. No RMSE is inferred.", label, (SINGLE, 2.4))
         results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False)
+        results["meanfield_vs_mc"] = dict(execution_complete=False,
+            execution_status="UNAVAILABLE_NO_AUTHENTICATED_COMPARISON", metric_data_available=False)
     for name, evidence in results["figure_evidence"].items():
         evidence["files_sha256"] = {extension: sha256(figures / (name + "." + extension)) for extension in ("png", "svg")}
     results["report_status"] = "HOLD" if any(value.get("assessment_status") == "HOLD" for value in

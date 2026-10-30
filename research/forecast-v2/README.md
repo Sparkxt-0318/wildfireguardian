@@ -125,6 +125,22 @@ fallbacks are coarse model choices. Residence below a half-step can alias the
 midpoint source schedule, and initial ages use survey-interval proxies. The
 domain-mean spotting wind is a coarse global scenario assumption. No field validation, physical flame accuracy,
 calibrated joint forecast, evacuation-safety or universal speed claim is made.
+The archived event rectangles are retrospective aligned grids; their selection
+and availability before each cutoff are not established. Repeating a cutoff
+weather field also does not establish operational as-of availability of that
+field. Mixed training uses SD-weighted reconstruction labels, while the fixed
+Korean secondary assessment uses equal-cell 12h reconstruction endpoints.
+The learned local smouldering residual can persist after the flaming window;
+there is no fuel-energy conservation or physically validated extinction law.
+
+`GEOMETRY_AUDIT.json` retains 55 invalid source geometries across six of the 29
+US fires. The actual rasterizer performed no explicit repair or record skip.
+A separately recorded projected `make_valid` sensitivity compared 320 cumulative
+surveys from those six events and changed zero cell-survey labels on the
+declared 375m cell-centre grids. That bounded label stability does not validate the raw
+polygons, coverage footprints or physical fire boundaries. Original records,
+source IDs, invalidity reasons and hashes remain available for audit.
+
 Current 2024 testing will remain retrospective; it is not the blind 2026 test.
 The prospective protocol is pending current model/source freeze. Completion
 will make it ready for owner registration; future 2026 execution separately

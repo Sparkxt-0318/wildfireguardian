@@ -1,0 +1,215 @@
+{
+  "files": {
+    "COMPARISON_REPORTING_REPAIR.patch.gz": {
+      "bytes": 12517,
+      "encoding": "gzip",
+      "original_bytes": 49020,
+      "original_sha256": "8eeff7649076cd64bf73cf24ab12a14ea6ef047250792e8e986b53449f0f4fe6",
+      "sha256": "fbf148a52cbda40fe45cb5cd700895af44a654731e9852b3659d29046b702b06"
+    },
+    "CURRENT_SOURCE_ONLY.json": {
+      "bytes": 6892,
+      "sha256": "8c066749deec89a5ae8f489b071cb3f0023e0c52b98e6bc353c40fd9f570da68"
+    },
+    "FIXED_MECHANISM.json": {
+      "bytes": 8469,
+      "sha256": "ae8a44f5fb959e26dba221966bf8f2ebba628a5aaf5198a455ea564395c2cf74"
+    },
+    "ORIGINAL_FAILURE.json": {
+      "bytes": 734,
+      "sha256": "53c46dc3bf4882bd303212901cfee657a4de57b53cc6e8d1fe7c139ef2e8db00"
+    },
+    "PATCH_DRY_RUN.txt": {
+      "bytes": 112,
+      "sha256": "0df286b0919b38247c748e71ebeafc542f5901fb1de054107109dd2b5b352995"
+    },
+    "README.md": {
+      "bytes": 3931,
+      "sha256": "0caae1531756915fa2da5114054bab5d3ffa0eb57a7b93c9c421f869d10a1ed9"
+    },
+    "SOURCE_ANCHOR.json": {
+      "bytes": 7134,
+      "sha256": "f70c9ea0f04ba93f3425a98fd49698342c578f1caacaa10a12f347226ef3ab05"
+    },
+    "TESTS_FINAL.txt": {
+      "bytes": 114,
+      "sha256": "755c68f52ce6c4e97e262a4c92a335f6d2847620acaa4414db626d7b7934afda"
+    },
+    "TESTS_STABLE.txt": {
+      "bytes": 114,
+      "sha256": "720f68f1afadc67f880609dc16a8d29a8fdefba6d9258f729a05ddd8e2438693"
+    },
+    "TESTS_TARGETED_FINAL.txt": {
+      "bytes": 114,
+      "sha256": "4766dd9d8b84a739c91bc16444998e1ba1203120dee8af9cd736b97d26b89c46"
+    },
+    "TESTS_TARGETED_INITIAL.txt": {
+      "bytes": 114,
+      "sha256": "f375b1d091193f486cdc869d80b4cb3a1bb1b4924c0d83061a94298ec593a167"
+    },
+    "UNCHANGED_FUNCTIONS.json": {
+      "bytes": 1927,
+      "sha256": "9be4d3826584c1660ea81156b291af3a20aa7a7cb6aabdd2d6257be126e4501a"
+    },
+    "VALIDATION.json": {
+      "bytes": 1250,
+      "sha256": "abe7f956942b047c930f022123cfc18c29f8f8abe24ee4c87e46ef0da7b39cf0"
+    },
+    "fixed_figures/all_unavailable/fig04_meanfield_vs_mc_rmse_by_horizon.png": {
+      "bytes": 70591,
+      "pixels": [
+        1050,
+        720
+      ],
+      "sha256": "f01280f4e7d58e2b8b561bd806f493e6bcb4fd1d2ef5eea960d9406465734a32"
+    },
+    "fixed_figures/all_unavailable/fig04_meanfield_vs_mc_rmse_by_horizon.svg": {
+      "bytes": 61834,
+      "sha256": "146ac477ecb7ec4b3deaa1af950e323016b0a30cc872378998c427f8c7d7b443"
+    },
+    "fixed_figures/partial_support/fig04_meanfield_vs_mc_rmse_by_horizon.png": {
+      "bytes": 69718,
+      "pixels": [
+        1050,
+        720
+      ],
+      "sha256": "98e94357bdcba24da842c909e6f7a6ad7efe4515e354e2fec3a892e7910df96b"
+    },
+    "fixed_figures/partial_support/fig04_meanfield_vs_mc_rmse_by_horizon.svg": {
+      "bytes": 62310,
+      "sha256": "55bab2dee7323711ebd958b8cc5a547a7b0a2ca0b8fb1618a81d7abff8524d20"
+    },
+    "original_fixture/report/RESULTS.json": {
+      "bytes": 13266,
+      "sha256": "5ea0663e716f6474824cdd269c6c581a02090a5573309481a36ae1f5dc44a049"
+    },
+    "original_fixture/report/figures/fig03_ablation_forest_plot.png": {
+      "bytes": 43397,
+      "pixels": [
+        1050,
+        900
+      ],
+      "sha256": "f9d7f614c35546f39e99daa4982f69d2938c52bc4df110dfce1131a4381e39f9"
+    },
+    "original_fixture/report/figures/fig03_ablation_forest_plot.svg": {
+      "bytes": 27838,
+      "sha256": "94515c5b6261d81b1c38ec65ab6ac3d137b29c093fbac29afd4f81b3f61d9367"
+    },
+    "original_fixture/report/figures/fig04_meanfield_vs_mc_rmse_by_horizon.png": {
+      "bytes": 58849,
+      "pixels": [
+        1050,
+        720
+      ],
+      "sha256": "00a2bfb32d2200d98907e1e31922c2ce61b26e0305b38ba58d6914df611a4840"
+    },
+    "original_fixture/report/figures/fig04_meanfield_vs_mc_rmse_by_horizon.svg": {
+      "bytes": 42190,
+      "sha256": "8d32b2edb8d058f42eac78fa06b01d02e359bd0975230f1f5dfa9b01cfc49d15"
+    },
+    "original_fixture/report/meanfield_vs_mc.csv": {
+      "bytes": 732,
+      "sha256": "3db643af6e9f15dfdb2a15389187624af954d3eec85cc554544bfbbfcab03aaf"
+    },
+    "original_fixture/run/meanfield_vs_mc/meanfield_vs_mc.csv": {
+      "bytes": 732,
+      "sha256": "3db643af6e9f15dfdb2a15389187624af954d3eec85cc554544bfbbfcab03aaf"
+    },
+    "original_fixture/run/meanfield_vs_mc/meanfield_vs_mc.json": {
+      "bytes": 2075,
+      "sha256": "07fcaac7af8a8ed6b76b8da15c27e31368ec623e5b15ac4c1d96c4e6009ef1ad"
+    },
+    "producer_auditors/F1753.py.gz": {
+      "bytes": 21141,
+      "encoding": "gzip",
+      "original_bytes": 84414,
+      "original_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+      "sha256": "e62616d44a0f0b6da6b261b364cefc124987676d7ae30d86d82e6e0b156fcad8"
+    },
+    "producer_auditors/F65.py.gz": {
+      "bytes": 28116,
+      "encoding": "gzip",
+      "original_bytes": 105526,
+      "original_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+      "sha256": "3a16442395c43327dd6d9ee8e8de07a77c3d3b6a9a7a0da40e9da306d7e89370"
+    },
+    "report_after.py.gz": {
+      "bytes": 15663,
+      "encoding": "gzip",
+      "original_bytes": 53088,
+      "original_sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c",
+      "sha256": "4264b36f3143d05790ffffbfe9317a90bf06126fa9a73b62a9359ac0815b7620"
+    },
+    "report_before.py.gz": {
+      "bytes": 10600,
+      "encoding": "gzip",
+      "original_bytes": 34765,
+      "original_sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+      "sha256": "a2421b0eafd8ade5569dd42472ac7ae72d37c8a94a4613fe2ff4d1530e7a4e7f"
+    },
+    "test_report_comparison.py.gz": {
+      "bytes": 6694,
+      "encoding": "gzip",
+      "original_bytes": 26031,
+      "original_sha256": "8c3f249feb30391f9b50f5fdb8d6f764898c78f2b7840afc34fb09f73b692c31",
+      "sha256": "ad4294ca1746931a0dd83d3260e81407cc0f3bae29197da501b1a219a4552ee7"
+    },
+    "visual_initial_clipped/all_unavailable/fig04_meanfield_vs_mc_rmse_by_horizon.png": {
+      "bytes": 78260,
+      "pixels": [
+        1050,
+        720
+      ],
+      "sha256": "d7cca1406734664d690952c11b1960c1ed555cc54e78fbac9435e7ce9ec3b507"
+    },
+    "visual_initial_clipped/all_unavailable/fig04_meanfield_vs_mc_rmse_by_horizon.svg": {
+      "bytes": 62093,
+      "sha256": "154f52532f2879ec67ba7b8e0cba6c0bb0c225f2ba61807ef5cd90dd3dbdf6f0"
+    },
+    "visual_initial_clipped/partial_support/fig04_meanfield_vs_mc_rmse_by_horizon.png": {
+      "bytes": 78339,
+      "pixels": [
+        1050,
+        720
+      ],
+      "sha256": "38e6649dfb4a240a240a120f78fb14e9726f9d2853064ceb43353c3e563decda"
+    },
+    "visual_initial_clipped/partial_support/fig04_meanfield_vs_mc_rmse_by_horizon.svg": {
+      "bytes": 62567,
+      "sha256": "8480b8bd83e7a619d7bcedcf689b43df6a6456a8f3d4b5780b5f8e35c7f16371"
+    }
+  },
+  "graph": {
+    "generation": "2026-10-30T02:11:43Z",
+    "parent_supplied_coverage": "report not_tracked/no_recorded_issue best effort; direct source fallback; no structural graph or freshness claim",
+    "project": "wfg-next-1b-20261030",
+    "tier": 2
+  },
+  "manifest_self_hash": "Excluded, reported separately",
+  "patch": {
+    "gzip_sha256": "fbf148a52cbda40fe45cb5cd700895af44a654731e9852b3659d29046b702b06",
+    "original_sha256": "8eeff7649076cd64bf73cf24ab12a14ea6ef047250792e8e986b53449f0f4fe6",
+    "path": "COMPARISON_REPORTING_REPAIR.patch.gz"
+  },
+  "production_files": {
+    "forecast/tests/test_report_comparison.py": {
+      "before_sha256": null,
+      "sha256": "8c3f249feb30391f9b50f5fdb8d6f764898c78f2b7840afc34fb09f73b692c31"
+    },
+    "research/forecast-v2/scripts/report.py": {
+      "before_sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+      "sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c"
+    }
+  },
+  "schema": "wfg.comparison-reporting-repair/1",
+  "scope": "REPORT_ONLY_SYNTHETIC_AND_SOURCE_EVIDENCE",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "validation": {
+    "actual_final_comparison_loader_or_checker_run": false,
+    "actual_raw_labels_model_heldout_access": false,
+    "exit_code": 0,
+    "git_mutations": false,
+    "targeted_tests_passed": 68,
+    "unchanged_original_function_asts": 17
+  }
+}
