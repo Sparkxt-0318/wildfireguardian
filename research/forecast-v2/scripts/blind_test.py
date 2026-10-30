@@ -31,6 +31,8 @@ VARIANTS = ["base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "
 MODEL_NAMES = {"c651_mc", *(v + "_seed0" for v in VARIANTS)}
 C651_SHA = "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843"
 DEADLINE = pd.Timestamp("2027-12-31T23:59:00Z")
+RECEIPT_VERSION = "wfg.forecast-blind-run/2"
+BASELINE_NAMES = {"persistence", "logistic", "dilation_best", *(f"dilation_{k}h" for k in (1, 2, 4, 8))}
 
 
 def sha(path):
@@ -177,21 +179,92 @@ def validate(registry_path, cohort_path, model_root, input_root):
     return registry, cohort, references
 
 
+def validation_identity(registry, cohort):
+    """Bind a validated run to its complete source, checkpoint and input closure."""
+    return dict(producer_source_sha256=registry["producer_source_sha256"],
+                model_sha256={n: r["sha256"] for n, r in registry["models"].items()},
+                logistic_sha256=registry["logistic"]["sha256"], input_sha256=cohort["input_sha256"])
+
+
+def load_pipeline():
+    """Load the numerical producer only after custody validation succeeds."""
+    spec = importlib.util.spec_from_file_location("frozen_forecast_v2_pipeline", HERE.with_name("pipeline.py"))
+    pipeline = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = pipeline
+    spec.loader.exec_module(pipeline)
+    return pipeline
+
+
+def load_runtime(args, registry, cohort):
+    pipeline = load_pipeline()
+    torch.set_num_threads(2)
+    environment = pipeline.Environment(args.input_root / "environment", args.entries / "environment_cache"
+                                       if hasattr(args, "entries") else args.out / "environment_cache",
+                                       cohort["input_sha256"])
+    c651 = load_model(inside(args.model_root, registry["models"]["c651_mc"]["path"]), device="cpu")
+    models = {n: pipeline.load_structured(inside(args.model_root, r["path"]))
+              for n, r in registry["models"].items() if n != "c651_mc"}
+    logistic = pickle.loads(inside(args.model_root, registry["logistic"]["path"]).read_bytes())
+    return pipeline, environment, c651, models, logistic
+
+
+def source_sample(case, source, environment):
+    raw = environment.at(case["event"], pd.Timestamp(case["cutoff"]).floor("h"))
+    shape = (source["event"]["height"], source["event"]["width"])
+    if raw.ndim != 3 or raw.shape[-2:] != shape:
+        raise ValueError("Forecast and reference rectangles differ")
+    return PerimeterSample(case["event"], case["cutoff"], source["hours"], raw,
+                           source["initial"], source["endpoint"], source["mask"], np.ones(shape), source["age"],
+                           kind="perimeter" if case["reference_kind"] == "nirops_mapped_extent" else "kriged",
+                           residence_hours=environment.residence(case["event"]))
+
+
+def deterministic_fields(runtime, sample, registry):
+    """Derive support from model validity without resampling Monte Carlo trajectories.
+
+    The c651 mean-field validity uses exactly the recursive Monte Carlo envelope.
+    The numeric c651 mean-field values are not substituted for its stored forecast.
+    """
+    pipeline, environment, c651, models, logistic = runtime
+    predictions, validities = {}, []
+    with torch.no_grad():
+        _, supported = pipeline.sample_forecast(c651.predictor, sample, use_burnout=False, use_spotting=False)
+        validities.append(supported.numpy())
+        for name, model in models.items():
+            value, supported = pipeline.sample_forecast(model, sample)
+            predictions[name] = value.numpy()
+            validities.append(supported.numpy())
+    predictions["persistence"] = B.persistence(sample.initial)
+    for rate in B.DILATION_HOURS:
+        predictions[f"dilation_{rate}h"] = B.dilation(sample.initial, sample.hours, rate)
+    predictions["dilation_best"] = predictions[f"dilation_{registry['best_dilation_hours_per_cell']}h"]
+    predictions["logistic"] = pipeline.logistic_predict(logistic, sample, environment.names,
+                                                       environment.terrain_gradient(sample.event_id))
+    mask = sample.score_mask & ~sample.initial & np.isfinite(sample.environment).all(0)
+    for valid in validities:
+        if valid.shape != mask.shape or valid.dtype != np.bool_:
+            raise ValueError("Model validity must be a boolean full-rectangle mask")
+        mask &= valid
+    for value in predictions.values():
+        if value.shape != mask.shape:
+            raise ValueError("Model predictions must match the source rectangle")
+        mask &= np.isfinite(value)
+    return predictions, mask
+
+
+def heavy_lock():
+    path = Path("/tmp/wfg/HEAVY.lock")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path.open("a+")
+
+
 def run(args):
     registry, cohort, references = validate(args.registry, args.cohort, args.model_root, args.input_root)
     if args.out.exists() and any(args.out.iterdir()):
         raise FileExistsError("Use a new directory and preserve previous blind predictions")
     (args.out / "cases").mkdir(parents=True)
-    spec = importlib.util.spec_from_file_location("frozen_forecast_v2_pipeline", HERE.with_name("pipeline.py"))
-    pipeline = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = pipeline
-    spec.loader.exec_module(pipeline)
-    torch.set_num_threads(2)
-    environment = pipeline.Environment(args.input_root / "environment", args.out / "environment_cache")
-    c651 = load_model(args.model_root / registry["models"]["c651_mc"]["path"], device="cpu")
-    models = {n: pipeline.load_structured(args.model_root / r["path"])
-              for n, r in registry["models"].items() if n != "c651_mc"}
-    logistic = pickle.loads((args.model_root / registry["logistic"]["path"]).read_bytes())
+    runtime = load_runtime(args, registry, cohort)
+    pipeline, environment, c651, _, _ = runtime
     records = []
     for case in cohort["cases"]:
         identity = hashlib.sha256(json.dumps(key(case)).encode()).hexdigest()[:24]
@@ -199,34 +272,18 @@ def run(args):
         started = time.perf_counter()
         try:
             source = references[key(case)]
-            raw = environment.at(case["event"], pd.Timestamp(case["cutoff"]).floor("h"))
-            shape = (source["event"]["height"], source["event"]["width"])
-            if raw.shape[-2:] != shape:
-                raise ValueError("Forecast and reference rectangles differ")
-            sample = PerimeterSample(case["event"], case["cutoff"], source["hours"], raw,
-                                     source["initial"], source["endpoint"], source["mask"], np.ones(shape), source["age"],
-                                     kind="perimeter" if case["reference_kind"] == "nirops_mapped_extent" else "kriged",
-                                     residence_hours=environment.residence(case["event"]))
-            predictions, validities = {}, []
-            with Path("/tmp/wfg/HEAVY.lock").open("a+") as lock:
+            sample = source_sample(case, source, environment)
+            with heavy_lock() as lock:
                 fcntl.flock(lock, fcntl.LOCK_EX)
+                predictions, mask = deterministic_fields(runtime, sample, registry)
                 predictions["c651_mc"], valid = pipeline.c651_monte_carlo(c651.predictor, sample, environment.names, 1024, 0)
-                validities.append(valid)
-                for name, model in models.items():
-                    with torch.no_grad():
-                        value, supported = pipeline.sample_forecast(model, sample)
-                    predictions[name] = value.numpy()
-                    validities.append(supported.numpy())
-                fcntl.flock(lock, fcntl.LOCK_UN)
-            predictions["persistence"] = B.persistence(sample.initial)
-            for rate in B.DILATION_HOURS:
-                predictions[f"dilation_{rate}h"] = B.dilation(sample.initial, sample.hours, rate)
-            predictions["dilation_best"] = predictions[f"dilation_{registry['best_dilation_hours_per_cell']}h"]
-            predictions["logistic"] = pipeline.logistic_predict(logistic, sample, environment.names,
-                                                                environment.terrain_gradient(case["event"]))
-            mask = source["mask"] & ~sample.initial & np.isfinite(raw).all(0) & np.logical_and.reduce(validities)
-            for value in predictions.values():
-                mask &= np.isfinite(value)
+                # The deterministic envelope must agree with MC support; numeric
+                # failure cannot quietly remove additional scored coordinates.
+                if (valid.shape != mask.shape or valid.dtype != np.bool_
+                        or predictions["c651_mc"].shape != mask.shape or not np.all(valid[mask])):
+                    raise ValueError("Monte Carlo validity differs from deterministic common support")
+                if not np.isfinite(predictions["c651_mc"][mask]).all():
+                    raise ValueError("Monte Carlo prediction is nonfinite on deterministic common support")
             record.update(reference_cells=int(source["mask"].sum()), scored_cells=int(mask.sum()),
                           excluded_cells=int((source["mask"] & ~mask).sum()))
             if mask.any():
@@ -243,13 +300,15 @@ def run(args):
         record["seconds"] = time.perf_counter() - started
         records.append(record)
         write(args.out / "cases" / f"{identity}.json", record)
-    write(args.out / "RECEIPT.json", dict(registry_sha256=sha(args.registry), cohort_sha256=sha(args.cohort), cases=records,
+    write(args.out / "RECEIPT.json", dict(receipt_version=RECEIPT_VERSION,
+                                         registry_sha256=sha(args.registry), cohort_sha256=sha(args.cohort),
+                                         validated_identity=validation_identity(registry, cohort), cases=records,
                                          host=dict(platform=platform.platform(), python=platform.python_version(),
                                                    torch=torch.__version__, numpy=np.__version__),
                                          completed_utc=datetime.now(timezone.utc).isoformat()))
 
 
-def primary_decision(result, selected):
+def primary_decision(result, selected, complete=False):
     comparisons = {ref: result["paired"][f"{selected}__vs__{ref}"]["percentile_95_interval"][1] < 0
                    for ref in ("persistence", "dilation_best")}
     bins = {n: result["models"][n]["pooled"]["lowest_bin"] for n in (selected, "persistence", "dilation_best")}
@@ -257,48 +316,83 @@ def primary_decision(result, selected):
     calibration = gaps[selected] is not None and all(gaps[n] is not None and gaps[selected] <= gaps[n]
                                                     for n in ("persistence", "dilation_best"))
     enough = len(result["fires"]) >= 10
-    return dict(brier_comparisons_pass=comparisons, lowest_bin_gaps=gaps, calibration_pass=calibration,
-                minimum_fire_count_pass=enough, statistical_superiority_criteria_pass=enough and calibration and all(comparisons.values()))
+    return dict(complete_cohort_pass=complete,
+                brier_comparisons_pass={n: complete and passed for n, passed in comparisons.items()},
+                lowest_bin_gaps=gaps, calibration_pass=complete and calibration,
+                minimum_fire_count_pass=complete and enough,
+                statistical_superiority_criteria_pass=complete and enough and calibration and all(comparisons.values()),
+                descriptive_subset_criteria=dict(brier_comparisons=comparisons, calibration=calibration,
+                                                 minimum_fire_count=enough))
 
 
 def score(args):
-    registry, cohort = json.loads(args.registry.read_text()), json.loads(args.cohort.read_text())
-    if (registry.get("status") != "FROZEN" or set(registry.get("models", {})) != MODEL_NAMES
-            or registry.get("selected_model") not in MODEL_NAMES - {"c651_mc"}
-            or registry["models"]["c651_mc"]["sha256"] != C651_SHA):
-        raise ValueError("Scoring requires the exact frozen model registry")
+    registry, cohort, references = validate(args.registry, args.cohort, args.model_root, args.input_root)
     receipt = json.loads((args.entries / "RECEIPT.json").read_text())
-    if receipt["registry_sha256"] != sha(args.registry) or receipt["cohort_sha256"] != sha(args.cohort):
-        raise ValueError("Predictions must bind the exact registry and cohort")
+    if (receipt.get("receipt_version") != RECEIPT_VERSION
+            or receipt.get("validated_identity") != validation_identity(registry, cohort)
+            or receipt.get("registry_sha256") != sha(args.registry) or receipt.get("cohort_sha256") != sha(args.cohort)):
+        raise ValueError("Validated predictions must bind the exact source, checkpoints, inputs, registry and cohort")
     if sorted(key(r["case"]) for r in receipt["cases"]) != sorted(key(c) for c in cohort["cases"]):
         raise ValueError("Every cohort case requires exactly one outcome receipt")
-    listed = {r["file"] for r in receipt["cases"] if r["status"] == "SCORED"}
+    expected_cases = {key(case): case for case in cohort["cases"]}
+    if any(r["case"] != expected_cases[key(r["case"])] for r in receipt["cases"]):
+        raise ValueError("Case receipts must match the exact validated cohort metadata")
+    listed = [r["file"] for r in receipt["cases"] if r["status"] == "SCORED"]
     actual = {str(p.relative_to(args.entries)) for p in (args.entries / "cases").glob("*.npz")}
-    if actual != listed:
-        raise ValueError("Unlisted or missing prediction files cannot enter scoring")
+    if len(set(listed)) != len(listed) or actual != set(listed):
+        raise ValueError("Unlisted, reused or missing prediction files cannot enter scoring")
     grouped = {"nirops_mapped_extent": [], "korean_arrival_reconstruction": []}
+    runtime = None
     for record in receipt["cases"]:
         if record["status"] not in ("SCORED", "FAILED", "UNAVAILABLE"):
             raise ValueError("Every case must have a final outcome status")
-        if record["status"] != "SCORED":
+        if record["status"] == "FAILED":
             continue
+        if runtime is None:
+            runtime = load_runtime(args, registry, cohort)
+        source = references[key(record["case"])]
+        sample = source_sample(record["case"], source, runtime[1])
+        with heavy_lock() as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            _, mask = deterministic_fields(runtime, sample, registry)
+        counts = dict(reference_cells=int(source["mask"].sum()), scored_cells=int(mask.sum()),
+                      excluded_cells=int((source["mask"] & ~mask).sum()))
+        if any(record.get(name) != value for name, value in counts.items()):
+            raise ValueError("Case counts must match the full source-derived common support")
+        if record["status"] == "UNAVAILABLE":
+            if mask.any():
+                raise ValueError("Unavailable case has source-derived supported cells")
+            continue
+        if not mask.any():
+            raise ValueError("Scored case has no source-derived common support")
         path = inside(args.entries, record["file"])
         if sha(path) != record["sha256"]:
             raise ValueError("Stored predictions changed")
         with np.load(path, allow_pickle=False) as data:
-            predictions = {n[2:]: data[n].copy() for n in data.files if n.startswith("p_")}
-            required = MODEL_NAMES | {"persistence", "logistic", "dilation_best", *(f"dilation_{k}h" for k in (1, 2, 4, 8))}
-            if predictions.keys() != required or len(data["row"]) != len(data["y"]) or len(data["col"]) != len(data["y"]):
-                raise ValueError("Exact prediction models and ordered scored coordinates are required")
-            coordinates = np.column_stack((data["row"], data["col"]))
-            if (not np.isin(data["y"], (0, 1)).all() or len(np.unique(coordinates, axis=0)) != len(data["y"])
-                    or np.any(coordinates < 0) or len(data["y"]) != record["scored_cells"]):
-                raise ValueError("Scored coordinates and binary endpoint labels must match the case receipt")
-            grouped[record["case"]["reference_kind"]].append((record, data["y"].copy(), predictions))
+            required = MODEL_NAMES | BASELINE_NAMES
+            if set(data.files) != {"y", "row", "col"} | {"p_" + n for n in required}:
+                raise ValueError("Exact registered prediction models and coordinate columns are required")
+            row, col, y = data["row"], data["col"], data["y"]
+            expected_row, expected_col = np.nonzero(mask)
+            h, w = mask.shape
+            if (row.ndim != 1 or col.ndim != 1 or y.ndim != 1
+                    or not np.issubdtype(row.dtype, np.integer) or not np.issubdtype(col.dtype, np.integer)
+                    or np.any(row < 0) or np.any(row >= h) or np.any(col < 0) or np.any(col >= w)
+                    or not np.array_equal(row, expected_row) or not np.array_equal(col, expected_col)):
+                raise ValueError("Integer ordered coordinates must equal the full source-derived common support")
+            if not np.array_equal(y, source["endpoint"][mask]):
+                raise ValueError("Endpoint labels must match the pinned source at every scored coordinate")
+            predictions = {n: data["p_" + n].copy() for n in required}
+            if any(p.shape != y.shape or not np.isfinite(p).all() or np.any((p < 0) | (p > 1))
+                   for p in predictions.values()):
+                raise ValueError("Every registered probability must be finite, in [0,1] and cover the full common support")
+            grouped[record["case"]["reference_kind"]].append((record, y.copy(), predictions))
+    complete = all(r["status"] == "SCORED" for r in receipt["cases"])
     results = {}
     for kind, rows in grouped.items():
         if not rows:
-            results[kind] = dict(status="UNAVAILABLE")
+            results[kind] = dict(status="UNAVAILABLE", complete_cohort_pass=False,
+                                 decision=dict(complete_cohort_pass=False, statistical_superiority_criteria_pass=False))
             continue
         entries = dict(fire=np.concatenate([np.full(len(y), r["case"]["event"]) for r, y, _ in rows]),
                        y=np.concatenate([y for _, y, _ in rows]),
@@ -315,15 +409,19 @@ def score(args):
             for fire, per_fire in data["per_fire"].items():
                 dbf = dilation["per_fire"][fire]["brier"]
                 per_fire["bss_vs_best_dilation"] = 1 - per_fire["brier"] / dbf if dbf else None
-        result["decision"] = (primary_decision(result, registry["selected_model"])
-                              if kind == "nirops_mapped_extent" else dict(secondary_descriptive_only=True))
-        result["status"] = "INCONCLUSIVE" if len(result["fires"]) < 10 else "SCORED_PENDING_RELOCATION_REPLAY"
+        result["decision"] = (primary_decision(result, registry["selected_model"], complete=complete)
+                              if kind == "nirops_mapped_extent" else dict(secondary_descriptive_only=True, complete_cohort_pass=complete))
+        result["status"] = ("INCOMPLETE_COHORT" if not complete else
+                            "INCONCLUSIVE" if len(result["fires"]) < 10 else "SCORED_PENDING_RELOCATION_REPLAY")
+        result["statistics_scope"] = "complete_cohort" if complete else "descriptive_scored_subset_only"
         results[kind] = result
-    write(args.out, dict(registry_sha256=sha(args.registry), cohort_sha256=sha(args.cohort), selected_model=registry["selected_model"],
+    write(args.out, dict(registry_sha256=sha(args.registry), cohort_sha256=sha(args.cohort),
+                         run_receipt_sha256=sha(args.entries / "RECEIPT.json"),
+                         validated_identity=validation_identity(registry, cohort), selected_model=registry["selected_model"],
                          results=results, failed_cases=[r for r in receipt["cases"] if r["status"] == "FAILED"],
                          unavailable_cases=[r for r in receipt["cases"] if r["status"] == "UNAVAILABLE"],
-                         superiority_claim_permitted=False,
-                         completion="NOT_COMPLETE_UNTIL_INDEPENDENT_RELOCATED_SCORE_REPLAY"))
+                         complete_cohort_pass=complete, superiority_claim_permitted=False,
+                         completion=("NOT_COMPLETE_UNTIL_INDEPENDENT_RELOCATED_SCORE_REPLAY" if complete else "INCOMPLETE_COHORT")))
 
 
 def main():
@@ -340,6 +438,8 @@ def main():
     p = sub.add_parser("score")
     p.add_argument("--registry", type=Path, required=True)
     p.add_argument("--cohort", type=Path, required=True)
+    p.add_argument("--model-root", type=Path, required=True)
+    p.add_argument("--input-root", type=Path, required=True)
     p.add_argument("--entries", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
