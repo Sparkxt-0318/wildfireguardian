@@ -104,14 +104,17 @@ def main():
     if args.stage == "fits":
         for fold in ("2020", "2021", "2022"):
             for variant in VARIANTS:
-                name = f"a{args.attempt:02d}_fold_{fold}_{variant}"
-                command = [sys.executable, str(pipeline), "fold", *shared, "--fold", fold, "--variant", variant]
-                job(name, command, RUN / "folds" / f"{variant}_fold{fold}_seed0/result.json")
+                suffix = "_utc_fixed" if variant == "mixed_base" else ""
+                name = f"a{args.attempt:02d}_fold_{fold}_{variant}{suffix}"
+                command = [sys.executable, str(pipeline), "fold", *shared, "--fold", fold,
+                           "--variant", variant, "--artifact-suffix", suffix]
+                job(name, command, RUN / "folds" / f"{variant}_fold{fold}_seed0{suffix}/result.json")
         by_variant = {}
         for variant in VARIANTS:
             values = []
             for fold in ("2020", "2021", "2022"):
-                data = json.loads((RUN / "folds" / f"{variant}_fold{fold}_seed0/result.json").read_text())
+                suffix = "_utc_fixed" if variant == "mixed_base" else ""
+                data = json.loads((RUN / "folds" / f"{variant}_fold{fold}_seed0{suffix}/result.json").read_text())
                 values.extend(s["brier"] for s in data["validation_per_fire"].values())
             by_variant[variant] = sum(values) / len(values)
         selected = min(VARIANTS, key=lambda v: (by_variant[v], VARIANTS.index(v)))

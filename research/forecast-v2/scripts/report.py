@@ -47,7 +47,10 @@ def sha256(path: Path) -> str:
 def ablation(run: Path, draws: int = 10000, seed: int = 20261029) -> dict:
     """Variant minus base on development folds, paired by development fire."""
     rows = []
-    for path in sorted((run / "folds").glob("*/result.json")):
+    active = run / "ACTIVE_PHASE.json"
+    paths = ([run / p for p in json.loads(active.read_text())["active_folds"]]
+             if active.exists() else sorted((run / "folds").glob("*/result.json")))
+    for path in paths:
         r = json.loads(path.read_text())
         for fire, s in r["validation_per_fire"].items():
             rows.append(dict(variant=r["variant"], fold=r["fold"], seed=r["seed"], fire=fire,
@@ -234,7 +237,7 @@ def main():
     results = dict(label=args.label or "REAL INPUTS", run=str(args.run))
     abl = ablation(args.run)
     results["ablation"] = abl
-    results["primary_candidate_rule"] = "lowest pooled development Brier over the 2020 to 2022 leave-one-year-out folds (decided before held-out scoring)"
+    results["primary_candidate_rule"] = "lowest equal-fire development Brier over the 2020 to 2022 leave-one-year-out folds, with the fixed variant tie order"
     primary = primary_candidate(abl)
     finals = {}
     for path in sorted((args.run / "final").glob("*/result.json")):

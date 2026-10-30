@@ -1,0 +1,4 @@
+{"epoch": 1, "train_scaled_loss": 0.7896852756578786, "seconds": 0.8015005000052042, "selected": false, "optimizer_steps": 48, "skipped_unsupported_intervals": []}
+{"epoch": 2, "train_scaled_loss": 0.7872369109439509, "seconds": 0.7901161249610595, "selected": false, "optimizer_steps": 48, "skipped_unsupported_intervals": []}
+{"epoch": 3, "train_scaled_loss": 0.7570530735732367, "seconds": 0.7961077500367537, "selected": true, "optimizer_steps": 48, "skipped_unsupported_intervals": []}
+{"variant": "burnout", "fold": "2020", "seed": 0, "brier": 0.043567036869830725, "seconds": 2.660635291947983}

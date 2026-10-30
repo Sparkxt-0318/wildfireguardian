@@ -199,6 +199,9 @@ def kriged_samples(event: str, data_root: Path, env: Environment, *, window: flo
     result = []
     for t in np.arange(math.floor(np.nanmin(arrival)), math.ceil(np.nanmax(arrival)), every):
         hour = (t0 + pd.Timedelta(hours=float(t))).floor("h")
+        # Initial and endpoint labels use the exact declared cutoff, not the
+        # later unfloored proposed time from which this weather hour came.
+        t = (hour - t0).total_seconds() / 3600
         if hour < start or hour > end:
             continue
         initial = finite & (arrival <= t)
@@ -252,7 +255,7 @@ def fit_samples(args, events: list[str], env: Environment, *, mixed: bool) -> li
     if mixed:
         for event in events + SPLIT["fit"]["korean_kriged_only"]:
             if (args.data_root / "regions" / event).exists():
-                samples += load_or_build(args.work, f"kriged_first{args.max_fit_intervals_per_fire}_{event}",
+                samples += load_or_build(args.work, f"kriged_utc_v2_first{args.max_fit_intervals_per_fire}_{event}",
                                          lambda e=event: kriged_samples(e, args.data_root, env,
                                                          max_intervals=limit))
     return samples
@@ -286,7 +289,7 @@ def command_fold(args):
     names = env.names
     model = build_model(args.variant, train, names, args.seed, args.hidden)
     balance, channels = balance_for(train, names) if args.balance else (None, None)
-    out = args.run / "folds" / f"{args.variant}_fold{args.fold}_seed{args.seed}"
+    out = args.run / "folds" / f"{args.variant}_fold{args.fold}_seed{args.seed}{args.artifact_suffix}"
     out.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
     log = open(out / "log.jsonl", "w")
@@ -653,6 +656,7 @@ def main():
     parser.add_argument("--n-samples", type=int, default=1024)
     parser.add_argument("--negative-fraction", type=float, default=0.05)
     parser.add_argument("--events", nargs="*", default=None)
+    parser.add_argument("--artifact-suffix", default="")
     args = parser.parse_args()
     args.threads = min(args.threads, 2)
     dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout,
