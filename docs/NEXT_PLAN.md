@@ -39,16 +39,16 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 
 | ID | Deliverable | Status |
 |---|---|---|
-| 1A-1 | Radiation library | in progress |
-| 1A-2 | Physics comparisons | in progress |
-| 1A-3 | Binding statistics | in progress |
+| 1A-1 | Radiation library | partial, HOLD |
+| 1A-2 | Physics comparisons | unresolved comparability gate |
+| 1A-3 | Binding statistics | NOT_RUN_GATED |
 | 1B-1 | Differentiable mean field | in progress |
 | 1B-2 | Survival training | in progress |
 | 1B-3 | Structural ablations | in progress |
 | 1B-4 | Baselines | in progress |
 | 1B-5 | Blind pre-registration | in progress |
 | 1C-1 | Export v3, members and reduction | in progress |
-| 1C-2 | SIPP equivalence and cost | in progress |
+| 1C-2 | SIPP equivalence and cost | 52/52 native pairs match, audit fixes pending |
 | 1C-3 | Synthetic-truth harness and campaigns | in progress |
 | INT | Integration checks | pending, gated on track acceptance |
 | EVIDENCE | Combined evidence README | in progress |
@@ -74,3 +74,7 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 
 - 2026-10-30, 1C independent work: 11 fresh routing tests pass, including 10,000 abstract cases and metamorphic controls; 11 callback/v3/scoring/reduction tests pass in the fresh forecast environment. Native 26-mission, two-repetition, two-implementation ABBA comparison (104 guarded executions) running under HEAVY.lock with exact frozen inputs, 30s deadlines and sampled 3,072MiB limits. No headline panel verdict yet.
 - 2026-10-30, 1B data freeze: supplied source and nested NIROPS archive hashes verified; 44-event environment data recovered. Split frozen before fitting in 7eb120e98: 23 US fit fires in requested 2020-2023 range (catalog contains no 2023 fire), 11 Korean through 2023 mixed-only, 6 US 2024 and 4 Korean 2025 held out. Code reuse attributed; independent source review corrected wind units, canonicalization, crop leakage and SD weighting. Repaired tests and actual cohort construction pending.
+
+- 2026-10-30: 1A final candidate90b125a79 remains HOLD_INCOMPLETE. Parent independently reran21tests (exit0), ownership/stylepass, releasecheckPASS367hashes on an exact detached audit checkout after materializing baselinehardware. Readiness reviewer independently auditing mathematical fail-closed behavior; step4experiments remainNOT_RUN_GATED.
+- 2026-10-30: NativeSIPP raw records independently counted104executions/52equivalentpairs/0unresolved, all26missionsbothrepetitions. Controller boundary defect found: a post-deadline child could exit between polls; owner corrected finalelapsed admission and added boundarytests, originalrunretained. Currentrun max5.209566792s, so no recordedrowcrossed30s. This is contact-relaxation equivalence, notfullpolicy performance.
+- 2026-10-30: Exportv3 source audit preserves -2unknown states. Priorremote1C converted unknowns to never-burn/all-supported, so its positiveC1headlines are not adopted. Matchedvalidity/missingpolicies required beforecoherenceattribution; currenttruthscoring keepsunresolved/unscorablecases explicit.
