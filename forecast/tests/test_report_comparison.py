@@ -87,6 +87,15 @@ def fixture_comparison(report, tmp_path, monkeypatch, *, all_null=False):
     monkeypatch.setattr(report, "COMPARISON_CURRENT_AUDITORS", {auditor})
     monkeypatch.setattr(report, "COMPARISON_SOURCE_SHA256", hashlib.sha256(json.dumps(sources, sort_keys=True, separators=(",", ":")).encode()).hexdigest())
     run = root / "forecast/runs/synthetic-comparison"
+    canonical_command = ["synthetic-python", str(evidence / "scripts/pipeline.py"), "compare",
+        "--data-root", str(root / "environment"), "--perimeters", str(root / "perimeters"),
+        "--work", str(root / "work"), "--run", str(run), "--data-manifest-sha256", protocol["data_manifest_sha256"],
+        "--epochs", "3", "--seed", "0", "--hidden", "16", "--lr", ".003", "--samples-per-step", "1",
+        "--max-fit-intervals-per-fire", "3", "--intervals-per-epoch", "0", "--threads", "2",
+        "--n-samples", "1024", "--balance", "--compare-case-index", "0", "--artifact-suffix", "_a06"]
+    # Freeze the complete fixture argv before any test mutation, not from a re-signed receipt.
+    monkeypatch.setattr(report, "COMPARISON_COMMAND_SHA256",
+        hashlib.sha256(json.dumps(canonical_command, separators=(",", ":"), ensure_ascii=True).encode()).hexdigest())
     outputs, receipts, all_rows, pins = [], [], [], []
     for index, case in enumerate(cases):
         horizons = [("fixed", h) for h in [1, 3, 6, 12, 24]]
@@ -122,8 +131,8 @@ def fixture_comparison(report, tmp_path, monkeypatch, *, all_null=False):
         receipt = evidence / f"executions/a06_compare_case{index:02d}.json"
         receipt.parent.mkdir(exist_ok=True)
         log = receipt.with_suffix(".log"); log.write_text(f"Synthetic metadata case {index}\n")
-        command = ["synthetic-python", str(evidence / "scripts/pipeline.py"), "compare", "--compare-case-index", str(index),
-                   "--artifact-suffix", "_a06", "--n-samples", "1024", "--seed", "0", "--data-manifest-sha256", protocol["data_manifest_sha256"]]
+        command = canonical_command.copy()
+        command[command.index("--compare-case-index") + 1] = str(index)
         write(receipt, dict(job=f"a06_compare_case{index:02d}", command=command, exit_code=0, source_sha256=sources,
             output=str(output), output_sha256=report.sha256(output), log_sha256=report.sha256(log),
             data_manifest_sha256=protocol["data_manifest_sha256"], elapsed_seconds=30.))
@@ -156,6 +165,7 @@ def test_complete_twelve_case_fixture_authenticates_before_refusal_controls(repo
     assert len([p for p in hashes if p.endswith(".csv")]) == 13
     assert len([p for p in hashes if p.endswith(".log")]) == 12
     assert hashes[str(f.aggregate_receipt.relative_to(f.root))] == report.sha256(f.aggregate_receipt)
+    assert result["authentication"]["normalized_historical_command_sha256"] == report.COMPARISON_COMMAND_SHA256
     runtime = result["runtime"]
     assert runtime["joint24h"]["mc_calls"] == runtime["joint24h"]["mf_calls"] == 12
     assert runtime["survey_endpoint"]["mc_calls"] == runtime["survey_endpoint"]["mf_calls"] == 6
@@ -253,15 +263,115 @@ def test_survey_endpoint_is_the_exact_frozen_fraction_and_json_keys_cannot_dupli
     with pytest.raises(ValueError, match="duplicate object keys"): report.load_comparison(f.run)
 
 
-def test_effective_last_command_controls_are_checked(report, tmp_path, monkeypatch):
+def test_duplicate_even_effectively_equivalent_commands_are_outside_the_historical_family(report, tmp_path, monkeypatch):
     f = fixture_comparison(report, tmp_path, monkeypatch)
     rec = json.loads(f.receipts[0].read_text()); rec["command"] += ["--seed", "7", "--seed", "0"]
     write(f.receipts[0], rec); resign(report, f)
-    assert report.load_comparison(f.run)[1]["execution_complete"] is True
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
     rec["command"] += ["--seed", "7"]; write(f.receipts[0], rec); resign(report, f)
-    with pytest.raises(ValueError, match="effective command"): report.load_comparison(f.run)
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
     rec["command"].pop(); write(f.receipts[0], rec); resign(report, f)
-    with pytest.raises(ValueError, match="effective command"): report.load_comparison(f.run)
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
+
+
+ROOT_ARGV_MUTATIONS = [
+    ("seed_equals7", ["--seed=7"]),
+    ("seed_abbrev7", ["--se=7"]),
+    ("N_equals7", ["--n-samples=7"]),
+    ("N_abbrev7", ["--n-s=7"]),
+    ("case_equals1", ["--compare-case-index=1"]),
+    ("case_abbrev1", ["--compare-case-i=1"]),
+    ("suffix_equals_a07", ["--artifact-suffix=_a07"]),
+    ("suffix_abbrev_a07", ["--artifact-s=_a07"]),
+    ("manifest_equals_changed", ["--data-manifest-sha256=" + "f" * 64]),
+    ("threads_equals1", ["--threads=1"]),
+    ("duplicate_separate7_then0", ["--seed", "7", "--seed", "0"]),
+    ("duplicate_separate0_then7", ["--seed", "0", "--seed", "7"]),
+    ("mixed_separate7_equals0", ["--seed", "7", "--seed=0"]),
+    ("mixed_equals7_separate0", ["--seed=7", "--seed", "0"]),
+    ("equals7_then0", ["--seed=7", "--seed=0"]),
+    ("separator_then_seed", ["--", "--seed=7"]),
+    ("unknown_extra", ["--not-a-pinned-option"]),
+    ("extra_positional", ["fold"]),
+    ("wrong_dispatch", None),
+    ("run_override", ["--run", "OTHER_OUTPUT"]),
+    ("events_override", ["--events", "KFS_02"]),
+]
+
+
+@pytest.mark.parametrize("name,tail", ROOT_ARGV_MUTATIONS, ids=[name for name, _ in ROOT_ARGV_MUTATIONS])
+def test_all_independent_argv_matrix_mutations_refuse_even_after_resigning(report, tmp_path, monkeypatch, name, tail):
+    f = fixture_comparison(report, tmp_path, monkeypatch)
+    anchor = report.COMPARISON_COMMAND_SHA256
+    rec = json.loads(f.receipts[0].read_text())
+    if name == "wrong_dispatch": rec["command"][2] = "fold"
+    else: rec["command"] += tail
+    write(f.receipts[0], rec); resign(report, f)
+    assert report.COMPARISON_COMMAND_SHA256 == anchor
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
+
+
+@pytest.mark.parametrize("name,tail", [
+    ("duplicate_same_seed", ["--seed", "0"]),
+    ("duplicate_same_index", ["--compare-case-index", "0"]),
+    ("duplicate_same_equals_index", ["--compare-case-index=0"]),
+    ("duplicate_same_boolean", ["--balance"]),
+    ("boolean_value", ["--balance", "False"]),
+    ("data_equals", ["--data-root=OTHER_SOURCE"]),
+    ("data_abbreviation", ["--data-r=OTHER_SOURCE"]),
+    ("perimeters_equals", ["--perimeters=OTHER_SOURCE"]),
+    ("perimeters_abbreviation", ["--perim=OTHER_SOURCE"]),
+    ("cache_equals", ["--work=OTHER_CACHE"]),
+    ("cache_abbreviation", ["--wo=OTHER_CACHE"]),
+    ("run_equals", ["--run=OTHER_OUTPUT"]),
+    ("run_abbreviation", ["--ru=OTHER_OUTPUT"]),
+    ("manifest_abbreviation", ["--data-man=" + "f" * 64]),
+    ("threads_separate", ["--threads", "1"]),
+    ("bare_separator", ["--"]),
+], ids=lambda value: value if isinstance(value, str) else None)
+def test_other_source_boolean_and_duplicate_forms_are_not_a_new_command_family(report, tmp_path, monkeypatch, name, tail):
+    f = fixture_comparison(report, tmp_path, monkeypatch)
+    rec = json.loads(f.receipts[0].read_text()); rec["command"] += tail
+    write(f.receipts[0], rec); resign(report, f)
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
+
+
+@pytest.mark.parametrize("mutation", ["interpreter", "pipeline_path", "boolean_token", "integer_token", "not_list",
+                                      "missing_index", "equals_only_index", "leading_zero_index", "truncated_index",
+                                      "flag_order", "equivalent_float_text"])
+def test_only_the_exact_single_index_value_is_normalized(report, tmp_path, monkeypatch, mutation):
+    f = fixture_comparison(report, tmp_path, monkeypatch)
+    rec = json.loads(f.receipts[0].read_text()); argv = rec["command"]
+    index = argv.index("--compare-case-index")
+    if mutation == "interpreter": argv[0] = "/OTHER_INTERPRETER/python"
+    elif mutation == "pipeline_path": argv[1] = str(f.evidence / "scripts") + "/./pipeline.py"
+    elif mutation == "boolean_token": argv[0] = True
+    elif mutation == "integer_token": argv[argv.index("--threads") + 1] = 2
+    elif mutation == "not_list": rec["command"] = " ".join(argv)
+    elif mutation == "missing_index": del argv[index:index + 2]
+    elif mutation == "equals_only_index": argv[index:index + 2] = ["--compare-case-index=0"]
+    elif mutation == "leading_zero_index": argv[index + 1] = "00"
+    elif mutation == "truncated_index": rec["command"] = argv[:index + 1]
+    elif mutation == "flag_order": argv[3:7] = argv[5:7] + argv[3:5]
+    else: argv[argv.index("--lr") + 1] = "0.003"
+    write(f.receipts[0], rec); resign(report, f)
+    with pytest.raises(ValueError, match="historical argv"): report.load_comparison(f.run)
+
+
+def test_all_22_preserved_matrix_mechanisms_and_actual12_canonical_commands_are_bound(report):
+    evidence = Path(__file__).resolve().parents[2] / "research/forecast-v2/review/comparison_report_argv_repair_v1/independent_original"
+    matrix = json.loads(gzip.decompress((evidence / "COMMAND_MATRIX_7e59.json.gz").read_bytes()))
+    assert {row["case"] for row in matrix["cases"]} == {"canonical", *(name for name, _ in ROOT_ARGV_MUTATIONS)}
+    forms = json.loads(gzip.decompress((evidence / "ACTUAL_COMMAND_FORM_INSPECTION.json.gz").read_bytes()))
+    assert len(forms["records"]) == 12
+    assert report.COMPARISON_COMMAND_SHA256 == "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803"
+    for record in forms["records"]:
+        argv = record["command"].copy()
+        assert argv.count("--compare-case-index") == 1
+        value = argv.index("--compare-case-index") + 1
+        assert argv[value] == str(record["case_index"])
+        argv[value] = "0"
+        assert hashlib.sha256(json.dumps(argv, separators=(",", ":"), ensure_ascii=True).encode()).hexdigest() == report.COMPARISON_COMMAND_SHA256
 
 
 def test_unknown_original_auditor_is_refused_and_reviewed_current_repair_preserves_original(report, tmp_path, monkeypatch):

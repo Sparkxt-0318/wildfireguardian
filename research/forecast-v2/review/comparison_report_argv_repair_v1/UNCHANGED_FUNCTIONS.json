@@ -1,0 +1,33 @@
+{
+  "changed_existing_functions": [
+    "load_comparison"
+  ],
+  "figure_meanfield_and_main_unchanged": true,
+  "unchanged_function_ast_sha256": {
+    "_comparison_csv": "ce42d345dc81e7171e95ff050591fd1f47e063a1bebb4644f3b9179235356682",
+    "_comparison_json": "3197c17d7fff42bc2ea43620d379fe7fa9d02cbe9e2a7a013158d3f23d2b4e5a",
+    "_comparison_metrics": "d1463984cc6502147db307c869a77d4f9209101c506de95867fa7174f985d062",
+    "_comparison_rows": "570595ee2320ca27f1ab4441d5aed29aecf6030718bd67ea86f281ab88913845",
+    "_comparison_sources": "740166b8e48404ac25d797a401646ba21c97107bfc3b9b32d1fa7e2d33937977",
+    "ablation": "c832e10459edb2857a5aef5760b37911712f96ee45f3d9a72df291f34c62048c",
+    "absence_reason": "0fb9543b3307dab0c341084ce8eb0bd6bbb3bdfff048b089507846e0cc18a25f",
+    "assessment_scores": "2ae1360dd0fc45881aab39813fa071e0f4f2aeafa36128f138f3eb6c55ceff1f",
+    "comparison_support": "3080389c62a3352d05062bcfd7ca307bf2560c6bbb5550eeacb24fc5eebd6b3e",
+    "detailed_scores": "192da0e4c73a4e9b181e116bce20840190b20ddc5de9e5ba795b78098eb012e4",
+    "figure_ablation": "2198367a93cc9899556e0e4b83e0756e5c8a8fce96dd783ea1119b890d7728b0",
+    "figure_example": "ec3ba00cd3b1dc1ae5b660ae6a6df17d3378078f84b55a10e96cdd49b262d6c4",
+    "figure_meanfield": "5eb7786f8395f9015821569ddd1156aa653d85be5da97a3b60e65487fede7205",
+    "figure_per_fire": "eaa45bf4d4b8c4794a6daa1c8cbd541968c2f7c7c162d79ece9665183f3176c5",
+    "figure_reliability": "cdb22faf2d3a6a8896b8760dbf9fccf4278134a608abb5179c922f2934380b7a",
+    "figure_unavailable": "a6263bd51038ae0775ecad7e7d74c50c30c2c968779ddf2a6c3a6ad9f45b5e47",
+    "heldout_ablation": "3d73af394136e1634fc5ba8e5c865d23e7e9dd82bd6b7b6c838bbf3dd2b0f51b",
+    "load_assessment": "52459863eb59467fea2f90c644315f21af3d8dbe95cb609d8c948246e3e46a91",
+    "load_report_inputs": "87ca668734b0c3d169320ed0e4b943b5e8462559da69a6392a7289d26f48ca7c",
+    "main": "31c441d20f8cd7c897a0fb1490c9bda72fdb83d2514817eed49541c772bde359",
+    "primary_candidate": "c08dc8f679ab19464be5b7133b6a628f1f8c8a5a6e546ea26ea9f3d4bd926de1",
+    "retrospective_gate": "71645acadb773df75b17bd070a1e37ebacf1efd5b35d20d2eac8b8a298ce5040",
+    "save": "fffbd05474a348950d056dbd045cfa12b16cc3f2d52ac9f6d2bbf1b514aaa64f",
+    "sha256": "976c44efc509f4d7851bd15f79a751f25c228c2fff9e01edfaa26245d9ed797f",
+    "style": "424ee113c0f0174ca4000e6880e4bddb8305cbda64d7d9988b6d93feabb6b66c"
+  }
+}

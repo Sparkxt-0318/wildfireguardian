@@ -34,6 +34,7 @@ COMPARISON_AUDITOR_SHA256 = "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced
 COMPARISON_CURRENT_AUDITORS = {COMPARISON_AUDITOR_SHA256,
     "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536"}
 COMPARISON_CHECKPOINT_SHA256 = "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843"
+COMPARISON_COMMAND_SHA256 = "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803"
 COMPARISON_HOURS = (1, 3, 6, 12, 24)
 
 
@@ -253,14 +254,18 @@ def load_comparison(run):
         log = path.with_suffix(".log")
         if rec.get("log_sha256") != pin(log) or rec.get("data_manifest_sha256") != protocol["data_manifest_sha256"]:
             raise ValueError("Comparison case log/input-manifest identity changed")
-        command = rec.get("command", [])
-        if len(command) < 3 or command[2] != "compare" or Path(command[1]).resolve() != root / "scripts/pipeline.py":
-            raise ValueError("Comparison case must retain its original pipeline command")
-        for key, value in {"--compare-case-index": str(index), "--artifact-suffix": "_a06", "--n-samples": "1024",
-                           "--seed": "0", "--data-manifest-sha256": protocol["data_manifest_sha256"]}.items():
-            positions = [i for i, token in enumerate(command) if token == key]
-            if not positions or positions[-1] + 1 == len(command) or command[positions[-1] + 1] != value:
-                raise ValueError("Comparison effective command controls changed")
+        command = rec.get("command")
+        if not isinstance(command, list) or not all(type(token) is str for token in command):
+            raise ValueError("Comparison historical argv must be a complete list of strings")
+        positions = [i for i, token in enumerate(command) if token == "--compare-case-index"]
+        if (len(positions) != 1 or positions[0] + 1 >= len(command)
+                or command[positions[0] + 1] != str(index)):
+            raise ValueError("Comparison historical argv requires its unique exact standalone case index")
+        normalized = command.copy()
+        normalized[positions[0] + 1] = "0"
+        command_sha = hashlib.sha256(json.dumps(normalized, separators=(",", ":"), ensure_ascii=True).encode()).hexdigest()
+        if command_sha != COMPARISON_COMMAND_SHA256:
+            raise ValueError("Comparison complete historical argv family changed")
         result = _comparison_json(output)
         if result.keys() != {"rows", "host", "checkpoint_sha256"} or result["checkpoint_sha256"] != COMPARISON_CHECKPOINT_SHA256:
             raise ValueError("Comparison case checkpoint or schema changed")
@@ -293,6 +298,7 @@ def load_comparison(run):
         authentication=dict(artifacts_sha256=artifacts, producer_source_sha256=sources,
             producer_source_closure_sha256=COMPARISON_SOURCE_SHA256, current_auditor_sha256=current_auditor,
             original_auditor_sha256=COMPARISON_AUDITOR_SHA256,
+            normalized_historical_command_sha256=COMPARISON_COMMAND_SHA256,
             limit="Authenticates saved identities and summary consistency; unsaved arrays, support masks and numerical values are not independently recomputed"),
         runtime=dict(joint24h=dict(cutoffs=joint_calls, mc_calls=len(joint_calls), mf_calls=len(joint_calls),
             mc_seconds=sum(r["mc_seconds"] for r in joint_calls), mf_seconds=sum(r["mf_seconds"] for r in joint_calls),

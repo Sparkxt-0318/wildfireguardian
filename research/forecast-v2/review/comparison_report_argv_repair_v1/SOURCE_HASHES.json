@@ -1,0 +1,16 @@
+{
+  "compile_pass": true,
+  "files": {
+    "forecast/tests/test_report_comparison.py": {
+      "before_sha256": "8c3f249feb30391f9b50f5fdb8d6f764898c78f2b7840afc34fb09f73b692c31",
+      "sha256": "476d59b6e6d98698651b986ad2e41beb2b178283f52ae8b27526543c2832309c"
+    },
+    "research/forecast-v2/scripts/report.py": {
+      "before_sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c",
+      "sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7"
+    }
+  },
+  "patch_dry_run_exit": 0,
+  "patch_gzip_sha256": "9ff49e02373a21aac775c7a99c501bd714825b1741bd3d36716a1a9c78c803f5",
+  "patch_original_sha256": "061c8ee93d439e5bb926cb9a79698f28f3569c140601fc1d0df2b3cb3571f4a4"
+}
