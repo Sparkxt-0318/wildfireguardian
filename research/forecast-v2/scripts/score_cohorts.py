@@ -87,11 +87,12 @@ def identities(args):
     for row in selection["checkpoints"].values():
         if sha(REPO / row["path"]) != row["sha256"]:
             raise ValueError("A frozen checkpoint changed")
-    for row in selection.get("baselines", {}).values():
-        if sha(REPO / row["path"]) != row["sha256"]:
-            raise ValueError("A frozen fit-only baseline changed")
     if set(selection.get("baselines", {})) != {"logistic", "logistic_parameters", "dilation_choice"}:
         raise ValueError("Exact fitted-baseline identities must be frozen with model selection")
+    for name, filename in {"logistic": "logistic.pkl", "logistic_parameters": "logistic.json",
+                           "dilation_choice": "dilation_choice.json"}.items():
+        if sha(args.run / "baselines" / filename) != selection["baselines"][name]["sha256"]:
+            raise ValueError("The baseline bytes actually executed differ from frozen model selection")
     for path, expected in selection["input_manifests_sha256"].items():
         if sha(args.data / path) != expected:
             raise ValueError("A frozen assessment input manifest changed")
@@ -140,9 +141,18 @@ def deterministic_support(sample, environment, c651, models, logistic):
         with torch.no_grad():
             q, valid = sample_forecast(model, sample, use_burnout=name != "c651_meanfield",
                                        use_spotting=name != "c651_meanfield")
-        mask &= valid.numpy() & np.isfinite(q.numpy())
+        probability, supported = q.numpy(), valid.numpy()
+        if (supported.dtype != bool or supported.shape != sample.initial.shape
+                or probability.shape != sample.initial.shape or not np.isfinite(probability[supported]).all()
+                or ((probability[supported] < 0) | (probability[supported] > 1)).any()):
+            raise ValueError("A model numerical failure cannot become a support exclusion")
+        mask &= supported
     q = P.logistic_predict(logistic, sample, environment.names, environment.terrain_gradient(sample.event_id))
-    return mask & np.isfinite(q)
+    features = P.logistic_features(sample, environment.names, environment.terrain_gradient(sample.event_id))
+    logistic_support = np.isfinite(features).all(1).reshape(sample.initial.shape)
+    if not np.isfinite(q[logistic_support]).all() or ((q[logistic_support] < 0) | (q[logistic_support] > 1)).any():
+        raise ValueError("A logistic numerical failure cannot become an input-support exclusion")
+    return mask & logistic_support
 
 
 def validate_entries(path, record, sample, expected_mask):
@@ -172,10 +182,11 @@ def validate_entries(path, record, sample, expected_mask):
 
 
 def predict_case(sample, environment, c651, models, logistic, best):
-    predictions, valids, timings = {}, [], {}
+    predictions, valids, timings, named_validities = {}, [], {}, {}
     begin = time.perf_counter()
     p, valid = P.c651_monte_carlo(c651.predictor, sample, environment.names, 1024, 0)
     predictions["c651_mc"] = p
+    named_validities["c651_mc"] = valid
     valids.append(valid)
     timings["c651_mc"] = time.perf_counter() - begin
     for name, model in {"c651_meanfield": c651.predictor, **models}.items():
@@ -184,6 +195,7 @@ def predict_case(sample, environment, c651, models, logistic, best):
             q, v = sample_forecast(model, sample, use_burnout=name != "c651_meanfield",
                                    use_spotting=name != "c651_meanfield")
         predictions[name] = q.numpy()
+        named_validities[name] = v.numpy()
         valids.append(v.numpy())
         timings[name] = time.perf_counter() - begin
     predictions["persistence"] = B.persistence(sample.initial)
@@ -192,9 +204,22 @@ def predict_case(sample, environment, c651, models, logistic, best):
     predictions["dilation_best"] = predictions[f"dilation_{best}h"]
     predictions["logistic"] = P.logistic_predict(logistic, sample, environment.names,
                                                 environment.terrain_gradient(sample.event_id))
-    mask = sample.score_mask & ~sample.initial & np.isfinite(sample.environment).all(0) & np.logical_and.reduce(valids)
-    for value in predictions.values():
-        mask &= np.isfinite(value)
+    for name, supported in named_validities.items():
+        value = predictions[name]
+        if (supported.dtype != bool or supported.shape != sample.initial.shape or value.shape != sample.initial.shape
+                or not np.isfinite(value[supported]).all() or ((value[supported] < 0) | (value[supported] > 1)).any()):
+            raise ValueError(f"{name} numerical failure on declared valid support cannot trim the scored population")
+    start = time.perf_counter()
+    mask = deterministic_support(sample, environment, c651, models, logistic)
+    timings["admission_support_replay"] = time.perf_counter() - start
+    producer_support = sample.score_mask & ~sample.initial & np.isfinite(sample.environment).all(0) & np.logical_and.reduce(valids)
+    # Logistic covariate availability is independently part of deterministic_support.
+    producer_support &= np.isfinite(predictions["logistic"])
+    if not np.array_equal(producer_support, mask):
+        raise ValueError("Fresh Monte Carlo/model support differs from independently reconstructed deterministic support")
+    for name, value in predictions.items():
+        if value.shape != mask.shape or not np.isfinite(value[mask]).all() or ((value[mask] < 0) | (value[mask] > 1)).any():
+            raise ValueError("Fresh model nonfinite output cannot become a scoring exclusion")
     return predictions, mask, timings
 
 
@@ -222,8 +247,13 @@ def main():
         raise ValueError("Unlisted per-fire prediction files cannot enter an assessment")
     c651 = load_model(P.C651, device="cpu")
     models = {v + "_seed0": P.load_structured(REPO / row["path"]) for v, row in frozen["checkpoints"].items()}
-    logistic = pickle.loads((args.run / "baselines/logistic.pkl").read_bytes())
-    best = json.loads((args.run / "baselines/dilation_choice.json").read_text())["best_hours_per_cell"]
+    logistic_bytes = (args.run / "baselines/logistic.pkl").read_bytes()
+    dilation_bytes = (args.run / "baselines/dilation_choice.json").read_bytes()
+    if (hashlib.sha256(logistic_bytes).hexdigest() != frozen["logistic_sha256"]
+            or hashlib.sha256(dilation_bytes).hexdigest() != frozen["dilation_choice_sha256"]):
+        raise ValueError("Actually loaded baseline bytes changed after identity admission")
+    logistic = pickle.loads(logistic_bytes)
+    best = json.loads(dilation_bytes)["best_hours_per_cell"]
     failures, all_receipts, timing_rows, output_files, seen_case_ids = [], [], [], {}, set()
     for event in events:
         metadata = env.catalog.get(event, {})

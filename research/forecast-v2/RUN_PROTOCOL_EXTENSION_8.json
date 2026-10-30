@@ -1,0 +1,12 @@
+{
+  "recorded_utc": "2026-10-30T04:38:11.016323+00:00",
+  "before_heldout_score_inspection": true,
+  "independent_failure_report_commit": "eb8ddb00",
+  "failed_source_commit": "08ac32c7",
+  "reason": "Recheck found executed baseline files could differ from frozen paths, and fresh numerical MC failure could shrink the score mask.",
+  "baseline_rule": "Hash the actual run/baselines bytes against frozen selection identities; rehash the actual byte buffers loaded for pickle/json use. Content-preserving relocation is allowed; different bytes are refused.",
+  "support_rule": "Fresh and resumed scoring use independently reconstructed deterministic source/model support. Every model declaring valid support must return finite probabilities in[0,1]. MC NaN, invalid support disagreement and logistic numerical failure fail the case; none becomes a score exclusion.",
+  "actual_model_or_input_policy_changed": false,
+  "source_guard_tests": "forecast/tests/test_assessment_admission.py;21passed including explicit fresh MC/MF/logistic numerical failures and support mismatch",
+  "future_inventory": "Independent module28c99d4b plus37synthetic tests exists but remains unwired and NOT_READY_FOR_2026_EXECUTION pending adoption and independent publisher-release verification."
+}

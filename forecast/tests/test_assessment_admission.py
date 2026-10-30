@@ -5,6 +5,7 @@ from types import SimpleNamespace
 import sys
 import numpy as np
 import pytest
+import torch
 
 
 @pytest.fixture
@@ -68,3 +69,29 @@ def test_partial_mask_cannot_be_admitted_when_full_support_is_available(assessme
     record["scored_mask_sha256"] = assessment.array_sha(np.zeros_like(mask))
     with pytest.raises(ValueError, match="common-support mask"):
         assessment.validate_entries(path, record, sample, mask)
+
+
+@pytest.mark.parametrize("fault", ["mc_nan", "mc_support", "meanfield_nan", "logistic_nan", "valid"])
+def test_fresh_numerical_failure_cannot_redefine_source_support(assessment, case, monkeypatch, fault):
+    sample, _, _, _, _ = case
+    sample.event_id, sample.hours = "fixture", 12.
+    env = SimpleNamespace(names=("fixture",), terrain_gradient=lambda event: (np.zeros((2, 2)), np.zeros((2, 2))))
+    c651 = SimpleNamespace(predictor=object())
+    models = {v + "_seed0": object() for v in assessment.VARIANT_SET}
+    p_mc, v_mc = np.full((2, 2), .2), np.ones((2, 2), bool)
+    if fault == "mc_nan": p_mc[0, 1] = np.nan
+    if fault == "mc_support": v_mc[0, 1] = False
+    p_mf = torch.full((2, 2), .2)
+    if fault == "meanfield_nan": p_mf[0, 1] = torch.nan
+    p_logistic = np.full((2, 2), .2)
+    if fault == "logistic_nan": p_logistic[0, 1] = np.nan
+    monkeypatch.setattr(assessment.P, "c651_monte_carlo", lambda *args: (p_mc, v_mc))
+    monkeypatch.setattr(assessment, "sample_forecast", lambda *args, **kwargs: (p_mf, torch.ones((2, 2), dtype=torch.bool)))
+    monkeypatch.setattr(assessment.P, "logistic_predict", lambda *args: p_logistic)
+    monkeypatch.setattr(assessment.P, "logistic_features", lambda *args: np.zeros((4, 1)))
+    if fault == "valid":
+        _, mask, _ = assessment.predict_case(sample, env, c651, models, None, 4)
+        assert np.array_equal(mask, sample.score_mask)
+    else:
+        with pytest.raises(ValueError, match="numerical failure|support differs"):
+            assessment.predict_case(sample, env, c651, models, None, 4)
