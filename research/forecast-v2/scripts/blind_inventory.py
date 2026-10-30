@@ -328,29 +328,50 @@ def _intervals(times):
     return [(a, b) for a, b in zip(times, times[1:]) if 0 < b.value - a.value <= limit]
 
 
+def _raster_custody(root, relative, source, environment_pins, seen=None):
+    """Use the same closure rule for source, quality, and raster mask sidecars."""
+    import rasterio
+    seen = set() if seen is None else seen
+    if relative in seen:
+        return
+    seen.add(relative)
+    if source.driver != "GTiff":
+        raise InventoryError(f"Canonical source must be a GeoTIFF, not {source.driver}: {relative}")
+    canonical = _inside(root, relative)
+    for dependency in source.files:
+        path = Path(dependency)
+        if not path.is_absolute():
+            path = canonical.parent / path
+        _no_symlink_components(path)
+        path = path.resolve()
+        if (not path.is_relative_to((root / "environment").resolve())
+                or str(path.relative_to(root)) not in environment_pins):
+            raise InventoryError(f"Raster dependency is outside the pinned environmental snapshot: {dependency}")
+        dependency_relative = str(path.relative_to(root))
+        if (dependency_relative not in seen and path.suffix.lower() in (".tif", ".tiff", ".msk", ".ovr")):
+            with rasterio.open(path) as sidecar:
+                _raster_custody(root, dependency_relative, sidecar, environment_pins, seen)
+
+
 def _availability(root, event, cutoffs, environment_pins):
-    """Objectively inspect canonical source paths; never accept supplied exclusions."""
+    """Inspect source and optional loader-readable quality raster custody."""
     from wildfire.data import load_data
     import rasterio
     reasons = []
+    paths = []
     for channel in CHANNELS:
         category, variable = channel.split(".")
         relative = f"environment/regions/{event['id']}/{category}/{variable}_375m.tif"
+        paths.append((relative, True))
+        if category == "weather":
+            paths.append((f"environment/quality_flags/{event['id']}/{variable}_quality_flags_375m.tif", False))
+    for relative, required in paths:
         if not _inside(root, relative).is_file():
-            reasons.append(dict(code="MISSING_SOURCE_FILE", path=relative))
+            if required:
+                reasons.append(dict(code="MISSING_SOURCE_FILE", path=relative))
             continue
         with rasterio.open(_inside(root, relative)) as source:
-            if source.driver != "GTiff":
-                raise InventoryError(f"Canonical source must be a GeoTIFF, not {source.driver}: {relative}")
-            for dependency in source.files:
-                path = Path(dependency)
-                if not path.is_absolute():
-                    path = _inside(root, relative).parent / path
-                _no_symlink_components(path)
-                path = path.resolve()
-                if (not path.is_relative_to((root / "environment").resolve())
-                        or str(path.relative_to(root)) not in environment_pins):
-                    raise InventoryError(f"Raster dependency is outside the pinned environmental snapshot: {dependency}")
+            _raster_custody(root, relative, source, environment_pins)
             if (source.crs is None or source.crs.to_epsg() != event["epsg"]
                     or list(source.transform)[:6] != event["transform"]
                     or source.shape != (event["height"], event["width"])):

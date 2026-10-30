@@ -521,6 +521,64 @@ def test_regular_pinned_geotiff_mask_sidecar_remains_admissible(release):
     assert release.validate()["case_count"] == 2
 
 
+def quality_raster(release, variable, value=0):
+    path = release.root / f"environment/quality_flags/SYNTHETIC_A/{variable}_quality_flags_375m.tif"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(path, "w", driver="GTiff", height=3, width=3, count=len(release.hours), dtype="uint8",
+                       crs=release.grid["epsg"], transform=Affine(*release.grid["transform"])) as raster:
+        raster.write(np.full((len(release.hours), 3, 3), value, dtype=np.uint8))
+    return path
+
+
+@pytest.mark.parametrize("variable", [channel.split(".")[1] for channel in inventory.CHANNELS[:3]])
+def test_optional_quality_vrt_cannot_reach_unpinned_external_bytes(release, variable):
+    from rasterio.shutil import copy as raster_copy
+    quality = quality_raster(release, variable)
+    release.pin()
+    assert release.validate()["case_count"] == 2  # Ordinary pinned quality GeoTIFF control.
+    borrowed = release.root / "borrowed-quality.tif"
+    shutil.move(str(quality), str(borrowed))
+    raster_copy(borrowed, quality, driver="VRT")
+    release.pin()
+    before_manifest = release.pinned_manifest_sha
+    with pytest.raises(inventory.InventoryError, match="Canonical source must be a GeoTIFF"):
+        release.validate()
+    with rasterio.open(borrowed, "r+") as external:
+        external.write(np.ones((len(release.hours), 3, 3), dtype=np.uint8))
+    assert inventory.sha256(release.manifest_path) == before_manifest
+    with pytest.raises(inventory.InventoryError, match="Canonical source must be a GeoTIFF"):
+        release.validate()
+
+
+def test_pinned_quality_values_and_regular_mask_sidecar_do_not_exclude_intervals(release):
+    quality = quality_raster(release, "temperature_2m", value=1)
+    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=False):
+        with rasterio.open(quality, "r+") as raster:
+            raster.write_mask(np.zeros((3, 3), dtype=np.uint8))
+    assert Path(str(quality) + ".msk").is_file()
+    release.pin()
+    report = release.validate()
+    assert report["case_count"] == 2 and report["exclusions"] == []
+    assert report["execution_status"] == "NOT_READY_FOR_2026_EXECUTION"
+
+
+def test_quality_mask_sidecar_vrt_cannot_hide_an_external_dependency(release):
+    from rasterio.shutil import copy as raster_copy
+    quality = quality_raster(release, "temperature_2m")
+    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=False):
+        with rasterio.open(quality, "r+") as raster:
+            raster.write_mask(np.full((3, 3), 255, dtype=np.uint8))
+    release.pin()
+    assert release.validate()["case_count"] == 2
+    sidecar = Path(str(quality) + ".msk")
+    borrowed = release.root / "borrowed-quality-mask.tif"
+    shutil.move(str(sidecar), str(borrowed))
+    raster_copy(borrowed, sidecar, driver="VRT")
+    release.pin()
+    with pytest.raises(inventory.InventoryError, match="Canonical source must be a GeoTIFF"):
+        release.validate()
+
+
 @pytest.mark.parametrize("trailer", [b"", b"\x1a"], ids=["no_eof", "single_eof"])
 def test_exact_dbf_payload_accepts_only_documented_optional_eof(release, trailer):
     blob = release.zip_members["nested/source.dbf"]
