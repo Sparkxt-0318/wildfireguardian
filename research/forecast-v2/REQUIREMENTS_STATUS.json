@@ -1,0 +1,206 @@
+{
+  "schema": "wfg.forecast-v2.requirements/1",
+  "evidence_class": "current real-input executions, earlier attempts excluded from primary totals",
+  "authenticated_development_fits": 21,
+  "authenticated_final_fits": 0,
+  "receipts": [
+    {
+      "job": "a03_fold_2020_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2020_seed0/result.json",
+      "sha256": "c9cd3538d86dca747738ee6871236e25eb8e5e8cf902db62b29070ddd6385637"
+    },
+    {
+      "job": "a03_fold_2020_burnout",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2020_seed0/result.json",
+      "sha256": "4a8041beaf0d0a1e0f8941a599ef5f616b8c5f23caf80f55cfc50bca66e1b240"
+    },
+    {
+      "job": "a03_fold_2020_burnout_spotting",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2020_seed0/result.json",
+      "sha256": "a9475b7c3f276ff35e42d272965fc015be63cc8e58358168813b16df99b898f9"
+    },
+    {
+      "job": "a03_fold_2020_d4",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2020_seed0/result.json",
+      "sha256": "de3fdd2439ed2dbf7a1f88925c66871070bad20e3fe1e8dc871bee342e2a343c"
+    },
+    {
+      "job": "a03_fold_2020_d4_wind",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2020_seed0/result.json",
+      "sha256": "8e58d58c9a8477973c3ea61eb8caf69d684583f64f7f8ebb118226ff70ec82a6"
+    },
+    {
+      "job": "a03_fold_2020_ellipse",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2020_seed0/result.json",
+      "sha256": "e9759e0e7f2c7437053cdbd3c7cac3e1fae27bc770768e2b769545912ba87550"
+    },
+    {
+      "job": "a03_fold_2020_mixed_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2020_seed0/result.json",
+      "sha256": "f8b180b913443fab01a70103a39a3da50270297d2ffb98c814fa1b4d94fe4d0e"
+    },
+    {
+      "job": "a03_fold_2021_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2021_seed0/result.json",
+      "sha256": "0232519aabed12e562dae27153b4e4063ef21089ef24b08f1fe208d59a39f07e"
+    },
+    {
+      "job": "a03_fold_2021_burnout",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2021_seed0/result.json",
+      "sha256": "914e5a01f66b28a0aea3be35f7558b1fc6526138ca4242d19096134ce3a2eb76"
+    },
+    {
+      "job": "a03_fold_2021_burnout_spotting",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2021_seed0/result.json",
+      "sha256": "9374f4cf1701f4a184cdfdd9626bcb015b55621d9094bd511f5b73de0aada1ec"
+    },
+    {
+      "job": "a03_fold_2021_d4",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2021_seed0/result.json",
+      "sha256": "b48596b0ac45249c02e99d49fb06fdff6f12f4cc500b2c489cfaa0833d5971b8"
+    },
+    {
+      "job": "a03_fold_2021_d4_wind",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2021_seed0/result.json",
+      "sha256": "60b72bef66603925e6725cdf20b0b2bd66afacf2e3739b14671de2f24b4f95ce"
+    },
+    {
+      "job": "a03_fold_2021_ellipse",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2021_seed0/result.json",
+      "sha256": "24163646914fdd7ba1115ae86848586d6c1aaf60112fed8e9cff7397c62edf24"
+    },
+    {
+      "job": "a03_fold_2021_mixed_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2021_seed0/result.json",
+      "sha256": "36d37a1ddf9aa4ec031e5b29e82ba613c2f48bb2b617999345da3d6d0cfd5733"
+    },
+    {
+      "job": "a03_fold_2022_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2022_seed0/result.json",
+      "sha256": "3028e0335157bf81852e3f22c99c512e8fd91f4dad7fb0acfadebe897491f296"
+    },
+    {
+      "job": "a03_fold_2022_burnout",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2022_seed0/result.json",
+      "sha256": "10a13478201ab799a61a2aff6db7b7867788014cca516c598abd0c08b790ddcb"
+    },
+    {
+      "job": "a03_fold_2022_burnout_spotting",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2022_seed0/result.json",
+      "sha256": "b059ee55903881a9caababaa798a89e9a37128e41e3c0be159b99c3030635b8b"
+    },
+    {
+      "job": "a03_fold_2022_d4",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2022_seed0/result.json",
+      "sha256": "b443e8d16a43b297b0530e62dbcad19426408d3ab92f0a58cd4077369e6f0400"
+    },
+    {
+      "job": "a03_fold_2022_d4_wind",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2022_seed0/result.json",
+      "sha256": "4422522f80c0bf7066257904ead445425144754429f2344cc3873a44a4b38bc6"
+    },
+    {
+      "job": "a03_fold_2022_ellipse",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2022_seed0/result.json",
+      "sha256": "c7baf867920aa252b800712a4daa5c0b823451b29088bfbae85def7e6874ae01"
+    },
+    {
+      "job": "a03_fold_2022_mixed_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0/result.json",
+      "sha256": "3ea352e74c296402ad17525cbda45bcf94a10962be422467ea83eae5f9019c5e"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "1B-1-library",
+      "status": "IMPLEMENTED_TESTED",
+      "evidence": "forecast/wildfire/meanfield.py and forecast/tests/test_meanfield.py",
+      "limit": "Multi-step closure approximation, not exact MC expectation"
+    },
+    {
+      "id": "1B-1-12cutoffs",
+      "status": "PENDING",
+      "expected": "12cutoffs,6Korean+6US; all1/3/6/12/24h,1024trajectories; actualsurvey-endpoint checks where available",
+      "evidence": "meanfield_vs_mc/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-2-development",
+      "status": "COMPLETE",
+      "authenticated_fits": 21,
+      "expected_fits": 21,
+      "limit": "Earliest3eligible intervals per fire, bounded development subset; not full-cohort final fitting"
+    },
+    {
+      "id": "1B-2-full-final-fits",
+      "status": "IN_PROGRESS",
+      "authenticated_fits": 0,
+      "expected_fits": 7,
+      "expected": "All eligible fit-fire intervals, fixed3epochs; unsupported zero-weight intervals explicitly logged"
+    },
+    {
+      "id": "1B-3-structural-ablations",
+      "status": "IN_PROGRESS",
+      "expected": "none,D4,D4+localwind,ellipse,burnout,burnout+spotting,mixed; sameeligibleperimeterfitpolicy"
+    },
+    {
+      "id": "1B-4-baseline-fitting",
+      "status": "PENDING",
+      "expected": "persistence,4dilationrates,training-chosenbestdilation,weightedlogistic,c651"
+    },
+    {
+      "id": "1B-4-heldout-scoring",
+      "status": "PENDING",
+      "expected": "sixUS2024fires,fullrectangles,alleligibleintervals,exactcommoncohort; fourKR2025separate"
+    },
+    {
+      "id": "1B-4-FARSITE-matched-subset",
+      "status": "PENDING",
+      "expected": "authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals"
+    },
+    {
+      "id": "1B-5-pre-registration",
+      "status": "NOT_READY",
+      "expected": "exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"
+    },
+    {
+      "id": "fig01_reliability_all_models",
+      "status": "PENDING",
+      "evidence": [
+        "research/forecast-v2/figures/fig01_reliability_all_models.png",
+        "research/forecast-v2/figures/fig01_reliability_all_models.svg"
+      ]
+    },
+    {
+      "id": "fig02_per_fire_brier_paired",
+      "status": "PENDING",
+      "evidence": [
+        "research/forecast-v2/figures/fig02_per_fire_brier_paired.png",
+        "research/forecast-v2/figures/fig02_per_fire_brier_paired.svg"
+      ]
+    },
+    {
+      "id": "fig03_ablation_forest_plot",
+      "status": "PENDING",
+      "evidence": [
+        "research/forecast-v2/figures/fig03_ablation_forest_plot.png",
+        "research/forecast-v2/figures/fig03_ablation_forest_plot.svg"
+      ]
+    },
+    {
+      "id": "fig04_meanfield_vs_mc_rmse_by_horizon",
+      "status": "PENDING",
+      "evidence": [
+        "research/forecast-v2/figures/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+        "research/forecast-v2/figures/fig04_meanfield_vs_mc_rmse_by_horizon.svg"
+      ]
+    },
+    {
+      "id": "fig05_example_forecast_vs_perimeter",
+      "status": "PENDING",
+      "evidence": [
+        "research/forecast-v2/figures/fig05_example_forecast_vs_perimeter.png",
+        "research/forecast-v2/figures/fig05_example_forecast_vs_perimeter.svg"
+      ]
+    }
+  ]
+}
