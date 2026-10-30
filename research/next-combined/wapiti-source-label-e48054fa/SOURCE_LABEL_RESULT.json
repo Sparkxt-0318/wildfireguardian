@@ -1,0 +1,670 @@
+{
+  "status": "PASS_BOUNDED_WAPITI_ORIGINAL_MAPPED_LABEL_REPLAY",
+  "scope": "Original mapped-label/cutoff alignment only. No model probability member decoded, no forecast/model/scorer/native execution, quality metric, histogram/mean, ranking, calibration or figure. No other fire/cohort output opened. Not physical truth, survey coverage completeness or model-prediction replay.",
+  "snapshot_commit": "e48054fa420af0b0477070f496c88ebc16ed2b8a",
+  "inventory_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "event": "ID-BOF-000683_Wapiti_Wapiti",
+  "cases_checked": 52,
+  "original_input": {
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/perimeters/ID-BOF-000683_Wapiti_Wapiti/states.npz",
+    "sha256": "74a135ab4ceec9408314d037b045c16e4cc8b4f635c44c3655cbbc06fc6668dc",
+    "manifest_sha256": "ec85525ebe90091036e77bd517abc563c385e81db0ae53ecc30c6d4cb3c019c6",
+    "source_time_count": 63,
+    "source_grid_shape": [
+      111,
+      105
+    ]
+  },
+  "mapping_evidence": {
+    "score_cohorts": "268-269: crop=False;314-316: full-mask np.nonzero row/col and endpoint labels",
+    "pipeline": "224-249: original states[i]/states[j], score mask ~initial, cropped only if crop=True",
+    "survival": "153-174: passive PerimeterSample dataclass"
+  },
+  "checks": [
+    {
+      "name": "known_frozen_assessment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pinned_mapping_source:research/forecast-v2/scripts/score_cohorts.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pinned_mapping_source:research/forecast-v2/scripts/pipeline.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pinned_mapping_source:forecast/wildfire/survival.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_manifest_bytes_before_array_open",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_timestamp_inventory_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_Wapiti_file_bytes_before_array_open",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source_timestamp_indices_unambiguous",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "immutable_completed_case_manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all52_frozen_expected_completed_cases_replayed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all52_full_source_mask_hashes_and_coordinate_labels_match",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "case_replay": [
+    {
+      "case_id": "4c1a6206dd4edb42085370cf",
+      "cutoff": "2024-08-05T06:37:00+00:00",
+      "endpoint": "2024-08-06T09:02:00+00:00",
+      "source_cutoff_index": 1,
+      "source_endpoint_index": 2,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "a90eb8e40d27b33edac6336b",
+      "cutoff": "2024-08-06T09:02:00+00:00",
+      "endpoint": "2024-08-07T05:06:00+00:00",
+      "source_cutoff_index": 2,
+      "source_endpoint_index": 3,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "765ed21cee4694a4a7b1073e",
+      "cutoff": "2024-08-07T05:06:00+00:00",
+      "endpoint": "2024-08-08T08:02:00+00:00",
+      "source_cutoff_index": 3,
+      "source_endpoint_index": 4,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "fed4c3bab9da10c322bf6caf",
+      "cutoff": "2024-08-08T08:02:00+00:00",
+      "endpoint": "2024-08-09T03:20:00+00:00",
+      "source_cutoff_index": 4,
+      "source_endpoint_index": 5,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "bdd83a03720eba7c36125c70",
+      "cutoff": "2024-08-09T03:20:00+00:00",
+      "endpoint": "2024-08-10T08:38:00+00:00",
+      "source_cutoff_index": 5,
+      "source_endpoint_index": 6,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "878f0f5f577dbbf19ee14c7e",
+      "cutoff": "2024-08-10T08:38:00+00:00",
+      "endpoint": "2024-08-11T08:16:00+00:00",
+      "source_cutoff_index": 6,
+      "source_endpoint_index": 7,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "adc6b49fcdd086616627c1cf",
+      "cutoff": "2024-08-11T08:16:00+00:00",
+      "endpoint": "2024-08-12T07:54:00+00:00",
+      "source_cutoff_index": 7,
+      "source_endpoint_index": 8,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "6b92f46c1085927c7d4fcc26",
+      "cutoff": "2024-08-12T07:54:00+00:00",
+      "endpoint": "2024-08-13T04:07:00+00:00",
+      "source_cutoff_index": 8,
+      "source_endpoint_index": 9,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "a3d2c46ab21c508addc01415",
+      "cutoff": "2024-08-13T04:07:00+00:00",
+      "endpoint": "2024-08-14T03:45:00+00:00",
+      "source_cutoff_index": 9,
+      "source_endpoint_index": 10,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "f9705ed9809fbbe1d51d187b",
+      "cutoff": "2024-08-14T03:45:00+00:00",
+      "endpoint": "2024-08-15T05:08:00+00:00",
+      "source_cutoff_index": 10,
+      "source_endpoint_index": 11,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "d4ce88f81da8d1a98edbf91a",
+      "cutoff": "2024-08-15T05:08:00+00:00",
+      "endpoint": "2024-08-16T06:01:00+00:00",
+      "source_cutoff_index": 11,
+      "source_endpoint_index": 12,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "a6364103310aa6a978839f0b",
+      "cutoff": "2024-08-16T06:01:00+00:00",
+      "endpoint": "2024-08-17T02:53:00+00:00",
+      "source_cutoff_index": 12,
+      "source_endpoint_index": 13,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "dd158e1a5abed388136c2c31",
+      "cutoff": "2024-08-17T02:53:00+00:00",
+      "endpoint": "2024-08-18T02:38:00+00:00",
+      "source_cutoff_index": 13,
+      "source_endpoint_index": 14,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "2f1584cf74601f2389b9289c",
+      "cutoff": "2024-08-18T02:38:00+00:00",
+      "endpoint": "2024-08-19T06:23:00+00:00",
+      "source_cutoff_index": 14,
+      "source_endpoint_index": 15,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "e502f0e5c4d58c7757891d13",
+      "cutoff": "2024-08-19T06:23:00+00:00",
+      "endpoint": "2024-08-20T06:53:00+00:00",
+      "source_cutoff_index": 15,
+      "source_endpoint_index": 16,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "96bb83959704f65f6d47ecaa",
+      "cutoff": "2024-08-20T06:53:00+00:00",
+      "endpoint": "2024-08-21T07:18:00+00:00",
+      "source_cutoff_index": 16,
+      "source_endpoint_index": 17,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "4ce89bd9635bc560fec345b2",
+      "cutoff": "2024-08-21T07:18:00+00:00",
+      "endpoint": "2024-08-22T19:00:00+00:00",
+      "source_cutoff_index": 17,
+      "source_endpoint_index": 18,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "02ed6e7032488c1135f69a6f",
+      "cutoff": "2024-08-22T19:00:00+00:00",
+      "endpoint": "2024-08-23T07:46:00+00:00",
+      "source_cutoff_index": 18,
+      "source_endpoint_index": 19,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "4da1e349fab4c9e02defc9a3",
+      "cutoff": "2024-08-23T07:46:00+00:00",
+      "endpoint": "2024-08-24T03:00:00+00:00",
+      "source_cutoff_index": 19,
+      "source_endpoint_index": 20,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "7ff7339397ce1c82b59f88c7",
+      "cutoff": "2024-08-24T03:00:00+00:00",
+      "endpoint": "2024-08-25T05:26:00+00:00",
+      "source_cutoff_index": 20,
+      "source_endpoint_index": 21,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "ceecb2bba39e8bc083f90e73",
+      "cutoff": "2024-08-25T05:26:00+00:00",
+      "endpoint": "2024-08-26T05:58:00+00:00",
+      "source_cutoff_index": 21,
+      "source_endpoint_index": 22,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "a92cea6db2c509be777af273",
+      "cutoff": "2024-08-26T05:58:00+00:00",
+      "endpoint": "2024-08-27T06:24:00+00:00",
+      "source_cutoff_index": 22,
+      "source_endpoint_index": 23,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "aebd18883415992c5064eabc",
+      "cutoff": "2024-08-27T06:24:00+00:00",
+      "endpoint": "2024-08-28T03:49:00+00:00",
+      "source_cutoff_index": 23,
+      "source_endpoint_index": 24,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "8d35bdbef27925bf56ee3743",
+      "cutoff": "2024-08-28T03:49:00+00:00",
+      "endpoint": "2024-08-29T03:49:00+00:00",
+      "source_cutoff_index": 24,
+      "source_endpoint_index": 25,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "6d54bbb4b2f8fc1dc71b16b5",
+      "cutoff": "2024-08-29T03:49:00+00:00",
+      "endpoint": "2024-08-30T03:34:00+00:00",
+      "source_cutoff_index": 25,
+      "source_endpoint_index": 26,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "9f3bfb884a7a215d063e6570",
+      "cutoff": "2024-08-30T03:34:00+00:00",
+      "endpoint": "2024-08-31T07:33:00+00:00",
+      "source_cutoff_index": 26,
+      "source_endpoint_index": 27,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "f9f8ec3c684094b8de008f16",
+      "cutoff": "2024-08-31T07:33:00+00:00",
+      "endpoint": "2024-09-01T02:46:00+00:00",
+      "source_cutoff_index": 27,
+      "source_endpoint_index": 28,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "05a519cd9042e213e2049a3a",
+      "cutoff": "2024-09-01T02:46:00+00:00",
+      "endpoint": "2024-09-02T06:58:00+00:00",
+      "source_cutoff_index": 28,
+      "source_endpoint_index": 29,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "772f9c91ef67a78be8cd8715",
+      "cutoff": "2024-09-02T06:58:00+00:00",
+      "endpoint": "2024-09-04T03:33:00+00:00",
+      "source_cutoff_index": 29,
+      "source_endpoint_index": 30,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "cf11b13972c39ff8d977f047",
+      "cutoff": "2024-09-04T03:33:00+00:00",
+      "endpoint": "2024-09-05T03:28:00+00:00",
+      "source_cutoff_index": 30,
+      "source_endpoint_index": 31,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "188c796b136c27cf6a3bfc46",
+      "cutoff": "2024-09-05T03:28:00+00:00",
+      "endpoint": "2024-09-06T04:39:00+00:00",
+      "source_cutoff_index": 31,
+      "source_endpoint_index": 32,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "1f798e793241727fa2b358c5",
+      "cutoff": "2024-09-06T04:39:00+00:00",
+      "endpoint": "2024-09-07T03:32:00+00:00",
+      "source_cutoff_index": 32,
+      "source_endpoint_index": 33,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "e5a4fbbacd20a209a61169ab",
+      "cutoff": "2024-09-07T03:32:00+00:00",
+      "endpoint": "2024-09-08T03:54:00+00:00",
+      "source_cutoff_index": 33,
+      "source_endpoint_index": 34,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "9d73ab35832e628f669b6106",
+      "cutoff": "2024-09-08T03:54:00+00:00",
+      "endpoint": "2024-09-09T06:22:00+00:00",
+      "source_cutoff_index": 34,
+      "source_endpoint_index": 35,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "09ca32933722e923279dcf97",
+      "cutoff": "2024-09-09T06:22:00+00:00",
+      "endpoint": "2024-09-10T03:29:00+00:00",
+      "source_cutoff_index": 35,
+      "source_endpoint_index": 36,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "ad9cbcabffdaf7c2846903ad",
+      "cutoff": "2024-09-10T03:29:00+00:00",
+      "endpoint": "2024-09-11T06:41:00+00:00",
+      "source_cutoff_index": 36,
+      "source_endpoint_index": 37,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "b48c4214184384a3f837c022",
+      "cutoff": "2024-09-14T02:32:00+00:00",
+      "endpoint": "2024-09-15T01:21:00+00:00",
+      "source_cutoff_index": 38,
+      "source_endpoint_index": 39,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "7080a09729f5261028698d4b",
+      "cutoff": "2024-09-19T03:42:00+00:00",
+      "endpoint": "2024-09-20T07:43:00+00:00",
+      "source_cutoff_index": 40,
+      "source_endpoint_index": 41,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "d2413ddf9dc4ce0c14def4e5",
+      "cutoff": "2024-09-20T07:43:00+00:00",
+      "endpoint": "2024-09-21T03:19:00+00:00",
+      "source_cutoff_index": 41,
+      "source_endpoint_index": 42,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "8b82d0ff57582632d5897626",
+      "cutoff": "2024-09-21T03:19:00+00:00",
+      "endpoint": "2024-09-22T03:58:00+00:00",
+      "source_cutoff_index": 42,
+      "source_endpoint_index": 43,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "f352c6f84b6b6c62f4d539d1",
+      "cutoff": "2024-09-22T03:58:00+00:00",
+      "endpoint": "2024-09-23T01:54:00+00:00",
+      "source_cutoff_index": 43,
+      "source_endpoint_index": 44,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "62e9742e9678ba95d2ee6a30",
+      "cutoff": "2024-09-23T01:54:00+00:00",
+      "endpoint": "2024-09-24T03:38:00+00:00",
+      "source_cutoff_index": 44,
+      "source_endpoint_index": 45,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "d383c9c95f9e658b17b49407",
+      "cutoff": "2024-09-28T05:17:00+00:00",
+      "endpoint": "2024-09-30T04:58:00+00:00",
+      "source_cutoff_index": 47,
+      "source_endpoint_index": 48,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "1b8648da2068646d60abe453",
+      "cutoff": "2024-10-02T06:56:00+00:00",
+      "endpoint": "2024-10-04T06:01:00+00:00",
+      "source_cutoff_index": 49,
+      "source_endpoint_index": 50,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "d126ce4ca83f2eeee95b8394",
+      "cutoff": "2024-10-07T04:25:00+00:00",
+      "endpoint": "2024-10-08T07:53:00+00:00",
+      "source_cutoff_index": 51,
+      "source_endpoint_index": 52,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "f73b3037ca0d081b65f37671",
+      "cutoff": "2024-10-08T07:53:00+00:00",
+      "endpoint": "2024-10-09T03:00:00+00:00",
+      "source_cutoff_index": 52,
+      "source_endpoint_index": 53,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "62a1e50a387001f37da5ff09",
+      "cutoff": "2024-10-09T03:00:00+00:00",
+      "endpoint": "2024-10-10T06:54:00+00:00",
+      "source_cutoff_index": 53,
+      "source_endpoint_index": 54,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "8cabaabc13d828a29530730a",
+      "cutoff": "2024-10-10T06:54:00+00:00",
+      "endpoint": "2024-10-11T03:00:00+00:00",
+      "source_cutoff_index": 54,
+      "source_endpoint_index": 55,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "6b3ba5720f25cabec98bcd0d",
+      "cutoff": "2024-10-11T03:00:00+00:00",
+      "endpoint": "2024-10-13T00:58:00+00:00",
+      "source_cutoff_index": 55,
+      "source_endpoint_index": 56,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "f365b7fee379bb0bb1d32a95",
+      "cutoff": "2024-10-13T00:58:00+00:00",
+      "endpoint": "2024-10-14T06:32:00+00:00",
+      "source_cutoff_index": 56,
+      "source_endpoint_index": 57,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "0a701d087919ef614a5d35cd",
+      "cutoff": "2024-10-14T06:32:00+00:00",
+      "endpoint": "2024-10-15T02:39:00+00:00",
+      "source_cutoff_index": 57,
+      "source_endpoint_index": 58,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    },
+    {
+      "case_id": "2acbdd9a7a35b030b701c63e",
+      "cutoff": "2024-10-15T02:39:00+00:00",
+      "endpoint": "2024-10-16T01:46:00+00:00",
+      "source_cutoff_index": 58,
+      "source_endpoint_index": 59,
+      "full_initial_endpoint_hashes_match": true,
+      "reference_mask_hash_matches": true,
+      "all_saved_coordinates_initially_unburned": true,
+      "all_saved_y_match_original_endpoint": true
+    }
+  ],
+  "limit": "Only saved scored coordinates and full recorded initial/endpoint/reference arrays are replayed; environmental, residence/age arrays and model common-validity masks are not recomputed. Raw polygon-to-grid construction and coverage truth remain outside this review.",
+  "full_metric_checker_run": false,
+  "full306_census_run": false,
+  "promotion_criteria_pass": false,
+  "host": {
+    "python": "3.12.1",
+    "numpy": "1.26.4",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "checker_sha256": "91ee0da59d1d34be3d1332d42a88c06309301a6d7535c74ac4c03acdd7e09851",
+  "resource_control": {
+    "acquired_utc": "2026-10-30T15:03:20.064714+00:00",
+    "released_utc": "2026-10-30T15:03:21.283669+00:00",
+    "lock": "/tmp/wfg/HEAVY.lock",
+    "scope": "One advisory lease between numerical cases; no process changed or interrupted. Untimed consistency check, no performance claim."
+  }
+}

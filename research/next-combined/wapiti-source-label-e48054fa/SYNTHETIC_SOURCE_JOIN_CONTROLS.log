@@ -1,0 +1,78 @@
+{
+  "scope": "Only tiny fabricated original-label arrays, clocks and coordinates; no probability arrays or forecast quality calculations.",
+  "checks": [
+    {
+      "name": "exact_source_join_positive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wrong_endpoint",
+      "passed": true,
+      "detail": "CASE_NOT_EXACT_ELIGIBLE_CONSECUTIVE_SOURCE_INTERVAL"
+    },
+    {
+      "name": "wrong_timestamp_indices",
+      "passed": true,
+      "detail": "CASE_NOT_EXACT_ELIGIBLE_CONSECUTIVE_SOURCE_INTERVAL"
+    },
+    {
+      "name": "wrong_coordinate_initial_burn",
+      "passed": true,
+      "detail": "SAVED_SCORED_COORDINATE_ALREADY_INITIAL_BURN"
+    },
+    {
+      "name": "shifted_coordinate",
+      "passed": true,
+      "detail": "SAVED_LABEL_DIFFERS_FROM_ORIGINAL_ENDPOINT"
+    },
+    {
+      "name": "flipped_label",
+      "passed": true,
+      "detail": "SAVED_LABEL_DIFFERS_FROM_ORIGINAL_ENDPOINT"
+    },
+    {
+      "name": "cropped_rectangle",
+      "passed": true,
+      "detail": "FULL_ORIGINAL_GRID_RECTANGLE_ALIGNMENT"
+    },
+    {
+      "name": "wrong_initial_hash",
+      "passed": true,
+      "detail": "FULL_SOURCE_INITIAL_ENDPOINT_HASH_ALIGNMENT"
+    },
+    {
+      "name": "wrong_endpoint_hash",
+      "passed": true,
+      "detail": "FULL_SOURCE_INITIAL_ENDPOINT_HASH_ALIGNMENT"
+    },
+    {
+      "name": "wrong_reference_hash",
+      "passed": true,
+      "detail": "FULL_SOURCE_REFERENCE_MASK_ALIGNMENT"
+    },
+    {
+      "name": "endpoint_not_in_source",
+      "passed": true,
+      "detail": "EXACT_CASE_TIMESTAMPS_ABSENT_FROM_SOURCE"
+    },
+    {
+      "name": "out_of_grid_coordinate",
+      "passed": true,
+      "detail": "FULL_GRID_COORDINATE_BOUNDS"
+    },
+    {
+      "name": "duplicate_source_timestamp",
+      "passed": true,
+      "detail": "AMBIGUOUS_DUPLICATE_SOURCE_TIMESTAMPS"
+    },
+    {
+      "name": "ambiguous_submicrosecond_mapping_refuses",
+      "passed": true,
+      "detail": "SUBMICROSECOND_TIMESTAMP_MAPPING_NOT_IMPLEMENTED"
+    }
+  ],
+  "passed": 14,
+  "total": 14,
+  "failures": []
+}

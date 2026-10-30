@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/FROZEN_ASSESSMENT.json",
+      "archive": "wapiti-source-label-e48054fa/FROZEN_ASSESSMENT.json",
+      "bytes": 20098,
+      "sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/PERIMETER_MANIFEST_PIN.json",
+      "archive": "wapiti-source-label-e48054fa/PERIMETER_MANIFEST_PIN.json",
+      "bytes": 233,
+      "sha256": "61414b5e5c39ea0f5bbb80d7f9da28452c61d838382ca9aa869c19487336710a"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/PerimeterSample_source.txt",
+      "archive": "wapiti-source-label-e48054fa/PerimeterSample_source.txt",
+      "bytes": 859,
+      "sha256": "226e813c83d9f4e5665fda58ef0037c5405e897e1365c4dc22e7c20fa623b868"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/REVIEW_e480_SOURCE_LABELS.md",
+      "archive": "wapiti-source-label-e48054fa/REVIEW_e480_SOURCE_LABELS.md",
+      "bytes": 4090,
+      "sha256": "780bdf2eda9c19c4874314fa021ebc6579d8d425816af71c4e15838d33109234"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/SOURCE_LABEL_RESULT.json",
+      "archive": "wapiti-source-label-e48054fa/SOURCE_LABEL_RESULT.json",
+      "bytes": 25239,
+      "sha256": "72b3c194b3b977a00565e4f96f49ab474d25bc9027e2dbbbf465b43627af7b3b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/SOURCE_LABEL_RUN.log",
+      "archive": "wapiti-source-label-e48054fa/SOURCE_LABEL_RUN.log",
+      "bytes": 251,
+      "sha256": "a043331b80e1281ba15a14c166171aee75ac30ce4109439206a525ca96a638c4"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/SOURCE_LABEL_RUN.stderr",
+      "archive": "wapiti-source-label-e48054fa/SOURCE_LABEL_RUN.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/SYNTHETIC_SOURCE_JOIN_CONTROLS.json",
+      "archive": "wapiti-source-label-e48054fa/SYNTHETIC_SOURCE_JOIN_CONTROLS.json",
+      "bytes": 2067,
+      "sha256": "02b5168df0347246acdbd3da3b3cd8d5a9df43355298c6803a5615e5f5b25700"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/SYNTHETIC_SOURCE_JOIN_CONTROLS.log",
+      "archive": "wapiti-source-label-e48054fa/SYNTHETIC_SOURCE_JOIN_CONTROLS.log",
+      "bytes": 2067,
+      "sha256": "02b5168df0347246acdbd3da3b3cd8d5a9df43355298c6803a5615e5f5b25700"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/check_source_labels.py",
+      "archive": "wapiti-source-label-e48054fa/check_source_labels.py",
+      "bytes": 9570,
+      "sha256": "91ee0da59d1d34be3d1332d42a88c06309301a6d7535c74ac4c03acdd7e09851"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/pipeline.py.source",
+      "archive": "wapiti-source-label-e48054fa/pipeline.py.source",
+      "bytes": 43682,
+      "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/score_cohorts.py.source",
+      "archive": "wapiti-source-label-e48054fa/score_cohorts.py.source",
+      "bytes": 23370,
+      "sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/test_synthetic_source_join.py",
+      "archive": "wapiti-source-label-e48054fa/test_synthetic_source_join.py",
+      "bytes": 2882,
+      "sha256": "1e42504dacbc0b094194ee903b0c58405e069693c4fd6dd1f76a00a099772d77"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-source-label-review/REVIEW_SHA256.json",
+      "archive": "wapiti-source-label-e48054fa/REVIEW_SHA256.json",
+      "bytes": 1296,
+      "sha256": "eb02aabc6811dbec3a77ab6b98eaa9712f55ee2f601d1482479ad6a776c285f4"
+    }
+  ],
+  "state": "PASS_BOUNDED_FIRST_FIRE_INTEGRITY_ONLY",
+  "snapshot_commit": "e48054fa420af0b0477070f496c88ebc16ed2b8a",
+  "cases": 52,
+  "actual_checks": 11,
+  "separate_synthetic_controls": 14,
+  "counts_not_pooled": "Same52casesacrosstwoactualreviews; controlsnotindependentscientificsamples",
+  "resource_control_from_reviewer": {
+    "acquired_utc": "2026-10-30T15:03:20.064714+00:00",
+    "released_utc": "2026-10-30T15:03:21.283669+00:00",
+    "lock": "/tmp/wfg/HEAVY.lock",
+    "scope": "One advisory lease between numerical cases; no process changed or interrupted. Untimed consistency check, no performance claim."
+  },
+  "no_readiness_execution_or_array_access": true,
+  "prediction_NPZ_or_original_source_arrays_copied": false,
+  "scope": "Original mapped-label/cutoff alignment only. No model probability member decoded, no forecast/model/scorer/native execution, quality metric, histogram/mean, ranking, calibration or figure. No other fire/cohort output opened. Not physical truth, survey coverage completeness or model-prediction replay.",
+  "limit": "Only saved scored coordinates and full recorded initial/endpoint/reference arrays are replayed; environmental, residence/age arrays and model common-validity masks are not recomputed. Raw polygon-to-grid construction and coverage truth remain outside this review.",
+  "full_metrics_census_FARSITE_final5fig_quality": "PENDING_NOT_RUN",
+  "no_physical_truth_environment_residence_age_model_validity_or_prediction_replay": true
+}

@@ -1,0 +1,94 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/ALIGNMENT_RESULT.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/ALIGNMENT_RESULT.json",
+      "bytes": 21976,
+      "sha256": "7320bf6a92d13f0982ff0dbbeda91641f0514a3f53920b03935a4246066d5b42"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/ALIGNMENT_RUN.log",
+      "archive": "wapiti-artifact-alignment-e48054fa/ALIGNMENT_RUN.log",
+      "bytes": 203,
+      "sha256": "45b0eb02d7e8eb880fcff693e1276d77e32568b511d82f5365ee43913ec13f85"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/ALIGNMENT_RUN.stderr",
+      "archive": "wapiti-artifact-alignment-e48054fa/ALIGNMENT_RUN.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/FROZEN_ASSESSMENT.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/FROZEN_ASSESSMENT.json",
+      "bytes": 20098,
+      "sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/FROZEN_US_INVENTORY.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/FROZEN_US_INVENTORY.json",
+      "bytes": 50679,
+      "sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/PRESERVATION_MANIFEST.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/PRESERVATION_MANIFEST.json",
+      "bytes": 13761,
+      "sha256": "e944d96f1b0568fb615a35482182133c13148cf4cc32d222a6dfe676f51e2507"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/REVIEW_e48054fa.md",
+      "archive": "wapiti-artifact-alignment-e48054fa/REVIEW_e48054fa.md",
+      "bytes": 3611,
+      "sha256": "a577dde0811bf6242eaaa74b26f65d78deeaeeefc634ae430d118667376c5ee8"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/SYNTHETIC_ALIGNMENT_CONTROLS.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/SYNTHETIC_ALIGNMENT_CONTROLS.json",
+      "bytes": 1787,
+      "sha256": "fcd5297460ef377e804cce965048c24187e29ec2fdba37b70bada90df8a52d19"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/SYNTHETIC_ALIGNMENT_CONTROLS.log",
+      "archive": "wapiti-artifact-alignment-e48054fa/SYNTHETIC_ALIGNMENT_CONTROLS.log",
+      "bytes": 1787,
+      "sha256": "fcd5297460ef377e804cce965048c24187e29ec2fdba37b70bada90df8a52d19"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/check_alignment.py",
+      "archive": "wapiti-artifact-alignment-e48054fa/check_alignment.py",
+      "bytes": 9761,
+      "sha256": "55fa5410b3387a6440b257a6d0a941b3f7265a9d3fe471b3ea1d47f11bc13c9f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/test_synthetic_alignment.py",
+      "archive": "wapiti-artifact-alignment-e48054fa/test_synthetic_alignment.py",
+      "bytes": 3055,
+      "sha256": "eef6d49f8021a9b4641e79ec35e416c673649ae1ed1ac522f0ee6b803394c89b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/wapiti-artifact-alignment-review/REVIEW_SHA256.json",
+      "archive": "wapiti-artifact-alignment-e48054fa/REVIEW_SHA256.json",
+      "bytes": 1075,
+      "sha256": "7807960557a93af2ffde1e90be42ec45f5487fde22f99d46267fc3b4dc148a3e"
+    }
+  ],
+  "state": "PASS_BOUNDED_FIRST_FIRE_INTEGRITY_ONLY",
+  "snapshot_commit": "e48054fa420af0b0477070f496c88ebc16ed2b8a",
+  "cases": 52,
+  "actual_checks": 12,
+  "separate_synthetic_controls": 13,
+  "counts_not_pooled": "Same52casesacrosstwoactualreviews; controlsnotindependentscientificsamples",
+  "resource_control_from_reviewer": {
+    "lock": "/tmp/wfg/HEAVY.lock",
+    "acquired_utc": "2026-10-30T14:53:56.781097+00:00",
+    "released_utc": "2026-10-30T14:53:58.327087+00:00",
+    "scope": "Single advisory lease acquired between numerical cases; no process interrupted. Untimed functional audit, no latency claim."
+  },
+  "no_readiness_execution_or_array_access": true,
+  "prediction_NPZ_or_original_source_arrays_copied": false,
+  "scope": "Only completed immutable Wapiti case/aggregate schema and byte/value alignment. No Brier, AP, AUC, NLL, ECE, rankings, calibration, probability means/histograms, figures, model load or forecast. No other cohort output opened. No source prediction/raster truth replay or scientific validation.",
+  "limit": "Initial/endpoint/environment/residence/source-mask hashes are checked for receipt consistency and binding to the frozen assessment; raw scientific source arrays are not independently rehashed or replayed.",
+  "full_metrics_census_FARSITE_final5fig_quality": "PENDING_NOT_RUN",
+  "no_physical_truth_environment_residence_age_model_validity_or_prediction_replay": true
+}

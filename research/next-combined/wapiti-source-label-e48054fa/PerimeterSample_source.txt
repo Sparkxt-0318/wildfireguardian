@@ -1,0 +1,22 @@
+@dataclass
+class PerimeterSample:
+    """One interval: raw environment at the cutoff and the mapped endpoint.
+
+    Arrays are numpy on the (cropped) event grid. ``label_weight`` is one for
+    perimeters and the kriging weight for kriged windows; ``score_mask`` marks
+    known, initially unburned cells that enter the loss.
+    """
+
+    event_id: str
+    t1: str
+    hours: float
+    environment: np.ndarray  # [C, H, W] raw, NaN where unknown
+    initial: np.ndarray  # [H, W] bool
+    endpoint: np.ndarray  # [H, W] bool
+    score_mask: np.ndarray  # [H, W] bool
+    label_weight: np.ndarray  # [H, W] float
+    initial_age_hours: np.ndarray  # [H, W] float, 0 where unknown
+    kind: str = "perimeter"  # or "kriged"
+    weather: str = "cutoff_repeated"
+    meta: dict[str, Any] = field(default_factory=dict)
+    residence_hours: np.ndarray | None = None

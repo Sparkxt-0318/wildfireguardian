@@ -34,11 +34,11 @@
     },
     "1B": {
       "source_head": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
-      "status": "VERIFIED_FROZEN_CURRENT_COHORT_AUTHORIZED_STARTED_NUMERICAL_RESULTS_UNREAD",
+      "status": "CURRENT_COHORT_RUNNING_FIRST_FIRE_INTEGRITY_PASS_WITH_SCOPE_NO_QUALITY_OR_FINAL_RESULT",
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
-      "current_assessment_clearance": "Freeze6887committed/published; root223bytechecksandindependent25metadatareviewPASSwithinScope. Rootexplicitlyauthorizedonlyfrozen273US+33KRandstartreceiptcomplete. Numericalresultsunread, final306census/metricsreviewNOT_RUN, future2026NOT_READY, no merge/defaultpromotion.",
+      "current_assessment_clearance": "Freeze/currentauthorizationunchanged. TwoindependentWapiti52integrityreviewsscopedPASS, noquality/model/physicalvalidation. US80/273snapshotintermediate, KR0queued; fullb3f/census/FARSITE/5fig/qualitypending, no promotion/merge/future2026.",
       "numerical_evidence": "21_DEVELOPMENT_7_TRAINED_FINALS_12_A06_66_AGGREGATE_SAVED_RECONCILIATION_PASS_CANONICAL_COVERAGE_HOLD",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
@@ -172,7 +172,7 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "Owner14:10:24Z intermediateUS31/273allreportedSCORED,Wapiti; KR0queued,223unchanged. Census34syntheticprepared,actualNOT_RUN; rootstaticdriverreviewPASSscopeonly. Noactualoutputsread/poll.",
+        "controllers": "Owner15:03:46Z intermediateUS80/273allreportedSCORED(Wapiti52Goat28),KR0queued,223unchanged. ClosedWapiti52integrityreviewsPASSwithinScope; fullcohort/qualitychecksNOT_RUN. No liveoutputpoll orqualityinspectionbyreadiness.",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
@@ -831,14 +831,18 @@
         "HEAVY_kernel_acquisition_instrumented": false,
         "external_held_lock_observed_utc": "2026-10-30T13:25:23Z",
         "intermediate_progress_from_owner_only": {
-          "snapshot_utc": "2026-10-30T14:10:24Z",
-          "US_SCORED": 31,
+          "snapshot_utc": "2026-10-30T15:03:46Z",
+          "US_SCORED": 80,
           "US_total": 273,
-          "all_31_reported_states": "SCORED",
-          "active_event_reported": "Wapiti",
+          "reported_by_fire": {
+            "Wapiti": 52,
+            "Goat": 28
+          },
+          "all_80_reported_states": "SCORED",
           "KR_complete": 0,
           "KR_state": "QUEUED",
-          "all223_unchanged_reported": true
+          "all223_unchanged_reported": true,
+          "newer83_without_exact_observation_recorded": false
         },
         "results_read_by_readiness": false,
         "actual_completed_cohort_validation": "NOT_RUN",
@@ -853,7 +857,8 @@
           "read_by_readiness": false,
           "no_score_quality_or_completeness_claim": true
         },
-        "driver_provenance_reported": "f5441481explicitdriver1unexecuted/driver2executing; noearlierunfinisheddiagnosticfolderopened"
+        "driver_provenance_reported": "f5441481explicitdriver1unexecuted/driver2executing; noearlierunfinisheddiagnosticfolderopened",
+        "closed_integrity_review_reports_archived_only": true
       },
       "current_census_preparation": {
         "state": "PREPARED_34_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
@@ -883,6 +888,41 @@
         "outer_HEAVY_lease": false,
         "actual_driver_replay": false,
         "model_array_label_metric_access": false
+      },
+      "wapiti_integrity": {
+        "state": "BOUNDED_SAVED_ARTIFACT_AND_ORIGINAL_MAPPED_LABEL_PASS_NO_QUALITY",
+        "snapshot_commit": "e48054fa420af0b0477070f496c88ebc16ed2b8a",
+        "cases": 52,
+        "alignment_review": "wapiti-artifact-alignment-e48054fa/REVIEW_e48054fa.md",
+        "alignment_inventory": "wapiti-artifact-alignment-e48054fa/SOURCE_INVENTORY.json",
+        "alignment_actual_checks": 12,
+        "alignment_separate_synthetic_controls": 13,
+        "artifact_hashes_reported": 107,
+        "model_columns": 16,
+        "aggregate_bytes": 17331815,
+        "aggregate_sha256": "5a8058068965de251d0716e9da37f7278d93272cda12514f92f7356196069563",
+        "preservation_manifest_sha256": "e944d96f1b0568fb615a35482182133c13148cf4cc32d222a6dfe676f51e2507",
+        "alignment_scope": "Exact52case\u2192perfirepayload,dtypes,coordinates/masks/counts/interval/t1/hours; nooriginalscientificinputreplayinfirstaudit. Schema/bytesonly, no qualitymetrics/rank/means/calibration.",
+        "source_label_review": "wapiti-source-label-e48054fa/REVIEW_e480_SOURCE_LABELS.md",
+        "source_label_inventory": "wapiti-source-label-e48054fa/SOURCE_INVENTORY.json",
+        "source_label_actual_checks": 11,
+        "source_label_separate_synthetic_controls": 14,
+        "original_source_timestamps": 63,
+        "original_grid": [
+          111,
+          105
+        ],
+        "crop": false,
+        "source_label_scope": "Pinsoriginalmappedstates andexactcutoff/endpoint/referencehashes atfullgridscoredcoordinates. Source-labelreplayleavesprobabilitymembersunopened. Closesonlyinitial/endpoint/referenceinputlinklimitfromalignmentaudit.",
+        "prediction_or_source_arrays_copied_by_readiness": false,
+        "readiness_replay": false,
+        "both_reviews_same52cases_counts_not_pooled": true,
+        "no_quality_metrics_rank_means_calibration_or_model_SC_execution": true,
+        "no_physical_truth_polygon_grid_coverage_environment_residence_age_common_model_validity_or_prediction_replay": true,
+        "alignment_boundary_lease_reported": "14:53:56.78..14:53:58.33Z",
+        "source_label_boundary_lease_reported": "15:03:20.06..15:03:21.28Z",
+        "no_interruption_or_performance_claim": true,
+        "full_b3f_census_FARSITE_final5figure_quality": "PENDING_NOT_RUN"
       }
     },
     "1C": {
@@ -1068,8 +1108,8 @@
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
     "integration_published_head": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
-    "coordinator_unpublished_head_reported": "3680e7be416ff4bd2579bf9e57bb3ed2b1eac13d",
-    "coordinator_plan_sync": "coordinator-plan-sync-freeze-start.json",
+    "coordinator_unpublished_head_reported": "68abecf23dd048df28595abb25a004c05fd49f05",
+    "coordinator_plan_sync": "coordinator-plan-sync-wapiti-integrity.json",
     "current_plan_note": "Exact coordinator history synced. Freeze/source/custody and explicitcurrent-onlyauthorization/start recordedseparatelyfromnumericalresults; noresultfilesopened."
   },
   "logical_review_order": [
@@ -1117,7 +1157,9 @@
     "pre_freeze_start_summary": "history/pre-freeze-start-b52e5ae8/README.md",
     "pre_freeze_start_inventory": "history/pre-freeze-start-b52e5ae8/ARCHIVE_INDEX.json",
     "pre_census_driver_preparation_summary": "history/pre-census-driver-preparation-9a81c8ce/README.md",
-    "pre_census_driver_preparation_inventory": "history/pre-census-driver-preparation-9a81c8ce/ARCHIVE_INDEX.json"
+    "pre_census_driver_preparation_inventory": "history/pre-census-driver-preparation-9a81c8ce/ARCHIVE_INDEX.json",
+    "pre_wapiti_integrity_summary": "history/pre-wapiti-integrity-06b2d5fe/README.md",
+    "pre_wapiti_integrity_inventory": "history/pre-wapiti-integrity-06b2d5fe/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -1140,5 +1182,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T14:18:48.611597+00:00"
+  "updated_utc": "2026-10-30T15:09:36.927315+00:00"
 }

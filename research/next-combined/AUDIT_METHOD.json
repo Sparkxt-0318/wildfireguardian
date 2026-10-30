@@ -97,7 +97,8 @@
     "LatercompletedcanonicalownerPASS21development7finalarchivedonlyafterparentauthorizedcompletedpins; laterindependentcanonicalreview9841scopedPASSrecordedseparately, noactualarray/value/modelreplay. Originalce772HOLD/provisionalraw-wrapper retained. Noauditor/array/member/cache/modelreplayorfreeze. Exactcoordinator861runninglogpreservedwithoutrewriting.",
     "Canonicalreview9841correlatedmetadata/custodypredicatesPASS, notscientificsamples. Owneractualruntimeattestationandreviewercurrent61/201byteverificationarescope-distinct. Nocache/member/array/modelreplay. Historicalprefreeze stage preserved; later6887verifiedandonlycurrent273US+33KRauthorized, numericaloutputsunopened. Step4stillgated.",
     "Freeze6887root223bytechecks/independent25metadataPASSseparatefromnumericalresults. Rootauthorizationonly273US+33KR,startreceiptcomplete. Owner3/273snapshotintermediate; liveoutputsunopened. No checkpoint/logisticbinariescopied/read. Leasekernelacquisitionuninstrumented. Full306censusguardpreparing/actualNOT_RUN; future2026NOT_READY, nomerge/defaultpromotion.",
-    "Additive34-controlcensusguardpreparedonly, actualNOT_RUN; unchangedb3f38metriccheckerremainsseparate. Rootdriver2staticmodule+oneUSargvreviewonly, nodriverreplay/kernelacquisitionproof. US31/273snapshotintermediate, first20durableoutputsnotcohortresult; noactualoutputsread. Source/default/Aphysics/future2026gatesunchanged."
+    "Additive34-controlcensusguardpreparedonly, actualNOT_RUN; unchangedb3f38metriccheckerremainsseparate. Rootdriver2staticmodule+oneUSargvreviewonly, nodriverreplay/kernelacquisitionproof. US31/273snapshotintermediate, first20durableoutputsnotcohortresult; noactualoutputsread. Source/default/Aphysics/future2026gatesunchanged.",
+    "Wapitiimmutable52integrityreviews:12artifact/13syntheticand11originalmappedlabel/14syntheticchecks, notpooled. Readinesscopyofreports/code/metadataonly,noarrays/probabilitymembersread. Source-labelreviewitselfopensonlyrow/col/y, notprobabilities. No quality/model/physicaltruth orotherscientificinputreplay; fullcohortchecksremainNOT_RUN."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -928,14 +929,18 @@
     "HEAVY_kernel_acquisition_instrumented": false,
     "external_held_lock_observed_utc": "2026-10-30T13:25:23Z",
     "intermediate_progress_from_owner_only": {
-      "snapshot_utc": "2026-10-30T14:10:24Z",
-      "US_SCORED": 31,
+      "snapshot_utc": "2026-10-30T15:03:46Z",
+      "US_SCORED": 80,
       "US_total": 273,
-      "all_31_reported_states": "SCORED",
-      "active_event_reported": "Wapiti",
+      "reported_by_fire": {
+        "Wapiti": 52,
+        "Goat": 28
+      },
+      "all_80_reported_states": "SCORED",
       "KR_complete": 0,
       "KR_state": "QUEUED",
-      "all223_unchanged_reported": true
+      "all223_unchanged_reported": true,
+      "newer83_without_exact_observation_recorded": false
     },
     "results_read_by_readiness": false,
     "actual_completed_cohort_validation": "NOT_RUN",
@@ -950,7 +955,8 @@
       "read_by_readiness": false,
       "no_score_quality_or_completeness_claim": true
     },
-    "driver_provenance_reported": "f5441481explicitdriver1unexecuted/driver2executing; noearlierunfinisheddiagnosticfolderopened"
+    "driver_provenance_reported": "f5441481explicitdriver1unexecuted/driver2executing; noearlierunfinisheddiagnosticfolderopened",
+    "closed_integrity_review_reports_archived_only": true
   },
   "B_current_census_preparation": {
     "state": "PREPARED_34_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
@@ -980,5 +986,40 @@
     "outer_HEAVY_lease": false,
     "actual_driver_replay": false,
     "model_array_label_metric_access": false
+  },
+  "B_wapiti_integrity": {
+    "state": "BOUNDED_SAVED_ARTIFACT_AND_ORIGINAL_MAPPED_LABEL_PASS_NO_QUALITY",
+    "snapshot_commit": "e48054fa420af0b0477070f496c88ebc16ed2b8a",
+    "cases": 52,
+    "alignment_review": "wapiti-artifact-alignment-e48054fa/REVIEW_e48054fa.md",
+    "alignment_inventory": "wapiti-artifact-alignment-e48054fa/SOURCE_INVENTORY.json",
+    "alignment_actual_checks": 12,
+    "alignment_separate_synthetic_controls": 13,
+    "artifact_hashes_reported": 107,
+    "model_columns": 16,
+    "aggregate_bytes": 17331815,
+    "aggregate_sha256": "5a8058068965de251d0716e9da37f7278d93272cda12514f92f7356196069563",
+    "preservation_manifest_sha256": "e944d96f1b0568fb615a35482182133c13148cf4cc32d222a6dfe676f51e2507",
+    "alignment_scope": "Exact52case\u2192perfirepayload,dtypes,coordinates/masks/counts/interval/t1/hours; nooriginalscientificinputreplayinfirstaudit. Schema/bytesonly, no qualitymetrics/rank/means/calibration.",
+    "source_label_review": "wapiti-source-label-e48054fa/REVIEW_e480_SOURCE_LABELS.md",
+    "source_label_inventory": "wapiti-source-label-e48054fa/SOURCE_INVENTORY.json",
+    "source_label_actual_checks": 11,
+    "source_label_separate_synthetic_controls": 14,
+    "original_source_timestamps": 63,
+    "original_grid": [
+      111,
+      105
+    ],
+    "crop": false,
+    "source_label_scope": "Pinsoriginalmappedstates andexactcutoff/endpoint/referencehashes atfullgridscoredcoordinates. Source-labelreplayleavesprobabilitymembersunopened. Closesonlyinitial/endpoint/referenceinputlinklimitfromalignmentaudit.",
+    "prediction_or_source_arrays_copied_by_readiness": false,
+    "readiness_replay": false,
+    "both_reviews_same52cases_counts_not_pooled": true,
+    "no_quality_metrics_rank_means_calibration_or_model_SC_execution": true,
+    "no_physical_truth_polygon_grid_coverage_environment_residence_age_common_model_validity_or_prediction_replay": true,
+    "alignment_boundary_lease_reported": "14:53:56.78..14:53:58.33Z",
+    "source_label_boundary_lease_reported": "15:03:20.06..15:03:21.28Z",
+    "no_interruption_or_performance_claim": true,
+    "full_b3f_census_FARSITE_final5figure_quality": "PENDING_NOT_RUN"
   }
 }
