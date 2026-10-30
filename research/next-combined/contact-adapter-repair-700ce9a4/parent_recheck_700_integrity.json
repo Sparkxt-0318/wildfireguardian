@@ -1,0 +1,343 @@
+{
+  "head": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "scope": "Parent source/receipt integrity and tiny repair checks only, not a native campaign or physical validation.",
+  "hash_checks": [
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/README.md",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/requirements-test.txt",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/__init__.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/adapter.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/bruteforce.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/frontend.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/geometry.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/intervals.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/known_footprint.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/predicate.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/restricted_sweep.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/src/wfg_sipp/sipp.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/strategies.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_known_footprint.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_known_footprint_boundaries.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_native_guard.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_predicate.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "experimental/sipp-routing/tests/test_sipp_property.py",
+      "pass": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "research/sipp-routing/verify_known_footprint_adapter.py",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/audit_member_scaling.py",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/census_saved_member_support.py",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/FULL_MEMBER_SUPPORT_CENSUS.md",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030/FAILURE.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/full-member-support-census-20261030/MEMBER_SUPPORT.csv",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/full-member-support-census-20261030/RESULTS.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/full-member-support-census-20261030/RECEIPT.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-02-result.npz",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-02-result.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-02-input.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-00-result.npz",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/RESULTS.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-04-result.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-01-result.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-00-input.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-03-input.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-03-result.npz",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-03-result.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-01-input.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/CONTROL_RECEIPT.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-04-result.npz",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-00-result.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-01-result.npz",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/graph-04-input.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/KNOWN_FOOTPRINT_CONTACT_PLAN.md",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/KNOWN_FOOTPRINT_TOPOLOGY_RESULT.md",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/KNOWN_FOOTPRINT_SOURCE_SCOPE.md",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/KNOWN_FOOTPRINT_SOURCE_PRECONDITIONS.json",
+      "pass": true
+    },
+    {
+      "group": "preserved_evidence_sha256",
+      "path": "research/sipp-routing/known-footprint-topology-20261030/RECEIPT.json",
+      "pass": true
+    },
+    {
+      "group": "reviewed_artifacts_preserved_sha256",
+      "path": "experimental/sipp-routing/tests/test_known_footprint.py",
+      "pass": true
+    },
+    {
+      "group": "reviewed_artifacts_preserved_sha256",
+      "path": "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md",
+      "pass": true
+    },
+    {
+      "group": "reviewed_artifacts_preserved_sha256",
+      "path": "research/sipp-routing/KNOWN_FOOTPRINT_ADAPTER_RECEIPT.json",
+      "pass": true
+    },
+    {
+      "group": "reviewed_artifacts_preserved_sha256",
+      "path": "research/sipp-routing/verify_known_footprint_adapter.py",
+      "pass": true
+    },
+    {
+      "group": "manifest",
+      "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/experimental/sipp-routing/SOURCE_SHA256.json",
+      "pass": true
+    }
+  ],
+  "hash_passed": 65,
+  "hash_total": 65,
+  "independent_boundary_controls": "api_boundaries_700_parent.json:17/17",
+  "targeted_pytest": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=work/audit-1c/experimental/sipp-routing/src:work/audit-1c/experimental/scenario-members/src:work/audit-1c/experimental/synthetic-truth/src work/venv-routing/bin/python -m pytest work/audit-1c/experimental/sipp-routing/tests/test_known_footprint.py work/audit-1c/experimental/sipp-routing/tests/test_known_footprint_boundaries.py -q -p no:cacheprovider",
+    "exit_code": 0,
+    "observed_stdout_summary": "72 passed in 1.02s",
+    "timing_is_performance_evidence": false
+  },
+  "dirty": ""
+}

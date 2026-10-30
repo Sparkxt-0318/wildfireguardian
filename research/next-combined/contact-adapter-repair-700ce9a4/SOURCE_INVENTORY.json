@@ -1,0 +1,61 @@
+{
+  "source_head": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/REVIEW_fd8bf2e7.md",
+      "archive": "contact-adapter-repair-700ce9a4/REVIEW_fd8bf2e7.md",
+      "sha256": "197e1eb7ad7349165ced3e938e4eaf7e714023619189bc6c197ad97a984a4056",
+      "bytes": 7530
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/api_boundaries_700_parent.json",
+      "archive": "contact-adapter-repair-700ce9a4/api_boundaries_700_parent.json",
+      "sha256": "bff804da263a6e97aac453b8c667aadf578c116631f52ba870d4c5ad07e48374",
+      "bytes": 4418
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/api_boundaries_700_parent.py",
+      "archive": "contact-adapter-repair-700ce9a4/api_boundaries_700_parent.py",
+      "sha256": "6166d5ecb09f6f166161f28b37e64a741b29f4f2f650fa2fe6f7622018571b2f",
+      "bytes": 4930
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/api_boundaries_fd8bf2e7.json",
+      "archive": "contact-adapter-repair-700ce9a4/api_boundaries_fd8bf2e7.json",
+      "sha256": "454e518ea198d34876bdbbca929bb232e92eee9deb4236aecec9d33756f30fd9",
+      "bytes": 1606
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/api_boundaries_fd8bf2e7.py",
+      "archive": "contact-adapter-repair-700ce9a4/api_boundaries_fd8bf2e7.py",
+      "sha256": "058717197551f136a553dc96a4bf1adb26158524ad98120ebf9f730841126249",
+      "bytes": 3775
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/check_receipt_metadata.py",
+      "archive": "contact-adapter-repair-700ce9a4/check_receipt_metadata.py",
+      "sha256": "1db8f10d557ef4eb130cc3d4801eac323736af92007c7fc222ef2788c5eec99e",
+      "bytes": 1486
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/parent_recheck_700_integrity.json",
+      "archive": "contact-adapter-repair-700ce9a4/parent_recheck_700_integrity.json",
+      "sha256": "708fb9d9b15d61000c271ea6de1cf9b2978a17f3e95d10270aa2356d8498374e",
+      "bytes": 10989
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/receipt_checks.json",
+      "archive": "contact-adapter-repair-700ce9a4/receipt_checks.json",
+      "sha256": "854d4344cbd03055a513a70e199676e63cf220a1a3a110df64233f5392d102dd",
+      "bytes": 337
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-adapter-review/targeted_tests.log",
+      "archive": "contact-adapter-repair-700ce9a4/targeted_tests.log",
+      "sha256": "9dc1c716af9b7e2188c33c771a39f7f9e8e62a655cf6bada533caf64e6985f19",
+      "bytes": 99
+    }
+  ],
+  "scope": "Exact unchanged archive of other reviewer initial three-defect review plus parent17/17 repaired tiny controls,65/65 custody checks and72-test receipt; no rerun here. Script directory assumptions retained, no relocated replay.",
+  "source_failure_retained": true
+}

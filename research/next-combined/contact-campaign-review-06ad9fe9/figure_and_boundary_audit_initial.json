@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "name": "three_exact_width_300dpi_PNG_and_matching_SVG",
+      "passed": true,
+      "detail": [
+        {
+          "png": "fig01_contact_K_time_paired.png",
+          "pixels": [
+            2160,
+            930
+          ],
+          "dpi": [
+            299.9994,
+            299.9994
+          ],
+          "width_in": 7.199999999999999,
+          "pass_metadata": true
+        },
+        {
+          "png": "fig02_states_vs_members.png",
+          "pixels": [
+            2160,
+            1140
+          ],
+          "dpi": [
+            299.9994,
+            299.9994
+          ],
+          "width_in": 7.199999999999999,
+          "pass_metadata": true
+        },
+        {
+          "png": "fig03_contact_K_outcomes.png",
+          "pixels": [
+            1050,
+            900
+          ],
+          "dpi": [
+            299.9994,
+            299.9994
+          ],
+          "width_in": 3.5,
+          "pass_metadata": true
+        }
+      ]
+    },
+    {
+      "name": "source_commit_precedes_first_lease",
+      "passed": true,
+      "detail": {
+        "source_commit": "2026-10-30T08:26:27+00:00",
+        "first_lease": "2026-10-30T08:26:51.001654+00:00"
+      }
+    },
+    {
+      "name": "figure3_stack_counts_from_raw_rows",
+      "passed": true,
+      "detail": [
+        {
+          "K": 4,
+          "total": 80,
+          "contact": 20,
+          "unknown": 56,
+          "restricted": 4
+        },
+        {
+          "K": 8,
+          "total": 80,
+          "contact": 20,
+          "unknown": 56,
+          "restricted": 4
+        },
+        {
+          "K": 16,
+          "total": 80,
+          "contact": 20,
+          "unknown": 56,
+          "restricted": 4
+        },
+        {
+          "K": 32,
+          "total": 80,
+          "contact": 12,
+          "unknown": 56,
+          "restricted": 12
+        }
+      ]
+    },
+    {
+      "name": "figure2_positive_counters_and_two_matching_repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "explicit_claim_and_timing_limits",
+      "passed": false,
+      "detail": null
+    }
+  ],
+  "checks_passed": 4,
+  "checks_total": 5,
+  "failures": [
+    {
+      "name": "explicit_claim_and_timing_limits",
+      "passed": false,
+      "detail": null
+    }
+  ],
+  "visual_review": "Independently viewed all three final PNGs. Labels, units, legend, logarithmic axes, matching scope and data inclusion are legible. Repetition markers overlap where counts match, consistent with caption. SVG bytes/dimensions checked; SVG not independently browser-rendered."
+}

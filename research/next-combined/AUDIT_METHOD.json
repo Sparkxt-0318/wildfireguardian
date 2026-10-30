@@ -3,11 +3,15 @@
   "record_kind": "Current readiness summary; original detailed method archived verbatim",
   "current_sources": {
     "A_math": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "B_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+    "B_admission": "a5ba82108c44956c01071d8450751b5d2defa387",
     "C_software": "e68123d81fb9064ad057425d7c954f923b50097c",
-    "C_report_publication": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+    "C_report_publication": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
     "B_future_adapter": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
-    "B_phase_support": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2"
+    "B_phase_support": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+    "C_contact_campaign": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+    "C_contact_adapter": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
+    "B_report_alias": "637457f3118bad5575dd6b4b83c74511d93bbd43",
+    "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d"
   },
   "graphs": {
     "integration": {
@@ -48,6 +52,16 @@
       "project": "wfg-next-1b-audit-bbb49a38-20261030",
       "generation": "2026-10-30T07:46:44Z",
       "coverage": "Core4files and relevant indexed tests metadata_match. Entire research scripts subtree excluded/not_tracked, one recorded scope gap, no pagination remaining. Complete coverage helper, registry builder and public runner directly read; material pipeline/report/scorer source read in chunks, unchanged blind-tool body reused from prior full9b read after exact11added/2removed diff. No exhaustive graph or source-proof claim."
+    },
+    "C_conditional_campaign": {
+      "project": "wfg-next-1c-audit-06ad9fe9-20261030",
+      "generation": "2026-10-30T08:39:46Z",
+      "coverage": "Readiness checked report/README metadata_match; figures excluded and archived by exact bytes. Independent reviewer supplied Tier2controller/analyzer/snippet/trace/directJSONL/visual audit, no new readiness source proof or payload/solver replay."
+    },
+    "B_development_admission": {
+      "project": "wfg-next-1b-audit-a5ba8210-20261030",
+      "generation": "2026-10-30T08:44:12Z",
+      "coverage": "Other independent reviewerTier2/full excluded-source fallback scope retained in exact report. This readiness turn archives/checks digests, not a new code audit."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -55,12 +69,13 @@
   "other_reviewer_archive_scope": "Exact future-inventory and radiation review bytes retained with source pins; no new fixture runs by readiness auditor.",
   "history": "history/AUDIT_METHOD-before-current-63944855.json",
   "limitations": [
-    "Graph coverage is a best-effort signal, not a completeness proof",
-    "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
-    "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
-    "C risk records unscorable, whole-road and full-policy validation open",
-    "Scoped completeness software repair passes; actual final artifacts, source-class/model compatibility and wind semantics remain unverified by this readiness audit. Historical source inference is not runtime logging.",
-    "Currentbbb phase admission/report remains HOLD with two independently reproduced software findings. Earlier a6/6c passes are preserved and cannot confer current admission. Wind12control clearance is separately coordinator-reported, not rerun here."
+    "Graph coverage is a best-effort signal, not proof of source completeness.",
+    "A empirical physics remains HOLD;42functional and367release checks are not physical validation.",
+    "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual seven-fit coverage/development-only selection/registry and heldout remain pending.",
+    "B paired ablation CI/reporting has a newly coordinator-reported support-weight defect; training/equal-fire selection and numerical-job clearance are unaffected. Exact followup metric-review archive is pending.",
+    "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
+    "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
+    "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -171,6 +186,138 @@
     "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
     "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
     "actual_study_inputs_or_models_accessed": false,
-    "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit"
+    "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit",
+    "history_role": "Retained bbb failure stage, superseded in scoped software admission by separatea5ba23+6review and reportalias6372/2repair"
+  },
+  "C_conditional_campaign_archive": {
+    "state": "COMPLETE_CONDITIONAL_CONTACT_AUDIT_PASS",
+    "report_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
+    "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+    "evidence": "contact-campaign-evidence-06ad9fe9/README.md",
+    "inventory": "contact-campaign-evidence-06ad9fe9/SOURCE_INVENTORY.json",
+    "results": "contact-campaign-evidence-06ad9fe9/RESULTS.json",
+    "analysis": "contact-campaign-evidence-06ad9fe9/ANALYSIS.json",
+    "independent_review": "contact-campaign-review-06ad9fe9/REVIEW_06ad9fe9.md",
+    "independent_inventory": "contact-campaign-review-06ad9fe9/SOURCE_INVENTORY.json",
+    "independent_output_checks": {
+      "checks": 22,
+      "passed": 22
+    },
+    "independent_figure_boundary_checks": {
+      "checks": 5,
+      "passed": 5
+    },
+    "independent_hash_scope": {
+      "output_files": 339,
+      "actual_input_files": 115,
+      "actual_input_bytes": 82454885,
+      "source_evidence_pins": 41
+    },
+    "independent_scope": "Saved receipts/control flow and all ledgers/hashes checked, not geometric witness replay; readiness archived exact review bytes, no duplicate audit",
+    "records": 320,
+    "missions": 20,
+    "K": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "methods": 2,
+    "verification_repetitions": 2,
+    "paired_records": 160,
+    "completed_search_pairs": 48,
+    "matched_contact_arrival_pairs": 36,
+    "matched_restricted_exhaustion_pairs": 12,
+    "unknown_endpoint_pairs": 112,
+    "unknown_endpoint_records": 224,
+    "unknown_endpoint_solver_costs": null,
+    "search_started_records": 96,
+    "returned_route_records": 72,
+    "separate_raw_route_recheck_receipts": 72,
+    "planner_sipp_over_sweep_median": 0.5611112819152877,
+    "complete_child_sipp_over_sweep_median": 0.6715735321753618,
+    "slower_planner_pairs": 0,
+    "timing_scope": "Descriptive host-specific paired measurements on48completed-search pairs only; no admission-only cost or universal speedup",
+    "host": "macOS-27.0.1-arm64-arm-64bit",
+    "seed": 20261008,
+    "source_horizon_s": 3600,
+    "flaming_tail_T_s": 3970.4642815249267,
+    "scope": "Known-footprint represented contact restriction only; unknown occupied source refuses, restricted exhaustion unresolved for original domain; peak/dose/full-policy/risk/physical safety remain unknown",
+    "parent_ownership": {
+      "changed_files": 643,
+      "pass_check": true
+    },
+    "parent_release": {
+      "copied_hashes": 367,
+      "pass_check": true
+    },
+    "owner_post_campaign_tests": {
+      "passed": 129,
+      "skipped": 4,
+      "exit_code": 0,
+      "rerun_here": false
+    },
+    "prior_strict_whole_domain_census_unchanged": true
+  },
+  "parent_repairs": {
+    "B_report_alias": {
+      "source_head": "637457f3118bad5575dd6b4b83c74511d93bbd43",
+      "review": "report-alias-repair-637457f3/report-name-repaired-637457f3-parent.json",
+      "inventory": "report-alias-repair-637457f3/SOURCE_INVENTORY.json",
+      "checks": 2,
+      "passed": 2,
+      "executed_by": "Parent, archived and source Git object hashes checked by readiness auditor",
+      "scope": "Name/gate lookup only, source-auth entry points mocked and dummy figures; no study data-admission or visual clearance",
+      "original_failure": "audit/1b-report-name-bbb49a38.json"
+    },
+    "C_contact_adapter": {
+      "source_head": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
+      "inventory": "contact-adapter-repair-700ce9a4/SOURCE_INVENTORY.json",
+      "initial_review": "contact-adapter-repair-700ce9a4/REVIEW_fd8bf2e7.md",
+      "repair_audit": "contact-adapter-repair-700ce9a4/api_boundaries_700_parent.json",
+      "tiny_controls": {
+        "checks": 17,
+        "passed": 17
+      },
+      "parent_hash_checks": {
+        "checks": 65,
+        "passed": 65
+      },
+      "parent_targeted_pytest": {
+        "passed": 72,
+        "exit_code": 0,
+        "timing_is_performance_evidence": false
+      },
+      "readiness_action": "Exact archive and producer/original fixture SHA verification only, no rerun; counts overlap and are not summed"
+    }
+  },
+  "B_development_admission_archive": {
+    "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "review": "development-admission-review-a5ba8210/REVIEW_a5ba8210.md",
+    "inventory": "development-admission-review-a5ba8210/SOURCE_INVENTORY.json",
+    "admission_controls": {
+      "checks": 23,
+      "passed": 23
+    },
+    "historical_skip_controls": {
+      "checks": 6,
+      "passed": 6
+    },
+    "counts_not_summed": true,
+    "executed_by": "Other independent reviewer, exact archive verified here without rerun",
+    "actual_data_or_model_access": false,
+    "training_executed": false,
+    "scope": "Fixed final-argument/development source and exact prefix membership, historical unsupported accounting, source-derived labels, selection/registry/saved-proof binding and distinct a06 comparison output paths; actual all7fit coverage/selection/registry still pending"
+  },
+  "B_paired_ablation_report_current": {
+    "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
+    "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "origin": "Coordinator relayed independent preheldout metric review; exact followup archive pending",
+    "finding": "Subtracting weighted error sums with the base weight denominator can fabricate a paired difference/CI when model support weights differ",
+    "synthetic_reproduction": "Equal per-fire Brier0.1 with baseweight100 and burnoutweight50 yields reported difference-0.05 and CI excludingzero",
+    "training_and_equal_fire_selection": "UNAFFECTED",
+    "training_resume_hold": false,
+    "repair": "Reporting-only repair pending; fixed61numerical source remains unchanged during the active fit",
+    "actual_heldout_inspection": false
   }
 }

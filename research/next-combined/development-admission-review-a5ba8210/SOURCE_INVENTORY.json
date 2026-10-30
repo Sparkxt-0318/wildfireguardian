@@ -1,0 +1,48 @@
+{
+  "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+  "files": {
+    "audit_a5ba8210.log": {
+      "sha256": "8a8f35dae4d68acfb4d2f0ea38a709f4a7f49f573615aad59c8736ccd2130be3",
+      "bytes": 50
+    },
+    "audit_a5ba8210.py": {
+      "sha256": "57a4e1dbc21d6b6211fc7e12b260e19830188ad4ebc29621e78a82a61d9b8201",
+      "bytes": 9474
+    },
+    "MANIFEST.json": {
+      "sha256": "5aa95e239428bd70ee832ad5e311286583bd51de92e68649573148620def4f6f",
+      "bytes": 698
+    },
+    "audit_historical_skips_a5ba8210.json": {
+      "sha256": "da22bd16bc12bcfbe2e86be32bb92ee35157decd004b5883f4ed39a30e0be3fe",
+      "bytes": 1904
+    },
+    "audit_historical_skips_a5ba8210.py": {
+      "sha256": "309cac0975405795623aa151a3cb039259d77338ad767a59c473470621bbe19b",
+      "bytes": 3752
+    },
+    "audit_historical_skips_a5ba8210.log": {
+      "sha256": "2028c2e1d7cca5f3943425ccfcb5d8e400a1b2ec3ae91e5360236ff368ed6884",
+      "bytes": 45
+    },
+    "audit_a5ba8210.json": {
+      "sha256": "8c8d5452ba3227182200a008b325efab2948c8cab99d05301b47751f8a82a0b4",
+      "bytes": 6801
+    },
+    "REVIEW_a5ba8210.md": {
+      "sha256": "2b230b7aa4353962508920a819c8f4174257217ff49a93a1d6d65366de1d69a0",
+      "bytes": 4939
+    }
+  },
+  "source_git_objects_verified": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "research/forecast-v2/scripts/run_campaign.py": "7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d",
+    "research/forecast-v2/scripts/freeze_registry.py": "a6373c5d05fc18f745e13586afaaf1bd14f898c847fdc756fdcc41aba4a60040",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+    "forecast/tests/test_development_fit_coverage.py": "8e9e327a713653aa8f62c85f2c3cbc62340e240da564e9508dac2253bedc85c1",
+    "forecast/tests/test_blind_forecast_protocol.py": "cd05ebf8dae9d1a7b125d9be667ee840e77bac0b2ac4ccd8e95c1e25899b1306"
+  },
+  "root_pinned_review_sha256": "2b230b7aa4353962508920a819c8f4174257217ff49a93a1d6d65366de1d69a0",
+  "scope": "Exact unchanged other independent reviewer23/23admission and6/6historical-skip scripts/results/logs/report; scope overlaps, not pooled. Readiness checks custody only, no rerun or actual study/data/model/prediction/heldout access. Originalbbb failures unchanged."
+}

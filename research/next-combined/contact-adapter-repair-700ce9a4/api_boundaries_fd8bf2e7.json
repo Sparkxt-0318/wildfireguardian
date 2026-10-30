@@ -1,0 +1,47 @@
+{
+  "commit": "fd8bf2e78532b76d2dd2cfd094d3499def90fc23",
+  "scope": "Tiny synthetic fixtures only; no real source arrays, graph, mission or campaign.",
+  "contradictory_initial_activity": {
+    "known_burned": 0.0,
+    "known_active": 1.0,
+    "source_R": "0",
+    "represented_current": false,
+    "methods": {
+      "sipp": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+      "sweep": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT"
+    },
+    "raw_checker": true,
+    "existing_bridge": "ContractError: RAW_ACTIVE_OUTSIDE_KNOWN_BURNED: all violations: RAW_ACTIVE_OUTSIDE_KNOWN_BURNED"
+  },
+  "fractional_support_clock": {
+    "earlier_raw_checked_witness": {
+      "arrival": 1,
+      "finish": "5/2"
+    },
+    "methods": {
+      "sipp": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "c",
+        "effective_search_horizon_s": 2,
+        "restricted_problem_optimality": "EARLIEST_CONTACT_ARRIVAL_WITHIN_SUPPORT_RESTRICTION"
+      },
+      "sweep": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "c",
+        "effective_search_horizon_s": 2,
+        "restricted_problem_optimality": "EARLIEST_CONTACT_ARRIVAL_WITHIN_SUPPORT_RESTRICTION"
+      }
+    }
+  },
+  "nanosecond_clock_binding": {
+    "source_cutoff": "2025-01-01T00:00:00.000000001Z",
+    "request_as_of": "2025-01-01T00:00:00Z",
+    "parsed_equal": true,
+    "methods": {
+      "sipp": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+      "sweep": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT"
+    }
+  }
+}
