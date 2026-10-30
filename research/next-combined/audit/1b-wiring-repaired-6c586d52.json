@@ -1,0 +1,237 @@
+{
+  "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+  "scope": "Bounded synthetic registry/wiring check; no real future or heldout inputs.\n\nUses the pinned owner's synthetic fixture constructors to create tiny SHP/TIF,\nreceipt and model-identity files. Assertions/mutations below are independent;\nnumerical producers are mocked and no shared heavy lease is acquired.\n",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "script_sha256": "6f1ae206a2cd0ca7e77f43d0e1fb9f59c1944ebdae27738ce248da00d5e0ee6c",
+  "source_sha256": {
+    "research/forecast-v2/scripts/blind_test.py": "7969e68a5e5fbb31c6e761b365075f1578e78694696f00abe5174a55f7fe3261",
+    "research/forecast-v2/scripts/freeze_registry.py": "ed71b5e7ae046c272b6a3b4b36cf21b216db96f21a730850d625f5d5908507be",
+    "research/forecast-v2/scripts/blind_inventory.py": "6358a96d55f18f61c01a89caaba5fbe4e8fd5cfda01c5cab0f62a0e8e88ca330",
+    "forecast/tests/test_blind_forecast_protocol.py": "7e34e27c14bf774fe6e4680cd08fa53df6cfb5d4ee8ecfc4f657afaee2c3c1fa",
+    "forecast/tests/test_blind_inventory.py": "fab63e1369257b31c8dde12cbc031e916a1a67d71c567cd910c9aa99aa29da2f"
+  },
+  "observations": [
+    {
+      "id": "complete_registry_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "registry_wrong_tie_selection",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Primary selection differs from the frozen development minimum and tie order"
+      }
+    },
+    {
+      "id": "registry_missing_full_fit_receipt",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exactly one authenticated final-fit receipt is required: base"
+      }
+    },
+    {
+      "id": "registry_changed_executed_baseline",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Frozen identity differs from the exact executed checkpoint or baseline bytes"
+      }
+    },
+    {
+      "id": "registry_incomplete_declared_fit_event_set",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "reason": "Completed fixed-policy full fit required: base"
+      }
+    },
+    {
+      "id": "actual_raw_inventory_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "invented_exclusion_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Cohort exclusions must equal the complete raw-derived exclusion ledger"
+      }
+    },
+    {
+      "id": "raw_archive_pin_mandatory",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Cohort input pins must include every inventory manifest, archive, state and source identity"
+      }
+    },
+    {
+      "id": "pinned_baseline_mask_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "baseline_mask_vrt_dependency_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Baseline terrain and raster sidecars must be GeoTIFFs, without indirect raster drivers"
+      }
+    },
+    {
+      "id": "missing_pre_run_clearance_blocks_loading",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "NOT_READY_FOR_2026_EXECUTION: independent pre-run documentary clearance is required"
+      }
+    },
+    {
+      "id": "bound_human_receipt_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "caller_boolean_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "caller_url_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "clearance_registry_sha256_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "clearance_source_closure_sha256_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "clearance_input_closure_sha256_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "clearance_case_membership_sha256_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A complete scope-specific human documentary clearance must bind every frozen identity"
+      }
+    },
+    {
+      "id": "separate_post_score_positive_control_no_claim",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "score_remains_pending_independent_review",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "same_source_root_not_relocated",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Signed independent replay details must identify a relocated tree, command, reviewer and output"
+      }
+    },
+    {
+      "id": "same_artifact_not_independent_replay",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Independent relocated replay must be a distinct scored artifact"
+      }
+    },
+    {
+      "id": "post_score_exact_artifact_binding",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Post-score approval must bind both exact scores and the original run receipt"
+      }
+    },
+    {
+      "id": "old_ordered_integer_coordinates",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Integer ordered coordinates must equal the full source-derived common support"
+      }
+    },
+    {
+      "id": "old_exact_endpoint_labels",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Endpoint labels must match the pinned source at every scored coordinate"
+      }
+    }
+  ],
+  "checks": 25,
+  "passed": 25,
+  "status": "PASS_SCOPED_WIRING_REVIEW"
+}

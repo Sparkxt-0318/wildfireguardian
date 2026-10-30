@@ -37,6 +37,11 @@
       "project": "wfg-next-1b-audit-9b5eb72f-20261030",
       "generation": "2026-10-30T05:59:15Z",
       "coverage": "Entire scripts subtree excluded, complete new builder and blind tool read directly; pinned test helper source read and metadata-match. No graph caller completeness claim."
+    },
+    "B_complete_fit_repair": {
+      "project": "wfg-next-1b-audit-6c586d52-20261030",
+      "generation": "2026-10-30T06:53:56Z",
+      "coverage": "Scripts excluded, complete539line helper and registry builder directly read; blindtool exact9b bytes reused after git-diff verification; indexed test source metadata_match. No exhaustive AST proof claimed."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -49,7 +54,7 @@
     "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
     "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
     "C risk records unscorable, whole-road and full-policy validation open",
-    "Prospective registry builder completeness remains held: synthetic declared-two/recorded-one fit set accepted. No assertion actual fits omit fires."
+    "Scoped completeness software repair passes; actual final artifacts, source-class/model compatibility and wind semantics remain unverified by this readiness audit. Historical source inference is not runtime logging."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -106,5 +111,28 @@
     "byte_equality_scope": "Matching producer explicitly compares every original Boolean unknown-mask byte string against a reference per domain. Owner report says all1024equal per domain; readiness pass checks source/report identity, not a fresh payload read.",
     "new_reports": "Not_tracked in oldCgraph; direct read, exact producer/output/receipt/prior-Git hash checks",
     "physics_and_risk_scope": "Separate from current contact-admission rejection, not a universal local-checker impossibility theorem"
+  },
+  "prospective_wiring_repair": {
+    "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+    "review": "prospective-wiring-review-6c586d52/REPAIR_REVIEW.md",
+    "inventory": "prospective-wiring-review-6c586d52/SOURCE_INVENTORY.json",
+    "status": "PASS_SCOPED_COMPLETE_FIT_MEMBERSHIP_REPAIR",
+    "coverage_controls": {
+      "checks": 25,
+      "passed": 25,
+      "audit": "audit/1b-fit-coverage-repaired-6c586d52.json"
+    },
+    "original_wiring_controls": {
+      "checks": 25,
+      "passed": 25,
+      "audit": "audit/1b-wiring-repaired-6c586d52.json"
+    },
+    "overlapping_counts_not_summed": true,
+    "historical_schedule_evidence": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "new_mixed_evidence": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST",
+    "actual_study_or_model_access": false,
+    "shared_heavy_lease": false,
+    "owner_tests_reported": 212,
+    "owner_suite_rerun": false
   }
 }

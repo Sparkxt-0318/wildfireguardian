@@ -1,0 +1,241 @@
+{
+  "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+  "scope": "Bounded synthetic full-fit coverage recheck; no actual fit/model/study data.\n\nReuses pinned synthetic fixture constructors, then independently mutates exact\nmembership, counts, source bindings and evidence classes. No numerical fit or\nshared heavy lease is executed. Historical source inference is not runtime IDs.\n",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "script_sha256": "0dfe73697f40721da946616ad1d345ec6ef1fa5dc4b2857b2e49cb635fcf3a11",
+  "source_sha256": {
+    "research/forecast-v2/scripts/freeze_registry.py": "ed71b5e7ae046c272b6a3b4b36cf21b216db96f21a730850d625f5d5908507be",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "e500b92244e4f298e9b8f60f6c05fb5971c5848aea64a143b004d9da8512828e",
+    "research/forecast-v2/scripts/blind_test.py": "7969e68a5e5fbb31c6e761b365075f1578e78694696f00abe5174a55f7fe3261",
+    "forecast/tests/test_blind_forecast_protocol.py": "7e34e27c14bf774fe6e4680cd08fa53df6cfb5d4ee8ecfc4f657afaee2c3c1fa",
+    "forecast/wildfire/survival.py": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+    "research/forecast-v2/scripts/pipeline.py": "1bfe658abc441c893531e35971dbc538370e9e4b7ed8ddc9f1c0fe45987ee658"
+  },
+  "observations": [
+    {
+      "id": "full_membership_registry_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "historical_inference_and_runtime_ID_classes_distinct",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "zero_window_kr_and_effective_last_argv_positive_controls",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "preserved_historical_phase_source_positive_control",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "declared_event_omission_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Completed fixed-policy full fit required: base"
+      }
+    },
+    {
+      "id": "all_events_few_intervals_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Full recorded sample/epoch/optimizer counts and no-skips must agree with complete source membership"
+      }
+    },
+    {
+      "id": "short_epoch_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Full recorded sample/epoch/optimizer counts and no-skips must agree with complete source membership"
+      }
+    },
+    {
+      "id": "skip_record_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Full recorded sample/epoch/optimizer counts and no-skips must agree with complete source membership"
+      }
+    },
+    {
+      "id": "cached_omit_refused_even_after_resigning",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual cached full sample identities differ from independently derived source membership"
+      }
+    },
+    {
+      "id": "cached_duplicate_refused_even_after_resigning",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual cached full sample identities differ from independently derived source membership"
+      }
+    },
+    {
+      "id": "cached_wrong_id_refused_even_after_resigning",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual cached full sample identities differ from independently derived source membership"
+      }
+    },
+    {
+      "id": "cached_missing_cache_refused_even_after_resigning",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Fit evidence paths require existing files within their declared root"
+      }
+    },
+    {
+      "id": "last_argv_cap_overrides_prior_zero_and_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Coverage requires the effective LAST full-fit arguments, one sample per optimizer step and no cap"
+      }
+    },
+    {
+      "id": "unavailable_historical_source_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Exact immutable fit producer source is unavailable: forecast/wildfire/survival.py"
+      }
+    },
+    {
+      "id": "historical_source_train0_not_index_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical training must select the actual indexed member without altering the input list"
+      }
+    },
+    {
+      "id": "mixed_runtime_missing_ledger_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "New mixed full fits require an actual runtime membership ledger bound to their prefit input manifest"
+      }
+    },
+    {
+      "id": "mixed_runtime_missing_id_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or skipped an intended source sample"
+      }
+    },
+    {
+      "id": "mixed_runtime_duplicate_id_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or skipped an intended source sample"
+      }
+    },
+    {
+      "id": "mixed_runtime_wrong_id_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or skipped an intended source sample"
+      }
+    },
+    {
+      "id": "mixed_runtime_skip_id_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or skipped an intended source sample"
+      }
+    },
+    {
+      "id": "mixed_zero_window_key_cannot_disappear",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Mixed full fit must explicitly retain every intended US and Korean kriged event, including zero-window keys"
+      }
+    },
+    {
+      "id": "mixed_prefit_manifest_case_omission_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Runtime prefit input manifest differs from the complete authenticated sample list/source identity"
+      }
+    },
+    {
+      "id": "historical_inference_cannot_be_resigned_as_runtime_logging",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Fit coverage no longer matches source-derived inputs, exact artifacts, receipts or immutable producer phases"
+      }
+    },
+    {
+      "id": "coverage_and_selection_input_pins_must_match",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Model selection and complete fit coverage must bind the same input manifests"
+      }
+    },
+    {
+      "id": "local_registry_freeze_does_not_authorize_future_execution",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    }
+  ],
+  "checks": 25,
+  "passed": 25,
+  "actual_study_inputs_or_models_accessed": false,
+  "status": "PASS_SCOPED_COMPLETE_MEMBERSHIP_REPAIR"
+}

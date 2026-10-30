@@ -1,0 +1,38 @@
+{
+  "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+  "scope": "Independent synthetic probes with pinned owner synthetic fixture constructors; no real source dataset or model payload access",
+  "records": {
+    "coverage": {
+      "path": "audit/1b-fit-coverage-repaired-6c586d52.json",
+      "sha256": "442f2150564a494ddac4697d2ac01fae456098413b7e42c3c8bd5925dcae84f7",
+      "checks": 25,
+      "passed": 25
+    },
+    "wiring": {
+      "path": "audit/1b-wiring-repaired-6c586d52.json",
+      "sha256": "f3a0a7881353840d2a601317c1cc71ef9fd4eb8fb4a99332d85c21203e90a14a",
+      "checks": 25,
+      "passed": 25
+    }
+  },
+  "source_sha256": {
+    "research/forecast-v2/scripts/freeze_registry.py": "ed71b5e7ae046c272b6a3b4b36cf21b216db96f21a730850d625f5d5908507be",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "e500b92244e4f298e9b8f60f6c05fb5971c5848aea64a143b004d9da8512828e",
+    "research/forecast-v2/scripts/blind_test.py": "7969e68a5e5fbb31c6e761b365075f1578e78694696f00abe5174a55f7fe3261",
+    "forecast/tests/test_blind_forecast_protocol.py": "7e34e27c14bf774fe6e4680cd08fa53df6cfb5d4ee8ecfc4f657afaee2c3c1fa",
+    "forecast/wildfire/survival.py": "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711",
+    "research/forecast-v2/scripts/pipeline.py": "1bfe658abc441c893531e35971dbc538370e9e4b7ed8ddc9f1c0fe45987ee658"
+  },
+  "script_sha256": "0dfe73697f40721da946616ad1d345ec6ef1fa5dc4b2857b2e49cb635fcf3a11",
+  "historical_schedule": "SOURCE_DERIVED_INFERENCE_NOT_RUNTIME_OBSERVATIONS",
+  "new_mixed_schedule": "ACTUAL_ATTEMPTED_IDS_REQUIRE_PREFIT_MANIFEST_BINDING",
+  "owner_suite_reported": 212,
+  "owner_suite_rerun": false,
+  "overlapping_suites_not_summed": true,
+  "clearance": "COMPLETE_FIT_MEMBERSHIP_SOFTWARE_ONLY",
+  "remaining_gates": [
+    "Actual final evidence/registry/numerical delivery",
+    "Source-class/model compatibility and consumed global-wind tensor review",
+    "External2026release/access/OSF documentary clearance"
+  ]
+}
