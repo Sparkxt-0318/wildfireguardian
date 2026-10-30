@@ -16,7 +16,7 @@
     "B_current_overlay": "d2512cbcc2debc1b00074c99efb329089823549e",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+    "B_current_packaging": "8f3faaa1bbb4763c85aa4daf98e8509c543e24e0",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61"
   },
   "graphs": {
@@ -88,7 +88,9 @@
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
     "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
     "Owner final software gate3373tests+367release passed; readiness exactreceipt/log/199sourceGit hashes only, no rerun. Seven trained/versioned models are metadata only. Actualcoverage exit1HOLD before output remains unchanged. Separate exact65aV2source-only99/99review closesfivec9recognizer gaps, with133owner/54adaptedoverlappingcounts; complete actualcache/schema/memberadmission stillrequired. Registry/heldout/actualchecker remainNOT_RUN; no data/modelpayload read here.",
-    "Exact65aV2source-only99/99review closesfivec9recognizer gaps for6profiles/28metadata mappings, not actualcoverage.133owner/54adapted counts overlap. All81compressedoriginalsources authenticated duringarchive, no execution. Originalc9failureunchanged; provisionalpreflightnotread/archived, currentactualcoverageHOLD/all12plusaggregatepending."
+    "Exact65aV2source-only99/99review closesfivec9recognizer gaps for6profiles/28metadata mappings, not actualcoverage.133owner/54adapted counts overlap. All81compressedoriginalsources authenticated duringarchive, no execution. Originalc9failureunchanged; separatecompletedprovisionalrun/savedmetadatareview nowarchived, canonicalcoverageHOLD/all12plusaggregatepending.",
+    "F65provisionalactualownerPASS21development7final and9612correlatedsavedmetadata predicates are not independentactualcache/member/value replay or canonicalcoveragePASS. ExecutedF65 andcheckedliveF175aredistinct. Wrapperrefusalonlytested, rawnonadmissionUNTESTED. Freshauthorizedcanonicalaudit/selection/registry/heldoutremainunrun.",
+    "PreparedMFMCchecker24/24syntheticonly, actualNOT_RUNunderF175beforelive65applyafter12case/66rowaggregateclosureandrootauthorization. Nopercellfieldssavedso norawRMSE/MC/mask/checkpointreplay; separatefrom38preparedheldoutchecker."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -380,7 +382,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "d2512cbcc2debc1b00074c99efb329089823549e",
+    "1B": "a80b99de66176638763540e47a11f34669a08bb3",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -506,7 +508,7 @@
       "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
     }
   },
-  "confirmed_integration_published_head": "3fa170b9dfb06c3807c3c28e16fe6579d2689c71",
+  "confirmed_integration_published_head": "3e4c5cf5c024df8c671aa7ccd142a249612d1976",
   "B_optional_farsite_repair": {
     "state": "SCOPED_OPTIONAL_TOOL_REPAIR_PASS_ACTUAL_QUALITY_NOT_RUN",
     "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
@@ -667,12 +669,63 @@
     "five_prior_recognizer_gaps": "CLOSED_ONLY_AT_EXACT_REVIEWED_TRUSTED_EXECUTABLE_AND_SOURCE_VERSION_BOUNDARIES",
     "whole_data_audit_pass": false,
     "candidate_applied_by_readiness": false,
-    "actual_preflight": "QUEUED_PROVISIONAL_NOT_ARCHIVED",
+    "actual_preflight": "COMPLETE_PROVISIONAL_OWNER_ACTUAL_EXIT0_SEPARATE_METADATA_REVIEW_NO_CANONICAL_ADMISSION",
     "actual_coverage": "HOLD",
     "scope": "Other independent source-only99controlreview. Readiness verifies fixedmanifest/patch/threechangedfiles/81sourcearchive identities andmetadata counts only; no reruns or actual data/model/quality inspection.",
     "trust_boundary": "New five repair functions and three version constants excluded by auditor numeric-surface selfcheck; external executable pin and independent review required. Not cryptographic self-authentication.",
-    "conditions": "All12fixeda06cases plus aggregate/sourcebookends before liveapply, then complete authenticated actualcache/schema/value/memberaudit mustPASS. Any real mismatch remainsHOLD.",
+    "conditions": "All12fixeda06cases plusaggregate/sourcebookends andindependentMFMCresultreconciliation beforelive65apply, thenfreshcanonicalcompleteactualcache/schema/value/memberauditmustPASS. Anyreal mismatchHOLD.",
     "original_failed_review": "coverage-recipe-review-c9d7335b/INITIAL_FINDINGS.md",
     "old_patch_inventory": "coverage-candidate-c9-unapplied/SOURCE_INVENTORY.json"
+  },
+  "B_provisional_coverage_archive": {
+    "state": "PROVISIONAL_OWNER_ACTUAL_PASS_AND_INDEPENDENT_SAVED_METADATA_PASS_CANONICAL_HOLD",
+    "review": "coverage-provisional-review-F65/REVIEW_PROVISIONAL.md",
+    "audit": "coverage-provisional-review-F65/REVIEW_PROVISIONAL.json",
+    "inventory": "coverage-provisional-review-F65/SOURCE_INVENTORY.json",
+    "execution_inventory": "coverage-provisional-evidence-F65/SOURCE_INVENTORY.json",
+    "receipt": "coverage-provisional-evidence-F65/PREFLIGHT_RECEIPT.json",
+    "wrapper": "coverage-provisional-evidence-F65/COVERAGE_PROVISIONAL.json",
+    "raw_diagnostic": "coverage-provisional-evidence-F65/candidate_raw.json.gz",
+    "executed_auditor_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+    "checked_live_auditor_dependency_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "owner_exit_code": 0,
+    "owner_development_phases": 21,
+    "owner_final_phases": 7,
+    "independent_saved_metadata_predicates": 9612,
+    "passed_predicates": 9612,
+    "predicates_are_correlated_not_independent_samples": true,
+    "actual_member_cache_value_replay": false,
+    "wrapper_refusal_tested": true,
+    "raw_nonadmission": "UNTESTED",
+    "canonical_coverage": "HOLD",
+    "live_model_selection": "NOT_RUN",
+    "live_registry": "NOT_RUN",
+    "heldout": "NOT_RUN",
+    "actual_final_checker": "NOT_RUN",
+    "scope": "Other independent savedJSON/gzipmetadata/custody review, not actual input/member/cache-value replay or scientificquality evaluation. RawdiagnosticPASS is provisionalcandidate output only; externalreceipt identifiesF65while source_sha256 describescheckedliveF175 dependency.",
+    "conditions": "All12a06+aggregate/sourcebookends andindependentMFMCsavedresultreconciliation beforeauthorizedlive65apply andfreshcanonicalaudit. AnyactualcanonicalmismatchHOLD.",
+    "readiness_rerun": false
+  },
+  "B_prepared_mfmc_checker": {
+    "state": "PREPARED_24_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
+    "review": "mfmc-final-review-prepared/README.md",
+    "inventory": "mfmc-final-review-prepared/SOURCE_INVENTORY.json",
+    "checker": "mfmc-final-review-prepared/reconcile.py",
+    "contract": "mfmc-final-review-prepared/SOURCE_CONTRACT.json",
+    "checker_sha256": "d991555e11bd89eec4a5305fa9234493477de8506a49c2b6499881382600bd5c",
+    "contract_sha256": "a381eb245f25e32aeb8796bd8fe53058abc71bbcf9b193025b100a1077f74402",
+    "synthetic_controls": 24,
+    "passed": 24,
+    "actual_reconciliation": "NOT_RUN",
+    "source_required": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "case_rows_expected": {
+      "cutoffs": 12,
+      "rows": 66
+    },
+    "stage": "Afterall12plusaggregate/receiptclosure, beforelive65apply, rootauthorizationrequired",
+    "raw_field_RMSE_or_mask_replay": false,
+    "MC_model_or_checkpoint_byte_replay": false,
+    "distinct_from_38_control_heldout_checker": true,
+    "scope": "Prepared-only exactpackagearchive/savedsyntheticresults; no actualcase/receipt/aggregate/prediction/model/data-cachearrayopenedbythisreviewerand no checker executionhere."
   }
 }

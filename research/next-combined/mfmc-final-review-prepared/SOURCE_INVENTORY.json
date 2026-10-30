@@ -1,0 +1,64 @@
+{
+  "state": "PREPARED_SYNTHETIC_ONLY_ACTUAL_NOT_RUN",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/README.md",
+      "archive": "mfmc-final-review-prepared/README.md",
+      "bytes": 4776,
+      "sha256": "9052135208ded75162216c70a6988d4b0039422d0c470db2beba4bd4d3c78dde"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/SOURCE_CONTRACT.json",
+      "archive": "mfmc-final-review-prepared/SOURCE_CONTRACT.json",
+      "bytes": 11373,
+      "sha256": "a381eb245f25e32aeb8796bd8fe53058abc71bbcf9b193025b100a1077f74402"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/SYNTHETIC_RESULTS.json",
+      "archive": "mfmc-final-review-prepared/SYNTHETIC_RESULTS.json",
+      "bytes": 3392,
+      "sha256": "605aa112d232ceb8474c785ee8852b9fae4f70248a865b549faa86eb423f80f5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/SYNTHETIC_TESTS.log",
+      "archive": "mfmc-final-review-prepared/SYNTHETIC_TESTS.log",
+      "bytes": 3392,
+      "sha256": "605aa112d232ceb8474c785ee8852b9fae4f70248a865b549faa86eb423f80f5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/reconcile.py",
+      "archive": "mfmc-final-review-prepared/reconcile.py",
+      "bytes": 14635,
+      "sha256": "d991555e11bd89eec4a5305fa9234493477de8506a49c2b6499881382600bd5c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/test_synthetic.py",
+      "archive": "mfmc-final-review-prepared/test_synthetic.py",
+      "bytes": 9653,
+      "sha256": "a68a0081d1936712e26553fcc78d2942289df416b577cd3c729f3a5c102a0081"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/SHA256.json",
+      "archive": "mfmc-final-review-prepared/SHA256.json",
+      "bytes": 546,
+      "sha256": "d911e3493af2a823cc94c3468eda9f0b974405cc52fc492f94068b35adb07bc4"
+    }
+  ],
+  "manifest_actual_name": "SHA256.json",
+  "checker_sha256": "d991555e11bd89eec4a5305fa9234493477de8506a49c2b6499881382600bd5c",
+  "contract_sha256": "a381eb245f25e32aeb8796bd8fe53058abc71bbcf9b193025b100a1077f74402",
+  "saved_synthetic_controls": 24,
+  "passed": 24,
+  "readiness_rerun": false,
+  "actual_reconciliation": "NOT_RUN",
+  "required_source_phase": "F175_before_live65apply",
+  "future_scope": "All12successfulimmutablecases/66rows andaggregate/receipts/source+CSV/JSON reconciliation afterclosureandrootauthorization, beforelive65apply. No productionmetrichelper imported by preparation accordingtootherreviewer.",
+  "limits": [
+    "Producer saved no per-cell field arrays, so raw RMSE/Brier/support masks cannot be recomputed from summaries",
+    "No actual MC replay, model deserialization or checkpoint-byte rehash",
+    "Checkpoint checked against pinned producer assertion only; separate external custody remains necessary",
+    "Shared24hMC/MFfixed-horizon costs counted once per cutoff, US fractional endpoint calls separate; no performance/promotion claim",
+    "24syntheticcontrols distinct from separate38preparedheldoutchecker; not actual12case/66rowreview",
+    "Originalsource/path assumptions preserved, no new relocated-replay check here"
+  ]
+}

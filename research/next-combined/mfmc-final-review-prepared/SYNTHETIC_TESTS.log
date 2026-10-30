@@ -1,0 +1,127 @@
+{
+  "scope": "Synthetic 12-case/66-row JSON/CSV/61-source/snapshot/receipt fixtures only; no actual study files or arrays opened.",
+  "checks": [
+    {
+      "name": "positive_complete66_with_honest_unavailable",
+      "passed": true
+    },
+    {
+      "name": "omitted_case_row",
+      "passed": true,
+      "reason": "EXACT_PERCASE_HORIZON_ROWS"
+    },
+    {
+      "name": "reordered_horizons",
+      "passed": true,
+      "reason": "ROW_CASE_HORIZON_IDENTITY"
+    },
+    {
+      "name": "wrong_cutoff",
+      "passed": true,
+      "reason": "ROW_CASE_HORIZON_IDENTITY"
+    },
+    {
+      "name": "wrong_N",
+      "passed": true,
+      "reason": "ROW_MC_N_OR_SEED"
+    },
+    {
+      "name": "wrong_seed",
+      "passed": true,
+      "reason": "ROW_MC_N_OR_SEED"
+    },
+    {
+      "name": "rmse_out_of_bounds",
+      "passed": true,
+      "reason": "FIELD_METRIC_RANGE"
+    },
+    {
+      "name": "active_count_impossible",
+      "passed": true,
+      "reason": "ROW_CELL_COUNTS"
+    },
+    {
+      "name": "empty_support_zeroed_as_success",
+      "passed": true,
+      "reason": "EMPTY_SUPPORT_MUST_BE_UNAVAILABLE_AND_NULL"
+    },
+    {
+      "name": "persistence_brier_wrong",
+      "passed": true,
+      "reason": "PERSISTENCE_BRIER_ARITHMETIC"
+    },
+    {
+      "name": "fixed_runtime_varies",
+      "passed": true,
+      "reason": "FIXED_JOINT_RUNTIMES_MUST_BE_SHARED"
+    },
+    {
+      "name": "unique_cost_exceeds_elapsed",
+      "passed": true,
+      "reason": "UNIQUE_NUMERIC_COST_EXCEEDS_CHILD_ELAPSED"
+    },
+    {
+      "name": "missing_reference_status",
+      "passed": true,
+      "reason": "REFERENCE_STATUS_OR_POSITIVES"
+    },
+    {
+      "name": "US_fixed_reference_leak",
+      "passed": true,
+      "reason": "UNLABELED_US_FIXED_ROW_MUST_NOT_HAVE_SCORES"
+    },
+    {
+      "name": "checkpoint_wrong",
+      "passed": true,
+      "reason": "CASE_CHECKPOINT_ASSERTION"
+    },
+    {
+      "name": "source_phase_mixed",
+      "passed": true,
+      "reason": "CASE_SOURCE_OR_INPUT_MANIFEST_BINDING"
+    },
+    {
+      "name": "command_N_wrong",
+      "passed": true,
+      "reason": "CASE_EXECUTED_ARGUMENT:--n-samples"
+    },
+    {
+      "name": "CSV_value_changed",
+      "passed": true,
+      "reason": "CSV_STRING:(0, 'status')"
+    },
+    {
+      "name": "aggregate_value_changed",
+      "passed": true,
+      "reason": "AGGREGATE_MUST_EXACTLY_CONCATENATE66_ROWS"
+    },
+    {
+      "name": "missing_case_receipt",
+      "passed": true,
+      "reason": "ALL12_CASE_OUTPUTS_AND_RECEIPTS_REQUIRED"
+    },
+    {
+      "name": "missing_final_receipt",
+      "passed": true,
+      "reason": "FINAL_AGGREGATE_RECEIPT_REQUIRED"
+    },
+    {
+      "name": "source_file_changed",
+      "passed": true,
+      "reason": "CURRENT_PRODUCER_SOURCE_CHANGED:research/forecast-v2/scripts/pipeline.py"
+    },
+    {
+      "name": "source_snapshot_missing",
+      "passed": true,
+      "reason": "[Errno 2] No such file or directory: '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/SYNTHETIC-x0d7mt4q/source_snapshot_missing/repo/research/forecast-v2/source_snapshots/c552491e5eceeb968f3b7e0a5f845961972418f1b435d0cd0c8983a60e90e702/pipeline.py.gz'"
+    },
+    {
+      "name": "nonfinite_metric",
+      "passed": true,
+      "reason": "NONFINITE_JSON:NaN"
+    }
+  ],
+  "passed": 24,
+  "total": 24,
+  "failures": []
+}
