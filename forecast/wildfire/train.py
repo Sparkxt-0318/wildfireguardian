@@ -573,7 +573,10 @@ def train_perimeter(args: argparse.Namespace) -> dict[str, Any]:
     """Fit a structured kernel on perimeter intervals through the mean field."""
     import pickle
     from wildfire.models import StructuredKernelModel
-    from wildfire.survival import fit_mean_field, fit_normalization
+    from wildfire.survival import fit_mean_field, fit_normalization, biome_balance_factors
+    if args.device != "cpu":
+        raise ValueError("The experimental perimeter trainer currently supports --device cpu only")
+    settings = categorical_balance_settings(args)
     directory, output = args.data_dir.resolve(), args.output_dir.resolve()
     if output.exists() and (not output.is_dir() or any(output.iterdir())):
         raise FileExistsError("The output directory must be new or empty; existing results are never overwritten")
@@ -587,14 +590,23 @@ def train_perimeter(args: argparse.Namespace) -> dict[str, Any]:
                                   std=std, prior=args.structured_prior, frame=args.structured_frame,
                                   residence_hours=args.residence_hours, spotting_radius=args.spotting_radius)
     model.initialize_rate(0.05)
+    biome_channels = {int(name.rsplit("=", 1)[1]): index for index, name in enumerate(names)
+                      if name.startswith("biome.biome_class=")}
+    counts = {code: sum(float(np.sum(sample.label_weight[sample.score_mask]
+                                   * (sample.environment[index][sample.score_mask] == 1)))
+                        for sample in training) for code, index in biome_channels.items()}
+    balance = (biome_balance_factors(counts, min_frequency=settings["min_frequency"], max_factor=settings["max_factor"])
+               if settings["mode"] != "none" else {})
     result = fit_mean_field(model, training, validation, epochs=args.epochs, learning_rate=args.learning_rate,
                             weight_decay=args.weight_decay, seed=args.seed, patience=args.patience,
-                            d4=args.d4_augmentation)
+                            d4=args.d4_augmentation, balance=balance, biome_channels=biome_channels)
     output.mkdir(parents=True, exist_ok=True)
     torch.save({"configuration": model.configuration(), "state_dict": model.state_dict(),
                 "arguments": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}},
                output / "checkpoint.pt")
     write_json(output / "history.json", result)
+    write_json(output / "categorical_balance.json", dict(settings=settings, class_counts=counts, factors=balance,
+        interpretation="Training-only inverse-weighted scored-cell biome emphasis; validation population weights stay original"))
     return result
 
 
