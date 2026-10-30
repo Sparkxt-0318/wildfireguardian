@@ -1,9 +1,393 @@
 {
+  "current_phase": {
+    "schema": "wfg.forecast-intended-phases/1",
+    "spotting_source_mode": "flaming_only",
+    "phases": [
+      {
+        "variant": "base",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "base_fold2020_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2020_base",
+        "result": "folds/base_fold2020_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "d4_fold2020_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2020_d4",
+        "result": "folds/d4_fold2020_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4_wind",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "d4_wind_fold2020_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2020_d4_wind",
+        "result": "folds/d4_wind_fold2020_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "ellipse",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "ellipse_fold2020_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2020_ellipse",
+        "result": "folds/ellipse_fold2020_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "burnout_fold2020_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2020_burnout",
+        "result": "folds/burnout_fold2020_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout_spotting",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+        "artifact_suffix": "_flaming_only",
+        "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+        "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+        "spotting_source_mode": "flaming_only"
+      },
+      {
+        "variant": "mixed_base",
+        "stage": "fold",
+        "fold": "2020",
+        "seed": 0,
+        "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+        "artifact_suffix": "_utc_fixed",
+        "job_suffix": "fold_2020_mixed_base_utc_fixed",
+        "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "base",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "base_fold2021_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2021_base",
+        "result": "folds/base_fold2021_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "d4_fold2021_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2021_d4",
+        "result": "folds/d4_fold2021_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4_wind",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "d4_wind_fold2021_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2021_d4_wind",
+        "result": "folds/d4_wind_fold2021_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "ellipse",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "ellipse_fold2021_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2021_ellipse",
+        "result": "folds/ellipse_fold2021_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "burnout_fold2021_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2021_burnout",
+        "result": "folds/burnout_fold2021_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout_spotting",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+        "artifact_suffix": "_flaming_only",
+        "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+        "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+        "spotting_source_mode": "flaming_only"
+      },
+      {
+        "variant": "mixed_base",
+        "stage": "fold",
+        "fold": "2021",
+        "seed": 0,
+        "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+        "artifact_suffix": "_utc_fixed",
+        "job_suffix": "fold_2021_mixed_base_utc_fixed",
+        "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "base",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "base_fold2022_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2022_base",
+        "result": "folds/base_fold2022_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "d4_fold2022_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2022_d4",
+        "result": "folds/d4_fold2022_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4_wind",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "d4_wind_fold2022_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2022_d4_wind",
+        "result": "folds/d4_wind_fold2022_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "ellipse",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "ellipse_fold2022_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2022_ellipse",
+        "result": "folds/ellipse_fold2022_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "burnout_fold2022_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "fold_2022_burnout",
+        "result": "folds/burnout_fold2022_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout_spotting",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+        "artifact_suffix": "_flaming_only",
+        "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+        "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+        "spotting_source_mode": "flaming_only"
+      },
+      {
+        "variant": "mixed_base",
+        "stage": "fold",
+        "fold": "2022",
+        "seed": 0,
+        "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+        "artifact_suffix": "_utc_fixed",
+        "job_suffix": "fold_2022_mixed_base_utc_fixed",
+        "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "base",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "base_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_base",
+        "result": "final/base_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "d4_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_d4",
+        "result": "final/d4_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "d4_wind",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "d4_wind_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_d4_wind",
+        "result": "final/d4_wind_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "ellipse",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "ellipse_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_ellipse",
+        "result": "final/ellipse_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "burnout_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_burnout",
+        "result": "final/burnout_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      },
+      {
+        "variant": "burnout_spotting",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "burnout_spotting_seed0_flaming_only",
+        "artifact_suffix": "_flaming_only",
+        "job_suffix": "final_burnout_spotting_flaming_only",
+        "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+        "spotting_source_mode": "flaming_only"
+      },
+      {
+        "variant": "mixed_base",
+        "stage": "final",
+        "fold": null,
+        "seed": 0,
+        "phase_id": "mixed_base_seed0",
+        "artifact_suffix": "",
+        "job_suffix": "final_mixed_base",
+        "result": "final/mixed_base_seed0/result.json",
+        "spotting_source_mode": "not_applicable"
+      }
+    ]
+  },
   "schema": "wfg.forecast-v2.requirements/1",
   "evidence_class": "current real-input executions, earlier attempts excluded from primary totals",
-  "authenticated_development_fits": 21,
-  "authenticated_final_fits": 0,
+  "authenticated_development_fits": 18,
+  "authenticated_final_fits": 6,
   "receipts": [
+    {
+      "job": "a02_fold_2020_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/base_fold2020_seed0/result.json",
+      "sha256": "491c2f72e26c3079e412dbda28f375e5460e7d26c9e69be16609e41377aa9bf8"
+    },
+    {
+      "job": "a02_fold_2020_burnout",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/burnout_fold2020_seed0/result.json",
+      "sha256": "acf182204468f5c9d822017f6c693a3683356f7ff3a1a3f26f850865970bd5b6"
+    },
+    {
+      "job": "a02_fold_2020_burnout_spotting",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/burnout_spotting_fold2020_seed0/result.json",
+      "sha256": "6f80b033257c53308eb49e616959e7702d8bbd0d4fa3ad4bbabc6e91a924d168"
+    },
+    {
+      "job": "a02_fold_2020_d4",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/d4_fold2020_seed0/result.json",
+      "sha256": "525db6f2b485bc633d79a1d7230321fcbce18edf289e2e11adf7d6e8102eca6b"
+    },
+    {
+      "job": "a02_fold_2020_d4_wind",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/d4_wind_fold2020_seed0/result.json",
+      "sha256": "e260287be1a2faf66087fdb88c9cbeaa656ae9c80e48cff303225fc1797f2833"
+    },
+    {
+      "job": "a02_fold_2020_ellipse",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/folds/ellipse_fold2020_seed0/result.json",
+      "sha256": "c382e90a11a5aac77eff305126cd9997d4791ad8ee6a15dd26bf790848cd72c7"
+    },
+    {
+      "job": "a03_baselines",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/baselines/dilation_choice.json",
+      "sha256": "f3f8ad00ad71616e3e77a8660ca51bdd8cc0667bf2ca53641ab75bdf4a00e74c"
+    },
+    {
+      "job": "a03_final_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/result.json",
+      "sha256": "db11b5152d680468271f2ce047934c08818ae502834db5704522bd93fef175c5"
+    },
+    {
+      "job": "a03_final_burnout",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/result.json",
+      "sha256": "e8b20201c5026bc07ef3f97aa393aaf1dc620b7785b3cbfe2415213b0422eb25"
+    },
+    {
+      "job": "a03_final_burnout_spotting",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0/result.json",
+      "sha256": "7378b28f569ca830a82d4d28eaa9923bf731fe6ee57f84c2f2d1f562ea0b1dd8"
+    },
+    {
+      "job": "a03_final_d4",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/result.json",
+      "sha256": "907bd960f79816e77f60b6af39828d1aa652ca68fb4cfafaddf7dcc7452e1f03"
+    },
+    {
+      "job": "a03_final_d4_wind",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/result.json",
+      "sha256": "b677d698f0ef375dc4a3d81c20a10b93d65153a92c3996affa1baee241dd107d"
+    },
+    {
+      "job": "a03_final_ellipse",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/result.json",
+      "sha256": "6e57bc522b165e64acdb8887b20cde9154fa60ad0122e538df924a1a70379db8"
+    },
+    {
+      "job": "a03_final_mixed_base",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/result.json",
+      "sha256": "362497a14765f1849f3215920b6e70c6731bcb8b3fa37bf3d1126c742bee4621"
+    },
     {
       "job": "a03_fold_2020_base",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2020_seed0/result.json",
@@ -38,6 +422,11 @@
       "job": "a03_fold_2020_mixed_base",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2020_seed0/result.json",
       "sha256": "f8b180b913443fab01a70103a39a3da50270297d2ffb98c814fa1b4d94fe4d0e"
+    },
+    {
+      "job": "a03_fold_2020_mixed_base_utc_fixed",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+      "sha256": "e2a8dfc6e1ad14108c62e0395a2d8cca39e1c8218e034e36fbd3119b8e46165b"
     },
     {
       "job": "a03_fold_2021_base",
@@ -75,6 +464,11 @@
       "sha256": "36d37a1ddf9aa4ec031e5b29e82ba613c2f48bb2b617999345da3d6d0cfd5733"
     },
     {
+      "job": "a03_fold_2021_mixed_base_utc_fixed",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+      "sha256": "cf6923be756e8d0e02715fec4b9891103a17d89a97de63bec34ddc878cb70d7c"
+    },
+    {
       "job": "a03_fold_2022_base",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2022_seed0/result.json",
       "sha256": "3028e0335157bf81852e3f22c99c512e8fd91f4dad7fb0acfadebe897491f296"
@@ -108,6 +502,11 @@
       "job": "a03_fold_2022_mixed_base",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0/result.json",
       "sha256": "3ea352e74c296402ad17525cbda45bcf94a10962be422467ea83eae5f9019c5e"
+    },
+    {
+      "job": "a03_fold_2022_mixed_base_utc_fixed",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+      "sha256": "efbc6a31a7a3d22692710274298dc232053bd3b0ac158731d48f16bbd2009210"
     }
   ],
   "requirements": [
@@ -125,15 +524,15 @@
     },
     {
       "id": "1B-2-development",
-      "status": "COMPLETE",
-      "authenticated_fits": 21,
+      "status": "IN_PROGRESS",
+      "authenticated_fits": 18,
       "expected_fits": 21,
       "limit": "Earliest3eligible intervals per fire, bounded development subset; not full-cohort final fitting"
     },
     {
       "id": "1B-2-full-final-fits",
       "status": "IN_PROGRESS",
-      "authenticated_fits": 0,
+      "authenticated_fits": 6,
       "expected_fits": 7,
       "expected": "All eligible fit-fire intervals, fixed3epochs; unsupported zero-weight intervals explicitly logged"
     },
@@ -144,7 +543,7 @@
     },
     {
       "id": "1B-4-baseline-fitting",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "expected": "persistence,4dilationrates,training-chosenbestdilation,weightedlogistic,c651"
     },
     {
@@ -161,6 +560,216 @@
       "id": "1B-5-pre-registration",
       "status": "NOT_READY",
       "expected": "exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"
+    },
+    {
+      "id": "1B-2-frozen-split",
+      "status": "COMPLETE",
+      "evidence": "research/forecast-v2/SPLIT.json",
+      "executable": "scripts/run_campaign.py fits"
+    },
+    {
+      "id": "1B-2-exact-model-selection-freeze",
+      "status": "PENDING",
+      "evidence": "research/forecast-v2/MODEL_SELECTION.json",
+      "executable": "scripts/run_campaign.py freeze"
+    },
+    {
+      "id": "1B-2-complete-fit-membership",
+      "status": "PENDING",
+      "evidence": "research/forecast-v2/FIT_COVERAGE.json",
+      "executable": "scripts/audit_fit_coverage.py",
+      "limit": "Historical pure schedules are source-derived inference; new mixed IDs are actual runtime records"
+    },
+    {
+      "id": "1B-global-spotting-wind-inputs",
+      "status": "COMPLETE",
+      "evidence": "research/forecast-v2/GLOBAL_WIND_PHASE_BINDINGS.json",
+      "executable": "scripts/bind_global_wind_phases.py",
+      "limit": "Availability and exact tensor/source identity only; not a quality or physical validation result"
+    },
+    {
+      "id": "1B-data-geometry-sensitivity",
+      "status": "COMPLETE",
+      "evidence": "research/forecast-v2/GEOMETRY_AUDIT.json",
+      "executable": "scripts/audit_geometry.py",
+      "limit": "Only cell-centre stability under the declared projected make_valid sensitivity; no physical geometry validation"
+    },
+    {
+      "id": "1B-ablation-base",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/result.json"
+    },
+    {
+      "id": "1B-ablation-d4",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/result.json"
+    },
+    {
+      "id": "1B-ablation-d4_wind",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/result.json"
+    },
+    {
+      "id": "1B-ablation-ellipse",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/result.json"
+    },
+    {
+      "id": "1B-ablation-burnout",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/result.json"
+    },
+    {
+      "id": "1B-ablation-burnout_spotting",
+      "development": "PENDING",
+      "status": "IN_PROGRESS",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/result.json"
+    },
+    {
+      "id": "1B-ablation-mixed_base",
+      "development": "COMPLETE",
+      "status": "COMPLETE",
+      "executable": "scripts/run_campaign.py fits",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/result.json"
+    },
+    {
+      "id": "1B-assessment-us2024",
+      "status": "PENDING",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence_class": "NIROPS mapped extent"
+    },
+    {
+      "id": "1B-assessment-korea2025",
+      "status": "PENDING",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/korean2025/ASSESSMENT.json",
+      "executable": "scripts/score_cohorts.py --cohort korea2025",
+      "evidence_class": "reconstructed arrival, secondary only"
+    },
+    {
+      "id": "1B-baseline-assessment-persistence",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-dilation_1",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-dilation_2",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-dilation_4",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-dilation_8",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-dilation_best",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-logistic",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-c651_mc",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-baseline-assessment-c651_mf",
+      "status": "PENDING",
+      "executable": "scripts/score_cohorts.py --cohort us2024",
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/heldout/ASSESSMENT.json"
+    },
+    {
+      "id": "1B-metric-Brier",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-BSS-persistence",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-BSS-best-dilation",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-AP",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-ROC-AUC",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-fixed-bin-ECE",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-clipped-NLL",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-per-fire-values",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-whole-fire-bootstrap",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
+    },
+    {
+      "id": "1B-metric-lowest-bin-calibration",
+      "status": "PENDING",
+      "executable": "scripts/report.py",
+      "evidence": "research/forecast-v2/RESULTS.json"
     },
     {
       "id": "fig01_reliability_all_models",
@@ -180,7 +789,7 @@
     },
     {
       "id": "fig03_ablation_forest_plot",
-      "status": "PENDING",
+      "status": "GENERATED_PENDING_VISUAL_QA",
       "evidence": [
         "research/forecast-v2/figures/fig03_ablation_forest_plot.png",
         "research/forecast-v2/figures/fig03_ablation_forest_plot.svg"

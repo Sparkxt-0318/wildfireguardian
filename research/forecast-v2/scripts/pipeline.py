@@ -30,6 +30,8 @@ from pathlib import Path
 
 os.environ.setdefault("OMP_NUM_THREADS", "2")
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
 REPO = HERE.parents[3]
 sys.path.insert(0, str(REPO / "forecast"))
 
@@ -375,6 +377,11 @@ def balance_for(train, names):
 
 
 def command_fold(args):
+    phase = F.intended_phase(args.variant, "fold", args.fold, args.seed)
+    if args.artifact_suffix != phase["artifact_suffix"]:
+        raise ValueError("Fit artifact suffix must match the fixed intended phase")
+    if args.variant == "burnout_spotting":
+        F.spotting_source_contract(REPO, F.producer_sources(REPO))
     torch.set_num_threads(args.threads)
     env = Environment(args.data_root, args.work / "env")
     spec = VARIANTS[args.variant]
@@ -386,7 +393,7 @@ def command_fold(args):
     names = env.names
     model = build_model(args.variant, train, names, args.seed, args.hidden)
     balance, channels = balance_for(train, names) if args.balance else (None, None)
-    out = args.run / "folds" / f"{args.variant}_fold{args.fold}_seed{args.seed}{args.artifact_suffix}"
+    out = (args.run / phase["result"]).parent
     out.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
     log = open(out / "log.jsonl", "w")
@@ -399,6 +406,7 @@ def command_fold(args):
     scores = evaluate_samples(model, validation)
     per_fire = {e: evaluate_samples(model, [s for s in validation if s.event_id == e]) for e in validation_events}
     record = dict(variant=args.variant, spec=spec, fold=args.fold, seed=args.seed, hidden=args.hidden,
+                  intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"],
                   train_events=train_events, validation_events=validation_events,
                   train_samples=len(train), validation_samples=len(validation),
                   validation=scores, validation_per_fire=per_fire, fit=result, fit_seconds=elapsed,
@@ -411,6 +419,11 @@ def command_fold(args):
 
 
 def command_final(args):
+    phase = F.intended_phase(args.variant, "final", seed=args.seed)
+    if args.artifact_suffix != phase["artifact_suffix"]:
+        raise ValueError("Fit artifact suffix must match the fixed intended phase")
+    if args.variant == "burnout_spotting":
+        F.spotting_source_contract(REPO, F.producer_sources(REPO))
     torch.set_num_threads(args.threads)
     env = Environment(args.data_root, args.work / "env")
     spec = VARIANTS[args.variant]
@@ -419,7 +432,7 @@ def command_final(args):
     names = env.names
     model = build_model(args.variant, train, names, args.seed, args.hidden)
     balance, channels = balance_for(train, names) if args.balance else (None, None)
-    out = args.run / "final" / f"{args.variant}_seed{args.seed}"
+    out = (args.run / phase["result"]).parent
     out.mkdir(parents=True, exist_ok=True)
     runtime = {}
     fit_input_manifest = None
@@ -443,8 +456,10 @@ def command_final(args):
     elapsed = time.perf_counter() - started
     checkpoint = out / "checkpoint.pt"
     torch.save(dict(configuration=model.configuration(), state_dict=model.state_dict(), variant=args.variant,
-                    spec=spec, seed=args.seed, epochs=args.epochs, train_events=train_events), checkpoint)
+                    spec=spec, seed=args.seed, epochs=args.epochs, train_events=train_events,
+                    intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"]), checkpoint)
     record = dict(variant=args.variant, seed=args.seed, epochs=args.epochs, fit=result, fit_seconds=elapsed,
+                  intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"],
                   train_events=train_events, train_samples=len(train), checkpoint_sha256=sha256(checkpoint),
                   parameters=sum(p.numel() for p in model.parameters()), host=host_record(),
                   data_root=str(args.data_root), data_manifest_sha256=args.data_manifest_sha256)
@@ -485,76 +500,7 @@ def c651_monte_carlo(predictor, sample: PerimeterSample, names, n_samples: int, 
 
 
 def command_heldout(args):
-    """Score every model on the held-out 2024 intervals (full rectangles)."""
-    torch.set_num_threads(args.threads)
-    from wildfire.api import load_model
-    if sha256(C651) != C651_SHA256:
-        raise SystemExit("c651 checkpoint hash mismatch")
-    env = Environment(args.data_root, args.work / "env")
-    events = available(args, SPLIT["held_out"]["us_2024"])
-    if args.events:
-        events = [e for e in events if e in args.events]
-    c651 = load_model(C651, device="cpu")
-    fitted = {path.parent.name: load_structured(path) for path in sorted((args.run / "final").glob("*/checkpoint.pt"))}
-    logistic = pickle.loads((args.run / "baselines" / "logistic.pkl").read_bytes())
-    best_k = json.loads((args.run / "baselines" / "dilation_choice.json").read_text())["best_hours_per_cell"]
-    out = args.run / "heldout"
-    out.mkdir(parents=True, exist_ok=True)
-    (args.run / "report_inputs.json").write_text(json.dumps(dict(
-        perimeters=str(args.perimeters), data_root=str(args.data_root),
-        data_manifest_sha256=args.data_manifest_sha256, fitted_models=sorted(fitted),
-        best_dilation_hours_per_cell=best_k, n_samples=args.n_samples, seed=args.seed), indent=1) + "\n")
-    timings = []
-    for event in events:
-        target = out / f"{event}.npz"
-        if target.exists():
-            continue
-        samples = load_or_build(args.work, f"perimeter_full_{event}",
-                                lambda e=event: perimeter_samples(e, args.perimeters, env, crop=False))
-        names = env.names
-        columns = {k: [] for k in ("interval", "row", "col", "y")}
-        predictions: dict[str, list] = {}
-        for index, sample in enumerate(samples):
-            preds, valids = {}, []
-            started = time.perf_counter()
-            p, v = c651_monte_carlo(c651.predictor, sample, names, args.n_samples, args.seed)
-            timings.append(dict(event=event, interval=index, model="c651_mc", hours=sample.hours,
-                                seconds=time.perf_counter() - started, cells=int(p.size)))
-            preds["c651_mc"], valids = p, [v]
-            started = time.perf_counter()
-            with torch.no_grad():
-                q, w = sample_forecast(c651.predictor, sample, use_burnout=False, use_spotting=False)
-            timings.append(dict(event=event, interval=index, model="c651_meanfield", hours=sample.hours,
-                                seconds=time.perf_counter() - started, cells=int(p.size)))
-            preds["c651_meanfield"] = q.numpy()
-            valids.append(w.numpy())
-            for name, model in fitted.items():
-                with torch.no_grad():
-                    q, w = sample_forecast(model, sample)
-                preds[name] = q.numpy()
-                valids.append(w.numpy())
-            preds["persistence"] = B.persistence(sample.initial)
-            for k in B.DILATION_HOURS:
-                preds[f"dilation_{k}h"] = B.dilation(sample.initial, sample.hours, k)
-            preds["dilation_best"] = preds[f"dilation_{best_k}h"]
-            preds["logistic"] = logistic_predict(logistic, sample, names, env.terrain_gradient(event))
-            known_env = np.isfinite(sample.environment).all(axis=0)
-            mask = (~sample.initial) & known_env & np.logical_and.reduce(valids)
-            for name in preds:
-                mask &= np.isfinite(preds[name])
-            rows, cols = np.nonzero(mask)
-            columns["interval"].append(np.full(len(rows), index))
-            columns["row"].append(rows)
-            columns["col"].append(cols)
-            columns["y"].append(sample.endpoint[mask].astype(np.int8))
-            for name, value in preds.items():
-                predictions.setdefault(name, []).append(value[mask].astype(np.float64))
-            print(json.dumps(dict(event=event, interval=index, hours=sample.hours, cells=int(mask.sum()),
-                                  positives=int(sample.endpoint[mask].sum()))), flush=True)
-        np.savez_compressed(target, **{k: np.concatenate(v) for k, v in columns.items()},
-                            **{f"p_{k}": np.concatenate(v) for k, v in predictions.items()},
-                            t1=np.array([s.t1 for s in samples]), hours=np.array([s.hours for s in samples]))
-    (out / f"timings_{int(time.time())}.json").write_text(json.dumps(dict(host=host_record(), rows=timings)) + "\n")
+    raise RuntimeError("Direct pipeline heldout scoring is retired. Use run_campaign.py heldout or score_cohorts.py with the frozen MODEL_SELECTION and BLIND_REGISTRY; these enforce receipt-bound full support and source admission.")
 
 
 def logistic_features(sample: PerimeterSample, names, elevation_gradient) -> np.ndarray:

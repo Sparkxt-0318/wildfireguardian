@@ -18,6 +18,8 @@ import sys
 import time
 
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
 REPO = HERE.parents[3]
 sys.path.insert(0, str(REPO / "forecast"))
 import numpy as np
@@ -84,6 +86,7 @@ def identities(args):
     selection = json.loads(selection_path.read_text())
     if not selection.get("frozen_before_heldout_scoring") or set(selection["checkpoints"]) != VARIANT_SET:
         raise ValueError("Complete frozen model identities are required before assessment")
+    phase_evidence = F.saved_registry_admission(REPO, args.run, selection_path, selection, args.registry)
     for row in selection["checkpoints"].values():
         if sha(REPO / row["path"]) != row["sha256"]:
             raise ValueError("A frozen checkpoint changed")
@@ -96,16 +99,17 @@ def identities(args):
     for path, expected in selection["input_manifests_sha256"].items():
         if sha(args.data / path) != expected:
             raise ValueError("A frozen assessment input manifest changed")
-    if sha(P.C651) != P.C651_SHA256:
+    if sha(P.C651) != P.C651_SHA256 or phase_evidence["c651_sha256"] != sha(P.C651):
         raise ValueError("Integration checkpoint c651 changed")
     source = {str(p.relative_to(REPO)): sha(p) for p in (REPO / "forecast/wildfire").rglob("*")
               if p.is_file() and p.suffix in (".py", ".json")}
-    source |= {str(p.relative_to(REPO)): sha(p) for p in [HERE, HERE.with_name("pipeline.py")]}
+    source |= {str(p.relative_to(REPO)): sha(p) for p in [HERE, HERE.with_name("pipeline.py"), HERE.with_name("audit_fit_coverage.py")]}
     perimeter_manifest = args.data / "perimeters/PERIMETER_MANIFEST.json"
     geometry_path = REPO / "research/forecast-v2/GEOMETRY_AUDIT.json"
     if json.loads(geometry_path.read_text())["source_manifest_sha256"] != sha(perimeter_manifest):
         raise ValueError("Perimeter input manifest differs from the independently audited source phase")
-    return dict(selection_sha256=sha(selection_path), checkpoints=selection["checkpoints"],
+    return dict(registry=phase_evidence["registry"], current_phase=phase_evidence["current_phase"], spotting_source_contract=phase_evidence["spotting_source_contract"],
+                selection_sha256=sha(selection_path), checkpoints=selection["checkpoints"],
                 c651_sha256=sha(P.C651), source_sha256=source,
                 logistic_sha256=sha(args.run / "baselines/logistic.pkl"),
                 dilation_choice_sha256=sha(args.run / "baselines/dilation_choice.json"),
@@ -229,6 +233,7 @@ def main():
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--work", type=Path, required=True)
     parser.add_argument("--run", type=Path, required=True)
+    parser.add_argument("--registry", type=Path, default=REPO / "research/forecast-v2/BLIND_REGISTRY.json")
     args = parser.parse_args()
     torch.set_num_threads(2)
     frozen = identities(args)

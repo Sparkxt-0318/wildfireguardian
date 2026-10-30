@@ -95,3 +95,16 @@ def test_fresh_numerical_failure_cannot_redefine_source_support(assessment, case
     else:
         with pytest.raises(ValueError, match="numerical failure|support differs"):
             assessment.predict_case(sample, env, c651, models, None, 4)
+
+
+def test_old_selection_without_saved_registry_fails_before_model_or_input_loading(assessment, tmp_path, monkeypatch):
+    import json
+    root = tmp_path / "no-registry-model-root"
+    evidence = root / "research/forecast-v2"
+    evidence.mkdir(parents=True)
+    (evidence / "MODEL_SELECTION.json").write_text(json.dumps(dict(frozen_before_heldout_scoring=True,
+        checkpoints={v: {} for v in assessment.VARIANT_SET})))
+    monkeypatch.setattr(assessment, "REPO", root)
+    monkeypatch.setattr(assessment, "load_model", lambda *args, **kwargs: pytest.fail("registry admission must precede model loading"))
+    with pytest.raises(ValueError, match="existing files"):
+        assessment.identities(SimpleNamespace(run=root / "run", registry=evidence / "BLIND_REGISTRY.json"))

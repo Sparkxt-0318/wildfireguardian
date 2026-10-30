@@ -20,11 +20,14 @@ import hashlib
 import importlib.metadata
 import importlib.util
 import json
+import sys
 import math
 from pathlib import Path
 import re
 
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
 REPO = HERE.parents[3]
 VARIANTS = ("base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base")
 C651 = "forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt"
@@ -80,11 +83,10 @@ def option(command, name):
 def full_fits(root, run):
     """Check every completed full-fit artifact before opening model selection."""
     results, receipts = {}, {}
-    execution_root = root / "research/forecast-v2/executions"
     split = json.loads(contained(root, root / "research/forecast-v2/SPLIT.json").read_text())
     fit_events = split["fit"]["us_perimeter_and_kriged"]
     for variant in VARIANTS:
-        checkpoint = contained(root, run / "final" / f"{variant}_seed0/checkpoint.pt")
+        checkpoint = contained(root, (run / F.intended_phase(variant, "final")["result"]).with_name("checkpoint.pt"))
         path = contained(root, checkpoint.with_name("result.json"))
         result = json.loads(path.read_text())
         if (result.get("variant") != variant or result.get("seed") != 0 or result.get("epochs") != 3
@@ -93,26 +95,12 @@ def full_fits(root, run):
                 or result["train_events"] != fit_events
                 or len(result.get("fit", {}).get("history", [])) != 3):
             raise ValueError(f"Completed fixed-policy full fit required: {variant}")
-        matched = []
-        for candidate in execution_root.glob(f"*_final_{variant}.json"):
-            receipt = json.loads(candidate.read_text())
-            output = Path(receipt.get("output", ""))
-            if not output.is_absolute():
-                output = root / output
-            if output.resolve() != path or receipt.get("output_sha256") != sha(path):
-                # Preserved older attempts do not authenticate the current result.
-                continue
-            command = receipt.get("command", [])
-            if (receipt.get("exit_code") != 0 or receipt.get("output_sha256") != sha(path)
-                    or "final" not in command or option(command, "--variant") != variant
-                    or option(command, "--seed") != "0" or option(command, "--epochs") != "3"
-                    or option(command, "--max-fit-intervals-per-fire") != "0"
-                    or option(command, "--intervals-per-epoch") != "0"):
-                raise ValueError(f"Authenticated unrestricted final-fit execution required: {variant}")
-            matched.append(identity(root, candidate))
-        if len(matched) != 1:
-            raise ValueError(f"Exactly one authenticated final-fit receipt is required: {variant}")
-        results[variant], receipts[variant] = identity(root, path), matched[0]
+        _, _, receipt_path, receipt, _ = F.phase_result(root, run, variant, "final")
+        command = receipt.get("command", [])
+        if (option(command, "--epochs") != "3" or option(command, "--max-fit-intervals-per-fire") != "0"
+                or option(command, "--intervals-per-epoch") != "0"):
+            raise ValueError(f"Authenticated unrestricted final-fit execution required: {variant}")
+        results[variant], receipts[variant] = identity(root, path), identity(root, receipt_path)
     return results, receipts
 
 
@@ -135,7 +123,9 @@ def build_registry(model_root, run_root, selection_path, c651_path):
             or set(selection.get("checkpoints", {})) != set(VARIANTS)
             or set(selection.get("baselines", {})) != set(BASELINES)):
         raise ValueError("The exact seven-model selection and fitted-baseline freeze is required")
+    phase_evidence = F.validate_selection_phase(root, run, selection)
     fit_coverage, fit_coverage_record = verified_fit_coverage(root, run, selection)
+    F.validate_phase_identity(fit_coverage_record.get("current_phase"))
     for name in ("heldout", "korean2025"):
         folder = run / name
         if folder.exists() and any(p.is_file() for p in folder.rglob("*")):
@@ -147,7 +137,7 @@ def build_registry(model_root, run_root, selection_path, c651_path):
     selected = min(VARIANTS, key=lambda name: (values[name], VARIANTS.index(name)))
     if selection.get("selected_variant") != selected:
         raise ValueError("Primary selection differs from the frozen development minimum and tie order")
-    models = {v + "_seed0": authenticate(root, selection["checkpoints"][v], run / "final" / f"{v}_seed0/checkpoint.pt")
+    models = {v + "_seed0": authenticate(root, selection["checkpoints"][v], (run / F.intended_phase(v, "final")["result"]).with_name("checkpoint.pt"))
               for v in VARIANTS}
     for variant in VARIANTS:
         if fit_coverage_record["variants"][variant]["checkpoint"] != models[variant + "_seed0"]:
@@ -163,6 +153,7 @@ def build_registry(model_root, run_root, selection_path, c651_path):
     if type(rate) is not int or rate not in (1, 2, 4, 8):
         raise ValueError("The frozen training-selected dilation rate must be 1, 2, 4 or 8")
     required = {root / "research/forecast-v2/SPLIT.json", root / "research/forecast-v2/RUN_PROTOCOL.json",
+                root / "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
                 root / "forecast/documents/preregistration_blind_test.md", root / "forecast/pyproject.toml"}
     required |= {p for p in (root / "forecast/wildfire").rglob("*") if p.is_file() and p.suffix in (".py", ".json")}
     required |= set((root / "research/forecast-v2/scripts").glob("*.py"))
@@ -198,10 +189,13 @@ def build_registry(model_root, run_root, selection_path, c651_path):
     if frozen.tzinfo is None:
         raise ValueError("Model selection freeze timestamp requires a UTC offset")
     return dict(schema="wfg.forecast-blind-registry/1", status="FROZEN", models=models,
+                current_phase=phase_evidence["current_phase"], development_phases=phase_evidence["development_phases"],
+                spotting_source_contract=phase_evidence["spotting_source_contract"],
                 selected_model=selected + "_seed0", best_dilation_hours_per_cell=rate,
                 logistic=baselines["logistic"], baselines=baselines,
                 selection=identity(root, selection_path), final_results=fits, final_executions=executions,
-                fit_coverage=fit_coverage,
+                fit_coverage=fit_coverage, unsupported_interval_policy=fit_coverage_record["unsupported_interval_policy"],
+                fit_coverage_status={name: row["coverage_status"] for name, row in fit_coverage_record["variants"].items()},
                 fit_schedule_evidence={name: row["schedule_evidence"] for name, row in fit_coverage_record["variants"].items()},
                 baseline_execution=identity(root, baseline_execution), cache_audit=identity(root, cache_path),
                 producer_source_sha256=source,

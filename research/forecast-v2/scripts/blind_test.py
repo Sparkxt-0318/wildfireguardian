@@ -19,6 +19,8 @@ import sys
 import time
 
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
 REPO = HERE.parents[3]
 sys.path.insert(0, str(REPO / "forecast"))
 import numpy as np
@@ -348,6 +350,12 @@ def validate(registry_path, cohort_path, model_root, input_root):
     registry, cohort = json.loads(registry_path.read_text()), json.loads(cohort_path.read_text())
     if registry.get("status") != "FROZEN" or set(registry.get("models", {})) != MODEL_NAMES:
         raise ValueError("The exact frozen eight-model registry is required")
+    F.validate_phase_identity(registry.get("current_phase"))
+    phase_source = registry.get("spotting_source_contract", {})
+    if phase_source != F.spotting_source_contract(model_root, phase_source.get("source_sha256", {})):
+        raise ValueError("Registry must bind the corrected immutable spotting source contract")
+    if Path(registry["models"]["burnout_spotting_seed0"]["path"]).parent.name != F.intended_phase("burnout_spotting", "final")["phase_id"]:
+        raise ValueError("Registry spotting checkpoint must use the exact corrected intended phase")
     if registry.get("dependency_versions") != runtime_dependencies():
         raise ValueError("Execution requires the exact registered direct dependency versions")
     if registry.get("selected_model") not in MODEL_NAMES - {"c651_mc"}:
@@ -358,7 +366,7 @@ def validate(registry_path, cohort_path, model_root, input_root):
                 if p.is_file() and p.suffix in (".py", ".json")}
     required |= {"research/forecast-v2/scripts/pipeline.py", "research/forecast-v2/scripts/blind_test.py",
                  "research/forecast-v2/SPLIT.json", "research/forecast-v2/scripts/blind_inventory.py",
-                 "research/forecast-v2/scripts/freeze_registry.py"}
+                 "research/forecast-v2/scripts/freeze_registry.py", "research/forecast-v2/scripts/audit_fit_coverage.py"}
     if not required <= registry.get("producer_source_sha256", {}).keys():
         raise ValueError("The complete executed forecast source closure must be pinned")
     for item in [*registry["models"].values(), registry["logistic"]]:
@@ -403,7 +411,8 @@ def validate(registry_path, cohort_path, model_root, input_root):
 
 def validation_identity(registry, cohort):
     """Bind a validated run to its complete source, checkpoint and input closure."""
-    return dict(producer_source_sha256=registry["producer_source_sha256"],
+    return dict(current_phase=registry["current_phase"], spotting_source_contract=registry["spotting_source_contract"],
+                producer_source_sha256=registry["producer_source_sha256"],
                 model_sha256={n: r["sha256"] for n, r in registry["models"].items()},
                 logistic_sha256=registry["logistic"]["sha256"], input_sha256=cohort["input_sha256"],
                 inventory=cohort["inventory"], source_release_utc=cohort["source_release_utc"],

@@ -21,7 +21,10 @@ from __future__ import annotations
 import argparse
 import ast
 from dataclasses import fields
+from functools import lru_cache
 import hashlib
+import importlib.metadata
+import gzip
 import json
 import math
 from pathlib import Path
@@ -40,7 +43,171 @@ VARIANTS = ("base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "
 SCHEMA = "wfg.forecast-fit-coverage/1"
 SAMPLES_SCHEMA = "wfg.forecast-fit-samples/1"
 RUNTIME_SCHEMA = "wfg.forecast-fit-runtime-membership/1"
+UNSUPPORTED_POLICY_SHA256 = "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
 
+
+
+def intended_phase(variant, stage, fold=None, seed=0):
+    """Fixed current numerical phase. Historical directories never select it."""
+    if variant not in VARIANTS or stage not in ("fold", "final") or seed != 0:
+        raise ValueError("Intended phases require a registered variant, stage and seed0")
+    if stage == "fold" and str(fold) not in ("2020", "2021", "2022"):
+        raise ValueError("Intended development folds are exactly 2020, 2021 and 2022")
+    if stage == "final" and fold is not None:
+        raise ValueError("Final phases have no development fold")
+    suffix = "_flaming_only" if variant == "burnout_spotting" else ("_utc_fixed" if stage == "fold" and variant == "mixed_base" else "")
+    stem = f"{variant}_fold{fold}_seed0" if stage == "fold" else f"{variant}_seed0"
+    job = f"fold_{fold}_{variant}" if stage == "fold" else f"final_{variant}"
+    return dict(variant=variant, stage=stage, fold=str(fold) if stage == "fold" else None, seed=0,
+                phase_id=stem + suffix, artifact_suffix=suffix, job_suffix=job + suffix,
+                result=f"{'folds' if stage == 'fold' else 'final'}/{stem}{suffix}/result.json",
+                spotting_source_mode="flaming_only" if variant == "burnout_spotting" else "not_applicable")
+
+
+def current_phase_identity():
+    return dict(schema="wfg.forecast-intended-phases/1", spotting_source_mode="flaming_only",
+                phases=[intended_phase(v, "fold", fold) for fold in ("2020", "2021", "2022") for v in VARIANTS]
+                       + [intended_phase(v, "final") for v in VARIANTS])
+
+
+def phase_metadata(variant, stage, fold=None):
+    return intended_phase(variant, stage, fold)
+
+
+def validate_phase_identity(value):
+    if value != current_phase_identity():
+        raise ValueError("The exact current flaming-only phase identity is required")
+
+
+def phase_result(root, run, variant, stage, fold=None):
+    """Authenticate the exact intended result and its immutable execution phase."""
+    phase = intended_phase(variant, stage, fold)
+    path = _inside(root, Path(run) / phase["result"])
+    result = json.loads(path.read_text())
+    if (result.get("variant") != variant or result.get("seed") != 0
+            or (stage == "fold" and str(result.get("fold")) != str(fold))):
+        raise ValueError("Intended phase result names a different variant, fold or seed")
+    if stage == "fold":
+        split = json.loads(_inside(root, "research/forecast-v2/SPLIT.json").read_text())
+        folds = split.get("development_folds", {}).get("folds", {})
+        expected = folds.get(str(fold))
+        observed = result.get("validation_per_fire", {})
+        if (set(folds) != {"2020", "2021", "2022"} or not isinstance(expected, list) or not expected
+                or any(not isinstance(event, str) or not event for event in expected)
+                or len(expected) != len(set(expected)) or not isinstance(observed, dict)
+                or set(observed) != set(expected)
+                or ("validation_events" in result and result["validation_events"] != expected)):
+            raise ValueError("Development validation fire membership must exactly match the frozen SPLIT fold and declared validation_events")
+    matches = []
+    for candidate in (root / "research/forecast-v2/executions").glob(f"*_{phase['job_suffix']}.json"):
+        receipt = json.loads(candidate.read_text())
+        output = Path(receipt.get("output", ""))
+        output = output if output.is_absolute() else root / output
+        if output.resolve() == path and receipt.get("output_sha256") == sha(path):
+            matches.append((candidate, receipt))
+    if len(matches) != 1 or matches[0][1].get("exit_code") != 0:
+        raise ValueError("Exactly one successful immutable receipt for the intended phase is required")
+    receipt_path, receipt = matches[0]
+    command = receipt.get("command", [])
+    if (stage not in command or _option(command, "--variant") != variant or _option(command, "--seed") != "0"
+            or (stage == "fold" and _option(command, "--fold") != str(fold))):
+        raise ValueError("Execution command differs from the intended phase")
+    source_contract = None
+    if variant == "burnout_spotting":
+        if (result.get("intended_phase") != phase or result.get("spotting_source_mode") != "flaming_only"
+                or _option(command, "--artifact-suffix") != phase["artifact_suffix"]
+                or not re.fullmatch(r"a(?:0[5-9]|[1-9][0-9]+)_" + re.escape(phase["job_suffix"]), receipt.get("job", ""))
+                or receipt_path.stem != receipt.get("job")):
+            raise ValueError("Corrected spotting requires fresh attempt5-or-later flaming-only phase metadata and arguments")
+        source_contract = spotting_source_contract(root, receipt.get("source_sha256", {}))
+    return path, result, receipt_path, receipt, source_contract
+
+
+def development_selection(root, run):
+    """Equal-fire criterion over exact SPLIT memberships checked by phase_result."""
+    folds = json.loads(_inside(root, "research/forecast-v2/SPLIT.json").read_text())["development_folds"]["folds"]
+    values, records = {}, {}
+    for variant in VARIANTS:
+        scores = []
+        for fold in ("2020", "2021", "2022"):
+            path, result, receipt, _, contract = phase_result(root, run, variant, "fold", fold)
+            observed = result.get("validation_per_fire", {})
+            if not observed or any(type(s.get("brier")) not in (int, float) or not math.isfinite(s["brier"])
+                                   or not 0 <= s["brier"] <= 1 for s in observed.values()):
+                raise ValueError("Every intended development fold requires finite per-fire Brier values")
+            scores.extend(observed[event]["brier"] for event in folds[fold])
+            records[intended_phase(variant, "fold", fold)["phase_id"]] = dict(result=identity(root, path), execution=identity(root, receipt),
+                validation_events=folds[fold], source_contract=contract)
+        values[variant] = sum(scores) / len(scores)
+    return values, records
+
+
+def validate_selection_phase(root, run, selection):
+    validate_phase_identity(selection.get("current_phase"))
+    values, development = development_selection(root, run)
+    if selection.get("selected_variant") != min(VARIANTS, key=lambda name: (values[name], VARIANTS.index(name))):
+        raise ValueError("Selection primary differs from the fixed intended development minimum and tie order")
+    if selection.get("development_brier") != values or selection.get("development_phases") != development:
+        raise ValueError("Selection must use exactly the authenticated intended development paths")
+    if set(selection.get("checkpoints", {})) != set(VARIANTS):
+        raise ValueError("Selection requires all intended final checkpoint identities")
+    for variant, declared in selection["checkpoints"].items():
+        expected = (Path(run) / intended_phase(variant, "final")["result"]).with_name("checkpoint.pt")
+        if _inside(root, declared["path"]) != expected.resolve() or sha(expected) != declared["sha256"]:
+            raise ValueError("Selection checkpoint differs from its exact intended final path and bytes")
+    _, spot_result, _, _, contract = phase_result(root, run, "burnout_spotting", "final")
+    if spot_result.get("checkpoint_sha256") != selection["checkpoints"]["burnout_spotting"]["sha256"]:
+        raise ValueError("Corrected spotting result, receipt and selected checkpoint identities differ")
+    return dict(current_phase=current_phase_identity(), development_phases=development, spotting_source_contract=contract)
+
+
+def saved_registry_admission(root, run, selection_path, selection, registry_path):
+    """Authenticate an existing freeze on every assessment/resume, without rebuild."""
+    root, run = Path(root).resolve(), Path(run).resolve()
+    path = _inside(root, registry_path)
+    registry = json.loads(path.read_text())
+    phase = validate_selection_phase(root, run, selection)
+    validate_phase_identity(registry.get("current_phase"))
+    if (registry.get("schema") != "wfg.forecast-blind-registry/1" or registry.get("status") != "FROZEN"
+            or registry.get("selection") != identity(root, selection_path)
+            or registry.get("selected_model") != selection["selected_variant"] + "_seed0"
+            or registry.get("development_phases") != phase["development_phases"]
+            or registry.get("spotting_source_contract") != phase["spotting_source_contract"]
+            or registry.get("fit_coverage") != selection.get("fit_coverage")
+            or registry.get("baselines") != selection.get("baselines")
+            or registry.get("logistic") != selection.get("baselines", {}).get("logistic")):
+        raise ValueError("Current assessment requires the exact saved source/model/selection registry freeze")
+    models = registry.get("models", {})
+    if set(models) != {"c651_mc", *(v + "_seed0" for v in VARIANTS)} or any(
+            models[v + "_seed0"] != selection["checkpoints"][v] for v in VARIANTS):
+        raise ValueError("Saved registry must bind the exact eight-model current assessment set")
+    dilation = json.loads(_inside(root, registry["baselines"]["dilation_choice"]["path"]).read_text())
+    if registry.get("best_dilation_hours_per_cell") != dilation.get("best_hours_per_cell"):
+        raise ValueError("Saved registry dilation choice differs from the exact executed fitted baseline")
+    for item in [*models.values(), *registry["baselines"].values()]:
+        if identity(root, item["path"]) != item:
+            raise ValueError("Saved registry checkpoint or baseline bytes changed")
+    required = {str(p.relative_to(root)) for p in (root / "forecast/wildfire").rglob("*") if p.is_file() and p.suffix in (".py", ".json")}
+    required |= {str(p.relative_to(root)) for p in (root / "research/forecast-v2/scripts").glob("*.py")}
+    required |= {"research/forecast-v2/SPLIT.json", "research/forecast-v2/RUN_PROTOCOL.json",
+                 "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json", "forecast/pyproject.toml", "forecast/documents/preregistration_blind_test.md"}
+    source = registry.get("producer_source_sha256", {})
+    if not required <= source.keys() or any(sha(_inside(root, name)) != digest for name, digest in source.items()):
+        raise ValueError("Saved registry complete executed source closure changed")
+    if registry.get("unsupported_interval_policy") != unsupported_policy(root):
+        raise ValueError("Saved registry must bind the prior immutable unsupported interval policy")
+    if registry.get("dependency_versions") != {name: importlib.metadata.version(name) for name in
+            ("numpy", "pandas", "torch", "rasterio", "pyproj", "shapely", "pyshp", "scipy", "scikit-learn")}:
+        raise ValueError("Saved registry requires the exact registered direct dependency versions")
+    for variant in VARIANTS:
+        result, _, execution, _, _ = phase_result(root, run, variant, "final")
+        if (registry.get("final_results", {}).get(variant) != identity(root, result)
+                or registry.get("final_executions", {}).get(variant) != identity(root, execution)):
+            raise ValueError("Saved registry final result or immutable producer receipt changed")
+    coverage = registry["fit_coverage"]
+    if identity(root, coverage["path"]) != coverage:
+        raise ValueError("Saved complete fit coverage bytes changed")
+    return dict(registry=identity(root, path), c651_sha256=models["c651_mc"]["sha256"], current_phase=phase["current_phase"], spotting_source_contract=phase["spotting_source_contract"])
 
 def sha(path):
     h = hashlib.sha256()
@@ -143,7 +310,8 @@ def producer_sources(root):
     root = Path(root).resolve()
     files = {p for p in (root / "forecast/wildfire").rglob("*") if p.is_file() and p.suffix in (".py", ".json")}
     files |= {root / p for p in ("research/forecast-v2/scripts/pipeline.py", "research/forecast-v2/scripts/run_campaign.py",
-                                 "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/RUN_PROTOCOL.json")}
+                                 "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/RUN_PROTOCOL.json",
+                                 "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json")}
     return {str(_inside(root, p).relative_to(root)): sha(p) for p in sorted(files)}
 
 
@@ -258,10 +426,16 @@ def _source_blob(root, relative, expected):
         raise ValueError("Immutable fit phase sources require exact SHA-256 identities")
     current = _inside(root, relative)
     if sha(current) == expected:
-        return current.read_text()
+        return current.read_bytes().decode("utf-8")
     snapshot = root / "research/forecast-v2/source_snapshots" / expected / Path(relative).name
     if snapshot.is_file() and sha(snapshot) == expected:
-        return snapshot.read_text()
+        return snapshot.read_bytes().decode("utf-8")
+    compressed = snapshot.with_name(snapshot.name + ".gz")
+    if compressed.is_file():
+        original = gzip.decompress(compressed.read_bytes())
+        if hashlib.sha256(original).hexdigest() != expected:
+            raise ValueError("Compressed immutable source snapshot differs from the recorded original bytes")
+        return original.decode("utf-8")
     listing = subprocess.run(["git", "rev-list", "--all", "--", relative], cwd=root, capture_output=True, text=True)
     commits = listing.stdout.splitlines() if listing.returncode == 0 else []
     for commit in commits:
@@ -271,15 +445,31 @@ def _source_blob(root, relative, expected):
     raise ValueError("Exact immutable fit producer source is unavailable: " + relative)
 
 
+@lru_cache(maxsize=32)
+def _tree(source):
+    return ast.parse(source)
+
+
+@lru_cache(maxsize=4096)
+def _dump(node):
+    return ast.dump(node, include_attributes=False)
+
+
+@lru_cache(maxsize=128)
+def _expression(expression):
+    return _dump(ast.parse(expression, mode="eval").body)
+
+
+@lru_cache(maxsize=128)
 def _function(source, name):
-    nodes = [n for n in ast.walk(ast.parse(source)) if isinstance(n, ast.FunctionDef) and n.name == name]
+    nodes = [n for n in ast.walk(_tree(source)) if isinstance(n, ast.FunctionDef) and n.name == name]
     if len(nodes) != 1:
         raise ValueError("Expected one exact producer function: " + name)
     return nodes[0]
 
 
 def _same(node, expression):
-    return ast.dump(node, include_attributes=False) == ast.dump(ast.parse(expression, mode="eval").body, include_attributes=False)
+    return _dump(node) == _expression(expression)
 
 
 def _literal(node):
@@ -293,6 +483,37 @@ def _literal(node):
     raise ValueError("Fit regime policy must be an explicit literal source table")
 
 
+
+def spotting_source_contract(root, source):
+    """Bind the corrected law to preserved producer bytes, not a caller label."""
+    functions = {"forecast/wildfire/survival.py": "sample_forecast",
+                 "forecast/wildfire/meanfield.py": "propagate_mean_field",
+                 "forecast/wildfire/burnout.py": "flaming_source"}
+    nodes, hashes = {}, {}
+    for relative, name in functions.items():
+        blob = _source_blob(root, relative, source.get(relative))
+        node = _function(blob, name)
+        current = _function((root / relative).read_text(), name)
+        if _dump(node) != _dump(current):
+            raise ValueError("Immutable spotting producer differs from the current flaming-only source contract")
+        nodes[name] = node
+        hashes[name] = object_sha(_dump(node))
+    sample = nodes["sample_forecast"]
+    modes = [n.value for n in ast.walk(sample) if isinstance(n, ast.Assign)
+             and any(ast.unparse(t) == "spotting.source_mode" for t in n.targets)]
+    calls = [n for n in ast.walk(sample) if isinstance(n, ast.Call) and _same(n.func, "propagate_mean_field")]
+    if len(modes) != 1 or not _same(modes[0], '"flaming_only"') or len(calls) != 1 or not any(
+            k.arg == "extra_rate_fn" and _same(k.value, "spotting") for k in calls[0].keywords):
+        raise ValueError("Immutable sample_forecast must set and execute spotting.source_mode flaming_only")
+    propagate = nodes["propagate_mean_field"]
+    if not any(isinstance(n, ast.Assign) and any(ast.unparse(t) == "extra_source" for t in n.targets)
+               and _same(n.value, "burnout.flaming_source(clean, age0, history[j], clock, current=states[j])") for n in ast.walk(propagate)) or not any(
+               isinstance(n, ast.Call) and _same(n, "extra_rate_fn(extra_source, k)") for n in ast.walk(propagate)):
+        raise ValueError("Immutable mean-field producer must pass the flaming-only occupancy to the extra callback")
+    return dict(schema="wfg.forecast-spotting-source/1", source_mode="flaming_only",
+                source_sha256={relative: source[relative] for relative in functions}, ast_sha256=hashes,
+                evidence="IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION")
+
 def _schedule_contract(root, source):
     """Bounded source checks for full permutations and the recorded skip paths."""
     pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source["research/forecast-v2/scripts/pipeline.py"])
@@ -301,7 +522,7 @@ def _schedule_contract(root, source):
     for name in ("fit_samples", "available"):
         if ast.dump(_function(pipeline, name), include_attributes=False) != ast.dump(_function(current_pipeline, name), include_attributes=False):
             raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
-    tables = [n for n in ast.parse(pipeline).body if isinstance(n, ast.Assign)
+    tables = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign)
               and any(isinstance(t, ast.Name) and t.id == "VARIANTS" for t in n.targets)]
     if len(tables) != 1:
         raise ValueError("The immutable producer must identify the full mixed/perimeter regime table")
@@ -377,18 +598,8 @@ def _option(command, name):
 
 
 def _execution(root, run, variant):
-    result_path = _inside(root, run / "final" / f"{variant}_seed0/result.json")
-    matches = []
-    for path in (root / "research/forecast-v2/executions").glob(f"*_final_{variant}.json"):
-        record = json.loads(path.read_text())
-        output = Path(record.get("output", ""))
-        output = output if output.is_absolute() else root / output
-        if output.resolve() == result_path and record.get("output_sha256") == sha(result_path):
-            matches.append((path, record))
-    if len(matches) != 1 or matches[0][1].get("exit_code") != 0:
-        raise ValueError("Complete fit coverage requires one exact successful execution receipt")
-    path, receipt = matches[0]
-    return result_path, json.loads(result_path.read_text()), path, receipt
+    path, result, receipt_path, receipt, _ = phase_result(root, run, variant, "final")
+    return path, result, receipt_path, receipt
 
 
 def _cache_lists(root, cache_root, audit, expected):
@@ -424,9 +635,155 @@ def _cache_lists(root, cache_root, audit, expected):
     return perimeter, mixed, files
 
 
+
+def unsupported_policy(root):
+    path = _inside(root, "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json")
+    if sha(path) != UNSUPPORTED_POLICY_SHA256:
+        raise ValueError("Unsupported-interval admission requires the exact prior immutable extension2 policy")
+    return identity(root, path)
+
+
+
+def unsupported_source_reason(sample):
+    """Input-only mixed_base K9/cutoff-repeat envelope, never an optimizer replay."""
+    from scipy.ndimage import minimum_filter
+    initial, mask = np.asarray(sample.initial), np.asarray(sample.score_mask, dtype=bool)
+    environment = np.asarray(sample.environment)
+    weights = np.asarray(sample.label_weight, dtype=np.float32)
+    if (environment.ndim != 3 or environment.shape[1:] != initial.shape or mask.shape != initial.shape
+            or weights.shape != initial.shape or not np.isin(initial, [0, 1]).all()
+            or sample.weather != "cutoff_repeated" or not np.isfinite(weights[mask]).all() or (weights[mask] < 0).any()):
+        raise ValueError("Narrow unsupported-source classification requires binary initial state, repeated cutoff inputs and finite nonnegative weights")
+    positive = mask & (weights > 0)
+    if not positive.any():
+        return dict(classification="ZERO_FINITE_POSITIVE_REFERENCE_WEIGHT_FROM_AUTHENTICATED_SOURCE", reference_positive_weight_cells=0)
+    known = np.isfinite(environment).all(axis=0)
+    # boundary='zero' means outside-grid state and covariates are known.
+    context = minimum_filter(known, size=9, mode="constant", cval=1)
+    valid = np.ones(initial.shape, dtype=bool)
+    hours = float(sample.hours)
+    if not math.isfinite(hours) or hours <= 0:
+        raise ValueError("Unsupported support recurrence requires a positive finite duration")
+    whole = int(math.floor(hours + 1e-12))
+    steps = whole + int(hours - whole > 1e-9)
+    for _ in range(steps):
+        following = valid & ((initial == 1) | (context & minimum_filter(valid, size=9, mode="constant", cval=1)))
+        if np.array_equal(following, valid):
+            break
+        valid = following
+    if (positive & valid).any():
+        raise ValueError("Logged unsupported sample retains positive source weight under the narrow conservative support envelope")
+    return dict(classification="EMPTY_REPEATED_CUTOFF_ENVIRONMENT_SUPPORT", reference_positive_weight_cells=int(positive.sum()),
+                supported_positive_weight_cells=0, recurrence_steps=steps,
+                support_mask_sha256=hashlib.sha256(np.ascontiguousarray(valid).tobytes()).hexdigest(),
+                evidence="SOURCE_DERIVED_CONSERVATIVE_POSITIVE_KERNEL_ENVELOPE_NOT_PER_OPTIMIZER_MASK_REPLAY",
+                numeric_limit="Finite floating-point softplus can underflow to zero; actual runtime skip records are observed evidence, this envelope is source inference.")
+
+
+def mixed_support_contract(root, source):
+    """Scope the input-only recurrence to the exact immutable mixed_base recipe."""
+    models = _source_blob(root, "forecast/wildfire/models.py", source.get("forecast/wildfire/models.py"))
+    meanfield = _source_blob(root, "forecast/wildfire/meanfield.py", source.get("forecast/wildfire/meanfield.py"))
+    survival = _source_blob(root, "forecast/wildfire/survival.py", source.get("forecast/wildfire/survival.py"))
+    pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source.get("research/forecast-v2/scripts/pipeline.py"))
+    specs = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "VARIANTS" for t in n.targets)]
+    if len(specs) != 1 or _literal(specs[0].value).get("mixed_base") != dict(prior="free", frame="none", d4=False, mixed=True):
+        raise ValueError("Unsupported-source envelope is restricted to the exact mixed_base no-frame/no-extra regime")
+    nodes = []
+    methods = {}
+    for class_name, method in [("EnvironmentConditionedConvolution", "_features"), ("EnvironmentConditionedConvolution", "__init__"),
+                               ("StructuredKernelModel", "_positive"), ("StructuredKernelModel", "_structured"),
+                               ("StructuredKernelModel", "kernel_rates"), ("StructuredKernelModel", "__init__")]:
+        def pick(blob):
+            cls = next(n for n in _tree(blob).body if isinstance(n, ast.ClassDef) and n.name == class_name)
+            return next(n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name == method)
+        node = pick(models)
+        if _dump(node) != _dump(pick((root / "forecast/wildfire/models.py").read_text())):
+            raise ValueError("Immutable local-kernel producer differs from the audited conservative support contract")
+        nodes.append(node)
+        methods[(class_name, method)] = node
+    positive = methods[("StructuredKernelModel", "_positive")]
+    if len([n for n in ast.walk(positive) if isinstance(n, ast.Return)]) != 1 or not any(
+            isinstance(n, ast.Return) and _same(n.value, "F.softplus(logits)") for n in ast.walk(positive)):
+        raise ValueError("Conservative support requires the fixed finite softplus local-kernel law")
+    features = methods[("EnvironmentConditionedConvolution", "_features")]
+    for expression in ("available & torch.isfinite(environmental_data)",
+                       "F.pad(known, (radius,) * 4, value=1.0 if boundary == 'zero' else 0.0)",
+                       "F.avg_pool2d(known, self.kernel_size, stride=1) == 1"):
+        if not any(isinstance(n, ast.Assign) and _same(n.value, expression) for n in ast.walk(features)):
+            raise ValueError("Conservative support requires the fixed local known-context and boundary law")
+    build = _function(pipeline, "build_model")
+    constructors = [n for n in ast.walk(build) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "StructuredKernelModel"]
+    if len(constructors) != 1 or len(constructors[0].args) < 2 or not _same(constructors[0].args[1], "9"):
+        raise ValueError("Conservative support is restricted to the intended K9 constructor")
+    for blob, relative, name in [(models, "forecast/wildfire/models.py", "new_burn_probability"),
+                               (meanfield, "forecast/wildfire/meanfield.py", "_probe_valid"),
+                               (meanfield, "forecast/wildfire/meanfield.py", "model_kernel_components"),
+                               (survival, "forecast/wildfire/survival.py", "step_durations"),
+                               (pipeline, "research/forecast-v2/scripts/pipeline.py", "build_model")]:
+        node = _function(blob, name)
+        if _dump(node) != _dump(_function((root / relative).read_text(), name)):
+            raise ValueError("Immutable support recipe differs from the exact audited local K9 producer")
+        nodes.append(node)
+    for name, expression in {"observed_burns": "known & (clean == 1)", "following": "masks[j] & (observed_burns | rate_valid)"}.items():
+        values = [n.value for n in ast.walk(_function(meanfield, "propagate_mean_field")) if isinstance(n, ast.Assign)
+                  and any(isinstance(t, ast.Name) and t.id == name for t in n.targets)]
+        if len(values) != 1 or not _same(values[0], expression):
+            raise ValueError("Immutable recursive validity envelope differs from the source-derived support law")
+    return dict(regime="mixed_base_free_frame_none_K9_no_extra_cutoff_repeated_zero_boundary",
+                source_sha256={name: source[name] for name in ("forecast/wildfire/models.py", "forecast/wildfire/meanfield.py",
+                    "forecast/wildfire/survival.py", "research/forecast-v2/scripts/pipeline.py")},
+                checked_ast_sha256=object_sha([_dump(node) for node in nodes]),
+                evidence="SOURCE_DERIVED_CONSERVATIVE_POSITIVE_KERNEL_CONTRACT_NOT_RECORDED_PER_OPTIMIZER_MASKS")
+
+def unsupported_sample_evidence(sample, cache_files):
+    """Bind a logged skip to source-derived unsupported inputs without model replay."""
+    case = sample_descriptor(sample)
+    classification = unsupported_source_reason(sample)
+    matches = [(name, row) for name, row in cache_files.items() if case["case_id"] in row["case_ids"]]
+    if len(matches) != 1:
+        raise ValueError("Every unsupported sample must have one exact complete source-recomputed cache identity")
+    name, row = matches[0]
+    return dict(case=case, sample_values_sha256=sample_list_identity([sample]),
+                cache=dict(path=name, sha256=row["sha256"], sample_values_sha256=row["sample_values_sha256"]),
+                **classification, reason="no_supported_positive_weight_cells")
+
+
+def runtime_membership_contract(root, source):
+    blob = _source_blob(root, "forecast/wildfire/survival.py", source["forecast/wildfire/survival.py"])
+    fitter = _function(blob, "fit_mean_field")
+    helper_relative = "research/forecast-v2/scripts/audit_fit_coverage.py"
+    helper = _source_blob(root, helper_relative, source.get(helper_relative))
+    for name in ("case_id", "sample_descriptor", "descriptor", "object_sha"):
+        if _dump(_function(helper, name)) != _dump(_function((root / helper_relative).read_text(), name)):
+            raise ValueError("Actual runtime IDs require the exact immutable canonical sample identity helper")
+    pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source.get("research/forecast-v2/scripts/pipeline.py"))
+    callback = 'dict(runtime_case_id_fn=coverage.case_id, runtime_object_sha_fn=coverage.object_sha, runtime_sample_manifest_sha256=fit_input_manifest["sha256"])'
+    if not any(isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "runtime" for t in n.targets)
+               and _same(n.value, callback) for n in ast.walk(_function(pipeline, "command_final"))):
+        raise ValueError("Actual runtime membership must use the canonical case ID and manifest callbacks")
+    ids = [n.value for n in ast.walk(fitter) if isinstance(n, ast.Assign)
+           and any(isinstance(t, ast.Name) and t.id == "original_case_id" for t in n.targets)]
+    if len(ids) != 1 or not _same(ids[0], "runtime_case_id_fn(sample)"):
+        raise ValueError("Actual runtime IDs must identify the original consumed indexed sample")
+    expressions = ("runtime_case_id_fn(sample)", "attempted_ids.append(original_case_id)",
+                   "skipped_ids.append(original_case_id)", "dict(event=sample.event_id, cutoff=sample.t1, reason='no_supported_positive_weight_cells')")
+    for expression in expressions:
+        if not any(_same(n, expression) for n in ast.walk(fitter) if isinstance(n, ast.Call)):
+            raise ValueError("Actual runtime membership source lacks the bound attempted-ID/unsupported logging contract")
+    loop = next((n for n in ast.walk(fitter) if isinstance(n, ast.For) and isinstance(n.target, ast.Name) and n.target.id == "index"), None)
+    if loop is None:
+        raise ValueError("Runtime attempted IDs require the actual original indexed sample loop")
+    attempts = [n.lineno for n in ast.walk(loop) if isinstance(n, ast.Call) and _same(n, "attempted_ids.append(original_case_id)")]
+    augmentations = [n.lineno for n in ast.walk(loop) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "augment"]
+    if len(attempts) != 1 or (augmentations and attempts[0] >= min(augmentations)):
+        raise ValueError("Runtime attempted IDs must be recorded before any augmentation")
+    return dict(survival_sha256=source["forecast/wildfire/survival.py"], evidence="BOUNDED_IMMUTABLE_RUNTIME_LOGGING_SOURCE_CHECKED")
+
 def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_path):
     root, inputs, caches, run = (Path(p).resolve() for p in (model_root, input_root, cache_root, run_root))
     expected = expected_membership(root, inputs)
+    policy = unsupported_policy(root)
     cache_audit_path = _inside(root, cache_audit_path)
     audit = json.loads(cache_audit_path.read_text())
     if (audit.get("status") != "PASS_NO_CONSUMED_VALUES_CHANGED" or audit.get("producer_unchanged_during_audit") is not True
@@ -455,18 +812,28 @@ def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_pat
             raise ValueError("Source inputs, complete caches and result root must be the actual effective execution arguments")
         source = receipt.get("source_sha256", {})
         contract = _schedule_contract(root, source)
+        spotting_contract = spotting_source_contract(root, source) if variant == "burnout_spotting" else None
         samples = mixed if variant == "mixed_base" else perimeter
         cases = expected["mixed_cases" if variant == "mixed_base" else "perimeter_cases"]
         ids = [c["case_id"] for c in cases]
         history = result.get("fit", {}).get("history", [])
         if (not ids or result.get("train_samples") != len(ids) or len(history) != 3
-                or any(row.get("epoch") != i or row.get("optimizer_steps") != len(ids)
-                       or row.get("skipped_unsupported_intervals") != [] for i, row in enumerate(history, 1))):
-            raise ValueError("Full recorded sample/epoch/optimizer counts and no-skips must agree with complete source membership")
+                or any(row.get("epoch") != i or type(row.get("optimizer_steps")) is not int
+                       or row["optimizer_steps"] <= 0 or not isinstance(row.get("skipped_unsupported_intervals"), list)
+                       for i, row in enumerate(history, 1))):
+            raise ValueError("Full recorded sample/epoch counts and positive optimizer updates must agree with complete source membership")
         runtime = None
+        unsupported = []
+        runtime_contract = None
+        support_contract = None
+        coverage_status = "FULL_OPTIMIZER_COVERAGE"
+        if variant != "mixed_base" and any(row["optimizer_steps"] != len(ids) or row["skipped_unsupported_intervals"] for row in history):
+            raise ValueError("Historical pure schedule inference requires complete optimizer counts without unobserved skipped IDs")
         input_manifest = None
         evidence = "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED"
         if variant == "mixed_base":
+            runtime_contract = runtime_membership_contract(root, source)
+            support_contract = mixed_support_contract(root, source)
             if result.get("intended_kriged_fit_events") != expected["intended_kriged_fit_events"]:
                 raise ValueError("Mixed full fit must explicitly retain every intended US and Korean kriged event, including zero-window keys")
             declaration = result.get("fit_input_manifest", {})
@@ -483,29 +850,50 @@ def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_pat
             epochs = runtime.get("epochs", [])
             if (runtime.get("schema") != RUNTIME_SCHEMA or runtime.get("sample_manifest_sha256") != sha(path) or len(epochs) != 3):
                 raise ValueError("New mixed full fits require an actual runtime membership ledger bound to their prefit input manifest")
+            samples_by_id = {case_id(sample): sample for sample in samples}
             for i, row in enumerate(epochs, 1):
-                attempted = row.get("attempted_case_ids", [])
-                if (row.get("epoch") != i or len(attempted) != len(ids) or set(attempted) != set(ids)
+                attempted, skipped = row.get("attempted_case_ids", []), row.get("skipped_case_ids", [])
+                if (row.get("epoch") != i or len(attempted) != len(ids) or len(set(attempted)) != len(ids) or set(attempted) != set(ids)
                         or row.get("attempted_case_ids_sha256") != object_sha(attempted)
-                        or row.get("skipped_case_ids") != [] or row.get("optimizer_steps") != len(ids)):
-                    raise ValueError("Actual mixed epoch membership omitted, repeated or skipped an intended source sample")
+                        or len(skipped) != len(set(skipped)) or not set(skipped) <= set(attempted)):
+                    raise ValueError("Actual mixed epoch membership omitted, repeated or invented an intended source sample")
+                optimized = [value for value in attempted if value not in set(skipped)]
+                history_row = history[i - 1]
+                if (not optimized or row.get("optimizer_steps") != len(optimized)
+                        or history_row["optimizer_steps"] != len(optimized)):
+                    raise ValueError("Runtime attempted-minus-skipped membership must equal the positive recorded optimizer update count")
+                logged = history_row["skipped_unsupported_intervals"]
+                proofs = [unsupported_sample_evidence(samples_by_id[value], cache_files) for value in skipped]
+                if len(logged) != len(proofs) or any(set(entry) != {"event", "cutoff", "reason"}
+                        or entry["event"] != proof["case"]["event"]
+                        or _stamp(entry["cutoff"]) != _stamp(proof["case"]["cutoff"])
+                        or entry["reason"] != proof["reason"] for entry, proof in zip(logged, proofs)):
+                    raise ValueError("Every actual skipped ID must match its exact source sample, history event/cutoff/reason and logging order")
+                unsupported.append(dict(epoch=i, optimized_case_ids=optimized, optimized_case_ids_sha256=object_sha(optimized),
+                    optimized_identity_evidence="DERIVED_ATTEMPTED_MINUS_RUNTIME_SKIPPED_IDS_WITH_SOURCE_LOOP_AND_COUNT_PROOF_NOT_RUNTIME_LOGGED",
+                    skipped_samples=proofs))
+            if any(row["skipped_samples"] for row in unsupported):
+                coverage_status = "FULL_INPUT_ATTEMPTED_WITH_LOGGED_UNSUPPORTED"
             evidence = "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST"
         checkpoint = dict(path=str(result_path.with_name("checkpoint.pt").relative_to(root)), sha256=result["checkpoint_sha256"])
         variants[variant] = dict(checkpoint=checkpoint, regime="mixed" if variant == "mixed_base" else "perimeter", fit_result=identity(root, result_path),
                                  execution=identity(root, receipt_path), effective_arguments=effective,
+                                 intended_phase=intended_phase(variant, "final"), spotting_source_contract=spotting_contract,
                                  producer_source_sha256=source, source_schedule_contract=contract,
                                  sample_count=len(ids), membership_sha256=object_sha(sorted(ids)),
                                  sample_values_sha256=sample_list_identity(samples), input_manifest=input_manifest,
-                                 schedule_evidence=evidence, runtime_membership=runtime,
+                                 schedule_evidence=evidence, runtime_membership=runtime, runtime_logging_source_contract=runtime_contract, unsupported_support_source_contract=support_contract,
+                                 coverage_status=coverage_status, epoch_optimized_and_unsupported=unsupported,
                                  recorded_epochs=[dict(epoch=r["epoch"], optimizer_steps=r["optimizer_steps"],
                                                        skipped_unsupported_intervals=r["skipped_unsupported_intervals"]) for r in history])
-    return dict(schema=SCHEMA, status="PASS_COMPLETE_FIT_MEMBERSHIP", expected=expected, variants=variants,
+    return dict(schema=SCHEMA, status="PASS_COMPLETE_FIT_MEMBERSHIP", current_phase=current_phase_identity(), unsupported_interval_policy=policy, expected=expected, variants=variants,
                 source_sha256=producer_sources(root), cache_audit=identity(root, cache_audit_path), cache_files=cache_files,
                 cache_audit_source_sha256=dict(pipeline=audit["producer_sha256"], audit_caches=audit["audit_script_sha256"]),
                 input_root=str(inputs), cache_root=str(caches), run_root=str(run),
                 limitations=["Historical pure schedules are source-derived inference, not retrospectively observed runtime IDs.",
-                             "Exact case membership and no-skip counts establish the declared input schedule, not scientific efficacy.",
-                             "No model checkpoint or heldout forecast/score is read by this coverage audit."])
+                             "Complete attempted membership and exact source-bound logged unsupported cases establish input accounting, not scientific efficacy.",
+                             "No model checkpoint or heldout forecast/score is read by this coverage audit.",
+                             "Unsupported support envelopes are source-derived conservative classifications; no per-optimizer numerical masks were logged or replayed."])
 
 
 def verify_coverage(model_root, run_root, declared):

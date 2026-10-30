@@ -14,6 +14,9 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
+REPO = HERE.parents[3]
 sys.path.insert(0, str(HERE.parents[3] / "forecast"))
 from wildfire import baselines as B  # noqa: E402
 
@@ -49,6 +52,11 @@ def load_assessment(directory):
     receipt = json.loads((directory / "ASSESSMENT.json").read_text())
     if receipt.get("receipt_version") != "wfg.forecast-assessment/2" or receipt.get("status") not in ("COMPLETE", "HOLD"):
         raise ValueError("Current source-bound assessment receipts are required for reporting")
+    frozen = json.loads((directory / "FROZEN_ASSESSMENT.json").read_text())
+    F.validate_phase_identity(frozen.get("current_phase"))
+    contract = frozen.get("spotting_source_contract", {})
+    if contract != F.spotting_source_contract(REPO, contract.get("source_sha256", {})):
+        raise ValueError("Assessment requires the corrected immutable spotting source phase")
     if sha256(directory / "FROZEN_ASSESSMENT.json") != receipt["frozen_sha256"]:
         raise ValueError("Assessment source/checkpoint/input identity changed")
     listed = receipt["per_fire_files"]
@@ -63,11 +71,11 @@ def load_assessment(directory):
 def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
     """Variant minus base on development folds, paired by development fire."""
     rows = []
-    active = run / "ACTIVE_PHASE.json"
-    paths = ([run / p for p in json.loads(active.read_text())["active_folds"]]
-             if active.exists() else sorted((run / "folds").glob("*/result.json")))
+    paths = [run / phase["result"] for phase in F.current_phase_identity()["phases"]
+             if phase["stage"] == "fold" and (run / phase["result"]).is_file()]
     for path in paths:
-        r = json.loads(path.read_text())
+        phase = next(p for p in F.current_phase_identity()["phases"] if run / p["result"] == path)
+        _, r, _, _, _ = F.phase_result(REPO, run, phase["variant"], "fold", phase["fold"])
         for fire, s in r["validation_per_fire"].items():
             rows.append(dict(variant=r["variant"], fold=r["fold"], seed=r["seed"], fire=fire,
                              sq=s["brier"] * s["weight"], w=s["weight"], nll=s["clipped_nll"] * s["weight"],
@@ -103,7 +111,8 @@ def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
 def primary_candidate(abl: dict) -> str | None:
     """Frozen rule: lowest equal-fire development Brier, then fixed variant order."""
     priority = ["base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base"]
-    return min(abl, key=lambda v: (abl[v]["mean_fire_brier"], priority.index(v))) if abl else None
+    return min(abl, key=lambda v: (abl[v]["mean_fire_brier"], priority.index(v))) if (set(abl) == set(priority)
+            and all(v["folds"] == ["2020", "2021", "2022"] and v["seeds"] == [0] for v in abl.values())) else None
 
 
 def detailed_scores(entries, draws=10000, seed=20261030):
@@ -289,14 +298,17 @@ def main():
     label = f" [{args.label}]" if args.label else ""
     plt = style()
     figures = args.out / "figures"
-    results = dict(label=args.label or "REAL INPUTS", run=str(args.run))
+    results = dict(current_phase=F.current_phase_identity(), label=args.label or "REAL INPUTS", run=str(args.run))
     abl = ablation(args.run)
     results["ablation"] = abl
     results["primary_candidate_rule"] = "lowest equal-fire development Brier over the 2020 to 2022 leave-one-year-out folds, with the fixed variant tie order"
     primary = primary_candidate(abl)
     finals = {}
-    for path in sorted((args.run / "final").glob("*/result.json")):
-        r = json.loads(path.read_text())
+    for variant in F.VARIANTS:
+        path = args.run / F.intended_phase(variant, "final")["result"]
+        if not path.is_file():
+            continue
+        _, r, _, _, _ = F.phase_result(REPO, args.run, variant, "final")
         finals[path.parent.name] = dict(variant=r["variant"], seed=r["seed"], epochs=r["epochs"],
                                         checkpoint_sha256=r["checkpoint_sha256"], parameters=r["parameters"],
                                         fit_seconds=r["fit_seconds"])
@@ -307,6 +319,7 @@ def main():
     selection_path = args.out / "MODEL_SELECTION.json"
     if selection_path.exists():
         selection = json.loads(selection_path.read_text())
+        F.validate_selection_phase(REPO, args.run, selection)
         if selection["selected_variant"] != primary or not chosen:
             raise ValueError("Report selection differs from the frozen development choice")
         if selection["checkpoints"][primary]["sha256"] != finals[chosen[0]]["checkpoint_sha256"]:

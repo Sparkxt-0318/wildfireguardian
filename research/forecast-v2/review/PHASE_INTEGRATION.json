@@ -1,0 +1,11 @@
+{
+  "source_patch_sha256": "5247993da00c2b931c79e7d7fc78143934cfe54ff53927f22e1c386f54d0dbdb",
+  "live_regression": "3200passed311warnings131.79s",
+  "scope": "Fixed intended phases and complete development membership; original extension2 unsupported accounting; actual registry/source/baseline admission; guarded scoring route. No heldout output exists.",
+  "corrected_required_jobs": [
+    "a05_fold_2020_burnout_spotting_flaming_only",
+    "a05_fold_2021_burnout_spotting_flaming_only",
+    "a05_fold_2022_burnout_spotting_flaming_only",
+    "a05_final_burnout_spotting_flaming_only"
+  ]
+}

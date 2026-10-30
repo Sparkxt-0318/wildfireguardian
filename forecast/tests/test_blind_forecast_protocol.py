@@ -54,11 +54,16 @@ def registered(blind, tmp_path, monkeypatch):
     monkeypatch.setattr(blind, "REPO", repo)
     names = ["forecast/wildfire/example.py", "research/forecast-v2/scripts/pipeline.py",
              "research/forecast-v2/scripts/blind_test.py", "research/forecast-v2/scripts/blind_inventory.py",
-             "research/forecast-v2/scripts/freeze_registry.py", "research/forecast-v2/SPLIT.json"]
+             "research/forecast-v2/scripts/freeze_registry.py", "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/SPLIT.json"]
     for name in names:
         path = repo / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("fixture")
+    source_repo = Path(__file__).resolve().parents[2]
+    for name in ("survival", "meanfield", "burnout"):
+        relative = f"forecast/wildfire/{name}.py"
+        (repo / relative).write_bytes((source_repo / relative).read_bytes())
+        names.append(relative)
     checkpoint = repo / "fixture.pt"
     checkpoint.write_bytes(b"fixture checkpoint, no scientific model")
     monkeypatch.setattr(blind, "C651_SHA", blind.sha(checkpoint))
@@ -66,6 +71,12 @@ def registered(blind, tmp_path, monkeypatch):
     registry = dict(status="FROZEN", models={n: model for n in blind.MODEL_NAMES}, logistic=model,
                     selected_model="base_seed0", best_dilation_hours_per_cell=4, dependency_versions=blind.runtime_dependencies(),
                     producer_source_sha256={n: blind.sha(repo / n) for n in names})
+    spot = repo / "final/burnout_spotting_seed0_flaming_only/checkpoint.pt"
+    spot.parent.mkdir(parents=True)
+    spot.write_bytes(checkpoint.read_bytes())
+    registry["models"]["burnout_spotting_seed0"] = dict(path=str(spot.relative_to(repo)), sha256=blind.sha(spot))
+    registry.update(current_phase=blind.F.current_phase_identity(),
+                    spotting_source_contract=blind.F.spotting_source_contract(repo, registry["producer_source_sha256"]))
     registry_path = repo / "registry.json"
     blind.write(registry_path, registry)
     events = [dict(id="fixture", year=2026, country="US", t0_utc="2026-01-01T00:00:00Z",
@@ -499,12 +510,17 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     # no production input, checkpoint, result or score is read.
     source_repo = Path(__file__).resolve().parents[2]
     for relative in ["research/forecast-v2/scripts/pipeline.py", "forecast/wildfire/survival.py",
-                     "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/scripts/audit_caches.py"]:
+                     "forecast/wildfire/meanfield.py", "forecast/wildfire/burnout.py", "forecast/wildfire/models.py",
+                     "research/forecast-v2/scripts/audit_fit_coverage.py", "research/forecast-v2/scripts/audit_caches.py",
+                     "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json"]:
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((source_repo / relative).read_bytes())
     us, kr = ["synthetic_fit", "synthetic_fit_second"], ["synthetic_kr", "synthetic_kr_zero"]
-    split = dict(fit=dict(us_perimeter_and_kriged=us, korean_kriged_only=kr))
+    development_folds = {fold: ["synthetic_dev_" + fold, "synthetic_dev_" + fold + "_second"]
+                         for fold in ("2020", "2021", "2022")}
+    split = dict(fit=dict(us_perimeter_and_kriged=us, korean_kriged_only=kr),
+                 development_folds=dict(folds=development_folds))
     (evidence / "SPLIT.json").write_text(json.dumps(split))
     metadata = [dict(id=name, start_utc="2020-01-01T00:00:00Z", end_utc="2020-01-03T00:00:00Z",
                      t0_utc="2020-01-01T00:30:00Z" if name == "synthetic_kr" else "2020-01-01T00:00:00Z")
@@ -560,10 +576,12 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     for variant in freezer.VARIANTS:
         samples = mixed if variant == "mixed_base" else perimeter
         count = len(samples)
-        checkpoint = run / "final" / f"{variant}_seed0/checkpoint.pt"
+        phase = coverage.intended_phase(variant, "final")
+        checkpoint = (run / phase["result"]).with_name("checkpoint.pt")
         checkpoint.parent.mkdir(parents=True, exist_ok=True)
         checkpoint.write_bytes(("synthetic exact checkpoint identity " + variant).encode())
         value = dict(variant=variant, seed=0, epochs=3, train_samples=count, train_events=us,
+                     intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"],
                      checkpoint_sha256=freezer.sha(checkpoint), fit=dict(history=[
                          dict(epoch=i, optimizer_steps=count, skipped_unsupported_intervals=[]) for i in (1, 2, 3)]))
         if variant == "mixed_base":
@@ -578,14 +596,15 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
                              skipped_case_ids=[], optimizer_steps=count) for i in (1, 2, 3)])
         record = checkpoint.with_name("result.json")
         record.write_text(json.dumps(value))
-        execution = evidence / f"executions/a03_final_{variant}.json"
+        job = f"a{5 if variant == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}"
+        execution = evidence / f"executions/{job}.json"
         execution.parent.mkdir(parents=True, exist_ok=True)
         command = ["python", "pipeline.py", "final", "--variant", variant, "--seed", "0", "--epochs", "3",
                    "--max-fit-intervals-per-fire", "3", "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0",
                    "--samples-per-step", "1", "--work", str(caches), "--run", str(run),
                    "--data-root", str(inputs / "environment"), "--perimeters", str(inputs / "perimeters"),
-                   "--data-manifest-sha256", coverage.sha(extraction)]
-        execution.write_text(json.dumps(dict(exit_code=0, output=str(record), output_sha256=freezer.sha(record), command=command,
+                   "--data-manifest-sha256", coverage.sha(extraction), "--artifact-suffix", phase["artifact_suffix"]]
+        execution.write_text(json.dumps(dict(job=job, exit_code=0, output=str(record), output_sha256=freezer.sha(record), command=command,
                                              source_sha256=source)))
         checkpoints[variant] = freezer.identity(root, checkpoint)
     comparator = root / "c651.pt"
@@ -603,10 +622,27 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     cache_audit.write_text(json.dumps(dict(status="PASS_NO_CONSUMED_VALUES_CHANGED", producer_unchanged_during_audit=True,
                                           producer_sha256=source["research/forecast-v2/scripts/pipeline.py"], records=audit_rows, mismatches=[],
                                           audit_script_sha256=coverage.sha(evidence / "scripts/audit_caches.py"))))
+    # Fixed intended development paths and independently receipted corrected source.
+    for fold in ("2020", "2021", "2022"):
+        for variant in freezer.VARIANTS:
+            phase = coverage.intended_phase(variant, "fold", fold)
+            record = run / phase["result"]
+            record.parent.mkdir(parents=True, exist_ok=True)
+            record.write_text(json.dumps(dict(variant=variant, fold=fold, seed=0, intended_phase=phase,
+                spotting_source_mode=phase["spotting_source_mode"], validation_events=development_folds[fold],
+                validation_per_fire={event: dict(brier=.1, weight=2., clipped_nll=.2) for event in development_folds[fold]},
+                fit_seconds=1., parameters=4)))
+            job = f"a{5 if variant == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}"
+            receipt = evidence / f"executions/{job}.json"
+            receipt.write_text(json.dumps(dict(job=job, exit_code=0, output=str(record), output_sha256=coverage.sha(record),
+                command=["python", "pipeline.py", "fold", "--variant", variant, "--seed", "0", "--fold", fold,
+                         "--artifact-suffix", phase["artifact_suffix"]], source_sha256=source)))
+    development_brier, development_phases = coverage.development_selection(root, run)
     coverage_path = evidence / "FIT_COVERAGE.json"
     coverage.write_new(coverage_path, coverage.audit_coverage(root, inputs, caches, run, cache_audit))
-    selection = dict(checkpoints=checkpoints, baselines=baselines, selected_variant="base", fit_coverage=coverage.identity(root, coverage_path),
-                     development_brier={v: .1 for v in freezer.VARIANTS}, frozen_before_heldout_scoring=True,
+    selection = dict(current_phase=coverage.current_phase_identity(), development_phases=development_phases,
+                     checkpoints=checkpoints, baselines=baselines, selected_variant="base", fit_coverage=coverage.identity(root, coverage_path),
+                     development_brier=development_brier, frozen_before_heldout_scoring=True,
                      frozen_utc="2026-10-30T00:00:00Z", baseline_execution_sha256=freezer.sha(baseline_receipt),
                      cache_audit=coverage.identity(root, cache_audit), cache_audit_sha256=freezer.sha(cache_audit), protocol_sha256=freezer.sha(evidence / "RUN_PROTOCOL.json"),
                      input_manifests_sha256={name: coverage.sha(inputs / name) for name in
@@ -1260,3 +1296,301 @@ def test_mixed_regime_source_cannot_declare_full_counts_while_disabling_extra_in
     receipt_path.write_text(json.dumps(receipt))
     with pytest.raises(ValueError, match="mixed extra-source regime"):
         module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+
+def test_corrected_phase_freeze_preserves_historical_spotting_without_selecting_it(freezer, freeze_inputs):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    coverage = fit_coverage_module(freezer)
+    originals = {}
+    for stage, fold in [("fold", str(v)) for v in (2020, 2021, 2022)] + [("final", None)]:
+        current = run / coverage.intended_phase("burnout_spotting", stage, fold)["result"]
+        historical = Path(str(current).replace("_flaming_only", ""))
+        historical.parent.mkdir(parents=True, exist_ok=True)
+        historical.write_bytes(b'{"historical": "smouldering-inclusive, preserved"}')
+        originals[historical] = historical.read_bytes()
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    assert registry["models"]["burnout_spotting_seed0"]["path"].endswith("burnout_spotting_seed0_flaming_only/checkpoint.pt")
+    assert registry["current_phase"] == coverage.current_phase_identity()
+    assert registry["spotting_source_contract"]["source_mode"] == "flaming_only"
+    assert all(path.read_bytes() == value for path, value in originals.items())
+    assert all("_flaming_only" in row["result"]["path"] for key, row in selection["development_phases"].items() if key.startswith("burnout_spotting_"))
+
+
+@pytest.mark.parametrize("tamper", ["no_phase", "old_semantics", "old_path", "old_final_source", "old_fold_source", "old_receipt_attempt", "no_suffix_arg", "development_uses_old"])
+def test_corrected_phase_cannot_be_forged_by_renaming_old_outputs(freezer, freeze_inputs, tamper):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    coverage = fit_coverage_module(freezer)
+    if tamper == "no_phase": selection.pop("current_phase")
+    if tamper == "old_semantics": selection["current_phase"]["spotting_source_mode"] = "shared"
+    if tamper == "old_path":
+        spot = selection["checkpoints"]["burnout_spotting"]
+        old = root / str(spot["path"]).replace("_flaming_only", "")
+        old.parent.mkdir(parents=True)
+        old.write_bytes((root / spot["path"]).read_bytes())
+        spot["path"] = str(old.relative_to(root))
+    if tamper == "development_uses_old": selection["development_brier"]["burnout_spotting"] = .001
+    if tamper in ("old_final_source", "old_fold_source", "old_receipt_attempt", "no_suffix_arg"):
+        stage, fold = ("fold", "2020") if tamper == "old_fold_source" else ("final", None)
+        phase = coverage.intended_phase("burnout_spotting", stage, fold)
+        receipt_path = root / f"research/forecast-v2/executions/a05_{phase['job_suffix']}.json"
+        receipt = json.loads(receipt_path.read_text())
+        if tamper in ("old_final_source", "old_fold_source"):
+            source_path = root / "forecast/wildfire/survival.py"
+            old_source = source_path.read_text().replace('spotting.source_mode = "flaming_only"', 'spotting.source_mode = "shared"')
+            import hashlib, gzip
+            digest = hashlib.sha256(old_source.encode()).hexdigest()
+            snapshot = root / "research/forecast-v2/source_snapshots" / digest / "survival.py.gz"
+            snapshot.parent.mkdir(parents=True)
+            snapshot.write_bytes(gzip.compress(old_source.encode(), mtime=0))
+            receipt["source_sha256"]["forecast/wildfire/survival.py"] = digest
+        if tamper == "old_receipt_attempt": receipt["job"] = "a03_" + phase["job_suffix"]
+        if tamper == "no_suffix_arg": receipt["command"][-1] = ""
+        receipt_path.write_text(json.dumps(receipt))
+    selection_path.write_text(json.dumps(selection))
+    with pytest.raises(ValueError): freezer.build_registry(root, run, selection_path, comparator)
+
+
+@pytest.mark.parametrize("compressed", [False, True])
+def test_immutable_phase_sources_replay_exact_bytes_from_preserved_snapshot(freezer, freeze_inputs, compressed):
+    import gzip
+    module, root, _, _, _, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    relative = "forecast/wildfire/survival.py"
+    path = root / relative
+    original = path.read_bytes()
+    digest = module.sha(path)
+    snapshot = root / "research/forecast-v2/source_snapshots" / digest / (path.name + (".gz" if compressed else ""))
+    snapshot.parent.mkdir(parents=True)
+    snapshot.write_bytes(gzip.compress(original, mtime=0) if compressed else original)
+    path.write_bytes(original + b"\n# Later producer metadata\n")
+    assert module._source_blob(root, relative, digest).encode() == original
+    if compressed:
+        snapshot.write_bytes(gzip.compress(original + b"tampered", mtime=0))
+        with pytest.raises(ValueError, match="original bytes"):
+            module._source_blob(root, relative, digest)
+
+
+def supported_skip_fixture(freezer, freeze_inputs, source_kind="zero_weight"):
+    """A source-proven zero-weight input remains attempted, cached and explicit."""
+    module, root, run, inputs, caches, _, record = fit_coverage_state(freezer, freeze_inputs)
+    cache_path = caches / "samples/kriged_utc_v2_first0_synthetic_kr.pkl"
+    samples = pickle.loads(cache_path.read_bytes())
+    if source_kind == "zero_weight":
+        samples[0].label_weight[:] = 0
+    else:
+        samples[0].environment[:] = np.nan
+    skip = module.sample_descriptor(samples[0])
+    cache_path.write_bytes(pickle.dumps(samples, protocol=5))
+    audit_path = root / "research/forecast-v2/CACHE_AUDIT.json"
+    audit = json.loads(audit_path.read_text())
+    row = next(r for r in audit["records"] if Path(r["cache"]) == cache_path)
+    row.update(cache_sha256=module.sha(cache_path), cached_value_identity=module.sample_list_identity(samples),
+               recomputed_value_identity=module.sample_list_identity(samples))
+    audit_path.write_text(json.dumps(audit))
+    groups, mixed, _ = module._cache_lists(root, caches, audit, module.expected_membership(root, inputs))
+    path = run / "final/mixed_base_seed0/result.json"
+    result = json.loads(path.read_text())
+    receipt_path = root / "research/forecast-v2/executions/a03_final_mixed_base.json"
+    receipt = json.loads(receipt_path.read_text())
+    manifest = root / result["fit_input_manifest"]["path"]
+    manifest.write_text(json.dumps(module.capture_sample_manifest(mixed, regime="mixed", producer_source_sha256=receipt["source_sha256"],
+                                                                 input_sha256=module.expected_membership(root, inputs)["input_sha256"])))
+    result["fit_input_manifest"]["sha256"] = module.sha(manifest)
+    result["fit"]["runtime_membership"]["sample_manifest_sha256"] = module.sha(manifest)
+    for epoch, runtime in zip(result["fit"]["history"], result["fit"]["runtime_membership"]["epochs"]):
+        epoch["optimizer_steps"] -= 1
+        epoch["skipped_unsupported_intervals"] = [dict(event=skip["event"], cutoff=skip["cutoff"], reason="no_supported_positive_weight_cells")]
+        runtime["skipped_case_ids"] = [skip["case_id"]]
+        runtime["optimizer_steps"] -= 1
+    path.write_text(json.dumps(result))
+    receipt["output_sha256"] = module.sha(path)
+    receipt_path.write_text(json.dumps(receipt))
+    return module, root, run, inputs, caches, audit_path, path, receipt_path
+
+
+@pytest.mark.parametrize("source_kind", ["zero_weight", "unknown_environment"])
+def test_complete_attempts_with_source_bound_logged_unsupported_are_distinct_from_optimizer_coverage(freezer, freeze_inputs, source_kind):
+    module, root, run, inputs, caches, audit, _, _ = supported_skip_fixture(freezer, freeze_inputs, source_kind)
+    record = module.audit_coverage(root, inputs, caches, run, audit)
+    mixed = record["variants"]["mixed_base"]
+    assert mixed["coverage_status"] == "FULL_INPUT_ATTEMPTED_WITH_LOGGED_UNSUPPORTED"
+    assert record["variants"]["base"]["coverage_status"] == "FULL_OPTIMIZER_COVERAGE"
+    assert mixed["sample_count"] == 12
+    for row in mixed["epoch_optimized_and_unsupported"]:
+        assert len(row["optimized_case_ids"]) == 11
+        assert "NOT_RUNTIME_LOGGED" in row["optimized_identity_evidence"]
+        assert row["skipped_samples"][0]["reference_positive_weight_cells"] == (0 if source_kind == "zero_weight" else 3)
+        assert row["skipped_samples"][0]["sample_values_sha256"]
+        assert row["skipped_samples"][0]["cache"]["sha256"]
+
+
+@pytest.mark.parametrize("tamper", ["unlogged", "wrong_cutoff", "wrong_reason", "unknown_id", "duplicate_skip", "optimizer_count", "zero_updates", "positive_source_weight"])
+def test_unsupported_skip_requires_exact_runtime_history_and_source_accounting(freezer, freeze_inputs, tamper):
+    module, root, run, inputs, caches, audit, path, receipt_path = supported_skip_fixture(freezer, freeze_inputs)
+    result = json.loads(path.read_text())
+    epoch = result["fit"]["history"][0]
+    runtime = result["fit"]["runtime_membership"]["epochs"][0]
+    if tamper == "unlogged": epoch["skipped_unsupported_intervals"] = []
+    if tamper == "wrong_cutoff": epoch["skipped_unsupported_intervals"][0]["cutoff"] = "2020-01-02T01:00:00Z"
+    if tamper == "wrong_reason": epoch["skipped_unsupported_intervals"][0]["reason"] = "data quality exclusion"
+    if tamper == "unknown_id": runtime["skipped_case_ids"] = ["0" * 64]
+    if tamper == "duplicate_skip": runtime["skipped_case_ids"] *= 2
+    if tamper == "optimizer_count": runtime["optimizer_steps"] += 1
+    if tamper == "zero_updates": epoch["optimizer_steps"] = runtime["optimizer_steps"] = 0
+    if tamper == "positive_source_weight":
+        runtime["skipped_case_ids"] = runtime["attempted_case_ids"][:1]
+        cases = {c["case_id"]: c for c in module.expected_membership(root, inputs)["mixed_cases"]}
+        case = cases[runtime["skipped_case_ids"][0]]
+        epoch["skipped_unsupported_intervals"][0].update(event=case["event"], cutoff=case["cutoff"])
+    path.write_text(json.dumps(result))
+    receipt = json.loads(receipt_path.read_text()); receipt["output_sha256"] = module.sha(path)
+    receipt_path.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError): module.audit_coverage(root, inputs, caches, run, audit)
+
+
+def test_report_uses_fixed_current_paths_and_excludes_low_scoring_historical_spotting(freezer, freeze_inputs, monkeypatch):
+    root, run, _, _, _ = freeze_inputs
+    spec = importlib.util.spec_from_file_location("synthetic_phase_report", Path(freezer.__file__).with_name("report.py"))
+    report = importlib.util.module_from_spec(spec); spec.loader.exec_module(report)
+    monkeypatch.setattr(report, "REPO", root)
+    path = run / "folds/burnout_spotting_fold2020_seed0/result.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(dict(variant="burnout_spotting", fold="2020", seed=0,
+        validation_per_fire={"unregistered_historical_fire": dict(brier=0., weight=99999.)})))
+    (run / "ACTIVE_PHASE.json").write_text(json.dumps(dict(active_folds=[str(path.relative_to(run))])))
+    summary = report.ablation(run, draws=20)
+    assert len(summary) == 7
+    assert summary["burnout_spotting"]["fires"] == 6
+    assert summary["burnout_spotting"]["mean_fire_brier"] == pytest.approx(.1)
+    assert report.primary_candidate(summary) == "base"
+
+
+@pytest.mark.parametrize("change", ["no_current_phase", "wrong_spotting_mode", "old_spotting_path", "wrong_source_contract"])
+def test_blind_scoring_cannot_admit_a_historical_spotting_registry(blind, registered, change):
+    repo, inputs, rp, cp, registry, cohort = registered
+    if change == "no_current_phase": registry.pop("current_phase")
+    if change == "wrong_spotting_mode": registry["current_phase"]["spotting_source_mode"] = "shared"
+    if change == "old_spotting_path": registry["models"]["burnout_spotting_seed0"]["path"] = "fixture.pt"
+    if change == "wrong_source_contract": registry["spotting_source_contract"]["source_mode"] = "shared"
+    blind.write(rp, registry)
+    with pytest.raises(ValueError): blind.validate(rp, cp, repo, inputs)
+
+
+def test_prior_unsupported_policy_cannot_be_replaced_by_a_new_allow_skip_flag(freezer, freeze_inputs):
+    module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+    policy = root / "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json"
+    policy.write_text(json.dumps(dict(allow_skips=True)))
+    with pytest.raises(ValueError, match="exact prior immutable"):
+        module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+
+def test_saved_registry_admission_authenticates_resume_without_rebuilding_after_outputs_exist(freezer, freeze_inputs):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    coverage = fit_coverage_module(freezer)
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    path = root / "research/forecast-v2/BLIND_REGISTRY.json"
+    path.write_text(json.dumps(registry))
+    evidence = coverage.saved_registry_admission(root, run, selection_path, selection, path)
+    assert evidence["registry"] == coverage.identity(root, path)
+    (run / "heldout").mkdir(); (run / "heldout/preserved-current-assessment.npz").write_bytes(b"synthetic resumed assessment")
+    assert coverage.saved_registry_admission(root, run, selection_path, selection, path) == evidence
+    with pytest.raises(ValueError, match="before any current heldout"):
+        freezer.build_registry(root, run, selection_path, comparator)
+
+
+@pytest.mark.parametrize("tamper", ["absent_registry", "source", "selection", "checkpoint", "baseline", "receipt", "registry_phase", "coverage"])
+def test_current_assessment_requires_complete_saved_registry_on_start_and_resume(freezer, freeze_inputs, tamper):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    coverage = fit_coverage_module(freezer)
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    path = root / "research/forecast-v2/BLIND_REGISTRY.json"
+    if tamper == "registry_phase": registry["current_phase"]["spotting_source_mode"] = "shared"
+    path.write_text(json.dumps(registry))
+    if tamper == "absent_registry": path.unlink()
+    if tamper == "source": (root / "research/forecast-v2/scripts/blind_inventory.py").write_text("changed executed source")
+    if tamper == "selection": selection_path.write_text(selection_path.read_text() + "\n")
+    if tamper == "checkpoint": (root / selection["checkpoints"]["base"]["path"]).write_bytes(b"changed")
+    if tamper == "baseline": (root / selection["baselines"]["logistic"]["path"]).write_bytes(b"changed")
+    if tamper == "receipt": (root / registry["final_executions"]["base"]["path"]).write_text('{"changed": true}')
+    if tamper == "coverage": (root / selection["fit_coverage"]["path"]).write_text('{"changed": true}')
+    with pytest.raises((ValueError, KeyError)):
+        coverage.saved_registry_admission(root, run, selection_path, selection, path)
+
+
+def test_guarded_assessment_identity_binds_saved_registry_and_current_source_before_loading(freezer, freeze_inputs, monkeypatch):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    coverage = fit_coverage_module(freezer)
+    inputs = Path(json.loads((root / selection["fit_coverage"]["path"]).read_text())["input_root"])
+    registry_path = root / "research/forecast-v2/BLIND_REGISTRY.json"
+    registry_path.write_text(json.dumps(freezer.build_registry(root, run, selection_path, comparator)))
+    geometry = root / "research/forecast-v2/GEOMETRY_AUDIT.json"
+    geometry.write_text(json.dumps(dict(source_manifest_sha256=coverage.sha(inputs / "perimeters/PERIMETER_MANIFEST.json"))))
+    spec = importlib.util.spec_from_file_location("synthetic_saved_registry_scorer", Path(freezer.__file__).with_name("score_cohorts.py"))
+    assessment = importlib.util.module_from_spec(spec); spec.loader.exec_module(assessment)
+    monkeypatch.setattr(assessment, "REPO", root)
+    monkeypatch.setattr(assessment, "HERE", root / "research/forecast-v2/scripts/score_cohorts.py")
+    monkeypatch.setattr(assessment.P, "C651", comparator)
+    monkeypatch.setattr(assessment.P, "C651_SHA256", coverage.sha(comparator))
+    monkeypatch.setattr(assessment, "load_model", lambda *args, **kwargs: pytest.fail("identity verification cannot load models"))
+    result = assessment.identities(SimpleNamespace(run=run, data=inputs, registry=registry_path, cohort="us2024"))
+    assert result["registry"] == coverage.identity(root, registry_path)
+    assert result["current_phase"] == coverage.current_phase_identity()
+    assert "research/forecast-v2/scripts/audit_fit_coverage.py" in result["source_sha256"]
+
+
+
+@pytest.mark.parametrize("declare_events", [True, False])
+def test_development_selection_uses_every_exact_frozen_fold_fire(freezer, freeze_inputs, declare_events):
+    root, run, _, _, selection = freeze_inputs
+    module = fit_coverage_module(freezer)
+    split = json.loads((root / "research/forecast-v2/SPLIT.json").read_text())
+    if not declare_events:
+        for phase in module.current_phase_identity()["phases"]:
+            if phase["stage"] != "fold": continue
+            path = run / phase["result"]
+            result = json.loads(path.read_text()); result.pop("validation_events")
+            result["validation_per_fire"] = dict(reversed(list(result["validation_per_fire"].items())))
+            path.write_text(json.dumps(result))
+            receipt_path = root / f"research/forecast-v2/executions/a{5 if phase['variant'] == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}.json"
+            receipt = json.loads(receipt_path.read_text()); receipt["output_sha256"] = module.sha(path)
+            receipt_path.write_text(json.dumps(receipt))
+    values, records = module.development_selection(root, run)
+    assert values == selection["development_brier"]
+    assert len(records) == 21
+    for fold, expected in split["development_folds"]["folds"].items():
+        assert len(expected) == 2
+        for variant in module.VARIANTS:
+            _, result, _, _, _ = module.phase_result(root, run, variant, "fold", fold)
+            assert set(result["validation_per_fire"]) == set(expected)
+            assert result.get("validation_events", expected) == expected
+            assert records[module.intended_phase(variant, "fold", fold)["phase_id"]]["validation_events"] == expected
+    # Full-fit population controls remain distinct and unchanged.
+    coverage = json.loads((root / selection["fit_coverage"]["path"]).read_text())
+    assert len(coverage["expected"]["perimeter_cases"]) == 4
+    assert len(coverage["expected"]["mixed_cases"]) == 12
+
+
+@pytest.mark.parametrize("variant", ["base", "burnout_spotting"])
+@pytest.mark.parametrize("tamper", ["omitted_fire", "extra_fire", "mislabelled_fire", "declared_omission", "declared_extra", "declared_duplicate", "declared_reordered"])
+def test_resigned_fold_results_cannot_change_frozen_development_fire_membership(freezer, freeze_inputs, variant, tamper):
+    root, run, selection_path, comparator, _ = freeze_inputs
+    module = fit_coverage_module(freezer)
+    phase = module.intended_phase(variant, "fold", "2020")
+    path = run / phase["result"]
+    result = json.loads(path.read_text())
+    observed = result["validation_per_fire"]
+    if tamper == "omitted_fire": observed.pop(next(iter(observed)))
+    if tamper == "extra_fire": observed["unregistered_development_fire"] = dict(brier=0., weight=2., clipped_nll=0.)
+    if tamper == "mislabelled_fire": observed["wrong_fold_fire"] = observed.pop(next(iter(observed)))
+    if tamper == "declared_omission": result["validation_events"].pop()
+    if tamper == "declared_extra": result["validation_events"].append("unregistered_development_fire")
+    if tamper == "declared_duplicate": result["validation_events"][1] = result["validation_events"][0]
+    if tamper == "declared_reordered": result["validation_events"].reverse()
+    path.write_text(json.dumps(result))
+    receipt_path = root / f"research/forecast-v2/executions/a{5 if variant == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}.json"
+    receipt = json.loads(receipt_path.read_text()); receipt["output_sha256"] = module.sha(path)
+    receipt_path.write_text(json.dumps(receipt))
+    assert observed  # The original nonempty-only check would not reject these omissions.
+    with pytest.raises(ValueError, match="fire membership.*frozen SPLIT"):
+        module.development_selection(root, run)
+    with pytest.raises(ValueError, match="fire membership.*frozen SPLIT"):
+        freezer.build_registry(root, run, selection_path, comparator)

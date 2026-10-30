@@ -10,6 +10,7 @@ import argparse
 from datetime import datetime, timezone
 import fcntl
 import hashlib
+import gzip
 import json
 import os
 from pathlib import Path
@@ -19,6 +20,8 @@ import sys
 import time
 
 HERE = Path(__file__).resolve()
+sys.path.insert(0, str(HERE.parent))
+import audit_fit_coverage as F
 REPO = HERE.parents[3]
 TASK = REPO.parent.parent
 DATA = TASK / "work/data/forecast-v2"
@@ -41,10 +44,13 @@ def write(path, obj):
 def job(name, command, expected):
     receipts = EVIDENCE / "executions"
     receipt = receipts / f"{name}.json"
+    phase = next((p for p in F.current_phase_identity()["phases"] if RUN / p["result"] == expected), None)
     if receipt.exists():
         old = json.loads(receipt.read_text())
         if old["exit_code"] != 0 or not expected.exists() or old["output_sha256"] != sha(expected):
             raise RuntimeError(f"Existing receipt is failed or output changed: {name}")
+        if phase is not None and phase["variant"] == "burnout_spotting":
+            F.phase_result(REPO, RUN, phase["variant"], phase["stage"], phase["fold"])
         print(f"authenticated completed job {name}", flush=True)
         return
     receipts.mkdir(exist_ok=True)
@@ -61,15 +67,19 @@ def job(name, command, expected):
         source_paths = sorted(p for p in (REPO / "forecast/wildfire").rglob("*")
                               if p.is_file() and p.suffix in (".py", ".json"))
         source_paths += [HERE, HERE.with_name("pipeline.py"), HERE.with_name("audit_fit_coverage.py"),
-                         EVIDENCE / "RUN_PROTOCOL.json"]
+                         EVIDENCE / "RUN_PROTOCOL.json", EVIDENCE / "RUN_PROTOCOL_EXTENSION_2.json"]
         source = {str(p.relative_to(REPO)): sha(p) for p in source_paths}
         # A queued job authenticates the exact bytes it will execute after the
         # lease arrives. Preserve content-addressed snapshots for independent replay.
         for path in source_paths:
-            snapshot = EVIDENCE / "source_snapshots" / source[str(path.relative_to(REPO))] / path.name
+            snapshot = EVIDENCE / "source_snapshots" / source[str(path.relative_to(REPO))] / (path.name + ".gz")
             if not snapshot.exists():
                 snapshot.parent.mkdir(parents=True, exist_ok=True)
-                snapshot.write_bytes(path.read_bytes())
+                snapshot.write_bytes(gzip.compress(path.read_bytes(), mtime=0))
+            elif hashlib.sha256(gzip.decompress(snapshot.read_bytes())).hexdigest() != source[str(path.relative_to(REPO))]:
+                raise ValueError("Preserved compressed producer source differs from its exact original bytes")
+        if phase is not None and phase["variant"] == "burnout_spotting":
+            F.spotting_source_contract(REPO, source)
         record = dict(job=name, pid=os.getpid(), acquired_utc=datetime.now(timezone.utc).isoformat(),
                       status="running", command=command, source_sha256=source)
         write(lease, record)
@@ -99,9 +109,13 @@ def job(name, command, expected):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=["fits", "freeze", "baselines", "compare", "heldout"])
-    parser.add_argument("--attempt", type=int, default=3)
+    parser.add_argument("stage", choices=["fits", "spotting-repair", "freeze", "baselines", "compare", "heldout"])
+    parser.add_argument("--attempt", type=int, default=None)
+    parser.add_argument("--registry", type=Path, default=EVIDENCE / "BLIND_REGISTRY.json")
     args = parser.parse_args()
+    args.attempt = args.attempt if args.attempt is not None else (5 if args.stage == "spotting-repair" else 3)
+    if args.stage == "spotting-repair" and args.attempt < 5:
+        raise ValueError("Corrected spotting starts at fresh attempt5")
     RUN.mkdir(parents=True, exist_ok=True)
     pipeline = HERE.with_name("pipeline.py")
     shared = ["--data-root", str(DATA / "environment"), "--perimeters", str(DATA / "perimeters"),
@@ -110,34 +124,42 @@ def main():
               "--epochs", "3", "--seed", "0", "--hidden", "16", "--lr", ".003",
               "--samples-per-step", "1", "--max-fit-intervals-per-fire", "3",
               "--threads", "2", "--n-samples", "1024", "--balance"]
+    if args.stage == "spotting-repair":
+        for stage, fold in [("fold", fold) for fold in ("2020", "2021", "2022")] + [("final", None)]:
+            phase = F.intended_phase("burnout_spotting", stage, fold)
+            command = [sys.executable, str(pipeline), stage, *shared, "--variant", "burnout_spotting",
+                       "--artifact-suffix", phase["artifact_suffix"]]
+            command += ["--fold", fold] if stage == "fold" else ["--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
+            job(f"a{args.attempt:02d}_{phase['job_suffix']}", command, RUN / phase["result"])
+        print("SPOTTING_REPAIR_FITS_COMPLETE_AWAITING_POSTFIT_AUDIT", flush=True)
+        return
     if args.stage == "fits":
         for fold in ("2020", "2021", "2022"):
             for variant in VARIANTS:
-                suffix = "_utc_fixed" if variant == "mixed_base" else ""
-                name = f"a{args.attempt:02d}_fold_{fold}_{variant}{suffix}"
+                if variant == "burnout_spotting":
+                    continue
+                phase = F.intended_phase(variant, "fold", fold)
+                suffix = phase["artifact_suffix"]
+                name = f"a{args.attempt:02d}_{phase['job_suffix']}"
                 command = [sys.executable, str(pipeline), "fold", *shared, "--fold", fold,
                            "--variant", variant, "--artifact-suffix", suffix]
-                job(name, command, RUN / "folds" / f"{variant}_fold{fold}_seed0{suffix}/result.json")
+                job(name, command, RUN / phase["result"])
         for variant in VARIANTS:
+            if variant == "burnout_spotting":
+                continue
+            phase = F.intended_phase(variant, "final")
             command = [sys.executable, str(pipeline), "final", *shared, "--variant", variant,
                        "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
-            job(f"a{args.attempt:02d}_final_{variant}", command, RUN / "final" / f"{variant}_seed0/result.json")
-        print("FITS_COMPLETE_AWAITING_POSTFIT_AUDIT: run final cache and full-membership audits before freeze", flush=True)
+            job(f"a{args.attempt:02d}_{phase['job_suffix']}", command, RUN / phase["result"])
+        print("OTHER_VARIANT_FITS_COMPLETE: corrected spotting requires spotting-repair; final cache and full-membership audits are required before freeze", flush=True)
         return
     if args.stage == "freeze":
         import audit_fit_coverage as coverage
-        by_variant = {}
-        for variant in VARIANTS:
-            values = []
-            for fold in ("2020", "2021", "2022"):
-                suffix = "_utc_fixed" if variant == "mixed_base" else ""
-                data = json.loads((RUN / "folds" / f"{variant}_fold{fold}_seed0{suffix}/result.json").read_text())
-                values.extend(s["brier"] for s in data["validation_per_fire"].values())
-            by_variant[variant] = sum(values) / len(values)
+        by_variant, development_phases = F.development_selection(REPO, RUN)
         selected = min(VARIANTS, key=lambda v: (by_variant[v], VARIANTS.index(v)))
         identities = {}
         for variant in VARIANTS:
-            path = RUN / "final" / f"{variant}_seed0/checkpoint.pt"
+            path = (RUN / F.intended_phase(variant, "final")["result"]).with_name("checkpoint.pt")
             identities[variant] = dict(path=str(path.relative_to(REPO)), sha256=sha(path))
         if list((RUN / "heldout/cases").glob("*.npz")) or list((RUN / "korean2025/cases").glob("*.npz")):
             raise ValueError("Cannot freeze primary identities after held-out prediction artifacts already exist")
@@ -153,9 +175,12 @@ def main():
         cache_audit = json.loads(cache_audit_path.read_text())
         if cache_audit["status"] != "PASS_NO_CONSUMED_VALUES_CHANGED" or not cache_audit["producer_unchanged_during_audit"]:
             raise ValueError("Consumed-input cache audit must pass before the model freeze")
-        coverage_identity, _ = coverage.verify_coverage(REPO, RUN,
+        coverage_identity, coverage_record = coverage.verify_coverage(REPO, RUN,
                 dict(path=str((EVIDENCE / "FIT_COVERAGE.json").relative_to(REPO)), sha256=sha(EVIDENCE / "FIT_COVERAGE.json")))
-        selection = dict(selected_variant=selected, criterion="lowest equal-fire development Brier across three year folds",
+        if any(coverage_record["variants"][variant]["checkpoint"] != identities[variant] for variant in VARIANTS):
+            raise ValueError("Full fit coverage and selection must bind the same exact final checkpoint bytes")
+        selection = dict(current_phase=F.current_phase_identity(), development_phases=development_phases,
+                         selected_variant=selected, criterion="lowest equal-fire development Brier across three year folds",
                          development_brier=by_variant, checkpoints=identities,
                          baselines=baselines, baseline_execution_sha256=sha(baseline_receipt),
                          fit_coverage=coverage_identity,
@@ -171,8 +196,15 @@ def main():
         write(destination, selection)
         print(json.dumps(selection, indent=2), flush=True)
     else:
-        if args.stage == "heldout" and not (EVIDENCE / "MODEL_SELECTION.json").is_file():
-            raise RuntimeError("Exact selected checkpoint identities must be frozen first")
+        if args.stage == "heldout":
+            environment = dict(os.environ, PYTHONPATH=str(REPO / "forecast"), OMP_NUM_THREADS="2", MKL_NUM_THREADS="2", PYTHONUNBUFFERED="1")
+            # The scorer owns per-case leases. An outer job lease would deadlock.
+            for cohort in ("us2024", "korea2025"):
+                command = [sys.executable, str(HERE.with_name("score_cohorts.py")), "--cohort", cohort,
+                           "--data", str(DATA), "--work", str(DATA / "campaign-work"), "--run", str(RUN),
+                           "--registry", str(args.registry)]
+                subprocess.run(command, cwd=REPO, env=environment, check=True)
+            return
         if args.stage == "compare":
             import pandas as pd
             rows, case_receipts, source_phases = [], [], []
@@ -201,8 +233,7 @@ def main():
             print("All12 frozen cutoff jobs and66 horizon rows aggregated", flush=True)
             return
         expected = {"baselines": RUN / "baselines/dilation_choice.json",
-                    "compare": RUN / "meanfield_vs_mc/meanfield_vs_mc.json",
-                    "heldout": RUN / "report_inputs.json"}[args.stage]
+                    "compare": RUN / "meanfield_vs_mc/meanfield_vs_mc.json"}[args.stage]
         command = [sys.executable, str(pipeline), args.stage, *shared]
         if args.stage == "baselines":
             command += ["--max-fit-intervals-per-fire", "0"]
