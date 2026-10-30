@@ -16,9 +16,10 @@
     "B_current_overlay": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "B_current_packaging": "f759f2e9c53749bad39165b8441209c398bcbf60",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
-    "B_frozen_source_interval_inventory": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70"
+    "B_frozen_source_interval_inventory": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "B_canonical_source": "691cc162bf2c0295cecc257a558ae0d583f9018e"
   },
   "graphs": {
     "integration": {
@@ -81,21 +82,21 @@
       "coverage": "Reviewer exact frozen6887 source fallback because scripts excluded/not_tracked; baselines positive graph/snippets/both-direction trace and source manifest retained in archived review. No new archival structural discovery or completeness claim."
     }
   },
-  "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
+  "execution_scope": "Historical independent tiny B/C fixture executions remain archived. This pass reads authorized immutable summaryJSON and closed review/source/metadata only, executes no study, metric, checker, test or model, and opens/copies no scientific arrays or model binaries. No push/merge/promotion.",
   "C_alignment_scope": "Read owner report, inventory, metadata and program; matched inventory/producer hashes and counts, verified only four report paths differ from e681 to1e64. No independent rehash of all external sealed source files.",
   "other_reviewer_archive_scope": "Exact future-inventory and radiation review bytes retained with source pins; no new fixture runs by readiness auditor.",
   "history": "history/AUDIT_METHOD-before-current-63944855.json",
   "limitations": [
     "A physics remains HOLD; no Step4 scientific integration clearance follows from software tests.",
     "B canonical coverage, development-only selection, protocol and registry are cleared/published6887 within recorded software/membership/custody scopes.",
-    "Both original current cohorts are closed: US273 SCORED; KR26 SCORED+7 UNAVAILABLE with exit1/HOLD. Root custody checks pass; exact306 identity census, metrics/quality/FARSITE/final-five-figure reviews remain pending.",
+    "Actual saved canonical87eb result and exact306 census pass within scope. Selected primarycriterionfalse; KR7UNAVAILABLE preserves full-cohortHOLD. Actual stored FARSITE reconciliation and publication visual QA pass within limited scopes, not scientific superiority.",
     "Independent membership reconstruction is savedmetadata/custody work, not actual cache/member-value or model replay; historical runtime attestations and current byte checks stay distinct.",
     "Wapiti source-label and artifact reviews cover the same52cases, not independent scientific samples; mapped-extent agreement is not physicaltruth/polygon/survey/environment/residence/age/common-validity/prediction validation.",
     "Goat42SCORED milestone is owner-provided custody only; no payload/array/quality or complete-cohort claim by readiness.",
     "Future2026 external registration, chronology and documentary prerequisites remainNOT_READY despite committed local protocol/registry.",
     "C conditional contact results do not clear strict whole-domain support/risk/physics gates.",
     "Original failures and prior summaries remain immutable in linked archives; no numerical study, live scientific output read, promotion, merge or publication occurs in this consistency pass.",
-    "Source-only descriptive-interval review is not candidate implementation clearance. Actual supplement is NOT_AUTHORIZED until independent canonical result/census prerequisites and root authorization. KR complete-cohort intervals remain null/unavailable; no available26-window bootstrap."
+    "Descriptive sidecar candidate6080 remainsHOLD for exponent-overflow JSON admission; separateV2 repair in progress. Method5fd unchanged; prerequisiteV2 binds87eb/b3HOLD lineage. Actual intervalsNOT_AUTHORIZED; KR complete-cohortnull/unavailable with no available26bootstrap."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -387,7 +388,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "1B": "f759f2e9c53749bad39165b8441209c398bcbf60",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -856,7 +857,7 @@
     "readiness_actual_array_cache_member_model_replay": false,
     "readiness_rerun": false,
     "registry_frozen": true,
-    "actual_result_checker": "NOT_RUN",
+    "actual_result_checker": "PASS_INDEPENDENT_SAVED_RESULT_AUDIT_87EB_SEPARATE_FROM_ORIGINAL_B3_HOLD",
     "independent_review_report": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
     "independent_review_inventory": "canonical-coverage-independent-ab7fda8d/SOURCE_INVENTORY.json",
     "independent_correlated_predicates": 9841,
@@ -864,7 +865,7 @@
     "source_window_scope": "Saved canonical receipt attests unchanged three critical sources and 201 gate sources; independently rehashed current61 and201 maps, not independently observed both historical runtime bookends.",
     "raw_array_cache_value_model_replay": false,
     "assessment_execution_at_coverage_review": "NOT_RUN_AT_THAT_REVIEW",
-    "current_assessment_execution": "BOTH_ORIGINAL_COHORTS_CLOSED; current_cohort_execution"
+    "current_assessment_execution": "BOTH_CLOSED; saved-result87eb and exact306 census pass; primary criterion false and KR full-cohort HOLD"
   },
   "B_canonical_independent_review": {
     "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
@@ -911,7 +912,7 @@
     "readiness_binary_or_array_access": false
   },
   "B_current_cohort_execution": {
-    "state": "BOTH_ORIGINAL_COHORTS_CLOSED_CUSTODY_PASS_RESULTS_UNREAD",
+    "state": "BOTH_CLOSED_ACTUAL_SAVED_RESULT_CENSUS_PASS_PRIMARY_FALSE_KR_HOLD",
     "authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
     "receipt": "current-cohort-authorization-start/current_assessment_start_v2.json",
     "inventory": "current-cohort-authorization-start/SOURCE_INVENTORY.json",
@@ -945,9 +946,9 @@
       "newer83_without_exact_observation_recorded": false,
       "historical_timestamped_snapshot": true
     },
-    "results_read_by_readiness": false,
-    "actual_completed_cohort_validation": "NOT_RUN",
-    "census_checker": "Prepared34syntheticcontrolsagainsthardpinned6887inventory306cases; actualNOT_RUN, complementsunchangedb3fmetricchecker38controls",
+    "results_read_by_readiness": true,
+    "actual_completed_cohort_validation": "PASS_SAVED_RESULT87EB_AND_EXACT306_CENSUS_WITH_SCOPE",
+    "census_checker": "Exact8d29 actual306 identity/status census PASS; originalb3 companion reference unchanged. Executed metric checker87eb is separate reviewed precision repair.",
     "future2026": "NOT_READY_NOT_AUTHORIZED",
     "github_merges_or_default_promotion_authorized": false,
     "driver_static_review": "driver_static_review",
@@ -984,27 +985,29 @@
       "frozen_current_bytes_root_match": 223,
       "readiness_receipt_or_log_replay": false,
       "readiness_actual_caseJSON_or_array_access": false,
-      "exact306_identity_census": "PENDING",
-      "quality_metric_FARSITE_final5figure_reviews": "PENDING",
+      "exact306_identity_census": "PASS_SEPARATE_ACTUAL8D29_RECEIPT",
+      "quality_metric_FARSITE_final5figure_reviews": "SAVED_METRIC87EB_AND_FARSITE_SUBSET_RECONCILIATION_PASS; PUBLICATION_FIGURE_QA_PASS_WITH_SCOPE; NO_SCIENTIFIC_SUPERIORITY",
       "scope": "Parent-provided closure times/exits plus exact saved root metadata/custody check; readiness verifies archive bytes only. Original execution logs are not copied/opened. Counts do not establish exact306 case membership or model quality."
-    }
+    },
+    "readiness_read_scope": "Immutable canonical RESULTS/FARSITE_SCORES summary JSON plus exact closed reviews/QA; no caseJSON/NPZ/original arrays/models or numerical replay."
   },
   "B_current_census_preparation": {
-    "state": "PREPARED_34_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
+    "state": "PREPARATION_34_CONTROLS_RETAINED_ACTUAL_EXACT306_CENSUS_PASS_SEPARATE",
     "review": "current-cohort-census-prepared/README.md",
     "inventory": "current-cohort-census-prepared/SOURCE_INVENTORY.json",
     "checker": "current-cohort-census-prepared/check_census.py",
     "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
     "synthetic_passed": 34,
     "synthetic_total": 34,
-    "actual": "NOT_RUN",
+    "actual": "PASS_COMPLETE_FROZEN_306_CASE_CENSUS",
     "frozen_inventory_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
     "expected_cases": 306,
     "honest_failed_unavailable_hold_retained": true,
     "case_order": "DIAGNOSTIC_ONLY",
     "complements_unchanged_metric_checker": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
     "metric_checker_prepared_controls": 38,
-    "no_actual_outputs_or_arrays_models_opened": true
+    "no_actual_outputs_or_arrays_models_opened": true,
+    "scope": "Prepared34 controls remain source/time-scoped; separately authorized saved metadata actual census represents all306 identities including7 Korean UNAVAILABLE outcomes."
   },
   "B_driver_static_review": {
     "state": "PASS_ROOT_STATIC_MODULE_AND_ONE_US_ARGV_SCOPE",
@@ -1059,8 +1062,8 @@
     "canonical_coverage": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
     "development_only_model_selection": "COMMITTED_VERIFIED_PUBLISHED_D4_WIND",
     "protocol_registry": "COMMITTED_VERIFIED_PUBLISHED",
-    "current_US_KR_assessments": "BOTH_ORIGINAL_COHORTS_CLOSED_US_EXIT0_KR_EXIT1_HOLD",
-    "complete_current_cohort_validation": "PENDING_EXACT306_IDENTITY_CENSUS_METRICS_QUALITY_FARSITE_FINAL5FIGURES",
+    "current_US_KR_assessments": "CLOSED_AND_INDEPENDENT_SAVED_RESULT_CENSUS_REVIEWED_WITH_SCOPE",
+    "complete_current_cohort_validation": "PASS_SAVED_RESULT87EB_AND_EXACT306_CENSUS_WITH_SCOPE; US_PRIMARY_FALSE_KR_HOLD",
     "future2026_external_registration_chronology": "NOT_READY",
     "default_checkpoint_promotion": false,
     "scope": "Authoritative current admission state. Older audit records below retain their own source/time/scope and do not negate the separate later cleared6887 admission.",
@@ -1069,7 +1072,9 @@
       "freeze_metadata": "freeze-committed-metadata-6887dc61/SOURCE_INVENTORY.json",
       "parent_bytes": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION.json",
       "independent_protocol_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
-      "current_authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json"
+      "current_authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
+      "actual_result": "canonical-result-precision-review-87eb9a24/AUTHORIZED_ACTUAL_REVIEW_V2.json",
+      "actual_census": "current-cohort-census-actual-8d29a5e1/ACTUAL_CENSUS.json"
     }
   },
   "record_structure_note": "Current admission and closed-cohort metadata states are authoritative in CURRENT_EVIDENCE. Older source/time-scoped records preserve what each audit established; exact original summaries and all failed evidence remain in history. This archive copies no original execution logs, actualcaseJSON or scientific arrays, and executes no study/review.",
@@ -1086,12 +1091,12 @@
     "scope": "Parent-provided owner custody milestone only. No new total-cohort progress or early metric inferred; independent Goat alignment/source/quality review not claimed."
   },
   "B_descriptive_interval_method": {
-    "state": "METHOD_FIXED_SOURCE_ONLY_REVIEWED_CANDIDATE_REVIEW_PENDING_ACTUAL_NOT_AUTHORIZED",
+    "state": "CANDIDATE6080_HOLD_NONFINITE_JSON_REPAIR_V2_IN_PROGRESS_ACTUAL_NOT_AUTHORIZED",
     "method_fixed_utc": "2026-10-30T17:10:23.901724+00:00",
     "protocol": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PROTOCOL_V1.json",
     "protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
-    "prerequisites": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PREREQUISITES_V1.json",
-    "prerequisites_sha256": "b69a8b57ba8ddbb92cbfdd4e07195c82058be6051a42dbee38e262a873be62e0",
+    "prerequisites": "descriptive-interval-prerequisites-v2/DESCRIPTIVE_INTERVAL_PREREQUISITES_V2.json",
+    "prerequisites_sha256": "0dffd934920b72b0eac36d83dc1b7950b818e039c25264874e59d161a08b04fb",
     "protocol_inventory": "descriptive-interval-protocol-v1/SOURCE_INVENTORY.json",
     "source_review": "interval-method-source-review-6887dc61/REVIEW_SOURCE_INTERVALS.md",
     "source_review_sha256": "b3f9513367f5666ca9f8ccde548db331c48251e7811f561ab8f2400ffe3d22cd",
@@ -1131,12 +1136,156 @@
       "any_undefined_AP_AUC_draw_full_interval": "NULL_UNAVAILABLE; optional explicitly conditional defined-draw interval separate"
     },
     "actual_computation": "NOT_AUTHORIZED_NOT_RUN",
-    "scratch_candidate": "TESTING_IN_PROGRESS_NOT_INSPECTED",
-    "US_complete_cohort_supplement": "PENDING_CANONICAL_B3_RESULT_AND_EXACT306_CENSUS_PLUS_IMPLEMENTATION_REVIEW_AND_ROOT_AUTHORIZATION",
+    "scratch_candidate": "V2_REPAIR_IN_PROGRESS_NOT_INSPECTED",
+    "US_complete_cohort_supplement": "Canonical87eb result and exact306 census PASS; candidate implementation repair/review and explicit root saved-output authorization PENDING",
     "KR_complete_cohort_supplement": "NULL_UNAVAILABLE; 7 expected windows UNAVAILABLE, no available26-window bootstrap",
     "primary223_and_canonical_outputs_rules_unchanged": true,
     "readiness_numerical_or_array_access": false,
-    "scope": "Source-only report inventories frozen fields and evaluates proposed arithmetic on invented controls. It is not candidate implementation clearance or actual supplement computation. Method fixed before final quality interpretation; preserve original primary estimators, decisions and all223 frozen identities."
+    "scope": "Source-only report inventories frozen fields and evaluates proposed arithmetic on invented controls. It is not candidate implementation clearance or actual supplement computation. Method fixed before final quality interpretation; preserve original primary estimators, decisions and all223 frozen identities.",
+    "original_prerequisites_v1": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PREREQUISITES_V1.json",
+    "original_prerequisites_v1_sha256": "b69a8b57ba8ddbb92cbfdd4e07195c82058be6051a42dbee38e262a873be62e0",
+    "prerequisite_v2_inventory": "descriptive-interval-prerequisites-v2/SOURCE_INVENTORY.json",
+    "original_candidate_review": {
+      "state": "HOLD_CONFIRMED_SCHEMA_DEFECT",
+      "candidate_sha256": "6080c09b5d2d7153fb9aa46e040bb6e85688f4b632b37b9a483fdd8c66f19b30",
+      "review": "descriptive-interval-candidate-6080c09b-hold/REVIEW_6080c09b.md",
+      "review_sha256": "ac587701661ba0e1ef521573ad5907bc2bf4c9175d7274ace903e4ab79f5d5af",
+      "inventory": "descriptive-interval-candidate-6080c09b-hold/SOURCE_INVENTORY.json",
+      "finding": "JSON exponent overflow1e999/-1e999/nested accepted as nonfinite; invented full-chain completes. Admission defect, no actual quality implication.",
+      "independent_positive_controls": 4,
+      "independent_failed_refusal_controls": 4,
+      "owner53_controls_replayed_by_reviewer": 53,
+      "counts_not_pooled": true,
+      "actual_study_outputs_accessed": false
+    }
   },
-  "pre_cohort_closure_history": "history/pre-cohort-closure-c3f62de9/ARCHIVE_INDEX.json"
+  "pre_cohort_closure_history": "history/pre-cohort-closure-c3f62de9/ARCHIVE_INDEX.json",
+  "B_canonical_actual_result": {
+    "state": "PASS_INDEPENDENT_SAVED_RESULT_AUDIT_WITH_SCOPE",
+    "canonical_source_head": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+    "result": "canonical-result-precision-review-87eb9a24/AUTHORIZED_ACTUAL_REVIEW_V2.json",
+    "result_sha256": "a7d667cc43480e226522b23338975b6ffd694d5f57bc67b6573afdacec38d0c9",
+    "checker": "canonical-result-precision-review-87eb9a24/v2/check_results.py",
+    "checker_sha256": "87eb9a2467f4e8011e960273ca77a6878a7807173f5869041905363214a297aa",
+    "review": "canonical-result-precision-review-87eb9a24/REVIEW.md",
+    "review_sha256": "f4ecf98761130e5162c615870768446212b732d46db2b4e54e801789c348f0f4",
+    "inventory": "canonical-result-precision-review-87eb9a24/SOURCE_INVENTORY.json",
+    "execution_receipt": "canonical-result-precision-review-87eb9a24/ACTUAL_EXECUTION_V2.json",
+    "exit_code": 0,
+    "authorization": "canonical-review-parent-authorizations/FINAL_CANONICAL_SAVED_REVIEW_AUTHORIZATION_V2.json",
+    "authorization_sha256": "32dbf27ad8ee546aed99bc5634ec0fa7f54c68f789ca18fdb88c387a60779889",
+    "original_checker": "canonical-result-precision-review-87eb9a24/original/check_results.py",
+    "original_checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+    "original_actual_HOLD": "canonical-result-precision-review-87eb9a24/original/AUTHORIZED_ACTUAL_REVIEW.json",
+    "original_actual_HOLD_sha256": "a2be36da59998020740f458e82df3df8fcdc282ffa11875b65c9f82970fb1fdc",
+    "precision_scope": "One development mean differs1 ULP from accumulation order; only that assertion routes through existing finite compare() policy (rtol2e-10,atol2e-12). All other assertions, exact model selection, null development effects and canonical artifacts unchanged.",
+    "development_proof_correlated_predicates": 256,
+    "original_synthetic_controls": 38,
+    "targeted_synthetic_controls": 63,
+    "counts_not_scientific_samples_or_pooled": true,
+    "protected858_parent_map": "canonical-review-parent-authorizations/CANONICAL_PROTECTED_858.json",
+    "canonical_artifacts_changed": false,
+    "readiness_array_model_or_checker_replay": false,
+    "scope": "Independent authorized saved-output metric/custody reconciliation. No original raster/support/geometry replay, model binaries or inference. Conditional fixed models/support/mapped labels, not physical validation or blind2026 conclusion."
+  },
+  "B_current_actual_census": {
+    "state": "COMPLETE_FROZEN_306_CASE_CENSUS",
+    "result": "current-cohort-census-actual-8d29a5e1/ACTUAL_CENSUS.json",
+    "result_sha256": "a3b37b0fbbaac50aa50291fcad84a3b6e7d26979120621f1fcce5159f0d2aff0",
+    "inventory": "current-cohort-census-actual-8d29a5e1/SOURCE_INVENTORY.json",
+    "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+    "expected": 306,
+    "represented": 306,
+    "US_SCORED": 273,
+    "KR_SCORED": 26,
+    "KR_UNAVAILABLE": 7,
+    "scientific_clearance": false,
+    "scope": "Saved exact identity/membership/status census only; no metrics, labels, fields, model validity or scientific criterion inferred. Original companion hashb3 retained as historical reference, actual87eb executable distinct."
+  },
+  "B_actual_FARSITE": {
+    "state": "PASS_SAVED_MATCHED_SUBSET_RECONCILIATION_CANONICAL_HOLD",
+    "review": "farsite-actual-review-f759f2e9/REVIEW.md",
+    "review_sha256": "945bf3b2e6e31ba98bac5f6f635518898806eec91c1a74e3f14ddfdd35abca80",
+    "result": "farsite-actual-review-f759f2e9/ACTUAL_REVIEW.json",
+    "result_sha256": "26c5a52e0eec8a977b947a87a9cf7391243ddc2aeded58bbb173ed965787d2e4",
+    "checker_sha256": "582a2157043bb8f8ab1f0ca6d10cdcf54db0726c5f1553ab647c027641e70ead",
+    "inventory": "farsite-actual-review-f759f2e9/SOURCE_INVENTORY.json",
+    "canonical_summary": "canonical-summary-691cc162/FARSITE_SCORES.json",
+    "canonical_summary_sha256": "f0aa554c2312f3e177eb5d2a165e4aa50a986c3e883beda56510b201bcb3f6e2",
+    "cases_retained": 30,
+    "cases_scored": 29,
+    "matched_entries": 288999,
+    "positives": 2636,
+    "model_columns": 17,
+    "paired_comparisons": 32,
+    "maximum_absolute_difference": 1.1102230246251565e-16,
+    "correlated_actual_predicates": 26614,
+    "separate_metadata_predicates": 568,
+    "separate_synthetic_controls": 25,
+    "counts_not_scientific_samples_or_pooled": true,
+    "unavailable_4489min_case_retained": true,
+    "canonical_status": "HOLD",
+    "native_execution_this_command": false,
+    "superiority_criteria_pass": false,
+    "native_source_limits": "60 exact recorded ASC/timings paths absent on this host and not in local seven-file case packages, bounded paths/package claim only. Historical receipts and savedNPZ authenticated; no native run/rawASC/timing byte replay, physical claim or regenerated station-weather/landscape encoding.",
+    "authorization": "canonical-review-parent-authorizations/FARSITE_SAVED_REVIEW_AUTHORIZATION_F759.json",
+    "initial_source_head_refusal_preserved": true,
+    "readiness_array_or_checker_replay": false
+  },
+  "B_publication_five_figures": {
+    "state": "PASS_SCOPED_PUBLICATION_VISUAL_QA_ROOT_ATTRIBUTED",
+    "source_head": "f759f2e9c53749bad39165b8441209c398bcbf60",
+    "inventory": "publication-five-figure-review-f759f2e9/SOURCE_INVENTORY.json",
+    "parent_review": "publication-five-figure-review-f759f2e9/PUBLICATION_FIVE_FIGURE_QA_PARENT.json",
+    "parent_review_sha256": "405800b248a115e7a80a163bdd5c0d8cf0d1f7fe9c6b583c7af29c605846727d",
+    "owner_review": "publication-five-figure-review-f759f2e9/publication-render/20261031_v2/FIGURE_QA.json",
+    "original_clipping_review": "publication-five-figure-review-f759f2e9/ORIGINAL_FIVE_FIGURE_QA_PARENT.json",
+    "original_clipping_review_sha256": "39d22b5665a211627ddfecca8912c77fe6f00a9947293d4759db8240f3665ff1",
+    "pairs": 5,
+    "all5_vector_previews_and_changed03_05_rasters_reviewed_by_root": true,
+    "other3_rasters_exact_original_copies": true,
+    "canonical858_unchanged_reported": true,
+    "figure_payloads_copied_or_viewed_by_readiness": false,
+    "failed_v1_title_and_source_preserved": true,
+    "scope": "Layout-only labels/marks/units/legends and custody. Original clipping failures remain; no geometric/physical/numerical proof from visual QA."
+  },
+  "B_primary_result": {
+    "state": "NEGATIVE_PRIMARY_CRITERION_FALSE",
+    "canonical_summary": "canonical-summary-691cc162/RESULTS.json",
+    "summary_sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+    "inventory": "canonical-summary-691cc162/SOURCE_INVENTORY.json",
+    "report_status": "HOLD",
+    "selected_run": "d4_wind_seed0",
+    "selected_variant": "d4_wind",
+    "US": {
+      "fires": 6,
+      "windows": 273,
+      "entries": 1705079,
+      "positives": 8520,
+      "raw_Brier": 0.004926886222562958,
+      "average_precision": 0.054254621174332156,
+      "Brier_difference_vs_persistence_95": [
+        -0.00013765717212080875,
+        2.286641855042422e-05
+      ],
+      "persistence_interval_excludes_zero": false,
+      "lowest_bin_gap": 0.004075846079588113,
+      "best_dilation_lowest_bin_gap": 0.001545767121513084,
+      "criteria_pass": false,
+      "calibration_pass": false,
+      "complete_cohort_pass": true
+    },
+    "KR": {
+      "fires": 4,
+      "windows_represented": 33,
+      "windows_supported": 26,
+      "UNAVAILABLE": 7,
+      "supported_entries": 1792,
+      "supported_positives": 404,
+      "assessment_status": "HOLD",
+      "full_cohort_intervals": "NULL_UNAVAILABLE; no available26-window bootstrap"
+    },
+    "scope": "Current retrospective mapped-extent/reconstruction evidence only. Primary selection and criteria fixed; no replacement model selected, physical proof, blind2026 claim or promotion."
+  },
+  "pre_actual_result_history": "history/pre-actual-result-57766981/ARCHIVE_INDEX.json"
 }

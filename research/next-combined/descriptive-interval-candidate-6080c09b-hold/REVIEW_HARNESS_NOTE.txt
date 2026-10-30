@@ -1,0 +1,1 @@
+Initial proof-path collection included the pytest current symlink and its target. Deduplicating resolved fixture paths produced the single expected preserved proof. No source, fixture, test outcome or actual study file changed.

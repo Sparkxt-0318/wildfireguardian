@@ -1,0 +1,111 @@
+{
+  "status": "PASS_SCOPED_PUBLICATION_VISUAL_QA",
+  "viewed_utc": "2026-10-30T23:25:11.490766+00:00",
+  "publication_head": "f759f2e9c53749bad39165b8441209c398bcbf60",
+  "canonical_results_sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+  "all5_rasters_and_svg_previews_inspected": true,
+  "changed_rasters_directly_viewed": [
+    "fig03_ablation_forest_plot",
+    "fig05_example_forecast_vs_perimeter"
+  ],
+  "other3_rasters_exact_original_copies_previously_viewed": true,
+  "items": {
+    "fig01_reliability_all_models": {
+      "status": "RASTER_AND_VECTOR_PREVIEW_READABLE",
+      "files_sha256": {
+        "png": "82bcb2d95ca4b55554473af487df98274983669da0bc418919d5e7da884a53a5",
+        "svg": "d6453cddaff392693c244c5cced1b5d46b2f90a69374a4539e02b24a4d7bd180"
+      },
+      "preview_sha256": "b672e47783a5eeca9f7ce9c94b471ceb212b8c072659f5321b1c20554ca79ed6",
+      "png_dimensions": [
+        2160,
+        900
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width": "518.4pt",
+      "svg_height": "216pt",
+      "canonical_byte_identical": true
+    },
+    "fig02_per_fire_brier_paired": {
+      "status": "RASTER_AND_VECTOR_PREVIEW_READABLE",
+      "files_sha256": {
+        "png": "672d18a02f5c4a9d79c05f856078e2f9ed6754ad17ae815dce60534edfdfdf44",
+        "svg": "7fe9ef7183b7ea1c0f6c462143454b3bd24096c822420a1bd715ca9bd22267ef"
+      },
+      "preview_sha256": "8fd65b60f2e3dc61de55d6b45949725d063a8ba99a617d863f3209c569e9b948",
+      "png_dimensions": [
+        2160,
+        780
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width": "518.4pt",
+      "svg_height": "187.2pt",
+      "canonical_byte_identical": true
+    },
+    "fig03_ablation_forest_plot": {
+      "status": "RASTER_AND_VECTOR_PREVIEW_READABLE",
+      "files_sha256": {
+        "png": "ecba5074a909e0b146eb1254e1ec2b616ba3886be64a332ad21463a0c9d424eb",
+        "svg": "f208687059d6f4f0acb17f310b461e05453987ba6c3f79fc1b97dae9f14d3731"
+      },
+      "preview_sha256": "39f14007b56232567d4792be2b1c9c8dc983750b13ec977559b17413d217038f",
+      "png_dimensions": [
+        1050,
+        899
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width": "252pt",
+      "svg_height": "216pt",
+      "canonical_byte_identical": false
+    },
+    "fig04_meanfield_vs_mc_rmse_by_horizon": {
+      "status": "RASTER_AND_VECTOR_PREVIEW_READABLE",
+      "files_sha256": {
+        "png": "3889bb6b86ccc7cc9f325fb0c26fb1777b172ebe05e2f851d13ec3aad201f356",
+        "svg": "40b9361eb303f0e8bbb2caa1a6d16b52452400bad7729de0535560eb35575bc4"
+      },
+      "preview_sha256": "c26197ee5df1a3f6cff98a9cb8e635d87f425947005acb249da26571a1e4c61c",
+      "png_dimensions": [
+        1050,
+        720
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width": "252pt",
+      "svg_height": "172.8pt",
+      "canonical_byte_identical": true
+    },
+    "fig05_example_forecast_vs_perimeter": {
+      "status": "RASTER_AND_VECTOR_PREVIEW_READABLE",
+      "files_sha256": {
+        "png": "2957236346b624d74c8e321a78814466fd2fa543cdc0e32f95c9d2e9cb8f0e4f",
+        "svg": "e624a78674ea0864c54dc6911c0d3a23ed35fe0cc86021928514fb029d2f3289"
+      },
+      "preview_sha256": "9a89402ed80a6c54d3d7ee37c5d99f16b332848910133b9e758553bcf178e5d6",
+      "png_dimensions": [
+        2160,
+        600
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width": "518.4pt",
+      "svg_height": "144pt",
+      "canonical_byte_identical": false
+    }
+  },
+  "canonical858_all_unchanged": true,
+  "scope": "Visual labels/marks/units/legends and artifact identity only. Rightmosttick03 and complete wrappedcolorbar05 are readable; originalempty displaylabels preserved. QuickLook squarewhitepadding belongs to previews; SVGdocumentaspect remains original. Originalclipped5pair set and failedv1REALINPUTStitle variant remain preserved. Owner artist/example invariance assertions are separately recorded, not rederived geometric or physical validation."
+}

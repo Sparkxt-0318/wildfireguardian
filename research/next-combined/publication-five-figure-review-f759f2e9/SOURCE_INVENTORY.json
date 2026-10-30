@@ -1,0 +1,113 @@
+{
+  "scope": "Exact root original/final figure QA and immutable publication render metadata/source/receipts, including failedv1 title/source lineage. No figure image/payload copied; no new visual reinspection or original scientific data read. Parent all-five vector preview/changed03+05 raster review attributed.",
+  "source_commit": "f759f2e9c53749bad39165b8441209c398bcbf60",
+  "figure_paths_not_copied": [
+    "research/forecast-v2/publication-render/20261031_v1/fig01_reliability_all_models.png",
+    "research/forecast-v2/publication-render/20261031_v1/fig01_reliability_all_models.svg",
+    "research/forecast-v2/publication-render/20261031_v1/fig02_per_fire_brier_paired.png",
+    "research/forecast-v2/publication-render/20261031_v1/fig02_per_fire_brier_paired.svg",
+    "research/forecast-v2/publication-render/20261031_v1/fig03_ablation_forest_plot.png",
+    "research/forecast-v2/publication-render/20261031_v1/fig03_ablation_forest_plot.svg",
+    "research/forecast-v2/publication-render/20261031_v1/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+    "research/forecast-v2/publication-render/20261031_v1/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+    "research/forecast-v2/publication-render/20261031_v1/fig05_example_forecast_vs_perimeter.png",
+    "research/forecast-v2/publication-render/20261031_v1/fig05_example_forecast_vs_perimeter.svg",
+    "research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.png",
+    "research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.svg",
+    "research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.png",
+    "research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.svg",
+    "research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.png",
+    "research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.svg",
+    "research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+    "research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+    "research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.png",
+    "research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg"
+  ],
+  "files": [
+    {
+      "path": "PUBLICATION_FIVE_FIGURE_QA_PARENT.json",
+      "bytes": 4067,
+      "sha256": "405800b248a115e7a80a163bdd5c0d8cf0d1f7fe9c6b583c7af29c605846727d"
+    },
+    {
+      "path": "ORIGINAL_FIVE_FIGURE_QA_PARENT.json",
+      "bytes": 3314,
+      "sha256": "39d22b5665a211627ddfecca8912c77fe6f00a9947293d4759db8240f3665ff1"
+    },
+    {
+      "path": "executions/publication_render_v1.json",
+      "bytes": 1117,
+      "sha256": "4a05c378010a9246ffa2b7474fd7c2c046da07dee6c0ba32d35568c17d26dfcd"
+    },
+    {
+      "path": "executions/publication_render_v1.log",
+      "bytes": 128,
+      "sha256": "52e0aa5f1cb7a21ca56334ae89431a13c254b4a7a49480581ac4751c534c57b0"
+    },
+    {
+      "path": "executions/publication_render_v2.json",
+      "bytes": 137046,
+      "sha256": "999b03f462fa26954cbc558583cb956e812bdeeccff3726c182351b100c5374e"
+    },
+    {
+      "path": "executions/publication_render_v2.log",
+      "bytes": 128,
+      "sha256": "6eaafa8955f97f5bde65c3b29d95382a98bf7e2f7b90f4c86a99d4285a9f8afa"
+    },
+    {
+      "path": "publication-render/20261031_v1/RENDER_MANIFEST.json",
+      "bytes": 139725,
+      "sha256": "e37517d6c7feb880386e2e23b339f4a40df24afbab0bc9d7a180b58ba64671b2"
+    },
+    {
+      "path": "publication-render/20261031_v1/VISUAL_QA_FAILURE.json",
+      "bytes": 413,
+      "sha256": "61a3d9aebe6ea631957801b31a0deb812791d7199dd8436b1005725bb56c3b40"
+    },
+    {
+      "path": "publication-render/20261031_v2/FIGURE_QA.json",
+      "bytes": 5396,
+      "sha256": "b66dcb03733b55aead0eb3350e24c0a60a3ee45b157c8acd05ed9fe84120ac95"
+    },
+    {
+      "path": "publication-render/20261031_v2/RENDER_MANIFEST.json",
+      "bytes": 139725,
+      "sha256": "f201cbe701604a5167e053c6917cc65b8b28bec36115fa38403d288614cdda85"
+    },
+    {
+      "path": "publication-render/source/SOURCE_ARTIFACT_MANIFEST.json",
+      "bytes": 3826,
+      "sha256": "d0fac6af1d36560f2393c060ae06a9a3c8057eb055593baafebc34e333778743"
+    },
+    {
+      "path": "publication-render/source/publication-render-core-protection-derived.json",
+      "bytes": 133882,
+      "sha256": "d0e480bc7f8f7539c24629abb4a2b634b24995fc37d02bdb79c04e24b6e070d0"
+    },
+    {
+      "path": "publication-render/source/publication-render-synthetic-controls.json",
+      "bytes": 342,
+      "sha256": "7f26cfe51656246be00eb4c35d0793399417636254f31bea44e0363bfe435f71"
+    },
+    {
+      "path": "publication-render/source/publication-svg-previews-v2.json",
+      "bytes": 4186,
+      "sha256": "aff2589382adee50a03ddb5b22a87143f0a1989ae3eb8c46bd010d4fa1c7ad0a"
+    },
+    {
+      "path": "publication-render/source/publication_render_v1.py.gz",
+      "bytes": 2538,
+      "sha256": "5a112737dc9a6dbda050639e78dbe2d7ee59f8c0af88a772ba5b0c7ca6206c4e"
+    },
+    {
+      "path": "publication-render/source/publication_render_v2.py.gz",
+      "bytes": 2651,
+      "sha256": "a97af999303a3513fd32e3691ad032e55b14ce11f07be03f156f309741c29375"
+    },
+    {
+      "path": "publication-render/source/v1_to_v2_label_fix.diff",
+      "bytes": 2675,
+      "sha256": "0be7ca2175883cc7038ee2050b8a007942935059de23cf00900550534c1f0368"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-result-precision-review/prove_development_precision.py", line 23, in <module>
+    with (E/'ablation.csv').open() as f:csv_rows={r['variant']:r for r in csv.DictReader(f)}
+                                                  ~^^^^^^^^^^^
+KeyError: 'variant'

@@ -1,0 +1,36 @@
+{
+  "source_commit": "577669819bc061c10f15ea13c2c9edacd0968362",
+  "scope": "Exact prior current summary before actual result/census/FARSITE/visual reviews. All original evidence/failures preserved.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 11294,
+      "sha256": "e203832c0efee16e696304351d54c90fcbaf4500e7e9301c0d1fe8f48e17d79d"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 82365,
+      "sha256": "4b4dfd335f7977f4f942a5230e00fcb2eb934e0d3d7d73baf07be45ce5b5eb11"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 82365,
+      "sha256": "4b4dfd335f7977f4f942a5230e00fcb2eb934e0d3d7d73baf07be45ce5b5eb11"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 64985,
+      "sha256": "f6538b0115fe17bbfd5cf0082e67670d6ae7042428d8a8c6da379e91fa8b3b5c"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 16447,
+      "sha256": "33ca7cf2da1cf34191fd822e5b667071a0417cddb4e54bdd11aead8bf65866b6"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 105341,
+      "sha256": "076be13c539dd87308338eedd204b073d4f843b2235415ad2bbf81df5f6e890b"
+    }
+  ]
+}

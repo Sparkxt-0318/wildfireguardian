@@ -1,0 +1,34 @@
+{
+  "receipt_version": "wfg.root-canonical-saved-review-authorization/2",
+  "status": "AUTHORIZED_READ_ONLY_CANONICAL_REVIEW",
+  "issued_utc": "2026-10-30T23:18:33.889106+00:00",
+  "authorized_source_head": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+  "model_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b",
+  "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3",
+  "results_sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+  "checker_sha256": {
+    "canonical_checker": "87eb9a2467f4e8011e960273ca77a6878a7807173f5869041905363214a297aa",
+    "census_checker": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9"
+  },
+  "allowed": [
+    "ORIGINAL_B3_SAVED_METRIC_RECONCILIATION",
+    "ORIGINAL_FULL_306_CASE_CENSUS",
+    "ORIGINAL_FIVE_FIGURE_VISUAL_QA",
+    "SAVED_FARSITE_ROW_RECONCILIATION"
+  ],
+  "prohibited": [
+    "MODEL_INFERENCE",
+    "PRIMARY_SOURCE_OR_OUTPUT_CHANGE",
+    "DESCRIPTIVE_INTERVAL_ACTUAL_COMPUTATION",
+    "DEFAULT_PROMOTION",
+    "FUTURE_2026_EXECUTION",
+    "MERGE"
+  ],
+  "scope": "Both original cohort invocations closed with unchanged223/source bookends. Read-only canonical quality review now authorized; separate descriptive supplement remains unexecuted and needs its later explicit release.",
+  "operational_repair": {
+    "original_checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+    "original_actual_hold_sha256": "a2be36da59998020740f458e82df3df8fcdc282ffa11875b65c9f82970fb1fdc",
+    "independent_precision_review_sha256": "f4ecf98761130e5162c615870768446212b732d46db2b4e54e801789c348f0f4",
+    "scope": "One development mean assertion now uses the exact comparison policy already present before actual review; all null-effect/selection/cohort/primary metric rules unchanged. Independent same21fit/23fire arithmetic proves the1ULP source-order difference. No canonical data, source223 or result change. Original failed checker/receipt retained."
+  }
+}

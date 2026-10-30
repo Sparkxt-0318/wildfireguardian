@@ -1,0 +1,16 @@
+{
+  "scope": "Parent-authorized exact immutable canonical summary JSON only. No NPZ, original scientific arrays or model payloads copied/opened; no result recomputation.",
+  "source_commit": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+  "files": [
+    {
+      "path": "RESULTS.json",
+      "bytes": 726582,
+      "sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755"
+    },
+    {
+      "path": "FARSITE_SCORES.json",
+      "bytes": 576278,
+      "sha256": "f0aa554c2312f3e177eb5d2a165e4aa50a986c3e883beda56510b201bcb3f6e2"
+    }
+  ]
+}

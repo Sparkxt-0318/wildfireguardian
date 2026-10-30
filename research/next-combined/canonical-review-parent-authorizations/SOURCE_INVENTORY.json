@@ -1,0 +1,26 @@
+{
+  "scope": "Exact root authorizations and root unchanged858 identity map. Readiness checks archived receipt bytes only; does not rehash/open the858 actual artifacts or model/array payloads.",
+  "readiness_actual858_replay": false,
+  "files": [
+    {
+      "path": "FINAL_CANONICAL_SAVED_REVIEW_AUTHORIZATION.json",
+      "bytes": 1430,
+      "sha256": "08aae14b604b87ccc971318cdb30c18683b328780725fe8ca418179d783cdb36"
+    },
+    {
+      "path": "FINAL_CANONICAL_SAVED_REVIEW_AUTHORIZATION_V2.json",
+      "bytes": 2129,
+      "sha256": "32dbf27ad8ee546aed99bc5634ec0fa7f54c68f789ca18fdb88c387a60779889"
+    },
+    {
+      "path": "CANONICAL_PROTECTED_858.json",
+      "bytes": 135942,
+      "sha256": "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803"
+    },
+    {
+      "path": "FARSITE_SAVED_REVIEW_AUTHORIZATION_F759.json",
+      "bytes": 4086,
+      "sha256": "4bea22f45be8686093c437ea979693cf03a8faea709d26a9fbf7a155d309d9e6"
+    }
+  ]
+}

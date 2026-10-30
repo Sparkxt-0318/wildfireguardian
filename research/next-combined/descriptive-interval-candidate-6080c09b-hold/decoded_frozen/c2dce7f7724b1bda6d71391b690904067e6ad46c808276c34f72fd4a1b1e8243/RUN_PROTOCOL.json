@@ -1,0 +1,233 @@
+{
+  "schema": "wfg.forecast-v2.execution/1",
+  "split_sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+  "source_archive_sha256": "b9e000e8661128416fe7561690f78b1955d5a32189ac71536c1cd4110cd5dd65",
+  "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909",
+  "variants": {
+    "base": {
+      "prior": "free",
+      "frame": "none",
+      "d4": false
+    },
+    "d4": {
+      "prior": "free",
+      "frame": "none",
+      "d4": true
+    },
+    "d4_wind": {
+      "prior": "free",
+      "frame": "wind",
+      "d4": true
+    },
+    "ellipse": {
+      "prior": "ellipse",
+      "frame": "none",
+      "d4": false
+    },
+    "burnout": {
+      "prior": "free",
+      "frame": "none",
+      "d4": false,
+      "residence_hours": 6.0
+    },
+    "burnout_spotting": {
+      "prior": "free",
+      "frame": "none",
+      "d4": false,
+      "residence_hours": 6.0,
+      "spotting_radius": 15
+    },
+    "mixed_base": {
+      "prior": "free",
+      "frame": "none",
+      "d4": false,
+      "mixed": true
+    }
+  },
+  "development_folds": [
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "fitting": {
+    "epochs": 3,
+    "seed": 0,
+    "hidden_channels": 16,
+    "kernel_size": 9,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0001,
+    "samples_per_step": 1,
+    "max_fit_intervals_per_fire": 3,
+    "interval_selection": "first three eligible consecutive intervals by cutoff timestamp, within each fire; no endpoint label chooses the interval or crop",
+    "training_crop": "cutoff initial extent plus 10cells; future endpoint not used; zero exterior scenario",
+    "threads": 2,
+    "biome_emphasis": "training-only inverse-sqrt"
+  },
+  "primary_selection": "lowest unweighted mean of per-fire development Brier across all three year folds; ties follow listed variant order; freeze MODEL_SELECTION.json and checkpoint hashes before heldout scoring",
+  "heldout": {
+    "us": "all six US2024fires, every <=48h consecutive survey interval with cutoff environmental data; full rectangles; exact common-support cells per interval",
+    "korea": "four Korean2025fires, separate reconstruction-based secondary evaluation",
+    "n_samples": 1024,
+    "base_seed": 0,
+    "trajectory_batch_size": 32,
+    "boundary": "zero",
+    "weather": "cutoff repeated; no future weather",
+    "negative_reference": "not mapped at endpoint within fixed rectangle; no survey coverage mask; not certified physically unburned"
+  },
+  "mean_field_compare": {
+    "cases": [
+      {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-04T16:00:00+00:00",
+        "initial_sha256": "9e2be274a2ad926c7343bc19d66f3017a7f767b8c725464f82db9213e7fd10fd",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-05T05:00:00+00:00",
+        "initial_sha256": "15ea495f4cbb5c50fc2721cd92bf6abe53fd26daffd768bb5f0c0fdb24d1f07d",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "KR",
+        "event": "KFS_02",
+        "cutoff": "2022-03-07T10:00:00+00:00",
+        "initial_sha256": "ef719f6138cec3f89167ac4f6052487d8a0b16a8901418646827c19e81fa4098",
+        "shape": [
+          62,
+          58
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "KR",
+        "event": "KFS_03",
+        "cutoff": "2022-03-05T04:00:00+00:00",
+        "initial_sha256": "20b1d9e0369bd6e24c1ba115598a3b4eaed28db0fcab31a26aa9327400df44a5",
+        "shape": [
+          20,
+          33
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "KR",
+        "event": "KFS_03",
+        "cutoff": "2022-03-05T08:00:00+00:00",
+        "initial_sha256": "5f3c1554b8eba8ba4bff8cd4c20a1fa3e559c14446c3dfdaca31b62c4bfecb72",
+        "shape": [
+          20,
+          33
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "KR",
+        "event": "KFS_05",
+        "cutoff": "2023-04-02T13:00:00+00:00",
+        "initial_sha256": "13b457f5ca1f0e9045179a5a1880ede9a0e2b851c2034029576c3533bcd3aac2",
+        "shape": [
+          18,
+          18
+        ],
+        "survey_hours": null
+      },
+      {
+        "country": "US",
+        "event": "CA-PNF-001308_PNFNorthComplex",
+        "cutoff": "2020-09-23T02:40:00+00:00",
+        "initial_sha256": "c075c198d193bb8fea0dd0970407da217bbc6f3cc186389a2efb01392ebe6867",
+        "shape": [
+          128,
+          195
+        ],
+        "survey_hours": 30.083333333333332
+      },
+      {
+        "country": "US",
+        "event": "CA-SNF-001391_Creek",
+        "cutoff": "2020-10-06T06:30:00+00:00",
+        "initial_sha256": "3e675e58b3b3d70f1f791a6d6c6c330f613ba32227e5cdb8dbaff64c973ade19",
+        "shape": [
+          200,
+          151
+        ],
+        "survey_hours": 24.75
+      },
+      {
+        "country": "US",
+        "event": "OR-UPF-000450_DevilsKnob",
+        "cutoff": "2021-09-01T04:40:00+00:00",
+        "initial_sha256": "db75c399329b2f50922a3f5d42be8077e51f8f79e0d3a0c0337f86affe30ff77",
+        "shape": [
+          111,
+          77
+        ],
+        "survey_hours": 24.233333333333334
+      },
+      {
+        "country": "US",
+        "event": "MT-LNF-000893_WestLolo",
+        "cutoff": "2021-07-29T04:40:00+00:00",
+        "initial_sha256": "daf8a34b7c858dff205ee42f2a3165a8156ceeacc57a2bc609035ceeb82ef864",
+        "shape": [
+          67,
+          63
+        ],
+        "survey_hours": 23.833333333333332
+      },
+      {
+        "country": "US",
+        "event": "ID-SCF-022105_Moose",
+        "cutoff": "2022-08-16T06:03:00+00:00",
+        "initial_sha256": "4e4c5af8c148a24884180e5809bf23221cbd17953b856330d781d41069c3dda7",
+        "shape": [
+          81,
+          113
+        ],
+        "survey_hours": 24.666666666666668
+      },
+      {
+        "country": "US",
+        "event": "OR-WIF-220180_CedarCreek",
+        "cutoff": "2022-09-11T05:45:00+00:00",
+        "initial_sha256": "86f76420d6e45cfff2474c3312115d66cecd47322e605c59fe62b036d2b337d8",
+        "shape": [
+          95,
+          112
+        ],
+        "survey_hours": 46.266666666666666
+      }
+    ],
+    "n_samples": 1024,
+    "seed": 0,
+    "trajectory_batch_size": 32,
+    "horizons_hours": [
+      1,
+      3,
+      6,
+      12,
+      24
+    ],
+    "timing": "one joint24h MC call and one joint24h mean-field call per cutoff; shared costs not independent horizon runtimes"
+  },
+  "bootstrap": {
+    "unit": "whole fire",
+    "draws": 10000,
+    "seed": 20261030
+  },
+  "superiority_gate": "selected model beats persistence and training-chosen best dilation with paired-by-fire95pct interval excluding zero and lowest-bin calibration no worse; otherwise no superiority claim",
+  "fuel_window": "FBFM40 point duration for supported US fuel codes, explicit6h scalar fallback for missing or unsupported cells, learned smoulder; coarse temporal ignition-midpoint approximation is a limit",
+  "farsite": "existing deterministic scenario outputs only on authenticated matching grid,initial state,interval and weather/source inputs; report separate subset if incomplete",
+  "checkpoint_promotion": false
+}
