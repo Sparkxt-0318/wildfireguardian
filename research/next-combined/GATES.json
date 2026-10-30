@@ -1,0 +1,214 @@
+{
+  "status": "INTERIM_HOLD_INCOMPLETE",
+  "record_kind": "readiness_audit_only_not_integrated_experiment",
+  "track_evidence": {
+    "1A": {
+      "head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+      "reported_status": "HOLD_INCOMPLETE",
+      "test_count": 21,
+      "random_enclosure_cases": 1000,
+      "test_exit_code": 0,
+      "seed": 20261030,
+      "physics_gate": "UNRESOLVED_DO_NOT_RUN_ROUTING",
+      "routing_executions": 0,
+      "previous_routes_rejected_under_v2": null,
+      "peak_binding_missions": null,
+      "dose_binding_missions": null,
+      "requirements": {
+        "front_segments": {
+          "state": "PARTIAL",
+          "evidence": "src/wfg_flamefront/isochrone.py; tests/test_law.py",
+          "limit": "Straight-segment approximation, strict unknown/infinite and present-phase refusal; not every legacy packet supported"
+        },
+        "intensity_and_wind": {
+          "state": "PASS_MODEL_FORMULA",
+          "evidence": "intensity.py; sources NIST and Weise/Biging",
+          "limit": "Fuel-specific empirical laws and declared cap, no local physical fit"
+        },
+        "flux_at_points": {
+          "state": "PASS_ON_SUPPORTED_GEOMETRY",
+          "evidence": "law_v2.py; analytic view-factor tests",
+          "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
+        },
+        "spatial_time_enclosure": {
+          "state": "PASS_COARSE_MODEL_BOUND",
+          "evidence": "law_v2.py proof and 1000 regression cases",
+          "limit": "Zero lower bound and global candidate-panel count upper are generally too loose for route acceptance"
+        },
+        "physical_comparisons": {
+          "state": "UNRESOLVED",
+          "evidence": "physics_validation/SOURCES.json; MODEL_TABLE.csv; INCOMPARABLE_DIAGNOSTICS.csv",
+          "limit": "Prompt mixes shrub/flame heights, absent instantaneous front widths, in-flame irradiance and emitter power"
+        },
+        "factor_three_gate": {
+          "state": "UNRESOLVED",
+          "evidence": "physics_validation/RESULTS.json",
+          "limit": "No comparable empirical threefold-error assessment can be asserted; diagnostics are not measured validation errors"
+        },
+        "cutoff_error": {
+          "state": "PASS_NO_TRUNCATION",
+          "evidence": "solidflame.py omitted_absolute_bound",
+          "limit": "No default radius truncation; no uniform relative tail-error claim"
+        },
+        "extinction_and_present_state": {
+          "state": "PARTIAL_FAIL_CLOSED",
+          "evidence": "law_v2.py _inputs and refusal tests",
+          "limit": "Per-cell finite expiry supported, scalar max-remaining old-fire phases cannot identify a front"
+        },
+        "dose": {
+          "state": "PASS_DECLARED_INTERPOLATION",
+          "evidence": "law_v2.py and analytic constant/ramp tests",
+          "limit": "Piecewise-linear flux assumption, not continuous-route integration bounds"
+        },
+        "provenance": {
+          "state": "PARTIAL",
+          "evidence": "provenance.py; SOURCES.json",
+          "limit": "Unlocated clinical thresholds omitted, not silently adopted"
+        },
+        "frozen_adapter_copy": {
+          "state": "NOT_RUN_GATED",
+          "evidence": "adapters/journey_check.py",
+          "limit": "No complete v2 checker, gate raises NotImplementedError"
+        },
+        "frozen_uljin_v1_regression": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "No copied full adapter claimed"
+        },
+        "korean_18_journey_replay": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "Physics gate unresolved"
+        },
+        "caldor_3_journey_replay": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "Physics gate unresolved"
+        },
+        "five_policy_20_mission_ablation": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "Physics gate unresolved; no changed thresholds or invented outcomes"
+        },
+        "binding_peak_position_maps": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "Cannot generate journey binding maps from unexecuted studies"
+        },
+        "journey_cost_abba_two_repetitions": {
+          "state": "NOT_RUN_GATED",
+          "evidence": null,
+          "limit": "No v2 complete checker performance claim"
+        },
+        "optics_figures": {
+          "state": "PASS",
+          "evidence": "physics_validation/fig01_flux_vs_distance.{png,svg}; fig02_parameter_sweep.{png,svg}",
+          "limit": "Model scenario figures only"
+        }
+      },
+      "targeted_audit": {
+        "status": "FAIL_TARGETED_REFUSAL",
+        "head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+        "path": "audit/1a-simultaneous-initial.json"
+      },
+      "source_sha256": {
+        "research/flame-front-radiation/RESULTS.json": "5851cdb7a9db416c738af16e027c1525ad0427ed9f8eaf4fc7fdffecafa1ca03",
+        "research/flame-front-radiation/REQUIREMENTS_STATUS.json": "3675fd4ddcc97947ce764d3854021018eabae35b3c9cdfda2dcb52096cb6f639",
+        "research/flame-front-radiation/README.md": "830f50fbf4bf121b1ff6a181a20bdbfbdce27fa99d87280c950f681bf60d2505",
+        "research/flame-front-radiation/physics_validation/RESULTS.json": "c34a28de9c1509d5d019666798b3d56004332f5658dfe7906b44cb353dcd1e97",
+        "research/flame-front-radiation/physics_validation/SOURCES.json": "216bae8e8b7f25100c0f33d510ab095b1519c3b233bd14e2f609ee4c62ff21dc",
+        "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "5ec5af3016059947fe30479bd058f21805017ef945c2dffb91328f36f06f6725",
+        "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "cc19d7a49f6d321e77ffdcbfb96f8f9b400038b3e351e09a9340452b7dfa5c6f",
+        "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
+        "experimental/flame-front-radiation/adapters/journey_check.py": "9094abd5ebc498466e499b3e9e19b82d3ab797b64021ae5520e2bc655b90abfc"
+      },
+      "reported_host": {
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "machine": "arm64",
+        "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+        "numpy": "1.26.4"
+      }
+    },
+    "1B": {
+      "status": "PENDING_OWNER_FINAL_EVIDENCE",
+      "head": null,
+      "headline": null
+    },
+    "1C": {
+      "status": "PENDING_OWNER_FINAL_EVIDENCE",
+      "head": null,
+      "headline": null
+    }
+  },
+  "cross_track_checks": {
+    "C1_C4_law_v2_vs_v1": {
+      "state": "NOT_RUN_GATED",
+      "reason": "1A empirical gate unresolved and complete journey adapter unavailable"
+    },
+    "binding_coherent_K4_K16": {
+      "state": "NOT_RUN_GATED",
+      "reason": "1A binding study and full journey adapter not implemented; no accepted empirical gate"
+    },
+    "SIPP_on_combined_bridge_v2_packets": {
+      "state": "NOT_RUN_GATED",
+      "reason": "Step 4 requires accepted 1A, 1C-1 and 1C-3; precondition not met"
+    }
+  },
+  "branches_merged": [],
+  "checkpoint_promoted": false,
+  "commands": [
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+        "-m",
+        "pytest",
+        "experimental/flame-front-radiation/tests",
+        "-q"
+      ],
+      "exit_code": 0,
+      "kind": "owner_evidence"
+    },
+    {
+      "command": [
+        "../venv-routing/bin/python",
+        "research/next-combined/audit_1a_semantics.py",
+        "--track-a",
+        "../track-1a",
+        "--out",
+        "research/next-combined/audit/1a-simultaneous-initial.json"
+      ],
+      "exit_code": 1,
+      "kind": "independent_targeted_audit"
+    },
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+        "research/next-combined/build_report.py",
+        "--track-a",
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1a"
+      ],
+      "exit_code": 0,
+      "kind": "summary_generation_only"
+    }
+  ],
+  "summary_host": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "open_work": [
+    "1A targeted refusal repair and renewed audit",
+    "1B final cohort evidence",
+    "1C final export/member/campaign evidence",
+    "final ownership/style/figure/claim checks",
+    "publication by orchestrator"
+  ],
+  "prior_remote_results_used_as_new_execution": false,
+  "merge_order": [
+    "1C-1 export and members",
+    "1A library",
+    "1B",
+    "1C-2 SIPP",
+    "1C-3 synthetic-truth harness",
+    "integration"
+  ]
+}
