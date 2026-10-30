@@ -1,0 +1,2882 @@
+[
+  {
+    "job_index": 0,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 1,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 2,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 3,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 4,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 5,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 6,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 7,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 8,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 9,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 10,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 11,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 12,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 13,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 14,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 15,
+    "case_index": 0,
+    "mission": "20220304T030000Z_FX1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 16,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 17,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 18,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 19,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 20,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 21,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 22,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 23,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 24,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 25,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 26,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 27,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 28,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 29,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 30,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 31,
+    "case_index": 1,
+    "mission": "20220601T080000Z_FX1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 32,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 33,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 34,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 35,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 36,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 37,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 38,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 39,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 40,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 41,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 42,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 43,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 44,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 45,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 46,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 47,
+    "case_index": 2,
+    "mission": "20230402T070000Z_FX1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 48,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 49,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 50,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 51,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 52,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 53,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 54,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 55,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 56,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 57,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 58,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 59,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 60,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 61,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 62,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 63,
+    "case_index": 3,
+    "mission": "20250323T010000Z_FX2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 64,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 65,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 66,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 67,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 68,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 69,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 70,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 71,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 72,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 73,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 74,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 75,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 76,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 77,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 78,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 79,
+    "case_index": 4,
+    "mission": "20250325T190000Z_FX2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 80,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 81,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 82,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 83,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 84,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 85,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 86,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 87,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 88,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 89,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 90,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 91,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 92,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 93,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 94,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 95,
+    "case_index": 5,
+    "mission": "20220304T060000Z_FL1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 96,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 97,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 98,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 99,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 100,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 101,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 102,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 103,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 104,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 105,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 106,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 107,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 108,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 109,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 110,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 111,
+    "case_index": 6,
+    "mission": "20220601T020000Z_FW1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 112,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 113,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 114,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 115,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 116,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 117,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 118,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 119,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 120,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 121,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 122,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 123,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 124,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 125,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 126,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 127,
+    "case_index": 7,
+    "mission": "20230402T140000Z_FW2",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 128,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 129,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 130,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 131,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 132,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 133,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 134,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 135,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 136,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 137,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 138,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 139,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 140,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 141,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 142,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 143,
+    "case_index": 8,
+    "mission": "20250324T090000Z_FL2",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 144,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 145,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 146,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 147,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 148,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 149,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 150,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 151,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 152,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 153,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 154,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 155,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 156,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 157,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 158,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 159,
+    "case_index": 9,
+    "mission": "20250325T230000Z_FL2",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 160,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 161,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 162,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 163,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 164,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 165,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 166,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 167,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 168,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 169,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 170,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 171,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 172,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 173,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 174,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 175,
+    "case_index": 10,
+    "mission": "20220304T120000Z_FW2",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 176,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 177,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 178,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 179,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 180,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 181,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 182,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 183,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 184,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 185,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 186,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 187,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 188,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 189,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 190,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 191,
+    "case_index": 11,
+    "mission": "20220601T080000Z_FD1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 192,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 193,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 194,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 195,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 196,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 197,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 198,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 199,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 200,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 201,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 202,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 203,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 204,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 205,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 206,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 207,
+    "case_index": 12,
+    "mission": "20230402T230000Z_FD1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 208,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 209,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 210,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 211,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 212,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 213,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 214,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 215,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 216,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 217,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 218,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 219,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 220,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 221,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 222,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 223,
+    "case_index": 13,
+    "mission": "20250325T170000Z_FW1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 224,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 225,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 226,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 227,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 228,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 229,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 230,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 231,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 232,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 233,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 234,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 235,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 236,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 237,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 238,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 239,
+    "case_index": 14,
+    "mission": "20250326T080000Z_FW1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 240,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 241,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 242,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 243,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 244,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 245,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 246,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 247,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 248,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 249,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 250,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 251,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 252,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 253,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 254,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 255,
+    "case_index": 15,
+    "mission": "20220304T030000Z_FD1",
+    "region": "uljin_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 256,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 257,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 258,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 259,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 260,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 261,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 262,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 263,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 264,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 265,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 266,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 267,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 268,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 269,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 270,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 271,
+    "case_index": 16,
+    "mission": "20220531T100000Z_FN1",
+    "region": "miryang_2022",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 272,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 273,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 274,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 275,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 276,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 277,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 278,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 279,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 280,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 281,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 282,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 283,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 284,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 285,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 286,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 287,
+    "case_index": 17,
+    "mission": "20230402T070000Z_FN1",
+    "region": "hongseong_2023",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 288,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 289,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 290,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 291,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 292,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 293,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 294,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 295,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 296,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 297,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 298,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 299,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 300,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 301,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 302,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 303,
+    "case_index": 18,
+    "mission": "20250323T010000Z_FD1",
+    "region": "uiseong_andong_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 304,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 305,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 306,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 307,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 4,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 308,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 309,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 310,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 311,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 8,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 312,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 313,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 314,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 315,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 16,
+    "repetition": 2,
+    "method": "sweep"
+  },
+  {
+    "job_index": 316,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sweep"
+  },
+  {
+    "job_index": 317,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 1,
+    "method": "sipp"
+  },
+  {
+    "job_index": 318,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sipp"
+  },
+  {
+    "job_index": 319,
+    "case_index": 19,
+    "mission": "20250325T190000Z_FD1",
+    "region": "yeongdeok_2025",
+    "K": 32,
+    "repetition": 2,
+    "method": "sweep"
+  }
+]

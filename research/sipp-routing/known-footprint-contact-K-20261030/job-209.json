@@ -1,0 +1,4651 @@
+{
+  "job_index": 209,
+  "case_index": 13,
+  "mission": "20250325T170000Z_FW1",
+  "region": "uiseong_andong_2025",
+  "K": 4,
+  "repetition": 1,
+  "method": "sipp",
+  "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+  "arrival": 1064,
+  "destination": "osm:12616949379",
+  "search_started": true,
+  "solver_metrics": {
+    "pieces": 1881,
+    "expansions": 1870,
+    "goal_candidates": 3,
+    "successor_runs": 2144,
+    "build_s": 0.9619758340413682,
+    "search_s": 0.011529832961969078,
+    "blocked_edges": 17342,
+    "blocked_wait_nodes": 7927
+  },
+  "planner_wall_s": 1.2370308749959804,
+  "independent_recheck": {
+    "ok": true,
+    "certificate_scope": "wfg.known-footprint.contact-only/1",
+    "violations": [],
+    "per_member": [
+      {
+        "trajectory_index": 0,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 1,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 2,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 3,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      }
+    ],
+    "arrival": 1064,
+    "finish_including_dwell": 1184,
+    "peak": null,
+    "dose": null,
+    "risk": null,
+    "full_policy_status": "UNKNOWN",
+    "physical_safety_claim": false
+  },
+  "planner_claim": {
+    "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+    "certificate_scope": "wfg.known-footprint.contact-only/1",
+    "planner": "sipp",
+    "arrival": 1064,
+    "legs": [
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 0,
+        "end": 1
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 1,
+        "end": 2
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 2,
+        "end": 3
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 3,
+        "end": 4
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 4,
+        "end": 5
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 5,
+        "end": 6
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 6,
+        "end": 7
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 7,
+        "end": 8
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 8,
+        "end": 9
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 9,
+        "end": 10
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 10,
+        "end": 11
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 11,
+        "end": 12
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 12,
+        "end": 13
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 13,
+        "end": 14
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 14,
+        "end": 15
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 15,
+        "end": 16
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 16,
+        "end": 17
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 17,
+        "end": 18
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 18,
+        "end": 19
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 19,
+        "end": 20
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 20,
+        "end": 21
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 21,
+        "end": 22
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 22,
+        "end": 23
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 23,
+        "end": 24
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 24,
+        "end": 25
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 25,
+        "end": 26
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 26,
+        "end": 27
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 27,
+        "end": 28
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 28,
+        "end": 29
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 29,
+        "end": 30
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 30,
+        "end": 31
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 31,
+        "end": 32
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 32,
+        "end": 33
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 33,
+        "end": 34
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 34,
+        "end": 35
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 35,
+        "end": 36
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 36,
+        "end": 37
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 37,
+        "end": 38
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 38,
+        "end": 39
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 39,
+        "end": 40
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 40,
+        "end": 41
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 41,
+        "end": 42
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 42,
+        "end": 43
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 43,
+        "end": 44
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 44,
+        "end": 45
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 45,
+        "end": 46
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 46,
+        "end": 47
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 47,
+        "end": 48
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 48,
+        "end": 49
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 49,
+        "end": 50
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 50,
+        "end": 51
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 51,
+        "end": 52
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 52,
+        "end": 53
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 53,
+        "end": 54
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 54,
+        "end": 55
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 55,
+        "end": 56
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 56,
+        "end": 57
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 57,
+        "end": 58
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 58,
+        "end": 59
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 59,
+        "end": 60
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 60,
+        "end": 61
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 61,
+        "end": 62
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 62,
+        "end": 63
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 63,
+        "end": 64
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 64,
+        "end": 65
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 65,
+        "end": 66
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 66,
+        "end": 67
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 67,
+        "end": 68
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 68,
+        "end": 69
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 69,
+        "end": 70
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 70,
+        "end": 71
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 71,
+        "end": 72
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 72,
+        "end": 73
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 73,
+        "end": 74
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 74,
+        "end": 75
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 75,
+        "end": 76
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 76,
+        "end": 77
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 77,
+        "end": 78
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 78,
+        "end": 79
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 79,
+        "end": 80
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 80,
+        "end": 81
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 81,
+        "end": 82
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 82,
+        "end": 83
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 83,
+        "end": 84
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 84,
+        "end": 85
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 85,
+        "end": 86
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 86,
+        "end": 87
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 87,
+        "end": 88
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 88,
+        "end": 89
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 89,
+        "end": 90
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 90,
+        "end": 91
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 91,
+        "end": 92
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 92,
+        "end": 93
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 93,
+        "end": 94
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 94,
+        "end": 95
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 95,
+        "end": 96
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 96,
+        "end": 97
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 97,
+        "end": 98
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 98,
+        "end": 99
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 99,
+        "end": 100
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 100,
+        "end": 101
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 101,
+        "end": 102
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 102,
+        "end": 103
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 103,
+        "end": 104
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 104,
+        "end": 105
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 105,
+        "end": 106
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 106,
+        "end": 107
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 107,
+        "end": 108
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 108,
+        "end": 109
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 109,
+        "end": 110
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 110,
+        "end": 111
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 111,
+        "end": 112
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 112,
+        "end": 113
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 113,
+        "end": 114
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 114,
+        "end": 115
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 115,
+        "end": 116
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 116,
+        "end": 117
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 117,
+        "end": 118
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 118,
+        "end": 119
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 119,
+        "end": 120
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 120,
+        "end": 121
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 121,
+        "end": 122
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 122,
+        "end": 123
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 123,
+        "end": 124
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 124,
+        "end": 125
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 125,
+        "end": 126
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 126,
+        "end": 127
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 127,
+        "end": 128
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 128,
+        "end": 129
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 129,
+        "end": 130
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 130,
+        "end": 131
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 131,
+        "end": 132
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 132,
+        "end": 133
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 133,
+        "end": 134
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 134,
+        "end": 135
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 135,
+        "end": 136
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 136,
+        "end": 137
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 137,
+        "end": 138
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 138,
+        "end": 139
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 139,
+        "end": 140
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 140,
+        "end": 141
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 141,
+        "end": 142
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 142,
+        "end": 143
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 143,
+        "end": 144
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 144,
+        "end": 145
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 145,
+        "end": 146
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 146,
+        "end": 147
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 147,
+        "end": 148
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 148,
+        "end": 149
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 149,
+        "end": 150
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 150,
+        "end": 151
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 151,
+        "end": 152
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 152,
+        "end": 153
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 153,
+        "end": 154
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 154,
+        "end": 155
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 155,
+        "end": 156
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 156,
+        "end": 157
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 157,
+        "end": 158
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 158,
+        "end": 159
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 159,
+        "end": 160
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 160,
+        "end": 161
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 161,
+        "end": 162
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 162,
+        "end": 163
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 163,
+        "end": 164
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 164,
+        "end": 165
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 165,
+        "end": 166
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 166,
+        "end": 167
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 167,
+        "end": 168
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 168,
+        "end": 169
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 169,
+        "end": 170
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 170,
+        "end": 171
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 171,
+        "end": 172
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 172,
+        "end": 173
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 173,
+        "end": 174
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 174,
+        "end": 175
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 175,
+        "end": 176
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 176,
+        "end": 177
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 177,
+        "end": 178
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 178,
+        "end": 179
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 179,
+        "end": 180
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 180,
+        "end": 181
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 181,
+        "end": 182
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 182,
+        "end": 183
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 183,
+        "end": 184
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 184,
+        "end": 185
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 185,
+        "end": 186
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 186,
+        "end": 187
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 187,
+        "end": 188
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 188,
+        "end": 189
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 189,
+        "end": 190
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 190,
+        "end": 191
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 191,
+        "end": 192
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 192,
+        "end": 193
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 193,
+        "end": 194
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 194,
+        "end": 195
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 195,
+        "end": 196
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 196,
+        "end": 197
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 197,
+        "end": 198
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 198,
+        "end": 199
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 199,
+        "end": 200
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 200,
+        "end": 201
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 201,
+        "end": 202
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 202,
+        "end": 203
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 203,
+        "end": 204
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 204,
+        "end": 205
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 205,
+        "end": 206
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 206,
+        "end": 207
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 207,
+        "end": 208
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 208,
+        "end": 209
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 209,
+        "end": 210
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 210,
+        "end": 211
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 211,
+        "end": 212
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 212,
+        "end": 213
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 213,
+        "end": 214
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 214,
+        "end": 215
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 215,
+        "end": 216
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 216,
+        "end": 217
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 217,
+        "end": 218
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 218,
+        "end": 219
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 219,
+        "end": 220
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 220,
+        "end": 221
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 221,
+        "end": 222
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 222,
+        "end": 223
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 223,
+        "end": 224
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 224,
+        "end": 225
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 225,
+        "end": 226
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 226,
+        "end": 227
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 227,
+        "end": 228
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 228,
+        "end": 229
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 229,
+        "end": 230
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 230,
+        "end": 231
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 231,
+        "end": 232
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 232,
+        "end": 233
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 233,
+        "end": 234
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 234,
+        "end": 235
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 235,
+        "end": 236
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 236,
+        "end": 237
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 237,
+        "end": 238
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 238,
+        "end": 239
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 239,
+        "end": 240
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 240,
+        "end": 241
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 241,
+        "end": 242
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 242,
+        "end": 243
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 243,
+        "end": 244
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 244,
+        "end": 245
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 245,
+        "end": 246
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 246,
+        "end": 247
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 247,
+        "end": 248
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 248,
+        "end": 249
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 249,
+        "end": 250
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 250,
+        "end": 251
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 251,
+        "end": 252
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 252,
+        "end": 253
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 253,
+        "end": 254
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 254,
+        "end": 255
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 255,
+        "end": 256
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 256,
+        "end": 257
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 257,
+        "end": 258
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 258,
+        "end": 259
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 259,
+        "end": 260
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 260,
+        "end": 261
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 261,
+        "end": 262
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 262,
+        "end": 263
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 263,
+        "end": 264
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 264,
+        "end": 265
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 265,
+        "end": 266
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 266,
+        "end": 267
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 267,
+        "end": 268
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 268,
+        "end": 269
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 269,
+        "end": 270
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 270,
+        "end": 271
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 271,
+        "end": 272
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 272,
+        "end": 273
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 273,
+        "end": 274
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 274,
+        "end": 275
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 275,
+        "end": 276
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 276,
+        "end": 277
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 277,
+        "end": 278
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 278,
+        "end": 279
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 279,
+        "end": 280
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 280,
+        "end": 281
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 281,
+        "end": 282
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 282,
+        "end": 283
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 283,
+        "end": 284
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 284,
+        "end": 285
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 285,
+        "end": 286
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 286,
+        "end": 287
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 287,
+        "end": 288
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 288,
+        "end": 289
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 289,
+        "end": 290
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 290,
+        "end": 291
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 291,
+        "end": 292
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 292,
+        "end": 293
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 293,
+        "end": 294
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 294,
+        "end": 295
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 295,
+        "end": 296
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 296,
+        "end": 297
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 297,
+        "end": 298
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 298,
+        "end": 299
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 299,
+        "end": 300
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 300,
+        "end": 301
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 301,
+        "end": 302
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 302,
+        "end": 303
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 303,
+        "end": 304
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 304,
+        "end": 305
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 305,
+        "end": 306
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 306,
+        "end": 307
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 307,
+        "end": 308
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 308,
+        "end": 309
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 309,
+        "end": 310
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 310,
+        "end": 311
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 311,
+        "end": 312
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 312,
+        "end": 313
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 313,
+        "end": 314
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 314,
+        "end": 315
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 315,
+        "end": 316
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 316,
+        "end": 317
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 317,
+        "end": 318
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 318,
+        "end": 319
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 319,
+        "end": 320
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 320,
+        "end": 321
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 321,
+        "end": 322
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 322,
+        "end": 323
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 323,
+        "end": 324
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 324,
+        "end": 325
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 325,
+        "end": 326
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 326,
+        "end": 327
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 327,
+        "end": 328
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 328,
+        "end": 329
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 329,
+        "end": 330
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 330,
+        "end": 331
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 331,
+        "end": 332
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 332,
+        "end": 333
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 333,
+        "end": 334
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 334,
+        "end": 335
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 335,
+        "end": 336
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 336,
+        "end": 337
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 337,
+        "end": 338
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 338,
+        "end": 339
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 339,
+        "end": 340
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 340,
+        "end": 341
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 341,
+        "end": 342
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 342,
+        "end": 343
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 343,
+        "end": 344
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 344,
+        "end": 345
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 345,
+        "end": 346
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 346,
+        "end": 347
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 347,
+        "end": 348
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 348,
+        "end": 349
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 349,
+        "end": 350
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 350,
+        "end": 351
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 351,
+        "end": 352
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 352,
+        "end": 353
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 353,
+        "end": 354
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 354,
+        "end": 355
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 355,
+        "end": 356
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 356,
+        "end": 357
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 357,
+        "end": 358
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 358,
+        "end": 359
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 359,
+        "end": 360
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 360,
+        "end": 361
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 361,
+        "end": 362
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 362,
+        "end": 363
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 363,
+        "end": 364
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 364,
+        "end": 365
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 365,
+        "end": 366
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 366,
+        "end": 367
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 367,
+        "end": 368
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 368,
+        "end": 369
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 369,
+        "end": 370
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 370,
+        "end": 371
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 371,
+        "end": 372
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 372,
+        "end": 373
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 373,
+        "end": 374
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 374,
+        "end": 375
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 375,
+        "end": 376
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 376,
+        "end": 377
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 377,
+        "end": 378
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 378,
+        "end": 379
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 379,
+        "end": 380
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 380,
+        "end": 381
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 381,
+        "end": 382
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 382,
+        "end": 383
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 383,
+        "end": 384
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 384,
+        "end": 385
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 385,
+        "end": 386
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 386,
+        "end": 387
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 387,
+        "end": 388
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 388,
+        "end": 389
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 389,
+        "end": 390
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 390,
+        "end": 391
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 391,
+        "end": 392
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 392,
+        "end": 393
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 393,
+        "end": 394
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 394,
+        "end": 395
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 395,
+        "end": 396
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 396,
+        "end": 397
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 397,
+        "end": 398
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 398,
+        "end": 399
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 399,
+        "end": 400
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 400,
+        "end": 401
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 401,
+        "end": 402
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 402,
+        "end": 403
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 403,
+        "end": 404
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 404,
+        "end": 405
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 405,
+        "end": 406
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 406,
+        "end": 407
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 407,
+        "end": 408
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 408,
+        "end": 409
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 409,
+        "end": 410
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 410,
+        "end": 411
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 411,
+        "end": 412
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 412,
+        "end": 413
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 413,
+        "end": 414
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 414,
+        "end": 415
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 415,
+        "end": 416
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 416,
+        "end": 417
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 417,
+        "end": 418
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 418,
+        "end": 419
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 419,
+        "end": 420
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 420,
+        "end": 421
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 421,
+        "end": 422
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 422,
+        "end": 423
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 423,
+        "end": 424
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 424,
+        "end": 425
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 425,
+        "end": 426
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 426,
+        "end": 427
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 427,
+        "end": 428
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 428,
+        "end": 429
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 429,
+        "end": 430
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 430,
+        "end": 431
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 431,
+        "end": 432
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 432,
+        "end": 433
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 433,
+        "end": 434
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 434,
+        "end": 435
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 435,
+        "end": 436
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 436,
+        "end": 437
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 437,
+        "end": 438
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 438,
+        "end": 439
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 439,
+        "end": 440
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 440,
+        "end": 441
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 441,
+        "end": 442
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 442,
+        "end": 443
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 443,
+        "end": 444
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 444,
+        "end": 445
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 445,
+        "end": 446
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 446,
+        "end": 447
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 447,
+        "end": 448
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 448,
+        "end": 449
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 449,
+        "end": 450
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 450,
+        "end": 451
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 451,
+        "end": 452
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 452,
+        "end": 453
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 453,
+        "end": 454
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 454,
+        "end": 455
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 455,
+        "end": 456
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 456,
+        "end": 457
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 457,
+        "end": 458
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 458,
+        "end": 459
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 459,
+        "end": 460
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 460,
+        "end": 461
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 461,
+        "end": 462
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 462,
+        "end": 463
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 463,
+        "end": 464
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 464,
+        "end": 465
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 465,
+        "end": 466
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 466,
+        "end": 467
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 467,
+        "end": 468
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 468,
+        "end": 469
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 469,
+        "end": 470
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 470,
+        "end": 471
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 471,
+        "end": 472
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 472,
+        "end": 473
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 473,
+        "end": 474
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 474,
+        "end": 475
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 475,
+        "end": 476
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 476,
+        "end": 477
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 477,
+        "end": 478
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 478,
+        "end": 479
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 479,
+        "end": 480
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 480,
+        "end": 481
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 481,
+        "end": 482
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 482,
+        "end": 483
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 483,
+        "end": 484
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 484,
+        "end": 485
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 485,
+        "end": 486
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 486,
+        "end": 487
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 487,
+        "end": 488
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 488,
+        "end": 489
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 489,
+        "end": 490
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:6602597956",
+        "start": 490,
+        "end": 491
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064529:s0:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 491,
+        "end": 492
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s19:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 492,
+        "end": 493
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s18:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 493,
+        "end": 495
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s17:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 495,
+        "end": 497
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s16:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 497,
+        "end": 500
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s15:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 500,
+        "end": 504
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s14:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 504,
+        "end": 505
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s13:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 505,
+        "end": 508
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s12:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 508,
+        "end": 510
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s11:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 510,
+        "end": 512
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s10:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 512,
+        "end": 513
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s9:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 513,
+        "end": 515
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s8:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 515,
+        "end": 516
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s7:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 516,
+        "end": 518
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s6:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 518,
+        "end": 520
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s5:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 520,
+        "end": 522
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s4:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 522,
+        "end": 524
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s3:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 524,
+        "end": 526
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s2:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 526,
+        "end": 528
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s1:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 528,
+        "end": 531
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w703064526:s0:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 531,
+        "end": 533
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s52:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 533,
+        "end": 535
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s53:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 535,
+        "end": 538
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s54:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 538,
+        "end": 543
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s55:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 543,
+        "end": 547
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s56:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 547,
+        "end": 550
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s57:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 550,
+        "end": 552
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s58:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 552,
+        "end": 555
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s59:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 555,
+        "end": 557
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s60:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 557,
+        "end": 560
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s61:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 560,
+        "end": 562
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s62:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 562,
+        "end": 564
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s63:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 564,
+        "end": 568
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s64:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 568,
+        "end": 578
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s65:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 578,
+        "end": 581
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s66:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 581,
+        "end": 587
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s67:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 587,
+        "end": 594
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s68:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 594,
+        "end": 595
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s69:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 595,
+        "end": 600
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s70:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 600,
+        "end": 601
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s71:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 601,
+        "end": 606
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s72:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 606,
+        "end": 609
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s73:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 609,
+        "end": 614
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s74:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 614,
+        "end": 616
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s75:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 616,
+        "end": 618
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s76:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 618,
+        "end": 623
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s77:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 623,
+        "end": 628
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s78:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 628,
+        "end": 636
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s79:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 636,
+        "end": 641
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s80:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 641,
+        "end": 642
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s81:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 642,
+        "end": 647
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s82:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 647,
+        "end": 652
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s83:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 652,
+        "end": 654
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s84:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 654,
+        "end": 658
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s85:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 658,
+        "end": 665
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s86:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 665,
+        "end": 670
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s87:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 670,
+        "end": 675
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s88:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 675,
+        "end": 682
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s89:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 682,
+        "end": 685
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s90:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 685,
+        "end": 688
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s91:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 688,
+        "end": 690
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s92:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 690,
+        "end": 693
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s93:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 693,
+        "end": 697
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s94:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 697,
+        "end": 701
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s95:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 701,
+        "end": 705
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s96:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 705,
+        "end": 708
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s97:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 708,
+        "end": 713
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s98:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 713,
+        "end": 717
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s99:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 717,
+        "end": 720
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s100:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 720,
+        "end": 722
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s101:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 722,
+        "end": 723
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s102:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 723,
+        "end": 724
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s103:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 724,
+        "end": 726
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s104:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 726,
+        "end": 731
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s105:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 731,
+        "end": 736
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s106:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 736,
+        "end": 740
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s107:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 740,
+        "end": 744
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s108:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 744,
+        "end": 747
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s109:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 747,
+        "end": 752
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s110:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 752,
+        "end": 758
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s111:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 758,
+        "end": 762
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s112:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 762,
+        "end": 766
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s113:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 766,
+        "end": 771
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s114:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 771,
+        "end": 777
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s115:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 777,
+        "end": 782
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s116:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 782,
+        "end": 786
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s117:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 786,
+        "end": 790
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s118:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 790,
+        "end": 793
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s119:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 793,
+        "end": 796
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s120:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 796,
+        "end": 799
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s121:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 799,
+        "end": 802
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s122:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 802,
+        "end": 805
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s123:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 805,
+        "end": 807
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s124:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 807,
+        "end": 809
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s125:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 809,
+        "end": 814
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s126:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 814,
+        "end": 816
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s127:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 816,
+        "end": 818
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s128:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 818,
+        "end": 822
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689459:s129:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 822,
+        "end": 824
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 824,
+        "end": 828
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s1:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 828,
+        "end": 833
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s2:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 833,
+        "end": 837
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s3:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 837,
+        "end": 839
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s4:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 839,
+        "end": 844
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s5:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 844,
+        "end": 849
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689397:s6:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 849,
+        "end": 854
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689398:s2:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 854,
+        "end": 860
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s15:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 860,
+        "end": 862
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s16:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 862,
+        "end": 865
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s17:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 865,
+        "end": 868
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s18:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 868,
+        "end": 873
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s19:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 873,
+        "end": 878
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s20:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 878,
+        "end": 882
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s21:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 882,
+        "end": 887
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s22:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 887,
+        "end": 893
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s23:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 893,
+        "end": 896
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s24:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 896,
+        "end": 898
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s25:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 898,
+        "end": 899
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s26:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 899,
+        "end": 903
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s27:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 903,
+        "end": 906
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s28:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 906,
+        "end": 909
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s29:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 909,
+        "end": 912
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s30:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 912,
+        "end": 914
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s31:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 914,
+        "end": 921
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s32:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 921,
+        "end": 924
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s33:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 924,
+        "end": 933
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s34:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 933,
+        "end": 938
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s35:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 938,
+        "end": 942
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s36:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 942,
+        "end": 962
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s37:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 962,
+        "end": 974
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s38:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 974,
+        "end": 979
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s39:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 979,
+        "end": 991
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s40:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 991,
+        "end": 996
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s41:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 996,
+        "end": 997
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s42:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 997,
+        "end": 998
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s43:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 998,
+        "end": 1002
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s44:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1002,
+        "end": 1004
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s45:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1004,
+        "end": 1005
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s46:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1005,
+        "end": 1008
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s47:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1008,
+        "end": 1015
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s48:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1015,
+        "end": 1016
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s49:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1016,
+        "end": 1019
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s50:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1019,
+        "end": 1021
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s51:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1021,
+        "end": 1023
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s52:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1023,
+        "end": 1024
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s53:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1024,
+        "end": 1025
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s54:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1025,
+        "end": 1029
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s55:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1029,
+        "end": 1032
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s56:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1032,
+        "end": 1034
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s57:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1034,
+        "end": 1037
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s58:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1037,
+        "end": 1039
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s59:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1039,
+        "end": 1040
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s60:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1040,
+        "end": 1042
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s61:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1042,
+        "end": 1046
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s62:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1046,
+        "end": 1048
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s63:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1048,
+        "end": 1050
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s64:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1050,
+        "end": 1052
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s65:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1052,
+        "end": 1056
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s66:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1056,
+        "end": 1058
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s67:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1058,
+        "end": 1060
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s68:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1060,
+        "end": 1063
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w32689399:s69:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1063,
+        "end": 1064
+      }
+    ],
+    "destination": "osm:12616949379",
+    "contact_check": {
+      "ok": true,
+      "certificate_scope": "wfg.known-footprint.contact-only/1",
+      "violations": [],
+      "per_member": [
+        {
+          "trajectory_index": 0,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 1,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 2,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 3,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        }
+      ],
+      "arrival": 1064,
+      "finish_including_dwell": 1184,
+      "peak": null,
+      "dose": null,
+      "risk": null,
+      "full_policy_status": "UNKNOWN",
+      "physical_safety_claim": false
+    },
+    "peak": null,
+    "dose": null,
+    "risk": null,
+    "full_policy_status": "UNKNOWN",
+    "physical_safety_claim": false,
+    "original_request": {
+      "position": {
+        "node": "osm:6602597956"
+      },
+      "incoming_edge": null,
+      "departure": 0,
+      "horizon": 3600.0,
+      "destinations": [
+        {
+          "node": "osm:12616949379",
+          "dwell": 120,
+          "open_intervals": [
+            [
+              1064,
+              3600
+            ]
+          ]
+        }
+      ],
+      "hazard_version": 1,
+      "as_of": "2025-03-25T17:00:00+00:00",
+      "objective": "earliest_arrival",
+      "exposure_scope": "including_dwell",
+      "limits": {
+        "wall_s": 30,
+        "max_labels": 1000000,
+        "max_expansions": 1000000,
+        "frontier_width": 16384
+      },
+      "solver": "baseline",
+      "incurred": {
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 0,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 0,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 0,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 0
+      },
+      "budgets": {
+        "peak": 10,
+        "dose": {
+          "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 100,
+          "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 100,
+          "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 100,
+          "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 100
+        }
+      }
+    },
+    "metrics": {
+      "pieces": 1881,
+      "expansions": 1870,
+      "goal_candidates": 3,
+      "successor_runs": 2144,
+      "build_s": 0.9619758340413682,
+      "search_s": 0.011529832961969078,
+      "blocked_edges": 17342,
+      "blocked_wait_nodes": 7927
+    },
+    "history_handling": {
+      "contact_search": "THERMAL_HISTORY_AND_BUDGETS_OMITTED",
+      "history_rebinding": false,
+      "thermal_history_checked": false,
+      "kinematic_issue_context": "UNCHANGED"
+    },
+    "original_domain_refusal": "UNRESOLVED",
+    "original_domain_optimality": "UNRESOLVED",
+    "source": {
+      "schema": "wfg.known-footprint.contact-only/1",
+      "source_identity": {
+        "first32_prefix_sha256": "114550f31af28cd17b51b0dd12388ba1f3e9eae930225d157c099d2b8d379118",
+        "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+        "metadata_sha256": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+        "npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_01/20250325T170000Z/FORECAST_20250325T170000Z.npz",
+        "npz_sha256": "9577b16a94a0aba195aebacf926a060f3464dba75166e5c03de225ed4b0434a7",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_01/20250325T170000Z/FORECAST_RECORD_20250325T170000Z.json",
+        "record_sha256": "5549a48c8b85acbfe0d9191a5926c99828e06c2ef1c40355c4237fccabea26f8",
+        "request_sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+        "saved_original_indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "raw_array_sha256": {
+        "trajectory_first_burn_hour": "e8a66279affb9e3708a1bbffb5a902dd49537576d0c52712d6f6a6c688fb882e",
+        "source_burned_area": "806ff405450a2eca90caadff0c50acacbffc29a1b2ec53f701c5f88be7466e05",
+        "source_burned_area_valid": "f3e8233383bdc751c580465c5c9c97cf9a001dce762f50ff1597f359a4b2408d",
+        "heat__initial_active_burning_probability": "d6e8953eb391e1ea08c72578473f829578aca589ede954c9354ed582192ba465",
+        "heat__initial_burning_valid": "4bea489e43c5aadcc9e80323eba136f4b02220d8aa0fa0dda85c1b59e97491ee",
+        "heat__initial_remaining_burning_duration_s": "4379e80a25c3dcc6d5efcbf1a12237508cfcbaa6970fda835a15419b2a9fd4bd",
+        "affine_transform": "6c641559f8c2ac913e57dc5f7ae0ed547a9e25fc61bf4da7c370c2e1d6fa8db9"
+      },
+      "trajectory_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cutoff_utc": "2025-03-25T17:00:00Z",
+      "source_horizon_s": "3600",
+      "member_valid_until_s": [
+        "3600",
+        "3600",
+        "3600",
+        "3600"
+      ],
+      "terminal_inclusive": true,
+      "timing": "uniform",
+      "seed": 20261008,
+      "burning_duration_s": "8731143290411877/2199023255552",
+      "initial_remaining_enclosure_s": "8723762657549157/2199023255552",
+      "initial_age_policy": "Known burned cells with unknown age use the full-T enclosure; current cells share max remaining.",
+      "window_rows_cols_north_up": [
+        14,
+        78,
+        23,
+        95
+      ],
+      "right_censoring": "-1 means no first ignition through the finite saved horizon only"
+    },
+    "support_barriers": {
+      "node_known_sha256": "d194fdc60ec02d3868527f2bed9ae81213bfe0cd13775a75ca3080490e8b309b",
+      "edge_known_sha256": "ea8be27cb8f4b61fe8f955674200f5d7f2123193a0c20fec285e7ef5c0222a41",
+      "blocked_nodes": 7896,
+      "blocked_edges": 15026
+    },
+    "effective_search_horizon_s": 3600,
+    "search_status": "FOUND",
+    "reason": "INDEPENDENT_ORIGINAL_DATA_CONTACT_CHECK",
+    "restricted_problem_optimality": "EARLIEST_CONTACT_ARRIVAL_WITHIN_SUPPORT_RESTRICTION",
+    "wall_s": 1.2370308749959804
+  },
+  "original_request": {
+    "position": {
+      "node": "osm:6602597956"
+    },
+    "incoming_edge": null,
+    "departure": 0,
+    "horizon": 3600.0,
+    "destinations": [
+      {
+        "node": "osm:12616949379",
+        "dwell": 120,
+        "open_intervals": [
+          [
+            1064,
+            3600
+          ]
+        ]
+      }
+    ],
+    "hazard_version": 1,
+    "as_of": "2025-03-25T17:00:00+00:00",
+    "objective": "earliest_arrival",
+    "exposure_scope": "including_dwell",
+    "limits": {
+      "wall_s": 30,
+      "max_labels": 1000000,
+      "max_expansions": 1000000,
+      "frontier_width": 16384
+    },
+    "solver": "baseline",
+    "incurred": {
+      "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 0,
+      "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 0,
+      "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 0,
+      "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 0
+    },
+    "budgets": {
+      "peak": 10,
+      "dose": {
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:0": 100,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:1": 100,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:2": 100,
+        "ffb1:20250325T170000Z:53e6da7897bf9b5b:3": 100
+      }
+    }
+  },
+  "original_request_utf8": "{\n \"position\": {\n  \"node\": \"osm:6602597956\"\n },\n \"incoming_edge\": null,\n \"departure\": 0,\n \"horizon\": 3600.0,\n \"destinations\": [\n  {\n   \"node\": \"osm:12616949379\",\n   \"dwell\": 120,\n   \"open_intervals\": [\n    [\n     1064,\n     3600\n    ]\n   ]\n  }\n ],\n \"hazard_version\": 1,\n \"as_of\": \"2025-03-25T17:00:00+00:00\",\n \"objective\": \"earliest_arrival\",\n \"exposure_scope\": \"including_dwell\",\n \"limits\": {\n  \"wall_s\": 30,\n  \"max_labels\": 1000000,\n  \"max_expansions\": 1000000,\n  \"frontier_width\": 16384\n },\n \"solver\": \"baseline\",\n \"incurred\": {\n  \"ffb1:20250325T170000Z:53e6da7897bf9b5b:0\": 0,\n  \"ffb1:20250325T170000Z:53e6da7897bf9b5b:1\": 0,\n  \"ffb1:20250325T170000Z:53e6da7897bf9b5b:2\": 0,\n  \"ffb1:20250325T170000Z:53e6da7897bf9b5b:3\": 0\n },\n \"budgets\": {\n  \"peak\": 10,\n  \"dose\": {\n   \"ffb1:20250325T170000Z:53e6da7897bf9b5b:0\": 100,\n   \"ffb1:20250325T170000Z:53e6da7897bf9b5b:1\": 100,\n   \"ffb1:20250325T170000Z:53e6da7897bf9b5b:2\": 100,\n   \"ffb1:20250325T170000Z:53e6da7897bf9b5b:3\": 100\n  }\n }\n}\n",
+  "source": {
+    "schema": "wfg.known-footprint.contact-only/1",
+    "source_identity": {
+      "first32_prefix_sha256": "114550f31af28cd17b51b0dd12388ba1f3e9eae930225d157c099d2b8d379118",
+      "graph_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+      "metadata_sha256": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+      "npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_01/20250325T170000Z/FORECAST_20250325T170000Z.npz",
+      "npz_sha256": "9577b16a94a0aba195aebacf926a060f3464dba75166e5c03de225ed4b0434a7",
+      "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_01/20250325T170000Z/FORECAST_RECORD_20250325T170000Z.json",
+      "record_sha256": "5549a48c8b85acbfe0d9191a5926c99828e06c2ef1c40355c4237fccabea26f8",
+      "request_sha256": "a62d188ec9daf678405225fe19c0f33254fe02b3f18f085402a963423f49ba32",
+      "saved_original_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "raw_array_sha256": {
+      "trajectory_first_burn_hour": "e8a66279affb9e3708a1bbffb5a902dd49537576d0c52712d6f6a6c688fb882e",
+      "source_burned_area": "806ff405450a2eca90caadff0c50acacbffc29a1b2ec53f701c5f88be7466e05",
+      "source_burned_area_valid": "f3e8233383bdc751c580465c5c9c97cf9a001dce762f50ff1597f359a4b2408d",
+      "heat__initial_active_burning_probability": "d6e8953eb391e1ea08c72578473f829578aca589ede954c9354ed582192ba465",
+      "heat__initial_burning_valid": "4bea489e43c5aadcc9e80323eba136f4b02220d8aa0fa0dda85c1b59e97491ee",
+      "heat__initial_remaining_burning_duration_s": "4379e80a25c3dcc6d5efcbf1a12237508cfcbaa6970fda835a15419b2a9fd4bd",
+      "affine_transform": "6c641559f8c2ac913e57dc5f7ae0ed547a9e25fc61bf4da7c370c2e1d6fa8db9"
+    },
+    "trajectory_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "cutoff_utc": "2025-03-25T17:00:00Z",
+    "source_horizon_s": "3600",
+    "member_valid_until_s": [
+      "3600",
+      "3600",
+      "3600",
+      "3600"
+    ],
+    "terminal_inclusive": true,
+    "timing": "uniform",
+    "seed": 20261008,
+    "burning_duration_s": "8731143290411877/2199023255552",
+    "initial_remaining_enclosure_s": "8723762657549157/2199023255552",
+    "initial_age_policy": "Known burned cells with unknown age use the full-T enclosure; current cells share max remaining.",
+    "window_rows_cols_north_up": [
+      14,
+      78,
+      23,
+      95
+    ],
+    "right_censoring": "-1 means no first ignition through the finite saved horizon only"
+  },
+  "physical_safety_claim": false,
+  "full_policy_status": "UNKNOWN",
+  "peak": null,
+  "dose": null,
+  "risk": null,
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "source_hashes": {
+    "experimental/sipp-routing/README.md": "2624a482c3d22c21d5c2a2c3ccdb28c2495bc5f6f348b0fe9a6da530be532579",
+    "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md": "a541c76cd1a789fa45b7adefd27fdba236898abea694932d255f9da8ea07f04a",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md": "178a17078fe3b6bb799888e6ddca31ecb8eacc0a69505a3f826ebb881ebb17d8",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md": "c36c66e42a190433a082c7e8bc8c92544b8b6873d4f79a19b5e10102e52c9b26",
+    "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md": "56ce23d42d4bd84aa442ee52ec23c83de8124200adaffefff5bfeffb50638752",
+    "experimental/sipp-routing/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/adapter.py": "a3f4648c4d311e076a1b3547089794d5dca5415e1535eff6f74da816c15b8e3a",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/known_footprint.py": "9fc4acd626f9edb82a56c68d033734b318e8bb8a54ea9134ac581ddccb2d2f06",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/restricted_sweep.py": "fcfc210b699a15e662866099a1eea19b821047173abc577c52641d5ab7754e55",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py": "4e70b61d5b84eeffa79eaed13e55a0c2ee69febe26ca45edf7e9bddefc34b61c",
+    "experimental/sipp-routing/tests/test_known_footprint.py": "f43216a435961cf1b55054dc81ec00ed81b3a774458b7ea6bc6fc3f1aa55fda5",
+    "experimental/sipp-routing/tests/test_known_footprint_boundaries.py": "b37acc56723188d1c61652a277b95641467b24f2c7f81d04f5b2d2910aa98703",
+    "experimental/sipp-routing/tests/test_native_guard.py": "9ab3525813089edd01a519f79bf375d2282ff76cd1358c8fc2765d33c7850a02",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d",
+    "experimental/sipp-routing/tests/test_known_footprint_controller.py": "88364b691d91e82618893634d508d85f99878486a2361daa29356c6db98598d7",
+    "experimental/sipp-routing/SOURCE_SHA256.json": "e72e510939ab5ab2e4c651f3481198425accc92e5bb83581c342a83722d8d78e",
+    "research/sipp-routing/run_known_footprint_campaign.py": "0d42c962c399f4b073e789d868778d2b78f64a2c6ea88e98cd83c5518023abf3",
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "experimental/scenario-members/src/wfg_scenario_members/contact.py": "d81125d339f6c12347331e9cdeac59ef36fed8bc98b4dfa9becc192a2dfba0ea",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+    "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "reason": "INDEPENDENT_ORIGINAL_DATA_CONTACT_CHECK",
+  "admission_wall_s": 0.08399166696472093,
+  "search_status": "FOUND",
+  "independent_recheck_wall_s": 0.14173612499143928,
+  "reported_peak_rss_mib": 237.796875,
+  "child_internal_wall_s": 1.469918292015791
+}

@@ -1,0 +1,2373 @@
+{
+  "job_index": 165,
+  "case_index": 10,
+  "mission": "20220304T120000Z_FW2",
+  "region": "uljin_2022",
+  "K": 8,
+  "repetition": 1,
+  "method": "sipp",
+  "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+  "arrival": 1655,
+  "destination": "osm:437260343",
+  "search_started": true,
+  "solver_metrics": {
+    "pieces": 415,
+    "expansions": 405,
+    "goal_candidates": 1,
+    "successor_runs": 414,
+    "build_s": 0.14652762503828853,
+    "search_s": 0.0038146660081110895,
+    "blocked_edges": 15944,
+    "blocked_wait_nodes": 7827
+  },
+  "planner_wall_s": 0.30173887498676777,
+  "independent_recheck": {
+    "ok": true,
+    "certificate_scope": "wfg.known-footprint.contact-only/1",
+    "violations": [],
+    "per_member": [
+      {
+        "trajectory_index": 0,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 1,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 2,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 3,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 4,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 5,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 6,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      },
+      {
+        "trajectory_index": 7,
+        "contact_pass": true,
+        "violations": [],
+        "peak": null,
+        "dose": null,
+        "risk": null
+      }
+    ],
+    "arrival": 1655,
+    "finish_including_dwell": 1775,
+    "peak": null,
+    "dose": null,
+    "risk": null,
+    "full_policy_status": "UNKNOWN",
+    "physical_safety_claim": false
+  },
+  "planner_claim": {
+    "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+    "certificate_scope": "wfg.known-footprint.contact-only/1",
+    "planner": "sipp",
+    "arrival": 1655,
+    "legs": [
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s27:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 600,
+        "end": 602
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s26:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 602,
+        "end": 610
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s25:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 610,
+        "end": 616
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s24:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 616,
+        "end": 620
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s23:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 620,
+        "end": 624
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s22:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 624,
+        "end": 628
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s21:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 628,
+        "end": 631
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s20:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 631,
+        "end": 636
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s19:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 636,
+        "end": 642
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s18:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 642,
+        "end": 644
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s17:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 644,
+        "end": 646
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s16:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 646,
+        "end": 652
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s15:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 652,
+        "end": 657
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s14:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 657,
+        "end": 660
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s13:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 660,
+        "end": 663
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s12:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 663,
+        "end": 667
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s11:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 667,
+        "end": 669
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s10:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 669,
+        "end": 677
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s9:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 677,
+        "end": 681
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s8:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 681,
+        "end": 689
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s7:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 689,
+        "end": 693
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s6:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 693,
+        "end": 695
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s5:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 695,
+        "end": 698
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s4:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 698,
+        "end": 710
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s3:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 710,
+        "end": 713
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s2:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 713,
+        "end": 718
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s1:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 718,
+        "end": 721
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w44572923:s0:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 721,
+        "end": 738
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s26:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 738,
+        "end": 740
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s25:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 740,
+        "end": 748
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s24:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 748,
+        "end": 756
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s23:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 756,
+        "end": 761
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s22:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 761,
+        "end": 770
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s21:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 770,
+        "end": 784
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s20:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 784,
+        "end": 809
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s19:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 809,
+        "end": 829
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s18:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 829,
+        "end": 837
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s17:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 837,
+        "end": 847
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s16:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 847,
+        "end": 853
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s15:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 853,
+        "end": 862
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s14:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 862,
+        "end": 876
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s13:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 876,
+        "end": 887
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s12:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 887,
+        "end": 898
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s11:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 898,
+        "end": 910
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s10:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 910,
+        "end": 918
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s9:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 918,
+        "end": 928
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s8:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 928,
+        "end": 934
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s7:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 934,
+        "end": 957
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s6:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 957,
+        "end": 967
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s5:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 967,
+        "end": 975
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s4:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 975,
+        "end": 996
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s3:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 996,
+        "end": 1013
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s2:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1013,
+        "end": 1035
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s1:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1035,
+        "end": 1049
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219638:s0:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1049,
+        "end": 1056
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219637:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1056,
+        "end": 1058
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w727219636:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1058,
+        "end": 1060
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1060,
+        "end": 1063
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s1:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1063,
+        "end": 1072
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s2:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1072,
+        "end": 1078
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s3:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1078,
+        "end": 1082
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s4:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1082,
+        "end": 1085
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s5:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1085,
+        "end": 1094
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s6:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1094,
+        "end": 1098
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s7:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1098,
+        "end": 1101
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s8:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1101,
+        "end": 1107
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s9:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1107,
+        "end": 1118
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s10:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1118,
+        "end": 1129
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s11:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1129,
+        "end": 1141
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s12:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1141,
+        "end": 1147
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s13:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1147,
+        "end": 1152
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s14:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1152,
+        "end": 1157
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s15:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1157,
+        "end": 1161
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s16:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1161,
+        "end": 1164
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s17:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1164,
+        "end": 1168
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s18:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1168,
+        "end": 1174
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s19:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1174,
+        "end": 1178
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s20:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1178,
+        "end": 1182
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s21:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1182,
+        "end": 1188
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s22:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1188,
+        "end": 1195
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s23:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1195,
+        "end": 1204
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s24:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1204,
+        "end": 1207
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s25:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1207,
+        "end": 1210
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s26:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1210,
+        "end": 1213
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s27:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1213,
+        "end": 1217
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s28:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1217,
+        "end": 1223
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s29:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1223,
+        "end": 1226
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s30:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1226,
+        "end": 1230
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s31:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1230,
+        "end": 1233
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s32:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1233,
+        "end": 1237
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s33:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1237,
+        "end": 1241
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s34:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1241,
+        "end": 1245
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s35:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1245,
+        "end": 1250
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s36:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1250,
+        "end": 1253
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s37:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1253,
+        "end": 1258
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s38:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1258,
+        "end": 1278
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s39:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1278,
+        "end": 1283
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s40:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1283,
+        "end": 1288
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s41:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1288,
+        "end": 1302
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s42:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1302,
+        "end": 1308
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s43:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1308,
+        "end": 1312
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s44:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1312,
+        "end": 1317
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113118:s45:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1317,
+        "end": 1326
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s11:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1326,
+        "end": 1330
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s10:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1330,
+        "end": 1334
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s9:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1334,
+        "end": 1338
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s8:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1338,
+        "end": 1341
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s7:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1341,
+        "end": 1346
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s6:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1346,
+        "end": 1349
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s5:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1349,
+        "end": 1350
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s4:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1350,
+        "end": 1352
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s3:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1352,
+        "end": 1354
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s2:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1354,
+        "end": 1358
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s1:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1358,
+        "end": 1361
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s0:r",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1361,
+        "end": 1362
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1362,
+        "end": 1363
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1363,
+        "end": 1364
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1364,
+        "end": 1365
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1365,
+        "end": 1366
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1366,
+        "end": 1367
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1367,
+        "end": 1368
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1368,
+        "end": 1369
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1369,
+        "end": 1370
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1370,
+        "end": 1371
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1371,
+        "end": 1372
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1372,
+        "end": 1373
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1373,
+        "end": 1374
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1374,
+        "end": 1375
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1375,
+        "end": 1376
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1376,
+        "end": 1377
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1377,
+        "end": 1378
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1378,
+        "end": 1379
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1379,
+        "end": 1380
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1380,
+        "end": 1381
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1381,
+        "end": 1382
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1382,
+        "end": 1383
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1383,
+        "end": 1384
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1384,
+        "end": 1385
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1385,
+        "end": 1386
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1386,
+        "end": 1387
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1387,
+        "end": 1388
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1388,
+        "end": 1389
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1389,
+        "end": 1390
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1390,
+        "end": 1391
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1391,
+        "end": 1392
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1392,
+        "end": 1393
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1393,
+        "end": 1394
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1394,
+        "end": 1395
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1395,
+        "end": 1396
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1396,
+        "end": 1397
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1397,
+        "end": 1398
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1398,
+        "end": 1399
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1399,
+        "end": 1400
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1400,
+        "end": 1401
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1401,
+        "end": 1402
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1402,
+        "end": 1403
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1403,
+        "end": 1404
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1404,
+        "end": 1405
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1405,
+        "end": 1406
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1406,
+        "end": 1407
+      },
+      {
+        "kind": "WAIT",
+        "node": "osm:437260241",
+        "start": 1407,
+        "end": 1408
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1408,
+        "end": 1409
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s1:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1409,
+        "end": 1412
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s2:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1412,
+        "end": 1416
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s3:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1416,
+        "end": 1418
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s4:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1418,
+        "end": 1420
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s5:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1420,
+        "end": 1421
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s6:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1421,
+        "end": 1424
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s7:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1424,
+        "end": 1429
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s8:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1429,
+        "end": 1432
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s9:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1432,
+        "end": 1436
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s10:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1436,
+        "end": 1440
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w37413650:s11:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1440,
+        "end": 1444
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s0:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1444,
+        "end": 1449
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s1:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1449,
+        "end": 1453
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s2:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1453,
+        "end": 1457
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s3:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1457,
+        "end": 1459
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s4:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1459,
+        "end": 1462
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s5:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1462,
+        "end": 1465
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s6:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1465,
+        "end": 1466
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s7:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1466,
+        "end": 1469
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s8:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1469,
+        "end": 1472
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s9:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1472,
+        "end": 1475
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s10:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1475,
+        "end": 1476
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s11:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1476,
+        "end": 1478
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s12:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1478,
+        "end": 1479
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s13:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1479,
+        "end": 1480
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s14:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1480,
+        "end": 1481
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s15:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1481,
+        "end": 1482
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s16:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1482,
+        "end": 1484
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s17:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1484,
+        "end": 1486
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s18:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1486,
+        "end": 1488
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s19:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1488,
+        "end": 1491
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s20:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1491,
+        "end": 1492
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s21:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1492,
+        "end": 1494
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s22:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1494,
+        "end": 1495
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s23:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1495,
+        "end": 1496
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s24:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1496,
+        "end": 1497
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s25:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1497,
+        "end": 1498
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s26:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1498,
+        "end": 1501
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s27:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1501,
+        "end": 1504
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s28:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1504,
+        "end": 1506
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s29:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1506,
+        "end": 1507
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s30:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1507,
+        "end": 1508
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s31:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1508,
+        "end": 1509
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s32:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1509,
+        "end": 1511
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s33:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1511,
+        "end": 1513
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s34:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1513,
+        "end": 1515
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s35:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1515,
+        "end": 1518
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s36:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1518,
+        "end": 1521
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s37:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1521,
+        "end": 1525
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s38:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1525,
+        "end": 1530
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s39:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1530,
+        "end": 1533
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s40:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1533,
+        "end": 1538
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s41:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1538,
+        "end": 1543
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s42:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1543,
+        "end": 1547
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s43:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1547,
+        "end": 1549
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s44:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1549,
+        "end": 1552
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s45:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1552,
+        "end": 1555
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s46:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1555,
+        "end": 1558
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s47:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1558,
+        "end": 1562
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s48:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1562,
+        "end": 1566
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s49:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1566,
+        "end": 1568
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s50:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1568,
+        "end": 1571
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s51:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1571,
+        "end": 1575
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s52:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1575,
+        "end": 1578
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s53:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1578,
+        "end": 1579
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s54:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1579,
+        "end": 1582
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s55:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1582,
+        "end": 1586
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s56:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1586,
+        "end": 1589
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s57:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1589,
+        "end": 1593
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s58:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1593,
+        "end": 1595
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s59:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1595,
+        "end": 1597
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s60:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1597,
+        "end": 1602
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s61:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1602,
+        "end": 1606
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s62:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1606,
+        "end": 1609
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s63:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1609,
+        "end": 1612
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s64:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1612,
+        "end": 1618
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s65:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1618,
+        "end": 1622
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s66:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1622,
+        "end": 1626
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s67:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1626,
+        "end": 1629
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s68:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1629,
+        "end": 1634
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s69:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1634,
+        "end": 1639
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s70:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1639,
+        "end": 1645
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s71:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1645,
+        "end": 1651
+      },
+      {
+        "kind": "EDGE",
+        "edge": "w580113119:s72:f",
+        "from_fraction": 0,
+        "to_fraction": 1,
+        "start": 1651,
+        "end": 1655
+      }
+    ],
+    "destination": "osm:437260343",
+    "contact_check": {
+      "ok": true,
+      "certificate_scope": "wfg.known-footprint.contact-only/1",
+      "violations": [],
+      "per_member": [
+        {
+          "trajectory_index": 0,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 1,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 2,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 3,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 4,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 5,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 6,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        },
+        {
+          "trajectory_index": 7,
+          "contact_pass": true,
+          "violations": [],
+          "peak": null,
+          "dose": null,
+          "risk": null
+        }
+      ],
+      "arrival": 1655,
+      "finish_including_dwell": 1775,
+      "peak": null,
+      "dose": null,
+      "risk": null,
+      "full_policy_status": "UNKNOWN",
+      "physical_safety_claim": false
+    },
+    "peak": null,
+    "dose": null,
+    "risk": null,
+    "full_policy_status": "UNKNOWN",
+    "physical_safety_claim": false,
+    "original_request": {
+      "position": {
+        "node": "osm:437260708"
+      },
+      "incoming_edge": null,
+      "departure": 600,
+      "horizon": 3600.0,
+      "destinations": [
+        {
+          "node": "osm:437260343",
+          "dwell": 120,
+          "open_intervals": [
+            [
+              1655,
+              3600
+            ]
+          ]
+        }
+      ],
+      "incurred": {
+        "ffb1:20220304T120000Z:5b266501e78de3aa:0": 0,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:1": 0,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:2": 0,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:3": 0
+      },
+      "hazard_version": 1,
+      "as_of": "2022-03-04T12:00:00+00:00",
+      "objective": "earliest_arrival",
+      "exposure_scope": "including_dwell",
+      "budgets": {
+        "peak": 10,
+        "dose": {
+          "ffb1:20220304T120000Z:5b266501e78de3aa:0": 100,
+          "ffb1:20220304T120000Z:5b266501e78de3aa:1": 100,
+          "ffb1:20220304T120000Z:5b266501e78de3aa:2": 100,
+          "ffb1:20220304T120000Z:5b266501e78de3aa:3": 100
+        }
+      },
+      "limits": {
+        "wall_s": 30,
+        "max_labels": 1000000,
+        "max_expansions": 1000000,
+        "frontier_width": 16384
+      },
+      "solver": "baseline"
+    },
+    "metrics": {
+      "pieces": 415,
+      "expansions": 405,
+      "goal_candidates": 1,
+      "successor_runs": 414,
+      "build_s": 0.14652762503828853,
+      "search_s": 0.0038146660081110895,
+      "blocked_edges": 15944,
+      "blocked_wait_nodes": 7827
+    },
+    "history_handling": {
+      "contact_search": "THERMAL_HISTORY_AND_BUDGETS_OMITTED",
+      "history_rebinding": false,
+      "thermal_history_checked": false,
+      "kinematic_issue_context": "UNCHANGED"
+    },
+    "original_domain_refusal": "UNRESOLVED",
+    "original_domain_optimality": "UNRESOLVED",
+    "source": {
+      "schema": "wfg.known-footprint.contact-only/1",
+      "source_identity": {
+        "first32_prefix_sha256": "3d7cab5c1fd738464208467cda0bd41fcd73bbaccf3e61f0197cff11e24df167",
+        "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+        "metadata_sha256": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+        "npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_02/20220304T120000Z/FORECAST_20220304T120000Z.npz",
+        "npz_sha256": "542330ad273f863b4b8f969310de3b14d2ec3bb04183998362a7785592baa52f",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_02/20220304T120000Z/FORECAST_RECORD_20220304T120000Z.json",
+        "record_sha256": "296f9af05bae0f1970a80c2eb85b1f0cb061e3f223e48e64e7c82c70d2fab314",
+        "request_sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+        "saved_original_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "raw_array_sha256": {
+        "trajectory_first_burn_hour": "f1d59937038aeaf9be3ca27877d435ea0b7b4352b6053b88e9b07e4f5ed270a6",
+        "source_burned_area": "ad575ba0116b1947aeda6147ea9366c1837a92885714c0b94a8f22670b2dcc1b",
+        "source_burned_area_valid": "313c049bed5b9e31e0b62cbca2d0f2f538396281465b7a8e455434940d39a496",
+        "heat__initial_active_burning_probability": "a6a8df944b35fac726bffa9a46a1da1f95a0abcda18523914b269cf651c60326",
+        "heat__initial_burning_valid": "d96b905de5eac5225f2c91192864358e0f12645d31725bd3c87dccb887a63a39",
+        "heat__initial_remaining_burning_duration_s": "1b672b1b7c3712853f516ea30f71769de03de3ed3b3e35b41cdd0b07c6f6a1e4",
+        "affine_transform": "3808b48d3fb76b3719b2318531c53e4b0706ab1c457d7a34c347ccebc936bbc9"
+      },
+      "trajectory_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "cutoff_utc": "2022-03-04T12:00:00Z",
+      "source_horizon_s": "3600",
+      "member_valid_until_s": [
+        "3600",
+        "3600",
+        "3600",
+        "3600",
+        "3600",
+        "3600",
+        "3600",
+        "3600"
+      ],
+      "terminal_inclusive": true,
+      "timing": "uniform",
+      "seed": 20261008,
+      "burning_duration_s": "8731143290411877/2199023255552",
+      "initial_remaining_enclosure_s": "7906337435343717/2199023255552",
+      "initial_age_policy": "Known burned cells with unknown age use the full-T enclosure; current cells share max remaining.",
+      "window_rows_cols_north_up": [
+        0,
+        61,
+        0,
+        57
+      ],
+      "right_censoring": "-1 means no first ignition through the finite saved horizon only"
+    },
+    "support_barriers": {
+      "node_known_sha256": "0cf68e4cda8ec3f0c897ad3bfb05ed95c073478739db80eb8571015801d7f916",
+      "edge_known_sha256": "9d24d5a77bfb2520757684ddd24829193200dd51b1ef6981dbb475a4d984f5a6",
+      "blocked_nodes": 7827,
+      "blocked_edges": 15862
+    },
+    "effective_search_horizon_s": 3600,
+    "search_status": "FOUND",
+    "reason": "INDEPENDENT_ORIGINAL_DATA_CONTACT_CHECK",
+    "restricted_problem_optimality": "EARLIEST_CONTACT_ARRIVAL_WITHIN_SUPPORT_RESTRICTION",
+    "wall_s": 0.30173887498676777
+  },
+  "original_request": {
+    "position": {
+      "node": "osm:437260708"
+    },
+    "incoming_edge": null,
+    "departure": 600,
+    "horizon": 3600.0,
+    "destinations": [
+      {
+        "node": "osm:437260343",
+        "dwell": 120,
+        "open_intervals": [
+          [
+            1655,
+            3600
+          ]
+        ]
+      }
+    ],
+    "incurred": {
+      "ffb1:20220304T120000Z:5b266501e78de3aa:0": 0,
+      "ffb1:20220304T120000Z:5b266501e78de3aa:1": 0,
+      "ffb1:20220304T120000Z:5b266501e78de3aa:2": 0,
+      "ffb1:20220304T120000Z:5b266501e78de3aa:3": 0
+    },
+    "hazard_version": 1,
+    "as_of": "2022-03-04T12:00:00+00:00",
+    "objective": "earliest_arrival",
+    "exposure_scope": "including_dwell",
+    "budgets": {
+      "peak": 10,
+      "dose": {
+        "ffb1:20220304T120000Z:5b266501e78de3aa:0": 100,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:1": 100,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:2": 100,
+        "ffb1:20220304T120000Z:5b266501e78de3aa:3": 100
+      }
+    },
+    "limits": {
+      "wall_s": 30,
+      "max_labels": 1000000,
+      "max_expansions": 1000000,
+      "frontier_width": 16384
+    },
+    "solver": "baseline"
+  },
+  "original_request_utf8": "{\n \"position\": {\n  \"node\": \"osm:437260708\"\n },\n \"incoming_edge\": null,\n \"departure\": 600,\n \"horizon\": 3600.0,\n \"destinations\": [\n  {\n   \"node\": \"osm:437260343\",\n   \"dwell\": 120,\n   \"open_intervals\": [\n    [\n     1655,\n     3600\n    ]\n   ]\n  }\n ],\n \"incurred\": {\n  \"ffb1:20220304T120000Z:5b266501e78de3aa:0\": 0,\n  \"ffb1:20220304T120000Z:5b266501e78de3aa:1\": 0,\n  \"ffb1:20220304T120000Z:5b266501e78de3aa:2\": 0,\n  \"ffb1:20220304T120000Z:5b266501e78de3aa:3\": 0\n },\n \"hazard_version\": 1,\n \"as_of\": \"2022-03-04T12:00:00+00:00\",\n \"objective\": \"earliest_arrival\",\n \"exposure_scope\": \"including_dwell\",\n \"budgets\": {\n  \"peak\": 10,\n  \"dose\": {\n   \"ffb1:20220304T120000Z:5b266501e78de3aa:0\": 100,\n   \"ffb1:20220304T120000Z:5b266501e78de3aa:1\": 100,\n   \"ffb1:20220304T120000Z:5b266501e78de3aa:2\": 100,\n   \"ffb1:20220304T120000Z:5b266501e78de3aa:3\": 100\n  }\n },\n \"limits\": {\n  \"wall_s\": 30,\n  \"max_labels\": 1000000,\n  \"max_expansions\": 1000000,\n  \"frontier_width\": 16384\n },\n \"solver\": \"baseline\"\n}\n",
+  "source": {
+    "schema": "wfg.known-footprint.contact-only/1",
+    "source_identity": {
+      "first32_prefix_sha256": "3d7cab5c1fd738464208467cda0bd41fcd73bbaccf3e61f0197cff11e24df167",
+      "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+      "metadata_sha256": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+      "npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_02/20220304T120000Z/FORECAST_20220304T120000Z.npz",
+      "npz_sha256": "542330ad273f863b4b8f969310de3b14d2ec3bb04183998362a7785592baa52f",
+      "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_02/20220304T120000Z/FORECAST_RECORD_20220304T120000Z.json",
+      "record_sha256": "296f9af05bae0f1970a80c2eb85b1f0cb061e3f223e48e64e7c82c70d2fab314",
+      "request_sha256": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+      "saved_original_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "raw_array_sha256": {
+      "trajectory_first_burn_hour": "f1d59937038aeaf9be3ca27877d435ea0b7b4352b6053b88e9b07e4f5ed270a6",
+      "source_burned_area": "ad575ba0116b1947aeda6147ea9366c1837a92885714c0b94a8f22670b2dcc1b",
+      "source_burned_area_valid": "313c049bed5b9e31e0b62cbca2d0f2f538396281465b7a8e455434940d39a496",
+      "heat__initial_active_burning_probability": "a6a8df944b35fac726bffa9a46a1da1f95a0abcda18523914b269cf651c60326",
+      "heat__initial_burning_valid": "d96b905de5eac5225f2c91192864358e0f12645d31725bd3c87dccb887a63a39",
+      "heat__initial_remaining_burning_duration_s": "1b672b1b7c3712853f516ea30f71769de03de3ed3b3e35b41cdd0b07c6f6a1e4",
+      "affine_transform": "3808b48d3fb76b3719b2318531c53e4b0706ab1c457d7a34c347ccebc936bbc9"
+    },
+    "trajectory_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "cutoff_utc": "2022-03-04T12:00:00Z",
+    "source_horizon_s": "3600",
+    "member_valid_until_s": [
+      "3600",
+      "3600",
+      "3600",
+      "3600",
+      "3600",
+      "3600",
+      "3600",
+      "3600"
+    ],
+    "terminal_inclusive": true,
+    "timing": "uniform",
+    "seed": 20261008,
+    "burning_duration_s": "8731143290411877/2199023255552",
+    "initial_remaining_enclosure_s": "7906337435343717/2199023255552",
+    "initial_age_policy": "Known burned cells with unknown age use the full-T enclosure; current cells share max remaining.",
+    "window_rows_cols_north_up": [
+      0,
+      61,
+      0,
+      57
+    ],
+    "right_censoring": "-1 means no first ignition through the finite saved horizon only"
+  },
+  "physical_safety_claim": false,
+  "full_policy_status": "UNKNOWN",
+  "peak": null,
+  "dose": null,
+  "risk": null,
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "source_hashes": {
+    "experimental/sipp-routing/README.md": "2624a482c3d22c21d5c2a2c3ccdb28c2495bc5f6f348b0fe9a6da530be532579",
+    "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md": "a541c76cd1a789fa45b7adefd27fdba236898abea694932d255f9da8ea07f04a",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md": "178a17078fe3b6bb799888e6ddca31ecb8eacc0a69505a3f826ebb881ebb17d8",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md": "c36c66e42a190433a082c7e8bc8c92544b8b6873d4f79a19b5e10102e52c9b26",
+    "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md": "56ce23d42d4bd84aa442ee52ec23c83de8124200adaffefff5bfeffb50638752",
+    "experimental/sipp-routing/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/adapter.py": "a3f4648c4d311e076a1b3547089794d5dca5415e1535eff6f74da816c15b8e3a",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/known_footprint.py": "9fc4acd626f9edb82a56c68d033734b318e8bb8a54ea9134ac581ddccb2d2f06",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/restricted_sweep.py": "fcfc210b699a15e662866099a1eea19b821047173abc577c52641d5ab7754e55",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py": "4e70b61d5b84eeffa79eaed13e55a0c2ee69febe26ca45edf7e9bddefc34b61c",
+    "experimental/sipp-routing/tests/test_known_footprint.py": "f43216a435961cf1b55054dc81ec00ed81b3a774458b7ea6bc6fc3f1aa55fda5",
+    "experimental/sipp-routing/tests/test_known_footprint_boundaries.py": "b37acc56723188d1c61652a277b95641467b24f2c7f81d04f5b2d2910aa98703",
+    "experimental/sipp-routing/tests/test_native_guard.py": "9ab3525813089edd01a519f79bf375d2282ff76cd1358c8fc2765d33c7850a02",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d",
+    "experimental/sipp-routing/tests/test_known_footprint_controller.py": "88364b691d91e82618893634d508d85f99878486a2361daa29356c6db98598d7",
+    "experimental/sipp-routing/SOURCE_SHA256.json": "e72e510939ab5ab2e4c651f3481198425accc92e5bb83581c342a83722d8d78e",
+    "research/sipp-routing/run_known_footprint_campaign.py": "0d42c962c399f4b073e789d868778d2b78f64a2c6ea88e98cd83c5518023abf3",
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "experimental/scenario-members/src/wfg_scenario_members/contact.py": "d81125d339f6c12347331e9cdeac59ef36fed8bc98b4dfa9becc192a2dfba0ea",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+    "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "reason": "INDEPENDENT_ORIGINAL_DATA_CONTACT_CHECK",
+  "admission_wall_s": 0.03617829200811684,
+  "search_status": "FOUND",
+  "independent_recheck_wall_s": 0.1096615829737857,
+  "reported_peak_rss_mib": 112.515625,
+  "child_internal_wall_s": 0.4513992920401506
+}

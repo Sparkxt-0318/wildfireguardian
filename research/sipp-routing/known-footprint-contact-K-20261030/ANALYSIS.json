@@ -1,0 +1,82 @@
+{
+  "schema": "wfg.next.known-contact-K-analysis/1",
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "producer_sha256": "c1cab6091a43694f94a8d329dd9469a6b1b1498833b5726798578fbd8e098d3e",
+  "record_count": 320,
+  "pairs": 160,
+  "missions": 20,
+  "execution_statuses": {
+    "UNRESOLVED_RESTRICTED_SUPPORT": 248,
+    "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT": 72
+  },
+  "pair_verdicts": {
+    "BOTH_PRESEARCH_UNSUPPORTED_ENDPOINTS": 112,
+    "MATCHED_CHECKED_CONTACT_ARRIVAL": 36,
+    "MATCHED_RESTRICTED_EXHAUSTION": 12
+  },
+  "unsupported_endpoint_missions": 14,
+  "unsupported_endpoint_records": 224,
+  "search_started_records": 96,
+  "checked_route_records": 72,
+  "independent_original_data_rechecks_passed": 72,
+  "control_refusals": {},
+  "all_owned_groups_absent": true,
+  "joint_checked_search_pairs": 36,
+  "joint_complete_search_pairs": 48,
+  "counter_repeat_mismatches": [],
+  "median_planner_ratio_sipp_over_sweep": 0.5611112819152877,
+  "median_complete_child_ratio_sipp_over_sweep": 0.6715735321753618,
+  "sipp_slower_planner_pairs": 0,
+  "source_clock": {
+    "seed": 20261008,
+    "timing": "uniform",
+    "H_s": 3600,
+    "T_s": 3970.4642815249267
+  },
+  "source_and_protocol_hashes_match": true,
+  "original_request_history_bytes_preserved": true,
+  "shared_original_array_and_support_barrier_digests_match": true,
+  "prior_35_evidence_and_4_review_artifacts_byte_preserved": true,
+  "post_run_original_input_files_checked": 115,
+  "max_complete_child_wall_s": 5.520812332979403,
+  "max_reported_child_peak_rss_mib": 454.4375,
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "scope": "Cell-local represented contact only; unknown thermal policy, peak, dose and risk; no physical/global original-domain claim.",
+  "limits": "Two repetitions are paired verification repeats, not independent missions/fires. Thermal history/peak/dose/risk unknown; restricted failures are unresolved about the original unknown domain. Source T>H limits multi-interval fragmentation expectations.",
+  "by_K": [
+    {
+      "K": 4,
+      "records": 80,
+      "checked_routes": 20,
+      "search_started": 24,
+      "matched_checked_pairs": 10,
+      "matched_restricted_exhaustion_pairs": 2
+    },
+    {
+      "K": 8,
+      "records": 80,
+      "checked_routes": 20,
+      "search_started": 24,
+      "matched_checked_pairs": 10,
+      "matched_restricted_exhaustion_pairs": 2
+    },
+    {
+      "K": 16,
+      "records": 80,
+      "checked_routes": 20,
+      "search_started": 24,
+      "matched_checked_pairs": 10,
+      "matched_restricted_exhaustion_pairs": 2
+    },
+    {
+      "K": 32,
+      "records": 80,
+      "checked_routes": 12,
+      "search_started": 24,
+      "matched_checked_pairs": 6,
+      "matched_restricted_exhaustion_pairs": 6
+    }
+  ]
+}

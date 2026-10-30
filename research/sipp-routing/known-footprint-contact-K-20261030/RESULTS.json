@@ -1,0 +1,16 @@
+{
+  "status": "COMPLETE_FIXED_CONTACT_K_CAMPAIGN",
+  "jobs": 320,
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "protocol_sha256": "f3ba08b82410f6ff477220f99af403c7abaaf497b6508668b6b6b9d9c561f844",
+  "checked_routes": 72,
+  "unresolved": 248,
+  "search_started": 96,
+  "independent_rechecks": 72,
+  "inputs_and_source_still_pinned": true,
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "control_scope": "30s complete child with sampled RSS and final peak/elapsed checks, per-job exclusive HEAVY, owned process-group cleanup. Polling is not an instantaneous OS memory cap.",
+  "scope": "Cell-local represented contact only; unknown thermal policy, peak, dose and risk; no physical/global original-domain claim."
+}

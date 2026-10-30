@@ -96,3 +96,41 @@ reference hashes and supported clock rules are recorded in
 KNOWN_FOOTPRINT_ADAPTER_REPAIR_RECEIPT.json. Native contact/K execution remains
 closed pending independent recheck. No prior static/strict evidence or timing
 record is replaced.
+
+## Fixed known-footprint contact K campaign, executed stage
+
+The fixed opt-in study is now retained in known-footprint-contact-K-20261030/.
+It has 320 records over the 20 original missions, K4/8/16/32, both methods and
+two ABBA repetitions. All 48 searchable paired outcomes agree: 36 matched
+checked contact arrivals and 12 matched restricted exhaustions. The remaining
+112 pairs are presearch unknown-endpoint admission, with 224 null solver-cost
+records. Every one of the 72 returned contact-route records passed a separate
+fresh original-source/mask/geometry recheck through full dwell.
+
+The measured source phase is 095b8d174d2f203ea67bea5fdd8c69eb0633b2a0.
+The protocol and controller were committed before any native row, after the
+root's independent core-700 source/clock recheck; 13 tiny controller/source-pin
+controls and all 20 exact original-input preflights passed. Every child released
+HEAVY; all controller guards admitted and owned groups were absent after exit.
+The maximum complete child time was 5.520812 s and peak RSS was 454.4375 MiB.
+These are bounded host measurements, not physical or operational guarantees.
+
+The median SIPP/sweep planner-call ratio was 0.561111 across all 48 completed
+search pairs, including restricted exhaustion; the complete-child ratio was
+0.671574. Endpoint admission times are excluded from solver costs. At K32,
+Uiseong FX2 and Uljin FW2 changed from smaller-K contact routes to restricted
+exhaustion. State counts can rise, fall or remain flat; the actual fig02 is now
+produced with SIPP expansions and sweep states in separate panels. No increasing
+multi-interval fragmentation claim follows under T>H. The artifact README has
+commands, seeds, hashes, host, exact outcomes and captions for PNG300dpi/SVG.
+
+This later stage supersedes the earlier pending-known-footprint-study status
+only. Strict default admission and all earlier first32/fullN/topology evidence
+remain unchanged. The 115 original input files, 35 prior evidence paths and four
+fd8 reviewed artifacts retain their hashes. The result is local represented
+contact on the support-restricted problem: original issued histories remain
+verbatim and thermal fields are privately omitted without rebinding. Peak,
+dose, full-policy acceptance and scientific risk remain unknown. Restricted
+exhaustion is unresolved about the original unknown domain, and no physical or
+global original-domain optimum/refusal is asserted. Independent output audit
+remains separate from executing and checking this bounded study.

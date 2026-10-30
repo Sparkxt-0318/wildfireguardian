@@ -63,8 +63,8 @@
     },
     {
       "id": "1C-2-K-scaling",
-      "status": "NOT_RUN_KNOWN_FOOTPRINT_CONTACT_ADAPTER_IMPLEMENTED_REVIEW_PENDING",
-      "evidence": "Strict all-domain default and immutable15360saved-member refusals remain unchanged. A separate opt-in contact-only adapter now implements explicit exact footprint barriers, finite source clocks, original-ID uniform timing and independent raw-data witness checking, with tiny fixtures only. No native timed/K campaign or state-vs-K performance measurement. The original static census retains6known turn topologies and14unsupported endpoints. See KNOWN_FOOTPRINT_ADAPTER_RECEIPT.json and the overlay contact contract. Thermal/full-policy/risk gates remain closed.",
+      "status": "EXECUTED_BOUNDED_OPT_IN_CONTACT_K_STUDY",
+      "evidence": "Frozenphase095b8d17 exact320records:20originalmissions xK4/8/16/32 x2methods x2ABBAreps.224unknown-endpoint presearchrecords retainednullsolvermetrics.96searches give48/48matched paired outcomes (36checkedarrival,12restrictedexhaustion);72returnedroutes passfreshoriginalraw-data recheck. MedianSIPP/sweep planner-callratio0.561111 over48completedpairs; sourceT>H, countersnonmonotone, no universal speedup. Actualfig02 nowproduced in known-footprint-contact-K-20261030. Allstrictoldartifactsunchanged; no thermal/full-policy/risk or originalglobalno-route/optimum claim.",
       "strict_default_status": "NOT_RUN_CONTACT_ADMISSION_ALL_SAVED_N_UNSUPPORTED",
       "strict_default_evidence": "Separate full-member-support-census-20261030 checks all 1024 saved members on 15 exact contact domains covering 20 missions: 0 supported members over 15360 domain-member checks. Domain unknown masks are byte-identical across N. Any nonempty selection from these saved pools, including selectors at K4/8/16/32, fails current strict whole-domain bridge admission. No search, state-vs-K performance or risk measurement. Prior first-32 and initial grid-failure artifacts unchanged. A future justified local/pessimistic contact support contract is not ruled out."
     },
@@ -149,8 +149,8 @@
     },
     {
       "id": "1C-2-fig02-states-vs-members",
-      "status": "NOT_PRODUCED_TIMED_K_SERIES_PENDING_INDEPENDENT_ADAPTER_REVIEW",
-      "evidence": "No measured multi-K search series exists. The opt-in contact-only adapter is implemented with tiny defensive fixtures and awaits independent review before the fixed paired study. Static source-support reachability is not a SIPP expansion counter. No fake/empty figure; strict first32/fullN/topology artifacts remain byte-preserved.",
+      "status": "PRODUCED_BOUNDED_KNOWN_FOOTPRINT_CONTACT_STUDY",
+      "evidence": "ActualK4/8/16/32 series from96searchrecords, SIPPexpansions andsweepstatesreached plottedinseparatepanelswithdifferentunits, bothrepsretainedandcounteridenticalwithinreps.14unknownendpointmissions have all224presearchrecords withnullsolvermetrics. SourceT>Hdoesnotimplyincreasingintervalfragmentation. PNG300dpi+SVGvisuallyinspected; priorstrict/default0of15360 resultandfixedK4evidence unchanged.",
       "strict_default_status": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES",
       "strict_default_evidence": "No admitted measured state-vs-K series exists. The fixed K4 counter table and first-32 audit remain unchanged; the separate full-N census proves 0 supported members in every saved 1024-member contact domain. No fake or empty fig02 generated. See FULL_MEMBER_SUPPORT_CENSUS.md and full-member-support-census-20261030/RESULTS.json under research/sipp-routing."
     },
@@ -166,8 +166,13 @@
     },
     {
       "id": "1C-2-known-footprint-contact-adapter",
-      "status": "PASS_SOURCE_CLOCK_REPAIR_FIXTURES_RECHECK_PENDING",
-      "evidence": "Independent fd8bf2e7 review found3additional tiny source/clock defects beyond the original47fixtures. Source consistency restored before activity intersection; unsupported fractional member bounds and timestamp precision now refuse; exclusive terminal requires integer dwell. Original47fixture/producer/receipt/contract retained byte-for-byte. New boundary tests, full overlay regression and unchanged prior evidence hashes in KNOWN_FOOTPRINT_ADAPTER_REPAIR_RECEIPT.json. No native timed campaign until independent recheck. Contact-only typed result, unchanged original history, unknown full-policy/peak/dose/risk and strict default retained."
+      "status": "PASS_ROOT_RECHECKED_CONTACT_SOFTWARE_SCOPE",
+      "evidence": "Core700ce9a4 repairs3fd8source/clockboundarydefects. Rootindependentrecheck17/17controls,72contactfixtures and65hashpins pass. Original47fixture/producer/receipt/contract retained. Studyphase095b8d17 keepscore/default/frozenrefsunchanged; canonicalsourcegates, exactmicrosecondUTC, finiteintegerclock andexplicitprivatehistoryomissionremain. Typedlocalcontactresultonly; fullpolicy/peak/dose/riskunknown."
+    },
+    {
+      "id": "1C-2-known-footprint-fixed-K-campaign",
+      "status": "EXECUTED_BOUNDED_CONTACT_AWAITING_INDEPENDENT_OUTPUT_AUDIT",
+      "evidence": "All320originalfixedrecordscompletewith320acceptedcontrollerguards andownedgroupsabsent; all72returnedcontactroutes separatelyrechecked.36matchedcheckedpairs,12matchedrestrictedexhaustionpairs,112matchedpresearchendpointpairs.115originalinputfilehashes and35priorartifact+4fd8artifactbytes preserved. PerchildHEAVY,30s/3072MiBguards, largestchild5.520812s/454.4375MiB. Sourcephase095b8d174d2f203ea67bea5fdd8c69eb0633b2a0. known-footprint-contact-K-20261030/ANALYSIS.json and OUTPUT_SHA256.json bindactualsource/results. No addedpanel, simulatedmembers, globaloriginaldomain, thermalpolicy, risk or physicalclaim."
     }
   ],
   "fresh_tests": {
