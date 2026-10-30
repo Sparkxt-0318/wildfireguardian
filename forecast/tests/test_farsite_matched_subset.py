@@ -28,6 +28,12 @@ def fixture(audit, root, outcomes=("SCORED",), *, empty_farsite=False):
     """Only synthetic arrays and current source bytes, never scientific artifacts."""
     data, assessment, out = root / "data", root / "assessment", root / "output.json"
     event = "SYNTHETIC_US2024"
+    repo = root / "source"
+    split_path = repo / "research/forecast-v2/SPLIT.json"
+    write(split_path, dict(held_out=dict(us_2024=[event])))
+    registry_path = repo / "research/forecast-v2/BLIND_REGISTRY.json"
+    write(registry_path, dict(synthetic_identity_boundary=True))
+    audit.REPO = repo
     grid = dict(id=event, year=2024, country="US", height=2, width=2, epsg=32610, transform=[1, 0, 0, 0, -1, 2])
     write(data / "environment/events.json", [grid])
     source_path = data / "farsite-inputs/synthetic-weather.bin"
@@ -42,7 +48,16 @@ def fixture(audit, root, outcomes=("SCORED",), *, empty_farsite=False):
     sources = {relative: reporting.sha256(reporting.REPO / relative) for relative in
                ("forecast/wildfire/survival.py", "forecast/wildfire/meanfield.py", "forecast/wildfire/burnout.py")}
     frozen = dict(cohort="us2024", current_phase=reporting.F.current_phase_identity(),
-                  spotting_source_contract=reporting.F.spotting_source_contract(reporting.REPO, sources))
+                  spotting_source_contract=reporting.F.spotting_source_contract(reporting.REPO, sources),
+                  registry=dict(path=str(registry_path.relative_to(repo)), sha256=audit.sha(registry_path)),
+                  split_sha256=audit.sha(split_path))
+    # Mock only unchanged SC.identities. The audit still performs all receipt,
+    # exact-model, source-label, ordered-array and SPLIT membership checks itself.
+    identity_calls = []
+    def identities(args):
+        identity_calls.append(args)
+        return json.loads(json.dumps(frozen))
+    audit.load_current_scorer = lambda: SimpleNamespace(EXPECTED_MODELS=set(audit.EXPECTED_MODELS), identities=identities)
     write(assessment / "FROZEN_ASSESSMENT.json", frozen)
     frozen_sha = audit.sha(assessment / "FROZEN_ASSESSMENT.json")
     names = {*(v + "_seed0" for v in reporting.F.VARIANTS), "c651_mc", "c651_meanfield", "persistence", "logistic",
@@ -111,7 +126,8 @@ def fixture(audit, root, outcomes=("SCORED",), *, empty_farsite=False):
     receipt = dict(receipt_version="wfg.forecast-assessment/2", status="HOLD" if failures else "COMPLETE", frozen_sha256=frozen_sha,
                    per_fire_files=files, events=[event], cases=cases, failed_or_unavailable=failures)
     write(assessment / "ASSESSMENT.json", receipt)
-    return SimpleNamespace(data=data, assessment=assessment, out=out, receipt=receipt, historical=historical, event=event)
+    return SimpleNamespace(data=data, assessment=assessment, out=out, receipt=receipt, historical=historical, event=event,
+                           repo=repo, split_path=split_path, frozen=frozen, identity_calls=identity_calls)
 
 
 def run(audit, made, monkeypatch, *, assessment=True):
@@ -130,6 +146,7 @@ def test_identity_only_mode_keeps_manifests_and_never_loads_historical_m548(audi
         return original(path, *args, **kwargs)
     monkeypatch.setattr(audit.np, "load", checked)
     result = run(audit, made, monkeypatch, assessment=False)
+    assert made.identity_calls == []
     assert result["status"] == "AUTHENTICATED_IDENTITIES_ONLY" and result["scores_available"] is False
     assert "scores" not in result and result["scored_cases"] == 0 and result["total_historical_cases"] == 1
     row = result["cases"][0]
@@ -149,6 +166,7 @@ def test_positive_scores_use_exact_common_ordered_coordinates_and_labels(audit, 
     assert result["scores"]["entries"] == 2 and result["scores"]["positives"] == 1
     assert result["scores"]["models"]["farsite_scenario"]["pooled"]["brier"] == 0
     assert result["scores"]["models"]["base_seed0"]["pooled"]["brier"] == pytest.approx(.04)
+    assert len(audit.EXPECTED_MODELS) == 16 and set(result["scores"]["models"]) == audit.EXPECTED_MODELS | {"farsite_scenario"}
     assert result["scores_available"] is True and result["all_stored_cases_scored"] is True
     assert result["status"] == "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE" and result["superiority_criteria_pass"] is False
     assert result["native_execution_this_command"] is False
@@ -265,3 +283,150 @@ def test_exact_endpoint_is_inclusive_and_later_arrival_remains_negative_at_endpo
     assert horizon["no_burn_value"] == -9999
     assert "finite native horizon" in horizon["right_censoring"]
     assert result["scores"]["models"]["farsite_scenario"]["pooled"]["brier"] == expected_brier
+
+
+def resign_current(audit, made):
+    receipt_path = made.assessment / "ASSESSMENT.json"
+    receipt = json.loads(receipt_path.read_text())
+    for record in receipt["cases"]:
+        if record["status"] == "SCORED":
+            record["sha256"] = audit.sha(made.assessment / "cases" / (record["case_id"] + ".npz"))
+        write(made.assessment / "cases" / (record["case_id"] + ".json"), record)
+    receipt["per_fire_files"] = {name: audit.sha(made.assessment / name) for name in receipt["per_fire_files"]}
+    write(receipt_path, receipt)
+
+
+@pytest.mark.parametrize("change", ["missing_d4", "extra_model"])
+@pytest.mark.parametrize("location", ["both", "individual", "aggregate"])
+def test_fixed_sixteen_columns_cannot_be_narrowed_or_extended_by_resigned_arrays(audit, tmp_path, monkeypatch, change, location):
+    made = fixture(audit, tmp_path)
+    paths = {"individual": made.assessment / "cases/synthetic_case_00.npz", "aggregate": made.assessment / (made.event + ".npz")}
+    for key, path in paths.items():
+        if location != "both" and key != location: continue
+        with np.load(path) as source: arrays = {name: source[name].copy() for name in source.files}
+        if change == "missing_d4": del arrays["p_d4_seed0"]
+        else: arrays["p_unregistered_model"] = arrays["p_base_seed0"].copy()
+        np.savez_compressed(path, **arrays)
+    resign_current(audit, made)
+    with pytest.raises(ValueError, match="fixed 16 probability columns"):
+        run(audit, made, monkeypatch)
+    assert not made.out.exists()
+
+
+def rewrite_interval(audit, made, hours):
+    """The independent 49-hour probe's same fully consistent re-signing recipe."""
+    directory = made.historical[0]
+    protocol_path = directory / "protocol.json"
+    protocol = json.loads(protocol_path.read_text())
+    start = pd.Timestamp(protocol["cutoff"]); end = start + pd.Timedelta(hours=hours)
+    protocol.update(endpoint=end.isoformat(), hours=hours); write(protocol_path, protocol)
+    report_path = directory / "report.json"; report = json.loads(report_path.read_text())
+    report["native_clock_verification"].update(end_hhmm=end.hour * 100 + end.minute, duration_minutes=hours * 60)
+    report["farsite_execution"].update(elapsed_minutes=hours * 60, native_clock_verification=report["native_clock_verification"],
+                                         endpoint_selection=f"0 <= arrival <= {hours * 60}")
+    write(report_path, report)
+    path = directory / "farsite_prediction.npz"
+    with np.load(path) as source: arrays = {name: source[name].copy() for name in source.files}
+    metadata = json.loads(str(arrays["metadata_json"])); metadata["exact_duration_minutes"] = hours * 60
+    arrays["metadata_json"] = np.array(json.dumps(metadata)); np.savez_compressed(path, **arrays)
+    path = made.data / "perimeters" / made.event / "states.npz"
+    with np.load(path) as source: arrays = {name: source[name].copy() for name in source.files}
+    arrays["times"] = np.array([start.isoformat(), end.isoformat()]); np.savez_compressed(path, **arrays)
+    path = made.assessment / (made.event + ".npz")
+    with np.load(path) as source: arrays = {name: source[name].copy() for name in source.files}
+    arrays["hours"] = np.array([float(hours)]); np.savez_compressed(path, **arrays)
+    receipt_path = made.assessment / "ASSESSMENT.json"; receipt = json.loads(receipt_path.read_text())
+    receipt["cases"][0]["case"].update(endpoint=end.isoformat(), hours=hours); write(receipt_path, receipt)
+    resign_current(audit, made); resign_historical(audit, directory)
+
+
+@pytest.mark.parametrize("hours,eligible", [(48, True), (49, False)])
+def test_frozen_interval_cap_is_separate_from_a_sufficient_native_horizon(audit, tmp_path, monkeypatch, hours, eligible):
+    made = fixture(audit, tmp_path)
+    rewrite_interval(audit, made, hours)
+    result = run(audit, made, monkeypatch)
+    row = result["cases"][0]
+    assert row["native_horizon"]["status"] == "AVAILABLE"
+    assert row["native_horizon"]["native_horizon_minutes"] == hours * 60
+    assert result["scores_available"] is eligible
+    if eligible:
+        assert row["frozen_cohort_eligibility"]["status"] == "ELIGIBLE"
+        assert result["current_case_admission_pass"] is True
+        assert result["status"] == "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE"
+    else:
+        assert result["status"] == "HOLD" and "scores" not in result
+        assert row["reason"] == "HISTORICAL_INTERVAL_OUTSIDE_FROZEN_0_TO_48H_POLICY"
+        assert row["current_case_admission"]["reason"] == "CURRENT_CASE_INTERVAL_OUTSIDE_FROZEN_0_TO_48H_POLICY"
+        assert result["rejected_current_cases"] == [row["current_case_admission"]]
+        assert result["superiority_criteria_pass"] is False
+
+
+@pytest.mark.parametrize("hours", [0, -1])
+def test_nonpositive_current_intervals_are_retained_as_rejected_not_scored(audit, tmp_path, monkeypatch, hours):
+    made = fixture(audit, tmp_path)
+    path = made.assessment / "ASSESSMENT.json"; receipt = json.loads(path.read_text())
+    case = receipt["cases"][0]["case"]
+    case.update(hours=hours, endpoint=(pd.Timestamp(case["cutoff"]) + pd.Timedelta(hours=hours)).isoformat())
+    write(path, receipt); resign_current(audit, made)
+    result = run(audit, made, monkeypatch)
+    assert result["status"] == "HOLD" and result["scores_available"] is False
+    assert result["rejected_current_cases"][0]["reason"] == "CURRENT_CASE_INTERVAL_OUTSIDE_FROZEN_0_TO_48H_POLICY"
+
+
+@pytest.mark.parametrize("change", ["not_in_split", "country", "year"])
+def test_current_case_population_requires_authenticated_split_membership_and_us2024_catalog(audit, tmp_path, monkeypatch, change):
+    made = fixture(audit, tmp_path)
+    catalog_path = made.data / "environment/events.json"; catalog = json.loads(catalog_path.read_text())
+    if change == "not_in_split":
+        extra = dict(catalog[0], id="SYNTHETIC_US2024_OUTSIDE_SPLIT"); catalog.append(extra)
+        path = made.assessment / "ASSESSMENT.json"; receipt = json.loads(path.read_text())
+        receipt["cases"][0]["case"]["event"] = extra["id"]; write(path, receipt); resign_current(audit, made)
+    if change == "country": catalog[0]["country"] = "KR"
+    if change == "year": catalog[0]["year"] = 2025
+    write(catalog_path, catalog)
+    result = run(audit, made, monkeypatch)
+    assert result["status"] == "HOLD" and result["scores_available"] is False
+    assert result["rejected_current_cases"][0]["reason"] == "CURRENT_CASE_OUTSIDE_FROZEN_US2024_POPULATION"
+    assert result["superiority_criteria_pass"] is False
+
+
+def test_identity_delegation_uses_exact_current_verifier_arguments_before_case_loading(audit, tmp_path, monkeypatch):
+    made = fixture(audit, tmp_path)
+    run(audit, made, monkeypatch)
+    assert len(made.identity_calls) == 1
+    args = made.identity_calls[0]
+    assert vars(args) == dict(data=made.data, run=made.assessment.parent, cohort="us2024",
+                             registry=made.repo / made.frozen["registry"]["path"])
+
+
+@pytest.mark.parametrize("failure", ["verifier_refusal", "frozen_identity_mismatch", "split_bytes_changed"])
+def test_current_identity_or_split_refusal_happens_before_loading_any_case_arrays(audit, tmp_path, monkeypatch, failure):
+    made = fixture(audit, tmp_path)
+    if failure == "verifier_refusal":
+        def identities(args): raise ValueError("synthetic identity verifier refusal")
+        audit.load_current_scorer = lambda: SimpleNamespace(EXPECTED_MODELS=set(audit.EXPECTED_MODELS), identities=identities)
+    if failure == "frozen_identity_mismatch":
+        audit.load_current_scorer = lambda: SimpleNamespace(EXPECTED_MODELS=set(audit.EXPECTED_MODELS), identities=lambda args: dict(made.frozen, seed=99))
+    if failure == "split_bytes_changed": made.split_path.write_text(made.split_path.read_text() + " ")
+    monkeypatch.setattr(audit.np, "load", lambda *args, **kwargs: pytest.fail("Unverified identity reached prediction arrays"))
+    with pytest.raises(ValueError): run(audit, made, monkeypatch)
+    assert not made.out.exists()
+
+
+def test_six_authenticated_split_events_are_the_declared_population_with_available_hold_subset(audit, tmp_path, monkeypatch):
+    made = fixture(audit, tmp_path)
+    expected = [made.event, *(f"SYNTHETIC_US2024_{index}" for index in range(5))]
+    write(made.split_path, dict(held_out=dict(us_2024=expected)))
+    made.frozen["split_sha256"] = audit.sha(made.split_path)
+    frozen_path = made.assessment / "FROZEN_ASSESSMENT.json"; write(frozen_path, made.frozen)
+    path = made.assessment / "ASSESSMENT.json"; receipt = json.loads(path.read_text())
+    receipt.update(events=expected, status="HOLD", frozen_sha256=audit.sha(frozen_path),
+                   failed_or_unavailable=[dict(event=event, reason="No eligible synthetic source intervals") for event in expected[1:]])
+    receipt["cases"][0]["assessment_sha256"] = receipt["frozen_sha256"]
+    write(path, receipt); resign_current(audit, made)
+    result = run(audit, made, monkeypatch)
+    assert result["scores_available"] is True and result["current_case_admission_pass"] is True
+    assert result["status"] == "HOLD" and result["superiority_criteria_pass"] is False
+    receipt["events"] = expected[:-1]; write(path, receipt)
+    with pytest.raises(ValueError, match="exactly the frozen US2024"):
+        run(audit, made, monkeypatch)

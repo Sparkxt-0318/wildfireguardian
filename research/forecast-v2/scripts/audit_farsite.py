@@ -20,6 +20,10 @@ REPO = HERE.parents[3]
 sys.path.insert(0, str(REPO / "forecast"))
 from wildfire.cumulative_report import case_seed
 
+EXPECTED_MODELS = {"c651_mc", "c651_meanfield", "persistence", "logistic", "dilation_best",
+                   *(f"dilation_{k}h" for k in (1, 2, 4, 8)),
+                   *(v + "_seed0" for v in ("base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base"))}
+
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -35,6 +39,58 @@ def load_reporting():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def load_current_scorer():
+    """Load the unchanged custody verifier only when assessment scoring is requested."""
+    spec = importlib.util.spec_from_file_location("matched_subset_assessment", HERE.with_name("score_cohorts.py"))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def frozen_current_identity(directory, data):
+    """Reauthenticate source/model/input identity before reading current entries."""
+    frozen = json.loads((directory / "FROZEN_ASSESSMENT.json").read_text())
+    if frozen.get("cohort") != "us2024":
+        raise ValueError("Matched stored US scenarios require a current US2024 assessment")
+    relative = frozen.get("registry", {}).get("path")
+    if not isinstance(relative, str) or not relative:
+        raise ValueError("Current assessment must bind its frozen registry identity")
+    registry = (REPO / relative).resolve()
+    if not registry.is_relative_to(REPO.resolve()):
+        raise ValueError("Current assessment registry must remain inside the frozen source tree")
+    scorer = load_current_scorer()
+    if set(scorer.EXPECTED_MODELS) != EXPECTED_MODELS:
+        raise ValueError("Stored subset comparator contract differs from the fixed current 16-model contract")
+    current = scorer.identities(argparse.Namespace(data=data, run=directory.parent, cohort="us2024", registry=registry))
+    if current != frozen:
+        raise ValueError("Current source/model/input identity differs from FROZEN_ASSESSMENT")
+    split_path = REPO / "research/forecast-v2/SPLIT.json"
+    if sha(split_path) != frozen.get("split_sha256"):
+        raise ValueError("Current US2024 population must use the authenticated frozen SPLIT bytes")
+    events = json.loads(split_path.read_text())["held_out"]["us_2024"]
+    if not isinstance(events, list) or not events or any(not isinstance(e, str) for e in events) or len(set(events)) != len(events):
+        raise ValueError("The authenticated US2024 held-out event list is invalid")
+    return frozen, set(events)
+
+
+def interval_eligibility(start, end):
+    duration = end - start
+    return bool(pd.Timedelta(0) < duration <= pd.Timedelta(hours=48))
+
+
+def case_admission(case, catalog, expected_events):
+    event = case["event"]
+    if event not in expected_events or catalog.get(event, {}).get("country") != "US" or catalog.get(event, {}).get("year") != 2024:
+        return "CURRENT_CASE_OUTSIDE_FROZEN_US2024_POPULATION"
+    start, end = pd.Timestamp(case["cutoff"]), pd.Timestamp(case["endpoint"])
+    if not interval_eligibility(start, end):
+        return "CURRENT_CASE_INTERVAL_OUTSIDE_FROZEN_0_TO_48H_POLICY"
+    if case.get("hours") != (end-start).total_seconds()/3600:
+        return "CURRENT_CASE_DURATION_DIFFERS_FROM_ENDPOINTS"
+    return None
 
 
 def native_horizon(report, metadata, arrival, initial, probability, valid, start, end):
@@ -96,13 +152,15 @@ def native_horizon(report, metadata, arrival, initial, probability, valid, start
     return result
 
 
-def load_current_assessment(directory, reporting):
+def load_current_assessment(directory, reporting, data, catalog):
     """Authenticate the reviewed aggregate plus every individual case receipt."""
-    _, assessment = reporting.load_assessment(directory)
-    frozen = json.loads((directory / "FROZEN_ASSESSMENT.json").read_text())
-    if frozen.get("cohort") != "us2024":
-        raise ValueError("Matched stored US scenarios require a current US2024 assessment")
-    receipts, ids, scored_ids = {}, set(), set()
+    frozen, expected_events = frozen_current_identity(directory, data)
+    entries, assessment = reporting.load_assessment(directory)
+    if set(assessment["events"]) != expected_events or len(assessment["events"]) != len(expected_events):
+        raise ValueError("Current assessment must declare exactly the frozen US2024 held-out event population")
+    if entries is not None and set(entries["predictions"]) != EXPECTED_MODELS:
+        raise ValueError("Current aggregate must contain exactly the fixed 16 probability columns")
+    receipts, ids, scored_ids, rejected = {}, set(), set(), {}
     for record in assessment["cases"]:
         case, cid = record["case"], record["case_id"]
         key = (case["event"], pd.Timestamp(case["cutoff"]), pd.Timestamp(case["endpoint"]))
@@ -117,14 +175,20 @@ def load_current_assessment(directory, reporting):
         if record["status"] == "SCORED":
             if not path.is_file() or sha(path) != record.get("sha256"):
                 raise ValueError("Current case prediction bytes are missing or changed")
+            with np.load(path, allow_pickle=False) as arrays:
+                if {name[2:] for name in arrays.files if name.startswith("p_")} != EXPECTED_MODELS:
+                    raise ValueError("Current individual case must contain exactly the fixed 16 probability columns")
             scored_ids.add(cid)
         elif record["status"] not in ("UNAVAILABLE", "FAILED") or not record.get("reason") or path.exists():
             raise ValueError("Unscored assessment cases must retain their outcome/reason without predictions")
         receipts[key], ids = record, ids | {cid}
+        reason = case_admission(case, catalog, expected_events)
+        if reason is not None:
+            rejected[key] = dict(case_id=cid, case=case, reason=reason)
     if ({p.stem for p in (directory / "cases").glob("*.json")} != ids
             or {p.stem for p in (directory / "cases").glob("*.npz")} != scored_ids):
         raise ValueError("Unlisted individual case artifacts cannot enter the matched subset")
-    return assessment, receipts
+    return assessment, receipts, rejected, expected_events
 
 
 def matched_entries(directory, record, event, start, end, initial, endpoint, fp, fv, reference_valid):
@@ -149,9 +213,10 @@ def matched_entries(directory, record, event, start, end, initial, endpoint, fp,
         if (len(indices) != 1 or abs(float(aggregate["hours"][indices[0]]) - (end-start).total_seconds()/3600) > 1e-9):
             raise ValueError("Current case interval differs from its authenticated per-fire aggregate")
         index = aggregate["interval"] == indices[0]
-        names = {name for name in aggregate.files if name.startswith("p_")}
-        if set(scored.files) != {"row", "col", "y", *names} or not names:
-            raise ValueError("Current case and aggregate must contain the same probability columns")
+        names = {"p_" + name for name in EXPECTED_MODELS}
+        if ({name for name in aggregate.files if name.startswith("p_")} != names
+                or set(scored.files) != {"row", "col", "y", *names}):
+            raise ValueError("Current case and aggregate must contain exactly the fixed 16 probability columns")
         for name in ("row", "col", "y", *sorted(names)):
             if not np.array_equal(scored[name], aggregate[name][index]):
                 raise ValueError("Individual case entries differ from authenticated per-fire entries")
@@ -183,10 +248,10 @@ def main():
     for row in inputs["files"]:
         if not row["historical_input_identity_matches"] or sha(args.data / row["path"]) != row["sha256"]:
             raise ValueError("A historical scenario input identity changed")
-    receipts, assessed, reporting = {}, None, None
+    receipts, rejected, expected_events, assessed, reporting = {}, {}, set(), None, None
     if args.assessment:
         reporting = load_reporting()
-        assessed, receipts = load_current_assessment(args.assessment, reporting)
+        assessed, receipts, rejected, expected_events = load_current_assessment(args.assessment, reporting, args.data, catalog)
     rows, entries = [], []
     root = args.data / "historical_observed/20261013_observed_merged/cases"
     for directory in sorted(root.iterdir()):
@@ -240,13 +305,26 @@ def main():
             native_horizon=horizon)
         if horizon["status"] != "AVAILABLE":
             row.update(status="UNAVAILABLE", reason=horizon["reason"], cells=0)
+        historical_reason = ("HISTORICAL_INTERVAL_OUTSIDE_FROZEN_0_TO_48H_POLICY" if not interval_eligibility(start, end) else
+                             "HISTORICAL_CASE_OUTSIDE_FROZEN_US2024_POPULATION" if grid.get("country") != "US" or grid.get("year") != 2024
+                             or args.assessment and event not in expected_events else None)
+        row["frozen_cohort_eligibility"] = dict(status="UNAVAILABLE" if historical_reason else "ELIGIBLE", reason=historical_reason)
+        if historical_reason:
+            row.update(status="UNAVAILABLE", reason=historical_reason, cells=0)
         if args.assessment:
             record = receipts.get((event, start, end))
             if record is None:
-                row.update(status="UNAVAILABLE", reason="NO_MATCHING_CURRENT_ASSESSMENT_CASE", cells=0)
+                row.update(status="UNAVAILABLE", reason=historical_reason or "NO_MATCHING_CURRENT_ASSESSMENT_CASE", cells=0)
             else:
                 row.update(current_case=record, current_case_receipt_sha256=sha(args.assessment / "cases" / (record["case_id"] + ".json")))
-                if record["status"] != "SCORED":
+                admission = rejected.get((event, start, end))
+                if admission is not None:
+                    row["current_case_admission"] = admission
+                if historical_reason:
+                    pass
+                elif admission is not None:
+                    row.update(status="UNAVAILABLE", reason=admission["reason"], cells=0)
+                elif record["status"] != "SCORED":
                     row.update(status=record["status"], reason=record["reason"], cells=0)
                 elif horizon["status"] == "AVAILABLE":
                     entry, details = matched_entries(args.assessment, record, event, start, end, initial, endpoint, fp, fv, reference_valid)
@@ -271,7 +349,8 @@ def main():
         result.update(assessment_status=assessed["status"], assessment_complete=assessed["status"] == "COMPLETE",
             assessment_sha256=sha(args.assessment / "ASSESSMENT.json"), frozen_assessment_sha256=assessed["frozen_sha256"],
             assessment_unscored_outcomes=assessed["failed_or_unavailable"],
-            status="HOLD" if assessed["status"] == "HOLD" or len(entries) != len(rows) else "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE",
+            current_case_admission_pass=not rejected, rejected_current_cases=list(rejected.values()),
+            status="HOLD" if assessed["status"] == "HOLD" or rejected or len(entries) != len(rows) else "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE",
             measurement_status="AVAILABLE_DESCRIPTIVE_MATCHED_SUBSET" if entries else "UNAVAILABLE_NO_COMMON_SCORED_MATCHES",
             metric_status="DESCRIPTIVE_AVAILABLE_MATCHED_SUBSET" if entries else "UNAVAILABLE_NO_COMMON_SCORED_MATCHES")
     else:
