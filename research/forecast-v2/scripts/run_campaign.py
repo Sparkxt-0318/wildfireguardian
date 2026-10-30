@@ -134,8 +134,26 @@ def main():
         for variant in VARIANTS:
             path = RUN / "final" / f"{variant}_seed0/checkpoint.pt"
             identities[variant] = dict(path=str(path.relative_to(REPO)), sha256=sha(path))
+        if list((RUN / "heldout/cases").glob("*.npz")) or list((RUN / "korean2025/cases").glob("*.npz")):
+            raise ValueError("Cannot freeze primary identities after held-out prediction artifacts already exist")
+        baseline_receipt = EVIDENCE / "executions/a03_baselines.json"
+        baseline_execution = json.loads(baseline_receipt.read_text())
+        dilation = RUN / "baselines/dilation_choice.json"
+        if baseline_execution["exit_code"] != 0 or baseline_execution["output_sha256"] != sha(dilation):
+            raise ValueError("Authenticated fit-only baseline selection is required before freeze")
+        baselines = {name: dict(path=str(path.relative_to(REPO)), sha256=sha(path)) for name, path in
+                     {"logistic": RUN / "baselines/logistic.pkl", "logistic_parameters": RUN / "baselines/logistic.json",
+                      "dilation_choice": dilation}.items()}
+        cache_audit_path = EVIDENCE / "CACHE_AUDIT.json"
+        cache_audit = json.loads(cache_audit_path.read_text())
+        if cache_audit["status"] != "PASS_NO_CONSUMED_VALUES_CHANGED" or not cache_audit["producer_unchanged_during_audit"]:
+            raise ValueError("Consumed-input cache audit must pass before the model freeze")
         selection = dict(selected_variant=selected, criterion="lowest equal-fire development Brier across three year folds",
                          development_brier=by_variant, checkpoints=identities,
+                         baselines=baselines, baseline_execution_sha256=sha(baseline_receipt),
+                         cache_audit_sha256=sha(cache_audit_path),
+                         input_manifests_sha256={name: sha(DATA / name) for name in
+                            ["EXTRACTION_MANIFEST.json", "BASELINE_TERRAIN_MANIFEST.json", "perimeters/PERIMETER_MANIFEST.json"]},
                          frozen_before_heldout_scoring=True, frozen_utc=datetime.now(timezone.utc).isoformat(),
                          protocol_sha256=sha(EVIDENCE / "RUN_PROTOCOL.json"))
         destination = EVIDENCE / "MODEL_SELECTION.json"

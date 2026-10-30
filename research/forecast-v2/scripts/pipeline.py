@@ -78,18 +78,52 @@ def host_record() -> dict:
 
 
 class Environment:
-    """Cutoff covariates through ``wildfire.load_data`` with an npz cache."""
+    """Covariates rederived from pinned sources; cache values never establish truth."""
 
-    def __init__(self, data_root: Path, cache: Path):
-        self.root, self.cache = Path(data_root), Path(cache)
+    def __init__(self, data_root: Path, cache: Path, input_sha256=None):
+        self.root, self.cache = Path(data_root).resolve(), Path(cache)
         self.cache.mkdir(parents=True, exist_ok=True)
-        self.names = None
+        if input_sha256 is None:
+            manifest = self.root.parent / "EXTRACTION_MANIFEST.json"
+            expected = json.loads((HERE.parents[1] / "RUN_PROTOCOL.json").read_text())["data_manifest_sha256"]
+            if not manifest.exists() or sha256(manifest) != expected:
+                raise ValueError("Environmental sources need the frozen input manifest; a cache is not source evidence")
+            self._pins = {r["path"]: r["sha256"] for r in json.loads(manifest.read_text())["members"]}
+            terrain = self.root.parent / "BASELINE_TERRAIN_MANIFEST.json"
+            if terrain.exists():
+                if sha256(terrain) != "0e8546d9d4d3bd19ab835e10c3951ef5762ba35eafd25e36e0c369211ad01aa2":
+                    raise ValueError("Frozen directional-terrain manifest identity changed")
+                self._pins.update({r["path"]: r["sha256"] for r in json.loads(terrain.read_text())["files"]})
+        else:
+            self._pins = dict(input_sha256)
+        self._verified, self._memory = {}, {}
+        self._verify_path(self.root / "events.json")
+        self.names = tuple(SOURCE_CHANNELS[:-1] + [f"biome.biome_class={c}" for c in CLASSES["biome.biome_class"]])
         self.catalog = {e["id"]: e for e in json.loads((self.root / "events.json").read_text())}
         self._residence = {}
         self._terrain_gradients = {}
-        cached = next(iter(sorted(self.cache.glob("*.npz"))), None)
-        if cached is not None:
-            self.names = tuple(str(n) for n in np.load(cached)["names"])
+
+    def _verify_path(self, path):
+        path = path.resolve()
+        if not path.is_relative_to(self.root.parent):
+            raise ValueError("Source input escaped its declared root")
+        relative = str(path.relative_to(self.root.parent))
+        if relative not in self._pins or not path.is_file():
+            raise ValueError(f"Required environmental input is absent or unpinned: {relative}")
+        stat = path.stat()
+        stamp = (stat.st_size, stat.st_mtime_ns)
+        if self._verified.get(relative) != stamp:
+            if sha256(path) != self._pins[relative]:
+                raise ValueError(f"Environmental source identity changed: {relative}")
+            self._verified[relative] = stamp
+
+    def _verify_sources(self, event):
+        if event not in self.catalog:
+            raise ValueError("Unknown event identity")
+        paths = list(self.root.iterdir()) + list((self.root / "regions" / event).rglob("*"))
+        for path in paths:
+            if path.is_file() and path.suffix.lower() in (".tif", ".tiff", ".json", ".csv", ".txt", ".npz"):
+                self._verify_path(path)
 
     def available_at(self, event, hour):
         record = self.catalog[event]
@@ -100,6 +134,7 @@ class Environment:
         if event not in self._terrain_gradients:
             import rasterio
             path = self.root.parent / "baseline-terrain" / event / "elevation_m_375m.tif"
+            self._verify_path(path)
             with rasterio.open(path) as source:
                 if not source.crs.is_projected or abs(source.crs.linear_units_factor[1] - 1) > 1e-12:
                     raise ValueError("Directional slope requires a projected grid measured in metres")
@@ -114,6 +149,7 @@ class Environment:
 
     def residence(self, event):
         """Point duration from supported FBFM40 cells; declared 6h fallback elsewhere."""
+        self._verify_sources(event)
         if event in self._residence:
             return self._residence[event]
         import rasterio
@@ -134,11 +170,11 @@ class Environment:
         return duration
 
     def at(self, event: str, hour: pd.Timestamp) -> np.ndarray:
+        self._verify_sources(event)
         key = self.cache / f"{event}_{hour.strftime('%Y%m%dT%H')}.npz"
-        if key.exists():
-            data = np.load(key)
-            self.names = tuple(str(n) for n in data["names"])
-            return data["raw"]
+        memory_key = event, hour.isoformat()
+        if memory_key in self._memory:
+            return self._memory[memory_key].copy()
         from wildfire.data import load_data
         iso = hour.isoformat()
         with load_data(self.root, events=[event], sequence_length=1, patch_size=None, time_range=(iso, iso),
@@ -148,9 +184,17 @@ class Environment:
             sample = ds[0]
             names = ds.channel_names
         raw = np.where(sample["feature_valid"][0].numpy(), sample["features"][0].numpy(), np.nan).astype(np.float32)
-        np.savez_compressed(key, raw=raw, names=np.array(names))
-        self.names = tuple(names)
-        return raw
+        if tuple(names) != self.names:
+            raise ValueError("Executed source channel schema differs from the fixed model inputs")
+        if key.exists():
+            with np.load(key, allow_pickle=False) as stored:
+                if (tuple(str(n) for n in stored["names"]) != self.names or stored["raw"].dtype != raw.dtype
+                        or not np.array_equal(stored["raw"], raw, equal_nan=True)):
+                    raise ValueError(f"Cached environmental values differ from verified source recomputation: {key}")
+        else:
+            np.savez_compressed(key, raw=raw, names=np.array(names))
+        self._memory[memory_key] = raw.copy()
+        return raw.copy()
 
 
 def crop_box(*masks: np.ndarray, margin: int = MARGIN):
@@ -177,7 +221,12 @@ def cropped(sample: PerimeterSample) -> PerimeterSample:
 
 def perimeter_samples(event: str, perimeters: Path, env: Environment, *, crop: bool,
                       max_intervals: int | None = None) -> list[PerimeterSample]:
-    data = np.load(perimeters / event / "states.npz")
+    manifest_path = perimeters / "PERIMETER_MANIFEST.json"
+    manifest = json.loads(manifest_path.read_text())
+    states_path = perimeters / event / "states.npz"
+    if sha256(states_path) != manifest["events"][event]["states_sha256"]:
+        raise ValueError("Perimeter reference identity differs from its source manifest")
+    data = np.load(states_path, allow_pickle=False)
     times = list(pd.to_datetime(data["times"], utc=True))
     states = data["states"].astype(bool)
     result = []
@@ -202,6 +251,8 @@ def perimeter_samples(event: str, perimeters: Path, env: Environment, *, crop: b
 def kriged_samples(event: str, data_root: Path, env: Environment, *, window: float = 12.0,
                    every: float = 12.0, max_intervals: int | None = None) -> list[PerimeterSample]:
     import rasterio
+    if hasattr(env, "_verify_sources"):
+        env._verify_sources(event)
     region = data_root / "regions" / event
     with rasterio.open(region / "arrival_time_hours.tif") as src:
         arrival = src.read(1, masked=True).filled(np.nan).astype(np.float64)
@@ -238,12 +289,40 @@ def kriged_samples(event: str, data_root: Path, env: Environment, *, window: flo
 
 def load_or_build(work: Path, name: str, builder):
     path = work / "samples" / f"{name}.pkl"
-    if path.exists():
-        return pickle.loads(path.read_bytes())
+    # Recompute from authenticated originals even on a cache hit. A cache's
+    # self-reported hash or metadata cannot authenticate scientific inputs.
     value = builder()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(pickle.dumps(value, protocol=5))
-    return value
+    identity = sample_list_identity(value)
+    if path.exists():
+        stored = pickle.loads(path.read_bytes())
+        if sample_list_identity(stored) != identity:
+            raise ValueError(f"Cached training samples differ from verified source recomputation: {path}")
+        result = value
+    else:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(pickle.dumps(value, protocol=5))
+        result = value
+    with (work / "cache_authentication.jsonl").open("a") as audit:
+        audit.write(json.dumps(dict(cache=str(path), cache_sha256=sha256(path), fresh_sample_identity=identity,
+            samples=len(value), status="MATCHES_RECOMPUTED_SOURCES", checked_utc=pd.Timestamp.now(tz="UTC").isoformat())) + "\n")
+    return result
+
+
+def sample_list_identity(samples):
+    """Exact values, dtype, shape, ordering and metadata of every sample field."""
+    from dataclasses import fields
+    digest = hashlib.sha256()
+    for sample in samples:
+        for field in fields(PerimeterSample):
+            value = getattr(sample, field.name, None)
+            digest.update(field.name.encode())
+            if isinstance(value, np.ndarray):
+                value = np.ascontiguousarray(value)
+                digest.update(str((value.shape, str(value.dtype))).encode())
+                digest.update(value.tobytes())
+            else:
+                digest.update(json.dumps(value, sort_keys=True, default=lambda v: v.item()).encode())
+    return digest.hexdigest()
 
 
 def build_model(variant: str, train: list[PerimeterSample], names, seed: int, hidden: int):

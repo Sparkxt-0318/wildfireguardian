@@ -1,0 +1,15 @@
+{
+  "recorded_utc": "2026-10-30T04:21:01.660297+00:00",
+  "before_heldout_score_inspection": true,
+  "reason": "Independent synthetic admission review exposed unverified caches and stale resumed references, arbitrary coordinate/model populations, direct blind validation bypass and incomplete-cohort promotion flags.",
+  "review_source_commit": "be678bb65",
+  "cache_audit_sha256": "606622213c13bd94ed6689c93c6edfe5a036054e8a248856fec8803d963b39cb",
+  "environment_caches_verified": 1387,
+  "active_sample_caches_verified": 80,
+  "obsolete_sample_caches_excluded": 34,
+  "cached_values_changed": false,
+  "completed_fit_data_relabeling_required": false,
+  "actual_inference_or_training_objective_changed": false,
+  "execution_phase": "Every new cutoff is rebuilt from pinned sources, compared to cache, and returned from the source derivation. Every training sample cache is compared to a rebuilt complete sample list; resume rederives model support, ordered reference cells and labels, plus complete registered columns. Incomplete outcomes retain descriptive subset stats only.",
+  "remaining_preregistration_gap": "Raw future NIROPS release inventory is not authenticated yet; exact model hashes alone do not establish readiness."
+}

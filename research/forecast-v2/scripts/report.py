@@ -44,6 +44,22 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def load_assessment(directory):
+    """Load only the exact receipt-bound per-fire files, including honest HOLD."""
+    receipt = json.loads((directory / "ASSESSMENT.json").read_text())
+    if receipt.get("receipt_version") != "wfg.forecast-assessment/2" or receipt.get("status") not in ("COMPLETE", "HOLD"):
+        raise ValueError("Current source-bound assessment receipts are required for reporting")
+    if sha256(directory / "FROZEN_ASSESSMENT.json") != receipt["frozen_sha256"]:
+        raise ValueError("Assessment source/checkpoint/input identity changed")
+    listed = receipt["per_fire_files"]
+    if {p.name for p in directory.glob("*.npz")} != listed.keys():
+        raise ValueError("Unlisted or missing per-fire score files cannot enter a report")
+    for name, expected in listed.items():
+        if sha256(directory / name) != expected:
+            raise ValueError("Receipt-bound per-fire score bytes changed")
+    return B.load_scored_entries(directory), receipt
+
+
 def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
     """Variant minus base on development folds, paired by development fire."""
     rows = []
@@ -121,14 +137,14 @@ def detailed_scores(entries, draws=10000, seed=20261030):
 
 def figure_reliability(plt, scored, entries, out, label):
     fig, (ax, low) = plt.subplots(1, 2, figsize=(DOUBLE, 3.0))
-    names = [n for n in ("c651_mc", "c651_meanfield", "logistic", "dilation_best") if n in scored["models"]]
-    names += [n for n in scored["models"] if n.startswith(("base", "d4", "ellipse", "burnout", "mixed"))]
+    names = list(scored["models"])
     y_all = entries["y"]
-    for colour, name in zip(OKABE_ITO * 3, names):
+    for index_model, (colour, name) in enumerate(zip(OKABE_ITO * 3, names)):
+        line_style = ("-", "--", ":")[index_model // len(OKABE_ITO)]
         table = scored["models"][name]["pooled"]["calibration"]
         x = [r["mean_prediction"] for r in table if r["count"]]
         y = [r["observed_frequency"] for r in table if r["count"]]
-        ax.plot(x, y, marker="o", ms=2.5, lw=0.9, color=colour, label=name)
+        ax.plot(x, y, marker="o", ms=2.5, lw=0.9, ls=line_style, color=colour, label=name)
         p = entries["predictions"][name]
         index = np.clip(np.digitize(p, FINE_BINS[1:-1]), 0, len(FINE_BINS) - 2)
         xs, ys = [], []
@@ -137,7 +153,7 @@ def figure_reliability(plt, scored, entries, out, label):
             if use.sum() >= 50:
                 xs.append(max(p[use].mean(), 1e-5))
                 ys.append(max(y_all[use].mean(), 1e-5))
-        low.plot(xs, ys, marker="o", ms=2.5, lw=0.9, color=colour)
+        low.plot(xs, ys, marker="o", ms=2.5, lw=0.9, ls=line_style, color=colour)
     for axis in (ax, low):
         axis.plot([1e-5, 1], [1e-5, 1], color="#999999", lw=0.6, ls="--")
     ax.set_xlim(0, 1)
@@ -191,7 +207,7 @@ def figure_ablation(plt, abl, out, label):
                     fmt="o", ms=3, color=OKABE_ITO[5], ecolor=OKABE_ITO[5], lw=0.8, capsize=2)
     ax.axvline(0, color="#999999", lw=0.6, ls="--")
     ax.set_yticks(range(len(variants)), variants)
-    ax.set_xlabel("Development Brier minus base\n(whole-fire bootstrap, 95% interval)")
+    ax.set_xlabel("Cell-pooled development Brier minus base\n(whole-fire bootstrap, 95% interval)")
     ax.set_title(f"Structural ablations, 2020 to 2022 folds{label}")
     fig.subplots_adjust(left=.35, right=.98, bottom=.25, top=.88)
     save(fig, out, "fig03_ablation_forest_plot")
@@ -288,13 +304,24 @@ def main():
     chosen = [k for k, v in finals.items() if v["variant"] == primary]
     results["primary_candidate"] = dict(variant=primary, run=chosen[0] if chosen else None,
                                         checkpoint_sha256=finals[chosen[0]]["checkpoint_sha256"] if chosen else None)
+    selection_path = args.out / "MODEL_SELECTION.json"
+    if selection_path.exists():
+        selection = json.loads(selection_path.read_text())
+        if selection["selected_variant"] != primary or not chosen:
+            raise ValueError("Report selection differs from the frozen development choice")
+        if selection["checkpoints"][primary]["sha256"] != finals[chosen[0]]["checkpoint_sha256"]:
+            raise ValueError("Report primary checkpoint differs from its frozen identity")
+        results["model_selection_sha256"] = sha256(selection_path)
     if abl:
         figure_ablation(plt, abl, figures, label)
         pd.DataFrame(abl).T.to_csv(args.out / "ablation.csv")
     heldout = args.run / "heldout"
     if heldout.exists() and list(heldout.glob("*.npz")):
-        entries = B.load_scored_entries(heldout)
+        entries, assessment = load_assessment(heldout)
         scored = detailed_scores(entries)
+        scored["assessment_status"] = assessment["status"]
+        scored["unscored_outcomes"] = assessment["failed_or_unavailable"]
+        scored["statistic_scope"] = "complete declared cohort" if assessment["status"] == "COMPLETE" else "descriptive supported subset; primary gate remains closed"
         inputs = json.loads((args.run / "report_inputs.json").read_text())
         if "c651_mc" in entries["predictions"]:
             # A finite-trajectory frequency adds its sampling variance to the Brier
@@ -308,15 +335,38 @@ def main():
         results["heldout"] = scored
         figure_reliability(plt, scored, entries, figures, label)
         primary_run = chosen[0] if chosen else None
+        if primary_run:
+            bins = {n: scored["models"][n]["pooled"]["lowest_bin"]
+                    for n in (primary_run, "persistence", "dilation_best")}
+            gaps = {n: abs(row["mean_prediction"] - row["observed_frequency"]) if row["count"] else None
+                    for n, row in bins.items()}
+            comparison = {ref: scored["paired"][primary_run + "__vs__" + ref]["percentile_95_interval"][1] < 0
+                          for ref in ("persistence", "dilation_best")}
+            calibration = gaps[primary_run] is not None and all(gaps[ref] is not None and gaps[primary_run] <= gaps[ref]
+                                                               for ref in ("persistence", "dilation_best"))
+            complete = assessment["status"] == "COMPLETE"
+            passed = complete and selection_path.exists() and calibration and all(comparison.values())
+            results["retrospective_superiority_gate"] = dict(criteria_pass=passed,
+                brier_comparisons_pass={ref: complete and value for ref, value in comparison.items()},
+                lowest_bin_absolute_gaps=gaps, calibration_pass=complete and calibration,
+                complete_cohort_pass=complete,
+                descriptive_subset_criteria=dict(brier_comparisons=comparison, calibration=calibration),
+                interpretation="Retrospective mapped-extent comparison only; this is not the blind2026 test or physical validation")
         figure_per_fire(plt, scored, figures, label, primary_run)
         rows = []
         for model, record in scored["models"].items():
             for fire, s in record["per_fire"].items():
                 rows.append(dict(model=model, fire=fire, **{k: s[k] for k in ("entries", "positives", "brier",
-                                 "bss_vs_persistence", "average_precision", "roc_auc", "ece_10_bins", "clipped_nll")}))
+                                 "bss_vs_persistence", "bss_vs_best_dilation", "average_precision", "roc_auc", "ece_10_bins", "clipped_nll")}))
         pd.DataFrame(rows).to_csv(args.out / "per_fire.csv", index=False)
         if primary_run and (args.run / "report_inputs.json").exists():
             results["example_figure"] = figure_example(plt, args.run, entries, primary_run, figures, label)
+    korea = args.run / "korean2025"
+    if korea.exists() and list(korea.glob("*.npz")):
+        entries, assessment = load_assessment(korea)
+        results["korean2025_secondary_reconstruction"] = detailed_scores(entries)
+        results["korean2025_secondary_reconstruction"]["assessment_status"] = assessment["status"]
+        results["korean2025_secondary_reconstruction"]["unscored_outcomes"] = assessment["failed_or_unavailable"]
     mf = args.run / "meanfield_vs_mc" / "meanfield_vs_mc.csv"
     if mf.exists():
         frame = pd.read_csv(mf)
