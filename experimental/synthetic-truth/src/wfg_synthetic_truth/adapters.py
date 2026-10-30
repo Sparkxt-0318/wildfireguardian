@@ -23,7 +23,12 @@ def utc_seconds(value):
     dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
     if dt.tzinfo is None or dt.microsecond:
         raise ValueError("Aware whole-second time required")
-    return int(dt.astimezone(timezone.utc).timestamp())
+    utc = dt.astimezone(timezone.utc)
+    if utc.microsecond:
+        raise ValueError("Whole UTC seconds required, including the UTC offset")
+    epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+    delta = utc - epoch
+    return delta.days * 86400 + delta.seconds
 
 
 @dataclass(frozen=True)
@@ -72,6 +77,10 @@ class ArrivalTruth:
     kind: str
     interpretation: str
     point_model: bool = False
+    censored: np.ndarray | None = None
+    valid_from_s: int | None = None
+    valid_until_s: int | None = None
+    bounded_point_model: bool = False
 
     def __post_init__(self):
         if any(np.shape(a) != tuple(self.grid.shape) for a in (self.lower_s, self.upper_s, self.known, self.never)):
@@ -80,9 +89,47 @@ class ArrivalTruth:
             raise ValueError("Boolean truth support masks required")
         if np.isnan(self.lower_s[self.known]).any() or np.isnan(self.upper_s[self.known]).any() or (self.lower_s[self.known] > self.upper_s[self.known]).any():
             raise ValueError("Invalid supported arrival bounds")
+        if self.censored is None:
+            self.censored = np.zeros(self.grid.shape, bool)
+        if self.censored.dtype != np.bool_ or self.censored.shape != self.grid.shape or (self.censored & (~self.known | self.never)).any():
+            raise ValueError("Censoring requires supported cells and cannot mean globally never")
+        if (self.valid_from_s is None) != (self.valid_until_s is None):
+            raise ValueError("Both finite-run validity bounds required")
+        if self.valid_from_s is not None:
+            if any(isinstance(x, (bool, np.bool_)) or not isinstance(x, (int, np.integer)) for x in (self.valid_from_s, self.valid_until_s)) or self.valid_from_s >= self.valid_until_s:
+                raise ValueError("Positive finite integer simulation validity interval required")
+        if self.bounded_point_model and self.valid_until_s is None:
+            raise ValueError("Bounded arrival model requires its run clock")
+        if self.censored.any() and (self.valid_until_s is None or self.point_model
+                or not (self.lower_s[self.censored] == self.valid_until_s).all()
+                or not np.isposinf(self.upper_s[self.censored]).all()):
+            raise ValueError("Right-censoring requires run-end lower bounds and unknown future arrival")
 
-    def exact_ignition(self):
-        """Return only an identified complete arrival model; no thermal packet."""
+    def exact_ignition(self, *, departure_s=0, horizon_s=None):
+        """Return identified arrivals only within an explicitly supported query.
+
+        Finite-run nonarrival is right-censored, never globally never. A bounded
+        query maps those cells to +inf *within that query only* and returns the
+        validity bounds with the array. No full thermal packet is constructed.
+        """
+        if self.valid_until_s is not None:
+            invalid = {"status": "UNSCORABLE", "ignition_time_s": None,
+                       "valid_from_s": self.valid_from_s, "valid_until_s": self.valid_until_s}
+            if horizon_s is None:
+                return dict(invalid, reason="Finite-run arrival model requires an explicit query horizon")
+            if any(isinstance(x, (bool, np.bool_)) or not isinstance(x, (int, float, np.integer, np.floating)) or not np.isfinite(x)
+                   for x in (departure_s, horizon_s)) or not self.valid_from_s <= departure_s <= horizon_s <= self.valid_until_s:
+                return dict(invalid, reason="Query extends outside finite simulation validity")
+            exact = ~self.censored & self.known
+            if not self.bounded_point_model or not self.known.all() or not np.array_equal(self.lower_s[exact], self.upper_s[exact]):
+                return dict(invalid, reason="No complete bounded arrival model")
+            arrival = self.lower_s.copy()
+            arrival[self.censored | (arrival > horizon_s)] = np.inf
+            return {"status": "MODEL_RELATIVE_BOUNDED_ARRIVAL_ONLY", "ignition_time_s": arrival,
+                    "departure_s": departure_s, "horizon_s": horizon_s,
+                    "valid_from_s": self.valid_from_s, "valid_until_s": self.valid_until_s,
+                    "right_censored": self.censored.copy(),
+                    "reason": "Infinity means no arrival through query horizon only; flaming and thermal inputs still absent"}
         if not self.point_model or not self.known.all() or not np.array_equal(self.lower_s, self.upper_s):
             return {"status": "UNSCORABLE", "reason": "No complete point arrival model", "ignition_time_s": None}
         return {"status": "MODEL_RELATIVE_ARRIVAL_ONLY", "ignition_time_s": self.lower_s.copy(),
@@ -93,6 +140,9 @@ class ArrivalTruth:
                 "affine": list(self.grid.affine), "epsg": self.grid.epsg,
                 "known_cells": int(self.known.sum()), "unknown_cells": int((~self.known).sum()),
                 "never_cells": int(self.never.sum()), "point_model": self.point_model,
+                "right_censored_cells": int(self.censored.sum()),
+                "valid_from_s": self.valid_from_s, "valid_until_s": self.valid_until_s,
+                "bounded_point_model": self.bounded_point_model,
                 "status": self.exact_ignition()["status"], "interpretation": self.interpretation}
 
 
@@ -191,11 +241,12 @@ def observed_perimeters(path, *, grid, cutoff_utc, source_id, expected_event=Non
 def external_simulator(path, *, reference_path, cutoff_utc, source_id, expected_reference_sha256=None, expected_event=None, **identity):
     """Read the repository's stored FARSITE NPZ arrival-output format.
 
-    arrival_minutes is relative to metadata's engine origin. Finite negative
-    no_burn_value means never only on explicit Boolean valid coverage. Outside
-    coverage stays unknown. Reference affine/EPSG must match the output shape;
-    no implicit resampling. This is deterministic scenario evidence, not fire
-    observations, and this reader does not execute the native simulator.
+    arrival_minutes is relative to metadata's engine origin. The finite-run
+    no_burn_value is right-censoring beyond the inclusive run end. Outside
+    coverage stays unknown. Output affine/EPSG or all stored cell coordinates
+    must independently match the reference grid; shape alone is insufficient.
+    This is declared deterministic scenario evidence, not fire observations,
+    and this reader does not execute or authenticate the native simulator.
     """
     blob, source = _source(path, source_id=source_id, **identity)
     rb, ref = _source(reference_path, source_id=source_id+":reference", expected_sha256=expected_reference_sha256,
@@ -213,8 +264,10 @@ def external_simulator(path, *, reference_path, cutoff_utc, source_id, expected_
             raise ValueError("Boolean coverage and aligned arrival shape required")
         cover = cover.reshape(grid.shape)
         meta = json.loads(str(a["metadata_json"].item()))
+        alignment = []
         if "affine_transform" in a or "epsg" in a:
             grid.require_alignment(raw.shape, a["affine_transform"], a["epsg"].item())
+            alignment.append("output_affine_and_epsg")
         if "coordinates" in a:
             from pyproj import Transformer
             rr, cc = np.indices(grid.shape)
@@ -224,17 +277,41 @@ def external_simulator(path, *, reference_path, cutoff_utc, source_id, expected_
             expected = np.stack([lat, lon], axis=-1)
             if a["coordinates"].shape != expected.shape or not np.allclose(a["coordinates"], expected, rtol=0, atol=1e-8):
                 raise ValueError("Simulator coordinate/grid alignment mismatch")
+            alignment.append("all_output_cell_centres_wgs84_lat_lon")
+        if not alignment:
+            raise ValueError("Output has no verifiable grid/CRS binding to reference")
+    if meta.get("model_family") != "FARSITE" or meta.get("method") != "farsite_deterministic":
+        raise ValueError("Source metadata does not identify the documented deterministic FARSITE family")
     if meta.get("arrival_units") != "minutes" or meta.get("grid_alignment") != "caller_verified_no_resampling_in_importer":
         raise ValueError("Missing documented units/alignment metadata")
     origin = utc_seconds(meta["arrival_origin_time_utc"]); cutoff = utc_seconds(cutoff_utc)
+    minutes = meta["exact_duration_minutes"]
+    if isinstance(minutes, bool) or not isinstance(minutes, (int, float)) or not np.isfinite(minutes) or minutes <= 0:
+        raise ValueError("Positive finite simulation duration in minutes required")
+    duration_s = minutes * 60
+    if not np.isfinite(duration_s) or int(duration_s) != duration_s:
+        raise ValueError("Simulation run end must have whole-second clock support")
+    valid_from, valid_until = origin-cutoff, origin+int(duration_s)-cutoff
+    if not origin <= cutoff < origin+duration_s:
+        raise ValueError("Cutoff outside positive simulation validity interval")
     sentinel = meta["no_burn_value"]
     if isinstance(sentinel, bool) or not np.isfinite(sentinel) or sentinel >= 0 or cutoff < origin:
         raise ValueError("Invalid simulator sentinel/engine clock")
-    never = cover & (raw == sentinel)
-    if not np.isfinite(raw[cover]).all() or ((raw < 0) & cover & ~never).any():
+    censored = cover & (raw == sentinel)
+    if not np.isfinite(raw[cover]).all() or ((raw < 0) & cover & ~censored).any():
         raise ValueError("Invalid on-domain simulator arrival")
-    t = np.where(never, np.inf, raw*60+origin-cutoff)
-    t = np.where(cover, t, np.nan)
-    source.update(reference=ref, metadata=meta, cutoff_utc=cutoff_utc)
-    return ArrivalTruth(t.copy(), t, cover, never, grid, source, "external_simulator",
-                        "Stored deterministic FARSITE scenario, conditional on declared simulation coverage and alignment", True)
+    if ((raw > minutes) & cover & ~censored).any():
+        raise ValueError("Positive arrival exceeds declared inclusive simulation run end")
+    lower = np.where(censored, valid_until, raw*60+origin-cutoff)
+    upper = np.where(censored, np.inf, lower)
+    lower = np.where(cover, lower, np.nan); upper = np.where(cover, upper, np.nan)
+    source.update(reference=ref, metadata=meta, cutoff_utc=cutoff_utc,
+                  alignment_verified_by=alignment,
+                  simulation_clock={"origin_epoch_s": origin, "cutoff_epoch_s": cutoff,
+                                    "run_end_epoch_s": origin+int(duration_s), "duration_s": int(duration_s),
+                                    "arrival_units": "minutes since engine origin", "run_end_inclusive": True},
+                  censoring="Sentinel means arrival strictly after inclusive run end; no global never claim")
+    return ArrivalTruth(lower, upper, cover, np.zeros(grid.shape, bool), grid, source, "external_simulator",
+                        "Declared deterministic FARSITE arrival model, conditional on finite run clock, coverage and verified output grid binding",
+                        point_model=not censored.any(), censored=censored, valid_from_s=valid_from,
+                        valid_until_s=valid_until, bounded_point_model=True)
