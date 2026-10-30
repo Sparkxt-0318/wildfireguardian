@@ -1,0 +1,7 @@
+{
+  "recorded_utc": "2026-10-30T23:08:32.720627+00:00",
+  "source_sha256": "94760ab54f15ee9b54957d3408e9dbc3f00114a5e31accdc60ef462d0f3cead3",
+  "compressed_sha256": "cab0c8b35d64d468984053209d7bde9bfbfddee65d8eb83c01fdffd114f31c6a",
+  "driver_scope": "Sequential stored FARSITE audit then canonical reporting, each under a separate application-level HEAVY lease. No model inference or native execution.",
+  "original_source_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/forecast-final-reporting.py"
+}
