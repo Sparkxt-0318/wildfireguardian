@@ -9,7 +9,7 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 The contracts and all six supplied prompts were committed first. Tracks ran in separate worktrees; track 1D was archived only. Local branch names follow the request. Unique `codex/*-20261030` publication refs preserve earlier remote branches.
 
 - 1A: draft PR 85, physics HOLD. The reviewed geometry revision passes 42 functional tests and 367 release checks. Independent math review is scoped to the represented model. Journey replays and binding studies remain gated.
-- 1B: draft PR 88, ongoing. All 21 intended development phases and seven final fits are complete. All 12 MF/MC cutoffs and 66 rows pass independent saved-output reconciliation, retaining 56 comparable and 10 unavailable-support rows. The updated full suite passes 3,507 tests and 367 release checks. Source repair F65, the historical-command guard and test-catalog lifetime have separate scoped independent clearance. Canonical coverage and the committed model/source/protocol freeze pass separate scoped reviews. Both current assessments are authorized and running, covering 273 US intervals and 33 Korean windows, with all frozen identities fixed. Future 2026 execution is NOT_READY.
+- 1B: draft PR 88. All 21 intended development phases, seven final fits and 12 MF/MC cutoffs/66 rows are complete. The 3,507-test/367-release gate and independent canonical coverage pass within scope. The exact 306-case census and independently reconstructed canonical metrics pass: US 273 scored intervals across six fires; Korea 26 scored and seven unavailable windows across four fires. The selected model does not meet the primary superiority rule. Stored FARSITE retains 29 matched rows and one over-48-hour unavailable row, with scoped independent replay. A separately fixed descriptive interval supplement passes independent replay for all 16 US models; Korean complete-cohort intervals remain unavailable. All original failures, 223 frozen files and canonical outputs are preserved. Future 2026 execution is NOT_READY.
 - 1C: draft PR 86. Original contact-only native routing matches 52/52 pairs, and all 15 real exports preserve old v2 bytes. A separate known-footprint K study completed 320 records: 48 searchable pairs agree, 72 returned routes passed separate original-input rechecks, and 224 endpoint-unsupported records retain null solver costs. Independent output review passes 22 saved-output and five figure/boundary checks. Full thermal policy, risk rates and Caldor/Rim causal forecast alignment remain unestablished.
 - Integration: readiness documents only. No track code or GitHub PR has been merged. Step 4 experiments remain NOT_RUN_GATED because the scientific acceptance preconditions are unmet.
 
@@ -48,19 +48,19 @@ The contracts and all six supplied prompts were committed first. Tracks ran in s
 
 | ID | Deliverable | Status |
 |---|---|---|
-| 1A-1 | Radiation library | partial, HOLD |
+| 1A-1 | Radiation library | conditional software/math review passes; full journey scope gated |
 | 1A-2 | Physics comparisons | unresolved comparability gate |
 | 1A-3 | Binding statistics | NOT_RUN_GATED |
 | 1B-1 | Differentiable mean field | software passes; 12 cutoffs/66 rows complete and reconciled |
 | 1B-2 | Survival training | seven final fits, canonical coverage and committed registry freeze complete |
-| 1B-3 | Structural ablations | all corrected development phases complete; paired development effects unavailable; report repair independently passes |
-| 1B-4 | Baselines | training-only baselines frozen; both current assessments running |
+| 1B-3 | Structural ablations | corrected phases and heldout secondary comparisons complete; paired development effects remain unavailable |
+| 1B-4 | Baselines | 306-case census and metric replay pass; primary superiority FALSE; Korean full cohort HOLD; FARSITE/descriptive intervals retain explicit unavailable outcomes |
 | 1B-5 | Blind pre-registration | exact identities/protocol frozen; ready for owner registration; 2026 execution NOT_READY |
 | 1C-1 | Export v3, members and reduction | partial; 15 byte-identical exports; conditional contact K study complete, independent output review passes |
-| 1C-2 | SIPP equivalence and cost | software checks pass; 52/52 contact-only native pairs match |
+| 1C-2 | SIPP equivalence and cost | 52/52 original contact pairs plus 48/48 separate known-footprint search pairs agree; full thermal policy remains unestablished |
 | 1C-3 | Synthetic-truth harness and campaigns | partial; repaired readers; requested risk rates unidentified |
-| INT | Integration checks | pending, gated on track acceptance |
-| EVIDENCE | Combined evidence README | in progress |
+| INT | Integration checks | ownership/default/software checks pass; scientific Step 4 NOT_RUN_GATED |
+| EVIDENCE | Combined evidence README | readiness report; scientific cross-track result rows remain gated |
 | PR | Four pull requests opened | drafts 85, 86, 87, 88 open; no merges |
 
 ## Progress log
