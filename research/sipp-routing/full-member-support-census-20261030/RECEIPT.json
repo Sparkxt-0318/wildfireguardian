@@ -1,0 +1,37 @@
+{
+  "scope": "Untimed read-only all-saved-member contact-input admission validation; no search/simulation/selection or policy change",
+  "producer_head": "6685a48c78a18e70c6a2775c8c0d7cc34dd5db28",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python research/sipp-routing/census_saved_member_support.py",
+  "exit_code": 0,
+  "result_sha256": "87bf592ae3f3ed674fb21d6b4707083d9bcdd0f5cac429af8a3c9b30f16f756c",
+  "script_sha256": "3371c98e0827318c7622f0c4caf5bb278df5c36fe0c7d3f76a6b5e2df2e30c80",
+  "member_csv_sha256": "4752747c8b73a7a9011da2101cea2fa223bcde9c096d9d1465843d45c35687d7",
+  "checks": {
+    "domains": 15,
+    "missions": 20,
+    "complete_saved_indices_per_domain": 1024,
+    "domain_member_checks": 15360,
+    "supported_members": 0,
+    "current_input_hashes_rechecked_after_stream": 70,
+    "all_current_input_hashes_match": true,
+    "prior_artifacts_unchanged": 8,
+    "analysis_script_syntax": "PASS"
+  },
+  "prior_immutable_head": "6685a48c78a18e70c6a2775c8c0d7cc34dd5db28",
+  "prior_artifact_sha256": {
+    "research/sipp-routing/audit_member_scaling.py": "7dcab65089140a699204dbfd4f3d82c3d92b7cb23089e708f2375ce5986f66e7",
+    "research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md": "3aa6234dd3cfb6ad69c8d5fa2ad61a794132d7c8ccf430f2ea57e35b0d342bbc",
+    "research/sipp-routing/member-scaling-closure-20261030/FAILURE.json": "eaf3e36f2af85b9261430ca6d3510659417fda79ac3e6952884e541fd68b3e44",
+    "research/sipp-routing/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py": "ffb7a87a54a325f08ee33e7580771d384a5bb4594174fa70c1c37595385e401f",
+    "research/sipp-routing/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv": "89b99df0ac86ed4f0a51f58687f6572110fdcacc35781e082f424733b8131d41",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json": "cc833cbde7d40e85cfa9fc0b3256a3dff93f0b05ae3b01d70fab1a6dad608f08"
+  },
+  "no_full_N_allocation": true,
+  "maximum_raw_member_bytes": 37446,
+  "metadata_preparation_note": "An initial metadata-only preparation stopped on full-domain regional metadata whose window is None and has no full_event_shape field. Recognizing the already-declared full-domain form corrected parsing before any census output was created; no grid values, masks or input bytes changed."
+}

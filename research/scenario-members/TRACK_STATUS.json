@@ -63,8 +63,8 @@
     },
     {
       "id": "1C-2-K-scaling",
-      "status": "NOT_RUN_FIRST_K_CONTACT_ADMISSION_FAILED_80_OF_80",
-      "evidence": "Existing native104rows/52pairs cover onlyK4, with actual counters extracted to member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv. Existing strict admission records have no search counters. Read-only presearch audit preserves exact clocks/grids and8already-declared integer regional windows:0/80first-K candidates (20missions xK4/8/16/32) satisfy current bridge whole-model contact support because each retains unknown trajectory cells. No solver called, no performance/risk rate inferred. Other selectors/full-N mask sharing unassessed. Independent of1A physics; a justified local contact support contract is a separate future option, not proved impossible."
+      "status": "NOT_RUN_CONTACT_ADMISSION_ALL_SAVED_N_UNSUPPORTED",
+      "evidence": "Separate full-member-support-census-20261030 checks all 1024 saved members on 15 exact contact domains covering 20 missions: 0 supported members over 15360 domain-member checks. Domain unknown masks are byte-identical across N. Any nonempty selection from these saved pools, including selectors at K4/8/16/32, fails current strict whole-domain bridge admission. No search, state-vs-K performance or risk measurement. Prior first-32 and initial grid-failure artifacts unchanged. A future justified local/pessimistic contact support contract is not ruled out."
     },
     {
       "id": "1C-2-chance-subset",
@@ -148,7 +148,12 @@
     {
       "id": "1C-2-fig02-states-vs-members",
       "status": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES",
-      "evidence": "FixedK4countertable retained. No fig02image is drawn from missing metrics or one member count. First-K presearch audit0/80admissions is not state-count or risk performance. See research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json and research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md."
+      "evidence": "No admitted measured state-vs-K series exists. The fixed K4 counter table and first-32 audit remain unchanged; the separate full-N census proves 0 supported members in every saved 1024-member contact domain. No fake or empty fig02 generated. See FULL_MEMBER_SUPPORT_CENSUS.md and full-member-support-census-20261030/RESULTS.json under research/sipp-routing."
+    },
+    {
+      "id": "1C-2-full-N-support-completeness",
+      "status": "PASS_CENSUS_NO_CURRENT_CONTRACT_SELECTION_ADMITTED",
+      "evidence": "All 15 exports streamed one original member at a time: 15360 domain-member checks and 0 supported members. Existing full/regional grid and clock proofs and input bytes pinned, complete payload/prefix hashes retained. No full-N tensor or graph parsing; largest raw member 37446 bytes. Alternative selectors are excluded only by the current strict admission predicate on these saved pools. Separate script, result, member CSV and receipt preserve the immutable first-32 audit."
     }
   ],
   "fresh_tests": {
