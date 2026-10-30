@@ -172,7 +172,7 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "Currentassessmentsauthorized/startrecorded. Ownerintermediate13:28:39Z US3of273SCORED, KR0queued; thisisnottotalcompletionorperformance. No liveoutputread/pollhere.",
+        "controllers": "Owner14:10:24Z intermediateUS31/273allreportedSCORED,Wapiti; KR0queued,223unchanged. Census34syntheticprepared,actualNOT_RUN; rootstaticdriverreviewPASSscopeonly. Noactualoutputsread/poll.",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_metadata_head": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
@@ -342,7 +342,7 @@
         "passed": 38,
         "actual_review": "NOT_RUN_AWAITING_EXPLICIT_AUTHORIZATION_OF_FROZEN_SOURCE_AND_ASSESSMENT",
         "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved.",
-        "scope_addendum": "Original38preparedcontrolsdoNOTestablishfull306currentcohortcompleteness; separatecensusguardpreparing, actualNOT_RUN."
+        "scope_addendum": "Unchanged38-controlb3fmetriccheckercomplementedbyadditive34-controlfull306censusguard; bothactualvalidationNOT_RUN. No model/metrics/policychange."
       },
       "optional_farsite_subset": {
         "state": "SCOPED_OPTIONAL_TOOL_REPAIR_PASS_ACTUAL_QUALITY_NOT_RUN",
@@ -826,22 +826,63 @@
         "scorer_pid": 89416,
         "session_reported": 76349,
         "driver_sha256_reported": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
-        "driver_source_copied": false,
+        "driver_source_copied": true,
         "independent_driver_replay": false,
         "HEAVY_kernel_acquisition_instrumented": false,
         "external_held_lock_observed_utc": "2026-10-30T13:25:23Z",
         "intermediate_progress_from_owner_only": {
-          "snapshot_utc": "2026-10-30T13:28:39Z",
-          "US_SCORED": 3,
+          "snapshot_utc": "2026-10-30T14:10:24Z",
+          "US_SCORED": 31,
           "US_total": 273,
+          "all_31_reported_states": "SCORED",
+          "active_event_reported": "Wapiti",
           "KR_complete": 0,
-          "KR_state": "QUEUED"
+          "KR_state": "QUEUED",
+          "all223_unchanged_reported": true
         },
         "results_read_by_readiness": false,
         "actual_completed_cohort_validation": "NOT_RUN",
-        "census_checker": "Separatefull306membershipguardpreparing; older38-controlb3checkerdoesnotestablishfull306census; actualNOT_RUN",
+        "census_checker": "Prepared34syntheticcontrolsagainsthardpinned6887inventory306cases; actualNOT_RUN, complementsunchangedb3fmetricchecker38controls",
         "future2026": "NOT_READY_NOT_AUTHORIZED",
-        "github_merges_or_default_promotion_authorized": false
+        "github_merges_or_default_promotion_authorized": false,
+        "driver_static_review": "driver_static_review",
+        "partial_output_reference": {
+          "commit_reported": "e9259dac",
+          "state": "PARTIAL_CASE_OUTPUTS_ONLY_NO_COHORT_RESULT",
+          "first20_durable_reported": true,
+          "read_by_readiness": false,
+          "no_score_quality_or_completeness_claim": true
+        },
+        "driver_provenance_reported": "f5441481explicitdriver1unexecuted/driver2executing; noearlierunfinisheddiagnosticfolderopened"
+      },
+      "current_census_preparation": {
+        "state": "PREPARED_34_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
+        "review": "current-cohort-census-prepared/README.md",
+        "inventory": "current-cohort-census-prepared/SOURCE_INVENTORY.json",
+        "checker": "current-cohort-census-prepared/check_census.py",
+        "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+        "synthetic_passed": 34,
+        "synthetic_total": 34,
+        "actual": "NOT_RUN",
+        "frozen_inventory_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+        "expected_cases": 306,
+        "honest_failed_unavailable_hold_retained": true,
+        "case_order": "DIAGNOSTIC_ONLY",
+        "complements_unchanged_metric_checker": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+        "metric_checker_prepared_controls": 38,
+        "no_actual_outputs_or_arrays_models_opened": true
+      },
+      "driver_static_review": {
+        "state": "PASS_ROOT_STATIC_MODULE_AND_ONE_US_ARGV_SCOPE",
+        "inventory": "assessment-driver-ad94-review/SOURCE_INVENTORY.json",
+        "review": "assessment-driver-ad94-review/REVIEW.json",
+        "source": "assessment-driver-ad94-review/driver_v2.py",
+        "sha256": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+        "US_then_KR_nonzero_exits_retained": true,
+        "all223_before_after": true,
+        "outer_HEAVY_lease": false,
+        "actual_driver_replay": false,
+        "model_array_label_metric_access": false
       }
     },
     "1C": {
@@ -1074,7 +1115,9 @@
     "pre_independent_canonical_summary": "history/pre-independent-canonical-22c9d9bd/README.md",
     "pre_independent_canonical_inventory": "history/pre-independent-canonical-22c9d9bd/ARCHIVE_INDEX.json",
     "pre_freeze_start_summary": "history/pre-freeze-start-b52e5ae8/README.md",
-    "pre_freeze_start_inventory": "history/pre-freeze-start-b52e5ae8/ARCHIVE_INDEX.json"
+    "pre_freeze_start_inventory": "history/pre-freeze-start-b52e5ae8/ARCHIVE_INDEX.json",
+    "pre_census_driver_preparation_summary": "history/pre-census-driver-preparation-9a81c8ce/README.md",
+    "pre_census_driver_preparation_inventory": "history/pre-census-driver-preparation-9a81c8ce/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -1097,5 +1140,5 @@
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
     "B_preassessment_metadata": "Owner timestamp-only273caseJSON and30storednativeidentityJSON frompackagingEA. Readiness readsmetadataGitobjectsonly/reconcilescounts, no originalsourcecasecensus,NPZorlabel decoding."
   },
-  "updated_utc": "2026-10-30T13:33:35.405997+00:00"
+  "updated_utc": "2026-10-30T14:18:48.611597+00:00"
 }
