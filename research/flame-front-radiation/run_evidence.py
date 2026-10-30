@@ -32,7 +32,7 @@ def main():
         "front_segments":{"state":"PARTIAL","evidence":"src/wfg_flamefront/isochrone.py; tests/test_law.py","limit":"Straight-segment approximation, strict unknown/infinite and present-phase refusal; not every legacy packet supported"},
         "intensity_and_wind":{"state":"PASS_MODEL_FORMULA","evidence":"intensity.py; sources NIST and Weise/Biging","limit":"Fuel-specific empirical laws and declared cap, no local physical fit"},
         "flux_at_points":{"state":"PASS_ON_SUPPORTED_GEOMETRY","evidence":"law_v2.py; analytic view-factor tests","limit":"Two-boundary panel model, not volumetric flame or exact bilinear isochrone"},
-        "spatial_time_enclosure":{"state":"PASS_COARSE_MODEL_BOUND","evidence":"law_v2.py proof and 1000 regression cases","limit":"Zero lower bound and global candidate-panel count upper are generally too loose for route acceptance"},
+        "spatial_time_enclosure":{"state":"PASS_COARSE_MODEL_BOUND_ON_SUPPORTED_DOMAIN","evidence":"law_v2.py shared interval-wide domain guard, proof and 1000 supported-domain regression cases","limit":"Unsupported active ignition/expiry interiors and possible receiver/panel intersections are refused; zero lower bound and global panel-count upper are generally too loose for route acceptance"},
         "physical_comparisons":{"state":"UNRESOLVED","evidence":"physics_validation/SOURCES.json; MODEL_TABLE.csv; INCOMPARABLE_DIAGNOSTICS.csv","limit":"Prompt mixes shrub/flame heights, absent instantaneous front widths, in-flame irradiance and emitter power"},
         "factor_three_gate":{"state":"UNRESOLVED","evidence":"physics_validation/RESULTS.json","limit":"No comparable empirical threefold-error assessment can be asserted; diagnostics are not measured validation errors"},
         "cutoff_error":{"state":"PASS_NO_TRUNCATION","evidence":"solidflame.py omitted_absolute_bound","limit":"No default radius truncation; no uniform relative tail-error claim"},
@@ -48,7 +48,7 @@ def main():
         "journey_cost_abba_two_repetitions":{"state":"NOT_RUN_GATED","evidence":None,"limit":"No v2 complete checker performance claim"},
         "optics_figures":{"state":"PASS","evidence":"physics_validation/fig01_flux_vs_distance.{png,svg}; fig02_parameter_sweep.{png,svg}","limit":"Model scenario figures only"},
     }
-    result={"track":"1A","status":"HOLD_INCOMPLETE","tests":tests,"physics_gate":physics["overall_gate"],"routing_executions":0,"previous_routes_rejected_under_v2":None,"peak_binding_missions":None,"dose_binding_missions":None,"headline":"Optical unit checks pass; empirical physics gate unresolved, no routing-v2 measurements","host":{"platform":platform.platform(),"machine":platform.machine(),"python":sys.version,"numpy":np.__version__},"seed":20261030,"input_sha256":inputs,"requirements":requirements}
+    result={"track":"1A","status":"HOLD_INCOMPLETE","tests":tests,"physics_gate":physics["overall_gate"],"routing_executions":0,"previous_routes_rejected_under_v2":None,"peak_binding_missions":None,"dose_binding_missions":None,"headline":"Optical unit checks pass; empirical physics gate unresolved, no routing-v2 measurements","host":{"platform":platform.platform(),"machine":platform.machine(),"python":sys.version,"numpy":np.__version__},"seed":20261030,"input_sha256":inputs,"requirements":requirements,"domain_repair":{"prior_head":"90b125a79d67301fac3058c97fe240b18cf8ae83","prior_failure":"point refused simultaneous active ignition but interval enclosure returned zero between contour events","new_rule":"Shared interval-wide supported-domain guard precedes contour selection, with conservative receiver/panel intersection refusal","regression_class":"SupportedDomain in tests/test_law.py","random_boxes":"supported-domain boxes outside possible emitting-panel prisms","physics_and_routing_status_changed":False}}
     (HERE/"RESULTS.json").write_text(json.dumps(result,indent=2)+"\n")
     (HERE/"REQUIREMENTS_STATUS.json").write_text(json.dumps(requirements,indent=2)+"\n")
     (HERE/"EXECUTIONS.csv").write_text("phase,outcome,exit_code,cases,seed\nunit_tests,PASS,"+str(completed.returncode)+","+str(tests["passed"])+",20261030\nbox_interval_regressions,PASS,0,1000,20261030\nphysics_empirical,UNRESOLVED,,0,20261030\nrouting_v2,NOT_RUN_GATED,,0,20261030\n")
@@ -58,13 +58,17 @@ def main():
 
 ## What is supported
 
-The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, exact polygon view factors, point flux, a rigorous but loose monotone model enclosure, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Numerical enclosure samples are regression checks; the finite panel-count argument is the bound proof.
+The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, exact polygon view factors, point flux, a rigorous but loose monotone model enclosure on its supported domain, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Point and enclosure queries share an interval-wide guard for zero-gradient ignition/expiry activity and possible receiver/panel intersections. Enlarging a query can make it unsupported; unsupported is never replaced by zero. Numerical enclosure samples use supported query boxes and are regression checks; the finite panel-count argument is the bound proof.
 
 ## Why the physics gate is open
 
 Source retrieval found a material input error: the quoted Mediterranean vegetation height is not an identified flame height. Plot width does not establish instantaneous radiating width. The deliberately retained diagnostic assumptions produce large ratios, but they are not comparable measurement errors. Primary crown-fire sensor data do not uniquely determine a spatially uniform panel emissive power. Uniform-panel model agreement is reported separately from measurements. No emission constant was fitted to these values or to a routing result.
 
 The primary Cohen paper also contradicts the prompt's statement that wall ignition occurred only with flame contact. Its ideal-model flux values must remain distinct from its measurement table. Details, citation locations and retrieval failures are in [the source ledger](physics_validation/SOURCES.json) and [physics notes](physics_validation/README.md).
+
+## Readiness defect repaired
+
+Independent review found that the earlier enclosure returned zero for an unsupported simultaneous-ignition active interior between contour events. The point operator correctly refused that same time. The repair uses the shared domain guard before contour selection, checks the whole closed interval against half-open potential activity, and covers zero-gradient ignition and extinction fields. Tests also cover interval interiors missed by endpoint sampling, never/invalid cells, present phases and possible receiver/panel intersections. The reproducing fixture and old-head identity are preserved in the domain repair record in RESULTS.json. This repair changes no empirical gate or routing outcome.
 
 ## Reproduce
 

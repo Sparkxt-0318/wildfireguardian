@@ -83,6 +83,13 @@ def _at(value, cell, shape, name):
     return out
 
 
+def _quad_gradient(values, inverse_transpose):
+    """Shared mean-gradient calculation for the point law and its domain guard."""
+    val=np.asarray(values,dtype=float)
+    gradient=inverse_transpose @ np.array([(val[1]+val[2]-val[0]-val[3])/2, (val[2]+val[3]-val[0]-val[1])/2])
+    return gradient,float(np.linalg.norm(gradient))
+
+
 def front_segments(ignition_time_s, t, grid, residence_s=11.52, *, fuel=None):
     """Return leading and trailing polygons with source intensity and geometry.
 
@@ -125,9 +132,7 @@ def front_segments(ignition_time_s, t, grid, residence_s=11.52, *, fuel=None):
                 out.unsupported_cells.extend(c for c,v in zip(cells,val) if not np.isfinite(v))
                 continue
             xy = [g.xy(col+.5,row+.5),g.xy(col+1.5,row+.5),g.xy(col+1.5,row+1.5),g.xy(col+.5,row+1.5)]
-            grad_lattice = np.array([(val[1]+val[2]-val[0]-val[3])/2, (val[2]+val[3]-val[0]-val[1])/2])
-            gradient = inverse_transpose @ grad_lattice
-            norm = float(np.linalg.norm(gradient))
+            gradient,norm = _quad_gradient(val,inverse_transpose)
             if norm == 0:
                 out.degenerate_quads.append((row,col))
             rate = min(max_rate, 1/norm) if norm else max_rate

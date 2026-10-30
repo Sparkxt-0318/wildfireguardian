@@ -15,9 +15,9 @@
     "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
   },
   "spatial_time_enclosure": {
-    "state": "PASS_COARSE_MODEL_BOUND",
-    "evidence": "law_v2.py proof and 1000 regression cases",
-    "limit": "Zero lower bound and global candidate-panel count upper are generally too loose for route acceptance"
+    "state": "PASS_COARSE_MODEL_BOUND_ON_SUPPORTED_DOMAIN",
+    "evidence": "law_v2.py shared interval-wide domain guard, proof and 1000 supported-domain regression cases",
+    "limit": "Unsupported active ignition/expiry interiors and possible receiver/panel intersections are refused; zero lower bound and global panel-count upper are generally too loose for route acceptance"
   },
   "physical_comparisons": {
     "state": "UNRESOLVED",

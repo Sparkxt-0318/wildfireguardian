@@ -1,16 +1,16 @@
 {
   "source_files": {
-    "docs/RADIATION_LAW_V2.md": "1066ec33365c8f211aa4786c3ecdf0a19e4b5660ebd75a8b08b7a514231767aa",
+    "docs/RADIATION_LAW_V2.md": "04e06f7f7b92edca43ed0c752ead043635410115e282dd3566f4cd8e7abb7bc8",
     "experimental/flame-front-radiation/adapters/journey_check.py": "9094abd5ebc498466e499b3e9e19b82d3ab797b64021ae5520e2bc655b90abfc",
     "experimental/flame-front-radiation/src/wfg_flamefront/__init__.py": "1df47d93a1c4fc13da905e9a95f283ff12c6416eaf4b4fe6799eded8f543a16c",
     "experimental/flame-front-radiation/src/wfg_flamefront/intensity.py": "7e65dd4c64934eeb75c2b7c97882e09ddab7f2641447988bb81dcc3c73bd8ff0",
-    "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "cc19d7a49f6d321e77ffdcbfb96f8f9b400038b3e351e09a9340452b7dfa5c6f",
-    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "5ec5af3016059947fe30479bd058f21805017ef945c2dffb91328f36f06f6725",
+    "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
+    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "cab6beb1b01b31f6ebf199574d8d650db476a42042ae14afa973584a27b712bb",
     "experimental/flame-front-radiation/src/wfg_flamefront/provenance.py": "c3ec3713ddeb9cc0575ee03a309bde6d7fba4e98c05a5705f63f014857781428",
     "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
-    "experimental/flame-front-radiation/tests/test_law.py": "f71d0424341a4137f14c48fe170be35e0e41bc622e9e4bac24202e7158f2a545",
+    "experimental/flame-front-radiation/tests/test_law.py": "be501dd1a54297dc1e37d497bada06ba01de0b7b6fa6c57081dfdf0c903090fd",
     "research/flame-front-radiation/physics_validation/run_physics.py": "1fbfe38b917f616cdb009286948d825a681279637b1955b0d1b6afb8bf0f25f4",
-    "research/flame-front-radiation/run_evidence.py": "35c99e8a8d40069d450e29dfbce3cdcc495b23ac5210af3c96fdf3f6d8696a25"
+    "research/flame-front-radiation/run_evidence.py": "f9eac3f08324a25f61997f7cfd8d7fcee9d75e829a8cdda04f6e2bb8ddf30394"
   },
   "read_only_frozen_inputs": {
     "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",

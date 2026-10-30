@@ -109,7 +109,10 @@ class EnclosuresAndDose(unittest.TestCase):
         rng=np.random.default_rng(20261030);tau=np.tile(np.arange(3)*10.,(3,1))
         member={"ignition_time_s":tau};grid=(10,0,0,0,10,0)
         for _ in range(1000):
-            x,y=rng.uniform(-20,40,2);dx,dy=rng.uniform(.01,20,2);t=rng.uniform(-1,31);dt=rng.uniform(.01,8)
+            # Query boxes stay outside all possible emitting-panel prisms;
+            # boxes that may contain an undefined receiver/panel intersection
+            # belong to the explicit unsupported domain, tested separately.
+            x=rng.uniform(-60,-30);y=rng.uniform(-20,40);dx,dy=rng.uniform(.01,10,2);t=rng.uniform(-1,31);dt=rng.uniform(.01,8)
             box=(x,x+dx,y,y+dy);interval=(t,t+dt)
             lo,hi=W.flux_enclosure(box,interval,member,grid)
             point=(rng.uniform(x,x+dx),rng.uniform(y,y+dy));time=rng.uniform(t,t+dt)
@@ -151,6 +154,87 @@ class EnclosuresAndDose(unittest.TestCase):
         with self.assertRaises(ValueError):module.evaluate_decision({},radiation_law="v1")
         expected={"status":"unresolved"}
         self.assertIs(module.evaluate_decision({},v1_evaluator=lambda decision:expected),expected)
+
+
+class SupportedDomain(unittest.TestCase):
+    grid=(1.,0.,0.,0.,1.,0.)
+    far_box=(-100.,-90.,-100.,-90.)
+
+    def assert_both_refuse(self,member,time,interval=None,box=None):
+        with self.assertRaises(W.UnsupportedGeometry):
+            W.flux_at_points([[3.,3.]],[time],member,self.grid)
+        with self.assertRaises(W.UnsupportedGeometry):
+            W.flux_enclosure(box or self.far_box,interval or (time,time),member,self.grid)
+
+    def test_simultaneous_active_interval_is_not_zero_flux(self):
+        member={"ignition_time_s":np.zeros((2,2)),"residence_s":10.}
+        self.assert_both_refuse(member,1.5,(1.,2.),(2.,4.,2.,4.))
+
+    def test_shifted_and_multiquad_simultaneous_ignition(self):
+        for birth in (-13.,0.,42.):
+            for shape in ((2,2),(3,4)):
+                member={"ignition_time_s":np.full(shape,birth),"residence_s":7.}
+                self.assert_both_refuse(member,birth+3,(birth-1,birth+8))
+
+    def test_interval_endpoint_at_ignition_is_included(self):
+        member={"ignition_time_s":np.full((2,2),5.),"residence_s":10.}
+        self.assert_both_refuse(member,5.,(4.,5.))
+
+    def test_exact_extinction_is_inactive(self):
+        member={"ignition_time_s":np.full((2,2),5.),"residence_s":10.}
+        for interval in ((15.,15.),(15.,20.)):
+            np.testing.assert_array_equal(W.flux_at_points([[3.,3.]],[interval[0]],member,self.grid),[[0.]])
+            self.assertEqual(W.flux_enclosure((2.,4.,2.,4.),interval,member,self.grid),(0.,0.))
+        self.assert_both_refuse(member,14.999,(14.,15.))
+
+    def test_whole_interval_guard_not_endpoint_sampling(self):
+        member={"ignition_time_s":np.full((2,2),5.),"residence_s":2.}
+        np.testing.assert_array_equal(W.flux_at_points([[3.,3.]],[4.,8.],member,self.grid),[[0.,0.]])
+        self.assert_both_refuse(member,6.,(4.,8.))
+
+    def test_simultaneous_extinction_with_different_ignitions(self):
+        tau=np.array([[0.,1.],[2.,3.]])
+        member={"ignition_time_s":tau,"extinction_breakpoint_s":np.full((2,2),10.)}
+        self.assert_both_refuse(member,4.,(3.5,4.5))
+        self.assertEqual(W.flux_enclosure(self.far_box,(10.,11.),member,self.grid),(0.,0.))
+
+    def test_flat_ignition_varying_residence_stays_unknown_until_last_expiry(self):
+        member={"ignition_time_s":np.zeros((2,2)),"residence_s":np.array([[2.,4.],[6.,8.]])}
+        self.assert_both_refuse(member,7.5,(7.,8.))
+        lo,hi=W.flux_enclosure(self.far_box,(8.,9.),member,self.grid)
+        q=W.flux_at_points([[-95.,-95.]],[8.],member,self.grid)[0,0]
+        self.assertLessEqual(lo,q);self.assertLessEqual(q,hi)
+
+    def test_never_cells_and_invalid_never_cell(self):
+        for shape in ((1,1),(2,3)):
+            member={"ignition_time_s":np.full(shape,np.inf)}
+            self.assertEqual(W.flux_enclosure(self.far_box,(-10.,100.),member,self.grid),(0.,0.))
+            np.testing.assert_array_equal(W.flux_at_points([[3,3]],[0],member,self.grid),[[0.]])
+            member["valid"]=np.zeros(shape,bool)
+            self.assert_both_refuse(member,1.,(0.,2.))
+
+    def test_mixed_never_and_unknown_refuse_both_operators(self):
+        for marker in (np.nan,np.inf):
+            tau=np.array([[0.,1.],[2.,marker]])
+            self.assert_both_refuse({"ignition_time_s":tau},1.,(0.,2.))
+
+    def test_present_phase_refused_consistently(self):
+        tau=np.array([[0.,1.],[2.,3.]])
+        for extra in ({"current_active":np.ones((2,2),bool)},{"present_fire_representation":"SCALAR_MAX_REMAINING_ENCLOSURE"}):
+            self.assert_both_refuse({"ignition_time_s":tau,**extra},1.,(0.,2.))
+
+    def test_receiver_panel_intersection_never_gets_finite_certificate(self):
+        member={"ignition_time_s":np.array([[0.,1.],[0.,1.]])}
+        with self.assertRaises(W.UnsupportedGeometry):
+            W.flux_at_points([[1.,1.]],[.5],member,self.grid)
+        with self.assertRaises(W.UnsupportedGeometry):
+            W.flux_enclosure((.9,1.1,.9,1.1),(.4,.6),member,self.grid)
+
+    def test_supported_shrinking_interval_monotonicity(self):
+        member={"ignition_time_s":np.array([[0.,1.],[0.,1.]])}
+        big=W.flux_enclosure(self.far_box,(-1.,20.),member,self.grid)
+        small=W.flux_enclosure((-99.,-91.,-99.,-91.),(.25,.75),member,self.grid)
+        self.assertGreaterEqual(small[0],big[0]);self.assertLessEqual(small[1],big[1])
 
 
 if __name__=="__main__":unittest.main()

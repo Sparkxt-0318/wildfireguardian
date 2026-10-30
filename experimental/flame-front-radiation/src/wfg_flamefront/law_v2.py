@@ -13,8 +13,9 @@ from __future__ import annotations
 import math
 from fractions import Fraction
 import numpy as np
-from .isochrone import front_segments, UnsupportedGeometry
+from .isochrone import front_segments, UnsupportedGeometry, as_grid, _quad_gradient
 from .solidflame import rectangle_flux
+from .intensity import fireline_intensity,flame_length
 
 
 def _inputs(member, fuel):
@@ -22,13 +23,13 @@ def _inputs(member, fuel):
         raise ValueError("member mapping with ignition_time_s required")
     tau=np.asarray(member["ignition_time_s"],dtype=float)
     if tau.ndim!=2 or min(tau.shape)<1:raise ValueError("nonempty ignition matrix required")
-    if min(tau.shape)<2 and not np.isposinf(tau).all():raise UnsupportedGeometry("at least two cell centres per axis are needed to identify a front")
     for name in ("unknown_mask","valid"):
         if name in member:
             mask=np.asarray(member[name])
             if mask.shape!=tau.shape or mask.dtype!=np.bool_:raise ValueError(name+" must be an aligned Boolean mask")
             missing=mask if name=="unknown_mask" else ~mask
             tau=np.where(missing,np.nan,tau)
+    if min(tau.shape)<2 and not np.isposinf(tau).all():raise UnsupportedGeometry("at least two cell centres per axis are needed to identify a front")
     f=dict(fuel or {})
     if member.get("present_fire_representation")=="SCALAR_MAX_REMAINING_ENCLOSURE":
         raise UnsupportedGeometry("scalar present-fire enclosure does not identify a front")
@@ -49,6 +50,58 @@ def _inputs(member, fuel):
     return tau,residence,power,trans,f
 
 
+def _domain(tau,residence,grid,fuel,interval,box=None):
+    """Check the point model's domain over a closed query time interval.
+
+    Potential activity in a quad is [min(tau), max(tau+residence)). If either
+    boundary field has zero mean gradient, its moving-front interpretation is
+    unsupported over that activity interval, even between contour events.
+    A closed [a,b] intersects [birth,expiry) iff b>=birth and a<expiry.
+    The same rule is used for singleton point times and enclosure intervals.
+    """
+    a,b=map(float,interval)
+    segments=front_segments(tau,a,grid,residence,fuel=fuel)
+    strict=fuel.get("unsupported_policy","raise")!="exclude"
+    if segments.unsupported_cells and strict:
+        raise UnsupportedGeometry("unknown or infinite-boundary cells do not identify a finite front")
+    effective=np.where(np.isposinf(tau),float(fuel["never_time_s"]),tau) if "never_time_s" in fuel else tau
+    g=as_grid(grid);ga,gb,_,gd,ge,_=g.transform
+    inverse=np.linalg.inv(np.array([[ga,gb],[gd,ge]])).T
+    if strict:
+        for row in range(tau.shape[0]-1):
+            for col in range(tau.shape[1]-1):
+                cells=[(row,col),(row,col+1),(row+1,col+1),(row+1,col)]
+                values=np.array([effective[c] for c in cells])
+                if not np.isfinite(values).all():continue
+                ends=values+np.array([residence[c] for c in cells])
+                if b>=float(values.min()) and a<float(ends.max()):
+                    if _quad_gradient(values,inverse)[1]==0 or _quad_gradient(ends,inverse)[1]==0:
+                        raise UnsupportedGeometry("zero-gradient ignition or extinction field during a potentially active interval")
+    # A point on an emitting panel is outside the radiation law. For a box
+    # query, conservatively refuse possible panel intersections over the whole
+    # interval. The entire tilted panel lies in its quad expanded by Lmax in
+    # x/y and between heights zero and Lmax. This guard can reject extra boxes;
+    # it cannot convert an undefined point into a finite certificate.
+    if box is not None:
+        max_length=float(flame_length(fireline_intensity(float(fuel.get("ros_max_m_s",3.)),float(np.max(fuel.get("consumed_fuel_kg_m2",1.))),float(np.max(fuel.get("heat_of_combustion_kj_kg",18608.))))))
+        max_length=float(np.nextafter(max_length,math.inf))
+        height=float(fuel.get("receiver_height_m",0.))
+        if not math.isfinite(height):raise ValueError("receiver_height_m must be finite")
+        if 0<=height<=max_length:
+            for row in range(tau.shape[0]-1):
+                for col in range(tau.shape[1]-1):
+                    values=effective[row:row+2,col:col+2]
+                    if not np.isfinite(values).all():continue
+                    ends=values+residence[row:row+2,col:col+2]
+                    if not any(float(v.min())<float(v.max()) and float(v.min())<=b and float(v.max())>=a for v in (values,ends)):continue
+                    xy=np.array([g.xy(col+.5,row+.5),g.xy(col+1.5,row+.5),g.xy(col+1.5,row+1.5),g.xy(col+.5,row+1.5)])
+                    lo=np.nextafter(xy.min(axis=0)-max_length,-math.inf)
+                    hi=np.nextafter(xy.max(axis=0)+max_length,math.inf)
+                    if box[1]>=lo[0] and box[0]<=hi[0] and box[3]>=lo[1] and box[2]<=hi[1]:
+                        raise UnsupportedGeometry("receiver box may intersect an emitting panel during the query interval")
+    return segments,effective
+
+
 def flux_at_points(points_xy,times_s,member,grid,fuel=None,receiver="worst_case"):
     """Return [P,T] kW/m2 from actual subcell source and receiver geometry.
 
@@ -62,18 +115,17 @@ def flux_at_points(points_xy,times_s,member,grid,fuel=None,receiver="worst_case"
     tau,residence,power,trans,f=_inputs(member,fuel)
     output=np.zeros((len(points),len(times)))
     for j,t in enumerate(times):
-        segments=front_segments(tau,float(t),grid,residence,fuel=f)
-        if segments.unsupported_cells and f.get("unsupported_policy","raise")!="exclude":
-            raise UnsupportedGeometry("unknown or infinite-boundary cells do not identify a finite front")
-        for row,col in segments.degenerate_quads:
-            values=tau[row:row+2,col:col+2]
-            ends=values+residence[row:row+2,col:col+2]
-            if float(values.min())<=t<float(ends.max()) and f.get("unsupported_policy","raise")!="exclude":
-                raise UnsupportedGeometry("simultaneous ignition has no identifiable moving-front gradient")
+        segments,_=_domain(tau,residence,grid,f,(t,t))
         for i,point in enumerate(points):
             values=[]
             for segment in segments:
-                values.append(rectangle_flux(point,segment.start_xy,segment.end_xy,segment.flame_height_m,float(power[segment.cell]),tip_shift_xy=segment.tip_shift_xy,receiver=receiver,transmissivity=trans,receiver_height_m=f.get("receiver_height_m",0.)))
+                try:
+                    value=rectangle_flux(point,segment.start_xy,segment.end_xy,segment.flame_height_m,float(power[segment.cell]),tip_shift_xy=segment.tip_shift_xy,receiver=receiver,transmissivity=trans,receiver_height_m=f.get("receiver_height_m",0.))
+                except ValueError as exc:
+                    if "receiver intersects" in str(exc) or "receiver on emitter" in str(exc):
+                        raise UnsupportedGeometry(str(exc)) from exc
+                    raise
+                values.append(value)
             output[i,j]=math.fsum(values)
     return output
 
@@ -89,6 +141,10 @@ def flux_enclosure(box_xy,interval_s,member,grid,fuel=None):
     Bounds ignore position, so enlargement cannot shrink them. The zero
     lower bound is necessary when emission may switch off during the interval.
     Fraction arithmetic encloses represented E values before upward rounding.
+    Domain checking precedes panel selection: if any potentially active quad
+    has a zero-gradient ignition/expiry field anywhere in the interval, the
+    interval is refused. Potential receiver/panel intersections are refused.
+    Finite-bound monotonicity applies only to queries inside this domain.
     This finite coarse bound usually cannot decide route thermal acceptance.
     """
     box=np.asarray(box_xy,dtype=float);interval=np.asarray(interval_s,dtype=float)
@@ -96,17 +152,15 @@ def flux_enclosure(box_xy,interval_s,member,grid,fuel=None):
     if box.shape!=(4,) or interval.shape!=(2,) or not np.isfinite(box).all() or not np.isfinite(interval).all() or box[0]>box[1] or box[2]>box[3] or interval[0]>interval[1]:
         raise ValueError("box (xmin,xmax,ymin,ymax) and ordered interval required")
     tau,residence,power,_,f=_inputs(member,fuel)
+    _,tau=_domain(tau,residence,grid,f,interval,box)
     if np.isposinf(tau).all():return 0.,0.
-    if "never_time_s" in f:tau=np.where(np.isposinf(tau),float(f["never_time_s"]),tau)
-    if np.any(~np.isfinite(tau)) and f.get("unsupported_policy","raise")!="exclude":
-        raise UnsupportedGeometry("unknown or infinite-boundary cells do not identify a finite front")
     h,w=tau.shape;upper=Fraction(0)
     for r in range(h-1):
         for c in range(w-1):
             values=tau[r:r+2,c:c+2]
             if not np.isfinite(values).all():continue
             ends=values+residence[r:r+2,c:c+2]
-            active=any(float(v.min())<=interval[1] and float(v.max())>=interval[0] for v in (values,ends))
+            active=any(float(v.min())<float(v.max()) and float(v.min())<=interval[1] and float(v.max())>=interval[0] for v in (values,ends))
             if active:upper+=4*Fraction(float(power[r,c]))
     if not upper:return 0.,0.
     value=float(upper)

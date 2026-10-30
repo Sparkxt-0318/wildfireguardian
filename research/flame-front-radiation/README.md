@@ -1,16 +1,20 @@
 # Flame-front radiation research prototype
 
-**21 tests passed, including 1,000 deterministic random box/interval cases; routing-v2 experiments: NOT_RUN.** The mandatory empirical physics gate remains unresolved. Rejected prior routes and peak/dose binding counts are unavailable, not zero. This branch is HOLD and does not satisfy the complete track acceptance criteria.
+**33 tests passed, including 1,000 deterministic random box/interval cases; routing-v2 experiments: NOT_RUN.** The mandatory empirical physics gate remains unresolved. Rejected prior routes and peak/dose binding counts are unavailable, not zero. This branch is HOLD and does not satisfy the complete track acceptance criteria.
 
 ## What is supported
 
-The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, exact polygon view factors, point flux, a rigorous but loose monotone model enclosure, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Numerical enclosure samples are regression checks; the finite panel-count argument is the bound proof.
+The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, exact polygon view factors, point flux, a rigorous but loose monotone model enclosure on its supported domain, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Point and enclosure queries share an interval-wide guard for zero-gradient ignition/expiry activity and possible receiver/panel intersections. Enlarging a query can make it unsupported; unsupported is never replaced by zero. Numerical enclosure samples use supported query boxes and are regression checks; the finite panel-count argument is the bound proof.
 
 ## Why the physics gate is open
 
 Source retrieval found a material input error: the quoted Mediterranean vegetation height is not an identified flame height. Plot width does not establish instantaneous radiating width. The deliberately retained diagnostic assumptions produce large ratios, but they are not comparable measurement errors. Primary crown-fire sensor data do not uniquely determine a spatially uniform panel emissive power. Uniform-panel model agreement is reported separately from measurements. No emission constant was fitted to these values or to a routing result.
 
 The primary Cohen paper also contradicts the prompt's statement that wall ignition occurred only with flame contact. Its ideal-model flux values must remain distinct from its measurement table. Details, citation locations and retrieval failures are in [the source ledger](physics_validation/SOURCES.json) and [physics notes](physics_validation/README.md).
+
+## Readiness defect repaired
+
+Independent review found that the earlier enclosure returned zero for an unsupported simultaneous-ignition active interior between contour events. The point operator correctly refused that same time. The repair uses the shared domain guard before contour selection, checks the whole closed interval against half-open potential activity, and covers zero-gradient ignition and extinction fields. Tests also cover interval interiors missed by endpoint sampling, never/invalid cells, present phases and possible receiver/panel intersections. The reproducing fixture and old-head identity are preserved in the domain repair record in RESULTS.json. This repair changes no empirical gate or routing outcome.
 
 ## Reproduce
 
