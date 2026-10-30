@@ -1,12 +1,13 @@
 # Prospective registration: 2026 first-survey mapped-extent cohort
 
-Status: PENDING_CURRENT_MODEL_FREEZE. After all seven
-intended fits, complete membership audit and exact registry have passed, the
-repository version will be READY_FOR_OWNER_REGISTRATION. Actual future
-execution remains NOT_READY_FOR_2026_EXECUTION until the documentary gates below
-are satisfied. This task performs no external registration, source-release
-verification or 2026 evaluation. The selection rule predates current heldout
-prediction and score inspection.
+Status: READY_FOR_OWNER_REGISTRATION. Current model selection and checkpoint
+identities are fixed before current heldout prediction or score inspection.
+Actual future execution remains NOT_READY_FOR_2026_EXECUTION until the
+independent documentary gates below are satisfied. This task performs no
+external registration, source-release verification or 2026 evaluation.
+The registry generated after this document pins its exact bytes. External
+registration, release and review sidecars subsequently pin that frozen bundle
+without editing this document or embedding a self-referential registry hash.
 
 ## Question, target and primary comparison
 
@@ -27,34 +28,64 @@ No calibration or decision threshold is fitted on 2026 outcomes.
 
 ## Frozen model identities
 
-Checkpoint identities will be written by the producing run into
-`research/forecast-v2/MODEL_SELECTION.json` and an immutable blind registry
-before any blind evaluation is permitted. Until those files identify exact
-bytes, this draft is not ready for registration.
+Model selection froze at 2026-10-30T13:05:51.050639+00:00. The exact
+MODEL_SELECTION.json SHA-256 is
+`f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b`.
+The primary candidate is d4_wind_seed0, selected by lowest equal-fire
+development Brier across the 2020, 2021 and 2022 leave-one-year-out folds
+of the 23 US fit fires. There is no 2023 US fit fire in this catalog. The
+fixed tie order is base, D4, D4 plus local wind frame, ellipse, burnout,
+burnout plus flaming-only spotting, mixed. No 2024 or Korean 2025 outcome
+contributes to this choice.
 
-- The primary candidate is selected by lowest equal-fire development Brier
-  across leave-one-year-out folds of 2020, 2021 and 2022 US fit fires. The
-  catalog contains no 2023 US fit fire. Fixed tie order is base, D4,
-  D4 plus local wind frame, ellipse, burnout, burnout plus spotting, mixed.
-- All final variants use all eligible 2020 to 2023 fit intervals and the same
-  fixed three-epoch policy. The mixed variant additionally uses eligible
-  reconstruction windows of fit fires with kriging-SD weights. No 2024 or
-  Korean 2025 fire contributes to fitting or model selection.
-- c651 remains a frozen comparator, SHA-256
-  `c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843`.
-- Baselines are no-new-burn persistence, dilation at one cell per 1, 2, 4 or
-  8 hours, the single best dilation rate selected using fit fires only, and
-  training-fitted logistic hand features. The registry pins the chosen rate,
-  logistic parameters, normalization and every candidate checkpoint.
-- The supplied 2024 FARSITE deterministic scenarios belong to the separate
-  current retrospective supplement. This registered future test has no FARSITE
-  prediction column or discretionary native-scenario addition. Any future
-  native scenario study requires its own prospectively specified analysis;
-  it cannot change this test's cohort, baselines or primary comparison.
+| Model identity | Exact checkpoint SHA-256 |
+| --- | --- |
+| base_seed0 | `007720f6bb5cd19e5fc8afc0abc47cb5b0fb320aae7ce3830e261cdb98c31ec8` |
+| d4_seed0 | `969a47025d5d9b322f1413ba0922e29fac9f453474bbe73b9aca6950f476fb74` |
+| d4_wind_seed0 (primary) | `33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3` |
+| ellipse_seed0 | `b8f13c01536b0507bd16ec64b7fd8fdfc969cc7e0f05e73d0f9257ca29eab569` |
+| burnout_seed0 | `d552c221348a28477c2eeb411156e47d1b56653aca424e0487085570d2957559` |
+| burnout_spotting_seed0 | `d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b` |
+| mixed_base_seed0 | `e0330c3d92f5cd92471a434f6d062f16c7a14be4163b44c98fa334d9573dba76` |
+| c651_mc and c651_meanfield | `c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843` |
+
+MODEL_SELECTION.json pins every relative checkpoint path. The final spotting
+identity is the corrected flaming-only emitter, not any retired same-named
+smouldering-inclusive checkpoint. Every pure final variant attempted all 1,303
+perimeter inputs for each of three epochs. The mixed final variant attempted
+all 4,391 inputs per epoch, with 4,376 updates and 15 explicitly logged
+source-unsupported intervals in each epoch. Complete attempted coverage and
+optimizer coverage are separate. Historical schedules retain source-derived
+evidence; actual mixed runtime IDs and limits remain in FIT_COVERAGE.json,
+SHA-256 `4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971`.
+
+The fixed training-selected best dilation rate is one cell per 8 hours. Also
+test persistence, each 1/2/4/8-hour dilation separately, and the fitted logistic
+model. The best-dilation column is the fixed 8-hour column; it is never
+reselected on current heldout or 2026 outcomes. Logistic normalization,
+parameters and executable preprocessing remain frozen.
+
+| Fitted baseline artifact | Exact SHA-256 |
+| --- | --- |
+| logistic.pkl | `4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49` |
+| logistic.json | `7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df` |
+| dilation_choice.json | `f3f8ad00ad71616e3e77a8660ca51bdd8cc0667bf2ca53641ab75bdf4a00e74c` |
+
+The exact source closure, dependency versions, checkpoint and baseline files
+are pinned by BLIND_REGISTRY.json, generated after this document and model
+selection. The registry is ready for owner registration and remains explicitly
+NOT_READY_FOR_2026_EXECUTION. Persistence and dilation mechanics have no
+separately fitted weights; their frozen code identities are in the registry.
+
+The supplied 2024 FARSITE deterministic scenarios belong to the separate
+current retrospective supplement. This registered future test has no FARSITE
+prediction column or discretionary native-scenario addition. Any future
+native scenario study requires its own prospectively specified analysis and
+cannot change this cohort, model set, baselines or primary comparison.
 
 Inspecting 2024 results never permits a checkpoint, hyperparameter or primary
-candidate change for this protocol. Any such change makes a new prospective
-registration necessary and invalidates this version's blind claim.
+candidate change for this protocol. Any such change requires a new prospective
+registration and invalidates this version's blind claim.
 
 ## Dataset freeze and exclusions
 

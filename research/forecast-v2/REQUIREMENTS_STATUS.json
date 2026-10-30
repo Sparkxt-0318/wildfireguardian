@@ -654,12 +654,16 @@
     },
     {
       "id": "1B-5-pre-registration",
-      "status": "NOT_READY",
+      "status": "READY_FOR_OWNER_REGISTRATION",
       "execution_status": "NOT_READY_FOR_2026_EXECUTION",
       "authentication": {
-        "protocol_status": "NOT_READY",
+        "protocol_status": "READY_FOR_OWNER_REGISTRATION",
         "execution_status": "NOT_READY_FOR_2026_EXECUTION",
-        "reason": "No final registry freeze"
+        "registry": {
+          "path": "research/forecast-v2/BLIND_REGISTRY.json",
+          "sha256": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e"
+        },
+        "reason": "Complete source/model/selection freeze authenticated; external prerequisites remain"
       },
       "expected": "exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"
     },
@@ -671,7 +675,7 @@
     },
     {
       "id": "1B-2-exact-model-selection-freeze",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "evidence": "research/forecast-v2/MODEL_SELECTION.json",
       "executable": "scripts/run_campaign.py freeze"
     },
@@ -1751,5 +1755,9 @@
       "status": "PASS"
     }
   ],
-  "independent_actual_coverage_review": "PENDING_PARENT_REVIEW"
+  "independent_actual_coverage_review": {
+    "report_sha256": "ac702774b2cd11905f26da9edf61f597e39a777ef484a123d341ac25d5026451",
+    "status": "PASS_SCOPED_METADATA_AND_CUSTODY"
+  },
+  "committed_freeze_verification": "PENDING_PARENT_REVIEW_BEFORE_CURRENT_ASSESSMENTS"
 }

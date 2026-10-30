@@ -9,8 +9,9 @@ smouldering-inclusive variants; they do not satisfy intended completeness or
 selection. No heldout forecast-quality result or superiority claim is available.
 The canonical live F65 audit passed complete membership for all 21 development
 phases and seven final fits. The original recipe-admission HOLD and its logs
-remain preserved. Independent verification of the new actual coverage receipt
-and exact model/source registry freeze remain pending before heldout inference.
+remain preserved. Independent verification of the new actual coverage receipt passed. Model
+selection, exact checkpoint table and the source registry are now frozen;
+parent verification of the committed bundle remains pending before inference.
 The mixed final fit attempted all 4,391 inputs in each of three epochs, with
 4,376 optimizer updates and 15 logged source-unsupported windows per epoch.
 Complete attempted input coverage is distinct from optimizer coverage.
@@ -99,9 +100,41 @@ the exposed wrapper, not the raw diagnostic. The original live audit HOLD remain
 outputs closed and independent reconciliation passed, the exact reviewed
 candidate became the live auditor. A new 3,507-test software gate and actual
 canonical coverage audit then passed. The latter is an independent live command
-and does not copy the provisional diagnostic. No model selection, blind
-registry or heldout inference has run. `review/provisional_coverage_F65/` preserves the exact receipt and
+and does not copy the provisional diagnostic. Model selection and the blind registry subsequently froze exact current
+identities. Heldout inference has not run. `review/provisional_coverage_F65/` preserves the exact receipt and
 qualification.
+
+## Current assessment population fixed before inference
+
+The development-selected primary is D4 with local wind canonicalization, and
+the training-selected best dilation is one cell per 8h. The exact seven trained
+checkpoint identities, c651, fitted logistic artifacts and complete code closure
+are in MODEL_SELECTION.json and BLIND_REGISTRY.json. The prospective protocol
+contains their exact hashes. No new checkpoint is promoted to integration.
+
+The timestamp-only membership inventories fix all 306 current assessment
+cases. No four-case cap is applied to the Korean cohort. Spatial growth,
+predictions and model scores did not select these windows.
+
+| Current cohort event | Expected intervals/windows |
+| --- | ---: |
+| ID-BOF-000683_Wapiti_Wapiti | 52 |
+| ID-BOF-000904_Goat | 42 |
+| ID-BOF-001080_Lava | 47 |
+| ID-SCF-240202_RedRock | 40 |
+| WA-SES-000173_Pioneer | 55 |
+| WY-BTF-002416_FishCreek | 37 |
+| KFS_01 | 8 |
+| KFS_04 | 14 |
+| KFS_06 | 8 |
+| KFS_13 | 3 |
+
+The US total is 273 eligible survey intervals. The Korean total is 33 fixed
+12h reconstruction windows across four catalog events, reported separately.
+Every included window remains eligible even if its common scoring population
+later proves unavailable. The two scorer commands preserve separate exits;
+a US HOLD never cancels the Korean command. No current quality result is
+available before the committed freeze is verified and those commands run.
 
 ## Complete mean-field versus Monte Carlo comparison
 
@@ -183,8 +216,8 @@ polygons, coverage footprints or physical fire boundaries. Original records,
 source IDs, invalidity reasons and hashes remain available for audit.
 
 Current 2024 testing will remain retrospective; it is not the blind 2026 test.
-The prospective protocol is pending current model/source freeze. Completion
-will make it ready for owner registration; future 2026 execution separately
+The prospective protocol is READY_FOR_OWNER_REGISTRATION with exact current
+checkpoint and fitted-baseline identities. Future 2026 execution separately
 remains NOT_READY until independently reviewed documentary release, chronology
 and registration prerequisites are satisfied. No external OSF registration is
 claimed by this task.

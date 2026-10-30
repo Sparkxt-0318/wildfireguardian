@@ -14,7 +14,10 @@
       "status": "PASS"
     }
   ],
-  "independent_actual_coverage_review": "PENDING_PARENT_REVIEW",
+  "independent_actual_coverage_review": {
+    "report_sha256": "ac702774b2cd11905f26da9edf61f597e39a777ef484a123d341ac25d5026451",
+    "status": "PASS_SCOPED_METADATA_AND_CUSTODY"
+  },
   "prior_observations": [
     {
       "evidence": "research/forecast-v2/executions/final_software_gate.json",
@@ -30,5 +33,5 @@
     }
   ],
   "schema": "wfg.forecast-v2.gate-history/1",
-  "selection_registry_heldout": "NOT_EXECUTED"
+  "selection_registry_heldout": "SELECTION_AND_REGISTRY_FROZEN_CURRENT_ASSESSMENTS_NOT_EXECUTED"
 }
