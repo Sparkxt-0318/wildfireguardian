@@ -32,6 +32,11 @@
       "project": "wfg-next-1b-audit-d031b72b-20261030",
       "generation": "2026-10-30T05:29:57Z",
       "coverage": "Adapter excluded/not_tracked; archived full independent review directly read, exact adapter/test Git object hashes checked. Indexed test file metadata_match. No new source-proof or suite rerun claimed."
+    },
+    "B_prospective_wiring": {
+      "project": "wfg-next-1b-audit-9b5eb72f-20261030",
+      "generation": "2026-10-30T05:59:15Z",
+      "coverage": "Entire scripts subtree excluded, complete new builder and blind tool read directly; pinned test helper source read and metadata-match. No graph caller completeness claim."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -43,7 +48,8 @@
     "B numerical evidence and global-wind dependency review pending",
     "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
     "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
-    "C risk records unscorable, whole-road and full-policy validation open"
+    "C risk records unscorable, whole-road and full-policy validation open",
+    "Prospective registry builder completeness remains held: synthetic declared-two/recorded-one fit set accepted. No assertion actual fits omit fires."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -66,5 +72,20 @@
     "final_targeted_controls": 20,
     "owner_tests_reported": 74,
     "readiness_action": "Read/archive exact review/producer/results, verify source hashes and counts; no new execution"
+  },
+  "prospective_wiring_review": {
+    "source_head": "9b5eb72f5e939ef5a366ba40a02efe7a03b5bed5",
+    "review": "prospective-wiring-review-9b5eb72f/REVIEW.md",
+    "audit": "audit/1b-wiring-9b5eb72f.json",
+    "producer": "audit_1b_wiring_9b5eb72f.py",
+    "checks": 25,
+    "passed": 24,
+    "status": "HOLD_REGISTRY_FIT_EVENT_COMPLETENESS",
+    "remaining_finding": "Nonempty subset of declared fit fires admitted as completed full fit",
+    "actual_data_or_registry_execution": false,
+    "dummy_registry_builder_execution": true,
+    "shared_heavy_lease": false,
+    "owner_tests_reported": 181,
+    "owner_suite_rerun": false
   }
 }

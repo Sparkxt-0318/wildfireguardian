@@ -41,9 +41,9 @@
       "numerical_evidence": "PENDING_OWNER_DELIVERY",
       "global_wind_dependency_review": "PENDING",
       "heldout_scores_inspected_by_readiness_auditor": false,
-      "future_protocol_status": "NOT_READY_EXTERNAL_RELEASE_CHRONOLOGY_OSF_GATES",
+      "future_protocol_status": "NOT_READY_REGISTRY_COMPLETENESS_AND_EXTERNAL_DOCUMENTARY_GATES",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
-      "future_adapter_wiring": "UNWIRED_AT_REVIEWED_HEAD",
+      "future_adapter_wiring": "WIRED_IN_PROSPECTIVE_TOOL_AT_9b5eb72f_UNDER_REVIEW",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
       "published_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
@@ -73,6 +73,21 @@
       "future_adapter_owner_tests": {
         "reported_passed": 74,
         "independently_rerun_by_readiness_auditor": false
+      },
+      "prospective_wiring_review": {
+        "source_head": "9b5eb72f5e939ef5a366ba40a02efe7a03b5bed5",
+        "review": "prospective-wiring-review-9b5eb72f/REVIEW.md",
+        "audit": "audit/1b-wiring-9b5eb72f.json",
+        "producer": "audit_1b_wiring_9b5eb72f.py",
+        "checks": 25,
+        "passed": 24,
+        "status": "HOLD_REGISTRY_FIT_EVENT_COMPLETENESS",
+        "remaining_finding": "Nonempty subset of declared fit fires admitted as completed full fit",
+        "actual_data_or_registry_execution": false,
+        "dummy_registry_builder_execution": true,
+        "shared_heavy_lease": false,
+        "owner_tests_reported": 181,
+        "owner_suite_rerun": false
       }
     },
     "1C": {
@@ -169,5 +184,5 @@
     "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning",
     "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access"
   },
-  "updated_utc": "2026-10-30T05:35:35.050078+00:00"
+  "updated_utc": "2026-10-30T06:05:49.722728+00:00"
 }
