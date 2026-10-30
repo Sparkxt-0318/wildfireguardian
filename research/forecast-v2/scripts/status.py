@@ -19,6 +19,51 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def protocol_readiness(root, run, registry_path):
+    """Report an existing complete authenticated freeze; never construct one."""
+    missing = dict(protocol_status="NOT_READY", execution_status="NOT_READY_FOR_2026_EXECUTION")
+    if not registry_path.is_file():
+        return dict(**missing, reason="No final registry freeze")
+    try:
+        registry = json.loads(registry_path.read_text())
+        source = registry.get("producer_source_sha256")
+        if not isinstance(source, dict) or not source:
+            raise ValueError("A nonempty complete source closure is required")
+        selection_path = root / "research/forecast-v2/MODEL_SELECTION.json"
+        selection = json.loads(selection_path.read_text())
+        proof = F.saved_registry_admission(root, run, selection_path, selection, registry_path)
+        if (proof.get("registry") != F.identity(root, registry_path)
+                or registry.get("protocol_status") != "READY_FOR_OWNER_REGISTRATION"
+                or registry.get("execution_status") != "NOT_READY_FOR_2026_EXECUTION"):
+            raise ValueError("The authenticated registry does not declare the frozen protocol/execution states")
+        return dict(protocol_status=registry["protocol_status"], execution_status=registry["execution_status"],
+                    registry=proof["registry"], reason="Complete source/model/selection freeze authenticated; external prerequisites remain")
+    except (ValueError, FileNotFoundError, KeyError, TypeError) as error:
+        return dict(**missing, reason=str(error))
+
+
+def farsite_readiness(record):
+    """Keep scenario execution, available measurements and HOLD distinct."""
+    if not record:
+        return dict(status="PENDING", scores_available=False, measurement_status="NOT_REQUESTED")
+    total, scored = record.get("total_historical_cases"), record.get("scored_cases")
+    rows = record.get("cases", [])
+    available = (type(total) is int and type(scored) is int and 0 <= scored <= total and total > 0
+                 and len(rows) == total and scored == sum(r.get("status") == "SCORED_COMMON_SUBSET" for r in rows)
+                 and all(r.get("cells", 0) > 0 for r in rows if r.get("status") == "SCORED_COMMON_SUBSET")
+                 and bool(record.get("scores", {}).get("models")))
+    measured = available and scored > 0 and record.get("scores_available") is True
+    consistent = (record.get("execution_status") == "NO_NATIVE_EXECUTION_STORED_SCENARIOS_ONLY"
+                  and record.get("superiority_criteria_pass") is False
+                  and record.get("scores_available") == bool(measured))
+    if not consistent or record.get("scores_available") and not measured:
+        return dict(status="HOLD_INCONSISTENT_EVIDENCE", scores_available=False,
+                    measurement_status="UNAVAILABLE_UNAUTHENTICATED_MEASUREMENT_STATE")
+    return dict(status=record.get("status", "HOLD"), execution_status=record["execution_status"],
+                scores_available=bool(measured), measurement_status=record.get("measurement_status", "UNAVAILABLE"),
+                scored_cases=scored, total_historical_cases=total)
+
+
 def comparison_evidence(receipts):
     """Separate executed frozen rows from the availability of their populations."""
     protocol = json.loads((EVIDENCE / "RUN_PROTOCOL.json").read_text())["mean_field_compare"]
@@ -83,11 +128,10 @@ def main():
     qa_path = EVIDENCE / "FIGURE_QA.json"
     qa = json.loads(qa_path.read_text()) if qa_path.exists() else {}
     registry_path = EVIDENCE / "BLIND_REGISTRY.json"
-    registry = json.loads(registry_path.read_text()) if registry_path.exists() else {}
-    registry_current = bool(registry and all((ROOT / path).is_file() and digest(ROOT / path) == value
-                            for path, value in registry.get("producer_source_sha256", {}).items()))
+    readiness = protocol_readiness(ROOT, RUN, registry_path)
     farsite_path = EVIDENCE / "FARSITE_SCORES.json"
     farsite = json.loads(farsite_path.read_text()) if farsite_path.exists() else {}
+    farsite_state = farsite_readiness(farsite)
     requirements = [
         dict(id="1B-1-library", status="IMPLEMENTED_TESTED", evidence="forecast/wildfire/meanfield.py and forecast/tests/test_meanfield.py",
              limit="Multi-step closure approximation, not exact MC expectation"),
@@ -106,11 +150,11 @@ def main():
              expected="persistence,4dilationrates,training-chosenbestdilation,weightedlogistic,c651"),
         dict(id="1B-4-heldout-scoring", status="COMPLETE" if all(r.get("status") == "COMPLETE" for r in assessments.values()) else "PENDING",
              expected="sixUS2024fires,fullrectangles,alleligibleintervals,exactcommoncohort; fourKR2025separate"),
-        dict(id="1B-4-FARSITE-matched-subset", status="COMPLETE" if "scores" in farsite else farsite.get("status", "PENDING"),
+        dict(id="1B-4-FARSITE-matched-subset", **farsite_state,
              expected="authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals",
              evidence="research/forecast-v2/FARSITE_SCORES.json", limit="Stored deterministic scenario subset with explicit configuration differences; not a new native campaign"),
-        dict(id="1B-5-pre-registration", status=registry.get("protocol_status", "NOT_READY") if registry_current else "NOT_READY",
-             execution_status=registry.get("execution_status", "NOT_READY_FOR_2026_EXECUTION"),
+        dict(id="1B-5-pre-registration", status=readiness["protocol_status"],
+             execution_status=readiness["execution_status"], authentication=readiness,
              expected="exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"),
     ]
     requirements.extend([

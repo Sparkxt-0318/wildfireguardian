@@ -581,6 +581,8 @@
     {
       "id": "1B-4-FARSITE-matched-subset",
       "status": "PENDING",
+      "scores_available": false,
+      "measurement_status": "NOT_REQUESTED",
       "expected": "authenticateexistingdeterministicscenariosandscoreallmodelsontheirsamecellsandintervals",
       "evidence": "research/forecast-v2/FARSITE_SCORES.json",
       "limit": "Stored deterministic scenario subset with explicit configuration differences; not a new native campaign"
@@ -589,6 +591,11 @@
       "id": "1B-5-pre-registration",
       "status": "NOT_READY",
       "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+      "authentication": {
+        "protocol_status": "NOT_READY",
+        "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+        "reason": "No final registry freeze"
+      },
       "expected": "exactcheckpointregistry,executableblindscoringclosure,frozenprimaryselection; ownerregistersOSF"
     },
     {

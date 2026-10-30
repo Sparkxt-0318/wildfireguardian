@@ -1,0 +1,10 @@
+{
+  "source_commit": "8ab690ce",
+  "source_sha256": "9fd67ef0c406bb4d811456ee16064ba85ca01954366440c8047119cc81d5b62c",
+  "registry": {
+    "protocol_status": "READY_FOR_OWNER_REGISTRATION"
+  },
+  "original_registry_current": true,
+  "expected": false,
+  "scope": "Tiny report-only readiness expression, not scientific execution admission"
+}
