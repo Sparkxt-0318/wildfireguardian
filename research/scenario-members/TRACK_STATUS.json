@@ -33,8 +33,8 @@
     },
     {
       "id": "1C-1-Caldor-v3",
-      "status": "NOT_RUN",
-      "evidence": "Sealed packets exist but c651 weather/data alignment to those exact graph grids is not established."
+      "status": "NOT_RUN_ALIGNMENT_UNESTABLISHED_BOUNDED_AUDIT_COMPLETE",
+      "evidence": "CALDOR_RIM_ALIGNMENT_AUDIT.json/.md and full input inventory audit1167files/51,014,966bytes, matching59/59source assets and158/158study digests. No native environmental raster bundle or c651 six-channel causal binding on sealed Caldor63x68 or Rim28x36 EPSG3310 grids; origins03:20/08:30 fail the current whole-hour export admission. Sealed packets are retrospective survey-gap timing constructions; clocks bookkeeping. Supplied44event catalog has no matching incident scalar. No resampling, fill, new export or risk experiment."
     },
     {
       "id": "1C-2-abstract-equivalence",
@@ -139,6 +139,11 @@
       "id": "1C-3-reader-admission-repair",
       "status": "PASS_TARGETED_INTERFACE_SCOPE",
       "evidence": "POST_REPAIR_READERS_AUDIT.json passes5/5. Out-of-run positive arrivals, unsupported family, unbound spatial grids and fractional-offset UTC truncation refused. Finite sentinel is right-censored, never globally never; exact_ignition requires supported explicit query horizon. Wapiti11215right-censored cells through88200s, zero globally-never."
+    },
+    {
+      "id": "1C-Caldor-Rim-data-availability-audit",
+      "status": "COMPLETE_BOUNDED_READ_ONLY_NEGATIVE_ADMISSION",
+      "evidence": "Exact sealed study inventory and source verification complete; native forecast alignment not established. External data could exist beyond audited scope. No source/kit change and no physics or risk gate opened."
     }
   ],
   "fresh_tests": {
