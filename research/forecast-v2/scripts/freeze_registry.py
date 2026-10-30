@@ -190,6 +190,7 @@ def build_registry(model_root, run_root, selection_path, c651_path):
         raise ValueError("Model selection freeze timestamp requires a UTC offset")
     return dict(schema="wfg.forecast-blind-registry/1", status="FROZEN", models=models,
                 current_phase=phase_evidence["current_phase"], development_phases=phase_evidence["development_phases"],
+                development_coverage_sha256=phase_evidence["development_coverage_sha256"],
                 spotting_source_contract=phase_evidence["spotting_source_contract"],
                 selected_model=selected + "_seed0", best_dilation_hours_per_cell=rate,
                 logistic=baselines["logistic"], baselines=baselines,

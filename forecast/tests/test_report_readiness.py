@@ -27,42 +27,37 @@ def write(path, value):
 
 def build_fixture(report, root, *, outcome="empty", primary="base", zero_growth=False):
     """Generate actual tiny receipt-bound arrays plus fixed synthetic phase metadata."""
-    root = Path(root)
-    run, out, inputs = root / "forecast/runs/synthetic", root / "research/forecast-v2", root / "synthetic-inputs"
-    sources = {}
-    source_root = Path(report.__file__).resolve().parents[3]
-    for name in ("survival", "meanfield", "burnout"):
-        relative = f"forecast/wildfire/{name}.py"
-        target = root / relative; target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_root / relative, target)
-        sources[relative] = report.sha256(target)
-    folds = {str(year): [f"synthetic_dev_{year}_a", f"synthetic_dev_{year}_b"] for year in (2020, 2021, 2022)}
-    write(out / "SPLIT.json", dict(development_folds=dict(folds=folds)))
-    checkpoints = {}
+    # Reuse the independently source-audited synthetic training population.
+    # Plot controls must not bypass the shared development membership freeze.
+    if __package__:
+        from .test_blind_forecast_protocol import freezer as freezer_fixture, freeze_inputs as fit_fixture
+    else:
+        from test_blind_forecast_protocol import freezer as freezer_fixture, freeze_inputs as fit_fixture
+    with pytest.MonkeyPatch.context() as metadata_patch:
+        freezer = freezer_fixture.__wrapped__()
+        root, run, selection_path, _, selection = fit_fixture.__wrapped__(freezer, Path(root), metadata_patch)
+    out, inputs = root / "research/forecast-v2", root / "synthetic-heldout-inputs"
     for phase in report.F.current_phase_identity()["phases"]:
-        result = run / phase["result"]
-        value = dict(variant=phase["variant"], seed=0, intended_phase=phase,
-                     spotting_source_mode=phase["spotting_source_mode"], parameters=10, fit_seconds=1.)
-        if phase["stage"] == "fold":
-            brier = .05 if phase["variant"] == primary else .1
-            value.update(fold=phase["fold"], validation_events=folds[phase["fold"]],
-                validation_per_fire={event: dict(brier=brier, clipped_nll=.2, weight=4.) for event in folds[phase["fold"]]})
-        else:
-            checkpoint = result.with_name("checkpoint.pt"); checkpoint.parent.mkdir(parents=True, exist_ok=True)
-            checkpoint.write_bytes(("synthetic identity bytes, not a scientific model: " + phase["variant"]).encode())
-            checkpoints[phase["variant"]] = dict(path=str(checkpoint.relative_to(root)), sha256=report.sha256(checkpoint))
-            value.update(epochs=3, checkpoint_sha256=report.sha256(checkpoint))
-        write(result, value)
+        if phase["stage"] != "fold":
+            continue
+        result_path = run / phase["result"]
+        result = json.loads(result_path.read_text())
+        for values in result["validation_per_fire"].values():
+            values["brier"] = .05 if phase["variant"] == primary else .1
+        write(result_path, result)
         job = f"a{5 if phase['variant'] == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}"
-        command = ["python", "pipeline.py", phase["stage"], "--variant", phase["variant"], "--seed", "0"]
-        if phase["stage"] == "fold": command += ["--fold", phase["fold"]]
-        command += ["--artifact-suffix", phase["artifact_suffix"]]
-        write(out / f"executions/{job}.json", dict(job=job, output=str(result), output_sha256=report.sha256(result),
-             exit_code=0, command=command, source_sha256=sources))
+        receipt_path = out / f"executions/{job}.json"
+        receipt = json.loads(receipt_path.read_text()); receipt["output_sha256"] = report.sha256(result_path)
+        write(receipt_path, receipt)
+    original = json.loads((root / selection["fit_coverage"]["path"]).read_text())
+    proof = report.F.audit_coverage(root, original["input_root"], original["cache_root"], run, original["cache_audit"]["path"])
+    proof_path = out / "FIT_COVERAGE_REPORT_FIXTURE.json"
+    report.F.write_new(proof_path, proof)
     development_brier, development_phases = report.F.development_selection(root, run)
-    selection = dict(current_phase=report.F.current_phase_identity(), development_phases=development_phases,
-                     development_brier=development_brier, selected_variant=primary, checkpoints=checkpoints)
-    write(out / "MODEL_SELECTION.json", selection)
+    selection.update(development_brier=development_brier, development_phases=development_phases, selected_variant=primary,
+        fit_coverage=report.F.identity(root, proof_path), development_coverage_sha256=report.F.object_sha(proof["development"]))
+    write(selection_path, selection)
+    sources = report.F.producer_sources(root)
     events = ["SYNTHETIC_A", "SYNTHETIC_B"]
     initial = np.zeros((10, 10), dtype=bool); initial[0, 0] = True
     endpoint = initial.copy()

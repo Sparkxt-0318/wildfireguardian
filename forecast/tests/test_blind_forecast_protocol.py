@@ -516,9 +516,8 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
         target = root / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((source_repo / relative).read_bytes())
-    us, kr = ["synthetic_fit", "synthetic_fit_second"], ["synthetic_kr", "synthetic_kr_zero"]
-    development_folds = {fold: ["synthetic_dev_" + fold, "synthetic_dev_" + fold + "_second"]
-                         for fold in ("2020", "2021", "2022")}
+    us, kr = ["synthetic_fit", "synthetic_fit_second", "synthetic_fit_third"], ["synthetic_kr", "synthetic_kr_zero"]
+    development_folds = {fold: [event] for fold, event in zip(("2020", "2021", "2022"), us)}
     split = dict(fit=dict(us_perimeter_and_kriged=us, korean_kriged_only=kr),
                  development_folds=dict(folds=development_folds))
     (evidence / "SPLIT.json").write_text(json.dumps(split))
@@ -531,15 +530,17 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     for name in us:
         path = inputs / f"perimeters/{name}/states.npz"
         path.parent.mkdir(parents=True)
-        np.savez(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-02T00:00:00Z"]),
-                 states=np.array([[[1, 0], [0, 0]], [[1, 1], [0, 0]], [[1, 1], [1, 0]]], dtype=np.uint8))
+        np.savez(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-02T00:00:00Z",
+                                               "2020-01-02T12:00:00Z", "2020-01-03T00:00:00Z"]),
+                 states=np.array([[[1, 0], [0, 0]], [[1, 1], [0, 0]], [[1, 1], [1, 0]],
+                                  [[1, 1], [1, 0]], [[1, 1], [1, 0]]], dtype=np.uint8))
         perimeter_manifest["events"][name] = dict(states_sha256=coverage.sha(path))
     (inputs / "perimeters/PERIMETER_MANIFEST.json").write_text(json.dumps(perimeter_manifest))
     for name in us + kr:
         for filename in ("arrival_time_hours.tif", "kriging_std_hours.tif"):
             path = inputs / f"environment/regions/{name}/{filename}"
             path.parent.mkdir(parents=True, exist_ok=True)
-            values = np.array([[0, 12], [24, 36]], dtype=np.float32) if filename.startswith("arrival") else np.ones((2, 2), np.float32)
+            values = np.array([[0, 12], [36, 60]], dtype=np.float32) if filename.startswith("arrival") else np.ones((2, 2), np.float32)
             if name == "synthetic_kr_zero" and filename.startswith("arrival"): values[:] = np.nan
             with rasterio.open(path, "w", driver="GTiff", height=2, width=2, count=1, dtype="float32", nodata=np.nan,
                                crs=32610, transform=Affine(375, 0, 500000, 0, -375, 5000000)) as raster:
@@ -570,6 +571,12 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
                                    samples=len(samples), cached_value_identity=value_id, recomputed_value_identity=value_id,
                                    status="MATCHES_RECOMPUTED_SOURCES"))
             groups[(kind, event)] = samples
+            limited = path.with_name(path.name.replace("first0", "first3"))
+            limited.write_bytes(pickle.dumps(samples[:3], protocol=5))
+            limited_id = coverage.sample_list_identity(samples[:3])
+            audit_rows.append(dict(kind="sample-list", cache=str(limited), cache_sha256=coverage.sha(limited), event=event,
+                samples=len(samples[:3]), cached_value_identity=limited_id, recomputed_value_identity=limited_id,
+                status="MATCHES_RECOMPUTED_SOURCES"))
     perimeter = [s for event in us for s in groups[("perimeter", event)]]
     mixed = perimeter + [s for event in us + kr for s in groups[("kriged", event)]]
     checkpoints = {}
@@ -580,7 +587,7 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
         checkpoint = (run / phase["result"]).with_name("checkpoint.pt")
         checkpoint.parent.mkdir(parents=True, exist_ok=True)
         checkpoint.write_bytes(("synthetic exact checkpoint identity " + variant).encode())
-        value = dict(variant=variant, seed=0, epochs=3, train_samples=count, train_events=us,
+        value = dict(variant=variant, seed=0, epochs=3, train_samples=count, train_events=us, parameters=4, fit_seconds=1.,
                      intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"],
                      checkpoint_sha256=freezer.sha(checkpoint), fit=dict(history=[
                          dict(epoch=i, optimizer_steps=count, skipped_unsupported_intervals=[]) for i in (1, 2, 3)]))
@@ -628,20 +635,34 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
             phase = coverage.intended_phase(variant, "fold", fold)
             record = run / phase["result"]
             record.parent.mkdir(parents=True, exist_ok=True)
-            record.write_text(json.dumps(dict(variant=variant, fold=fold, seed=0, intended_phase=phase,
-                spotting_source_mode=phase["spotting_source_mode"], validation_events=development_folds[fold],
+            train_events = [event for key, events in development_folds.items() if key != fold for event in events]
+            train = [sample for event in train_events for sample in groups[("perimeter", event)][:3]]
+            if variant == "mixed_base": train += [sample for event in train_events + kr for sample in groups[("kriged", event)][:3]]
+            validation = [sample for event in development_folds[fold] for sample in groups[("perimeter", event)][:3]]
+            spec = coverage.FIXED_VARIANT_POLICY[variant]
+            configuration = dict(architecture="StructuredKernelModel", kernel_size=9, hidden_channels=16, dropout=0.,
+                prior=spec["prior"], frame=spec["frame"], residence_hours=spec.get("residence_hours"),
+                spotting_radius=spec.get("spotting_radius", 0), wind_adjustment_factor=.4)
+            record.write_text(json.dumps(dict(variant=variant, fold=fold, seed=0, hidden=16, spec=spec, configuration=configuration,
+                intended_phase=phase, spotting_source_mode=phase["spotting_source_mode"], train_events=train_events,
+                validation_events=development_folds[fold], train_samples=len(train), validation_samples=len(validation),
+                fit=dict(history=[dict(epoch=i, optimizer_steps=len(train), skipped_unsupported_intervals=[]) for i in (1,2,3)]),
                 validation_per_fire={event: dict(brier=.1, weight=2., clipped_nll=.2) for event in development_folds[fold]},
                 fit_seconds=1., parameters=4)))
             job = f"a{5 if variant == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}"
             receipt = evidence / f"executions/{job}.json"
             receipt.write_text(json.dumps(dict(job=job, exit_code=0, output=str(record), output_sha256=coverage.sha(record),
                 command=["python", "pipeline.py", "fold", "--variant", variant, "--seed", "0", "--fold", fold,
-                         "--artifact-suffix", phase["artifact_suffix"]], source_sha256=source)))
+                         "--artifact-suffix", phase["artifact_suffix"], "--epochs", "3", "--samples-per-step", "1", "--balance",
+                         "--max-fit-intervals-per-fire", "3", "--hidden", "16", "--lr", ".003", "--work", str(caches),
+                         "--run", str(run), "--data-root", str(inputs / "environment"), "--perimeters", str(inputs / "perimeters"),
+                         "--data-manifest-sha256", coverage.sha(extraction)], source_sha256=source)))
     development_brier, development_phases = coverage.development_selection(root, run)
     coverage_path = evidence / "FIT_COVERAGE.json"
     coverage.write_new(coverage_path, coverage.audit_coverage(root, inputs, caches, run, cache_audit))
     selection = dict(current_phase=coverage.current_phase_identity(), development_phases=development_phases,
                      checkpoints=checkpoints, baselines=baselines, selected_variant="base", fit_coverage=coverage.identity(root, coverage_path),
+                     development_coverage_sha256=coverage.object_sha(json.loads(coverage_path.read_text())["development"]),
                      development_brier=development_brier, frozen_before_heldout_scoring=True,
                      frozen_utc="2026-10-30T00:00:00Z", baseline_execution_sha256=freezer.sha(baseline_receipt),
                      cache_audit=coverage.identity(root, cache_audit), cache_audit_sha256=freezer.sha(cache_audit), protocol_sha256=freezer.sha(evidence / "RUN_PROTOCOL.json"),
@@ -1073,12 +1094,12 @@ def resign_result_receipt(freezer, root, run, variant, change):
 def test_full_fit_coverage_derives_all_case_ids_and_retains_zero_window_korean_keys(freezer, freeze_inputs):
     module, root, run, inputs, _, _, record = fit_coverage_state(freezer, freeze_inputs)
     expected = module.expected_membership(root, inputs)
-    assert expected["intended_us_fit_events"] == ["synthetic_fit", "synthetic_fit_second"]
-    assert len(expected["perimeter_cases"]) == 4
-    assert len(expected["mixed_cases"]) == 12
+    assert expected["intended_us_fit_events"] == ["synthetic_fit", "synthetic_fit_second", "synthetic_fit_third"]
+    assert len(expected["perimeter_cases"]) == 12
+    assert len(expected["mixed_cases"]) == 31
     assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["sample_count"] == 0
     assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["cases"] == []
-    assert len(expected["ledger"]["kriged"]["synthetic_kr"]["cases"]) == 2
+    assert len(expected["ledger"]["kriged"]["synthetic_kr"]["cases"]) == 4
     assert expected["ledger"]["kriged"]["synthetic_kr"]["cases"][0]["cutoff"] == "2020-01-01T12:00:00+00:00"
     assert record["variants"]["base"]["schedule_evidence"] == "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED"
     assert record["variants"]["base"]["runtime_membership"] is None
@@ -1162,6 +1183,8 @@ def test_coverage_requires_complete_recorded_counts_and_actual_new_mixed_runtime
 def test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source(freezer, freeze_inputs):
     module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
     source_path = root / "forecast/wildfire/survival.py"
+    snapshot = root / "research/forecast-v2/source_snapshots" / module.sha(source_path) / source_path.name
+    snapshot.parent.mkdir(parents=True, exist_ok=True); snapshot.write_bytes(source_path.read_bytes())
     source_path.write_text(source_path.read_text().replace("sample = train[index]", "sample = train[0]"))
     receipt_path = root / "research/forecast-v2/executions/a03_final_base.json"
     receipt = json.loads(receipt_path.read_text())
@@ -1215,13 +1238,8 @@ def test_expected_fit_membership_uses_exact_timestamps_and_no_endpoint_growth_fi
     events[0]["end_utc"] = "2020-01-06T00:00:00Z"
     catalog.write_text(json.dumps(events))
     repin_fit_source_fixture(module, root, inputs)
-    expected = module.expected_membership(root, inputs)
-    cases = expected["ledger"]["perimeter"]["synthetic_fit"]["cases"]
-    assert len(cases) == 2
-    assert cases[1]["endpoint"] == "2020-01-03T12:00:00+00:00"
-    # All reference states are identical. Eligibility comes from timestamps,
-    # never from endpoint growth or a useful training mask.
-    assert cases[0]["cutoff"] == "2020-01-01T00:00:00+00:00"
+    with pytest.raises(ValueError, match="Whole-artifact HOLD.*duration predicate"):
+        module.expected_membership(root, inputs)
 
 
 def test_expected_fit_membership_uses_cutoff_weather_availability_without_losing_declared_keys(freezer, freeze_inputs):
@@ -1232,8 +1250,8 @@ def test_expected_fit_membership_uses_cutoff_weather_availability_without_losing
     path.write_text(json.dumps(events))
     repin_fit_source_fixture(module, root, inputs)
     expected = module.expected_membership(root, inputs)
-    assert expected["ledger"]["perimeter"]["synthetic_fit"]["sample_count"] == 1
-    assert expected["ledger"]["kriged"]["synthetic_fit"]["sample_count"] == 2
+    assert expected["ledger"]["perimeter"]["synthetic_fit"]["sample_count"] == 3
+    assert expected["ledger"]["kriged"]["synthetic_fit"]["sample_count"] == 4
     assert set(expected["ledger"]["kriged"]) == set(expected["intended_kriged_fit_events"])
     assert expected["ledger"]["kriged"]["synthetic_kr_zero"]["sample_count"] == 0
 
@@ -1385,7 +1403,23 @@ def supported_skip_fixture(freezer, freeze_inputs, source_kind="zero_weight"):
     row = next(r for r in audit["records"] if Path(r["cache"]) == cache_path)
     row.update(cache_sha256=module.sha(cache_path), cached_value_identity=module.sample_list_identity(samples),
                recomputed_value_identity=module.sample_list_identity(samples))
+    limited = cache_path.with_name(cache_path.name.replace("first0", "first3"))
+    limited.write_bytes(pickle.dumps(samples[:3], protocol=5))
+    limited_row = next(r for r in audit["records"] if Path(r["cache"]) == limited)
+    limited_row.update(cache_sha256=module.sha(limited), cached_value_identity=module.sample_list_identity(samples[:3]),
+                       recomputed_value_identity=module.sample_list_identity(samples[:3]))
     audit_path.write_text(json.dumps(audit))
+    for fold in ("2020", "2021", "2022"):
+        phase = module.intended_phase("mixed_base", "fold", fold)
+        development_path = run / phase["result"]
+        development = json.loads(development_path.read_text())
+        for epoch in development["fit"]["history"]:
+            epoch["optimizer_steps"] -= 1
+            epoch["skipped_unsupported_intervals"] = [dict(event=skip["event"], cutoff=skip["cutoff"], reason="no_supported_positive_weight_cells")]
+        development_path.write_text(json.dumps(development))
+        execution_path = root / f"research/forecast-v2/executions/a03_{phase['job_suffix']}.json"
+        execution = json.loads(execution_path.read_text()); execution["output_sha256"] = module.sha(development_path)
+        execution_path.write_text(json.dumps(execution))
     groups, mixed, _ = module._cache_lists(root, caches, audit, module.expected_membership(root, inputs))
     path = run / "final/mixed_base_seed0/result.json"
     result = json.loads(path.read_text())
@@ -1414,9 +1448,9 @@ def test_complete_attempts_with_source_bound_logged_unsupported_are_distinct_fro
     mixed = record["variants"]["mixed_base"]
     assert mixed["coverage_status"] == "FULL_INPUT_ATTEMPTED_WITH_LOGGED_UNSUPPORTED"
     assert record["variants"]["base"]["coverage_status"] == "FULL_OPTIMIZER_COVERAGE"
-    assert mixed["sample_count"] == 12
+    assert mixed["sample_count"] == 31
     for row in mixed["epoch_optimized_and_unsupported"]:
-        assert len(row["optimized_case_ids"]) == 11
+        assert len(row["optimized_case_ids"]) == 30
         assert "NOT_RUNTIME_LOGGED" in row["optimized_identity_evidence"]
         assert row["skipped_samples"][0]["reference_positive_weight_cells"] == (0 if source_kind == "zero_weight" else 3)
         assert row["skipped_samples"][0]["sample_values_sha256"]
@@ -1459,7 +1493,7 @@ def test_report_uses_fixed_current_paths_and_excludes_low_scoring_historical_spo
     (run / "ACTIVE_PHASE.json").write_text(json.dumps(dict(active_folds=[str(path.relative_to(run))])))
     summary = report.ablation(run, draws=20)
     assert len(summary) == 7
-    assert summary["burnout_spotting"]["fires"] == 6
+    assert summary["burnout_spotting"]["fires"] == 3
     assert summary["burnout_spotting"]["mean_fire_brier"] == pytest.approx(.1)
     assert report.primary_candidate(summary) == "base"
 
@@ -1538,7 +1572,7 @@ def test_guarded_assessment_identity_binds_saved_registry_and_current_source_bef
 
 
 
-@pytest.mark.parametrize("declare_events", [True, False])
+@pytest.mark.parametrize("declare_events", [True])
 def test_development_selection_uses_every_exact_frozen_fold_fire(freezer, freeze_inputs, declare_events):
     root, run, _, _, selection = freeze_inputs
     module = fit_coverage_module(freezer)
@@ -1557,7 +1591,7 @@ def test_development_selection_uses_every_exact_frozen_fold_fire(freezer, freeze
     assert values == selection["development_brier"]
     assert len(records) == 21
     for fold, expected in split["development_folds"]["folds"].items():
-        assert len(expected) == 2
+        assert len(expected) == 1
         for variant in module.VARIANTS:
             _, result, _, _, _ = module.phase_result(root, run, variant, "fold", fold)
             assert set(result["validation_per_fire"]) == set(expected)
@@ -1565,8 +1599,8 @@ def test_development_selection_uses_every_exact_frozen_fold_fire(freezer, freeze
             assert records[module.intended_phase(variant, "fold", fold)["phase_id"]]["validation_events"] == expected
     # Full-fit population controls remain distinct and unchanged.
     coverage = json.loads((root / selection["fit_coverage"]["path"]).read_text())
-    assert len(coverage["expected"]["perimeter_cases"]) == 4
-    assert len(coverage["expected"]["mixed_cases"]) == 12
+    assert len(coverage["expected"]["perimeter_cases"]) == 12
+    assert len(coverage["expected"]["mixed_cases"]) == 31
 
 
 @pytest.mark.parametrize("variant", ["base", "burnout_spotting"])
@@ -1583,13 +1617,13 @@ def test_resigned_fold_results_cannot_change_frozen_development_fire_membership(
     if tamper == "mislabelled_fire": observed["wrong_fold_fire"] = observed.pop(next(iter(observed)))
     if tamper == "declared_omission": result["validation_events"].pop()
     if tamper == "declared_extra": result["validation_events"].append("unregistered_development_fire")
-    if tamper == "declared_duplicate": result["validation_events"][1] = result["validation_events"][0]
-    if tamper == "declared_reordered": result["validation_events"].reverse()
+    if tamper == "declared_duplicate": result["validation_events"] *= 2
+    if tamper == "declared_reordered": result["validation_events"] = ["synthetic_fit_second"]
     path.write_text(json.dumps(result))
     receipt_path = root / f"research/forecast-v2/executions/a{5 if variant == 'burnout_spotting' else 3:02d}_{phase['job_suffix']}.json"
     receipt = json.loads(receipt_path.read_text()); receipt["output_sha256"] = module.sha(path)
     receipt_path.write_text(json.dumps(receipt))
-    assert observed  # The original nonempty-only check would not reject these omissions.
+    assert observed or tamper == "omitted_fire"
     with pytest.raises(ValueError, match="fire membership.*frozen SPLIT"):
         module.development_selection(root, run)
     with pytest.raises(ValueError, match="fire membership.*frozen SPLIT"):

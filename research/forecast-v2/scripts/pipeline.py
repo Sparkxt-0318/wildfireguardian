@@ -643,6 +643,9 @@ def compare_fields(p_mc, p_mf, mask, label=None, label_valid=None):
 
 def command_compare(args):
     """Mean field versus c651 Monte Carlo (1,024 trajectories) on twelve cutoffs."""
+    relative = F.comparison_case_relative(args.compare_case_index, args.artifact_suffix) if args.compare_case_index is not None else None
+    if relative is None and args.artifact_suffix:
+        raise ValueError("Versioned comparison output requires a fixed case index")
     from wildfire.api import load_model
     from wildfire.meanfield import propagate_mean_field
     from wildfire.rollout import simulate
@@ -651,7 +654,7 @@ def command_compare(args):
     model = load_model(C651, device="cpu")
     out = args.run / "meanfield_vs_mc"
     if args.compare_case_index is not None:
-        out = out / f"case_{args.compare_case_index:02d}"
+        out = args.run / relative
     out.mkdir(parents=True, exist_ok=True)
     rows = []
     cases = compare_cases(args, env)

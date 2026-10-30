@@ -108,7 +108,7 @@ def identities(args):
     geometry_path = REPO / "research/forecast-v2/GEOMETRY_AUDIT.json"
     if json.loads(geometry_path.read_text())["source_manifest_sha256"] != sha(perimeter_manifest):
         raise ValueError("Perimeter input manifest differs from the independently audited source phase")
-    return dict(registry=phase_evidence["registry"], current_phase=phase_evidence["current_phase"], spotting_source_contract=phase_evidence["spotting_source_contract"],
+    return dict(development_coverage_sha256=phase_evidence["development_coverage_sha256"], registry=phase_evidence["registry"], current_phase=phase_evidence["current_phase"], spotting_source_contract=phase_evidence["spotting_source_contract"],
                 selection_sha256=sha(selection_path), checkpoints=selection["checkpoints"],
                 c651_sha256=sha(P.C651), source_sha256=source,
                 logistic_sha256=sha(args.run / "baselines/logistic.pkl"),

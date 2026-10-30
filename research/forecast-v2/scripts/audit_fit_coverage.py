@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import ast
 from dataclasses import fields
+from collections import Counter
 from functools import lru_cache
 import hashlib
 import importlib.metadata
@@ -43,6 +44,15 @@ VARIANTS = ("base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "
 SCHEMA = "wfg.forecast-fit-coverage/1"
 SAMPLES_SCHEMA = "wfg.forecast-fit-samples/1"
 RUNTIME_SCHEMA = "wfg.forecast-fit-runtime-membership/1"
+FIXED_VARIANT_POLICY = {
+    "base": dict(prior="free", frame="none", d4=False),
+    "d4": dict(prior="free", frame="none", d4=True),
+    "d4_wind": dict(prior="free", frame="wind", d4=True),
+    "ellipse": dict(prior="ellipse", frame="none", d4=False),
+    "burnout": dict(prior="free", frame="none", d4=False, residence_hours=6.0),
+    "burnout_spotting": dict(prior="free", frame="none", d4=False, residence_hours=6.0, spotting_radius=15),
+    "mixed_base": dict(prior="free", frame="none", d4=False, mixed=True),
+}
 UNSUPPORTED_POLICY_SHA256 = "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
 
 
@@ -79,6 +89,89 @@ def validate_phase_identity(value):
         raise ValueError("The exact current flaming-only phase identity is required")
 
 
+
+def development_events(root):
+    split = json.loads(_inside(root, "research/forecast-v2/SPLIT.json").read_text())
+    folds = split.get("development_folds", {}).get("folds", {})
+    if not isinstance(folds, dict) or set(folds) != {"2020", "2021", "2022"} or any(
+            not isinstance(events, list) or not events or any(not isinstance(e, str) or not e for e in events)
+            or len(events) != len(set(events)) for events in folds.values()):
+        raise ValueError("Development requires the exact three nonempty distinct frozen fold lists")
+    ordered = [e for events in folds.values() for e in events]
+    if len(ordered) != len(set(ordered)) or set(ordered) != set(split["fit"]["us_perimeter_and_kriged"]):
+        raise ValueError("Development folds must partition every intended US fit fire without overlap")
+    return folds
+
+
+def _provided_option(command, name):
+    values = []
+    for index, token in enumerate(command):
+        if token == name:
+            if index + 1 >= len(command) or command[index + 1].startswith("--"):
+                raise ValueError("Effective fit argument has no value: " + name)
+            values.append(command[index + 1])
+        elif token.startswith(name + "="):
+            values.append(token[len(name) + 1:])
+    return values[-1] if values else None
+
+
+def _effective_option(root, source, command, name):
+    explicit = _provided_option(command, name)
+    if explicit is not None:
+        return explicit, "EXPLICIT_LAST_ARGUMENT"
+    pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source.get("research/forecast-v2/scripts/pipeline.py"))
+    calls = [n for n in ast.walk(_function(pipeline, "main")) if isinstance(n, ast.Call)
+             and isinstance(n.func, ast.Attribute) and n.func.attr == "add_argument"
+             and n.args and isinstance(n.args[0], ast.Constant) and n.args[0].value == name]
+    defaults = [keyword.value for call in calls for keyword in call.keywords if keyword.arg == "default"]
+    if len(calls) != 1 or len(defaults) != 1:
+        raise ValueError("An effective argument needs its exact immutable argparse default: " + name)
+    return str(ast.literal_eval(defaults[0])), "IMMUTABLE_ARGPARSE_DEFAULT"
+
+
+def development_budget(root, receipt, result, expected_count=None):
+    command, source = receipt.get("command", []), receipt.get("source_sha256", {})
+    effective = {name: _effective_option(root, source, command, "--" + name.replace("_", "-")) for name in
+                 ("epochs", "seed", "max_fit_intervals_per_fire", "intervals_per_epoch", "samples_per_step", "hidden", "lr")}
+    fixed = dict(epochs=3, seed=0, max_fit_intervals_per_fire=3, samples_per_step=1, hidden=16)
+    try:
+        if any(int(effective[name][0]) != value for name, value in fixed.items()) or float(effective["lr"][0]) != .003:
+            raise ValueError("Development requires fixed effective LAST budgets and model policy")
+        cap = int(effective["intervals_per_epoch"][0])
+    except (TypeError, ValueError) as error:
+        raise ValueError("Development requires fixed effective LAST budgets and model policy") from error
+    count = result.get("train_samples") if expected_count is None else expected_count
+    if type(count) is not int or count < 1 or cap < 0 or (cap and cap < count):
+        raise ValueError("Development interval cap must be zero or provably NONBINDING_CAP")
+    if "--balance" not in command or any(token.startswith("--balance=") for token in command):
+        raise ValueError("Development requires the frozen balanced training flag")
+    variant = result["variant"]
+    spec = FIXED_VARIANT_POLICY[variant]
+    configuration = result.get("configuration", {})
+    required_configuration = dict(architecture="StructuredKernelModel", kernel_size=9, hidden_channels=16, dropout=0.,
+        prior=spec["prior"], frame=spec["frame"], residence_hours=spec.get("residence_hours"),
+        spotting_radius=spec.get("spotting_radius", 0), wind_adjustment_factor=.4)
+    if (result.get("hidden") != 16 or result.get("spec") != spec
+            or any(configuration.get(key) != value for key, value in required_configuration.items())):
+        raise ValueError("Development result must retain the exact fixed model configuration")
+    return dict(effective_arguments={name: value for name, (value, _) in effective.items()},
+                argument_origins={name: origin for name, (_, origin) in effective.items()},
+                interval_cap_status="UNRESTRICTED_CAP_ZERO" if cap == 0 else "NONBINDING_CAP", balanced=True)
+
+
+def comparison_suffix(attempt):
+    if type(attempt) is not int or attempt < 0:
+        raise ValueError("Comparison attempt must be a nonnegative integer")
+    return f"_a{attempt:02d}" if attempt >= 5 else ""
+
+
+def comparison_case_relative(index, suffix):
+    if type(index) is not int or index not in range(12) or (suffix and (
+            re.fullmatch(r"_a[0-9]{2,}", suffix) is None or int(suffix[2:]) < 5
+            or suffix != comparison_suffix(int(suffix[2:])))):
+        raise ValueError("Comparison artifacts require a fixed case index and validated attempt suffix")
+    return f"meanfield_vs_mc/case_{index:02d}{suffix}"
+
 def phase_result(root, run, variant, stage, fold=None):
     """Authenticate the exact intended result and its immutable execution phase."""
     phase = intended_phase(variant, stage, fold)
@@ -103,7 +196,9 @@ def phase_result(root, run, variant, stage, fold=None):
         receipt = json.loads(candidate.read_text())
         output = Path(receipt.get("output", ""))
         output = output if output.is_absolute() else root / output
-        if output.resolve() == path and receipt.get("output_sha256") == sha(path):
+        recorded_run = _provided_option(receipt.get("command", []), "--run")
+        same_phase = output.resolve() == path or (recorded_run is not None and output == Path(recorded_run) / phase["result"])
+        if same_phase and receipt.get("output_sha256") == sha(path):
             matches.append((candidate, receipt))
     if len(matches) != 1 or matches[0][1].get("exit_code") != 0:
         raise ValueError("Exactly one successful immutable receipt for the intended phase is required")
@@ -112,6 +207,19 @@ def phase_result(root, run, variant, stage, fold=None):
     if (stage not in command or _option(command, "--variant") != variant or _option(command, "--seed") != "0"
             or (stage == "fold" and _option(command, "--fold") != str(fold))):
         raise ValueError("Execution command differs from the intended phase")
+    if stage == "fold":
+        folds = development_events(root)
+        train_events = [event for key, events in folds.items() if key != str(fold) for event in events]
+        if (result.get("train_events") != train_events or result.get("validation_events") != folds[str(fold)]
+                or type(result.get("validation_samples")) is not int or result["validation_samples"] < 1):
+            raise ValueError("Development must name every actual frozen training and validation event and positive sample counts")
+        development_budget(root, receipt, result)
+        history = result.get("fit", {}).get("history", [])
+        if len(history) != 3 or any(row.get("epoch") != index or type(row.get("optimizer_steps")) is not int
+                or row["optimizer_steps"] < 1 or not isinstance(row.get("skipped_unsupported_intervals"), list)
+                or row["optimizer_steps"] + len(row["skipped_unsupported_intervals"]) != result["train_samples"]
+                for index, row in enumerate(history, 1)):
+            raise ValueError("Development requires all three complete recorded epoch/optimizer/skip counts")
     source_contract = None
     if variant == "burnout_spotting":
         if (result.get("intended_phase") != phase or result.get("spotting_source_mode") != "flaming_only"
@@ -158,7 +266,9 @@ def validate_selection_phase(root, run, selection):
     _, spot_result, _, _, contract = phase_result(root, run, "burnout_spotting", "final")
     if spot_result.get("checkpoint_sha256") != selection["checkpoints"]["burnout_spotting"]["sha256"]:
         raise ValueError("Corrected spotting result, receipt and selected checkpoint identities differ")
-    return dict(current_phase=current_phase_identity(), development_phases=development, spotting_source_contract=contract)
+    development_hash = authenticate_development_coverage(root, run, selection, development)
+    return dict(current_phase=current_phase_identity(), development_phases=development, spotting_source_contract=contract,
+                development_coverage_sha256=development_hash)
 
 
 def saved_registry_admission(root, run, selection_path, selection, registry_path):
@@ -173,6 +283,7 @@ def saved_registry_admission(root, run, selection_path, selection, registry_path
             or registry.get("selected_model") != selection["selected_variant"] + "_seed0"
             or registry.get("development_phases") != phase["development_phases"]
             or registry.get("spotting_source_contract") != phase["spotting_source_contract"]
+            or registry.get("development_coverage_sha256") != phase["development_coverage_sha256"]
             or registry.get("fit_coverage") != selection.get("fit_coverage")
             or registry.get("baselines") != selection.get("baselines")
             or registry.get("logistic") != selection.get("baselines", {}).get("logistic")):
@@ -207,7 +318,7 @@ def saved_registry_admission(root, run, selection_path, selection, registry_path
     coverage = registry["fit_coverage"]
     if identity(root, coverage["path"]) != coverage:
         raise ValueError("Saved complete fit coverage bytes changed")
-    return dict(registry=identity(root, path), c651_sha256=models["c651_mc"]["sha256"], current_phase=phase["current_phase"], spotting_source_contract=phase["spotting_source_contract"])
+    return dict(development_coverage_sha256=phase["development_coverage_sha256"], registry=identity(root, path), c651_sha256=models["c651_mc"]["sha256"], current_phase=phase["current_phase"], spotting_source_contract=phase["spotting_source_contract"])
 
 def sha(path):
     h = hashlib.sha256()
@@ -366,7 +477,11 @@ def expected_membership(model_root, input_root):
         start, end = _stamp(metadata["start_utc"]), _stamp(metadata["end_utc"])
         cases = []
         for a, b in zip(times, times[1:]):
-            if 0 < b.value - a.value <= 48 * 3600 * 10**9 and start <= a.floor("h") <= end:
+            exact = 0 < b.value - a.value <= 48 * 3600 * 10**9
+            producer = 0 < (b - a).total_seconds() / 3600 <= 48 + 1e-9
+            if exact != producer:
+                raise ValueError("Whole-artifact HOLD: exact <=48h eligibility disagrees with the immutable producer duration predicate")
+            if exact and start <= a.floor("h") <= end:
                 cases.append(descriptor(event, "perimeter", a, b))
         perimeter.extend(cases)
         ledger["perimeter"][event] = dict(sample_count=len(cases), cases=cases,
@@ -514,12 +629,12 @@ def spotting_source_contract(root, source):
                 source_sha256={relative: source[relative] for relative in functions}, ast_sha256=hashes,
                 evidence="IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION")
 
-def _schedule_contract(root, source):
+def _schedule_contract(root, source, stage="final"):
     """Bounded source checks for full permutations and the recorded skip paths."""
     pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source["research/forecast-v2/scripts/pipeline.py"])
     survival = _source_blob(root, "forecast/wildfire/survival.py", source["forecast/wildfire/survival.py"])
     current_pipeline = (root / "research/forecast-v2/scripts/pipeline.py").read_text()
-    for name in ("fit_samples", "available"):
+    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
         if ast.dump(_function(pipeline, name), include_attributes=False) != ast.dump(_function(current_pipeline, name), include_attributes=False):
             raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
     tables = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign)
@@ -527,13 +642,17 @@ def _schedule_contract(root, source):
     if len(tables) != 1:
         raise ValueError("The immutable producer must identify the full mixed/perimeter regime table")
     table = _literal(tables[0].value)
-    if (set(table) != set(VARIANTS) or table["mixed_base"].get("mixed") is not True
+    if (table != FIXED_VARIANT_POLICY or table["mixed_base"].get("mixed") is not True
             or any(table[name].get("mixed", False) for name in VARIANTS if name != "mixed_base")):
         raise ValueError("The producer's mixed extra-source regime differs from the intended fit policy")
-    final = _function(pipeline, "command_final")
+    final = _function(pipeline, "command_" + stage)
     required_origins = {"spec": "VARIANTS[args.variant]",
                         "train_events": 'available(args, SPLIT["fit"]["us_perimeter_and_kriged"])',
                         "train": 'fit_samples(args, train_events, env, mixed=spec.get("mixed", False))'}
+    if stage == "fold":
+        required_origins.update(folds='SPLIT["development_folds"]["folds"]',
+            train_events='available(args, [e for f, ev in folds.items() if f != args.fold for e in ev])',
+            validation_events='available(args, folds[args.fold])', validation='fit_samples(args, validation_events, env, mixed=False)')
     for target, expression in required_origins.items():
         values = [n.value for n in ast.walk(final) if isinstance(n, ast.Assign)
                   and any(isinstance(t, ast.Name) and t.id == target for t in n.targets)]
@@ -542,13 +661,39 @@ def _schedule_contract(root, source):
     calls = [n for n in ast.walk(final) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "fit_mean_field"]
     if len(calls) != 1:
         raise ValueError("One direct full-fit producer call is required")
-    if len(calls[0].args) != 3 or not _same(calls[0].args[1], "train") or not _same(calls[0].args[2], "[]"):
+    if len(calls[0].args) != 3 or not _same(calls[0].args[1], "train") or not _same(calls[0].args[2], "validation" if stage == "fold" else "[]"):
         raise ValueError("Full fit must consume its entire prepared train list without a validation-based stopping set")
     keywords = {k.arg: k.value for k in calls[0].keywords}
     for name, value in {"validate_each_epoch": "False", "intervals_per_epoch": "args.intervals_per_epoch or None",
-                        "samples_per_step": "args.samples_per_step", "epochs": "args.epochs"}.items():
+                        "samples_per_step": "args.samples_per_step", "epochs": "args.epochs", "learning_rate": "args.lr",
+                        "seed": "args.seed", "d4": 'spec["d4"]', "balance": "balance", "biome_channels": "channels"}.items():
         if name not in keywords or not _same(keywords[name], value):
             raise ValueError("Producer full-fit budget or selection call differs from the source-inference contract")
+    if stage == "fold":
+        for name, expression in {"scores": "evaluate_samples(model, validation)",
+                "per_fire": "{e: evaluate_samples(model, [s for s in validation if s.event_id == e]) for e in validation_events}"}.items():
+            assignments = [node for node in final.body if isinstance(node, ast.Assign)
+                and any(isinstance(target, ast.Name) and target.id == name for target in node.targets)]
+            if len(assignments) != 1 or not _same(assignments[0].value, expression):
+                raise ValueError("Immutable fold evaluation must directly consume the entire validation list and every declared fire")
+        record = [node.value for node in final.body if isinstance(node, ast.Assign)
+                  and any(isinstance(target, ast.Name) and target.id == "record" for target in node.targets)]
+        if len(record) != 1 or not isinstance(record[0], ast.Call):
+            raise ValueError("Immutable fold must directly record its complete actual input membership and fit result")
+        recorded = {keyword.arg: keyword.value for keyword in record[0].keywords}
+        for name, expression in {"train_events": "train_events", "validation_events": "validation_events",
+                "train_samples": "len(train)", "validation_samples": "len(validation)", "validation": "scores",
+                "validation_per_fire": "per_fire", "fit": "result"}.items():
+            if name not in recorded or not _same(recorded[name], expression):
+                raise ValueError("Immutable fold result substitutes counters or validation metrics for its actual prepared lists")
+        for name in ("evaluate_samples", "endpoint_brier", "sample_tensors"):
+            if _dump(_function(survival, name)) != _dump(_function((root / "forecast/wildfire/survival.py").read_text(), name)):
+                raise ValueError("Immutable validation producer differs from the audited complete sample evaluation recipe")
+        evaluation = _function(survival, "evaluate_samples")
+        if not any(isinstance(n, ast.For) and _same(n.iter, "samples") for n in ast.walk(evaluation)):
+            raise ValueError("Validation source must evaluate every prepared sample")
+        if not any(isinstance(n, ast.Call) and _same(n, "evaluate_samples(model, validation)") for n in ast.walk(final)):
+            raise ValueError("Fold result must evaluate its entire independently derived validation list")
     fitting = _function(survival, "fit_mean_field")
     assignments = [n for n in ast.walk(fitting) if isinstance(n, ast.Assign)
                    and any(isinstance(t, ast.Name) and t.id == "order" for t in n.targets)]
@@ -591,10 +736,10 @@ def _schedule_contract(root, source):
 
 
 def _option(command, name):
-    indices = [i for i, value in enumerate(command) if value == name]
-    if not indices or indices[-1] + 1 >= len(command):
+    value = _provided_option(command, name)
+    if value is None:
         raise ValueError("Effective fit argument is missing: " + name)
-    return command[indices[-1] + 1]
+    return value
 
 
 def _execution(root, run, variant):
@@ -780,6 +925,162 @@ def runtime_membership_contract(root, source):
         raise ValueError("Runtime attempted IDs must be recorded before any augmentation")
     return dict(survival_sha256=source["forecast/wildfire/survival.py"], evidence="BOUNDED_IMMUTABLE_RUNTIME_LOGGING_SOURCE_CHECKED")
 
+
+def _development_cache_lists(cache_root, audit, expected, mixed):
+    """Authenticate first3 lists against both independent cases and full source values."""
+    rows = {Path(row["cache"]).resolve(): row for row in audit.get("records", []) if row.get("kind") == "sample-list"}
+    full = {}
+    for sample in mixed:
+        full.setdefault((sample.kind, sample.event_id), []).append(sample)
+    groups, files = {}, {}
+    for kind, ledger in expected["ledger"].items():
+        for event, entry in ledger.items():
+            if kind == "kriged" and entry.get("reason") == "REGION_ABSENT_UNDER_EXISTING_RECIPE":
+                groups[(kind, event)] = []
+                continue
+            prefix = "perimeter_crop" if kind == "perimeter" else "kriged_utc_v2"
+            path = _inside(cache_root, f"samples/{prefix}_first3_{event}.pkl")
+            row = rows.get(path)
+            if row is None or row.get("status") != "MATCHES_RECOMPUTED_SOURCES" or row.get("cache_sha256") != sha(path):
+                raise ValueError("Every first3 development cache requires exact source-recomputed cache-audit evidence")
+            samples = pickle.loads(path.read_bytes())
+            actual = [sample_descriptor(sample) for sample in samples]
+            value_identity = sample_list_identity(samples)
+            if (actual != entry["cases"][:3] or value_identity != sample_list_identity(full.get((kind, event), [])[:3])
+                    or row.get("samples") != len(samples) or row.get("cached_value_identity") != value_identity
+                    or row.get("recomputed_value_identity") != value_identity):
+                raise ValueError("Development first3 cache identities/values differ from the exact independent source prefix and full-source list")
+            groups[(kind, event)] = samples
+            files[str(path.relative_to(cache_root))] = dict(sha256=sha(path), sample_values_sha256=value_identity,
+                sample_count=len(samples), case_ids=[case["case_id"] for case in actual])
+    return groups, files
+
+
+def _membership_record(samples):
+    cases = [sample_descriptor(sample) for sample in samples]
+    ids = [case["case_id"] for case in cases]
+    if len(ids) != len(set(ids)):
+        raise ValueError("Independently derived development membership cannot repeat sample identities")
+    return dict(sample_count=len(ids), cases=cases, ordered_ids_sha256=object_sha(ids), membership_sha256=object_sha(sorted(ids)),
+                sample_values_sha256=sample_list_identity(samples), evidence="SOURCE_DERIVED_COMPLETE_INPUT_MEMBERSHIP_NOT_RUNTIME_IDS")
+
+
+def _historical_development_epochs(root, variant, source, train, history, cache_files):
+    ids = [case_id(sample) for sample in train]
+    proofs = []
+    support = None
+    if variant == "mixed_base":
+        support = mixed_support_contract(root, source)
+        for sample in train:
+            try:
+                proofs.append(unsupported_sample_evidence(sample, cache_files))
+            except ValueError as error:
+                if "retains positive source weight" not in str(error):
+                    raise
+    expected = Counter((proof["case"]["event"], proof["case"]["cutoff"]) for proof in proofs)
+    skipped_ids = {proof["case"]["case_id"] for proof in proofs}
+    optimized = [value for value in ids if value not in skipped_ids]
+    epochs = []
+    for index, row in enumerate(history, 1):
+        logs = row["skipped_unsupported_intervals"]
+        actual = Counter()
+        for entry in logs:
+            if set(entry) != {"event", "cutoff", "reason"} or entry["reason"] != "no_supported_positive_weight_cells":
+                raise ValueError("Historical development skip needs its exact source-bound event/cutoff/reason")
+            actual[(entry["event"], _stamp(entry["cutoff"]).isoformat())] += 1
+        if actual != expected or not optimized or row["optimizer_steps"] != len(optimized):
+            raise ValueError("Historical development optimizer/skip logs do not prove a complete source-derived epoch")
+        epochs.append(dict(epoch=index, optimizer_steps=row["optimizer_steps"], actual_logged_skips=logs,
+            source_derived_skipped_samples=proofs, source_derived_optimized_case_ids=optimized,
+            evidence="SOURCE_DERIVED_ID_ACCOUNTING_FROM_COMPLETE_LOOP_AND_EVENT_CUTOFF_LOGS_NO_RUNTIME_CASE_IDS"))
+    return dict(coverage_status="FULL_INPUT_SOURCE_INFERRED_WITH_LOGGED_UNSUPPORTED" if proofs else "FULL_OPTIMIZER_COVERAGE_SOURCE_INFERRED",
+                epochs=epochs, unsupported_support_source_contract=support)
+
+
+def development_coverage(root, inputs, caches, run, audit, expected, mixed):
+    folds = development_events(root)
+    groups, files = _development_cache_lists(caches, audit, expected, mixed)
+    records = {}
+    for fold, validation_events in folds.items():
+        train_events = [event for key, events in folds.items() if key != fold for event in events]
+        for variant in VARIANTS:
+            phase = intended_phase(variant, "fold", fold)
+            path, result, receipt_path, receipt, spotting = phase_result(root, run, variant, "fold", fold)
+            source, command = receipt["source_sha256"], receipt["command"]
+            if (Path(_option(command, "--work")).resolve() != caches or Path(_option(command, "--run")).resolve() != run
+                    or Path(_option(command, "--data-root")).resolve() != inputs / "environment"
+                    or Path(_option(command, "--perimeters")).resolve() != inputs / "perimeters"
+                    or _option(command, "--data-manifest-sha256") != expected["input_sha256"]["EXTRACTION_MANIFEST.json"]):
+                raise ValueError("Development coverage requires the actual authenticated source/cache/run argument identities")
+            train = [sample for event in train_events for sample in groups[("perimeter", event)]]
+            if variant == "mixed_base":
+                train += [sample for event in train_events + expected["intended_kriged_fit_events"][len(expected["intended_us_fit_events"]):]
+                          for sample in groups[("kriged", event)]]
+            validation = [sample for event in validation_events for sample in groups[("perimeter", event)]]
+            if (not train or not validation or any(not groups[("perimeter", event)] for event in validation_events)
+                    or result["train_samples"] != len(train) or result["validation_samples"] != len(validation)):
+                raise ValueError("Development counts must equal every independently derived first3 training and validation sample")
+            budget = development_budget(root, receipt, result, expected_count=len(train))
+            contract = _schedule_contract(root, source, stage="fold")
+            epochs = _historical_development_epochs(root, variant, source, train, result["fit"]["history"], files)
+            records[phase["phase_id"]] = dict(intended_phase=phase, fit_result=identity(root, path), execution=identity(root, receipt_path),
+                train_events=train_events, validation_events=validation_events, budget=budget,
+                training=_membership_record(train), validation=_membership_record(validation), source_schedule_contract=contract,
+                producer_source_sha256=source, spotting_source_contract=spotting,
+                schedule_evidence="SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED", runtime_membership=None,
+                **epochs)
+    return records, files
+
+
+def authenticate_development_coverage(root, run, selection, development_phases):
+    """Replay frozen phase identities without requiring original training data locations."""
+    declared = selection.get("fit_coverage", {})
+    path = _inside(root, declared.get("path", ""))
+    if identity(root, path) != declared:
+        raise ValueError("Development admission requires the exact frozen fit-coverage artifact")
+    record = json.loads(path.read_text())
+    phases = record.get("development", {})
+    if (record.get("schema") != SCHEMA or record.get("status") != "PASS_COMPLETE_FIT_MEMBERSHIP"
+            or set(phases) != set(development_phases) or len(phases) != 21
+            or selection.get("development_coverage_sha256") != object_sha(phases)):
+        raise ValueError("All21 independently derived development memberships must be frozen into model selection")
+    expected = record.get("expected", {})
+    split_path, us, kr = _split(root)
+    if (expected.get("split") != identity(root, split_path) or expected.get("intended_us_fit_events") != us
+            or expected.get("intended_kriged_fit_events") != us + kr):
+        raise ValueError("Frozen development proof must bind the same complete source-derived SPLIT inventory")
+    for name, phase in phases.items():
+        current = development_phases[name]
+        if (phase.get("fit_result") != current["result"] or phase.get("execution") != current["execution"]
+                or phase.get("validation_events") != current["validation_events"]
+                or phase.get("schedule_evidence") != "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED"
+                or phase.get("runtime_membership") is not None):
+            raise ValueError("Frozen development membership no longer binds the exact intended producer phases")
+        intended = phase["intended_phase"]
+        _, result, _, receipt, _ = phase_result(root, run, intended["variant"], "fold", intended["fold"])
+        folds = development_events(root)
+        train_events = [event for fold, events in folds.items() if fold != intended["fold"] for event in events]
+        validation_events = folds[intended["fold"]]
+        ledger = expected["ledger"]
+        train_cases = [case for event in train_events for case in ledger["perimeter"][event]["cases"][:3]]
+        if intended["variant"] == "mixed_base":
+            train_cases += [case for event in train_events + kr for case in ledger["kriged"][event]["cases"][:3]]
+        validation_cases = [case for event in validation_events for case in ledger["perimeter"][event]["cases"][:3]]
+        for role, cases in (("training", train_cases), ("validation", validation_cases)):
+            evidence = phase.get(role, {})
+            ids = [case["case_id"] for case in cases]
+            if (not ids or evidence.get("cases") != cases or evidence.get("sample_count") != len(ids)
+                    or evidence.get("ordered_ids_sha256") != object_sha(ids)
+                    or evidence.get("membership_sha256") != object_sha(sorted(ids))
+                    or len(ids) != len(set(ids)) or not isinstance(evidence.get("sample_values_sha256"), str)
+                    or re.fullmatch(r"[0-9a-f]{64}", evidence["sample_values_sha256"]) is None):
+                raise ValueError("Frozen development proof must preserve every source-derived training/validation case identity")
+        if (result["train_samples"] != len(train_cases) or result["validation_samples"] != len(validation_cases)
+                or phase.get("train_events") != train_events
+                or phase.get("budget") != development_budget(root, receipt, result, expected_count=len(train_cases))):
+            raise ValueError("Frozen development counts/budgets disagree with the independently audited source membership")
+    return object_sha(phases)
+
 def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_path):
     root, inputs, caches, run = (Path(p).resolve() for p in (model_root, input_root, cache_root, run_root))
     expected = expected_membership(root, inputs)
@@ -792,6 +1093,7 @@ def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_pat
     _source_blob(root, "research/forecast-v2/scripts/pipeline.py", audit["producer_sha256"])
     _source_blob(root, "research/forecast-v2/scripts/audit_caches.py", audit["audit_script_sha256"])
     perimeter, mixed, cache_files = _cache_lists(root, caches, audit, expected)
+    development, development_cache_files = development_coverage(root, inputs, caches, run, audit, expected, mixed)
     variants = {}
     for variant in VARIANTS:
         result_path, result, receipt_path, receipt = _execution(root, run, variant)
@@ -887,6 +1189,7 @@ def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_pat
                                  recorded_epochs=[dict(epoch=r["epoch"], optimizer_steps=r["optimizer_steps"],
                                                        skipped_unsupported_intervals=r["skipped_unsupported_intervals"]) for r in history])
     return dict(schema=SCHEMA, status="PASS_COMPLETE_FIT_MEMBERSHIP", current_phase=current_phase_identity(), unsupported_interval_policy=policy, expected=expected, variants=variants,
+                development=development, development_cache_files=development_cache_files,
                 source_sha256=producer_sources(root), cache_audit=identity(root, cache_audit_path), cache_files=cache_files,
                 cache_audit_source_sha256=dict(pipeline=audit["producer_sha256"], audit_caches=audit["audit_script_sha256"]),
                 input_root=str(inputs), cache_root=str(caches), run_root=str(run),

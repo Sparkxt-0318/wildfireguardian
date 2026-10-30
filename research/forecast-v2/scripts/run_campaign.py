@@ -122,7 +122,7 @@ def main():
               "--work", str(DATA / "campaign-work"), "--run", str(RUN),
               "--data-manifest-sha256", sha(DATA / "EXTRACTION_MANIFEST.json"),
               "--epochs", "3", "--seed", "0", "--hidden", "16", "--lr", ".003",
-              "--samples-per-step", "1", "--max-fit-intervals-per-fire", "3",
+              "--samples-per-step", "1", "--max-fit-intervals-per-fire", "3", "--intervals-per-epoch", "0",
               "--threads", "2", "--n-samples", "1024", "--balance"]
     if args.stage == "spotting-repair":
         for stage, fold in [("fold", fold) for fold in ("2020", "2021", "2022")] + [("final", None)]:
@@ -180,6 +180,7 @@ def main():
         if any(coverage_record["variants"][variant]["checkpoint"] != identities[variant] for variant in VARIANTS):
             raise ValueError("Full fit coverage and selection must bind the same exact final checkpoint bytes")
         selection = dict(current_phase=F.current_phase_identity(), development_phases=development_phases,
+                         development_coverage_sha256=F.object_sha(coverage_record["development"]),
                          selected_variant=selected, criterion="lowest equal-fire development Brier across three year folds",
                          development_brier=by_variant, checkpoints=identities,
                          baselines=baselines, baseline_execution_sha256=sha(baseline_receipt),
@@ -210,8 +211,9 @@ def main():
             rows, case_receipts, source_phases = [], [], []
             for index in range(12):
                 name = f"a{args.attempt:02d}_compare_case{index:02d}"
-                expected_case = RUN / "meanfield_vs_mc" / f"case_{index:02d}" / "meanfield_vs_mc.json"
-                job(name, [sys.executable, str(pipeline), "compare", *shared, "--compare-case-index", str(index)], expected_case)
+                suffix = F.comparison_suffix(args.attempt)
+                expected_case = RUN / F.comparison_case_relative(index, suffix) / "meanfield_vs_mc.json"
+                job(name, [sys.executable, str(pipeline), "compare", *shared, "--compare-case-index", str(index), "--artifact-suffix", suffix], expected_case)
                 result = json.loads(expected_case.read_text())
                 rows.extend(result["rows"])
                 receipt_path = EVIDENCE / "executions" / f"{name}.json"

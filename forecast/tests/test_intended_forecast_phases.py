@@ -115,3 +115,47 @@ def test_campaign_heldout_uses_two_guarded_scorers_without_an_outer_job_lock(tmp
     pipeline = load_script("pipeline")
     with pytest.raises(RuntimeError, match="retired.*score_cohorts"):
         pipeline.command_heldout(SimpleNamespace())
+
+
+@pytest.mark.parametrize("attempt,suffix", [(4, ""), (5, "_a05"), (6, "_a06"), (100, "_a100")])
+def test_comparison_case_paths_are_versioned_only_for_new_attempts(attempt, suffix):
+    helper = load_script("audit_fit_coverage")
+    assert helper.comparison_suffix(attempt) == suffix
+    assert helper.comparison_case_relative(0, suffix) == "meanfield_vs_mc/case_00" + suffix
+
+
+@pytest.mark.parametrize("suffix", ["../escape", "_a04", "_a005", "_a5"])
+def test_invalid_comparison_suffix_is_refused_before_model_or_input_loading(suffix):
+    pipeline = load_script("pipeline")
+    with pytest.raises(ValueError, match="validated attempt suffix"):
+        pipeline.command_compare(SimpleNamespace(compare_case_index=0, artifact_suffix=suffix))
+
+
+def test_attempt6_comparison_plan_preserves_original_case0_and_producer_receipt(tmp_path, monkeypatch):
+    runner = load_script("run_campaign")
+    data, root = tmp_path / "data", tmp_path / "synthetic-repo"
+    run, evidence = root / "run", root / "evidence"
+    data.mkdir(); (data / "EXTRACTION_MANIFEST.json").write_text("synthetic source manifest")
+    old = run / "meanfield_vs_mc/case_00/meanfield_vs_mc.json"; old.parent.mkdir(parents=True)
+    old.write_bytes(b"original a04 case0, retain unchanged")
+    old_receipt = evidence / "executions/a04_compare_case00.json"; old_receipt.parent.mkdir(parents=True)
+    old_receipt.write_bytes(b"original a04 source receipt, retain unchanged")
+    monkeypatch.setattr(runner, "DATA", data); monkeypatch.setattr(runner, "RUN", run)
+    monkeypatch.setattr(runner, "REPO", root); monkeypatch.setattr(runner, "EVIDENCE", evidence)
+    calls = []
+    def fake_job(name, command, expected):
+        calls.append((name, command, expected))
+        index = int(command[command.index("--compare-case-index") + 1])
+        expected.parent.mkdir(parents=True)
+        expected.write_text(json.dumps(dict(rows=[dict(case=index, row=i) for i in range(6 if index < 6 else 5)],
+            checkpoint_sha256="synthetic comparator identity", host=dict(synthetic=True))))
+        receipt = evidence / "executions" / (name + ".json")
+        receipt.write_text(json.dumps(dict(source_sha256={"synthetic producer": "same source in every case"})))
+    monkeypatch.setattr(runner, "job", fake_job)
+    monkeypatch.setattr(sys, "argv", ["run_campaign.py", "compare", "--attempt", "6"])
+    runner.main()
+    assert len(calls) == 12
+    assert all(command[-2:] == ["--artifact-suffix", "_a06"] for _, command, _ in calls)
+    assert all(expected.parent.name == f"case_{index:02d}_a06" for index, (_, _, expected) in enumerate(calls))
+    assert old.read_bytes() == b"original a04 case0, retain unchanged"
+    assert old_receipt.read_bytes() == b"original a04 source receipt, retain unchanged"
