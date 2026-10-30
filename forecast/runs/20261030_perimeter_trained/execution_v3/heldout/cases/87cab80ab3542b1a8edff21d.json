@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "ID-BOF-001080_Lava",
+    "cutoff": "2024-08-31T07:27:00+00:00",
+    "endpoint": "2024-09-01T03:37:00+00:00",
+    "hours": 20.166666666666668
+  },
+  "case_id": "87cab80ab3542b1a8edff21d",
+  "assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "5bb29e135716dd5fb3f54d6d70727c0f46fa50b2f71f8d24bebd3be74ff2f10e",
+  "endpoint_sha256": "6a9b358c0d81542f2855536c5ee6c07550532ee8aeffdcf8a8c1801b37fb57c5",
+  "environmental_snapshot_sha256": "98ebc7e04c958730d6a6f62e022a63a5ddb70dd7eb491034b42252337c9f45b5",
+  "reference_mask_sha256": "ebb12b8b9d3d4330ea08cb5228ef90737782f1950ed35adc4d2ff5906a857dfb",
+  "initial_age_sha256": "727353942dd6a97653c01ecc83ebc3a8ba9712da10aa78f38b7e0247be2aa67e",
+  "residence_sha256": "29f3ce0c96d12fecf66208868c3833a203261487746eb71757e3a7d7bdbbe8ac",
+  "rectangle": [
+    85,
+    77
+  ],
+  "reference_cells": 6474,
+  "weather_hour": "2024-08-31T07:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "fccc7b29f015fdbf5e16257c3a78b96e3cf8a41ec583719465b70e0eefc72caa",
+  "scored_cells": 6474,
+  "positives": 1,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "ebb12b8b9d3d4330ea08cb5228ef90737782f1950ed35adc4d2ff5906a857dfb",
+  "model_seconds": {
+    "c651_mc": 42.53829529200448,
+    "c651_meanfield": 0.042605374997947365,
+    "base_seed0": 0.025931334006600082,
+    "d4_seed0": 0.02577195898629725,
+    "d4_wind_seed0": 0.19404933298937976,
+    "ellipse_seed0": 0.027144333987962455,
+    "burnout_seed0": 0.02935054199770093,
+    "burnout_spotting_seed0": 0.39392770803533494,
+    "mixed_base_seed0": 0.025424332998227328,
+    "admission_support_replay": 0.769907875044737
+  },
+  "seconds": 44.08161316701444,
+  "completed_utc": "2026-10-30T15:35:04.444887+00:00"
+}
