@@ -4,6 +4,15 @@ Base: fetched origin/Main at 8670e350b845db94a17df4c5448f2af515fc0feb (2026-10-3
 
 Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIPP and synthetic truth. Track 1D is archived as a supplied prompt only; it is outside the requested execution.
 
+## Current status
+
+The contracts and all six supplied prompts were committed first. Tracks ran in separate worktrees; track 1D was archived only. Local branch names follow the request. Unique `codex/*-20261030` publication refs preserve earlier remote branches.
+
+- 1A: draft PR 85, physics HOLD. The reviewed geometry revision passes 42 functional tests and 367 release checks. Independent math review is scoped to the represented model. Journey replays and binding studies remain gated.
+- 1B: ongoing. Five final fits are complete; spotting and mixed remain. Scoring admission passes 57 independent synthetic controls. Final source support, all seven model identities and selection must be frozen before held-out assessment. Future 2026 execution remains NOT_READY.
+- 1C: draft PR 86. Contact-only native routing matches 52/52 pairs, and all 15 real exports preserve old v2 bytes. Risk rates remain unidentified. Bounded Caldor/Rim causal forecast alignment is unestablished.
+- Integration: readiness documents only. No track code or GitHub PR has been merged. Step 4 experiments remain NOT_RUN_GATED because the scientific acceptance preconditions are unmet.
+
 ## Ownership table (files a track may create or modify; everything else is read-only for that track)
 
 - 1A: `experimental/flame-front-radiation/**`, `research/flame-front-radiation/**`, `docs/RADIATION_LAW_V2.md`, and a test-only adapter under `experimental/flame-front-radiation/adapters/` that plugs law v2 into a copy of the journey checker for evaluation. 1A never edits `integration/**` or `forecast/**`.
@@ -112,3 +121,5 @@ Tracks: 1A flame-front radiation, 1B forecast upgrades, 1C coherent members, SIP
 - 2026-10-30: C report-only head1e646b164 is published to PR86 after exact four-file ownership, style and digest checks. The bounded Caldor/Rim availability audit covers1,167files (51,014,966bytes);59/59 original source and158/158study digests match. No acquired environmental raster or causal six-channel c651 alignment is established in that scope. Two off-hour origins and retrospective construction cannot be converted into native forecasts by arbitrary rounding or resampling. No experiments were run for this audit.
 - 2026-10-30: Parent audit confirms A433 and C e681 source snapshots have no ownership/style/commit-message violations or dirty/untracked files. Every current PNG has an SVG pair and nominal300dpi; canvases use3.5 or7.2inches. Three representative C figures were visually inspected and readable. README keyword uses remain scoped to model predicates, proof arguments and explicit limitations. C later report-only changes were separately checked.
 - 2026-10-30: Independent synthetic review of the unwired future-release adapter found three custody/completeness gaps: symlink-hidden environmental dependencies, unchecked trailing DBF records, and unrecognized nested.tgz source bundles. Exact reproductions are retained in task work/future-inventory-review. Repairs and independent recheck are required before wiring; NOT_READY_FOR_2026_EXECUTION held in all reproductions. Separately, the spotting branch global wind dependency is under owner review before the final scoring freeze.
+
+- 2026-10-30: Root independently verified exact A head 43324736 in the fresh pinned routing environment: 42 functional tests and 367 release checks pass, both exit 0; checkout remains clean. The original queued lease process was canceled before execution. Given the recorded five-second suite, these were tiny untimed functional checks alongside the existing heavy fit; their wall output is not performance evidence. PR85 is being updated to the reviewed geometry revision.
