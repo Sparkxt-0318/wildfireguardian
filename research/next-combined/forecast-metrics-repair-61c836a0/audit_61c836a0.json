@@ -1,0 +1,182 @@
+{
+  "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+  "script_sha256": "302d6b2abd7a8dd76bd198d17745adcb149af5f383cc383fb00ddc5660895001",
+  "report_source_sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+  "checks": 21,
+  "passed": 21,
+  "observations": [
+    {
+      "id": "development_100.0_50.0_paired_fields_all_null",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "development_100.0_50.0_own_absolute_scores_retained",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "development_100.0_100.0_paired_fields_all_null",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "development_100.0_100.0_own_absolute_scores_retained",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_primary_candidate",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_detailed_scores",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_retrospective_gate",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_load_assessment",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_load_report_inputs",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_assessment_scores",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "heldout_manual_common_cell_point",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "heldout_manual_wholefire_ci",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "heldout_fixed_seed_draws_fires",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "heldout_secondary_never_promotes",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "all_six_fixed_variants_and_aliases_retained",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "hold_supported_subset_never_promotes",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "empty_has_no_scores_or_promotion",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "missing_fixed_alias_unavailable",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "korean_reconstruction_scope_distinct",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "hold_plot_has_subset_label_and_correct_population",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "no_authenticated_heldout_plot_is_unavailable",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    }
+  ],
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "actual_study_inputs_or_models_accessed": false,
+  "training_executed": false,
+  "scope": "Synthetic reporting arithmetic/precondition controls only; heldout helper arrays are explicitly synthetic and their documentary hashes are dummy identities, not an authentication claim.",
+  "status": "PASS_SCOPED_ABLATION_REPAIR"
+}

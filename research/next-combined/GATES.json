@@ -33,12 +33,12 @@
       "published_head": "43324736fc5301a0444b01b918ef14a0372b1ec3"
     },
     "1B": {
-      "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
-      "status": "SCOPED_SOFTWARE_ADMISSION_PASS_PAIRED_ABLATION_REPORT_HOLD",
-      "review": "development-admission-review-a5ba8210/audit_a5ba8210.json",
-      "checks": 23,
-      "passed": 23,
-      "current_assessment_clearance": "Bounded software repair cleared; all seven actual fit identities, complete coverage, development-only selection and registry freeze must precede any heldout inference",
+      "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+      "status": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+      "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
+      "checks": 21,
+      "passed": 21,
+      "current_assessment_clearance": "Scoped software admission and report repair pass. Actual remaining full spotting fit,12comparisons, all7coverage/selection/registry freeze, heldout and independent final real-report review remain pending.",
       "numerical_evidence": "PENDING_OWNER_DELIVERY",
       "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
       "heldout_scores_inspected_by_readiness_auditor": false,
@@ -47,7 +47,7 @@
       "future_adapter_wiring": "SCOPED_WIRING_AND_DEVELOPMENT_ADMISSION_PASS_AT_a5ba8210_EXTERNAL_2026_GATES_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
-      "published_head": "1bd6e61e0e0a836be0ff42e4942ac76f70e72f65",
+      "published_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
       "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
       "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
@@ -150,7 +150,7 @@
           "development_admission": "development-admission-review-a5ba8210/REVIEW_a5ba8210.md"
         }
       },
-      "current_review_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+      "current_review_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "current_report_alias_repair": {
         "source_head": "637457f3118bad5575dd6b4b83c74511d93bbd43",
         "review": "report-alias-repair-637457f3/report-name-repaired-637457f3-parent.json",
@@ -213,6 +213,39 @@
         "scope": "Fixed final-argument/development source and exact prefix membership, historical unsupported accounting, source-derived labels, selection/registry/saved-proof binding and distinct a06 comparison output paths; actual all7fit coverage/selection/registry still pending"
       },
       "paired_ablation_reporting": {
+        "state": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+        "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+        "review": "forecast-metrics-repair-61c836a0/REVIEW_61c836a0.md",
+        "inventory": "forecast-metrics-repair-61c836a0/SOURCE_INVENTORY.json",
+        "audit": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
+        "checks": 21,
+        "passed": 21,
+        "scope": "Independent report-only synthetic repair checks; exact archive/source pins verified here without rerun. No actual study/model/quality-result access.",
+        "development_absolute_scores": "Own-support absolute estimators and fixed equal-fire selection unchanged",
+        "development_paired_fields": "NULL for unequal and equal weights; counts alone do not authenticate identical cells",
+        "secondary_heldout_comparison": "Authenticated common entry positions, complete-fire resampling,10000draws seed20261030; fixedaliases; not a new primary selection or superiority gate",
+        "partial_empty_missing": "HOLD or unavailable with no promotion; unscored outcomes retained",
+        "unchanged_function_asts": 6,
+        "synthetic_visual_review": "Independent reviewer generated/viewed HOLD and unavailable PNG panels; exact SVG/PNG bytes and receipts archived, not actual cohort figures",
+        "owner_targeted_report_tests": {
+          "reported_passed": 20,
+          "rerun_here": false,
+          "not_pooled_with_21controls": true
+        },
+        "prior_failure": "forecast-metrics-review-a5ba8210/ablation_weight_repro_a5ba8210.json",
+        "original_nonablation_controls": "forecast-metrics-review-a5ba8210/audit_metrics_a5ba8210.json",
+        "actual_final_real_report_review": "PENDING",
+        "training_and_equal_fire_selection": "UNAFFECTED",
+        "numerical_source_unchanged": true,
+        "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+        "numerical_source_files_reported": 61
+      },
+      "current_review_not_yet_published": true,
+      "future_adapter_wiring_history": {
+        "prior_summary": "history/pre-metrics-7ce13650/CURRENT_EVIDENCE.json",
+        "prior_value": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD"
+      },
+      "historical_paired_ablation_failure": {
         "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
         "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
         "origin": "Other independent reviewer at exacta5ba source; full exact archive and source pins checked here without rerun",
@@ -239,11 +272,15 @@
         "actual_development_weights_inspected": false,
         "actual_quality_results_inspected": false
       },
-      "current_review_not_yet_published": true,
-      "future_adapter_wiring_history": {
-        "prior_summary": "history/pre-metrics-7ce13650/CURRENT_EVIDENCE.json",
-        "prior_value": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD"
-      }
+      "earlier_development_admission_source": {
+        "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+        "review": "development-admission-review-a5ba8210/audit_a5ba8210.json",
+        "checks": 23,
+        "passed": 23
+      },
+      "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+      "numerical_source_files": 61,
+      "publication_status": "Coordinator confirmed literal a5ba push/PR88 and allCIgreen; report-only reviewed61head not yet published"
     },
     "1C": {
       "published_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
@@ -451,7 +488,9 @@
     "pre_contact_campaign_summary": "history/pre-contact-campaign-0638e3a6/README.md",
     "pre_contact_campaign_inventory": "history/pre-contact-campaign-0638e3a6/ARCHIVE_INDEX.json",
     "pre_metrics_summary": "history/pre-metrics-7ce13650/README.md",
-    "pre_metrics_inventory": "history/pre-metrics-7ce13650/ARCHIVE_INDEX.json"
+    "pre_metrics_inventory": "history/pre-metrics-7ce13650/ARCHIVE_INDEX.json",
+    "pre_report_repair_summary": "history/pre-report-repair-62a73eec/README.md",
+    "pre_report_repair_inventory": "history/pre-report-repair-62a73eec/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -468,7 +507,8 @@
     "parent_contact_adapter_repair": "Parent70017tinycontrols65custodychecks72targetedtest receipt archived unchanged with originalfd8failure; not rerun by readiness.",
     "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun.",
     "B_metrics_review": "Other independent reviewer51/51nonablation arithmetic/gate controls plus retained false paired-CI reproduction at a5ba, no actual data/model/quality-result inspection. Readiness archived exact manifest and verifiedsource Git object pins, no rerun.",
-    "confirmed_publication_heads": "Coordinator confirmed A43324736,B1bd6e61e,C06ad9fe9; C exactPR86allCIgreen. New a5ba review source remains unpublished."
+    "confirmed_publication_heads": "Coordinator confirmed A43324736,Ba5ba8210,C06ad9fe9; BPR88andCPR86exactpublishedheadsallCIgreen. Reviewed report61 remains unpublished.",
+    "B_report_repair": "Other independent reviewer21/21report-only repair controls at61, including synthetic visual panels and6unchangedfunctionASTs; readiness archived exact manifest/producer/report Git object pins, no rerun. No actual study/quality results inspected."
   },
-  "updated_utc": "2026-10-30T08:54:20.273310+00:00"
+  "updated_utc": "2026-10-30T09:06:57.321884+00:00"
 }

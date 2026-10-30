@@ -11,7 +11,8 @@
     "C_contact_campaign": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
     "C_contact_adapter": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
     "B_report_alias": "637457f3118bad5575dd6b4b83c74511d93bbd43",
-    "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d"
+    "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+    "B_report_software": "61c836a058eb5fe866da584f7e7670a2b89185af"
   },
   "graphs": {
     "integration": {
@@ -62,6 +63,11 @@
       "project": "wfg-next-1b-audit-a5ba8210-20261030",
       "generation": "2026-10-30T08:44:12Z",
       "coverage": "Other independent reviewerTier2/full excluded-source fallback scope retained in exact report. This readiness turn archives/checks digests, not a new code audit."
+    },
+    "B_report_repair": {
+      "project": "wfg-next-1b-audit-61c836a0-20261030",
+      "generation": "2026-10-30T09:02:28Z",
+      "coverage": "Independent reviewer exact report/source pins and excluded-report full fallback retained in archived review; indexed tests metadata-current. This turn only archives/checks exact bytes and report Git object, not a new source/math or visual audit."
     }
   },
   "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
@@ -72,10 +78,10 @@
     "Graph coverage is a best-effort signal, not proof of source completeness.",
     "A empirical physics remains HOLD;42functional and367release checks are not physical validation.",
     "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual seven-fit coverage/development-only selection/registry and heldout remain pending.",
-    "B paired ablation CI/reporting has a newly coordinator-reported support-weight defect; training/equal-fire selection and numerical-job clearance are unaffected. Exact independent metric-review failure and51/51nonablation controls are now archived; report repair remains pending.",
     "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
-    "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here."
+    "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
+    "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -310,15 +316,32 @@
     "scope": "Fixed final-argument/development source and exact prefix membership, historical unsupported accounting, source-derived labels, selection/registry/saved-proof binding and distinct a06 comparison output paths; actual all7fit coverage/selection/registry still pending"
   },
   "B_paired_ablation_report_current": {
-    "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
-    "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
-    "origin": "Coordinator relayed independent preheldout metric review; exact followup archive pending",
-    "finding": "Subtracting weighted error sums with the base weight denominator can fabricate a paired difference/CI when model support weights differ",
-    "synthetic_reproduction": "Equal per-fire Brier0.1 with baseweight100 and burnoutweight50 yields reported difference-0.05 and CI excludingzero",
+    "state": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+    "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+    "review": "forecast-metrics-repair-61c836a0/REVIEW_61c836a0.md",
+    "inventory": "forecast-metrics-repair-61c836a0/SOURCE_INVENTORY.json",
+    "audit": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
+    "checks": 21,
+    "passed": 21,
+    "scope": "Independent report-only synthetic repair checks; exact archive/source pins verified here without rerun. No actual study/model/quality-result access.",
+    "development_absolute_scores": "Own-support absolute estimators and fixed equal-fire selection unchanged",
+    "development_paired_fields": "NULL for unequal and equal weights; counts alone do not authenticate identical cells",
+    "secondary_heldout_comparison": "Authenticated common entry positions, complete-fire resampling,10000draws seed20261030; fixedaliases; not a new primary selection or superiority gate",
+    "partial_empty_missing": "HOLD or unavailable with no promotion; unscored outcomes retained",
+    "unchanged_function_asts": 6,
+    "synthetic_visual_review": "Independent reviewer generated/viewed HOLD and unavailable PNG panels; exact SVG/PNG bytes and receipts archived, not actual cohort figures",
+    "owner_targeted_report_tests": {
+      "reported_passed": 20,
+      "rerun_here": false,
+      "not_pooled_with_21controls": true
+    },
+    "prior_failure": "forecast-metrics-review-a5ba8210/ablation_weight_repro_a5ba8210.json",
+    "original_nonablation_controls": "forecast-metrics-review-a5ba8210/audit_metrics_a5ba8210.json",
+    "actual_final_real_report_review": "PENDING",
     "training_and_equal_fire_selection": "UNAFFECTED",
-    "training_resume_hold": false,
-    "repair": "Reporting-only repair pending; fixed61numerical source remains unchanged during the active fit",
-    "actual_heldout_inspection": false
+    "numerical_source_unchanged": true,
+    "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "numerical_source_files_reported": 61
   },
   "B_metrics_review_archive": {
     "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
@@ -345,11 +368,40 @@
       -0.05
     ],
     "actual_development_weights_inspected": false,
-    "actual_quality_results_inspected": false
+    "actual_quality_results_inspected": false,
+    "history_role": "Original a5ba unequal-support reporting failure and51nonablation passes; closed only in later separate61report-only21controlreview, never overwritten"
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "1bd6e61e0e0a836be0ff42e4942ac76f70e72f65",
+    "1B": "a5ba82108c44956c01071d8450751b5d2defa387",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
+  },
+  "B_metrics_repair_archive": {
+    "state": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+    "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+    "review": "forecast-metrics-repair-61c836a0/REVIEW_61c836a0.md",
+    "inventory": "forecast-metrics-repair-61c836a0/SOURCE_INVENTORY.json",
+    "audit": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
+    "checks": 21,
+    "passed": 21,
+    "scope": "Independent report-only synthetic repair checks; exact archive/source pins verified here without rerun. No actual study/model/quality-result access.",
+    "development_absolute_scores": "Own-support absolute estimators and fixed equal-fire selection unchanged",
+    "development_paired_fields": "NULL for unequal and equal weights; counts alone do not authenticate identical cells",
+    "secondary_heldout_comparison": "Authenticated common entry positions, complete-fire resampling,10000draws seed20261030; fixedaliases; not a new primary selection or superiority gate",
+    "partial_empty_missing": "HOLD or unavailable with no promotion; unscored outcomes retained",
+    "unchanged_function_asts": 6,
+    "synthetic_visual_review": "Independent reviewer generated/viewed HOLD and unavailable PNG panels; exact SVG/PNG bytes and receipts archived, not actual cohort figures",
+    "owner_targeted_report_tests": {
+      "reported_passed": 20,
+      "rerun_here": false,
+      "not_pooled_with_21controls": true
+    },
+    "prior_failure": "forecast-metrics-review-a5ba8210/ablation_weight_repro_a5ba8210.json",
+    "original_nonablation_controls": "forecast-metrics-review-a5ba8210/audit_metrics_a5ba8210.json",
+    "actual_final_real_report_review": "PENDING",
+    "training_and_equal_fire_selection": "UNAFFECTED",
+    "numerical_source_unchanged": true,
+    "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "numerical_source_files_reported": 61
   }
 }

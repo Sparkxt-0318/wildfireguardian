@@ -1,0 +1,11 @@
+{
+  "FIGURE_REVIEW.json": "1db0673e97259f6dbd7c6aa48192ff52c4ac566da176b8a8fdc133287f017285",
+  "REVIEW_61c836a0.md": "451f77084d8d121d52e172bb87a44a4b8e3d07d15659b9c128cd246350cfe820",
+  "audit_61c836a0.json": "0abd854df20a7abbac30f50f7817743bca516424d08b4cc301abc10b47b4382e",
+  "audit_61c836a0.log": "ff743300e3dbb4d954d80125729bee2adcc933a0f1082e277eef62b00220bce3",
+  "audit_61c836a0.py": "302d6b2abd7a8dd76bd198d17745adcb149af5f383cc383fb00ddc5660895001",
+  "figures/hold/fig03_ablation_forest_plot.png": "25113ee05d6db637285c1bc326562ed4c6ab8106c270b0f656b7ca1abd79291d",
+  "figures/hold/fig03_ablation_forest_plot.svg": "5a9912928c2bba0348dc99d8026a5a1caf597f41ee7efe93a313300561cd7026",
+  "figures/unavailable/fig03_ablation_forest_plot.png": "25f3ebeee2fbc32d438727beefab41ba19ac97ac4e79ad74688d7671625fa408",
+  "figures/unavailable/fig03_ablation_forest_plot.svg": "f7219f4b88ab47784a98463cfa7a4be8fed9616149662c31bbcc902452115147"
+}

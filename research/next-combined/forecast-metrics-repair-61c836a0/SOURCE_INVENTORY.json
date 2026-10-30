@@ -1,0 +1,52 @@
+{
+  "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+  "files": {
+    "FIGURE_REVIEW.json": {
+      "sha256": "1db0673e97259f6dbd7c6aa48192ff52c4ac566da176b8a8fdc133287f017285",
+      "bytes": 756
+    },
+    "MANIFEST.json": {
+      "sha256": "108be547c7bb28e4dbebbd59acf93a75a324bef91ce6ccb7444d3b2a59271ede",
+      "bytes": 945
+    },
+    "REVIEW_61c836a0.md": {
+      "sha256": "451f77084d8d121d52e172bb87a44a4b8e3d07d15659b9c128cd246350cfe820",
+      "bytes": 3633
+    },
+    "audit_61c836a0.json": {
+      "sha256": "0abd854df20a7abbac30f50f7817743bca516424d08b4cc301abc10b47b4382e",
+      "bytes": 4227
+    },
+    "audit_61c836a0.log": {
+      "sha256": "ff743300e3dbb4d954d80125729bee2adcc933a0f1082e277eef62b00220bce3",
+      "bytes": 73
+    },
+    "audit_61c836a0.py": {
+      "sha256": "302d6b2abd7a8dd76bd198d17745adcb149af5f383cc383fb00ddc5660895001",
+      "bytes": 8061
+    },
+    "figures/hold/fig03_ablation_forest_plot.png": {
+      "sha256": "25113ee05d6db637285c1bc326562ed4c6ab8106c270b0f656b7ca1abd79291d",
+      "bytes": 56044
+    },
+    "figures/hold/fig03_ablation_forest_plot.svg": {
+      "sha256": "5a9912928c2bba0348dc99d8026a5a1caf597f41ee7efe93a313300561cd7026",
+      "bytes": 44006
+    },
+    "figures/unavailable/fig03_ablation_forest_plot.png": {
+      "sha256": "25f3ebeee2fbc32d438727beefab41ba19ac97ac4e79ad74688d7671625fa408",
+      "bytes": 41797
+    },
+    "figures/unavailable/fig03_ablation_forest_plot.svg": {
+      "sha256": "f7219f4b88ab47784a98463cfa7a4be8fed9616149662c31bbcc902452115147",
+      "bytes": 25694
+    }
+  },
+  "root_pinned_review_sha256": "451f77084d8d121d52e172bb87a44a4b8e3d07d15659b9c128cd246350cfe820",
+  "report_source_git_sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+  "other_source_git_objects_verified": {},
+  "scope": "Exact independent21/21report-only repair controls and synthetic HOLD/unavailable figures, copied unchanged. Earlier51nonablation controls and original false-CI reproduction remain separate history. Readiness verifies custody only, no rerun or study/input/model/quality-result inspection. Owner20targeted tests overlap and are not pooled.",
+  "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+  "numerical_source_count_reported": 61,
+  "visual_scope": "Other independent reviewer generated/viewed both synthetic PNGs; exact figure bytes/receipts retained here without new rendering or visual clearance."
+}
