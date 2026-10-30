@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "model_cohort_checks": 4,
+  "results": [
+    {
+      "status": "PASS",
+      "fires": 4,
+      "model": 0,
+      "multiplicity_vectors": 35,
+      "exact_literal_concat_matches": 35,
+      "sklearn_weighted_matches": 34,
+      "undefined_no_positive_vectors": 1,
+      "cached_repeated_request": "identical"
+    },
+    {
+      "status": "PASS",
+      "fires": 4,
+      "model": 1,
+      "multiplicity_vectors": 35,
+      "exact_literal_concat_matches": 35,
+      "sklearn_weighted_matches": 34,
+      "undefined_no_positive_vectors": 1,
+      "cached_repeated_request": "identical"
+    },
+    {
+      "status": "PASS",
+      "fires": 6,
+      "model": 0,
+      "multiplicity_vectors": 462,
+      "exact_literal_concat_matches": 462,
+      "sklearn_weighted_matches": 455,
+      "undefined_no_positive_vectors": 7,
+      "cached_repeated_request": "identical"
+    },
+    {
+      "status": "PASS",
+      "fires": 6,
+      "model": 1,
+      "multiplicity_vectors": 462,
+      "exact_literal_concat_matches": 462,
+      "sklearn_weighted_matches": 455,
+      "undefined_no_positive_vectors": 7,
+      "cached_repeated_request": "identical"
+    }
+  ],
+  "frequency_control": "PASS",
+  "policy": {
+    "whole_fire_draws": 10000,
+    "seed": 20261030,
+    "cache_only": true,
+    "quantiles_weight_actual_draw_frequencies": true,
+    "any_undefined_draw_full_95_interval": null,
+    "conditional_interval_if_reported": "separate and explicitly conditioned on a positive-label draw",
+    "missing_expected_fire": "complete-cohort supplement unavailable, no available-fire-only resampling"
+  },
+  "paired_ap_controls": {
+    "comparisons": 1988,
+    "defined": 1956,
+    "null": 32,
+    "exact_literal_differences": "PASS",
+    "unpaired_reference_draw_detected": 1876,
+    "references": [
+      "persistence",
+      "dilation_best"
+    ],
+    "sign": "positive favours candidate"
+  },
+  "runtime": {
+    "python": "3.12.1",
+    "numpy": "1.26.4",
+    "sklearn": "1.5.2"
+  },
+  "scope": "Only invented data: 497 multiplicity vectors per model, exact rational literal-concatenation agreement; no actual arrays/models/metrics"
+}

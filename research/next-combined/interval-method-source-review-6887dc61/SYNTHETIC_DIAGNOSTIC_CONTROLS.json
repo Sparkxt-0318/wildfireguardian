@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "cohort_draw_checks": 7,
+  "checks": [
+    {
+      "multiplicity": [
+        4,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "auc": "PASS_LITERAL_AND_WEIGHTED_SKLEARN",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "auc": "UNAVAILABLE_ABSENT_CLASS",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        0,
+        0,
+        4,
+        0
+      ],
+      "status": "PASS",
+      "auc": "UNAVAILABLE_ABSENT_CLASS",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        0,
+        0,
+        0,
+        4
+      ],
+      "status": "PASS",
+      "auc": "PASS_LITERAL_AND_WEIGHTED_SKLEARN",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "status": "PASS",
+      "auc": "PASS_LITERAL_AND_WEIGHTED_SKLEARN",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        2,
+        0,
+        2,
+        0
+      ],
+      "status": "PASS",
+      "auc": "PASS_LITERAL_AND_WEIGHTED_SKLEARN",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    },
+    {
+      "multiplicity": [
+        0,
+        2,
+        1,
+        1
+      ],
+      "status": "PASS",
+      "auc": "PASS_LITERAL_AND_WEIGHTED_SKLEARN",
+      "brier_ece_clipped_nll": "PASS_POOLED_SUFFICIENT_STATISTICS_VS_LITERAL"
+    }
+  ],
+  "boundary_controls": [
+    "ten_equal_width_bins_boundary_rule",
+    "AUC_exact_ties_half_credit",
+    "clipped_NLL_epsilon"
+  ],
+  "scope": "Only ten invented entries over four invented fires; no actual data/models/outputs"
+}

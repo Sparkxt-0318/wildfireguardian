@@ -1,0 +1,36 @@
+{
+  "source_commit": "c3f62de9a43e276ac1ece30cd347692afa58a980",
+  "scope": "Exact current summary before closed-cohort custody/source-only interval archive and concise scientific-claims update. Every original audit remains unchanged.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 37840,
+      "sha256": "15ecda97f0df374be494b3bcf196eb99b6a9035eccd3b54f48b3332a1416c7fc"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 76334,
+      "sha256": "a22880fca2f6a80611a166e2e78df1e60ccb638453717e57019a9738193ab46f"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 76334,
+      "sha256": "a22880fca2f6a80611a166e2e78df1e60ccb638453717e57019a9738193ab46f"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 58900,
+      "sha256": "e0340bb84f8fc91a1ac332c942b4e263dbb1bf1364a93b53947aeda9e4a4f4e3"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 42092,
+      "sha256": "bc5661ef7a5b7222ecbebd5d226b82ae635d13b890e99f051f8d6e6bc97c0d93"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 100786,
+      "sha256": "d4e300ae9907214d73daa600e5878ab008717065657d4086ce975e3589b28731"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "controls": 12,
+  "checks": [
+    {
+      "name": "pooled_brier_is_not_equal_fire_mean",
+      "status": "PASS",
+      "evidence": {
+        "pooled": "1/4",
+        "equal_fire": "1/2"
+      }
+    },
+    {
+      "name": "whole_fire_multiplicity_changes_denominator",
+      "status": "PASS",
+      "evidence": {
+        "sampled_fires": [
+          1,
+          1
+        ],
+        "draw_entries": 6
+      }
+    },
+    {
+      "name": "paired_pooled_brier_difference_is_not_macro_difference",
+      "status": "PASS",
+      "evidence": {
+        "pooled_difference": "-3/4",
+        "macro_difference": "-1/2"
+      }
+    },
+    {
+      "name": "bss_ratio_of_sums_is_not_mean_fire_bss",
+      "status": "PASS",
+      "evidence": {
+        "pooled_bss": "3/4",
+        "mean_fire_bss": "1/2"
+      }
+    },
+    {
+      "name": "pooled_ap_is_not_macro_ap",
+      "status": "PASS",
+      "evidence": {
+        "pooled_ap": "2/3",
+        "macro_ap": "3/4"
+      }
+    },
+    {
+      "name": "duplicate_fire_ap_recomputed_as_multiset",
+      "status": "PASS",
+      "evidence": {
+        "pooled_duplicate_ap": "7/12"
+      }
+    },
+    {
+      "name": "tie_group_ap_is_order_invariant",
+      "status": "PASS",
+      "evidence": {
+        "expected_ap": "2/3",
+        "permutations": 6
+      }
+    },
+    {
+      "name": "all_positive_ap_remains_defined",
+      "status": "PASS",
+      "evidence": {
+        "expected_ap": "1"
+      }
+    },
+    {
+      "name": "no_positive_ap_is_unavailable_not_zero",
+      "status": "PASS",
+      "evidence": {
+        "expected_ap": null
+      }
+    },
+    {
+      "name": "undefined_ap_draw_count_retained",
+      "status": "PASS",
+      "evidence": {
+        "total_draws": 4,
+        "defined_draws": 3,
+        "undefined_no_positive_draws": 1,
+        "interval_target": "conditional_on_defined_draws"
+      }
+    },
+    {
+      "name": "zero_reference_sse_draw_is_undefined",
+      "status": "PASS",
+      "evidence": {
+        "zero_reference_draw_must_not_be_zero_bss": true
+      }
+    },
+    {
+      "name": "identical_models_have_exact_zero_paired_effect",
+      "status": "PASS",
+      "evidence": {
+        "expected_difference": "0",
+        "common_index_draw": [
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "scope": "Invented arithmetic only; no actual source arrays, models, predictions or metrics opened or executed"
+}

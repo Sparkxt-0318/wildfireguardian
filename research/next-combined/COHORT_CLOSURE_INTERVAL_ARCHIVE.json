@@ -1,0 +1,88 @@
+{
+  "scope": "Closed root custody/counts and frozen-source descriptive interval preparation only, not actual306 identity or quality validation.",
+  "original_current_snapshot": "history/pre-cohort-closure-c3f62de9/ARCHIVE_INDEX.json",
+  "root_closure": {
+    "state": "CLOSED_METADATA_CUSTODY_PASS_NOT_FULL_CENSUS_OR_QUALITY",
+    "root_check": "current-cohort-closure-parent/current-cohort-closure-parent.json",
+    "inventory": "current-cohort-closure-parent/SOURCE_INVENTORY.json",
+    "root_checked_utc": "2026-10-30T23:04:26.148585+00:00",
+    "metadata_observed_utc": "2026-10-30T18:14:47.503851+00:00",
+    "US_finished_utc_reported": "2026-10-30T18:02:45.555747Z",
+    "US_exit_code_reported": 0,
+    "KR_finished_utc_reported": "2026-10-30T18:14:29.641685Z",
+    "KR_exit_code_reported": 1,
+    "KR_state_reported": "HOLD",
+    "outer_exit_code_reported": 1,
+    "source_or_custody_failure_reported": false,
+    "US_outcomes": {
+      "SCORED": 273
+    },
+    "KR_outcomes": {
+      "SCORED": 26,
+      "UNAVAILABLE": 7
+    },
+    "four_receipt_log_identity_checks_root_pass": true,
+    "frozen_current_bytes_root_match": 223,
+    "readiness_receipt_or_log_replay": false,
+    "readiness_actual_caseJSON_or_array_access": false,
+    "exact306_identity_census": "PENDING",
+    "quality_metric_FARSITE_final5figure_reviews": "PENDING",
+    "scope": "Parent-provided closure times/exits plus exact saved root metadata/custody check; readiness verifies archive bytes only. Original execution logs are not copied/opened. Counts do not establish exact306 case membership or model quality."
+  },
+  "interval_method": {
+    "state": "METHOD_FIXED_SOURCE_ONLY_REVIEWED_CANDIDATE_REVIEW_PENDING_ACTUAL_NOT_AUTHORIZED",
+    "method_fixed_utc": "2026-10-30T17:10:23.901724+00:00",
+    "protocol": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PROTOCOL_V1.json",
+    "protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+    "prerequisites": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PREREQUISITES_V1.json",
+    "prerequisites_sha256": "b69a8b57ba8ddbb92cbfdd4e07195c82058be6051a42dbee38e262a873be62e0",
+    "protocol_inventory": "descriptive-interval-protocol-v1/SOURCE_INVENTORY.json",
+    "source_review": "interval-method-source-review-6887dc61/REVIEW_SOURCE_INTERVALS.md",
+    "source_review_sha256": "b3f9513367f5666ca9f8ccde548db331c48251e7811f561ab8f2400ffe3d22cd",
+    "source_review_result": "interval-method-source-review-6887dc61/REVIEW_RESULT.json",
+    "source_review_inventory": "interval-method-source-review-6887dc61/SOURCE_INVENTORY.json",
+    "source_review_frozen_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "source_review_is_candidate_implementation_review": false,
+    "canonical_absolute_interval_fields_missing": [
+      "pooled_raw_brier",
+      "pooled_average_precision",
+      "pooled_roc_auc",
+      "pooled_ece_10_bins",
+      "pooled_clipped_nll"
+    ],
+    "canonical_existing_intervals": [
+      "paired_pooled_brier_difference",
+      "pooled_SSE_ratio_BSS_vs_persistence",
+      "pooled_SSE_ratio_BSS_vs_dilation_best"
+    ],
+    "canonical_BSS_scope": "Existing report intervals omit and count zero-reference-SSE draws; if any occur, their percentile interval is conditional on defined denominators. The frozen future blind scorer has BSS points, not this report BSS interval path.",
+    "synthetic_source_controls": {
+      "invented_estimand_checks": 12,
+      "cached_AP_literal_comparisons": 994,
+      "cached_AP_sklearn_defined_comparisons": 978,
+      "cached_AP_null_vectors": 16,
+      "paired_AP_comparisons": 1988,
+      "diagnostic_draw_checks": 7,
+      "diagnostic_boundary_checks": 3,
+      "overlapping_counts_not_pooled": true
+    },
+    "method": {
+      "separate_cohorts": true,
+      "fixed_models": 16,
+      "whole_fire_draws": 10000,
+      "seed": 20261030,
+      "pooled_point_and_interval_same_estimand": true,
+      "any_undefined_AP_AUC_draw_full_interval": "NULL_UNAVAILABLE; optional explicitly conditional defined-draw interval separate"
+    },
+    "actual_computation": "NOT_AUTHORIZED_NOT_RUN",
+    "scratch_candidate": "TESTING_IN_PROGRESS_NOT_INSPECTED",
+    "US_complete_cohort_supplement": "PENDING_CANONICAL_B3_RESULT_AND_EXACT306_CENSUS_PLUS_IMPLEMENTATION_REVIEW_AND_ROOT_AUTHORIZATION",
+    "KR_complete_cohort_supplement": "NULL_UNAVAILABLE; 7 expected windows UNAVAILABLE, no available26-window bootstrap",
+    "primary223_and_canonical_outputs_rules_unchanged": true,
+    "readiness_numerical_or_array_access": false,
+    "scope": "Source-only report inventories frozen fields and evaluates proposed arithmetic on invented controls. It is not candidate implementation clearance or actual supplement computation. Method fixed before final quality interpretation; preserve original primary estimators, decisions and all223 frozen identities."
+  },
+  "no_actual_caseJSON_prediction_or_source_array_model_log_access": true,
+  "readiness_numerical_study_audit_or_test_execution": false,
+  "publication_or_merges": false
+}
