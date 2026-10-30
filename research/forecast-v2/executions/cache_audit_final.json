@@ -1,0 +1,36 @@
+{
+  "pid": 31318,
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python",
+    "research/forecast-v2/scripts/audit_caches.py",
+    "--data",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2",
+    "--work",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/campaign-work",
+    "--out",
+    "research/forecast-v2/CACHE_AUDIT_FINAL.json"
+  ],
+  "os_process_started_utc": "2026-10-30T07:45:23+00:00",
+  "observed_utc": "2026-10-30T07:54:36.637315+00:00",
+  "state": "completed_lease_released",
+  "source_sha256": {
+    "research/forecast-v2/scripts/audit_caches.py": "74f3dc24da611c0a911a4f9455097bca71189c2ebd758cb186b467fef7f162b6",
+    "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b"
+  },
+  "host": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.1",
+    "cpu_count": 15
+  },
+  "resource_policy": "audit_caches.py owns one fcntl.flock lease; no performance claim from this audit",
+  "completed_utc": "2026-10-30T07:59:17.246472+00:00",
+  "exit_code": 0,
+  "output": "research/forecast-v2/CACHE_AUDIT_FINAL.json",
+  "output_sha256": "fbcc40f754f8d8bdec578ff239d89e5e5d8710d0bb8da9e2e650e0a7b7a91f39",
+  "log_sha256": "97a792eb225e54bb7b6cb4ab2bf0636d7b79adc66942f413c14901e665079b6e",
+  "environment_caches": 4296,
+  "active_sample_caches": 114,
+  "obsolete_sample_caches": 34,
+  "observed_source_unchanged_through_completion": true
+}

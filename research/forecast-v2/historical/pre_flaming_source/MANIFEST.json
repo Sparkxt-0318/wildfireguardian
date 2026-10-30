@@ -1,0 +1,23 @@
+{
+  "evidence_class": "HISTORICAL_REAL_DEVELOPMENT_ONLY_NOT_CURRENT_SELECTION",
+  "reason": "Rendered before mandatory flaming-only source correction; historical spotting rows and partial final-fit inventory must not satisfy current completeness.",
+  "files": [
+    {
+      "path": "research/forecast-v2/historical/pre_flaming_source/RESULTS.json",
+      "sha256": "43897be4a482395b2de0145ef1472a9a71d65cd5d8906498c6628e0bb9fb5176"
+    },
+    {
+      "path": "research/forecast-v2/historical/pre_flaming_source/ablation.csv",
+      "sha256": "bd8bad49949c939d79fed9d6762f084e3c3412eff6c18cda9f10efb694a0bf39"
+    },
+    {
+      "path": "research/forecast-v2/historical/pre_flaming_source/figures/fig03_ablation_forest_plot.png",
+      "sha256": "ed4648791d4d197052ad5430fced3902c1ebaed3f5dad4925b525dc6b55ea021"
+    },
+    {
+      "path": "research/forecast-v2/historical/pre_flaming_source/figures/fig03_ablation_forest_plot.svg",
+      "sha256": "af5b1f809673d64c1ee953a8ceca99432766205e6b04643d08300892947ebc36"
+    }
+  ],
+  "rendering_source_identity": "Not captured at original render; no new source identity is retroactively claimed."
+}
