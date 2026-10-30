@@ -629,14 +629,274 @@ def spotting_source_contract(root, source):
                 source_sha256={relative: source[relative] for relative in functions}, ast_sha256=hashes,
                 evidence="IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION")
 
-def _schedule_contract(root, source, stage="final"):
+# Closed immutable producer versions, pending independent review. Membership/cache
+# authentication remains mandatory; these pins do not assert universal equivalence.
+_RECIPE_PIPELINE_VERSIONS = {'3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting',
+                                                                      'mixed_base'],
+ '43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting',
+                                                                      'mixed_base'],
+ '80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting',
+                                                                      'mixed_base'],
+ '88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting',
+                                                                      'mixed_base'],
+ 'e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting',
+                                                                      'mixed_base'],
+ 'fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978': ['base',
+                                                                      'd4',
+                                                                      'd4_wind',
+                                                                      'ellipse',
+                                                                      'burnout',
+                                                                      'burnout_spotting']}
+_RECIPE_SOURCE_VERSIONS = {'01c3a616a200c348e2a1165bc4c81bbf8e131c85a9dd4cc1ebb89d6003d117dc': ['mixed_base_seed0'],
+ '366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44': ['ellipse_seed0', 'burnout_seed0'],
+ '7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6': ['base_fold2020_seed0',
+                                                                      'd4_fold2020_seed0',
+                                                                      'd4_wind_fold2020_seed0',
+                                                                      'ellipse_fold2020_seed0',
+                                                                      'burnout_fold2020_seed0',
+                                                                      'base_fold2021_seed0',
+                                                                      'd4_fold2021_seed0',
+                                                                      'd4_wind_fold2021_seed0',
+                                                                      'ellipse_fold2021_seed0',
+                                                                      'burnout_fold2021_seed0',
+                                                                      'base_fold2022_seed0',
+                                                                      'd4_fold2022_seed0',
+                                                                      'd4_wind_fold2022_seed0',
+                                                                      'ellipse_fold2022_seed0',
+                                                                      'burnout_fold2022_seed0',
+                                                                      'base_seed0',
+                                                                      'd4_seed0'],
+ '7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123': ['burnout_spotting_fold2020_seed0_flaming_only',
+                                                                      'burnout_spotting_fold2021_seed0_flaming_only'],
+ 'b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6': ['mixed_base_fold2020_seed0_utc_fixed',
+                                                                      'mixed_base_fold2021_seed0_utc_fixed',
+                                                                      'mixed_base_fold2022_seed0_utc_fixed',
+                                                                      'd4_wind_seed0'],
+ 'eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17': ['burnout_spotting_fold2022_seed0_flaming_only',
+                                                                      'burnout_spotting_seed0_flaming_only']}
+_RECIPE_CURRENT_BASELINE = {'forecast/wildfire/__init__.py': '55706f5bd10ae03a088b336c4ffaf06cf83b607414f7c7bcb4932f045ff893bc',
+ 'forecast/wildfire/__main__.py': 'f696d93d71ce8b94cebed980d68a9f541b71f855778dc44430f27e9782e9fc06',
+ 'forecast/wildfire/api.py': '71e0397874e781b56b7091b8a2c5535acd088fbeb94e63ac0d44b6bd11dc8c11',
+ 'forecast/wildfire/baselines.py': '325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f',
+ 'forecast/wildfire/bundle.py': '2fe131cd7f54bbee9d85acaa537ff77c80faf7975c374c3574ca0e9f5117a391',
+ 'forecast/wildfire/burnout.py': '6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e',
+ 'forecast/wildfire/cache.py': '62f82f0c22be47ae6da18b4c81e6da7860843b7b8fe17952762b14adb8c50030',
+ 'forecast/wildfire/canonical.py': 'aa4b500bc7c2c3d36af1a5639d89e22cf6de7b68a9a900a53fe5feb991b6fe81',
+ 'forecast/wildfire/catalog.py': '04f774efdd5925c0a6e9b7af4f16f189a3df7fd78103dbf880b203101fc06ad7',
+ 'forecast/wildfire/checks.py': '8af868dc6298cb7fcbffdb87d28222b66bfc28f519fe41ab25b429ea187bf21e',
+ 'forecast/wildfire/cohort.py': '68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a',
+ 'forecast/wildfire/coordinates.py': '9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3',
+ 'forecast/wildfire/cumulative.py': '0334ecacbfed8d31397378172c325a0ac2385798023c6a3efadc34ab1db119a7',
+ 'forecast/wildfire/cumulative_evaluation.py': '071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01',
+ 'forecast/wildfire/cumulative_report.py': 'a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81',
+ 'forecast/wildfire/cumulative_report_plots.py': 'effb7221f730195b77ebbf149bd37d5ca28c500cad9d957630e9cac5ee735b53',
+ 'forecast/wildfire/data.py': '8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230',
+ 'forecast/wildfire/environment.py': 'c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af',
+ 'forecast/wildfire/evaluate.py': 'a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9',
+ 'forecast/wildfire/examples.py': '2da0787fb7507a64036b7ca5de85b959f87e9e2c02c060d8a403081822d35c76',
+ 'forecast/wildfire/farsite_build.py': 'd1c9830de57a21688e0c8c64bc38bd4334eff53d9a533fe818b28264f617d783',
+ 'forecast/wildfire/farsite_evaluation.py': '85d80c050b44f7548ae7511cdccf258e5dd85856aea38fd9953c1e6090aaf048',
+ 'forecast/wildfire/farsite_inputs.py': '259faf189bf0a94d11682d7845060f89dcc86c45e0c4bac21e698a4d00c564e6',
+ 'forecast/wildfire/farsite_observed_build.py': '187f210d990361864d52c4ae1d1a1a15452b63688969b4e2b50eb081da5328c4',
+ 'forecast/wildfire/farsite_report.py': '52c8879021278eeb4942ba6eb60bd87b6c824e09bd87c66ae619e86839ed0e06',
+ 'forecast/wildfire/forest_inference.py': 'c09ba84a709be6bc37aca7a2a2025461e900c053b0ee6bc8f547633794a92e51',
+ 'forecast/wildfire/heat.py': 'e6c07d4d23d377c00a76542ba4f70441ce40913aa4a3d5ca5ee60aecaa41da3b',
+ 'forecast/wildfire/heat_duration.py': '47f80924a3222d8a95822f75da49ed8decc9974dad770bf31b6317c80c9cef1f',
+ 'forecast/wildfire/heat_parameters.py': '2b904247d987a1244b6a738d7513577274f1f1cbf2b44985c9bba57d67590750',
+ 'forecast/wildfire/heat_sources.json': '2f2dadeca8dfb7aa18ee11ae52bc0ee038c0bbda1e56a51b4b2f0df239f7d660',
+ 'forecast/wildfire/heat_timing.py': '653712d90cc273a892d400bfe7cc8ff9d02262b49bee886d6cc47c96c97b4a9b',
+ 'forecast/wildfire/heat_transfer.py': '1eb6625d577c4562ca6702f0e45d9b4be396baf40152ef974cb6d44af90c92ed',
+ 'forecast/wildfire/inference.py': 'c1278e491a23633e693854417e21bd1376060b638f3c3bf9f81ecc147c17dce6',
+ 'forecast/wildfire/meanfield.py': 'cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885',
+ 'forecast/wildfire/metrics.py': '7e3277e50f31c18ae042aa649793791d77840efaf9c0d3b02b8207bd2d1f9a93',
+ 'forecast/wildfire/models.py': '791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1',
+ 'forecast/wildfire/observed_catalog_data.py': 'ab8613df1d68f04f26794212c45ce55737dfaa0df60189f44b0662cc83988da3',
+ 'forecast/wildfire/observed_combined.py': 'a0b82434c8cc393c11c522b57ab4e400dab0e42396cfe186f88aa3f2e6999491',
+ 'forecast/wildfire/observed_data.py': '1476966182e6bf0016bbe4e48f44ad9381a3d3cb2ab618e888b5e1c2df6209ff',
+ 'forecast/wildfire/observed_evaluation.py': 'bcae46bde09fcc3be9766037000e6f1168cb35ee2d848f7b466479669daf4a75',
+ 'forecast/wildfire/observed_inventory.py': '5f352dfcc02ac7389377af6d90c15fae2262398bfcaccd87565397a64ee7e16b',
+ 'forecast/wildfire/observed_report_plots.py': 'a306e3558db50d39bf79b180c711a6b9a7cd5f12cd64d7bc6d96e2fd65d2cc15',
+ 'forecast/wildfire/observed_reuse.py': '5236c4bf9680dad71bcc9e5f9cdf92fd6e3466c76517944df2810d3806bf0b95',
+ 'forecast/wildfire/paths.py': 'b26f7cc4621366582f253ff6962eeb371016931324d5787bcb1c99b486a5b4a5',
+ 'forecast/wildfire/plotting.py': 'c9f4dda1eefad50ecc95bc183065ba6e57b3cf7d881c348aff7d131c69bbcd59',
+ 'forecast/wildfire/prediction.py': 'c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578',
+ 'forecast/wildfire/prepare.py': 'e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0',
+ 'forecast/wildfire/progress.py': 'df758b3bc6ce3477aa039dc39c6ce034f733f5a93f1924f15cc1e6c98254549b',
+ 'forecast/wildfire/report.py': '436546b52c6a8fa761341995cebe74e20f078b40e1fad3ffdbbc65a2416cfceb',
+ 'forecast/wildfire/rollout.py': '116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe',
+ 'forecast/wildfire/rollout_cache.py': '3b9fded7e050b947ff27e0e2742adb7aa530f182c9ee8fe24935f9995816e3c4',
+ 'forecast/wildfire/schema.py': '91d498f2c40e5f64138b0fe7a7845b2e4f522d086cdb9c4950ca9ed2c2043605',
+ 'forecast/wildfire/search.py': '136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4',
+ 'forecast/wildfire/survival.py': 'c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b',
+ 'forecast/wildfire/train.py': '9c8a62150589b7d7785205e160f32e6a0d209dd4c01de27736c38d4244244b0e',
+ 'forecast/wildfire/utils.py': '4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92',
+ 'research/forecast-v2/RUN_PROTOCOL.json': 'c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243',
+ 'research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json': 'c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb',
+ 'research/forecast-v2/scripts/audit_fit_coverage.py': '1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4',
+ 'research/forecast-v2/scripts/pipeline.py': '88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67',
+ 'research/forecast-v2/scripts/run_campaign.py': '7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d'}
+
+def _normalized_input_recipe(node, name, *, pure):
+    """Only known custody insertions and a proven-unconsumed mixed branch.
+
+    Raw source identities remain preserved. Membership/value cache audits remain
+    mandatory; normalization does not attest that old runs enforced new checks.
+    """
+    node = ast.parse(ast.unparse(node)).body[0]
+    applied = []
+    if name == "perimeter_samples":
+        custody = ast.parse('''manifest_path = perimeters / "PERIMETER_MANIFEST.json"
+manifest = json.loads(manifest_path.read_text())
+states_path = perimeters / event / "states.npz"
+if sha256(states_path) != manifest["events"][event]["states_sha256"]:
+    raise ValueError("Perimeter reference identity differs from its source manifest")
+data = np.load(states_path, allow_pickle=False)
+''').body
+        if [_dump(n) for n in node.body[:len(custody)]] == [_dump(n) for n in custody]:
+            node.body[:len(custody)] = ast.parse('data = np.load(perimeters / event / "states.npz")').body
+            applied.append("EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX")
+    if name == "kriged_samples":
+        custody = ast.parse('''if hasattr(env, "_verify_sources"):
+    env._verify_sources(event)
+''').body[0]
+        if len(node.body) > 1 and _dump(node.body[1]) == _dump(custody):
+            node.body.pop(1)
+            applied.append("EXACT_CURRENT_KRIGED_CUSTODY_CHECK")
+    if name == "fit_samples" and pure:
+        branches = [n for n in node.body if isinstance(n, ast.If) and _same(n.test, "mixed")]
+        if len(branches) != 1 or branches[0].orelse:
+            raise ValueError("Pure mixed-branch proof requires the exact known branch without an else")
+        body = [n for n in node.body if n is not branches[0]]
+        if len(body) != len(node.body):
+            node.body = body
+            applied.append("MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT")
+    return node, applied
+
+
+def _input_recipe_contract(pipeline, current_pipeline, variant, table):
+    immutable_sha = hashlib.sha256(pipeline.encode("utf-8")).hexdigest()
+    current_sha = hashlib.sha256(current_pipeline.encode("utf-8")).hexdigest()
+    if (current_sha != "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67" or immutable_sha not in _RECIPE_PIPELINE_VERSIONS
+            or variant not in _RECIPE_PIPELINE_VERSIONS[immutable_sha]):
+        raise ValueError("Unreviewed whole-pipeline source version; no recipe compatibility is admitted")
+    pure = variant in table and not table[variant].get("mixed", False)
+    records = {}
+    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
+        old, current = _function(pipeline, name), _function(current_pipeline, name)
+        consumed = name != "kriged_samples" or not pure
+        record = dict(consumed=consumed, immutable_ast_sha256=object_sha(_dump(old)),
+                      current_ast_sha256=object_sha(_dump(current)))
+        if consumed:
+            a, old_steps = _normalized_input_recipe(old, name, pure=pure)
+            b, new_steps = _normalized_input_recipe(current, name, pure=pure)
+            if _dump(a) != _dump(b):
+                raise ValueError("Frozen producer consumed input recipe differs: " + name)
+            record.update(normalized_ast_sha256=object_sha(_dump(a)), immutable_normalization=old_steps,
+                          current_normalization=new_steps)
+        else:
+            headers = []
+            for definition in (old, current):
+                header = ast.parse(ast.unparse(definition)).body[0]
+                header.body = [ast.Pass()]
+                headers.append(_dump(header))
+            if headers[0] != headers[1]:
+                raise ValueError("Frozen producer unconsumed definition header differs: " + name)
+            record["definition_header_ast_sha256"] = object_sha(headers[0])
+            record["nonconsumption_proof"] = "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
+        records[name] = record
+    return dict(immutable_pipeline_sha256=immutable_sha, current_pipeline_sha256=current_sha, variant=variant, resolved_mixed=not pure if variant in table else None, functions=records,
+                evidence="SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES")
+
+
+@lru_cache(maxsize=16)
+def _auditor_numeric_surface(source):
+    """Exclude only this reviewed auditor repair, retaining every other declaration."""
+    tree = ast.parse(source)
+    repair_names = {"_normalized_input_recipe", "_input_recipe_contract", "_auditor_numeric_surface",
+                    "_verified_producer_version", "_schedule_contract"}
+    repair_constants = {"_RECIPE_PIPELINE_VERSIONS", "_RECIPE_SOURCE_VERSIONS", "_RECIPE_CURRENT_BASELINE"}
+    # The two original audit entrypoints retain every guard. Normalize only
+    # the exact reviewed extra source-context keywords at their schedule call.
+    for function in [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name in ("development_coverage", "audit_coverage")]:
+        phase = 'phase["phase_id"]' if function.name == "development_coverage" else 'intended_phase(variant, "final")["phase_id"]'
+        for call in [n for n in ast.walk(function) if isinstance(n, ast.Call) and _same(n.func, "_schedule_contract")]:
+            added = {k.arg: k.value for k in call.keywords if k.arg in ("variant", "phase_id")}
+            if set(added) == {"variant", "phase_id"} and _same(added["variant"], "variant") and _same(added["phase_id"], phase):
+                call.keywords = [k for k in call.keywords if k.arg not in added]
+    tree.body = [node for node in tree.body if not (
+        isinstance(node, ast.FunctionDef) and node.name in repair_names or
+        isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id in repair_constants for t in node.targets))]
+    return _dump(tree)
+
+
+def _verified_producer_version(root, source, phase_id):
+    """Recompute every declared source byte, reject unknown complete versions.
+
+    This permits only the enumerated producer phases on independently authenticated
+    actual cached inputs. It is neither universal equivalence nor runtime replay.
+    """
+    declared = object_sha(source)
+    if declared not in _RECIPE_SOURCE_VERSIONS or phase_id not in _RECIPE_SOURCE_VERSIONS[declared]:
+        raise ValueError("Unreviewed whole-producer source closure or intended phase")
+    actual = {}
+    for relative, expected in source.items():
+        original = _source_blob(root, relative, expected)
+        actual[relative] = hashlib.sha256(original.encode("utf-8")).hexdigest()
+    if object_sha(actual) != declared:
+        raise ValueError("Actual immutable producer bytes differ from their reviewed version")
+    auditor = "research/forecast-v2/scripts/audit_fit_coverage.py"
+    for relative, expected in _RECIPE_CURRENT_BASELINE.items():
+        if relative == auditor:
+            continue
+        if sha(_inside(root, relative)) != expected:
+            raise ValueError("Unreviewed current producer dependency: " + relative)
+    original_auditor = _source_blob(root, auditor, _RECIPE_CURRENT_BASELINE[auditor])
+    for current_auditor in (_inside(root, auditor), HERE):
+        if _auditor_numeric_surface(original_auditor) != _auditor_numeric_surface(current_auditor.read_text()):
+            raise ValueError("Current auditor changed a numerical/member identity dependency outside the recipe repair")
+    protocol_path = "research/forecast-v2/RUN_PROTOCOL.json"
+    protocol = json.loads(_source_blob(root, protocol_path, _RECIPE_CURRENT_BASELINE[protocol_path]))
+    if sha(_inside(root, "research/forecast-v2/SPLIT.json")) != protocol.get("split_sha256"):
+        raise ValueError("Whole producer recipe requires the protocol-pinned SPLIT bytes")
+    return dict(closure_sha256=declared, verified_source_files=len(actual), intended_phase=phase_id,
+                current_baseline_sha256=object_sha(_RECIPE_CURRENT_BASELINE),
+                evidence="EXACT_IMMUTABLE_PRODUCER_VERSIONS_CONDITIONAL_ON_AUTHENTICATED_ACTUAL_INPUT_CACHE_VALUES")
+
+
+def _schedule_contract(root, source, stage="final", variant=None, phase_id=None):
     """Bounded source checks for full permutations and the recorded skip paths."""
+    phase = next((p for p in current_phase_identity()["phases"] if p["phase_id"] == phase_id), None)
+    if phase is None or phase["variant"] != variant or phase["stage"] != stage:
+        raise ValueError("Producer recipe context must bind the exact intended phase, variant and stage")
+    producer_version = _verified_producer_version(root, source, phase_id)
     pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source["research/forecast-v2/scripts/pipeline.py"])
     survival = _source_blob(root, "forecast/wildfire/survival.py", source["forecast/wildfire/survival.py"])
     current_pipeline = (root / "research/forecast-v2/scripts/pipeline.py").read_text()
-    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
-        if ast.dump(_function(pipeline, name), include_attributes=False) != ast.dump(_function(current_pipeline, name), include_attributes=False):
-            raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
     tables = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign)
               and any(isinstance(t, ast.Name) and t.id == "VARIANTS" for t in n.targets)]
     if len(tables) != 1:
@@ -645,6 +905,7 @@ def _schedule_contract(root, source, stage="final"):
     if (table != FIXED_VARIANT_POLICY or table["mixed_base"].get("mixed") is not True
             or any(table[name].get("mixed", False) for name in VARIANTS if name != "mixed_base")):
         raise ValueError("The producer's mixed extra-source regime differs from the intended fit policy")
+    recipe = _input_recipe_contract(pipeline, current_pipeline, variant, table)
     final = _function(pipeline, "command_" + stage)
     required_origins = {"spec": "VARIANTS[args.variant]",
                         "train_events": 'available(args, SPLIT["fit"]["us_perimeter_and_kriged"])',
@@ -729,7 +990,7 @@ def _schedule_contract(root, source, stage="final"):
             ancestor = parents[ancestor]
         if not isinstance(ancestor, ast.If) or not _same(ancestor.test, "validation and stale >= patience"):
             raise ValueError("Unaccounted historical early stopping prevents a full-epoch coverage inference")
-    return dict(pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
+    return dict(producer_version=producer_version, input_recipe=recipe, pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
                 survival_sha256=source["forecast/wildfire/survival.py"],
                 fit_mean_field_ast_sha256=object_sha(ast.dump(fitting, include_attributes=False)),
                 evidence="BOUNDED_SOURCE_CONTRACT_CHECKED")
@@ -1021,7 +1282,7 @@ def development_coverage(root, inputs, caches, run, audit, expected, mixed):
                     or result["train_samples"] != len(train) or result["validation_samples"] != len(validation)):
                 raise ValueError("Development counts must equal every independently derived first3 training and validation sample")
             budget = development_budget(root, receipt, result, expected_count=len(train))
-            contract = _schedule_contract(root, source, stage="fold")
+            contract = _schedule_contract(root, source, stage="fold", variant=variant, phase_id=phase["phase_id"])
             epochs = _historical_development_epochs(root, variant, source, train, result["fit"]["history"], files)
             records[phase["phase_id"]] = dict(intended_phase=phase, fit_result=identity(root, path), execution=identity(root, receipt_path),
                 train_events=train_events, validation_events=validation_events, budget=budget,
@@ -1113,7 +1374,7 @@ def audit_coverage(model_root, input_root, cache_root, run_root, cache_audit_pat
                 or _option(command, "--data-manifest-sha256") != expected["input_sha256"]["EXTRACTION_MANIFEST.json"]):
             raise ValueError("Source inputs, complete caches and result root must be the actual effective execution arguments")
         source = receipt.get("source_sha256", {})
-        contract = _schedule_contract(root, source)
+        contract = _schedule_contract(root, source, variant=variant, phase_id=intended_phase(variant, "final")["phase_id"])
         spotting_contract = spotting_source_contract(root, source) if variant == "burnout_spotting" else None
         samples = mixed if variant == "mixed_base" else perimeter
         cases = expected["mixed_cases" if variant == "mixed_base" else "perimeter_cases"]

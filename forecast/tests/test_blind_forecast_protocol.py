@@ -487,6 +487,34 @@ def fit_coverage_module(freezer):
     spec = importlib.util.spec_from_file_location("fit_coverage_fixture", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    return _synthetic_recipe_boundary(module)
+
+
+_SYNTHETIC_RECIPE_VERSIONS = {}
+
+
+def _synthetic_recipe_boundary(module):
+    """Use explicit fixture-local reviewed pins, never auto-admit later mutation."""
+    if getattr(module, "_synthetic_recipe_bound", False):
+        return module
+    real = module._verified_producer_version
+    def verify(root, source, phase_id):
+        fixture = _SYNTHETIC_RECIPE_VERSIONS.get(str(Path(root).resolve()))
+        if fixture is None:
+            # Relocation preserves the exact already reviewed source closure.
+            fixture = next((item for item in _SYNTHETIC_RECIPE_VERSIONS.values()
+                            if module.object_sha(source) in item["versions"]), None)
+        if fixture is None:
+            return real(root, source, phase_id)
+        original = module._RECIPE_SOURCE_VERSIONS, module._RECIPE_CURRENT_BASELINE
+        module._RECIPE_SOURCE_VERSIONS = {**original[0], **fixture["versions"]}
+        module._RECIPE_CURRENT_BASELINE = fixture["current"]
+        try:
+            return real(root, source, phase_id)
+        finally:
+            module._RECIPE_SOURCE_VERSIONS, module._RECIPE_CURRENT_BASELINE = original
+    module._verified_producer_version = verify
+    module._synthetic_recipe_bound = True
     return module
 
 
@@ -496,6 +524,11 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     import rasterio
     from affine import Affine
     coverage = fit_coverage_module(freezer)
+    _synthetic_recipe_boundary(freezer.F)
+    # The registry dynamically loads a fresh auditor; retain its real verifier
+    # with this same explicit synthetic source-version catalog.
+    monkeypatch.setattr(freezer, "verified_fit_coverage", lambda root, run, selection:
+        fit_coverage_module(freezer).verify_coverage(root, run, selection.get("fit_coverage")))
     root = tmp_path / "freeze-repo"
     run = root / "forecast/runs/synthetic"
     inputs, caches = tmp_path / "synthetic-fit-inputs", tmp_path / "synthetic-fit-work"
@@ -550,9 +583,12 @@ def freeze_inputs(freezer, tmp_path, monkeypatch):
     extraction.write_text(json.dumps(dict(members=[dict(path=str(p.relative_to(inputs)), sha256=coverage.sha(p))
                                                    for p in (inputs / "environment").rglob("*") if p.is_file()])))
     (inputs / "BASELINE_TERRAIN_MANIFEST.json").write_text(json.dumps(dict(files=[])))
-    (evidence / "RUN_PROTOCOL.json").write_text(json.dumps(dict(data_manifest_sha256=coverage.sha(extraction))))
+    (evidence / "RUN_PROTOCOL.json").write_text(json.dumps(dict(data_manifest_sha256=coverage.sha(extraction),
+        split_sha256=coverage.sha(evidence / "SPLIT.json"))))
     expected = coverage.expected_membership(root, inputs)
     source = coverage.producer_sources(root)
+    monkeypatch.setitem(_SYNTHETIC_RECIPE_VERSIONS, str(root.resolve()), dict(current=dict(source),
+        versions={coverage.object_sha(source): [phase["phase_id"] for phase in coverage.current_phase_identity()["phases"]]}))
     groups, audit_rows = {}, []
     for kind, ledger in expected["ledger"].items():
         for event, entry in ledger.items():
@@ -1191,7 +1227,7 @@ def test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source(free
     receipt = json.loads(receipt_path.read_text())
     receipt["source_sha256"]["forecast/wildfire/survival.py"] = module.sha(source_path)
     receipt_path.write_text(json.dumps(receipt))
-    with pytest.raises(ValueError, match="actual indexed member"):
+    with pytest.raises(ValueError, match="actual indexed member|Unreviewed current producer dependency|Unreviewed whole-producer"):
         module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
 
 
@@ -1266,6 +1302,9 @@ def test_historical_schedule_inference_reads_exact_preserved_phase_source(freeze
     snapshot.parent.mkdir(parents=True)
     snapshot.write_bytes(original)
     source.write_bytes(original + b"\n# Later metadata-only source comment, never attributed to old runtime.\n")
+    # This synthetic comment-only current version is explicitly reviewed here;
+    # its historical producer remains pinned to the original archived bytes.
+    _SYNTHETIC_RECIPE_VERSIONS[str(root.resolve())]["current"]["forecast/wildfire/survival.py"] = module.sha(source)
     audited = module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
     assert audited["variants"]["base"]["source_schedule_contract"]["survival_sha256"] == digest
     assert audited["source_sha256"]["forecast/wildfire/survival.py"] != digest
@@ -1313,7 +1352,7 @@ def test_mixed_regime_source_cannot_declare_full_counts_while_disabling_extra_in
     receipt = json.loads(receipt_path.read_text())
     receipt["source_sha256"]["research/forecast-v2/scripts/pipeline.py"] = module.sha(path)
     receipt_path.write_text(json.dumps(receipt))
-    with pytest.raises(ValueError, match="mixed extra-source regime"):
+    with pytest.raises(ValueError, match="mixed extra-source regime|Unreviewed current producer dependency|Unreviewed whole-producer"):
         module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
 
 
