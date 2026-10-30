@@ -1,0 +1,335 @@
+{
+  "state": "CLOSED_ALL12_66ROWS_UNCHANGED61",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/comparison_a06_closure.json",
+      "archive": "mfmc-comparison-closure-a06/comparison_a06_closure.json",
+      "bytes": 18783,
+      "sha256": "057c00cc936b9049ee95033fd6fc0676a7a527cacfb41b76a8465109f1c49d5e"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case00.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case00.json",
+      "bytes": 8790,
+      "sha256": "afcb80cab500e6138563cac6f9fcb5f8a1b65489d5a0fa20d99175e7f7bb2743"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case00.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case00.log",
+      "bytes": 4027,
+      "sha256": "f49a361649d3ef098565580112bb973d519abdf799d4e308052358ef0aede32e"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
+      "bytes": 4940,
+      "sha256": "e90350c3b8baae0033628f2ebbfaf928d6f7b196ae31962cbec58d5e82fde9c7"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.csv",
+      "bytes": 2146,
+      "sha256": "6f30745e9a8d1dba954dbacc2b3d0f2d95fe582dcb7302d9226a890c46c90255"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case01.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case01.json",
+      "bytes": 8791,
+      "sha256": "b388aed81718f959c1be0d9b345c168c7aeb5e5e315c9c6755844eda43cd29ea"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case01.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case01.log",
+      "bytes": 4018,
+      "sha256": "124c4761b1eb1b4b36c15c779d3cf041ec1ab729f0b6e7c133bdbea988dbf512"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json",
+      "bytes": 4928,
+      "sha256": "e729f9bd74a45dc2b66d8613f17029daf5e4d8bb9b10e17527ce8dfdca56e57c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.csv",
+      "bytes": 2155,
+      "sha256": "3aadd2948ef652d9ea67ecc35e61fcf434f98558b46b2c0108daed9fe6280f40"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case02.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case02.json",
+      "bytes": 8791,
+      "sha256": "e63d089ad5a0e09f738ff6c767548906659d1811aa433d145b286a9770250809"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case02.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case02.log",
+      "bytes": 4015,
+      "sha256": "f8d9f5faa9ed4f569f3c915af5ab98e258a239b533d052081bf2b1695ba03ef6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json",
+      "bytes": 4929,
+      "sha256": "90a17899e2e06f36c3f8fc89aba3b28ea4306b6c94ee341bdfd3dcb5d42e7f90"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.csv",
+      "bytes": 2152,
+      "sha256": "ea5ede6dfb54fadc0312b21780e28e632c0558938fe414ab5c54125c98a97845"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case03.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case03.json",
+      "bytes": 8790,
+      "sha256": "616c4f44301419741167b50e7e4c2bee52321a592745f494285e96be31af7e86"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case03.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case03.log",
+      "bytes": 3956,
+      "sha256": "2486f50f8db9db888cc5602d22c3adadb8377cf18fd74255a559b5c1ca4d1c0d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json",
+      "bytes": 4865,
+      "sha256": "b985695d78318549ac113cddffd4a44203452aa1f7099a0489640e4653d600b3"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.csv",
+      "bytes": 2051,
+      "sha256": "0803e6b536ec5e5a640481a439a56d9449cfcdd33e1fc3c889399c0cb526f739"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case04.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case04.json",
+      "bytes": 8791,
+      "sha256": "db6a5c17801909b87631c789fb0ad106adf657a8da2c8ec8e2c160a513f35e48"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case04.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case04.log",
+      "bytes": 3938,
+      "sha256": "d8fd8981893a04e7dd1385454bcf3d039acb17c5b849d571cc472eafbabd28a9"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json",
+      "bytes": 4849,
+      "sha256": "df96112f7ca5f23246d00ad7fc783aec019ce85b22924e8f13e78b6fc50ec0b6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.csv",
+      "bytes": 2033,
+      "sha256": "e3867671e7f2d69103da2aedcd3fb183172af293bb41dace96b03a17e3194587"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case05.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case05.json",
+      "bytes": 8789,
+      "sha256": "59932eb4e45dd2d8bb9dd65a013ae7214c3b7c6fec7894ac899cb677ca516a64"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case05.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case05.log",
+      "bytes": 3819,
+      "sha256": "f83717dc1241369e3b906f2db4972c47f4d04ea730936656e66acd3e9a78fe6b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json",
+      "bytes": 4733,
+      "sha256": "3af8590c1be1b1b07b2c0c40647c3b4d1a3d7e87d9c396fbde20147a147b1757"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.csv",
+      "bytes": 1850,
+      "sha256": "6316a49a9e5acaa260d68d374a47da7a62776c1011a59847a6c825cd37ec02ae"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case06.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case06.json",
+      "bytes": 8791,
+      "sha256": "1699bd70ecd2252253c91922ae05ea967b83bf6ee9c3ecfae51090aec1ff7f8e"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case06.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case06.log",
+      "bytes": 4042,
+      "sha256": "3d98598b8248d661e55e8becf9870213d192afc6e3350f81d6a41f66fbeb9571"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json",
+      "bytes": 4936,
+      "sha256": "9d866c6d52d486858976e404c7b7c3f487e92bee61ba5461a707cc6ab5bc8ff9"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.csv",
+      "bytes": 2421,
+      "sha256": "d6048bdc4b1508346ac82f027bda1d5af1080976bd8de8d715df078c385f0e7a"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case07.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case07.json",
+      "bytes": 8791,
+      "sha256": "362c2e091254f3c57f92f13c10fae87243cabba2bc6e3d541f03d0888d59079d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case07.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case07.log",
+      "bytes": 3971,
+      "sha256": "91b0eda1010bf55fb7ac2b0a8182e13057dd43c2bea5e2548508f9c99a10fdd8"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json",
+      "bytes": 4865,
+      "sha256": "6c30b2d53449e09adbcdbf060bf3eb7cf98a67a7edae23323098e1ca29b9c58b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.csv",
+      "bytes": 2350,
+      "sha256": "34a17ad69135bb5574fd4ca09bf63759d20af15abb98448b8aed51914e0cda12"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case08.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case08.json",
+      "bytes": 8790,
+      "sha256": "3d5446c2ccaa138cf9068570fe28297c356c11ce5c2e1f149a289318588f4af4"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case08.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case08.log",
+      "bytes": 3990,
+      "sha256": "7c6b3a0d0e4a63543e20372cf89f7ed81ae341e3cf0c6f111d7a7ed75d3cdbb1"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json",
+      "bytes": 4884,
+      "sha256": "742120b8ef2bb6d16059700ce87069a5c6c66ca3471e655bb6ea76e83952756b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.csv",
+      "bytes": 2369,
+      "sha256": "995fb4f341bcda8337ce26f6a3fe6e3a2a9658703115ee1403a8bc99bf5a0dd2"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case09.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case09.json",
+      "bytes": 8791,
+      "sha256": "a4236db5bfaa0a24c32dd5cab395832b009912e7a9d2a962ee7c36bef6823229"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case09.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case09.log",
+      "bytes": 3999,
+      "sha256": "3b5fe1a3aab8ff13fa896602d5011dc5c87e37288bf79320123c71beceb99645"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json",
+      "bytes": 4887,
+      "sha256": "3bd9f5d5a3f3d730f5569c1cce7513afc7c87ec177fd881b194d70457d6dda70"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.csv",
+      "bytes": 2378,
+      "sha256": "f7ac8b8a393400af1260f2a34f48729e5aa318452d50cac6746463a392f6a486"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case10.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case10.json",
+      "bytes": 8791,
+      "sha256": "d21aa71e517a2d90d9d40321c78a8da9bd186e48eb506f6de6b5037ab1169714"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case10.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case10.log",
+      "bytes": 3949,
+      "sha256": "abe4723125e1896d527d922c6662b314e167a81697eed881c6299c021f6a6a46"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json",
+      "bytes": 4842,
+      "sha256": "665476bf112d5397ece0b663826d05cc8fc6d811437ad7e391a1a652c6c1ef80"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.csv",
+      "bytes": 2328,
+      "sha256": "209cf17ba7b534ea48e210978a4411b27f492c4c0998b390ef420d0de1b2545b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case11.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case11.json",
+      "bytes": 8791,
+      "sha256": "cd22ca6872133e6f68cef6158884cae747ec6487b1e1b37fce61384ae24e3a82"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare_case11.log",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare_case11.log",
+      "bytes": 3994,
+      "sha256": "e556ee8b19124d2a4f4751062ccc1eb5af76f2bd7e3121317330108ca450edbd"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json",
+      "bytes": 4889,
+      "sha256": "dbd3fd4f9e993877d2ece0b8fb8289021f526bd33d5c68d2a8dadc2dd094bf9b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.csv",
+      "bytes": 2373,
+      "sha256": "3a042b4989e667b4cd3ba060914aa30cd01d2497d4471a603e5c8e59e6020d56"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/executions/a06_compare.json",
+      "archive": "mfmc-comparison-closure-a06/research/forecast-v2/executions/a06_compare.json",
+      "bytes": 9046,
+      "sha256": "de253d3e63f515ec317eed38275892c233622592ee0ead5c79a9ebd00e9691a6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/meanfield_vs_mc.json",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/meanfield_vs_mc.json",
+      "bytes": 60508,
+      "sha256": "adea1a7f243f89e338302a71a4e1447711d89f1f760b91f16cccbc590294fca3"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/meanfield_vs_mc.csv",
+      "archive": "mfmc-comparison-closure-a06/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/meanfield_vs_mc.csv",
+      "bytes": 23344,
+      "sha256": "01551c3946bab049d0c3c7f24561c583bcc597e0bc79d091a5685103286e48ae"
+    }
+  ],
+  "closure_sha256": "057c00cc936b9049ee95033fd6fc0676a7a527cacfb41b76a8465109f1c49d5e",
+  "case_receipts": 12,
+  "case_receipt_log_output_pin_matches": 12,
+  "case_CSVs_archived": 12,
+  "aggregate_JSON_receipt_CSV_archived": true,
+  "source_before_after_mapping_equal_to_pinned_contract": true,
+  "source_files": 61,
+  "source_phase_F175": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+  "current_live_source_rehash_after_F65_transition": false,
+  "controller_pid": 46464,
+  "controller_exited_at_closure": true,
+  "controller_exit_code_not_saved_here": null,
+  "case_and_aggregate_receipt_exit_codes": [
+    0
+  ],
+  "raw_arrays_masks_models_caches_opened": false,
+  "scope": "Exact completedowner metadataoutputs/receipts/logs/CSVcustody only. Root independentchecker alreadyreconciledsavedJSONCSV; readiness verifiedhashes/maps, didnotrerunchecker/forecasts or inferactualrawfieldvalidity. CSVhashesarethisarchivecustody snapshot, notextraCSVhashpinsclaimedinthecheckerresult.",
+  "root_authorized_next_stage": "Exact65apply afteractualreconciliation; updatedsuite/release andfreshcanonicalcoverage stillpending. No selection/registry/heldout."
+}

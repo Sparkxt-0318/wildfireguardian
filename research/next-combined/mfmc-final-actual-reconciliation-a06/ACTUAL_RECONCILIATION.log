@@ -1,0 +1,1 @@
+{"status": "PASS_SAVED_METRIC_RECONCILIATION", "case_count": 12, "row_count": 66, "row_status_counts": {"COMPARABLE": 56, "UNAVAILABLE_SHARED_SUPPORT": 10}, "reference_status_counts": {"SCORED": 24, "UNAVAILABLE_REFERENCE_SUPPORT": 12, "NOT_SCORED_NO_REFERENCE_AT_FIXED_HORIZON": 30}}

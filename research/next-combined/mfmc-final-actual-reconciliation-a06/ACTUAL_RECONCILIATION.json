@@ -1,0 +1,959 @@
+{
+  "status": "PASS_SAVED_METRIC_RECONCILIATION",
+  "scope": "Complete saved JSON/CSV/receipt/source reconciliation only. No field-array RMSE or Brier replay, MC rerun, model-byte hash audit, inference or heldout access.",
+  "attempt": 6,
+  "case_count": 12,
+  "row_count": 66,
+  "KR_cutoffs": 6,
+  "KR_events": 3,
+  "US_cutoffs": 6,
+  "US_events": 6,
+  "row_status_counts": {
+    "COMPARABLE": 56,
+    "UNAVAILABLE_SHARED_SUPPORT": 10
+  },
+  "reference_status_counts": {
+    "SCORED": 24,
+    "UNAVAILABLE_REFERENCE_SUPPORT": 12,
+    "NOT_SCORED_NO_REFERENCE_AT_FIXED_HORIZON": 30
+  },
+  "source_files": 61,
+  "producer_writes_field_arrays": false,
+  "field_arrays_opened": false,
+  "raw_field_replay": false,
+  "checkpoint_hash_scope": "Producer assertion matches pinned source constant; actual checkpoint file not opened or rehashed.",
+  "backend_scope": "CPU execution inferred from pinned command_compare source load_model(device=cpu), CPU tensors and numpy extraction; host metadata retained.",
+  "no_promotion_or_speed_claim": true,
+  "aggregate_sha256": "adea1a7f243f89e338302a71a4e1447711d89f1f760b91f16cccbc590294fca3",
+  "aggregate_receipt_sha256": "de253d3e63f515ec317eed38275892c233622592ee0ead5c79a9ebd00e9691a6",
+  "case_receipts": [
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case00.json",
+      "sha256": "afcb80cab500e6138563cac6f9fcb5f8a1b65489d5a0fa20d99175e7f7bb2743"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case01.json",
+      "sha256": "b388aed81718f959c1be0d9b345c168c7aeb5e5e315c9c6755844eda43cd29ea"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case02.json",
+      "sha256": "e63d089ad5a0e09f738ff6c767548906659d1811aa433d145b286a9770250809"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case03.json",
+      "sha256": "616c4f44301419741167b50e7e4c2bee52321a592745f494285e96be31af7e86"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case04.json",
+      "sha256": "db6a5c17801909b87631c789fb0ad106adf657a8da2c8ec8e2c160a513f35e48"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case05.json",
+      "sha256": "59932eb4e45dd2d8bb9dd65a013ae7214c3b7c6fec7894ac899cb677ca516a64"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case06.json",
+      "sha256": "1699bd70ecd2252253c91922ae05ea967b83bf6ee9c3ecfae51090aec1ff7f8e"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case07.json",
+      "sha256": "362c2e091254f3c57f92f13c10fae87243cabba2bc6e3d541f03d0888d59079d"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case08.json",
+      "sha256": "3d5446c2ccaa138cf9068570fe28297c356c11ce5c2e1f149a289318588f4af4"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case09.json",
+      "sha256": "a4236db5bfaa0a24c32dd5cab395832b009912e7a9d2a962ee7c36bef6823229"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case10.json",
+      "sha256": "d21aa71e517a2d90d9d40321c78a8da9bd186e48eb506f6de6b5037ab1169714"
+    },
+    {
+      "path": "research/forecast-v2/executions/a06_compare_case11.json",
+      "sha256": "cd22ca6872133e6f68cef6158884cae747ec6487b1e1b37fce61384ae24e3a82"
+    }
+  ],
+  "derived_row_identities": [
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-03-04T17:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-03-04T19:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-03-04T22:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-03-05T04:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-03-05T16:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-03-05T06:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-03-05T08:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-03-05T11:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-03-05T17:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-03-06T05:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-03-07T11:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-03-07T13:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-03-07T16:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-03-07T22:00:00+00:00"
+    },
+    {
+      "event": "KFS_02",
+      "country": "KR",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-03-08T10:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-03-05T05:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-03-05T07:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-03-05T10:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-03-05T16:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-03-06T04:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-03-05T09:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-03-05T11:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-03-05T14:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-03-05T20:00:00+00:00"
+    },
+    {
+      "event": "KFS_03",
+      "country": "KR",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-03-06T08:00:00+00:00"
+    },
+    {
+      "event": "KFS_05",
+      "country": "KR",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2023-04-02T14:00:00+00:00"
+    },
+    {
+      "event": "KFS_05",
+      "country": "KR",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2023-04-02T16:00:00+00:00"
+    },
+    {
+      "event": "KFS_05",
+      "country": "KR",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2023-04-02T19:00:00+00:00"
+    },
+    {
+      "event": "KFS_05",
+      "country": "KR",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2023-04-03T01:00:00+00:00"
+    },
+    {
+      "event": "KFS_05",
+      "country": "KR",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2023-04-03T13:00:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2020-09-23T03:40:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2020-09-23T05:40:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2020-09-23T08:40:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2020-09-23T14:40:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2020-09-24T02:40:00+00:00"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "country": "US",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 30.083333333333332,
+      "derived_endpoint": "2020-09-24T08:45:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2020-10-06T07:30:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2020-10-06T09:30:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2020-10-06T12:30:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2020-10-06T18:30:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2020-10-07T06:30:00+00:00"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "country": "US",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 24.75,
+      "derived_endpoint": "2020-10-07T07:15:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2021-09-01T05:40:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2021-09-01T07:40:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2021-09-01T10:40:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2021-09-01T16:40:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2021-09-02T04:40:00+00:00"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "country": "US",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 24.233333333333334,
+      "derived_endpoint": "2021-09-02T04:54:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2021-07-29T05:40:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2021-07-29T07:40:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2021-07-29T10:40:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2021-07-29T16:40:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2021-07-30T04:40:00+00:00"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "country": "US",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 23.833333333333332,
+      "derived_endpoint": "2021-07-30T04:30:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-08-16T07:03:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-08-16T09:03:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-08-16T12:03:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-08-16T18:03:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-08-17T06:03:00+00:00"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "country": "US",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 24.666666666666668,
+      "derived_endpoint": "2022-08-17T06:43:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "derived_endpoint": "2022-09-11T06:45:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "derived_endpoint": "2022-09-11T08:45:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "derived_endpoint": "2022-09-11T11:45:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "derived_endpoint": "2022-09-11T17:45:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "derived_endpoint": "2022-09-12T05:45:00+00:00"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "country": "US",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "horizon_kind": "survey",
+      "hours": 46.266666666666666,
+      "derived_endpoint": "2022-09-13T04:01:00+00:00"
+    }
+  ],
+  "unique_call_costs": [
+    {
+      "case_index": 0,
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T16:00:00+00:00",
+      "joint24h_mc_seconds": 233.42332604102558,
+      "joint24h_mf_seconds": 0.13147054199362174,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 234.6276172910002
+    },
+    {
+      "case_index": 1,
+      "event": "KFS_02",
+      "cutoff": "2022-03-05T05:00:00+00:00",
+      "joint24h_mc_seconds": 237.6278133749729,
+      "joint24h_mf_seconds": 0.14844512497074902,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 239.11952158302302
+    },
+    {
+      "case_index": 2,
+      "event": "KFS_02",
+      "cutoff": "2022-03-07T10:00:00+00:00",
+      "joint24h_mc_seconds": 238.9751748329727,
+      "joint24h_mf_seconds": 0.15210408304119483,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 240.16982779098907
+    },
+    {
+      "case_index": 3,
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "joint24h_mc_seconds": 49.49427329201717,
+      "joint24h_mf_seconds": 0.02434850001009181,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 50.76710108300904
+    },
+    {
+      "case_index": 4,
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T08:00:00+00:00",
+      "joint24h_mc_seconds": 49.9875775409746,
+      "joint24h_mf_seconds": 0.027294542000163347,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 51.045634583046194
+    },
+    {
+      "case_index": 5,
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T13:00:00+00:00",
+      "joint24h_mc_seconds": 26.241128834022675,
+      "joint24h_mf_seconds": 0.009629332984331995,
+      "survey_mc_seconds": null,
+      "survey_mf_seconds": null,
+      "complete_child_seconds": 27.2895553749986
+    },
+    {
+      "case_index": 6,
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "cutoff": "2020-09-23T02:40:00+00:00",
+      "joint24h_mc_seconds": 1696.8134239169885,
+      "joint24h_mf_seconds": 0.22231933299917728,
+      "survey_mc_seconds": 241.37907541700406,
+      "survey_mf_seconds": 0.24289916700217873,
+      "complete_child_seconds": 1939.7921240419964
+    },
+    {
+      "case_index": 7,
+      "event": "CA-SNF-001391_Creek",
+      "cutoff": "2020-10-06T06:30:00+00:00",
+      "joint24h_mc_seconds": 2034.8107934579602,
+      "joint24h_mf_seconds": 0.23325087502598763,
+      "survey_mc_seconds": 241.53936991700903,
+      "survey_mf_seconds": 0.2233925829641521,
+      "complete_child_seconds": 2278.1486510839895
+    },
+    {
+      "case_index": 8,
+      "event": "OR-UPF-000450_DevilsKnob",
+      "cutoff": "2021-09-01T04:40:00+00:00",
+      "joint24h_mc_seconds": 543.979628333007,
+      "joint24h_mf_seconds": 0.07138729200232774,
+      "survey_mc_seconds": 65.20651820802595,
+      "survey_mf_seconds": 0.0714055830030702,
+      "complete_child_seconds": 610.6489000410074
+    },
+    {
+      "case_index": 9,
+      "event": "MT-LNF-000893_WestLolo",
+      "cutoff": "2021-07-29T04:40:00+00:00",
+      "joint24h_mc_seconds": 267.68401366699254,
+      "joint24h_mf_seconds": 0.030763750022742897,
+      "survey_mc_seconds": 30.197113708010875,
+      "survey_mf_seconds": 0.030488291988149285,
+      "complete_child_seconds": 299.12758445803775
+    },
+    {
+      "case_index": 10,
+      "event": "ID-SCF-022105_Moose",
+      "cutoff": "2022-08-16T06:03:00+00:00",
+      "joint24h_mc_seconds": 593.1680960830417,
+      "joint24h_mf_seconds": 0.07246375002432615,
+      "survey_mc_seconds": 69.10013566701673,
+      "survey_mf_seconds": 0.07471587503096089,
+      "complete_child_seconds": 663.4673915830208
+    },
+    {
+      "case_index": 11,
+      "event": "OR-WIF-220180_CedarCreek",
+      "cutoff": "2022-09-11T05:45:00+00:00",
+      "joint24h_mc_seconds": 642.8675123749999,
+      "joint24h_mf_seconds": 0.08501787501154467,
+      "survey_mc_seconds": 146.61726554197958,
+      "survey_mf_seconds": 0.1475400840281509,
+      "complete_child_seconds": 790.8718929170282
+    }
+  ],
+  "descriptive_groups": [
+    {
+      "country": "KR",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 7109,
+      "active_cells": 1549,
+      "descriptive_median_saved_rmse_all": 0.0017038302612490952,
+      "scored_reference_rows": 6,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 3223
+    },
+    {
+      "country": "KR",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 5984,
+      "active_cells": 1186,
+      "descriptive_median_saved_rmse_all": 0.0021584267960861325,
+      "scored_reference_rows": 5,
+      "reference_unavailable_rows": 1,
+      "saved_label_cells": 2688
+    },
+    {
+      "country": "KR",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "rows": 6,
+      "comparable_rows": 5,
+      "unavailable_rows": 1,
+      "sum_common_cells": 4069,
+      "active_cells": 625,
+      "descriptive_median_saved_rmse_all": 0.002122411970049143,
+      "scored_reference_rows": 5,
+      "reference_unavailable_rows": 1,
+      "saved_label_cells": 1900
+    },
+    {
+      "country": "KR",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "rows": 6,
+      "comparable_rows": 3,
+      "unavailable_rows": 3,
+      "sum_common_cells": 198,
+      "active_cells": 0,
+      "descriptive_median_saved_rmse_all": 6.669360064215368e-10,
+      "scored_reference_rows": 2,
+      "reference_unavailable_rows": 4,
+      "saved_label_cells": 99
+    },
+    {
+      "country": "KR",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "rows": 6,
+      "comparable_rows": 0,
+      "unavailable_rows": 6,
+      "sum_common_cells": 0,
+      "active_cells": 0,
+      "descriptive_median_saved_rmse_all": null,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 6,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "fixed",
+      "hours": 1.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 62866,
+      "active_cells": 10484,
+      "descriptive_median_saved_rmse_all": 0.0013275026576593518,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "fixed",
+      "hours": 3.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 62866,
+      "active_cells": 12680,
+      "descriptive_median_saved_rmse_all": 0.0021551360841840506,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "fixed",
+      "hours": 6.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 62866,
+      "active_cells": 14516,
+      "descriptive_median_saved_rmse_all": 0.0029539434472098947,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "fixed",
+      "hours": 12.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 62866,
+      "active_cells": 17758,
+      "descriptive_median_saved_rmse_all": 0.004480311647057533,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "fixed",
+      "hours": 24.0,
+      "rows": 6,
+      "comparable_rows": 6,
+      "unavailable_rows": 0,
+      "sum_common_cells": 62866,
+      "active_cells": 22058,
+      "descriptive_median_saved_rmse_all": 0.006574321771040559,
+      "scored_reference_rows": 0,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 0
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 30.083333333333332,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 15975,
+      "active_cells": 4964,
+      "descriptive_median_saved_rmse_all": 0.016888346523046494,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 15975
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 24.75,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 20533,
+      "active_cells": 6728,
+      "descriptive_median_saved_rmse_all": 0.008462722413241863,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 20533
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 24.233333333333334,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 7450,
+      "active_cells": 2744,
+      "descriptive_median_saved_rmse_all": 0.005292758345603943,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 7450
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 23.833333333333332,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 3886,
+      "active_cells": 1039,
+      "descriptive_median_saved_rmse_all": 0.004356274381279945,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 3886
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 24.666666666666668,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 6851,
+      "active_cells": 3111,
+      "descriptive_median_saved_rmse_all": 0.006744389422237873,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 6851
+    },
+    {
+      "country": "US",
+      "horizon_kind": "survey",
+      "hours": 46.266666666666666,
+      "rows": 1,
+      "comparable_rows": 1,
+      "unavailable_rows": 0,
+      "sum_common_cells": 8171,
+      "active_cells": 4872,
+      "descriptive_median_saved_rmse_all": 0.008498095907270908,
+      "scored_reference_rows": 1,
+      "reference_unavailable_rows": 0,
+      "saved_label_cells": 8171
+    }
+  ],
+  "contract_sha256": "a381eb245f25e32aeb8796bd8fe53058abc71bbcf9b193025b100a1077f74402",
+  "checker_sha256": "d991555e11bd89eec4a5305fa9234493477de8506a49c2b6499881382600bd5c"
+}

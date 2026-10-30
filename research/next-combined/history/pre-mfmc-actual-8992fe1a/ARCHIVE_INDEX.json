@@ -1,0 +1,36 @@
+{
+  "source_commit": "8992fe1a338f8aa8efde36513d0f262f95f9aeca",
+  "scope": "Exact prior provisionalPASS/canonicalHOLD/10of12/prospectiveMFMCchecker summary before separateactualresultclosure",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 25012,
+      "sha256": "738699da64368719922dc6f8b96f6f8a1bc6564a465664ae3ccef406f0c6b7d8"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 50353,
+      "sha256": "413ca6840a0e12c6f62792ac6368199ee8b98326eefe4ad44fbebf2d3b5d988c"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 50353,
+      "sha256": "413ca6840a0e12c6f62792ac6368199ee8b98326eefe4ad44fbebf2d3b5d988c"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 43148,
+      "sha256": "ba06137f6dde2a0755bf114877462bf35ecd0e44ae7129a41e617fbca747bc11"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 28030,
+      "sha256": "b53eb40d26b532d67c796d5df8f961b3cbc1950ebd699e0fcf7c0d3251e09f1e"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 67203,
+      "sha256": "389770298d7a665349cfcdfb7779318524fe0d7a473d2291a53f723096f9ec21"
+    }
+  ]
+}

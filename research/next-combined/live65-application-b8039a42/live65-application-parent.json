@@ -1,0 +1,9 @@
+{
+  "scope": "Postapplication exact source identity, not live input coverage or registry admission",
+  "checked_files": 63,
+  "mismatches": [],
+  "application_receipt_sha256": "9804da81c061491e1d6a2e6b1c1863332d15288346f4243bdf68fe07c04a2718",
+  "executing_live_auditor_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "other_original_comparison_dependencies_preserved": true,
+  "no_heldout_or_model_inference": true
+}

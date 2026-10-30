@@ -1,0 +1,55 @@
+{
+  "state": "PASS_SAVED_METRIC_RECONCILIATION",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/ACTUAL_RECONCILIATION.json",
+      "archive": "mfmc-final-actual-reconciliation-a06/ACTUAL_RECONCILIATION.json",
+      "bytes": 28631,
+      "sha256": "ff1eb3778b130e5da418828b781b5e8fd86d4e52bf4a31054a8f0ee2f7d0c620"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/ACTUAL_RECONCILIATION.log",
+      "archive": "mfmc-final-actual-reconciliation-a06/ACTUAL_RECONCILIATION.log",
+      "bytes": 285,
+      "sha256": "b2bbe4816e680306792e8d5da0e1b20dcbb20e72d61c591748d71df3b940cf8a"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/ACTUAL_COMMAND_FORM_INSPECTION.json",
+      "archive": "mfmc-final-actual-reconciliation-a06/ACTUAL_COMMAND_FORM_INSPECTION.json",
+      "bytes": 26326,
+      "sha256": "34e1c07d38cceafb4cdb3e1d0e7da71a29aeaf0cb9ed24713a5ca5c321323837"
+    }
+  ],
+  "actor": "Root executed the previously prepared independentchecker after exacthashverification, exit0 reported byparent. Readiness archive/custody only; no checker rerun.",
+  "checker": "mfmc-final-review-prepared/reconcile.py",
+  "checker_sha256": "d991555e11bd89eec4a5305fa9234493477de8506a49c2b6499881382600bd5c",
+  "contract": "mfmc-final-review-prepared/SOURCE_CONTRACT.json",
+  "contract_sha256": "a381eb245f25e32aeb8796bd8fe53058abc71bbcf9b193025b100a1077f74402",
+  "source_required_for_actual_run": "F175",
+  "case_count": 12,
+  "row_count": 66,
+  "row_status_counts": {
+    "COMPARABLE": 56,
+    "UNAVAILABLE_SHARED_SUPPORT": 10
+  },
+  "reference_status_counts": {
+    "SCORED": 24,
+    "UNAVAILABLE_REFERENCE_SUPPORT": 12,
+    "NOT_SCORED_NO_REFERENCE_AT_FIXED_HORIZON": 30
+  },
+  "KR_cutoffs": 6,
+  "KR_events": 3,
+  "US_cutoffs": 6,
+  "US_events": 6,
+  "limits": [
+    "Saved JSON/CSV/receipt/source reconciliation only, no raw field RMSE/Brier/mask replay",
+    "No MonteCarlo/forecast/inference/model or actualcheckpointbyte replay",
+    "Checkpoint assertion checked against pinnedproducerconstant, not actualfile rehash",
+    "Shared joint24hMF/MCcost is onecall percutoff acrossfivefixedhorizonrows; USsurveyendpointcost separate",
+    "No scientific/speed superiority or checkpoint promotion",
+    "Distinct actualrecord from24syntheticpreparationcontrols and38preparedheldoutchecker"
+  ],
+  "canonical_fit_coverage": "HOLD_FRESH_LIVE_AUDIT_AND_UPDATED_SUITE_PENDING",
+  "readiness_actual_auditor_checker_or_numerical_execution": false,
+  "actual_command_form_inspection": "Separate root savedmetadata record confirms12canonical argv; no equals/duplicates/separator, knownflagsequence. No argument-parser test or MC rerun byreadiness."
+}
