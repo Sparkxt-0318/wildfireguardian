@@ -29,7 +29,8 @@
         "exit_code": 0
       },
       "functional_receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
-      "functional_inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json"
+      "functional_inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json",
+      "published_head": "43324736fc5301a0444b01b918ef14a0372b1ec3"
     },
     "1B": {
       "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -43,10 +44,10 @@
       "heldout_scores_inspected_by_readiness_auditor": false,
       "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
-      "future_adapter_wiring": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD",
+      "future_adapter_wiring": "SCOPED_WIRING_AND_DEVELOPMENT_ADMISSION_PASS_AT_a5ba8210_EXTERNAL_2026_GATES_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
-      "published_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+      "published_head": "1bd6e61e0e0a836be0ff42e4942ac76f70e72f65",
       "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
       "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
       "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
@@ -170,8 +171,8 @@
         "cache_final_active_sample_lists": 114,
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
-        "corrected_spotting_development_fits_completed": 2,
-        "controllers": "Corrected development fold2022 resumed under fixed61-file source closure, lease08:47:35Z; corrected full spotting and12a06cutoffs next",
+        "corrected_spotting_development_fits_completed": 3,
+        "controllers": "Corrected third development fit completed; corrected full spotting queued behind first fixed-sourcea06cutoff comparison; noheldout",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -182,7 +183,9 @@
           "performance_evidence": false
         },
         "scope": "Coordinator progress only; no actual fit/sample/cache/checkpoint inspected by readiness archivist, no current final registry clearance",
-        "dirty_patch_snapshot": "Earlier02cdf53c plus dirty repair patch was superseded by reviewed clean sourcea5ba; untracked numerical evidence is ongoing and was not inspected here"
+        "dirty_patch_snapshot": "Earlier02cdf53c plus dirty repair patch was superseded by reviewed clean sourcea5ba; untracked numerical evidence is ongoing and was not inspected here",
+        "third_development_fit_reported_whole_job_seconds": 59.295,
+        "reported_elapsed_is_performance_evidence": false
       },
       "earlier_assessment_admission": {
         "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
@@ -212,17 +215,38 @@
       "paired_ablation_reporting": {
         "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
         "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
-        "origin": "Coordinator relayed independent preheldout metric review; exact followup archive pending",
+        "origin": "Other independent reviewer at exacta5ba source; full exact archive and source pins checked here without rerun",
         "finding": "Subtracting weighted error sums with the base weight denominator can fabricate a paired difference/CI when model support weights differ",
         "synthetic_reproduction": "Equal per-fire Brier0.1 with baseweight100 and burnoutweight50 yields reported difference-0.05 and CI excludingzero",
         "training_and_equal_fire_selection": "UNAFFECTED",
         "training_resume_hold": false,
-        "repair": "Reporting-only repair pending; fixed61numerical source remains unchanged during the active fit",
-        "actual_heldout_inspection": false
+        "repair": "Reporting repair pending outside the fixed61-file numerical source closure; training and equal-fire selection unaffected",
+        "actual_heldout_inspection": false,
+        "review": "forecast-metrics-review-a5ba8210/REVIEW_a5ba8210.md",
+        "inventory": "forecast-metrics-review-a5ba8210/SOURCE_INVENTORY.json",
+        "reproduction": "forecast-metrics-review-a5ba8210/ablation_weight_repro_a5ba8210.json",
+        "other_arithmetic_gate_controls": {
+          "checks": 51,
+          "passed": 51,
+          "scope": "Nonablation arithmetic and gate paths only; does not close the confirmed paired-ablation reporting failure"
+        },
+        "expected_brier_difference": 0.0,
+        "observed_difference": -0.05,
+        "observed_interval": [
+          -0.05,
+          -0.05
+        ],
+        "actual_development_weights_inspected": false,
+        "actual_quality_results_inspected": false
+      },
+      "current_review_not_yet_published": true,
+      "future_adapter_wiring_history": {
+        "prior_summary": "history/pre-metrics-7ce13650/CURRENT_EVIDENCE.json",
+        "prior_value": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD"
       }
     },
     "1C": {
-      "published_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+      "published_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
       "software_head": "e68123d81fb9064ad057425d7c954f923b50097c",
       "status": "CONDITIONAL_CONTACT_CAMPAIGN_AUDIT_PASS_FULL_POLICY_RISK_HOLD",
       "native_contact_pairs": {
@@ -281,7 +305,7 @@
         "scope": "Prior strict whole-domain contact predicate"
       },
       "current_report_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
-      "publication_status": "Coordinator publishing06ad to existingPR86; readiness archivist performs no publication",
+      "publication_status": "Coordinator confirmed exact06ad push/PR86 and allCIgreen; readiness archivist performs no publication",
       "reader_core_software_head": "e68123d81fb9064ad057425d7c954f923b50097c",
       "contact_adapter_repair": {
         "source_head": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
@@ -425,7 +449,9 @@
       "audit/1b-repaired-tools-08ac32c7.json"
     ],
     "pre_contact_campaign_summary": "history/pre-contact-campaign-0638e3a6/README.md",
-    "pre_contact_campaign_inventory": "history/pre-contact-campaign-0638e3a6/ARCHIVE_INDEX.json"
+    "pre_contact_campaign_inventory": "history/pre-contact-campaign-0638e3a6/ARCHIVE_INDEX.json",
+    "pre_metrics_summary": "history/pre-metrics-7ce13650/README.md",
+    "pre_metrics_inventory": "history/pre-metrics-7ce13650/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -440,7 +466,9 @@
     "C_conditional_contact_campaign": "Track-owner320record experiment at095; separate independent reviewer22+5saved-output/figure checks,339outputs115actualinputs41source/evidencepins. Readiness archivist checked exact archived bytes and selected Git objects only, no duplicate output audit, geometric witness replay or planner rerun.",
     "parent_report_alias_repair": "Parent adapted tiny637name/gate control2/2; readiness archived exact bytes and verified4source Git object hashes, originalbbb failure retained.",
     "parent_contact_adapter_repair": "Parent70017tinycontrols65custodychecks72targetedtest receipt archived unchanged with originalfd8failure; not rerun by readiness.",
-    "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun."
+    "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun.",
+    "B_metrics_review": "Other independent reviewer51/51nonablation arithmetic/gate controls plus retained false paired-CI reproduction at a5ba, no actual data/model/quality-result inspection. Readiness archived exact manifest and verifiedsource Git object pins, no rerun.",
+    "confirmed_publication_heads": "Coordinator confirmed A43324736,B1bd6e61e,C06ad9fe9; C exactPR86allCIgreen. New a5ba review source remains unpublished."
   },
-  "updated_utc": "2026-10-30T08:50:13.520048+00:00"
+  "updated_utc": "2026-10-30T08:54:20.273310+00:00"
 }

@@ -1,0 +1,10 @@
+{
+  "source_commit": "7ce13650ba433296a4075c9fbc2563c039e0bfd4",
+  "scope": "Exact prior current summary before metrics review archival, publication metadata correction and wiring status refresh. Original failure artifacts remain unchanged.",
+  "sha256": {
+    "README.md": "d01ac088a1f265b14189acd945dde2ff57167f217fedcdf54088bc135508a01f",
+    "GATES.json": "bedba0f2743d390c464cded1cb872ab9dba039e912e83ac1ceeac34b3738749a",
+    "CURRENT_EVIDENCE.json": "bedba0f2743d390c464cded1cb872ab9dba039e912e83ac1ceeac34b3738749a",
+    "AUDIT_METHOD.json": "f24b7a7272f1feeed1496213c3e0bbcaeb534db511ed693d1c3c60e3f564306e"
+  }
+}

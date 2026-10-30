@@ -72,7 +72,7 @@
     "Graph coverage is a best-effort signal, not proof of source completeness.",
     "A empirical physics remains HOLD;42functional and367release checks are not physical validation.",
     "B a5ba software admission23/23 plus separate6/6historical-skip review passes, actual seven-fit coverage/development-only selection/registry and heldout remain pending.",
-    "B paired ablation CI/reporting has a newly coordinator-reported support-weight defect; training/equal-fire selection and numerical-job clearance are unaffected. Exact followup metric-review archive is pending.",
+    "B paired ablation CI/reporting has a newly coordinator-reported support-weight defect; training/equal-fire selection and numerical-job clearance are unaffected. Exact independent metric-review failure and51/51nonablation controls are now archived; report repair remains pending.",
     "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here."
@@ -319,5 +319,37 @@
     "training_resume_hold": false,
     "repair": "Reporting-only repair pending; fixed61numerical source remains unchanged during the active fit",
     "actual_heldout_inspection": false
+  },
+  "B_metrics_review_archive": {
+    "state": "HOLD_SUPPORT_WEIGHT_CI_DEFECT",
+    "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "origin": "Other independent reviewer at exacta5ba source; full exact archive and source pins checked here without rerun",
+    "finding": "Subtracting weighted error sums with the base weight denominator can fabricate a paired difference/CI when model support weights differ",
+    "synthetic_reproduction": "Equal per-fire Brier0.1 with baseweight100 and burnoutweight50 yields reported difference-0.05 and CI excludingzero",
+    "training_and_equal_fire_selection": "UNAFFECTED",
+    "training_resume_hold": false,
+    "repair": "Reporting repair pending outside the fixed61-file numerical source closure; training and equal-fire selection unaffected",
+    "actual_heldout_inspection": false,
+    "review": "forecast-metrics-review-a5ba8210/REVIEW_a5ba8210.md",
+    "inventory": "forecast-metrics-review-a5ba8210/SOURCE_INVENTORY.json",
+    "reproduction": "forecast-metrics-review-a5ba8210/ablation_weight_repro_a5ba8210.json",
+    "other_arithmetic_gate_controls": {
+      "checks": 51,
+      "passed": 51,
+      "scope": "Nonablation arithmetic and gate paths only; does not close the confirmed paired-ablation reporting failure"
+    },
+    "expected_brier_difference": 0.0,
+    "observed_difference": -0.05,
+    "observed_interval": [
+      -0.05,
+      -0.05
+    ],
+    "actual_development_weights_inspected": false,
+    "actual_quality_results_inspected": false
+  },
+  "confirmed_published_heads": {
+    "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+    "1B": "1bd6e61e0e0a836be0ff42e4942ac76f70e72f65",
+    "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   }
 }
