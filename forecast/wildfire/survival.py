@@ -192,6 +192,7 @@ def sample_forecast(model, sample: PerimeterSample, *, dtype=torch.float32, use_
 
         def spotting(source, step):
             return model.spot_rate(source, spot_env, boundary="zero")
+        spotting.source_radius = model.spotting_radius
     result = propagate_mean_field(model, t["initial"], env, step_durations(sample.hours),
                                   channel_names=getattr(model, "channel_names", None),
                                   p0_valid=torch.ones_like(t["initial"], dtype=torch.bool),
@@ -348,6 +349,7 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
         if intervals_per_epoch is not None:
             order = order[:intervals_per_epoch]
         running = 0.0
+        skipped, optimizer_steps = [], 0
         for start in range(0, len(order), samples_per_step):
             optimizer.zero_grad(set_to_none=True)
             w_total = 0.0
@@ -367,26 +369,35 @@ def fit_mean_field(model, train: Sequence[PerimeterSample], validation: Sequence
                     weight = weight * factor
                 p, valid = sample_forecast(model, sample, tensors=t)
                 a, w = endpoint_brier(p, t["endpoint"], weight, t["mask"] & valid)
+                if float(w) <= 0:
+                    skipped.append(dict(event=sample.event_id, cutoff=sample.t1,
+                                        reason="no_supported_positive_weight_cells"))
+                    continue
                 losses.append(a)
                 w_total += float(w)
             if w_total <= 0:
-                raise ValueError("No supported positive-weight cells remain in a training batch")
+                continue
             loss = torch.stack(losses).sum() / w_total / prevalence
             if not bool(torch.isfinite(loss)):
                 raise RuntimeError(f"Nonfinite training loss at epoch {epoch}")
             loss.backward()
             optimizer.step()
+            optimizer_steps += 1
             running += float(loss) * len(losses)
+        if optimizer_steps == 0:
+            raise ValueError("No supported positive-weight cells remain in the training epoch")
         if not validate_each_epoch:
             record = dict(epoch=epoch, train_scaled_loss=running / max(len(order), 1),
-                          seconds=time.perf_counter() - started, selected=epoch == epochs)
+                          seconds=time.perf_counter() - started, selected=epoch == epochs,
+                          optimizer_steps=optimizer_steps, skipped_unsupported_intervals=skipped)
             history.append(record)
             log(json.dumps(record))
             continue
         scores = evaluate_samples(model, validation) if validation else dict(brier=float("nan"))
         record = dict(epoch=epoch, train_scaled_loss=running / max(len(order), 1),
                       validation_brier=scores["brier"], validation_clipped_nll=scores.get("clipped_nll"),
-                      seconds=time.perf_counter() - started)
+                      seconds=time.perf_counter() - started, optimizer_steps=optimizer_steps,
+                      skipped_unsupported_intervals=skipped)
         improved = bool(validation) and scores["brier"] < best
         if improved or not validation:
             best, best_state, stale = scores["brier"], copy.deepcopy(model.state_dict()), 0

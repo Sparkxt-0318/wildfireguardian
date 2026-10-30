@@ -22,7 +22,7 @@ HERE = Path(__file__).resolve()
 REPO = HERE.parents[3]
 TASK = REPO.parent.parent
 DATA = TASK / "work/data/forecast-v2"
-RUN = REPO / "forecast/runs/20261030_perimeter_trained"
+RUN = REPO / "forecast/runs/20261030_perimeter_trained/execution_v3"
 EVIDENCE = HERE.parents[1]
 VARIANTS = ["base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base"]
 
@@ -91,7 +91,7 @@ def job(name, command, expected):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=["fits", "baselines", "compare", "heldout"])
-    parser.add_argument("--attempt", type=int, default=2)
+    parser.add_argument("--attempt", type=int, default=3)
     args = parser.parse_args()
     RUN.mkdir(parents=True, exist_ok=True)
     pipeline = HERE.with_name("pipeline.py")

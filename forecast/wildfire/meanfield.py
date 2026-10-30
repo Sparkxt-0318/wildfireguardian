@@ -281,6 +281,18 @@ def propagate_mean_field(
             else:
                 source = burnout.source(clean, age0, history[j], clock, current=states[j])
             extra = None if extra_rate_fn is None else extra_rate_fn(source, k)
+            if extra_rate_fn is not None:
+                radius = getattr(extra_rate_fn, "source_radius", None)
+                if radius is None:
+                    if not bool(masks[j].all()):
+                        raise ValueError("Extra-rate callbacks need a source_radius when source support is incomplete")
+                else:
+                    if type(radius) is not int or radius < 0:
+                        raise ValueError("extra-rate source_radius must be a nonnegative integer")
+                    h, w = masks[j].shape[-2:]
+                    missing = (~masks[j]).to(states[j].dtype).reshape(-1, 1, h, w)
+                    complete = F.max_pool2d(missing, 2 * radius + 1, stride=1, padding=radius) == 0
+                    masks[j] = masks[j] & (observed_burns | complete.reshape_as(masks[j]))
             updated = mean_field_step(states[j], safe, dt, source=source, extra_rate=extra)
             # Cells outside the envelope keep their value; their dependents are invalid.
             updated = torch.where(masks[j], updated, states[j])

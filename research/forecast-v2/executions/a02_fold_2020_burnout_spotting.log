@@ -1,0 +1,4 @@
+{"epoch": 1, "train_scaled_loss": 0.7892290952537829, "seconds": 2.301396625000052, "selected": false}
+{"epoch": 2, "train_scaled_loss": 0.787488083888699, "seconds": 2.3145789169939235, "selected": false}
+{"epoch": 3, "train_scaled_loss": 0.7563225276147326, "seconds": 2.33621158299502, "selected": true}
+{"variant": "burnout_spotting", "fold": "2020", "seed": 0, "brier": 0.043462869011621746, "seconds": 7.22328470798675}
