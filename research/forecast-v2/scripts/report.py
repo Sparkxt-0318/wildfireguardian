@@ -157,7 +157,13 @@ def absence_reason(assessment):
             + ". Every outcome and reason is retained in RESULTS.json.")
 
 def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
-    """Variant minus base on development folds, paired by development fire."""
+    """Absolute development scores on each model's own support, for selection.
+
+    Aggregate validation receipts do not retain exact cell identities. Neither
+    a shared fire name nor equal weights establishes a paired cell population.
+    ``draws`` and ``seed`` remain accepted for existing callers; no development
+    paired bootstrap is identified by these aggregate receipts.
+    """
     rows = []
     paths = [run / phase["result"] for phase in F.current_phase_identity()["phases"]
              if phase["stage"] == "fold" and (run / phase["result"]).is_file()]
@@ -173,8 +179,6 @@ def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
         return {}
     by = frame.groupby(["variant", "fire"]).agg(sq=("sq", "mean"), w=("w", "mean"), nll=("nll", "mean")).reset_index()
     summary = {}
-    base = by[by.variant == "base"].set_index("fire")
-    rng = np.random.default_rng(seed)
     for variant, group in by.groupby("variant"):
         g = group.set_index("fire")
         entry = dict(pooled_brier=float(g.sq.sum() / g.w.sum()), pooled_clipped_nll=float(g.nll.sum() / g.w.sum()),
@@ -182,18 +186,50 @@ def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
                      fires=int(len(g)), seeds=sorted(frame[frame.variant == variant].seed.unique().tolist()),
                      folds=sorted(frame[frame.variant == variant].fold.unique().tolist()),
                      mean_fit_seconds=float(frame[frame.variant == variant].fit_seconds.mean()),
-                     parameters=int(frame[frame.variant == variant].parameters.iloc[0]))
-        common = sorted(set(g.index) & set(base.index))
-        if variant != "base" and common:
-            d = (g.loc[common].sq - base.loc[common].sq).to_numpy()
-            w = base.loc[common].w.to_numpy()
-            idx = rng.integers(0, len(common), size=(draws, len(common)))
-            values = d[idx].sum(1) / w[idx].sum(1)
-            lo, hi = np.quantile(values, [0.025, 0.975])
-            entry.update(difference_vs_base=float(d.sum() / w.sum()), interval_95=[float(lo), float(hi)],
-                         excludes_zero=bool(hi < 0 or lo > 0), fires_better_than_base=int((d < 0).sum()))
+                     parameters=int(frame[frame.variant == variant].parameters.iloc[0]),
+                     own_support_weight=float(g.w.sum()),
+                     per_fire={str(fire): dict(brier=float(row.sq / row.w), weight=float(row.w),
+                                              clipped_nll=float(row.nll / row.w)) for fire, row in g.iterrows()},
+                     statistic_scope="descriptive absolute scores on each variant's own development support",
+                     paired_status="UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+                     paired_unavailability_reason="Development aggregate receipts cannot establish identical scored cells, even when weights match",
+                     difference_vs_base=None, interval_95=None, excludes_zero=None, fires_better_than_base=None)
         summary[variant] = entry
     return summary
+
+
+def heldout_ablation(entries, assessment, cohort):
+    """Secondary paired estimates from load_assessment's common-cell entries.
+
+    This does not choose a model or satisfy a promotion gate. HOLD estimates
+    describe only the supported subset, with every unscored outcome retained.
+    """
+    complete = assessment["status"] == "COMPLETE" and entries is not None
+    result = dict(cohort=cohort, assessment_status=assessment["status"],
+                  frozen_assessment_sha256=assessment["frozen_sha256"], per_fire_files=assessment["per_fire_files"],
+                  estimand="cell-pooled candidate Brier minus base Brier on the same receipt-bound common cells",
+                  statistic_scope="complete declared cohort" if complete else "descriptive supported subset only",
+                  bootstrap=dict(draws=10000, seed=20261030, unit="whole fire", interval="percentile 95%"),
+                  complete_cohort_pass=bool(complete), promotion_criteria_pass=False,
+                  unscored_outcomes=assessment["failed_or_unavailable"], variants={})
+    if entries is None:
+        result.update(status="UNAVAILABLE_NO_SCORED_ENTRIES", reason=absence_reason(assessment))
+        return result
+    aliases = {variant: variant + "_seed0" for variant in F.VARIANTS}
+    missing = sorted(set(aliases.values()) - set(entries["predictions"]))
+    if missing:
+        result.update(status="UNAVAILABLE_MISSING_FIXED_VARIANT_PREDICTIONS", missing_models=missing,
+                      reason="Receipt-bound predictions do not include every fixed variant alias")
+        return result
+    scored = B.score_entries(entries, references=("base_seed0",), draws=10000, seed=20261030)
+    for variant, alias in aliases.items():
+        if variant == "base":
+            continue
+        paired = scored["paired"][alias + "__vs__base_seed0"]
+        result["variants"][variant] = dict(model=alias, reference="base_seed0", **paired)
+    result.update(status="AVAILABLE_COMPLETE_DECLARED_COHORT" if complete else "DESCRIPTIVE_SUPPORTED_SUBSET",
+                  entries=int(len(entries["y"])), fires=scored["fires"])
+    return result
 
 
 def primary_candidate(abl: dict) -> str | None:
@@ -294,19 +330,25 @@ def figure_per_fire(plt, scored, out, label, primary):
     plt.close(fig)
 
 
-def figure_ablation(plt, abl, out, label):
-    variants = [v for v in abl if "difference_vs_base" in abl[v]]
+def figure_ablation(plt, paired, out, label):
+    variants = list(paired["variants"])
+    if not variants:
+        figure_unavailable(plt, out, "fig03_ablation_forest_plot", "Held-out structural ablations",
+                           paired["reason"].rstrip(".") + ". Development scores remain descriptive on each model's own support.",
+                           label, (SINGLE, 3.0))
+        return
     fig, ax = plt.subplots(figsize=(SINGLE, 0.35 * max(len(variants), 1) + 0.9))
     for i, v in enumerate(variants):
-        e = abl[v]
-        ax.errorbar(e["difference_vs_base"], i, xerr=[[e["difference_vs_base"] - e["interval_95"][0]],
-                                                      [e["interval_95"][1] - e["difference_vs_base"]]],
+        e = paired["variants"][v]
+        ax.errorbar(e["point_difference"], i, xerr=[[e["point_difference"] - e["percentile_95_interval"][0]],
+                                                      [e["percentile_95_interval"][1] - e["point_difference"]]],
                     fmt="o", ms=3, color=OKABE_ITO[5], ecolor=OKABE_ITO[5], lw=0.8, capsize=2)
     ax.axvline(0, color="#999999", lw=0.6, ls="--")
     ax.set_yticks(range(len(variants)), variants)
-    ax.set_xlabel("Cell-pooled development Brier minus base\n(whole-fire bootstrap, 95% interval)")
-    ax.set_title(f"Structural ablations, 2020 to 2022 folds{label}")
-    fig.subplots_adjust(left=.35, right=.98, bottom=.25, top=.88)
+    ax.set_xlabel("Pooled common-cell Brier minus base\n(10,000 whole-fire draws, 95% interval)")
+    scope = "\nHOLD: supported subset only" if paired["assessment_status"] == "HOLD" else ""
+    ax.set_title(f"{paired['cohort']}{scope}" + ("\n" + label.strip() if label else ""))
+    fig.subplots_adjust(left=.35, right=.98, bottom=.25, top=.84)
     save(fig, out, "fig03_ablation_forest_plot")
     plt.close(fig)
 
@@ -421,18 +463,18 @@ def main():
             raise ValueError("Report primary checkpoint differs from its frozen identity")
         results["model_selection_sha256"] = sha256(selection_path)
     if abl:
-        figure_ablation(plt, abl, figures, label)
         pd.DataFrame(abl).T.to_csv(args.out / "ablation.csv")
-        results["figure_evidence"]["fig03_ablation_forest_plot"] = dict(status="GENERATED_FROM_DEVELOPMENT_DATA", metric_data_available=True)
-    else:
-        figure_unavailable(plt, figures, "fig03_ablation_forest_plot", "Structural ablations, 2020 to 2022 folds",
-                           "No authenticated intended development-fold results are available.", label, (SINGLE, 1.25))
-        results["figure_evidence"]["fig03_ablation_forest_plot"] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False)
+    results["development_ablation_interpretation"] = "Absolute own-support scores preserve the frozen equal-fire selection rule; paired common-cell development effects are unavailable"
+    paired_ablation = dict(status="UNAVAILABLE_NO_AUTHENTICATED_HELDOUT_ASSESSMENT", variants={},
+                          reason="No authenticated held-out common-cell predictions are available",
+                          promotion_criteria_pass=False, complete_cohort_pass=False)
     heldout = args.run / "heldout"
     if (heldout / "ASSESSMENT.json").is_file():
         entries, assessment = load_assessment(heldout)
         scored = assessment_scores(entries, assessment)
         inputs = load_report_inputs(args.run, assessment)
+        paired_ablation = heldout_ablation(entries, assessment, "US2024 mapped extent")
+        paired_ablation["assessment_receipt_sha256"] = sha256(heldout / "ASSESSMENT.json")
         if entries is not None and "c651_mc" in entries["predictions"]:
             # Preserve the fixed finite-trajectory variance correction.
             n = inputs["n_samples"]
@@ -475,10 +517,20 @@ def main():
             "average_precision", "roc_auc", "ece_10_bins", "clipped_nll"]).to_csv(args.out / "per_fire.csv", index=False)
     elif heldout.exists() and list(heldout.glob("*.npz")):
         raise ValueError("Scored heldout files require an authenticated ASSESSMENT.json before reporting")
+    results["heldout_ablation"] = paired_ablation
+    figure_ablation(plt, paired_ablation, figures, label)
+    available = bool(paired_ablation["variants"])
+    results["figure_evidence"]["fig03_ablation_forest_plot"] = dict(
+        status=("GENERATED_FROM_DESCRIPTIVE_SUPPORTED_SUBSET" if paired_ablation.get("assessment_status") == "HOLD"
+                else "GENERATED_FROM_COMPLETE_DECLARED_COHORT") if available else "GENERATED_WITH_UNAVAILABLE_EVIDENCE",
+        metric_data_available=available, source="heldout_ablation", cohort="US2024 mapped extent",
+        reason=paired_ablation.get("reason"), promotion_criteria_pass=False)
     korea = args.run / "korean2025"
     if (korea / "ASSESSMENT.json").is_file():
         entries, assessment = load_assessment(korea)
         results["korean2025_secondary_reconstruction"] = assessment_scores(entries, assessment)
+        results["korean2025_secondary_ablation"] = heldout_ablation(entries, assessment, "Korean2025 reconstruction")
+        results["korean2025_secondary_ablation"]["assessment_receipt_sha256"] = sha256(korea / "ASSESSMENT.json")
     elif korea.exists() and list(korea.glob("*.npz")):
         raise ValueError("Scored Korean files require an authenticated ASSESSMENT.json before reporting")
     mf = args.run / "meanfield_vs_mc" / "meanfield_vs_mc.csv"

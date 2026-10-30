@@ -1,0 +1,63 @@
+{
+  "scope": "REPORT_ONLY",
+  "actual_study_inputs_models_or_heldout_outputs_accessed": false,
+  "no_git_mutations": true,
+  "production_files_changed": [
+    "research/forecast-v2/scripts/report.py"
+  ],
+  "files": {
+    "research/forecast-v2/scripts/report.py": {
+      "sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+      "bytes": 34765,
+      "before_sha256": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b"
+    },
+    "forecast/tests/test_report_readiness.py": {
+      "sha256": "5194ace97b756fb25f488ac8b33071e17fc7fac801c3e4a188ee7f33f3761825",
+      "bytes": 13355,
+      "before_sha256": "3b4e18fd4d9e7f2fcdf1a9460341c2b5ba924ecd2f98e88344d12db0b6130c7a"
+    },
+    "forecast/tests/test_report_ablation.py": {
+      "sha256": "a1ef2ce297ac7e95ec0b3b9b6be4979211179db5d23b16042ace7f3feba320c6",
+      "bytes": 6332,
+      "before_sha256": null
+    }
+  },
+  "patch": {
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-ablation-repair/REPORT_ABLATION_REPAIR.patch",
+    "sha256": "e6023d0b464c89e0fd8435d475dab48f9451483b8b41cab655e75a9c806a2a7c"
+  },
+  "tests": {
+    "passed": 20,
+    "warnings": 420,
+    "seconds": 17.91,
+    "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/report-ablation-repair/TESTS_FINAL.txt",
+    "sha256": "766ae0af7ff6fe7d6aee060f5101e6681b7f1bfcfeaffaa8e79df1282b75425d",
+    "command": "PYTHONPATH=forecast work/venv-forecast/bin/python -m pytest forecast/tests/test_report_readiness.py forecast/tests/test_report_ablation.py forecast/tests/test_blind_forecast_protocol.py::test_report_uses_fixed_current_paths_and_excludes_low_scoring_historical_spotting -q --disable-warnings"
+  },
+  "changes": [
+    "development absolute own-support pooled and equal-fire Briers plus per-fire/total weights preserved",
+    "development paired difference, interval, significance and better-fire fields explicitly unavailable, including equal-weight populations",
+    "primary development selection function unchanged",
+    "US2024 fig03 and separately labelled Korean2025 secondary ablations use receipt-bound same-cell arrays only",
+    "existing baselines score_entries whole-fire bootstrap 10000 draws seed 20261030 unchanged",
+    "HOLD supported-subset ablations descriptive, all secondary promotion flags false",
+    "no authenticated heldout predictions yields explicit UNAVAILABLE fig03 PNG and SVG"
+  ],
+  "graph": {
+    "tier": 2,
+    "project": "wfg-next-1b-20261030",
+    "generation": "2026-10-30T02:11:43Z",
+    "limitation": "report/tests/baselines/scorer not tracked or new missing; exact source fallback used, no reindex"
+  },
+  "verification": [
+    "20 package-aware synthetic controls passed",
+    "compile, whitespace and no-em-dash checks passed",
+    "synthetic empty and partial-HOLD fig03 PNG visually inspected; no clipping in corrected figure"
+  ],
+  "limits": [
+    "No empirical quality or study artifact assessment was performed",
+    "No full production regression was run in this bounded report-only task",
+    "Final real report visual QA and independent arithmetic recheck remain with parent",
+    "Original independent failure evidence and historical figures untouched"
+  ]
+}

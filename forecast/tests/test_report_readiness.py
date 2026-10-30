@@ -208,4 +208,9 @@ def test_empty_secondary_reconstruction_hold_is_reported_with_all_reasons(report
     secondary = result["korean2025_secondary_reconstruction"]
     assert secondary["metric_status"] == "UNAVAILABLE_NO_SCORED_ENTRIES"
     assert secondary["unscored_outcomes"] == fixture.assessment["failed_or_unavailable"]
+    paired = result["korean2025_secondary_ablation"]
+    assert paired["cohort"] == "Korean2025 reconstruction"
+    assert paired["status"] == "UNAVAILABLE_NO_SCORED_ENTRIES"
+    assert paired["promotion_criteria_pass"] is False and paired["complete_cohort_pass"] is False
+    assert paired["unscored_outcomes"] == fixture.assessment["failed_or_unavailable"]
     assert result["report_status"] == "HOLD"
