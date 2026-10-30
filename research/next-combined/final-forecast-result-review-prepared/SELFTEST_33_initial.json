@@ -1,0 +1,290 @@
+{
+  "status": "PASS_SYNTHETIC_PREPARATION",
+  "checks": 33,
+  "passed": 33,
+  "observations": [
+    {
+      "id": "manual_tied_or_degenerate_AP_0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_pairwise_AUC_0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_Brier_0",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_tied_or_degenerate_AP_1",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_pairwise_AUC_1",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_Brier_1",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_tied_or_degenerate_AP_2",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_pairwise_AUC_2",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_Brier_2",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_tied_or_degenerate_AP_3",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_pairwise_AUC_3",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_Brier_3",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "manual_unequal_fire_cluster_bootstrap",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "complete_synthetic_bundle_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "partial_synthetic_bundle_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "partial_primary_gate_closed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "empty_synthetic_bundle_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "empty_primary_gate_closed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "wrong_Brier_report_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "heldout independent metrics.models.base_seed0.pooled.brier numeric mismatch"
+      }
+    },
+    {
+      "id": "wrong_AP_report_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "heldout independent metrics.models.base_seed0.pooled.average_precision numeric mismatch"
+      }
+    },
+    {
+      "id": "wrong_bootstrap_CI_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "heldout independent metrics.paired.base_seed0__vs__persistence.percentile_95_interval[0] numeric mismatch"
+      }
+    },
+    {
+      "id": "wrong_ablation_CI_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "burnout ablation.percentile_95_interval[0] numeric mismatch"
+      }
+    },
+    {
+      "id": "false_ablation_promotion_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "value.promotion_criteria_pass exact mismatch"
+      }
+    },
+    {
+      "id": "invented_development_effect_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "development effects must remain unavailable without changing selection"
+      }
+    },
+    {
+      "id": "changed_source_pin_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "registered source changed synthetic_source.py"
+      }
+    },
+    {
+      "id": "changed_case_bytes_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "changed/missing scored NPZ"
+      }
+    },
+    {
+      "id": "unlisted_case_prediction_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "unlisted case predictions"
+      }
+    },
+    {
+      "id": "missing_perfire_array_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "perfire inclusion/hash list"
+      }
+    },
+    {
+      "id": "duplicate_case_identity_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "duplicate case IDs"
+      }
+    },
+    {
+      "id": "omitted_US_fire_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "missing/reordered declared cohort events"
+      }
+    },
+    {
+      "id": "wrong_registry_pointer_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "report selection identity"
+      }
+    },
+    {
+      "id": "resigned_wrong_interval_aggregation_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "aggregate interval membership"
+      }
+    },
+    {
+      "id": "unapproved_actual_mode_refuses_before_result_access",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "AuditError",
+        "reason": "actual review requires explicit root authorization"
+      }
+    }
+  ],
+  "actual_heldout_inputs_outputs_or_models_accessed": false,
+  "production_metric_report_helpers_imported": false,
+  "checker_sha256": "8004b55bba48140f7f8b1d046ef7bf5e9cda40680a52b2b335cd39adf0418649",
+  "selftest_sha256": "f18b0335cd0b9f926cb5a86ee6a6a238c8f70e1ae1edd87a3254c67d92e4cdf9"
+}

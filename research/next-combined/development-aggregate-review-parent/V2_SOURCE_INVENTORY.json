@@ -1,0 +1,18 @@
+{
+  "files": {
+    "audit_development_scores_parent_v2.py": {
+      "sha256": "e2843751107b38811516f94246e7554da9f6fa57f7a79951450103c48ad2ab1d",
+      "bytes": 3319
+    },
+    "development-scores-parent-v2.json": {
+      "sha256": "e3e09c388f91feab20f12a9f7732f1ab03a81a38e1754efcc24e7e6b1749c8e6",
+      "bytes": 8371
+    }
+  },
+  "path_contract_source_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+  "path_contract_git_source": "6ae52ab2:research/forecast-v2/scripts/audit_fit_coverage.py",
+  "original_receipt": "development-scores-parent.json",
+  "original_producer": "audit_development_scores_parent.py",
+  "scope": "Separate corrected parent21aggregateJSONarithmetic, every intended suffix checked against production path contract only, no production metric math reused. D4windmean/ownpool unchanged, correctedmixedmean0.04688687522451277. No actual arrays/checkpoints/heldout or source/job rerun. Readiness archives existingv2only and verifies producer/path-contractsourcehash, does not reopen development result files or rerun arithmetic.",
+  "original_qualification": "V1 omitted _utc_fixed on three mixed-development paths, so its current21phase attribution was wrong. Original files retained unchanged. d4_wind winner/value unaffected; V2 checks every intended path before independent arithmetic."
+}

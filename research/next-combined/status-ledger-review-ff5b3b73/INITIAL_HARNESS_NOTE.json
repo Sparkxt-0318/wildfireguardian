@@ -1,0 +1,6 @@
+{
+  "status": "HARNESS_ADAPTATION",
+  "failed_control": "authenticated_delegation_positive",
+  "reason": "Temporary root used macOS /var symlink while F.identity resolves file paths; production ROOT is already resolved. Resolve synthetic root before calling unchanged production identity. Original initial script retained.",
+  "source_failure_claimed": false
+}

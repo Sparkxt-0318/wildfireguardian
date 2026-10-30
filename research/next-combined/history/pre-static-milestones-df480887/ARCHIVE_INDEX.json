@@ -1,0 +1,10 @@
+{
+  "source_commit": "df480887c8ef4f066bdbc7e40abd7537aaea3825",
+  "scope": "Exact prior current summary before static future/ledger/checker/optional-FARSITE milestones; all original failures remain unchanged.",
+  "sha256": {
+    "README.md": "131d0a594e2206f978bc4e323d0a98626df010ca330d6d6c9d0d14a7c165fdbd",
+    "GATES.json": "11edbae31848f2e55163d73808f06e946c0fe5c4dc93c10a9d34f3792d85ecb3",
+    "CURRENT_EVIDENCE.json": "11edbae31848f2e55163d73808f06e946c0fe5c4dc93c10a9d34f3792d85ecb3",
+    "AUDIT_METHOD.json": "5c749cda22e7fcd6154f184fc7e24fa065ad708fc4ee3e4ac8c1898797f44d6c"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "source_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+  "files": {
+    "MANIFEST.json": {
+      "sha256": "0cbfb0109fbfe3c2e0745e3b1a61daf3db9afa437cc4203b6da0b467248478f4",
+      "bytes": 1107
+    },
+    "README.md": {
+      "sha256": "0a5363d58352027f415174ec4e7fe73b419a3c00c9701de92fbf51976fa7e8af",
+      "bytes": 4967
+    },
+    "SELFTEST.json": {
+      "sha256": "af6fa1b6f981b513600756e6d83356ac51e973b8f126f336858a5197663f60cc",
+      "bytes": 7776
+    },
+    "SELFTEST.log": {
+      "sha256": "fed5cc7905e2a068da6fed631b4ba1caa16e0e9500063b452ad5297bc5ac7633",
+      "bytes": 72
+    },
+    "SELFTEST_33_initial.json": {
+      "sha256": "2bfd9499b9712232372147a8367fd804adc0a79f5b1b0b4f2c64620b9ba03373",
+      "bytes": 6850
+    },
+    "SELFTEST_33_initial.log": {
+      "sha256": "eb6b0df63d25d5ac499fa546cb41795478f151f53342fed27b4533b2a5e39774",
+      "bytes": 72
+    },
+    "SELFTEST_36.json": {
+      "sha256": "bbe06bb3597712d44f58bfb38b8be4f64912edc360ad5d8a1157fb6077cae269",
+      "bytes": 7321
+    },
+    "SELFTEST_36.log": {
+      "sha256": "73cacfdedff2ba3318690ecd195eba7c91dc24f908ed4dedb38ef86686cd288b",
+      "bytes": 72
+    },
+    "SELFTEST_initial_path_alias.log": {
+      "sha256": "9e2764783f88e01b19949e83c3fb4c3e5687b184138ae1fef1a55fa8c4bc2afb",
+      "bytes": 1943
+    },
+    "SOURCE_PINS.json": {
+      "sha256": "02dabe5b55ccd31265bd03074b21737aa514521508985a97d38e88e16af3508b",
+      "bytes": 964
+    },
+    "check_results.py": {
+      "sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+      "bytes": 23343
+    },
+    "selftest.py": {
+      "sha256": "3d32cc19a769a1ceefd6491197ae525a25c255d6adc63d91c672c991eb7d420a",
+      "bytes": 15609
+    },
+    "selftest_initial_path_alias.py": {
+      "sha256": "938127f19c3a7d8b0ec09f37e6d4c4a4933ea82c004f8d4e05ab1e45f1decf71",
+      "bytes": 13861
+    }
+  },
+  "source_git_objects_verified": {
+    "research/forecast-v2/scripts/report.py": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+    "research/forecast-v2/scripts/status.py": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f"
+  },
+  "scope": "Exact prepared checker package,38/38synthetic preparation only. Actual checkerNOT_RUN until explicit root authorization of frozen source/assessment. No model binaries, rasters, actual assessments or quality results accessed. Initial alias failure and33/36earlier harness stages retained; dummy figure bytes are not visual QA."
+}

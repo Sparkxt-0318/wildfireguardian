@@ -33,8 +33,8 @@
       "published_head": "43324736fc5301a0444b01b918ef14a0372b1ec3"
     },
     "1B": {
-      "source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
-      "status": "SCOPED_REPORT_REPAIR_PASS_NUMERICAL_PENDING",
+      "source_head": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+      "status": "SCOPED_PRIMARY_SOFTWARE_PASS_OPTIONAL_FARSITE_HOLD_NUMERICAL_PENDING",
       "review": "forecast-metrics-repair-61c836a0/audit_61c836a0.json",
       "checks": 21,
       "passed": 21,
@@ -44,10 +44,10 @@
       "heldout_scores_inspected_by_readiness_auditor": false,
       "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
       "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
-      "future_adapter_wiring": "SCOPED_WIRING_AND_DEVELOPMENT_ADMISSION_PASS_AT_a5ba8210_EXTERNAL_2026_GATES_NOT_READY",
+      "future_adapter_wiring": "SCOPED_INPUT_WIRING_AND_NUMERICAL_GUARDS_PASS_cc801d07_EXTERNAL_2026_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
-      "published_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+      "published_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
       "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
       "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
@@ -150,7 +150,7 @@
           "development_admission": "development-admission-review-a5ba8210/REVIEW_a5ba8210.md"
         }
       },
-      "current_review_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+      "current_review_head": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
       "current_report_alias_repair": {
         "source_head": "637457f3118bad5575dd6b4b83c74511d93bbd43",
         "review": "report-alias-repair-637457f3/report-name-repaired-637457f3-parent.json",
@@ -172,7 +172,7 @@
         "obsolete_mixed_caches_retained_excluded": 34,
         "cache_result": "Exact source-rederived values, dtype, shape, order and metadata reported unchanged",
         "corrected_spotting_development_fits_completed": 3,
-        "controllers": "Corrected third development fit completed; corrected full spotting queued behind first fixed-sourcea06cutoff comparison; noheldout",
+        "controllers": "FullspottingPID47477 running unchanged numericala5fixed61source since08:52:29Z; no completionreceipt orETA;11remainingcomparisoncases next; noheldout",
         "heldout": "NOT_RUN",
         "last_full_suite": {
           "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
@@ -185,7 +185,11 @@
         "scope": "Coordinator progress only; no actual fit/sample/cache/checkpoint inspected by readiness archivist, no current final registry clearance",
         "dirty_patch_snapshot": "Earlier02cdf53c plus dirty repair patch was superseded by reviewed clean sourcea5ba; untracked numerical evidence is ongoing and was not inspected here",
         "third_development_fit_reported_whole_job_seconds": 59.295,
-        "reported_elapsed_is_performance_evidence": false
+        "reported_elapsed_is_performance_evidence": false,
+        "development_fits_complete": 21,
+        "final_fits_complete": 6,
+        "comparison_cutoffs_complete": 1,
+        "comparison_cutoffs_required": 12
       },
       "earlier_assessment_admission": {
         "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
@@ -280,7 +284,101 @@
       },
       "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "numerical_source_files": 61,
-      "publication_status": "Coordinator confirmed literal a5ba push/PR88 and allCIgreen; report-only reviewed61head not yet published"
+      "publication_status": "Coordinator confirmed publishedB61; latest6ae optional overlay not yet published. No newCIclaim for61 transferred from earliera5.",
+      "review_source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
+      "future_numerical_guard": {
+        "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+        "state": "SCOPED_SYNTHETIC_PASS_EXTERNAL_2026_NOT_READY",
+        "review": "future-numerical-review-cc801d07/REVIEW_cc801d07.md",
+        "inventory": "future-numerical-review-cc801d07/SOURCE_INVENTORY.json",
+        "checks": 70,
+        "passed": 70,
+        "owner_tests_reported": 314,
+        "counts_not_pooled": true,
+        "scope": "Every neural role and logistic forecast checked over own declared source support before common intersection; invalid support remains unknown. Synthetic guards and unchanged source ASTs only; no future registration/execution/quality clearance."
+      },
+      "status_ledger_repair": {
+        "source_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+        "state": "SCOPED_LEDGER_REPAIR_PASS_ACTUAL_REGISTRY_FREEZE_PENDING",
+        "inventory": "status-ledger-review-ff5b3b73/SOURCE_INVENTORY.json",
+        "original_failure": "status-ledger-review-ff5b3b73/repro_8ab690ce.json",
+        "repair": "status-ledger-review-ff5b3b73/recheck_ff5b3b73.json",
+        "checks": 13,
+        "passed": 13,
+        "owner_tests_reported": 14,
+        "counts_not_pooled": true,
+        "scope": "Report-only empty-map vacuous-truth and synthetic authenticated delegation/bookkeeping. InitialmacOS/varpath adaptation retained; no actual registry/model/data freeze or execution authority bypass."
+      },
+      "development_aggregate_receipt": {
+        "scope": "Parent arithmetic over corrected21actualdevelopmentaggregateJSONs/23fires. Every intended phase path checked, no production metric math reused; not actual source/cache/checkpoint admission or final registryfreeze. Readiness did not reopen resultJSONs.",
+        "receipt": "development-aggregate-review-parent/development-scores-parent-v2.json",
+        "inventory": "development-aggregate-review-parent/V2_SOURCE_INVENTORY.json",
+        "producer": "development-aggregate-review-parent/audit_development_scores_parent_v2.py",
+        "status": "PASS_CORRECTED_INTENDED_PATH_AGGREGATE_ARITHMETIC_ONLY",
+        "selected_variant_descriptive": "d4_wind",
+        "mean_fire_brier": 0.037495116098823784,
+        "pooled_own_support_brier": 0.040814820693112826,
+        "corrected_mixed_mean_fire_brier": 0.04688687522451277,
+        "all7means_match_owner_reported": true,
+        "owner_comparison_absolute_tolerance": 1e-15,
+        "paired_common_cell_effects_identified": false,
+        "registry_frozen": false,
+        "intended_paths_checked": 21,
+        "path_contract_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+        "original_v1_qualification": "V1 omitted _utc_fixed on three mixed-development paths, so its current21phase attribution was wrong. Original files retained unchanged. d4_wind winner/value unaffected; V2 checks every intended path before independent arithmetic.",
+        "original_v1_receipt": "development-aggregate-review-parent/development-scores-parent.json",
+        "original_v1_producer": "development-aggregate-review-parent/audit_development_scores_parent.py",
+        "training_hold": false
+      },
+      "prepared_final_result_checker": {
+        "state": "PREPARED_SYNTHETIC_ONLY_ACTUAL_NOT_RUN",
+        "review": "final-forecast-result-review-prepared/README.md",
+        "inventory": "final-forecast-result-review-prepared/SOURCE_INVENTORY.json",
+        "checker": "final-forecast-result-review-prepared/check_results.py",
+        "checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+        "checks": 38,
+        "passed": 38,
+        "actual_review": "NOT_RUN_AWAITING_EXPLICIT_AUTHORIZATION_OF_FROZEN_SOURCE_AND_ASSESSMENT",
+        "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved."
+      },
+      "optional_farsite_subset": {
+        "state": "HOLD_TWO_CONFIRMED_ADMISSION_GAPS",
+        "source_head": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+        "review": "farsite-subset-review-6ae52ab2/REVIEW_6ae52ab2.md",
+        "inventory": "farsite-subset-review-6ae52ab2/SOURCE_INVENTORY.json",
+        "positive_independent_controls": {
+          "checks": 21,
+          "passed": 21
+        },
+        "owner_tests": {
+          "reported_passed": 23,
+          "rerun_by_reviewer": true,
+          "not_pooled_with_21": true
+        },
+        "findings": [
+          "Missing fixed model column silently accepted as complete matched subset",
+          "49hcase accepted despite frozen48hcohorteligibility cap"
+        ],
+        "missing_model_repro": "farsite-subset-review-6ae52ab2/missing_model_probe.json",
+        "long_interval_repro": "farsite-subset-review-6ae52ab2/long_interval_probe.json",
+        "quality_data_read": false,
+        "native_or_model_execution": false,
+        "repair": "PENDING",
+        "training_hold": false,
+        "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality."
+      },
+      "original_development_aggregate_receipt": {
+        "scope": "Parent arithmetic over21actualdevelopmentaggregateJSONs/23fires, without arrays/checkpoints/predictions/heldout. This receipt is not current intended-phase selection authentication.",
+        "receipt": "development-aggregate-review-parent/development-scores-parent.json",
+        "inventory": "development-aggregate-review-parent/SOURCE_INVENTORY.json",
+        "selected_variant_descriptive": "d4_wind",
+        "mean_fire_brier": 0.037495116098823784,
+        "pooled_own_support_brier": 0.040814820693112826,
+        "paired_common_cell_effects_identified": false,
+        "registry_frozen": false,
+        "qualification": "Original parentproducer used3historical mixed_base paths omitting_utc_fixed. Coordinator confirmed oldmixedmean0.04709420965429823 differscorrectedowner0.04688687522451277; d4_windwinner/value unaffected. Originalscript/JSONpreserved, correctedv2intended21phaseaudit pending; no traininghold/sourcechange.",
+        "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
+      }
     },
     "1C": {
       "published_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
@@ -463,7 +561,9 @@
     "branches_merged": [],
     "github_merges": [],
     "checkpoint_promoted": false,
-    "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87"
+    "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
+    "integration_published_head": "df480887c8ef4f066bdbc7e40abd7537aaea3825",
+    "coordinator_unpublished_head_reported": "218e1382, separate coordinator worktree metadata only"
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -490,7 +590,9 @@
     "pre_metrics_summary": "history/pre-metrics-7ce13650/README.md",
     "pre_metrics_inventory": "history/pre-metrics-7ce13650/ARCHIVE_INDEX.json",
     "pre_report_repair_summary": "history/pre-report-repair-62a73eec/README.md",
-    "pre_report_repair_inventory": "history/pre-report-repair-62a73eec/ARCHIVE_INDEX.json"
+    "pre_report_repair_inventory": "history/pre-report-repair-62a73eec/ARCHIVE_INDEX.json",
+    "pre_static_milestones_summary": "history/pre-static-milestones-df480887/README.md",
+    "pre_static_milestones_inventory": "history/pre-static-milestones-df480887/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -507,8 +609,9 @@
     "parent_contact_adapter_repair": "Parent70017tinycontrols65custodychecks72targetedtest receipt archived unchanged with originalfd8failure; not rerun by readiness.",
     "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun.",
     "B_metrics_review": "Other independent reviewer51/51nonablation arithmetic/gate controls plus retained false paired-CI reproduction at a5ba, no actual data/model/quality-result inspection. Readiness archived exact manifest and verifiedsource Git object pins, no rerun.",
-    "confirmed_publication_heads": "Coordinator confirmed A43324736,Ba5ba8210,C06ad9fe9; BPR88andCPR86exactpublishedheadsallCIgreen. Reviewed report61 remains unpublished.",
-    "B_report_repair": "Other independent reviewer21/21report-only repair controls at61, including synthetic visual panels and6unchangedfunctionASTs; readiness archived exact manifest/producer/report Git object pins, no rerun. No actual study/quality results inspected."
+    "confirmed_publication_heads": "Coordinator confirmed A433,C06ad,B61c,I df480887; latestB6ae notyetpublished. No newCIclaim forB61 beyond coordinator-specified metadata.",
+    "B_report_repair": "Other independent reviewer21/21report-only repair controls at61, including synthetic visual panels and6unchangedfunctionASTs; readiness archived exact manifest/producer/report Git object pins, no rerun. No actual study/quality results inspected.",
+    "B_static_milestones": "Other independent future70andprepared38syntheticcontrols; parentledger13anddevelopmentJSONaggregatearithmetic; optionalFARSITEreview21positivecontrols+2confirmeddefects. Exact archives/sourcehashes checked, no readiness rerun or actual data/model/quality-result inspection."
   },
-  "updated_utc": "2026-10-30T09:06:57.321884+00:00"
+  "updated_utc": "2026-10-30T09:46:03.679239+00:00"
 }

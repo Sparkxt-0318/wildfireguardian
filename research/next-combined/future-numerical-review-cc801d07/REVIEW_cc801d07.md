@@ -1,0 +1,17 @@
+# Independent future numerical-support guard review
+
+Reviewed source: `cc801d072dde8e5b8a87cb7ecd81a995381c2ce5`, clean detached audit checkout. No confirmed new defect found in this bounded repair review. All 70 independent synthetic controls pass.
+
+The original saved reproduction is preserved. Its old c651 mean-field NaN was ignored, while structured/logistic NaNs silently reduced the scored population. The repair now validates every neural output over its own full declared Boolean support before intersecting the common population. This includes c651 mean-field probabilities even though those values are not stored as a forecast. Logistic support comes from finite source features with the same terrain-gradient object, independently of forecast values. Failures cannot be hidden by another model's unknown mask or by a smaller final score mask.
+
+Independent controls cover all eight neural roles against NaN, positive/negative infinity and out-of-range probabilities; the same five values are checked for logistic predictions on finite features. Non-Boolean masks and wrong mask/prediction shapes refuse. NaN values on explicitly invalid neural support remain legitimate unknowns. Logistic feature-unknown support is identical whether its excluded output is NaN or finite. Input environmental unknowns remain independently excluded. These checks use tiny arrays and fake numerical functions, not actual models or empirical forecasts.
+
+Eight source AST controls show that validation, source identity, numerical loading, fresh execution, saved scoring, finalization and superiority decisions are unchanged. Both fresh and saved scoring call the repaired deterministic support function. An additional positive refusal control confirms that missing external documentary clearance still blocks runtime loading. The inventory diff contains exactly the two declared documentary-status string replacements; no source-admission rule changed.
+
+All four owner source hashes match the review checkout. All five pinned original failure/source/test/patch artifacts match their preservation manifest. The owner 314-test result is a separate overlapping check set and was not rerun or pooled as independent evidence.
+
+Evidence: audit_cc801d07.py/.json/.log and MANIFEST.json. Command: `PYTHONDONTWRITEBYTECODE=1 work/venv-forecast/bin/python work/future-numerical-review-cc801d07/audit_cc801d07.py`, exit 0. No actual study input, checkpoint, held-out prediction/score, registration service or heavy lease was accessed. No track file, active producer source or prior evidence was edited.
+
+Graph evidence: Tier 2 project `wfg-next-1b-audit-cc801d07-20261030`, generation `2026-10-30T09:18:29Z`, confirmed at the exact review root. Both material research scripts are excluded by design; their complete changed function and relevant callers were read directly, with the inventory change independently compared to its previous exact bytes. New future numerical-test discovery returns all nine functions without pagination. Both relevant test files have metadata-current coverage and no recorded gap. Coverage is best-effort, not a completeness guarantee.
+
+Scoped software clearance is granted for this guard repair. Future execution remains NOT_READY without the prescribed external registration and independent documentary clearance. This review makes no empirical quality, physical calibration or blind-test conclusion. Earlier metrics/ablation repair evidence remains separate and unchanged.

@@ -12,7 +12,10 @@
     "C_contact_adapter": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
     "B_report_alias": "637457f3118bad5575dd6b4b83c74511d93bbd43",
     "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
-    "B_report_software": "61c836a058eb5fe866da584f7e7670a2b89185af"
+    "B_report_software": "61c836a058eb5fe866da584f7e7670a2b89185af",
+    "B_current_overlay": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+    "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+    "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e"
   },
   "graphs": {
     "integration": {
@@ -81,7 +84,8 @@
     "Future2026 release/access chronology/OSF/external documentary gates remain NOT_READY despite bounded local source-custody and wiring checks.",
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
-    "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged."
+    "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
+    "OptionalFARSITEsubsettoolHOLD for missingmodelset/49hcohortadmission; actualqualitydataunread. Prepared38control finalcheckerNOT_RUN onactualresults until explicit frozen-sourceauthorization. Originalparentdevelopment21aggregate historicalmixedpatherror remains qualified; separate correctedv2 checksall21intendedpaths before aggregatearithmetic, not actualfinalregistryfreeze."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -373,7 +377,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "a5ba82108c44956c01071d8450751b5d2defa387",
+    "1B": "61c836a058eb5fe866da584f7e7670a2b89185af",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -403,5 +407,101 @@
     "numerical_source_unchanged": true,
     "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
     "numerical_source_files_reported": 61
-  }
+  },
+  "static_milestone_archives": {
+    "future_numerical_guard": {
+      "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+      "state": "SCOPED_SYNTHETIC_PASS_EXTERNAL_2026_NOT_READY",
+      "review": "future-numerical-review-cc801d07/REVIEW_cc801d07.md",
+      "inventory": "future-numerical-review-cc801d07/SOURCE_INVENTORY.json",
+      "checks": 70,
+      "passed": 70,
+      "owner_tests_reported": 314,
+      "counts_not_pooled": true,
+      "scope": "Every neural role and logistic forecast checked over own declared source support before common intersection; invalid support remains unknown. Synthetic guards and unchanged source ASTs only; no future registration/execution/quality clearance."
+    },
+    "status_ledger_repair": {
+      "source_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+      "state": "SCOPED_LEDGER_REPAIR_PASS_ACTUAL_REGISTRY_FREEZE_PENDING",
+      "inventory": "status-ledger-review-ff5b3b73/SOURCE_INVENTORY.json",
+      "original_failure": "status-ledger-review-ff5b3b73/repro_8ab690ce.json",
+      "repair": "status-ledger-review-ff5b3b73/recheck_ff5b3b73.json",
+      "checks": 13,
+      "passed": 13,
+      "owner_tests_reported": 14,
+      "counts_not_pooled": true,
+      "scope": "Report-only empty-map vacuous-truth and synthetic authenticated delegation/bookkeeping. InitialmacOS/varpath adaptation retained; no actual registry/model/data freeze or execution authority bypass."
+    },
+    "development_aggregate_receipt": {
+      "scope": "Parent arithmetic over corrected21actualdevelopmentaggregateJSONs/23fires. Every intended phase path checked, no production metric math reused; not actual source/cache/checkpoint admission or final registryfreeze. Readiness did not reopen resultJSONs.",
+      "receipt": "development-aggregate-review-parent/development-scores-parent-v2.json",
+      "inventory": "development-aggregate-review-parent/V2_SOURCE_INVENTORY.json",
+      "producer": "development-aggregate-review-parent/audit_development_scores_parent_v2.py",
+      "status": "PASS_CORRECTED_INTENDED_PATH_AGGREGATE_ARITHMETIC_ONLY",
+      "selected_variant_descriptive": "d4_wind",
+      "mean_fire_brier": 0.037495116098823784,
+      "pooled_own_support_brier": 0.040814820693112826,
+      "corrected_mixed_mean_fire_brier": 0.04688687522451277,
+      "all7means_match_owner_reported": true,
+      "owner_comparison_absolute_tolerance": 1e-15,
+      "paired_common_cell_effects_identified": false,
+      "registry_frozen": false,
+      "intended_paths_checked": 21,
+      "path_contract_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+      "original_v1_qualification": "V1 omitted _utc_fixed on three mixed-development paths, so its current21phase attribution was wrong. Original files retained unchanged. d4_wind winner/value unaffected; V2 checks every intended path before independent arithmetic.",
+      "original_v1_receipt": "development-aggregate-review-parent/development-scores-parent.json",
+      "original_v1_producer": "development-aggregate-review-parent/audit_development_scores_parent.py",
+      "training_hold": false
+    },
+    "prepared_final_result_checker": {
+      "state": "PREPARED_SYNTHETIC_ONLY_ACTUAL_NOT_RUN",
+      "review": "final-forecast-result-review-prepared/README.md",
+      "inventory": "final-forecast-result-review-prepared/SOURCE_INVENTORY.json",
+      "checker": "final-forecast-result-review-prepared/check_results.py",
+      "checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+      "checks": 38,
+      "passed": 38,
+      "actual_review": "NOT_RUN_AWAITING_EXPLICIT_AUTHORIZATION_OF_FROZEN_SOURCE_AND_ASSESSMENT",
+      "scope": "No production metric/report helper imported; independent reference/manual synthetic controls. Prepared checker does not open binaries or original rasters. Dummy figure hashes are not visualQA. Initial alias/33/36preparation diagnostics preserved."
+    },
+    "optional_farsite_subset": {
+      "state": "HOLD_TWO_CONFIRMED_ADMISSION_GAPS",
+      "source_head": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+      "review": "farsite-subset-review-6ae52ab2/REVIEW_6ae52ab2.md",
+      "inventory": "farsite-subset-review-6ae52ab2/SOURCE_INVENTORY.json",
+      "positive_independent_controls": {
+        "checks": 21,
+        "passed": 21
+      },
+      "owner_tests": {
+        "reported_passed": 23,
+        "rerun_by_reviewer": true,
+        "not_pooled_with_21": true
+      },
+      "findings": [
+        "Missing fixed model column silently accepted as complete matched subset",
+        "49hcase accepted despite frozen48hcohorteligibility cap"
+      ],
+      "missing_model_repro": "farsite-subset-review-6ae52ab2/missing_model_probe.json",
+      "long_interval_repro": "farsite-subset-review-6ae52ab2/long_interval_probe.json",
+      "quality_data_read": false,
+      "native_or_model_execution": false,
+      "repair": "PENDING",
+      "training_hold": false,
+      "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality."
+    },
+    "original_development_aggregate_receipt": {
+      "scope": "Parent arithmetic over21actualdevelopmentaggregateJSONs/23fires, without arrays/checkpoints/predictions/heldout. This receipt is not current intended-phase selection authentication.",
+      "receipt": "development-aggregate-review-parent/development-scores-parent.json",
+      "inventory": "development-aggregate-review-parent/SOURCE_INVENTORY.json",
+      "selected_variant_descriptive": "d4_wind",
+      "mean_fire_brier": 0.037495116098823784,
+      "pooled_own_support_brier": 0.040814820693112826,
+      "paired_common_cell_effects_identified": false,
+      "registry_frozen": false,
+      "qualification": "Original parentproducer used3historical mixed_base paths omitting_utc_fixed. Coordinator confirmed oldmixedmean0.04709420965429823 differscorrectedowner0.04688687522451277; d4_windwinner/value unaffected. Originalscript/JSONpreserved, correctedv2intended21phaseaudit pending; no traininghold/sourcechange.",
+      "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
+    }
+  },
+  "confirmed_integration_published_head": "df480887c8ef4f066bdbc7e40abd7537aaea3825"
 }

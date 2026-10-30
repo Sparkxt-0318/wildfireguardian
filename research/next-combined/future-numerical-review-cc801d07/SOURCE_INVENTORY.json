@@ -1,0 +1,32 @@
+{
+  "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+  "files": {
+    "MANIFEST.json": {
+      "sha256": "2c9b29caaf945d95fa05d82ce83d3e43dfe42d9da24cf4e96061a721aeb9c25b",
+      "bytes": 371
+    },
+    "REVIEW_cc801d07.md": {
+      "sha256": "71b22f087ede22e8fa00675c1ef74e225861a46c9c58d34ea45caa47270a8451",
+      "bytes": 3485
+    },
+    "audit_cc801d07.json": {
+      "sha256": "eb35e301512b8ebbca14fa2716a67a29d2b286684fb24a4eca6eae4f6ca0405b",
+      "bytes": 18088
+    },
+    "audit_cc801d07.log": {
+      "sha256": "af5ff174b35d275dfb610e23aa64d0f7987298d866bd546f3808878f8ffe6681",
+      "bytes": 80
+    },
+    "audit_cc801d07.py": {
+      "sha256": "42bcceda692c40f48b9335081c4dda9dfbd96c95ec45627f00ebf9f87fa0674a",
+      "bytes": 7837
+    }
+  },
+  "source_git_objects_verified": {
+    "research/forecast-v2/scripts/blind_test.py": "639eaa974fd89a66833d24ec1a6ad3e234d25a155790b952a64e5c4d3bf38af1",
+    "research/forecast-v2/scripts/blind_inventory.py": "f8e2bd03c789068cc13f2398dc45e7adf22526fea5c0c3eae26340a41ea7f279",
+    "forecast/tests/test_blind_forecast_protocol.py": "0b0920111e0786f95c238e75d19ad208dc3360bf6064c8fcf6931d84fad98b82",
+    "forecast/tests/test_blind_future_numerical_support.py": "40e260d841ea08dfc31e29d57ca8e2d57bec2557d52c5ed12795b0c2a86f2fdd"
+  },
+  "scope": "Exact independent70/70tiny future numerical-support guard controls, no2026execution/external registration clearance. Owner314overlapping tests attributed, not rerun or pooled; no actual inputs/models/quality results accessed by this archive."
+}

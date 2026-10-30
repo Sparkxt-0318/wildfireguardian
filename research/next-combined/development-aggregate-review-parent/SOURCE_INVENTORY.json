@@ -1,0 +1,14 @@
+{
+  "files": {
+    "audit_development_scores_parent.py": {
+      "sha256": "83010a1ffbfa5413cbe273d7900ec824edcfbc9a257232cd9f56f9ffe684839c",
+      "bytes": 2488
+    },
+    "development-scores-parent.json": {
+      "sha256": "e826ce29ba48f39bedbb198c2abcbe00c982b4156a429aa2eab50944e607f7c6",
+      "bytes": 7928
+    }
+  },
+  "scope": "Parent read21actual development JSON aggregates and recomputed23fire own-support summaries only; no arrays/checkpoints/predictions/heldout and no common-cell effect or actual registry freeze. Readiness archives existing receipt/producer and checks arithmetic identity values only, without reopening any study result.",
+  "qualification": "Producer and receipt mixed_base development paths omit_utc_fixed; current intended-phase map previously required_utc_fixed. Original archived unchanged, source-phase qualification sent to coordinator; no authenticated current intended selection claim from this receipt pending check. d4_windown-support values remain descriptive parent aggregates."
+}

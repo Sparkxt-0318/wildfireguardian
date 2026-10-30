@@ -1,0 +1,43 @@
+{
+  "source_head": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+  "files": {
+    "REVIEW_6ae52ab2.md": {
+      "sha256": "f3a61f3930eac3c697221ae298030a86b03f361e055926ba3ed66bc486e3da23",
+      "bytes": 4383
+    },
+    "REVIEW_SHA256.json": {
+      "sha256": "0edad89e2dc1ee5b83f23b61ac81611ce9f6fc8a40c75581778d127d7d3649b3",
+      "bytes": 771
+    },
+    "independent_controls.json": {
+      "sha256": "78e04719a9f1762394909d1b66819cefee82c9e0823a1133874177370ca3a712",
+      "bytes": 9355
+    },
+    "independent_controls.py": {
+      "sha256": "126e7bcec288157d128a1578503fbd29b10dc08f9b7777ba39415693f2bc1139",
+      "bytes": 4953
+    },
+    "long_interval_probe.json": {
+      "sha256": "bb3c2e21f2354af94158c1777656058f2720b7b343ae51dbf50735709c475a3b",
+      "bytes": 1048
+    },
+    "missing_model_probe.json": {
+      "sha256": "fe7ed79c652a9bd1815c2bc6f3f22aa3e1cd56306d1bd0c7ef00000f50529923",
+      "bytes": 542
+    },
+    "owner_23_tests.log": {
+      "sha256": "b4c60dcbc562b01ed5b43d4a2009443dfa7ad60760dd06eab0d7e6140b73bf7c",
+      "bytes": 99
+    },
+    "probe_long_interval.py": {
+      "sha256": "7d1dc084f9685796580913798c358a3801a415e3eb89a3ba9678938fa6d7e72a",
+      "bytes": 2463
+    },
+    "probe_missing_model.py": {
+      "sha256": "806df4c06d53c057561deae04baaafe1ca9fa2429e1a46a48421ca0d09463fc2",
+      "bytes": 1793
+    }
+  },
+  "audit_tool_git_sha256": "122605a495156f4a449caf155ea9fa0854c70091f6346560e2116fea5765f996",
+  "scope": "Optional toolHOLD for missing fixed model and49h cohort admission. Separate21independent positive controls and23owner tests do not close those two defects or form one pooled pass. Reviewer read identity counts/horizon metadata only, no actual quality/model/stored prediction/native execution; readiness exact archive only."
+}

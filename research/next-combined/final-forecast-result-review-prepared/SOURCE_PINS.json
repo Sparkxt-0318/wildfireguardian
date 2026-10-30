@@ -1,0 +1,19 @@
+{
+  "source_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+  "graph_project": "wfg-next-1b-audit-8ab690ce-20261030",
+  "graph_generation": "2026-10-30T09:22:05Z",
+  "source_sha256": {
+    "research/forecast-v2/scripts/report.py": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+    "research/forecast-v2/scripts/status.py": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f"
+  },
+  "dependencies": {
+    "numpy": "1.26.4",
+    "scikit-learn": "1.5.2"
+  },
+  "python": "3.12.1",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "actual_assessments_or_models_accessed": false
+}
