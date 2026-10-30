@@ -1,5 +1,7 @@
 """Mechanism fixtures for future blind-test custody, never study evidence."""
 import importlib.util
+import os
+import subprocess
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -20,6 +22,29 @@ def blind():
     return module
 
 
+def write_baseline_terrain(path, event):
+    import rasterio
+    from affine import Affine
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(path, "w", driver="GTiff", count=1, dtype="float32", crs=event["epsg"],
+                       height=event["height"], width=event["width"], transform=Affine(*event["transform"])) as source:
+        source.write(np.arange(event["height"] * event["width"], dtype=np.float32).reshape(1, event["height"], event["width"]))
+
+
+def refresh_inventory_fixture(blind, root, cohort):
+    manifest = dict(environment_sha256={str(p.relative_to(root)): blind.sha(p)
+                                        for p in (root / "environment").rglob("*") if p.is_file()},
+                    states_sha256={p.parent.name: blind.sha(p) for p in (root / "perimeters").rglob("states.npz")},
+                    release=dict(path="publisher.zip", sha256=blind.sha(root / "publisher.zip"),
+                                 first_public_release_attestation=dict(path="attestation.json", sha256=blind.sha(root / "attestation.json"))))
+    path = root / "inventory-input.json"
+    blind.write(path, manifest)
+    cohort["input_sha256"] = {str(p.relative_to(root)): blind.sha(p) for p in root.rglob("*") if p.is_file() and p.name not in
+                              {"documentary-clearance.json", "signed-synthetic-statement.txt", "public_osf_registration.txt",
+                               "publisher_first_release_chronology.txt", "no_pre_registration_source_access.txt"}}
+    cohort["inventory"] = dict(path="inventory-input.json", sha256=blind.sha(path), exclusions=[])
+
+
 @pytest.fixture
 def registered(blind, tmp_path, monkeypatch):
     repo, root = tmp_path / "repo", tmp_path / "inputs"
@@ -27,7 +52,8 @@ def registered(blind, tmp_path, monkeypatch):
     (root / "environment").mkdir(parents=True)
     monkeypatch.setattr(blind, "REPO", repo)
     names = ["forecast/wildfire/example.py", "research/forecast-v2/scripts/pipeline.py",
-             "research/forecast-v2/scripts/blind_test.py", "research/forecast-v2/SPLIT.json"]
+             "research/forecast-v2/scripts/blind_test.py", "research/forecast-v2/scripts/blind_inventory.py",
+             "research/forecast-v2/scripts/freeze_registry.py", "research/forecast-v2/SPLIT.json"]
     for name in names:
         path = repo / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -37,24 +63,49 @@ def registered(blind, tmp_path, monkeypatch):
     monkeypatch.setattr(blind, "C651_SHA", blind.sha(checkpoint))
     model = dict(path="fixture.pt", sha256=blind.sha(checkpoint))
     registry = dict(status="FROZEN", models={n: model for n in blind.MODEL_NAMES}, logistic=model,
-                    selected_model="base_seed0", best_dilation_hours_per_cell=4,
+                    selected_model="base_seed0", best_dilation_hours_per_cell=4, dependency_versions=blind.runtime_dependencies(),
                     producer_source_sha256={n: blind.sha(repo / n) for n in names})
     registry_path = repo / "registry.json"
     blind.write(registry_path, registry)
     events = [dict(id="fixture", year=2026, country="US", t0_utc="2026-01-01T00:00:00Z",
-                   start_utc="2026-01-01T00:00:00Z", end_utc="2026-01-03T00:00:00Z", height=1, width=4)]
+                   start_utc="2026-01-01T00:00:00Z", end_utc="2026-01-03T00:00:00Z", height=1, width=4,
+                   epsg=32610, transform=[375, 0, 500000, 0, -375, 5000000])]
     blind.write(root / "environment/events.json", events)
     terrain = root / "baseline-terrain/fixture/elevation_m_375m.tif"
-    terrain.parent.mkdir(parents=True)
-    terrain.write_bytes(b"identity-only fixture; this test never runs environmental inference")
+    write_baseline_terrain(terrain, events[0])
     states = root / "perimeters/fixture/states.npz"
     states.parent.mkdir(parents=True)
     np.savez(states, times=np.array(["2026-01-01T00:00:00Z", "2026-01-02T00:00:00Z"]),
              states=np.array([[[1, 0, 0, 0]], [[1, 1, 0, 1]]], dtype=np.uint8))
-    cohort = dict(registry_sha256=blind.sha(registry_path), source_release_utc="2027-01-01T00:00:00Z",
-                  registration=dict(url="https://osf.io/fixture", registered_utc="2026-12-01T00:00:00Z",
+    cohort = dict(registry_sha256=blind.sha(registry_path), source_release_utc="2026-03-01T00:00:00Z",
+                  registration=dict(url="https://osf.io/fixture", registered_utc="2026-02-01T00:00:00Z",
                                     registry_sha256=blind.sha(registry_path)),
                   input_sha256={str(p.relative_to(root)): blind.sha(p) for p in root.rglob("*") if p.is_file()})
+    (root / "publisher.zip").write_bytes(b"synthetic archive, numerical protocol fixture only")
+    blind.write(root / "attestation.json", dict(claim="fixture local attestation, not external proof"))
+    refresh_inventory_fixture(blind, root, cohort)
+
+    def validate_fixture_inventory(input_root, manifest_path, expected_manifest_sha256):
+        assert blind.sha(manifest_path) == expected_manifest_sha256
+        catalog = json.loads((input_root / "environment/events.json").read_text())
+        cases, incidents = [], []
+        for event in catalog:
+            if event["country"] != "US" or event["year"] != 2026:
+                continue
+            with np.load(input_root / f"perimeters/{event['id']}/states.npz") as data:
+                times = list(blind.pd.to_datetime(data["times"], utc=True))
+            incidents.append(dict(event=event["id"], record_count=len(times), first_survey_year=times[0].year))
+            cases.extend(dict(event=event["id"], cutoff=times[i].isoformat(), endpoint=times[j].isoformat(),
+                              year=2026, reference_kind="nirops_mapped_extent")
+                         for i, j, _ in blind.consecutive_intervals(times, 48))
+        return dict(status="LOCAL_INVENTORY_VALIDATED_EXTERNAL_RELEASE_UNVERIFIED", cases=cases, exclusions=[],
+                    raw_inventory=dict(incidents=incidents), manifest_sha256=expected_manifest_sha256,
+                    release_identity=dict(public_release_utc=cohort["source_release_utc"],
+                                          publisher_url="https://example.invalid/immutable-synthetic-release/v1",
+                                          archive_sha256=blind.sha(input_root / "publisher.zip")),
+                    execution_status="NOT_READY_FOR_2026_EXECUTION")
+
+    monkeypatch.setattr(blind, "load_inventory", lambda: SimpleNamespace(validate_inventory=validate_fixture_inventory))
     cases, _ = blind.reference_cases(root, cohort)
     cohort["cases"] = cases
     cohort_path = repo / "cohort.json"
@@ -87,15 +138,16 @@ def test_registry_and_source_cohort_refuse_incomplete_attestations(blind, regist
     with pytest.raises(ValueError): blind.validate(rp, cp, repo, root)
 
 
-def test_actual_source_year_cannot_be_declared_as_2026(blind, registered):
+def test_operational_us_first_survey_year_does_not_assert_physical_ignition_year(blind, registered):
     _, root, _, _, _, cohort = registered
     path = root / "environment/events.json"
     events = json.loads(path.read_text())
     events[0]["t0_utc"] = "2025-12-31T00:00:00Z"
     blind.write(path, events)
-    cohort["input_sha256"]["environment/events.json"] = blind.sha(path)
-    with pytest.raises(ValueError, match="Fire year"):
-        blind.reference_cases(root, cohort)
+    refresh_inventory_fixture(blind, root, cohort)
+    cases, _ = blind.reference_cases(root, cohort)
+    assert len(cases) == 1
+    assert cases[0]["year"] == 2026
 
 
 def test_unhashed_extra_prediction_cannot_enter_score(blind, registered, tmp_path):
@@ -104,6 +156,7 @@ def test_unhashed_extra_prediction_cannot_enter_score(blind, registered, tmp_pat
     (entries / "cases").mkdir(parents=True)
     record = dict(case=cohort["cases"][0], status="UNAVAILABLE")
     blind.write(entries / "RECEIPT.json", dict(receipt_version=blind.RECEIPT_VERSION, validated_identity=blind.validation_identity(registry, cohort),
+                                                        inventory_validation=blind.inventory_admission(root, cohort),
                                                         registry_sha256=blind.sha(rp), cohort_sha256=blind.sha(cp), cases=[record]))
     np.savez(entries / "cases/unlisted.npz", y=[1])
     with pytest.raises(ValueError, match="Unlisted"):
@@ -117,12 +170,12 @@ def test_primary_gate_requires_fire_count_both_comparisons_and_calibration(blind
         result["models"][name] = dict(pooled=dict(lowest_bin=dict(count=10, mean_prediction=prediction, observed_frequency=.02)))
     for ref in ("persistence", "dilation_best"):
         result["paired"]["base_seed0__vs__" + ref] = dict(percentile_95_interval=[-.02, -.01])
-    assert blind.primary_decision(result, "base_seed0", complete=True)["statistical_superiority_criteria_pass"]
+    assert blind.primary_decision(result, "base_seed0", complete=True, clearance_present=True)["statistical_superiority_criteria_pass"]
     result["fires"].pop()
-    assert not blind.primary_decision(result, "base_seed0", complete=True)["statistical_superiority_criteria_pass"]
+    assert not blind.primary_decision(result, "base_seed0", complete=True, clearance_present=True)["statistical_superiority_criteria_pass"]
     result["fires"].append(9)
     result["paired"]["base_seed0__vs__dilation_best"]["percentile_95_interval"] = [-.02, .001]
-    assert not blind.primary_decision(result, "base_seed0", complete=True)["statistical_superiority_criteria_pass"]
+    assert not blind.primary_decision(result, "base_seed0", complete=True, clearance_present=True)["statistical_superiority_criteria_pass"]
 
 
 def test_declared_model_root_cannot_authenticate_a_different_import_tree(blind, registered, tmp_path):
@@ -131,10 +184,52 @@ def test_declared_model_root_cannot_authenticate_a_different_import_tree(blind, 
         blind.validate(registry, cohort, tmp_path, root)
 
 
+def documentary_fixture(blind, root, registry, cohort, scope="pre_run_registration_first_release_and_access"):
+    inventory = blind.inventory_admission(root, cohort)
+    released = blind.pd.Timestamp(cohort["source_release_utc"])
+    evidence = []
+    purposes = ["public_osf_registration", "publisher_first_release_chronology", "no_pre_registration_source_access"]
+    if scope == "post_score_independent_relocated_replay_and_claim":
+        purposes += ["independent_relocated_replay_execution", "primary_claim_and_completeness"]
+    for purpose in purposes:
+        path = root / (purpose + ".txt")
+        path.write_text("Synthetic documentary evidence only, no actual external fact is asserted: " + purpose)
+        evidence.append(dict(path=path.name, sha256=blind.sha(path), immutable_url="https://example.invalid/immutable/" + purpose,
+                             purpose=purpose))
+    attestation = root / "signed-synthetic-statement.txt"
+    attestation.write_text("Synthetic signed attestation fixture, not a genuine signature or review")
+    return dict(schema=blind.DOCUMENTARY_SCHEMA, scope=scope, decision=blind.DOCUMENTARY_DECISION,
+                bindings=blind.clearance_bindings(registry, cohort),
+                verifier=dict(name="Independent synthetic reviewer", affiliation="Fixture organization",
+                              independence_statement="Synthetic reviewer is independent of the synthetic producer"),
+                attestation=dict(path=attestation.name, sha256=blind.sha(attestation),
+                                 signature_description="Synthetic signature description, no cryptographic authenticity claimed"),
+                evidence_reviewed=evidence, limits=["Synthetic mechanism fixture; external truth is not established"],
+                registration=dict(immutable_url=cohort["registration"]["url"],
+                                  registry_artifact_sha256=cohort["registry_sha256"],
+                                  registered_utc=cohort["registration"]["registered_utc"]),
+                publisher_release=dict(immutable_url=inventory["release_identity"]["publisher_url"],
+                                       archive_sha256=inventory["release_identity"]["archive_sha256"],
+                                       public_release_utc=cohort["source_release_utc"]),
+                reviewed_utc=(released + blind.pd.Timedelta(hours=1)).isoformat(),
+                signed_utc=(released + blind.pd.Timedelta(hours=2)).isoformat())
+
+
+def attach_documentary_fixture(blind, registered):
+    _, root, _, cp, registry, cohort = registered
+    review = documentary_fixture(blind, root, registry, cohort)
+    path = root / "documentary-clearance.json"
+    blind.write(path, review)
+    cohort["documentary_clearance"] = dict(path=path.name, sha256=blind.sha(path))
+    blind.write(cp, cohort)
+    return path, review
+
+
 @pytest.fixture
 def numerical_fixture(blind, registered, monkeypatch):
     """Mock only numerical producers; keep real validation, files, receipts and scoring."""
     repo, root, rp, cp, registry, cohort = registered
+    attach_documentary_fixture(blind, registered)
     names = tuple(["fixture_channel"])
 
     class Environment:
@@ -166,6 +261,7 @@ def numerical_fixture(blind, registered, monkeypatch):
     pipeline = SimpleNamespace(Environment=Environment, load_structured=lambda path: object(),
                                sample_forecast=sample_forecast, c651_monte_carlo=monte_carlo,
                                logistic_predict=lambda *args: np.full((1, 4), .1))
+    monkeypatch.setattr(blind, "heavy_lock", lambda: (repo / "synthetic-heavy.lock").open("a+"))
     monkeypatch.setattr(blind, "load_pipeline", lambda: pipeline)
     monkeypatch.setattr(blind, "load_model", lambda *args, **kwargs: SimpleNamespace(predictor=object()))
     monkeypatch.setattr(blind.pickle, "loads", lambda value: object())
@@ -294,9 +390,10 @@ def test_score_with_failed_case_retains_descriptive_subset_without_promotion(bli
             path.write_bytes(source.read_bytes())
             cohort["input_sha256"][relative] = blind.sha(path)
     blind.write(events_path, events)
-    cohort["input_sha256"]["environment/events.json"] = blind.sha(events_path)
+    refresh_inventory_fixture(blind, root, cohort)
     cohort["cases"], _ = blind.reference_cases(root, cohort)
     blind.write(cp, cohort)
+    attach_documentary_fixture(blind, registered)
     args = produce(blind, registered, tmp_path)
     receipt_path = args.entries / "RECEIPT.json"
     receipt = json.loads(receipt_path.read_text())
@@ -361,3 +458,460 @@ def test_scoring_rechecks_admission_instead_of_trusting_a_resigned_receipt(blind
     blind.write(receipt_path, receipt)
     with pytest.raises(ValueError):
         blind.score(args)
+
+
+@pytest.fixture
+def freezer():
+    path = Path(__file__).resolve().parents[2] / "research/forecast-v2/scripts/freeze_registry.py"
+    spec = importlib.util.spec_from_file_location("blind_registry_fixture", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.fixture
+def freeze_inputs(freezer, tmp_path, monkeypatch):
+    root = tmp_path / "freeze-repo"
+    run = root / "forecast/runs/synthetic"
+    evidence = root / "research/forecast-v2"
+    script_names = ["pipeline", "blind_test", "blind_inventory", "freeze_registry", "score_cohorts", "run_campaign"]
+    for relative in ["forecast/wildfire/module.py", "forecast/wildfire/nested/config.json", "forecast/pyproject.toml",
+                     "forecast/documents/preregistration_blind_test.md", "research/forecast-v2/SPLIT.json",
+                     "research/forecast-v2/RUN_PROTOCOL.json", *(f"research/forecast-v2/scripts/{n}.py" for n in script_names)]:
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("synthetic source/configuration")
+    (evidence / "SPLIT.json").write_text(json.dumps(dict(fit=dict(us_perimeter_and_kriged=["synthetic_fit"]))))
+    checkpoints = {}
+    for variant in freezer.VARIANTS:
+        checkpoint = run / "final" / f"{variant}_seed0/checkpoint.pt"
+        checkpoint.parent.mkdir(parents=True, exist_ok=True)
+        checkpoint.write_bytes(("synthetic exact checkpoint identity " + variant).encode())
+        record = checkpoint.with_name("result.json")
+        record.write_text(json.dumps(dict(variant=variant, seed=0, epochs=3, train_samples=2, train_events=["synthetic_fit"],
+                                         checkpoint_sha256=freezer.sha(checkpoint), fit=dict(history=[{}, {}, {}]))))
+        execution = evidence / f"executions/a03_final_{variant}.json"
+        execution.parent.mkdir(parents=True, exist_ok=True)
+        command = ["python", "pipeline.py", "final", "--variant", variant, "--seed", "0", "--epochs", "3",
+                   "--max-fit-intervals-per-fire", "3", "--max-fit-intervals-per-fire", "0", "--intervals-per-epoch", "0"]
+        execution.write_text(json.dumps(dict(exit_code=0, output=str(record), output_sha256=freezer.sha(record), command=command)))
+        checkpoints[variant] = freezer.identity(root, checkpoint)
+    comparator = root / "c651.pt"
+    comparator.write_bytes(b"synthetic comparator")
+    monkeypatch.setattr(freezer, "C651_SHA", freezer.sha(comparator))
+    baselines = {}
+    for name, filename in freezer.BASELINES.items():
+        path = run / "baselines" / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(dict(best_hours_per_cell=4)) if name == "dilation_choice" else "synthetic exact baseline bytes")
+        baselines[name] = freezer.identity(root, path)
+    baseline_receipt = evidence / "executions/a03_baselines.json"
+    baseline_receipt.write_text(json.dumps(dict(exit_code=0, output_sha256=baselines["dilation_choice"]["sha256"])))
+    cache_audit = evidence / "CACHE_AUDIT.json"
+    cache_audit.write_text(json.dumps(dict(status="PASS_NO_CONSUMED_VALUES_CHANGED", producer_unchanged_during_audit=True)))
+    selection = dict(checkpoints=checkpoints, baselines=baselines, selected_variant="base",
+                     development_brier={v: .1 for v in freezer.VARIANTS}, frozen_before_heldout_scoring=True,
+                     frozen_utc="2026-10-30T00:00:00Z", baseline_execution_sha256=freezer.sha(baseline_receipt),
+                     cache_audit_sha256=freezer.sha(cache_audit), protocol_sha256=freezer.sha(evidence / "RUN_PROTOCOL.json"))
+    selection_path = evidence / "MODEL_SELECTION.json"
+    selection_path.write_text(json.dumps(selection))
+    return root, run, selection_path, comparator, selection
+
+
+def test_registry_freeze_pins_exact_models_baselines_and_complete_executed_closure(freezer, freeze_inputs):
+    root, run, selection_path, comparator, _ = freeze_inputs
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    assert set(registry["models"]) == {"c651_mc", *(v + "_seed0" for v in freezer.VARIANTS)}
+    assert registry["selected_model"] == "base_seed0"
+    assert registry["best_dilation_hours_per_cell"] == 4
+    assert set(registry["baselines"]) == set(freezer.BASELINES)
+    assert "research/forecast-v2/scripts/blind_inventory.py" in registry["producer_source_sha256"]
+    assert "research/forecast-v2/scripts/freeze_registry.py" in registry["producer_source_sha256"]
+    assert "forecast/wildfire/nested/config.json" in registry["producer_source_sha256"]
+    assert registry["protocol_status"] == "READY_FOR_OWNER_REGISTRATION"
+    assert registry["execution_status"] == "NOT_READY_FOR_2026_EXECUTION"
+    assert not registry["future_inputs_pinned"]
+
+
+def test_registry_does_not_read_selection_before_all_seven_full_fits(freezer, freeze_inputs):
+    root, run, selection_path, comparator, _ = freeze_inputs
+    selection_path.write_text("invalid JSON, must never be read")
+    (run / "final/mixed_base_seed0/checkpoint.pt").unlink()
+    with pytest.raises(ValueError, match="nonempty existing files"):
+        freezer.build_registry(root, run, selection_path, comparator)
+
+
+@pytest.mark.parametrize("tamper", ["missing_model", "extra_model", "placeholder_hash", "checkpoint_bytes", "baseline_bytes",
+                                    "missing_baseline", "wrong_selection", "bad_development", "limited_fit", "failed_fit",
+                                    "unreceipted_fit", "missing_source", "changed_c651", "heldout_started", "missing_cache_audit"])
+def test_registry_freeze_refuses_incomplete_or_changed_known_identities(freezer, freeze_inputs, tamper):
+    root, run, selection_path, comparator, selection = freeze_inputs
+    if tamper == "missing_model": selection["checkpoints"].pop("ellipse")
+    if tamper == "extra_model": selection["checkpoints"]["unregistered"] = selection["checkpoints"]["base"]
+    if tamper == "placeholder_hash": selection["checkpoints"]["base"]["sha256"] = "TBD"
+    if tamper == "checkpoint_bytes": (run / "final/base_seed0/checkpoint.pt").write_bytes(b"changed")
+    if tamper == "baseline_bytes": (run / "baselines/logistic.pkl").write_bytes(b"changed")
+    if tamper == "missing_baseline": selection["baselines"].pop("logistic_parameters")
+    if tamper == "wrong_selection": selection["selected_variant"] = "d4"
+    if tamper == "bad_development": selection["development_brier"]["base"] = float("nan")
+    if tamper in ("limited_fit", "failed_fit"):
+        path = root / "research/forecast-v2/executions/a03_final_base.json"
+        record = json.loads(path.read_text())
+        if tamper == "limited_fit": record["command"][-1] = "1"
+        else: record["exit_code"] = 1
+        path.write_text(json.dumps(record))
+    if tamper == "unreceipted_fit": (root / "research/forecast-v2/executions/a03_final_base.json").unlink()
+    if tamper == "missing_source": (root / "research/forecast-v2/scripts/blind_inventory.py").unlink()
+    if tamper == "changed_c651": comparator.write_bytes(b"changed immutable comparator")
+    if tamper == "heldout_started":
+        path = run / "heldout/cases/synthetic.json"
+        path.parent.mkdir(parents=True)
+        path.write_text("synthetic assessment started")
+    if tamper == "missing_cache_audit": (root / "research/forecast-v2/CACHE_AUDIT.json").unlink()
+    selection_path.write_text(json.dumps(selection))
+    with pytest.raises(ValueError):
+        freezer.build_registry(root, run, selection_path, comparator)
+
+
+def test_registry_cli_preserves_existing_registry(freezer, tmp_path):
+    target = tmp_path / "registry.json"
+    target.write_text("preserve existing freeze")
+    with pytest.raises(FileExistsError):
+        freezer.main(["--run-root", str(tmp_path), "--out", str(target)])
+    assert target.read_text() == "preserve existing freeze"
+
+
+@pytest.fixture
+def complete_inventory_fixture(blind, registered, monkeypatch, tmp_path):
+    """Exercise the actual reviewed adapter with genuine tiny synthetic SHP/TIFs."""
+    helper_path = Path(__file__).with_name("test_blind_inventory.py")
+    spec = importlib.util.spec_from_file_location("reviewed_inventory_fixture_helpers", helper_path)
+    helper = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(helper)
+    release = helper.SyntheticRelease(tmp_path / "actual-synthetic-inventory")
+    repo, _, rp, cp, registry, cohort = registered
+    terrain = release.root / "baseline-terrain/SYNTHETIC_A/elevation_m_375m.tif"
+    write_baseline_terrain(terrain, release.grid)
+    report = release.validate()
+    cohort["source_release_utc"] = release.manifest["release"]["public_release_utc"]
+    cohort["inventory"] = dict(path="inventory-input.json", sha256=release.pinned_manifest_sha, exclusions=report["exclusions"])
+    cohort["input_sha256"] = {str(p.relative_to(release.root)): blind.sha(p)
+                              for p in release.root.rglob("*") if p.is_file() and "construction" not in p.parts}
+    monkeypatch.setattr(blind, "load_inventory", lambda: helper.inventory)
+    cohort["cases"], _ = blind.reference_cases(release.root, cohort)
+    blind.write(cp, cohort)
+    return repo, release, rp, cp, registry, cohort
+
+
+def test_actual_inventory_adapter_is_wired_into_source_case_admission(blind, complete_inventory_fixture):
+    repo, release, rp, cp, _, _ = complete_inventory_fixture
+    _, cohort, references = blind.validate(rp, cp, repo, release.root)
+    report = cohort["_inventory_validation"]
+    assert len(references) == report["case_count"] == 2
+    assert report["raw_inventory"]["raw_record_count"] == 3
+    assert report["execution_status"] == "NOT_READY_FOR_2026_EXECUTION"
+    assert report["release_identity"]["attestation_status"] == "CALLER_ATTESTATION_NOT_EXTERNALLY_VERIFIED"
+
+
+@pytest.mark.parametrize("tamper", ["no_manifest", "manifest_hash", "missing_archive_pin", "missing_state_pin", "exclusion_ledger",
+                                    "release_time", "omitted_case", "raw_archive_bytes"])
+def test_catalog_alone_cannot_bypass_authoritative_raw_inventory(blind, complete_inventory_fixture, tamper):
+    repo, release, rp, cp, _, cohort = complete_inventory_fixture
+    if tamper == "no_manifest": cohort.pop("inventory")
+    if tamper == "manifest_hash": cohort["inventory"]["sha256"] = "0" * 64
+    if tamper == "missing_archive_pin": cohort["input_sha256"].pop("publisher.zip")
+    if tamper == "missing_state_pin": cohort["input_sha256"].pop("perimeters/SYNTHETIC_A/states.npz")
+    if tamper == "exclusion_ledger": cohort["inventory"]["exclusions"] = [dict(event="SYNTHETIC_A", reason="caller wants exclusion")]
+    if tamper == "release_time": cohort["source_release_utc"] = "2027-01-11T00:00:00Z"
+    if tamper == "omitted_case": cohort["cases"].pop()
+    if tamper == "raw_archive_bytes":
+        release.archive.write_bytes(b"not the pinned publisher archive")
+        cohort["input_sha256"]["publisher.zip"] = blind.sha(release.archive)
+    blind.write(cp, cohort)
+    with pytest.raises(ValueError):
+        blind.validate(rp, cp, repo, release.root)
+
+
+def test_absent_external_review_blocks_model_loading_and_future_execution(blind, registered, tmp_path, monkeypatch):
+    repo, root, rp, cp, _, _ = registered
+    monkeypatch.setattr(blind, "load_pipeline", lambda: pytest.fail("No documentary clearance may reach model loading"))
+    _, diagnostic, _ = blind.validate(rp, cp, repo, root)
+    assert diagnostic["_documentary_clearance"] is None
+    out = tmp_path / "never-created"
+    with pytest.raises(ValueError, match="NOT_READY_FOR_2026_EXECUTION"):
+        blind.run(SimpleNamespace(registry=rp, cohort=cp, model_root=repo, input_root=root, out=out))
+    assert not out.exists()
+
+
+@pytest.mark.parametrize("minimal", [dict(verified=True), dict(approved=True, url="https://osf.io/fixture"),
+                                      dict(decision="HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE")])
+def test_caller_boolean_or_url_is_not_documentary_clearance(blind, registered, minimal):
+    repo, root, rp, cp, _, cohort = registered
+    path = root / "minimal-review.json"
+    blind.write(path, minimal)
+    cohort["documentary_clearance"] = dict(path=path.name, sha256=blind.sha(path))
+    blind.write(cp, cohort)
+    with pytest.raises(ValueError, match="scope-specific human documentary clearance"):
+        blind.validate(rp, cp, repo, root)
+
+
+@pytest.mark.parametrize("tamper", ["registry_binding", "input_binding", "inventory_binding", "source_binding", "case_binding",
+                                    "reviewer", "independence", "attestation", "evidence_bytes", "chronology_scope",
+                                    "registration_reference", "archive_identity", "registration_time", "limits", "receipt_bytes"])
+def test_documentary_review_requires_every_bound_identity_scope_and_pinned_evidence(blind, registered, tamper):
+    repo, root, rp, cp, registry, cohort = registered
+    path, review = attach_documentary_fixture(blind, registered)
+    binding = {"registry_binding": "registry_sha256", "input_binding": "input_closure_sha256",
+               "inventory_binding": "inventory_manifest_sha256", "source_binding": "source_closure_sha256",
+               "case_binding": "case_membership_sha256"}.get(tamper)
+    if binding: review["bindings"][binding] = "0" * 64
+    if tamper == "reviewer": review["verifier"]["name"] = ""
+    if tamper == "independence": review["verifier"].pop("independence_statement")
+    if tamper == "attestation": review["attestation"]["signature_description"] = ""
+    if tamper == "evidence_bytes": (root / review["evidence_reviewed"][0]["path"]).write_text("changed evidence")
+    if tamper == "chronology_scope": review["evidence_reviewed"] = review["evidence_reviewed"][:1]
+    if tamper == "registration_reference": review["registration"]["immutable_url"] = "https://osf.io/other"
+    if tamper == "archive_identity": review["publisher_release"]["archive_sha256"] = "0" * 64
+    if tamper == "registration_time": review["registration"]["registered_utc"] = cohort["source_release_utc"]
+    if tamper == "limits": review["limits"] = [True]
+    blind.write(path, review)
+    if tamper != "receipt_bytes": cohort["documentary_clearance"]["sha256"] = blind.sha(path)
+    else: path.write_text(path.read_text() + " ")
+    blind.write(cp, cohort)
+    with pytest.raises(ValueError):
+        blind.validate(rp, cp, repo, root)
+
+
+def test_bound_human_review_is_explicitly_not_machine_authentication(blind, registered, numerical_fixture, tmp_path):
+    args = produce(blind, registered, tmp_path)
+    blind.score(args)
+    run = json.loads((args.entries / "RECEIPT.json").read_text())
+    scores = json.loads(args.out.read_text())
+    for review in (run["pre_run_documentary_clearance"], scores["pre_run_documentary_clearance"]):
+        assert review["state"] == "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE"
+        assert review["machine_authentication"] is False
+        assert "does not authenticate" in review["verification_limit"]
+    assert not scores["superiority_claim_permitted"]
+    assert scores["completion"] == "SCORED_PENDING_INDEPENDENT_DOCUMENTARY_APPROVAL_AND_RELOCATED_REPLAY"
+
+
+@pytest.fixture
+def finalize_fixture(blind, registered, numerical_fixture, tmp_path):
+    args = produce(blind, registered, tmp_path)
+    blind.score(args)
+    repo, root, rp, cp, registry, cohort = registered
+    replay = tmp_path / "relocated-scores.json"
+    replay.write_bytes(args.out.read_bytes())
+    scores = json.loads(args.out.read_text())
+    review = documentary_fixture(blind, root, registry, cohort, "post_score_independent_relocated_replay_and_claim")
+    now = blind.datetime.now(blind.timezone.utc).isoformat()
+    review["reviewed_utc"] = review["signed_utc"] = now
+    review["scored_artifacts"] = dict(score_sha256=blind.sha(args.out), relocated_replay_sha256=blind.sha(replay),
+                                    run_receipt_sha256=scores["run_receipt_sha256"])
+    review["independent_replay"] = dict(source_root="/synthetic/independent/relocated-source", command=["python", "blind_test.py", "score"],
+                                        verifier_name=review["verifier"]["name"], output_sha256=blind.sha(replay))
+    path = root / "post-score-approval.json"
+    blind.write(path, review)
+    final = SimpleNamespace(registry=rp, cohort=cp, model_root=repo, input_root=root, scores=args.out, replay=replay,
+                            approval=path.name, approval_sha256=blind.sha(path), out=tmp_path / "final-review.json")
+    return final, review, path
+
+
+def test_post_score_review_cannot_promote_failed_statistical_criteria(blind, finalize_fixture):
+    args, _, _ = finalize_fixture
+    blind.finalize(args)
+    final = json.loads(args.out.read_text())
+    assert not final["superiority_claim_permitted"]
+    assert final["status"] == "COMPLETE_REVIEW_NO_SUPERIORITY_CLAIM"
+    assert final["machine_authentication"] is False
+    assert final["independent_post_score_approval"]["state"] == "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE"
+
+
+@pytest.mark.parametrize("tamper", ["minimal", "wrong_score", "wrong_replay", "wrong_run", "original_tree", "no_command",
+                                    "different_reviewer", "same_file", "replay_bytes", "old_approval", "criterion_flag"])
+def test_final_review_requires_independent_replay_and_exact_score_binding(blind, finalize_fixture, tamper):
+    args, review, path = finalize_fixture
+    if tamper == "minimal": review = dict(approved=True)
+    if tamper == "wrong_score": review["scored_artifacts"]["score_sha256"] = "0" * 64
+    if tamper == "wrong_replay": review["scored_artifacts"]["relocated_replay_sha256"] = "0" * 64
+    if tamper == "wrong_run": review["scored_artifacts"]["run_receipt_sha256"] = "0" * 64
+    if tamper == "original_tree": review["independent_replay"]["source_root"] = str(args.model_root)
+    if tamper == "no_command": review["independent_replay"]["command"] = []
+    if tamper == "different_reviewer": review["independent_replay"]["verifier_name"] = "different reviewer"
+    if tamper == "same_file": args.replay = args.scores
+    if tamper == "replay_bytes": args.replay.write_text(args.replay.read_text() + " ")
+    if tamper == "old_approval": review["reviewed_utc"] = review["signed_utc"] = review["publisher_release"]["public_release_utc"]
+    if tamper == "criterion_flag":
+        scores = json.loads(args.scores.read_text())
+        scores["results"]["nirops_mapped_extent"]["decision"]["statistical_superiority_criteria_pass"] = True
+        blind.write(args.scores, scores)
+        args.replay.write_bytes(args.scores.read_bytes())
+        review["scored_artifacts"]["score_sha256"] = blind.sha(args.scores)
+        review["scored_artifacts"]["relocated_replay_sha256"] = blind.sha(args.replay)
+        review["independent_replay"]["output_sha256"] = blind.sha(args.replay)
+    blind.write(path, review)
+    args.approval_sha256 = blind.sha(path)
+    with pytest.raises(ValueError):
+        blind.finalize(args)
+    assert not args.out.exists()
+
+
+def test_registered_dependency_versions_cannot_be_ignored(blind, registered):
+    repo, root, rp, cp, registry, cohort = registered
+    registry["dependency_versions"]["numpy"] = "unregistered-version"
+    blind.write(rp, registry)
+    cohort["registry_sha256"] = cohort["registration"]["registry_sha256"] = blind.sha(rp)
+    blind.write(cp, cohort)
+    with pytest.raises(ValueError, match="registered direct dependency versions"):
+        blind.validate(rp, cp, repo, root)
+
+
+def test_complete_ten_fire_synthetic_protocol_requires_both_human_review_stages(blind, registered, numerical_fixture, tmp_path):
+    repo, root, rp, cp, registry, cohort = registered
+    path = root / "environment/events.json"
+    events = json.loads(path.read_text())
+    for i in range(1, 10):
+        name = f"fixture_{i}"
+        events.append(dict(events[0], id=name))
+        for source, relative in [(root / "perimeters/fixture/states.npz", f"perimeters/{name}/states.npz"),
+                                 (root / "baseline-terrain/fixture/elevation_m_375m.tif", f"baseline-terrain/{name}/elevation_m_375m.tif")]:
+            target = root / relative
+            target.parent.mkdir(parents=True)
+            target.write_bytes(source.read_bytes())
+    blind.write(path, events)
+    refresh_inventory_fixture(blind, root, cohort)
+    cohort["cases"], _ = blind.reference_cases(root, cohort)
+    attach_documentary_fixture(blind, registered)
+    args = produce(blind, registered, tmp_path)
+    receipt_path = args.entries / "RECEIPT.json"
+    receipt = json.loads(receipt_path.read_text())
+    for record in receipt["cases"]:
+        file = args.entries / record["file"]
+        with np.load(file, allow_pickle=False) as data:
+            arrays = {name: data[name].copy() for name in data.files}
+        arrays["p_base_seed0"] = np.where(arrays["y"], .9, 0.)
+        arrays["p_persistence"] = arrays["p_dilation_best"] = np.zeros(len(arrays["y"]))
+        np.savez_compressed(file, **arrays)
+        record["sha256"] = blind.sha(file)
+    blind.write(receipt_path, receipt)
+    blind.score(args)
+    scores = json.loads(args.out.read_text())
+    assert scores["results"]["nirops_mapped_extent"]["decision"]["statistical_superiority_criteria_pass"]
+    assert not scores["superiority_claim_permitted"]
+    replay = tmp_path / "independent-relocated-scores.json"
+    replay.write_bytes(args.out.read_bytes())
+    review = documentary_fixture(blind, root, registry, cohort, "post_score_independent_relocated_replay_and_claim")
+    now = blind.datetime.now(blind.timezone.utc).isoformat()
+    review["reviewed_utc"] = review["signed_utc"] = now
+    review["scored_artifacts"] = dict(score_sha256=blind.sha(args.out), relocated_replay_sha256=blind.sha(replay),
+                                    run_receipt_sha256=scores["run_receipt_sha256"])
+    review["independent_replay"] = dict(source_root="/synthetic/relocated-source", command=["python", "blind_test.py", "score"],
+                                       verifier_name=review["verifier"]["name"], output_sha256=blind.sha(replay))
+    approval = root / "synthetic-post-score-approval.json"
+    blind.write(approval, review)
+    final = SimpleNamespace(registry=rp, cohort=cp, model_root=repo, input_root=root, scores=args.out, replay=replay,
+                            approval=approval.name, approval_sha256=blind.sha(approval), out=tmp_path / "synthetic-final-review.json")
+    blind.finalize(final)
+    decision = json.loads(final.out.read_text())
+    assert decision["superiority_claim_permitted"]
+    assert decision["machine_authentication"] is False
+    assert decision["status"] == "STATISTICAL_CLAIM_PERMITTED_UNDER_HUMAN_ATTESTED_DOCUMENTARY_REVIEW"
+
+
+def repin_baseline_fixture(blind, release, cp, cohort):
+    for path in (release.root / "baseline-terrain").rglob("*"):
+        if path.is_file(): cohort["input_sha256"][str(path.relative_to(release.root))] = blind.sha(path)
+    blind.write(cp, cohort)
+
+
+def test_consumed_baseline_geotiff_and_pinned_external_mask_are_admitted(blind, complete_inventory_fixture):
+    import rasterio
+    repo, release, rp, cp, _, cohort = complete_inventory_fixture
+    source = release.root / "baseline-terrain/SYNTHETIC_A/elevation_m_375m.tif"
+    with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=False):
+        with rasterio.open(source, "r+") as raster:
+            raster.write_mask(np.full((3, 3), 255, dtype=np.uint8))
+    mask = Path(str(source) + ".msk")
+    assert mask.is_file()
+    repin_baseline_fixture(blind, release, cp, cohort)
+    _, admitted, _ = blind.validate(rp, cp, repo, release.root)
+    assert str(mask.relative_to(release.root)) in admitted["input_sha256"]
+
+
+@pytest.mark.parametrize("component", ["canonical_vrt", "mask_vrt", "file_symlink", "ancestor_symlink", "missing_sidecar_pin"])
+def test_consumed_baseline_terrain_rejects_indirect_or_unpinned_dependencies(blind, complete_inventory_fixture, component):
+    import rasterio
+    repo, release, rp, cp, _, cohort = complete_inventory_fixture
+    source = release.root / "baseline-terrain/SYNTHETIC_A/elevation_m_375m.tif"
+    borrowed = release.root / "unregistered-borrowed-elevation.tif"
+    borrowed.write_bytes(source.read_bytes())
+    if component == "file_symlink":
+        source.unlink()
+        source.symlink_to(borrowed)
+    elif component == "ancestor_symlink":
+        folder = source.parent
+        moved = release.root / "borrowed-elevation-folder"
+        folder.rename(moved)
+        folder.symlink_to(moved, target_is_directory=True)
+    elif component == "canonical_vrt":
+        source.write_text(f'<VRTDataset rasterXSize="3" rasterYSize="3"><VRTRasterBand dataType="Float32" band="1"><SimpleSource>'
+                          f'<SourceFilename relativeToVRT="0">{borrowed}</SourceFilename><SourceBand>1</SourceBand>'
+                          '</SimpleSource></VRTRasterBand></VRTDataset>')
+    else:
+        with rasterio.Env(GDAL_TIFF_INTERNAL_MASK=False):
+            with rasterio.open(source, "r+") as raster:
+                raster.write_mask(np.full((3, 3), 255, dtype=np.uint8))
+        mask = Path(str(source) + ".msk")
+        if component == "mask_vrt":
+            mask.write_text(f'<VRTDataset rasterXSize="3" rasterYSize="3"><VRTRasterBand dataType="Byte" band="1"><SimpleSource>'
+                            f'<SourceFilename relativeToVRT="0">{borrowed}</SourceFilename><SourceBand>1</SourceBand>'
+                            '</SimpleSource></VRTRasterBand></VRTDataset>')
+    repin_baseline_fixture(blind, release, cp, cohort)
+    if component == "ancestor_symlink":
+        cohort["input_sha256"][str(source.relative_to(release.root))] = blind.sha(source)
+        blind.write(cp, cohort)
+    if component == "missing_sidecar_pin":
+        cohort["input_sha256"].pop(str(mask.relative_to(release.root)))
+        blind.write(cp, cohort)
+    with pytest.raises(ValueError):
+        blind.validate(rp, cp, repo, release.root)
+
+
+
+def test_relocated_score_json_is_stable_across_python_hash_seeds(blind, tmp_path):
+    script = Path(blind.__file__)
+    code = """
+import importlib.util
+from pathlib import Path
+import sys
+import numpy as np
+spec = importlib.util.spec_from_file_location('synthetic_score_replay', sys.argv[1])
+blind = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(blind)
+y = np.tile(np.array([0, 1]), 10)
+entries = dict(fire=np.repeat(np.arange(10).astype(str), 2), y=y,
+               predictions={n: np.where(y, .8, .1) for n in blind.MODEL_NAMES | blind.BASELINE_NAMES})
+blind.write(Path(sys.argv[2]), blind.B.score_entries(entries, draws=10000, seed=20261030))
+"""
+    paths = []
+    for seed in ("1", "2"):
+        path = tmp_path / ("pure-synthetic-score-seed" + seed + ".json")
+        completed = subprocess.run([sys.executable, "-c", code, str(script), str(path)],
+                                   env=dict(os.environ, PYTHONHASHSEED=seed), capture_output=True, text=True)
+        assert completed.returncode == 0, completed.stderr
+        paths.append(path)
+    assert blind.sha(paths[0]) == blind.sha(paths[1])
+
+
+
+def test_registry_preserves_stale_attempt_receipts_without_using_them(freezer, freeze_inputs):
+    root, run, selection_path, comparator, _ = freeze_inputs
+    current = root / "research/forecast-v2/executions/a03_final_base.json"
+    old = current.with_name("a01_final_base.json")
+    receipt = json.loads(current.read_text())
+    receipt.update(exit_code=1, output_sha256="0" * 64)
+    original = json.dumps(receipt)
+    old.write_text(original)
+    registry = freezer.build_registry(root, run, selection_path, comparator)
+    assert registry["final_executions"]["base"]["path"].endswith("a03_final_base.json")
+    assert old.read_text() == original
