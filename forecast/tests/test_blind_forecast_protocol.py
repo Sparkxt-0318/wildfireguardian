@@ -272,6 +272,7 @@ def numerical_fixture(blind, registered, monkeypatch):
 
     pipeline = SimpleNamespace(Environment=Environment, load_structured=lambda path: object(),
                                sample_forecast=sample_forecast, c651_monte_carlo=monte_carlo,
+                               logistic_features=lambda *args: np.ones((4, 1)),
                                logistic_predict=lambda *args: np.full((1, 4), .1))
     monkeypatch.setattr(blind, "heavy_lock", lambda: (repo / "synthetic-heavy.lock").open("a+"))
     monkeypatch.setattr(blind, "load_pipeline", lambda: pipeline)

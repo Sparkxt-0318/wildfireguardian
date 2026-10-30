@@ -477,12 +477,12 @@ def validate_inventory(input_root, manifest_path, expected_manifest_sha256):
                                         attestation_sha256=release["first_public_release_attestation"]["sha256"]),
                   raw_inventory=raw, admitted_events=[], exclusions=[], cases=[],
                   execution_status="NOT_READY_FOR_2026_EXECUTION",
-                  registration_status="PROPOSED_ADAPTER_REQUIRES_OWNER_ADOPTION_AND_SOURCE_PINNING",
+                  registration_status="WIRED_REQUIRES_PRE_ACCESS_REGISTRATION",
                   source_sha256={"blind_inventory.py": sha256(HERE)},
                   limitations=["First-survey year is an operational predicate, not proven physical ignition year.",
                                "Public-first-release identity/time require independent external verification.",
                                "This proposed adapter/policy and dependency closure require pre-access registration.",
-                               "This independent adapter is not wired into the frozen blind scorer.",
+                               "This adapter is wired into the blind scorer; independent external clearance remains unverified.",
                                "Missing-input exclusions establish absence/invalidity only in the pinned local snapshot."])
     if raw["record_failures"]:
         raise InventoryError("Raw record admission failures; no cohort admitted", report)

@@ -459,30 +459,38 @@ def deterministic_fields(runtime, sample, registry):
     The numeric c651 mean-field values are not substituted for its stored forecast.
     """
     pipeline, environment, c651, models, logistic = runtime
-    predictions, validities = {}, []
+    predictions = {}
+    mask = sample.score_mask & ~sample.initial & np.isfinite(sample.environment).all(0)
     with torch.no_grad():
-        _, supported = pipeline.sample_forecast(c651.predictor, sample, use_burnout=False, use_spotting=False)
-        validities.append(supported.numpy())
-        for name, model in models.items():
-            value, supported = pipeline.sample_forecast(model, sample)
-            predictions[name] = value.numpy()
-            validities.append(supported.numpy())
+        for name, model in {"c651_meanfield": c651.predictor, **models}.items():
+            value, supported = pipeline.sample_forecast(model, sample, use_burnout=name != "c651_meanfield",
+                                                        use_spotting=name != "c651_meanfield")
+            probability, valid = value.numpy(), supported.numpy()
+            if (valid.dtype != np.bool_ or valid.shape != sample.initial.shape
+                    or probability.shape != sample.initial.shape or not np.isfinite(probability[valid]).all()
+                    or ((probability[valid] < 0) | (probability[valid] > 1)).any()):
+                raise ValueError("A model numerical failure cannot become a support exclusion")
+            mask &= valid
+            if name != "c651_meanfield":
+                predictions[name] = probability
     predictions["persistence"] = B.persistence(sample.initial)
     for rate in B.DILATION_HOURS:
         predictions[f"dilation_{rate}h"] = B.dilation(sample.initial, sample.hours, rate)
     predictions["dilation_best"] = predictions[f"dilation_{registry['best_dilation_hours_per_cell']}h"]
-    predictions["logistic"] = pipeline.logistic_predict(logistic, sample, environment.names,
-                                                       environment.terrain_gradient(sample.event_id))
-    mask = sample.score_mask & ~sample.initial & np.isfinite(sample.environment).all(0)
-    for valid in validities:
-        if valid.shape != mask.shape or valid.dtype != np.bool_:
-            raise ValueError("Model validity must be a boolean full-rectangle mask")
-        mask &= valid
+    terrain_gradient = environment.terrain_gradient(sample.event_id)
+    predictions["logistic"] = pipeline.logistic_predict(logistic, sample, environment.names, terrain_gradient)
+    features = pipeline.logistic_features(sample, environment.names, terrain_gradient)
+    if features.ndim != 2 or features.shape[0] != sample.initial.size:
+        raise ValueError("Logistic features must describe every cell of the source rectangle")
+    logistic_support = np.isfinite(features).all(1).reshape(sample.initial.shape)
+    probability = predictions["logistic"]
+    if (probability.shape != sample.initial.shape or not np.isfinite(probability[logistic_support]).all()
+            or ((probability[logistic_support] < 0) | (probability[logistic_support] > 1)).any()):
+        raise ValueError("A logistic numerical failure cannot become an input-support exclusion")
     for value in predictions.values():
         if value.shape != mask.shape:
             raise ValueError("Model predictions must match the source rectangle")
-        mask &= np.isfinite(value)
-    return predictions, mask
+    return predictions, mask & logistic_support
 
 
 def heavy_lock():
