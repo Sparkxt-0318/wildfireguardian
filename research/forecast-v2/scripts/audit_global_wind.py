@@ -6,6 +6,7 @@ no endpoint labels, held-out data or forecast-quality scores are inspected.
 import argparse
 import ast
 import fcntl
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -28,6 +29,11 @@ def source_blob(relative, expected):
     snapshot = REPO / "research/forecast-v2/source_snapshots" / expected / Path(relative).name
     if snapshot.exists() and sha(snapshot) == expected:
         return snapshot.read_text()
+    compressed = snapshot.with_name(snapshot.name + ".gz")
+    if compressed.is_file():
+        original = gzip.decompress(compressed.read_bytes())
+        if hashlib.sha256(original).hexdigest() == expected:
+            return original.decode("utf-8")
     commits = subprocess.check_output(["git", "rev-list", "--all", "--", relative], cwd=REPO, text=True).splitlines()
     for commit in commits:
         process = subprocess.run(["git", "show", f"{commit}:{relative}"], cwd=REPO, capture_output=True)

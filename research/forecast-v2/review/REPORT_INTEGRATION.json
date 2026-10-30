@@ -1,0 +1,8 @@
+{
+  "evidence_class": "MECHANISM_FIXTURES_ONLY_NOT_STUDY",
+  "live_report_sha256": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b",
+  "tests": "12passed324dependencydeprecationwarnings2.90s",
+  "visual_qa": "Synthetic absence/subset panels inspected; wrapped low-bin label to keep it within the canvas and adjusted lower margin.",
+  "numerical_producer_closure_changed": false,
+  "retired_source_snapshots": "85exactsourceidentities preserved with zero unresolved source bytes in SOURCE_SNAPSHOTS_V1.json"
+}

@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import sys
+import textwrap
 from pathlib import Path
 
 import numpy as np
@@ -65,8 +66,95 @@ def load_assessment(directory):
     for name, expected in listed.items():
         if sha256(directory / name) != expected:
             raise ValueError("Receipt-bound per-fire score bytes changed")
-    return B.load_scored_entries(directory), receipt
+    if receipt["status"] == "COMPLETE" and receipt.get("failed_or_unavailable"):
+        raise ValueError("A complete assessment cannot contain failed or unavailable outcomes")
+    if not listed:
+        if receipt["status"] != "HOLD" or not receipt.get("failed_or_unavailable"):
+            raise ValueError("An empty assessment must explicitly retain its HOLD outcomes")
+        return None, receipt
+    entries = B.load_scored_entries(directory)
+    if not len(entries["y"]):
+        raise ValueError("Authenticated scored files must contain actual entries")
+    if receipt["status"] == "COMPLETE" and set(entries["fire"]) != set(receipt["events"]):
+        raise ValueError("A complete assessment must score every declared fire")
+    return entries, receipt
 
+
+
+def load_report_inputs(run, assessment):
+    """Bind report settings to the scorer's exact frozen assessment metadata."""
+    inputs = json.loads((run / "report_inputs.json").read_text())
+    frozen = json.loads((run / "heldout/FROZEN_ASSESSMENT.json").read_text())
+    if (inputs.get("frozen_assessment_sha256") != assessment["frozen_sha256"]
+            or type(inputs.get("n_samples")) is not int or inputs["n_samples"] <= 1
+            or inputs["n_samples"] != frozen["trajectories"] or inputs.get("seed") != frozen["seed"]
+            or inputs.get("data_manifest_sha256") != frozen["extraction_manifest_sha256"]):
+        raise ValueError("Report input metadata differs from the source-authenticated assessment settings")
+    return inputs
+
+
+def assessment_scores(entries, assessment):
+    """Separate absence and descriptive subsets from complete-cohort statistics."""
+    if entries is None:
+        scored = dict(models={}, paired={}, fires=[], entries=0, positives=None,
+                      metric_status="UNAVAILABLE_NO_SCORED_ENTRIES",
+                      metric_unavailability_reason="No authenticated common-support entries were scored")
+    else:
+        scored = detailed_scores(entries)
+        scored["metric_status"] = ("COMPLETE_DECLARED_COHORT" if assessment["status"] == "COMPLETE"
+                                    else "DESCRIPTIVE_SUPPORTED_SUBSET")
+    scored.update(assessment_status=assessment["status"], unscored_outcomes=assessment["failed_or_unavailable"],
+                  declared_fires=assessment["events"], attempted_cases=len(assessment.get("cases", [])),
+                  case_outcome_counts={status: sum(row.get("status") == status for row in assessment.get("cases", []))
+                                       for status in ("SCORED", "UNAVAILABLE", "FAILED")},
+                  statistic_scope=("complete declared cohort" if assessment["status"] == "COMPLETE" else
+                      "descriptive supported subset; primary gate remains closed" if entries is not None else
+                      "no scored subset; metrics unavailable and primary gate remains closed"))
+    return scored
+
+
+def retrospective_gate(scored, primary, assessment, selection_present):
+    references = ("persistence", "dilation_best")
+    names = [name for name in (primary, *references) if name]
+    available = primary is not None and all(name in scored["models"] for name in names)
+    gaps = {name: None for name in names}
+    comparisons, calibration = {ref: None for ref in references}, None
+    if available:
+        bins = {name: scored["models"][name]["pooled"]["lowest_bin"] for name in names}
+        gaps = {name: abs(row["mean_prediction"] - row["observed_frequency"]) if row["count"] else None
+                for name, row in bins.items()}
+        comparisons = {ref: scored["paired"][primary + "__vs__" + ref]["percentile_95_interval"][1] < 0
+                       for ref in references}
+        calibration = gaps[primary] is not None and all(gaps[ref] is not None and gaps[primary] <= gaps[ref]
+                                                        for ref in references)
+    complete = assessment["status"] == "COMPLETE" and bool(scored["entries"])
+    return dict(criteria_pass=bool(complete and selection_present and available and calibration and all(comparisons.values())),
+                brier_comparisons_pass={ref: bool(complete and value) for ref, value in comparisons.items()},
+                lowest_bin_absolute_gaps=gaps, calibration_pass=bool(complete and calibration), complete_cohort_pass=complete,
+                descriptive_subset_criteria=dict(brier_comparisons=comparisons, calibration=calibration),
+                diagnostic_status="AVAILABLE" if available else "UNAVAILABLE_NO_PRIMARY_METRIC_DATA",
+                interpretation="Retrospective mapped-extent comparison only; this is not the blind2026 test or physical validation")
+
+
+def figure_unavailable(plt, out, name, title, reason, label, figsize):
+    """A diagnostic panel contains no invented points, scores or calibration bins."""
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.set_axis_off()
+    width = 88 if figsize[0] == DOUBLE else 43
+    fig.suptitle(title + label, fontsize=7, y=.95)
+    ax.text(.5, .69, "UNAVAILABLE", ha="center", va="center", transform=ax.transAxes, fontsize=9, weight="bold")
+    ax.text(.5, .37, textwrap.fill(reason, width), ha="center", va="center", transform=ax.transAxes, fontsize=7)
+    fig.subplots_adjust(left=.04, right=.96, bottom=.08, top=.81)
+    save(fig, out, name)
+    plt.close(fig)
+
+
+def absence_reason(assessment):
+    outcomes = assessment.get("failed_or_unavailable", [])
+    reasons = list(dict.fromkeys(str(row.get("reason", row.get("status", "Unscored outcome"))) for row in outcomes))
+    return (f"Assessment {assessment['status']}: no scored common-support entries. " + "; ".join(reasons[:2])
+            + (f"; {len(reasons) - 2} further reasons" if len(reasons) > 2 else "")
+            + ". Every outcome and reason is retained in RESULTS.json.")
 
 def ablation(run: Path, draws: int = 10000, seed: int = 20261030) -> dict:
     """Variant minus base on development folds, paired by development fire."""
@@ -173,12 +261,12 @@ def figure_reliability(plt, scored, entries, out, label):
     low.set_ylim(1e-5, 1)
     ax.set_xlabel("Mean forecast probability in bin\n(ten equal-width bins)")
     ax.set_ylabel("Observed new-mapping frequency")
-    low.set_xlabel("Mean forecast probability in bin\n(log bins, >= 50 entries; values floored at 1e-5)")
+    low.set_xlabel("Mean forecast probability in bin\n(log bins; >= 50 entries)\nvalues below 1e-5 plotted at 1e-5")
     ax.set_title(f"Reliability, held-out 2024 intervals{label}")
     low.set_title("Low-probability range")
     fig.legend(*ax.get_legend_handles_labels(), loc="lower center", ncol=4, frameon=False,
                bbox_to_anchor=(0.5, 0.01))
-    fig.subplots_adjust(left=0.09, right=0.985, top=0.89, bottom=0.35, wspace=0.30)
+    fig.subplots_adjust(left=0.09, right=0.985, top=0.89, bottom=0.40, wspace=0.30)
     save(fig, out, "fig01_reliability_all_models")
     plt.close(fig)
 
@@ -255,7 +343,13 @@ def figure_example(plt, run, scored_entries, primary, out, label):
         return None
     count, fire, interval = positive[len(positive) // 2]
     data = np.load(run / "heldout" / f"{fire}.npz")
-    states = np.load(Path(json.loads((run / "report_inputs.json").read_text())["perimeters"]) / fire / "states.npz")
+    perimeter_root = Path(json.loads((run / "report_inputs.json").read_text())["perimeters"])
+    manifest_path, states_path = perimeter_root / "PERIMETER_MANIFEST.json", perimeter_root / fire / "states.npz"
+    frozen = json.loads((run / "heldout/FROZEN_ASSESSMENT.json").read_text())
+    if (sha256(manifest_path) != frozen["perimeter_manifest_sha256"]
+            or json.loads(manifest_path.read_text())["events"][fire]["states_sha256"] != sha256(states_path)):
+        raise ValueError("Example panel reference arrays differ from the frozen source manifest")
+    states = np.load(states_path, allow_pickle=False)
     times = list(pd.to_datetime(states["times"], utc=True))
     t1 = pd.Timestamp(str(data["t1"][interval]))
     i = times.index(t1)
@@ -298,7 +392,8 @@ def main():
     label = f" [{args.label}]" if args.label else ""
     plt = style()
     figures = args.out / "figures"
-    results = dict(current_phase=F.current_phase_identity(), label=args.label or "REAL INPUTS", run=str(args.run))
+    args.out.mkdir(parents=True, exist_ok=True)
+    results = dict(current_phase=F.current_phase_identity(), label=args.label or "REAL INPUTS", run=str(args.run), figure_evidence={})
     abl = ablation(args.run)
     results["ablation"] = abl
     results["primary_candidate_rule"] = "lowest equal-fire development Brier over the 2020 to 2022 leave-one-year-out folds, with the fixed variant tie order"
@@ -328,64 +423,79 @@ def main():
     if abl:
         figure_ablation(plt, abl, figures, label)
         pd.DataFrame(abl).T.to_csv(args.out / "ablation.csv")
+        results["figure_evidence"]["fig03_ablation_forest_plot"] = dict(status="GENERATED_FROM_DEVELOPMENT_DATA", metric_data_available=True)
+    else:
+        figure_unavailable(plt, figures, "fig03_ablation_forest_plot", "Structural ablations, 2020 to 2022 folds",
+                           "No authenticated intended development-fold results are available.", label, (SINGLE, 1.25))
+        results["figure_evidence"]["fig03_ablation_forest_plot"] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False)
     heldout = args.run / "heldout"
-    if heldout.exists() and list(heldout.glob("*.npz")):
+    if (heldout / "ASSESSMENT.json").is_file():
         entries, assessment = load_assessment(heldout)
-        scored = detailed_scores(entries)
-        scored["assessment_status"] = assessment["status"]
-        scored["unscored_outcomes"] = assessment["failed_or_unavailable"]
-        scored["statistic_scope"] = "complete declared cohort" if assessment["status"] == "COMPLETE" else "descriptive supported subset; primary gate remains closed"
-        inputs = json.loads((args.run / "report_inputs.json").read_text())
-        if "c651_mc" in entries["predictions"]:
-            # A finite-trajectory frequency adds its sampling variance to the Brier
-            # score; subtract the unbiased estimate p(1-p)/(n-1) per entry.
+        scored = assessment_scores(entries, assessment)
+        inputs = load_report_inputs(args.run, assessment)
+        if entries is not None and "c651_mc" in entries["predictions"]:
+            # Preserve the fixed finite-trajectory variance correction.
             n = inputs["n_samples"]
             p = entries["predictions"]["c651_mc"]
             pooled = scored["models"]["c651_mc"]["pooled"]
             pooled["brier_mc_variance_corrected"] = float(pooled["brier"] - np.mean(p * (1 - p)) / (n - 1))
             pooled["mc_trajectories"] = n
-        results["heldout_inputs"] = inputs
-        results["heldout"] = scored
-        figure_reliability(plt, scored, entries, figures, label)
-        primary_run = chosen[0] if chosen else None
-        if primary_run:
-            bins = {n: scored["models"][n]["pooled"]["lowest_bin"]
-                    for n in (primary_run, "persistence", "dilation_best")}
-            gaps = {n: abs(row["mean_prediction"] - row["observed_frequency"]) if row["count"] else None
-                    for n, row in bins.items()}
-            comparison = {ref: scored["paired"][primary_run + "__vs__" + ref]["percentile_95_interval"][1] < 0
-                          for ref in ("persistence", "dilation_best")}
-            calibration = gaps[primary_run] is not None and all(gaps[ref] is not None and gaps[primary_run] <= gaps[ref]
-                                                               for ref in ("persistence", "dilation_best"))
-            complete = assessment["status"] == "COMPLETE"
-            passed = complete and selection_path.exists() and calibration and all(comparison.values())
-            results["retrospective_superiority_gate"] = dict(criteria_pass=passed,
-                brier_comparisons_pass={ref: complete and value for ref, value in comparison.items()},
-                lowest_bin_absolute_gaps=gaps, calibration_pass=complete and calibration,
-                complete_cohort_pass=complete,
-                descriptive_subset_criteria=dict(brier_comparisons=comparison, calibration=calibration),
-                interpretation="Retrospective mapped-extent comparison only; this is not the blind2026 test or physical validation")
-        figure_per_fire(plt, scored, figures, label, primary_run)
+        results["heldout_inputs"], results["heldout"] = inputs, scored
+        # Artifact directory suffixes identify producer phases; model columns keep the fixed alias.
+        primary_model = primary + "_seed0" if chosen else None
+        results["retrospective_superiority_gate"] = retrospective_gate(scored, primary_model, assessment, selection_path.exists())
         rows = []
-        for model, record in scored["models"].items():
-            for fire, s in record["per_fire"].items():
-                rows.append(dict(model=model, fire=fire, **{k: s[k] for k in ("entries", "positives", "brier",
-                                 "bss_vs_persistence", "bss_vs_best_dilation", "average_precision", "roc_auc", "ece_10_bins", "clipped_nll")}))
-        pd.DataFrame(rows).to_csv(args.out / "per_fire.csv", index=False)
-        if primary_run and (args.run / "report_inputs.json").exists():
-            results["example_figure"] = figure_example(plt, args.run, entries, primary_run, figures, label)
+        if entries is not None:
+            scope_label = ("\nHOLD: supported subset only" if assessment["status"] == "HOLD" else "") + label
+            figure_reliability(plt, scored, entries, figures, scope_label)
+            figure_per_fire(plt, scored, figures, scope_label, primary_model)
+            status = "GENERATED_FROM_DESCRIPTIVE_SUPPORTED_SUBSET" if assessment["status"] == "HOLD" else "GENERATED_FROM_COMPLETE_DECLARED_COHORT"
+            for name in ("fig01_reliability_all_models", "fig02_per_fire_brier_paired"):
+                results["figure_evidence"][name] = dict(status=status, metric_data_available=True)
+            for model, record in scored["models"].items():
+                for fire, row in record["per_fire"].items():
+                    rows.append(dict(model=model, fire=fire, **{key: row[key] for key in ("entries", "positives", "brier",
+                        "bss_vs_persistence", "bss_vs_best_dilation", "average_precision", "roc_auc", "ece_10_bins", "clipped_nll")}))
+            example = figure_example(plt, args.run, entries, primary_model, figures, scope_label) if primary_model else None
+            results["example_figure"] = example
+            if example is not None:
+                results["figure_evidence"]["fig05_example_forecast_vs_perimeter"] = dict(status=status, metric_data_available=True)
+        else:
+            reason = absence_reason(assessment)
+            for name, title, size in (("fig01_reliability_all_models", "Held-out reliability", (DOUBLE, 3.0)),
+                                      ("fig02_per_fire_brier_paired", "Held-out per-fire Brier comparison", (DOUBLE, 2.6))):
+                figure_unavailable(plt, figures, name, title, reason, label, size)
+                results["figure_evidence"][name] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False, reason=reason)
+            results["example_figure"] = None
+        if "fig05_example_forecast_vs_perimeter" not in results["figure_evidence"]:
+            reason = absence_reason(assessment) if entries is None else "No eligible positive-growth interval with the frozen primary model is available for the example panel. Subset metrics do not provide a complete-cohort result."
+            figure_unavailable(plt, figures, "fig05_example_forecast_vs_perimeter", "Example forecast versus mapped extent", reason, label, (DOUBLE, 2.0))
+            results["figure_evidence"]["fig05_example_forecast_vs_perimeter"] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False, reason=reason)
+        pd.DataFrame(rows, columns=["model", "fire", "entries", "positives", "brier", "bss_vs_persistence", "bss_vs_best_dilation",
+            "average_precision", "roc_auc", "ece_10_bins", "clipped_nll"]).to_csv(args.out / "per_fire.csv", index=False)
+    elif heldout.exists() and list(heldout.glob("*.npz")):
+        raise ValueError("Scored heldout files require an authenticated ASSESSMENT.json before reporting")
     korea = args.run / "korean2025"
-    if korea.exists() and list(korea.glob("*.npz")):
+    if (korea / "ASSESSMENT.json").is_file():
         entries, assessment = load_assessment(korea)
-        results["korean2025_secondary_reconstruction"] = detailed_scores(entries)
-        results["korean2025_secondary_reconstruction"]["assessment_status"] = assessment["status"]
-        results["korean2025_secondary_reconstruction"]["unscored_outcomes"] = assessment["failed_or_unavailable"]
+        results["korean2025_secondary_reconstruction"] = assessment_scores(entries, assessment)
+    elif korea.exists() and list(korea.glob("*.npz")):
+        raise ValueError("Scored Korean files require an authenticated ASSESSMENT.json before reporting")
     mf = args.run / "meanfield_vs_mc" / "meanfield_vs_mc.csv"
     if mf.exists():
         frame = pd.read_csv(mf)
         results["meanfield_vs_mc"] = json.loads((args.run / "meanfield_vs_mc" / "meanfield_vs_mc.json").read_text())
         figure_meanfield(plt, frame, figures, label)
         frame.to_csv(args.out / "meanfield_vs_mc.csv", index=False)
+        results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"] = dict(status="GENERATED_FROM_COMPARISON_DATA", metric_data_available=True)
+    else:
+        figure_unavailable(plt, figures, "fig04_meanfield_vs_mc_rmse_by_horizon", "Mean field versus Monte Carlo",
+                           "No mean-field/Monte Carlo comparison artifact is available. No RMSE is inferred.", label, (SINGLE, 2.4))
+        results["figure_evidence"]["fig04_meanfield_vs_mc_rmse_by_horizon"] = dict(status="GENERATED_WITH_UNAVAILABLE_EVIDENCE", metric_data_available=False)
+    for name, evidence in results["figure_evidence"].items():
+        evidence["files_sha256"] = {extension: sha256(figures / (name + "." + extension)) for extension in ("png", "svg")}
+    results["report_status"] = "HOLD" if any(value.get("assessment_status") == "HOLD" for value in
+        (results.get("heldout", {}), results.get("korean2025_secondary_reconstruction", {}))) else "GENERATED_PENDING_VISUAL_QA"
     (args.out / "RESULTS.json").write_text(json.dumps(results, indent=1, default=str) + "\n")
     print(json.dumps(dict(primary=primary, finals=list(finals), heldout="heldout" in results)))
 
