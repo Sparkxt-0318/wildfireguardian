@@ -318,7 +318,7 @@
   "authenticated_development_fits": 21,
   "authenticated_final_fits": 7,
   "promotion_authority": false,
-  "comparison_execution_complete": false,
+  "comparison_execution_complete": true,
   "receipts": [
     {
       "job": "a02_fold_2020_base",
@@ -536,9 +536,69 @@
       "sha256": "e4b749f288d5a8634905344ea16190527ebe425caeda502856597601d30b10ea"
     },
     {
+      "job": "a06_compare",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/meanfield_vs_mc.json",
+      "sha256": "adea1a7f243f89e338302a71a4e1447711d89f1f760b91f16cccbc590294fca3"
+    },
+    {
       "job": "a06_compare_case00",
       "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
       "sha256": "e90350c3b8baae0033628f2ebbfaf928d6f7b196ae31962cbec58d5e82fde9c7"
+    },
+    {
+      "job": "a06_compare_case01",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json",
+      "sha256": "e729f9bd74a45dc2b66d8613f17029daf5e4d8bb9b10e17527ce8dfdca56e57c"
+    },
+    {
+      "job": "a06_compare_case02",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json",
+      "sha256": "90a17899e2e06f36c3f8fc89aba3b28ea4306b6c94ee341bdfd3dcb5d42e7f90"
+    },
+    {
+      "job": "a06_compare_case03",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json",
+      "sha256": "b985695d78318549ac113cddffd4a44203452aa1f7099a0489640e4653d600b3"
+    },
+    {
+      "job": "a06_compare_case04",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json",
+      "sha256": "df96112f7ca5f23246d00ad7fc783aec019ce85b22924e8f13e78b6fc50ec0b6"
+    },
+    {
+      "job": "a06_compare_case05",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json",
+      "sha256": "3af8590c1be1b1b07b2c0c40647c3b4d1a3d7e87d9c396fbde20147a147b1757"
+    },
+    {
+      "job": "a06_compare_case06",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json",
+      "sha256": "9d866c6d52d486858976e404c7b7c3f487e92bee61ba5461a707cc6ab5bc8ff9"
+    },
+    {
+      "job": "a06_compare_case07",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json",
+      "sha256": "6c30b2d53449e09adbcdbf060bf3eb7cf98a67a7edae23323098e1ca29b9c58b"
+    },
+    {
+      "job": "a06_compare_case08",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json",
+      "sha256": "742120b8ef2bb6d16059700ce87069a5c6c66ca3471e655bb6ea76e83952756b"
+    },
+    {
+      "job": "a06_compare_case09",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json",
+      "sha256": "3bd9f5d5a3f3d730f5569c1cce7513afc7c87ec177fd881b194d70457d6dda70"
+    },
+    {
+      "job": "a06_compare_case10",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json",
+      "sha256": "665476bf112d5397ece0b663826d05cc8fc6d811437ad7e391a1a652c6c1ef80"
+    },
+    {
+      "job": "a06_compare_case11",
+      "output": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json",
+      "sha256": "dbd3fd4f9e993877d2ece0b8fb8289021f526bd33d5c68d2a8dadc2dd094bf9b"
     }
   ],
   "requirements": [
@@ -550,7 +610,7 @@
     },
     {
       "id": "1B-1-12cutoffs",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "expected": "12cutoffs,6Korean+6US; all1/3/6/12/24h,1024trajectories; actualsurvey-endpoint checks where available",
       "evidence": "meanfield_vs_mc/meanfield_vs_mc.json"
     },
@@ -617,12 +677,10 @@
     },
     {
       "id": "1B-2-complete-fit-membership",
-      "status": "HOLD_SOURCE_RECIPE_ADMISSION",
+      "status": "COMPLETE",
       "evidence": "research/forecast-v2/FIT_COVERAGE.json",
       "executable": "scripts/audit_fit_coverage.py",
-      "limit": "Historical pure schedules are source-derived inference; new mixed IDs are actual runtime records",
-      "failed_audit_receipt": "research/forecast-v2/executions/final_fit_coverage_audit.json",
-      "failed_audit_receipt_sha256": "ce7727c10e68cce536dbb0f1a56b68add941a46fab8c244f12ddf23e527d5633"
+      "limit": "Historical pure schedules are source-derived inference; new mixed IDs are actual runtime records"
     },
     {
       "id": "1B-global-spotting-wind-inputs",
@@ -884,7 +942,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-01",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "KR",
         "event": "KFS_02",
@@ -901,7 +959,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-02",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "KR",
         "event": "KFS_02",
@@ -918,7 +976,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-03",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "KR",
         "event": "KFS_03",
@@ -935,7 +993,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-04",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "KR",
         "event": "KFS_03",
@@ -952,7 +1010,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-05",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "KR",
         "event": "KFS_05",
@@ -969,7 +1027,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-06",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "CA-PNF-001308_PNFNorthComplex",
@@ -986,7 +1044,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-07",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "CA-SNF-001391_Creek",
@@ -1003,7 +1061,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-08",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "OR-UPF-000450_DevilsKnob",
@@ -1020,7 +1078,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-09",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "MT-LNF-000893_WestLolo",
@@ -1037,7 +1095,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-10",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "ID-SCF-022105_Moose",
@@ -1054,7 +1112,7 @@
     },
     {
       "id": "1B-meanfield-cutoff-11",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "case": {
         "country": "US",
         "event": "OR-WIF-220180_CedarCreek",
@@ -1113,21 +1171,585 @@
       "scored_cells": 0,
       "label_cells": 0,
       "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 2104,
+      "label_cells": 954,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1907,
+      "label_cells": 914,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1393,
+      "label_cells": 713,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 81,
+      "label_cells": 40,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-01-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_01_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1651,
+      "label_cells": 501,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1497,
+      "label_cells": 501,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 1160,
+      "label_cells": 480,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 108,
+      "label_cells": 59,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-02-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_02_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 437,
+      "label_cells": 238,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 272,
+      "label_cells": 119,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 90,
+      "label_cells": 28,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03-fixed-12.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-03-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_03_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 323,
+      "label_cells": 124,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 237,
+      "label_cells": 84,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 103,
+      "label_cells": 36,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04-fixed-12.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-04-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_04_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 75,
+      "label_cells": 37,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 8,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05-fixed-6.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05-fixed-12.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-05-fixed-24.0h",
+      "status": "UNAVAILABLE_SHARED_SUPPORT",
+      "execution_status": "COMPLETE",
+      "reference_status": "UNAVAILABLE_REFERENCE_SUPPORT",
+      "scored_cells": 0,
+      "label_cells": 0,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_05_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 15975,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 15975,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 15975,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 15975,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 15975,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-06-survey-30.083333333333332h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 15975,
+      "label_cells": 15975,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_06_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 20533,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 20533,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 20533,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 20533,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 20533,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-07-survey-24.75h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 20533,
+      "label_cells": 20533,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_07_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 7450,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 7450,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 7450,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 7450,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 7450,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-08-survey-24.233333333333334h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 7450,
+      "label_cells": 7450,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_08_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 3886,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 3886,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 3886,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 3886,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 3886,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-09-survey-23.833333333333332h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 3886,
+      "label_cells": 3886,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_09_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 6851,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 6851,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 6851,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 6851,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 6851,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-10-survey-24.666666666666668h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 6851,
+      "label_cells": 6851,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_10_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-fixed-1.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 8171,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-fixed-3.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 8171,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-fixed-6.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 8171,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-fixed-12.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 8171,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-fixed-24.0h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": null,
+      "scored_cells": 8171,
+      "label_cells": null,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
+    },
+    {
+      "id": "1B-meanfield-cutoff-11-survey-46.266666666666666h",
+      "status": "COMPARABLE",
+      "execution_status": "COMPLETE",
+      "reference_status": "SCORED",
+      "scored_cells": 8171,
+      "label_cells": 8171,
+      "evidence": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_11_a06/meanfield_vs_mc.json"
     }
   ],
   "observed_gate_history": [
     {
+      "evidence": "research/forecast-v2/executions/final_software_gate.json",
       "name": "final_software_gate",
-      "status": "PASS",
-      "evidence": "research/forecast-v2/executions/final_software_gate.json"
+      "status": "PASS"
     },
     {
-      "name": "complete_fit_coverage",
-      "status": "HOLD_SOURCE_RECIPE_ADMISSION",
-      "exit_code": 1,
       "evidence": "research/forecast-v2/executions/final_fit_coverage_audit.json",
-      "interpretation": "Metadata recipe guard failure; no cache-value or fit corruption inferred"
+      "exit_code": 1,
+      "interpretation": "Metadata recipe guard failure; no cache-value or fit corruption inferred",
+      "name": "complete_fit_coverage",
+      "status": "HOLD_SOURCE_RECIPE_ADMISSION"
     }
   ],
-  "annotation_provenance": "Observed immutable command receipts; this descriptive ledger has no promotion authority"
+  "observed_gate_resolution": [
+    {
+      "name": "full_updated_software",
+      "receipt": "research/forecast-v2/executions/final_software_gate_v2.json",
+      "sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_live_fit_coverage",
+      "output_sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971",
+      "receipt": "research/forecast-v2/executions/final_fit_coverage_audit_v2.json",
+      "sha256": "98981a151429d27ed0acde368a6bbf8725f78ae7855d0da3e332fbd397775358",
+      "status": "PASS"
+    }
+  ],
+  "independent_actual_coverage_review": "PENDING_PARENT_REVIEW"
 }

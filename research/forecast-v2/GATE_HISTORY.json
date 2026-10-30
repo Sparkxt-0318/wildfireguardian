@@ -1,0 +1,34 @@
+{
+  "current_source_gates": [
+    {
+      "name": "full_updated_software",
+      "receipt": "research/forecast-v2/executions/final_software_gate_v2.json",
+      "sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_live_fit_coverage",
+      "output_sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971",
+      "receipt": "research/forecast-v2/executions/final_fit_coverage_audit_v2.json",
+      "sha256": "98981a151429d27ed0acde368a6bbf8725f78ae7855d0da3e332fbd397775358",
+      "status": "PASS"
+    }
+  ],
+  "independent_actual_coverage_review": "PENDING_PARENT_REVIEW",
+  "prior_observations": [
+    {
+      "evidence": "research/forecast-v2/executions/final_software_gate.json",
+      "name": "final_software_gate",
+      "status": "PASS"
+    },
+    {
+      "evidence": "research/forecast-v2/executions/final_fit_coverage_audit.json",
+      "exit_code": 1,
+      "interpretation": "Metadata recipe guard failure; no cache-value or fit corruption inferred",
+      "name": "complete_fit_coverage",
+      "status": "HOLD_SOURCE_RECIPE_ADMISSION"
+    }
+  ],
+  "schema": "wfg.forecast-v2.gate-history/1",
+  "selection_registry_heldout": "NOT_EXECUTED"
+}

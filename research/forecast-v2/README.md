@@ -7,11 +7,10 @@ Three earlier spotting
 folds and one full fit remain historical
 smouldering-inclusive variants; they do not satisfy intended completeness or
 selection. No heldout forecast-quality result or superiority claim is available.
-The complete source-derived membership audit is on HOLD: its exact recipe
-guard refused historical producer functions that predate added input-custody
-checks. The failed receipt/log are preserved; compatibility is being checked
-against each consumed immutable path. This does not yet establish complete
-fit admission, even though all seven fitting commands completed.
+The canonical live F65 audit passed complete membership for all 21 development
+phases and seven final fits. The original recipe-admission HOLD and its logs
+remain preserved. Independent verification of the new actual coverage receipt
+and exact model/source registry freeze remain pending before heldout inference.
 The mixed final fit attempted all 4,391 inputs in each of three epochs, with
 4,376 optimizer updates and 15 logged source-unsupported windows per epoch.
 Complete attempted input coverage is distinct from optimizer coverage.
@@ -83,10 +82,10 @@ fresh pinned interpreter. A cohort scorer's HOLD exit is preserved and does not
 cancel the other mandatory cohort. The original a04 comparison case and source
 remain historical; all twelve a06 cutoffs form one current source phase.
 
-The latest integrated forecast regression passed 3,373 tests, and the release
+The latest integrated forecast regression passed 3,507 tests, and the release
 verifier passed all 367 frozen file identities. Its source capture remained
-unchanged throughout the gate. Earlier 3,259-test and targeted reviews retain
-separate receipts; their counts are not pooled. These software checks are
+unchanged throughout the gate. Earlier 3,373-test, 3,259-test and targeted reviews retain separate receipts;
+their counts are not pooled. These software checks are
 distinct from scientific and external-release gates.
 
 A separately reviewed source-recipe compatibility candidate passed a
@@ -96,12 +95,54 @@ The exact candidate and all 61 active comparison sources remained unchanged.
 The exposed record is `PROVISIONAL_NOT_FOR_REGISTRY`; its compressed raw result
 is diagnostic evidence, with the actual executed candidate identity recorded
 separately from the checked live auditor. Old-main refusal was tested only on
-the exposed wrapper, not the raw diagnostic. The original live audit HOLD
-remains authoritative until the twelve-cutoff source phase closes, the reviewed
-candidate becomes the live auditor, and a new full software gate and live
-coverage audit pass. No model selection, blind registry or heldout inference
-has run. `review/provisional_coverage_F65/` preserves the exact receipt and
+the exposed wrapper, not the raw diagnostic. The original live audit HOLD remains preserved. After all twelve cutoff
+outputs closed and independent reconciliation passed, the exact reviewed
+candidate became the live auditor. A new 3,507-test software gate and actual
+canonical coverage audit then passed. The latter is an independent live command
+and does not copy the provisional diagnostic. No model selection, blind
+registry or heldout inference has run. `review/provisional_coverage_F65/` preserves the exact receipt and
 qualification.
+
+## Complete mean-field versus Monte Carlo comparison
+
+All twelve prespecified cutoffs and 66 rows are complete: six Korean cutoffs
+from three catalog events and six US fit-event cutoffs, with five fixed horizons
+per cutoff and six additional actual US survey endpoints. The independent
+saved-output reconciliation passed all receipt, source, row-identity and CSV/JSON
+checks. It did not replay raw probability fields or masks. There are 56 rows
+with common known support and ten explicitly unavailable rows. Every row,
+including missing metrics and its reason, remains in the CSV and JSON.
+
+| Fixed horizon, hours | KR known cutoffs | KR active cutoffs | US known cutoffs | US active cutoffs |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 6/6 | 6/6 | 6/6 | 6/6 |
+| 3 | 6/6 | 6/6 | 6/6 | 6/6 |
+| 6 | 5/6 | 5/6 | 6/6 | 6/6 |
+| 12 | 3/6 | 0/6 | 6/6 | 6/6 |
+| 24 | 0/6 | 0/6 | 6/6 | 6/6 |
+
+Active means either probability exceeds 0.001 on common known, initially
+unburned support. It does not denote observed flaming. Figure04 preserves all
+five horizons, missing points, cutoff and unique-event availability counts.
+Its median and min/max band describe cutoffs; they are not confidence intervals.
+Repeated horizons and cutoffs are dependent. The mean-field mean probability
+is higher in 38 comparable rows and lower in 18; finite 1,024-trajectory Monte
+Carlo noise contributes to these differences. There is no uniform upward-bias
+or physical-accuracy claim.
+
+US Brier is available only at the six actual next-survey endpoints. Korean
+fixed-horizon Brier uses reconstruction. Across reference-eligible rows, 24 have
+scores and twelve retain unavailable reference support; the 30 fixed US rows
+have no survey reference. No observed fixed-horizon accuracy curve is inferred.
+
+Each cutoff's five fixed rows share one joint 24h API Monte Carlo call and one
+mean-field call. Count that cost once per cutoff. Each US survey endpoint has
+its own fractional-duration calls. The public API retains kernel caching off,
+while the fractional helper uses caching on. These paths and timings remain
+separate; host-specific call times exclude preparation, model loading and lease
+wait. No universal or operational latency comparison follows. The report loader
+accepts only this exact historical a06 command/source phase; it does not admit
+arbitrary new runs or rewritten relocated command records.
 
 ## Mathematical and validation boundaries
 
