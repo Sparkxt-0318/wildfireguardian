@@ -558,6 +558,7 @@ def compare_cases(args, env: Environment) -> list[dict]:
             initial = np.isfinite(arrival) & (arrival <= t)
             later = {h: np.isfinite(arrival) & (arrival <= t + h) for h in COMPARE_HOURS}
             cases.append(dict(country="KR", event=event, cutoff=hour, initial=initial, labels=later,
+                              label_valid=np.isfinite(arrival),
                               label_kind="kriged reconstruction (not observed)"))
     rng = np.random.default_rng(20261029)
     for year, fires in SPLIT["development_folds"]["folds"].items():
@@ -585,8 +586,15 @@ def command_compare(args):
     out = args.run / "meanfield_vs_mc"
     out.mkdir(parents=True, exist_ok=True)
     rows = []
-    for case in compare_cases(args, env):
-        raw = env.at(case["event"], case["cutoff"])
+    cases = compare_cases(args, env)
+    frozen = json.loads((HERE.parents[1] / "RUN_PROTOCOL.json").read_text())["mean_field_compare"]["cases"]
+    if len(cases) != len(frozen):
+        raise ValueError("Mean-field comparison must retain all twelve frozen cutoffs")
+    for case, identity in zip(cases, frozen):
+        if (case["event"] != identity["event"] or case["cutoff"].isoformat() != identity["cutoff"]
+                or hashlib.sha256(case["initial"].tobytes()).hexdigest() != identity["initial_sha256"]):
+            raise ValueError("Frozen comparison cutoff or initial state changed")
+        raw = env.at(case["event"], case["cutoff"].floor("h"))
         e = torch.from_numpy(raw)[None]
         fv = torch.isfinite(e)
         e = torch.where(fv, e, torch.zeros_like(e))
@@ -598,11 +606,10 @@ def command_compare(args):
         # One recursive call produces every whole-hour endpoint, avoiding
         # repeated simulation of identical trajectory prefixes.
         started = time.perf_counter()
-        mc_joint = simulate(model.predictor, burned, e, channel_names=env.names,
+        mc_joint = model.predict_cumulative(burned, e, channel_names=env.names,
                             burned_area_valid=ones, feature_valid=fv, hours=COMPARE_HOURS,
                             n_samples=args.n_samples, seed=args.seed, trajectory_batch_size=32,
-                            boundary="zero", missing_burned_area="unburned",
-                            cache_environment_kernels=True)
+                            boundary="zero", missing_burned_area="unburned")
         mc_joint_seconds = time.perf_counter() - started
         started = time.perf_counter()
         with torch.no_grad():
@@ -612,7 +619,7 @@ def command_compare(args):
         mf_joint_seconds = time.perf_counter() - started
         for kind, hours, durations in horizons:
             if kind == "fixed":
-                mc = mc_joint[COMPARE_HOURS.index(int(hours))]["details"]
+                mc = mc_joint.at(hours=int(hours))
                 mf = mf_joint
                 mf_index = int(hours) - 1
                 mc_seconds, mf_seconds = mc_joint_seconds, mf_joint_seconds
@@ -648,9 +655,10 @@ def command_compare(args):
                        mc_seconds=mc_seconds, mf_seconds=mf_seconds, n_samples=args.n_samples, seed=args.seed,
                        timing_scope="one joint 24h call, shared across five horizon rows" if kind == "fixed" else "one fractional survey-endpoint call")
             if label is not None:
-                y = label[mask].astype(np.float64)
-                row.update(label_kind=case["label_kind"], positives=int(y.sum()),
-                           brier_mc=float(np.mean((a - y) ** 2)), brier_mf=float(np.mean((b - y) ** 2)),
+                label_mask = mask & case.get("label_valid", np.ones(mask.shape, bool))
+                y = label[label_mask].astype(np.float64)
+                row.update(label_kind=case["label_kind"], label_cells=int(label_mask.sum()), positives=int(y.sum()),
+                           brier_mc=float(np.mean((p_mc[label_mask] - y) ** 2)), brier_mf=float(np.mean((p_mf[label_mask] - y) ** 2)),
                            brier_persistence=float(np.mean(y ** 2)))
             rows.append(row)
             print(json.dumps(row), flush=True)

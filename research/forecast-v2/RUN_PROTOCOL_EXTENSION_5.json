@@ -1,0 +1,7 @@
+{
+  "recorded_utc": "2026-10-30T03:41:25.505053+00:00",
+  "before_heldout_score_inspection": true,
+  "comparison": "Frozen12cutoff identities and initial hashes are checked before execution. Five whole-hour horizons use public WildfireModel.predict_cumulative; fractional next-survey endpoints use the unchanged rollout.simulate because recursive public API requires integer hours. All weather is from floor-hour cutoff. Korean Brier uses finite reconstructed arrival support only; field RMSE remains on shared model support.",
+  "execution": "Source snapshots and hashes are captured only after acquiring the shared numerical lease. Existing completed receipts and active CPU fit remain preserved. Per-case receipt-bound full-rectangle US2024 and separate Korean2025 assessment will replace the less restartable monolithic scorer before any heldout execution.",
+  "selection": "Unchanged exact seven variants and lowest equal-fire development Brier rule."
+}

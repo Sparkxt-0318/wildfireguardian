@@ -51,10 +51,6 @@ def job(name, command, expected):
     log = receipts / f"{name}.log"
     if log.exists() or expected.exists():
         raise FileExistsError(f"Unreceipted output already exists for {name}")
-    source = {str(p.relative_to(REPO)): sha(p) for p in sorted((REPO / "forecast/wildfire").glob("*.py"))}
-    source[str(HERE.relative_to(REPO))] = sha(HERE)
-    source["research/forecast-v2/scripts/pipeline.py"] = sha(HERE.with_name("pipeline.py"))
-    source["research/forecast-v2/RUN_PROTOCOL.json"] = sha(EVIDENCE / "RUN_PROTOCOL.json")
     print(f"waiting for shared numerical lease: {name}", flush=True)
     started_utc = datetime.now(timezone.utc).isoformat()
     lease = TASK / "work/forecast-heavy-lease.json"
@@ -62,6 +58,15 @@ def job(name, command, expected):
         fcntl.flock(lock, fcntl.LOCK_EX)
         if (TASK / "work/forecast-pause-before-next-job").exists():
             raise RuntimeError("Coordinator requested resource handoff before the next job")
+        source_paths = sorted((REPO / "forecast/wildfire").glob("*.py")) + [HERE, HERE.with_name("pipeline.py"), EVIDENCE / "RUN_PROTOCOL.json"]
+        source = {str(p.relative_to(REPO)): sha(p) for p in source_paths}
+        # A queued job authenticates the exact bytes it will execute after the
+        # lease arrives. Preserve content-addressed snapshots for independent replay.
+        for path in source_paths:
+            snapshot = EVIDENCE / "source_snapshots" / source[str(path.relative_to(REPO))] / path.name
+            if not snapshot.exists():
+                snapshot.parent.mkdir(parents=True, exist_ok=True)
+                snapshot.write_bytes(path.read_bytes())
         record = dict(job=name, pid=os.getpid(), acquired_utc=datetime.now(timezone.utc).isoformat(),
                       status="running", command=command, source_sha256=source)
         write(lease, record)
