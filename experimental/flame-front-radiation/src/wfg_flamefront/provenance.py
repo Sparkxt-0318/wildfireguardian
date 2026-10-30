@@ -4,6 +4,7 @@ from copy import deepcopy
 LAW_VERSION="wfg.radiation.law/2-flamefront"
 _DATA={
     "law_version":LAW_VERSION,
+    "numerical_evaluator":{"version":"directed-decimal-polygon/1","method":"outward Decimal edge-angle intervals, half-angle atan series with next-term remainder, Machin pi identity","target_relative_interval_width":"2^-55 before directed binary64 conversion","point_value":"directed lower approximation, except the declared unit orientation-envelope branch","source":"Python Decimal correctly rounded arithmetic and sqrt; next_minus/next_plus enclose rounded sqrt","url":"https://docs.python.org/3.12/library/decimal.html","source_geometry":"exact parallelogram on represented base endpoints and tip shift","previous_error":"binary64 edge-angle cancellation, retained in numerical_history"},
     "constants":{
         "heat_of_combustion_kj_kg":{"value":18608.,"source":"Selected export nominal heat content, FBFM40 convention; not Korean calorimetry"},
         "consumed_fuel_kg_m2":{"value":1.,"source":"Selected export scenario: 10 kg/m2 times consumed fraction 0.1"},

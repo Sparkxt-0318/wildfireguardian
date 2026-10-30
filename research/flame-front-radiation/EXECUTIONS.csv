@@ -1,5 +1,5 @@
 phase,outcome,exit_code,cases,seed
-unit_tests,PASS,0,33,20261030
+unit_tests,PASS,0,42,20261030
 box_interval_regressions,PASS,0,1000,20261030
 physics_empirical,UNRESOLVED,,0,20261030
 routing_v2,NOT_RUN_GATED,,0,20261030

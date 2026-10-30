@@ -1,0 +1,138 @@
+{
+  "status": "PASS_MODEL_BOUND_CONTROLS",
+  "scope": "numerical evaluator and declared finite-panel bounds only",
+  "physics_gate": "UNRESOLVED_DO_NOT_RUN_ROUTING",
+  "routing_executions": 0,
+  "seed": 20261030,
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "command": "python research/flame-front-radiation/run_bounds_evidence.py",
+  "legacy_source_sha256": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
+  "counterexample": {
+    "ignition_time_s": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "grid": [
+      20.0,
+      0.0,
+      0.0,
+      0.0,
+      20.0,
+      0.0
+    ],
+    "wind_xy": [
+      2.0,
+      1.0
+    ],
+    "point": [
+      350354922136235.44,
+      -25174391049238.09
+    ],
+    "time_s": 0.1,
+    "old_point_kw_m2": 2.208718528796243e-16,
+    "new_point_kw_m2": 5.844308577232327e-26,
+    "new_enclosure_kw_m2": [
+      0.0,
+      5.865954053640389e-25
+    ],
+    "old_value_exceeds_new_model_upper": true,
+    "new_value_enclosed": true,
+    "area_upper_exact": "611156789406275995/1125899906842624",
+    "distance2_lower_exact": "625622695271975573292630300117731579280808497032279943550169/5070602400912917605986812821504",
+    "cone_proved": true
+  },
+  "distance_boxes": [
+    {
+      "box_x_min_m": 100.0,
+      "box_x_max_m": 110.0,
+      "box_y_min_m": -30,
+      "box_y_max_m": -20,
+      "interval_start_s": 0.1,
+      "interval_end_s": 0.8,
+      "point_flux_kw_m2": 0.6837165539707812,
+      "upper_kw_m2": 13.414407216163466,
+      "previous_coarse_upper_kw_m2": 400.00000000000006
+    },
+    {
+      "box_x_min_m": 1000.0,
+      "box_x_max_m": 1010.0,
+      "box_y_min_m": -30,
+      "box_y_max_m": -20,
+      "interval_start_s": 0.1,
+      "interval_end_s": 0.8,
+      "point_flux_kw_m2": 0.007429498782667254,
+      "upper_kw_m2": 0.0773175885818197,
+      "previous_coarse_upper_kw_m2": 400.00000000000006
+    },
+    {
+      "box_x_min_m": 10000.0,
+      "box_x_max_m": 10010.0,
+      "box_y_min_m": -30,
+      "box_y_max_m": -20,
+      "interval_start_s": 0.1,
+      "interval_end_s": 0.8,
+      "point_flux_kw_m2": 7.251245093961163e-05,
+      "upper_kw_m2": 0.0007285420290624498,
+      "previous_coarse_upper_kw_m2": 400.00000000000006
+    }
+  ],
+  "prior_table_changes": [
+    {
+      "table": "MODEL_TABLE.csv",
+      "rows": 18,
+      "changed_values": 10,
+      "max_absolute_change_kw_m2": 1.4210854715202004e-14,
+      "max_relative_change": 2.455069261897995e-16
+    },
+    {
+      "table": "TORNADO.csv",
+      "rows": 9,
+      "changed_values": 4,
+      "max_absolute_change_kw_m2": 1.7763568394002505e-15,
+      "max_relative_change": 4.078670590625397e-16
+    },
+    {
+      "table": "INCOMPARABLE_DIAGNOSTICS.csv",
+      "rows": 9,
+      "changed_values": 4,
+      "max_absolute_change_kw_m2": 3.552713678800501e-15,
+      "max_relative_change": 3.4674740655258637e-16
+    }
+  ],
+  "prior_figure_byte_changes": {
+    "fig01_flux_vs_distance": {
+      "png_sha256": false,
+      "svg_sha256": false
+    },
+    "fig02_parameter_sweep": {
+      "png_sha256": false,
+      "svg_sha256": false
+    }
+  },
+  "prior_results_directory": "numerical_history/f9fa03290",
+  "source_sha256": {
+    "experimental/flame-front-radiation/src/wfg_flamefront/__init__.py": "1df47d93a1c4fc13da905e9a95f283ff12c6416eaf4b4fe6799eded8f543a16c",
+    "experimental/flame-front-radiation/src/wfg_flamefront/geometric_bounds.py": "cc136f68377a21237253f2af99a10d018bbceb1662f214252389fd9d8214f6cd",
+    "experimental/flame-front-radiation/src/wfg_flamefront/intensity.py": "7e65dd4c64934eeb75c2b7c97882e09ddab7f2641447988bb81dcc3c73bd8ff0",
+    "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
+    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "46e3d0f1c0f53cd90b8db4907b53c018078da795f75e2a06ceadcb4a7fc8a4dd",
+    "experimental/flame-front-radiation/src/wfg_flamefront/provenance.py": "cfe565ef2f5450e4f0a7d36ed48db5372643c7fdcdea016f103055c7f8c7f71d",
+    "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "f5d91ca813c79f99eb08db3b1515ec82a04f88cb74ee7c4dacc90fe11ffec529",
+    "experimental/flame-front-radiation/src/wfg_flamefront/verified_view.py": "2ec65356bee50e552d0958f42521e6a09f73d3acd4d17b4d7423f2b5530e5d02"
+  },
+  "limits": [
+    "whole-quad hulls do not necessarily converge to point geometry under spatial/time refinement",
+    "coarse fallback retained outside the proved angular cone",
+    "zero lower bound retained",
+    "no physical fit, mission experiment or field validation",
+    "point values are directed lower approximations before explicit orientation-envelope fallback"
+  ]
+}

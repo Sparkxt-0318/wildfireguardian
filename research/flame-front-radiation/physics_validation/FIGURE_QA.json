@@ -1,6 +1,6 @@
 {
   "command": "python research/flame-front-radiation/physics_validation/run_physics.py",
-  "producer_sha256": "3bf55c24d63b77c6a2356ce3b0cbbac418375c031e1b295bc501b4603b86e531",
+  "producer_sha256": "291b44e371848d1453ae92d40feee115bad4587a33cc9a2ab0755700efb3fdcb",
   "status": "PASS_FIXED_DOUBLE_COLUMN_CANVAS",
   "figures": {
     "fig01_flux_vs_distance": {
@@ -33,8 +33,8 @@
     }
   },
   "scientific_table_sha256": {
-    "MODEL_TABLE.csv": "e5909a8ce34a8f6ebd5de5564616e2bedfe75cb8f95c0cf4dbe12601aaec8821",
-    "INCOMPARABLE_DIAGNOSTICS.csv": "679032ba616daf613dfb636d79dcb32df332f5c841a0d08bf557e8382ed53de3",
-    "TORNADO.csv": "d1383693f19e0f1f1ba25de4db9ddec84f3e77795e6c77533822de8aaf96f128"
+    "MODEL_TABLE.csv": "29fa248e924cb3debea9ba3116d4a4293497a2a87cef0530c7680262419a8c0a",
+    "INCOMPARABLE_DIAGNOSTICS.csv": "0b73fbd51e8d33f4280b9a80448b1faf133a70bb772c6e4418fc47e7bcaf5178",
+    "TORNADO.csv": "1a9b5b51d75c694bbd54e71ff8439555b541dbf4934e4ab2da885c169f6e1ee7"
   }
 }

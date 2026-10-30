@@ -6,8 +6,8 @@
     {
       "distance_m": 10,
       "published_model_kw_m2": 79,
-      "this_model_kw_m2": 80.60811696581888,
-      "ratio": 1.0203559109597327,
+      "this_model_kw_m2": 80.60811696581887,
+      "ratio": 1.0203559109597324,
       "kind": "MODEL_RELATIVE_APPROXIMATION_NOT_MEASUREMENT"
     },
     {
@@ -20,7 +20,7 @@
     {
       "distance_m": 30,
       "published_model_kw_m2": 27,
-      "this_model_kw_m2": 27.848116306986554,
+      "this_model_kw_m2": 27.84811630698655,
       "ratio": 1.031411715073576,
       "kind": "MODEL_RELATIVE_APPROXIMATION_NOT_MEASUREMENT"
     }

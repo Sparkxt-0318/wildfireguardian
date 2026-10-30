@@ -10,8 +10,8 @@
       "-q"
     ],
     "exit_code": 0,
-    "passed": 33,
-    "wall_s": 1.184008583019022,
+    "passed": 42,
+    "wall_s": 5.150210749998223,
     "random_box_interval_cases": 1000,
     "seed": 20261030
   },
@@ -51,9 +51,14 @@
       "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
     },
     "spatial_time_enclosure": {
-      "state": "PASS_COARSE_MODEL_BOUND_ON_SUPPORTED_DOMAIN",
-      "evidence": "law_v2.py shared interval-wide domain guard, proof and 1000 supported-domain regression cases",
-      "limit": "Unsupported active ignition/expiry interiors and possible receiver/panel intersections are refused; zero lower bound and global panel-count upper are generally too loose for route acceptance"
+      "state": "PASS_GEOMETRIC_UPPER_WITH_COARSE_FALLBACK_ON_SUPPORTED_DOMAIN",
+      "evidence": "geometric_bounds.py rational swept-hull proof; verified_view.py directed point evaluation; BOUND_RESULTS.json; analytic and supported-domain tests",
+      "limit": "Whole-quad area/hull can remain loose under refinement; unit view-factor fallback outside proved angular cone; zero lower bound; unknown phases remain refused"
+    },
+    "point_numerical_enclosure": {
+      "state": "PASS_DIRECTED_POLYGON_FORMULA_CONTROLS",
+      "evidence": "verified_view.py, test_geometric_bounds.py, retained original cancellation counterexample",
+      "limit": "Directed lower approximation before binary64 quantization; explicit unit orientation-envelope branch retained; adaptive precision has no uniform request-time guarantee"
     },
     "physical_comparisons": {
       "state": "UNRESOLVED",
@@ -133,5 +138,10 @@
     "regression_class": "SupportedDomain in tests/test_law.py",
     "random_boxes": "supported-domain boxes outside possible emitting-panel prisms",
     "physics_and_routing_status_changed": false
+  },
+  "geometry_bound_evidence": {
+    "record": "BOUND_RESULTS.json",
+    "status": "PASS_MODEL_BOUND_CONTROLS",
+    "scope": "numerical evaluator and declared finite-panel bounds only"
   }
 }

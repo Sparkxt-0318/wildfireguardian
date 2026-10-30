@@ -10,67 +10,23 @@ their forward hemisphere before integration. Overlap sums add radiance.
 from __future__ import annotations
 
 import math
+from fractions import Fraction
 import numpy as np
-
-
-def _moment(vertices, point):
-    rays=np.asarray(vertices,dtype=float)-np.asarray(point,dtype=float)
-    radii=np.linalg.norm(rays,axis=1)
-    if np.any(radii==0):
-        raise ValueError("receiver on emitter vertex is unsupported")
-    unit=rays/radii[:,None]
-    result=np.zeros(3)
-    for a,b in zip(unit,np.roll(unit,-1,axis=0)):
-        cross=np.cross(a,b); norm=float(np.linalg.norm(cross))
-        if norm:
-            angle=math.atan2(norm,float(np.dot(a,b)))
-            result+=angle*cross/norm/2
-    if np.dot(result,rays.mean(axis=0))<0:
-        result=-result
-    return result
+from .verified_view import polygon_factor,lower_float
 
 
 def polygon_view_factor(vertices, point, receiver="worst_case"):
     """Differential receiver to a planar convex emitter, dimensionless [0,1].
 
     Worst-case uses the maximizing vector normal if all rays lie in its
-    forward hemisphere. Otherwise it uses a rigorous orientation envelope
-    (solid angle/pi, capped at one), marked by the caller's model scenario.
+    forward hemisphere. Otherwise it uses the unit view-factor orientation
+    envelope, marked by the caller's model scenario.
     Such an envelope is not an orientation-specific physical prediction.
     """
     vertices=np.asarray(vertices,dtype=float);point=np.asarray(point,dtype=float)
     if vertices.shape[1:]!=(3,) or len(vertices)<3 or point.shape!=(3,) or not np.isfinite(vertices).all() or not np.isfinite(point).all():
         raise ValueError("finite polygon [N,3] and point [3] required")
-    plane=np.cross(vertices[1]-vertices[0],vertices[2]-vertices[0]);scale=float(np.linalg.norm(plane))
-    if scale==0:return 0.
-    if abs(float(np.dot(point-vertices[0],plane)))<=1e-13*scale:
-        signs=[float(np.dot(np.cross(b-a,point-a),plane)) for a,b in zip(vertices,np.roll(vertices,-1,axis=0))]
-        if all(s>=-1e-12 for s in signs) or all(s<=1e-12 for s in signs):
-            raise ValueError("receiver intersects an emitting panel; contact is outside the radiation law")
-    moment=_moment(vertices,point)
-    if isinstance(receiver,str) and receiver=="worst_case":
-        norm=float(np.linalg.norm(moment))
-        if not norm:
-            return 0.0
-        normal=moment/norm
-        if np.all((vertices-point)@normal>=-1e-12):
-            return float(np.clip(norm/math.pi,0,1))
-        return 1.0
-    if isinstance(receiver,str) and receiver.startswith("vertical_facing(") and receiver.endswith(")"):
-        angle=float(receiver[len("vertical_facing("):-1]);normal=np.array([math.cos(angle),math.sin(angle),0.])
-    else:
-        normal=np.asarray(receiver,dtype=float)
-        if normal.shape!=(3,) or not np.isfinite(normal).all() or np.linalg.norm(normal)==0:
-            raise ValueError("receiver must be worst_case, vertical_facing(theta), or a nonzero normal")
-        normal=normal/np.linalg.norm(normal)
-    # Sutherland-Hodgman clipping by the receiver's horizon plane.
-    clipped=[]
-    for a,b in zip(vertices,np.roll(vertices,-1,axis=0)):
-        da=float(np.dot(a-point,normal));db=float(np.dot(b-point,normal))
-        if da>=0:clipped.append(a)
-        if (da>=0)!=(db>=0):clipped.append(a+da/(da-db)*(b-a))
-    if len(clipped)<3:return 0.0
-    return float(np.clip(np.dot(_moment(clipped,point),normal)/math.pi,0,1))
+    return polygon_factor(vertices,point,receiver)
 
 
 def rectangle_vertices(start_xy,end_xy,height_m,tip_shift_xy=(0.,0.)):
@@ -86,8 +42,15 @@ def rectangle_flux(point_xy,start_xy,end_xy,height_m,emissive_power_kw_m2=100.,*
     if not math.isfinite(e) or e<0 or not math.isfinite(trans) or not 0<=trans<=1:
         raise ValueError("emissive power nonnegative and transmissivity in [0,1] required")
     if height_m==0 or np.array_equal(start_xy,end_xy):return 0.0
-    vertices=rectangle_vertices(start_xy,end_xy,height_m,tip_shift_xy)
-    return e*trans*polygon_view_factor(vertices,[*point_xy,float(receiver_height_m)],receiver)
+    # Keep the declared parallelogram exactly planar. Adding a tip shift in
+    # binary64 independently at each end can create an unintended warped quad.
+    rectangle_vertices(start_xy,end_xy,height_m,tip_shift_xy) # input validation
+    p=[Fraction(float(v)) for v in start_xy];q=[Fraction(float(v)) for v in end_xy]
+    s=[Fraction(float(v)) for v in tip_shift_xy];h=Fraction(float(height_m))
+    vertices=[[p[0],p[1],Fraction(0)],[q[0],q[1],Fraction(0)],
+              [q[0]+s[0],q[1]+s[1],h],[p[0]+s[0],p[1]+s[1],h]]
+    factor=polygon_factor(vertices,[*point_xy,float(receiver_height_m)],receiver)
+    return lower_float(Fraction(e)*Fraction(trans)*Fraction(factor))
 
 
 def infinite_wall_view_factor(height_m,distance_m):

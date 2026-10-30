@@ -1,0 +1,108 @@
+{
+  "overall_gate": "UNRESOLVED_DO_NOT_RUN_ROUTING",
+  "optical_model_checks": "PASS",
+  "empirical_factor_three_gate": "UNRESOLVED_INCOMPARABLE_OR_UNLOCATED_INPUTS",
+  "cohen_model_rows": [
+    {
+      "distance_m": 10,
+      "published_model_kw_m2": 79,
+      "this_model_kw_m2": 80.60811696581888,
+      "ratio": 1.0203559109597327,
+      "kind": "MODEL_RELATIVE_APPROXIMATION_NOT_MEASUREMENT"
+    },
+    {
+      "distance_m": 20,
+      "published_model_kw_m2": 45,
+      "this_model_kw_m2": 45.851428268156745,
+      "ratio": 1.018920628181261,
+      "kind": "MODEL_RELATIVE_APPROXIMATION_NOT_MEASUREMENT"
+    },
+    {
+      "distance_m": 30,
+      "published_model_kw_m2": 27,
+      "this_model_kw_m2": 27.848116306986554,
+      "ratio": 1.031411715073576,
+      "kind": "MODEL_RELATIVE_APPROXIMATION_NOT_MEASUREMENT"
+    }
+  ],
+  "incomparable_diagnostics_max_ratio": 6.737450123375612,
+  "max_ratio_is_not_a_physical_validation_error": true,
+  "finite_20m_panel_at_80m_base_view_factor": 0.018916915317095943,
+  "infinite_wall_at_2h_base_view_factor": 0.22360679774997896,
+  "sources": {
+    "nist": {
+      "url": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=860891",
+      "status": "PRIMARY_LOCATED",
+      "location": "NISTIR 6925, Eq.5, printed p.3",
+      "use": "polygon edge-angle projected solid angle"
+    },
+    "byram_putnam": {
+      "url": "https://www.fs.usda.gov/psw/publications/weise/psw_1996_weise000.pdf",
+      "status": "PRIMARY_LOCATED",
+      "location": "Weise and Biging 1996, Eq.3 and Eq.5",
+      "use": "Byram length and Putnam tilt as reproduced by the authors"
+    },
+    "butler1998": {
+      "url": "https://doi.org/10.1071/WF9980073",
+      "status": "PRIMARY_METADATA_ONLY",
+      "use": "radiation-only separation model; no claimed experimental reproduction"
+    },
+    "morandini2006": {
+      "url": "https://www.pure.ed.ac.uk/ws/files/12097665/morandini_et_al.pdf",
+      "status": "PRIMARY_EXCERPTS_RETRIEVED_BY_ORCHESTRATOR_INDEPENDENT_RETRY_TIMEOUT",
+      "metadata_url": "https://www.research.ed.ac.uk/en/publications/fire-spread-experiment-across-mediterranean-shrub-influence-of-wi/",
+      "access": "Old author-file URL403; alternate manuscript parsed by orchestrator, independent retry timed out",
+      "location": "manuscript pp.6,7,12-14",
+      "use": "2.5m is shrub height; sensor heights2and4m with horizontal sensing normals; first burn110m2 pointed head; plot30by80m is not instantaneous flame width"
+    },
+    "butler2014": {
+      "url": "https://ap1.sib.uc.pt/bitstream/10316.2/34306/1/978-989-26-0884-6_147.pdf",
+      "status": "AUTHOR_SYNTHESIS_LOCATED",
+      "location": "printed p.1343",
+      "use": "explicitly calls 2.5m shrub height, not flame height; quotes Morandini fluxes and notes missing Packham flame dimensions"
+    },
+    "packham1971": {
+      "url": "https://www.frames.gov/documents/catalog/spa/butler_cohen_latham_schuette_sopko_shannon_jimenez_bradshaw_2004.pdf",
+      "status": "ORIGINAL_NOT_LOCATED_REPORTED_BY_BUTLER",
+      "use": "100 near flame and57 at7.6m are historical context with absent geometry"
+    },
+    "silvani2009": {
+      "url": "https://doi.org/10.1016/j.firesaf.2008.06.004",
+      "status": "PRIMARY_FULL_TEXT_NOT_LOCATED",
+      "use": "51 radiative and112 total from prompt/author synthesis are distinct quantities, no numerical fit"
+    },
+    "pimont2014": {
+      "url": "https://doi.org/10.13140/RG.2.2.19775.36008",
+      "status": "PRIMARY_POSTER_METADATA_ONLY_429",
+      "use": "FIRETEC model comparison, requested22-31,8-12,5-8 bands not independently located"
+    },
+    "frankman2013": {
+      "url": "https://research.fs.usda.gov/treesearch/42185",
+      "status": "PRIMARY_ABSTRACT_LOCATED",
+      "use": "in-flame sensor peaks: surface100, shrub132, crown200 and300 kW/m2; not a unique panel emissive power"
+    },
+    "butler2004": {
+      "url": "https://www.frames.gov/documents/catalog/spa/butler_cohen_latham_schuette_sopko_shannon_jimenez_bradshaw_2004.pdf",
+      "status": "PRIMARY_FULL_TEXT_LOCATED",
+      "location": "abstract and conclusions",
+      "use": "about200mean and290peak in crown-fire sensors; context only"
+    },
+    "cohen2004": {
+      "url": "https://www.frames.gov/documents/catalog/spa/cohen_2004.pdf",
+      "status": "PRIMARY_FULL_TEXT_LOCATED",
+      "location": "printed pp.1617,1619,1623; Tables2and3",
+      "use": "centre-aligned50x20m ideal model, 79/45/27 kW/m2 model values, distinct actual measurements"
+    },
+    "hsa": {
+      "url": "https://www.hsa.ie/media/4oap0mec/tlup-guidance-feb-2023-final.pdf",
+      "status": "PRIMARY_GUIDANCE_LOCATED",
+      "use": "Eisenberg probit with kW/m2 dose units; contextual only"
+    }
+  },
+  "corrections": [
+    "Morandini 2.5m is shrub height, not verified flame height; plot width is not instantaneous front width.",
+    "Cohen 2004 has three wall ignitions at10m; only one involved observed flame contact. The prompt's only-contact claim is contradicted.",
+    "Cohen's79,45,27 are ideal-model values, not the measured flux table.",
+    "In-flame irradiance does not uniquely identify an extended uniform emitting panel's emissive power."
+  ]
+}

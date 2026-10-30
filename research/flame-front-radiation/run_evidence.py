@@ -20,6 +20,9 @@ def main():
     spec=importlib.util.spec_from_file_location("physics",HERE/"physics_validation/run_physics.py")
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     physics=module.run()
+    bound_spec=importlib.util.spec_from_file_location("bound_evidence",HERE/"run_bounds_evidence.py")
+    bound_module=importlib.util.module_from_spec(bound_spec);bound_spec.loader.exec_module(bound_module)
+    bound_evidence=bound_module.run()
     command=[sys.executable,"-m","pytest","experimental/flame-front-radiation/tests","-q"]
     start=time.perf_counter();completed=subprocess.run(command,cwd=ROOT,text=True,capture_output=True)
     (HERE/"TEST_OUTPUT.txt").write_text(completed.stdout+completed.stderr)
@@ -32,7 +35,8 @@ def main():
         "front_segments":{"state":"PARTIAL","evidence":"src/wfg_flamefront/isochrone.py; tests/test_law.py","limit":"Straight-segment approximation, strict unknown/infinite and present-phase refusal; not every legacy packet supported"},
         "intensity_and_wind":{"state":"PASS_MODEL_FORMULA","evidence":"intensity.py; sources NIST and Weise/Biging","limit":"Fuel-specific empirical laws and declared cap, no local physical fit"},
         "flux_at_points":{"state":"PASS_ON_SUPPORTED_GEOMETRY","evidence":"law_v2.py; analytic view-factor tests","limit":"Two-boundary panel model, not volumetric flame or exact bilinear isochrone"},
-        "spatial_time_enclosure":{"state":"PASS_COARSE_MODEL_BOUND_ON_SUPPORTED_DOMAIN","evidence":"law_v2.py shared interval-wide domain guard, proof and 1000 supported-domain regression cases","limit":"Unsupported active ignition/expiry interiors and possible receiver/panel intersections are refused; zero lower bound and global panel-count upper are generally too loose for route acceptance"},
+        "spatial_time_enclosure":{"state":"PASS_GEOMETRIC_UPPER_WITH_COARSE_FALLBACK_ON_SUPPORTED_DOMAIN","evidence":"geometric_bounds.py rational swept-hull proof; verified_view.py directed point evaluation; BOUND_RESULTS.json; analytic and supported-domain tests","limit":"Whole-quad area/hull can remain loose under refinement; unit view-factor fallback outside proved angular cone; zero lower bound; unknown phases remain refused"},
+        "point_numerical_enclosure":{"state":"PASS_DIRECTED_POLYGON_FORMULA_CONTROLS","evidence":"verified_view.py, test_geometric_bounds.py, retained original cancellation counterexample","limit":"Directed lower approximation before binary64 quantization; explicit unit orientation-envelope branch retained; adaptive precision has no uniform request-time guarantee"},
         "physical_comparisons":{"state":"UNRESOLVED","evidence":"physics_validation/SOURCES.json; MODEL_TABLE.csv; INCOMPARABLE_DIAGNOSTICS.csv","limit":"Prompt mixes shrub/flame heights, absent instantaneous front widths, in-flame irradiance and emitter power"},
         "factor_three_gate":{"state":"UNRESOLVED","evidence":"physics_validation/RESULTS.json","limit":"No comparable empirical threefold-error assessment can be asserted; diagnostics are not measured validation errors"},
         "cutoff_error":{"state":"PASS_NO_TRUNCATION","evidence":"solidflame.py omitted_absolute_bound","limit":"No default radius truncation; no uniform relative tail-error claim"},
@@ -49,6 +53,7 @@ def main():
         "optics_figures":{"state":"PASS","evidence":"physics_validation/fig01_flux_vs_distance.{png,svg}; fig02_parameter_sweep.{png,svg}","limit":"Model scenario figures only"},
     }
     result={"track":"1A","status":"HOLD_INCOMPLETE","tests":tests,"physics_gate":physics["overall_gate"],"routing_executions":0,"previous_routes_rejected_under_v2":None,"peak_binding_missions":None,"dose_binding_missions":None,"headline":"Optical unit checks pass; empirical physics gate unresolved, no routing-v2 measurements","host":{"platform":platform.platform(),"machine":platform.machine(),"python":sys.version,"numpy":np.__version__},"seed":20261030,"input_sha256":inputs,"requirements":requirements,"domain_repair":{"prior_head":"90b125a79d67301fac3058c97fe240b18cf8ae83","prior_failure":"point refused simultaneous active ignition but interval enclosure returned zero between contour events","new_rule":"Shared interval-wide supported-domain guard precedes contour selection, with conservative receiver/panel intersection refusal","regression_class":"SupportedDomain in tests/test_law.py","random_boxes":"supported-domain boxes outside possible emitting-panel prisms","physics_and_routing_status_changed":False}}
+    result["geometry_bound_evidence"]={"record":"BOUND_RESULTS.json","status":bound_evidence["status"],"scope":bound_evidence["scope"]}
     (HERE/"RESULTS.json").write_text(json.dumps(result,indent=2)+"\n")
     (HERE/"REQUIREMENTS_STATUS.json").write_text(json.dumps(requirements,indent=2)+"\n")
     (HERE/"EXECUTIONS.csv").write_text("phase,outcome,exit_code,cases,seed\nunit_tests,PASS,"+str(completed.returncode)+","+str(tests["passed"])+",20261030\nbox_interval_regressions,PASS,0,1000,20261030\nphysics_empirical,UNRESOLVED,,0,20261030\nrouting_v2,NOT_RUN_GATED,,0,20261030\n")
@@ -58,7 +63,7 @@ def main():
 
 ## What is supported
 
-The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, exact polygon view factors, point flux, a rigorous but loose monotone model enclosure on its supported domain, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Point and enclosure queries share an interval-wide guard for zero-gradient ignition/expiry activity and possible receiver/panel intersections. Enlarging a query can make it unsupported; unsupported is never replaced by zero. Numerical enclosure samples use supported query boxes and are regression checks; the finite panel-count argument is the bound proof.
+The NumPy-only library supplies polygonal fronts on affine grids, Byram intensity, sourced Putnam wind tilt, the polygon view-factor law evaluated with directed numerical intervals, point flux, a geometry-dependent monotone upper on its supported domain, and analytic integration of piecewise-linear flux dose. Tests compare closed forms and explicitly refuse unknown geometry and scalar old-fire phase enclosures. Point and enclosure queries share an interval-wide guard for zero-gradient ignition/expiry activity and possible receiver/panel intersections. Enlarging a query can make it unsupported; unsupported is never replaced by zero. Numerical enclosure samples use supported query boxes and are regression checks. The swept-hull, area/distance and angular-cone arguments are the proof; the original coarse upper remains the fallback outside that cone.
 
 ## Why the physics gate is open
 
@@ -69,6 +74,10 @@ The primary Cohen paper also contradicts the prompt's statement that wall igniti
 ## Readiness defect repaired
 
 Independent review found that the earlier enclosure returned zero for an unsupported simultaneous-ignition active interior between contour events. The point operator correctly refused that same time. The repair uses the shared domain guard before contour selection, checks the whole closed interval against half-open potential activity, and covers zero-gradient ignition and extinction fields. Tests also cover interval interiors missed by endpoint sampling, never/invalid cells, present phases and possible receiver/panel intersections. The reproducing fixture and old-head identity are preserved in the domain repair record in RESULTS.json. This repair changes no empirical gate or routing outcome.
+
+## Geometry bound and numerical evaluator
+
+The upper now depends on the receiver box's minimum distance to an exact rational containing hull of moving and tilted panels. It uses a proved area bound and an angular-cone condition before applying inverse-square decay. The earlier binary64 edge-angle routine had a far-field cancellation error that exceeded that mathematical upper. It was replaced with outward Decimal intervals, a bounded arctangent series, a Machin pi enclosure and directed final conversion, rather than clipping the erroneous result. The original counterexample, old implementation and prior tables/source pins remain in [BOUND_RESULTS.json](BOUND_RESULTS.json) and `numerical_history/`. The producing script `run_bounds_evidence.py` records the numerical changes to prior optical tables and whether the fixed-width figures changed. Physical constants, the analytic panel law and the empirical HOLD are unchanged.
 
 ## Reproduce
 
@@ -95,7 +104,7 @@ The parameter chart compares snapshot radiation at the stated distance under dec
 
 ## Scope and limits
 
-This is a model-relative prototype with no field validation. Straight marching-square segments approximate curved bilinear contours, and leading/trailing panels do not resolve the volumetric flaming band. The mean quad gradient is a declared rate approximation. Unknown cells, never-boundary interpolation and missing present-fire phases are not supplied silently. An optional explicit never-time surrogate or exclusion is a different scenario and must not be used as an unqualified route certificate. The coarse enclosure can remain indecisive under refinement. Literature emissive powers and residence times are not Korean measurements. Convection, smoke, embers, vehicle shielding, terrain occlusion and parameter uncertainty are omitted. No full journey checker, frozen journey replay, policy ablation, or continuous-route physical accuracy is established. Existing thresholds and frozen files are unchanged.
+This is a model-relative prototype with no field validation. Straight marching-square segments approximate curved bilinear contours, and leading/trailing panels do not resolve the volumetric flaming band. The mean quad gradient is a declared rate approximation. Unknown cells, never-boundary interpolation and missing present-fire phases are not supplied silently. An optional explicit never-time surrogate or exclusion is a different scenario and must not be used as an unqualified route certificate. Whole-quad hulls and the coarse fallback can remain indecisive under refinement. Point samples are directed lower approximations to the analytic view factor, except for the declared unit orientation-envelope branch; they cannot certify continuous-route acceptance. Adaptive precision has no uniform latency guarantee. Literature emissive powers and residence times are not Korean measurements. Convection, smoke, embers, vehicle shielding, terrain occlusion and parameter uncertainty are omitted. No full journey checker, frozen journey replay, policy ablation, or continuous-route physical accuracy is established. Existing thresholds and frozen files are unchanged.
 '''
     (HERE/"README.md").write_text(readme)
     paths=list((ROOT/"experimental/flame-front-radiation").rglob("*.py"))

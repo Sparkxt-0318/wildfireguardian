@@ -16,6 +16,8 @@ import numpy as np
 from .isochrone import front_segments, UnsupportedGeometry, as_grid, _quad_gradient
 from .solidflame import rectangle_flux
 from .intensity import fireline_intensity,flame_length
+from .verified_view import lower_float
+from .geometric_bounds import quad_bound
 
 
 def _inputs(member, fuel):
@@ -60,6 +62,20 @@ def _domain(tau,residence,grid,fuel,interval,box=None):
     The same rule is used for singleton point times and enclosure intervals.
     """
     a,b=map(float,interval)
+    # The contour interpolation still uses binary64 before verified radiation
+    # evaluation. Refuse arithmetic overflow consistently for both APIs.
+    finite=np.isfinite(tau)
+    with np.errstate(over="ignore",invalid="ignore"):
+        expiry=tau+residence
+    if np.any(finite&~np.isfinite(expiry)):
+        raise UnsupportedGeometry("extinction arithmetic exceeds the finite contour domain")
+    try:
+        for field in (tau[finite],expiry[finite]):
+            if field.size:
+                extremes=[Fraction(float(field.min()))-Fraction(b),Fraction(float(field.max()))-Fraction(a)]
+                if not all(math.isfinite(float(v)) for v in extremes):raise OverflowError()
+    except OverflowError as exc:
+        raise UnsupportedGeometry("time arithmetic exceeds the finite contour domain") from exc
     segments=front_segments(tau,a,grid,residence,fuel=fuel)
     strict=fuel.get("unsupported_policy","raise")!="exclude"
     if segments.unsupported_cells and strict:
@@ -126,32 +142,35 @@ def flux_at_points(points_xy,times_s,member,grid,fuel=None,receiver="worst_case"
                         raise UnsupportedGeometry(str(exc)) from exc
                     raise
                 values.append(value)
-            output[i,j]=math.fsum(values)
+            output[i,j]=lower_float(sum((Fraction(v) for v in values),Fraction(0)))
     return output
 
 
 def flux_enclosure(box_xy,interval_s,member,grid,fuel=None):
-    """Rigorous coarse [0,U] envelope, monotone under box/time containment.
+    """Geometry-dependent [0,U] envelope, monotone on its supported domain.
 
     A quad has at most two segments per contour and two contours, hence at
     most four panels. Each implemented panel's view factor is in [0,1].
     A contour can meet a quad only if its time lies within its corner range
     (marching-squares definition). Increasing an interval only adds candidate
-    quads. Therefore U=sum(4 E_quad) over candidates bounds every point/time.
-    Bounds ignore position, so enlargement cannot shrink them. The zero
+    quads. A rational swept-prism hull bounds each panel's area and its minimum
+    squared distance to the receiver box. In a proved common angular cone,
+    F<=min(1,A/(3*d2)); pi>3 makes this an exact rational upper bound.
+    Outside that cone, retain F<=1. Increasing a receiver box only decreases
+    d2, while leaving the hull and area fixed, so the upper cannot shrink. The zero
     lower bound is necessary when emission may switch off during the interval.
     Fraction arithmetic encloses represented E values before upward rounding.
     Domain checking precedes panel selection: if any potentially active quad
     has a zero-gradient ignition/expiry field anywhere in the interval, the
     interval is refused. Potential receiver/panel intersections are refused.
     Finite-bound monotonicity applies only to queries inside this domain.
-    This finite coarse bound usually cannot decide route thermal acceptance.
+    Whole-quad hulls need not converge to a point value under refinement.
     """
     box=np.asarray(box_xy,dtype=float);interval=np.asarray(interval_s,dtype=float)
     if box.shape==(2,2):box=np.array([box[0,0],box[1,0],box[0,1],box[1,1]])
     if box.shape!=(4,) or interval.shape!=(2,) or not np.isfinite(box).all() or not np.isfinite(interval).all() or box[0]>box[1] or box[2]>box[3] or interval[0]>interval[1]:
         raise ValueError("box (xmin,xmax,ymin,ymax) and ordered interval required")
-    tau,residence,power,_,f=_inputs(member,fuel)
+    tau,residence,power,trans,f=_inputs(member,fuel)
     _,tau=_domain(tau,residence,grid,f,interval,box)
     if np.isposinf(tau).all():return 0.,0.
     h,w=tau.shape;upper=Fraction(0)
@@ -161,14 +180,15 @@ def flux_enclosure(box_xy,interval_s,member,grid,fuel=None):
             if not np.isfinite(values).all():continue
             ends=values+residence[r:r+2,c:c+2]
             active=any(float(v.min())<float(v.max()) and float(v.min())<=interval[1] and float(v.max())>=interval[0] for v in (values,ends))
-            if active:upper+=4*Fraction(float(power[r,c]))
+            if active:
+                factor,_=quad_bound(r,c,tau,grid,f,box)
+                upper+=4*Fraction(float(power[r,c]))*Fraction(trans)*factor
     if not upper:return 0.,0.
-    value=float(upper)
+    try:value=float(upper)
+    except OverflowError:return 0.,math.inf
     if not math.isfinite(value):return 0.,math.inf
-    if Fraction(value)<upper:value=float(np.nextafter(value,math.inf))
-    # One additional ulp encloses a final correctly rounded fsum of products
-    # whose factors E, trans and clipped F are individually nonnegative.
-    return 0.,float(np.nextafter(value,math.inf))
+    while Fraction(value)<upper:value=float(np.nextafter(value,math.inf))
+    return 0.,value
 
 
 def dose(q,times_s,form="linear"):
