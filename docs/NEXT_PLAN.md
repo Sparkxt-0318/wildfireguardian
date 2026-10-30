@@ -51,11 +51,11 @@ The contracts and all six supplied prompts were committed first. Tracks ran in s
 | 1A-1 | Radiation library | partial, HOLD |
 | 1A-2 | Physics comparisons | unresolved comparability gate |
 | 1A-3 | Binding statistics | NOT_RUN_GATED |
-| 1B-1 | Differentiable mean field | in progress |
-| 1B-2 | Survival training | in progress |
-| 1B-3 | Structural ablations | in progress |
-| 1B-4 | Baselines | in progress |
-| 1B-5 | Blind pre-registration | in progress |
+| 1B-1 | Differentiable mean field | software passes; fixed 12-cutoff comparison running |
+| 1B-2 | Survival training | five pure and mixed final fits complete; corrected spotting final fit queued |
+| 1B-3 | Structural ablations | all corrected development phases complete; paired-report support repair pending |
+| 1B-4 | Baselines | training-only baseline selection and arithmetic pass; held-out assessment pending freeze |
+| 1B-5 | Blind pre-registration | software gates reviewed; actual final registry pending; future execution NOT_READY |
 | 1C-1 | Export v3, members and reduction | partial; 15 byte-identical exports; conditional contact K study complete, independent output review passes |
 | 1C-2 | SIPP equivalence and cost | software checks pass; 52/52 contact-only native pairs match |
 | 1C-3 | Synthetic-truth harness and campaigns | partial; repaired readers; requested risk rates unidentified |
@@ -155,3 +155,5 @@ The contracts and all six supplied prompts were committed first. Tracks ran in s
 - 2026-10-30: Independent a5ba8210 development-admission review finds no confirmed defect: 23/23 admission controls and a separate 6/6 historical-skip controls pass. Original budget/population reproduction now refuses. No actual study input, checkpoint or quality result was accessed by the reviewer. Fresh full regression passes 3,259 tests with 455 warnings in199.28s. At08:47:35Z the corrected final development fold resumed, followed by corrected full spotting and all12a06 comparison cutoffs, with the consumed61-file source closure fixed. Complete actual coverage and seven-model selection/registry must still be committed before held-out inference. A separate synthetic metric/report methodology review is underway before that boundary.
 
 - 2026-10-30: Pre-heldout independent metric review reproduces an ablation-reporting defect at a5ba8210: subtracting error sums and dividing by the base model cell count can fabricate a paired improvement when model support differs. The synthetic equal-Brier0.1 example with base100 and candidate50 entries yields a false difference-0.05 and degenerate interval excluding zero. Training and equal-fire selection are unaffected. Owner repair is required before final paired ablation claims; missing exact shared-cell evidence must remain unavailable rather than use invented denominators. Active numerical source closure stays fixed.
+
+- 2026-10-30: Independent pre-heldout metrics review passes 51 separate tiny-array/manual controls for Brier, tied AP/AUC, clipped NLL, ECE, whole-fire bootstrap, undefined-reference BSS, exact-NLL infinity and the complete-cohort/two-baseline/calibration gate. Only the paired ablation denominator defect is confirmed. Owner will preserve development own-support Brier values and selection, mark unsupported common-cell development CIs unavailable, and use only authenticated common-cell held-out predictions for any later descriptive secondary paired ablation figure. Original failures and old figures remain historical. Third corrected development fold completes in59.295s; full spotting is queued behind the first a06 comparison cutoff, with no remaining pause marker.
