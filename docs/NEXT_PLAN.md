@@ -61,7 +61,7 @@ The contracts and all six supplied prompts were committed first. Tracks ran in s
 | 1C-3 | Synthetic-truth harness and campaigns | partial; repaired readers; requested risk rates unidentified |
 | INT | Integration checks | pending, gated on track acceptance |
 | EVIDENCE | Combined evidence README | in progress |
-| PR | Four pull requests opened | in progress |
+| PR | Four pull requests opened | drafts 85, 86, 87, 88 open; no merges |
 
 ## Progress log
 
@@ -125,3 +125,6 @@ The contracts and all six supplied prompts were committed first. Tracks ran in s
 - 2026-10-30: Root independently verified exact A head 43324736 in the fresh pinned routing environment: 42 functional tests and 367 release checks pass, both exit 0; checkout remains clean. The original queued lease process was canceled before execution. Given the recorded five-second suite, these were tiny untimed functional checks alongside the existing heavy fit; their wall output is not performance evidence. PR85 is being updated to the reviewed geometry revision.
 
 - 2026-10-30: Opened and attached draft PR87, https://github.com/Sparkxt-0318/wildfireguardian/pull/87, for readiness-only head b25b5d147369ff6567818d30985830d883ed61cf. Current concise tables, commands and scientific-claim discussion link exact prior histories and all retained failures. Ownership/style/commit checks pass for 52 unique readiness/plan files. No track code was merged; the parent plan was synchronized as a document. A42/367 passes are recorded; B numerical delivery remains pending and Step4 remains NOT_RUN_GATED. No PR has been merged.
+
+- 2026-10-30: Opened and attached forecast draft PR88, https://github.com/Sparkxt-0318/wildfireguardian/pull/88, from clean source d031b72b86d4f9089c87ab3e8d706ca74423c31f. Ownership/style/commit checks pass on 137 unique track files. Draft explicitly states final computation, global-wind support review and held-out assessment remain unfinished. All four requested drafts are now open; numerical work continues and no PR is merged.
+- 2026-10-30: The repaired future-release inventory closes its original three mechanisms at961fec6d. A follow-up found optional quality rasters bypassed the GDAL dependency guard, changing valid feature entries54to45 under an unpinned mutation. Repair d031b72b applies guards to the three quality channels and reported raster sidecars. Independent final recheck passes20targeted observations with positive controls; owner74synthetic tests pass. Scoped software wiring is cleared, while actual2026 release/chronology/registration gates remain NOT_READY. All earlier failures remain preserved.
