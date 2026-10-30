@@ -63,6 +63,7 @@ def ablation(run: Path, draws: int = 10000, seed: int = 20261029) -> dict:
     for variant, group in by.groupby("variant"):
         g = group.set_index("fire")
         entry = dict(pooled_brier=float(g.sq.sum() / g.w.sum()), pooled_clipped_nll=float(g.nll.sum() / g.w.sum()),
+                     mean_fire_brier=float((g.sq / g.w).mean()),
                      fires=int(len(g)), seeds=sorted(frame[frame.variant == variant].seed.unique().tolist()),
                      folds=sorted(frame[frame.variant == variant].fold.unique().tolist()),
                      mean_fit_seconds=float(frame[frame.variant == variant].fit_seconds.mean()),
@@ -81,8 +82,9 @@ def ablation(run: Path, draws: int = 10000, seed: int = 20261029) -> dict:
 
 
 def primary_candidate(abl: dict) -> str | None:
-    """Pre-specified rule: lowest pooled development Brier among the fitted variants."""
-    return min(abl, key=lambda v: abl[v]["pooled_brier"]) if abl else None
+    """Frozen rule: lowest equal-fire development Brier, then fixed variant order."""
+    priority = ["base", "d4", "d4_wind", "ellipse", "burnout", "burnout_spotting", "mixed_base"]
+    return min(abl, key=lambda v: (abl[v]["mean_fire_brier"], priority.index(v))) if abl else None
 
 
 def figure_reliability(plt, scored, entries, out, label):
