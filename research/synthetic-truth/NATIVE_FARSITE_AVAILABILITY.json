@@ -1,0 +1,61 @@
+{
+  "scope": "Execution availability and optional embedded clock fixture only; no spread forecast, physical validation or routing risk",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "software_head": "52f57a4eb40643329c3b9cd33f7c248a730b9135",
+  "producer_sha256": "c34a862d315fb8b05637319782bf40b5dfbf5ae464a809a377a4fa0c4f0e2a26",
+  "extraction_manifest_sha256": "64c398ee97855e0fda07d982d9f12771603e7ac3ffc02dabd65b853c16f95ce9",
+  "identities": {
+    "src/TestFARSITE": {
+      "sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3",
+      "expected_sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+    },
+    "src/TestFARSITE.cpp": {
+      "sha256": "1d75d9c129e1ec8e5fbfd10e776de4c2bbfd5fddeead28aaf19c23fbe33710af",
+      "expected_sha256": "1d75d9c129e1ec8e5fbfd10e776de4c2bbfd5fddeead28aaf19c23fbe33710af"
+    },
+    "observed_clock_probe": {
+      "sha256": "bd6893a2df3a5445abe495e6db0ebc845aac97ed412e44bcfb0a8e81f13516ed",
+      "expected_sha256": "bd6893a2df3a5445abe495e6db0ebc845aac97ed412e44bcfb0a8e81f13516ed"
+    },
+    "observed_clock_probe.cpp": {
+      "sha256": "c47660266bbea41bf1d842c028c67dd4716110c9f38f6891ad7ecce50979a376",
+      "expected_sha256": "c47660266bbea41bf1d842c028c67dd4716110c9f38f6891ad7ecce50979a376"
+    },
+    "observed_build_manifest.json": {
+      "sha256": "fa9e4c63790e8d165d3e23a5ded5164fd7b1e5982ae4c279d93ad3291ef02901",
+      "expected_sha256": "fa9e4c63790e8d165d3e23a5ded5164fd7b1e5982ae4c279d93ad3291ef02901"
+    }
+  },
+  "working_directory": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/native-probes/native-farsite-probe-02q8_wm5",
+  "usage": {
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/native-farsite/src/TestFARSITE"
+    ],
+    "cwd": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/native-probes/native-farsite-probe-02q8_wm5/usage",
+    "stdin": "DEVNULL",
+    "timeout_s": 5,
+    "started_utc": "2026-10-30T03:52:03.243975+00:00",
+    "ended_utc": "2026-10-30T03:52:04.658295+00:00",
+    "elapsed_s": 1.4140547920251265,
+    "pid": 95634,
+    "process_group": 95634,
+    "exit_code": 1,
+    "timed_out": false,
+    "cleanup": [
+      "Probe-owned process group absent after completion"
+    ],
+    "stdout": "TestFARSITE expects one parameter\nTestFARSITE Usage:\nTestFARSITE [commandfile]\nWhere:\n\t[commandfile] is the path to the command file.\nThe command file contains command lines for multiple Farsite runs, each run's command on a seperate line.\nEach command expects six parameters, all required\n[LCPName] [InputsFileName] [IgnitionFileName] [BarrierFileName] [outputDirPath] [outputsType]\nWhere:\n\t[LCPName] is the path to the Landscape File\n\t[InputsFileName] is the path to the FARSITE Inputs File (ASCII Format)\n\t[IgnitionFileName] is the path to the Ignition shape File\n\t[BarrierFileName] is the path to the Barrier shape File (0 if no barrier)\n\t[outputDirPath] is the path to the output files base name (no extension)\n\t[outputsType] is the file type for outputs (0 = both, 1 = ASCII grid, 2 = FlamMap binary grid\n\n",
+    "stderr": "",
+    "stdout_sha256": "3cf62505943ac6708f73a83d552d5e1e0efdbe2452d5216c0b2ef04c783d9325",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/native-probes/native-farsite-probe-02q8_wm5/usage/stdout.txt",
+    "stderr_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/native-probes/native-farsite-probe-02q8_wm5/usage/stderr.txt",
+    "expected_behavior": "No-argument linuxMain prints usage then exit(1), source TestFARSITE.cpp lines841-863",
+    "pass": true
+  },
+  "clock": {
+    "status": "NOT_RUN_HEAVY_LOCK_BUSY",
+    "lock_path": "/tmp/wfg/HEAVY.lock"
+  },
+  "availability": "EXECUTES_USAGE_ON_CURRENT_HOST"
+}

@@ -99,7 +99,7 @@
     {
       "id": "1C-3-NIROPS-external",
       "status": "PASS_INTERFACE_SCOPE_WITH_UNSCORABLE_OBSERVATIONS",
-      "evidence": "GeoTIFF reconstruction, NIROPS GeoJSON bounds and stored FARSITE NPZ readers implemented with units, grid, source hash/event/holdout and missingness tests. REAL_READERS_SMOKE.json binds real source bytes and prior extraction ledgers. No exact observed ignition or full-policy risk score."
+      "evidence": "Independent readers and defensively checked source family, output grid binding, explicit finite simulation clocks/censoring and query horizons tested. REAL_READERS_SMOKE_POST_REPAIR.json supersedes the old simulator point-status claim; old receipts immutable. Observation truths remain unscorable and no full-policy packet is inferred."
     },
     {
       "id": "1C-3-Uljin-truth-members",
@@ -132,8 +132,13 @@
     },
     {
       "id": "1C-3-native-FARSITE-execution",
-      "status": "NOT_RUN_AVAILABILITY_UNCONFIRMED",
-      "evidence": "Stored source-archive outputs and native-engine historical records exist. Neither 1B nor1C established a current runnable native installation; new reader does not execute the engine or inspect historical performance metrics."
+      "status": "PASS_EXECUTION_AVAILABILITY_ONLY",
+      "evidence": "Archive-pinned TestFARSITE SHA125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3 executes documented no-argument usage with expected exit1, no stderr, DEVNULL stdin and5s timeout in isolated work dir. Owned group absent afterward. Clock fixture skipped because heavy lock busy. No spread forecast or simulator-validity claim. See NATIVE_FARSITE_AVAILABILITY.json and READERS_REPAIR_RECEIPT.json."
+    },
+    {
+      "id": "1C-3-reader-admission-repair",
+      "status": "PASS_TARGETED_INTERFACE_SCOPE",
+      "evidence": "POST_REPAIR_READERS_AUDIT.json passes5/5. Out-of-run positive arrivals, unsupported family, unbound spatial grids and fractional-offset UTC truncation refused. Finite sentinel is right-censored, never globally never; exact_ignition requires supported explicit query horizon. Wapiti11215right-censored cells through88200s, zero globally-never."
     }
   ],
   "fresh_tests": {
@@ -169,5 +174,27 @@
     },
     "release_hashes": 367,
     "receipt": "research/scenario-members/POST_REPAIR_RECEIPT.json"
+  },
+  "readers_repair_tests": {
+    "software_head": "52f57a4eb40643329c3b9cd33f7c248a730b9135",
+    "routing": {
+      "passed": 44,
+      "skipped": 4,
+      "seconds": 21.75
+    },
+    "forecast_targeted": {
+      "passed": 24,
+      "seconds": 1.15
+    },
+    "reader_audit": {
+      "checks": 5,
+      "passed": 5
+    },
+    "fresh_core_audit": {
+      "checks": 9,
+      "passed": 9
+    },
+    "release_hashes": 367,
+    "receipt": "research/synthetic-truth/READERS_REPAIR_RECEIPT.json"
   }
 }
