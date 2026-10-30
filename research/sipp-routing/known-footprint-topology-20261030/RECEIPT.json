@@ -1,0 +1,71 @@
+{
+  "schema": "wfg.next.known-footprint-static-census-receipt/1",
+  "status": "PASS_ARTIFACT_AND_SOURCE_CUSTODY",
+  "source_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+  "producer_sha256": "d9df79340ef56dfe78d7a4820a66d3adb2c5913934e9f109fdad447001950804",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "checks": {
+    "all_missions": 20,
+    "all_exact_domains": 15,
+    "accepted_graph_children": 5,
+    "boolean_flag_arrays_match_counts_and_hashes": true,
+    "all_output_and_current_input_hashes_match": true,
+    "finite_JSON": true,
+    "all_source_horizons_s": 3600,
+    "original_window_dwell_nonempty_clock_intersections": true,
+    "prior_immutable_files": 13,
+    "prior_files_byte_equal": true
+  },
+  "topology_reasons": {
+    "unknown_both_endpoints": 7,
+    "unknown_destination_only": 5,
+    "supported_topology": 6,
+    "unknown_start_only": 2
+  },
+  "source_pins": {
+    "research/sipp-routing/audit_known_footprint_topology.py": "d9df79340ef56dfe78d7a4820a66d3adb2c5913934e9f109fdad447001950804",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/scenario-members/src/wfg_scenario_members/features.py": "52d95a5f37a4d808379a9017dd164de3f9ae800d075195fcdf15d9d3ca5cedb3",
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9"
+  },
+  "immutable_prior_source_and_result_pins": {
+    "research/sipp-routing/audit_member_scaling.py": "7dcab65089140a699204dbfd4f3d82c3d92b7cb23089e708f2375ce5986f66e7",
+    "research/sipp-routing/MEMBER_SCALING_FEASIBILITY.md": "3aa6234dd3cfb6ad69c8d5fa2ad61a794132d7c8ccf430f2ea57e35b0d342bbc",
+    "research/sipp-routing/census_saved_member_support.py": "3371c98e0827318c7622f0c4caf5bb278df5c36fe0c7d3f76a6b5e2df2e30c80",
+    "research/sipp-routing/FULL_MEMBER_SUPPORT_CENSUS.md": "d231e1e24de04208fc622cd63040402113557d025dc9f8b9386cedc630eb316a",
+    "research/sipp-routing/member-scaling-closure-20261030/INITIAL_AUDIT_SOURCE.py": "ffb7a87a54a325f08ee33e7580771d384a5bb4594174fa70c1c37595385e401f",
+    "research/sipp-routing/member-scaling-closure-20261030/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/member-scaling-closure-20261030/FAILURE.json": "eaf3e36f2af85b9261430ca6d3510659417fda79ac3e6952884e541fd68b3e44",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/KOREAN_PRESEARCH_ADMISSION.csv": "89b99df0ac86ed4f0a51f58687f6572110fdcacc35781e082f424733b8131d41",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/RESULTS.json": "cc833cbde7d40e85cfa9fc0b3256a3dff93f0b05ae3b01d70fab1a6dad608f08",
+    "research/sipp-routing/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv": "534657ac9c92bd034b199b6ce502043134a85374888387e0ec80e9c929cdd981",
+    "research/sipp-routing/full-member-support-census-20261030/MEMBER_SUPPORT.csv": "4752747c8b73a7a9011da2101cea2fa223bcde9c096d9d1465843d45c35687d7",
+    "research/sipp-routing/full-member-support-census-20261030/RESULTS.json": "87bf592ae3f3ed674fb21d6b4707083d9bcdd0f5cac429af8a3c9b30f16f756c",
+    "research/sipp-routing/full-member-support-census-20261030/RECEIPT.json": "628503559c7a82aa7b3702fe82811aa5abf344071bcf03e99f5e02b78c64cda6"
+  },
+  "outputs": {
+    "graph-02-result.npz": "c522f979b19c585f68d6cf9ebefc761fc06b88d9a1129155652b15e1128efbdc",
+    "graph-02-result.json": "5ce48ab374e4d16f2ca16c100dabff93177162a479e4f55245b84565344d5d2c",
+    "graph-02-input.json": "ec2c1261e1d313d9c3a5a1a2bc575581b8ce02789e75e89413571b6502542a4d",
+    "graph-00-result.npz": "21e3132f6312ae49ef148b84e938a84c7b2de1f75732570b08d5e95f861e17d6",
+    "RESULTS.json": "3e88466e34d90e182591e25deee9030c5c212c59978f007c49a5209b9941fd7e",
+    "graph-04-result.json": "c4660aed68d4c7f07f1a7d9d4f030f8de6e05def190ebf65a70ce3255b2613d9",
+    "graph-01-result.json": "59f6ddc87386fc9ef49b85f846cb4a9c34c255f956d874f3663fb977ff233730",
+    "graph-00-input.json": "5c22c0d4a3052d31ab42c125b18c55aff43349679b0b567714f1ad3d9ae32e19",
+    "graph-03-input.json": "04109e7841d12d4aa95682b2e2788dc32c648a6d97b5eeea57ef81ef69407204",
+    "graph-03-result.npz": "135a894a00b4b99aadce611e57eec50dd27262fa09dbd7eaae06d7b568f1e1ae",
+    "graph-03-result.json": "be151923886659da23a6e158cfc018801ae1400b5b425cb8afa42ed262980d0f",
+    "graph-01-input.json": "15a149a880a914ca902483386a4ca748bb10d4c0ee27e283ad479c12a241a949",
+    "CONTROL_RECEIPT.json": "0be1099fe42419b6b8e3a4cf3d422aaf1af05e234ae9fdf4d9acbcfef218cc22",
+    "graph-04-result.npz": "d75d5a90f4b66c81dd8ebc5112e301049499dca5688b7e7b88ef06bd83608267",
+    "graph-00-result.json": "e2d5e32171c66e202920066bf06d89e3fb6298417bc5347184e84980a845d06c",
+    "graph-01-result.npz": "8ba4a5e6cd9ea655d4c53dc58354ff50b2d7034b878ef2fbc4c766806ff377df",
+    "graph-04-input.json": "d7c452719682c3a51e3fa39ef28c93f6c9fc4ca9f6ee450caa17ce58df8ad02b"
+  },
+  "scope": "Post-census artifact coherence and exact current source custody. No graph reparse, repeated occupancy census, timed solver, policy adapter or independent physical validation.",
+  "source_witness_check": "The census producer rechecks each static path against original edge identities, known flags and forbidden turns. This receipt does not claim a second independent geometry implementation.",
+  "resource_scope": "Control receipts provide guard evidence only; these wall/RSS values are not solver performance measurements."
+}

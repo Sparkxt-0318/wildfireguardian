@@ -1,0 +1,79 @@
+{
+  "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json",
+  "graph_sha256": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+  "cases": [
+    {
+      "panel": "Korean",
+      "region": "uljin_2022",
+      "mission": "20220304T030000Z_FX1",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T030000Z_FX1.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z",
+      "job_sha256": "3fea7400cec80bf0a87a02fab825452d8634bcc6d0a92bae2c98a8db9cd8a06e",
+      "input_sha256": {
+        "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+        "request": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39",
+        "REPORT.json": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d",
+        "NATIVE_METADATA.json": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+        "constructed_arrays.npz": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e",
+        "HAZARD.json": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "uljin_2022",
+      "mission": "20220304T060000Z_FL1",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T060000Z_FL1.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T060000Z",
+      "job_sha256": "cb3919b7305907a88c9c9d7ce8ac611565f10a76b1ccad68a79bf1955604eff8",
+      "input_sha256": {
+        "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+        "request": "9c935fd807c424a9508fb6ea26fb5fcf67871e3bb8d7e3f3f4e9ada9535debfb",
+        "REPORT.json": "135dab64a1e5a02bb5fdf113fcfb66acd928c5e982c7257e8036e3acaec037a4",
+        "NATIVE_METADATA.json": "06a4bd0a8f7d8d332c7ac5c26c481bcebd6a905f2ee106bf7ccfd7efde837709",
+        "constructed_arrays.npz": "c6aa5e6185a60269122f395bf88dfa7e9e23d2c3c6636f8410e6f1e4b357d992",
+        "HAZARD.json": "301d69431f0f4778405cd3ae817663378e50ff7b8f339e48f13de6244e9a7fcd"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "uljin_2022",
+      "mission": "20220304T120000Z_FW2",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T120000Z_FW2.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T120000Z",
+      "job_sha256": "5a0e680e8164e9dc11fa51c4b648f1229c0fad80042ad873c0c1e97649d4acc5",
+      "input_sha256": {
+        "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+        "request": "6557fb9508ce9719536430421632b64f455bd4897f1e93a6dcb991162b43e1ae",
+        "REPORT.json": "08aa5fcf57b18da7829931c4ea289f3556f76558a56f087aabf914b3bd9726c9",
+        "NATIVE_METADATA.json": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+        "constructed_arrays.npz": "3edfe49bb169437c80e641a8031756ff7ad6d9885d857863d2c08fd53f5d8707",
+        "HAZARD.json": "51f82ab19c8055aec921d8a4f25a2497179baeac62433d94375737a97ac55845"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "uljin_2022",
+      "mission": "20220304T030000Z_FD1",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/requests/20220304T030000Z_FD1.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z",
+      "job_sha256": "a1f7cb4d9b5b9622b93cc4a34fe06ccd70fbea59de17ce4a1c7508a89dac0344",
+      "input_sha256": {
+        "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+        "request": "aa6e35f219f625b8f4f744293bbfeebff319f5607a81bb2e55fdd5de58912509",
+        "REPORT.json": "51053769334d20029bbae1612624a6468560a070fc1fb7250a63c8f279e2473d",
+        "NATIVE_METADATA.json": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+        "constructed_arrays.npz": "d857a0430da0990acfd6930b4955a3bc2a7bb5e2f8f4bf434c5278717cc9349e",
+        "HAZARD.json": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff"
+      }
+    }
+  ],
+  "domain_ids": [
+    "d006",
+    "d007",
+    "d008"
+  ]
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "graph_index": 0,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/audit_known_footprint_topology.py",
+      "--worker",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-00-input.json",
+      "--result",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-00-result.json"
+    ],
+    "bundle_sha256": "5c22c0d4a3052d31ab42c125b18c55aff43349679b0b567714f1ad3d9ae32e19",
+    "lease_acquired_utc": "2026-10-30T07:24:22.430011+00:00",
+    "lease_released_utc": "2026-10-30T07:24:22.664190+00:00",
+    "child_pid": 27832,
+    "exit_code": 0,
+    "stop": null,
+    "stdout": "",
+    "stderr": "",
+    "sampled_rss_mib": 44.390625,
+    "reported_peak_rss_mib": 44.484375,
+    "control_elapsed_s": 0.23024345899466425,
+    "owned_group_absent": true,
+    "admission": "ACCEPTED_CENSUS"
+  },
+  {
+    "graph_index": 1,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/audit_known_footprint_topology.py",
+      "--worker",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-01-input.json",
+      "--result",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-01-result.json"
+    ],
+    "bundle_sha256": "15a149a880a914ca902483386a4ca748bb10d4c0ee27e283ad479c12a241a949",
+    "lease_acquired_utc": "2026-10-30T07:24:22.666914+00:00",
+    "lease_released_utc": "2026-10-30T07:24:22.897759+00:00",
+    "child_pid": 27839,
+    "exit_code": 0,
+    "stop": null,
+    "stdout": "",
+    "stderr": "",
+    "sampled_rss_mib": 1.484375,
+    "reported_peak_rss_mib": 48.6875,
+    "control_elapsed_s": 0.2267698749783449,
+    "owned_group_absent": true,
+    "admission": "ACCEPTED_CENSUS"
+  },
+  {
+    "graph_index": 2,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/audit_known_footprint_topology.py",
+      "--worker",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-02-input.json",
+      "--result",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-02-result.json"
+    ],
+    "bundle_sha256": "ec2c1261e1d313d9c3a5a1a2bc575581b8ce02789e75e89413571b6502542a4d",
+    "lease_acquired_utc": "2026-10-30T07:24:22.898428+00:00",
+    "lease_released_utc": "2026-10-30T07:24:23.567610+00:00",
+    "child_pid": 27843,
+    "exit_code": 0,
+    "stop": null,
+    "stdout": "",
+    "stderr": "",
+    "sampled_rss_mib": 160.484375,
+    "reported_peak_rss_mib": 160.5,
+    "control_elapsed_s": 0.6656462920363992,
+    "owned_group_absent": true,
+    "admission": "ACCEPTED_CENSUS"
+  },
+  {
+    "graph_index": 3,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/audit_known_footprint_topology.py",
+      "--worker",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-03-input.json",
+      "--result",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-03-result.json"
+    ],
+    "bundle_sha256": "04109e7841d12d4aa95682b2e2788dc32c648a6d97b5eeea57ef81ef69407204",
+    "lease_acquired_utc": "2026-10-30T07:24:23.568546+00:00",
+    "lease_released_utc": "2026-10-30T07:24:23.907919+00:00",
+    "child_pid": 27851,
+    "exit_code": 0,
+    "stop": null,
+    "stdout": "",
+    "stderr": "",
+    "sampled_rss_mib": 88.921875,
+    "reported_peak_rss_mib": 90.703125,
+    "control_elapsed_s": 0.3358138329931535,
+    "owned_group_absent": true,
+    "admission": "ACCEPTED_CENSUS"
+  },
+  {
+    "graph_index": 4,
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/audit_known_footprint_topology.py",
+      "--worker",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-04-input.json",
+      "--result",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/research/sipp-routing/known-footprint-topology-20261030/graph-04-result.json"
+    ],
+    "bundle_sha256": "d7c452719682c3a51e3fa39ef28c93f6c9fc4ca9f6ee450caa17ce58df8ad02b",
+    "lease_acquired_utc": "2026-10-30T07:24:23.908501+00:00",
+    "lease_released_utc": "2026-10-30T07:24:25.138895+00:00",
+    "child_pid": 27856,
+    "exit_code": 0,
+    "stop": null,
+    "stdout": "",
+    "stderr": "",
+    "sampled_rss_mib": 326.203125,
+    "reported_peak_rss_mib": 326.21875,
+    "control_elapsed_s": 1.2272445000126027,
+    "owned_group_absent": true,
+    "admission": "ACCEPTED_CENSUS"
+  }
+]

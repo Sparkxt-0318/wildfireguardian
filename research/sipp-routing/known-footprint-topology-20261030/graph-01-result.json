@@ -1,0 +1,375 @@
+{
+  "rows": [
+    {
+      "mission": "20220601T080000Z_FX1",
+      "region": "miryang_2022",
+      "domain_id": "d014",
+      "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+      "request_sha256": "69047e0672418666d47869285c386fd242bd71da6988035ae77bde42728d9bef",
+      "metadata_sha256": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+      "source": {
+        "source_npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T080000Z/FORECAST_20220601T080000Z.npz",
+        "source_npz_sha256": "b0a6e964805fd38745adeca348aa18574783cb91fae4ea1c53c526356ac3c96a",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T080000Z/FORECAST_RECORD_20220601T080000Z.json",
+        "record_sha256": "0390162d8e30b341c546dbd53e8c2be7b78fdd18b81d501c0294bd46944d3179",
+        "cutoff_utc": "2022-06-01T08:00:00Z",
+        "source_clock": {
+          "cutoff_utc": "2022-06-01T08:00:00Z",
+          "cutoff_epoch_s": 1654070400,
+          "sample_time_epoch_s": 1654070400,
+          "prediction_time_epoch_s": 1654070400,
+          "prediction_dt_hours": 1.0,
+          "offset_s": 0
+        },
+        "source_horizon_s": 3600,
+        "valid_time_s": [
+          0,
+          3600
+        ],
+        "raw_source_affine": [
+          375.0,
+          0.0,
+          1111125.0,
+          0.0,
+          -375.0,
+          1729875.0
+        ],
+        "source_epsg": 5179,
+        "trajectory_unknown_cells": 142,
+        "cutoff_invalid_cells": 107,
+        "combined_unknown_cells": 142,
+        "combined_south_up_mask_sha256": "9ed1329471bd2b672a1e6b1848a5556450285cefd630dc5cb6f681fa7aaf6df8",
+        "mask_scope": "Original slot0 bytes plus unchanged full-N shared-mask proof, not a replicated member",
+        "never_semantics": "-1 is no ignition through source horizon only; later time is unknown",
+        "base_seed": 0,
+        "batch_size": 32
+      },
+      "node_count": 1494,
+      "known_nodes": 171,
+      "waitable_nodes": 78,
+      "known_waitable_nodes": 9,
+      "directed_edge_count": 3115,
+      "known_directed_edges": 328,
+      "node_known_flags_sha256": "dcc75445e00b993775b85637bcb3c99cbd7e443fb7ad8d287e2945886dba52bd",
+      "edge_known_flags_sha256": "957cd9c17c6e85bb691c860d0c894d2406ef86256d7276c9fa49b3becb8ef3e0",
+      "original_departure_s": 0,
+      "original_horizon_s": 3600,
+      "restricted_source_horizon_s": 3600,
+      "dwell_clock_preconditions": [
+        {
+          "node": "osm:4855736873",
+          "dwell_s": 120,
+          "original_open_intervals": [
+            [
+              0,
+              3600
+            ]
+          ],
+          "possible_arrival_intervals_s": [
+            [
+              0.0,
+              3480.0
+            ]
+          ]
+        }
+      ],
+      "topology": {
+        "origin_known": true,
+        "destinations": [
+          {
+            "node": "osm:4855736873",
+            "known_node": false,
+            "supported_turn_topology_exists": false,
+            "support_only_edge_witness": null
+          }
+        ],
+        "any_supported_turn_topology": false,
+        "static_incoming_edge_states_reached": 24,
+        "interpretation": "Static reachability only. No time-cost/flame/dose/peak/acceptance search.",
+        "temporal_contact_feasibility": "NOT_EVALUATED"
+      }
+    },
+    {
+      "mission": "20220601T020000Z_FW1",
+      "region": "miryang_2022",
+      "domain_id": "d013",
+      "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+      "request_sha256": "b5d96bf47f623a6e77a0b45fae133e4a5a660275f144cfa80a493affc446473d",
+      "metadata_sha256": "4e836009eafe57d1d70d6d5595f94b398452eea3ac0c38cc8e752d3293a9fb13",
+      "source": {
+        "source_npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T020000Z/FORECAST_20220601T020000Z.npz",
+        "source_npz_sha256": "2e5235ac94e282b5b2afbe2cc4368ddcd3b17dd971a52571f3241f1c9aff97f9",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T020000Z/FORECAST_RECORD_20220601T020000Z.json",
+        "record_sha256": "d5ed38c6480419e4c6f0cface5fa1ee802d582823c45296dbf6ad74f85f8aa98",
+        "cutoff_utc": "2022-06-01T02:00:00Z",
+        "source_clock": {
+          "cutoff_utc": "2022-06-01T02:00:00Z",
+          "cutoff_epoch_s": 1654048800,
+          "sample_time_epoch_s": 1654048800,
+          "prediction_time_epoch_s": 1654048800,
+          "prediction_dt_hours": 1.0,
+          "offset_s": 0
+        },
+        "source_horizon_s": 3600,
+        "valid_time_s": [
+          0,
+          3600
+        ],
+        "raw_source_affine": [
+          375.0,
+          0.0,
+          1111125.0,
+          0.0,
+          -375.0,
+          1729875.0
+        ],
+        "source_epsg": 5179,
+        "trajectory_unknown_cells": 153,
+        "cutoff_invalid_cells": 107,
+        "combined_unknown_cells": 153,
+        "combined_south_up_mask_sha256": "fd867c1cd3f41808c71c827232e77a375b4fd49e2aa8c5804facada8633a022a",
+        "mask_scope": "Original slot0 bytes plus unchanged full-N shared-mask proof, not a replicated member",
+        "never_semantics": "-1 is no ignition through source horizon only; later time is unknown",
+        "base_seed": 0,
+        "batch_size": 32
+      },
+      "node_count": 1494,
+      "known_nodes": 9,
+      "waitable_nodes": 78,
+      "known_waitable_nodes": 0,
+      "directed_edge_count": 3115,
+      "known_directed_edges": 16,
+      "node_known_flags_sha256": "02a0512ea3c3658ebe767c54c649fceb5496edd8af63b180e40a0348140300db",
+      "edge_known_flags_sha256": "fd422f6133dfb05073fb25aa79bc50fdc4806459f304dc45ddfd106ddcc84964",
+      "original_departure_s": 300,
+      "original_horizon_s": 3600,
+      "restricted_source_horizon_s": 3600,
+      "dwell_clock_preconditions": [
+        {
+          "node": "osm:2161974660",
+          "dwell_s": 120,
+          "original_open_intervals": [
+            [
+              1270,
+              3600
+            ]
+          ],
+          "possible_arrival_intervals_s": [
+            [
+              1270.0,
+              3480.0
+            ]
+          ]
+        }
+      ],
+      "topology": {
+        "origin_known": false,
+        "destinations": [
+          {
+            "node": "osm:2161974660",
+            "known_node": false,
+            "supported_turn_topology_exists": false,
+            "support_only_edge_witness": null
+          }
+        ],
+        "any_supported_turn_topology": false,
+        "static_incoming_edge_states_reached": 0,
+        "interpretation": "Static reachability only. No time-cost/flame/dose/peak/acceptance search.",
+        "temporal_contact_feasibility": "NOT_EVALUATED"
+      }
+    },
+    {
+      "mission": "20220601T080000Z_FD1",
+      "region": "miryang_2022",
+      "domain_id": "d014",
+      "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+      "request_sha256": "f5b1e3eaa4cea9f11804ceecf7048575939668869e065a38f0b19265d192e0d6",
+      "metadata_sha256": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+      "source": {
+        "source_npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T080000Z/FORECAST_20220601T080000Z.npz",
+        "source_npz_sha256": "b0a6e964805fd38745adeca348aa18574783cb91fae4ea1c53c526356ac3c96a",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220601T080000Z/FORECAST_RECORD_20220601T080000Z.json",
+        "record_sha256": "0390162d8e30b341c546dbd53e8c2be7b78fdd18b81d501c0294bd46944d3179",
+        "cutoff_utc": "2022-06-01T08:00:00Z",
+        "source_clock": {
+          "cutoff_utc": "2022-06-01T08:00:00Z",
+          "cutoff_epoch_s": 1654070400,
+          "sample_time_epoch_s": 1654070400,
+          "prediction_time_epoch_s": 1654070400,
+          "prediction_dt_hours": 1.0,
+          "offset_s": 0
+        },
+        "source_horizon_s": 3600,
+        "valid_time_s": [
+          0,
+          3600
+        ],
+        "raw_source_affine": [
+          375.0,
+          0.0,
+          1111125.0,
+          0.0,
+          -375.0,
+          1729875.0
+        ],
+        "source_epsg": 5179,
+        "trajectory_unknown_cells": 142,
+        "cutoff_invalid_cells": 107,
+        "combined_unknown_cells": 142,
+        "combined_south_up_mask_sha256": "9ed1329471bd2b672a1e6b1848a5556450285cefd630dc5cb6f681fa7aaf6df8",
+        "mask_scope": "Original slot0 bytes plus unchanged full-N shared-mask proof, not a replicated member",
+        "never_semantics": "-1 is no ignition through source horizon only; later time is unknown",
+        "base_seed": 0,
+        "batch_size": 32
+      },
+      "node_count": 1494,
+      "known_nodes": 171,
+      "waitable_nodes": 78,
+      "known_waitable_nodes": 9,
+      "directed_edge_count": 3115,
+      "known_directed_edges": 328,
+      "node_known_flags_sha256": "dcc75445e00b993775b85637bcb3c99cbd7e443fb7ad8d287e2945886dba52bd",
+      "edge_known_flags_sha256": "957cd9c17c6e85bb691c860d0c894d2406ef86256d7276c9fa49b3becb8ef3e0",
+      "original_departure_s": 600,
+      "original_horizon_s": 3600,
+      "restricted_source_horizon_s": 3600,
+      "dwell_clock_preconditions": [
+        {
+          "node": "osm:4855737534",
+          "dwell_s": 120,
+          "original_open_intervals": [
+            [
+              0,
+              1701
+            ]
+          ],
+          "possible_arrival_intervals_s": [
+            [
+              600.0,
+              1581.0
+            ]
+          ]
+        }
+      ],
+      "topology": {
+        "origin_known": true,
+        "destinations": [
+          {
+            "node": "osm:4855737534",
+            "known_node": false,
+            "supported_turn_topology_exists": false,
+            "support_only_edge_witness": null
+          }
+        ],
+        "any_supported_turn_topology": false,
+        "static_incoming_edge_states_reached": 24,
+        "interpretation": "Static reachability only. No time-cost/flame/dose/peak/acceptance search.",
+        "temporal_contact_feasibility": "NOT_EVALUATED"
+      }
+    },
+    {
+      "mission": "20220531T100000Z_FN1",
+      "region": "miryang_2022",
+      "domain_id": "d012",
+      "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+      "request_sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+      "metadata_sha256": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+      "source": {
+        "source_npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220531T100000Z/FORECAST_20220531T100000Z.npz",
+        "source_npz_sha256": "3ba70f0ea3519a164f03576f469fa21e5eecd62db25a717f6a03ea4a52c13978",
+        "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220531T100000Z/FORECAST_RECORD_20220531T100000Z.json",
+        "record_sha256": "e1bf536e23d65cb327e2b0b9ca04751187d7b95b046899c261b64fac182965fb",
+        "cutoff_utc": "2022-05-31T10:00:00Z",
+        "source_clock": {
+          "cutoff_utc": "2022-05-31T10:00:00Z",
+          "cutoff_epoch_s": 1653991200,
+          "sample_time_epoch_s": 1653991200,
+          "prediction_time_epoch_s": 1653991200,
+          "prediction_dt_hours": 1.0,
+          "offset_s": 0
+        },
+        "source_horizon_s": 3600,
+        "valid_time_s": [
+          0,
+          3600
+        ],
+        "raw_source_affine": [
+          375.0,
+          0.0,
+          1111125.0,
+          0.0,
+          -375.0,
+          1729875.0
+        ],
+        "source_epsg": 5179,
+        "trajectory_unknown_cells": 175,
+        "cutoff_invalid_cells": 107,
+        "combined_unknown_cells": 175,
+        "combined_south_up_mask_sha256": "4d436d17410b08d8309819e425db5e935d2ef0ecde94115c247acc80a7277f7b",
+        "mask_scope": "Original slot0 bytes plus unchanged full-N shared-mask proof, not a replicated member",
+        "never_semantics": "-1 is no ignition through source horizon only; later time is unknown",
+        "base_seed": 0,
+        "batch_size": 32
+      },
+      "node_count": 1494,
+      "known_nodes": 0,
+      "waitable_nodes": 78,
+      "known_waitable_nodes": 0,
+      "directed_edge_count": 3115,
+      "known_directed_edges": 0,
+      "node_known_flags_sha256": "963f26aef8a376a5d7cb6e46be1a35b8c87a36fb6a65087830d3e3793eb25316",
+      "edge_known_flags_sha256": "dbf3ff6c8a1071b0c8ae0c3b003e18398dbf1f08c5de0d4d6dc398e624016c92",
+      "original_departure_s": 0,
+      "original_horizon_s": 3600,
+      "restricted_source_horizon_s": 3600,
+      "dwell_clock_preconditions": [
+        {
+          "node": "osm:4855736883",
+          "dwell_s": 120,
+          "original_open_intervals": [
+            [
+              0,
+              3600
+            ]
+          ],
+          "possible_arrival_intervals_s": [
+            [
+              0.0,
+              3480.0
+            ]
+          ]
+        }
+      ],
+      "topology": {
+        "origin_known": false,
+        "destinations": [
+          {
+            "node": "osm:4855736883",
+            "known_node": false,
+            "supported_turn_topology_exists": false,
+            "support_only_edge_witness": null
+          }
+        ],
+        "any_supported_turn_topology": false,
+        "static_incoming_edge_states_reached": 0,
+        "interpretation": "Static reachability only. No time-cost/flame/dose/peak/acceptance search.",
+        "temporal_contact_feasibility": "NOT_EVALUATED"
+      }
+    }
+  ],
+  "support_methods": {
+    "unknown_endpoint": 9001,
+    "known_closed_rectangle": 344
+  },
+  "domain_order": [
+    "d012",
+    "d013",
+    "d014"
+  ],
+  "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+  "flags_npz_sha256": "8ba4a5e6cd9ea655d4c53dc58354ff50b2d7034b878ef2fbc4c766806ff377df",
+  "node_and_edge_order": "Original pinned graph JSON list order",
+  "peak_rss_mib": 48.6875,
+  "no_timed_search": true,
+  "no_source_or_default_change": true
+}
