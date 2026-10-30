@@ -1,0 +1,33 @@
+{
+  "packaging_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
+  "code_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+  "files": {
+    "PREASSESSMENT_US2024_TIMESTAMPS.json": {
+      "sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d",
+      "bytes": 50679,
+      "git_object": "ea010ff622a0ed82c06825de65ffe4b194043408:research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json"
+    },
+    "FARSITE_IDENTITIES_V3.json": {
+      "sha256": "0594b65f2264fcb86eb7002d5dc70eb6745c796f7dd3f91cd3f804107f9e02eb",
+      "bytes": 70028,
+      "git_object": "ea010ff622a0ed82c06825de65ffe4b194043408:research/forecast-v2/FARSITE_IDENTITIES_V3.json"
+    }
+  },
+  "timestamp_counts": {
+    "ID-BOF-000683_Wapiti_Wapiti": 52,
+    "ID-BOF-000904_Goat": 42,
+    "ID-BOF-001080_Lava": 47,
+    "ID-SCF-240202_RedRock": 40,
+    "WA-SES-000173_Pioneer": 55,
+    "WY-BTF-002416_FishCreek": 37
+  },
+  "timestamp_cases": 273,
+  "catalog_window_exclusions": 0,
+  "float_exact_48h_disagreement_events": 0,
+  "stored_native_cases": 30,
+  "native_horizons_available": 30,
+  "cohort_eligible": 29,
+  "cohort_ineligible_long_interval": 1,
+  "ineligible_native_horizon_minutes": 4489,
+  "scope": "Owner timestamp-only source metadata, no state/growth decoded by its declared derivation. Readiness reads/copies only tracked JSON Git objects and reconciles their internal counts, not originalNPZ/raster/data or independent sourcecasecensus. Stored identity metadata is not actual comparator-quality scoring or native execution."
+}

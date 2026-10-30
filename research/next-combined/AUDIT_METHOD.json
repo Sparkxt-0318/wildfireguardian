@@ -13,9 +13,10 @@
     "B_report_alias": "637457f3118bad5575dd6b4b83c74511d93bbd43",
     "B_earlier_assessment_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
     "B_report_software": "61c836a058eb5fe866da584f7e7670a2b89185af",
-    "B_current_overlay": "6ae52ab20b9c48666d7a8fcb900a817f9239c4b1",
+    "B_current_overlay": "d2512cbcc2debc1b00074c99efb329089823549e",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
-    "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e"
+    "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+    "B_current_packaging": "ea010ff622a0ed82c06825de65ffe4b194043408"
   },
   "graphs": {
     "integration": {
@@ -85,7 +86,7 @@
     "C conditional contact campaign output/figure audit passes at06ad/095, distinct from unchanged strict0/15360support and42,008unscorable risk-admission records; whole-road/full-policy/physical/risk conclusions remain open.",
     "This archival turn verifies exact review/producer/result/log pins; the separate C reviewer owns raw-output/input hashing, and saved witness/control-flow review did not replay geometric witnesses. No heavy/native/planner/study reruns occurred here.",
     "The earlier unequal-support paired-ablation defect is closed at61by scoped21/21report-only repair controls. Actual remaining numerics, complete frozen7modelregistry, heldout and independent final real-report review are pending. Earlier51nonablationcontrols and failure artifacts remain unchanged.",
-    "OptionalFARSITEsubsettoolHOLD for missingmodelset/49hcohortadmission; actualqualitydataunread. Prepared38control finalcheckerNOT_RUN onactualresults until explicit frozen-sourceauthorization. Originalparentdevelopment21aggregate historicalmixedpatherror remains qualified; separate correctedv2 checksall21intendedpaths before aggregatearithmetic, not actualfinalregistryfreeze."
+    "OptionalFARSITEtwo-gap failure is closed only by separateD251synthetic22repaircontrols/41ownersuite; actualquality unrun. Timestamp273cases and30nativehorizons are owner metadata, not new sourcecasecensus. Ownerintegratedfinalgate queued, no passclaim; prepared finalcheckeractualNOT_RUN pendingexplicitfreezeauthorization."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -377,7 +378,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "61c836a058eb5fe866da584f7e7670a2b89185af",
+    "1B": "d2512cbcc2debc1b00074c99efb329089823549e",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -503,5 +504,67 @@
       "intended_phase_authentication": "NOT_GRANTED_ORIGINAL_HISTORICAL_MIXED_PATHS_V2_PENDING"
     }
   },
-  "confirmed_integration_published_head": "df480887c8ef4f066bdbc7e40abd7537aaea3825"
+  "confirmed_integration_published_head": "3fa170b9dfb06c3807c3c28e16fe6579d2689c71",
+  "B_optional_farsite_repair": {
+    "state": "SCOPED_OPTIONAL_TOOL_REPAIR_PASS_ACTUAL_QUALITY_NOT_RUN",
+    "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+    "review": "farsite-subset-repair-d2512cbc/REVIEW_d2512cbc.md",
+    "inventory": "farsite-subset-repair-d2512cbc/SOURCE_INVENTORY.json",
+    "independent_controls": {
+      "checks": 22,
+      "passed": 22
+    },
+    "owner_suite": {
+      "reported_passed": 41,
+      "rerun_by_independent_reviewer": true,
+      "not_pooled_with_22": true
+    },
+    "scope": "Fixed16forecast/baseline comparator columns and noextra; unchanged SC.identities exactFROZEN/registry/SPLITdelegation; US2024membership and0<duration<=48. Original49hnowHOLD/unavailable while finite nativehorizon remainsAVAILABLE. Actual verifier identity boundary mocked, noactualdata/model/quality/native execution.",
+    "old_failure_review": "farsite-subset-review-6ae52ab2/REVIEW_6ae52ab2.md",
+    "actual_baseline_quality": "NOT_RUN"
+  },
+  "B_protocol_parent_metadata": {
+    "state": "PENDING_ACTUAL_7TH_CHECKPOINT_AND_REQUIRED_DOCUMENTARY_RECEIPTS",
+    "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+    "inventory": "protocol-status-parent-d2512cbc/SOURCE_INVENTORY.json",
+    "parent_ast_receipt": "protocol-status-parent-d2512cbc/protocol-d2512cbc-parent-AST.json",
+    "parent_owner_chain_controls": 2,
+    "counts_not_independent_4": true,
+    "runtime_inventory_ast_equal_cc_outside_docstring": true,
+    "protocol_lines_reported": 305,
+    "clearance_receipts": "Coordinator-described acyclic workflow; no actual registration/clearance executed",
+    "external_registration": "NOT_RUN"
+  },
+  "B_preassessment_metadata": {
+    "preassessment_timestamp_metadata": {
+      "packaging_head": "ea010ff622a0ed82c06825de65ffe4b194043408",
+      "receipt": "preassessment-metadata-ea010ff6/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "inventory": "preassessment-metadata-ea010ff6/SOURCE_INVENTORY.json",
+      "cases": 273,
+      "fires": 6,
+      "per_fire": {
+        "ID-BOF-000683_Wapiti_Wapiti": 52,
+        "ID-BOF-000904_Goat": 42,
+        "ID-BOF-001080_Lava": 47,
+        "ID-SCF-240202_RedRock": 40,
+        "WA-SES-000173_Pioneer": 55,
+        "WY-BTF-002416_FishCreek": 37
+      },
+      "catalog_window_exclusions": 0,
+      "float_exact_48h_disagreement_events": 0,
+      "scope": "Owner timestamp-only derivation; no state/growth decoded. Readiness metadataGitarchive/internalcount check, not independent original sourcecasecensus or actualassessment."
+    },
+    "stored_farsite_identity_metadata": {
+      "receipt": "preassessment-metadata-ea010ff6/FARSITE_IDENTITIES_V3.json",
+      "stored_cases": 30,
+      "native_horizons_available": 30,
+      "cohort_eligible": 29,
+      "ineligible_long_interval": 1,
+      "ineligible_native_minutes": 4489,
+      "actual_native_execution": false,
+      "scores_available": false,
+      "scored_cases": 0,
+      "scope": "Identity metadata only; native horizon availability does not override frozen48hcohorteligibility or establish comparative quality."
+    }
+  }
 }

@@ -1,0 +1,7 @@
+{
+  "scope": "Module docstring only; runtime AST excluding leading docstring",
+  "old_source_sha256": "f8e2bd03c789068cc13f2398dc45e7adf22526fea5c0c3eae26340a41ea7f279",
+  "new_source_sha256": "abffeb0082c2db1ac8d805c077fe9c1ed91964d03797a8c333566a1a729f38c0",
+  "non_doc_AST_equal": true,
+  "source_head": "d2512cbcc2debc1b00074c99efb329089823549e"
+}

@@ -1,0 +1,10 @@
+{
+  "source_commit": "1178cb0512578b29d39aff734531d7bd3a65b2b8",
+  "scope": "Exact optionalFARSITEHOLD current summary, including originalV1andcorrectedV2development qualification history, before separateD251repair pass. All original failures remain unchanged.",
+  "sha256": {
+    "README.md": "6de4a7fae168a146f1cb68667c20278c24e299ad3542b0bfdadcb2fbd277fccf",
+    "GATES.json": "d82826e81314de18607fc3085bf304e65753a52f3a5c2cd7001af01fb1906f86",
+    "CURRENT_EVIDENCE.json": "d82826e81314de18607fc3085bf304e65753a52f3a5c2cd7001af01fb1906f86",
+    "AUDIT_METHOD.json": "7cf9ffe6f1a9463cd3807d8a51effa28c104a527f7f611b2bb0a7bfcc8d4acf1"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+  "files": {
+    "protocol-d2512cbc-parent-AST.json": {
+      "sha256": "c541e99c61306750b9276c0e5bc967f0d2991e8bbbc2e4b220b433722bf31893",
+      "bytes": 352
+    },
+    "protocol-d2512cbc-parent-tests.log": {
+      "sha256": "be060c399f8db8601c8eabe17d898cbd0ec73835bf84ee16ca06246541dae224",
+      "bytes": 98
+    }
+  },
+  "scope": "Parent runtimeASTexcludingdocstring equality tocc and2sameowner-chain controls replayedPASS. These are2overlapping controls, not4independent checks; no actual registration, seventhcheckpoint or registryfreeze.305line protocol and acyclicclearancereceipts are coordinator-described pending workflow, not executed external authority."
+}
