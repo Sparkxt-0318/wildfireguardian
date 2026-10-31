@@ -1,7 +1,9 @@
 """Planning methods for the harness (``evacplan run --method NAME``).
 
-Registered: ``noop`` (empty plan, plumbing only). Baselines B0-B3 and the Phase-1 experiments
-register here as they are written.
+Registered: ``noop`` (empty plan, plumbing only), ``b0_independent`` (B0: each facility planned
+alone with today's planner logic, vehicles shared first come first served), ``b1_greedy`` (B1:
+earliest-deadline-first insertion with the latest-safe-departure sweep's deadlines). B2, B3 and the
+Phase-1 experiments register here as they are written.
 """
 from __future__ import annotations
 
@@ -12,6 +14,8 @@ from .base import Method, MethodResult
 
 _REGISTRY: dict[str, str | Callable[..., Method]] = {
     "noop": "evacplan.methods.noop:NoopMethod",
+    "b0_independent": "evacplan.methods.b0_independent:B0Independent",
+    "b1_greedy": "evacplan.methods.b1_greedy:B1Greedy",
 }
 
 
