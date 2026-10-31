@@ -1,0 +1,1189 @@
+{
+ "schema": "firecast-lab/splits/v1",
+ "frozen_utc": "2026-10-31",
+ "status": "Frozen before any Track A modelling code. Built from repo metadata only (events.json and the c651 checkpoint contract); no model output or test outcome was read. Changing membership, folds or the window rule needs Siyeong's approval.",
+ "unit": "whole fire: every cell, hour, cutoff and survey pair of a fire inherits the fire's split and fold; nothing is split by cell or window",
+ "catalog": {
+  "path": "forecast/data/environment/events.json",
+  "sha256": "607f831ea64235449d7eb19e5cd931099486aaae44de1221c1ec27b34965ac8b",
+  "event_count": 44
+ },
+ "rules": [
+  "dev: every model, hyperparameter, calibration and threshold choice. Dev scores are cross-fitted: fit on the other folds, predict the left-out fold of whole fires.",
+  "test: touched only at milestones, after Siyeong approves; one pre-declared scoring per frozen candidate; no design iteration on test results.",
+  "fresh_holdout: locked. Nothing loads, scores or inspects it until a final claim, after Siyeong approves.",
+  "Korean (reconstruction-only truth) and US (NIROPS truth) scores are reported separately and never pooled.",
+  "Uncertainty: whole-fire bootstrap; repeated windows of one fire are not independent fires."
+ ],
+ "window_rule": {
+  "headline_lead_h": 24,
+  "secondary_lead_h": 12,
+  "reconstruction_cutoffs": "c = start_utc + 12 h * k for k >= 1 with c + lead < end_utc. approx_windows_* apply this rule to events.json times only; the exact rule also needs at least one reconstructed burned cell at c, which needs the arrival rasters (not on this host).",
+  "nirops_windows": "24 h lead: consecutive NIROPS survey pairs lasting 20 to 28 h, forecast to the exact survey endpoint. Continuity diagnostic: all pairs in (0, 48] h, as preregistered by forecast-v2.",
+  "why": "firecast-lab/docs/DATA_NOTES.md (label timing uncertainty)"
+ },
+ "flag_definitions": {
+  "too_short_24h": "approx_windows_24h == 0: under window_rule the fire cannot supply a headline 24 h window.",
+  "no_c651_rows": "c651's prepared cache holds no row of this fire (too small or short for a complete 9x9 context with a burned neighbour), so c651 neither trained nor was scored on it."
+ },
+ "c651_role_definitions": {
+  "train+validation": "in-sample for c651 (its cell-hour train/validation rows came from this fire)",
+  "test": "held out from c651 fitting and selection; c651 test rows exist",
+  "test_declared_no_rows": "declared c651 test fire, but the prepared cache has no rows",
+  "none": "no c651 rows anywhere",
+  "source": "c651 checkpoint contract.splits (decoded without torch) and forecast/runs/20261010_categorical_balanced_benchmark/protocol.json original_splits; row counts in forecast/documents/weighted_stratified_split_20261009.md:27-35 and observed_combined_evaluation.md:293-294"
+ },
+ "folds": {
+  "Y2020": "US 2020 fires",
+  "Y2021": "US 2021 fires",
+  "Y2022_2023": "US 2022 + KR 2022 + KR 2023 fires; 2022 and 2023 are merged because the KR 2023 fires are too small to stand alone, and there is no US 2023 fire in the catalog"
+ },
+ "splits": {
+  "dev": {
+   "why": "Every fire outside the held-out seasons: the development seasons of both earlier programs (c651 and forecast-v2).",
+   "cross_fitting": "Leave one fold out. Fit calibrators on pooled out-of-fold dev predictions, never on test.",
+   "caveats": [
+    "c651 is in-sample on 25 dev fires (c651_role train+validation): label c651 dev scores in-sample.",
+    "All KR dev fires sit in fold Y2022_2023, so their out-of-fold predictions come from models fitted on US 2020-2021 fires only.",
+    "Only KFS_02 and KFS_03 give KR dev signal for a 9x9-context model; per-country KR calibration cannot be fitted from dev."
+   ]
+  },
+  "test": {
+   "why": "This repo's held-out seasons, US 2024 and KR 2025. c651 was fitted and selected on the other seasons only.",
+   "not_fresh": "These fires were already scored and inspected by earlier studies (the c651 observed NIROPS study and the forecast-v2 held-out study, whose primary criterion failed). Treat test as a used replication set, not fresh evidence.",
+   "kr_truth": "reconstruction only (no independent Korean timing truth); KFS_06 and KFS_13 have no c651 rows",
+   "us_truth": "NIROPS v1 survey perimeters: 324 consecutive survey pairs, 195 lasting 20 to 28 h, 273 lasting at most 48 h (catalog/*/provenance.json)"
+  },
+  "fresh_holdout": {
+   "locked": true,
+   "fires": [],
+   "why_empty": "NIROPS v1 (Mendeley 10.17632/95rj5d379g.1) covers June 2020 to Nov/Dec 2024 only, and no release with 2025 surveys is confirmed (Mendeley is blocked from this host). No 2026 Korean reconstruction exists (Choi et al. deposit v3.0.0 ends with 2025 events).",
+   "us_2025_membership_rule": "Every 2025 incident in USFS Regions 1-6 in the first NIROPS release covering 2025 that meets the publisher's inclusion rule and has at least one consecutive survey pair lasting 20 to 28 h. Membership is fixed by this rule, never by looking at outcomes.",
+   "kr_2026_membership_rule": "Every 2026 Korea Forest Service event in the first arrival reconstruction covering 2026 with at least one 24 h window under window_rule.",
+   "not_included": {
+    "us_2026": "Reserved by forecast/documents/preregistration_blind_test.md for the owner's blind test (no access before the owner's OSF registration). Not part of this holdout.",
+    "us_2023_nirops": "US 2023 incidents are in NIROPS v1 but not in the 44-event catalog, and no earlier model used them. They could become a usable holdout now but need new environment stacks. Open question for Siyeong."
+   }
+  }
+ },
+ "spatial_overlaps": {
+  "note": "Event rectangles (bounds_wgs84) that overlap. Overlapping rectangles share landscape inputs (terrain, 2019 vegetation), not labels. Whether the burn scars overlap needs the rasters.",
+  "same_season_same_fold": [
+   [
+    "CA-KNF-006385_RiverComplex_RiverComplex",
+    "CA-SHF-001187_Monument"
+   ],
+   [
+    "OR-UMP-000373_RoughPatchCpx",
+    "OR-UPF-000265_Jack"
+   ],
+   [
+    "OR-UPF-000265_Jack",
+    "OR-UPF-000450_DevilsKnob"
+   ],
+   [
+    "KFS_02",
+    "KFS_14"
+   ]
+  ],
+  "dev_vs_test": [
+   [
+    "KFS_12",
+    "KFS_01"
+   ],
+   [
+    "ID-SCF-022105_Moose",
+    "ID-SCF-240202_RedRock"
+   ]
+  ],
+  "across_dev_folds": [
+   [
+    "CA-PNF-001308_PNFNorthComplex",
+    "CA-BTU-009205_Dixie"
+   ],
+   [
+    "CA-SRF-000656_RedSalmonComplex",
+    "CA-KNF-006385_RiverComplex_RiverComplex"
+   ],
+   [
+    "CA-MNF-000753_AugustComplex",
+    "CA-SHF-001187_Monument"
+   ],
+   [
+    "CA-SRF-000656_RedSalmonComplex",
+    "CA-SHF-001187_Monument"
+   ]
+  ]
+ },
+ "fires": [
+  {
+   "id": "KFS_01",
+   "name": "Uiseong",
+   "country": "KR",
+   "year": 2025,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2025-03-22T02:00:00+00:00",
+   "end_utc": "2025-03-26T20:00:00+00:00",
+   "duration_h": 114.0,
+   "grid_wh": [
+    237,
+    79
+   ],
+   "valid_arrival_pixels": 10955,
+   "approx_windows_24h": 7,
+   "approx_windows_12h": 8
+  },
+  {
+   "id": "KFS_02",
+   "name": "Uljin",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-03-04T02:00:00+00:00",
+   "end_utc": "2022-03-12T04:00:00+00:00",
+   "duration_h": 194.0,
+   "grid_wh": [
+    58,
+    62
+   ],
+   "valid_arrival_pixels": 1937,
+   "approx_windows_24h": 14,
+   "approx_windows_12h": 15
+  },
+  {
+   "id": "KFS_03",
+   "name": "Gangneung",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-03-04T16:00:00+00:00",
+   "end_utc": "2022-03-07T18:00:00+00:00",
+   "duration_h": 74.0,
+   "grid_wh": [
+    33,
+    20
+   ],
+   "valid_arrival_pixels": 372,
+   "approx_windows_24h": 4,
+   "approx_windows_12h": 5
+  },
+  {
+   "id": "KFS_04",
+   "name": "Sancheong",
+   "country": "KR",
+   "year": 2025,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2025-03-21T06:00:00+00:00",
+   "end_utc": "2025-03-28T18:00:00+00:00",
+   "duration_h": 180.0,
+   "grid_wh": [
+    27,
+    29
+   ],
+   "valid_arrival_pixels": 355,
+   "approx_windows_24h": 12,
+   "approx_windows_12h": 13
+  },
+  {
+   "id": "KFS_05",
+   "name": "Hongseong",
+   "country": "KR",
+   "year": 2023,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2023-04-02T02:00:00+00:00",
+   "end_utc": "2023-04-03T18:00:00+00:00",
+   "duration_h": 40.0,
+   "grid_wh": [
+    18,
+    18
+   ],
+   "valid_arrival_pixels": 153,
+   "approx_windows_24h": 1,
+   "approx_windows_12h": 2
+  },
+  {
+   "id": "KFS_06",
+   "name": "Ulju",
+   "country": "KR",
+   "year": 2025,
+   "split": "test",
+   "fold": null,
+   "flags": [
+    "no_c651_rows"
+   ],
+   "c651_role": "test_declared_no_rows",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2025-03-22T03:00:00+00:00",
+   "end_utc": "2025-03-26T12:00:00+00:00",
+   "duration_h": 105.0,
+   "grid_wh": [
+    14,
+    14
+   ],
+   "valid_arrival_pixels": 78,
+   "approx_windows_24h": 6,
+   "approx_windows_12h": 7
+  },
+  {
+   "id": "KFS_07",
+   "name": "Geumsan",
+   "country": "KR",
+   "year": 2023,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2023-04-02T03:00:00+00:00",
+   "end_utc": "2023-04-03T06:00:00+00:00",
+   "duration_h": 27.0,
+   "grid_wh": [
+    14,
+    12
+   ],
+   "valid_arrival_pixels": 70,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 1
+  },
+  {
+   "id": "KFS_09",
+   "name": "Yanggu",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-04-10T06:00:00+00:00",
+   "end_utc": "2022-04-10T18:00:00+00:00",
+   "duration_h": 12.0,
+   "grid_wh": [
+    11,
+    15
+   ],
+   "valid_arrival_pixels": 57,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 0
+  },
+  {
+   "id": "KFS_11",
+   "name": "Miryang",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-05-31T00:00:00+00:00",
+   "end_utc": "2022-06-02T02:00:00+00:00",
+   "duration_h": 50.0,
+   "grid_wh": [
+    11,
+    17
+   ],
+   "valid_arrival_pixels": 80,
+   "approx_windows_24h": 2,
+   "approx_windows_12h": 3
+  },
+  {
+   "id": "KFS_12",
+   "name": "Yeongdeok",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-02-14T19:00:00+00:00",
+   "end_utc": "2022-02-16T16:00:00+00:00",
+   "duration_h": 45.0,
+   "grid_wh": [
+    12,
+    8
+   ],
+   "valid_arrival_pixels": 51,
+   "approx_windows_24h": 1,
+   "approx_windows_12h": 2
+  },
+  {
+   "id": "KFS_13",
+   "name": "Buk-gu",
+   "country": "KR",
+   "year": 2025,
+   "split": "test",
+   "fold": null,
+   "flags": [
+    "no_c651_rows"
+   ],
+   "c651_role": "test_declared_no_rows",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2025-04-28T05:00:00+00:00",
+   "end_utc": "2025-04-30T09:00:00+00:00",
+   "duration_h": 52.0,
+   "grid_wh": [
+    9,
+    7
+   ],
+   "valid_arrival_pixels": 27,
+   "approx_windows_24h": 2,
+   "approx_windows_12h": 3
+  },
+  {
+   "id": "KFS_14",
+   "name": "Uljin",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-05-28T03:00:00+00:00",
+   "end_utc": "2022-05-28T18:00:00+00:00",
+   "duration_h": 15.0,
+   "grid_wh": [
+    8,
+    5
+   ],
+   "valid_arrival_pixels": 19,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 0
+  },
+  {
+   "id": "KFS_15",
+   "name": "Gunwi",
+   "country": "KR",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2022-04-10T04:00:00+00:00",
+   "end_utc": "2022-04-11T01:00:00+00:00",
+   "duration_h": 21.0,
+   "grid_wh": [
+    7,
+    9
+   ],
+   "valid_arrival_pixels": 25,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 0
+  },
+  {
+   "id": "KFS_16",
+   "name": "Suncheon",
+   "country": "KR",
+   "year": 2023,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2023-04-03T04:00:00+00:00",
+   "end_utc": "2023-04-03T05:00:00+00:00",
+   "duration_h": 1.0,
+   "grid_wh": [
+    6,
+    5
+   ],
+   "valid_arrival_pixels": 9,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 0
+  },
+  {
+   "id": "KFS_17",
+   "name": "Hapcheon",
+   "country": "KR",
+   "year": 2023,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [
+    "too_short_24h",
+    "no_c651_rows"
+   ],
+   "c651_role": "none",
+   "truth": [
+    "reconstruction"
+   ],
+   "start_utc": "2023-03-08T04:00:00+00:00",
+   "end_utc": "2023-03-09T12:00:00+00:00",
+   "duration_h": 32.0,
+   "grid_wh": [
+    4,
+    8
+   ],
+   "valid_arrival_pixels": 14,
+   "approx_windows_24h": 0,
+   "approx_windows_12h": 1
+  },
+  {
+   "id": "CA-BTU-009205_Dixie",
+   "name": "Dixie",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-14T00:00:00+00:00",
+   "end_utc": "2021-10-14T02:00:00+00:00",
+   "duration_h": 2210.0,
+   "grid_wh": [
+    309,
+    318
+   ],
+   "valid_arrival_pixels": 28103,
+   "approx_windows_24h": 182,
+   "approx_windows_12h": 183
+  },
+  {
+   "id": "CA-KNF-006385_RiverComplex_RiverComplex",
+   "name": "RiverComplex_RiverComplex",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-02T00:00:00+00:00",
+   "end_utc": "2021-10-20T02:00:00+00:00",
+   "duration_h": 1898.0,
+   "grid_wh": [
+    138,
+    90
+   ],
+   "valid_arrival_pixels": 5606,
+   "approx_windows_24h": 156,
+   "approx_windows_12h": 157
+  },
+  {
+   "id": "CA-KNF-006454_Antelope",
+   "name": "Antelope",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-03T00:00:00+00:00",
+   "end_utc": "2021-09-19T07:00:00+00:00",
+   "duration_h": 1135.0,
+   "grid_wh": [
+    134,
+    129
+   ],
+   "valid_arrival_pixels": 4190,
+   "approx_windows_24h": 92,
+   "approx_windows_12h": 93
+  },
+  {
+   "id": "CA-MNF-000753_AugustComplex",
+   "name": "AugustComplex",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-08-18T00:00:00+00:00",
+   "end_utc": "2020-11-06T03:00:00+00:00",
+   "duration_h": 1923.0,
+   "grid_wh": [
+    210,
+    355
+   ],
+   "valid_arrival_pixels": 29916,
+   "approx_windows_24h": 158,
+   "approx_windows_12h": 159
+  },
+  {
+   "id": "CA-PNF-001308_PNFNorthComplex",
+   "name": "PNFNorthComplex",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-08-17T04:00:00+00:00",
+   "end_utc": "2020-11-03T04:00:00+00:00",
+   "duration_h": 1872.0,
+   "grid_wh": [
+    195,
+    128
+   ],
+   "valid_arrival_pixels": 9467,
+   "approx_windows_24h": 153,
+   "approx_windows_12h": 154
+  },
+  {
+   "id": "CA-SHF-001187_Monument",
+   "name": "Monument",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-31T00:00:00+00:00",
+   "end_utc": "2021-10-16T01:00:00+00:00",
+   "duration_h": 1849.0,
+   "grid_wh": [
+    108,
+    134
+   ],
+   "valid_arrival_pixels": 6516,
+   "approx_windows_24h": 152,
+   "approx_windows_12h": 153
+  },
+  {
+   "id": "CA-SNF-001391_Creek",
+   "name": "Creek",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-09-05T00:00:00+00:00",
+   "end_utc": "2020-11-14T07:00:00+00:00",
+   "duration_h": 1687.0,
+   "grid_wh": [
+    151,
+    200
+   ],
+   "valid_arrival_pixels": 11234,
+   "approx_windows_24h": 138,
+   "approx_windows_12h": 139
+  },
+  {
+   "id": "CA-SQF-002622_SQFComplex",
+   "name": "SQFComplex",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-08-22T00:00:00+00:00",
+   "end_utc": "2020-11-11T06:00:00+00:00",
+   "duration_h": 1950.0,
+   "grid_wh": [
+    132,
+    139
+   ],
+   "valid_arrival_pixels": 5204,
+   "approx_windows_24h": 160,
+   "approx_windows_12h": 161
+  },
+  {
+   "id": "CA-SRF-000651_McCash",
+   "name": "McCash",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-01T12:00:00+00:00",
+   "end_utc": "2021-10-20T04:00:00+00:00",
+   "duration_h": 1912.0,
+   "grid_wh": [
+    85,
+    93
+   ],
+   "valid_arrival_pixels": 2744,
+   "approx_windows_24h": 157,
+   "approx_windows_12h": 158
+  },
+  {
+   "id": "CA-SRF-000656_RedSalmonComplex",
+   "name": "RedSalmonComplex",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-07-28T00:00:00+00:00",
+   "end_utc": "2020-11-22T02:00:00+00:00",
+   "duration_h": 2810.0,
+   "grid_wh": [
+    118,
+    95
+   ],
+   "valid_arrival_pixels": 4187,
+   "approx_windows_24h": 232,
+   "approx_windows_12h": 233
+  },
+  {
+   "id": "CO-ARF-000636_CameronPeak",
+   "name": "CameronPeak",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-08-14T00:00:00+00:00",
+   "end_utc": "2020-11-22T03:00:00+00:00",
+   "duration_h": 2403.0,
+   "grid_wh": [
+    168,
+    114
+   ],
+   "valid_arrival_pixels": 6019,
+   "approx_windows_24h": 198,
+   "approx_windows_12h": 199
+  },
+  {
+   "id": "ID-BOF-000683_Wapiti_Wapiti",
+   "name": "Wapiti_Wapiti",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-08-01T00:00:00+00:00",
+   "end_utc": "2024-10-26T05:00:00+00:00",
+   "duration_h": 2069.0,
+   "grid_wh": [
+    105,
+    111
+   ],
+   "valid_arrival_pixels": 3787,
+   "approx_windows_24h": 170,
+   "approx_windows_12h": 171
+  },
+  {
+   "id": "ID-BOF-000904_Goat",
+   "name": "Goat",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-08-10T00:00:00+00:00",
+   "end_utc": "2024-10-23T07:00:00+00:00",
+   "duration_h": 1783.0,
+   "grid_wh": [
+    73,
+    68
+   ],
+   "valid_arrival_pixels": 1062,
+   "approx_windows_24h": 146,
+   "approx_windows_12h": 147
+  },
+  {
+   "id": "ID-BOF-001080_Lava",
+   "name": "Lava",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-08-01T00:00:00+00:00",
+   "end_utc": "2024-10-24T04:00:00+00:00",
+   "duration_h": 2020.0,
+   "grid_wh": [
+    77,
+    85
+   ],
+   "valid_arrival_pixels": 2826,
+   "approx_windows_24h": 166,
+   "approx_windows_12h": 167
+  },
+  {
+   "id": "ID-SCF-022105_Moose",
+   "name": "Moose",
+   "country": "US",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2022-07-18T00:00:00+00:00",
+   "end_utc": "2022-10-27T01:00:00+00:00",
+   "duration_h": 2425.0,
+   "grid_wh": [
+    113,
+    81
+   ],
+   "valid_arrival_pixels": 3759,
+   "approx_windows_24h": 200,
+   "approx_windows_12h": 201
+  },
+  {
+   "id": "ID-SCF-240202_RedRock",
+   "name": "RedRock",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-08-29T00:00:00+00:00",
+   "end_utc": "2024-10-26T03:00:00+00:00",
+   "duration_h": 1395.0,
+   "grid_wh": [
+    126,
+    62
+   ],
+   "valid_arrival_pixels": 2285,
+   "approx_windows_24h": 114,
+   "approx_windows_12h": 115
+  },
+  {
+   "id": "MT-BDF-006269_AlderCreek",
+   "name": "AlderCreek",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-10T00:00:00+00:00",
+   "end_utc": "2021-10-07T02:00:00+00:00",
+   "duration_h": 2138.0,
+   "grid_wh": [
+    73,
+    52
+   ],
+   "valid_arrival_pixels": 1072,
+   "approx_windows_24h": 176,
+   "approx_windows_12h": 177
+  },
+  {
+   "id": "MT-BDF-006272_TrailCreek",
+   "name": "TrailCreek",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-10T00:00:00+00:00",
+   "end_utc": "2021-10-08T03:00:00+00:00",
+   "duration_h": 2163.0,
+   "grid_wh": [
+    77,
+    63
+   ],
+   "valid_arrival_pixels": 1786,
+   "approx_windows_24h": 178,
+   "approx_windows_12h": 179
+  },
+  {
+   "id": "MT-LNF-000893_WestLolo",
+   "name": "WestLolo",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-10T00:00:00+00:00",
+   "end_utc": "2021-08-25T08:00:00+00:00",
+   "duration_h": 1112.0,
+   "grid_wh": [
+    63,
+    67
+   ],
+   "valid_arrival_pixels": 1104,
+   "approx_windows_24h": 90,
+   "approx_windows_12h": 91
+  },
+  {
+   "id": "NM-SNF-000027_HermitsPeak",
+   "name": "HermitsPeak",
+   "country": "US",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2022-04-07T10:00:00+00:00",
+   "end_utc": "2022-07-14T03:00:00+00:00",
+   "duration_h": 2345.0,
+   "grid_wh": [
+    107,
+    200
+   ],
+   "valid_arrival_pixels": 9958,
+   "approx_windows_24h": 193,
+   "approx_windows_12h": 194
+  },
+  {
+   "id": "OR-UMF-000659_GreenRidge",
+   "name": "GreenRidge",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-09T00:00:00+00:00",
+   "end_utc": "2021-10-05T03:00:00+00:00",
+   "duration_h": 2115.0,
+   "grid_wh": [
+    72,
+    50
+   ],
+   "valid_arrival_pixels": 1265,
+   "approx_windows_24h": 174,
+   "approx_windows_12h": 175
+  },
+  {
+   "id": "OR-UMP-000373_RoughPatchCpx",
+   "name": "RoughPatchCpx",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-02T00:00:00+00:00",
+   "end_utc": "2021-10-13T04:00:00+00:00",
+   "duration_h": 1732.0,
+   "grid_wh": [
+    54,
+    72
+   ],
+   "valid_arrival_pixels": 1102,
+   "approx_windows_24h": 142,
+   "approx_windows_12h": 143
+  },
+  {
+   "id": "OR-UPF-000265_Jack",
+   "name": "Jack",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-07-06T00:00:00+00:00",
+   "end_utc": "2021-10-01T03:00:00+00:00",
+   "duration_h": 2091.0,
+   "grid_wh": [
+    54,
+    89
+   ],
+   "valid_arrival_pixels": 1085,
+   "approx_windows_24h": 172,
+   "approx_windows_12h": 173
+  },
+  {
+   "id": "OR-UPF-000450_DevilsKnob",
+   "name": "DevilsKnob",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-04T00:00:00+00:00",
+   "end_utc": "2021-10-08T05:00:00+00:00",
+   "duration_h": 1565.0,
+   "grid_wh": [
+    77,
+    111
+   ],
+   "valid_arrival_pixels": 2015,
+   "approx_windows_24h": 128,
+   "approx_windows_12h": 129
+  },
+  {
+   "id": "OR-WIF-220180_CedarCreek",
+   "name": "CedarCreek",
+   "country": "US",
+   "year": 2022,
+   "split": "dev",
+   "fold": "Y2022_2023",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2022-08-04T00:00:00+00:00",
+   "end_utc": "2022-10-28T22:00:00+00:00",
+   "duration_h": 2062.0,
+   "grid_wh": [
+    112,
+    95
+   ],
+   "valid_arrival_pixels": 3677,
+   "approx_windows_24h": 169,
+   "approx_windows_12h": 170
+  },
+  {
+   "id": "UT-ASF-100340_EastFork",
+   "name": "EastFork",
+   "country": "US",
+   "year": 2020,
+   "split": "dev",
+   "fold": "Y2020",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2020-08-22T00:00:00+00:00",
+   "end_utc": "2020-11-07T02:00:00+00:00",
+   "duration_h": 1850.0,
+   "grid_wh": [
+    95,
+    103
+   ],
+   "valid_arrival_pixels": 2669,
+   "approx_windows_24h": 152,
+   "approx_windows_12h": 153
+  },
+  {
+   "id": "WA-OWF-000453_SchneiderSprings",
+   "name": "SchneiderSprings",
+   "country": "US",
+   "year": 2021,
+   "split": "dev",
+   "fold": "Y2021",
+   "flags": [],
+   "c651_role": "train+validation",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2021-08-04T00:00:00+00:00",
+   "end_utc": "2021-10-06T03:00:00+00:00",
+   "duration_h": 1515.0,
+   "grid_wh": [
+    89,
+    91
+   ],
+   "valid_arrival_pixels": 3094,
+   "approx_windows_24h": 124,
+   "approx_windows_12h": 125
+  },
+  {
+   "id": "WA-SES-000173_Pioneer",
+   "name": "Pioneer",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-06-12T03:00:00+00:00",
+   "end_utc": "2024-08-27T08:00:00+00:00",
+   "duration_h": 1829.0,
+   "grid_wh": [
+    55,
+    96
+   ],
+   "valid_arrival_pixels": 1148,
+   "approx_windows_24h": 150,
+   "approx_windows_12h": 151
+  },
+  {
+   "id": "WY-BTF-002416_FishCreek",
+   "name": "FishCreek",
+   "country": "US",
+   "year": 2024,
+   "split": "test",
+   "fold": null,
+   "flags": [],
+   "c651_role": "test",
+   "truth": [
+    "reconstruction",
+    "nirops_v1"
+   ],
+   "start_utc": "2024-08-21T00:00:00+00:00",
+   "end_utc": "2024-10-28T06:00:00+00:00",
+   "duration_h": 1638.0,
+   "grid_wh": [
+    73,
+    103
+   ],
+   "valid_arrival_pixels": 2642,
+   "approx_windows_24h": 134,
+   "approx_windows_12h": 135
+  }
+ ]
+}
