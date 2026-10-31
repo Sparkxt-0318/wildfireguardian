@@ -1,0 +1,147 @@
+{
+  "track": "1A",
+  "status": "HOLD_INCOMPLETE",
+  "tests": {
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "-m",
+      "pytest",
+      "experimental/flame-front-radiation/tests",
+      "-q"
+    ],
+    "exit_code": 0,
+    "passed": 42,
+    "wall_s": 5.150210749998223,
+    "random_box_interval_cases": 1000,
+    "seed": 20261030
+  },
+  "physics_gate": "UNRESOLVED_DO_NOT_RUN_ROUTING",
+  "routing_executions": 0,
+  "previous_routes_rejected_under_v2": null,
+  "peak_binding_missions": null,
+  "dose_binding_missions": null,
+  "headline": "Optical unit checks pass; empirical physics gate unresolved, no routing-v2 measurements",
+  "host": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "numpy": "1.26.4"
+  },
+  "seed": 20261030,
+  "input_sha256": {
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/src/wfg_latest/radiation/heat.py": "f52b4c31ba83d59c9a9b29e669c738e94d7de3b8bff723b1108ebcc11984acfb",
+    "integration/kit/phaseB/road_bounds.py": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2",
+    "integration/kit/routing_candidate/baseline/radiation_bounds.py": "75bb1f5055eb16d21ec5f9282392d89f29fbaf2fbf7d8a84a1f4483cdd0957a8"
+  },
+  "requirements": {
+    "front_segments": {
+      "state": "PARTIAL",
+      "evidence": "src/wfg_flamefront/isochrone.py; tests/test_law.py",
+      "limit": "Straight-segment approximation, strict unknown/infinite and present-phase refusal; not every legacy packet supported"
+    },
+    "intensity_and_wind": {
+      "state": "PASS_MODEL_FORMULA",
+      "evidence": "intensity.py; sources NIST and Weise/Biging",
+      "limit": "Fuel-specific empirical laws and declared cap, no local physical fit"
+    },
+    "flux_at_points": {
+      "state": "PASS_ON_SUPPORTED_GEOMETRY",
+      "evidence": "law_v2.py; analytic view-factor tests",
+      "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
+    },
+    "spatial_time_enclosure": {
+      "state": "PASS_GEOMETRIC_UPPER_WITH_COARSE_FALLBACK_ON_SUPPORTED_DOMAIN",
+      "evidence": "geometric_bounds.py rational swept-hull proof; verified_view.py directed point evaluation; BOUND_RESULTS.json; analytic and supported-domain tests",
+      "limit": "Whole-quad area/hull can remain loose under refinement; unit view-factor fallback outside proved angular cone; zero lower bound; unknown phases remain refused"
+    },
+    "point_numerical_enclosure": {
+      "state": "PASS_DIRECTED_POLYGON_FORMULA_CONTROLS",
+      "evidence": "verified_view.py, test_geometric_bounds.py, retained original cancellation counterexample",
+      "limit": "Directed lower approximation before binary64 quantization; explicit unit orientation-envelope branch retained; adaptive precision has no uniform request-time guarantee"
+    },
+    "physical_comparisons": {
+      "state": "UNRESOLVED",
+      "evidence": "physics_validation/SOURCES.json; MODEL_TABLE.csv; INCOMPARABLE_DIAGNOSTICS.csv",
+      "limit": "Prompt mixes shrub/flame heights, absent instantaneous front widths, in-flame irradiance and emitter power"
+    },
+    "factor_three_gate": {
+      "state": "UNRESOLVED",
+      "evidence": "physics_validation/RESULTS.json",
+      "limit": "No comparable empirical threefold-error assessment can be asserted; diagnostics are not measured validation errors"
+    },
+    "cutoff_error": {
+      "state": "PASS_NO_TRUNCATION",
+      "evidence": "solidflame.py omitted_absolute_bound",
+      "limit": "No default radius truncation; no uniform relative tail-error claim"
+    },
+    "extinction_and_present_state": {
+      "state": "PARTIAL_FAIL_CLOSED",
+      "evidence": "law_v2.py _inputs and refusal tests",
+      "limit": "Per-cell finite expiry supported, scalar max-remaining old-fire phases cannot identify a front"
+    },
+    "dose": {
+      "state": "PASS_DECLARED_INTERPOLATION",
+      "evidence": "law_v2.py and analytic constant/ramp tests",
+      "limit": "Piecewise-linear flux assumption, not continuous-route integration bounds"
+    },
+    "provenance": {
+      "state": "PARTIAL",
+      "evidence": "provenance.py; SOURCES.json",
+      "limit": "Unlocated clinical thresholds omitted, not silently adopted"
+    },
+    "frozen_adapter_copy": {
+      "state": "NOT_RUN_GATED",
+      "evidence": "adapters/journey_check.py",
+      "limit": "No complete v2 checker, gate raises NotImplementedError"
+    },
+    "frozen_uljin_v1_regression": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "No copied full adapter claimed"
+    },
+    "korean_18_journey_replay": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "Physics gate unresolved"
+    },
+    "caldor_3_journey_replay": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "Physics gate unresolved"
+    },
+    "five_policy_20_mission_ablation": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "Physics gate unresolved; no changed thresholds or invented outcomes"
+    },
+    "binding_peak_position_maps": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "Cannot generate journey binding maps from unexecuted studies"
+    },
+    "journey_cost_abba_two_repetitions": {
+      "state": "NOT_RUN_GATED",
+      "evidence": null,
+      "limit": "No v2 complete checker performance claim"
+    },
+    "optics_figures": {
+      "state": "PASS",
+      "evidence": "physics_validation/fig01_flux_vs_distance.{png,svg}; fig02_parameter_sweep.{png,svg}",
+      "limit": "Model scenario figures only"
+    }
+  },
+  "domain_repair": {
+    "prior_head": "90b125a79d67301fac3058c97fe240b18cf8ae83",
+    "prior_failure": "point refused simultaneous active ignition but interval enclosure returned zero between contour events",
+    "new_rule": "Shared interval-wide supported-domain guard precedes contour selection, with conservative receiver/panel intersection refusal",
+    "regression_class": "SupportedDomain in tests/test_law.py",
+    "random_boxes": "supported-domain boxes outside possible emitting-panel prisms",
+    "physics_and_routing_status_changed": false
+  },
+  "geometry_bound_evidence": {
+    "record": "BOUND_RESULTS.json",
+    "status": "PASS_MODEL_BOUND_CONTROLS",
+    "scope": "numerical evaluator and declared finite-panel bounds only"
+  }
+}

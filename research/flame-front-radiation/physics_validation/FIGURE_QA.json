@@ -1,0 +1,40 @@
+{
+  "command": "python research/flame-front-radiation/physics_validation/run_physics.py",
+  "producer_sha256": "291b44e371848d1453ae92d40feee115bad4587a33cc9a2ab0755700efb3fdcb",
+  "status": "PASS_FIXED_DOUBLE_COLUMN_CANVAS",
+  "figures": {
+    "fig01_flux_vs_distance": {
+      "png_pixels": [
+        2160,
+        1020
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width_pt": 518.4,
+      "canvas_width_in": 7.2,
+      "png_sha256": "3bce782e4ea15030c4c6fcef99e0af53a95a45dd21b6f0e3aa18e3b1a86e8f42",
+      "svg_sha256": "8508b8f9b014a7761e70f1e49bfcfc7c1f8818c8e789009faedb4b9c879b2a91"
+    },
+    "fig02_parameter_sweep": {
+      "png_pixels": [
+        2160,
+        1080
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "svg_width_pt": 518.4,
+      "canvas_width_in": 7.2,
+      "png_sha256": "602218dee52a0dfbd237c0054b15c4ffbf144db745c023691fb55b0a45ec16b2",
+      "svg_sha256": "3763a6f850583021f34429eeec908b84a2b9a8f531a0386c4e28bf852bc709ba"
+    }
+  },
+  "scientific_table_sha256": {
+    "MODEL_TABLE.csv": "29fa248e924cb3debea9ba3116d4a4293497a2a87cef0530c7680262419a8c0a",
+    "INCOMPARABLE_DIAGNOSTICS.csv": "0b73fbd51e8d33f4280b9a80448b1faf133a70bb772c6e4418fc47e7bcaf5178",
+    "TORNADO.csv": "1a9b5b51d75c694bbd54e71ff8439555b541dbf4934e4ab2da885c169f6e1ee7"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "front_segments": {
+    "state": "PARTIAL",
+    "evidence": "src/wfg_flamefront/isochrone.py; tests/test_law.py",
+    "limit": "Straight-segment approximation, strict unknown/infinite and present-phase refusal; not every legacy packet supported"
+  },
+  "intensity_and_wind": {
+    "state": "PASS_MODEL_FORMULA",
+    "evidence": "intensity.py; sources NIST and Weise/Biging",
+    "limit": "Fuel-specific empirical laws and declared cap, no local physical fit"
+  },
+  "flux_at_points": {
+    "state": "PASS_ON_SUPPORTED_GEOMETRY",
+    "evidence": "law_v2.py; analytic view-factor tests",
+    "limit": "Two-boundary panel model, not volumetric flame or exact bilinear isochrone"
+  },
+  "spatial_time_enclosure": {
+    "state": "PASS_GEOMETRIC_UPPER_WITH_COARSE_FALLBACK_ON_SUPPORTED_DOMAIN",
+    "evidence": "geometric_bounds.py rational swept-hull proof; verified_view.py directed point evaluation; BOUND_RESULTS.json; analytic and supported-domain tests",
+    "limit": "Whole-quad area/hull can remain loose under refinement; unit view-factor fallback outside proved angular cone; zero lower bound; unknown phases remain refused"
+  },
+  "point_numerical_enclosure": {
+    "state": "PASS_DIRECTED_POLYGON_FORMULA_CONTROLS",
+    "evidence": "verified_view.py, test_geometric_bounds.py, retained original cancellation counterexample",
+    "limit": "Directed lower approximation before binary64 quantization; explicit unit orientation-envelope branch retained; adaptive precision has no uniform request-time guarantee"
+  },
+  "physical_comparisons": {
+    "state": "UNRESOLVED",
+    "evidence": "physics_validation/SOURCES.json; MODEL_TABLE.csv; INCOMPARABLE_DIAGNOSTICS.csv",
+    "limit": "Prompt mixes shrub/flame heights, absent instantaneous front widths, in-flame irradiance and emitter power"
+  },
+  "factor_three_gate": {
+    "state": "UNRESOLVED",
+    "evidence": "physics_validation/RESULTS.json",
+    "limit": "No comparable empirical threefold-error assessment can be asserted; diagnostics are not measured validation errors"
+  },
+  "cutoff_error": {
+    "state": "PASS_NO_TRUNCATION",
+    "evidence": "solidflame.py omitted_absolute_bound",
+    "limit": "No default radius truncation; no uniform relative tail-error claim"
+  },
+  "extinction_and_present_state": {
+    "state": "PARTIAL_FAIL_CLOSED",
+    "evidence": "law_v2.py _inputs and refusal tests",
+    "limit": "Per-cell finite expiry supported, scalar max-remaining old-fire phases cannot identify a front"
+  },
+  "dose": {
+    "state": "PASS_DECLARED_INTERPOLATION",
+    "evidence": "law_v2.py and analytic constant/ramp tests",
+    "limit": "Piecewise-linear flux assumption, not continuous-route integration bounds"
+  },
+  "provenance": {
+    "state": "PARTIAL",
+    "evidence": "provenance.py; SOURCES.json",
+    "limit": "Unlocated clinical thresholds omitted, not silently adopted"
+  },
+  "frozen_adapter_copy": {
+    "state": "NOT_RUN_GATED",
+    "evidence": "adapters/journey_check.py",
+    "limit": "No complete v2 checker, gate raises NotImplementedError"
+  },
+  "frozen_uljin_v1_regression": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "No copied full adapter claimed"
+  },
+  "korean_18_journey_replay": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "Physics gate unresolved"
+  },
+  "caldor_3_journey_replay": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "Physics gate unresolved"
+  },
+  "five_policy_20_mission_ablation": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "Physics gate unresolved; no changed thresholds or invented outcomes"
+  },
+  "binding_peak_position_maps": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "Cannot generate journey binding maps from unexecuted studies"
+  },
+  "journey_cost_abba_two_repetitions": {
+    "state": "NOT_RUN_GATED",
+    "evidence": null,
+    "limit": "No v2 complete checker performance claim"
+  },
+  "optics_figures": {
+    "state": "PASS",
+    "evidence": "physics_validation/fig01_flux_vs_distance.{png,svg}; fig02_parameter_sweep.{png,svg}",
+    "limit": "Model scenario figures only"
+  }
+}
