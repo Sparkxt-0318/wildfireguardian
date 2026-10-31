@@ -120,3 +120,11 @@ def test_spread_skill_ratio_is_one_for_exchangeable_members():
     assert all(r["ratio"] == pytest.approx(1.0, abs=0.08)
                for r in m.spread_skill(members, obs, np.ones(obs.size, bool))["rows"])
     assert m.spread_skill(np.repeat(obs[None], 4, axis=0) + 1.0, obs, np.ones(obs.size, bool))["ratio"] == 0.0
+
+
+def test_members_need_a_leading_member_axis():
+    obs, mask = np.array([3.0, 4.0]), np.ones(2, bool)
+    for call in (lambda: m.rank_histogram(obs, obs, mask, seed=0), lambda: m.spread_skill(obs, obs, mask),
+                 lambda: m.crps_arrival(obs, obs, mask, H)):
+        with pytest.raises(ValueError, match="members"):
+            call()

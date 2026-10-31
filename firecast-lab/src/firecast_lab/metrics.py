@@ -107,10 +107,13 @@ def reliability(y, p, mask, edges=RELIABILITY_EDGES) -> list[dict]:
     return rows
 
 
+def _ece_of(rows: list[dict]) -> float:
+    return sum(abs(r["forecast_sum"] - r["observed_sum"]) for r in rows) / sum(r["count"] for r in rows)
+
+
 def ece(y, p, mask, edges=RELIABILITY_EDGES) -> float:
     """Expected calibration error over the reliability rows: sum over rows of |forecast_sum - observed_sum| / N."""
-    rows = reliability(y, p, mask, edges)
-    return sum(abs(r["forecast_sum"] - r["observed_sum"]) for r in rows) / sum(r["count"] for r in rows)
+    return _ece_of(reliability(y, p, mask, edges))
 
 
 def average_precision(y, p, mask) -> float:
@@ -125,7 +128,8 @@ def summary(y, p, mask, *, reference=None, edges=RELIABILITY_EDGES) -> dict:
     if ``reference`` is given, the Brier skill against it. ``bss_vs_persistence`` comes from ``score``."""
     yv, pv = _yp(y, p, mask)
     out = _baselines.score(yv, pv)
-    out.update(base_rate=float(yv.mean()), ece=ece(y, p, mask, edges), reliability=reliability(y, p, mask, edges))
+    rows = reliability(y, p, mask, edges)
+    out.update(base_rate=float(yv.mean()), ece=_ece_of(rows), reliability=rows)
     if reference is not None:
         out["brier_skill_vs_reference"] = brier_skill(y, p, reference, mask)
     return out
@@ -187,12 +191,16 @@ def hourly_arrival(hours_after_cutoff, horizon_h: int) -> np.ndarray:
         return np.where(a <= 0, 0.0, out)
 
 
-def _lattice(members, obs, mask, horizon_h: int):
+def _members(members, obs, mask):
     mask = _mask(mask, np.shape(obs))
-    x = _inside(members, mask, "members")
-    o = _inside(obs, mask, "observations")
+    x, o = _inside(members, mask, "members"), _inside(obs, mask, "observations")
     if x.ndim != 2:
         raise ValueError("members must have shape [K, *obs.shape]")
+    return x, o
+
+
+def _lattice(members, obs, mask, horizon_h: int):
+    x, o = _members(members, obs, mask)
     for v, name in ((x, "members"), (o, "observations")):
         if ((v != np.round(v)) | (v < 1) | (v > horizon_h + 1)).any():
             raise ValueError(f"{name} must be lattice arrival hours 1..{horizon_h + 1} inside the scoring mask "
@@ -230,9 +238,7 @@ def rank_histogram(members, obs, mask, *, seed: int) -> dict:
     ``fully_tied`` counts cells where every member equals the observation: their ranks are uniform by
     construction, so many of them flatten the histogram without showing calibration.
     """
-    mask = _mask(mask, np.shape(obs))
-    x = _inside(members, mask, "members")
-    o = _inside(obs, mask, "observations")
+    x, o = _members(members, obs, mask)
     below, ties = (x < o).sum(axis=0), (x == o).sum(axis=0)
     rank = below + np.random.default_rng(seed).integers(0, ties + 1)
     return dict(counts=np.bincount(rank, minlength=x.shape[0] + 1).tolist(), cells=int(o.size),
@@ -246,9 +252,7 @@ def spread_skill(members, obs, mask, *, bins: int = 10) -> dict:
     unbiased member variance. ``spread = sqrt((K + 1) / K * mean s^2)``; ``ratio = spread / rmse``: 1 consistent,
     below 1 overconfident, above 1 overdispersed. Rows: equal-count groups of cells sorted by ``s^2``.
     """
-    mask = _mask(mask, np.shape(obs))
-    x = _inside(members, mask, "members")
-    o = _inside(obs, mask, "observations")
+    x, o = _members(members, obs, mask)
     k = x.shape[0]
     if k < 2:
         raise ValueError("spread needs at least two members")
@@ -297,13 +301,20 @@ def fire_bootstrap(fire, terms, statistic: Callable[[np.ndarray], np.ndarray], *
                 seed=int(seed), undefined_draws=int((~defined).sum()))
 
 
+def _fire_ids(fire, y, mask) -> np.ndarray:
+    fire = np.asarray(fire)
+    if fire.shape != np.shape(y):
+        raise ValueError("fire must hold one fire id per entry of y")
+    return fire[np.asarray(mask)]
+
+
 def paired_brier_bootstrap(fire, y, p, reference, mask, *, draws: int = 10000, seed: int = BOOTSTRAP_SEED) -> dict:
     """Brier(p) - Brier(reference) with a whole-fire percentile interval: ``wildfire.baselines.paired_fire_bootstrap``
     on the scored entries. Negative favours ``p``."""
     yv, pv = _yp(y, p, mask)
     mask = np.asarray(mask)
     rv = _probabilities(reference, mask, "reference")
-    return _baselines.paired_fire_bootstrap(np.asarray(fire)[mask], yv, pv, rv, draws=draws, seed=seed)
+    return _baselines.paired_fire_bootstrap(_fire_ids(fire, y, mask), yv, pv, rv, draws=draws, seed=seed)
 
 
 def brier_skill_bootstrap(fire, y, p, reference, mask, *, draws: int = 10000, seed: int = BOOTSTRAP_SEED) -> dict:
@@ -314,5 +325,5 @@ def brier_skill_bootstrap(fire, y, p, reference, mask, *, draws: int = 10000, se
     mask = np.asarray(mask)
     rv = _probabilities(reference, mask, "reference")
     terms = np.stack([(pv - yv) ** 2, (rv - yv) ** 2], axis=1)
-    return fire_bootstrap(np.asarray(fire)[mask], terms, lambda s: 1.0 - s[..., 0] / s[..., 1],
+    return fire_bootstrap(_fire_ids(fire, y, mask), terms, lambda s: 1.0 - s[..., 0] / s[..., 1],
                           draws=draws, seed=seed)

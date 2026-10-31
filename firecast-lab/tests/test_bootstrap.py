@@ -68,3 +68,11 @@ def test_masked_entries_are_not_scored_and_undefined_draws_are_counted():
     y3[fire == "SYNTHETIC_1"], r3[fire == "SYNTHETIC_1"] = 0.0, 0.0
     out = m.brier_skill_bootstrap(fire, y3, c, r3, np.ones(y.size, bool), draws=2000, seed=2)
     assert 300 < out["undefined_draws"] < 700 and np.isfinite(out["interval"]).all()   # about 1 in 4
+
+
+def test_fire_ids_must_match_the_entries():
+    fire, y, c, r = _fires(6, n_fires=2)
+    with pytest.raises(ValueError, match="fire id"):
+        m.brier_skill_bootstrap(fire[:-1], y, c, r, np.ones(y.size, bool))
+    with pytest.raises(ValueError, match="fire id"):
+        m.paired_brier_bootstrap(fire[:-1], y, c, r, np.ones(y.size, bool))

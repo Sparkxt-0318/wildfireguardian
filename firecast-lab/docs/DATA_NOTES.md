@@ -73,7 +73,7 @@ window. Then the cell lands in the wrong window with probability `s / L`. The ta
   labels. Korean reliability diagrams therefore describe agreement with the reconstruction, not calibration
   against physical arrival.
 - 12 h is kept as a diagnostic. It is comparable with forecast-v2's Korean 12 h secondary
-  (`forecast/documents/preregistration_blind_test.md:136-147`). Claims are never made on 12 h.
+  (`forecast/documents/preregistration_blind_test.md:138-147`). Claims are never made on 12 h.
 
 **Window construction** (`SPLITS.json` `window_rule`).
 - Reconstruction windows:
