@@ -304,10 +304,14 @@ def test_relaxed_check_matches_hazard_contract_contact_and_support(seed):
         for lg, seg in zip(v.legs, sch.segments):
             got = relaxed.segment(seg)
             hz = _independent_hazard(inst, ss, seg)
-            assert got.blocked == any(h.contact is True for h in hz)
+            if seg.t1 + inst.hazard.t0_offset_s <= ss.meta.horizon_s:
+                assert got.blocked == any(h.contact is True for h in hz)
+            else:                           # only contact up to the horizon is certain
+                assert not got.blocked or any(h.contact is True for h in hz)
             assert got.uncertain == (not all(h.supported for h in hz))
+            assert got.blocked == ("FLAME_CONTACT" in lg.reasons)
             if got.blocked:
-                assert lg.hazard_state is MNR and "FLAME_CONTACT" in lg.reasons
+                assert lg.hazard_state is MNR
             assert not hasattr(got, "state")
     for it in sol.itineraries:
         ri = relaxed.itinerary(it, stop_at_block=False)

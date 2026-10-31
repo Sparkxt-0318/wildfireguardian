@@ -12,8 +12,9 @@ Semantics (reused from the single-vehicle router and its whole-journey checker; 
   interval [depart, arrive], queried with ``ScenarioSet.query_uniform``; idling, waiting, boarding
   and unloading are the node as a stationary point over its closed interval (``ScenarioSet.query``).
   Hazard time = instance time + ``hazard.t0_offset_s``.
-* Per leg and member (hazard_contract ``SegmentHazard``): ``contact`` True -> certain violation
-  (model_no_route, FLAME_CONTACT); ``flux_lower`` > peak budget -> certain violation
+* Per leg and member (hazard_contract ``SegmentHazard``): ``contact`` True at an instant up to the
+  hazard horizon -> certain violation (model_no_route, FLAME_CONTACT; contact that happens only after
+  the horizon is unresolved, BEYOND_HORIZON); ``flux_lower`` > peak budget -> certain violation
   (PEAK_ABOVE_BUDGET); ``supported`` False or ``contact`` None (unknown cells, the grid's outside,
   time past the horizon) -> unresolved; ``flux_upper`` > peak budget -> unresolved
   (PEAK_UNRESOLVED); otherwise the leg passes in that member.
@@ -260,6 +261,16 @@ def _cell_arrays(ss: hc.ScenarioSet, rows: np.ndarray, cols: np.ndarray):
     return ss.ignite_s[:, rows, cols], ss.extinguish_s[:, rows, cols], ss.supported[:, rows, cols]
 
 
+def contact_until(ss: hc.ScenarioSet, records, until: float) -> np.ndarray:
+    """Per member: does a supported touched cell burn at some instant t <= ``until`` of its touch?
+    (closed touch interval [t0, t1], half-open burning [ignite, extinguish))."""
+    rows, cols, t0, t1 = records[:4]
+    ig, ex, sup = _cell_arrays(ss, rows, cols)
+    first = np.maximum(t0[None, :], ig)                  # earliest instant of the touch that burns
+    hit = sup & (ex > ig) & (first <= np.minimum(t1, until)[None, :]) & (first < ex)
+    return np.any(hit, axis=1)
+
+
 # ----------------------------------------------------------------------------------- oracle
 class Oracle:
     """The feasibility oracle for one instance and one scenario set (reusable; caches queries)."""
@@ -324,15 +335,24 @@ class Oracle:
             out.append(UNSUPPORTED_HAZARD)
         return out or [UNSUPPORTED_HAZARD]
 
-    def _classify(self, hz: list[hc.SegmentHazard], b: float, geom: np.ndarray) -> tuple[State, list[str]]:
+    def _classify(self, hz: list[hc.SegmentHazard], a: float, b: float, geom: np.ndarray) -> tuple[State, list[str]]:
         mnr: list[str] = []
         unr: list[str] = []
+        in_scope = None
         for k, h in enumerate(hz):
-            if h.contact is True:
+            contact = h.contact
+            if contact is True and b > self.horizon:
+                # model_no_route is scoped to the horizon: contact that happens only after it is unresolved
+                if in_scope is None:
+                    in_scope = contact_until(self.scenario, contact_records(self.scenario.grid, geom, a, b),
+                                             self.horizon)
+                if not in_scope[k]:
+                    contact = None
+            if contact is True:
                 mnr.append(FLAME_CONTACT)
             if h.flux_lower > self.peak[k]:
                 mnr.append(PEAK_ABOVE_BUDGET)
-            if not h.supported or h.contact is None:
+            if not h.supported or contact is None:
                 unr.extend(self._support_reasons(geom, b, k))
             elif h.flux_upper > self.peak[k]:
                 unr.append(PEAK_UNRESOLVED)
@@ -382,7 +402,7 @@ class Oracle:
                                           cum_dose_lower=None, cum_dose_upper=None))
                     continue
                 hz, a, b, geom = self._hazard(seg)
-                h_state, reasons = self._classify(hz, b, geom)
+                h_state, reasons = self._classify(hz, a, b, geom)
                 lo = lo + np.array([h.dose_lower for h in hz])
                 hi = hi + np.array([h.dose_upper for h in hz])
                 if np.any(lo > self.dose):
@@ -550,10 +570,10 @@ class RelaxedContactCheck:
 
     def _occupancy(self, geom: np.ndarray, t0: float, t1: float) -> RelaxedLeg:
         a, b = t0 + self.offset, t1 + self.offset
-        rows, cols, r0, r1, outside = contact_records(self.scenario.grid, geom, a, b)
-        ig, ex, sup = _cell_arrays(self.scenario, rows, cols)
-        blocked = bool(np.any(sup & (ex > ig) & (ig <= r1) & (ex > r0)))
-        uncertain = bool(outside or b > self.horizon or not np.all(sup))
+        rec = contact_records(self.scenario.grid, geom, a, b)
+        blocked = bool(np.any(contact_until(self.scenario, rec, self.horizon)))
+        sup = self.scenario.supported[:, rec[0], rec[1]]
+        uncertain = bool(rec[4] or b > self.horizon or not np.all(sup))
         return RelaxedLeg(blocked=blocked, uncertain=uncertain)
 
     def segment(self, seg: Segment) -> RelaxedLeg:

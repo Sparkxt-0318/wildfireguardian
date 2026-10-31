@@ -7,7 +7,8 @@ import numpy as np
 import pytest
 
 from evacplan import (
-    Edge, Node, Oracle, OracleInputError, RoadGraph, State, check_itinerary, check_plan, validate_solution,
+    Edge, Node, Oracle, OracleInputError, RelaxedContactCheck, RoadGraph, State, check_itinerary, check_plan,
+    validate_solution,
 )
 from evacplan_testkit import (
     CRS, INF, NAN, board, drive, facility, grid_graph, instance, itinerary, make_set, nid, path, quiet, shelter,
@@ -271,6 +272,25 @@ def test_horizon_overrun_is_unresolved():
     assert r.delivered_total == 2 and r.unresolved_by_reason == {"BEYOND_HORIZON": 2}
     assert r.scope.horizon_instance_s == 300.0
     assert two_trips(horizon=400.0).delivered_total == 4
+
+
+@pytest.mark.parametrize("depart,want", [(400.0, UNR), (280.0, UNR), (260.0, MNR), (250.0, MNR)])
+def test_contact_only_after_the_horizon_is_unresolved(depart, want):
+    """The middle cell burns [100, 1100) and the horizon is 300 s: entering it (25 s after departure)
+    after 300 is a model claim beyond the horizon, so unresolved; entering it by 300 is certain."""
+    ig = quiet(3, 3)
+    ig[0, 1, 1] = 100.0
+    ss = make_set(ig, horizon=300.0)
+    inst = instance(grid_graph(3, 3), vehicles=[vehicle("V", nid(1, 0))])
+    v = check_itinerary(inst, ss, itinerary("V", drive(path((1, 0), (1, 1)), depart)))
+    leg = v.legs[-1]
+    assert leg.kind == "drive" and leg.state is want
+    assert leg.members[0].contact is True                 # hazard_contract itself reports the contact
+    if want is UNR:
+        assert leg.cause == "BEYOND_HORIZON" and "FLAME_CONTACT" not in leg.reasons
+    else:
+        assert leg.cause == "FLAME_CONTACT"
+    assert RelaxedContactCheck(inst, ss).traverse(path((1, 0), (1, 1))[0], depart).blocked == (want is MNR)
 
 
 def test_offset_maps_instance_time_to_hazard_time():
