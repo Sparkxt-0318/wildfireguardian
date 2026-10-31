@@ -78,6 +78,7 @@ echo "$PWD/integration/src" > "$(.venv/bin/python -c 'import sysconfig; print(sy
 .venv/bin/python program/benchlock.py --label evacplan-tests -- .venv/bin/python -m pytest evacplan/tests
 ```
 
-The adapter tests read the fetched study graphs and packets from `$WFG_ROUTING_INPUTS` and skip when they
-are absent; that data is never copied into the repo. Road data from OpenStreetMap is © OpenStreetMap
+The adapter tests read the fetched study graphs and packets from `$WFG_ROUTING_INPUTS` (no default
+location) and skip, saying why, when the variable is unset or the folder has no `graphs/`; that data is never
+copied into the repo. Road data from OpenStreetMap is © OpenStreetMap
 contributors (ODbL 1.0).
