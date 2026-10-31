@@ -45,9 +45,8 @@
 | Agent | Track | Doing | Worktree |
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
-| hazard-contract reviewers (3 + verifiers) | interface | adversarial review of `hazard_contract` v1 | read-only |
-| Track C chain: C1 oracle → C0 merge → C2 generators/harness → C3a deadlines/B0/B1 → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
-| Track A (A1a splits/metrics, A1b members/baselines code, A2 decision metric) | A | starts when maps 03/04 land | `/home/user/wfg-firecast` |
+| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → **C2 generators/harness** → C3a deadlines/B0/B1 → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
+| Track A: ~~A1 splits/metrics~~ → **A1b members/baselines/producer** → A2 decision metric (after C0, now merged) | A | Phase 0 (no real data here) | `/home/user/wfg-firecast` |
 
 ## Blockers
 
@@ -70,3 +69,8 @@ Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait)
   `wildfire` without torch). `hazard_contract` installed editable in all three venvs.
 - 2026-10-31 `hazard_contract` v1 committed (53 tests pass incl. real Uljin packet); decisions in
   `DECISIONS.md`. Track branches fast-forwarded onto it and pushed.
+- 2026-10-31 Milestone **C0-oracle** merged into `next/integration` (`4bc6190`) after a clean-checkout
+  check by a non-author agent.
+- 2026-10-31 Independent adversarial review of `hazard_contract`: 12 confirmed findings (2 false-safe
+  paths: filled polygon holes, float time drift in `query_uniform`), all fixed in 1.0.1 with
+  regression tests (77 pass); merged into both track branches.
