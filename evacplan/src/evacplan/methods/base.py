@@ -36,6 +36,11 @@ class Method:
     def config(self) -> dict[str, Any]:
         return dict(self._config)
 
+    def applicable(self, instance: Instance) -> bool:
+        """Does this method run on ``instance``? The harness skips (writes no row for) instances where it
+        does not, e.g. B3 runs on S instances only."""
+        return True
+
     def solve(self, instance: Instance, scenario_set: hc.ScenarioSet, *, budget_s: float, seed: int,
               deadline: float) -> MethodResult:
         """Return a plan before ``deadline`` (a ``time.monotonic()`` value = start + ``budget_s``)."""

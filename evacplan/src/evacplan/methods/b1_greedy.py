@@ -27,7 +27,7 @@ import time
 from ..oracle import Oracle
 from ..reach import Reach
 from .base import Method, MethodResult
-from .dispatch import Dispatcher, Track
+from .dispatch import Dispatcher, Track, latest_departures
 
 
 class B1Greedy(Method):
@@ -49,21 +49,8 @@ class B1Greedy(Method):
     def solve(self, instance, scenario_set, *, budget_s, seed, deadline) -> MethodResult:
         t_start = time.monotonic()
         rh = Reach(instance, scenario_set)
-        present = sorted({c for f in instance.facilities for c in range(3) if f.residents.vector()[c] > 0})
-        cpos = {c: i for i, c in enumerate(present)}
-        sweep = rh.sweep([rh.class_targets(c) for c in present], [rh.node(f.node) for f in instance.facilities])
+        D: dict[tuple[str, int], int] = latest_departures(instance, rh)
         t_sweep = time.monotonic() - t_start
-        D: dict[tuple[str, int], int] = {}
-        for f in instance.facilities:
-            rel = int(math.ceil(f.release_s - 1e-6))
-            for c in present:
-                if f.residents.vector()[c] == 0:
-                    continue
-                b = int(f.boarding_s.vector()[c])
-                ld = sweep.latest_departure(cpos[c], rh.node(f.node), not_before=rel + b, board_s=b)
-                if ld is not None:
-                    D[(f.id, c)] = ld
-        del sweep
         dsp = Dispatcher(instance, rh)
         dead: set[tuple[str, int]] = set()
         n_trips, stopped = 0, False

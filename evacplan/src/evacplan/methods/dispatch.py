@@ -1,4 +1,4 @@
-"""Shared trip machinery for the greedy baselines (B0, B1).
+"""Shared trip machinery for the baselines (B0, B1; B2 and B3 realize their plans through `methods.realize`).
 
 A trip = approach (route from the vehicle's position) -> wait for release -> board -> (wait) ->
 route to a shelter -> (wait for the window) -> unload. Routes and stays use the POSITIVE masks of
@@ -21,6 +21,28 @@ from ..schema import Board, ClassCounts, Instance, Itinerary, Solution, Unload, 
 
 def _dur(per_class, counts) -> int:
     return int(sum(int(n) * int(d) for n, d in zip(counts, per_class)))
+
+
+def latest_departures(instance: Instance, reach: Reach) -> dict[tuple[str, int], int]:
+    """Per (facility, class) with residents: the latest departure from the facility that can still reach
+    an open shelter accepting the class (one backward sweep, all K members, RELAXED contact), after the
+    facility's release and one boarding. Classes without such a departure are left out."""
+    present = sorted({c for f in instance.facilities for c in range(3) if f.residents.vector()[c] > 0})
+    if not present:
+        return {}
+    cpos = {c: i for i, c in enumerate(present)}
+    sweep = reach.sweep([reach.class_targets(c) for c in present], [reach.node(f.node) for f in instance.facilities])
+    out: dict[tuple[str, int], int] = {}
+    for f in instance.facilities:
+        rel = int(math.ceil(f.release_s - 1e-6))
+        for c in present:
+            if f.residents.vector()[c] == 0:
+                continue
+            b = int(f.boarding_s.vector()[c])
+            ld = sweep.latest_departure(cpos[c], reach.node(f.node), not_before=rel + b, board_s=b)
+            if ld is not None:
+                out[(f.id, c)] = ld
+    return out
 
 
 @dataclass
@@ -234,4 +256,4 @@ class Dispatcher:
         return cut
 
 
-__all__ = ["Boarding", "Delivery", "Dispatcher", "Trip", "Track"]
+__all__ = ["Boarding", "Delivery", "Dispatcher", "Trip", "Track", "latest_departures"]
