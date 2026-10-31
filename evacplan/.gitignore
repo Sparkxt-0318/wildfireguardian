@@ -20,6 +20,7 @@ __pycache__/
 /runs/
 # regenerated instances (evacplan/cache/instances/<id>/); see instances/SPLIT.json
 /cache/
-# result rows, plans and oracle results; LEADERBOARD.md is the committed summary
-/results/
+# plans and oracle results (large; regenerable from a row's commit and config). The result rows,
+# results/<method>.csv and results/<method>.facilities.csv, are committed with LEADERBOARD.md.
+/results/runs/
 /build/

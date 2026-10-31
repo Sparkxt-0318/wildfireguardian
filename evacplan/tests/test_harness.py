@@ -94,12 +94,15 @@ def test_rows_record_contract_and_package_versions(mini):
 
 def test_dirty_check_covers_evacplan_hazard_contract_and_program(tmp_path):
     """``commit`` gets ``+dirty`` for uncommitted changes in evacplan/, hazard_contract/ or program/ (the
-    generated evacplan/LEADERBOARD.md excepted), not for the rest of the repository."""
+    generated evacplan/LEADERBOARD.md and result rows under evacplan/results/ excepted), not for the rest of
+    the repository."""
     repo = tmp_path / "repo"
     for d in ("evacplan", "hazard_contract", "program", "other"):
         (repo / d).mkdir(parents=True)
         (repo / d / "f.txt").write_text("x\n")
     (repo / "evacplan" / "LEADERBOARD.md").write_text("lb\n")
+    (repo / "evacplan" / "results").mkdir()
+    (repo / "evacplan" / "results" / "b1_greedy.csv").write_text("row\n")    # committed result rows
 
     def git(*args):
         subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c",
@@ -111,6 +114,10 @@ def test_dirty_check_covers_evacplan_hazard_contract_and_program(tmp_path):
     sha = git_commit(ep)
     assert len(sha) == 40 and "+" not in sha
     (ep / "LEADERBOARD.md").write_text("regenerated\n")
+    (ep / "results" / "b1_greedy.csv").write_text("row\nnew row\n")     # a run upserts its rows
+    (ep / "results" / "noop.csv").write_text("row\n")                    # or writes a new file
+    (ep / "results" / "runs").mkdir()
+    (ep / "results" / "runs" / "plan.json").write_text("{}\n")
     (repo / "other" / "f.txt").write_text("changed\n")
     assert git_commit(ep) == sha
     for d in ("hazard_contract", "program", "evacplan"):
