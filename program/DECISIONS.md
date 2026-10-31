@@ -53,4 +53,19 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
 - **2026-10-31** — All Track C methods run single-threaded; B3 runs HiGHS in a child process (OR-Tools
   bundles libhighs 1.11, highspy is 1.15) and the child's start-up counts in B3's runtime; `ortools` and
   `highspy` are the `[solvers]` extra. Reason: equal resources at equal wall clock (question 17).
+- **2026-10-31** — Track C comparison rule for time-limited methods: every method runs 3 repeats (seeds 0-2)
+  at the same budget; the leaderboard shows mean and min-max; a method "beats B2" only if its **minimum** dev
+  total exceeds B2's **maximum**. Reason: the Phase 0 review showed B2 (seedless, time-limited guided local
+  search) moves by about 67 residents between reruns — one instance flips 155/0 ↔ 88/67 with search depth.
+- **2026-10-31** — `ortools` capped below 9.15 for B2, and each track commits a `requirements.lock` of the venv
+  that produced its results. Reason: a fresh install resolved ortools 9.15.6755, whose Python wrapper rejects
+  `SetAllowedVehiclesForIndex` arguments (B2 crashed, 7 tests failed), and numpy 2.5, which dropped `np.trapz`.
+- **2026-10-31** — scikit-learn 1.5.2 (Track A logistic baseline) and hypothesis (property tests in all three
+  packages) are in use although rule 8 does not list them. Reason: installed by the orchestrator at setup;
+  scikit-learn 1.5.2 is the frozen `forecast` package's own `baseline` extra and `wildfire.baselines` fits the
+  same logistic model with it. Needs Siyeong's confirmation (else: refit with scipy.optimize).
+- **2026-10-31** — Track A's Phase 0 data notes used survey-interval metadata of the six US-2024 test fires
+  (NIROPS catalog provenance: survey times, no outcomes) and Korean test-fire window counts from
+  `events.json` to discuss the lead. No outcomes or scores were read. Reported to Siyeong (rule 5); the 24 h
+  lead rests on the Korean dev label MAE.
 
