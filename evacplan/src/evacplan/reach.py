@@ -414,6 +414,17 @@ class Reach:
             row |= R[t + 1] & self.WT[t][state_node]
         return Sweep(self, targets, fresh, R)
 
+    def departure_field(self, classes=(0, 1, 2)) -> np.ndarray:
+        """The latest-safe-departure field: ``[len(classes), N]`` int, per node the latest second at which
+        a vehicle there with a fresh heading can still leave (or unload) and deliver one resident of the
+        class to an open shelter that accepts it (POSITIVE, all K members); -1 where none."""
+        classes = list(classes)
+        sw = self.sweep([self.class_targets(c) for c in classes], list(range(self.N)))
+        col = sw.R[: self.Hi + 1, :, self.E:]                      # [t, class, node]
+        any_t = col.any(axis=0)
+        last = self.Hi - np.argmax(col[::-1], axis=0)
+        return np.where(any_t, last, -1).astype(np.int64)
+
     # ---------------------------------------------------------- negative relaxation
     def latest_arrival_neg(self, targets: list[ClassTarget]) -> np.ndarray:
         """NEGATIVE relaxation: per node, the latest time a vehicle there can still reach one of

@@ -60,6 +60,18 @@ def test_hand_worked_row_latest_departure():
     assert ld_neg[rh.node(nid(0, 3))] == 10_000 - 5           # shelter: unload one ambulatory (5 s) by the horizon
 
 
+def test_hand_worked_departure_field_per_node():
+    # same row, horizon 10000: n0_1 lies in the burning cell (its edge east touches it until 25 s: <= 474);
+    # n0_2 and the shelter n0_3 are never touched: 10000 - 50 - 5 and 10000 - 5 (one ambulatory unloading)
+    inst, ss = row_instance(ig_cells=[((0, 1), 500.0)])
+    rh = Reach(inst, ss)
+    field = rh.departure_field([0, 2])
+    assert field[0].tolist() == [424, 474, 9945, 9995]
+    assert field[1].tolist() == [424, 474, 9945 - 10, 9995 - 10]   # bedbound unloads 15 s: only horizon-bound nodes move
+    inst, ss = row_instance(ig_cells=[((0, 1), 500.0)], window=((0.0, 300.0),))
+    assert Reach(inst, ss).departure_field([0])[0].tolist() == [145, 195, 245, 295]
+
+
 def test_hand_worked_detour_window_and_turn_ban():
     # second row: cell (1,1) burns from 800. Row 1 route (F, n1_0, n1_1, n1_2, n1_3, S): edge n1_1->n1_2
     # leaves at d+100 and touches (1,1) until d+125 -> d <= 674 (n1_0->n1_1 allows d <= 699).
