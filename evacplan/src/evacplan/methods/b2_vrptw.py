@@ -27,7 +27,9 @@ for): travel times are free-flow.
   ``repair``: cut what the oracle does not check (peak, dose). The harness checks the plan with the oracle.
 
 Time-limited local search: results can vary with machine load; the seed is recorded but OR-Tools'
-routing search does not use one.
+routing search does not use one. The same search depth always gives the same plan, but the oracle's
+outcome is not monotone in that depth (ASSUMPTIONS #84), so every result row records the number of
+solutions the search found and its final objective (``MethodResult.diagnostics``).
 """
 from __future__ import annotations
 
@@ -218,6 +220,7 @@ class B2VRPTW(Method):
         info["search_s"] = round(time.monotonic() - t_solve, 3)
         info["time_limit_s"] = round(limit, 3)
         info["status"] = int(routing.status())
+        info["solutions"] = int(routing.solver().Solutions()) if reqs else 0
         seqs: list[Sequence] = []
         served = 0
         if sol is not None:
@@ -257,7 +260,9 @@ class B2VRPTW(Method):
         sol_out = real.solution(instance, self.name, {"seed": int(seed),
                                                       "note": "B2 OR-Tools VRPTW with static windows (SYNTHETIC instances)"})
         info["solve_s"] = round(time.monotonic() - t_start, 3)
-        return MethodResult(sol_out, info=info)
+        # how deep the seedless, time-limited search got: the outcome depends on it (ASSUMPTIONS #84)
+        diag = {k: info.get(k) for k in ("solutions", "objective", "search_s", "time_limit_s", "status")}
+        return MethodResult(sol_out, info=info, diagnostics=diag)
 
 
 __all__ = ["B2VRPTW", "chunk_sizes"]

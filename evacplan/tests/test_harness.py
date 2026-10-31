@@ -132,7 +132,8 @@ def test_upsert_and_equal_budget_leaderboard(mini):
     assert sorted(json.loads(r["config"])["budget_s"] for r in rows) == [30.0] + [60.0] * 4
     text = p["leaderboard_path"].read_text()
     assert "## dev, budget 30 s" in text and "## dev, budget 60 s" in text
-    assert "| noop | SYNTHETIC | 2 | 2 | 0 (0.0%) |" in text and "| noop | SYNTHETIC | 1 | 1 | 0 (0.0%) |" in text
+    assert "| noop | SYNTHETIC | 2 | 2 | 0 (0.0%) [0–0] | 0 [0–0] |" in text
+    assert "| noop | SYNTHETIC | 1 | 1 | 0 (0.0%) | 0 |" in text
     assert all(i in text for i in split.ids("dev")) and not any(i in text for i in split.ids("test"))
     assert "**SYNTHETIC** rows are SYNTHETIC instances" in text and "equal wall-clock budgets" in text
     # what comes from the oracle, what from the methods' own proofs, what from the harness clock
@@ -292,6 +293,9 @@ def test_aliases_s_only_methods_bounds_and_sizes(tmp_path_factory):
     b2 = run("B2", "dev", 6, lock="no", log=lambda s: None, **p)                   # equal budgets: one table
     assert {r["method"] for r in b2} == {"b2_vrptw"} and (p["results_dir"] / "b2_vrptw.csv").is_file()
     assert not (p["results_dir"] / "B2.csv").exists()
+    for row in b2:                                     # how deep B2's search got, in the row (never scored)
+        diag = json.loads(row["config"])["diagnostics"]
+        assert diag["solutions"] >= 1 and isinstance(diag["objective"], int) and diag["search_s"] > 0
     logs: list[str] = []
     b3 = run("b3", "dev", 6, lock="no", log=logs.append, **p)
     assert [r["instance"] for r in b3] == [s_id] and any("skipped" in x and m_id in x for x in logs)
@@ -306,3 +310,43 @@ def test_aliases_s_only_methods_bounds_and_sizes(tmp_path_factory):
     line = next(x for x in text.splitlines() if x.startswith(f"| {s_id} |"))
     assert f"| {float(r['best_bound']):g} |" in line
     assert "| b3_mip | " in text and "| b3_mip | SYNTHETIC | 1 | 1 |" in text
+
+
+def _rows(method, outcomes, budget=60.0):
+    """Result rows for ``{(instance, seed): (delivered, unresolved)}`` (residents per instance: 100)."""
+    class Entry:
+        generator, generator_version, config, fingerprint, label = "g", "v", {}, "f", "SYNTHETIC"
+
+    out = []
+    for (inst, seed), (dl, un) in outcomes.items():
+        class Plan:
+            delivered_total, unresolved_total, model_no_route_total, makespan_s, min_slack_s = dl, un, 0, 10.0, 5.0
+        Entry.id = inst
+        out.append(make_row(entry=Entry, set_name="dev", method_name=method, method_config={}, seed=seed,
+                            budget_s=budget, plan=Plan, runtime_s=1.0, best_bound=None, commit="c" * 40, host="h"))
+    return out
+
+
+def test_leaderboard_shows_mean_and_range_over_repeats():
+    """With several seeds the leaderboard shows the mean and [min-max] of delivered and unresolved, per
+    instance (the range when the seeds differ) and in total (the range of the per-seed totals); one seed
+    keeps plain numbers. The comparison rule for repeats is stated."""
+    from evacplan.harness import render_leaderboard
+    from evacplan.instances import Split, SplitEntry
+    split = Split(frozen="test-fixture", sets={"dev": [
+        SplitEntry(id=i, generator="g", generator_version="v", config={"size": "M"}, fingerprint="f",
+                   synthetic=True, stats={"residents": 100}) for i in ("I1", "I2")]})
+    rows = _rows("b2_vrptw", {("I1", 0): (100, 0), ("I1", 1): (100, 0), ("I1", 2): (100, 0),
+                              ("I2", 0): (90, 10), ("I2", 1): (60, 40), ("I2", 2): (90, 10)})
+    rows += _rows("b1_greedy", {("I1", 0): (70, 0), ("I2", 0): (50, 0)})
+    text = render_leaderboard(rows, split)
+    # totals per seed: 190, 160, 190 delivered; 10, 40, 10 unresolved
+    assert "| b2_vrptw | SYNTHETIC | 2 | 3 | 180 (90.0%) [160–190] | 20 [10–40] |" in text
+    assert "| b1_greedy | SYNTHETIC | 2 | 1 | 120 (60.0%) | 0 |" in text
+    delivered = next(x for x in text.splitlines() if x.startswith("| I2 |") and "| 100 |" in x)
+    assert "| 50 | 80 [60–90] |" in delivered            # b1_greedy, then b2_vrptw
+    assert next(x for x in text.splitlines() if x.startswith("| I1 |")).endswith("| 70 | 100 |")
+    assert "Unresolved per instance" in text
+    unresolved = [x for x in text.splitlines() if x.startswith("| I2 |")][-1]
+    assert unresolved.endswith("| 0 | 20 [10–40] |")
+    assert "minimum dev total exceeds B2's maximum" in text and "seeds 0, 1, 2" in text

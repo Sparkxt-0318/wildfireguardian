@@ -49,6 +49,10 @@ def test_b2_plans_are_valid_checked_and_within_budget(generated, k):
     info = res.info
     assert info["realization"]["residents_realized"] == plan.delivered_total <= info["residents_served_static"]
     assert info["residents_served_static"] <= info["residents_in_requests"] <= inst.residents_total
+    # how deep the seedless, time-limited search got (recorded in the harness row's config)
+    diag = res.diagnostics
+    assert diag["solutions"] >= 1 and diag["objective"] == info["objective"]
+    assert 0 < diag["search_s"] <= diag["time_limit_s"] + 0.5
 
 
 def test_b2_static_windows_come_from_the_latest_departures(generated):

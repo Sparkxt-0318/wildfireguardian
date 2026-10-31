@@ -22,6 +22,9 @@ class MethodResult:
     solution: Solution
     best_bound: float | None = None     # proven upper bound on residents delivered (checked); None = none
     info: dict[str, Any] = field(default_factory=dict)   # free-form, never used for scoring
+    # a few JSON numbers on how far the method's own search got (e.g. B2: solutions found, final objective),
+    # recorded in each result row's config under "diagnostics"; never used for scoring
+    diagnostics: dict[str, Any] = field(default_factory=dict)
 
 
 class Method:

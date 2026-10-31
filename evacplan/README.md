@@ -30,8 +30,10 @@ never delivered).
 
 ```sh
 # timed runs hold the shared bench lock (taken by the harness itself, or by a parent benchlock.py)
+# every method runs 3 repeats (seeds 0 1 2) at the same budget; a method beats B2 only if its minimum dev
+# total exceeds B2's maximum (B2 is seedless and time-limited: its repeats differ through machine load)
 .venv/bin/python program/benchlock.py --label evacplan-b2 -- \
-    .venv/bin/evacplan run --method B2 --set dev --budget-s 60 --seeds 0      # also B0, B1, B3 (S only), noop
+    .venv/bin/evacplan run --method B2 --set dev --budget-s 60 --seeds 0 1 2   # also B0, B1, B3 (S only), noop
 .venv/bin/evacplan leaderboard                 # regenerate LEADERBOARD.md from results/*.csv
 .venv/bin/evacplan instances --set dev          # the frozen dev instances (add --materialize to cache them)
 ```

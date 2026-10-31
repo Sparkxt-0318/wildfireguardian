@@ -14,8 +14,10 @@ Result rows (one per instance, seed, budget and set; :data:`COLUMNS`)
 * ``commit`` (git HEAD, ``+dirty`` if ``evacplan/``, ``hazard_contract/`` or ``program/`` has
   uncommitted changes besides the generated leaderboard), ``seed`` (the method's seed), ``config``
   (compact JSON: set, budget, method config, instance generator config and fingerprint, label, the
-  oracle version, the hazard_contract format ``CONTRACT_VERSION`` and ``versions``: the installed
-  hazard_contract (``__version__``), numpy, ortools and highspy), ``host``.
+  oracle version, the hazard_contract format ``CONTRACT_VERSION``, ``versions``: the installed
+  hazard_contract (``__version__``), numpy, ortools and highspy, and, when the method reports them,
+  ``diagnostics``: how far its own search got, e.g. B2's solutions found and final objective; never
+  scored), ``host``.
 
 Per-facility rows (``results/<method>.facilities.csv``; :data:`FACILITY_COLUMNS`), one per
 instance, seed, budget, set, facility and mobility class with residents
@@ -202,7 +204,7 @@ def _num(x: float | None, nd: int) -> str:
 
 def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_config: dict, seed: int,
              budget_s: float, plan, runtime_s: float, best_bound: float | None, commit: str, host: str,
-             versions: dict | None = None) -> dict:
+             versions: dict | None = None, diagnostics: dict | None = None) -> dict:
     delivered = int(plan.delivered_total)
     if best_bound is None:
         gap = None
@@ -217,6 +219,8 @@ def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_confi
         "label": entry.label, "oracle": ORACLE_VERSION, "hazard_contract": hc.CONTRACT_VERSION,
         "versions": dict(package_versions() if versions is None else versions),
     }
+    if diagnostics:
+        config["diagnostics"] = dict(diagnostics)
     return {
         "instance": entry.id, "method": method_name, "seed": str(int(seed)), "delivered_checked": str(delivered),
         "unresolved": str(int(plan.unresolved_total)), "model_no_route": str(int(plan.model_no_route_total)),
@@ -393,7 +397,7 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
                 plan = oracle.check_plan(res.solution)
                 row = make_row(entry=e, set_name=set_name, method_name=method, method_config=m.config(), seed=seed,
                                budget_s=budget_s, plan=plan, runtime_s=runtime, best_bound=res.best_bound,
-                               commit=commit, host=host, versions=versions)
+                               commit=commit, host=host, versions=versions, diagnostics=res.diagnostics)
                 upsert_rows(csv_path, [row])
                 upsert_rows(fac_path, make_facility_rows(
                     entry=e, method_name=method, seed=seed, row=row, instance=inst, deadlines=deadlines,
@@ -440,6 +444,30 @@ def _fmt(x: float | None, nd: int = 1) -> str:
     return "–" if x is None else f"{x:.{nd}f}"
 
 
+def _count(x: float) -> str:
+    """A count or a mean of counts: whole numbers plain, others to one decimal."""
+    x = round(float(x), 6)                     # sums of means of whole counts: no float noise in the text
+    return f"{x:.0f}" if x.is_integer() else f"{x:.1f}"
+
+
+def _spread(values: list[float], always: bool = False) -> str:
+    """`` [min–max]`` of repeated values: only when they differ, unless ``always``."""
+    lo, hi = min(values), max(values)
+    return f" [{_count(lo)}–{_count(hi)}]" if (always or lo != hi) else ""
+
+
+def _seed_totals(rows: list[dict], col: str) -> list[float] | None:
+    """Per-seed totals of ``col`` over the instances of ``rows``; ``None`` unless every instance has the same
+    seeds (then no per-seed total exists)."""
+    by: dict[int, dict[str, float]] = defaultdict(dict)
+    for r in rows:
+        by[int(r["seed"])][r["instance"]] = float(r[col])
+    instances = {r["instance"] for r in rows}
+    if any(set(v) != instances for v in by.values()):
+        return None
+    return [sum(v.values()) for _, v in sorted(by.items())]
+
+
 def _unservable(facility_rows: list[dict]) -> dict[tuple, float]:
     """(set, budget, method, instance) -> residents no plan can serve (mean over seeds)."""
     per: dict[tuple, dict[int, float]] = defaultdict(lambda: defaultdict(float))
@@ -479,6 +507,14 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "inside not planned (or model_no_route / unresolved if a plan tries them).",
         "* Methods are compared only at **equal wall-clock budgets**: one table per set and budget; rows over budget "
         "are counted.",
+        "* **Repeats**: with several seeds, a per-instance cell is the mean over seeds, followed by [min–max] when the "
+        "seeds differ; in the method table, delivered and unresolved are the mean total followed by [min–max] over the "
+        "per-seed totals. Time-limited methods differ between repeats even when they ignore the seed: B2's OR-Tools "
+        "search is seedless, so its repeats differ only through machine load (how far the search gets within the "
+        "budget), and its outcome is not monotone in that depth (`docs/ASSUMPTIONS.md` #84; each B2 row records the "
+        "solutions found and the final objective). Comparison rule (`program/DECISIONS.md`): every method runs 3 "
+        "repeats (seeds 0, 1, 2) at the same budget, and a method beats B2 only if its minimum dev total exceeds B2's "
+        "maximum.",
         "* **mean gap** = mean of (best bound - delivered) / best bound over the method's own proven bounds (exact or "
         "relaxation methods, e.g. B3 on S instances only); a method that runs on fewer instances is summed over fewer "
         "residents (see the size table).",
@@ -516,32 +552,46 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             over = sum(float(r["runtime_s"]) > budget for r in rs)
             commits = sorted({r["commit"][:12] for r in rs})
             share = f" ({100 * dl / n_res:.1f}%)" if n_res else ""
+
+            def spread(col: str) -> str:
+                if len(seeds) < 2:
+                    return ""
+                totals = _seed_totals(rs, col)
+                return _spread(totals, always=True) if totals else " [seeds differ by instance]"
             us = [unserv.get((set_name, budget, meth, i)) for i in per_inst]
             us_txt = "–" if any(u is None for u in us) else f"{sum(us):g}"
             lines.append(
-                f"| {meth} | {label} | {len(per_inst)} | {len(seeds)} | {dl:g}{share} | {un:g} | {mn:g} | "
-                f"{'–' if n_res is None else f'{n_res - dl - un - mn:g}'} | {us_txt} | {'–' if n_res is None else n_res} | "
+                f"| {meth} | {label} | {len(per_inst)} | {len(seeds)} | {_count(dl)}{share}{spread('delivered_checked')} | "
+                f"{_count(un)}{spread('unresolved')} | {_count(mn)} | "
+                f"{'–' if n_res is None else _count(n_res - dl - un - mn)} | {us_txt} | {'–' if n_res is None else n_res} | "
                 f"{_fmt(min(slacks) if slacks else None)} | {_fmt(sum(float(r['runtime_s']) for r in rs) / len(rs), 3)} | "
                 f"{over} | {_fmt(sum(gaps) / len(gaps) if gaps else None, 3)} | {', '.join(commits)} |")
         methods = sorted({r["method"] for r in g})
         inst_ids = sorted({r["instance"] for r in g}, key=lambda i: (order.get(i, len(order)), i))
         labels = {r["instance"]: row_config(r)["label"] or "real" for r in g}
-        mean_dl: dict[tuple[str, str], float] = {}
-        for i in inst_ids:
-            for meth in methods:
-                v = [float(r["delivered_checked"]) for r in g if r["instance"] == i and r["method"] == meth]
-                if v:
-                    mean_dl[(i, meth)] = sum(v) / len(v)
-        lines += ["", "Delivered (checked) per instance, mean over seeds; **best bound** = the smallest proven upper "
-                  "bound any method reports for the instance (no plan can deliver more):", "",
+        per_seed: dict[tuple[str, str, str], list[float]] = defaultdict(list)    # (instance, method, column)
+        for r in g:
+            for col in ("delivered_checked", "unresolved"):
+                per_seed[(r["instance"], r["method"], col)].append(float(r[col]))
+        mean_dl = {(i, m): sum(v) / len(v) for (i, m, col), v in per_seed.items() if col == "delivered_checked"}
+
+        def cell(i: str, m: str, col: str) -> str:
+            v = per_seed.get((i, m, col))
+            return "–" if not v else _count(sum(v) / len(v)) + _spread(v)
+        lines += ["", "Delivered (checked) per instance, mean over seeds [min–max when they differ]; **best bound** = "
+                  "the smallest proven upper bound any method reports for the instance (no plan can deliver more):", "",
                   "| instance | label | residents | unservable | best bound | " + " | ".join(methods) + " |",
                   "|---|---|---|---|---|" + "---|" * len(methods)]
         for i in inst_ids:
-            cells = [f"{mean_dl[(i, m)]:g}" if (i, m) in mean_dl else "–" for m in methods]
+            cells = [cell(i, m, "delivered_checked") for m in methods]
             u = [x for (st, bd, _m, ii), x in unserv.items() if st == set_name and bd == budget and ii == i]
             bnd = [float(r["best_bound"]) for r in g if r["instance"] == i and r["best_bound"]]
             lines.append(f"| {i} | {labels[i]} | {residents.get(i, '–')} | {f'{max(u):g}' if u else '–'} | "
                          f"{f'{min(bnd):g}' if bnd else '–'} | " + " | ".join(cells) + " |")
+        lines += ["", "Unresolved per instance (never safe, never delivered), mean over seeds [min–max when they "
+                  "differ]:", "", "| instance | label | " + " | ".join(methods) + " |", "|---|---|" + "---|" * len(methods)]
+        for i in inst_ids:
+            lines.append(f"| {i} | {labels[i]} | " + " | ".join(cell(i, m, "unresolved") for m in methods) + " |")
         sizes = sorted({size_of.get(i, "other") for i in inst_ids}, key=lambda z: ("SML".find(z) % 4, z))
         if len(sizes) > 1 or any(sum(1 for i in inst_ids if (i, m) in mean_dl) < len(inst_ids) for m in methods):
             lines += ["", "Delivered (checked) by instance size: sum of the per-instance means / residents of the "
@@ -555,7 +605,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
                         cells.append("–")
                         continue
                     res_z = sum(residents.get(i, 0) for i in ids)
-                    cells.append(f"{sum(mean_dl[(i, meth)] for i in ids):g} / {res_z} ({len(ids)})")
+                    cells.append(f"{_count(sum(mean_dl[(i, meth)] for i in ids))} / {res_z} ({len(ids)})")
                 lines.append(f"| {meth} | " + " | ".join(cells) + " |")
         lines.append("")
     return "\n".join(lines)
