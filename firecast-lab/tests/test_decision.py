@@ -248,6 +248,16 @@ def test_rates_pool_requests_and_resample_whole_fires():
         dm.summarize(["A"], [True], ["checked"])
 
 
+def test_report_never_pools_countries_or_truth_kinds():
+    row = dict(fire="SYNTHETIC_A", country="KR", truth_kind="reconstruction", coupling="shared", length_cells=None,
+               members=2, cleared=True, truth="safe", truth_cause=None, model_state="checked", cleared_up_to="2|2")
+    out = dm.report([row, dict(row, fire="SYNTHETIC_B", cleared=False, truth="hit", model_state="model_no_route",
+                               cleared_up_to="1|0")], draws=50)
+    assert out["shared"]["headline"]["counts"]["scored"] == 2 and out["shared"]["headline"]["fires"] == 2
+    with pytest.raises(ValueError, match="never pool"):
+        dm.report([row, dict(row, country="US", truth_kind="perimeters")])
+
+
 def test_k_curve_reads_the_nested_verdicts():
     up = ["8|8", "2|4", "0|1", "4|0"]
     truth = ["safe", "hit", "hit", "unresolved"]

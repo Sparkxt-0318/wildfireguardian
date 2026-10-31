@@ -481,7 +481,10 @@ def k_curve(cleared_up_to, truth, K: int) -> list[dict]:
 
 def report(rows: list[dict], *, draws: int = 10000, seed: int = m.BOOTSTRAP_SEED) -> dict:
     """Per coupling: the headline rates at the full K (``summarize``), the K curve, truth-unresolved causes and the
-    model's verdict counts."""
+    model's verdict counts. Rows of one country and truth kind only: Korean and US scores are never pooled."""
+    kinds = {(r["country"], r["truth_kind"]) for r in rows}
+    if len(kinds) > 1:
+        raise ValueError(f"never pool decision rows across countries or truth kinds: {sorted(kinds)}")
     out = {}
     for coupling in dict.fromkeys(r["coupling"] for r in rows):
         rs = [r for r in rows if r["coupling"] == coupling]
