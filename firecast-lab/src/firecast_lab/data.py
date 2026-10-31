@@ -1,30 +1,50 @@
-"""Real data root access. Fails loudly when the root is absent and never falls back.
+"""Real data root access and forecast windows. Fails loudly when the root is absent and never falls back.
 
-The real root (``events.json`` + ``regions/<id>/arrival_time_hours.tif`` ...) lives on Siyeong's Mac.
+The real root (layout: map 03 section 2.2) lives on Siyeong's Mac::
+
+    events.json
+    regions/<id>/arrival_time_hours.tif               reconstructed arrival, hours since t0 (NoData outside the scar)
+    regions/<id>/terrain/slope_degrees_375m.tif       static
+    regions/<id>/weather/wind_{eastward,northward}_10m_375m.tif   hourly bands, m/s toward east / north
+    regions/<id>/weather/ecmwf_ifs_bands.csv          band,time_utc of the hourly bands
+
 ``forecast/data/environment`` in this repo holds ``events.json`` only and is rejected on purpose.
 
-Data check (exact window counts and headline-domain sizes; docs/DATA_NOTES.md section 7):
+Windows (``load_windows``) follow the SPLITS window rule. Each carries the cutoff inputs a forecast may use
+(``Cutoff``), kept apart from the truth and the scoring domain. Cutoff state (DATA_NOTES section 5): burned where
+the reconstructed arrival is at or before the cutoff, not burned everywhere else on the grid; the reconstruction's
+NoData mask is never handed to a forecast.
+
+Data check (exact window counts and headline-domain sizes; docs/DATA_NOTES.md section 7)::
 
     python -m firecast_lab.data --data-root PATH [--allow-test] [--out FILE]
 """
 from __future__ import annotations
 
 import argparse
+import csv
+import hashlib
 import json
 import os
 import platform
 import subprocess
 import sys
-from datetime import datetime, timezone
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Callable, Iterator
 
 import numpy as np
 
 from firecast_lab import splits as sp
-from firecast_lab.domain import HEADLINE_BUFFER_M, headline_domain, ring_cells_off_grid
+from firecast_lab.domain import HEADLINE_BUFFER_M, full_rectangle, headline_domain, ring_cells_off_grid
 
 ENV_VAR = "FIRECAST_DATA_ROOT"
 LEADS_H = (24.0, 12.0)
+SLOPE = "terrain/slope_degrees_375m.tif"
+WIND = ("weather/wind_eastward_10m_375m.tif", "weather/wind_northward_10m_375m.tif")
+WEATHER_BANDS = "weather/ecmwf_ifs_bands.csv"
+DOMAINS = ("headline", "full")
 
 
 class DataRootNotFound(FileNotFoundError):
@@ -57,27 +77,63 @@ def check_access(event_id: str, *, allow_test: bool = False, splits: dict | None
     return record
 
 
-def read_arrival(event_id: str, root: Path, *, allow_test: bool = False,
-                 splits: dict | None = None) -> tuple[np.ndarray, dict]:
-    """Reconstructed arrival in hours since the event's t0 (NaN where the raster's nodata tag says NoData; valid
-    US values can be negative) and the event's catalog record. The raster must sit on the event grid."""
+def _read_raster(path: Path, event: dict, band: int = 1) -> np.ndarray:
+    """One band as float64 with NaN where the nodata tag (or a non-finite value) says unknown; on the event grid."""
     import rasterio
 
-    check_access(event_id, allow_test=allow_test, splits=splits)
-    events = {e["id"]: e for e in json.loads((root / "events.json").read_text())}
-    if event_id not in events:
-        raise DataRootNotFound(f"data root not found: {event_id} is missing from {root / 'events.json'}")
-    event = events[event_id]
-    path = root / event["arrival_path"]
     if not path.is_file():
         raise DataRootNotFound(f"data root not found: missing {path}")
     with rasterio.open(path) as src:
         if (src.crs is None or src.crs.to_epsg() != event["epsg"] or src.shape != (event["height"], event["width"])
                 or not np.allclose(tuple(src.transform)[:6], event["transform"])):
-            raise ValueError(f"{path} is not on the event grid of {event_id}")
-        arrival = src.read(1, masked=True).astype(np.float64).filled(np.nan)
-    arrival[~np.isfinite(arrival)] = np.nan
-    return arrival, event
+            raise ValueError(f"{path} is not on the event grid of {event['id']}")
+        values = src.read(band, masked=True).astype(np.float64).filled(np.nan)
+    values[~np.isfinite(values)] = np.nan
+    return values
+
+
+def _event(root: Path, event_id: str) -> dict:
+    events = {e["id"]: e for e in json.loads((root / "events.json").read_text())}
+    if event_id not in events:
+        raise DataRootNotFound(f"data root not found: {event_id} is missing from {root / 'events.json'}")
+    return events[event_id]
+
+
+def read_arrival(event_id: str, root: Path, *, allow_test: bool = False,
+                 splits: dict | None = None) -> tuple[np.ndarray, dict]:
+    """Reconstructed arrival in hours since the event's t0 (NaN where the raster's nodata tag says NoData; valid
+    US values can be negative) and the event's catalog record. The raster must sit on the event grid."""
+    check_access(event_id, allow_test=allow_test, splits=splits)
+    event = _event(root, event_id)
+    return _read_raster(root / event["arrival_path"], event), event
+
+
+def read_layer(root: Path, event: dict, relative: str, band: int = 1) -> np.ndarray:
+    """A layer of ``regions/<id>/`` (e.g. ``SLOPE``) on the event grid; NaN = missing."""
+    return _read_raster(root / "regions" / event["id"] / relative, event, band)
+
+
+def _utc(stamp: str) -> datetime:
+    return datetime.fromisoformat(str(stamp).replace("Z", "+00:00")).astimezone(timezone.utc)
+
+
+def weather_reader(root: Path, event: dict) -> Callable[[str], tuple[np.ndarray, np.ndarray]]:
+    """``wind_at(time_utc) -> (u, v)``: 10 m wind toward east and north (m/s) in the hourly band stamped exactly
+    ``time_utc`` (no interpolation; a missing stamp raises)."""
+    table = root / "regions" / event["id"] / WEATHER_BANDS
+    if not table.is_file():
+        raise DataRootNotFound(f"data root not found: missing {table}")
+    with table.open(newline="") as handle:
+        bands = {_utc(row["time_utc"]): int(row["band"]) for row in csv.DictReader(handle)}
+
+    def wind_at(time_utc: str) -> tuple[np.ndarray, np.ndarray]:
+        band = bands.get(_utc(time_utc))
+        if band is None:
+            raise DataRootNotFound(f"data root not found: no weather band at {time_utc} in {table}")
+        u, v = (read_layer(root, event, path, band) for path in WIND)
+        return u, v
+
+    return wind_at
 
 
 def _hours_since_t0(event: dict, stamp: str) -> float:
@@ -110,6 +166,98 @@ def window_labels(arrival: np.ndarray, cutoff_h: float, lead_h: float) -> dict[s
     return dict(final_perimeter=final, burned_at_cutoff=filled <= cutoff_h, burned_at_end=filled <= cutoff_h + lead_h)
 
 
+@dataclass(frozen=True, eq=False)
+class Cutoff:
+    """Everything a forecast may use: the burned state and inputs at the cutoff. Never the outcome."""
+
+    burned: np.ndarray                    # bool [H, W]: reconstructed arrival at or before the cutoff
+    initial_h: np.ndarray                 # arrival of burned cells in hours after the cutoff (<= 0); NaN elsewhere
+    cell_m: float
+    wind_u: np.ndarray | None = None      # m/s toward east at the cutoff hour (persistence weather); NaN = missing
+    wind_v: np.ndarray | None = None      # m/s toward north
+    slope: np.ndarray | None = None       # degrees
+
+    @property
+    def shape(self) -> tuple[int, int]:
+        return self.burned.shape
+
+    @property
+    def inputs_valid(self) -> np.ndarray:
+        """Cells where every loaded input is finite: the comparison support of the non-c651 baselines."""
+        ok = np.ones(self.shape, dtype=bool)
+        for layer in (self.wind_u, self.wind_v, self.slope):
+            if layer is not None:
+                ok &= np.isfinite(layer)
+        return ok
+
+
+@dataclass(frozen=True, eq=False)
+class Window:
+    """One forecast window (cutoff, cutoff + lead] of one fire: cutoff inputs, truth and scoring domain."""
+
+    fire: str
+    record: dict                          # the fire's SPLITS record (split, fold, country, c651_role)
+    cutoff_utc: str                       # whole hour, ISO with Z
+    cutoff_h: float                       # hours since the event's t0
+    lead_h: int
+    transform: tuple
+    epsg: int
+    synthetic: bool
+    inputs: Cutoff
+    outcome_h: np.ndarray                 # truth: arrival in hours after the cutoff; +inf outside the final perimeter
+    domain: np.ndarray                    # scoring domain (headline: final perimeter + 3 km)
+
+    @property
+    def fitting_rows(self) -> np.ndarray:
+        """Cells that are fitted and scored for the non-c651 baselines: domain, not burned at the cutoff, inputs."""
+        return self.domain & ~self.inputs.burned & self.inputs.inputs_valid
+
+
+def windows_from_arrays(event: dict, arrival: np.ndarray, lead_h: int, *, record: dict, slope=None,
+                        wind_at: Callable[[str], tuple] | None = None, domain: str = "headline") -> Iterator[Window]:
+    """Windows of one fire from its arrival hours since t0 (NaN outside the final perimeter) and optional inputs."""
+    if domain not in DOMAINS:
+        raise ValueError(f"domain must be one of {DOMAINS}")
+    final = np.isfinite(arrival)
+    cell = abs(float(event["transform"][0]))
+    scored = headline_domain(final, cell) if domain == "headline" else full_rectangle(arrival.shape)
+    t0 = datetime.fromisoformat(event["t0_utc"])
+    for cutoff_h in window_cutoffs(arrival, event, lead_h):
+        stamp = datetime.fromtimestamp(round((t0 + timedelta(hours=cutoff_h)).timestamp()), tz=timezone.utc)
+        cutoff_utc = stamp.strftime("%Y-%m-%dT%H:%M:%SZ")
+        burned = window_labels(arrival, cutoff_h, lead_h)["burned_at_cutoff"]
+        u, v = wind_at(cutoff_utc) if wind_at is not None else (None, None)
+        inputs = Cutoff(burned=burned, initial_h=np.where(burned, arrival - cutoff_h, np.nan), cell_m=cell,
+                        wind_u=u, wind_v=v, slope=slope)
+        yield Window(fire=event["id"], record=record, cutoff_utc=cutoff_utc, cutoff_h=cutoff_h, lead_h=int(lead_h),
+                     transform=tuple(float(x) for x in event["transform"]), epsg=int(event["epsg"]),
+                     synthetic=bool(event.get("synthetic", False)), inputs=inputs,
+                     outcome_h=np.where(final, arrival - cutoff_h, np.inf), domain=scored)
+
+
+def load_windows(root, event_id: str, lead_h: int, *, inputs: bool = True, allow_test: bool = False,
+                 splits: dict | None = None, domain: str = "headline") -> Iterator[Window]:
+    """Windows of one fire from the real data root. Checks the root, the split and the static layers now; reads
+    the weather band of each cutoff lazily. ``inputs=False`` skips wind and slope (distance-only baselines)."""
+    root = data_root(root)
+    arrival, event = read_arrival(event_id, root, allow_test=allow_test, splits=splits)
+    record = check_access(event_id, allow_test=allow_test, splits=splits)
+    slope = read_layer(root, event, SLOPE) if inputs else None
+    wind_at = weather_reader(root, event) if inputs else None
+    return windows_from_arrays(event, arrival, lead_h, record=record, slope=slope, wind_at=wind_at, domain=domain)
+
+
+class WindowSource:
+    """Re-iterable windows of several fires, re-read from the data root on every pass (bounded memory)."""
+
+    def __init__(self, root, fires: list[str], lead_h: int, **options):
+        self.root, self.fires, self.lead_h, self.options = data_root(root), list(fires), lead_h, options
+
+    def __iter__(self) -> Iterator[Window]:
+        for fire in self.fires:
+            yield from load_windows(self.root, fire, self.lead_h, **self.options)
+
+
 def check_event(root: Path, event_id: str, *, allow_test: bool = False, splits: dict | None = None) -> dict:
     """Exact window counts and headline-domain sizes of one fire (the data check of DATA_NOTES.md section 7)."""
     arrival, event = read_arrival(event_id, root, allow_test=allow_test, splits=splits)
@@ -123,6 +271,13 @@ def check_event(root: Path, event_id: str, *, allow_test: bool = False, splits: 
     for lead in LEADS_H:
         row[f"windows_{lead:g}h"] = len(window_cutoffs(arrival, event, lead))
     return row
+
+
+def case_seed(base: int, fire: str, cutoff_utc: str) -> int:
+    """Per-window seed, the formula of ``wildfire.cumulative_report.case_seed`` (that module needs torch): every
+    model gets the same seed for the same window, independent of run order."""
+    payload = json.dumps([int(base), fire, cutoff_utc], separators=(",", ":")).encode()
+    return int.from_bytes(hashlib.sha256(payload).digest()[:8], "little")
 
 
 def run_record(config: dict, seed: int | None = None) -> dict:

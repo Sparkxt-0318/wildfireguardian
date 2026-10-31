@@ -121,3 +121,50 @@ def test_check_event_and_cli_record_provenance(tmp_path):
     assert record["rows"] == [row] and record["config"]["buffer_m"] == 3000.0
     assert record["host"] and {"commit", "dirty", "seed", "config"} <= set(record)
     assert record["commit"] is None or len(record["commit"]) == 40      # None outside a git checkout
+
+
+def test_load_windows_reads_the_data_root_layout(tmp_path):
+    import synthetic as syn
+
+    arrival, slope, u, v = syn.fire(seed=4)
+    slope[0, 0] = np.nan                                 # a missing input stays missing
+    root = syn.write_root(tmp_path, {"SYNTHETIC_A": (arrival, slope, u, v)})
+    splits = syn.splits(SYNTHETIC_A="A")
+    got = list(fd.load_windows(root, "SYNTHETIC_A", 24, splits=splits))
+    want = syn.windows("SYNTHETIC_A", arrival, slope, u, v)
+    assert [w.cutoff_utc for w in got] == [w.cutoff_utc for w in want] == ["2030-01-01T12:00:00Z",
+                                                                          "2030-01-02T00:00:00Z",
+                                                                          "2030-01-02T12:00:00Z"]
+    for a, b in zip(got, want):
+        for name in ("burned", "initial_h", "slope"):
+            assert np.array_equal(getattr(a.inputs, name), getattr(b.inputs, name), equal_nan=True)
+        assert np.array_equal(a.outcome_h, b.outcome_h) and np.array_equal(a.domain, b.domain)
+        hour = (fd._utc(a.cutoff_utc) - fd._utc(syn.START)).total_seconds() / 3600
+        assert np.allclose(a.inputs.wind_u, u * (1 + hour / 1000), rtol=1e-6)   # the band of the cutoff hour
+        assert a.synthetic and a.record["fold"] == "A" and not a.inputs.inputs_valid[0, 0]
+    first = got[0]
+    assert np.array_equal(first.inputs.burned, np.isfinite(arrival) & (arrival <= first.cutoff_h))
+    assert np.isinf(first.outcome_h[~np.isfinite(arrival)]).all()       # outside the scar: never in the mapped extent
+    source = fd.WindowSource(root, ["SYNTHETIC_A"], 24, splits=splits)
+    assert [w.cutoff_utc for w in source] == [w.cutoff_utc for w in source] == [w.cutoff_utc for w in got]
+
+
+def test_load_windows_fails_loudly_on_a_missing_or_incomplete_root(tmp_path, monkeypatch):
+    import synthetic as syn
+
+    monkeypatch.delenv(fd.ENV_VAR, raising=False)
+    splits = syn.splits(SYNTHETIC_A="A")
+    with pytest.raises(fd.DataRootNotFound, match="data root not found"):
+        fd.load_windows(None, "SYNTHETIC_A", 24, splits=splits)
+    with pytest.raises(fd.DataRootNotFound, match="data root not found"):
+        fd.WindowSource(tmp_path / "absent", ["SYNTHETIC_A"], 24)
+    root = syn.write_root(tmp_path, {"SYNTHETIC_A": syn.fire(seed=4)})
+    assert len(list(fd.load_windows(root, "SYNTHETIC_A", 24, inputs=False, splits=splits))) == 3
+    (root / "regions/SYNTHETIC_A" / fd.WEATHER_BANDS).write_text("band,time_utc\n1,2030-01-01T00:00:00Z\n")
+    with pytest.raises(fd.DataRootNotFound, match="no weather band"):
+        list(fd.load_windows(root, "SYNTHETIC_A", 24, splits=splits))
+    (root / "regions/SYNTHETIC_A" / fd.SLOPE).unlink()
+    with pytest.raises(fd.DataRootNotFound, match="slope"):
+        fd.load_windows(root, "SYNTHETIC_A", 24, splits=splits)
+    with pytest.raises(PermissionError, match="test fire"):
+        fd.load_windows(root, "SYNTHETIC_A", 24, splits=syn.splits(SYNTHETIC_A="test"))
