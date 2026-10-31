@@ -368,10 +368,14 @@ across models.
 - **Declared, not tuned.** `origin_max_m`, `trip_m`, the waits, the budgets and the copula length are declared.
   Changing them needs Siyeong's approval, like any definition here.
 
-**Cost.** Timed on the real Uljin road graph with a SYNTHETIC hazard (timing only): about 4.6 min per window at
-K = 64, 32 requests, 4 member orders and 2 couplings on the 4-vCPU cloud host. The median trip there has 105
-edges. That is about 80 min per model for the 17 Korean dev windows that have road graphs. Time it on the Mac
-before a full run; `--requests` and `--repeats` scale the cost.
+**Cost.** Timed on the real Uljin road graph with a SYNTHETIC hazard (timing only): about 3.3 min (198 s) per
+window at K = 64, 32 requests, 4 member orders and 2 couplings on the 4-vCPU cloud host. This was a rerun of
+`scripts/time_decision.py` through the bench lock on 2026-10-31. An earlier timing of the same window, whose
+conditions were not recorded, gave 4.6 min. The median trip there has 105 edges.
+- That is about 56 min per model for the roughly 17 Korean dev windows that have road graphs.
+- The 17 is approximate: SPLITS.json `approx_windows_24h` from events.json times, not the exact window rule.
+- 14 of those windows are Uljin's, the largest graph, so this is an upper estimate.
+- Time it on the Mac before a full run. `--requests` and `--repeats` scale the cost.
 
 ## 8. Result rows and the leaderboard (`firecast_lab.harness`, `firecast_lab.leaderboard`)
 

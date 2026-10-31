@@ -84,9 +84,14 @@ python program/benchlock.py --label fl-decision -- firecast-lab decision --model
   with the reason printed: their truth needs NIROPS perimeters, which have no loader yet.
 - **Refusals.** The command refuses to run without the data root or without the graph folder. Fires without a graph
   are listed as skipped.
-- **Cost.** About 4.6 min per window on the 4-vCPU cloud host, so about 80 min per model for the 17 Korean dev
-  windows that have graphs (timed on the real Uljin graph with a SYNTHETIC hazard). `--requests` and `--repeats`
-  scale it.
+- **Cost.** About 3.3 min per window on the 4-vCPU cloud host. That makes about 56 min per model for the roughly 17
+  Korean dev windows that have graphs. The 17 is approximate: SPLITS.json `approx_windows_24h` from events.json
+  times, not the exact window rule. 14 of those windows are Uljin's, the largest graph, so this is an upper
+  estimate. The timing used the real Uljin graph with a SYNTHETIC hazard: `scripts/time_decision.py`, rerun
+  through the bench lock on 2026-10-31. An earlier timing of the same window, whose conditions were not recorded,
+  gave 4.6 min. Rerun it (and time it on the Mac) with:
+  `python program/benchlock.py --label fl-decision-timing -- .venv/bin/python firecast-lab/scripts/time_decision.py`.
+  `--requests` and `--repeats` scale the cost.
 
 ### Real road graphs
 
