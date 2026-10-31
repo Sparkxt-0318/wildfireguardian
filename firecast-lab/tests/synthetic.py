@@ -72,6 +72,23 @@ def window(burned, outcome_h, *, lead_h: int = 24, initial_h=None, u=None, v=Non
                      domain=np.ones(burned.shape, bool) if domain is None else domain)
 
 
+def road_graph(shape, *, travel_s: float = 34.0, step: int = 1, forbidden=()):
+    """A SYNTHETIC evacplan road graph on the synthetic event grid: a 4-neighbour lattice through the centres of every
+    ``step``-th cell, edges of ``travel_s`` (375 m at 40 km/h, rounded up like the router graphs); nodes with
+    ``(r + c) % 4 == 0`` are waitable. Node ``n{r}_{c}``, edge ``n{r}_{c}>n{r2}_{c2}``."""
+    from evacplan import Edge, Node, RoadGraph
+
+    h, w = shape
+    keep = [(r, c) for r in range(0, h, step) for c in range(0, w, step)]
+    nodes = [Node(id=f"n{r}_{c}", x=1_000_000.0 + (c + 0.5) * CELL, y=2_000_000.0 - (r + 0.5) * CELL,
+                  waitable=(r + c) % 4 == 0) for r, c in keep]
+    cells = set(keep)
+    edges = [Edge(id=f"n{r}_{c}>n{r + dr}_{c + dc}", u=f"n{r}_{c}", v=f"n{r + dr}_{c + dc}", travel_time_s=travel_s)
+             for r, c in keep for dr, dc in ((step, 0), (-step, 0), (0, step), (0, -step)) if (r + dr, c + dc) in cells]
+    return RoadGraph(crs_epsg=5179, nodes=nodes, edges=edges, forbidden_turns=list(forbidden),
+                     provenance={"generator": "SYNTHETIC lattice (firecast-lab tests)"})
+
+
 def _tif(path, bands, ev: dict, nodata: float) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     bands = np.asarray(bands, dtype=np.float64)
