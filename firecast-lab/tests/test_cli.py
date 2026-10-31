@@ -65,6 +65,10 @@ def test_run_writes_provenance_rows_scored_on_identical_cells(root, tmp_path):
             assert r["host"] and (r["commit"] == "" or len(r["commit"]) == 40)
             config = json.loads(r["config"])
             assert config["baseline"] == name and config["coupling"] == "shared" and config["lead_h"] == 24
+            assert config["terms"] == harness.TERM_DEFINITIONS                  # the per-window term definitions
+            for column in ("rel_count", "pr_cells", "spread_row_cells"):
+                assert sum(json.loads(r[column])) == int(r["n_cells"])         # every scored cell in one bin
+            assert len(json.loads(r["rank_counts"])) == 9 and sum(json.loads(r["rank_counts"])) == int(r["n_cells"])
     assert all(float(r["brier_sum"]) == float(r["brier_persistence_sum"]) for r in out["persistence"])
     assert all(r["brier_sum"] == r["brier_reference_sum"] for r in out["calibrated_dilation"])
     assert json.loads(out["dilation"][0]["fit"])["hours_per_cell"] in bl.DILATION_CANDIDATES

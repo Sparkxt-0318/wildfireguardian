@@ -13,6 +13,8 @@ python program/benchlock.py --label fl-dilation -- firecast-lab run --baseline d
 #   -> firecast-lab/results/dilation.csv: one row per dev window, with commit, seed, config and host
 python program/benchlock.py --label fl-c651-timing -- firecast-lab time-c651 --fire KFS_02 --members 256
 #   time c651 on one fire BEFORE any full c651 run (needs torch 2.5.1); it extrapolates the dev run
+firecast-lab leaderboard
+#   -> firecast-lab/LEADERBOARD.md (+ .json): every run in results/ pooled, each metric with whole-fire intervals
 ```
 
 Baselines (`--baseline`): `persistence`, `dilation` (k tuned by least pooled Brier), `calibrated_dilation`
@@ -20,8 +22,10 @@ Baselines (`--baseline`): `persistence`, `dilation` (k tuned by least pooled Bri
 alignment, slope), `c651` (frozen checkpoint; in-sample on 25 dev fires). Dev scores are cross-fitted by leaving out
 one SPLITS fold of whole fires. Every baseline gives K coherent members (`--members`, default 64, matched across
 baselines) and is scored on identical cells, next to persistence and calibrated dilation in the same row. Rows hold
-sums: pool by summing, resample whole fires with `metrics.fire_bootstrap`. `--split test` needs `--allow-test`
-(milestones only, after Siyeong approves).
+additive per-window terms of every `METRICS.md` metric (Brier, reliability and ECE, average precision, FSS, CRPS,
+rank histogram, spread-skill). `firecast-lab leaderboard` pools them by summing and resamples whole fires with
+`metrics.fire_bootstrap` (`METRICS.md` §8). It refuses runs that scored different cells, and it writes SYNTHETIC
+rows only to an explicit `--out`. `--split test` needs `--allow-test` (milestones only, after Siyeong approves).
 
 ## Members, couplings and scenario sets
 

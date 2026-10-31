@@ -9,6 +9,10 @@
         the decision metric (METRICS.md section 7): fixed routing requests checked by evacplan.oracle on the model's
         members (shared and copula couplings) and on reconstruction truth; one row per request and coupling in
         firecast-lab/results/decision_<model>.csv, the rates and K curves in .json, the trade-off plot in .png
+    firecast-lab leaderboard [--results DIR] [--out PATH]
+        pools the `run` rows in DIR (default firecast-lab/results) into firecast-lab/LEADERBOARD.md (+ .json): every
+        METRICS.md metric with whole-fire bootstrap intervals; refuses runs that scored different cells; SYNTHETIC
+        rows need --out
 
 CPU-heavy runs go through the bench lock: ``python program/benchlock.py --label NAME -- firecast-lab run ...``.
 The test split needs ``--allow-test`` (milestones only, after Siyeong approves); the fresh holdout is refused.
@@ -27,12 +31,15 @@ from pathlib import Path
 from firecast_lab import baselines as bl
 from firecast_lab import decision as dm
 from firecast_lab import harness
+from firecast_lab import leaderboard as lb
+from firecast_lab import metrics as m
 from firecast_lab import splits as sp
 from firecast_lab.data import (DOMAINS, ENV_VAR, DataRootNotFound, WindowSource, data_root, load_windows,
                                read_arrival, run_record, window_cutoffs)
 from firecast_lab.members import COUPLINGS
 
 RESULTS = sp.LAB / "results"
+LEADERBOARD = sp.LAB / "LEADERBOARD.md"
 PROVENANCE = ("commit", "dirty", "host", "seed", "config")
 
 
@@ -72,6 +79,13 @@ def _parser() -> argparse.ArgumentParser:
         p.add_argument("--data-root", default=None, help=f"the real data root (default: ${ENV_VAR})")
         p.add_argument("--seed", type=int, default=0)
         p.add_argument("--out", default=None, help="CSV path (default: firecast-lab/results/...)")
+    board = sub.add_parser("leaderboard", help="pool run rows -> firecast-lab/LEADERBOARD.md (+ .json)")
+    board.add_argument("--results", default=None, help="folder of `firecast-lab run` CSVs (default: "
+                                                       "firecast-lab/results)")
+    board.add_argument("--out", default=None, help="markdown path (default: firecast-lab/LEADERBOARD.md, real-data "
+                                                   "rows only); a .json with the pooled details goes next to it")
+    board.add_argument("--draws", type=int, default=10000, help="whole-fire bootstrap draws")
+    board.add_argument("--seed", type=int, default=m.BOOTSTRAP_SEED, help="bootstrap seed")
     return parser
 
 
@@ -99,7 +113,7 @@ def _run(args, splits: dict) -> Path:
     config = dict(baseline=args.baseline, split=args.split, lead_h=args.lead, members=args.members,
                   coupling=args.coupling, length_cells=args.length_cells, domain=args.domain, data_root=str(root),
                   splits_sha256=hashlib.sha256(json.dumps(splits, sort_keys=True).encode()).hexdigest(),
-                  **(dict(batch_size=args.batch_size) if args.baseline == "c651" else {}))
+                  terms=harness.TERM_DEFINITIONS, **(dict(batch_size=args.batch_size) if args.baseline == "c651" else {}))
 
     def windows_of(fires):
         return WindowSource(root, fires, args.lead, allow_test=args.allow_test, splits=splits, domain=args.domain)
@@ -202,10 +216,31 @@ def _decision(args, splits: dict) -> Path:
     return out
 
 
+def _leaderboard(args, splits: dict) -> Path:
+    """Pool the `run` rows of a results folder into the leaderboard (``firecast_lab.leaderboard``). Needs no data
+    root. SYNTHETIC rows are written only to an explicit --out: firecast-lab/LEADERBOARD.md holds real-data rows."""
+    results = Path(args.results) if args.results else RESULTS
+    rows, other = lb.read_rows(results)
+    if not rows:
+        raise lb.LeaderboardError(f"no `firecast-lab run` rows in {results}: nothing to pool (no real-data rows exist "
+                                  f"yet; {LEADERBOARD.name} says why)")
+    if args.out is None and any(r["synthetic"] for r in rows):
+        raise lb.LeaderboardError(f"SYNTHETIC rows in {results}: pass --out; {LEADERBOARD.name} holds real-data rows "
+                                  "only")
+    out = lb.write(lb.build(rows, draws=args.draws, seed=args.seed), Path(args.out) if args.out else LEADERBOARD)
+    label = _label(rows)
+    for name in other:
+        print(f"{label}not a run file, skipped: {name}")
+    print(f"{label}{len(rows)} rows -> {out} (+ {out.with_suffix('.json').name})")
+    return out
+
+
 def main(argv: list[str] | None = None, *, splits: dict | None = None) -> Path:
     args = _parser().parse_args(argv)
+    commands = dict(run=_run, decision=_decision, leaderboard=_leaderboard)
+    if args.command == "leaderboard":
+        return _leaderboard(args, splits or {})
     splits = splits or sp.load_splits()
-    commands = dict(run=_run, decision=_decision)
     return commands.get(args.command, _time_c651)(args, splits)
 
 

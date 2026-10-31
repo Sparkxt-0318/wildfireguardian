@@ -1,10 +1,10 @@
 # Track A metrics and scoring domain
 
-Code: `firecast_lab.metrics` (scores), `firecast_lab.domain` (domain and masks) and `firecast_lab.decision` (the
-decision metric, §7). Tests in `tests/` pin
-every definition below to hand-computed values or known identities on SYNTHETIC data. The data caveats behind
-these choices are in `docs/DATA_NOTES.md`. Fixed on 2026-10-31, before any Track A model output exists.
-Changing a definition needs Siyeong's approval.
+Code: `firecast_lab.metrics` (scores), `firecast_lab.domain` (domain and masks), `firecast_lab.decision` (the
+decision metric, §7) and `firecast_lab.harness` with `firecast_lab.leaderboard` (result rows and pooling, §8). Tests
+in `tests/` pin every definition below to hand-computed values or known identities on SYNTHETIC data. The data
+caveats behind these choices are in `docs/DATA_NOTES.md`. Fixed on 2026-10-31, before any Track A model output
+exists. Changing a definition needs Siyeong's approval.
 
 ## 1. What is scored
 
@@ -136,10 +136,13 @@ ECE is kept only for continuity with earlier reports; `ece` is the Track A defin
 - `ratio = sqrt((K + 1) / K * mean s^2) / RMSE(mean)`: 1 is consistent, below 1 overconfident, above 1
   over-dispersed.
 - **Caution with binned rows.** Rows group cells by the ensemble's own `s^2`, which selects on sampling noise.
-  On a SYNTHETIC exchangeable ensemble the decile ratios run from 0.76 to 1.23 at K = 10, but stay within
-  0.98-1.04 at K = 256; the overall ratio is unbiased at any K (tested).
+  On a SYNTHETIC exchangeable ensemble (`_exchangeable` in `tests/test_ensemble.py`, n = 40,000 cells, seed 6)
+  the decile ratios run from 0.76 to 1.23 at K = 10, but stay within 0.98-1.04 at K = 256. With fewer cells the
+  range widens: the test's K = 256 case (n = 10,000, seed 7) spans 0.96-1.04. The overall ratio is unbiased at any
+  K (tested).
   - Read rows only at K of about 256 or more.
-  - Otherwise, compare them with a synthetic exchangeable ensemble of the same K.
+  - Otherwise, compare them with a synthetic exchangeable ensemble of the same K and number of cells.
+  - The leaderboard's rows are fixed spread bins rather than deciles (§8). They select on `s^2` in the same way.
 - **Variable.** By default the censored arrival hour; the same function works for the 0/1 burned-by-lead
   indicator.
 
@@ -159,7 +162,8 @@ ECE is kept only for continuity with earlier reports; `ece` is the Track A defin
   - Brier skill: `[(p - y)^2, (r - y)^2]` mapped to `1 - s0 / s1`;
   - FSS: `fss_terms`;
   - CRPS or CRPS skill: `crps_arrival_terms`;
-  - ECE: per-bin sums.
+  - ECE: per-bin sums;
+  - the per-window terms of result rows (§8), where the entries are windows.
 - It reproduces `paired_fire_bootstrap` on Brier differences (tested).
 - `brier_skill_bootstrap` uses the same draws as `paired_brier_bootstrap`. In every draw the skill is positive
   exactly when the Brier difference is negative.
@@ -368,6 +372,52 @@ across models.
 K = 64, 32 requests, 4 member orders and 2 couplings on the 4-vCPU cloud host. The median trip there has 105
 edges. That is about 80 min per model for the 17 Korean dev windows that have road graphs. Time it on the Mac
 before a full run; `--requests` and `--repeats` scale the cost.
+
+## 8. Result rows and the leaderboard (`firecast_lab.harness`, `firecast_lab.leaderboard`)
+
+**Per-window terms.** Each `firecast-lab run` row (one window of one baseline) holds additive terms of every
+metric above, on the window's scored cells (`harness.TERM_COLUMNS`; list columns are JSON):
+
+| Metric | Terms in the row | Pooled |
+|---|---|---|
+| Brier; Brier skill vs persistence and vs calibrated best dilation | `brier_sum`, `brier_persistence_sum`, `brier_reference_sum`, `n_cells` | `brier_sum / n_cells`; `1 - brier_sum / brier_..._sum` |
+| Reliability diagram, ECE | per reliability row of §3: `rel_count`, `rel_forecast_sum`, `rel_observed_sum` | rows from the sums; ECE = `sum abs(F - O) / sum N` |
+| Average precision | per member count `j = 0..K`: `pr_cells`, `pr_positives` | `metrics.average_precision_from_counts` |
+| FSS at each size | `fss_num_<n>`, `fss_den_<n>` | `1 - sum num / sum den` (aggregate FSS, §4) |
+| CRPS, fair CRPS | `crps_sum`, `crps_fair_sum` | divided by `n_cells` |
+| Rank histogram | `rank_counts` (K + 1 counts), `rank_fully_tied` | summed; the leaderboard shows the outer share `(r_0 + r_K) / N` (flat: `2 / (K + 1)`) |
+| Spread-skill | `spread_var_sum`, `spread_err2_sum`; per fixed spread row `spread_row_cells`, `spread_row_var_sum`, `spread_row_err2_sum` | `sqrt((K + 1) / K * sum s^2 / sum err^2)` |
+
+- **Forecast.** `p` is the member share, which is what Track C receives. The arrival-time metrics use the members'
+  hourly lattice (§4).
+- **Average precision is exact.** A K-member share takes one value per member count, so the cells of one count form
+  one tie group, and the count histogram reproduces the tie-grouped average precision of §3 exactly.
+- **Rank ties** are broken with the window seed (`data.case_seed`), so every baseline gets the same draws.
+- **Spread rows are fixed bins, not deciles.** Equal-count groups need every cell at once and do not add up. Rows
+  therefore pool over fixed bins of the members' sd of the arrival hour: sd = 0, then (0, 0.5), [0.5, 1), [1, 2),
+  [2, 4), [4, 8) and [8, inf) h (`metrics.SPREAD_SD_EDGES_H`; `spread_skill(..., sd_edges_h=...)` gives the same
+  rows from cells).
+- **Pooling is exact.** Pooled terms equal the direct metric on the concatenated cells of all windows (tested; for
+  the rank histogram, up to its seeded tie-breaking).
+- **Definitions are recorded.** Each run's config records the term definitions (`terms`: reliability edges, FSS
+  sizes, spread edges). The aggregator refuses rows whose definitions differ, and rows written before the terms
+  existed.
+
+**Leaderboard** (`firecast-lab leaderboard`).
+- **Tables.** One per country, split, lead, scoring domain and K, and real or SYNTHETIC. Nothing is pooled across
+  tables.
+- **Entries.** One per run (baseline, coupling, copula length, seed). An entry pools its window rows by summing.
+- **Intervals.** Every scalar metric gets the whole-fire percentile bootstrap of §5 (`metrics.fire_bootstrap`,
+  10,000 draws, seed 20261029), with the number of fires next to it. The entries of a table share their fires and
+  draws.
+- **Refusals.**
+  - Runs that scored different windows, or different cells in the same window (`mask_sha256`), are not compared.
+    The aggregator refuses them. Example: c651's coverage envelope can remove cells that the other baselines
+    score. Until rescoring on the cell intersection exists, such rows are refused, never silently compared.
+  - Also refused: duplicate rows, and SYNTHETIC rows without an explicit `--out` (`LEADERBOARD.md` holds real-data
+    rows only).
+- **Output.** `firecast-lab/LEADERBOARD.md`, plus `LEADERBOARD.json` with the pooled reliability rows, rank
+  histograms and spread rows.
 
 ## References
 
