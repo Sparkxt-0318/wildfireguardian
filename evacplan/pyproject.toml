@@ -16,6 +16,8 @@ dependencies = ["numpy>=1.26", "pydantic>=2.7,<3"]
 test = ["pytest>=8", "hypothesis>=6"]
 # real regions (evacplan.regions): OSM roads and projections
 regions = ["networkx>=3", "osmnx>=2", "pyproj>=3"]
+# baselines B2 (OR-Tools routing) and B3 (HiGHS through highspy, run in a child process)
+solvers = ["ortools>=9.10", "highspy>=1.7"]
 
 [project.scripts]
 evacplan = "evacplan.cli:main"
