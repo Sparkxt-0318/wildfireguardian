@@ -1,0 +1,234 @@
+{
+  "overall": "HOLD_PARTIAL, not all orchestrator acceptance gates pass",
+  "requirements": [
+    {
+      "id": "1C-1-export-default",
+      "status": "PASS",
+      "evidence": "Three fresh forecast tests verify original rollout equality, observation isolation and first-burn/seed/missingness controls."
+    },
+    {
+      "id": "1C-1-real-export",
+      "status": "PASS",
+      "evidence": "15 actual Korean windows, 1024 trajectories each. EXPORT_BYTE_AUDIT.json now independently verifies dtype, shape, raw C-order payload bits including NaNs, and full uncompressed NPY entries for every shared v2 array. Historical value audit retained."
+    },
+    {
+      "id": "1C-1-regeneration-contract",
+      "status": "QUALIFIED",
+      "evidence": "Old streams are block based; uint64 seed bits in int64 plus block offset and batch size required, not seed alone."
+    },
+    {
+      "id": "1C-1-bridge",
+      "status": "PARTIAL",
+      "evidence": "Known fixture writes inherited four-file packet, loads in unchanged FFI Packet parser, matches sweep/SIPP arrival and passes complete copied centre checker. Actual unknown-source trajectories remain unsupported."
+    },
+    {
+      "id": "1C-1-reduction-library",
+      "status": "PASS_UNIT_SCOPE",
+      "evidence": "Three distances/selectors, exact extracted road first-unsafe integer departures, boundary/outside/native/unknown controls, mass redistribution, exact weighted CVaR tails and stable weight guards tested. Full panel reduction remains gated."
+    },
+    {
+      "id": "1C-1-K-panel-coverage",
+      "status": "UNRESOLVED",
+      "evidence": "No all-N route coverage or comparative outcome certificate on unknown global source support. No zero fill or exposure-history invention."
+    },
+    {
+      "id": "1C-1-Caldor-v3",
+      "status": "NOT_RUN_ALIGNMENT_UNESTABLISHED_BOUNDED_AUDIT_COMPLETE",
+      "evidence": "CALDOR_RIM_ALIGNMENT_AUDIT.json/.md and full input inventory audit1167files/51,014,966bytes, matching59/59source assets and158/158study digests. No native environmental raster bundle or c651 six-channel causal binding on sealed Caldor63x68 or Rim28x36 EPSG3310 grids; origins03:20/08:30 fail the current whole-hour export admission. Sealed packets are retrospective survey-gap timing constructions; clocks bookkeeping. Supplied44event catalog has no matching incident scalar. No resampling, fill, new export or risk experiment."
+    },
+    {
+      "id": "1C-2-abstract-equivalence",
+      "status": "PASS",
+      "evidence": "10000/10000 independent abstract time-expanded comparisons and 8312 legal returned witnesses; seeds and census retained."
+    },
+    {
+      "id": "1C-2-native-equivalence-cost",
+      "status": "PASS_BOUNDED",
+      "evidence": "52/52 pairs across 26 missions, two repetitions, 104 child executions, zero unresolved. 156/156 sealed-job field matches."
+    },
+    {
+      "id": "1C-2-native-controller",
+      "status": "QUALIFIED",
+      "evidence": "Final-after-exit deadline/RSS admission fixed and boundary tests added after original run; all original rows <5.21 s and <488 MiB, so no classification changes. Original producer retained."
+    },
+    {
+      "id": "1C-2-trajectory-packet-equivalence",
+      "status": "PASS_FIXTURE_ONLY",
+      "evidence": "One complete trajectory fixture, same arrival in both solvers and full centre check. Real trajectory packets remain unsupported."
+    },
+    {
+      "id": "1C-2-proof-predicate",
+      "status": "PASS_REVIEW_SCOPE",
+      "evidence": "Waitable components, nonwaitable arrival runs and pre-dominance admission goals documented. Finite tests and human-readable proof, not machine checked."
+    },
+    {
+      "id": "1C-2-K-scaling",
+      "status": "EXECUTED_BOUNDED_OPT_IN_CONTACT_K_STUDY",
+      "evidence": "Frozenphase095b8d17 exact320records:20originalmissions xK4/8/16/32 x2methods x2ABBAreps.224unknown-endpoint presearchrecords retainednullsolvermetrics.96searches give48/48matched paired outcomes (36checkedarrival,12restrictedexhaustion);72returnedroutes passfreshoriginalraw-data recheck. MedianSIPP/sweep planner-callratio0.561111 over48completedpairs; sourceT>H, countersnonmonotone, no universal speedup. Actualfig02 nowproduced in known-footprint-contact-K-20261030. Allstrictoldartifactsunchanged; no thermal/full-policy/risk or originalglobalno-route/optimum claim.",
+      "strict_default_status": "NOT_RUN_CONTACT_ADMISSION_ALL_SAVED_N_UNSUPPORTED",
+      "strict_default_evidence": "Separate full-member-support-census-20261030 checks all 1024 saved members on 15 exact contact domains covering 20 missions: 0 supported members over 15360 domain-member checks. Domain unknown masks are byte-identical across N. Any nonempty selection from these saved pools, including selectors at K4/8/16/32, fails current strict whole-domain bridge admission. No search, state-vs-K performance or risk measurement. Prior first-32 and initial grid-failure artifacts unchanged. A future justified local/pessimistic contact support contract is not ruled out."
+    },
+    {
+      "id": "1C-2-chance-subset",
+      "status": "NOT_IMPLEMENTED_OPTIONAL",
+      "evidence": "Weighted post-hoc acceptance exists, union exhaustion cannot certify chance refusal. No exact subset-search or bitset optimality claim."
+    },
+    {
+      "id": "1C-2-dose-lazy",
+      "status": "PARTIAL",
+      "evidence": "Dose remains outside intervals. Bounded heuristic singleton cuts return unresolved on cap/exhaustion, never a global refusal after cuts."
+    },
+    {
+      "id": "1C-3-C1",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "6000 case records, three matched-support configurations, null truth scores. One-hour single predictor has no multi-step coherence contrast."
+    },
+    {
+      "id": "1C-3-C2",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "12000 records, diagnostic Brier on joint known cells, no identifiable false-safe/refusal rates."
+    },
+    {
+      "id": "1C-3-C3",
+      "status": "EXECUTED_ADMISSION_UNRESOLVED",
+      "evidence": "24000 records over member counts and rules, no scored acceptance trade-off."
+    },
+    {
+      "id": "1C-3-C4",
+      "status": "PARTIAL_ADMISSION_ONLY",
+      "evidence": "Eight Gyeongbuk admission records remain unresolved. KFS_01 reconstructed-arrival reader now loads actual raster and aligned SD, retaining 7768 unknown cells; no full-policy truth packet, retrospective route map or Caldor c651 alignment established."
+    },
+    {
+      "id": "1C-3-NIROPS-external",
+      "status": "PASS_INTERFACE_SCOPE_WITH_UNSCORABLE_OBSERVATIONS",
+      "evidence": "Independent readers and defensively checked source family, output grid binding, explicit finite simulation clocks/censoring and query horizons tested. REAL_READERS_SMOKE_POST_REPAIR.json supersedes the old simulator point-status claim; old receipts immutable. Observation truths remain unscorable and no full-policy packet is inferred."
+    },
+    {
+      "id": "1C-3-Uljin-truth-members",
+      "status": "PASS_CENTRE_REGRESSION",
+      "evidence": "Fresh complete copied centre checker passed all four original Uljin members on the SIPP witness, arrival3119s, zero false-safe members. This is not a withheld-truth or whole-road campaign."
+    },
+    {
+      "id": "1C-law-v2",
+      "status": "NOT_RUN_REQUIRED_GATE",
+      "evidence": "Track1A physics/enclosure gate unresolved; explicit NotImplementedError, no fabricated fronts."
+    },
+    {
+      "id": "release-source-manifest",
+      "status": "PASS_REPAIRED_OVERLAY",
+      "evidence": "Frozen integration exporter restored; opt-in wrapper added. verify_release.py passes367hashes. One actual1024-trajectory wrapper export is NPZ-byte-identical to archived producer output.",
+      "history": [
+        "Initial in-place prototype failed frozen exporter identity check.",
+        "Exact producers archived, wrapper relocated, no frozen manifest edit."
+      ]
+    },
+    {
+      "id": "1C-1-road-features",
+      "status": "PASS_INTERFACE_AND_FIXTURE_SCOPE",
+      "evidence": "features.py uses copied exact chord midpoint and boundary occupancies with half-open activity, current fire, integer full-traversal departures and explicit horizon capping. 100 independent integer-departure enumerations match exact fractional ignition fixtures. Unknown positive-weight road features refuse reduction."
+    },
+    {
+      "id": "1C-3-current-scoring-guards",
+      "status": "PASS_TARGETED_REPAIR",
+      "evidence": "POST_REPAIR_CORE_AUDIT.json passes9/9. Contradictory checker/oracle evidence and nonfinite/negative values refused; normalization overflow repaired, underflowing positive masses refused, CVaR tail integration exact rational. Old campaign outputs/producers unchanged."
+    },
+    {
+      "id": "1C-3-native-FARSITE-execution",
+      "status": "PASS_EXECUTION_AVAILABILITY_ONLY",
+      "evidence": "Archive-pinned TestFARSITE SHA125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3 executes documented no-argument usage with expected exit1, no stderr, DEVNULL stdin and5s timeout in isolated work dir. Owned group absent afterward. Clock fixture skipped because heavy lock busy. No spread forecast or simulator-validity claim. See NATIVE_FARSITE_AVAILABILITY.json and READERS_REPAIR_RECEIPT.json."
+    },
+    {
+      "id": "1C-3-reader-admission-repair",
+      "status": "PASS_TARGETED_INTERFACE_SCOPE",
+      "evidence": "POST_REPAIR_READERS_AUDIT.json passes5/5. Out-of-run positive arrivals, unsupported family, unbound spatial grids and fractional-offset UTC truncation refused. Finite sentinel is right-censored, never globally never; exact_ignition requires supported explicit query horizon. Wapiti11215right-censored cells through88200s, zero globally-never."
+    },
+    {
+      "id": "1C-Caldor-Rim-data-availability-audit",
+      "status": "COMPLETE_BOUNDED_READ_ONLY_NEGATIVE_ADMISSION",
+      "evidence": "Exact sealed study inventory and source verification complete; native forecast alignment not established. External data could exist beyond audited scope. No source/kit change and no physics or risk gate opened."
+    },
+    {
+      "id": "1C-2-fig02-states-vs-members",
+      "status": "PRODUCED_BOUNDED_KNOWN_FOOTPRINT_CONTACT_STUDY",
+      "evidence": "ActualK4/8/16/32 series from96searchrecords, SIPPexpansions andsweepstatesreached plottedinseparatepanelswithdifferentunits, bothrepsretainedandcounteridenticalwithinreps.14unknownendpointmissions have all224presearchrecords withnullsolvermetrics. SourceT>Hdoesnotimplyincreasingintervalfragmentation. PNG300dpi+SVGvisuallyinspected; priorstrict/default0of15360 resultandfixedK4evidence unchanged.",
+      "strict_default_status": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES",
+      "strict_default_evidence": "No admitted measured state-vs-K series exists. The fixed K4 counter table and first-32 audit remain unchanged; the separate full-N census proves 0 supported members in every saved 1024-member contact domain. No fake or empty fig02 generated. See FULL_MEMBER_SUPPORT_CENSUS.md and full-member-support-census-20261030/RESULTS.json under research/sipp-routing."
+    },
+    {
+      "id": "1C-2-full-N-support-completeness",
+      "status": "PASS_CENSUS_NO_CURRENT_CONTRACT_SELECTION_ADMITTED",
+      "evidence": "All 15 exports streamed one original member at a time: 15360 domain-member checks and 0 supported members. Existing full/regional grid and clock proofs and input bytes pinned, complete payload/prefix hashes retained. No full-N tensor or graph parsing; largest raw member 37446 bytes. Alternative selectors are excluded only by the current strict admission predicate on these saved pools. Separate script, result, member CSV and receipt preserve the immutable first-32 audit."
+    },
+    {
+      "id": "1C-2-known-footprint-static-feasibility",
+      "status": "PASS_SOURCE_SUPPORT_SCOPE_ONLY",
+      "evidence": "All20missions,15exactexportdomains,5sourcegraphs audited. Sixknown spatial turn topologies;7unknown both endpoints,2unknown issue only,5unknown destination only. Source masks, clock/horizon, grid/CRS, original requests and allNshared-mask proof retained. Fivebounded source-census children exit0,guards pass,owned groups absent; no adapter, temporal search, simulation or risk claim. Separate source-clock lemma limits the anticipated K-fragmentation interpretation."
+    },
+    {
+      "id": "1C-2-known-footprint-contact-adapter",
+      "status": "PASS_ROOT_RECHECKED_CONTACT_SOFTWARE_SCOPE",
+      "evidence": "Core700ce9a4 repairs3fd8source/clockboundarydefects. Rootindependentrecheck17/17controls,72contactfixtures and65hashpins pass. Original47fixture/producer/receipt/contract retained. Studyphase095b8d17 keepscore/default/frozenrefsunchanged; canonicalsourcegates, exactmicrosecondUTC, finiteintegerclock andexplicitprivatehistoryomissionremain. Typedlocalcontactresultonly; fullpolicy/peak/dose/riskunknown."
+    },
+    {
+      "id": "1C-2-known-footprint-fixed-K-campaign",
+      "status": "EXECUTED_BOUNDED_CONTACT_AWAITING_INDEPENDENT_OUTPUT_AUDIT",
+      "evidence": "All320originalfixedrecordscompletewith320acceptedcontrollerguards andownedgroupsabsent; all72returnedcontactroutes separatelyrechecked.36matchedcheckedpairs,12matchedrestrictedexhaustionpairs,112matchedpresearchendpointpairs.115originalinputfilehashes and35priorartifact+4fd8artifactbytes preserved. PerchildHEAVY,30s/3072MiBguards, largestchild5.520812s/454.4375MiB. Sourcephase095b8d174d2f203ea67bea5fdd8c69eb0633b2a0. known-footprint-contact-K-20261030/ANALYSIS.json and OUTPUT_SHA256.json bindactualsource/results. No addedpanel, simulatedmembers, globaloriginaldomain, thermalpolicy, risk or physicalclaim."
+    }
+  ],
+  "fresh_tests": {
+    "routing": {
+      "passed": 29,
+      "skipped": 1,
+      "seconds": 22.49,
+      "reason_for_skip": "Torch export tests run separately in forecast environment",
+      "post_suite_targeted_packet_guard_checks": "5passed0.20s"
+    },
+    "forecast_export": {
+      "passed": 3,
+      "seconds": 0.64,
+      "entrypoint": "experimental/scenario-members/export_v3.py"
+    }
+  },
+  "figures": "PNG300dpi plusSVG with captions; selected cost/risk-availability figures visually inspected. Missing requested reduction/scaling/retrospective figures explicitly unrun.",
+  "post_repair_tests": {
+    "software_head": "a1fb31a4e9df9c35957febb1961d68548c01d59b",
+    "routing": {
+      "passed": 40,
+      "skipped": 4,
+      "seconds": 21.56,
+      "skips": "one torch export module and three optional GIS tests"
+    },
+    "forecast_targeted": {
+      "passed": 20,
+      "seconds": 0.91
+    },
+    "core_audit": {
+      "checks": 9,
+      "passed": 9
+    },
+    "release_hashes": 367,
+    "receipt": "research/scenario-members/POST_REPAIR_RECEIPT.json"
+  },
+  "readers_repair_tests": {
+    "software_head": "52f57a4eb40643329c3b9cd33f7c248a730b9135",
+    "routing": {
+      "passed": 44,
+      "skipped": 4,
+      "seconds": 21.75
+    },
+    "forecast_targeted": {
+      "passed": 24,
+      "seconds": 1.15
+    },
+    "reader_audit": {
+      "checks": 5,
+      "passed": 5
+    },
+    "fresh_core_audit": {
+      "checks": 9,
+      "passed": 9
+    },
+    "release_hashes": 367,
+    "receipt": "research/synthetic-truth/READERS_REPAIR_RECEIPT.json"
+  }
+}

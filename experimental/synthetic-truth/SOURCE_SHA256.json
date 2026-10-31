@@ -1,0 +1,24 @@
+{
+  "current_overlay_sources": {
+    "experimental/synthetic-truth/README.md": "aeaa15a2876da861fafb96a26efab1017cd80c823833e93ca3a8fc9a164be9da",
+    "experimental/synthetic-truth/requirements-gis.txt": "a9e4632d046a951635312b1abe9c60e5a6cecde335bdc73142b3b4d1a635e9cd",
+    "experimental/synthetic-truth/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/__init__.py": "602e6b67c7988891fd63663ee850ba0a8a42578ec4d2999a70dc0cbe90ad7f01",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/adapters.py": "27e3309e42acbe0fa068c76c9577dbfadd26282b468048aae63fefb2cb4493dc",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/checker.py": "77691255d74492709ac321f68369cf40ec58bfd0223c80bf748854a6f27ebd27",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2088af268717d40464ef0a52cc5a9131b7f66371004a57e5ded1665a9e62f4f2",
+    "experimental/synthetic-truth/tests/test_adapters.py": "6163299214c03e859d4f124881d6e1f1f74721389da03309f6f1bef3a0e528db",
+    "experimental/synthetic-truth/tests/test_full_checker.py": "b81ddeec58af8726e3a1c2bfa7a7a092015856331ddc92ad7a8b7c518775c535",
+    "experimental/synthetic-truth/tests/test_score.py": "42e1f819975f8abddeb4c694a8d60372aa719dfb5c4b17b4efe479a80debeb20"
+  },
+  "original_base_sources": {
+    "forecast/wildfire/rollout.py": "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe",
+    "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/kit/phaseB/road_core.py": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+    "integration/kit/phaseB/zsweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "integration/kit/routing_candidate/baseline/routing-package/routing/independent.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492"
+  },
+  "base_commit": "59f3187d70b612bb00b191afa00954ad4b8356a2"
+}

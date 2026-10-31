@@ -1,0 +1,95 @@
+{
+  "software_head": "52f57a4eb40643329c3b9cd33f7c248a730b9135",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "routing_python": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+  "forecast_python": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+  "commands": [
+    {
+      "command": "PYTHONPATH=experimental/scenario-members/src:experimental/sipp-routing/src:experimental/synthetic-truth/src /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python -m pytest -q experimental/scenario-members/tests experimental/sipp-routing/tests experimental/synthetic-truth/tests",
+      "exit_code": 0,
+      "passed": 44,
+      "skipped": 4,
+      "seconds": 21.75
+    },
+    {
+      "command": "PYTHONPATH=forecast:experimental/scenario-members/src:experimental/sipp-routing/src:experimental/synthetic-truth/src /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest -q experimental/scenario-members/tests/test_export_v3.py experimental/scenario-members/tests/test_features.py experimental/synthetic-truth/tests/test_adapters.py experimental/synthetic-truth/tests/test_score.py",
+      "exit_code": 0,
+      "passed": 24,
+      "seconds": 1.15
+    },
+    {
+      "command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python ../integration/research/next-combined/audit_1c_readers.py --track-c . --out research/synthetic-truth/POST_REPAIR_READERS_AUDIT.json",
+      "exit_code": 0,
+      "passed": 5,
+      "checks": 5
+    },
+    {
+      "command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python ../integration/research/next-combined/audit_1c_semantics.py --track-c . --out research/synthetic-truth/POST_READERS_REPAIR_CORE_AUDIT.json",
+      "exit_code": 0,
+      "passed": 9,
+      "checks": 9
+    },
+    {
+      "command": "PYTHONPATH=experimental/synthetic-truth/src /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python research/synthetic-truth/smoke_truth_readers_bounded.py --data-root ../data/forecast-v2 --out research/synthetic-truth/REAL_READERS_SMOKE_POST_REPAIR.json",
+      "exit_code": 0
+    },
+    {
+      "command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python tools/verify_release.py",
+      "exit_code": 0,
+      "copied_hashes": 367
+    },
+    {
+      "command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python research/synthetic-truth/probe_native_farsite.py --native-root ../data/forecast-v2/native-farsite --work-root ../native-probes --out research/synthetic-truth/NATIVE_FARSITE_AVAILABILITY.json",
+      "exit_code": 0,
+      "scope": "No-argument usage behavior only, no simulation",
+      "expected_child_exit": 1,
+      "timeout_s": 5
+    }
+  ],
+  "current_sources": {
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/adapters.py": "27e3309e42acbe0fa068c76c9577dbfadd26282b468048aae63fefb2cb4493dc",
+    "experimental/synthetic-truth/tests/test_adapters.py": "6163299214c03e859d4f124881d6e1f1f74721389da03309f6f1bef3a0e528db",
+    "research/synthetic-truth/smoke_truth_readers_bounded.py": "5eebc9b3ee07625c9ea56c5051b007b9c8395bd3fc80724c752107713f951a7e",
+    "experimental/synthetic-truth/SOURCE_SHA256.json": "a36ff60efa497c6c1e73b9fc4d254091088f7f392429ed0a9137cc61a9d5317a",
+    "research/synthetic-truth/probe_native_farsite.py": "c34a862d315fb8b05637319782bf40b5dfbf5ae464a809a377a4fa0c4f0e2a26"
+  },
+  "artifacts": {
+    "research/synthetic-truth/REAL_READERS_SMOKE_POST_REPAIR.json": "e22077749924cc859f29a808a04f4a6517633ea1971550e008b82ec947ee5a31",
+    "research/synthetic-truth/POST_REPAIR_READERS_AUDIT.json": "2e0a4444ffda1933f34b311af93e6e6b92980dd1dd6c6958f1369abaf73198d8",
+    "research/synthetic-truth/POST_READERS_REPAIR_CORE_AUDIT.json": "8bb3583d02456162b45cd7fbc1690f220135a729e255d02196c3cf13cedfdb3b",
+    "research/synthetic-truth/NATIVE_FARSITE_AVAILABILITY.json": "4710501322ec77a92a11945c49ee660923bea0684d3f50760de01c3f19cdb9d8"
+  },
+  "historical_artifacts_preserved": {
+    "research/synthetic-truth/REAL_READERS_SMOKE.json": "765ca2992bacae2e35235f1f72b5288da7d14dc6817eb220e778ba1b85cd9a02",
+    "research/synthetic-truth/POST_REPAIR_CORE_AUDIT.json": "9e91b48b627dc6807c3025b913843baf430979899a196054f0534b8d092edb09",
+    "research/scenario-members/POST_REPAIR_RECEIPT.json": "77a75b4b9af953b597296ec83a7f0df9a5979a2e2cb41758d9a30b0ab51d673c",
+    "research/scenario-members/EXPORT_BYTE_AUDIT.json": "b9fc54435b4722a345461d19109ee077a1c5216a1f64ccf8c15eab291f163f99"
+  },
+  "native_recovery_read_only_discovery": {
+    "state": "NOT_RUN_RECOVERED_COMPATIBLE_BINARY",
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/native-farsite/src/TestFARSITE",
+    "sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3",
+    "expected_sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3",
+    "extraction_manifest_sha256": "64c398ee97855e0fda07d982d9f12771603e7ac3ffc02dabd65b853c16f95ce9",
+    "observed_build_manifest_sha256": "fa9e4c63790e8d165d3e23a5ded5164fd7b1e5982ae4c279d93ad3291ef02901",
+    "source_archive_sha256": "b9e000e8661128416fe7561690f78b1955d5a32189ac71536c1cd4110cd5dd65",
+    "build_identity": {
+      "repository": "https://github.com/mbedward/farsite.git",
+      "revision": "4537d60ab013fa91d0b49d8efb385ffb1b3ddd13",
+      "model_version": "legacy public FARSITE Unix port (Farsite5 source)",
+      "original_executable_sha256": "1c4e23957f17f2eb0eabc6848c8778519a2f7299cc55a8b60e66cc40d7afd11e",
+      "executable": "/Users/movinggk/Documents/\u110b\u1167\u11bc\u110c\u1162\u1106\u1166\u11ab\u1110\u1169/wildfire/tmp/farsite_observed_source/src/TestFARSITE",
+      "executable_sha256": "125a7df4ff1723ce9123f7b650fdbc69e285d9beaceea5523e11c5a3b5b9cfa3"
+    },
+    "read_only_file_command": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/native-farsite/src/TestFARSITE: Mach-O 64-bit executable arm64",
+    "executable_permissions": true,
+    "execution": "Superseded by the bounded usage execution probe below; no forecast simulation."
+  },
+  "remaining_gates": "HOLD_PARTIAL. No field truth, full-policy thermal packet, risk campaign completion or law-v2 physics support. Native usage executes; clock fixture skipped because shared heavy lock was busy, no spread simulation.",
+  "native_availability_probe": {
+    "artifact": "research/synthetic-truth/NATIVE_FARSITE_AVAILABILITY.json",
+    "sha256": "4710501322ec77a92a11945c49ee660923bea0684d3f50760de01c3f19cdb9d8",
+    "status": "PASS_EXECUTION_AVAILABILITY_ONLY",
+    "clock": "NOT_RUN_HEAVY_LOCK_BUSY"
+  }
+}

@@ -1,0 +1,5 @@
+# Optional GIS readers. Core readers use the pinned routing environment.
+numpy==1.26.4
+pyproj==3.7.0
+rasterio==1.4.3
+shapely==2.0.6

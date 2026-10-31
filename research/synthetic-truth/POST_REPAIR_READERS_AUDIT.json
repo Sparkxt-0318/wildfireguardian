@@ -1,0 +1,248 @@
+{
+  "scope": "synthetic reader-admission fixtures only; no assertion that the actual stored Wapiti output has these malformed fields",
+  "track_head": "52f57a4eb40643329c3b9cd33f7c248a730b9135",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "source_sha256": {
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/adapters.py": "27e3309e42acbe0fa068c76c9577dbfadd26282b468048aae63fefb2cb4493dc"
+  },
+  "audit_script_sha256": "7033de8c72d12c5a07f952b087120454e5b08e3cfdb3e5ca4ebee9bdb25310a9",
+  "observations": [
+    {
+      "id": "arrival_beyond_run_end",
+      "fixture": {
+        "arrival_minutes": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            2.0,
+            1000.0
+          ]
+        ],
+        "metadata": {
+          "model_family": "FARSITE",
+          "method": "farsite_deterministic",
+          "arrival_units": "minutes",
+          "grid_alignment": "caller_verified_no_resampling_in_importer",
+          "arrival_origin_time_utc": 100,
+          "no_burn_value": -9999.0,
+          "exact_duration_minutes": 10
+        },
+        "output_has_grid": true,
+        "reference_shape": [
+          2,
+          2
+        ],
+        "affine": [
+          10.0,
+          0.0,
+          0.0,
+          0.0,
+          -10.0,
+          20.0
+        ],
+        "epsg": 5070,
+        "cutoff_utc": 100
+      },
+      "input_npz_sha256": "d6babd680a410e60789e84fbc407002c2c0e659f660187356bf3842480e771db",
+      "pass_defensive_admission": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "message": "Positive arrival exceeds declared inclusive simulation run end"
+      }
+    },
+    {
+      "id": "finite_run_nonarrival",
+      "fixture": {
+        "arrival_minutes": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            2.0,
+            -9999.0
+          ]
+        ],
+        "metadata": {
+          "model_family": "FARSITE",
+          "method": "farsite_deterministic",
+          "arrival_units": "minutes",
+          "grid_alignment": "caller_verified_no_resampling_in_importer",
+          "arrival_origin_time_utc": 100,
+          "no_burn_value": -9999.0,
+          "exact_duration_minutes": 10
+        },
+        "output_has_grid": true,
+        "reference_shape": [
+          2,
+          2
+        ],
+        "affine": [
+          10.0,
+          0.0,
+          0.0,
+          0.0,
+          -10.0,
+          20.0
+        ],
+        "epsg": 5070,
+        "cutoff_utc": 100
+      },
+      "input_npz_sha256": "790602698d9a34e8b05c7fb96957556ccb2f4ed466ecac0019086c8686373752",
+      "pass_defensive_admission": true,
+      "observed": {
+        "state": "RETURNED",
+        "point_status": "UNSCORABLE",
+        "known": [
+          [
+            true,
+            true
+          ],
+          [
+            true,
+            true
+          ]
+        ],
+        "never": [
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "lower_s": [
+          [
+            0.0,
+            60.0
+          ],
+          [
+            120.0,
+            600.0
+          ]
+        ],
+        "point_keys": [
+          "status",
+          "ignition_time_s",
+          "valid_from_s",
+          "valid_until_s",
+          "reason"
+        ],
+        "declared_duration_minutes": 10,
+        "interpretation": "Declared deterministic FARSITE arrival model, conditional on finite run clock, coverage and verified output grid binding"
+      }
+    },
+    {
+      "id": "explicit_non_simulator_family",
+      "fixture": {
+        "arrival_minutes": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.3,
+            0.4
+          ]
+        ],
+        "metadata": {
+          "model_family": "LearnedProbability",
+          "method": "probability_predictor",
+          "arrival_units": "minutes",
+          "grid_alignment": "caller_verified_no_resampling_in_importer",
+          "arrival_origin_time_utc": 100,
+          "no_burn_value": -9999.0,
+          "exact_duration_minutes": 10,
+          "output_interpretation": "cell_burn_probability"
+        },
+        "output_has_grid": true,
+        "reference_shape": [
+          2,
+          2
+        ],
+        "affine": [
+          10.0,
+          0.0,
+          0.0,
+          0.0,
+          -10.0,
+          20.0
+        ],
+        "epsg": 5070,
+        "cutoff_utc": 100
+      },
+      "input_npz_sha256": "166e495bf0dff054ceea6025e93d2dc4996290d95e4dffe66c67e80bd2686e2e",
+      "pass_defensive_admission": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "message": "Source metadata does not identify the documented deterministic FARSITE family"
+      }
+    },
+    {
+      "id": "borrowed_reference_grid",
+      "fixture": {
+        "arrival_minutes": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            2.0,
+            3.0
+          ]
+        ],
+        "metadata": {
+          "model_family": "FARSITE",
+          "method": "farsite_deterministic",
+          "arrival_units": "minutes",
+          "grid_alignment": "caller_verified_no_resampling_in_importer",
+          "arrival_origin_time_utc": 100,
+          "no_burn_value": -9999.0,
+          "exact_duration_minutes": 10
+        },
+        "output_has_grid": false,
+        "reference_shape": [
+          2,
+          2
+        ],
+        "affine": [
+          10.0,
+          0.0,
+          0.0,
+          0.0,
+          -10.0,
+          20.0
+        ],
+        "epsg": 5070,
+        "cutoff_utc": 100
+      },
+      "input_npz_sha256": "4cffa90fb1c5922d1bd684b596392d2b6201d367b71f163101add719935ce1db",
+      "pass_defensive_admission": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "message": "Output has no verifiable grid/CRS binding to reference"
+      }
+    },
+    {
+      "id": "fractional_utc_offset",
+      "fixture": "1970-01-01T00:03:20+00:00:01.5",
+      "pass_defensive_admission": true,
+      "observed": {
+        "state": "RAISED",
+        "message": "Whole UTC seconds required, including the UTC offset"
+      }
+    }
+  ],
+  "checks": 5,
+  "passed": 5,
+  "status": "PASS_TARGETED_READERS"
+}

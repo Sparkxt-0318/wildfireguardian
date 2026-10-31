@@ -1,0 +1,164 @@
+{
+  "job_index": 258,
+  "case_index": 16,
+  "mission": "20220531T100000Z_FN1",
+  "region": "miryang_2022",
+  "K": 4,
+  "repetition": 2,
+  "method": "sipp",
+  "status": "UNRESOLVED_RESTRICTED_SUPPORT",
+  "arrival": null,
+  "destination": null,
+  "search_started": false,
+  "solver_metrics": null,
+  "planner_wall_s": null,
+  "independent_recheck": null,
+  "planner_claim": null,
+  "original_request": {
+    "position": {
+      "node": "osm:9163043616"
+    },
+    "incoming_edge": null,
+    "departure": 0,
+    "horizon": 3600.0,
+    "destinations": [
+      {
+        "node": "osm:4855736883",
+        "dwell": 120,
+        "open_intervals": [
+          [
+            0,
+            3600
+          ]
+        ]
+      }
+    ],
+    "hazard_version": 1,
+    "as_of": "2022-05-31T10:00:00+00:00",
+    "objective": "earliest_arrival",
+    "exposure_scope": "including_dwell",
+    "limits": {
+      "wall_s": 30,
+      "max_labels": 1000000,
+      "max_expansions": 1000000,
+      "frontier_width": 16384
+    },
+    "solver": "baseline",
+    "incurred": {
+      "ffb1:20220531T100000Z:40b532dc599ca183:0": 0,
+      "ffb1:20220531T100000Z:40b532dc599ca183:1": 0,
+      "ffb1:20220531T100000Z:40b532dc599ca183:2": 0,
+      "ffb1:20220531T100000Z:40b532dc599ca183:3": 0
+    },
+    "budgets": {
+      "peak": 10,
+      "dose": {
+        "ffb1:20220531T100000Z:40b532dc599ca183:0": 0.1574681791849915,
+        "ffb1:20220531T100000Z:40b532dc599ca183:1": 0.1574681791849915,
+        "ffb1:20220531T100000Z:40b532dc599ca183:2": 0.1574681791849915,
+        "ffb1:20220531T100000Z:40b532dc599ca183:3": 0.1574681791849915
+      }
+    }
+  },
+  "original_request_utf8": "{\n \"position\": {\n  \"node\": \"osm:9163043616\"\n },\n \"incoming_edge\": null,\n \"departure\": 0,\n \"horizon\": 3600.0,\n \"destinations\": [\n  {\n   \"node\": \"osm:4855736883\",\n   \"dwell\": 120,\n   \"open_intervals\": [\n    [\n     0,\n     3600\n    ]\n   ]\n  }\n ],\n \"hazard_version\": 1,\n \"as_of\": \"2022-05-31T10:00:00+00:00\",\n \"objective\": \"earliest_arrival\",\n \"exposure_scope\": \"including_dwell\",\n \"limits\": {\n  \"wall_s\": 30,\n  \"max_labels\": 1000000,\n  \"max_expansions\": 1000000,\n  \"frontier_width\": 16384\n },\n \"solver\": \"baseline\",\n \"incurred\": {\n  \"ffb1:20220531T100000Z:40b532dc599ca183:0\": 0,\n  \"ffb1:20220531T100000Z:40b532dc599ca183:1\": 0,\n  \"ffb1:20220531T100000Z:40b532dc599ca183:2\": 0,\n  \"ffb1:20220531T100000Z:40b532dc599ca183:3\": 0\n },\n \"budgets\": {\n  \"peak\": 10,\n  \"dose\": {\n   \"ffb1:20220531T100000Z:40b532dc599ca183:0\": 0.1574681791849915,\n   \"ffb1:20220531T100000Z:40b532dc599ca183:1\": 0.1574681791849915,\n   \"ffb1:20220531T100000Z:40b532dc599ca183:2\": 0.1574681791849915,\n   \"ffb1:20220531T100000Z:40b532dc599ca183:3\": 0.1574681791849915\n  }\n }\n}\n",
+  "source": {
+    "schema": "wfg.known-footprint.contact-only/1",
+    "source_identity": {
+      "first32_prefix_sha256": "7b4e9953928f0648629fa55540fbe93990c2d927f3c79abcf480e4d9a8315b32",
+      "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+      "metadata_sha256": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+      "npz": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220531T100000Z/FORECAST_20220531T100000Z.npz",
+      "npz_sha256": "3ba70f0ea3519a164f03576f469fa21e5eecd62db25a717f6a03ea4a52c13978",
+      "record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_11/20220531T100000Z/FORECAST_RECORD_20220531T100000Z.json",
+      "record_sha256": "e1bf536e23d65cb327e2b0b9ca04751187d7b95b046899c261b64fac182965fb",
+      "request_sha256": "8c673ecf3327c332a7d1b3b5ce50f81b6c86242bf276a19cd6a2b8a66323d4d3",
+      "saved_original_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "raw_array_sha256": {
+      "trajectory_first_burn_hour": "70b20c481f528333ee97823b0f0b48120473e75988698b5d852dc15cd4a7ccd6",
+      "source_burned_area": "60ccee0ac328a60bc32ba5bd574f5df158735ed996b5ef8604ad21264ff4b224",
+      "source_burned_area_valid": "458d1b0fecf8479fa846e62c8413461b6fc6c13e1838b994aae3b95bfbfed8e1",
+      "heat__initial_active_burning_probability": "ee5ea9efd2db136c8b967ba116fb9b54027d3d7ab5b44f77c79baeb6b891981a",
+      "heat__initial_burning_valid": "d47dd228442f72230212024b0d0ccf87f2353bf73fdfdc999ef648b5f3396ad0",
+      "heat__initial_remaining_burning_duration_s": "4d49eca31673ce09c546b5c53f521a2096bab28b9f61cda8f93a8942dfc41983",
+      "affine_transform": "d16a1a9d33ae150fc1047ef38a9376555a9490f6d763301cece653c921da7f21"
+    },
+    "trajectory_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "cutoff_utc": "2022-05-31T10:00:00Z",
+    "source_horizon_s": "3600",
+    "member_valid_until_s": [
+      "3600",
+      "3600",
+      "3600",
+      "3600"
+    ],
+    "terminal_inclusive": true,
+    "timing": "uniform",
+    "seed": 20261008,
+    "burning_duration_s": "8731143290411877/2199023255552",
+    "initial_remaining_enclosure_s": "8332657566866277/2199023255552",
+    "initial_age_policy": "Known burned cells with unknown age use the full-T enclosure; current cells share max remaining.",
+    "window_rows_cols_north_up": [
+      0,
+      16,
+      0,
+      10
+    ],
+    "right_censoring": "-1 means no first ignition through the finite saved horizon only"
+  },
+  "physical_safety_claim": false,
+  "full_policy_status": "UNKNOWN",
+  "peak": null,
+  "dose": null,
+  "risk": null,
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "source_hashes": {
+    "experimental/sipp-routing/README.md": "2624a482c3d22c21d5c2a2c3ccdb28c2495bc5f6f348b0fe9a6da530be532579",
+    "experimental/sipp-routing/docs/JOURNEY_SAFETY_PREDICATE.md": "a541c76cd1a789fa45b7adefd27fdba236898abea694932d255f9da8ea07f04a",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT.md": "178a17078fe3b6bb799888e6ddca31ecb8eacc0a69505a3f826ebb881ebb17d8",
+    "experimental/sipp-routing/docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md": "c36c66e42a190433a082c7e8bc8c92544b8b6873d4f79a19b5e10102e52c9b26",
+    "experimental/sipp-routing/docs/SIPP_EQUIVALENCE.md": "56ce23d42d4bd84aa442ee52ec23c83de8124200adaffefff5bfeffb50638752",
+    "experimental/sipp-routing/requirements-test.txt": "5afc57bec22b3bd8f5645f61ace5c998aecbe5bed40f9fd7d4bad23e965ae481",
+    "experimental/sipp-routing/src/wfg_sipp/__init__.py": "eb3084c42201e4011d67353f915586a2a18f51c1ec6981fcdd144b377d9a440c",
+    "experimental/sipp-routing/src/wfg_sipp/adapter.py": "a3f4648c4d311e076a1b3547089794d5dca5415e1535eff6f74da816c15b8e3a",
+    "experimental/sipp-routing/src/wfg_sipp/bruteforce.py": "f0901011377d9f97210e6c278862a146ab038735390bc2862bf7d5f468fa52e5",
+    "experimental/sipp-routing/src/wfg_sipp/frontend.py": "ae149e9fcf629a3420bbed0d792cac0a0c626acfffc7bac327a5acc2c254f6f9",
+    "experimental/sipp-routing/src/wfg_sipp/frozen_sweep.py": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+    "experimental/sipp-routing/src/wfg_sipp/geometry.py": "ac048a76387c4d46cdb8b16f4af05aa59144427608cd340c6b1d0c9cedddfcc8",
+    "experimental/sipp-routing/src/wfg_sipp/intervals.py": "b9dd8021e41c21e8aea68d974d9e22d6e408819d8b04bcb0ec06947af6611ba7",
+    "experimental/sipp-routing/src/wfg_sipp/known_footprint.py": "9fc4acd626f9edb82a56c68d033734b318e8bb8a54ea9134ac581ddccb2d2f06",
+    "experimental/sipp-routing/src/wfg_sipp/predicate.py": "0fd37717306bcb6e379a45b0d09b4d2d0675e84ea3e624f42cca4f1a84749cef",
+    "experimental/sipp-routing/src/wfg_sipp/restricted_sweep.py": "fcfc210b699a15e662866099a1eea19b821047173abc577c52641d5ab7754e55",
+    "experimental/sipp-routing/src/wfg_sipp/sipp.py": "30cbd4e58774fe988f2aac7fe6f9a038b72307517d10fda5a40b8795b4c5dd07",
+    "experimental/sipp-routing/tests/strategies.py": "7dc11bef10d5d6b6c8f669ff2670dc43dc6b9db599af691aaf981a2419efb21c",
+    "experimental/sipp-routing/tests/test_bridge_packet_equivalence.py": "4e70b61d5b84eeffa79eaed13e55a0c2ee69febe26ca45edf7e9bddefc34b61c",
+    "experimental/sipp-routing/tests/test_known_footprint.py": "f43216a435961cf1b55054dc81ec00ed81b3a774458b7ea6bc6fc3f1aa55fda5",
+    "experimental/sipp-routing/tests/test_known_footprint_boundaries.py": "b37acc56723188d1c61652a277b95641467b24f2c7f81d04f5b2d2910aa98703",
+    "experimental/sipp-routing/tests/test_native_guard.py": "9ab3525813089edd01a519f79bf375d2282ff76cd1358c8fc2765d33c7850a02",
+    "experimental/sipp-routing/tests/test_predicate.py": "dccb6f8e22896d38153ad3afd0dd8b75d1a2be44ee171b53edb140cf7d07895c",
+    "experimental/sipp-routing/tests/test_sipp_property.py": "77c5d7553ceb871916959b169daa17adf3661ebf74c9bd277337601fe91d5e0d",
+    "experimental/sipp-routing/tests/test_known_footprint_controller.py": "88364b691d91e82618893634d508d85f99878486a2361daa29356c6db98598d7",
+    "experimental/sipp-routing/SOURCE_SHA256.json": "e72e510939ab5ab2e4c651f3481198425accc92e5bb83581c342a83722d8d78e",
+    "research/sipp-routing/run_known_footprint_campaign.py": "0d42c962c399f4b073e789d868778d2b78f64a2c6ea88e98cd83c5518023abf3",
+    "experimental/scenario-members/bridge_v2.py": "939f64655480113f78a7d8bc4b430363388b8fc146e44fd3962e5f36620264f1",
+    "experimental/scenario-members/src/wfg_scenario_members/contact.py": "d81125d339f6c12347331e9cdeac59ef36fed8bc98b4dfa9becc192a2dfba0ea",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.py": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+    "integration/src/wfg_latest/bridge.py": "f7466e647bc91ca5d0e7a39c13dedcde96a106620a1382c7662f708e83d3c96b",
+    "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42",
+    "integration/src/wfg_latest/packets.py": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "reason": "ORIGINAL_UNKNOWN_ISSUE_OR_DESTINATION_FOOTPRINT",
+  "admission_wall_s": 0.005546417029108852,
+  "reported_peak_rss_mib": 43.40625,
+  "child_internal_wall_s": 0.007372124993707985
+}

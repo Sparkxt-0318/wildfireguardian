@@ -1,0 +1,3 @@
+pytest==8.3.4
+hypothesis==6.170.13
+matplotlib==3.9.2

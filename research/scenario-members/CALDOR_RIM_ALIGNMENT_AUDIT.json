@@ -1,0 +1,2013 @@
+{
+  "schema": "wfg.next.caldor-rim-alignment-audit/1",
+  "created_utc": "2026-10-30T05:12:12.961955+00:00",
+  "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "source_head": "e68123d81fb9064ad057425d7c954f923b50097c",
+  "scope": {
+    "read_only_root": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1",
+    "full_relative_path_inventory": "research/scenario-members/CALDOR_RIM_INPUT_INVENTORY.json",
+    "inventory_sha256": "e0f96b7bc6d44adf097129aed9ae9dda2ba5c70baaf5f4b8fcd68b810655f68d",
+    "exclusions": [
+      ".git",
+      ".venv",
+      "__pycache__",
+      "data_env",
+      "node_modules",
+      "venv"
+    ],
+    "excluded_directories": [
+      "audit/__pycache__",
+      "audit/new_fire_integration/__pycache__",
+      "new_fire/data_env"
+    ],
+    "no_remote_fetch": true,
+    "no_resampling": true,
+    "no_forecast_or_thermal_experiment": true,
+    "limitations": "No global claim that external data cannot exist. Excluded package/runtime trees are not audited as incident inputs. Remote member indexes and partial range buffers are not aligned environmental inputs."
+  },
+  "inventory_summary": {
+    "files": 1167,
+    "bytes": 51014966,
+    "extensions": {
+      "": 1,
+      ".bin": 24,
+      ".csv": 4,
+      ".dbf": 6,
+      ".diff": 4,
+      ".html": 1,
+      ".json": 753,
+      ".kml": 2,
+      ".log": 81,
+      ".md": 53,
+      ".npz": 4,
+      ".partial_incomplete": 1,
+      ".partial_timeout": 1,
+      ".prj": 6,
+      ".py": 207,
+      ".ql": 3,
+      ".shp": 6,
+      ".shx": 6,
+      ".txt": 1,
+      ".unrun_v1": 2,
+      ".xlsx": 1
+    },
+    "native_environment_raster_or_array_files": [],
+    "all_npz_csv_candidates": [
+      {
+        "path": "audit/new_fire_integration/PAIRED_REPAIR_EXECUTIONS.csv",
+        "bytes": 9341,
+        "sha256": "bcdd5f99d39f95b9728e41f7cb713a202661cdada50aa73972f369a3c3ad3531"
+      },
+      {
+        "path": "audit/postrun_results/ORIGINAL56_THERMAL_IMPACT.csv",
+        "bytes": 16495,
+        "sha256": "302b0f410d6f501eda00f4eaf139ae6a2c4884c68e8039af6418abc4bc53ce6d"
+      },
+      {
+        "path": "audit/postrun_results/TRAJECTORY_MEMBER_EVIDENCE.csv",
+        "bytes": 75962,
+        "sha256": "c7ab2cc92d45e530d2d21dd88a3aaf5737f72f952304ba2cb7fe3aa1779d7509"
+      },
+      {
+        "path": "new_fire/inputs/Rim2013/EVENTS.npz",
+        "bytes": 1399,
+        "sha256": "35404f60054e8f32a4f7b3875d8a9956e60ef48bf6a5e075030c8d9a20896291"
+      },
+      {
+        "path": "new_fire/inputs/Rim2013/packet/constructed_arrays.npz",
+        "bytes": 4406,
+        "sha256": "8ff68ded734dc87a5027a923b6531eeee29097fdac0ad307b26e65cb90d57521"
+      },
+      {
+        "path": "new_fire/inputs_v2/Caldor2021/EVENTS.npz",
+        "bytes": 3049,
+        "sha256": "316d606279701e824e7d0476ee6897ec6474ba42444d9d3c748038b0dcb004c2"
+      },
+      {
+        "path": "new_fire/inputs_v2/Caldor2021/packet/constructed_arrays.npz",
+        "bytes": 7659,
+        "sha256": "a16d628c96a889cda05373c54b90043c4fd5df19b158dc2ca25080c42f535ef6"
+      },
+      {
+        "path": "reference/new_fire_refusal/OFFLINE_THERMAL_MEMBERS.csv",
+        "bytes": 7175,
+        "sha256": "44ef2bfe3995dbf93b8b46678e42eb23477291b37a0a828d11102ed812ae50e9"
+      }
+    ],
+    "other_tabular_assets": [
+      {
+        "path": "audit/new_fire_integration/PAIRED_REPAIR_EXECUTIONS.csv",
+        "sha256": "bcdd5f99d39f95b9728e41f7cb713a202661cdada50aa73972f369a3c3ad3531",
+        "header": [
+          "case_id",
+          "incident",
+          "rep",
+          "exact_same_inputs_and_policy",
+          "independent_empty_contact_superset",
+          "original_execution_id",
+          "original_raw_result_status",
+          "original_mathematical_status",
+          "original_on_time_complete_publication",
+          "original_independently_verified_on_time_route",
+          "original_independently_supported_on_time_no_route",
+          "original_on_time_model_resolution",
+          "original_controller_stop_reason",
+          "original_controller_stop_class",
+          "original_elapsed_s",
+          "original_sampled_family_peak_rss_bytes",
+          "original_sampled_family_peak_mib",
+          "original_analytic_domain_skips",
+          "original_source_record_sha256",
+          "original_receipt_sha256",
+          "repaired_execution_id",
+          "repaired_raw_result_status",
+          "repaired_mathematical_status",
+          "repaired_on_time_complete_publication",
+          "repaired_independently_verified_on_time_route",
+          "repaired_independently_supported_on_time_no_route",
+          "repaired_on_time_model_resolution",
+          "repaired_controller_stop_reason",
+          "repaired_controller_stop_class",
+          "repaired_elapsed_s",
+          "repaired_sampled_family_peak_rss_bytes",
+          "repaired_sampled_family_peak_mib",
+          "repaired_analytic_domain_skips",
+          "repaired_source_record_sha256",
+          "repaired_receipt_sha256"
+        ]
+      },
+      {
+        "path": "audit/postrun_results/ORIGINAL56_THERMAL_IMPACT.csv",
+        "sha256": "302b0f410d6f501eda00f4eaf139ae6a2c4884c68e8039af6418abc4bc53ce6d",
+        "header": [
+          "label",
+          "case_id",
+          "arm",
+          "rep",
+          "original_frozen_state",
+          "whole_model_context_digest",
+          "evidence_origin",
+          "reference_context_index",
+          "thermal_evidence_status",
+          "reported_interval_evidence_status",
+          "reference_validation"
+        ]
+      },
+      {
+        "path": "audit/postrun_results/TRAJECTORY_MEMBER_EVIDENCE.csv",
+        "sha256": "c7ab2cc92d45e530d2d21dd88a3aaf5737f72f952304ba2cb7fe3aa1779d7509",
+        "header": [
+          "index",
+          "case_id",
+          "cohort",
+          "origin",
+          "whole_model_context_digest",
+          "id",
+          "thermal_status",
+          "dose_lower_kj_m2",
+          "dose_upper_kj_m2",
+          "dose_budget_kj_m2",
+          "dose_upper_margin_kj_m2",
+          "peak_lower_kw_m2",
+          "peak_upper_kw_m2",
+          "peak_budget_kw_m2",
+          "peak_upper_margin_kw_m2",
+          "incurred_kj_m2",
+          "original_dose_lower_kj_m2",
+          "original_dose_upper_kj_m2",
+          "original_peak_lower_kw_m2",
+          "original_peak_upper_kw_m2",
+          "dose_interval_relation",
+          "peak_interval_relation",
+          "oracle_cap",
+          "records_total",
+          "records_processed",
+          "complete_partition",
+          "source_count"
+        ]
+      },
+      {
+        "path": "broader/external_fire_inputs/NIST_TN2135_AppendixF_CampFire_Spread.xlsx",
+        "sha256": "14fac49ca633d4c944fcb2ba2b22e95ea8751b8d0dd58216a836d2b6e89268a3",
+        "sheets": [
+          "Concow",
+          "Pentz Rd",
+          "Feather River Hospital",
+          "Wagstaff Rd",
+          "Bille Rd",
+          "Elliott Rd and Nunneley Rd",
+          "Pearson Rd and Buschmann Rd",
+          "Clark Rd",
+          "Skyway",
+          "Neal Rd",
+          "Butte Creek Canyon",
+          "Valley View Dr",
+          "Foothills",
+          "Nelson Bar Rd",
+          "Magalia and Coutolenc Rd"
+        ],
+        "scope": "Named NIST Camp Fire spread workbook, a different incident; no Caldor/Rim aligned raster or causal channel binding"
+      },
+      {
+        "path": "reference/new_fire_refusal/OFFLINE_THERMAL_MEMBERS.csv",
+        "sha256": "44ef2bfe3995dbf93b8b46678e42eb23477291b37a0a828d11102ed812ae50e9",
+        "header": [
+          "case_id",
+          "member_id",
+          "source_count",
+          "dose_lower_exact",
+          "dose_upper_exact",
+          "dose_lower_kj_m2_outward",
+          "dose_upper_kj_m2_outward",
+          "peak_lower_exact",
+          "peak_upper_exact",
+          "peak_lower_kw_m2_outward",
+          "peak_upper_kw_m2_outward",
+          "dose_limit_kj_m2",
+          "peak_limit_kw_m2",
+          "prior_kj_m2",
+          "cap",
+          "records_processed",
+          "records_total",
+          "reference_elapsed_s",
+          "status"
+        ]
+      }
+    ]
+  },
+  "model_requirement": {
+    "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+    "checkpoint_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1c/forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+    "source_record": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/trajectory-exports-20261030-v2/KFS_01/20250323T010000Z/FORECAST_RECORD_20250323T010000Z.json",
+    "source_record_sha256": "66a62368d0444e62c86c33ad7126ee297734e49cce5797bc1788a553ea695acb",
+    "source_channels": [
+      "biome.biome_class",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m"
+    ],
+    "expanded_channels": [
+      "weather.temperature_2m",
+      "weather.wind_eastward_10m",
+      "weather.wind_northward_10m",
+      "terrain.slope_degrees",
+      "vegetation.tree_cover_percent",
+      "biome.biome_class=1",
+      "biome.biome_class=2",
+      "biome.biome_class=3",
+      "biome.biome_class=4",
+      "biome.biome_class=5",
+      "biome.biome_class=6",
+      "biome.biome_class=7",
+      "biome.biome_class=8",
+      "biome.biome_class=9",
+      "biome.biome_class=10",
+      "biome.biome_class=11",
+      "biome.biome_class=12",
+      "biome.biome_class=13",
+      "biome.biome_class=14"
+    ],
+    "named_channel_authority": "export record channel_names comes from model.channel_names; _sample_environment rejects missing channels",
+    "grid_authority": "WildfireSequenceDataset._reader requires exact EPSG, affine and shape",
+    "clock_authority": "contract.normalize_cutoff requires a whole UTC hour; exporter binds cutoff/sample/prediction clocks"
+  },
+  "supplied_catalog": {
+    "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/events.json",
+    "sha256": "607f831ea64235449d7eb19e5cd931099486aaae44de1221c1ec27b34965ac8b",
+    "events": 44,
+    "ids": [
+      "KFS_01",
+      "KFS_02",
+      "KFS_03",
+      "KFS_04",
+      "KFS_05",
+      "KFS_06",
+      "KFS_07",
+      "KFS_09",
+      "KFS_11",
+      "KFS_12",
+      "KFS_13",
+      "KFS_14",
+      "KFS_15",
+      "KFS_16",
+      "KFS_17",
+      "CA-BTU-009205_Dixie",
+      "CA-KNF-006385_RiverComplex_RiverComplex",
+      "CA-KNF-006454_Antelope",
+      "CA-MNF-000753_AugustComplex",
+      "CA-PNF-001308_PNFNorthComplex",
+      "CA-SHF-001187_Monument",
+      "CA-SNF-001391_Creek",
+      "CA-SQF-002622_SQFComplex",
+      "CA-SRF-000651_McCash",
+      "CA-SRF-000656_RedSalmonComplex",
+      "CO-ARF-000636_CameronPeak",
+      "ID-BOF-000683_Wapiti_Wapiti",
+      "ID-BOF-000904_Goat",
+      "ID-BOF-001080_Lava",
+      "ID-SCF-022105_Moose",
+      "ID-SCF-240202_RedRock",
+      "MT-BDF-006269_AlderCreek",
+      "MT-BDF-006272_TrailCreek",
+      "MT-LNF-000893_WestLolo",
+      "NM-SNF-000027_HermitsPeak",
+      "OR-UMF-000659_GreenRidge",
+      "OR-UMP-000373_RoughPatchCpx",
+      "OR-UPF-000265_Jack",
+      "OR-UPF-000450_DevilsKnob",
+      "OR-WIF-220180_CedarCreek",
+      "UT-ASF-100340_EastFork",
+      "WA-OWF-000453_SchneiderSprings",
+      "WA-SES-000173_Pioneer",
+      "WY-BTF-002416_FishCreek"
+    ],
+    "exact_scalar_field_matches": [],
+    "method": "Case-insensitive Caldor or word-boundary Rim or Rim2013 in each top-level string scalar; no full-text inference"
+  },
+  "frozen_source_inputs_manifest": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/SOURCE_INPUTS.json",
+    "sha256": "67c0c5d01f5829d8f1989a73d2213f9f0f8c3621b707ce62561dcad9e478718e",
+    "verification": {
+      "files": 59,
+      "matches": 59,
+      "rows": [
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_CONVERSION_AND_CLOCK_VERIFICATION.json",
+          "expected_sha256": "9002c8da41fd4ebff14d3c80cc0b1f76018e7239b7d99936160135ab6cc6d631",
+          "actual_sha256": "9002c8da41fd4ebff14d3c80cc0b1f76018e7239b7d99936160135ab6cc6d631",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_SOURCE_CANDIDATE.json",
+          "expected_sha256": "b4753c82240b325e2073535530f6a91e7fcaa14c30907fecec60eac0a23d284b",
+          "actual_sha256": "b4753c82240b325e2073535530f6a91e7fcaa14c30907fecec60eac0a23d284b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_SOURCE_SELECTION_METADATA.json",
+          "expected_sha256": "c4b8575efcfb9cad24f5cda43560556fc1b55df7b78c7e98c95b6492ff016225",
+          "actual_sha256": "c4b8575efcfb9cad24f5cda43560556fc1b55df7b78c7e98c95b6492ff016225",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_REGIONAL_OSM_GET_ACQUISITION.json",
+          "expected_sha256": "a485160f46bba67ee9eade85f6bf96c4584f39edd7eb9e798420c49412c1d199",
+          "actual_sha256": "a485160f46bba67ee9eade85f6bf96c4584f39edd7eb9e798420c49412c1d199",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_SELECTED_MEMBER_ACQUISITION.json",
+          "expected_sha256": "12cd072f1cbba2577d3d3b4b4a3f784316e0acef4169657ea05c9970f75b6c29",
+          "actual_sha256": "12cd072f1cbba2577d3d3b4b4a3f784316e0acef4169657ea05c9970f75b6c29",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.dbf",
+          "expected_sha256": "a87ffbfc916d1b3717f1a3dc28c182bee945c8c0cc8eba5dcc3f3b0a232d225b",
+          "actual_sha256": "a87ffbfc916d1b3717f1a3dc28c182bee945c8c0cc8eba5dcc3f3b0a232d225b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.shp",
+          "expected_sha256": "cb3fe6cf449fba6cdebf37e76bf25997e5be9ccc91b7a67acfe1187890029ea5",
+          "actual_sha256": "cb3fe6cf449fba6cdebf37e76bf25997e5be9ccc91b7a67acfe1187890029ea5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.shx",
+          "expected_sha256": "be70661db7aef25c9d76fc3ecead93956f0584cd832012c64fb80a9b9a1d71f4",
+          "actual_sha256": "be70661db7aef25c9d76fc3ecead93956f0584cd832012c64fb80a9b9a1d71f4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.dbf",
+          "expected_sha256": "4eb1326fc57767223d48e4856649a5c2a460bcf355c04ff47d8994806311e1eb",
+          "actual_sha256": "4eb1326fc57767223d48e4856649a5c2a460bcf355c04ff47d8994806311e1eb",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.shp",
+          "expected_sha256": "c45d966f9c94aacbbf8283b603d8e13518d5bbc93d83c7fb1913bc679fe65a59",
+          "actual_sha256": "c45d966f9c94aacbbf8283b603d8e13518d5bbc93d83c7fb1913bc679fe65a59",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.shx",
+          "expected_sha256": "93645c3e1ec459b37ab816f5133f538ef659b24ea4f071f61ade2c577111e14b",
+          "actual_sha256": "93645c3e1ec459b37ab816f5133f538ef659b24ea4f071f61ade2c577111e14b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_regional_prefire_OSM_20210801_raw.json",
+          "expected_sha256": "b1ebf8c265ccbe89ebcdf921ad8410f79caa4f1375f15c7f9371058cbfe80e5a",
+          "actual_sha256": "b1ebf8c265ccbe89ebcdf921ad8410f79caa4f1375f15c7f9371058cbfe80e5a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_regional_prefire_overpass_query.ql",
+          "expected_sha256": "1177207774589a31b22f741d2b129f75fad8b2e1ede5e130ff21c53ebddb9c0c",
+          "actual_sha256": "1177207774589a31b22f741d2b129f75fad8b2e1ede5e130ff21c53ebddb9c0c",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/DATA_LICENSES/NIFC.txt",
+          "expected_sha256": "23dd0db7bfaae9d82d2c3d58bdd94923a6bc188f6122cf565049d5485be891fd",
+          "actual_sha256": "23dd0db7bfaae9d82d2c3d58bdd94923a6bc188f6122cf565049d5485be891fd",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/LICENSE",
+          "expected_sha256": "0d171a0895825ca8a13b17b67d8cd4b7bdf7f36a5f326fb92c80dd80bdeefbcc",
+          "actual_sha256": "0d171a0895825ca8a13b17b67d8cd4b7bdf7f36a5f326fb92c80dd80bdeefbcc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/data_term_of_use.md",
+          "expected_sha256": "b1808980f7694ca3028f0e540e60ba32a61c3716118d69394bea6c178a1dc520",
+          "actual_sha256": "b1808980f7694ca3028f0e540e60ba32a61c3716118d69394bea6c178a1dc520",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/kml/Caldor_2021_08_17T20_20_07_00.kml",
+          "expected_sha256": "eeb3f48b39a70a2c573dddc3ffb2f842bc32924869ce1edbcda4895a2c8c6697",
+          "actual_sha256": "eeb3f48b39a70a2c573dddc3ffb2f842bc32924869ce1edbcda4895a2c8c6697",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/kml/Caldor_2021_08_18T20_30_07_00.kml",
+          "expected_sha256": "1d1c61f2d563a7500e148b933b013ab87aacd875852c1383907d33ff486868c5",
+          "actual_sha256": "1d1c61f2d563a7500e148b933b013ab87aacd875852c1383907d33ff486868c5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_zip_member_index.json",
+          "expected_sha256": "a6d0fefe8a29252488c377f6d66155caf614f1aa2e207541a3c53a1ba7f2f439",
+          "actual_sha256": "a6d0fefe8a29252488c377f6d66155caf614f1aa2e207541a3c53a1ba7f2f439",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_zip_tail_65536.bin",
+          "expected_sha256": "d2cabe530c37893e552e4371f5934df8b0532c749e9ebb2004a2ff7752353222",
+          "actual_sha256": "d2cabe530c37893e552e4371f5934df8b0532c749e9ebb2004a2ff7752353222",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/FireBench_Caldor_creator_documentation.html",
+          "expected_sha256": "9cecbabea3af2161c7a25d5dc6e72fcc39f8923b446907288ec38276060f3c01",
+          "actual_sha256": "9cecbabea3af2161c7a25d5dc6e72fcc39f8923b446907288ec38276060f3c01",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/FireBench_c001_caldor_config.py",
+          "expected_sha256": "2f5fd4aeec7180190f1f2a00b0e40b480603b7ef76e303e32a9c36d4cb77868f",
+          "actual_sha256": "2f5fd4aeec7180190f1f2a00b0e40b480603b7ef76e303e32a9c36d4cb77868f",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RIM_SOURCE_CANDIDATE.json",
+          "expected_sha256": "87ee0e122121dab95da3c48a889eb0c4d760357fe5a0d20972bd777fe3a1219a",
+          "actual_sha256": "87ee0e122121dab95da3c48a889eb0c4d760357fe5a0d20972bd777fe3a1219a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/ROAD_ROI_SOURCE_METADATA.json",
+          "expected_sha256": "7f13eaa67864bc2e644a18b42278b7485ed0222b7d2977473d069258cf064df1",
+          "actual_sha256": "7f13eaa67864bc2e644a18b42278b7485ed0222b7d2977473d069258cf064df1",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/ROAD_SOURCE_INTEGRITY.json",
+          "expected_sha256": "dd915a3f8afe5e9d77210ef5511f07d7f75cbc2845c0c063d94ea71b2f4907db",
+          "actual_sha256": "dd915a3f8afe5e9d77210ef5511f07d7f75cbc2845c0c063d94ea71b2f4907db",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_SELECTED_MEMBER_ACQUISITION.json",
+          "expected_sha256": "4abbef4ae74c674be4678b9f297c714b87387f6601020f6473b1da50cdefc14d",
+          "actual_sha256": "4abbef4ae74c674be4678b9f297c714b87387f6601020f6473b1da50cdefc14d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.dbf",
+          "expected_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "actual_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.shp",
+          "expected_sha256": "7f67b4a427faf67e3f18f1bf6abbccc0f0ef89fb8f1271520e86a7b37479d16a",
+          "actual_sha256": "7f67b4a427faf67e3f18f1bf6abbccc0f0ef89fb8f1271520e86a7b37479d16a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.shx",
+          "expected_sha256": "26f94d1b752b37e8e5fdb789fd9be80af1074578e769da8db2df376ad1fac2ef",
+          "actual_sha256": "26f94d1b752b37e8e5fdb789fd9be80af1074578e769da8db2df376ad1fac2ef",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.dbf",
+          "expected_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "actual_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.shp",
+          "expected_sha256": "5f25e6b5a302d2473855b31cd61ee93e600888d355e582019b0839c0a37c4c5e",
+          "actual_sha256": "5f25e6b5a302d2473855b31cd61ee93e600888d355e582019b0839c0a37c4c5e",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.shx",
+          "expected_sha256": "9d0e0cf6a2df78d2c9e939463bf37ae05c4ae059415905d46c75f6455169a2f0",
+          "actual_sha256": "9d0e0cf6a2df78d2c9e939463bf37ae05c4ae059415905d46c75f6455169a2f0",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_OSM_ACQUISITION.json",
+          "expected_sha256": "e0bf8f10a94734da8b677e4ee430d50e0b73c6fdf015c26d074cc6ef310dc6b5",
+          "actual_sha256": "e0bf8f10a94734da8b677e4ee430d50e0b73c6fdf015c26d074cc6ef310dc6b5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_prefire_OSM_20130801_raw.json",
+          "expected_sha256": "6e2df8d5e0901dde0857a959b02a9da6840809421094c0a4450f1da0f9529a41",
+          "actual_sha256": "6e2df8d5e0901dde0857a959b02a9da6840809421094c0a4450f1da0f9529a41",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_prefire_overpass_query.ql",
+          "expected_sha256": "bb061c9edd695f41f507db64ad7146ed3daf75793151ec21779af8cd514f03be",
+          "actual_sha256": "bb061c9edd695f41f507db64ad7146ed3daf75793151ec21779af8cd514f03be",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_zip_member_index.json",
+          "expected_sha256": "6f6f781f5565c712435f7ac0982905f9347cfd9526b93f788aa60b9763a66f76",
+          "actual_sha256": "6f6f781f5565c712435f7ac0982905f9347cfd9526b93f788aa60b9763a66f76",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_zip_tail_65536.bin",
+          "expected_sha256": "8b70bb4945a6e0690e24bf380656f4856d5db9bb536a648f4f2f8957e123a721",
+          "actual_sha256": "8b70bb4945a6e0690e24bf380656f4856d5db9bb536a648f4f2f8957e123a721",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/SOURCE_SELECTION_METADATA.json",
+          "expected_sha256": "71f28e3ca927be7ed27465fcddfd3f009390f628d47752ad8a70e920e8138253",
+          "actual_sha256": "71f28e3ca927be7ed27465fcddfd3f009390f628d47752ad8a70e920e8138253",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/firebench_source_tree_develop.json",
+          "expected_sha256": "c59f5aa0d7e159a70788d58484811fb4d636ec5c772a4796d83749f3565675e9",
+          "actual_sha256": "c59f5aa0d7e159a70788d58484811fb4d636ec5c772a4796d83749f3565675e9",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/04f3fe9b93cc346898b763519493538774e129f43268b0a8e144a1dba18204fd.bin",
+          "expected_sha256": "8215b20332fb8cbed5138e5755c842e5edd1fc8576597e6a365ab7ec455d7514",
+          "actual_sha256": "8215b20332fb8cbed5138e5755c842e5edd1fc8576597e6a365ab7ec455d7514",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/05180bfadef035fff1d0b70b636a603808c66899fcd24e8b7bb8ed7db8a6f3aa.bin",
+          "expected_sha256": "dfabe28d9708b1083744f90d1ecd2ae938aa22762053fc8d76aa0b839893328f",
+          "actual_sha256": "dfabe28d9708b1083744f90d1ecd2ae938aa22762053fc8d76aa0b839893328f",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/4cfdeeb206a76801a6d71d4edc3e863fc6a26c5a37321f3f028e482230b00c52.bin",
+          "expected_sha256": "e6bf1ff9c447101d2ac8b0d8b37844e67fb55a0c4b58d63a2001bc6db74d06bc",
+          "actual_sha256": "e6bf1ff9c447101d2ac8b0d8b37844e67fb55a0c4b58d63a2001bc6db74d06bc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/7478b3a789bc9c6dbd372e51a46d02102e7706934187fa1f7858600ed626da5b.bin",
+          "expected_sha256": "097b011da64123c4b60f5401a58c66cb79585a59662914f46fd3da94878ea7ac",
+          "actual_sha256": "097b011da64123c4b60f5401a58c66cb79585a59662914f46fd3da94878ea7ac",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/9c4736cc46a8f6e8d86e26818362fc9d9ab53d3a4543e9c1f7ccf089174624a1.bin",
+          "expected_sha256": "84e01277ba402d7aa0543b7629f34189bad20d25db2a04d5fdd0ce8fd25916ba",
+          "actual_sha256": "84e01277ba402d7aa0543b7629f34189bad20d25db2a04d5fdd0ce8fd25916ba",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_0111ef054d7f0ca924937c21aaf3e3d1612df2a347407e463674f1af9c074643.bin",
+          "expected_sha256": "9238c00fdcd89b4811bfcd6e08b214a23f1fa6c51d18dd071bb2fd115dc11ca5",
+          "actual_sha256": "9238c00fdcd89b4811bfcd6e08b214a23f1fa6c51d18dd071bb2fd115dc11ca5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_1f6ec8851a89e0e7e8b194e5a6ab71c0e9e446e1d070bbb691ddaa5bb9bc4685.bin",
+          "expected_sha256": "d26da76d26af0ac7a8c85f626a1806c03c144da846b83bc2166b9ecc704a5676",
+          "actual_sha256": "d26da76d26af0ac7a8c85f626a1806c03c144da846b83bc2166b9ecc704a5676",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_69cef778acd5ff515b09ce5e5d6542bd3eca5a9edb3227039b34b9b48fe3526d.bin",
+          "expected_sha256": "9207763ad00882ec8092b1caf2552b35150e7c56dc91832419d5c4996d5855be",
+          "actual_sha256": "9207763ad00882ec8092b1caf2552b35150e7c56dc91832419d5c4996d5855be",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_e1aec0e80d19d4c4bbf1416dfac707792146cab3d722434494f07c95a03186b2.bin",
+          "expected_sha256": "ff5b0e72cb8ead471eababbaebe9cb786caf1d57df68933772023973fe371cb1",
+          "actual_sha256": "ff5b0e72cb8ead471eababbaebe9cb786caf1d57df68933772023973fe371cb1",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_f08535370b8b922685e64b183d81c587329568d5cbee3fedb404ea3285ba523f.bin",
+          "expected_sha256": "77d9d3e99dc251f775784fbe306c76fc5f4aedfa1b5a649364ea353b36c89aee",
+          "actual_sha256": "77d9d3e99dc251f775784fbe306c76fc5f4aedfa1b5a649364ea353b36c89aee",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/b1c258828bd6b00a08185f8b1f78482908312c60acf78b6a542a7a2ec9fbc436.bin",
+          "expected_sha256": "8fb279073fdcb84d418e5614e2a71408643f54b2a8f66eb9d8db4b7486319438",
+          "actual_sha256": "8fb279073fdcb84d418e5614e2a71408643f54b2a8f66eb9d8db4b7486319438",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/f9d474c39c56f73eec5e9b262afa4cc9b1834ab71f1cd64694d0462c10c5b52c.bin",
+          "expected_sha256": "8639ed8007e7b34cccbbd7467dc19e2fe832119059a96c3fe080ffc772ce6645",
+          "actual_sha256": "8639ed8007e7b34cccbbd7467dc19e2fe832119059a96c3fe080ffc772ce6645",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/ffbdc7ff19c7860e8bf2ea3d3b90b434255e40989457347d34994d6508db3d07.bin",
+          "expected_sha256": "a9d2ff6c5dd9f77ecf4d97ce48f583a325c0d044df04f8c9afdc8768b841bbf6",
+          "actual_sha256": "a9d2ff6c5dd9f77ecf4d97ce48f583a325c0d044df04f8c9afdc8768b841bbf6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/verify_caldor_conversion.py",
+          "expected_sha256": "e8b895a0948b372688af99554e7b409a91a9cbfdacf283dc265b1818cd58afbc",
+          "actual_sha256": "e8b895a0948b372688af99554e7b409a91a9cbfdacf283dc265b1818cd58afbc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/zenodo_record_15492982.json",
+          "expected_sha256": "44f1452802aae73330b3ab2f94a396c8053a3127374693b2093c82351419353e",
+          "actual_sha256": "44f1452802aae73330b3ab2f94a396c8053a3127374693b2093c82351419353e",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/zenodo_record_23383592.json",
+          "expected_sha256": "f3c8727a2fa4e55cef26f4e1d7f601068a6d688500fd265cb3ec8afb003a20e4",
+          "actual_sha256": "f3c8727a2fa4e55cef26f4e1d7f601068a6d688500fd265cb3ec8afb003a20e4",
+          "match": true
+        }
+      ]
+    }
+  },
+  "frozen_study_manifest": {
+    "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/MANIFEST.json",
+    "sha256": "7cac0e72980d9e6d451cfeee36e570f481546d9ef026479b6026edee20b5c4a5",
+    "verification": {
+      "files": 158,
+      "matches": 158,
+      "rows": [
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/audit/new_fire_integration/run_new_fire_jobs.py",
+          "expected_sha256": "07e3573e8b912fd4f9fabd2b560472580374d3d9a5b059e1c05da68a4cd6ff72",
+          "actual_sha256": "07e3573e8b912fd4f9fabd2b560472580374d3d9a5b059e1c05da68a4cd6ff72",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/audit/new_fire_integration/write_perimeter_packet.py",
+          "expected_sha256": "11baed51bfecf70b1c351c50398ee3881efa8667459d84564faf86fee4f7b55a",
+          "actual_sha256": "11baed51bfecf70b1c351c50398ee3881efa8667459d84564faf86fee4f7b55a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_CONVERSION_AND_CLOCK_VERIFICATION.json",
+          "expected_sha256": "9002c8da41fd4ebff14d3c80cc0b1f76018e7239b7d99936160135ab6cc6d631",
+          "actual_sha256": "9002c8da41fd4ebff14d3c80cc0b1f76018e7239b7d99936160135ab6cc6d631",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_SOURCE_CANDIDATE.json",
+          "expected_sha256": "b4753c82240b325e2073535530f6a91e7fcaa14c30907fecec60eac0a23d284b",
+          "actual_sha256": "b4753c82240b325e2073535530f6a91e7fcaa14c30907fecec60eac0a23d284b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/CALDOR_SOURCE_SELECTION_METADATA.json",
+          "expected_sha256": "c4b8575efcfb9cad24f5cda43560556fc1b55df7b78c7e98c95b6492ff016225",
+          "actual_sha256": "c4b8575efcfb9cad24f5cda43560556fc1b55df7b78c7e98c95b6492ff016225",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_REGIONAL_OSM_GET_ACQUISITION.json",
+          "expected_sha256": "a485160f46bba67ee9eade85f6bf96c4584f39edd7eb9e798420c49412c1d199",
+          "actual_sha256": "a485160f46bba67ee9eade85f6bf96c4584f39edd7eb9e798420c49412c1d199",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_SELECTED_MEMBER_ACQUISITION.json",
+          "expected_sha256": "12cd072f1cbba2577d3d3b4b4a3f784316e0acef4169657ea05c9970f75b6c29",
+          "actual_sha256": "12cd072f1cbba2577d3d3b4b4a3f784316e0acef4169657ea05c9970f75b6c29",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.dbf",
+          "expected_sha256": "a87ffbfc916d1b3717f1a3dc28c182bee945c8c0cc8eba5dcc3f3b0a232d225b",
+          "actual_sha256": "a87ffbfc916d1b3717f1a3dc28c182bee945c8c0cc8eba5dcc3f3b0a232d225b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.shp",
+          "expected_sha256": "cb3fe6cf449fba6cdebf37e76bf25997e5be9ccc91b7a67acfe1187890029ea5",
+          "actual_sha256": "cb3fe6cf449fba6cdebf37e76bf25997e5be9ccc91b7a67acfe1187890029ea5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_17T20_20_07_00.shx",
+          "expected_sha256": "be70661db7aef25c9d76fc3ecead93956f0584cd832012c64fb80a9b9a1d71f4",
+          "actual_sha256": "be70661db7aef25c9d76fc3ecead93956f0584cd832012c64fb80a9b9a1d71f4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.dbf",
+          "expected_sha256": "4eb1326fc57767223d48e4856649a5c2a460bcf355c04ff47d8994806311e1eb",
+          "actual_sha256": "4eb1326fc57767223d48e4856649a5c2a460bcf355c04ff47d8994806311e1eb",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.shp",
+          "expected_sha256": "c45d966f9c94aacbbf8283b603d8e13518d5bbc93d83c7fb1913bc679fe65a59",
+          "actual_sha256": "c45d966f9c94aacbbf8283b603d8e13518d5bbc93d83c7fb1913bc679fe65a59",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_derived_shapefiles/Caldor_2021_08_18T20_30_07_00.shx",
+          "expected_sha256": "93645c3e1ec459b37ab816f5133f538ef659b24ea4f071f61ade2c577111e14b",
+          "actual_sha256": "93645c3e1ec459b37ab816f5133f538ef659b24ea4f071f61ade2c577111e14b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_regional_prefire_OSM_20210801_raw.json",
+          "expected_sha256": "b1ebf8c265ccbe89ebcdf921ad8410f79caa4f1375f15c7f9371058cbfe80e5a",
+          "actual_sha256": "b1ebf8c265ccbe89ebcdf921ad8410f79caa4f1375f15c7f9371058cbfe80e5a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_regional_prefire_overpass_query.ql",
+          "expected_sha256": "1177207774589a31b22f741d2b129f75fad8b2e1ede5e130ff21c53ebddb9c0c",
+          "actual_sha256": "1177207774589a31b22f741d2b129f75fad8b2e1ede5e130ff21c53ebddb9c0c",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/DATA_LICENSES/NIFC.txt",
+          "expected_sha256": "23dd0db7bfaae9d82d2c3d58bdd94923a6bc188f6122cf565049d5485be891fd",
+          "actual_sha256": "23dd0db7bfaae9d82d2c3d58bdd94923a6bc188f6122cf565049d5485be891fd",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/LICENSE",
+          "expected_sha256": "0d171a0895825ca8a13b17b67d8cd4b7bdf7f36a5f326fb92c80dd80bdeefbcc",
+          "actual_sha256": "0d171a0895825ca8a13b17b67d8cd4b7bdf7f36a5f326fb92c80dd80bdeefbcc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/data_term_of_use.md",
+          "expected_sha256": "b1808980f7694ca3028f0e540e60ba32a61c3716118d69394bea6c178a1dc520",
+          "actual_sha256": "b1808980f7694ca3028f0e540e60ba32a61c3716118d69394bea6c178a1dc520",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/kml/Caldor_2021_08_17T20_20_07_00.kml",
+          "expected_sha256": "eeb3f48b39a70a2c573dddc3ffb2f842bc32924869ce1edbcda4895a2c8c6697",
+          "actual_sha256": "eeb3f48b39a70a2c573dddc3ffb2f842bc32924869ce1edbcda4895a2c8c6697",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_selected_members/v2026.3/kml/Caldor_2021_08_18T20_30_07_00.kml",
+          "expected_sha256": "1d1c61f2d563a7500e148b933b013ab87aacd875852c1383907d33ff486868c5",
+          "actual_sha256": "1d1c61f2d563a7500e148b933b013ab87aacd875852c1383907d33ff486868c5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_zip_member_index.json",
+          "expected_sha256": "a6d0fefe8a29252488c377f6d66155caf614f1aa2e207541a3c53a1ba7f2f439",
+          "actual_sha256": "a6d0fefe8a29252488c377f6d66155caf614f1aa2e207541a3c53a1ba7f2f439",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Caldor_zip_tail_65536.bin",
+          "expected_sha256": "d2cabe530c37893e552e4371f5934df8b0532c749e9ebb2004a2ff7752353222",
+          "actual_sha256": "d2cabe530c37893e552e4371f5934df8b0532c749e9ebb2004a2ff7752353222",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/FireBench_Caldor_creator_documentation.html",
+          "expected_sha256": "9cecbabea3af2161c7a25d5dc6e72fcc39f8923b446907288ec38276060f3c01",
+          "actual_sha256": "9cecbabea3af2161c7a25d5dc6e72fcc39f8923b446907288ec38276060f3c01",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/FireBench_c001_caldor_config.py",
+          "expected_sha256": "2f5fd4aeec7180190f1f2a00b0e40b480603b7ef76e303e32a9c36d4cb77868f",
+          "actual_sha256": "2f5fd4aeec7180190f1f2a00b0e40b480603b7ef76e303e32a9c36d4cb77868f",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RIM_SOURCE_CANDIDATE.json",
+          "expected_sha256": "87ee0e122121dab95da3c48a889eb0c4d760357fe5a0d20972bd777fe3a1219a",
+          "actual_sha256": "87ee0e122121dab95da3c48a889eb0c4d760357fe5a0d20972bd777fe3a1219a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/ROAD_ROI_SOURCE_METADATA.json",
+          "expected_sha256": "7f13eaa67864bc2e644a18b42278b7485ed0222b7d2977473d069258cf064df1",
+          "actual_sha256": "7f13eaa67864bc2e644a18b42278b7485ed0222b7d2977473d069258cf064df1",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/ROAD_SOURCE_INTEGRITY.json",
+          "expected_sha256": "dd915a3f8afe5e9d77210ef5511f07d7f75cbc2845c0c063d94ea71b2f4907db",
+          "actual_sha256": "dd915a3f8afe5e9d77210ef5511f07d7f75cbc2845c0c063d94ea71b2f4907db",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_SELECTED_MEMBER_ACQUISITION.json",
+          "expected_sha256": "4abbef4ae74c674be4678b9f297c714b87387f6601020f6473b1da50cdefc14d",
+          "actual_sha256": "4abbef4ae74c674be4678b9f297c714b87387f6601020f6473b1da50cdefc14d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.dbf",
+          "expected_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "actual_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.shp",
+          "expected_sha256": "7f67b4a427faf67e3f18f1bf6abbccc0f0ef89fb8f1271520e86a7b37479d16a",
+          "actual_sha256": "7f67b4a427faf67e3f18f1bf6abbccc0f0ef89fb8f1271520e86a7b37479d16a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_0130PDT_Rim_Heat_Perimeter.shx",
+          "expected_sha256": "26f94d1b752b37e8e5fdb789fd9be80af1074578e769da8db2df376ad1fac2ef",
+          "actual_sha256": "26f94d1b752b37e8e5fdb789fd9be80af1074578e769da8db2df376ad1fac2ef",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.dbf",
+          "expected_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "actual_sha256": "6b0e27bd8de607c4c03fb2ea480bd236da03172fca5e7d38ec90920e60c10a75",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.prj",
+          "expected_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "actual_sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.shp",
+          "expected_sha256": "5f25e6b5a302d2473855b31cd61ee93e600888d355e582019b0839c0a37c4c5e",
+          "actual_sha256": "5f25e6b5a302d2473855b31cd61ee93e600888d355e582019b0839c0a37c4c5e",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/RimFire_selected_members/20130820_2100PDT_Rim_Heat_Perimeter.shx",
+          "expected_sha256": "9d0e0cf6a2df78d2c9e939463bf37ae05c4ae059415905d46c75f6455169a2f0",
+          "actual_sha256": "9d0e0cf6a2df78d2c9e939463bf37ae05c4ae059415905d46c75f6455169a2f0",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_OSM_ACQUISITION.json",
+          "expected_sha256": "e0bf8f10a94734da8b677e4ee430d50e0b73c6fdf015c26d074cc6ef310dc6b5",
+          "actual_sha256": "e0bf8f10a94734da8b677e4ee430d50e0b73c6fdf015c26d074cc6ef310dc6b5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_prefire_OSM_20130801_raw.json",
+          "expected_sha256": "6e2df8d5e0901dde0857a959b02a9da6840809421094c0a4450f1da0f9529a41",
+          "actual_sha256": "6e2df8d5e0901dde0857a959b02a9da6840809421094c0a4450f1da0f9529a41",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_prefire_overpass_query.ql",
+          "expected_sha256": "bb061c9edd695f41f507db64ad7146ed3daf75793151ec21779af8cd514f03be",
+          "actual_sha256": "bb061c9edd695f41f507db64ad7146ed3daf75793151ec21779af8cd514f03be",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_zip_member_index.json",
+          "expected_sha256": "6f6f781f5565c712435f7ac0982905f9347cfd9526b93f788aa60b9763a66f76",
+          "actual_sha256": "6f6f781f5565c712435f7ac0982905f9347cfd9526b93f788aa60b9763a66f76",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/Rim_zip_tail_65536.bin",
+          "expected_sha256": "8b70bb4945a6e0690e24bf380656f4856d5db9bb536a648f4f2f8957e123a721",
+          "actual_sha256": "8b70bb4945a6e0690e24bf380656f4856d5db9bb536a648f4f2f8957e123a721",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/SOURCE_SELECTION_METADATA.json",
+          "expected_sha256": "71f28e3ca927be7ed27465fcddfd3f009390f628d47752ad8a70e920e8138253",
+          "actual_sha256": "71f28e3ca927be7ed27465fcddfd3f009390f628d47752ad8a70e920e8138253",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/firebench_source_tree_develop.json",
+          "expected_sha256": "c59f5aa0d7e159a70788d58484811fb4d636ec5c772a4796d83749f3565675e9",
+          "actual_sha256": "c59f5aa0d7e159a70788d58484811fb4d636ec5c772a4796d83749f3565675e9",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/04f3fe9b93cc346898b763519493538774e129f43268b0a8e144a1dba18204fd.bin",
+          "expected_sha256": "8215b20332fb8cbed5138e5755c842e5edd1fc8576597e6a365ab7ec455d7514",
+          "actual_sha256": "8215b20332fb8cbed5138e5755c842e5edd1fc8576597e6a365ab7ec455d7514",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/05180bfadef035fff1d0b70b636a603808c66899fcd24e8b7bb8ed7db8a6f3aa.bin",
+          "expected_sha256": "dfabe28d9708b1083744f90d1ecd2ae938aa22762053fc8d76aa0b839893328f",
+          "actual_sha256": "dfabe28d9708b1083744f90d1ecd2ae938aa22762053fc8d76aa0b839893328f",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/4cfdeeb206a76801a6d71d4edc3e863fc6a26c5a37321f3f028e482230b00c52.bin",
+          "expected_sha256": "e6bf1ff9c447101d2ac8b0d8b37844e67fb55a0c4b58d63a2001bc6db74d06bc",
+          "actual_sha256": "e6bf1ff9c447101d2ac8b0d8b37844e67fb55a0c4b58d63a2001bc6db74d06bc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/7478b3a789bc9c6dbd372e51a46d02102e7706934187fa1f7858600ed626da5b.bin",
+          "expected_sha256": "097b011da64123c4b60f5401a58c66cb79585a59662914f46fd3da94878ea7ac",
+          "actual_sha256": "097b011da64123c4b60f5401a58c66cb79585a59662914f46fd3da94878ea7ac",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/9c4736cc46a8f6e8d86e26818362fc9d9ab53d3a4543e9c1f7ccf089174624a1.bin",
+          "expected_sha256": "84e01277ba402d7aa0543b7629f34189bad20d25db2a04d5fdd0ce8fd25916ba",
+          "actual_sha256": "84e01277ba402d7aa0543b7629f34189bad20d25db2a04d5fdd0ce8fd25916ba",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_0111ef054d7f0ca924937c21aaf3e3d1612df2a347407e463674f1af9c074643.bin",
+          "expected_sha256": "9238c00fdcd89b4811bfcd6e08b214a23f1fa6c51d18dd071bb2fd115dc11ca5",
+          "actual_sha256": "9238c00fdcd89b4811bfcd6e08b214a23f1fa6c51d18dd071bb2fd115dc11ca5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_1f6ec8851a89e0e7e8b194e5a6ab71c0e9e446e1d070bbb691ddaa5bb9bc4685.bin",
+          "expected_sha256": "d26da76d26af0ac7a8c85f626a1806c03c144da846b83bc2166b9ecc704a5676",
+          "actual_sha256": "d26da76d26af0ac7a8c85f626a1806c03c144da846b83bc2166b9ecc704a5676",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_69cef778acd5ff515b09ce5e5d6542bd3eca5a9edb3227039b34b9b48fe3526d.bin",
+          "expected_sha256": "9207763ad00882ec8092b1caf2552b35150e7c56dc91832419d5c4996d5855be",
+          "actual_sha256": "9207763ad00882ec8092b1caf2552b35150e7c56dc91832419d5c4996d5855be",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_e1aec0e80d19d4c4bbf1416dfac707792146cab3d722434494f07c95a03186b2.bin",
+          "expected_sha256": "ff5b0e72cb8ead471eababbaebe9cb786caf1d57df68933772023973fe371cb1",
+          "actual_sha256": "ff5b0e72cb8ead471eababbaebe9cb786caf1d57df68933772023973fe371cb1",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/Caldor_f08535370b8b922685e64b183d81c587329568d5cbee3fedb404ea3285ba523f.bin",
+          "expected_sha256": "77d9d3e99dc251f775784fbe306c76fc5f4aedfa1b5a649364ea353b36c89aee",
+          "actual_sha256": "77d9d3e99dc251f775784fbe306c76fc5f4aedfa1b5a649364ea353b36c89aee",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/b1c258828bd6b00a08185f8b1f78482908312c60acf78b6a542a7a2ec9fbc436.bin",
+          "expected_sha256": "8fb279073fdcb84d418e5614e2a71408643f54b2a8f66eb9d8db4b7486319438",
+          "actual_sha256": "8fb279073fdcb84d418e5614e2a71408643f54b2a8f66eb9d8db4b7486319438",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/f9d474c39c56f73eec5e9b262afa4cc9b1834ab71f1cd64694d0462c10c5b52c.bin",
+          "expected_sha256": "8639ed8007e7b34cccbbd7467dc19e2fe832119059a96c3fe080ffc772ce6645",
+          "actual_sha256": "8639ed8007e7b34cccbbd7467dc19e2fe832119059a96c3fe080ffc772ce6645",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/range_bytes/ffbdc7ff19c7860e8bf2ea3d3b90b434255e40989457347d34994d6508db3d07.bin",
+          "expected_sha256": "a9d2ff6c5dd9f77ecf4d97ce48f583a325c0d044df04f8c9afdc8768b841bbf6",
+          "actual_sha256": "a9d2ff6c5dd9f77ecf4d97ce48f583a325c0d044df04f8c9afdc8768b841bbf6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/verify_caldor_conversion.py",
+          "expected_sha256": "e8b895a0948b372688af99554e7b409a91a9cbfdacf283dc265b1818cd58afbc",
+          "actual_sha256": "e8b895a0948b372688af99554e7b409a91a9cbfdacf283dc265b1818cd58afbc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/zenodo_record_15492982.json",
+          "expected_sha256": "44f1452802aae73330b3ab2f94a396c8053a3127374693b2093c82351419353e",
+          "actual_sha256": "44f1452802aae73330b3ab2f94a396c8053a3127374693b2093c82351419353e",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/broader/external_fire_inputs/zenodo_record_23383592.json",
+          "expected_sha256": "f3c8727a2fa4e55cef26f4e1d7f601068a6d688500fd265cb3ec8afb003a20e4",
+          "actual_sha256": "f3c8727a2fa4e55cef26f4e1d7f601068a6d688500fd265cb3ec8afb003a20e4",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/BUILD_SUMMARY_FINAL.json",
+          "expected_sha256": "ec3852aa6ceea3f13b1ae1526da2bc9e974a592cd3fb274092d54c79aa4c6353",
+          "actual_sha256": "ec3852aa6ceea3f13b1ae1526da2bc9e974a592cd3fb274092d54c79aa4c6353",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/CARDINALITY_V2_ADDENDUM.md",
+          "expected_sha256": "a8756610f04e8527081fdeb2d154d108d76063f168487aa2fab068ec0b6e3b46",
+          "actual_sha256": "a8756610f04e8527081fdeb2d154d108d76063f168487aa2fab068ec0b6e3b46",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/PROTOCOL_DRAFT.md",
+          "expected_sha256": "32a68cd0713c5366d938fa6d71324ebaad35db66544612a0dc87754d4ca16ea7",
+          "actual_sha256": "32a68cd0713c5366d938fa6d71324ebaad35db66544612a0dc87754d4ca16ea7",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/SOURCE_INPUTS.json",
+          "expected_sha256": "67c0c5d01f5829d8f1989a73d2213f9f0f8c3621b707ce62561dcad9e478718e",
+          "actual_sha256": "67c0c5d01f5829d8f1989a73d2213f9f0f8c3621b707ce62561dcad9e478718e",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/build_caldor_v2.py",
+          "expected_sha256": "daf531d1c725334c664f44376e1f68cef5792459e0778e57e2911b9a58eaa4e3",
+          "actual_sha256": "daf531d1c725334c664f44376e1f68cef5792459e0778e57e2911b9a58eaa4e3",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/build_inputs.py",
+          "expected_sha256": "4134900945da5f8a9b8e1b4667910372c064cfbfa9ca838eff6cfa0ecacf2e27",
+          "actual_sha256": "4134900945da5f8a9b8e1b4667910372c064cfbfa9ca838eff6cfa0ecacf2e27",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/BUILD_SUMMARY.json",
+          "expected_sha256": "d77c66adf6972ef2c0264f39353f993d335e8547be193e8af18c67820fdd5e12",
+          "actual_sha256": "d77c66adf6972ef2c0264f39353f993d335e8547be193e8af18c67820fdd5e12",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/BUILD_RECEIPT.json",
+          "expected_sha256": "019a11b805ea6db25f69dfa5a6af6a0c0144198a045e96018559ae274eaec150",
+          "actual_sha256": "019a11b805ea6db25f69dfa5a6af6a0c0144198a045e96018559ae274eaec150",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/EVENTS.npz",
+          "expected_sha256": "35404f60054e8f32a4f7b3875d8a9956e60ef48bf6a5e075030c8d9a20896291",
+          "actual_sha256": "35404f60054e8f32a4f7b3875d8a9956e60ef48bf6a5e075030c8d9a20896291",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/GRAPH.json",
+          "expected_sha256": "af984cda55ad7affc85251d2e30818a445ab8ec1f276c6242521d58cda852312",
+          "actual_sha256": "af984cda55ad7affc85251d2e30818a445ab8ec1f276c6242521d58cda852312",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/INPUT_METADATA.json",
+          "expected_sha256": "78eb092679e54a4cfbf5e4f7fc658e7f1475d6243ec1e590297b4a8aa14819a2",
+          "actual_sha256": "78eb092679e54a4cfbf5e4f7fc658e7f1475d6243ec1e590297b4a8aa14819a2",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G1.request.json",
+          "expected_sha256": "c10897969912a8221c6c917adced01889ffdde1182c8ae9beef26a54dfcf6bb3",
+          "actual_sha256": "c10897969912a8221c6c917adced01889ffdde1182c8ae9beef26a54dfcf6bb3",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G2.request.json",
+          "expected_sha256": "6dad8ee9576d7a6cce15ced8f67fea16e8f904ef0a638c11551309f21a4bde30",
+          "actual_sha256": "6dad8ee9576d7a6cce15ced8f67fea16e8f904ef0a638c11551309f21a4bde30",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/Rim2013_G3.request.json",
+          "expected_sha256": "b2188631985a9c9224deeb0f51b1a8cfcf0726658ee0d70f0de99edd4cc4d12f",
+          "actual_sha256": "b2188631985a9c9224deeb0f51b1a8cfcf0726658ee0d70f0de99edd4cc4d12f",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/HAZARD.json",
+          "expected_sha256": "07a5777fb1947804ba7bf5ad9b28dabc832d8e0be7f6df574e39fb19e9431c11",
+          "actual_sha256": "07a5777fb1947804ba7bf5ad9b28dabc832d8e0be7f6df574e39fb19e9431c11",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/NATIVE_METADATA.json",
+          "expected_sha256": "eb9678201d29545de0bb50a23f872e8b01c8bdf27803e5d5ee3b40262521b086",
+          "actual_sha256": "eb9678201d29545de0bb50a23f872e8b01c8bdf27803e5d5ee3b40262521b086",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/PACKET_WRITER_RECEIPT.json",
+          "expected_sha256": "b5c896658897022b3bb05e7ed86a9a2ed3e2816ce2fa5ba1e238ed37779827ef",
+          "actual_sha256": "b5c896658897022b3bb05e7ed86a9a2ed3e2816ce2fa5ba1e238ed37779827ef",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/REPORT.json",
+          "expected_sha256": "f4c938e69585d2026ab0d00051e7b338c8ec105d7717e250f859451d8058b8bf",
+          "actual_sha256": "f4c938e69585d2026ab0d00051e7b338c8ec105d7717e250f859451d8058b8bf",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs/Rim2013/packet/constructed_arrays.npz",
+          "expected_sha256": "8ff68ded734dc87a5027a923b6531eeee29097fdac0ad307b26e65cb90d57521",
+          "actual_sha256": "8ff68ded734dc87a5027a923b6531eeee29097fdac0ad307b26e65cb90d57521",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/BUILD_SUMMARY.json",
+          "expected_sha256": "052ec35152a799f52c8645ed644cad90c961d3c3ffc897b4af86cf719493f2d3",
+          "actual_sha256": "052ec35152a799f52c8645ed644cad90c961d3c3ffc897b4af86cf719493f2d3",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/BUILD_RECEIPT.json",
+          "expected_sha256": "2ef2876944cefdd8b99826069acc09719d6576a58af1db946dd84f893bb1cc43",
+          "actual_sha256": "2ef2876944cefdd8b99826069acc09719d6576a58af1db946dd84f893bb1cc43",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G1.request.json",
+          "expected_sha256": "9426bce13e2778fbdbd0abb5f45cd232095cf007413d5c0d47c7e114e9bc5c8a",
+          "actual_sha256": "9426bce13e2778fbdbd0abb5f45cd232095cf007413d5c0d47c7e114e9bc5c8a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G2.request.json",
+          "expected_sha256": "bd179748f5bd1f1aa523ef02237ce1f7dfc9fbde7d55ff086c2144783d539c6d",
+          "actual_sha256": "bd179748f5bd1f1aa523ef02237ce1f7dfc9fbde7d55ff086c2144783d539c6d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/Caldor2021_G3.request.json",
+          "expected_sha256": "58354cb30ea366baf680afa8ee4577a9f8b0f1ef4d8997ae4a1f1a0875b3bbf8",
+          "actual_sha256": "58354cb30ea366baf680afa8ee4577a9f8b0f1ef4d8997ae4a1f1a0875b3bbf8",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/EVENTS.npz",
+          "expected_sha256": "316d606279701e824e7d0476ee6897ec6474ba42444d9d3c748038b0dcb004c2",
+          "actual_sha256": "316d606279701e824e7d0476ee6897ec6474ba42444d9d3c748038b0dcb004c2",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/GRAPH.json",
+          "expected_sha256": "c9cae5cbaf14c730a6cb2fcd960f6474bbc3bc5fa8500738fe289e367026d223",
+          "actual_sha256": "c9cae5cbaf14c730a6cb2fcd960f6474bbc3bc5fa8500738fe289e367026d223",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/INPUT_METADATA.json",
+          "expected_sha256": "2fac1fcf78bb95d3bcffe78c9ca9271e1e7f8fcc54798bff9c4bba072fd0ba11",
+          "actual_sha256": "2fac1fcf78bb95d3bcffe78c9ca9271e1e7f8fcc54798bff9c4bba072fd0ba11",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/HAZARD.json",
+          "expected_sha256": "d95dfe0719029e2ca98a9c06ebfb42499dd4882ebb9b5e2a9f75ff34d4be1cdb",
+          "actual_sha256": "d95dfe0719029e2ca98a9c06ebfb42499dd4882ebb9b5e2a9f75ff34d4be1cdb",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/NATIVE_METADATA.json",
+          "expected_sha256": "bcab96e4dab29d5cd00b8a88e727c458b411cff250d86b402667af2371b72603",
+          "actual_sha256": "bcab96e4dab29d5cd00b8a88e727c458b411cff250d86b402667af2371b72603",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/PACKET_WRITER_RECEIPT.json",
+          "expected_sha256": "2ca5b33ce0d05fbb7a17291ecbd147b1c21e1bd5df21c58455c1471b661d0309",
+          "actual_sha256": "2ca5b33ce0d05fbb7a17291ecbd147b1c21e1bd5df21c58455c1471b661d0309",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/REPORT.json",
+          "expected_sha256": "ce1f35852a431a1f58bf257890acd2ffa11288e028e7f614d0ca3678bad0df0b",
+          "actual_sha256": "ce1f35852a431a1f58bf257890acd2ffa11288e028e7f614d0ca3678bad0df0b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/inputs_v2/Caldor2021/packet/constructed_arrays.npz",
+          "expected_sha256": "a16d628c96a889cda05373c54b90043c4fd5df19b158dc2ca25080c42f535ef6",
+          "actual_sha256": "a16d628c96a889cda05373c54b90043c4fd5df19b158dc2ca25080c42f535ef6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G1__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "b94b346d84138001d59111ce89693440a282c6d3c8c439c4d42d09849f835ce6",
+          "actual_sha256": "b94b346d84138001d59111ce89693440a282c6d3c8c439c4d42d09849f835ce6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G1__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "0cbba35ef61e97b7b068d5b9a3d75b1e991db7cb8e71047fe353649576a5b495",
+          "actual_sha256": "0cbba35ef61e97b7b068d5b9a3d75b1e991db7cb8e71047fe353649576a5b495",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G2__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "e615b262aacda73a285e6a5e0162b380fd7f46d8e6a1c0168921f92a02ceb65b",
+          "actual_sha256": "e615b262aacda73a285e6a5e0162b380fd7f46d8e6a1c0168921f92a02ceb65b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G2__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "8c4081fd33c104f1035d7cc4f501461d0ac069cde4a87b3624f5380ee7f612aa",
+          "actual_sha256": "8c4081fd33c104f1035d7cc4f501461d0ac069cde4a87b3624f5380ee7f612aa",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G3__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "db34b985f6ab3b5453c82944f717735333e36ec4053545afae1236ae2e7fb465",
+          "actual_sha256": "db34b985f6ab3b5453c82944f717735333e36ec4053545afae1236ae2e7fb465",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Caldor2021_G3__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "2839adc96e9b1e73ac1c0feb61b1e0d1e9d7dc6134bc7daf626a28d822fd6ffe",
+          "actual_sha256": "2839adc96e9b1e73ac1c0feb61b1e0d1e9d7dc6134bc7daf626a28d822fd6ffe",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G1__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "f990be881468529e079839c63abc626c678dbf74d5e0fb78ccf6173d4bc9f7b5",
+          "actual_sha256": "f990be881468529e079839c63abc626c678dbf74d5e0fb78ccf6173d4bc9f7b5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G1__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "33cffd14177d323907fbbe99b17ebb439362ce408e337757e5517e9eaeb6b488",
+          "actual_sha256": "33cffd14177d323907fbbe99b17ebb439362ce408e337757e5517e9eaeb6b488",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G2__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "f09c0a16a3f75cc4a3ae82b0f1b4b66db680accd1c65d6e6bcd8a27ba49fcda6",
+          "actual_sha256": "f09c0a16a3f75cc4a3ae82b0f1b4b66db680accd1c65d6e6bcd8a27ba49fcda6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G2__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "9b263b9eef8afaea3ee999f791cb11c61559bda3282ef2089d34528e76094967",
+          "actual_sha256": "9b263b9eef8afaea3ee999f791cb11c61559bda3282ef2089d34528e76094967",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G3__r1__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "d9b0f635c05d9d5e99704007c293a79c01c144a52a2bace41fcf16b1907e8599",
+          "actual_sha256": "d9b0f635c05d9d5e99704007c293a79c01c144a52a2bace41fcf16b1907e8599",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/jobs/Rim2013_G3__r2__RDA_CAND_BASECHECKER.json",
+          "expected_sha256": "623b666870254010628df549d92e8acdc8a2711c3cff8fd21fb7666954af565c",
+          "actual_sha256": "623b666870254010628df549d92e8acdc8a2711c3cff8fd21fb7666954af565c",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/make_manifest.py",
+          "expected_sha256": "a9cc25fb1cbdbc4014b1c3c397a8a09e90850be9ffb3eee8c00dd84d54519afc",
+          "actual_sha256": "a9cc25fb1cbdbc4014b1c3c397a8a09e90850be9ffb3eee8c00dd84d54519afc",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/decision/journey_decision.py",
+          "expected_sha256": "5d2a975ccdc4c5db95bfbdeff96ad3ed767a50437081dac5a1088fc6d4f92bf0",
+          "actual_sha256": "5d2a975ccdc4c5db95bfbdeff96ad3ed767a50437081dac5a1088fc6d4f92bf0",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/decision/journey_decision_v2.py",
+          "expected_sha256": "4f79b96511e367db52c38886a407f605b76349627f9c5c613f0daa53f8d5e162",
+          "actual_sha256": "4f79b96511e367db52c38886a407f605b76349627f9c5c613f0daa53f8d5e162",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/decision/journey_decision_v2_1.py",
+          "expected_sha256": "80adfc0b1c9f4f9496ed7edfb73d47802646f527718ad3bd6e049cfdf0560097",
+          "actual_sha256": "80adfc0b1c9f4f9496ed7edfb73d47802646f527718ad3bd6e049cfdf0560097",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/ablation_worker.py",
+          "expected_sha256": "7d88ec77ca0104fe6235402ffdbab7f387d682b949c0a55d2bc9f9d1453fec83",
+          "actual_sha256": "7d88ec77ca0104fe6235402ffdbab7f387d682b949c0a55d2bc9f9d1453fec83",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/arm_check.py",
+          "expected_sha256": "91a4a10e2c3ebc4796933030a2843fb8e7da9d66e45ba804026f6f5d7f030476",
+          "actual_sha256": "91a4a10e2c3ebc4796933030a2843fb8e7da9d66e45ba804026f6f5d7f030476",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/arm_transform.py",
+          "expected_sha256": "1ce2e501d5c8a5f3a6de1da790e9fd11c66272d92fe607b7ef37679d36afe5f5",
+          "actual_sha256": "1ce2e501d5c8a5f3a6de1da790e9fd11c66272d92fe607b7ef37679d36afe5f5",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/baseline_worker.py",
+          "expected_sha256": "c0d0b2dcd99e84d6c6dda9ed71eeed1f33c41f2af7953d3bdabd4fecc47ff5c6",
+          "actual_sha256": "c0d0b2dcd99e84d6c6dda9ed71eeed1f33c41f2af7953d3bdabd4fecc47ff5c6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/preparation_mode.py",
+          "expected_sha256": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6",
+          "actual_sha256": "39c1d1256eda936ad15405203852a37bea0cb6bf3dd66b65a080b142731e73f6",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/publication_v1_1.py",
+          "expected_sha256": "702f3ff5937c8b20f9e90247abc63b3889fc6d6f6c5872720a89772545422442",
+          "actual_sha256": "702f3ff5937c8b20f9e90247abc63b3889fc6d6f6c5872720a89772545422442",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/rda_worker_v1_1.py",
+          "expected_sha256": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58",
+          "actual_sha256": "a17c802c8dd4feb16f6ab4b650255a7f4fb8d11bbc511dae5f1e0c5486221e58",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/road_bounds.py",
+          "expected_sha256": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2",
+          "actual_sha256": "d3ee56f0176fb89314623f69ffe4fab332a871bac5922402a654c222490eb5c2",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/road_core.py",
+          "expected_sha256": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+          "actual_sha256": "cb38001ecd290dd9148baed9a8fb54529969cf8abd8ae2fd5b13d6929814ec34",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/phaseB/zsweep.py",
+          "expected_sha256": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+          "actual_sha256": "04b7387f670a5999fe267dede15afe3523f4eca6c20b9d1f5053aac25ab74057",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/adaptive_checker.py",
+          "expected_sha256": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+          "actual_sha256": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/contact_first.py",
+          "expected_sha256": "d2d2c4c8b2d8e75d94f361224ec5ea5fb3f30c0c1da3933f0c3fd0dc0d8e0b6d",
+          "actual_sha256": "d2d2c4c8b2d8e75d94f361224ec5ea5fb3f30c0c1da3933f0c3fd0dc0d8e0b6d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/event_reference.py",
+          "expected_sha256": "b847fbd2c061f4f1b9602c23cf9047bfe3ce585819780deba2989da9cccf0972",
+          "actual_sha256": "b847fbd2c061f4f1b9602c23cf9047bfe3ce585819780deba2989da9cccf0972",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/forecast_bridge.py",
+          "expected_sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152",
+          "actual_sha256": "62bac113a00f72930e4ca99528c5b99f27643b542d0bda8460f9b121673c5152",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/hybrid_checker.py",
+          "expected_sha256": "dabd603857bc60b056e6a581d2aa1c1f05f355b46640a83c687ca46848c54c76",
+          "actual_sha256": "dabd603857bc60b056e6a581d2aa1c1f05f355b46640a83c687ca46848c54c76",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/hybrid_radiation.py",
+          "expected_sha256": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246",
+          "actual_sha256": "9c527de7267ad8fe7f7aa7a019d231c1ce3d2ff2f31f028d9e397caf7dd36246",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/ivkernel.py",
+          "expected_sha256": "2a4fbe799ec2fb8f88f2a3c36272812d50ba4012ea41ae823dd5c4e832918a34",
+          "actual_sha256": "2a4fbe799ec2fb8f88f2a3c36272812d50ba4012ea41ae823dd5c4e832918a34",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/__init__.py",
+          "expected_sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d",
+          "actual_sha256": "7ddd0a305492215e809f0b2d0448e626515f59e13853ce4701f7384383a5fc3d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/ecology.py",
+          "expected_sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca",
+          "actual_sha256": "c2bf18e966d07ef45ea693edafad24b1d0c2a5fbc946e8c93ef38f4fad4f72ca",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/example.py",
+          "expected_sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899",
+          "actual_sha256": "b9012a340d62d07a3e076d4fbe0abe72a8c2ab6e08ee62584cbfad6fe6dda899",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/integrated_example.py",
+          "expected_sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b",
+          "actual_sha256": "9d9f4903d98a6910a16429b3824228fed3b44c49b1e15de99d9a3a0e8f08050b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/model.py",
+          "expected_sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed",
+          "actual_sha256": "93773a220c74bbe4644b931a115164abe6b6f6c7dfd065437ce44c64235feeed",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/pipeline.py",
+          "expected_sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942",
+          "actual_sha256": "a26c4dc986440e7856c6b3b2c154dd96bac3a7368d0eb81b899a912957423942",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mentor_runtime/expected_heat_flux/temporal.py",
+          "expected_sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b",
+          "actual_sha256": "d167c60fb4f79b98f3531c9ff7c8b2ad2cb437b8d0ca9583d1b0ae924ff4b33b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/mission_contract.py",
+          "expected_sha256": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767",
+          "actual_sha256": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/radiation_bounds.py",
+          "expected_sha256": "75bb1f5055eb16d21ec5f9282392d89f29fbaf2fbf7d8a84a1f4483cdd0957a8",
+          "actual_sha256": "75bb1f5055eb16d21ec5f9282392d89f29fbaf2fbf7d8a84a1f4483cdd0957a8",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/road_exposure.py",
+          "expected_sha256": "7ba5ea9777030ef4119dbadcca538d818d66879c5f78f971eb11c9523368855a",
+          "actual_sha256": "7ba5ea9777030ef4119dbadcca538d818d66879c5f78f971eb11c9523368855a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/__init__.py",
+          "expected_sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+          "actual_sha256": "d47c0402213c0bd5b743f8dc4fe3c818fe3d70e79962b9ec88e2f1fef29eb99d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/admission_geometry.py",
+          "expected_sha256": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+          "actual_sha256": "7d548dee459b7d6c8c08e227a6f32fbfb759bec99648847ef66462265956fa96",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/core.py",
+          "expected_sha256": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+          "actual_sha256": "8a54c615f287fdc4f4a99058bc5542f70f3106f63eedcdc88e97b4bae22857e8",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/fixture.py",
+          "expected_sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620",
+          "actual_sha256": "51a00ba23c55c20e0cb3ce77b6ec42e1920437ba4bb3eb17f2f0ad176867c620",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/independent.py",
+          "expected_sha256": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+          "actual_sha256": "0633222da8bcc4123bba272f361b06a41cb05efa68840dbd2ebbe71cdbe68492",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/prepared.py",
+          "expected_sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+          "actual_sha256": "1ff08671b2abefcd0ee3bba4de32c5e36c6750c56fb013dbc462cf765a05ad07",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/prepared_reuse.py",
+          "expected_sha256": "e1838ae03c42a6a9c4b077f7bb6215105ff682802dc0751dc09c80f3236b6e3c",
+          "actual_sha256": "e1838ae03c42a6a9c4b077f7bb6215105ff682802dc0751dc09c80f3236b6e3c",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/routing-package/routing/validation.py",
+          "expected_sha256": "cb569ab8da724c18b2aa0be8e74a3cf74db9daa8dae999b7144b08fba255edae",
+          "actual_sha256": "cb569ab8da724c18b2aa0be8e74a3cf74db9daa8dae999b7144b08fba255edae",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/baseline/temporal_contract.py",
+          "expected_sha256": "d1b3c3719dc3ca5384637ba6239b25b4069011c16ae3b14c701cd37be1f0c36d",
+          "actual_sha256": "d1b3c3719dc3ca5384637ba6239b25b4069011c16ae3b14c701cd37be1f0c36d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/runner/cand_worker_final.py",
+          "expected_sha256": "f337e58cc1ca51d383cb2de2bd68c1a7da99662b6671d6491d23949f715a97a7",
+          "actual_sha256": "f337e58cc1ca51d383cb2de2bd68c1a7da99662b6671d6491d23949f715a97a7",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/search/clock_scope.py",
+          "expected_sha256": "75c1712dea2fb848932681986b38bca032f6a5d42c9a767a37c5c3749bb310fa",
+          "actual_sha256": "75c1712dea2fb848932681986b38bca032f6a5d42c9a767a37c5c3749bb310fa",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/routing_candidate/search/exact_transport.py",
+          "expected_sha256": "9d08a75e7f847b9a4b82ce48720c7dad56297a2c6520c4f2d5c8224e567836d9",
+          "actual_sha256": "9d08a75e7f847b9a4b82ce48720c7dad56297a2c6520c4f2d5c8224e567836d9",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/ffi_independent_checker.py",
+          "expected_sha256": "8ce23dbaaac3ade8284aa9d9bf927fe2d8bbb336a45e29e68582bd8183231789",
+          "actual_sha256": "8ce23dbaaac3ade8284aa9d9bf927fe2d8bbb336a45e29e68582bd8183231789",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/grade_route.py",
+          "expected_sha256": "dd216c08b0a1658f4e20af522337634c2e49c56f01b4dc7982c2d6f37ed4283a",
+          "actual_sha256": "dd216c08b0a1658f4e20af522337634c2e49c56f01b4dc7982c2d6f37ed4283a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/lease.py",
+          "expected_sha256": "86315b6fb55be91cfc985961e0f5ff448b664d0ac6f912ba54e5846239a0e91a",
+          "actual_sha256": "86315b6fb55be91cfc985961e0f5ff448b664d0ac6f912ba54e5846239a0e91a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/native_report.py",
+          "expected_sha256": "127a437418acb2ac382f558be55624cdd85647bdae4a211fc4dec8bb1f19530a",
+          "actual_sha256": "127a437418acb2ac382f558be55624cdd85647bdae4a211fc4dec8bb1f19530a",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/native_tally.py",
+          "expected_sha256": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b",
+          "actual_sha256": "97a311265bfe362eb2b60cb78e9853e9f6ab1df426539bbe0a33684bd508d74b",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/preflight_control_worker.py",
+          "expected_sha256": "002c657ffed7a80fd7e715ef55d6dc767668f04c12c737ebd6c8e72a25577b6d",
+          "actual_sha256": "002c657ffed7a80fd7e715ef55d6dc767668f04c12c737ebd6c8e72a25577b6d",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/run_ablation.py",
+          "expected_sha256": "ac69891113302b71be3ad5ab515af339513fcf808931b3a65d3335627b449f94",
+          "actual_sha256": "ac69891113302b71be3ad5ab515af339513fcf808931b3a65d3335627b449f94",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/wfg_controller.py",
+          "expected_sha256": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c",
+          "actual_sha256": "be5e18e876dd7c29692169776723a6609c23f2e5f6f25145447fdc4ab649f59c",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/wfg_native.py",
+          "expected_sha256": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370",
+          "actual_sha256": "4288a45860be03e291ce18b4ce3d0bb122f78ed6e404310d66ace6b217ea5370",
+          "match": true
+        },
+        {
+          "path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1/new_fire/stack/runner/witness_wholeroad.py",
+          "expected_sha256": "035d86ff31f3fff43ce5451172c35a1db1bf24ca0e537ba973a9e22a81fe8fd2",
+          "actual_sha256": "035d86ff31f3fff43ce5451172c35a1db1bf24ca0e537ba973a9e22a81fe8fd2",
+          "match": true
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "incident": "Caldor2021",
+      "metadata_path": "new_fire/inputs_v2/Caldor2021/INPUT_METADATA.json",
+      "metadata_sha256": "2fac1fcf78bb95d3bcffe78c9ca9271e1e7f8fcc54798bff9c4bba072fd0ba11",
+      "source_kind": "RETROSPECTIVE_OBSERVED_PERIMETER_TIMING_CONSTRUCTION",
+      "crs": "EPSG:3310",
+      "affine_transform": [
+        375,
+        0,
+        -49125,
+        0,
+        -375,
+        84000
+      ],
+      "native_shape": [
+        63,
+        68
+      ],
+      "time_origin": "2021-08-18T03:20:00+00:00",
+      "directly_admitted_by_whole_hour_export_clock": false,
+      "survey_times": [
+        "2021-08-18T03:20:00+00:00",
+        "2021-08-19T03:30:00+00:00"
+      ],
+      "source_clock_scope": "Retrospective observed-perimeter construction; not a forecast or prospective data-availability claim. Model-clock issued/available are compatibility bookkeeping.",
+      "source_timing_rule": "Newly mapped cells cyclically assigned 1/8,3/8,5/8,7/8 of survey gap; four rotated deterministic histories. Interval ignition and first-perimeter current activity are reconstruction assumptions, not observations.",
+      "training_selection_exposure": "UNKNOWN; no blind forecast/external generalization validation claim.",
+      "dataset": "Costes,A.; Kochanski,A.; data collectors Farguell,A.; Selvaraj,M.K.(2026), FireBench:2021Caldor Benchmarks for Fire Models, v2026.3, Zenodo DOI10.5281/zenodo.23383592. Selected NIFC/NIROPS-derived original KML perimeters only.",
+      "dataset_license": "Selected NIFC/NIROPS source data: upstream NIFC public/official/not-copyrighted notice retained in DATA_LICENSES/NIFC.txt; subject to package data_term_of_use.md and attribution to NIFC and FireBench creators. Apache2.0 LICENSE applies to code, not a relicense of data. No restricted Synoptic/weather data downloaded.",
+      "arrays": [
+        {
+          "path": "new_fire/inputs_v2/Caldor2021/EVENTS.npz",
+          "sha256": "316d606279701e824e7d0476ee6897ec6474ba42444d9d3c748038b0dcb004c2",
+          "arrays": {
+            "ignition_time_s": {
+              "shape": [
+                4,
+                63,
+                68
+              ],
+              "dtype": "float64"
+            },
+            "current_active": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "bool"
+            },
+            "support": {
+              "shape": [
+                4,
+                63,
+                68
+              ],
+              "dtype": "bool"
+            }
+          },
+          "required_environment_channels_present": []
+        },
+        {
+          "path": "new_fire/inputs_v2/Caldor2021/packet/constructed_arrays.npz",
+          "sha256": "a16d628c96a889cda05373c54b90043c4fd5df19b158dc2ca25080c42f535ef6",
+          "arrays": {
+            "ignition_time_s": {
+              "shape": [
+                4,
+                63,
+                68
+              ],
+              "dtype": "float64"
+            },
+            "current_active": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "bool"
+            },
+            "support": {
+              "shape": [
+                4,
+                63,
+                68
+              ],
+              "dtype": "bool"
+            },
+            "member0__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member0__extinction_breakpoint_s": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "float64"
+            },
+            "member1__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member1__extinction_breakpoint_s": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "float64"
+            },
+            "member2__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member2__extinction_breakpoint_s": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "float64"
+            },
+            "member3__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member3__extinction_breakpoint_s": {
+              "shape": [
+                63,
+                68
+              ],
+              "dtype": "float64"
+            }
+          },
+          "required_environment_channels_present": []
+        }
+      ],
+      "required_channel_admission": {
+        "biome.biome_class": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "terrain.slope_degrees": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "vegetation.tree_cover_percent": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.temperature_2m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.wind_eastward_10m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.wind_northward_10m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs"
+      },
+      "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE"
+    },
+    {
+      "incident": "Rim2013",
+      "metadata_path": "new_fire/inputs/Rim2013/INPUT_METADATA.json",
+      "metadata_sha256": "78eb092679e54a4cfbf5e4f7fc658e7f1475d6243ec1e590297b4a8aa14819a2",
+      "source_kind": "RETROSPECTIVE_OBSERVED_PERIMETER_TIMING_CONSTRUCTION",
+      "crs": "EPSG:3310",
+      "affine_transform": [
+        375,
+        0,
+        -11625,
+        0,
+        -375,
+        -13875
+      ],
+      "native_shape": [
+        28,
+        36
+      ],
+      "time_origin": "2013-08-20T08:30:00+00:00",
+      "directly_admitted_by_whole_hour_export_clock": false,
+      "survey_times": [
+        "2013-08-20T08:30:00+00:00",
+        "2013-08-21T04:00:00+00:00"
+      ],
+      "source_clock_scope": "Retrospective observed-perimeter construction; not a forecast or prospective data-availability claim. Model-clock issued/available are compatibility bookkeeping.",
+      "source_timing_rule": "Newly mapped cells cyclically assigned 1/8,3/8,5/8,7/8 of survey gap; four rotated deterministic histories. Interval ignition and first-perimeter current activity are reconstruction assumptions, not observations.",
+      "training_selection_exposure": "UNKNOWN; do not claim blind forecast/generalization validation.",
+      "dataset": "Hatchett, Benjamin(2025), Airborne Infrared Perimeters of the Rim Fire(2013) and Dixie Fire(2021), version1, Zenodo. DOI10.5281/zenodo.15492982. NIFC-derived original KMZ converted to shapefiles by creator.",
+      "dataset_license": "CC-BY-4.0, explicitly recorded in Zenodo API metadata. Preserve attribution to Hatchett2025 and NIFC.",
+      "arrays": [
+        {
+          "path": "new_fire/inputs/Rim2013/EVENTS.npz",
+          "sha256": "35404f60054e8f32a4f7b3875d8a9956e60ef48bf6a5e075030c8d9a20896291",
+          "arrays": {
+            "ignition_time_s": {
+              "shape": [
+                4,
+                28,
+                36
+              ],
+              "dtype": "float64"
+            },
+            "current_active": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "bool"
+            },
+            "support": {
+              "shape": [
+                4,
+                28,
+                36
+              ],
+              "dtype": "bool"
+            }
+          },
+          "required_environment_channels_present": []
+        },
+        {
+          "path": "new_fire/inputs/Rim2013/packet/constructed_arrays.npz",
+          "sha256": "8ff68ded734dc87a5027a923b6531eeee29097fdac0ad307b26e65cb90d57521",
+          "arrays": {
+            "ignition_time_s": {
+              "shape": [
+                4,
+                28,
+                36
+              ],
+              "dtype": "float64"
+            },
+            "current_active": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "bool"
+            },
+            "support": {
+              "shape": [
+                4,
+                28,
+                36
+              ],
+              "dtype": "bool"
+            },
+            "member0__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member0__extinction_breakpoint_s": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "float64"
+            },
+            "member1__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member1__extinction_breakpoint_s": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "float64"
+            },
+            "member2__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member2__extinction_breakpoint_s": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "float64"
+            },
+            "member3__breakpoints_s": {
+              "shape": [
+                11
+              ],
+              "dtype": "float64"
+            },
+            "member3__extinction_breakpoint_s": {
+              "shape": [
+                28,
+                36
+              ],
+              "dtype": "float64"
+            }
+          },
+          "required_environment_channels_present": []
+        }
+      ],
+      "required_channel_admission": {
+        "biome.biome_class": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "terrain.slope_degrees": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "vegetation.tree_cover_percent": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.temperature_2m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.wind_eastward_10m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs",
+        "weather.wind_northward_10m": "NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs"
+      },
+      "status": "NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE"
+    }
+  ],
+  "acquisition_evidence": [
+    {
+      "path": "broader/external_fire_inputs/Caldor_SELECTED_MEMBER_ACQUISITION.json",
+      "sha256": "12cd072f1cbba2577d3d3b4b4a3f784316e0acef4169657ea05c9970f75b6c29",
+      "scope": "Complete selected source KML/license members only; no HDF5/weather raster download or benchmark run",
+      "downloaded_members": [
+        "v2026.3/data_term_of_use.md",
+        "v2026.3/LICENSE",
+        "v2026.3/DATA_LICENSES/NIFC.txt",
+        "v2026.3/kml/Caldor_2021_08_18T20_30_07_00.kml",
+        "v2026.3/kml/Caldor_2021_08_17T20_20_07_00.kml"
+      ],
+      "full_archive_md5_verified": false
+    },
+    {
+      "path": "broader/external_fire_inputs/RimFire_SELECTED_MEMBER_ACQUISITION.json",
+      "sha256": "4abbef4ae74c674be4678b9f297c714b87387f6601020f6473b1da50cdefc14d",
+      "scope": "Complete creator-published ZIP members with compressed source byte ranges and verified ZIP CRC; not a full-archive MD5 verification",
+      "downloaded_members": [
+        "20130820_0130PDT_Rim_Heat_Perimeter.dbf",
+        "20130820_0130PDT_Rim_Heat_Perimeter.prj",
+        "20130820_0130PDT_Rim_Heat_Perimeter.shp",
+        "20130820_0130PDT_Rim_Heat_Perimeter.shx",
+        "20130820_2100PDT_Rim_Heat_Perimeter.dbf",
+        "20130820_2100PDT_Rim_Heat_Perimeter.prj",
+        "20130820_2100PDT_Rim_Heat_Perimeter.shp",
+        "20130820_2100PDT_Rim_Heat_Perimeter.shx"
+      ],
+      "full_archive_md5_verified": null
+    }
+  ],
+  "local_code_sha256": {
+    "forecast/wildfire/api.py": "71e0397874e781b56b7091b8a2c5535acd088fbeb94e63ac0d44b6bd11dc8c11",
+    "forecast/wildfire/data.py": "8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230",
+    "integration/src/wfg_latest/export.py": "fe9e6b65cb959cc341b13c55bfd15a1ca8e610e06cd7b57e24ec2883e2ac5686",
+    "integration/src/wfg_latest/contract.py": "461fb56a058cf15070c1cf3887cccddddbea84d4ef6f110fad2a8b0917c42d42"
+  },
+  "graph_evidence": {
+    "project": "wfg-next-1c-audit-e68123d81-20261030",
+    "generation": "2026-10-30T03:54:43Z",
+    "material_paths": "forecast api/data and current reports metadata_match; integration subtree excluded, direct exact source read. External sealed study is outside graph and directly inventoried/read.",
+    "non_material_trace_limit": "Inbound _reader trace was truncated; no exhaustive caller claim is made."
+  },
+  "conclusion": "Existing sealed packets are retrospective four-member survey-gap timing constructions with assumed burning phases, scalar fuel/combustion parameters, roads and model-clock bookkeeping. They do not supply six named causal c651 environmental channels on the exact packet grid, a compatible whole-hour event record or prospective availability provenance. No forced comparability or new false-safe/exposure estimate.",
+  "remaining_gates": [
+    "Native Caldor/Rim forecast exports NOT_RUN_ALIGNMENT_UNESTABLISHED",
+    "Law-v2 physics/enclosure gate unresolved",
+    "Full-policy truth support and risk rates remain unresolved"
+  ],
+  "producer_sha256": "5e9143b5e0083deecb78158e46be0e41fbef3066aca70e373517b8e0e6eba973",
+  "audit_program": "import collections\nfrom datetime import datetime, timezone\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport re\nimport subprocess\nimport sys\nimport numpy as np\n\nROOT = Path('/Users/jp/Documents/Codex/2026-09-24/fu/outputs/routing_thermal_verification_20261028_v1')\nOUT = Path('research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.json')\nINVENTORY = Path('research/scenario-members/CALDOR_RIM_INPUT_INVENTORY.json')\nCATALOG = Path('../data/forecast-v2/environment/events.json').resolve()\nRECORD_ROOT = Path('../data/trajectory-exports-20261030-v2')\nEXCLUDE = {'data_env', '.git', '__pycache__', '.venv', 'node_modules', 'venv'}\n\ndef sha(path):\n    h = hashlib.sha256()\n    with Path(path).open('rb') as f:\n        for chunk in iter(lambda: f.read(1 << 20), b''): h.update(chunk)\n    return h.hexdigest()\n\ndef load(path): return json.loads(Path(path).read_text())\n\ndef verify_map(values):\n    rows = []\n    for path, expected in sorted(values.items()):\n        p = Path(path)\n        actual = sha(p) if p.is_file() else None\n        rows.append(dict(path=str(p), expected_sha256=expected, actual_sha256=actual, match=actual == expected))\n    return dict(files=len(rows), matches=sum(r['match'] for r in rows), rows=rows)\n\nfiles = []; pruned = []; symlinks = []\nfor base, dirs, names in os.walk(ROOT, followlinks=False):\n    for d in list(dirs):\n        path = Path(base)/d\n        if d in EXCLUDE or path.is_symlink():\n            dirs.remove(d); pruned.append(str(path.relative_to(ROOT)))\n    for name in names:\n        p = Path(base)/name\n        if p.is_symlink():\n            symlinks.append(dict(path=str(p.relative_to(ROOT)), target=os.readlink(p))); continue\n        if p.is_file():\n            before = p.stat(); digest = sha(p); after = p.stat()\n            if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):\n                raise ValueError('Input changed during read-only audit: '+str(p))\n            files.append(dict(path=str(p.relative_to(ROOT)), bytes=before.st_size, sha256=digest))\nfiles.sort(key=lambda r:r['path'])\nextensions = dict(sorted(collections.Counter(Path(r['path']).suffix.lower() for r in files).items()))\ninv = dict(root=str(ROOT), exclusions=sorted(EXCLUDE), excluded_directories=sorted(pruned), symlinks_not_followed=symlinks,\n           files=files, total_files=len(files), total_bytes=sum(r['bytes'] for r in files))\nINVENTORY.write_text(json.dumps(inv, indent=2)+'\\n')\nby_path = {r['path']:r for r in files}\n\nrecord_path = sorted(RECORD_ROOT.glob('*/*/FORECAST_RECORD_*.json'))[0]\nrecord = load(record_path)\ncheckpoint = Path(record['checkpoint_path'])\nif sha(checkpoint) != record['checkpoint_sha256']: raise ValueError('Required model checkpoint differs from export record')\nchannels = record['channel_names']\nsource_channels = sorted({c.split('=')[0] for c in channels})\ncatalog = load(CATALOG)\nneedle = re.compile(r'caldor|\\brim\\b|rim2013', re.I)\ncatalog_matches = []\nfor row in catalog:\n    matches = {k:v for k,v in row.items() if isinstance(v,str) and needle.search(v)}\n    if matches: catalog_matches.append(dict(id=row.get('id'), scalar_matches=matches))\nsource_inputs = load(ROOT/'new_fire/SOURCE_INPUTS.json')\nmanifest = load(ROOT/'new_fire/MANIFEST.json')\nsource_checks = verify_map(source_inputs['source_sha256'])\nstack_checks = verify_map(manifest['source_sha256'])\n\ncases = []\nfor incident, rel in [('Caldor2021','new_fire/inputs_v2/Caldor2021'), ('Rim2013','new_fire/inputs/Rim2013')]:\n    folder = ROOT/rel; meta = load(folder/'INPUT_METADATA.json'); graph = load(folder/'GRAPH.json')\n    build = load(folder/'BUILD_RECEIPT.json'); provenance = meta['provenance']\n    arrays = []\n    for name in ['EVENTS.npz','packet/constructed_arrays.npz']:\n        with np.load(folder/name, allow_pickle=False) as z:\n            keys = {k:dict(shape=list(z[k].shape),dtype=str(z[k].dtype)) for k in z.files}\n        arrays.append(dict(path=rel+'/'+name, sha256=sha(folder/name), arrays=keys,\n                           required_environment_channels_present=[c for c in source_channels if c in keys]))\n    clock = datetime.fromisoformat(meta['time_origin'])\n    whole_hour = clock.minute == 0 and clock.second == 0 and clock.microsecond == 0\n    cases.append(dict(incident=incident, metadata_path=rel+'/INPUT_METADATA.json', metadata_sha256=sha(folder/'INPUT_METADATA.json'),\n                      source_kind=meta['source_kind'], crs=meta['crs'], affine_transform=meta['affine_transform'],\n                      native_shape=[graph['grid']['height'],graph['grid']['width']], time_origin=meta['time_origin'],\n                      directly_admitted_by_whole_hour_export_clock=whole_hour,\n                      survey_times=provenance['perimeter_observation_times_utc'], source_clock_scope=provenance['scope'],\n                      source_timing_rule=provenance['timing_rules'], training_selection_exposure=build['source_inputs'].get('training_selection_exposure'),\n                      dataset=provenance['dataset'], dataset_license=provenance['dataset_license'], arrays=arrays,\n                      required_channel_admission={c:'NOT_ESTABLISHED: no aligned source raster/band, validity and causal clock provenance in audited local inputs' for c in source_channels},\n                      status='NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE'))\n\nacquisitions = []\nfor rel in ['broader/external_fire_inputs/Caldor_SELECTED_MEMBER_ACQUISITION.json','broader/external_fire_inputs/RimFire_SELECTED_MEMBER_ACQUISITION.json']:\n    a = load(ROOT/rel)\n    acquisitions.append(dict(path=rel, sha256=sha(ROOT/rel), scope=a['scope'],\n                             downloaded_members=[d['member'] for d in a['downloads']],\n                             full_archive_md5_verified=a.get('full_archive_md5_verified')))\nsource_evidence = {}\nfor path in ['forecast/wildfire/api.py','forecast/wildfire/data.py','integration/src/wfg_latest/export.py','integration/src/wfg_latest/contract.py']:\n    source_evidence[path] = sha(Path(path))\ndata_suffixes = {'.tif','.tiff','.nc','.lcp','.asc','.grb','.grib','.grib2','.npy','.npz','.csv','.h5','.hdf5'}\npayloads = [r for r in files if Path(r['path']).suffix.lower() in data_suffixes]\nraster_files = [r for r in payloads if Path(r['path']).suffix.lower() not in {'.npz','.csv'}]\n# Other tabular files are retained explicitly, not silently treated as raster inputs.\nimport csv\nimport zipfile\nimport xml.etree.ElementTree as ET\nother_tables = []\nfor item in files:\n    path = ROOT/item['path']\n    if path.suffix.lower() == '.csv':\n        with path.open(newline='') as f: header = next(csv.reader(f), [])\n        other_tables.append(dict(path=item['path'], sha256=item['sha256'], header=header))\n    elif path.suffix.lower() == '.xlsx':\n        with zipfile.ZipFile(path) as z: workbook = ET.fromstring(z.read('xl/workbook.xml'))\n        sheets = [x.attrib.get('name') for x in workbook.iter() if x.tag.endswith('sheet')]\n        other_tables.append(dict(path=item['path'], sha256=item['sha256'], sheets=sheets,\n                                 scope='Named NIST Camp Fire spread workbook, a different incident; no Caldor/Rim aligned raster or causal channel binding'))\nprogram = globals().get('AUDIT_PROGRAM') or load(OUT)['audit_program']\nreport = dict(schema='wfg.next.caldor-rim-alignment-audit/1', created_utc=datetime.now(timezone.utc).isoformat(),\n              status='NATIVE_FORECAST_ALIGNMENT_NOT_ESTABLISHED_IN_BOUNDED_SCOPE', host=platform.platform(), python=sys.version,\n              source_head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),\n              scope=dict(read_only_root=str(ROOT), full_relative_path_inventory=str(INVENTORY), inventory_sha256=sha(INVENTORY),\n                         exclusions=sorted(EXCLUDE), excluded_directories=sorted(pruned), no_remote_fetch=True,\n                         no_resampling=True, no_forecast_or_thermal_experiment=True, limitations='No global claim that external data cannot exist. Excluded package/runtime trees are not audited as incident inputs. Remote member indexes and partial range buffers are not aligned environmental inputs.'),\n              inventory_summary=dict(files=len(files), bytes=sum(r['bytes'] for r in files), extensions=extensions,\n                                     native_environment_raster_or_array_files=raster_files, all_npz_csv_candidates=payloads, other_tabular_assets=other_tables),\n              model_requirement=dict(checkpoint_sha256=record['checkpoint_sha256'], checkpoint_path=str(checkpoint),\n                                     source_record=str(record_path.resolve()), source_record_sha256=sha(record_path),\n                                     source_channels=source_channels, expanded_channels=channels,\n                                     named_channel_authority='export record channel_names comes from model.channel_names; _sample_environment rejects missing channels',\n                                     grid_authority='WildfireSequenceDataset._reader requires exact EPSG, affine and shape',\n                                     clock_authority='contract.normalize_cutoff requires a whole UTC hour; exporter binds cutoff/sample/prediction clocks'),\n              supplied_catalog=dict(path=str(CATALOG), sha256=sha(CATALOG), events=len(catalog),\n                                    ids=[r['id'] for r in catalog], exact_scalar_field_matches=catalog_matches,\n                                    method='Case-insensitive Caldor or word-boundary Rim or Rim2013 in each top-level string scalar; no full-text inference'),\n              frozen_source_inputs_manifest=dict(path=str(ROOT/'new_fire/SOURCE_INPUTS.json'), sha256=sha(ROOT/'new_fire/SOURCE_INPUTS.json'), verification=source_checks),\n              frozen_study_manifest=dict(path=str(ROOT/'new_fire/MANIFEST.json'), sha256=sha(ROOT/'new_fire/MANIFEST.json'), verification=stack_checks),\n              cases=cases, acquisition_evidence=acquisitions, local_code_sha256=source_evidence,\n              graph_evidence=dict(project='wfg-next-1c-audit-e68123d81-20261030', generation='2026-10-30T03:54:43Z',\n                                  material_paths='forecast api/data and current reports metadata_match; integration subtree excluded, direct exact source read. External sealed study is outside graph and directly inventoried/read.',\n                                  non_material_trace_limit='Inbound _reader trace was truncated; no exhaustive caller claim is made.'),\n              conclusion='Existing sealed packets are retrospective four-member survey-gap timing constructions with assumed burning phases, scalar fuel/combustion parameters, roads and model-clock bookkeeping. They do not supply six named causal c651 environmental channels on the exact packet grid, a compatible whole-hour event record or prospective availability provenance. No forced comparability or new false-safe/exposure estimate.',\n              remaining_gates=['Native Caldor/Rim forecast exports NOT_RUN_ALIGNMENT_UNESTABLISHED', 'Law-v2 physics/enclosure gate unresolved', 'Full-policy truth support and risk rates remain unresolved'],\n              producer_sha256=hashlib.sha256(program.encode()).hexdigest(), audit_program=program,\n              reproduction=\"python -c 'import json; r=json.load(open(\\\"research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.json\\\")); exec(compile(r[\\\"audit_program\\\"], \\\"bounded_read_only_audit\\\", \\\"exec\\\"), {\\\"AUDIT_PROGRAM\\\": r[\\\"audit_program\\\"]})'\")\nOUT.write_text(json.dumps(report, indent=2, allow_nan=False)+'\\n')\nprint(json.dumps(dict(status=report['status'], files=len(files), bytes=inv['total_bytes'], raster_candidates=len(raster_files),\n                     source_assets_match=f\"{source_checks['matches']}/{source_checks['files']}\", study_manifest_match=f\"{stack_checks['matches']}/{stack_checks['files']}\",\n                     catalog_events=len(catalog), catalog_matches=len(catalog_matches), cases=[dict(incident=c['incident'],shape=c['native_shape'],whole_hour=c['directly_admitted_by_whole_hour_export_clock']) for c in cases])))\n",
+  "reproduction": "python -c 'import json; r=json.load(open(\"research/scenario-members/CALDOR_RIM_ALIGNMENT_AUDIT.json\")); exec(compile(r[\"audit_program\"], \"bounded_read_only_audit\", \"exec\"), {\"AUDIT_PROGRAM\": r[\"audit_program\"]})'"
+}

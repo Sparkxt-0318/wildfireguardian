@@ -1,0 +1,11 @@
+# scenario-members experimental overlay
+
+Opt-in research code. Evidence and producing commands: research/scenario-members/README.md. Overall track status is HOLD_PARTIAL; see research/scenario-members/TRACK_STATUS.json for exact completed and open requirements.
+
+Use Python 3.12 with NumPy 1.26.4 and the routing constraints. Forecast export requires the separate pinned forecast environment. Add this overlay's src plus the scenario-members, sipp-routing and synthetic-truth sibling src directories to PYTHONPATH for tests. No frozen kit or checkpoint is changed. The opt-in experimental/scenario-members/export_v3.py wrapper preserves the frozen integration exporter and its publication identity.
+
+This code concerns represented models and source support, not physical safety. Unknown source fields remain unsupported; capped computation remains unresolved. No new checkpoint default or application policy is promoted.
+
+`wfg_scenario_members.features.road_arrival_features(graph, model, departure=0, horizon=3600, unknown_native=None)` derives the directed-road feature from the copied exact chord geometry. All clocks and travel_ticks here are integer seconds, and coordinates must be projected metres. It returns raw first unsafe departure seconds, capped features, known masks, member/edge identities and metre chord lengths. For every midpoint subsegment and every boundary cutpoint, activity [b,e) blocks departures from ceil(b-D*z_end) through ceil(e-D*z_start)-1. The feature minimizes over complete traversals departing in [departure,horizon-D]. It includes current-fire activity. Never unsafe is infinity and caps to horizon; unknown remains NaN. Outside-grid endpoints are refused before flattened cell indices can alias another row. Native north-up masks are explicitly converted to graph cells.
+
+Pass first_unsafe_departure_s and edge_lengths_m to distances(method="edge_arrival"). Unknown cells off the represented chord do not affect this contact-only distance. An unknown positive-weight edge refuses reduction; an explicit zero-weight edge can be omitted. This feature alone does not supply radiation support or full-policy route acceptance. Comparisons and selectors preserve nonnegative weights with stable maximum-scaled normalization; weighted thresholds retain exact rational comparisons.

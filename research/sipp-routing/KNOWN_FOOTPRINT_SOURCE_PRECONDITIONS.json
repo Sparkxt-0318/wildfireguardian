@@ -1,0 +1,237 @@
+{
+  "schema": "wfg.next.known-footprint-source-preconditions/1",
+  "audit_program": "from pathlib import Path\nimport hashlib,json\ncases_path=Path(\"research/sipp-routing/native-panel-20261030/CASES.json\")\ncases=json.loads(cases_path.read_text())\nrows=[]\nfor case in cases:\n    if case[\"panel\"]!=\"Korean\": continue\n    path=Path(case[\"packet\"])/\"NATIVE_METADATA.json\"\n    actual=hashlib.sha256(path.read_bytes()).hexdigest()\n    assert actual==case[\"input_sha256\"][\"NATIVE_METADATA.json\"]\n    metadata=json.loads(path.read_text()); st=metadata[\"settings\"]\n    rows.append(dict(mission=case[\"mission\"],metadata_path=str(path),metadata_sha256=actual,\n        seed=st[\"seed\"],timing=st[\"timing\"],horizon_s=st[\"horizon_s\"],\n        burning_duration_s=st[\"burning_duration_s\"],\n        initial_remaining_s=metadata[\"construction\"][\"assumptions\"][\"initial_remaining_s\"],\n        initial_remaining_exact=metadata[\"construction\"][\"assumptions\"][\"initial_remaining_exact\"]))\nprint(json.dumps(dict(cases_sha256=hashlib.sha256(cases_path.read_bytes()).hexdigest(),rows=rows),sort_keys=True))\n",
+  "audit_program_sha256": "6e1d9456c8b05781f8e12a6a4b10caa1db167e132a4a0f286c9746520f9cbdc6",
+  "reproduce": "Run audit_program from this JSON in the repository root; compare its JSON output to source_readout.",
+  "source_readout": {
+    "cases_sha256": "5a6cb7ab5fcd4f224f0bf3b724cdf2baec5d8a63b74c2d47de6841e7a9f33a02",
+    "rows": [
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": true,
+        "initial_remaining_s": 3207.19289728573,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+        "mission": "20220304T030000Z_FX1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3927.448229278833,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T080000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+        "mission": "20220601T080000Z_FX1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3455.8183235781494,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T070000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "4140641d5e76cc443ebf1565ecede7712731a3b7f3f06fdb29a022d32aa1addd",
+        "mission": "20230402T070000Z_FX1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3791.7249626772705,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250323T010000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c",
+        "mission": "20250323T010000Z_FX2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3964.7733635561767,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+        "mission": "20250325T190000Z_FX2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3882.580637420923,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T060000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "06a4bd0a8f7d8d332c7ac5c26c481bcebd6a905f2ee106bf7ccfd7efde837709",
+        "mission": "20220304T060000Z_FL1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3777.429918731958,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T020000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "4e836009eafe57d1d70d6d5595f94b398452eea3ac0c38cc8e752d3293a9fb13",
+        "mission": "20220601T020000Z_FW1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3791.1605400698486,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T140000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "46fcabbe4e95aaaf561ae70d9ca3613322442ddef385181800d435f23b6c7481",
+        "mission": "20230402T140000Z_FW2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3495.2588982241455,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250324T090000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d",
+        "mission": "20250324T090000Z_FL2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3829.614061798364,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T230000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b",
+        "mission": "20250325T230000Z_FL2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3595.386003937036,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T120000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "bc2c66cba6745e0e285ede46182edd7a4cd1f220c1dcabfca20f5cadb5e0540a",
+        "mission": "20220304T120000Z_FW2",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3927.448229278833,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220601T080000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "20213264dcab381d39c0dda9ef071f9d2f130545b7f75fb736d83ecf82ec8aa2",
+        "mission": "20220601T080000Z_FD1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3896.540026153833,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T230000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "6513b60205a420a8e5d916fb62b4f23b0a7e3c4f8faf51c432c9f98e2606973f",
+        "mission": "20230402T230000Z_FD1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3967.107958282739,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250325T170000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa",
+        "mission": "20250325T170000Z_FW1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3912.945360626489,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250326T080000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc",
+        "mission": "20250326T080000Z_FW1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": true,
+        "initial_remaining_s": 3207.19289728573,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uljin_2022/packets/20220304T030000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "750d12a5700b58de6f5ed28ab1e38daa7405c5fa8e95ac75d5b29ecce872fedf",
+        "mission": "20220304T030000Z_FD1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3789.253954376489,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/miryang_2022/packets/20220531T100000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "1d5ca13da15614a4197eacb95c7dd48c401561049c59027f999da56fd652b026",
+        "mission": "20220531T100000Z_FN1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3455.8183235781494,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/hongseong_2023/packets/20230402T070000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "4140641d5e76cc443ebf1565ecede7712731a3b7f3f06fdb29a022d32aa1addd",
+        "mission": "20230402T070000Z_FN1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3791.7249626772705,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/uiseong_andong_2025/packets/20250323T010000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c",
+        "mission": "20250323T010000Z_FD1",
+        "seed": 20261008,
+        "timing": "uniform"
+      },
+      {
+        "burning_duration_s": 3970.4642815249267,
+        "horizon_s": 3600.0,
+        "initial_remaining_exact": false,
+        "initial_remaining_s": 3964.7733635561767,
+        "metadata_path": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z/NATIVE_METADATA.json",
+        "metadata_sha256": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+        "mission": "20250325T190000Z_FD1",
+        "seed": 20261008,
+        "timing": "uniform"
+      }
+    ]
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "derived_statement": "Every recorded scalar T exceeds the unchanged 3600s source/mission horizon. This supports the algebraic scope lemma in KNOWN_FOOTPRINT_SOURCE_SCOPE.md, not a timed routing result.",
+  "no_graph_parse": true,
+  "no_simulation": true,
+  "no_planner": true
+}

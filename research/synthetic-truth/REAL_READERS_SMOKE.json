@@ -1,0 +1,533 @@
+{
+  "scope": "three real-format loader smokes, no exact observation truth or risk score",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "source_head": "a1fb31a4e9df9c35957febb1961d68548c01d59b",
+  "producer_sha256": "0d8ec31d1354dc9f3f56e3de6b88671ad6a74a55d45d8a83b533bf7d33e7689f",
+  "adapter_sha256": "cd7984f714c06a35cc4f04f8afed66ca0b45ddeb1f7cb768efbd774ef29c49ef",
+  "input_ledgers": {
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/EXTRACTION_MANIFEST.json": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/historical_observed/MANIFEST.json": "c9de4f23a9ea5c597c4ce32eb4f0662e2c1bb361b1735125a45d9784f3a8dccd",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_01/grid.json": "6a9e0d28fb14f0aa10d5b9455d765a87c67a852e73c37e421fa126dd8eadcc0c",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/OR-WIF-220180_CedarCreek/grid.json": "bfc3e8fd8314cb4c8002a4f117b2df079735fcf54324d4a169faf7b9b552c72e",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/perimeters/PERIMETER_MANIFEST.json": "ec85525ebe90091036e77bd517abc563c385e81db0ae53ecc30c6d4cb3c019c6",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/historical_observed/20261013_observed_merged/cases/b0196655a9648847dcb4/protocol.json": "30b699126792369d09de65650f3eddadad65986232f7df7ca93c533a33a86107"
+  },
+  "readers": [
+    {
+      "kind": "reconstructed_arrival",
+      "source": {
+        "source_id": "KFS_01:reconstruction",
+        "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_01/arrival_time_hours.tif",
+        "sha256": "fe81f945ddb9dd68f9de27b5865ca12d1a345934540934b723bd66b7d01fa953",
+        "std_source": {
+          "source_id": "KFS_01:reconstruction:sd",
+          "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_01/kriging_std_hours.tif",
+          "sha256": "40305f9fecf5fffb77797ec0c8d1e22ad514ddf214dc654ba1188f23d3d77ecf"
+        },
+        "origin_utc": "2025-03-22T02:24:00+00:00",
+        "cutoff_utc": "2025-03-22T02:00:00+00:00",
+        "units": "hours",
+        "std_multiplier": 2.0
+      },
+      "shape": [
+        79,
+        237
+      ],
+      "affine": [
+        375.0,
+        0.0,
+        1085250.0,
+        0.0,
+        -375.0,
+        1845375.0
+      ],
+      "epsg": 5179,
+      "known_cells": 10955,
+      "unknown_cells": 7768,
+      "never_cells": 0,
+      "point_model": false,
+      "status": "UNSCORABLE",
+      "interpretation": "Reconstructed model arrival; nodata unknown; SD bounds descriptive, not calibrated ignition confidence"
+    },
+    {
+      "kind": "observed_perimeters",
+      "source": {
+        "source_id": "OR-WIF-220180_CedarCreek:NIROPS",
+        "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/perimeters/OR-WIF-220180_CedarCreek/perimeters.geojson",
+        "sha256": "191255ba42537fc39a31598e69ca7d95c9714c03d75a2e1adc55ccbb545b299a",
+        "records": [
+          {
+            "source_record_id": 9115,
+            "time_utc": "2022-08-05T04:44:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9116,
+            "time_utc": "2022-08-06T05:11:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9117,
+            "time_utc": "2022-08-07T04:49:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9118,
+            "time_utc": "2022-08-08T04:40:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9119,
+            "time_utc": "2022-08-10T06:22:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9120,
+            "time_utc": "2022-08-11T04:46:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9121,
+            "time_utc": "2022-08-12T05:11:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9122,
+            "time_utc": "2022-08-13T04:54:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9123,
+            "time_utc": "2022-08-14T04:33:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9124,
+            "time_utc": "2022-08-15T04:28:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9125,
+            "time_utc": "2022-08-16T05:12:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9126,
+            "time_utc": "2022-08-21T03:17:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9127,
+            "time_utc": "2022-08-22T04:17:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9128,
+            "time_utc": "2022-08-23T03:04:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9129,
+            "time_utc": "2022-08-24T04:19:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9130,
+            "time_utc": "2022-08-25T03:29:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9131,
+            "time_utc": "2022-08-26T03:53:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9132,
+            "time_utc": "2022-08-27T04:04:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9133,
+            "time_utc": "2022-08-28T04:50:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9134,
+            "time_utc": "2022-08-29T05:10:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9135,
+            "time_utc": "2022-08-30T04:06:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9138,
+            "time_utc": "2022-09-02T04:36:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9139,
+            "time_utc": "2022-09-03T04:34:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9140,
+            "time_utc": "2022-09-04T04:06:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9141,
+            "time_utc": "2022-09-05T04:04:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9142,
+            "time_utc": "2022-09-06T04:20:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9143,
+            "time_utc": "2022-09-08T04:45:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9144,
+            "time_utc": "2022-09-09T04:59:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9145,
+            "time_utc": "2022-09-10T04:11:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9146,
+            "time_utc": "2022-09-11T05:45:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9149,
+            "time_utc": "2022-09-16T04:13:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9150,
+            "time_utc": "2022-09-17T03:27:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9151,
+            "time_utc": "2022-09-19T03:22:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9152,
+            "time_utc": "2022-09-20T02:48:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9153,
+            "time_utc": "2022-09-23T03:59:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9154,
+            "time_utc": "2022-09-24T02:31:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9155,
+            "time_utc": "2022-09-25T03:59:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9156,
+            "time_utc": "2022-09-26T02:27:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9157,
+            "time_utc": "2022-09-27T02:22:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9158,
+            "time_utc": "2022-09-28T02:11:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9159,
+            "time_utc": "2022-10-01T04:06:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9160,
+            "time_utc": "2022-10-02T03:46:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9161,
+            "time_utc": "2022-10-03T03:02:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9162,
+            "time_utc": "2022-10-04T03:18:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9163,
+            "time_utc": "2022-10-05T03:02:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9164,
+            "time_utc": "2022-10-06T03:30:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9165,
+            "time_utc": "2022-10-07T02:46:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9166,
+            "time_utc": "2022-10-08T02:01:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9168,
+            "time_utc": "2022-10-10T02:26:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9169,
+            "time_utc": "2022-10-11T02:32:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9170,
+            "time_utc": "2022-10-12T01:40:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9171,
+            "time_utc": "2022-10-14T01:40:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9172,
+            "time_utc": "2022-10-15T01:18:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9173,
+            "time_utc": "2022-10-16T01:35:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9174,
+            "time_utc": "2022-10-17T01:06:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          },
+          {
+            "source_record_id": 9178,
+            "time_utc": "2022-10-27T21:06:00+00:00",
+            "time_quality": "publisher_clock_may_be_estimated",
+            "cause": "mapped_burned_extent_not_ignition"
+          }
+        ],
+        "unusable_records": [
+          {
+            "source_record_id": 9136,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.066325535711 43.7289063126705]"
+          },
+          {
+            "source_record_id": 9137,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.066325535711 43.7289063126705]"
+          },
+          {
+            "source_record_id": 9147,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.179620856632 43.7997411531516]"
+          },
+          {
+            "source_record_id": 9148,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.179620856632 43.7997411531516]"
+          },
+          {
+            "source_record_id": 9167,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.3029693962 43.7180928142894]"
+          },
+          {
+            "source_record_id": 9175,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.129916677637 43.789359802331]"
+          },
+          {
+            "source_record_id": 9176,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.031155102618 43.8096169544686]"
+          },
+          {
+            "source_record_id": 9177,
+            "reason": "Invalid/empty/nonpolygon geometry; no automatic repair",
+            "geometry_type": "MultiPolygon",
+            "geometry_validity": "Ring Self-intersection[-122.155096108639 43.8653362798288]"
+          }
+        ],
+        "cutoff_utc": "2022-08-04T00:00:00+00:00",
+        "coverage": "No survey-negative footprint supplied",
+        "rasterization": "cell centre, positive extents only"
+      },
+      "shape": [
+        95,
+        112
+      ],
+      "affine": [
+        375.0,
+        0.0,
+        -2089125.0,
+        0.0,
+        -375.0,
+        2614875.0
+      ],
+      "epsg": 5070,
+      "known_cells": 0,
+      "unknown_cells": 10640,
+      "never_cells": 0,
+      "point_model": false,
+      "status": "UNSCORABLE",
+      "interpretation": "Conditional publisher-clock arrival upper bounds; no exact ignition or physical unburned/never inference"
+    },
+    {
+      "kind": "external_simulator",
+      "source": {
+        "source_id": "ID-BOF-000683_Wapiti_Wapiti:stored-FARSITE",
+        "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/historical_observed/20261013_observed_merged/cases/b0196655a9648847dcb4/farsite_prediction.npz",
+        "sha256": "9f51aca462017dbe4ba7d0750a4a4a72ec1355c53a8eb9d248ec0f5fd7846471",
+        "reference": {
+          "source_id": "ID-BOF-000683_Wapiti_Wapiti:stored-FARSITE:reference",
+          "path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/historical_observed/20261013_observed_merged/cases/b0196655a9648847dcb4/reference.npz",
+          "sha256": "6c08e61380def18807fee377b2e044e93f36f8a93264a651a572c98d7e6ae921"
+        },
+        "metadata": {
+          "arrival_endpoint": "inclusive_at_exact_cutoff_plus_hours",
+          "arrival_origin_time_utc": 1724048580,
+          "arrival_units": "minutes",
+          "exact_duration_minutes": 1470,
+          "fixed_moisture_scenario": {
+            "dead_100h_percent": 8,
+            "dead_10h_percent": 7,
+            "dead_1h_percent": 6,
+            "foliar_percent": 100,
+            "live_herb_percent": 60,
+            "live_woody_percent": 90
+          },
+          "full_rectangle": true,
+          "grid_alignment": "caller_verified_no_resampling_in_importer",
+          "initial_ignition_policy": "observed_initial_burn_union_simulated_arrivals_including_zero",
+          "method": "farsite_deterministic",
+          "missing_burned_area": "unburned",
+          "model_family": "FARSITE",
+          "no_burn_value": -9999.0,
+          "observed_clock_patch": "split start/end parsed HHMM into hour*100 and separate minute fields",
+          "observed_initial": true,
+          "output_interpretation": "degenerate Bernoulli occupancy from one deterministic simulator scenario",
+          "scenario_count": 1,
+          "unavailable_domain": "excluded_by_explicit_coverage",
+          "uncertainty_interpretation": "No Monte Carlo sampling or probability calibration; simulation intervals unavailable"
+        },
+        "cutoff_utc": "2024-08-19T06:23:00+00:00"
+      },
+      "shape": [
+        111,
+        105
+      ],
+      "affine": [
+        375.0,
+        0.0,
+        -1536375.0,
+        0.0,
+        -375.0,
+        2533500.0
+      ],
+      "epsg": 5070,
+      "known_cells": 11655,
+      "unknown_cells": 0,
+      "never_cells": 11215,
+      "point_model": true,
+      "status": "MODEL_RELATIVE_ARRIVAL_ONLY",
+      "interpretation": "Stored deterministic FARSITE scenario, conditional on declared simulation coverage and alignment"
+    }
+  ],
+  "native_simulator_execution": "NOT_RUN, current native installation availability unconfirmed; stored outputs only"
+}

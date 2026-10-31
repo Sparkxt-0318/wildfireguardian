@@ -1,0 +1,11 @@
+{
+  "executions": 104,
+  "missions": 26,
+  "equivalent_pairs": 52,
+  "pairs": 52,
+  "sipp_slower_pairs": 4,
+  "median_complete_ratio": 0.6330253728172814,
+  "maximum_complete_wall_s": 5.209566792007536,
+  "maximum_sampled_child_rss_mib": 487.34375,
+  "input_rows_sha256": "b6db82b0e5bdb5bce54a8005cfca82fcdb0720472ab88e66dbe9ab13cf946794"
+}

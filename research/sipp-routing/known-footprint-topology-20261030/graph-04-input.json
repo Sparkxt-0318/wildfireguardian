@@ -1,0 +1,79 @@
+{
+  "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json",
+  "graph_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+  "cases": [
+    {
+      "panel": "Korean",
+      "region": "yeongdeok_2025",
+      "mission": "20250325T190000Z_FX2",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T190000Z_FX2.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z",
+      "job_sha256": "cf0d8d57837490441464d47a5d9f8ee08562b98d0e309fe35d602962700ba20e",
+      "input_sha256": {
+        "graph": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+        "request": "d0f72166525cb00b124b721eb8ce9e038a32a3f41b83998f1651b4801ae0d7ec",
+        "REPORT.json": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b",
+        "NATIVE_METADATA.json": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+        "constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+        "HAZARD.json": "fe33db2193742879840f365b4ed6385a1d9e4ae2f00325ffdd190e1b268ed3f6"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "yeongdeok_2025",
+      "mission": "20250325T230000Z_FL2",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T230000Z_FL2.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T230000Z",
+      "job_sha256": "17c533e382fbdc890ee9fc7425da83cdb63f4b85ef06a13ae82d972c9823fced",
+      "input_sha256": {
+        "graph": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+        "request": "812d9ec425ebe14d64e49e336b44b9fec1ff0f2dff7c971f8258670d6a60ff0a",
+        "REPORT.json": "3d31072c95da569e8c851eb5e0d4975005a5a1ab4929fe41f09fb6be4302093d",
+        "NATIVE_METADATA.json": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b",
+        "constructed_arrays.npz": "7dd677f41f1ef8927283c20bddbc1d4f404dc64e81dc5b5d7dc04e630e674af5",
+        "HAZARD.json": "fa347cf3077fdbeda4ed4a7cef4a6f37b710a8d046a4046a83c21f3c2bc9e38f"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "yeongdeok_2025",
+      "mission": "20250326T080000Z_FW1",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250326T080000Z_FW1.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250326T080000Z",
+      "job_sha256": "563edb961b026b360436bf904d27e745d81c6cf500463509ee49295e14c35c56",
+      "input_sha256": {
+        "graph": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+        "request": "fa10b1ae293a6e2e7fde5cb96df148b5595941d9f8326589fc5ea5604f1c2609",
+        "REPORT.json": "7672f73be59b58113b1ea601c97c8711a2e45f0aee36a52d83f39af28722cb5e",
+        "NATIVE_METADATA.json": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc",
+        "constructed_arrays.npz": "645c363012c1c7237d30da2393dec877ec92bd0d444ee9b7df28a2cab7aa5356",
+        "HAZARD.json": "0f468b69a569b2c2f3d572c8649a8b3c5670502f25deda04e0d93761320a9d85"
+      }
+    },
+    {
+      "panel": "Korean",
+      "region": "yeongdeok_2025",
+      "mission": "20250325T190000Z_FD1",
+      "graph": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/graph.json",
+      "request": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/requests/20250325T190000Z_FD1.json",
+      "packet": "/Users/jp/Documents/Codex/2026-09-24/fu/outputs/latest_forecast_routing_completion_20261015_v1/execution/run/WFG-latest-completion-kit-20261015-v3/inputs/latest/yeongdeok_2025/packets/20250325T190000Z",
+      "job_sha256": "2420090afc397d3528009155d3ed53f9f51c577af84840a9c2ec57bcf22e91d9",
+      "input_sha256": {
+        "graph": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+        "request": "8ec554d805828c43f445aabef967754ffe73262b73337cf0d0837717635541bd",
+        "REPORT.json": "296aef532747c2c864b109d4848f7d5bc030e6cf60673301328993492cad4a8b",
+        "NATIVE_METADATA.json": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695",
+        "constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+        "HAZARD.json": "fe33db2193742879840f365b4ed6385a1d9e4ae2f00325ffdd190e1b268ed3f6"
+      }
+    }
+  ],
+  "domain_ids": [
+    "d003",
+    "d004",
+    "d005"
+  ]
+}

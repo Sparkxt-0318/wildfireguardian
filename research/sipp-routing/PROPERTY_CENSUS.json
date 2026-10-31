@@ -1,0 +1,11 @@
+{
+ "cases": 10000,
+ "agree": 10000,
+ "disagree": 0,
+ "found": 8312,
+ "no_journey": 1688,
+ "fire_changed_answer": 1244,
+ "witness_legal": 8312,
+ "pieces_total": 231990,
+ "lattice_states_bound_total": 19471518
+}
