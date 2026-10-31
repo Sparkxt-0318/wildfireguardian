@@ -163,3 +163,98 @@ def itinerary(vid, *actions) -> Itinerary:
 
 def solution(*itineraries, name="SYNTHETIC-test", method="hand") -> Solution:
     return Solution(instance=name, method=method, itineraries=list(itineraries))
+
+
+# ------------------------------------------------------------------------- random test cases
+def random_case(seed: int, *, p_unknown: float = 0.04, p_burn: float = 0.08):
+    """A small random SYNTHETIC instance, scenario set and (often imperfect) plan, from one seed.
+
+    Plans are purposeful (depot -> facility -> shelter trips on lattice paths) with random idles,
+    waits, partial or excessive boardings and partial unloads, so every state and many validator
+    issues occur. Returns ``(instance, scenario_set, solution)``.
+    """
+    rng = np.random.default_rng(seed)
+    K, H, W = int(rng.integers(1, 3)), int(rng.integers(3, 6)), int(rng.integers(3, 6))
+    horizon = float(rng.choice([400.0, 900.0, 5000.0]))
+    kind = rng.choice(3, p=[1 - p_unknown - p_burn, p_burn, p_unknown], size=(K, H, W))
+    ig = np.full((K, H, W), INF)
+    ex = np.full((K, H, W), INF)
+    burn, unk = kind == 1, kind == 2
+    ig[burn] = rng.choice([-80.0, 0.0, 90.0, 160.0, 260.0, 420.0, 700.0], size=int(burn.sum()))
+    ex[burn] = ig[burn] + rng.choice([15.0, 60.0, 250.0, 5000.0], size=int(burn.sum()))
+    ig[unk] = NAN
+    ex[unk] = NAN
+    ss = make_set(ig, ex, horizon=horizon)
+
+    travel = float(rng.choice([20.0, 35.0, 50.0]))
+    cells = [(r, c) for r in range(H) for c in range(W)]
+    waitable = {rc for rc in cells if rng.random() < 0.9}
+    forbidden = []
+    for (r, c) in cells:                       # a few banned U-turns
+        for dr, dc in ((0, 1), (1, 0)):
+            r2, c2 = r + dr, c + dc
+            if r2 < H and c2 < W and rng.random() < 0.1:
+                forbidden.append((eid((r, c), (r2, c2)), eid((r2, c2), (r, c))))
+    graph = grid_graph(H, W, travel=travel, waitable=waitable, forbidden=forbidden)
+
+    def pick():
+        return cells[int(rng.integers(len(cells)))]
+
+    fac_rc = {f"F{i}": pick() for i in range(int(rng.integers(1, 3)))}
+    shl_rc = {f"S{i}": pick() for i in range(int(rng.integers(1, 3)))}
+    dep_rc = {f"V{i}": pick() for i in range(int(rng.integers(1, 3)))}
+    facilities = [facility(f, nid(*rc), *(int(x) for x in rng.integers(0, 4, size=3)),
+                           board=tuple(float(x) for x in rng.choice([0.0, 5.0, 15.0], size=3)),
+                           release=float(rng.choice([0.0, 0.0, 0.0, 30.0, 120.0]))) for f, rc in fac_rc.items()]
+    win = [((0.0, 1e5),), ((0.0, 200.0), (300.0, 1e5)), ((100.0, 600.0),)]
+    shelters = [shelter(s, nid(*rc), cap=tuple(int(x) for x in rng.integers(0, 7, size=3)),
+                        windows=win[int(rng.integers(len(win)))],
+                        unload=tuple(float(x) for x in rng.choice([0.0, 5.0, 10.0], size=3))) for s, rc in shl_rc.items()]
+    vehicles = [vehicle(v, nid(*rc), start=float(rng.choice([0.0, 0.0, 20.0])), seats=int(rng.integers(1, 9)),
+                        wc=int(rng.integers(0, 3)), stretchers=int(rng.integers(0, 3)),
+                        shift=[None, None, 300.0, 900.0][int(rng.integers(4))]) for v, rc in dep_rc.items()]
+    peak = float(rng.choice([1e-3, 0.01, 0.1, 1.0, 10.0]))
+    dose = [float(x) for x in rng.choice([0.01, 0.1, 1.0, 10.0, 100.0], size=K)]
+    inst = instance(graph, facilities=facilities, vehicles=vehicles, shelters=shelters, peak=peak,
+                    dose=dose if rng.random() < 0.5 else dose[0], offset=float(rng.choice([0.0, 0.0, 25.0])))
+
+    fac = {f.id: f for f in facilities}
+    shl = {s.id: s for s in shelters}
+    left = {f.id: list(f.residents.vector()) for f in facilities}
+    its = []
+    for v in vehicles:
+        pos, clock, acts, load = dep_rc[v.id], v.start_s, [], [0, 0, 0]
+
+        def go(dest):
+            nonlocal pos, clock
+            cs = manhattan(pos, dest, rows_first=bool(rng.random() < 0.5))
+            if len(cs) > 1:
+                t = clock + float(rng.choice([0.0, 0.0, 0.0, 0.0, 15.0]))
+                acts.append(drive(path(*cs), t))
+                for _ in cs[1:]:
+                    t = t + travel
+                clock = t
+            pos = dest
+
+        for _ in range(int(rng.integers(0, 3))):
+            f = fac[list(fac)[int(rng.integers(len(fac)))]]
+            s = shl[list(shl)[int(rng.integers(len(shl)))]]
+            go(fac_rc[f.id])
+            if rng.random() < 0.2:
+                d = float(rng.choice([5.0, 30.0]))
+                acts.append(wait(nid(*pos), d))
+                clock = clock + d
+            room = [v.capacity()[c] - load[c] for c in range(3)]
+            cnt = [int(rng.integers(0, max(min(left[f.id][c], room[c]), 0) + 1 + int(rng.random() < 0.05)))
+                   for c in range(3)]
+            acts.append(board(f.id, *cnt))
+            clock = clock + f.boarding_s.duration(counts(*cnt))
+            load = [load[c] + cnt[c] for c in range(3)]
+            left[f.id] = [left[f.id][c] - cnt[c] for c in range(3)]
+            go(shl_rc[s.id])
+            out = load if rng.random() > 0.1 else [int(rng.integers(0, x + 1)) for x in load]
+            acts.append(unload(s.id, *out))
+            clock = clock + s.unloading_s.duration(counts(*out))
+            load = [load[c] - out[c] for c in range(3)]
+        its.append(itinerary(v.id, *acts))
+    return inst, ss, solution(*its)
