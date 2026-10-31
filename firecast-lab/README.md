@@ -2,6 +2,25 @@
 
 Calibrated probabilistic fire-hazard generator; side project of the program (rules: `CLAUDE.md`). Splits:
 `SPLITS.json`. Data caveats: `docs/DATA_NOTES.md`. Metric definitions and the scoring domain: `METRICS.md`.
+Leaderboard: `LEADERBOARD.md`.
+
+## Install (clean checkout)
+
+From the repository root, with Python 3.12 and uv. `requirements.lock` pins the venv that ran the Phase 0 suite.
+The three in-repo packages install from the checkout without dependencies. The frozen `wildfire` (`forecast/`) and
+`wfg_latest` (`integration/src`) packages are imported in place through a `.pth` file, never copied.
+
+```bash
+VENV=.venv                                    # any path
+uv venv --python 3.12 "$VENV"
+uv pip install --python "$VENV/bin/python" -r firecast-lab/requirements.lock
+uv pip install --python "$VENV/bin/python" --no-deps -e hazard_contract -e evacplan -e firecast-lab
+SITE=$("$VENV/bin/python" -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')
+printf '%s\n' "$PWD/integration/src" "$PWD/forecast" > "$SITE/wfg_frozen.pth"
+"$VENV/bin/python" program/benchlock.py --label fl-tests -- "$VENV/bin/python" -m pytest firecast-lab -q
+```
+
+The c651 baseline also needs torch 2.5.1, which is not in the lock (it is not on the cloud host).
 
 ## Phase 0 baselines on the real data (Mac)
 
@@ -43,8 +62,7 @@ rows only to an explicit `--out`. `--split test` needs `--allow-test` (milestone
 ## Decision metric (`METRICS.md` §7)
 
 `firecast_lab.decision` runs fixed routing requests through `evacplan.oracle`, the only code that declares
-`checked` / `model_no_route` / `unresolved`. Install evacplan into the venv first:
-`uv pip install --python .venv/bin/python -e evacplan`.
+`checked` / `model_no_route` / `unresolved` (evacplan is part of the install above).
 
 ```bash
 export FIRECAST_DATA_ROOT=/path/to/data/environment

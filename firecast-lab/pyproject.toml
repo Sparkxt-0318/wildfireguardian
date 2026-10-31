@@ -8,8 +8,8 @@ version = "0.1.0"
 description = "Track A: whole-fire splits, data checks, metrics, coherent members, baselines, the hazard_contract producer and the decision metric for a calibrated fire-hazard generator"
 requires-python = ">=3.12,<3.13"
 # The repo's forecast package (import name `wildfire`), hazard_contract and evacplan (the decision metric's oracle)
-# come from this checkout (a .pth line and editable installs in the venv). They are deliberately not listed here:
-# a PyPI package with the same name would be a different project.
+# come from this checkout (README.md, Install: editable installs and a .pth line). They are deliberately not
+# listed here: a PyPI package with the same name would be a different project.
 dependencies = ["numpy>=1.26", "scipy>=1.13", "rasterio>=1.4", "scikit-learn>=1.5", "matplotlib>=3.8"]
 
 [project.optional-dependencies]
