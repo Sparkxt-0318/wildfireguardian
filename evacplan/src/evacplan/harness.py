@@ -294,9 +294,11 @@ def _fmt(x: float | None, nd: int = 1) -> str:
 
 def render_leaderboard(rows: list[dict], split: Split | None = None) -> str:
     residents: dict[str, int] = {}
+    order: dict[str, int] = {}
     if split is not None:
         for entries in split.sets.values():
             for e in entries:
+                order.setdefault(e.id, len(order))
                 if "residents" in e.stats:
                     residents[e.id] = int(e.stats["residents"])
     lines = [
@@ -350,7 +352,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None) -> str:
                 f"{_fmt(min(slacks) if slacks else None)} | {_fmt(sum(float(r['runtime_s']) for r in rs) / len(rs), 3)} | "
                 f"{over} | {_fmt(sum(gaps) / len(gaps) if gaps else None, 3)} | {', '.join(commits)} |")
         methods = sorted({r["method"] for r in g})
-        inst_ids = sorted({r["instance"] for r in g})
+        inst_ids = sorted({r["instance"] for r in g}, key=lambda i: (order.get(i, len(order)), i))
         labels = {r["instance"]: row_config(r)["label"] or "real" for r in g}
         lines += ["", "Delivered (checked) per instance, mean over seeds:", "",
                   "| instance | label | residents | " + " | ".join(methods) + " |",
