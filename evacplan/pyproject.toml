@@ -16,8 +16,11 @@ dependencies = ["numpy>=1.26", "pydantic>=2.7,<3"]
 test = ["pytest>=8", "hypothesis>=6"]
 # real regions (evacplan.regions): OSM roads and projections
 regions = ["networkx>=3", "osmnx>=2", "pyproj>=3"]
-# baselines B2 (OR-Tools routing) and B3 (HiGHS through highspy, run in a child process)
-solvers = ["ortools>=9.10", "highspy>=1.7"]
+# baselines B2 (OR-Tools routing) and B3 (HiGHS through highspy, run in a child process).
+# ortools stays below 9.15: 9.15's Python wrapper rejects SetAllowedVehiclesForIndex's list argument
+# (TypeError: absl::Span< int const >), so B2 crashes there. The committed results were produced with
+# the exact versions in requirements.lock (ortools 9.14.6206, highspy 1.15.1, numpy 1.26.4).
+solvers = ["ortools>=9.10,<9.15", "highspy>=1.7"]
 
 [project.scripts]
 evacplan = "evacplan.cli:main"

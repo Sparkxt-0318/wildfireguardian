@@ -1,0 +1,44 @@
+# The venv that produced evacplan's committed results (Python 3.12.3, Linux x86_64), frozen with
+# `uv pip freeze --exclude-editable`. The in-repo packages hazard_contract and evacplan (editable,
+# --no-deps) and wfg_latest (integration/src on the path through a .pth file) are NOT in this file:
+# they come from this repository, never from an index. Install steps: evacplan/README.md.
+absl-py==2.5.1
+annotated-types==0.8.0
+certifi==2026.10.23
+charset-normalizer==3.5.2
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.68.0
+geopandas==1.1.4
+highspy==1.15.1
+hypothesis==6.170.13
+idna==3.20
+immutabledict==4.3.1
+iniconfig==2.3.1
+kiwisolver==1.5.1
+matplotlib==3.11.2
+networkx==3.7
+numpy==1.26.4
+ortools==9.14.6206
+osmnx==2.1.1
+packaging==26.3
+pandas==3.0.6
+pillow==13.0.0
+pluggy==1.7.0
+protobuf==6.31.1
+pydantic==2.14.2
+pydantic-core==2.50.2
+pyogrio==0.13.0
+pyparsing==3.3.3
+pyproj==3.7.0
+pytest==8.3.4
+python-dateutil==3.0.0
+pyyaml==6.0.3
+requests==2.34.2
+shapely==2.2.0
+six==1.17.0
+sortedcontainers==2.4.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+tzdata==2026.6
+urllib3==2.8.0

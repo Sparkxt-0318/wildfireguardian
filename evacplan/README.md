@@ -59,11 +59,21 @@ perimeters; without them it prints `BLOCKED` and exactly what it needs.
 
 ## Install and test
 
-Editable, into the worktree venv (`hazard_contract` and `wfg_latest` are installed from this repo, not
-from an index); the test suite takes about four minutes (B2 and B3 run with short budgets), so run it through the bench lock:
+From the repository root of a clean checkout (Python 3.12), this reproduces the venv that produced the
+results: the third-party packages pinned in [`requirements.lock`](requirements.lock) (among them ortools
+9.14.6206, highspy 1.15.1, numpy 1.26.4), then the in-repo packages from this repository, never from an
+index. `hazard_contract` and `evacplan` are installed editable without dependencies; `wfg_latest` (the
+frozen `integration/` folder, used by the router-graph adapter) only goes on the path through a `.pth`
+file, because `pip install -e` would write build files into a frozen folder. ortools must stay below 9.15
+(`pyproject.toml` caps it): 9.15's Python wrapper rejects the list argument of `SetAllowedVehiclesForIndex`
+and B2 crashes. The test suite takes about four minutes (B2 and B3 run with short budgets), so run it
+through the bench lock:
 
 ```sh
-uv pip install --python .venv/bin/python --no-deps -e evacplan     # B2/B3 need the [solvers] extras: ortools, highspy
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -r evacplan/requirements.lock
+uv pip install --python .venv/bin/python --no-deps -e hazard_contract -e evacplan
+echo "$PWD/integration/src" > "$(.venv/bin/python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/wfg_latest_src.pth"
 .venv/bin/python program/benchlock.py --label evacplan-tests -- .venv/bin/python -m pytest evacplan/tests
 ```
 
