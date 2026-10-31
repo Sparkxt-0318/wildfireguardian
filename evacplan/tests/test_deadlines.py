@@ -70,6 +70,67 @@ def test_burning_facility_is_scoped_model_no_route():
     assert d.state is State.MODEL_NO_ROUTE and d.cause == "UNSERVABLE:" + NO_ROUTE
     assert d.unservable == d.residents == 5 and d.arrive_by_s is None and d.leave_by_s is None
     assert "horizon" in d.scope and "not a promise" in d.scope
+    assert d.detail.startswith("certain-contact relaxation:")        # the fire is what refuses here
+
+
+def test_horizon_only_refusal_has_its_own_cause(tmp_path):
+    """Nothing burns, the horizon is 100 s and F -> S is three 50 s edges: no trip can end by the horizon,
+    with no contact involved. That is its own cause, NO_TRIP_BY_HORIZON (still model_no_route scoped to the
+    horizon, ASSUMPTIONS #74, until Siyeong answers question 12), with a detail that names the horizon and not
+    the certain-contact relaxation. The oracle rates the actual trip unresolved (BEYOND_HORIZON), and the
+    facilities CSV shows the distinct cause next to that outcome."""
+    from evacplan.harness import facility_outcomes, make_facility_rows, make_row, read_rows, upsert_rows
+    from evacplan_testkit import board, drive, itinerary, path, solution, unload
+
+    inst, ss = case(horizon=100.0)
+    d = one(inst, ss)
+    assert d.state is State.MODEL_NO_ROUTE and d.cause == "UNSERVABLE:NO_TRIP_BY_HORIZON"
+    assert d.unservable == d.residents == 5 and d.arrive_by_s is None
+    assert "horizon" in d.detail and "100" in d.detail and "no fire" in d.detail and "contact" not in d.detail
+    trip = itinerary("V", drive(path((0, 3), (0, 2), (0, 1), (0, 0)), 0.0), board("F", 5),
+                     drive(path((0, 0), (0, 1), (0, 2), (0, 3)), 200.0), unload("S", 5))
+    sol = solution(trip)
+    plan = Oracle(inst, ss).check_plan(sol)
+    assert plan.delivered_total == 0 and plan.model_no_route_total == 0
+    assert plan.unresolved_total == 5 and plan.unresolved_by_reason == {"BEYOND_HORIZON": 5}
+
+    class Entry:
+        id, generator, generator_version, config, fingerprint, label = inst.name, "hand", "0", {}, "none", "SYNTHETIC"
+    row = make_row(entry=Entry, set_name="dev", method_name="hand", method_config={}, seed=0, budget_s=60.0,
+                   plan=plan, runtime_s=0.0, best_bound=None, commit="c", host="h")
+    csv_path = tmp_path / "hand.facilities.csv"
+    upsert_rows(csv_path, make_facility_rows(entry=Entry, method_name="hand", seed=0, row=row, instance=inst,
+                                             deadlines=class_deadlines(inst, ss),
+                                             outcomes=facility_outcomes(inst, sol, plan)))
+    (r,) = read_rows(csv_path)
+    assert (r["deadline_state"], r["deadline_cause"], r["unservable"]) == (
+        "model_no_route", "UNSERVABLE:NO_TRIP_BY_HORIZON", "5")
+    assert (r["delivered_checked"], r["unresolved"], r["model_no_route"]) == ("0", "5", "0")
+
+
+def test_horizon_only_vehicle_refusal_keeps_the_deadline():
+    # F -> S fits the 400 s horizon (leave by 245, arrive by 235, checked), but the only vehicle starts at 300 at
+    # S's node and needs 150 s to reach F: no fire involved, only the horizon
+    inst, ss = case(horizon=400.0, vehicles=[vehicle("V", nid(0, 3), start=300.0)])
+    d = one(inst, ss)
+    assert d.state is State.MODEL_NO_ROUTE and d.cause == "UNSERVABLE:NO_TRIP_BY_HORIZON" and d.unservable == 5
+    assert (d.arrive_by_s, d.leave_by_s) == (235.0, 245.0) and d.probe_state is State.CHECKED
+    assert "V:" in d.detail and "horizon" in d.detail and "contact" not in d.detail
+    # starting at 0 it is in time
+    inst, ss = case(horizon=400.0, vehicles=[vehicle("V", nid(0, 3), start=0.0)])
+    assert one(inst, ss).state is State.CHECKED
+
+
+def test_refusals_without_fire_or_horizon_are_not_blamed_on_contact():
+    # the only shelter closes at 100 s, before any trip from F can reach it, whatever the fire and the horizon
+    inst, ss = case(window=((0.0, 100.0),))
+    d = one(inst, ss)
+    assert d.state is State.MODEL_NO_ROUTE and d.cause == "UNSERVABLE:" + NO_ROUTE
+    assert "no fire" in d.detail and "contact" not in d.detail
+    # the only vehicle's shift ends before it can finish one trip
+    inst, ss = case(ig_cells=[((0, 1), 500.0)], vehicles=[vehicle("V", nid(0, 3), start=0.0, shift=250.0)])
+    d = one(inst, ss)
+    assert d.cause == "UNSERVABLE:" + NO_VEHICLE_IN_TIME and "shift" in d.detail and "contact" not in d.detail
 
 
 def test_no_vehicle_in_time_keeps_the_deadline():

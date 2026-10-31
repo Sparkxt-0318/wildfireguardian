@@ -426,14 +426,27 @@ class Reach:
         return np.where(any_t, last, -1).astype(np.int64)
 
     # ---------------------------------------------------------- negative relaxation
-    def latest_arrival_neg(self, targets: list[ClassTarget]) -> np.ndarray:
+    @staticmethod
+    def _neg_levels(contact: bool, horizon: bool) -> None:
+        if contact and not horizon:
+            raise ValueError("certain contact is known only up to the horizon: horizon=False needs contact=False")
+
+    def latest_arrival_neg(self, targets: list[ClassTarget], *, contact: bool = True,
+                           horizon: bool = True) -> np.ndarray:
         """NEGATIVE relaxation: per node, the latest time a vehicle there can still reach one of
         ``targets`` and unload by the horizon (waiting anywhere, no turn rules, unknown cells
-        passable, only certain contact blocks). ``NEG_INF``: never."""
+        passable, only certain contact blocks). ``NEG_INF``: never.
+
+        ``contact=False``: no fire at all (nothing blocks; travel times, windows and the horizon only);
+        ``horizon=False`` as well: no horizon either (the windows' own closing times). These weaker
+        relaxations tell a refusal the fire causes from one the horizon or the instance alone causes
+        (:mod:`evacplan.deadlines`)."""
+        self._neg_levels(contact, horizon)
         LD = [NEG_INF] * self.N
         for tg in targets:
             for a, b in tg.windows:
-                close = min(b, self.Hi) - tg.unload_s           # unloading must end inside the window, by the horizon
+                # unloading must end inside the window, by the horizon
+                close = (min(b, self.Hi) if horizon else b) - tg.unload_s
                 if close >= a:                                  # arriving earlier: wait (allowed anywhere here)
                     LD[tg.node] = max(LD[tg.node], close)
         heap = [(-x, v) for v, x in enumerate(LD) if x > NEG_INF]
@@ -449,15 +462,17 @@ class Reach:
                 u = self.taill[e]
                 if done[u]:
                     continue
-                cand = self.neg_prev_ok(e, x - self.Tl[e])
+                cand = self.neg_prev_ok(e, x - self.Tl[e]) if contact else x - self.Tl[e]
                 if cand > LD[u]:
                     LD[u] = cand
                     heapq.heappush(heap, (-cand, u))
         return np.array(LD, dtype=np.int64)
 
-    def earliest_arrival_neg(self, src: int, t0: int) -> np.ndarray:
+    def earliest_arrival_neg(self, src: int, t0: int, *, contact: bool = True, horizon: bool = True) -> np.ndarray:
         """NEGATIVE relaxation: earliest arrival at every node from ``src`` at ``t0`` with every leg
-        ending by the horizon. ``POS_INF``: never."""
+        ending by the horizon. ``POS_INF``: never. ``contact`` and ``horizon`` as in
+        :meth:`latest_arrival_neg`."""
+        self._neg_levels(contact, horizon)
         EA = [POS_INF] * self.N
         EA[src] = int(t0)
         heap = [(int(t0), src)]
@@ -466,9 +481,9 @@ class Reach:
             if t > EA[v]:
                 continue
             for e in self.out[v]:
-                d = self.neg_next_ok(e, t)
+                d = self.neg_next_ok(e, t) if contact else t
                 a = d + self.Tl[e]
-                if a <= self.Hi and a < EA[self.headl[e]]:
+                if (a <= self.Hi or not horizon) and a < EA[self.headl[e]]:
                     EA[self.headl[e]] = a
                     heapq.heappush(heap, (a, self.headl[e]))
         return np.array(EA, dtype=np.int64)

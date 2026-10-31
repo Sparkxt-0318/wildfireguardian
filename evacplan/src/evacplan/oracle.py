@@ -38,9 +38,12 @@ Facility deadlines (:meth:`Oracle.class_deadline`, per facility and mobility cla
   :mod:`evacplan.reach` finds) is checked here, trip and all, in all K members.
 * ``model_no_route`` (``UNSERVABLE:<reason>``): no plan can deliver these residents within this
   model, fleet and horizon. Resource reasons are verified here (no shelter or no vehicle has room for
-  the class); route and approach reasons are certificates of the certain-contact relaxation, accepted
-  only when the 1 s lattice is complete for it (every cell that starts burning by the horizon keeps
-  burning through it, and all instance times are whole seconds; verified here).
+  the class); route, approach and horizon reasons are certificates of the certain-contact relaxation
+  (or of its no-fire levels), accepted only when the 1 s lattice is complete for it (every cell that
+  starts burning by the horizon keeps burning through it, and all instance times are whole seconds;
+  verified here). ``NO_TRIP_BY_HORIZON`` marks a refusal that needs no fire at all: even with nothing
+  burning no trip ends by the horizon, so it is scoped to the horizon (the oracle rates such a trip
+  ``unresolved``, BEYOND_HORIZON, never delivered).
 * ``unresolved``: neither.
 """
 from __future__ import annotations
@@ -76,11 +79,14 @@ UNSERVABLE_PREFIX = "UNSERVABLE:"
 NO_SHELTER_CAPACITY = "NO_SHELTER_CAPACITY"      # no shelter accepts the class
 NO_VEHICLE_SPACE = "NO_VEHICLE_SPACE"            # no vehicle has room for the class
 NO_ROUTE = "NO_ROUTE"                            # every route from the facility after release meets certain
-                                                 # contact or misses the horizon (certain-contact relaxation)
+                                                 # contact or misses the horizon (certain-contact relaxation),
+                                                 # or none reaches an open shelter even with no fire and no horizon
 NO_VEHICLE_IN_TIME = "NO_VEHICLE_IN_TIME"        # no vehicle can reach the facility, board and leave in time
                                                  # (or finish within its shift) under that relaxation
+NO_TRIP_BY_HORIZON = "NO_TRIP_BY_HORIZON"        # horizon only, no fire involved: even with nothing burning no
+                                                 # trip ends by the horizon (without the horizon one would)
 RESOURCE_CLAIMS = (NO_SHELTER_CAPACITY, NO_VEHICLE_SPACE)
-RELAXATION_CLAIMS = (NO_ROUTE, NO_VEHICLE_IN_TIME)
+RELAXATION_CLAIMS = (NO_ROUTE, NO_VEHICLE_IN_TIME, NO_TRIP_BY_HORIZON)
 PROBE_VEHICLE = "PROBE"
 NO_CHECKED_PROBE = "NO_CHECKED_PROBE"
 RELAXATION_INCOMPLETE = "RELAXATION_INCOMPLETE"
@@ -99,8 +105,9 @@ FACILITY_SCOPE = (
     "is a deadline for the facility, not a promise that any given fleet meets it. model_no_route (UNSERVABLE): no "
     "plan can deliver these residents within this model, fleet and horizon (no shelter or vehicle space for the "
     "class, or in the certain-contact relaxation every route from the facility after release, or every vehicle's "
-    "approach, meets certain flame contact, misses the horizon or the vehicle's shift). unresolved: neither shown; "
-    "never safe.")
+    "approach, meets certain flame contact, misses the horizon or the vehicle's shift; NO_TRIP_BY_HORIZON: even with "
+    "no fire no trip ends by the horizon, a refusal scoped to the horizon, while a plan's trip past it is "
+    "unresolved). unresolved: neither shown; never safe.")
 
 
 class State(str, Enum):

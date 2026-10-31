@@ -60,6 +60,28 @@ def test_hand_worked_row_latest_departure():
     assert ld_neg[rh.node(nid(0, 3))] == 10_000 - 5           # shelter: unload one ambulatory (5 s) by the horizon
 
 
+def test_negative_relaxation_levels_without_fire_or_horizon():
+    """``contact=False``: nothing burns (travel times, windows and the horizon only); ``horizon=False`` too:
+    the windows' own closing times (here 1e6). Certain contact is known only up to the horizon, so keeping
+    contact while dropping the horizon is refused."""
+    inst, ss = row_instance(ig_cells=[((0, 1), 500.0)], horizon=400.0)
+    rh = Reach(inst, ss)
+    tg = rh.class_targets(0)
+    f, depot = rh.node(nid(0, 0)), rh.node(nid(0, 3))
+    assert rh.latest_arrival_neg(tg)[f] == 400 - 5 - 150 == rh.latest_arrival_neg(tg, contact=False)[f]
+    assert rh.latest_arrival_neg(tg, contact=False, horizon=False)[f] == 1_000_000 - 5 - 150
+    assert rh.earliest_arrival_neg(depot, 300)[f] == POS_INF == rh.earliest_arrival_neg(depot, 300, contact=False)[f]
+    assert rh.earliest_arrival_neg(depot, 300, contact=False, horizon=False)[f] == 450
+    inst, ss = row_instance(ig_cells=[((0, 1), 500.0)])        # horizon 10000: here only the fire blocks
+    rh = Reach(inst, ss)
+    assert rh.earliest_arrival_neg(depot, 450)[f] == POS_INF       # the vehicle can never cross cell (0, 1) again
+    assert rh.earliest_arrival_neg(depot, 450, contact=False)[f] == 600
+    with pytest.raises(ValueError):
+        rh.latest_arrival_neg(tg, horizon=False)
+    with pytest.raises(ValueError):
+        rh.earliest_arrival_neg(depot, 0, horizon=False)
+
+
 def test_hand_worked_departure_field_per_node():
     # same row, horizon 10000: n0_1 lies in the burning cell (its edge east touches it until 25 s: <= 474);
     # n0_2 and the shelter n0_3 are never touched: 10000 - 50 - 5 and 10000 - 5 (one ambulatory unloading)
