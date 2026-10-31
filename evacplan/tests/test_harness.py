@@ -15,7 +15,8 @@ from evacplan import Board, ClassCounts, Itinerary, Oracle, Solution, load_insta
 from evacplan.cli import main
 from evacplan.generators import SyntheticConfig
 from evacplan.harness import (
-    COLUMNS, TestSetRefused, bench_guard, load_benchlock, lock_held_by_ancestor, make_row, read_rows, run,
+    COLUMNS, FACILITY_COLUMNS, TestSetRefused, bench_guard, load_benchlock, lock_held_by_ancestor, make_row,
+    read_rows, run,
 )
 from evacplan.instances import build_split, write_split
 from evacplan.methods import Method, MethodResult, available, get_method, register
@@ -179,3 +180,43 @@ def test_bench_lock_is_taken_and_never_deadlocks_under_a_parent(tmp_path, monkey
                              env={**os.environ, "WFG_BENCH_LOCK": str(lock)})
         assert out.returncode == 0, out.stderr
         assert out.stdout.strip() == "held by a parent process"
+
+
+def test_per_facility_rows_deadlines_and_outcomes(mini):
+    root, split = mini
+    p = paths(root, "facilities")
+    out = run("b1_greedy", "dev", 60, seeds=[0], lock="no", log=lambda s: None, **p)
+    fac_csv = p["results_dir"] / "b1_greedy.facilities.csv"
+    header, frows = rows_of(fac_csv)
+    assert tuple(header) == FACILITY_COLUMNS == (
+        "instance", "method", "seed", "facility", "mobility_class", "residents", "release_s", "deadline_state",
+        "deadline_cause", "arrive_by_s", "leave_by_s", "deadline_shelter", "unservable", "delivered_checked",
+        "unresolved", "model_no_route", "not_planned", "first_board_s", "last_leave_s", "commit", "config", "host")
+    assert read_rows(fac_csv) == frows
+    main_rows = {r["instance"]: r for r in out}
+    for inst_id in split.ids("dev"):
+        inst = load_instance(p["cache_dir"] / inst_id / "instance.json")
+        mine = [r for r in frows if r["instance"] == inst_id]
+        assert len(mine) == sum(1 for f in inst.facilities for c in range(3) if f.residents.vector()[c])
+        assert sum(int(r["delivered_checked"]) for r in mine) == int(main_rows[inst_id]["delivered_checked"])
+        assert sum(int(r["residents"]) for r in mine) == inst.residents_total
+        for r in mine:
+            n = int(r["residents"])
+            assert int(r["delivered_checked"]) + int(r["unresolved"]) + int(r["model_no_route"]) \
+                + int(r["not_planned"]) == n
+            assert r["deadline_state"] in ("checked", "model_no_route", "unresolved")
+            assert int(r["unservable"]) == (n if r["deadline_state"] == "model_no_route" else 0)
+            if r["deadline_state"] == "checked":
+                assert float(r["arrive_by_s"]) <= float(r["leave_by_s"]) and r["deadline_shelter"]
+                if r["last_leave_s"]:                             # the plan leaves by the deadline
+                    assert float(r["last_leave_s"]) <= float(r["leave_by_s"])
+            if r["first_board_s"]:
+                assert float(r["first_board_s"]) >= float(r["release_s"])
+            assert r["commit"] == main_rows[inst_id]["commit"] and r["config"] == main_rows[inst_id]["config"]
+        deadlines = json.loads((p["results_dir"] / "runs" / "b1_greedy" / "dev-b60" / f"{inst_id}.deadlines.json")
+                               .read_text())
+        assert len(deadlines) == len(mine) and all("scope" in d for d in deadlines)
+    text = p["leaderboard_path"].read_text()
+    assert "| unservable |" in text and "**unservable**" in text and "b1_greedy" in text
+    run("b1_greedy", "dev", 60, seeds=[0], lock="no", log=lambda s: None, **p)     # upsert: no duplicates
+    assert len(read_rows(fac_csv)) == len(frows)
