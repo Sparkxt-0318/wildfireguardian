@@ -47,7 +47,7 @@
       "future_adapter_wiring": "SCOPED_INPUT_WIRING_AND_NUMERICAL_GUARDS_PASS_cc801d07_EXTERNAL_2026_NOT_READY",
       "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
       "default_checkpoint_promoted": false,
-      "published_head": "f759f2e9c53749bad39165b8441209c398bcbf60",
+      "published_head": "473c8da0a6f428006b67210253ba257ff163cb34",
       "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
       "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
       "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
@@ -295,7 +295,7 @@
       },
       "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "numerical_source_files": 61,
-      "publication_status": "Parent reports current completed-result headbd9; last explicitly confirmed publication remainsf759 pending final Bdocumentation handoff. Readiness does not infer a push or publish.",
+      "publication_status": "Root push confirmed exit0 to473; PR88OPEN/DRAFT exacthead verified, CIcurrentlyRUNNING at root observation. Previous actualremoteB6887 remained until this push. f759 was localrender-contentancestor, not earlier publishedhead.",
       "review_source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "future_numerical_guard": {
         "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
@@ -415,9 +415,9 @@
         "scope": "Optional stored-simulator comparison tool;21positive controls do not clear2admissiondefects. Identity-only counts/horizonmetadata are not native rerun or empirical forecast quality.",
         "record_role": "SOURCE_TIME_SCOPED_AUDIT_OR_MILESTONE; CURRENT_GLOBAL_ADMISSION_IS_current_admission"
       },
-      "current_packaging_head": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+      "current_packaging_head": "473c8da0a6f428006b67210253ba257ff163cb34",
       "current_software_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
-      "current_packaging_not_yet_published": null,
+      "current_packaging_not_yet_published": false,
       "prospective_protocol_metadata": {
         "state": "CURRENT_PROTOCOL_REGISTRY_COMMITTED_6887_EXTERNAL_2026_DOCUMENTARY_GATES_NOT_READY",
         "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
@@ -1540,7 +1540,41 @@
         "canonical858_unchanged_reported": true,
         "figure_payloads_copied_or_viewed_by_readiness": false,
         "failed_v1_title_and_source_preserved": true,
-        "scope": "Layout-only labels/marks/units/legends and custody. Original clipping failures remain; no geometric/physical/numerical proof from visual QA."
+        "scope": "Layout-only labels/marks/units/legends and custody. Original clipping failures remain; no geometric/physical/numerical proof from visual QA.",
+        "source_role": "LOCAL_RENDER_CONTENT_ANCESTOR_NOW_REACHABLE_FROM_PUBLISHED473; no earlier f759push claimed"
+      },
+      "render_content_ancestor": "f759f2e9c53749bad39165b8441209c398bcbf60",
+      "publication_metadata_correction": "PUBLICATION_METADATA_CORRECTION.json",
+      "final_delivery_document_review": {
+        "state": "PASS_DOCUMENTARY_CONSISTENCY",
+        "source_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+        "review": "final-b-document-review-473c8da0/REVIEW_473c8da0.md",
+        "review_sha256": "a31e4abea12d401ee37d60ee2d78de763fea7ba97ddacd888995191ab9beca73",
+        "checks": "final-b-document-review-473c8da0/DOCUMENTARY_CHECKS.json",
+        "checks_sha256": "2a157abdc9e55a9ecc29b36975916380a470d707be017c4a346e9d1c2a46240a",
+        "inventory": "final-b-document-review-473c8da0/SOURCE_INVENTORY.json",
+        "README": "final-b-document-review-473c8da0/README.md",
+        "README_sha256": "457f1be32aa97b8da7795963be6673dfe6ee7f553151bf4e9c961a07c58aa0a5",
+        "requirements": "final-b-document-review-473c8da0/REQUIREMENTS_STATUS.json",
+        "requirements_sha256": "dd254bb8b3b49785c1f46a0607c82680bf94d8f58bd5ca9acf2283b281b33cd6",
+        "gate_history_sha256": "1b39d009870c3b68e3e4ec277b6ed2f9e434d9613d1f20c4a41908fd2f10edc5",
+        "delivery_index_sha256": "70a502ab05fba8985efde838d07afb084b3321848aff2f2b4782e1a1852c11c0",
+        "unique_requirement_IDs": 125,
+        "relative_links": 21,
+        "source_headlines_holds_metadata_only": true,
+        "numerical_jobs_or_arrays": false
+      },
+      "final_parent_check": {
+        "state": "PASS_FINAL_B_OWNERSHIP_STYLE_CUSTODY_ROOT",
+        "source_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+        "receipt": "final-b-parent-check-473c8da0/FINAL_B_PARENT_CHECK.json",
+        "receipt_sha256": "6a4da861c76c4abcf38f1f2d4072d15fe7674e1c4dcbd8d49ab3ba17e1532079",
+        "inventory": "final-b-parent-check-473c8da0/SOURCE_INVENTORY.json",
+        "track_delta_files": 1738,
+        "ownership_or_style_violations": [],
+        "canonical858_and_060c_0586_c41_unchanged": true,
+        "readonly_surface_diff": false,
+        "readiness_rerun": false
       }
     },
     "1C": {
@@ -1726,9 +1760,9 @@
     "checkpoint_promoted": false,
     "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87",
     "integration_published_head": "b52e5ae8b94978d4b86e40611ba8c0861b3aa8c6",
-    "coordinator_plan_sync": "coordinator-plan-sync-final-sidecar.json",
-    "current_plan_note": "Exact latest root61b plan synced. Allcompleted current computations/scoped reviews, primaryFALSE/KR_HOLD/USsidecarPASS retained. Bfinaldocs/headhandoff mayfollow; no science or childpublication.",
-    "coordinator_head_reported": "61bfe06593fdba389e35ed1e6e361698b40c6dfa"
+    "coordinator_plan_sync": "coordinator-plan-sync-final-publication.json",
+    "current_plan_note": "Exact finalroot85c plan synced. RootpublishedB473 confirmed; currentintegrationhead notyetpublishedbychild. No numerical/evidence changes or metadata inference fromlocalf759.",
+    "coordinator_head_reported": "85c36807d27ce134bd6164311dc6782829f7c568"
   },
   "logical_review_order": [
     "1C-1 exports and members",
@@ -1785,7 +1819,9 @@
     "pre_actual_result_summary": "history/pre-actual-result-57766981/README.md",
     "pre_actual_result_inventory": "history/pre-actual-result-57766981/ARCHIVE_INDEX.json",
     "pre_final_sidecar_summary": "history/pre-final-sidecar-3db3a9db/README.md",
-    "pre_final_sidecar_inventory": "history/pre-final-sidecar-3db3a9db/ARCHIVE_INDEX.json"
+    "pre_final_sidecar_inventory": "history/pre-final-sidecar-3db3a9db/ARCHIVE_INDEX.json",
+    "pre_publication_correction_summary": "history/pre-publication-correction-ced8bc81/README.md",
+    "pre_publication_correction_inventory": "history/pre-publication-correction-ced8bc81/ARCHIVE_INDEX.json"
   },
   "evidence_origin": {
     "prior_remote_Claude_runs": "Reference only, not counted as current execution",
@@ -1802,7 +1838,7 @@
     "parent_contact_adapter_repair": "Parent70017tinycontrols65custodychecks72targetedtest receipt archived unchanged with originalfd8failure; not rerun by readiness.",
     "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun.",
     "B_metrics_review": "Other independent reviewer51/51nonablation arithmetic/gate controls plus retained false paired-CI reproduction at a5ba, no actual data/model/quality-result inspection. Readiness archived exact manifest and verifiedsource Git object pins, no rerun.",
-    "confirmed_publication_heads": "Parent confirms A433/C06ad unchanged and currentBf759. Prior Bd251/other publication milestones are historical and remain in exact prior snapshots. No publication by readiness.",
+    "confirmed_publication_heads": "Root confirms currentpublished A433/C06ad/B473 exactPR88headOPEN/DRAFT, CIcurrentlyrunning. f759 is localrender-contentancestor, never earlierpushed; previous actualremoteB6887 until473. Exact older mistakenwording retained with explicit correction.",
     "B_report_repair": "Other independent reviewer21/21report-only repair controls at61, including synthetic visual panels and6unchangedfunctionASTs; readiness archived exact manifest/producer/report Git object pins, no rerun. No actual study/quality results inspected.",
     "B_static_milestones": "Other independent future70andprepared38syntheticcontrols; parentledger13anddevelopmentJSONaggregatearithmetic; optionalFARSITEreview21positivecontrols+2confirmeddefects. Exact archives/sourcehashes checked, no readiness rerun or actual data/model/quality-result inspection.",
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",

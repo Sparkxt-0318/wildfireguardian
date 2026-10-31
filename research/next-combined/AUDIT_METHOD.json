@@ -16,11 +16,12 @@
     "B_current_overlay": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
     "B_future_guard": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
     "B_status_ledger": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
-    "B_current_packaging": "f759f2e9c53749bad39165b8441209c398bcbf60",
+    "B_current_packaging": "473c8da0a6f428006b67210253ba257ff163cb34",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
     "B_frozen_source_interval_inventory": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
     "B_canonical_source": "691cc162bf2c0295cecc257a558ae0d583f9018e",
-    "B_current_result_packaging": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1"
+    "B_current_result_packaging": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+    "B_final_documentation": "473c8da0a6f428006b67210253ba257ff163cb34"
   },
   "graphs": {
     "integration": {
@@ -389,7 +390,7 @@
   },
   "confirmed_published_heads": {
     "1A": "43324736fc5301a0444b01b918ef14a0372b1ec3",
-    "1B": "f759f2e9c53749bad39165b8441209c398bcbf60",
+    "1B": "473c8da0a6f428006b67210253ba257ff163cb34",
     "1C": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b"
   },
   "B_metrics_repair_archive": {
@@ -1542,7 +1543,8 @@
     "canonical858_unchanged_reported": true,
     "figure_payloads_copied_or_viewed_by_readiness": false,
     "failed_v1_title_and_source_preserved": true,
-    "scope": "Layout-only labels/marks/units/legends and custody. Original clipping failures remain; no geometric/physical/numerical proof from visual QA."
+    "scope": "Layout-only labels/marks/units/legends and custody. Original clipping failures remain; no geometric/physical/numerical proof from visual QA.",
+    "source_role": "LOCAL_RENDER_CONTENT_ANCESTOR_NOW_REACHABLE_FROM_PUBLISHED473; no earlier f759push claimed"
   },
   "B_primary_result": {
     "state": "NEGATIVE_PRIMARY_CRITERION_FALSE",
@@ -1616,5 +1618,38 @@
     "scope": "Current retrospective mapped-extent/reconstruction evidence only. Primary selection and criteria fixed; no replacement model selected, physical proof, blind2026 claim or promotion."
   },
   "pre_actual_result_history": "history/pre-actual-result-57766981/ARCHIVE_INDEX.json",
-  "pre_final_sidecar_history": "history/pre-final-sidecar-3db3a9db/ARCHIVE_INDEX.json"
+  "pre_final_sidecar_history": "history/pre-final-sidecar-3db3a9db/ARCHIVE_INDEX.json",
+  "B_final_documentary_review": {
+    "state": "PASS_DOCUMENTARY_CONSISTENCY",
+    "source_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+    "review": "final-b-document-review-473c8da0/REVIEW_473c8da0.md",
+    "review_sha256": "a31e4abea12d401ee37d60ee2d78de763fea7ba97ddacd888995191ab9beca73",
+    "checks": "final-b-document-review-473c8da0/DOCUMENTARY_CHECKS.json",
+    "checks_sha256": "2a157abdc9e55a9ecc29b36975916380a470d707be017c4a346e9d1c2a46240a",
+    "inventory": "final-b-document-review-473c8da0/SOURCE_INVENTORY.json",
+    "README": "final-b-document-review-473c8da0/README.md",
+    "README_sha256": "457f1be32aa97b8da7795963be6673dfe6ee7f553151bf4e9c961a07c58aa0a5",
+    "requirements": "final-b-document-review-473c8da0/REQUIREMENTS_STATUS.json",
+    "requirements_sha256": "dd254bb8b3b49785c1f46a0607c82680bf94d8f58bd5ca9acf2283b281b33cd6",
+    "gate_history_sha256": "1b39d009870c3b68e3e4ec277b6ed2f9e434d9613d1f20c4a41908fd2f10edc5",
+    "delivery_index_sha256": "70a502ab05fba8985efde838d07afb084b3321848aff2f2b4782e1a1852c11c0",
+    "unique_requirement_IDs": 125,
+    "relative_links": 21,
+    "source_headlines_holds_metadata_only": true,
+    "numerical_jobs_or_arrays": false
+  },
+  "B_final_parent_gate": {
+    "state": "PASS_FINAL_B_OWNERSHIP_STYLE_CUSTODY_ROOT",
+    "source_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+    "receipt": "final-b-parent-check-473c8da0/FINAL_B_PARENT_CHECK.json",
+    "receipt_sha256": "6a4da861c76c4abcf38f1f2d4072d15fe7674e1c4dcbd8d49ab3ba17e1532079",
+    "inventory": "final-b-parent-check-473c8da0/SOURCE_INVENTORY.json",
+    "track_delta_files": 1738,
+    "ownership_or_style_violations": [],
+    "canonical858_and_060c_0586_c41_unchanged": true,
+    "readonly_surface_diff": false,
+    "readiness_rerun": false
+  },
+  "publication_metadata_correction": "PUBLICATION_METADATA_CORRECTION.json",
+  "pre_publication_correction_history": "history/pre-publication-correction-ced8bc81/ARCHIVE_INDEX.json"
 }

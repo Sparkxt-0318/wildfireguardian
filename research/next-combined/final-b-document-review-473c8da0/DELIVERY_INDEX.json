@@ -1,0 +1,88 @@
+{
+  "FARSITE": {
+    "native_execution": false,
+    "retained": 30,
+    "scored_subset": 29,
+    "status": "HOLD_SEPARATE_STORED_SCENARIO_SUBSET",
+    "unavailable": 1
+  },
+  "KR": {
+    "cases": 33,
+    "complete_cohort_intervals": null,
+    "fires": 4,
+    "scored": 26,
+    "status": "HOLD",
+    "unavailable": 7
+  },
+  "US": {
+    "cases": 273,
+    "entries": 1705079,
+    "fires": 6,
+    "positives": 8520,
+    "status": "COMPLETE"
+  },
+  "artifacts": {
+    "research/forecast-v2/BLIND_REGISTRY.json": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e",
+    "research/forecast-v2/DATA_PROVENANCE.md": "d78fc7bd6d5eced783a06b477b8111bab41ed926f7cc80c68580f060c82ffabe",
+    "research/forecast-v2/FARSITE_SCORES.json": "f0aa554c2312f3e177eb5d2a165e4aa50a986c3e883beda56510b201bcb3f6e2",
+    "research/forecast-v2/FIGURE_QA_ORIGINAL.json": "e8217ab0a84e31da68ceaeb3cf5e61b9439357411a34935926a540ddbd009be4",
+    "research/forecast-v2/FIT_COVERAGE.json": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971",
+    "research/forecast-v2/FREEZE_HANDOFF.json": "5a0528835d29bde32fa553e99b096bb6910eea57df617ef8fcee4371383d63b3",
+    "research/forecast-v2/GATE_HISTORY.json": "1b39d009870c3b68e3e4ec277b6ed2f9e434d9613d1f20c4a41908fd2f10edc5",
+    "research/forecast-v2/MODEL_SELECTION.json": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b",
+    "research/forecast-v2/README.md": "457f1be32aa97b8da7795963be6673dfe6ee7f553151bf4e9c961a07c58aa0a5",
+    "research/forecast-v2/REQUIREMENTS_STATUS.json": "dd254bb8b3b49785c1f46a0607c82680bf94d8f58bd5ca9acf2283b281b33cd6",
+    "research/forecast-v2/RESULTS.json": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+    "research/forecast-v2/SOURCE_PACKAGING_POST_ASSESSMENT_20261031.json": "2505d92c6c5a164b3b636580454b3bd799620e4c5ce03bca192b866fb525e63c",
+    "research/forecast-v2/SPLIT.json": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+    "research/forecast-v2/publication-render/20261031_v2/FIGURE_QA.json": "b66dcb03733b55aead0eb3350e24c0a60a3ee45b157c8acd05ed9fe84120ac95",
+    "research/forecast-v2/review/final_delivery/FINALIZATION_RECEIPT.json": "9d6c14a1e332b3b0d803bb6f7ccd9c643af5fbc8bcbe770d22dd4cbd3c93840b",
+    "research/forecast-v2/review/final_delivery/INDEPENDENT_ARCHIVE_INDEX.json": "38415c1a434722bd2cd6636401d1b7f0fab93a775c25cef11f5fc65484f650aa",
+    "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/COMPLETION.json": "05864ec95b0f042bbdba86dbb43374b591afbb8e56ab779730272fae70d863a9",
+    "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c"
+  },
+  "comparison": {
+    "comparable": 56,
+    "cutoffs": 12,
+    "rows": 66,
+    "unavailable": 10
+  },
+  "default_checkpoint": "c651 unchanged",
+  "execution_status": "IMPLEMENTED_AND_CURRENT_PRESPECIFIED_RUNS_EXECUTED_WITH_EXPLICIT_HOLDS",
+  "finalized_utc": "2026-10-31T00:08:37.781096+00:00",
+  "future_execution": "NOT_READY_FOR_2026_EXECUTION",
+  "future_protocol": "READY_FOR_OWNER_REGISTRATION",
+  "historical_source_path_hash_identities": 235,
+  "pre_inference_freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "primary_superiority_criteria_pass": false,
+  "promotion_authority": false,
+  "protected_source_and_scientific_artifacts_unchanged": 1051,
+  "requirement_status_counts": {
+    "COMPARABLE": 56,
+    "COMPLETE": 17,
+    "COMPLETE_ATTEMPTED_WITH_KOREAN_HOLD": 1,
+    "COMPLETE_CANONICAL_US_METRIC_WITH_SCOPE": 10,
+    "COMPLETE_EXECUTION_WITH_UNAVAILABLE_SUPPORT": 1,
+    "COMPLETE_FIXED_FITS_AND_REPORTED_ABLATION": 7,
+    "COMPLETE_PRIOR_AUTHENTICATED_SCOPE": 5,
+    "COMPLETE_US_COMMON_POPULATION": 9,
+    "GENERATED_FROM_AUTHENTICATED_COMPARISON": 1,
+    "GENERATED_FROM_COMPLETE_DECLARED_COHORT": 4,
+    "HOLD": 2,
+    "IMPLEMENTED_TESTED": 1,
+    "READY_FOR_OWNER_REGISTRATION": 1,
+    "UNAVAILABLE_SHARED_SUPPORT": 10
+  },
+  "requirements": 125,
+  "retired_spotting_sources_complete": true,
+  "schema": "wfg.forecast-v2.delivery-index/1",
+  "scientific_source_and_output_commit": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+  "scope": "Final documentary index. Independent saved-result/census/metric/figure/interval checks have their own limited scopes; no physical, operational, blind2026 or safety validation is implied.",
+  "software": {
+    "core_tests": 3507,
+    "counts_not_pooled": true,
+    "frozen_release_identities": 367,
+    "separate_sidecar_relocation_tests": 77
+  },
+  "unresolved_historical_sources": 0
+}

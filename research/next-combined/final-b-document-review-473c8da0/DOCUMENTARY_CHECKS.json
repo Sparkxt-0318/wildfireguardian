@@ -1,0 +1,132 @@
+{
+  "status": "PASS_DOCUMENTARY_CONSISTENCY",
+  "head": "473c8da0a6f428006b67210253ba257ff163cb34",
+  "requirements": 125,
+  "unique_ids": 125,
+  "status_counts_match_delivery": true,
+  "all_rows_physical_not_established_and_no_promotion": true,
+  "all_current_statuses_final_or_honest_unavailable": true,
+  "meanfield_rows": 66,
+  "meanfield_comparable": 56,
+  "meanfield_unavailable": 10,
+  "five_publication_pairs_linked": true,
+  "markdown_links_checked": 21,
+  "links": [
+    {
+      "target": "FIT_COVERAGE.json",
+      "resolved": "research/forecast-v2/FIT_COVERAGE.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig01_reliability_all_models.png",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.png",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig01_reliability_all_models.svg",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.svg",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig02_per_fire_brier_paired.png",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.png",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig02_per_fire_brier_paired.svg",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.svg",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig03_ablation_forest_plot.png",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.png",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig03_ablation_forest_plot.svg",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.svg",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.png",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.png",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg",
+      "resolved": "research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "RESULTS.json",
+      "resolved": "research/forecast-v2/RESULTS.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "per_fire.csv",
+      "resolved": "research/forecast-v2/per_fire.csv",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json",
+      "resolved": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "REQUIREMENTS_STATUS.json",
+      "resolved": "research/forecast-v2/REQUIREMENTS_STATUS.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "GATE_HISTORY.json",
+      "resolved": "research/forecast-v2/GATE_HISTORY.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "DATA_PROVENANCE.md",
+      "resolved": "research/forecast-v2/DATA_PROVENANCE.md",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "executions/current_descriptive_intervals_actual_v2.json",
+      "resolved": "research/forecast-v2/executions/current_descriptive_intervals_actual_v2.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "../../forecast/documents/preregistration_blind_test.md",
+      "resolved": "forecast/documents/preregistration_blind_test.md",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "SOURCE_PACKAGING_POST_ASSESSMENT_20261031.json",
+      "resolved": "research/forecast-v2/SOURCE_PACKAGING_POST_ASSESSMENT_20261031.json",
+      "exists_at_reviewed_head": true
+    },
+    {
+      "target": "DELIVERY_INDEX.json",
+      "resolved": "research/forecast-v2/DELIVERY_INDEX.json",
+      "exists_at_reviewed_head": true
+    }
+  ],
+  "primary_intervals_equal_reviewed_selection": true,
+  "Korean_full_intervals_null": true,
+  "tests_or_raw_array_work_performed": false,
+  "primary_headline_row_exact_at_published_rounding": true,
+  "primary_paired_Brier_values_exact_at_published_rounding": true,
+  "source_packaging_zero_unresolved_is_explicit_identity_scope": true,
+  "predeclared_vs_postfreeze_descriptive_distinction_explicit": true,
+  "c651_remains_default": true,
+  "current_future_blind_scope_distinct": true,
+  "stored_FARSITE_29of30_scope_explicit": true,
+  "proper_score_not_likelihood_explicit": true
+}
