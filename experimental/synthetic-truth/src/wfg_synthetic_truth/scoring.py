@@ -65,12 +65,14 @@ def score_decision(decision, *, evaluator, clairvoyant, cutoff, truth_source,
                 if regret < 0:
                     raise ValueError("TRUTH_ROUTE_BEATS_CLAIRVOYANT, inconsistent reference")
                 row["regret_s"] = regret
-    else:
+    elif outcome == "model_no_route":
         row["false_safe"] = False
         if exists:
             row["false_refusal"] = True
         elif oracle.get("outcome") == "model_no_route":
             row["false_refusal"] = False
+    # Unfinished computation makes neither a route nor a refusal assertion.
+    # Leave both error metrics unknown and report unresolved separately.
     row["clairvoyant_outcome"] = oracle.get("outcome", "unresolved")
     return row
 

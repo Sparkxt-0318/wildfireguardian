@@ -4,6 +4,14 @@ WildfireGuardian combines machine-learning wildfire forecasting, time-dependent 
 
 The scientific pipeline is **forecast → scenario hazards → route search → complete-journey checking → checked route or scoped refusal**. The logger and showcase have separate launchers and evidence; the 3D showcase uses an explicitly illustrative scene.
 
+## October 31 experimental tracks and post-merge repairs
+
+PRs #85–88 add opt-in radiation, forecast, scenario-member, SIPP and truth-analysis research. They retain their scientific HOLDs: the selected forecast did not meet its superiority criterion, radiation physics is unvalidated, and full-policy truth-risk integration remains gated. c651 and the historical routing release remain the defaults.
+
+The [post-merge repairs](research/postmerge-fixes-20261031/README.md) restore exact callback/source compatibility, distinguish unresolved decisions from refusals in risk scoring, reject malformed extinction inputs, and enforce SIPP computation deadlines. Required CI now runs the forecast and experimental suites as well as the earlier routing/API/release checks. Original results, checkpoints, recorded timings and archived source ledgers are preserved; these code repairs do not regenerate or relabel them.
+
+Local verification passed **3,531 forecast/cross-track tests and 177 experimental tests with no skips in the complete environment**; **3,640 frozen artifacts remained byte-identical**. See the linked repair report for raw logs, retained setup failures and verification scope.
+
 ## Frozen October 15 research results
 
 The frozen native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**.

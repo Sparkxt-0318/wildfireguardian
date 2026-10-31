@@ -16,3 +16,5 @@ The independent fd8bf2e7 review found source-consistency and clock-boundary
 defects beyond the original fixtures. See docs/KNOWN_FOOTPRINT_CONTACT_REPAIR.md
 for repaired admission rules and the separate repair receipt. The original
 fixture and receipt are preserved; native execution still requires recheck.
+
+Post-merge source repairs are documented in [the October 31 repair record](../../research/postmerge-fixes-20261031/README.md). The original SOURCE_SHA256.json identifies the producer used by the saved studies; it is retained verbatim. The separate post-merge source ledger identifies current repairs. Recorded historical timings are not measurements of this repaired version.

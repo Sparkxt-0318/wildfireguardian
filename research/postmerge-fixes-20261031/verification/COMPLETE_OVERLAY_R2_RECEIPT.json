@@ -1,0 +1,49 @@
+{
+  "schema": "wfg.post-kcf.batch-receipt/1",
+  "lane": "tests",
+  "holder": "Codex-thermal-verification-20261028-tests-76818",
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "-B",
+    "outputs/guardian_postmerge_fixes_20261031_v1/run_complete_overlay_r2.py"
+  ],
+  "waiting_utc": "2026-10-31T01:07:43.384719+00:00",
+  "scope": "Serialized research batch, not full-request latency benchmark",
+  "cleanup_scope": "Observed descendants and owned PGIDs; command contract forbids detached sessions/groups",
+  "lease_records": [
+    {
+      "utc": "2026-10-31T01:07:48.438322+00:00",
+      "op": "acquire",
+      "rc": 0,
+      "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-tests-76818\", \"acquired_utc\": \"2026-10-31T01:07:43.424275+00:00\", \"lease_until_utc\": \"2026-10-31T01:37:43.424275+00:00\", \"purpose\": \"routing_caldor_deadline_repair_20261029_v1\"}}\n"
+    },
+    {
+      "utc": "2026-10-31T01:08:09.003073+00:00",
+      "op": "renew",
+      "rc": 0,
+      "output": "{\"result\": \"HELD\", \"lock\": {\"status\": \"HELD\", \"holder\": \"Codex-thermal-verification-20261028-tests-76818\", \"acquired_utc\": \"2026-10-31T01:07:43.424275+00:00\", \"lease_until_utc\": \"2026-10-31T01:38:09.000760+00:00\", \"purpose\": \"routing_caldor_deadline_repair_20261029_v1\"}}\n"
+    },
+    {
+      "utc": "2026-10-31T01:08:21.300059+00:00",
+      "op": "release",
+      "rc": 0,
+      "output": "{\"result\": \"RELEASED\"}\n"
+    }
+  ],
+  "acquired_utc": "2026-10-31T01:07:48.438371+00:00",
+  "power_at_start": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=23330915)\t93%; charging; 0:31 remaining present: true",
+  "pid": 76840,
+  "started_utc": "2026-10-31T01:07:48.454183+00:00",
+  "returncode": 1,
+  "ended_utc": "2026-10-31T01:08:21.259823+00:00",
+  "batch_wall_s": 32.820987958984915,
+  "owned_pgids": [
+    76840
+  ],
+  "detached_group_contract_violated": false,
+  "survivors_at_command_end": {},
+  "surviving_observed_owned_processes": {},
+  "cleanup_verified": true,
+  "lease_release": "RELEASED",
+  "allowed_lifecycle_test_sessions": false
+}

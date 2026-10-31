@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-ra",
+    "-p",
+    "no:cacheprovider",
+    "experimental/flame-front-radiation/tests",
+    "experimental/scenario-members/tests",
+    "experimental/sipp-routing/tests",
+    "experimental/synthetic-truth/tests"
+  ],
+  "rc": 0
+}

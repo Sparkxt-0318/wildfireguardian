@@ -1,0 +1,156 @@
+..........................................F...................F......... [ 40%]
+.....................................F.................................. [ 81%]
+.................................                                        [100%]
+=================================== FAILURES ===================================
+____________ test_native_members_and_unknown_support_are_preserved _____________
+
+    def test_native_members_and_unknown_support_are_preserved():
+        f = raw_fixture()
+        f["new_burn_probability"][1, 1] = 0.5
+        first = np.full((2, 3, 3), -1, dtype=np.int16); first[0, 1, 1] = 1; first[1, 2, 0] = -2
+        f["trajectory_first_burn_hour"] = first
+>       built = bridge.construct(f, cutoff_utc="2025-01-01T00:00:00Z", epsg=5179,
+                                 settings=bridge.v1.settings_for(100))
+
+experimental/scenario-members/tests/test_bridge_v2.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+forecast = {'affine_transform': array([ 10.,   0.,   0.,   0., -10.,  30.]), 'heat__initial_active_burning_probability': array([[...]), 'heat__initial_remaining_burning_duration_s': array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]]), ...}
+
+    def construct(forecast, *, cutoff_utc, epsg, settings, selection=None):
+        """Build coherent member arrays with exact event knots and native masks.
+    
+        v1 validation and radiation function are imported unchanged. This function
+        does not monkey-patch any v1 global and is safe for concurrent constructors.
+        """
+        st = dict(settings)
+        first = np.asarray(forecast["trajectory_first_burn_hour"])
+        if selection is None:
+            indices = list(range(len(first)))
+            selection = {"method": "first_k", "selected_indices": indices,
+                         "weights": [1 / len(first)] * len(first), "reduction_cost": 0.0}
+        indices = selection["selected_indices"]
+        if (not indices or len(set(indices)) != len(indices)
+                or any(isinstance(i, bool) or not isinstance(i, (int, np.integer)) or not 0 <= i < len(first) for i in indices)):
+            raise ValueError("Unique valid trajectory indices required")
+        weights = np.asarray(selection["weights"], dtype=float)
+        if weights.shape != (len(indices),) or not np.isfinite(weights).all() or (weights < 0).any() or not np.isclose(weights.sum(), 1):
+            raise ValueError("Normalized retained weights required")
+        fields = first[indices]
+        if fields.shape[1:] != forecast["new_burn_probability"].shape:
+            raise ValueError("Trajectory grid differs from raw export")
+        horizon = float(st["horizon_s"])
+        if np.any(fields > np.ceil(horizon / 3600)):
+            raise ValueError("Trajectory exceeds declared horizon")
+        summary = v1.CT.validate_raw(forecast, st["burning_duration_s"])
+        impossible = forecast["probability_valid"] & (forecast["new_burn_probability"] == 0)
+        if np.any((fields == 1) & impossible):
+            raise ValueError("First-hour burn contradicts a valid zero transition probability")
+        st.update(construction_version="wfg.hazard.construction/2", dependence="trajectory",
+                  scenario_count=len(fields), member_selection=selection)
+        st.setdefault("acceptance", {"rule": "all", "k": len(fields), "m": len(fields)})
+        timing = st.get("timing", "uniform")
+        events = ignition_seconds(fields, seed=st["seed"], timing=timing, trajectory_indices=indices)
+        T = float(st["burning_duration_s"])
+        known_burned = forecast["source_burned_area_valid"] & (forecast["source_burned_area"] == 1)
+        if not np.all(fields[:, known_burned] == 0):
+            raise ValueError("Trajectory cutoff state contradicts raw export")
+        active = forecast["heat__initial_burning_valid"] & (forecast["heat__initial_active_burning_probability"] == 1) & known_burned
+        unknown_age = known_burned & ~forecast["heat__initial_burning_valid"]
+        current = active | unknown_age
+        remaining_cells = {tuple(map(int, p)): float(forecast["heat__initial_remaining_burning_duration_s"][tuple(p)]) for p in np.argwhere(active)}
+        remaining_cells.update({tuple(map(int, p)): T for p in np.argwhere(unknown_age)})
+        remaining = max(remaining_cells.values(), default=0.0)
+>       from wfg_latest.radiation.heat import AffineGrid, CombustionParameters, ExpectedHeatFluxModel, FlameResidenceTime
+E       ModuleNotFoundError: No module named 'wfg_latest'
+
+experimental/scenario-members/bridge_v2.py:112: ModuleNotFoundError
+_ test_trajectory_bridge_packet_gives_identical_arrival_and_full_centre_check __
+
+tmp_path = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-141/test_trajectory_bridge_packet_0')
+
+    def test_trajectory_bridge_packet_gives_identical_arrival_and_full_centre_check(tmp_path):
+        from wfg_synthetic_truth.frozen_checker import check_route
+>       from wfg_latest.router_validation.validation import chord_segments
+E       ModuleNotFoundError: No module named 'wfg_latest'
+
+experimental/sipp-routing/tests/test_bridge_packet_equivalence.py:18: ModuleNotFoundError
+_ test_full_bridge_construction_timing_matches_K4_8_16_32_and_existing_window_rule _
+
+    def test_full_bridge_construction_timing_matches_K4_8_16_32_and_existing_window_rule():
+        raw, _, _ = fixture(K=32, H=3, W=4)
+        first = raw["trajectory_first_burn_hour"]
+        first[:, 1:, 1] = 1
+        first[:, 0, 0] = -2
+        raw.update(new_burn_probability=np.full((3, 4), .5), probability_valid=np.ones((3, 4), dtype=bool),
+                   rate_per_h=np.zeros((3, 4)), rate_valid=np.ones((3, 4), dtype=bool))
+        st = bridge.v1.settings_for(3970.4642815249267)
+        assert st["seed"] == 20261008 and st["horizon_s"] == 3600 and st["timing"] == "uniform"
+        full_events = source(raw).represented_events()
+        window = dict(r0=1, r1=2, c0=1, c1=2)
+        for K in (4, 8, 16, 32):
+            forecast = dict(raw, trajectory_first_burn_hour=first[:K])
+>           built = bridge.construct(forecast, cutoff_utc="2025-01-01T00:00:00Z", epsg=5179, settings=st)
+
+experimental/sipp-routing/tests/test_known_footprint.py:369: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+forecast = {'affine_transform': array([ 1.,  0.,  0.,  0., -1.,  3.]), 'heat__initial_active_burning_probability': array([[0., 0....nitial_remaining_burning_duration_s': array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.]]), ...}
+
+    def construct(forecast, *, cutoff_utc, epsg, settings, selection=None):
+        """Build coherent member arrays with exact event knots and native masks.
+    
+        v1 validation and radiation function are imported unchanged. This function
+        does not monkey-patch any v1 global and is safe for concurrent constructors.
+        """
+        st = dict(settings)
+        first = np.asarray(forecast["trajectory_first_burn_hour"])
+        if selection is None:
+            indices = list(range(len(first)))
+            selection = {"method": "first_k", "selected_indices": indices,
+                         "weights": [1 / len(first)] * len(first), "reduction_cost": 0.0}
+        indices = selection["selected_indices"]
+        if (not indices or len(set(indices)) != len(indices)
+                or any(isinstance(i, bool) or not isinstance(i, (int, np.integer)) or not 0 <= i < len(first) for i in indices)):
+            raise ValueError("Unique valid trajectory indices required")
+        weights = np.asarray(selection["weights"], dtype=float)
+        if weights.shape != (len(indices),) or not np.isfinite(weights).all() or (weights < 0).any() or not np.isclose(weights.sum(), 1):
+            raise ValueError("Normalized retained weights required")
+        fields = first[indices]
+        if fields.shape[1:] != forecast["new_burn_probability"].shape:
+            raise ValueError("Trajectory grid differs from raw export")
+        horizon = float(st["horizon_s"])
+        if np.any(fields > np.ceil(horizon / 3600)):
+            raise ValueError("Trajectory exceeds declared horizon")
+        summary = v1.CT.validate_raw(forecast, st["burning_duration_s"])
+        impossible = forecast["probability_valid"] & (forecast["new_burn_probability"] == 0)
+        if np.any((fields == 1) & impossible):
+            raise ValueError("First-hour burn contradicts a valid zero transition probability")
+        st.update(construction_version="wfg.hazard.construction/2", dependence="trajectory",
+                  scenario_count=len(fields), member_selection=selection)
+        st.setdefault("acceptance", {"rule": "all", "k": len(fields), "m": len(fields)})
+        timing = st.get("timing", "uniform")
+        events = ignition_seconds(fields, seed=st["seed"], timing=timing, trajectory_indices=indices)
+        T = float(st["burning_duration_s"])
+        known_burned = forecast["source_burned_area_valid"] & (forecast["source_burned_area"] == 1)
+        if not np.all(fields[:, known_burned] == 0):
+            raise ValueError("Trajectory cutoff state contradicts raw export")
+        active = forecast["heat__initial_burning_valid"] & (forecast["heat__initial_active_burning_probability"] == 1) & known_burned
+        unknown_age = known_burned & ~forecast["heat__initial_burning_valid"]
+        current = active | unknown_age
+        remaining_cells = {tuple(map(int, p)): float(forecast["heat__initial_remaining_burning_duration_s"][tuple(p)]) for p in np.argwhere(active)}
+        remaining_cells.update({tuple(map(int, p)): T for p in np.argwhere(unknown_age)})
+        remaining = max(remaining_cells.values(), default=0.0)
+>       from wfg_latest.radiation.heat import AffineGrid, CombustionParameters, ExpectedHeatFluxModel, FlameResidenceTime
+E       ModuleNotFoundError: No module named 'wfg_latest'
+
+experimental/scenario-members/bridge_v2.py:112: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED experimental/flame-front-radiation/test_bridge_v2.py::test_native_members_and_unknown_support_are_preserved
+FAILED experimental/flame-front-radiation/test_bridge_packet_equivalence.py::test_trajectory_bridge_packet_gives_identical_arrival_and_full_centre_check
+FAILED experimental/flame-front-radiation/test_known_footprint.py::test_full_bridge_construction_timing_matches_K4_8_16_32_and_existing_window_rule
+3 failed, 174 passed in 28.44s
