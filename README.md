@@ -1,20 +1,58 @@
 # WildfireGuardian
 
-WildfireGuardian combines machine-learning wildfire forecasting, time-dependent vehicle routing, a field route logger and an offline 3D exhibition. This repository contains the **finalized research code for the October 2026 submission**, with exact evaluated versions preserved.
+**Probabilistic wildfire mapping and time-dependent vehicle evacuation routing.**
 
-The scientific pipeline is **forecast → scenario hazards → route search → complete-journey checking → checked route or scoped refusal**. The logger and showcase have separate launchers and evidence; the 3D showcase uses an explicitly illustrative scene.
+WildfireGuardian studies how possible future fire development can inform a vehicle's entire journey: driving, permitted waiting and the required stay at a destination. Its intended use is to support responders and caregivers planning assistance for residents who may need more time to evacuate, including older adults. Field effectiveness and evacuation safety have not been established.
 
-## October 31 experimental tracks and post-merge repairs
+This repository contains the preserved October 2026 research release, subsequent verified engineering improvements, and opt-in experiments. **Merged code, passing software tests and scientific acceptance are separate states.**
 
-PRs #85–88 add opt-in radiation, forecast, scenario-member, SIPP and truth-analysis research. They retain their scientific HOLDs: the selected forecast did not meet its superiority criterion, radiation physics is unvalidated, and full-policy truth-risk integration remains gated. c651 and the historical routing release remain the defaults.
+[Run a recorded case](#2-replay-a-recorded-korean-routing-case) · [Results](#routing-results-and-their-scope) · [Current research status](#current-research-status) · [Verification](#6-verify-source-and-run-component-checks) · [Data and rights](docs/DATA_AND_RIGHTS.md)
 
-The [post-merge repairs](research/postmerge-fixes-20261031/README.md) restore exact callback/source compatibility, distinguish unresolved decisions from refusals in risk scoring, reject malformed extinction inputs, and enforce SIPP computation deadlines. Required CI now runs the forecast and experimental suites as well as the earlier routing/API/release checks. Original results, checkpoints, recorded timings and archived source ledgers are preserved; these code repairs do not regenerate or relabel them.
+## How the system works
 
-Local verification passed **3,531 forecast/cross-track tests and 177 experimental tests with no skips in the complete environment**; **3,640 frozen artifacts remained byte-identical**. See the linked repair report for raw logs, retained setup failures and verification scope.
+**Environmental inputs and fire history → probabilistic forecast → scenario hazards → route search → complete-journey checking → decision**
 
-## Frozen October 15 research results
+1. **Forecast:** environment-conditioned, nonnegative convolution kernels combine neighboring burned-state information into new-burning probabilities. Recursive Monte Carlo simulation produces possible future fire histories and probability maps.
+2. **Hazard construction:** versioned fire histories and declared thermal-source parameters become time-dependent flame-contact and heat-flux inputs. Unknown data and burning-duration assumptions remain part of the input contract.
+3. **Routing:** generate flame-contact-avoiding candidate journeys and an earliest-arrival lower bound, then check the complete journey against the required contact, peak-flux, cumulative-exposure and destination-stay rules. A passing candidate that attains the bound can end the search within the declared model.
+4. **Decision:** return a checked route, a no-route conclusion with an explicit model/horizon scope, or an unresolved result. Incomplete computation is not a no-route proof.
 
-The frozen native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**.
+The forecast is the learned component; routing is a search-and-check algorithm. The GPS logger and illustrative 3D showcase are separate tools with their own evidence and launch instructions.
+
+## Current research status
+
+Status as of **31 October 2026**, following merged PRs [#85](https://github.com/Sparkxt-0318/wildfireguardian/pull/85), [#86](https://github.com/Sparkxt-0318/wildfireguardian/pull/86), [#87](https://github.com/Sparkxt-0318/wildfireguardian/pull/87), [#88](https://github.com/Sparkxt-0318/wildfireguardian/pull/88) and [#89](https://github.com/Sparkxt-0318/wildfireguardian/pull/89). **HOLD** means the stated scientific acceptance requirements remain unmet; it does not mean the code failed to run.
+
+| Component | Available evidence and implementation | Acceptance boundary |
+|---|---|---|
+| Preserved forecast-to-routing release | c651 checkpoint, `wfg_latest` 1.0.0, kit v3; original Korean routing evidence | Default research reference; model-relative results, not field validation |
+| Request-window/check-first routing | Opt-in kit; original-panel replay and separate Caldor/Rim engineering panel | Verified for the recorded inputs and limits; no default replacement or universal speedup |
+| Graph preparation and authenticated reuse | Opt-in native preparation/cache package; separate matched research records | Preparation-stage benefit on the measured candidate; packaged/refactored source is not automatically benchmark-equivalent |
+| New forecasting study | Frozen fits, saved-output audits, cohort accounting and descriptive intervals | Selected forecast **failed its primary superiority criterion**; no checkpoint promotion |
+| Flame-front radiation v2 | Supported-geometry formulas, directed numerical controls and conservative bounds | **Physics HOLD**; empirical comparison and complete v2 journey integration remain open |
+| Scenario members, SIPP and truth evaluation | Trajectory export controls and restricted contact-routing comparisons | **Full-policy risk HOLD**; unknown support and causal input alignment remain unresolved |
+| Logger, API and showcase | Recording/interface tools and an illustrative local exhibition | No demonstrated field deployment or reduction in evacuation harm |
+
+See the [combined scientific assessment](research/next-combined/README.md), [radiation requirements](research/flame-front-radiation/REQUIREMENTS_STATUS.json), and [post-merge verification report](research/postmerge-fixes-20261031/README.md). The combined assessment preserves its pre-merge history beneath a dated status note.
+
+### Software verification after integration
+
+PR #89 repaired the exact callback/source-provenance conflict, unresolved-outcome scoring, malformed extinction-field handling, SIPP deadline exits and stale merge-status documentation. Historical producer hashes and archived failures remain preserved.
+
+- **3,531 forecast/cross-track tests passed**, including 24 new counterexample and source-mutation regressions.
+- **177 radiation/export/scenario/SIPP/truth tests passed with no skips** in the complete environment.
+- **3,640 protected artifacts remained byte-identical.**
+- The same full suites passed in [GitHub CI](https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/41154036377), alongside the macOS/Linux routing regressions. The required `gates` job now depends on the experimental suites as well as the earlier routing checks.
+
+[Raw logs, retained setup failures, source identities and preservation receipts](research/postmerge-fixes-20261031/README.md) describe exactly what was verified. These are software checks, not new benchmark samples or physical validation.
+
+## Routing results and their scope
+
+The candidate is the proposed implementation; the reference is the project's repaired resource-constrained A* implementation. These comparisons do not establish superiority over every routing algorithm. Each study below retains its own source version, inputs, host and scoring rules.
+
+### Frozen October 15 comparison
+
+The native-Mac benchmark contains **20 missions across five Korean regional panels from four parent fires**, two implementations and two repetitions: **80 executions**. Mission endpoints are constructed benchmark requests on real road graphs, not observed evacuation journeys. Eligible destinations, opening intervals and required stays are mission inputs.
 
 | Measure | Reference | Candidate |
 |---|---:|---:|
@@ -25,29 +63,53 @@ The frozen native-Mac benchmark contains **20 missions across five Korean region
 | Median request time in 26 jointly resolved route pairs | 7.344 s | 8.006 s |
 | Maximum recorded largest-process RSS | 2,055 MiB | 1,492 MiB |
 
-**The headline is 100% verified on-time resolution on this benchmark, not 100% routing accuracy.** Resolution includes five scoped refusals. Candidate and reference arrival times match in all 26 jointly resolved route pairs. The candidate provides more qualifying decisions but shows no matched successful-route speed advantage or consistent paired memory saving. Independent centre/contact checks found no recorded contradiction among the 56 returned-route executions, including repetitions.
+**The result is 100% verified on-time mission resolution on this panel, not 100% routing accuracy or 20 evacuation routes.** Candidate and reference arrival times match in all 26 jointly resolved route pairs. More missions receive qualifying decisions, but these data establish neither a matched successful-route speed advantage nor a consistent paired memory saving.
 
-All 80 outcome records were published within the 30 s request allowance. Reference unresolved outcomes include eight search-label-limit stops and six centre-only refusal publications without qualifying frozen authority. Neither category is an outer deadline termination. Continuous-road radiation-enclosure and global-bound proof obligations remain open. See the [independent report](research/routing/INDEPENDENT_REPORT.v1.md) and [reviewed figures](research/routing/figures/).
+All 80 outcome records were published within the 30 s request allowance. The reference's 14 unresolved executions comprise eight search-label-limit stops and six centre-only refusal publications without qualifying frozen authority; they are not 14 wall-clock deadline failures. Independent centre/contact checks found no recorded contradiction among the 56 returned-route executions. Continuous-road radiation-enclosure and global-bound proof obligations remain open.
+
+[Independent report](research/routing/INDEPENDENT_REPORT.v1.md) · [Reviewed figures and source tables](research/routing/figures/)
 
 ![Reviewed mission outcomes](research/routing/figures/fig01_resolution.png)
 
-## Verified routing update — October 29
+### Verified October 29 request-window update
 
-The [request-window/check-first repair](experimental/window-routing/README.md) is available as an opt-in kit for the existing API. A fresh replay preserved all original input hashes, cold preparation, 30 s deadlines and the 3,072 MiB memory guard: **80/80 executions completed; candidate 20/20 missions resolved (15 checked routes + 5 scoped no-route decisions), unchanged reference 13/20**. The candidate already had 20/20 coverage; this confirms no regression.
+The [opt-in request-window/check-first repair](experimental/window-routing/README.md) limits expensive radiation geometry work to relevant source activity within the request window while retaining full checking and cache-identity requirements.
 
-Independent programs checked all **18 distinct returned journeys and 72/72 scenario-specific thermal thresholds**, covering 56 route executions, and corroborated the five candidate no-route missions. All 56 returned witnesses match the historical routes. Across 26 jointly checked route pairs, request medians were **6.846 s candidate versus 6.765 s reference**; this replay establishes no speed gain. In the separate Caldor/Rim engineering panel, the verified repair increased resolution from **3/6 to 6/6** under unchanged limits. The original release kit remains intact.
+A fresh replay retained the original input hashes, cold preparation, **30 s** request limit and **3,072 MiB** memory guard. All **80 executions** completed: candidate **20/20** resolved (**15 checked routes + five scoped no-route decisions**), reference **13/20**. All **56 returned witnesses** matched the historical routes. This confirms no regression in already achieved mission coverage.
 
-[Results, per-execution records, independent verification and reproduction instructions](research/routing/request-window-20261029/README.md). These are model-relative computational results, not field safety validation.
+Independent programs checked **18 distinct returned journeys**, **72/72 scenario-specific thermal thresholds** and the five candidate no-route missions. These checks concern the frozen mathematical inputs and do not establish physical heat-model accuracy.
 
-## Final-input routing constraint ablation
+Across 26 jointly checked route pairs, request medians were **6.846 s candidate versus 6.765 s reference**; this replay establishes no speed gain. In the **separate six-mission Caldor/Rim engineering panel**, resolution increased from **3/6 to 6/6** under unchanged limits. It is not pooled with the Korean panel.
 
-A separate **200-execution native study** tests five hazard policies on the same final 20 missions. Eight travel-only journeys encounter predicted flames. Flame avoidance finds three checked detours and correctly identifies five model-infeasible missions; adding peak/dose limits changes no additional outcomes on this panel. The frozen application and the 80-execution comparison above are unchanged.
+[Execution records, independent verification and reproduction](research/routing/request-window-20261029/README.md). The historical kit remains unchanged; see the opt-in build instructions below.
 
-See the [ablation results, figures, data and reproduction instructions](research/routing/final-input-ablation/README.md). This is a constraint ablation, not a new forecast evaluation or a general speedup claim.
+### Routing constraint ablation
 
-## Experimental graph-preparation cache
+The separate [200-execution final-input study](research/routing/final-input-ablation/README.md) evaluates five policies on the final 20 missions. Eight travel-only journeys encounter predicted flames. Flame avoidance produces three checked detours and five independently corroborated model-infeasible missions. Adding peak/dose limits changes no additional outcomes on this panel; this does not establish that thermal constraints are unnecessary in other conditions.
 
-An [opt-in research package](experimental/routing-preparation/README.md) explores native graph preparation and authenticated reuse across routing requests. It is separate from the frozen integration kit. [Matched research results](research/routing/prepared-graph-cache/README.md) include cache creation costs and distinguish graph preparation from complete-request time. Those measurements were collected on the earlier sealed candidate, not this namespace-refactored package.
+This is a hazard-constraint ablation, not a forecast evaluation or a causal test of individual speed optimizations. The older 300-execution Uljin study uses earlier inputs and remains separate.
+
+### Graph preparation and cache reuse
+
+The [experimental package](experimental/routing-preparation/README.md) explores native graph preparation and authenticated reuse. [Matched records](research/routing/prepared-graph-cache/README.md) distinguish preparation time, complete-request time and initial cache-build cost. They show a preparation-stage benefit on the measured candidate, without establishing a general request-time benefit. Historical update replays are not live operational replanning, and those timings are not measurements of the subsequently namespace-refactored package.
+
+## Forecast evidence
+
+The default **c651** checkpoint and the new experimental study are different evaluated versions. Results must remain attached to their exact checkpoint, support policies, inputs and selection procedure.
+
+The [new frozen study](research/next-combined/README.md) evaluates the selected `d4_wind` model on **six US fires / 273 windows**, with raw Brier **0.0049268862** and AP **0.05425462**. Its paired Brier-difference interval against persistence includes zero, and its lowest-bin calibration gap is worse than the best dilation comparator. **The frozen primary superiority criterion is false**, regardless of positive secondary descriptors.
+
+The Korean cohort retains **33 windows: 26 scored and seven unavailable**. A supported subset does not establish a complete-cohort result. Descriptive intervals, unavailable cases and the limits of mapped-extent reference data remain explicit in the linked assessment. This study does not replace c651 or establish physical flame/heat truth.
+
+The [earlier forecast-ablation handoff](research/forecast/FORECAST_EVIDENCE_HANDOFF.md) also remains separately versioned; general four-scale superiority was not demonstrated.
+
+## Scientific next steps
+
+The next priority is **physical validation of the flame-front radiation model**. First establish whether primary measurements provide compatible radiative flux, flame geometry, sensor geometry and timing. Freeze a validation protocol before comparison, separate calibration from evaluation, and retain insufficient-evidence outcomes. Existing hypothetical parameter sweeps and agreement between two models do not close this gate.
+
+After that prerequisite passes, complete and independently verify the v2 checker for driving, waiting and destination stays, then replay sealed journeys and run the gated routing-policy studies under unchanged limits. Passing the existing empirical factor-of-three criterion would support only the declared validation scope, not vehicle tenability or operational safety.
+
+Separate work is required on scenario support, causal forecast alignment and full-policy truth/risk evaluation. Future forecast improvements need a newly declared evaluation; the current frozen negative result remains intact. See [radiation requirements](research/flame-front-radiation/REQUIREMENTS_STATUS.json), [cross-track gates](research/next-combined/GATES.json) and [broader extensions](docs/FUTURE_EXTENSIONS.md).
 
 ## Choose what to run
 
@@ -58,6 +120,8 @@ An [opt-in research package](experimental/routing-preparation/README.md) explore
 | Logger and live map | [`hardware/`](hardware/README.md) | Firmware 0.3.0, USB export and local map |
 | Offline 3D exhibition | [`demos/showcase/`](demos/showcase/README.md) | One local launcher; no map token |
 | Results and ablations | [`research/`](research/README.md) | Independent rows, figures and separate forecast study |
+| Experimental research tracks | [`experimental/`](experimental/) | [Current gates and evidence](research/next-combined/README.md) |
+| HTTP Route-Check API | [`api/`](api/) | [Service setup and contracts](api/README.md) |
 | Monte Carlo extension | [`monte-carlo-extension/`](monte-carlo-extension/EXTENSION_GUIDE.md) | Separately versioned optional study |
 
 ## 1 Install the final routing API
@@ -122,6 +186,8 @@ print(result["authoritative_status"], result["arrival_s"])
 print(result["independent"])
 ```
 
+For the opt-in request-window kit, follow [its build and replay instructions](experimental/window-routing/README.md). Select `RDA_CAND`; the shared-checker overlay baseline is not the unchanged historical reference used in the paired study.
+
 The other entry points are `export_forecast`, `build_packet` and `rekey_request`. See the [full-chain example](integration/examples/run_full_pipeline.py). A checked journey includes legal roads/turns/waits, scenario exposure history, destination opening and required stay. A timeout is unresolved, and a scoped refusal is not proof that every real-world escape is impossible.
 
 ## 5 Open the 3D showcase or live-map interface
@@ -139,14 +205,38 @@ For device recording and the local LIVE/replay map, follow [`hardware/README.md`
 
 ## 6 Verify source and run component checks
 
+Lightweight source and preserved-result checks, from the repository root:
+
 ```sh
 python tools/verify_release.py
-python -m pip install './forecast[test]'
-python -m pytest forecast/tests
+python tools/verify_postmerge_preservation.py
+python research/routing/final-input-ablation/tools/verify_published_results.py
+python research/routing/request-window-20261029/verify_evidence.py
+```
+
+These check published identities/accounting and their stated evidence scope; they do not rerun a timed campaign or establish physical validation.
+
+For the full forecast and experimental tests, use Python 3.12 in an environment with the complete dependencies. On Linux, first install the CPU wheel with `python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu` to match CI:
+
+```sh
+python -m pip install './forecast[test,baseline]' './integration[packets]' hypothesis==6.170.13
+export PYTHONPATH="forecast:experimental/scenario-members:experimental/scenario-members/src:experimental/sipp-routing/src:experimental/synthetic-truth/src:experimental/flame-front-radiation/src"
+export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+python -B -m pytest -q -p no:cacheprovider forecast/tests tests/postmerge
+python -B -m pytest -q -p no:cacheprovider \
+  experimental/flame-front-radiation/tests experimental/scenario-members/tests \
+  experimental/sipp-routing/tests experimental/synthetic-truth/tests
+```
+
+[Required CI](.github/workflows/verified-window-routing.yml) installs the CPU PyTorch build on Linux and fetches complete Git history for historical-source tests. A shallow checkout may need `git fetch --unshallow` before those tests. Missing optional dependencies can skip tests in a lean environment; use the complete setup above when comparing with the recorded no-skip result. External-data/native-FARSITE workflows retain their own prerequisites.
+
+Showcase controls use Node.js:
+
+```sh
 node --test demos/showcase/tests/*.test.mjs
 ```
 
-Forecast tests that require external datasets or native FARSITE retain those prerequisites. Firmware builds and device-interface tests have their own instructions. Publication checks and an unscored replay do not rerun the 80-attempt benchmark.
+Firmware builds and device-interface tests have separate instructions in [hardware/README.md](hardware/README.md). A publication check or unscored replay is not a new 80-execution benchmark.
 
 ## Exact versions and downloads
 
@@ -157,4 +247,10 @@ Forecast tests that require external datasets or native FARSITE retain those pre
 
 The previous `routing-api/`, `routing-package/` and `routing-review/` paths remain for historical compatibility. **Use `integration/` for the finalized forecast-to-routing work.** Earlier results remain attached to their original inputs. No forecast-ablation checkpoint replaces the selected final checkpoint.
 
-The completed forecast ablation did not demonstrate general four-scale superiority; its positive and negative findings remain [documented separately](research/forecast/FORECAST_EVIDENCE_HANDOFF.md). Further proof, source-coverage, generalization and operational work are in [future extensions](docs/FUTURE_EXTENSIONS.md). No universal speedup, forecast accuracy or physical-safety claim is made by this release.
+## Reproducibility, attribution and intended use
+
+External environmental rasters, upstream prepared arrays and observed-survey inputs are not all bundled. Follow [data provenance and distribution scope](docs/DATA_AND_RIGHTS.md) and each workflow's input instructions. Preserve OpenStreetMap attribution and upstream asset licenses; repository publication does not grant blanket rights over external data.
+
+A checked route satisfies the implemented model and declared input scope. It is not a guarantee of real-world safety. Smoke, embers, convection, shielding, data freshness, accessibility and destination suitability require additional evidence for operational use. No universal speedup, general forecast superiority or field effectiveness is established by this repository.
+
+For citation metadata, see [CITATION.cff](CITATION.cff). Keep historical release identities and recorded failures when extending the research; new checkpoints, hazard policies and performance claims require their own evidence.
