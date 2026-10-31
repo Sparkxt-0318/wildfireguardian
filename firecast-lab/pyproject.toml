@@ -13,7 +13,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = ["numpy>=1.26", "scipy>=1.13", "rasterio>=1.4", "scikit-learn>=1.5", "matplotlib>=3.8"]
 
 [project.optional-dependencies]
-test = ["pytest>=8", "hypothesis>=6"]
+test = ["pytest>=8", "hypothesis>=6", "pillow>=8"]   # the tests read PNG metadata with PIL
 
 [project.scripts]
 firecast-lab = "firecast_lab.cli:console"
