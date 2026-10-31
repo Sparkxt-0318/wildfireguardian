@@ -218,11 +218,14 @@ def windows_from_arrays(event: dict, arrival: np.ndarray, lead_h: int, *, record
     """Windows of one fire from its arrival hours since t0 (NaN outside the final perimeter) and optional inputs."""
     if domain not in DOMAINS:
         raise ValueError(f"domain must be one of {DOMAINS}")
+    cutoffs = window_cutoffs(arrival, event, lead_h)
+    if not cutoffs:
+        return
     final = np.isfinite(arrival)
     cell = abs(float(event["transform"][0]))
     scored = headline_domain(final, cell) if domain == "headline" else full_rectangle(arrival.shape)
     t0 = datetime.fromisoformat(event["t0_utc"])
-    for cutoff_h in window_cutoffs(arrival, event, lead_h):
+    for cutoff_h in cutoffs:
         stamp = datetime.fromtimestamp(round((t0 + timedelta(hours=cutoff_h)).timestamp()), tz=timezone.utc)
         cutoff_utc = stamp.strftime("%Y-%m-%dT%H:%M:%SZ")
         burned = window_labels(arrival, cutoff_h, lead_h)["burned_at_cutoff"]

@@ -168,3 +168,10 @@ def test_load_windows_fails_loudly_on_a_missing_or_incomplete_root(tmp_path, mon
         fd.load_windows(root, "SYNTHETIC_A", 24, splits=splits)
     with pytest.raises(PermissionError, match="test fire"):
         fd.load_windows(root, "SYNTHETIC_A", 24, splits=syn.splits(SYNTHETIC_A="test"))
+
+
+def test_a_fire_without_any_window_yields_nothing():
+    import synthetic as syn
+
+    assert syn.windows("SYNTHETIC_EMPTY", np.full((5, 6), np.nan)) == []                # no scar, no cutoff
+    assert syn.windows("SYNTHETIC_LATE", np.full((5, 6), 70.0), duration_h=72) == []   # nothing burned in time

@@ -9,8 +9,9 @@
 | c651                | its own Monte Carlo trajectories (``firecast_lab.c651``)               | nothing; in-sample on 25 dev fires |
 
 ``fit`` sees only the windows it is given; cross-fitting by whole-fire folds is the harness's job. Fitting rows are
-the scored cells of each training window (``Window.fitting_rows``). ``probabilities`` sees only the cutoff inputs
-(``data.Cutoff``), never the outcome.
+the scored cells of each training window (``Window.fitting_rows``), so a baseline is calibrated on the population
+it is scored on; the headline domain of a training fire comes from that fire's own final perimeter, never from the
+predicted fire's. ``probabilities`` sees only the cutoff inputs (``data.Cutoff``), never the outcome.
 
 Why calibrated dilation is the bar to beat: the best 0/1 dilation is one monotone step function of the Chebyshev
 distance; the isotonic map is the best monotone function of the same distance on the training fires, so it refines
