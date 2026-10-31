@@ -14,10 +14,179 @@
       "status": "PASS"
     }
   ],
+  "final_resolution": {
+    "default_promotion": false,
+    "evidence": {
+      "FARSITE_independent_review": {
+        "path": "research/forecast-v2/review/final_delivery/independent/farsite/ACTUAL_REVIEW.json",
+        "sha256": "26c5a52e0eec8a977b947a87a9cf7391243ddc2aeded58bbb173ed965787d2e4"
+      },
+      "checklist": {
+        "path": "research/forecast-v2/review/final_delivery/preparation/final-report-packaging-checklist.md",
+        "sha256": "7522e70c61d93ce6361393f71d53a9a9d418b37d71a1e8e646298b096e9dd7e4"
+      },
+      "completion": {
+        "path": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/COMPLETION.json",
+        "sha256": "05864ec95b0f042bbdba86dbb43374b591afbb8e56ab779730272fae70d863a9"
+      },
+      "coverage": {
+        "path": "research/forecast-v2/FIT_COVERAGE.json",
+        "sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971"
+      },
+      "existing_requirements": {
+        "path": "research/forecast-v2/review/final_delivery/pre_final/REQUIREMENTS_STATUS.json",
+        "sha256": "7504f98dc6b1be197343ea383699adf607823f24e66d9c935e51eb0832c10ded"
+      },
+      "farsite": {
+        "path": "research/forecast-v2/FARSITE_SCORES.json",
+        "sha256": "f0aa554c2312f3e177eb5d2a165e4aa50a986c3e883beda56510b201bcb3f6e2"
+      },
+      "freeze_handoff": {
+        "path": "research/forecast-v2/FREEZE_HANDOFF.json",
+        "sha256": "5a0528835d29bde32fa553e99b096bb6910eea57df617ef8fcee4371383d63b3"
+      },
+      "gate_history": {
+        "path": "research/forecast-v2/review/final_delivery/pre_final/GATE_HISTORY.json",
+        "sha256": "7fd5302bb06c33fdd040f32a1c9870e6e9f041d610efd5df6e9301c89953b33f"
+      },
+      "original_qa": {
+        "path": "research/forecast-v2/FIGURE_QA_ORIGINAL.json",
+        "sha256": "e8217ab0a84e31da68ceaeb3cf5e61b9439357411a34935926a540ddbd009be4"
+      },
+      "preregistration": {
+        "path": "forecast/documents/preregistration_blind_test.md",
+        "sha256": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6"
+      },
+      "prompt": {
+        "path": "docs/next/prompts/01B_forecast_upgrades.md",
+        "sha256": "99434f85fc42cfe556c9592ee872f5e70be29c9a080e06fcbb0a6d24ba0739ce"
+      },
+      "publication_independent_review": {
+        "path": "research/forecast-v2/review/final_delivery/independent/publication/INDEPENDENT_QA.json",
+        "sha256": "405800b248a115e7a80a163bdd5c0d8cf0d1f7fe9c6b583c7af29c605846727d"
+      },
+      "publication_qa": {
+        "path": "research/forecast-v2/publication-render/20261031_v2/FIGURE_QA.json",
+        "sha256": "b66dcb03733b55aead0eb3350e24c0a60a3ee45b157c8acd05ed9fe84120ac95"
+      },
+      "registry": {
+        "path": "research/forecast-v2/BLIND_REGISTRY.json",
+        "sha256": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e"
+      },
+      "results": {
+        "path": "research/forecast-v2/RESULTS.json",
+        "sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755"
+      },
+      "selection": {
+        "path": "research/forecast-v2/MODEL_SELECTION.json",
+        "sha256": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b"
+      },
+      "sidecar": {
+        "path": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json",
+        "sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c"
+      },
+      "sidecar_independent_review": {
+        "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.json",
+        "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158"
+      },
+      "software_gate": {
+        "path": "research/forecast-v2/executions/final_software_gate_v2.json",
+        "sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e"
+      },
+      "status_source": {
+        "path": "research/forecast-v2/scripts/status.py",
+        "sha256": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d"
+      }
+    },
+    "failed_supplement_attempt": {
+      "interpretation": "Missing inventory declarations refused before output or array decode; preserved8b5 authorization. Later attempt uses separately issued3195 authorization/newoutput.",
+      "receipt": "research/forecast-v2/executions/current_descriptive_intervals_actual_v1.json",
+      "sha256": "37f6078bb8adca3933039c1b83e0be4885ca1f05b514f1a5413a57aacbf9219f"
+    },
+    "history_extension": {
+      "old_timing_value": "SELECTION_AND_REGISTRY_FROZEN_CURRENT_ASSESSMENTS_NOT_EXECUTED",
+      "original_metric_HOLD": {
+        "path": "research/forecast-v2/supplements/current_descriptive_intervals_v2/evidence/original_metric_hold.json",
+        "sha256": "a2be36da59998020740f458e82df3df8fcdc282ffa11875b65c9f82970fb1fdc"
+      },
+      "precision_review": {
+        "path": "research/forecast-v2/supplements/current_descriptive_intervals_v2/evidence/precision_repair_review.md",
+        "sha256": "f4ecf98761130e5162c615870768446212b732d46db2b4e54e801789c348f0f4"
+      },
+      "preserve_prior_observations": [
+        {
+          "evidence": "research/forecast-v2/executions/final_software_gate.json",
+          "name": "final_software_gate",
+          "status": "PASS"
+        },
+        {
+          "evidence": "research/forecast-v2/executions/final_fit_coverage_audit.json",
+          "exit_code": 1,
+          "interpretation": "Metadata recipe guard failure; no cache-value or fit corruption inferred",
+          "name": "complete_fit_coverage",
+          "status": "HOLD_SOURCE_RECIPE_ADMISSION"
+        }
+      ],
+      "preserve_source_gate_resolutions": [
+        {
+          "name": "full_updated_software",
+          "receipt": "research/forecast-v2/executions/final_software_gate_v2.json",
+          "sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e",
+          "status": "PASS"
+        },
+        {
+          "name": "canonical_live_fit_coverage",
+          "output_sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971",
+          "receipt": "research/forecast-v2/executions/final_fit_coverage_audit_v2.json",
+          "sha256": "98981a151429d27ed0acde368a6bbf8725f78ae7855d0da3e332fbd397775358",
+          "status": "PASS"
+        }
+      ],
+      "proposed_timing_value": "FROZEN_CURRENT_ASSESSMENTS_EXECUTED_US_COMPLETE_KR_SUPPORT_HOLD",
+      "rule": "Keep original HOLD/failure and append separately bound resolution events.",
+      "sidecar_replay": "PASS_INDEPENDENT_ACTUAL_DESCRIPTIVE_INTERVAL_REVIEW",
+      "sidecar_replay_receipt": {
+        "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.json",
+        "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158"
+      }
+    },
+    "physical_validation": "NOT_ESTABLISHED",
+    "primary_superiority_criteria_pass": false,
+    "prior_gate_history": {
+      "path": "research/forecast-v2/review/final_delivery/pre_final/GATE_HISTORY.json",
+      "sha256": "7fd5302bb06c33fdd040f32a1c9870e6e9f041d610efd5df6e9301c89953b33f"
+    },
+    "recorded_utc": "2026-10-31T00:04:27.654629+00:00",
+    "state_axes": {
+      "FARSITE_measurement": "HOLD_AVAILABLE29_OF30",
+      "KR_scientific_availability": "HOLD26_SCORED7_UNAVAILABLE",
+      "US_scientific_availability": "COMPLETE273",
+      "comparison_execution": "COMPLETE12_CUTOFFS66_ROWS",
+      "current_assessment_execution": "COMPLETE306_ATTEMPTED",
+      "default_promotion": false,
+      "fit_execution": "COMPLETE21_DEVELOPMENT7_FINAL",
+      "future_execution": "NOT_READY_FOR_2026_EXECUTION",
+      "future_protocol": "READY_FOR_OWNER_REGISTRATION",
+      "physical_validation": "NOT_ESTABLISHED",
+      "primary_superiority": "FALSE",
+      "publication_visual_qa": "PASS_OWNER_AND_INDEPENDENT_SET_PRESERVE_ORIGINAL_CANONICAL_HOLD",
+      "sidecar_independent_actual_replay": "PASS_INDEPENDENT_ACTUAL_DESCRIPTIVE_INTERVAL_REVIEW",
+      "software": "PASS3507_CORE367_RELEASE"
+    },
+    "successful_supplement_attempt": {
+      "independent_replay": {
+        "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.json",
+        "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158"
+      },
+      "receipt": "research/forecast-v2/executions/current_descriptive_intervals_actual_v2.json",
+      "sha256": "48ba1ed559072f8ccb03f9948951307d6c571b977a89c222c92fe20be06ab8d6"
+    }
+  },
   "independent_actual_coverage_review": {
     "report_sha256": "ac702774b2cd11905f26da9edf61f597e39a777ef484a123d341ac25d5026451",
     "status": "PASS_SCOPED_METADATA_AND_CUSTODY"
   },
+  "previous_selection_registry_heldout": "SELECTION_AND_REGISTRY_FROZEN_CURRENT_ASSESSMENTS_NOT_EXECUTED",
   "prior_observations": [
     {
       "evidence": "research/forecast-v2/executions/final_software_gate.json",
@@ -33,5 +202,5 @@
     }
   ],
   "schema": "wfg.forecast-v2.gate-history/1",
-  "selection_registry_heldout": "SELECTION_AND_REGISTRY_FROZEN_CURRENT_ASSESSMENTS_NOT_EXECUTED"
+  "selection_registry_heldout": "FROZEN_CURRENT_ASSESSMENTS_EXECUTED_US_COMPLETE_KR_SUPPORT_HOLD"
 }
