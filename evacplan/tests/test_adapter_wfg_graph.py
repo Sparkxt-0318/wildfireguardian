@@ -1,7 +1,8 @@
 """Router graph.json -> evacplan RoadGraph, reusing wfg_latest's own admission checks.
 
 The real Korean graphs and packets (fetched release inputs, never copied into the repo) are read
-from ``$WFG_ROUTING_INPUTS`` (default: this session's scratchpad); those tests skip when absent.
+from ``$WFG_ROUTING_INPUTS``. There is no default location: when the variable is unset or the
+folder has no ``graphs/``, those tests skip and say why.
 """
 import copy
 import json
@@ -19,13 +20,34 @@ from evacplan import Budgets, HazardRef, Instance, State, check_itinerary
 from evacplan.adapters import from_wfg_graph, router_grid_transform
 from evacplan_testkit import drive, itinerary, make_set, quiet, vehicle
 
-ROUTING_INPUTS = Path(os.environ.get(
-    "WFG_ROUTING_INPUTS",
-    "/tmp/claude-0/-home-user-wildfireguardian/a9efaa5c-c674-5d4b-a7c3-c4ab7b53f43d/scratchpad/routing_inputs"))
-GRAPHS = ROUTING_INPUTS / "graphs"
-PACKETS = ROUTING_INPUTS / "latest_inputs_try02" / "packets"
+
+def routing_inputs(env=os.environ) -> tuple[Path | None, str | None]:
+    """The fetched study inputs named by ``$WFG_ROUTING_INPUTS`` and, when the real-data tests cannot
+    run, the reason (unset, or no ``graphs/`` folder there)."""
+    raw = env.get("WFG_ROUTING_INPUTS", "").strip()
+    if not raw:
+        return None, ("WFG_ROUTING_INPUTS is not set: point it at the fetched study graphs and packets "
+                      "(never copied into the repo) to run the real-data tests")
+    root = Path(raw)
+    if not (root / "graphs").is_dir():
+        return root, f"WFG_ROUTING_INPUTS={raw}: no graphs/ folder there (missing, or not the fetched study inputs)"
+    return root, None
+
+
+ROUTING_INPUTS, NO_REAL_DATA = routing_inputs()
+GRAPHS = None if NO_REAL_DATA else ROUTING_INPUTS / "graphs"
+PACKETS = None if NO_REAL_DATA else ROUTING_INPUTS / "latest_inputs_try02" / "packets"
 REGIONS = ["hongseong_2023", "miryang_2022", "uljin_2022", "uiseong_andong_2025", "yeongdeok_2025"]
-real = pytest.mark.skipif(not GRAPHS.is_dir(), reason="routing inputs not present (set WFG_ROUTING_INPUTS)")
+real = pytest.mark.skipif(NO_REAL_DATA is not None, reason=NO_REAL_DATA or "")
+
+
+def test_routing_inputs_have_no_default(tmp_path):
+    root, why = routing_inputs({})
+    assert root is None and "not set" in why
+    root, why = routing_inputs({"WFG_ROUTING_INPUTS": str(tmp_path / "missing")})
+    assert root == tmp_path / "missing" and "no graphs/ folder" in why
+    (tmp_path / "graphs").mkdir()
+    assert routing_inputs({"WFG_ROUTING_INPUTS": str(tmp_path)}) == (tmp_path, None)
 
 
 # ------------------------------------------------------------- a tiny router graph (always runs)
@@ -122,11 +144,11 @@ def test_real_graph_grid_is_the_packet_grid(region):
         assert md["graph_revision"] == raw["revision"]
 
 
-ULJIN = PACKETS / "uljin_2022" / "20220304T060000Z"
+ULJIN = None if PACKETS is None else PACKETS / "uljin_2022" / "20220304T060000Z"
 
 
 @real
-@pytest.mark.skipif(not ULJIN.is_dir(), reason="Uljin 06Z packet absent")
+@pytest.mark.skipif(ULJIN is not None and not ULJIN.is_dir(), reason="Uljin 06Z packet absent")
 def test_real_graph_and_packet_through_the_oracle():
     """Present fire -> model_no_route; unknown cells (program rule 4) -> unresolved; quiet supported -> checked."""
     raw = json.loads((GRAPHS / "uljin_2022" / "graph.json").read_text())
