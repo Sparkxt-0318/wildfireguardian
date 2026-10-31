@@ -295,7 +295,7 @@
       },
       "numerical_source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
       "numerical_source_files": 61,
-      "publication_status": "Root push confirmed exit0 to473; PR88OPEN/DRAFT exacthead verified, CIcurrentlyRUNNING at root observation. Previous actualremoteB6887 remained until this push. f759 was localrender-contentancestor, not earlier publishedhead.",
+      "publication_status": "Root push confirmed exit0 to473; PR88OPEN/DRAFT exacthead verified. Later exact root snapshot records8/8SUCCESS. Previous actualremoteB6887 remained until this push; f759 is localrender-contentancestor, not earlier publishedhead.",
       "review_source_head": "61c836a058eb5fe866da584f7e7670a2b89185af",
       "future_numerical_guard": {
         "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
@@ -1575,6 +1575,22 @@
         "canonical858_and_060c_0586_c41_unchanged": true,
         "readonly_surface_diff": false,
         "readiness_rerun": false
+      },
+      "current_publication_CI": {
+        "state": "8_OF_8_SUCCESS_ROOT_SNAPSHOT",
+        "head": "473c8da0a6f428006b67210253ba257ff163cb34",
+        "PR_state": "OPEN",
+        "draft": true,
+        "successful_checks": 8,
+        "total_checks": 8,
+        "snapshot": "publication-ci-pr88-473c8da0/ROOT_GH_SNAPSHOT.json",
+        "snapshot_sha256": "8785fe7023b98dc7422ca1d341f258430790fca608da7bb2055db9ddc1945f76",
+        "inventory": "publication-ci-pr88-473c8da0/SOURCE_INVENTORY.json",
+        "archive_verified_utc": "2026-10-31T00:23:54.478241+00:00",
+        "source_capture_timestamp": "NOT_RECORDED_IN_SOURCE_JSON",
+        "latest_reported_check_completion_utc": "2026-10-31T00:19:00Z",
+        "prior_RUNNING_observation": "history/ci-running-observation-07c81174.json",
+        "root_snapshot_only_no_readiness_network_query": true
       }
     },
     "1C": {
@@ -1838,7 +1854,7 @@
     "parent_contact_adapter_repair": "Parent70017tinycontrols65custodychecks72targetedtest receipt archived unchanged with originalfd8failure; not rerun by readiness.",
     "B_development_admission": "Other independent reviewer23/23admission plus6/6historical-skip synthetic controls at a5ba, no actual study/model inputs; exact report/script/results/log archive and manifest/producer pins checked by readiness, no rerun.",
     "B_metrics_review": "Other independent reviewer51/51nonablation arithmetic/gate controls plus retained false paired-CI reproduction at a5ba, no actual data/model/quality-result inspection. Readiness archived exact manifest and verifiedsource Git object pins, no rerun.",
-    "confirmed_publication_heads": "Root confirms currentpublished A433/C06ad/B473 exactPR88headOPEN/DRAFT, CIcurrentlyrunning. f759 is localrender-contentancestor, never earlierpushed; previous actualremoteB6887 until473. Exact older mistakenwording retained with explicit correction.",
+    "confirmed_publication_heads": "Root confirms published A433/C06ad/B473 exactPR88headOPEN/DRAFT; later rootGHsnapshot verifies8/8SUCCESS. EarlierRUNNING observation preserved separately. f759 is localrender-contentancestor; previousactualremoteB6887 until473. No publicationbyreadiness.",
     "B_report_repair": "Other independent reviewer21/21report-only repair controls at61, including synthetic visual panels and6unchangedfunctionASTs; readiness archived exact manifest/producer/report Git object pins, no rerun. No actual study/quality results inspected.",
     "B_static_milestones": "Other independent future70andprepared38syntheticcontrols; parentledger13anddevelopmentJSONaggregatearithmetic; optionalFARSITEreview21positivecontrols+2confirmeddefects. Exact archives/sourcehashes checked, no readiness rerun or actual data/model/quality-result inspection.",
     "B_farsite_repair": "Other independent22repaircontrols and separate41owner suite atD251. Readiness exact archive/sourcehash verification only, no actualquality/native/data/model rerun.",
