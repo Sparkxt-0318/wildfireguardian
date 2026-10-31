@@ -220,3 +220,32 @@ def test_per_facility_rows_deadlines_and_outcomes(mini):
     assert "| unservable |" in text and "**unservable**" in text and "b1_greedy" in text
     run("b1_greedy", "dev", 60, seeds=[0], lock="no", log=lambda s: None, **p)     # upsert: no duplicates
     assert len(read_rows(fac_csv)) == len(frows)
+
+
+def test_aliases_s_only_methods_bounds_and_sizes(tmp_path_factory):
+    """``--method B2`` writes b2_vrptw rows; B3 runs on S instances only (no row for M) and its proven bound
+    appears as the instance's best bound; the leaderboard adds a size table."""
+    root = tmp_path_factory.mktemp("harness-b23")
+    split = build_split({"dev": [SyntheticConfig(size="S", tightness=0.75, graph="geo", seed=9311),
+                                 SyntheticConfig(size="M", tightness=0.5, graph="grid", seed=9312)]},
+                        frozen="test-fixture")
+    write_split(split, root / "SPLIT.json")
+    p = paths(root, "b23")
+    s_id, m_id = split.ids("dev")
+    b2 = run("B2", "dev", 6, lock="no", log=lambda s: None, **p)                   # equal budgets: one table
+    assert {r["method"] for r in b2} == {"b2_vrptw"} and (p["results_dir"] / "b2_vrptw.csv").is_file()
+    assert not (p["results_dir"] / "B2.csv").exists()
+    logs: list[str] = []
+    b3 = run("b3", "dev", 6, lock="no", log=logs.append, **p)
+    assert [r["instance"] for r in b3] == [s_id] and any("skipped" in x and m_id in x for x in logs)
+    (r,) = b3
+    assert r["method"] == "b3_mip" and r["best_bound"] and r["gap"]
+    assert int(r["delivered_checked"]) <= float(r["best_bound"]) <= 40
+    b2_s = next(x for x in b2 if x["instance"] == s_id)
+    assert int(b2_s["delivered_checked"]) <= float(r["best_bound"])          # the bound covers every method
+    assert float(r["gap"]) == pytest.approx((float(r["best_bound"]) - int(r["delivered_checked"])) / float(r["best_bound"]))
+    text = p["leaderboard_path"].read_text()
+    assert "| best bound |" in text and "by instance size" in text
+    line = next(x for x in text.splitlines() if x.startswith(f"| {s_id} |"))
+    assert f"| {float(r['best_bound']):g} |" in line
+    assert "| b3_mip | " in text and "| b3_mip | SYNTHETIC | 1 | 1 |" in text
