@@ -1,9 +1,10 @@
-# evacplan assumptions (Problem v0: oracle, instance generators, split, harness, real region 1)
+# evacplan assumptions (Problem v0: oracle, generators, split, harness, deadlines, baselines B0-B1, real region 1)
 
 Every modelling choice the schema, validator and oracle make. **Source**: *spec* (Problem v0
 or the C0 task), *router* (reused from the single-vehicle router / whole-journey checker in
 `integration/`), or *chosen* (decided here, listed under "Questions for Siyeong" when it matters).
-The code is the definition: `src/evacplan/{schema,validate,oracle}.py`; the tests check each rule.
+The code is the definition: `src/evacplan/{schema,validate,oracle,reach,deadlines}.py` and
+`src/evacplan/methods/`; the tests check each rule.
 
 ## Time, space, labels
 
@@ -49,7 +50,7 @@ The code is the definition: `src/evacplan/{schema,validate,oracle}.py`; the test
 | 23 | Validator issues → `model_no_route` with cause `RESOURCE:<code>` from the start of the offending action. | spec |
 | 24 | A vehicle's state never improves: after each leg it is the worst so far (model_no_route < unresolved < checked); its `cause` is the first reason that brought it to that level. After a certain violation, later legs are not queried (they cannot change any verdict). | spec |
 | 25 | A trip ends with an unloading. Its residents are delivered iff the state at the end of that unloading is `checked` (every occupancy from the vehicle's start through it is checked in all K members). Residents still on board at the end are `model_no_route`. | spec |
-| 26 | Residents no itinerary boards are reported as `not_planned`. That is not a verdict: proving that nobody can serve them is a planner's job (scoped `model_no_route` per facility, later milestone). | chosen |
+| 26 | Residents no itinerary boards are reported as `not_planned`. That is not a verdict: proving that nobody can serve them is a planner's job, done per facility and class by `evacplan.deadlines` (#71: scoped `model_no_route`, `unservable` in the harness). | chosen |
 | 27 | Safety slack of a checked leg: the largest uniform delay that keeps it contact-free in all members, exact from the cells' burning intervals (min over touched cells of ignition − last touch), capped at horizon − leg end. Plan `min_slack_s` = min over the legs up to each vehicle's last delivered trip. | spec |
 | 28 | Vehicle time = Σ (end of last action − `start_s`) over itineraries; makespan = latest action end. | chosen |
 | 29 | Every plan result carries its scope: oracle version, contract version, hazard model version, source, K, issue time, offset, horizon (hazard and instance clocks), budgets, flux model and the rules above. | spec |
@@ -106,6 +107,36 @@ The code is the definition: `src/evacplan/{schema,validate,oracle}.py`; the test
 | 55 | Rows are upserted by (set, budget, instance, method, seed). `results/` (CSVs, plans and oracle results) is git-ignored; `LEADERBOARD.md` is committed and regenerated after every run: one table per set and budget (methods are only compared at equal budgets), a label column (SYNTHETIC), over-budget runs counted. | spec, chosen |
 | 56 | Timed runs hold the shared bench lock (`program/benchlock.py`, loaded by path). `--lock auto` (default) skips acquiring when a parent process already holds it (`benchlock.py -- evacplan run …`), which would otherwise deadlock. | spec, chosen |
 | 57 | A method's own claims (`MethodResult.info`) are never scored; `noop` returns the empty plan and only tests the plumbing. | spec |
+
+## Latest-safe-departure sweep and per-facility deadlines (`evacplan.reach`, `evacplan.deadlines`)
+
+| # | Assumption | Source |
+|---|---|---|
+| 66 | Every decision is on the whole-second lattice of the instance clock, from 0 to Hi = ⌊horizon − offset⌋: the oracle never checks an occupancy that ends after the horizon, so nothing later can be delivered. Travel times, per-resident boarding and unloading times and vehicle starts must be whole seconds (`LatticeError` otherwise; the generators and the router graphs are); windows, release times and shifts are rounded inwards. | router (1 s lattice), chosen |
+| 67 | Two relaxations of the oracle's leg rule, built from the oracle's own contact records (uniform motion, closed cells, the same instants). POSITIVE ("usable"): no touched cell burns at any instant of the occupancy in any member (touch intervals widened by 1 µs), every touched cell is supported, the geometry stays inside the grid, the leg ends by the horizon; contact only, so the oracle may still reject a usable leg on peak or dose, never on contact, support or horizon. NEGATIVE ("not certainly blocked"): a departure is blocked only by certain contact in some member whose first instant is by the horizon (narrowed by 1 µs); unknown cells are passable. Tests check both against `hazard_contract` and the oracle. | spec (relaxed checks inside searches), chosen |
+| 68 | The sweep is a backward dynamic programme over (state, second). States: the edge just traversed (the heading, for turn rules) and a fresh heading at each facility (after boarding). Moves: allowed successors usable at that second. Waits: 1 s at a waitable node with a usable stay, keeping the heading. Target: unloading ONE resident of the class at a shelter that accepts it (capacity > 0), inside an opening window, with a usable stay, by the horizon. All classes and all K members at once; exact on the lattice for any hazard (no monotonicity assumed); cross-checked against a plain recursion and a forward brute force. `Reach.departure_field` keeps a fresh state at every node and returns the per-node field (the latest second a vehicle there can still leave and deliver). | spec (U1 backward reachability), chosen |
+| 69 | Per facility and class: `leave_by_s` = the latest second t ≥ release + one boarding from which the sweep reaches a target and at which the boarding stay [t − b, t] at the facility is usable; `arrive_by_s` = `leave_by_s` − b, with b the boarding time of ONE resident of the class. They are the latest times the last vehicle can leave and the first vehicle can arrive and still serve someone of that class; a full load boards longer. The facility summary takes the earliest class `arrive_by_s` and the latest class `leave_by_s`. | spec, chosen (Q14) |
+| 70 | Every deadline is confirmed by the oracle: a probe vehicle that starts at the facility boards one resident from `arrive_by_s`, leaves at `leave_by_s` on the sweep's witness route (prefer unloading, then a move that makes progress towards a shelter in free-flow time, then waiting, then any move) and unloads. If the oracle does not check it, earlier departures are tried (up to 6, stepping back 1, 2, 4, … s); otherwise the class is `unresolved`. | spec (final answers from the oracle) |
+| 71 | Residents no plan can serve are a scoped `model_no_route` (`UNSERVABLE:<reason>`, declared by the oracle), for a whole class at a facility, in this order: `NO_SHELTER_CAPACITY` (no shelter accepts the class); `NO_VEHICLE_SPACE` (no vehicle has room for it); `NO_ROUTE` (in the NEGATIVE relaxation, with waits anywhere, no turn rules and one resident's unloading, no departure at or after release + one boarding reaches an open shelter by the horizon); `NO_VEHICLE_IN_TIME` (every vehicle with room either cannot reach the facility in that relaxation early enough to board and leave by the relaxation's latest departure, or cannot finish one trip within its shift, using the free-flow time to the nearest accepting shelter plus unloading as a lower bound). Partial shortfalls (only some residents of a class) are not claimed. | spec, chosen |
+| 72 | `NO_ROUTE` and `NO_VEHICLE_IN_TIME` are certified only when the 1 s lattice is complete for the relaxation: every supported cell that starts burning by the horizon keeps burning through it (feasible departures are then down-sets, so flooring the times of any continuous-time trip to whole seconds keeps it feasible) and every instance time is a whole second. Otherwise they are `unresolved` (`RELAXATION_INCOMPLETE:<reason>`). The oracle verifies these conditions, and the resource claims, itself. | chosen (soundness) |
+| 73 | No usable route but no certain refusal (unknown cells, or turn rules, waits or windows that only the relaxation can satisfy) is `unresolved`, never `model_no_route`. A class that is unservable for lack of vehicles (`NO_VEHICLE_IN_TIME`) still reports its checked deadline. | spec (rule 4) |
+| 74 | A delivery needs every leg checked by the horizon, so "cannot be delivered by the horizon" is a `model_no_route` scoped to the horizon (as the router's `PROVEN_INFEASIBLE` is scoped to its horizon), while a single trip that runs past the horizon stays `unresolved` in the oracle. | router, chosen (Q12) |
+
+## Baselines (`evacplan.methods`: `b0_independent`, `b1_greedy`)
+
+| # | Assumption | Source |
+|---|---|---|
+| 75 | Both baselines plan on the POSITIVE masks only (contact-free in all K members, supported, by the horizon) under the validator's rules (capacities, release, windows, shifts, waits, turn rules); the harness checks every plan with the oracle. A trip: approach → wait for release (waitable facility) → board → route to a shelter → wait for its window (waitable shelter) → unload. Routes: the free-flow shortest turn-aware path if usable at once, else a time-dependent A* with waits (exact when arriving earlier is never worse). Vehicles need not return to their depots; one shelter per trip; no local search. | chosen |
+| 76 | B0 reproduces today's planner (`planner/README.md`, `planner/docs/ARCHITECTURE.md` §6, `api/dispatch.py`) per facility: departure offsets every 600 s over [0, horizon), the 3 nearest shelters by straight-line distance with distinct nodes, one route check per offset and shelter with a 120 s stay inside an opening window (a RELAXED check here: the time-dependent router), "checked if any shelter is checked", and the deadline = the latest offset of the contiguous checked run (`latest_contiguous_checked_depart_offset_s`). It adds only what a facility must know: shelters must accept every class of the load, boarding starts at release, and a trip leaves at a checked offset by the deadline for the checked shelter with the earliest arrival. | spec (planner logic), chosen |
+| 77 | B0's "no coordination": each facility is planned alone with the whole fleet and every shelter's full capacity (trip by trip, the vehicle that can leave with a load earliest takes it; a load fills each class's own space); its trips become bookings (vehicle, load, requested pickup = boarding start); the shared fleet then serves all bookings first come first served by requested pickup (ties: facility id), re-timed from where each vehicle actually is; a booking that can no longer leave by its facility's deadline, or find a checked shelter with room, is dropped (those residents are not planned). The measured gap includes double-booking, the lack of deadline awareness and the planner's 10 min grid. | chosen (Q13) |
+| 78 | B1: deadlines from one sweep (per facility and class, #69 without the probe); jobs (facility, class) earliest deadline first; each job is appended to the vehicle with the cheapest insertion, the least added vehicle time per resident moved (ties: earliest departure, then vehicle id; `vehicle_rule="earliest"` uses the earliest departure); the load is the job's class up to the vehicle's space, topped up with the facility's other classes in deadline order as far as every loaded class still leaves by its deadline; the shelter (accepting every loaded class, with room) is the one where unloading ends first. A job no vehicle can serve any more is dropped. | spec (B1), chosen |
+| 79 | Both are deterministic (the seed is recorded but unused) and stop adding trips at 95 % of the budget. Optional oracle repair (`repair=true`, default off): cut an itinerary before its first trip the oracle does not check; a vehicle's state never improves, so this only relabels those residents as not planned. On dev every planned trip was checked. | chosen |
+
+## Harness per-facility output
+
+| # | Assumption | Source |
+|---|---|---|
+| 80 | `results/<method>.facilities.csv` (git-ignored, next to `results/<method>.csv`): one row per instance, seed, budget, set, facility and mobility class with residents: the oracle-declared deadline state and cause, `arrive_by_s`, `leave_by_s`, the probe's shelter, `unservable` (= the class's residents if `model_no_route`, else 0), and this plan's delivered / unresolved / model_no_route (trips plus residents left on board) / not planned residents of that facility and class, its first boarding start and last departure after boarding, plus commit, config and host. Deadlines are computed once per instance outside the timed region and kept as `<id>.deadlines.json` with the plans. The leaderboard adds the unservable count. | spec, chosen |
 
 ## Real US region 1: Caldor Fire 2021, South Lake Tahoe (`evacplan.regions`) — BLOCKED here
 
@@ -165,3 +196,16 @@ Caldor/Rim graph or hazards, so the builder uses OSM + `from_perimeters` (to be 
     moves 1). Weight classes, or also report delivered per class?
 11. **Caldor (#58–#64).** Bbox, issue time, safe-side exits as shelters and the mutual-aid fleet are choices to
     confirm; which perimeters to use (NIROPS from the Mac?), or the sealed study's graph and packets instead.
+12. **Unservable vs not planned (#71, #74).** Only residents that no plan can serve (a whole class at a facility,
+    proved by resource facts or the certain-contact relaxation) are reported as scoped `model_no_route`; residents a
+    plan merely leaves behind stay "not planned" (calling them `model_no_route` would overstate what is known).
+    Agree? Also: "cannot be delivered by the horizon" is `model_no_route` scoped to the horizon (as the router's
+    refusal), although a single trip past the horizon is `unresolved`.
+13. **B0's "no coordination" (#77).** Every facility plans alone with the whole fleet and the shared fleet serves the
+    resulting bookings first come first served. The alternative status quo is a static split of the fleet (each
+    vehicle dedicated to one facility), which leaves facilities without a vehicle whenever there are more facilities
+    than vehicles. Which one matches the practice you want to compare against? B0 also keeps the planner's 10 min
+    departure grid; a 1 min grid (`step_s=60`) would isolate the coordination gap.
+14. **Deadline definitions (#69).** `arrive_by_s` / `leave_by_s` are per class for ONE resident (the latest first
+    arrival and last departure that can still serve someone). A "whole facility out by" time needs the fleet and is
+    a plan property (the facility CSV reports each plan's first boarding and last departure). OK?

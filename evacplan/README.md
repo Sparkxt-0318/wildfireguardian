@@ -1,10 +1,11 @@
 # evacplan — Track C: care-facility wildfire evacuation dispatch planner
 
 Status: Phase 0. Done: schema, validator and feasibility oracle (milestone **C0-oracle**); SYNTHETIC
-instance generators, the frozen `dev`/`test` split and the benchmark harness. Real US region 1 (Caldor Fire
-2021, South Lake Tahoe): builder written, build **BLOCKED** on the cloud container (no inputs, hosts
-blocked). Baselines B0-B3 come next. Rules and the problem definition: [`CLAUDE.md`](CLAUDE.md); every
-modelling choice: [`docs/ASSUMPTIONS.md`](docs/ASSUMPTIONS.md); results: [`LEADERBOARD.md`](LEADERBOARD.md).
+instance generators, the frozen `dev`/`test` split and the benchmark harness; the latest-safe-departure sweep
+with per-facility deadlines and unservable residents; baselines **B0** (independent) and **B1** (EDF
+insertion). Real US region 1 (Caldor Fire 2021, South Lake Tahoe): builder written, build **BLOCKED** on the
+cloud container (no inputs, hosts blocked). B2 (OR-Tools) and B3 (MIP) come next. Rules and the problem
+definition: [`CLAUDE.md`](CLAUDE.md); every modelling choice: [`docs/ASSUMPTIONS.md`](docs/ASSUMPTIONS.md); results: [`LEADERBOARD.md`](LEADERBOARD.md).
 
 | module | what |
 |---|---|
@@ -13,7 +14,9 @@ modelling choice: [`docs/ASSUMPTIONS.md`](docs/ASSUMPTIONS.md); results: [`LEADE
 | `evacplan.oracle` | **the** oracle (program rule 3): `check_plan`, `check_itinerary`, `Oracle`; the RELAXED `RelaxedContactCheck` for search loops |
 | `evacplan.generators` | SYNTHETIC instances: grid / random geometric roads, facilities, fleet, shelters, a `hazard_contract.synthetic` fire that threatens the facilities; deterministic from `(size, tightness, graph, seed)` |
 | `evacplan.instances` | the frozen split (`instances/SPLIT.json`), fingerprints, the regenerated instance cache |
-| `evacplan.harness`, `evacplan.methods` | `evacplan run`: budgets, bench lock, oracle-checked result rows, `LEADERBOARD.md`; the method interface and `noop` |
+| `evacplan.reach` | RELAXED time-dependent reachability on the 1 s lattice (no states): departure masks, the backward latest-safe-departure sweep from all shelters (all K members, turn rules, waits, windows), witness routes, time-dependent A*, the certain-contact relaxation |
+| `evacplan.deadlines` | per facility and class: `arrive_by_s` / `leave_by_s` confirmed by oracle probe trips, and residents no plan can serve (scoped `model_no_route`, declared by the oracle) |
+| `evacplan.harness`, `evacplan.methods` | `evacplan run`: budgets, bench lock, oracle-checked result rows, per-facility rows, `LEADERBOARD.md`; the method interface, `noop`, `b0_independent` (B0: every facility planned alone with today's planner logic, the shared fleet first come first served), `b1_greedy` (B1: earliest-deadline-first insertion with the sweep's deadlines); `methods.dispatch` (shared trip machinery) |
 | `evacplan.regions` | real regions: OSM roads (osmnx), CMS nursing homes + geocoding, perimeters (`from_perimeters`), SYNTHETIC residents and fleet; `regions.caldor` |
 | `evacplan.adapters.wfg_graph` | this repo's router `graph.json` → `RoadGraph` (router admission reused) |
 
@@ -25,15 +28,19 @@ never delivered).
 
 ```sh
 # timed runs hold the shared bench lock (taken by the harness itself, or by a parent benchlock.py)
-.venv/bin/python program/benchlock.py --label evacplan-noop -- \
-    .venv/bin/evacplan run --method noop --set dev --budget-s 60 --seeds 0
+.venv/bin/python program/benchlock.py --label evacplan-b1 -- \
+    .venv/bin/evacplan run --method b1_greedy --set dev --budget-s 60 --seeds 0      # also b0_independent, noop
 .venv/bin/evacplan leaderboard                 # regenerate LEADERBOARD.md from results/*.csv
 .venv/bin/evacplan instances --set dev          # the frozen dev instances (add --materialize to cache them)
 ```
 
 `results/<method>.csv` (git-ignored) has one row per instance, seed, budget and set: `instance, method,
 seed, delivered_checked, unresolved, model_no_route, makespan_s, min_slack_s, runtime_s, best_bound, gap,
-commit, config, host`. Every number comes from the oracle. `--set test` is refused without `--allow-test`
+commit, config, host`. Every number comes from the oracle. `results/<method>.facilities.csv` (git-ignored)
+has one row per instance, seed, facility and mobility class: the facility's deadlines (`arrive_by_s`: latest
+first arrival, `leave_by_s`: latest last departure, both oracle-checked), the residents no plan can serve
+(`unservable`, a scoped `model_no_route`), and this plan's delivered / unresolved / model_no_route / not planned
+residents there. `--set test` is refused without `--allow-test`
 (milestones only, after Siyeong approves). A method subclasses `evacplan.methods.Method` and is registered in
 `evacplan.methods`.
 
