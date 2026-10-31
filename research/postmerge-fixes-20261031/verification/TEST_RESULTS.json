@@ -1,0 +1,36 @@
+[
+  {
+    "name": "routing",
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-routing/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "experimental/flame-front-radiation/tests",
+      "experimental/scenario-members/tests",
+      "experimental/sipp-routing/tests",
+      "experimental/synthetic-truth/tests"
+    ],
+    "rc": 0,
+    "wall_s": 33.0706827500253
+  },
+  {
+    "name": "forecast",
+    "command": [
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "forecast/tests",
+      "tests/postmerge"
+    ],
+    "rc": 0,
+    "wall_s": 298.9723283749772
+  }
+]

@@ -1,0 +1,15 @@
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting test_sipp_property.py ____________________
+ImportError while importing test module '/Users/jp/Documents/Codex/2026-09-24/fu/work/wfg-repo-review-20261031/experimental/sipp-routing/tests/test_sipp_property.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+experimental/sipp-routing/tests/test_sipp_property.py:11: in <module>
+    from hypothesis import HealthCheck, given, settings
+E   ModuleNotFoundError: No module named 'hypothesis'
+=========================== short test summary info ============================
+ERROR experimental/flame-front-radiation/test_sipp_property.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.08s
