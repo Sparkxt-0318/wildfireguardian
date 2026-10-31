@@ -5,11 +5,12 @@ import json
 import math
 import urllib.error
 
-import networkx as nx
 import numpy as np
-import osmnx as ox
 import pytest
-from shapely.geometry import LineString
+
+nx = pytest.importorskip("networkx")
+ox = pytest.importorskip("osmnx")
+LineString = pytest.importorskip("shapely.geometry").LineString
 
 from evacplan import Oracle, Solution, load_instance, load_scenario_set, validate_solution
 from evacplan.cli import main
