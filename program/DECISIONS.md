@@ -14,3 +14,19 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   Reason: the root is part of the frozen release.
 - **2026-10-31** — No torch in the cloud venvs for now. Reason: the CPU wheel index is blocked
   and the PyPI Linux wheel set is over 1 GB (needs approval); c651 needs Mac data anyway.
+- **2026-10-31** — `hazard_contract` v1 (`CONTRACT_VERSION = "1.0"`) published on `next/integration`.
+  Reason: shared interface before track agents start.
+- **2026-10-31** — `SegmentHazard` gains `dose_lower`/`dose_upper` (kJ/m²) beyond the specified
+  fields. Reason: peak-flux bounds alone cannot certify a cumulative-exposure violation.
+- **2026-10-31** — Reference flux law = the `wfg_latest` finite-cell sheet law (`sheet_solid_angle_v1`),
+  with `HeatSource` adding `consumed_fraction` and emission/receiver heights. Reason: the oracle
+  must reuse the router's physics; the law caps flux at q_rad/2 = 0.70 kW/m², so with the
+  repo's parameters the 10 kW/m² peak budget never binds and contact + dose decide.
+- **2026-10-31** — Contact uses closed cells (the existing checker's "whole-road" rule);
+  `segment_uniform` adds the router's uniform-motion occupancy. Reason: the API already requires
+  whole-road CLEAR for a checked route; it is the stricter of the two rules.
+- **2026-10-31** — `from_wfg_packet` applies rule 4 with no opt-out: missing native probability or
+  unknown burned state ⇒ unsupported. Reason: the user's rule; it leaves 32–100% of Korean road
+  cells unsupported (question for Siyeong whether a labeled "packet policy" mode is wanted).
+- **2026-10-31** — Geometry touching the grid's outside or a query past `horizon_s` ⇒ unsupported;
+  sources outside the grid are not modelled. Reason: unknown is not unburned; producers pad grids.
