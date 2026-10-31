@@ -46,7 +46,7 @@
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
 | Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → **C2 generators/harness** → C3a deadlines/B0/B1 → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
-| Track A: ~~A1 splits/metrics~~ → **A1b members/baselines/producer** → A2 decision metric (after C0, now merged) | A | Phase 0 (no real data here) | `/home/user/wfg-firecast` |
+| Track A: ~~A1 splits/metrics~~ → ~~A1b members/baselines/producer~~ → **A2 decision metric** | A | Phase 0 (no real data here) | `/home/user/wfg-firecast` |
 
 ## Blockers
 
@@ -74,3 +74,13 @@ Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait)
 - 2026-10-31 Independent adversarial review of `hazard_contract`: 12 confirmed findings (2 false-safe
   paths: filled polygon holes, float time drift in `query_uniform`), all fixed in 1.0.1 with
   regression tests (77 pass); merged into both track branches.
+- 2026-10-31 Track A A1 (`a5fb3d2`): `SPLITS.json` committed first (dev 34 fires in 3 season folds; test =
+  US 2024 + KR 2025, 10 fires, flagged not fresh; `fresh_holdout` locked and empty: NIROPS v1 ends 2024).
+  `DATA_NOTES.md`: headline lead 24 h (Korean label MAE 7.65–12.18 h; 12 h diagnostic only); NIROPS is
+  independent truth for timing, not extent; weather = archived IFS repeated from the cutoff; support
+  masks must use cutoff-time information, never the reconstruction NoData mask (it leaks the final scar).
+  Metrics + 3 km headline buffer. 61 tests.
+- 2026-10-31 Track A A1b (`d428a1e`): coherent members (shared / Gaussian copula), baselines
+  (persistence, tuned dilation, calibrated dilation, logistic), c651 wrapper (needs torch + Mac data),
+  cross-fitted harness/CLI, producer to `hazard_contract`. 97 pass, 2 skip (no torch). No real-data
+  numbers exist yet.
