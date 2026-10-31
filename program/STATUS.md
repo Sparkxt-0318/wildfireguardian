@@ -45,8 +45,8 @@
 | Agent | Track | Doing | Worktree |
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
-| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → **C2 generators/harness** → C3a deadlines/B0/B1 → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
-| Track A: ~~A1 splits/metrics~~ → ~~A1b members/baselines/producer~~ → **A2 decision metric** | A | Phase 0 (no real data here) | `/home/user/wfg-firecast` |
+| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → **C3a deadlines/B0/B1** → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
+| Track A: ~~A1~~ → ~~A1b~~ → ~~A2 decision metric~~ — Phase 0 code done; real-data runs blocked | A | waiting for review | `/home/user/wfg-firecast` |
 
 ## Blockers
 
@@ -84,3 +84,10 @@ Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait)
   (persistence, tuned dilation, calibrated dilation, logistic), c651 wrapper (needs torch + Mac data),
   cross-fitted harness/CLI, producer to `hazard_contract`. 97 pass, 2 skip (no torch). No real-data
   numbers exist yet.
+- 2026-10-31 Track C C2 (`b868d4a`): SYNTHETIC generators (grid / random geometric), split frozen
+  before any method (dev and test: 4 S + 4 M + 2 L each), harness `evacplan run`, noop plumbing row,
+  Caldor builder written but BLOCKED (no OSM/CMS/geocoder access; no fabricated instance).
+- 2026-10-31 Track A A2 (`821ceb4`): decision metric on the oracle (cutoff-only fixed requests; truth =
+  envelope perimeters / reconstruction isochrones; false-safe, miss, clearance, false-unsafe with
+  whole-fire bootstrap; K-curves for shared and copula couplings). 117 pass. Estimated cost ~80 min
+  per model for the 17 Korean dev windows that have road graphs (Uljin, Hongseong, Miryang).
