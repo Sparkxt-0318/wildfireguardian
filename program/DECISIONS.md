@@ -37,3 +37,20 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   default `present_fire="enclosure"` (what the router used) and also reads
   `mask__unknown_cumulative_state`; geographic / Web Mercator CRSs refused (interface tightening —
   needs Siyeong's confirmation); interval policy treats unknown emission as unbounded.
+- **2026-10-31** — Contact that happens only after `horizon_s` is `unresolved` in the oracle
+  (`BEYOND_HORIZON`), never `model_no_route`; `hazard_contract` query semantics unchanged (such a
+  query already returns `supported=False`). Reason: the set says nothing after its horizon. To confirm
+  with Siyeong (evacplan ASSUMPTIONS question 4).
+- **2026-10-31** — The oracle may use two non-public `hazard_contract` helpers (`scenario.uniform_pieces`,
+  `geometry.polyline_cells`) for exact slack and the relaxed check, guarded by a consistency test.
+  Reason: no public "touch intervals" query exists; adding one is an interface change (ask first).
+- **2026-10-31** — Caldor region builder = OSM roads via osmnx + CMS provider file + Census geocoder +
+  `from_perimeters`. Reason: the repo has no usable Caldor/Rim graph or hazards (the sealed study is on
+  the Mac). Build blocked here (hosts refused); no instance fabricated.
+- **2026-10-31** — SYNTHETIC (and planned Caldor) hazards burn persistently (48 h, packet heat
+  parameters), so burned roads stay closed. Reason: conservative default; to confirm with Siyeong
+  (evacplan ASSUMPTIONS question 7).
+- **2026-10-31** — All Track C methods run single-threaded; B3 runs HiGHS in a child process (OR-Tools
+  bundles libhighs 1.11, highspy is 1.15) and the child's start-up counts in B3's runtime; `ortools` and
+  `highspy` are the `[solvers]` extra. Reason: equal resources at equal wall clock (question 17).
+

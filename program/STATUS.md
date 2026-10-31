@@ -5,7 +5,8 @@
 
 ## Now
 
-- **Phase:** Phase 0. Setup and `hazard_contract` v1 are done (checkpoint 1 reported).
+- **Phase:** Phase 0 code done on both tracks; independent Phase 0 review running, then merge
+  into `next/integration` and checkpoint 2 (stop and wait for Siyeong).
 - **Updated:** 2026-10-31 (UTC).
 
 ## Host and data (important)
@@ -45,7 +46,8 @@
 | Agent | Track | Doing | Worktree |
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
-| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → **C3a deadlines/B0/B1** → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
+| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → ~~C3a deadlines/B0/B1~~ → ~~C3b B2/B3 + dev run~~ — Phase 0 done (`31048003`) | C | waiting for review | `/home/user/wfg-evacplan` |
+| Phase 0 reviewers (one per track, clean detached checkouts in the scratchpad) | both | tests + one headline number + honesty/splits/timing checks → `program/reviews/phase0-review.md` | scratchpad |
 | Track A: ~~A1~~ → ~~A1b~~ → ~~A2 decision metric~~ — Phase 0 code done; real-data runs blocked | A | waiting for review | `/home/user/wfg-firecast` |
 
 ## Blockers
@@ -57,7 +59,9 @@
 
 ## Next step
 
-Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait).
+Independent Phase 0 review (both tracks) → fix anything that breaks honesty or a headline
+number → merge `evacplan/phase0` and `firecast-lab/phase0` into `next/integration` (all suites
+green on the merge) → checkpoint 2 report → **stop and wait for Siyeong**.
 
 ## Log
 
@@ -91,3 +95,10 @@ Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait)
   envelope perimeters / reconstruction isochrones; false-safe, miss, clearance, false-unsafe with
   whole-fire bootstrap; K-curves for shared and copula couplings). 117 pass. Estimated cost ~80 min
   per model for the 17 Korean dev windows that have road graphs (Uljin, Hongseong, Miryang).
+- 2026-10-31 Track C C3a (`511154d`): latest-safe-departure sweep (`reach.py`), per-facility deadlines
+  (`deadlines.py`, oracle-confirmed probe trips; unservable only when proven), B0 independent, B1 EDF
+  insertion. 237 pass.
+- 2026-10-31 Track C C3b (`3104800`): B2 OR-Tools VRPTW, B3 HiGHS MIP (S only, child process because
+  OR-Tools bundles an older libhighs), realizer. 261 pass (~4 min; run through the bench lock).
+  Dev, 60 s, seed 0, commit `957e672`, SYNTHETIC: B2 1683/1975 (85.2%, 67 unresolved on one dose-limited
+  bus), B1 1353 (68.5%), B0 1157 (58.6%), B3 104/115 on S (mean gap 0.083). Caldor still blocked.
