@@ -12,8 +12,14 @@ __pycache__/
 *.ckpt
 *.safetensors
 *.zip
+*.graphml
+*.osm
+*.pbf
+# downloads for real regions (OSM, CMS, geocodes, perimeters)
 /data/
 /runs/
+# regenerated instances (evacplan/cache/instances/<id>/); see instances/SPLIT.json
 /cache/
+# result rows, plans and oracle results; LEADERBOARD.md is the committed summary
 /results/
 /build/
