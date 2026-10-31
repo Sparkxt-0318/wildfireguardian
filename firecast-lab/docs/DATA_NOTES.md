@@ -32,6 +32,8 @@ copied into `forecast/data/catalog.csv:2-6` (via `forecast/wildfire/bundle.py:19
 | KFS_05 Hongseong 2023 | 7.65 |
 
 - Mean 10.29 h, range 7.65-12.18 h. The other 11 Korean events have no MAE in the repo.
+- Three of the four are dev fires (KFS_02, KFS_11, KFS_05): mean 10.09 h, the same range. KFS_01 is a test fire;
+  its value is publisher catalog metadata, and no outcome was read. The lead choice below uses the dev values only.
 - The MAE is the residual against *withheld VIIRS cell-median detection times*, with up to ten grouped folds
   in Korea (methods:334-353). It is an error against a detection summary, not against physical arrival.
   Detection latency and revisit gaps are not in it, so the error against physical arrival is plausibly larger.
@@ -48,26 +50,36 @@ copied into `forecast/data/catalog.csv:2-6` (via `forecast/wildfire/bundle.py:19
 - The reconstruction's timing error against NIROPS is not quantified in the repo, because the deposit's results
   tables are not here.
 - The NIROPS reference itself is stepwise at survey times (methods:321-323).
-- On the six test fires (`forecast/data/sources/nirops_95rj5d379g_v1/catalog/*/provenance.json`, recomputed here):
+- **Survey cadence, from test-fire metadata.** The statistics below come from the NIROPS catalog metadata of the
+  six US-2024 *test* fires (`forecast/data/sources/nirops_95rj5d379g_v1/catalog/*/provenance.json`, recomputed
+  here; that folder holds only those six fires). Only survey times were used: no perimeter, outcome or score was
+  read.
   - median survey interval 24.04-26.20 h per fire, minimum 4.38 h, maximum 122.92 h;
   - 324 consecutive pairs: 195 last 20-28 h and 273 last at most 48 h.
+- Reading test-fire metadata in Phase 0 was reported to Siyeong (rule 5; `program/DECISIONS.md`, 2026-10-31).
+  The lead does not rest on it (below), and later design choices use dev metadata only.
 
 **Choice: 24 h headline lead.** A simple model shows the trade-off. Suppose a reconstructed arrival is shifted
 by `s` hours, with `s` no longer than the lead `L`, and the true arrival falls uniformly inside an `L`-hour
-window. Then the cell lands in the wrong window with probability `s / L`. The table uses the four MAE values for
-`s` and counts windows with the `SPLITS.json` window rule:
+window. Then the cell lands in the wrong window with probability `s / L`. The table uses the three Korean dev
+MAE values for `s`. It counts windows with the `SPLITS.json` window rule on events.json times. The test columns
+are test-fire window counts from events.json (catalog times, no outcomes).
 
-| Lead | Share of new burns misassigned (s = 7.65-12.18 h; at the mean MAE) | Korean fires with at least one window: dev / test | Approximate Korean windows: dev / test |
+| Lead | Share of new burns misassigned (s = 7.65-12.18 h; at the dev mean MAE) | Korean fires with at least one window: dev / test | Approximate Korean windows: dev / test |
 |---|---|---|---|
-| 12 h | 0.64-1.00 (0.86) | 7 of 11 / 4 of 4 | 29 / 31 |
-| **24 h** | **0.32-0.51 (0.43)** | **5 of 11 / 4 of 4** | **22 / 27** |
+| 12 h | 0.64-1.00 (0.84) | 7 of 11 / 4 of 4 | 29 / 31 |
+| **24 h** | **0.32-0.51 (0.42)** | **5 of 11 / 4 of 4** | **22 / 27** |
 | 48 h | 0.16-0.25 (0.21) | 2 of 11 / 3 of 4 | 14 / 19 |
 
-- At 12 h, timing noise dominates: most Korean new burns would be counted in the wrong window.
-- 24 h is the shortest lead at which a typical shift is under half the window.
-- 24 h matches the NIROPS cadence: most consecutive surveys are 20-28 h apart, and none exactly 24 h.
-- 24 h keeps every Korean test fire.
-- 48 h would halve the noise, but it leaves only two Korean dev fires and drops KFS_13.
+- **What the choice rests on: the Korean dev label MAE.** At 12 h, timing noise dominates: most Korean new burns
+  would be counted in the wrong window. 24 h is the shortest lead at which a typical shift is under half the
+  window.
+- Dev window counts: 24 h keeps 5 of the 11 Korean dev fires, and 48 h would leave only two.
+- Secondary, from test-fire metadata (survey times and events.json times, no outcomes):
+  - 24 h matches the NIROPS cadence: most consecutive surveys are 20-28 h apart, and none exactly 24 h;
+  - 24 h keeps every Korean test fire, and 48 h would drop KFS_13.
+  The lead would be 24 h without these two points.
+- 48 h would halve the noise, at the cost of the dev fires above.
 - Label noise hits every model equally, so paired skill differences stay valid. Absolute reliability is
   attenuated, however: a forecast that is calibrated against true arrival looks miscalibrated against noisy
   labels. Korean reliability diagrams therefore describe agreement with the reconstruction, not calibration
