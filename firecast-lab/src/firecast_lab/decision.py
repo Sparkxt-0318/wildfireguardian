@@ -15,7 +15,9 @@ Per window (cutoff c, lead L) of a fire that has a road graph:
    set's order and member-shuffled repeats) gives ``k_curve``.
 3. Truth (``truth_from_reconstruction``: Korean fires, labelled reconstruction truth; ``truth_from_perimeters``:
    observed perimeters), hazard_contract ``from_perimeters`` in mode ``envelope``: truth model_no_route = hit,
-   checked = safe, unresolved = excluded from the scored set and counted, never safe.
+   checked = safe, unresolved = excluded from the scored set and counted, never safe. Reconstruction truth gives
+   the partly burned edge cells that a centre-in rule drops (the 8-neighbour ring of the finite-arrival mask) the
+   burning envelope of their burned neighbours; rows also record the centre-in verdict (``truth_centre_in``).
 4. ``summarize``: false-safe P(hit | cleared), miss rate, clearance rate and false-unsafe rate with whole-fire
    bootstrap intervals; ``plot_tradeoff``: false-safe against clearance as K varies, per member coupling.
 
@@ -57,8 +59,8 @@ GRAPHS_ENV = "FIRECAST_GRAPHS"
 GRAPH_FOLDERS = {"KFS_02": "uljin_2022", "KFS_05": "hongseong_2023", "KFS_11": "miryang_2022"}
 COLUMNS = ("model", "split", "fold", "fire", "country", "cutoff_utc", "lead_h", "members", "coupling",
            "length_cells", "request", "origin", "destination", "front_m", "start_s", "wait_s", "depart_s", "arrive_s",
-           "n_edges", "length_m", "truth_kind", "truth", "truth_state", "truth_cause", "model_state", "model_cause",
-           "cleared", "cleared_up_to", "in_sample", "synthetic", "window_seed")
+           "n_edges", "length_m", "truth_kind", "truth", "truth_state", "truth_cause", "truth_centre_in",
+           "model_state", "model_cause", "cleared", "cleared_up_to", "in_sample", "synthetic", "window_seed")
 
 
 class RoadGraphsNotFound(FileNotFoundError):
@@ -263,12 +265,46 @@ def requests_for(window: Window, graph: RoadGraph, *, seed: int, config: Request
 
 
 # ------------------------------------------------------------------------------------------- truth sets
-def truth_from_reconstruction(window: Window, *, heat: hc.HeatSource = producer.PACKET_HEAT) -> hc.ScenarioSet:
+EIGHT = np.ones((3, 3), dtype=bool)
+PARTLY_BURNED_RULE = ("8-neighbour ring of the finite-arrival mask (cells outside it with a neighbour inside): burning "
+                      "from the earliest ignition to the latest extinction of its burned neighbours; an approximation "
+                      "of all-touched partly burned cells, which needs the final perimeter polygon (METRICS.md 7.3)")
+
+
+def partly_burned_cells(final) -> np.ndarray:
+    """Cells outside the finite-arrival mask ``final`` with at least one of their 8 neighbours inside it.
+
+    A centre-in perimeter rule (Choi's Korean reconstruction keeps cells whose centre lies inside the final
+    perimeter) drops a cell whose centre is just outside although part of its square burned; hazard_contract treats
+    cells as closed squares and rasterizes perimeters all-touched. Without the perimeter polygon these are the
+    candidate partly burned cells. Slivers of the perimeter thinner than a cell that pass between cell centres can
+    still be missed (METRICS.md section 7.3)."""
+    final = np.asarray(final, dtype=bool)
+    return ndimage.binary_dilation(final, structure=EIGHT) & ~final
+
+
+def neighbour_envelope(ignite, extinguish, burns) -> tuple[np.ndarray, np.ndarray]:
+    """Per cell: the earliest ignition and the latest extinction among its 8 neighbours that burn (``burns``),
+    +inf and -inf where none does."""
+    first = ndimage.minimum_filter(np.where(burns, ignite, np.inf), footprint=EIGHT, mode="constant", cval=np.inf)
+    last = ndimage.maximum_filter(np.where(burns, extinguish, -np.inf), footprint=EIGHT, mode="constant",
+                                  cval=-np.inf)
+    return first, last
+
+
+def truth_from_reconstruction(window: Window, *, heat: hc.HeatSource = producer.PACKET_HEAT,
+                              partly_burned: bool = True) -> hc.ScenarioSet:
     """Reconstruction truth (Korean fires): the reconstructed arrival's hourly isochrones as a perimeter series in
     mode ``envelope``. A cell arriving in hour (h - 1, h] after the cutoff burns on [h - 1, h + T) hours, T the heat
     source's burn duration (the producer's, so model and truth share one physics). Mapped mask = the window's scoring
-    domain (outside it: unknown, unresolved); inside it, cells outside the final perimeter (outcome +inf) never burn
-    (METRICS.md section 2) and a NaN outcome stays unknown. Horizon = the lead; issue time = the cutoff."""
+    domain (outside it: unknown, unresolved); a NaN outcome stays unknown. Horizon = the lead; issue time = the cutoff.
+
+    Cells outside the final perimeter (outcome +inf) never burn (METRICS.md section 2), except the partly burned
+    candidates (``partly_burned_cells``): a mapped cell outside the finite-arrival mask with a burned 8-neighbour
+    burns from the earliest to the latest burning interval of its burned neighbours (``neighbour_envelope``), so a
+    truth "safe" never rests on a cell the fire may have partly burned and false-safe stays an upper bound.
+    ``partly_burned=False`` gives the centre-in truth without that ring: a diagnostic only (decision rows record its
+    verdict as ``truth_centre_in`` so the ring's effect is counted), never the headline truth."""
     outcome = np.asarray(window.outcome_h, dtype=np.float64)
     burned_ever = np.isfinite(outcome)
     first = min(int(np.floor(outcome[burned_ever].min())) - 1, -1) if burned_ever.any() else -1
@@ -276,12 +312,31 @@ def truth_from_reconstruction(window: Window, *, heat: hc.HeatSource = producer.
     series = [(3600.0 * h, burned_ever & (outcome <= h)) for h in hours]   # the first isochrone is empty
     height, width = outcome.shape
     mapped = np.asarray(window.domain, dtype=bool) & ~np.isnan(outcome)
-    return hc.from_perimeters(series, heat.burn_duration_s, transform=window.transform, height=height, width=width,
-                              crs_epsg=window.epsg, issue_time_utc=window.cutoff_utc, K=1, mode=TRUTH_MODE,
-                              mapped_mask=mapped, horizon_s=3600.0 * window.lead_h,
-                              heat=heat, synthetic=window.synthetic,
-                              model_version="reconstruction truth: hourly isochrones of the reconstructed arrival, "
-                                            "envelope")
+
+    edge = ("partly burned edge cells burn with their neighbours" if partly_burned
+            else "centre-in cells only, no partly burned ring (diagnostic)")
+
+    def perimeter_set(mask):
+        return hc.from_perimeters(series, heat.burn_duration_s, transform=window.transform, height=height,
+                                  width=width, crs_epsg=window.epsg, issue_time_utc=window.cutoff_utc, K=1,
+                                  mode=TRUTH_MODE, mapped_mask=mask, horizon_s=3600.0 * window.lead_h, heat=heat,
+                                  synthetic=window.synthetic,
+                                  model_version="reconstruction truth: hourly isochrones of the reconstructed "
+                                                f"arrival, envelope; {edge}")
+
+    truth = perimeter_set(mapped)
+    ignite, extinguish = truth.ignite_s[0].copy(), truth.extinguish_s[0].copy()
+    widen = np.zeros_like(burned_ever)
+    if partly_burned:
+        every = perimeter_set(None)          # the same intervals on every cell: a burned neighbour outside the
+        start, end = neighbour_envelope(every.ignite_s[0], every.extinguish_s[0],   # domain still burned
+                                        every.ignite_s[0] < np.inf)
+        widen = partly_burned_cells(burned_ever) & truth.supported[0] & (start < np.inf)
+        ignite[widen], extinguish[widen] = start[widen], end[widen]
+    meta = truth.meta.model_copy(update=dict(provenance=dict(
+        truth.meta.provenance, partly_burned=PARTLY_BURNED_RULE if partly_burned else "none (diagnostic)",
+        partly_burned_cells=int(widen.sum()))))
+    return hc.ScenarioSet(ignite[None], extinguish[None], truth.supported, meta)
 
 
 def _utc(stamp) -> datetime:
@@ -297,10 +352,12 @@ def _utc(stamp) -> datetime:
 def truth_from_perimeters(window: Window, series, *, heat: hc.HeatSource = producer.PACKET_HEAT) -> hc.ScenarioSet:
     """Perimeter truth (US NIROPS surveys): observed perimeters ``[(time, shape), ...]`` in mode ``envelope``.
 
-    ``time``: seconds after the cutoff, or a tz-aware datetime / ISO string. ``shape``: a bool mask on the window's
-    grid or polygon rings in its CRS. Pass the surveys up to the window's end: earlier ones date the fire burning at
-    the cutoff, none may lie after the lead. Horizon = the last survey (later trips are unresolved); issue time = the
-    cutoff; mapped mask = the window's scoring domain."""
+    ``time``: seconds after the cutoff, or a tz-aware datetime / ISO string. ``shape``: polygon rings in the window's
+    CRS, which hazard_contract rasterizes all-touched (a partly burned cell counts as burned), or a bool mask on the
+    window's grid. Prefer the rings: a centre-in mask drops partly burned cells (``truth_from_reconstruction``). Pass
+    the surveys up to the window's end: earlier ones date the fire burning at the cutoff, none may lie after the
+    lead. Horizon = the last survey (later trips are unresolved); issue time = the cutoff; mapped mask = the window's
+    scoring domain."""
     cutoff = _utc(window.cutoff_utc)
     times = [float(t) if isinstance(t, (int, float, np.integer, np.floating)) else (_utc(t) - cutoff).total_seconds()
              for t, _ in series]
@@ -391,11 +448,16 @@ def truth_outcome(state: str, cause: str | None) -> str:
 # ----------------------------------------------------------------------------------------------- one window
 def decide_window(window: Window, graph: RoadGraph, model, *, K: int, seed: int, truth: hc.ScenarioSet,
                   truth_kind: str, couplings=COUPLINGS, length_cells: float = COPULA_LENGTH_CELLS,
-                  config: RequestConfig = RequestConfig(), repeats: int = 4) -> tuple[list[dict], dict]:
+                  config: RequestConfig = RequestConfig(), repeats: int = 4,
+                  truth_centre_in: hc.ScenarioSet | None = None) -> tuple[list[dict], dict]:
     """Rows (``COLUMNS``, one per request and coupling) and a note for one window. Members come from
-    ``baselines.forecast`` with the window's seed; models with their own members (c651) give one coupling, "own"."""
+    ``baselines.forecast`` with the window's seed; models with their own members (c651) give one coupling, "own".
+    ``truth_centre_in`` (optional): the truth without its partly burned ring, whose outcome each row records as a
+    diagnostic (``truth_centre_in``; empty when not given). Rates always use ``truth``."""
     requests = requests_for(window, graph, seed=seed, config=config)
     truth_states = oracle_states(requests, truth)
+    centre_in = ([truth_outcome(*s) for s in oracle_states(requests, truth_centre_in)] if truth_centre_in is not None
+                 else [""] * len(requests.requests))
     record = window.record
     base = dict(model=model.name, split=record.get("split"), fold=record.get("fold"), fire=window.fire,
                 country=record.get("country"), cutoff_utc=window.cutoff_utc, lead_h=window.lead_h, members=K,
@@ -408,13 +470,14 @@ def decide_window(window: Window, graph: RoadGraph, model, *, K: int, seed: int,
         scenarios = producer.from_window(window, hours, model=model, seed=seed,
                                          config=dict(model=model.name, K=K, coupling=coupling, length_cells=length))
         verdicts = model_verdicts(requests, scenarios, repeats=repeats, seed=seed)
-        for r, (t_state, t_cause), (state, cause, up_to) in zip(requests.requests, truth_states, verdicts):
+        for r, (t_state, t_cause), plain, (state, cause, up_to) in zip(requests.requests, truth_states, centre_in,
+                                                                       verdicts):
             rows.append(dict(base, coupling=coupling, length_cells=length, request=r.id, origin=r.origin,
                              destination=r.destination, front_m=round(r.front_m, 1), start_s=r.start_s,
                              wait_s=r.wait_s, depart_s=r.depart_s, arrive_s=r.arrive_s, n_edges=len(r.edges),
                              length_m=round(r.length_m, 1), truth=truth_outcome(t_state, t_cause), truth_state=t_state,
-                             truth_cause=t_cause, model_state=state, model_cause=cause, cleared=state == "checked",
-                             cleared_up_to="|".join(map(str, up_to))))
+                             truth_cause=t_cause, truth_centre_in=plain, model_state=state, model_cause=cause,
+                             cleared=state == "checked", cleared_up_to="|".join(map(str, up_to))))
     note = dict(fire=window.fire, cutoff_utc=window.cutoff_utc, requests_wanted=config.n_requests,
                 requests_built=len(requests.requests), origin_candidates=requests.origin_candidates)
     return rows, note
@@ -479,9 +542,16 @@ def k_curve(cleared_up_to, truth, K: int) -> list[dict]:
     return out
 
 
+def _true(value) -> bool:
+    """A row flag as a bool, whether the row comes from memory (bool) or from a CSV ("True" / "False")."""
+    return value if isinstance(value, bool) else str(value) == "True"
+
+
 def report(rows: list[dict], *, draws: int = 10000, seed: int = m.BOOTSTRAP_SEED) -> dict:
-    """Per coupling: the headline rates at the full K (``summarize``), the K curve, truth-unresolved causes and the
-    model's verdict counts. Rows of one country and truth kind only: Korean and US scores are never pooled."""
+    """Per coupling: whether any row is SYNTHETIC, the headline rates at the full K (``summarize``), the K curve,
+    truth-unresolved causes, the requests whose truth outcome the partly burned ring changed (``truth_centre_in`` ->
+    ``truth``; METRICS.md section 7.3) and the model's verdict counts. Rows of one country and truth kind only:
+    Korean and US scores are never pooled."""
     kinds = {(r["country"], r["truth_kind"]) for r in rows}
     if len(kinds) > 1:
         raise ValueError(f"never pool decision rows across countries or truth kinds: {sorted(kinds)}")
@@ -490,10 +560,13 @@ def report(rows: list[dict], *, draws: int = 10000, seed: int = m.BOOTSTRAP_SEED
         rs = [r for r in rows if r["coupling"] == coupling]
         truth = [r["truth"] for r in rs]
         out[coupling] = dict(
+            synthetic=any(_true(r["synthetic"]) for r in rs),
             length_cells=rs[0]["length_cells"], members=rs[0]["members"],
             headline=summarize([r["fire"] for r in rs], [r["cleared"] for r in rs], truth, draws=draws, seed=seed),
             k_curve=k_curve([r["cleared_up_to"] for r in rs], truth, rs[0]["members"]),
             truth_unresolved_by_cause=dict(Counter(str(r["truth_cause"]) for r in rs if r["truth"] == "unresolved")),
+            truth_ring_flips=dict(Counter(f"{r['truth_centre_in']}->{r['truth']}" for r in rs
+                                          if r.get("truth_centre_in") and r["truth_centre_in"] != r["truth"])),
             model_states=dict(Counter(r["model_state"] for r in rs)))
     return out
 
@@ -630,6 +703,7 @@ def run(name: str, split: str, windows_of, splits: dict, *, graphs: dict, K: int
             loaded[window.fire] = load_road_graph(graphs[window.fire])
         r, note = decide_window(window, loaded[window.fire], model, K=K, seed=seed,
                                 truth=truth_from_reconstruction(window), truth_kind="reconstruction",
+                                truth_centre_in=truth_from_reconstruction(window, partly_burned=False),
                                 length_cells=length_cells, config=config, repeats=repeats)
         rows += r
         notes.append(note)

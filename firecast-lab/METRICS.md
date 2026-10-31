@@ -255,13 +255,42 @@ never binds, so contact and dose decide.
 
 **Why `envelope`** (K = 1). A cell first inside perimeter `i` burns from `t[i-1]` until `t[i] + T`: the union of
 every burning interval consistent with the perimeters.
-- A truth *safe* is therefore certain: no timing consistent with the observed or reconstructed perimeters makes the
-  trip meet the fire. Timing ambiguity between perimeters can never make a trip look safe that might not be.
+- A truth *safe* therefore holds under every timing consistent with the observed or reconstructed perimeters:
+  timing ambiguity between perimeters can never make a trip look safe that might not be. It is only as certain as
+  the truth's extent, though: see "Partly burned edge cells" below.
 - The price is that a truth *hit* means contact under at least one consistent timing. False-safe and miss rates are
   upper bounds with respect to timing between perimeters. This ambiguity is about 1 h plus `T` for reconstruction
   isochrones, and about a day for NIROPS surveys.
 - `stratified` or `rotated` members would place ignitions at chosen fractions of each gap. A truth *checked* would
   then not be certain, and the verdict would depend on how many truth members there are.
+
+**Partly burned edge cells** (review finding A-M1, 2026-10-31).
+- *The gap.* hazard_contract treats cells as closed squares and rasterizes perimeters all-touched
+  (`hazard_contract/src/hazard_contract/adapters/perimeters.py`), so a partly burned cell counts as burned. The
+  Korean reconstruction keeps only cells whose centre lies inside the KFS perimeter (`docs/DATA_NOTES.md` §5:
+  `CHOI/produce_rasters.py:49`, methods:407). A cell whose centre is just outside, but whose square partly burned,
+  would be a truth "never burns", and a trip touching only such cells while the fire is there would be a truth
+  *safe*.
+- *The rule.* The data root has no final perimeter polygon (Korean final perimeters are not in the deposit,
+  `docs/DATA_NOTES.md` §5), so the all-touched cells cannot be found exactly. Instead, every mapped cell outside the
+  finite-arrival mask that has a burned 8-neighbour (`decision.partly_burned_cells`) burns from the earliest ignition
+  to the latest extinction of its burned neighbours (`decision.neighbour_envelope`), in the truth's own interval
+  convention. Burned neighbours outside the scoring domain count too. Each truth set records the rule and the number
+  of widened cells in its provenance (`partly_burned`, `partly_burned_cells`).
+- *Conservative.* The ring also holds cells that did not burn at all, and the single interval covers any gaps
+  between the neighbours' intervals. False-safe stays an upper bound; false-unsafe can come out high. How high
+  depends on how far the neighbours' arrival times spread. On the real Uljin road graph with a SYNTHETIC fire
+  (first 5 windows, 32 requests each), the ring turned 3 of 91 truth-safe requests into hits on a contiguous mask
+  and 27 of 106 on a speckled one (per-cell noise). A kriged reconstruction with a centre-in mask is closer to the
+  contiguous case. Every decision row records the verdict without the ring (`truth_centre_in`), and the report
+  counts the requests the ring changed (`truth_ring_flips`), so the effect is measured on real data.
+- *Still missed.* The ring is an approximation. A sliver of the final perimeter thinner than a cell that reaches
+  past the ring between cell centres covers no centre, so the cells it touches have no neighbour in the
+  finite-arrival mask. Next to such slivers a truth *safe* is not certain. Perimeter truth given as polygon rings
+  (`truth_from_perimeters`, the planned NIROPS loader) is rasterized all-touched and needs no ring.
+- *Why not unknown.* Making the ring unknown (unresolved) was rejected: trips cross the ring at all times, and on a
+  SYNTHETIC fire on the real Uljin road graph it turned 220 of 296 truth-safe requests unresolved (review
+  verification, 2026-10-31).
 
 **Shared physics.** `T` and the heat source are the producer's packet values (`T` = 3970 s). Model and truth sets
 therefore differ only in when cells burn.
@@ -269,8 +298,8 @@ therefore differ only in when cells burn.
 **Support (mapped mask).** The window's scoring domain: the headline domain by default (final perimeter + 3 km,
 clipped to the grid), or the grid with `--domain full`.
 - Outside the domain the truth is unknown, so the request is unresolved.
-- Inside the domain, cells outside the final perimeter never burn. This is the §2 convention ("outside the mapped
-  extent"), the same one the cell scores use.
+- Inside the domain, cells outside the final perimeter never burn, except the partly burned edge cells above. This
+  is the §2 convention ("outside the mapped extent"), the same one the cell scores use.
 
 **Clock.** Issue time is the cutoff. The horizon is `c + L` for reconstruction truth, or the last survey.
 
@@ -290,7 +319,8 @@ Pooled counts over the scored requests (truth *hit* or *safe*) of all windows an
     (`summarize` gives `point` None plus a note).
   - The four rates are always shown together, with their counts.
   - Next to them: the number of truth-unresolved requests and their causes, how many of those the model cleared,
-    and the number of fires.
+    the number of fires, and the requests whose truth outcome the partly burned ring changed (`truth_ring_flips`,
+    §7.3).
 - **Intervals.** A whole-fire percentile bootstrap (`metrics.fire_bootstrap`, 10,000 draws, seed 20261029).
   - Each draw resamples fires and pools their request counts.
   - All four rates use the same draws.

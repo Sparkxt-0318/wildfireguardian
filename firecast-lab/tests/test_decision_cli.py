@@ -64,6 +64,7 @@ def test_decision_writes_rows_with_provenance(root, graphs, tmp_path, capsys, mo
     assert {r["fire"] for r in rows} == {"SYNTHETIC_A1"} and {r["coupling"] for r in rows} == {"shared", "copula"}
     for r in rows:
         assert r["synthetic"] == "True" and r["truth_kind"] == "reconstruction" and r["truth"] in dm.OUTCOMES
+        assert r["truth_centre_in"] in dm.OUTCOMES                  # the verdict without the partly burned ring
         assert r["cleared"] == str(r["model_state"] == "checked") and len(r["cleared_up_to"].split("|")) == 2
         assert r["length_cells"] == ("8.0" if r["coupling"] == "copula" else "")
         assert r["seed"] == "0" and r["host"] and (r["commit"] == "" or len(r["commit"]) == 40)

@@ -116,12 +116,25 @@ def test_reconstruction_truth_is_the_hourly_envelope_on_the_scoring_domain(case)
     domain[:2, :] = False                                       # a SYNTHETIC hole in the scoring domain
     truth = dm.truth_from_reconstruction(dataclasses.replace(window, domain=domain))
     out, ig, ex, sup = window.outcome_h, truth.ignite_s[0], truth.extinguish_s[0], truth.supported[0]
-    burns = domain & np.isfinite(out) & (out <= window.lead_h)
+    burning = np.isfinite(out) & (out <= window.lead_h)          # inside an isochrone up to the lead
+    burns = domain & burning
     assert burns.any() and (domain & (out <= 0)).any()
     assert np.array_equal(ig[burns], 3600.0 * (np.ceil(out[burns]) - 1.0))     # (h - 1, h] -> [h - 1, h + T)
     assert np.array_equal(ex[burns], 3600.0 * np.ceil(out[burns]) + T)
-    never = domain & ~(np.isfinite(out) & (out <= window.lead_h))
-    assert never.any() and np.isinf(ig[never]).all() and sup[never].all()       # outside the perimeter, or later
+    # Partly burned candidates (A-M1): outside the finite-arrival mask with a burned 8-neighbour. Each burns from the
+    # earliest ignition to the latest extinction of its burned neighbours, also those outside the domain.
+    height, width = out.shape
+    ring = np.zeros_like(domain)
+    for r, c in np.argwhere(domain & ~np.isfinite(out)):
+        near = [(i, j) for i in range(r - 1, r + 2) for j in range(c - 1, c + 2)
+                if 0 <= i < height and 0 <= j < width and burning[i, j]]
+        if near:
+            ring[r, c] = True
+            hours = np.ceil([out[i, j] for i, j in near])
+            assert (ig[r, c], ex[r, c]) == (3600.0 * (hours.min() - 1.0), 3600.0 * hours.max() + T)
+    assert ring.any() and truth.meta.provenance["partly_burned_cells"] == int(ring.sum())
+    never = domain & ~burning & ~ring
+    assert never.any() and np.isinf(ig[never]).all() and np.isinf(ex[never]).all() and sup[never].all()
     assert not sup[~domain].any() and np.isnan(ig[~domain]).all()              # outside the domain: unknown
     meta = truth.meta
     assert (meta.K, meta.horizon_s, meta.source, meta.synthetic) == (1, 3600.0 * window.lead_h, "perimeter", True)
@@ -130,6 +143,56 @@ def test_reconstruction_truth_is_the_hourly_envelope_on_the_scoring_domain(case)
     unknown = out.copy()
     unknown[5, 5] = np.nan                                      # an unknown outcome is never read as unburned
     assert not dm.truth_from_reconstruction(dataclasses.replace(window, outcome_h=unknown)).supported[0, 5, 5]
+
+
+def _column_road(column: int, rows: range, *, depart_s: float, window) -> dm.RequestSet:
+    """One SYNTHETIC request: a straight road through the centres of ``column`` (``rows``), driven from ``depart_s``."""
+    from evacplan import Edge, Node, RoadGraph, Vehicle
+
+    x = 1_000_000.0 + (column + 0.5) * syn.CELL
+    nodes = [Node(id=f"c{r}", x=x, y=2_000_000.0 - (r + 0.5) * syn.CELL) for r in rows]
+    edges = [Edge(id=f"c{a}>c{b}", u=f"c{a}", v=f"c{b}", travel_time_s=34.0) for a, b in zip(rows, rows[1:])]
+    graph = RoadGraph(crs_epsg=5179, nodes=nodes, edges=edges, provenance={"generator": "SYNTHETIC column road"})
+    request = dm.Request(id="R000", origin=nodes[0].id, destination=nodes[-1].id, front_m=0.0, start_s=depart_s,
+                         wait_s=0.0, depart_s=depart_s, arrive_s=depart_s + 34.0 * len(edges),
+                         edges=tuple(e.id for e in edges), length_m=syn.CELL * len(edges))
+    instance = Instance(name="SYNTHETIC column road", synthetic=True, graph=graph, hazard=dm._hazard_ref(0.0),
+                        vehicles=[Vehicle(id="R000", depot=nodes[0].id, start_s=depart_s, seats=0)])
+    return dm.RequestSet(fire=window.fire, cutoff_utc=window.cutoff_utc, lead_h=window.lead_h, window_seed=0,
+                         config=dm.RequestConfig(), requests=(request,), instance=instance, origin_candidates=1)
+
+
+def test_reconstruction_truth_counts_partly_burned_edge_cells():
+    """Review finding A-M1 (SYNTHETIC 10 x 10 grid). The front moves east one cell per hour and stops at +5 h, 40%
+    into column 6. A centre-in reconstruction (Choi's Korean rule) leaves column 6 out, although 40% of every
+    column-6 cell burned. A road along column 6 driven at +4.5 h meets the fire: truth must call it a hit, as the
+    all-touched perimeter truth of the same fire does."""
+    front = lambda t: 1.4 + t                                   # front position (cells from the west edge) at t h
+    columns = np.arange(10)
+    arrival = np.where(columns + 0.5 <= front(5.0), columns + 0.5 - 1.4, np.inf)   # centre-in: columns 0-5 only
+    outcome = np.repeat(arrival[None], 10, axis=0)
+    window = syn.window(outcome <= 0, outcome, lead_h=24)
+    requests = _column_road(6, range(1, 9), depart_s=4.5 * 3600.0, window=window)
+    reconstruction = dm.oracle_states(requests, dm.truth_from_reconstruction(window))[0]
+    assert dm.truth_outcome(*reconstruction) == "hit" and reconstruction[1] == "FLAME_CONTACT"
+
+    x0, y0, cell = 1_000_000.0, 2_000_000.0, syn.CELL           # the same fire as perimeters, rasterized all-touched
+    ring = lambda t: [[x0 + 0.01 * cell, y0 - 0.01 * cell], [x0 + front(t) * cell, y0 - 0.01 * cell],
+                      [x0 + front(t) * cell, y0 - 9.99 * cell], [x0 + 0.01 * cell, y0 - 9.99 * cell]]
+    perimeters = dm.truth_from_perimeters(window, [(3600.0 * t, ring(t)) for t in range(6)])
+    assert dm.truth_outcome(*dm.oracle_states(requests, perimeters)[0]) == "hit"
+    # The burned neighbours count even outside the scoring domain: they burned, the domain only limits scoring.
+    east = np.zeros((10, 10), bool)
+    east[:, 6:] = True
+    cropped = dm.truth_from_reconstruction(dataclasses.replace(window, domain=east))
+    assert dm.truth_outcome(*dm.oracle_states(requests, cropped)[0]) == "hit"
+    # Column 6 burns from its neighbours' earliest ignition (column 5 arrives in hour 5) to their latest extinction.
+    truth = dm.truth_from_reconstruction(window)
+    assert (truth.ignite_s[0, 3, 6], truth.extinguish_s[0, 3, 6]) == (4 * 3600.0, 5 * 3600.0 + T)
+    assert np.isinf(truth.ignite_s[0, :, 7:]).all() and truth.meta.provenance["partly_burned_cells"] == 10
+    # ... and a road two columns further east, which no burned cell touches, stays safe
+    clear = _column_road(8, range(1, 9), depart_s=4.5 * 3600.0, window=window)
+    assert dm.truth_outcome(*dm.oracle_states(clear, truth)[0]) == "safe"
 
 
 def test_perimeter_truth_horizon_is_the_last_survey(case):
@@ -250,10 +313,12 @@ def test_rates_pool_requests_and_resample_whole_fires():
 
 def test_report_never_pools_countries_or_truth_kinds():
     row = dict(fire="SYNTHETIC_A", country="KR", truth_kind="reconstruction", coupling="shared", length_cells=None,
-               members=2, cleared=True, truth="safe", truth_cause=None, model_state="checked", cleared_up_to="2|2")
-    out = dm.report([row, dict(row, fire="SYNTHETIC_B", cleared=False, truth="hit", model_state="model_no_route",
-                               cleared_up_to="1|0")], draws=50)
+               members=2, cleared=True, truth="safe", truth_cause=None, truth_centre_in="safe", model_state="checked",
+               cleared_up_to="2|2", synthetic=True)
+    out = dm.report([row, dict(row, fire="SYNTHETIC_B", cleared=False, truth="hit", truth_centre_in="safe",
+                               model_state="model_no_route", cleared_up_to="1|0")], draws=50)
     assert out["shared"]["headline"]["counts"]["scored"] == 2 and out["shared"]["headline"]["fires"] == 2
+    assert out["shared"]["truth_ring_flips"] == {"safe->hit": 1}           # the partly burned ring made one hit
     with pytest.raises(ValueError, match="never pool"):
         dm.report([row, dict(row, country="US", truth_kind="perimeters")])
 

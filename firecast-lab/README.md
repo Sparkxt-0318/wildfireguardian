@@ -55,8 +55,11 @@ python program/benchlock.py --label fl-decision -- firecast-lab decision --model
 - **Requests.** Up to 32 per window (`--requests`), built from cutoff information only.
 - **Model verdicts.** The model's K = 64 members (`--members`) are checked under both couplings: `shared`, and
   `copula` with L = 8 cells (`--length-cells`).
-- **Truth.** Korean fires use reconstruction truth (hourly isochrones, mode `envelope`). US fires are skipped, with
-  the reason printed: their truth needs NIROPS perimeters, which have no loader yet.
+- **Truth.** Korean fires use reconstruction truth (hourly isochrones, mode `envelope`). Edge cells that the
+  reconstruction's centre-in rule drops but that may have partly burned (the 8-neighbour ring of the finite-arrival
+  mask) burn with their burned neighbours (`METRICS.md` §7.3). Each row also records the verdict without that ring
+  (`truth_centre_in`), and the report counts the requests it changed (`truth_ring_flips`). US fires are skipped,
+  with the reason printed: their truth needs NIROPS perimeters, which have no loader yet.
 - **Refusals.** The command refuses to run without the data root or without the graph folder. Fires without a graph
   are listed as skipped.
 - **Cost.** About 4.6 min per window on the 4-vCPU cloud host, so about 80 min per model for the 17 Korean dev
@@ -88,8 +91,14 @@ adapter with the router's own admission (`wfg_latest`, i.e. `integration/src`, m
    `copula` at L = 8 cells (3 km) as a declared placeholder.
 2. Present fire uses each cell's reconstructed arrival age ("exact"); hazard_contract's packet default is the
    router's `R_max` enclosure. Keep "exact"?
-3. Decision truth uses `from_perimeters` mode `envelope`: a truth "safe" is certain, while a truth "hit" means
-   contact under at least one timing consistent with the perimeters. False-safe is therefore an upper bound with
-   respect to timing between surveys. Keep it?
-4. Request population (`METRICS.md` §7.1): origins within 3 km of the cutoff front, trips of 2-4 km, half of the
+3. Decision truth uses `from_perimeters` mode `envelope`: a truth "safe" holds under every timing consistent with
+   the perimeters, while a truth "hit" means contact under at least one such timing. False-safe is therefore an
+   upper bound with respect to timing between surveys. Keep it?
+4. Partly burned edge cells (`METRICS.md` §7.3): without the Korean final perimeter polygons, the 8-neighbour ring
+   of the finite-arrival mask burns from its burned neighbours' earliest ignition to their latest extinction. This is
+   conservative, and on a speckled SYNTHETIC mask very much so: on the real Uljin road graph it turned 27 of 106
+   truth-safe requests into hits, against 3 of 91 on a contiguous SYNTHETIC mask, which is closer to a kriged
+   reconstruction. Keep this envelope, or narrow it to the earliest neighbour's interval? KFS perimeter polygons, if
+   obtainable, would allow the exact all-touched rule. `truth_ring_flips` measures the effect on real data.
+5. Request population (`METRICS.md` §7.1): origins within 3 km of the cutoff front, trips of 2-4 km, half of the
    waitable origins wait up to 1 h, budgets peak 10 kW/m² and dose 100 kJ/m². Are these the right defaults?
