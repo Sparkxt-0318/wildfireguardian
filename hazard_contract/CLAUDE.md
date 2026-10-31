@@ -70,3 +70,16 @@ opening a pull request to `Main`.
   turn `contact = True` into `False`, and can never lower `flux_upper`.
 - A stationary position (waiting or a destination stay) is a zero-length geometry over the
   occupancy interval — it is checked exactly like a moving segment.
+
+## Contract v1 in one screen (details: `README.md`; definition: code + tests)
+
+- Folder = `members.npz` (`ignite_s`, `extinguish_s` float `[K,H,W]` s after issue; `supported`
+  bool) + `meta.json` (`ScenarioMeta`). Burning = `[ignite, extinguish)`; `inf` = no burning
+  within the horizon; `nan` = unknown ⇒ unsupported. Nothing is known for `t > horizon_s` or
+  outside the grid.
+- `member.segment(geom, t_in, t_out)` (any speed profile) / `segment_uniform` (uniform motion,
+  the router's rule) → `SegmentHazard(contact, flux_lower, flux_upper, supported, dose_lower,
+  dose_upper)`. Closed cells ("whole-road" contact). Units kW/m², kJ/m².
+- Flux law `sheet_solid_angle_v1` = the `wfg_latest` finite-cell sheet law; peak ≤ q_rad/2.
+- `dose_lower`/`dose_upper` were added to the specified `SegmentHazard` so the oracle can bound
+  cumulative exposure (recorded in `program/DECISIONS.md`).
