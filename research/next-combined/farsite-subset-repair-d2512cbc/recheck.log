@@ -1,0 +1,124 @@
+{"cases": 1, "scored": true}
+{"cases": 1, "scored": true}
+{"cases": 1, "scored": false}
+{"cases": 1, "scored": false}
+{
+  "review_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+  "source_sha256": "6edb769fbcb9a7977e2689f7de337ed327feabd5dadd9983f3cec3443e04a6db",
+  "scope": "Exact two-gap repair plus source-verifier delegation/SPLIT/duration boundary. Synthetic source/arrays only; actual model/input verifier mocked at its unchanged identity boundary, never executed.",
+  "checks": [
+    {
+      "name": "full16_positive_common_coordinates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_identity_delegate_args_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_gap_missing_d4_refuses",
+      "passed": true,
+      "detail": "Current aggregate must contain exactly the fixed 16 probability columns"
+    },
+    {
+      "name": "original_gap_extra_refuses",
+      "passed": true,
+      "detail": "Current aggregate must contain exactly the fixed 16 probability columns"
+    },
+    {
+      "name": "48h_endpoint_positive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original49h_gap_retained_unavailable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "duration48h_plus1ns_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "zero_duration_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "negative_duration_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "duration_hours_disagreement_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "nonmember_event_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wrong_country_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wrong_year_refuses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "identity_mismatch_before_arrays",
+      "passed": true,
+      "detail": "Current source/model/input identity differs from FROZEN_ASSESSMENT"
+    },
+    {
+      "name": "verifier_refusal_before_arrays",
+      "passed": true,
+      "detail": "synthetic identity refusal"
+    },
+    {
+      "name": "model_contract_mismatch_before_arrays",
+      "passed": true,
+      "detail": "Stored subset comparator contract differs from the fixed current 16-model contract"
+    },
+    {
+      "name": "split_bytes_before_arrays",
+      "passed": true,
+      "detail": "Current US2024 population must use the authenticated frozen SPLIT bytes"
+    },
+    {
+      "name": "registry_escape_before_arrays",
+      "passed": true,
+      "detail": "Current assessment registry must remain inside the frozen source tree"
+    },
+    {
+      "name": "identity_only_no_current_verifier_or_scores",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "invalid_authenticated_event_list_19_refuses",
+      "passed": true,
+      "detail": "The authenticated US2024 held-out event list is invalid"
+    },
+    {
+      "name": "invalid_authenticated_event_list_20_refuses",
+      "passed": true,
+      "detail": "The authenticated US2024 held-out event list is invalid"
+    },
+    {
+      "name": "invalid_authenticated_event_list_21_refuses",
+      "passed": true,
+      "detail": "The authenticated US2024 held-out event list is invalid"
+    }
+  ],
+  "checks_passed": 22,
+  "checks_total": 22,
+  "failures": []
+}

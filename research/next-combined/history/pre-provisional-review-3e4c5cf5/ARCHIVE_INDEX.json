@@ -1,0 +1,36 @@
+{
+  "source_commit": "3e4c5cf5c024df8c671aa7ccd142a249612d1976",
+  "scope": "Exact preceding software/source-onlyPASS with canonicalcoverageHOLD and provisionalqueue-only state, before separate savedprovisionalmetadatareview",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 22534,
+      "sha256": "d3115552c37d338a1f6455585bfc81b62e6228c2e7b1be3cc9d6c230ad742523"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 46448,
+      "sha256": "c86b1857e0d7b017b62d2c1de16f34eb04d1b847b5094a291db64962a9c61f59"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 46448,
+      "sha256": "c86b1857e0d7b017b62d2c1de16f34eb04d1b847b5094a291db64962a9c61f59"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 39337,
+      "sha256": "a706587d3e9a9c203e6edd08e185d3769eb6a253bed0470836f2acdbba1d25ff"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 25210,
+      "sha256": "f5d52f736e603ec4381e458667b5f93206dd03cd8d80007473c31c249b5916d8"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 64283,
+      "sha256": "c85d27683ab426e7256a0ad2776adefca6c8464161e201bd9bf89cdb206a6398"
+    }
+  ]
+}

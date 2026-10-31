@@ -1,0 +1,119 @@
+{
+  "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+  "adapter_sha256": "6358a96d55f18f61c01a89caaba5fbe4e8fd5cfda01c5cab0f62a0e8e88ca330",
+  "scope": "Targeted synthetic software controls only; no study/future/heldout data or heavy jobs.",
+  "fixture_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/repair-d031b72b-w2su7t0h",
+  "status": "PASS_TARGETED_REPAIR_CONTROLS",
+  "observations": [
+    {
+      "control": "temperature_2m:baseline",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "temperature_2m:regular_pinned_quality",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "temperature_2m:external_quality_vrt_before_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/temperature_2m_quality_flags_375m.tif"
+    },
+    {
+      "control": "temperature_2m:external_quality_vrt_after_unpinned_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/temperature_2m_quality_flags_375m.tif"
+    },
+    {
+      "control": "wind_eastward_10m:baseline",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "wind_eastward_10m:regular_pinned_quality",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "wind_eastward_10m:external_quality_vrt_before_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/wind_eastward_10m_quality_flags_375m.tif"
+    },
+    {
+      "control": "wind_eastward_10m:external_quality_vrt_after_unpinned_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/wind_eastward_10m_quality_flags_375m.tif"
+    },
+    {
+      "control": "wind_northward_10m:baseline",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "wind_northward_10m:regular_pinned_quality",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "wind_northward_10m:external_quality_vrt_before_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/wind_northward_10m_quality_flags_375m.tif"
+    },
+    {
+      "control": "wind_northward_10m:external_quality_vrt_after_unpinned_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/wind_northward_10m_quality_flags_375m.tif"
+    },
+    {
+      "control": "quality:baseline_before_mask",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "quality:regular_pinned_mask_sidecar",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "quality:vrt_mask_sidecar_external_source",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/temperature_2m_quality_flags_375m.tif.msk"
+    },
+    {
+      "control": "quality:vrt_mask_sidecar_after_unpinned_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/quality_flags/SYNTHETIC_A/temperature_2m_quality_flags_375m.tif.msk"
+    },
+    {
+      "control": "canonical_source:baseline_before_mask",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "canonical_source:regular_pinned_mask_sidecar",
+      "result": "ADMITTED_EXPECTED",
+      "cases": 2,
+      "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+    },
+    {
+      "control": "canonical_source:vrt_mask_sidecar_external_source",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/regions/SYNTHETIC_A/terrain/slope_degrees_375m.tif.msk"
+    },
+    {
+      "control": "canonical_source:vrt_mask_sidecar_after_unpinned_mutation",
+      "result": "REFUSED_EXPECTED",
+      "reason": "Canonical source must be a GeoTIFF, not VRT: environment/regions/SYNTHETIC_A/terrain/slope_degrees_375m.tif.msk"
+    }
+  ]
+}

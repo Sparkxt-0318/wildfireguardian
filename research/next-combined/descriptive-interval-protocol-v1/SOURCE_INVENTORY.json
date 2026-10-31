@@ -1,0 +1,15 @@
+{
+  "scope": "Exact root documentary protocol/prerequisite schema fixed before final quality interpretation. Actual computation NOT_AUTHORIZED; implementation review and canonical census/result prerequisites remain pending.",
+  "files": [
+    {
+      "path": "DESCRIPTIVE_INTERVAL_PROTOCOL_V1.json",
+      "bytes": 7444,
+      "sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0"
+    },
+    {
+      "path": "DESCRIPTIVE_INTERVAL_PREREQUISITES_V1.json",
+      "bytes": 8786,
+      "sha256": "b69a8b57ba8ddbb92cbfdd4e07195c82058be6051a42dbee38e262a873be62e0"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "source_head": "637457f3118bad5575dd6b4b83c74511d93bbd43",
+  "scope": "Synthetic report control: valid base winner first, corrected spotting second.\n\nNumerical scores, source admission and plotting are mocked. Exact production\nphase-result parsing and report/main model-name use execute on temporary dummy\nartifacts. No heldout data, prediction, actual checkpoint or training is read.\n Parent637 adaptation mocks added source-auth report entry points and creates explicit dummy figure bytes; only name lookup/gate access is tested, no data-admission or visual claim.",
+  "script_sha256": "46525ff072ccf0136efcb82c828546008e9fd8f8a06ca9a8417250b444f2e60d",
+  "source_sha256": {
+    "research/forecast-v2/scripts/report.py": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+    "research/forecast-v2/scripts/score_cohorts.py": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333",
+    "forecast/tests/test_blind_forecast_protocol.py": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4"
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "observations": [
+    {
+      "id": "base_winner_report",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "primary_candidate": {
+          "variant": "base",
+          "run": "base_seed0",
+          "checkpoint_sha256": "98b7327ba792cac5f91196f1ad23cba4ea1bdcc642e047f5dafa57b2f0a3090e"
+        },
+        "retrospective_gate": {
+          "criteria_pass": false,
+          "brier_comparisons_pass": {
+            "persistence": true,
+            "dilation_best": true
+          },
+          "lowest_bin_absolute_gaps": {
+            "base_seed0": 0.0,
+            "persistence": 0.0,
+            "dilation_best": 0.0
+          },
+          "calibration_pass": true,
+          "complete_cohort_pass": true,
+          "descriptive_subset_criteria": {
+            "brier_comparisons": {
+              "persistence": true,
+              "dilation_best": true
+            },
+            "calibration": true
+          },
+          "diagnostic_status": "AVAILABLE",
+          "interpretation": "Retrospective mapped-extent comparison only; this is not the blind2026 test or physical validation"
+        }
+      }
+    },
+    {
+      "id": "burnout_spotting_winner_report",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "primary_candidate": {
+          "variant": "burnout_spotting",
+          "run": "burnout_spotting_seed0_flaming_only",
+          "checkpoint_sha256": "e9d964da9e142edea7598a457edd0295230e6e3c9bc4afec6b221f2544c09945"
+        },
+        "retrospective_gate": {
+          "criteria_pass": false,
+          "brier_comparisons_pass": {
+            "persistence": true,
+            "dilation_best": true
+          },
+          "lowest_bin_absolute_gaps": {
+            "burnout_spotting_seed0": 0.0,
+            "persistence": 0.0,
+            "dilation_best": 0.0
+          },
+          "calibration_pass": true,
+          "complete_cohort_pass": true,
+          "descriptive_subset_criteria": {
+            "brier_comparisons": {
+              "persistence": true,
+              "dilation_best": true
+            },
+            "calibration": true
+          },
+          "diagnostic_status": "AVAILABLE",
+          "interpretation": "Retrospective mapped-extent comparison only; this is not the blind2026 test or physical validation"
+        }
+      }
+    }
+  ],
+  "checks": 2,
+  "passed": 2,
+  "actual_study_inputs_or_models_accessed": false,
+  "status": "PASS_REPORT_MODEL_NAME",
+  "original_harness_sha256": "52d77c16c71b9c53c612175499702077ce270b6e9330a6c52fe9476d0c0b64e4",
+  "harness_adaptation": "Original bbb harness now stops at newly required ASSESSMENT presence before alias lookup. Separate637harness explicitly mocks the new reporting auth entry points and produces only dummy figure bytes; positive base and corrected-spot aliases both reach AVAILABLE/calibration/Brier diagnostics while overall criteria stays false without frozen selection. No actual-study source-admission or visual clearance."
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "Independent saved receipt SHA, current source map and recorded exit verification, no test rerun or metric/model execution",
+  "receipt_sha256": "2a8aaf17d26ecedf19ab1d03e1cdba857c43addb5c080f3bf360d6c53b984bec",
+  "source_files_checked": 199,
+  "source_mismatches": [],
+  "checks": [
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "forecast/tests"
+      ],
+      "elapsed_seconds": 205.64480991702294,
+      "exit_code": 0,
+      "log": "research/forecast-v2/executions/final_software_gate.pytest.log",
+      "log_sha256": "2efa94a3de941752da4100df846973cc96fecaf0cf366c0a97ccf32ed8c6f3c2",
+      "name": "pytest"
+    },
+    {
+      "command": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+        "tools/verify_release.py"
+      ],
+      "elapsed_seconds": 0.35826620797161013,
+      "exit_code": 0,
+      "log": "research/forecast-v2/executions/final_software_gate.release.log",
+      "log_sha256": "4dbc489656fe6f19f55dfb4ba4f47965bc5bdde0d8eebd57f8b3f5780da39183",
+      "name": "release"
+    }
+  ],
+  "c651_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "status": "PASS_FINAL_SOFTWARE_GATE_RECEIPT",
+  "verified_logs": [
+    {
+      "name": "pytest",
+      "sha256": "2efa94a3de941752da4100df846973cc96fecaf0cf366c0a97ccf32ed8c6f3c2",
+      "bytes": 19052
+    },
+    {
+      "name": "release",
+      "sha256": "4dbc489656fe6f19f55dfb4ba4f47965bc5bdde0d8eebd57f8b3f5780da39183",
+      "bytes": 107
+    }
+  ],
+  "pytest_summary": {
+    "passed": 3373,
+    "warnings": 551,
+    "seconds": 204.94
+  },
+  "release_copied_hashes_passed": 367
+}

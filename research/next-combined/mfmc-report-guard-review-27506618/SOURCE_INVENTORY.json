@@ -1,0 +1,226 @@
+{
+  "state": "SCOPED_REPORT_COMMAND_REPAIR_PASS",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/CLOSURE_PLOT_CONTROLS_7e59.json",
+      "archive": "mfmc-report-guard-review-27506618/CLOSURE_PLOT_CONTROLS_7e59.json",
+      "bytes": 6033,
+      "sha256": "e9f7d62e5f85775e1aa8b8b8b4b2d20b761571b51303668d83844a34a37a9d6b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/CLOSURE_PLOT_CONTROLS_7e59.log",
+      "archive": "mfmc-report-guard-review-27506618/CLOSURE_PLOT_CONTROLS_7e59.log",
+      "bytes": 6033,
+      "sha256": "e9f7d62e5f85775e1aa8b8b8b4b2d20b761571b51303668d83844a34a37a9d6b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/COMMAND_MATRIX_7e59.json",
+      "archive": "mfmc-report-guard-review-27506618/COMMAND_MATRIX_7e59.json",
+      "bytes": 14643,
+      "sha256": "86f379fedd4ae3789069adfc81ad1b09cd39dcb2694a86dc983d4c5b353d82e1"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/COMMAND_MATRIX_7e59.log",
+      "archive": "mfmc-report-guard-review-27506618/COMMAND_MATRIX_7e59.log",
+      "bytes": 14643,
+      "sha256": "86f379fedd4ae3789069adfc81ad1b09cd39dcb2694a86dc983d4c5b353d82e1"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/PRESERVED_SOURCE.json",
+      "archive": "mfmc-report-guard-review-27506618/PRESERVED_SOURCE.json",
+      "bytes": 826,
+      "sha256": "4b63ad986052fd877a74a27798fb36d38bd4a748bd3ca9b614796bc14845f489"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/REVIEW_7e59ce24.md",
+      "archive": "mfmc-report-guard-review-27506618/REVIEW_7e59ce24.md",
+      "bytes": 4831,
+      "sha256": "f10cc9e8f172a5095d4d6bcf30548a1858175015fad7aec11d318372c869317c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/closure_plot_controls_7e59.py",
+      "archive": "mfmc-report-guard-review-27506618/closure_plot_controls_7e59.py",
+      "bytes": 8812,
+      "sha256": "7e5916def2abcd1b48d21bb32ff9655e909339610e02c36131570d926d7a1fa6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/command_matrix_7e59.py",
+      "archive": "mfmc-report-guard-review-27506618/command_matrix_7e59.py",
+      "bytes": 4959,
+      "sha256": "7b3968e213649e66d496599785d32f61d6d3df46fea41ac4490103bbbdd6db2b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "archive": "mfmc-report-guard-review-27506618/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "bytes": 70591,
+      "sha256": "f01280f4e7d58e2b8b561bd806f493e6bcb4fd1d2ef5eea960d9406465734a32"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "archive": "mfmc-report-guard-review-27506618/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "bytes": 61834,
+      "sha256": "8089d3561fcf61f8f1581a6193a77e89987f53b966e01c3dbe58edb40ab0b387"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "archive": "mfmc-report-guard-review-27506618/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "bytes": 81839,
+      "sha256": "2afe835f73ef29e44bb7ad29cbca2738e240ea4fcf16735d16f6978cf7a08d7a"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "archive": "mfmc-report-guard-review-27506618/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "bytes": 63689,
+      "sha256": "b31f57a5d195954b825d56de1bdfa0a26f48b83b0f13887256d5526abb9da2c5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/pipeline_P88d.py.gz",
+      "archive": "mfmc-report-guard-review-27506618/pipeline_P88d.py.gz",
+      "bytes": 12557,
+      "sha256": "53d4137a2b95dae74059195b921f1d8487079762d3a484fe22e9ebd435ef98ed"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/probe_effective_equals.json",
+      "archive": "mfmc-report-guard-review-27506618/probe_effective_equals.json",
+      "bytes": 195,
+      "sha256": "8eafac841c0060f41a6a7e35ef4a6f8d18145b4ad739487059f8c5724f4a78bc"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/probe_effective_equals.py",
+      "archive": "mfmc-report-guard-review-27506618/probe_effective_equals.py",
+      "bytes": 1191,
+      "sha256": "208e547451e5ae9f5cea2748f746e616053c40c0b8a62cd1973100940db3e690"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/report_7e59.py.gz",
+      "archive": "mfmc-report-guard-review-27506618/report_7e59.py.gz",
+      "bytes": 15663,
+      "sha256": "02b1478e04a8e8027681af4984b1a4b6e03fbde80062f479e892dc68a05dd77f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/test_report_comparison_7e59.py.gz",
+      "archive": "mfmc-report-guard-review-27506618/test_report_comparison_7e59.py.gz",
+      "bytes": 6694,
+      "sha256": "2fe5ed99e0802802f7228ad5296ba7f644fbce505b9f5b8c780a665418db6d0c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/REVIEW_SHA256.json",
+      "archive": "mfmc-report-guard-review-27506618/REVIEW_SHA256.json",
+      "bytes": 1842,
+      "sha256": "35355fc84874869f2fd06fa17ba3a9b24160fdc6c0991c0ecc330b6b01f9bd19"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/CLOSURE_INITIAL_HARNESS.log",
+      "archive": "mfmc-report-guard-review-27506618/v2/CLOSURE_INITIAL_HARNESS.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/CLOSURE_PLOT_CONTROLS_27506618.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/CLOSURE_PLOT_CONTROLS_27506618.json",
+      "bytes": 6033,
+      "sha256": "69a72b038cc7230cf692266845269b078e7aae37316fffd3ed18a36614b71c51"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/CLOSURE_PLOT_CONTROLS_27506618.log",
+      "archive": "mfmc-report-guard-review-27506618/v2/CLOSURE_PLOT_CONTROLS_27506618.log",
+      "bytes": 6033,
+      "sha256": "69a72b038cc7230cf692266845269b078e7aae37316fffd3ed18a36614b71c51"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/COMMAND_MATRIX_27506618.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/COMMAND_MATRIX_27506618.json",
+      "bytes": 19503,
+      "sha256": "d9c5009a669f92d49f1537551264a05ed6dee8f5cb7709e3809d53aa77b1d7a0"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/COMMAND_MATRIX_27506618.log",
+      "archive": "mfmc-report-guard-review-27506618/v2/COMMAND_MATRIX_27506618.log",
+      "bytes": 19503,
+      "sha256": "d9c5009a669f92d49f1537551264a05ed6dee8f5cb7709e3809d53aa77b1d7a0"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/INITIAL_HARNESS_REFUSAL.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/INITIAL_HARNESS_REFUSAL.json",
+      "bytes": 525,
+      "sha256": "1b4695fc1ad09eefb4abfdb53eea235d1583c9636306cc3cead8e45ce179740f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/PRESERVATION_AND_AST.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/PRESERVATION_AND_AST.json",
+      "bytes": 530,
+      "sha256": "c6bf7eed78d618e3a044b37d66605663d10d32b527f18109ff53b6e2dec839d2"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/REVIEWED_SOURCE_SHA256.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/REVIEWED_SOURCE_SHA256.json",
+      "bytes": 377,
+      "sha256": "428c5d637521307f39f1b21d25dab1e1a78bb8890bdb6ca4e7d9934968d0f75c"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/REVIEW_27506618.md",
+      "archive": "mfmc-report-guard-review-27506618/v2/REVIEW_27506618.md",
+      "bytes": 3730,
+      "sha256": "b914e1606214499af7aaf9293cbe0533fd72f1012e3eac63647b4ee1ded839eb"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/closure_plot_controls_27506618.py",
+      "archive": "mfmc-report-guard-review-27506618/v2/closure_plot_controls_27506618.py",
+      "bytes": 9372,
+      "sha256": "3b8fb2bf09511a85240b7e1bb3217f5c3f386b757b89545478bcc018fe28b014"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/closure_plot_controls_initial_harness.py",
+      "archive": "mfmc-report-guard-review-27506618/v2/closure_plot_controls_initial_harness.py",
+      "bytes": 9026,
+      "sha256": "2ccddcfc31ceae4366e3a556291c3081237754ecff6924b4faa85a0a5251c986"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/command_matrix_27506618.py",
+      "archive": "mfmc-report-guard-review-27506618/v2/command_matrix_27506618.py",
+      "bytes": 5548,
+      "sha256": "bb3974694e5c1c149005d9e7fcc4cf2fc30a46cbdf935988ff8a3b7f7db66d58"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "archive": "mfmc-report-guard-review-27506618/v2/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "bytes": 70591,
+      "sha256": "f01280f4e7d58e2b8b561bd806f493e6bcb4fd1d2ef5eea960d9406465734a32"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "archive": "mfmc-report-guard-review-27506618/v2/manual_all_inactive_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "bytes": 61834,
+      "sha256": "196ba587c30733af62abdff676ca24440cda5a63b0bff2f184a90063d2bfe7a7"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "archive": "mfmc-report-guard-review-27506618/v2/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.png",
+      "bytes": 81839,
+      "sha256": "2afe835f73ef29e44bb7ad29cbca2738e240ea4fcf16735d16f6978cf7a08d7a"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "archive": "mfmc-report-guard-review-27506618/v2/manual_partial_figure/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+      "bytes": 63689,
+      "sha256": "0f4dcca853f446892cf59f4f56267db7c8d1736b33cd016d4fbeae0007463c94"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/REVIEW_SHA256.json",
+      "archive": "mfmc-report-guard-review-27506618/v2/REVIEW_SHA256.json",
+      "bytes": 1797,
+      "sha256": "7472a31a0ab3d886df16a8c8c74947e9474f21025121846484ffcadbf7090245"
+    }
+  ],
+  "review_head": "27506618643b05b1335fadf72b8c027fb7c9e9b1",
+  "report_sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+  "independent_command_controls": 22,
+  "separate_prior_closure_plot_controls": 13,
+  "counts_not_pooled": true,
+  "owner_tests_reported": 98,
+  "old_owner_tests_reported": 68,
+  "source_gzip_and_original_failed_matrix_preserved": true,
+  "other25_function_AST_unchanged_reported": true,
+  "scope": "Exactotherindependentsyntheticguard/sourcecustody/manualplotreview; neitheractualfield/model/heldoutreplay norcanonicalcoverage. InitialF175-vsF65harnessidentitymismatchpreserved, notnewsourcefailure.",
+  "readiness_rerun": false
+}

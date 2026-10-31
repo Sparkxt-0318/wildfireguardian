@@ -1,0 +1,17 @@
+{
+  "scope": "Exact authorized actual306 membership/status census result and execution log. Scientific clearance remains false; no actual case or array copied/replayed here.",
+  "checker": "current-cohort-census-prepared/check_census.py",
+  "readiness_rerun": false,
+  "files": [
+    {
+      "path": "ACTUAL_CENSUS.json",
+      "bytes": 2609,
+      "sha256": "a3b37b0fbbaac50aa50291fcad84a3b6e7d26979120621f1fcce5159f0d2aff0"
+    },
+    {
+      "path": "ACTUAL_EXECUTION.log",
+      "bytes": 154,
+      "sha256": "a0811dd29316fa93eba0c67fa9a983b10d25f24faaeba0e355b38ac6b7eae225"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "visual_review": "Both PNGs independently viewed; readable. HOLD panel identifies common-cell supported subset, unavailable panel contains no invented estimates. SVG labels/source also read, not browser-rendered.",
+  "figures": {
+    "figures/unavailable/fig03_ablation_forest_plot.png": {
+      "pixels": [
+        1050,
+        900
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "sha256": "25f3ebeee2fbc32d438727beefab41ba19ac97ac4e79ad74688d7671625fa408"
+    },
+    "figures/hold/fig03_ablation_forest_plot.png": {
+      "pixels": [
+        1050,
+        899
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "sha256": "25113ee05d6db637285c1bc326562ed4c6ab8106c270b0f656b7ca1abd79291d"
+    }
+  }
+}

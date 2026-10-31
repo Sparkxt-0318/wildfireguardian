@@ -1,0 +1,36 @@
+{
+  "source_commit": "ced8bc8168cc4c994c08dab6cef1e1653e5d6e60",
+  "scope": "Exact prior current summary, including mistakenf759 published-head wording, before explicit root-confirmed publication correction. Numerical/source/review evidence unchanged.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 14778,
+      "sha256": "0953dc90e224dbf3aadf78d40e84fb92fc8d516dce494f6dce03c92fa1f13415"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 112756,
+      "sha256": "78906421d981bcf5bd66a1966367dcf0e840bd22aad61bd489e0b83912ae35e8"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 112756,
+      "sha256": "78906421d981bcf5bd66a1966367dcf0e840bd22aad61bd489e0b83912ae35e8"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 91624,
+      "sha256": "4f9bdf607e40923532807e34b8fd82355c88aa94406b06faf528fd1566b9b5ec"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 21631,
+      "sha256": "0d4b1c24b33154d685766c8702db207d29582b7c00784ca289b586d951ca88d0"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 142533,
+      "sha256": "f8aea364a2647691eb8ecfce9b0714571bc1fe175cd831aa01abf3342dccbfb3"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "fe2304501159aa7340f305e8eb7a93e4199c59f9bb100f30667f60daeec00978": {
+    "different_top_level_definitions": [
+      "Environment",
+      "command_baselines",
+      "command_compare",
+      "command_final",
+      "command_fold",
+      "command_heldout",
+      "compare_cases",
+      "fit_samples",
+      "kriged_samples",
+      "load_or_build",
+      "logistic_features",
+      "logistic_predict",
+      "main",
+      "perimeter_samples"
+    ],
+    "top_level_diff": "--- immutable\n\n+++ current\n\n@@ -12,6 +12,8 @@\n\n from pathlib import Path\n os.environ.setdefault('OMP_NUM_THREADS', '2')\n HERE = Path(__file__).resolve()\n+sys.path.insert(0, str(HERE.parent))\n+import audit_fit_coverage as F\n REPO = HERE.parents[3]\n sys.path.insert(0, str(REPO / 'forecast'))\n import numpy as np"
+  },
+  "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a": {
+    "different_top_level_definitions": [
+      "command_compare"
+    ],
+    "top_level_diff": ""
+  },
+  "80a806e1177592fc4c16c12e78090a942b5cd1d985e644513fa8f401b8cf0439": {
+    "different_top_level_definitions": [
+      "Environment",
+      "command_baselines",
+      "command_compare",
+      "command_final",
+      "command_fold",
+      "command_heldout",
+      "compare_cases",
+      "kriged_samples",
+      "load_or_build",
+      "logistic_features",
+      "logistic_predict",
+      "main",
+      "perimeter_samples"
+    ],
+    "top_level_diff": "--- immutable\n\n+++ current\n\n@@ -12,6 +12,8 @@\n\n from pathlib import Path\n os.environ.setdefault('OMP_NUM_THREADS', '2')\n HERE = Path(__file__).resolve()\n+sys.path.insert(0, str(HERE.parent))\n+import audit_fit_coverage as F\n REPO = HERE.parents[3]\n sys.path.insert(0, str(REPO / 'forecast'))\n import numpy as np"
+  },
+  "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67": {
+    "different_top_level_definitions": [],
+    "top_level_diff": ""
+  },
+  "e59d157a4905fd64fb87499e5664375e2384bcc6ad39f2978812e7f3646deb38": {
+    "different_top_level_definitions": [
+      "Environment",
+      "command_compare",
+      "command_final",
+      "command_fold",
+      "command_heldout",
+      "kriged_samples",
+      "load_or_build",
+      "main",
+      "perimeter_samples"
+    ],
+    "top_level_diff": "--- immutable\n\n+++ current\n\n@@ -12,6 +12,8 @@\n\n from pathlib import Path\n os.environ.setdefault('OMP_NUM_THREADS', '2')\n HERE = Path(__file__).resolve()\n+sys.path.insert(0, str(HERE.parent))\n+import audit_fit_coverage as F\n REPO = HERE.parents[3]\n sys.path.insert(0, str(REPO / 'forecast'))\n import numpy as np"
+  },
+  "43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e": {
+    "different_top_level_definitions": [
+      "command_compare",
+      "command_final",
+      "command_fold",
+      "command_heldout"
+    ],
+    "top_level_diff": "--- immutable\n\n+++ current\n\n@@ -12,6 +12,8 @@\n\n from pathlib import Path\n os.environ.setdefault('OMP_NUM_THREADS', '2')\n HERE = Path(__file__).resolve()\n+sys.path.insert(0, str(HERE.parent))\n+import audit_fit_coverage as F\n REPO = HERE.parents[3]\n sys.path.insert(0, str(REPO / 'forecast'))\n import numpy as np"
+  }
+}

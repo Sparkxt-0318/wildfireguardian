@@ -1,0 +1,9 @@
+{
+  "status": "PRESERVED_INITIAL_HARNESS_REFUSAL",
+  "observed_error": "AssertionError: immutable61source changed",
+  "actual_only_changed_path": "research/forecast-v2/scripts/audit_fit_coverage.py",
+  "expected_original": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+  "actual_reviewed_current": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "repair": "Use exact archived original F175 bytes for old producer fixtures; keep separate F65 positive.",
+  "source_failure": false
+}

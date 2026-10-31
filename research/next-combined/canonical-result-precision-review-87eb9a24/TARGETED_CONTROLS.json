@@ -1,0 +1,324 @@
+{
+  "status": "PASS_SYNTHETIC_PRECISION_CONTROLS",
+  "checks": 63,
+  "passed": 63,
+  "observations": [
+    {
+      "check": "unchanged_prefix_accepts",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "base_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "base_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "base_material_development_drift_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "base_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "base_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "base_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "base_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "d4_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "d4_material_development_drift_refuses",
+      "passed": true,
+      "reason": "d4 development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "d4_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_wind_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "d4_wind_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "d4_wind_material_development_drift_refuses",
+      "passed": true,
+      "reason": "d4_wind development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "d4_wind_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_wind_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_wind_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "d4_wind_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "ellipse_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "ellipse_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "ellipse_material_development_drift_refuses",
+      "passed": true,
+      "reason": "ellipse development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "ellipse_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "ellipse_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "ellipse_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "ellipse_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "burnout_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "burnout_material_development_drift_refuses",
+      "passed": true,
+      "reason": "burnout development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "burnout_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_spotting_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "burnout_spotting_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "burnout_spotting_material_development_drift_refuses",
+      "passed": true,
+      "reason": "burnout_spotting development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "burnout_spotting_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_spotting_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_spotting_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "burnout_spotting_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "mixed_base_one_ULP_down",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "mixed_base_one_ULP_up",
+      "passed": true,
+      "reason": "Synthetic prefix accepted; no cohort was read"
+    },
+    {
+      "check": "mixed_base_material_development_drift_refuses",
+      "passed": true,
+      "reason": "mixed_base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "mixed_base_nonnull_difference_vs_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "mixed_base_nonnull_interval_95_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "mixed_base_nonnull_excludes_zero_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "mixed_base_nonnull_fires_better_than_base_refuses",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "original_checker_rejects_one_ULP",
+      "passed": true,
+      "reason": "development effects must remain unavailable without changing selection"
+    },
+    {
+      "check": "invalid_numeric_NaN_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "invalid_numeric_Inf_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "invalid_numeric_negativeInf_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "invalid_numeric_boolean_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "invalid_numeric_string_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "invalid_numeric_null_refuses",
+      "passed": true,
+      "reason": "base development mean_fire_brier numeric mismatch"
+    },
+    {
+      "check": "missing_development_mean_refuses",
+      "passed": true,
+      "reason": "'mean_fire_brier'"
+    },
+    {
+      "check": "changed_report_primary_selection_refuses",
+      "passed": true,
+      "reason": "report selection identity"
+    },
+    {
+      "check": "changed_report_selection_digest_refuses",
+      "passed": true,
+      "reason": "report selection identity"
+    },
+    {
+      "check": "changed_frozen_selected_variant_refuses",
+      "passed": true,
+      "reason": "selection differs from frozen development criterion"
+    },
+    {
+      "check": "frozen_selection_minimum_still_exact_refuses",
+      "passed": true,
+      "reason": "selection differs from frozen development criterion"
+    },
+    {
+      "check": "pre_existing_comparison_policy_byte_identical",
+      "passed": true
+    }
+  ],
+  "checker_sha256": "87eb9a2467f4e8011e960273ca77a6878a7807173f5869041905363214a297aa",
+  "actual_current_outputs_accessed": false,
+  "corrected_checker_actual_run": false
+}

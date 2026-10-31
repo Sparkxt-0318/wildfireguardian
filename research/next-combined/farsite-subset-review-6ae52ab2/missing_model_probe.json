@@ -1,0 +1,25 @@
+{
+  "removed": "p_d4_seed0",
+  "accepted": "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE",
+  "scores_available": true,
+  "model_names": [
+    "base_seed0",
+    "burnout_seed0",
+    "burnout_spotting_seed0",
+    "c651_mc",
+    "c651_meanfield",
+    "d4_wind_seed0",
+    "dilation_1h",
+    "dilation_2h",
+    "dilation_4h",
+    "dilation_8h",
+    "dilation_best",
+    "ellipse_seed0",
+    "logistic",
+    "mixed_base_seed0",
+    "persistence",
+    "farsite_scenario"
+  ],
+  "missing_model_silently_omitted": true,
+  "superiority_criteria_pass": false
+}

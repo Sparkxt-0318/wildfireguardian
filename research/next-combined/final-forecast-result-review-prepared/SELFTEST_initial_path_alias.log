@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-forecast-result-review/selftest.py", line 78, in <module>
+    bundle=make(Path(temp)/outcome,outcome);roots.append(bundle)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-forecast-result-review/selftest.py", line 39, in make
+    selection=dict(frozen_before_heldout_scoring=True,checkpoints=checkpoints,selected_variant='base',development_brier={v:.1+i*.01 for i,v in enumerate(C.VARIANTS)},fit_coverage=C.identity(root,evidence/'FIT_COVERAGE.json'),development_coverage_sha256=C.objsha(development),current_phase=phase,baselines=dict(logistic=baseline),input_manifests_sha256={'EXTRACTION_MANIFEST.json':'b'*64,'perimeters/PERIMETER_MANIFEST.json':'c'*64})
+                                                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-forecast-result-review/check_results.py", line 37, in identity
+    p=inside(root,path);return dict(path=str(p.relative_to(root.resolve())),sha256=sha(p))
+      ^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-forecast-result-review/check_results.py", line 33, in inside
+    need(not any(q.is_symlink() for q in [p,*p.parents]),'symlink evidence path')
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-forecast-result-review/check_results.py", line 24, in need
+    if not condition:raise AuditError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+independent_final_checker.AuditError: symlink evidence path

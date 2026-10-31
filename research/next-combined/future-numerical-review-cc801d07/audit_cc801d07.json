@@ -1,0 +1,632 @@
+{
+  "source_head": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+  "source_sha256": {
+    "research/forecast-v2/scripts/blind_test.py": "639eaa974fd89a66833d24ec1a6ad3e234d25a155790b952a64e5c4d3bf38af1",
+    "research/forecast-v2/scripts/blind_inventory.py": "f8e2bd03c789068cc13f2398dc45e7adf22526fea5c0c3eae26340a41ea7f279",
+    "forecast/tests/test_blind_forecast_protocol.py": "0b0920111e0786f95c238e75d19ad208dc3360bf6064c8fcf6931d84fad98b82",
+    "forecast/tests/test_blind_future_numerical_support.py": "40e260d841ea08dfc31e29d57ca8e2d57bec2557d52c5ed12795b0c2a86f2fdd"
+  },
+  "script_sha256": "42bcceda692c40f48b9335081c4dda9dfbd96c95ec45627f00ebf9f87fa0674a",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "checks": 70,
+  "passed": 70,
+  "observations": [
+    {
+      "id": "positive_exact8cell_reference_and_complete_model_calls",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "declared_valid_c651_meanfield_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_c651_meanfield_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_c651_meanfield_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_c651_meanfield_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_c651_meanfield_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_base_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_base_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_base_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_base_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_base_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_wind_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_wind_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_wind_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_wind_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_d4_wind_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_ellipse_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_ellipse_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_ellipse_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_ellipse_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_ellipse_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_spotting_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_spotting_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_spotting_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_spotting_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_burnout_spotting_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_mixed_base_seed0_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_mixed_base_seed0_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_mixed_base_seed0_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_mixed_base_seed0_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "declared_valid_mixed_base_seed0_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "finite_features_logistic_nan_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "finite_features_logistic_positive_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "finite_features_logistic_negative_inf_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "finite_features_logistic_below_zero_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "finite_features_logistic_above_one_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "declared_invalid_c651_meanfield_nan_legitimate_exclusion",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "declared_invalid_base_seed0_nan_legitimate_exclusion",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "neural_mask_float_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "neural_mask_integer_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "neural_mask_wrong_shape_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "c651_prediction_shape_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "unstored_c651_failure_outside_final_scoremask_still_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "one_model_failure_cannot_hide_behind_other_unknown_mask",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A model numerical failure cannot become a support exclusion"
+      }
+    },
+    {
+      "id": "logistic_failure_cannot_hide_behind_neural_unknown_mask",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "A logistic numerical failure cannot become an input-support exclusion"
+      }
+    },
+    {
+      "id": "logistic_input_unknown_support_independent_of_output_nan",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "logistic_input_unknown_support_independent_of_output_0.7",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unknown_input_environment_excluded_independently",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_validate",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_validation_identity",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_load_pipeline",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_load_runtime",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_run",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_score",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_finalize",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unchanged_auth_call_path_primary_decision",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "inventory_only_two_documentary_strings_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "missing_external_clearance_refuses_before_runtime",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "NOT_READY_FOR_2026_EXECUTION: independent pre-run documentary clearance is required"
+      }
+    },
+    {
+      "id": "all_owner_four_source_pins_exact",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "original_failure_evidence_byte_preserved",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    }
+  ],
+  "actual_study_inputs_or_models_accessed": false,
+  "training_executed": false,
+  "shared_heavy_lease": false,
+  "status": "PASS_SCOPED_FUTURE_NUMERICAL_GUARD"
+}

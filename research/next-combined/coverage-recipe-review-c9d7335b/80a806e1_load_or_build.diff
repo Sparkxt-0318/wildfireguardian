@@ -1,0 +1,23 @@
+--- immutable/load_or_build
++++ current/load_or_build
+@@ -1,8 +1,16 @@
+ def load_or_build(work: Path, name: str, builder):
+     path = work / 'samples' / f'{name}.pkl'
++    value = builder()
++    identity = sample_list_identity(value)
+     if path.exists():
+-        return pickle.loads(path.read_bytes())
+-    value = builder()
+-    path.parent.mkdir(parents=True, exist_ok=True)
+-    path.write_bytes(pickle.dumps(value, protocol=5))
+-    return value+        stored = pickle.loads(path.read_bytes())
++        if sample_list_identity(stored) != identity:
++            raise ValueError(f'Cached training samples differ from verified source recomputation: {path}')
++        result = value
++    else:
++        path.parent.mkdir(parents=True, exist_ok=True)
++        path.write_bytes(pickle.dumps(value, protocol=5))
++        result = value
++    with (work / 'cache_authentication.jsonl').open('a') as audit:
++        audit.write(json.dumps(dict(cache=str(path), cache_sha256=sha256(path), fresh_sample_identity=identity, samples=len(value), status='MATCHES_RECOMPUTED_SOURCES', checked_utc=pd.Timestamp.now(tz='UTC').isoformat())) + '\n')
++    return result

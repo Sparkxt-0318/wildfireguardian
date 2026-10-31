@@ -1,0 +1,39 @@
+{
+  "scope": "Read-only archival and identity verification of another independent reviewer artifacts, not a rerun or a new independent proof",
+  "source_commit": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+  "files": {
+    "REVIEW.md": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/radiation-review/REVIEW.md",
+      "sha256": "80ef3249bdc871eaca683315041810648534fbc1ed005102dd3fb98671ed94d6",
+      "exact_archived_bytes": true
+    },
+    "arithmetic_sanity.py": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/radiation-review/arithmetic_sanity.py",
+      "sha256": "80a453b3888f3bba8371e9ce70047f28ee8f25c2949298f056b5d868f5274189",
+      "exact_archived_bytes": true
+    },
+    "arithmetic_sanity.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/radiation-review/arithmetic_sanity.json",
+      "sha256": "ee63cc979ed12b80578b977790567a6e9218d815fccf0e531e0a3a94087a1a34",
+      "exact_archived_bytes": true
+    },
+    "artifact_sanity.py": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/radiation-review/artifact_sanity.py",
+      "sha256": "dfa3036214df3a521bd74f00685451ebff3f977aabf701ec1288a6541cc610f8",
+      "exact_archived_bytes": true
+    },
+    "artifact_sanity.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/radiation-review/artifact_sanity.json",
+      "sha256": "7a0b4da0e78dedf878983088db100c42275b0ad53b8258ac511b58a93aba48c5",
+      "exact_archived_bytes": true
+    }
+  },
+  "reported_fixed_checks": 42,
+  "source_hash_matches_review": true,
+  "counterexample_matches_BOUND_RESULTS": true,
+  "original_execution_layout": "Scripts resolve ../audit-1a relative to their original work/radiation-review directory; archived scripts are retained verbatim for custody. Restore that layout when reproducing them.",
+  "reviewer_test_suite_rerun": false,
+  "parent_fresh_42_unit_tests": "QUEUED_AT_THIS_REVIEW",
+  "physics_gate": "HOLD",
+  "new_integration_experiments": "NOT_RUN_GATED"
+}

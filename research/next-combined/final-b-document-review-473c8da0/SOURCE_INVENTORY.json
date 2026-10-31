@@ -1,0 +1,42 @@
+{
+  "scope": "Exact final independent documentary review and final BREADME/125requirement/GATE/DELIVERY metadata. Source Git bytes match473. This is documentary identity/link/headline/HOLD consistency only, not new tests or scientific replay.",
+  "source_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+  "manifest_entries_verified": 6,
+  "files": [
+    {
+      "path": "REQUIREMENTS_STATUS.json",
+      "bytes": 211663,
+      "sha256": "dd254bb8b3b49785c1f46a0607c82680bf94d8f58bd5ca9acf2283b281b33cd6"
+    },
+    {
+      "path": "DOCUMENTARY_CHECKS.json",
+      "bytes": 5464,
+      "sha256": "2a157abdc9e55a9ecc29b36975916380a470d707be017c4a346e9d1c2a46240a"
+    },
+    {
+      "path": "GATE_HISTORY.json",
+      "bytes": 10112,
+      "sha256": "1b39d009870c3b68e3e4ec277b6ed2f9e434d9613d1f20c4a41908fd2f10edc5"
+    },
+    {
+      "path": "DELIVERY_INDEX.json",
+      "bytes": 4625,
+      "sha256": "70a502ab05fba8985efde838d07afb084b3321848aff2f2b4782e1a1852c11c0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 19853,
+      "sha256": "457f1be32aa97b8da7795963be6673dfe6ee7f553151bf4e9c961a07c58aa0a5"
+    },
+    {
+      "path": "REVIEW_473c8da0.md",
+      "bytes": 4431,
+      "sha256": "a31e4abea12d401ee37d60ee2d78de763fea7ba97ddacd888995191ab9beca73"
+    },
+    {
+      "path": "REVIEW_SHA256.json",
+      "bytes": 557,
+      "sha256": "94b71cf349c59ba2cc9b8f3e833cbc124a140b598a7a070af31c815a3d0b108d"
+    }
+  ]
+}

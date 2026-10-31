@@ -1,0 +1,6 @@
+{
+  "SOURCE_RECIPE_REPAIR.patch": "0d01e73448f3470e6ea5d6693fd2ca1b24be5f04d8905d62a8f4a6dc16c82b88",
+  "SOURCE_RECIPE_REPAIR.json": "90586f8dd5da874779571a14f2e167ebf16311795c7a5af87e0547332437ea6c",
+  "repo/research/forecast-v2/scripts/audit_fit_coverage.py": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+  "repo/forecast/tests/test_source_recipe_compatibility.py": "22566bd953a2771a1c4aca933c97a46d96784ff193bd8ba2fedc43b999043266"
+}

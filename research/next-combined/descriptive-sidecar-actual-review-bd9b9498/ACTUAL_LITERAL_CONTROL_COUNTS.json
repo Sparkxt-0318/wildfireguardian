@@ -1,0 +1,98 @@
+{
+  "status": "EXTRACTED_FROM_ALREADY_VALIDATED_METADATA",
+  "literal_comparisons": 30,
+  "sklearn_ap_comparisons": 6,
+  "sklearn_auc_comparisons": 6,
+  "controls": [
+    {
+      "model": "c651_mc",
+      "multiplicity": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "literal_entries": 1705079,
+      "literal_positives": 8520,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    },
+    {
+      "model": "c651_mc",
+      "multiplicity": [
+        3,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "literal_entries": 2219785,
+      "literal_positives": 14608,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    },
+    {
+      "model": "d4_wind_seed0",
+      "multiplicity": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "literal_entries": 1705079,
+      "literal_positives": 8520,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    },
+    {
+      "model": "d4_wind_seed0",
+      "multiplicity": [
+        3,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "literal_entries": 2219785,
+      "literal_positives": 14608,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    },
+    {
+      "model": "logistic",
+      "multiplicity": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "literal_entries": 1705079,
+      "literal_positives": 8520,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    },
+    {
+      "model": "logistic",
+      "multiplicity": [
+        3,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "literal_entries": 2219785,
+      "literal_positives": 14608,
+      "sklearn_ap_performed": true,
+      "sklearn_auc_performed": true
+    }
+  ]
+}

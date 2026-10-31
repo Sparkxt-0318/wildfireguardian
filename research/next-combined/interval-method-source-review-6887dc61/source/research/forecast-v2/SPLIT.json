@@ -1,0 +1,115 @@
+{
+  "schema": "wfg.forecast-v2.split/1",
+  "recorded_utc": "2026-10-30T02:21:13.727769+00:00",
+  "recorded_before_any_fit": true,
+  "immutable": "This file is never changed after the first fit. Any later change is a protocol deviation and must be reported as such.",
+  "unit": "whole fire (all cells and intervals of one fire belong to one partition)",
+  "sources": {
+    "perimeters": "NIROPS v1, Mendeley 10.17632/95rj5d379g.1, archive SHA-256 b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
+    "kriged_labels": "Zenodo 10.5281/zenodo.21788344, wildfire_toa_dataset_and_code.zip SHA-256 612edf5f879d8fe874ae20e9d49d0be5de477e6f8c3101b434f1642d5b19ebad",
+    "event_table_hashes": {
+      "us_selection_29.csv": "ae44278f7c0340100136ae5f1c86517a5ac79301e678d8405e56bc6ea9fb2f01",
+      "kr_events_21.csv": "700a21e620a72f349f33afc327ee541b63aecf34513fd8dd7306a7299c11d7a1"
+    }
+  },
+  "fit": {
+    "us_perimeter_and_kriged": [
+      "CA-BTU-009205_Dixie",
+      "CA-KNF-006385_RiverComplex_RiverComplex",
+      "CA-KNF-006454_Antelope",
+      "CA-MNF-000753_AugustComplex",
+      "CA-PNF-001308_PNFNorthComplex",
+      "CA-SHF-001187_Monument",
+      "CA-SNF-001391_Creek",
+      "CA-SQF-002622_SQFComplex",
+      "CA-SRF-000651_McCash",
+      "CA-SRF-000656_RedSalmonComplex",
+      "CO-ARF-000636_CameronPeak",
+      "ID-SCF-022105_Moose",
+      "MT-BDF-006269_AlderCreek",
+      "MT-BDF-006272_TrailCreek",
+      "MT-LNF-000893_WestLolo",
+      "NM-SNF-000027_HermitsPeak",
+      "OR-UMF-000659_GreenRidge",
+      "OR-UMP-000373_RoughPatchCpx",
+      "OR-UPF-000265_Jack",
+      "OR-UPF-000450_DevilsKnob",
+      "OR-WIF-220180_CedarCreek",
+      "UT-ASF-100340_EastFork",
+      "WA-OWF-000453_SchneiderSprings"
+    ],
+    "korean_kriged_only": [
+      "KFS_02",
+      "KFS_03",
+      "KFS_05",
+      "KFS_07",
+      "KFS_09",
+      "KFS_11",
+      "KFS_12",
+      "KFS_14",
+      "KFS_15",
+      "KFS_16",
+      "KFS_17"
+    ],
+    "note": "The archive contains no 2023 US fire; US fit years are therefore 2020 to 2022. Korean 2022 and 2023 fires have no perimeter series and enter only the mixed kriged-label regime."
+  },
+  "development_folds": {
+    "rule": "leave-one-year-out over the US fit fires; Korean fit fires stay in every training fold of the mixed regime and are never a validation fold",
+    "folds": {
+      "2020": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ],
+      "2021": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ],
+      "2022": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    }
+  },
+  "held_out": {
+    "us_2024": [
+      "ID-BOF-000683_Wapiti_Wapiti",
+      "ID-BOF-000904_Goat",
+      "ID-BOF-001080_Lava",
+      "ID-SCF-240202_RedRock",
+      "WA-SES-000173_Pioneer",
+      "WY-BTF-002416_FishCreek"
+    ],
+    "korean_2024": [],
+    "korean_2025": [
+      "KFS_01",
+      "KFS_04",
+      "KFS_06",
+      "KFS_13"
+    ],
+    "rule": "No development decision (variant, hyperparameter, epoch, threshold, interval rule) may use any held-out fire. Held-out fires are scored once, after the configuration in this file and in the frozen run configuration is fixed."
+  },
+  "intervals": {
+    "definition": "consecutive distinct NIROPS survey times t1 < t2 of one fire component; the state at t is the union of that component's polygons with time <= t, rasterized at cell centres on the Zenodo 375 m grid",
+    "inclusion": "0 < t2 - t1 <= 48 h, decided from timestamps only (label-free); longer intervals are excluded for compute reasons",
+    "cells": "known cells of the full event rectangle outside the initial union; outside the endpoint union is a negative mapped-extent outcome",
+    "environment": "covariates at floor_hour(t1), repeated over the interval unless a sample is explicitly flagged as hourly reanalysis weather"
+  },
+  "c651_training_overlap": "c651 was fit on cell-hours of KFS_02, KFS_03 and the 2020 to 2022 US fires listed above; no held-out fire entered its fitting, but its selection followed inspection of Wapiti and other test events, so c651 is not blind on the held-out set."
+}

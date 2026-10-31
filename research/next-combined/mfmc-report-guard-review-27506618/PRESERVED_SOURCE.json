@@ -1,0 +1,17 @@
+{
+  "research/forecast-v2/scripts/report.py": {
+    "original_sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c",
+    "archive": "report_7e59.py.gz",
+    "archive_sha256": "02b1478e04a8e8027681af4984b1a4b6e03fbde80062f479e892dc68a05dd77f"
+  },
+  "forecast/tests/test_report_comparison.py": {
+    "original_sha256": "8c3f249feb30391f9b50f5fdb8d6f764898c78f2b7840afc34fb09f73b692c31",
+    "archive": "test_report_comparison_7e59.py.gz",
+    "archive_sha256": "2fe5ed99e0802802f7228ad5296ba7f644fbce505b9f5b8c780a665418db6d0c"
+  },
+  "research/forecast-v2/scripts/pipeline.py": {
+    "original_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "archive": "pipeline_P88d.py.gz",
+    "archive_sha256": "53d4137a2b95dae74059195b921f1d8487079762d3a484fe22e9ebd435ef98ed"
+  }
+}

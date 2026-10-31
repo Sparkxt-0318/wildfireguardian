@@ -1,0 +1,64 @@
+{
+  "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+  "script_sha256": "309cac0975405795623aa151a3cb039259d77338ad767a59c473470621bbe19b",
+  "checks": 6,
+  "passed": 6,
+  "observations": [
+    {
+      "id": "source_bound_historical_skip_partition_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "historical_skip_unlogged_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical development optimizer/skip logs do not prove a complete source-derived epoch"
+      }
+    },
+    {
+      "id": "historical_skip_unknown_reason_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical development skip needs its exact source-bound event/cutoff/reason"
+      }
+    },
+    {
+      "id": "historical_skip_duplicate_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical development optimizer/skip logs do not prove a complete source-derived epoch"
+      }
+    },
+    {
+      "id": "historical_skip_different_cutoff_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical development optimizer/skip logs do not prove a complete source-derived epoch"
+      }
+    },
+    {
+      "id": "historical_skip_unclassified_identity_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Historical development optimizer/skip logs do not prove a complete source-derived epoch"
+      }
+    }
+  ],
+  "actual_study_inputs_or_models_accessed": false,
+  "training_executed": false,
+  "status": "PASS"
+}

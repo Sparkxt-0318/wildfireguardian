@@ -1,0 +1,36 @@
+{
+  "source_commit": "44a4f4d837c4b908ede8d2a8dd8a791f604ae0c0",
+  "scope": "Exact prior reportgrammarHOLD/updatedsoftwareNOTRUN/canonicalHOLD summary, before scopedreportrepair/softwarePASS and runningcanonicalaudit",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 26702,
+      "sha256": "99334613a30108c2f910fe3a63a6c5695ad4845dffbd72f6a78f8e682360ec94"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 56237,
+      "sha256": "8ae2703d88f65fc29b152d1ce2cee0ddca2b92aa5a1b2264fb643a70343bf93c"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 56237,
+      "sha256": "8ae2703d88f65fc29b152d1ce2cee0ddca2b92aa5a1b2264fb643a70343bf93c"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 47643,
+      "sha256": "8b4e485e517eb68b387888e7029ef20113bf9e06e24c33afedfa58977a43c0b2"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 29989,
+      "sha256": "b69b02f164a12f2a9203fc5081bbbabc229ff42d2e0c93446a6a17b7e8aeda8b"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 78312,
+      "sha256": "cc1e0b4f6aac36e14d844aa871b37f0a06bae59073f7d46a9a2f6312a90f4699"
+    }
+  ]
+}

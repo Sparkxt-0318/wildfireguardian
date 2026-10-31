@@ -1,0 +1,118 @@
+--- immutable/Environment
++++ current/Environment
+@@ -1,22 +1,76 @@
+ class Environment:
+-    """Cutoff covariates through ``wildfire.load_data`` with an npz cache."""
++    """Covariates rederived from pinned sources; cache values never establish truth."""
+ 
+-    def __init__(self, data_root: Path, cache: Path):
+-        self.root, self.cache = (Path(data_root), Path(cache))
++    def __init__(self, data_root: Path, cache: Path, input_sha256=None):
++        self.root, self.cache = (Path(data_root).resolve(), Path(cache))
+         self.cache.mkdir(parents=True, exist_ok=True)
+-        self.names = None
++        if input_sha256 is None:
++            manifest = self.root.parent / 'EXTRACTION_MANIFEST.json'
++            expected = json.loads((HERE.parents[1] / 'RUN_PROTOCOL.json').read_text())['data_manifest_sha256']
++            if not manifest.exists() or sha256(manifest) != expected:
++                raise ValueError('Environmental sources need the frozen input manifest; a cache is not source evidence')
++            self._pins = {r['path']: r['sha256'] for r in json.loads(manifest.read_text())['members']}
++            terrain = self.root.parent / 'BASELINE_TERRAIN_MANIFEST.json'
++            if terrain.exists():
++                if sha256(terrain) != '0e8546d9d4d3bd19ab835e10c3951ef5762ba35eafd25e36e0c369211ad01aa2':
++                    raise ValueError('Frozen directional-terrain manifest identity changed')
++                self._pins.update({r['path']: r['sha256'] for r in json.loads(terrain.read_text())['files']})
++        else:
++            self._pins = dict(input_sha256)
++        self._verified, self._memory = ({}, {})
++        self._verify_path(self.root / 'events.json')
++        self.names = tuple(SOURCE_CHANNELS[:-1] + [f'biome.biome_class={c}' for c in CLASSES['biome.biome_class']])
+         self.catalog = {e['id']: e for e in json.loads((self.root / 'events.json').read_text())}
+         self._residence = {}
+-        cached = next(iter(sorted(self.cache.glob('*.npz'))), None)
+-        if cached is not None:
+-            self.names = tuple((str(n) for n in np.load(cached)['names']))
++        self._terrain_gradients = {}
++
++    def _verify_path(self, path):
++        path = path.resolve()
++        if not path.is_relative_to(self.root.parent):
++            raise ValueError('Source input escaped its declared root')
++        relative = str(path.relative_to(self.root.parent))
++        if relative not in self._pins or not path.is_file():
++            raise ValueError(f'Required environmental input is absent or unpinned: {relative}')
++        stat = path.stat()
++        stamp = (stat.st_size, stat.st_mtime_ns)
++        if self._verified.get(relative) != stamp:
++            if sha256(path) != self._pins[relative]:
++                raise ValueError(f'Environmental source identity changed: {relative}')
++            self._verified[relative] = stamp
++
++    def _verify_sources(self, event):
++        if event not in self.catalog:
++            raise ValueError('Unknown event identity')
++        paths = list(self.root.iterdir()) + list((self.root / 'regions' / event).rglob('*'))
++        for path in paths:
++            if path.is_file() and path.suffix.lower() in ('.tif', '.tiff', '.json', '.csv', '.txt', '.npz'):
++                self._verify_path(path)
+ 
+     def available_at(self, event, hour):
+         record = self.catalog[event]
+         return pd.Timestamp(record['start_utc']) <= hour <= pd.Timestamp(record['end_utc'])
+ 
++    def terrain_gradient(self, event):
++        """East/north elevation gradient from the separately hashed baseline supplement."""
++        if event not in self._terrain_gradients:
++            import rasterio
++            path = self.root.parent / 'baseline-terrain' / event / 'elevation_m_375m.tif'
++            self._verify_path(path)
++            with rasterio.open(path) as source:
++                if not source.crs.is_projected or abs(source.crs.linear_units_factor[1] - 1) > 1e-12:
++                    raise ValueError('Directional slope requires a projected grid measured in metres')
++                elevation = source.read(1, masked=True).filled(np.nan).astype(float)
++                row, col = np.gradient(elevation)
++                t = source.transform
++                inverse = np.linalg.inv(np.array([[t.a, t.b], [t.d, t.e]]).T)
++                east = inverse[0, 0] * col + inverse[0, 1] * row
++                north = inverse[1, 0] * col + inverse[1, 1] * row
++            self._terrain_gradients[event] = (east, north)
++        return self._terrain_gradients[event]
++
+     def residence(self, event):
+         """Point duration from supported FBFM40 cells; declared 6h fallback elsewhere."""
++        self._verify_sources(event)
+         if event in self._residence:
+             return self._residence[event]
+         import rasterio
+@@ -36,11 +90,11 @@
+         return duration
+ 
+     def at(self, event: str, hour: pd.Timestamp) -> np.ndarray:
++        self._verify_sources(event)
+         key = self.cache / f"{event}_{hour.strftime('%Y%m%dT%H')}.npz"
+-        if key.exists():
+-            data = np.load(key)
+-            self.names = tuple((str(n) for n in data['names']))
+-            return data['raw']
++        memory_key = (event, hour.isoformat())
++        if memory_key in self._memory:
++            return self._memory[memory_key].copy()
+         from wildfire.data import load_data
+         iso = hour.isoformat()
+         with load_data(self.root, events=[event], sequence_length=1, patch_size=None, time_range=(iso, iso), include_fire_labels=False, channels=SOURCE_CHANNELS, categorical_classes=CLASSES) as ds:
+@@ -49,6 +103,13 @@
+             sample = ds[0]
+             names = ds.channel_names
+         raw = np.where(sample['feature_valid'][0].numpy(), sample['features'][0].numpy(), np.nan).astype(np.float32)
+-        np.savez_compressed(key, raw=raw, names=np.array(names))
+-        self.names = tuple(names)
+-        return raw+        if tuple(names) != self.names:
++            raise ValueError('Executed source channel schema differs from the fixed model inputs')
++        if key.exists():
++            with np.load(key, allow_pickle=False) as stored:
++                if tuple((str(n) for n in stored['names'])) != self.names or stored['raw'].dtype != raw.dtype or (not np.array_equal(stored['raw'], raw, equal_nan=True)):
++                    raise ValueError(f'Cached environmental values differ from verified source recomputation: {key}')
++        else:
++            np.savez_compressed(key, raw=raw, names=np.array(names))
++        self._memory[memory_key] = raw.copy()
++        return raw.copy()

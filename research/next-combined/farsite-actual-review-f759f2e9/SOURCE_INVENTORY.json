@@ -1,0 +1,82 @@
+{
+  "scope": "Exact completed independent review/source/proof/saved controls and authorized actual saved-result receipts. Readiness archives closed artifacts without replaying any checker, arrays, model or metric computation.",
+  "original_manifest_entries_verified": 14,
+  "readiness_rerun": false,
+  "files": [
+    {
+      "path": "REVIEW.md",
+      "bytes": 11407,
+      "sha256": "945bf3b2e6e31ba98bac5f6f635518898806eec91c1a74e3f14ddfdd35abca80"
+    },
+    {
+      "path": "ACTUAL_REVIEW.json",
+      "bytes": 4611941,
+      "sha256": "26c5a52e0eec8a977b947a87a9cf7391243ddc2aeded58bbb173ed965787d2e4"
+    },
+    {
+      "path": "ACTUAL_REVIEW.log",
+      "bytes": 215,
+      "sha256": "3e37e51db994900d70ae583848b848f97e48ea5075e1b436f73e84c5e85f477f"
+    },
+    {
+      "path": "RECOMPUTED_SCORES.json",
+      "bytes": 408832,
+      "sha256": "2123ab99ea6f9943b4f3ee2473c38848cb18d53e33e3d60390469fd4056f9b3a"
+    },
+    {
+      "path": "reconcile_farsite.py",
+      "bytes": 26121,
+      "sha256": "582a2157043bb8f8ab1f0ca6d10cdcf54db0726c5f1553ab647c027641e70ead"
+    },
+    {
+      "path": "reconcile_farsite_initial.py",
+      "bytes": 24990,
+      "sha256": "3eb0fd86fa2b0293497001b0503ddc0a92d207dee8f018af81aadd60ac9ac695"
+    },
+    {
+      "path": "INITIAL_SOURCE_HEAD_HOLD.json",
+      "bytes": 1359,
+      "sha256": "a050326dd7e137d4e9e035eb07f6ca15c50c903e2de3a80d37271d01f63d2b2e"
+    },
+    {
+      "path": "INITIAL_SOURCE_HEAD_HOLD.log",
+      "bytes": 202,
+      "sha256": "508c15477e9a62ec98e85de5adde5910e4696446a9d1e96cb2e3071eb399ec0e"
+    },
+    {
+      "path": "SYNTHETIC_CONTROLS.json",
+      "bytes": 3030,
+      "sha256": "c288afd774938dbb125a8f1f54dd45fa43740bab948ca834d45d46af1d608947"
+    },
+    {
+      "path": "SYNTHETIC_CONTROLS.log",
+      "bytes": 69,
+      "sha256": "d35794bddd6619ecbc536a426112e04210efadce6666391246b3921bb6c69060"
+    },
+    {
+      "path": "synthetic_controls.py",
+      "bytes": 4980,
+      "sha256": "ef73d803d76fad08962edf732e861d7b08fadcf4cc58712c5ce8989916feb0e4"
+    },
+    {
+      "path": "METADATA_ADDENDUM.json",
+      "bytes": 70661,
+      "sha256": "c0d3e1949d3833182e2f8fc53e8e31a5084e8ed9a9d6af62c0f6f55da058e708"
+    },
+    {
+      "path": "METADATA_ADDENDUM.log",
+      "bytes": 105,
+      "sha256": "7d36d890b306d66d5371d0538ad721cff660956a437430b7bc653d0daaaa901d"
+    },
+    {
+      "path": "metadata_addendum.py",
+      "bytes": 2892,
+      "sha256": "34128eea877a774f25bc36fca12b46b07431e24a3622a1b6169cebb6274025c7"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 1339,
+      "sha256": "ebd902125d10e35dd16172b4565b0a42fcebd16482a9b7024c6044f8cc36c0d1"
+    }
+  ]
+}

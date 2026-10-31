@@ -1,0 +1,14 @@
+{
+  "status": "HOLD_INDEPENDENT_STORED_FARSITE_REVIEW",
+  "error_type": "ValueError",
+  "reason": "frozen authorized source head",
+  "checks": 3,
+  "passed": 2,
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/farsite-actual-independent-review/reconcile_farsite.py\", line 171, in main\n    try:result=audit_actual();code=0\n               ^^^^^^^^^^^^^^\n  File \"/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/farsite-actual-independent-review/reconcile_farsite.py\", line 90, in audit_actual\n    need(subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()==HEAD,'frozen authorized source head')\n  File \"/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/farsite-actual-independent-review/reconcile_farsite.py\", line 17, in need\n    if not ok:raise ValueError(label)\n              ^^^^^^^^^^^^^^^^^^^^^^^\nValueError: frozen authorized source head\n",
+  "pins": {},
+  "queued_utc": "2026-10-30T23:22:04.932349+00:00",
+  "acquired_utc": "2026-10-30T23:22:04.932567+00:00",
+  "finished_utc": "2026-10-30T23:22:04.946526+00:00",
+  "elapsed_seconds": 0.013956249982584268,
+  "checker_sha256": "3eb0fd86fa2b0293497001b0503ddc0a92d207dee8f018af81aadd60ac9ac695"
+}

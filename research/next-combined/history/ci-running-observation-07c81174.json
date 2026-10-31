@@ -1,0 +1,7 @@
+{
+  "source_commit": "07c81174b1c72d2955e29a596edfa646a1d4eba5",
+  "record_role": "Exact prior reportedRUNNING metadata observation, superseded by later root8SUCCESSsnapshot; no numerical evidence affected.",
+  "publication_status_verbatim": "Root push confirmed exit0 to473; PR88OPEN/DRAFT exacthead verified, CIcurrentlyRUNNING at root observation. Previous actualremoteB6887 remained until this push. f759 was localrender-contentancestor, not earlier publishedhead.",
+  "root_confirmation_CI_verbatim": "RUNNING",
+  "README_paragraph_verbatim": "Root confirms the final B push at473, exit0; PR88 is OPEN/DRAFT at that exact head, with CI running at the reported observation. The original remote B stayed at6887 until this push. f759 was the local render-content ancestor, now reachable from473. [The explicit metadata correction](PUBLICATION_METADATA_CORRECTION.json) qualifies older mistaken published-head wording while preserving it verbatim in history. No numerical or source evidence changes."
+}

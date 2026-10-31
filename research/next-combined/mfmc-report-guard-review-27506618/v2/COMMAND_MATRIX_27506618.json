@@ -1,0 +1,422 @@
+{
+  "scope": "Synthetic file/receipt fixtures only; exact AST-extracted parser declarations without pipeline dispatch or numerical imports. Loader uses owner synthetic custody fixture catalog; full real61 closure tested separately.",
+  "report_sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+  "pipeline_sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+  "cases": [
+    {
+      "fixture_anchor_before_mutation": "031a8c4af0c7e1ad500506cf175b2ce8ee27c97c5eb201bce93843936dfb9ad2",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "canonical",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/canonical/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": true,
+      "report_loader_refusal": null
+    },
+    {
+      "fixture_anchor_before_mutation": "c26d9e094f47091b4111757e9ee55e80a470d6b121e4cd1077dabc239821ab67",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "seed_equals7",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/seed_equals7/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 7,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "bf4113765799ec3531af0f9733bcca97c2d5acad7108da12b2aeab0061b30755",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "seed_abbrev7",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/seed_abbrev7/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 7,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "02b028b4e5e8ed6b8cb72f6619ab08bf8b3491e154d855dc804d7012cd7e5e59",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "N_equals7",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/N_equals7/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 7,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "f6f4157306fa161d52d213fefbf19f00a42e0457107e83b3379733045f2d83e5",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "N_abbrev7",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/N_abbrev7/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 7,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "92b2a5db43dff1cdc7819399513b908310524dca138cb36d332f2c400484d1ec",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "case_equals1",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/case_equals1/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 1,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "04322e40b3120705934d9bfa5c6b0e17307463a4e30040171c75e2d8d285e688",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "case_abbrev1",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/case_abbrev1/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 1,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "1886c5033a5e37217fcbfb1c472920155a2c347eeda368e622d79472754f767e",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "suffix_equals_a07",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/suffix_equals_a07/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a07"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "21ad23eb5f3880071f1d0ac551a17ddf8d4ce44eb3c0f7891739a68fa6057028",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "suffix_abbrev_a07",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/suffix_abbrev_a07/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a07"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "4444ce21a6e001aa2baee5d4fe4208de0429971ebf060ec0004e98f9f59940d2",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "manifest_equals_changed",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/manifest_equals_changed/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "f18e8785d101d8eea8409eb19a6c69c0bcfc6fe24847a2bbc8913c4e17308f5b",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "threads_equals1",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/threads_equals1/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 1,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "83a0d037721023de26d89036238a97b8aa4bbca31db4f027d13a28e549483897",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "duplicate_separate7_then0",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/duplicate_separate7_then0/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "4bc3e7f53dee1dfba533699b343a3ecf7791456a664e0d858715c629c25533c6",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "duplicate_separate0_then7",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/duplicate_separate0_then7/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 7,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "4f51559d5bd4a6c8812a6a3cb041b9399094df9285eca8d6a73203ac797d290d",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "mixed_separate7_equals0",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/mixed_separate7_equals0/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "23f4a37cd45557693adefbed5e0f6a4139d73c580c1e82b7341378b97ee41ad1",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "mixed_equals7_separate0",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/mixed_equals7_separate0/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "0d80fa5eb6fcb49e799674551612fe1aa79ee391527c27c2fbfbfb565b2bca1a",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "equals7_then0",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/equals7_then0/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "8f01b251edc8b013ae0681fa79c776d2c865f55cb5de5da2f9f21f36e7127de9",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "separator_then_seed",
+      "argparse_effective": null,
+      "argparse_error": "ARGPARSE_EXIT_2",
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "718872e4137ac55b37a20eb68b3a878d7f45784cc413ff1a0cd2c9ba85712ddb",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "unknown_extra",
+      "argparse_effective": null,
+      "argparse_error": "ARGPARSE_EXIT_2",
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "f60415da6ce2247aa30db47d791c01f6adc07f6cff7ce269fdc259625fd9a3eb",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "extra_positional",
+      "argparse_effective": null,
+      "argparse_error": "ARGPARSE_EXIT_2",
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "f868015771d83ca9f4719b34f01deb743db35053b02bdf81781fd343b7106079",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "wrong_dispatch",
+      "argparse_effective": {
+        "command": "fold",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/wrong_dispatch/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "d275de39d56e37f90b86011fe303341796f0d43a3e55620d5d03ceece3b58e73",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "run_override",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "OTHER_OUTPUT",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": null,
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    },
+    {
+      "fixture_anchor_before_mutation": "3d94029f2114e9aa94ed09af95d76e560d0685673c6dbe34131c84b88d1b96c1",
+      "fixture_anchor_unchanged": true,
+      "control_pass": true,
+      "case": "events_override",
+      "argparse_effective": {
+        "command": "compare",
+        "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-report-guard-independent-review/v2/synthetic-command-matrix-rz14mvrq/events_override/synthetic-repo/forecast/runs/synthetic-comparison",
+        "data_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "seed": 0,
+        "compare_case_index": 0,
+        "threads": 2,
+        "n_samples": 1024,
+        "events": [
+          "KFS_02"
+        ],
+        "artifact_suffix": "_a06"
+      },
+      "argparse_error": null,
+      "report_loader_accepted": false,
+      "report_loader_refusal": "Comparison complete historical argv family changed"
+    }
+  ],
+  "passed": 22,
+  "total": 22,
+  "failures": []
+}

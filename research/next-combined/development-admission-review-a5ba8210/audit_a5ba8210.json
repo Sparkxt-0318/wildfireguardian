@@ -1,0 +1,222 @@
+{
+  "schema": "wfg.independent-development-admission-audit/1",
+  "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+  "script_sha256": "57a4e1dbc21d6b6211fc7e12b260e19830188ad4ebc29621e78a82a61d9b8201",
+  "source_sha256": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "research/forecast-v2/scripts/run_campaign.py": "7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d",
+    "research/forecast-v2/scripts/freeze_registry.py": "a6373c5d05fc18f745e13586afaaf1bd14f898c847fdc756fdcc41aba4a60040",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+    "forecast/tests/test_development_fit_coverage.py": "8e9e327a713653aa8f62c85f2c3cbc62340e240da564e9508dac2253bedc85c1",
+    "forecast/tests/test_blind_forecast_protocol.py": "cd05ebf8dae9d1a7b125d9be667ee840e77bac0b2ac4ccd8e95c1e25899b1306"
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "checks": 23,
+  "passed": 23,
+  "observations": [
+    {
+      "id": "complete21_phase_registry_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "all_prefixes_and_kind_order_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "historical_cap160_is_source_default_and_nonbinding",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "source_inference_not_runtime_observations",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "original_resigned_underbudget_and_small_samples_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "last_epochs_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "last_first_prefix_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "last_binding_cap_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development interval cap must be zero or provably NONBINDING_CAP"
+      }
+    },
+    {
+      "id": "last_batch_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "last_hidden_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "last_learning_rate_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "equals_syntax_last_duplicate_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires fixed effective LAST budgets and model policy"
+      }
+    },
+    {
+      "id": "missing_balancing_flag_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires the frozen balanced training flag"
+      }
+    },
+    {
+      "id": "missing_epoch_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development requires all three complete recorded epoch/optimizer/skip counts"
+      }
+    },
+    {
+      "id": "missing_training_event_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development must name every actual frozen training and validation event and positive sample counts"
+      }
+    },
+    {
+      "id": "resigned_consistent_counts_cannot_replace_exact_membership",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development counts must equal every independently derived first3 training and validation sample"
+      }
+    },
+    {
+      "id": "resigned_first3_cache_omission_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development first3 cache identities/values differ from the exact independent source prefix and full-source list"
+      }
+    },
+    {
+      "id": "resigned_first3_cache_reordering_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development first3 cache identities/values differ from the exact independent source prefix and full-source list"
+      }
+    },
+    {
+      "id": "selection_requires_development_digest",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "All21 independently derived development memberships must be frozen into model selection"
+      }
+    },
+    {
+      "id": "48hours_plus1ns_refuses_whole_artifact",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "TypeError",
+        "reason": "Expected unicode, got numpy.str_"
+      }
+    },
+    {
+      "id": "new_zero_cap_and_other_historical160_preserved",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "new12_a06_paths_distinct_from_original_a04",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "saved_admission_relocated_without_training_roots",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    }
+  ],
+  "actual_study_inputs_or_models_accessed": false,
+  "training_executed": false,
+  "status": "PASS"
+}

@@ -1,0 +1,88 @@
+{
+  "actual_root_authorization": "ABSENT",
+  "actual_study_artifacts_read": false,
+  "actual_supplement_executed": false,
+  "command": "PYTHONDONTWRITEBYTECODE=1 /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest -q work/descriptive-interval-supplement-candidate/test_supplement.py --tb=short",
+  "custody_boundary": "Immutable original canonical review head cross-bound to receipt, exact223 and scientific/review artifacts; current HEAD may advance only under separate authorization; executing sidecar own-source pin required",
+  "dependencies": {
+    "numpy": "1.26.4",
+    "python": "3.12.1",
+    "scipy": "1.13.1",
+    "sklearn": "1.5.2"
+  },
+  "elapsed_seconds_test_only": 24.28,
+  "exit_code": 0,
+  "failed": 0,
+  "fixture_mocks": [
+    "Invented sealed inventory SHA map",
+    "Invented sealed223-file proof SHA",
+    "nullcontext instead of real HEAVY lease"
+  ],
+  "independent_candidate_review": "PENDING",
+  "original_points": "Exact canonical scalar/None equality; no tolerance",
+  "passed": 53,
+  "preserved_initial_failure": "evidence/initial_test_failure.json",
+  "prior_runs": [
+    {
+      "exit_code": 0,
+      "file": "evidence/test_run_01.log",
+      "passed": 43
+    },
+    {
+      "exit_code": 0,
+      "file": "evidence/test_run_02.log",
+      "passed": 52
+    },
+    {
+      "exit_code": 0,
+      "file": "evidence/test_run_FINAL.log",
+      "passed": 52
+    }
+  ],
+  "production_test_bypass": false,
+  "protocol_matrices": {
+    "4": {
+      "dtype": "<i8",
+      "file": "protocol_only_4fires_draws.npy",
+      "little_endian_int64_payload_sha256": "da83d25b1809585365789aa2c12ba8ae385ec1977d39bc6a143db53e8aeaed16",
+      "multiplicity_vectors": 35,
+      "npy_sha256": "762a9034df29d75ec9971210aa08fe8cea583ab39a744fd888ba2a96f37f3c20",
+      "order": "C",
+      "original_draws": 10000,
+      "repeated_vector_frequencies_restored": true,
+      "scope": "Fixed random-procedure test artifact only. No study arrays or actual supplement execution.",
+      "shape": [
+        10000,
+        4
+      ]
+    },
+    "6": {
+      "dtype": "<i8",
+      "file": "protocol_only_6fires_draws.npy",
+      "little_endian_int64_payload_sha256": "c1f5a138a79e4206753ef0bbca39abd38619f9436caa0468c11f5ceb4b833495",
+      "multiplicity_vectors": 445,
+      "npy_sha256": "4943b1da8411684b19dd71885aabfcbac304bc840f4c85bfb1a68c65a0c9d42e",
+      "order": "C",
+      "original_draws": 10000,
+      "repeated_vector_frequencies_restored": true,
+      "scope": "Fixed random-procedure test artifact only. No study arrays or actual supplement execution.",
+      "shape": [
+        10000,
+        6
+      ]
+    }
+  },
+  "recorded_utc": "2026-10-30T23:09:15.659433+00:00",
+  "resample_test_tolerance_only": {
+    "atol": 1e-14,
+    "rtol": 1e-12
+  },
+  "root_files_edited": false,
+  "schema": "scratch.descriptive-interval-candidate-test/1",
+  "source_sha256": "6080c09b5d2d7153fb9aa46e040bb6e85688f4b632b37b9a483fdd8c66f19b30",
+  "status": "PASS_INVENTED_ONLY_ACTUAL_EXECUTION_UNAUTHORIZED",
+  "synthetic_only": true,
+  "test_log": "evidence/test_run_FINAL_53.log",
+  "test_log_sha256": "1f028b9e27b7f453f98fb40a9ca2c888623e6a3ff133905e8a1da8a932f842f0",
+  "test_sha256": "f7e5a02adc9677f4dfd866f365dfef0ec118d9494dc86d479802bfd3bef3e91b"
+}

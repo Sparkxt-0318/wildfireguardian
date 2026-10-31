@@ -1,0 +1,327 @@
+{
+  "scope": "Tiny synthetic horizon/arithmetic controls plus existing identity-JSON metadata only. No actual prediction array/data/model/quality assessment loaded.",
+  "checks": [
+    {
+      "name": "inclusive_endpoint_and_finite_censor_positive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "missing_elapsed",
+      "passed": true,
+      "detail": "HORIZON_OR_CENSOR_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "name": "nan_elapsed",
+      "passed": true,
+      "detail": "HORIZON_OR_CENSOR_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "name": "bool_elapsed",
+      "passed": true,
+      "detail": "HORIZON_OR_CENSOR_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "name": "short_elapsed",
+      "passed": true,
+      "detail": "HORIZON_SHORTER_THAN_REFERENCE_ENDPOINT"
+    },
+    {
+      "name": "duration_mismatch",
+      "passed": true,
+      "detail": "HORIZON_EVIDENCE_MISMATCH"
+    },
+    {
+      "name": "selection_mismatch",
+      "passed": true,
+      "detail": "HORIZON_ENDPOINT_SELECTION_UNVERIFIED"
+    },
+    {
+      "name": "missing_timings_hash",
+      "passed": true,
+      "detail": "HORIZON_EVIDENCE_MISMATCH"
+    },
+    {
+      "name": "missing_arrival_hash",
+      "passed": true,
+      "detail": "HORIZON_EVIDENCE_MISMATCH"
+    },
+    {
+      "name": "origin_mismatch",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "nodata_mismatch",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "sentinel_mismatch",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "unit_mismatch",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "endpoint_convention",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "negative_arrival",
+      "passed": true,
+      "detail": "CENSOR_OR_ARRIVAL_CONVENTION_UNVERIFIED"
+    },
+    {
+      "name": "false_negative",
+      "passed": true,
+      "detail": "CENSOR_ENDPOINT_OCCUPANCY_MISMATCH"
+    },
+    {
+      "name": "false_positive",
+      "passed": true,
+      "detail": "CENSOR_ENDPOINT_OCCUPANCY_MISMATCH"
+    },
+    {
+      "name": "initial_cell_probability",
+      "passed": true,
+      "detail": "CENSOR_ENDPOINT_OCCUPANCY_MISMATCH"
+    },
+    {
+      "name": "missing_arrivals",
+      "passed": true,
+      "detail": "HORIZON_OR_CENSOR_EVIDENCE_UNAVAILABLE"
+    },
+    {
+      "name": "manual_pooled_and_perfire_arithmetic",
+      "passed": true,
+      "detail": {
+        "pooled": 0.10999999999999999,
+        "per_fire": {
+          "A": {
+            "entries": 2,
+            "positives": 1,
+            "brier": 0.039999999999999994,
+            "bss_vs_persistence": 0.92,
+            "average_precision": 1.0,
+            "roc_auc": 1.0,
+            "ece_10_bins": 0.19999999999999998,
+            "clipped_nll": 0.22314355131420974,
+            "exact_zero_probability_positives": 0,
+            "lowest_bin": {
+              "lower": 0.0,
+              "upper": 0.1,
+              "count": 0,
+              "share": 0.0,
+              "mean_prediction": null,
+              "observed_frequency": null
+            },
+            "calibration": [
+              {
+                "lower": 0.0,
+                "upper": 0.1,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.1,
+                "upper": 0.2,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.30000000000000004,
+                "count": 1,
+                "share": 0.5,
+                "mean_prediction": 0.2,
+                "observed_frequency": 0.0
+              },
+              {
+                "lower": 0.30000000000000004,
+                "upper": 0.4,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6000000000000001,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.6000000000000001,
+                "upper": 0.7000000000000001,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.7000000000000001,
+                "upper": 0.8,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "count": 1,
+                "share": 0.5,
+                "mean_prediction": 0.8,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              }
+            ],
+            "bss_vs_best_dilation": -3.0
+          },
+          "B": {
+            "entries": 1,
+            "positives": 1,
+            "brier": 0.25,
+            "bss_vs_persistence": 0.75,
+            "average_precision": 1.0,
+            "roc_auc": null,
+            "ece_10_bins": 0.5,
+            "clipped_nll": 0.6931471805599453,
+            "exact_zero_probability_positives": 0,
+            "lowest_bin": {
+              "lower": 0.0,
+              "upper": 0.1,
+              "count": 0,
+              "share": 0.0,
+              "mean_prediction": null,
+              "observed_frequency": null
+            },
+            "calibration": [
+              {
+                "lower": 0.0,
+                "upper": 0.1,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.1,
+                "upper": 0.2,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.30000000000000004,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.30000000000000004,
+                "upper": 0.4,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6000000000000001,
+                "count": 1,
+                "share": 1.0,
+                "mean_prediction": 0.5,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower": 0.6000000000000001,
+                "upper": 0.7000000000000001,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.7000000000000001,
+                "upper": 0.8,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "count": 0,
+                "share": 0.0,
+                "mean_prediction": null,
+                "observed_frequency": null
+              }
+            ],
+            "bss_vs_best_dilation": -24.000000000000014
+          }
+        }
+      }
+    },
+    {
+      "name": "actual_identity_metadata_only_30_finite_horizons",
+      "passed": true,
+      "detail": {
+        "cases": 30,
+        "min_minutes": 263.0,
+        "max_minutes": 4489.0,
+        "over48h": 1
+      }
+    }
+  ],
+  "checks_passed": 21,
+  "checks_total": 21,
+  "failures": [],
+  "audit_source_sha256": "122605a495156f4a449caf155ea9fa0854c70091f6346560e2116fea5765f996"
+}

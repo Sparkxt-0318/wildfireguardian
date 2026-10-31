@@ -1,0 +1,12 @@
+--- original/check_results.py
++++ v2/check_results.py
+@@ -192,7 +192,8 @@
+  need(reported['model_selection_sha256']==sha(selection_path) and reported['primary_candidate']['variant']==s['selected_variant'],'report selection identity')
+  need(reported['primary_candidate']['checkpoint_sha256']==s['checkpoints'][s['selected_variant']]['sha256'],'report selected checkpoint pointer')
+  for v in VARIANTS:
+-  row=reported['ablation'][v];need(row['mean_fire_brier']==s['development_brier'][v] and all(row[k] is None for k in ['difference_vs_base','interval_95','excludes_zero','fires_better_than_base']),'development effects must remain unavailable without changing selection')
++  row=reported['ablation'][v];compare(row['mean_fire_brier'],s['development_brier'][v],v+' development mean_fire_brier')
++  need(all(row[k] is None for k in ['difference_vs_base','interval_95','excludes_zero','fires_better_than_base']),'development effects must remain unavailable without changing selection')
+  summaries={}
+  for folder,key,n,score_key,ablation_key,label in [('heldout','us_2024',6,'heldout','heldout_ablation','US2024 mapped extent'),('korean2025','korean_2025',4,'korean2025_secondary_reconstruction','korean2025_secondary_ablation','Korean2025 reconstruction')]:
+   events=split['held_out'][key];need(len(events)==n and len(set(events))==n,'fixed cohort fire count')

@@ -1,0 +1,70 @@
+{
+  "state": "PREPARED_34_SYNTHETIC_CONTROLS_ACTUAL_NOT_RUN",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/PREPARATION_STATUS.json",
+      "archive": "current-cohort-census-prepared/PREPARATION_STATUS.json",
+      "bytes": 282,
+      "sha256": "75cc35889bdc9dec0ed71cb52ed30cf7b0e46dbd198693347d9e704249ff9251"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/README.md",
+      "archive": "current-cohort-census-prepared/README.md",
+      "bytes": 4513,
+      "sha256": "44b24dab59d1eed532189a282bca77e87880a126b9cf49be685c3414598208db"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/SYNTHETIC_RESULTS.json",
+      "archive": "current-cohort-census-prepared/SYNTHETIC_RESULTS.json",
+      "bytes": 4775,
+      "sha256": "e338029da0a49d8a8d47a6a8ac6e9a794ca4c9f49d080ac1f022801c8f0c4bf5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/SYNTHETIC_TESTS.log",
+      "archive": "current-cohort-census-prepared/SYNTHETIC_TESTS.log",
+      "bytes": 4775,
+      "sha256": "e338029da0a49d8a8d47a6a8ac6e9a794ca4c9f49d080ac1f022801c8f0c4bf5"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/check_census.py",
+      "archive": "current-cohort-census-prepared/check_census.py",
+      "bytes": 7127,
+      "sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/korea2025_FROZEN_INVENTORY.json",
+      "archive": "current-cohort-census-prepared/korea2025_FROZEN_INVENTORY.json",
+      "bytes": 29290,
+      "sha256": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/test_synthetic.py",
+      "archive": "current-cohort-census-prepared/test_synthetic.py",
+      "bytes": 4396,
+      "sha256": "37eb55aebd3176aae58ff492cad880882cf1455bfd375f0aa202864cec976b50"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/us2024_FROZEN_INVENTORY.json",
+      "archive": "current-cohort-census-prepared/us2024_FROZEN_INVENTORY.json",
+      "bytes": 50679,
+      "sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/current-cohort-census-review/SHA256.json",
+      "archive": "current-cohort-census-prepared/SHA256.json",
+      "bytes": 759,
+      "sha256": "66aa98b4982814970b59d97afacce7266a7f74c447eeecf0af1c4f36532fcf49"
+    }
+  ],
+  "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+  "source_freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "expected_US": 273,
+  "expected_KR": 33,
+  "total": 306,
+  "synthetic_passed": 34,
+  "actual_census": "NOT_RUN",
+  "scope": "Exactpreparedchecker/metadata/syntheticresults only. Hardpinstwo6887inventories; requiresall306casesexactlyonce, retaininghonestFAILED/UNAVAILABLE/HOLD. Caseorderisdiagnostic; unchangedb3f38-controlcheckerhandlesorderedinterval/array/metricchecks. No model/metrics/policychange.",
+  "generated_scratch_fixture_trees_copied": false,
+  "actual_assessment_array_model_access": false,
+  "readiness_execution": false
+}

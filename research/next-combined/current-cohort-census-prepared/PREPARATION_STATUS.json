@@ -1,0 +1,8 @@
+{
+  "status": "PREPARED_ACTUAL_NOT_RUN",
+  "actual_output_access": false,
+  "models_or_arrays_opened": false,
+  "metric_checker_unchanged_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+  "expected_total_cases": 306,
+  "synthetic_controls_passed": 34
+}

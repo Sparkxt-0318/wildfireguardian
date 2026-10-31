@@ -1,0 +1,14 @@
+{
+  "original_files_checked": 17,
+  "original_files_changed": [],
+  "prior_function_count": 26,
+  "changed_functions": [
+    "load_comparison"
+  ],
+  "other25_functions_unchanged": true,
+  "production_command_anchor": "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803",
+  "source_report_contains_anchor": true,
+  "parent_anchor_metadata_sha256": "8178b05b5c0ef8de5dc5a6e4b9572230b109229c9a78f62030a3e99dad28202f",
+  "parent_anchor_matches_production": true,
+  "parent_metadata_actual12_equal_except_index": true
+}

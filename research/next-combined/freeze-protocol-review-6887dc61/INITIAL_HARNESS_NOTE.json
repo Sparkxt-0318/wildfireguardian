@@ -1,0 +1,5 @@
+{
+  "observed_error": "KeyError: 'us_2020_2023'",
+  "source_failure": false,
+  "repair": "Use existing metadata keys us_perimeter_and_kriged and korean_2025; no input edit."
+}

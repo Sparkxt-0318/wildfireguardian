@@ -1,0 +1,133 @@
+{
+  "status": "PASS_SYNTHETIC_CONTROLS",
+  "checks": 25,
+  "passed": 25,
+  "observations": [
+    {
+      "check": "48h_exact_eligible",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "48h_plus_1ns_refused",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "zero_duration_refused",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "4489min_outside48h",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "exact_three_cell_intersection",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "native_binary_comparator_exact_join",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "all16_current_plus_native_columns",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "wrong_endpoint_label_refused",
+      "passed": true,
+      "reason": "current unburned initial and exact endpoint labels"
+    },
+    {
+      "check": "duplicate_coordinates_refused",
+      "passed": true,
+      "reason": "current ordered distinct source cells"
+    },
+    {
+      "check": "unlisted_model_column_refused",
+      "passed": true,
+      "reason": "fixed16 current columns"
+    },
+    {
+      "check": "missing_model_column_refused",
+      "passed": true,
+      "reason": "fixed16 current columns"
+    },
+    {
+      "check": "nonfinite_model_refused",
+      "passed": true,
+      "reason": "exact current/aggregate row join p_base_seed0"
+    },
+    {
+      "check": "case_perfire_prediction_mismatch_refused",
+      "passed": true,
+      "reason": "exact current/aggregate row join p_base_seed0"
+    },
+    {
+      "check": "endpoint_hour_join_mismatch_refused",
+      "passed": true,
+      "reason": "exact aggregate endpoint duration"
+    },
+    {
+      "check": "manual_tied_brier",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "manual_tied_average_precision",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "manual_tied_roc_auc",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "manual_tied_ece_10_bins",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "manual_tied_clipped_nll",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "zero_positive_AP_AUC_null",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "all_positive_AUC_null",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "manual_unequal_fire_whole_cluster_CI",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "material_wrong_CI_refused",
+      "passed": true,
+      "reason": "CI/0 numeric"
+    },
+    {
+      "check": "unavailable_null_stays_null",
+      "passed": true,
+      "reason": "returned"
+    },
+    {
+      "check": "fabricated_unavailable_zero_refused",
+      "passed": true,
+      "reason": "value null"
+    }
+  ],
+  "actual_inputs_accessed": false
+}

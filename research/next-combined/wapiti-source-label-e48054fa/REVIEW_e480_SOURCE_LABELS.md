@@ -1,0 +1,20 @@
+# Independent Wapiti original mapped-label replay
+
+Completed snapshot: `e48054fa420af0b0477070f496c88ebc16ed2b8a`.
+Verdict: PASS for this bounded original mapped-label/cutoff replay. All 11 actual checks and all 52 completed cases pass. This closes the prior Wapiti initial/endpoint/reference-mask source-link limit within the explicitly authorized input scope.
+
+Before opening original arrays, the checker authenticated the perimeter manifest against the frozen assessment's exact pointer and matched the Wapiti `states.npz` bytes to both that manifest and the frozen 6887 timestamp inventory. The original file SHA-256 is `74a135ab4ceec9408314d037b045c16e4cc8b4f635c44c3655cbbc06fc6668dc`; manifest SHA-256 is `ec85525ebe90091036e77bd517abc563c385e81db0ae53ecc30c6d4cb3c019c6`.
+
+Coordinate mapping is available and unambiguous. Exact SC source 88bb at 268-269 calls `perimeter_samples(..., crop=False)`. Exact P88d at 224-249 takes full source `states[i]` and `states[j]`, using `~initial` as the reference mask; its cropped branch is not selected. SC at 314-316 writes `np.nonzero(mask)` row/col indices and corresponding endpoint labels without an offset. The hash-matched PerimeterSample dataclass at 153-174 stores these arrays without a custom transformation. These are indices on the full original stored grid, not an assumed crop-to-global geographic transform. No latitude/longitude, affine or physical-location claim was needed or established.
+
+For every frozen expected Wapiti case, the independent checker found unique exact source cutoff and endpoint timestamp indices, verified their adjacency and eligible duration, and matched the full original initial/endpoint/reference-mask hashes to its immutable receipt. The rectangle equals the original source grid shape. At every saved scored coordinate, the original cutoff array is unburned and saved y equals the original mapped endpoint extent. Only row, col and y were decoded from each completed NPZ; no p_* probability member was accessed or decompressed.
+
+The check held one advisory HEAVY lease acquired between numerical cases and released it normally. No running process was interrupted or modified. Host/runtime versions and lease timestamps are retained in SOURCE_LABEL_RESULT.json. No latency or speed conclusion follows from this untimed functional check.
+
+Separately, 14/14 tiny fabricated source-join controls pass. They include wrong endpoint/time index, initially burned or shifted coordinate, flipped label, cropped rectangle, incorrect full-array hashes, missing endpoint, out-of-grid coordinates, duplicate timestamps and unsupported submicrosecond mapping. Ambiguous unsupported clock precision explicitly refuses as UNRESOLVED rather than being guessed.
+
+This is agreement with the pinned mapped-extent arrays, not proof of physical burn, complete survey coverage, original polygon-to-grid correctness or independent model prediction. Environment, residence, age and model common-validity-mask replay remain outside this review. No model/scorer/forecast/Monte Carlo/native code was executed. No probabilities, means, histograms, Brier/AP/AUC/NLL/ECE, rankings, calibration or figures were computed or inspected. No other fire's scientific arrays or live cohort output was opened. The full independent metric and 306-case census checks remain NOT_RUN; no tuning or early quality conclusion is admitted.
+
+Source evidence uses parent Tier 2 project wfg-next-1b-fixture-49a7cccc-20261030, generation 12:52:57Z. Its scripts are deliberately excluded, so the material SC/P source ranges were read directly from immutable Git and rehashed against the frozen assessment. The PerimeterSample graph lookup returned its one complete class and current exact-file coverage; its snippet was checked against the immutable c70 source. This is bounded source evidence, not a claim of exhaustive graph coverage.
+
+Evidence: check_source_labels.py, SOURCE_LABEL_RESULT.json, source snapshots/snippet, run log/stderr and SYNTHETIC_SOURCE_JOIN_CONTROLS.json. Original files were read only; no track or integration state changed.

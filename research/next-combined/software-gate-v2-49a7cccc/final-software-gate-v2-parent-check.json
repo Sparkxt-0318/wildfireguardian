@@ -1,0 +1,23 @@
+{
+  "scope": "Parent verification of saved v2 software gate, raw logs and current source bytes; no test rerun, model loading or heldout access",
+  "receipt_sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e",
+  "forecast_tests_passed": 3507,
+  "warnings": 551,
+  "release_identities_passed": 367,
+  "current_source_files_checked": 201,
+  "source_mismatches": [],
+  "protected_path_changes": [],
+  "c651_matches_frozen_default": true,
+  "logs": [
+    {
+      "name": "pytest",
+      "sha256": "28059202a848ff9478ba08a135b1d37cf6001aa2fee7ccc275db5629c081d893",
+      "exit_code": 0
+    },
+    {
+      "name": "release",
+      "sha256": "4dbc489656fe6f19f55dfb4ba4f47965bc5bdde0d8eebd57f8b3f5780da39183",
+      "exit_code": 0
+    }
+  ]
+}

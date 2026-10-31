@@ -1,0 +1,7 @@
+{
+  "scope": "Read-only admission audit, no solver or experiment",
+  "status": "STOPPED_ON_EXISTING_REGIONAL_GRID_BINDING",
+  "error": "ValueError: Existing native/trajectory exact grid or clock binding not admitted",
+  "source_sha256": "ffb7a87a54a325f08ee33e7580771d384a5bb4594174fa70c1c37595385e401f",
+  "resolution": "Verify existing md.regional integer inclusive window, do not interpolate or modify original inputs. Final report in member-scaling-closure-20261030-v2."
+}

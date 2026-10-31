@@ -1,0 +1,36 @@
+{
+  "source_commit": "f948fc3887913ea2d823bc1d37c92d06be0bf9dd",
+  "scope": "Exact preceding softwarePASS/actualcoverageHOLD/sourcecandidateHOLD summary before separateV2source-only clearance",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 20951,
+      "sha256": "90e074e15f05ceaf3588c89f73513e4721962032b94293ee89de3e757cb45c90"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 44222,
+      "sha256": "42350f99d199c869a08a97401e8f97f98a5355c1ee33fc814aca180e27e97c69"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 44222,
+      "sha256": "42350f99d199c869a08a97401e8f97f98a5355c1ee33fc814aca180e27e97c69"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 37081,
+      "sha256": "99e576108d6bc4960d146ed06c8e9747bb48498ba5ba1be5cbdd4265be4f464f"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 23265,
+      "sha256": "523d70a7274aa3874061d53cb4b1c1e7af9fcc2ad57526b6ed56af9631bfd70d"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 35080,
+      "sha256": "ce16c346512905620e772579d4ecf64045b4803a0b0a4a99e95d4ef4737665fa"
+    }
+  ]
+}

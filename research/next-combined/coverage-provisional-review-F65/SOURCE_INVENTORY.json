@@ -1,0 +1,53 @@
+{
+  "state": "SCOPED_SAVED_PROVISIONAL_METADATA_PASS_CANONICAL_GATE_HOLD",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-provisional-independent-review/REVIEW_PROVISIONAL.json",
+      "archive": "coverage-provisional-review-F65/REVIEW_PROVISIONAL.json",
+      "bytes": 1344864,
+      "sha256": "70a90cdf4bf008dc7856f6ac5bfba8dafae21845228296ed85d6d9b96f93e2cd"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-provisional-independent-review/REVIEW_PROVISIONAL.log",
+      "archive": "coverage-provisional-review-F65/REVIEW_PROVISIONAL.log",
+      "bytes": 87,
+      "sha256": "5ba1191a0e558d666fa92e4c3f4aab27484d1add1b84022f755b5425338ac232"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-provisional-independent-review/REVIEW_PROVISIONAL.md",
+      "archive": "coverage-provisional-review-F65/REVIEW_PROVISIONAL.md",
+      "bytes": 6676,
+      "sha256": "7d0e25ab8fa9164c2907051a456810dad6e6a86536c39b184e088747ad28e050"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-provisional-independent-review/review_provisional.py",
+      "archive": "coverage-provisional-review-F65/review_provisional.py",
+      "bytes": 15661,
+      "sha256": "448334bcea3698848d6a46522fdb9c914c19bb2d8f6d9aaaeea054e834b42390"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-provisional-independent-review/MANIFEST.json",
+      "archive": "coverage-provisional-review-F65/MANIFEST.json",
+      "bytes": 386,
+      "sha256": "442fb289ffb9272af18fcb8881926b8877d7cf3bc91ee1e1f8a0bdd5a3617fe9"
+    }
+  ],
+  "other_independent_reviewer_metadata_predicates": 9612,
+  "predicates_are_correlated_not_independent_cases_or_samples": true,
+  "development_phases": 21,
+  "final_phases": 7,
+  "actual_member_cache_value_replay": false,
+  "actual_auditor_rerun": false,
+  "actual_input_model_heldout_arrays_accessed": false,
+  "readiness_archive_only": true,
+  "raw_diagnostic_nonadmission": "UNTESTED",
+  "wrapper_refusal": "ONLY_EXPOSED_PROVISIONAL_WRAPPER_TESTED",
+  "scope": "Exact other-reviewer savedmetadata/custody audit, no independent actual array/value/member replay. Neither canonicalcoveragePASS nor registry/selection/heldout clearance.",
+  "graph_context_supplied_by_review": {
+    "tier": 2,
+    "project": "wfg-next-1b-coverage-v2-65a79178-20261030",
+    "generation": "2026-10-30T11:40:54Z",
+    "limits": "Excluded script body reviewed under earlier exact65pin, no new structural code analysis in thisarchive."
+  },
+  "replay_scope": "Producer retains originalwork/path assumptions. Archived script was not rerun or independently validated as relocated replay."
+}

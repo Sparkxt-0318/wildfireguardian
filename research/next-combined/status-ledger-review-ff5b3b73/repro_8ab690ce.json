@@ -1,0 +1,14 @@
+{
+  "source_head": "8ab690ce",
+  "source_sha256": "9fd67ef0c406bb4d811456ee16064ba85ca01954366440c8047119cc81d5b62c",
+  "script_sha256": "31ca5c93759413cc6ccca4dbc249198886287be6ab5ffd186b79bd03d00c9373",
+  "expression": "bool(registry and all(((ROOT / path).is_file() and digest(ROOT / path) == value for path, value in registry.get('producer_source_sha256', {}).items())))",
+  "input": {
+    "protocol_status": "READY_FOR_OWNER_REGISTRATION"
+  },
+  "registry_current": true,
+  "expected": false,
+  "status": "CONFIRMED_REPORT_ONLY_VACUOUS_TRUTH",
+  "actual_data_registry_or_models_accessed": false,
+  "actual_execution_authority_bypassed": false
+}

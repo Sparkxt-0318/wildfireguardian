@@ -1,0 +1,32 @@
+{
+  "review_source_commit": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+  "adapter_sha256": "f9b8e7d165b0a6713e2ac0e0c50d0f439b77db3d890aa4cbfc2d06b5fa14bd8c",
+  "source_hash_verified_from_exact_git_object": true,
+  "scope": "Read and archived another independent reviewer artifacts; no new fixture execution or future-data access by readiness auditor",
+  "files": {
+    "REVIEW.md": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/REVIEW.md",
+      "sha256": "ec85c629dc5db08de2cfce9ef3c64fdd9c9aec5b79b6cdba27b452eb9fba157e",
+      "verbatim": true
+    },
+    "reproduce_candidates.py": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/reproduce_candidates.py",
+      "sha256": "fd96b512684ac6b65c28475b9296745b15c07c3355ca38d092b68c0bbf31f4e9",
+      "verbatim": true
+    },
+    "reproductions.json": {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/future-inventory-review/reproductions.json",
+      "sha256": "01e7068280cb69e9ba2b50c5003868002729a71936b1fe1ec97d62f4b21cf689",
+      "verbatim": true
+    }
+  },
+  "reproduction_layout": "Verbatim script expects its original work/future-inventory-review directory beside work/audit-1b and constructs only synthetic fixtures there. Restore that layout and source revision to reproduce.",
+  "confirmed_gaps": [
+    "directory symlinks evade environmental dependency pinning",
+    "trailing DBF record silently ignored",
+    "nested .tgz bundle omitted from raw incident enumeration"
+  ],
+  "repair_status": "OWNER_REPAIR_PENDING",
+  "module_wiring": "UNWIRED",
+  "execution_status": "NOT_READY_FOR_2026_EXECUTION"
+}

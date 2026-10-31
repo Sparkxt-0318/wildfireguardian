@@ -1,0 +1,2981 @@
+{
+  "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+  "scope": "Bounded independent phase/source/support/public-route controls.\n\nOnly temporary synthetic inputs, dummy checkpoint bytes and tiny mechanism\ncalls are used. No training, actual model, study source, future source, heldout\nprediction or shared heavy lease is accessed. Owner fixture constructors are\nreused; the mutations and assertions below are independent.\n",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "torch": "2.5.1",
+  "script_sha256": "ec7846933e333c1afc8a9a7d561dfac49625dcacc8dc84cee2f7f70c128eb143",
+  "source_sha256": {
+    "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+    "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+    "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+    "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+    "forecast/tests/test_blind_forecast_protocol.py": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4",
+    "forecast/tests/test_spotting_flaming_only.py": "36d4f33749e969f64bee0cafd1fd36c93d4e0ace755761e70ab7904d064c0273",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+    "research/forecast-v2/scripts/freeze_registry.py": "2d952bbc58cf261a1910e0bace9a3b5f01ac03ce74543cef9bd9425216cdad38",
+    "research/forecast-v2/scripts/run_campaign.py": "6f0ceb4ec4f7b56cebae6f06f108a87531eca67f016b90b575c70e5cde2e848c",
+    "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+    "research/forecast-v2/scripts/score_cohorts.py": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333",
+    "research/forecast-v2/scripts/blind_test.py": "00d7b3f7fef76eed0d55e493d15243b0b402477520b7e57507f5e4da1556d911",
+    "research/forecast-v2/scripts/status.py": "339e564c05a1fac7324788c98ded5c3ccee37b30cf2689a18b935ab7734c039a",
+    "research/forecast-v2/scripts/report.py": "624572c30d5c1ce948263e7635bd2a43a0083df32614abe7de9d3c4f414b51f6",
+    "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+    "research/forecast-v2/RUN_PROTOCOL_EXTENSION_10.json": "486ff44000b4aca9d3ec936e5ccdb09b0ee36354d8250a3ed236c9cf802fabf0"
+  },
+  "observations": [
+    {
+      "id": "flaming_age_history_scalar",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "flaming_age_history_per_cell",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "old_cell_no_long_range_but_positive_local_smoulder",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "mechanism_rng_unchanged",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "young_cell_retains_long_range_branch",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "flaming_callback_without_window_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "flaming_only extra rates require a flaming-window source law"
+      }
+    },
+    {
+      "id": "unknown_callback_source_mode_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "extra-rate source_mode must be shared or flaming_only"
+      }
+    },
+    {
+      "id": "default_callback_equals_explicit_shared",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "complete_current_phase_registry_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "intended_map_exact28_and_only_spotting_suffix_changed",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "development_budget_and_sample_membership_change_refused",
+      "pass_check": false,
+      "observed": {
+        "state": "RETURNED",
+        "value": {
+          "schema": "wfg.forecast-blind-registry/1",
+          "status": "FROZEN",
+          "models": {
+            "base_seed0": {
+              "path": "forecast/runs/synthetic/final/base_seed0/checkpoint.pt",
+              "sha256": "98b7327ba792cac5f91196f1ad23cba4ea1bdcc642e047f5dafa57b2f0a3090e"
+            },
+            "d4_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/checkpoint.pt",
+              "sha256": "0ab3e076298efbe71ef3821915452251dc862e4db99df9a9229e06492f5c93e2"
+            },
+            "d4_wind_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/checkpoint.pt",
+              "sha256": "cf0dfdd6446924feb293900c29c8edf04b8644a14df199bfb57bc832ef458a67"
+            },
+            "ellipse_seed0": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/checkpoint.pt",
+              "sha256": "945d2a802596a69cee236e28580ecfb2f7fd6e3c3d565ed07c9f5d2c64b6ae99"
+            },
+            "burnout_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/checkpoint.pt",
+              "sha256": "c08e9d5d3173f35cba307102d4ada6572ae84e597271719f97654a1acfba5b80"
+            },
+            "burnout_spotting_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+              "sha256": "e9d964da9e142edea7598a457edd0295230e6e3c9bc4afec6b221f2544c09945"
+            },
+            "mixed_base_seed0": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/checkpoint.pt",
+              "sha256": "429985f1d4658efaee4c5874e0a04d0e692ebbe075c51e0ea07118f65a7316d6"
+            },
+            "c651_mc": {
+              "path": "c651.pt",
+              "sha256": "9e0d187e9f98e233ba2f541a59fa2e2eca8fd671cab37cadf0c5b98e4b3a1017"
+            }
+          },
+          "current_phase": {
+            "schema": "wfg.forecast-intended-phases/1",
+            "spotting_source_mode": "flaming_only",
+            "phases": [
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "base_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_base",
+                "result": "folds/base_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4",
+                "result": "folds/d4_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4_wind",
+                "result": "folds/d4_wind_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "ellipse_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_ellipse",
+                "result": "folds/ellipse_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_burnout",
+                "result": "folds/burnout_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2020_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "base_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_base",
+                "result": "folds/base_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4",
+                "result": "folds/d4_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4_wind",
+                "result": "folds/d4_wind_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "ellipse_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_ellipse",
+                "result": "folds/ellipse_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_burnout",
+                "result": "folds/burnout_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2021_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "base_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_base",
+                "result": "folds/base_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4",
+                "result": "folds/d4_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4_wind",
+                "result": "folds/d4_wind_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "ellipse_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_ellipse",
+                "result": "folds/ellipse_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_burnout",
+                "result": "folds/burnout_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2022_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_base",
+                "result": "final/base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4",
+                "result": "final/d4_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_wind_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4_wind",
+                "result": "final/d4_wind_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "ellipse_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_ellipse",
+                "result": "final/ellipse_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_burnout",
+                "result": "final/burnout_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_spotting_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "final_burnout_spotting_flaming_only",
+                "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "mixed_base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_mixed_base",
+                "result": "final/mixed_base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              }
+            ]
+          },
+          "development_phases": {
+            "base_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2020_seed0/result.json",
+                "sha256": "39951da81df235c152aa300877a47e89122f84d6bc5fde0cc69cef8ab180ed5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_base.json",
+                "sha256": "afc3dedb58d216c21f966d6b9aa98a384c9ac1a2873479a8bc0be97f04fc1bbc"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2021_seed0/result.json",
+                "sha256": "cfed8aa5d397e694d314fb27208ad1ae3a513a6cfca054d88fb265899c0df842"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_base.json",
+                "sha256": "28a6c4a2583d2d9cba82a50642def185bb783ca87f419edf91761ce6be1ea64a"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2022_seed0/result.json",
+                "sha256": "b20c9177f3ef0c74980f79d548ba41ae21af155e3c0c1717319ad57ee998723f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_base.json",
+                "sha256": "ca0d64d44e233619c4f277ba21039a26e828704da996d96d338efd7777087438"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2020_seed0/result.json",
+                "sha256": "55d5b0f69eee931070177bf17591c4a00c9d30dea504b4e22658a17aed3c6a5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4.json",
+                "sha256": "155b032528f408cb7be2260c7ca18ae3f8fd29b36c3205ddb6574a512128cd21"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2021_seed0/result.json",
+                "sha256": "919217f723755ba69534c9492575eff562c2c88ee763420824ea5b55ba1e1833"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4.json",
+                "sha256": "e8a4ee07b058c5304c878b7a07417a18e8dd053eb013a891a5d2bfe088d84ab3"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2022_seed0/result.json",
+                "sha256": "07b670eda7a5483663e5bcb7270835995a93c415df12e39edc61dbd08d8bd7e0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4.json",
+                "sha256": "49342241344c3faa5d33309c97313117af234a78fbde0533bdb2e97d542b7051"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2020_seed0/result.json",
+                "sha256": "b71964c17e161fa2f4dc6ece3786e6bf87a9b4a2d702bddcabd42847ebc30177"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4_wind.json",
+                "sha256": "8cee8a627b698c78b187396d70db8a4b9ec57a159735e8baef51f72feefbbc8b"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2021_seed0/result.json",
+                "sha256": "c1ad3a04fd672e9f7ac480736c25ac2ded45454f3e999863c9c8358fb766294d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4_wind.json",
+                "sha256": "1e9cb0f2f87c1778d1abef19da2715d1640d1fa82740bb356da9066e4ac0a793"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2022_seed0/result.json",
+                "sha256": "1ceaa255ad7f1bd471cff831048a2fccaee05eec424a943ef5050e557e1e0a7a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4_wind.json",
+                "sha256": "f60d417007f615bbbf82aa3a37af179ba20a775ea83389bf8478d12e9e88ab51"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2020_seed0/result.json",
+                "sha256": "7901bef36a18169ead9d450028d816b0faa9362625264162a36d0ce55880b38a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_ellipse.json",
+                "sha256": "a5a2d2cb1c4eb1b764e5cd7178f7d6877246669fcd65c030a777c8297a0ff115"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2021_seed0/result.json",
+                "sha256": "57b5294cbad05093e29776afce540145c60f7cf2fd7771b8747e00e40d822536"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_ellipse.json",
+                "sha256": "20928aefa3a991193747acf93e9f53c9c4efdaf139f377a49218a72c4dae0fd1"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2022_seed0/result.json",
+                "sha256": "81384b849e31e90e7a131bd782bcad7ac45d5a42671d2c380296a6d3f2976d6b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_ellipse.json",
+                "sha256": "15603b7ac9d4f16a308b5f15b0b1d42db503b17e19f1d6da1fd1415b3465c2f6"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2020_seed0/result.json",
+                "sha256": "acc6a95e7cba661ebb3481e17d8748f95e6f5db3673fbc233af8d21aeeb79063"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_burnout.json",
+                "sha256": "f00436ffc0280cf7e7bfebe9607771c6f1c5bbb2bb759eb3805ca4dca63f8ced"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2021_seed0/result.json",
+                "sha256": "c3790e0ce752335bcec6ad907f66f90500f25029b405679bfa74d0ded6ef5f7f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_burnout.json",
+                "sha256": "cfd260b03e3f2b0335b18d6974b42016614ea8a3c86b74e622302979882d007c"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2022_seed0/result.json",
+                "sha256": "12e2f6d693a790df60515f58dc1b5b751ee690726c645c5f2c705423452c4cc0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_burnout.json",
+                "sha256": "ee62c61adbc8a297a059abda24dd7c6a4df9e9a3f0b80ead52e423ffbf802d09"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_spotting_fold2020_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "sha256": "6c22589d79ba0e6666d5f1c0e2b9f7323e5b09c14ff9544e3cec18d32fec7adb"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2020_burnout_spotting_flaming_only.json",
+                "sha256": "1edbeecb24765e64616b9f1b82dd19a3d083501f1b7833920ebc1606852fe619"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2021_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "sha256": "cff74b444fc463bb86e428bfe49a6c7dd09485043b41b1fa5d92c5d06b098890"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2021_burnout_spotting_flaming_only.json",
+                "sha256": "cd42545dc11988bbbf4a5aed8cbb2df757e86dc47f93e40c1bc81ae504622d0e"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2022_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "sha256": "81babefd7bf3a459b26a24522bf9d55c170b624a438a40e53a53c3a92d89bbcc"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2022_burnout_spotting_flaming_only.json",
+                "sha256": "8893f40746888b044165f29c6d4dfc2e1ec1fb074b33e2acbf206c43cc4c661b"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "mixed_base_fold2020_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "sha256": "316b071357bbe8f88c4c15bd28b53fbeb9267b63a4b1a0ea5e3986864a0b056a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_mixed_base_utc_fixed.json",
+                "sha256": "2c3febf79b46d2990b344a6a457cc9f78f514376602497dc0a4c0b2203b41c36"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2021_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "sha256": "02ddbca8cb58c5b7baa39007e7f962d60f1f922f1df4074411045a5b58cae408"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_mixed_base_utc_fixed.json",
+                "sha256": "0d742af4b981778b564788ca94ab4896a3abba23eabf70d72762673408f879d4"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2022_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "sha256": "d6af608ef1fd1f4a4136ed58b41765b324163433993a260721133224ab94148b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_mixed_base_utc_fixed.json",
+                "sha256": "5e056c4069011303a27c0d16215e023eac5e3653c306bfb94f81fe148cb072bf"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            }
+          },
+          "spotting_source_contract": {
+            "schema": "wfg.forecast-spotting-source/1",
+            "source_mode": "flaming_only",
+            "source_sha256": {
+              "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+              "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+              "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+            },
+            "ast_sha256": {
+              "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+              "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+              "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+            },
+            "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+          },
+          "selected_model": "base_seed0",
+          "best_dilation_hours_per_cell": 4,
+          "logistic": {
+            "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+            "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+          },
+          "baselines": {
+            "logistic": {
+              "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "logistic_parameters": {
+              "path": "forecast/runs/synthetic/baselines/logistic.json",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "dilation_choice": {
+              "path": "forecast/runs/synthetic/baselines/dilation_choice.json",
+              "sha256": "296e0f2c9a159ef8e2f2ad3a2a902db08c9909ce9cd35641de69e56638f81f45"
+            }
+          },
+          "selection": {
+            "path": "research/forecast-v2/MODEL_SELECTION.json",
+            "sha256": "e83d7c75b4e6a550b41f3bd0baf8bb21f2a754956d1b1bfa9f1dd2798577eeea"
+          },
+          "final_results": {
+            "base": {
+              "path": "forecast/runs/synthetic/final/base_seed0/result.json",
+              "sha256": "94badb3b18a7776bc511ccbd6a1395cdf270279d814ad3f0794207f9d5946184"
+            },
+            "d4": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/result.json",
+              "sha256": "ed15fb5414e4400418e83e9086e1f9c1a30760c7e1b4809199e9e7e0a8b62779"
+            },
+            "d4_wind": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/result.json",
+              "sha256": "f1b4cfb76ada244e51c0789d30ed2e32f9fba8806c1531c723eb509e84a49b37"
+            },
+            "ellipse": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/result.json",
+              "sha256": "a8184a4ca486616b80c592d1611ca458f90c925735321890043a40d20e75155e"
+            },
+            "burnout": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/result.json",
+              "sha256": "3108a7de5c43feb13b1cf576c12083672a5bf6f6e7c6c4332f045fb1bf10f392"
+            },
+            "burnout_spotting": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/result.json",
+              "sha256": "92f145ae74b37fffd20ae6be49f1e1ece1e4252b053a0015015a35ff71850be0"
+            },
+            "mixed_base": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/result.json",
+              "sha256": "1a706b4c1debf93720be79fcc407769910c9704556b21e9797e44b2016b90ab2"
+            }
+          },
+          "final_executions": {
+            "base": {
+              "path": "research/forecast-v2/executions/a03_final_base.json",
+              "sha256": "9d3f11d993f6d1f57eb6dac4baa71091c9308f9395d805cf7977281f20624d83"
+            },
+            "d4": {
+              "path": "research/forecast-v2/executions/a03_final_d4.json",
+              "sha256": "4a3263e22a178a62a945cf70875b00a0c100eb0884fc9233af2f59fbba2d210d"
+            },
+            "d4_wind": {
+              "path": "research/forecast-v2/executions/a03_final_d4_wind.json",
+              "sha256": "648349c933ba7e222277af01194ab4938d34901050299704f5448ab017102932"
+            },
+            "ellipse": {
+              "path": "research/forecast-v2/executions/a03_final_ellipse.json",
+              "sha256": "a3f6b2310177d4d6b632d581d316e16c0220e1386fecd6ad7cbee25b02be2441"
+            },
+            "burnout": {
+              "path": "research/forecast-v2/executions/a03_final_burnout.json",
+              "sha256": "a85bf0eb7d079e60c7675eec38f7acbe9035a017061c7fa116e1890f8bb9daf7"
+            },
+            "burnout_spotting": {
+              "path": "research/forecast-v2/executions/a05_final_burnout_spotting_flaming_only.json",
+              "sha256": "f8c52f38a5c674181f03cf22d81e69d4d65ab53a8f57c1a80e7eae7c7ed78761"
+            },
+            "mixed_base": {
+              "path": "research/forecast-v2/executions/a03_final_mixed_base.json",
+              "sha256": "76d1c70a252185101b2d9b59209803cafdb18e3fa9315ced0820694124a02523"
+            }
+          },
+          "fit_coverage": {
+            "path": "research/forecast-v2/FIT_COVERAGE.json",
+            "sha256": "28448024c9df459a47f6c995740801d573298e435a9b07e800b108c5b05e7102"
+          },
+          "unsupported_interval_policy": {
+            "path": "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
+            "sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
+          },
+          "fit_coverage_status": {
+            "base": "FULL_OPTIMIZER_COVERAGE",
+            "burnout": "FULL_OPTIMIZER_COVERAGE",
+            "burnout_spotting": "FULL_OPTIMIZER_COVERAGE",
+            "d4": "FULL_OPTIMIZER_COVERAGE",
+            "d4_wind": "FULL_OPTIMIZER_COVERAGE",
+            "ellipse": "FULL_OPTIMIZER_COVERAGE",
+            "mixed_base": "FULL_OPTIMIZER_COVERAGE"
+          },
+          "fit_schedule_evidence": {
+            "base": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout_spotting": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4_wind": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "ellipse": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "mixed_base": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST"
+          },
+          "baseline_execution": {
+            "path": "research/forecast-v2/executions/a03_baselines.json",
+            "sha256": "3740be9b8a3bb4f4f023cffc8da07316790d5b43eec12b5d136eae83bf77ef35"
+          },
+          "cache_audit": {
+            "path": "research/forecast-v2/CACHE_AUDIT.json",
+            "sha256": "f14a1b3cbeabc88fff2d85fa6daa084d88efc8df6a703fa6b2c4e476606f7feb"
+          },
+          "producer_source_sha256": {
+            "forecast/documents/preregistration_blind_test.md": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/pyproject.toml": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+            "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+            "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+            "forecast/wildfire/module.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/nested/config.json": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+            "research/forecast-v2/RUN_PROTOCOL.json": "14e0a75632598e6376415d453468de6b114f1bb2c245214bb34c046c1a438898",
+            "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+            "research/forecast-v2/SPLIT.json": "e23d6e524e5d77667b6a7c19f103006c3ac8e5be548a61a8c03fc64e1a2c4c0c",
+            "research/forecast-v2/scripts/audit_caches.py": "74f3dc24da611c0a911a4f9455097bca71189c2ebd758cb186b467fef7f162b6",
+            "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+            "research/forecast-v2/scripts/blind_inventory.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/blind_test.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/freeze_registry.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+            "research/forecast-v2/scripts/run_campaign.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/score_cohorts.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32"
+          },
+          "dependency_versions": {
+            "numpy": "1.26.4",
+            "pandas": "2.2.3",
+            "torch": "2.5.1",
+            "rasterio": "1.4.3",
+            "pyproj": "3.7.0",
+            "shapely": "2.0.6",
+            "pyshp": "2.3.1",
+            "scipy": "1.13.1",
+            "scikit-learn": "1.5.2"
+          },
+          "inventory_contract": {
+            "schema": "wfg.nirops-raw-inventory/1",
+            "eligibility_policy": "wfg.nirops-first-survey-2026-six-source-availability/1",
+            "source_contract": "NIROPS_v1_Incident_C_Inc_Number_UTC_naive_publisher_UTC",
+            "cohort_year_predicate": "first survey year; not proven physical ignition year"
+          },
+          "protocol_status": "READY_FOR_OWNER_REGISTRATION",
+          "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+          "documentary_clearance_contract": {
+            "schema": "wfg.forecast-blind-documentary-clearance/1",
+            "decision": "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE",
+            "pre_run_scope": "pre_run_registration_first_release_and_access",
+            "post_score_scope": "post_score_independent_relocated_replay_and_claim",
+            "machine_authentication": false
+          },
+          "external_prerequisites": [
+            "Independent first-public-release identity and chronology verification",
+            "Owner public OSF registration of this exact source/model closure before source access",
+            "Independently reviewed documentary execution clearance"
+          ],
+          "future_inputs_pinned": false,
+          "generated_utc": "2026-10-30T07:55:48.178330+00:00"
+        }
+      }
+    },
+    {
+      "id": "development_same_fire_keys_zero_samples_refused",
+      "pass_check": false,
+      "observed": {
+        "state": "RETURNED",
+        "value": {
+          "schema": "wfg.forecast-blind-registry/1",
+          "status": "FROZEN",
+          "models": {
+            "base_seed0": {
+              "path": "forecast/runs/synthetic/final/base_seed0/checkpoint.pt",
+              "sha256": "98b7327ba792cac5f91196f1ad23cba4ea1bdcc642e047f5dafa57b2f0a3090e"
+            },
+            "d4_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/checkpoint.pt",
+              "sha256": "0ab3e076298efbe71ef3821915452251dc862e4db99df9a9229e06492f5c93e2"
+            },
+            "d4_wind_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/checkpoint.pt",
+              "sha256": "cf0dfdd6446924feb293900c29c8edf04b8644a14df199bfb57bc832ef458a67"
+            },
+            "ellipse_seed0": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/checkpoint.pt",
+              "sha256": "945d2a802596a69cee236e28580ecfb2f7fd6e3c3d565ed07c9f5d2c64b6ae99"
+            },
+            "burnout_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/checkpoint.pt",
+              "sha256": "c08e9d5d3173f35cba307102d4ada6572ae84e597271719f97654a1acfba5b80"
+            },
+            "burnout_spotting_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+              "sha256": "e9d964da9e142edea7598a457edd0295230e6e3c9bc4afec6b221f2544c09945"
+            },
+            "mixed_base_seed0": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/checkpoint.pt",
+              "sha256": "429985f1d4658efaee4c5874e0a04d0e692ebbe075c51e0ea07118f65a7316d6"
+            },
+            "c651_mc": {
+              "path": "c651.pt",
+              "sha256": "9e0d187e9f98e233ba2f541a59fa2e2eca8fd671cab37cadf0c5b98e4b3a1017"
+            }
+          },
+          "current_phase": {
+            "schema": "wfg.forecast-intended-phases/1",
+            "spotting_source_mode": "flaming_only",
+            "phases": [
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "base_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_base",
+                "result": "folds/base_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4",
+                "result": "folds/d4_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4_wind",
+                "result": "folds/d4_wind_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "ellipse_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_ellipse",
+                "result": "folds/ellipse_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_burnout",
+                "result": "folds/burnout_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2020_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "base_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_base",
+                "result": "folds/base_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4",
+                "result": "folds/d4_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4_wind",
+                "result": "folds/d4_wind_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "ellipse_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_ellipse",
+                "result": "folds/ellipse_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_burnout",
+                "result": "folds/burnout_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2021_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "base_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_base",
+                "result": "folds/base_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4",
+                "result": "folds/d4_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4_wind",
+                "result": "folds/d4_wind_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "ellipse_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_ellipse",
+                "result": "folds/ellipse_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_burnout",
+                "result": "folds/burnout_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2022_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_base",
+                "result": "final/base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4",
+                "result": "final/d4_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_wind_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4_wind",
+                "result": "final/d4_wind_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "ellipse_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_ellipse",
+                "result": "final/ellipse_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_burnout",
+                "result": "final/burnout_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_spotting_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "final_burnout_spotting_flaming_only",
+                "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "mixed_base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_mixed_base",
+                "result": "final/mixed_base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              }
+            ]
+          },
+          "development_phases": {
+            "base_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2020_seed0/result.json",
+                "sha256": "39951da81df235c152aa300877a47e89122f84d6bc5fde0cc69cef8ab180ed5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_base.json",
+                "sha256": "afc3dedb58d216c21f966d6b9aa98a384c9ac1a2873479a8bc0be97f04fc1bbc"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2021_seed0/result.json",
+                "sha256": "cfed8aa5d397e694d314fb27208ad1ae3a513a6cfca054d88fb265899c0df842"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_base.json",
+                "sha256": "28a6c4a2583d2d9cba82a50642def185bb783ca87f419edf91761ce6be1ea64a"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2022_seed0/result.json",
+                "sha256": "b20c9177f3ef0c74980f79d548ba41ae21af155e3c0c1717319ad57ee998723f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_base.json",
+                "sha256": "ca0d64d44e233619c4f277ba21039a26e828704da996d96d338efd7777087438"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2020_seed0/result.json",
+                "sha256": "55d5b0f69eee931070177bf17591c4a00c9d30dea504b4e22658a17aed3c6a5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4.json",
+                "sha256": "155b032528f408cb7be2260c7ca18ae3f8fd29b36c3205ddb6574a512128cd21"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2021_seed0/result.json",
+                "sha256": "919217f723755ba69534c9492575eff562c2c88ee763420824ea5b55ba1e1833"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4.json",
+                "sha256": "e8a4ee07b058c5304c878b7a07417a18e8dd053eb013a891a5d2bfe088d84ab3"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2022_seed0/result.json",
+                "sha256": "07b670eda7a5483663e5bcb7270835995a93c415df12e39edc61dbd08d8bd7e0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4.json",
+                "sha256": "49342241344c3faa5d33309c97313117af234a78fbde0533bdb2e97d542b7051"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2020_seed0/result.json",
+                "sha256": "b71964c17e161fa2f4dc6ece3786e6bf87a9b4a2d702bddcabd42847ebc30177"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4_wind.json",
+                "sha256": "8cee8a627b698c78b187396d70db8a4b9ec57a159735e8baef51f72feefbbc8b"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2021_seed0/result.json",
+                "sha256": "c1ad3a04fd672e9f7ac480736c25ac2ded45454f3e999863c9c8358fb766294d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4_wind.json",
+                "sha256": "1e9cb0f2f87c1778d1abef19da2715d1640d1fa82740bb356da9066e4ac0a793"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2022_seed0/result.json",
+                "sha256": "1ceaa255ad7f1bd471cff831048a2fccaee05eec424a943ef5050e557e1e0a7a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4_wind.json",
+                "sha256": "f60d417007f615bbbf82aa3a37af179ba20a775ea83389bf8478d12e9e88ab51"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2020_seed0/result.json",
+                "sha256": "7901bef36a18169ead9d450028d816b0faa9362625264162a36d0ce55880b38a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_ellipse.json",
+                "sha256": "a5a2d2cb1c4eb1b764e5cd7178f7d6877246669fcd65c030a777c8297a0ff115"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2021_seed0/result.json",
+                "sha256": "57b5294cbad05093e29776afce540145c60f7cf2fd7771b8747e00e40d822536"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_ellipse.json",
+                "sha256": "20928aefa3a991193747acf93e9f53c9c4efdaf139f377a49218a72c4dae0fd1"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2022_seed0/result.json",
+                "sha256": "81384b849e31e90e7a131bd782bcad7ac45d5a42671d2c380296a6d3f2976d6b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_ellipse.json",
+                "sha256": "15603b7ac9d4f16a308b5f15b0b1d42db503b17e19f1d6da1fd1415b3465c2f6"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2020_seed0/result.json",
+                "sha256": "acc6a95e7cba661ebb3481e17d8748f95e6f5db3673fbc233af8d21aeeb79063"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_burnout.json",
+                "sha256": "f00436ffc0280cf7e7bfebe9607771c6f1c5bbb2bb759eb3805ca4dca63f8ced"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2021_seed0/result.json",
+                "sha256": "c3790e0ce752335bcec6ad907f66f90500f25029b405679bfa74d0ded6ef5f7f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_burnout.json",
+                "sha256": "cfd260b03e3f2b0335b18d6974b42016614ea8a3c86b74e622302979882d007c"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2022_seed0/result.json",
+                "sha256": "12e2f6d693a790df60515f58dc1b5b751ee690726c645c5f2c705423452c4cc0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_burnout.json",
+                "sha256": "ee62c61adbc8a297a059abda24dd7c6a4df9e9a3f0b80ead52e423ffbf802d09"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_spotting_fold2020_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "sha256": "b083437983ba8320be44d72af6502f3a99f6fb404b4caedb6087657b83141907"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2020_burnout_spotting_flaming_only.json",
+                "sha256": "2ee0e9d27f2a64db8ce3cf53c0aed698c23c51eac820fe64b90b9752618512cf"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2021_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "sha256": "cff74b444fc463bb86e428bfe49a6c7dd09485043b41b1fa5d92c5d06b098890"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2021_burnout_spotting_flaming_only.json",
+                "sha256": "cd42545dc11988bbbf4a5aed8cbb2df757e86dc47f93e40c1bc81ae504622d0e"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2022_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "sha256": "81babefd7bf3a459b26a24522bf9d55c170b624a438a40e53a53c3a92d89bbcc"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2022_burnout_spotting_flaming_only.json",
+                "sha256": "8893f40746888b044165f29c6d4dfc2e1ec1fb074b33e2acbf206c43cc4c661b"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "mixed_base_fold2020_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "sha256": "316b071357bbe8f88c4c15bd28b53fbeb9267b63a4b1a0ea5e3986864a0b056a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_mixed_base_utc_fixed.json",
+                "sha256": "2c3febf79b46d2990b344a6a457cc9f78f514376602497dc0a4c0b2203b41c36"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2021_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "sha256": "02ddbca8cb58c5b7baa39007e7f962d60f1f922f1df4074411045a5b58cae408"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_mixed_base_utc_fixed.json",
+                "sha256": "0d742af4b981778b564788ca94ab4896a3abba23eabf70d72762673408f879d4"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2022_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "sha256": "d6af608ef1fd1f4a4136ed58b41765b324163433993a260721133224ab94148b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_mixed_base_utc_fixed.json",
+                "sha256": "5e056c4069011303a27c0d16215e023eac5e3653c306bfb94f81fe148cb072bf"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            }
+          },
+          "spotting_source_contract": {
+            "schema": "wfg.forecast-spotting-source/1",
+            "source_mode": "flaming_only",
+            "source_sha256": {
+              "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+              "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+              "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+            },
+            "ast_sha256": {
+              "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+              "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+              "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+            },
+            "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+          },
+          "selected_model": "base_seed0",
+          "best_dilation_hours_per_cell": 4,
+          "logistic": {
+            "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+            "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+          },
+          "baselines": {
+            "logistic": {
+              "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "logistic_parameters": {
+              "path": "forecast/runs/synthetic/baselines/logistic.json",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "dilation_choice": {
+              "path": "forecast/runs/synthetic/baselines/dilation_choice.json",
+              "sha256": "296e0f2c9a159ef8e2f2ad3a2a902db08c9909ce9cd35641de69e56638f81f45"
+            }
+          },
+          "selection": {
+            "path": "research/forecast-v2/MODEL_SELECTION.json",
+            "sha256": "978458d4f6ea7670f5a9de3a4da0cfbfadbe6708f2db76719930ed8eb536c731"
+          },
+          "final_results": {
+            "base": {
+              "path": "forecast/runs/synthetic/final/base_seed0/result.json",
+              "sha256": "94badb3b18a7776bc511ccbd6a1395cdf270279d814ad3f0794207f9d5946184"
+            },
+            "d4": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/result.json",
+              "sha256": "ed15fb5414e4400418e83e9086e1f9c1a30760c7e1b4809199e9e7e0a8b62779"
+            },
+            "d4_wind": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/result.json",
+              "sha256": "f1b4cfb76ada244e51c0789d30ed2e32f9fba8806c1531c723eb509e84a49b37"
+            },
+            "ellipse": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/result.json",
+              "sha256": "a8184a4ca486616b80c592d1611ca458f90c925735321890043a40d20e75155e"
+            },
+            "burnout": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/result.json",
+              "sha256": "3108a7de5c43feb13b1cf576c12083672a5bf6f6e7c6c4332f045fb1bf10f392"
+            },
+            "burnout_spotting": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/result.json",
+              "sha256": "92f145ae74b37fffd20ae6be49f1e1ece1e4252b053a0015015a35ff71850be0"
+            },
+            "mixed_base": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/result.json",
+              "sha256": "1a706b4c1debf93720be79fcc407769910c9704556b21e9797e44b2016b90ab2"
+            }
+          },
+          "final_executions": {
+            "base": {
+              "path": "research/forecast-v2/executions/a03_final_base.json",
+              "sha256": "9d3f11d993f6d1f57eb6dac4baa71091c9308f9395d805cf7977281f20624d83"
+            },
+            "d4": {
+              "path": "research/forecast-v2/executions/a03_final_d4.json",
+              "sha256": "4a3263e22a178a62a945cf70875b00a0c100eb0884fc9233af2f59fbba2d210d"
+            },
+            "d4_wind": {
+              "path": "research/forecast-v2/executions/a03_final_d4_wind.json",
+              "sha256": "648349c933ba7e222277af01194ab4938d34901050299704f5448ab017102932"
+            },
+            "ellipse": {
+              "path": "research/forecast-v2/executions/a03_final_ellipse.json",
+              "sha256": "a3f6b2310177d4d6b632d581d316e16c0220e1386fecd6ad7cbee25b02be2441"
+            },
+            "burnout": {
+              "path": "research/forecast-v2/executions/a03_final_burnout.json",
+              "sha256": "a85bf0eb7d079e60c7675eec38f7acbe9035a017061c7fa116e1890f8bb9daf7"
+            },
+            "burnout_spotting": {
+              "path": "research/forecast-v2/executions/a05_final_burnout_spotting_flaming_only.json",
+              "sha256": "f8c52f38a5c674181f03cf22d81e69d4d65ab53a8f57c1a80e7eae7c7ed78761"
+            },
+            "mixed_base": {
+              "path": "research/forecast-v2/executions/a03_final_mixed_base.json",
+              "sha256": "76d1c70a252185101b2d9b59209803cafdb18e3fa9315ced0820694124a02523"
+            }
+          },
+          "fit_coverage": {
+            "path": "research/forecast-v2/FIT_COVERAGE.json",
+            "sha256": "28448024c9df459a47f6c995740801d573298e435a9b07e800b108c5b05e7102"
+          },
+          "unsupported_interval_policy": {
+            "path": "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
+            "sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
+          },
+          "fit_coverage_status": {
+            "base": "FULL_OPTIMIZER_COVERAGE",
+            "burnout": "FULL_OPTIMIZER_COVERAGE",
+            "burnout_spotting": "FULL_OPTIMIZER_COVERAGE",
+            "d4": "FULL_OPTIMIZER_COVERAGE",
+            "d4_wind": "FULL_OPTIMIZER_COVERAGE",
+            "ellipse": "FULL_OPTIMIZER_COVERAGE",
+            "mixed_base": "FULL_OPTIMIZER_COVERAGE"
+          },
+          "fit_schedule_evidence": {
+            "base": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout_spotting": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4_wind": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "ellipse": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "mixed_base": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST"
+          },
+          "baseline_execution": {
+            "path": "research/forecast-v2/executions/a03_baselines.json",
+            "sha256": "3740be9b8a3bb4f4f023cffc8da07316790d5b43eec12b5d136eae83bf77ef35"
+          },
+          "cache_audit": {
+            "path": "research/forecast-v2/CACHE_AUDIT.json",
+            "sha256": "f14a1b3cbeabc88fff2d85fa6daa084d88efc8df6a703fa6b2c4e476606f7feb"
+          },
+          "producer_source_sha256": {
+            "forecast/documents/preregistration_blind_test.md": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/pyproject.toml": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+            "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+            "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+            "forecast/wildfire/module.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/nested/config.json": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+            "research/forecast-v2/RUN_PROTOCOL.json": "14e0a75632598e6376415d453468de6b114f1bb2c245214bb34c046c1a438898",
+            "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+            "research/forecast-v2/SPLIT.json": "e23d6e524e5d77667b6a7c19f103006c3ac8e5be548a61a8c03fc64e1a2c4c0c",
+            "research/forecast-v2/scripts/audit_caches.py": "74f3dc24da611c0a911a4f9455097bca71189c2ebd758cb186b467fef7f162b6",
+            "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+            "research/forecast-v2/scripts/blind_inventory.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/blind_test.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/freeze_registry.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+            "research/forecast-v2/scripts/run_campaign.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/score_cohorts.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32"
+          },
+          "dependency_versions": {
+            "numpy": "1.26.4",
+            "pandas": "2.2.3",
+            "torch": "2.5.1",
+            "rasterio": "1.4.3",
+            "pyproj": "3.7.0",
+            "shapely": "2.0.6",
+            "pyshp": "2.3.1",
+            "scipy": "1.13.1",
+            "scikit-learn": "1.5.2"
+          },
+          "inventory_contract": {
+            "schema": "wfg.nirops-raw-inventory/1",
+            "eligibility_policy": "wfg.nirops-first-survey-2026-six-source-availability/1",
+            "source_contract": "NIROPS_v1_Incident_C_Inc_Number_UTC_naive_publisher_UTC",
+            "cohort_year_predicate": "first survey year; not proven physical ignition year"
+          },
+          "protocol_status": "READY_FOR_OWNER_REGISTRATION",
+          "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+          "documentary_clearance_contract": {
+            "schema": "wfg.forecast-blind-documentary-clearance/1",
+            "decision": "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE",
+            "pre_run_scope": "pre_run_registration_first_release_and_access",
+            "post_score_scope": "post_score_independent_relocated_replay_and_claim",
+            "machine_authentication": false
+          },
+          "external_prerequisites": [
+            "Independent first-public-release identity and chronology verification",
+            "Owner public OSF registration of this exact source/model closure before source access",
+            "Independently reviewed documentary execution clearance"
+          ],
+          "future_inputs_pinned": false,
+          "generated_utc": "2026-10-30T07:55:48.367393+00:00"
+        }
+      }
+    },
+    {
+      "id": "development_wrong_fit_fire_membership_refused",
+      "pass_check": false,
+      "observed": {
+        "state": "RETURNED",
+        "value": {
+          "schema": "wfg.forecast-blind-registry/1",
+          "status": "FROZEN",
+          "models": {
+            "base_seed0": {
+              "path": "forecast/runs/synthetic/final/base_seed0/checkpoint.pt",
+              "sha256": "98b7327ba792cac5f91196f1ad23cba4ea1bdcc642e047f5dafa57b2f0a3090e"
+            },
+            "d4_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/checkpoint.pt",
+              "sha256": "0ab3e076298efbe71ef3821915452251dc862e4db99df9a9229e06492f5c93e2"
+            },
+            "d4_wind_seed0": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/checkpoint.pt",
+              "sha256": "cf0dfdd6446924feb293900c29c8edf04b8644a14df199bfb57bc832ef458a67"
+            },
+            "ellipse_seed0": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/checkpoint.pt",
+              "sha256": "945d2a802596a69cee236e28580ecfb2f7fd6e3c3d565ed07c9f5d2c64b6ae99"
+            },
+            "burnout_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/checkpoint.pt",
+              "sha256": "c08e9d5d3173f35cba307102d4ada6572ae84e597271719f97654a1acfba5b80"
+            },
+            "burnout_spotting_seed0": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+              "sha256": "e9d964da9e142edea7598a457edd0295230e6e3c9bc4afec6b221f2544c09945"
+            },
+            "mixed_base_seed0": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/checkpoint.pt",
+              "sha256": "429985f1d4658efaee4c5874e0a04d0e692ebbe075c51e0ea07118f65a7316d6"
+            },
+            "c651_mc": {
+              "path": "c651.pt",
+              "sha256": "9e0d187e9f98e233ba2f541a59fa2e2eca8fd671cab37cadf0c5b98e4b3a1017"
+            }
+          },
+          "current_phase": {
+            "schema": "wfg.forecast-intended-phases/1",
+            "spotting_source_mode": "flaming_only",
+            "phases": [
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "base_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_base",
+                "result": "folds/base_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4",
+                "result": "folds/d4_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_d4_wind",
+                "result": "folds/d4_wind_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "ellipse_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_ellipse",
+                "result": "folds/ellipse_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_fold2020_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2020_burnout",
+                "result": "folds/burnout_fold2020_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2020",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2020_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "base_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_base",
+                "result": "folds/base_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4",
+                "result": "folds/d4_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_d4_wind",
+                "result": "folds/d4_wind_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "ellipse_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_ellipse",
+                "result": "folds/ellipse_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_fold2021_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2021_burnout",
+                "result": "folds/burnout_fold2021_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2021",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2021_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "base_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_base",
+                "result": "folds/base_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4",
+                "result": "folds/d4_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "d4_wind_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_d4_wind",
+                "result": "folds/d4_wind_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "ellipse_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_ellipse",
+                "result": "folds/ellipse_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_fold2022_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "fold_2022_burnout",
+                "result": "folds/burnout_fold2022_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+                "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "fold",
+                "fold": "2022",
+                "seed": 0,
+                "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+                "artifact_suffix": "_utc_fixed",
+                "job_suffix": "fold_2022_mixed_base_utc_fixed",
+                "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_base",
+                "result": "final/base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4",
+                "result": "final/d4_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "d4_wind",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "d4_wind_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_d4_wind",
+                "result": "final/d4_wind_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "ellipse",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "ellipse_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_ellipse",
+                "result": "final/ellipse_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_burnout",
+                "result": "final/burnout_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              },
+              {
+                "variant": "burnout_spotting",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "burnout_spotting_seed0_flaming_only",
+                "artifact_suffix": "_flaming_only",
+                "job_suffix": "final_burnout_spotting_flaming_only",
+                "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+                "spotting_source_mode": "flaming_only"
+              },
+              {
+                "variant": "mixed_base",
+                "stage": "final",
+                "fold": null,
+                "seed": 0,
+                "phase_id": "mixed_base_seed0",
+                "artifact_suffix": "",
+                "job_suffix": "final_mixed_base",
+                "result": "final/mixed_base_seed0/result.json",
+                "spotting_source_mode": "not_applicable"
+              }
+            ]
+          },
+          "development_phases": {
+            "base_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2020_seed0/result.json",
+                "sha256": "39951da81df235c152aa300877a47e89122f84d6bc5fde0cc69cef8ab180ed5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_base.json",
+                "sha256": "afc3dedb58d216c21f966d6b9aa98a384c9ac1a2873479a8bc0be97f04fc1bbc"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2021_seed0/result.json",
+                "sha256": "cfed8aa5d397e694d314fb27208ad1ae3a513a6cfca054d88fb265899c0df842"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_base.json",
+                "sha256": "28a6c4a2583d2d9cba82a50642def185bb783ca87f419edf91761ce6be1ea64a"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "base_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/base_fold2022_seed0/result.json",
+                "sha256": "b20c9177f3ef0c74980f79d548ba41ae21af155e3c0c1717319ad57ee998723f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_base.json",
+                "sha256": "ca0d64d44e233619c4f277ba21039a26e828704da996d96d338efd7777087438"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2020_seed0/result.json",
+                "sha256": "55d5b0f69eee931070177bf17591c4a00c9d30dea504b4e22658a17aed3c6a5d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4.json",
+                "sha256": "155b032528f408cb7be2260c7ca18ae3f8fd29b36c3205ddb6574a512128cd21"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2021_seed0/result.json",
+                "sha256": "919217f723755ba69534c9492575eff562c2c88ee763420824ea5b55ba1e1833"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4.json",
+                "sha256": "e8a4ee07b058c5304c878b7a07417a18e8dd053eb013a891a5d2bfe088d84ab3"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_fold2022_seed0/result.json",
+                "sha256": "07b670eda7a5483663e5bcb7270835995a93c415df12e39edc61dbd08d8bd7e0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4.json",
+                "sha256": "49342241344c3faa5d33309c97313117af234a78fbde0533bdb2e97d542b7051"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2020_seed0/result.json",
+                "sha256": "b71964c17e161fa2f4dc6ece3786e6bf87a9b4a2d702bddcabd42847ebc30177"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_d4_wind.json",
+                "sha256": "8cee8a627b698c78b187396d70db8a4b9ec57a159735e8baef51f72feefbbc8b"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2021_seed0/result.json",
+                "sha256": "c1ad3a04fd672e9f7ac480736c25ac2ded45454f3e999863c9c8358fb766294d"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_d4_wind.json",
+                "sha256": "1e9cb0f2f87c1778d1abef19da2715d1640d1fa82740bb356da9066e4ac0a793"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "d4_wind_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/d4_wind_fold2022_seed0/result.json",
+                "sha256": "1ceaa255ad7f1bd471cff831048a2fccaee05eec424a943ef5050e557e1e0a7a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_d4_wind.json",
+                "sha256": "f60d417007f615bbbf82aa3a37af179ba20a775ea83389bf8478d12e9e88ab51"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2020_seed0/result.json",
+                "sha256": "7901bef36a18169ead9d450028d816b0faa9362625264162a36d0ce55880b38a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_ellipse.json",
+                "sha256": "a5a2d2cb1c4eb1b764e5cd7178f7d6877246669fcd65c030a777c8297a0ff115"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2021_seed0/result.json",
+                "sha256": "57b5294cbad05093e29776afce540145c60f7cf2fd7771b8747e00e40d822536"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_ellipse.json",
+                "sha256": "20928aefa3a991193747acf93e9f53c9c4efdaf139f377a49218a72c4dae0fd1"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "ellipse_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/ellipse_fold2022_seed0/result.json",
+                "sha256": "81384b849e31e90e7a131bd782bcad7ac45d5a42671d2c380296a6d3f2976d6b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_ellipse.json",
+                "sha256": "15603b7ac9d4f16a308b5f15b0b1d42db503b17e19f1d6da1fd1415b3465c2f6"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2020_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2020_seed0/result.json",
+                "sha256": "acc6a95e7cba661ebb3481e17d8748f95e6f5db3673fbc233af8d21aeeb79063"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_burnout.json",
+                "sha256": "f00436ffc0280cf7e7bfebe9607771c6f1c5bbb2bb759eb3805ca4dca63f8ced"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2021_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2021_seed0/result.json",
+                "sha256": "c3790e0ce752335bcec6ad907f66f90500f25029b405679bfa74d0ded6ef5f7f"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_burnout.json",
+                "sha256": "cfd260b03e3f2b0335b18d6974b42016614ea8a3c86b74e622302979882d007c"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_fold2022_seed0": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_fold2022_seed0/result.json",
+                "sha256": "12e2f6d693a790df60515f58dc1b5b751ee690726c645c5f2c705423452c4cc0"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_burnout.json",
+                "sha256": "ee62c61adbc8a297a059abda24dd7c6a4df9e9a3f0b80ead52e423ffbf802d09"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            },
+            "burnout_spotting_fold2020_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+                "sha256": "dd16bbfb0bc256e38aced1cae9ba9eca5f14571e063e57350a0517483982403a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2020_burnout_spotting_flaming_only.json",
+                "sha256": "666e1f2fa0f7a92134e6d45a92c7d21429a1e709c203fe17c9969940c4e36343"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2021_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+                "sha256": "cff74b444fc463bb86e428bfe49a6c7dd09485043b41b1fa5d92c5d06b098890"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2021_burnout_spotting_flaming_only.json",
+                "sha256": "cd42545dc11988bbbf4a5aed8cbb2df757e86dc47f93e40c1bc81ae504622d0e"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "burnout_spotting_fold2022_seed0_flaming_only": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+                "sha256": "81babefd7bf3a459b26a24522bf9d55c170b624a438a40e53a53c3a92d89bbcc"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a05_fold_2022_burnout_spotting_flaming_only.json",
+                "sha256": "8893f40746888b044165f29c6d4dfc2e1ec1fb074b33e2acbf206c43cc4c661b"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": {
+                "schema": "wfg.forecast-spotting-source/1",
+                "source_mode": "flaming_only",
+                "source_sha256": {
+                  "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+                  "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+                  "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+                },
+                "ast_sha256": {
+                  "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+                  "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+                  "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+                },
+                "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+              }
+            },
+            "mixed_base_fold2020_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+                "sha256": "316b071357bbe8f88c4c15bd28b53fbeb9267b63a4b1a0ea5e3986864a0b056a"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2020_mixed_base_utc_fixed.json",
+                "sha256": "2c3febf79b46d2990b344a6a457cc9f78f514376602497dc0a4c0b2203b41c36"
+              },
+              "validation_events": [
+                "synthetic_dev_2020",
+                "synthetic_dev_2020_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2021_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+                "sha256": "02ddbca8cb58c5b7baa39007e7f962d60f1f922f1df4074411045a5b58cae408"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2021_mixed_base_utc_fixed.json",
+                "sha256": "0d742af4b981778b564788ca94ab4896a3abba23eabf70d72762673408f879d4"
+              },
+              "validation_events": [
+                "synthetic_dev_2021",
+                "synthetic_dev_2021_second"
+              ],
+              "source_contract": null
+            },
+            "mixed_base_fold2022_seed0_utc_fixed": {
+              "result": {
+                "path": "forecast/runs/synthetic/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+                "sha256": "d6af608ef1fd1f4a4136ed58b41765b324163433993a260721133224ab94148b"
+              },
+              "execution": {
+                "path": "research/forecast-v2/executions/a03_fold_2022_mixed_base_utc_fixed.json",
+                "sha256": "5e056c4069011303a27c0d16215e023eac5e3653c306bfb94f81fe148cb072bf"
+              },
+              "validation_events": [
+                "synthetic_dev_2022",
+                "synthetic_dev_2022_second"
+              ],
+              "source_contract": null
+            }
+          },
+          "spotting_source_contract": {
+            "schema": "wfg.forecast-spotting-source/1",
+            "source_mode": "flaming_only",
+            "source_sha256": {
+              "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+              "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+              "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e"
+            },
+            "ast_sha256": {
+              "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301",
+              "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+              "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4"
+            },
+            "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION"
+          },
+          "selected_model": "base_seed0",
+          "best_dilation_hours_per_cell": 4,
+          "logistic": {
+            "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+            "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+          },
+          "baselines": {
+            "logistic": {
+              "path": "forecast/runs/synthetic/baselines/logistic.pkl",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "logistic_parameters": {
+              "path": "forecast/runs/synthetic/baselines/logistic.json",
+              "sha256": "060fa0180a84d58f502992c751be1695f4e27429dcc5c4ebe0854d6236608851"
+            },
+            "dilation_choice": {
+              "path": "forecast/runs/synthetic/baselines/dilation_choice.json",
+              "sha256": "296e0f2c9a159ef8e2f2ad3a2a902db08c9909ce9cd35641de69e56638f81f45"
+            }
+          },
+          "selection": {
+            "path": "research/forecast-v2/MODEL_SELECTION.json",
+            "sha256": "2066834061765300764886614f03ef9441f17ecf9769d9b07b341322994a4213"
+          },
+          "final_results": {
+            "base": {
+              "path": "forecast/runs/synthetic/final/base_seed0/result.json",
+              "sha256": "94badb3b18a7776bc511ccbd6a1395cdf270279d814ad3f0794207f9d5946184"
+            },
+            "d4": {
+              "path": "forecast/runs/synthetic/final/d4_seed0/result.json",
+              "sha256": "ed15fb5414e4400418e83e9086e1f9c1a30760c7e1b4809199e9e7e0a8b62779"
+            },
+            "d4_wind": {
+              "path": "forecast/runs/synthetic/final/d4_wind_seed0/result.json",
+              "sha256": "f1b4cfb76ada244e51c0789d30ed2e32f9fba8806c1531c723eb509e84a49b37"
+            },
+            "ellipse": {
+              "path": "forecast/runs/synthetic/final/ellipse_seed0/result.json",
+              "sha256": "a8184a4ca486616b80c592d1611ca458f90c925735321890043a40d20e75155e"
+            },
+            "burnout": {
+              "path": "forecast/runs/synthetic/final/burnout_seed0/result.json",
+              "sha256": "3108a7de5c43feb13b1cf576c12083672a5bf6f6e7c6c4332f045fb1bf10f392"
+            },
+            "burnout_spotting": {
+              "path": "forecast/runs/synthetic/final/burnout_spotting_seed0_flaming_only/result.json",
+              "sha256": "92f145ae74b37fffd20ae6be49f1e1ece1e4252b053a0015015a35ff71850be0"
+            },
+            "mixed_base": {
+              "path": "forecast/runs/synthetic/final/mixed_base_seed0/result.json",
+              "sha256": "1a706b4c1debf93720be79fcc407769910c9704556b21e9797e44b2016b90ab2"
+            }
+          },
+          "final_executions": {
+            "base": {
+              "path": "research/forecast-v2/executions/a03_final_base.json",
+              "sha256": "9d3f11d993f6d1f57eb6dac4baa71091c9308f9395d805cf7977281f20624d83"
+            },
+            "d4": {
+              "path": "research/forecast-v2/executions/a03_final_d4.json",
+              "sha256": "4a3263e22a178a62a945cf70875b00a0c100eb0884fc9233af2f59fbba2d210d"
+            },
+            "d4_wind": {
+              "path": "research/forecast-v2/executions/a03_final_d4_wind.json",
+              "sha256": "648349c933ba7e222277af01194ab4938d34901050299704f5448ab017102932"
+            },
+            "ellipse": {
+              "path": "research/forecast-v2/executions/a03_final_ellipse.json",
+              "sha256": "a3f6b2310177d4d6b632d581d316e16c0220e1386fecd6ad7cbee25b02be2441"
+            },
+            "burnout": {
+              "path": "research/forecast-v2/executions/a03_final_burnout.json",
+              "sha256": "a85bf0eb7d079e60c7675eec38f7acbe9035a017061c7fa116e1890f8bb9daf7"
+            },
+            "burnout_spotting": {
+              "path": "research/forecast-v2/executions/a05_final_burnout_spotting_flaming_only.json",
+              "sha256": "f8c52f38a5c674181f03cf22d81e69d4d65ab53a8f57c1a80e7eae7c7ed78761"
+            },
+            "mixed_base": {
+              "path": "research/forecast-v2/executions/a03_final_mixed_base.json",
+              "sha256": "76d1c70a252185101b2d9b59209803cafdb18e3fa9315ced0820694124a02523"
+            }
+          },
+          "fit_coverage": {
+            "path": "research/forecast-v2/FIT_COVERAGE.json",
+            "sha256": "28448024c9df459a47f6c995740801d573298e435a9b07e800b108c5b05e7102"
+          },
+          "unsupported_interval_policy": {
+            "path": "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
+            "sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
+          },
+          "fit_coverage_status": {
+            "base": "FULL_OPTIMIZER_COVERAGE",
+            "burnout": "FULL_OPTIMIZER_COVERAGE",
+            "burnout_spotting": "FULL_OPTIMIZER_COVERAGE",
+            "d4": "FULL_OPTIMIZER_COVERAGE",
+            "d4_wind": "FULL_OPTIMIZER_COVERAGE",
+            "ellipse": "FULL_OPTIMIZER_COVERAGE",
+            "mixed_base": "FULL_OPTIMIZER_COVERAGE"
+          },
+          "fit_schedule_evidence": {
+            "base": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "burnout_spotting": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "d4_wind": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "ellipse": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+            "mixed_base": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST"
+          },
+          "baseline_execution": {
+            "path": "research/forecast-v2/executions/a03_baselines.json",
+            "sha256": "3740be9b8a3bb4f4f023cffc8da07316790d5b43eec12b5d136eae83bf77ef35"
+          },
+          "cache_audit": {
+            "path": "research/forecast-v2/CACHE_AUDIT.json",
+            "sha256": "f14a1b3cbeabc88fff2d85fa6daa084d88efc8df6a703fa6b2c4e476606f7feb"
+          },
+          "producer_source_sha256": {
+            "forecast/documents/preregistration_blind_test.md": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/pyproject.toml": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+            "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+            "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+            "forecast/wildfire/module.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/nested/config.json": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+            "research/forecast-v2/RUN_PROTOCOL.json": "14e0a75632598e6376415d453468de6b114f1bb2c245214bb34c046c1a438898",
+            "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+            "research/forecast-v2/SPLIT.json": "e23d6e524e5d77667b6a7c19f103006c3ac8e5be548a61a8c03fc64e1a2c4c0c",
+            "research/forecast-v2/scripts/audit_caches.py": "74f3dc24da611c0a911a4f9455097bca71189c2ebd758cb186b467fef7f162b6",
+            "research/forecast-v2/scripts/audit_fit_coverage.py": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+            "research/forecast-v2/scripts/blind_inventory.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/blind_test.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/freeze_registry.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/pipeline.py": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+            "research/forecast-v2/scripts/run_campaign.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32",
+            "research/forecast-v2/scripts/score_cohorts.py": "44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32"
+          },
+          "dependency_versions": {
+            "numpy": "1.26.4",
+            "pandas": "2.2.3",
+            "torch": "2.5.1",
+            "rasterio": "1.4.3",
+            "pyproj": "3.7.0",
+            "shapely": "2.0.6",
+            "pyshp": "2.3.1",
+            "scipy": "1.13.1",
+            "scikit-learn": "1.5.2"
+          },
+          "inventory_contract": {
+            "schema": "wfg.nirops-raw-inventory/1",
+            "eligibility_policy": "wfg.nirops-first-survey-2026-six-source-availability/1",
+            "source_contract": "NIROPS_v1_Incident_C_Inc_Number_UTC_naive_publisher_UTC",
+            "cohort_year_predicate": "first survey year; not proven physical ignition year"
+          },
+          "protocol_status": "READY_FOR_OWNER_REGISTRATION",
+          "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+          "documentary_clearance_contract": {
+            "schema": "wfg.forecast-blind-documentary-clearance/1",
+            "decision": "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE",
+            "pre_run_scope": "pre_run_registration_first_release_and_access",
+            "post_score_scope": "post_score_independent_relocated_replay_and_claim",
+            "machine_authentication": false
+          },
+          "external_prerequisites": [
+            "Independent first-public-release identity and chronology verification",
+            "Owner public OSF registration of this exact source/model closure before source access",
+            "Independently reviewed documentary execution clearance"
+          ],
+          "future_inputs_pinned": false,
+          "generated_utc": "2026-10-30T07:55:48.545293+00:00"
+        }
+      }
+    },
+    {
+      "id": "development_fire_omission_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Development validation fire membership must exactly match the frozen SPLIT fold and declared validation_events"
+      }
+    },
+    {
+      "id": "old_spotting_attempt_renamed_to_current_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Corrected spotting requires fresh attempt5-or-later flaming-only phase metadata and arguments"
+      }
+    },
+    {
+      "id": "preserved_old_emitter_law_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Immutable spotting producer differs from the current flaming-only source contract"
+      }
+    },
+    {
+      "id": "source_unknown_logged_skip_positive",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unsupported_accounting_not_zero_brier_or_mask_replay",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "unsupported_unlogged_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Every actual skipped ID must match its exact source sample, history event/cutoff/reason and logging order"
+      }
+    },
+    {
+      "id": "unsupported_wrong_case_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or invented an intended source sample"
+      }
+    },
+    {
+      "id": "unsupported_duplicate_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Actual mixed epoch membership omitted, repeated or invented an intended source sample"
+      }
+    },
+    {
+      "id": "unsupported_wrong_count_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Runtime attempted-minus-skipped membership must equal the positive recorded optimizer update count"
+      }
+    },
+    {
+      "id": "unsupported_zero_updates_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Full recorded sample/epoch counts and positive optimizer updates must agree with complete source membership"
+      }
+    },
+    {
+      "id": "finite_inputs_cannot_explain_numerical_skip",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Logged unsupported sample retains positive source weight under the narrow conservative support envelope"
+      }
+    },
+    {
+      "id": "nonfinite_weights_not_data_unsupported",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Narrow unsupported-source classification requires binary initial state, repeated cutoff inputs and finite nonnegative weights"
+      }
+    },
+    {
+      "id": "saved_registry_positive_before_and_after_dummy_assessment",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "resumed_registry_source_change_refused",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "ValueError",
+        "reason": "Saved registry complete executed source closure changed"
+      }
+    },
+    {
+      "id": "spotting_primary_report_uses_scoring_model_identity",
+      "pass_check": false,
+      "observed": {
+        "state": "RAISED",
+        "type": "KeyError",
+        "reason": "'burnout_spotting_seed0_flaming_only'"
+      }
+    },
+    {
+      "id": "public_heldout_routes_both_cohorts_to_guarded_case_scorer",
+      "pass_check": true,
+      "observed": {
+        "state": "RETURNED",
+        "value": true
+      }
+    },
+    {
+      "id": "legacy_pipeline_heldout_refuses",
+      "pass_check": true,
+      "observed": {
+        "state": "RAISED",
+        "type": "RuntimeError",
+        "reason": "Direct pipeline heldout scoring is retired. Use run_campaign.py heldout or score_cohorts.py with the frozen MODEL_SELECTION and BLIND_REGISTRY; these enforce receipt-bound full support and source admission."
+      }
+    }
+  ],
+  "checks": 30,
+  "passed": 26,
+  "actual_study_inputs_or_models_accessed": false,
+  "shared_heavy_lease": false,
+  "training_executed": false,
+  "status": "HOLD_SCOPED_SOURCE_PHASE_SUPPORT_ROUTES"
+}

@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/verify_freeze_parent.py",
+      "archive": "freeze-parent-verification-6887dc61/verify_freeze_parent.py",
+      "bytes": 7360,
+      "sha256": "5c3be1c54c7aaa187ce512f3c216ad94f2967300c553d289df171402f66eee25"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/FREEZE_PARENT_VERIFICATION.json",
+      "archive": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION.json",
+      "bytes": 28333,
+      "sha256": "1e9def628deb2e7f1035aea691c39f8acf27f606bcdccffd0e6d3dff4f344db6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/FREEZE_PARENT_VERIFICATION.log",
+      "archive": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION.log",
+      "bytes": 904,
+      "sha256": "2aa94707c12547263bb572f526246e9dcfeca8c4159cd9e8cbd47fc6053c0bb9"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/FREEZE_PARENT_VERIFICATION_MANIFEST.json",
+      "archive": "freeze-parent-verification-6887dc61/FREEZE_PARENT_VERIFICATION_MANIFEST.json",
+      "bytes": 624,
+      "sha256": "c6277fa8d34e17d97b972c7b33f45a542a6a116b87d42a071637527cf4876255"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-parent-initial/verify_freeze_parent.py",
+      "archive": "freeze-parent-verification-6887dc61/initial-schema-assumption/verify_freeze_parent.py",
+      "bytes": 7269,
+      "sha256": "1dbbdea9e6dd768e108727c43727ae5a5086b4f71c3136f1a772dd775efad924"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-parent-initial/INITIAL_SCHEMA_ASSUMPTION.log",
+      "archive": "freeze-parent-verification-6887dc61/initial-schema-assumption/INITIAL_SCHEMA_ASSUMPTION.log",
+      "bytes": 261,
+      "sha256": "89af3172af5e796b39af4b106c372fa8f20a64a595680c067e59dca3a461686b"
+    }
+  ],
+  "root_saved_byte_checks": 223,
+  "source_files": 201,
+  "registry_dependencies": 86,
+  "checkpoint_pointers": 8,
+  "overlapping_maps_not_summed": true,
+  "scope": "Rootverifiedcurrent/Gitbytesincluding8checkpointsandlogisticidentityandmetadata/timeenumeration; readinesscopy/hashofsavedreceipt/script/logonly. No binariesorarraysopenedhere. Outputdirectoriesabsentwasrootobservedpreauthorization, notacurrentfilesystemclaim.",
+  "initial_diagnostic": "source_pins wascount86, notmap; closedharnessschemaassumption, notproductionbug. Exactinitialsource/logretained.",
+  "readiness_rerun": false
+}

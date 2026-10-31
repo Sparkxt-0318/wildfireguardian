@@ -1,0 +1,87 @@
+........................................................................ [ 54%]
+....................F
+=================================== FAILURES ===================================
+___ test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source ____
+
+freezer = <module 'blind_registry_fixture' from '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/v2/repo/research/forecast-v2/scripts/freeze_registry.py'>
+freeze_inputs = (PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-119/test_old_pure_schedule_in...9ed1bcd47fcc40179acf'}, 'cache_audit_sha256': '1872c06752e220ed66f8e3e8680c63dc2e91ba751c669ed1bcd47fcc40179acf', ...})
+
+    def test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source(freezer, freeze_inputs):
+        module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+        source_path = root / "forecast/wildfire/survival.py"
+        snapshot = root / "research/forecast-v2/source_snapshots" / module.sha(source_path) / source_path.name
+        snapshot.parent.mkdir(parents=True, exist_ok=True); snapshot.write_bytes(source_path.read_bytes())
+        source_path.write_text(source_path.read_text().replace("sample = train[index]", "sample = train[0]"))
+        receipt_path = root / "research/forecast-v2/executions/a03_final_base.json"
+        receipt = json.loads(receipt_path.read_text())
+        receipt["source_sha256"]["forecast/wildfire/survival.py"] = module.sha(source_path)
+        receipt_path.write_text(json.dumps(receipt))
+        with pytest.raises(ValueError, match="actual indexed member"):
+>           module.audit_coverage(root, inputs, caches, run, root / "research/forecast-v2/CACHE_AUDIT.json")
+
+forecast/tests/test_blind_forecast_protocol.py:1231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+research/forecast-v2/scripts/audit_fit_coverage.py:1357: in audit_coverage
+    development, development_cache_files = development_coverage(root, inputs, caches, run, audit, expected, mixed)
+research/forecast-v2/scripts/audit_fit_coverage.py:1285: in development_coverage
+    contract = _schedule_contract(root, source, stage="fold", variant=variant, phase_id=phase["phase_id"])
+research/forecast-v2/scripts/audit_fit_coverage.py:896: in _schedule_contract
+    producer_version = _verified_producer_version(root, source, phase_id)
+forecast/tests/test_blind_forecast_protocol.py:513: in verify
+    return real(root, source, phase_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-119/test_old_pure_schedule_inferen0/freeze-repo')
+source = {'forecast/wildfire/burnout.py': '6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e', 'forecast/wildfir...1009a2fadbbe1', 'forecast/wildfire/module.py': '44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32', ...}
+phase_id = 'base_fold2020_seed0'
+
+    def _verified_producer_version(root, source, phase_id):
+        """Recompute every declared source byte, reject unknown complete versions.
+    
+        This permits only the enumerated producer phases on independently authenticated
+        actual cached inputs. It is neither universal equivalence nor runtime replay.
+        """
+        declared = object_sha(source)
+        if declared not in _RECIPE_SOURCE_VERSIONS or phase_id not in _RECIPE_SOURCE_VERSIONS[declared]:
+            raise ValueError("Unreviewed whole-producer source closure or intended phase")
+        actual = {}
+        for relative, expected in source.items():
+            original = _source_blob(root, relative, expected)
+            actual[relative] = hashlib.sha256(original.encode("utf-8")).hexdigest()
+        if object_sha(actual) != declared:
+            raise ValueError("Actual immutable producer bytes differ from their reviewed version")
+        auditor = "research/forecast-v2/scripts/audit_fit_coverage.py"
+        for relative, expected in _RECIPE_CURRENT_BASELINE.items():
+            if relative == auditor:
+                continue
+            if sha(_inside(root, relative)) != expected:
+>               raise ValueError("Unreviewed current producer dependency: " + relative)
+E               ValueError: Unreviewed current producer dependency: forecast/wildfire/survival.py
+
+research/forecast-v2/scripts/audit_fit_coverage.py:877: ValueError
+
+During handling of the above exception, another exception occurred:
+
+freezer = <module 'blind_registry_fixture' from '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/v2/repo/research/forecast-v2/scripts/freeze_registry.py'>
+freeze_inputs = (PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-119/test_old_pure_schedule_in...9ed1bcd47fcc40179acf'}, 'cache_audit_sha256': '1872c06752e220ed66f8e3e8680c63dc2e91ba751c669ed1bcd47fcc40179acf', ...})
+
+    def test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source(freezer, freeze_inputs):
+        module, root, run, inputs, caches, _, _ = fit_coverage_state(freezer, freeze_inputs)
+        source_path = root / "forecast/wildfire/survival.py"
+        snapshot = root / "research/forecast-v2/source_snapshots" / module.sha(source_path) / source_path.name
+        snapshot.parent.mkdir(parents=True, exist_ok=True); snapshot.write_bytes(source_path.read_bytes())
+        source_path.write_text(source_path.read_text().replace("sample = train[index]", "sample = train[0]"))
+        receipt_path = root / "research/forecast-v2/executions/a03_final_base.json"
+        receipt = json.loads(receipt_path.read_text())
+        receipt["source_sha256"]["forecast/wildfire/survival.py"] = module.sha(source_path)
+        receipt_path.write_text(json.dumps(receipt))
+>       with pytest.raises(ValueError, match="actual indexed member"):
+E       AssertionError: Regex pattern did not match.
+E        Regex: 'actual indexed member'
+E        Input: 'Unreviewed current producer dependency: forecast/wildfire/survival.py'
+
+forecast/tests/test_blind_forecast_protocol.py:1230: AssertionError
+=========================== short test summary info ============================
+FAILED forecast/tests/test_blind_forecast_protocol.py::test_old_pure_schedule_inference_binds_the_actual_indexed_sample_source
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 92 passed, 131 deselected in 54.63s

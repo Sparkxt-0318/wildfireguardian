@@ -1,0 +1,53 @@
+{
+  "scope": "All three final PNGs visually inspected after exact-width layout; labels, units, legends, white background and scope captions checked. SVG counterparts generated from same figures.",
+  "figures": [
+    {
+      "png": "fig01_contact_K_time_paired.png",
+      "svg": "fig01_contact_K_time_paired.svg",
+      "png_sha256": "2e840861df61900e5b48be64d66d99a3396fb6475196122fcfedb161d4215e69",
+      "svg_sha256": "0f972b39ffc33ce439dcfd55a9a556e119790ec01b0d18857b1d39ff94c19230",
+      "pixels": [
+        2160,
+        930
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "width_in": 7.2,
+      "visually_inspected": true
+    },
+    {
+      "png": "fig02_states_vs_members.png",
+      "svg": "fig02_states_vs_members.svg",
+      "png_sha256": "6d7da807b2b693749dfadecffae2443cac7717be0d65c3684b61a6d21c032933",
+      "svg_sha256": "1ad60f7848b12f0ac245135fbb3c31c9ca40b8f5c0cc8622414423a5be9d8770",
+      "pixels": [
+        2160,
+        1140
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "width_in": 7.2,
+      "visually_inspected": true
+    },
+    {
+      "png": "fig03_contact_K_outcomes.png",
+      "svg": "fig03_contact_K_outcomes.svg",
+      "png_sha256": "5d9d13ab56dd0ff5848f44a88eea094db9170b0e449fa9c99c39dfc49a9a68b6",
+      "svg_sha256": "f58bcbd00f55057951ecdc8132b8a32f918f086c17734605261f25f0cf1d3273",
+      "pixels": [
+        1050,
+        900
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "width_in": 3.5,
+      "visually_inspected": true
+    }
+  ]
+}

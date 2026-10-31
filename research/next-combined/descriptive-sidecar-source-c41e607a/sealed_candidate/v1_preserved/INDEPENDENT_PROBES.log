@@ -1,0 +1,24 @@
+.FFFF...                                                                 [100%]
+=================================== FAILURES ===================================
+__________________ test_nonfinite_exponent_is_rejected[1e999] __________________
+independent_probes.py:26: in test_nonfinite_exponent_is_rejected
+    with pytest.raises(T.S.AdmissionError):
+E   Failed: DID NOT RAISE <class 'scratch_descriptive_candidate.AdmissionError'>
+_________________ test_nonfinite_exponent_is_rejected[-1e999] __________________
+independent_probes.py:26: in test_nonfinite_exponent_is_rejected
+    with pytest.raises(T.S.AdmissionError):
+E   Failed: DID NOT RAISE <class 'scratch_descriptive_candidate.AdmissionError'>
+______ test_nonfinite_exponent_is_rejected[{"unused":{"nested":[1e999]}}] ______
+independent_probes.py:26: in test_nonfinite_exponent_is_rejected
+    with pytest.raises(T.S.AdmissionError):
+E   Failed: DID NOT RAISE <class 'scratch_descriptive_candidate.AdmissionError'>
+__________ test_nonfinite_exponent_cannot_enter_completed_full_chain ___________
+independent_probes.py:38: in test_nonfinite_exponent_cannot_enter_completed_full_chain
+    with pytest.raises(f.m.AdmissionError):
+E   Failed: DID NOT RAISE <class 'invented_authority_481783506720.AdmissionError'>
+=========================== short test summary info ============================
+FAILED independent_probes.py::test_nonfinite_exponent_is_rejected[1e999] - Fa...
+FAILED independent_probes.py::test_nonfinite_exponent_is_rejected[-1e999] - F...
+FAILED independent_probes.py::test_nonfinite_exponent_is_rejected[{"unused":{"nested":[1e999]}}]
+FAILED independent_probes.py::test_nonfinite_exponent_cannot_enter_completed_full_chain
+4 failed, 4 passed in 6.89s

@@ -1,0 +1,34 @@
+{
+  "command": [
+    "/usr/bin/qlmanage",
+    "-t",
+    "-s",
+    "2160",
+    "-o",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/publication-svg-previews-v2",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.svg",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.svg",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.svg",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg"
+  ],
+  "started_utc": "2026-10-30T23:18:54.499078+00:00",
+  "finished_utc": "2026-10-30T23:18:54.835556+00:00",
+  "exit_code": 0,
+  "input_svg_sha256": {
+    "fig01_reliability_all_models.svg": "d6453cddaff392693c244c5cced1b5d46b2f90a69374a4539e02b24a4d7bd180",
+    "fig02_per_fire_brier_paired.svg": "7fe9ef7183b7ea1c0f6c462143454b3bd24096c822420a1bd715ca9bd22267ef",
+    "fig03_ablation_forest_plot.svg": "f208687059d6f4f0acb17f310b461e05453987ba6c3f79fc1b97dae9f14d3731",
+    "fig04_meanfield_vs_mc_rmse_by_horizon.svg": "40b9361eb303f0e8bbb2caa1a6d16b52452400bad7729de0535560eb35575bc4",
+    "fig05_example_forecast_vs_perimeter.svg": "e624a78674ea0864c54dc6911c0d3a23ed35fe0cc86021928514fb029d2f3289"
+  },
+  "inputs_unchanged": true,
+  "output": "Testing Quick Look thumbnails with files:\n\t/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.svg\n\t/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.svg\n\t/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.svg\n\t/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg\n\t/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg\n* /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig01_reliability_all_models.svg produced one thumbnail\n* /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig04_meanfield_vs_mc_rmse_by_horizon.svg produced one thumbnail\n* /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig03_ablation_forest_plot.svg produced one thumbnail\n* /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig05_example_forecast_vs_perimeter.svg produced one thumbnail\n* /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v2/fig02_per_fire_brier_paired.svg produced one thumbnail\nDone producing thumbnails\n",
+  "previews": [
+    "fig01_reliability_all_models.svg.png",
+    "fig02_per_fire_brier_paired.svg.png",
+    "fig04_meanfield_vs_mc_rmse_by_horizon.svg.png",
+    "fig03_ablation_forest_plot.svg.png",
+    "fig05_example_forecast_vs_perimeter.svg.png"
+  ]
+}

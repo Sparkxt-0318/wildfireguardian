@@ -1,0 +1,149 @@
+{
+  "all_201_code_json_sources_unchanged": true,
+  "baselines": {
+    "dilation_choice": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/dilation_choice.json",
+      "sha256": "f3f8ad00ad71616e3e77a8660ca51bdd8cc0667bf2ca53641ab75bdf4a00e74c"
+    },
+    "logistic": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl",
+      "sha256": "4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49"
+    },
+    "logistic_parameters": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.json",
+      "sha256": "7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df"
+    }
+  },
+  "best_dilation_hours_per_cell": 8,
+  "checkpoints": {
+    "base": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/checkpoint.pt",
+      "sha256": "007720f6bb5cd19e5fc8afc0abc47cb5b0fb320aae7ce3830e261cdb98c31ec8"
+    },
+    "burnout": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/checkpoint.pt",
+      "sha256": "d552c221348a28477c2eeb411156e47d1b56653aca424e0487085570d2957559"
+    },
+    "burnout_spotting": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+      "sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b"
+    },
+    "d4": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/checkpoint.pt",
+      "sha256": "969a47025d5d9b322f1413ba0922e29fac9f453474bbe73b9aca6950f476fb74"
+    },
+    "d4_wind": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt",
+      "sha256": "33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3"
+    },
+    "ellipse": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/checkpoint.pt",
+      "sha256": "b8f13c01536b0507bd16ec64b7fd8fdfc969cc7e0f05e73d0f9257ca29eab569"
+    },
+    "mixed_base": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/checkpoint.pt",
+      "sha256": "e0330c3d92f5cd92471a434f6d062f16c7a14be4163b44c98fa334d9573dba76"
+    }
+  },
+  "code_json_sources": 201,
+  "cohorts": {
+    "korea2025": {
+      "event_case_counts": {
+        "KFS_01": 8,
+        "KFS_04": 14,
+        "KFS_06": 8,
+        "KFS_13": 3
+      },
+      "events": [
+        "KFS_01",
+        "KFS_04",
+        "KFS_06",
+        "KFS_13"
+      ],
+      "expected_cases": 33,
+      "metadata_only_membership_sha256": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d"
+    },
+    "us2024": {
+      "event_case_counts": {
+        "ID-BOF-000683_Wapiti_Wapiti": 52,
+        "ID-BOF-000904_Goat": 42,
+        "ID-BOF-001080_Lava": 47,
+        "ID-SCF-240202_RedRock": 40,
+        "WA-SES-000173_Pioneer": 55,
+        "WY-BTF-002416_FishCreek": 37
+      },
+      "events": [
+        "ID-BOF-000683_Wapiti_Wapiti",
+        "ID-BOF-000904_Goat",
+        "ID-BOF-001080_Lava",
+        "ID-SCF-240202_RedRock",
+        "WA-SES-000173_Pioneer",
+        "WY-BTF-002416_FishCreek"
+      ],
+      "expected_cases": 273,
+      "metadata_only_membership_sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    }
+  },
+  "command_exit_codes": [
+    0,
+    0
+  ],
+  "commands": [
+    [
+      "../venv-forecast/bin/python",
+      "research/forecast-v2/scripts/run_campaign.py",
+      "freeze",
+      "--attempt",
+      "3"
+    ],
+    [
+      "../venv-forecast/bin/python",
+      "research/forecast-v2/scripts/freeze_registry.py",
+      "--model-root",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b",
+      "--run-root",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3",
+      "--selection",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/MODEL_SELECTION.json",
+      "--out",
+      "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/BLIND_REGISTRY.json"
+    ]
+  ],
+  "commit_binding": "Containing Git commit binds this file without embedding a self-referential commit hash.",
+  "executed_freeze_environment": {
+    "cpu_count": 15,
+    "interpreter": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.1"
+  },
+  "execution_logs_sha256": {
+    "final_blind_registry_freeze.log": "c94145ff028e333b7dd90d1a5444c6e2e4040aa7650458354499e543a2574de0",
+    "final_model_selection_freeze.log": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b"
+  },
+  "external_OSF_registration": false,
+  "files_sha256": {
+    "forecast/documents/preregistration_blind_test.md": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6",
+    "research/forecast-v2/BLIND_REGISTRY.json": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e",
+    "research/forecast-v2/FIT_COVERAGE.json": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971",
+    "research/forecast-v2/MODEL_SELECTION.json": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b",
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d",
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+  },
+  "frozen_utc": "2026-10-30T13:11:30.395002+00:00",
+  "future_2026_execution": "NOT_READY_FOR_2026_EXECUTION",
+  "heldout_inference_started": false,
+  "metadata_authoring_host": {
+    "interpreter": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.1"
+  },
+  "protocol_document_added_after_selection": true,
+  "registry_generated_after_protocol": true,
+  "schema": "wfg.current-model-source-freeze-handoff/1",
+  "scoring_invocations": "Separate us2024 and korea2025 invocations, each exit preserved; first cohort HOLD never cancels second.",
+  "selected_variant": "d4_wind",
+  "software_gate_sha256": "2823830161c045a3af96d8dde0540e0adcd422832167fa37061fc4643b615e7e",
+  "source_pins": 86,
+  "status": "FROZEN_PENDING_PARENT_COMMITTED_BUNDLE_VERIFICATION",
+  "total_expected_current_cases": 306
+}

@@ -1,0 +1,8 @@
+{
+  "action": "Parent authorized exact coordinator plan sync, no merge or historical progress rewrite",
+  "source_branch": "next/orchestrator",
+  "source_commit": "c08b4280708bf231fa844798a692eb2a5c0c0287",
+  "source_path": "docs/NEXT_PLAN.md",
+  "bytes": 57193,
+  "sha256": "6e55a456f9e3e8f6931cf11f06d969907135b4c17758ae7571b55753266e1e20"
+}

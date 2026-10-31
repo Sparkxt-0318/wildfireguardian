@@ -1,0 +1,111 @@
+{
+  "scope": "Exact closed independent actual review, predeclared source/math/tests, preparation records, actual result/log/resources and final receipt. Readiness runs no reviewer or numerical computation and copies no scientific/draw/model arrays. PreparationNOT_RUN wording is historical; actual PASS receipt is separate.",
+  "readiness_replay": false,
+  "files": [
+    {
+      "path": "ACTUAL_LITERAL_CONTROL_COUNTS.json",
+      "bytes": 1845,
+      "sha256": "c73717017a370e8e9005dad5a6a2a6af70dc9171865cb7db1f5e8fcc645eb96e"
+    },
+    {
+      "path": "ACTUAL_REVIEW_ATTEMPT2.json",
+      "bytes": 5067,
+      "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158"
+    },
+    {
+      "path": "ACTUAL_REVIEW_ATTEMPT2.log",
+      "bytes": 1311,
+      "sha256": "cf4d109f7e10b1233bde4d87c589a4af673de84569b58825e17c71f2571664d8"
+    },
+    {
+      "path": "ACTUAL_REVIEW_PROCESS_RESOURCES.json",
+      "bytes": 2000,
+      "sha256": "b2a882a5167bcc4b4b8b06b9ba87d3bbb7463ba6422cfba382935c0b85f71f5b"
+    },
+    {
+      "path": "ACTUAL_REVIEW_PROCESS_START.json",
+      "bytes": 1467,
+      "sha256": "8c10417558bb78fe3e5ecba8c1bddf48afcfa6c426adeddaf1a53b5ae1e704f6"
+    },
+    {
+      "path": "ACTUAL_REVIEW_SHA256.json",
+      "bytes": 1312,
+      "sha256": "c9310d721f7631cd6e0ee29fab93de80a0328775d43a89ca452060e6b76b8910"
+    },
+    {
+      "path": "ATTEMPT2_METADATA_IDENTITY.json",
+      "bytes": 563,
+      "sha256": "b30cb802558ce14afb507d9dbeaf45e8c05a39535ce0c68f43a5f1a1732671b4"
+    },
+    {
+      "path": "AUTHORIZATION_IDENTITY.json",
+      "bytes": 807,
+      "sha256": "92b31b21641dcd5b388b3302b1578ab683f697f194aa46491b42f75b635647d4"
+    },
+    {
+      "path": "INDEPENDENT_REVIEW_RECEIPT.json",
+      "bytes": 4491,
+      "sha256": "994b6c171703af3dc8bac7e0c734bd55065bd2b54c3e6a8c79b58462276de2d0"
+    },
+    {
+      "path": "PREPARATION.md",
+      "bytes": 4842,
+      "sha256": "48e9ab07655d735635170f147f9e881c89b780ffa72987e64a9856a3ef9545f1"
+    },
+    {
+      "path": "PREPARATION_MANIFEST.json",
+      "bytes": 1754,
+      "sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6"
+    },
+    {
+      "path": "REVIEW_ACTUAL_ATTEMPT2.md",
+      "bytes": 7890,
+      "sha256": "e3a58d0b24499ae5fd6e5d5f81463a366e2d08c6f730fe3b6a8a5639e0ecbf4e"
+    },
+    {
+      "path": "REVIEW_RELEASE_IDENTITY.json",
+      "bytes": 317,
+      "sha256": "7460c4378d21ec37aab4b48078d9a4065abbce0f57957bde4cedaa24cc7815e4"
+    },
+    {
+      "path": "SELECTED_PRIMARY_INTERVALS.json",
+      "bytes": 8225,
+      "sha256": "8bdbc67e3e1c8308fc82cb1a8d610404b0a23a685fdf7ee23bd43bcda328010d"
+    },
+    {
+      "path": "SYNTHETIC_PREPARATION_TESTS.log",
+      "bytes": 99,
+      "sha256": "9ec2dce8d6f13ba09d0e1a098d3e0dd53ceded61f2b886d3cf2745948fb3584b"
+    },
+    {
+      "path": "SYNTHETIC_PREPARATION_TESTS_FINAL.log",
+      "bytes": 99,
+      "sha256": "78ae6190e223cba0e642a43dd460262580cfccf590944d618f36c3c3c0832567"
+    },
+    {
+      "path": "SYNTHETIC_PREPARATION_TESTS_FINAL_22.log",
+      "bytes": 99,
+      "sha256": "43f313477bd2562c9d2d39d539723a57a1589255a75284d22c4d1c8c49e4dc07"
+    },
+    {
+      "path": "review_actual.py",
+      "bytes": 21406,
+      "sha256": "b54acdb80ef8c37aeaf8a75c897a7a4d034d7af075a63743c5c389d708db7813"
+    },
+    {
+      "path": "review_math.py",
+      "bytes": 6788,
+      "sha256": "21a2d02e586f59047a29219e5aa2970163cbd1df0a3c7a9d56f66648d0c9ab84"
+    },
+    {
+      "path": "run_released_review.py",
+      "bytes": 3046,
+      "sha256": "f57b1db2386f6afc0d78414b9d7440046b86b4d9c2e12980100ea495e3da0d92"
+    },
+    {
+      "path": "test_review_preparation.py",
+      "bytes": 5898,
+      "sha256": "8a3edfa030c840cad42a321af6513652d5480166e1dbb9a2312b43c25efcb5bc"
+    }
+  ]
+}

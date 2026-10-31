@@ -1,0 +1,42 @@
+{
+  "source_head": "a5ba82108c44956c01071d8450751b5d2defa387",
+  "files": {
+    "MANIFEST.json": {
+      "sha256": "81480d7ffd410607d26c8825042b4e93c5910ede39330948dd8b78debfd029db",
+      "bytes": 611
+    },
+    "REVIEW_a5ba8210.md": {
+      "sha256": "7367c4568dc56653005bfb4d0d527c9dbbd5a0323cecd9cb2ba02925169abb22",
+      "bytes": 6056
+    },
+    "ablation_weight_repro_a5ba8210.json": {
+      "sha256": "703f4ec184ea449d666c55c06fc30c8335b7e63fa38f2f5474f9651be3401cb7",
+      "bytes": 1031
+    },
+    "ablation_weight_repro_a5ba8210.py": {
+      "sha256": "ee32472b40fa0eb7a1c219677d3aaa9f543bae0cd4a88a139c5fe6b0e6242c4f",
+      "bytes": 1788
+    },
+    "audit_metrics_a5ba8210.json": {
+      "sha256": "cdebb314018c0ab34cabca5e4eb24a0024376d15261b3a1a5122f3ecc75e76e6",
+      "bytes": 9129
+    },
+    "audit_metrics_a5ba8210.log": {
+      "sha256": "797db87156365c1f776c4e5adab68670c05c7e84a7100bf7648ebfacc360f48d",
+      "bytes": 78
+    },
+    "audit_metrics_a5ba8210.py": {
+      "sha256": "984f517bc4efb70fc60ad8465c781a1ba852327a0aeb46d8d8f9444b4df04d85",
+      "bytes": 8146
+    }
+  },
+  "verified_source_git_objects_sha256": {
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+    "research/forecast-v2/scripts/report.py": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2"
+  },
+  "report_sha256": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b",
+  "scope": "Exact independent51/51nonablation arithmetic/gate controls and one confirmed unequal-support paired-ablation reporting failure. Readiness checks source/report/producer/file custody only, no rerun or actual study/model/prediction/quality-result inspection. Training and fixed equal-fire selection unaffected. Reproduction exit0 records wrong current behavior, not a passing correctness claim.",
+  "root_pinned_review_sha256": "7367c4568dc56653005bfb4d0d527c9dbbd5a0323cecd9cb2ba02925169abb22"
+}

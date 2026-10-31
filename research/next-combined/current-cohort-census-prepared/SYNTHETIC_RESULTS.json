@@ -1,0 +1,179 @@
+{
+  "scope": "Synthetic assessment dictionaries only; immutable timestamp JSON objects read. No actual current assessment output, arrays, models, scorer, metrics or plot opened.",
+  "actual_reconciliation_run": false,
+  "checks": [
+    {
+      "name": "all_scored_full306_census",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "honest_mixed_full306_census",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_unavailable_full306_census",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_failed_full306_census",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "case_order_diagnostic_not_membership_failure",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "us2024_missing",
+      "passed": true,
+      "detail": "EXACT_CASE_COUNT:us2024:expected=273:actual=272"
+    },
+    {
+      "name": "us2024_duplicate",
+      "passed": true,
+      "detail": "DUPLICATE_CASE_ID:us2024"
+    },
+    {
+      "name": "us2024_relabel_event",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:us2024:75a2b7fae237464f5e443c3a"
+    },
+    {
+      "name": "us2024_replace_cutoff",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:us2024:8c66b326efd54f1ae92672ca"
+    },
+    {
+      "name": "us2024_wrong_hours",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:us2024:a82ae32dc882669361c9509b"
+    },
+    {
+      "name": "us2024_wrong_id",
+      "passed": true,
+      "detail": "CASE_ID_FORMULA:us2024"
+    },
+    {
+      "name": "us2024_unlisted_event",
+      "passed": true,
+      "detail": "DECLARED_EVENT_POPULATION:us2024"
+    },
+    {
+      "name": "us2024_extra_case_field",
+      "passed": true,
+      "detail": "EXACT_FOUR_FIELD_CASE_SCHEMA:us2024"
+    },
+    {
+      "name": "us2024_false_complete_unavailable",
+      "passed": true,
+      "detail": "FALSE_COMPLETE_WITH_UNSCORED_CASES:us2024"
+    },
+    {
+      "name": "us2024_false_complete_failed",
+      "passed": true,
+      "detail": "FALSE_COMPLETE_WITH_UNSCORED_CASES:us2024"
+    },
+    {
+      "name": "us2024_invalid_outcome",
+      "passed": true,
+      "detail": "CASE_OUTCOME_STATUS:us2024"
+    },
+    {
+      "name": "us2024_empty_cases",
+      "passed": true,
+      "detail": "EXACT_CASE_COUNT:us2024:expected=273:actual=0"
+    },
+    {
+      "name": "korea2025_missing",
+      "passed": true,
+      "detail": "EXACT_CASE_COUNT:korea2025:expected=33:actual=32"
+    },
+    {
+      "name": "korea2025_duplicate",
+      "passed": true,
+      "detail": "DUPLICATE_CASE_ID:korea2025"
+    },
+    {
+      "name": "korea2025_relabel_event",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:korea2025:cd6359447d5b17d36ee1e98a"
+    },
+    {
+      "name": "korea2025_replace_cutoff",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:korea2025:7da5bc0aa240a2f3b784b01c"
+    },
+    {
+      "name": "korea2025_wrong_hours",
+      "passed": true,
+      "detail": "UNEXPECTED_REPLACED_OR_RELABELLED_CASE:korea2025:7a9781d80f38ed5325470bcb"
+    },
+    {
+      "name": "korea2025_wrong_id",
+      "passed": true,
+      "detail": "CASE_ID_FORMULA:korea2025"
+    },
+    {
+      "name": "korea2025_unlisted_event",
+      "passed": true,
+      "detail": "DECLARED_EVENT_POPULATION:korea2025"
+    },
+    {
+      "name": "korea2025_extra_case_field",
+      "passed": true,
+      "detail": "EXACT_FOUR_FIELD_CASE_SCHEMA:korea2025"
+    },
+    {
+      "name": "korea2025_false_complete_unavailable",
+      "passed": true,
+      "detail": "FALSE_COMPLETE_WITH_UNSCORED_CASES:korea2025"
+    },
+    {
+      "name": "korea2025_false_complete_failed",
+      "passed": true,
+      "detail": "FALSE_COMPLETE_WITH_UNSCORED_CASES:korea2025"
+    },
+    {
+      "name": "korea2025_invalid_outcome",
+      "passed": true,
+      "detail": "CASE_OUTCOME_STATUS:korea2025"
+    },
+    {
+      "name": "korea2025_empty_cases",
+      "passed": true,
+      "detail": "EXACT_CASE_COUNT:korea2025:expected=33:actual=0"
+    },
+    {
+      "name": "us2024_changed_inventory_pin",
+      "passed": true,
+      "detail": "FROZEN_INVENTORY_BYTES_CHANGED:us2024"
+    },
+    {
+      "name": "korea2025_changed_inventory_pin",
+      "passed": true,
+      "detail": "FROZEN_INVENTORY_BYTES_CHANGED:korea2025"
+    },
+    {
+      "name": "empty_caller_inventory_map_refused",
+      "passed": true,
+      "detail": "BOTH_FROZEN_INVENTORIES_REQUIRED"
+    },
+    {
+      "name": "case_ID_default_JSON_formula",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "existing_metric_checker_unchanged",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": 34,
+  "total": 34,
+  "failures": []
+}

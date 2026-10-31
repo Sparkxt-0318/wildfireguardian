@@ -1,0 +1,62 @@
+{
+  "head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+  "source_sha256": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d",
+  "script_sha256": "2b5131c531908f1eaea53fccd28fbc659fcc12b6f08e322fb46763e3231f0ff6",
+  "checks": [
+    {
+      "id": "missing_registry_refuses",
+      "passed": true
+    },
+    {
+      "id": "original_vacuous_variant_0_refuses",
+      "passed": true
+    },
+    {
+      "id": "original_vacuous_variant_1_refuses",
+      "passed": true
+    },
+    {
+      "id": "original_vacuous_variant_2_refuses",
+      "passed": true
+    },
+    {
+      "id": "malformed_json_refuses",
+      "passed": true
+    },
+    {
+      "id": "real_guard_refuses_incomplete_freeze",
+      "passed": true
+    },
+    {
+      "id": "authenticated_delegation_positive",
+      "passed": true
+    },
+    {
+      "id": "execution_ready_never_conferred",
+      "passed": true
+    },
+    {
+      "id": "mismatched_proof_refuses",
+      "passed": true
+    },
+    {
+      "id": "scores_presence_not_measurement_0",
+      "passed": true
+    },
+    {
+      "id": "scores_presence_not_measurement_1",
+      "passed": true
+    },
+    {
+      "id": "partial_descriptive_preserves_hold",
+      "passed": true
+    },
+    {
+      "id": "zero_cells_not_measurement",
+      "passed": true
+    }
+  ],
+  "passed": 13,
+  "status": "PASS_LEDGER_REPAIR_SCOPED",
+  "scope": "Original empty-map boundary plus real refusal and synthetic positive delegation/measurement bookkeeping only; no actual registry/model/data and no replacement of prior saved-admission audit"
+}

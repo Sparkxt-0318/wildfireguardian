@@ -1,0 +1,14 @@
+{
+  "status": "PASS_ROOT_METADATA_AND_COPY_CUSTODY",
+  "verified_utc": "2026-10-30T23:36:50.102142+00:00",
+  "production_head": "3932a68ba015b29beef5f9e6ee35713cb40ccc0a",
+  "draft_sha256": "e7f825f6753fe8b1e1a388212c89966966aa22dfc0082ad29c04833b820653d0",
+  "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "source_review_sha256": "2bb880ce72b27a13c2290f6eec639bc17038de522329a55493ee5ad85ce8cb31",
+  "input_artifacts": 652,
+  "frozen_files": 223,
+  "canonical_protected_files": 858,
+  "identity_objects_checked": 26,
+  "output_directory_absent": true,
+  "scope": "Independent path/digest/receipt/source custody verification only; no actual supplementary metric computation or model inference."
+}

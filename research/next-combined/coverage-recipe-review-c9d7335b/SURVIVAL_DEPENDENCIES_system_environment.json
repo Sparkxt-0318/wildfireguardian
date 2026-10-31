@@ -1,0 +1,23 @@
+{
+  "source_versions": {
+    "1ef3288e8bbb2b6f0ba0812ab4f349d814ae6043668137325adc552e96104711": {
+      "different": [
+        "fit_mean_field",
+        "sample_forecast"
+      ],
+      "sample_class_equal": true
+    },
+    "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b": {
+      "different": [],
+      "sample_class_equal": true
+    },
+    "816f144e3bf2084ba1d05a57093b57c9ace37a1c837833838ec264c7300766d4": {
+      "different": [
+        "sample_forecast"
+      ],
+      "sample_class_equal": true
+    }
+  },
+  "numpy": "2.4.4",
+  "np_load_default_allow_pickle": false
+}

@@ -1,0 +1,36 @@
+{
+  "source_commit": "06b2d5fe28583fa2f548c4c5ccefa6d7e176bbd3",
+  "scope": "Exactpriorpreparedcensus/driverreview/US31snapshot beforeboundedclosedfirstfireintegrityreviews",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 34125,
+      "sha256": "989f00601bf33f97d928c66db988304b5587c1b8d1026dde285f856b0d3c694c"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 66847,
+      "sha256": "a912998a2db94853c6706f2d0082085cafebd616142083a42a452b517f38de7b"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 66847,
+      "sha256": "a912998a2db94853c6706f2d0082085cafebd616142083a42a452b517f38de7b"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 57407,
+      "sha256": "6c19b2fb42e945a81e6c1bc4c5f00da2dbc41290a5d60e0df19a26a7afab95bb"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 38193,
+      "sha256": "f3b34bab8e2bb25d86722470644b3ee66d53f9175b65443c12c38de1fd0dd911"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 95686,
+      "sha256": "8480043ada954bd4b1bb2a6cad04a439f49f29cd9516aa6b1b3ac849bf276852"
+    }
+  ]
+}

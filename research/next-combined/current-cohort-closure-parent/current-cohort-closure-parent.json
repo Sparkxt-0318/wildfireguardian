@@ -1,0 +1,48 @@
+{
+  "checked_utc": "2026-10-30T23:04:26.148585+00:00",
+  "receipt_log_identity_checks": {
+    "current_assessment_us2024.json": true,
+    "current_assessment_korea2025.json": true,
+    "current_assessment_us2024.log": true,
+    "current_assessment_korea2025.log": true
+  },
+  "all223_frozen_files_match": true,
+  "changed_files": [],
+  "last_metadata_monitor": {
+    "observed_utc": "2026-10-30T18:14:47.503851+00:00",
+    "progress": {
+      "us2024": {
+        "receipts": 273,
+        "expected": 273,
+        "statuses": {
+          "SCORED": 273
+        },
+        "events": {
+          "WA-SES-000173_Pioneer": 55,
+          "ID-BOF-000683_Wapiti_Wapiti": 52,
+          "ID-SCF-240202_RedRock": 40,
+          "ID-BOF-000904_Goat": 42,
+          "ID-BOF-001080_Lava": 47,
+          "WY-BTF-002416_FishCreek": 37
+        }
+      },
+      "korea2025": {
+        "receipts": 33,
+        "expected": 33,
+        "statuses": {
+          "SCORED": 26,
+          "UNAVAILABLE": 7
+        },
+        "events": {
+          "KFS_04": 14,
+          "KFS_01": 8,
+          "KFS_13": 3,
+          "KFS_06": 8
+        }
+      }
+    },
+    "changed_frozen_union": [],
+    "scope": "Receipt counts/statuses only; no probability arrays, endpoint labels or quality metrics read."
+  },
+  "scope": "Closed execution receipt/log hashes and frozen-file custody only; no study quality values or scientific arrays inspected."
+}

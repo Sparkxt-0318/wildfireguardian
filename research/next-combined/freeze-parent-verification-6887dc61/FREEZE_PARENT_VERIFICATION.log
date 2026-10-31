@@ -1,0 +1,19 @@
+{
+  "status": "PASS_COMMITTED_FREEZE_BYTES_AND_METADATA",
+  "verified_utc": "2026-10-30T13:18:16.880195+00:00",
+  "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "scope": "Current/Git byte identity, fixed development arithmetic and saved timestamp enumeration only. No model deserialization, forecast, spatial-label replay or physical validation.",
+  "files_current_and_git_checked": 223,
+  "seven_new_checkpoint_bytes_unchanged_from_376292bc": true,
+  "eight_registry_models_and_86_dependencies_exact": true,
+  "code_json_sources_unchanged": 201,
+  "selected_variant": "d4_wind",
+  "expected_current_cases": {
+    "us2024": 273,
+    "korea2025": 33
+  },
+  "korean_timestamps_reconstructed_from_saved_temporal_extrema": true,
+  "intended_output_directories_absent_at_check": true,
+  "future_2026_execution_authorized": false,
+  "current_cohort_inference_authorized_by_this_audit": false
+}

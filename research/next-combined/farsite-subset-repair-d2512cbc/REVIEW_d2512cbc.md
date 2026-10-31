@@ -1,0 +1,15 @@
+# Exact FARSITE admission repair recheck
+
+Reviewed immutable head `d2512cbcc2debc1b00074c99efb329089823549e`, audit-source SHA-256 `6edb769fbcb9a7977e2689f7de337ed327feabd5dadd9983f3cec3443e04a6db`.
+
+Verdict: PASS for the two original P2 repairs and their new identity/population boundaries. No additional defect was found in this bounded recheck. This does not clear actual study inputs, quality outcomes or prospective registration.
+
+All 22 independent synthetic controls pass. The original missing-D4 recipe now refuses with the fixed 16-column error, as does an extra comparator. The positive case scores exactly those 16 current comparators plus the deterministic FARSITE scenario on the same two common cells. The original fully consistent 49-hour recipe retains the historical row as UNAVAILABLE, records both historical/current interval reasons, emits HOLD and no scores, and still correctly records its own finite native horizon as AVAILABLE. Exactly 48 hours remains eligible; 48 hours plus one nanosecond, zero/negative intervals and inconsistent endpoint hours refuse current-case admission.
+
+The new custody delegation uses the exact intended data/run/cohort/registry arguments, with one invocation. Exact FROZEN equality, scorer-contract equality, SPLIT byte authentication, duplicate/empty/invalid event-list guards, event membership and catalog US/year-2024 checks pass their controls. Verifier refusal, identity mismatch, changed SPLIT bytes, comparator-contract mismatch and registry escape refuse before any case-array load. Identity-only mode does not invoke the current scorer. The unchanged scorer source was byte-diff verified against the previous review head; its `args.run/heldout` output convention confirms that `assessment_directory.parent` is the correct run path.
+
+The 41 owner synthetic tests also pass independently in 2.11 seconds, including exact six-event declaration/HOLD subset controls. These are a separate test set and are not pooled with the independent 22 controls. No actual model/input verifier invocation occurred: only the unchanged verifier identity boundary was stubbed, while the repaired caller's argument, equality, SPLIT, receipt and array checks executed against synthetic files.
+
+Parent and recheck Tier 2 project: `wfg-next-1b-audit-d2512cbc-20261030`, generation `2026-10-30T10:03:04Z`. The exact new-symbol graph query returns zero because the scripts subtree is excluded. Coverage confirms excluded/not-tracked script paths and current test coverage; the full repair diff and material source ranges were read directly. The graph is a best-effort signal only. No tracked file, original failure artifact, study data, model, registration, actual prediction array or numeric result was edited or opened. The worktree remains clean.
+
+Evidence: `recheck.py`, `recheck.json`, `recheck.log`, `owner_41_tests.log`. The original `REVIEW_6ae52ab2.md`, both counterexample scripts and their observed failing-admission outputs remain unchanged in the parent folder.

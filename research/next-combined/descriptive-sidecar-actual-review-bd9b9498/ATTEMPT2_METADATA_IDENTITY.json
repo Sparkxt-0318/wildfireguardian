@@ -1,0 +1,12 @@
+{
+  "authorization_sha256": "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc",
+  "input_files": 654,
+  "output": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2",
+  "canonical_result": {
+    "path": "research/forecast-v2/RESULTS.json",
+    "sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755"
+  },
+  "canonical_map_sha256": "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803",
+  "canonical_files": 858,
+  "actual_review": "NOT_RUN_PENDING_B_COMPLETION_AND_ROOT_RELEASE"
+}

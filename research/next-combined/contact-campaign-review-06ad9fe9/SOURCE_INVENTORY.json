@@ -1,0 +1,80 @@
+{
+  "review_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/REVIEW_06ad9fe9.md",
+      "archive": "contact-campaign-review-06ad9fe9/REVIEW_06ad9fe9.md",
+      "sha256": "43b6ccfaaee1ed278a9066c2b8c491b51f7dfc2134fa22fcba64d015e99e28e9",
+      "bytes": 3927
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/REVIEW_SHA256.json",
+      "archive": "contact-campaign-review-06ad9fe9/REVIEW_SHA256.json",
+      "sha256": "7a4a555c5cd88a5f4da02e818f4d392c6a45d2a18e789dc982fe76b8f317625e",
+      "bytes": 1102
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/audit_06ad9fe9.json",
+      "archive": "contact-campaign-review-06ad9fe9/audit_06ad9fe9.json",
+      "sha256": "4da9a935c2b7665591afb2e40e6cab8e4a55a2bbfefcae437f898e04bdfe4ada",
+      "bytes": 5788
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/audit_06ad9fe9.log",
+      "archive": "contact-campaign-review-06ad9fe9/audit_06ad9fe9.log",
+      "sha256": "81aeb7f8f3bfb34ebfafda5277a69e4d1ab2d9839b743cb347b32c0fe2d369b4",
+      "bytes": 5804
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/audit_06ad9fe9.py",
+      "archive": "contact-campaign-review-06ad9fe9/audit_06ad9fe9.py",
+      "sha256": "93acfee66bbdc129f009518904cc20a613cbe77d9712d602e39dbaaa4cd1f5a6",
+      "bytes": 12504
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/audit_06ad9fe9_initial.json",
+      "archive": "contact-campaign-review-06ad9fe9/audit_06ad9fe9_initial.json",
+      "sha256": "2276167e8c97c8e1b5e8b638741c4a1fc1167d1f9f4a7c3af78a909fed267417",
+      "bytes": 5899
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/audit_06ad9fe9_initial.py",
+      "archive": "contact-campaign-review-06ad9fe9/audit_06ad9fe9_initial.py",
+      "sha256": "4c50fafcee5254728b01b8012c5fc1c343bafb93333842d8537d7c2769d30305",
+      "bytes": 12244
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/figure_and_boundary_audit.json",
+      "archive": "contact-campaign-review-06ad9fe9/figure_and_boundary_audit.json",
+      "sha256": "87d3c4ece08c5ac7f54cd76c914e91b7ccd9e64a31aa728c96aa2e669bf0908d",
+      "bytes": 2472
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/figure_and_boundary_audit.log",
+      "archive": "contact-campaign-review-06ad9fe9/figure_and_boundary_audit.log",
+      "sha256": "87d3c4ece08c5ac7f54cd76c914e91b7ccd9e64a31aa728c96aa2e669bf0908d",
+      "bytes": 2472
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/figure_and_boundary_audit.py",
+      "archive": "contact-campaign-review-06ad9fe9/figure_and_boundary_audit.py",
+      "sha256": "f24d8b341097853c053757b5f5bccb1bdbf68db38234e470f8410244515da382",
+      "bytes": 3609
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/figure_and_boundary_audit_initial.json",
+      "archive": "contact-campaign-review-06ad9fe9/figure_and_boundary_audit_initial.json",
+      "sha256": "7b06cc198d05d459534ef8db9edb39bb8e13c72df1d3c83ebdfaadacdcf4d121",
+      "bytes": 2582
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/contact-campaign-review/figure_and_boundary_audit_initial.py",
+      "archive": "contact-campaign-review-06ad9fe9/figure_and_boundary_audit_initial.py",
+      "sha256": "05a91f601b3ace8bc5d9ce999bdc22c4fb53ee4ea94ad8329b50de706e3dc681",
+      "bytes": 3601
+    }
+  ],
+  "scope": "Other independent reviewer22/22saved-output plus5/5figure/source-boundary checks; readiness archive verifies exact pins only, no duplicate campaign/output audit or raw-input hashing, geometric witness replay, heavy/planner/native rerun. Initial harness assumptions retained as harness failures, not source defects.",
+  "reviewer_manifest_all_files_match": true
+}

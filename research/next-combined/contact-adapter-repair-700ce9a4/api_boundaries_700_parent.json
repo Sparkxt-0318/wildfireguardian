@@ -1,0 +1,147 @@
+{
+  "head": "700ce9a4afc01e9917d508d6f482d0646ac26a3d",
+  "scope": "Parent independent tiny repair controls; original fixtures reused, no native graph, study data or timed campaign.",
+  "original_failure_script_sha256": "058717197551f136a553dc96a4bf1adb26158524ad98120ebf9f730841126249",
+  "producer_sha256": "6166d5ecb09f6f166161f28b37e64a741b29f4f2f650fa2fe6f7622018571b2f",
+  "checks": [
+    {
+      "name": "all_known_original_positive:sipp",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "all_known_original_positive:sweep",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "consistent_active_fire_positive:sipp",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 102,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "consistent_active_fire_positive:sweep",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 102,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "original_contradictory_active_refuses",
+      "passed": true,
+      "observed": "RAW_ACTIVE_OUTSIDE_KNOWN_BURNED"
+    },
+    {
+      "name": "integer_support_fractional_dwell_positive:sipp",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 1,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "integer_support_fractional_dwell_positive:sweep",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 1,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "original_fractional_support_explicitly_refuses",
+      "passed": true,
+      "observed": "Explicit positive whole-second member validity inside saved horizon required"
+    },
+    {
+      "name": "original_nanosecond_source_refuses",
+      "passed": true,
+      "observed": "Source clock requires RFC3339 seconds with at most six fractional digits and Z or HH:MM offset"
+    },
+    {
+      "name": "equivalent_utc_offset_positive:sipp",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "equivalent_utc_offset_positive:sweep",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "far_year_exact_offset_positive:sipp",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "far_year_exact_offset_positive:sweep",
+      "passed": true,
+      "observed": {
+        "status": "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT",
+        "arrival": 2,
+        "destination": "b"
+      }
+    },
+    {
+      "name": "far_year_microsecond_mismatch_refuses:sipp",
+      "passed": true,
+      "observed": {
+        "status": "UNRESOLVED_RESTRICTED_SUPPORT",
+        "reason": "UNSUPPORTED_INPUT:Original issue as-of differs from source cutoff"
+      }
+    },
+    {
+      "name": "far_year_microsecond_mismatch_refuses:sweep",
+      "passed": true,
+      "observed": {
+        "status": "UNRESOLVED_RESTRICTED_SUPPORT",
+        "reason": "UNSUPPORTED_INPUT:Original issue as-of differs from source cutoff"
+      }
+    },
+    {
+      "name": "nanosecond_request_refuses:sipp",
+      "passed": true,
+      "observed": {
+        "status": "UNRESOLVED_RESTRICTED_SUPPORT",
+        "reason": "UNSUPPORTED_INPUT:Source clock requires RFC3339 seconds with at most six fractional digits and Z or HH:MM offset"
+      }
+    },
+    {
+      "name": "nanosecond_request_refuses:sweep",
+      "passed": true,
+      "observed": {
+        "status": "UNRESOLVED_RESTRICTED_SUPPORT",
+        "reason": "UNSUPPORTED_INPUT:Source clock requires RFC3339 seconds with at most six fractional digits and Z or HH:MM offset"
+      }
+    }
+  ],
+  "count": 17,
+  "passed": 17
+}

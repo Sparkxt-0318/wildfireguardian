@@ -1,0 +1,18 @@
+{
+  "candidate_sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef",
+  "scope": "Source recognizer only; no live fit-coverage artifact/data/model/scoring access. Actual historical immutable bytes were separately compared and do not contain these mutations.",
+  "observations": [
+    {
+      "mutation": "consumed_cache_loader",
+      "admitted": true,
+      "error": null,
+      "source_sha256": "63b9945dde897f1e3e3078730299c3822bef7c7deacb8e3b7cb6dc0290a00713"
+    },
+    {
+      "mutation": "crop_global",
+      "admitted": true,
+      "error": null,
+      "source_sha256": "188586a3aa9b5bb41936dbdc677e9bab14bc3d37b13387d3d4ab6bcc120aefeb"
+    }
+  ]
+}

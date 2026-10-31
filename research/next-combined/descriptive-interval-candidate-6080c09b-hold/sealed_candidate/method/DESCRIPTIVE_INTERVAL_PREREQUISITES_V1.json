@@ -1,0 +1,113 @@
+{
+  "spec_version": "wfg.descriptive-interval-prerequisites/1",
+  "status": "SCHEMA_SPECIFICATION_ONLY_NOT_AN_EXECUTION_AUTHORIZATION",
+  "issued_utc": "2026-10-30T17:17:31.783024+00:00",
+  "method_protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+  "original_point_reconciliation": {
+    "rule": "Exact scalar/None equality to canonical JSON using exact hash-pinned frozen baselines.score, _average_precision, _auc and calibration_table AST definitions plus exact dependent definitions/constants/imports on identical canonical float64 entries/order. No selectable tolerance for original points. Bind all copied AST/source hashes and dependency versions. Do not compare raw Brier to c651 brier_mc_variance_corrected.",
+    "dependencies": {
+      "numpy": "1.26.4",
+      "scipy": "1.13.1",
+      "scikit-learn": "1.5.2"
+    },
+    "resample_verification": "For separate grouped sufficient-statistic versus independent literal-concatenation comparisons only, pre-fix rtol=1e-12 and atol=1e-14; original-point reconciliation remains exact. Null/status/count/frequency/source/artifact identities require exact equality. Never choose tolerances from actual results."
+  },
+  "census_receipt": {
+    "source_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+    "source_path_now": "work/current-cohort-census-review/check_census.py",
+    "required_fields": {
+      "status": "COMPLETE_FROZEN_306_CASE_CENSUS",
+      "frozen_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "total_expected_cases": 306,
+      "total_represented_cases": 306,
+      "checker_sha256": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+      "companion_metric_checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+      "scientific_clearance": false
+    },
+    "cross_bindings": "assessment_sha256.us2024/korea2025 must match authorization and current assessment bytes. cohorts.us2024/korea2025 structures must match the frozen checker output and273/33 expected/represented cases; independently read exact cohort_census source for all child keys. Honest unavailable/failed census outcomes are retained, but complete-scoring per-cohort admission below still applies."
+  },
+  "canonical_result_review": {
+    "source_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+    "source_path_now": "work/final-forecast-result-review/check_results.py",
+    "required_fields": {
+      "status": "PASS_INDEPENDENT_SAVED_RESULT_AUDIT",
+      "synthetic_only": false,
+      "checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+      "model_binary_bytes_accessed": false
+    },
+    "cross_bindings": "authorized_source_head must equal root authorization canonical_review_source_head; selection_sha256/registry_sha256/results_sha256 match authorization and current files. cohorts.heldout/korean2025 carry assessment_status,events,cases,statuses,scored_fires,entries. Full-cohort supplement requires COMPLETE,6/4 events,273/33 cases, exactly SCORED counts273/33,6/4 scored_fires and positive entries, verified per cohort; otherwise that cohort supplement remains null/unavailable. Primary scientific HOLD does not block a complete supported cohort. Do not require a primary-superiority true value."
+  },
+  "root_actual_authorization": {
+    "receipt_version": "wfg.current-descriptive-interval-authorization/1",
+    "status": "AUTHORIZED_SAVED_OUTPUT_ONLY",
+    "required_fields": [
+      "receipt_version",
+      "status",
+      "issued_utc",
+      "method_protocol_sha256",
+      "prerequisite_spec_sha256",
+      "freeze_commit",
+      "canonical_review_source_head",
+      "model_root",
+      "run_relative_path",
+      "supplement_source",
+      "independent_source_review",
+      "canonical_bindings",
+      "prerequisite_receipts",
+      "frozen_files_sha256",
+      "input_artifacts_sha256",
+      "allowed_cohorts",
+      "model_order",
+      "allowed_actions",
+      "prohibited_actions",
+      "checker_sources",
+      "output_relative_directory"
+    ],
+    "fixed_values": {
+      "method_protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+      "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+      "allowed_cohorts": [
+        "us2024",
+        "korea2025"
+      ],
+      "allowed_actions": [
+        "READ_AUTHENTICATED_CANONICAL_SAVED_OUTPUTS",
+        "COMPUTE_FIXED_DESCRIPTIVE_INTERVALS",
+        "WRITE_SEPARATE_SUPPLEMENT_ARTIFACTS"
+      ],
+      "prohibited_actions": [
+        "MODEL_INFERENCE",
+        "MODEL_SELECTION",
+        "PRIMARY_RULE_OR_OUTPUT_CHANGE",
+        "FROZEN_223_FILE_CHANGE",
+        "FUTURE_2026_EXECUTION",
+        "DEFAULT_PROMOTION",
+        "MERGE"
+      ]
+    },
+    "identity_object": "Every identity is an object with exactly path and sha256; sha256 lowercase64hex. Paths for canonical/artifact/production source identities are repository-relative, normalized and contained in model_root. Trusted review/checker/protocol copies may be bundled byte-for-byte under separate supplement evidence. Reject traversal/duplicate JSON keys/nonfinite JSON values and wrong scalar types.",
+    "canonical_bindings": "Mapping with keys results,selection,registry,assessments,frozen_assessments,figures. First3 are identities. assessments/frozen_assessments have us2024 and korea2025 identities. figures maps exact canonical5 names to png/svg identities. All current bytes must match; no overwrite.",
+    "prerequisite_receipts": "Object with exactly census and canonical_result identities. Their exact bytes/hashes and required/cross-bound fields above must validate. Separate checker source copies also have to match the fixed source hashes.",
+    "source_bindings": "supplement_source and independent_source_review are identities. Current executing candidate source bytes must match supplement_source. Root pins the completed independent source-review artifact; do not replace it with a caller boolean.",
+    "frozen_files_sha256": "Exactly the223 path:sha256 pairs from authenticated root FREEZE_PARENT_VERIFICATION.json verified_file_sha256; preserve all current bytes and compare before/after. Expected root proof file SHA1e9def628deb2e7f1035aea691c39f8acf27f606bcdccffd0e6d3dff4f344db6.",
+    "input_artifacts_sha256": "Exact path:sha256 mapping for every consumed saved canonical artifact, including all consumed per-fire files, assessment/frozen JSON, canonical result, prerequisite/source-review receipts and protocol/spec. Verify all before numerical loads and after; existing independent canonical result receipt already authenticates case-to-fire alignment. Do not consume any unlisted scientific artifact.",
+    "trust_boundary": "The outer authorization file digest must equal an independently supplied expected SHA from root trusted task message/command or immutable published root record. The authorization body cannot supply its own expected hash. A caller boolean is never sufficient. A hash is custody of bytes, not cryptographic proof of author identity or reviewer independence. This is the explicit orchestration trust boundary.",
+    "unavailable_rule": "A full306 membership receipt can include honest failures. After authenticating both receipts, reject complete-supplement computation only for the affected incomplete-scoring cohort and write its explicit unavailable/null result; never silently compute its available subset, never cancel the other complete cohort.",
+    "checker_sources": "Exactly census and canonical_result identities; verify current copied checker bytes against both their declared SHA and the two hardcoded original source hashes above.",
+    "output_relative_directory": "A normalized repository-relative directory under research/forecast-v2/supplements/. It must not exist before the actual run; create exclusively and refuse symlink/path escape or overlap with any source/input/canonical/frozen protected path. Write only new separate supplement artifacts there. Set PYTHONDONTWRITEBYTECODE=1 for the actual command."
+  },
+  "graph_evidence": {
+    "canonical_checker_project": "wfg-next-independent-results-20261030",
+    "canonical_generation": "2026-10-30T13:27:37Z",
+    "symbols_read": [
+      "check_census.reconcile",
+      "check_census.validate",
+      "check_census.main"
+    ],
+    "coverage": "check_results.py metadata_match/no recorded issue",
+    "census_project": "wfg-next-census-receipt-20261031",
+    "census_generation": "2026-10-30T17:13:36Z",
+    "coverage_census": "check_census.py metadata_match/no recorded issue; cohort_census child output keys delegated for exact source read",
+    "scope": "Receipt fields/source only; no current study result, NPZ, metric or model loaded."
+  }
+}

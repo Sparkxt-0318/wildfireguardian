@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/assessment-driver-review/driver_v2.py",
+      "archive": "assessment-driver-ad94-review/driver_v2.py",
+      "bytes": 5368,
+      "sha256": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/assessment-driver-review/OBSERVED_US_COMMAND.json",
+      "archive": "assessment-driver-ad94-review/OBSERVED_US_COMMAND.json",
+      "bytes": 1046,
+      "sha256": "c539e7ab932fb270e48fdb85e80be27eedb2427d09bc0c8b54cb43b213e57f74"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/assessment-driver-review/REVIEW.json",
+      "archive": "assessment-driver-ad94-review/REVIEW.json",
+      "bytes": 2185,
+      "sha256": "65d967d77bc62f60b856a6697b2e1fc08b56d41e991da2856b5b77325707d762"
+    }
+  ],
+  "state": "ROOT_SCOPED_STATIC_DRIVER_AND_SINGLE_US_ARGV_PASS",
+  "driver_sha256": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+  "matches_completed_start_receipt_source_hash": true,
+  "scope": "Rootreadcompleteexecutingdriver2moduleandoneUSprocessargvonly. OrderedUSthenKR,nonzerochildexitsretained,223before/aftercustody, frozenregistry/data/run, noouterHEAVYlease. Readinessarchives/hashesonly, nodeducedkernelacquisitionoractualdriverreplay.",
+  "source_graph_context_from_root": {
+    "project": "wfg-next-assessment-driver-ad94-20261030",
+    "generation": "2026-10-30T14:09:33Z",
+    "coverage": "metadata_match, no recorded gap; zero function nodes because control flow is module-level; entire module read directly"
+  },
+  "module_level_control_flow_no_function_nodes": "Rootuseddirectfullsourcefallback; nonewstructuralclaimbyreadiness",
+  "driver_executed_by_reviewer_or_readiness": false,
+  "actual_model_array_label_metric_access": false,
+  "B_driver_provenance_reference_reported": "f5441481:driver1unexecuted/driver2executing; optionalBmetadataarchivenotcopied",
+  "partial_output_reference_reported": "e9259dacfirst20durableoutputsPARTIAL_CASE_OUTPUTS_ONLY_NO_COHORT_RESULT; noactualoutputsopened/copied"
+}

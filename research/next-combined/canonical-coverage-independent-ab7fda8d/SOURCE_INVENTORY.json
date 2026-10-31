@@ -1,0 +1,62 @@
+{
+  "state": "SOFTWARE_MEMBERSHIP_PASS_WITH_SCOPE",
+  "source_head": "ab7fda8d9d0a87df95c05406ae4505eccff52aac",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/live-coverage-independent-review/REVIEW.md",
+      "archive": "canonical-coverage-independent-ab7fda8d/REVIEW.md",
+      "bytes": 7987,
+      "sha256": "ac702774b2cd11905f26da9edf61f597e39a777ef484a123d341ac25d5026451"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/live-coverage-independent-review/check_live.py",
+      "archive": "canonical-coverage-independent-ab7fda8d/check_live.py",
+      "bytes": 18197,
+      "sha256": "e1a124359570f0cb2960986858db5a66d46231d712b3b173cfad8583df7030b2"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/live-coverage-independent-review/CHECKS.json",
+      "archive": "canonical-coverage-independent-ab7fda8d/CHECKS.json",
+      "bytes": 1374709,
+      "sha256": "f360b6bf16270b900026104c0efc1d115c7a9229cbe5285e648f4faa6f62b155"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/live-coverage-independent-review/CHECKS.log",
+      "archive": "canonical-coverage-independent-ab7fda8d/CHECKS.log",
+      "bytes": 472,
+      "sha256": "3896b196e8461edf3d80b9b3d1cf88c06bd87bf8769bd2de99cb1352737d7744"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/live-coverage-independent-review/MANIFEST.json",
+      "archive": "canonical-coverage-independent-ab7fda8d/MANIFEST.json",
+      "bytes": 342,
+      "sha256": "57d4a6c8c72a91efcc746104fbaef4907912326da2e2f0fcd07ee4bc89b0818f"
+    }
+  ],
+  "correlated_metadata_custody_predicates": 9841,
+  "passed": 9841,
+  "not_independent_scientific_samples": true,
+  "source_window_evidence": "Saved canonical receipt attests unchanged three critical sources and 201 gate sources; independently rehashed current61 and201 maps, not independently observed both historical runtime bookends.",
+  "canonical_vs_provisional_changes": [
+    {
+      "path": "/source_sha256/research/forecast-v2/scripts/audit_fit_coverage.py",
+      "old": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+      "new": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536"
+    }
+  ],
+  "scope": "Otherindependentreviewofsavedcanonicalmetadata/custody andcurrent61/201sourcebytes. Historicalruntimebookendsattestedbyownersavedreceipt, notindependentlyobservedatbothruntimeendpoints. No actualarray/cache-value/member/modelreplay or scientificsafety/qualityclearance.",
+  "readiness_action": "Exactclosedreview/script/JSON/log/manifestarchiveandhashcheckonly, no rerun",
+  "development_phases": 21,
+  "final_variants": 7,
+  "pure_final_updates_per_epoch": 1303,
+  "mixed_final_per_epoch": {
+    "attempted": 4391,
+    "updates": 4376,
+    "logged_skips": 15
+  },
+  "historical_pure_IDs": "SOURCE_DERIVED_NOT_RUNTIME_OBSERVED",
+  "mixed_optimized_IDs": "ATTEMPTS_MINUS_LOGGED_SKIPS_NOT_SEPARATE_OPTIMIZER_ID_LOG",
+  "support_envelopes": "SOURCE_DERIVED_NOT_PER_OPTIMIZER_MASK_REPLAY",
+  "active_freeze_outputs_opened": false,
+  "inference_authorized": false
+}

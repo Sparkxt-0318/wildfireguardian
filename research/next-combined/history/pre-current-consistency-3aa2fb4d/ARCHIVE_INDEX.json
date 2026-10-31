@@ -1,0 +1,36 @@
+{
+  "source_commit": "3aa2fb4d733605801bfa0c2e17d3a4c189f137b0",
+  "scope": "ExactpriorCURRENT prose/GATES/method/generator beforetime-scopingolderauditlimitsandcorrectingcurrent6887admission",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 36350,
+      "sha256": "1a7249bc7c070a775bd73c4d17caad7162a6a09f5b286c49f8fa24e003c28417"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 69541,
+      "sha256": "993102c89e91bd17eb856285cc95f33b03186617420f7f1ab2836cbd2f4b5146"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 69541,
+      "sha256": "993102c89e91bd17eb856285cc95f33b03186617420f7f1ab2836cbd2f4b5146"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 60087,
+      "sha256": "ece9f26f6bd1e114d554eaecf929adce83fc81813c71b329e3f62a4b6ec9269b"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 40532,
+      "sha256": "eb60e087232aea0e0bc472457947ccde7f9bd53fef0c453d3dc0b17d335c0f98"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 100017,
+      "sha256": "6c019d3f33f58b2aa03276f734b7bbcc5b02e4ba040d58d549cda1343db95a3e"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+CASES_TYPE list
+{
+  "scope": "Bounded independent saved-output/source/control/receipt audit; no planner or model rerun; recheck receipts verified, geometric witnesses not replayed.",
+  "review_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
+  "source_phase_head": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "checks": [
+    {
+      "name": "immutable_review_head",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_fixed320_schedule",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_korean_case_membership",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "protocol_and_producer_pins",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_source_prior_evidence_phase_and_current_bytes",
+      "passed": true,
+      "detail": {
+        "pins": 41,
+        "bad": [],
+        "phase_mismatch": []
+      }
+    },
+    {
+      "name": "source_phase_identity_all_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_output_manifest",
+      "passed": true,
+      "detail": {
+        "count": 339,
+        "actual": 339
+      }
+    },
+    {
+      "name": "independent_original115_file_custody",
+      "passed": true,
+      "detail": {
+        "files": 115,
+        "bytes": 82454885
+      }
+    },
+    {
+      "name": "preflight_bound_receipt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all320_raw_job_payloads_match_ledger",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bounded_child_control_all320",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "serialized_nonoverlapping_lease_receipts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unknown_endpoints224_null_solver_costs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "72checked24restricted96search_records",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_original_requests_history_firstK_indices_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_contact_only_claim_boundaries",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "72_separate_rechecks_match_original_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "72_rechecks_all_K_members_full_dwell_finite_horizon",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "160_pairs_exact_rederived_outcomes",
+      "passed": true,
+      "detail": {
+        "BOTH_PRESEARCH_UNSUPPORTED_ENDPOINTS": 112,
+        "MATCHED_CHECKED_CONTACT_ARRIVAL": 36,
+        "MATCHED_RESTRICTED_EXHAUSTION": 12
+      }
+    },
+    {
+      "name": "same_pair_sources_barriers_and_repeat_counters",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_analysis_headlines_rederived",
+      "passed": true,
+      "detail": {
+        "record_count": 320,
+        "pairs": 160,
+        "missions": 20,
+        "execution_statuses": {
+          "UNRESOLVED_RESTRICTED_SUPPORT": 248,
+          "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT": 72
+        },
+        "pair_verdicts": {
+          "BOTH_PRESEARCH_UNSUPPORTED_ENDPOINTS": 112,
+          "MATCHED_CHECKED_CONTACT_ARRIVAL": 36,
+          "MATCHED_RESTRICTED_EXHAUSTION": 12
+        },
+        "unsupported_endpoint_missions": 14,
+        "unsupported_endpoint_records": 224,
+        "search_started_records": 96,
+        "checked_route_records": 72,
+        "independent_original_data_rechecks_passed": 72,
+        "joint_checked_search_pairs": 36,
+        "joint_complete_search_pairs": 48,
+        "median_planner_ratio_sipp_over_sweep": 0.5611112819152877,
+        "median_complete_child_ratio_sipp_over_sweep": 0.6715735321753618,
+        "sipp_slower_planner_pairs": 0,
+        "max_complete_child_wall_s": 5.520812332979403,
+        "max_reported_child_peak_rss_mib": 454.4375
+      }
+    },
+    {
+      "name": "execution_csv_identity_outcomes_costs",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "checks_passed": 22,
+  "checks_total": 22,
+  "failures": [],
+  "rederived": {
+    "record_count": 320,
+    "pairs": 160,
+    "missions": 20,
+    "execution_statuses": {
+      "UNRESOLVED_RESTRICTED_SUPPORT": 248,
+      "CHECKED_CONTACT_ROUTE_WITHIN_KNOWN_FOOTPRINT": 72
+    },
+    "pair_verdicts": {
+      "BOTH_PRESEARCH_UNSUPPORTED_ENDPOINTS": 112,
+      "MATCHED_CHECKED_CONTACT_ARRIVAL": 36,
+      "MATCHED_RESTRICTED_EXHAUSTION": 12
+    },
+    "unsupported_endpoint_missions": 14,
+    "unsupported_endpoint_records": 224,
+    "search_started_records": 96,
+    "checked_route_records": 72,
+    "independent_original_data_rechecks_passed": 72,
+    "joint_checked_search_pairs": 36,
+    "joint_complete_search_pairs": 48,
+    "median_planner_ratio_sipp_over_sweep": 0.5611112819152877,
+    "median_complete_child_ratio_sipp_over_sweep": 0.6715735321753618,
+    "sipp_slower_planner_pairs": 0,
+    "max_complete_child_wall_s": 5.520812332979403,
+    "max_reported_child_peak_rss_mib": 454.4375
+  },
+  "inputs_sha256": {
+    "research/sipp-routing/known-footprint-contact-K-20261030/EXECUTIONS.jsonl": "131f9acf6a1581308004fa506b98f0358dab971717036db46f0a47f6486b1d77",
+    "research/sipp-routing/known-footprint-contact-K-20261030/ANALYSIS.json": "13fdd2d2fd8e60fcc50d9a6048294c787d3e99cd79bbc4f5d83920efc0853090",
+    "research/sipp-routing/known-footprint-contact-K-20261030/OUTPUT_SHA256.json": "aaca69d7f3b983ec2dce827cbafa46defa7c35d1655dc41906f1bec72dfc3ca7",
+    "research/sipp-routing/run_known_footprint_campaign.py": "0d42c962c399f4b073e789d868778d2b78f64a2c6ea88e98cd83c5518023abf3",
+    "research/sipp-routing/analyze_known_footprint_campaign.py": "c1cab6091a43694f94a8d329dd9469a6b1b1498833b5726798578fbd8e098d3e"
+  }
+}

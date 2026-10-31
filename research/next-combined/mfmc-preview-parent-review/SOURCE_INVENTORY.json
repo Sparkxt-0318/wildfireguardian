@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/CANONICAL_ARGV_ANCHOR_PARENT.json",
+      "archive": "mfmc-preview-parent-review/CANONICAL_ARGV_ANCHOR_PARENT.json",
+      "bytes": 423,
+      "sha256": "8178b05b5c0ef8de5dc5a6e4b9572230b109229c9a78f62030a3e99dad28202f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/mfmc-final-independent-review/ACTUAL_PREVIEW_VISUAL_QA.json",
+      "archive": "mfmc-preview-parent-review/ACTUAL_PREVIEW_VISUAL_QA.json",
+      "bytes": 1090,
+      "sha256": "2af35bef94833b574aee02860531a185b5cdca2bf53746224710b68f03b6e0c1"
+    }
+  ],
+  "production_argv_anchor": "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803",
+  "actual12_equal_except_index": true,
+  "visual_scope": "Parentrecordedactualcomparisonpreviewonly,1050x720at300dpi; notfinalfivefigureQA orrawfield/modelvalidation. Readiness archivesQAmetadataandfigurepins withoutnewvisualreview orimagepayloadcopy.",
+  "actual_preview_images_copied": false,
+  "final_5figure_QA": "NOT_RUN",
+  "readiness_rerun": false
+}

@@ -1,0 +1,31 @@
+{
+  "repair_head": "ff5b3b73345fe74cc3d5a6219b40b86b6b6a358e",
+  "files": {
+    "INITIAL_HARNESS_NOTE.json": {
+      "sha256": "45ae417a431ba3593fbf7dfe6b903e66860fe0729aeb63fdd456904ad7ef520b",
+      "bytes": 361
+    },
+    "recheck_ff5b3b73.json": {
+      "sha256": "7ca16436a2600e2a79a0b5e7224cbf820a362764c130574ac16b6c6e9287ea77",
+      "bytes": 1558
+    },
+    "recheck_ff5b3b73.py": {
+      "sha256": "2b5131c531908f1eaea53fccd28fbc659fcc12b6f08e322fb46763e3231f0ff6",
+      "bytes": 4049
+    },
+    "recheck_ff5b3b73_initial.py": {
+      "sha256": "cbe7dcec8dc1b4cad8ad452679481aff9635148e74cf75e03065af59fa843d5f",
+      "bytes": 4039
+    },
+    "repro_8ab690ce.json": {
+      "sha256": "3f5039e5a40c10b1163ed42e7e9c0c425337c85161cedc388bf796b1e8fddd31",
+      "bytes": 650
+    },
+    "repro_8ab690ce.py": {
+      "sha256": "31ca5c93759413cc6ccca4dbc249198886287be6ab5ffd186b79bd03d00c9373",
+      "bytes": 1250
+    }
+  },
+  "source_status_sha256": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d",
+  "scope": "Original empty-map vacuous-truth report-only AST finding retained, parent13/13tiny status/delegation/bookkeeping repair controls, initial/varfixture adaptation and owner14scope distinct. No actual registry freeze, study/model inspection or rerun here."
+}

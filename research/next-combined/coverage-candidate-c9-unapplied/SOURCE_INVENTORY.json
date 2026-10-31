@@ -1,0 +1,19 @@
+{
+  "state": "HISTORICAL_FAILED_CANDIDATE_UNAPPLIED_UNAPPROVED",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/SOURCE_RECIPE_REPAIR.patch",
+      "archive": "coverage-candidate-c9-unapplied/SOURCE_RECIPE_REPAIR.patch",
+      "bytes": 18924,
+      "sha256": "0d01e73448f3470e6ea5d6693fd2ca1b24be5f04d8905d62a8f4a6dc16c82b88"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/coverage-actual-recipe-repair/SOURCE_RECIPE_REPAIR.json",
+      "archive": "coverage-candidate-c9-unapplied/SOURCE_RECIPE_REPAIR.json",
+      "bytes": 3757,
+      "sha256": "90586f8dd5da874779571a14f2e167ebf16311795c7a5af87e0547332437ea6c"
+    }
+  ],
+  "skipped": [],
+  "limits": "Old116boundedowner tests and28source-only positives do not clear independent53/48failure, helperv2 or actual whole-data audit. No changingv2 read, no source patch applied, no tests rerun."
+}

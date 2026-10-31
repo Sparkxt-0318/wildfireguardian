@@ -1,0 +1,20 @@
+..............................F
+=================================== FAILURES ===================================
+_ test_known_legacy_cache_loader_matches_only_for_authenticated_complete_values _
+
+recipe = (<module 'recipe_compatibility_fixture' from '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-reposi...command_heldout,\n         compare=command_compare)[args.command](args)\n\n\nif __name__ == "__main__":\n    main()\n')
+tmp_path = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-112/test_known_legacy_cache_loader0')
+
+    def test_known_legacy_cache_loader_matches_only_for_authenticated_complete_values(recipe, tmp_path):
+        import pickle
+        from wildfire.survival import PerimeterSample
+        F, current = recipe
+>       sample = PerimeterSample('SYNTHETIC', '2020-01-01T00:00:00Z', 1., np.ones((2,2,2)), np.zeros((2,2),bool),
+                                 np.zeros((2,2),bool), np.ones((2,2),bool), np.ones((2,2)))
+E       TypeError: PerimeterSample.__init__() missing 1 required positional argument: 'initial_age_hours'
+
+forecast/tests/test_source_recipe_compatibility.py:283: TypeError
+=========================== short test summary info ============================
+FAILED forecast/tests/test_source_recipe_compatibility.py::test_known_legacy_cache_loader_matches_only_for_authenticated_complete_values
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 30 passed in 1.49s

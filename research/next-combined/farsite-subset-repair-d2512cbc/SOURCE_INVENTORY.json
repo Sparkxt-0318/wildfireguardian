@@ -1,0 +1,31 @@
+{
+  "source_head": "d2512cbcc2debc1b00074c99efb329089823549e",
+  "files": {
+    "REVIEW_SHA256.json": {
+      "sha256": "9c4b9b9eab4d10527b9b4f8029089d6247cf557d2cc29adde6372965a393d3c3",
+      "bytes": 442
+    },
+    "REVIEW_d2512cbc.md": {
+      "sha256": "9964b8e165b28b4cec9778d0fc01ed5b1d54ceee86b53d8a2a693a6f7a5795a0",
+      "bytes": 3011
+    },
+    "owner_41_tests.log": {
+      "sha256": "59a819ceee5ac215b80e4ab46086afdd7af9a6077fea95dda44724266a37829f",
+      "bytes": 99
+    },
+    "recheck.json": {
+      "sha256": "80c752bb937566b753f6ecbf49befef38a62049c579c6fd940cbde2e2ccd6de4",
+      "bytes": 3345
+    },
+    "recheck.log": {
+      "sha256": "24615cc5a66a69adc03e0ca45a807d553a780556b4a16e38bfdf6889f8487f44",
+      "bytes": 3463
+    },
+    "recheck.py": {
+      "sha256": "e8007b1db7cb2451276177bc71cd00f4bddd0e3ed843d3eaecc2f218e2b7a22b",
+      "bytes": 6494
+    }
+  },
+  "audit_tool_git_sha256": "6edb769fbcb9a7977e2689f7de337ed327feabd5dadd9983f3cec3443e04a6db",
+  "scope": "Independent22synthetic two-gap repair/custody/SPLIT/duration controls plus separate41owner suite; actual source/model verifier mocked at unchanged identity boundary. Exact archive/codehash verification only, no rerun or actual model/input/quality/native inspection. All original6ae failures remain unchanged."
+}

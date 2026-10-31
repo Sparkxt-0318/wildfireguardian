@@ -1,0 +1,47 @@
+{
+  "status": "PREPARED_NOT_ACTUAL_REVIEW_AUTHORIZATION",
+  "prepared_utc": "2026-10-30T23:48:45.972609+00:00",
+  "authorization_sha256": "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc",
+  "canonical_map_sha256": "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803",
+  "producer_source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "method_protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+  "prerequisite_spec_sha256": "0dffd934920b72b0eac36d83dc1b7950b818e039c25264874e59d161a08b04fb",
+  "files_sha256": {
+    "review_math.py": "21a2d02e586f59047a29219e5aa2970163cbd1df0a3c7a9d56f66648d0c9ab84",
+    "review_actual.py": "b54acdb80ef8c37aeaf8a75c897a7a4d034d7af075a63743c5c389d708db7813",
+    "test_review_preparation.py": "8a3edfa030c840cad42a321af6513652d5480166e1dbb9a2312b43c25efcb5bc"
+  },
+  "synthetic_test_log_sha256": "43f313477bd2562c9d2d39d539723a57a1589255a75284d22c4d1c8c49e4dc07",
+  "synthetic_controls_passed": 22,
+  "preparation_report_sha256": "48e9ab07655d735635170f147f9e881c89b780ffa72987e64a9856a3ef9545f1",
+  "actual_study_array_access": false,
+  "actual_supplement_review": "NOT_RUN_PENDING_COMPLETION_AND_ROOT_FOLLOWUP",
+  "literal_models": [
+    "c651_mc",
+    "d4_wind_seed0",
+    "logistic"
+  ],
+  "literal_multiplicities": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      3,
+      0,
+      1,
+      0,
+      1,
+      1
+    ]
+  ],
+  "limits": [
+    "No actual receipt/metric/array decoded in preparation",
+    "Actual raw review requires producer completion and root followup",
+    "No KR NPZ decode; case-to-fire prediction equality additionally relies on authenticated prior87eb audit"
+  ]
+}

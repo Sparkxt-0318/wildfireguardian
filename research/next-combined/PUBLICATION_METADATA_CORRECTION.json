@@ -1,0 +1,15 @@
+{
+  "record_kind": "Explicit publication metadata correction, no numerical/source/review data change",
+  "root_confirmed_published_B_head": "473c8da0a6f428006b67210253ba257ff163cb34",
+  "root_push_exit_code": 0,
+  "PR88_root_verified_state": "OPEN_DRAFT",
+  "PR88_CI_at_root_confirmation": "RUNNING",
+  "previous_actual_remote_B_head_until_this_push": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "local_render_content_ancestor": "f759f2e9c53749bad39165b8441209c398bcbf60",
+  "correction": "f759 was a local publication-render content head and was never pushed directly by root. Older current summaries mistakenly called it published; their exact bytes remain in history. The first later confirmed root push is473, which containsf759 as an ancestor.",
+  "older_mistaken_wording_preserved": "history/pre-publication-correction-ced8bc81/ARCHIVE_INDEX.json",
+  "A_published_unchanged": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+  "C_published_unchanged": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
+  "child_publication": false,
+  "scientific_evidence_affected": false
+}

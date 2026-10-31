@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/provisional_coverage_F65/PREFLIGHT_RECEIPT.json",
+      "archive": "coverage-provisional-evidence-F65/PREFLIGHT_RECEIPT.json",
+      "bytes": 16467,
+      "sha256": "6df0eaf4f3daf6e67c3cbe3c0cf7e5cd85f5498d1bf7e26fa19f66ceccedf8e7"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/provisional_coverage_F65/COVERAGE_PROVISIONAL.json",
+      "archive": "coverage-provisional-evidence-F65/COVERAGE_PROVISIONAL.json",
+      "bytes": 6981273,
+      "sha256": "12ed2aae675e78a355312c24d56fd2183b313c0238c3de8a2723964e71c3bbd6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/provisional_coverage_F65/candidate_raw.json.gz",
+      "archive": "coverage-provisional-evidence-F65/candidate_raw.json.gz",
+      "bytes": 1969105,
+      "sha256": "5a45558a5b32c1a2350e52871fb010c828757c82c6e5bbee2e05efdf45987b29"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/provisional_coverage_F65/PREFLIGHT.log",
+      "archive": "coverage-provisional-evidence-F65/PREFLIGHT.log",
+      "bytes": 306,
+      "sha256": "a5e4ae58a2fd525ddc220090fe3547b7b0cb3ef34d3404d24c610f24f01bdfd0"
+    }
+  ],
+  "readiness_action": "Fourartifact exacthashes/copy, receipt/wrapper savedmetadata identity and61before-aftermap equality only. Rawgzip retained as compressedbytes; no decompression or member/cache array replay by readiness.",
+  "executed_auditor_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "executed_source_archive": "coverage-recipe-v2-review-65a79178/guard_under_review.py",
+  "checked_live_auditor_dependency_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+  "identities_not_interchangeable": true,
+  "raw_uncompressed_sha256_reported_and_checked_by_other_independent_reviewer": "fe69aac33e242197e3e0fabfe141f5e4deb7a8684945b8ec9625d8cf30f395f8",
+  "raw_uncompressed_rehashed_by_readiness": false,
+  "owner_provisional_actual_exit_code": 0,
+  "owner_elapsed_seconds": 18.097600333043374,
+  "acquired_utc": "2026-10-30T11:57:25.567718+00:00",
+  "finished_utc": "2026-10-30T11:57:43.667672+00:00",
+  "elapsed_is_performance_evidence": false,
+  "owner_provisional_phase_counts": {
+    "development": 21,
+    "final": 7
+  },
+  "exposed_wrapper_status": "PROVISIONAL_NOT_FOR_REGISTRY",
+  "raw_candidate_status": "PASS_COMPLETE_FIT_MEMBERSHIP",
+  "wrapper_nonadmission_tested": true,
+  "raw_nonadmission_tested": false,
+  "old_actual_hold_preserved": true,
+  "canonical_live_coverage": "HOLD_NOT_ADMITTED",
+  "selection_registry_heldout": "NOT_RUN",
+  "auditor_or_review_script_executed_by_readiness": false,
+  "actual_arrays_models_quality_data_accessed": false
+}

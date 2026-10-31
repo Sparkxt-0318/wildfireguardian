@@ -1,0 +1,92 @@
+{
+  "scope": "small pure-interface fixtures only, no campaign or routing integration",
+  "track_head": "393f37748acb17bee8182980d7ae47435ab39d4d",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "audit_script_sha256": "eab6af58e535f187f65fad95cac593312b4fdda3110516c54a7c6daeade6b774",
+  "source_sha256": {
+    "experimental/scenario-members/src/wfg_scenario_members/acceptance.py": "a016249614203d6de200c7984eebf99aede21de73ad5ac1e7f94c9ef29fd6021",
+    "experimental/scenario-members/src/wfg_scenario_members/decision.py": "112dc7e42696e10744a03b55b38861dfd267b949f97758de92334ec60610d654",
+    "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "2c3f949d7c007a578950842c97ca1a4f12704a5c6f81c630108ec2302fe09709"
+  },
+  "observations": [
+    {
+      "id": "unknown_mass_not_assumed_pass",
+      "expected": "unresolved",
+      "observed": "unresolved",
+      "pass": true
+    },
+    {
+      "id": "known_mass_suffices_without_unknown",
+      "expected": "checked_route",
+      "observed": "checked_route",
+      "pass": true
+    },
+    {
+      "id": "insufficient_possible_mass_rejects_candidate_only",
+      "expected": "rejected_candidate",
+      "observed": "rejected_candidate",
+      "pass": true
+    },
+    {
+      "id": "union_exhaustion_all",
+      "expected": "model_no_route",
+      "observed": "model_no_route",
+      "pass": true
+    },
+    {
+      "id": "union_exhaustion_k_of_m",
+      "expected": "unresolved",
+      "observed": "unresolved",
+      "pass": true
+    },
+    {
+      "id": "known_contact_overrides_inconsistent_pass",
+      "expected": "reject inconsistent evaluator or retain false_safe=true",
+      "observed": {
+        "state": "RETURNED",
+        "false_safe": false,
+        "false_refusal": false,
+        "regret_s": 1
+      },
+      "pass": false
+    },
+    {
+      "id": "passing_truth_route_contradicts_no_route_oracle",
+      "expected": "reject inconsistent oracle",
+      "observed": {
+        "state": "RETURNED",
+        "false_safe": false,
+        "false_refusal": false,
+        "regret_s": null
+      },
+      "pass": false
+    },
+    {
+      "id": "nonfinite_clairvoyant_arrival",
+      "expected": "reject nonfinite arrival",
+      "observed": {
+        "state": "RETURNED",
+        "false_safe": false,
+        "false_refusal": false,
+        "regret_s": "NaN"
+      },
+      "pass": false
+    },
+    {
+      "id": "finite_weight_normalization_overflow",
+      "expected": "15 or explicit rejection",
+      "observed": 0.0,
+      "pass": false
+    }
+  ],
+  "checks": 9,
+  "passed": 5,
+  "status": "FAIL_TARGETED_INTERFACES",
+  "not_established": [
+    "calibration",
+    "physical correctness",
+    "risk-campaign completion",
+    "whole-road guarantee"
+  ]
+}

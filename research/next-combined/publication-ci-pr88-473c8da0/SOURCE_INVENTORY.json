@@ -1,0 +1,13 @@
+{
+  "scope": "Exact completed root GitHub PR88 snapshot, local archive/hash verification only. No new network query or CI execution by readiness. SourceJSON has no capture timestamp; archive verification time and latest check completion remain distinct.",
+  "readiness_archive_verified_utc": "2026-10-31T00:23:54.478241+00:00",
+  "source_capture_timestamp": "NOT_RECORDED_IN_SOURCE_JSON",
+  "latest_reported_check_completion_utc": "2026-10-31T00:19:00Z",
+  "files": [
+    {
+      "path": "ROOT_GH_SNAPSHOT.json",
+      "bytes": 2519,
+      "sha256": "8785fe7023b98dc7422ca1d341f258430790fca608da7bb2055db9ddc1945f76"
+    }
+  ]
+}

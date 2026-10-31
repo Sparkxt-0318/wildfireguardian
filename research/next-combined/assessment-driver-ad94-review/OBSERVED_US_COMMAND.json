@@ -1,0 +1,7 @@
+{
+  "observed_utc": "2026-10-30T14:09:31.902023+00:00",
+  "scope": "Live process argv observation only, no prediction/label/quality data",
+  "pid": 89416,
+  "command_text": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/score_cohorts.py --cohort us2024 --data /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2 --work /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/campaign-work --run /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/runs/20261030_perimeter_trained/execution_v3 --registry /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/BLIND_REGISTRY.json",
+  "driver_sha256": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f"
+}

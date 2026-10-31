@@ -1,0 +1,968 @@
+{
+  "case_count": 33,
+  "case_ids": [
+    "989dc0c445003b545aa19358",
+    "03c3865e4f85d4c861f6b97a",
+    "051aaf310240ac7da0b0f0ee",
+    "624873ba65ba9353e6cdb18c",
+    "0ebca44172d8722fe7083790",
+    "a5e720cbefe76d5f33e70abc",
+    "4c7fc735b85519bb529c6d44",
+    "a5a85d6cd5c1bf9bb4f132a7",
+    "259e6ef4a99d61c1fd20e6f4",
+    "cbb050bb3796c2846c48559d",
+    "0e21c3c802cd1aa15cd1ab2f",
+    "c93ba58b4d86e7d26b6ec983",
+    "890a2115ad44fc02853355ef",
+    "f8950bc0b81c5edccc6dae80",
+    "23dea0b69a0a65f43384ac65",
+    "fb90596136bd45bc36fa4144",
+    "de5d8f7fd0cc602336397e1f",
+    "1e1d44bf2d77ccd3ff36936b",
+    "d041e6c36cad03ad6d43b2b2",
+    "ea153bb452b8fdb5dc01f754",
+    "7f7b1ee88960652be652af95",
+    "409df862a76e6f496e889f24",
+    "59acd9468ea9aec569be6dc4",
+    "a1941039ae265b71198c717e",
+    "9e8785bb60ff2185133106f1",
+    "acff8c3075646b4f03852f38",
+    "79e70267555fda8a481c716a",
+    "199623f6df1f4261cf68b85a",
+    "0e3cd8dde39e300c643244ae",
+    "70b447997efdee8a8fedf867",
+    "39e983ff369e4af3ecd7428e",
+    "85fb20e91051d5ce66c5601c",
+    "8bc72bdf1794bc280b33bbd4"
+  ],
+  "cases": [
+    {
+      "case": {
+        "cutoff": "2025-03-22T21:00:00+00:00",
+        "endpoint": "2025-03-23T09:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "989dc0c445003b545aa19358"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T09:00:00+00:00",
+        "endpoint": "2025-03-23T21:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "03c3865e4f85d4c861f6b97a"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T21:00:00+00:00",
+        "endpoint": "2025-03-24T09:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "051aaf310240ac7da0b0f0ee"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T09:00:00+00:00",
+        "endpoint": "2025-03-24T21:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "624873ba65ba9353e6cdb18c"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T21:00:00+00:00",
+        "endpoint": "2025-03-25T09:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "0ebca44172d8722fe7083790"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T09:00:00+00:00",
+        "endpoint": "2025-03-25T21:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "a5e720cbefe76d5f33e70abc"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T21:00:00+00:00",
+        "endpoint": "2025-03-26T09:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "4c7fc735b85519bb529c6d44"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-26T09:00:00+00:00",
+        "endpoint": "2025-03-26T21:00:00+00:00",
+        "event": "KFS_01",
+        "hours": 12.0
+      },
+      "case_id": "a5a85d6cd5c1bf9bb4f132a7"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-21T23:00:00+00:00",
+        "endpoint": "2025-03-22T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "259e6ef4a99d61c1fd20e6f4"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-22T11:00:00+00:00",
+        "endpoint": "2025-03-22T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "cbb050bb3796c2846c48559d"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-22T23:00:00+00:00",
+        "endpoint": "2025-03-23T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "0e21c3c802cd1aa15cd1ab2f"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T11:00:00+00:00",
+        "endpoint": "2025-03-23T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "c93ba58b4d86e7d26b6ec983"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T23:00:00+00:00",
+        "endpoint": "2025-03-24T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "890a2115ad44fc02853355ef"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T11:00:00+00:00",
+        "endpoint": "2025-03-24T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "f8950bc0b81c5edccc6dae80"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T23:00:00+00:00",
+        "endpoint": "2025-03-25T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "23dea0b69a0a65f43384ac65"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T11:00:00+00:00",
+        "endpoint": "2025-03-25T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "fb90596136bd45bc36fa4144"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T23:00:00+00:00",
+        "endpoint": "2025-03-26T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "de5d8f7fd0cc602336397e1f"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-26T11:00:00+00:00",
+        "endpoint": "2025-03-26T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "1e1d44bf2d77ccd3ff36936b"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-26T23:00:00+00:00",
+        "endpoint": "2025-03-27T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "d041e6c36cad03ad6d43b2b2"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-27T11:00:00+00:00",
+        "endpoint": "2025-03-27T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "ea153bb452b8fdb5dc01f754"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-27T23:00:00+00:00",
+        "endpoint": "2025-03-28T11:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "7f7b1ee88960652be652af95"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-28T11:00:00+00:00",
+        "endpoint": "2025-03-28T23:00:00+00:00",
+        "event": "KFS_04",
+        "hours": 12.0
+      },
+      "case_id": "409df862a76e6f496e889f24"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-22T16:00:00+00:00",
+        "endpoint": "2025-03-23T04:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "59acd9468ea9aec569be6dc4"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T04:00:00+00:00",
+        "endpoint": "2025-03-23T16:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "a1941039ae265b71198c717e"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-23T16:00:00+00:00",
+        "endpoint": "2025-03-24T04:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "9e8785bb60ff2185133106f1"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T04:00:00+00:00",
+        "endpoint": "2025-03-24T16:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "acff8c3075646b4f03852f38"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-24T16:00:00+00:00",
+        "endpoint": "2025-03-25T04:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "79e70267555fda8a481c716a"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T04:00:00+00:00",
+        "endpoint": "2025-03-25T16:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "199623f6df1f4261cf68b85a"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-25T16:00:00+00:00",
+        "endpoint": "2025-03-26T04:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "0e3cd8dde39e300c643244ae"
+    },
+    {
+      "case": {
+        "cutoff": "2025-03-26T04:00:00+00:00",
+        "endpoint": "2025-03-26T16:00:00+00:00",
+        "event": "KFS_06",
+        "hours": 12.0
+      },
+      "case_id": "70b447997efdee8a8fedf867"
+    },
+    {
+      "case": {
+        "cutoff": "2025-04-29T02:00:00+00:00",
+        "endpoint": "2025-04-29T14:00:00+00:00",
+        "event": "KFS_13",
+        "hours": 12.0
+      },
+      "case_id": "39e983ff369e4af3ecd7428e"
+    },
+    {
+      "case": {
+        "cutoff": "2025-04-29T14:00:00+00:00",
+        "endpoint": "2025-04-30T02:00:00+00:00",
+        "event": "KFS_13",
+        "hours": 12.0
+      },
+      "case_id": "85fb20e91051d5ce66c5601c"
+    },
+    {
+      "case": {
+        "cutoff": "2025-04-30T02:00:00+00:00",
+        "endpoint": "2025-04-30T14:00:00+00:00",
+        "event": "KFS_13",
+        "hours": 12.0
+      },
+      "case_id": "8bc72bdf1794bc280b33bbd4"
+    }
+  ],
+  "cohort": "korea2025",
+  "event_counts": {
+    "KFS_01": 8,
+    "KFS_04": 14,
+    "KFS_06": 8,
+    "KFS_13": 3
+  },
+  "event_metadata": [
+    {
+      "arrival_maximum_hours": 113.0422134399414,
+      "arrival_minimum_hours": 7.225464344024658,
+      "cases": [
+        {
+          "case": {
+            "cutoff": "2025-03-22T21:00:00+00:00",
+            "endpoint": "2025-03-23T09:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "989dc0c445003b545aa19358"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T09:00:00+00:00",
+            "endpoint": "2025-03-23T21:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "03c3865e4f85d4c861f6b97a"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T21:00:00+00:00",
+            "endpoint": "2025-03-24T09:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "051aaf310240ac7da0b0f0ee"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T09:00:00+00:00",
+            "endpoint": "2025-03-24T21:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "624873ba65ba9353e6cdb18c"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T21:00:00+00:00",
+            "endpoint": "2025-03-25T09:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "0ebca44172d8722fe7083790"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T09:00:00+00:00",
+            "endpoint": "2025-03-25T21:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "a5e720cbefe76d5f33e70abc"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T21:00:00+00:00",
+            "endpoint": "2025-03-26T09:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "4c7fc735b85519bb529c6d44"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-26T09:00:00+00:00",
+            "endpoint": "2025-03-26T21:00:00+00:00",
+            "event": "KFS_01",
+            "hours": 12.0
+          },
+          "case_id": "a5a85d6cd5c1bf9bb4f132a7"
+        }
+      ],
+      "end_utc": "2025-03-26T20:00:00+00:00",
+      "event": "KFS_01",
+      "name": "Uiseong",
+      "proposed": [
+        {
+          "cutoff": "2025-03-22T09:00:00+00:00",
+          "elapsed_hours": 6.6,
+          "excluded_reason": "NO_INITIAL_MAPPED_CELL_FROM_TEMPORAL_MINIMUM",
+          "proposed_start_hours": 7.0
+        },
+        {
+          "cutoff": "2025-03-22T21:00:00+00:00",
+          "elapsed_hours": 18.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 19.0
+        },
+        {
+          "cutoff": "2025-03-23T09:00:00+00:00",
+          "elapsed_hours": 30.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 31.0
+        },
+        {
+          "cutoff": "2025-03-23T21:00:00+00:00",
+          "elapsed_hours": 42.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 43.0
+        },
+        {
+          "cutoff": "2025-03-24T09:00:00+00:00",
+          "elapsed_hours": 54.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 55.0
+        },
+        {
+          "cutoff": "2025-03-24T21:00:00+00:00",
+          "elapsed_hours": 66.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 67.0
+        },
+        {
+          "cutoff": "2025-03-25T09:00:00+00:00",
+          "elapsed_hours": 78.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 79.0
+        },
+        {
+          "cutoff": "2025-03-25T21:00:00+00:00",
+          "elapsed_hours": 90.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 91.0
+        },
+        {
+          "cutoff": "2025-03-26T09:00:00+00:00",
+          "elapsed_hours": 102.6,
+          "excluded_reason": null,
+          "proposed_start_hours": 103.0
+        }
+      ],
+      "source_dependencies": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_01/arrival_time_hours.tif"
+      ],
+      "source_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_01/arrival_time_hours.tif",
+      "source_sha256": "fe81f945ddb9dd68f9de27b5865ca12d1a345934540934b723bd66b7d01fa953",
+      "start_utc": "2025-03-22T02:00:00+00:00",
+      "status": "COMPLETE_TIMESTAMP_ONLY_ENUMERATION",
+      "t0_utc": "2025-03-22T02:24:00+00:00",
+      "window_count": 8,
+      "year": 2025
+    },
+    {
+      "arrival_maximum_hours": 179.4085235595703,
+      "arrival_minimum_hours": 5.768784999847412,
+      "cases": [
+        {
+          "case": {
+            "cutoff": "2025-03-21T23:00:00+00:00",
+            "endpoint": "2025-03-22T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "259e6ef4a99d61c1fd20e6f4"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-22T11:00:00+00:00",
+            "endpoint": "2025-03-22T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "cbb050bb3796c2846c48559d"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-22T23:00:00+00:00",
+            "endpoint": "2025-03-23T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "0e21c3c802cd1aa15cd1ab2f"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T11:00:00+00:00",
+            "endpoint": "2025-03-23T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "c93ba58b4d86e7d26b6ec983"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T23:00:00+00:00",
+            "endpoint": "2025-03-24T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "890a2115ad44fc02853355ef"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T11:00:00+00:00",
+            "endpoint": "2025-03-24T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "f8950bc0b81c5edccc6dae80"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T23:00:00+00:00",
+            "endpoint": "2025-03-25T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "23dea0b69a0a65f43384ac65"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T11:00:00+00:00",
+            "endpoint": "2025-03-25T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "fb90596136bd45bc36fa4144"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T23:00:00+00:00",
+            "endpoint": "2025-03-26T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "de5d8f7fd0cc602336397e1f"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-26T11:00:00+00:00",
+            "endpoint": "2025-03-26T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "1e1d44bf2d77ccd3ff36936b"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-26T23:00:00+00:00",
+            "endpoint": "2025-03-27T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "d041e6c36cad03ad6d43b2b2"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-27T11:00:00+00:00",
+            "endpoint": "2025-03-27T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "ea153bb452b8fdb5dc01f754"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-27T23:00:00+00:00",
+            "endpoint": "2025-03-28T11:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "7f7b1ee88960652be652af95"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-28T11:00:00+00:00",
+            "endpoint": "2025-03-28T23:00:00+00:00",
+            "event": "KFS_04",
+            "hours": 12.0
+          },
+          "case_id": "409df862a76e6f496e889f24"
+        }
+      ],
+      "end_utc": "2025-03-28T18:00:00+00:00",
+      "event": "KFS_04",
+      "name": "Sancheong",
+      "proposed": [
+        {
+          "cutoff": "2025-03-21T11:00:00+00:00",
+          "elapsed_hours": 4.566666666666666,
+          "excluded_reason": "NO_INITIAL_MAPPED_CELL_FROM_TEMPORAL_MINIMUM",
+          "proposed_start_hours": 5.0
+        },
+        {
+          "cutoff": "2025-03-21T23:00:00+00:00",
+          "elapsed_hours": 16.566666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 17.0
+        },
+        {
+          "cutoff": "2025-03-22T11:00:00+00:00",
+          "elapsed_hours": 28.566666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 29.0
+        },
+        {
+          "cutoff": "2025-03-22T23:00:00+00:00",
+          "elapsed_hours": 40.56666666666667,
+          "excluded_reason": null,
+          "proposed_start_hours": 41.0
+        },
+        {
+          "cutoff": "2025-03-23T11:00:00+00:00",
+          "elapsed_hours": 52.56666666666667,
+          "excluded_reason": null,
+          "proposed_start_hours": 53.0
+        },
+        {
+          "cutoff": "2025-03-23T23:00:00+00:00",
+          "elapsed_hours": 64.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 65.0
+        },
+        {
+          "cutoff": "2025-03-24T11:00:00+00:00",
+          "elapsed_hours": 76.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 77.0
+        },
+        {
+          "cutoff": "2025-03-24T23:00:00+00:00",
+          "elapsed_hours": 88.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 89.0
+        },
+        {
+          "cutoff": "2025-03-25T11:00:00+00:00",
+          "elapsed_hours": 100.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 101.0
+        },
+        {
+          "cutoff": "2025-03-25T23:00:00+00:00",
+          "elapsed_hours": 112.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 113.0
+        },
+        {
+          "cutoff": "2025-03-26T11:00:00+00:00",
+          "elapsed_hours": 124.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 125.0
+        },
+        {
+          "cutoff": "2025-03-26T23:00:00+00:00",
+          "elapsed_hours": 136.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 137.0
+        },
+        {
+          "cutoff": "2025-03-27T11:00:00+00:00",
+          "elapsed_hours": 148.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 149.0
+        },
+        {
+          "cutoff": "2025-03-27T23:00:00+00:00",
+          "elapsed_hours": 160.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 161.0
+        },
+        {
+          "cutoff": "2025-03-28T11:00:00+00:00",
+          "elapsed_hours": 172.56666666666666,
+          "excluded_reason": null,
+          "proposed_start_hours": 173.0
+        }
+      ],
+      "source_dependencies": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_04/arrival_time_hours.tif"
+      ],
+      "source_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_04/arrival_time_hours.tif",
+      "source_sha256": "bdc0d97eedbb423a12d2f7b998cf9c2e81a5c7f7065187506483043da1cd5abe",
+      "start_utc": "2025-03-21T06:00:00+00:00",
+      "status": "COMPLETE_TIMESTAMP_ONLY_ENUMERATION",
+      "t0_utc": "2025-03-21T06:26:00+00:00",
+      "window_count": 14,
+      "year": 2025
+    },
+    {
+      "arrival_maximum_hours": 104.66495513916016,
+      "arrival_minimum_hours": 1.2055302858352661,
+      "cases": [
+        {
+          "case": {
+            "cutoff": "2025-03-22T16:00:00+00:00",
+            "endpoint": "2025-03-23T04:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "59acd9468ea9aec569be6dc4"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T04:00:00+00:00",
+            "endpoint": "2025-03-23T16:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "a1941039ae265b71198c717e"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-23T16:00:00+00:00",
+            "endpoint": "2025-03-24T04:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "9e8785bb60ff2185133106f1"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T04:00:00+00:00",
+            "endpoint": "2025-03-24T16:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "acff8c3075646b4f03852f38"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-24T16:00:00+00:00",
+            "endpoint": "2025-03-25T04:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "79e70267555fda8a481c716a"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T04:00:00+00:00",
+            "endpoint": "2025-03-25T16:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "199623f6df1f4261cf68b85a"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-25T16:00:00+00:00",
+            "endpoint": "2025-03-26T04:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "0e3cd8dde39e300c643244ae"
+        },
+        {
+          "case": {
+            "cutoff": "2025-03-26T04:00:00+00:00",
+            "endpoint": "2025-03-26T16:00:00+00:00",
+            "event": "KFS_06",
+            "hours": 12.0
+          },
+          "case_id": "70b447997efdee8a8fedf867"
+        }
+      ],
+      "end_utc": "2025-03-26T12:00:00+00:00",
+      "event": "KFS_06",
+      "name": "Ulju",
+      "proposed": [
+        {
+          "cutoff": "2025-03-22T04:00:00+00:00",
+          "elapsed_hours": 0.8,
+          "excluded_reason": "NO_INITIAL_MAPPED_CELL_FROM_TEMPORAL_MINIMUM",
+          "proposed_start_hours": 1.0
+        },
+        {
+          "cutoff": "2025-03-22T16:00:00+00:00",
+          "elapsed_hours": 12.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 13.0
+        },
+        {
+          "cutoff": "2025-03-23T04:00:00+00:00",
+          "elapsed_hours": 24.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 25.0
+        },
+        {
+          "cutoff": "2025-03-23T16:00:00+00:00",
+          "elapsed_hours": 36.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 37.0
+        },
+        {
+          "cutoff": "2025-03-24T04:00:00+00:00",
+          "elapsed_hours": 48.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 49.0
+        },
+        {
+          "cutoff": "2025-03-24T16:00:00+00:00",
+          "elapsed_hours": 60.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 61.0
+        },
+        {
+          "cutoff": "2025-03-25T04:00:00+00:00",
+          "elapsed_hours": 72.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 73.0
+        },
+        {
+          "cutoff": "2025-03-25T16:00:00+00:00",
+          "elapsed_hours": 84.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 85.0
+        },
+        {
+          "cutoff": "2025-03-26T04:00:00+00:00",
+          "elapsed_hours": 96.8,
+          "excluded_reason": null,
+          "proposed_start_hours": 97.0
+        }
+      ],
+      "source_dependencies": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_06/arrival_time_hours.tif"
+      ],
+      "source_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_06/arrival_time_hours.tif",
+      "source_sha256": "1749020a3103cb22970113f48094b54845111897db7d61d1c7abc3f50cbe7fb1",
+      "start_utc": "2025-03-22T03:00:00+00:00",
+      "status": "COMPLETE_TIMESTAMP_ONLY_ENUMERATION",
+      "t0_utc": "2025-03-22T03:12:00+00:00",
+      "window_count": 8,
+      "year": 2025
+    },
+    {
+      "arrival_maximum_hours": 51.21513748168945,
+      "arrival_minimum_hours": 9.019316673278809,
+      "cases": [
+        {
+          "case": {
+            "cutoff": "2025-04-29T02:00:00+00:00",
+            "endpoint": "2025-04-29T14:00:00+00:00",
+            "event": "KFS_13",
+            "hours": 12.0
+          },
+          "case_id": "39e983ff369e4af3ecd7428e"
+        },
+        {
+          "case": {
+            "cutoff": "2025-04-29T14:00:00+00:00",
+            "endpoint": "2025-04-30T02:00:00+00:00",
+            "event": "KFS_13",
+            "hours": 12.0
+          },
+          "case_id": "85fb20e91051d5ce66c5601c"
+        },
+        {
+          "case": {
+            "cutoff": "2025-04-30T02:00:00+00:00",
+            "endpoint": "2025-04-30T14:00:00+00:00",
+            "event": "KFS_13",
+            "hours": 12.0
+          },
+          "case_id": "8bc72bdf1794bc280b33bbd4"
+        }
+      ],
+      "end_utc": "2025-04-30T09:00:00+00:00",
+      "event": "KFS_13",
+      "name": "Buk-gu",
+      "proposed": [
+        {
+          "cutoff": "2025-04-28T14:00:00+00:00",
+          "elapsed_hours": 8.983333333333333,
+          "excluded_reason": "NO_INITIAL_MAPPED_CELL_FROM_TEMPORAL_MINIMUM",
+          "proposed_start_hours": 9.0
+        },
+        {
+          "cutoff": "2025-04-29T02:00:00+00:00",
+          "elapsed_hours": 20.983333333333334,
+          "excluded_reason": null,
+          "proposed_start_hours": 21.0
+        },
+        {
+          "cutoff": "2025-04-29T14:00:00+00:00",
+          "elapsed_hours": 32.983333333333334,
+          "excluded_reason": null,
+          "proposed_start_hours": 33.0
+        },
+        {
+          "cutoff": "2025-04-30T02:00:00+00:00",
+          "elapsed_hours": 44.983333333333334,
+          "excluded_reason": null,
+          "proposed_start_hours": 45.0
+        }
+      ],
+      "source_dependencies": [
+        "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_13/arrival_time_hours.tif"
+      ],
+      "source_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment/regions/KFS_13/arrival_time_hours.tif",
+      "source_sha256": "f524eae7bec9431eb46d040d93090c884b6ce02961cd0021a746e50fdd6e762b",
+      "start_utc": "2025-04-28T05:00:00+00:00",
+      "status": "COMPLETE_TIMESTAMP_ONLY_ENUMERATION",
+      "t0_utc": "2025-04-28T05:01:00+00:00",
+      "window_count": 3,
+      "year": 2025
+    }
+  ],
+  "events": [
+    "KFS_01",
+    "KFS_04",
+    "KFS_06",
+    "KFS_13"
+  ],
+  "evidence": "Original arrival timestamp bands decoded solely for finite temporal minima/maxima. No spatial initial/endpoint/growth arrays, forecasts or quality scores constructed.",
+  "frozen_utc": "2026-10-30T13:09:13.071953+00:00",
+  "initial_presence_equivalence": "For a nonempty finite timestamp set, any(arrival<=elapsed) is equivalent to min(arrival)<=elapsed.",
+  "limits": [
+    "This metadata inventory is not a heldout model assessment.",
+    "An included window can still have unavailable common scoring support; it is retained by the scorer."
+  ],
+  "policy": "Exact existing arange(floor(min),ceil(max),12), UTC hour floor, inclusive catalog cutoff bounds, min(arrival)<=elapsed for initial-present; no endpoint clipping or case cap.",
+  "schema": "wfg.preassessment-korean-window-timestamps/1",
+  "scorer_sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+  "source_catalog_sha256": "607f831ea64235449d7eb19e5cd931099486aaae44de1221c1ec27b34965ac8b",
+  "source_files_unchanged": true,
+  "split_sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2"
+}

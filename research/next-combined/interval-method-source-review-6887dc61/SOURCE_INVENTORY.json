@@ -1,0 +1,112 @@
+{
+  "scope": "Exact completed source-only review, all manifest-listed source snapshots/scripts/saved controls and both report versions. No actual scientific arrays, generated fixtures or production execution copied; no standalone log file was supplied. No candidate-implementation review claimed.",
+  "source_folder": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/final-interval-field-review",
+  "source_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "review_sha256": "b3f9513367f5666ca9f8ccde548db331c48251e7811f561ab8f2400ffe3d22cd",
+  "original_manifest_entries_verified": 19,
+  "frozen_source_snapshots_git_verified": 9,
+  "readiness_rerun": false,
+  "files": [
+    {
+      "path": "REVIEW_RESULT.json",
+      "bytes": 2548,
+      "sha256": "3608188bd4167feadab082d3d970f251394f438bbffdf47865b47ad9e1650405"
+    },
+    {
+      "path": "REVIEW_SOURCE_INTERVALS.md",
+      "bytes": 19199,
+      "sha256": "b3f9513367f5666ca9f8ccde548db331c48251e7811f561ab8f2400ffe3d22cd"
+    },
+    {
+      "path": "REVIEW_SOURCE_INTERVALS_v1.md",
+      "bytes": 13651,
+      "sha256": "6620e0ad457a1ee2f15d45270abb5deed9ffa53ea107f69442386431e56e1fb0"
+    },
+    {
+      "path": "SOURCE_MANIFEST.json",
+      "bytes": 1500,
+      "sha256": "3df565fba2b0731277e5df9103c43239fbbe6316d995e68b17015ed022b4ec05"
+    },
+    {
+      "path": "SYNTHETIC_CACHED_AP_CONTROLS.json",
+      "bytes": 2142,
+      "sha256": "f9b418893e1ce3850e1ed53b655d69a5a62fa07776c2b3a05d2a888322ba44a4"
+    },
+    {
+      "path": "SYNTHETIC_DIAGNOSTIC_CONTROLS.json",
+      "bytes": 1965,
+      "sha256": "fc8662a7e527c078d6e359cc92dad39256846c8adbb06ca4c3b94a95710c4171"
+    },
+    {
+      "path": "SYNTHETIC_ESTIMAND_CONTROLS.json",
+      "bytes": 2409,
+      "sha256": "1956f77c4eea866f5e0a1c1b9bf5792c3d1369e087869ac9276e9b2d0b7c395e"
+    },
+    {
+      "path": "source/docs/next/prompts/01B_forecast_upgrades.md",
+      "bytes": 13052,
+      "sha256": "99434f85fc42cfe556c9592ee872f5e70be29c9a080e06fcbb0a6d24ba0739ce"
+    },
+    {
+      "path": "source/forecast/documents/preregistration_blind_test.md",
+      "bytes": 22541,
+      "sha256": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6"
+    },
+    {
+      "path": "source/forecast/wildfire/baselines.py",
+      "bytes": 11663,
+      "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f"
+    },
+    {
+      "path": "source/forecast/wildfire/evaluate.py",
+      "bytes": 60961,
+      "sha256": "a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9"
+    },
+    {
+      "path": "source/research/forecast-v2/RUN_PROTOCOL.json",
+      "bytes": 7246,
+      "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243"
+    },
+    {
+      "path": "source/research/forecast-v2/SPLIT.json",
+      "bytes": 4782,
+      "sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2"
+    },
+    {
+      "path": "source/research/forecast-v2/scripts/blind_test.py",
+      "bytes": 49065,
+      "sha256": "639eaa974fd89a66833d24ec1a6ad3e234d25a155790b952a64e5c4d3bf38af1"
+    },
+    {
+      "path": "source/research/forecast-v2/scripts/report.py",
+      "bytes": 53411,
+      "sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7"
+    },
+    {
+      "path": "source/research/forecast-v2/scripts/score_cohorts.py",
+      "bytes": 23370,
+      "sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2"
+    },
+    {
+      "path": "synthetic_cached_ap.py",
+      "bytes": 7455,
+      "sha256": "d3d6c533559d99d70fdc459a94205fb4ed89a0d58d6b0e8276ce77ee6317087d"
+    },
+    {
+      "path": "synthetic_diagnostics.py",
+      "bytes": 4007,
+      "sha256": "75100b21f32d2f9fd722b44e7803d526116aa6748cedf29d3b736fd18ea09139"
+    },
+    {
+      "path": "synthetic_estimands.py",
+      "bytes": 4239,
+      "sha256": "dc47e144a999e83d6568839d14f9471809754e1c65806d02157030b06004271e"
+    },
+    {
+      "path": "SHA256.json",
+      "bytes": 2075,
+      "sha256": "ae78976980714fcb621b8af05c10f4e00f2c174f54cc58223677fabea06cc742"
+    }
+  ],
+  "original_whitespace_preserved": "Exact frozen evaluate.py has5 trailing-comment whitespace lines and a final blank line. Git whitespace warnings apply to the archived original; bytes intentionally unchanged and Git/SHA checked. Authored current files pass scoped whitespace check."
+}

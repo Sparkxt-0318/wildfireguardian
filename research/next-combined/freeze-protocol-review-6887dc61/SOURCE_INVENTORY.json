@@ -1,0 +1,118 @@
+{
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/ADDITIONAL_NONCODE_INPUT_SHA256.json",
+      "archive": "freeze-protocol-review-6887dc61/ADDITIONAL_NONCODE_INPUT_SHA256.json",
+      "bytes": 178,
+      "sha256": "ade1e97a1f32a85fc70512544ba89bba069fb1d574a086589ca127a3d7102c4f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/AUDIT_METADATA.json",
+      "archive": "freeze-protocol-review-6887dc61/AUDIT_METADATA.json",
+      "bytes": 5379,
+      "sha256": "9871add055359ab5c091f07bf6fb03260826f88c31374868eb39141fce8f1c64"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/AUDIT_METADATA.log",
+      "archive": "freeze-protocol-review-6887dc61/AUDIT_METADATA.log",
+      "bytes": 5379,
+      "sha256": "9871add055359ab5c091f07bf6fb03260826f88c31374868eb39141fce8f1c64"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/BLIND_REGISTRY.json",
+      "archive": "freeze-protocol-review-6887dc61/BLIND_REGISTRY.json",
+      "bytes": 49272,
+      "sha256": "bfe48d53c5e1fea2ce10dbf7f916a5042f8ab97f94bceedcf82ad2f884e1822e"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/FIT_COVERAGE.json",
+      "archive": "freeze-protocol-review-6887dc61/FIT_COVERAGE.json",
+      "bytes": 6980736,
+      "sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/FREEZE_HANDOFF.json",
+      "archive": "freeze-protocol-review-6887dc61/FREEZE_HANDOFF.json",
+      "bytes": 6593,
+      "sha256": "5a0528835d29bde32fa553e99b096bb6910eea57df617ef8fcee4371383d63b3"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/INITIAL_HARNESS_NOTE.json",
+      "archive": "freeze-protocol-review-6887dc61/INITIAL_HARNESS_NOTE.json",
+      "bytes": 176,
+      "sha256": "8e7bf7e441423fc0800db617b41f66a74c9e7991266c1ea659e41ba1e3558fa3"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/INPUT_SHA256.json",
+      "archive": "freeze-protocol-review-6887dc61/INPUT_SHA256.json",
+      "bytes": 4229,
+      "sha256": "34e225820799ee4f88abfd680896977331a6d1d9926867343348762de6519316"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/MODEL_SELECTION.json",
+      "archive": "freeze-protocol-review-6887dc61/MODEL_SELECTION.json",
+      "bytes": 33550,
+      "sha256": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/PREASSESSMENT_KOREA2025_WINDOWS.json",
+      "archive": "freeze-protocol-review-6887dc61/PREASSESSMENT_KOREA2025_WINDOWS.json",
+      "bytes": 29290,
+      "sha256": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "archive": "freeze-protocol-review-6887dc61/PREASSESSMENT_US2024_TIMESTAMPS.json",
+      "bytes": 50679,
+      "sha256": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/REVIEW_6887dc61.md",
+      "archive": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
+      "bytes": 5234,
+      "sha256": "1e1afefdbfbf5425c0f93b7c3727e5c8a022a61bdff803cfe39ba4742e60a54f"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/RUN_PROTOCOL.json",
+      "archive": "freeze-protocol-review-6887dc61/RUN_PROTOCOL.json",
+      "bytes": 7246,
+      "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/SPLIT.json",
+      "archive": "freeze-protocol-review-6887dc61/SPLIT.json",
+      "bytes": 4782,
+      "sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/audit_metadata.py",
+      "archive": "freeze-protocol-review-6887dc61/audit_metadata.py",
+      "bytes": 13766,
+      "sha256": "1b255bf959ca4d80176105a2e723ae849dc95e8d95b1e8635301b6a0adcbe00e"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/audit_metadata_initial_harness.py",
+      "archive": "freeze-protocol-review-6887dc61/audit_metadata_initial_harness.py",
+      "bytes": 13753,
+      "sha256": "a2a7431bfa949d04689dc84e186056c11c3a6e242139cf3363cef725cf62ccba"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/preregistration_blind_test.md",
+      "archive": "freeze-protocol-review-6887dc61/preregistration_blind_test.md",
+      "bytes": 22541,
+      "sha256": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6"
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/freeze-protocol-independent-review/REVIEW_SHA256.json",
+      "archive": "freeze-protocol-review-6887dc61/REVIEW_SHA256.json",
+      "bytes": 1647,
+      "sha256": "1a3e77de4c2c24423fb7e794df78a95e31acd2d89e1829961c452e7078647871"
+    }
+  ],
+  "source_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "state": "SCOPED_COMMITTED_FREEZE_PROTOCOL_METADATA_PASS",
+  "metadata_checks": 25,
+  "readiness_rerun": false,
+  "binary_array_access": false,
+  "scope": "Otherindependentsavedmetadatareviewonly:equal-firedevelopmentselection,identities,acyclicprotocol/registrycustodyand306frozenmembershiprelative-to-metadata. Parentbinary/sourcechecksnotduplicated. Originaltimestamp/rasterarraysnotdecoded. InitialSPLIT-keyharnessassumptionpreserved,notproductionbug. Future2026executionNOT_READY."
+}

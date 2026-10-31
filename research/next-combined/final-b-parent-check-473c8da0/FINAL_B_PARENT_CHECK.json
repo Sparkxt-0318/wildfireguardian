@@ -1,0 +1,60 @@
+{
+  "status": "PASS_FINAL_B_OWNERSHIP_STYLE_CUSTODY",
+  "head": "473c8da0a6f428006b67210253ba257ff163cb34",
+  "track_delta_files": 1738,
+  "ownership_violations": [],
+  "em_dashes": [],
+  "uncommitted": [],
+  "untracked": [],
+  "commit_messages_em_dash": false,
+  "canonical858_all_match": true,
+  "sidecar_result_completion_source_exact": true,
+  "readonly_surface_diffs": [],
+  "readme_keyword_review": [
+    {
+      "path": "research/forecast-v2/README.md",
+      "line": 44,
+      "text": "Point fuel residence, an hourly lattice, midpoint ignition and initial-age proxies are coarse; short residence can alias the source schedule. Local learned smouldering can persist indefinitely, without an energy-conservation or physical-extinction law. Spotting is emitted only during the flaming window and uses a coarse domain-mean wind scenario; prior smouldering-inclusive runs are retained as hi"
+    },
+    {
+      "path": "research/forecast-v2/README.md",
+      "line": 137,
+      "text": "D4 uses 90-degree rotations and flips. Local wind canonicalization uses bilinear rotation and is approximate. The elliptical prior uses the documented Anderson relation with midflame wind in metres per second and a nonnegative learned residual. Burnout separates a finite flaming window from learned older-cell smouldering; only flaming cells emit the long-range branch. These are structural model as"
+    },
+    {
+      "path": "research/forecast-v2/review/comparison_reporting_repair_v1/README.md",
+      "line": 9,
+      "text": "Saved count/status/range/null semantics are validated without rebuilding unsaved probabilities or support masks. Execution completeness, known-support metrics and fixed-horizon active RMSE availability are reported separately. Figure04 retains all1/3/6/12/24h positions, null active points, and available/all cutoff and unique catalog-event counts by country. Its band remains a descriptive cutoff mi"
+    },
+    {
+      "path": "research/forecast-v2/review/final_delivery/pre_final/README.md",
+      "line": 135,
+      "text": "later proves unavailable. The two scorer commands preserve separate exits;"
+    },
+    {
+      "path": "research/forecast-v2/review/final_delivery/pre_final/README.md",
+      "line": 201,
+      "text": "calibrated joint forecast, evacuation-safety or universal speed claim is made."
+    },
+    {
+      "path": "research/forecast-v2/review/final_delivery/pre_final/README.md",
+      "line": 208,
+      "text": "there is no fuel-energy conservation or physically validated extinction law."
+    },
+    {
+      "path": "research/forecast-v2/review/source_recipe_compatibility/README.md",
+      "line": 14,
+      "text": "This packaging step opened only source, source/receipt metadata and prior synthetic/review evidence. It accessed no raw study tensor, cache value, model binary or heldout output, performed no numerical job, and changed no active source/test/doc or Git state. Live F1753/P88 and the frozen a06 comparison closure remain outside this archive. Applying V2 still requires all 12 a06 cases plus aggregate/"
+    },
+    {
+      "path": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/README.md",
+      "line": 5,
+      "text": "Descriptive cluster percentile intervals conditional on these fixed predictions, model support and mapped/reconstructed references from only6US/4Korean fires. Separate cohorts. No model selection, superiority-criterion change, physical/flame/safety claim, future2026 execution or promotion."
+    },
+    {
+      "path": "research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/README.md",
+      "line": 60,
+      "text": "Four in-process fixture substitutions are explicit: hard inventory SHA map is replaced with independently sealed invented inventories; the hard root-proof SHA is replaced with a sealed invented223-file proof; the real HEAVY lease is replaced by `nullcontext`; and the hard original-HOLD digest is replaced with the sealed invented original-HOLD fixture digest before any mutation. The fixture's exoge"
+    }
+  ]
+}

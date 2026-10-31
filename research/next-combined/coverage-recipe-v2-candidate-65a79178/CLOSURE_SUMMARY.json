@@ -1,0 +1,24 @@
+{
+  "phases": 28,
+  "profiles": 6,
+  "verified_source_bytes": 81,
+  "profile_file_counts": {
+    "7379571bc4168bf9c4b383084a8bfb1ffb5df8dd121b28873d4ee437980952d6": 58,
+    "7b5fc7dfa5ac95a66879fcb9da8bff5c70dd18443ca3dc39f8a29404844fe123": 61,
+    "b73f2fc536eb78e7014f09dc62213d02345198284348fab8051e5dd0f9a2f5c6": 58,
+    "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17": 61,
+    "366d558c81573585d20e54379e04015fdec8344eed7022d7ed9467236962fa44": 59,
+    "01c3a616a200c348e2a1165bc4c81bbf8e131c85a9dd4cc1ebb89d6003d117dc": 60
+  },
+  "changed_files": [
+    "forecast/wildfire/baselines.py",
+    "forecast/wildfire/burnout.py",
+    "forecast/wildfire/meanfield.py",
+    "forecast/wildfire/models.py",
+    "forecast/wildfire/survival.py",
+    "forecast/wildfire/train.py",
+    "research/forecast-v2/scripts/audit_fit_coverage.py",
+    "research/forecast-v2/scripts/pipeline.py",
+    "research/forecast-v2/scripts/run_campaign.py"
+  ]
+}

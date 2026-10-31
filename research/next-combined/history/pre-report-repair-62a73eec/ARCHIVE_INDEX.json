@@ -1,0 +1,10 @@
+{
+  "source_commit": "62a73eec285cc8182004b236c9311ba9247bb4ef",
+  "scope": "Exact prior paired-ablation reporting-HOLD current summary before separate61report-only scoped repair pass; every original failure artifact remains unchanged.",
+  "sha256": {
+    "README.md": "c7b93ac9d71ab578aa577d06bccf1bf4e23875e299e77cefda187661b24bec7b",
+    "GATES.json": "c4351d7359b0534ff3625f7dd34ae0357d25bd4032b91206798edcb6b188304d",
+    "CURRENT_EVIDENCE.json": "c4351d7359b0534ff3625f7dd34ae0357d25bd4032b91206798edcb6b188304d",
+    "AUDIT_METHOD.json": "a0a9b0c8fbbbfd7516cbd14dbbbe26988373e1dd77db29dfbfeba4acbacf98b6"
+  }
+}

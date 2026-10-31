@@ -1,0 +1,11 @@
+{
+  "scope": "Exact completed root saved receipt/log custody and metadata-count check. Root execution logs are referenced by the original check only; no log or caseJSON/prediction/scientific array copied or opened by readiness. No exact306 identity census or quality verification claimed.",
+  "executed_by": "Root, not rerun by readiness",
+  "files": [
+    {
+      "path": "current-cohort-closure-parent.json",
+      "bytes": 1409,
+      "sha256": "90337f50885bb3c1e00d9faed07229705e7fa593ec91944c27a8c79aa6ca848a"
+    }
+  ]
+}

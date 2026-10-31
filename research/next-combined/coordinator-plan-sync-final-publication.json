@@ -1,0 +1,7 @@
+{
+  "action": "Exact parent-authorized final plan sync, no merge",
+  "source_commit": "85c36807d27ce134bd6164311dc6782829f7c568",
+  "source_path": "docs/NEXT_PLAN.md",
+  "bytes": 76211,
+  "sha256": "bc171787cd96574225df0f3d95ffe7219f032484b37cbd53737cd9009e9e00d4"
+}

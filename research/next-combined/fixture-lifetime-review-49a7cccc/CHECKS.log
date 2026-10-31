@@ -1,0 +1,7 @@
+{
+  "status": "PASS_TEST_FIXTURE_LIFETIME_ONLY",
+  "source_head": "49a7ccccc92b567e2c52ca91f92ae1efd88898ec",
+  "passed": 52,
+  "total": 52,
+  "report_sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7"
+}

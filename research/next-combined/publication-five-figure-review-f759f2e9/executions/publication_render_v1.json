@@ -1,0 +1,20 @@
+{
+  "changed_protected_files": [],
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/publication-render-candidate.py",
+    "--output",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/publication-render/20261031_v1"
+  ],
+  "elapsed_seconds": 2.033856917056255,
+  "exit_code": 0,
+  "finished_utc": "2026-10-30T23:15:05.790940+00:00",
+  "log_sha256": "52e0aa5f1cb7a21ca56334ae89431a13c254b4a7a49480581ac4751c534c57b0",
+  "protected_core_count": 858,
+  "protected_core_map_sha256": "d0e480bc7f8f7539c24629abb4a2b634b24995fc37d02bdb79c04e24b6e070d0",
+  "root_protection_receipt_sha256": "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803",
+  "schema": "wfg.publication-render-execution/1",
+  "source_sha256": "2b890be77498e7bb0cc95fe0cf88bf0834654bb5589b918c42daad25251d8ced",
+  "started_utc": "2026-10-30T23:15:03.756966+00:00",
+  "status": "COMPLETE_COMMAND"
+}

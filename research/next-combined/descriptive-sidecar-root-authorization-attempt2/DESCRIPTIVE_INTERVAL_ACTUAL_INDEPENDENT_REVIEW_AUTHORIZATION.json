@@ -1,0 +1,17 @@
+{
+  "receipt_version": "wfg.root-descriptive-actual-independent-review/1",
+  "status": "AUTHORIZED_READ_ONLY_ACTUAL_REPLAY",
+  "issued_utc": "2026-10-30T23:49:43.948207+00:00",
+  "current_authorized_head": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+  "immutable_canonical_source_head": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+  "actual_authorization_sha256": "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc",
+  "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "output_relative_directory": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2",
+  "result_sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c",
+  "completion_sha256": "05864ec95b0f042bbdba86dbb43374b591afbb8e56ab779730272fae70d863a9",
+  "draw_npy_sha256": "4943b1da8411684b19dd71885aabfcbac304bc840f4c85bfb1a68c65a0c9d42e",
+  "canonical858_map_sha256": "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803",
+  "preparation_sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+  "independent_checker_sha256": "b54acdb80ef8c37aeaf8a75c897a7a4d034d7af075a63743c5c389d708db7813",
+  "scope": "Read-only independent saved-array/draw/arithmetic replay under sharedHEAVY, all16USmodels/full10000draws/5diagnostics/32APcomparisons. KRcomplete-cohortnull and7outcomes remain; noKRNPZdecode. No model/native inference, source/primary change, promotion, future2026 or merge. Rehash223/858/654input and output artifacts before/after."
+}

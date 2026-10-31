@@ -1,0 +1,309 @@
+--- a/research/forecast-v2/scripts/audit_fit_coverage.py
++++ b/research/forecast-v2/scripts/audit_fit_coverage.py
+@@ -629,14 +629,75 @@
+                 source_sha256={relative: source[relative] for relative in functions}, ast_sha256=hashes,
+                 evidence="IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION")
+ 
+-def _schedule_contract(root, source, stage="final"):
++def _normalized_input_recipe(node, name, *, pure):
++    """Only known custody insertions and a proven-unconsumed mixed branch.
++
++    Raw source identities remain preserved. Membership/value cache audits remain
++    mandatory; normalization does not attest that old runs enforced new checks.
++    """
++    node = ast.parse(ast.unparse(node)).body[0]
++    applied = []
++    if name == "perimeter_samples":
++        custody = ast.parse('''manifest_path = perimeters / "PERIMETER_MANIFEST.json"
++manifest = json.loads(manifest_path.read_text())
++states_path = perimeters / event / "states.npz"
++if sha256(states_path) != manifest["events"][event]["states_sha256"]:
++    raise ValueError("Perimeter reference identity differs from its source manifest")
++data = np.load(states_path, allow_pickle=False)
++''').body
++        if [_dump(n) for n in node.body[:len(custody)]] == [_dump(n) for n in custody]:
++            node.body[:len(custody)] = ast.parse('data = np.load(perimeters / event / "states.npz")').body
++            applied.append("EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX")
++    if name == "kriged_samples":
++        custody = ast.parse('''if hasattr(env, "_verify_sources"):
++    env._verify_sources(event)
++''').body[0]
++        if len(node.body) > 1 and _dump(node.body[1]) == _dump(custody):
++            node.body.pop(1)
++            applied.append("EXACT_CURRENT_KRIGED_CUSTODY_CHECK")
++    if name == "fit_samples" and pure:
++        body = [n for n in node.body if not (isinstance(n, ast.If) and _same(n.test, "mixed"))]
++        if len(body) != len(node.body):
++            node.body = body
++            applied.append("MIXED_FALSE_BRANCH_NOT_CONSUMED_BY_THIS_VARIANT")
++    return node, applied
++
++
++def _input_recipe_contract(pipeline, current_pipeline, variant, table):
++    pure = variant in table and not table[variant].get("mixed", False)
++    records = {}
++    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
++        old, current = _function(pipeline, name), _function(current_pipeline, name)
++        consumed = name != "kriged_samples" or not pure
++        record = dict(consumed=consumed, immutable_ast_sha256=object_sha(_dump(old)),
++                      current_ast_sha256=object_sha(_dump(current)))
++        if consumed:
++            a, old_steps = _normalized_input_recipe(old, name, pure=pure)
++            b, new_steps = _normalized_input_recipe(current, name, pure=pure)
++            if _dump(a) != _dump(b):
++                raise ValueError("Frozen producer consumed input recipe differs: " + name)
++            record.update(normalized_ast_sha256=object_sha(_dump(a)), immutable_normalization=old_steps,
++                          current_normalization=new_steps)
++        else:
++            headers = []
++            for definition in (old, current):
++                header = ast.parse(ast.unparse(definition)).body[0]
++                header.body = [ast.Pass()]
++                headers.append(_dump(header))
++            if headers[0] != headers[1]:
++                raise ValueError("Frozen producer unconsumed definition header differs: " + name)
++            record["definition_header_ast_sha256"] = object_sha(headers[0])
++            record["nonconsumption_proof"] = "Fixed variant table and exact command train call resolve mixed=False; validation is mixed=False"
++        records[name] = record
++    return dict(variant=variant, resolved_mixed=not pure if variant in table else None, functions=records,
++                evidence="SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES")
++
++
++def _schedule_contract(root, source, stage="final", variant=None):
+     """Bounded source checks for full permutations and the recorded skip paths."""
+     pipeline = _source_blob(root, "research/forecast-v2/scripts/pipeline.py", source["research/forecast-v2/scripts/pipeline.py"])
+     survival = _source_blob(root, "forecast/wildfire/survival.py", source["forecast/wildfire/survival.py"])
+     current_pipeline = (root / "research/forecast-v2/scripts/pipeline.py").read_text()
+-    for name in ("fit_samples", "available", "perimeter_samples", "kriged_samples", "build_model"):
+-        if ast.dump(_function(pipeline, name), include_attributes=False) != ast.dump(_function(current_pipeline, name), include_attributes=False):
+-            raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
+     tables = [n for n in _tree(pipeline).body if isinstance(n, ast.Assign)
+               and any(isinstance(t, ast.Name) and t.id == "VARIANTS" for t in n.targets)]
+     if len(tables) != 1:
+@@ -645,6 +706,7 @@
+     if (table != FIXED_VARIANT_POLICY or table["mixed_base"].get("mixed") is not True
+             or any(table[name].get("mixed", False) for name in VARIANTS if name != "mixed_base")):
+         raise ValueError("The producer's mixed extra-source regime differs from the intended fit policy")
++    recipe = _input_recipe_contract(pipeline, current_pipeline, variant, table)
+     final = _function(pipeline, "command_" + stage)
+     required_origins = {"spec": "VARIANTS[args.variant]",
+                         "train_events": 'available(args, SPLIT["fit"]["us_perimeter_and_kriged"])',
+@@ -729,7 +791,7 @@
+             ancestor = parents[ancestor]
+         if not isinstance(ancestor, ast.If) or not _same(ancestor.test, "validation and stale >= patience"):
+             raise ValueError("Unaccounted historical early stopping prevents a full-epoch coverage inference")
+-    return dict(pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
++    return dict(input_recipe=recipe, pipeline_sha256=source["research/forecast-v2/scripts/pipeline.py"],
+                 survival_sha256=source["forecast/wildfire/survival.py"],
+                 fit_mean_field_ast_sha256=object_sha(ast.dump(fitting, include_attributes=False)),
+                 evidence="BOUNDED_SOURCE_CONTRACT_CHECKED")
+@@ -1021,7 +1083,7 @@
+                     or result["train_samples"] != len(train) or result["validation_samples"] != len(validation)):
+                 raise ValueError("Development counts must equal every independently derived first3 training and validation sample")
+             budget = development_budget(root, receipt, result, expected_count=len(train))
+-            contract = _schedule_contract(root, source, stage="fold")
++            contract = _schedule_contract(root, source, stage="fold", variant=variant)
+             epochs = _historical_development_epochs(root, variant, source, train, result["fit"]["history"], files)
+             records[phase["phase_id"]] = dict(intended_phase=phase, fit_result=identity(root, path), execution=identity(root, receipt_path),
+                 train_events=train_events, validation_events=validation_events, budget=budget,
+@@ -1113,7 +1175,7 @@
+                 or _option(command, "--data-manifest-sha256") != expected["input_sha256"]["EXTRACTION_MANIFEST.json"]):
+             raise ValueError("Source inputs, complete caches and result root must be the actual effective execution arguments")
+         source = receipt.get("source_sha256", {})
+-        contract = _schedule_contract(root, source)
++        contract = _schedule_contract(root, source, variant=variant)
+         spotting_contract = spotting_source_contract(root, source) if variant == "burnout_spotting" else None
+         samples = mixed if variant == "mixed_base" else perimeter
+         cases = expected["mixed_cases" if variant == "mixed_base" else "perimeter_cases"]
+--- /dev/null
++++ b/forecast/tests/test_source_recipe_compatibility.py
+@@ -0,0 +1,189 @@
++"""Pure synthetic source equivalence, conditional on authenticated input values."""
++import ast
++import hashlib
++import importlib.util
++import json
++import math
++from pathlib import Path
++from types import SimpleNamespace
++import sys
++
++import numpy as np
++import pandas as pd
++import pytest
++
++
++def module():
++    path = Path(__file__).resolve().parents[2] / "research/forecast-v2/scripts/audit_fit_coverage.py"
++    spec = importlib.util.spec_from_file_location("recipe_compatibility_fixture", path)
++    value = importlib.util.module_from_spec(spec); sys.modules[spec.name] = value; spec.loader.exec_module(value)
++    return value
++
++
++@pytest.fixture
++def recipe():
++    value = module()
++    source = (Path(value.__file__).with_name("pipeline.py")).read_text()
++    return value, source
++
++
++def without_custody(source):
++    begin = source.index('    manifest_path = perimeters / "PERIMETER_MANIFEST.json"', source.index('def perimeter_samples'))
++    end = source.index('    times = ', begin)
++    source = source[:begin] + '    data = np.load(perimeters / event / "states.npz")\n' + source[end:]
++    source = source.replace('    if hasattr(env, "_verify_sources"):\n        env._verify_sources(event)\n', '', 1)
++    return source
++
++
++def check(recipe, immutable, variant):
++    F, current = recipe
++    return F._input_recipe_contract(immutable, current, variant, F.FIXED_VARIANT_POLICY)
++
++
++@pytest.mark.parametrize("variant", ["base", "mixed_base"])
++def test_exact_source_and_exact_known_custody_insertions_preserve_consumed_recipe(recipe, variant):
++    F, current = recipe
++    exact = check(recipe, current, variant)
++    historical = check(recipe, without_custody(current), variant)
++    assert exact["functions"]["available"]["immutable_ast_sha256"] == exact["functions"]["available"]["current_ast_sha256"]
++    assert historical["functions"]["perimeter_samples"]["current_normalization"] == ["EXACT_CURRENT_PERIMETER_CUSTODY_PREFIX"]
++    assert "CONDITIONAL" in historical["evidence"]
++    assert historical["functions"]["kriged_samples"]["consumed"] is (variant == "mixed_base")
++
++
++def old_utc_and_key(source):
++    return without_custody(source).replace('kriged_utc_v2_first', 'kriged_first').replace(
++        '        t = (hour - t0).total_seconds() / 3600\n', '', 1)
++
++
++def test_real_unfloored_utc_label_recipe_is_never_waived_for_a_mixed_fit(recipe):
++    F, current = recipe
++    old = old_utc_and_key(current)
++    pure = check(recipe, old, "base")
++    assert pure["functions"]["kriged_samples"]["consumed"] is False
++    with pytest.raises(ValueError, match="consumed input recipe differs: fit_samples"):
++        check(recipe, old, "mixed_base")
++    old_new_key = old.replace('kriged_first', 'kriged_utc_v2_first')
++    with pytest.raises(ValueError, match="consumed input recipe differs: kriged_samples"):
++        check(recipe, old_new_key, "mixed_base")
++
++
++@pytest.mark.parametrize("mutation", ["available_subset", "model_hidden", "perimeter_subset", "endpoint", "crop", "custody_side_effect"])
++def test_real_consumed_event_sample_model_or_label_changes_still_refuse(recipe, mutation):
++    F, current = recipe
++    changes = {
++        "available_subset": ('return [e for e in events if e in known', 'return [e for e in events[:1] if e in known'),
++        "model_hidden": ('StructuredKernelModel(len(names), 9, hidden, 0.0', 'StructuredKernelModel(len(names), 9, 1, 0.0'),
++        "perimeter_subset": ('for i, j, hours in consecutive_intervals(times, 48.0):', 'for i, j, hours in consecutive_intervals(times, 24.0):'),
++        "endpoint": ('initial, endpoint = states[i], states[j]', 'initial, endpoint = states[i], states[i]'),
++        "crop": ('result.append(cropped(sample) if crop else sample)', 'result.append(sample)'),
++        "custody_side_effect": ('    data = np.load(states_path, allow_pickle=False)', '    states_path = perimeters / event / "other.npz"\n    data = np.load(states_path, allow_pickle=False)'),
++    }
++    before, after = changes[mutation]
++    assert before in current
++    with pytest.raises(ValueError, match="consumed input recipe differs"):
++        check(recipe, current.replace(before, after, 1), "base")
++
++
++def extracted(F, source, name, namespace):
++    code = "from __future__ import annotations\n" + ast.unparse(F._function(source, name))
++    exec(compile(code, "synthetic_source_only", "exec"), namespace)
++    return namespace[name]
++
++
++def test_legacy_mixed_cache_key_and_utc_code_are_not_executed_in_pure_fit(recipe, tmp_path):
++    F, current = recipe
++    args = SimpleNamespace(max_fit_intervals_per_fire=3, work=tmp_path, perimeters=tmp_path,
++                           data_root=tmp_path)
++    all_calls = []
++    for source in (old_utc_and_key(current), current):
++        calls = []
++        def loader(work, name, builder):
++            calls.append(name); return builder()
++        def kriged(*args, **kwargs): pytest.fail("Pure recipe reached an unconsumed kriged branch")
++        function = extracted(F, source, "fit_samples", dict(load_or_build=loader,
++            perimeter_samples=lambda *args, **kwargs: ["first", "second", "third"], kriged_samples=kriged,
++            SPLIT=dict(fit=dict(korean_kriged_only=["KR_SYNTHETIC"]))))
++        assert function(args, ["US_SYNTHETIC"], object(), mixed=False) == ["first", "second", "third"]
++        all_calls.append(calls)
++    assert all_calls == [["perimeter_crop_first3_US_SYNTHETIC"]] * 2
++
++
++def sample_namespace():
++    from wildfire.survival import PerimeterSample, consecutive_intervals, ages_from_states, kriging_weight
++    return dict(np=np, pd=pd, Path=Path, json=json, math=math, PerimeterSample=PerimeterSample,
++                consecutive_intervals=consecutive_intervals, ages_from_states=ages_from_states, kriging_weight=kriging_weight,
++                cropped=lambda value: value,
++                sha256=lambda path: hashlib.sha256(path.read_bytes()).hexdigest())
++
++
++def environment():
++    return SimpleNamespace(available_at=lambda *args: True, at=lambda *args: np.ones((2, 2, 2)),
++                           residence=lambda *args: np.full((2, 2), 6.), _verify_sources=lambda *args: None)
++
++
++def test_current_and_historical_perimeter_functions_reproduce_identical_authenticated_samples(recipe, tmp_path):
++    F, current = recipe
++    event = "US_SYNTHETIC"; path = tmp_path / event / "states.npz"; path.parent.mkdir()
++    states = np.zeros((3, 2, 2), bool); states[:, 0, 0] = True; states[1:, 0, 1] = True
++    np.savez_compressed(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z", "2020-01-02T00:00:00Z"]), states=states)
++    manifest = dict(events={event: dict(states_sha256=hashlib.sha256(path.read_bytes()).hexdigest())})
++    (tmp_path / "PERIMETER_MANIFEST.json").write_text(json.dumps(manifest))
++    samples = []
++    for source in (without_custody(current), current):
++        function = extracted(F, source, "perimeter_samples", sample_namespace())
++        samples.append(function(event, tmp_path, environment(), crop=True, max_intervals=3))
++    assert len(samples[0]) == len(samples[1]) == 2
++    assert F.sample_list_identity(samples[0]) == F.sample_list_identity(samples[1])
++
++
++def test_unfloored_utc_recipe_has_an_actual_synthetic_counterexample_not_a_naming_only_difference(recipe, tmp_path):
++    import rasterio
++    from affine import Affine
++    F, current = recipe
++    event = "KR_SYNTHETIC"; region = tmp_path / "regions" / event; region.mkdir(parents=True)
++    for filename, array in [("arrival_time_hours.tif", np.array([[0., .25], [11.75, 13.]], dtype=np.float32)),
++                             ("kriging_std_hours.tif", np.ones((2, 2), dtype=np.float32))]:
++        with rasterio.open(region / filename, "w", driver="GTiff", count=1, height=2, width=2, dtype="float32",
++                           transform=Affine(375, 0, 500000, 0, -375, 5000000), crs="EPSG:32610") as out:
++            out.write(array, 1)
++    (tmp_path / "events.json").write_text(json.dumps([dict(id=event, t0_utc="2020-01-01T00:30:00Z",
++        start_utc="2019-12-31T23:00:00Z", end_utc="2020-01-03T00:00:00Z")]))
++    outputs = []
++    for source in (old_utc_and_key(current), current):
++        function = extracted(F, source, "kriged_samples", sample_namespace())
++        outputs.append(function(event, tmp_path, environment()))
++    assert len(outputs[0]) == 2 and len(outputs[1]) == 1
++    assert F.sample_list_identity(outputs[0]) != F.sample_list_identity(outputs[1])
++    with pytest.raises(ValueError): check(recipe, old_utc_and_key(current), "mixed_base")
++
++
++@pytest.mark.parametrize("change", ["default", "default_side_effect", "decorator", "returns", "annotation"])
++def test_unused_kriged_body_does_not_waive_definition_time_header_effects(recipe, change):
++    F, current = recipe
++    original = F._function(current, "kriged_samples")
++    definition = ast.parse(ast.unparse(original)).body[0]
++    if change == "default": definition.args.kw_defaults[0] = ast.Constant(11.)
++    if change == "default_side_effect": definition.args.kw_defaults[0] = ast.Call(ast.Name("unlogged_definition_effect", ast.Load()), [], [])
++    if change == "decorator": definition.decorator_list = [ast.Name("unlogged_decorator", ast.Load())]
++    if change == "returns": definition.returns = ast.Name("DifferentReturnAnnotation", ast.Load())
++    if change == "annotation": definition.args.args[0].annotation = ast.Name("DifferentArgumentAnnotation", ast.Load())
++    lines = current.splitlines(keepends=True)
++    changed = ''.join(lines[:original.lineno - 1]) + ast.unparse(definition) + '\n' + ''.join(lines[original.end_lineno:])
++    with pytest.raises(ValueError, match="unconsumed definition header differs: kriged_samples"):
++        check(recipe, changed, "base")
++
++
++def test_custody_equivalence_is_conditional_and_legacy_did_not_enforce_the_new_manifest_check(recipe, tmp_path):
++    F, current = recipe
++    event = "US_SYNTHETIC"; path = tmp_path / event / "states.npz"; path.parent.mkdir()
++    states = np.zeros((2, 2, 2), bool); states[:, 0, 0] = True
++    np.savez_compressed(path, times=np.array(["2020-01-01T00:00:00Z", "2020-01-01T12:00:00Z"]), states=states)
++    (tmp_path / "PERIMETER_MANIFEST.json").write_text(json.dumps(dict(events={event: dict(states_sha256="0" * 64)})))
++    old = extracted(F, without_custody(current), "perimeter_samples", sample_namespace())
++    guarded = extracted(F, current, "perimeter_samples", sample_namespace())
++    assert len(old(event, tmp_path, environment(), crop=True)) == 1
++    with pytest.raises(ValueError, match="Perimeter reference identity differs"):
++        guarded(event, tmp_path, environment(), crop=True)
++    proof = check(recipe, without_custody(current), "base")
++    assert proof["evidence"] == "SOURCE_RECIPE_EQUIVALENCE_CONDITIONAL_ON_MANDATORY_AUTHENTICATED_MEMBERSHIP_AND_CACHE_VALUES"

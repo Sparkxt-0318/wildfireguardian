@@ -1,0 +1,36 @@
+{
+  "source_commit": "9a81c8ce7e4c582dc8e8c06dd422120343a7ffe4",
+  "scope": "Exact preceding freeze/start/census-guard-preparing/3of273 snapshot, preserved before prepared34controlcensus anddriverstaticreview",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 32675,
+      "sha256": "084ca22a3bca4b50b12eda87a91e370280ede6722eb3b3683189c93da8f5500a"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 64389,
+      "sha256": "31c06279b6e1c2f720abc1e5daf44e509d212197d4b72817eaf7d5d9fdad560e"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 64389,
+      "sha256": "31c06279b6e1c2f720abc1e5daf44e509d212197d4b72817eaf7d5d9fdad560e"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 55050,
+      "sha256": "ff3dd59aacbac4aa7f7b70a1279c92805de2f939aaafc9e9ce46f877d9ae5cf8"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 36551,
+      "sha256": "e5964df38d591e3dadbf40d00f6c5048b4ec4b77b9444ad6fa8a044deb158a17"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 93481,
+      "sha256": "3913b7b070ee61ec56c02cebd4412005704c85ee832991438b6e51f2006b184e"
+    }
+  ]
+}

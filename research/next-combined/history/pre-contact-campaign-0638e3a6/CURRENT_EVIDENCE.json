@@ -1,0 +1,272 @@
+{
+  "schema": "wfg.next.combined-readiness/2",
+  "prepared_utc": "2026-10-30T05:17:40.713560+00:00",
+  "status": "DRAFT_READINESS_HOLD_SCIENTIFIC_INTEGRATION",
+  "record_kind": "Independent readiness and custody summary, not an integrated experiment",
+  "tracks": {
+    "1A": {
+      "source_head": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+      "status": "MATH_REVIEW_SCOPED_PHYSICS_HOLD",
+      "review": "radiation-review-43324736/REVIEW.md",
+      "inventory": "radiation-review-43324736/SOURCE_INVENTORY.json",
+      "independent_fixed_arithmetic_checks": 42,
+      "fresh_parent_unit_suite": {
+        "status": "PASS",
+        "passed": 42,
+        "exit_code": 0,
+        "scope": "Untimed functional checks, no performance evidence"
+      },
+      "earlier_unit_evidence_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
+      "physics_gate": "HOLD",
+      "full_journey_replays": "NOT_RUN_GATED",
+      "previous_routes_rejected_under_v2": null,
+      "peak_binding_missions": null,
+      "dose_binding_missions": null,
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/85",
+      "fresh_parent_release_check": {
+        "status": "PASS",
+        "copied_hashes": 367,
+        "exit_code": 0
+      },
+      "functional_receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
+      "functional_inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json"
+    },
+    "1B": {
+      "source_head": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+      "status": "HOLD_CURRENT_PHASE_ADMISSION_AND_REPORT_ALIAS",
+      "review": "audit/1b-final-admission-a6d15519.json",
+      "checks": 57,
+      "passed": 57,
+      "current_assessment_clearance": "HOLD at bbb49a38 pending complete development policy/accounting and report alias repair; earlier a6 57-control clearance remains scoped history",
+      "numerical_evidence": "PENDING_OWNER_DELIVERY",
+      "global_wind_dependency_review": "SEPARATE_12_CONTROL_PASS_REPORTED_BY_COORDINATOR_AT_1bd6e61e_NOT_RERUN_HERE",
+      "heldout_scores_inspected_by_readiness_auditor": false,
+      "future_protocol_status": "NOT_READY_ACTUAL_REGISTRY_AND_EXTERNAL_DOCUMENTARY_GATES",
+      "future_adapter_review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+      "future_adapter_wiring": "PRIOR_6c_SCOPED_PASS_CURRENT_bbb_PHASE_ADMISSION_HOLD",
+      "future_adapter_repairs": "PASS_TARGETED_REPAIR_CONTROLS",
+      "default_checkpoint_promoted": false,
+      "published_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/88",
+      "future_adapter_initial_review": "future-inventory-review-a6d15519/REVIEW.md",
+      "future_adapter_inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+      "future_adapter_source_head": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+      "future_adapter_historical_confirmed_gaps": 3,
+      "future_adapter_repair_history": {
+        "961fec6d": {
+          "review": "future-inventory-repair-review-961fec6d/REPAIR_REVIEW_961fec6d.md",
+          "inventory": "future-inventory-repair-review-961fec6d/SOURCE_INVENTORY.json",
+          "source_commit": "961fec6d43bd8f89433c183f973805de3a228444"
+        },
+        "d031b72b": {
+          "review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+          "inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+          "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
+        }
+      },
+      "future_adapter_independent_controls": {
+        "passed": 20,
+        "observations": 20,
+        "scope": "Other independent reviewer fixed synthetic controls, not rerun here"
+      },
+      "future_adapter_scope_clearance": "May wire reviewed module, subsequent wiring needs source/pinning/software checks; no future study execution clearance",
+      "future_adapter_owner_tests": {
+        "reported_passed": 74,
+        "independently_rerun_by_readiness_auditor": false
+      },
+      "prospective_wiring_review": {
+        "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+        "review": "prospective-wiring-review-6c586d52/REPAIR_REVIEW.md",
+        "inventory": "prospective-wiring-review-6c586d52/SOURCE_INVENTORY.json",
+        "status": "PASS_SCOPED_COMPLETE_FIT_MEMBERSHIP_REPAIR",
+        "coverage_controls": {
+          "checks": 25,
+          "passed": 25,
+          "audit": "audit/1b-fit-coverage-repaired-6c586d52.json"
+        },
+        "original_wiring_controls": {
+          "checks": 25,
+          "passed": 25,
+          "audit": "audit/1b-wiring-repaired-6c586d52.json"
+        },
+        "overlapping_counts_not_summed": true,
+        "historical_schedule_evidence": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+        "new_mixed_evidence": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST",
+        "actual_study_or_model_access": false,
+        "shared_heavy_lease": false,
+        "owner_tests_reported": 212,
+        "owner_suite_rerun": false
+      },
+      "prospective_wiring_initial_review": {
+        "source_head": "9b5eb72f5e939ef5a366ba40a02efe7a03b5bed5",
+        "review": "prospective-wiring-review-9b5eb72f/REVIEW.md",
+        "audit": "audit/1b-wiring-9b5eb72f.json",
+        "producer": "audit_1b_wiring_9b5eb72f.py",
+        "checks": 25,
+        "passed": 24,
+        "status": "HOLD_REGISTRY_FIT_EVENT_COMPLETENESS",
+        "remaining_finding": "Nonempty subset of declared fit fires admitted as completed full fit",
+        "actual_data_or_registry_execution": false,
+        "dummy_registry_builder_execution": true,
+        "shared_heavy_lease": false,
+        "owner_tests_reported": 181,
+        "owner_suite_rerun": false
+      },
+      "source_class_model_compatibility_review": "PENDING",
+      "source_phase_review": {
+        "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+        "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
+        "review": "phase-support-review-bbb49a38/REVIEW.md",
+        "inventory": "phase-support-review-bbb49a38/SOURCE_INVENTORY.json",
+        "audit": "audit/1b-phase-support-bbb49a38.json",
+        "checks": 30,
+        "passed": 26,
+        "exit_code": 1,
+        "report_control": {
+          "audit": "audit/1b-report-name-bbb49a38.json",
+          "checks": 2,
+          "passed": 1,
+          "exit_code": 1,
+          "scope": "Overlapping report-name control, valid base report first"
+        },
+        "nonspotting_compatibility": {
+          "audit": "audit/1b-nonspotting-compatibility-bbb49a38.json",
+          "owner_fixture_controls_rerun": 6,
+          "exit_code": 0
+        },
+        "counts_not_summed": true,
+        "findings": [
+          "Development budget/train-fire/sample completeness not bound despite exact validation fire keys",
+          "Corrected spotting directory suffix used as prediction model alias, report KeyError if selected"
+        ],
+        "flaming_core": "SCOPED_PASS",
+        "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
+        "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
+        "actual_study_inputs_or_models_accessed": false,
+        "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit"
+      },
+      "current_review_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2"
+    },
+    "1C": {
+      "published_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+      "software_head": "e68123d81fb9064ad057425d7c954f923b50097c",
+      "status": "DRAFT_SOFTWARE_REVIEWABLE_SCIENCE_HOLD_PARTIAL",
+      "native_contact_pairs": {
+        "matching": 52,
+        "total": 52,
+        "missions": 26,
+        "executions": 104,
+        "sipp_slower_pairs": 4
+      },
+      "abstract_census": {
+        "agree": 10000,
+        "cases": 10000
+      },
+      "export_byte_identity": {
+        "windows": 15,
+        "passed": 15
+      },
+      "reader_repair": {
+        "checks": 5,
+        "passed": 5
+      },
+      "core_repair": {
+        "checks": 9,
+        "passed": 9
+      },
+      "strict_admission_records": 42008,
+      "scored_risk_cases": 0,
+      "false_safe_rate": null,
+      "false_refusal_rate": null,
+      "native_farsite": "USAGE_EXECUTION_AVAILABILITY_ONLY_NO_SPREAD_SIMULATION",
+      "alignment_review": "caldor-rim-alignment-1e646b164/CALDOR_RIM_ALIGNMENT_AUDIT.md",
+      "alignment_inventory": "caldor-rim-alignment-1e646b164/SOURCE_INVENTORY.json",
+      "Caldor_Rim_native_export": "NOT_RUN_ALIGNMENT_UNESTABLISHED",
+      "draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/86",
+      "source_head": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+      "contact_support_census": {
+        "producer_head": "6685a48c78a18e70c6a2775c8c0d7cc34dd5db28",
+        "review": "contact-member-admission-7c1cae3f/FULL_MEMBER_SUPPORT_CENSUS.md",
+        "inventory": "contact-member-admission-7c1cae3f/SOURCE_INVENTORY.json",
+        "domains": 15,
+        "missions": 20,
+        "saved_members_per_domain": 1024,
+        "domain_member_checks": 15360,
+        "supported_domain_members": 0,
+        "selection_implication": "Any nonempty selection from each saved pool fails current strict contact support admission",
+        "readiness_reconciliation": "Full CSV index/count/histogram/digest reconciliation; owner direct source-payload byte comparison separately attributed"
+      },
+      "K_scaling": {
+        "state": "NOT_RUN_CONTACT_ADMISSION",
+        "reason": "No saved member on any audited declared domain satisfies the current strict contact predicate",
+        "fixed_K_counter_table": "contact-member-admission-7c1cae3f/member-scaling-closure-20261030-v2/NATIVE_FIXED_K_COUNTERS.csv",
+        "fixed_K": 4,
+        "fixed_K_rows": 52,
+        "multi_K_search_series": false,
+        "figure": "NOT_PRODUCED_NO_ADMITTED_MEASURED_K_SERIES"
+      }
+    }
+  },
+  "cross_track_checks": {
+    "C1_C4_law_v2_vs_v1": {
+      "state": "NOT_RUN_GATED",
+      "reason": "A empirical physics gate and complete journey studies remain unresolved; supported C risk truth absent"
+    },
+    "binding_coherent_K4_K16": {
+      "state": "NOT_RUN_GATED",
+      "reason": "No accepted A physics/full-journey binding study; supported multi-step coherent comparison not established"
+    },
+    "SIPP_on_combined_bridge_v2_packets": {
+      "state": "NOT_RUN_GATED",
+      "reason": "Orchestration Step4 requires accepted1A,1C-1 and1C-3; scientific precondition not met"
+    },
+    "Caldor_Rim_native_forecast_exports": {
+      "state": "NOT_RUN_ALIGNMENT_UNESTABLISHED",
+      "reason": "Six causal input channels, exact grid and compatible cutoff binding not established in bounded sealed-study inventory"
+    },
+    "contact_member_count_scaling": {
+      "state": "NOT_RUN_CONTACT_ADMISSION",
+      "reason": "All1024 saved members on all15audited contact domains contain unknown cells; any nonempty selection fails current strict contact admission before search. Separate from Aphysics/risk truth."
+    }
+  },
+  "publication": {
+    "kind": "Status-only integration draft; no merged track code",
+    "branches_merged": [],
+    "github_merges": [],
+    "checkpoint_promoted": false,
+    "integration_draft_pr": "https://github.com/Sparkxt-0318/wildfireguardian/pull/87"
+  },
+  "logical_review_order": [
+    "1C-1 exports and members",
+    "1A library",
+    "1B forecasting",
+    "1C-2 SIPP",
+    "1C-3 truth harness",
+    "integration"
+  ],
+  "historical_evidence": {
+    "narrative": "history/README-before-current-63944855.md",
+    "full_gate_ledger": "history/GATES-before-current-63944855.json",
+    "generator": "history/build_report-before-current-63944855.py",
+    "archive_inventory": "history/ARCHIVE_INDEX.json",
+    "original_failed_audits_unchanged": [
+      "audit/1a-simultaneous-initial.json",
+      "audit/1c-core-393f37748.json",
+      "audit/1c-readers-a2c6f8a69.json",
+      "audit/1b-blind-tools-be678bb65.json",
+      "audit/1b-repaired-tools-08ac32c7.json"
+    ]
+  },
+  "evidence_origin": {
+    "prior_remote_Claude_runs": "Reference only, not counted as current execution",
+    "A_math_review": "Other independent reviewer; readiness auditor read/archived and checked source/result identities without rerun",
+    "C_alignment": "Track-owner read-only report; readiness auditor checked exact report/inventory hashes and internal counts, not every external file",
+    "future_adapter_review": "Other independent reviewer; archived unchanged, source SHA matched exact Git object, no own fixture rerun",
+    "B_admission": "Readiness auditor independent tiny synthetic tests with mocked numerical producers, no study data",
+    "graph": "Current owned reports not_tracked at integration generation02:27:27Z; direct source read. NewC reports not_tracked at e681 generation03:54:43Z; direct report read.",
+    "A_functional_checks": "Orchestrator independent execution; readiness auditor archived bytes and verified log digests without rerunning",
+    "future_adapter_repair_reviews": "Other independent reviewer17- then20-control review; exact source SHA and result/file custody checked here without rerun or study-data access",
+    "C_contact_census": "Owner streamed original payloads and directly compared mask bytes; readiness auditor independently checked saved CSV completeness/counts/histograms/digests, producer/source/output hashes and retained8prior artifact Git identities. No payload/solver rerun."
+  },
+  "updated_utc": "2026-10-30T07:58:32.913237+00:00"
+}

@@ -1,0 +1,25 @@
+{
+  "interval_hours": 49,
+  "accepted_status": "DESCRIPTIVE_MATCHED_SUBSET_COMPLETE",
+  "scores_available": true,
+  "row_status": "SCORED_COMMON_SUBSET",
+  "native_horizon": {
+    "status": "AVAILABLE",
+    "reason": null,
+    "evidence": "RECORDED_NATIVE_TIMING_RECEIPT_NOT_NEW_EXECUTION",
+    "field_paths": [
+      "report.json:farsite_execution.elapsed_minutes",
+      "report.json:native_clock_verification.duration_minutes",
+      "farsite_prediction.npz:metadata_json.exact_duration_minutes",
+      "farsite_prediction.npz:metadata_json.no_burn_value",
+      "farsite_prediction.npz:arrival_minutes"
+    ],
+    "native_horizon_minutes": 2940.0,
+    "endpoint_minutes": 2940.0,
+    "native_timings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "native_arrival_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "no_burn_value": -9999.0,
+    "right_censoring": "-9999 means no arrival through the verified finite native horizon only"
+  },
+  "superiority_criteria_pass": false
+}

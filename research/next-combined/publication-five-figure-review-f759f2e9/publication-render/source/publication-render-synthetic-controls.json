@@ -1,0 +1,9 @@
+{
+  "scope": "Two invented layout controls only; no study artifact or numerical job accessed.",
+  "source_sha256": "595b24480623ca75cf55b81dc0b0501ff2b93a0aad3b679e0046d8b325ae6c1a",
+  "controls": {
+    "fig03_numeric_state_ticks_labels_limits_unchanged": true,
+    "fig05_numeric_state_label_words_unchanged": true
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,71 @@
+{
+  "scope": "simultaneous-ignition unsupported geometry consistency only",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "1.26.4",
+  "audit_script_sha256": "01bb75a896c98c84fd9f30b88b43322ab21106dfdc8da28110a49e6d350da986",
+  "track_head": "f9fa03290d57dc3d226543833f612640fd9f414a",
+  "source_sha256": {
+    "experimental/flame-front-radiation/src/wfg_flamefront/isochrone.py": "3decc62810cf91004884d2bdc6274bccc5a158e469053d1e43cfa582da69b348",
+    "experimental/flame-front-radiation/src/wfg_flamefront/intensity.py": "7e65dd4c64934eeb75c2b7c97882e09ddab7f2641447988bb81dcc3c73bd8ff0",
+    "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "cab6beb1b01b31f6ebf199574d8d650db476a42042ae14afa973584a27b712bb",
+    "experimental/flame-front-radiation/src/wfg_flamefront/solidflame.py": "ccd652273bc9fa1946f8f98c29a98b178b9262902b9853bbc90cd5534cb41807",
+    "experimental/flame-front-radiation/src/wfg_flamefront/__init__.py": "1df47d93a1c4fc13da905e9a95f283ff12c6416eaf4b4fe6799eded8f543a16c",
+    "experimental/flame-front-radiation/src/wfg_flamefront/provenance.py": "c3ec3713ddeb9cc0575ee03a309bde6d7fba4e98c05a5705f63f014857781428"
+  },
+  "fixture": {
+    "ignition_time_s": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "residence_s": 10,
+    "query_time_s": 1.5,
+    "interval_s": [
+      1,
+      2
+    ],
+    "point_xy": [
+      3,
+      3
+    ],
+    "box_xy": [
+      2,
+      4,
+      2,
+      4
+    ],
+    "affine_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ]
+  },
+  "observations": {
+    "point": {
+      "state": "RAISED",
+      "type": "UnsupportedGeometry",
+      "message": "zero-gradient ignition or extinction field during a potentially active interval"
+    },
+    "enclosure": {
+      "state": "RAISED",
+      "type": "UnsupportedGeometry",
+      "message": "zero-gradient ignition or extinction field during a potentially active interval"
+    }
+  },
+  "consistent_unsupported_refusal": true,
+  "status": "PASS_TARGETED_REFUSAL",
+  "not_established": [
+    "physical correctness",
+    "full enclosure proof",
+    "routing acceptance"
+  ]
+}

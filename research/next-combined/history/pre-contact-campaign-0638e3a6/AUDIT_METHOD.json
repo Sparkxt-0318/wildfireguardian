@@ -1,0 +1,176 @@
+{
+  "tier": "Tier2 task-directed verification, scoped and best effort",
+  "record_kind": "Current readiness summary; original detailed method archived verbatim",
+  "current_sources": {
+    "A_math": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+    "B_admission": "a6d1551926ad9d830836e4b0d77ee9a7b8e9cd0d",
+    "C_software": "e68123d81fb9064ad057425d7c954f923b50097c",
+    "C_report_publication": "7c1cae3f196ee141de793cfc93394e1cfc67ed7d",
+    "B_future_adapter": "d031b72b86d4f9089c87ab3e8d706ca74423c31f",
+    "B_phase_support": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2"
+  },
+  "graphs": {
+    "integration": {
+      "project": "wfg-next-integration-20261030",
+      "generation": "2026-10-30T02:27:27Z",
+      "coverage": "Current owned reports not_tracked, direct source read/JSON/hash validation"
+    },
+    "C_reports": {
+      "project": "wfg-next-1c-audit-e68123d81-20261030",
+      "generation": "2026-10-30T03:54:43Z",
+      "coverage": "New exact report paths not_tracked, direct report/inventory read and hash checks"
+    },
+    "B": {
+      "project": "wfg-next-1b-audit-a6d15519-20261030",
+      "generation": "2026-10-30T05:05:54Z"
+    },
+    "A_math": {
+      "project": "wfg-next-1a-audit-43324736-20261030",
+      "generation": "2026-10-30T04:09:55Z",
+      "coverage": "Reviewer graph/snippet/source proof scope retained in archived review; readiness pass checked exact source/artifact identity, not a new proof"
+    },
+    "B_future_adapter": {
+      "project": "wfg-next-1b-audit-d031b72b-20261030",
+      "generation": "2026-10-30T05:29:57Z",
+      "coverage": "Adapter excluded/not_tracked; archived full independent review directly read, exact adapter/test Git object hashes checked. Indexed test file metadata_match. No new source-proof or suite rerun claimed."
+    },
+    "B_prospective_wiring": {
+      "project": "wfg-next-1b-audit-9b5eb72f-20261030",
+      "generation": "2026-10-30T05:59:15Z",
+      "coverage": "Entire scripts subtree excluded, complete new builder and blind tool read directly; pinned test helper source read and metadata-match. No graph caller completeness claim."
+    },
+    "B_complete_fit_repair": {
+      "project": "wfg-next-1b-audit-6c586d52-20261030",
+      "generation": "2026-10-30T06:53:56Z",
+      "coverage": "Scripts excluded, complete539line helper and registry builder directly read; blindtool exact9b bytes reused after git-diff verification; indexed test source metadata_match. No exhaustive AST proof claimed."
+    },
+    "B_phase_support": {
+      "project": "wfg-next-1b-audit-bbb49a38-20261030",
+      "generation": "2026-10-30T07:46:44Z",
+      "coverage": "Core4files and relevant indexed tests metadata_match. Entire research scripts subtree excluded/not_tracked, one recorded scope gap, no pagination remaining. Complete coverage helper, registry builder and public runner directly read; material pipeline/report/scorer source read in chunks, unchanged blind-tool body reused from prior full9b read after exact11added/2removed diff. No exhaustive graph or source-proof claim."
+    }
+  },
+  "execution_scope": "Independent tiny B/C fixtures only. Current rewrite and archival do not execute numerical studies or access heldout/future datasets. No merge, push or checkpoint promotion.",
+  "C_alignment_scope": "Read owner report, inventory, metadata and program; matched inventory/producer hashes and counts, verified only four report paths differ from e681 to1e64. No independent rehash of all external sealed source files.",
+  "other_reviewer_archive_scope": "Exact future-inventory and radiation review bytes retained with source pins; no new fixture runs by readiness auditor.",
+  "history": "history/AUDIT_METHOD-before-current-63944855.json",
+  "limitations": [
+    "Graph coverage is a best-effort signal, not a completeness proof",
+    "A fresh42functional tests and367release hashes pass; empiricalphysics remains HOLD",
+    "Future raw-release/exclusion/registration authentication unresolved; adapter scoped repair review passes, unwired at reviewedd03head; subsequent wiring still needs checks",
+    "C risk records unscorable, whole-road and full-policy validation open",
+    "Scoped completeness software repair passes; actual final artifacts, source-class/model compatibility and wind semantics remain unverified by this readiness audit. Historical source inference is not runtime logging.",
+    "Currentbbb phase admission/report remains HOLD with two independently reproduced software findings. Earlier a6/6c passes are preserved and cannot confer current admission. Wind12control clearance is separately coordinator-reported, not rerun here."
+  ],
+  "A_current_functional_evidence": {
+    "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
+    "inventory": "a-functional-checks-43324736/SOURCE_INVENTORY.json",
+    "source_head": "43324736fc5301a0444b01b918ef14a0372b1ec3",
+    "readiness_action": "Archive and verify exact log digests, no rerun",
+    "performance_claim": false
+  },
+  "future_adapter_repairs": {
+    "intermediate_review": {
+      "review": "future-inventory-repair-review-961fec6d/REPAIR_REVIEW_961fec6d.md",
+      "inventory": "future-inventory-repair-review-961fec6d/SOURCE_INVENTORY.json",
+      "source_commit": "961fec6d43bd8f89433c183f973805de3a228444"
+    },
+    "final_review": {
+      "review": "future-inventory-repair-review-d031b72b/REPAIR_REVIEW_d031b72b.md",
+      "inventory": "future-inventory-repair-review-d031b72b/SOURCE_INVENTORY.json",
+      "source_commit": "d031b72b86d4f9089c87ab3e8d706ca74423c31f"
+    },
+    "final_targeted_controls": 20,
+    "owner_tests_reported": 74,
+    "readiness_action": "Read/archive exact review/producer/results, verify source hashes and counts; no new execution"
+  },
+  "prospective_wiring_review": {
+    "source_head": "9b5eb72f5e939ef5a366ba40a02efe7a03b5bed5",
+    "review": "prospective-wiring-review-9b5eb72f/REVIEW.md",
+    "audit": "audit/1b-wiring-9b5eb72f.json",
+    "producer": "audit_1b_wiring_9b5eb72f.py",
+    "checks": 25,
+    "passed": 24,
+    "status": "HOLD_REGISTRY_FIT_EVENT_COMPLETENESS",
+    "remaining_finding": "Nonempty subset of declared fit fires admitted as completed full fit",
+    "actual_data_or_registry_execution": false,
+    "dummy_registry_builder_execution": true,
+    "shared_heavy_lease": false,
+    "owner_tests_reported": 181,
+    "owner_suite_rerun": false
+  },
+  "C_contact_full_N": {
+    "inventory": "contact-member-admission-7c1cae3f/SOURCE_INVENTORY.json",
+    "scope": "Read-only archive, exact local artifact/source identity checks and full saved CSV row reconciliation. No replay of trajectory payloads, byte-mask census, solver, selector, test or experiment.",
+    "result": {
+      "domains": 15,
+      "missions_reported": 20,
+      "indices_per_domain": 1024,
+      "complete_indices": true,
+      "rows": 15360,
+      "supported_rows": 0,
+      "all_unknown_cells_positive": true,
+      "unknown_mask_digests_per_domain": 1,
+      "domain_histograms_match_report": true
+    },
+    "predicate_source": "Exact graph snippets bridge_v2.to_contact_model178-187 and frontend.sipp_plan170-212, generation03:54:43Z metadata_match, no relevant pagination left",
+    "byte_equality_scope": "Matching producer explicitly compares every original Boolean unknown-mask byte string against a reference per domain. Owner report says all1024equal per domain; readiness pass checks source/report identity, not a fresh payload read.",
+    "new_reports": "Not_tracked in oldCgraph; direct read, exact producer/output/receipt/prior-Git hash checks",
+    "physics_and_risk_scope": "Separate from current contact-admission rejection, not a universal local-checker impossibility theorem"
+  },
+  "prospective_wiring_repair": {
+    "source_head": "6c586d525941cf8ea9b65c8d8680c156a2ad18ad",
+    "review": "prospective-wiring-review-6c586d52/REPAIR_REVIEW.md",
+    "inventory": "prospective-wiring-review-6c586d52/SOURCE_INVENTORY.json",
+    "status": "PASS_SCOPED_COMPLETE_FIT_MEMBERSHIP_REPAIR",
+    "coverage_controls": {
+      "checks": 25,
+      "passed": 25,
+      "audit": "audit/1b-fit-coverage-repaired-6c586d52.json"
+    },
+    "original_wiring_controls": {
+      "checks": 25,
+      "passed": 25,
+      "audit": "audit/1b-wiring-repaired-6c586d52.json"
+    },
+    "overlapping_counts_not_summed": true,
+    "historical_schedule_evidence": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "new_mixed_evidence": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST",
+    "actual_study_or_model_access": false,
+    "shared_heavy_lease": false,
+    "owner_tests_reported": 212,
+    "owner_suite_rerun": false
+  },
+  "B_phase_support": {
+    "source_head": "bbb49a38cb61bd00aff0b4944126410c7b77c6a2",
+    "status": "HOLD_TWO_CONFIRMED_SOFTWARE_FINDINGS",
+    "review": "phase-support-review-bbb49a38/REVIEW.md",
+    "inventory": "phase-support-review-bbb49a38/SOURCE_INVENTORY.json",
+    "audit": "audit/1b-phase-support-bbb49a38.json",
+    "checks": 30,
+    "passed": 26,
+    "exit_code": 1,
+    "report_control": {
+      "audit": "audit/1b-report-name-bbb49a38.json",
+      "checks": 2,
+      "passed": 1,
+      "exit_code": 1,
+      "scope": "Overlapping report-name control, valid base report first"
+    },
+    "nonspotting_compatibility": {
+      "audit": "audit/1b-nonspotting-compatibility-bbb49a38.json",
+      "owner_fixture_controls_rerun": 6,
+      "exit_code": 0
+    },
+    "counts_not_summed": true,
+    "findings": [
+      "Development budget/train-fire/sample completeness not bound despite exact validation fire keys",
+      "Corrected spotting directory suffix used as prediction model alias, report KeyError if selected"
+    ],
+    "flaming_core": "SCOPED_PASS",
+    "logged_unsupported_accounting": "SCOPED_PASS_WITH_CONSERVATIVE_SOURCE_ENVELOPE_LIMIT",
+    "actual_guarded_public_assessment_routes": "SCOPED_PASS_COMMAND_CONSTRUCTION_NO_EXECUTION",
+    "actual_study_inputs_or_models_accessed": false,
+    "later_report_repair": "Owner reports637457f3, not independently rechecked in this boundedbbb audit"
+  }
+}

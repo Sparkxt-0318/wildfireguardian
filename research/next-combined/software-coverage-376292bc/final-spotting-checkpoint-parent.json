@@ -1,0 +1,9 @@
+{
+  "scope": "New trained checkpoint byte identity only; no model deserialization/inference/quality score",
+  "commit": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
+  "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+  "actual_sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b",
+  "git_object_payload_sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b",
+  "expected_receipt_sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b",
+  "status": "PASS_FINAL_SPOTTING_CHECKPOINT_IDENTITY"
+}

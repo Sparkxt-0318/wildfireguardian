@@ -1,0 +1,8 @@
+{
+  "status": "PASS_RECEIPT_METADATA_CHECKS",
+  "commit": "fd8bf2e78532b76d2dd2cfd094d3499def90fc23",
+  "reviewed_source_hashes": 23,
+  "unchanged_prior_git_blobs": 35,
+  "timing_reference_hashes": 2,
+  "scope": "Source bytes and Git object metadata only. No prior real graph, trajectory arrays or native planner records were opened."
+}

@@ -1,0 +1,41 @@
+{
+  "controls": [
+    {
+      "frame": "none",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": null
+    },
+    {
+      "frame": "none",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": 6.0
+    },
+    {
+      "frame": "wind",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": null
+    },
+    {
+      "frame": "wind",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": 6.0
+    },
+    {
+      "frame": "d4",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": null
+    },
+    {
+      "frame": "d4",
+      "outputs_masks_all_parameter_gradients_bit_identical": true,
+      "residence_hours": 6.0
+    }
+  ],
+  "current_meanfield_sha256": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+  "evidence_class": "BOUNDED_SOURCE_AND_MECHANISM_CHECK_NOT_STUDY",
+  "limit": "No spotting identity is asserted; four historical spotting phases require the flaming-only rerun.",
+  "local_burnout_source_ast_unchanged": true,
+  "non_extra_ast_identical_after_removing_only_new_metadata_branch": true,
+  "prior_meanfield_sha256": "99ce687b07f399bb09fd48e56759df75b9ba765e3ca88ccd74be11b81adadf74",
+  "script_sha256": "9426d96f96f26358ae09f81e055df3b76da39fab20323b01de799e1a4f13b9cd"
+}

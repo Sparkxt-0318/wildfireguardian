@@ -1,0 +1,10 @@
+{
+  "source_commit": "0638e3a6cc327a18c3588ca0031ceff35cea936a",
+  "scope": "Exact prior current-HOLD narrative and gates before contact campaign/parent report-alias repair archive. Historical, superseded current summary only; original failure records and reviews remain unchanged.",
+  "sha256": {
+    "README.md": "d0f4bc6c979f23a2e1855fbaf6b02cba5e81e1f74eef493e62ea2930639b7eea",
+    "GATES.json": "1acbe874fd8c58b1343e5d72444e97b1af430af1763f179319ea842f62739869",
+    "CURRENT_EVIDENCE.json": "1acbe874fd8c58b1343e5d72444e97b1af430af1763f179319ea842f62739869",
+    "AUDIT_METHOD.json": "6c2de6a0c412d33648209bd1763ba5ff41ac365228342d3708672b22ac973197"
+  }
+}

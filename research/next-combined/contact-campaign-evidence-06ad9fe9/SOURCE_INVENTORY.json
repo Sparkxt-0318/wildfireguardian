@@ -1,0 +1,138 @@
+{
+  "report_head": "06ad9fe902d0c2077a7623f1d7f8e70b1e0dad4b",
+  "executed_source_phase": "095b8d174d2f203ea67bea5fdd8c69eb0633b2a0",
+  "files": [
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/README.md",
+      "archive": "contact-campaign-evidence-06ad9fe9/README.md",
+      "sha256": "abc5b61eda716ab85d9f8ce24d3e31eb71e674e9355d909d48ed418772a6594a",
+      "bytes": 4878
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/RESULTS.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/RESULTS.json",
+      "sha256": "20b01d4daecffa5b2b24c1cc3571d83b9fc8250d5c7b1da7941b19eac25e1b15",
+      "bytes": 857
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/ANALYSIS.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/ANALYSIS.json",
+      "sha256": "13fdd2d2fd8e60fcc50d9a6048294c787d3e99cd79bbc4f5d83920efc0853090",
+      "bytes": 2904
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/BUNDLE.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/BUNDLE.json",
+      "sha256": "0102f8ca099b121b623401ed63e8717d5d90ba96cab11a8f93c519462e89f577",
+      "bytes": 223289
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/OUTPUT_SHA256.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/OUTPUT_SHA256.json",
+      "sha256": "aaca69d7f3b983ec2dce827cbafa46defa7c35d1655dc41906f1bec72dfc3ca7",
+      "bytes": 29375
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/FIGURE_REVIEW.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/FIGURE_REVIEW.json",
+      "sha256": "28d9d35ed76e7a73db7710f5008cd8f9061296a620092dad21f228f8cf756ba0",
+      "bytes": 1563
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/POST_CAMPAIGN_SOFTWARE_CHECK.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/POST_CAMPAIGN_SOFTWARE_CHECK.json",
+      "sha256": "d4bb9886eeac3305fa7a7ec9e0deef9a728bfbfc5e3b1ef176266b654619ec6a",
+      "bytes": 631
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig01_contact_K_time_paired.png",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig01_contact_K_time_paired.png",
+      "sha256": "2e840861df61900e5b48be64d66d99a3396fb6475196122fcfedb161d4215e69",
+      "bytes": 125057
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig01_contact_K_time_paired.svg",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig01_contact_K_time_paired.svg",
+      "sha256": "0f972b39ffc33ce439dcfd55a9a556e119790ec01b0d18857b1d39ff94c19230",
+      "bytes": 51325
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig02_states_vs_members.png",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig02_states_vs_members.png",
+      "sha256": "6d7da807b2b693749dfadecffae2443cac7717be0d65c3684b61a6d21c032933",
+      "bytes": 137508
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig02_states_vs_members.svg",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig02_states_vs_members.svg",
+      "sha256": "1ad60f7848b12f0ac245135fbb3c31c9ca40b8f5c0cc8622414423a5be9d8770",
+      "bytes": 71647
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig03_contact_K_outcomes.png",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig03_contact_K_outcomes.png",
+      "sha256": "5d9d13ab56dd0ff5848f44a88eea094db9170b0e449fa9c99c39dfc49a9a68b6",
+      "bytes": 48643
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/known-footprint-contact-K-20261030/figures/fig03_contact_K_outcomes.svg",
+      "archive": "contact-campaign-evidence-06ad9fe9/figures/fig03_contact_K_outcomes.svg",
+      "sha256": "f58bcbd00f55057951ecdc8132b8a32f918f086c17734605261f25f0cf1d3273",
+      "bytes": 29729
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/KNOWN_FOOTPRINT_K_PROTOCOL.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/KNOWN_FOOTPRINT_K_PROTOCOL.json",
+      "sha256": "f3ba08b82410f6ff477220f99af403c7abaaf497b6508668b6b6b9d9c561f844",
+      "bytes": 8090
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c/research/sipp-routing/KNOWN_FOOTPRINT_K_PROTOCOL.md",
+      "archive": "contact-campaign-evidence-06ad9fe9/KNOWN_FOOTPRINT_K_PROTOCOL.md",
+      "sha256": "36430f73c6aa59e090536fdb439a6ac92fcbea66eeff9e666312b01509b1ed26",
+      "bytes": 3812
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c-06ad9fe9.json",
+      "archive": "contact-campaign-evidence-06ad9fe9/audit-1c-06ad9fe9.json",
+      "sha256": "7a94186b48011e4020231d3b1726eaaf7114a2cb2eee32b534a7a87f1a556fa7",
+      "bytes": 52176
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/audit-1c-06ad9fe9.log",
+      "archive": "contact-campaign-evidence-06ad9fe9/audit-1c-06ad9fe9.log",
+      "sha256": "ba8cc8e6abaf38ce060e6aa594e6fdc7893368cb2d3d87f1671a999a236c9229",
+      "bytes": 52177
+    },
+    {
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/release-1c-06ad9fe9.log",
+      "archive": "contact-campaign-evidence-06ad9fe9/release-1c-06ad9fe9.log",
+      "sha256": "4dbc489656fe6f19f55dfb4ba4f47965bc5bdde0d8eebd57f8b3f5780da39183",
+      "bytes": 107
+    }
+  ],
+  "archived_campaign_manifest_hash_matches": {
+    "README.md": "abc5b61eda716ab85d9f8ce24d3e31eb71e674e9355d909d48ed418772a6594a",
+    "RESULTS.json": "20b01d4daecffa5b2b24c1cc3571d83b9fc8250d5c7b1da7941b19eac25e1b15",
+    "ANALYSIS.json": "13fdd2d2fd8e60fcc50d9a6048294c787d3e99cd79bbc4f5d83920efc0853090",
+    "BUNDLE.json": "0102f8ca099b121b623401ed63e8717d5d90ba96cab11a8f93c519462e89f577",
+    "FIGURE_REVIEW.json": "28d9d35ed76e7a73db7710f5008cd8f9061296a620092dad21f228f8cf756ba0",
+    "POST_CAMPAIGN_SOFTWARE_CHECK.json": "d4bb9886eeac3305fa7a7ec9e0deef9a728bfbfc5e3b1ef176266b654619ec6a",
+    "figures/fig01_contact_K_time_paired.png": "2e840861df61900e5b48be64d66d99a3396fb6475196122fcfedb161d4215e69",
+    "figures/fig01_contact_K_time_paired.svg": "0f972b39ffc33ce439dcfd55a9a556e119790ec01b0d18857b1d39ff94c19230",
+    "figures/fig02_states_vs_members.png": "6d7da807b2b693749dfadecffae2443cac7717be0d65c3684b61a6d21c032933",
+    "figures/fig02_states_vs_members.svg": "1ad60f7848b12f0ac245135fbb3c31c9ca40b8f5c0cc8622414423a5be9d8770",
+    "figures/fig03_contact_K_outcomes.png": "5d9d13ab56dd0ff5848f44a88eea094db9170b0e449fa9c99c39dfc49a9a68b6",
+    "figures/fig03_contact_K_outcomes.svg": "f58bcbd00f55057951ecdc8132b8a32f918f086c17734605261f25f0cf1d3273"
+  },
+  "scope": "Exact summary/protocol/figure bytes and parent ownership/release receipts retained. Readiness checks archive identities and selected Git objects, not raw320records,115inputs or72geometric witnesses. The independent22+5review owns output/input/control/visual verification. No reruns.",
+  "parent_ownership": {
+    "changed_files": 643,
+    "pass_check": true
+  },
+  "parent_release": {
+    "copied_hashes": 367,
+    "pass_check": true
+  },
+  "figure_scope": "Exact files and owner/independent review receipts retained; no new visual review by readiness archivist."
+}

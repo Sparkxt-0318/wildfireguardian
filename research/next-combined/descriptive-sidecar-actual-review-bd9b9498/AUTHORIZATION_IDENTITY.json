@@ -1,0 +1,14 @@
+{
+  "sha256": "8b5ef1615f6d2f1b52a5408672e24589741f14de705ff7428f77fd5d87841feb",
+  "source": {
+    "path": "research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py",
+    "sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799"
+  },
+  "model_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b",
+  "output_relative_directory": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v1",
+  "method_protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+  "prerequisite_spec_sha256": "0dffd934920b72b0eac36d83dc1b7950b818e039c25264874e59d161a08b04fb",
+  "inputs": 652,
+  "frozen": 223,
+  "actual_review": "NOT_RUN_PENDING_COMPLETION_AND_ROOT_FOLLOWUP"
+}

@@ -1,0 +1,73 @@
+{
+  "scope": "Tiny fabricated coordinate/label/probability arrays only; schema and exact equality controls. No model inference or forecast quality metric.",
+  "checks": [
+    {
+      "name": "typed_two_case_positive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "changed_prediction_entry",
+      "passed": true,
+      "detail": "AGGREGATE_EXACT_CONCATENATION:p_base_seed0"
+    },
+    {
+      "name": "changed_prediction_dtype",
+      "passed": true,
+      "detail": "AGGREGATE_EXACT_CONCATENATION:p_base_seed0"
+    },
+    {
+      "name": "wrong_interval",
+      "passed": true,
+      "detail": "AGGREGATE_INTERVAL_ALIGNMENT"
+    },
+    {
+      "name": "wrong_t1",
+      "passed": true,
+      "detail": "AGGREGATE_T1_HOURS_ALIGNMENT"
+    },
+    {
+      "name": "wrong_hours",
+      "passed": true,
+      "detail": "AGGREGATE_T1_HOURS_ALIGNMENT"
+    },
+    {
+      "name": "missing_aggregate_model",
+      "passed": true,
+      "detail": "AGGREGATE_16_MODEL_COLUMN_SCHEMA"
+    },
+    {
+      "name": "wrong_mask_identity",
+      "passed": true,
+      "detail": "SCORED_MASK_IDENTITY"
+    },
+    {
+      "name": "wrong_count_partition",
+      "passed": true,
+      "detail": "COUNT_OR_REFERENCE_PARTITION"
+    },
+    {
+      "name": "missing_case_model",
+      "passed": true,
+      "detail": "CASE_16_MODEL_COLUMN_SCHEMA"
+    },
+    {
+      "name": "nonfinite_probability",
+      "passed": true,
+      "detail": "PROBABILITY_COLUMN_SCHEMA:p_base_seed0"
+    },
+    {
+      "name": "duplicate_coordinate",
+      "passed": true,
+      "detail": "COORDINATE_ORDER_OR_DUPLICATES"
+    },
+    {
+      "name": "wrong_model_shape",
+      "passed": true,
+      "detail": "PROBABILITY_COLUMN_SCHEMA:p_base_seed0"
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "failures": []
+}
