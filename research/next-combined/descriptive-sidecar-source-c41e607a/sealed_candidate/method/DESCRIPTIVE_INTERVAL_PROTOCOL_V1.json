@@ -1,0 +1,102 @@
+{
+  "protocol_version": "CURRENT_DESCRIPTIVE_INTERVALS_V1",
+  "created_utc": "2026-10-30T17:10:23.901724+00:00",
+  "status": "METHOD_FIXED_BEFORE_FINAL_QUALITY_INTERPRETATION_NOT_EXECUTED",
+  "authorization": "Source-only preparation is allowed now. No production implementation, actual array read or numerical supplement until BOTH original cohorts close unchanged, canonical report is saved, full306 census and original independent result review pass within scope, and root explicitly authorizes actual saved-output computation.",
+  "purpose": "Supply missing descriptive whole-fire intervals requested by prompt54/73. This is a separate supplement, not a change to any frozen primary estimator, decision, selection, calibration, model, input, cohort or default.",
+  "bindings": {
+    "freeze_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "root_cohort_authorization_sha256": "554e4fb0fefb2aae290143631f63d2f1b2a24b75cfe4dac250f89a54a31ed2ef",
+    "source_review_sha256": "b3f9513367f5666ca9f8ccde548db331c48251e7811f561ab8f2400ffe3d22cd",
+    "source_review_result_sha256": "3608188bd4167feadab082d3d970f251394f438bbffdf47865b47ad9e1650405",
+    "owner_checklist_sha256": "7522e70c61d93ce6361393f71d53a9a9d418b37d71a1e8e646298b096e9dd7e4"
+  },
+  "cohorts": {
+    "us2024": {
+      "expected_cases": 273,
+      "fire_order": [
+        "ID-BOF-000683_Wapiti_Wapiti",
+        "ID-BOF-000904_Goat",
+        "ID-BOF-001080_Lava",
+        "ID-SCF-240202_RedRock",
+        "WA-SES-000173_Pioneer",
+        "WY-BTF-002416_FishCreek"
+      ]
+    },
+    "korea2025": {
+      "expected_cases": 33,
+      "fire_order": [
+        "KFS_01",
+        "KFS_04",
+        "KFS_06",
+        "KFS_13"
+      ]
+    }
+  },
+  "model_order": [
+    "base_seed0",
+    "burnout_seed0",
+    "burnout_spotting_seed0",
+    "c651_mc",
+    "c651_meanfield",
+    "d4_seed0",
+    "d4_wind_seed0",
+    "dilation_1h",
+    "dilation_2h",
+    "dilation_4h",
+    "dilation_8h",
+    "dilation_best",
+    "ellipse_seed0",
+    "logistic",
+    "mixed_base_seed0",
+    "persistence"
+  ],
+  "admission": {
+    "expected_population": "Every frozen case and fire represented once, exact inventories and canonical16-column names required. Independently authenticate canonical case-to-fire rows, common support, labels, predictions and all consumed hashes. No case/fire/entry trimming or available-subset fallback. No new model inference.",
+    "per_cohort_failure": "If complete canonical scoring/support for a cohort is unavailable, retain its explicit unavailable/failed outcomes and give that cohort a null complete-cohort supplement. Do not cancel the other complete cohort.",
+    "primary_hold": "A complete supported cohort may receive descriptive intervals even if the unchanged primary scientific criterion is HOLD. The supplement never clears or changes that criterion."
+  },
+  "bootstrap": {
+    "numpy": "1.26.4",
+    "sklearn_reference": "1.5.2",
+    "draws": 10000,
+    "seed": 20261030,
+    "rng": "np.random.default_rng(20261030)",
+    "matrix": "rng.integers(0,F,size=(10000,F)) separately for each cohort in the exact fire order above",
+    "same_matrix": "All16 models, references and diagnostics reuse the same cohort matrix. Preserve every original draw frequency, including repeated multiplicity vectors.",
+    "quantiles": {
+      "q": [
+        0.025,
+        0.975
+      ],
+      "method": "linear"
+    },
+    "custody": "Save draw matrices plus shape/dtype/NPY and little-endian int64 C-order payload hashes. Bind protocol, code, dependencies, input artifacts, canonical review receipts and source before/after."
+  },
+  "estimands": {
+    "absolute_fields": [
+      "pooled_raw_brier",
+      "pooled_average_precision",
+      "pooled_roc_auc",
+      "pooled_ece_10_bins",
+      "pooled_clipped_nll"
+    ],
+    "unit": "Pooled canonical cell-interval entries with complete whole-fire resampling; never equal-fire macro intervals attached to pooled points.",
+    "brier": "sum(m_f*SSE_f)/sum(m_f*n_f). Raw stored-probability Brier only; c651 brier_mc_variance_corrected remains a separate unchanged diagnostic with no relabeled raw interval.",
+    "ap": "Exact descending stored-score tie groups; for positive count A>0, sum((a_g/A)*(cumulative_positive_g/cumulative_count_g)) over positive-total-weight groups. Zero-weight groups skipped. All-positive AP=1; zero-positive AP=null.",
+    "roc_auc": "Exact source average-rank tie convention, equivalently positive-negative ranking pairs with half credit for ties. Null if either class is absent.",
+    "ece": "Frozen BINS=np.linspace(0,1,11), bin=np.clip(np.digitize(p,BINS[1:-1],right=False),0,9); sum(abs(weighted probability sum minus weighted positive sum) per bin)/weighted total count. Empty bins contribute0.",
+    "clipped_nll": "Frozen np.clip(p,1e-7,1-1e-7), pooled sum(-y*log(q)-(1-y)*log1p(-q))/count; exact NLL/infinity fields remain distinct and untouched.",
+    "paired_ap": "candidate AP minus reference AP using the identical draw. References exactly persistence and dilation_best, all16 candidates retained. Positive favours candidate. Descriptive secondary only; primary Brier favourable direction stays negative."
+  },
+  "undefined_policy": {
+    "full_interval": "Any undefined AP/AUC draw makes that metric full95% interval null/unavailable; do not impute zero or drop the fire/draw. Null original point means null original full interval.",
+    "counts": "Always report10000 total draws, defined count, undefined no-positive count, undefined no-negative count where applicable, and undefined union count without double counting.",
+    "conditional": "An optional separately named defined-draw percentile interval is allowed with explicit conditioning and counts. It must never be shown as the unconditional full95% interval. If no defined draw, it is null.",
+    "empty_invalid": "Missing/empty expected fire, invalid probability or empty population is an admission failure, never a zero diagnostic."
+  },
+  "execution_optimization": "Cache observed fire-multiplicity vectors (at most462 US/35 Korea), sort/tie-group each fixed column once and aggregate counts per score-group/fire. Restore all10000 original draw frequencies before quantiles. One model/batch at a time bounds memory; no actual runtime or memory claim is predeclared.",
+  "implementation_scope": "Only separate new files in the track1B-owned research/forecast-v2/supplements surface after both cohorts close. Preserve every223 frozen file and canonical RESULTS/assessments/figures/primary decisions byte-for-byte; no registry rewrite. Code/source snapshots and supplement result/README tables receive distinct pins. Scratch-only planning or synthetic controls may precede closure.",
+  "required_verification": "Owner meaningful tiny-array boundary/admission tests; independent source review and literal duplicated-fire/sklearn comparisons; actual point reconciliation to canonical raw fields; full source/artifact custody and reproducible commands. Any nontrivial saved-array computation takes shared HEAVY only after existing numerical work closes. Original final checker and census remain unchanged.",
+  "interpretation": "Descriptive cluster percentile intervals conditional on these fixed predictions, model support and mapped/reconstructed references from only6US/4Korean fires. Separate cohorts. No model selection, superiority-criterion change, physical/flame/safety claim, future2026 execution or promotion."
+}

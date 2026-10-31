@@ -52,7 +52,7 @@ def build(out):
     assert progress['us2024']['statuses'] == {'SCORED': 273}
     assert progress['korea2025']['statuses'] == {'SCORED': 26, 'UNAVAILABLE': 7}
     assert b['current_cohort_execution']['state'] == 'BOTH_CLOSED_ACTUAL_SAVED_RESULT_CENSUS_PASS_PRIMARY_FALSE_KR_HOLD'
-    assert b['descriptive_intervals']['actual_computation'] == 'NOT_AUTHORIZED_NOT_RUN'
+    assert b['descriptive_intervals']['actual_computation'] == 'COMPLETED_AUTHORIZED_SAVED_OUTPUT_COMPUTATION_ATTEMPT2'
     assert not b['descriptive_intervals']['source_review_is_candidate_implementation_review']
     actual = json.loads((out / b['canonical_saved_result_review']['result']).read_text())
     census = json.loads((out / b['current_census_actual']['result']).read_text())
@@ -64,19 +64,37 @@ def build(out):
     assert results['korean2025_secondary_reconstruction']['assessment_status'] == 'HOLD'
     assert b['stored_farsite_actual_review']['canonical_status'] == 'HOLD'
     assert not b['stored_farsite_actual_review']['native_execution_this_command']
+    sidecar = json.loads((out / b['descriptive_intervals']['producer']['result']).read_text())
+    sidecar_review = json.loads((out / b['descriptive_intervals']['actual_independent_review']['receipt']).read_text())
+    assert sidecar_review['status'] == 'PASS_INDEPENDENT_ACTUAL_SAVED_OUTPUT_REVIEW'
+    assert sidecar_review['counts']['exact_raw_points'] == sidecar_review['counts']['diagnostic_intervals'] == 80
+    assert sidecar_review['counts']['paired_AP_descriptors'] == 32
+    assert sidecar['cohorts']['korea2025']['metrics'] is None and len(sidecar['cohorts']['korea2025']['original_outcomes']) == 7
+    assert sidecar['frozen_primary_unchanged'] and not sidecar['promotion_criteria_pass'] and not sidecar['model_inference']
     text = f'''# Current next-track readiness
 
-**[Draft readiness, PR 87]({current['publication']['integration_draft_pr']}). The independent saved-result audit and exact 306-case census pass; the selected forecast fails the frozen primary criterion.** Korea retains full-cohort HOLD with seven unavailable windows. Stored FARSITE reconciliation and publication figure QA pass within their scopes. The descriptive interval sidecar remains blocked. A physics and C support/risk gates keep Step 4 **NOT_RUN_GATED**. No track code is merged here, and no default promotion or future 2026 execution is cleared.
+**[Draft readiness, PR 87]({current['publication']['integration_draft_pr']}). The independent saved-result audit and exact 306-case census pass; the selected forecast fails the frozen primary criterion.** Korea retains full-cohort HOLD with seven unavailable windows. Stored FARSITE reconciliation and publication figure QA pass within their scopes. The separate US descriptive interval sidecar is complete and independently passes saved-output review; Korea retains null complete-cohort metrics. A physics and C support/risk gates keep Step 4 **NOT_RUN_GATED**. No track code is merged here, and no default promotion or future 2026 execution is cleared.
 
 ## Current track state
 
 | Track and pinned source | Reviewable evidence | Current acceptance |
 |---|---|---|
 | [1A radiation, PR 85]({a['draft_pr']}) `{a['source_head'][:9]}` | Scoped mathematics review; 42 fixed arithmetic checks; separate 42 functional tests and 367 release hashes, exit 0 | Physics HOLD; journey, peak/dose binding and route-rejection counts gated/null |
-| [1B forecast, PR 88]({b['draft_pr']}) canonical/source `{b['source_head'][:9]}`; published `{b['published_head'][:9]}`; freeze 6887 | Independent actual saved-result checker 87eb PASS; exact 306-case census PASS; unchanged 858 source/canonical bytes reported by root; layout-only five-pair visual QA PASS | Primary criterion FALSE. US: 6 fires, 273 windows, 1,705,079 entries, 8,520 positives. KR: 4 fires, 33 represented / 26 supported windows, 1,792 supported entries, 404 positives, 7 UNAVAILABLE; full-cohort HOLD |
+| [1B forecast, PR 88]({b['draft_pr']}) canonical/source `{b['source_head'][:9]}`; sidecar result `{b['current_packaging_head'][:9]}`; freeze 6887 | Independent actual saved-result checker 87eb PASS; exact 306-case census PASS; unchanged 858 source/canonical bytes reported by root; layout-only five-pair visual QA PASS; complete US16-model descriptive interval replay PASS | Primary criterion FALSE. US: 6 fires, 273 windows, 1,705,079 entries, 8,520 positives. KR: 4 fires, 33 represented / 26 supported windows, 1,792 supported entries, 404 positives, 7 UNAVAILABLE; full-cohort HOLD |
 | [1C members/SIPP/truth, PR 86]({c['draft_pr']}) report `{c['current_report_head'][:9]}`; contact phase `{c['contact_campaign']['source_phase_head'][:9]}` | Conditional 320-record contact study; independent output 22/22 and figure/boundary 5/5 checks | Restricted contact evidence. Strict support 0/15,360; 42,008 risk-admission records contain zero scored risk cases |
 
 The [canonical summary]({b['canonical_primary_result']['canonical_summary']}) retains selected d4_wind raw US Brier **0.0049268862** and AP **0.05425462**. Its Brier-difference interval versus persistence, **[-0.0001376572, +0.0000228664]**, includes zero. Its lowest-bin absolute calibration gap **0.00407585** is worse than best dilation's **0.00154577**. Both failures are retained; no replacement model is selected. Original US process exit 0 and separate Korean exit 1/HOLD remain distinct from the negative scientific criterion.
+
+Selected US pooled diagnostics, conditional on fixed predictions/support and the six mapped-extent fires:
+
+| Metric | Point | 95% whole-fire interval |
+|---|---|---|
+| Raw Brier | 0.004926886223 | [0.002923498278, 0.006528267901] |
+| AP | 0.05425462117 | [0.03740655210, 0.07898795971] |
+| Canonical BSS versus persistence | 0.01399879889 | [-0.006717251331, 0.02508271040] |
+| Canonical BSS versus best dilation | 0.9616455801 | [0.9533396126, 0.9734959123] |
+
+Brier/AP intervals are new separate descriptive sidecar fields; BSS rows are unchanged canonical fields with zero undefined-denominator draws. Positive secondary AP descriptors override neither primary requirement. Full AUC/ECE/clipped-NLL intervals and all fixed-model records are in the [completed sidecar]({b['descriptive_intervals']['producer']['result']}). Korean complete-cohort metrics remain null, with all seven unavailable outcomes retained and no Korean array decoding.
 
 The original b3 checker HOLD is preserved. An independent development-only proof explains a one-ULP mean difference from floating accumulation order; reviewed checker 87eb routes only that assertion through its pre-existing finite comparison policy. No tolerance was tuned, canonical result changed or primary rule relaxed. The original 38 controls, separate 63 targeted controls and 256 correlated development predicates retain their separate scopes. The subsequent authorized actual 87eb saved-output audit exits 0. [Precision review]({b['canonical_saved_result_review']['review']}); [actual receipt]({b['canonical_saved_result_review']['result']}).
 
@@ -97,7 +115,7 @@ The original b3 checker HOLD is preserved. An independent development-only proof
 
 **Forecast.** Saved-output reconciliation and exact membership now pass, while the frozen primary result is negative. Selected d4_wind has pooled US Brier 0.0049268862 and AP 0.05425462, but its persistence comparison interval includes zero and calibration is worse than best dilation. These are six mapped-extent fires, not 273 independent fires or physical flame truth. Korea represents all 33 windows but supports only 26; seven unavailable outcomes retain full-cohort HOLD. Its supported subset cannot supply a complete-cohort conclusion. Models, selection, inputs and primary rules remain frozen. The reviewed one-ULP checker correction preserves all original source/failure evidence and changes no canonical value.
 
-**Intervals.** Core source has paired pooled Brier and pooled SSE-ratio BSS intervals; absolute pooled raw Brier/AP/AUC/ECE/clipped-NLL intervals remain missing. BSS intervals exclude and count zero-reference-SSE draws, making affected intervals conditional on defined denominators. The future blind scorer's BSS point path is distinct. Method 5fd was fixed before final quality interpretation. Candidate 6080 fails strict nonfinite-JSON admission on exponent overflow; its source/synthetic review is HOLD, with separate V2 repair in progress. Actual sidecar computation is **NOT_AUTHORIZED**. Prerequisite V2 binds reviewed 87eb and original b3/HOLD lineage without changing the method. Korean complete-cohort intervals must remain null/unavailable; no available-26 bootstrap.
+**Intervals.** The separate fixed-method sidecar now supplies US pooled raw Brier/AP/AUC/ECE/clipped-NLL intervals for all 16 models. Independent replay matches 80 exact points, 80 absolute intervals and 32 secondary paired-AP descriptors, using 10,000 whole-fire draws at seed 20261030. These remain descriptive over six fires. Canonical paired Brier/BSS/calibration, selection and primary criteria are unchanged; the future blind scorer's BSS point path remains distinct. Original candidate6080 and the first incomplete-input-map refusal remain preserved. Reviewed c41 repairs nonfinite-JSON admission; a fresh 654-input authorization adds only two already-frozen inventories, with the same method/source. Korean metrics stay null/unavailable, retaining all seven outcomes and no available-26 bootstrap.
 
 **Comparators.** The 12-cutoff/66-row MF/MC check reconciles saved summaries, not unsaved per-cell fields or MC correctness. The separate stored FARSITE audit reconciles 29 exact subsets, 288,999 entries, 17 columns and 32 paired comparisons; one 4,489-minute case remains unavailable under the 48-hour policy. Its canonical status remains HOLD, native execution false and superiority false. Sixty original ASC/timing paths are absent at their recorded locations and in the local seven-file packages; this bounded custody limit is not a global absence claim. Historical receipts/saved arrays were authenticated by that reviewer; native execution and weather/landscape encoding were not regenerated.
 
@@ -105,7 +123,7 @@ The original b3 checker HOLD is preserved. An independent development-only proof
 
 ## Evidence, history and reproduction
 
-[GATES.json](GATES.json) records exact sources, outcomes, nulls and limits. [EVIDENCE_SHA256.json](EVIDENCE_SHA256.json) binds retained bytes. [The prior summary]({current['historical_evidence']['pre_actual_result_summary']}) and [index]({current['historical_evidence']['pre_actual_result_inventory']}) remain verbatim. All earlier failed audits, including original b3/HOLD and candidate 6080, are preserved; the [original history index](history/ARCHIVE_INDEX.json) links detailed earlier stages.
+[GATES.json](GATES.json) records exact sources, outcomes, nulls and limits. [EVIDENCE_SHA256.json](EVIDENCE_SHA256.json) binds retained bytes. [The prior summary]({current['historical_evidence']['pre_final_sidecar_summary']}) and [index]({current['historical_evidence']['pre_final_sidecar_inventory']}) remain verbatim. All earlier failed audits, including original b3/HOLD and candidate 6080, are preserved; the [original history index](history/ARCHIVE_INDEX.json) links detailed earlier stages.
 
 | Current evidence | Scope and remaining limits |
 |---|---|
@@ -113,8 +131,14 @@ The original b3 checker HOLD is preserved. An independent development-only proof
 | [Exact 306-case census]({b['current_census_actual']['result']}) and [receipt/log custody]({b['current_census_actual']['inventory']}) | 273 US SCORED; 26 KR SCORED + 7 UNAVAILABLE. Membership/status pass does not clear scientific criteria. The original b3 companion reference is retained separately from actual executable 87eb |
 | [Stored FARSITE review]({b['stored_farsite_actual_review']['review']}) and [source/result custody]({b['stored_farsite_actual_review']['inventory']}) | 26,614 correlated actual predicates, separate 568 metadata and 25 synthetic controls; not independent samples or pooled counts. Maximum arithmetic difference 1.11e-16 under pre-existing policy |
 | [Publication figure QA]({b['publication_five_figures']['parent_review']}) and [metadata/source/failure custody]({b['publication_five_figures']['inventory']}) | Root viewed all five vector previews and changed 03/05 rasters; other three rasters exact original copies. Readiness copies no figure payload or scientific array |
-| [Fixed method]({b['descriptive_intervals']['protocol']}), [prerequisite V2]({b['descriptive_intervals']['prerequisites']}) and [candidate HOLD]({b['descriptive_intervals']['original_candidate_review']['review']}) | Original method/V1 prerequisite/source-only review retained. Candidate: four positive and four failed refusal probes; separate owner 53-control replay. V2 scratch/actual computation not inspected or cleared |
+| [Actual sidecar receipt]({b['descriptive_intervals']['actual_independent_review']['receipt']}), [independent report]({b['descriptive_intervals']['actual_independent_review']['review']}) and [source/results inventory]({b['descriptive_intervals']['actual_independent_review']['inventory']}) | 80 exact points + 80 absolute intervals + 32 paired AP descriptors. Separate predeclared 30 literal metric / 12 sklearn ranking comparisons and 22 invented preparation controls; not scientific samples |
+| [Source c41 review]({b['descriptive_intervals']['current_source_review']['review']}), [fixed method]({b['descriptive_intervals']['protocol']}) and [prerequisite V2]({b['descriptive_intervals']['prerequisites']}) | Original6080 failure unchanged; distinct V2 source repair passes. Owner77, original8 and additional27 source controls overlap and are not pooled |
+| [Producer output/attempt custody]({b['descriptive_intervals']['producer']['inventory']}) and [root authorizations/metadata preflight]({b['descriptive_intervals']['attempt_lineage']['inventory']}) | First attempt refused before arrays/output directory:652-map omitted two already-frozen inventories. Complete static closure adds only those two, fresh3195 authorization uses654 inputs, unchanged c41/5fd/0dff. Original8b5 authority/refusal and preflight tripwire records retained |
 | [A functional receipt]({a['functional_receipt']}), [C contact review]({c['contact_campaign']['independent_review']}) and [strict support census]({c['contact_support_census']['inventory']}) | Earlier functional/contact evidence unchanged; no Step 4 experiment or physical/risk clearance |
+
+The actual sidecar reviewer checks 654 consumed inputs, 223 frozen paths and 858 canonical artifacts before/after; overlapping input/frozen maps consolidate to 873 distinct files. Nine binary files are hashed without deserialization. All 80 diagnostic distributions and 32 paired-AP distributions are independently reconstructed; unsaved producer per-draw metric intermediates cannot be byte-compared. Case-to-fire probability equality additionally relies on prior 87eb. The draw matrix is only referenced here: B `us2024_draws.npy`, shape 10000x6, `<i8`, C order, NPY SHA4943b1da and raw payload SHAc1f5a138. Its 445 observed multiplicity vectors restore all 10,000 draw frequencies. Readiness copies no NPY/NPZ or model payload and reruns no numerical job.
+
+The current completed-result head is bd9; the last explicitly confirmed published B head remains f759 pending the final documentation/publication handoff. No new push is inferred here.
 
 The earlier 3,507-test/367-release owner gate and canonical software/membership review remain source/time-scoped evidence. Their 9,841 bookkeeping predicates are correlated, and source-derived historical pure schedules are not retroactive runtime IDs. Fit source/cache/member values and models were not replayed here. Root's unchanged 858-byte map is archived as attributed custody; readiness did not open/re-hash those scientific/model payloads.
 

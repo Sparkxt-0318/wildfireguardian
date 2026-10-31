@@ -19,7 +19,8 @@
     "B_current_packaging": "f759f2e9c53749bad39165b8441209c398bcbf60",
     "B_actual_software_gate_metadata": "376292bc2a6bba33f82ba5f29a5d7c985e37ea61",
     "B_frozen_source_interval_inventory": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
-    "B_canonical_source": "691cc162bf2c0295cecc257a558ae0d583f9018e"
+    "B_canonical_source": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+    "B_current_result_packaging": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1"
   },
   "graphs": {
     "integration": {
@@ -96,7 +97,7 @@
     "Future2026 external registration, chronology and documentary prerequisites remainNOT_READY despite committed local protocol/registry.",
     "C conditional contact results do not clear strict whole-domain support/risk/physics gates.",
     "Original failures and prior summaries remain immutable in linked archives; no numerical study, live scientific output read, promotion, merge or publication occurs in this consistency pass.",
-    "Descriptive sidecar candidate6080 remainsHOLD for exponent-overflow JSON admission; separateV2 repair in progress. Method5fd unchanged; prerequisiteV2 binds87eb/b3HOLD lineage. Actual intervalsNOT_AUTHORIZED; KR complete-cohortnull/unavailable with no available26bootstrap."
+    "Completed USsidecar independent actual replayPASS:80points/80absoluteintervals+32pairedAP. Original6080HOLD and attempt1metadata refusal preserved; same fixedmethod/source, refreshed654map adds only2frozeninventories. Korean metricsNone/all7outcomes/noKRarraydecode preserved. No physical/2026/routing-safety/promotion inference."
   ],
   "A_current_functional_evidence": {
     "receipt": "a-functional-checks-43324736/test-1a-bounds-independent.json",
@@ -947,7 +948,7 @@
       "historical_timestamped_snapshot": true
     },
     "results_read_by_readiness": true,
-    "actual_completed_cohort_validation": "PASS_SAVED_RESULT87EB_AND_EXACT306_CENSUS_WITH_SCOPE",
+    "actual_completed_cohort_validation": "PASS_SAVED_RESULT87EB_EXACT306_CENSUS_AND_US_SIDECAR_WITH_SCOPE; PRIMARY_FALSE_KR_HOLD",
     "census_checker": "Exact8d29 actual306 identity/status census PASS; originalb3 companion reference unchanged. Executed metric checker87eb is separate reviewed precision repair.",
     "future2026": "NOT_READY_NOT_AUTHORIZED",
     "github_merges_or_default_promotion_authorized": false,
@@ -989,7 +990,7 @@
       "quality_metric_FARSITE_final5figure_reviews": "SAVED_METRIC87EB_AND_FARSITE_SUBSET_RECONCILIATION_PASS; PUBLICATION_FIGURE_QA_PASS_WITH_SCOPE; NO_SCIENTIFIC_SUPERIORITY",
       "scope": "Parent-provided closure times/exits plus exact saved root metadata/custody check; readiness verifies archive bytes only. Original execution logs are not copied/opened. Counts do not establish exact306 case membership or model quality."
     },
-    "readiness_read_scope": "Immutable canonical RESULTS/FARSITE_SCORES summary JSON plus exact closed reviews/QA; no caseJSON/NPZ/original arrays/models or numerical replay."
+    "readiness_read_scope": "Authorized immutable canonical/sidecar JSON summaries and closed reviews/source/metadata only; no NPZ/NPY/original scientific arrays/model payloads or numerical replay."
   },
   "B_current_census_preparation": {
     "state": "PREPARATION_34_CONTROLS_RETAINED_ACTUAL_EXACT306_CENSUS_PASS_SEPARATE",
@@ -1063,7 +1064,7 @@
     "development_only_model_selection": "COMMITTED_VERIFIED_PUBLISHED_D4_WIND",
     "protocol_registry": "COMMITTED_VERIFIED_PUBLISHED",
     "current_US_KR_assessments": "CLOSED_AND_INDEPENDENT_SAVED_RESULT_CENSUS_REVIEWED_WITH_SCOPE",
-    "complete_current_cohort_validation": "PASS_SAVED_RESULT87EB_AND_EXACT306_CENSUS_WITH_SCOPE; US_PRIMARY_FALSE_KR_HOLD",
+    "complete_current_cohort_validation": "PASS_SAVED_RESULT87EB_EXACT306_CENSUS_AND_US_DESCRIPTIVE_SIDECAR_WITH_SCOPE; PRIMARY_FALSE_KR_HOLD",
     "future2026_external_registration_chronology": "NOT_READY",
     "default_checkpoint_promotion": false,
     "scope": "Authoritative current admission state. Older audit records below retain their own source/time/scope and do not negate the separate later cleared6887 admission.",
@@ -1074,7 +1075,8 @@
       "independent_protocol_review": "freeze-protocol-review-6887dc61/REVIEW_6887dc61.md",
       "current_authorization": "current-cohort-authorization-start/CURRENT_COHORT_AUTHORIZATION.json",
       "actual_result": "canonical-result-precision-review-87eb9a24/AUTHORIZED_ACTUAL_REVIEW_V2.json",
-      "actual_census": "current-cohort-census-actual-8d29a5e1/ACTUAL_CENSUS.json"
+      "actual_census": "current-cohort-census-actual-8d29a5e1/ACTUAL_CENSUS.json",
+      "actual_descriptive_intervals": "descriptive-sidecar-actual-review-bd9b9498/INDEPENDENT_REVIEW_RECEIPT.json"
     }
   },
   "record_structure_note": "Current admission and closed-cohort metadata states are authoritative in CURRENT_EVIDENCE. Older source/time-scoped records preserve what each audit established; exact original summaries and all failed evidence remain in history. This archive copies no original execution logs, actualcaseJSON or scientific arrays, and executes no study/review.",
@@ -1091,7 +1093,7 @@
     "scope": "Parent-provided owner custody milestone only. No new total-cohort progress or early metric inferred; independent Goat alignment/source/quality review not claimed."
   },
   "B_descriptive_interval_method": {
-    "state": "CANDIDATE6080_HOLD_NONFINITE_JSON_REPAIR_V2_IN_PROGRESS_ACTUAL_NOT_AUTHORIZED",
+    "state": "COMPLETED_AUTHORIZED_ATTEMPT2_INDEPENDENT_ACTUAL_US_INTERVAL_REVIEW_PASS_KR_UNAVAILABLE",
     "method_fixed_utc": "2026-10-30T17:10:23.901724+00:00",
     "protocol": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PROTOCOL_V1.json",
     "protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
@@ -1104,13 +1106,6 @@
     "source_review_inventory": "interval-method-source-review-6887dc61/SOURCE_INVENTORY.json",
     "source_review_frozen_commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
     "source_review_is_candidate_implementation_review": false,
-    "canonical_absolute_interval_fields_missing": [
-      "pooled_raw_brier",
-      "pooled_average_precision",
-      "pooled_roc_auc",
-      "pooled_ece_10_bins",
-      "pooled_clipped_nll"
-    ],
     "canonical_existing_intervals": [
       "paired_pooled_brier_difference",
       "pooled_SSE_ratio_BSS_vs_persistence",
@@ -1135,13 +1130,12 @@
       "pooled_point_and_interval_same_estimand": true,
       "any_undefined_AP_AUC_draw_full_interval": "NULL_UNAVAILABLE; optional explicitly conditional defined-draw interval separate"
     },
-    "actual_computation": "NOT_AUTHORIZED_NOT_RUN",
-    "scratch_candidate": "V2_REPAIR_IN_PROGRESS_NOT_INSPECTED",
-    "US_complete_cohort_supplement": "Canonical87eb result and exact306 census PASS; candidate implementation repair/review and explicit root saved-output authorization PENDING",
-    "KR_complete_cohort_supplement": "NULL_UNAVAILABLE; 7 expected windows UNAVAILABLE, no available26-window bootstrap",
+    "actual_computation": "COMPLETED_AUTHORIZED_SAVED_OUTPUT_COMPUTATION_ATTEMPT2",
+    "US_complete_cohort_supplement": "AVAILABLE_DESCRIPTIVE_COMPLETE_COHORT; all16models/fivepooleddiagnostics/32pairedAPdescriptors, independently reviewed",
+    "KR_complete_cohort_supplement": "UNAVAILABLE_COMPLETE_CANONICAL_SUPPORT; metricsNone, all7outcomes retained, noKRarraydecode/draw artifact or available26-window bootstrap",
     "primary223_and_canonical_outputs_rules_unchanged": true,
     "readiness_numerical_or_array_access": false,
-    "scope": "Source-only report inventories frozen fields and evaluates proposed arithmetic on invented controls. It is not candidate implementation clearance or actual supplement computation. Method fixed before final quality interpretation; preserve original primary estimators, decisions and all223 frozen identities.",
+    "scope": "Method5fd fixed before final quality interpretation. Source repairc41 and operationalprerequisite0dff pass separately; same code/method used in refused then complete attempts. Actual authorized saved-output sidecar independently reconciles. No frozenprimary/model/selection/source/scientific rule change.",
     "original_prerequisites_v1": "descriptive-interval-protocol-v1/DESCRIPTIVE_INTERVAL_PREREQUISITES_V1.json",
     "original_prerequisites_v1_sha256": "b69a8b57ba8ddbb92cbfdd4e07195c82058be6051a42dbee38e262a873be62e0",
     "prerequisite_v2_inventory": "descriptive-interval-prerequisites-v2/SOURCE_INVENTORY.json",
@@ -1156,7 +1150,308 @@
       "independent_failed_refusal_controls": 4,
       "owner53_controls_replayed_by_reviewer": 53,
       "counts_not_pooled": true,
-      "actual_study_outputs_accessed": false
+      "actual_study_outputs_accessed": false,
+      "record_role": "HISTORICAL6080_FAILURE; exact original immutable evidence retained, separatec41source repairPASS"
+    },
+    "current_candidate_source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+    "current_source_review": {
+      "state": "PASS_INDEPENDENT_SOURCE_REVIEW",
+      "receipt": "descriptive-sidecar-source-c41e607a/SOURCE_REVIEW_RECEIPT.json",
+      "receipt_sha256": "2bb880ce72b27a13c2290f6eec639bc17038de522329a55493ee5ad85ce8cb31",
+      "review": "descriptive-sidecar-source-c41e607a/REVIEW_c41e607a.md",
+      "review_sha256": "4b2f6b5703407bc125805e3c972a699b74b5aa08df2603e6f1b9932807ddbfc0",
+      "inventory": "descriptive-sidecar-source-c41e607a/SOURCE_INVENTORY.json",
+      "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+      "original6080_failure_preserved": true,
+      "method_changed": false,
+      "owner77_replay": 77,
+      "original_independent_probes": 8,
+      "additional_independent_controls": 27,
+      "overlapping_source_controls_not_pooled": true,
+      "scope": "Final source/admission/lineage repair only. Separate actual authorization and independent actual replay provide numerical result clearance."
+    },
+    "canonical_core_interval_fields_absent": [
+      "pooled_raw_brier",
+      "pooled_average_precision",
+      "pooled_roc_auc",
+      "pooled_ece_10_bins",
+      "pooled_clipped_nll"
+    ],
+    "core_gap_resolution": "Separate sidecar supplies complete US all16model absolute intervals; canonicalcore083d remains unchanged. Korea complete-cohort sidecar remainsUNAVAILABLE/null.",
+    "producer": {
+      "source_head": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+      "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+      "result": "descriptive-sidecar-producer-bd9b9498/supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json",
+      "result_sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c",
+      "completion": "descriptive-sidecar-producer-bd9b9498/supplements/current_descriptive_intervals_output_20261031_v2/COMPLETION.json",
+      "completion_sha256": "05864ec95b0f042bbdba86dbb43374b591afbb8e56ab779730272fae70d863a9",
+      "receipt": "descriptive-sidecar-producer-bd9b9498/executions/current_descriptive_intervals_actual_v2.json",
+      "receipt_sha256": "48ba1ed559072f8ccb03f9948951307d6c571b977a89c222c92fe20be06ab8d6",
+      "inventory": "descriptive-sidecar-producer-bd9b9498/SOURCE_INVENTORY.json",
+      "result_status": "INCOMPLETE_COHORTS_EXPLICITLY_UNAVAILABLE",
+      "US_state": "AVAILABLE_DESCRIPTIVE_COMPLETE_COHORT",
+      "KR_state": "UNAVAILABLE_COMPLETE_CANONICAL_SUPPORT",
+      "exit_code": 0,
+      "readiness_raw_array_or_model_access": false,
+      "readiness_numerical_replay": false
+    },
+    "actual_independent_review": {
+      "state": "PASS_INDEPENDENT_ACTUAL_SAVED_OUTPUT_REVIEW",
+      "receipt": "descriptive-sidecar-actual-review-bd9b9498/INDEPENDENT_REVIEW_RECEIPT.json",
+      "receipt_sha256": "994b6c171703af3dc8bac7e0c734bd55065bd2b54c3e6a8c79b58462276de2d0",
+      "review": "descriptive-sidecar-actual-review-bd9b9498/REVIEW_ACTUAL_ATTEMPT2.md",
+      "review_sha256": "e3a58d0b24499ae5fd6e5d5f81463a366e2d08c6f730fe3b6a8a5639e0ecbf4e",
+      "result": "descriptive-sidecar-actual-review-bd9b9498/ACTUAL_REVIEW_ATTEMPT2.json",
+      "result_sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158",
+      "inventory": "descriptive-sidecar-actual-review-bd9b9498/SOURCE_INVENTORY.json",
+      "preparation_manifest_sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+      "checker_sha256": "b54acdb80ef8c37aeaf8a75c897a7a4d034d7af075a63743c5c389d708db7813",
+      "math_source_sha256": "21a2d02e586f59047a29219e5aa2970163cbd1df0a3c7a9d56f66648d0c9ab84",
+      "invented_preparation_controls": 22,
+      "exact_points": 80,
+      "absolute_intervals": 80,
+      "paired_AP_descriptors": 32,
+      "total_descriptors": 112,
+      "literal_metric_comparisons": 30,
+      "sklearn_ranking_comparisons": 12,
+      "authorized_inputs": 654,
+      "frozen_files": 223,
+      "canonical_files": 858,
+      "unique_input_frozen_union": 873,
+      "overlap_maps_not_summed": true,
+      "raw_model_binary_files_hashed_only_by_reviewer": 9,
+      "checkpoint_deserialization": false,
+      "korean_npz_decoded": false,
+      "model_inference": false,
+      "scientific_clearance": false,
+      "limits": [
+        "Case-to-fire probability equality additionally relies on authenticated87eb audit; individual case probabilities not redundantly decoded by this reviewer.",
+        "Full distributions independently reconstructed; unsaved producer per-draw intermediate metric arrays cannot be byte-compared.",
+        "Literal checks use predeclared three models/two vectors; correlated descriptors/draws are not independent scientific samples.",
+        "No raw raster/support/model-prediction/physical/2026/routing-safety or promotion proof."
+      ],
+      "resources_scope": "Saved whole checker process envelope only; exact internal kernel lock timestamps not instrumented; no forecast/routing performance claim."
+    },
+    "draw_matrix_reference": {
+      "B_path": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/us2024_draws.npy",
+      "shape": [
+        10000,
+        6
+      ],
+      "dtype": "<i8",
+      "order": "C",
+      "NPY_sha256": "4943b1da8411684b19dd71885aabfcbac304bc840f4c85bfb1a68c65a0c9d42e",
+      "raw_payload_sha256": "c1f5a138a79e4206753ef0bbca39abd38619f9436caa0468c11f5ceb4b833495",
+      "observed_multiplicity_vectors": 445,
+      "frequencies_restore_all_draws": 10000,
+      "opened_or_copied_by_readiness": false,
+      "scope": "Independent reviewer exact draw reconstruction/container/payload check; readiness archives referenced hashes/paths only."
+    },
+    "selected_US_descriptors": {
+      "source": "descriptive-sidecar-actual-review-bd9b9498/SELECTED_PRIMARY_INTERVALS.json",
+      "absolute_diagnostic_intervals": {
+        "pooled_average_precision": {
+          "conditional_on_defined_draws_interval": [
+            0.03740655209904461,
+            0.07898795971252386
+          ],
+          "conditional_scope": "conditional on a draw containing positive labels",
+          "defined_draws": 10000,
+          "draws": 10000,
+          "interval_unit": "whole fire, pooled canonical cell-interval entries",
+          "percentile_95_interval": [
+            0.03740655209904461,
+            0.07898795971252386
+          ],
+          "point": 0.054254621174332156,
+          "quantile_method": "linear",
+          "seed": 20261030,
+          "status": "AVAILABLE_FULL_95_INTERVAL",
+          "undefined_no_negative_draws": 0,
+          "undefined_no_positive_draws": 0,
+          "undefined_union_draws": 0
+        },
+        "pooled_clipped_nll": {
+          "conditional_on_defined_draws_interval": [
+            0.018866445444774373,
+            0.053473443822568224
+          ],
+          "conditional_scope": "all validated nonempty draws",
+          "defined_draws": 10000,
+          "draws": 10000,
+          "interval_unit": "whole fire, pooled canonical cell-interval entries",
+          "percentile_95_interval": [
+            0.018866445444774373,
+            0.053473443822568224
+          ],
+          "point": 0.03864694143336141,
+          "quantile_method": "linear",
+          "seed": 20261030,
+          "status": "AVAILABLE_FULL_95_INTERVAL",
+          "undefined_no_negative_draws": 0,
+          "undefined_no_positive_draws": 0,
+          "undefined_union_draws": 0
+        },
+        "pooled_ece_10_bins": {
+          "conditional_on_defined_draws_interval": [
+            0.002074335583022622,
+            0.005726993222904612
+          ],
+          "conditional_scope": "all validated nonempty draws",
+          "defined_draws": 10000,
+          "draws": 10000,
+          "interval_unit": "whole fire, pooled canonical cell-interval entries",
+          "percentile_95_interval": [
+            0.002074335583022622,
+            0.005726993222904612
+          ],
+          "point": 0.004130551613932672,
+          "quantile_method": "linear",
+          "seed": 20261030,
+          "status": "AVAILABLE_FULL_95_INTERVAL",
+          "undefined_no_negative_draws": 0,
+          "undefined_no_positive_draws": 0,
+          "undefined_union_draws": 0
+        },
+        "pooled_raw_brier": {
+          "conditional_on_defined_draws_interval": [
+            0.002923498278487964,
+            0.00652826790054091
+          ],
+          "conditional_scope": "all validated nonempty draws",
+          "defined_draws": 10000,
+          "draws": 10000,
+          "interval_unit": "whole fire, pooled canonical cell-interval entries",
+          "percentile_95_interval": [
+            0.002923498278487964,
+            0.00652826790054091
+          ],
+          "point": 0.004926886222562958,
+          "quantile_method": "linear",
+          "seed": 20261030,
+          "status": "AVAILABLE_FULL_95_INTERVAL",
+          "undefined_no_negative_draws": 0,
+          "undefined_no_positive_draws": 0,
+          "undefined_union_draws": 0
+        },
+        "pooled_roc_auc": {
+          "conditional_on_defined_draws_interval": [
+            0.8910306640939574,
+            0.951370779031149
+          ],
+          "conditional_scope": "conditional on a draw containing both classes",
+          "defined_draws": 10000,
+          "draws": 10000,
+          "interval_unit": "whole fire, pooled canonical cell-interval entries",
+          "percentile_95_interval": [
+            0.8910306640939574,
+            0.951370779031149
+          ],
+          "point": 0.9088189203334348,
+          "quantile_method": "linear",
+          "seed": 20261030,
+          "status": "AVAILABLE_FULL_95_INTERVAL",
+          "undefined_no_negative_draws": 0,
+          "undefined_no_positive_draws": 0,
+          "undefined_union_draws": 0
+        }
+      },
+      "canonical_BSS": {
+        "bss_vs_persistence": {
+          "point": 0.013998798887156716,
+          "interval": [
+            -0.006717251330587093,
+            0.02508271039906529
+          ],
+          "draws": 10000,
+          "seed": 20261030,
+          "undefined_zero_reference_draws": 0,
+          "unit": "whole fire, pooled error ratio"
+        },
+        "bss_vs_best_dilation": {
+          "point": 0.9616455801127639,
+          "interval": [
+            0.9533396126392208,
+            0.9734959122800352
+          ],
+          "draws": 10000,
+          "seed": 20261030,
+          "undefined_zero_reference_draws": 0,
+          "unit": "whole fire, pooled error ratio"
+        }
+      },
+      "canonical_paired_Brier": {
+        "persistence": {
+          "point_difference": -6.99497011684351e-05,
+          "percentile_95_interval": [
+            -0.00013765717212080875,
+            2.286641855042422e-05
+          ],
+          "excludes_zero": false,
+          "fires": 6,
+          "draws": 10000,
+          "seed": 20261030,
+          "per_fire_difference": {
+            "ID-BOF-000683_Wapiti_Wapiti": -0.00017334613328843718,
+            "ID-BOF-000904_Goat": -0.00014084170926710653,
+            "ID-BOF-001080_Lava": 0.00011526531517782621,
+            "ID-SCF-240202_RedRock": -5.887392872170428e-05,
+            "WA-SES-000173_Pioneer": -3.107495567578652e-05,
+            "WY-BTF-002416_FishCreek": -5.29315076035398e-05
+          },
+          "fires_favouring_candidate": 5,
+          "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+        },
+        "dilation_best": {
+          "point_difference": -0.12352991841816045,
+          "percentile_95_interval": [
+            -0.1413969882639574,
+            -0.1028528879667872
+          ],
+          "excludes_zero": true,
+          "fires": 6,
+          "draws": 10000,
+          "seed": 20261030,
+          "per_fire_difference": {
+            "ID-BOF-000683_Wapiti_Wapiti": -0.13570087886312587,
+            "ID-BOF-000904_Goat": -0.08286893263167747,
+            "ID-BOF-001080_Lava": -0.11046623350480128,
+            "ID-SCF-240202_RedRock": -0.09743236380932845,
+            "WA-SES-000173_Pioneer": -0.13909711648707132,
+            "WY-BTF-002416_FishCreek": -0.16124601834336982
+          },
+          "fires_favouring_candidate": 6,
+          "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+        }
+      },
+      "primary_criteria_pass": false,
+      "scope": "Same pooled estimand and whole-fire95% intervals over sixUSfires. BSSfields remain canonical083d fields, not newly estimated sidecar or future blind-test fields."
+    },
+    "attempt_lineage": {
+      "first_authorization": "descriptive-sidecar-root-authorization-attempt2/DESCRIPTIVE_INTERVAL_ACTUAL_AUTHORIZATION_V2.json",
+      "first_authorization_sha256": "8b5ef1615f6d2f1b52a5408672e24589741f14de705ff7428f77fd5d87841feb",
+      "first_execution": "descriptive-sidecar-producer-bd9b9498/executions/current_descriptive_intervals_actual_v1.json",
+      "first_execution_sha256": "37f6078bb8adca3933039c1b83e0be4885ca1f05b514f1a5413a57aacbf9219f",
+      "first_outcome": "Refused before any array decode/output directory; two already-frozen timestamp inventories missing from652 consumed-input map.",
+      "static_closure": "descriptive-sidecar-producer-bd9b9498/executions/current_descriptive_input_closure_review_v2.json",
+      "static_closure_sha256": "99296b6c39391a2f5b163766c1c15f0e16050bb05f5aa82b692919e248f71cfe",
+      "added_only": [
+        "US51d91039 timestamp inventory",
+        "KR6286e054 window inventory"
+      ],
+      "fresh_authorization": "descriptive-sidecar-root-authorization-attempt2/DESCRIPTIVE_INTERVAL_ACTUAL_AUTHORIZATION_ATTEMPT2.json",
+      "fresh_authorization_sha256": "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc",
+      "fresh_map_count": 654,
+      "metadata_preflight": "descriptive-sidecar-root-authorization-attempt2/DESCRIPTIVE_INTERVAL_METADATA_PREFLIGHT_ATTEMPT2.json",
+      "metadata_preflight_sha256": "deb9f42c712cde502947554f847c4e6da2eb7c31bd6ff258903846805054ddcf",
+      "np_load_tripwire": "No call permitted or observed in metadata preflight, saved receipt only not replayed here",
+      "independent_review_authorization": "descriptive-sidecar-root-authorization-attempt2/DESCRIPTIVE_INTERVAL_ACTUAL_INDEPENDENT_REVIEW_AUTHORIZATION.json",
+      "independent_review_authorization_sha256": "941f619595697f83f4899b3606eed2a0228df83eec852eab29e92ed8c645a045",
+      "original_root_metadata_check": "descriptive-sidecar-root-authorization-attempt2/DESCRIPTIVE_INTERVAL_ROOT_PREREQUISITE_CHECK.json",
+      "original_root_metadata_check_sha256": "acf3ab076373519e4a2dcd0eb0ac02d059d2e8f3fb1c8e21fe9ea2daa6cf9947",
+      "inventory": "descriptive-sidecar-root-authorization-attempt2/SOURCE_INVENTORY.json",
+      "code_method_prerequisite_unchanged": true,
+      "no_outcome_retuning": true
     }
   },
   "pre_cohort_closure_history": "history/pre-cohort-closure-c3f62de9/ARCHIVE_INDEX.json",
@@ -1273,7 +1568,40 @@
       "best_dilation_lowest_bin_gap": 0.001545767121513084,
       "criteria_pass": false,
       "calibration_pass": false,
-      "complete_cohort_pass": true
+      "complete_cohort_pass": true,
+      "absolute_raw_Brier_95_interval": [
+        0.002923498278487964,
+        0.00652826790054091
+      ],
+      "absolute_AP_95_interval": [
+        0.03740655209904461,
+        0.07898795971252386
+      ],
+      "absolute_interval_origin": "Separate fixed-method5fd sidecar, independent actual reviewPASS; does not alter canonical primary criterion or future blind fields.",
+      "canonical_BSS_unchanged": {
+        "bss_vs_persistence": {
+          "point": 0.013998798887156716,
+          "interval": [
+            -0.006717251330587093,
+            0.02508271039906529
+          ],
+          "draws": 10000,
+          "seed": 20261030,
+          "undefined_zero_reference_draws": 0,
+          "unit": "whole fire, pooled error ratio"
+        },
+        "bss_vs_best_dilation": {
+          "point": 0.9616455801127639,
+          "interval": [
+            0.9533396126392208,
+            0.9734959122800352
+          ],
+          "draws": 10000,
+          "seed": 20261030,
+          "undefined_zero_reference_draws": 0,
+          "unit": "whole fire, pooled error ratio"
+        }
+      }
     },
     "KR": {
       "fires": 4,
@@ -1287,5 +1615,6 @@
     },
     "scope": "Current retrospective mapped-extent/reconstruction evidence only. Primary selection and criteria fixed; no replacement model selected, physical proof, blind2026 claim or promotion."
   },
-  "pre_actual_result_history": "history/pre-actual-result-57766981/ARCHIVE_INDEX.json"
+  "pre_actual_result_history": "history/pre-actual-result-57766981/ARCHIVE_INDEX.json",
+  "pre_final_sidecar_history": "history/pre-final-sidecar-3db3a9db/ARCHIVE_INDEX.json"
 }

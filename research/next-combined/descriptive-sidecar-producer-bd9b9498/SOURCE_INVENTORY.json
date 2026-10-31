@@ -1,0 +1,113 @@
+{
+  "scope": "Exact immutable Bbd9 producer summary, completion/source, two attempt receipts/logs/drivers, static closure and production metadata. NPY draw matrix and scientific/model payloads are referenced only by hashes/B paths, never opened/copied. Initial failed attempt preserved separately; no numerical replay by readiness.",
+  "source_commit": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+  "draw_array_not_copied": {
+    "path": "research/forecast-v2/supplements/current_descriptive_intervals_output_20261031_v2/us2024_draws.npy",
+    "npy_sha256": "4943b1da8411684b19dd71885aabfcbac304bc840f4c85bfb1a68c65a0c9d42e",
+    "raw_i8_C_payload_sha256": "c1f5a138a79e4206753ef0bbca39abd38619f9436caa0468c11f5ceb4b833495",
+    "shape": [
+      10000,
+      6
+    ],
+    "dtype": "<i8",
+    "order": "C"
+  },
+  "readiness_numerical_replay": false,
+  "files": [
+    {
+      "path": "executions/current_descriptive_input_closure_review.json",
+      "bytes": 1660,
+      "sha256": "87862ef041d1cc55af43d39feaa622c6c33dcd645246e9905d818c42449e9013"
+    },
+    {
+      "path": "executions/current_descriptive_input_closure_review_v2.json",
+      "bytes": 2149,
+      "sha256": "99296b6c39391a2f5b163766c1c15f0e16050bb05f5aa82b692919e248f71cfe"
+    },
+    {
+      "path": "executions/current_descriptive_intervals_actual_v1.json",
+      "bytes": 149842,
+      "sha256": "37f6078bb8adca3933039c1b83e0be4885ca1f05b514f1a5413a57aacbf9219f"
+    },
+    {
+      "path": "executions/current_descriptive_intervals_actual_v1.log",
+      "bytes": 1614,
+      "sha256": "4c770e533e1eb89bdcc8cc780306974f33ae0c977b5b8c822ae912afdc363a93"
+    },
+    {
+      "path": "executions/current_descriptive_intervals_actual_v2.json",
+      "bytes": 150780,
+      "sha256": "48ba1ed559072f8ccb03f9948951307d6c571b977a89c222c92fe20be06ab8d6"
+    },
+    {
+      "path": "executions/current_descriptive_intervals_actual_v2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "executions/current_descriptive_intervals_actual_v2_start.json",
+      "bytes": 801,
+      "sha256": "6703ab1cea50941fc416ab0244ca24e4da35f672fe49402c86bb79a1b1c55c6d"
+    },
+    {
+      "path": "review/current_descriptive_actual_attempt2/DRIVER_SOURCE.json",
+      "bytes": 279,
+      "sha256": "a99f5d905e0af51848784ce6c8134baf1df193dae3561f3c68bcd8eb70074988"
+    },
+    {
+      "path": "review/current_descriptive_actual_attempt2/forecast-descriptive-actual-attempt2.py.gz",
+      "bytes": 2012,
+      "sha256": "7567d8e66e32442767103a04427b1282a9793ef2c69ddd4e7a57d75f957b57d5"
+    },
+    {
+      "path": "review/current_descriptive_failed_execution/forecast-descriptive-actual-v1.py.gz",
+      "bytes": 2012,
+      "sha256": "56b86c9ce3f892ea59c5442b1f47818c17b724c07eac5de31529a57203367e8a"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_output_20261031_v2/COMPLETION.json",
+      "bytes": 500,
+      "sha256": "05864ec95b0f042bbdba86dbb43374b591afbb8e56ab779730272fae70d863a9"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_output_20261031_v2/DESCRIPTIVE_INTERVALS.json",
+      "bytes": 594424,
+      "sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_output_20261031_v2/README.md",
+      "bytes": 9644,
+      "sha256": "be84a725f030fe8eefad540a6db3b640a7e6111ce02051f6cdefbbb203c8b930"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_output_20261031_v2/supplement_source.py.gz",
+      "bytes": 16925,
+      "sha256": "6a5427d86477b03c57881e398d8f10b5d99cfe9469a0f9df9f0814effd5c8f87"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_v2/PRODUCTION_COPY_MANIFEST.json",
+      "bytes": 25704,
+      "sha256": "c48fc566ce1c24061fc5a4ec053d6f47f362be2fc4bcfc9d7d4d722696179fa9"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_v2/PRODUCTION_RELOCATION_TESTS.json",
+      "bytes": 1005,
+      "sha256": "a50d2e0b93d49e5729b1d09ea4a6952b7023cb900d72c576611748bf25f526a6"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_v2/PRODUCTION_RELOCATION_TESTS.log",
+      "bytes": 180,
+      "sha256": "ad6d71a2c9957340dc5145573295f368a78fe5b424a7f10c6b2f1652237b0dae"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_v2/DRAFT_ACTUAL_AUTHORIZATION_ATTEMPT_V2.json",
+      "bytes": 146312,
+      "sha256": "02fc66e0914223fa4da0bd06d28c97aa1a4c5570dce25d2d0d4f0d0f595a4d63"
+    },
+    {
+      "path": "supplements/current_descriptive_intervals_v2/DRAFT_ACTUAL_AUTHORIZATION_V2.json",
+      "bytes": 146046,
+      "sha256": "e7f825f6753fe8b1e1a388212c89966966aa22dfc0082ad29c04833b820653d0"
+    }
+  ]
+}

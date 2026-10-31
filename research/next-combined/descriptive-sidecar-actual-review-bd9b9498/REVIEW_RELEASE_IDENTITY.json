@@ -1,0 +1,6 @@
+{
+  "authorization_sha256": "941f619595697f83f4899b3606eed2a0228df83eec852eab29e92ed8c645a045",
+  "source_head": "bd9b9498f9d6e668df6a5efcca6b871f79bfb2d1",
+  "prepared_manifest_sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+  "status": "RELEASE_METADATA_VERIFIED_BEFORE_HEAVY_REPLAY"
+}

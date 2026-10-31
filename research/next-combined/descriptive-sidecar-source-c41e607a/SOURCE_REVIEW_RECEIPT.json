@@ -1,0 +1,71 @@
+{
+  "receipt_version": "wfg.independent-descriptive-supplement-source-review/2",
+  "status": "PASS_INDEPENDENT_SOURCE_REVIEW",
+  "reviewed_utc": "2026-10-30T23:31:09.972751+00:00",
+  "reviewer_role": "independent_subagent/contact_campaign_audit",
+  "scope": "Narrow V1-to-V2 source repair, prerequisite lineage and invented/adversarial controls only",
+  "subject": {
+    "source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+    "tests_sha256": "1d1ac4c95f19cff8af17f6ba9571a8e3290931b0bd36c2ec8822bb256c53bdbe",
+    "manifest_sha256": "05bd62bdca895f3fa84fc29220d525e9b50ba87e347953c9be04c11f25074672"
+  },
+  "method_protocol_sha256": "5fd4314d7bfa7523fe3a19432c61198a93f8484abb83bc20a4ae7d11937088a0",
+  "prerequisite_spec_sha256": "0dffd934920b72b0eac36d83dc1b7950b818e039c25264874e59d161a08b04fb",
+  "inherited_v1_review_sha256": "ac587701661ba0e1ef521573ad5907bc2bf4c9175d7274ace903e4ab79f5d5af",
+  "required_guard_recheck": "PASS",
+  "v1_nonfinite_json_defect": "CLOSED",
+  "numerical_method_changed": false,
+  "unchanged_named_functions_and_classes": 36,
+  "imports_and_numerical_constants_unchanged": true,
+  "original_v1_payloads_preserved": 29,
+  "v2_payloads_verified": 49,
+  "lineage_source_pins": {
+    "census": "8d29a5e1945c70581464d7262af399e4f485d131b33adc14a50b951696b8b9e9",
+    "current_result_checker": "87eb9a2467f4e8011e960273ca77a6878a7807173f5869041905363214a297aa",
+    "original_result_checker": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8",
+    "preserved_original_hold": "a2be36da59998020740f458e82df3df8fcdc282ffa11875b65c9f82970fb1fdc",
+    "precision_repair_review": "f4ecf98761130e5162c615870768446212b732d46db2b4e54e801789c348f0f4"
+  },
+  "tests": {
+    "owner_replay": {
+      "passed": 77,
+      "seconds": 32.68
+    },
+    "original_independent_probes": {
+      "passed": 8,
+      "seconds": 5.33
+    },
+    "additional_independent_controls": {
+      "passed": 27,
+      "seconds": 5.52
+    }
+  },
+  "review_artifacts_sha256": {
+    "REVIEW_c41e607a.md": "4b2f6b5703407bc125805e3c972a699b74b5aa08df2603e6f1b9932807ddbfc0",
+    "INDEPENDENT_AST_IDENTITY.json": "92bb1ef5eed8c4d5cb1b5403be53f0fa074557befc2d11f4b7b4c13e5b85b833",
+    "CHECKER_SOURCE_DELTA.diff": "9df2283af0be211b439c9d8a867d79df91ac777ccb69e2a219fc6f7bedf7192c",
+    "SOURCE_CUSTODY_AFTER.json": "cde30379448a47ae1dddba20c268a59d490a1fc7d86741e8031163080f985490",
+    "independent_probes.py": "3e03975fd42055559774870cde9dd809ae21b31eda1a7cb8196fa3f7be0757e6",
+    "lineage_controls.py": "4480a8c32a6b80189376f5b202268cdb0018755160853bad46929588fab0015c",
+    "OWNER_TEST_REPLAY.log": "571e632805ea181eab7043825a670aa7074e4e8f15822c454a3b84bc5272dfe5",
+    "INDEPENDENT_PROBES.log": "38c43db03b4844312624a54909117ff35d6723ba3f64982a9c86b80d41cb4dbb",
+    "LINEAGE_CONTROLS.log": "33df692a5bbbbeab736dd38fa13bcfe7dc65591165f0189f27f163cf3018d3e0"
+  },
+  "actual_study_artifacts_accessed": false,
+  "actual_receipts_admitted": false,
+  "actual_model_or_checkpoint_bytes_accessed": false,
+  "model_inference": false,
+  "actual_supplement": "NOT_RUN",
+  "actual_execution_authorization": false,
+  "scientific_clearance": false,
+  "promotion_criteria_pass": false,
+  "limits": [
+    "Source/invented-control scope only; this does not admit actual receipt bytes or scientific outputs",
+    "Exogenous root authorization and later independent actual supplement result review remain required",
+    "No physical/model-quality/2026/promotion conclusion; human identity is not authenticated by these hashes"
+  ],
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  }
+}

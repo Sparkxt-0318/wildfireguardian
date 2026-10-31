@@ -1,0 +1,61 @@
+{
+  "named_changed": [
+    "strict_json",
+    "fixed_prerequisites",
+    "authorize",
+    "run_authorized"
+  ],
+  "named_unchanged_count": 36,
+  "unchanged_names": [
+    "AdmissionError",
+    "sha_bytes",
+    "object_sha",
+    "array_sha",
+    "protocol",
+    "dependencies",
+    "frozen_point_engine",
+    "Draws",
+    "draw_plan",
+    "save_draws",
+    "checked_vectors",
+    "grouped_counts",
+    "ranking_values",
+    "model_draw_values",
+    "interval",
+    "compute_cohort",
+    "Artifact",
+    "ExpectedCase",
+    "CohortExpectation",
+    "Files",
+    "identity_map",
+    "check_bindings",
+    "checked_case",
+    "CanonicalCohort",
+    "verify_cohort",
+    "verify_both",
+    "same",
+    "digest_string",
+    "relative_path",
+    "artifact_pointer",
+    "checked_map",
+    "Authorized",
+    "cohort_expectation",
+    "exclusive_heavy",
+    "write_new",
+    "main"
+  ],
+  "old_source": "6080c09b5d2d7153fb9aa46e040bb6e85688f4b632b37b9a483fdd8c66f19b30",
+  "new_source": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "imports_unchanged": true,
+  "changed_assignments": [
+    "PREREQUISITE_SHA256",
+    "RESULT_CHECKER_SHA256"
+  ],
+  "added_lineage_assignments": [
+    "ORIGINAL_METRIC_HOLD_REASON",
+    "ORIGINAL_METRIC_HOLD_SHA256",
+    "ORIGINAL_RESULT_CHECKER_SHA256",
+    "PRECISION_REPAIR_REVIEW_SHA256"
+  ],
+  "run_body_after_only_lineage_metadata_removed": "EXACT_AST_EQUAL"
+}

@@ -1,0 +1,36 @@
+{
+  "source_commit": "3db3a9db8c67f7d240b3030a9d0e90efb48d14a9",
+  "scope": "Exact prior current summary before completed independently reviewed descriptive interval sidecar. Original candidate6080 and metadata refusal remain separate unchanged evidence.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 11703,
+      "sha256": "dabcc7caba704d25b29921a21d0768e3e85714e2f2065e3a18467c710699a9ed"
+    },
+    {
+      "path": "GATES.json",
+      "bytes": 94685,
+      "sha256": "56e20b07242e02bc769ad51759b182d8921ff4791b061d466208604178b2c8b4"
+    },
+    {
+      "path": "CURRENT_EVIDENCE.json",
+      "bytes": 94685,
+      "sha256": "56e20b07242e02bc769ad51759b182d8921ff4791b061d466208604178b2c8b4"
+    },
+    {
+      "path": "AUDIT_METHOD.json",
+      "bytes": 75200,
+      "sha256": "1bd57e4201bd4c48e1b1e79609b7d3b751688efa92390dfae39cb560c007ae70"
+    },
+    {
+      "path": "build_report.py",
+      "bytes": 17867,
+      "sha256": "3381f5d7c69c50e47c928d76ac967c513dc48a4cb6f76768225d2b59b9afd01a"
+    },
+    {
+      "path": "EVIDENCE_SHA256.json",
+      "bytes": 124396,
+      "sha256": "fd1a068d9e79ea9d090fc1a92ea133380e18fc71c111b7c6457170a38f526a4a"
+    }
+  ]
+}

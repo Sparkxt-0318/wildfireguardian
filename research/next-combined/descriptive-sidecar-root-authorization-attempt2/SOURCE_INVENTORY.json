@@ -1,0 +1,35 @@
+{
+  "scope": "Exact root original/refreshed producer authorization, metadata-only preflight, original custody check and later independent review authorization. Input-map amendment adds only two already-frozen inventories (652 to654), same c41 source/method; actual earlier refusal and original authorization unchanged.",
+  "input_map_delta_verified": [
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json",
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json"
+  ],
+  "readiness_actual_input_payload_rehash": false,
+  "files": [
+    {
+      "path": "DESCRIPTIVE_INTERVAL_ACTUAL_AUTHORIZATION_V2.json",
+      "bytes": 146054,
+      "sha256": "8b5ef1615f6d2f1b52a5408672e24589741f14de705ff7428f77fd5d87841feb"
+    },
+    {
+      "path": "DESCRIPTIVE_INTERVAL_ACTUAL_AUTHORIZATION_ATTEMPT2.json",
+      "bytes": 146320,
+      "sha256": "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc"
+    },
+    {
+      "path": "DESCRIPTIVE_INTERVAL_ACTUAL_INDEPENDENT_REVIEW_AUTHORIZATION.json",
+      "bytes": 1539,
+      "sha256": "941f619595697f83f4899b3606eed2a0228df83eec852eab29e92ed8c645a045"
+    },
+    {
+      "path": "DESCRIPTIVE_INTERVAL_METADATA_PREFLIGHT_ATTEMPT2.json",
+      "bytes": 1331,
+      "sha256": "deb9f42c712cde502947554f847c4e6da2eb7c31bd6ff258903846805054ddcf"
+    },
+    {
+      "path": "DESCRIPTIVE_INTERVAL_ROOT_PREREQUISITE_CHECK.json",
+      "bytes": 737,
+      "sha256": "acf3ab076373519e4a2dcd0eb0ac02d059d2e8f3fb1c8e21fe9ea2daa6cf9947"
+    }
+  ]
+}

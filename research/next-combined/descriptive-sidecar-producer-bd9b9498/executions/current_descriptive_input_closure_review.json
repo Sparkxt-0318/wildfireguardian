@@ -1,0 +1,25 @@
+{
+  "already_root_frozen": {
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json": true,
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json": true
+  },
+  "draft_sha256": "3ce996342ddcec191814edf1a9e65770218b3717e36ee06d90cf332933ac6b8e",
+  "executed_source_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "failed_authorization_sha256": "8b5ef1615f6d2f1b52a5408672e24589741f14de705ff7428f77fd5d87841feb",
+  "failed_execution_receipt_sha256": "37f6078bb8adca3933039c1b83e0be4885ca1f05b514f1a5413a57aacbf9219f",
+  "missing_inputs": {
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json": "6286e0541a95b5f4806943bb809aa9314d55c2a637171002027c05e6292fc42d",
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json": "51d910392b5f47f20b57ba56a4b2d25bc9096d33ac1dd09361f32a925884028d"
+  },
+  "new_input_count": 654,
+  "no_scientific_array_decode_or_metrics": true,
+  "output_exists": false,
+  "recorded_utc": "2026-10-30T23:40:36.726924+00:00",
+  "schema": "wfg.descriptive-input-closure-review/1",
+  "scope": "Static source and byte-identity closure check only; no modified-authorization execution or retry.",
+  "source_static_review": {
+    "authorize": "Existing canonical/protocol/spec/source/lineage/figure bindings are supplied by the652-map.",
+    "cohort_expectation": "Both hard-pinned PREASSESSMENT inventories were missing; all individual case JSON, scoredcase NPZ and per-fire NPZ consumers are present in original624 artifact map.",
+    "verify_cohort": "Uses already declared cohort receipts, case/per-fire arrays, frozen inputs and prerequisites; no new file family found."
+  }
+}

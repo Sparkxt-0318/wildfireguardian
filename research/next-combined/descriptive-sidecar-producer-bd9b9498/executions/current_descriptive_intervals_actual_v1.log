@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py", line 1016, in <module>
+    main()
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py", line 1012, in main
+    return run_authorized(allowed)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py", line 930, in run_authorized
+    expectations[cohort] = cohort_expectation(a, cohort, metadata_only=True)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py", line 800, in cohort_expectation
+    inventory_pin = a.input(inventory_path)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/supplement.py", line 641, in input
+    raise AdmissionError("Unlisted consumed canonical artifact: " + relative)
+AdmissionError: Unlisted consumed canonical artifact: research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json
