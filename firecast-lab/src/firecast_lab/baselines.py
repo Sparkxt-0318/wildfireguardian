@@ -267,13 +267,21 @@ def make(name: str, **options):
     return classes[name](**options)
 
 
-def members(model, window: Window, *, K: int, seed: int, coupling: str = "shared",
-            length_cells: float | None = None) -> np.ndarray:
-    """K coherent member arrival fields for one window. Threshold baselines share the window's uniform fields
-    (common random numbers: same seed, coupling and K give the same fields), so paired differences carry less
-    Monte Carlo noise. Models with their own members (c651) produce them directly."""
+def forecast(model, window: Window, *, K: int, seed: int, coupling: str = "shared",
+             length_cells: float | None = None) -> tuple[np.ndarray, np.ndarray | None]:
+    """K coherent member arrival fields for one window and, for probability baselines, P(burned by the lead)
+    (None for models with their own members, i.e. c651).
+
+    Threshold baselines share the window's uniform fields (common random numbers: same seed, coupling and K give the
+    same fields), so paired differences between baselines carry less Monte Carlo noise."""
     if hasattr(model, "members"):
-        return model.members(window, K=K, seed=seed)
+        return model.members(window, K=K, seed=seed), None
     cum, _ = model.probabilities(window.inputs, window.lead_h)
-    return coherent_members(cum, K, seed=case_seed(seed, window.fire, window.cutoff_utc), coupling=coupling,
-                            length_cells=length_cells, initial_h=window.inputs.initial_h)
+    hours = coherent_members(cum, K, seed=case_seed(seed, window.fire, window.cutoff_utc), coupling=coupling,
+                             length_cells=length_cells, initial_h=window.inputs.initial_h)
+    return hours, cum[-1]
+
+
+def members(model, window: Window, **options) -> np.ndarray:
+    """``forecast(...)[0]``: the K member arrival fields only."""
+    return forecast(model, window, **options)[0]

@@ -126,14 +126,18 @@ class C651:
     def fit(self, windows) -> "C651":
         return self
 
-    def members(self, window: Window, *, K: int, seed: int) -> np.ndarray:
+    def load(self):
+        """The checkpoint, loaded once (needs torch)."""
         if self.model is None:
             _torch()
             from wildfire import load_model
             from wildfire.paths import DEFAULT_CHECKPOINT
             self.model = load_model(DEFAULT_CHECKPOINT, device=self.device)
+        return self.model
+
+    def members(self, window: Window, *, K: int, seed: int) -> np.ndarray:
         hours, self.facts = c651_members(self.root, window, K=K, seed=seed, batch_size=self.batch_size,
-                                         model=self.model, device=self.device)
+                                         model=self.load(), device=self.device)
         return hours
 
     def describe(self) -> dict:

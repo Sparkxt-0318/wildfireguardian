@@ -5,15 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "firecast-lab"
 version = "0.1.0"
-description = "Track A: whole-fire splits, data checks and verification metrics for a calibrated fire-hazard generator"
+description = "Track A: whole-fire splits, data checks, metrics, coherent members, baselines and the hazard_contract producer for a calibrated fire-hazard generator"
 requires-python = ">=3.12,<3.13"
 # The repo's forecast package (import name `wildfire`) and hazard_contract come from this checkout
 # (a .pth line and an editable install in the venv). They are deliberately not listed here:
 # a PyPI package with the same name would be a different project.
-dependencies = ["numpy>=1.26", "scipy>=1.13", "rasterio>=1.4"]
+dependencies = ["numpy>=1.26", "scipy>=1.13", "rasterio>=1.4", "scikit-learn>=1.5"]
 
 [project.optional-dependencies]
-test = ["pytest>=8", "hypothesis>=6", "scikit-learn>=1.5"]
+test = ["pytest>=8", "hypothesis>=6"]
+
+[project.scripts]
+firecast-lab = "firecast_lab.cli:console"
 
 [tool.setuptools.packages.find]
 where = ["src"]
