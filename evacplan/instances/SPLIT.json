@@ -1,0 +1,611 @@
+{
+ "schema": "evacplan.split/1",
+ "frozen": "2026-10-31",
+ "note": "Frozen 2026-10-31 before any method ran. Every instance is SYNTHETIC (evacplan.generators.synthetic): per set 4 S + 4 M + 2 L, grid and random geometric (geo) roads, tightness 0.25 and 0.75 for S and M, 0.5 for L; dev seeds 101-110, test seeds 201-210 (disjoint). Instances are not committed: they regenerate deterministically into evacplan/cache/instances/<id>/ (git-ignored) and must match their fingerprint (sha256 of the instance JSON, the hazard meta and the hazard arrays; numpy 1.26 Generator streams), else the harness refuses them (generator drift). dev: development and Phase-1 experiments. test: never run until a milestone and Siyeong's approval. Real US region 1 (Caldor Fire 2021, South Lake Tahoe) is BLOCKED on this host and not part of this split.",
+ "sets": {
+  "dev": [
+   {
+    "id": "SYNTHETIC-S-grid-t25-s101",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.25,
+     "graph": "grid",
+     "seed": 101
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:cebe749cdf696468ecbe5b0ec3a21d2549eddeffaa5eda6da241cd79c0af05cd",
+    "stats": {
+     "nodes": 99,
+     "edges": 314,
+     "facilities": 2,
+     "vehicles": 2,
+     "shelters": 2,
+     "residents": 23,
+     "residents_by_class": [
+      21,
+      1,
+      1
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 1
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-geo-t25-s102",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.25,
+     "graph": "geo",
+     "seed": 102
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:3f604756f6b90481b5370c14bc0651cf5739d78ca965bd97c21570dc81edd6f5",
+    "stats": {
+     "nodes": 80,
+     "edges": 326,
+     "facilities": 2,
+     "vehicles": 2,
+     "shelters": 2,
+     "residents": 39,
+     "residents_by_class": [
+      22,
+      11,
+      6
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 7199.0,
+     "facilities_reached_within_horizon": 1
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-grid-t75-s103",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.75,
+     "graph": "grid",
+     "seed": 103
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:48a695afc0caac72246275636f36a3fbbe88570f1e7e389710d91f06c830aad7",
+    "stats": {
+     "nodes": 99,
+     "edges": 314,
+     "facilities": 2,
+     "vehicles": 1,
+     "shelters": 2,
+     "residents": 27,
+     "residents_by_class": [
+      24,
+      2,
+      1
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 3599.0,
+     "facilities_reached_within_horizon": 2
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-geo-t75-s104",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.75,
+     "graph": "geo",
+     "seed": 104
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:7b051486d4d43dee14453f6ca5fbb52003cc12cef3ab80319b94f64c45d7406e",
+    "stats": {
+     "nodes": 80,
+     "edges": 326,
+     "facilities": 2,
+     "vehicles": 1,
+     "shelters": 2,
+     "residents": 26,
+     "residents_by_class": [
+      23,
+      3,
+      0
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 3600.0,
+     "facilities_reached_within_horizon": 2
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-grid-t25-s105",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.25,
+     "graph": "grid",
+     "seed": 105
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:69c190269216d50c52f923ae7bdd0aa5f2c9c42ed2fe1292c2a8fbeb44b1e2a7",
+    "stats": {
+     "nodes": 221,
+     "edges": 726,
+     "facilities": 6,
+     "vehicles": 5,
+     "shelters": 3,
+     "residents": 163,
+     "residents_by_class": [
+      146,
+      16,
+      1
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 1
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-geo-t25-s106",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.25,
+     "graph": "geo",
+     "seed": 106
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:e27e556cb444f1fc34f771f7949c439e8d7e6e70d06265c40a20fe446d4ffdee",
+    "stats": {
+     "nodes": 192,
+     "edges": 834,
+     "facilities": 6,
+     "vehicles": 5,
+     "shelters": 3,
+     "residents": 155,
+     "residents_by_class": [
+      129,
+      22,
+      4
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 3
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-grid-t75-s107",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.75,
+     "graph": "grid",
+     "seed": 107
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:4dc26c004dc00c2824c84677a98b659d7cb94fbcac32925297dcd23830446fbd",
+    "stats": {
+     "nodes": 221,
+     "edges": 726,
+     "facilities": 6,
+     "vehicles": 4,
+     "shelters": 3,
+     "residents": 168,
+     "residents_by_class": [
+      137,
+      25,
+      6
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 3600.0,
+     "facilities_reached_within_horizon": 5
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-geo-t75-s108",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.75,
+     "graph": "geo",
+     "seed": 108
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:c493da2359f8548b850864cf2a3e482e81f66d0a65e9f22b6feadb1ee07a0bc7",
+    "stats": {
+     "nodes": 192,
+     "edges": 822,
+     "facilities": 6,
+     "vehicles": 4,
+     "shelters": 3,
+     "residents": 149,
+     "residents_by_class": [
+      110,
+      33,
+      6
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 3599.0,
+     "facilities_reached_within_horizon": 4
+    }
+   },
+   {
+    "id": "SYNTHETIC-L-grid-t50-s109",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "L",
+     "tightness": 0.5,
+     "graph": "grid",
+     "seed": 109
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:af945d59ede0c4a22c91cb480dad6477bc8c5cb5d2f46661b66a3681940c4983",
+    "stats": {
+     "nodes": 475,
+     "edges": 1594,
+     "facilities": 15,
+     "vehicles": 10,
+     "shelters": 4,
+     "residents": 646,
+     "residents_by_class": [
+      534,
+      93,
+      19
+     ],
+     "K": 8,
+     "horizon_s": 21600.0,
+     "lead_realized_s": 5400.0,
+     "facilities_reached_within_horizon": 8
+    }
+   },
+   {
+    "id": "SYNTHETIC-L-geo-t50-s110",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "L",
+     "tightness": 0.5,
+     "graph": "geo",
+     "seed": 110
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:cebd9450466f1ffe9369a7660804d9f3dfb8a40996c57c09d4207c4c018329b0",
+    "stats": {
+     "nodes": 432,
+     "edges": 1930,
+     "facilities": 15,
+     "vehicles": 10,
+     "shelters": 4,
+     "residents": 579,
+     "residents_by_class": [
+      448,
+      98,
+      33
+     ],
+     "K": 8,
+     "horizon_s": 21600.0,
+     "lead_realized_s": 5399.0,
+     "facilities_reached_within_horizon": 7
+    }
+   }
+  ],
+  "test": [
+   {
+    "id": "SYNTHETIC-S-grid-t25-s201",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.25,
+     "graph": "grid",
+     "seed": 201
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:c35a574970a919965042a2cb57f72cd07e112545c99f5c83d631af26dfe67b7e",
+    "stats": {
+     "nodes": 99,
+     "edges": 314,
+     "facilities": 2,
+     "vehicles": 2,
+     "shelters": 2,
+     "residents": 34,
+     "residents_by_class": [
+      31,
+      3,
+      0
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 1
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-geo-t25-s202",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.25,
+     "graph": "geo",
+     "seed": 202
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:6bc428cf7f521eb99606abb63b33d216b9580b2e26e83565aaf6f56accb6dec2",
+    "stats": {
+     "nodes": 80,
+     "edges": 322,
+     "facilities": 2,
+     "vehicles": 2,
+     "shelters": 2,
+     "residents": 21,
+     "residents_by_class": [
+      12,
+      5,
+      4
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 7199.0,
+     "facilities_reached_within_horizon": 1
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-grid-t75-s203",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.75,
+     "graph": "grid",
+     "seed": 203
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:3b5fdf3fe0572650668a8e7767b1fcdb56d1ef6f3d36ee702aa3188cc983544e",
+    "stats": {
+     "nodes": 99,
+     "edges": 314,
+     "facilities": 2,
+     "vehicles": 1,
+     "shelters": 2,
+     "residents": 36,
+     "residents_by_class": [
+      26,
+      5,
+      5
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 3600.0,
+     "facilities_reached_within_horizon": 2
+    }
+   },
+   {
+    "id": "SYNTHETIC-S-geo-t75-s204",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "S",
+     "tightness": 0.75,
+     "graph": "geo",
+     "seed": 204
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:045c35354514e7e67ad811882ab3b3c2ea0933198c3b66ca3b263f95398efe4f",
+    "stats": {
+     "nodes": 80,
+     "edges": 322,
+     "facilities": 2,
+     "vehicles": 1,
+     "shelters": 2,
+     "residents": 24,
+     "residents_by_class": [
+      23,
+      1,
+      0
+     ],
+     "K": 8,
+     "horizon_s": 10800.0,
+     "lead_realized_s": 3599.0,
+     "facilities_reached_within_horizon": 2
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-grid-t25-s205",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.25,
+     "graph": "grid",
+     "seed": 205
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:ad9ee0a43ef19df8c6b35da96941fac210c741f243ffa69e5f738b971e6e8989",
+    "stats": {
+     "nodes": 221,
+     "edges": 726,
+     "facilities": 6,
+     "vehicles": 5,
+     "shelters": 3,
+     "residents": 161,
+     "residents_by_class": [
+      137,
+      17,
+      7
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 3
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-geo-t25-s206",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.25,
+     "graph": "geo",
+     "seed": 206
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:5685431385da4c24275da439467b87e242d8641a42439739f2c50eb05be76d4b",
+    "stats": {
+     "nodes": 192,
+     "edges": 842,
+     "facilities": 6,
+     "vehicles": 5,
+     "shelters": 3,
+     "residents": 131,
+     "residents_by_class": [
+      107,
+      23,
+      1
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 7200.0,
+     "facilities_reached_within_horizon": 2
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-grid-t75-s207",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.75,
+     "graph": "grid",
+     "seed": 207
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:72d016141ed307e658ad1961f9d0fd7f983e7ea976059f57a2e67f435201a184",
+    "stats": {
+     "nodes": 221,
+     "edges": 726,
+     "facilities": 6,
+     "vehicles": 4,
+     "shelters": 3,
+     "residents": 133,
+     "residents_by_class": [
+      102,
+      22,
+      9
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 3600.0,
+     "facilities_reached_within_horizon": 5
+    }
+   },
+   {
+    "id": "SYNTHETIC-M-geo-t75-s208",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "M",
+     "tightness": 0.75,
+     "graph": "geo",
+     "seed": 208
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:b3cf9335678700a1d8c14b6de0687ba82ae791558ee2dff4794c88cd7b8b3549",
+    "stats": {
+     "nodes": 192,
+     "edges": 854,
+     "facilities": 6,
+     "vehicles": 4,
+     "shelters": 3,
+     "residents": 147,
+     "residents_by_class": [
+      128,
+      17,
+      2
+     ],
+     "K": 8,
+     "horizon_s": 14400.0,
+     "lead_realized_s": 3599.0,
+     "facilities_reached_within_horizon": 4
+    }
+   },
+   {
+    "id": "SYNTHETIC-L-grid-t50-s209",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "L",
+     "tightness": 0.5,
+     "graph": "grid",
+     "seed": 209
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:e2cab8ff11708e2d79c840054024ec6a58322290fcbd452a5556fea1a2fc8e6a",
+    "stats": {
+     "nodes": 475,
+     "edges": 1594,
+     "facilities": 15,
+     "vehicles": 10,
+     "shelters": 4,
+     "residents": 619,
+     "residents_by_class": [
+      495,
+      98,
+      26
+     ],
+     "K": 8,
+     "horizon_s": 21600.0,
+     "lead_realized_s": 5400.0,
+     "facilities_reached_within_horizon": 7
+    }
+   },
+   {
+    "id": "SYNTHETIC-L-geo-t50-s210",
+    "generator": "evacplan.generators.synthetic",
+    "generator_version": "evacplan.synthetic/1",
+    "config": {
+     "size": "L",
+     "tightness": 0.5,
+     "graph": "geo",
+     "seed": 210
+    },
+    "synthetic": true,
+    "fingerprint": "sha256:1ac90b944247d6338e378d0ff0fdd0f86830f6baacbf1c6724a61abd9e062234",
+    "stats": {
+     "nodes": 432,
+     "edges": 1946,
+     "facilities": 15,
+     "vehicles": 10,
+     "shelters": 4,
+     "residents": 568,
+     "residents_by_class": [
+      469,
+      80,
+      19
+     ],
+     "K": 8,
+     "horizon_s": 21600.0,
+     "lead_realized_s": 5399.0,
+     "facilities_reached_within_horizon": 9
+    }
+   }
+  ]
+ }
+}
