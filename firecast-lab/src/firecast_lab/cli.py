@@ -170,6 +170,8 @@ def _decision(args, splits: dict) -> Path:
     options = dict(root=root, batch_size=args.batch_size) if args.model == "c651" else None
     rows, notes = dm.run(args.model, args.split, windows_of, splits, graphs=graphs, K=args.members, seed=args.seed,
                          length_cells=args.length_cells, config=requests, repeats=args.repeats, options=options)
+    if not rows:
+        raise ValueError(f"no window of {sorted(graphs)} produced a request (windows: {notes})")
     out = Path(args.out) if args.out else RESULTS / f"decision_{args.model}.csv"
     record = run_record(config, args.seed)
     _write(out, rows, dm.COLUMNS, record)

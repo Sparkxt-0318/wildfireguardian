@@ -267,17 +267,18 @@ def truth_from_reconstruction(window: Window, *, heat: hc.HeatSource = producer.
     """Reconstruction truth (Korean fires): the reconstructed arrival's hourly isochrones as a perimeter series in
     mode ``envelope``. A cell arriving in hour (h - 1, h] after the cutoff burns on [h - 1, h + T) hours, T the heat
     source's burn duration (the producer's, so model and truth share one physics). Mapped mask = the window's scoring
-    domain (outside it: unknown, unresolved); inside it, cells outside the final perimeter never burn (METRICS.md
-    section 2). Horizon = the lead; issue time = the cutoff."""
+    domain (outside it: unknown, unresolved); inside it, cells outside the final perimeter (outcome +inf) never burn
+    (METRICS.md section 2) and a NaN outcome stays unknown. Horizon = the lead; issue time = the cutoff."""
     outcome = np.asarray(window.outcome_h, dtype=np.float64)
     burned_ever = np.isfinite(outcome)
     first = min(int(np.floor(outcome[burned_ever].min())) - 1, -1) if burned_ever.any() else -1
     hours = np.arange(first, window.lead_h + 1)
     series = [(3600.0 * h, burned_ever & (outcome <= h)) for h in hours]   # the first isochrone is empty
     height, width = outcome.shape
+    mapped = np.asarray(window.domain, dtype=bool) & ~np.isnan(outcome)
     return hc.from_perimeters(series, heat.burn_duration_s, transform=window.transform, height=height, width=width,
                               crs_epsg=window.epsg, issue_time_utc=window.cutoff_utc, K=1, mode=TRUTH_MODE,
-                              mapped_mask=np.asarray(window.domain, dtype=bool), horizon_s=3600.0 * window.lead_h,
+                              mapped_mask=mapped, horizon_s=3600.0 * window.lead_h,
                               heat=heat, synthetic=window.synthetic,
                               model_version="reconstruction truth: hourly isochrones of the reconstructed arrival, "
                                             "envelope")

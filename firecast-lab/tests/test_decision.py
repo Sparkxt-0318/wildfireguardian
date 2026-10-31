@@ -127,6 +127,9 @@ def test_reconstruction_truth_is_the_hourly_envelope_on_the_scoring_domain(case)
     assert (meta.K, meta.horizon_s, meta.source, meta.synthetic) == (1, 3600.0 * window.lead_h, "perimeter", True)
     assert meta.provenance["mode"] == dm.TRUTH_MODE and "reconstruction truth" in meta.model_version
     assert meta.heat_source == producer.PACKET_HEAT and meta.issue_time_utc.isoformat()[:19] == window.cutoff_utc[:19]
+    unknown = out.copy()
+    unknown[5, 5] = np.nan                                      # an unknown outcome is never read as unburned
+    assert not dm.truth_from_reconstruction(dataclasses.replace(window, outcome_h=unknown)).supported[0, 5, 5]
 
 
 def test_perimeter_truth_horizon_is_the_last_survey(case):
