@@ -115,7 +115,7 @@ class LegResult(_Result):
     node: str | None
     edge: str | None
     hazard_state: State | None          # this leg alone (contact, peak, support); None if not evaluated
-    hazard_reasons: list[str]
+    reasons: list[str]                  # this leg's hazard reasons, then the cumulative dose reason if any
     dose_state: State | None            # cumulative dose through this leg
     state: State                        # the vehicle's state after this leg
     cause: str | None
@@ -377,7 +377,7 @@ class Oracle:
                 common = dict(index=len(legs), action=j, kind=seg.kind, t_start=seg.t0, t_end=seg.t1,
                               node=seg.node, edge=seg.edge)
                 if state is State.MODEL_NO_ROUTE and not self.evaluate_after_failure:
-                    legs.append(LegResult(**common, hazard_state=None, hazard_reasons=[], dose_state=None,
+                    legs.append(LegResult(**common, hazard_state=None, reasons=[], dose_state=None,
                                           state=state, cause=cause, slack_s=None, members=None,
                                           cum_dose_lower=None, cum_dose_upper=None))
                     continue
@@ -396,7 +396,7 @@ class Oracle:
                 slack = self.leg_slack(geom, a, b) if h_state is State.CHECKED else None
                 legs.append(LegResult(
                     **common, hazard_state=h_state,
-                    hazard_reasons=reasons + ([d_reason] if d_reason else []), dose_state=d_state,
+                    reasons=reasons + ([d_reason] if d_reason else []), dose_state=d_state,
                     state=state, cause=cause, slack_s=slack,
                     members=[MemberHazard(contact=h.contact, supported=h.supported, flux_lower=h.flux_lower,
                                           flux_upper=h.flux_upper, dose_lower=h.dose_lower,
