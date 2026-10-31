@@ -68,4 +68,30 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   (NIROPS catalog provenance: survey times, no outcomes) and Korean test-fire window counts from
   `events.json` to discuss the lead. No outcomes or scores were read. Reported to Siyeong (rule 5); the 24 h
   lead rests on the Korean dev label MAE.
-
+- **2026-10-31** — Interim bar for "beats B2": the best B2 dev total observed at the same budget with the same
+  search code, currently **1750** (Phase 0 review run at `957e6720`; B2's search code is unchanged since, only
+  diagnostics were added), not the 1682 of the three committed repeats. Reason: on a quiet host the three
+  repeats were identical (1682 delivered, 68 unresolved); on a busier host the seedless search stopped
+  earlier and got 1750 / 0. The bar must not depend on host load. To confirm with Siyeong (alternative: a
+  pre-registered B2 solution limit).
+- **2026-10-31** — Track C refusals that hold even with nothing burning get their own cause,
+  `UNSERVABLE:NO_TRIP_BY_HORIZON`; the state stays scoped `model_no_route` (evacplan ASSUMPTIONS #74,
+  question 12). Reason: review C-M3, the old label blamed contact. Only the label changed; the oracle's trip
+  verdicts did not.
+- **2026-10-31** — Track C tests regenerate test-set instances only with `EVACPLAN_MILESTONE=1`, which is
+  set only at milestones Siyeong approves. Reason: rule 5 (review C-M4: the suite rebuilt all 10 test
+  instances in memory for its fingerprint checks).
+- **2026-10-31** — Track C result rows (`evacplan/results/*.csv`) are committed with the leaderboard; plans
+  and oracle results (`results/runs/`, ~120 MB) stay ignored; the harness dirty check skips generated rows.
+  Reason: the rows existed only on the ephemeral cloud host; Track A already commits its rows.
+- **2026-10-31** — Track A decision truth from Choi reconstructions: the 8-neighbour ring of the
+  finite-arrival mask burns from its burned neighbours' earliest ignition to their latest extinction. Rows
+  also record the centre-in verdict, and reports count `truth_ring_flips`. Reason: review A-M1, the
+  centre-in mask made partly burned edge cells truth-safe, which biased false-safe low. Calling those cells
+  unknown instead would have dropped 220 of 296 truth-safe requests in the verifier's SYNTHETIC check. This
+  approximates the all-touched rule until KFS perimeter polygons exist; to confirm with Siyeong
+  (firecast-lab README question 4).
+- **2026-10-31** — Track A leaderboard = sums of additive per-window terms with whole-fire bootstrap
+  intervals. Spread-skill uses fixed member-sd bins, because deciles cannot be pooled across windows. Runs
+  that scored different cells or windows are refused. Reason: review A-M4, the metrics were coded but no run
+  produced them. Bins to confirm with Siyeong.

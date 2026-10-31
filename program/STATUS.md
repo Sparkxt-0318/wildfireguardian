@@ -5,9 +5,9 @@
 
 ## Now
 
-- **Phase:** Phase 0 code done on both tracks; independent review done (`program/reviews/phase0-review.md`,
-  no critical findings); fix round running on both track branches; then merge into `next/integration`
-  and checkpoint 2 (stop and wait for Siyeong).
+- **Phase:** **Checkpoint 2: waiting for Siyeong.** Phase 0 is done on both tracks, independently reviewed
+  (`program/reviews/phase0-review.md`) and fixed. Both track branches are merged into `next/integration`
+  and all suites pass. Report: `program/reviews/checkpoint-2.md`. Nothing new runs until Siyeong answers.
 - **Updated:** 2026-10-31 (UTC).
 
 ## Host and data (important)
@@ -40,17 +40,18 @@
 | `/home/user/wfg-firecast` | `firecast-lab/phase0` | Track A |
 
 `claude/ecstatic-keller-fm31to` (this cloud session's designated branch) is kept equal to
-`next/integration`.
+`next/integration`. The two `hazard_contract` test fixes (`32735e36`, `efa43039`) are on `next/integration` only.
+Merge `next/integration` into both track branches before Phase 1 work starts there.
 
 ## Agents
 
 | Agent | Track | Doing | Worktree |
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
-| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → ~~C3a deadlines/B0/B1~~ → ~~C3b B2/B3 + dev run~~ — Phase 0 done (`31048003`) | C | waiting for review | `/home/user/wfg-evacplan` |
+| Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → ~~C3a deadlines/B0/B1~~ → ~~C3b B2/B3 + dev run~~ → ~~review fixes~~ — Phase 0 done (`1373bb3f`) | C | idle (checkpoint 2) | `/home/user/wfg-evacplan` |
 | ~~Phase 0 reviewers + adversarial verifiers~~ (done) | both | → `program/reviews/phase0-review.md` | scratchpad (removed) |
-| Fix agents (one per track) | both | fix confirmed findings with regression tests; Track C reruns all methods ×3 repeats on dev at 60 s | own worktrees |
-| Track A: ~~A1~~ → ~~A1b~~ → ~~A2 decision metric~~ — Phase 0 code done; real-data runs blocked | A | waiting for review | `/home/user/wfg-firecast` |
+| ~~Fix agents (one per track)~~ (done) | both | every confirmed finding fixed with a regression test | own worktrees |
+| Track A: ~~A1~~ → ~~A1b~~ → ~~A2 decision metric~~ → ~~review fixes~~ — Phase 0 code done (`9a74994b`); real-data runs blocked | A | idle (checkpoint 2) | `/home/user/wfg-firecast` |
 
 ## Blockers
 
@@ -61,9 +62,13 @@
 
 ## Next step
 
-Fix round (workflow `wz45q14ih`) → merge `evacplan/phase0` and `firecast-lab/phase0` into
-`next/integration` (all suites green on the merge, venvs from each track's `requirements.lock`) →
-fill "Fix status" in the review file → checkpoint 2 report → **stop and wait for Siyeong**.
+**Wait for Siyeong's answers** to checkpoint 2 (`program/reviews/checkpoint-2.md`, sections "Decisions needed"
+and "Defaults in place"). After approval:
+
+1. Record the answers in `DECISIONS.md`.
+2. Merge `next/integration` into both track branches.
+3. Start Phase 1 batch 1 with the approved experiments: at most 3 agents, each in its own worktree on an `exp-`
+   branch; dev only; timed runs through the bench lock.
 
 ## Log
 
@@ -113,3 +118,13 @@ fill "Fix status" in the review file → checkpoint 2 report → **stop and wait
   the new evacplan (116 passed, 3 skipped). Fixed here: hazard_contract `np.trapz` test (numpy 2),
   real-packet test skips when its folder is missing. Decisions recorded (comparison rule: 3 repeats,
   "beats B2" = min > B2's max; ortools cap + lock files; scikit-learn/hypothesis; test-fire metadata).
+- 2026-10-31 Fix round, one agent per track. Every confirmed review finding is fixed with a regression test
+  (Track C `590a4b49`, Track A `9a74994b`). Track C reran every method on dev at 60 s × 3 repeats at clean
+  commit `b43990bb` (SYNTHETIC):
+  - B0 1157, B1 1353, noop 0;
+  - B2 1682 with 68 unresolved, identical across repeats; the review's run got 1750 / 0, which is the interim bar;
+  - B3 103.7 of 115 on S.
+  The Track C result rows are now committed (`1373bb3f`).
+- 2026-10-31 Both track branches merged into `next/integration`. All suites pass on the merge in venvs built from
+  each track's `requirements.lock`: evacplan 310, hazard_contract 76, firecast-lab 125 + 3 skipped, program 2.
+  Checkpoint 2 report written; waiting for Siyeong.

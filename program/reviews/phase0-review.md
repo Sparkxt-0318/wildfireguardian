@@ -74,4 +74,43 @@ hindsight). Domain: final perimeter + 3 km. All metric functions match hand valu
 
 ## Fix status
 
-Fixes are being made on the track branches with a regression test each; this section is updated at merge.
+Every confirmed finding is fixed on its track branch (Track C `590a4b49`, Track A `9a74994b`) and merged into
+`next/integration`. Each code fix has a regression test that fails on the old code and passes now. The exception
+is C-M4: its old fixture would have regenerated the test set, so its test checks the selection with generation
+stubbed out. Suites on the merge, in venvs built from each track's `requirements.lock`, all pass:
+
+- evacplan: 310 passed, real-data tests included;
+- hazard_contract: 76 passed;
+- firecast-lab: 125 passed, 3 skipped (2 need torch; 1 refusal branch is unreachable with `wfg_latest` installed);
+- program: 2 passed.
+
+- **C-M1.** The leaderboard shows mean and [min–max] over 3 repeats (seeds 0–2), per instance and in total.
+  B2 rows record how far the search got (solutions found, final objective). Every method was rerun on dev at
+  60 s × 3 at clean commit `b43990bb`, and the rows are committed (`1373bb3f`). B2 gave 1682 delivered / 68
+  unresolved in all three repeats on a quiet host (s106 at 1146–1179 solutions). The interim bar is therefore
+  B2's best observed total, 1750 (DECISIONS). The root cause, no dose term in B2's model, is evacplan question 18.
+- **C-M2.** `ortools>=9.10,<9.15`; `evacplan/requirements.lock`; the README install rebuilds it.
+- **C-M3.** A refusal that holds without any fire has its own cause, `UNSERVABLE:NO_TRIP_BY_HORIZON`; the state
+  is unchanged (question 12). Refusals that need no fire are no longer blamed on contact.
+- **C-M4.** The test set is regenerated only with `EVACPLAN_MILESTONE=1`.
+- **Track C minors.**
+  - No default data path.
+  - An AST rule-3 guard catches the 6 patterns the regex missed.
+  - Rows record the hazard_contract, numpy, ortools and highspy versions; the dirty check covers evacplan/,
+    hazard_contract/ and program/.
+  - The leaderboard attributes each number to the oracle, to a method's own proof, or to the clock.
+  - A hypothesis property test checks the relaxation claims against an independent exhaustive search.
+  - hazard_contract test hygiene: fixed on `next/integration` (`32735e36`, `efa43039`).
+- **A-M1.** Ring cells burn over their burned neighbours' envelope. Rows keep the centre-in verdict and reports
+  count the flips. On a SYNTHETIC fire over the real Uljin graph, 3 of 91 truth-safe requests became hits on a
+  contiguous mask, 27 of 106 on a speckled one; none became unresolved.
+- **A-M2.** The decision JSON and report carry `synthetic`; printed result lines start with `SYNTHETIC`.
+- **A-M3.** Pillow is declared. scikit-learn and hypothesis wait for Siyeong (DECISIONS).
+- **A-M4.** Run rows carry additive terms for every METRICS metric. `firecast-lab leaderboard` pools them with
+  whole-fire bootstrap intervals and refuses runs whose masks or windows differ (which also fixes the
+  within-row-only cell check). `firecast-lab/LEADERBOARD.md` exists and has no rows yet.
+- **Track A minors.**
+  - DATA_NOTES labels its use of test-fire metadata.
+  - README install and `requirements.lock`.
+  - METRICS gives n and seed for spread-skill; "17 windows" is marked approximate.
+  - The decision-cost script is committed; a rerun gives 3.3 min/window, about 56 min per model.
