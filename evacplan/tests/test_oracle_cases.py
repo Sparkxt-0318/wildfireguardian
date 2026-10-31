@@ -47,18 +47,25 @@ def test_leg_through_a_burning_cell_is_model_no_route():
     assert r.model_no_route_by_reason == {"FLAME_CONTACT": 2} and r.unresolved_total == 0
 
 
+# hazard_contract >= 1.0.1 widens every uniform-motion piece by a floating-point tolerance (about
+# 1e-12 s here) for contact, so an exact boundary instant counts as contact (conservative).
+TOL = 1e-6
+
+
 def test_contact_uses_closed_occupancy_and_half_open_burning():
     # the vehicle enters the middle cell at x = 100, t = 20 + 25 = 45 exactly
     ig = quiet(3, 3)
     ig[0, 1, 1] = -500.0
-    ex = np.where(np.isfinite(ig), 45.0, ig)        # burning [-500, 45): out at the entry instant
+    ex = np.where(np.isfinite(ig), 45.0 - TOL, ig)  # burning [-500, 45 - TOL): out just before the entry
     assert check_plan(*through_row(ig, ex)).vehicles[0].state is CHECKED
+    ex = np.where(np.isfinite(ig), 45.0, ig)        # out exactly at the entry instant: contact within tolerance
+    assert check_plan(*through_row(ig, ex)).vehicles[0].state is MNR
     ex = np.where(np.isfinite(ig), np.nextafter(45.0, INF), ig)
     assert check_plan(*through_row(ig, ex)).vehicles[0].state is MNR
     # the vehicle leaves the middle cell at x = 200, t = 70 + 25 = 95; ignition at 95 is contact, later is not
     ig[0, 1, 1] = 95.0
     assert check_plan(*through_row(ig)).vehicles[0].legs[2].hazard_state is MNR
-    ig[0, 1, 1] = np.nextafter(95.0, INF)
+    ig[0, 1, 1] = 95.0 + TOL
     assert check_plan(*through_row(ig)).vehicles[0].state is CHECKED
 
 
@@ -135,7 +142,8 @@ def test_corner_touch_is_contact_with_closed_cells():
     assert corner_case(40.0, 60.0).legs[0].cause == "FLAME_CONTACT"
     assert corner_case(0.0, 30.0).state is CHECKED                # burned out before the corner instant
     assert corner_case(50.0, 60.0).state is MNR                   # ignites exactly at the corner instant
-    assert corner_case(40.0, 50.0).state is CHECKED               # extinguished exactly then (half-open)
+    assert corner_case(40.0, 50.0 - TOL).state is CHECKED         # extinguished just before the corner instant
+    assert corner_case(40.0, 50.0).state is MNR                   # exactly then: contact within tolerance
     assert corner_case(40.0, 60.0, shift=1.0).state is CHECKED    # 0.7 m away from the corner: no touch
 
 
