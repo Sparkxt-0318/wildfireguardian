@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evacplan"
+version = "0.1.0"
+description = "Track C: care-facility wildfire evacuation dispatch planner (Problem v0 schema, validator, feasibility oracle)"
+requires-python = ">=3.12,<3.13"
+# The in-repo packages hazard_contract (../hazard_contract) and, for the router-graph adapter,
+# wfg_latest (../integration) are installed editable from this repository. They are deliberately
+# not listed here so that pip never resolves those names from a public index.
+dependencies = ["numpy>=1.26", "pydantic>=2.7,<3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "hypothesis>=6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
