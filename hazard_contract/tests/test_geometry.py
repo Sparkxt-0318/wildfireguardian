@@ -102,5 +102,5 @@ def test_uniform_pieces_cover_the_path_in_time_order():
     pieces = uniform_pieces(s.grid, g, 100.0, 200.0, max_len_m=40.0)
     assert pieces[0][1] == 100.0 and pieces[-1][2] == pytest.approx(200.0)
     for (pg, ta, tb), (pg2, ta2, _tb2) in zip(pieces, pieces[1:]):
-        assert ta < tb and tb == pytest.approx(ta2) and np.allclose(pg[1], pg2[0])
+        assert ta <= tb and tb == ta2 and np.array_equal(pg[1], pg2[0])   # zero-length corner pieces allowed
         assert np.hypot(*(pg[1] - pg[0])) <= 40.0 + 1e-9

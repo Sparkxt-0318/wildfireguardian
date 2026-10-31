@@ -42,6 +42,10 @@ def from_perimeters(perimeter_series: Iterable, burn_duration: float, *, transfo
         raise ValueError("mode='envelope' produces exactly one member (K=1)")
     if not burn_duration > 0:
         raise ValueError("burn_duration must be > 0")
+    if mode == "envelope" and heat is not None and heat.burn_duration_policy != "scalar":
+        # a union of intervals cannot carry a per-interval duration: stretching the interval
+        # would dilute the emission C / duration, which is not conservative
+        raise ValueError("mode='envelope' requires a scalar burn-duration policy")
     issue = parse_time(issue_time_utc)
     grid = grid_from(transform, height, width)
     series = []

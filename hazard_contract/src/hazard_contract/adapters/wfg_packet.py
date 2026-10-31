@@ -26,14 +26,15 @@ from ._common import parse_time
 PRESENT_FIRE_MODES = ("exact", "enclosure")
 
 
-def from_wfg_packet(packet_dir, *, present_fire: str = "exact") -> ScenarioSet:
+def from_wfg_packet(packet_dir, *, present_fire: str = "enclosure") -> ScenarioSet:
     """Convert one packet directory (``constructed_arrays.npz`` + ``NATIVE_METADATA.json``).
 
     present_fire
-        ``exact``: each present-fire cell burns on ``[R_cell - T, R_cell)`` with its exact
-        remaining time ``R_cell`` (the heat package's arrival-age rule). ``enclosure``: every
-        present-fire cell burns until the packet's scalar ``R_max`` (what the router used).
-        Unknown-age present fire burns on ``[-T, T)`` in both modes.
+        ``enclosure`` (default, what the router and checkers used): every present-fire cell
+        burns until the packet's scalar ``R_max``. ``exact``: each present-fire cell burns until
+        its own remaining time ``R_cell`` (the heat package's arrival-age rule; less
+        conservative). Ignition is ``min(R_cell - T, 0)``. Unknown-age present fire burns on
+        ``[-T, T)`` in both modes.
     """
     if present_fire not in PRESENT_FIRE_MODES:
         raise ValueError(f"present_fire must be one of {PRESENT_FIRE_MODES}")
@@ -57,15 +58,22 @@ def from_wfg_packet(packet_dir, *, present_fire: str = "exact") -> ScenarioSet:
     cur = np.asarray(arr["current_active"], dtype=bool)
     known_burned = np.asarray(arr["mask__known_burned"], dtype=bool)
     remaining = np.asarray(arr["mask__initial_remaining_s_native"], dtype=float)
-    unknown = np.asarray(arr["mask__policy_assigned_zero"], dtype=bool) & ~known_burned
-    if np.any(np.isfinite(ig[:, cur | known_burned | unknown])):
-        raise ContractError("packet has finite ignitions on present-fire, burned or unknown cells")
+    for key in ("mask__policy_assigned_zero", "mask__unknown_cumulative_state"):
+        if key not in arr:
+            raise ContractError(f"packet lacks {key}; cannot tell unknown cells from unburned ones")
+    # Rule 4: missing native probability OR unknown burned state => unknown (the bridge may even
+    # draw ignitions on unknown-state cells; they are overwritten with nan below).
+    unknown = ((np.asarray(arr["mask__policy_assigned_zero"], dtype=bool)
+                | np.asarray(arr["mask__unknown_cumulative_state"], dtype=bool)) & ~known_burned)
+    if np.any(np.isfinite(ig[:, cur | known_burned])):
+        raise ContractError("packet has finite ignitions on present-fire or burned cells")
 
     exact_age = cur & np.isfinite(remaining)
     unknown_age = cur & ~np.isfinite(remaining)
     burned_out = known_burned & ~cur
-    ig[:, exact_age] = (remaining - T)[exact_age]
-    ex[:, exact_age] = remaining[exact_age] if present_fire == "exact" else r_max
+    # a current_active cell burns at the cutoff by definition: ignition <= 0 even if R_cell > T by rounding
+    ig[:, exact_age] = np.minimum(remaining - T, 0.0)[exact_age]
+    ex[:, exact_age] = remaining[exact_age] if present_fire == "exact" else max(r_max, 0.0)
     ig[:, unknown_age] = -T
     ex[:, unknown_age] = T
     ig[:, burned_out] = -np.inf
@@ -112,7 +120,7 @@ def from_wfg_packet(packet_dir, *, present_fire: str = "exact") -> ScenarioSet:
         },
         extra={
             "member_ids": list(md["construction"].get("scenario_ids", [])),
-            "support_policy": "rule4: mask__policy_assigned_zero & ~mask__known_burned -> unsupported",
+            "support_policy": "rule4: (mask__policy_assigned_zero | mask__unknown_cumulative_state) & ~mask__known_burned -> unsupported",
             "present_fire": present_fire,
             "R_max_s": r_max,
             "window_rows_cols_north_up": window,
