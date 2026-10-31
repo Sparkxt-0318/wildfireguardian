@@ -5,8 +5,9 @@
 
 ## Now
 
-- **Phase:** Phase 0 code done on both tracks; independent Phase 0 review running, then merge
-  into `next/integration` and checkpoint 2 (stop and wait for Siyeong).
+- **Phase:** Phase 0 code done on both tracks; independent review done (`program/reviews/phase0-review.md`,
+  no critical findings); fix round running on both track branches; then merge into `next/integration`
+  and checkpoint 2 (stop and wait for Siyeong).
 - **Updated:** 2026-10-31 (UTC).
 
 ## Host and data (important)
@@ -47,7 +48,8 @@
 |---|---|---|---|
 | codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
 | Track C chain: ~~C1 oracle~~ → ~~C0 merge~~ → ~~C2 generators/harness~~ → ~~C3a deadlines/B0/B1~~ → ~~C3b B2/B3 + dev run~~ — Phase 0 done (`31048003`) | C | waiting for review | `/home/user/wfg-evacplan` |
-| Phase 0 reviewers (one per track, clean detached checkouts in the scratchpad) | both | tests + one headline number + honesty/splits/timing checks → `program/reviews/phase0-review.md` | scratchpad |
+| ~~Phase 0 reviewers + adversarial verifiers~~ (done) | both | → `program/reviews/phase0-review.md` | scratchpad (removed) |
+| Fix agents (one per track) | both | fix confirmed findings with regression tests; Track C reruns all methods ×3 repeats on dev at 60 s | own worktrees |
 | Track A: ~~A1~~ → ~~A1b~~ → ~~A2 decision metric~~ — Phase 0 code done; real-data runs blocked | A | waiting for review | `/home/user/wfg-firecast` |
 
 ## Blockers
@@ -59,9 +61,9 @@
 
 ## Next step
 
-Independent Phase 0 review (both tracks) → fix anything that breaks honesty or a headline
-number → merge `evacplan/phase0` and `firecast-lab/phase0` into `next/integration` (all suites
-green on the merge) → checkpoint 2 report → **stop and wait for Siyeong**.
+Fix round (workflow `wz45q14ih`) → merge `evacplan/phase0` and `firecast-lab/phase0` into
+`next/integration` (all suites green on the merge, venvs from each track's `requirements.lock`) →
+fill "Fix status" in the review file → checkpoint 2 report → **stop and wait for Siyeong**.
 
 ## Log
 
@@ -102,3 +104,12 @@ green on the merge) → checkpoint 2 report → **stop and wait for Siyeong**.
   OR-Tools bundles an older libhighs), realizer. 261 pass (~4 min; run through the bench lock).
   Dev, 60 s, seed 0, commit `957e672`, SYNTHETIC: B2 1683/1975 (85.2%, 67 unresolved on one dose-limited
   bus), B1 1353 (68.5%), B0 1157 (58.6%), B3 104/115 on S (mean gap 0.083). Caldor still blocked.
+- 2026-10-31 Independent Phase 0 review (fresh reviewer + adversarial verifier per track, clean checkouts):
+  no critical findings. Confirmed major: B2's dev total varies 1682–1750 with search depth (one instance
+  flips 155/0 ↔ 88/67); `ortools` unpinned (9.15 crashes B2); Korean decision truth calls partly burned
+  edge cells never-burning (false-safe biased low); Track A run rows lack most spec metrics. B1 reproduces
+  exactly; accounting identity holds on every row; three-state rule, splits and equal time pass.
+- 2026-10-31 Trial merge of both tracks onto `next/integration`: no conflicts; firecast-lab passes against
+  the new evacplan (116 passed, 3 skipped). Fixed here: hazard_contract `np.trapz` test (numpy 2),
+  real-packet test skips when its folder is missing. Decisions recorded (comparison rule: 3 repeats,
+  "beats B2" = min > B2's max; ortools cap + lock files; scikit-learn/hypothesis; test-fire metadata).
