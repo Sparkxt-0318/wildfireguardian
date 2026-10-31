@@ -2,6 +2,7 @@
 the bench lock. Runs on a throw-away split of SYNTHETIC instances (seeds 9301-9303, outside the
 frozen split) in temporary folders."""
 import csv
+import importlib.metadata
 import json
 import os
 import socket
@@ -9,14 +10,16 @@ import subprocess
 import sys
 import textwrap
 
+import numpy as np
 import pytest
 
+import hazard_contract as hc
 from evacplan import Board, ClassCounts, Itinerary, Oracle, Solution, load_instance, load_scenario_set
 from evacplan.cli import main
 from evacplan.generators import SyntheticConfig
 from evacplan.harness import (
-    COLUMNS, FACILITY_COLUMNS, TestSetRefused, bench_guard, load_benchlock, lock_held_by_ancestor, make_row,
-    read_rows, run,
+    COLUMNS, FACILITY_COLUMNS, TestSetRefused, bench_guard, git_commit, load_benchlock, lock_held_by_ancestor,
+    make_row, read_rows, run,
 )
 from evacplan.instances import build_split, write_split
 from evacplan.methods import Method, MethodResult, available, get_method, register
@@ -66,6 +69,56 @@ def test_noop_rows_have_the_exact_schema(mini):
         assert cfg["oracle"] and cfg["hazard_contract"]
     plans = sorted((p["results_dir"] / "runs" / "noop" / "dev-b60").glob("*.result.json"))
     assert len(plans) == 4 and json.loads(plans[0].read_text())["label"] == "SYNTHETIC"
+
+
+def _installed(name):
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
+def test_rows_record_contract_and_package_versions(mini):
+    """Provenance: every row's config holds the contract format (``CONTRACT_VERSION``) and the package
+    versions that can change results: hazard_contract's own ``__version__`` (1.0.1 changed contact at exact
+    boundaries while the format stayed 1.0), numpy, ortools and highspy."""
+    root, split = mini
+    p = paths(root, "versions")
+    r = run("noop", "dev", 60, seeds=[0], lock="no", log=lambda s: None, **p)[0]
+    cfg = json.loads(r["config"])
+    assert cfg["hazard_contract"] == hc.CONTRACT_VERSION
+    v = cfg["versions"]
+    assert v["hazard_contract"] == hc.__version__ and v["numpy"] == np.__version__
+    assert v["ortools"] == _installed("ortools") and v["highspy"] == _installed("highspy")
+
+
+def test_dirty_check_covers_evacplan_hazard_contract_and_program(tmp_path):
+    """``commit`` gets ``+dirty`` for uncommitted changes in evacplan/, hazard_contract/ or program/ (the
+    generated evacplan/LEADERBOARD.md excepted), not for the rest of the repository."""
+    repo = tmp_path / "repo"
+    for d in ("evacplan", "hazard_contract", "program", "other"):
+        (repo / d).mkdir(parents=True)
+        (repo / d / "f.txt").write_text("x\n")
+    (repo / "evacplan" / "LEADERBOARD.md").write_text("lb\n")
+
+    def git(*args):
+        subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c",
+                        "commit.gpgsign=false", *args], cwd=repo, check=True, capture_output=True)
+    git("init", "-q")
+    git("add", "-A")
+    git("commit", "-q", "-m", "init")
+    ep = repo / "evacplan"
+    sha = git_commit(ep)
+    assert len(sha) == 40 and "+" not in sha
+    (ep / "LEADERBOARD.md").write_text("regenerated\n")
+    (repo / "other" / "f.txt").write_text("changed\n")
+    assert git_commit(ep) == sha
+    for d in ("hazard_contract", "program", "evacplan"):
+        (repo / d / "f.txt").write_text("changed\n")
+        assert git_commit(ep) == sha + "+dirty", d
+        git("checkout", "--", f"{d}/f.txt")
+    (repo / "program" / "new.py").write_text("x = 1\n")         # untracked files count too
+    assert git_commit(ep) == sha + "+dirty"
 
 
 def test_upsert_and_equal_budget_leaderboard(mini):

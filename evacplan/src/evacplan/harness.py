@@ -11,9 +11,11 @@ Result rows (one per instance, seed, budget and set; :data:`COLUMNS`)
 * ``runtime_s``: wall-clock seconds of ``method.solve`` only (loading and the oracle excluded).
 * ``best_bound``: the method's proven upper bound on delivered residents (empty: none);
   ``gap = (best_bound - delivered_checked) / best_bound`` (0 if the bound is 0; empty without one).
-* ``commit`` (git HEAD, ``+dirty`` if ``evacplan/`` has uncommitted changes besides the
-  leaderboard), ``seed`` (the method's seed), ``config`` (compact JSON: set, budget, method
-  config, instance generator config and fingerprint, label, oracle and contract versions), ``host``.
+* ``commit`` (git HEAD, ``+dirty`` if ``evacplan/``, ``hazard_contract/`` or ``program/`` has
+  uncommitted changes besides the generated leaderboard), ``seed`` (the method's seed), ``config``
+  (compact JSON: set, budget, method config, instance generator config and fingerprint, label, the
+  oracle version, the hazard_contract format ``CONTRACT_VERSION`` and ``versions``: the installed
+  hazard_contract (``__version__``), numpy, ortools and highspy), ``host``.
 
 Per-facility rows (``results/<method>.facilities.csv``; :data:`FACILITY_COLUMNS`), one per
 instance, seed, budget, set, facility and mobility class with residents
@@ -36,6 +38,8 @@ from __future__ import annotations
 
 import contextlib
 import csv
+import functools
+import importlib.metadata
 import importlib.util
 import io
 import json
@@ -81,15 +85,38 @@ def _git(args: list[str], cwd: Path) -> str:
     return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True, check=True).stdout
 
 
+DIRTY_SIBLINGS = ("hazard_contract", "program")      # beside evacplan/: their changes can change results too
+VERSIONED = ("numpy", "ortools", "highspy")
+
+
 def git_commit(evacplan_root: Path = EVACPLAN_ROOT) -> str:
-    """HEAD of this checkout, with ``+dirty`` when ``evacplan/`` has uncommitted changes (the
-    generated leaderboard excepted)."""
+    """HEAD of this checkout, with ``+dirty`` when ``evacplan/``, ``hazard_contract/`` or ``program/``
+    has uncommitted changes, untracked files included (the generated ``evacplan/LEADERBOARD.md``
+    excepted)."""
     try:
         sha = _git(["rev-parse", "HEAD"], evacplan_root).strip()
-        status = _git(["status", "--porcelain", "--", ".", ":(exclude)LEADERBOARD.md"], evacplan_root)
-    except (OSError, subprocess.CalledProcessError):
+        top = Path(_git(["rev-parse", "--show-toplevel"], evacplan_root).strip()).resolve()
+        rel = Path(evacplan_root).resolve().relative_to(top).as_posix()
+        specs = [f":(top){p}" for p in (rel, *DIRTY_SIBLINGS)] + [f":(top,exclude){rel}/LEADERBOARD.md"]
+        status = _git(["status", "--porcelain", "--", *specs], evacplan_root)
+    except (OSError, ValueError, subprocess.CalledProcessError):
         return "unknown"
     return sha + ("+dirty" if status.strip() else "")
+
+
+@functools.lru_cache(maxsize=1)
+def package_versions() -> dict[str, str | None]:
+    """Versions that can change results: the installed hazard_contract (``__version__``; its format,
+    ``CONTRACT_VERSION``, is recorded separately) and numpy, ortools and highspy, read from the installed
+    distributions without importing them (importing highspy here would load its libhighs before OR-Tools'
+    bundled one; ``methods.highs_worker``). ``None``: not installed."""
+    out: dict[str, str | None] = {"hazard_contract": hc.__version__}
+    for name in VERSIONED:
+        try:
+            out[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            out[name] = None
+    return out
 
 
 def host_string() -> str:
@@ -174,7 +201,8 @@ def _num(x: float | None, nd: int) -> str:
 
 
 def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_config: dict, seed: int,
-             budget_s: float, plan, runtime_s: float, best_bound: float | None, commit: str, host: str) -> dict:
+             budget_s: float, plan, runtime_s: float, best_bound: float | None, commit: str, host: str,
+             versions: dict | None = None) -> dict:
     delivered = int(plan.delivered_total)
     if best_bound is None:
         gap = None
@@ -187,6 +215,7 @@ def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_confi
         "instance": {"generator": entry.generator, "generator_version": entry.generator_version,
                      "config": entry.config, "fingerprint": entry.fingerprint},
         "label": entry.label, "oracle": ORACLE_VERSION, "hazard_contract": hc.CONTRACT_VERSION,
+        "versions": dict(package_versions() if versions is None else versions),
     }
     return {
         "instance": entry.id, "method": method_name, "seed": str(int(seed)), "delivered_checked": str(delivered),
@@ -343,7 +372,7 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
             raise KeyError(f"not in set {set_name!r}: {missing}")
         entries = [known[i] for i in wanted]
     m = get_method(method, **(method_config or {}))
-    commit, host = git_commit(), host_string()
+    commit, host, versions = git_commit(), host_string(), package_versions()
     log(f"[evacplan] {method} on {set_name} ({len(entries)} instances x {len(seeds)} seeds) at {budget_s:g} s; "
         f"commit {commit}")
     loaded = [(e, *load_entry(e, cache_dir)) for e in entries]          # regenerate before timing
@@ -364,7 +393,7 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
                 plan = oracle.check_plan(res.solution)
                 row = make_row(entry=e, set_name=set_name, method_name=method, method_config=m.config(), seed=seed,
                                budget_s=budget_s, plan=plan, runtime_s=runtime, best_bound=res.best_bound,
-                               commit=commit, host=host)
+                               commit=commit, host=host, versions=versions)
                 upsert_rows(csv_path, [row])
                 upsert_rows(fac_path, make_facility_rows(
                     entry=e, method_name=method, seed=seed, row=row, instance=inst, deadlines=deadlines,
