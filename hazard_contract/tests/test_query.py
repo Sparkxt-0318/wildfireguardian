@@ -6,6 +6,9 @@ from hazard_contract import HazardMember, SegmentHazard
 from hazard_contract.geometry import solid_angle_cap
 from helpers import center, exact_flux_at, make_set
 
+# numpy 2 renamed trapz to trapezoid (trapz is gone in recent releases); numpy 1.26 has only trapz
+_trapezoid = getattr(np, "trapezoid", None) or np.trapz
+
 INF, NAN = np.inf, np.nan
 
 
@@ -128,7 +131,7 @@ def test_bounds_bracket_direct_evaluation_along_uniform_motion():
             pts = p[None, :] + (ts - a)[:, None] / (b - a) * (q - p)[None, :]
             vals = np.array([exact_flux_at(s, k, x, t) for x, t in zip(pts, ts)])
             assert vals.max() <= hz[k].flux_upper * (1 + 1e-9) + 1e-12
-            dose = np.trapz(vals, ts)
+            dose = _trapezoid(vals, ts)
             assert hz[k].dose_lower <= dose * 1.02 + 1e-9
             assert dose <= hz[k].dose_upper * 1.02 + 1e-9
 
