@@ -90,11 +90,12 @@ def test_crossfit_holds_out_whole_fire_groups(root):
     assert all(d == fit_on_b.describe() for f, _, d in seen if f.startswith("SYNTHETIC_A"))
 
 
-def test_test_split_copula_and_synthetic_guards(root, tmp_path, monkeypatch):
+def test_test_split_copula_and_synthetic_guards(root, tmp_path, monkeypatch, capsys):
     with pytest.raises(PermissionError, match="allow-test"):
         _run(root, tmp_path, "--baseline", "persistence", "--split", "test")
     rows = _run(root, tmp_path, "--baseline", "calibrated_dilation", "--split", "test", "--allow-test",
                 "--members", "4", "--coupling", "copula", "--length-cells", "3")
+    assert capsys.readouterr().out.startswith("SYNTHETIC ")          # the printed summary line is labelled
     assert {r["fire"] for r in rows} == {"SYNTHETIC_T"} and {r["split"] for r in rows} == {"test"}
     assert json.loads(rows[0]["config"])["length_cells"] == 3.0 and rows[0]["coupling"] == "copula"
     with pytest.raises(ValueError, match="length-cells"):

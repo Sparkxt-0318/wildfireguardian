@@ -77,10 +77,14 @@ def test_decision_writes_rows_with_provenance(root, graphs, tmp_path, capsys, mo
     assert set(summary["report"]) == {"shared", "copula"} and len(summary["windows"]) == len(windows)
     headline = summary["report"]["shared"]["headline"]
     assert headline["requests"] == len(rows) // 2 and set(dm.RATES) <= set(headline)
+    # SYNTHETIC everywhere (rule 7): the JSON record, every coupling's report, the figure and every printed line
+    assert summary["synthetic"] is True and all(v["synthetic"] is True for v in summary["report"].values())
     with Image.open(out.with_suffix(".png")) as image:
         assert image.info["Title"].startswith("SYNTHETIC")
     printed = capsys.readouterr().out
     assert "skipped SYNTHETIC_B1: no road graph" in printed and "false-safe" in printed
+    lines = printed.splitlines()
+    assert lines and all(line.startswith("SYNTHETIC ") for line in lines)
     monkeypatch.setattr(cli, "RESULTS", tmp_path / "results")
     with pytest.raises(ValueError, match="SYNTHETIC"):
         cli.main(_args(root, graphs, "unused")[:-2], splits=SPLITS)                  # no --out on a SYNTHETIC root

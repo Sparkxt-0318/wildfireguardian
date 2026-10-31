@@ -109,8 +109,13 @@ def _run(args, splits: dict) -> Path:
                        coupling=args.coupling, length_cells=args.length_cells, options=options)
     out = Path(args.out) if args.out else RESULTS / f"{args.baseline}.csv"
     _write(out, rows, harness.COLUMNS, run_record(config, args.seed))
-    print(f"{len(rows)} windows -> {out}")
+    print(f"{_label(rows)}{len(rows)} windows -> {out}")
     return out
+
+
+def _label(rows: list[dict]) -> str:
+    """The prefix of every printed result line: "SYNTHETIC " when any row is SYNTHETIC (rule 7)."""
+    return "SYNTHETIC " if any(r["synthetic"] for r in rows) else ""
 
 
 def _time_c651(args, splits: dict) -> Path:
@@ -176,9 +181,10 @@ def _decision(args, splits: dict) -> Path:
     record = run_record(config, args.seed)
     _write(out, rows, dm.COLUMNS, record)
     report = dm.report(rows)
-    out.with_suffix(".json").write_text(json.dumps(dict(record, windows=notes, report=report), indent=1,
-                                                   default=str) + "\n")
-    synthetic = any(r["synthetic"] for r in rows)
+    label = _label(rows)
+    synthetic = bool(label)
+    out.with_suffix(".json").write_text(json.dumps(dict(record, synthetic=synthetic, windows=notes, report=report),
+                                                   indent=1, default=str) + "\n")
     labels = {c: c if c != "copula" else f"copula, L = {args.length_cells:g} cells" for c in report}
     dm.plot_tradeoff({c: v["k_curve"] for c, v in report.items()}, out.with_suffix(".png"), synthetic=synthetic,
                      title=f"decision metric: {args.model}, {args.split}, lead {args.lead} h, K = {args.members}",
@@ -186,12 +192,13 @@ def _decision(args, splits: dict) -> Path:
                                          f"{str(record['commit'])[:10]}; seed {args.seed}")
     for coupling, value in report.items():
         h = value["headline"]
-        print(f"{coupling}: false-safe {dm.rate_text(h['false_safe'])}; clearance {dm.rate_text(h['clearance_rate'])};"
-              f" miss {dm.rate_text(h['miss_rate'])}; false-unsafe {dm.rate_text(h['false_unsafe'])}; "
-              f"truth unresolved {h['truth_unresolved']} of {h['requests']} ({h['fires']} fires)")
+        print(f"{label}{coupling}: false-safe {dm.rate_text(h['false_safe'])}; "
+              f"clearance {dm.rate_text(h['clearance_rate'])}; miss {dm.rate_text(h['miss_rate'])}; "
+              f"false-unsafe {dm.rate_text(h['false_unsafe'])}; truth unresolved {h['truth_unresolved']} of "
+              f"{h['requests']} ({h['fires']} fires); partly burned ring changed {value['truth_ring_flips'] or 'none'}")
     for fire, reason in skipped.items():
-        print(f"skipped {fire}: {reason}")
-    print(f"{len(rows)} rows -> {out}")
+        print(f"{label}skipped {fire}: {reason}")
+    print(f"{label}{len(rows)} rows -> {out}")
     return out
 
 
