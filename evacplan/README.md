@@ -38,8 +38,10 @@ never delivered).
 
 `results/<method>.csv` (git-ignored) has one row per instance, seed, budget and set: `instance, method,
 seed, delivered_checked, unresolved, model_no_route, makespan_s, min_slack_s, runtime_s, best_bound, gap,
-commit, config, host`. Every number comes from the oracle; `best_bound` is a method's proven upper bound on
-the residents ANY plan can deliver (B3), and the leaderboard shows the smallest one per instance. `results/<method>.facilities.csv` (git-ignored)
+commit, config, host`. Delivered, unresolved and model_no_route (and every per-facility state) come from the
+oracle; `best_bound` and `gap` come from a method's own proof (B3: a proven upper bound on the residents ANY plan
+can deliver; the leaderboard shows the smallest one per instance); `runtime_s` is the harness's clock around the
+method's solve. `results/<method>.facilities.csv` (git-ignored)
 has one row per instance, seed, facility and mobility class: the facility's deadlines (`arrive_by_s`: latest
 first arrival, `leave_by_s`: latest last departure, both oracle-checked), the residents no plan can serve
 (`unservable`, a scoped `model_no_route`), and this plan's delivered / unresolved / model_no_route / not planned

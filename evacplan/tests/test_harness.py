@@ -135,6 +135,10 @@ def test_upsert_and_equal_budget_leaderboard(mini):
     assert "| noop | SYNTHETIC | 2 | 2 | 0 (0.0%) |" in text and "| noop | SYNTHETIC | 1 | 1 | 0 (0.0%) |" in text
     assert all(i in text for i in split.ids("dev")) and not any(i in text for i in split.ids("test"))
     assert "**SYNTHETIC** rows are SYNTHETIC instances" in text and "equal wall-clock budgets" in text
+    # what comes from the oracle, what from the methods' own proofs, what from the harness clock
+    assert "Every number comes from" not in text
+    assert "come from `evacplan.oracle`" in text and "come from the methods' own proofs" in text
+    assert "harness's wall clock" in text
     with pytest.raises(KeyError):
         run("noop", "dev", 60, instances=["SYNTHETIC-nope"], lock="no", log=lambda s: None, **p)
 
