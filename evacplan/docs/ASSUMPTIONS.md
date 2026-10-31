@@ -96,7 +96,7 @@ The code is the definition: `src/evacplan/{schema,validate,oracle,reach,deadline
 |---|---|---|
 | 50 | Frozen on 2026-10-31 before any method ran: `dev` and `test` each hold 4 S + 4 M + 2 L, grid and geo roads, tightness 0.25 and 0.75 for S and M and 0.5 for L; dev seeds 101–110, test seeds 201–210. Generator calibration looked only at layouts and hazards of seeds 9000+, never at a method's result. | spec |
 | 51 | Instances are not committed. They regenerate into `evacplan/cache/instances/<id>/` (git-ignored) and must match the frozen fingerprint: sha256 of the canonical instance JSON, the hazard meta JSON and the hazard arrays. A mismatch (the generator, `hazard_contract.synthetic` or numpy's Generator streams changed) is refused as generator drift. | chosen |
-| 52 | `test` is refused by the harness without `--allow-test` (milestones only, after Siyeong approves); tests check that no result row, cached instance or leaderboard line mentions a test instance. | spec |
+| 52 | `test` is refused by the harness without `--allow-test` (milestones only, after Siyeong approves); tests check that no result row, cached instance or leaderboard line mentions a test instance. The test suite regenerates and checks the dev instances only (fingerprints and generator invariants); `EVACPLAN_MILESTONE=1` adds the test instances, at milestones only, after Siyeong approves. | spec |
 
 ## Harness (`evacplan run`, `evacplan.harness`)
 

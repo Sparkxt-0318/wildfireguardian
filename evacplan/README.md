@@ -51,8 +51,9 @@ residents there. `--set test` is refused without `--allow-test`
 
 `instances/SPLIT.json` was frozen before any method ran: `dev` and `test` each have 4 S + 4 M + 2 L
 SYNTHETIC instances (disjoint seeds, same mix). They regenerate into `cache/instances/<id>/` (git-ignored)
-and must match their fingerprints. One-off instances: `evacplan generate --size M --tightness 0.5 --graph geo
---seed 7 --out DIR`.
+and must match their fingerprints. The test suite (`tests/test_split.py`) regenerates and checks the dev
+instances only; `EVACPLAN_MILESTONE=1` adds the test instances, for milestones only, after Siyeong approves
+(program rule 5). One-off instances: `evacplan generate --size M --tightness 0.5 --graph geo --seed 7 --out DIR`.
 
 `evacplan build-caldor` builds real US region 1 from a road GraphML, the CMS provider file, geocodes and
 perimeters; without them it prints `BLOCKED` and exactly what it needs.

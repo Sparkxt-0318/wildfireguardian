@@ -1,7 +1,14 @@
-"""The frozen dev/test split (instances/SPLIT.json): frozen, disjoint, regenerable, test untouched."""
+"""The frozen dev/test split (instances/SPLIT.json): frozen, disjoint, regenerable, test untouched.
+
+Program rule 5: the test set is touched only at milestones, after Siyeong approves. By default this module
+regenerates and checks the DEV instances only (fingerprints and generator invariants); the test instances
+are regenerated and checked only when ``EVACPLAN_MILESTONE=1`` is set, at a milestone, after approval.
+Reading SPLIT.json's own entries (ids, configs, seeds) is not touching the test set."""
 import csv
 import hashlib
 import json
+import os
+import sys
 
 import numpy as np
 import pytest
@@ -15,6 +22,17 @@ from evacplan.instances import (
 # sha256 of the canonical JSON of SPLIT.json's sets, pinned when the split was frozen (2026-10-31,
 # before any method ran). Changing the split needs Siyeong's approval (program rule 5).
 FROZEN_SETS_SHA256 = "dfa65235f799748d90c9d79cb65993ad3217ee22af5f67e80c98ad1fa4c95c06"
+MILESTONE_ENV = "EVACPLAN_MILESTONE"
+
+
+def checked_sets() -> tuple[str, ...]:
+    """The sets whose instances this module regenerates: dev, plus test only at a milestone."""
+    return ("dev", "test") if os.environ.get(MILESTONE_ENV) == "1" else ("dev",)
+
+
+def regenerate(split, sets) -> dict:
+    """The instances of ``sets`` regenerated in memory (generation is not a method run)."""
+    return {e.id: generate_entry(e) for name in sets for e in split.entries(name)}
 
 
 @pytest.fixture(scope="module")
@@ -24,8 +42,23 @@ def split():
 
 @pytest.fixture(scope="module")
 def regenerated(split):
-    """Every split instance regenerated in memory (generation is not a method run)."""
-    return {e.id: generate_entry(e) for name in ("dev", "test") for e in split.entries(name)}
+    return regenerate(split, checked_sets())
+
+
+def test_only_dev_is_regenerated_unless_at_a_milestone(split, monkeypatch):
+    """The selection itself, with generation stubbed out (nothing is generated here)."""
+    seen: list[str] = []
+    monkeypatch.setattr(sys.modules[__name__], "generate_entry", lambda e: seen.append(e.id))
+    monkeypatch.delenv(MILESTONE_ENV, raising=False)
+    regenerate(split, checked_sets())
+    assert checked_sets() == ("dev",) and seen == split.ids("dev")
+    for value in ("0", "yes", ""):
+        monkeypatch.setenv(MILESTONE_ENV, value)
+        assert checked_sets() == ("dev",)
+    monkeypatch.setenv(MILESTONE_ENV, "1")
+    seen.clear()
+    regenerate(split, checked_sets())
+    assert checked_sets() == ("dev", "test") and seen == split.ids("dev") + split.ids("test")
 
 
 def test_split_is_frozen(split):
@@ -56,7 +89,8 @@ def test_dev_and_test_are_disjoint_with_the_same_mix(split):
 
 
 def test_every_instance_regenerates_to_its_fingerprint(split, regenerated):
-    for name in ("dev", "test"):
+    assert set(regenerated) == {i for name in checked_sets() for i in split.ids(name)}
+    for name in checked_sets():
         for e in split.entries(name):
             g = regenerated[e.id]
             assert g.instance_id == e.id and g.fingerprint() == e.fingerprint, f"generator drift: {e.id}"
@@ -65,7 +99,7 @@ def test_every_instance_regenerates_to_its_fingerprint(split, regenerated):
 
 
 def test_split_instances_are_threatened_and_shelters_safe(split, regenerated):
-    for e in split.entries("dev") + split.entries("test"):
+    for e in [e for name in checked_sets() for e in split.entries(name)]:
         d = regenerated[e.id].diagnostics
         assert d["facilities_reached_within_horizon"] >= 1 and d["lead_realized_s"] > 0
         assert all(v is None for v in d["shelter_access_fire_arrival_s"].values()), e.id
