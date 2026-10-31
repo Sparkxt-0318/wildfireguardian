@@ -1,0 +1,26 @@
+{
+  "scope": "whole checker process envelope; exact internal lease timestamps not instrumented",
+  "review_authorization_sha256": "941f619595697f83f4899b3606eed2a0228df83eec852eab29e92ed8c645a045",
+  "argv": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/review_actual.py",
+    "--authorization",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/DESCRIPTIVE_INTERVAL_ACTUAL_AUTHORIZATION_ATTEMPT2.json",
+    "--authorization-sha256",
+    "3195c8c789954f845622e35f7fbe43d792bfa8a432700507fea4c6df7d195ebc",
+    "--canonical-map",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/CANONICAL_PROTECTED_858.json",
+    "--canonical-map-sha256",
+    "4406548a90d179bbfbbbd2af23c3759ceb167c4bad951e73fd4788a8144a5803",
+    "--out",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_REVIEW_ATTEMPT2.json"
+  ],
+  "preparation_manifest_sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+  "heavy_available_before": true,
+  "started_utc": "2026-10-30T23:50:41.109273+00:00",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "model_inference": false
+}

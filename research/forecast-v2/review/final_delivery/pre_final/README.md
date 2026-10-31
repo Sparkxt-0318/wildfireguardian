@@ -1,0 +1,264 @@
+# Forecast v2, current execution
+
+Twenty-one intended development fits and all seven intended full final fits are
+complete. The corrected full spotting fit used all 1,303 inputs in every epoch,
+with 1,303 optimizer updates and no unsupported skips in each of three epochs.
+Three earlier spotting
+folds and one full fit remain historical
+smouldering-inclusive variants; they do not satisfy intended completeness or
+selection. No heldout forecast-quality result or superiority claim is available.
+The canonical live F65 audit passed complete membership for all 21 development
+phases and seven final fits. The original recipe-admission HOLD and its logs
+remain preserved. Independent verification of the new actual coverage receipt passed. Model
+selection, exact checkpoint table and the source registry are now frozen;
+parent verification of the committed bundle remains pending before inference.
+The mixed final fit attempted all 4,391 inputs in each of three epochs, with
+4,376 optimizer updates and 15 logged source-unsupported windows per epoch.
+Complete attempted input coverage is distinct from optimizer coverage.
+
+The selected integration checkpoint c651 remains unchanged. This branch adds
+opt-in mean-field propagation, interval-endpoint losses, structural kernels,
+baselines and a draft blind protocol. It reuses prior implementation source
+with independent repairs and tests; `REUSE_MANIFEST.json` identifies those bytes.
+
+The frozen equal-fire development rule selects D4 with local wind
+canonicalization. These are absolute scores on each variant's own support,
+from 23 validation fires across three year folds and seed 0. Aggregate receipts
+do not retain exact scored coordinates, so paired common-cell development
+effects and confidence intervals are unavailable, even when weights match.
+`DEVELOPMENT_SCORES.json` retains all per-fire values and producer identities.
+
+| Variant | Mean fire Brier, selection criterion | Pooled Brier | Parameters |
+| --- | ---: | ---: | ---: |
+| Base | 0.040321559 | 0.043309534 | 26,018 |
+| D4 | 0.038817948 | 0.046971023 | 26,018 |
+| D4 with local wind | 0.037495116 | 0.040814821 | 26,018 |
+| Ellipse prior | 0.041327574 | 0.045037051 | 26,018 |
+| Burnout | 0.038401654 | 0.042176448 | 26,019 |
+| Burnout with flaming-only spotting | 0.038446229 | 0.042240116 | 26,023 |
+| Mixed training | 0.046886875 | 0.046095678 | 26,018 |
+
+Each pooled development score uses total validation weight 198,193. Equal-fire
+and pooled statistics use different weighting; their differences are distinct
+estimands. These development values establish neither heldout superiority nor
+a physical improvement. All seven final identities and the exact fit-coverage
+audit must be frozen before current heldout assessment.
+
+## Frozen design and commands
+
+`RUN_PROTOCOL.json` fixes the split, model variants, fitting policy, primary
+selection rule and the exact twelve comparison cutoffs before any fit or
+heldout score. `RUN_PROTOCOL_EXTENSION_1.json` requires final variants to use
+all eligible fit intervals at a fixed three-epoch budget. The first three
+eligible intervals per fire are only the bounded development comparison.
+`RUN_PROTOCOL_EXTENSION_2.json` retains earlier failures and defines the clean
+controlled rerun after repairing missing-support batches. No future endpoint
+chooses the training crop. No heldout outcome chooses a model or checkpoint.
+
+```sh
+python research/forecast-v2/scripts/run_campaign.py fits --attempt 3
+python research/forecast-v2/scripts/run_campaign.py spotting-repair --attempt 5
+python research/forecast-v2/scripts/run_campaign.py baselines --attempt 3
+python research/forecast-v2/scripts/run_campaign.py compare --attempt 6
+# After all fits, run audit_caches.py to CACHE_AUDIT_FINAL.json, then
+# audit_fit_coverage.py to FIT_COVERAGE.json, preserving the original audit.
+python research/forecast-v2/scripts/run_campaign.py freeze --attempt 3
+# Only after MODEL_SELECTION.json freezes exact checkpoint identities:
+# freeze_registry.py then binds the final protocol and exact executable closure.
+# Run both guarded cohort commands, retaining each exit independently:
+python research/forecast-v2/scripts/score_cohorts.py --cohort us2024 --data "$DATA" --work "$DATA/campaign-work" --run "$RUN" --registry research/forecast-v2/BLIND_REGISTRY.json
+python research/forecast-v2/scripts/score_cohorts.py --cohort korea2025 --data "$DATA" --work "$DATA/campaign-work" --run "$RUN" --registry research/forecast-v2/BLIND_REGISTRY.json
+python research/forecast-v2/scripts/status.py
+```
+
+The commands use the fresh pinned forecasting environment, task-local verified
+inputs and per-job `/tmp/wfg/HEAVY.lock` leases. `executions/` records commands,
+exit codes, source/input/output hashes, seeds, host and elapsed time. Earlier
+failed commands remain separate. Data are real aligned covariates and NIROPS
+survey perimeters recovered from the source-supplied archive, with fresh
+archive/member verification documented in `DATA_PROVENANCE.md`.
+`DATA` denotes the task-local verified `work/data/forecast-v2` root and `RUN`
+denotes `forecast/runs/20261030_perimeter_trained/execution_v3`; `python` is the
+fresh pinned interpreter. A cohort scorer's HOLD exit is preserved and does not
+cancel the other mandatory cohort. The original a04 comparison case and source
+remain historical; all twelve a06 cutoffs form one current source phase.
+
+The latest integrated forecast regression passed 3,507 tests, and the release
+verifier passed all 367 frozen file identities. Its source capture remained
+unchanged throughout the gate. Earlier 3,373-test, 3,259-test and targeted reviews retain separate receipts;
+their counts are not pooled. These software checks are
+distinct from scientific and external-release gates.
+
+A separately reviewed source-recipe compatibility candidate passed a
+provisional audit of the actual artifacts: all 21 intended development phases,
+six pure final sets of 1,303 samples, and the mixed final set of 4,391 samples.
+The exact candidate and all 61 active comparison sources remained unchanged.
+The exposed record is `PROVISIONAL_NOT_FOR_REGISTRY`; its compressed raw result
+is diagnostic evidence, with the actual executed candidate identity recorded
+separately from the checked live auditor. Old-main refusal was tested only on
+the exposed wrapper, not the raw diagnostic. The original live audit HOLD remains preserved. After all twelve cutoff
+outputs closed and independent reconciliation passed, the exact reviewed
+candidate became the live auditor. A new 3,507-test software gate and actual
+canonical coverage audit then passed. The latter is an independent live command
+and does not copy the provisional diagnostic. Model selection and the blind registry subsequently froze exact current
+identities. Heldout inference has not run. `review/provisional_coverage_F65/` preserves the exact receipt and
+qualification.
+
+## Current assessment population fixed before inference
+
+The development-selected primary is D4 with local wind canonicalization, and
+the training-selected best dilation is one cell per 8h. The exact seven trained
+checkpoint identities, c651, fitted logistic artifacts and complete code closure
+are in MODEL_SELECTION.json and BLIND_REGISTRY.json. The prospective protocol
+contains their exact hashes. No new checkpoint is promoted to integration.
+
+The timestamp-only membership inventories fix all 306 current assessment
+cases. No four-case cap is applied to the Korean cohort. Spatial growth,
+predictions and model scores did not select these windows.
+
+| Current cohort event | Expected intervals/windows |
+| --- | ---: |
+| ID-BOF-000683_Wapiti_Wapiti | 52 |
+| ID-BOF-000904_Goat | 42 |
+| ID-BOF-001080_Lava | 47 |
+| ID-SCF-240202_RedRock | 40 |
+| WA-SES-000173_Pioneer | 55 |
+| WY-BTF-002416_FishCreek | 37 |
+| KFS_01 | 8 |
+| KFS_04 | 14 |
+| KFS_06 | 8 |
+| KFS_13 | 3 |
+
+The US total is 273 eligible survey intervals. The Korean total is 33 fixed
+12h reconstruction windows across four catalog events, reported separately.
+Every included window remains eligible even if its common scoring population
+later proves unavailable. The two scorer commands preserve separate exits;
+a US HOLD never cancels the Korean command. No current quality result is
+available before the committed freeze is verified and those commands run.
+
+## Complete mean-field versus Monte Carlo comparison
+
+All twelve prespecified cutoffs and 66 rows are complete: six Korean cutoffs
+from three catalog events and six US fit-event cutoffs, with five fixed horizons
+per cutoff and six additional actual US survey endpoints. The independent
+saved-output reconciliation passed all receipt, source, row-identity and CSV/JSON
+checks. It did not replay raw probability fields or masks. There are 56 rows
+with common known support and ten explicitly unavailable rows. Every row,
+including missing metrics and its reason, remains in the CSV and JSON.
+
+| Fixed horizon, hours | KR known cutoffs | KR active cutoffs | US known cutoffs | US active cutoffs |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 6/6 | 6/6 | 6/6 | 6/6 |
+| 3 | 6/6 | 6/6 | 6/6 | 6/6 |
+| 6 | 5/6 | 5/6 | 6/6 | 6/6 |
+| 12 | 3/6 | 0/6 | 6/6 | 6/6 |
+| 24 | 0/6 | 0/6 | 6/6 | 6/6 |
+
+Active means either probability exceeds 0.001 on common known, initially
+unburned support. It does not denote observed flaming. Figure04 preserves all
+five horizons, missing points, cutoff and unique-event availability counts.
+Its median and min/max band describe cutoffs; they are not confidence intervals.
+Repeated horizons and cutoffs are dependent. The mean-field mean probability
+is higher in 38 comparable rows and lower in 18; finite 1,024-trajectory Monte
+Carlo noise contributes to these differences. There is no uniform upward-bias
+or physical-accuracy claim.
+
+US Brier is available only at the six actual next-survey endpoints. Korean
+fixed-horizon Brier uses reconstruction. Across reference-eligible rows, 24 have
+scores and twelve retain unavailable reference support; the 30 fixed US rows
+have no survey reference. No observed fixed-horizon accuracy curve is inferred.
+
+Each cutoff's five fixed rows share one joint 24h API Monte Carlo call and one
+mean-field call. Count that cost once per cutoff. Each US survey endpoint has
+its own fractional-duration calls. The public API retains kernel caching off,
+while the fractional helper uses caching on. These paths and timings remain
+separate; host-specific call times exclude preparation, model loading and lease
+wait. No universal or operational latency comparison follows. The report loader
+accepts only this exact historical a06 command/source phase; it does not admit
+arbitrary new runs or rewritten relocated command records.
+
+## Mathematical and validation boundaries
+
+Brier is a proper score, not a likelihood. Clipped Bernoulli NLL is a diagnostic
+for interval endpoints under the stated hazard approximation. Binary single-step
+mean field equals the maintained transition expectation; multi-step mean field
+is a closure approximation. Wind canonicalization uses each target's local
+frame and bilinear finite-support resampling, which is approximate. The repaired
+Anderson coefficients use midflame wind in metres per second. Missing SD does
+not become full label confidence. A batch with no supported positive-weight
+cells is logged as unsupported, never reported as zero error.
+
+## Scope and limits
+
+Targets are mapped survey extent or arrival reconstruction, not flames. There
+is no full survey coverage mask. Weather is repeated from the cutoff unless a
+sample explicitly records otherwise. Training crops use a declared zero-exterior
+scenario, while heldout scoring uses full fixed rectangles and common support.
+Point residence on an hourly lattice, midpoint ignition and unsupported-fuel
+fallbacks are coarse model choices. Residence below a half-step can alias the
+midpoint source schedule, and initial ages use survey-interval proxies. The
+domain-mean spotting wind is a coarse global scenario assumption. No field validation, physical flame accuracy,
+calibrated joint forecast, evacuation-safety or universal speed claim is made.
+The archived event rectangles are retrospective aligned grids; their selection
+and availability before each cutoff are not established. Repeating a cutoff
+weather field also does not establish operational as-of availability of that
+field. Mixed training uses SD-weighted reconstruction labels, while the fixed
+Korean secondary assessment uses equal-cell 12h reconstruction endpoints.
+The learned local smouldering residual can persist after the flaming window;
+there is no fuel-energy conservation or physically validated extinction law.
+
+`GEOMETRY_AUDIT.json` retains 55 invalid source geometries across six of the 29
+US fires. The actual rasterizer performed no explicit repair or record skip.
+A separately recorded projected `make_valid` sensitivity compared 320 cumulative
+surveys from those six events and changed zero cell-survey labels on the
+declared 375m cell-centre grids. That bounded label stability does not validate the raw
+polygons, coverage footprints or physical fire boundaries. Original records,
+source IDs, invalidity reasons and hashes remain available for audit.
+
+Current 2024 testing will remain retrospective; it is not the blind 2026 test.
+The prospective protocol is READY_FOR_OWNER_REGISTRATION with exact current
+checkpoint and fitted-baseline identities. Future 2026 execution separately
+remains NOT_READY until independently reviewed documentary release, chronology
+and registration prerequisites are satisfied. No external OSF registration is
+claimed by this task.
+
+## Global spotting input custody
+
+`RUN_PROTOCOL_EXTENSION_9.json` records the global-wind availability repair.
+The original missing-wind failure and the audit serializer failure remain in
+`review/`. Source-authenticated produced tensors contain no missing wind for
+any of the four completed spotting phases. `GLOBAL_WIND_PHASE_BINDINGS.json`
+distinguishes 1,372 role-specific records (69 development plus 1,303 full fit),
+1,303 distinct source cases and tensor contents, and 1,510 phase visits across
+23 fires. The 69 development cases recur in the full fit and across folds.
+These are not 1,510 independent examples.
+
+Known-wind forward values and every parameter gradient match the prior callback
+bit for bit in functional controls. Existing spotting fits are retained with
+their original producers. Missing domain wind now makes unobserved spotting
+targets unsupported; it cannot silently become known zero. The separate c651
+comparison has no spotting callback. Its failed prior report is preserved;
+the full twelve-cutoff comparison resumes with explicit empty-support states.
+
+The final mixed fit records its actual prefit sample identities and every
+epoch attempt and skip. Controls verify that logging consumes no RNG and
+leaves fitted parameters unchanged. The six historical pure fits retain
+source-derived schedule evidence, not retrospectively claimed runtime IDs.
+
+## Flaming-only emitter correction
+
+`RUN_PROTOCOL_EXTENSION_10.json` preserves the concrete emitter failure and
+requires fresh corrected spotting phases. The original branch received local
+flaming plus old-cell smouldering occupancy. The corrected extra branch uses
+only occupancy still in its residence window; local spread retains learned
+smouldering. The historical four spotting phases remain versioned. The earlier
+global-wind retention proof addresses only missing-wind availability and does
+not waive this independent emitter-law correction. No heldout outcome selected
+the repair.
+
+`scripts/check_nonspotting_compatibility.py` reproduces the bounded source and
+fixture comparison with the exact pre-repair mean field. Its six controls retain
+outputs, masks and every parameter gradient bit for bit without spotting. The
+local burnout source method is unchanged. This supports retaining the other
+six variants and the unchanged c651 comparison, without asserting equivalence
+of the old spotting model.

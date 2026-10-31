@@ -1,0 +1,157 @@
+{
+  "all223_unchanged": true,
+  "case_receipts": 20,
+  "cohort": "us2024",
+  "completed_cases": [
+    {
+      "case_id": "02ed6e7032488c1135f69a6f",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "0f8f3d37ad36be97d5231bab88b618c246ac5920fc74018c0b881a0d01ec884f",
+      "receipt_sha256": "9bc522586c30772d42a0a20cac6d22365073b333416a3982d91b69f9c3a0c1fb",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "2f1584cf74601f2389b9289c",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "70d917c77867d71af95d8e80e8be1ac98e13435bdbbd3266d096f5f5d49e9663",
+      "receipt_sha256": "4bf76538db0d4269e9274aff2cdc958010c206d071a64981ee80d4184d404b6f",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "4c1a6206dd4edb42085370cf",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "6f963de363d321f28435b4827a71919ae68441b52a583ccb4d55f296a5bb2c95",
+      "receipt_sha256": "8cc5011b939b08232f3f6c9442b08d94c6053e1db1f5a88fa56b77ade0821148",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "4ce89bd9635bc560fec345b2",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "b48246f3948f48eb52dedfec5d4a3b9d807a53539e072b4d1ad6e31853e714d9",
+      "receipt_sha256": "f176a19d4b73303cda02f6f4444997259d3bc931f1a81f6320f2cc392bf740bf",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "4da1e349fab4c9e02defc9a3",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "b21b518740841ef199864b6cee8c7ec72dcee759f3bc56c642ff448030934926",
+      "receipt_sha256": "03542ea98d8bb84e93c3afec2c39dbe01a6ce9474ac541d6e603b551e0fde394",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "6b92f46c1085927c7d4fcc26",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "1df38af5c4e28a246c2026a2288aef9385c3cf5b733908427e8eb6568a23fb8a",
+      "receipt_sha256": "c2798f8dff8d2842ddc0a885338e1bdf26871f16775c51df312351fa19031507",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "765ed21cee4694a4a7b1073e",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "cd180a3cafd8e52efcaf852d839326f636e922278048320437fcc93aeaca54eb",
+      "receipt_sha256": "c43c650e8434e2bb8b23d27eae543a11c6c8ea6923c254a13bf268b976551ee1",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "7ff7339397ce1c82b59f88c7",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "ec80adaa754b0197e71a9a3dc38f1cdd7c1ecd9c11089c88dc7b053272bf4874",
+      "receipt_sha256": "fa10a6ffa4670fdbb7b2953412f4c01b4723080bbfa8bcd56773a4f65fb76b2b",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "878f0f5f577dbbf19ee14c7e",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "99d65392761518b7005dbacd901b76c8ccb2c32051a39946749b7c3059b2b935",
+      "receipt_sha256": "4cc1e0c6b0609aab4eb146f74006562159b838b83f10fa86a261d017385f96e0",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "96bb83959704f65f6d47ecaa",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "5f75d49e48f858c10773fd388f59e1cbd1c2108c0c1e692ed3cbea0589c911a5",
+      "receipt_sha256": "23a25608f5b7becda8ace12ceea928a438ea2a89bf04a38729d44bdf1e7f2fdb",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "a3d2c46ab21c508addc01415",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "986832f24d0449038c23eb10fc46f477655d3a1c240f3a765196b2fa30a5ffb5",
+      "receipt_sha256": "51a2f15e080b4db48999b1e0c8e26def6866c4415575c6f19460684eee5fa58c",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "a6364103310aa6a978839f0b",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "543ace84a94e41bd27ab08ee9f790c8a473ddfd4bcc2a849e264cb8d1261345c",
+      "receipt_sha256": "da7a85365526b085d3d55d9812a1351f7cd294dfd7ee89586c36b6be903bba5f",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "a90eb8e40d27b33edac6336b",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "6ae9ed0d6448e9ad88c75b585ac3410c50f24090e43e1e88ecb873a07eb4efcd",
+      "receipt_sha256": "ab06ac8cafad1da1e9a783e73a28349484d41112748988d301a563df77e6b298",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "adc6b49fcdd086616627c1cf",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "eb0cd6f96b5758045be2ed4462d7f26d7d51399e69ff151ac3c2875e719ef0fa",
+      "receipt_sha256": "61911bb4f6b7215faccb9c5af950290c853f6db917e0ad74aaf2a1add2e63733",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "bdd83a03720eba7c36125c70",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "dd864fd184f1144509f47ae690bea0f5a020c3e0939c9a06cc1af76606e592af",
+      "receipt_sha256": "b9b34d4a91d4bb0f63dfd060ef515db0a4e88996d989d07bb2e0dd644819a2b3",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "d4ce88f81da8d1a98edbf91a",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "0ab504d7f0acd1c0354a7fd2b39c8033eafa24472d7f04f28b90fff5effc9b46",
+      "receipt_sha256": "740fe4d00d8f81a9737ed4788bbcb404e2dde52160e3fda8cb670e6d8ca7fabd",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "dd158e1a5abed388136c2c31",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "2c1f827dfa780fd98ee6eb1b44b86c92643ff8e6fb6110060e278dcc16a29e3a",
+      "receipt_sha256": "e8abeff3762d9ac20869d9934d0a303d51d793b440b2e84a589858837dfd1ad3",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "e502f0e5c4d58c7757891d13",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "ff698555b78529afea3d1bb5ff573cecc27b5776f001e113a61d524a725b5201",
+      "receipt_sha256": "74a55b1b0122e46a5286bdb010947a1e5f83b053aea16c84d0babc4c32296b0c",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "f9705ed9809fbbe1d51d187b",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "c10fedc7c89601a7d9feec1c23fdd1211c75136e1ef10240e47a20f8b34fd6a4",
+      "receipt_sha256": "e03f3020f423d1f5cfcb466e1768e29dbf59201b7438a05435872bc21f7450d9",
+      "status": "SCORED"
+    },
+    {
+      "case_id": "fed4c3bab9da10c322bf6caf",
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "predictions_sha256": "beb4a84c4b97cf473cabed96a5356c0939dcdd8a05372dd3357644707d1953b0",
+      "receipt_sha256": "a2dffd223595ac8fbb26d2c24fa5968afe32db419f2ae11d87080f2d17dad57e",
+      "status": "SCORED"
+    }
+  ],
+  "expected_cases": 273,
+  "frozen_assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "limits": [
+    "No quality metrics inspected or recomputed.",
+    "All273US intervals and33KR windows remain required."
+  ],
+  "promotion_criteria_pass": false,
+  "recorded_utc": "2026-10-30T13:54:00.550468+00:00",
+  "schema": "wfg.partial-current-assessment-preservation/1",
+  "status": "PARTIAL_CASE_OUTPUTS_ONLY_NO_COHORT_RESULT"
+}

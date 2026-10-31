@@ -1,0 +1,1478 @@
+{
+  "development_phases": {
+    "base_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_base.json",
+        "sha256": "24dedc955b1bfb9aaa51c1bfea3b9c50fe77542a5812adf9417cdeeab2a9f711"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2020_seed0/result.json",
+        "sha256": "c9cd3538d86dca747738ee6871236e25eb8e5e8cf902db62b29070ddd6385637"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "base_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_base.json",
+        "sha256": "69a23002cc78cf7b38d00562d1919cf906b85e83ed4c98d880574e78194d8833"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2021_seed0/result.json",
+        "sha256": "0232519aabed12e562dae27153b4e4063ef21089ef24b08f1fe208d59a39f07e"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "base_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_base.json",
+        "sha256": "6d83328e64d0bd1c497bf050c877688dfbb6ac8b7697203b99af3d3429ff8e75"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2022_seed0/result.json",
+        "sha256": "3028e0335157bf81852e3f22c99c512e8fd91f4dad7fb0acfadebe897491f296"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "burnout_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_burnout.json",
+        "sha256": "839d1da4faccd968582bc980ef5cd8df294a3197e4e0fe6a7404d7e1f8eed401"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2020_seed0/result.json",
+        "sha256": "4a8041beaf0d0a1e0f8941a599ef5f616b8c5f23caf80f55cfc50bca66e1b240"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "burnout_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_burnout.json",
+        "sha256": "c06e6bbccbb227a295f44c53d3ef753f95ac6d1fa2a3b8ffab0d9ec86f560a8a"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2021_seed0/result.json",
+        "sha256": "914e5a01f66b28a0aea3be35f7558b1fc6526138ca4242d19096134ce3a2eb76"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "burnout_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_burnout.json",
+        "sha256": "4fb9ff1256279afbdc81e3bb894ad7eda9e1d0e3460cf73f643fe3bc67359443"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2022_seed0/result.json",
+        "sha256": "10a13478201ab799a61a2aff6db7b7867788014cca516c598abd0c08b790ddcb"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "burnout_spotting_fold2020_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2020_burnout_spotting_flaming_only.json",
+        "sha256": "d6cf44c99f67f77d2b83a48a1b9ce6036b075b360189eac3cde3432f344f1efb"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+        "sha256": "ff3c9f5cf75ec8877007c3dba51ba5af259b4b96a2802cc624a0eb490f893961"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "burnout_spotting_fold2021_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2021_burnout_spotting_flaming_only.json",
+        "sha256": "562b235f3322c72a8d5e0daa61f30264a4e962068210b0bd194f0e85f2827f4f"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+        "sha256": "0d1ee371f1551b2acf6a0e2aa0d312ea5e7d5411000b28e675954af93cccf870"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "burnout_spotting_fold2022_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2022_burnout_spotting_flaming_only.json",
+        "sha256": "bbe13b2ca99f8a196ad05afd6fe170b12d74749197f823568543b5c46f0d28ea"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+        "sha256": "e4b749f288d5a8634905344ea16190527ebe425caeda502856597601d30b10ea"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "d4_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_d4.json",
+        "sha256": "36721159f8f864504998dc59014e0da2c37f469fa0a17e0bc050569cc2b28a3c"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2020_seed0/result.json",
+        "sha256": "de3fdd2439ed2dbf7a1f88925c66871070bad20e3fe1e8dc871bee342e2a343c"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "d4_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_d4.json",
+        "sha256": "8b39bb1333ac7f907b6e7363638a18ac6f31912c5ddc0fa9fae50fc254c9d770"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2021_seed0/result.json",
+        "sha256": "b48596b0ac45249c02e99d49fb06fdff6f12f4cc500b2c489cfaa0833d5971b8"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "d4_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_d4.json",
+        "sha256": "e109221b2fb37394f9d9d56ad127319ef63f27deb213a52a8c45570a9366c6cf"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2022_seed0/result.json",
+        "sha256": "b443e8d16a43b297b0530e62dbcad19426408d3ab92f0a58cd4077369e6f0400"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "d4_wind_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_d4_wind.json",
+        "sha256": "b436005e266c9f3eed6d13cf7d001eb4a882e192e2df38589f830ec8212fe14c"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2020_seed0/result.json",
+        "sha256": "8e58d58c9a8477973c3ea61eb8caf69d684583f64f7f8ebb118226ff70ec82a6"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "d4_wind_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_d4_wind.json",
+        "sha256": "7294af453e4fe8dc4ae57feb6d2a346d0bf89e99dd8b773c99fc26d37c7c4ea9"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2021_seed0/result.json",
+        "sha256": "60b72bef66603925e6725cdf20b0b2bd66afacf2e3739b14671de2f24b4f95ce"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "d4_wind_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_d4_wind.json",
+        "sha256": "abe62489617cf16f3d82f81ecca861b9464c7e40212854bd346478d54c1033cc"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2022_seed0/result.json",
+        "sha256": "4422522f80c0bf7066257904ead445425144754429f2344cc3873a44a4b38bc6"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "ellipse_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_ellipse.json",
+        "sha256": "97c6b4ff3a229419baa41c10df664d2fe367cde010e7281b07b0be05886d8b57"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2020_seed0/result.json",
+        "sha256": "e9759e0e7f2c7437053cdbd3c7cac3e1fae27bc770768e2b769545912ba87550"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "ellipse_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_ellipse.json",
+        "sha256": "24c72499d6b06f431b83f69bb1d7af672eab6eae71320ac33c4574be3d15aab6"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2021_seed0/result.json",
+        "sha256": "24163646914fdd7ba1115ae86848586d6c1aaf60112fed8e9cff7397c62edf24"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "ellipse_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_ellipse.json",
+        "sha256": "0e2985acaf86f47abe317bf436d367cd71cc329a44d9f16592b97f0026b645ee"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2022_seed0/result.json",
+        "sha256": "c7baf867920aa252b800712a4daa5c0b823451b29088bfbae85def7e6874ae01"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "mixed_base_fold2020_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_mixed_base_utc_fixed.json",
+        "sha256": "b56a9064cc9d6ebc1cd0c89ec82bc9e2b2c5a91bfddbbc891c211b0b24ff01ba"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+        "sha256": "e2a8dfc6e1ad14108c62e0395a2d8cca39e1c8218e034e36fbd3119b8e46165b"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "mixed_base_fold2021_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_mixed_base_utc_fixed.json",
+        "sha256": "a14b842d46b9227f7b32dc51cb475e557709eee5b796c1de96fa80e059fe614e"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+        "sha256": "cf6923be756e8d0e02715fec4b9891103a17d89a97de63bec34ddc878cb70d7c"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "mixed_base_fold2022_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_mixed_base_utc_fixed.json",
+        "sha256": "7299e19ccdcade18cbff86468556b68aa7e4ab13eace5d8787ed5360bf488a45"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+        "sha256": "efbc6a31a7a3d22692710274298dc232053bd3b0ac158731d48f16bbd2009210"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    }
+  },
+  "recorded_utc": "2026-10-30T09:16:49.687313+00:00",
+  "schema": "wfg.forecast-v2.development-descriptive/1",
+  "selected_variant": "d4_wind",
+  "selection_criterion": "lowest equal-fire development Brier across three year folds",
+  "source_sha256": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/report.py": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23"
+  },
+  "status": "TRAINING_ONLY_DESCRIPTIVE_PENDING_FINAL_REGISTRY",
+  "variants": {
+    "base": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.04032155882930667,
+      "mean_fit_seconds": 3.42879659780453,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26018,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.05979446216023474,
+          "clipped_nll": 0.21622172983369697,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.03544147585479306,
+          "clipped_nll": 0.11935689079929405,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.09278857577469783,
+          "clipped_nll": 0.3979213453286284,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.027230730435056857,
+          "clipped_nll": 0.18626111732981435,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.040949325946157085,
+          "clipped_nll": 0.17820764313017107,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.09085924451139969,
+          "clipped_nll": 0.31746870678817835,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.1556886382758835,
+          "clipped_nll": 1.0100878139608775,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.032034508011988296,
+          "clipped_nll": 0.1389083854574021,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.018861925426568248,
+          "clipped_nll": 0.0824458045760319,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.00912118518394533,
+          "clipped_nll": 0.0357546279629305,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.042859850675452824,
+          "clipped_nll": 0.13572664407269097,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.04370564069182822,
+          "clipped_nll": 0.14332612838971825,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.03022986957374304,
+          "clipped_nll": 0.13063014477572144,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.05951600919997812,
+          "clipped_nll": 0.25111947458324624,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.0069350985136682084,
+          "clipped_nll": 0.03744206008059179,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.01466692078135191,
+          "clipped_nll": 0.06179374099426824,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.002434704381112869,
+          "clipped_nll": 0.018711318476842,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.006538400030292156,
+          "clipped_nll": 0.03197963263398858,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.05701498770902971,
+          "clipped_nll": 0.2398352072304079,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.01207869386436134,
+          "clipped_nll": 0.05464034364712949,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.02168121819747122,
+          "clipped_nll": 0.07161326840049342,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.006348591120438195,
+          "clipped_nll": 0.027258043125187276,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.06061579675460102,
+          "clipped_nll": 0.19355240400309898,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.04330953431174085,
+      "pooled_clipped_nll": 0.23796123033837976,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "burnout": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.03840165356504733,
+      "mean_fit_seconds": 3.9929468028966095,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26019,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.06015987717551248,
+          "clipped_nll": 0.25525579961579686,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.03097248245292986,
+          "clipped_nll": 0.10669896132509474,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.10907053179318807,
+          "clipped_nll": 0.5404794816490558,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.026288003406435705,
+          "clipped_nll": 0.1798730892975097,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.043972234994265134,
+          "clipped_nll": 0.20279727227941027,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.1097385114834902,
+          "clipped_nll": 0.4705047556028177,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.15440671033078865,
+          "clipped_nll": 0.801510297855023,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.033605692101317294,
+          "clipped_nll": 0.14089118384677163,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.007088162178216979,
+          "clipped_nll": 0.03478218335702513,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.009306990582010021,
+          "clipped_nll": 0.03732717695583608,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.03629912873839787,
+          "clipped_nll": 0.12943807068742713,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.04285820979501917,
+          "clipped_nll": 0.14097728839268156,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.026645406087239584,
+          "clipped_nll": 0.11217474071637079,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.059699885901001386,
+          "clipped_nll": 0.22871445620737746,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.00456740009725025,
+          "clipped_nll": 0.024941618827199953,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.013656950429649838,
+          "clipped_nll": 0.06446020192113416,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.0019155726947176915,
+          "clipped_nll": 0.01286735013127327,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.00425464697896236,
+          "clipped_nll": 0.019292870358512727,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.05066652995784108,
+          "clipped_nll": 0.18346506814342928,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.0068739287259168185,
+          "clipped_nll": 0.03356202844752381,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.022256305092259458,
+          "clipped_nll": 0.07534173583984374,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.007397563749206713,
+          "clipped_nll": 0.03313281944592937,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.02153730725047201,
+          "clipped_nll": 0.07734750537285968,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.04217644844033498,
+      "pooled_clipped_nll": 0.21903033255159385,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "burnout_spotting": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.038446229110864254,
+      "mean_fit_seconds": 31.396980565183025,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26023,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.06018127881176505,
+          "clipped_nll": 0.2554475456409675,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.031016244854725584,
+          "clipped_nll": 0.10697785229750083,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.10900857667084743,
+          "clipped_nll": 0.5353351744555442,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.026322848937568952,
+          "clipped_nll": 0.17974590594010142,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.04405226050634504,
+          "clipped_nll": 0.203743654686293,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.10988038121830859,
+          "clipped_nll": 0.4722980975944131,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.15482993022713024,
+          "clipped_nll": 0.7924697743710987,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.03368281361445285,
+          "clipped_nll": 0.13995371377991137,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.007078027974161765,
+          "clipped_nll": 0.03470833628563503,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.009297265849578535,
+          "clipped_nll": 0.037158376601832174,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.03659015193831618,
+          "clipped_nll": 0.12954852871280276,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.043070979352556646,
+          "clipped_nll": 0.14160583794815018,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.02666828367445204,
+          "clipped_nll": 0.1125130785189993,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.059705059344951926,
+          "clipped_nll": 0.22869212172900555,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.004562370080327271,
+          "clipped_nll": 0.024905047234912353,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.013596875178619218,
+          "clipped_nll": 0.06429425774382161,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.001913848127095172,
+          "clipped_nll": 0.012840495086633243,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.004254445974674852,
+          "clipped_nll": 0.01929406107670239,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.050665503139535085,
+          "clipped_nll": 0.183437947136775,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.006862471435243721,
+          "clipped_nll": 0.03349850923809784,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.02230888728091591,
+          "clipped_nll": 0.07541440622430098,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.007178169113795249,
+          "clipped_nll": 0.032389560011532884,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.021536596244510462,
+          "clipped_nll": 0.07736254736176759,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.04224011605945141,
+      "pooled_clipped_nll": 0.21797849148531284,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "d4": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.038817947969526444,
+      "mean_fit_seconds": 3.680422837466366,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26018,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.06008463155577288,
+          "clipped_nll": 0.23890337625623162,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.032394839004731515,
+          "clipped_nll": 0.1123920930943019,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.09696202043969444,
+          "clipped_nll": 0.41833806806032753,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.043345770872462434,
+          "clipped_nll": 0.21944583322559363,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.043310492654063094,
+          "clipped_nll": 0.19091250198917634,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.11042135385761923,
+          "clipped_nll": 0.4571224532572257,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.13295971075425145,
+          "clipped_nll": 0.619495070124247,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.031177753831540842,
+          "clipped_nll": 0.1040944122521635,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.010078514137141331,
+          "clipped_nll": 0.04818145596251196,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.00978407484384037,
+          "clipped_nll": 0.04133976780569792,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.03616878467983367,
+          "clipped_nll": 0.14949007589278243,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.047292382957593186,
+          "clipped_nll": 0.1587654197784888,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.02718476603024697,
+          "clipped_nll": 0.12768409026024463,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.060526707499322284,
+          "clipped_nll": 0.24133656734606893,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.0048169334163379336,
+          "clipped_nll": 0.02516068997271115,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.01173231207956636,
+          "clipped_nll": 0.04628092632536014,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.0018195960908017766,
+          "clipped_nll": 0.01110527291893959,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.0043149192106209195,
+          "clipped_nll": 0.01930590405612046,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.056644370196463255,
+          "clipped_nll": 0.2603949704591996,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.012454643549508607,
+          "clipped_nll": 0.0570989665606164,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.024143592834472656,
+          "clipped_nll": 0.08444483706825658,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.002740561699173909,
+          "clipped_nll": 0.013086414105329567,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.03245407110404919,
+          "clipped_nll": 0.11327277114304483,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.046971022706224955,
+      "pooled_clipped_nll": 0.2145677563963606,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "d4_wind": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.03749511609882378,
+      "mean_fit_seconds": 19.186436503806718,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26018,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.0628029304753701,
+          "clipped_nll": 0.2346482955347289,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.028938467233953342,
+          "clipped_nll": 0.09865252232887375,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.09632393506157201,
+          "clipped_nll": 0.4180253702735841,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.02702429182078342,
+          "clipped_nll": 0.17966563679749792,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.0423934425953288,
+          "clipped_nll": 0.21482930142310677,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.09736043943544556,
+          "clipped_nll": 0.3935387760109675,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.1413713288932384,
+          "clipped_nll": 0.6684891609708064,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.03495265362726324,
+          "clipped_nll": 0.14476032355646073,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.014663426979039594,
+          "clipped_nll": 0.06550848353910514,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.01092374226741589,
+          "clipped_nll": 0.04702647060120848,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.0332689121849662,
+          "clipped_nll": 0.11678466674303506,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.04580981730164566,
+          "clipped_nll": 0.1567371077021609,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.0268267784015273,
+          "clipped_nll": 0.1230965084499783,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.05640432619330875,
+          "clipped_nll": 0.21034041439809129,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.006137371063232422,
+          "clipped_nll": 0.03303850619757134,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.012825368406984637,
+          "clipped_nll": 0.07263055098684211,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.0031048930429208735,
+          "clipped_nll": 0.020856623322917864,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.005298987381625848,
+          "clipped_nll": 0.024493922060740147,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.051622862119447686,
+          "clipped_nll": 0.19564078591901907,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.011064938066021495,
+          "clipped_nll": 0.049720032720376325,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.020915069178531046,
+          "clipped_nll": 0.07072550884046053,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.003910313870117539,
+          "clipped_nll": 0.01823226160757117,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.02844337467320727,
+          "clipped_nll": 0.09926898890273327,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.040814820693112826,
+      "pooled_clipped_nll": 0.20222766537134684,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "ellipse": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.04132757386650639,
+      "mean_fit_seconds": 3.6220904060679935,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26018,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.07380414110713686,
+          "clipped_nll": 0.2547817272807997,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.029770821752682537,
+          "clipped_nll": 0.10658363892998494,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.09863432191258711,
+          "clipped_nll": 0.5214472613485299,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.02786154527254326,
+          "clipped_nll": 0.21075016452343007,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.04800610209620276,
+          "clipped_nll": 0.4509426804941289,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.10567226005186735,
+          "clipped_nll": 0.5561044448230675,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.16772992329009193,
+          "clipped_nll": 1.3286039378100638,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.03604954394758841,
+          "clipped_nll": 0.201455330701328,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.014355562850090356,
+          "clipped_nll": 0.05697086517087758,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.009287264736502767,
+          "clipped_nll": 0.03625451411819906,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.03974768299155897,
+          "clipped_nll": 0.1914920697932327,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.04640421528141933,
+          "clipped_nll": 0.16598044523636876,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.027250575243942136,
+          "clipped_nll": 0.14665920391961487,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.05794931175716744,
+          "clipped_nll": 0.2564274076634028,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.004640708944638692,
+          "clipped_nll": 0.021873628354136834,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.012751444281770184,
+          "clipped_nll": 0.07600800848266823,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.0020527434714425067,
+          "clipped_nll": 0.012527288439182134,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.004275177133330419,
+          "clipped_nll": 0.01788662801525276,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.053545228530475754,
+          "clipped_nll": 0.25158518102636346,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.008663172704099819,
+          "clipped_nll": 0.037018489561333565,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.0224033203125,
+          "clipped_nll": 0.07730152652138157,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.005191292869655108,
+          "clipped_nll": 0.02223062828656759,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.054487838390353295,
+          "clipped_nll": 0.18712335112051148,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.04503705062364119,
+      "pooled_clipped_nll": 0.29792067569533015,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    },
+    "mixed_base": {
+      "difference_vs_base": null,
+      "excludes_zero": null,
+      "fires": 23,
+      "fires_better_than_base": null,
+      "folds": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "interval_95": null,
+      "mean_fire_brier": 0.04688687522451277,
+      "mean_fit_seconds": 5.574268362555734,
+      "own_support_weight": 198193.0,
+      "paired_status": "UNAVAILABLE_NO_EXACT_COMMON_CELL_DEVELOPMENT_PREDICTIONS",
+      "paired_unavailability_reason": "Development aggregate receipts cannot establish identical scored cells, even when weights match",
+      "parameters": 26018,
+      "per_fire": {
+        "CA-BTU-009205_Dixie": {
+          "brier": 0.07801520454247245,
+          "clipped_nll": 0.24984167651421693,
+          "weight": 4927.0
+        },
+        "CA-KNF-006385_RiverComplex_RiverComplex": {
+          "brier": 0.050609386303055455,
+          "clipped_nll": 0.1628667267275528,
+          "weight": 9088.0
+        },
+        "CA-KNF-006454_Antelope": {
+          "brier": 0.09461801843341902,
+          "clipped_nll": 0.3351740307609551,
+          "weight": 6394.0
+        },
+        "CA-MNF-000753_AugustComplex": {
+          "brier": 0.02772123458171332,
+          "clipped_nll": 0.18501410214821223,
+          "weight": 79764.0
+        },
+        "CA-PNF-001308_PNFNorthComplex": {
+          "brier": 0.0405917401080365,
+          "clipped_nll": 0.1853070621239226,
+          "weight": 6149.0
+        },
+        "CA-SHF-001187_Monument": {
+          "brier": 0.08297367295097847,
+          "clipped_nll": 0.2848775933671375,
+          "weight": 2969.0
+        },
+        "CA-SNF-001391_Creek": {
+          "brier": 0.1502125788974975,
+          "clipped_nll": 1.0350689647021343,
+          "weight": 18343.0
+        },
+        "CA-SQF-002622_SQFComplex": {
+          "brier": 0.03187622609913005,
+          "clipped_nll": 0.1567650834699208,
+          "weight": 9869.0
+        },
+        "CA-SRF-000651_McCash": {
+          "brier": 0.047820900082871085,
+          "clipped_nll": 0.1657822966066423,
+          "weight": 2107.0
+        },
+        "CA-SRF-000656_RedSalmonComplex": {
+          "brier": 0.00863942318321255,
+          "clipped_nll": 0.03225615890269834,
+          "weight": 3404.0
+        },
+        "CO-ARF-000636_CameronPeak": {
+          "brier": 0.036416293637576334,
+          "clipped_nll": 0.12546529773302226,
+          "weight": 5602.0
+        },
+        "ID-SCF-022105_Moose": {
+          "brier": 0.04245341313800035,
+          "clipped_nll": 0.14158973900552105,
+          "weight": 5721.0
+        },
+        "MT-BDF-006269_AlderCreek": {
+          "brier": 0.03885562943249214,
+          "clipped_nll": 0.14244675261541434,
+          "weight": 1845.0
+        },
+        "MT-BDF-006272_TrailCreek": {
+          "brier": 0.06966817339128475,
+          "clipped_nll": 0.25232214273816367,
+          "weight": 2990.0
+        },
+        "MT-LNF-000893_WestLolo": {
+          "brier": 0.02164603179355837,
+          "clipped_nll": 0.08647757417475392,
+          "weight": 2597.0
+        },
+        "NM-SNF-000027_HermitsPeak": {
+          "brier": 0.011737394246345423,
+          "clipped_nll": 0.05030935325553326,
+          "weight": 2755.0
+        },
+        "OR-UMF-000659_GreenRidge": {
+          "brier": 0.011694396774356183,
+          "clipped_nll": 0.06202888030272264,
+          "weight": 1664.0
+        },
+        "OR-UMP-000373_RoughPatchCpx": {
+          "brier": 0.0160204278209675,
+          "clipped_nll": 0.06357895713070202,
+          "weight": 6417.0
+        },
+        "OR-UPF-000265_Jack": {
+          "brier": 0.07803791549462905,
+          "clipped_nll": 0.25974923626240864,
+          "weight": 3403.0
+        },
+        "OR-UPF-000450_DevilsKnob": {
+          "brier": 0.04339066009647799,
+          "clipped_nll": 0.14759185614175355,
+          "weight": 4832.0
+        },
+        "OR-WIF-220180_CedarCreek": {
+          "brier": 0.021330455980802836,
+          "clipped_nll": 0.07298052817896793,
+          "weight": 2375.0
+        },
+        "UT-ASF-100340_EastFork": {
+          "brier": 0.004011789556990823,
+          "clipped_nll": 0.01652821243490829,
+          "weight": 11107.0
+        },
+        "WA-OWF-000453_SchneiderSprings": {
+          "brier": 0.07005716361792566,
+          "clipped_nll": 0.21986322149199375,
+          "weight": 3871.0
+        }
+      },
+      "pooled_brier": 0.04609567835402744,
+      "pooled_clipped_nll": 0.2462197822041536,
+      "seeds": [
+        0
+      ],
+      "statistic_scope": "descriptive absolute scores on each variant's own development support"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+ "variant": "d4_wind",
+ "seed": 0,
+ "epochs": 3,
+ "fit": {
+  "history": [
+   {
+    "epoch": 1,
+    "train_scaled_loss": 1.3476301031279647,
+    "seconds": 759.3512940839864,
+    "selected": false,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 2,
+    "train_scaled_loss": 1.3580143137020053,
+    "seconds": 761.7558007920161,
+    "selected": false,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 3,
+    "train_scaled_loss": 1.3345723579942403,
+    "seconds": 762.3113478749874,
+    "selected": true,
+    "optimizer_steps": 1303,
+    "skipped_unsupported_intervals": []
+   }
+  ],
+  "best_validation_brier": null,
+  "train_prevalence": 0.009059232810751092
+ },
+ "fit_seconds": 2283.839068832982,
+ "train_events": [
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SHF-001187_Monument",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000651_McCash",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "ID-SCF-022105_Moose",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "OR-WIF-220180_CedarCreek",
+  "UT-ASF-100340_EastFork",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "train_samples": 1303,
+ "checkpoint_sha256": "33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3",
+ "parameters": 26018,
+ "host": {
+  "python": "3.12.1",
+  "torch": "2.5.1",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "cpu_count": 15,
+  "torch_threads": 2,
+  "load_average_1_5_15": [
+   3.2626953125,
+   3.556640625,
+   3.5244140625
+  ],
+  "note": "Current execution host; heavy numerical runs share an exclusive advisory lock. Timings are host-specific"
+ },
+ "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+ "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

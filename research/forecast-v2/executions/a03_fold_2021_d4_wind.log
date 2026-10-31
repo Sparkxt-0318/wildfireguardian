@@ -1,0 +1,4 @@
+{"epoch": 1, "train_scaled_loss": 1.1435925483703613, "seconds": 7.1959720000158995, "selected": false, "optimizer_steps": 30, "skipped_unsupported_intervals": []}
+{"epoch": 2, "train_scaled_loss": 0.9321233856181304, "seconds": 7.436264999967534, "selected": false, "optimizer_steps": 30, "skipped_unsupported_intervals": []}
+{"epoch": 3, "train_scaled_loss": 0.863589612270395, "seconds": 7.298892708029598, "selected": true, "optimizer_steps": 30, "skipped_unsupported_intervals": []}
+{"variant": "d4_wind", "fold": "2021", "seed": 0, "brier": 0.039936219057801724, "seconds": 22.207224125042558}

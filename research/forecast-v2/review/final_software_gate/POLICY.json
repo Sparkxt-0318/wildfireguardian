@@ -1,0 +1,26 @@
+{
+  "recorded_utc": "2026-10-30T10:26:12.685354+00:00",
+  "wrappers": [
+    {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/forecast-final-software-check.py",
+      "sha256": "99c76cc931cbba36f6015e52517d202ee8780daa2e8fa5383d6ab6580e886fa3",
+      "preserved": "research/forecast-v2/review/final_software_gate/forecast-final-software-check.py.gz"
+    },
+    {
+      "original_path": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/forecast-fit-coverage-final.py",
+      "sha256": "42ee1b62e36df76681652c24662984dddc0186be42b9dda172e38ac845383e41",
+      "preserved": "research/forecast-v2/review/final_software_gate/forecast-fit-coverage-final.py.gz"
+    }
+  ],
+  "gate_source_scope": "All .py/.json files under forecast/wildfire, forecast/tests and research/forecast-v2/scripts, plus forecast/pyproject.toml",
+  "prospective_protocol_md_excluded": true,
+  "doc_exclusion_reason": "Checkpoint table and status are document-only output after complete fits; no scientific or test code edit is allowed during the gate hash window",
+  "operational_order": [
+    "full software gate PASS",
+    "complete fit-coverage audit PASS",
+    "MODEL_SELECTION",
+    "exact protocol checkpoint table",
+    "BLIND_REGISTRY",
+    "commit and send registry freeze before heldout"
+  ]
+}

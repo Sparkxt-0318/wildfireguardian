@@ -1,0 +1,35 @@
+{
+  "active_folds": [
+    "folds/base_fold2020_seed0/result.json",
+    "folds/d4_fold2020_seed0/result.json",
+    "folds/d4_wind_fold2020_seed0/result.json",
+    "folds/ellipse_fold2020_seed0/result.json",
+    "folds/burnout_fold2020_seed0/result.json",
+    "folds/burnout_spotting_fold2020_seed0/result.json",
+    "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+    "folds/base_fold2021_seed0/result.json",
+    "folds/d4_fold2021_seed0/result.json",
+    "folds/d4_wind_fold2021_seed0/result.json",
+    "folds/ellipse_fold2021_seed0/result.json",
+    "folds/burnout_fold2021_seed0/result.json",
+    "folds/burnout_spotting_fold2021_seed0/result.json",
+    "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+    "folds/base_fold2022_seed0/result.json",
+    "folds/d4_fold2022_seed0/result.json",
+    "folds/d4_wind_fold2022_seed0/result.json",
+    "folds/ellipse_fold2022_seed0/result.json",
+    "folds/burnout_fold2022_seed0/result.json",
+    "folds/burnout_spotting_fold2022_seed0/result.json",
+    "folds/mixed_base_fold2022_seed0_utc_fixed/result.json"
+  ],
+  "obsolete_mixed_folds": [
+    "folds/mixed_base_fold2020_seed0/result.json",
+    "folds/mixed_base_fold2021_seed0/result.json",
+    "folds/mixed_base_fold2022_seed0/result.json"
+  ],
+  "reason": "Correct reconstruction elapsed time to the exact declared cutoff; earlier mixed-source cutoffs could include less-than-one-hour future state; all pureperimeter paths are unchanged",
+  "preserved_pure_final": [
+    "final/base_seed0",
+    "final/d4_seed0"
+  ]
+}

@@ -1,0 +1,482 @@
+{
+ "current_phase": {
+  "schema": "wfg.forecast-intended-phases/1",
+  "spotting_source_mode": "flaming_only",
+  "phases": [
+   {
+    "variant": "base",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "base_fold2020_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2020_base",
+    "result": "folds/base_fold2020_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "d4_fold2020_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2020_d4",
+    "result": "folds/d4_fold2020_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4_wind",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "d4_wind_fold2020_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2020_d4_wind",
+    "result": "folds/d4_wind_fold2020_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "ellipse",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "ellipse_fold2020_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2020_ellipse",
+    "result": "folds/ellipse_fold2020_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "burnout_fold2020_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2020_burnout",
+    "result": "folds/burnout_fold2020_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout_spotting",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+    "artifact_suffix": "_flaming_only",
+    "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+    "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+    "spotting_source_mode": "flaming_only"
+   },
+   {
+    "variant": "mixed_base",
+    "stage": "fold",
+    "fold": "2020",
+    "seed": 0,
+    "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+    "artifact_suffix": "_utc_fixed",
+    "job_suffix": "fold_2020_mixed_base_utc_fixed",
+    "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "base",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "base_fold2021_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2021_base",
+    "result": "folds/base_fold2021_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "d4_fold2021_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2021_d4",
+    "result": "folds/d4_fold2021_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4_wind",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "d4_wind_fold2021_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2021_d4_wind",
+    "result": "folds/d4_wind_fold2021_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "ellipse",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "ellipse_fold2021_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2021_ellipse",
+    "result": "folds/ellipse_fold2021_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "burnout_fold2021_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2021_burnout",
+    "result": "folds/burnout_fold2021_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout_spotting",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+    "artifact_suffix": "_flaming_only",
+    "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+    "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+    "spotting_source_mode": "flaming_only"
+   },
+   {
+    "variant": "mixed_base",
+    "stage": "fold",
+    "fold": "2021",
+    "seed": 0,
+    "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+    "artifact_suffix": "_utc_fixed",
+    "job_suffix": "fold_2021_mixed_base_utc_fixed",
+    "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "base",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "base_fold2022_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2022_base",
+    "result": "folds/base_fold2022_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "d4_fold2022_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2022_d4",
+    "result": "folds/d4_fold2022_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4_wind",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "d4_wind_fold2022_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2022_d4_wind",
+    "result": "folds/d4_wind_fold2022_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "ellipse",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "ellipse_fold2022_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2022_ellipse",
+    "result": "folds/ellipse_fold2022_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "burnout_fold2022_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "fold_2022_burnout",
+    "result": "folds/burnout_fold2022_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout_spotting",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+    "artifact_suffix": "_flaming_only",
+    "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+    "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+    "spotting_source_mode": "flaming_only"
+   },
+   {
+    "variant": "mixed_base",
+    "stage": "fold",
+    "fold": "2022",
+    "seed": 0,
+    "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+    "artifact_suffix": "_utc_fixed",
+    "job_suffix": "fold_2022_mixed_base_utc_fixed",
+    "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "base",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "base_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_base",
+    "result": "final/base_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "d4_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_d4",
+    "result": "final/d4_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "d4_wind",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "d4_wind_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_d4_wind",
+    "result": "final/d4_wind_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "ellipse",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "ellipse_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_ellipse",
+    "result": "final/ellipse_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "burnout_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_burnout",
+    "result": "final/burnout_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   },
+   {
+    "variant": "burnout_spotting",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "burnout_spotting_seed0_flaming_only",
+    "artifact_suffix": "_flaming_only",
+    "job_suffix": "final_burnout_spotting_flaming_only",
+    "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+    "spotting_source_mode": "flaming_only"
+   },
+   {
+    "variant": "mixed_base",
+    "stage": "final",
+    "fold": null,
+    "seed": 0,
+    "phase_id": "mixed_base_seed0",
+    "artifact_suffix": "",
+    "job_suffix": "final_mixed_base",
+    "result": "final/mixed_base_seed0/result.json",
+    "spotting_source_mode": "not_applicable"
+   }
+  ]
+ },
+ "label": "SYNTHETIC ORIGINAL FAILURE",
+ "run": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/review/comparison_reporting_repair_v1/original_fixture/run",
+ "figure_evidence": {
+  "fig03_ablation_forest_plot": {
+   "status": "GENERATED_WITH_UNAVAILABLE_EVIDENCE",
+   "metric_data_available": false,
+   "source": "heldout_ablation",
+   "cohort": "US2024 mapped extent",
+   "reason": "No authenticated held-out common-cell predictions are available",
+   "promotion_criteria_pass": false,
+   "files_sha256": {
+    "png": "f9d7f614c35546f39e99daa4982f69d2938c52bc4df110dfce1131a4381e39f9",
+    "svg": "94515c5b6261d81b1c38ec65ab6ac3d137b29c093fbac29afd4f81b3f61d9367"
+   }
+  },
+  "fig04_meanfield_vs_mc_rmse_by_horizon": {
+   "status": "GENERATED_FROM_COMPARISON_DATA",
+   "metric_data_available": true,
+   "files_sha256": {
+    "png": "00a2bfb32d2200d98907e1e31922c2ce61b26e0305b38ba58d6914df611a4840",
+    "svg": "8d32b2edb8d058f42eac78fa06b01d02e359bd0975230f1f5dfa9b01cfc49d15"
+   }
+  }
+ },
+ "ablation": {},
+ "primary_candidate_rule": "lowest equal-fire development Brier over the 2020 to 2022 leave-one-year-out folds, with the fixed variant tie order",
+ "final_models": {},
+ "primary_candidate": {
+  "variant": null,
+  "run": null,
+  "checkpoint_sha256": null
+ },
+ "development_ablation_interpretation": "Absolute own-support scores preserve the frozen equal-fire selection rule; paired common-cell development effects are unavailable",
+ "heldout_ablation": {
+  "status": "UNAVAILABLE_NO_AUTHENTICATED_HELDOUT_ASSESSMENT",
+  "variants": {},
+  "reason": "No authenticated held-out common-cell predictions are available",
+  "promotion_criteria_pass": false,
+  "complete_cohort_pass": false
+ },
+ "meanfield_vs_mc": {
+  "rows": [
+   {
+    "country": "KR",
+    "event": "SYNTHETIC_KR",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 1,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "KR",
+    "event": "SYNTHETIC_KR",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 3,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "KR",
+    "event": "SYNTHETIC_KR",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 6,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "KR",
+    "event": "SYNTHETIC_KR",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 12,
+    "rmse_active": null,
+    "cells": 0,
+    "active_cells": 0,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "KR",
+    "event": "SYNTHETIC_KR",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 24,
+    "rmse_active": null,
+    "cells": 0,
+    "active_cells": 0,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "US",
+    "event": "SYNTHETIC_US",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 1,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "US",
+    "event": "SYNTHETIC_US",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 3,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "US",
+    "event": "SYNTHETIC_US",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 6,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "US",
+    "event": "SYNTHETIC_US",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 12,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   },
+   {
+    "country": "US",
+    "event": "SYNTHETIC_US",
+    "cutoff": "2000-01-01T00:00:00+00:00",
+    "horizon_kind": "fixed",
+    "hours": 24,
+    "rmse_active": 0.01,
+    "cells": 3,
+    "active_cells": 2,
+    "seed": 999,
+    "n_samples": 7
+   }
+  ],
+  "checkpoint_sha256": "UNAUTHENTICATED_SYNTHETIC"
+ },
+ "report_status": "GENERATED_PENDING_VISUAL_QA"
+}

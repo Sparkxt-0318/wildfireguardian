@@ -1,0 +1,23 @@
+{
+  "actual_final_comparison_loader_run": false,
+  "actual_raw_or_heldout_or_model_access": false,
+  "allowed_existing_function_changes": [
+    "main",
+    "figure_meanfield"
+  ],
+  "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_report_comparison.py forecast/tests/test_report_readiness.py forecast/tests/test_report_ablation.py -p no:cacheprovider -q --disable-warnings",
+  "compile_pass": true,
+  "exit_code": 0,
+  "git_mutations": false,
+  "numerical_producer_source_changes": false,
+  "output": "TESTS_FINAL.txt",
+  "passed": 68,
+  "patch_dry_run_exit_code": 0,
+  "review_status": "READY_FOR_INDEPENDENT_REVIEW_NOT_SELF_CLEARED",
+  "seconds": 17.61,
+  "source_only_closure_files": 61,
+  "source_only_closure_sha256": "eb51e5ff3a6e7b871a266b61791f0c2b3ec5efd00c99d0f299b3050fbec62d17",
+  "synthetic_png_svg_visual_qa": "Final partial-support and all-unavailable PNGs inspected; canvas1050x720 and labels/counts readable. First clipped-ylabel images retained at visual_initial_clipped. SVG content/absence/counts exercised in tests.",
+  "unchanged_original_function_asts": 17,
+  "warnings": 420
+}

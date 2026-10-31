@@ -1,0 +1,47 @@
+{
+  "source_commit": "54f3aa480690ee862645c071f651139dc830c582",
+  "files": [
+    {
+      "path": "FARSITE_FINALIZATION.json",
+      "original_sha256": "fd47a179c4b96377df0175f47fa52b4ef870c92ad4d89620c396648879de83f6",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/FARSITE_FINALIZATION.json.gz",
+      "compressed_sha256": "dd1f1a4900799a08cd6399590bf1c00c2ba997892692ce4528b3880aa5dd4a05"
+    },
+    {
+      "path": "FARSITE_FINALIZATION.patch",
+      "original_sha256": "5daf1f1a38f459abaf4b6893d3baec8e3b90312d58564c5d6a2d7996a549ca7c",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/FARSITE_FINALIZATION.patch.gz",
+      "compressed_sha256": "1899f3ea9b05026eceed0c9ec5bfa43590a8a5ba7112854b4cbcd86c28d78e28"
+    },
+    {
+      "path": "SOURCE_HASHES.json",
+      "original_sha256": "893c7cea2bba25a1fce05c9e1771596a04c1e2bfe0573176ba9d76c624924b89",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/SOURCE_HASHES.json.gz",
+      "compressed_sha256": "0582c082df9acbe5144090cc4d8b649762253e0da30eefc88a860fb5cccf316e"
+    },
+    {
+      "path": "TESTS_FINAL.txt",
+      "original_sha256": "e559d587a46b61b41aea50f330536c56e53d6153d2aef12a4d0e6538b6f17e3c",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/TESTS_FINAL.txt.gz",
+      "compressed_sha256": "1192e5d2d6aacf46a8ab744196589dd0db04419781a96bc883f1ff8c5034a1dc"
+    },
+    {
+      "path": "TESTS_HORIZON.txt",
+      "original_sha256": "9e0b1be721431fb572d85e7a424c1658b558a994249b136b4aade33771bb960d",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/TESTS_HORIZON.txt.gz",
+      "compressed_sha256": "8ca9ff30b22fba6d0f09138977cfeb0f37b818a80176de1b35391390cfc18b4c"
+    },
+    {
+      "path": "TESTS_INITIAL.txt",
+      "original_sha256": "1a5ed9584af47de9a863e38b73b7035bc3eda32f644aaba2b947e72085ed09ac",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/TESTS_INITIAL.txt.gz",
+      "compressed_sha256": "54269d73145fc7078c13e558a8a53551024837ad0776e57e971cb1a177bd9fb3"
+    },
+    {
+      "path": "audit_farsite_before.py",
+      "original_sha256": "84b98c17d2b6c1458a7136c270aedf8ed78390c590b27b518a9980a676db532a",
+      "preserved": "research/forecast-v2/review/farsite_54f3aa48/audit_farsite_before.py.gz",
+      "compressed_sha256": "d5811202fd05cc873f7446b833ed6fb571c3aeadbc9efeadfcde67871abbd668"
+    }
+  ]
+}

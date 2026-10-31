@@ -1,0 +1,13 @@
+{
+  "status": "HOLD_INDEPENDENT_RESULT_AUDIT",
+  "error_type": "AuditError",
+  "reason": "development effects must remain unavailable without changing selection",
+  "limits": [
+    "Independent saved-output arithmetic and custody only; no physical/field validity or blind2026 conclusion.",
+    "Original source rasters, source-derived support envelopes and geometric truth are not replayed.",
+    "Checkpoint and fitted-baseline binaries are not opened; their identity pointers are cross-checked.",
+    "Pre-inference chronology still relies on the separately authorized frozen-registry/protocol review; finish timestamps alone do not prove inference start order.",
+    "A pooled whole-fire bootstrap is conditional on the fixed models, admitted support and mapped labels; repeated intervals/cells are not independent fires."
+  ],
+  "checker_sha256": "b3fb96f6c42a028b1e8ac67414b60e8b77735f9cf8559f784f546a7ab7929ee8"
+}

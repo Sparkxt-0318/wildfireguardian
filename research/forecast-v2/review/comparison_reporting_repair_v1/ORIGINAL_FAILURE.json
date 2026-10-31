@@ -1,0 +1,18 @@
+{
+  "scope": "SYNTHETIC_METADATA_ONLY_ORIGINAL_FAILURE",
+  "source_sha256": "4174f0c76c8217fe18a6adbe37a5d6d7a0f6f92abcda1f7b59954d8b9be39e23",
+  "expected": "Refuse unauthenticated incomplete10row wrong-cutoff/model/seed comparison",
+  "observed_rows_accepted": 10,
+  "missing_all12_receipts": true,
+  "observed_figure_evidence": {
+    "status": "GENERATED_FROM_COMPARISON_DATA",
+    "metric_data_available": true,
+    "files_sha256": {
+      "png": "00a2bfb32d2200d98907e1e31922c2ce61b26e0305b38ba58d6914df611a4840",
+      "svg": "8d32b2edb8d058f42eac78fa06b01d02e359bd0975230f1f5dfa9b01cfc49d15"
+    }
+  },
+  "svg_contains_available_cutoff_counts": false,
+  "svg_contains_UNAVAILABLE": false,
+  "source_or_data_mutations": false
+}

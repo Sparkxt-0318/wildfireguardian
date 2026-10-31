@@ -1,0 +1,2631 @@
+{
+  "created_utc": "2026-10-30T03:47:00.215352+00:00",
+  "shapely": "2.0.6",
+  "source_manifest_sha256": "ec85525ebe90091036e77bd517abc563c385e81db0ae53ecc30c6d4cb3c019c6",
+  "source_policy_verified_by_reading": true,
+  "actual_explicit_repairs": 0,
+  "actual_explicitly_skipped_records": 0,
+  "invalid_source_records": 55,
+  "total_cell_survey_differences": 0,
+  "records": [
+    {
+      "event": "CA-BTU-009205_Dixie",
+      "source_records": 75,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "9767a5ca7bb4eef089b6b85fc1fb28870076835f2cc66e89e318fd1c374326c2",
+      "represented_states_sha256": "17b2174dc309cb07a38ec829acf6184e2eaa39ce1b204b48bbbe3a29c1e3da18",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-KNF-006385_RiverComplex_RiverComplex",
+      "source_records": 73,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "bae8d0ba2e49a397e55efd26809b7109b044cc982d1b7f128eaf75a826caf2ff",
+      "represented_states_sha256": "2530099b367133a94c05e3d4ac0cfa79b895252028d4ab51ca2a05a009343313",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-KNF-006454_Antelope",
+      "source_records": 43,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "8a9552ff49b74d973f246c9675d1691ee1dce6f32d066f9e6d33fb384d7f2d0f",
+      "represented_states_sha256": "59ebe2652b98768947be345b09b393897468311f3194c181fee788c9be48ec19",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-MNF-000753_AugustComplex",
+      "source_records": 62,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "01dd6ed89c9d305449f349bc121701c81176101a9514ad50b836636e7820ad2a",
+      "represented_states_sha256": "ba4ce1d1a0fecb50be0a57e666fe158505934cf4c3a26be748d59ba78151d051",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "source_records": 73,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "c23a4013462d9f4d309da986ae88395be14aa40d7a041e723219c30368a62ead",
+      "represented_states_sha256": "e330dac041dbb329697d84d70f21878940b1419fca953087693fbc55b1343d88",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-SHF-001187_Monument",
+      "source_records": 73,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "4547b205d058c3f22c1961fdbc5b593c83443a5485eb1d555e3f63fd8ecba825",
+      "represented_states_sha256": "fe339001615652f5e3336c400f2ed0f28e132ac4f903de6c6ec344e27726cc24",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "source_records": 59,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "bc69ea49bbd6391d38725898e3ec008687bb6f64f5f78cae0bea037b6ce7dfb2",
+      "represented_states_sha256": "2c754e8d8be152c453fc92d13fc99748894e231fef4a48e3bdf065a4f3ef9e3d",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-SQF-002622_SQFComplex",
+      "source_records": 75,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "7b65c12ff2cff49cfed019a66a8c7fcf9f036a407c1e499f0a9401fe108cdf61",
+      "represented_states_sha256": "b0f9933e1c249219643bd7e318b18be511089c619db982fac01e8345357f94e2",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-SRF-000651_McCash",
+      "source_records": 65,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "2f34b6324096f5b381f086467bef4c793466d1da4c6205b90f1b96c658e32cc6",
+      "represented_states_sha256": "f105b0ad5229b14400d804d7190df02cd47cb079b9b4a55a1d8135673c4a6ee0",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CA-SRF-000656_RedSalmonComplex",
+      "source_records": 90,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "43916b70667fd83f27ccd59fbf4f0fd1f6d03f1f5725531fa17e9150f0efd195",
+      "represented_states_sha256": "8c881a05e758c3e4e0f073ace2089883c5d4fdde8b55aab8b8ea39f5dfb16cb6",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "CO-ARF-000636_CameronPeak",
+      "source_records": 68,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "e574afdb008b63cb24fe2b11499f79323a54ed8c68e3813cdcaeac847a1dd849",
+      "represented_states_sha256": "66dfcf1b1bc091781008f26db094b7f43c74c2f36b3b0279e384cb4c75d69c58",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "ID-BOF-000683_Wapiti_Wapiti",
+      "source_records": 63,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "e7db6340b3cbe77667cb4ccfdb30ba548462929d1faf04de10bfcbc4dd4924b9",
+      "represented_states_sha256": "74a135ab4ceec9408314d037b045c16e4cc8b4f635c44c3655cbbc06fc6668dc",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "ID-BOF-000904_Goat",
+      "source_records": 52,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "9ffc8cc4525fa94049a56a4a7aa539a5c4c90cf07ddf2f4ddca97ebaf1880e99",
+      "represented_states_sha256": "764a41fb51271cbfe91a7f377abd985ce0b3f0975e64942b648a1c9666ad85c4",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "ID-BOF-001080_Lava",
+      "source_records": 58,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "ec882a5d527785474c192a081eac180052e9d5c320775eab4131ea6a7be591c1",
+      "represented_states_sha256": "64c5afdbae07de45e479dee3d55def6256d917c01190a00a4c9746f4945d4831",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "source_records": 70,
+      "invalid_records": 23,
+      "invalid": [
+        {
+          "source_record_id": 3801,
+          "time_utc": "2022-08-05T03:56:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-113.998446172553 45.2768323763132]",
+          "projected_reason": "Ring Self-intersection[-1402999.93429998 2609772.32561491]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "84d742b632f14bb0e1fd290b9f5878a6314e5ceb7b89cdbe6dbce5601fec2cc9",
+          "projected_wkb_sha256": "598ebb89d4a5bc561494ceca301b725a10580bc9f745a9d87b32e1f87ee7413a",
+          "sensitivity_wkb_sha256": "bbd8555f40dbb07449e7a6c543a9d49fd3521e4f5c9ea5f07d3dbcde4a483f54"
+        },
+        {
+          "source_record_id": 3810,
+          "time_utc": "2022-08-14T06:08:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.223837198228 45.2829305819808]",
+          "projected_reason": "Ring Self-intersection[-1416946.87573418 2613617.35133978]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "b688dc491be21504d32c7e644ad474d3633db96e8254564ee7daa1d34d21db40",
+          "projected_wkb_sha256": "ff74910456b3571bc88e70f69b29914edabb83716fffcebff9215ab49965e712",
+          "sensitivity_wkb_sha256": "588b1b0e4f65cf1922f24a6b03caf1dea428454911b5ae849c2efd0daca1236d"
+        },
+        {
+          "source_record_id": 3811,
+          "time_utc": "2022-08-15T06:19:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1416946.87573418 2613617.35133978]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "0119e1dc16947ebe114c51263ea03ea336e7b5754bc451ee60fe70255e7c866b",
+          "projected_wkb_sha256": "452c5ce8370d97af9e07d9709faa0969baf4b7d8a39878455717f9417ff31e69",
+          "sensitivity_wkb_sha256": "d39be2b28bdbd0b2354003f423bde2f05139f3fc2ce804c6ffb453d764672f0d"
+        },
+        {
+          "source_record_id": 3812,
+          "time_utc": "2022-08-16T06:03:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "e769d1f7dcd9c478eb21ab9f576dd9ee381997963f03059247b7ac7e93d6ca1d",
+          "projected_wkb_sha256": "ae7bca756872ff3d8310e01220dafbdc20ecccd1b948928d61aa70ea915ddb8a",
+          "sensitivity_wkb_sha256": "feced160de60ef971f371df9666a85db5bd8d2fe4ec8614aa264bcc5ba54a5ba"
+        },
+        {
+          "source_record_id": 3813,
+          "time_utc": "2022-08-17T06:43:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1416946.87573418 2613617.35133978]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "9da453f04c43d48c3a10564c9b6213bfd51eed220f5233db539302b5706c861c",
+          "projected_wkb_sha256": "1c65dfa61c68110ab5893fb5b12e23491ae599a1da207162c09d357bc5f4be48",
+          "sensitivity_wkb_sha256": "aacd3e0711e5f7867ad2cbd5377e71c3a0974bc38e9ee0d2793402e386bf759a"
+        },
+        {
+          "source_record_id": 3814,
+          "time_utc": "2022-08-18T06:05:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1416946.87573418 2613617.35133978]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "1ced193f461207dfb763992e0b4acfad78093d54dd659b5ee5a1bb5759f93b78",
+          "projected_wkb_sha256": "e9423145de2fccabd17b93d5ae6c253a1dec6e30be4794e99bce1e96cf1fef97",
+          "sensitivity_wkb_sha256": "e3d9906e86178ee2c00cad261b050c868d582c59f8dd50b593ead2e18d293c0f"
+        },
+        {
+          "source_record_id": 3815,
+          "time_utc": "2022-08-19T04:55:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "1e7e5aa84dc53a669a8a1c2b779846bf7dd07b85ece00737b7326b8990a675b8",
+          "projected_wkb_sha256": "d1955a0678e38deff6e19213a1584eff3cea2f28fc677695201f216e35340c5e",
+          "sensitivity_wkb_sha256": "1c40d73152535884dfdbe60d0dbc99cdc3a2f9a616c8c1c358b7aaf4c11b324c"
+        },
+        {
+          "source_record_id": 3816,
+          "time_utc": "2022-08-21T06:26:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "7ca986c96cf6f3da2718b69def9d17991cc2e45ab08147fb4810627da0bbc837",
+          "projected_wkb_sha256": "4211bb035d3530cd50d37704df7d38c049421af30b5d25568fdcc410a34877c8",
+          "sensitivity_wkb_sha256": "eebfa2db6eda12bec694fe00e313913020334a8bc7179a4b74a132126641baaa"
+        },
+        {
+          "source_record_id": 3817,
+          "time_utc": "2022-08-22T06:27:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "f978fe2ebbc76c11a51a872293eac936fa28803c250a75557f74495d6d1f3649",
+          "projected_wkb_sha256": "a9cc236a83c90503cbd2a0a45f99a1588cee60f817b5d5584dac5a6a3d5b9cf7",
+          "sensitivity_wkb_sha256": "4cc466f7bf2b4ab0df277038590a0b528c081f2b9787afc3235107dbb55258ba"
+        },
+        {
+          "source_record_id": 3818,
+          "time_utc": "2022-08-23T05:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.182376208995 45.2870538395631]",
+          "projected_reason": "Ring Self-intersection[-1416946.87573418 2613617.35133978]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "491b5217d6f193d16f7b55023359ad3c2a6356a8141fe91e0a8925e4f7c5e098",
+          "projected_wkb_sha256": "11d76ec8b21365e32ff95f70838bc167eb30dc342bbfd0dfe997ce38d8e65c91",
+          "sensitivity_wkb_sha256": "088c5bf9535758eb7658935628873229d59fa3c789263a6f052edd8101edae59"
+        },
+        {
+          "source_record_id": 3819,
+          "time_utc": "2022-08-24T04:16:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "430d35261b2040bb3cc6c6395ebeb99a6d6dee2ac055dc505136602eab018606",
+          "projected_wkb_sha256": "417fad913a6f0474f361c1c0584459783f145cca8e50c45a056f4e2f2e729975",
+          "sensitivity_wkb_sha256": "eb2f6abe4785a10b867bffa6cd9f2844dbc9b792787bad57e322d81bf48e024e"
+        },
+        {
+          "source_record_id": 3820,
+          "time_utc": "2022-08-26T04:02:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "f69ebee308b2cc33bbb6960905144442872af64c50cb99aa558993730347a9ec",
+          "projected_wkb_sha256": "62bfb09235b3faae84815d03e1a86e8d816ca7a60d8b89690b0360075673290d",
+          "sensitivity_wkb_sha256": "289c14253649e28a85886c5d4846b9f51254594d3f1ce850a24b0bd42a1e7e20"
+        },
+        {
+          "source_record_id": 3821,
+          "time_utc": "2022-08-29T05:01:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "8a33d7a09fd9fc310bc343480252e8b41f9ed69b3e3fb4ede673e4410d4f73d0",
+          "projected_wkb_sha256": "4a45cba5bf8c07a1a166785b99f996bbf27fe390c40c5925da5571b84077b3a2",
+          "sensitivity_wkb_sha256": "a8fd72056216f0ab7fbe2b5ed080f15e2217a1a59699b0d960e888a6bd505981"
+        },
+        {
+          "source_record_id": 3822,
+          "time_utc": "2022-08-30T08:07:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "dfa44475795e926a50fcab02b7cc5eaea138b581401a0afbdfb1296390a083fc",
+          "projected_wkb_sha256": "1f3a82b8220e226552605976d9d2017767ed45c6e6d9b5ce6495837e33233083",
+          "sensitivity_wkb_sha256": "4ac076054b2bedad8c69a7be12751cd0972bcd870e7a120b21d0aae83029ab2a"
+        },
+        {
+          "source_record_id": 3823,
+          "time_utc": "2022-08-31T06:18:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "6505f42197f81b2275327f2c980fd2b7bc373486c41cd3e59430a0f6014c976f",
+          "projected_wkb_sha256": "3c75f2eb695e75e84eda66e9368424fcb0a05369c34577dbd9e9cc8d340190be",
+          "sensitivity_wkb_sha256": "e6ad5cde5fc081200af6e991170f3e9e306a4ea15c9f8912755eb42f5722beb8"
+        },
+        {
+          "source_record_id": 3824,
+          "time_utc": "2022-09-01T04:20:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "3af76021fba6bca591718f30a0c3b47bb02cca9eafc325928646048503ee6d37",
+          "projected_wkb_sha256": "5cfa91cec69394fb49ca55518520db67609aecf882065e44dfcdf34dc1764ce7",
+          "sensitivity_wkb_sha256": "34a8cca18294d3208c2b64d1a0684e4fbd24fe9eed9e3597657baf5477caa508"
+        },
+        {
+          "source_record_id": 3825,
+          "time_utc": "2022-09-02T04:27:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "724a6d667aae8556b42a8067848d33d1674aa3c63591bb8613e965496421be5b",
+          "projected_wkb_sha256": "3006ab42ebc6c1ef1479f9464ccc2e17557151ff7956361aaaa02889c4db8cef",
+          "sensitivity_wkb_sha256": "5502c033b325c4a37ec7056c58560b4b1b597f9fbd0f41454d779bffbc5dbe14"
+        },
+        {
+          "source_record_id": 3826,
+          "time_utc": "2022-09-03T03:41:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "01c3291b6d9dcec276922f53f27055979cb94ab2518c80f4ec41d8af18451edb",
+          "projected_wkb_sha256": "7df32ad7b48bf0f4ebccd46f56425366fa16f2a1781bf773c2cb1c4154953589",
+          "sensitivity_wkb_sha256": "6177078e0401914d9d2f79321b678a7e42d6b7776022435265bad56e50d3aa69"
+        },
+        {
+          "source_record_id": 3827,
+          "time_utc": "2022-09-04T04:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1414332.61480736 2615749.88615876]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "276799391f50c46e28f78cc5b153d1ba49fb096d4d8d1d4e025c8e7d990c63a3",
+          "projected_wkb_sha256": "d0aed3a04817d53ccd4caf8129a74c3eb6da350889f0b51ecb84bcb7253fcf79",
+          "sensitivity_wkb_sha256": "125ee7c99d2f49c96d26db0719d13b5160298bcb8b36297a475320875c2bbf6e"
+        },
+        {
+          "source_record_id": 3828,
+          "time_utc": "2022-09-05T04:05:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.154804958282 45.3103495999541]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "a9de25b7a6c3135ae46f9760b9cb3de56902000eae1080603d37ddb41ce73631",
+          "projected_wkb_sha256": "594df624fffc8e651ac0ce1dd25c359607fcdc8069fb2501040a255b9a213c79",
+          "sensitivity_wkb_sha256": "427d81e55d849a252c753f43090cb83e79257837bdb956058ff97912c677ea7b"
+        },
+        {
+          "source_record_id": 3829,
+          "time_utc": "2022-09-06T03:48:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.043905892943 45.2789426687692]",
+          "projected_reason": "Ring Self-intersection[-1406456.65158063 2610674.7515987]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "60e7a697a57a943cc382c9f777d4ed267b7ac616101e7fe83eb8bc8f5c8c07a4",
+          "projected_wkb_sha256": "9361fbb998a6cc3c0d05cc110a0c81807057f7529308ed06c6abd2173cac3616",
+          "sensitivity_wkb_sha256": "0c4aa5f4f9a5c708e8c136255f3cc62575f3492dc897a5f28772b84ab60df38f"
+        },
+        {
+          "source_record_id": 3830,
+          "time_utc": "2022-09-08T06:08:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-114.010198558916 45.332435545564]",
+          "projected_reason": "Ring Self-intersection[-1402740.31302398 2616018.05146198]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "f0a178b015675fa0c287d66d7e477d146ddaeff226c36785fe8de3f1d6ecd62a",
+          "projected_wkb_sha256": "72b5f46be93ec062eaf8a108c848e1672aeccc730d6926ca5bbf9b2497e9d7df",
+          "sensitivity_wkb_sha256": "ae482469c9add86f970a9240005b9deed33a1057bf6efbace3af5390c8c685e1"
+        },
+        {
+          "source_record_id": 3835,
+          "time_utc": "2022-09-13T03:41:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-113.999990359767 45.2195907304279]",
+          "projected_reason": "Ring Self-intersection[-1404317.42299857 2603543.02830443]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "475024b8118d751e0569d11bd7910626c6d2d74437f8efb104c2d6fcd5d89dbd",
+          "projected_wkb_sha256": "6a80aa46db464f01c6111a8c7db6ae774e648d2d43232d40efa22f3914ed22cb",
+          "sensitivity_wkb_sha256": "8dfd545cf5798fc24cc99801b939a5b7e6ba94f84a2ae0f4e849ef02fd84aec5"
+        }
+      ],
+      "geojson_sha256": "2bedfd446cd92fd31095ed930a4c61a774b93509e360b74a08bdc6dd816a51cd",
+      "represented_states_sha256": "5637d0aa1997aa2f6201407cf810151bae6b7b17fcc37d4f8d10dce7bd879f6a",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2022-07-19T03:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-20T04:33:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-21T03:56:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-22T04:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-23T04:33:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-24T03:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-25T04:04:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-26T04:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-27T04:21:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-28T07:21:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-29T04:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-30T04:32:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-07-31T04:09:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-01T07:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-02T05:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-03T05:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-04T03:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-05T03:56:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-06T03:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-07T04:26:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-08T04:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-09T03:49:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-10T03:49:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-11T03:13:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-12T04:31:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-13T04:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-14T06:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-15T06:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-16T06:03:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-17T06:43:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-18T06:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-19T04:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-21T06:26:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-22T06:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-23T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-24T04:16:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-26T04:02:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-29T05:01:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-30T08:07:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-31T06:18:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-01T04:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-02T04:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-03T03:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-04T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-05T04:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-06T03:48:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-08T06:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-09T07:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-10T04:29:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-11T05:09:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-12T04:02:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-13T03:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-14T04:48:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-15T04:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-17T05:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-18T05:16:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-19T05:16:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-21T03:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-23T05:51:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-24T04:09:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-27T03:16:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-30T03:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-03T06:02:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-05T04:22:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-06T05:36:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-08T03:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-10T03:56:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-13T02:43:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-19T04:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-26T01:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "ID-SCF-240202_RedRock",
+      "source_records": 47,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "353c64af945af162d58b788556d044b8aa94d85e3fea13d990ddc6cfc8403b3c",
+      "represented_states_sha256": "5712430987f5edefca177367a0e82d1734978c1e1917ee931055467bb5c95151",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "MT-BDF-006269_AlderCreek",
+      "source_records": 65,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "65b599bebc44b1ee507fea0dafbaa97f3de8ce7ba9c89ef387f5aebb7545f3cb",
+      "represented_states_sha256": "5dfcc1dd3aedf73d258cf79ca46cf362b5c18480081005e235df60354c7aa307",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "MT-BDF-006272_TrailCreek",
+      "source_records": 63,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "577317be8a022ba5e33b5db88f9a166b7479ebf2e10de278d4ad73b2e4d075a2",
+      "represented_states_sha256": "43ab5563571ea9ffd04c9c8e7215b17d3719e12cae827244acc02e3244964abd",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "source_records": 29,
+      "invalid_records": 1,
+      "invalid": [
+        {
+          "source_record_id": 6410,
+          "time_utc": "2021-08-13T05:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-115.279272847 47.609387408]",
+          "projected_reason": "Ring Self-intersection[-1449424.02846037 2882584.42017168]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "7af4bf335c20102c0afc25a21c81b1ae90bccdaa17aa641315387abb181153b1",
+          "projected_wkb_sha256": "9e88a834248476227a05b88fc973d68c8c2e1aa5f9ab9aa399e57f4b49c86622",
+          "sensitivity_wkb_sha256": "cc05874873211cc1daf0272978ae5a9bff9975db5b72ee6d900b00096fcd4bed"
+        }
+      ],
+      "geojson_sha256": "5de0555fcfa73a8ed02deb701dc38d728c3a31e138a295a45b318f1e20231180",
+      "represented_states_sha256": "f872a215552e248a3ec44cd0ef0196271a5cf421656476c0a4ceffa887ba1a06",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2021-07-11T08:50:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-12T08:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-13T06:53:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-14T06:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-15T04:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-16T04:35:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-17T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-18T07:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-20T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-22T04:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-24T05:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-27T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-28T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-29T04:40:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-30T04:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-07-31T05:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-01T04:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-04T04:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-05T02:37:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-06T03:56:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-08T04:03:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-11T04:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-12T06:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-13T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-14T06:35:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-15T06:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-16T05:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-17T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-24T07:49:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "NM-SNF-000027_HermitsPeak",
+      "source_records": 87,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "91019f646d60a0a23256d414a7169d0b514fc82a061f44fa58b641e6ae055bd2",
+      "represented_states_sha256": "bd9b3e8d35ed8287b070fa6232e0f7b548dcdfe10737f8c3101e58ea44db4cbd",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "OR-UMF-000659_GreenRidge",
+      "source_records": 73,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "8846c57141c6fe6edd787c7b47b01a831c02957543183198e68454dce49b3857",
+      "represented_states_sha256": "b12b962ba8ea123f787e641c1cd1b8786234911e3eb66d2883f54d889c7f3067",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "OR-UMP-000373_RoughPatchCpx",
+      "source_records": 51,
+      "invalid_records": 18,
+      "invalid": [
+        {
+          "source_record_id": 7891,
+          "time_utc": "2021-09-01T05:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.683829970377 43.5503899454397]",
+          "projected_reason": "Ring Self-intersection[-2114518.57516385 2570968.09803202]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "6706f45b752d7282e725a41c0f3a5f6688a721fb16f9155f2efe3753e89d9e36",
+          "projected_wkb_sha256": "1ed92414901e26978d99a5216c1cef3a80e081e3f06f2fedec130f745f842a62",
+          "sensitivity_wkb_sha256": "e35be2016c07935edcf8fd6b404ef27b0bf00ac781e9251c89da5d8e9c94b99d"
+        },
+        {
+          "source_record_id": 7892,
+          "time_utc": "2021-09-02T04:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.593820499616 43.4518600853747]",
+          "projected_reason": "Ring Self-intersection[-2114518.57516385 2570968.09803202]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "4e24c81f50801593e41518cab831f0cafe1d859e4072ddf5658684ef3abf9ea1",
+          "projected_wkb_sha256": "4f48545c2dd0fd952af5247a638f64743aa1d6dffe9a61c03593f86811c0c642",
+          "sensitivity_wkb_sha256": "82cef8d426be1799afd40066172ba39594a51e1358cb9e59ab85d86707b81d88"
+        },
+        {
+          "source_record_id": 7893,
+          "time_utc": "2021-09-03T05:20:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.593820499616 43.4518600853747]",
+          "projected_reason": "Ring Self-intersection[-2114518.57516385 2570968.09803202]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "7b78eea10d5c460af002d6041b003e28804cd6cda7f9a19dc492f1eb63bbd96d",
+          "projected_wkb_sha256": "4d5c32b3b05e58ed870ef6e652b27e6aa958b180a0107ca6692fc252c3e09a96",
+          "sensitivity_wkb_sha256": "e6e8969b3cad3bab812fc9a9c4d792a9c27b5815158e3e441ffb38024ebb16fd"
+        },
+        {
+          "source_record_id": 7894,
+          "time_utc": "2021-09-04T05:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.596868049321 43.4546562349973]",
+          "projected_reason": "Ring Self-intersection[-2114668.31206344 2571335.89501461]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "b85023b5e1e8904d6ff213ad6a4a88803a3286b0efcadb14e61f0ce441c25c9f",
+          "projected_wkb_sha256": "6769b682b9d8908ebd49626ecde2596fdf87ce2c49b306bb3a9e39f89ef1e035",
+          "sensitivity_wkb_sha256": "468e8c349fdec02716d82da5c1a14432c3fc572e3bab75d173da3ade81559ecc"
+        },
+        {
+          "source_record_id": 7895,
+          "time_utc": "2021-09-05T04:15:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.596868049321 43.4546562349973]",
+          "projected_reason": "Ring Self-intersection[-2114668.31206344 2571335.89501461]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "0ecf3a5dfcae7796133bb20115b7141cef37c1423589f72e7381539dccaa1c8f",
+          "projected_wkb_sha256": "4652b111e318ca8c6f8a4867ed7c65b0a13102753589fc457dba1652dd24df34",
+          "sensitivity_wkb_sha256": "287e8bc6b88ce9680f3ab0c7acbfbd70ad0977d1a2f933dfa69f92f9e309f93e"
+        },
+        {
+          "source_record_id": 7896,
+          "time_utc": "2021-09-06T05:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.596868048422 43.4546562349973]",
+          "projected_reason": "Ring Self-intersection[-2114668.31199382 2571335.8949946]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "c4eba4e2497798728a043597a4a38a435d0f4540aa29bf7d415fa9fc4ce5c864",
+          "projected_wkb_sha256": "8dbd7833562adc710bce2b124d3f347a4e301ce97f34cc342bdc97aba565ff46",
+          "sensitivity_wkb_sha256": "efd02fd2fce6821c2525d859f2a15862998a7cedbe63a87b421a419acaef5fff"
+        },
+        {
+          "source_record_id": 7897,
+          "time_utc": "2021-09-08T03:30:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.596868048422 43.4546562349973]",
+          "projected_reason": "Ring Self-intersection[-2114668.31199382 2571335.8949946]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "134ecd3b94bae7c4a3b5e430be9ddccceb3292a8c266e1f6cd7dedef2749c4fb",
+          "projected_wkb_sha256": "df86255708fc25d3353125b8e08105c65902d0140067dd3baa20645b44085db6",
+          "sensitivity_wkb_sha256": "531df19aec26888e3f75b98d55b7cf2af96f31cff7824e784e17cc392ad9eaf1"
+        },
+        {
+          "source_record_id": 7898,
+          "time_utc": "2021-09-09T04:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.596868048422 43.4546562349973]",
+          "projected_reason": "Ring Self-intersection[-2114668.31199382 2571335.8949946]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "bff1ee38e3267fcf7d93a10caf371e6cc07197caadb315bcedf5081be8af4dd1",
+          "projected_wkb_sha256": "da5ba7e1edde54509566136f693627612916f0518f57bae7f3385863d5751a8c",
+          "sensitivity_wkb_sha256": "974ad386482aa3cb3ea46525db7ebf38c6c60329c958f118f89a2b8c2a408162"
+        },
+        {
+          "source_record_id": 7904,
+          "time_utc": "2021-09-18T03:12:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163416858 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07393474 2575794.68603632]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "b971b3b71de3e2c650d469215b554f8162971741d21a98a84c4399795aac205f",
+          "projected_wkb_sha256": "7fecc0a72868245d917e396e103b1e2e587cd2ecc6aa9e1c93a292fd59edb5f9",
+          "sensitivity_wkb_sha256": "e844164d31e0992dce8865ba9074224d65eed4b0090b9a707adb202a6e65d995"
+        },
+        {
+          "source_record_id": 7905,
+          "time_utc": "2021-09-20T04:03:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163416858 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07393474 2575794.68603632]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "0115ecfd3403e83e48bb790593078335f1bdd6cd08637e702d458bcb6791007f",
+          "projected_wkb_sha256": "c8c73136dcef6589fde47378cacd852d7dadb049b474926622bd8da01ef751b1",
+          "sensitivity_wkb_sha256": "a24fb04f303d88041f990d0b69641c1ed8cb4130f5df3af393c6276eb4970128"
+        },
+        {
+          "source_record_id": 7906,
+          "time_utc": "2021-09-21T03:19:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163415959 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07386516 2575794.68601631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "f5604d7385129b054285eba881b061a6299ba353b12fb84444cde2e5d6ba77eb",
+          "projected_wkb_sha256": "56dfe8970f9e17255c0ff98b51b92a82e1fb8765db367e3ee15133a9329637cc",
+          "sensitivity_wkb_sha256": "4c1289d1b4af5481a7e7a208c1770b8048852dfdca7ee4c63eb88991aaafc5a1"
+        },
+        {
+          "source_record_id": 7907,
+          "time_utc": "2021-09-22T04:11:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163415959 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07386516 2575794.68601631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "124e9668b4a4a247d4b13a0cbe33c561299f8060a1ca5f59014e49ecf44dcfec",
+          "projected_wkb_sha256": "6f52242752f161f2358241026c8119cca8a9c4c17532f73d461828882b3b8a9d",
+          "sensitivity_wkb_sha256": "75e09ef9717984ccc3b0fc66379f74e679de0125cbe129ff3d680b4b616b0962"
+        },
+        {
+          "source_record_id": 7908,
+          "time_utc": "2021-09-24T03:59:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163415959 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07386516 2575794.68601631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "47f4ef5bb735d9db92f5ea2531d0590ead0ed246d0c34f4f640626f3620e86d1",
+          "projected_wkb_sha256": "059ff32421d497fa998a164e3cbf8d1f7ba9ed9fc49e14c2765dfaf4404b5477",
+          "sensitivity_wkb_sha256": "9b8a5d99fa3bd3583b91122ffec79a50c7e0e64b587554b5b921ac1241d72840"
+        },
+        {
+          "source_record_id": 7909,
+          "time_utc": "2021-09-25T04:19:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163415959 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07386516 2575794.68601631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "8fc3df9f02bce37ad100a0db31e6915cf92062d93a2834492f1e6bd0bcab9dc6",
+          "projected_wkb_sha256": "2560bf793f9c2cb10eaf9bf7358a736a687e0e406b2aaf0d3d4582999f98eb52",
+          "sensitivity_wkb_sha256": "87ad4c976db1f176305f41c22b6aad270c1a686a82b0334e92cf92f58addc486"
+        },
+        {
+          "source_record_id": 7910,
+          "time_utc": "2021-09-26T03:32:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599163415959 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07386516 2575794.68601631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "adb85d73609b7da46f428100e4b96b23e19673bb0b14af5a4fb699cababef4e9",
+          "projected_wkb_sha256": "83634f58383c51f1c73d03bb35ea798b78028803dcb00db74ccc624bf85a44fd",
+          "sensitivity_wkb_sha256": "2ee7ec196786b886798ac58747bea151f98c8403c6a7ce93a4be1590989ed520"
+        },
+        {
+          "source_record_id": 7911,
+          "time_utc": "2021-09-30T02:33:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.59916341506 43.4957423112587]",
+          "projected_reason": "Ring Self-intersection[-2113579.07379557 2575794.68599631]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "8580482b5fc6ed452c1e75e052381ea2d3fa2dad88bde8e429621f47c44fe7c6",
+          "projected_wkb_sha256": "694605b4854aab91f100fdf247cd8f1f87dd69e86f5086f5dfbabb3cf59b9587",
+          "sensitivity_wkb_sha256": "7ea3269d003aade4743260b91a120a0eb38fa66b6d16c0c37f544717269bc19a"
+        },
+        {
+          "source_record_id": 7912,
+          "time_utc": "2021-10-02T07:03:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599177493946 43.4957476604262]",
+          "projected_reason": "Ring Self-intersection[-2113579.99819831 2575795.57295489]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "5484a2ed4a7c166fc942a5d9001f0acdce14c929cd9a2cc78ac9045e93f81a02",
+          "projected_wkb_sha256": "e6af81daa90f9d214b842c7d5ab90f7ea0ab03442f7a2e53d6052a65f90ec2cc",
+          "sensitivity_wkb_sha256": "34cb1e524eccc86c2c7bb542ebec29602227f382c0589771a5a95def1840b2ad"
+        },
+        {
+          "source_record_id": 7913,
+          "time_utc": "2021-10-12T04:00:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.599177493946 43.4957476604262]",
+          "projected_reason": "Ring Self-intersection[-2113579.99819831 2575795.57295489]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "4b8b935b546fe35c41277626747ed3c590df3527c3756d0705b3e2d82cb1148b",
+          "projected_wkb_sha256": "ec30af201426bc53f42d41cb96c9c357245bc28b3fb662602a9079978e5a6212",
+          "sensitivity_wkb_sha256": "bce6f54c4e5268e95c1bc3380dede4bad8dfb230832961b22bbd6b688aea1190"
+        }
+      ],
+      "geojson_sha256": "7a9d7c09b0e93a673e7016defc09dc22b36c751ec469df50852e9b7f6a354063",
+      "represented_states_sha256": "0284659e92e1052d871135b7217938621db09f99bc3727371f79cd37a275da33",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2021-08-03T04:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-04T07:39:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-05T05:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-06T04:21:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-07T05:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-09T03:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-10T03:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-11T04:08:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-12T03:58:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-13T03:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-14T04:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-15T04:23:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-16T03:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-17T03:18:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-18T03:50:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-19T03:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-20T03:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-21T03:16:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-22T03:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-23T03:39:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-24T03:50:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-25T03:40:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-26T03:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-27T04:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-28T04:37:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-29T04:12:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-30T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-08-31T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-01T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-02T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-03T05:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-04T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-05T04:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-06T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-08T03:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-09T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-11T03:35:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-13T06:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-15T04:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-16T03:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-17T06:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-18T03:12:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-20T04:03:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-21T03:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-22T04:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-24T03:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-25T04:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-26T03:32:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-09-30T02:33:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-10-02T07:03:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2021-10-12T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "OR-UPF-000265_Jack",
+      "source_records": 67,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "84ab5c8d33cfd83fca5dc63f99846ef17d70b6f29f018dbb837596cb8215387a",
+      "represented_states_sha256": "abb76e8f03e0b1e7d5cbe2d491eb98e18521d69234a71baa81de0bb863eefecb",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "source_records": 49,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "ade07c7e909d0f87ebeba546b599fec5e580117a32f8b906748c6189dc299eda",
+      "represented_states_sha256": "12a840febf7b8d24b275ea980421156e7b9608025e64f920af90635eef817514",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "source_records": 64,
+      "invalid_records": 8,
+      "invalid": [
+        {
+          "source_record_id": 9136,
+          "time_utc": "2022-08-31T05:38:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.066325535711 43.7289063126705]",
+          "projected_reason": "Ring Self-intersection[-2065270.14403886 2589107.4771648]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "c701fbbccbd7196a1df68ae33ac343d6b66847a64abd21c60cbb527cd5ceee05",
+          "projected_wkb_sha256": "5f1977baa99a0614b17343a8f35a520bc2b8204f54ba8f60cde59d2632347390",
+          "sensitivity_wkb_sha256": "d2560a94b4eb5a2ec07d05f327c4c6cef6a1955d53e649783cd1660fac590f35"
+        },
+        {
+          "source_record_id": 9137,
+          "time_utc": "2022-09-01T05:38:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.066325535711 43.7289063126705]",
+          "projected_reason": "Ring Self-intersection[-2065270.14403886 2589107.4771648]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "3bf99bbbdf3e6465a1a75ac0afa785f49e07be59beff42f9c9551da78d9b2a98",
+          "projected_wkb_sha256": "15870c96dae93f6ae8deeb0b833b5105c1570b82850fe53dfa4dcd96da53b339",
+          "sensitivity_wkb_sha256": "f551b8d08017b926a8ec4c7ea664edcefde2a39f4d7df34c778c4655f8301526"
+        },
+        {
+          "source_record_id": 9147,
+          "time_utc": "2022-09-13T04:01:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.179620856632 43.7997411531516]",
+          "projected_reason": "Ring Self-intersection[-2071869.35276184 2599179.63708204]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "2b180a0ca93ffa2fb1f5b9da1759f63df9e9b160b717b6a707497cfcb2972408",
+          "projected_wkb_sha256": "c896195cd7483ef0aa3e89b6f3dafd9389c782d6d96aa6a151f569ea381b7c32",
+          "sensitivity_wkb_sha256": "a8b070b5282843a97ddca37b144b29007335686bcb427a8b9deb565f343df12d"
+        },
+        {
+          "source_record_id": 9148,
+          "time_utc": "2022-09-14T03:20:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.179620856632 43.7997411531516]",
+          "projected_reason": "Ring Self-intersection[-2071869.35276184 2599179.63708204]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "d71d33cc51a98bdb3fa74454d764664afd9c139104302d7d437fef5271d05107",
+          "projected_wkb_sha256": "15be3e8a318a887cfc732fc235f7ab6fb3085c8ca08279789e769f75c45b6ffc",
+          "sensitivity_wkb_sha256": "0a1febe8478c44f5beeed240581c4c07d32852c000d373be16faecefbc290d8e"
+        },
+        {
+          "source_record_id": 9167,
+          "time_utc": "2022-10-09T01:19:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.3029693962 43.7180928142894]",
+          "projected_reason": "Ring Self-intersection[-2083870.44897363 2593112.40071896]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "c57743190aa4c99dab5e1b777ba8821b166c6037ca2fdcaec0931d1f467bd40f",
+          "projected_wkb_sha256": "0316fac35271b0fd0dcc16c50d11a35bfad170a8cd0a7e3b1270a239043efdb7",
+          "sensitivity_wkb_sha256": "828a2ef9a4921de7533704e19ea46cb42e4ea30a6ba8301cb88c9dd1c21b28f3"
+        },
+        {
+          "source_record_id": 9175,
+          "time_utc": "2022-10-18T01:09:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.129916677637 43.789359802331]",
+          "projected_reason": "Ring Self-intersection[-2068349.90726063 2596982.37227189]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "2235603bcd53028c183859c73acaedf0025f588bc7cdeb97602bad97f704b904",
+          "projected_wkb_sha256": "abc944940385da6c6bcebda4c0a9467308b39c08ad885619247d22ede33ee43e",
+          "sensitivity_wkb_sha256": "d09baec8bf9745678d1da91b3415115ae3030bbd2c258f239017f4e968e6147f"
+        },
+        {
+          "source_record_id": 9176,
+          "time_utc": "2022-10-19T01:15:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.031155102618 43.8096169544686]",
+          "projected_reason": "Ring Self-intersection[-2060117.88456508 2597012.45202178]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "dbe5494b36d1ea633b3e0b8c3d8a5bf5a4011df534ebcc160834cdbd216f3386",
+          "projected_wkb_sha256": "d361a5e11f4ae857ebea1d107db7a2415ee0d73994c3c3ba070f1dd5e910baaf",
+          "sensitivity_wkb_sha256": "14620249540c19b6a0a8b6443080da1e6f0df58896afb0f98b3f9b0a648c35de"
+        },
+        {
+          "source_record_id": 9177,
+          "time_utc": "2022-10-20T02:48:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-122.155096108639 43.8653362798288]",
+          "projected_reason": "Ring Self-intersection[-2067989.19305989 2605687.09277678]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "2e6705293792955f0d9834365f8351b91b2eedd5cabc99fe8b7e3f6d41eacad8",
+          "projected_wkb_sha256": "9f884d8b3b7457cf9945cf62b6fb65f5fb0ff3a7e8504052f363a835a8deaf39",
+          "sensitivity_wkb_sha256": "d7657c33eb0e3a296df7801b420c60657c7388348a9150789f942352617dfa1e"
+        }
+      ],
+      "geojson_sha256": "191255ba42537fc39a31598e69ca7d95c9714c03d75a2e1adc55ccbb545b299a",
+      "represented_states_sha256": "60a84f06cc4398a3c15978813c9ffb6ac508d5f05c5cd2663aa2a82c1cb2c179",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2022-08-05T04:44:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-06T05:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-07T04:49:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-08T04:40:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-10T06:22:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-11T04:46:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-12T05:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-13T04:54:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-14T04:33:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-15T04:28:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-16T05:12:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-21T03:17:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-22T04:17:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-23T03:04:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-24T04:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-25T03:29:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-26T03:53:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-27T04:04:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-28T04:50:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-29T05:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-30T04:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-08-31T05:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-01T05:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-02T04:36:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-03T04:34:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-04T04:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-05T04:04:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-06T04:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-08T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-09T04:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-10T04:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-11T05:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-13T04:01:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-14T03:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-16T04:13:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-17T03:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-19T03:22:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-20T02:48:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-23T03:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-24T02:31:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-25T03:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-26T02:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-27T02:22:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-09-28T02:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-01T04:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-02T03:46:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-03T03:02:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-04T03:18:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-05T03:02:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-06T03:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-07T02:46:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-08T02:01:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-09T01:19:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-10T02:26:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-11T02:32:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-12T01:40:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-14T01:40:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-15T01:18:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-16T01:35:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-17T01:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-18T01:09:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-19T01:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-20T02:48:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2022-10-27T21:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "UT-ASF-100340_EastFork",
+      "source_records": 43,
+      "invalid_records": 2,
+      "invalid": [
+        {
+          "source_record_id": 4360,
+          "time_utc": "2020-10-24T04:45:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-110.586757145 40.609713233]",
+          "projected_reason": "Ring Self-intersection[-1219085.54020432 2049025.9579384]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "dc49625d8990098073a3d9d736d7ca96b7ea181422e881dd348624e0bd2a7ed6",
+          "projected_wkb_sha256": "293e3f7f45d1b5ba068c9dd24816dc6f90281b977d77ba03ed39a17467aac5f9",
+          "sensitivity_wkb_sha256": "728c22ed7fe3f2ea9728b16dab3be801c9e2cbc7fd2f48d92fbaebe459d8eed9"
+        },
+        {
+          "source_record_id": 4361,
+          "time_utc": "2020-10-25T04:45:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-110.586757145 40.609713232]",
+          "projected_reason": "Ring Self-intersection[-1219085.54022144 2049025.95782771]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "697a21683c03a17aa8e778e137845f2f52df46bb2614f382bc626f5093c9411b",
+          "projected_wkb_sha256": "1ba2a23b1ac4d2a79acdcb1fba9a36f59358e262331844ed8ed8615612af1376",
+          "sensitivity_wkb_sha256": "75d8d36f7a9a3a84a7d437933b41973d28e3802ac9e623f2e3546a504f632fcf"
+        }
+      ],
+      "geojson_sha256": "2317aeb3e8922d261e98c3c34a1ba68bc7e4397955b8a63400ddb07e4d04065e",
+      "represented_states_sha256": "4e86f8b9acd85906ad89e42e1c6881fb4e1b464f4d907b3242c9a36c9cdf0ab9",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2020-08-23T08:42:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-08-24T01:12:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-08-28T07:10:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-08-31T07:41:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-01T04:53:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-04T07:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-05T08:14:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-06T08:26:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-07T08:11:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-08T02:27:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-21T02:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-23T04:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-24T03:54:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-25T02:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-27T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-28T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-09-30T05:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-02T03:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-03T02:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-04T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-05T02:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-06T01:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-07T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-08T02:20:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-09T07:25:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-10T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-11T02:57:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-12T04:13:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-13T06:52:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-14T06:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-15T05:31:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-16T06:26:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-17T07:06:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-18T06:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-19T06:05:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-21T06:47:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-22T07:55:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-23T04:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-24T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-25T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-10-29T02:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-11-01T06:50:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2020-11-06T01:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "WA-OWF-000453_SchneiderSprings",
+      "source_records": 42,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "8418d6ef3c1c470dd9192307fafa7bf09894c377493bd903812fa67efebfb0ae",
+      "represented_states_sha256": "5e3d788a9e37e41af6d2ee9011228a3001cb72adc61e447a951353481e3002f5",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    },
+    {
+      "event": "WA-SES-000173_Pioneer",
+      "source_records": 63,
+      "invalid_records": 3,
+      "invalid": [
+        {
+          "source_record_id": 10983,
+          "time_utc": "2024-08-23T07:30:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-120.492501869266 48.2272609603252]",
+          "projected_reason": "Ring Self-intersection[-1816219.38351151 3038559.92048241]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "6097c201c99d2315ea3ecd5e41b3db4d5569811d4da854bc6b38b2fd3755c5dc",
+          "projected_wkb_sha256": "c7094d4cc0a14abf69556763483aeda6416e3ff6a015ac8226122a8da77b847e",
+          "sensitivity_wkb_sha256": "b5ad87c3be128dccb8d7b074548a6556f8f83f666ea36fedb4369071e03cd92d"
+        },
+        {
+          "source_record_id": 10984,
+          "time_utc": "2024-08-25T08:30:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-120.492501869266 48.2272609603252]",
+          "projected_reason": "Ring Self-intersection[-1816219.38351151 3038559.92048241]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "6097c201c99d2315ea3ecd5e41b3db4d5569811d4da854bc6b38b2fd3755c5dc",
+          "projected_wkb_sha256": "c7094d4cc0a14abf69556763483aeda6416e3ff6a015ac8226122a8da77b847e",
+          "sensitivity_wkb_sha256": "b5ad87c3be128dccb8d7b074548a6556f8f83f666ea36fedb4369071e03cd92d"
+        },
+        {
+          "source_record_id": 10985,
+          "time_utc": "2024-08-26T07:15:00+00:00",
+          "original_valid": false,
+          "projected_valid": false,
+          "original_reason": "Ring Self-intersection[-120.492501869266 48.2272609603252]",
+          "projected_reason": "Ring Self-intersection[-1816219.38351151 3038559.92048241]",
+          "corrected_type": "MultiPolygon",
+          "corrected_empty": false,
+          "original_wkb_sha256": "6097c201c99d2315ea3ecd5e41b3db4d5569811d4da854bc6b38b2fd3755c5dc",
+          "projected_wkb_sha256": "c7094d4cc0a14abf69556763483aeda6416e3ff6a015ac8226122a8da77b847e",
+          "sensitivity_wkb_sha256": "b5ad87c3be128dccb8d7b074548a6556f8f83f666ea36fedb4369071e03cd92d"
+        }
+      ],
+      "geojson_sha256": "55490ae87086142d6485a75051e7e86336261679a00bf2072aef97b2405f88e0",
+      "represented_states_sha256": "1669bcdd12f99c4d723ad15c786ebf948939b5b32e8dc1ad868b2714ffc672af",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping",
+      "sensitivity_policy": "make_valid after projection, retain polygonal components only; no data edits",
+      "raw_reproduction_pass": true,
+      "per_survey_sensitivity": [
+        {
+          "time_utc": "2024-06-14T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-16T08:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-17T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-19T08:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-20T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-21T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-22T09:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-24T10:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-25T09:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-26T05:32:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-27T05:42:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-06-29T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-01T04:39:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-02T10:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-03T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-04T05:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-05T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-06T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-07T04:21:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-08T07:38:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-09T03:59:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-10T08:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-11T07:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-14T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-15T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-16T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-17T08:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-18T09:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-19T08:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-20T07:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-21T11:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-22T09:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-23T09:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-24T04:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-25T11:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-26T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-27T03:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-28T02:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-07-31T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-01T06:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-02T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-03T09:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-05T02:13:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-05T18:57:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-06T10:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-07T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-08T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-09T09:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-10T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-11T09:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-12T15:48:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-13T11:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-14T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-15T08:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-16T10:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-17T07:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-18T04:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-19T06:00:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-20T08:45:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-21T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-23T07:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-25T08:30:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        },
+        {
+          "time_utc": "2024-08-26T07:15:00+00:00",
+          "raw_reproduces_stored": true,
+          "raw_vs_repair_changed_cells": 0
+        }
+      ],
+      "total_cell_survey_differences": 0,
+      "surveys_with_differences": 0
+    },
+    {
+      "event": "WY-BTF-002416_FishCreek",
+      "source_records": 47,
+      "invalid_records": 0,
+      "invalid": [],
+      "geojson_sha256": "df3d303521ddf02ea6b1ec19bcc7e604ee5e4556e4c3dec37ff79fb82f9fabd2",
+      "represented_states_sha256": "a8a7ef38777a9623eb0d266c2cd6aa914f0e56572b2ad3253463aac385904396",
+      "actual_policy": "project supplied geometry, unary_union within time, rasterize all_touched=False, cumulative raster OR; no explicit repair or record skipping"
+    }
+  ],
+  "scope": "finite-grid label sensitivity, not geometric truth or field validation; fitting inputs unchanged"
+}

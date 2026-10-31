@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py", line 1230, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py", line 1223, in main
+    value = audit_coverage(args.model_root, args.input_root, args.cache_root, args.run_root, args.cache_audit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py", line 1096, in audit_coverage
+    development, development_cache_files = development_coverage(root, inputs, caches, run, audit, expected, mixed)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py", line 1024, in development_coverage
+    contract = _schedule_contract(root, source, stage="fold")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/audit_fit_coverage.py", line 639, in _schedule_contract
+    raise ValueError("Frozen producer fit input selection differs from the audited full-sample recipe")
+ValueError: Frozen producer fit input selection differs from the audited full-sample recipe

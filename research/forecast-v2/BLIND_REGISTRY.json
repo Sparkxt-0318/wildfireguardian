@@ -1,0 +1,1085 @@
+{
+  "baseline_execution": {
+    "path": "research/forecast-v2/executions/a03_baselines.json",
+    "sha256": "be550f4967e588cf75b561cd4dff782a9765d8cb48b1587545e9323c95acb585"
+  },
+  "baselines": {
+    "dilation_choice": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/dilation_choice.json",
+      "sha256": "f3f8ad00ad71616e3e77a8660ca51bdd8cc0667bf2ca53641ab75bdf4a00e74c"
+    },
+    "logistic": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl",
+      "sha256": "4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49"
+    },
+    "logistic_parameters": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.json",
+      "sha256": "7640bf6cde5d9ab95371c32828fd325c9618e16a6d4e20ea37e7fa2fd8a1c6df"
+    }
+  },
+  "best_dilation_hours_per_cell": 8,
+  "cache_audit": {
+    "path": "research/forecast-v2/CACHE_AUDIT_FINAL.json",
+    "sha256": "fbcc40f754f8d8bdec578ff239d89e5e5d8710d0bb8da9e2e650e0a7b7a91f39"
+  },
+  "current_phase": {
+    "phases": [
+      {
+        "artifact_suffix": "",
+        "fold": "2020",
+        "job_suffix": "fold_2020_base",
+        "phase_id": "base_fold2020_seed0",
+        "result": "folds/base_fold2020_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2020",
+        "job_suffix": "fold_2020_d4",
+        "phase_id": "d4_fold2020_seed0",
+        "result": "folds/d4_fold2020_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2020",
+        "job_suffix": "fold_2020_d4_wind",
+        "phase_id": "d4_wind_fold2020_seed0",
+        "result": "folds/d4_wind_fold2020_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4_wind"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2020",
+        "job_suffix": "fold_2020_ellipse",
+        "phase_id": "ellipse_fold2020_seed0",
+        "result": "folds/ellipse_fold2020_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "ellipse"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2020",
+        "job_suffix": "fold_2020_burnout",
+        "phase_id": "burnout_fold2020_seed0",
+        "result": "folds/burnout_fold2020_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "burnout"
+      },
+      {
+        "artifact_suffix": "_flaming_only",
+        "fold": "2020",
+        "job_suffix": "fold_2020_burnout_spotting_flaming_only",
+        "phase_id": "burnout_spotting_fold2020_seed0_flaming_only",
+        "result": "folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+        "seed": 0,
+        "spotting_source_mode": "flaming_only",
+        "stage": "fold",
+        "variant": "burnout_spotting"
+      },
+      {
+        "artifact_suffix": "_utc_fixed",
+        "fold": "2020",
+        "job_suffix": "fold_2020_mixed_base_utc_fixed",
+        "phase_id": "mixed_base_fold2020_seed0_utc_fixed",
+        "result": "folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "mixed_base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2021",
+        "job_suffix": "fold_2021_base",
+        "phase_id": "base_fold2021_seed0",
+        "result": "folds/base_fold2021_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2021",
+        "job_suffix": "fold_2021_d4",
+        "phase_id": "d4_fold2021_seed0",
+        "result": "folds/d4_fold2021_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2021",
+        "job_suffix": "fold_2021_d4_wind",
+        "phase_id": "d4_wind_fold2021_seed0",
+        "result": "folds/d4_wind_fold2021_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4_wind"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2021",
+        "job_suffix": "fold_2021_ellipse",
+        "phase_id": "ellipse_fold2021_seed0",
+        "result": "folds/ellipse_fold2021_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "ellipse"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2021",
+        "job_suffix": "fold_2021_burnout",
+        "phase_id": "burnout_fold2021_seed0",
+        "result": "folds/burnout_fold2021_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "burnout"
+      },
+      {
+        "artifact_suffix": "_flaming_only",
+        "fold": "2021",
+        "job_suffix": "fold_2021_burnout_spotting_flaming_only",
+        "phase_id": "burnout_spotting_fold2021_seed0_flaming_only",
+        "result": "folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+        "seed": 0,
+        "spotting_source_mode": "flaming_only",
+        "stage": "fold",
+        "variant": "burnout_spotting"
+      },
+      {
+        "artifact_suffix": "_utc_fixed",
+        "fold": "2021",
+        "job_suffix": "fold_2021_mixed_base_utc_fixed",
+        "phase_id": "mixed_base_fold2021_seed0_utc_fixed",
+        "result": "folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "mixed_base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2022",
+        "job_suffix": "fold_2022_base",
+        "phase_id": "base_fold2022_seed0",
+        "result": "folds/base_fold2022_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2022",
+        "job_suffix": "fold_2022_d4",
+        "phase_id": "d4_fold2022_seed0",
+        "result": "folds/d4_fold2022_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2022",
+        "job_suffix": "fold_2022_d4_wind",
+        "phase_id": "d4_wind_fold2022_seed0",
+        "result": "folds/d4_wind_fold2022_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "d4_wind"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2022",
+        "job_suffix": "fold_2022_ellipse",
+        "phase_id": "ellipse_fold2022_seed0",
+        "result": "folds/ellipse_fold2022_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "ellipse"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": "2022",
+        "job_suffix": "fold_2022_burnout",
+        "phase_id": "burnout_fold2022_seed0",
+        "result": "folds/burnout_fold2022_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "burnout"
+      },
+      {
+        "artifact_suffix": "_flaming_only",
+        "fold": "2022",
+        "job_suffix": "fold_2022_burnout_spotting_flaming_only",
+        "phase_id": "burnout_spotting_fold2022_seed0_flaming_only",
+        "result": "folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+        "seed": 0,
+        "spotting_source_mode": "flaming_only",
+        "stage": "fold",
+        "variant": "burnout_spotting"
+      },
+      {
+        "artifact_suffix": "_utc_fixed",
+        "fold": "2022",
+        "job_suffix": "fold_2022_mixed_base_utc_fixed",
+        "phase_id": "mixed_base_fold2022_seed0_utc_fixed",
+        "result": "folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "fold",
+        "variant": "mixed_base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_base",
+        "phase_id": "base_seed0",
+        "result": "final/base_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "base"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_d4",
+        "phase_id": "d4_seed0",
+        "result": "final/d4_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "d4"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_d4_wind",
+        "phase_id": "d4_wind_seed0",
+        "result": "final/d4_wind_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "d4_wind"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_ellipse",
+        "phase_id": "ellipse_seed0",
+        "result": "final/ellipse_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "ellipse"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_burnout",
+        "phase_id": "burnout_seed0",
+        "result": "final/burnout_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "burnout"
+      },
+      {
+        "artifact_suffix": "_flaming_only",
+        "fold": null,
+        "job_suffix": "final_burnout_spotting_flaming_only",
+        "phase_id": "burnout_spotting_seed0_flaming_only",
+        "result": "final/burnout_spotting_seed0_flaming_only/result.json",
+        "seed": 0,
+        "spotting_source_mode": "flaming_only",
+        "stage": "final",
+        "variant": "burnout_spotting"
+      },
+      {
+        "artifact_suffix": "",
+        "fold": null,
+        "job_suffix": "final_mixed_base",
+        "phase_id": "mixed_base_seed0",
+        "result": "final/mixed_base_seed0/result.json",
+        "seed": 0,
+        "spotting_source_mode": "not_applicable",
+        "stage": "final",
+        "variant": "mixed_base"
+      }
+    ],
+    "schema": "wfg.forecast-intended-phases/1",
+    "spotting_source_mode": "flaming_only"
+  },
+  "dependency_versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "pyproj": "3.7.0",
+    "pyshp": "2.3.1",
+    "rasterio": "1.4.3",
+    "scikit-learn": "1.5.2",
+    "scipy": "1.13.1",
+    "shapely": "2.0.6",
+    "torch": "2.5.1"
+  },
+  "development_coverage_sha256": "0dba8e3c518d1ea35cfc216808baf969ab9744ce90f38d64cd6d2af93376144b",
+  "development_phases": {
+    "base_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_base.json",
+        "sha256": "24dedc955b1bfb9aaa51c1bfea3b9c50fe77542a5812adf9417cdeeab2a9f711"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2020_seed0/result.json",
+        "sha256": "c9cd3538d86dca747738ee6871236e25eb8e5e8cf902db62b29070ddd6385637"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "base_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_base.json",
+        "sha256": "69a23002cc78cf7b38d00562d1919cf906b85e83ed4c98d880574e78194d8833"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2021_seed0/result.json",
+        "sha256": "0232519aabed12e562dae27153b4e4063ef21089ef24b08f1fe208d59a39f07e"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "base_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_base.json",
+        "sha256": "6d83328e64d0bd1c497bf050c877688dfbb6ac8b7697203b99af3d3429ff8e75"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/base_fold2022_seed0/result.json",
+        "sha256": "3028e0335157bf81852e3f22c99c512e8fd91f4dad7fb0acfadebe897491f296"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "burnout_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_burnout.json",
+        "sha256": "839d1da4faccd968582bc980ef5cd8df294a3197e4e0fe6a7404d7e1f8eed401"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2020_seed0/result.json",
+        "sha256": "4a8041beaf0d0a1e0f8941a599ef5f616b8c5f23caf80f55cfc50bca66e1b240"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "burnout_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_burnout.json",
+        "sha256": "c06e6bbccbb227a295f44c53d3ef753f95ac6d1fa2a3b8ffab0d9ec86f560a8a"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2021_seed0/result.json",
+        "sha256": "914e5a01f66b28a0aea3be35f7558b1fc6526138ca4242d19096134ce3a2eb76"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "burnout_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_burnout.json",
+        "sha256": "4fb9ff1256279afbdc81e3bb894ad7eda9e1d0e3460cf73f643fe3bc67359443"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_fold2022_seed0/result.json",
+        "sha256": "10a13478201ab799a61a2aff6db7b7867788014cca516c598abd0c08b790ddcb"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "burnout_spotting_fold2020_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2020_burnout_spotting_flaming_only.json",
+        "sha256": "d6cf44c99f67f77d2b83a48a1b9ce6036b075b360189eac3cde3432f344f1efb"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2020_seed0_flaming_only/result.json",
+        "sha256": "ff3c9f5cf75ec8877007c3dba51ba5af259b4b96a2802cc624a0eb490f893961"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "burnout_spotting_fold2021_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2021_burnout_spotting_flaming_only.json",
+        "sha256": "562b235f3322c72a8d5e0daa61f30264a4e962068210b0bd194f0e85f2827f4f"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2021_seed0_flaming_only/result.json",
+        "sha256": "0d1ee371f1551b2acf6a0e2aa0d312ea5e7d5411000b28e675954af93cccf870"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "burnout_spotting_fold2022_seed0_flaming_only": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a05_fold_2022_burnout_spotting_flaming_only.json",
+        "sha256": "bbe13b2ca99f8a196ad05afd6fe170b12d74749197f823568543b5c46f0d28ea"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/burnout_spotting_fold2022_seed0_flaming_only/result.json",
+        "sha256": "e4b749f288d5a8634905344ea16190527ebe425caeda502856597601d30b10ea"
+      },
+      "source_contract": {
+        "ast_sha256": {
+          "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+          "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+          "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+        },
+        "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+        "schema": "wfg.forecast-spotting-source/1",
+        "source_mode": "flaming_only",
+        "source_sha256": {
+          "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+          "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+          "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+        }
+      },
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "d4_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_d4.json",
+        "sha256": "36721159f8f864504998dc59014e0da2c37f469fa0a17e0bc050569cc2b28a3c"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2020_seed0/result.json",
+        "sha256": "de3fdd2439ed2dbf7a1f88925c66871070bad20e3fe1e8dc871bee342e2a343c"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "d4_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_d4.json",
+        "sha256": "8b39bb1333ac7f907b6e7363638a18ac6f31912c5ddc0fa9fae50fc254c9d770"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2021_seed0/result.json",
+        "sha256": "b48596b0ac45249c02e99d49fb06fdff6f12f4cc500b2c489cfaa0833d5971b8"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "d4_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_d4.json",
+        "sha256": "e109221b2fb37394f9d9d56ad127319ef63f27deb213a52a8c45570a9366c6cf"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_fold2022_seed0/result.json",
+        "sha256": "b443e8d16a43b297b0530e62dbcad19426408d3ab92f0a58cd4077369e6f0400"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "d4_wind_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_d4_wind.json",
+        "sha256": "b436005e266c9f3eed6d13cf7d001eb4a882e192e2df38589f830ec8212fe14c"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2020_seed0/result.json",
+        "sha256": "8e58d58c9a8477973c3ea61eb8caf69d684583f64f7f8ebb118226ff70ec82a6"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "d4_wind_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_d4_wind.json",
+        "sha256": "7294af453e4fe8dc4ae57feb6d2a346d0bf89e99dd8b773c99fc26d37c7c4ea9"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2021_seed0/result.json",
+        "sha256": "60b72bef66603925e6725cdf20b0b2bd66afacf2e3739b14671de2f24b4f95ce"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "d4_wind_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_d4_wind.json",
+        "sha256": "abe62489617cf16f3d82f81ecca861b9464c7e40212854bd346478d54c1033cc"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/d4_wind_fold2022_seed0/result.json",
+        "sha256": "4422522f80c0bf7066257904ead445425144754429f2344cc3873a44a4b38bc6"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "ellipse_fold2020_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_ellipse.json",
+        "sha256": "97c6b4ff3a229419baa41c10df664d2fe367cde010e7281b07b0be05886d8b57"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2020_seed0/result.json",
+        "sha256": "e9759e0e7f2c7437053cdbd3c7cac3e1fae27bc770768e2b769545912ba87550"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "ellipse_fold2021_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_ellipse.json",
+        "sha256": "24c72499d6b06f431b83f69bb1d7af672eab6eae71320ac33c4574be3d15aab6"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2021_seed0/result.json",
+        "sha256": "24163646914fdd7ba1115ae86848586d6c1aaf60112fed8e9cff7397c62edf24"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "ellipse_fold2022_seed0": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_ellipse.json",
+        "sha256": "0e2985acaf86f47abe317bf436d367cd71cc329a44d9f16592b97f0026b645ee"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/ellipse_fold2022_seed0/result.json",
+        "sha256": "c7baf867920aa252b800712a4daa5c0b823451b29088bfbae85def7e6874ae01"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    },
+    "mixed_base_fold2020_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2020_mixed_base_utc_fixed.json",
+        "sha256": "b56a9064cc9d6ebc1cd0c89ec82bc9e2b2c5a91bfddbbc891c211b0b24ff01ba"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2020_seed0_utc_fixed/result.json",
+        "sha256": "e2a8dfc6e1ad14108c62e0395a2d8cca39e1c8218e034e36fbd3119b8e46165b"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-MNF-000753_AugustComplex",
+        "CA-PNF-001308_PNFNorthComplex",
+        "CA-SNF-001391_Creek",
+        "CA-SQF-002622_SQFComplex",
+        "CA-SRF-000656_RedSalmonComplex",
+        "CO-ARF-000636_CameronPeak",
+        "UT-ASF-100340_EastFork"
+      ]
+    },
+    "mixed_base_fold2021_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2021_mixed_base_utc_fixed.json",
+        "sha256": "a14b842d46b9227f7b32dc51cb475e557709eee5b796c1de96fa80e059fe614e"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2021_seed0_utc_fixed/result.json",
+        "sha256": "cf6923be756e8d0e02715fec4b9891103a17d89a97de63bec34ddc878cb70d7c"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "CA-BTU-009205_Dixie",
+        "CA-KNF-006385_RiverComplex_RiverComplex",
+        "CA-KNF-006454_Antelope",
+        "CA-SHF-001187_Monument",
+        "CA-SRF-000651_McCash",
+        "MT-BDF-006269_AlderCreek",
+        "MT-BDF-006272_TrailCreek",
+        "MT-LNF-000893_WestLolo",
+        "OR-UMF-000659_GreenRidge",
+        "OR-UMP-000373_RoughPatchCpx",
+        "OR-UPF-000265_Jack",
+        "OR-UPF-000450_DevilsKnob",
+        "WA-OWF-000453_SchneiderSprings"
+      ]
+    },
+    "mixed_base_fold2022_seed0_utc_fixed": {
+      "execution": {
+        "path": "research/forecast-v2/executions/a03_fold_2022_mixed_base_utc_fixed.json",
+        "sha256": "7299e19ccdcade18cbff86468556b68aa7e4ab13eace5d8787ed5360bf488a45"
+      },
+      "result": {
+        "path": "forecast/runs/20261030_perimeter_trained/execution_v3/folds/mixed_base_fold2022_seed0_utc_fixed/result.json",
+        "sha256": "efbc6a31a7a3d22692710274298dc232053bd3b0ac158731d48f16bbd2009210"
+      },
+      "source_contract": null,
+      "validation_events": [
+        "ID-SCF-022105_Moose",
+        "NM-SNF-000027_HermitsPeak",
+        "OR-WIF-220180_CedarCreek"
+      ]
+    }
+  },
+  "documentary_clearance_contract": {
+    "decision": "HUMAN_ATTESTED_DOCUMENTARY_CLEARANCE",
+    "machine_authentication": false,
+    "post_score_scope": "post_score_independent_relocated_replay_and_claim",
+    "pre_run_scope": "pre_run_registration_first_release_and_access",
+    "schema": "wfg.forecast-blind-documentary-clearance/1"
+  },
+  "execution_status": "NOT_READY_FOR_2026_EXECUTION",
+  "external_prerequisites": [
+    "Independent first-public-release identity and chronology verification",
+    "Owner public OSF registration of this exact source/model closure before source access",
+    "Independently reviewed documentary execution clearance"
+  ],
+  "final_executions": {
+    "base": {
+      "path": "research/forecast-v2/executions/a03_final_base.json",
+      "sha256": "7e7032f3ceba833bacea1a56878b9e36579641f2bd81422787fb70bff9d7f5e8"
+    },
+    "burnout": {
+      "path": "research/forecast-v2/executions/a03_final_burnout.json",
+      "sha256": "ede3eadf4ab19991b2a5fe526744085fc868233d02cc70116465dbd3f13ae485"
+    },
+    "burnout_spotting": {
+      "path": "research/forecast-v2/executions/a05_final_burnout_spotting_flaming_only.json",
+      "sha256": "f0501232159b6596d6979d71096561d4ebd2f3843207a643a3a978655df36edc"
+    },
+    "d4": {
+      "path": "research/forecast-v2/executions/a03_final_d4.json",
+      "sha256": "ca67e303b2916a0f9d105d0a0fc91f29e79abf6f35c151517db26097b5758cd6"
+    },
+    "d4_wind": {
+      "path": "research/forecast-v2/executions/a03_final_d4_wind.json",
+      "sha256": "e6a113e34421dd86a36c8dc00e6dfc891522d32f2b3a2e5a850510d70b6136ac"
+    },
+    "ellipse": {
+      "path": "research/forecast-v2/executions/a03_final_ellipse.json",
+      "sha256": "cd7af87edb32774f6013db86dd71df52236e48c88e23ddbf683b9990e8bb688c"
+    },
+    "mixed_base": {
+      "path": "research/forecast-v2/executions/a03_final_mixed_base.json",
+      "sha256": "0fec8b18e69433d15a3558ff4f0ad9165120c873afc9e15d3c1e848a44b813c6"
+    }
+  },
+  "final_results": {
+    "base": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/result.json",
+      "sha256": "db11b5152d680468271f2ce047934c08818ae502834db5704522bd93fef175c5"
+    },
+    "burnout": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/result.json",
+      "sha256": "e8b20201c5026bc07ef3f97aa393aaf1dc620b7785b3cbfe2415213b0422eb25"
+    },
+    "burnout_spotting": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/result.json",
+      "sha256": "cd2fa6aec00f2863568e1fc17647a2329a1fc76919b4c979e5f6ee4ff6d3d205"
+    },
+    "d4": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/result.json",
+      "sha256": "907bd960f79816e77f60b6af39828d1aa652ca68fb4cfafaddf7dcc7452e1f03"
+    },
+    "d4_wind": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/result.json",
+      "sha256": "b677d698f0ef375dc4a3d81c20a10b93d65153a92c3996affa1baee241dd107d"
+    },
+    "ellipse": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/result.json",
+      "sha256": "6e57bc522b165e64acdb8887b20cde9154fa60ad0122e538df924a1a70379db8"
+    },
+    "mixed_base": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/result.json",
+      "sha256": "362497a14765f1849f3215920b6e70c6731bcb8b3fa37bf3d1126c742bee4621"
+    }
+  },
+  "fit_coverage": {
+    "path": "research/forecast-v2/FIT_COVERAGE.json",
+    "sha256": "4c4330d841b4ac0ad0259ba04f781a5c386352da1e91358fbc2aee51276ca971"
+  },
+  "fit_coverage_status": {
+    "base": "FULL_OPTIMIZER_COVERAGE",
+    "burnout": "FULL_OPTIMIZER_COVERAGE",
+    "burnout_spotting": "FULL_OPTIMIZER_COVERAGE",
+    "d4": "FULL_OPTIMIZER_COVERAGE",
+    "d4_wind": "FULL_OPTIMIZER_COVERAGE",
+    "ellipse": "FULL_OPTIMIZER_COVERAGE",
+    "mixed_base": "FULL_INPUT_ATTEMPTED_WITH_LOGGED_UNSUPPORTED"
+  },
+  "fit_schedule_evidence": {
+    "base": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "burnout": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "burnout_spotting": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "d4": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "d4_wind": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "ellipse": "SOURCE_DERIVED_SCHEDULE_INFERENCE_NO_RUNTIME_IDS_RECORDED",
+    "mixed_base": "RUNTIME_ATTEMPTED_IDS_BOUND_TO_IMMUTABLE_SOURCE_AND_PREFIT_INPUT_MANIFEST"
+  },
+  "future_inputs_pinned": false,
+  "generated_utc": "2026-10-30T13:08:27.999554+00:00",
+  "inventory_contract": {
+    "cohort_year_predicate": "first survey year; not proven physical ignition year",
+    "eligibility_policy": "wfg.nirops-first-survey-2026-six-source-availability/1",
+    "schema": "wfg.nirops-raw-inventory/1",
+    "source_contract": "NIROPS_v1_Incident_C_Inc_Number_UTC_naive_publisher_UTC"
+  },
+  "logistic": {
+    "path": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl",
+    "sha256": "4acab15a10a9c128741e442f5da7a99dee45986e9dfa64dea35070de51deed49"
+  },
+  "models": {
+    "base_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/base_seed0/checkpoint.pt",
+      "sha256": "007720f6bb5cd19e5fc8afc0abc47cb5b0fb320aae7ce3830e261cdb98c31ec8"
+    },
+    "burnout_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_seed0/checkpoint.pt",
+      "sha256": "d552c221348a28477c2eeb411156e47d1b56653aca424e0487085570d2957559"
+    },
+    "burnout_spotting_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/burnout_spotting_seed0_flaming_only/checkpoint.pt",
+      "sha256": "d44365c9b3c6494ca1964795ace608f45649aa4c0ee24e3d9cf347f5110c013b"
+    },
+    "c651_mc": {
+      "path": "forecast/runs/20261010_categorical_balanced_benchmark/candidates/mixed_3_5_7_9_02_lr0.1_warmup_cosine/checkpoint.pt",
+      "sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843"
+    },
+    "d4_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_seed0/checkpoint.pt",
+      "sha256": "969a47025d5d9b322f1413ba0922e29fac9f453474bbe73b9aca6950f476fb74"
+    },
+    "d4_wind_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/d4_wind_seed0/checkpoint.pt",
+      "sha256": "33c5b3cfc1332940a905da80b9414d0a5a91aad06d8797b46dc151e893de48a3"
+    },
+    "ellipse_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/ellipse_seed0/checkpoint.pt",
+      "sha256": "b8f13c01536b0507bd16ec64b7fd8fdfc969cc7e0f05e73d0f9257ca29eab569"
+    },
+    "mixed_base_seed0": {
+      "path": "forecast/runs/20261030_perimeter_trained/execution_v3/final/mixed_base_seed0/checkpoint.pt",
+      "sha256": "e0330c3d92f5cd92471a434f6d062f16c7a14be4163b44c98fa334d9573dba76"
+    }
+  },
+  "producer_source_sha256": {
+    "forecast/documents/preregistration_blind_test.md": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6",
+    "forecast/pyproject.toml": "d15cb75db2717c1d485c31110c9431d69a250043f2821264fb3e3ff9969078cf",
+    "forecast/wildfire/__init__.py": "55706f5bd10ae03a088b336c4ffaf06cf83b607414f7c7bcb4932f045ff893bc",
+    "forecast/wildfire/__main__.py": "f696d93d71ce8b94cebed980d68a9f541b71f855778dc44430f27e9782e9fc06",
+    "forecast/wildfire/api.py": "71e0397874e781b56b7091b8a2c5535acd088fbeb94e63ac0d44b6bd11dc8c11",
+    "forecast/wildfire/baselines.py": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+    "forecast/wildfire/bundle.py": "2fe131cd7f54bbee9d85acaa537ff77c80faf7975c374c3574ca0e9f5117a391",
+    "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+    "forecast/wildfire/cache.py": "62f82f0c22be47ae6da18b4c81e6da7860843b7b8fe17952762b14adb8c50030",
+    "forecast/wildfire/canonical.py": "aa4b500bc7c2c3d36af1a5639d89e22cf6de7b68a9a900a53fe5feb991b6fe81",
+    "forecast/wildfire/catalog.py": "04f774efdd5925c0a6e9b7af4f16f189a3df7fd78103dbf880b203101fc06ad7",
+    "forecast/wildfire/checks.py": "8af868dc6298cb7fcbffdb87d28222b66bfc28f519fe41ab25b429ea187bf21e",
+    "forecast/wildfire/cohort.py": "68e65cba636c9dbc16357ddcb4f58cc18fecd5086c37c7e188bef4a5000e209a",
+    "forecast/wildfire/coordinates.py": "9a9f56a60083bdb9e2990ca710280bfd75b7c004f2648d0af3d45a4f5c5a3dd3",
+    "forecast/wildfire/cumulative.py": "0334ecacbfed8d31397378172c325a0ac2385798023c6a3efadc34ab1db119a7",
+    "forecast/wildfire/cumulative_evaluation.py": "071ec17bc1086f07e837da732536bc5ec913f25ac1709ca78bc3475a8f1c4b01",
+    "forecast/wildfire/cumulative_report.py": "a8f30e5670fd1e8e5a0c4c8d164bac10d4f9c9b326aabf22441ae6b3fbb6fc81",
+    "forecast/wildfire/cumulative_report_plots.py": "effb7221f730195b77ebbf149bd37d5ca28c500cad9d957630e9cac5ee735b53",
+    "forecast/wildfire/data.py": "8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230",
+    "forecast/wildfire/environment.py": "c5c245ace3a129a9a30c3d7109160e921c0d0819d6d6cc3bcba7bc418c7ed2af",
+    "forecast/wildfire/evaluate.py": "a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9",
+    "forecast/wildfire/examples.py": "2da0787fb7507a64036b7ca5de85b959f87e9e2c02c060d8a403081822d35c76",
+    "forecast/wildfire/farsite_build.py": "d1c9830de57a21688e0c8c64bc38bd4334eff53d9a533fe818b28264f617d783",
+    "forecast/wildfire/farsite_evaluation.py": "85d80c050b44f7548ae7511cdccf258e5dd85856aea38fd9953c1e6090aaf048",
+    "forecast/wildfire/farsite_inputs.py": "259faf189bf0a94d11682d7845060f89dcc86c45e0c4bac21e698a4d00c564e6",
+    "forecast/wildfire/farsite_observed_build.py": "187f210d990361864d52c4ae1d1a1a15452b63688969b4e2b50eb081da5328c4",
+    "forecast/wildfire/farsite_report.py": "52c8879021278eeb4942ba6eb60bd87b6c824e09bd87c66ae619e86839ed0e06",
+    "forecast/wildfire/forest_inference.py": "c09ba84a709be6bc37aca7a2a2025461e900c053b0ee6bc8f547633794a92e51",
+    "forecast/wildfire/heat.py": "e6c07d4d23d377c00a76542ba4f70441ce40913aa4a3d5ca5ee60aecaa41da3b",
+    "forecast/wildfire/heat_duration.py": "47f80924a3222d8a95822f75da49ed8decc9974dad770bf31b6317c80c9cef1f",
+    "forecast/wildfire/heat_parameters.py": "2b904247d987a1244b6a738d7513577274f1f1cbf2b44985c9bba57d67590750",
+    "forecast/wildfire/heat_sources.json": "2f2dadeca8dfb7aa18ee11ae52bc0ee038c0bbda1e56a51b4b2f0df239f7d660",
+    "forecast/wildfire/heat_timing.py": "653712d90cc273a892d400bfe7cc8ff9d02262b49bee886d6cc47c96c97b4a9b",
+    "forecast/wildfire/heat_transfer.py": "1eb6625d577c4562ca6702f0e45d9b4be396baf40152ef974cb6d44af90c92ed",
+    "forecast/wildfire/inference.py": "c1278e491a23633e693854417e21bd1376060b638f3c3bf9f81ecc147c17dce6",
+    "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+    "forecast/wildfire/metrics.py": "7e3277e50f31c18ae042aa649793791d77840efaf9c0d3b02b8207bd2d1f9a93",
+    "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1",
+    "forecast/wildfire/observed_catalog_data.py": "ab8613df1d68f04f26794212c45ce55737dfaa0df60189f44b0662cc83988da3",
+    "forecast/wildfire/observed_combined.py": "a0b82434c8cc393c11c522b57ab4e400dab0e42396cfe186f88aa3f2e6999491",
+    "forecast/wildfire/observed_data.py": "1476966182e6bf0016bbe4e48f44ad9381a3d3cb2ab618e888b5e1c2df6209ff",
+    "forecast/wildfire/observed_evaluation.py": "bcae46bde09fcc3be9766037000e6f1168cb35ee2d848f7b466479669daf4a75",
+    "forecast/wildfire/observed_inventory.py": "5f352dfcc02ac7389377af6d90c15fae2262398bfcaccd87565397a64ee7e16b",
+    "forecast/wildfire/observed_report_plots.py": "a306e3558db50d39bf79b180c711a6b9a7cd5f12cd64d7bc6d96e2fd65d2cc15",
+    "forecast/wildfire/observed_reuse.py": "5236c4bf9680dad71bcc9e5f9cdf92fd6e3466c76517944df2810d3806bf0b95",
+    "forecast/wildfire/paths.py": "b26f7cc4621366582f253ff6962eeb371016931324d5787bcb1c99b486a5b4a5",
+    "forecast/wildfire/plotting.py": "c9f4dda1eefad50ecc95bc183065ba6e57b3cf7d881c348aff7d131c69bbcd59",
+    "forecast/wildfire/prediction.py": "c103a817f1ce87997a14291443d304f122afafec6ba3250136ecc979cb15d578",
+    "forecast/wildfire/prepare.py": "e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0",
+    "forecast/wildfire/progress.py": "df758b3bc6ce3477aa039dc39c6ce034f733f5a93f1924f15cc1e6c98254549b",
+    "forecast/wildfire/report.py": "436546b52c6a8fa761341995cebe74e20f078b40e1fad3ffdbbc65a2416cfceb",
+    "forecast/wildfire/rollout.py": "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe",
+    "forecast/wildfire/rollout_cache.py": "3b9fded7e050b947ff27e0e2742adb7aa530f182c9ee8fe24935f9995816e3c4",
+    "forecast/wildfire/schema.py": "91d498f2c40e5f64138b0fe7a7845b2e4f522d086cdb9c4950ca9ed2c2043605",
+    "forecast/wildfire/search.py": "136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4",
+    "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+    "forecast/wildfire/train.py": "9c8a62150589b7d7785205e160f32e6a0d209dd4c01de27736c38d4244244b0e",
+    "forecast/wildfire/utils.py": "4b1ee9d08a30c1d423c2a70bc6e520dcea3ee01c67de8a6e4ca938cbf9305c92",
+    "research/forecast-v2/RUN_PROTOCOL.json": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+    "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+    "research/forecast-v2/SPLIT.json": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+    "research/forecast-v2/scripts/audit_caches.py": "74f3dc24da611c0a911a4f9455097bca71189c2ebd758cb186b467fef7f162b6",
+    "research/forecast-v2/scripts/audit_farsite.py": "6edb769fbcb9a7977e2689f7de337ed327feabd5dadd9983f3cec3443e04a6db",
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+    "research/forecast-v2/scripts/audit_geometry.py": "8dc3c979064767b27027752d739c8b939635ff7a69028ce5ccdf174e14a221e2",
+    "research/forecast-v2/scripts/audit_global_wind.py": "b7bf8eeb91d43eff02733ba1e979689a7e68fdde91d4359882ad91b5fec61825",
+    "research/forecast-v2/scripts/audit_unsupported_fit_inputs.py": "9d403be0d58fea7ff6df23c2a8a4282bd46863d35f55d779444e6147ac81da0e",
+    "research/forecast-v2/scripts/bind_global_wind_phases.py": "b16fc89675cd80f7243d7c5d34056e56224d83610528578ab7f1901992769118",
+    "research/forecast-v2/scripts/blind_inventory.py": "abffeb0082c2db1ac8d805c077fe9c1ed91964d03797a8c333566a1a729f38c0",
+    "research/forecast-v2/scripts/blind_test.py": "639eaa974fd89a66833d24ec1a6ad3e234d25a155790b952a64e5c4d3bf38af1",
+    "research/forecast-v2/scripts/capture_validation.py": "6c7bad0c176e2096d646116198e5ab3672281557dc3834363b7b22093bd13da3",
+    "research/forecast-v2/scripts/check_nonspotting_compatibility.py": "9426d96f96f26358ae09f81e055df3b76da39fab20323b01de799e1a4f13b9cd",
+    "research/forecast-v2/scripts/extract_supplements.py": "aaf0a5361c01e871ea75bc3df22d247ab176d2f40f9502d98d8316f016d88788",
+    "research/forecast-v2/scripts/freeze_registry.py": "a6373c5d05fc18f745e13586afaaf1bd14f898c847fdc756fdcc41aba4a60040",
+    "research/forecast-v2/scripts/make_fixture.py": "b47c788d6058a8839afa57dde3b2fd789b78b944a99b9a1684ea6bdebae5d6b7",
+    "research/forecast-v2/scripts/make_split.py": "63a554176d9c4370145b752b011ad6a92c42370681d4a99c0f067a1ba6fdac69",
+    "research/forecast-v2/scripts/original_definitions.py": "b16df65e01b08911a5d2e6b401841761a4c9617b7549c1848914486bf5132956",
+    "research/forecast-v2/scripts/package_sources.py": "f7a77e6a3dd9bb32f694d62f874e49dd85224357129614ed6293801b9ddc2dfc",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "research/forecast-v2/scripts/prepare_perimeters.py": "f4d0ba9e620a033f4edb1a9e3bfc2dd44ca2629481e79e7c1a03cca48cf68e22",
+    "research/forecast-v2/scripts/public_baselines.py": "1d9dd27b8d39e4494aeda3bfe95f737b5a513766a2b78ebcb583fc9196a0a876",
+    "research/forecast-v2/scripts/rebuild_environment.py": "e2c5a6cf8d2b65286b67f6a80bcd634390b3069d2b658c650490259bca8d88e9",
+    "research/forecast-v2/scripts/report.py": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+    "research/forecast-v2/scripts/run_campaign.py": "7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+    "research/forecast-v2/scripts/status.py": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d"
+  },
+  "protocol_status": "READY_FOR_OWNER_REGISTRATION",
+  "schema": "wfg.forecast-blind-registry/1",
+  "selected_model": "d4_wind_seed0",
+  "selection": {
+    "path": "research/forecast-v2/MODEL_SELECTION.json",
+    "sha256": "f5e763e7acd7a400d9fcdffec8092651c0cea1df4bcff8df4d05d24a865af73b"
+  },
+  "spotting_source_contract": {
+    "ast_sha256": {
+      "flaming_source": "79bde3695d3177d17a25174931a9b78ccae05bae952acaf59d812d91158df7d4",
+      "propagate_mean_field": "89802bdfc3a74584c99b99de3f923b9dc1e2a28149afb36927c2200dc4621844",
+      "sample_forecast": "d45b39082323eca8918695aaa14946623eb014315bf90b15b8fa39d84537f301"
+    },
+    "evidence": "IMMUTABLE_SOURCE_CONTRACT_CHECKED_NOT_RUNTIME_ATTESTATION",
+    "schema": "wfg.forecast-spotting-source/1",
+    "source_mode": "flaming_only",
+    "source_sha256": {
+      "forecast/wildfire/burnout.py": "6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e",
+      "forecast/wildfire/meanfield.py": "cbcd77d3b533a5e5d9ee2ee755702894dce7aa2f3f3d0250e5e2c45ea23f0885",
+      "forecast/wildfire/survival.py": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+    }
+  },
+  "status": "FROZEN",
+  "unsupported_interval_policy": {
+    "path": "research/forecast-v2/RUN_PROTOCOL_EXTENSION_2.json",
+    "sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb"
+  }
+}

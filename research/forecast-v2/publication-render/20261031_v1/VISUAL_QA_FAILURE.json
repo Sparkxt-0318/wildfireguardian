@@ -1,0 +1,8 @@
+{
+  "status": "FAILED_VISUAL_QA",
+  "reason": "The first sidecar passed RESULTS.label metadata instead of the exact empty display label from the original report CLI, adding REAL INPUTS title text.",
+  "source_sha256": "2b890be77498e7bb0cc95fe0cf88bf0834654bb5589b918c42daad25251d8ced",
+  "numeric_artist_invariants_pass": true,
+  "original_858_and_extra2_unchanged": true,
+  "canonical_outputs_unchanged": true
+}

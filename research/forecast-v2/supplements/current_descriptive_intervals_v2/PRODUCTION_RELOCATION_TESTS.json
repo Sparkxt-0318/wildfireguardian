@@ -1,0 +1,22 @@
+{
+  "actual_study_arrays_or_quality_accessed": false,
+  "command": [
+    "work/venv-forecast/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "research/forecast-v2/supplements/current_descriptive_intervals_v2/tool/test_supplement.py"
+  ],
+  "exit_code": 0,
+  "log_sha256": "ad6d71a2c9957340dc5145573295f368a78fe5b424a7f10c6b2f1652237b0dae",
+  "program_sha256": "c41e607a167edae4058da2d5945c30b3d6e021f79461b17cdabf07c442bca799",
+  "protected_858_unchanged": true,
+  "pytest_summary": "77 passed in 30.76s",
+  "recorded_utc": "2026-10-30T23:35:14.683545+00:00",
+  "schema": "wfg.descriptive-tool-production-relocation-tests/1",
+  "scope": "Invented-data regression after exact production relocation; mocks are explicit in source. Counts remain separate from prior77/core3507 suites. No actual supplement authorization or scientific computation.",
+  "source_payloads_unchanged": true,
+  "test_sha256": "1d1ac4c95f19cff8af17f6ba9571a8e3290931b0bd36c2ec8822bb256c53bdbe"
+}

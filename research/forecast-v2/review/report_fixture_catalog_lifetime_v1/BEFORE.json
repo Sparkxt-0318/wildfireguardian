@@ -1,0 +1,13 @@
+{
+  "files": {
+    "forecast/tests/test_report_readiness.py": {
+      "before_sha256": "5194ace97b756fb25f488ac8b33071e17fc7fac801c3e4a188ee7f33f3761825",
+      "gzip_sha256": "3d7288b6581ef41701ffcf1a9bc7e9181774e20f18b40b6fe43f8ec18f5b5c80"
+    },
+    "forecast/tests/test_report_ablation.py": {
+      "before_sha256": "a1ef2ce297ac7e95ec0b3b9b6be4979211179db5d23b16042ace7f3feba320c6",
+      "gzip_sha256": "f433933ac15b83b3282c9543ff2b786999a934a2b7d5646b4772822914cef914"
+    }
+  },
+  "reason": "Existing readiness fixture catalog registration expires before its second audit after liveF65; original failure reproduced with pre-argv2f."
+}

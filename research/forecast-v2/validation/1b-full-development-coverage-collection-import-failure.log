@@ -1,0 +1,43 @@
+
+==================================== ERRORS ====================================
+___________ ERROR collecting tests/test_development_fit_coverage.py ____________
+ImportError while importing test module '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/tests/test_development_fit_coverage.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+forecast/tests/test_development_fit_coverage.py:9: in <module>
+    from test_blind_forecast_protocol import (freezer, freeze_inputs, fit_coverage_module, fit_coverage_state,
+E   ModuleNotFoundError: No module named 'test_blind_forecast_protocol'
+=============================== warnings summary ===============================
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+../venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:45
+  /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR forecast/tests/test_development_fit_coverage.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+14 warnings, 1 error in 1.90s

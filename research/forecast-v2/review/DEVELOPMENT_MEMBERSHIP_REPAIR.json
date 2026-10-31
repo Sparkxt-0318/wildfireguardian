@@ -1,0 +1,108 @@
+{
+  "actual_study_data_models_fit_or_heldout_outputs_read": false,
+  "api": {
+    "coverage": "audit_coverage(model_root,input_root,cache_root,run_root,cache_audit_path) unchanged",
+    "fit_coverage_new_fields": [
+      "development",
+      "development_cache_files"
+    ],
+    "saved_admission": "Authenticates frozen artifact and current phase identities; does not rerun source audit or access original input/cache roots",
+    "selection_and_registry_required_field": "development_coverage_sha256"
+  },
+  "changes": [
+    "Phase admission checks effective LAST CLI arguments including --name=value and immutable argparse defaults, fixed model policy, balanced/single-sample training, actual train/validation event lists and all three complete history epochs.",
+    "All21 development training and validation memberships are independently derived per event/kind from full source membership, then first3 cache values and exact IDs must match both the authenticated source-recomputed audit and full source prefixes.",
+    "FIT_COVERAGE includes every development input list, cache/value identity, immutable producer/schedule/evaluation contract and honest source-derived epoch evidence.",
+    "MODEL_SELECTION, BLIND_REGISTRY and current assessment identity bind development_coverage_sha256; saved admission checks frozen complete case proofs without opening original training input/cache locations.",
+    "Historical default cap160 is recorded literally as NONBINDING_CAP only when independent membership/counts prove no truncation. New controller commands explicitly pass cap0; model/parser defaults are unchanged.",
+    "Historical mixed unsupported cases remain source-bound through exact event/cutoff/reason multisets and independently classified cached cases. IDs and optimized sets are explicitly inferred, never labelled runtime-recorded.",
+    "Near48h producer/exact eligibility disagreement refuses the entire artifact; no silent case drop, new exclusion or producer arithmetic change.",
+    "Comparison attempts>=5 use validated case_NN_aNN directories and matching controller commands; legacy a04 case0 and receipt are preserved. Fixed12cutoffs/66rows and comparison arithmetic remain unchanged."
+  ],
+  "files": [
+    {
+      "base_sha256": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b",
+      "path": "research/forecast-v2/scripts/audit_fit_coverage.py",
+      "sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4"
+    },
+    {
+      "base_sha256": "2d952bbc58cf261a1910e0bace9a3b5f01ac03ce74543cef9bd9425216cdad38",
+      "path": "research/forecast-v2/scripts/freeze_registry.py",
+      "sha256": "a6373c5d05fc18f745e13586afaaf1bd14f898c847fdc756fdcc41aba4a60040"
+    },
+    {
+      "base_sha256": "6f0ceb4ec4f7b56cebae6f06f108a87531eca67f016b90b575c70e5cde2e848c",
+      "path": "research/forecast-v2/scripts/run_campaign.py",
+      "sha256": "7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d"
+    },
+    {
+      "base_sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a",
+      "path": "research/forecast-v2/scripts/pipeline.py",
+      "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+    },
+    {
+      "base_sha256": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333",
+      "path": "research/forecast-v2/scripts/score_cohorts.py",
+      "sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2"
+    },
+    {
+      "base_sha256": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4",
+      "path": "forecast/tests/test_blind_forecast_protocol.py",
+      "sha256": "cd05ebf8dae9d1a7b125d9be667ee840e77bac0b2ac4ccd8e95c1e25899b1306"
+    },
+    {
+      "base_sha256": "aed9110f6189e1123c6f7df1f907a4399d179b0f71bba3180939a5a6e9e7b09c",
+      "path": "forecast/tests/test_intended_forecast_phases.py",
+      "sha256": "f0fa64dd042e081b3598eccc7a0715ac856ee6aa3a07ec9176acbc04c5a5016c"
+    },
+    {
+      "base_sha256": "a2617ff5dff0f7c5a7c72db7b998be5226a3a53c5f412e2791617ad1462388f1",
+      "path": "forecast/tests/test_report_readiness.py",
+      "sha256": "5efd036d4d0bd7a50b914beebd325cd1147ea5a4063926b365987158437bfc31"
+    },
+    {
+      "base_sha256": null,
+      "path": "forecast/tests/test_development_fit_coverage.py",
+      "sha256": "b05b9d2e02e185c9b621d31b5a3b767412fa8815abecc7142d6f6f3c599ce167"
+    }
+  ],
+  "live_files_or_git_modified": false,
+  "patch": {
+    "path": "DEVELOPMENT_MEMBERSHIP_REPAIR.patch",
+    "sha256": "cb2f3396fc004067c796cb621c5a7f27fa943aa7df32fcfda46a64efafa62d97"
+  },
+  "previous_failure_evidence_preserved": true,
+  "remaining_limits": [
+    "Parent integration and independent review/full regression remain pending.",
+    "Old development epoch IDs and validation IDs were not logged. Complete schedules and resolved unsupported IDs are bounded source-derived inference, not retrospective runtime observations.",
+    "Unsupported support classification retains its finite-softplus underflow caveat and does not claim per-optimizer numerical mask replay.",
+    "No actual campaign coverage/registry readiness or empirical quality claim is established by these synthetic tests. 2026 execution remains NOT_READY with existing external documentary/registration gates."
+  ],
+  "report_py_modified": false,
+  "report_source_sha256": "99f7b4d4f587c8a24fd1edb482bd4c491538318dbd6d258d18df31093536264b",
+  "source_review": {
+    "coverage": "Owned scripts/tests not_tracked or missing; exact source fallback; no graph mutation",
+    "generation": "2026-10-30T02:11:43Z",
+    "independent_source_review": "Read-only dev_recipe_review confirmed truncation/order/defaults/validation loop and exposed the submicrosecond48h source discrepancy.",
+    "project": "wfg-next-1b-20261030",
+    "tier": 2
+  },
+  "status": "SCRATCH_ONLY_TESTED_READY_FOR_PARENT_REVIEW_NOT_INTEGRATED",
+  "tests": {
+    "command": "PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_blind_forecast_protocol.py forecast/tests/test_development_fit_coverage.py forecast/tests/test_intended_forecast_phases.py forecast/tests/test_assessment_admission.py forecast/tests/test_blind_inventory.py forecast/tests/test_report_readiness.py -x -q --disable-warnings",
+    "log": "DEVELOPMENT_TESTS_FINAL.txt",
+    "passed": 356,
+    "seconds": 99.14,
+    "warning_categories": [
+      "324 Matplotlib/Pyparsing dependency deprecations",
+      "10 expected synthetic rasterio georeferencing warnings"
+    ],
+    "warnings": 334
+  },
+  "training_or_forecast_MC_jobs_started": false,
+  "validation": {
+    "compilation": true,
+    "patch_dry_run": true,
+    "whitespace_and_no_em_dash": true
+  }
+}

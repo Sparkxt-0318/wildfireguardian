@@ -1,0 +1,4 @@
+{"epoch": 1, "train_scaled_loss": 0.943644256730901, "seconds": 2.977615041017998, "selected": false}
+{"epoch": 2, "train_scaled_loss": 0.7927821301612615, "seconds": 2.996536249993369, "selected": false}
+{"epoch": 3, "train_scaled_loss": 0.7644866562720077, "seconds": 2.9890693329507485, "selected": true}
+{"variant": "d4_wind", "fold": "2020", "seed": 0, "brier": 0.04187602345641054, "seconds": 9.233454791014083}

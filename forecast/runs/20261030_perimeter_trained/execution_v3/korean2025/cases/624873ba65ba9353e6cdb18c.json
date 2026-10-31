@@ -1,0 +1,41 @@
+{
+  "case": {
+    "event": "KFS_01",
+    "cutoff": "2025-03-24T09:00:00+00:00",
+    "endpoint": "2025-03-24T21:00:00+00:00",
+    "hours": 12.0
+  },
+  "case_id": "624873ba65ba9353e6cdb18c",
+  "assessment_sha256": "e85cffab16011deef7df9aa20ea4b48fb1e680c9f28769d4b3d1dd46b5d78615",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "b7b1a7b26692f0dad48fe9ca9a633fe41dee1919eb84037fafb3c1774383b1e2",
+  "endpoint_sha256": "b30464e5bb3693577d0911678d1dfef8bf001e1adc3bc9839c654faceaae922b",
+  "environmental_snapshot_sha256": "5f84f56eaa02ce10dd95bd60804c019e407f7f9af47e95f01287202afdb824bc",
+  "reference_mask_sha256": "41657bdd218e6bfbd82d5b1d5b81a12ac254103fe07af0611d3c42fff25d067d",
+  "initial_age_sha256": "8f5683525edc127c6508d1abedb2504107f0766a74a7c760c3bb105628ea104c",
+  "residence_sha256": null,
+  "rectangle": [
+    79,
+    237
+  ],
+  "reference_cells": 9905,
+  "weather_hour": "2025-03-24T09:00:00+00:00",
+  "status": "UNAVAILABLE",
+  "reason": "No common supported cells",
+  "scored_cells": 0,
+  "scored_mask_sha256": "e0aab1f4f4e1ccb1f3ec6c6bc1863dffcaf67156643e81fbfa09edd41dd5fe96",
+  "model_seconds": {
+    "c651_mc": 74.35069154202938,
+    "c651_meanfield": 0.596221791987773,
+    "base_seed0": 0.13392754102824256,
+    "d4_seed0": 0.13697645801585168,
+    "d4_wind_seed0": 0.6272580410004593,
+    "ellipse_seed0": 0.14020920800976455,
+    "burnout_seed0": 0.13375308300601318,
+    "burnout_spotting_seed0": 0.7557900000247173,
+    "mixed_base_seed0": 0.13367595797171816,
+    "admission_support_replay": 2.7011949999723583
+  },
+  "seconds": 79.7150181249599,
+  "completed_utc": "2026-10-30T18:08:08.973371+00:00"
+}

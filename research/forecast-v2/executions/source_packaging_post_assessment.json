@@ -1,0 +1,17 @@
+{
+  "changed_protected_files": [],
+  "command": [
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/package_sources.py",
+    "--out",
+    "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/SOURCE_PACKAGING_POST_ASSESSMENT_20261031.json"
+  ],
+  "exit_code": 0,
+  "finished_utc": "2026-10-31T00:05:20.703374+00:00",
+  "log_sha256": "68cee3cfd05fad44114a59ce8b791e170b50164cdef7bfcac28af8a4e0e4fd35",
+  "output_sha256": "2505d92c6c5a164b3b636580454b3bd799620e4c5ce03bca192b866fb525e63c",
+  "schema": "wfg.final-source-packaging-execution/1",
+  "scope": "Historical receipt-bound producer snapshots only; not the full223/654/canonical/sidecar release inventory. No plain snapshot pruning or scientific computation.",
+  "script_sha256": "f7a77e6a3dd9bb32f694d62f874e49dd85224357129614ed6293801b9ddc2dfc",
+  "started_utc": "2026-10-31T00:05:19.809279+00:00"
+}

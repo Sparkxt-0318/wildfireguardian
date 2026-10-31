@@ -1,0 +1,30 @@
+{
+  "admission_receipt_sha256": "40bc38d848e06ecf6db3ea5174d3f08e2e3f6a68056bb79729efbf15af67314b",
+  "checked_utc": "2026-10-30T12:36:04.837117+00:00",
+  "dpi": [
+    299.9994,
+    299.9994
+  ],
+  "files_sha256": {
+    "png": "3889bb6b86ccc7cc9f325fb0c26fb1777b172ebe05e2f851d13ec3aad201f356",
+    "svg": "aca8e23a3e0877d94b14106c1bc71403a87e2669ec0e89b6cbf3f43656d35a82"
+  },
+  "limits": [
+    "Only comparison preview; final5figure QA remains separate",
+    "No model or field replay, no heldout observation"
+  ],
+  "png_pixels": [
+    1050,
+    720
+  ],
+  "report_sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c",
+  "review": [
+    "All five horizon ticks and explicit KR12/24activeunavailable counts shown",
+    "Available cutoff and unique catalog event denominators visible",
+    "Min/max band labelled descriptive, no confidence interval",
+    "Active means probability>.001; physical flame claim excluded",
+    "Title, legends, table and caption visibly insidecanvas"
+  ],
+  "schema": "wfg.comparison-actual-preview-visual/1",
+  "status": "PASS_PREVIEW_ONLY"
+}

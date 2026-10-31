@@ -1,0 +1,23 @@
+{
+  "evidence_class": "MECHANISM_FIXTURE_ONLY_NOT_STUDY",
+  "requirement": "Spotting emitted only by cells in the flaming window",
+  "initial_source_age_hours": 100.0,
+  "residence_hours": 6.0,
+  "learned_smoulder": 0.11920291930437088,
+  "actual_branch_source_weight": 0.11920291930437088,
+  "target": [
+    30,
+    30
+  ],
+  "target_valid": true,
+  "probability_with_spotting": 1.990766577364411e-06,
+  "probability_without_spotting": 0.0,
+  "mismatch": "Old sources retain positive smouldering weight and the same source is passed to the long-range callback.",
+  "source_sha256": {
+    "forecast/wildfire/burnout.py": "01c16f48df94ed521a32b15ce76db2e1b96c17e276a8071ffbfdd9fec6872447",
+    "forecast/wildfire/meanfield.py": "99ce687b07f399bb09fd48e56759df75b9ba765e3ca88ccd74be11b81adadf74",
+    "forecast/wildfire/survival.py": "816f144e3bf2084ba1d05a57093b57c9ace37a1c837833838ec264c7300766d4",
+    "forecast/wildfire/models.py": "791e43beb716ad2edb6c0a18ef5585e14d014ab24ae86954ae91009a2fadbbe1"
+  },
+  "interpretation": "The original four spotting phases implement smouldering-inclusive emitters. This is distinct from the already repaired global-wind support contract. No heldout or fit-quality outcome inspected."
+}

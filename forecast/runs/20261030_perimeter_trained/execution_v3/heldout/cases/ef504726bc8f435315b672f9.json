@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "ID-BOF-000904_Goat",
+    "cutoff": "2024-09-30T04:13:00+00:00",
+    "endpoint": "2024-10-01T04:06:00+00:00",
+    "hours": 23.883333333333333
+  },
+  "case_id": "ef504726bc8f435315b672f9",
+  "assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "306e1967ddd62854c8ed2fc240dcc6834a8c86b04bb5d87f730aa5568b27b337",
+  "endpoint_sha256": "bb5286d06e73781c46da89cbb8503aa8028f7eebbd15c306e26b5087ebcfb458",
+  "environmental_snapshot_sha256": "0052973f4404517074b6c19b63ecf95e6827e623e2c838f0cff437ff4fe5b80a",
+  "reference_mask_sha256": "d20d6e676760888a444e34aa5d29dabee9a18fafeb37372daaf6e049a8ef5371",
+  "initial_age_sha256": "5d301e8f8fc89d2834bcc22247bc0bb91a8f77032f80a88fca1c90358063e13d",
+  "residence_sha256": "b4f822027d42bf437cc25a238030e12fc465978883d188cabfe061d478d55da2",
+  "rectangle": [
+    68,
+    73
+  ],
+  "reference_cells": 4187,
+  "weather_hour": "2024-09-30T04:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "87870574bc6ebff30ed7dedc162b33a75b00eaf79b4ab41c95a86325b7ffbd96",
+  "scored_cells": 4187,
+  "positives": 6,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "d20d6e676760888a444e34aa5d29dabee9a18fafeb37372daaf6e049a8ef5371",
+  "model_seconds": {
+    "c651_mc": 35.77401412499603,
+    "c651_meanfield": 0.030935542017687112,
+    "base_seed0": 0.017657042015343904,
+    "d4_seed0": 0.018137499981094152,
+    "d4_wind_seed0": 0.13765558297745883,
+    "ellipse_seed0": 0.01812691695522517,
+    "burnout_seed0": 0.019808708981145173,
+    "burnout_spotting_seed0": 0.3226052919635549,
+    "mixed_base_seed0": 0.018357791006565094,
+    "admission_support_replay": 0.5913127500098199
+  },
+  "seconds": 36.955667458008975,
+  "completed_utc": "2026-10-30T15:07:34.184714+00:00"
+}

@@ -1,0 +1,41 @@
+{
+  "commit": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+  "sources": {
+    "docs/next/prompts/01B_forecast_upgrades.md": {
+      "sha256": "99434f85fc42cfe556c9592ee872f5e70be29c9a080e06fcbb0a6d24ba0739ce",
+      "lines": 82
+    },
+    "research/forecast-v2/scripts/report.py": {
+      "sha256": "56e7769084481167cc57d2d62510eef37cb4f7657826e9737985b77d9dd7dfc7",
+      "lines": 845
+    },
+    "research/forecast-v2/scripts/score_cohorts.py": {
+      "sha256": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2",
+      "lines": 371
+    },
+    "forecast/documents/preregistration_blind_test.md": {
+      "sha256": "aaae3df67d4297d486ad3f81ab6b32692157d1390d9adf2e41cfc6617866dbe6",
+      "lines": 338
+    },
+    "research/forecast-v2/RUN_PROTOCOL.json": {
+      "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+      "lines": 233
+    },
+    "forecast/wildfire/evaluate.py": {
+      "sha256": "a6a21b4a8fb5cb16b1c61d706825f149c07386e9bd32c8b73bd0090c7b9155c9",
+      "lines": 920
+    },
+    "forecast/wildfire/baselines.py": {
+      "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+      "lines": 242
+    },
+    "research/forecast-v2/scripts/blind_test.py": {
+      "sha256": "639eaa974fd89a66833d24ec1a6ad3e234d25a155790b952a64e5c4d3bf38af1",
+      "lines": 778
+    },
+    "research/forecast-v2/SPLIT.json": {
+      "sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+      "lines": 115
+    }
+  }
+}

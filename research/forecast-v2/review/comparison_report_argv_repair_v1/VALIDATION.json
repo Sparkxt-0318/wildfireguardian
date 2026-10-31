@@ -1,0 +1,36 @@
+{
+  "actual12_command_metadata_match_anchor": true,
+  "actual_comparison_loader_or_inference_run": false,
+  "canonical_command_sha256": "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803",
+  "combined_attempt": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_report_comparison.py forecast/tests/test_report_readiness.py forecast/tests/test_report_ablation.py -p no:cacheprovider -x -q --disable-warnings",
+    "exit_code": 1,
+    "failed": 1,
+    "failed_test": "test_report_readiness.py::test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct[empty]",
+    "output": "TESTS_TARGETED.txt",
+    "outside_owned_files_unchanged": true,
+    "passed_before_stop": 98,
+    "preargv_evidence": "PREARGV_EXISTING_FIXTURE_FAILURE.json",
+    "reason": "Existing readiness fixture exits metadata_patch and removes synthetic source registration before second report.F.audit_coverage with liveF65",
+    "same_failure_with_preserved_preargv_report": true,
+    "seconds": 4.82
+  },
+  "comparison_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_report_comparison.py -p no:cacheprovider -q --disable-warnings",
+    "exit_code": 0,
+    "output": "TESTS_COMPARISON.txt",
+    "passed": 98,
+    "seconds": 3.97,
+    "warnings": 14
+  },
+  "compile_pass": true,
+  "git_mutations": false,
+  "old68pass_does_not_clear_new_argv_gap": true,
+  "only_changed_existing_report_function": "load_comparison",
+  "patch_dry_run_exit_code": 0,
+  "raw_study_model_heldout_access": false,
+  "root_matrix_mechanisms_preserved_and_covered": 22,
+  "scope": "NARROW_HISTORICAL_ARGV_REPAIR",
+  "status": "READY_FOR_ARGV_INDEPENDENT_RECHECK_WITH_EXISTING_COMBINED_FIXTURE_LIMIT",
+  "unchanged_existing_report_functions": 25
+}

@@ -1,0 +1,184 @@
+{
+ "label": "REAL INPUTS",
+ "run": "forecast/runs/20261030_perimeter_trained/execution_v3",
+ "ablation": {
+  "base": {
+   "pooled_brier": 0.04330953431174085,
+   "pooled_clipped_nll": 0.23796123033837976,
+   "mean_fire_brier": 0.04032155882930667,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 3.42879659780453,
+   "parameters": 26018
+  },
+  "burnout": {
+   "pooled_brier": 0.04217644844033498,
+   "pooled_clipped_nll": 0.21903033255159385,
+   "mean_fire_brier": 0.03840165356504733,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 3.9929468028966095,
+   "parameters": 26019,
+   "difference_vs_base": -0.0011330858714058705,
+   "interval_95": [
+    -0.004063470883020074,
+    0.001255998034799095
+   ],
+   "excludes_zero": false,
+   "fires_better_than_base": 14
+  },
+  "burnout_spotting": {
+   "pooled_brier": 0.0421149619242261,
+   "pooled_clipped_nll": 0.21442842738428083,
+   "mean_fire_brier": 0.03837103947155205,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 31.05066668491497,
+   "parameters": 26023,
+   "difference_vs_base": -0.0011945723875147576,
+   "interval_95": [
+    -0.004033172335376753,
+    0.0011759033854286652
+   ],
+   "excludes_zero": false,
+   "fires_better_than_base": 13
+  },
+  "d4": {
+   "pooled_brier": 0.046971022706224955,
+   "pooled_clipped_nll": 0.2145677563963606,
+   "mean_fire_brier": 0.038817947969526444,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 3.680422837466366,
+   "parameters": 26018,
+   "difference_vs_base": 0.0036614883944840982,
+   "interval_95": [
+    -0.008996674582203707,
+    0.01106160156271736
+   ],
+   "excludes_zero": false,
+   "fires_better_than_base": 13
+  },
+  "d4_wind": {
+   "pooled_brier": 0.040814820693112826,
+   "pooled_clipped_nll": 0.20222766537134684,
+   "mean_fire_brier": 0.03749511609882378,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 19.186436503806718,
+   "parameters": 26018,
+   "difference_vs_base": -0.0024947136186280307,
+   "interval_95": [
+    -0.006823203466817394,
+    -0.00017930191066143332
+   ],
+   "excludes_zero": true,
+   "fires_better_than_base": 15
+  },
+  "ellipse": {
+   "pooled_brier": 0.04503705062364119,
+   "pooled_clipped_nll": 0.29792067569533015,
+   "mean_fire_brier": 0.04132757386650639,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 3.6220904060679935,
+   "parameters": 26018,
+   "difference_vs_base": 0.0017275163119003336,
+   "interval_95": [
+    -0.0005335968351072239,
+    0.005099125071160583
+   ],
+   "excludes_zero": false,
+   "fires_better_than_base": 13
+  },
+  "mixed_base": {
+   "pooled_brier": 0.04609567835402744,
+   "pooled_clipped_nll": 0.2462197822041536,
+   "mean_fire_brier": 0.04688687522451277,
+   "fires": 23,
+   "seeds": [
+    0
+   ],
+   "folds": [
+    "2020",
+    "2021",
+    "2022"
+   ],
+   "mean_fit_seconds": 5.574268362555734,
+   "parameters": 26018,
+   "difference_vs_base": 0.0027861440422865848,
+   "interval_95": [
+    0.00028781338354473497,
+    0.008292759696129906
+   ],
+   "excludes_zero": true,
+   "fires_better_than_base": 10
+  }
+ },
+ "primary_candidate_rule": "lowest equal-fire development Brier over the 2020 to 2022 leave-one-year-out folds, with the fixed variant tie order",
+ "final_models": {
+  "base_seed0": {
+   "variant": "base",
+   "seed": 0,
+   "epochs": 3,
+   "checkpoint_sha256": "007720f6bb5cd19e5fc8afc0abc47cb5b0fb320aae7ce3830e261cdb98c31ec8",
+   "parameters": 26018,
+   "fit_seconds": 458.0895840000012
+  },
+  "d4_seed0": {
+   "variant": "d4",
+   "seed": 0,
+   "epochs": 3,
+   "checkpoint_sha256": "969a47025d5d9b322f1413ba0922e29fac9f453474bbe73b9aca6950f476fb74",
+   "parameters": 26018,
+   "fit_seconds": 476.6646789999795
+  }
+ },
+ "primary_candidate": {
+  "variant": "d4_wind",
+  "run": null,
+  "checkpoint_sha256": null
+ }
+}

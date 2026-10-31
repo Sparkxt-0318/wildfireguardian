@@ -1,0 +1,117 @@
+{
+  "artifacts": [
+    {
+      "compressed": false,
+      "original_sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.json",
+      "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_REVIEW_ATTEMPT2.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "cf4d109f7e10b1233bde4d87c589a4af673de84569b58825e17c71f2571664d8",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.log",
+      "sha256": "cf4d109f7e10b1233bde4d87c589a4af673de84569b58825e17c71f2571664d8",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_REVIEW_ATTEMPT2.log"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "8c10417558bb78fe3e5ecba8c1bddf48afcfa6c426adeddaf1a53b5ae1e704f6",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_PROCESS_START.json",
+      "sha256": "8c10417558bb78fe3e5ecba8c1bddf48afcfa6c426adeddaf1a53b5ae1e704f6",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_REVIEW_PROCESS_START.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "b2a882a5167bcc4b4b8b06b9ba87d3bbb7463ba6422cfba382935c0b85f71f5b",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_PROCESS_RESOURCES.json",
+      "sha256": "b2a882a5167bcc4b4b8b06b9ba87d3bbb7463ba6422cfba382935c0b85f71f5b",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_REVIEW_PROCESS_RESOURCES.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "7460c4378d21ec37aab4b48078d9a4065abbce0f57957bde4cedaa24cc7815e4",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/REVIEW_RELEASE_IDENTITY.json",
+      "sha256": "7460c4378d21ec37aab4b48078d9a4065abbce0f57957bde4cedaa24cc7815e4",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/REVIEW_RELEASE_IDENTITY.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "8bdbc67e3e1c8308fc82cb1a8d610404b0a23a685fdf7ee23bd43bcda328010d",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/SELECTED_PRIMARY_INTERVALS.json",
+      "sha256": "8bdbc67e3e1c8308fc82cb1a8d610404b0a23a685fdf7ee23bd43bcda328010d",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/SELECTED_PRIMARY_INTERVALS.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "c73717017a370e8e9005dad5a6a2a6af70dc9171865cb7db1f5e8fcc645eb96e",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_LITERAL_CONTROL_COUNTS.json",
+      "sha256": "c73717017a370e8e9005dad5a6a2a6af70dc9171865cb7db1f5e8fcc645eb96e",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/ACTUAL_LITERAL_CONTROL_COUNTS.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "e3a58d0b24499ae5fd6e5d5f81463a366e2d08c6f730fe3b6a8a5639e0ecbf4e",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/REVIEW_ACTUAL_ATTEMPT2.md",
+      "sha256": "e3a58d0b24499ae5fd6e5d5f81463a366e2d08c6f730fe3b6a8a5639e0ecbf4e",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/REVIEW_ACTUAL_ATTEMPT2.md"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/PREPARATION_MANIFEST.json",
+      "sha256": "f80f9e6177d763969023c47f3c2d91735c2a47517505f10e5651ad65bacb26d6",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/PREPARATION_MANIFEST.json"
+    },
+    {
+      "compressed": true,
+      "original_sha256": "b54acdb80ef8c37aeaf8a75c897a7a4d034d7af075a63743c5c389d708db7813",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/review_actual.py.gz",
+      "sha256": "e8ccf5433996053d48571741885e8718d1b6a7be1bf105edea012ba750f0aa74",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/review_actual.py"
+    },
+    {
+      "compressed": true,
+      "original_sha256": "21a2d02e586f59047a29219e5aa2970163cbd1df0a3c7a9d56f66648d0c9ab84",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/review_math.py.gz",
+      "sha256": "c2fbabdfa54ec1b241c518f3b9d844805a8a9bf4e94bbdc3042468e2d7b3da8a",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/review_math.py"
+    },
+    {
+      "compressed": true,
+      "original_sha256": "f57b1db2386f6afc0d78414b9d7440046b86b4d9c2e12980100ea495e3da0d92",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/run_released_review.py.gz",
+      "sha256": "ab790b4958f6cd2c8c452800b9c55541037ff4f092b47b502a3acdedfabe5192",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/run_released_review.py"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "994b6c171703af3dc8bac7e0c734bd55065bd2b54c3e6a8c79b58462276de2d0",
+      "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/INDEPENDENT_REVIEW_RECEIPT.json",
+      "sha256": "994b6c171703af3dc8bac7e0c734bd55065bd2b54c3e6a8c79b58462276de2d0",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/descriptive-interval-actual-independent-review/INDEPENDENT_REVIEW_RECEIPT.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "26c5a52e0eec8a977b947a87a9cf7391243ddc2aeded58bbb173ed965787d2e4",
+      "path": "research/forecast-v2/review/final_delivery/independent/farsite/ACTUAL_REVIEW.json",
+      "sha256": "26c5a52e0eec8a977b947a87a9cf7391243ddc2aeded58bbb173ed965787d2e4",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/farsite-actual-independent-review/ACTUAL_REVIEW.json"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "945bf3b2e6e31ba98bac5f6f635518898806eec91c1a74e3f14ddfdd35abca80",
+      "path": "research/forecast-v2/review/final_delivery/independent/farsite/REVIEW.md",
+      "sha256": "945bf3b2e6e31ba98bac5f6f635518898806eec91c1a74e3f14ddfdd35abca80",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/farsite-actual-independent-review/REVIEW.md"
+    },
+    {
+      "compressed": false,
+      "original_sha256": "405800b248a115e7a80a163bdd5c0d8cf0d1f7fe9c6b583c7af29c605846727d",
+      "path": "research/forecast-v2/review/final_delivery/independent/publication/INDEPENDENT_QA.json",
+      "sha256": "405800b248a115e7a80a163bdd5c0d8cf0d1f7fe9c6b583c7af29c605846727d",
+      "source": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/PUBLICATION_FIVE_FIGURE_QA_PARENT.json"
+    }
+  ],
+  "scope": "Exact source/review bytes, optionally deterministic gzip; no new numerical review or identity authentication."
+}

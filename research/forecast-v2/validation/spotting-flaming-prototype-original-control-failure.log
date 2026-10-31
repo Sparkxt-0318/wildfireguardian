@@ -1,0 +1,70 @@
+..............FF..                                                       [100%]
+=================================== FAILURES ===================================
+_ test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback[False] _
+
+missing_nonwind = False
+
+    @pytest.mark.parametrize("missing_nonwind", [False, True])
+    def test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback(missing_nonwind):
+        model, sample = fixture(temperature_missing=missing_nonwind, hours=2)
+        old = deepcopy(model)
+        tensors = sample_tensors(sample)
+        fv = torch.isfinite(tensors["environment"])
+        environment = torch.where(fv, tensors["environment"], 0)
+    
+        def prior_callback(source, step):
+            return old.spot_rate(source, environment, boundary="zero")
+        prior_callback.source_radius = 15
+        before = propagate_mean_field(old, tensors["initial"], environment, step_durations(sample.hours),
+            channel_names=old.channel_names, p0_valid=torch.ones_like(tensors["initial"], dtype=torch.bool),
+            feature_valid=fv, boundary="zero", burnout=old.flaming_window(),
+            initial_age_hours=tensors["age"], extra_rate_fn=prior_callback)
+        actual, valid = sample_forecast(model, sample)
+        expected = before.new_burn_probability[-1][0, 0]
+        assert torch.equal(valid, before.valid[-1][0, 0])
+>       assert torch.equal(torch.nan_to_num(actual), torch.nan_to_num(expected))
+E       assert False
+E        +  where False = <built-in method equal of type object at 0x134b68088>(tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>), tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>))
+E        +    where <built-in method equal of type object at 0x134b68088> = torch.equal
+E        +    and   tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>) = <built-in method nan_to_num of type object at 0x134b68088>(tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ...   [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<SelectBackward0>))
+E        +      where <built-in method nan_to_num of type object at 0x134b68088> = torch.nan_to_num
+E        +    and   tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>) = <built-in method nan_to_num of type object at 0x134b68088>(tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ...   [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<SelectBackward0>))
+E        +      where <built-in method nan_to_num of type object at 0x134b68088> = torch.nan_to_num
+
+tests/test_spotting_global_wind.py:80: AssertionError
+_ test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback[True] _
+
+missing_nonwind = True
+
+    @pytest.mark.parametrize("missing_nonwind", [False, True])
+    def test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback(missing_nonwind):
+        model, sample = fixture(temperature_missing=missing_nonwind, hours=2)
+        old = deepcopy(model)
+        tensors = sample_tensors(sample)
+        fv = torch.isfinite(tensors["environment"])
+        environment = torch.where(fv, tensors["environment"], 0)
+    
+        def prior_callback(source, step):
+            return old.spot_rate(source, environment, boundary="zero")
+        prior_callback.source_radius = 15
+        before = propagate_mean_field(old, tensors["initial"], environment, step_durations(sample.hours),
+            channel_names=old.channel_names, p0_valid=torch.ones_like(tensors["initial"], dtype=torch.bool),
+            feature_valid=fv, boundary="zero", burnout=old.flaming_window(),
+            initial_age_hours=tensors["age"], extra_rate_fn=prior_callback)
+        actual, valid = sample_forecast(model, sample)
+        expected = before.new_burn_probability[-1][0, 0]
+        assert torch.equal(valid, before.valid[-1][0, 0])
+>       assert torch.equal(torch.nan_to_num(actual), torch.nan_to_num(expected))
+E       assert False
+E        +  where False = <built-in method equal of type object at 0x134b68088>(tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>), tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>))
+E        +    where <built-in method equal of type object at 0x134b68088> = torch.equal
+E        +    and   tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>) = <built-in method nan_to_num of type object at 0x134b68088>(tensor([[       nan,        nan,        nan,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [       nan, ...   [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<SelectBackward0>))
+E        +      where <built-in method nan_to_num of type object at 0x134b68088> = torch.nan_to_num
+E        +    and   tensor([[0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [0.0000e+00, ... [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<NanToNumBackward0>) = <built-in method nan_to_num of type object at 0x134b68088>(tensor([[       nan,        nan,        nan,  ..., 0.0000e+00, 0.0000e+00,\n         0.0000e+00],\n        [       nan, ...   [0.0000e+00, 0.0000e+00, 0.0000e+00,  ..., 1.5584e-18, 1.1342e-18,\n         8.1251e-19]], grad_fn=<SelectBackward0>))
+E        +      where <built-in method nan_to_num of type object at 0x134b68088> = torch.nan_to_num
+
+tests/test_spotting_global_wind.py:80: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_spotting_global_wind.py::test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback[False]
+FAILED tests/test_spotting_global_wind.py::test_known_wind_forward_and_parameter_gradients_are_bit_identical_to_prior_callback[True]
+2 failed, 16 passed in 1.26s

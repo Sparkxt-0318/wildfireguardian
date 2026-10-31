@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "ID-SCF-240202_RedRock",
+    "cutoff": "2024-09-22T03:41:00+00:00",
+    "endpoint": "2024-09-23T05:32:00+00:00",
+    "hours": 25.85
+  },
+  "case_id": "30a19dbfba8056b03e3e7844",
+  "assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "0f48eea7a491bdda85965e8514eb2ba725646143a049a6e4d70495a51a73ef84",
+  "endpoint_sha256": "64c4ebbd8bcce1bc717f1a20343600d00b497b2a28aed09dba396837aa590947",
+  "environmental_snapshot_sha256": "4b98812ef1237ba0f0c5071cfde0a7362f26739cc70e7b793b9c54dfd8053844",
+  "reference_mask_sha256": "f9ffbaa3fcd6cf6786deecd5c61ec18b03e5c4346ad0b50a568b59a2b1b48379",
+  "initial_age_sha256": "42f0e5b7b4d3a42a24602826a78a5ea15206a8170ec1e29387743bd748628901",
+  "residence_sha256": "02ffd360df502e7f37fdfa4a46d694d6a6d6f4cbb511e27b4e2bbabc907b68ca",
+  "rectangle": [
+    62,
+    126
+  ],
+  "reference_cells": 7539,
+  "weather_hour": "2024-09-22T03:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "d652fc42bd6d660efdf7be36631845da4bb784d883ed4b623b85400047504f8a",
+  "scored_cells": 7539,
+  "positives": 3,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "f9ffbaa3fcd6cf6786deecd5c61ec18b03e5c4346ad0b50a568b59a2b1b48379",
+  "model_seconds": {
+    "c651_mc": 59.92437587497989,
+    "c651_meanfield": 0.05044675001408905,
+    "base_seed0": 0.0316154999891296,
+    "d4_seed0": 0.030029250017832965,
+    "d4_wind_seed0": 0.21673670801101252,
+    "ellipse_seed0": 0.03097745805280283,
+    "burnout_seed0": 0.03484525001840666,
+    "burnout_spotting_seed0": 0.5646573340054601,
+    "mixed_base_seed0": 0.03115916601382196,
+    "admission_support_replay": 0.9931645839824341
+  },
+  "seconds": 61.9179172909935,
+  "completed_utc": "2026-10-30T16:22:24.421205+00:00"
+}

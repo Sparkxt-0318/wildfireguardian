@@ -1,0 +1,72 @@
+{
+  "application_prerequisites": [
+    "All twelve a06 comparison jobs, 66-row aggregate, successful aggregate receipt and controller exit must close before any active61 source mutation.",
+    "Apply the exact reviewed patch and verify its three file hashes.",
+    "Run a distinct current-source complete regression, release/default/source gate.",
+    "Run the actual canonical live auditor to FIT_COVERAGE.json; never copy the provisional raw diagnostic.",
+    "Independently verify actual live coverage before model selection and registry freeze.",
+    "Freeze model selection, final protocol and registry in an acyclic dependency order, commit, and obtain parent verification before any current heldout inference."
+  ],
+  "conditional_compatibility": {
+    "changed_paths": 9,
+    "exact_profiles": 6,
+    "limits": [
+      "No universal function equivalence.",
+      "No retrospective runtime-ID claim.",
+      "No repair of actual budget or membership violations."
+    ],
+    "original_source_identities": 81,
+    "phase_bindings": 28,
+    "required": [
+      "Recompute exact whole pipeline bytes and every complete profile dependency from original snapshots.",
+      "Unknown source, loader, global, copied helper, decorator or definition-time reassignment refuses.",
+      "Known old kriged UTC recipe only permitted on an immutable mixed=False phase; mixed old UTC refuses.",
+      "Historical load_or_build and Environment cache differences require current source/cache values, schema, dtype, channel names, ordering and full membership authentication.",
+      "Exact intended timestamps and producer-consumed metadata must agree on actual eligible membership; any difference refuses the complete artifact.",
+      "Keep historical nonbinding 160 cap, effective arguments, RNG history and inferred versus actual runtime IDs explicit."
+    ]
+  },
+  "extension": 12,
+  "independent_source_review": {
+    "controls_passed": 99,
+    "report_sha256": "819c0abc3ce257b1516d271124f70b8e146f4c9c008cbff22301ac4965c4c3f5",
+    "scope": "Source and synthetic admission guards; no actual study arrays, checkpoints or outcomes read."
+  },
+  "original_auditor_sha256": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+  "original_failed_gate": {
+    "receipt": "research/forecast-v2/executions/final_fit_coverage_audit.json",
+    "sha256": "ce7727c10e68cce536dbb0f1a56b68add941a46fab8c244f12ddf23e527d5633",
+    "status": "HOLD_SOURCE_RECIPE_ADMISSION"
+  },
+  "provisional": {
+    "all_61_active_sources_unchanged": true,
+    "exposed_record": "research/forecast-v2/review/provisional_coverage_F65/COVERAGE_PROVISIONAL.json",
+    "exposed_sha256": "12ed2aae675e78a355312c24d56fd2183b313c0238c3de8a2723964e71c3bbd6",
+    "old_main_refusal_scope": "EXPOSED_WRAPPER_ONLY_RAW_NON_ADMISSION_NOT_TESTED",
+    "raw_diagnostic_only": true,
+    "raw_status": "PASS_COMPLETE_FIT_MEMBERSHIP",
+    "receipt_sha256": "6df0eaf4f3daf6e67c3cbe3c0cf7e5cd85f5498d1bf7e26fa19f66ceccedf8e7",
+    "status": "PROVISIONAL_NOT_FOR_REGISTRY"
+  },
+  "reason": "Historical fit producers predate added custody checks; exact whole-source compatibility is conditional on independently authenticated actual inputs.",
+  "recorded_utc": "2026-10-30T12:07:00.028658+00:00",
+  "rejected_candidate": {
+    "failures": [
+      "Consumed pure else branch dropped",
+      "Changed load_or_build not bound",
+      "MARGIN global not bound",
+      "Copied cropped helper not bound",
+      "Definition-time reassignment not bound"
+    ],
+    "independent_checks": 53,
+    "passed": 48,
+    "sha256": "c9d7335b1ba690263f01a0b758dcc029a967442c0e9eabc58673ab7c639698ef"
+  },
+  "reviewed_candidate_sha256": "65a7917868b70e00881722bda8ab2af71688fe78bf88128fad0376537f1d6536",
+  "reviewed_manifest_sha256": "9113c63b83d196a4875ea137ecbe89afff75ba3e44a8c6252af55d4b4f5db31a",
+  "reviewed_patch_sha256": "5c640e3e3710d6fac8324f46cc22950ebdf7f28a89afd31ba23f304d0dde977d",
+  "schema": "wfg.forecast-run-protocol-extension/1",
+  "scientific_policy": "All original split, seven intended variants, full interval and three-epoch budgets, unsupported-input policy, model selection, populations, horizons and estimands remain fixed.",
+  "scope": "SOURCE_AND_ADMISSION_ONLY_NO_MODEL_DATA_SPLIT_OR_OPTIMIZER_CHANGE",
+  "status_at_recording": "LIVE_HOLD_NO_SELECTION_REGISTRY_OR_HELDOUT_INFERENCE"
+}

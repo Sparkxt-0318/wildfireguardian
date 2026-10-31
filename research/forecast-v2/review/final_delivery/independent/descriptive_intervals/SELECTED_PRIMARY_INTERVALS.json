@@ -1,0 +1,242 @@
+{
+  "status": "EXTRACTED_ONLY_AFTER_INDEPENDENT_REPLAY_PASS",
+  "primary_model": "d4_wind_seed0",
+  "cohort": "US2024 mapped extent",
+  "cases": 273,
+  "fires": 6,
+  "entries": 1705079,
+  "sidecar_sha256": "060cb9db4ab4918dde57adbff478ae68437de91b0b0efdc0e7cb75ad32e25e5c",
+  "canonical_sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+  "independent_review_sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158",
+  "absolute_diagnostic_intervals": {
+    "pooled_average_precision": {
+      "conditional_on_defined_draws_interval": [
+        0.03740655209904461,
+        0.07898795971252386
+      ],
+      "conditional_scope": "conditional on a draw containing positive labels",
+      "defined_draws": 10000,
+      "draws": 10000,
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.03740655209904461,
+        0.07898795971252386
+      ],
+      "point": 0.054254621174332156,
+      "quantile_method": "linear",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    },
+    "pooled_clipped_nll": {
+      "conditional_on_defined_draws_interval": [
+        0.018866445444774373,
+        0.053473443822568224
+      ],
+      "conditional_scope": "all validated nonempty draws",
+      "defined_draws": 10000,
+      "draws": 10000,
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.018866445444774373,
+        0.053473443822568224
+      ],
+      "point": 0.03864694143336141,
+      "quantile_method": "linear",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    },
+    "pooled_ece_10_bins": {
+      "conditional_on_defined_draws_interval": [
+        0.002074335583022622,
+        0.005726993222904612
+      ],
+      "conditional_scope": "all validated nonempty draws",
+      "defined_draws": 10000,
+      "draws": 10000,
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.002074335583022622,
+        0.005726993222904612
+      ],
+      "point": 0.004130551613932672,
+      "quantile_method": "linear",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    },
+    "pooled_raw_brier": {
+      "conditional_on_defined_draws_interval": [
+        0.002923498278487964,
+        0.00652826790054091
+      ],
+      "conditional_scope": "all validated nonempty draws",
+      "defined_draws": 10000,
+      "draws": 10000,
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.002923498278487964,
+        0.00652826790054091
+      ],
+      "point": 0.004926886222562958,
+      "quantile_method": "linear",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    },
+    "pooled_roc_auc": {
+      "conditional_on_defined_draws_interval": [
+        0.8910306640939574,
+        0.951370779031149
+      ],
+      "conditional_scope": "conditional on a draw containing both classes",
+      "defined_draws": 10000,
+      "draws": 10000,
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.8910306640939574,
+        0.951370779031149
+      ],
+      "point": 0.9088189203334348,
+      "quantile_method": "linear",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    }
+  },
+  "canonical_bss": {
+    "bss_vs_persistence": {
+      "point": 0.013998798887156716,
+      "interval": [
+        -0.006717251330587093,
+        0.02508271039906529
+      ],
+      "draws": 10000,
+      "seed": 20261030,
+      "undefined_zero_reference_draws": 0,
+      "unit": "whole fire, pooled error ratio"
+    },
+    "bss_vs_best_dilation": {
+      "point": 0.9616455801127639,
+      "interval": [
+        0.9533396126392208,
+        0.9734959122800352
+      ],
+      "draws": 10000,
+      "seed": 20261030,
+      "undefined_zero_reference_draws": 0,
+      "unit": "whole fire, pooled error ratio"
+    }
+  },
+  "canonical_paired_brier": {
+    "persistence": {
+      "point_difference": -6.99497011684351e-05,
+      "percentile_95_interval": [
+        -0.00013765717212080875,
+        2.286641855042422e-05
+      ],
+      "excludes_zero": false,
+      "fires": 6,
+      "draws": 10000,
+      "seed": 20261030,
+      "per_fire_difference": {
+        "ID-BOF-000683_Wapiti_Wapiti": -0.00017334613328843718,
+        "ID-BOF-000904_Goat": -0.00014084170926710653,
+        "ID-BOF-001080_Lava": 0.00011526531517782621,
+        "ID-SCF-240202_RedRock": -5.887392872170428e-05,
+        "WA-SES-000173_Pioneer": -3.107495567578652e-05,
+        "WY-BTF-002416_FishCreek": -5.29315076035398e-05
+      },
+      "fires_favouring_candidate": 5,
+      "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+    },
+    "dilation_best": {
+      "point_difference": -0.12352991841816045,
+      "percentile_95_interval": [
+        -0.1413969882639574,
+        -0.1028528879667872
+      ],
+      "excludes_zero": true,
+      "fires": 6,
+      "draws": 10000,
+      "seed": 20261030,
+      "per_fire_difference": {
+        "ID-BOF-000683_Wapiti_Wapiti": -0.13570087886312587,
+        "ID-BOF-000904_Goat": -0.08286893263167747,
+        "ID-BOF-001080_Lava": -0.11046623350480128,
+        "ID-SCF-240202_RedRock": -0.09743236380932845,
+        "WA-SES-000173_Pioneer": -0.13909711648707132,
+        "WY-BTF-002416_FishCreek": -0.16124601834336982
+      },
+      "fires_favouring_candidate": 6,
+      "definition": "candidate Brier minus reference Brier; negative favours the candidate; whole fires resampled"
+    }
+  },
+  "paired_ap": {
+    "persistence": {
+      "candidate": "d4_wind_seed0",
+      "conditional_on_defined_draws_interval": [
+        0.03323194029030403,
+        0.07309471965869567
+      ],
+      "conditional_scope": "conditional on a draw containing positive labels",
+      "defined_draws": 10000,
+      "descriptive_secondary_only": true,
+      "draws": 10000,
+      "estimand": "pooled AP(candidate) minus pooled AP(reference)",
+      "favourable_direction": "positive",
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.03323194029030403,
+        0.07309471965869567
+      ],
+      "point": 0.04925778525060076,
+      "quantile_method": "linear",
+      "reference": "persistence",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    },
+    "dilation_best": {
+      "candidate": "d4_wind_seed0",
+      "conditional_on_defined_draws_interval": [
+        0.01968832455869934,
+        0.05390802679341211
+      ],
+      "conditional_scope": "conditional on a draw containing positive labels",
+      "defined_draws": 10000,
+      "descriptive_secondary_only": true,
+      "draws": 10000,
+      "estimand": "pooled AP(candidate) minus pooled AP(reference)",
+      "favourable_direction": "positive",
+      "interval_unit": "whole fire, pooled canonical cell-interval entries",
+      "percentile_95_interval": [
+        0.01968832455869934,
+        0.05390802679341211
+      ],
+      "point": 0.03248625125355304,
+      "quantile_method": "linear",
+      "reference": "dilation_best",
+      "seed": 20261030,
+      "status": "AVAILABLE_FULL_95_INTERVAL",
+      "undefined_no_negative_draws": 0,
+      "undefined_no_positive_draws": 0,
+      "undefined_union_draws": 0
+    }
+  },
+  "canonical_primary_criteria_pass": false,
+  "promotion_criteria_pass": false
+}

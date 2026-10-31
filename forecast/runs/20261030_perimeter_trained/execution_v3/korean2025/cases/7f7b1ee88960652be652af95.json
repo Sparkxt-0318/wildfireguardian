@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "KFS_04",
+    "cutoff": "2025-03-27T23:00:00+00:00",
+    "endpoint": "2025-03-28T11:00:00+00:00",
+    "hours": 12.0
+  },
+  "case_id": "7f7b1ee88960652be652af95",
+  "assessment_sha256": "e85cffab16011deef7df9aa20ea4b48fb1e680c9f28769d4b3d1dd46b5d78615",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "35cccfbb0ca8c65789e2fa1b6aaf8596765ba397d3c7069aefe9d4f830a81353",
+  "endpoint_sha256": "f70702f201c3fc0549ef1c5c520e53f24385b83db254b9fb2fb91b4a4d080b39",
+  "environmental_snapshot_sha256": "f2a9e670d50009f39135fb84022fe5cfd8689c74e4761cce5ddad4835e4655b2",
+  "reference_mask_sha256": "981f86ce9ee892f96e7ee67750209a84bae2ce3539f8fe4350f824515096916b",
+  "initial_age_sha256": "1bbc8c7f94f94249588d107cf14002e1ea9658c3178e4643494b93d5a0505340",
+  "residence_sha256": null,
+  "rectangle": [
+    29,
+    27
+  ],
+  "reference_cells": 13,
+  "weather_hour": "2025-03-27T23:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "3fc4b0342d55f7867e08ab25a5c15be424255eba3e969e345a97609cbcb366c3",
+  "scored_cells": 13,
+  "positives": 6,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "981f86ce9ee892f96e7ee67750209a84bae2ce3539f8fe4350f824515096916b",
+  "model_seconds": {
+    "c651_mc": 3.3071730409865268,
+    "c651_meanfield": 0.006353250006213784,
+    "base_seed0": 0.00267858401639387,
+    "d4_seed0": 0.003809416957665235,
+    "d4_wind_seed0": 0.0247038749512285,
+    "ellipse_seed0": 0.0031186669948510826,
+    "burnout_seed0": 0.002866291964892298,
+    "burnout_spotting_seed0": 0.02316229196731001,
+    "mixed_base_seed0": 0.0031183749670162797,
+    "admission_support_replay": 0.07630579202668741
+  },
+  "seconds": 3.4559522500494495,
+  "completed_utc": "2026-10-30T18:14:15.456767+00:00"
+}

@@ -1,0 +1,110 @@
+"""Synthetic admission failures must be refused before study results exist."""
+import importlib.util
+from pathlib import Path
+from types import SimpleNamespace
+import sys
+import numpy as np
+import pytest
+import torch
+
+
+@pytest.fixture
+def assessment():
+    path = Path(__file__).resolve().parents[2] / "research/forecast-v2/scripts/score_cohorts.py"
+    spec = importlib.util.spec_from_file_location("assessment_admission_fixture", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.fixture
+def case(assessment, tmp_path):
+    sample = SimpleNamespace(initial=np.array([[True, False], [False, False]]),
+        endpoint=np.array([[True, True], [False, True]]), score_mask=np.array([[False, True], [True, True]]),
+        environment=np.zeros((2, 2, 2), dtype=np.float32), t1="2024-01-01T00:00:00Z",
+        initial_age_hours=np.zeros((2, 2)), residence_hours=None)
+    mask = sample.score_mask.copy()
+    arrays = dict(row=np.nonzero(mask)[0], col=np.nonzero(mask)[1], y=sample.endpoint[mask].astype(np.int8),
+                  **{"p_" + n: np.full(3, .5) for n in assessment.EXPECTED_MODELS})
+    path = tmp_path / "case.npz"
+    np.savez(path, **arrays)
+    record = dict(receipt_version="wfg.forecast-assessment-case/2", **assessment.source_identity(sample),
+        sha256=assessment.sha(path), scored_mask_sha256=assessment.array_sha(mask), scored_cells=3, positives=2)
+    return sample, mask, arrays, path, record
+
+
+def test_complete_current_reference_and_modelset_are_admitted(assessment, case):
+    sample, mask, _, path, record = case
+    assessment.validate_entries(path, record, sample, mask)
+
+
+@pytest.mark.parametrize("field", ["initial_sha256", "endpoint_sha256", "environmental_snapshot_sha256",
+                                    "reference_mask_sha256", "initial_age_sha256", "rectangle"])
+def test_resigned_receipt_cannot_change_the_source_binding(assessment, case, field):
+    sample, mask, _, path, record = case
+    record[field] = "deliberately false source identity"
+    with pytest.raises(ValueError, match="current verified source"):
+        assessment.validate_entries(path, record, sample, mask)
+
+
+@pytest.mark.parametrize("mutation", ["fractional", "outside", "reordered", "subset", "wrong_y", "missing_model", "extra_model", "bad_probability"])
+def test_resigned_prediction_bytes_cannot_change_reference_or_model_population(assessment, case, mutation):
+    sample, mask, arrays, path, record = case
+    if mutation == "fractional": arrays["row"] = arrays["row"].astype(float) + .25
+    if mutation == "outside": arrays["col"][0] = 9999
+    if mutation == "reordered": arrays = {k: v[::-1] for k, v in arrays.items()}
+    if mutation == "subset": arrays = {k: v[:2] for k, v in arrays.items()}
+    if mutation == "wrong_y": arrays["y"][0] = 0
+    if mutation == "missing_model": arrays.pop("p_c651_mc")
+    if mutation == "extra_model": arrays["p_unregistered"] = np.zeros(3)
+    if mutation == "bad_probability": arrays["p_c651_mc"][0] = np.nan
+    np.savez(path, **arrays)
+    record["sha256"] = assessment.sha(path)
+    with pytest.raises(ValueError): assessment.validate_entries(path, record, sample, mask)
+
+
+def test_partial_mask_cannot_be_admitted_when_full_support_is_available(assessment, case):
+    sample, mask, _, path, record = case
+    record["scored_mask_sha256"] = assessment.array_sha(np.zeros_like(mask))
+    with pytest.raises(ValueError, match="common-support mask"):
+        assessment.validate_entries(path, record, sample, mask)
+
+
+@pytest.mark.parametrize("fault", ["mc_nan", "mc_support", "meanfield_nan", "logistic_nan", "valid"])
+def test_fresh_numerical_failure_cannot_redefine_source_support(assessment, case, monkeypatch, fault):
+    sample, _, _, _, _ = case
+    sample.event_id, sample.hours = "fixture", 12.
+    env = SimpleNamespace(names=("fixture",), terrain_gradient=lambda event: (np.zeros((2, 2)), np.zeros((2, 2))))
+    c651 = SimpleNamespace(predictor=object())
+    models = {v + "_seed0": object() for v in assessment.VARIANT_SET}
+    p_mc, v_mc = np.full((2, 2), .2), np.ones((2, 2), bool)
+    if fault == "mc_nan": p_mc[0, 1] = np.nan
+    if fault == "mc_support": v_mc[0, 1] = False
+    p_mf = torch.full((2, 2), .2)
+    if fault == "meanfield_nan": p_mf[0, 1] = torch.nan
+    p_logistic = np.full((2, 2), .2)
+    if fault == "logistic_nan": p_logistic[0, 1] = np.nan
+    monkeypatch.setattr(assessment.P, "c651_monte_carlo", lambda *args: (p_mc, v_mc))
+    monkeypatch.setattr(assessment, "sample_forecast", lambda *args, **kwargs: (p_mf, torch.ones((2, 2), dtype=torch.bool)))
+    monkeypatch.setattr(assessment.P, "logistic_predict", lambda *args: p_logistic)
+    monkeypatch.setattr(assessment.P, "logistic_features", lambda *args: np.zeros((4, 1)))
+    if fault == "valid":
+        _, mask, _ = assessment.predict_case(sample, env, c651, models, None, 4)
+        assert np.array_equal(mask, sample.score_mask)
+    else:
+        with pytest.raises(ValueError, match="numerical failure|support differs"):
+            assessment.predict_case(sample, env, c651, models, None, 4)
+
+
+def test_old_selection_without_saved_registry_fails_before_model_or_input_loading(assessment, tmp_path, monkeypatch):
+    import json
+    root = tmp_path / "no-registry-model-root"
+    evidence = root / "research/forecast-v2"
+    evidence.mkdir(parents=True)
+    (evidence / "MODEL_SELECTION.json").write_text(json.dumps(dict(frozen_before_heldout_scoring=True,
+        checkpoints={v: {} for v in assessment.VARIANT_SET})))
+    monkeypatch.setattr(assessment, "REPO", root)
+    monkeypatch.setattr(assessment, "load_model", lambda *args, **kwargs: pytest.fail("registry admission must precede model loading"))
+    with pytest.raises(ValueError, match="existing files"):
+        assessment.identities(SimpleNamespace(run=root / "run", registry=evidence / "BLIND_REGISTRY.json"))

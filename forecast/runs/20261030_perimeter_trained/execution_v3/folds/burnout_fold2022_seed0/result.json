@@ -1,0 +1,149 @@
+{
+ "variant": "burnout",
+ "spec": {
+  "prior": "free",
+  "frame": "none",
+  "d4": false,
+  "residence_hours": 6.0
+ },
+ "fold": "2022",
+ "seed": 0,
+ "hidden": 16,
+ "train_events": [
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "UT-ASF-100340_EastFork",
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-SHF-001187_Monument",
+  "CA-SRF-000651_McCash",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "validation_events": [
+  "ID-SCF-022105_Moose",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-WIF-220180_CedarCreek"
+ ],
+ "train_samples": 60,
+ "validation_samples": 9,
+ "validation": {
+  "brier": 0.030934977538024717,
+  "clipped_nll": 0.10718418079503131,
+  "weight": 10851.0
+ },
+ "validation_per_fire": {
+  "ID-SCF-022105_Moose": {
+   "brier": 0.04285820979501917,
+   "clipped_nll": 0.14097728839268156,
+   "weight": 5721.0
+  },
+  "NM-SNF-000027_HermitsPeak": {
+   "brier": 0.013656950429649838,
+   "clipped_nll": 0.06446020192113416,
+   "weight": 2755.0
+  },
+  "OR-WIF-220180_CedarCreek": {
+   "brier": 0.022256305092259458,
+   "clipped_nll": 0.07534173583984374,
+   "weight": 2375.0
+  }
+ },
+ "fit": {
+  "history": [
+   {
+    "epoch": 1,
+    "train_scaled_loss": 0.9183949633811911,
+    "seconds": 1.867718249966856,
+    "selected": false,
+    "optimizer_steps": 60,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 2,
+    "train_scaled_loss": 0.9006358768480519,
+    "seconds": 1.857150957977865,
+    "selected": false,
+    "optimizer_steps": 60,
+    "skipped_unsupported_intervals": []
+   },
+   {
+    "epoch": 3,
+    "train_scaled_loss": 0.8588347990376254,
+    "seconds": 1.912412709032651,
+    "selected": true,
+    "optimizer_steps": 60,
+    "skipped_unsupported_intervals": []
+   }
+  ],
+  "best_validation_brier": null,
+  "train_prevalence": 0.049284196816517384
+ },
+ "fit_seconds": 5.910142458975315,
+ "parameters": 26019,
+ "configuration": {
+  "architecture": "StructuredKernelModel",
+  "in_channels": 19,
+  "kernel_size": 9,
+  "hidden_channels": 16,
+  "dropout": 0.0,
+  "channel_names": [
+   "weather.temperature_2m",
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m",
+   "terrain.slope_degrees",
+   "vegetation.tree_cover_percent",
+   "biome.biome_class=1",
+   "biome.biome_class=2",
+   "biome.biome_class=3",
+   "biome.biome_class=4",
+   "biome.biome_class=5",
+   "biome.biome_class=6",
+   "biome.biome_class=7",
+   "biome.biome_class=8",
+   "biome.biome_class=9",
+   "biome.biome_class=10",
+   "biome.biome_class=11",
+   "biome.biome_class=12",
+   "biome.biome_class=13",
+   "biome.biome_class=14"
+  ],
+  "wind_channels": [
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m"
+  ],
+  "prior": "free",
+  "frame": "none",
+  "residence_hours": 6.0,
+  "spotting_radius": 0,
+  "wind_adjustment_factor": 0.4
+ },
+ "smoulder": 0.12742313742637634,
+ "host": {
+  "python": "3.12.1",
+  "torch": "2.5.1",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "cpu_count": 15,
+  "torch_threads": 2,
+  "load_average_1_5_15": [
+   2.99169921875,
+   2.494140625,
+   2.58251953125
+  ],
+  "note": "Current execution host; heavy numerical runs share an exclusive advisory lock. Timings are host-specific"
+ },
+ "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+ "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

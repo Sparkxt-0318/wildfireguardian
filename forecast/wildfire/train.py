@@ -540,6 +540,73 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--threads", type=int, default=4)
     result.add_argument("--device", default="cpu")
     add_categorical_balance_arguments(result)
+    _add_perimeter_arguments(result)
+    return result
+
+
+# Additive track 1B options. With the default --objective next_hour they are
+# removed from the namespace before train() runs, so the original code path,
+# its saved configuration and its outputs are unchanged.
+PERIMETER_OPTIONS = ("objective", "structured_prior", "structured_frame", "d4_augmentation",
+                     "residence_hours", "spotting_radius")
+
+
+def _add_perimeter_arguments(result: argparse.ArgumentParser) -> None:
+    group = result.add_argument_group("interval-censored perimeter training (track 1B, opt-in)")
+    group.add_argument("--objective", choices=("next_hour", "perimeter_survival"), default="next_hour",
+                       help="next_hour (default) runs the released cache trainer; perimeter_survival fits a "
+                            "StructuredKernelModel through the mean field on pickled PerimeterSample lists "
+                            "DATA_DIR/train_samples.pkl and DATA_DIR/validation_samples.pkl")
+    group.add_argument("--structured-prior", choices=("free", "ellipse"), default="free")
+    group.add_argument("--structured-frame", choices=("none", "d4", "wind"), default="none")
+    group.add_argument("--d4-augmentation", action="store_true")
+    group.add_argument("--residence-hours", type=float, default=None)
+    group.add_argument("--spotting-radius", type=int, default=0)
+
+
+def _strip_perimeter_options(args: argparse.Namespace) -> argparse.Namespace:
+    values = {key: value for key, value in vars(args).items() if key not in PERIMETER_OPTIONS}
+    return argparse.Namespace(**values)
+
+
+def train_perimeter(args: argparse.Namespace) -> dict[str, Any]:
+    """Fit a structured kernel on perimeter intervals through the mean field."""
+    import pickle
+    from wildfire.models import StructuredKernelModel
+    from wildfire.survival import fit_mean_field, fit_normalization, biome_balance_factors
+    if args.device != "cpu":
+        raise ValueError("The experimental perimeter trainer currently supports --device cpu only")
+    settings = categorical_balance_settings(args)
+    directory, output = args.data_dir.resolve(), args.output_dir.resolve()
+    if output.exists() and (not output.is_dir() or any(output.iterdir())):
+        raise FileExistsError("The output directory must be new or empty; existing results are never overwritten")
+    training = pickle.loads((directory / "train_samples.pkl").read_bytes())
+    validation = pickle.loads((directory / "validation_samples.pkl").read_bytes())
+    names = json.loads((directory / "channels.json").read_text())
+    torch.set_num_threads(args.threads)
+    torch.manual_seed(args.seed)
+    mean, std = fit_normalization(training, names)
+    model = StructuredKernelModel(len(names), 9, args.hidden_channels, 0.0, channel_names=names, mean=mean,
+                                  std=std, prior=args.structured_prior, frame=args.structured_frame,
+                                  residence_hours=args.residence_hours, spotting_radius=args.spotting_radius)
+    model.initialize_rate(0.05)
+    biome_channels = {int(name.rsplit("=", 1)[1]): index for index, name in enumerate(names)
+                      if name.startswith("biome.biome_class=")}
+    counts = {code: sum(float(np.sum(sample.label_weight[sample.score_mask]
+                                   * (sample.environment[index][sample.score_mask] == 1)))
+                        for sample in training) for code, index in biome_channels.items()}
+    balance = (biome_balance_factors(counts, min_frequency=settings["min_frequency"], max_factor=settings["max_factor"])
+               if settings["mode"] != "none" else {})
+    result = fit_mean_field(model, training, validation, epochs=args.epochs, learning_rate=args.learning_rate,
+                            weight_decay=args.weight_decay, seed=args.seed, patience=args.patience,
+                            d4=args.d4_augmentation, balance=balance, biome_channels=biome_channels)
+    output.mkdir(parents=True, exist_ok=True)
+    torch.save({"configuration": model.configuration(), "state_dict": model.state_dict(),
+                "arguments": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}},
+               output / "checkpoint.pt")
+    write_json(output / "history.json", result)
+    write_json(output / "categorical_balance.json", dict(settings=settings, class_counts=counts, factors=balance,
+        interpretation="Training-only inverse-weighted scored-cell biome emphasis; validation population weights stay original"))
     return result
 
 
@@ -553,6 +620,10 @@ def train_main() -> None:
         argument_parser.error("--learning-rate must be finite and positive")
     if not math.isfinite(args.weight_decay) or args.weight_decay < 0:
         argument_parser.error("--weight-decay must be finite and nonnegative")
+    if args.objective == "perimeter_survival":
+        train_perimeter(args)
+        return
+    args = _strip_perimeter_options(args)
     try:
         train(args)
     except (ValueError, TypeError, FileExistsError) as error:

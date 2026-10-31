@@ -1,0 +1,18 @@
+usage: supplement.py [-h] --protocol PROTOCOL --model-root MODEL_ROOT --run
+                     RUN --results RESULTS --authorization AUTHORIZATION
+                     --authorization-sha256 AUTHORIZATION_SHA256 --out OUT
+
+Scratch candidate for CURRENT_DESCRIPTIVE_INTERVALS_V1, never model inference.
+Actual execution requires exogenous root authorization and both independent
+prerequisites. This scratch source is tested on invented data only and has no
+actual execution authorization or completed independent candidate review.
+
+options:
+  -h, --help            show this help message and exit
+  --protocol PROTOCOL
+  --model-root MODEL_ROOT
+  --run RUN
+  --results RESULTS
+  --authorization AUTHORIZATION
+  --authorization-sha256 AUTHORIZATION_SHA256
+  --out OUT

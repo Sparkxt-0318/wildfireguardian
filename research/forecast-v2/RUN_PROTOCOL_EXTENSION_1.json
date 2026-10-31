@@ -1,0 +1,14 @@
+{
+  "schema": "wfg.forecast-v2.protocol-extension/1",
+  "recorded_utc": "2026-10-30T02:36:17.680005+00:00",
+  "original_protocol_sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+  "reason": "Distinguish bounded development subsets from full eligible perimeter-cohort final training before any fit outcome or heldout score",
+  "development": "First three eligible timestamp-selected intervals per fire remain the fixed development budget",
+  "final_training": "All eligible2020-2023USperimeter intervals; mixed arm additionally all eligible kriged windows from fit fires and Korean<=2023fitfires; no interval-per-epoch truncation",
+  "epochs": 3,
+  "all_ablations_use_same_perimeter_data_policy": true,
+  "baselines": "Fit logistic and choose best dilation on the same full eligible fit-interval population",
+  "heldout": "Unchanged full eligible sixUS2024 cohort and separately fourKorean2025fires; all mandatory12cutoffs/horizons/comparisons retained",
+  "failure_policy": "If a measured resource limit prevents full fitting, retain exact failure and HOLD; do not call development subsets full final fits",
+  "pre_fit_failure": "First developmentattempt failed before fitting because FBFM40constructor rejects1Darrays; repair uses scalar unique-code lookups, with failedreceipt retained"
+}

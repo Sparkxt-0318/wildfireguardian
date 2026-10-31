@@ -1,0 +1,143 @@
+{
+  "canonical_results_sha256": "083d06c50d44258a771793410eea513f297fbc587432df872b9ea8cc46b8b755",
+  "figures": {
+    "fig01_reliability_all_models": {
+      "canonical_files_sha256": {
+        "png": "82bcb2d95ca4b55554473af487df98274983669da0bc418919d5e7da884a53a5",
+        "svg": "d6453cddaff392693c244c5cced1b5d46b2f90a69374a4539e02b24a4d7bd180"
+      },
+      "files_sha256": {
+        "png": "82bcb2d95ca4b55554473af487df98274983669da0bc418919d5e7da884a53a5",
+        "svg": "d6453cddaff392693c244c5cced1b5d46b2f90a69374a4539e02b24a4d7bd180"
+      },
+      "operation": "EXACT_CANONICAL_BYTE_COPY",
+      "png_dimensions": [
+        2160,
+        900
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "raster_review": "Viewed; labels and marks readable, no clipping found.",
+      "status": "PASS",
+      "svg_dimensions": {
+        "height": "216pt",
+        "width": "518.4pt"
+      },
+      "svg_review": "Rendered with macOS QuickLook and viewed; labels/marks agree with PNG. QuickLook preview adds square white padding."
+    },
+    "fig02_per_fire_brier_paired": {
+      "canonical_files_sha256": {
+        "png": "672d18a02f5c4a9d79c05f856078e2f9ed6754ad17ae815dce60534edfdfdf44",
+        "svg": "7fe9ef7183b7ea1c0f6c462143454b3bd24096c822420a1bd715ca9bd22267ef"
+      },
+      "files_sha256": {
+        "png": "672d18a02f5c4a9d79c05f856078e2f9ed6754ad17ae815dce60534edfdfdf44",
+        "svg": "7fe9ef7183b7ea1c0f6c462143454b3bd24096c822420a1bd715ca9bd22267ef"
+      },
+      "operation": "EXACT_CANONICAL_BYTE_COPY",
+      "png_dimensions": [
+        2160,
+        780
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "raster_review": "Viewed; labels and marks readable, no clipping found.",
+      "status": "PASS",
+      "svg_dimensions": {
+        "height": "187.2pt",
+        "width": "518.4pt"
+      },
+      "svg_review": "Rendered with macOS QuickLook and viewed; labels/marks agree with PNG. QuickLook preview adds square white padding."
+    },
+    "fig03_ablation_forest_plot": {
+      "canonical_files_sha256": {
+        "png": "d9dc15644972639384504908f170f22db6ff0f672b30fdf0958d638a0a9817d0",
+        "svg": "bb77f315663f8b0f2892b61fc741679c1d9a92fd0ad1de368d31b0db8beb5584"
+      },
+      "files_sha256": {
+        "png": "ecba5074a909e0b146eb1254e1ec2b616ba3886be64a332ad21463a0c9d424eb",
+        "svg": "f208687059d6f4f0acb17f310b461e05453987ba6c3f79fc1b97dae9f14d3731"
+      },
+      "operation": "LAYOUT_ONLY_RERENDER",
+      "png_dimensions": [
+        1050,
+        899
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "raster_review": "Viewed; labels and marks readable, no clipping found.",
+      "status": "PASS",
+      "svg_dimensions": {
+        "height": "216pt",
+        "width": "252pt"
+      },
+      "svg_review": "Rendered with macOS QuickLook and viewed; labels/marks agree with PNG. QuickLook preview adds square white padding."
+    },
+    "fig04_meanfield_vs_mc_rmse_by_horizon": {
+      "canonical_files_sha256": {
+        "png": "3889bb6b86ccc7cc9f325fb0c26fb1777b172ebe05e2f851d13ec3aad201f356",
+        "svg": "40b9361eb303f0e8bbb2caa1a6d16b52452400bad7729de0535560eb35575bc4"
+      },
+      "files_sha256": {
+        "png": "3889bb6b86ccc7cc9f325fb0c26fb1777b172ebe05e2f851d13ec3aad201f356",
+        "svg": "40b9361eb303f0e8bbb2caa1a6d16b52452400bad7729de0535560eb35575bc4"
+      },
+      "operation": "EXACT_CANONICAL_BYTE_COPY",
+      "png_dimensions": [
+        1050,
+        720
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "raster_review": "Viewed; labels and marks readable, no clipping found.",
+      "status": "PASS",
+      "svg_dimensions": {
+        "height": "172.8pt",
+        "width": "252pt"
+      },
+      "svg_review": "Rendered with macOS QuickLook and viewed; labels/marks agree with PNG. QuickLook preview adds square white padding."
+    },
+    "fig05_example_forecast_vs_perimeter": {
+      "canonical_files_sha256": {
+        "png": "b262dbf9a41541221840f47bd6f1cd0d11a88bc07b7f7d34b7a2ce14742ef478",
+        "svg": "725996443954fe2c4ed60a0bc7ffc4fa021c8abde51577c47dd59e3d3348ffda"
+      },
+      "files_sha256": {
+        "png": "2957236346b624d74c8e321a78814466fd2fa543cdc0e32f95c9d2e9cb8f0e4f",
+        "svg": "e624a78674ea0864c54dc6911c0d3a23ed35fe0cc86021928514fb029d2f3289"
+      },
+      "operation": "LAYOUT_ONLY_RERENDER",
+      "png_dimensions": [
+        2160,
+        600
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ],
+      "raster_review": "Viewed; labels and marks readable, no clipping found.",
+      "status": "PASS",
+      "svg_dimensions": {
+        "height": "144pt",
+        "width": "518.4pt"
+      },
+      "svg_review": "Rendered with macOS QuickLook and viewed; labels/marks agree with PNG. QuickLook preview adds square white padding."
+    }
+  },
+  "original_figures_untouched": true,
+  "recorded_utc": "2026-10-30T23:20:01.269358+00:00",
+  "render_manifest_sha256": "f201cbe701604a5167e053c6917cc65b8b28bec36115fa38403d288614cdda85",
+  "reviewer": "track1B owner",
+  "schema": "wfg.publication-figure-qa/1",
+  "scope": "Layout-only publication copies. Original clipping and failed v1 title-label render remain preserved. This is visual QA, not scientific validation.",
+  "statistics_and_example_unchanged": true,
+  "status": "PASS_PUBLICATION_SET"
+}

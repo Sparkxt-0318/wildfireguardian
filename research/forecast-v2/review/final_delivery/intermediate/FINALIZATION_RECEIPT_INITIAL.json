@@ -1,0 +1,18 @@
+{
+  "actual_interval_replay": {
+    "path": "research/forecast-v2/review/final_delivery/independent/descriptive_intervals/ACTUAL_REVIEW_ATTEMPT2.json",
+    "sha256": "08a19a8811ccbc3fab38bc3cd9348c7d5396f525762453b619aa9000ab247158"
+  },
+  "changed_protected_files": [],
+  "primary_criteria_pass": false,
+  "protected_files": 1051,
+  "requirements": 125,
+  "schema": "wfg.final-documentary-update/1",
+  "scope": "Metadata/narrative overlay only; no model inference, scoring, source/selection/registry/protocol/canonical figure or metric change.",
+  "source_sha256": "6c8922b6e56b7300d3ca483ec6968d478265a441d11230034ccc5b56f456cf2a",
+  "updated_metadata_sha256": {
+    "research/forecast-v2/GATE_HISTORY.json": "1b39d009870c3b68e3e4ec277b6ed2f9e434d9613d1f20c4a41908fd2f10edc5",
+    "research/forecast-v2/README.md": "9b22ef0fa3b120252f6b20e7635d79b3cd246e12e719b2b1e15ceaddc8189c82",
+    "research/forecast-v2/REQUIREMENTS_STATUS.json": "c8162a85fdca2e3dee74fdf081035ac961d1eb35c47b120425bbcf03449994f2"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source_phase": "8ab690ce",
+  "repaired_source_sha256": "dece20897d7442c7c19e270f5e0f2384e6b5f9cd5e221d38b7f44ce459ec477d",
+  "test_file": "forecast/tests/test_forecast_status_readiness.py",
+  "command": [
+    "../venv-forecast/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "forecast/tests/test_forecast_status_readiness.py"
+  ],
+  "result": "14 passed in 0.26s",
+  "exit_code": 0,
+  "scope": "Report readiness delegation and explicit FARSITE measurement-state controls; full frozen model admission remains independently verified by its existing validator",
+  "recorded_utc": "2026-10-30T09:27:22.675400+00:00"
+}

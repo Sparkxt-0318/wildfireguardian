@@ -1,0 +1,16 @@
+{
+  "recorded_utc": "2026-10-30T03:06:33.989212+00:00",
+  "reason": "Correct reconstruction elapsed time to the exact declared cutoff; earlier mixed-source cutoffs could include less-than-one-hour future state; all pureperimeter paths are unchanged",
+  "changed_derived_cache_prefix": "kriged_utc_v2",
+  "earlier_outputs_preserved": true,
+  "rerun": "Allthree mixed developmentfolds and fullmixed final fit use correctedcutoffs beforeanyheldoutinspection",
+  "pure_perimeter_equivalence": "The corrected helper is never called when mixed=False. AST bodies of the listed pureperimeter functions are byte-structureidentical; only fit_samples mixed-cacheprefix changed.",
+  "unchanged_function_ast": [
+    "Environment",
+    "cropped",
+    "perimeter_samples",
+    "build_model",
+    "command_final"
+  ],
+  "active_phase_sha256": "5327435922a9db17c0feb7216b8ae0f8bab36293bea1fc1d036be94a5e88cc3e"
+}

@@ -1,0 +1,23 @@
+{
+  "evidence_class": "REAL_TRAINING_YEAR_CUTOFF_REPLAY_CONTROL",
+  "old": {
+    "path": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00/meanfield_vs_mc.json",
+    "sha256": "a7a6893ca62e80403f8676f2035705250bb845d3f023582b6baed570fec53046",
+    "receipt_sha256": "38c53d08aa1e1884b94e4d38186a2fc5dcf2f9f01f2916e1186ed1f7250293d1"
+  },
+  "new": {
+    "path": "forecast/runs/20261030_perimeter_trained/execution_v3/meanfield_vs_mc/case_00_a06/meanfield_vs_mc.json",
+    "sha256": "e90350c3b8baae0033628f2ebbfaf928d6f7b196ae31962cbec58d5e82fde9c7",
+    "receipt_sha256": "afcb80cab500e6138563cac6f9fcb5f8a1b65489d5a0fa20d99175e7f7bb2743"
+  },
+  "nonruntime_row_fields_exactly_equal": true,
+  "rows": 5,
+  "excluded_runtime_fields": [
+    "mc_seconds",
+    "mf_seconds",
+    "host"
+  ],
+  "checkpoint_sha256": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "selection_or_model_tuned": false,
+  "interpretation": "Both original versions are preserved. Only a06 contributes to the final12cutoff comparison; this replay control does not pool runtime or model-quality rows across versions."
+}

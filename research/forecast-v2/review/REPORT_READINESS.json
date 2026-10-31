@@ -1,0 +1,60 @@
+{
+  "actual_study_data_models_or_heldout_outputs_read": false,
+  "files": [
+    {
+      "base_sha256": "624572c30d5c1ce948263e7635bd2a43a0083df32614abe7de9d3c4f414b51f6",
+      "path": "research/forecast-v2/scripts/report.py",
+      "sha256": "655260072418ce57dc75d7ec5e69f1f65dddcb272df360a996f7a7dccd291ebe"
+    },
+    {
+      "base_sha256": null,
+      "path": "forecast/tests/test_report_readiness.py",
+      "sha256": "a2617ff5dff0f7c5a7c72db7b998be5226a3a53c5f412e2791617ad1462388f1"
+    }
+  ],
+  "fixes": [
+    "Authenticated zero-file HOLD is reported with models/paired empty and positives null; every outcome reason is retained.",
+    "Incomplete-cohort primary criteria remain false; nonempty HOLD metrics retain the fixed descriptive subset formulas.",
+    "Required PNG/SVG absence panels are explicit diagnostics and figure_evidence separates unavailable panels from actual metric plots.",
+    "Scorer report_inputs handoff is bound to frozen assessment identity and fixed trajectories/seed/input manifest.",
+    "Corrected spotting uses its intended artifact path and stable variant_seed0 prediction alias.",
+    "Example reference states are authenticated against the already frozen perimeter manifest before rendering."
+  ],
+  "git_mutations": false,
+  "live_files_or_completed_metadata_patch_modified": false,
+  "numerical_metric_selection_bins_bootstrap_rules_changed": false,
+  "patch": {
+    "path": "REPORT_READINESS.patch",
+    "sha256": "e93e1c3218a3de6ec1015e18193fa52b825ec85f7af598d5043dee97368bee96"
+  },
+  "remaining_limits": [
+    "Parent integration and full repository regression remain pending.",
+    "Report trusts the guarded scorer for source/support/forecast admission; it does not replay numerical forecasts.",
+    "Visual inspection covered synthetic empty and partial reliability PNGs only; remaining panels and actual output require visual QA.",
+    "No real outcome, operational readiness, physical validity or blind2026 readiness claim is established."
+  ],
+  "scorer_change_needed": false,
+  "scorer_writer_source_check": "Current source writes report_inputs.json after ASSESSMENT.json and before HOLD exit1; scorer was not edited.",
+  "status": "SCRATCH_ONLY_TESTED_NOT_INTEGRATED",
+  "synthetic_visual_checks": [
+    {
+      "path": "QA/empty_hold/fig01_reliability_all_models.png",
+      "sha256": "9936b244a4e7ff98b85ebe5afdc6ccddf989f6c50f28244efaadb497936cd48b",
+      "visual_check": "Synthetic PNG inspected; diagnostic/subset text is readable without clipping"
+    },
+    {
+      "path": "QA/partial_hold/fig01_reliability_all_models.png",
+      "sha256": "1ccb895b563aec5851c34f27ba9534c8eb5712bb19a9e267dd755b5e9ed0de62",
+      "visual_check": "Synthetic PNG inspected; diagnostic/subset text is readable without clipping"
+    }
+  ],
+  "tests": {
+    "command": "PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_report_readiness.py -q",
+    "log": "REPORT_TESTS.txt",
+    "passed": 12,
+    "seconds": 2.89,
+    "warning_category": "Matplotlib/Pyparsing dependency deprecations",
+    "warnings": 324
+  },
+  "training_or_MC_jobs_started": false
+}

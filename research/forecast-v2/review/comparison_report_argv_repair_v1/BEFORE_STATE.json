@@ -1,0 +1,22 @@
+{
+  "actual_command_metadata_only_no_raw_or_quality_access": true,
+  "canonical_actual_source_metadata_records_verified": 12,
+  "canonical_command_sha256": "3d9142ef61779cb5aeccd93c5eaf7c98e83dc40ec5c9f8bc435e6a78ac7e8803",
+  "independent_matrix_cases": 22,
+  "prior_68_tests": "Preserved earlier pass, does not close the subsequently confirmed argv gap",
+  "prior_evidence_directory": "research/forecast-v2/review/comparison_reporting_repair_v1",
+  "prior_manifest_sha256": "c317e23d844d17fcf5f17cc16d65acc79382bc2f9f4c0dd7600981c43617311a",
+  "scope": "PRESERVED_ARGV_FINDING_BEFORE_SOURCE_EDITS",
+  "source": {
+    "forecast/tests/test_report_comparison.py": {
+      "archive": "test_report_comparison_before.py.gz",
+      "gzip_sha256": "ad4294ca1746931a0dd83d3260e81407cc0f3bae29197da501b1a219a4552ee7",
+      "original_sha256": "8c3f249feb30391f9b50f5fdb8d6f764898c78f2b7840afc34fb09f73b692c31"
+    },
+    "research/forecast-v2/scripts/report.py": {
+      "archive": "report_before.py.gz",
+      "gzip_sha256": "4264b36f3143d05790ffffbfe9317a90bf06126fa9a73b62a9359ac0815b7620",
+      "original_sha256": "2fce10538666e57d7036ceba8b601172ff5aefccf934265c6d80b11c8d2ad54c"
+    }
+  }
+}

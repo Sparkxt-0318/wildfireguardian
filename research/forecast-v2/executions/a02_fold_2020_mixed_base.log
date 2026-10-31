@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 663, in <module>
+    main()
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 658, in main
+    dict(fold=command_fold, final=command_final, baselines=command_baselines, heldout=command_heldout,
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/pipeline.py", line 293, in command_fold
+    result = fit_mean_field(model, train, validation, epochs=args.epochs, learning_rate=args.lr, seed=args.seed,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/forecast/wildfire/survival.py", line 373, in fit_mean_field
+    raise ValueError("No supported positive-weight cells remain in a training batch")
+ValueError: No supported positive-weight cells remain in a training batch

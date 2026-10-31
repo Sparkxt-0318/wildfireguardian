@@ -1,0 +1,4 @@
+{
+  "source_sha256": "fbaca8ad2c334e1b1eef6e8b695d4b52c914b9cd940b55a6e9b78006dc1da1fb",
+  "scope": "Exact c41 invocation and raw-byte custody wrapper; no model deserialization/inference. Application external lock observations are distinct from exact kernel acquisition time."
+}

@@ -1,0 +1,48 @@
+........................................................................ [ 61%]
+..........................F
+=================================== FAILURES ===================================
+_ test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct[empty] _
+
+report = <module 'synthetic_report_readiness' from '/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b/research/forecast-v2/scripts/report.py'>
+tmp_path = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-126/test_authenticated_reports_kee0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x15fa052e0>
+outcome = 'empty'
+
+    @pytest.mark.parametrize("outcome", ["empty", "partial", "complete"])
+    def test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct(report, tmp_path, monkeypatch, outcome):
+>       fixture = build_fixture(report, tmp_path, outcome=outcome)
+
+forecast/tests/test_report_readiness.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+forecast/tests/test_report_readiness.py:53: in build_fixture
+    proof = report.F.audit_coverage(root, original["input_root"], original["cache_root"], run, original["cache_audit"]["path"])
+research/forecast-v2/scripts/audit_fit_coverage.py:1357: in audit_coverage
+    development, development_cache_files = development_coverage(root, inputs, caches, run, audit, expected, mixed)
+research/forecast-v2/scripts/audit_fit_coverage.py:1285: in development_coverage
+    contract = _schedule_contract(root, source, stage="fold", variant=variant, phase_id=phase["phase_id"])
+research/forecast-v2/scripts/audit_fit_coverage.py:896: in _schedule_contract
+    producer_version = _verified_producer_version(root, source, phase_id)
+forecast/tests/test_blind_forecast_protocol.py:508: in verify
+    return real(root, source, phase_id)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/c5/lvbyxxd16ds5tshzvy0vjv1w0000gn/T/pytest-of-jp/pytest-126/test_authenticated_reports_kee0/freeze-repo')
+source = {'forecast/wildfire/burnout.py': '6940dbf94c24af614069029b44ac14e941a2770b9d293ec5dc2c312158393f5e', 'forecast/wildfir...1009a2fadbbe1', 'forecast/wildfire/module.py': '44e4a0b9d55ef744d78bd58cbb2675409e26950e2fa099111f65be6513739d32', ...}
+phase_id = 'base_fold2020_seed0'
+
+    def _verified_producer_version(root, source, phase_id):
+        """Recompute every declared source byte, reject unknown complete versions.
+    
+        This permits only the enumerated producer phases on independently authenticated
+        actual cached inputs. It is neither universal equivalence nor runtime replay.
+        """
+        declared = object_sha(source)
+        if declared not in _RECIPE_SOURCE_VERSIONS or phase_id not in _RECIPE_SOURCE_VERSIONS[declared]:
+>           raise ValueError("Unreviewed whole-producer source closure or intended phase")
+E           ValueError: Unreviewed whole-producer source closure or intended phase
+
+research/forecast-v2/scripts/audit_fit_coverage.py:865: ValueError
+=========================== short test summary info ============================
+FAILED forecast/tests/test_report_readiness.py::test_authenticated_reports_keep_absence_subset_and_complete_metrics_distinct[empty]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 98 passed, 14 warnings in 4.82s

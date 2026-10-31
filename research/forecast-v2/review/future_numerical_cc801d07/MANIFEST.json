@@ -1,0 +1,66 @@
+{
+  "schema": "wfg.preserved-review/1",
+  "source_commit": "cc801d072dde8e5b8a87cb7ecd81a995381c2ce5",
+  "files": [
+    {
+      "path": "FUTURE_NUMERICAL_REPAIR.json",
+      "original_sha256": "23235bed9983f7f89176e9cf85e8e0b7fe72ff3e9c97e9a63753897528e7c2d3",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/FUTURE_NUMERICAL_REPAIR.json.gz",
+      "compressed_sha256": "21bab69acc6746e5dfdbd8094c20e86a98ad3fc51dcb021cf16cac3bb2498c7a"
+    },
+    {
+      "path": "FUTURE_NUMERICAL_REPAIR.patch",
+      "original_sha256": "51274cd509d2278505a28b7cd923cb1a595015fb09a08fe2c8f46baef284f107",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/FUTURE_NUMERICAL_REPAIR.patch.gz",
+      "compressed_sha256": "45ac439baf59d81afef73906d68939f4f7d600ae3090ec5d921c39b87fc3f2c7"
+    },
+    {
+      "path": "SOURCE_HASHES.json",
+      "original_sha256": "2d920e3b819f49c7269546d664221f3a5ccb0a998157c9c15298379b5d852f5b",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/SOURCE_HASHES.json.gz",
+      "compressed_sha256": "c6af27791ed2dad2b333653c1090e63021a2d6422984aa52fdddc33fdb8558e3"
+    },
+    {
+      "path": "TESTS.txt",
+      "original_sha256": "2036368b00b98024f4fec316f71a118952e4c0d61c980b9982101623aa67df02",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/TESTS.txt.gz",
+      "compressed_sha256": "8d02aae512513c812d5f7807f843e9e664c212c22696d78e8c5556159dca48e0"
+    },
+    {
+      "path": "baseline/__pycache__/blind_test.cpython-312.pyc",
+      "original_sha256": "ef0baa0ff7374c8efbcaceecb80ddc9a5922967516c559b983ba4cfc5cbaa6dd",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/baseline/__pycache__/blind_test.cpython-312.pyc.gz",
+      "compressed_sha256": "701da0ec44dc5d0c4b0042472e6264756f71c6b32c186ec1ab6d18c65996a78e"
+    },
+    {
+      "path": "baseline/blind_inventory.py",
+      "original_sha256": "6358a96d55f18f61c01a89caaba5fbe4e8fd5cfda01c5cab0f62a0e8e88ca330",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/baseline/blind_inventory.py.gz",
+      "compressed_sha256": "0e295ef80eb142911fbd02ead08f7be9517828e2874f7dd3caebb1431dc28003"
+    },
+    {
+      "path": "baseline/blind_test.py",
+      "original_sha256": "00d7b3f7fef76eed0d55e493d15243b0b402477520b7e57507f5e4da1556d911",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/baseline/blind_test.py.gz",
+      "compressed_sha256": "909db5466bdee2353c447625e8b5fc482e6d409039e5410e7664f1497d2817f6"
+    },
+    {
+      "path": "baseline/test_blind_forecast_protocol.py",
+      "original_sha256": "cd05ebf8dae9d1a7b125d9be667ee840e77bac0b2ac4ccd8e95c1e25899b1306",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/baseline/test_blind_forecast_protocol.py.gz",
+      "compressed_sha256": "074905a2d1dcde23e1513d9bcf292c21ab78cfb1452322506be9bda74bc893eb"
+    },
+    {
+      "path": "original_failure.json",
+      "original_sha256": "37fb32c794f8a382b8b389eb67d0eb8c95a0385de42993c32fc5ed2d47ed80c2",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/original_failure.json.gz",
+      "compressed_sha256": "2fcf7e40f931a644c237f888a1141c42a5088c9e131dbe41d04d1fe0734d3ba3"
+    },
+    {
+      "path": "original_failure.py",
+      "original_sha256": "1423755d6b27e0673487a99751eb60dcf359e69cb63a86fcce050dbe66791597",
+      "preserved": "research/forecast-v2/review/future_numerical_cc801d07/original_failure.py.gz",
+      "compressed_sha256": "cdc7d77ecece2786784154d0d34af3cfd68e5282695256caf172bb4b8c0f8e01"
+    }
+  ]
+}

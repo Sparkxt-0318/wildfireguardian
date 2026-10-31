@@ -1,0 +1,195 @@
+{
+  "scope": "Frozen2020-2023fit-fire source timestamps only; no heldout data or labels read",
+  "source_sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b",
+  "split_sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+  "perimeter_manifest_sha256": "ec85525ebe90091036e77bd517abc563c385e81db0ae53ecc30c6d4cb3c019c6",
+  "events": [
+    {
+      "event": "CA-BTU-009205_Dixie",
+      "states_sha256": "17b2174dc309cb07a38ec829acf6184e2eaa39ce1b204b48bbbe3a29c1e3da18",
+      "total_consecutive_pairs": 74,
+      "producer_eligible_pairs": 70,
+      "exact_eligible_pairs": 70,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-KNF-006385_RiverComplex_RiverComplex",
+      "states_sha256": "2530099b367133a94c05e3d4ac0cfa79b895252028d4ab51ca2a05a009343313",
+      "total_consecutive_pairs": 72,
+      "producer_eligible_pairs": 70,
+      "exact_eligible_pairs": 70,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-KNF-006454_Antelope",
+      "states_sha256": "59ebe2652b98768947be345b09b393897468311f3194c181fee788c9be48ec19",
+      "total_consecutive_pairs": 42,
+      "producer_eligible_pairs": 41,
+      "exact_eligible_pairs": 41,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-MNF-000753_AugustComplex",
+      "states_sha256": "ba4ce1d1a0fecb50be0a57e666fe158505934cf4c3a26be748d59ba78151d051",
+      "total_consecutive_pairs": 61,
+      "producer_eligible_pairs": 52,
+      "exact_eligible_pairs": 52,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-PNF-001308_PNFNorthComplex",
+      "states_sha256": "e330dac041dbb329697d84d70f21878940b1419fca953087693fbc55b1343d88",
+      "total_consecutive_pairs": 72,
+      "producer_eligible_pairs": 71,
+      "exact_eligible_pairs": 71,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-SHF-001187_Monument",
+      "states_sha256": "fe339001615652f5e3336c400f2ed0f28e132ac4f903de6c6ec344e27726cc24",
+      "total_consecutive_pairs": 72,
+      "producer_eligible_pairs": 71,
+      "exact_eligible_pairs": 71,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-SNF-001391_Creek",
+      "states_sha256": "2c754e8d8be152c453fc92d13fc99748894e231fef4a48e3bdf065a4f3ef9e3d",
+      "total_consecutive_pairs": 58,
+      "producer_eligible_pairs": 56,
+      "exact_eligible_pairs": 56,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-SQF-002622_SQFComplex",
+      "states_sha256": "b0f9933e1c249219643bd7e318b18be511089c619db982fac01e8345357f94e2",
+      "total_consecutive_pairs": 74,
+      "producer_eligible_pairs": 72,
+      "exact_eligible_pairs": 72,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-SRF-000651_McCash",
+      "states_sha256": "f105b0ad5229b14400d804d7190df02cd47cb079b9b4a55a1d8135673c4a6ee0",
+      "total_consecutive_pairs": 64,
+      "producer_eligible_pairs": 59,
+      "exact_eligible_pairs": 59,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CA-SRF-000656_RedSalmonComplex",
+      "states_sha256": "8c881a05e758c3e4e0f073ace2089883c5d4fdde8b55aab8b8ea39f5dfb16cb6",
+      "total_consecutive_pairs": 89,
+      "producer_eligible_pairs": 82,
+      "exact_eligible_pairs": 82,
+      "disagreement_count": 0
+    },
+    {
+      "event": "CO-ARF-000636_CameronPeak",
+      "states_sha256": "66dfcf1b1bc091781008f26db094b7f43c74c2f36b3b0279e384cb4c75d69c58",
+      "total_consecutive_pairs": 67,
+      "producer_eligible_pairs": 59,
+      "exact_eligible_pairs": 59,
+      "disagreement_count": 0
+    },
+    {
+      "event": "ID-SCF-022105_Moose",
+      "states_sha256": "5637d0aa1997aa2f6201407cf810151bae6b7b17fcc37d4f8d10dce7bd879f6a",
+      "total_consecutive_pairs": 69,
+      "producer_eligible_pairs": 57,
+      "exact_eligible_pairs": 57,
+      "disagreement_count": 0
+    },
+    {
+      "event": "MT-BDF-006269_AlderCreek",
+      "states_sha256": "5dfcc1dd3aedf73d258cf79ca46cf362b5c18480081005e235df60354c7aa307",
+      "total_consecutive_pairs": 64,
+      "producer_eligible_pairs": 54,
+      "exact_eligible_pairs": 54,
+      "disagreement_count": 0
+    },
+    {
+      "event": "MT-BDF-006272_TrailCreek",
+      "states_sha256": "43ab5563571ea9ffd04c9c8e7215b17d3719e12cae827244acc02e3244964abd",
+      "total_consecutive_pairs": 62,
+      "producer_eligible_pairs": 53,
+      "exact_eligible_pairs": 53,
+      "disagreement_count": 0
+    },
+    {
+      "event": "MT-LNF-000893_WestLolo",
+      "states_sha256": "f872a215552e248a3ec44cd0ef0196271a5cf421656476c0a4ceffa887ba1a06",
+      "total_consecutive_pairs": 28,
+      "producer_eligible_pairs": 21,
+      "exact_eligible_pairs": 21,
+      "disagreement_count": 0
+    },
+    {
+      "event": "NM-SNF-000027_HermitsPeak",
+      "states_sha256": "bd9b3e8d35ed8287b070fa6232e0f7b548dcdfe10737f8c3101e58ea44db4cbd",
+      "total_consecutive_pairs": 86,
+      "producer_eligible_pairs": 82,
+      "exact_eligible_pairs": 82,
+      "disagreement_count": 0
+    },
+    {
+      "event": "OR-UMF-000659_GreenRidge",
+      "states_sha256": "b12b962ba8ea123f787e641c1cd1b8786234911e3eb66d2883f54d889c7f3067",
+      "total_consecutive_pairs": 72,
+      "producer_eligible_pairs": 68,
+      "exact_eligible_pairs": 68,
+      "disagreement_count": 0
+    },
+    {
+      "event": "OR-UMP-000373_RoughPatchCpx",
+      "states_sha256": "0284659e92e1052d871135b7217938621db09f99bc3727371f79cd37a275da33",
+      "total_consecutive_pairs": 50,
+      "producer_eligible_pairs": 45,
+      "exact_eligible_pairs": 45,
+      "disagreement_count": 0
+    },
+    {
+      "event": "OR-UPF-000265_Jack",
+      "states_sha256": "abb76e8f03e0b1e7d5cbe2d491eb98e18521d69234a71baa81de0bb863eefecb",
+      "total_consecutive_pairs": 66,
+      "producer_eligible_pairs": 56,
+      "exact_eligible_pairs": 56,
+      "disagreement_count": 0
+    },
+    {
+      "event": "OR-UPF-000450_DevilsKnob",
+      "states_sha256": "12a840febf7b8d24b275ea980421156e7b9608025e64f920af90635eef817514",
+      "total_consecutive_pairs": 48,
+      "producer_eligible_pairs": 44,
+      "exact_eligible_pairs": 44,
+      "disagreement_count": 0
+    },
+    {
+      "event": "OR-WIF-220180_CedarCreek",
+      "states_sha256": "60a84f06cc4398a3c15978813c9ffb6ac508d5f05c5cd2663aa2a82c1cb2c179",
+      "total_consecutive_pairs": 63,
+      "producer_eligible_pairs": 56,
+      "exact_eligible_pairs": 56,
+      "disagreement_count": 0
+    },
+    {
+      "event": "UT-ASF-100340_EastFork",
+      "states_sha256": "4e86f8b9acd85906ad89e42e1c6881fb4e1b464f4d907b3242c9a36c9cdf0ab9",
+      "total_consecutive_pairs": 42,
+      "producer_eligible_pairs": 31,
+      "exact_eligible_pairs": 31,
+      "disagreement_count": 0
+    },
+    {
+      "event": "WA-OWF-000453_SchneiderSprings",
+      "states_sha256": "5e3d788a9e37e41af6d2ee9011228a3001cb72adc61e447a951353481e3002f5",
+      "total_consecutive_pairs": 41,
+      "producer_eligible_pairs": 33,
+      "exact_eligible_pairs": 33,
+      "disagreement_count": 0
+    }
+  ],
+  "disagreements": [],
+  "status": "PASS_NO_ACTUAL_FIT_BOUNDARY_DISAGREEMENT",
+  "limit": "The producer and exact predicates are not universally equivalent; independent synthetic48h+1ns/+1us failures remain preserved. No source interval was removed or relabelled."
+}

@@ -1,0 +1,32 @@
+{
+  "actual_outer_driver": {
+    "difference": "Metadata-only223-file checks and root-authorization binding; scorer commands and numerical producer unchanged.",
+    "path": "research/forecast-v2/review/final_identity_freeze/current_assessment_driver_v2.py.gz",
+    "source_sha256": "ad94aa330b49f8a555f8c5f2bb2685fac67428f926265ac269f068e634275e6f",
+    "status": "EXECUTING_UNCHANGED_GUARDED_SCORER_TWO_SEPARATE_COHORTS"
+  },
+  "future_2026_authorization": false,
+  "limits": [
+    "The outer driver does not instrument kernel flock acquisition time.",
+    "External lock observations and process-start times remain distinct.",
+    "No original preparation, diagnostic, start record or prior failed gate was replaced."
+  ],
+  "original_preparation": {
+    "path": "research/forecast-v2/review/final_software_gate_v2_preparation/forecast-current-cohorts-frozen.py.gz",
+    "source_sha256": "783334e6bb3731bc93122f9b3aedd8e43ec9be5977589f2c781bccc78d34ec54",
+    "status": "PREPARED_AND_SYNTAX_PARSED_NO_COHORT_EXECUTION"
+  },
+  "preserved_parent_evidence": {
+    "CURRENT_COHORT_AUTHORIZATION.json": {
+      "gzip_sha256": "0f10f0c8c7231bd75d3b33d2fd5c21a04864e9f1d94cf589500c8a304a4a9ae2",
+      "source_sha256": "554e4fb0fefb2aae290143631f63d2f1b2a24b75cfe4dac250f89a54a31ed2ef"
+    },
+    "FREEZE_PARENT_VERIFICATION.json": {
+      "gzip_sha256": "d19288356b3279ef7a8bbe1b547e757d423d960bb058b5c6075e3afb63c4b4e6",
+      "source_sha256": "1e9def628deb2e7f1035aea691c39f8acf27f606bcdccffd0e6d3dff4f344db6"
+    }
+  },
+  "recorded_utc": "2026-10-30T13:31:26.422371+00:00",
+  "schema": "wfg.current-assessment-driver-history/1",
+  "start_receipt_sha256": "3ea34164002d280540755ddc574eb758c46ff9fa038451655ce399333c41ce08"
+}

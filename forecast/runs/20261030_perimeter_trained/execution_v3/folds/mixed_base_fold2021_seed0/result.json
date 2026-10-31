@@ -1,0 +1,307 @@
+{
+ "variant": "mixed_base",
+ "spec": {
+  "prior": "free",
+  "frame": "none",
+  "d4": false,
+  "mixed": true
+ },
+ "fold": "2021",
+ "seed": 0,
+ "hidden": 16,
+ "train_events": [
+  "CA-MNF-000753_AugustComplex",
+  "CA-PNF-001308_PNFNorthComplex",
+  "CA-SNF-001391_Creek",
+  "CA-SQF-002622_SQFComplex",
+  "CA-SRF-000656_RedSalmonComplex",
+  "CO-ARF-000636_CameronPeak",
+  "UT-ASF-100340_EastFork",
+  "ID-SCF-022105_Moose",
+  "NM-SNF-000027_HermitsPeak",
+  "OR-WIF-220180_CedarCreek"
+ ],
+ "validation_events": [
+  "CA-BTU-009205_Dixie",
+  "CA-KNF-006385_RiverComplex_RiverComplex",
+  "CA-KNF-006454_Antelope",
+  "CA-SHF-001187_Monument",
+  "CA-SRF-000651_McCash",
+  "MT-BDF-006269_AlderCreek",
+  "MT-BDF-006272_TrailCreek",
+  "MT-LNF-000893_WestLolo",
+  "OR-UMF-000659_GreenRidge",
+  "OR-UMP-000373_RoughPatchCpx",
+  "OR-UPF-000265_Jack",
+  "OR-UPF-000450_DevilsKnob",
+  "WA-OWF-000453_SchneiderSprings"
+ ],
+ "train_samples": 75,
+ "validation_samples": 39,
+ "validation": {
+  "brier": 0.05556375644012329,
+  "clipped_nll": 0.19053377279785608,
+  "weight": 53104.0
+ },
+ "validation_per_fire": {
+  "CA-BTU-009205_Dixie": {
+   "brier": 0.07525764064273946,
+   "clipped_nll": 0.2415839493915859,
+   "weight": 4927.0
+  },
+  "CA-KNF-006385_RiverComplex_RiverComplex": {
+   "brier": 0.04989614033363235,
+   "clipped_nll": 0.1604185440170933,
+   "weight": 9088.0
+  },
+  "CA-KNF-006454_Antelope": {
+   "brier": 0.09316591340972738,
+   "clipped_nll": 0.33335807735859546,
+   "weight": 6394.0
+  },
+  "CA-SHF-001187_Monument": {
+   "brier": 0.08280329448922229,
+   "clipped_nll": 0.2843777999286902,
+   "weight": 2969.0
+  },
+  "CA-SRF-000651_McCash": {
+   "brier": 0.04502120377839772,
+   "clipped_nll": 0.1572116368406465,
+   "weight": 2107.0
+  },
+  "MT-BDF-006269_AlderCreek": {
+   "brier": 0.03846736897621052,
+   "clipped_nll": 0.1414545126400666,
+   "weight": 1845.0
+  },
+  "MT-BDF-006272_TrailCreek": {
+   "brier": 0.06969300464642886,
+   "clipped_nll": 0.2529491513867841,
+   "weight": 2990.0
+  },
+  "MT-LNF-000893_WestLolo": {
+   "brier": 0.020869458139424698,
+   "clipped_nll": 0.0838640658819634,
+   "weight": 2597.0
+  },
+  "OR-UMF-000659_GreenRidge": {
+   "brier": 0.01108889367717963,
+   "clipped_nll": 0.05937637503330524,
+   "weight": 1664.0
+  },
+  "OR-UMP-000373_RoughPatchCpx": {
+   "brier": 0.015401414868540717,
+   "clipped_nll": 0.06137775137581631,
+   "weight": 6417.0
+  },
+  "OR-UPF-000265_Jack": {
+   "brier": 0.0773602568889554,
+   "clipped_nll": 0.2595667271553822,
+   "weight": 3403.0
+  },
+  "OR-UPF-000450_DevilsKnob": {
+   "brier": 0.043126413364284084,
+   "clipped_nll": 0.14695233856605378,
+   "weight": 4832.0
+  },
+  "WA-OWF-000453_SchneiderSprings": {
+   "brier": 0.06910946805851,
+   "clipped_nll": 0.2174488147448828,
+   "weight": 3871.0
+  }
+ },
+ "fit": {
+  "history": [
+   {
+    "epoch": 1,
+    "train_scaled_loss": 1.1162851692757492,
+    "seconds": 1.7569668749929406,
+    "selected": false,
+    "optimizer_steps": 68,
+    "skipped_unsupported_intervals": [
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T16:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T14:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-06T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T03:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     }
+    ]
+   },
+   {
+    "epoch": 2,
+    "train_scaled_loss": 0.914365202927341,
+    "seconds": 2.066977375012357,
+    "selected": false,
+    "optimizer_steps": 68,
+    "skipped_unsupported_intervals": [
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-06T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T16:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T03:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T14:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     }
+    ]
+   },
+   {
+    "epoch": 3,
+    "train_scaled_loss": 0.7998928755975502,
+    "seconds": 1.8476465420098975,
+    "selected": true,
+    "optimizer_steps": 68,
+    "skipped_unsupported_intervals": [
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T16:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-06T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T03:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_02",
+      "cutoff": "2022-03-04T14:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-03T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_03",
+      "cutoff": "2022-03-05T04:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     },
+     {
+      "event": "KFS_05",
+      "cutoff": "2023-04-02T15:00:00+00:00",
+      "reason": "no_supported_positive_weight_cells"
+     }
+    ]
+   }
+  ],
+  "best_validation_brier": null,
+  "train_prevalence": 0.06890684220095382
+ },
+ "fit_seconds": 5.9260343330097385,
+ "parameters": 26018,
+ "configuration": {
+  "architecture": "StructuredKernelModel",
+  "in_channels": 19,
+  "kernel_size": 9,
+  "hidden_channels": 16,
+  "dropout": 0.0,
+  "channel_names": [
+   "weather.temperature_2m",
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m",
+   "terrain.slope_degrees",
+   "vegetation.tree_cover_percent",
+   "biome.biome_class=1",
+   "biome.biome_class=2",
+   "biome.biome_class=3",
+   "biome.biome_class=4",
+   "biome.biome_class=5",
+   "biome.biome_class=6",
+   "biome.biome_class=7",
+   "biome.biome_class=8",
+   "biome.biome_class=9",
+   "biome.biome_class=10",
+   "biome.biome_class=11",
+   "biome.biome_class=12",
+   "biome.biome_class=13",
+   "biome.biome_class=14"
+  ],
+  "wind_channels": [
+   "weather.wind_eastward_10m",
+   "weather.wind_northward_10m"
+  ],
+  "prior": "free",
+  "frame": "none",
+  "residence_hours": null,
+  "spotting_radius": 0,
+  "wind_adjustment_factor": 0.4
+ },
+ "smoulder": null,
+ "host": {
+  "python": "3.12.1",
+  "torch": "2.5.1",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "cpu_count": 15,
+  "torch_threads": 2,
+  "load_average_1_5_15": [
+   3.18798828125,
+   2.40478515625,
+   2.55908203125
+  ],
+  "note": "Current execution host; heavy numerical runs share an exclusive advisory lock. Timings are host-specific"
+ },
+ "data_root": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/data/forecast-v2/environment",
+ "data_manifest_sha256": "67da452d4ef1b808415b9c19bad44baec3e3fd090d759e571c0a849dd8658909"
+}

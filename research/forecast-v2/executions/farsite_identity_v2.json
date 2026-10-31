@@ -1,0 +1,29 @@
+{
+  "schema": "wfg.command-observation/1",
+  "recorded_utc": "2026-10-30T09:33:36.747810+00:00",
+  "command": [
+    "../venv-forecast/bin/python",
+    "research/forecast-v2/scripts/audit_farsite.py",
+    "--data",
+    "../data/forecast-v2",
+    "--out",
+    "research/forecast-v2/FARSITE_IDENTITIES_V2.json"
+  ],
+  "working_directory": "/Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/track-1b",
+  "exit_code": 0,
+  "stdout": {
+    "cases": 30,
+    "scored": false
+  },
+  "tool_reported_wall_time_seconds": 0.974033375,
+  "timing_scope": "Functional identity audit; not scientific performance evidence",
+  "source_sha256": "122605a495156f4a449caf155ea9fa0854c70091f6346560e2116fea5765f996",
+  "output_sha256": "16d98098083c1951ceeb6d4a24f3bd64ca66ef92d21a3b57e5208b99dae52d51",
+  "horizon_available_count": 30,
+  "stored_intervals_beyond_current_48h_policy": 1,
+  "limits": [
+    "No assessment supplied; no current or historical forecast-quality score computed",
+    "Native timing metadata receipts rechecked; no new native execution or external authentication",
+    "One stored interval exceeds the frozen current48h eligibility rule and will be retained as unmatched, not added to the cohort"
+  ]
+}

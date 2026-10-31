@@ -1,0 +1,24 @@
+{
+  "schema": "wfg.forecast-v2.protocol-extension/1",
+  "recorded_utc": "2026-10-30T08:43:46.211802+00:00",
+  "before_heldout_prediction_or_score": true,
+  "reason": "Bind every development training and validation prefix, effective budget and immutable source schedule; previous phase gate checked fire keys without complete sample/budget closure.",
+  "unchanged_split_sha256": "f72282e967fa49172ff9721e0abf363a49a568929b305426cdc949c2763d2af2",
+  "prior_unsupported_policy_sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+  "source_inference": "Historical development sample IDs/schedules were not runtime logged. Exact source-derived first3-per-event-and-kind membership, source-recomputed cache values, effective argv/defaults, all3epochs/counts and source-bound unsupported records must match. No retrospective runtime-ID claim.",
+  "historical_interval_cap": "Immutable parser default160 is retained literally. Accept only when expected full bounded-development membership<=160 and every recorded epoch proves a complete pass; status NONBINDING_CAP. New commands explicitly set0.",
+  "boundary": "Producer float <=48h+tol and exact nanosecond <=48h are not universally equivalent. Whole-artifact refusal on any actual disagreement; no source interval is silently filtered or relabelled. Actual23fitfires/1436timestamp pairs/1303eligible pairs show0disagreements.",
+  "current_assessment": "Complete development-coverage digest is mandatory in selection, registry and saved assessment identity; relocated saved admission authenticates frozen proof without opening old training paths.",
+  "comparison": "Retain original a04case0 output, receipt and full source table. New a06case_NN_a06 outputs run all12frozenfit-yearcutoffs/66rows under one repaired source closure; no rows are relabelled or pooled across versions.",
+  "numerical_model_or_data_tuned": false,
+  "source_sha256": {
+    "research/forecast-v2/scripts/audit_fit_coverage.py": "1753cf31b21be093e13d61a107e407cf41542e9ec6dbe4c8ced924f5a5320cf4",
+    "research/forecast-v2/scripts/pipeline.py": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+    "research/forecast-v2/scripts/run_campaign.py": "7d089b86b18cf35cfd22317668a6236449d714075313f1eece1887a597b2e74d",
+    "research/forecast-v2/scripts/freeze_registry.py": "a6373c5d05fc18f745e13586afaaf1bd14f898c847fdc756fdcc41aba4a60040",
+    "research/forecast-v2/scripts/score_cohorts.py": "88bb3839c6923737b8c815aceec9d2fd4e91aba777447b4c86bfada51164b4c2"
+  },
+  "tests": "356scratchcontrols passed; live full regression running after fixing two package-relative fixture imports. Original collection failure and interrupted test log preserved.",
+  "status": "AWAITING_INDEPENDENT_DEVELOPMENT_ADMISSION_RECHECK",
+  "heldout": "NOT_RUN"
+}

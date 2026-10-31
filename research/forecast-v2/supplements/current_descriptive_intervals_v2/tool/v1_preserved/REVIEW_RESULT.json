@@ -1,0 +1,37 @@
+{
+  "status": "HOLD_CONFIRMED_SCHEMA_DEFECT",
+  "candidate_sha256": "6080c09b5d2d7153fb9aa46e040bb6e85688f4b632b37b9a483fdd8c66f19b30",
+  "tests_sha256": "f7e5a02adc9677f4dfd866f365dfef0ec118d9494dc86d479802bfd3bef3e91b",
+  "owner_controls": {
+    "passed": 53,
+    "seconds": 25.5
+  },
+  "independent_controls": {
+    "passed": 4,
+    "failed": 4,
+    "seconds": 6.89
+  },
+  "findings": [
+    {
+      "priority": 2,
+      "path": "supplement.py",
+      "lines": [
+        69,
+        79
+      ],
+      "title": "Reject exponent-overflow JSON numbers",
+      "direct_probes": [
+        "1e999",
+        "-1e999",
+        "nested1e999"
+      ],
+      "invented_full_chain_received_completion": true,
+      "scope": "nonfinite JSON admission conformance; no actual quality implication"
+    }
+  ],
+  "arithmetic_and_null_frequency_review": "SCOPED_NO_ADDITIONAL_DEFECT_FOUND",
+  "pending_orchestration": "Any amended original result checker/prerequisite schema must receive separate review; no fake PASS",
+  "actual_study_outputs_accessed": false,
+  "actual_models_or_inference": false,
+  "actual_supplement": "NOT_RUN"
+}

@@ -1,0 +1,9 @@
+{
+  "recorded_utc": "2026-10-30T02:39:06.273881+00:00",
+  "parent_extension_sha256": "0188f98cfd682fcf08c1ce3cb31c11ec23ea91045f32af62508567f22e036864",
+  "reason": "Preserve and repair legitimate missing-support batches, and make long-range dependency masks explicit",
+  "attempt02": "Six development variants completed first-year fold; mixed arm stopped before first epoch completed because one interval had no supported positive-weight targets. All receipts and outputs retained under originalrunroot. Those outcomes are development diagnostics only.",
+  "repair": "An unsupported interval contributes no loss and is logged by event/cutoff; an epoch with no optimizer updates still fails. No unsupported interval becomes a zero-Brier success. Added conservative long-range source-radius support propagation; untracked callbacks with unknown sources refuse.",
+  "controlled_rerun": "All variants and all development folds rerun into execution_v3 from fixed seeds before any heldout scoring; earlier phase not pooled",
+  "unchanged": "fire split, all eligible final fit intervals, fixed3epochs, fullheldout evaluation, all12cutoffs/horizons, selected-model criterion"
+}

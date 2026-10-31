@@ -1,0 +1,108 @@
+{
+  "actual_study_data_or_checkpoints_read": false,
+  "core_files_included": false,
+  "development_membership_closure": {
+    "changed_since_bc0de1ff": [
+      "research/forecast-v2/scripts/audit_fit_coverage.py",
+      "forecast/tests/test_blind_forecast_protocol.py"
+    ],
+    "delta_patch": {
+      "path": "DEVELOPMENT_MEMBERSHIP_CLOSURE.patch",
+      "sha256": "49451b80b82bb9e0ed29caaa4f24c9473d265638e06437109822c24331ae5e6e"
+    },
+    "full_fit_population_unchanged": true,
+    "rule": "Every fold requires exact frozen SPLIT development_folds.folds fire keys; validation_events, when present, must equal the frozen ordered list. Criterion aggregates in frozen fire order.",
+    "shared_admission": "phase_result, consumed by report/status/selection/scoring"
+  },
+  "files": [
+    {
+      "base_sha256": "e500b92244e4f298e9b8f60f6c05fb5971c5848aea64a143b004d9da8512828e",
+      "path": "research/forecast-v2/scripts/audit_fit_coverage.py",
+      "sha256": "403fbde231fb676d9fe162ea09e8d097ec6da6ec3bf672cc4f47d3ff959a0f3b"
+    },
+    {
+      "base_sha256": "ed71b5e7ae046c272b6a3b4b36cf21b216db96f21a730850d625f5d5908507be",
+      "path": "research/forecast-v2/scripts/freeze_registry.py",
+      "sha256": "2d952bbc58cf261a1910e0bace9a3b5f01ac03ce74543cef9bd9425216cdad38"
+    },
+    {
+      "base_sha256": "69ca9ebe2344fc407159cc169a9931fe05b745db31f4a4d9352cb00eee36052d",
+      "path": "research/forecast-v2/scripts/run_campaign.py",
+      "sha256": "6f0ceb4ec4f7b56cebae6f06f108a87531eca67f016b90b575c70e5cde2e848c"
+    },
+    {
+      "base_sha256": "43b6ac436d3c9b2de1c0df965a8b985005505052072cf49f4a097cfbb880df3e",
+      "path": "research/forecast-v2/scripts/pipeline.py",
+      "sha256": "3a5eeecade0dcbe75861f65dc6f03ca728adfefc0ea3dcba153cc148854c0d8a"
+    },
+    {
+      "base_sha256": "c9c1f3ec631adbf2387f79442655c2aea76c5269009987914db8e7caa457c1e0",
+      "path": "research/forecast-v2/scripts/status.py",
+      "sha256": "339e564c05a1fac7324788c98ded5c3ccee37b30cf2689a18b935ab7734c039a"
+    },
+    {
+      "base_sha256": "f07801029b3b9edd1a029be29235798f6952afd9525aafe75ca95288c44362a2",
+      "path": "research/forecast-v2/scripts/report.py",
+      "sha256": "624572c30d5c1ce948263e7635bd2a43a0083df32614abe7de9d3c4f414b51f6"
+    },
+    {
+      "base_sha256": "2aa54de786c49714a5a346029aefe95f15d12e9646eac5737d30071d8764eaa9",
+      "path": "research/forecast-v2/scripts/score_cohorts.py",
+      "sha256": "9198d737260a7a993bd6821ca6214d89c04cd6b46e54b7007ede4b3826819333"
+    },
+    {
+      "base_sha256": "7969e68a5e5fbb31c6e761b365075f1578e78694696f00abe5174a55f7fe3261",
+      "path": "research/forecast-v2/scripts/blind_test.py",
+      "sha256": "00d7b3f7fef76eed0d55e493d15243b0b402477520b7e57507f5e4da1556d911"
+    },
+    {
+      "base_sha256": "7e34e27c14bf774fe6e4680cd08fa53df6cfb5d4ee8ecfc4f657afaee2c3c1fa",
+      "path": "forecast/tests/test_blind_forecast_protocol.py",
+      "sha256": "3dfd5eac0d32589b19ea8839cbf8bcbe0470409c4bae3dcfbc901de08f8f72b4"
+    },
+    {
+      "base_sha256": "ad609e34334292a1a16152d452ee954d0a16c5a6e1dfc17f715abfbe285b54b6",
+      "path": "forecast/tests/test_assessment_admission.py",
+      "sha256": "539cb88987dea565b1f2012c5953a5ecd055807ac9e98a9bb3fe0b63e1a1f35e"
+    },
+    {
+      "base_sha256": null,
+      "path": "forecast/tests/test_intended_forecast_phases.py",
+      "sha256": "aed9110f6189e1123c6f7df1f907a4399d179b0f71bba3180939a5a6e9e7b09c"
+    }
+  ],
+  "graph": {
+    "coverage": "Owned paths not_tracked or missing; exact scratch source fallback; no graph mutation",
+    "generation": "2026-10-30T02:11:43Z",
+    "project": "wfg-next-1b-20261030",
+    "tier": 2
+  },
+  "heldout_scores_read": false,
+  "live_git_mutations": false,
+  "patch": {
+    "path": "PHASE_METADATA_REPAIR.patch",
+    "sha256": "5247993da00c2b931c79e7d7fc78143934cfe54ff53927f22e1c386f54d0dbdb"
+  },
+  "policy": {
+    "extension2_sha256": "c9999a137ceb5d679a108b262aba8a977053875853f824ab2878448536953dcb",
+    "source_envelope": "Narrow mixed_base K9/free/frame-none/no-extra/cutoff-repeat support classification; conservative source inference with finite softplus underflow caveat, no claimed per-optimizer mask replay.",
+    "unsupported": "Complete actual attempted IDs; exact runtime skipped IDs/history/source/cache binding; optimized IDs explicitly derived by subtraction; zero-update epochs refuse."
+  },
+  "prerequisites": [
+    "Parent review and explicit live integration",
+    "Independent patch review and live regression",
+    "Corrected three spotting folds and one full spotting fit",
+    "Fresh source/cache audit and separate final-mask corroboration for logged unsupported mixed cases",
+    "Complete FIT_COVERAGE, MODEL_SELECTION and BLIND_REGISTRY before any current assessment",
+    "2026 execution remains NOT_READY; owner registration and independent documentary review remain external prerequisites"
+  ],
+  "status": "SCRATCH_ONLY_TESTED_PATCH_NOT_INTEGRATED",
+  "tests": {
+    "command": "PYTHONPATH=forecast /Users/jp/Documents/Codex/2026-10-30/work-in-the-wildfireguardian-repository-on/work/venv-forecast/bin/python -m pytest forecast/tests/test_blind_forecast_protocol.py forecast/tests/test_assessment_admission.py forecast/tests/test_intended_forecast_phases.py forecast/tests/test_blind_inventory.py -x -q",
+    "passed": 297,
+    "seconds": 35.96,
+    "warning": "Expected rasterio NotGeoreferencedWarning from synthetic VRT/external mask controls",
+    "warnings": 10
+  },
+  "training_or_MC_jobs_started": false
+}

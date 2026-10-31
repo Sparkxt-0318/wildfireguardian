@@ -1,0 +1,43 @@
+{
+  "case": {
+    "event": "ID-BOF-000683_Wapiti_Wapiti",
+    "cutoff": "2024-09-08T03:54:00+00:00",
+    "endpoint": "2024-09-09T06:22:00+00:00",
+    "hours": 26.466666666666665
+  },
+  "case_id": "9d73ab35832e628f669b6106",
+  "assessment_sha256": "67c400f31e93dec28175f0afd71a987f5e0fbf7437f81db85962bd4854fabcff",
+  "receipt_version": "wfg.forecast-assessment-case/2",
+  "initial_sha256": "f16c22bbe626792df414ad890207c9bf8cba0a53fdaadbabf9154d67138ab19e",
+  "endpoint_sha256": "c1338dfd1500f618f1d4b92adf132421b8a58f28a577c9300cdb4926077d0e1a",
+  "environmental_snapshot_sha256": "24220aac2a59b25043d5f12f28e76b317aa0e639c012293200208f1cf5ca88e3",
+  "reference_mask_sha256": "9f95c40ed2fbc9a92a13300e2bd799643f5a7664fd7954f66939da20977aa2a5",
+  "initial_age_sha256": "2960d57c2225e49c67ed938ef7fdcfc42ba96341680e5a0d3228929cf8210502",
+  "residence_sha256": "6eaf38f5f81d6ab9a2594e16fe5e91f5e0a795afea69266c10e46aa41fc95428",
+  "rectangle": [
+    111,
+    105
+  ],
+  "reference_cells": 8223,
+  "weather_hour": "2024-09-08T03:00:00+00:00",
+  "status": "SCORED",
+  "sha256": "0c5e7d1c5f8756cc56998ce2729fdc081864aa7cd43bd3d032c9911a02f61339",
+  "scored_cells": 8223,
+  "positives": 99,
+  "excluded_cells": 0,
+  "scored_mask_sha256": "9f95c40ed2fbc9a92a13300e2bd799643f5a7664fd7954f66939da20977aa2a5",
+  "model_seconds": {
+    "c651_mc": 92.70209879201138,
+    "c651_meanfield": 0.08421629096847028,
+    "base_seed0": 0.05067799997050315,
+    "d4_seed0": 0.04708383302204311,
+    "d4_wind_seed0": 0.33276204200228676,
+    "ellipse_seed0": 0.05347020796034485,
+    "burnout_seed0": 0.059786083991639316,
+    "burnout_spotting_seed0": 0.938726415974088,
+    "mixed_base_seed0": 0.04874745802953839,
+    "admission_support_replay": 1.602321042038966
+  },
+  "seconds": 95.93645129201468,
+  "completed_utc": "2026-10-30T14:14:29.245517+00:00"
+}
