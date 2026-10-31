@@ -5,7 +5,7 @@
 
 ## Now
 
-- **Phase:** Setup (branches, worktrees, venvs, coordination files) → next `hazard_contract` v1.
+- **Phase:** Phase 0. Setup and `hazard_contract` v1 are done (checkpoint 1 reported).
 - **Updated:** 2026-10-31 (UTC).
 
 ## Host and data (important)
@@ -44,7 +44,10 @@
 
 | Agent | Track | Doing | Worktree |
 |---|---|---|---|
-| codebase-map readers (4 + critic) | both | read-only map of packets, router, forecast API, splits | main checkout (read-only) |
+| codebase-map readers (4 + critic) | both | read-only maps (scratchpad `maps/01..04`) | main checkout (read-only) |
+| hazard-contract reviewers (3 + verifiers) | interface | adversarial review of `hazard_contract` v1 | read-only |
+| Track C chain: C1 oracle → C0 merge → C2 generators/harness → C3a deadlines/B0/B1 → C3b B2/B3 + dev run | C | Phase 0 | `/home/user/wfg-evacplan` |
+| Track A (A1a splits/metrics, A1b members/baselines code, A2 decision metric) | A | starts when maps 03/04 land | `/home/user/wfg-firecast` |
 
 ## Blockers
 
@@ -55,10 +58,15 @@
 
 ## Next step
 
-Finish setup, write `hazard_contract` v1 with tests, push branches, checkpoint-1 report.
+Phase 0 of both tracks, then independent review and checkpoint 2 (stop and wait).
 
 ## Log
 
 - 2026-10-31 Preflight done (see "Host and data"). `Main` = `origin/Main` = `0cd95db`.
 - 2026-10-31 `next/integration` created from `Main`; ground-rules `CLAUDE.md` written in
   `program/`, `evacplan/`, `firecast-lab/`, `hazard_contract/`; bench lock added.
+- 2026-10-31 Worktrees `../wfg-evacplan`, `../wfg-firecast` created; venvs built (evacplan: osmnx 2.1.1,
+  OR-Tools 9.14, highspy, wfg_latest; firecast: scipy 1.13.1, scikit-image, rasterio, forecast
+  `wildfire` without torch). `hazard_contract` installed editable in all three venvs.
+- 2026-10-31 `hazard_contract` v1 committed (53 tests pass incl. real Uljin packet); decisions in
+  `DECISIONS.md`. Track branches fast-forwarded onto it and pushed.
