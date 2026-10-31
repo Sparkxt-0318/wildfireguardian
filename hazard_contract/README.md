@@ -64,10 +64,24 @@ under the scalar duration policy adding burning can never lower any bound.
 
 | adapter | source | notes |
 |---|---|---|
-| `from_wfg_packet(dir, present_fire="exact")` | this repo's hazard packets | Rule 4 applied: cells with missing native probability or unknown burned state become unsupported (32–100% of road cells in the Korean packets). Present fire: exact remaining time, or the router's scalar enclosure |
-| `from_perimeters(series, burn_duration, ...)` | observed perimeter progression | stratified / rotated / `envelope` (the union of all possible burning intervals) members; horizon = last perimeter |
+| `from_wfg_packet(dir, present_fire="enclosure")` | this repo's hazard packets | Rule 4 applied: cells with missing native probability or unknown burned state (`mask__policy_assigned_zero` or `mask__unknown_cumulative_state`) become unsupported (32–100% of road cells in the Korean packets). Present fire burns until the router's scalar `R_max` (default) or each cell's exact remaining time; ignition `min(R_cell - T, 0)` |
+| `from_perimeters(series, burn_duration, ...)` | observed perimeter progression | stratified / rotated / `envelope` (the union of all possible burning intervals; scalar policy only) members; horizon = last perimeter |
 | `from_drawn_zones(polygons, spread_speed, ...)` | hand-drawn burning zones | isotropic earliest-arrival spread, one member per speed |
 | `synthetic(...)` | SYNTHETIC test fires | always labeled synthetic |
+
+## Conventions worth knowing
+
+- **CRS must be projected and metric** (the flux law uses ground metres): geographic (degree) and
+  Web Mercator EPSG codes are refused.
+- **Polygons** follow GeoJSON nesting: a ring `[n, 2]`; a polygon = list of rings (exterior, then
+  holes); a multipolygon = list of polygons. Rasterization is all-touched and keeps holes, so an
+  unburned island stays unburned (filling it would later make it read as burned out).
+- **Interval burn-duration policy**: an unknown cell's emission is unbounded, so any unknown cell
+  makes upper flux/dose bounds infinite; `write(dtype="float32")` is refused unless exact.
+- **`query_uniform` is rounding-safe**: piece times are computed from one cumulative sum with
+  exact end times; contact, upper bounds and support use intervals widened by a few ulps, lower
+  bounds use narrowed ones.
+- Reading requires `meta.json` to declare `contract_version`.
 
 ## Change control
 

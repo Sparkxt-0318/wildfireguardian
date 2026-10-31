@@ -19,6 +19,7 @@ floating-point summation order can never invert the bounds.
 """
 from __future__ import annotations
 
+import json
 import math
 from pathlib import Path
 
@@ -37,6 +38,7 @@ META_FILE = "meta.json"
 DEFAULT_NEAR_RADIUS_M = 5000.0
 FOUR_PI = 4.0 * math.pi
 KERNEL_MARGIN = 1e-9
+OMEGA_ABS_ERR = 1e-13   # sr; absolute error allowance of the 4-term arctan solid angle
 
 
 def _readonly(a: np.ndarray) -> np.ndarray:
@@ -109,7 +111,13 @@ class ScenarioSet:
         folder.mkdir(parents=True, exist_ok=True)
         ig, ex = self.ignite_s, self.extinguish_s
         if dtype == "float32":
-            ig, ex = _round_outward_float32(ig, ex)
+            ig32, ex32 = _round_outward_float32(ig, ex)
+            exact = (np.array_equal(ig32.astype(np.float64), ig, equal_nan=True)
+                     and np.array_equal(ex32.astype(np.float64), ex, equal_nan=True))
+            if self.meta.heat_source.burn_duration_policy == "interval" and not exact:
+                # widening an interval lowers C / duration: not conservative under this policy
+                raise ValueError("float32 would change burning intervals of an interval-policy set; use float64")
+            ig, ex = ig32, ex32
         elif dtype != "float64":
             raise ValueError("dtype must be 'float64' or 'float32'")
         np.savez_compressed(folder / MEMBERS_FILE, ignite_s=ig, extinguish_s=ex, supported=self.supported)
@@ -119,8 +127,15 @@ class ScenarioSet:
     @classmethod
     def read(cls, folder) -> "ScenarioSet":
         folder = Path(folder)
+        text = (folder / META_FILE).read_text()
         try:
-            meta = ScenarioMeta.model_validate_json((folder / META_FILE).read_text())
+            declared = json.loads(text)
+        except json.JSONDecodeError as exc:
+            raise ContractError(f"invalid {META_FILE}: {exc}") from exc
+        if not isinstance(declared, dict) or "contract_version" not in declared:
+            raise ContractError(f"{META_FILE} does not declare contract_version")
+        try:
+            meta = ScenarioMeta.model_validate_json(text)
         except ValidationError as exc:
             raise ContractError(f"invalid {META_FILE}: {exc}") from exc
         with np.load(folder / MEMBERS_FILE, allow_pickle=False) as z:
@@ -179,7 +194,9 @@ class ScenarioSet:
         up = (1.0 + KERNEL_MARGIN) / FOUR_PI
         lo = (1.0 - KERNEL_MARGIN) / FOUR_PI
         k_up = solid_angle_upper(dmin, area, h, cap) * up                                   # [n_need]
-        k_lo_probe = solid_angle_rects(probes, x0, x1, y0, y1, h) * lo                       # [n_probe, n_need]
+        # exact solid angles lose up to ~1e-15 sr to cancellation for far cells: deflate absolutely too
+        k_lo_probe = np.maximum(solid_angle_rects(probes, x0, x1, y0, y1, h) * (1.0 - KERNEL_MARGIN)
+                                - OMEGA_ABS_ERR, 0.0) / FOUR_PI                             # [n_probe, n_need]
         dmax_geom = points_rect_dmax(g, x0, x1, y0, y1).max(axis=0)                         # farthest over vertices
         k_lo_geom = solid_angle_lower(dmax_geom, area, h) * lo                               # [n_need]
         k_far = float(solid_angle_upper(np.array([R]), area, h, cap)[0]) * up
@@ -207,24 +224,39 @@ class ScenarioSet:
             return self.query(g, a, b, members, near_radius_m=near_radius_m)
         ks = list(range(self.K)) if members is None else [int(k) for k in members]
         pieces = uniform_pieces(self.grid, g, a, b, max_len_m)
-        per_piece = [self.query(pg, ta, tb, ks, near_radius_m=near_radius_m) for pg, ta, tb in pieces]
+        # Piece times carry floating-point error. Contact, upper bounds and support use intervals
+        # widened by eps_t (clamped to [t_in, t_out]); lower bounds use intervals narrowed by eps_t,
+        # so neither direction can be lost to rounding.
+        eps_t = 8.0 * (len(g) + 8) * np.finfo(float).eps * (abs(a) + abs(b) + 1.0)
+
+        def wide(ta: float, tb: float) -> tuple[float, float]:
+            return max(a, ta - eps_t), min(b, tb + eps_t)
+
+        up = [self.query(pg, *wide(ta, tb), ks, near_radius_m=near_radius_m) for pg, ta, tb in pieces]
+        lo = [self.query(pg, ta + eps_t, tb - eps_t, ks, near_radius_m=near_radius_m)
+              for pg, ta, tb in pieces if tb - ta > 2.0 * eps_t]
         # Exact contact under uniform motion (the router's occupancy rule): the cells holding each
-        # open piece during its sub-interval, and the cells touching each cut point at its instant.
-        checks = [(0.5 * (pg[0] + pg[1]), ta, tb) for pg, ta, tb in pieces]
-        checks += [(pg[0], ta, ta) for pg, ta, _ in pieces] + [(pieces[-1][0][1], pieces[-1][2], pieces[-1][2])]
+        # open piece during its sub-interval, and the cells touching each cut point at its instant
+        # (the final instant is t_out itself).
+        checks = [(0.5 * (pg[0] + pg[1]), *wide(ta, tb)) for pg, ta, tb in pieces]
+        checks += [(pg[0], *wide(ta, ta)) for pg, ta, _ in pieces] + [(g[-1], *wide(b, b))]
         hit = np.zeros(len(ks), dtype=bool)
         for xy, t0, t1 in checks:
             hit |= self._point_burning(xy, t0, t1, ks)
+        beyond = b > self.meta.horizon_s
         out = []
         for j in range(len(ks)):
-            rs = [pp[j] for pp in per_piece]
-            supported = all(r.supported for r in rs)
+            rs = [pp[j] for pp in up]
+            ls = [pp[j] for pp in lo]
+            supported = all(r.supported for r in rs) and not beyond
             contact = True if hit[j] else (False if supported else None)
             out.append(SegmentHazard(
                 contact=contact,
-                flux_lower=max(r.flux_lower for r in rs), flux_upper=max(r.flux_upper for r in rs),
+                flux_lower=max((r.flux_lower for r in ls), default=0.0),
+                flux_upper=max(r.flux_upper for r in rs),
                 supported=supported,
-                dose_lower=float(sum(r.dose_lower for r in rs)), dose_upper=float(sum(r.dose_upper for r in rs)),
+                dose_lower=float(sum(r.dose_lower for r in ls)),
+                dose_upper=float(sum(r.dose_upper for r in rs)),
             ))
         return out
 
@@ -271,8 +303,14 @@ class ScenarioSet:
 
         far_active = idx.count_active(k, a, b) - act.size
         far_unknown = idx.n_unknown[k] - unk.size
-        static_up = float(np.sum(idx.q_unknown[k] * k_up[pos[unk]])) if unk.size else 0.0
-        static_up += (max(far_active, 0) * idx.q_max[k] + max(far_unknown, 0) * idx.q_unknown[k]) * k_far
+        q_unk = idx.q_unknown[k]
+        static_up = 0.0
+        if unk.size:
+            static_up += float(np.sum(q_unk * k_up[pos[unk]]))
+        if far_active > 0:
+            static_up += far_active * idx.q_max[k] * k_far
+        if far_unknown > 0:
+            static_up += far_unknown * q_unk * k_far
 
         # The burning set B(t) = {ignite <= t < extinguish} only changes at ignition/extinction
         # times. Evaluate it exactly on every open piece between consecutive event times and at
@@ -290,7 +328,10 @@ class ScenarioSet:
         late_i = times > horizon
         dt = tq - tp
 
-        cap = 0.5 * idx.q_unknown[k] * (1.0 + KERNEL_MARGIN)   # sum of solid angles <= 2 pi
+        # Sum of all solid angles <= 2 pi: flux <= half the largest emission among cells that
+        # may burn (an unknown cell's emission is unbounded under the interval policy).
+        q_cap = max(idx.q_max[k], q_unk if idx.n_unknown[k] > 0 else 0.0)
+        cap = 0.5 * q_cap * (1.0 + KERNEL_MARGIN)
 
         def upper(B, late):
             F = np.where(B, c_up[None, :], 0.0).sum(axis=1) + static_up
@@ -360,7 +401,9 @@ class _Index:
             self.n_unknown[k] = int((~sup).sum())
             qk = s._cell_emission(ig[burns], ex[burns])
             self.q_max[k] = float(qk.max()) if qk.size else q_scalar
-            self.q_unknown[k] = max(q_scalar, self.q_max[k])
+            # Unknown cells may hold any times; under the interval policy their emission
+            # C / (extinguish - ignite) has no upper bound.
+            self.q_unknown[k] = np.inf if hs.burn_duration_policy == "interval" else max(q_scalar, self.q_max[k])
 
     def count_active(self, k: int, a: float, b: float) -> int:
         """Cells burning at some instant of [a, b]: #(ignite <= b) - #(extinguish <= a)."""
@@ -370,15 +413,20 @@ class _Index:
 
 def uniform_pieces(grid: Grid, g: np.ndarray, t_in: float, t_out: float,
                    max_len_m: float | None = None) -> list[tuple[np.ndarray, float, float]]:
-    """Cut a polyline at vertices and grid lines (and to ``max_len_m``) with uniform-motion times."""
+    """Cut a polyline at vertices and grid lines (and to ``max_len_m``) with uniform-motion times.
+
+    Vertex times come from one cumulative sum (so adjacent segments agree), the first and last
+    times are exactly ``t_in`` and ``t_out``, and every vertex point is exact. Only exact
+    duplicate cut fractions are merged: a real crossing is never dropped.
+    """
     seg_len = np.hypot(*(g[1:] - g[:-1]).T)
-    total = float(seg_len.sum())
     cum = np.concatenate([[0.0], np.cumsum(seg_len)])
+    total = cum[-1]
+    span = t_out - t_in
+    nz = np.flatnonzero(seg_len > 0.0)
     px = grid.to_pixel(g)
     pieces = []
-    for i in range(len(g) - 1):
-        if seg_len[i] == 0.0:
-            continue
+    for i in nz:
         ts = [np.array([0.0, 1.0])]
         d = px[i + 1] - px[i]
         for axis in (0, 1):
@@ -387,25 +435,23 @@ def uniform_pieces(grid: Grid, g: np.ndarray, t_in: float, t_out: float,
                 ks = np.arange(np.ceil(lo), np.floor(hi) + 1.0)
                 if ks.size:
                     ts.append((ks - px[i][axis]) / d[axis])
-        f = _dedupe_sorted(np.unique(np.clip(np.concatenate(ts), 0.0, 1.0)))
+        f = np.unique(np.clip(np.concatenate(ts), 0.0, 1.0))
         if max_len_m:
             n_sub = np.maximum(np.ceil((np.diff(f) * seg_len[i]) / max_len_m).astype(int), 1)
-            f = _dedupe_sorted(np.unique(np.concatenate(
-                [np.linspace(f[j], f[j + 1], n_sub[j] + 1) for j in range(len(f) - 1)])))
+            f = np.unique(np.concatenate([np.linspace(f[j], f[j + 1], n_sub[j] + 1) for j in range(len(f) - 1)]))
         pts = g[i][None, :] + f[:, None] * (g[i + 1] - g[i])[None, :]
-        times = t_in + (t_out - t_in) * (cum[i] + f * seg_len[i]) / total
+        pts[0], pts[-1] = g[i], g[i + 1]
+        times = t_in + ((cum[i] + f * seg_len[i]) / total) * span
+        times[0] = t_in + (cum[i] / total) * span
+        times[-1] = t_in + (cum[i + 1] / total) * span
+        if i == nz[0]:
+            times[0] = t_in
+        if i == nz[-1]:
+            times[-1] = t_out
+        times = np.maximum.accumulate(np.clip(times, t_in, t_out))
         for j in range(len(f) - 1):
-            pieces.append((pts[j:j + 2], float(times[j]), float(times[j + 1])))
+            pieces.append((pts[j:j + 2].copy(), float(times[j]), float(times[j + 1])))
     return pieces
-
-
-def _dedupe_sorted(f: np.ndarray, tol: float = 1e-12) -> np.ndarray:
-    """Drop fractions within ``tol`` of their predecessor (a grid corner crossed by both a row
-    and a column line otherwise yields a zero-length piece); keep the endpoints 0 and 1."""
-    keep = np.concatenate([[True], np.diff(f) > tol])
-    out = f[keep]
-    out[-1] = 1.0
-    return out
 
 
 def _round_outward_float32(ig: np.ndarray, ex: np.ndarray) -> tuple[np.ndarray, np.ndarray]:

@@ -13,7 +13,7 @@ from .meta import CONTRACT_VERSION, ContractError, HeatSource, ScenarioMeta
 from .query import HazardMember, SegmentHazard
 from .scenario import DEFAULT_NEAR_RADIUS_M, RasterMember, ScenarioSet
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 __all__ = [
     "CONTRACT_VERSION", "ContractError", "DEFAULT_NEAR_RADIUS_M", "Grid", "HazardMember", "HeatSource",
