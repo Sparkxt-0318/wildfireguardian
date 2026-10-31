@@ -38,12 +38,12 @@ never delivered).
 .venv/bin/evacplan instances --set dev          # the frozen dev instances (add --materialize to cache them)
 ```
 
-`results/<method>.csv` (git-ignored) has one row per instance, seed, budget and set: `instance, method,
+`results/<method>.csv` (committed with the leaderboard) has one row per instance, seed, budget and set: `instance, method,
 seed, delivered_checked, unresolved, model_no_route, makespan_s, min_slack_s, runtime_s, best_bound, gap,
 commit, config, host`. Delivered, unresolved and model_no_route (and every per-facility state) come from the
 oracle; `best_bound` and `gap` come from a method's own proof (B3: a proven upper bound on the residents ANY plan
 can deliver; the leaderboard shows the smallest one per instance); `runtime_s` is the harness's clock around the
-method's solve. `results/<method>.facilities.csv` (git-ignored)
+method's solve. `results/<method>.facilities.csv` (committed; plans and oracle results in `results/runs/` are not)
 has one row per instance, seed, facility and mobility class: the facility's deadlines (`arrive_by_s`: latest
 first arrival, `leave_by_s`: latest last departure, both oracle-checked), the residents no plan can serve
 (`unservable`, a scoped `model_no_route`), and this plan's delivered / unresolved / model_no_route / not planned
