@@ -73,6 +73,7 @@ def write_fake_packet(d: Path) -> None:
     arrays = {
         "ignition_time_s": ig, "current_active": cur, "support": np.ones((K, H, W), bool),
         "mask__known_burned": known_burned, "mask__policy_assigned_zero": pz,
+        "mask__unknown_cumulative_state": np.zeros((H, W), bool),
         "mask__initial_remaining_s_native": rem,
     }
     for k in range(K):
@@ -121,3 +122,15 @@ def test_real_uljin_packet():
     assert s.meta.extra["n_present_fire_cells"] == 26
     q = s.meta.heat_source.emission_kw_m2(s.meta.heat_source.burn_duration_s)
     assert q == pytest.approx(1.405981669694301, rel=1e-12)
+
+
+def test_envelope_refuses_interval_policy():
+    """Review finding: stretching intervals dilutes C/duration, so an envelope is only conservative
+    under the scalar policy."""
+    from hazard_contract import HeatSource
+    p1 = np.zeros((10, 10), bool); p1[4:6, 4:6] = True
+    p2 = np.zeros((10, 10), bool); p2[3:7, 3:7] = True
+    heat = HeatSource(fuel_load_kg_m2=10, consumed_fraction=0.1, heat_content_kj_kg=18608, radiative_fraction=0.3,
+                      burn_duration_s=600.0, burn_duration_policy="interval")
+    with pytest.raises(ValueError):
+        from_perimeters([(0.0, p1), (3600.0, p2)], 600.0, K=1, mode="envelope", heat=heat, **GRID)

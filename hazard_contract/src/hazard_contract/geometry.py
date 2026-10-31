@@ -230,20 +230,25 @@ def solid_angle_upper(dmin: np.ndarray, area: float, h: float, cap: float) -> np
 
     For ``dmin > 0`` the cell lies in a wedge of angle < pi at radii >= dmin; the bathtub
     principle for the radially decreasing kernel ``h / (r^2 + h^2)^1.5`` gives
-    ``pi h (1/sqrt(dmin^2 + h^2) - 1/sqrt(dmin^2 + 2 A / pi + h^2))``. Touching cells get ``cap``.
+    ``pi h (1/sqrt(dmin^2 + h^2) - 1/sqrt(dmin^2 + 2 A / pi + h^2))``, evaluated without
+    cancellation. Touching cells get ``cap``.
     """
     d2 = np.asarray(dmin, dtype=float) ** 2
-    wedge = np.pi * h * (1.0 / np.sqrt(d2 + h * h) - 1.0 / np.sqrt(d2 + 2.0 * area / np.pi + h * h))
+    a = np.sqrt(d2 + h * h)
+    b = np.sqrt(d2 + 2.0 * area / np.pi + h * h)
+    wedge = np.pi * h * (2.0 * area / np.pi) / (a * b * (a + b))
     return np.where(d2 > 0.0, np.minimum(wedge, cap), cap)
 
 
 def solid_angle_lower(dmax: np.ndarray, area: float, h: float) -> np.ndarray:
     """Lower bound on a cell's solid angle from any receiver within ``dmax`` of all of it: the
     cell (area A) lies in the disk of radius dmax, and the outer annulus of area A minimises the
-    integral of the radially decreasing kernel."""
+    integral of the radially decreasing kernel. Evaluated without cancellation."""
     d2 = np.asarray(dmax, dtype=float) ** 2
     rin2 = np.maximum(d2 - area / np.pi, 0.0)
-    return np.maximum(2.0 * np.pi * h * (1.0 / np.sqrt(rin2 + h * h) - 1.0 / np.sqrt(d2 + h * h)), 0.0)
+    a = np.sqrt(rin2 + h * h)
+    b = np.sqrt(d2 + h * h)
+    return 2.0 * np.pi * h * np.minimum(d2, area / np.pi) / (a * b * (a + b))
 
 
 def probe_points_xy(g: np.ndarray) -> np.ndarray:
@@ -255,50 +260,68 @@ def probe_points_xy(g: np.ndarray) -> np.ndarray:
 
 
 def rasterize_polygons(grid: Grid, polygons) -> np.ndarray:
-    """All-touched rasterization: cells whose closed square meets any polygon (rings as
-    ``[n, 2]`` arrays in CRS units; holes are not subtracted — conservative)."""
+    """All-touched rasterization of polygons with holes.
+
+    ``polygons``: one ring ``[n, 2]``, one polygon (list of rings: exterior then holes, as in
+    GeoJSON), or a list of polygons. A cell is marked if its closed square meets any ring (a
+    partly covered cell counts as covered) or its centre is inside a polygon by the even-odd
+    rule over that polygon's rings, so hole interiors stay unmarked.
+    """
     mask = np.zeros((grid.height, grid.width), dtype=bool)
-    rings = list(_iter_rings(polygons))
-    if not rings:
+    polys = list(iter_polygons(polygons))
+    if not polys:
         return mask
     rows, cols = np.mgrid[0:grid.height, 0:grid.width]
     centers = grid.cell_centers(rows.ravel(), cols.ravel())
-    for ring in rings:
-        closed = np.vstack([ring, ring[:1]]) if not np.array_equal(ring[0], ring[-1]) else ring
-        r, c, _ = polyline_cells(grid, closed)
-        mask[r, c] = True
-        mask |= _points_in_ring(centers, closed).reshape(grid.height, grid.width)
+    for rings in polys:
+        inside = np.zeros(len(centers), dtype=bool)
+        for ring in rings:
+            r, c, _ = polyline_cells(grid, ring)
+            mask[r, c] = True
+            inside ^= _points_in_ring(centers, ring)
+        mask |= inside.reshape(grid.height, grid.width)
     return mask
 
 
 def polygons_dmin(grid: Grid, polygons) -> np.ndarray:
-    """Minimum distance (m) from every cell to the union of polygons; 0 where touched."""
+    """Minimum distance (m) from every cell to the polygons (holes excluded); 0 where touched."""
     touched = rasterize_polygons(grid, polygons)
     rows, cols = np.mgrid[0:grid.height, 0:grid.width]
     x0, x1, y0, y1 = grid.cell_rects(rows.ravel(), cols.ravel())
     d = np.full(rows.size, np.inf)
-    for ring in _iter_rings(polygons):
-        closed = np.vstack([ring, ring[:1]]) if not np.array_equal(ring[0], ring[-1]) else ring
-        d = np.minimum(d, polyline_rect_dmin(closed, x0, x1, y0, y1))
+    for rings in iter_polygons(polygons):
+        for ring in rings:
+            d = np.minimum(d, polyline_rect_dmin(ring, x0, x1, y0, y1))
     d = d.reshape(grid.height, grid.width)
     d[touched] = 0.0
     return d
 
 
-def _iter_rings(polygons):
-    """Accept one ring, a polygon (list of rings) or a list of polygons."""
-    if polygons is None:
-        return
-    arr = None
+def _is_ring(obj) -> bool:
     try:
-        arr = np.asarray(polygons, dtype=float)
+        a = np.asarray(obj, dtype=float)
     except (ValueError, TypeError):
-        arr = None
-    if arr is not None and arr.ndim == 2 and arr.shape[1] == 2:
-        yield as_polyline(arr)
+        return False
+    return a.ndim == 2 and a.shape[1] == 2 and a.shape[0] >= 1
+
+
+def _closed(ring: np.ndarray) -> np.ndarray:
+    return ring if np.array_equal(ring[0], ring[-1]) else np.vstack([ring, ring[:1]])
+
+
+def iter_polygons(obj):
+    """Yield polygons as lists of closed rings ``[exterior, *holes]``."""
+    if obj is None:
         return
-    for item in polygons:
-        yield from _iter_rings(item)
+    if _is_ring(obj):
+        yield [_closed(as_polyline(obj))]
+        return
+    items = list(obj)
+    if items and _is_ring(items[0]):
+        yield [_closed(as_polyline(r)) for r in items]
+        return
+    for item in items:
+        yield from iter_polygons(item)
 
 
 def _points_in_ring(pts: np.ndarray, ring: np.ndarray) -> np.ndarray:

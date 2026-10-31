@@ -30,3 +30,10 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   cells unsupported (question for Siyeong whether a labeled "packet policy" mode is wanted).
 - **2026-10-31** — Geometry touching the grid's outside or a query past `horizon_s` ⇒ unsupported;
   sources outside the grid are not modelled. Reason: unknown is not unburned; producers pad grids.
+- **2026-10-31** — `hazard_contract` 1.0.1 (format unchanged, `CONTRACT_VERSION` stays 1.0): fixes from an
+  independent adversarial review (12 confirmed findings, each now a regression test). Reason: two
+  false-safe paths (polygon holes filled; float time drift in `query_uniform`) and ten smaller
+  honesty gaps. Behaviour changes: polygons use GeoJSON nesting with holes kept; `from_wfg_packet`
+  default `present_fire="enclosure"` (what the router used) and also reads
+  `mask__unknown_cumulative_state`; geographic / Web Mercator CRSs refused (interface tightening —
+  needs Siyeong's confirmation); interval policy treats unknown emission as unbounded.

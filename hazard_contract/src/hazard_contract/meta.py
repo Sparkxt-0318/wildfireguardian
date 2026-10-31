@@ -9,6 +9,12 @@ from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_valid
 CONTRACT_VERSION = "1.0"
 SUPPORTED_MAJOR = 1
 Source = Literal["model", "packet", "perimeter", "drawn", "synthetic"]
+# The flux law and distances are metric: refuse CRSs whose units are degrees or whose
+# metres are not ground metres. (A deny-list: the package has no CRS database dependency.)
+NON_METRIC_EPSG = frozenset({
+    4326, 4269, 4258, 4283, 4167, 4612, 4737, 4019, 4617, 6318, 4674, 4979, 4978, 4170, 4171,  # geographic / geocentric
+    3857, 900913, 3785, 102100,                                                                # Web Mercator
+})
 
 
 class ContractError(ValueError):
@@ -112,6 +118,9 @@ class ScenarioMeta(BaseModel):
             raise ValueError("hazard_contract v1 supports north-up grids only (transform b == d == 0)")
         if a == 0 or e == 0:
             raise ValueError("degenerate transform (zero pixel size)")
+        if self.crs_epsg in NON_METRIC_EPSG:
+            raise ValueError(f"EPSG:{self.crs_epsg} is not a projected metric CRS; the flux law needs ground metres "
+                             "(use a local projected CRS such as UTM, EPSG:5179 or EPSG:3310)")
         if self.source == "synthetic" and not self.synthetic:
             raise ValueError("source='synthetic' requires synthetic=True")
         return self
