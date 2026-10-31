@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "evacplan"
 version = "0.1.0"
-description = "Track C: care-facility wildfire evacuation dispatch planner (Problem v0 schema, validator, feasibility oracle)"
+description = "Track C: care-facility wildfire evacuation dispatch planner (schema, oracle, instance generators, harness)"
 requires-python = ">=3.12,<3.13"
 # The in-repo packages hazard_contract (../hazard_contract) and, for the router-graph adapter,
 # wfg_latest (../integration) are installed editable from this repository. They are deliberately
@@ -14,6 +14,11 @@ dependencies = ["numpy>=1.26", "pydantic>=2.7,<3"]
 
 [project.optional-dependencies]
 test = ["pytest>=8", "hypothesis>=6"]
+# real regions (evacplan.regions): OSM roads and projections
+regions = ["networkx>=3", "osmnx>=2", "pyproj>=3"]
+
+[project.scripts]
+evacplan = "evacplan.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
