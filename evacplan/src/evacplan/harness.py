@@ -54,7 +54,7 @@ import hazard_contract as hc
 
 from .deadlines import class_deadlines
 from .instances import CACHE_DIR, EVACPLAN_ROOT, SPLIT_PATH, Split, SplitEntry, load_entry, load_split
-from .methods import get_method
+from .methods import canonical, get_method
 from .oracle import ORACLE_VERSION, ClassDeadline, Oracle, PlanResult
 from .schema import CLASSES, Board, Drive, Instance, Solution
 from .validate import validate_solution
@@ -322,7 +322,10 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
         leaderboard_path: Path | None = LEADERBOARD_PATH, save_plans: bool = True,
         log: Callable[[str], None] = print) -> list[dict]:
     """Run ``method`` on every instance of ``set_name`` (or the listed ``instances``) and seed at
-    ``budget_s`` seconds each; returns the result rows (also upserted into the CSV)."""
+    ``budget_s`` seconds each; returns the result rows (also upserted into the CSV). ``method`` may be an
+    alias (``B2``); rows and files use the registered name. Instances the method does not apply to
+    (:meth:`~evacplan.methods.Method.applicable`, e.g. B3 beyond S) are skipped and get no row."""
+    method = canonical(method)
     if not (isinstance(budget_s, (int, float)) and math.isfinite(budget_s) and budget_s > 0):
         raise ValueError("budget_s must be a positive number of seconds")
     seeds = [int(s) for s in seeds]
@@ -349,6 +352,9 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
     rows: list[dict] = []
     with bench_guard(lock, f"evacplan run {method} {set_name} {budget_s:g}s", log) as lock_state:
         for e, inst, ss in loaded:
+            if not m.applicable(inst):
+                log(f"  {e.id}: skipped ({method} does not apply to this instance)")
+                continue
             oracle = Oracle(inst, ss)
             deadlines = class_deadlines(inst, ss, oracle=oracle)          # per facility; not timed
             for seed in seeds:
@@ -418,10 +424,12 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
     unserv = _unservable(facility_rows or [])
     residents: dict[str, int] = {}
     order: dict[str, int] = {}
+    size_of: dict[str, str] = {}
     if split is not None:
         for entries in split.sets.values():
             for e in entries:
                 order.setdefault(e.id, len(order))
+                size_of[e.id] = str(e.config.get("size", "other"))
                 if "residents" in e.stats:
                     residents[e.id] = int(e.stats["residents"])
     lines = [
@@ -439,6 +447,9 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "inside not planned (or model_no_route / unresolved if a plan tries them).",
         "* Methods are compared only at **equal wall-clock budgets**: one table per set and budget. Runtime is the "
         "method's own wall clock; rows over budget are counted.",
+        "* **mean gap** = mean of (best bound - delivered) / best bound over the method's own proven bounds (exact or "
+        "relaxation methods, e.g. B3 on S instances only); a method that runs on fewer instances is summed over fewer "
+        "residents (see the size table).",
         "* **SYNTHETIC** rows are SYNTHETIC instances (`evacplan/instances/SPLIT.json`), not real-world results.",
         "",
     ]
@@ -483,17 +494,37 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         methods = sorted({r["method"] for r in g})
         inst_ids = sorted({r["instance"] for r in g}, key=lambda i: (order.get(i, len(order)), i))
         labels = {r["instance"]: row_config(r)["label"] or "real" for r in g}
-        lines += ["", "Delivered (checked) per instance, mean over seeds:", "",
-                  "| instance | label | residents | unservable | " + " | ".join(methods) + " |",
-                  "|---|---|---|---|" + "---|" * len(methods)]
+        mean_dl: dict[tuple[str, str], float] = {}
         for i in inst_ids:
-            cells = []
             for meth in methods:
                 v = [float(r["delivered_checked"]) for r in g if r["instance"] == i and r["method"] == meth]
-                cells.append(f"{sum(v) / len(v):g}" if v else "–")
+                if v:
+                    mean_dl[(i, meth)] = sum(v) / len(v)
+        lines += ["", "Delivered (checked) per instance, mean over seeds; **best bound** = the smallest proven upper "
+                  "bound any method reports for the instance (no plan can deliver more):", "",
+                  "| instance | label | residents | unservable | best bound | " + " | ".join(methods) + " |",
+                  "|---|---|---|---|---|" + "---|" * len(methods)]
+        for i in inst_ids:
+            cells = [f"{mean_dl[(i, m)]:g}" if (i, m) in mean_dl else "–" for m in methods]
             u = [x for (st, bd, _m, ii), x in unserv.items() if st == set_name and bd == budget and ii == i]
+            bnd = [float(r["best_bound"]) for r in g if r["instance"] == i and r["best_bound"]]
             lines.append(f"| {i} | {labels[i]} | {residents.get(i, '–')} | {f'{max(u):g}' if u else '–'} | "
-                         + " | ".join(cells) + " |")
+                         f"{f'{min(bnd):g}' if bnd else '–'} | " + " | ".join(cells) + " |")
+        sizes = sorted({size_of.get(i, "other") for i in inst_ids}, key=lambda z: ("SML".find(z) % 4, z))
+        if len(sizes) > 1 or any(sum(1 for i in inst_ids if (i, m) in mean_dl) < len(inst_ids) for m in methods):
+            lines += ["", "Delivered (checked) by instance size: sum of the per-instance means / residents of the "
+                      "instances the method ran (count); compare methods only on equal counts:", "",
+                      "| method | " + " | ".join(sizes) + " |", "|---|" + "---|" * len(sizes)]
+            for meth in methods:
+                cells = []
+                for z in sizes:
+                    ids = [i for i in inst_ids if size_of.get(i, "other") == z and (i, meth) in mean_dl]
+                    if not ids:
+                        cells.append("–")
+                        continue
+                    res_z = sum(residents.get(i, 0) for i in ids)
+                    cells.append(f"{sum(mean_dl[(i, meth)] for i in ids):g} / {res_z} ({len(ids)})")
+                lines.append(f"| {meth} | " + " | ".join(cells) + " |")
         lines.append("")
     return "\n".join(lines)
 

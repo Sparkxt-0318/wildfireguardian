@@ -25,3 +25,5 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# OR-Tools' SWIG bindings warn on import under Python 3.12
+filterwarnings = ["ignore:builtin type [Ss]wig:DeprecationWarning"]
