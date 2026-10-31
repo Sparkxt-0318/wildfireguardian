@@ -119,4 +119,5 @@ def test_check_event_and_cli_record_provenance(tmp_path):
     assert fd.main(["--data-root", str(root), "--out", str(out)], splits=splits) == 0
     record = json.loads(out.read_text())
     assert record["rows"] == [row] and record["config"]["buffer_m"] == 3000.0
-    assert len(record["commit"]) == 40 and record["host"] and "seed" in record
+    assert record["host"] and {"commit", "dirty", "seed", "config"} <= set(record)
+    assert record["commit"] is None or len(record["commit"]) == 40      # None outside a git checkout
