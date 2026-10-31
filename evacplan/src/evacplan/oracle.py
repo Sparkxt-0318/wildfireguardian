@@ -30,6 +30,18 @@ Semantics (reused from the single-vehicle router and its whole-journey checker; 
   is checked in ALL K members. Residents still on board at the end count as model_no_route.
 * Safety slack of a checked leg: the largest uniform delay that keeps it contact-free in all
   members (exact, from the cells' burning intervals), capped at the hazard horizon.
+
+Facility deadlines (:meth:`Oracle.class_deadline`, per facility and mobility class)
+----------------------------------------------------------------------------------
+* ``checked``: a probe vehicle that boards ONE resident of the class at the facility from
+  ``arrive_by_s`` and leaves at ``leave_by_s`` (the latest departure the relaxed sweep of
+  :mod:`evacplan.reach` finds) is checked here, trip and all, in all K members.
+* ``model_no_route`` (``UNSERVABLE:<reason>``): no plan can deliver these residents within this
+  model, fleet and horizon. Resource reasons are verified here (no shelter or no vehicle has room for
+  the class); route and approach reasons are certificates of the certain-contact relaxation, accepted
+  only when the 1 s lattice is complete for it (every cell that starts burning by the horizon keeps
+  burning through it, and all instance times are whole seconds; verified here).
+* ``unresolved``: neither.
 """
 from __future__ import annotations
 
@@ -46,7 +58,7 @@ import hazard_contract as hc
 from hazard_contract.geometry import as_polyline, is_stationary, polyline_cells
 from hazard_contract.scenario import uniform_pieces
 
-from .schema import ClassCounts, Instance, InstanceIndex, Itinerary, Solution
+from .schema import CLASSES, Board, ClassCounts, Instance, InstanceIndex, Itinerary, Solution, Vehicle
 from .validate import Issue, Schedule, Segment, simulate, validate_solution
 
 ORACLE_VERSION = "evacplan.oracle/0"
@@ -60,6 +72,18 @@ BEYOND_HORIZON = "BEYOND_HORIZON"
 PEAK_UNRESOLVED = "PEAK_UNRESOLVED"
 DOSE_UNRESOLVED = "DOSE_UNRESOLVED"
 RESOURCE_PREFIX = "RESOURCE:"
+UNSERVABLE_PREFIX = "UNSERVABLE:"
+NO_SHELTER_CAPACITY = "NO_SHELTER_CAPACITY"      # no shelter accepts the class
+NO_VEHICLE_SPACE = "NO_VEHICLE_SPACE"            # no vehicle has room for the class
+NO_ROUTE = "NO_ROUTE"                            # every route from the facility after release meets certain
+                                                 # contact or misses the horizon (certain-contact relaxation)
+NO_VEHICLE_IN_TIME = "NO_VEHICLE_IN_TIME"        # no vehicle can reach the facility, board and leave in time
+                                                 # (or finish within its shift) under that relaxation
+RESOURCE_CLAIMS = (NO_SHELTER_CAPACITY, NO_VEHICLE_SPACE)
+RELAXATION_CLAIMS = (NO_ROUTE, NO_VEHICLE_IN_TIME)
+PROBE_VEHICLE = "PROBE"
+NO_CHECKED_PROBE = "NO_CHECKED_PROBE"
+RELAXATION_INCOMPLETE = "RELAXATION_INCOMPLETE"
 
 SCOPE_RULES = (
     "contact: closed hazard cells (whole-road rule), uniform motion along each edge, stationary point at "
@@ -67,6 +91,16 @@ SCOPE_RULES = (
     "vehicle from its start; unsupported data or time past the horizon => unresolved. model_no_route is scoped "
     "to this hazard model, its K members and its horizon: it is not proof that no real-world plan exists. "
     "unresolved is never safe and never delivered.")
+
+FACILITY_SCOPE = (
+    "per facility and mobility class. checked: a probe vehicle boarding ONE resident of the class from arrive_by_s "
+    "and leaving at leave_by_s (the latest departure on the 1 s lattice from which the relaxed contact sweep finds a "
+    "turn-respecting route to an open shelter that accepts the class) is checked by this oracle in all K members; it "
+    "is a deadline for the facility, not a promise that any given fleet meets it. model_no_route (UNSERVABLE): no "
+    "plan can deliver these residents within this model, fleet and horizon (no shelter or vehicle space for the "
+    "class, or in the certain-contact relaxation every route from the facility after release, or every vehicle's "
+    "approach, meets certain flame contact, misses the horizon or the vehicle's shift). unresolved: neither shown; "
+    "never safe.")
 
 
 class State(str, Enum):
@@ -169,6 +203,27 @@ class ItineraryResult(_Result):
     vehicle_time_s: float | None
     min_slack_s: float | None           # over the legs up to its last delivered trip
     issues: list[IssueOut]
+
+
+class ClassDeadline(_Result):
+    """Deadlines and servability of one mobility class at one facility (see FACILITY_SCOPE)."""
+
+    facility: str
+    mobility_class: Literal["ambulatory", "wheelchair", "bedbound"]
+    residents: int
+    release_s: float
+    state: State
+    cause: str | None
+    arrive_by_s: float | None           # latest boarding start of a vehicle that still serves one resident
+    leave_by_s: float | None            # latest departure from the facility with a checked trip
+    shelter: str | None                 # the probe's shelter
+    route: list[str]                    # the probe's edges after boarding
+    probe_state: State | None
+    probe_cause: str | None
+    probe_min_slack_s: float | None
+    unservable: int                     # residents certainly unservable (scoped model_no_route), else 0
+    detail: str
+    scope: str
 
 
 class Scope(_Result):
@@ -515,6 +570,97 @@ class Oracle:
         """One vehicle in isolation: shared shelter and facility capacities count only this
         itinerary's own use. Final plan answers come from :meth:`check_plan`."""
         return self.check_plan(Solution(instance=self.instance.name, itineraries=[itinerary])).vehicles[0]
+
+
+    # ------------------------------------------------------------------ facilities
+    def probe_trip(self, facility_id: str, cls: int, board_start_s: float, actions: list) -> ItineraryResult:
+        """Verdict on a hypothetical probe vehicle that starts at the facility node at ``board_start_s``,
+        boards ONE resident of class ``cls`` and then follows ``actions`` (drives, waits, the unloading).
+        Only the probe's own use counts against shared capacities."""
+        f = self.index.facilities[facility_id]
+        one = [0, 0, 0]
+        one[int(cls)] = 1
+        probe = Vehicle(id=PROBE_VEHICLE, depot=f.node, start_s=float(board_start_s), seats=1, wheelchair_slots=1,
+                        stretcher_slots=1, kind="probe")
+        inst = self.instance.model_copy(update={"vehicles": [probe]})
+        oracle = Oracle(inst, self.scenario, evaluate_after_failure=self.evaluate_after_failure)
+        it = Itinerary(vehicle=PROBE_VEHICLE, actions=[Board(facility=f.id, counts=ClassCounts.of(one)), *actions])
+        return oracle.check_itinerary(it)
+
+    def relaxation_complete(self) -> tuple[bool, str]:
+        """Can a relaxation computed on the whole-second lattice certify a refusal here? True iff no
+        supported cell that starts burning by the horizon stops burning within it, and every instance
+        time (offset, travel, boarding, unloading, release, windows, starts, shifts) is a whole second."""
+        got = getattr(self, "_relax_ok", None)
+        if got is None:
+            ss, inst = self.scenario, self.instance
+            with np.errstate(invalid="ignore"):
+                burns = ss.supported & (ss.extinguish_s > ss.ignite_s) & (ss.ignite_s <= self.horizon)
+                stops = bool(np.any(burns & (ss.extinguish_s <= self.horizon)))
+            vals = [self.offset] + [e.travel_time_s for e in inst.graph.edges]
+            for f in inst.facilities:
+                vals += [f.release_s, *f.boarding_s.vector()]
+            for sh in inst.shelters:
+                vals += [*sh.unloading_s.vector(), *(x for w in sh.open_windows for x in w)]
+            for v in inst.vehicles:
+                vals += [v.start_s] + ([v.shift_limit_s] if v.shift_limit_s is not None else [])
+            whole = all(math.isfinite(float(x)) and float(x).is_integer() for x in vals)
+            if stops:
+                got = (False, "a cell stops burning within the horizon")
+            elif not whole:
+                got = (False, "instance times are not all whole seconds")
+            else:
+                got = (True, "monotone hazard within the horizon and whole-second instance times")
+            self._relax_ok = got
+        return got
+
+    def class_deadline(self, facility_id: str, cls: int, *, probe: ItineraryResult | None = None,
+                       board_start_s: float | None = None, leave_s: float | None = None, shelter: str | None = None,
+                       route: list[str] | tuple = (), claim: str | None = None, detail: str = "",
+                       note: str | None = None) -> ClassDeadline:
+        """Declare one facility's deadline and servability for one class (see FACILITY_SCOPE).
+
+        ``probe``: :meth:`probe_trip` for a vehicle that starts boarding at ``board_start_s`` and leaves at
+        ``leave_s``; ``claim``: a reason from RESOURCE_CLAIMS or RELAXATION_CLAIMS (the latter certified by
+        the certain-contact relaxation of :mod:`evacplan.reach`)."""
+        f = self.index.facilities[facility_id]
+        c = int(cls)
+        n = int(f.residents.vector()[c])
+        checked = probe is not None and probe.state is State.CHECKED
+        verified, why = False, ""
+        if claim in RESOURCE_CLAIMS:
+            if claim == NO_SHELTER_CAPACITY:
+                verified = all(sh.capacity.vector()[c] == 0 for sh in self.instance.shelters)
+            else:
+                verified = all(v.capacity()[c] == 0 for v in self.instance.vehicles)
+            why = "" if verified else f"claim {claim} not borne out by the instance"
+        elif claim in RELAXATION_CLAIMS:
+            verified, why = self.relaxation_complete()
+            if claim == NO_ROUTE and checked and verified:
+                raise AssertionError(f"{facility_id}/{CLASSES[c]}: a checked probe contradicts the NO_ROUTE claim")
+        elif claim is not None:
+            raise ValueError(f"unknown claim {claim!r}")
+        if claim is not None and verified:
+            state, cause = State.MODEL_NO_ROUTE, UNSERVABLE_PREFIX + claim
+        elif checked:
+            state, cause = State.CHECKED, None
+        else:
+            state = State.UNRESOLVED
+            if claim is not None:
+                cause = f"{RELAXATION_INCOMPLETE}:{claim}"
+                detail = f"{detail}; not certified: {why}" if detail else f"not certified: {why}"
+            elif probe is not None:
+                cause = f"{NO_CHECKED_PROBE}:{probe.cause}"
+            else:
+                cause = note or NO_CHECKED_PROBE
+        return ClassDeadline(
+            facility=f.id, mobility_class=CLASSES[c], residents=n, release_s=float(f.release_s), state=state,
+            cause=cause, arrive_by_s=float(board_start_s) if checked else None,
+            leave_by_s=float(leave_s) if checked else None, shelter=shelter if checked else None,
+            route=list(route) if checked else [], probe_state=None if probe is None else probe.state,
+            probe_cause=None if probe is None else probe.cause,
+            probe_min_slack_s=None if probe is None else probe.min_slack_s,
+            unservable=n if state is State.MODEL_NO_ROUTE else 0, detail=detail, scope=FACILITY_SCOPE)
 
 
 def check_plan(instance: Instance, scenario_set: hc.ScenarioSet, solution: Solution) -> PlanResult:
