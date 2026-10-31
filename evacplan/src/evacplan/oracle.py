@@ -571,7 +571,18 @@ class RelaxedContactCheck:
     def _occupancy(self, geom: np.ndarray, t0: float, t1: float) -> RelaxedLeg:
         a, b = t0 + self.offset, t1 + self.offset
         rec = contact_records(self.scenario.grid, geom, a, b)
-        blocked = bool(np.any(contact_until(self.scenario, rec, self.horizon)))
+        g = as_polyline(geom)
+        if is_stationary(g) or b == a:
+            wide = rec
+        else:
+            # hazard_contract >= 1.0.1 (query_uniform) widens every touch by this float tolerance, clamped to
+            # [a, b], so a touch at an exact boundary instant counts as contact; mirror it (the oracle's rule)
+            eps_t = 8.0 * (len(g) + 8) * np.finfo(float).eps * (abs(a) + abs(b) + 1.0)
+            wide = (rec[0], rec[1], np.maximum(a, rec[2] - eps_t), np.minimum(b, rec[3] + eps_t), rec[4])
+        hit = contact_until(self.scenario, wide, math.inf)
+        if b > self.horizon:                           # certain only if it happens by the horizon (the oracle's scope)
+            hit &= contact_until(self.scenario, rec, self.horizon)
+        blocked = bool(np.any(hit))
         sup = self.scenario.supported[:, rec[0], rec[1]]
         uncertain = bool(rec[4] or b > self.horizon or not np.all(sup))
         return RelaxedLeg(blocked=blocked, uncertain=uncertain)
