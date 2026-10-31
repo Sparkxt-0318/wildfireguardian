@@ -167,9 +167,11 @@ def _cell_contact(cells, cell, lo, hi):
     return any(lo < e and hi >= b for b, e in cells.get(cell, ()))
 
 
-def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_labels=None):
+def _sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_labels=None):
     """Planner interface (same result layout as wfg_members.planner.sweep_plan)."""
     t0 = time.perf_counter()
+    if isinstance(wall_s, bool) or not math.isfinite(wall_s) or wall_s <= 0:
+        raise ValueError("Positive finite wall limit required")
     if getattr(model, "supported", True) is not True:
         return _normalise({"status": "UNSUPPORTED", "reason": "UNKNOWN_TRAJECTORY_SUPPORT", "metrics": {}}, "sipp", time.perf_counter() - t0)
     dep = F(request["departure"])
@@ -187,6 +189,9 @@ def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_la
     res = S.solve(inst, deadline=t0 + wall_s, max_labels=max_labels)
     metrics = dict(res["metrics"], build_s=build_s, search_s=res["wall_s"], blocked_edges=len(inst.edge_block),
                    blocked_wait_nodes=len(inst.wait_block))
+    if time.perf_counter() >= t0 + wall_s:
+        return _normalise({"status": "TIMEOUT", "reason": "WALL_LIMIT_AFTER_SEARCH", "metrics": metrics},
+                          "sipp", time.perf_counter() - t0)
     if res["status"] == "FOUND":
         legs = []
         for kind, ident, a, b in res["legs"]:
@@ -201,6 +206,9 @@ def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_la
         except (KeyError, TypeError, ValueError, IndexError) as exc:
             return _normalise({"status": "UNSUPPORTED", "reason": "WITNESS_STRUCTURE:" + str(exc), "metrics": metrics}, "sipp",
                               time.perf_counter() - t0)
+        if time.perf_counter() >= t0 + wall_s:
+            return _normalise({"status": "TIMEOUT", "reason": "WALL_LIMIT_AFTER_WITNESS_CHECK", "metrics": metrics},
+                              "sipp", time.perf_counter() - t0)
         return _normalise({"status": "CONDITIONAL_OPTIMUM", "reason": "SIPP_FIRST_GOAL", "arrival": res["arrival"], "legs": legs,
                            "destination": dest, "metrics": metrics}, "sipp", time.perf_counter() - t0)
     if res["status"] == "EXHAUSTED":
@@ -210,3 +218,18 @@ def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_la
         return _normalise({"status": "PROVEN_INFEASIBLE", "reason": "SIPP_OPEN_LIST_EXHAUSTED", "metrics": metrics}, "sipp",
                           time.perf_counter() - t0)
     return _normalise({"status": "TIMEOUT", "reason": res["status"], "metrics": metrics}, "sipp", time.perf_counter() - t0)
+
+
+def sipp_plan(graph, request, model, *, extra_blocked=None, wall_s=600.0, max_labels=None):
+    """Fail closed across preparation, search and every publication branch."""
+    started = time.perf_counter()
+    if isinstance(wall_s, bool) or not math.isfinite(wall_s) or wall_s <= 0:
+        raise ValueError("Positive finite wall limit required")
+    result = _sipp_plan(graph, request, model, extra_blocked=extra_blocked,
+                        wall_s=wall_s, max_labels=max_labels)
+    elapsed = time.perf_counter() - started
+    if elapsed >= wall_s:
+        return _normalise({"status": "TIMEOUT", "reason": "COMPLETE_PLANNER_WALL_LIMIT",
+                           "metrics": result.get("metrics", {})}, "sipp", elapsed)
+    result["wall_s"] = elapsed
+    return result

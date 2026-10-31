@@ -1,0 +1,10 @@
+{
+  ".github/workflows/verified-window-routing.yml": "06775fcdb9e3fcd7198eed6716458129f1513cd2c8f32e3d4268b0d8f68e0462",
+  "experimental/flame-front-radiation/src/wfg_flamefront/law_v2.py": "1b7d0e82a0fe13a8e4ad0961ffc982fbccd1d68af8bdc3d267b455fd42832160",
+  "experimental/sipp-routing/src/wfg_sipp/frontend.py": "d5e0bc5a2061068cfebedf83d82daabff6b39a765404d5733774508055f7087c",
+  "experimental/sipp-routing/src/wfg_sipp/sipp.py": "75c667ba21ac72822d53da36f67d9d1c262043f24ae859732c22e2adc022917d",
+  "experimental/synthetic-truth/src/wfg_synthetic_truth/scoring.py": "5f4b18939c307f1ceb5a73d932ca25532448b8dc048ef717b7ab04cfd4b7113a",
+  "research/forecast-v2/scripts/audit_fit_coverage.py": "72002683ebe9ce36b79e4122310a3b1266061548f8a2ec4055ae00cd24233288",
+  "tests/postmerge/test_postmerge.py": "9d70485edbcbd04e36e8a42dc4f51addc5d13b62f5426edf3a974e9ea6762d1b",
+  "tools/verify_postmerge_preservation.py": "8bb81335cd94f3256e62bb60f4b1fd5ac137680cb72ab26aecd0287b3c75150d"
+}

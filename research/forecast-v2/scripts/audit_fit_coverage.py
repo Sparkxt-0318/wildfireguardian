@@ -873,7 +873,27 @@ def _verified_producer_version(root, source, phase_id):
     for relative, expected in _RECIPE_CURRENT_BASELINE.items():
         if relative == auditor:
             continue
-        if sha(_inside(root, relative)) != expected:
+        observed = sha(_inside(root, relative))
+        if observed != expected:
+            # One reviewed post-merge compatibility profile. Preserve the
+            # historical producer closure and authenticate the ENTIRE current
+            # file, not merely its AST or its unchanged-default call path.
+            if (relative == "forecast/wildfire/rollout.py"
+                    and expected == "116774602de1334908cb0c9236f327fcb6b32f0fd6334ccdd24db8eb4cf60efe"
+                    and observed == "84f4974182533d17e77c3453bef0491804047e954ada47f98f6e343e1992c1b9"):
+                before = _source_blob(root, relative, expected)
+                edits = (
+                    ("    step_durations=None, progress_callback=None, cache_environment_kernels=False,\n",
+                     "    step_durations=None, progress_callback=None, cache_environment_kernels=False,\n    trajectory_callback=None,\n"),
+                    ("                if k + 1 in requested:\n",
+                     "                if trajectory_callback is not None:\n                    trajectory_callback(block, states[:size] == 1, k + 1)\n                if k + 1 in requested:\n"),
+                )
+                for old, new in edits:
+                    if before.count(old) != 1:
+                        raise ValueError("Callback compatibility requires exact historical anchors")
+                    before = before.replace(old, new, 1)
+                if hashlib.sha256(before.encode("utf-8")).hexdigest() == observed:
+                    continue
             raise ValueError("Unreviewed current producer dependency: " + relative)
     original_auditor = _source_blob(root, auditor, _RECIPE_CURRENT_BASELINE[auditor])
     for current_auditor in (_inside(root, auditor), HERE):

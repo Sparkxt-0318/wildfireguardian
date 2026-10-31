@@ -32,10 +32,38 @@ jobs:
   # both matrix jobs, including source tests, kit assembly and evidence checks.
   gates:
     if: always()
-    needs: [regression]
+    needs: [regression, next-tracks]
     runs-on: ubuntu-latest
     steps:
       - name: Require successful platform regressions
         env:
           REGRESSION_RESULT: ${{ needs.regression.result }}
-        run: test "$REGRESSION_RESULT" = success
+          NEXT_RESULT: ${{ needs.next-tracks.result }}
+        run: test "$REGRESSION_RESULT" = success && test "$NEXT_RESULT" = success
+
+  next-tracks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      PYTHONPATH: forecast:experimental/scenario-members:experimental/scenario-members/src:experimental/sipp-routing/src:experimental/synthetic-truth/src:experimental/flame-front-radiation/src
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU forecasting and experimental test dependencies
+        run: |
+          python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install './forecast[test,baseline]' hypothesis==6.170.13
+      - name: Verify frozen evidence is preserved
+        run: python tools/verify_postmerge_preservation.py
+      - name: Forecast and cross-track regression suites
+        run: python -B -m pytest -q -p no:cacheprovider forecast/tests tests/postmerge
+      - name: Radiation, export, scenario, SIPP and truth suites
+        run: python -B -m pytest -q -p no:cacheprovider experimental/flame-front-radiation/tests experimental/scenario-members/tests experimental/sipp-routing/tests experimental/synthetic-truth/tests

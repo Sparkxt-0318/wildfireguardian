@@ -40,8 +40,9 @@ def _inputs(member, fuel):
     residence=member.get("residence_s",f.get("residence_s",11.52))
     if "extinction_breakpoint_s" in member:
         expiry=np.asarray(member["extinction_breakpoint_s"],dtype=float)
-        if expiry.shape==tau.shape:
-            residence=expiry-tau
+        if expiry.shape != tau.shape or not np.isfinite(expiry).all():
+            raise UnsupportedGeometry("extinction field must be finite and aligned with ignition times")
+        residence=expiry-tau
     residence=np.broadcast_to(np.asarray(residence,dtype=float),tau.shape)
     if np.any(~np.isfinite(residence)|(residence<=0)):
         raise UnsupportedGeometry("finite positive per-cell residence is required")

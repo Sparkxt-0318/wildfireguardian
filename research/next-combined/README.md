@@ -1,3 +1,5 @@
+> **Post-merge status — 31 October 2026:** PRs #85–88 are merged into Main. The readiness report below is the preserved pre-merge assessment, including its then-current draft/PR statuses. Merging experimental code does not clear its scientific HOLDs or promote a checkpoint. See [post-merge compatibility and regression repairs](../postmerge-fixes-20261031/README.md).
+
 # Current next-track readiness
 
 **[Draft readiness, PR 87](https://github.com/Sparkxt-0318/wildfireguardian/pull/87). The independent saved-result audit and exact 306-case census pass; the selected forecast fails the frozen primary criterion.** Korea retains full-cohort HOLD with seven unavailable windows. Stored FARSITE reconciliation and publication figure QA pass within their scopes. The separate US descriptive interval sidecar is complete and independently passes saved-output review; Korea retains null complete-cohort metrics. A physics and C support/risk gates keep Step 4 **NOT_RUN_GATED**. No track code is merged here, and no default promotion or future 2026 execution is cleared.

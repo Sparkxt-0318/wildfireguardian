@@ -104,6 +104,10 @@ def component_end(inst, node, t):
 def solve(inst, *, deadline=None, max_labels=None):
     """Return {status, arrival, legs (abstract), metrics}. status: FOUND, EXHAUSTED, TIMEOUT, LABEL_CAP."""
     t0 = time.perf_counter()
+    if deadline is not None and time.perf_counter() >= deadline:
+        return {"status": "TIMEOUT", "arrival": None, "legs": [],
+                "metrics": {"pieces": 0, "expansions": 0, "goal_candidates": 0, "successor_runs": 0},
+                "wall_s": time.perf_counter() - t0}
     succ = inst.successors()
     h = inst.lower_bound()
     E, hor, dep = inst.E, inst.horizon, inst.departure
@@ -137,6 +141,9 @@ def solve(inst, *, deadline=None, max_labels=None):
 
     s0 = inst.start_state
     node0 = inst.state_head(s0)
+    if deadline is not None and time.perf_counter() >= deadline:
+        return {"status": "TIMEOUT", "arrival": None, "legs": [], "metrics": metrics,
+                "wall_s": time.perf_counter() - t0}
     if first_in(inst.accept.get(node0, []), dep, dep) is not None:
         return {"status": "FOUND", "arrival": dep, "legs": [], "destination_node": node0, "metrics": metrics,
                 "wall_s": time.perf_counter() - t0}
