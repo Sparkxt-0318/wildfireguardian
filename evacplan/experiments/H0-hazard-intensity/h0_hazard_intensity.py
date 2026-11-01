@@ -499,6 +499,28 @@ def judge(syn: Exposures, kor: Exposures, cfg: dict, quantity: str = "dose_lower
     return rows
 
 
+def check_invariants(main: Exposures, diag: Exposures, sources: list) -> None:
+    """Refuse to analyze records that break the design or hazard_contract's guarantees."""
+    for name, e, wkey in (("main", main, "windows"), ("diag", diag, "windows_diag")):
+        a = e.a
+        hz = np.array([s["horizon_s"] for s in sources])[a["src"]]
+        want = sum(s["receivers"] * len(s[wkey]) * s["K"] for s in sources)
+        cap = 0.5 * max(s["q_rad_kw_m2"] for s in sources) * (1 + 1e-9)
+        checks = {
+            "one record per (receiver, window, member)": e.n == want,
+            "distance 0 implies certain contact": not np.any((a["dist_m"] == 0) & (a["contact"] != 1)),
+            "contact-free implies supported": not np.any((a["contact"] == 0) & ~a["supported"]),
+            "windows end by the horizon": bool(np.all(a["t0_s"] + a["win_s"] <= hz)),
+            "lower bounds <= upper bounds": bool(np.all(a["flux_lower"] <= a["flux_upper"])
+                                                 and np.all(a["dose_lower"] <= a["dose_upper"])),
+            "flux_lower <= q_rad/2": bool(np.all(a["flux_lower"] <= cap)),
+        }
+        bad = [k for k, ok in checks.items() if not ok]
+        if bad:
+            raise SystemExit(f"{name} exposures break: {bad}")
+        print(f"[H0] {name}: {e.n:,} exposures, invariants hold: {', '.join(checks)}", flush=True)
+
+
 def analyze(cfg: dict, smoke: bool) -> None:
     run_dir = RUNS_DIR / "smoke" if smoke else RUNS_DIR
     run = json.loads((run_dir / "run_meta.json").read_text())
@@ -509,6 +531,7 @@ def analyze(cfg: dict, smoke: bool) -> None:
         main = Exposures({k: z[k] for k in z.files}, edges)
     with np.load(run_dir / "exposures_diag.npz") as z:
         diag = Exposures({k: z[k] for k in z.files}, edges)
+    check_invariants(main, diag, sources)
     panel_of = np.array([s["panel"] for s in sources])
     is_syn = panel_of[main.a["src"]] == SYN
     syn, kor = main.subset(is_syn), main.subset(~is_syn)
