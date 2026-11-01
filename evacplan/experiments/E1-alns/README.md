@@ -26,8 +26,9 @@ best-of-baselines total; 1750 / 1751 before the 5-seed reruns).
   happens only within about 375 m of burning cells). Searching the relaxed model loses little and costs microseconds
   per trip instead of the oracle's milliseconds per leg.
 * **Lazy certification** (Dellin & Srinivasa 2016: evaluate expensive edges only on the current candidate optimum).
-  The oracle runs only on the best relaxed candidate at the end of each 100-iteration segment and at the end of the
-  search, and only on itineraries it has not seen (cached by content). A vehicle's oracle state never improves along
+  The oracle runs only on the best relaxed candidate: at the end of each 100-iteration segment, when the time left
+  would no longer suffice to certify it (the search then goes on with what remains) and at the end of the search;
+  and only on itineraries it has not seen (cached by content). A vehicle's oracle state never improves along
   its itinerary, so a trip the oracle rejects is cut with the rest of that itinerary without changing any other
   verdict; the rejected prefix is remembered and cut from later plans, so the search sees the oracle's verdicts
   wherever it has them.

@@ -58,8 +58,9 @@ Oracle in the loop
   (:meth:`Oracle.check_itinerary`, cached per itinerary). The warm start (B1, greedy EDF insertion, run
   inside the budget on the same :class:`Reach`) is the initial solution; it is certified only when needed.
 * Lazy certification (Dellin & Srinivasa 2016): the best relaxed candidate is certified at the end of each
-  segment and at the end of the search, never more often; the search stops early enough to certify it
-  (the time is estimated from the measured oracle seconds per leg). Each itinerary first goes through
+  segment, when the time left would no longer suffice to certify it (estimated from the measured oracle seconds
+  per leg; the search then goes on with what remains, and a later certification needs only the itineraries that
+  changed) and at the end of the search. Each itinerary first goes through
   :class:`RelaxedContactCheck` (a cheap guard; a block would be a decoder bug and is cut).
 * A trip the oracle does not check (in practice dose: ``DOSE_UNRESOLVED`` / ``DOSE_ABOVE_BUDGET``) is cut
   together with the rest of its itinerary (a vehicle's state never improves); its residents return to the
@@ -917,10 +918,18 @@ class _Run:
         if not prefix and time.monotonic() + d.legs * self.s_per_leg * self.cfg["oracle_safety"] > hard:
             return None
         t0 = time.monotonic()
-        acts = self.net.emit(v, d)
-        it = Itinerary(vehicle=self.net.vid[v], actions=acts)
         got = _Cert()
-        got.actions, got.cut_residents = acts, 0
+        got.cut_residents = 0
+        try:
+            acts = self.net.emit(v, d)
+        except AssertionError:                    # pragma: no cover - a decode/emit mismatch is a bug: keep it out
+            self.emit_errors += 1
+            got.actions, got.first_bad, got.delivered, got.min_slack, got.legs = [], 0, None, None, 0
+            got.cause = "EMIT_MISMATCH"
+            self.cert[key] = got
+            return got
+        got.actions = acts
+        it = Itinerary(vehicle=self.net.vid[v], actions=acts)
         rx = self.relaxed.itinerary(it)
         if rx.first_blocked is not None:          # the oracle would reject a leg: a decoder bug; cut there
             self.relaxed_blocks += 1
@@ -1072,7 +1081,7 @@ class _Run:
         self.relaxed = RelaxedContactCheck(inst, self.ss)
         self.t_oracle_legs = 0
         self.t_oracle_new = 0.0
-        self.known_cuts = self.repairs_cut_short = self.certifications = self.cert_skipped = 0
+        self.known_cuts = self.repairs_cut_short = self.certifications = self.cert_skipped = self.emit_errors = 0
         self.dose_cut_residents = 0
         self.history: list = []
         self.it = 0
@@ -1154,6 +1163,18 @@ class _Run:
             est_it = 2.0 * (sum(it_times[-20:]) / len(it_times[-20:])) if it_times else 0.0
             need = self._estimate(pending if pending is not None else (None if self.inc_certified else self.warm))
             if now + est_it + need >= hard:
+                # the time left only suffices to certify: certify the pending candidate now, then go on searching
+                # with what remains (a later certification needs only the itineraries that changed)
+                if pending is not None and self.F(pending) <= self.inc_F:
+                    pending = None
+                    continue
+                if pending is not None and self._try_certify(pending, hard, "time"):
+                    pending = None
+                    if self.bad_prefix:
+                        cur = self._apply_known(cur)
+                        F_cur = self.F(cur)
+                    best_F = max(self.inc_F, F_cur)
+                    continue
                 break
             self.it += 1
             frac = (self.it / self.max_it) if self.max_it else (now - t_search0) / span
@@ -1240,6 +1261,7 @@ class _Run:
             "certifications": self.certifications, "certifications_skipped": self.cert_skipped,
             "oracle_calls": self.oracle_checks, "oracle_legs": self.oracle_legs,
             "oracle_s_per_leg": round(self.s_per_leg, 5), "relaxed_blocks": self.relaxed_blocks,
+            "emit_errors": self.emit_errors,
             "oracle_cut_residents": self.dose_cut_residents, "oracle_cut_by_cause": dict(sorted(self.cut_by_cause.items())),
             "known_prefix_cuts": self.known_cuts, "repairs_cut_short": self.repairs_cut_short,
             "td_routes": net.td_calls, "static_pairs": net.pair_count,

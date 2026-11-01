@@ -3,6 +3,7 @@ budget, determinism with an iteration cap, the decode reproducing B1, and oracle
 SYNTHETIC instances only: hand-built (evacplan_testkit) and generated with seeds 9701+, outside the frozen split."""
 import time
 
+import numpy as np
 import pytest
 
 from evacplan import Oracle, State, validate_solution
@@ -35,7 +36,7 @@ def tiny_case(dose=100.0):
     """3 x 7 lattice (100 m cells, 50 s per edge). The fire burns from the west: column 0 from 600 s, column 1
     from 1500 s, column 2 from 2600 s, and keeps burning. Facility A (n1_1) is threatened first, B (n1_3) later;
     the shelter and the van's depot are in the east."""
-    ig = __import__("numpy").full((1, 3, 7), INF)
+    ig = np.full((1, 3, 7), INF)
     ig[0, :, 0], ig[0, :, 1], ig[0, :, 2] = 600.0, 1500.0, 2600.0
     ss = make_set(ig, horizon=6000.0, burn=1e9)
     inst = instance(grid_graph(3, 7), facilities=[facility("A", nid(1, 1), amb=6, wc=1, release=0.0),

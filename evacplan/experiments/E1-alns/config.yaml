@@ -39,7 +39,7 @@ model:                         # not from R&P; structural choices, fixed a prior
   dose: "left entirely to the oracle: no dose weights, penalties or thresholds"
   warm_start: "B1 (b1_greedy, vehicle_rule per_resident) run inside the budget on the same Reach"
 oracle:
-  certification: "lazy: the best relaxed candidate at the end of every segment and at the end of the search; an incumbent is always fully oracle-checked; trips the oracle does not check are cut with the rest of their itinerary and the failing prefix is remembered"
+  certification: "lazy: the best relaxed candidate at the end of every segment, when the time left would no longer suffice to certify it (the search then continues with the time that remains) and at the end of the search; an incumbent is always fully oracle-checked; trips the oracle does not check are cut with the rest of their itinerary and the failing prefix is remembered"
   reserve_s: null              # null = 0.5 s + 3 % of the budget (B2's reserve), kept free at the end
   oracle_safety: 1.5           # oracle time estimates (measured s per leg) are multiplied by this before a check
   oracle_s_per_leg0: 0.01      # assumed before the first measurement (the first check is a calibration)
