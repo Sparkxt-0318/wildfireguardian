@@ -866,8 +866,9 @@ def _row_curve(row: dict) -> list[int] | None:
 
 
 def margin_curves(rows: Iterable[dict]) -> dict[str, dict]:
-    """Per method of one table (noop and bound-only methods left out; methods with a row lacking the curve left out): residents delivered
-    with slack >= m for every m in :data:`MARGINS_MIN`, summed over the method's instances: ``median`` over seeds
+    """Per method of one table (noop and bound-only methods left out; methods with a row lacking the curve left
+    out): residents delivered with slack >= m for every m in :data:`MARGINS_MIN`, summed over the method's
+    instances: ``median`` over seeds
     and ``lo``/``hi`` (min/max) of the per-seed totals; when the seeds differ by instance, the sum of the
     per-instance medians without a band (``per_seed_totals`` False)."""
     by: dict[str, list[dict]] = defaultdict(list)
