@@ -139,3 +139,8 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
 - **2026-11-01** — Experiment `config.yaml` files are read with PyYAML. It was already pinned in
   `evacplan/requirements.lock` and is not a new install. Reason: the experiment protocol asks for `config.yaml`.
 
+- **2026-11-01** — **`program/benchlock.py --wait-max SECONDS`** bounds the wait for the lock: a job still queued
+  after that long exits 75 without starting its command, and a started command is never stopped.
+  - Reason: background jobs here have a hard 2 h limit. The 5-seed baseline job finished the suite and B2, then
+    was killed while it queued behind E3's run; with a bounded wait such a job gives up before it starts instead
+    of risking a kill in the middle of a timed run.
