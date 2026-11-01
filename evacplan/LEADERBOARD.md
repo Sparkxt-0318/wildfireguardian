@@ -117,6 +117,7 @@ Rows from this host only; no row of another host enters this table, its bar or i
 | method | label | instances | seeds | delivered | unresolved | model_no_route | not planned | unservable | residents | slack ≥ 5 min | slack ≥ 15 min | slack ≥ 30 min | min slack (s) | mean runtime (s) | over budget | mean gap | B2 verdict | commit |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | b2_vrptw | SYNTHETIC | 10 | 5 | 1749 (88.6%) | 0 | 0 | 226 | 1 | 1975 | 1523 [1482–1523] | 1463 | 1284 | 16.7 | 57.517 | 0 | – | baseline | c78721e60526 |
+| e1_alns | SYNTHETIC | 10 | 5 | 1444 (73.1%) [1443–1446] | 0 | 0 | 531 [529–532] | 1 | 1975 | 1351 [1283–1352] | 1267 [1265–1267] | 992 [980–1030] | 1.9 | 55.764 | 0 | – | no (worst 1443 ≤ bar 1750) | 483eb527cba4 |
 
 Bar for beating B2 on this host: max(B2 best observed 1750 [recorded: Phase 0 review, B2's full run on dev at 60 s, review of commit 957e6720 (program/reviews/phase0-review.md)], best-of-baselines total 1749) = 1750; a method beats B2 only if its worst of ≥5 repeats exceeds 1750.
 
@@ -128,81 +129,82 @@ Residents delivered vs required safety margin (line: median over seeds; band: mi
 
 Delivered (checked) per instance, median over seeds [min–max when they differ]; **best bound** = the smallest proven upper bound any method reports for the instance (no plan can deliver more); **best of baselines** = the most residents any baseline delivered on the instance (any seed), summed in the bar above:
 
-| instance | label | residents | unservable | best bound | best of baselines | b2_vrptw |
-|---|---|---|---|---|---|---|
-| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 | 0 | – | 23 | 23 |
-| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 39 | 0 | – | 36 | 36 |
-| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 27 | 1 | – | 23 | 23 |
-| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 26 | 0 | – | 26 | 26 |
-| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 163 | 0 | – | 163 | 163 |
-| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 | 0 | – | 155 | 155 |
-| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 168 | 0 | – | 140 | 140 |
-| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 149 | 0 | – | 139 | 139 |
-| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 646 | 0 | – | 516 | 516 |
-| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 579 | 0 | – | 528 | 528 |
+| instance | label | residents | unservable | best bound | best of baselines | b2_vrptw | e1_alns |
+|---|---|---|---|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 | 0 | – | 23 | 23 | 23 |
+| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 39 | 0 | – | 36 | 36 | 37 |
+| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 27 | 1 | – | 23 | 23 | 23 |
+| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 26 | 0 | – | 26 | 26 | 26 |
+| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 163 | 0 | – | 163 | 163 | 163 |
+| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 | 0 | – | 155 | 155 | 155 |
+| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 168 | 0 | – | 140 | 140 | 148 [147–150] |
+| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 149 | 0 | – | 139 | 139 | 139 |
+| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 646 | 0 | – | 516 | 516 | 335 |
+| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 579 | 0 | – | 528 | 528 | 395 |
 
 Unresolved per instance (never safe, never delivered), median over seeds [min–max when they differ]:
 
-| instance | label | b2_vrptw |
-|---|---|---|
-| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 0 |
-| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 0 |
-| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 0 |
-| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 0 |
-| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 0 |
-| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 0 |
-| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 0 |
-| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 0 |
-| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 0 |
-| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 0 |
+| instance | label | b2_vrptw | e1_alns |
+|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 0 | 0 |
 
 Delivered with slack ≥ 5 min per instance, median over seeds [min–max when they differ] (– : rows from before the margin columns):
 
-| instance | label | b2_vrptw |
-|---|---|---|
-| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 |
-| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 36 |
-| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 8 |
-| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 8 |
-| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 163 |
-| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 |
-| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 |
-| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 139 |
-| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 516 |
-| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 434 [393–434] |
+| instance | label | b2_vrptw | e1_alns |
+|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 | 23 |
+| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 36 | 37 |
+| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 8 | 4 |
+| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 8 | 6 |
+| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 163 | 163 |
+| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 | 155 |
+| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 | 148 [80–149] |
+| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 139 | 139 |
+| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 516 | 281 |
+| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 434 [393–434] | 395 |
 
 Delivered with slack ≥ 15 min per instance, median over seeds [min–max when they differ] (– : rows from before the margin columns):
 
-| instance | label | b2_vrptw |
-|---|---|---|
-| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 |
-| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 36 |
-| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 8 |
-| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 8 |
-| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 153 |
-| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 |
-| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 |
-| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 139 |
-| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 516 |
-| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 384 |
+| instance | label | b2_vrptw | e1_alns |
+|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 | 23 |
+| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 36 | 37 |
+| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 8 | 4 |
+| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 8 | 6 |
+| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 153 | 163 |
+| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 | 155 |
+| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 | 80 [78–80] |
+| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 139 | 139 |
+| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 516 | 281 |
+| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 384 | 379 |
 
 Delivered with slack ≥ 30 min per instance, median over seeds [min–max when they differ] (– : rows from before the margin columns):
 
-| instance | label | b2_vrptw |
-|---|---|---|
-| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 |
-| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 14 |
-| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 0 |
-| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 0 |
-| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 153 |
-| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 |
-| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 |
-| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 111 |
-| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 491 |
-| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 296 |
+| instance | label | b2_vrptw | e1_alns |
+|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | SYNTHETIC | 23 | 23 |
+| SYNTHETIC-S-geo-t25-s102 | SYNTHETIC | 14 | 15 |
+| SYNTHETIC-S-grid-t75-s103 | SYNTHETIC | 0 | 0 |
+| SYNTHETIC-S-geo-t75-s104 | SYNTHETIC | 0 | 6 |
+| SYNTHETIC-M-grid-t25-s105 | SYNTHETIC | 153 | 163 |
+| SYNTHETIC-M-geo-t25-s106 | SYNTHETIC | 155 | 155 |
+| SYNTHETIC-M-grid-t75-s107 | SYNTHETIC | 41 | 42 [5–43] |
+| SYNTHETIC-M-geo-t75-s108 | SYNTHETIC | 111 | 139 [90–139] |
+| SYNTHETIC-L-grid-t50-s109 | SYNTHETIC | 491 | 225 |
+| SYNTHETIC-L-geo-t50-s110 | SYNTHETIC | 296 | 261 |
 
 Delivered (checked) by instance size: sum of the per-instance medians / residents of the instances the method ran (count); compare methods only on equal counts:
 
 | method | S | M | L |
 |---|---|---|---|
 | b2_vrptw | 108 / 115 (4) | 597 / 635 (4) | 1044 / 1225 (2) |
+| e1_alns | 109 / 115 (4) | 605 / 635 (4) | 730 / 1225 (2) |
