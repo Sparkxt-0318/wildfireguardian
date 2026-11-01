@@ -1,0 +1,50 @@
+# E1: ALNS with the oracle in the loop. Every value here was fixed a priori and committed before any dev run
+# (Siyeong, program/DECISIONS.md 2026-11-01 item 4 and the H0 verdict: the SYNTHETIC dev hazards are "much hotter"
+# than the Korean dev packets, so nothing is tuned to them in this batch). The method's defaults
+# (evacplan/src/evacplan/methods/e1_alns.py, DEFAULTS) are these values; every result row records them in its config.
+experiment: E1-alns
+method: e1_alns
+label: SYNTHETIC
+set: dev                       # dev only; the test set is never generated, loaded or run (rule 5)
+budget_s: 60                   # wall clock per instance and seed, warm start and oracle checks included
+repeats: 5                     # seeds 0-4 (comparison rule, DECISIONS 2026-11-01 item 3)
+threads: 1                     # single-threaded, like every Track C method
+host: "the container session whose boot id starts ff671362 (ASSUMPTIONS #92); baselines and E1 in one session"
+command: >-
+  .venv/bin/python program/benchlock.py --label E1-final -- .venv/bin/evacplan run --method e1_alns --set dev
+  --budget-s 60 --repeats 5
+alns:                          # Ropke & Pisinger (2006), Transportation Science 40(4):455-472, Sect. 3-5, unless noted
+  segment: 100                 # iterations per weight-update segment
+  reaction: 0.1                # reaction factor r
+  scores: [33, 9, 13]          # sigma_1 new global best; sigma_2 better than current, not accepted before;
+                               # sigma_3 worse than current but accepted, not accepted before
+  remove_min: 0.1              # destroy size q uniform in [10 %, 40 %] of the requests in the current plan
+  remove_max: 0.4              # (R&P: q in [4, min(100, 0.4 n)]; the 10-40 % range is the brief's)
+  p_shaw: 6                    # determinism of related (Shaw) removal
+  p_worst: 3                   # determinism of worst removal (here: worst slack)
+  shaw_weights: [9, 3, 2, 5]   # phi distance, chi time, psi load, omega vehicles; each term normalised to [0, 1]
+  noise: 0.025                 # eta: insertion-cost noise uniform in [-eta maxd, eta maxd], maxd = max site-to-site
+                               # free-flow time; noise on/off chosen by its own adaptive weights (as R&P)
+  start_worse: 0.05            # w: start temperature accepts a solution 5 % worse than the warm start with prob. 0.5
+  cooling: 0.99975             # c per iteration over R&P's 25,000 iterations: overall decay c^25000 ~ 0.0019,
+  cooling_iterations: 25000    # applied over this run's search time (or over max_iterations when it is set)
+  regret_k: [2, 3]             # repair heuristics: greedy, regret-2, regret-3
+  destroy: [random, worst_slack, related, trips, vehicles]
+  initial_weights: 1           # every operator starts with weight 1 (R&P)
+model:                         # not from R&P; structural choices, fixed a priori, none fitted to any result
+  requests: "chunks of one facility and class sized by B2's rule (ASSUMPTIONS #82): q = the smallest space for the class among vehicles with room for at least two (else 1), capped so a chunk boards between release and deadline; remainders in powers of two"
+  max_stops: 3                 # facility stops per trip: bounds the insertion neighbourhood (computational)
+  objective: "lexicographic: residents delivered, minimum safety slack, vehicle time; scalarised A*delivered + B*min(slack, Hi) - vehicle_time with B = vehicles*(Hi+1)+1 and A = B*(Hi+1)+1 (strict order)"
+  relaxed_check: "POSITIVE masks of evacplan.reach (contact-free in all K members, supported, by the horizon); RelaxedContactCheck screens every itinerary before the oracle"
+  dose: "left entirely to the oracle: no dose weights, penalties or thresholds"
+  warm_start: "B1 (b1_greedy, vehicle_rule per_resident) run inside the budget on the same Reach"
+oracle:
+  certification: "lazy: the best relaxed candidate at the end of every segment and at the end of the search; an incumbent is always fully oracle-checked; trips the oracle does not check are cut with the rest of their itinerary and the failing prefix is remembered"
+  reserve_s: null              # null = 0.5 s + 3 % of the budget (B2's reserve), kept free at the end
+  oracle_safety: 1.5           # oracle time estimates (measured s per leg) are multiplied by this before a check
+  oracle_s_per_leg0: 0.01      # assumed before the first measurement (the first check is a calibration)
+  max_iterations: null         # no iteration cap in timed runs (the cap exists for the determinism test)
+decision:                      # from the brief, fixed before the run
+  keep: "the leaderboard verdict is 'beats B2' (worst of 5 > bar = max(B2 best observed, best-of-baselines total))"
+  iterate: "worst of 5 > B2's median total on this host but not > bar, and a concrete untuned fix can be named"
+  kill: "otherwise"
