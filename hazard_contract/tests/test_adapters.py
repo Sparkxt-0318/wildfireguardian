@@ -111,11 +111,13 @@ def test_wfg_packet_mapping_applies_rule4(tmp_path):
 
 
 REAL = os.environ.get("WFG_ROUTING_INPUTS")
+ULJIN = Path(REAL) / "latest_inputs_try02/packets/uljin_2022/20220304T060000Z" if REAL else None
 
 
-@pytest.mark.skipif(not REAL, reason="set WFG_ROUTING_INPUTS to the fetched routing inputs to run")
+@pytest.mark.skipif(ULJIN is None or not ULJIN.is_dir(),
+                    reason="set WFG_ROUTING_INPUTS to the fetched routing inputs (with the Uljin packet) to run")
 def test_real_uljin_packet():
-    d = Path(REAL) / "latest_inputs_try02/packets/uljin_2022/20220304T060000Z"
+    d = ULJIN
     s = from_wfg_packet(d)
     assert s.shape == (4, 62, 58)
     assert (~s.supported[0]).sum() == 2529           # missing native probability or unknown state
