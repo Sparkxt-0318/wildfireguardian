@@ -324,7 +324,11 @@ def _rate(sel, conf: float, lo_s: float = -math.inf, hi_s: float = math.inf, cma
     rc = st.cluster_ci([xs[k] for k in keys], [ns[k] for k in keys], pairs=pairs, conf=conf)
     lo, hi = st.clopper_pearson(xp, npairs, conf) if npairs else (math.nan, math.nan)
     tot = sum(causes.values())
-    return {"plans": plans_n, "residents": residents, "pairs": pairs, "violations": rc.get("violations", 0.0),
+    rate = rc["rate"]
+    safe = residents * (1.0 - rate) if residents else 0.0
+    return {"plans": plans_n, "residents": residents, "residents_per_plan": residents / plans_n if plans_n else math.nan,
+            "expected_safe": safe, "expected_safe_per_plan": safe / plans_n if plans_n else math.nan,
+            "pairs": pairs, "violations": rc.get("violations", 0.0),
             "rate": rc["rate"], "naive_lo": rc["naive_lo"], "naive_hi": rc["naive_hi"], "kg_lo": rc["kg_lo"],
             "kg_hi": rc["kg_hi"], "kish_lo": rc["kish_lo"], "kish_hi": rc["kish_hi"], "n_eff_kg": rc["n_eff_kg"],
             "n_eff_kish": rc["n_eff_kish"], "deff": rc["deff"], "clusters": rc["clusters"],
@@ -498,21 +502,22 @@ def _print_tables(rows, by_k, by_margin, bins_rows, rec_rows, support, plans, ou
                   f"{r['causes']} | {r['support_size'] if r['support_size'] != '' else '–'} | "
                   f"{pct(r['eps_nonconvex']) if r['eps_nonconvex'] != '' else '–'} |")
     print(f"\n### Pooled by arm and K (primary scope: core plans, check members 0-31, instances {complete})\n")
-    print("| scope | arm | K | size | instances | plans | residents | per-resident violation [KG 95% CP] | Kish upper | "
-          "plan-level [95% CP] | contact share |")
-    print("|---|---|---|---|---|---|---|---|---|---|---|")
+    print("| scope | arm | K | size | instances | plans | claimed residents (per plan) | per-resident violation [KG 95% CP] | "
+          "Kish upper | plan-level [95% CP] | expected safe per plan | contact share |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|---|")
     for r in by_k:
-        print(f"| {r['scope']} | {r['arm']} | {r['K']} | {r['size']} | {r['instances']} | {r['plans']} | {r['residents']:.0f} | "
+        print(f"| {r['scope']} | {r['arm']} | {r['K']} | {r['size']} | {r['instances']} | {r['plans']} | "
+              f"{r['residents']:.0f} ({r['residents_per_plan']:.1f}) | "
               f"{pct(r['rate'])} [{pct(r['kg_lo'])}, {pct(r['kg_hi'])}] | {pct(r['kish_hi'])} | {pct(r['plan_rate'])} "
-              f"[{pct(r['plan_lo'])}, {pct(r['plan_hi'])}] | {pct(r['share_contact'])} |")
+              f"[{pct(r['plan_lo'])}, {pct(r['plan_hi'])}] | {r['expected_safe_per_plan']:.1f} | {pct(r['share_contact'])} |")
     print("\n### By required margin (cumulative: residents with in-sample slack >= m)\n")
     print("| set | m (min) | residents kept | share of delivered | violation | naive CP hi | KG hi | Kish hi | "
-          "U = max(KG, Kish) | contact share |")
-    print("|---|---|---|---|---|---|---|---|---|---|")
+          "U = max(KG, Kish) | expected safe | contact share |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|")
     for r in by_margin:
         print(f"| {r['set']} | {r['margin_min']} | {r['residents']:.0f} | {pct(r['delivered_fraction'])} | {pct(r['rate'])} | "
               f"{pct(r['naive_hi'])} | {pct(r['kg_hi'])} | {pct(r['kish_hi'])} | {pct(r['upper'])} | "
-              f"{pct(r['share_contact'])} |")
+              f"{r['expected_safe']:.1f} | {pct(r['share_contact'])} |")
     print("\n### By slack bin\n")
     print("| set | slack bin (min) | residents | violation | KG hi |")
     print("|---|---|---|---|---|")
