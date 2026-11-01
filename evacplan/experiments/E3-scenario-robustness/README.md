@@ -250,8 +250,9 @@ were qualified in the batch-1 review (2026-11-01).
   in-sample**, so every plan is consistent with its planning members. 34 support sets.
 - E3's B2 plans cannot be regenerated (batch-1 review, 2026-11-01). B2's search depth depends on machine speed and
   load, and E3 ran it in the main process beside 4 B1 workers. Its plans differed from the leaderboard's B2 rows of the
-  morning hold (5 seeds, rows at `18841678`) on 2 of the 8 instances: M-grid-t25-s105 (E3: min slack 56.8 s, 154
-  residents at slack ≥ 1 min, 550 solutions found; each of those seeds: 766.8 s, 163 residents, 826-864 solutions) and
+  morning hold (5 seeds, run at `c78721e6`, rows committed in `c888a87b`) on 2 of the 8 instances: M-grid-t25-s105
+  (E3: min slack 56.8 s, 154 residents at slack ≥ 1 min, 550 solutions found; each of those seeds: 766.8 s, 163
+  residents, 826-864 solutions) and
   M-geo-t25-s106 (min slack 1808 s against 1814 s); the other 6 had the same objective and min slack. B2's quiet
   re-run (14:56-15:49 UTC; the VM was slower than in the morning, 636-725 and 423-554 solutions there) found exactly
   E3's plans on both (objective 15677, min slack 56.8 s, 154 at ≥ 1 min; min slack 1808 s) in all 5 seeds. The plans

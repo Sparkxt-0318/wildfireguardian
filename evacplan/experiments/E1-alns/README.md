@@ -91,8 +91,9 @@ batch 1, from the rows committed at `18841678`. The pre-registration above is un
 `18841678`, while a `/proc` sampler recorded every other process (4.7 % of one core in all, almost entirely the agent
 harness): 1726/1737/1737/1737/1721 per seed. B2's first 5-seed hold (05:03-05:55, rows at `c888a87b`) overlapped about
 3 min of single-threaded work that the E4, E3 and E1 agents ran outside the lock (rule 6) and gave 1749 × 5. In the
-re-run B2's search found 20-27 % fewer solutions on every instance with nothing else running, so this VM was slower in
-the afternoon than in the morning; E1's run (08:15-09:07) was at an unmeasured speed. Comparisons across these holds
+re-run B2's search found 14-28 % fewer solutions (means over seeds) on 9 of 10 instances with nothing else running
+(L-grid found 104 in 4 of 5 seeds, as in the morning), so this VM was slower in the afternoon than in the morning;
+E1's run (08:15-09:07) was at an unmeasured speed. Comparisons across these holds
 carry that uncertainty (program/reviews/checkpoint-3.md). [`results.csv`](results.csv) and the figures are
 regenerated with B1's rows and the quiet B2 rows.
 
@@ -123,8 +124,9 @@ proven bound, with the same slack counts as seeds 2-4; only diagnostics such as 
 been affected: 74,382 and 67,312, against 69,969-78,499 for seeds 2-4.
 
 **Verdict (leaderboard): no (worst 1443 ≤ bar 1751).** Bar on this host = max(B2 best observed 1750 [recorded:
-Phase 0 review, an earlier session of this cloud VM], best-of-baselines total [this session's rows 1750; recorded 1751
-from an earlier session of this VM, rows at `1373bb3f`, where B2 delivered 517 on SYNTHETIC-L-grid-t50-s109]) = 1751.
+Phase 0 review, an earlier session of this cloud VM], best-of-baselines total [this session's rows 1738 with B2's quiet
+re-run (1750 with its morning rows); recorded 1751 from an earlier session of this VM, rows at `1373bb3f`, where B2
+delivered 517 on SYNTHETIC-L-grid-t50-s109]) = 1751.
 *Batch-1 review:* first written as best-of-baselines 1749 and bar 1750, before B1's rows of this session arrived
 (run at `c888a87b`, committed in `397e3f0b`; B1's 37 on S-geo-t25-s102 beats B2's 36) and before the harness
 applied Siyeong's rule literally (a recorded observation now only raises a bar that this session's own rows define).
