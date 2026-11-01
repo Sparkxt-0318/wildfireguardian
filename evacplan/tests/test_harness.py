@@ -450,6 +450,36 @@ def test_host_string_names_the_cpu_model(tmp_path):
     assert f"{os.cpu_count()} cpu" in h
 
 
+def test_host_string_names_the_boot_session_on_a_virtual_machine(tmp_path):
+    """On a virtual machine the CPU label does not name the hardware behind it: two cloud containers with the
+    same host string ran B0/B1 1.7-2.4x apart (program/DECISIONS.md, 2026-11-01). There the host string ends with
+    the boot session, so every container session is its own host; bare metal keeps the plain string."""
+    from evacplan.harness import host_class, host_string, machine_session
+    vm, metal, boot = tmp_path / "cpuinfo_vm", tmp_path / "cpuinfo_metal", tmp_path / "boot_id"
+    vm.write_text("processor\t: 0\nmodel name\t: Intel(R) Xeon(R) Processor @ 2.80GHz\n"
+                  "flags\t\t: fpu vme sse2 hypervisor avx2\n")
+    metal.write_text("processor\t: 0\nmodel name\t: AMD Ryzen 9 7950X\nflags\t\t: fpu vme sse2 avx2\n")
+    boot.write_text("ff671362-8279-4136-bcca-5e5e060f4115\n")
+    assert machine_session("Linux", cpuinfo=vm, boot_id=boot) == "ff671362"
+    assert machine_session("Linux", cpuinfo=metal, boot_id=boot) == ""
+    assert machine_session("Linux", cpuinfo=vm, boot_id=tmp_path / "missing") == "unknown"
+
+    def sysctl(answers):
+        def run(cmd, **kw):
+            return subprocess.CompletedProcess(cmd, 0, stdout=answers[cmd[-1]] + "\n", stderr="")
+        return run
+    mac_vm = sysctl({"kern.hv_vmm_present": "1", "kern.bootsessionuuid": "1A2B3C4D-0000-4000-8000-000000000000"})
+    assert machine_session("Darwin", runner=mac_vm) == "1a2b3c4d"
+    assert machine_session("Darwin", runner=sysctl({"kern.hv_vmm_present": "0"})) == ""
+    assert machine_session("Windows") == ""
+    plain = "vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3)"
+    assert host_string(session="ff671362").endswith(", vm boot ff671362)")
+    assert host_string(session="") == host_class(host_string(session="ff671362"))
+    assert host_class(plain[:-1] + ", vm boot ff671362)") == plain and host_class(plain) == plain
+    s = machine_session()
+    assert host_string().endswith(f", vm boot {s})" if s else f"python {platform.python_version()})")
+
+
 def test_upsert_is_keyed_by_host_and_hosts_are_never_pooled(tmp_path):
     """The upsert key is (set, budget, instance, method, seed, host); the leaderboard renders one table per (set,
     budget, host), names the host above it and never pools or compares rows of different hosts."""
@@ -743,3 +773,32 @@ def test_recorded_observation_of_the_phase0_review():
     (o,) = [o for o in load_recorded_observations() if (o.set, o.budget_s, o.method) == ("dev", 60.0, "b2_vrptw")]
     assert o.delivered_checked == 1750 and "phase0-review.md" in o.source and "957e6720" in o.source
     assert "Intel(R) Xeon(R) Processor @ 2.80GHz" in o.host and "python 3.12.3" in o.host
+    from evacplan.harness import host_class
+    assert host_class(o.host) == o.host                 # recorded for the host class: every session of the cloud VM
+
+
+def test_recorded_observation_of_a_host_class_applies_to_every_session_of_it():
+    """An observation recorded under a host class (a VM host string without its boot session) raises the bar in the
+    table of every session of that class: it can only make beating B2 harder. One recorded under a session applies to
+    that session only; one of another class never applies."""
+    from evacplan.harness import compare_to_b2
+    cls = "vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3)"
+    a, b = cls[:-1] + ", vm boot aaaa1111)", cls[:-1] + ", vm boot bbbb2222)"
+    other = "mac (Darwin arm64, Apple M2 Pro, 10 cpu, python 3.12.3)"
+
+    def row(host, method, inst, seed, n):
+        return {"instance": inst, "method": method, "seed": str(seed), "delivered_checked": str(n), "host": host,
+                "config": json.dumps({"set": "dev", "budget_s": 60.0})}
+
+    def obs(host, n):
+        return {"set": "dev", "budget_s": 60.0, "method": "b2_vrptw", "host": host, "delivered_checked": n,
+                "source": "test"}
+    rows = [row(h, m, i, 0, n) for h in (a, b) for m, n in (("b1_greedy", 10), ("b2_vrptw", 12)) for i in ("x", "y")]
+    observations = [obs(cls, 30), obs(a, 40), obs(other, 99)]
+    ca = compare_to_b2(rows, ["x", "y"], set_name="dev", budget=60, host=a, observations=observations)
+    cb = compare_to_b2(rows, ["x", "y"], set_name="dev", budget=60, host=b, observations=observations)
+    assert (ca.best_of_baselines_total, ca.b2_best_observed, ca.bar) == (24, 40, 40)      # class 30 and session 40
+    assert (cb.best_of_baselines_total, cb.b2_best_observed, cb.bar) == (24, 30, 30)      # class only
+    assert {o.delivered_checked for o in ca.recorded} == {30, 40} and {o.delivered_checked for o in cb.recorded} == {30}
+    cc = compare_to_b2(rows, ["x", "y"], set_name="dev", budget=60, host=cls, observations=[obs(a, 40)])
+    assert cc.b2_best_observed is None                   # a session's observation never applies to the class table

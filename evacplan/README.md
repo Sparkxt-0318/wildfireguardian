@@ -65,7 +65,9 @@ leaderboard adds slack ≥ 5, 15 and 30 min, and each table gets a figure of res
 **Hosts.** Every row records its host: host name, OS, machine, CPU model, CPU count and Python version
 (`docs/ASSUMPTIONS.md` #92). Rows are upserted by (set, budget, instance, method, seed, host), and the leaderboard
 renders one table per set, budget and host. Rows of different hosts are never pooled or compared, and times are
-never compared across hosts. When the work moves to another machine (the Mac), re-run the baselines there.
+never compared across hosts. On a virtual machine (a cloud container) the host string ends with the VM's boot
+session, so each container session is its own host: run the baselines and the methods compared with them in one
+session (ASSUMPTIONS #92). When the work moves to another machine (the Mac), re-run the baselines there.
 
 **Beating B2.** Under each table the leaderboard prints the bar: max(B2 best observed, best-of-baselines total).
 B2 best observed is the best B2 per-seed total covering every instance, or a recorded observation of the same set,

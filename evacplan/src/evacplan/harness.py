@@ -186,12 +186,62 @@ def cpu_model(system: str | None = None, *, cpuinfo: Path = Path("/proc/cpuinfo"
     return " ".join(str(proc or "").split()) or "unknown cpu"
 
 
-def host_string() -> str:
-    """The machine a row ran on: host name (OS and machine, CPU model, CPU count, Python version), e.g.
-    ``vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3)``. Rows are compared,
-    and times read, only between rows with the same host string."""
+def machine_session(system: str | None = None, *, cpuinfo: Path = Path("/proc/cpuinfo"),
+                    boot_id: Path = Path("/proc/sys/kernel/random/boot_id"), runner: Callable = subprocess.run) -> str:
+    """The boot session of a virtual machine, ``""`` on bare metal. On a VM the CPU label does not name the
+    hardware behind it: two cloud containers with the same host string ran B0/B1 1.7-2.4x apart
+    (``program/DECISIONS.md``, 2026-11-01), so each boot of a VM is its own host. Linux: a VM has the
+    ``hypervisor`` CPU flag; the session is the first 8 characters of ``/proc/sys/kernel/random/boot_id``
+    (``"unknown"`` if unreadable). macOS: ``sysctl kern.hv_vmm_present`` = 1, session from
+    ``kern.bootsessionuuid``. Other systems: ``""`` (``system``, ``cpuinfo``, ``boot_id``, ``runner`` stand in for
+    the machine in tests)."""
+    system = platform.system() if system is None else system
+    if system == "Linux":
+        try:
+            flags = [ln for ln in Path(cpuinfo).read_text(errors="replace").splitlines()
+                     if ln.partition(":")[0].strip().lower() == "flags"]
+        except OSError:
+            return ""
+        if not any("hypervisor" in ln.partition(":")[2].split() for ln in flags):
+            return ""
+        try:
+            return Path(boot_id).read_text().strip().lower()[:8] or "unknown"
+        except OSError:
+            return "unknown"
+    if system == "Darwin":
+        def sysctl(name: str) -> str:
+            out = runner(["sysctl", "-n", name], capture_output=True, text=True, timeout=10, check=True)
+            return str(out.stdout or "").strip()
+        try:
+            if sysctl("kern.hv_vmm_present") != "1":
+                return ""
+        except (OSError, ValueError, subprocess.SubprocessError):
+            return ""
+        try:
+            return sysctl("kern.bootsessionuuid").lower()[:8] or "unknown"
+        except (OSError, ValueError, subprocess.SubprocessError):
+            return "unknown"
+    return ""
+
+
+_SESSION_RE = re.compile(r", vm boot [^,()]+\)$")
+
+
+def host_string(*, session: str | None = None) -> str:
+    """The machine a row ran on: host name (OS and machine, CPU model, CPU count, Python version[, VM boot
+    session]), e.g. ``vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3, vm boot
+    ff671362)``. Rows are compared, and times read, only between rows with the same host string. On a virtual
+    machine the string ends with its boot session (:func:`machine_session`), so each container session is its own
+    host; ``session`` stands in for the machine's in tests."""
+    session = machine_session() if session is None else session
+    tail = f", vm boot {session}" if session else ""
     return (f"{socket.gethostname()} ({platform.system()} {platform.machine()}, {cpu_model()}, {os.cpu_count()} cpu, "
-            f"python {platform.python_version()})")
+            f"python {platform.python_version()}{tail})")
+
+
+def host_class(host: str) -> str:
+    """A host string without its VM boot session: the class every session of that virtual machine belongs to."""
+    return _SESSION_RE.sub(")", host)
 
 
 def host_slug(host: str) -> str:
@@ -646,7 +696,9 @@ def _unservable(facility_rows: list[dict]) -> dict[tuple, float]:
 @dataclass(frozen=True)
 class RecordedObservation:
     """A total observed outside the result rows (e.g. a review's run whose rows were not kept), keyed by set,
-    budget, method and the exact host string. Only B2's enter the leaderboard, as B2's best observed total."""
+    budget, method and host. Only B2's enter the leaderboard, as B2's best observed total. An observation keyed by
+    a host class (a VM host string without its boot session, :func:`host_class`) applies to every session of that
+    class: it can only raise the bar, never lower it. One keyed by a full host string applies to that host only."""
 
     set: str
     budget_s: float
@@ -738,7 +790,9 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
     * best-of-baselines total = sum over ``instances`` (the set's) of the most residents any baseline row (B0-B3,
       any seed) delivered on that instance;
     * B2 best observed = the largest of B2's per-seed totals over the seeds that cover every instance and of the
-      recorded observations (``observations``) of B2 for this set, budget and host;
+      recorded observations (``observations``) of B2 for this set, budget and host, or for its host class (a VM
+      host without its boot session: an observation of the class applies to every session, which can only raise
+      the bar);
     * bar = max of the two; a method other than the baselines and noop "beats B2" only if it has at least
       :data:`MIN_REPEATS` seeds, each covering every instance, and its worst per-seed total exceeds the bar.
     """
@@ -752,8 +806,9 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
             best[r["instance"]] = max(best.get(r["instance"], v), v)
     y = sum(best[i] for i in instances) if all(i in best for i in instances) else None
     b2_totals = seed_totals([r for r in rows if r["method"] == B2], "delivered_checked", instances)
+    hosts = {host, host_class(host)}
     recorded = tuple(o for o in map(RecordedObservation.of, observations)
-                     if (o.set, o.budget_s, o.method, o.host) == (set_name, budget, B2, host))
+                     if (o.set, o.budget_s, o.method) == (set_name, budget, B2) and o.host in hosts)
     values = list(b2_totals.values()) + [float(o.delivered_checked) for o in recorded]
     x = max(values) if values else None
     source = ""
