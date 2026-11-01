@@ -160,7 +160,8 @@ About 4 hours of work; at most 1.5 hours of bench-lock time (smoke + compute ≤
   sample sizes, scenario bounds), `e3_pilot.py` (an earlier cost probe, superseded by the tiers; not used for results).
 - Raw records in `evacplan/runs/E3-scenario-robustness/` (git-ignored, regenerable).
 - `results.csv` (per plan), `by_K.csv`, `by_margin.csv`, `by_slack_bin.csv`, `recommendation.csv`, `figures/`; every row
-  records the commits, seed (none), config and host.
+  records the commits, seed (none), config and host. Added after the run (descriptive): `scenario_summary.csv`,
+  `by_instance_margin.csv`, `diagnostic_arrivals.csv`, `margin_cost_baselines.csv`.
 
 Reproduce from the worktree root:
 
@@ -175,6 +176,192 @@ Reproduce from the worktree root:
     .venv/bin/python evacplan/experiments/E3-scenario-robustness/e3_analyze.py
 ```
 
-## Results
+## Results (computed 2026-11-01; nothing below this heading existed at pre-registration)
 
-(Pending: filled in after the main run.)
+**Decision: KEEP** (pre-registered rule). The primary set has an α = 5 % margin (**1 min**), B2 agrees at that
+margin (3.7 % ≤ 5 %), every violation is flame contact (which the slack measures), and violation falls with slack
+(0.56 % at ≥ 30 min against 3.89 % at ≥ 0). At α = 1 % no margin ≤ 60 min is certified by the pre-registered
+(conservative) bound; the Korn-Graubard bound alone gives 30 min. Everything here is conditional on the SYNTHETIC
+hazard model (below).
+
+**Predictions.** P1 falsified (plan-level violation ≥ 10 % on 3 of 10 instances, not half). P2 holds for exchangeable
+(fresh) planning members, not for the instance's own members. P3 holds (the cumulative curve falls monotonically;
+0.56 % at ≥ 30 min). P4 holds (34 of 34 plans below their a-posteriori bound, which is 8-23× loose).
+
+### Run
+
+- One bench-lock hold, 05:54:50-07:10:37 UTC (75.8 min): smoke run (one S instance, 17 s), selftest, main compute
+  (4523 s, stopped by its 75 min budget), in-chain analysis (6 s). Host `vm (Linux x86_64, Intel(R) Xeon(R) Processor
+  @ 2.80GHz, 4 cpu, python 3.12.3, vm boot ff671362)`; boot id checked at start. Compute at commit `11817858` (clean;
+  the compute code is unchanged since `95e28374`), 4 worker processes.
+- Members 0-7 regenerated **bit-identically on all 10 dev instances** (`members.json`); the selftest's B1 plan with
+  S-grid-t25-s101's own 8 members reproduced the committed harness row (23 delivered, min slack 3839.2 s).
+- 198 plans: 190 B1 (no plan stopped at its budget; longest 9.8 s), 8 B2 (52.8-56.1 s of search each, 335-44 090
+  solutions; recorded in `plans.jsonl` and `results.csv`). **Every trip with residents of every plan was checked in-sample**, so every plan
+  is consistent with its planning members. 34 support sets.
+- 7 112 out-of-sample oracle checks (one plan against one fresh member). Median cost per check: 0.57 s (S), 3.1 s (M),
+  18 s (L). Tiers reached: T1, T1L, T2, T3, T3L, T4 complete; T5 169/192 tasks (M-geo-t75-s108 stopped at 164 members);
+  T5L-T9 not reached. Coverage: `A8-g0` and B2 on S and M against 256 fresh members (M-geo-t75-s108: 164), `A8-g0` on L
+  against 64; the core K curve (`A1-g0`, `A2-g0`, `A4-g0`, `B8-g0`, `B16-g0`, `B32-g0`) on S and M against 64; the
+  replicate blocks and the L K curve were not checked.
+- Deviations from the plan: the pilot (`e3_pilot.py`) never ran (stopped in the lock queue; the tiers made it
+  unnecessary). After the main run started, descriptive outputs were added to the analysis (claimed residents per plan,
+  expected safe deliveries, a scenario-bound summary, a per-instance margin table, the arrival diagnostic run) and the
+  rate accumulation was vectorized (identical outputs on test data). A snapshot of the records was analysed once during
+  the run. The margin rule and the decision rule were not changed.
+
+### Q1. Plans checked in all 8 members, in fresh members
+
+Per instance, B1 with the instance's own 8 members (`A8-g0`, the harness's B1 plan) and B2 (`B2-A8`). Plan-level =
+share of fresh members in which at least one delivered resident is not delivered (exact 95 % CP); per resident =
+average share of fresh members in which a delivered resident is not delivered (95 % Korn-Graubard CP; Kish upper bound
+in the next column). Every violation is `FLAME_CONTACT` (`model_no_route`); no dose or unresolved violation occurred.
+
+| instance | plan | delivered (in-sample) | min slack (s) | fresh members | plan-level [95 % CP] | per resident [KG 95 % CP] | Kish upper | s* | ε(s*) |
+|---|---|---|---|---|---|---|---|---|---|
+| S-grid-t25-s101 | A8 | 23 | 3839.2 | 256 | 2.7 % [1.1, 5.6] | 1.43 % [0.58, 2.91] | 3.76 % | 1 | 64 % |
+| S-geo-t25-s102 | A8 | 37 | 686.0 | 256 | 2.7 % [1.1, 5.6] | 0.78 % [0.31, 1.60] | 2.79 % | 1 | 64 % |
+| S-grid-t75-s103 | A8 | 20 | 1374.7 | 256 | 0.4 % [0.0, 2.2] | 0.04 % [0.00, 0.22] | 1.51 % | 1 | 64 % |
+| S-geo-t75-s104 | A8 | 24 | 36.3 | 256 | 3.9 % [1.9, 7.1] | 1.68 % [0.67, 3.45] | 4.11 % | 1 | 64 % |
+| M-grid-t25-s105 | A8 | 163 | 2032.0 | 256 | 0.4 % [0.0, 2.2] | 0.16 % [0.00, 0.89] | 1.75 % | 1 | 64 % |
+| M-geo-t25-s106 | A8 | 155 | 1836.0 | 256 | 0.0 % [0.0, 1.4] | 0.00 % [0.00, 1.43] | 1.43 % | 1 | 64 % |
+| M-grid-t75-s107 | A8 | 100 | 59.7 | 256 | **37.1 %** [31.2, 43.3] | **22.6 %** [18.6, 27.0] | 28.25 % | 2 | 75 % |
+| M-geo-t75-s108 | A8 | 101 | 2342.7 | 164 | 9.8 % [5.7, 15.4] | 2.63 % [1.16, 5.04] | 6.39 % | 3 | 84 % |
+| L-grid-t50-s109 | A8 | 335 | 1.9 | 64 | 12.5 % [5.6, 23.2] | 1.91 % [0.78, 3.88] | 8.97 % | 2 | 75 % |
+| L-geo-t50-s110 | A8 | 395 | 545.9 | 64 | 20.3 % [11.3, 32.2] | 4.96 % [2.44, 8.85] | 13.48 % | 4 | 90 % |
+| S-grid-t25-s101 | B2 | 23 | 4135.6 | 256 | 2.3 % [0.9, 5.0] | 1.43 % [0.53, 3.07] | 3.76 % | – | – |
+| S-geo-t25-s102 | B2 | 36 | 1430.0 | 256 | 1.6 % [0.4, 4.0] | 0.81 % [0.21, 2.12] | 2.84 % | – | – |
+| S-grid-t75-s103 | B2 | 23 | 16.7 | 256 | 0.8 % [0.1, 2.8] | 0.41 % [0.04, 1.52] | 2.19 % | – | – |
+| S-geo-t75-s104 | B2 | 26 | 118.3 | 256 | 3.9 % [1.9, 7.1] | 2.03 % [0.94, 3.80] | 4.60 % | – | – |
+| M-grid-t25-s105 | B2 | 163 | 56.8 | 256 | 6.6 % [3.9, 10.4] | 0.67 % [0.22, 1.53] | 2.62 % | – | – |
+| M-geo-t25-s106 | B2 | 155 | 1808.0 | 256 | 0.8 % [0.1, 2.8] | 0.05 % [0.01, 0.18] | 1.53 % | – | – |
+| M-grid-t75-s107 | B2 | 140 | 129.6 | 256 | **39.1 %** [33.1, 45.3] | **15.9 %** [13.0, 19.2] | 20.94 % | – | – |
+| M-geo-t75-s108 | B2 | 139 | 1476.7 | 164 | 7.9 % [4.3, 13.2] | 0.73 % [0.24, 1.67] | 3.55 % | – | – |
+
+Pooled over the 10 instances, B1 (`A8-g0`): **3.89 % of delivered residents** [KG 2.94, 5.03 %; Kish upper 6.25 %]
+fail in a fresh member, and **7.6 %** of (plan, fresh member) pairs break at least one delivered trip [6.5, 8.8 %].
+B2 (8 S/M instances): 3.64 % per resident [KG upper 4.43 %, Kish 4.84 %], 7.9 % per plan. The failures concentrate on
+the tight instances: M-grid-t75-s107 alone fails in 37-39 % of fresh members with both planners; the six loose S/M
+instances stay at or below 4 %. Prediction **P1 is falsified** (≥ 10 % plan-level on 3 of 10 instances, not half).
+
+### Scenario bound vs measured violation
+
+Support sets are tiny: greedy removal leaves a single member for 12 of the 18 K = 8 plans and 1-4 members for every
+plan, including K = 32 (`results.csv`, `support_members`). The plan is pinned by the one or two members whose fire binds
+it. Per (arm, K'), plans with a support set (all consistent with their members):
+
+| arm | K' | plans | mean s* | mean s*/(K'+1) | median ε(s*), non-convex (CGR 2018) | median ε, wait-and-judge (convex, scale only) | measured plan-level [95 % CP] | plans above ε(s*) | plans above s*/(K'+1) |
+|---|---|---|---|---|---|---|---|---|---|
+| A (instance members) | 8 | 10 | 1.70 | 18.9 % | 64 % | 59 % | 7.6 % [6.5, 8.8] | 0 | 1 |
+| B (fresh members) | 8 | 8 | 1.25 | 13.9 % | 64 % | 59 % | 5.7 % | 0 | 1 |
+| B | 16 | 8 | 1.50 | 8.8 % | 48 % | 40 % | 3.9 % | 0 | 1 |
+| B | 32 | 8 | 1.50 | 4.5 % | 27 % | 19 % | 1.2 % | 0 | 0 |
+
+- The a-posteriori bound holds for every plan (34 of 34 below ε(s*) at β = 0.05) and is loose: 8-11× the pooled rate
+  at K = 8, 23× at K = 32 (**P4 holds**). The a-priori bound of Campi & Garatti (2008) needs a number of decision variables,
+  which a dispatch plan does not have; it is vacuous here.
+- s*/(K'+1), the expected violation of a fully supported convex program with s* support constraints, has the right
+  order and the right slope in K (13.9 → 8.8 → 4.5 % vs measured 5.7 → 3.9 → 1.2 %, 2.3-3.8× above the measured
+  rates), but it is not a bound: on M-grid-t75-s107 the measured rate (37 % with the instance's members; 30 % and 22 %
+  with fresh K = 8 and K = 16) exceeds s*/(K'+1) (22 %, 22 % and 12 %).
+- With K = 8 the scenario approach cannot certify much: ε(1) = 64 %. A 5 % guarantee at β = 0.05 needs about 280
+  i.i.d. members with s* = 1 and 400 with s* = 2 (non-convex bound; 134 and 174 with the convex wait-and-judge form).
+
+### Q2. Dependence on K
+
+Primary scope (pre-registered): the core plans against fresh check members 0-31 on the 8 S and M instances (where all
+core plans were checked). Claimed = residents delivered in-sample; expected safe = claimed × (1 − per-resident rate).
+
+| arm | K' | claimed per plan | per resident [KG 95 % CP] | plan-level [95 % CP] | expected safe per plan |
+|---|---|---|---|---|---|
+| A: instance members | 1 | 79.0 | 4.72 % [2.69, 7.62] | 9.0 % [5.8, 13.2] | 75.3 |
+| A | 2 | 76.9 | 4.70 % [2.63, 7.67] | 8.2 % [5.2, 12.3] | 73.3 |
+| A | 4 | 77.9 | 4.74 % [2.64, 7.78] | 7.8 % [4.8, 11.8] | 74.2 |
+| A | 8 | 77.9 | 4.73 % [2.63, 7.77] | 7.4 % [4.5, 11.4] | 74.2 |
+| B: fresh members | 8 | 76.4 | 2.74 % [1.14, 5.46] | 4.7 % [2.5, 8.0] | 74.3 |
+| B | 16 | 75.4 | 1.62 % [0.54, 3.69] | 3.9 % [1.9, 7.1] | 74.2 |
+| B | 32 | 73.9 | 0.97 % [0.23, 2.63] | 2.0 % [0.6, 4.5] | 73.2 |
+
+With all checked members (scope "all" in `by_K.csv`; arm B: 0-63) the arm-B rates are 2.41 / 1.32 / 0.52 % per
+resident and 5.7 / 3.9 / 1.2 % per plan at K' = 8 / 16 / 32.
+
+- **More i.i.d. members help roughly like 1/K** (arm B): per-resident violation 2.7 → 1.6 → 1.0 % from K = 8 to 32
+  (**P2 holds for exchangeable members**). The plans claim 3 % fewer residents at K = 32 (S-grid-t25-s101: 23 → 7), so
+  the expected number delivered safely in a fresh member does not change (about 74 per plan): K buys robustness by
+  claiming less, not by delivering more.
+- **More of the instance's own members do not help** (arm A is flat in K' = 1-8 per resident, 9.0 → 7.4 % per plan),
+  and at K' = 8 the instance's members give higher violation than fresh ones (4.7 vs 2.7 % per resident). The arrival
+  diagnostic below shows why: (DIAGNOSTIC SUMMARY).
+- Cost of members: B1's runtime hardly depends on K (about 2 s on S, 4 s on M, 9 s on L), the in-sample oracle check
+  grows with K (M: 8 s at K = 8, 21 s at K = 32).
+
+### Q3. Slack vs out-of-sample violation, and the default margin
+
+Cumulative (residents counted with in-sample slack ≥ m; U = max(Korn-Graubard, Kish), the pre-registered bound):
+
+| m (min) | B1 kept (share) | B1 violation | B1 U | B2 kept (share) | B2 violation | B2 U |
+|---|---|---|---|---|---|---|
+| 0 | 1353 (100 %) | 3.89 % | 6.25 % | 705 (100 %) | 3.64 % | 4.84 % |
+| 1 | 1231 (91.0 %) | 2.46 % | **4.55 %** | 681 (96.6 %) | 3.67 % | 4.90 % |
+| 5 | 1231 (91.0 %) | 2.46 % | 4.55 % | 564 (80.0 %) | 0.53 % | 1.20 % |
+| 15 | 1189 (87.9 %) | 2.13 % | 4.15 % | 564 (80.0 %) | 0.53 % | 1.20 % |
+| 20 | 1090 (80.6 %) | 1.41 % | 3.04 % | 564 (80.0 %) | 0.53 % | 1.20 % |
+| 30 | 956 (70.7 %) | 0.56 % | 1.82 % (KG 0.99 %) | 498 (70.6 %) | 0.47 % | 1.16 % |
+| 45 | 839 (62.0 %) | 0.37 % | 1.71 % | 379 (53.8 %) | 0.28 % | **0.92 %** |
+| 60 | 807 (59.6 %) | 0.33 % | 1.62 % | 351 (49.8 %) | 0.16 % | 0.72 % |
+| 90 | 510 (37.7 %) | 0.05 % | 1.74 % | 158 (22.4 %) | 0.00 % | 0.68 % |
+| 120 | 346 (25.6 %) | 0.00 % | 2.43 % | 69 (9.8 %) | 0.00 % | 0.57 % |
+
+Per slack bin (the risk of a resident whose slack is in the bin, not the cumulative average), B1: 0-1 min 18.3 %
+(122 residents), 5-10 min 15.4 % (29), 10-15 min 3.5 % (13), 15-20 min 10.1 % (99), 20-30 min 7.5 % (134), 30-45 min
+2.0 % (117), 45-60 min 1.3 % (32), 60-90 min 0.8 % (297), 90-120 min 0.14 % (164), ≥ 120 min 0 % (346). B2: 2-5 min
+21.7 % (99), every other bin ≤ 3 %.
+
+**Recommendation (pre-registered rule; primary set B1 `A8-g0`):**
+
+| α | margin | pooled violation of counted residents | upper bound U | cost: B1 (dev, deterministic) | cost: B2 (5 seeds, this host) |
+|---|---|---|---|---|---|
+| 5 % | **1 min** | 2.46 % | 4.55 % | keeps 1231 of 1353 (91.0 %) | keeps 1698 of 1749 (97.1 %) |
+| 1 % | **none ≤ 60 min** (U at 60 min: 1.62 %) | – | – | – | – |
+| 1 %, KG bound only (sensitivity) | 30 min | 0.56 % | 0.99 % | keeps 956 of 1353 (70.7 %) | keeps 1284 of 1749 (73.4 %) |
+
+- Secondary sets: B2 alone gives 0 min (α = 5 %) and 45 min (α = 1 %; KG only: 5 min); all K = 8 plans together give
+  0 min and 60 min (KG only: 30 min).
+- The 1 min margin removes the near-zero-slack trips (B1: 122 residents at < 1 min, 18 % of whom fail): it gives up 122
+  claimed residents to avoid about 22 expected failures. 30 min gives up 397 to avoid about 47.
+- The rule controls the **average** over counted residents. A resident whose slack is just above the margin is riskier
+  than the average: 7-15 % for B1 residents with 1-30 min of slack. A margin that keeps every bin above it at ≤ 5 %
+  would be about 30 min, at ≤ 1 % about 60 min (point estimates; post hoc reading of the bins, not the pre-registered
+  rule).
+- Leaderboard cost of the other baselines: (BASELINE COSTS).
+
+(POST HOC PER-INSTANCE TABLE)
+
+### Arrival diagnostic (conditioning of the instance members)
+
+(DIAGNOSTIC TABLE)
+
+### Caveats
+
+- **SYNTHETIC hazard model.** Every number is conditional on `hazard_contract.synthetic` with the generator's settings
+  (rate CV 0.25, direction SD 15°, noise SD 0.2 over about 8 cells, persistent burning). H0 found these hazards much
+  hotter than the Korean dev packets, and the member spread is a modelling assumption: the margin must be re-validated
+  on real members (Track A) before it is used for real fires.
+- **Fresh members share the instance's ignition, rate and direction**; they measure the model's member spread only, not
+  structural error (another ignition, a wind shift outside the model), which would need a wider margin.
+- **Few instances, one dominates.** 10 instances; M-grid-t75-s107 carries most violations and the L instances carry
+  half the residents but were checked against 64 members only. The Kish bound is what makes α = 1 % uncertifiable: with
+  zero violations it still needs about 370 effective (instance, member) clusters.
+- **Two planners.** B1 and B2 run close to the fire on tight instances; E1 or other planners may distribute slack
+  differently. The margin is a property of the plans, so it should be re-checked for each new method.
+- **Slack is contact-only and capped at the horizon.** Here all violations were contact, so it measured the right
+  thing; dose-driven failures would not show in the slack.
+- **Conditioning.** The instance's members are conditioned through the ignition bisection (arrival diagnostic); arm B
+  is exactly exchangeable, arm A is not.
+
+### Next step
+
+Propose to Siyeong: report "delivered with slack ≥ 1 min" as the default robust count (α = 5 %, SYNTHETIC) and keep the
+≥ 30 min column as the strict view (α = 1 % under the Korn-Graubard bound only); plan with K = 8 and use the margin rather
+than more members for robustness. Re-validate on real members from Track A, add more instances (the L K curve and the
+replicate blocks, tiers T5L-T9) if the α = 1 % question matters, and re-check the margin for E1's plans.
