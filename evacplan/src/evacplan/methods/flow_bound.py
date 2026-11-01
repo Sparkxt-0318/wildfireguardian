@@ -329,7 +329,8 @@ class FlowNetwork:
         most its space of each class. Between two trips it unloads at least one resident at a shelter: it drives
         to a shelter node and back (at least the free-flow times) and unloads for at least the shortest unloading
         time, ``G``. Every boarding lies in [max(earliest NEGATIVE arrival from its start, release), end of the
-        facility's action set], of length ``W``, and boardings take their seconds. So, for some number of trips
+        facility's action set and the end of its shift], of length ``W``, and boardings take their seconds. So, for
+        some number of trips
         m >= 1: n_c <= m · space_c and Σ_c b_c n_c + (m − 1) G <= W. Returns ``n`` (per class, whole residents:
         max over m of min(m · space_c, (W_c − (m − 1) G) / b_c), floored) and ``secs`` (max over m of
         min(m · Σ_c b_c space_c, W − (m − 1) G))."""
@@ -376,15 +377,16 @@ class FlowNetwork:
                     break
                 m += 1
             return val
+        shift_end = self.H if veh.shift_limit_s is None else min(self.H, start + float(veh.shift_limit_s))
         n = [0.0, 0.0, 0.0]
         for c in range(3):
             ivs = site.usable[c]
             if not ivs or cap[c] <= 0:
                 continue
-            end = max(b for _, b in ivs)
+            end = min(max(b for _, b in ivs), shift_end)
             v = best(end - max(a, min(lo for lo, _ in ivs)), float(cap[c]), float(site.secs[c]))
             n[c] = math.floor(v + 1e-9) if math.isfinite(v) else math.inf
-        end_all = max((b for _, b in site.union), default=-math.inf)
+        end_all = min(max((b for _, b in site.union), default=-math.inf), shift_end)
         full = sum(site.secs[c] * cap[c] for c in range(3) if site.usable[c])
         secs = best(end_all - t0, float(full), 1.0) if full > 0 else 0.0
         out = {"n": n, "secs": secs, "W": end_all - t0, "G": G}

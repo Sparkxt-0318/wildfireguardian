@@ -30,6 +30,14 @@ def persistent(ss: ScenarioSet) -> ScenarioSet:
     return ScenarioSet(ss.ignite_s.copy(), ex, ss.supported.copy(), ss.meta)
 
 
+def lp_value(r) -> float:
+    """The LP optimum (an empty model, where nothing can be delivered, has value 0)."""
+    if r.status == "Empty":
+        return 0.0
+    assert r.status == "Optimal", r.status
+    return float(r.objective)
+
+
 def solve(name, inst, ss, budget, **cfg):
     res = get_method(name, **cfg).solve(inst, ss, budget_s=budget, seed=0, deadline=time.monotonic() + budget)
     return res
@@ -160,9 +168,7 @@ def test_free_space_and_trip_cuts_only_lower_the_lp_value(seed):
     vals = {}
     for fs, tc in ((False, False), (True, False), (True, True)):
         m = FlowNetwork(inst, rh, delta_s=60, free_space=fs, trip_cuts=tc).build()
-        r = solve_lp(m.arrays(), time_limit=60.0, crossover=True)
-        assert r.status == "Optimal"
-        vals[(fs, tc)] = r.objective
+        vals[(fs, tc)] = lp_value(solve_lp(m.arrays(), time_limit=60.0, crossover=True))
     assert vals[(True, False)] <= vals[(False, False)] + 1e-6
     assert vals[(True, True)] <= vals[(True, False)] + 1e-6
 
@@ -175,9 +181,7 @@ def test_dropping_dominated_moves_keeps_the_lp_optimum():
         vals = []
         for prune in (False, True):
             m = FlowNetwork(inst, rh, delta_s=60, prune_dominated=prune).build()
-            r = solve_lp(m.arrays(), time_limit=60.0, crossover=True)
-            assert r.status == "Optimal"
-            vals.append(r.objective)
+            vals.append(lp_value(solve_lp(m.arrays(), time_limit=60.0, crossover=True)))
         assert vals[0] == pytest.approx(vals[1], abs=1e-6), (seed, vals)
 
 
@@ -253,3 +257,15 @@ def test_every_trip_of_a_checked_plan_counts_toward_the_bound():
     p = Oracle(inst, ss).check_plan(res.solution)
     assert all(t.state is State.CHECKED for v in p.vehicles for t in v.trips)
     assert p.delivered_total <= flow_bound(inst, ss, delta_s=60)[0]
+
+
+def test_vehicle_starting_at_a_facility_enters_with_full_free_space():
+    """Depot on a facility's node (an entry into a facility-only location): the vehicle starts empty, so it can board
+    a full load there at once; the free-space rows must not stop it (bound >= what a direct plan delivers)."""
+    inst, ss = tiny()
+    v = inst.vehicles[0].model_copy(update={"depot": inst.facilities[1].node})    # start at B
+    inst = inst.model_copy(update={"vehicles": [v]})
+    b, info = flow_bound(inst, ss, delta_s=60, crossover=True)
+    b1 = solve("b1_greedy", inst, ss, 20.0)
+    got = Oracle(inst, ss).check_plan(b1.solution).delivered_total
+    assert info["certified"] and got >= 2 and got <= b

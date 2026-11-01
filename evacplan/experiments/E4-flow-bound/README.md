@@ -80,9 +80,9 @@ facilities and shelters. Commodities: vehicle groups `g` (one per vehicle, or id
 * **Trip cuts** (stop parallel work by fractions of one vehicle at a facility that closes). Per vehicle
   (summed over a pooled group) and facility: residents of class `c` boarded there <= floor(max over m >= 1 of
   min(m · space_c, (W_c − (m − 1)·G) / b_c)), and boarding seconds there <= max over m of min(m · Σ_c b_c
-  space_c, W − (m − 1)·G); `W` = end of the facility's action set − max(release, the NEGATIVE earliest
-  arrival from the vehicle's start), `G` = the shortest free-flow round trip to a shelter that takes a class the
-  vehicle carries plus the shortest such unloading.
+  space_c, W − (m − 1)·G); `W` = min(end of the facility's action set, end of the vehicle's shift) −
+  max(release, the NEGATIVE earliest arrival from the vehicle's start), `G` = the shortest free-flow round trip
+  to a shelter that takes a class the vehicle carries plus the shortest such unloading.
 * **Objective:** maximize Σ unloaded. **Bound** = floor(weak-duality value of the LP's row duals + a
   floating-point margin), then min with the resource bound (`timexp.trivial_bound`).
 
@@ -139,7 +139,8 @@ shift, capacities, first come first served).
    facility's node to the shelter's and back (at least the free-flow times) and unloads (at least the shortest
    unloading time): at least `G` seconds between the end of one trip's last boarding and the start of the
    next trip's first. All boardings take their seconds and lie between max(release, arrival) and the end of
-   the action set (step 4), with arrival >= the NEGATIVE earliest arrival from its start (step 3). So for the
+   the action set (step 4) or of the shift, with arrival >= the NEGATIVE earliest arrival from its start
+   (step 3). So for the
    number of trips m: `n_c <= m · space_c` and `Σ_c b_c n_c + (m − 1)·G <= W` (per class, with that class's
    action set); the counts are whole residents, hence the floor. A shelter on the facility's own node gives
    `G` = one unloading, and if no shelter can empty the vehicle there is one trip.
