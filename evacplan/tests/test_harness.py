@@ -105,8 +105,8 @@ def test_rows_record_contract_and_package_versions(mini):
 
 def test_dirty_check_covers_evacplan_hazard_contract_and_program(tmp_path):
     """``commit`` gets ``+dirty`` for uncommitted changes in evacplan/, hazard_contract/ or program/ (the
-    generated evacplan/LEADERBOARD.md and result rows under evacplan/results/ excepted), not for the rest of
-    the repository."""
+    generated evacplan/LEADERBOARD.md, its margin figures under evacplan/figures/ and the result rows under
+    evacplan/results/ excepted), not for the rest of the repository."""
     repo = tmp_path / "repo"
     for d in ("evacplan", "hazard_contract", "program", "other"):
         (repo / d).mkdir(parents=True)
@@ -129,6 +129,8 @@ def test_dirty_check_covers_evacplan_hazard_contract_and_program(tmp_path):
     (ep / "results" / "noop.csv").write_text("row\n")                    # or writes a new file
     (ep / "results" / "runs").mkdir()
     (ep / "results" / "runs" / "plan.json").write_text("{}\n")
+    (ep / "figures").mkdir()                                            # the leaderboard's margin figures
+    (ep / "figures" / "margin_dev_60s_host-0000.png").write_bytes(b"\x89PNG\r\n\x1a\n")
     (repo / "other" / "f.txt").write_text("changed\n")
     assert git_commit(ep) == sha
     for d in ("hazard_contract", "program", "evacplan"):

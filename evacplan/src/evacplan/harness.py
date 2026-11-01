@@ -124,19 +124,20 @@ def _git(args: list[str], cwd: Path) -> str:
 
 
 DIRTY_SIBLINGS = ("hazard_contract", "program")      # beside evacplan/: their changes can change results too
+GENERATED = ("LEADERBOARD.md", "figures", "results")  # evacplan/ outputs the harness writes: never "dirty"
 VERSIONED = ("numpy", "ortools", "highspy")
 
 
 def git_commit(evacplan_root: Path = EVACPLAN_ROOT) -> str:
     """HEAD of this checkout, with ``+dirty`` when ``evacplan/``, ``hazard_contract/`` or ``program/``
-    has uncommitted changes, untracked files included (the generated ``evacplan/LEADERBOARD.md`` and
-    result rows under ``evacplan/results/`` excepted: they are outputs, not code)."""
+    has uncommitted changes, untracked files included (the generated ``evacplan/LEADERBOARD.md``, its
+    margin figures under ``evacplan/figures/`` and the result rows under ``evacplan/results/`` excepted:
+    they are outputs, not code)."""
     try:
         sha = _git(["rev-parse", "HEAD"], evacplan_root).strip()
         top = Path(_git(["rev-parse", "--show-toplevel"], evacplan_root).strip()).resolve()
         rel = Path(evacplan_root).resolve().relative_to(top).as_posix()
-        specs = [f":(top){p}" for p in (rel, *DIRTY_SIBLINGS)] + [f":(top,exclude){rel}/LEADERBOARD.md",
-                                                                   f":(top,exclude){rel}/results"]
+        specs = [f":(top){p}" for p in (rel, *DIRTY_SIBLINGS)] + [f":(top,exclude){rel}/{out}" for out in GENERATED]
         status = _git(["status", "--porcelain", "--", *specs], evacplan_root)
     except (OSError, ValueError, subprocess.CalledProcessError):
         return "unknown"
