@@ -779,8 +779,11 @@ def certified_value(arrays: dict[str, np.ndarray], pi: np.ndarray | None) -> tup
 def flow_bound(instance: Instance, scenario_set=None, *, reach: Reach | None = None, delta_s: int = 60,
                grouping: str = "vehicle", time_limit: float = 600.0, threads: int = 1, solver: str = "ipm",
                crossover: bool = False, ipm_tolerance: float | None = 1e-6, prune_dominated: bool = True,
-               free_space: bool = True, trip_cuts: bool = True) -> tuple[int, dict]:
-    """The E4 bound of one instance (whole residents) and how it was obtained."""
+               free_space: bool = True, trip_cuts: bool = True, fallback: str | None = "pdlp",
+               fallback_share: float = 0.7) -> tuple[int, dict]:
+    """The E4 bound of one instance (whole residents) and how it was obtained. ``solver`` gets ``fallback_share`` of
+    the time left; if it returns no usable duals, ``fallback`` (PDLP) gets the rest (``fallback=None``: one solver,
+    all the time)."""
     t0 = time.monotonic()
     rb = trivial_bound(instance)
     info: dict = {"resource_bound": rb, "delta_s": int(delta_s), "grouping": grouping, "free_space": bool(free_space),
@@ -796,11 +799,24 @@ def flow_bound(instance: Instance, scenario_set=None, *, reach: Reach | None = N
     model = net.build()
     info.update(certified=True, note=model.note, delta_eff_s=model.delta, lp=model.stats)
     left = max(1.0, time_limit - (time.monotonic() - t0))
-    res = solve_lp(model.arrays(), time_limit=left, threads=threads, solver=solver, crossover=crossover,
+    arrays = model.arrays()
+    # the main solver gets most of the time; if it leaves no usable duals (e.g. its time limit), PDLP gets the rest:
+    # any duals give a valid bound (certified_value), approximate ones only a looser one
+    share = left if fallback is None else max(1.0, fallback_share * left)
+    res = solve_lp(arrays, time_limit=share, threads=threads, solver=solver, crossover=crossover,
                    ipm_tolerance=ipm_tolerance)
     info.update(lp_status=res.status, lp_objective=res.objective, lp_solve_s=None if res.solve_s != res.solve_s
-                else round(res.solve_s, 3), lp_wall_s=round(res.wall_s, 3))
-    ub, cert = certified_value(model.arrays(), res.row_dual)
+                else round(res.solve_s, 3), lp_wall_s=round(res.wall_s, 3), lp_solver=solver)
+    ub, cert = certified_value(arrays, res.row_dual)
+    rest = time_limit - (time.monotonic() - t0)
+    if fallback is not None and (not math.isfinite(ub) or res.status not in ("Optimal", "Empty")) and rest > 5.0:
+        res2 = solve_lp(arrays, time_limit=rest - 2.0, threads=threads, solver=fallback, crossover=False)
+        ub2, cert2 = certified_value(arrays, res2.row_dual)
+        info["fallback"] = {"solver": fallback, "status": res2.status, "objective": res2.objective,
+                            "dual_bound": cert2.get("dual_bound"), "wall_s": round(res2.wall_s, 3)}
+        if ub2 + cert2.get("dual_bound_err", math.inf) < ub + cert.get("dual_bound_err", math.inf):
+            ub, cert, res = ub2, cert2, res2
+            info["lp_solver"] = fallback
     info.update(cert)
     bound = rb
     if math.isfinite(ub):
@@ -822,7 +838,7 @@ class E4FlowBound(Method):
 
     def __init__(self, delta_s: int = 60, grouping: str = "auto", large_delta_s: int = 120, large_facilities: int = 10,
                  threads: int = 1, solver: str = "ipm", crossover: bool = False, ipm_tolerance: float = 1e-6,
-                 **config):
+                 fallback: str | None = "pdlp", **config):
         """``grouping="auto"``: one commodity per vehicle, except on instances with more than ``large_facilities``
         facilities (size L), where identical vehicles are pooled and the step is ``large_delta_s``."""
         if grouping not in (*GROUPINGS, "auto"):
@@ -832,10 +848,11 @@ class E4FlowBound(Method):
                 raise ValueError("time steps must be whole numbers of seconds >= 1")
         super().__init__(delta_s=int(delta_s), grouping=grouping, large_delta_s=int(large_delta_s),
                          large_facilities=int(large_facilities), threads=int(threads), solver=solver,
-                         crossover=bool(crossover), ipm_tolerance=float(ipm_tolerance), **config)
+                         crossover=bool(crossover), ipm_tolerance=float(ipm_tolerance), fallback=fallback, **config)
         self.delta, self.grouping, self.threads = int(delta_s), grouping, int(threads)
         self.large_delta, self.large_facilities = int(large_delta_s), int(large_facilities)
         self.solver, self.crossover, self.ipm_tolerance = solver, bool(crossover), float(ipm_tolerance)
+        self.fallback = fallback
 
     def setting(self, instance) -> tuple[int, str]:
         """(time step, grouping) for ``instance``."""
@@ -851,9 +868,10 @@ class E4FlowBound(Method):
         delta, grouping = self.setting(instance)
         bound, info = flow_bound(instance, scenario_set, delta_s=delta, grouping=grouping,
                                  time_limit=max(1.0, left), threads=self.threads, solver=self.solver,
-                                 crossover=self.crossover, ipm_tolerance=self.ipm_tolerance)
+                                 crossover=self.crossover, ipm_tolerance=self.ipm_tolerance, fallback=self.fallback)
         diag = {k: info.get(k) for k in ("certified", "delta_s", "delta_eff_s", "grouping", "lp_status", "lp_objective",
-                                         "dual_bound", "resource_bound", "bound", "lp_solve_s", "total_s")}
+                                         "dual_bound", "resource_bound", "bound", "lp_solve_s", "total_s",
+                                         "lp_solver", "free_space", "trip_cuts")}
         lp = info.get("lp") or {}
         diag.update({k: lp.get(k) for k in ("rows", "cols", "nnz")})
         return MethodResult(empty, best_bound=float(bound), info=info, diagnostics=diag)

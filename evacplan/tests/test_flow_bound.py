@@ -269,3 +269,20 @@ def test_vehicle_starting_at_a_facility_enters_with_full_free_space():
     b1 = solve("b1_greedy", inst, ss, 20.0)
     got = Oracle(inst, ss).check_plan(b1.solution).delivered_total
     assert info["certified"] and got >= 2 and got <= b
+
+
+def test_pdlp_fallback_gives_a_certified_bound_when_the_first_solver_leaves_no_duals(monkeypatch):
+    import evacplan.methods.flow_bound as fb
+    from evacplan.methods.lp_worker import LpResult
+    calls = []
+
+    def first_fails(arrays, **kw):
+        calls.append(kw["solver"])
+        if len(calls) == 1:
+            return LpResult("Time limit reached", None, None, None, 1.0, 1.0)
+        return solve_lp(arrays, **kw)
+    monkeypatch.setattr(fb, "solve_lp", first_fails)
+    inst, ss = tiny()
+    b, info = fb.flow_bound(inst, ss, delta_s=60, time_limit=60.0)
+    assert calls == ["ipm", "pdlp"] and info["lp_solver"] == "pdlp" and info["fallback"]["solver"] == "pdlp"
+    assert b == 5                                     # PDLP's approximate duals still certify the optimum here
