@@ -85,4 +85,20 @@ seeds x 60 s plus the harness's oracle checks).
 
 ## Results
 
-Not run yet.
+### Before the final run (tests, profiling outside the split, dev smoke)
+
+* Tests (07:10-07:12 UTC, under the lock): 45 passed (`test_e1_alns.py` 9, `test_relaxed_and_rule3.py` incl. the AST rule-3 guard).
+* Profiling on generated instances OUTSIDE the frozen split (seeds 9711, 9712; 60 s; same host):
+  | instance | residents | B1 | E1 | E1 iterations | E1 time split |
+  |---|---|---|---|---|---|
+  | SYNTHETIC-L-grid-t50-s9711 | 566 | 452 (8.4 s) | 452 (46.5 s) | 0 | warm start 8.2 s, oracle calibration 2.3 s, certification of the warm start 36.0 s; oracle 22.5 ms per leg (1,701 legs) |
+  | SYNTHETIC-M-geo-t75-s9712 | 143 | 98 (3.4 s) | 143 (57.7 s) | 3,222 | warm start 3.4 s, search 52.4 s, 5 certifications (21.7 s of oracle time, 18.3 ms per leg) |
+  On L the full plan costs ~38 s to certify, and E1 reserves 1.5x the estimate (oracle_safety, fixed a priori) before
+  it starts an iteration, so it never starts one: it returns the certified warm start. Kept as pre-registered (no
+  parameter change); see the findings.
+* Dev smoke (2 S instances, 10 s, seed 0, rows in the scratchpad): S-grid-t25-s101 23/23 (9,171 iterations, 9.2 s);
+  S-geo-t25-s102 37/39 (25 iterations, 6.8 s). No code was changed after the smoke.
+
+### Final evaluation (dev, 60 s, seeds 0-4)
+
+Queued behind the bench lock.
