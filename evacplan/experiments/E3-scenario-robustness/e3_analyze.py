@@ -38,7 +38,7 @@ LABEL = "SYNTHETIC"
 MARGINS_MIN = (0, 1, 2, 5, 10, 15, 20, 30, 45, 60)      # evacplan.harness.MARGINS_MIN
 FIG_DIR = EXP_DIR / "figures"
 GENERATED = ("results.csv", "by_K.csv", "by_margin.csv", "by_slack_bin.csv", "recommendation.csv",
-             "margin_cost_baselines.csv", "figures")
+             "margin_cost_baselines.csv", "diagnostic_arrivals.csv", "figures")
 
 
 def size_of(iid: str) -> str:
@@ -211,8 +211,19 @@ def cmd_analyze(args) -> int:
     _write_csv(out_dir / "recommendation.csv", rec_rows)
 
     base_costs = _baseline_costs(out_dir, common)
+    diag = _arrival_diagnostic(cfg, out_dir, common) if args.diagnostics else []
     _figures(rows, by_k, curves, bins_rows, outs, plans, support, cfg, beta)
     _print_tables(rows, by_k, by_margin, bins_rows, rec_rows, support, plans, outs, beta, complete)
+    if diag:
+        print("\n### Arrival diagnostic (fresh members earlier than the lead)\n")
+        print("| instance | lead (min) | fresh planning members earlier | fresh check members earlier | median first arrival, instance / fresh (min) |")
+        print("|---|---|---|---|---|")
+        for r in diag:
+            print(f"| {r['instance']} | {r['lead_s'] / 60:.1f} | {_pct(r['fresh_plan_earlier_share'])} | "
+                  f"{_pct(r['fresh_check_earlier_share'])} | {r['instance_median_first_arrival_s'] / 60:.1f} / "
+                  f"{r['fresh_check_median_first_arrival_s'] / 60:.1f} |")
+        print(f"\nMean share of fresh check members earlier than the lead: "
+              f"{_pct(float(np.mean([r['fresh_check_earlier_share'] for r in diag])))} (exchangeable: {_pct(1 / 9)})")
     print("\n### Leaderboard baselines on this host: residents delivered with slack >= m (median over seeds)\n")
     if not base_costs:
         print("(no dev 60 s rows of this host yet)")
@@ -220,6 +231,39 @@ def cmd_analyze(args) -> int:
         print(f"- {r['method']} m={r['margin_min']}: {r['delivered_median']} [{r['delivered_min']}-{r['delivered_max']}] "
               f"= {_pct(r['share_of_margin0'])} of margin 0 ({r['seeds']} seeds)")
     return 0
+
+
+def _arrival_diagnostic(cfg: dict, out_dir: Path, common: dict) -> list[dict]:
+    """How the instance's members (0-7) relate to fresh ones: the lead is the earliest fire arrival at any facility
+    node over members 0-7 (fixed by the ignition bisection). Share of fresh planning and check members whose
+    earliest facility arrival is earlier than the lead (about 1/9 if members were exchangeable), per instance.
+    Arrays only (no oracle, no plan): ``hazard_contract.geometry.polyline_cells`` of each facility node, as the
+    generator's ``_arrival``."""
+    from hazard_contract.geometry import polyline_cells
+    from evacplan.instances import load_entry, load_split
+    import e3_compute as ec
+    k_inst, p = cfg["members"]["instance"], cfg["members"]["fresh_plan"]
+    k_total = k_inst + p + cfg["members"]["fresh_check"]
+    out = []
+    for e in load_split().entries("dev"):
+        inst, ss = load_entry(e)
+        ig, ex, sup = ec.extended_members(e, ss, k_total, k_inst)
+        xy = {n.id: (n.x, n.y) for n in inst.graph.nodes}
+        arr = np.full((k_total, len(inst.facilities)), np.inf)
+        for j, f in enumerate(inst.facilities):
+            rows, cols, _ = polyline_cells(ss.grid, np.asarray([xy[f.node]], dtype=float))
+            arr[:, j] = ig[:, rows, cols].min(axis=1)
+        first = arr.min(axis=1)
+        lead = float(first[:k_inst].min())
+        plan_m, check_m = first[k_inst:k_inst + p], first[k_inst + p:]
+        out.append({"instance": e.id, "label": LABEL, "lead_s": lead,
+                    "fresh_plan_earlier_share": float(np.mean(plan_m < lead)),
+                    "fresh_check_earlier_share": float(np.mean(check_m < lead)),
+                    "fresh_check_median_first_arrival_s": float(np.median(check_m)),
+                    "instance_median_first_arrival_s": float(np.median(first[:k_inst])),
+                    "expected_if_exchangeable": 1.0 / (k_inst + 1), **common})
+    _write_csv(out_dir / "diagnostic_arrivals.csv", out)
+    return out
 
 
 def _baseline_costs(out_dir: Path, common: dict) -> list[dict]:
@@ -492,6 +536,8 @@ def main(argv=None) -> int:
     ap.add_argument("--config", default=None)
     ap.add_argument("--runs-dir", default=None)
     ap.add_argument("--out-dir", default=None, help="where the CSVs and figures/ go (default: this folder)")
+    ap.add_argument("--diagnostics", action="store_true",
+                    help="also the arrival diagnostic (regenerates the dev instances' members; a few seconds)")
     return cmd_analyze(ap.parse_args(argv))
 
 
