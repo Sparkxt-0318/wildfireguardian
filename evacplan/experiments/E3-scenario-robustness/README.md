@@ -208,7 +208,9 @@ hazard model (below).
   unnecessary). After the main run started, descriptive outputs were added to the analysis (claimed residents per plan,
   expected safe deliveries, a scenario-bound summary, a per-instance margin table, the arrival diagnostic run) and the
   rate accumulation was vectorized (identical outputs on test data). A snapshot of the records was analysed once during
-  the run. The margin rule and the decision rule were not changed.
+  the run. The margin rule and the decision rule were not changed. The final analysis (with the arrival diagnostic) ran
+  in a second, 10 s bench-lock hold at 08:15 UTC; its stamp is `6bc77714+dirty` (only this README was uncommitted), and
+  its numbers equal the in-chain analysis (`6500ee03`) apart from that stamp.
 
 ### Q1. Plans checked in all 8 members, in fresh members
 
@@ -291,7 +293,11 @@ resident and 5.7 / 3.9 / 1.2 % per plan at K' = 8 / 16 / 32.
   claiming less, not by delivering more.
 - **More of the instance's own members do not help** (arm A is flat in K' = 1-8 per resident, 9.0 → 7.4 % per plan),
   and at K' = 8 the instance's members give higher violation than fresh ones (4.7 vs 2.7 % per resident). The arrival
-  diagnostic below shows why: (DIAGNOSTIC SUMMARY).
+  diagnostic below shows why. It is not a systematic bias of the generator: on average 10.3 % of fresh members reach a
+  facility before the lead (11.1 % if members were exchangeable). But the share ranges from 0.8 to 29 % between
+  instances, and where the violations are, the instance's 8 members happen to be cool (M-grid-t75-s107: 27 %,
+  L-geo-t50-s110: 18 %). Every subset of them shares that luck, so plans made from 1, 2, 4 or 8 of them are about
+  equally exposed; fresh planning members redraw it, hence the 1/K decrease in arm B.
 - Cost of members: B1's runtime hardly depends on K (about 2 s on S, 4 s on M, 9 s on L), the in-sample oracle check
   grows with K (M: 8 s at K = 8, 21 s at K = 32).
 
@@ -339,11 +345,60 @@ Per slack bin (the risk of a resident whose slack is in the bin, not the cumulat
   83.6 / 73.4 %; at 1 min 1698, 97.1 %; at 60 min 976, 55.8 %). B0 and B3 had no 5-seed rows on this host when this
   ran, so `margin_cost_baselines.csv` is empty; the leaderboard's margin columns will show them once merged.
 
-(POST HOC PER-INSTANCE TABLE)
+Post hoc (descriptive; `by_instance_margin.csv`): per instance, residents kept and their violation at m = 0 / 1 / 5 /
+30 / 60 min. The pooled rule averages over very different instances:
+
+| instance | plan | fresh members | m = 0 | m = 1 | m = 5 | m = 30 | m = 60 |
+|---|---|---|---|---|---|---|---|
+| S-grid-t25-s101 | A8 | 256 | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % |
+| S-geo-t25-s102 | A8 | 256 | 37: 0.78 % | 37: 0.78 % | 37: 0.78 % | 27: 0.09 % | 20: 0.00 % |
+| S-grid-t75-s103 | A8 | 256 | 20: 0.04 % | 20: 0.04 % | 20: 0.04 % | 0: – | 0: – |
+| S-geo-t75-s104 | A8 | 256 | 24: 1.68 % | 10: 0.39 % | 10: 0.39 % | 0: – | 0: – |
+| M-grid-t25-s105 | A8 | 256 | 163: 0.16 % | 163: 0.16 % | 163: 0.16 % | 163: 0.16 % | 135: 0.16 % |
+| M-geo-t25-s106 | A8 | 256 | 155: 0.00 % | 155: 0.00 % | 155: 0.00 % | 155: 0.00 % | 129: 0.00 % |
+| M-grid-t75-s107 | A8 | 256 | 100: 22.62 % | 46: 12.35 % | 46: 12.35 % | 1: 0.00 % | 1: 0.00 % |
+| M-geo-t75-s108 | A8 | 164 | 101: 2.63 % | 101: 2.63 % | 101: 2.63 % | 101: 2.63 % | 41: 1.22 % |
+| L-grid-t50-s109 | A8 | 64 | 335: 1.91 % | 281: 0.50 % | 281: 0.50 % | 225: 0.06 % | 208: 0.06 % |
+| L-geo-t50-s110 | A8 | 64 | 395: 4.96 % | 395: 4.96 % | 395: 4.96 % | 261: 0.77 % | 250: 0.60 % |
+| S-grid-t25-s101 | B2 | 256 | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % | 23: 1.43 % |
+| S-geo-t25-s102 | B2 | 256 | 36: 0.81 % | 36: 0.81 % | 36: 0.81 % | 14: 0.00 % | 5: 0.00 % |
+| S-grid-t75-s103 | B2 | 256 | 23: 0.41 % | 8: 0.00 % | 8: 0.00 % | 0: – | 0: – |
+| S-geo-t75-s104 | B2 | 256 | 26: 2.03 % | 26: 2.03 % | 8: 0.00 % | 0: – | 0: – |
+| M-grid-t25-s105 | B2 | 256 | 163: 0.67 % | 154: 0.32 % | 154: 0.32 % | 154: 0.32 % | 106: 0.21 % |
+| M-geo-t25-s106 | B2 | 256 | 155: 0.05 % | 155: 0.05 % | 155: 0.05 % | 155: 0.05 % | 111: 0.00 % |
+| M-grid-t75-s107 | B2 | 256 | 140: 15.88 % | 140: 15.88 % | 41: 1.87 % | 41: 1.87 % | 16: 0.00 % |
+| M-geo-t75-s108 | B2 | 164 | 139: 0.73 % | 139: 0.73 % | 139: 0.73 % | 111: 0.60 % | 90: 0.00 % |
+
+A margin removes the near-misses (M-grid-t75-s107, the L instances) but not the tail: on S-grid-t25-s101 every
+delivered resident has at least 64 min of slack, yet 1.43 % fail, because a few fresh members burn the route more than
+an hour before any of the instance's 8 members (and M-geo-t75-s108 keeps 2.6 % at 30 min). Those failures need more
+members (or real-member validation), not a larger margin.
 
 ### Arrival diagnostic (conditioning of the instance members)
 
-(DIAGNOSTIC TABLE)
+The lead is the earliest fire arrival at any facility over the instance's 8 members (fixed by the ignition bisection).
+Share of fresh members whose earliest facility arrival is earlier (`diagnostic_arrivals.csv`; 1/9 = 11.1 % on average if
+the members were exchangeable):
+
+| instance | lead (min) | fresh planning members (32) earlier | fresh check members (256) earlier |
+|---|---|---|---|
+| S-grid-t25-s101 | 120 | 12.5 % | 29.3 % |
+| S-geo-t25-s102 | 120 | 3.1 % | 3.5 % |
+| S-grid-t75-s103 | 60 | 3.1 % | 0.8 % |
+| S-geo-t75-s104 | 60 | 9.4 % | 2.3 % |
+| M-grid-t25-s105 | 120 | 15.6 % | 7.0 % |
+| M-geo-t25-s106 | 120 | 6.3 % | 4.7 % |
+| M-grid-t75-s107 | 60 | 37.5 % | 27.0 % |
+| M-geo-t75-s108 | 60 | 15.6 % | 5.9 % |
+| L-grid-t50-s109 | 90 | 6.3 % | 4.7 % |
+| L-geo-t50-s110 | 90 | 28.1 % | 18.0 % |
+
+Mean over instances: 10.3 % of the check members. The bisection does not bias the instance's members on average, but 8
+members are a small sample: the share of the distribution beyond their envelope is itself random. For one binding
+statistic it is Beta(1, 8): mean 11 %, above 18 % for 20 % of instances and above 27 % for 8 %. That matches
+M-grid-t75-s107 (27 %), S-grid-t25-s101 (29 %) and L-geo-t50-s110 (18 %), the instances that carry most of the
+violations. This is the scenario approach's point: with K = 8 a plan's violation probability is a random variable with
+a wide spread, and a margin offsets only part of it.
 
 ### Caveats
 
@@ -360,8 +415,9 @@ Per slack bin (the risk of a resident whose slack is in the bin, not the cumulat
   differently. The margin is a property of the plans, so it should be re-checked for each new method.
 - **Slack is contact-only and capped at the horizon.** Here all violations were contact, so it measured the right
   thing; dose-driven failures would not show in the slack.
-- **Conditioning.** The instance's members are conditioned through the ignition bisection (arrival diagnostic); arm B
-  is exactly exchangeable, arm A is not.
+- **Conditioning.** The instance's members are conditioned through the ignition bisection. On average this does not
+  bias them (10.3 % of fresh members beat the lead, 11.1 % expected), but per instance they can be unrepresentative
+  (0.8-29 %); arm B is exactly exchangeable, arm A only on average.
 
 ### Next step
 
