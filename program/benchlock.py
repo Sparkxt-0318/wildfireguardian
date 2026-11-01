@@ -73,16 +73,24 @@ def holder() -> str:
         return ""
 
 
-def _acquire(fh, wait_max: float | None, busy_label: str) -> None:
+def _label_in(fh) -> str:
+    fh.seek(0)
+    return fh.read().strip() or "unknown"
+
+
+def _acquire(fh, wait_max: float | None) -> None:
     """Block until ``fh`` holds the lock. With ``wait_max`` (seconds), raise ``LockTimeout`` instead
     of waiting longer. The blocking wait queues like any other waiter; an alarm ends it."""
     if wait_max is None:
         fcntl.flock(fh, fcntl.LOCK_EX)
         return
-    message = f"bench lock still held after {wait_max:g} s (held by: {busy_label})"
+
+    def timeout() -> LockTimeout:  # names the holder at expiry: it may have changed while we waited
+        return LockTimeout(f"bench lock still held after {wait_max:g} s (held by: {_label_in(fh)})")
+
     if threading.current_thread() is threading.main_thread():
         def expire(signum, frame):
-            raise LockTimeout(message)
+            raise timeout()
 
         previous = signal.signal(signal.SIGALRM, expire)
         signal.setitimer(signal.ITIMER_REAL, max(wait_max, 1e-3))
@@ -99,7 +107,7 @@ def _acquire(fh, wait_max: float | None, busy_label: str) -> None:
             return
         except BlockingIOError:
             if time.monotonic() >= deadline:
-                raise LockTimeout(message) from None
+                raise timeout() from None
             time.sleep(0.2)
 
 
@@ -113,11 +121,9 @@ def bench_lock(label: str = "bench", wait_max: float | None = None):
         try:
             fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
-            fh.seek(0)
-            busy = fh.read().strip() or "unknown"
             limit = "" if wait_max is None else f", at most {wait_max:g} s"
-            print(f"[benchlock] waiting for {path} (held by: {busy}{limit})", file=sys.stderr, flush=True)
-            _acquire(fh, wait_max, busy)
+            print(f"[benchlock] waiting for {path} (held by: {_label_in(fh)}{limit})", file=sys.stderr, flush=True)
+            _acquire(fh, wait_max)
         waited = time.monotonic() - t0
         fh.seek(0)
         fh.truncate()

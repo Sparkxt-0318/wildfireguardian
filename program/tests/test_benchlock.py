@@ -74,6 +74,22 @@ def test_wait_max_still_queues_behind_a_short_holder(tmp_path, monkeypatch):
     assert out.returncode == 0 and out.stdout.strip() == "ran", out.stderr
 
 
+def test_wait_max_message_names_the_holder_at_expiry(tmp_path, monkeypatch):
+    """The give-up line must name whoever holds the lock when the wait ends, not the holder seen at the start."""
+    lock = tmp_path / "bench.lock"
+    monkeypatch.setenv("WFG_BENCH_LOCK", str(lock))
+    env = {**os.environ, "WFG_BENCH_LOCK": str(lock)}
+    with benchlock.bench_lock("first-holder"):
+        waiter = subprocess.Popen([sys.executable, str(HERE / "benchlock.py"), "--wait-max", "1.5", "--",
+                                   sys.executable, "-c", "pass"], env=env, stderr=subprocess.PIPE, text=True)
+        time.sleep(0.5)
+        lock.write_text("second-holder pid=1 host=elsewhere since=now\n")  # as a new holder would
+        _, err = waiter.communicate(timeout=30)
+    assert waiter.returncode == benchlock.EXIT_NOT_ACQUIRED, err
+    gave_up = [line for line in err.splitlines() if "not acquired" in line]
+    assert len(gave_up) == 1 and "second-holder" in gave_up[0] and "first-holder" not in gave_up[0], err
+
+
 def test_python_api_wait_max_raises_and_releases(tmp_path, monkeypatch):
     monkeypatch.setenv("WFG_BENCH_LOCK", str(tmp_path / "bench.lock"))
     with benchlock.bench_lock("outer"):
