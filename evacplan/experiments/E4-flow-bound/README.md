@@ -262,6 +262,13 @@ re-runs were queued behind the bench lock). Trivial bound = min(resource bound, 
 | 3. tiny instances: bound >= brute-force optimum | **pass**: B3's tiny instance (bound 5 = optimum 5) and 10 random off-grid variants at two steps each (`test_flow_bound.py`) |
 | 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | TESTS_STATUS |
 
+The full suite at `a4c88873` (in the same bench-lock hold as the dev run): 353 passed, 11 skipped, 2 failed.
+(a) The monotonicity property found a case (`random_case(0)` with more burning) where the bound grew from 6 to
+7: nothing could be delivered any more, the LP had no columns, HiGHS returned no duals and E4 fell back to the
+resource bound, which is valid but loose. A network without unloading proves 0 (the mapping argument), and the
+bound is now 0 there (`7ba44700`; no dev bound changes, every dev LP had columns). (b) The end-to-end harness
+test checked the leaderboard text too broadly (the bounds table header names the method); fixed.
+
 The final 5-seed baseline commit ("evacplan: baselines x 5 seeds") had not reached `evacplan/phase0` when
 these checks ran; B0, B1 and B3 were checked against their rows at `1373bb3f` (previous host string) and B2
 against its 5 repeats on this host (`c888a87b`). The orchestrator re-checks the new rows (and E1's).
