@@ -260,7 +260,7 @@ re-runs were queued behind the bench lock). Trivial bound = min(resource bound, 
 | 1. S: bound >= B3's delivered value in every B3 row | **pass**: 12 B3 rows (23, 34-35, 21, 25 vs bounds 23, 39, 25, 26) |
 | 2. bound >= every checked plan, every method, seed, budget and host on dev | **pass**: 0 violations over 152 rows of 5 methods (current rows, incl. B2 x 5 on this host) and over the 132 rows at `1373bb3f` (B0-B3 and noop, previous host) |
 | 3. tiny instances: bound >= brute-force optimum | **pass**: B3's tiny instance (bound 5 = optimum 5) and 10 random off-grid variants at two steps each (`test_flow_bound.py`) |
-| 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | TESTS_STATUS |
+| 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | **pass with one fix**: bound >= every checked plan (random plans, B0, B1, B3) on 12 random instances; the property test found one non-monotone case, a loose (not invalid) fallback when nothing is deliverable, fixed in `7ba44700` (below). The fixed property and harness tests have not yet been re-run under the bench lock (queued behind the baseline re-runs at hand-back) |
 
 The full suite at `a4c88873` (in the same bench-lock hold as the dev run): 353 passed, 11 skipped, 2 failed.
 (a) The monotonicity property found a case (`random_case(0)` with more burning) where the bound grew from 6 to
