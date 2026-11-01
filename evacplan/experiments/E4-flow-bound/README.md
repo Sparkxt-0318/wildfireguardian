@@ -263,10 +263,11 @@ rows on this host, all at 60 s: noop, B0, B1, B2 and E1 with 5 seeds each, B3 wi
 version of this section used the rows at hand-back: B2's five repeats on this host (`c888a87b`), while B0, B1
 and B3 had rows of the previous host string only and E1 had none. Since then the best plan rose on two
 instances: S-geo-t25-s102 36 -> 37 (B1 and E1) and M-grid-t75-s107 140 -> 150 (E1, seed 2). The E4 bounds are
-unchanged. `results.csv` and the figure are still the hand-back version: after the quiet B2 re-run (B2's
-5-seed hold overlapped work run outside the lock by the E4, E3 and E1 agents; E4's part is under *Rule 6
-incidents* below) the orchestrator re-runs `check_validity.py` and regenerates them. The best plans that come
-from B2's rows can change with that re-run.
+unchanged. B2's morning 5-seed hold overlapped work run outside the lock by the E4, E3 and E1 agents (E4's part
+is under *Rule 6 incidents* below), so B2 was re-run × 5 in one quiet hold (14:56-15:49 UTC, `b0bd9b7d`). The VM
+was slower then and B2 delivered 500-516 on L-geo-t50-s110 instead of 528; its other instances are unchanged.
+`check_validity.py` was re-run on those rows and `results.csv` and the figure regenerated (batch-1 review): the
+table below.
 
 | instance (SYNTHETIC) | residents | trivial bound | **E4 bound** (LP value) | best delivered, this host | **gap** | trivial gap | trivial gap closed | runtime (s) | LP rows × cols |
 |---|---|---|---|---|---|---|---|---|---|
@@ -279,14 +280,16 @@ from B2's rows can change with that re-run.
 | M-grid-t75-s107 | 168 | 168 | **160** (160.11) | 150 | 6.25 % | 10.7 % | 44 % | 164.8 | 69k × 109k |
 | M-geo-t75-s108 | 149 | 149 | **144** (144.03) | 139 | 3.5 % | 6.7 % | 50 % | 200.1 | 75k × 118k |
 | L-grid-t50-s109 | 646 | 646 | **646** (not solved: 865) | 516 | 20.1 % | 20.1 % | 0 % | 881.1 | 139k × 246k |
-| L-geo-t50-s110 | 579 | 579 | **579** (not solved: 591) | 528 | 8.8 % | 8.8 % | 0 % | 880.5 | 128k × 220k |
+| L-geo-t50-s110 | 579 | 579 | **579** (not solved: 591) | 516 | 10.9 % | 10.9 % | 0 % | 880.5 | 128k × 220k |
 
-Where the best plans come from (rows at `18841678`): B2 alone on L (516, 528); E1 alone on M-grid-t75-s107
+Where the best plans come from (B2's quiet re-run and the other rows at `18841678`): B2 alone on L (516, 516; 528 on
+L-geo in B2's replaced morning hold); E1 alone on M-grid-t75-s107
 (150, seed 2; B2 140); B1 and E1 on S-geo-t25-s102 (37; B2 36); B2 and E1 on S-grid-t75-s103 (23) and
 M-geo-t75-s108 (139); on the other four instances plans reach the E4 bound.
 
-**Mean gap** (E4 / trivial bound): S 3.3 % / 4.2 %, **M 2.4 % / 4.4 %**, L 14.5 % / 14.5 %, all 5.2 % / 6.3 %
-(at hand-back: S 3.9 % / 4.8 %, M 4.0 % / 5.8 %, all 6.1 % / 7.2 %).
+**Mean gap** (E4 / trivial bound): S 3.3 % / 4.2 %, **M 2.4 % / 4.4 %**, L 15.5 % / 15.5 %, all 5.4 % / 6.5 %
+(with B2's morning rows: L 14.5 %, all 5.2 % / 6.3 %; at hand-back: S 3.9 % / 4.8 %, M 4.0 % / 5.8 %, all 6.1 % /
+7.2 %).
 
 * **S:** E4 matches the resource bound on three instances and proves **25 on S-grid-t75-s103**, below B3's
   certified 26 and the trivial 26 (best plan 23).
@@ -332,8 +335,9 @@ test checked the leaderboard text too broadly (the bounds table header names the
 At hand-back these checks ran before the 5-seed baseline rows (`397e3f0b`) and E1's rows (`68b7499f`) reached
 `evacplan/phase0`: B0, B1 and B3 were checked against their rows at `1373bb3f` (previous host string) and B2
 against its 5 repeats on this host (`c888a87b`). The batch-1 review (2026-11-01) re-ran `check_validity.py`
-read-only on the merged rows at `18841678`: the counts above, 0 violations, and the table's gaps. The
-orchestrator re-runs it and regenerates `results.csv` and the figure after the quiet B2 re-run.
+read-only on the merged rows at `18841678`: the counts above, 0 violations, and the table's gaps. After B2's quiet
+re-run the orchestrator re-ran it under the lock (`b0bd9b7d`): 20 B3 rows and 270 rows of 6 methods, 0 violations;
+`results.csv` and the figure are regenerated from it.
 
 **Bench time** (batch-1 review, 2026-11-01). E4 held the bench lock once, 07:15:51-08:15:26 UTC (59.6 min: the
 dev run, then the full suite; the ablation was stopped at 08:15:26 to stay inside the hour). With the work run
@@ -350,8 +354,7 @@ other timed runs held the lock:
 3. During E3's compute hold (05:54:50-07:10:37), which includes B2 runs at 60 s, about 27 s (05:59:40-06:07:19).
 
 Only the second was reported at hand-back. E4's own numbers are unaffected: its run and suite finished inside its
-own hold. B2 is re-run x 5 in one quiet hold; the orchestrator updates the numbers above that come from B2's
-rows. E1's two runs overlapped by the second incident (S-grid-t25-s101, seeds 0 and 1) delivered 23 of 23, the
+own hold. B2 was re-run × 5 in one quiet hold and the numbers above use those rows. E1's two runs overlapped by the second incident (S-grid-t25-s101, seeds 0 and 1) delivered 23 of 23, the
 proven optimum.
 
 ### Decision: **KEEP**
