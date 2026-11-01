@@ -38,7 +38,8 @@ LABEL = "SYNTHETIC"
 MARGINS_MIN = (0, 1, 2, 5, 10, 15, 20, 30, 45, 60)      # evacplan.harness.MARGINS_MIN
 FIG_DIR = EXP_DIR / "figures"
 GENERATED = ("results.csv", "by_K.csv", "by_margin.csv", "by_slack_bin.csv", "recommendation.csv",
-             "margin_cost_baselines.csv", "diagnostic_arrivals.csv", "figures")
+             "margin_cost_baselines.csv", "diagnostic_arrivals.csv", "scenario_summary.csv", "by_instance_margin.csv",
+             "figures")
 
 
 def size_of(iid: str) -> str:
@@ -211,9 +212,26 @@ def cmd_analyze(args) -> int:
     _write_csv(out_dir / "recommendation.csv", rec_rows)
 
     base_costs = _baseline_costs(out_dir, common)
+    scen = _scenario_summary(rows, out_dir, common, conf)
+    inst_m = _instance_margins(outs, conf, out_dir, common)
     diag = _arrival_diagnostic(cfg, out_dir, common) if args.diagnostics else []
     _figures(rows, by_k, curves, bins_rows, outs, plans, support, cfg, beta)
     _print_tables(rows, by_k, by_margin, bins_rows, rec_rows, support, plans, outs, beta, complete)
+    print("\n### Scenario bounds vs measured plan-level violation (plans with a support set)\n")
+    print("| arm | K | plans | mean s* | mean s*/(K+1) | median eps(s*) non-convex | median wait-and-judge | measured [95% CP] | "
+          "max plan | plans above eps | plans above s*/(K+1) |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|")
+    for r in scen:
+        print(f"| {r['arm']} | {r['K']} | {r['plans']} | {r['mean_s']:.2f} | {_pct(r['mean_s_over_K1'])} | "
+              f"{_pct(r['median_eps_nonconvex'])} | {_pct(r['median_eps_wait_and_judge'])} | {_pct(r['measured_plan_rate'])} "
+              f"[{_pct(r['measured_lo'])}, {_pct(r['measured_hi'])}] | {_pct(r['max_plan_rate'])} | "
+              f"{r['plans_rate_above_eps']} | {r['plans_rate_above_s_over_K1']} |")
+    print("\n### Post hoc: per instance, residents kept and violation at m = 0 / 1 / 5 / 30 / 60 min\n")
+    print("| instance | plan | fresh members | m=0 | m=1 | m=5 | m=30 | m=60 |")
+    print("|---|---|---|---|---|---|---|---|")
+    for r in inst_m:
+        cells = " | ".join(f"{r[f'kept_{m}m']:.0f}: {_pct(r[f'rate_{m}m'])}" for m in (0, 1, 5, 30, 60))
+        print(f"| {r['instance']} | {r['plan']} | {r['n_fresh']} | {cells} |")
     if diag:
         print("\n### Arrival diagnostic (fresh members earlier than the lead)\n")
         print("| instance | lead (min) | fresh planning members earlier | fresh check members earlier | median first arrival, instance / fresh (min) |")
@@ -231,6 +249,50 @@ def cmd_analyze(args) -> int:
         print(f"- {r['method']} m={r['margin_min']}: {r['delivered_median']} [{r['delivered_min']}-{r['delivered_max']}] "
               f"= {_pct(r['share_of_margin0'])} of margin 0 ({r['seeds']} seeds)")
     return 0
+
+
+def _scenario_summary(rows: list[dict], out_dir: Path, common: dict, conf: float) -> list[dict]:
+    """Per (arm, K): the plans with a support set (all consistent with their planning members), mean s*, the
+    scenario bounds and the measured plan-level rate (pooled over the plans' members, exact CP), and how many
+    plans' measured rates exceed their bound (post hoc summary of results.csv; descriptive)."""
+    out = []
+    groups = sorted({(r["arm"], r["K"]) for r in rows if r["support_size"] != "" and r["all_trips_checked_in_sample"]})
+    for arm, K in groups:
+        q = [r for r in rows if r["arm"] == arm and r["K"] == K and r["support_size"] != ""
+             and r["all_trips_checked_in_sample"]]
+        x = sum(r["plan_violations"] for r in q)
+        n = sum(r["n_fresh"] for r in q)
+        lo, hi = st.clopper_pearson(x, n, conf)
+        out.append({"arm": arm, "K": K, "label": LABEL, "plans": len(q), "mean_s": float(np.mean([r["support_size"] for r in q])),
+                    "mean_s_over_K1": float(np.mean([r["s_over_K1"] for r in q])),
+                    "median_eps_nonconvex": float(np.median([r["eps_nonconvex"] for r in q])),
+                    "median_eps_wait_and_judge": float(np.median([r["eps_wait_and_judge"] for r in q])),
+                    "measured_plan_rate": x / n if n else math.nan, "measured_lo": lo, "measured_hi": hi,
+                    "mean_plan_rate": float(np.mean([r["plan_rate"] for r in q])),
+                    "max_plan_rate": float(np.max([r["plan_rate"] for r in q])),
+                    "plans_rate_above_eps": int(sum(r["plan_rate"] > r["eps_nonconvex"] for r in q)),
+                    "plans_lo_above_eps": int(sum(r["plan_lo"] > r["eps_nonconvex"] for r in q)),
+                    "plans_rate_above_s_over_K1": int(sum(r["plan_rate"] > r["s_over_K1"] for r in q)), **common})
+    _write_csv(out_dir / "scenario_summary.csv", out)
+    return out
+
+
+def _instance_margins(outs: dict, conf: float, out_dir: Path, common: dict) -> list[dict]:
+    """Post hoc (descriptive): per instance, A8-g0 and B2-A8, the residents kept and their out-of-sample violation
+    at m = 0, 1, 5, 30 and 60 min (the pooled rule averages over instances; this shows the spread)."""
+    out = []
+    for (iid, pid), o in sorted(outs.items(), key=lambda kv: (["S", "M", "L"].index(size_of(kv[0][0])), kv[0])):
+        if pid not in ("A8-g0", "B2-A8"):
+            continue
+        row = {"instance": iid, "plan": pid, "label": LABEL, "n_fresh": len(o["cs"])}
+        for m in (0, 1, 5, 30, 60):
+            r = _rate([((iid, pid), o)], conf, lo_s=60.0 * m)
+            row[f"kept_{m}m"] = r["residents"]
+            row[f"rate_{m}m"] = r["rate"]
+            row[f"kg_hi_{m}m"] = r["kg_hi"]
+        out.append({**row, **common})
+    _write_csv(out_dir / "by_instance_margin.csv", out)
+    return out
 
 
 def _arrival_diagnostic(cfg: dict, out_dir: Path, common: dict) -> list[dict]:
@@ -416,7 +478,7 @@ def _figures(rows, by_k, curves, bins_rows, outs, plans, support, cfg, beta) -> 
         ax.set_title(t, fontsize=9)
         ax.set_ylim(bottom=0)
         ax.grid(alpha=0.3)
-        ax.legend(fontsize=7)
+        ax.legend(fontsize=7, loc="upper right")
     fig.suptitle("SYNTHETIC dev instances: out-of-sample violation vs K (B1; fresh members of each instance's "
                  "own hazard model)", fontsize=9)
     fig.tight_layout()
