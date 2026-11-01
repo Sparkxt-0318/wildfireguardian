@@ -54,7 +54,7 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | ~~A-fresh~~ (done, merged) | A | 2025 US truth-source proposal (`firecast-lab/docs/FRESH_HOLDOUT.md`) | `../wfg-firecast` |
 | E1 ALNS, untuned | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
 | E3 scenario robustness | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
-| E4 flow bound | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
+| ~~E4 flow bound~~ (done, KEEP, `742575e3`; merge after the baseline job) | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
 | Orchestrator background job | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold, wait capped at 65 min (`--wait-max`) | `../wfg-evacplan` |
 
 ## Blockers
@@ -153,3 +153,10 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
     observation) until the other baselines are in;
   - the 2 h background job was killed while queued behind E3 before noop/B0/B1/B3 started. Those four are queued
     again with a capped wait (`program/benchlock.py --wait-max`, `4c523622`).
+- 2026-11-01 E4 (flow-over-time LP bound, bound only) returned: **KEEP** (`742575e3`, SYNTHETIC dev, 900 s per instance).
+  - Valid on every check run: S bound ≥ B3 in all 12 B3 rows; 0 violations over 284 checked rows; tiny brute-force
+    instance bound 5 = optimum.
+  - First proven bounds on M: 160/168 and 144/149 on the two t75 instances (best plans 140, 139), closing 29 % and 50 %
+    of the trivial gap; 25/27 on S-grid-t75-s103, below B3's 26. L: only the resource bound at 900 s (LPs too large).
+  - Two test fixes (`7ba44700`) were not re-run under the lock; the post-merge suite covers them. About 30 s of the
+    agent's debugging overlapped the start of E1's final run (08:15:40-08:17). Lock time about 63 min (1 h budget).
