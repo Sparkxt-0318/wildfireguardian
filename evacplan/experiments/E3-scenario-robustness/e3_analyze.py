@@ -37,7 +37,8 @@ import e3_stats as st  # noqa: E402
 LABEL = "SYNTHETIC"
 MARGINS_MIN = (0, 1, 2, 5, 10, 15, 20, 30, 45, 60)      # evacplan.harness.MARGINS_MIN
 FIG_DIR = EXP_DIR / "figures"
-GENERATED = ("results.csv", "by_K.csv", "by_margin.csv", "by_slack_bin.csv", "recommendation.csv", "figures")
+GENERATED = ("results.csv", "by_K.csv", "by_margin.csv", "by_slack_bin.csv", "recommendation.csv",
+             "margin_cost_baselines.csv", "figures")
 
 
 def size_of(iid: str) -> str:
@@ -208,9 +209,36 @@ def cmd_analyze(args) -> int:
                                  "contact_share": pick[0]["share_contact"] if pick else "", **common})
     _write_csv(out_dir / "recommendation.csv", rec_rows)
 
+    base_costs = _baseline_costs(out_dir, common)
     _figures(rows, by_k, curves, bins_rows, outs, plans, support, cfg, beta)
     _print_tables(rows, by_k, by_margin, bins_rows, rec_rows, support, plans, outs, beta, complete)
+    print("\n### Leaderboard baselines on this host: residents delivered with slack >= m (median over seeds)\n")
+    if not base_costs:
+        print("(no dev 60 s rows of this host yet)")
+    for r in base_costs:
+        print(f"- {r['method']} m={r['margin_min']}: {r['delivered_median']} [{r['delivered_min']}-{r['delivered_max']}] "
+              f"= {_pct(r['share_of_margin0'])} of margin 0 ({r['seeds']} seeds)")
     return 0
+
+
+def _baseline_costs(out_dir: Path, common: dict) -> list[dict]:
+    """The leaderboard's margin columns on this host: per baseline (and any other method with rows), residents
+    delivered with slack >= m on the dev set at 60 s (median over seeds of the per-seed totals, min-max), from
+    ``delivered_by_margin_min`` in the harness rows (``evacplan.harness.margin_curves``). Empty when this host has
+    no such rows yet (the 5-seed baseline rows are merged from evacplan/phase0)."""
+    from evacplan.harness import all_rows, host_string, margin_curves, row_config
+    host = host_string()
+    rows = [r for r in all_rows() if r["host"] == host and row_config(r).get("set") == "dev"
+            and float(row_config(r).get("budget_s", 0)) == 60.0]
+    out = []
+    for method, c in margin_curves(rows).items():
+        base = c["median"][0]
+        for m, med, lo, hi in zip(c["margins_min"], c["median"], c["lo"], c["hi"]):
+            out.append({"method": method, "label": LABEL, "margin_min": m, "delivered_median": med,
+                        "delivered_min": lo, "delivered_max": hi, "share_of_margin0": med / base if base else math.nan,
+                        "instances": c["instances"], "seeds": c["seeds"], "rows_host": host, **common})
+    _write_csv(out_dir / "margin_cost_baselines.csv", out)
+    return out
 
 
 def _rate(sel, conf: float, lo_s: float = -math.inf, hi_s: float = math.inf, cmax: int | None = None) -> dict:

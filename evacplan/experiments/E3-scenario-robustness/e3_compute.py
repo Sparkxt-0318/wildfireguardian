@@ -351,8 +351,14 @@ def cmd_compute(args) -> int:
                 log(f"  B2 {e.id}: delivered {rec['delivered']} unresolved {rec['unresolved']} "
                     f"runtime {rec['runtime_s']} s diagnostics {rec['diagnostics']}", flush=True)
         n_sup = 0
-        for job in jobs:
-            rec = job.get()
+        for (iid, pid), job in zip(want_plans, jobs):
+            try:
+                rec = job.get()
+            except Exception as exc:  # noqa: BLE001 - one failed plan must not end the lock hold; it is logged
+                log(f"  ERROR planning {iid}/{pid}: {type(exc).__name__}: {exc}", flush=True)
+                _append(runs_dir / "errors.jsonl", {"phase": "plan", "instance": iid, "plan": pid,
+                                                     "error": f"{type(exc).__name__}: {exc}", "commit": commit})
+                continue
             sup_rec = rec.pop("support_record", None)
             if (rec["instance"], rec["plan"]) not in plans:
                 rec.update(commit=commit, host=host)
@@ -408,7 +414,14 @@ def cmd_compute(args) -> int:
             still = []
             for name, job in inflight:
                 if job.ready():
-                    out = job.get()
+                    try:
+                        out = job.get()
+                    except Exception as exc:  # noqa: BLE001 - logged; the task's members stay unchecked
+                        log(f"  ERROR {name} check task: {type(exc).__name__}: {exc}", flush=True)
+                        _append(runs_dir / "errors.jsonl", {"phase": "check", "tier": name,
+                                                             "error": f"{type(exc).__name__}: {exc}", "commit": commit})
+                        tier_done[name] += 1
+                        continue
                     for r in out["records"]:
                         if (r["instance"], r["plan"], r["c"]) in done:
                             continue
