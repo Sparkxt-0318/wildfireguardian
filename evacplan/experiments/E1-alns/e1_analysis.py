@@ -153,8 +153,9 @@ def figures(out, by, ids, residents, totals, cmp, host) -> None:
     ax = fig.add_subplot(1, 1, 1)
     style(ax)
     ys = list(range(len(ids)))[::-1]
-    off = {"b1_greedy": 0.22, "b2_vrptw": 0.0, METHOD: -0.22}
-    for m in COMPARE:
+    present = [m for m in COMPARE if any(by[(m, i)] for i in ids)]       # methods with rows on this host
+    off = dict(zip(present, (0.22, 0.0, -0.22) if len(present) == 3 else (0.14, -0.14)))
+    for m in present:
         for y, i in zip(ys, ids):
             vals = [float(x["delivered_checked"]) for x in by[(m, i)]]
             if not vals or not residents[i]:
@@ -179,7 +180,8 @@ def figures(out, by, ids, residents, totals, cmp, host) -> None:
     fig = Figure(figsize=(7.2, 4.4), dpi=100, facecolor=SURFACE)
     ax = fig.add_subplot(1, 1, 1)
     style(ax)
-    for x, m in enumerate(COMPARE):
+    present = [m for m in COMPARE if totals[m]]
+    for x, m in enumerate(present):
         t = sorted(totals[m].values())
         if t:
             ax.plot([x] * len(t), t, marker=MARKERS[m], markersize=8, color=COLORS[m], markeredgecolor=SURFACE,
@@ -188,11 +190,11 @@ def figures(out, by, ids, residents, totals, cmp, host) -> None:
                         color=INK_2, fontsize=9)
     if cmp.bar is not None:
         ax.axhline(cmp.bar, color=INK_2, linewidth=1.2, linestyle="--", zorder=2)
-        ax.annotate(f"bar for beating B2: {cmp.bar:g}", (len(COMPARE) - 0.5, cmp.bar), xytext=(0, 4),
-                    textcoords="offset points", ha="right", color=INK_2, fontsize=9)
-    ax.set_xticks(range(len(COMPARE)))
-    ax.set_xticklabels([LABELS[m] for m in COMPARE], color=INK_2)
-    ax.set_xlim(-0.5, len(COMPARE) - 0.5)
+        ax.annotate(f"bar for beating B2: {cmp.bar:g}", (-0.45, cmp.bar), xytext=(0, 5),
+                    textcoords="offset points", ha="left", color=INK_2, fontsize=9)
+    ax.set_xticks(range(len(present)))
+    ax.set_xticklabels([LABELS[m] for m in present], color=INK_2)
+    ax.set_xlim(-0.5, len(present) - 0.5)
     ax.set_ylabel("residents delivered, sum over the 10 dev instances", color=INK_2)
     ax.set_title(f"SYNTHETIC dev set, 60 s: per-seed totals (seeds 0-4), host {host_tag(host)}", color=INK,
                  fontsize=11, loc="left")

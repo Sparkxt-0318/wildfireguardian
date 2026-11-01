@@ -101,4 +101,122 @@ seeds x 60 s plus the harness's oracle checks).
 
 ### Final evaluation (dev, 60 s, seeds 0-4)
 
-Queued behind the bench lock.
+Run once, as pre-registered: `evacplan run --method e1_alns --set dev --budget-s 60 --repeats 5`, one bench-lock hold
+(08:15-09:07 UTC), commit `483eb527` (clean), host `vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu,
+python 3.12.3, vm boot ff671362)`, the same container session as the B2 reruns. Rows: `evacplan/results/e1_alns.csv`;
+per run: [`results.csv`](results.csv) (from [`e1_analysis.py`](e1_analysis.py)).
+
+**Verdict (leaderboard): no (worst 1443 ≤ bar 1750).** Bar on this host = max(B2 best observed 1750 [recorded
+Phase 0 observation], best-of-baselines total 1749 [B2 rows; the noop/B0/B1/B3 reruns of this session were still
+queued]) = 1750.
+
+| SYNTHETIC dev, 60 s, this host | per-seed totals (seeds 0-4) | median [min–max] | worst |
+|---|---|---|---|
+| **E1 ALNS** | 1445, 1444, 1446, 1443, 1444 | **1444 [1443–1446]** | **1443** |
+| B2 OR-Tools VRPTW | 1749 × 5 | 1749 | 1749 |
+| B1 greedy (E1's warm start)¹ | 1353 | 1353 | 1353 |
+
+¹ B1 has no rows on this host yet (its 5-seed rerun was queued). B1 is deterministic; the numbers are the sizes of its
+plans built inside E1's runs on this host, which equal its Phase 0 rows (1353).
+
+| E1, sum over the 10 instances per seed | median [min–max] |
+|---|---|
+| delivered (checked in all K members) | 1444 [1443–1446] |
+| unresolved | 0 |
+| model_no_route | 0 |
+| not planned | 531 [529–532] |
+| delivered with slack ≥ 5 / 15 / 30 min | 1351 [1283–1352] / 1267 [1265–1267] / 992 [980–1030] (B2: 1523 [1482–1523] / 1463 / 1284) |
+| minimum slack | 1.9 s (L-grid-t50-s109, B1's plan; B2 16.7 s) |
+| runs over budget | 0 of 50 (mean runtime 55.8 s; S and M stop at 57.7 s = budget − reserve) |
+| residents lost to dose in the final plans: DOSE_ABOVE_BUDGET (model_no_route) / DOSE_UNRESOLVED (unresolved) | 0 / 0 |
+| residents in trips the oracle rejected during the search (summed over certifications) | 0 |
+| relaxed best − certified incumbent | 0 in 49 runs; 1 in M-grid-t75-s107 seed 3 (a 148-resident candidate whose certification did not fit in the time left) |
+
+| instance | residents | B1 | B2 median [min–max] | E1 median [min–max] | E1 − B2 | E1 iterations (median) | E1 oracle itinerary checks (median) |
+|---|---|---|---|---|---|---|---|
+| SYNTHETIC-S-grid-t25-s101 | 23 | 23 | 23 | 23 | +0 | 70,646 | 3 |
+| SYNTHETIC-S-geo-t25-s102 | 39 | 37 | 36 | 37 | +1 | 26,200 | 3 |
+| SYNTHETIC-S-grid-t75-s103 | 27 | 20 | 23 | 23 | +0 | 47,066 | 2 |
+| SYNTHETIC-S-geo-t75-s104 | 26 | 24 | 26 | 26 | +0 | 59,925 | 2 |
+| SYNTHETIC-M-grid-t25-s105 | 163 | 163 | 163 | 163 | +0 | 2,280 | 15 |
+| SYNTHETIC-M-geo-t25-s106 | 155 | 155 | 155 | 155 | +0 | 2,925 | 16 |
+| SYNTHETIC-M-grid-t75-s107 | 168 | 100 | 140 | 148 [147–150] | +8 | 1,079 | 11 |
+| SYNTHETIC-M-geo-t75-s108 | 149 | 101 | 139 | 139 | +0 | 733 | 20 |
+| SYNTHETIC-L-grid-t50-s109 | 646 | 335 | 516 | 335 | −181 | 0 | 10 |
+| SYNTHETIC-L-geo-t50-s110 | 579 | 395 | 528 | 395 | −133 | 0 | 10 |
+
+By size: S 109 vs B2 108 (the best-of-baselines S total is 109); M 605 vs B2 597 (best-of-baselines 597); L 730 vs B2
+1044.
+
+![SYNTHETIC: E1 vs B2 per instance](figures/e1_by_instance.png)
+
+![SYNTHETIC: per-seed totals and the bar](figures/e1_seed_totals.png)
+
+**What happened.**
+
+* **S and M: E1 matches or beats every baseline on every instance, every trip certified.** On S it reaches B2/B3's
+  values or better (S-geo-t25-s102: 37 in every seed vs B2 36); on M it delivers every resident of the two instances
+  where a baseline did (163, 155), equals B2 on M-geo-t75-s108 (139) and beats it by 8 on M-grid-t75-s107 (147-150;
+  B2 140, B1 100). Thousands of iterations on S and M; the oracle never
+  rejected a trip in any certification (no dose cut anywhere), so the relaxed model was exact on these instances.
+* **L: no search at all.** On both L instances the B1 warm start took 8.0-10.7 s, the oracle calibration 2.6-3.8 s, and
+  the oracle cost 21.6-25.5 ms per leg on plans of 1,658-1,772 legs, i.e. one full-plan certification ≈ 36-45 s. E1
+  reserves 1.5× the estimate (`oracle_safety`, fixed a priori) before it starts an iteration, so it never started one:
+  it certified the warm start (33-41 s) and returned it, delivering exactly B1's 335 and 395. This was visible
+  before the final run on an L instance outside the split (0 iterations there too); the parameter was kept as
+  pre-registered (see Next step). Lowering it to 1.0 would have left about 10 s for perhaps a handful of
+  iterations on L, nowhere near the 314-resident gap to B2.
+* **The oracle is the bottleneck, also on M.** The certifications took 15-37 s of oracle time per M run (of 57.7 s),
+  and 18 certifications on M were skipped because they would not have fitted in the time left (the incumbent stayed).
+  "Search cheaply, check expensively" works only when the expensive check fits the budget; at 60 s it does not on L.
+* **Dose.** In no run did the oracle reject a trip E1 proposed (DOSE_* = 0 in the final plans and in the search).
+  The H0 caveat (SYNTHETIC dose_lower much hotter than the Korean packets) therefore did not touch these results;
+  nothing in E1 depends on a dose value.
+
+## Decision: KILL
+
+By the pre-registered rule: the verdict is not "beats B2" and the worst of 5 (1443) does not exceed B2's median total
+on this host (1749), so ITERATE does not apply. The negative result is specific: the ALNS itself is at least as good as
+the best baseline on S and M at equal time, but certifying incumbents inside a 60 s budget is unaffordable on L with
+the current oracle (~22 ms per leg, ~40 s per L plan), so E1 falls back to B1 there.
+
+## Next step
+
+Report to Siyeong; no further E1 runs in this batch. A follow-up (E1b) would need his approval, because each candidate
+fix touches the comparison rule, the oracle interface or a pre-registered parameter:
+
+1. **Cheaper certification on L** (untuned, structural): an oracle entry point that checks an itinerary's suffix from a
+   cached prefix state (cumulative dose per member and the state so far) would make lazy certification cost only the
+   changed legs. That is an `evacplan.oracle` API addition: the oracle stays the only code that declares states.
+2. **Budget accounting for certification.** B2's plan is certified by the harness outside its budget, while E1 pays for
+   certifying in-budget. Either both count it or neither; Siyeong decides the rule.
+3. **`oracle_safety` 1.5 → 1.0** with the existing per-check guard (computational, not hazard-related; about 10 s of
+   search on L).
+
+## What tuning would be tried if Siyeong allows it
+
+None of this was done in this batch (no parameter was changed after seeing a dev result):
+
+1. **Search effort per instance size.** At 60 s M gets 600-3,300 iterations and L none, so Ropke & Pisinger's
+   100-iteration segments update the operator weights only a few times on M. Tuning would set the segment length,
+   the destroy range (10-40 % of the requests) and the cooling end point per size class on dev.
+2. **Operator portfolio.** Drop or reweight operators from the learned weights on dev (initial weights, scores).
+3. **Dose-aware insertion.** The oracle's dose verdicts could seed a cost on long stays within ~375 m of burning
+   cells (H0's band where the budget binds). That is tuning to the SYNTHETIC hazards ("much hotter" than the
+   Korean packets by H0's rule) and needs Siyeong's decision first.
+4. **Certification cadence and safety factor** (computational): certify more or less often, and a smaller safety
+   factor on the oracle's time estimate on large instances.
+
+## Changes after seeing dev results
+
+* Method (`e1_alns.py`) and parameters (`config.yaml`): none. The last method commit before the dev smoke is
+  `e642c1bb`; the smoke ran at `c318d524` and the final run at `483eb527` (the commits in between touch only the
+  analysis script and this README, plus the merge of the orchestrator's same-host B2 rows).
+* `e1_analysis.py`, after the final run: the figures draw only methods that have rows on this host (B1's rerun was still
+  queued, which left an empty B1 column) and the bar's label moved left. No number changed.
+
+## Budget used
+
+* Bench time: about 57 min (tests, profiling and the dev smoke 07:10-07:16 UTC; final evaluation 08:15-09:07 UTC,
+  one hold). Waiting for the shared lock: about 1 h 40 min before the first hold and 1 h before the final one.
+* Work: about 4 h 15 min (05:00-09:15 UTC).
