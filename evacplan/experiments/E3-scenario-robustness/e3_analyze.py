@@ -128,6 +128,7 @@ def cmd_analyze(args) -> int:
             "plan_hi": r["plan_hi"], "resident_member_pairs": r["pairs"], "resident_violations": r["violations"],
             "resident_rate": r["rate"], "resident_kg_lo": r["kg_lo"], "resident_kg_hi": r["kg_hi"],
             "resident_kish_lo": r["kish_lo"], "resident_kish_hi": r["kish_hi"], "causes": r["causes"],
+            "all_trips_checked_in_sample": all(t["slack_s"] is not None for t in pl["trips"] if t["n"]),
             "support_size": sp["s"] if sp else "", "support_members": " ".join(map(str, sp["support"])) if sp else "",
             "eps_nonconvex": st.eps_nonconvex(sp["s"], K, beta) if sp else "",
             "eps_wait_and_judge": st.eps_wait_and_judge(sp["s"], K, beta) if sp else "",
@@ -406,8 +407,9 @@ def _figures(rows, by_k, curves, bins_rows, outs, plans, support, cfg, beta) -> 
     fig.savefig(FIG_DIR / "violation_by_slack_bin.png")
     plt.close(fig)
 
-    # 4. scenario bound vs measured, per plan with a support set
-    pts = [r for r in rows if r["support_size"] != ""]
+    # 4. scenario bound vs measured, per plan with a support set whose every trip with residents is checked in-sample
+    # (then the plan is consistent with all its planning members and "violation" depends on the plan alone)
+    pts = [r for r in rows if r["support_size"] != "" and r["all_trips_checked_in_sample"]]
     if pts:
         fig, ax = plt.subplots(figsize=(6, 5), dpi=110)
         for arm, mk in (("A", "o"), ("B", "s")):
