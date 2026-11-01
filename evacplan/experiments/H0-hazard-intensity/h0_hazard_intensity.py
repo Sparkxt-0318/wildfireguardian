@@ -2,18 +2,22 @@
 """H0 hazard intensity: SYNTHETIC dev instances vs Korean router packets (dev fires).
 
 A measurement, not a method experiment: no tuning; generators, methods and hazard_contract are
-unchanged. The pre-registration is README.md in this folder. Run from the worktree root; both steps
-hold the shared bench lock (program rule 6):
+unchanged. The pre-registration is README.md in this folder. Run from the worktree root; every step
+holds the shared bench lock (program rule 6):
 
     .venv/bin/python program/benchlock.py --label H0-compute -- \\
         .venv/bin/python evacplan/experiments/H0-hazard-intensity/h0_hazard_intensity.py compute
     .venv/bin/python program/benchlock.py --label H0-analyze -- \\
         .venv/bin/python evacplan/experiments/H0-hazard-intensity/h0_hazard_intensity.py analyze
+    .venv/bin/python program/benchlock.py --label H0-posthoc -- \\
+        .venv/bin/python evacplan/experiments/H0-hazard-intensity/h0_hazard_intensity.py posthoc
 
 ``compute`` queries every (receiver node, window, member) exposure through ``hazard_contract`` (a
 single-point geometry = a stationary occupancy) and writes per-exposure records to
 ``evacplan/runs/H0-hazard-intensity/`` (git-ignored, regenerable). ``analyze`` writes the CSVs and the
-figures next to this file and prints the README tables.
+figures next to this file and prints the README tables. ``posthoc`` (added after the results were
+seen; descriptive, not part of the pre-registration) counts the known-burning and unknown cells around
+the receivers per band.
 
 Data rules. SYNTHETIC: the frozen dev split only, regenerated through ``evacplan.instances`` (fingerprints
 verified); refused when ``EVACPLAN_MILESTONE`` is set. Korean: the router packets of the dev fires only,
@@ -55,7 +59,8 @@ FIG_DIR = EXP_DIR / "figures"
 
 DEV_FIRES = ("uljin_2022", "hongseong_2023", "miryang_2022")
 TEST_SEASON_FIRES = ("uiseong_andong_2025", "yeongdeok_2025")     # rule 5: never opened
-GENERATED = ("results.csv", "results_by_source.csv", "inventory.csv", "peak_flux.csv", "verdict.csv", "figures")
+GENERATED = ("results.csv", "results_by_source.csv", "inventory.csv", "peak_flux.csv", "verdict.csv",
+             "posthoc_burning_area.csv", "figures")
 BAND_NAMES = ("0-375 m", "375-750 m", "0.75-1.5 km", "1.5-3 km")
 BEYOND, ALL = "beyond 3 km", "all"
 CONTACT_CODE = {True: 1, False: 0, None: -1}                     # certain / none / unknown
@@ -666,7 +671,7 @@ def make_figures(cfg: dict, panels: dict, sources: list, fig_dir: Path) -> None:
         return e.a["dose_lower"][m]
 
     # 1: one plot per panel, a curve per band
-    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.6), sharex=True, sharey=True, facecolor=SURFACE)
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 5.4), sharex=True, sharey=True, facecolor=SURFACE)
     for ax, pname, title in zip(axes, (SYN, KOR), (t_syn, t_kor)):
         _style(ax)
         for b, bname in enumerate(BAND_NAMES):
@@ -680,13 +685,14 @@ def make_figures(cfg: dict, panels: dict, sources: list, fig_dir: Path) -> None:
         ax.set_title(title, color=INK, fontsize=10.5, loc="left")
         ax.set_xlabel("dose_lower over 30 min (kJ/m², log; below 0.001 drawn at 0.001)", color=INK2, fontsize=8.5)
         if ax.get_lines()[:-1]:                                  # band curves besides the budget line
-            ax.legend(frameon=False, fontsize=7.5, loc="upper left", labelcolor=INK2,
-                      title="distance to nearest burning cell at window start", title_fontsize=7.5)
+            ax.legend(frameon=False, fontsize=7.5, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2,
+                      labelcolor=INK2, title="distance to the nearest burning cell at window start",
+                      title_fontsize=7.5)
     axes[0].set_ylabel("cumulative share of exposures", color=INK2, fontsize=8.5)
     fig.suptitle("30-min stationary dose at road nodes (contact-free, supported exposures):\n"
                  f"{t_syn} vs {t_kor}", color=INK, fontsize=11, x=0.01, ha="left")
-    fig.tight_layout()
-    fig.savefig(fig_dir / "cdf_dose30_by_band.png", dpi=150, facecolor=SURFACE)
+    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    fig.savefig(fig_dir / "cdf_dose30_by_band.png", dpi=150, facecolor=SURFACE, bbox_inches="tight")
     plt.close(fig)
 
     # 2: one plot per band, both panels and the persistence diagnostic overlaid
@@ -760,6 +766,71 @@ def make_figures(cfg: dict, panels: dict, sources: list, fig_dir: Path) -> None:
     plt.close(fig)
 
 
+# ------------------------------------------------------------------- post hoc (not pre-registered)
+POSTHOC_RADII_M = (1500.0, 3000.0)
+
+
+def posthoc(cfg: dict) -> None:
+    """POST HOC, added after the results were seen (descriptive only; it cannot change the verdict).
+    How much KNOWN burning area, and how many UNKNOWN (rule 4) cells, lie within 1.5 and 3 km of the
+    receiver at the window start, per panel and band, for the contact-free supported 30-min exposures.
+    Both panels use 375 m cells, so counts are comparable areas (1 cell = 0.14 km²)."""
+    run = json.loads((RUNS_DIR / "run_meta.json").read_text())
+    run_sources = json.loads((RUNS_DIR / "sources.json").read_text())
+    sources = synthetic_sources(cfg) + korean_sources(cfg)
+    if ([s.key for s in sources] != [s["key"] for s in run_sources]
+            or [len(s.xy) for s in sources] != [s["receivers"] for s in run_sources]):
+        raise SystemExit("the sources differ from the computed run")
+    with np.load(RUNS_DIR / "exposures_main.npz") as z:
+        a = {k: z[k] for k in ("src", "node", "t0_s", "win_s", "member", "contact", "dist_m")}
+    m30 = a["win_s"] == 1800
+    a = {k: v[m30] for k, v in a.items()}
+    counts = {f"{kind}_cells_within_{int(r)}m": np.full(len(a["src"]), -1, np.int32)
+              for kind in ("known_burning", "unknown") for r in POSTHOC_RADII_M}
+    for si, s in enumerate(sources):
+        sel = np.flatnonzero(a["src"] == si)
+        starts = np.unique([w[0] for w in s.windows if w[1] == 1800.0])
+        per = {key: np.zeros((len(s.xy), s.ss.K, len(starts)), np.int32) for key in counts}
+        t0 = starts[None, :, None]
+        for i, (x, y) in enumerate(s.xy):
+            rr, cc, d = nearby_cells(s.ss.grid, float(x), float(y), max(POSTHOC_RADII_M))
+            if rr.size == 0:
+                continue
+            sup = s.ss.supported[:, rr, cc]                                          # [K, n]
+            burning = (sup[:, None, :] & (s.ss.ignite_s[:, rr, cc][:, None, :] <= t0)
+                       & (s.ss.extinguish_s[:, rr, cc][:, None, :] > t0))            # [K, n_starts, n]
+            for r in POSTHOC_RADII_M:
+                inr = d <= r
+                per[f"known_burning_cells_within_{int(r)}m"][i] = (burning & inr).sum(axis=2)
+                per[f"unknown_cells_within_{int(r)}m"][i] = (~sup & inr).sum(axis=1)[:, None]
+        idx = (a["node"][sel], a["member"][sel], np.searchsorted(starts, a["t0_s"][sel]))
+        for key in counts:
+            counts[key][sel] = per[key][idx]
+    if any((v < 0).any() for v in counts.values()):
+        raise SystemExit("an exposure was not matched to its source")
+    band = band_index(a["dist_m"], cfg["distance"]["bands_m"])
+    cf = a["contact"] == 0
+    panel = np.array([s["panel"] for s in run_sources])[a["src"]]
+    common = {"commit": run["commit"], "analysis_commit": git_commit(), "seed": "none",
+              "config": "post hoc; contact-free supported 30-min exposures; 375 m cells", "host": run["host"]}
+    rows = []
+    for pname in (SYN, KOR):
+        for b, bname in enumerate(BAND_NAMES):
+            m = cf & (band == b) & (panel == pname)
+            row = {"panel": pname, "label": "SYNTHETIC" if pname == SYN else "", "band": bname, "window_min": 30,
+                   "n_contact_free_supported": int(m.sum())}
+            for key, v in counts.items():
+                x = v[m]
+                row[f"{key}_median"] = float(np.median(x)) if x.size else math.nan
+                row[f"{key}_p90"] = float(np.quantile(x, 0.9)) if x.size else math.nan
+            u = counts["unknown_cells_within_1500m"][m]
+            row["share_with_unknown_within_1500m"] = float((u > 0).mean()) if u.size else math.nan
+            rows.append({**row, **common})
+    write_csv(EXP_DIR / "posthoc_burning_area.csv", rows)
+    for r in rows:
+        print({k: v for k, v in r.items() if k not in common})
+
+
 # -------------------------------------------------------------------------------- README aid
 def print_tables(rows: list, rows_v: list, rows_pk: list, rows_inv: list) -> None:
     def g(v, nd=3):
@@ -790,15 +861,17 @@ def print_tables(rows: list, rows_v: list, rows_pk: list, rows_inv: list) -> Non
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("step", choices=("compute", "analyze"))
+    ap.add_argument("step", choices=("compute", "analyze", "posthoc"))
     ap.add_argument("--workers", type=int, default=None, help="default: config compute.workers")
     ap.add_argument("--smoke", type=int, default=None, help="first N receivers per source, into runs/.../smoke/")
     a = ap.parse_args(argv)
     cfg = load_config()
     if a.step == "compute":
         compute(cfg, a.workers or int(cfg["compute"]["workers"]), a.smoke)
-    else:
+    elif a.step == "analyze":
         analyze(cfg, smoke=bool(a.smoke))
+    else:
+        posthoc(cfg)
     return 0
 
 
