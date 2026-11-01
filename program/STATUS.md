@@ -55,7 +55,7 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | E1 ALNS, untuned | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
 | E3 scenario robustness | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
 | E4 flow bound | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
-| Orchestrator background job | C | full suite, then baselines × 5 seeds at `c78721e6` through the bench lock | `../wfg-evacplan` |
+| Orchestrator background job | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold, wait capped at 65 min (`--wait-max`) | `../wfg-evacplan` |
 
 ## Blockers
 
@@ -66,7 +66,7 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Next step
 
-1. When the baseline re-runs finish:
+1. When the noop/B0/B1/B3 re-runs finish (if the job gives up on the lock, exit 75, queue it again):
    - commit the rows, LEADERBOARD.md and the margin figure on `evacplan/phase0` (commit subject "evacplan: baselines
      x 5 seeds ...");
    - push, and merge into `next/integration`.
@@ -147,3 +147,9 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
     cooler on dose_upper (rule 4). E1 therefore runs untuned (`DECISIONS.md`).
   - Track A: 2025 US fresh-holdout proposal written; it leaves decisions for Siyeong.
   - Wave 2 launched (E1, E3, E4), and the 5-seed baseline re-runs started.
+- 2026-11-01 Baseline re-runs, part 1 (SYNTHETIC, dev, 60 s, this VM session `vm boot ff671362`):
+  - full evacplan suite at `c78721e6`: 324 passed;
+  - B2 × 5 seeds: 1749 in every repeat, 0 unresolved (`c888a87b`). The bar on this host is 1750 (recorded Phase 0
+    observation) until the other baselines are in;
+  - the 2 h background job was killed while queued behind E3 before noop/B0/B1/B3 started. Those four are queued
+    again with a capped wait (`program/benchlock.py --wait-max`, `4c523622`).
