@@ -29,7 +29,9 @@ def solve(name, inst, ss, budget=10.0, seed=0, **cfg):
     m = get_method(name, **cfg)
     t0 = time.monotonic()
     res = m.solve(inst, ss, budget_s=budget, seed=seed, deadline=t0 + budget)
-    return res, time.monotonic() - t0
+    runtime = time.monotonic() - t0
+    assert "error" not in res.diagnostics, res.diagnostics.get("error")   # E1 reports a caught exception here
+    return res, runtime
 
 
 def tiny_case(dose=100.0):
@@ -96,6 +98,7 @@ def test_respects_the_budget(generated):
     m = get_method("e1_alns")                              # a budget already spent still returns a valid plan
     res = m.solve(g.instance, g.hazard, budget_s=1.0, seed=0, deadline=time.monotonic() - 10.0)
     assert validate_solution(g.instance, res.solution).ok and res.diagnostics["iterations"] == 0
+    assert "error" not in res.diagnostics
 
 
 def test_deterministic_given_seed_and_iteration_cap(generated):

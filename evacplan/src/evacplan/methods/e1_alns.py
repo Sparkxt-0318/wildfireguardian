@@ -733,8 +733,14 @@ class _Run:
         starts, pre_count, pre_slack = d.starts, d.pre_count, d.pre_slack
         bad = self.bad_prefix
 
+        suf_count = d.suf_count
+
         def consider(j, o, nxt, shelter, load, old_shelter, old_load):
             nonlocal best, best_val
+            # exact pruning: the later trips cannot gain residents, and residents dominate the scalarisation
+            up = pre_count[j] + o.count + suf_count[nxt] - old_planned
+            if up <= 0 or (best is not None and up < best.dp):
+                return
             touts, tcnt, tsl, tend = net.tail(v, o.node, o.t, d, nxt)
             dp = pre_count[j] + o.count + tcnt - old_planned
             if dp <= 0:
@@ -1047,82 +1053,11 @@ class _Run:
             dsp.commit(best)
         return dsp
 
-    def run(self) -> MethodResult:
-        self.t0 = t0 = time.monotonic()
-        cfg, inst = self.cfg, self.inst
-        hard = self.deadline - self.reserve
-        rh = Reach(inst, self.ss)
-        D = latest_departures(inst, rh)
-        net = self.net = _Net(inst, rh, D)
-        self.Hi = net.Hi
-        self.B = net.nV * (net.Hi + 1) + 1
-        self.A = self.B * (net.Hi + 1) + 1
-        # requests: B2's chunk rule
-        self.q = {}
-        for f, fac in enumerate(inst.facilities):
-            for c in range(3):
-                caps = [cap[c] for cap in net.vcap if cap[c] > 0]
-                big = [x for x in caps if x >= 2]
-                qq = min(big) if big else 1
-                b = net.board[f][c]
-                if (f, c) in net.D and b > 0:
-                    qq = max(1, min(qq, (net.D[(f, c)] - net.rel[f]) // b))
-                self.q[(f, c)] = qq
-        self.qmax = max(self.q.values(), default=1)
-        self.insertable = sorted((f, c) for (f, c) in net.D if net.res[f][c] > 0
-                                 and any(cap[c] > 0 for cap in net.vcap) and any(s[c] > 0 for s in net.scap))
-        self.kmask = [sum(1 << v for v, cap in enumerate(net.vcap) if cap[c] > 0) for c in range(3)]
-        sites = sorted(set(net.fnode) | set(net.snode) | set(net.vnode))
-        big = 1 << 59
-        self.maxd = float(max([net.lb(b)[a] for a in sites for b in sites if net.lb(b)[a] < big] or [1])) or 1.0
-        self.noise_amp = cfg["noise"] * self.maxd
-        self._dists: dict = {}
-        self.oracle = Oracle(inst, self.ss)
-        self.relaxed = RelaxedContactCheck(inst, self.ss)
-        self.t_oracle_legs = 0
-        self.t_oracle_new = 0.0
-        self.known_cuts = self.repairs_cut_short = self.certifications = self.cert_skipped = self.emit_errors = 0
-        self.dose_cut_residents = 0
-        self.history: list = []
-        self.it = 0
-
-        # ---- warm start (B1) and its decode
-        dsp = self._warm_start(rh, D, hard)
-        pool = {(f, c): net.res[f][c] for f in range(net.nF) for c in range(3)}
-        room = [list(s) for s in net.scap]
-        st = _St([VDec(net, v, ()) for v in range(net.nV)], pool, room)
-        warm_trips = 0
-        for v, vid in enumerate(net.vid):
-            keys = [(((net.fidx[tr.facility], tuple(int(x) for x in tr.counts)),), net.sidx[tr.delivery.shelter])
-                    for tr in dsp.vs[vid].trips]
-            warm_trips += len(keys)
-            self._set_vehicle(st, v, VDec(net, v, net.decode(v, net.vnode[v], net.vstart[v], keys)))
-        warm_drops = warm_trips - sum(len(d.outs) for d in st.vd)
-        self.warm = st
-        warm_planned = self.planned(st)
-        Fw = self.F(st)
-        slack_w = min((d.slack for d in st.vd if d.outs), default=INF)
-        # optimistic bound on the warm start's certified objective (the oracle's slack is < relaxed + 1 s)
-        self.inc, self.inc_certified, self.inc_delivered = st, False, None
-        self.inc_F = self._F(warm_planned, slack_w + 2 if slack_w != INF else INF, sum(d.vtime for d in st.vd))
-        if not any(d.outs for d in st.vd):
-            self.inc_certified, self.inc_delivered, self.inc_F = True, 0, Fw
-        t_warm = time.monotonic() - t0
-
-        # ---- calibrate the oracle's cost on the warm start's shortest itinerary
-        cand = [(d.legs, v) for v, d in enumerate(st.vd) if d.outs]
-        if cand:
-            _, v = min(cand)
-            r = self._check(v, st.vd[v], hard)
-            if r is not None and r.first_bad is not None:
-                lost = sum(o.count for o in st.vd[v].outs[r.first_bad:])
-                self.cut_by_cause[r.cause or "unknown"] += lost
-                self.dose_cut_residents += lost
-                self.bad_prefix.add((v, st.vd[v].trips[:r.first_bad + 1]))
-                st = self._apply_known(st)
-        t_cal = time.monotonic() - t0 - t_warm
-
-        # ---- ALNS
+    def _alns(self, st: _St, hard: float) -> dict:
+        """The ALNS loop and the final certification; returns the search statistics (also kept up to date in
+        ``self.ad`` so that a failure still reports how far the search got)."""
+        cfg, t0 = self.cfg, self.t0
+        ad = self.ad
         destroy = [("random", self.d_random), ("worst_slack", self.d_worst_slack), ("related", self.d_related),
                    ("trips", self.d_trips), ("vehicles", self.d_vehicles)]
         ks = [1] + [k for k in cfg["regret_k"] if k >= 2]
@@ -1212,6 +1147,8 @@ class _Run:
             th_r[ri] += 1
             th_z[zi] += 1
             it_times.append(time.monotonic() - now)
+            ad.update(iterations=self.it, accepted=n_acc, improvements=n_better, new_best=n_best,
+                      relaxed_best=best_planned)
             if self.it % seg == 0:
                 for w, pi, th in ((w_d, pi_d, th_d), (w_r, pi_r, th_r), (w_z, pi_z, th_z)):
                     for i in range(len(w)):
@@ -1241,7 +1178,99 @@ class _Run:
                 self.inc, self.inc_F, self.inc_certified, self.inc_delivered = wcut, wF, True, wdel
                 self.history.append((self.it, round(time.monotonic() - t0, 2), wdel, "warm"))
         t_final_cert = time.monotonic() - t_f0
+        ad.update(iterations=self.it, accepted=n_acc, improvements=n_better, new_best=n_best, stop=stop,
+                  relaxed_best=best_planned, T0=T0,
+                  weights={"destroy": {n: round(w, 3) for (n, _), w in zip(destroy, w_d)},
+                           "repair": {n: round(w, 3) for n, w in zip(repair_names, w_r)},
+                           "noise": {"off": round(w_z[0], 3), "on": round(w_z[1], 3)}},
+                  used={"destroy": {n: u for (n, _), u in zip(destroy, used_d)},
+                        "repair": {n: u for n, u in zip(repair_names, used_r)}},
+                  t_search=t_search, t_final_cert=t_final_cert)
+        return ad
 
+    def run(self) -> MethodResult:
+        self.t0 = t0 = time.monotonic()
+        cfg, inst = self.cfg, self.inst
+        hard = self.deadline - self.reserve
+        rh = Reach(inst, self.ss)
+        D = latest_departures(inst, rh)
+        net = self.net = _Net(inst, rh, D)
+        self.Hi = net.Hi
+        self.B = net.nV * (net.Hi + 1) + 1
+        self.A = self.B * (net.Hi + 1) + 1
+        # requests: B2's chunk rule
+        self.q = {}
+        for f, fac in enumerate(inst.facilities):
+            for c in range(3):
+                caps = [cap[c] for cap in net.vcap if cap[c] > 0]
+                big = [x for x in caps if x >= 2]
+                qq = min(big) if big else 1
+                b = net.board[f][c]
+                if (f, c) in net.D and b > 0:
+                    qq = max(1, min(qq, (net.D[(f, c)] - net.rel[f]) // b))
+                self.q[(f, c)] = qq
+        self.qmax = max(self.q.values(), default=1)
+        self.insertable = sorted((f, c) for (f, c) in net.D if net.res[f][c] > 0
+                                 and any(cap[c] > 0 for cap in net.vcap) and any(s[c] > 0 for s in net.scap))
+        self.kmask = [sum(1 << v for v, cap in enumerate(net.vcap) if cap[c] > 0) for c in range(3)]
+        sites = sorted(set(net.fnode) | set(net.snode) | set(net.vnode))
+        big = 1 << 59
+        self.maxd = float(max([net.lb(b)[a] for a in sites for b in sites if net.lb(b)[a] < big] or [1])) or 1.0
+        self.noise_amp = cfg["noise"] * self.maxd
+        self._dists: dict = {}
+        self.oracle = Oracle(inst, self.ss)
+        self.relaxed = RelaxedContactCheck(inst, self.ss)
+        self.t_oracle_legs = 0
+        self.t_oracle_new = 0.0
+        self.known_cuts = self.repairs_cut_short = self.certifications = self.cert_skipped = self.emit_errors = 0
+        self.dose_cut_residents = 0
+        self.history: list = []
+        self.it = 0
+
+        # ---- warm start (B1) and its decode
+        dsp = self._warm_start(rh, D, hard)
+        pool = {(f, c): net.res[f][c] for f in range(net.nF) for c in range(3)}
+        room = [list(s) for s in net.scap]
+        st = _St([VDec(net, v, ()) for v in range(net.nV)], pool, room)
+        warm_trips = 0
+        for v, vid in enumerate(net.vid):
+            keys = [(((net.fidx[tr.facility], tuple(int(x) for x in tr.counts)),), net.sidx[tr.delivery.shelter])
+                    for tr in dsp.vs[vid].trips]
+            warm_trips += len(keys)
+            self._set_vehicle(st, v, VDec(net, v, net.decode(v, net.vnode[v], net.vstart[v], keys)))
+        warm_drops = warm_trips - sum(len(d.outs) for d in st.vd)
+        self.warm = st
+        warm_planned = self.planned(st)
+        Fw = self.F(st)
+        slack_w = min((d.slack for d in st.vd if d.outs), default=INF)
+        # optimistic bound on the warm start's certified objective (the oracle's slack is < relaxed + 1 s)
+        self.inc, self.inc_certified, self.inc_delivered = st, False, None
+        self.inc_F = self._F(warm_planned, slack_w + 2 if slack_w != INF else INF, sum(d.vtime for d in st.vd))
+        if not any(d.outs for d in st.vd):
+            self.inc_certified, self.inc_delivered, self.inc_F = True, 0, Fw
+        t_warm = time.monotonic() - t0
+
+        # ---- calibrate the oracle's cost on the warm start's shortest itinerary
+        cand = [(d.legs, v) for v, d in enumerate(st.vd) if d.outs]
+        if cand:
+            _, v = min(cand)
+            r = self._check(v, st.vd[v], hard)
+            if r is not None and r.first_bad is not None:
+                lost = sum(o.count for o in st.vd[v].outs[r.first_bad:])
+                self.cut_by_cause[r.cause or "unknown"] += lost
+                self.dose_cut_residents += lost
+                self.bad_prefix.add((v, st.vd[v].trips[:r.first_bad + 1]))
+                st = self._apply_known(st)
+        t_cal = time.monotonic() - t0 - t_warm
+
+        self.ad = {"iterations": 0, "accepted": 0, "improvements": 0, "new_best": 0, "stop": "error",
+                   "relaxed_best": warm_planned, "T0": None, "weights": {}, "used": {}, "t_search": 0.0,
+                   "t_final_cert": 0.0}
+        error = None
+        try:
+            ad = self._alns(st, hard)
+        except Exception as exc:  # pragma: no cover - a bug must not cost a timed run: keep the incumbent, report it
+            ad, error = self.ad, f"{type(exc).__name__}: {exc}"
         # ---- the plan returned: the certified incumbent (or the warm start if nothing could be certified)
         its = []
         for v, d in enumerate(self.inc.vd):
@@ -1254,10 +1283,11 @@ class _Run:
                                    "certified": bool(self.inc_certified)})
         total = time.monotonic() - t0
         diag = {
-            "iterations": self.it, "accepted": n_acc, "improvements": n_better, "new_best": n_best, "stop": stop,
+            "iterations": ad["iterations"], "accepted": ad["accepted"], "improvements": ad["improvements"],
+            "new_best": ad["new_best"], "stop": ad["stop"],
             "certified": bool(self.inc_certified), "delivered_certified": self.inc_delivered,
             "warm_planned": warm_planned, "warm_drops": warm_drops, "warm_complete": self.warm_complete,
-            "relaxed_best": best_planned,
+            "relaxed_best": ad["relaxed_best"],
             "certifications": self.certifications, "certifications_skipped": self.cert_skipped,
             "oracle_calls": self.oracle_checks, "oracle_legs": self.oracle_legs,
             "oracle_s_per_leg": round(self.s_per_leg, 5), "relaxed_blocks": self.relaxed_blocks,
@@ -1265,17 +1295,15 @@ class _Run:
             "oracle_cut_residents": self.dose_cut_residents, "oracle_cut_by_cause": dict(sorted(self.cut_by_cause.items())),
             "known_prefix_cuts": self.known_cuts, "repairs_cut_short": self.repairs_cut_short,
             "td_routes": net.td_calls, "static_pairs": net.pair_count,
-            "weights": {"destroy": {n: round(w, 3) for (n, _), w in zip(destroy, w_d)},
-                        "repair": {n: round(w, 3) for n, w in zip(repair_names, w_r)},
-                        "noise": {"off": round(w_z[0], 3), "on": round(w_z[1], 3)}},
-            "used": {"destroy": {n: u for (n, _), u in zip(destroy, used_d)},
-                     "repair": {n: u for n, u in zip(repair_names, used_r)}},
-            "time_s": {"warm_start": round(t_warm, 3), "calibration": round(t_cal, 3), "search": round(t_search, 3),
-                       "oracle": round(self.t_oracle, 3), "final_certification": round(t_final_cert, 3),
-                       "total": round(total, 3)},
+            "weights": ad["weights"], "used": ad["used"],
+            "time_s": {"warm_start": round(t_warm, 3), "calibration": round(t_cal, 3),
+                       "search": round(ad["t_search"], 3), "oracle": round(self.t_oracle, 3),
+                       "final_certification": round(ad["t_final_cert"], 3), "total": round(total, 3)},
             "incumbents": [list(h) for h in self.history[-12:]],
         }
-        info = {"deadlines": {f"{net.fid[f]}/{c}": dl for (f, c), dl in sorted(net.D.items())}, "T0": T0}
+        if error is not None:
+            diag["error"] = error
+        info = {"deadlines": {f"{net.fid[f]}/{c}": dl for (f, c), dl in sorted(net.D.items())}, "T0": ad["T0"]}
         return MethodResult(sol, info=info, diagnostics=diag)
 
 
