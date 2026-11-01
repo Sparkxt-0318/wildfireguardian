@@ -1,0 +1,31 @@
+# E4 flow-over-time bound on the SYNTHETIC dev set. Fixed before the dev run (see README, Pre-registration).
+experiment: E4-flow-bound
+method: e4_flow_bound            # bound only (evacplan.methods.flow_bound.E4FlowBound, bound_only = True)
+split_set: dev                   # never test (rule 5)
+seeds: [0]                       # deterministic: the seed is ignored
+budget_s: 600                    # harness wall-clock budget per instance; the bound does not depend on it
+
+# per size: time step (s) and commodities ("vehicle": one per vehicle; "type": identical vehicles pooled)
+configs:
+  S: {delta_s: 60, grouping: vehicle}
+  M: {delta_s: 60, grouping: vehicle}
+  L: {delta_s: 120, grouping: type}
+# the step is reduced automatically to the shortest free-flow time between two locations when that is shorter
+
+solver:
+  backend: HiGHS interior point (highspy 1.15, child process), threads 1, presolve off, crossover off
+  fallback: PDLP for the rest of the time if the interior point leaves no usable duals (70% / 30% split)
+  strengthenings: {free_space: true, trip_cuts: true, prune_dominated_moves: true}
+  ipm_optimality_tolerance: 1.0e-6
+  bound: weak duality on the row duals (any duals give a valid bound), floored after a float margin
+
+metric: "gap = (bound - best delivered by any method on this host) / bound; mean over S, M, L"
+validity_checks:
+  - "S: bound >= B3 delivered in every B3 row (Siyeong)"
+  - "bound >= delivered in every result row of every method, same instance, any seed or host"
+  - "tiny instances: bound >= brute-force optimum"
+  - "fewer vehicles / shorter horizon / shorter shifts / more burning never raise the bound"
+decision:
+  keep: "valid on every check, gap <= 30% on M and strictly below the trivial bound somewhere it is not reached"
+  keep_sanity: "valid but no better than the trivial bound"
+  kill: "invalid and not fixable within the time-box"

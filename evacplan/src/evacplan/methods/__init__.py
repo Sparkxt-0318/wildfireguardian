@@ -6,7 +6,9 @@ earliest-deadline-first insertion with the latest-safe-departure sweep's deadlin
 OR-Tools VRPTW with pickup and delivery, per-class capacities and static windows from the latest
 departures), ``b3_mip`` (B3: MIPs on a time-expanded network with HiGHS, S instances only, with a
 proven bound). Aliases ``B0`` ... ``B3`` (any case) name the baselines. The Phase-1 experiments
-register here as they are written.
+register here as they are written: ``e1_alns`` (E1: adaptive large neighbourhood search on the relaxed
+model, B1 warm start, incumbents certified by the oracle) and ``e4_flow_bound`` (E4: a flow-over-time LP
+bound on the residents any plan can deliver, every size; bound only, :attr:`Method.bound_only`).
 """
 from __future__ import annotations
 
@@ -21,6 +23,8 @@ _REGISTRY: dict[str, str | Callable[..., Method]] = {
     "b1_greedy": "evacplan.methods.b1_greedy:B1Greedy",
     "b2_vrptw": "evacplan.methods.b2_vrptw:B2VRPTW",
     "b3_mip": "evacplan.methods.b3_mip:B3MIP",
+    "e1_alns": "evacplan.methods.e1_alns:E1ALNS",
+    "e4_flow_bound": "evacplan.methods.flow_bound:E4FlowBound",
 }
 ALIASES = {"b0": "b0_independent", "b1": "b1_greedy", "b2": "b2_vrptw", "b3": "b3_mip"}
 
