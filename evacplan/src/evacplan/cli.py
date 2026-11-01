@@ -1,15 +1,17 @@
 """``evacplan`` command line.
 
-    evacplan run --method noop --set dev --budget-s 60 [--seeds 0 1 2] [--instances ID ...]
+    evacplan run --method noop --set dev --budget-s 60 [--repeats 5 | --seeds 0 1 2] [--instances ID ...]
     evacplan leaderboard
     evacplan instances [--set dev] [--materialize]
     evacplan generate --size S --tightness 0.5 --graph grid --seed 7 --out DIR
     evacplan build-caldor --cms FILE --geocodes FILE --perimeters FILE --graph FILE --out DIR
 
 ``run`` checks every plan with the oracle, upserts ``results/<method>.csv`` and regenerates
-``LEADERBOARD.md``; it holds the shared bench lock while timing (``--lock auto`` skips acquiring
-when a parent ``program/benchlock.py`` already holds it). ``--set test`` is refused unless
-``--allow-test`` is given (milestones only, after Siyeong approves).
+``LEADERBOARD.md`` and its margin figures (``figures/`` next to it); it holds the shared bench lock
+while timing (``--lock auto`` skips acquiring when a parent ``program/benchlock.py`` already holds it).
+``--repeats N`` runs seeds 0 .. N-1: the comparison rule (``program/DECISIONS.md``, 2026-11-01) is
+``--repeats 5`` on a quiet machine. ``--set test`` is refused unless ``--allow-test`` is given
+(milestones only, after Siyeong approves).
 """
 from __future__ import annotations
 
@@ -29,6 +31,16 @@ def _seeds(values: list[str]) -> list[int]:
     return out
 
 
+def _repeats(text: str) -> int:
+    try:
+        n = int(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"not a whole number: {text!r}") from None
+    if n < 1:
+        raise argparse.ArgumentTypeError("give at least 1 repeat")
+    return n
+
+
 def _paths(ap: argparse.ArgumentParser) -> None:
     ap.add_argument("--split", type=Path, default=SPLIT_PATH, help=argparse.SUPPRESS)
     ap.add_argument("--cache-dir", type=Path, default=CACHE_DIR, help=argparse.SUPPRESS)
@@ -44,7 +56,10 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--method", required=True)
     r.add_argument("--set", dest="set_name", required=True, choices=("dev", "test"))
     r.add_argument("--budget-s", type=float, required=True, help="wall-clock budget per instance and seed (s)")
-    r.add_argument("--seeds", nargs="+", default=["0"], help="method seeds (space or comma separated)")
+    seeds = r.add_mutually_exclusive_group()
+    seeds.add_argument("--seeds", nargs="+", default=None, help="method seeds (space or comma separated; default 0)")
+    seeds.add_argument("--repeats", type=_repeats, default=None,
+                       help="seeds 0 .. N-1 (the comparison rule: --repeats 5 on a quiet machine)")
     r.add_argument("--instances", nargs="+", default=None, help="only these instance ids of the set")
     r.add_argument("--config", default=None, help="method configuration as a JSON object")
     r.add_argument("--lock", choices=("auto", "yes", "no"), default="auto", help="shared bench lock (default auto)")
@@ -52,7 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--no-save-plans", action="store_true", help="do not keep plans and oracle results")
     _paths(r)
 
-    lb = sub.add_parser("leaderboard", help="regenerate LEADERBOARD.md from results/*.csv")
+    lb = sub.add_parser("leaderboard", help="regenerate LEADERBOARD.md and its margin figures from results/*.csv")
     _paths(lb)
 
     ins = sub.add_parser("instances", help="list the frozen split (and optionally regenerate it into the cache)")
@@ -81,8 +96,9 @@ def main(argv: list[str] | None = None) -> int:
         if cfg is not None and not isinstance(cfg, dict):
             print("--config must be a JSON object", file=sys.stderr)
             return 2
+        seeds = list(range(args.repeats)) if args.repeats is not None else _seeds(args.seeds or ["0"])
         try:
-            harness.run(args.method, args.set_name, args.budget_s, seeds=_seeds(args.seeds), instances=args.instances,
+            harness.run(args.method, args.set_name, args.budget_s, seeds=seeds, instances=args.instances,
                         method_config=cfg, allow_test=args.allow_test, lock=args.lock, split_path=args.split,
                         cache_dir=args.cache_dir, results_dir=args.results_dir, leaderboard_path=args.leaderboard,
                         save_plans=not args.no_save_plans)
