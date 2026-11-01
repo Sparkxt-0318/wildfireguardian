@@ -55,7 +55,9 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | ~~E1 ALNS, untuned~~ (done, KILL, `59e19b30`) | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
 | ~~E3 scenario robustness~~ (done, KEEP, `5f0959f7`) | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
 | ~~E4 flow bound~~ (done, KEEP, `742575e3`; merge after the baseline job) | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
-| Orchestrator background job | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold, wait capped at 65 min (`--wait-max`) | `../wfg-evacplan` |
+| ~~Orchestrator background job~~ (done, `397e3f0b`) | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold | `../wfg-evacplan` |
+| Review R0 (reproduction) | C | clean checkout of `evacplan/phase0` @ `18841678` with a fresh venv: suites, E1 seed 0, B2 on s106, E4 bounds, an E3 cell | `../wfg-review-b1` (read-only) |
+| Review workflow | C, A | five fresh reviewers (harness and baselines, E1, E3, E4, H0 + Track A proposal), every discrepancy verified by skeptics | read-only |
 
 ## Blockers
 
@@ -66,16 +68,10 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Next step
 
-1. When the noop/B0/B1/B3 re-runs finish (if the job gives up on the lock, exit 75, queue it again):
-   - commit the rows, LEADERBOARD.md and the margin figure on `evacplan/phase0` (commit subject "evacplan: baselines
-     x 5 seeds ...");
-   - push, and merge into `next/integration`.
-2. As each experiment returns:
-   - check its README and results;
-   - merge its branch into `evacplan/phase0` and regenerate the leaderboard with all rows;
-   - push both branches.
-3. Run the independent review of batch 1 (fresh reviewer and adversarial verifier).
-4. Write the checkpoint 3 report. **Stop and wait for Siyeong.**
+1. When the review returns: verify its findings, fix what is confirmed (with tests), and write
+   `program/reviews/batch1-review.md` (one short file).
+2. Write the checkpoint 3 report (`program/reviews/checkpoint-3.md`): summary, leaderboard, the dose and margin answers,
+   the fresh-holdout proposal, questions and a proposed batch 2. Push. **Stop and wait for Siyeong.**
 
 ## Log
 
@@ -174,3 +170,8 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
   - Margin by the pre-registered rule: 1 min at α = 5 % (keeps 91 % of B1, 97 % of B2); none ≤ 60 min certified at
     α = 1 % (Korn-Graubard alone: 30 min). Per slack bin, about 30 min keeps every bin ≤ 5 %.
   - More fresh members cut violation about like 1/K but claim fewer residents (expected safe deliveries unchanged).
+- 2026-11-01 Baselines completed on this VM session (`397e3f0b`): noop 0, B0 1157, B1 1353, B3 103-104 of 115 on S, in
+  every repeat, 0 unresolved; best-of-baselines total 1750, bar 1750. E4, E1 and E3 merged into `evacplan/phase0`;
+  leaderboard regenerated (`434959f8`). Post-merge suite: 375 passed, 1 failed (E1's budget test: the B1 warm start alone
+  fills a 1.5 s budget); the test now asserts the guarantee E1 has (`18841678`, E1's code unchanged; three green runs).
+  Merged into `next/integration` (`e8a5604e`). Independent review started on `18841678`.
