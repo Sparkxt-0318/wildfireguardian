@@ -146,6 +146,196 @@ are comparable, and "comparable (mixed)" if both hotter and cooler bands occur.
   "Korean router packets (dev fires), rule 4", the same per band with both panels overlaid, and peak
   flux by band.
 
-## Results
+## Results (computed 2026-11-01; nothing below this heading existed at pre-registration)
 
-Not yet computed (nothing below this heading existed at pre-registration).
+**Verdict: SYNTHETIC is "much hotter" under the pre-registered rule** (`much_hotter = true`). The rule
+triggers in all four distance bands, each judged with at least 5,612 contact-free supported 30-min
+exposures per panel (the threshold is 200):
+
+- the median criterion triggers in every band;
+- the p90 criterion triggers in the three outer bands;
+- the over-budget-share criterion triggers in none.
+
+Descriptive label: much hotter in every band and overall. Siyeong's item 4 applies: he decides before
+E1 is tuned to these hazards.
+
+**Run.**
+- Commits: exposures at `144ae2b4` (clean), analysis at `6221c9b0`.
+- Host: `vm (Linux x86_64, 4 cpu, python 3.12.3)`; hazard_contract 1.0.1 (format 1.0), numpy 1.26.4.
+- Size: 784,440 + 54,738 queries, giving 4,013,568 + 437,904 exposure records.
+- Time: 522 s in one bench-lock hold with 4 worker processes. The analysis and the post-hoc step took
+  about 2 more minutes, also under the lock.
+- No subsampling and no randomness (seed: none).
+- The analysis refuses records that break the design, and every check held: one record per receiver,
+  window and member; distance 0 implies certain contact; contact-free implies supported; windows end by
+  the horizon; lower bounds ≤ upper bounds; flux_lower ≤ q_rad/2.
+
+Reproduce from the worktree root (the routing inputs are never copied into the repo):
+
+```sh
+export WFG_ROUTING_INPUTS=/path/to/routing_inputs        # holds graphs/ and latest_inputs_try02/
+for step in compute analyze posthoc; do
+  .venv/bin/python program/benchlock.py --label H0-$step -- \
+      .venv/bin/python evacplan/experiments/H0-hazard-intensity/h0_hazard_intensity.py $step
+done
+```
+
+### The rule's inputs: 30-min dose_lower of contact-free supported exposures (kJ/m²)
+
+| band | n, SYNTHETIC / Korean | median, SYNTHETIC / Korean | p90, SYNTHETIC / Korean | share ≥ 100 kJ/m², SYNTHETIC / Korean | criteria met | label |
+|---|---|---|---|---|---|---|
+| 0-375 m | 6,131 / 5,612 | 9.26 / 2.75 (3.36×) | 62.1 / 31.9 (1.95×) | 6.12 % / 3.99 % (1.53×) | median | much hotter |
+| 375-750 m | 13,132 / 9,356 | 2.38 / 0.515 (4.62×) | 7.17 / 0.973 (7.37×) | 0.39 % / 0 % | median, p90 | much hotter |
+| 0.75-1.5 km | 30,092 / 16,983 | 0.659 / 0.152 (4.34×) | 1.41 / 0.359 (3.91×) | 0.0033 % / 0 % | median, p90 | much hotter |
+| 1.5-3 km | 65,139 / 17,088 | 0.155 / 0.042 (3.68×) | 0.378 / 0.104 (3.63×) | 0.0015 % / 0 % | median, p90 | much hotter |
+
+The gap holds at every window length. The SYNTHETIC/Korean median ratio is 2.7-3.5× for 5-min windows
+and 4.1-6.2× for 60-min windows (`results.csv`).
+
+Doses near the budget occur almost only within 375 m of a burning cell, and there the tails differ less
+than the medians: p90 1.95×, over-budget share 1.53×. For 15-min windows the Korean over-budget share is
+even the higher one (1.99 % vs 1.45 %). Beyond 375 m, 30-min doses stay far below the budget in both
+panels: the SYNTHETIC p99 is 57 kJ/m² at 375-750 m and at most 2.6 kJ/m² beyond 750 m; the Korean p99 is
+at most 1.7 kJ/m².
+
+### Contact and support (30-min windows, share of all exposures in the band)
+
+| band | SYNTHETIC contact | SYNTHETIC unsupported | Korean contact | Korean unsupported |
+|---|---|---|---|---|
+| 0-375 m | 83.8 % | 0 % | 18.9 % | 43.6 % |
+| 375-750 m | 4.2 % | 0 % | 0.02 % | 56.0 % |
+| 0.75-1.5 km | 0.34 % | 0 % | 0 % | 68.1 % |
+| 1.5-3 km | 0.05 % | 0 % | 0 % | 78.4 % |
+| beyond 3 km | 0.004 % | 0 % | 0 % | 91.7 % |
+| all | 7.4 % | 0 % | 0.50 % | 85.0 % |
+
+- "Contact" is certain contact, which would be `model_no_route`.
+- "Unsupported" means the query touched an unknown cell, which would be `unresolved`. None of these
+  exposures had certain contact, so their contact is unknown.
+- Support does not depend on the window, so the Korean unsupported share is 85.0 % at every window
+  length. By fire: Uljin 83.7 %, Hongseong 81.2 %, Miryang 96.0 % (its 2022-05-31 10:00Z packet 100 %).
+- 66-94 % of the cells of each Korean grid are unknown. SYNTHETIC has no unknown cells.
+
+### Peak flux (the ~0.7 kW/m² cap)
+
+| | SYNTHETIC | Korean |
+|---|---|---|
+| max flux_lower, all exposures (contact included, every window) | 0.702 kW/m² | 0.693 kW/m² |
+| max finite flux_upper, all exposures | 0.703 kW/m² | 0.703 kW/m² |
+| share of infinite flux_upper | 0 | 0 |
+| max flux_lower, contact-free supported exposures | 0.342 kW/m² | 0.292 kW/m² |
+| p99 flux_lower, contact-free 30-min, 0-375 m | 0.248 kW/m² | 0.177 kW/m² |
+
+Both panels use q_rad = 1.406 kW/m², and the law caps flux at q_rad/2 = 0.703 kW/m². No exposure exceeds
+it, so the 10 kW/m² peak budget can never bind: contact and dose decide.
+
+### Secondary analyses (pre-registered; descriptive, not part of the rule)
+
+Each cell is r = √(median ratio × p90 ratio) of 30-min dose_lower (dose_upper in the last row), then the
+two ratios, then the descriptive label (`verdict.csv`).
+
+| comparison | 0-375 m | 375-750 m | 0.75-1.5 km | 1.5-3 km | overall |
+|---|---|---|---|---|---|
+| main: SYNTHETIC vs Korean | 2.56 (3.36, 1.95) much hotter | 5.84 (4.62, 7.37) much hotter | 4.12 (4.34, 3.91) much hotter | 3.65 (3.68, 3.63) much hotter | much hotter |
+| SYNTHETIC first hour vs Korean | 1.80 (1.98, 1.64) hotter but not much | 5.13 (3.34, 7.87) much hotter | 2.34 (2.19, 2.50) much hotter | 1.64 (1.56, 1.74) hotter but not much | much hotter |
+| SYNTHETIC 66-min burning vs Korean | 1.98 (2.48, 1.58) much hotter | 4.31 (3.32, 5.58) much hotter | 2.97 (2.99, 2.94) much hotter | 2.29 (2.27, 2.31) much hotter | much hotter |
+| dose_upper, SYNTHETIC vs Korean | 0.79 (0.78, 0.80) cooler | 0.62 (0.97, 0.40) cooler | 0.21 (0.30, 0.14) cooler | 0.065 (0.068, 0.063) cooler | cooler |
+
+1. **Per source** (`results_by_source.csv`).
+   - Nearest band: the median is 5.3-15.7 kJ/m² across the SYNTHETIC instances and 1.3-9.0 kJ/m² across
+     the Korean packets. The tight (t75) SYNTHETIC instances are the hottest (10.6-15.7). Two Korean
+     packets fall inside the SYNTHETIC range: Uljin 2022-03-04 06:00Z (9.0) and Miryang 2022-06-01
+     08:00Z (6.1).
+   - Three outer bands: every Korean packet's median lies below every SYNTHETIC instance's median (for
+     example at 375-750 m, Korean at most 0.74 against SYNTHETIC at least 1.52).
+   - Miryang contributes little: its 2022-05-31 10:00Z packet has no supported receiver, and its
+     2022-06-01 02:00Z packet only 144 contact-free supported 30-min exposures within 3 km of fire.
+2. **First hour.** Restricting SYNTHETIC to windows that end within an hour of issue (the Korean
+   horizon) narrows the gap in the nearest and farthest bands. The panel stays much hotter overall.
+3. **Persistence.** Cutting the SYNTHETIC burning to the packets' 66 min lowers the SYNTHETIC medians by
+   26-38 %, but leaves them 2.3-3.3× the Korean medians: still much hotter in every band.
+4. **Within-band distance.** Receivers sit at the same distances inside each band in both panels.
+   Medians: 221 / 219 m, 565 / 575 m, 1,131 / 1,084 m, 2,256 / 2,160 m (SYNTHETIC / Korean). So the gap is
+   not a composition effect.
+5. **dose_upper.** Counting unknown cells as burning reverses the comparison. On upper bounds SYNTHETIC
+   is cooler in every band, and the Korean dose_upper reaches the budget more often: 20.0 / 3.9 / 2.2 /
+   0.84 % against 14.0 / 1.2 / 0.010 / 0.003 % (bands from near to far).
+
+### Post hoc (added after the results were seen; descriptive only, cannot change the verdict)
+
+Known-burning and unknown 375 m cells around the receivers at window start: medians over the
+contact-free supported 30-min exposures (`posthoc_burning_area.csv`; one cell = 0.14 km²).
+
+| band | known-burning cells within 1.5 km, SYNTHETIC / Korean | within 3 km, SYNTHETIC / Korean | Korean unknown cells within 3 km (median / p90) | Korean exposures with an unknown cell within 1.5 km |
+|---|---|---|---|---|
+| 0-375 m | 19 / 3 | 51 / 6 | 73 / 147 | 58 % |
+| 375-750 m | 12 / 2 | 43 / 4 | 10 / 126 | 41 % |
+| 0.75-1.5 km | 4 / 2 | 29 / 5 | 5 / 118 | 30 % |
+| 1.5-3 km | 0 / 0 | 8 / 3 | 27 / 111 | 34 % |
+
+### Likely cause
+
+At the same distance to the nearest burning cell, a SYNTHETIC receiver has about 3-11× more
+known-burning cells within 3 km (51 vs 6 in the nearest band). The sheet law adds up the flux of every
+burning cell, so more burning area means more dose. Three things build that area:
+
+1. **Persistent burning (48 h).** Every cell burned since ignition, 1 h before issue, keeps emitting at
+   the flaming rate. The diagnostic attributes 26-38 % of the SYNTHETIC median dose to it, not the whole
+   gap.
+2. **Fire size and timing.** The SYNTHETIC fires are contiguous ellipses built to reach the facilities
+   within 30-150 min and watched over 3-6 h. The packets cover the first hour after a forecast cutoff.
+   The first-hour restriction narrows the gap but does not close it.
+3. **Rule 4 on the Korean side.** The Korean lower bounds count only cells known to burn, and a median of
+   73 unknown cells lie within 3 km of a near-band Korean receiver. Where those cells hold fire, the
+   Korean doses are understated; counted as burning (upper bounds), they make the Korean panel the
+   hotter one.
+
+H0 cannot place the true Korean intensity between those two bounds.
+
+### What this means for E1
+
+- **Hold dose tuning.** By the rule, the SYNTHETIC dev hazards are much hotter than the Korean packets,
+  so E1's dose handling should not be tuned to them until Siyeong decides.
+- **Which bound differs.** The gap is in the certain dose. dose_lower drives the oracle's
+  `DOSE_ABOVE_BUDGET`. On the bound that decides certification (Σ dose_upper ≤ 100 kJ/m²,
+  ASSUMPTIONS #21), the SYNTHETIC hazards are the milder ones.
+- **Where the budget binds.** In both panels the dose budget binds only for stays within about 375 m of a
+  burning cell. There the SYNTHETIC tail is 1.5-2× the Korean one; stays farther away are dose-safe for
+  30 min in both panels.
+- **Proposal.**
+  - Run E1 as approved on the SYNTHETIC dev set, with dose left to the oracle: no dose weights or
+    thresholds fitted to SYNTHETIC results.
+  - Report `DOSE_ABOVE_BUDGET` and `DOSE_UNRESOLVED` residents separately in every E1 row, so any gain
+    that comes from dose is visible.
+  - A calibrated SYNTHETIC variant would be a generator change and a new split, which needs Siyeong's
+    approval. 66-min burning alone is not enough.
+
+### Caveats
+
+- **Rule 4.** 85 % of Korean exposures are unsupported, so the Korean statistics come from the 15 % of
+  receivers whose own cells are known, mostly in Uljin; Miryang contributes little.
+- **Bound.** The rule judges dose_lower; on dose_upper the direction reverses (see above).
+- **Horizon and grid edges.** The Korean packets cover 1 h, the SYNTHETIC sets 3-6 h. Every Korean packet
+  has burning or unknown cells on its grid edge in all 4 members. Fire outside the Korean windows is not
+  modelled and could add dose near their edges.
+- **Design and panel differences.** The SYNTHETIC fires are built to threaten the facilities. The panels
+  also differ in K (8 vs 4), grid and fire size, and node density (lattice vs dense road nodes).
+- **Correlation.** Exposures are strongly correlated (neighbouring nodes, overlapping windows, members),
+  so n counts exposures, not independent observations. As pre-registered, there are no confidence
+  intervals.
+- **Stationary only.** Receivers are stationary at road nodes; moving legs are not measured here, while
+  the oracle sums both.
+- **Same physics.** Both panels use the same flux law and heat parameters, so every difference comes from
+  where and for how long cells burn.
+
+### Figures
+
+![30-min dose_lower CDFs by band, one plot per panel](figures/cdf_dose30_by_band.png)
+
+![30-min dose_lower CDFs per band, both panels and the 66-min diagnostic](figures/cdf_dose30_overlay.png)
+
+![Peak flux by band](figures/peak_flux_by_band.png)
+
+**Budget:** 30 min of bench-lock compute (used: 9 min for the exposures, plus a few minutes of
+analysis). **Decision:** n/a (analysis). **Next step:** report the verdict to Siyeong before E1's dose
+handling is tuned (item 4).
