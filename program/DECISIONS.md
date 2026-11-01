@@ -119,3 +119,23 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
 - **2026-11-01** — The Korean panel for the hazard-intensity comparison uses the dev fires' router packets only
   (Uljin 2022, Hongseong 2023, Miryang 2022). The `uiseong_andong_2025` and `yeongdeok_2025` packets belong to
   the KR-2025 test season and are not read. Reason: rule 5.
+- **2026-11-01** — **E1 runs untuned in batch 1.**
+  - H0 (`evacplan/experiments/H0-hazard-intensity/`) found the SYNTHETIC dev hazards "much hotter" than the Korean
+    dev packets, by its pre-registered rule on contact-free 30-min dose_lower: medians 3.4-4.6×, in every distance
+    band.
+  - Near the 100 kJ/m² budget (within 375 m) the tail is only 1.5-2× hotter, and on dose_upper the comparison
+    reverses: under rule 4 the Korean upper bounds count unknown cells as burning.
+  - So E1's parameters are fixed a priori from the literature before any dev run, dose is left entirely to the
+    oracle, and nothing is tuned to SYNTHETIC results until Siyeong decides.
+  - Reason: Siyeong asked to be told before anything is tuned to much hotter SYNTHETIC hazards.
+- **2026-11-01** — **On a virtual machine the host string ends with the VM's boot session** (`, vm boot <8 hex>`),
+  so each cloud container session is its own host.
+  - Bare metal (the Mac) keeps the plain string.
+  - The Phase 0 review's B2 total of 1750 is recorded for the VM's host class, so it raises the bar in every
+    session.
+  - Reason: after a container restart this VM ran B0/B1 1.7-2.4× slower under the identical CPU label, and B2's
+    outcome depends on speed. Baselines and the methods compared with them must run in one container session.
+  - To confirm with Siyeong.
+- **2026-11-01** — Experiment `config.yaml` files are read with PyYAML. It was already pinned in
+  `evacplan/requirements.lock` and is not a new install. Reason: the experiment protocol asks for `config.yaml`.
+
