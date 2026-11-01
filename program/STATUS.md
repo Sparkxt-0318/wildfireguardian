@@ -52,8 +52,8 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | ~~C-infra~~ (done, `03b339e0`) | C | harness: 5 repeats with median and range, B2 bar and verdict, tables per host, margin columns and figure | `../wfg-evacplan` |
 | ~~H0 hazard intensity~~ (done, merged) | C | SYNTHETIC much hotter by its rule (dose_lower), cooler on dose_upper | `../wfg-exp-H0`, `evacplan/exp-H0-hazard-intensity` |
 | ~~A-fresh~~ (done, merged) | A | 2025 US truth-source proposal (`firecast-lab/docs/FRESH_HOLDOUT.md`) | `../wfg-firecast` |
-| E1 ALNS, untuned | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
-| E3 scenario robustness | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
+| ~~E1 ALNS, untuned~~ (done, KILL, `59e19b30`) | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
+| ~~E3 scenario robustness~~ (done, KEEP, `5f0959f7`) | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
 | ~~E4 flow bound~~ (done, KEEP, `742575e3`; merge after the baseline job) | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
 | Orchestrator background job | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold, wait capped at 65 min (`--wait-max`) | `../wfg-evacplan` |
 
@@ -160,3 +160,17 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
     of the trivial gap; 25/27 on S-grid-t75-s103, below B3's 26. L: only the resource bound at 900 s (LPs too large).
   - Two test fixes (`7ba44700`) were not re-run under the lock; the post-merge suite covers them. About 30 s of the
     agent's debugging overlapped the start of E1's final run (08:15:40-08:17). Lock time about 63 min (1 h budget).
+- 2026-11-01 E1 (ALNS, oracle in the loop, untuned) returned: **KILL** (`59e19b30`, SYNTHETIC dev, 60 s × 5 seeds, this VM
+  session).
+  - Totals 1445/1444/1446/1443/1444: median 1444 [1443-1446], worst 1443 ≤ bar 1750 (B2 1749 × 5). 0 unresolved,
+    0 over budget.
+  - S and M: matches or beats every baseline (S 109 vs B2 108, M 605 vs 597; M-grid-t75-s107 147-150 vs 140).
+  - L: 0 iterations. Certifying a full L plan inside the budget takes 33-41 s and E1 reserves 1.5× (pre-registered),
+    so it returns B1's plan (335, 395 vs B2 516, 528). Seen in profiling outside the split; kept as pre-registered.
+  - Question for Siyeong: certification inside vs outside the 60 s budget (B2's plan is certified outside it).
+- 2026-11-01 E3 (scenario robustness, default margin) returned: **KEEP** (`5f0959f7`, SYNTHETIC dev).
+  - Plans checked in all 8 members fail in fresh members of the same hazard model: 3.89 % of delivered residents
+    (B1) and 7.6 % of plans; concentrated on M-grid-t75-s107 (37-39 %). All failures are flame contact.
+  - Margin by the pre-registered rule: 1 min at α = 5 % (keeps 91 % of B1, 97 % of B2); none ≤ 60 min certified at
+    α = 1 % (Korn-Graubard alone: 30 min). Per slack bin, about 30 min keeps every bin ≤ 5 %.
+  - More fresh members cut violation about like 1/K but claim fewer residents (expected safe deliveries unchanged).
