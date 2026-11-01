@@ -18,6 +18,13 @@ Network (``delta`` seconds per time step, cell ``k`` = [k delta, (k + 1) delta) 
   pooled, with each vehicle's end of shift kept by cumulative end rows). Per group: vehicle flow on every
   arc, per-class loads on moves and waits (load <= space x flow), boardings and unloadings per site, class and
   cell. Shared: residents per facility and class, shelter capacity per class.
+* Free space (``free_space``): on arcs into a facility-only node, load + free space <= space x flow; free space
+  arriving at such a node covers what is boarded there plus what leaves towards facility-only nodes (it is
+  created only by unloading, at shelters, or at a vehicle's entry), so fractions cannot relay residents through
+  a facility and come back with room.
+* Trip cuts (``trip_cuts``, :meth:`FlowNetwork.trip_limits`): per vehicle and facility, residents boarded there
+  are limited by its timeline: trips of at most one load each, separated by a round trip to a shelter and an
+  unloading, all between its earliest arrival (or the release) and the end of the facility's action set.
 * Time actually spent: the boarding and unloading seconds a group does at a site in cell ``k`` are at most
   the usable seconds of that cell the group can be there: Delta per arriving wait arc, ``(k + 1) delta - EA``
   per arriving move, both clipped to the site's usable set (facility: from its release until its node
@@ -139,6 +146,7 @@ class FlowModel:
     stats: dict = field(default_factory=dict)
     unload_cols: dict = field(default_factory=dict)      # (shelter, class) -> columns
     board_cols: dict = field(default_factory=dict)       # (facility, class) -> columns
+    names: list | None = None                            # column names (debugging; FlowNetwork.debug_names)
 
     @property
     def shape(self) -> tuple[int, int, int]:
@@ -200,13 +208,17 @@ class FlowNetwork:
     """The contact-free time-expanded network of one instance (see the module docstring)."""
 
     def __init__(self, instance: Instance, reach: Reach, *, delta_s: int = 60, grouping: str = "vehicle",
-                 prune_dominated: bool = True):
+                 prune_dominated: bool = True, free_space: bool = True, trip_cuts: bool = True):
         if grouping not in GROUPINGS:
             raise ValueError(f"grouping must be one of {GROUPINGS}")
         if int(delta_s) != delta_s or delta_s < 1:
             raise ValueError("delta_s must be a whole number of seconds >= 1")
         self.inst, self.rh, self.grouping = instance, reach, grouping
         self.prune_dominated = bool(prune_dominated)
+        self.free_space = bool(free_space)
+        self.trip_cuts = bool(trip_cuts)
+        self._trip_cache: dict[tuple[str, int], dict] = {}
+        self.debug_names = False                  # set True before build() to name the columns (small models)
         rh = reach
         if not rh.lattice_complete:
             raise NotCertified(f"the 1 s lattice is not complete for the relaxation: {rh.lattice_note}")
@@ -309,6 +321,76 @@ class FlowNetwork:
             g.k_ends.append(int(math.floor(end / self.delta + 1e-12)) if end >= 0 else -1)
         return [g for g in out.values() if any(c in self.classes for c in range(3) if g.cap[c] > 0)]
 
+    def trip_limits(self, vid: str, si: int) -> dict:
+        """What one vehicle can board at one facility site at most, from its timeline (valid for every checked plan).
+
+        Split the vehicle's boardings of delivered residents at the facility into trips: maximal runs with no
+        unloading of delivered residents in between. Within a trip its load never decreases, so a trip boards at
+        most its space of each class. Between two trips it unloads at least one resident at a shelter: it drives
+        to a shelter node and back (at least the free-flow times) and unloads for at least the shortest unloading
+        time, ``G``. Every boarding lies in [max(earliest NEGATIVE arrival from its start, release), end of the
+        facility's action set], of length ``W``, and boardings take their seconds. So, for some number of trips
+        m >= 1: n_c <= m · space_c and Σ_c b_c n_c + (m − 1) G <= W. Returns ``n`` (per class, whole residents:
+        max over m of min(m · space_c, (W_c − (m − 1) G) / b_c), floored) and ``secs`` (max over m of
+        min(m · Σ_c b_c space_c, W − (m − 1) G))."""
+        key = (vid, si)
+        got = self._trip_cache.get(key)
+        if got is not None:
+            return got
+        rh, site = self.rh, self.sites[si]
+        veh = next(v for v in self.inst.vehicles if v.id == vid)
+        fnode = self.vnode[site.loc]
+        start = float(veh.start_s)
+        if not hasattr(self, "_ea_start"):
+            self._ea_start: dict[str, np.ndarray] = {}
+        if vid not in self._ea_start:
+            self._ea_start[vid] = rh.earliest_arrival_neg(rh.node(veh.depot), int(start))
+        a = float(self._ea_start[vid][fnode])
+        cap = veh.capacity()
+        out = {"n": [0.0, 0.0, 0.0], "secs": 0.0}
+        if a >= POS_INF:
+            self._trip_cache[key] = out
+            return out
+        shel = [(sv, x) for sv in self.inst.shelters for x in [rh.node(sv.node)]
+                if any(sv.capacity.vector()[c] > 0 and cap[c] > 0 for c in self.classes)]
+        travel = min((int(rh.lower_bound_to(x)[fnode]) + int(rh.lower_bound_to(fnode)[x]) for _, x in shel),
+                     default=POS_INF)
+        u_min = min((sv.unloading_s.vector()[c] for sv, _ in shel for c in self.classes
+                     if sv.capacity.vector()[c] > 0 and cap[c] > 0), default=0.0)
+        G = float(travel) + float(u_min) if travel < POS_INF else math.inf
+        t0 = max(a, min((lo for lo, _ in site.union), default=math.inf))
+
+        def best(width: float, per_trip: float, per_unit: float) -> float:
+            """max over m >= 1 of min(m · per_trip, (width − (m − 1) G) / per_unit)."""
+            if width < 0:
+                return 0.0
+            if G <= 0:                                   # trips need not be apart in time: time is the only limit
+                return width / per_unit if per_unit > 0 else math.inf
+            val, m = 0.0, 1
+            while m <= 1_000_000:
+                left = width - (m - 1) * G
+                if left < 0:
+                    break
+                val = max(val, min(m * per_trip, left / per_unit if per_unit > 0 else math.inf))
+                if not math.isfinite(G):                 # no shelter to empty at: one trip only
+                    break
+                m += 1
+            return val
+        n = [0.0, 0.0, 0.0]
+        for c in range(3):
+            ivs = site.usable[c]
+            if not ivs or cap[c] <= 0:
+                continue
+            end = max(b for _, b in ivs)
+            v = best(end - max(a, min(lo for lo, _ in ivs)), float(cap[c]), float(site.secs[c]))
+            n[c] = math.floor(v + 1e-9) if math.isfinite(v) else math.inf
+        end_all = max((b for _, b in site.union), default=-math.inf)
+        full = sum(site.secs[c] * cap[c] for c in range(3) if site.usable[c])
+        secs = best(end_all - t0, float(full), 1.0) if full > 0 else 0.0
+        out = {"n": n, "secs": secs, "W": end_all - t0, "G": G}
+        self._trip_cache[key] = out
+        return out
+
     def last_departure(self, i: int) -> float:
         """Latest instant a vehicle can still leave location ``i`` with a resident it delivers (facility-only
         locations); shelters: the horizon."""
@@ -407,9 +489,13 @@ class FlowNetwork:
         cols_hi: list[float] = []
         rows = _Rows()
 
-        def col(hi: float, cost: float = 0.0) -> int:
+        names: list[str] | None = [] if self.debug_names else None
+
+        def col(hi: float, cost: float = 0.0, name=None) -> int:
             cols_cost.append(cost)
             cols_hi.append(hi)
+            if names is not None:
+                names.append(name() if callable(name) else str(name))
             return len(cols_cost) - 1
 
         board_glob: dict[tuple[str, int], list[int]] = defaultdict(list)
@@ -471,39 +557,49 @@ class FlowNetwork:
             # ---- columns: vehicle flow
             node_in: dict[tuple[int, int], list[tuple[int, int, float]]] = defaultdict(list)   # -> (x col, kind, entry)
             node_out: dict[tuple[int, int], list[int]] = defaultdict(list)
-            arc_load_cols: list[tuple[int, dict[int, int], tuple[int, int], tuple[int, int]]] = []
+            # (x col, load cols by class, free-space cols by class (arcs into facility-only nodes), tail, head)
+            arc_load_cols: list[tuple[int, dict[int, int], dict[int, int], tuple[int, int] | None, tuple[int, int]]] = []
             n_g = float(g.count)
+
+            def free_space(head: tuple[int, int], what: str) -> dict[int, int]:
+                if not self.free_space or self.has_shelter[head[0]]:
+                    return {}
+                return {c: col(g.cap[c] * n_g, name=lambda: f"{g.name}:free{c}{what}") for c in cls}
             for a in m_idx.tolist():
-                x = col(n_g)
                 tail, head = (int(ti[a]), int(tk[a])), (int(hi_[a]), int(hk[a]))
+                x = col(n_g, name=lambda: f"{g.name}:move{tail}->{head}@{mv['entry'][a]:g}")
                 node_out[tail].append(x)
                 node_in[head].append((x, MOVE, float(mv["entry"][a])))
-                arc_load_cols.append((x, {c: col(g.cap[c] * n_g) for c in cls}, tail, head))
+                arc_load_cols.append((x, {c: col(g.cap[c] * n_g, name=lambda: f"{g.name}:load{c}{tail}->{head}")
+                                          for c in cls}, free_space(head, f"{tail}->{head}"), tail, head))
             for i in range(L):
                 ks = np.flatnonzero(alive[i, :KT + 1] & alive[i, 1:KT + 2])
                 for k in ks.tolist():
-                    x = col(n_g)
+                    x = col(n_g, name=lambda: f"{g.name}:wait({i},{k})")
                     stats["wait_arcs"] += 1
                     node_out[(i, k)].append(x)
                     node_in[(i, k + 1)].append((x, WAIT, float((k + 1) * d)))
-                    arc_load_cols.append((x, {c: col(g.cap[c] * n_g) for c in cls}, (i, k), (i, k + 1)))
+                    arc_load_cols.append((x, {c: col(g.cap[c] * n_g, name=lambda: f"{g.name}:load{c}wait({i},{k})")
+                                              for c in cls}, free_space((i, k + 1), f"wait({i},{k})"), (i, k), (i, k + 1)))
             src_cols: dict[int, list[int]] = defaultdict(list)
             for vi, j, kk, a in srcs:
                 if not alive[j, kk]:
                     continue
-                x = col(1.0)
+                x = col(1.0, name=lambda: f"{g.name}:src{vi}->({j},{kk})@{a:g}")
                 src_cols[vi].append(x)
                 node_in[(j, kk)].append((x, SOURCE, a))
+                arc_load_cols.append((x, {}, free_space((j, kk), f"src{vi}"), None, (j, kk)))
             end_cols: dict[int, list[int]] = defaultdict(list)          # k -> end columns
             for i in range(L):
                 if not self.has_shelter[i]:
                     continue
                 for k in np.flatnonzero(alive[i, :KT + 1]).tolist():
-                    x = col(n_g)
+                    x = col(n_g, name=lambda: f"{g.name}:end({i},{k})")
                     node_out[(i, k)].append(x)
                     end_cols[k].append(x)
             # ---- columns: boardings and unloadings (per site, class, cell where the group can be there)
             acts: dict[tuple[int, int], list[tuple[int, int, int, float]]] = defaultdict(list)   # node -> (site, c, col, secs)
+            board_grp: dict[tuple[int, int], list[int]] = defaultdict(list)                       # (site, c) -> cols
             for si, site in enumerate(self.sites):
                 i = site.loc
                 for c in cls:
@@ -514,10 +610,12 @@ class FlowNetwork:
                         if not _meets(max(lo, s_min), min(hi, e_max + EPS_T), site.usable[c]):
                             continue
                         if site.kind == "facility":
-                            x = col(float(site.limit[c]))
+                            x = col(float(site.limit[c]), name=lambda: f"{g.name}:board{site.id}c{c}k{k}")
                             board_glob[(site.id, c)].append(x)
+                            board_grp[(si, c)].append(x)
                         else:
-                            x = col(float(min(site.limit[c], self.N[c])), cost=1.0)
+                            x = col(float(min(site.limit[c], self.N[c])), cost=1.0,
+                                    name=lambda: f"{g.name}:unload{site.id}c{c}k{k}")
                             unload_glob[(site.id, c)].append(x)
                         acts[(i, k)].append((si, c, x, site.secs[c]))
             # ---- rows: vehicle flow conservation, one entry per vehicle at most
@@ -541,11 +639,22 @@ class FlowNetwork:
             # ---- rows: loads (conservation per class and node, capacity per class and arc)
             lin: dict[tuple[int, int, int], list[int]] = defaultdict(list)
             lout: dict[tuple[int, int, int], list[int]] = defaultdict(list)
-            for x, lc, tail, head in arc_load_cols:
-                for c, y in lc.items():
-                    rows.add([y, x], [1.0, -float(g.cap[c])], -math.inf, 0.0)
-                    lout[(tail[0], tail[1], c)].append(y)
-                    lin[(head[0], head[1], c)].append(y)
+            zin: dict[tuple[int, int, int], list[int]] = defaultdict(list)
+            zout: dict[tuple[int, int, int], list[int]] = defaultdict(list)
+            for x, lc, zc, tail, head in arc_load_cols:
+                for c in cls:
+                    y, z = lc.get(c), zc.get(c)
+                    if y is None and z is None:
+                        continue
+                    cs = [x] + [q for q in (y, z) if q is not None]
+                    rows.add(cs, [-float(g.cap[c])] + [1.0] * (len(cs) - 1), -math.inf, 0.0)   # load + free <= space
+                    if y is not None:
+                        lout[(tail[0], tail[1], c)].append(y)
+                        lin[(head[0], head[1], c)].append(y)
+                    if z is not None:
+                        zin[(head[0], head[1], c)].append(z)
+                        if tail is not None:
+                            zout[(tail[0], tail[1], c)].append(z)
             act_terms: dict[tuple[int, int, int], list[tuple[int, float]]] = defaultdict(list)
             for nd, lst in acts.items():
                 for si, c, x, _ in lst:
@@ -554,6 +663,13 @@ class FlowNetwork:
                 cs = lin.get(key, []) + lout.get(key, []) + [x for x, _ in act_terms.get(key, ())]
                 vs = [1.0] * len(lin.get(key, [])) + [-1.0] * len(lout.get(key, [])) + [s for _, s in act_terms.get(key, ())]
                 rows.add(cs, vs, 0.0, 0.0)
+            # free space at a facility-only node: what leaves (to facility-only nodes) plus what is boarded is at most
+            # what arrives (free space is created only by unloading, at shelters, or at the vehicle's entry)
+            for key in set(zin):
+                boards = [x for x, sgn in act_terms.get(key, ()) if sgn > 0]
+                cs = zin[key] + zout.get(key, []) + boards
+                vs = [1.0] * len(zin[key]) + [-1.0] * (len(zout.get(key, [])) + len(boards))
+                rows.add(cs, vs, 0.0, math.inf)
             # ---- rows: seconds of boarding / unloading <= usable seconds the group is there
             for nd, lst in acts.items():
                 i, k = nd
@@ -578,6 +694,26 @@ class FlowNetwork:
                             cs.append(x)
                             vs.append(-round(cap, 6))
                     rows.add(cs, vs, -math.inf, 0.0)
+            # ---- rows: what one vehicle can board at one facility before it closes (trip cuts, see trip_limits)
+            if self.trip_cuts:
+                for si, site in enumerate(self.sites):
+                    if site.kind != "facility":
+                        continue
+                    lim = [self.trip_limits(v, si) for v in g.vehicles]
+                    secs_terms = []
+                    for c in cls:
+                        cs = board_grp.get((si, c), [])
+                        if not cs:
+                            continue
+                        n_max = sum(lv["n"][c] for lv in lim)
+                        if math.isfinite(n_max):
+                            rows.add(cs, [1.0] * len(cs), -math.inf, float(n_max))
+                        if site.secs[c] > 0:
+                            secs_terms += [(x, site.secs[c]) for x in cs]
+                    s_max = sum(lv["secs"] for lv in lim)
+                    if secs_terms and math.isfinite(s_max):
+                        rows.add([x for x, _ in secs_terms], [v for _, v in secs_terms], -math.inf, float(s_max))
+                        stats["trip_cut_rows"] = stats.get("trip_cut_rows", 0) + 1
         # ---- shared rows: residents per facility and class, shelter capacity per class
         fac = {f.id: f for f in self.inst.facilities}
         shel = {s.id: s for s in self.inst.shelters}
@@ -593,7 +729,7 @@ class FlowNetwork:
         return FlowModel(cost=np.asarray(cols_cost, float), lower=np.zeros(ncol), upper=np.asarray(cols_hi, float),
                          row_lower=rlo, row_upper=rhi, a_start=start, a_index=index, a_value=value, delta=self.delta,
                          grouping=self.grouping, note=self.note, stats=stats, unload_cols=dict(unload_glob),
-                         board_cols=dict(board_glob))
+                         board_cols=dict(board_glob), names=names)
 
 
 # ----------------------------------------------------------------------------------------- certificate
@@ -640,16 +776,18 @@ def certified_value(arrays: dict[str, np.ndarray], pi: np.ndarray | None) -> tup
 
 def flow_bound(instance: Instance, scenario_set=None, *, reach: Reach | None = None, delta_s: int = 60,
                grouping: str = "vehicle", time_limit: float = 600.0, threads: int = 1, solver: str = "ipm",
-               crossover: bool = False, ipm_tolerance: float | None = 1e-6, prune_dominated: bool = True
-               ) -> tuple[int, dict]:
+               crossover: bool = False, ipm_tolerance: float | None = 1e-6, prune_dominated: bool = True,
+               free_space: bool = True, trip_cuts: bool = True) -> tuple[int, dict]:
     """The E4 bound of one instance (whole residents) and how it was obtained."""
     t0 = time.monotonic()
     rb = trivial_bound(instance)
-    info: dict = {"resource_bound": rb, "delta_s": int(delta_s), "grouping": grouping}
+    info: dict = {"resource_bound": rb, "delta_s": int(delta_s), "grouping": grouping, "free_space": bool(free_space),
+                  "trip_cuts": bool(trip_cuts)}
     rh = reach or Reach(instance, scenario_set)
     info["reach_s"] = round(time.monotonic() - t0, 3)
     try:
-        net = FlowNetwork(instance, rh, delta_s=delta_s, grouping=grouping, prune_dominated=prune_dominated)
+        net = FlowNetwork(instance, rh, delta_s=delta_s, grouping=grouping, prune_dominated=prune_dominated,
+                          free_space=free_space, trip_cuts=trip_cuts)
     except NotCertified as exc:
         info.update(certified=False, note=f"not certified: {exc}; the resource bound only", bound=rb)
         return rb, info

@@ -43,7 +43,9 @@ def test_bound_covers_the_brute_force_optimum_of_a_tiny_instance():
     b, info = flow_bound(inst, ss, delta_s=60)
     assert info["certified"] and info["lp_status"] == "Optimal"
     assert opt <= b <= inst.residents_total
-    assert b == 5                       # the LP sees that A's third resident cannot leave before the fire
+    assert b == 5                                    # tight here (with the trip cuts; 6 without them)
+    loose, _ = flow_bound(inst, ss, delta_s=60, trip_cuts=False, free_space=False)
+    assert loose == 6       # fractions of the one van board at A while other fractions drive: parallel work
 
 
 @pytest.mark.parametrize("seed", range(10))
@@ -121,6 +123,48 @@ def test_adding_a_constraint_never_raises_the_bound(seed, change):
     v1, v2 = i1.get("dual_bound"), i2.get("dual_bound")
     if v1 is not None and v2 is not None:
         assert v2 <= v1 + 1e-6, (change, v1, v2)
+
+
+def test_trip_limits_follow_the_vehicle_timeline():
+    """Tiny instance: the van reaches A at 240 s (from S at 0), A's action set ends at 911 s (it must leave by 910 s),
+    a round trip A -> S -> A takes 480 s plus one 60 s unloading: one full trip (2 seats) or a second trip that boards
+    at most (671 - 540) / 60 = 2.18 residents in all, so 2 residents; boarding seconds at most max(120, 131) = 131."""
+    inst, ss = tiny()
+    net = FlowNetwork(inst, Reach(inst, ss), delta_s=60)
+    a = next(i for i, st in enumerate(net.sites) if st.id == "A")
+    lim = net.trip_limits("V", a)
+    assert lim["W"] == pytest.approx(671.0, abs=1e-3) and lim["G"] == 540.0
+    assert lim["n"][0] == 2 and lim["secs"] == pytest.approx(131.0, abs=1e-3)
+    b = next(i for i, st in enumerate(net.sites) if st.id == "B")
+    assert net.trip_limits("V", b)["n"][0] >= 3                       # B closes late: no cut there
+
+
+def test_trip_limits_do_not_separate_trips_at_a_facility_with_a_shelter_on_site():
+    """A shelter on the facility's node: trips need not be apart in time, so only the boarding time limits what one
+    vehicle boards there (the limit must not stop at one load)."""
+    inst, ss = tiny()
+    sh = inst.shelters[0].model_copy(update={"id": "S0", "node": inst.facilities[0].node})
+    inst = inst.model_copy(update={"shelters": [*inst.shelters, sh]})
+    net = FlowNetwork(inst, Reach(inst, ss), delta_s=40)
+    a = next(i for i, st in enumerate(net.sites) if st.id == "A")
+    lim = net.trip_limits("V", a)
+    assert lim["G"] == pytest.approx(60.0)                           # no travel, one unloading
+    assert lim["n"][0] >= 3 and lim["n"][0] > inst.vehicles[0].seats
+
+
+@pytest.mark.parametrize("seed", (2, 9, 17))
+def test_free_space_and_trip_cuts_only_lower_the_lp_value(seed):
+    inst, ss0, _ = random_case(seed)
+    ss = persistent(ss0)
+    rh = Reach(inst, ss)
+    vals = {}
+    for fs, tc in ((False, False), (True, False), (True, True)):
+        m = FlowNetwork(inst, rh, delta_s=60, free_space=fs, trip_cuts=tc).build()
+        r = solve_lp(m.arrays(), time_limit=60.0, crossover=True)
+        assert r.status == "Optimal"
+        vals[(fs, tc)] = r.objective
+    assert vals[(True, False)] <= vals[(False, False)] + 1e-6
+    assert vals[(True, True)] <= vals[(True, False)] + 1e-6
 
 
 def test_dropping_dominated_moves_keeps_the_lp_optimum():

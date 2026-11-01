@@ -12,6 +12,12 @@ What had been run before this section was written: the LP on one dev S instance
 (`SYNTHETIC-S-grid-t25-s101`, to check that the code runs; bound 23 = all residents, as B3 already proves),
 solver timings on that LP, and model sizes (no solve) on one dev M instance. No other dev bound.
 
+Amendment (before any further dev bound): on B3's tiny brute-force instance (SYNTHETIC, not dev) the plain LP
+gave 6 against an optimum of 5. Fractions of the one van shared the work: one piece stayed at the facility and
+boarded while another drove the residents away, and pieces relayed residents through another facility. Two
+valid strengthenings were added (free space and trip cuts, below); with them the tiny bound is 5. Both are
+switchable (`free_space`, `trip_cuts`) and the README reports their effect.
+
 ### Hypothesis
 
 A dynamic-flow (flow-over-time) LP relaxation on the contact-free time-expanded network gives a **valid**
@@ -66,6 +72,17 @@ facilities and shelters. Commodities: vehicle groups `g` (one per vehicle, or id
   latest NEGATIVE departure from the node that still reaches a shelter accepting `c` and unloads one
   resident inside a window by the horizon (`Reach.latest_arrival_neg`); empty if the node is unsupported.
   Shelter `s`, class `c` with capacity: its windows ∩ `[0, min(Hi, ignition_s))`.
+* **Free space** (stops relays through facilities). Per group, class and arc into a facility-only node: free
+  space `z >= 0` with `y + z <= space · x` (instead of `y <= space · x`); a vehicle enters with `z <= space`;
+  at a facility-only node, the free space leaving towards facility-only nodes plus the residents boarded is
+  at most the free space arriving. Free space is created only by unloading (at shelters, where it is not
+  tracked) or at a vehicle's entry, so a fraction that leaves its load at a facility does not get room back.
+* **Trip cuts** (stop parallel work by fractions of one vehicle at a facility that closes). Per vehicle
+  (summed over a pooled group) and facility: residents of class `c` boarded there <= floor(max over m >= 1 of
+  min(m · space_c, (W_c − (m − 1)·G) / b_c)), and boarding seconds there <= max over m of min(m · Σ_c b_c
+  space_c, W − (m − 1)·G); `W` = end of the facility's action set − max(release, the NEGATIVE earliest
+  arrival from the vehicle's start), `G` = the shortest free-flow round trip to a shelter that takes a class the
+  vehicle carries plus the shortest such unloading.
 * **Objective:** maximize Σ unloaded. **Bound** = floor(weak-duality value of the LP's row duals + a
   floating-point margin), then min with the resource bound (`timexp.trivial_bound`).
 
@@ -112,9 +129,24 @@ shift, capacities, first come first served).
 6. *Vehicles.* Each vehicle is one unit of flow from its entry to the end node of its last delivering
    unloading (a shelter location), within its own cells; summing vehicles of a pooled group gives a feasible
    pooled flow (a vehicle that has ended has ended). The objective counts exactly the delivered residents.
+7. *Free space.* Put `z = space − load` on every arc of the vehicle into a facility-only node: then
+   `y + z = space`, `z = space` on entry, and at a facility-only node the load only grows by boarding, so the
+   free space leaving equals the free space arriving minus the residents boarded (towards a shelter it is
+   simply not carried). Summing vehicles keeps every row.
+8. *Trip cuts.* Split the vehicle's kept boardings at the facility into trips, maximal runs with no kept
+   unloading in between. Within a trip the kept load never decreases, so a trip boards at most the space of
+   each class. Between two trips the vehicle unloads at least one resident at a shelter: it drives from the
+   facility's node to the shelter's and back (at least the free-flow times) and unloads (at least the shortest
+   unloading time): at least `G` seconds between the end of one trip's last boarding and the start of the
+   next trip's first. All boardings take their seconds and lie between max(release, arrival) and the end of
+   the action set (step 4), with arrival >= the NEGATIVE earliest arrival from its start (step 3). So for the
+   number of trips m: `n_c <= m · space_c` and `Σ_c b_c n_c + (m − 1)·G <= W` (per class, with that class's
+   action set); the counts are whole residents, hence the floor. A shelter on the facility's own node gives
+   `G` = one unloading, and if no shelter can empty the vehicle there is one trip.
 
 **What is relaxed, and why each only enlarges the feasible set:** vehicle identity within a pooled group and
-integrality (any integral flow is a fractional flow); the order of actions inside a cell (only seconds per
+integrality (any integral flow is a fractional flow; the free-space rows and trip cuts take back part of what
+fractional vehicles gain); the order of actions inside a cell (only seconds per
 cell are bounded); turn rules, waiting rules and unknown cells on the road (the NEGATIVE relaxation keeps every
 contact-free trip); dose and peak flux (not modelled at all); each departure is rounded down to its cell start
 (earliest arrival is monotone); arrivals are taken at `EA` (no later than real); action sets are supersets of
