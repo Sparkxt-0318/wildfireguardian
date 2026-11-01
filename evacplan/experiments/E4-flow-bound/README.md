@@ -1,0 +1,183 @@
+# E4: a flow-over-time upper bound on residents delivered (SYNTHETIC dev)
+
+**Type:** bound (no plan). **Track:** C, Phase 1 batch 1. **Data:** frozen SYNTHETIC dev split only
+(rule 5: no test instance is generated, read or run). **Label:** every number and figure here is SYNTHETIC.
+**Code:** `evacplan/src/evacplan/methods/flow_bound.py` (method `e4_flow_bound`, bound only),
+`methods/lp_worker.py` (HiGHS in a child process), harness and leaderboard support for bound-only methods
+(`harness.py`, `docs/ASSUMPTIONS.md` #94-#95), tests in `evacplan/tests/test_flow_bound.py`.
+
+## Pre-registration (written before any dev bound was computed)
+
+What had been run before this section was written: the LP on one dev S instance
+(`SYNTHETIC-S-grid-t25-s101`, to check that the code runs; bound 23 = all residents, as B3 already proves),
+solver timings on that LP, and model sizes (no solve) on one dev M instance. No other dev bound.
+
+### Hypothesis
+
+A dynamic-flow (flow-over-time) LP relaxation on the contact-free time-expanded network gives a **valid**
+upper bound on the residents any plan can deliver on the M and L dev instances (where B3 cannot run),
+within about 15 % of the best plan on M.
+
+Background: the leaderboard has proven bounds only on S (B3's certified bound, 114 of 115 residents, all of
+them the resource bound). On M and L the only bound so far is the trivial "every servable resident"
+(635 on M, 1225 on L), against best plans of 597 on M (per instance, the best baseline) and 1045 on L (B2).
+
+### Why it might work (the math)
+
+Ford and Fulkerson: a maximum flow over time in a network with transit times is a static flow in the
+time-expanded network (one copy of each node per time step, arcs that advance by the transit time, holdover
+arcs). Hoppe and Tardos: the quickest transshipment, with many sources and sinks, is also a flow problem on
+such a network. Evacuation is a dynamic transshipment with side constraints: residents are supplies at the
+facilities (from the release time, until the fire closes the facility), shelters are sinks (windows,
+capacity), and the "transport capacity" is vehicles, each with a fixed space per mobility class, which
+spend real time boarding and unloading. On the time-expanded network all of this is linear in the number
+of vehicles on each arc; dropping integrality (fractional vehicles) leaves an LP. If every plan the oracle
+checks maps to a feasible point of that LP with the same number of delivered residents, the LP optimum is a
+bound. The bound is informative when the scarce resource is vehicle time near the facilities' deadlines,
+per-class space per trip (2 wheelchair slots per bus or van, 1 stretcher per ambulance) and round-trip
+times: exactly what the trivial bound ignores.
+
+### The relaxation
+
+Time steps of `delta` seconds: cell `k` = [k·delta, (k+1)·delta) on the instance clock, `k = 0 ..
+floor(Hi/delta)` (`Hi`: the last whole second of the hazard horizon). Locations: the distinct graph nodes of
+facilities and shelters. Commodities: vehicle groups `g` (one per vehicle, or identical vehicles pooled).
+
+* **Network.** Nodes `(i, k)`. *Moves* `(i, k) -> (j, k')` with `k' = floor(EA / delta)`, `EA` = the
+  NEGATIVE-relaxation earliest arrival at `j` leaving `i` at `k·delta` (`Reach.earliest_arrival_neg`:
+  only certain flame contact up to the horizon blocks a departure, waiting is allowed anywhere, no turn
+  rules, unknown cells passable, every leg by the horizon). *Waits* `(i, k) -> (i, k+1)` everywhere. A
+  vehicle *enters* at its depot at its start time (a depot that is not a location sends one move to each
+  facility location, arriving at the NEGATIVE earliest arrival from the start), and *ends* at a shelter
+  location (or never enters: unused).
+* **Variables** (all continuous, >= 0): vehicle flow `x[g, a]` on every arc; load `y[g, c, a]` of class
+  `c` on moves and waits; residents boarded `b[g, f, c, k]` and unloaded `u[g, s, c, k]` in cell `k`.
+* **Rows.** Flow conservation per group and node; at most one entry per vehicle; per group, class and node:
+  load in + boarded = load out + unloaded (entries and ends carry no load); per group, class and arc:
+  `y <= space[g, c] · x`; residents boarded per facility and class <= residents; unloaded per shelter and
+  class <= capacity; pooled groups: by the cell where a vehicle's shift ends, that many vehicles have
+  ended.
+* **Time actually spent.** Per group, site and cell: Σ_c seconds per resident · (boarded or unloaded) <=
+  Σ over the arcs entering `(i, k)` of `x · usable seconds`, where a wait arc offers the usable part of the
+  whole cell and a move (or entry) arriving at `EA` the usable part of `[EA, (k+1)·delta)`. *Usable* =
+  inside the site's action set and the group's shifts `[start, min(Hi, start + shift))`. Action sets:
+  facility `f`, class `c`: `[release_f, min(ignition_f, LD_neg(f, c) + 1))`, where `ignition_f` is the first
+  instant a stationary occupancy of the node touches a burning cell in some member, and `LD_neg(f, c)` the
+  latest NEGATIVE departure from the node that still reaches a shelter accepting `c` and unloads one
+  resident inside a window by the horizon (`Reach.latest_arrival_neg`); empty if the node is unsupported.
+  Shelter `s`, class `c` with capacity: its windows ∩ `[0, min(Hi, ignition_s))`.
+* **Objective:** maximize Σ unloaded. **Bound** = floor(weak-duality value of the LP's row duals + a
+  floating-point margin), then min with the resource bound (`timexp.trivial_bound`).
+
+### Why every checked plan maps into it (the validity argument)
+
+Take any plan and its oracle result. A resident is delivered iff the trip that unloads them is `checked`:
+every occupancy of the vehicle from its start through that unloading is contact-free and supported in all K
+members, ends by the horizon, and no validator rule is broken up to there (resources, release, windows,
+shift, capacities, first come first served).
+
+1. *Keep only what counts.* For each vehicle keep its itinerary up to its last delivering unloading, and of
+   each boarding only the residents that are delivered. Everything kept is checked; dropping residents only
+   lowers loads and seconds of work. Residents delivered from facility `f`, class `c`, were boarded at
+   boardings the validator accepted, so they number at most the residents of `(f, c)`; those unloaded at a
+   shelter at most its capacity (first come first served flags every excess).
+2. *Stops and stays.* A stop is a maximal run of kept actions at one node with no drive in between. The
+   vehicle stays at the node from the end of the drive before the run (`alpha`) to the start of the drive
+   after it (`beta`). The stay maps to the nodes `(i, k)` of every cell it meets: `floor(alpha/delta) ..
+   floor(beta/delta)`, linked by waits (a loop that leaves and comes back without a kept action elsewhere
+   is mapped to waits: the network only gains presence).
+3. *Moves.* The drive from `beta` (cell `k`) to the next stop's `alpha'` is a checked trip: each edge
+   contact-free in every member, so not certainly blocked. With persistent burning and whole-second data
+   (the 1 s lattice is complete, `ASSUMPTIONS.md` #72), flooring every time of a contact-free trip keeps it
+   contact-free, so it is a NEGATIVE trip from `floor(beta)` arriving by `floor(alpha')`. NEGATIVE earliest
+   arrival is non-decreasing in the departure time (waiting is free in it), hence `EA(k·delta) <=
+   alpha'`, and the move arc from `(i, k)` lands in a cell `k' <= floor(alpha'/delta)`; waits carry the
+   vehicle on to the cell of `alpha'` (the network's vehicle "waits" while the real one still drives, which
+   only adds presence). The arc exists: `EA <= alpha' <= Hi`, and `alpha'` is before the end of the next
+   site's action set. Because `delta` is at most the shortest free-flow time between two locations, every
+   move advances at least one cell (no zero-time cycles in the network).
+4. *Seconds.* An action's seconds are booked in the cells in which they happen, residents proportionally
+   (a boarding of n residents over [t0, t1] books n·|[t0, t1] ∩ cell| / (t1 − t0) in each cell). In a cell
+   the vehicle is at the node at most from its entry (cell start if it came by a wait, its arrival
+   `alpha' >= EA` if it came by a move) to the cell end or its departure, and only acts inside the action
+   set: boarding starts at or after release, the boarding stay is contact-free (ends before the node
+   ignites), and the vehicle then leaves on a NEGATIVE trip that reaches a shelter for the resident's class,
+   so the boarding ends before `floor(beta) + 1 <= LD_neg(f, c) + 1`; unloading lies in a window, ends by
+   the horizon and before the shelter node ignites; every action ends within the vehicle's shift. So the
+   seconds booked are at most the arc's usable seconds.
+5. *Loads.* On a move arc the load is the real load at departure (every action of the stop is done by
+   `beta`): at most the vehicle's space. On a wait arc inside a stay it lies between the loads before and
+   after the action in progress, both within space. Conservation holds by construction; entries and ends
+   carry no load (every kept resident is unloaded within the kept prefix).
+6. *Vehicles.* Each vehicle is one unit of flow from its entry to the end node of its last delivering
+   unloading (a shelter location), within its own cells; summing vehicles of a pooled group gives a feasible
+   pooled flow (a vehicle that has ended has ended). The objective counts exactly the delivered residents.
+
+**What is relaxed, and why each only enlarges the feasible set:** vehicle identity within a pooled group and
+integrality (any integral flow is a fractional flow); the order of actions inside a cell (only seconds per
+cell are bounded); turn rules, waiting rules and unknown cells on the road (the NEGATIVE relaxation keeps every
+contact-free trip); dose and peak flux (not modelled at all); each departure is rounded down to its cell start
+(earliest arrival is monotone); arrivals are taken at `EA` (no later than real); action sets are supersets of
+the times an oracle-checked action can happen (release, ignition, one second after the latest NEGATIVE
+departure, windows, horizon, shift: each bound taken in the relaxation's favour). Arcs are dropped only where
+no NEGATIVE trip exists, i.e. where contact is certain in some member (a checked trip never uses them).
+
+**Model reduction that keeps the optimum.** A move is left out when two shorter moves through another
+location reach the same destination in an earlier cell, or in the same cell no later: any flow on it can take
+that path instead and gains only presence. The two moves are strictly shorter, so by induction the
+replacement uses kept moves.
+
+**Certificate.** HiGHS (interior point, threads = 1, in a child process because OR-Tools ships an incompatible
+`libhighs`) solves the LP. The bound is not the solver's objective but weak duality evaluated on its row duals
+`pi`: for ANY `pi`, `c·x <= Σ_i max(pi_i L_i, pi_i U_i) + Σ_j max(d_j l_j, d_j u_j)` with `d = c − Aᵀpi`, so
+the bound holds whatever the solver's tolerances or status (signs of one-sided rows are clipped, both `pi`
+and `−pi` are tried, every column has a finite upper bound). It is rounded down after a margin that covers
+the floating-point error of that sum. If the lattice is not complete, no bound beyond the resource bound is
+claimed.
+
+### Setup
+
+* Instances: the 10 frozen dev instances (4 S, 4 M, 2 L), SYNTHETIC; regenerated, fingerprints verified.
+* `delta` = 60 s on S and M, 120 s on L (reduced automatically to the shortest free-flow time between two
+  locations when that is shorter); commodities: one per vehicle on S and M, vehicles pooled by type on L
+  (the LP with one commodity per vehicle is about 3x larger there). The configuration is fixed before the
+  dev run (`config.yaml`); if L does not solve in the budget, `delta` on L may only grow (a coarser grid is
+  still a valid, looser relaxation), and that is reported.
+* One seed (the bound is deterministic; the seed is ignored). Run through the harness, `evacplan run
+  --method e4_flow_bound --set dev --seeds 0`, under the bench lock, at the budget it needs (600 s); a proven
+  bound does not depend on the budget, so its rows join every table of the same set and host.
+
+### Baseline and metric
+
+* Baseline bounds: the trivial bound (all residents of servable classes: the resource bound, minus the
+  oracle's `unservable`) and B3's certified bound on S.
+* **Metric:** gap per instance = (bound − best delivered by any method on this host) / bound, and its mean
+  over S, M and L. Also reported: the trivial bound's gap and the share of it the E4 bound closes.
+
+### Validity checks (the core of the experiment)
+
+1. Siyeong's check: on every S instance the bound is >= B3's delivered value in every B3 row.
+2. The bound is >= every checked plan's delivered count in every result row of every method on dev, same
+   instance, any seed or host (`check_validity.py`, a script over `evacplan/results/*.csv`).
+3. Tiny SYNTHETIC instances with a known optimum (brute force over every trip sequence of one vehicle, as in
+   B3's tests): bound >= optimum (`tests/test_flow_bound.py`).
+4. Properties: fewer vehicles, a shorter horizon, shorter shifts and more burning never raise the bound
+   (`tests/test_flow_bound.py`), and on random small instances the bound is >= every plan the oracle checks
+   (random plans, B0, B1, B3).
+
+### Budget and decision rule
+
+Time-box: about 4 h of work, at most 1 h of bench time.
+
+* **KEEP** if the bound is valid on every check and informative: gap <= 30 % on M **and** strictly below
+  the trivial bound on at least one instance where the best plan falls short of it.
+* **KEEP as a sanity bound only** if it is valid but looser (no better than the trivial bound).
+* **KILL** if it is invalid and cannot be fixed within the time-box.
+
+Note: the trivial bound alone already has a mean gap of about 6 % on M against the best baselines
+(597 of 635), so "gap <= 30 % on M" by itself does not show that the bound is informative; hence the second
+condition (question for Siyeong below).
+
+## Results
+
+(filled in after the dev run)

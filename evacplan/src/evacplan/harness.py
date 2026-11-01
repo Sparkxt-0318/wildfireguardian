@@ -369,12 +369,14 @@ def _margin_curve(margins: Mapping[int, int], delivered: int) -> dict[int, int]:
 def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_config: dict, seed: int,
              budget_s: float, plan, runtime_s: float, best_bound: float | None, commit: str, host: str,
              versions: dict | None = None, diagnostics: dict | None = None,
-             margins: Mapping[int, int] | None = None) -> dict:
+             margins: Mapping[int, int] | None = None, bound_only: bool = False) -> dict:
     """One result row. ``margins`` (minutes -> residents, every m in :data:`MARGINS_MIN`) defaults to
-    :func:`delivered_by_margin` of ``plan``; slack >= 0 must equal ``plan.delivered_total``."""
+    :func:`delivered_by_margin` of ``plan``; slack >= 0 must equal ``plan.delivered_total``. ``bound_only``: the
+    method plans nothing and only proves ``best_bound`` (:attr:`evacplan.methods.Method.bound_only`); the row's
+    config says so and its ``gap`` is empty (it has no plan to measure)."""
     delivered = int(plan.delivered_total)
     curve = _margin_curve(delivered_by_margin(plan) if margins is None else margins, delivered)
-    if best_bound is None:
+    if best_bound is None or bound_only:
         gap = None
     elif best_bound > 0:
         gap = (float(best_bound) - delivered) / float(best_bound)
@@ -390,6 +392,8 @@ def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_confi
     }
     if diagnostics:
         config["diagnostics"] = dict(diagnostics)
+    if bound_only:
+        config["bound_only"] = True
     return {
         "instance": entry.id, "method": method_name, "seed": str(int(seed)), "delivered_checked": str(delivered),
         "unresolved": str(int(plan.unresolved_total)), "model_no_route": str(int(plan.model_no_route_total)),
@@ -402,6 +406,11 @@ def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_confi
 
 def row_config(row: dict) -> dict:
     return json.loads(row["config"])
+
+
+def is_bound_only(row: dict) -> bool:
+    """A row of a bound-only method (it plans nothing; only its ``best_bound`` counts)."""
+    return row_config(row).get("bound_only") is True
 
 
 def _key(row: dict) -> tuple:
@@ -574,7 +583,8 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
                 plan = oracle.check_plan(res.solution)
                 row = make_row(entry=e, set_name=set_name, method_name=method, method_config=m.config(), seed=seed,
                                budget_s=budget_s, plan=plan, runtime_s=runtime, best_bound=res.best_bound,
-                               commit=commit, host=host, versions=versions, diagnostics=res.diagnostics)
+                               commit=commit, host=host, versions=versions, diagnostics=res.diagnostics,
+                               bound_only=bool(getattr(m, "bound_only", False)))
                 upsert_rows(csv_path, [row])
                 upsert_rows(fac_path, make_facility_rows(
                     entry=e, method_name=method, seed=seed, row=row, instance=inst, deadlines=deadlines,
@@ -624,9 +634,21 @@ def table_key(row: dict) -> tuple[str, float, str]:
 
 
 def _tables(rows: Iterable[dict]) -> dict[tuple[str, float, str], list[dict]]:
+    """Rows per table (set, budget, host). A bound-only method's rows join every table of their set and host,
+    whatever budget they were computed with (a proven bound does not depend on the time it took); with no such
+    table they get one of their own (at their smallest budget)."""
     groups: dict[tuple, list[dict]] = defaultdict(list)
+    bounds: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for r in rows:
-        groups[table_key(r)].append(r)
+        if is_bound_only(r):
+            s, _, h = table_key(r)
+            bounds[(s, h)].append(r)
+        else:
+            groups[table_key(r)].append(r)
+    for (s, h), rs in bounds.items():
+        keys = [k for k in groups if (k[0], k[2]) == (s, h)] or [(s, min(table_key(r)[1] for r in rs), h)]
+        for k in keys:
+            groups[k].extend(rs)
     return {k: groups[k] for k in sorted(groups, key=lambda k: (k[0] != "dev", k[0], k[1], k[2]))}
 
 
@@ -797,7 +819,7 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
       :data:`MIN_REPEATS` seeds, each covering every instance, and its worst per-seed total exceeds the bar.
     """
     budget = float(budget)
-    rows = [r for r in rows if table_key(r) == (set_name, budget, host)]
+    rows = [r for r in rows if table_key(r) == (set_name, budget, host) and not is_bound_only(r)]   # plans only
     instances = tuple(dict.fromkeys(instances)) or tuple(sorted({r["instance"] for r in rows}))
     best: dict[str, float] = {}
     for r in rows:
@@ -844,13 +866,13 @@ def _row_curve(row: dict) -> list[int] | None:
 
 
 def margin_curves(rows: Iterable[dict]) -> dict[str, dict]:
-    """Per method of one table (noop left out; methods with a row lacking the curve left out): residents delivered
+    """Per method of one table (noop and bound-only methods left out; methods with a row lacking the curve left out): residents delivered
     with slack >= m for every m in :data:`MARGINS_MIN`, summed over the method's instances: ``median`` over seeds
     and ``lo``/``hi`` (min/max) of the per-seed totals; when the seeds differ by instance, the sum of the
     per-instance medians without a band (``per_seed_totals`` False)."""
     by: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
-        if r["method"] not in NOT_JUDGED:
+        if r["method"] not in NOT_JUDGED and not is_bound_only(r):
             by[r["method"]].append(r)
     out: dict[str, dict] = {}
     for method, rs in sorted(by.items()):
@@ -955,6 +977,57 @@ def write_margin_figure(rows: Iterable[dict], path: Path, *, set_name: str, budg
 
 
 # --------------------------------------------------------------------------------- render
+def _bounds_table(plans: list[dict], bound_rows: list[dict], inst_ids: list[str], labels: Mapping[str, str],
+                  residents: Mapping[str, int], size_of: Mapping[str, str]) -> list[str]:
+    """The table of a leaderboard section for bound-only methods: per instance their proven bound, its gap to the
+    best plan of the section, (bound - best delivered) / bound with best delivered = the most residents any method
+    delivered on the instance in this section (any seed), and their runtime; then the mean gap by size. A bound
+    below a delivered plan would be a bug: it is flagged INVALID."""
+    best: dict[str, float] = {}
+    for r in plans:
+        v = float(r["delivered_checked"])
+        best[r["instance"]] = max(best.get(r["instance"], v), v)
+    methods = sorted({r["method"] for r in bound_rows})
+    out = ["Proven upper bounds of bound-only methods (they plan nothing: not in the method table, no verdict, not "
+           "in the figure; their rows join every table of this set and host, whatever budget computed them); "
+           "**gap** = (bound - best delivered) / bound, **best delivered** = the most residents any method delivered "
+           "on the instance in this table (any seed):", "",
+           "| instance | label | residents | best delivered | " + " | ".join(f"{m} | gap | runtime (s)" for m in methods)
+           + " |", "|---|---|---|---|" + "---|---|---|" * len(methods)]
+    gaps: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+    invalid: list[str] = []
+    for i in inst_ids:
+        cells = []
+        for m in methods:
+            rs = [r for r in bound_rows if r["instance"] == i and r["method"] == m and r["best_bound"]]
+            if not rs:
+                cells += ["–", "–", "–"]
+                continue
+            b = min(float(r["best_bound"]) for r in rs)
+            rt = statistics.median(float(r["runtime_s"]) for r in rs)
+            gap = None if i not in best else ((b - best[i]) / b if b > 0 else 0.0)
+            if gap is not None:
+                gaps[m][size_of.get(i, "other")].append(gap)
+                gaps[m]["all"].append(gap)
+                if b < best[i]:
+                    invalid.append(f"{m} on {i}: bound {b:g} < delivered {_count(best[i])}")
+            cells += [f"{b:g}", "–" if gap is None else f"{100 * gap:.1f}%", f"{rt:.1f}"]
+        out.append(f"| {i} | {labels.get(i, 'real')} | {residents.get(i, '–')} | "
+                   f"{'–' if i not in best else _count(best[i])} | " + " | ".join(cells) + " |")
+    order = {z: n for n, z in enumerate(("S", "M", "L"))}
+    for m in methods:
+        parts = [f"{z} {100 * statistics.mean(v):.1f}% ({len(v)})"
+                 for z, v in sorted(gaps[m].items(), key=lambda kv: (kv[0] == "all", order.get(kv[0], 3), kv[0]))]
+        rs = [r for r in bound_rows if r["method"] == m]
+        budgets = ", ".join(f"{b:g} s" for b in sorted({float(row_config(r)["budget_s"]) for r in rs}))
+        commits = ", ".join(sorted({r["commit"][:12] for r in rs}))
+        out += ["", f"Mean gap of {m} by size (instances): {', '.join(parts) or '–'}; computed at budget {budgets}, "
+                    f"commit {commits}."]
+    if invalid:
+        out += ["", "**INVALID BOUND** (a proven bound below a delivered plan is a bug): " + "; ".join(invalid) + "."]
+    return out
+
+
 def render_leaderboard(rows: list[dict], split: Split | None = None, facility_rows: list[dict] | None = None, *,
                        observations: Iterable | None = None, figure_links: Mapping[tuple, str] | None = None) -> str:
     """LEADERBOARD.md text: one section per (set, budget, host). ``observations``: recorded observations (default:
@@ -1022,6 +1095,11 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "* **mean gap** = mean of (best bound - delivered) / best bound over the method's own proven bounds (exact or "
         "relaxation methods, e.g. B3 on S instances only); a method that runs on fewer instances is summed over fewer "
         "residents (see the size table).",
+        "* **Bound-only methods** (e.g. `e4_flow_bound`, `docs/ASSUMPTIONS.md` #94) plan nothing and only prove an "
+        "upper bound on the residents any plan can deliver. Their bounds enter the best-bound column and their own "
+        "bounds table (with runtime and the gap to the best plan of the table); they are left out of the method "
+        "table, the verdicts and the margin figure. A proven bound does not depend on the budget that computed it, so "
+        "their rows join every table of the same set and host.",
         "* **SYNTHETIC** rows are SYNTHETIC instances (`evacplan/instances/SPLIT.json`), not real-world results.",
         "",
     ]
@@ -1029,12 +1107,19 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         lines += ["No results yet.", ""]
         return "\n".join(lines)
     slack_cols = [(m, margin_column(m)) for m in LEADERBOARD_MARGINS_MIN]
-    for (set_name, budget, host), g in _tables(rows).items():
-        inst_ids = sorted({r["instance"] for r in g}, key=lambda i: (order.get(i, len(order)), i))
+    for (set_name, budget, host), g_all in _tables(rows).items():
+        g = [r for r in g_all if not is_bound_only(r)]               # plans (every table below but the bounds)
+        gb = [r for r in g_all if is_bound_only(r)]                  # bound-only methods: their bounds only
+        inst_ids = sorted({r["instance"] for r in g_all}, key=lambda i: (order.get(i, len(order)), i))
         instances = tuple(set_ids.get(set_name) or inst_ids)
         cmp = compare_to_b2(g, instances, set_name=set_name, budget=budget, host=host, observations=observations)
+        labels = {r["instance"]: row_config(r)["label"] or "real" for r in g_all}
         lines += [f"## {set_name}, budget {budget:g} s, host {host}", "",
                   "Rows from this host only; no row of another host enters this table, its bar or its figure.", ""]
+        bounds_lines = _bounds_table(g, gb, inst_ids, labels, residents, size_of) if gb else []
+        if not g:
+            lines += ["No plans for this set, budget and host (bound-only rows only).", "", *bounds_lines, ""]
+            continue
         lines += ["| method | label | instances | seeds | delivered | unresolved | model_no_route | not planned | "
                   "unservable | residents | " + " | ".join(f"slack ≥ {m} min" for m, _ in slack_cols) +
                   " | min slack (s) | mean runtime (s) | over budget | mean gap | B2 verdict | commit |",
@@ -1083,7 +1168,6 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
                       f"![{tag}residents delivered vs required margin, {set_name}, {budget:g} s, this host]"
                       f"({figure_links[(set_name, budget, host)]})"]
         methods = sorted({r["method"] for r in g})
-        labels = {r["instance"]: row_config(r)["label"] or "real" for r in g}
         per_seed: dict[tuple[str, str, str], list[float | None]] = defaultdict(list)    # (instance, method, column)
         for r in g:
             for col in ("delivered_checked", "unresolved", *(c for _, c in slack_cols)):
@@ -1094,18 +1178,20 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             return "–" if not v or any(x is None for x in v) else _stat(v)
         median_dl = {(i, m): statistics.median(v) for (i, m, col), v in per_seed.items() if col == "delivered_checked"}
         lines += ["", "Delivered (checked) per instance, median over seeds [min–max when they differ]; **best bound** = "
-                  "the smallest proven upper bound any method reports for the instance (no plan can deliver more); "
-                  "**best of baselines** = the most residents any baseline delivered on the instance (any seed), summed "
-                  "in the bar above:", "",
+                  "the smallest proven upper bound any method reports for the instance, bound-only methods included "
+                  "(no plan can deliver more); **best of baselines** = the most residents any baseline delivered on the "
+                  "instance (any seed), summed in the bar above:", "",
                   "| instance | label | residents | unservable | best bound | best of baselines | " + " | ".join(methods) +
                   " |", "|---|---|---|---|---|---|" + "---|" * len(methods)]
         for i in inst_ids:
             u = [x for (st, bd, hs, _m, ii), x in unserv.items() if (st, bd, hs, ii) == (set_name, budget, host, i)]
-            bnd = [float(r["best_bound"]) for r in g if r["instance"] == i and r["best_bound"]]
+            bnd = [float(r["best_bound"]) for r in g_all if r["instance"] == i and r["best_bound"]]
             bob = cmp.best_of_baselines.get(i)
             lines.append(f"| {i} | {labels[i]} | {residents.get(i, '–')} | {_count(max(u)) if u else '–'} | "
                          f"{f'{min(bnd):g}' if bnd else '–'} | {'–' if bob is None else _count(bob)} | "
                          + " | ".join(cell(i, m, "delivered_checked") for m in methods) + " |")
+        if bounds_lines:
+            lines += ["", *bounds_lines]
         lines += ["", "Unresolved per instance (never safe, never delivered), median over seeds [min–max when they "
                   "differ]:", "", "| instance | label | " + " | ".join(methods) + " |", "|---|---|" + "---|" * len(methods)]
         for i in inst_ids:
