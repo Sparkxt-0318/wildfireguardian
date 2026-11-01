@@ -90,19 +90,22 @@ def test_never_fewer_residents_than_its_warm_start(generated, k):
 
 
 def test_respects_the_budget(generated):
-    """E1 stops at its deadline. The one step it cannot interrupt is building the B1 warm start, so at a budget
-    smaller than that it overruns by the rest of the warm start and nothing more. The merged suite found this: on
-    the S instance the warm start alone takes 1.4-1.5 s of the 1.5 s budget, and on the M instance 3.0-4.2 s of
-    4 s. At the 60 s dev budget the warm start takes at most about 11 s, and none of the 50 dev runs was over
-    budget."""
+    """E1 stops at its deadline. The one part it cannot interrupt is its setup (the Reach build and the
+    latest-departure sweep, booked inside time_s.warm_start); the B1 warm-start loop itself checks the deadline
+    before every insertion and stops there, so at a budget the setup nearly fills E1 returns a partial or empty
+    plan, which is still valid. On the S instance the setup takes about 1.3-1.5 s of a 1.5 s budget, on the M
+    instance about 3-4 s of 4 s, so E1 can overrun by the rest of the setup and nothing more (batch-1 review, E1-D5). At the 60 s
+    dev budget the warm start, setup included, took at most 10.7 s, it completed in 50 of 50 runs, and none was
+    over budget."""
     for g, budget in ((generated[0], 1.5), (generated[2], 4.0)):
         res, runtime = solve("e1_alns", g.instance, g.hazard, budget=budget)
         warm = res.diagnostics["time_s"]["warm_start"]
         assert runtime <= max(budget, warm + 0.1), (runtime, warm)
-        assert validate_solution(g.instance, res.solution).ok
-    g = generated[0]                                       # a budget the warm start fits in is never exceeded
+        assert validate_solution(g.instance, res.solution).ok           # may be empty: the B1 loop was cut
+    g = generated[0]                                       # a budget the setup fits in is never exceeded
     res, runtime = solve("e1_alns", g.instance, g.hazard, budget=6.0)
     assert runtime <= 6.0, (runtime, res.diagnostics["time_s"])
+    assert res.diagnostics["warm_complete"] and boarded(res.solution) > 0
     assert validate_solution(g.instance, res.solution).ok
     g = generated[2]
     m = get_method("e1_alns")                              # a budget already spent still returns a valid plan

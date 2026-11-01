@@ -3,7 +3,7 @@ experiment: E4-flow-bound
 method: e4_flow_bound            # bound only (evacplan.methods.flow_bound.E4FlowBound, bound_only = True)
 split_set: dev                   # never test (rule 5)
 seeds: [0]                       # deterministic: the seed is ignored
-budget_s: 600                    # harness wall-clock budget per instance; the bound does not depend on it
+budget_s: 900                    # harness wall-clock budget per instance, as run; the pre-registration said 600 (amendment: README, Setup; set here in the batch-1 review, 2026-11-01)
 
 # per size: time step (s) and commodities ("vehicle": one per vehicle; "type": identical vehicles pooled)
 configs:

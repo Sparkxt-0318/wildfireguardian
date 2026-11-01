@@ -11,9 +11,13 @@ Network (``delta`` seconds per time step, cell ``k`` = [k delta, (k + 1) delta) 
   ``k = 0 .. floor(Hi / delta)``.
 * Moves ``(i, k) -> (j, k')``: ``k' = floor(EA / delta)`` with ``EA`` the NEGATIVE-relaxation earliest arrival
   at ``j`` leaving ``i`` at ``k delta`` (:meth:`evacplan.reach.Reach.earliest_arrival_neg`: only certain
-  contact blocks; waiting anywhere; no turn rules; every leg by the horizon). Waits ``(i, k) -> (i, k + 1)``
-  everywhere. Vehicles enter at their depot and start time (a depot that is not a location sends one move to
-  each facility location), and end at a shelter location.
+  contact blocks; waiting anywhere; no turn rules; every leg by the horizon); from a facility-only location
+  only while ``k delta`` <= :meth:`FlowNetwork.last_departure` (min(node ignition, max over classes of
+  LD_neg + 1, Hi)). Waits ``(i, k) -> (i, k + 1)`` at every location. Vehicles enter at their depot and start
+  time (a depot that is not a location sends one move to each facility location), and end at a shelter
+  location. Per group only the nodes reachable from one of its entries and leading to a shelter location
+  inside its window are kept (``alive`` in :meth:`FlowNetwork.build`). Neither reduction drops anything a
+  checked plan uses (README, validity step 3).
 * Commodities: vehicle groups (``grouping="vehicle"``: one per vehicle; ``"type"``: identical vehicles
   pooled, with each vehicle's end of shift kept by cumulative end rows). Per group: vehicle flow on every
   arc, per-class loads on moves and waits (load <= space x flow), boardings and unloadings per site, class and
@@ -822,8 +826,14 @@ def flow_bound(instance: Instance, scenario_set=None, *, reach: Reach | None = N
         info["fallback"] = {"solver": fallback, "status": res2.status, "objective": res2.objective,
                             "dual_bound": cert2.get("dual_bound"), "wall_s": round(res2.wall_s, 3)}
         if ub2 + cert2.get("dual_bound_err", math.inf) < ub + cert.get("dual_bound_err", math.inf):
+            # the winner's status, objective and times describe the certificate; the first solver's are kept beside
+            # (batch-1 review, E4-D3: they used to stay in lp_status / lp_objective next to PDLP's dual bound)
+            info["first_solver"] = {"solver": solver, "status": res.status, "objective": res.objective,
+                                    "dual_bound": cert.get("dual_bound"), "wall_s": round(res.wall_s, 3)}
             ub, cert, res = ub2, cert2, res2
-            info["lp_solver"] = fallback
+            info.update(lp_solver=fallback, lp_status=res2.status, lp_objective=res2.objective,
+                        lp_solve_s=None if res2.solve_s != res2.solve_s else round(res2.solve_s, 3),
+                        lp_wall_s=round(res2.wall_s, 3))
     info.update(cert)
     bound = rb
     if math.isfinite(ub):
@@ -878,7 +888,7 @@ class E4FlowBound(Method):
                                  crossover=self.crossover, ipm_tolerance=self.ipm_tolerance, fallback=self.fallback)
         diag = {k: info.get(k) for k in ("certified", "delta_s", "delta_eff_s", "grouping", "lp_status", "lp_objective",
                                          "dual_bound", "resource_bound", "bound", "lp_solve_s", "total_s",
-                                         "lp_solver", "free_space", "trip_cuts")}
+                                         "lp_solver", "free_space", "trip_cuts", "fallback", "first_solver")}
         lp = info.get("lp") or {}
         diag.update({k: lp.get(k) for k in ("rows", "cols", "nnz")})
         return MethodResult(empty, best_bound=float(bound), info=info, diagnostics=diag)

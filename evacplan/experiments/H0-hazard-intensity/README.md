@@ -37,11 +37,20 @@ per single-point query returning all members). No flux, dose, contact, support o
 - **Korean:** the router packets of the dev fires only, `uljin_2022`, `hongseong_2023` and
   `miryang_2022`, 3 packets each, under `$WFG_ROUTING_INPUTS/latest_inputs_try02/packets/`.
   Converted only through `hazard_contract.from_wfg_packet` (default `present_fire="enclosure"`, rule 4
-  applied with no opt-out); evacplan code never reads a packet file. Receivers: the nodes of the
-  matching router graph `$WFG_ROUTING_INPUTS/graphs/<fire>/graph.json`, read through
+  applied with no opt-out); H0's code never reads a packet file (see the note below). Receivers: the
+  nodes of the matching router graph `$WFG_ROUTING_INPUTS/graphs/<fire>/graph.json`, read through
   `evacplan.adapters.wfg_graph`, restricted to nodes strictly inside the scenario grid (all of them).
   The script refuses any other fire name. `uiseong_andong_2025` and `yeongdeok_2025` (KR-2025 test
   season, rule 5) are never opened.
+
+**Note (batch-1 review, 2026-11-01; added after the pre-registration, changes nothing in H0).** The
+Korean bullet said "evacplan code never reads a packet file", which was too broad: from 997d6d7a
+(2026-10-31) until this review, evacplan's real-data adapter tests
+(`evacplan/tests/test_adapter_wfg_graph.py`) read the KR-2025 road graphs and packet grid metadata in
+every suite run with `WFG_ROUTING_INPUTS` set (each packet's whole `NATIVE_METADATA.json`, which in the
+dev packets also holds the present-fire cells at issue time; no other packet file). Found by the
+batch-1 review, fixed by restricting those tests to the three dev fires (orchestrator), and reported to
+Siyeong at checkpoint 3.
 
 ### Exposures
 
@@ -194,9 +203,9 @@ and 4.1-6.2× for 60-min windows (`results.csv`).
 
 Doses near the budget occur almost only within 375 m of a burning cell, and there the tails differ less
 than the medians: p90 1.95×, over-budget share 1.53×. For 15-min windows the Korean over-budget share is
-even the higher one (1.99 % vs 1.45 %). Beyond 375 m, 30-min doses stay far below the budget in both
-panels: the SYNTHETIC p99 is 57 kJ/m² at 375-750 m and at most 2.6 kJ/m² beyond 750 m; the Korean p99 is
-at most 1.7 kJ/m².
+even the higher one (1.99 % vs 1.45 %). Beyond 375 m, the 30-min dose_lower p99 stays far below the
+budget in both panels: SYNTHETIC 57 kJ/m² at 375-750 m and at most 2.6 kJ/m² beyond 750 m, Korean at
+most 1.7 kJ/m² (for the tail above the p99 and for dose_upper, see "What this means for E1").
 
 ### Contact and support (30-min windows, share of all exposures in the band)
 
@@ -299,9 +308,19 @@ H0 cannot place the true Korean intensity between those two bounds.
 - **Which bound differs.** The gap is in the certain dose. dose_lower drives the oracle's
   `DOSE_ABOVE_BUDGET`. On the bound that decides certification (Σ dose_upper ≤ 100 kJ/m²,
   ASSUMPTIONS #21), the SYNTHETIC hazards are the milder ones.
-- **Where the budget binds.** In both panels the dose budget binds only for stays within about 375 m of a
-  burning cell. There the SYNTHETIC tail is 1.5-2× the Korean one; stays farther away are dose-safe for
-  30 min in both panels.
+- **Where the budget binds.** Distance is to the nearest known-burning cell; unknown cells never set it. The
+  numbers are for contact-free supported 30-min exposures (`results.csv`).
+  - On dose_lower the budget binds almost only within about 375 m, where the SYNTHETIC tail is 1.5-2× the
+    Korean one. Beyond 375 m no Korean 30-min exposure reaches it (max 21 kJ/m²). SYNTHETIC exposures
+    still do: 0.39 % at 375-750 m (max 566 kJ/m²), and 0.0033 % and 0.0015 % (one exposure each) in the
+    next two bands.
+  - On dose_upper, the bound the oracle certifies on, Korean 30-min exposures beyond 375 m reach the
+    budget in 0.8-3.9 % of cases: 3.9 / 2.2 / 0.84 / 2.5 % from 375-750 m out to beyond 3 km (p99 up to
+    415 kJ/m²), because unknown cells may burn. SYNTHETIC: 1.2 % at 375-750 m. A stay like that cannot
+    be certified: its itinerary is at best `DOSE_UNRESOLVED`, which never counts as safe (rule 4).
+  - So being more than 375 m from known fire does not make a 30-min stay dose-safe in either panel.
+  - *Corrected 2026-11-01 (batch-1 review).* This bullet said that stays beyond 375 m were "dose-safe for
+    30 min in both panels". That holds only on dose_lower, and even there not for every SYNTHETIC exposure.
 - **Proposal.**
   - Run E1 as approved on the SYNTHETIC dev set, with dose left to the oracle: no dose weights or
     thresholds fitted to SYNTHETIC results.

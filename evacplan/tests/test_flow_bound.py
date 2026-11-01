@@ -297,3 +297,8 @@ def test_pdlp_fallback_gives_a_certified_bound_when_the_first_solver_leaves_no_d
     b, info = fb.flow_bound(inst, ss, delta_s=60, time_limit=60.0)
     assert calls == ["ipm", "pdlp"] and info["lp_solver"] == "pdlp" and info["fallback"]["solver"] == "pdlp"
     assert b == 5                                     # PDLP's approximate duals still certify the optimum here
+    # the diagnostics describe the winning solver; the first solver's outcome is kept beside (batch-1 review, E4-D3)
+    assert info["lp_status"] == info["fallback"]["status"] != "Time limit reached"
+    assert info["lp_objective"] == info["fallback"]["objective"]
+    assert info["first_solver"] == {"solver": "ipm", "status": "Time limit reached", "objective": None,
+                                    "dual_bound": None, "wall_s": 1.0}

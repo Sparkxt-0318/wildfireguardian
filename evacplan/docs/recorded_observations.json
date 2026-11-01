@@ -1,6 +1,6 @@
 {
  "schema": "evacplan.recorded_observations/1",
- "about": "Totals observed outside the result rows (e.g. a review's run whose rows were not kept). evacplan.harness.load_recorded_observations reads this file; the leaderboard uses only observations of b2_vrptw, as B2's best observed total in the bar for beating B2, and only in the table of the same set, budget and host. An observation keyed by a host class (a virtual machine's host string without its ', vm boot <id>' session) applies in the table of every session of that class, which can only raise the bar; one keyed by a full host string applies to that host only (program/DECISIONS.md, 2026-11-01). Add an entry only with a source that documents the number. Keys: set, budget_s, method, host, delivered_checked, source (required); unresolved, commit, recorded, note (optional).",
+ "about": "Totals observed outside the result rows (e.g. a review's run whose rows were not kept). evacplan.harness.load_recorded_observations reads this file. The leaderboard uses two kinds, both in the bar for beating B2 and only in the table of the same set and budget: method b2_vrptw raises B2's best observed total, and method best_of_baselines raises the best-of-baselines total. An observation keyed by a host class (a virtual machine's host string without its ', vm boot <id>' session) applies in the table of every session of that class; one keyed by a full host string applies to that host only. Either kind only raises a bar that the table's own rows define (B2 rows covering every instance; baseline rows on every instance), never defines one (program/DECISIONS.md, 2026-11-01). Add an entry only with a source that documents the number. Keys: set, budget_s, method, host, delivered_checked, source (required); unresolved, commit, recorded, note (optional).",
  "observations": [
   {
    "set": "dev",
@@ -13,6 +13,18 @@
    "source": "Phase 0 review, B2's full run on dev at 60 s, review of commit 957e6720 (program/reviews/phase0-review.md)",
    "recorded": "2026-11-01",
    "note": "Not in the result rows. ortools 9.14.6206. The run's seedless search reached only about 600-740 solutions on SYNTHETIC-M-geo-t25-s106 and delivered all 155 there; the committed repeats at b43990bb (1146-1179 solutions there) delivered 1682 with 68 unresolved. B2's search code is unchanged since 957e6720 (only diagnostics were added). The review ran on this cloud machine before host strings named the CPU model; the entry is keyed by the machine's host class (no boot session), so it applies to every session of this cloud VM (program/DECISIONS.md, 2026-10-31 interim bar and 2026-11-01 answer 3)."
+  },
+  {
+   "set": "dev",
+   "budget_s": 60.0,
+   "method": "best_of_baselines",
+   "host": "vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3)",
+   "delivered_checked": 1751,
+   "unresolved": 0,
+   "commit": "b43990bb",
+   "source": "best-of-baselines total of the baseline rows committed at b43990bb (results at 1373bb3f; B2 delivered 517 on SYNTHETIC-L-grid-t50-s109), stated by Siyeong in his checkpoint-2 answer 3 (program/DECISIONS.md, 2026-11-01)",
+   "recorded": "2026-11-01",
+   "note": "Per instance (most residents any of B0-B3 delivered, any seed): 23/37/23/26/163/155/140/139/517/528 for s101-s110. The rows ran in an earlier session of this cloud VM, under the old host string 'vm (Linux x86_64, 4 cpu, python 3.12.3)', and were replaced in results/ when the baselines were re-run in session ff671362 (they stay in git history). Siyeong's rule asks a method's worst of 5 repeats to exceed both B2's best observed (1750) and this total (1751). Added after the batch-1 review found the harness's bar one below the stated rule (finding harness D5)."
   }
  ]
 }
