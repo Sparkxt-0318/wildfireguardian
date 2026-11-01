@@ -5,15 +5,13 @@
 
 ## Now
 
-- **Phase:** **finishing checkpoint 3.** Track C batch 1 (E1, E4, E3) is done and was independently reviewed (40 agents;
-  32 discrepancies, each verified). In progress:
-  - code fixes from the review on `../wfg-evacplan` (bar and verdict rules, the KR-2025 test guard, the suite's lock
-    guard, E4 diagnostics), with the full suite queued behind the B2 re-run;
-  - B2 × 5 re-run in one quiet bench-lock hold (rule 6), with a `/proc` sampler;
-  - documentation fixes by a doc-fix workflow (E1, E3, E4, H0 READMEs; Track A `FRESH_HOLDOUT.md`).
-  - Then: regenerate the leaderboard and the E1/E4 outputs, commit, merge, push, write `program/reviews/batch1-review.md`
-    and `program/reviews/checkpoint-3.md`, and **stop and wait for Siyeong**.
-  - Decision labels after the review: E1 ITERATE (1 of the 2 approved iterations run; `DECISIONS.md`), E4 KEEP, E3 KEEP.
+- **Phase:** **Checkpoint 3: stopped, waiting for Siyeong.** Track C batch 1 (E1, E4, E3) is done, independently
+  reviewed (41 agents, 32 discrepancies, each verified) and fixed. Report: `program/reviews/checkpoint-3.md`; review:
+  `program/reviews/batch1-review.md`.
+  - E1: ITERATE, 1 of the 2 approved iterations run (the brief had cut the approved budget; `DECISIONS.md`).
+  - E4: KEEP. E3: KEEP; recommended provisional default margin 30 min (Siyeong decides).
+  - B2 re-run quietly: 1737 [1721-1737]; the bar is 1751. This VM's speed drifts within a session.
+  - Nothing new runs until Siyeong answers.
 - **Updated:** 2026-11-01 (UTC).
 
 ## Host and data (important)
@@ -60,8 +58,11 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | E3 scenario robustness (done, merged) | C | KEEP | `evacplan/exp-E3-scenario-robustness` |
 | E4 flow bound (done, merged) | C | KEEP | `evacplan/exp-E4-flow-bound` |
 | Review R0 + review workflow (done) | C, A | 32 discrepancies, every one verified | read-only |
-| Doc-fix workflow (running) | C, A | the review's documentation findings, each fix checked by a second agent; docs only, no computation | `../wfg-evacplan`, `../wfg-firecast` |
-| Orchestrator jobs (running) | C | B2 × 5 quiet re-run (bench lock), then the full suite (queued) | `../wfg-evacplan` |
+| Doc-fix workflow (done) | C, A | the review's documentation findings, each fix checked by a second agent | `../wfg-evacplan`, `../wfg-firecast` |
+| Orchestrator jobs (done) | C | B2 × 5 quiet re-run, suite, regenerated outputs (`b0bd9b7d`, `262ac6c6`) | `../wfg-evacplan` |
+| Checkpoint-3 verification (done) | C, A | three agents checked the report and the review file against the repo | read-only |
+
+No agent is running.
 
 ## Blockers
 
@@ -72,11 +73,9 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Next step
 
-1. When the B2 hold and the suite finish: commit the code fixes on `evacplan/phase0` and push; regenerate the
-   leaderboard and the E1/E4 outputs under the lock; update every B2-dependent number.
-2. When the doc-fix workflow finishes: check its diffs, adjust (E3's post-hoc margin recommendation: 30 min), commit both
-   track branches, merge into `next/integration`, run program/tests, push.
-3. Write `program/reviews/batch1-review.md` and `program/reviews/checkpoint-3.md`; push; **stop and wait for Siyeong**.
+Wait for Siyeong's answers to checkpoint 3 (questions in `program/reviews/checkpoint-3.md` §8). Record them in
+`DECISIONS.md`; only then start batch 2 (proposed: E1b, the approved second iteration of E1; E2 column generation; E3b
+or E4b). If question 5 is approved, implement the interleaved timing and the per-row speed probe before any timed run.
 
 ## Log
 
@@ -180,7 +179,7 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
   leaderboard regenerated (`434959f8`). Post-merge suite: 375 passed, 1 failed (E1's budget test: the B1 warm start alone
   fills a 1.5 s budget); the test now asserts the guarantee E1 has (`18841678`, E1's code unchanged; three green runs).
   Merged into `next/integration` (`e8a5604e`). Independent review started on `18841678`.
-- 2026-11-01 Independent review of batch 1 returned (R0 reproduction + 5 reviewers + verifiers, 40 agents; review of
+- 2026-11-01 Independent review of batch 1 returned (R0 reproduction, 5 reviewers and 35 verifiers: 41 agents; review of
   `evacplan/phase0` @ `18841678` and `firecast-lab/phase0` @ `58ce939e`). All headlines reproduced. 32 discrepancies:
   - confirmed major: E1's approved 2-iteration budget had been cut by the orchestrator's brief without a record, so E1
     is ITERATE (1 of 2), not KILL (`DECISIONS.md`);
@@ -195,7 +194,14 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
     59.6 min plus about 3 min of unlocked work.
 - 2026-11-01 B2 × 5 re-run in one quiet hold (14:56-15:49 UTC, commit `18841678`, `/proc` sampler: every other process
   4.7 % of one core in all, almost entirely the agent harness): 1726/1737/1737/1737/1721, median 1737 [1721-1737],
-  0 unresolved. B2's search found 20-27 % fewer solutions on every instance than in the morning hold, with nothing else
-  running: the VM's speed drifts within a session (L-geo 500-516 instead of 528). The rows replace the morning ones;
-  the bar stays 1751 (recorded observations). Same-session comparisons hours apart therefore carry a speed
-  uncertainty; proposed for batch 2: B2 interleaved with each challenger in one hold, and a speed probe in every row.
+  0 unresolved. B2's search found 14-28 % fewer solutions (means over seeds) on 9 of 10 instances than in the morning
+  hold, with nothing else running: the VM's speed drifts within a session (L-geo 500-516 instead of 528). The rows
+  replace the morning ones; the bar stays 1751 (recorded observations). Same-session comparisons hours apart therefore
+  carry a speed uncertainty; proposed for batch 2: B2 interleaved with each challenger in one hold, and a speed probe
+  in every row.
+- 2026-11-01 Fixes committed and merged: Track C `cbbc8490` (code, tests, docs), `b0bd9b7d` (B2's quiet rows),
+  `262ac6c6` (leaderboard, E1 and E4 outputs regenerated under the lock), `9d2ae36f` (README corrections); Track A
+  `ed5a4b4b`. Suites: evacplan 377 passed with the real-data tests on (dev fires only), hazard_contract 76; on the merge,
+  program 6 and the lock-related evacplan tests 43 passed. A B1 calibration took 7-18 % less time at 16:00 than its
+  seed-0 rows of 09:15-09:20 (suggestive: B1's seeds already vary within one hold). Three agents verified the
+  checkpoint-3 report and the review file against the repository before publication. Checkpoint 3 written; stopped.

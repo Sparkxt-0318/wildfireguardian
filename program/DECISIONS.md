@@ -145,8 +145,8 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
     was killed while it queued behind E3's run; with a bounded wait such a job gives up before it starts instead
     of risking a kill in the middle of a timed run.
 - **2026-11-01** — **Batch-1 review: E1's approved budget had been cut without a record (orchestrator error).**
-  Checkpoint 2 proposed, and Siyeong approved, "E1: 2 iterations; KILL if the minimum is still ≤ 1750 after the
-  second". The orchestrator's wave-2 brief replaced this with a single run and "ITERATE only if the worst of 5
+  Checkpoint 2 proposed, and Siyeong approved, for E1: "Budget. 2 iterations. KILL if the minimum of 3 is still
+  ≤ 1750 after the second" (his answer 3 then replaced the minimum of 3 by the worst of 5). The orchestrator's wave-2 brief replaced this with a single run and "ITERATE only if the worst of 5
   exceeds B2's median", E1's pre-registration copied it, and no entry recorded the change (review finding E1-D1,
   confirmed major).
   - E1's batch-1 outcome is therefore **ITERATE: 1 of the 2 approved iterations run**. The pre-registered rule alone
@@ -156,8 +156,10 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
     recorded decision.
 - **2026-11-01** — **Correction to the Korean-panel entry above: the KR-2025 files were read by a test.**
   evacplan's real-data adapter tests listed `uiseong_andong_2025` and `yeongdeok_2025`. So every suite run with
-  `WFG_ROUTING_INPUTS` set since `997d6d7a` (2026-10-31) read their road graphs (`graph.json`) and the packets'
-  `NATIVE_METADATA.json` (grid transform and graph revision, no hazard values).
+  `WFG_ROUTING_INPUTS` set since `997d6d7a` (2026-10-31) read their road graphs (`graph.json`) and parsed each of their
+  packets' whole `NATIVE_METADATA.json`. The tests asserted only the grid transform and the graph revision and stored
+  nothing, but in the dev schema that file also lists the present-fire cells at issue time. The batch-1 review's
+  reproduction also read the two 2025 graphs (it deselected only the packet test).
   - Decision: the tests read the three Korean dev fires only, and a guard test checks the list against
     `firecast-lab/SPLITS.json` and that the whole KR-2025 season is test (on `evacplan/phase0`).
   - Reported to Siyeong at checkpoint 3 (rule 5).
