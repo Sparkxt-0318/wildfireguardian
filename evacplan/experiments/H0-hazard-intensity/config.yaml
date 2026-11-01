@@ -1,0 +1,68 @@
+# H0 hazard intensity: SYNTHETIC dev instances vs Korean router packets (dev fires).
+# Pre-registered 2026-11-01 before any flux, dose, contact, support or distance value was computed.
+# Analysis only: no tuning, no change to generators, methods or hazard_contract.
+experiment: H0-hazard-intensity
+decision: "n/a (analysis)"
+seed: null                      # no randomness anywhere (no subsampling)
+
+panels:
+  SYNTHETIC:
+    title: "SYNTHETIC dev instances"
+    split_set: dev              # evacplan.instances (frozen SPLIT.json, fingerprints verified); never test
+    receivers: all road nodes of each instance
+  KOREAN:
+    title: "Korean router packets (dev fires), rule 4"
+    fires: [uljin_2022, hongseong_2023, miryang_2022]
+    packets_subdir: latest_inputs_try02/packets   # under $WFG_ROUTING_INPUTS, 3 packets per fire
+    graphs_subdir: graphs                         # $WFG_ROUTING_INPUTS/graphs/<fire>/graph.json
+    adapter: hazard_contract.from_wfg_packet      # default present_fire="enclosure"; rule 4, no opt-out
+    graph_adapter: evacplan.adapters.wfg_graph.from_wfg_graph
+    receivers: graph nodes strictly inside the scenario grid
+    never_open: [uiseong_andong_2025, yeongdeok_2025]   # KR-2025 test season (rule 5)
+
+exposures:
+  geometry: single point (stationary occupancy), ScenarioSet.query, all members at once
+  window_lengths_min: [5, 15, 30, 60]
+  start_step_min: 10            # t0 = 0, 10, 20, ... min after issue, while t0 + length <= horizon_s
+  near_radius_m: 5000.0         # hazard_contract default
+  subsample: none
+
+distance:
+  definition: >-
+    Euclidean distance from the receiver to the nearest closed cell square that is supported and
+    burning at the window start t0 in that member (ignite_s <= t0 < extinguish_s), in-grid cells only
+  bands_m: [[0, 375], [375, 750], [750, 1500], [1500, 3000]]   # [lo, hi) except the last, [1500, 3000]
+  beyond: "> 3000 m or no burning cell in the grid (counted, not in the rule)"
+
+statistics:
+  quantiles: [0.5, 0.9, 0.99]   # numpy.quantile, default linear method
+  dose_budget_kj_m2: 100.0
+
+rule:
+  window_min: 30
+  min_contact_free_supported_per_panel: 200
+  ratio: 2.0                    # SYNTHETIC median or p90 of dose_lower >= 2x Korean
+  share_ratio: 2.0              # SYNTHETIC share(dose_lower >= budget) >= 2x Korean ...
+  share_min_diff: 0.01          # ... and at least 1 percentage point higher
+  zero_baseline: "both values 0 -> criterion not met; Korean 0 and SYNTHETIC > 0 -> met"
+
+descriptive_label:              # per applicable band, from r = sqrt(r_median * r_p90) of 30-min dose_lower
+  much_hotter: the pre-registered rule triggers
+  hotter_but_not_much: "rule does not trigger and r >= 1.25"
+  cooler: "rule does not trigger and r <= 0.8"
+  comparable: "otherwise (0.8 < r < 1.25)"
+
+secondary:                      # descriptive only, never part of the rule
+  per_source_breakdown: true
+  synthetic_first_hour: true    # SYNTHETIC windows that end by 3600 s (the Korean horizon)
+  persistence_diagnostic:
+    enabled: true
+    burn_duration_s: 3970.4642815249267   # the packets' scalar T; extinguish = ignite + T, in memory only
+    window_lengths_min: [30]
+  within_band_distance: true
+  dose_upper_comparison: true
+
+compute:
+  workers: 4                    # processes inside one bench-lock hold (4 vCPU host)
+  budget_min: 30
+  raw_output: evacplan/runs/H0-hazard-intensity/   # git-ignored per-exposure records
