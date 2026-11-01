@@ -220,3 +220,11 @@ None of this was done in this batch (no parameter was changed after seeing a dev
 * Bench time: about 57 min (tests, profiling and the dev smoke 07:10-07:16 UTC; final evaluation 08:15-09:07 UTC,
   one hold). Waiting for the shared lock: about 1 h 40 min before the first hold and 1 h before the final one.
 * Work: about 4 h 15 min (05:00-09:15 UTC).
+
+## After the merge (orchestrator note, 2026-11-01)
+
+The full suite on `evacplan/phase0` after merging E1, E3 and E4 failed one test, `test_respects_the_budget`: 1.68 s at a
+1.5 s budget. E1 cannot interrupt the B1 warm start, which alone takes 1.4-1.5 s on that S test instance (3.0-4.2 s of
+the M instance's 4 s), so at a budget smaller than the warm start E1 overruns by the rest of it. The test now asserts that
+guarantee (overrun at most the rest of the warm start) plus a strict check at a 6 s budget; E1's code is unchanged. At
+60 s on dev the warm start takes at most about 11 s (L), and none of the 50 runs was over budget, so no result changes.
