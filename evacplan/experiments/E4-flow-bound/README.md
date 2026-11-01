@@ -52,10 +52,15 @@ facilities and shelters. Commodities: vehicle groups `g` (one per vehicle, or id
 * **Network.** Nodes `(i, k)`. *Moves* `(i, k) -> (j, k')` with `k' = floor(EA / delta)`, `EA` = the
   NEGATIVE-relaxation earliest arrival at `j` leaving `i` at `k·delta` (`Reach.earliest_arrival_neg`:
   only certain flame contact up to the horizon blocks a departure, waiting is allowed anywhere, no turn
-  rules, unknown cells passable, every leg by the horizon). *Waits* `(i, k) -> (i, k+1)` everywhere. A
+  rules, unknown cells passable, every leg by the horizon). *Waits* `(i, k) -> (i, k+1)` at every location. A
   vehicle *enters* at its depot at its start time (a depot that is not a location sends one move to each
   facility location, arriving at the NEGATIVE earliest arrival from the start), and *ends* at a shelter
-  location (or never enters: unused).
+  location (or never enters: unused). Two reductions, in the code since the first commit but described here
+  only since the batch-1 review (2026-11-01; this bullet said waits go "everywhere"): moves leave a
+  facility-only location `i` only from cells with `k·delta <= min(ignition_i, max_c LD_neg(i, c) + 1, Hi)`
+  (none if no class has an `LD_neg` there; both defined under *Time actually spent*), and per vehicle group only
+  the *alive* nodes are kept, those it can reach from one of its entries and leave towards a shelter location
+  inside its window, with their arcs and actions. Step 3 shows that a checked plan uses nothing they drop.
 * **Variables** (all continuous, >= 0): vehicle flow `x[g, a]` on every arc; load `y[g, c, a]` of class
   `c` on moves and waits; residents boarded `b[g, f, c, k]` and unloaded `u[g, s, c, k]` in cell `k`.
 * **Rows.** Flow conservation per group and node; at most one entry per vehicle; per group, class and node:
@@ -113,6 +118,24 @@ shift, capacities, first come first served).
    only adds presence). The arc exists: `EA <= alpha' <= Hi`, and `alpha'` is before the end of the next
    site's action set. Because `delta` is at most the shortest free-flow time between two locations, every
    move advances at least one cell (no zero-time cycles in the network).
+   *Departure cutoff* (added in the batch-1 review, 2026-11-01). If `i` is a facility-only location, the move
+   also needs `k·delta <= min(ignition_i, max_c LD_neg(i, c) + 1, Hi)`, and `k·delta <= beta` meets all three.
+   The stay up to `beta` is checked: the validator covers it with closed stationary segments (idle, boarding,
+   waiting), and the oracle checks them on the same cells that define `ignition_i`, so `beta < ignition_i`.
+   After `beta` the vehicle unloads a delivered resident of some class `c` (the kept prefix ends with such an
+   unloading) at a shelter that takes `c`, inside a window by the horizon, and that unloading lasts at least one
+   resident's unloading time; floored, the drive there (stops count as waits) is a NEGATIVE trip from
+   `floor(beta)`, so `k·delta <= floor(beta) <= LD_neg(i, c)`. And `beta <= Hi`. This also covers a vehicle
+   that boards nobody at `i` (a depot at a facility location), which step 4 does not.
+   *Alive nodes* (added in the batch-1 review, 2026-11-01). Per group, only the nodes reachable from one of its
+   entries and leading to a shelter location inside its window are kept, with the moves, waits, entries, ends,
+   boardings and unloadings at them. Every arc advances at least one cell, so the network has no cycles. A
+   vehicle's image (steps 2, 3 and 6) is a path of existing arcs from its entry to the shelter-location node of
+   its last delivering unloading, inside its window, so every node on it is reachable both ways and is kept. A
+   dominated move (below) is replaced by a path between the same two nodes, so its nodes are kept too. A group
+   also keeps only the moves that arrive (at `EA`) by the latest end of its vehicles' shifts. An image move does:
+   `EA <= alpha'`, and the next stop's kept actions end within the shift (step 4). The moves that replace a
+   dominated move arrive no later than it.
 4. *Seconds.* An action's seconds are booked in the cells in which they happen, residents proportionally
    (a boarding of n residents over [t0, t1] books n·|[t0, t1] ∩ cell| / (t1 − t0) in each cell). In a cell
    the vehicle is at the node at most from its entry (cell start if it came by a wait, its arrival
@@ -151,8 +174,13 @@ cell are bounded); turn rules, waiting rules and unknown cells on the road (the 
 contact-free trip); dose and peak flux (not modelled at all); each departure is rounded down to its cell start
 (earliest arrival is monotone); arrivals are taken at `EA` (no later than real); action sets are supersets of
 the times an oracle-checked action can happen (release, ignition, one second after the latest NEGATIVE
-departure, windows, horizon, shift: each bound taken in the relaxation's favour). Arcs are dropped only where
-no NEGATIVE trip exists, i.e. where contact is certain in some member (a checked trip never uses them).
+departure, windows, horizon, shift: each bound taken in the relaxation's favour). Besides the dominated moves
+below, arcs are dropped only where a checked plan cannot use them (step 3): no NEGATIVE trip arrives in time
+(contact certain in some member, or arrival after the horizon, after the end of the destination's action sets
+or, for a group, after the latest end of its vehicles' shifts), the departure is after a facility-only
+location's last useful departure, or a node is not alive for the group. (Batch-1 review, 2026-11-01: this
+sentence said arcs are dropped only where no NEGATIVE trip exists, i.e. where contact is certain in some
+member.)
 
 **Model reduction that keeps the optimum.** A move is left out when two shorter moves through another
 location reach the same destination in an earlier cell, or in the same cell no later: any flow on it can take
@@ -178,8 +206,17 @@ claimed.
   dev run (`config.yaml`); if L does not solve in the budget, `delta` on L may only grow (a coarser grid is
   still a valid, looser relaxation), and that is reported.
 * One seed (the bound is deterministic; the seed is ignored). Run through the harness, `evacplan run
-  --method e4_flow_bound --set dev --seeds 0`, under the bench lock, at the budget it needs (900 s); a proven
+  --method e4_flow_bound --set dev --seeds 0`, under the bench lock, at the budget it needs (600 s); a proven
   bound does not depend on the budget, so its rows join every table of the same set and host.
+* **Amendment: budget 900 s** (recorded in the batch-1 review, 2026-11-01). The dev run used 900 s per instance,
+  not the 600 s above. The 900 s was chosen before the run: it was queued with `--budget-s 900` from 06:05 UTC,
+  and the job script (06:53) and the README patch (07:04) were written before the run started at 07:15 (commit
+  `a4c88873`, whose README still said 600 s). No reason was written down. The line above was then edited in
+  place to "(900 s)" during the run (07:37, `c8f552e2`) instead of being recorded as an amendment, and
+  `config.yaml` kept `budget_s: 600` until this review. No bound depends on the change (the review's reading of
+  the code's time shares, not a re-run): at 600 s the interior point would have had about 409 s, and the three
+  LPs that beat the resource bound needed 0.6, 162 and 197 s; the other seven bounds are resource bounds. Only
+  runtimes and LP diagnostics could differ.
 
 ### Baseline and metric
 
@@ -218,37 +255,63 @@ condition (question for Siyeong below).
 2026-11-01 07:15-08:06 UTC, commit `a4c88873`, host `vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz,
 4 cpu, python 3.12.3, vm boot ff671362)`. Rows: `evacplan/results/e4_flow_bound.csv` (flagged `bound_only`);
 table: `results.csv` and `figures/bounds_vs_best_dev.png`, both from `check_validity.py`. **Best delivered** =
-the most residents any method delivered on the instance on this host: B2's five repeats at 60 s (merged from
-`evacplan/phase0` `c888a87b`); B0, B1 and B3 still had rows of the previous host string only (their 5-seed
-re-runs were queued behind the bench lock). Trivial bound = min(resource bound, residents − unservable).
+the most residents any method delivered on the instance on this host, any seed. Trivial bound = min(resource
+bound, residents − unservable).
+
+**Updated in the batch-1 review (2026-11-01) to the merged rows at `evacplan/phase0` `18841678`:** 270 plan
+rows on this host, all at 60 s: noop, B0, B1, B2 and E1 with 5 seeds each, B3 with 5 seeds on S. The first
+version of this section used the rows at hand-back: B2's five repeats on this host (`c888a87b`), while B0, B1
+and B3 had rows of the previous host string only and E1 had none. Since then the best plan rose on two
+instances: S-geo-t25-s102 36 -> 37 (B1 and E1) and M-grid-t75-s107 140 -> 150 (E1, seed 2). The E4 bounds are
+unchanged. B2's morning 5-seed hold overlapped work run outside the lock by the E4, E3 and E1 agents (E4's part
+is under *Rule 6 incidents* below), so B2 was re-run × 5 in one quiet hold (14:56-15:49 UTC, `b0bd9b7d`). The VM
+was slower then and B2 delivered 500-516 on L-geo-t50-s110 instead of 528; its other instances are unchanged.
+`check_validity.py` was re-run on those rows and `results.csv` and the figure regenerated (batch-1 review): the
+table below.
 
 | instance (SYNTHETIC) | residents | trivial bound | **E4 bound** (LP value) | best delivered, this host | **gap** | trivial gap | trivial gap closed | runtime (s) | LP rows × cols |
 |---|---|---|---|---|---|---|---|---|---|
 | S-grid-t25-s101 | 23 | 23 | **23** (23.00) | 23 | 0 % | 0 % | – | 3.9 | 12k × 16k |
-| S-geo-t25-s102 | 39 | 39 | **39** (39.00) | 36 (37 by B1, previous host) | 7.7 % | 7.7 % | 0 % | 6.4 | 13k × 18k |
+| S-geo-t25-s102 | 39 | 39 | **39** (39.00) | 37 | 5.1 % | 5.1 % | 0 % | 6.4 | 13k × 18k |
 | S-grid-t75-s103 | 27 | 26 | **25** (25.94) | 23 | 8.0 % | 11.5 % | 33 % | 1.3 | 4k × 5k |
 | S-geo-t75-s104 | 26 | 26 | **26** (26.00) | 26 | 0 % | 0 % | – | 1.2 | 4k × 5k |
 | M-grid-t25-s105 | 163 | 163 | **163** (163.00) | 163 | 0 % | 0 % | – | 221.5 | 125k × 195k |
 | M-geo-t25-s106 | 155 | 155 | **155** (155.00) | 155 | 0 % | 0 % | – | 595.9 | 143k × 229k |
-| M-grid-t75-s107 | 168 | 168 | **160** (160.11) | 140 | 12.5 % | 16.7 % | 29 % | 164.8 | 69k × 109k |
+| M-grid-t75-s107 | 168 | 168 | **160** (160.11) | 150 | 6.25 % | 10.7 % | 44 % | 164.8 | 69k × 109k |
 | M-geo-t75-s108 | 149 | 149 | **144** (144.03) | 139 | 3.5 % | 6.7 % | 50 % | 200.1 | 75k × 118k |
 | L-grid-t50-s109 | 646 | 646 | **646** (not solved: 865) | 516 | 20.1 % | 20.1 % | 0 % | 881.1 | 139k × 246k |
-| L-geo-t50-s110 | 579 | 579 | **579** (not solved: 591) | 528 | 8.8 % | 8.8 % | 0 % | 880.5 | 128k × 220k |
+| L-geo-t50-s110 | 579 | 579 | **579** (not solved: 591) | 516 | 10.9 % | 10.9 % | 0 % | 880.5 | 128k × 220k |
 
-**Mean gap** (E4 / trivial bound): S 3.9 % / 4.8 %, **M 4.0 % / 5.8 %**, L 14.5 % / 14.5 %, all 6.1 % / 7.2 %.
+Where the best plans come from (B2's quiet re-run and the other rows at `18841678`): B2 alone on L (516, 516; 528 on
+L-geo in B2's replaced morning hold); E1 alone on M-grid-t75-s107
+(150, seed 2; B2 140); B1 and E1 on S-geo-t25-s102 (37; B2 36); B2 and E1 on S-grid-t75-s103 (23) and
+M-geo-t75-s108 (139); on the other four instances plans reach the E4 bound.
+
+**Mean gap** (E4 / trivial bound): S 3.3 % / 4.2 %, **M 2.4 % / 4.4 %**, L 15.5 % / 15.5 %, all 5.4 % / 6.5 %
+(with B2's morning rows: L 14.5 %, all 5.2 % / 6.3 %; at hand-back: S 3.9 % / 4.8 %, M 4.0 % / 5.8 %, all 6.1 % /
+7.2 %).
 
 * **S:** E4 matches the resource bound on three instances and proves **25 on S-grid-t75-s103**, below B3's
   certified 26 and the trivial 26 (best plan 23).
 * **M:** the t25 instances are proven at their resident counts, which plans already reach (gap 0). On the
-  two t75 instances, where plans fall short, E4 proves **160 of 168** (best plan 140) and **144 of 149** (best
-  139): it closes 29 % and 50 % of the trivial gap; the largest M gap is 12.5 %, inside the hypothesis' 15 %.
+  two t75 instances, where plans fall short, E4 proves **160 of 168** (best plan 150) and **144 of 149** (best
+  139): it closes 44 % and 50 % of the trivial gap; the largest M gap is 6.25 %, inside the hypothesis' 15 %.
 * **L: not informative at this budget.** The pooled-type LP at a 119-120 s step (128k-139k rows, 220k-246k
-  columns) did not converge in the interior point's 616 s share; its duals certify 865 and 591, PDLP's 270 s
-  did not do better, so only the resource bound (646, 579) is claimed. For scale, M-geo-t25-s106 (229k columns)
-  needed 591 s of interior point; the L LPs need a larger budget (a proven bound does not depend on it).
+  columns) did not converge in the interior point's 616 s share. On L-grid-t50-s109 the interior point's duals
+  certify 865 and PDLP's 270 s did not do better. On L-geo-t50-s110 the 591 is PDLP's certificate (`lp_solver`
+  becomes `pdlp` only when PDLP strictly improves on the interior point), so PDLP did better there; the interior
+  point's own value is not recorded. Both certificates are above the resource bound, so only that (646, 579) is
+  claimed. (Corrected in the batch-1 review, 2026-11-01: this bullet said the interior point certified both and
+  PDLP did no better.) For scale, M-geo-t25-s106 (229k columns) needed 591 s of interior point; the L LPs need a
+  larger budget (a proven bound does not depend on it).
 * **Solver notes.** On M-grid-t25-s105 the interior point stopped after 70 s at an infeasible point (status
   "Unknown"); the PDLP fallback certified 163. Every bound is weak duality on the reported duals, so neither
-  status matters for validity.
+  status matters for validity. Diagnostics bug (batch-1 review, 2026-11-01): when PDLP wins, the row keeps the
+  interior point's `lp_status`, `lp_objective` and `lp_solve_s`; only `lp_solver` and `dual_bound` are PDLP's.
+  So the M-grid-t25-s105 row reads "Unknown" and 216.49 (above the resource bound 163) next to PDLP's dual bound
+  163.00006, and the L-geo-t50-s110 row "Time limit reached" and 448.25 next to PDLP's 590.96; `results.csv` has
+  no `lp_solver` column to show the mix. The bounds come from the winner's duals and are unaffected. The
+  orchestrator fixes the code; the committed rows keep the mix.
 * **Strengthenings.** On B3's tiny brute-force instance (optimum 5): plain LP 6, with free space 6, with free
   space and trip cuts 5 (tests). Their effect on dev was not measured: the ablation run was dropped to stay
   within the 1 h bench budget (`ablation.py` is the script, not run).
@@ -257,10 +320,10 @@ re-runs were queued behind the bench lock). Trivial bound = min(resource bound, 
 
 | check | status |
 |---|---|
-| 1. S: bound >= B3's delivered value in every B3 row | **pass**: 12 B3 rows (23, 34-35, 21, 25 vs bounds 23, 39, 25, 26) |
-| 2. bound >= every checked plan, every method, seed, budget and host on dev | **pass**: 0 violations over 152 rows of 5 methods (current rows, incl. B2 x 5 on this host) and over the 132 rows at `1373bb3f` (B0-B3 and noop, previous host) |
-| 3. tiny instances: bound >= brute-force optimum | **pass**: B3's tiny instance (bound 5 = optimum 5) and 10 random off-grid variants at two steps each (`test_flow_bound.py`) |
-| 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | **pass with one fix**: bound >= every checked plan (random plans, B0, B1, B3) on 12 random instances; the property test found one non-monotone case, a loose (not invalid) fallback when nothing is deliverable, fixed in `7ba44700` (below). The fixed property and harness tests have not yet been re-run under the bench lock (queued behind the baseline re-runs at hand-back) |
+| 1. S: bound >= B3's delivered value in every B3 row | **pass**: 20 B3 rows at `18841678`, 5 seeds per S instance on this host (23, 34-35, 21, 25 vs bounds 23, 39, 25, 26); at hand-back 12 B3 rows of the previous host |
+| 2. bound >= every checked plan, every method, seed, budget and host on dev | **pass**: 0 violations over the 270 plan rows of 6 methods at `18841678` (noop, B0, B1, B2, E1 x 5 seeds, B3 x 5 seeds on S; all on this host) and over the 132 rows at `1373bb3f` (B0-B3 and noop, previous host); at hand-back 152 rows of 5 methods |
+| 3. tiny instances: bound >= brute-force optimum | **pass**: B3's tiny instance (bound 5 = optimum 5) and 10 random off-grid variants at two steps each (`test_flow_bound.py`). The batch-1 review (2026-11-01) showed the variants' brute-force values are their true optima: the brute-force plans pass the oracle with that count, and an independent exact search over every single-vehicle plan (oracle contact rule, dose and peak ignored, so a relaxation) finds no more; its optimal plans also pass the oracle |
+| 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | **pass with one fix**: bound >= every checked plan (random plans, B0, B1, B3) on 12 random instances; the property test found one non-monotone case, a loose (not invalid) fallback when nothing is deliverable, fixed in `7ba44700` (below). The fixed property and harness tests have not yet been re-run under the bench lock (queued behind the baseline re-runs at hand-back); the batch-1 reviewer reports that the 43 E4 and bound-only tests pass under the lock at `18841678` |
 
 The full suite at `a4c88873` (in the same bench-lock hold as the dev run): 353 passed, 11 skipped, 2 failed.
 (a) The monotonicity property found a case (`random_case(0)` with more burning) where the bound grew from 6 to
@@ -269,15 +332,38 @@ resource bound, which is valid but loose. A network without unloading proves 0 (
 bound is now 0 there (`7ba44700`; no dev bound changes, every dev LP had columns). (b) The end-to-end harness
 test checked the leaderboard text too broadly (the bounds table header names the method); fixed.
 
-The final 5-seed baseline commit ("evacplan: baselines x 5 seeds") had not reached `evacplan/phase0` when
-these checks ran; B0, B1 and B3 were checked against their rows at `1373bb3f` (previous host string) and B2
-against its 5 repeats on this host (`c888a87b`). The orchestrator re-checks the new rows (and E1's).
+At hand-back these checks ran before the 5-seed baseline rows (`397e3f0b`) and E1's rows (`68b7499f`) reached
+`evacplan/phase0`: B0, B1 and B3 were checked against their rows at `1373bb3f` (previous host string) and B2
+against its 5 repeats on this host (`c888a87b`). The batch-1 review (2026-11-01) re-ran `check_validity.py`
+read-only on the merged rows at `18841678`: the counts above, 0 violations, and the table's gaps. After B2's quiet
+re-run the orchestrator re-ran it under the lock (`b0bd9b7d`): 20 B3 rows and 270 rows of 6 methods, 0 violations;
+`results.csv` and the figure are regenerated from it.
+
+**Bench time** (batch-1 review, 2026-11-01). E4 held the bench lock once, 07:15:51-08:15:26 UTC (59.6 min: the
+dev run, then the full suite; the ablation was stopped at 08:15:26 to stay inside the hour). With the work run
+outside the lock (below, about 3 min), E4 used about 63 min of bench time against the pre-registered "at most
+1 h": a small overrun.
+
+**Rule 6 incidents** (batch-1 review, 2026-11-01). The E4 brief put every heavy command (tests, bound
+computations, any run using more than a few seconds of CPU) under the bench lock. Some ran outside it while
+other timed runs held the lock:
+1. During B2's timed 5-seed hold (05:03-05:55 UTC), about 141 s of single-threaded work: Reach on all 10 dev
+   instances, flow-bound LP probes and two short pytest calls.
+2. During E1's final timed run, about 20 s (08:16:00.8-08:16:58.5): `mono_debug.py` with 16 LP solves,
+   `mono_debug2.py`, and a patch plus 13 targeted tests.
+3. During E3's compute hold (05:54:50-07:10:37), which includes B2 runs at 60 s, about 27 s (05:59:40-06:07:19).
+
+Only the second was reported at hand-back. E4's own numbers are unaffected: its run and suite finished inside its
+own hold. B2 was re-run × 5 in one quiet hold and the numbers above use those rows. E1's two runs overlapped by the second incident (S-grid-t25-s101, seeds 0 and 1) delivered 23 of 23, the
+proven optimum.
 
 ### Decision: **KEEP**
 
 Valid on every check, and informative where plans fall short: strictly below the trivial bound on
-S-grid-t75-s103, M-grid-t75-s107 and M-geo-t75-s108; mean gap on M 4.0 % (<= 30 %), largest 12.5 %. It is the
-first proven bound on M. Not yet on L: at a 900 s budget it claims only the resource bound there.
+S-grid-t75-s103, M-grid-t75-s107 and M-geo-t75-s108; mean gap on M 2.4 % (<= 30 %), largest 6.25 %. It is the
+first proven bound on M. Not yet on L: at a 900 s budget it claims only the resource bound there. The batch-1
+review (2026-11-01) re-applied the pre-registered rule to the merged rows at `18841678`: KEEP still holds (at
+hand-back the M figures were 4.0 % and 12.5 %).
 
 ### Next step
 
@@ -285,15 +371,15 @@ first proven bound on M. Not yet on L: at a 900 s budget it claims only the reso
    bound is budget-independent and its rows join the 60 s table), or shrink the L model (coarser step with
    nearby locations merged, or decomposition by vehicle type).
 2. Measure the strengthenings on dev (`ablation.py`) and tighten further where the gap is left (M-grid-t75-s107:
-   12.5 %): the remaining slack is fractional vehicles doing work in parallel at facilities whose window is not
+   6.25 %): the remaining slack is fractional vehicles doing work in parallel at facilities whose window is not
    binding, and departures rounded down to a cell start.
 3. Use the LP's duals (value of a resident per facility and class, of vehicle time) to guide E1/E2.
 
 ### Questions for Siyeong
 
-1. **Yardstick.** "Gap <= 30 % on M" is met by the trivial bound alone (5.8 % mean on M): should a bound be
-   judged by the share of the trivial gap it closes (here 29 % and 50 % on the two M instances where plans fall
-   short), as this README does?
+1. **Yardstick.** "Gap <= 30 % on M" is met by the trivial bound alone (4.4 % mean on M, merged rows): should a
+   bound be judged by the share of the trivial gap it closes (here 44 % and 50 % on the two M instances where
+   plans fall short), as this README does?
 2. **Bound-only rows across budgets.** E4's rows (computed at 900 s) feed the best-bound column of the 60 s table
    of the same host, because a proven bound does not depend on the budget that computed it. Agree, or keep
    bound-only methods inside their own budget's table?

@@ -2,7 +2,8 @@
 
 The real Korean graphs and packets (fetched release inputs, never copied into the repo) are read
 from ``$WFG_ROUTING_INPUTS``. There is no default location: when the variable is unset or the
-folder has no ``graphs/``, those tests skip and say why.
+folder has no ``graphs/``, those tests skip and say why. Only the Korean dev fires are read; the
+KR-2025 test season is never opened (program rule 5, ``test_real_data_tests_read_dev_fires_only``).
 """
 import copy
 import json
@@ -37,8 +38,29 @@ def routing_inputs(env=os.environ) -> tuple[Path | None, str | None]:
 ROUTING_INPUTS, NO_REAL_DATA = routing_inputs()
 GRAPHS = None if NO_REAL_DATA else ROUTING_INPUTS / "graphs"
 PACKETS = None if NO_REAL_DATA else ROUTING_INPUTS / "latest_inputs_try02" / "packets"
-REGIONS = ["hongseong_2023", "miryang_2022", "uljin_2022", "uiseong_andong_2025", "yeongdeok_2025"]
+# Program rule 5: the real-data tests read only Korean dev fires. The fetched inputs also hold the KR-2025 test season
+# (every Korean fire of 2025), whose graphs and packets are never opened before a milestone that Siyeong approves.
+# Until the batch-1 review (2026-11-01) REGIONS also listed the two 2025 regions, so suite runs with
+# WFG_ROUTING_INPUTS set read their road graphs and packet grid metadata (program/DECISIONS.md, 2026-11-01).
+REGIONS = ["hongseong_2023", "miryang_2022", "uljin_2022"]
+TEST_SEASON = ["uiseong_andong_2025", "yeongdeok_2025"]
+REPO = Path(__file__).resolve().parents[2]
 real = pytest.mark.skipif(NO_REAL_DATA is not None, reason=NO_REAL_DATA or "")
+
+
+def test_real_data_tests_read_dev_fires_only():
+    """The regions the real-data tests read are dev fires of firecast-lab/SPLITS.json (matched by name and year),
+    never a fire of the KR-2025 test season."""
+    splits = json.loads((REPO / "firecast-lab" / "SPLITS.json").read_text())
+    kr = {(f["name"].lower(), int(f["year"])): f["split"] for f in splits["fires"] if f["country"] == "KR"}
+    assert not set(REGIONS) & set(TEST_SEASON)
+    for region in REGIONS:
+        name, year = region.rsplit("_", 1)
+        assert int(year) != 2025, region
+        assert kr.get((name.split("_")[0], int(year))) == "dev", region
+    for region in TEST_SEASON:
+        assert int(region.rsplit("_", 1)[1]) == 2025, region
+    assert {s for (_, y), s in kr.items() if y == 2025} == {"test"}       # the whole KR-2025 season is test
 
 
 def test_routing_inputs_have_no_default(tmp_path):

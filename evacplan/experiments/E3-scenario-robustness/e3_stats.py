@@ -5,8 +5,8 @@ sizes, and the scenario-approach bounds.
   and its inverse by bisection; non-integer arguments allowed (Korn-Graubard intervals).
 * ``clopper_pearson(x, n)``: exact two-sided interval; ``x`` and ``n`` may be non-integer (effective counts).
 * ``cluster_ci``: per-resident rate with clusters = (instance, fresh member). Three upper bounds: naive
-  (resident-member pairs independent), Korn-Graubard (CP with n_eff = n / deff from the cluster-robust variance
-  of the ratio estimator) and Kish (CP with n_eff = (sum n_c)^2 / sum n_c^2, i.e. perfect correlation inside a
+  (resident-member pairs independent), Korn-Graubard without the degrees-of-freedom factor, as pre-registered
+  (CP with n_eff = n / deff from the cluster-robust variance of the ratio estimator; batch-1 review E3-D1) and Kish (CP with n_eff = (sum n_c)^2 / sum n_c^2, i.e. perfect correlation inside a
   cluster: each cluster counts once, weighted by its residents; the most conservative under this clustering).
 * Scenario approach. Campi & Garatti (2008), a priori, convex programs with d decision variables:
   P{V > eps} <= sum_{i<d} C(K,i) eps^i (1-eps)^(K-i), and E[V] <= d/(K+1). Campi & Garatti (2018,
@@ -92,10 +92,13 @@ def clopper_pearson(x: float, n: float, conf: float = 0.95) -> tuple[float, floa
 def cluster_ci(x_c, n_c, pairs: float | None = None, conf: float = 0.95) -> dict:
     """Weighted rate sum(x_c) / sum(n_c) over independent clusters c (e.g. instance x fresh member; ``x_c`` and
     ``n_c`` may carry weights), with three Clopper-Pearson intervals: naive (``pairs`` resident-member pairs taken
-    as independent; reference only), Korn-Graubard (effective n = p(1-p) / v, v the cluster-robust variance of the
-    ratio estimator, capped at ``pairs``) and Kish (effective n = (sum n_c)^2 / sum n_c^2: perfect correlation
-    inside a cluster, the most conservative under this clustering). With no failure (or all failing) there is no
-    variance estimate and Korn-Graubard falls back to Kish. Clusters with n_c = 0 are ignored."""
+    as independent; reference only), the Korn-Graubard effective-n interval without the degrees-of-freedom factor,
+    as pre-registered (effective n = p(1-p) / v, v the cluster-robust variance of the ratio estimator, capped at
+    ``pairs``; Korn & Graubard (1998) also multiply the effective n by (t_{pairs-1,.975} / t_{df,.975})^2 with
+    df = clusters - 1, which is not applied here; E3 README, Metrics, batch-1 review 2026-11-01) and Kish
+    (effective n = (sum n_c)^2 / sum n_c^2: perfect correlation inside a cluster, the most conservative under this
+    clustering). With no failure (or all failing) there is no variance estimate and Korn-Graubard falls back to
+    Kish. Clusters with n_c = 0 are ignored."""
     x_c = np.asarray(x_c, dtype=float)
     n_c = np.asarray(n_c, dtype=float)
     keep = n_c > 0

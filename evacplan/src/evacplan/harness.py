@@ -44,8 +44,10 @@ One table per (set, budget, host): rows of different hosts are never pooled or c
 cells show the median over seeds and [min-max]; method totals the median and [min-max] of the per-seed
 totals. Under each table, the bar for beating B2 (:func:`compare_to_b2`): max(B2 best observed, the
 best-of-baselines total); a method beats B2 only if its worst of at least 5 repeats, each covering every
-instance of the set, exceeds the bar. Recorded observations outside the rows (e.g. the Phase 0 review's
-B2 run) come from ``evacplan/docs/recorded_observations.json``.
+instance of the set, exceeds the bar, and none of its rows is over the budget. Recorded observations outside
+the rows (the Phase 0 review's B2 run; a best-of-baselines total of an earlier session of the same cloud VM)
+come from ``evacplan/docs/recorded_observations.json``; they only raise a bar that the table's own rows
+define, never define one.
 
 Final states come only from the oracle; methods' own claims are never scored. Timed runs hold
 the shared bench lock (``program/benchlock.py``); ``test`` is refused unless explicitly allowed
@@ -108,6 +110,7 @@ RECORDED_OBSERVATIONS_PATH = EVACPLAN_ROOT / "docs" / "recorded_observations.jso
 RECORDED_OBSERVATIONS_SCHEMA = "evacplan.recorded_observations/1"
 BASELINES = ("b0_independent", "b1_greedy", "b2_vrptw", "b3_mip")     # B0-B3 (not noop)
 B2 = "b2_vrptw"
+BEST_OF_BASELINES = "best_of_baselines"                               # pseudo-method of a recorded best-of-baselines total
 NOT_JUDGED = ("noop",)                                                # plumbing: no verdict, not drawn
 MIN_REPEATS = 5                                                       # repeats a method needs for a verdict
 
@@ -718,9 +721,11 @@ def _unservable(facility_rows: list[dict]) -> dict[tuple, float]:
 @dataclass(frozen=True)
 class RecordedObservation:
     """A total observed outside the result rows (e.g. a review's run whose rows were not kept), keyed by set,
-    budget, method and host. Only B2's enter the leaderboard, as B2's best observed total. An observation keyed by
-    a host class (a VM host string without its boot session, :func:`host_class`) applies to every session of that
-    class: it can only raise the bar, never lower it. One keyed by a full host string applies to that host only."""
+    budget, method and host. Two kinds enter the leaderboard: B2's (method ``b2_vrptw``), as B2's best observed
+    total, and a best-of-baselines total (method ``best_of_baselines``). An observation keyed by a host class (a VM
+    host string without its boot session, :func:`host_class`) applies to every session of that class; one keyed by a
+    full host string applies to that host only. Either way it can only raise a bar that the table's own rows define
+    (B2 rows covering every instance; baseline rows on every instance), never define one or lower it."""
 
     set: str
     budget_s: float
@@ -768,29 +773,42 @@ class B2Comparison:
     host: str
     instances: tuple[str, ...]                    # the set's instances
     best_of_baselines: dict[str, float]           # per instance with a baseline row: best delivered by any baseline
-    best_of_baselines_total: float | None         # their sum; None unless every instance has a baseline row
-    b2_best_observed: float | None                # best complete B2 per-seed total or recorded B2 observation
+    best_of_baselines_total: float | None         # max(their sum, recorded totals); None unless every instance has a row
+    best_of_baselines_rows: float | None          # their sum from this host's rows alone
+    bob_source: str
+    b2_best_observed: float | None                # max(best complete B2 per-seed total, recorded); None without the former
     b2_source: str
-    recorded: tuple[RecordedObservation, ...]     # recorded B2 observations of this set, budget and host
+    recorded: tuple[RecordedObservation, ...]     # recorded B2 and best-of-baselines totals of this set, budget and host
     bar: float | None                             # max(b2_best_observed, best_of_baselines_total); None if either is
     verdicts: dict[str, str]                      # method -> verdict
+
+    def used(self, o: RecordedObservation) -> bool:
+        """Whether a recorded observation entered the bar (it only raises a bar this host's own rows define)."""
+        return (self.b2_best_observed if o.method == B2 else self.best_of_baselines_total) is not None
 
     def bar_line(self) -> str:
         if self.bar is not None:
             return (f"Bar for beating B2 on this host: max(B2 best observed {_count(self.b2_best_observed)} "
-                    f"[{self.b2_source}], best-of-baselines total {_count(self.best_of_baselines_total)}) = "
-                    f"{_count(self.bar)}; a method beats B2 only if its worst of ≥{MIN_REPEATS} repeats exceeds "
-                    f"{_count(self.bar)}.")
+                    f"[{self.b2_source}], best-of-baselines total {_count(self.best_of_baselines_total)} "
+                    f"[{self.bob_source}]) = {_count(self.bar)}; a method beats B2 only if its worst of ≥{MIN_REPEATS} "
+                    f"repeats exceeds {_count(self.bar)} and none of its rows is over the budget.")
         n = len(self.instances)
         why = [f"B2 best observed {_count(self.b2_best_observed)} [{self.b2_source}]" if self.b2_best_observed is not None
-               else f"no B2 total covering all {n} instances and no recorded B2 observation for this set, budget and host"]
+               else f"no B2 per-seed total covering all {n} instances on this host"]
         missing = [i for i in self.instances if i not in self.best_of_baselines]
         why.append(f"best-of-baselines total {_count(self.best_of_baselines_total)}"
                    if self.best_of_baselines_total is not None else f"no baseline row for {len(missing)} of {n} instances")
-        return f"Bar for beating B2 on this host: undefined ({'; '.join(why)}); no method is judged against B2 here."
+        rec = ("; a recorded observation only raises a bar that this host's own rows define"
+               if any(not self.used(o) for o in self.recorded) else "")
+        return (f"Bar for beating B2 on this host: undefined ({'; '.join(why)}{rec}); no method is judged against B2 "
+                f"here.")
 
 
-def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: float | None) -> str:
+def _scope(o: RecordedObservation, host: str) -> str:
+    return "this host" if o.host == host else "an earlier session of this host class"
+
+
+def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: float | None, budget: float) -> str:
     if method in BASELINES:
         return "baseline"
     if method in NOT_JUDGED:
@@ -799,6 +817,9 @@ def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: flo
     totals = seed_totals(rows, "delivered_checked", instances)
     if len(totals) < MIN_REPEATS or len(totals) < len(seeds):         # every repeat must cover every instance
         return f"n/a (fewer than {MIN_REPEATS} repeats or not all instances)"
+    over = sum((_value(r, "runtime_s") or 0.0) > budget for r in rows)   # equal wall-clock budgets (program rule 6)
+    if over:
+        return f"n/a ({over} row{'s' if over != 1 else ''} over the budget)"
     if bar is None:
         return "n/a (no bar on this host)"
     worst = min(totals.values())
@@ -810,13 +831,17 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
     """The 2026-11-01 rule (``program/DECISIONS.md``) for one table, from that set's, budget's and host's rows only:
 
     * best-of-baselines total = sum over ``instances`` (the set's) of the most residents any baseline row (B0-B3,
-      any seed) delivered on that instance;
-    * B2 best observed = the largest of B2's per-seed totals over the seeds that cover every instance and of the
-      recorded observations (``observations``) of B2 for this set, budget and host, or for its host class (a VM
-      host without its boot session: an observation of the class applies to every session, which can only raise
-      the bar);
+      any seed) delivered on that instance, defined only when every instance has a baseline row on this host; a
+      recorded best-of-baselines total (method ``best_of_baselines`` in ``observations``) raises it;
+    * B2 best observed = the largest of B2's per-seed totals over the seeds that cover every instance, defined only
+      when this host has such a seed; a recorded B2 observation raises it;
+    * recorded observations (``observations``) apply when keyed by this set, budget and host, or by its host class
+      (a VM host without its boot session: an observation of the class applies to every session). They only raise a
+      bar that this host's own rows define and never define one: the baselines and the methods compared with them run
+      in one session (``docs/ASSUMPTIONS.md`` #92-#93);
     * bar = max of the two; a method other than the baselines and noop "beats B2" only if it has at least
-      :data:`MIN_REPEATS` seeds, each covering every instance, and its worst per-seed total exceeds the bar.
+      :data:`MIN_REPEATS` seeds, each covering every instance, none of its rows took longer than the budget, and its
+      worst per-seed total exceeds the bar.
     """
     budget = float(budget)
     rows = [r for r in rows if table_key(r) == (set_name, budget, host) and not is_bound_only(r)]   # plans only
@@ -826,27 +851,34 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
         if r["method"] in BASELINES:
             v = float(r["delivered_checked"])
             best[r["instance"]] = max(best.get(r["instance"], v), v)
-    y = sum(best[i] for i in instances) if all(i in best for i in instances) else None
+    y_rows = sum(best[i] for i in instances) if all(i in best for i in instances) else None
     b2_totals = seed_totals([r for r in rows if r["method"] == B2], "delivered_checked", instances)
     hosts = {host, host_class(host)}
     recorded = tuple(o for o in map(RecordedObservation.of, observations)
-                     if (o.set, o.budget_s, o.method) == (set_name, budget, B2) and o.host in hosts)
-    values = list(b2_totals.values()) + [float(o.delivered_checked) for o in recorded]
-    x = max(values) if values else None
-    source = ""
+                     if (o.set, o.budget_s) == (set_name, budget) and o.method in (B2, BEST_OF_BASELINES)
+                     and o.host in hosts)
+    rec_b2 = [o for o in recorded if o.method == B2]
+    rec_bob = [o for o in recorded if o.method == BEST_OF_BASELINES]
+    x = max([*b2_totals.values(), *(float(o.delivered_checked) for o in rec_b2)]) if b2_totals else None
+    y = max([y_rows, *(float(o.delivered_checked) for o in rec_bob)]) if y_rows is not None else None
+    source = bob_source = ""
     if x is not None:
         seeds = [s for s, t in b2_totals.items() if t == x]
         parts = [f"B2 rows on this host, seed{'s' if len(seeds) > 1 else ''} {', '.join(map(str, seeds))}"] if seeds else []
-        source = "; ".join(parts + [f"recorded: {o.source}" for o in recorded if o.delivered_checked == x])
+        source = "; ".join(parts + [f"recorded ({_scope(o, host)}): {o.source}" for o in rec_b2 if o.delivered_checked == x])
+    if y is not None:
+        parts = ["this host's baseline rows"] if y_rows == y else [f"this host's baseline rows {_count(y_rows)}"]
+        bob_source = "; ".join(parts + [f"recorded ({_scope(o, host)}): {o.source}" for o in rec_bob
+                                        if o.delivered_checked == y])
     bar = max(x, y) if x is not None and y is not None else None
     by_method: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
         by_method[r["method"]].append(r)
-    verdicts = {m: _verdict(m, rs, instances, bar) for m, rs in sorted(by_method.items())}
+    verdicts = {m: _verdict(m, rs, instances, bar, budget) for m, rs in sorted(by_method.items())}
     return B2Comparison(set_name=set_name, budget=budget, host=host, instances=instances,
                         best_of_baselines={i: v for i, v in best.items() if i in instances},
-                        best_of_baselines_total=y, b2_best_observed=x, b2_source=source, recorded=recorded, bar=bar,
-                        verdicts=verdicts)
+                        best_of_baselines_total=y, best_of_baselines_rows=y_rows, bob_source=bob_source,
+                        b2_best_observed=x, b2_source=source, recorded=recorded, bar=bar, verdicts=verdicts)
 
 
 # ----------------------------------------------------------------------------- margin figure
@@ -1071,7 +1103,9 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "verdicts and the margin figure) uses only that host's rows. Rows from different hosts are never pooled or "
         "compared, and times are never compared across hosts: when the work moves to another machine, the baselines "
         "are re-run there (`program/DECISIONS.md`, 2026-11-01). The host string names the machine, its OS, CPU model "
-        "and CPU count, and the Python version. Rows over budget are counted.",
+        "and CPU count, and the Python version; on a virtual machine it ends with the VM's boot session, so each cloud "
+        "session is its own host (`docs/ASSUMPTIONS.md` #92). **over budget** counts rows whose runtime exceeded the "
+        "budget; a method with any such row gets no B2 verdict.",
         "* **Repeats**: every method runs 5 repeats (seeds 0-4, `--repeats 5`) at the same budget on a quiet machine. "
         "A per-instance cell is the median over seeds, followed by [min–max] when the seeds differ; in the method "
         "table, a total is the median of the per-seed totals, followed by their [min–max] when they differ. "
@@ -1081,13 +1115,15 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "final objective).",
         "* **Beating B2** (`program/DECISIONS.md`, 2026-11-01): the **best-of-baselines total** is the sum over the "
         "set's instances of the most residents any baseline (B0, B1, B2, B3; any seed) delivered on that instance; "
-        "**B2 best observed** is the largest B2 per-seed total over the seeds that cover every instance of the set, or "
-        "a recorded observation of B2 for the same set, budget and host (`docs/recorded_observations.json`, printed "
-        "with its source), whichever is larger; the **bar** is the larger of the two. A method other than the "
-        "baselines and noop beats B2 only if its worst of 5 repeats exceeds the bar: it needs at least 5 repeats, each "
-        "covering every instance of the set, and its lowest per-seed total must be above the bar. Otherwise the "
-        "verdict is no (worst ≤ bar) or n/a (fewer than 5 repeats, a repeat missing an instance, or no bar on this "
-        "host).",
+        "**B2 best observed** is the largest B2 per-seed total over the seeds that cover every instance of the set; the "
+        "**bar** is the larger of the two. A recorded observation (`docs/recorded_observations.json`, printed with its "
+        "source) of a B2 total or of a best-of-baselines total, for the same set and budget on this host or on an "
+        "earlier session of the same cloud VM (its host class), raises the matching part when it is larger; it never "
+        "defines a part this host's own rows leave undefined. A method other than the baselines and noop beats B2 only "
+        "if its worst of 5 repeats exceeds the bar: it needs at least 5 repeats, each covering every instance of the "
+        "set, no row over the budget, and its lowest per-seed total must be above the bar. Otherwise the verdict is no "
+        "(worst ≤ bar) or n/a (fewer than 5 repeats, a repeat missing an instance, a row over the budget, or no bar on "
+        "this host).",
         "* **slack ≥ m min** = residents delivered with a safety slack of at least m minutes: the smallest oracle leg "
         "slack over their vehicle's legs from the start of its itinerary through the unloading that delivers them, "
         "each leg's slack capped at the time left before the hazard horizon (`docs/ASSUMPTIONS.md` #91). slack ≥ 0 "
@@ -1158,8 +1194,11 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         lines += ["", cmp.bar_line()]
         for o in cmp.recorded:
             extra = "" if o.unresolved is None else f", {o.unresolved} unresolved"
-            lines += ["", f"Recorded B2 observation for this set, budget and host (not in the rows; "
-                          f"`docs/recorded_observations.json`): {o.delivered_checked} delivered{extra} [{o.source}]."]
+            what = "B2 observation" if o.method == B2 else "best-of-baselines total"
+            used = "" if cmp.used(o) else "; not used: this host's own rows define no bar"
+            lines += ["", f"Recorded {what} for this set and budget from {_scope(o, host)} (not in the rows; "
+                          f"`docs/recorded_observations.json`{used}): {o.delivered_checked} delivered{extra} "
+                          f"[{o.source}]."]
         if not margin_curves(g):
             lines += ["", "Margin figure: none (no rows with margin columns on this host)."]
         elif figure_links and (set_name, budget, host) in figure_links:

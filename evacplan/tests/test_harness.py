@@ -547,8 +547,8 @@ def test_bar_for_beating_b2_and_verdicts():
     observations = [_obs("host-A", 140, "fixture review"), _obs("host-B", 999, "review on host-B"),
                     _obs("host-A", 999, "review at 30 s", budget=30.0), _obs("host-A", 999, "review of B1", method="b1_greedy")]
     cmp = compare_to_b2(rows, ("I1", "I2"), set_name="dev", budget=60.0, host="host-A", observations=observations)
-    assert cmp.best_of_baselines_total == 131
-    assert cmp.b2_best_observed == 140 and cmp.b2_source == "recorded: fixture review"
+    assert cmp.best_of_baselines_total == cmp.best_of_baselines_rows == 131
+    assert cmp.b2_best_observed == 140 and cmp.b2_source == "recorded (this host): fixture review"
     assert cmp.bar == 140
     assert cmp.verdicts == {
         "b0_independent": "baseline", "b1_greedy": "baseline", "b2_vrptw": "baseline", "b3_mip": "baseline",
@@ -558,8 +558,11 @@ def test_bar_for_beating_b2_and_verdicts():
         "e_six": "n/a (fewer than 5 repeats or not all instances)", "noop": "–"}
     text = render_leaderboard(rows, _split(("I1", "I2"), residents=150), observations=observations)
     a = _sections(text)["## dev, budget 60 s, host host-A"]
-    assert ("Bar for beating B2 on this host: max(B2 best observed 140 [recorded: fixture review], best-of-baselines "
-            "total 131) = 140; a method beats B2 only if its worst of ≥5 repeats exceeds 140.") in a
+    assert ("Bar for beating B2 on this host: max(B2 best observed 140 [recorded (this host): fixture review], "
+            "best-of-baselines total 131 [this host's baseline rows]) = 140; a method beats B2 only if its worst of ≥5 "
+            "repeats exceeds 140 and none of its rows is over the budget.") in a
+    assert ("Recorded B2 observation for this set and budget from this host (not in the rows; "
+            "`docs/recorded_observations.json`): 140 delivered [fixture review].") in a
     lines = a.splitlines()
     for method, verdict in cmp.verdicts.items():
         assert f"| {verdict} |" in next(x for x in lines if x.startswith(f"| {method} |")), method
@@ -802,6 +805,93 @@ def test_recorded_observation_of_a_host_class_applies_to_every_session_of_it():
     assert {o.delivered_checked for o in ca.recorded} == {30, 40} and {o.delivered_checked for o in cb.recorded} == {30}
     cc = compare_to_b2(rows, ["x", "y"], set_name="dev", budget=60, host=cls, observations=[obs(a, 40)])
     assert cc.b2_best_observed is None                   # a session's observation never applies to the class table
+    assert cb.b2_source == "recorded (an earlier session of this host class): test"
+
+
+def test_a_recorded_observation_never_defines_a_bar_on_its_own():
+    """A recorded B2 total or best-of-baselines total only raises a bar that the table's own rows define. In a
+    session where B2 never ran, or where an instance has no baseline row, there is no bar and nothing beats B2,
+    however good (batch-1 review, harness D3; docs/ASSUMPTIONS.md #92-#93)."""
+    from evacplan.harness import compare_to_b2, render_leaderboard
+    cls = "vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3)"
+    s = cls[:-1] + ", vm boot 12345678)"
+    observations = [_obs(cls, 125, "class B2"), _obs(cls, 126, "class best of baselines", method="best_of_baselines")]
+    rows = _rows("b1_greedy", {(i, 0): (v, 0) for i, v in (("I1", 60), ("I2", 40))}, host=s)
+    rows += _five("e_good", (180, 180, 180, 180, 180), host=s)
+    cmp = compare_to_b2(rows, ("I1", "I2"), set_name="dev", budget=60.0, host=s, observations=observations)
+    assert cmp.b2_best_observed is None and cmp.best_of_baselines_total == 126 and cmp.bar is None
+    assert cmp.verdicts["e_good"] == "n/a (no bar on this host)"
+    assert [cmp.used(o) for o in cmp.recorded] == [False, True]
+    text = _sections(render_leaderboard(rows, _split(("I1", "I2")), observations=observations))[
+        f"## dev, budget 60 s, host {s}"]
+    assert ("Bar for beating B2 on this host: undefined (no B2 per-seed total covering all 2 instances on this host; "
+            "best-of-baselines total 126; a recorded observation only raises a bar that this host's own rows define); "
+            "no method is judged against B2 here.") in text
+    assert ("Recorded B2 observation for this set and budget from an earlier session of this host class (not in the "
+            "rows; `docs/recorded_observations.json`; not used: this host's own rows define no bar): 125 delivered "
+            "[class B2].") in text
+    # once B2 has a seed covering every instance in this session, both observations raise the bar
+    rows += _rows("b2_vrptw", {(i, 0): (v, 0) for i, v in (("I1", 58), ("I2", 42))}, host=s)
+    cmp = compare_to_b2(rows, ("I1", "I2"), set_name="dev", budget=60.0, host=s, observations=observations)
+    assert (cmp.b2_best_observed, cmp.best_of_baselines_rows, cmp.best_of_baselines_total, cmp.bar) == (125, 102, 126, 126)
+    assert cmp.bob_source == ("this host's baseline rows 102; recorded (an earlier session of this host class): "
+                              "class best of baselines")
+    assert cmp.verdicts["e_good"] == "beats B2"
+    # a baseline row missing on one instance leaves the best-of-baselines total, and so the bar, undefined
+    partial = [r for r in rows if not (r["method"] in ("b1_greedy", "b2_vrptw") and r["instance"] == "I2")]
+    cmp = compare_to_b2(partial, ("I1", "I2"), set_name="dev", budget=60.0, host=s, observations=observations)
+    assert cmp.best_of_baselines_total is None and cmp.bar is None
+
+
+def test_rows_over_the_budget_get_no_verdict():
+    """Equal wall-clock budgets (program rule 6): a method with any row whose runtime exceeded the budget is not
+    judged against B2, whatever it delivered (batch-1 review, harness D4)."""
+    from evacplan.harness import compare_to_b2, render_leaderboard
+    rows = _bar_fixture()
+    slow = _five("e_slow", (200, 200, 200, 200, 200))
+    slow[3]["runtime_s"] = "60.0100"
+    late = _five("e_late", (200, 200, 200, 200, 200))
+    on_time = _five("e_on_time", (200, 200, 200, 200, 200))
+    for r in late:
+        r["runtime_s"] = "600.0000"
+    for r in on_time:
+        r["runtime_s"] = "60.0000"                        # exactly the budget is within it
+    rows += slow + late + on_time
+    cmp = compare_to_b2(rows, ("I1", "I2"), set_name="dev", budget=60.0, host="host-A")
+    assert cmp.verdicts["e_slow"] == "n/a (1 row over the budget)"
+    assert cmp.verdicts["e_late"] == "n/a (10 rows over the budget)"
+    assert cmp.verdicts["e_on_time"] == "beats B2"
+    a = _sections(render_leaderboard(rows, _split(("I1", "I2"), residents=150), observations=[]))[
+        "## dev, budget 60 s, host host-A"]
+    line = next(x for x in a.splitlines() if x.startswith("| e_late |"))
+    assert "| 10 |" in line and "| n/a (10 rows over the budget) |" in line
+
+
+def test_recorded_best_of_baselines_total_of_the_earlier_session():
+    """Siyeong's checkpoint-2 rule asks a method's worst of 5 to exceed B2's best observed (1750) and the
+    best-of-baselines total (1751) on dev at 60 s. The 1751 came from rows of an earlier session of the cloud VM
+    (b43990bb, B2 517 on SYNTHETIC-L-grid-t50-s109) and is recorded for the host class (batch-1 review, harness D5)."""
+    from evacplan.harness import compare_to_b2, host_class, load_recorded_observations
+    obs = load_recorded_observations()
+    (bob,) = [o for o in obs if (o.set, o.budget_s, o.method) == ("dev", 60.0, "best_of_baselines")]
+    assert bob.delivered_checked == 1751 and "b43990bb" in bob.source and host_class(bob.host) == bob.host
+    (b2,) = [o for o in obs if (o.set, o.budget_s, o.method) == ("dev", 60.0, "b2_vrptw")]
+    assert b2.host == bob.host
+    session = bob.host[:-1] + ", vm boot ff671362)"
+    ids = [f"SYNTHETIC-{x}" for x in ("S-grid-t25-s101", "S-geo-t25-s102", "S-grid-t75-s103", "S-geo-t75-s104",
+                                       "M-grid-t25-s105", "M-geo-t25-s106", "M-grid-t75-s107", "M-geo-t75-s108",
+                                       "L-grid-t50-s109", "L-geo-t50-s110")]
+    best = dict(zip(ids, (23, 37, 23, 26, 163, 155, 140, 139, 516, 528)))         # this session's rows: 1750
+    b2_vals = dict(best, **{"SYNTHETIC-S-geo-t25-s102": 36})                      # B2: 1749 in every seed
+    rows = _rows("b2_vrptw", {(i, s): (b2_vals[i], 0) for i in ids for s in range(5)}, host=session)
+    rows += _rows("b1_greedy", {(i, 0): (best[i], 0) for i in ids}, host=session)
+    for worst, verdict in ((1751, "no (worst 1751 ≤ bar 1751)"), (1752, "beats B2")):
+        cand = _rows("e_x", {(i, s): (best[i] + (worst - 1750 if i == ids[-1] else 0), 0) for i in ids
+                             for s in range(5)}, host=session)
+        cmp = compare_to_b2(rows + cand, ids, set_name="dev", budget=60.0, host=session, observations=obs)
+        assert (cmp.b2_best_observed, cmp.best_of_baselines_rows, cmp.best_of_baselines_total, cmp.bar) == \
+            (1750, 1750, 1751, 1751)
+        assert cmp.verdicts["e_x"] == verdict
 
 
 # ------------------------------------------------------------------ bound-only methods (E4)

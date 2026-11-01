@@ -13,7 +13,9 @@ the shared bench lock (program rule 6); the analysis is ``e3_analyze.py``:
 the instance's members bit for bit), makes the plans of ``config.yaml`` (B1 on blocks of instance members and
 of fresh planning members, B2 on the instance members), computes support sets by greedy removal, and checks
 every plan against fresh check members one member at a time, tier by tier, until the time budget is used.
-Raw records go to ``evacplan/runs/E3-scenario-robustness/`` (git-ignored, regenerable). ``selftest`` checks a
+Raw records go to ``evacplan/runs/E3-scenario-robustness/`` (git-ignored; the B1 plans and checks regenerate,
+the B2 plans do not, because B2's time-limited search depends on machine load; a copy of the batch-1 records is
+committed under ``raw/``, batch-1 review E3-D8). ``selftest`` checks a
 finished run directory (used after the smoke run, ``config_smoke.yaml``, before the main run starts).
 
 Data and rules. The frozen dev split only, regenerated through ``evacplan.instances`` (fingerprints verified);

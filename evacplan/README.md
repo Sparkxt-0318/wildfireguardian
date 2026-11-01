@@ -74,11 +74,14 @@ session, so each container session is its own host: run the baselines and the me
 session (ASSUMPTIONS #92). When the work moves to another machine (the Mac), re-run the baselines there.
 
 **Beating B2.** Under each table the leaderboard prints the bar: max(B2 best observed, best-of-baselines total).
-B2 best observed is the best B2 per-seed total covering every instance, or a recorded observation of the same set,
-budget and host (`docs/recorded_observations.json`: the Phase 0 review's 1750 on dev at 60 s on the cloud machine).
-The best-of-baselines total sums, over the set's instances, the most residents any of B0-B3 delivered. A method beats
-B2 only if it has at least 5 repeats, each covering every instance, and its worst per-seed total exceeds the bar
-(`docs/ASSUMPTIONS.md` #90).
+B2 best observed is the best B2 per-seed total covering every instance; the best-of-baselines total sums, over the
+set's instances, the most residents any of B0-B3 delivered. A recorded observation of an earlier session of the same
+cloud VM (`docs/recorded_observations.json`: the Phase 0 review's B2 run, 1750, and the best-of-baselines total 1751 of
+the rows at `b43990bb`, both on dev at 60 s) raises the matching part, but only when this session's own rows define
+it: without B2 rows covering every instance in the session there is no bar. On this cloud VM the dev bar at 60 s is
+therefore at least 1751, as Siyeong stated it. A method beats B2 only if it has at least 5 repeats, each covering
+every instance, none of its rows over the budget, and its worst per-seed total exceeds the bar (`docs/ASSUMPTIONS.md`
+#90, #93).
 
 ## Instances
 
@@ -100,8 +103,10 @@ index. `hazard_contract` and `evacplan` are installed editable without dependenc
 frozen `integration/` folder, used by the router-graph adapter) only goes on the path through a `.pth`
 file, because `pip install -e` would write build files into a frozen folder. ortools must stay below 9.15
 (`pyproject.toml` caps it): 9.15's Python wrapper rejects the list argument of `SetAllowedVehiclesForIndex`
-and B2 crashes. The test suite takes about four minutes (B2 and B3 run with short budgets), so run it
-through the bench lock:
+and B2 crashes. The editable installs write git-ignored `src/*.egg-info` folders into `evacplan/` and
+`hazard_contract/`, nothing else. The test suite takes about ten minutes on the cloud VM (B2, B3, E1 and E4 run with
+short budgets), so it runs only through the bench lock: started any other way it exits with code 75 and says why
+(`tests/conftest.py`; `EVACPLAN_TESTS_UNLOCKED=1` lets a light selection run while nobody holds the lock):
 
 ```sh
 uv venv --python 3.12 .venv

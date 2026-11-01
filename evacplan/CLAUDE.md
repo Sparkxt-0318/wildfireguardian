@@ -105,6 +105,9 @@ opening a pull request to `Main`.
    `results/<method>.csv` with instance, method, seed, delivered (checked), unresolved,
    model-no-route, makespan, minimum slack, runtime, best bound and gap (plus commit, config,
    host). It also regenerates `evacplan/LEADERBOARD.md`. Timed runs go through the bench lock.
+   So does everything heavy beside them: the test suite refuses to start outside the lock
+   (`tests/conftest.py`), and any probe that builds Reach, an LP or a solver run goes through
+   `program/benchlock.py` too (batch-1 review, 2026-11-01).
 5. **Baselines.** B0 independent: each facility planned alone (today's planner logic; shows
    the coordination gap). B1 greedy: earliest-deadline-first insertion. B2 OR-Tools VRPTW
    (pickup and delivery with capacities) using static windows from per-facility latest
