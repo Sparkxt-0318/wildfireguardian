@@ -100,8 +100,10 @@ break by contact (a conservative bias of the margin).
 
 ### Metrics
 
-- **Per-resident violation rate**: violating (resident, member) pairs / all (in-sample delivered resident, member)
-  pairs. Residents of one vehicle fail together, so pairs are clustered by (instance, fresh member). Intervals:
+- **Per-resident violation rate**: the average over in-sample delivered residents of the share of their plan's
+  checked fresh members in which they are not delivered (each resident counts once, whatever the number of members its
+  plan was checked against; it equals violating (resident, member) pairs / all pairs when every plan has the same number
+  of members). Residents of one vehicle fail together, so pairs are clustered by (instance, fresh member). Intervals:
   two-sided 95 % Clopper-Pearson (CP) with three sample sizes: naive (pairs independent; too narrow, reference only),
   Korn-Graubard (effective n = n / design effect from the cluster-robust variance), and Kish (effective n = (Σ n_c)² /
   Σ n_c², i.e. each cluster counts once, weighted by its residents: perfect correlation inside a cluster, the most
@@ -123,7 +125,8 @@ Primary set: B1 `A8-g0` plans (the harness's B1 plans; slack measured on the ins
 instance checked. For α = 5 % and α = 1 %: the **smallest m in the harness grid** {0, 1, 2, 5, 10, 15, 20, 30, 45, 60}
 min whose upper bound U(m) = max(Korn-Graubard, Kish) upper end of the two-sided 95 % CP interval is ≤ α. Its cost: the
 share of delivered residents with slack ≥ m (E3's B1 and B2 plans, and the leaderboard baselines). If no m ≤ 60 min
-qualifies: "none ≤ 60 min". Secondary sets (robustness): B2, arm B `B8-*`, all K' = 8 plans.
+qualifies: "none ≤ 60 min". Secondary sets (robustness): B2, arm B `B8-*`, all K' = 8 plans. Sensitivity (reported,
+not the rule): the same with the Korn-Graubard bound alone.
 
 ### Decision rule
 

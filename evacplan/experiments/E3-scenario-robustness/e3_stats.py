@@ -89,36 +89,39 @@ def clopper_pearson(x: float, n: float, conf: float = 0.95) -> tuple[float, floa
 
 
 # ------------------------------------------------------------------------- cluster intervals
-def cluster_ci(x_c, n_c, conf: float = 0.95) -> dict:
-    """Per-resident rate sum(x_c)/sum(n_c) over clusters c (e.g. instance x fresh member), with the naive,
-    Korn-Graubard and Kish Clopper-Pearson intervals (see the module docstring). Clusters with n_c = 0 are
-    ignored."""
+def cluster_ci(x_c, n_c, pairs: float | None = None, conf: float = 0.95) -> dict:
+    """Weighted rate sum(x_c) / sum(n_c) over independent clusters c (e.g. instance x fresh member; ``x_c`` and
+    ``n_c`` may carry weights), with three Clopper-Pearson intervals: naive (``pairs`` resident-member pairs taken
+    as independent; reference only), Korn-Graubard (effective n = p(1-p) / v, v the cluster-robust variance of the
+    ratio estimator, capped at ``pairs``) and Kish (effective n = (sum n_c)^2 / sum n_c^2: perfect correlation
+    inside a cluster, the most conservative under this clustering). With no failure (or all failing) there is no
+    variance estimate and Korn-Graubard falls back to Kish. Clusters with n_c = 0 are ignored."""
     x_c = np.asarray(x_c, dtype=float)
     n_c = np.asarray(n_c, dtype=float)
     keep = n_c > 0
     x_c, n_c = x_c[keep], n_c[keep]
     C = int(x_c.size)
     n, x = float(n_c.sum()), float(x_c.sum())
-    out = {"clusters": C, "n": n, "x": x, "rate": math.nan}
+    pairs = float(pairs) if pairs is not None else n
+    out = {"clusters": C, "pairs": pairs, "rate": math.nan}
+    nan_keys = ("naive_lo", "naive_hi", "kg_lo", "kg_hi", "kish_lo", "kish_hi", "n_eff_kg", "n_eff_kish", "deff")
     if n <= 0:
-        for k in ("naive", "kg", "kish"):
-            out[f"{k}_lo"] = out[f"{k}_hi"] = math.nan
-        out["n_eff_kg"] = out["n_eff_kish"] = out["deff"] = math.nan
+        out.update({k: math.nan for k in nan_keys})
         return out
     p = x / n
     out["rate"] = p
-    out["naive_lo"], out["naive_hi"] = clopper_pearson(x, n, conf)
+    out["violations"] = p * pairs
+    out["naive_lo"], out["naive_hi"] = clopper_pearson(p * pairs, pairs, conf)
     n_kish = float(n ** 2 / np.sum(n_c ** 2))
     out["n_eff_kish"] = n_kish
     out["kish_lo"], out["kish_hi"] = clopper_pearson(p * n_kish, n_kish, conf)
-    if 0.0 < p < 1.0 and C > 1:
-        var = C / (C - 1.0) * float(np.sum((x_c - p * n_c) ** 2)) / n ** 2
-        deff = var / (p * (1.0 - p) / n)
-        n_kg = n / max(deff, 1.0)
-        out["deff"] = deff
+    var = C / (C - 1.0) * float(np.sum((x_c - p * n_c) ** 2)) / n ** 2 if C > 1 else 0.0
+    if 0.0 < p < 1.0 and var > 0:
+        n_kg = min(pairs, p * (1.0 - p) / var)
+        out["deff"] = pairs / n_kg
         out["n_eff_kg"] = n_kg
         out["kg_lo"], out["kg_hi"] = clopper_pearson(p * n_kg, n_kg, conf)
-    else:            # no variance estimate (no failure, or all fail): fall back to Kish (conservative)
+    else:
         out["deff"] = math.nan
         out["n_eff_kg"] = n_kish
         out["kg_lo"], out["kg_hi"] = out["kish_lo"], out["kish_hi"]
