@@ -4,6 +4,12 @@ Written 2026-11-01 on the cloud host for `program/DECISIONS.md` (2026-11-01, ite
 downloaded, no 2025 fire data was opened, and `SPLITS.json` is unchanged. Every choice here waits for Siyeong (§5). The
 Korean 2026 part of `fresh_holdout` is not covered.
 
+Revised 2026-11-01 after the batch-1 review (findings D3-D6; main changes say "batch-1 review"): MTBS counts and faster
+extent products (§2, §2.5, §3.1, §3.6, §4); every amendment of the frozen membership rule, with E4 flagged as
+outcome-based (§3.3, §3.6, §5); no download of a release that also holds 2026 surveys before the owner's OSF registration
+(§3.1, §3.3-§3.6, §5); FTP folder names vary by geographic area (§2.1, §3.4, §3.6). Still a proposal: nothing was
+downloaded and `SPLITS.json` is unchanged.
+
 **How claims are marked**
 - `[R: path:line]`: checked in this repository (paths from the repo root).
 - `[Wn]`: read in a WebSearch result summary on 2026-11-01 (URLs in §6). WebFetch failed on the three hosts tried
@@ -58,17 +64,20 @@ This is untested. gridMET and LANDFIRE, which c651 does not read, cover CONUS on
 | FIRMS VIIRS 375 m | timing (active burning) | 2 clusters of passes a day [G] | 375 m at nadir, larger off nadir [W19] | archived; NRT replaced by standard data after months [W18] | NASA open, acknowledgement asked [W20] | **no** / yes |
 | NASA FEDS | timing + extent | 12 h | from 375 m VIIRS | NRT layer holds the current year only [W21]; 2025 archive unconfirmed [A] | NASA, credit line [W21] | **no** / yes |
 | GOES-R ABI fire (FDC) | timing, coarse | 5-10 min [W38, W25] | 2 km nominal, larger in the West [W24, W26] | GOES-19 operational East from 2025-04-07 [W25] | NOAA open data [W24] | **no** / yes |
-| MTBS, RAVG, BAER, own dNBR | final extent only | once | 10-30 m [G] | MTBS: 5 fires of 2025 by 2026-05-27 [W27]; RAVG 30-45 days after containment [W29] | US government [G]; Sentinel-2 free with attribution [W31] | yes / yes |
+| MTBS, RAVG, BAER, own dNBR | final extent only | once | 10-30 m [G] | MTBS: at least 21 fires of 2025 by 2026-05-27 (16 on 2026-04-07, 5 on 2026-05-27) [W39, W27], re-count at the freeze; Provisional IA for large fires 3-6 weeks after containment [W40]; RAVG 30-45 days after containment [W29] | US government [G]; Sentinel-2 free with attribution [W31] | yes / yes |
 
 ### 2.1 NIROPS nightly IR perimeters (2025)
 - **What.** Heat perimeters digitized by infrared interpreters from airborne thermal imagery [R: publisher_snapshot.json
   `description`; W8], flown mostly at night [G].
 - **Cadence.** On the six US-2024 test fires: median spacing 24.0-26.2 h; 195 of 324 pairs at 20-28 h; 273 at most 48 h
   [R: DATA_NOTES.md:53-58].
-- **2025.** The program runs (its 2026 FAQ says maps are posted on ftp.wildfire.gov) [W6]. Products sit in per-incident
-  `IR/<date>` folders [W4]; older seasons stay online in `Z_<year>_HISTORIC` folders [W5], so the 2025 folders likely remain
-  [A]. v1's script is meant for "future dataset updates" [R: publisher_snapshot.json `description`]. A related USFS dataset,
-  RDS-2025-0054 (reconciled daily growth of Fires of Unusual Size, partly from NIROPS), covers 2020-2023 only [W2].
+- **2025.** The program runs (its 2026 FAQ says maps are posted on ftp.wildfire.gov) [W6]. Per-incident `IR/<YYYYMMDD>`
+  folders are common [W4, W5, W42], but season and archive folder names vary by geographic area (batch-1 review): pacific_nw
+  moves old seasons to `Z_<year>_HISTORIC` [W5], n_rockies to `Historic_archived NIROPS/<year>_fires/<year>_<Name>/IR/<YYYYMMDD>/`
+  [W42]; southwest keeps `GACC_Incidents/<year>/` and great_basin `pre2015-great_basin_w/<year>/` [W43]. Older seasons stay
+  online in several areas, so the 2025 folders likely remain [A]; see §3.6 risk 1 for a 2022 purge notice. v1's script is
+  meant for "future dataset updates" [R: publisher_snapshot.json `description`]. A related USFS dataset, RDS-2025-0054
+  (reconciled daily growth of Fires of Unusual Size, partly from NIROPS), covers 2020-2023 only [W2].
 - **Independence.** Airborne infrared with manual interpretation: independent of the VIIRS and GOES detections behind the
   labels [R: DATA_NOTES.md:116-147]. c651 saw NIROPS only as the US training mask, on other fires [R: DATA_NOTES.md:142-145].
 - **Biases.** Flown fires are moderate to large, and surveys start after ignition [R: publisher_snapshot.json]. Flights follow
@@ -124,8 +133,16 @@ This is untested. gridMET and LANDFIRE, which c651 does not read, cover CONUS on
 
 ### 2.5 Final-extent products (extent only)
 - **MTBS:** Landsat-based perimeters and severity for fires of at least 1,000 acres in the West (500 in the East); some fires are
-  not mapped when imagery fails [W28]. It releases about a year after a fire (MTBS text in a search summary; page not identified)
-  [W27]; the 2026-05-27 release added only 5 fires of 2025 [W27].
+  not mapped when imagery fails [W28]. It typically releases data 6-12 months after a fire [W40] and maps the 2023-2025 seasons
+  side by side [W39]. The 2026-04-07 release added 16 fires of 2025 [W39] and the 2026-05-27 release 5 more [W27], so at least
+  21 were out by 2026-05-27. The 2026-07-15 release (315 fires from several seasons) had no season breakdown in the summaries
+  seen [W39], and later releases were not checked: re-count at the freeze. (Batch-1 review: this said "about a year" and gave
+  only the 5 fires of 2026-05-27.)
+- **Faster extent for large 2025 fires (batch-1 review):** the USGS Provisional IA (provisional initial assessment) posts
+  burn-severity maps 3-6 weeks after containment for fires reported over 40,000 acres or judged significant, seasons 2020-2025;
+  from 2026 such fires get MTBS initial assessments instead [W40]. MTBS's own initial assessments use the first post-fire
+  imagery (grass and low-biomass shrub fires), while its extended assessments wait for the next growing season (forests)
+  [W41], so initial assessments can come out sooner [A].
 - **RAVG:** forested National Forest fires, typically 30-45 days after containment, with a perimeter shapefile [W29].
 - **BAER/BARC:** preliminary dNBR maps from Landsat and Sentinel-2 with analyst-set thresholds [W30].
 - **Own dNBR:** Sentinel-2 (free; "Contains modified Copernicus Sentinel data") [W31] or Landsat [G]. Large downloads.
@@ -147,8 +164,18 @@ This is untested. gridMET and LANDFIRE, which c651 does not read, cover CONUS on
    (proposed: 2027-03-31). Otherwise harvest the 2025 IR folders with the v1 code. Reasons: independent of the label detections;
    the same instrument and processing as the US test truth, so scores compare; nightly cadence fits the 24 h lead. Fallback
    without scraping: the 2025 NIFS export filtered to infrared perimeters, if it is published [W12, A].
-2. **Extent truth: final burned perimeter,** the first available at the freeze among MTBS, RAVG and BAER/BARC, then the WFIGS
-   final perimeter (flagged "not independent of NIROPS"). The source used is recorded per fire.
+   **2026 guard (batch-1 review).** If the first release with 2025 surveys also contains 2026 surveys (judged from its title,
+   description and file list only), it is not downloaded until the owner's OSF registration of the blind test is confirmed,
+   unless the publisher offers per-year files (then only the 2025 file is taken). Until then: the 2025 FTP harvest, if
+   approved (§5 item 2), or wait (§5 item 9). US 2026 is reserved with "no access before the owner's OSF registration"
+   [R: SPLITS.json `splits.fresh_holdout.not_included.us_2026`]. The blind test uses the first public release with 2026
+   surveys and is blocked for good if that release "is already accessible or inspected before external registration"
+   [R: preregistration_blind_test.md:92-93, 104-106]; registration had not happened by 2026-10-30
+   [R: docs/NEXT_PLAN.md:203]. v1 shipped the perimeters of all five seasons as one shapefile in one zip [R: files.json;
+   publisher_snapshot.json], so a bundled 2026 part could not be left unopened.
+2. **Extent truth: final burned perimeter,** the first available at the freeze among MTBS (else the USGS Provisional IA
+   for a large fire [W40]; batch-1 review), RAVG and BAER/BARC, then the WFIGS final perimeter (flagged "not independent
+   of NIROPS"). The source used is recorded per fire.
 3. **Cross-check: FIRMS VIIRS arrival maps (FEDS for convenience).** Independent of NIROPS, not of the labels. Two uses only:
    (a) pre-declared QA flags, such as survey dates more than 12 h from the VIIRS timing or a wrong incident match, reported as
    counts; (b) a labelled secondary score, "satellite truth". The gap between a model's skill against NIROPS and against VIIRS
@@ -174,30 +201,40 @@ This is untested. gridMET and LANDFIRE, which c651 does not read, cover CONUS on
 
 ### 3.3 Eligibility rules (fixed before any 2025 file is opened)
 - **E1** In the timing truth of §3.1, USFS Regions 1-6 as in v1 [R: publisher_snapshot.json], wildfires only.
-- **E2** First published survey in 2025 (UTC) and discovery in 2025. Surveys after 2025-12-31 are dropped unopened.
+- **E2** First published survey in 2025 (UTC) and discovery in 2025. Surveys after 2025-12-31 are dropped unopened. In a
+  release, "unopened" is possible only with per-year files; a release that bundles 2026 surveys waits (§3.1 item 1; batch-1
+  review).
 - **E3** The publisher's rule (at least three collection days, one consecutive daily pair) and at least one 20-28 h pair, as in
   the current `us_2025_membership_rule` [R: SPLITS.json].
 - **E4** Final reported size of at least 1,000 acres, from incident metadata, never from perimeters. This is MTBS's western
-  threshold, so an independent extent can exist; it is about 29 cells of 375 m [A].
+  threshold, so an independent extent can exist; it is about 29 cells of 375 m [A]. **E4 is an outcome-based exclusion**
+  (batch-1 review): final size is the fire's cumulative growth. Neither the frozen rule, which fixes membership "never by
+  looking at outcomes" [R: SPLITS.json `splits.fresh_holdout.us_2025_membership_rule`], nor the forecast-v2 preregistration
+  [R: preregistration_blind_test.md:92-110] has a size threshold. Non-outcome alternative: no size threshold; keep every
+  fire and record which extent source exists (as §3.4 step 4 does).
 - **E5** c651's six inputs (which include the baselines' slope and wind) present on the whole grid at every cutoff, judged
   from input availability only.
 - **E6** Recorded, not excluded: overlap with catalog fires or 2020-2024 scars (fuels are the 2019 epoch
   [R: DATA_NOTES.md:256-258]), complexes, estimated timestamps.
-- Fires leave only by these rules, windows only by the timing rules: never by growth or by any model output.
+- Fires leave only by these rules, windows only by the timing rules: never by growth measured on perimeters or by any model
+  output. E4 is the only size rule, and it selects on an outcome (above; §5 item 3).
 
 **How many might qualify.** v1 holds 737 incidents over five seasons [R: publisher_snapshot.json], about 150 a season [A]. 2025
 burned about 5.1 million acres nationally, 43% less than 2024 [W35], so fewer fires may have been flown [A]. Under E1-E5 my guess
-is 30-80 fires [A], above the 10-fire bar. The catalog's US fires are much larger (at least 1,062 burned cells, about 37,000
-acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. A cohort like that might give 3-6 fires in 2025
-[A], below the bar.
+is 30-80 fires [A], above the 10-fire bar; more without E4 [A]. The catalog's US fires are much larger (at least 1,062 burned
+cells, about 37,000 acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. A cohort like that might
+give 3-6 fires in 2025 [A], below the bar.
 
 ### 3.4 Freezing the list before any scoring (ground rule 5)
 1. Siyeong decides on this proposal (§5), recorded in DECISIONS.md. No 2025 file is touched before that.
 2. Write and test on SYNTHETIC fixtures: the harvester (2025 allow-list, listing-only dry run, every URL logged), the loader,
-   the eligibility checker, the grid builder and the stack wrapper. Record the commit.
+   the eligibility checker, the grid builder and the stack wrapper. Record the commit. The allow-list and the listing pass
+   match on the year and on `IR` folders, not on one area's folder names, which vary (§2.1; batch-1 review).
 3. Mac, listing pass: file count and bytes of the 2025 IR folders; over 1 GB goes to Siyeong. No 2026 folder is ever listed or
    opened: US 2026 is reserved for the forecast-v2 blind test, which inspection would block
-   [R: SPLITS.json `fresh_holdout.not_included.us_2026`; preregistration_blind_test.md:104-106].
+   [R: SPLITS.json `splits.fresh_holdout.not_included.us_2026`; preregistration_blind_test.md:104-106]. On the release path,
+   only the release's title, description and file list are read first; a release that also holds 2026 surveys stops here
+   unless it offers per-year files (§3.1 item 1; batch-1 review).
 4. Mac, download and manifest: SHA-256 per file; per incident the IRWIN id, region, UTC survey times (estimated ones flagged),
    final acres, which extent source exists, and input availability. No plots and no geometry statistics beyond validity checks.
 5. Run E1-E5 on the manifest: a candidate list with every incident and the rule it failed.
@@ -212,7 +249,7 @@ acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. 
 | Item | Approx. size | Terms | Approval needed |
 |---|---|---|---|
 | v1 code, `NIROPS_Code.zip` (Mendeley 10.17632/95rj5d379g.1) | 19.5 KB [R: files.json] | CC BY 4.0 [R: provenance.json] | no |
-| NIROPS 2025 perimeters and IR logs: a release, or FTP 2025 IR folders (vector files and logs only) | unknown. v1's five seasons are 1.39 GB zipped [R: files.json]; one season of vectors is likely well under 1 GB, imagery far more [A] | release: likely CC BY 4.0 [A]; FTP: US federal [G] | **yes: scraping**; over 1 GB too |
+| NIROPS 2025 perimeters and IR logs: a release (before the owner's OSF registration only one without 2026 surveys, or its 2025 file; §3.1 item 1), or FTP 2025 IR folders (vector files and logs only) | unknown. v1's five seasons are 1.39 GB zipped [R: files.json]; one season of vectors is likely well under 1 GB, imagery far more [A] | release: likely CC BY 4.0 [A]; FTP: US federal [G] | **yes: scraping**; over 1 GB too |
 | WFIGS 2025 perimeters and incident attributes (REST queries) | tens of MB [A] | public, no login [W16]; no explicit licence [W9] | no |
 | NIFS 2025 annual export (optional) | unknown; every national edit, may pass 1 GB [A] | as WFIGS | if over 1 GB |
 | MTBS, RAVG, BAER perimeters of eligible fires | under 100 MB of vectors [A] | US government [G] | no |
@@ -223,17 +260,23 @@ acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. 
 | GOES FDC or Sentinel-2/Landsat scenes (only if needed) | several GB per fire [A] | open [W24, W31] | yes |
 
 ### 3.6 Open risks
-1. No 2025 NIROPS release: the harvest is scraping, the FTP layout can change, and survey times must be rebuilt from
-   briefing-date folders [W3], local times and missing times.
-2. Opening any 2026 file by accident would block the forecast-v2 blind test [R: preregistration_blind_test.md:104-106].
+1. No 2025 NIROPS release: the harvest is scraping, the FTP layout can change and differs by area (§2.1), and survey times may
+   have to be rebuilt from briefing-date folders (older guidance [W3]; a 2021 naming file is listed but was not read [W45]),
+   local times and missing times. Search summaries (batch-1 review) say the site is for short-term sharing, not a file
+   archive, and that a 2022 notice announced a purge of files unchanged for 5 or more years [W44]; summaries also mentioned
+   a move of the incident folders from /public to /protected, which a follow-up search did not confirm. Check both on the
+   Mac before §5 item 2.
+2. Opening any 2026 file by accident would block the forecast-v2 blind test [R: preregistration_blind_test.md:104-106]. A
+   release that bundles 2026 with 2025 has no separate 2026 file: downloading it is the access (§3.1 item 1; batch-1 review).
 3. Selection: NIROPS flies requested, mostly large fires after ignition [R: publisher_snapshot.json; W7]. Results hold for that
    population only.
-4. Late or patchy extent truth: MTBS has few 2025 fires so far [W27], RAVG covers forested National Forest fires only [W29], and
-   the WFIGS fallback is not independent of NIROPS.
+4. Late or patchy extent truth: MTBS had released at least 21 fires of 2025 by 2026-05-27 [W39, W27] (later releases not
+   counted; batch-1 review), the Provisional IA covers only fires over 40,000 acres or judged significant [W40], RAVG covers
+   forested National Forest fires only [W29], and the WFIGS fallback is not independent of NIROPS.
 5. Cutoff states from NIROPS unions differ from c651's training inputs; record it next to every fresh score.
 6. The stack wrapper is new code; fuels are the 2019 epoch [R: DATA_NOTES.md:256-258]; LANDFIRE 2016 availability is unchecked.
 7. Weather stays archived IFS repeated from the cutoff [R: DATA_NOTES.md:19]; its licence wording is unresolved [W36].
-8. Cohort size depends mostly on E4 (§3.3).
+8. Cohort size depends mostly on E4 and on whether it is kept (§3.3, §5 item 3).
 9. Whoever runs the harvest sees the fires. The manifest stays metadata-only and the QA flags are declared in advance.
 
 ## 4. Limits of the recommended sources
@@ -243,21 +286,39 @@ acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. 
   [R: preregistration_blind_test.md:132-133]. About a day of timing ambiguity between surveys, so false-safe is an upper bound with
   respect to timing [R: METRICS.md:266-267].
 - **Final-extent truth.** No timing. Definitions differ (dNBR thresholds versus agency perimeters; unburned islands kept or
-  filled) [A]. MTBS lags about a year [W27]; RAVG is forest-only [W29]; BARC is preliminary [W30]; the WFIGS fallback mixes
-  methods and often comes from NIROPS itself.
+  filled) [A]. MTBS typically lags 6-12 months, the USGS Provisional IA 3-6 weeks for large fires only [W40]; RAVG is forest-only
+  [W29]; BARC is preliminary [W30]; the WFIGS fallback mixes methods and often comes from NIROPS itself.
 - **VIIRS / FEDS (cross-check).** Not independent of c651's labels. Dates cells to about 12 h. Misses under cloud, thick smoke
   and low intensity; off-nadir pixels inflate extent [W19]. FEDS is experimental and may merge or split fires [W21]; a 2025 FEDS
   archive is unconfirmed.
 
 ## 5. Decisions for Siyeong
-1. The three sources (§3.1), the 2027-03-31 deadline, and an amended `us_2025_membership_rule` that allows the FTP harvest.
+1. The three sources (§3.1), the 2027-03-31 deadline, and an amended `us_2025_membership_rule`. Every amendment of the frozen
+   rule [R: SPLITS.json `splits.fresh_holdout.us_2025_membership_rule`] (listed by the batch-1 review; this item named only
+   the FTP harvest):
+   - source: the FTP harvest of the 2025 IR folders, or the NIFS fallback of §3.1 item 1, if no release with 2025 surveys
+     appears by the deadline (the frozen rule names only "the first NIROPS release covering 2025");
+   - E1: wildfires only (the publisher's own scope);
+   - E2: a 2025 incident has its first published survey (UTC) and its discovery in 2025; surveys after 2025-12-31 are dropped
+     unopened;
+   - E4: final reported size of at least 1,000 acres, an outcome-based exclusion (item 3);
+   - E5: c651's six inputs present on the whole grid at every cutoff (as in the preregistration's six-channel rule
+     [R: preregistration_blind_test.md:99-103]);
+   - the 2026 guard of item 9.
+   Regions 1-6 and E3 are in the frozen rule already.
 2. Permission to scrape the NIFC FTP: 2025 IR folders only, listing pass first.
-3. Rule E4: 1,000 acres, or a larger threshold for a catalog-like cohort (fewer fires); and Regions 1-6 only.
+3. Rule E4, an outcome-based exclusion (final size is cumulative growth; §3.3): 1,000 acres; a larger threshold for a
+   catalog-like cohort (fewer fires); or no size threshold, the non-outcome option (keep every fire and record which extent
+   source exists; batch-1 review). And Regions 1-6 only.
 4. Cutoff state for fresh windows: the NIROPS union at the cutoff survey.
 5. "Burned at an unknown time" cells as unknown, with the `0` convention as a sensitivity row.
 6. The 5 km grid margin.
 7. Downloads over 1 GB (environment stacks in total; any GOES or Sentinel-2 pulls).
 8. Whether US 2023 NIROPS fires should also become a fresh set now [R: DATA_NOTES.md:286-287].
+9. The 2026 guard (§3.1 item 1; batch-1 review): a public NIROPS release with 2025 surveys that also contains 2026 surveys is
+   not downloaded until the owner's OSF registration is confirmed, unless the publisher offers per-year files. Until then,
+   the FTP harvest (item 2) or waiting [R: SPLITS.json `splits.fresh_holdout.not_included.us_2026`;
+   preregistration_blind_test.md:92-93, 104-106].
 
 ## 6. Sources (all accessed 2026-11-01, through WebSearch result summaries; pages not opened)
 - W1 NIROPS v1, Mendeley (only v1 returned): https://data.mendeley.com/datasets/95rj5d379g
@@ -298,3 +359,14 @@ acres) and number 3-13 a season, 29 over four seasons [R: SPLITS.json `fires`]. 
 - W36 Open-Meteo historical API; licence comment: https://open-meteo.com/en/docs/historical-weather-api ; https://openmeteo.substack.com/p/ecmwf-ifs-upgraded-to-025-resolution/comments
 - W37 WFIGS 2023 perimeters to date (field list): https://wifire-data.sdsc.edu/dataset/wfigs-2023-interagency-fire-perimeters-to-date
 - W38 NOAA GOES fire status briefing, 2019: https://fsapps.nwcg.gov/nirops/docs/upload/3_3_Schmidt_TFRSAC_29May2019.pdf
+- W39-W45 were added by the batch-1 review, also from WebSearch result summaries on 2026-11-01 (mtbs.gov does not resolve from
+  this session either).
+- W39 MTBS releases: 2026-04-07 (645 fires: 2023 482, 2024 147, 2025 16); the announcements list (2026-07-15: 315 fires from
+  several seasons; 2023-2025 mapped side by side): https://mtbs.gov/articles/announcement/mtbs-2023-2024-2025-fire-quarterly-release-april-7-2026 ; https://www.mtbs.gov/announcements
+- W40 USGS Provisional IA (3-6 weeks after containment; over 40,000 acres or significant; seasons 2020-2025; MTBS typically 6-12
+  months): https://burnseverity.cr.usgs.gov/products/provisionalIA
+- W41 MTBS initial and extended assessments: https://mtbs.gov/faq/fire-mapping
+- W42 n_rockies archived IR folder, 2016: https://ftp.wildfire.gov/public/incident_specific_data/n_rockies/Historic_archived%20NIROPS/2016_fires/2016_JohnDoe/IR/20160901/20160901_JohnDoe_IR_Map_topo_11x17_land.pdf
+- W43 southwest and great_basin season folders: https://ftp.wildfire.gov/public/incident_specific_data/southwest/GACC_Incidents/2018/ ; https://ftp.wildfire.gov/public/incident_specific_data/great_basin/pre2015-great_basin_w/2013/Bison/products/July_09_2013/
+- W44 ftp.wildfire.gov root page and notices: https://ftp.wildfire.gov
+- W45 NIROPS end-product folder listing "IR product naming conventions 2021.pdf": https://ftp.wildfire.gov/public/nirops/End_Product_vendors
