@@ -140,7 +140,6 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
   1751, host in every row, never compare across hosts); dose distributions vs the Korean panel before tuning; margin
   columns at slack ≥ 0/5/15/30 min plus a plot; scikit-learn and hypothesis approved; test-fire metadata kept;
   fresh-holdout truth source to be proposed.
-
 - 2026-11-01 Wave 1 done.
   - Harness: implements the 2026-11-01 rules (`03b339e0`). The orchestrator then added the VM boot session to the host
     string (`c78721e6`): after a container restart this VM was 1.7-2.4× slower under the same label.
