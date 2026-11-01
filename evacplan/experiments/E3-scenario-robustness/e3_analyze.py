@@ -295,33 +295,49 @@ def _rate(sel, conf: float, lo_s: float = -math.inf, hi_s: float = math.inf, cma
     Plan-level rate: (plan, member) pairs in which at least one counted resident fails; exact CP over the pairs
     (i.i.d. members within a plan; plans of one instance share members, so pooled plan-level intervals are
     descriptive)."""
-    xs: dict[tuple, float] = defaultdict(float)
-    ns: dict[tuple, float] = defaultdict(float)
+    xs: dict[str, np.ndarray] = {}
+    ns: dict[str, np.ndarray] = {}
     residents, pairs, xp, npairs, plans_n = 0.0, 0.0, 0, 0, 0
     causes: dict[str, float] = defaultdict(float)
     for (iid, pid), o in sel:
-        idx = [a for a, c in enumerate(o["cs"]) if cmax is None or c < cmax]
-        d = [i for i in o["deliv"] if lo_s - 1e-6 <= o["slack"][i] < hi_s - 1e-6]
-        if not idx:
+        cs = np.asarray(o["cs"], dtype=np.int64)
+        idx = np.flatnonzero(cs < cmax) if cmax is not None else np.arange(cs.size)
+        deliv = np.asarray(o["deliv"], dtype=np.int64)
+        if deliv.size:
+            sl = o["slack"][deliv]
+            d = deliv[(sl >= lo_s - 1e-6) & (sl < hi_s - 1e-6)]
+        else:
+            d = deliv
+        if not idx.size:
             continue
         plans_n += 1
-        if not d:
+        if not d.size:
             continue
         w = o["n"][d]
-        N = len(idx)
-        residents += float(w.sum())
-        pairs += float(w.sum()) * N
-        for a in idx:
-            c = o["cs"][a]
-            f = o["fail"][a, d]
-            xs[(iid, c)] += float((f * w).sum()) / N
-            ns[(iid, c)] += float(w.sum()) / N
-            xp += int(f.any())
-            npairs += 1
-            for i in np.flatnonzero(f):
-                causes[o["cause_of"].get((c, d[i]), "?")] += float(w[i]) / N
-    keys = sorted(xs)
-    rc = st.cluster_ci([xs[k] for k in keys], [ns[k] for k in keys], pairs=pairs, conf=conf)
+        W = float(w.sum())
+        N = idx.size
+        F = o["fail"][np.ix_(idx, d)]
+        residents += W
+        pairs += W * N
+        if iid not in xs:
+            size = int(max(cs.max() + 1, 1))
+            xs[iid], ns[iid] = np.zeros(size), np.zeros(size)
+        elif xs[iid].size < cs.max() + 1:
+            grow = int(cs.max() + 1 - xs[iid].size)
+            xs[iid] = np.concatenate([xs[iid], np.zeros(grow)])
+            ns[iid] = np.concatenate([ns[iid], np.zeros(grow)])
+        np.add.at(xs[iid], cs[idx], (F.astype(float) @ w) / N)
+        np.add.at(ns[iid], cs[idx], W / N)
+        xp += int(F.any(axis=1).sum())
+        npairs += N
+        for a_, i_ in zip(*np.nonzero(F)):
+            causes[o["cause_of"].get((int(cs[idx[a_]]), int(d[i_])), "?")] += float(w[i_]) / N
+    xs_list, ns_list = [], []
+    for iid in sorted(xs):
+        keep = ns[iid] > 0
+        xs_list.extend(xs[iid][keep].tolist())
+        ns_list.extend(ns[iid][keep].tolist())
+    rc = st.cluster_ci(xs_list, ns_list, pairs=pairs, conf=conf)
     lo, hi = st.clopper_pearson(xp, npairs, conf) if npairs else (math.nan, math.nan)
     tot = sum(causes.values())
     rate = rc["rate"]
