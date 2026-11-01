@@ -144,3 +144,36 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   - Reason: background jobs here have a hard 2 h limit. The 5-seed baseline job finished the suite and B2, then
     was killed while it queued behind E3's run; with a bounded wait such a job gives up before it starts instead
     of risking a kill in the middle of a timed run.
+- **2026-11-01** — **Batch-1 review: E1's approved budget had been cut without a record (orchestrator error).**
+  Checkpoint 2 proposed, and Siyeong approved, "E1: 2 iterations; KILL if the minimum is still ≤ 1750 after the
+  second". The orchestrator's wave-2 brief replaced this with a single run and "ITERATE only if the worst of 5
+  exceeds B2's median", E1's pre-registration copied it, and no entry recorded the change (review finding E1-D1,
+  confirmed major).
+  - E1's batch-1 outcome is therefore **ITERATE: 1 of the 2 approved iterations run**. The pre-registered rule alone
+    gives KILL (worst 1443 ≤ B2's median 1749 and ≤ the bar).
+  - Siyeong decides at checkpoint 3 between the second iteration (E1b) and KILL.
+  - Reason: the approved plan governs; a brief may not change an approved budget or decision rule without a
+    recorded decision.
+- **2026-11-01** — **Correction to the Korean-panel entry above: the KR-2025 files were read by a test.**
+  evacplan's real-data adapter tests listed `uiseong_andong_2025` and `yeongdeok_2025`. So every suite run with
+  `WFG_ROUTING_INPUTS` set since `997d6d7a` (2026-10-31) read their road graphs (`graph.json`) and the packets'
+  `NATIVE_METADATA.json` (grid transform and graph revision, no hazard values).
+  - Decision: the tests read the three Korean dev fires only, and a guard test checks the list against
+    `firecast-lab/SPLITS.json` and that the whole KR-2025 season is test (on `evacplan/phase0`).
+  - Reported to Siyeong at checkpoint 3 (rule 5).
+  - Reason: review findings R0-D1 and H0-D2.
+- **2026-11-01** — **The bar for beating B2 implements Siyeong's rule literally.**
+  - `evacplan/docs/recorded_observations.json` also holds the best-of-baselines total 1751 (the baseline rows of
+    `b43990bb`, an earlier session of this VM, with B2's 517 on SYNTHETIC-L-grid-t50-s109). Like the 1750 B2 run,
+    it is keyed by the VM's host class.
+  - A recorded observation only raises a part of the bar that the session's own rows define and never defines one:
+    without B2 rows covering every instance in the session there is no bar.
+  - A method with any row over its budget gets no B2 verdict.
+  - Reason: review findings harness D3, D4 and D5 (the harness's bar was 1750, one below the stated rule).
+- **2026-11-01** — **Rule 6 is enforced for the evacplan test suite.**
+  - The suite refuses to start (exit 75) unless it runs under the bench lock.
+  - `EVACPLAN_TESTS_UNLOCKED=1` lets a light selection run, but only while nobody holds the lock.
+  - Probes that build Reach, an LP or a solver run go through `program/benchlock.py` (evacplan/CLAUDE.md).
+  - B2's 5 repeats are re-run in one quiet hold, with a `/proc` sampler recording every other process's CPU use;
+    the new rows replace those of the 05:03-05:55 hold, which overlapped about 3 min of agents' work outside the lock.
+  - Reason: review finding harness D1.

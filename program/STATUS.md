@@ -5,11 +5,15 @@
 
 ## Now
 
-- **Phase:** **Phase 1, Track C batch 1 (E1, E4, E3)**, approved 2026-11-01 (answers in `DECISIONS.md`).
-  - Wave 1: harness for the new rules plus the 5-repeat baseline reruns, the H0 hazard-intensity panel, and the
-    Track A fresh-holdout proposal.
-  - Wave 2: E1, E4 and E3.
-  - Then the independent review, and checkpoint 3 (stop and wait for Siyeong).
+- **Phase:** **finishing checkpoint 3.** Track C batch 1 (E1, E4, E3) is done and was independently reviewed (40 agents;
+  32 discrepancies, each verified). In progress:
+  - code fixes from the review on `../wfg-evacplan` (bar and verdict rules, the KR-2025 test guard, the suite's lock
+    guard, E4 diagnostics), with the full suite queued behind the B2 re-run;
+  - B2 × 5 re-run in one quiet bench-lock hold (rule 6), with a `/proc` sampler;
+  - documentation fixes by a doc-fix workflow (E1, E3, E4, H0 READMEs; Track A `FRESH_HOLDOUT.md`).
+  - Then: regenerate the leaderboard and the E1/E4 outputs, commit, merge, push, write `program/reviews/batch1-review.md`
+    and `program/reviews/checkpoint-3.md`, and **stop and wait for Siyeong**.
+  - Decision labels after the review: E1 ITERATE (1 of the 2 approved iterations run; `DECISIONS.md`), E4 KEEP, E3 KEEP.
 - **Updated:** 2026-11-01 (UTC).
 
 ## Host and data (important)
@@ -47,17 +51,17 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Agents
 
-| Agent | Track | Doing | Worktree / branch |
+| Agent | Track | Doing / outcome | Worktree / branch |
 |---|---|---|---|
-| ~~C-infra~~ (done, `03b339e0`) | C | harness: 5 repeats with median and range, B2 bar and verdict, tables per host, margin columns and figure | `../wfg-evacplan` |
-| ~~H0 hazard intensity~~ (done, merged) | C | SYNTHETIC much hotter by its rule (dose_lower), cooler on dose_upper | `../wfg-exp-H0`, `evacplan/exp-H0-hazard-intensity` |
-| ~~A-fresh~~ (done, merged) | A | 2025 US truth-source proposal (`firecast-lab/docs/FRESH_HOLDOUT.md`) | `../wfg-firecast` |
-| ~~E1 ALNS, untuned~~ (done, KILL, `59e19b30`) | C | method + final 5 × 60 s dev evaluation | `../wfg-exp-E1`, `evacplan/exp-E1-alns` |
-| ~~E3 scenario robustness~~ (done, KEEP, `5f0959f7`) | C | fresh-member violations vs K, and the default margin | `../wfg-exp-E3`, `evacplan/exp-E3-scenario-robustness` |
-| ~~E4 flow bound~~ (done, KEEP, `742575e3`; merge after the baseline job) | C | bound-only method; checks against B3 and every checked plan | `../wfg-exp-E4`, `evacplan/exp-E4-flow-bound` |
-| ~~Orchestrator background job~~ (done, `397e3f0b`) | C | noop, B0, B1, B3 × 5 seeds on dev at 60 s, one bench-lock hold | `../wfg-evacplan` |
-| Review R0 (reproduction) | C | clean checkout of `evacplan/phase0` @ `18841678` with a fresh venv: suites, E1 seed 0, B2 on s106, E4 bounds, an E3 cell | `../wfg-review-b1` (read-only) |
-| Review workflow | C, A | five fresh reviewers (harness and baselines, E1, E3, E4, H0 + Track A proposal), every discrepancy verified by skeptics | read-only |
+| C-infra (done) | C | harness rules of 2026-11-01 (`03b339e0`) | `../wfg-evacplan` |
+| H0 hazard intensity (done, merged) | C | SYNTHETIC much hotter by its rule (dose_lower), cooler on dose_upper | `evacplan/exp-H0-hazard-intensity` |
+| A-fresh (done, merged) | A | 2025 US truth-source proposal | `../wfg-firecast` |
+| E1 ALNS, untuned (done, merged) | C | ITERATE: 1 of 2 approved iterations (first reported as KILL) | `evacplan/exp-E1-alns` |
+| E3 scenario robustness (done, merged) | C | KEEP | `evacplan/exp-E3-scenario-robustness` |
+| E4 flow bound (done, merged) | C | KEEP | `evacplan/exp-E4-flow-bound` |
+| Review R0 + review workflow (done) | C, A | 32 discrepancies, every one verified | read-only |
+| Doc-fix workflow (running) | C, A | the review's documentation findings, each fix checked by a second agent; docs only, no computation | `../wfg-evacplan`, `../wfg-firecast` |
+| Orchestrator jobs (running) | C | B2 × 5 quiet re-run (bench lock), then the full suite (queued) | `../wfg-evacplan` |
 
 ## Blockers
 
@@ -68,10 +72,11 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Next step
 
-1. When the review returns: verify its findings, fix what is confirmed (with tests), and write
-   `program/reviews/batch1-review.md` (one short file).
-2. Write the checkpoint 3 report (`program/reviews/checkpoint-3.md`): summary, leaderboard, the dose and margin answers,
-   the fresh-holdout proposal, questions and a proposed batch 2. Push. **Stop and wait for Siyeong.**
+1. When the B2 hold and the suite finish: commit the code fixes on `evacplan/phase0` and push; regenerate the
+   leaderboard and the E1/E4 outputs under the lock; update every B2-dependent number.
+2. When the doc-fix workflow finishes: check its diffs, adjust (E3's post-hoc margin recommendation: 30 min), commit both
+   track branches, merge into `next/integration`, run program/tests, push.
+3. Write `program/reviews/batch1-review.md` and `program/reviews/checkpoint-3.md`; push; **stop and wait for Siyeong**.
 
 ## Log
 
