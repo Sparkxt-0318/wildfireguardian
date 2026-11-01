@@ -197,8 +197,8 @@ hazard model (below).
 - Members 0-7 regenerated **bit-identically on all 10 dev instances** (`members.json`); the selftest's B1 plan with
   S-grid-t25-s101's own 8 members reproduced the committed harness row (23 delivered, min slack 3839.2 s).
 - 198 plans: 190 B1 (no plan stopped at its budget; longest 9.8 s), 8 B2 (52.8-56.1 s of search each, 335-44 090
-  solutions; recorded in `plans.jsonl` and `results.csv`). **Every trip with residents of every plan was checked in-sample**, so every plan
-  is consistent with its planning members. 34 support sets.
+  solutions; recorded in `plans.jsonl` and `results.csv`). **Every trip with residents of every plan was checked
+  in-sample**, so every plan is consistent with its planning members. 34 support sets.
 - 7 112 out-of-sample oracle checks (one plan against one fresh member). Median cost per check: 0.57 s (S), 3.1 s (M),
   18 s (L). Tiers reached: T1, T1L, T2, T3, T3L, T4 complete; T5 169/192 tasks (M-geo-t75-s108 stopped at 164 members);
   T5L-T9 not reached. Coverage: `A8-g0` and B2 on S and M against 256 fresh members (M-geo-t75-s108: 164), `A8-g0` on L
@@ -241,8 +241,8 @@ in the next column). Every violation is `FLAME_CONTACT` (`model_no_route`); no d
 Pooled over the 10 instances, B1 (`A8-g0`): **3.89 % of delivered residents** [KG 2.94, 5.03 %; Kish upper 6.25 %]
 fail in a fresh member, and **7.6 %** of (plan, fresh member) pairs break at least one delivered trip [6.5, 8.8 %].
 B2 (8 S/M instances): 3.64 % per resident [KG upper 4.43 %, Kish 4.84 %], 7.9 % per plan. The failures concentrate on
-the tight instances: M-grid-t75-s107 alone fails in 37-39 % of fresh members with both planners; the six loose S/M
-instances stay at or below 4 %. Prediction **P1 is falsified** (≥ 10 % plan-level on 3 of 10 instances, not half).
+the tight instances: M-grid-t75-s107 fails in 37-39 % of fresh members with both planners, while the six S and M
+instances other than the two tight M ones stay at or below 4 % with B1 (B2: up to 6.6 %, on M-grid-t25-s105). Prediction **P1 is falsified** (≥ 10 % plan-level on 3 of 10 instances, not half).
 
 ### Scenario bound vs measured violation
 
@@ -333,7 +333,11 @@ Per slack bin (the risk of a resident whose slack is in the bin, not the cumulat
   than the average: 7-15 % for B1 residents with 1-30 min of slack. A margin that keeps every bin above it at ≤ 5 %
   would be about 30 min, at ≤ 1 % about 60 min (point estimates; post hoc reading of the bins, not the pre-registered
   rule).
-- Leaderboard cost of the other baselines: (BASELINE COSTS).
+- Leaderboard margin columns (`delivered_slack_ge_Xm`, the same prefix rule). B1 is deterministic and `A8-g0` is the
+  harness's B1 plan, so B1's columns equal E3's numbers: slack ≥ 5 / 15 / 30 min keeps 1231 / 1189 / 956 of 1353. B2,
+  5 seeds on this host (commit `c888a87b` on `evacplan/phase0`, read, not merged): 1523 / 1463 / 1284 of 1749 (87.1 /
+  83.6 / 73.4 %; at 1 min 1698, 97.1 %; at 60 min 976, 55.8 %). B0 and B3 had no 5-seed rows on this host when this
+  ran, so `margin_cost_baselines.csv` is empty; the leaderboard's margin columns will show them once merged.
 
 (POST HOC PER-INSTANCE TABLE)
 
