@@ -63,7 +63,7 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
 - **2026-10-31** — scikit-learn 1.5.2 (Track A logistic baseline) and hypothesis (property tests in all three
   packages) are in use although rule 8 does not list them. Reason: installed by the orchestrator at setup;
   scikit-learn 1.5.2 is the frozen `forecast` package's own `baseline` extra and `wildfire.baselines` fits the
-  same logistic model with it. Needs Siyeong's confirmation (else: refit with scipy.optimize).
+  same logistic model with it. Needs Siyeong's confirmation (else: refit with scipy.optimize). **Approved by Siyeong 2026-11-01.**
 - **2026-10-31** — Track A's Phase 0 data notes used survey-interval metadata of the six US-2024 test fires
   (NIROPS catalog provenance: survey times, no outcomes) and Korean test-fire window counts from
   `events.json` to discuss the lead. No outcomes or scores were read. Reported to Siyeong (rule 5); the 24 h
@@ -95,3 +95,27 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   intervals. Spread-skill uses fixed member-sd bins, because deciles cannot be pooled across windows. Runs
   that scored different cells or windows are refused. Reason: review A-M4, the metrics were coded but no run
   produced them. Bins to confirm with Siyeong.
+- **2026-11-01** — Siyeong's checkpoint 2 answers (recorded here; they override earlier entries where they differ):
+  1. **Data access deferred.** The program stays in this cloud session. The Track A real-data leaderboard and the
+     Caldor instance resume later on the Mac. No data is invented in the meantime.
+  2. **Track C batch 1 approved:** E1, E4 and E3 on the SYNTHETIC dev set, at most 3 agents at once, timed runs
+     through the bench lock. E4's validity check: on S instances the bound must be ≥ B3's achieved value;
+     otherwise it is a bug.
+  3. **Comparison rule** (replaces the 3-repeat rule of 2026-10-31):
+     - Every method runs 5 repeats (seeds 0-4) on a quiet machine.
+     - The leaderboard reports the median and [min-max].
+     - A method beats B2 only if its worst of 5 repeats exceeds both B2's best observed total (1750 on this host,
+       Phase 0 review run) and the best-of-baselines total (the per-instance best of any baseline, summed: 1751).
+     - Every row records its host, and times are never compared across hosts. On the Mac, the baselines are
+       re-run.
+  4. **Dose.** B2 stays as specified; E1 handles dose through the oracle. Report the peak-flux and
+     cumulative-dose distributions of the SYNTHETIC instances next to the real Korean panel (peak about
+     0.7 kW/m²). If the SYNTHETIC hazards are much hotter, tell Siyeong before tuning to them.
+  5. **Margin.** No change to the problem definition. Rows report the residents delivered with slack ≥ 0, 5, 15
+     and 30 min, the leaderboard plots delivered vs required margin, and E3 recommends the default margin.
+  6. **scikit-learn 1.5.2 and hypothesis are approved.**
+  7. **Track A's test-fire metadata numbers in DATA_NOTES stay.**
+  8. **Fresh holdout.** Propose a truth source for 2025 US fires, with its limits: a proposal only, no downloads.
+- **2026-11-01** — The Korean panel for the hazard-intensity comparison uses the dev fires' router packets only
+  (Uljin 2022, Hongseong 2023, Miryang 2022). The `uiseong_andong_2025` and `yeongdeok_2025` packets belong to
+  the KR-2025 test season and are not read. Reason: rule 5.

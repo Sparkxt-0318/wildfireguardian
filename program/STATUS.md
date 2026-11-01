@@ -5,10 +5,12 @@
 
 ## Now
 
-- **Phase:** **Checkpoint 2: waiting for Siyeong.** Phase 0 is done on both tracks, independently reviewed
-  (`program/reviews/phase0-review.md`) and fixed. Both track branches are merged into `next/integration`
-  and all suites pass. Report: `program/reviews/checkpoint-2.md`. Nothing new runs until Siyeong answers.
-- **Updated:** 2026-10-31 (UTC).
+- **Phase:** **Phase 1, Track C batch 1 (E1, E4, E3)**, approved 2026-11-01 (answers in `DECISIONS.md`).
+  - Wave 1: harness for the new rules plus the 5-repeat baseline reruns, the H0 hazard-intensity panel, and the
+    Track A fresh-holdout proposal.
+  - Wave 2: E1, E4 and E3.
+  - Then the independent review, and checkpoint 3 (stop and wait for Siyeong).
+- **Updated:** 2026-11-01 (UTC).
 
 ## Host and data (important)
 
@@ -62,13 +64,16 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Next step
 
-**Wait for Siyeong's answers** to checkpoint 2 (`program/reviews/checkpoint-2.md`, sections "Decisions needed"
-and "Defaults in place"). After approval:
-
-1. Record the answers in `DECISIONS.md`.
-2. Merge `next/integration` into both track branches.
-3. Start Phase 1 batch 1 with the approved experiments: at most 3 agents, each in its own worktree on an `exp-`
-   branch; dev only; timed runs through the bench lock.
+1. **Wave 0** (orchestrator): record the answers; merge `next/integration` into both track branches.
+2. **Wave 1**, three agents:
+   - C-infra in `../wfg-evacplan`: 5 repeats with median and range, the B2 bar and verdict, tables split per host,
+     margin columns and plot; then the baselines × 5 seeds through the bench lock.
+   - H0 in `../wfg-exp-H0`, branch `evacplan/exp-H0-hazard-intensity`: SYNTHETIC vs Korean dev flux and dose
+     distributions, with a pre-registered "much hotter" test.
+   - A-fresh in `../wfg-firecast`: proposal for a 2025 US truth source.
+3. **Wave 2**, three agents, each in its own worktree and `exp-` branch: E1 (ALNS; held if H0 finds the SYNTHETIC
+   hazards much hotter), E4 (flow bound) and E3 (scenario robustness and default margin).
+4. Independent review, then the checkpoint 3 report. **Stop and wait for Siyeong.**
 
 ## Log
 
@@ -128,3 +133,8 @@ and "Defaults in place"). After approval:
 - 2026-10-31 Both track branches merged into `next/integration`. All suites pass on the merge in venvs built from
   each track's `requirements.lock`: evacplan 310, hazard_contract 76, firecast-lab 125 + 3 skipped, program 2.
   Checkpoint 2 report written; waiting for Siyeong.
+- 2026-11-01 Siyeong answered checkpoint 2 (`DECISIONS.md`): data access deferred (stay in the cloud, invent nothing);
+  batch 1 E1/E4/E3 approved; new comparison rule (5 repeats, median and range, worst of 5 must exceed both 1750 and
+  1751, host in every row, never compare across hosts); dose distributions vs the Korean panel before tuning; margin
+  columns at slack ≥ 0/5/15/30 min plus a plot; scikit-learn and hypothesis approved; test-fire metadata kept;
+  fresh-holdout truth source to be proposed.
