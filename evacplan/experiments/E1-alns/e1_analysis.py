@@ -81,8 +81,10 @@ def main(host: str | None = None) -> int:
             "delivered_slack_ge_30m": int(r["delivered_slack_ge_30m"]), "min_slack_s": r["min_slack_s"],
             "runtime_s": r["runtime_s"], "over_budget": int(float(r["runtime_s"]) > BUDGET),
             "dose_above_budget_model_no_route": dose_mnr, "dose_unresolved": dose_unr,
-            "search_cut_dose": sum(v for k, v in cut.items() if k in DOSE),
+            "search_cut_dose": sum(v for k, v in cut.items() if k in DOSE),       # summed over certifications
             "search_cut_other": sum(v for k, v in cut.items() if k not in DOSE),
+            "relaxed_minus_certified": (dg["relaxed_best"] - dg["delivered_certified"]
+                                        if dg.get("delivered_certified") is not None else None),
             "certified": dg.get("certified"), "warm_planned": dg.get("warm_planned"),
             "relaxed_best": dg.get("relaxed_best"), "iterations": dg.get("iterations"),
             "oracle_calls": dg.get("oracle_calls"), "certifications": dg.get("certifications"),
@@ -109,7 +111,7 @@ def main(host: str | None = None) -> int:
         print(f"{m}: per-seed totals {totals[m]}; median {stat(t)}; worst {min(t) if t else '–'}")
     cols = ("delivered_checked", "unresolved", "model_no_route", "not_planned", "delivered_slack_ge_5m",
             "delivered_slack_ge_15m", "delivered_slack_ge_30m", "over_budget", "search_cut_dose",
-            "dose_above_budget_model_no_route", "dose_unresolved")
+            "relaxed_minus_certified", "dose_above_budget_model_no_route", "dose_unresolved")
     seeds = sorted({o["seed"] for o in out})
     print("\n| quantity (sum over the 10 dev instances, per seed) | median [min–max] |\n|---|---|")
     for c in cols:
