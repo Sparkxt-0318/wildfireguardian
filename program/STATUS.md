@@ -180,3 +180,22 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
   leaderboard regenerated (`434959f8`). Post-merge suite: 375 passed, 1 failed (E1's budget test: the B1 warm start alone
   fills a 1.5 s budget); the test now asserts the guarantee E1 has (`18841678`, E1's code unchanged; three green runs).
   Merged into `next/integration` (`e8a5604e`). Independent review started on `18841678`.
+- 2026-11-01 Independent review of batch 1 returned (R0 reproduction + 5 reviewers + verifiers, 40 agents; review of
+  `evacplan/phase0` @ `18841678` and `firecast-lab/phase0` @ `58ce939e`). All headlines reproduced. 32 discrepancies:
+  - confirmed major: E1's approved 2-iteration budget had been cut by the orchestrator's brief without a record, so E1
+    is ITERATE (1 of 2), not KILL (`DECISIONS.md`);
+  - rule 5: evacplan's adapter tests read the KR-2025 road graphs and packet grid metadata (R0: major; verifier: minor);
+  - rule 6: about 3 min of agents' work outside the lock overlapped B2's 5-seed hold (05:03-05:55), about 20 s E1's
+    final run, about 27 s E3's compute hold; no reported number was affected;
+  - the rest minor: the bar was 1750, not Siyeong's 1751; a recorded observation could define a bar without B2 rows;
+    over-budget rows got verdicts; E4's PDLP diagnostics; stale or inexact README text in E1, E3, E4, H0 and the
+    Track A proposal; E3's margin certificate covers only the 10 dev instances.
+  - Corrections to earlier log entries: E1 is ITERATE (not KILL); its tiny-budget overrun comes from its setup (Reach
+    and the latest-departure sweep), not the B1 loop; E3's "1/K" trend rests on one instance; E4's lock hold was
+    59.6 min plus about 3 min of unlocked work.
+- 2026-11-01 B2 × 5 re-run in one quiet hold (14:56-15:49 UTC, commit `18841678`, `/proc` sampler: every other process
+  4.7 % of one core in all, almost entirely the agent harness): 1726/1737/1737/1737/1721, median 1737 [1721-1737],
+  0 unresolved. B2's search found 20-27 % fewer solutions on every instance than in the morning hold, with nothing else
+  running: the VM's speed drifts within a session (L-geo 500-516 instead of 528). The rows replace the morning ones;
+  the bar stays 1751 (recorded observations). Same-session comparisons hours apart therefore carry a speed
+  uncertainty; proposed for batch 2: B2 interleaved with each challenger in one hold, and a speed probe in every row.
