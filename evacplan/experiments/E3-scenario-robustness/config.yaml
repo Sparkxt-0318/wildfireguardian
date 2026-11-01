@@ -1,0 +1,67 @@
+# E3 scenario robustness (Track C, Phase 1 batch 1). SYNTHETIC dev instances only.
+# Pre-registered in README.md before the main run. Read by e3_scenario_robustness.py (PyYAML).
+experiment: E3-scenario-robustness
+label: SYNTHETIC
+split_set: dev                  # evacplan.instances, frozen SPLIT.json, fingerprints verified; never test
+seed: none                      # no random numbers beyond each instance's own hazard stream (see members)
+host_boot_prefix: ff671362      # ASSUMPTIONS #92: results compare only within one VM boot session
+
+members:                        # one extended draw of the instance's hazard model per instance
+  instance: 8                   # indices 0-7: the instance's own members (bit-identical, verified)
+  fresh_plan: 32                # indices 8-39: fresh planning members (arm B)
+  fresh_check: 256              # indices 40-295: fresh check members; check member c = index 40 + c
+
+planner:
+  b1: {method: b1_greedy, budget_s: 60.0, seed: 0}       # deterministic; a plan that stops at its budget is flagged
+  b2: {method: b2_vrptw, budget_s: 60.0, seed: 0, sizes: [S, M]}   # instance members (K = 8); plan treated as given
+
+plans:
+  armA_K: [1, 2, 4, 8]          # B1 on disjoint consecutive blocks of the 8 instance members (A<K>-g<block>)
+  armB_K: [8, 16, 32]           # B1 on disjoint consecutive blocks of the 32 fresh planning members (B<K>-g<block>)
+  b2: true                      # B2-A8: B2 on the instance's 8 members
+
+plans_by_size:                  # which B1 plans are made (planning is cheap; checking is what costs)
+  S: [A1-g0, A1-g1, A1-g2, A1-g3, A1-g4, A1-g5, A1-g6, A1-g7, A2-g0, A2-g1, A2-g2, A2-g3, A4-g0, A4-g1, A8-g0,
+      B8-g0, B8-g1, B8-g2, B8-g3, B16-g0, B16-g1, B32-g0]
+  M: [A1-g0, A1-g1, A1-g2, A1-g3, A1-g4, A1-g5, A1-g6, A1-g7, A2-g0, A2-g1, A2-g2, A2-g3, A4-g0, A4-g1, A8-g0,
+      B8-g0, B8-g1, B8-g2, B8-g3, B16-g0, B16-g1, B32-g0]
+  L: [A1-g0, A2-g0, A4-g0, A8-g0, B8-g0, B16-g0, B32-g0]
+
+support:                        # greedy removal in member order (a member is dropped if B1 without it
+  plans_by_size:                # returns the identical plan); the rest is a compression set of size s*
+    S: [A8-g0, B8-g0, B16-g0, B32-g0]
+    M: [A8-g0, B8-g0, B16-g0, B32-g0]
+    L: [A8-g0]
+
+# Out-of-sample checks: every listed plan against each listed fresh check member alone (one-member scenario
+# set, Oracle.check_plan). Tiers run in this order, instances S -> M -> L and members in order inside a tier,
+# until the compute budget is used; whatever is not reached is not run (the README reports what was).
+# "core" = the K curve's plans A1-g0, A2-g0, A4-g0, (A8-g0), B8-g0, B16-g0, B32-g0.
+tiers:
+  - {name: T1, plans: [A8-g0, B2-A8], sizes: [S, M], check: [0, 64]}
+  - {name: T1L, plans: [A8-g0], sizes: [L], check: [0, 32]}
+  - {name: T2, plans: [A1-g0, A2-g0, A4-g0, B8-g0, B16-g0, B32-g0], sizes: [S, M], check: [0, 32]}
+  - {name: T3, plans: [A8-g0, B2-A8], sizes: [S, M], check: [64, 128]}
+  - {name: T3L, plans: [A8-g0], sizes: [L], check: [32, 64]}
+  - {name: T4, plans: [A1-g0, A2-g0, A4-g0, B8-g0, B16-g0, B32-g0], sizes: [S, M], check: [32, 64]}
+  - {name: T5, plans: [A8-g0, B2-A8], sizes: [S, M], check: [128, 256]}
+  - {name: T5L, plans: [A8-g0], sizes: [L], check: [64, 128]}
+  - {name: T6, plans: [A1-g0, A2-g0, A4-g0, B8-g0, B16-g0, B32-g0], sizes: [L], check: [0, 16]}
+  - {name: T7, plans: [A1-g1, A1-g2, A1-g3, A1-g4, A1-g5, A1-g6, A1-g7, A2-g1, A2-g2, A2-g3, A4-g1, B8-g1, B8-g2,
+                       B8-g3, B16-g1], sizes: [S], check: [0, 32]}
+  - {name: T8, plans: [A1-g1, A1-g2, A1-g3, A1-g4, A1-g5, A1-g6, A1-g7, A2-g1, A2-g2, A2-g3, A4-g1, B8-g1, B8-g2,
+                       B8-g3, B16-g1], sizes: [M], check: [0, 32]}
+  - {name: T9, plans: [A8-g0], sizes: [L], check: [128, 256]}
+
+chunk_members: {S: 8, M: 4, L: 2}    # fresh members per check task (keeps tasks short for the budget stop)
+
+budget:
+  compute_minutes: 75           # wall clock of the whole compute step inside one bench-lock hold
+  workers: 4                    # worker processes (the machine has 4 cpus; nothing else runs in the lock)
+
+statistics:
+  confidence: 0.95              # two-sided Clopper-Pearson
+  clusters: instance x fresh member
+  margins_min: [0, 1, 2, 5, 10, 15, 20, 30, 45, 60]   # the harness grid (evacplan.harness.MARGINS_MIN)
+  alphas: [0.05, 0.01]
+  beta: 0.05                    # confidence parameter of the scenario bounds

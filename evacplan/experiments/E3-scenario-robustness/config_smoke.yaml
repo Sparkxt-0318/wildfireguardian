@@ -1,0 +1,21 @@
+# E3 smoke test (run inside the same bench-lock hold just before the main run; raw output in
+# evacplan/runs/E3-scenario-robustness/smoke/, never analysed as a result). One S instance, every code path:
+# extended members, B1 plans on instance and fresh members, B2 (short budget), a support set, checks.
+experiment: E3-scenario-robustness (smoke)
+label: SYNTHETIC
+split_set: dev
+seed: none
+host_boot_prefix: ff671362
+members: {instance: 8, fresh_plan: 32, fresh_check: 4}
+planner:
+  b1: {method: b1_greedy, budget_s: 60.0, seed: 0}
+  b2: {method: b2_vrptw, budget_s: 5.0, seed: 0, sizes: [S]}
+plans: {armA_K: [4, 8], armB_K: [32], b2: true}
+plans_by_size: {S: [A4-g0, A8-g0, B32-g0], M: [], L: []}
+support: {plans_by_size: {S: [A8-g0], M: [], L: []}}
+tiers:
+  - {name: T1, plans: [A8-g0, B2-A8, A4-g0, B32-g0], sizes: [S], check: [0, 4]}
+chunk_members: {S: 2, M: 2, L: 2}
+budget: {compute_minutes: 10, workers: 2}
+statistics: {confidence: 0.95, clusters: instance x fresh member, margins_min: [0, 1, 2, 5, 10, 15, 20, 30, 45, 60],
+             alphas: [0.05, 0.01], beta: 0.05}
