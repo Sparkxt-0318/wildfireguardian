@@ -892,4 +892,5 @@ def test_harness_runs_the_bound_only_method_end_to_end(mini):
         assert json.loads(e["config"])["bound_only"] is True and e["gap"] == "" and e["delivered_checked"] == "0"
         assert int(r["delivered_checked"]) <= float(e["best_bound"])
     text = p["leaderboard_path"].read_text()
-    assert "Proven upper bounds of bound-only methods" in text and "| e4_flow_bound |" not in text
+    assert "Proven upper bounds of bound-only methods" in text
+    assert not any(x.startswith("| e4_flow_bound |") for x in text.splitlines())      # no method row

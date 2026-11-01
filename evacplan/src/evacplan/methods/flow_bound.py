@@ -766,6 +766,8 @@ def dual_bound(arrays: dict[str, np.ndarray], pi: np.ndarray) -> tuple[float, fl
 def certified_value(arrays: dict[str, np.ndarray], pi: np.ndarray | None) -> tuple[float, dict]:
     """The smallest weak-duality bound over ``pi`` and ``-pi`` (both are valid; HiGHS's sign convention for a
     maximization is not relied on), plus its error margin."""
+    if pi is None and arrays["row_lower"].size == 0:
+        pi = np.zeros(0)                          # no rows: weak duality needs no multipliers
     if pi is None:
         return math.inf, {"dual_bound": None}
     best, best_err = math.inf, math.inf
@@ -798,6 +800,11 @@ def flow_bound(instance: Instance, scenario_set=None, *, reach: Reach | None = N
         return rb, info
     model = net.build()
     info.update(certified=True, note=model.note, delta_eff_s=model.delta, lp=model.stats)
+    if not np.any(model.cost > 0):
+        # no unloading can happen anywhere in the network: every delivering plan would map to one, so none exists
+        info.update(lp_status="no unloading in the network", dual_bound=0.0, dual_bound_err=0.0, bound=0,
+                    total_s=round(time.monotonic() - t0, 3))
+        return 0, info
     left = max(1.0, time_limit - (time.monotonic() - t0))
     arrays = model.arrays()
     # the main solver gets most of the time; if it leaves no usable duals (e.g. its time limit), PDLP gets the rest:

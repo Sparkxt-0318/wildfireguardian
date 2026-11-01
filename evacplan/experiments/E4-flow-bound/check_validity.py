@@ -139,23 +139,28 @@ def _figure(out: list[dict], path: Path) -> None:
         FigureCanvasAgg(fig)
         ax = fig.add_subplot()
         ax.set_facecolor("#fcfcfb")
-        w = 0.27
-        series = (("trivial bound (servable residents)", "trivial_bound", "#c3c2b7"),
-                  ("E4 flow bound", "e4_bound", "#2a78d6"),
-                  ("best delivered, any method (this host)", "best_delivered_host", "#eb6834"))
-        for n, (name, key, colour) in enumerate(series):
-            ax.bar([v + (n - 1) * w for v in x], [float(o[key]) / o["residents"] * 100 for o in sel], w,
-                   label=name, color=colour)
+        series = (("trivial bound (servable residents)", "trivial_bound", "#898781", "s"),
+                  ("E4 flow bound (proven upper bound)", "e4_bound", "#2a78d6", "v"),
+                  ("best delivered, any method (this host)", "best_delivered_host", "#eb6834", "o"))
+        vals = {key: [float(o[key]) / o["residents"] * 100 for o in sel] for _, key, _, _ in series}
+        for v, lo, hi in zip(x, vals["best_delivered_host"], vals["trivial_bound"]):
+            ax.plot([v, v], [lo, hi], color="#e1e0d9", linewidth=6, solid_capstyle="round", zorder=1)
+        for name, key, colour, marker in series:
+            ax.plot(x, vals[key], linestyle="none", marker=marker, markersize=8, color=colour, label=name, zorder=3,
+                    markeredgecolor="#fcfcfb", markeredgewidth=1.0)
         ax.set_xticks(x)
         ax.set_xticklabels(labels, rotation=30, ha="right")
         ax.set_ylabel("% of the instance's residents")
-        ax.set_ylim(0, 105)
+        low = min(min(v) for v in vals.values())
+        ax.set_ylim(max(0.0, 5 * (low // 5) - 5), 102)
         ax.grid(True, axis="y", color="#e1e0d9", linewidth=0.8)
         ax.set_axisbelow(True)
         for side in ("top", "right"):
             ax.spines[side].set_visible(False)
         ax.set_title("SYNTHETIC dev instances - E4 upper bound vs trivial bound vs best plan", loc="left", fontsize=10)
         ax.legend(loc="lower left", frameon=False, fontsize=8)
+        ax.text(1.0, -0.32, "the gap is the distance from the triangle (bound) down to the circle (best plan); "
+                "axis does not start at 0", transform=ax.transAxes, ha="right", fontsize=7, color="#52514e")
         path.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(path, dpi=100, facecolor="#fcfcfb", bbox_inches="tight",
                     metadata={"Software": None, "Title": "SYNTHETIC - E4 bound vs best plan (dev)"})

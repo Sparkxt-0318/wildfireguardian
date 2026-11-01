@@ -173,6 +173,17 @@ def test_free_space_and_trip_cuts_only_lower_the_lp_value(seed):
     assert vals[(True, True)] <= vals[(True, False)] + 1e-6
 
 
+def test_a_network_without_any_unloading_proves_that_nobody_can_be_delivered():
+    """Found by the property test (random_case(0), more burning): nothing can be delivered, the network has no
+    unloading at all, and the bound is 0 (it was the resource bound, valid but not monotone). B1 delivers 0 too."""
+    inst, ss0, _ = random_case(0)
+    inst2, ss2 = _restrict(inst, persistent(ss0), "burn", np.random.default_rng(0))
+    b, info = flow_bound(inst2, ss2, delta_s=60)
+    assert info["certified"] and b == 0 and info["lp_status"] == "no unloading in the network"
+    assert Oracle(inst2, ss2).check_plan(solve("b1_greedy", inst2, ss2, 20.0).solution).delivered_total == 0
+    assert flow_bound(inst, persistent(ss0), delta_s=60)[0] >= b
+
+
 def test_dropping_dominated_moves_keeps_the_lp_optimum():
     for seed in (3, 8, 21):
         inst, ss0, _ = random_case(seed)

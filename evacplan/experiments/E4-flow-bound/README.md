@@ -214,4 +214,81 @@ condition (question for Siyeong below).
 
 ## Results
 
-(filled in after the dev run)
+**Run.** `evacplan run --method e4_flow_bound --set dev --seeds 0 --budget-s 900` under the bench lock,
+2026-11-01 07:15-08:06 UTC, commit `a4c88873`, host `vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz,
+4 cpu, python 3.12.3, vm boot ff671362)`. Rows: `evacplan/results/e4_flow_bound.csv` (flagged `bound_only`);
+table: `results.csv` and `figures/bounds_vs_best_dev.png`, both from `check_validity.py`. **Best delivered** =
+the most residents any method delivered on the instance on this host: B2's five repeats at 60 s (merged from
+`evacplan/phase0` `c888a87b`); B0, B1 and B3 still had rows of the previous host string only (their 5-seed
+re-runs were queued behind the bench lock). Trivial bound = min(resource bound, residents − unservable).
+
+| instance (SYNTHETIC) | residents | trivial bound | **E4 bound** (LP value) | best delivered, this host | **gap** | trivial gap | trivial gap closed | runtime (s) | LP rows × cols |
+|---|---|---|---|---|---|---|---|---|---|
+| S-grid-t25-s101 | 23 | 23 | **23** (23.00) | 23 | 0 % | 0 % | – | 3.9 | 12k × 16k |
+| S-geo-t25-s102 | 39 | 39 | **39** (39.00) | 36 (37 by B1, previous host) | 7.7 % | 7.7 % | 0 % | 6.4 | 13k × 18k |
+| S-grid-t75-s103 | 27 | 26 | **25** (25.94) | 23 | 8.0 % | 11.5 % | 33 % | 1.3 | 4k × 5k |
+| S-geo-t75-s104 | 26 | 26 | **26** (26.00) | 26 | 0 % | 0 % | – | 1.2 | 4k × 5k |
+| M-grid-t25-s105 | 163 | 163 | **163** (163.00) | 163 | 0 % | 0 % | – | 221.5 | 125k × 195k |
+| M-geo-t25-s106 | 155 | 155 | **155** (155.00) | 155 | 0 % | 0 % | – | 595.9 | 143k × 229k |
+| M-grid-t75-s107 | 168 | 168 | **160** (160.11) | 140 | 12.5 % | 16.7 % | 29 % | 164.8 | 69k × 109k |
+| M-geo-t75-s108 | 149 | 149 | **144** (144.03) | 139 | 3.5 % | 6.7 % | 50 % | 200.1 | 75k × 118k |
+| L-grid-t50-s109 | 646 | 646 | **646** (not solved: 865) | 516 | 20.1 % | 20.1 % | 0 % | 881.1 | 139k × 246k |
+| L-geo-t50-s110 | 579 | 579 | **579** (not solved: 591) | 528 | 8.8 % | 8.8 % | 0 % | 880.5 | 128k × 220k |
+
+**Mean gap** (E4 / trivial bound): S 3.9 % / 4.8 %, **M 4.0 % / 5.8 %**, L 14.5 % / 14.5 %, all 6.1 % / 7.2 %.
+
+* **S:** E4 matches the resource bound on three instances and proves **25 on S-grid-t75-s103**, below B3's
+  certified 26 and the trivial 26 (best plan 23).
+* **M:** the t25 instances are proven at their resident counts, which plans already reach (gap 0). On the
+  two t75 instances, where plans fall short, E4 proves **160 of 168** (best plan 140) and **144 of 149** (best
+  139): it closes 29 % and 50 % of the trivial gap; the largest M gap is 12.5 %, inside the hypothesis' 15 %.
+* **L: not informative at this budget.** The pooled-type LP at a 119-120 s step (128k-139k rows, 220k-246k
+  columns) did not converge in the interior point's 616 s share; its duals certify 865 and 591, PDLP's 270 s
+  did not do better, so only the resource bound (646, 579) is claimed. For scale, M-geo-t25-s106 (229k columns)
+  needed 591 s of interior point; the L LPs need a larger budget (a proven bound does not depend on it).
+* **Solver notes.** On M-grid-t25-s105 the interior point stopped after 70 s at an infeasible point (status
+  "Unknown"); the PDLP fallback certified 163. Every bound is weak duality on the reported duals, so neither
+  status matters for validity.
+* **Strengthenings.** On B3's tiny brute-force instance (optimum 5): plain LP 6, with free space 6, with free
+  space and trip cuts 5 (tests). Their effect on dev was not measured: the ablation run was dropped to stay
+  within the 1 h bench budget (`ablation.py` is the script, not run).
+
+### Validity checks
+
+| check | status |
+|---|---|
+| 1. S: bound >= B3's delivered value in every B3 row | **pass**: 12 B3 rows (23, 34-35, 21, 25 vs bounds 23, 39, 25, 26) |
+| 2. bound >= every checked plan, every method, seed, budget and host on dev | **pass**: 0 violations over 152 rows of 5 methods (current rows, incl. B2 x 5 on this host) and over the 132 rows at `1373bb3f` (B0-B3 and noop, previous host) |
+| 3. tiny instances: bound >= brute-force optimum | **pass**: B3's tiny instance (bound 5 = optimum 5) and 10 random off-grid variants at two steps each (`test_flow_bound.py`) |
+| 4. adding a constraint never raises the bound; bound >= every checked plan on random small instances | TESTS_STATUS |
+
+The final 5-seed baseline commit ("evacplan: baselines x 5 seeds") had not reached `evacplan/phase0` when
+these checks ran; B0, B1 and B3 were checked against their rows at `1373bb3f` (previous host string) and B2
+against its 5 repeats on this host (`c888a87b`). The orchestrator re-checks the new rows (and E1's).
+
+### Decision: **KEEP**
+
+Valid on every check, and informative where plans fall short: strictly below the trivial bound on
+S-grid-t75-s103, M-grid-t75-s107 and M-geo-t75-s108; mean gap on M 4.0 % (<= 30 %), largest 12.5 %. It is the
+first proven bound on M. Not yet on L: at a 900 s budget it claims only the resource bound there.
+
+### Next step
+
+1. L: rerun `e4_flow_bound` on the two L instances with a larger budget (about 30 min each, single thread; the
+   bound is budget-independent and its rows join the 60 s table), or shrink the L model (coarser step with
+   nearby locations merged, or decomposition by vehicle type).
+2. Measure the strengthenings on dev (`ablation.py`) and tighten further where the gap is left (M-grid-t75-s107:
+   12.5 %): the remaining slack is fractional vehicles doing work in parallel at facilities whose window is not
+   binding, and departures rounded down to a cell start.
+3. Use the LP's duals (value of a resident per facility and class, of vehicle time) to guide E1/E2.
+
+### Questions for Siyeong
+
+1. **Yardstick.** "Gap <= 30 % on M" is met by the trivial bound alone (5.8 % mean on M): should a bound be
+   judged by the share of the trivial gap it closes (here 29 % and 50 % on the two M instances where plans fall
+   short), as this README does?
+2. **Bound-only rows across budgets.** E4's rows (computed at 900 s) feed the best-bound column of the 60 s table
+   of the same host, because a proven bound does not depend on the budget that computed it. Agree, or keep
+   bound-only methods inside their own budget's table?
+3. **L budget.** The L LPs need roughly 15-30 min each, single-threaded. Run them once at a larger budget (not a
+   timed comparison, the bound is deterministic), or allow HiGHS several threads for bound-only methods?
