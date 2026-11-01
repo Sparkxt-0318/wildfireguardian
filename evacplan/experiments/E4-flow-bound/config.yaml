@@ -14,6 +14,8 @@ configs:
 
 solver:
   backend: HiGHS interior point (highspy 1.15, child process), threads 1, presolve off, crossover off
+  fallback: PDLP for the rest of the time if the interior point leaves no usable duals (70% / 30% split)
+  strengthenings: {free_space: true, trip_cuts: true, prune_dominated_moves: true}
   ipm_optimality_tolerance: 1.0e-6
   bound: weak duality on the row duals (any duals give a valid bound), floored after a float margin
 

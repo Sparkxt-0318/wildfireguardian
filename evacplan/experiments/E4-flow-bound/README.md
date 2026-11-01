@@ -140,9 +140,8 @@ shift, capacities, first come first served).
    unloading time): at least `G` seconds between the end of one trip's last boarding and the start of the
    next trip's first. All boardings take their seconds and lie between max(release, arrival) and the end of
    the action set (step 4) or of the shift, with arrival >= the NEGATIVE earliest arrival from its start
-   (step 3). So for the
-   number of trips m: `n_c <= m · space_c` and `Σ_c b_c n_c + (m − 1)·G <= W` (per class, with that class's
-   action set); the counts are whole residents, hence the floor. A shelter on the facility's own node gives
+   (step 3). So for the number of trips m: `n_c <= m · space_c` and `Σ_c b_c n_c + (m − 1)·G <= W` (per
+   class, with that class's action set); the counts are whole residents, hence the floor. A shelter on the facility's own node gives
    `G` = one unloading, and if no shelter can empty the vehicle there is one trip.
 
 **What is relaxed, and why each only enlarges the feasible set:** vehicle identity within a pooled group and
@@ -164,7 +163,9 @@ replacement uses kept moves.
 `libhighs`) solves the LP. The bound is not the solver's objective but weak duality evaluated on its row duals
 `pi`: for ANY `pi`, `c·x <= Σ_i max(pi_i L_i, pi_i U_i) + Σ_j max(d_j l_j, d_j u_j)` with `d = c − Aᵀpi`, so
 the bound holds whatever the solver's tolerances or status (signs of one-sided rows are clipped, both `pi`
-and `−pi` are tried, every column has a finite upper bound). It is rounded down after a margin that covers
+and `−pi` are tried, every column has a finite upper bound). The interior point (no presolve: without crossover
+HiGHS's postsolve does not restore consistent duals) gets 70 % of the time left; if it leaves no usable duals,
+PDLP gets the rest, and the smaller certified value is kept. It is rounded down after a margin that covers
 the floating-point error of that sum. If the lattice is not complete, no bound beyond the resource bound is
 claimed.
 
@@ -177,7 +178,7 @@ claimed.
   dev run (`config.yaml`); if L does not solve in the budget, `delta` on L may only grow (a coarser grid is
   still a valid, looser relaxation), and that is reported.
 * One seed (the bound is deterministic; the seed is ignored). Run through the harness, `evacplan run
-  --method e4_flow_bound --set dev --seeds 0`, under the bench lock, at the budget it needs (600 s); a proven
+  --method e4_flow_bound --set dev --seeds 0`, under the bench lock, at the budget it needs (900 s); a proven
   bound does not depend on the budget, so its rows join every table of the same set and host.
 
 ### Baseline and metric
