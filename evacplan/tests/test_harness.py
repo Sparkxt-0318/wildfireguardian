@@ -802,3 +802,95 @@ def test_recorded_observation_of_a_host_class_applies_to_every_session_of_it():
     assert {o.delivered_checked for o in ca.recorded} == {30, 40} and {o.delivered_checked for o in cb.recorded} == {30}
     cc = compare_to_b2(rows, ["x", "y"], set_name="dev", budget=60, host=cls, observations=[obs(a, 40)])
     assert cc.b2_best_observed is None                   # a session's observation never applies to the class table
+
+
+# ------------------------------------------------------------------ bound-only methods (E4)
+def _bound_rows(method, bounds, budget=600.0, host="h", runtime="12.5000"):
+    """Rows of a bound-only method: empty plan (0 delivered), ``best_bound`` per instance, ``bound_only`` in the
+    config, empty gap (as :func:`make_row` writes them)."""
+    out = _rows(method, {(i, 0): (0, 0) for i in bounds}, budget=budget, host=host)
+    for r in out:
+        cfg = json.loads(r["config"])
+        cfg["bound_only"] = True
+        r["config"] = json.dumps(cfg, sort_keys=True, separators=(",", ":"))
+        r["best_bound"], r["runtime_s"] = f"{bounds[r['instance']]:.3f}", runtime
+    return out
+
+
+def test_make_row_marks_bound_only_rows_and_leaves_their_gap_empty(mini):
+    from evacplan.harness import is_bound_only
+    root, split = mini
+    p = paths(root, "bound-only")
+    (row,) = run("noop", "dev", 5, instances=[split.ids("dev")[0]], lock="no", log=lambda s: None, **p)
+    entry = split.entries("dev")[0]
+    inst = load_instance(p["cache_dir"] / entry.id / "instance.json")
+    plan = Oracle(inst, load_scenario_set(inst)).check_plan(Solution(instance=inst.name, itineraries=[]))
+    common = dict(entry=entry, set_name="dev", method_name="e4_flow_bound", method_config={}, seed=0, budget_s=600.0,
+                  plan=plan, runtime_s=3.0, best_bound=21.0, commit="c", host="h")
+    b = make_row(**common, bound_only=True)
+    assert is_bound_only(b) and b["best_bound"] == "21.000" and b["gap"] == "" and b["delivered_checked"] == "0"
+    n = make_row(**common)
+    assert not is_bound_only(n) and n["gap"] == "1.000000" and not is_bound_only(row)
+
+
+def test_bound_only_rows_feed_the_best_bound_and_their_own_table_not_the_totals():
+    """A bound-only method computed at another budget joins the 60 s table of its set and host: its bound is the
+    best bound where it is the smallest, it has its own table with runtime and gap to the best plan, and it gets no
+    row in the method table, no verdict and no line in the margin figure."""
+    from evacplan.harness import compare_to_b2, margin_curves, render_leaderboard
+    split = _split(("I1", "I2"))
+    rows = _rows("b2_vrptw", {(i, s): (d, 0) for s in range(5) for i, d in (("I1", 90), ("I2", 70))})
+    rows += _rows("b1_greedy", {("I1", 0): (95, 0), ("I2", 0): (60, 0)})
+    b3 = _rows("b3_mip", {("I1", 0): (95, 0)})
+    b3[0]["best_bound"], b3[0]["gap"] = "99.000", "0.040404"
+    rows += b3 + _bound_rows("e4_flow_bound", {"I1": 97, "I2": 80})
+    text = render_leaderboard(rows, split, observations=[])
+    assert list(_sections(text)) == ["## dev, budget 60 s, host h"]          # no table of its own at 600 s
+    methods = _table(text, "| method |")
+    assert not any(x.startswith("| e4_flow_bound |") for x in methods)
+    assert any(x.startswith("| b2_vrptw |") for x in methods)
+    delivered = _table(text, "Delivered (checked) per instance")
+    head = [c.strip() for c in delivered[0].strip("|").split("|")]
+    assert "e4_flow_bound" not in head
+    best = head.index("best bound")
+    cells = {x.split("|")[1].strip(): [c.strip() for c in x.strip("|").split("|")] for x in delivered[2:]}
+    assert cells["I1"][best] == "97" and cells["I2"][best] == "80"        # min(99, 97) and 80
+    bounds = _table(text, "Proven upper bounds of bound-only methods")
+    assert bounds[0].startswith("| instance | label | residents | best delivered | e4_flow_bound | gap | runtime (s) |")
+    assert next(x for x in bounds if x.startswith("| I1 |")) == "| I1 | SYNTHETIC | 100 | 95 | 97 | 2.1% | 12.5 |"
+    assert next(x for x in bounds if x.startswith("| I2 |")) == "| I2 | SYNTHETIC | 100 | 70 | 80 | 12.5% | 12.5 |"
+    assert "Mean gap of e4_flow_bound by size (instances): M 7.3% (2), all 7.3% (2); computed at budget 600 s" in text
+    assert "INVALID" not in text
+    cmp = compare_to_b2(rows, ["I1", "I2"], set_name="dev", budget=60.0, host="h")
+    assert "e4_flow_bound" not in cmp.verdicts and cmp.best_of_baselines_total == 95 + 70
+    assert "e4_flow_bound" not in margin_curves([r for r in rows if r["host"] == "h"])
+
+
+def test_a_bound_below_a_delivered_plan_is_flagged_invalid_and_bounds_alone_get_a_section():
+    from evacplan.harness import render_leaderboard
+    split = _split(("I1",))
+    rows = _rows("b1_greedy", {("I1", 0): (95, 0)}) + _bound_rows("e4_flow_bound", {"I1": 94})
+    text = render_leaderboard(rows, split, observations=[])
+    assert "**INVALID BOUND**" in text and "e4_flow_bound on I1: bound 94 < delivered 95" in text
+    alone = render_leaderboard(_bound_rows("e4_flow_bound", {"I1": 94}, host="other"), split, observations=[])
+    (head,) = _sections(alone)
+    assert head == "## dev, budget 600 s, host other"
+    assert "No plans for this set, budget and host" in alone and "| I1 | SYNTHETIC | 100 | – | 94 | – | 12.5 |" in alone
+
+
+def test_harness_runs_the_bound_only_method_end_to_end(mini):
+    """``evacplan run --method e4_flow_bound``: rows say bound_only, carry a proven bound at least as large as
+    every plan of the same instances (B1 here), and the leaderboard has the bounds table."""
+    root, split = mini
+    p = paths(root, "e4")
+    b1 = run("b1_greedy", "dev", 30, lock="no", log=lambda s: None, **p)
+    e4 = run("e4_flow_bound", "dev", 120, lock="no", log=lambda s: None, **p)
+    by = {r["instance"]: r for r in e4}
+    assert set(by) == set(split.ids("dev"))
+    for r in b1:
+        e = by[r["instance"]]
+        assert json.loads(e["config"])["bound_only"] is True and e["gap"] == "" and e["delivered_checked"] == "0"
+        assert int(r["delivered_checked"]) <= float(e["best_bound"])
+    text = p["leaderboard_path"].read_text()
+    assert "Proven upper bounds of bound-only methods" in text
+    assert not any(x.startswith("| e4_flow_bound |") for x in text.splitlines())      # no method row

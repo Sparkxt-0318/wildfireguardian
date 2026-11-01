@@ -18,7 +18,7 @@ Rules and the problem definition: [`CLAUDE.md`](CLAUDE.md); every modelling choi
 | `evacplan.instances` | the frozen split (`instances/SPLIT.json`), fingerprints, the regenerated instance cache |
 | `evacplan.reach` | RELAXED time-dependent reachability on the 1 s lattice (no states): departure masks, the backward latest-safe-departure sweep from all shelters (all K members, turn rules, waits, windows), witness routes, time-dependent A*, the certain-contact relaxation |
 | `evacplan.deadlines` | per facility and class: `arrive_by_s` / `leave_by_s` confirmed by oracle probe trips, and residents no plan can serve (scoped `model_no_route`, declared by the oracle) |
-| `evacplan.harness`, `evacplan.methods` | `evacplan run`: budgets, bench lock, oracle-checked result rows, per-facility rows, `LEADERBOARD.md` (with the best proven bound per instance); the method interface, `noop`, `b0_independent` (B0: every facility planned alone with today's planner logic, the shared fleet first come first served), `b1_greedy` (B1: earliest-deadline-first insertion with the sweep's deadlines), `b2_vrptw` (B2: OR-Tools VRPTW, pickup and delivery, per-class capacities, static windows from the latest departures), `b3_mip` (B3: relaxed MIP for the bound, restricted MIPs on coarse-to-fine grids for the plan, HiGHS in a child process; S instances only); aliases `B0`..`B3`; `methods.dispatch` (shared trip machinery), `methods.realize` (ASAP replay of stop sequences, B2/B3), `methods.timexp` (the time-expanded network and MIP), `methods.highs_worker` |
+| `evacplan.harness`, `evacplan.methods` | `evacplan run`: budgets, bench lock, oracle-checked result rows, per-facility rows, `LEADERBOARD.md` (with the best proven bound per instance); the method interface, `noop`, `b0_independent` (B0: every facility planned alone with today's planner logic, the shared fleet first come first served), `b1_greedy` (B1: earliest-deadline-first insertion with the sweep's deadlines), `b2_vrptw` (B2: OR-Tools VRPTW, pickup and delivery, per-class capacities, static windows from the latest departures), `b3_mip` (B3: relaxed MIP for the bound, restricted MIPs on coarse-to-fine grids for the plan, HiGHS in a child process; S instances only); aliases `B0`..`B3`; `e4_flow_bound` (E4, bound only: a flow-over-time LP bound on the residents any plan can deliver, every size, certified by weak duality; `methods.flow_bound`, `methods.lp_worker`); `methods.dispatch` (shared trip machinery), `methods.realize` (ASAP replay of stop sequences, B2/B3), `methods.timexp` (the time-expanded network and MIP), `methods.highs_worker` |
 | `evacplan.regions` | real regions: OSM roads (osmnx), CMS nursing homes + geocoding, perimeters (`from_perimeters`), SYNTHETIC residents and fleet; `regions.caldor` |
 | `evacplan.adapters.wfg_graph` | this repo's router `graph.json` → `RoadGraph` (router admission reused) |
 
@@ -52,7 +52,11 @@ first arrival, `leave_by_s`: latest last departure, both oracle-checked), the re
 (`unservable`, a scoped `model_no_route`), and this plan's delivered / unresolved / model_no_route / not planned
 residents there. `--set test` is refused without `--allow-test`
 (milestones only, after Siyeong approves). A method subclasses `evacplan.methods.Method` and is registered in
-`evacplan.methods`; `Method.applicable(instance)` lets it skip instances (B3 beyond S: no row).
+`evacplan.methods`; `Method.applicable(instance)` lets it skip instances (B3 beyond S: no row). A bound-only
+method (`Method.bound_only`, e.g. `e4_flow_bound`) plans nothing: its rows say `bound_only` in their config, its
+bounds feed the best-bound column of every table of the same set and host (any budget) and its own bounds table
+(runtime, gap to the best plan), and it is left out of the method table, the verdicts and the margin figure
+(`docs/ASSUMPTIONS.md` #94).
 
 **Safety margins.** `delivered_slack_ge_Xm` counts the residents delivered with a safety slack of at least X minutes:
 the smallest oracle leg slack over their vehicle's legs from the start of its itinerary through the unloading that

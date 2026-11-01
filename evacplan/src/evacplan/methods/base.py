@@ -29,9 +29,14 @@ class MethodResult:
 
 class Method:
     """Base class. Subclasses set ``name`` and implement :meth:`solve`; constructor keyword
-    arguments are the method's configuration (recorded in every result row)."""
+    arguments are the method's configuration (recorded in every result row).
+
+    ``bound_only``: the method plans nothing and only proves ``best_bound`` (e.g. E4's flow bound). Its rows
+    say so in their config; the leaderboard uses their bounds (best-bound column, its own bounds table) and
+    leaves them out of the method totals, the verdicts and the margin figure."""
 
     name = "method"
+    bound_only = False
 
     def __init__(self, **config: Any):
         self._config = dict(config)
