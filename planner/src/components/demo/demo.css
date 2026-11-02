@@ -76,5 +76,14 @@
 .tour-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .btn.btn-ghost:hover { background: var(--surface); }
 
+/* plan sheets of the static demo: "DEMO · recorded … scenario replay · research prototype" in the A4
+   top margin (absolutely placed: the sheet's layout does not move; printed with every sheet) */
+.wfgf-sheet__demo {
+  position: absolute; top: 6.2mm; left: 16mm; max-width: calc(100% - 32mm);
+  display: inline-flex; align-items: center; height: 4.8mm; padding: 0 2mm;
+  border: 0.9pt solid var(--sheet-ink, #0b0b0c); border-radius: 2.4mm; background: #fff; color: var(--sheet-ink, #0b0b0c);
+  font-size: 7pt; font-weight: 760; letter-spacing: 0.02em; line-height: 1; white-space: nowrap;
+}
+
 /* narrow-screen pane switcher: hidden on wide screens (see styles/mobile.css) */
 .mobile-nav { display: none; }

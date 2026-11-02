@@ -191,6 +191,11 @@ export function PlanSheet(props: PlanSheetProps) {
       aria-label={`${t(SHEET.docTitle)} — ${originTitle(sheet, lang)}`}
       lang={lang}
     >
+      {sheet.demoLabel ? (
+        <div className="wfgf-sheet__demo" data-demo-label="true">
+          {sheet.demoLabel}
+        </div>
+      ) : null}
       <header className="wfgf-sheet__head">
         <div className="wfgf-sheet__doc">
           <span className="wfgf-sheet__doctitle">{t(SHEET.docTitle)}</span>

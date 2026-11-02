@@ -160,6 +160,7 @@
     font-size: 13px;
     overflow: visible;
   }
+  .wfgf-sheet__demo { position: static; align-self: flex-start; height: auto; min-height: 20px; margin-bottom: 8px; padding: 2px 8px; font-size: 11px; line-height: 1.3; white-space: normal; }
   .wfgf-sheet__head { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 11.5px; }
   .wfgf-sheet__doctitle { font-size: 12px; }
   .wfgf-sheet__title { font-size: 22px; }

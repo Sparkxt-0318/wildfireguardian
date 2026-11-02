@@ -43,3 +43,14 @@ export function joinNames(names: string[], lang: Lang): string {
   if (lang === 'ko') return names.join(', ');
   return names.length === 2 ? `${names[0]} and ${names[1]}` : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
 }
+
+/**
+ * Marker printed in the header of every plan sheet of the static demo:
+ * "DEMO · recorded March 2025 scenario replay · research prototype" (drawn zones: "DEMO · static demo
+ * · research prototype" — nothing is replayed for them).
+ */
+export function demoSheetLabel(inputTimes: string[], t: TFunction, drawn: boolean): string {
+  if (drawn) return t('demo.sheetLabelDrawn');
+  const period = periodLabel(inputTimes, t);
+  return period ? t('demo.sheetLabel', { period }) : t('demo.sheetLabelNoPeriod');
+}

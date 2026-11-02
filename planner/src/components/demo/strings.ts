@@ -29,6 +29,9 @@ export const DEMO_STRINGS = {
     'demo.static.link': '로컬 실행 방법 (README)',
     'demo.static.forecast': '이 시나리오의 예측 격자 파일이 정적 데모에 없습니다',
     'demo.static.noResults': '이 정적 데모에는 이 화재 입력의 사전 계산 결과가 없습니다',
+    'demo.sheetLabel': 'DEMO · {period} 기록 시나리오 재생 · 연구 프로토타입',
+    'demo.sheetLabelNoPeriod': 'DEMO · 기록 시나리오 재생 · 연구 프로토타입',
+    'demo.sheetLabelDrawn': 'DEMO · 정적 데모 · 연구 프로토타입',
     'error.STATIC_DEMO': '정적 데모: Route-Check API 없음 (요청을 보내지 않음)',
     'error.FORECAST_MISMATCH': '예측 격자 파일이 이 시나리오와 맞지 않아 표시하지 않습니다',
 
@@ -75,6 +78,9 @@ export const DEMO_STRINGS = {
     'demo.static.link': 'How to run it locally (README)',
     'demo.static.forecast': 'No forecast-cell file for this scenario in the static demo',
     'demo.static.noResults': 'This static demo has no precomputed results for this fire input',
+    'demo.sheetLabel': 'DEMO · recorded {period} scenario replay · research prototype',
+    'demo.sheetLabelNoPeriod': 'DEMO · recorded scenario replay · research prototype',
+    'demo.sheetLabelDrawn': 'DEMO · static demo · research prototype',
     'error.STATIC_DEMO': 'Static demo: no Route-Check API (nothing was sent)',
     'error.FORECAST_MISMATCH': 'The forecast file does not match this scenario, so it is not shown',
 

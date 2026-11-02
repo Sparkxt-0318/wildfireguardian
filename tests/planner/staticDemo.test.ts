@@ -13,7 +13,8 @@
  *   when they belong to another scenario); live computation (recompute, batches, drawn-zone checks)
  *   sends nothing;
  * - the saved forecast files match their INDEX.json and the cached route checks' packet;
- * - the same-origin guard, base-path helpers and demo texts (intro ≤ 80 words, no e-mail address).
+ * - the same-origin guard, base-path helpers and demo texts (intro ≤ 80 words, no e-mail address,
+ *   the DEMO marker of every plan sheet).
  */
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
@@ -62,6 +63,7 @@ type Mods = {
   store: typeof import('../../planner/src/state/store');
   selectors: typeof import('../../planner/src/state/selectors');
   labels: typeof import('../../planner/src/domain/labels');
+  featureData: typeof import('../../planner/src/state/featureData');
   i18n: typeof import('../../planner/src/i18n');
 };
 let m: Mods;
@@ -81,6 +83,7 @@ beforeAll(async () => {
     store: await import('../../planner/src/state/store'),
     selectors: await import('../../planner/src/state/selectors'),
     labels: await import('../../planner/src/domain/labels'),
+    featureData: await import('../../planner/src/state/featureData'),
     i18n: await import('../../planner/src/i18n'),
   };
 });
@@ -315,6 +318,21 @@ describe('static data flow against the committed cache', () => {
       fetchStub.mockImplementation(serveCommittedFile);
     }
   }, 60_000);
+
+  it('every plan sheet of the static demo carries the DEMO marker', async () => {
+    const { controller, store, featureData, i18n } = m;
+    const e = INDEX[0]!;
+    await controller.selectRegion(e.region_id);
+    await controller.selectScenario(e.scenario_set_id);
+    for (const [lang, want] of [
+      ['ko', 'DEMO · 2025년 3월 기록 시나리오 재생 · 연구 프로토타입'],
+      ['en', 'DEMO · recorded March 2025 scenario replay · research prototype'],
+    ] as const) {
+      const sheets = featureData.buildPlanSheets(store.getState(), (k, v) => i18n.translate(lang, k, v), lang);
+      expect(sheets.length).toBeGreaterThan(0);
+      expect(new Set(sheets.map((x) => x.demoLabel))).toEqual(new Set([want]));
+    }
+  }, 60_000);
 });
 
 describe('saved forecast cells (planner/public/data/forecast)', () => {
@@ -467,7 +485,7 @@ describe('base-path helpers', async () => {
 
 describe('demo texts', async () => {
   const { translate } = await import('../../planner/src/i18n');
-  const { periodLabel, joinNames, localRunUrl } = await import('../../planner/src/components/demo/labels');
+  const { periodLabel, joinNames, localRunUrl, demoSheetLabel } = await import('../../planner/src/components/demo/labels');
   const { preferredLanguage } = await import('../../planner/src/components/demo/language');
   const { introDismissed, rememberIntroDismissed } = await import('../../planner/src/components/demo/DemoIntro');
   const { DEMO_STRINGS } = await import('../../planner/src/components/demo/strings');
@@ -483,6 +501,13 @@ describe('demo texts', async () => {
     const short = periodLabel(times, (k, v) => translate('en', k, v), true)!;
     expect(translate('en', 'demo.chipShort', { period: short })).toBe('Mar 2025 replay · research prototype');
     expect(translate('ko', 'demo.chipShort', { period: periodLabel(times, (k, v) => translate('ko', k, v), true)! })).toBe('2025년 3월 기록 · 연구 프로토타입');
+  });
+  it('the plan-sheet marker names the recorded period (drawn zones: no replay)', () => {
+    const times = INDEX.map((e) => e.input_time);
+    expect(demoSheetLabel(times, (k, v) => translate('en', k, v), false)).toBe('DEMO · recorded March 2025 scenario replay · research prototype');
+    expect(demoSheetLabel(times, (k, v) => translate('ko', k, v), false)).toBe('DEMO · 2025년 3월 기록 시나리오 재생 · 연구 프로토타입');
+    expect(demoSheetLabel([], (k, v) => translate('en', k, v), false)).toBe('DEMO · recorded scenario replay · research prototype');
+    expect(demoSheetLabel(times, (k, v) => translate('en', k, v), true)).toBe('DEMO · static demo · research prototype');
   });
   it('the tour texts do not depend on the layout and the step-2 text is neutral', () => {
     for (const lang of ['ko', 'en'] as const) {
