@@ -7,6 +7,7 @@ import { appDirPath } from './config/paths';
 import { installFetchGuard } from './config/sameOrigin';
 import { App } from './App';
 import { loadHangulMapFonts } from './map/hangulFonts';
+import './styles/mobile.css';
 
 // Static demo: nothing may leave the page's origin (see config/sameOrigin.ts; the build also sets a
 // Content-Security-Policy). Under a sub-path base, root-absolute "/data/…" paths are moved under it.

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
+import { MobileNav, useMobilePane } from './components/MobileNav';
 import { AboutPanel } from './features/about/AboutPanel';
 import { ExportDialog } from './features/exports/ExportDialog';
 import { PlanSheetDialog } from './features/plansheet/PlanSheetDialog';
@@ -96,6 +97,7 @@ function useDataReadyFlag() {
 
 export function App() {
   const lang = useLang();
+  const pane = useMobilePane((s) => s.pane);
   useDataReadyFlag();
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -104,7 +106,7 @@ export function App() {
     void initApp();
   }, []);
   return (
-    <div className="app">
+    <div className="app" data-mobile-pane={pane}>
       <TopBar />
       <div className="main">
         <LeftPanel />
@@ -114,6 +116,7 @@ export function App() {
         </main>
         <RightPanel />
       </div>
+      <MobileNav />
       <Footer />
       <Dialogs />
     </div>
