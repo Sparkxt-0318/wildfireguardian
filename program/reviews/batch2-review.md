@@ -35,12 +35,16 @@ this file is the record.
 | E1b-D2 | README: B2's level reached in 3 of 10 L runs, not 6; two ms-per-leg ranges swapped | fixed `42e0d2a5` |
 | E1b-D3 (note) | four tables without SYNTHETIC; no `figures/` | fixed `42e0d2a5` |
 | E1b-D4 (note) | time to certified plan counts certification twice for in-loop certifiers | explained in the legend and README |
-| E2-D1 | the L hold's 20 rows are `ceca7380+dirty` (`analyze.py` edited during the hold; `src/` unchanged); the leaderboard dropped `+dirty` | README discloses it; leaderboard keeps `+dirty` (in progress) |
-| E2-D2 | six stale or slightly-off README numbers | in progress |
-| E2-D3 | the in-budget oracle repair path had no test (it never ran on dev) | test: in progress |
-| E2-D4 (note) | a repair-path MIP could wait up to ~1 s past the deadline | deadline cap: in progress |
+| E2-D1 | the L hold's 20 rows are `ceca7380+dirty` (`analyze.py` edited during the hold; `src/` unchanged); the leaderboard dropped `+dirty` | README discloses it (`601b6ec9`); the leaderboard keeps `+dirty` (`a2794d07`) |
+| E2-D2 | six stale or slightly-off README numbers | fixed `601b6ec9` (the locked debugging runs were six, not five) |
+| E2-D3 | the in-budget oracle repair path had no test (it never ran on dev) | test added `601b6ec9` (dose-limited tiny case: 2 repairs, every returned trip checked) |
+| E2-D4 (note) | a repair-path MIP could wait up to ~1 s past the deadline | fixed `601b6ec9`: every worker call is capped at the deadline; a failed call keeps the incumbent |
 | E2-D5 (note) | the full suite and the rule-3 guard had not run on merged code | resolved by the reproduction (433 passed) |
 | R (note) | `program/benchlock.py` on the track branch lacks `--wait-max` (next/integration has it); CLI path flags hidden from `--help` | no action: program/ lives on next/integration |
+
+Found while fixing, left for E2's second iteration because fixing them changes the method:
+- the repair loop can make 3 repairs (config says at most 2) and return a plan it did not re-check (the harness certifies it anyway);
+- the phase-C "5 % MIP if new columns" never runs once LNS has run.
 
 **Checked and found correct**, recomputed from the rows:
 - **Rule 3:** only the oracle declares states, and unresolved is never counted. Every row comes from the harness's

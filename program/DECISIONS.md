@@ -214,4 +214,7 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
 - **2026-11-02** — **E2: ITERATE** by its pre-registered rule. Not KEEP: worst of 5 = 1585 ≤ 1751. Condition (a) fails: the
   M total is 572 < 597. Condition (b) holds: valid bounds on every M row, 156 < 168 and 143 < 149. A second E2 iteration
   needs Siyeong's approval. Merged into `evacplan/phase0` (`a67b8ea2`) by a union of keyed rows; leaderboard `5d0991ca`.
+- **2026-11-02** — Batch-2 review, part 2 (E2: 0 major, 3 minor, 3 notes; ITERATE stands) fixed in `601b6ec9` (40 E2
+  tests) and `a2794d07`. Protocol: nothing inside a checkout is edited while that checkout runs a hold. E2's L-hold rows
+  are `+dirty` from `analyze.py` edits, with code unchanged; the leaderboard now shows `+dirty`.
 
