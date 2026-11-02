@@ -15,6 +15,7 @@
     "preview": "vite preview",
     "preview:static": "vite preview --mode static",
     "test": "vitest run",
+    "smoke:static": "node scripts/static_smoke.mjs",
     "mock": "python3 mock_api/server.py",
     "demo": "node scripts/demo.mjs"
   },
