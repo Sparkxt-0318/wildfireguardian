@@ -228,6 +228,11 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                         <div key={l} className="wfgl-text" data-lang={l}>
                           <div className="wfgl-text__head">
                             <span className="wfgl-text__lang">{LANGUAGES[l].label}</span>
+                            {LANGUAGES[l].nativeSpeakerReview === 'pending' ? (
+                              <span className="wfgl-text__review" data-review="pending">
+                                {t(UI.review.pending)}
+                              </span>
+                            ) : null}
                             <span className="wfgl-text__count wfgf-num">{counterText(current, l, kind, lang)}</span>
                             <button type="button" className="wfgf-btn wfgl-text__copy" disabled={failed} onClick={() => void doCopy(key, text)} data-testid={`copy-${kind}-${l}`}>
                               {t(UI.copy)}

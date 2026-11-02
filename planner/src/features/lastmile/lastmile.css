@@ -1,6 +1,7 @@
 /*
  * Last-mile kit (현장 전달 문구): dialog + printable origin card.
- * Card body text is ≥ 14 pt (A5: 14 pt, A4: 18 pt); black on white; status = icon + text.
+ * Card body text is ≥ 14 pt (A5: 14 pt, A4: 18 pt), header and footer line ≥ 12 pt (the staff
+ * provenance line 10 pt on A5); black on white; status = icon + text.
  * Print media shows only the cards while html.wfgl-printing-cards is set (one card per page).
  */
 
@@ -169,6 +170,14 @@
   font-weight: 720;
 }
 
+.wfgl-text__review {
+  padding: 1px 6px;
+  border: 1px dashed var(--wfgf-secondary);
+  border-radius: 6px;
+  font-size: 12px;
+  color: #3a3a3e;
+}
+
 .wfgl-text__count {
   flex: 1 1 auto;
   font-size: 12px;
@@ -319,6 +328,21 @@
   height: 296.6mm;
   padding: 14mm 16mm;
   font-size: 18pt;
+}
+
+/*
+ * A5: the header (document, region, fire input, "not a real situation"), the category and the
+ * planner footer line stay at 12 pt (0.72 / 0.7 em of 14 pt would be ~10 pt); only the staff
+ * provenance line (prepared / scenario id / precomputed) stays at 10 pt so every card keeps one page.
+ */
+.wfgl-card--a5 .wfgl-card__head,
+.wfgl-card--a5 .wfgl-card__foot,
+.wfgl-card--a5 .wfgl-card__cat {
+  font-size: 12pt;
+}
+
+.wfgl-card--a5 .wfgl-card__meta {
+  font-size: 10pt;
 }
 
 .wfgl-card__head {

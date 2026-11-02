@@ -10,7 +10,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLang } from '../../i18n';
 import { pick } from '../shared/strings';
-import { useLastMileAvailability, useLastMileInputs } from './connect';
+import { useIsResearchOrigin, useLastMileAvailability, useLastMileInputs } from './connect';
 import { loadExplanation, type ExplanationState } from './explanation';
 import { FieldMessagesDialog } from './FieldMessagesDialog';
 import { buildFieldMessages } from './messages';
@@ -20,6 +20,7 @@ export function FieldMessagesEntry({ originId }: { originId: string }) {
   const lang = useLang();
   const t = (s: { ko: string; en: string }) => pick(s, lang);
   const avail = useLastMileAvailability();
+  const research = useIsResearchOrigin(originId);
   const [open, setOpen] = useState(false);
   const { inputs, args } = useLastMileInputs(open);
   const [explanation, setExplanation] = useState<ExplanationState>({ state: 'loading' });
@@ -41,7 +42,7 @@ export function FieldMessagesEntry({ originId }: { originId: string }) {
 
   const file = explanation.state === 'ready' ? explanation.file : null;
   const items = useMemo(() => inputs.map((i) => buildFieldMessages(i, file)), [inputs, file]);
-  const note = avail.ok ? t(UI.sectionNote) : avail.reason === 'drawn' ? t(UI.drawnDisabled) : t(UI.noData);
+  const note = !avail.ok ? (avail.reason === 'drawn' ? t(UI.drawnDisabled) : t(UI.noData)) : research ? t(UI.researchNote) : t(UI.sectionNote);
 
   return (
     <div className="section" data-testid="field-messages-entry">

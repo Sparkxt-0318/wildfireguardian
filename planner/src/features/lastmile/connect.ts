@@ -6,7 +6,7 @@
 import { useMemo } from 'react';
 import { currentScenarioSet, horizonOf, isMockActive, regionEntry } from '../../state/selectors';
 import { DRAWN_SCENARIO, getState, useStore, type PlannerState } from '../../state/store';
-import { buildLastMileInputs, type LastMileBuildArgs } from './input';
+import { buildLastMileInputs, isFieldOrigin, type LastMileBuildArgs } from './input';
 import type { LastMileInput } from './types';
 
 export type LastMileAvailability = { ok: true; args: LastMileBuildArgs } | { ok: false; reason: 'drawn' | 'no_scenario' | 'no_data' };
@@ -61,4 +61,12 @@ export function useLastMileInputs(active: boolean): { inputs: LastMileInput[]; a
     if (!a.ok) return { inputs: [], args: null, reason: a.reason };
     return { inputs: buildLastMileInputs(a.args), args: a.args, reason: null };
   }, [active, scenarioId, plans, places, cache, dataSource, regionId]);
+}
+
+/** The selected origin is a research origin (no field messages are made for it). */
+export function useIsResearchOrigin(originId: string): boolean {
+  return useStore((s) => {
+    const p = s.places.find((x) => x.id === originId);
+    return p ? !isFieldOrigin(p) : false;
+  });
 }

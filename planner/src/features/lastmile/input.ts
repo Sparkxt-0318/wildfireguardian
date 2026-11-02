@@ -59,13 +59,23 @@ function cellsOf(plan: OriginPlan): LmCell[] {
   }));
 }
 
-/** One input per origin of the recorded scenario, in the planner's urgency order. */
+/** Research origins (recorded mission start points) are not places where people live or stay. */
+export function isFieldOrigin(p: Pick<Place, 'role'>): boolean {
+  return p.role !== 'research_origin';
+}
+
+/**
+ * One input per village and care facility of the recorded scenario, in the planner's urgency order
+ * (`urgencyRank` keeps the planner's position). Research origins get no field messages: nobody
+ * there would be addressed as a resident.
+ */
 export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
   const origins = scenarioOrigins(a.places, a.scenario.scenarioSetId);
   const byId = new Map(a.places.map((p) => [p.id, p]));
   const fireInputLabel = both((lang) => fireInputBanner({ type: 'recorded' }, a.region.fireYear, lang));
   const ordered = sortByUrgency(origins.map((o) => ({ id: o.id, name: placeName(o, tKo, 'ko'), vulnerable: o.vulnerable, plan: a.plans[o.id] ?? null, o }))).map((x) => x.o);
-  return ordered.map((o, i) => {
+  return ordered.flatMap((o, i) => {
+    if (!isFieldOrigin(o)) return [];
     const plan = a.plans[o.id];
     const destinations: Record<string, LmDestination> = {};
     if (plan) {
@@ -90,7 +100,7 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
       : !o.checkable
         ? { bestVerdict: 'unresolved', latestSafeDepartureS: null, contiguousSafeDepartureS: null, sweep: [], note: 'not_checkable' }
         : null;
-    return {
+    const input = {
       region: { id: a.region.id, name: { ko: a.region.nameKo, en: a.region.nameEn }, fireYear: a.region.fireYear },
       fireInputLabel,
       replay: true,
@@ -104,7 +114,7 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
         category: category(o),
         kind: kindOf(o),
         vulnerable: o.vulnerable,
-        entryDistanceM: o.role === 'research_origin' ? null : o.entry?.distanceM ?? o.snapDistanceM ?? null,
+        entryDistanceM: o.entry?.distanceM ?? o.snapDistanceM ?? null,
         sourceTag: o.sourceTag,
       },
       plan: lmPlan,
@@ -113,5 +123,6 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
       provenance: { cacheCreatedAtIso: a.cacheCreatedAtIso, source: a.source },
       generatedAtIso: a.generatedAtIso,
     } satisfies LastMileInput;
+    return [input];
   });
 }

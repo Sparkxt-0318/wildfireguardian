@@ -1,6 +1,8 @@
 /**
  * CSV of every field message of one region and recorded input time: one row per origin in the
  * planner's urgency order, Korean and English texts side by side (mail-merge / bulk-SMS ready).
+ * An origin whose texts fail a rule check gets empty text cells and "검사 실패 — 사용 금지"; the
+ * last columns state each language's native-speaker / field review state.
  * UTF-8 with BOM, CRLF, RFC 4180 quoting and formula neutralising — the same writer as the
  * dispatch list (../exports/exports.ts).
  */
@@ -8,7 +10,7 @@ import { compactUtc } from '../../domain/clock';
 import { kstDateClock, slug } from '../shared/format';
 import { CSV_BOM, csvRow } from '../exports/exports';
 import { allTexts, type FieldMessages } from './messages';
-import { UI } from './strings';
+import { LANGUAGES, SHIPPED_LANGS, UI } from './strings';
 import type { LastMileInput, LmLang } from './types';
 
 export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
@@ -41,6 +43,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     '마을방송 EN 예상 초 (최대 60)',
     '전화 대본 EN',
     '규칙 검사',
+    '문구 검토 (원어민·현장)',
     '작성 시각 (KST)',
   ],
   en: [
@@ -72,6 +75,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     'Broadcast EN est. seconds (max 60)',
     'Call script EN',
     'Rule checks',
+    'Wording review (native speaker; field)',
     'Prepared (KST)',
   ],
 };
@@ -82,6 +86,11 @@ const VERDICT_TEXT: Record<string, Record<LmLang, string>> = {
   unresolved: { ko: '미확인', en: 'Unresolved' },
 };
 
+/** "한국어: 검토 전 · English: 검토 전" — every shipped language's native-speaker / field review state. */
+export function reviewStatus(lang: LmLang): string {
+  return SHIPPED_LANGS.map((l) => `${LANGUAGES[l].label}: ${UI.review[LANGUAGES[l].nativeSpeakerReview][lang]}`).join(' · ');
+}
+
 export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang } = {}): string {
   const lang = opts.lang ?? 'ko';
   const lines = [csvRow(LASTMILE_CSV_COLUMNS[lang])];
@@ -89,8 +98,11 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
   for (const fm of sorted) {
     const input = fm.plan.input;
     const iso = input.scenario.inputTimeIso;
-    const ko = allTexts(fm, 'ko');
-    const en = allTexts(fm, 'en');
+    // a text that fails a rule check is never exported (fail closed): its cells stay empty
+    const failed = fm.violations.length > 0;
+    const blank = { sms: '', lms: '', broadcast: '', call: '', card: '' };
+    const ko = failed ? blank : allTexts(fm, 'ko');
+    const en = failed ? blank : allTexts(fm, 'en');
     const d = fm.plan.destination;
     lines.push(
       csvRow([
@@ -121,7 +133,8 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         en.broadcast,
         fm.metrics.en.broadcastS,
         en.call,
-        fm.violations.length ? fm.violations.join(' | ') : 'OK',
+        failed ? `${UI.csvFailed[lang]}: ${fm.violations.join(' | ')}` : 'OK',
+        reviewStatus(lang),
         kstDateClock(input.generatedAtIso, 0),
       ]),
     );
