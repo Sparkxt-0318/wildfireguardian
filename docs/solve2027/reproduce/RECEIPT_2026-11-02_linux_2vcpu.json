@@ -1,0 +1,464 @@
+{
+ "label": "Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark",
+ "benchmark": false,
+ "evaluated_host": false,
+ "host": {
+  "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.12.3",
+  "cpu_count": 2,
+  "mem_total_kib": 8220248,
+  "gnu_time": "time (GNU Time) UNKNOWN",
+  "note": "Shared cloud VM (no swap) running other agents' jobs at the same time; timings are inflated by their load and are not benchmark results. No Docker daemon on this host."
+ },
+ "git_commit": "964db33c0a5da29061364466c3db229efc34ff3a",
+ "git_tracked_changes": true,
+ "git_tracked_changes_files": [
+  "README.md"
+ ],
+ "git_tracked_changes_note": "Only README.md (documentation) had uncommitted edits during this run; all code that ran is as committed at git_commit.",
+ "headline": {
+  "extended_budget_300s": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN, arrival 3119 s, 512 road legs, required stay 120 s, request wall_s 44.71 (call incl. independent check 49.20 s), sampled family peak RSS 249.2 MiB",
+  "evaluated_budget_30s_report_only": "UNRESOLVED / LATE_RESULT after 30.17 s",
+  "run_frozen_case_unchanged_30s": "UNRESOLVED / LATE_RESULT after 30.17 s, script exit code 2",
+  "replay_assertions": "17/17 passed",
+  "api_fast_tests": "109 passed, 2 deselected, 1 warning in 108.18s (0:01:48); largest process 417.7 MiB",
+  "planner_build": "npm run build 32.76 s, largest process 485.9 MiB; dist 183.2 MiB",
+  "load_average_during_replay": "[2.07, 2.31, 1.99] at start, [3.12, 2.68, 2.16] at end (1/5/15 min, 2 vCPUs shared)"
+ },
+ "environment": {
+  "PYTHONDONTWRITEBYTECODE": "1",
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1"
+ },
+ "started_at": "2026-11-02T15:51:32.699901+00:00",
+ "finished_at": "2026-11-02T15:56:10.738251+00:00",
+ "steps": [
+  {
+   "step": "verify_release",
+   "command": "python tools/verify_release.py",
+   "exit_code": 0,
+   "wall_s": 0.96,
+   "max_rss_largest_process_kib": 46940,
+   "load_average_start": [
+    1.56,
+    2.24,
+    1.96
+   ],
+   "load_average_end": [
+    1.56,
+    2.24,
+    1.96
+   ],
+   "output_tail": [
+    "PASS: 367 copied source/artifact hashes, checkpoint, accepted scores, Python syntax and privacy exclusions"
+   ]
+  },
+  {
+   "step": "verify_postmerge_preservation",
+   "command": "python tools/verify_postmerge_preservation.py",
+   "exit_code": 0,
+   "wall_s": 9.91,
+   "max_rss_largest_process_kib": 21208,
+   "load_average_start": [
+    1.56,
+    2.24,
+    1.96
+   ],
+   "load_average_end": [
+    2.0,
+    2.32,
+    1.98
+   ],
+   "output_tail": [
+    "PASS: 3640 frozen artifacts byte-identical"
+   ]
+  },
+  {
+   "step": "fetch_routing_inputs (fresh --out, network + SHA-256 checks)",
+   "command": "python tools/fetch_routing_inputs.py --out <scratch>/fetch-check-20261102T155132Z",
+   "exit_code": 0,
+   "wall_s": 2.0,
+   "max_rss_largest_process_kib": 28156,
+   "load_average_start": [
+    2.0,
+    2.32,
+    1.98
+   ],
+   "load_average_end": [
+    2.0,
+    2.32,
+    1.98
+   ],
+   "output_tail": [
+    "Verified 132 frozen input files at <scratch>/fetch-check-20261102T155132Z"
+   ]
+  },
+  {
+   "step": "integration/examples/run_frozen_case.py (README quick path, unchanged 30 s budget)",
+   "command": "python integration/examples/run_frozen_case.py --out artifacts/solve2027/run-frozen-case-20261102T155132Z",
+   "exit_code": 2,
+   "wall_s": 33.84,
+   "max_rss_largest_process_kib": 393828,
+   "load_average_start": [
+    2.0,
+    2.32,
+    1.98
+   ],
+   "load_average_end": [
+    2.07,
+    2.31,
+    1.99
+   ],
+   "output_tail": [
+    "  \"out_dir\": \"artifacts/solve2027/run-frozen-case-20261102T155132Z\"",
+    "}",
+    "Command exited with non-zero status 2"
+   ]
+  },
+  {
+   "step": "replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget",
+   "command": "python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget --out artifacts/solve2027/uljin-fx1-receipt-20261102T155132Z",
+   "exit_code": 0,
+   "wall_s": 83.6,
+   "max_rss_largest_process_kib": 397572,
+   "load_average_start": [
+    2.07,
+    2.31,
+    1.99
+   ],
+   "load_average_end": [
+    3.12,
+    2.68,
+    2.16
+   ],
+   "output_tail": [
+    "report-only 30 s attempt on this host: UNRESOLVED / LATE_RESULT, wall_s 30.17 (not asserted)",
+    "summary: artifacts/solve2027/uljin-fx1-receipt-20261102T155132Z/REPRODUCTION_SUMMARY.json",
+    "REPRODUCED: Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark"
+   ]
+  },
+  {
+   "step": "API fast tests",
+   "command": "python -m pytest tests/api -m not golden and not panel -rs -q -p no:cacheprovider",
+   "exit_code": 0,
+   "wall_s": 109.93,
+   "max_rss_largest_process_kib": 427744,
+   "load_average_start": [
+    3.12,
+    2.68,
+    2.16
+   ],
+   "load_average_end": [
+    2.87,
+    2.82,
+    2.27
+   ],
+   "output_tail": [
+    "    from starlette.testclient import TestClient as TestClient  # noqa",
+    "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "109 passed, 2 deselected, 1 warning in 108.18s (0:01:48)"
+   ]
+  },
+  {
+   "step": "planner image stage: npm ci (native copy of the build context, warm npm cache)",
+   "command": "npm ci",
+   "exit_code": 0,
+   "wall_s": 4.96,
+   "max_rss_largest_process_kib": 487304,
+   "load_average_start": [
+    2.87,
+    2.82,
+    2.27
+   ],
+   "load_average_end": [
+    2.72,
+    2.79,
+    2.27
+   ],
+   "output_tail": [
+    "added 178 packages in 5s",
+    "npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation"
+   ]
+  },
+  {
+   "step": "planner image stage: npm run build (NODE_OPTIONS=--max-old-space-size=2048, VITE_WFG_API_MODE=real)",
+   "command": "npm run build",
+   "exit_code": 0,
+   "wall_s": 32.76,
+   "max_rss_largest_process_kib": 497572,
+   "load_average_start": [
+    2.72,
+    2.79,
+    2.27
+   ],
+   "load_average_end": [
+    4.41,
+    3.17,
+    2.41
+   ],
+   "output_tail": [
+    "(!) \u0000<scratch>/planner-stage-20261102T155132Z/src/planner/node_modules/maplibre-gl/dist/maplibre-gl.js?commonjs-es-import is dynamically imported by <scratch>/planner-stage-20261102T155132Z/src/planner/src/features/plansheet/staticMap.ts but also statically imported by <scratch>/planner-stage-202611",
+    "[plugin vite:reporter] ",
+    "(!) <scratch>/planner-stage-20261102T155132Z/src/planner/src/map/basemapStyle.ts is dynamically imported by <scratch>/planner-stage-20261102T155132Z/src/planner/src/features/plansheet/staticMap.ts but also statically imported by <scratch>/planner-stage-20261102T155132Z/src/planner/src/map/MapView.ts"
+   ]
+  }
+ ],
+ "run_frozen_case_result": {
+  "on_time": false,
+  "wall_s": 30.167101243000616,
+  "cleanup_state": "CLEAN",
+  "primary_status": "TIMEOUT",
+  "runtime_whole_road": "UNRESOLVED",
+  "authoritative_status": "UNRESOLVED",
+  "successful_journey": false,
+  "unresolved_reason": "LATE_RESULT",
+  "arrival_s": null,
+  "independent": {
+   "classification": {
+    "overall": "FEASIBLE_ROUTE_EXISTS",
+    "trajectory": null,
+    "centre_model": null,
+    "whole_road_contact": null,
+    "runtime_whole_road_status": null,
+    "optimality_or_refusal": "FEASIBLE_ROUTE_EXISTS",
+    "contradictions": []
+   },
+   "verdict": "FEASIBLE_ROUTE_EXISTS",
+   "contradictions": [],
+   "status": null
+  }
+ },
+ "replay": {
+  "passed": true,
+  "assertions": [
+   {
+    "check": "on-time complete publication within the extended budget",
+    "passed": true
+   },
+   {
+    "check": "process cleanup CLEAN",
+    "passed": true
+   },
+   {
+    "check": "authoritative status equals the recorded status",
+    "passed": true
+   },
+   {
+    "check": "recomputed decision equals route_and_check's decision",
+    "passed": true
+   },
+   {
+    "check": "successful journey (publication authority)",
+    "passed": true
+   },
+   {
+    "check": "runtime whole-road check CERTIFIED_ADMISSIBLE",
+    "passed": true
+   },
+   {
+    "check": "arrival equals the recorded arrival",
+    "passed": true
+   },
+   {
+    "check": "journey legs equal the recorded legs",
+    "passed": true
+   },
+   {
+    "check": "every leg is a road leg (no waiting), as recorded",
+    "passed": true
+   },
+   {
+    "check": "journey ends at the request's destination",
+    "passed": true
+   },
+   {
+    "check": "required destination stay equals the recorded stay (exposure checked including the stay)",
+    "passed": true
+   },
+   {
+    "check": "route hash equals the recorded full-policy route hash",
+    "passed": true
+   },
+   {
+    "check": "offline independent checker completed",
+    "passed": true
+   },
+   {
+    "check": "independent trajectory check: valid, same arrival and legs, mission ends one required stay after arrival",
+    "passed": true
+   },
+   {
+    "check": "independent whole-road contact CLEAR (road, waits and stay)",
+    "passed": true
+   },
+   {
+    "check": "independent checker certifies the optimum",
+    "passed": true
+   },
+   {
+    "check": "independent checker reports no contradiction",
+    "passed": true
+   }
+  ],
+  "recorded": {
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "arrival_s": 3119,
+   "recorded_wall_s_m5_pro": [
+    14.532054333001724,
+    14.585103332996368
+   ],
+   "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "legs": 512,
+   "route_hash": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+   "ablation_arrival_s": 3119,
+   "dwell_s": 120,
+   "sources": {
+    "state_arrival_wall": "research/routing/INDEPENDENT_ROWS.csv",
+    "legs_route_hash_status": "research/routing/final-input-ablation/data/ROWS.csv",
+    "dwell": "data/routing/latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json"
+   }
+  },
+  "within_evaluated_30s_budget": false,
+  "extended": {
+   "budget_s": 300.0,
+   "route_and_check": {
+    "arm": "RDA_CAND",
+    "on_time": true,
+    "wall_s": 44.71174341799997,
+    "cleanup_state": "CLEAN",
+    "primary_status": "CHECKED_ROUTE",
+    "runtime_whole_road": "CERTIFIED_ADMISSIBLE",
+    "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "successful_journey": true,
+    "unresolved_reason": null,
+    "arrival_s": 3119,
+    "independent": {
+     "classification": {
+      "overall": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "trajectory": "VALID",
+      "centre_model": "FEASIBLE",
+      "whole_road_contact": "CLEAR",
+      "runtime_whole_road_status": "CERTIFIED_ADMISSIBLE",
+      "optimality_or_refusal": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "contradictions": []
+     },
+     "verdict": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+     "contradictions": [],
+     "status": null
+    }
+   },
+   "journey": {
+    "arrival_s": 3119,
+    "legs_total": 512,
+    "edge_legs": 512,
+    "wait_legs": 0,
+    "destination": "osm:4744584066"
+   },
+   "independent_grammar": {
+    "ok": true,
+    "arrival": 3119.0,
+    "mission_end": 3239.0,
+    "legs": 512
+   },
+   "independent_whole_road_contact": "CLEAR",
+   "route_sha256": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+   "receipt": {
+    "on_time_complete_publication": true,
+    "exit_code": 0,
+    "cleanup_state": "CLEAN",
+    "deadline_termination_requested": false,
+    "memory_guard_triggered": false,
+    "external_launch_to_completion_wall_s": 44.71174341799997,
+    "raw_primary_status": "CHECKED_ROUTE",
+    "memory_guard_mib": 3072.0,
+    "sampled_family_peak_rss_bytes": 261271552
+   },
+   "call_wall_s_including_independent_check": 49.20152599599987
+  },
+  "evaluated_budget_report_only": {
+   "budget_s": 30.0,
+   "route_and_check": {
+    "arm": "RDA_CAND",
+    "on_time": false,
+    "wall_s": 30.16642018100083,
+    "cleanup_state": "CLEAN",
+    "primary_status": "TIMEOUT",
+    "runtime_whole_road": "UNRESOLVED",
+    "authoritative_status": "UNRESOLVED",
+    "successful_journey": false,
+    "unresolved_reason": "LATE_RESULT",
+    "arrival_s": null,
+    "independent": {
+     "classification": {
+      "overall": "FEASIBLE_ROUTE_EXISTS",
+      "trajectory": null,
+      "centre_model": null,
+      "whole_road_contact": null,
+      "runtime_whole_road_status": null,
+      "optimality_or_refusal": "FEASIBLE_ROUTE_EXISTS",
+      "contradictions": []
+     },
+     "verdict": "FEASIBLE_ROUTE_EXISTS",
+     "contradictions": [],
+     "status": null
+    }
+   },
+   "journey": {
+    "arrival_s": null,
+    "legs_total": 0,
+    "edge_legs": 0,
+    "wait_legs": 0,
+    "destination": null
+   },
+   "independent_grammar": {
+    "ok": null,
+    "arrival": null,
+    "mission_end": null,
+    "legs": null
+   },
+   "independent_whole_road_contact": null,
+   "route_sha256": null,
+   "receipt": {
+    "on_time_complete_publication": false,
+    "exit_code": 2,
+    "cleanup_state": "CLEAN",
+    "deadline_termination_requested": true,
+    "memory_guard_triggered": false,
+    "external_launch_to_completion_wall_s": 30.16642018100083,
+    "raw_primary_status": "TIMEOUT",
+    "memory_guard_mib": 3072.0,
+    "sampled_family_peak_rss_bytes": 233250816
+   },
+   "call_wall_s_including_independent_check": 33.80199510000057
+  },
+  "wfg_latest": {
+   "version": "1.0.0",
+   "api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+   "repository_api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966"
+  },
+  "input_sha256": {
+   "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+   "hazard": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+   "request": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39"
+  },
+  "host_load_average": {
+   "start": [
+    2.07,
+    2.31,
+    1.99
+   ],
+   "end": [
+    3.12,
+    2.68,
+    2.16
+   ]
+  }
+ },
+ "planner_build_output": {
+  "dist_bytes": 192066294,
+  "dist_cache_index_present": true,
+  "index_html_present": true
+ },
+ "docker": "Not built on this host (no Docker daemon). .github/workflows/reproduce-linux.yml builds both images, starts them and runs the smoke checks and the replay inside the API image."
+}

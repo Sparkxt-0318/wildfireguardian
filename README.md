@@ -1,3 +1,11 @@
+> [!TIP]
+> **Start here (MIT Solve 2027 reviewers).** WildfireGuardian is a research prototype that checks each vehicle evacuation journey against fire scenarios drawn from a wildfire forecast, so that responders, local safety staff and care-facility managers can plan earlier departures for residents who need more time, including older adults. Planning aid only — not for live evacuation operations.
+>
+> - **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/> (placeholder until the static planner demo is merged and GitHub Pages is enabled)
+> - **Two-minute overview:** [reviewer overview](docs/solve2027/REVIEWER_OVERVIEW.md) · [model card](docs/solve2027/MODEL_CARD.md) · [decision card](docs/solve2027/DECISION_CARD.md)
+> - **Planner** (leave-by time for every village and care facility): [`planner/`](planner/README.md)
+> - **Reproduce:** `docker compose up --build`, or `make reproduce-linux` with Python 3.12 and GNU `time` ([guide](docs/solve2027/REPRODUCE.md); Linux uses an extended budget and is not the evaluated 30 s macOS benchmark)
+
 # WildfireGuardian
 
 **Probabilistic wildfire mapping and time-dependent vehicle evacuation routing.**
@@ -122,6 +130,7 @@ Separate work is required on scenario support, causal forecast alignment and ful
 | Results and ablations | [`research/`](research/README.md) | Independent rows, figures and separate forecast study |
 | Experimental research tracks | [`experimental/`](experimental/) | [Current gates and evidence](research/next-combined/README.md) |
 | HTTP Route-Check API | [`api/`](api/) | [Service setup and contracts](api/README.md) |
+| Village evacuation planner | [`planner/`](planner/README.md) | Leave-by times per village and care facility; [quick start](planner/README.md#quick-start) |
 | Monte Carlo extension | [`monte-carlo-extension/`](monte-carlo-extension/EXTENSION_GUIDE.md) | Separately versioned optional study |
 
 ## 1 Install the final routing API
