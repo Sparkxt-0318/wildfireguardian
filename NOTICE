@@ -1,0 +1,15 @@
+WildfireGuardian
+Copyright (c) 2026 Sparkxt-0318
+
+The MIT License in LICENSE covers this project's own source code. Data and third-party assets in, or used by, this
+repository keep their own licenses and terms and are not relicensed by it. They include:
+
+- OpenStreetMap-derived road and map data: (c) OpenStreetMap contributors, available under the Open Database License
+  (ODbL), https://www.openstreetmap.org/copyright
+- External environmental, training and survey data, which keep their original access, attribution and redistribution
+  conditions (see forecast/).
+- Vendored libraries, fonts and basemap assets that ship with their own license or attribution files, for example
+  api/static/swagger-ui/LICENSE and NOTICE, demos/showcase/public/assets/fonts/LICENSE-IBMPlex.txt,
+  hardware/field_logger_demo/web/vendor/maplibre-gl/LICENSE.txt and planner/public/basemap/ATTRIBUTION.md.
+
+Data provenance and distribution scope: docs/DATA_AND_RIGHTS.md.
