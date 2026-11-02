@@ -13,7 +13,8 @@ Result rows (one per instance, seed, budget, set and host; :data:`COLUMNS`)
   vehicle's legs from the start of its itinerary through the unloading that delivers them).
   ``delivered_slack_ge_0m`` equals ``delivered_checked``. A report, not a change of the problem: delivered
   still counts every checked trip.
-* ``runtime_s``: wall-clock seconds of ``method.solve`` only (loading and the oracle excluded).
+* ``runtime_s``: wall-clock seconds of ``method.solve``, including the oracle calls inside the method's own search
+  (``program/DECISIONS.md``, 2026-11-02); loading and the final certification are excluded.
 * ``best_bound``: the method's proven upper bound on delivered residents (empty: none);
   ``gap = (best_bound - delivered_checked) / best_bound`` (0 if the bound is 0; empty without one).
 * ``commit`` (git HEAD, ``+dirty`` if ``evacplan/``, ``hazard_contract/`` or ``program/`` has
@@ -21,9 +22,12 @@ Result rows (one per instance, seed, budget, set and host; :data:`COLUMNS`)
   (compact JSON: set, budget, method config, instance generator config and fingerprint, label, the
   oracle version, the hazard_contract format ``CONTRACT_VERSION``, ``versions``: the installed
   hazard_contract (``__version__``), numpy, ortools and highspy, ``delivered_by_margin_min``: residents
-  delivered with slack >= m minutes for every m in :data:`MARGINS_MIN`, and, when the method reports
-  them, ``diagnostics``: how far its own search got, e.g. B2's solutions found and final objective; never
-  scored), ``host`` (:func:`host_string`: host name, OS, machine, CPU model, CPU count, Python version).
+  delivered with slack >= m minutes for every m in :data:`MARGINS_MIN`, ``certify_s``: seconds of the final
+  certification of the returned plan by a fresh oracle (cold cache, outside the budget), in an interleaved hold
+  ``hold`` (the hold's id), ``pair`` (``<instance>/<seed>`` of the challenger, shared by both rows of the pair) and
+  ``speed_probe_s`` (the speed probe timed before the pair), and, when the method reports them, ``diagnostics``:
+  how far its own search got, e.g. B2's solutions found and final objective; never scored), ``host``
+  (:func:`host_string`: host name, OS, machine, CPU model, CPU count, Python version).
 
 Per-facility rows (``results/<method>.facilities.csv``; :data:`FACILITY_COLUMNS`), one per
 instance, seed, budget, set, facility and mobility class with residents
@@ -44,7 +48,8 @@ One table per (set, budget, host): rows of different hosts are never pooled or c
 cells show the median over seeds and [min-max]; method totals the median and [min-max] of the per-seed
 totals. Under each table, the bar for beating B2 (:func:`compare_to_b2`): max(B2 best observed, the
 best-of-baselines total); a method beats B2 only if its worst of at least 5 repeats, each covering every
-instance of the set, exceeds the bar, and none of its rows is over the budget. Recorded observations outside
+instance of the set, exceeds the bar, and none of its rows is over the budget. In a table with interleaved holds
+(2026-11-02), each of its rows must also have a B2 row in the same hold and pair. Recorded observations outside
 the rows (the Phase 0 review's B2 run; a best-of-baselines total of an earlier session of the same cloud VM)
 come from ``evacplan/docs/recorded_observations.json``; they only raise a bar that the table's own rows
 define, never define one.
@@ -120,6 +125,10 @@ class TestSetRefused(PermissionError):
     """The test set is touched only at milestones, after Siyeong approves (program rule 5)."""
 
     __test__ = False      # not a pytest test class
+
+
+class HoldRefused(ValueError):
+    """An interleaved hold that would replace rows (:func:`_hold_offset`); nothing has run."""
 
 
 # ------------------------------------------------------------------------- provenance
@@ -576,11 +585,53 @@ def _add_speed_row(results_dir: Path, row: dict) -> None:
         w.writerows(merged.values())
 
 
+def _hold_offset(results_dir: Path, method: str, partner: str, *, set_name: str, budget_s: float, host: str,
+                 instances: Iterable[str], seeds: Iterable[int], partner_seed_offset: int | None = None,
+                 replace: bool = False) -> int:
+    """The partner's seed offset for an interleaved hold of ``method`` x ``partner`` on ``instances`` and ``seeds``,
+    after every clash check against the rows in ``results_dir`` of this set, budget and host. :func:`run` calls it
+    before loading, to fail fast, and again once it holds the bench lock, where the answer decides.
+
+    * Default offset: after the partner's seeds on the hold's instances, so holds on disjoint instances share them.
+    * A hold never replaces a partner row: a negative ``partner_seed_offset`` is refused, and so is any offset (an
+      explicit one, or the default with a negative seed) that puts a partner seed on an existing row.
+    * Nor does it replace ``method``'s rows: if ``method`` already has a row for any instance and seed of the hold,
+      the hold is refused unless ``replace`` is true (then those rows are replaced; the partner still gets new
+      seeds)."""
+    ids, seeds = set(instances), [int(s) for s in seeds]
+    instances, key = sorted(ids), (set_name, float(budget_s), host)
+
+    def have(name: str) -> set[tuple[str, int]]:
+        return {(r["instance"], int(r["seed"])) for r in read_rows(Path(results_dir) / f"{name}.csv")
+                if table_key(r) == key and r["instance"] in ids}
+    prev = have(partner)
+    if partner_seed_offset is None:                 # after the partner's seeds on this hold's instances
+        offset = max((s for _, s in prev), default=-1) + 1
+    else:
+        offset = int(partner_seed_offset)
+        if offset < 0:
+            raise HoldRefused(f"partner_seed_offset {offset} is negative; a hold adds {partner} repeats after its rows "
+                             f"and replaces none")
+    clash = sorted(k for k in ((i, s + offset) for i in instances for s in seeds) if k in prev)
+    if clash:
+        how = "default" if partner_seed_offset is None else "explicit"
+        raise HoldRefused(f"{partner} seed = seed + {offset} ({how} offset) would replace {len(clash)} existing "
+                         f"{partner} row(s), e.g. {clash[0]}; a hold adds repeats and replaces none")
+    if not replace:
+        own = have(method)
+        mine = sorted(k for k in ((i, s) for i in instances for s in seeds) if k in own)
+        if mine:
+            raise HoldRefused(f"{method} already has {len(mine)} row(s) of this hold's instances and seeds (same set, "
+                             f"budget and host), e.g. {mine[0]}; a hold does not replace them: pass replace=True "
+                             f"(--replace) to re-run those seeds")
+    return offset
+
+
 def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (0,), instances: Iterable[str] | None = None,
         method_config: dict | None = None, allow_test: bool = False, lock: str = "auto",
         split_path: Path = SPLIT_PATH, cache_dir: Path = CACHE_DIR, results_dir: Path = RESULTS_DIR,
         leaderboard_path: Path | None = LEADERBOARD_PATH, save_plans: bool = True,
-        interleave_with: str | None = None, partner_seed_offset: int | None = None,
+        interleave_with: str | None = None, partner_seed_offset: int | None = None, replace: bool = False,
         log: Callable[[str], None] = print) -> list[dict]:
     """Run ``method`` on every instance of ``set_name`` (or the listed ``instances``) and seed at
     ``budget_s`` seconds each; returns the result rows (also upserted into the CSV). ``method`` may be an
@@ -591,12 +642,21 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
     query cache is not shared across rows), and the row's config records that time as ``certify_s``: time to a
     certified plan = ``runtime_s`` + ``certify_s`` (program/DECISIONS.md, 2026-11-02).
 
+    Without ``interleave_with``, rows are upserted: a run replaces this method's earlier rows of the same set,
+    budget, instance, seed and host (``replace`` is not used).
+
     ``interleave_with`` (in practice B2): a second method run in the same lock hold, alternating with ``method``
     (ABAB). For every instance and seed s: a speed probe (:func:`speed_probe`, written to
-    ``results/speed/speed_check.csv``), then the partner with seed s + offset, then ``method`` with seed s. The
-    partner's seeds continue after its rows of this set, budget and host (``partner_seed_offset`` overrides), so a
-    hold adds repeats and replaces none. Rows of both methods carry ``hold``, ``pair`` and ``speed_probe_s`` in
-    their config."""
+    ``results/speed/speed_check.csv``), then the partner with seed s + offset, then ``method`` with seed s. By
+    default the partner's seeds continue after its rows on this hold's instances for this set, budget and host, so
+    holds on disjoint instances (S+M, then L) share the partner's seeds and a repeated hold adds partner repeats.
+    ``partner_seed_offset`` overrides the offset (e.g. to keep two branches' partner rows apart). A hold never
+    replaces a partner row: a negative offset, or one that puts a partner seed on an existing row (an explicit
+    offset, or a negative seed), is refused. Nor does it replace ``method``'s rows: a hold on instances and seeds
+    where ``method`` already has rows is refused unless ``replace`` is true (then those rows are replaced; the
+    partner still gets new seeds). These checks (:func:`_hold_offset`) run before loading, to fail fast, and again
+    once the bench lock is held, where they decide: rows another hold wrote while this one waited for the lock are
+    seen. Rows of both methods carry ``hold``, ``pair`` and ``speed_probe_s`` in their config."""
     method = canonical(method)
     if not (isinstance(budget_s, (int, float)) and math.isfinite(budget_s) and budget_s > 0):
         raise ValueError("budget_s must be a positive number of seconds")
@@ -622,20 +682,14 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
             raise ValueError("interleave_with must name another method")
         mp = get_method(partner)
     commit, host, versions = git_commit(), host_string(), package_versions()
-    offset, hold = 0, None
-    if partner is not None:
-        if partner_seed_offset is None:
-            prev = [int(r["seed"]) for r in read_rows(Path(results_dir) / f"{partner}.csv")
-                    if table_key(r) == (set_name, float(budget_s), host)]
-            offset = max(prev) + 1 if prev else 0
-        else:
-            offset = int(partner_seed_offset)
-        hold = f"{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}-{method}-x-{partner}-o{offset}"
+
+    def hold_offset() -> int:                           # the partner's seed offset, after every clash check
+        return _hold_offset(results_dir, method, partner, set_name=set_name, budget_s=budget_s, host=host,
+                            instances=[e.id for e in entries], seeds=seeds, partner_seed_offset=partner_seed_offset,
+                            replace=replace)
+    early = hold_offset() if partner is not None else None     # fail fast, before loading; decided again in the lock
     log(f"[evacplan] {method} on {set_name} ({len(entries)} instances x {len(seeds)} seeds) at {budget_s:g} s; "
         f"commit {commit}; host {host}")
-    if hold:
-        log(f"[evacplan] interleaved hold {hold}: {partner} seeds {[s + offset for s in seeds]} alternate with "
-            f"{method} seeds {seeds} (ABAB), a speed probe before every pair")
     loaded = [(e, *load_entry(e, cache_dir)) for e in entries]          # regenerate before timing
     rows: list[dict] = []
 
@@ -673,6 +727,15 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
 
     label = f"evacplan run {method} {set_name} {budget_s:g}s" + (f" x {partner}" if partner else "")
     with bench_guard(lock, label, log) as lock_state:
+        offset, hold = 0, None
+        if partner is not None:
+            offset = hold_offset()                      # authoritative: no other hold writes rows while this one runs
+            if offset != early:
+                log(f"[evacplan] {partner} seed offset {early} -> {offset}: its rows changed while this hold waited "
+                    f"for the bench lock")
+            hold = f"{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}-{method}-x-{partner}-o{offset}"
+            log(f"[evacplan] interleaved hold {hold}: {partner} seeds {[s + offset for s in seeds]} alternate with "
+                f"{method} seeds {seeds} (ABAB), a speed probe before every pair")
         for e, inst, ss in loaded:
             if not m.applicable(inst) or (mp is not None and not mp.applicable(inst)):
                 log(f"  {e.id}: skipped ({method}{' or ' + partner if partner else ''} does not apply to this instance)")
@@ -893,14 +956,42 @@ def _scope(o: RecordedObservation, host: str) -> str:
     return "this host" if o.host == host else "an earlier session of this host class"
 
 
-def _holds_table(rows: list[dict]) -> list[str]:
-    """The interleaved holds of one table: per hold, B2 and the challenger on the same pairs (totals over the hold's
-    instances, per seed) and the speed-check row (seconds of :func:`speed_probe` before every pair)."""
-    by_hold: dict[str, list[dict]] = defaultdict(list)
+SPEED_FLAG_SPREAD = 0.10       # a hold's speed check is flagged when its probe range exceeds this share of the median
+
+
+def _by_hold(rows: Iterable[dict]) -> dict[str, list[dict]]:
+    """Rows of interleaved holds, per hold id (rows without a ``hold`` left out)."""
+    out: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
         h = row_config(r).get("hold")
         if h:
-            by_hold[h].append(r)
+            out[h].append(r)
+    return out
+
+
+def _probe_spread(rows: list[dict]) -> tuple[list[float], float]:
+    """One hold's speed probes (one per pair, seconds) and their range as a share of their median (0 without probes)."""
+    cfgs = [row_config(r) for r in rows]
+    probes = list({c["pair"]: float(c["speed_probe_s"]) for c in cfgs if "speed_probe_s" in c}.values())
+    med = statistics.median(probes) if probes else 0.0
+    return probes, (max(probes) - min(probes)) / med if med else 0.0
+
+
+def _speed_flag_line(rows: list[dict]) -> list[str]:
+    """The line under a table's bar when any of its interleaved holds has a flagged speed check (else nothing)."""
+    holds = _by_hold(rows)
+    flagged = sum(_probe_spread(rs)[1] > SPEED_FLAG_SPREAD for rs in holds.values())
+    if not flagged:
+        return []
+    return ["", f"Speed check flagged in {flagged} of {len(holds)} holds (probe spread over "
+                f"{100 * SPEED_FLAG_SPREAD:.0f} % of the median): timings on this host are indicative; final timed "
+                f"results are re-run on the Mac (DECISIONS 2026-11-02)."]
+
+
+def _holds_table(rows: list[dict]) -> list[str]:
+    """The interleaved holds of one table: per hold, B2 and the challenger on the same pairs (totals over the hold's
+    instances, per seed) and the speed-check row (seconds of :func:`speed_probe` before every pair)."""
+    by_hold = _by_hold(rows)
     if not by_hold:
         return []
     out = ["", "Interleaved holds (ABAB in one lock hold; per-seed totals over the hold's instances):", "",
@@ -908,7 +999,7 @@ def _holds_table(rows: list[dict]) -> list[str]:
     for h, rs in sorted(by_hold.items()):
         insts = sorted({r["instance"] for r in rs})
         cfgs = [row_config(r) for r in rs]
-        probes = list({c["pair"]: float(c["speed_probe_s"]) for c in cfgs if "speed_probe_s" in c}.values())
+        probes, spread = _probe_spread(rs)
         methods = sorted({r["method"] for r in rs}, key=lambda m: (m != B2, m))
         first = True
         for meth in methods:
@@ -919,17 +1010,24 @@ def _holds_table(rows: list[dict]) -> list[str]:
             first = False
         if probes:
             med = statistics.median(probes)
-            spread = (max(probes) - min(probes)) / med if med else 0.0
-            flag = f"spread {100 * spread:.0f} %" + (" ⚠ over 10 %" if spread > 0.10 else "")
+            flag = f"spread {100 * spread:.0f} %" + (f" ⚠ over {100 * SPEED_FLAG_SPREAD:.0f} %"
+                                                     if spread > SPEED_FLAG_SPREAD else "")
             out.append(f"|  |  |  | speed check (s) | {med:.3f} [{min(probes):.3f}–{max(probes):.3f}] | {flag} |")
     return out
 
 
-def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: float | None, budget: float) -> str:
+def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: float | None, budget: float,
+             b2_pairs: set[tuple[str, str]] | None = None) -> str:
+    """``b2_pairs``: the (hold, pair) of every B2 row of a table with interleaved holds; None for a table without them
+    (it predates the interleaving rule and is judged as before)."""
     if method in BASELINES:
         return "baseline"
     if method in NOT_JUDGED:
         return "–"
+    if b2_pairs is not None:                    # interleaving rule (DECISIONS 2026-11-02 item 5): B2 in every pair
+        alone = sum((c.get("hold"), c.get("pair")) not in b2_pairs for c in map(row_config, rows))
+        if alone:
+            return f"n/a (not interleaved with B2: {alone} row{'s' if alone != 1 else ''})"
     seeds = {int(r["seed"]) for r in rows}
     totals = seed_totals(rows, "delivered_checked", instances)
     if len(totals) < MIN_REPEATS or len(totals) < len(seeds):         # every repeat must cover every instance
@@ -958,7 +1056,11 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
       in one session (``docs/ASSUMPTIONS.md`` #92-#93);
     * bar = max of the two; a method other than the baselines and noop "beats B2" only if it has at least
       :data:`MIN_REPEATS` seeds, each covering every instance, none of its rows took longer than the budget, and its
-      worst per-seed total exceeds the bar.
+      worst per-seed total exceeds the bar;
+    * in a table with interleaved holds (any row with a ``hold`` in its config), such a method is judged only if each
+      of its rows has a B2 row with the same ``hold`` and ``pair``; otherwise its verdict is ``n/a (not interleaved
+      with B2: N rows)`` (DECISIONS 2026-11-02 item 5). Tables without interleaved rows predate that rule and are
+      judged as before.
     """
     budget = float(budget)
     rows = [r for r in rows if table_key(r) == (set_name, budget, host) and not is_bound_only(r)]   # plans only
@@ -991,7 +1093,10 @@ def compare_to_b2(rows: Iterable[dict], instances: Iterable[str], *, set_name: s
     by_method: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
         by_method[r["method"]].append(r)
-    verdicts = {m: _verdict(m, rs, instances, bar, budget) for m, rs in sorted(by_method.items())}
+    b2_pairs = None
+    if _by_hold(rows):                          # interleaved holds in this table: each judged row needs B2 in its pair
+        b2_pairs = {(c["hold"], c.get("pair")) for c in map(row_config, by_method.get(B2, [])) if c.get("hold")}
+    verdicts = {m: _verdict(m, rs, instances, bar, budget, b2_pairs) for m, rs in sorted(by_method.items())}
     return B2Comparison(set_name=set_name, budget=budget, host=host, instances=instances,
                         best_of_baselines={i: v for i, v in best.items() if i in instances},
                         best_of_baselines_total=y, best_of_baselines_rows=y_rows, bob_source=bob_source,
@@ -1173,12 +1278,19 @@ def _bounds_table(plans: list[dict], bound_rows: list[dict], inst_ids: list[str]
                  for z, v in sorted(gaps[m].items(), key=lambda kv: (kv[0] == "all", order.get(kv[0], 3), kv[0]))]
         rs = [r for r in bound_rows if r["method"] == m]
         budgets = ", ".join(f"{b:g} s" for b in sorted({float(row_config(r)["budget_s"]) for r in rs}))
-        commits = ", ".join(sorted({r["commit"][:12] for r in rs}))
+        commits = ", ".join(sorted({short_commit(r["commit"]) for r in rs}))
         out += ["", f"Mean gap of {m} by size (instances): {', '.join(parts) or '–'}; computed at budget {budgets}, "
                     f"commit {commits}."]
     if invalid:
         out += ["", "**INVALID BOUND** (a proven bound below a delivered plan is a bug): " + "; ".join(invalid) + "."]
     return out
+
+
+def short_commit(commit: str) -> str:
+    """A row's commit as the leaderboard shows it: the first 12 hex digits, keeping ``+dirty`` (a run from a checkout
+    with uncommitted changes under ``evacplan/``, ``hazard_contract/`` or ``program/``; batch-2 review E2-D1)."""
+    sha, dirty = commit.removesuffix("+dirty"), commit.endswith("+dirty")
+    return sha[:12] + ("+dirty" if dirty else "")
 
 
 def render_leaderboard(rows: list[dict], split: Split | None = None, facility_rows: list[dict] | None = None, *,
@@ -1212,11 +1324,13 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "`evacplan.oracle`: delivered = residents whose trip is `checked` in all K members; `unresolved` is never safe "
         "and never delivered; `model_no_route` is scoped to the hazard model, its members and horizon; not planned = "
         "residents no itinerary boards. **best bound** and **gap** come from the methods' own proofs (e.g. B3's "
-        "relaxed MIP), not from the oracle. **runtime** is the harness's wall clock around the method's solve (the "
-        "oracle check is not timed). **time to certified plan** = runtime + the final certification of the returned "
-        "plan by a fresh oracle (cold cache), a secondary metric; final certification stays outside every method's "
-        "budget, and oracle calls inside a method's search count toward its runtime (`program/DECISIONS.md`, "
-        "2026-11-02).",
+        "relaxed MIP), not from the oracle. **runtime** is the harness's wall clock around the method's solve, oracle "
+        "calls inside its search included; the final oracle check is not part of it. **mean time to certified plan** "
+        "= the mean over the method's rows of runtime + the final certification of the returned plan by a fresh "
+        "oracle (cold cache), a secondary metric; final certification stays outside every method's budget, and oracle "
+        "calls inside a method's search count toward its runtime (`program/DECISIONS.md`, 2026-11-02). For a method "
+        "that certifies inside its loop, that oracle time is part of `runtime_s`, so its time to certified plan counts "
+        "certification twice: in the loop, and in the harness's cold check.",
         "* **unservable** = residents that no plan can serve within the model, fleet and horizon: a scoped "
         "`model_no_route` per facility and mobility class, declared by the oracle (`results/<method>.facilities.csv`, "
         "which also holds each facility's latest first-arrival and last-departure times). They are counted again "
@@ -1229,9 +1343,10 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "and CPU count, and the Python version; on a virtual machine it ends with the VM's boot session, so each cloud "
         "session is its own host (`docs/ASSUMPTIONS.md` #92). **over budget** counts rows whose runtime exceeded the "
         "budget; a method with any such row gets no B2 verdict.",
-        "* **Repeats**: every method runs 5 repeats (seeds 0-4, `--repeats 5`) at the same budget on a quiet machine. "
-        "A per-instance cell is the median over seeds, followed by [min–max] when the seeds differ; in the method "
-        "table, a total is the median of the per-seed totals, followed by their [min–max] when they differ. "
+        "* **Repeats**: every method runs 5 repeats (seeds 0-4, `--repeats 5`) at the same budget on a quiet machine; "
+        "B2 can have more seeds, those of its interleaved holds. A per-instance cell is the median over seeds, followed "
+        "by [min–max] when the seeds differ; in the method table, a total is the median of the per-seed totals, "
+        "followed by their [min–max] when they differ. "
         "Time-limited methods differ between repeats even when they ignore the seed: B2's OR-Tools search is seedless, "
         "so its repeats differ only through machine load (how far the search gets within the budget), and its outcome "
         "is not monotone in that depth (`docs/ASSUMPTIONS.md` #84; each B2 row records the solutions found and the "
@@ -1245,8 +1360,8 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "defines a part this host's own rows leave undefined. A method other than the baselines and noop beats B2 only "
         "if its worst of 5 repeats exceeds the bar: it needs at least 5 repeats, each covering every instance of the "
         "set, no row over the budget, and its lowest per-seed total must be above the bar. Otherwise the verdict is no "
-        "(worst ≤ bar) or n/a (fewer than 5 repeats, a repeat missing an instance, a row over the budget, or no bar on "
-        "this host).",
+        "(worst ≤ bar) or n/a (fewer than 5 repeats, a repeat missing an instance, a row over the budget, no bar on "
+        "this host, or, in a table with interleaved holds, a row with no B2 row in the same hold and pair).",
         "* **slack ≥ m min** = residents delivered with a safety slack of at least m minutes: the smallest oracle leg "
         "slack over their vehicle's legs from the start of its itinerary through the unloading that delivers them, "
         "each leg's slack capped at the time left before the hazard horizon (`docs/ASSUMPTIONS.md` #91). slack ≥ 0 "
@@ -1255,9 +1370,12 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "derived later from Track A's measured forecast error). Each table's figure plots residents delivered against "
         "the required margin (0-60 min).",
         "* **Interleaved holds**: a challenger and B2 alternate per instance and seed in one bench-lock hold (ABAB), "
-        "so both see the same machine; B2's seeds continue after its earlier rows, so each hold adds repeats. The "
-        "**speed check** row times a fixed workload before every pair (`results/speed/speed_check.csv`); a range over "
-        "10 % of its median is flagged.",
+        "so both see the same machine; B2's seeds continue after its rows on the hold's instances, so each hold adds "
+        "repeats and replaces none, and a hold re-runs the challenger's seeds only with `--replace`. In a table with "
+        "interleaved holds, a method other than B2 is judged only if each of its rows has a B2 row in the same hold "
+        "and pair (`program/DECISIONS.md`, 2026-11-02); tables without them predate that rule. The **speed check** "
+        "row times a fixed workload before every pair (`results/speed/speed_check.csv`); a range over 10 % of its "
+        "median is flagged, and a line under the bar counts the flagged holds.",
         "* **mean gap** = mean of (best bound - delivered) / best bound over the method's own proven bounds (exact or "
         "relaxation methods, e.g. B3 on S instances only); a method that runs on fewer instances is summed over fewer "
         "residents (see the size table).",
@@ -1267,6 +1385,9 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "table, the verdicts and the margin figure. A proven bound does not depend on the budget that computed it, so "
         "their rows join every table of the same set and host.",
         "* **SYNTHETIC** rows are SYNTHETIC instances (`evacplan/instances/SPLIT.json`), not real-world results.",
+        "* **commit** = the git commits of the method's rows (12 hex digits); `+dirty` marks a run from a checkout "
+        "with uncommitted changes under `evacplan/`, `hazard_contract/` or `program/` (other than the generated "
+        "outputs).",
         "",
     ]
     if not rows:
@@ -1289,7 +1410,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         lines += ["| method | label | instances | seeds | delivered | unresolved | model_no_route | not planned | "
                   "unservable | residents | " + " | ".join(
                       f"slack ≥ {m} min" + (" (default)" if m == DEFAULT_MARGIN_MIN else "") for m, _ in slack_cols) +
-                  " | min slack (s) | mean runtime (s) | time to certified plan (s) | over budget | mean gap | "
+                  " | min slack (s) | mean runtime (s) | mean time to certified plan (s) | over budget | mean gap | "
                   "B2 verdict | commit |",
                   "|---|---|---|---|---|---|---|---|---|---|" + "---|" * len(slack_cols) + "---|---|---|---|---|---|---|"]
         by_method: dict[tuple[str, str], list[dict]] = defaultdict(list)
@@ -1315,7 +1436,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             certs = [row_config(r).get("certify_s") for r in rs]
             ttc = (None if any(c is None for c in certs)
                    else sum(float(r["runtime_s"]) + float(c) for r, c in zip(rs, certs)) / len(rs))
-            commits = sorted({r["commit"][:12] for r in rs})
+            commits = sorted({short_commit(r["commit"]) for r in rs})
             lines.append(
                 f"| {meth} | {label} | {len(ids)} | {len(seeds)} | {_total(rs, 'delivered_checked', n_res)} | "
                 f"{_total(rs, 'unresolved')} | {_total(rs, 'model_no_route')} | {not_planned} | "
@@ -1326,6 +1447,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
                 f"{_fmt(sum(gaps) / len(gaps) if gaps else None, 3)} | {cmp.verdicts.get(meth, '–')} | "
                 f"{', '.join(commits)} |")
         lines += ["", cmp.bar_line()]
+        lines += _speed_flag_line(g)
         lines += _holds_table(g)
         for o in cmp.recorded:
             extra = "" if o.unresolved is None else f", {o.unresolved} unresolved"
