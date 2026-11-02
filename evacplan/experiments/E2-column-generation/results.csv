@@ -1,0 +1,51 @@
+instance,size,seed,residents,e2_delivered,e2_unresolved,e2_bound,e2_lagrangian,e2_converged,e2_stop,e2_rounds,e2_runtime_s,e2_certify_s,e2_time_to_certified_s,b2_seed,b2_delivered,b2_unresolved,b2_time_to_certified_s,speed_probe_s,hold
+SYNTHETIC-S-grid-t25-s101,S,0,23,23,0,23.0,64.0,True,plan reaches the bound,0,3.5829,1.4158,5.0,5,23,0,58.77,0.1279,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t25-s101,S,1,23,23,0,23.0,64.0,True,plan reaches the bound,0,4.2228,1.4755,5.7,6,23,0,58.99,0.2542,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t25-s101,S,2,23,23,0,23.0,64.0,True,plan reaches the bound,0,4.0983,1.5004,5.6,7,23,0,59.07,0.2264,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t25-s101,S,3,23,23,0,23.0,64.0,True,plan reaches the bound,0,3.7296,1.3519,5.08,8,23,0,58.92,0.1981,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t25-s101,S,4,23,23,0,23.0,64.0,True,plan reaches the bound,0,3.839,1.2557,5.09,9,23,0,59.09,0.243,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t25-s102,S,0,39,37,0,39.0,39.00000000000006,True,no improving column at the LP prices (exact pricing),7,53.1976,3.4765,56.67,5,36,0,61.21,0.1614,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t25-s102,S,1,39,37,0,39.0,39.00000000000005,True,no improving column at the LP prices (exact pricing),7,53.1239,4.1449,57.27,6,36,0,61.3,0.1698,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t25-s102,S,2,39,37,0,39.0,39.00000000000001,True,no improving column at the LP prices (exact pricing),7,53.9405,3.8812,57.82,7,36,0,61.26,0.2418,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t25-s102,S,3,39,37,0,39.0,39.00000000000121,True,no improving column at the LP prices (exact pricing),7,53.6065,3.2764,56.88,8,36,0,61.45,0.147,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t25-s102,S,4,39,37,0,39.0,39.00000000000008,True,no improving column at the LP prices (exact pricing),7,53.1048,3.7084,56.81,9,36,0,60.97,0.1889,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t75-s103,S,0,27,23,0,25.0,25.0,True,no improving column at the LP prices (exact pricing),5,51.0352,1.0891,52.12,5,23,0,58.93,0.2,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t75-s103,S,1,27,23,0,25.0,25.000000000000004,True,no improving column at the LP prices (exact pricing),5,51.2019,1.0702,52.27,6,23,0,58.91,0.1731,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t75-s103,S,2,27,23,0,25.0,25.000000000000004,True,no improving column at the LP prices (exact pricing),5,50.9835,1.0877,52.07,7,23,0,58.71,0.0961,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t75-s103,S,3,27,23,0,25.0,25.0,True,no improving column at the LP prices (exact pricing),5,51.083,1.0083,52.09,8,23,0,59.01,0.2369,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-grid-t75-s103,S,4,27,23,0,25.0,25.0,True,no improving column at the LP prices (exact pricing),5,51.3147,1.1348,52.45,9,23,0,59.02,0.1186,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t75-s104,S,0,26,26,0,26.0,48.0,True,plan reaches the bound,0,2.6988,1.3066,4.01,5,26,0,58.59,0.1091,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t75-s104,S,1,26,26,0,26.0,48.0,True,plan reaches the bound,0,2.8049,0.7577,3.56,6,26,0,58.52,0.1816,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t75-s104,S,2,26,26,0,26.0,48.0,True,plan reaches the bound,0,3.0297,1.3705,4.4,7,26,0,58.46,0.1247,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t75-s104,S,3,26,26,0,26.0,48.0,True,plan reaches the bound,0,2.8822,1.145,4.03,8,26,0,58.65,0.1272,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-S-geo-t75-s104,S,4,26,26,0,26.0,48.0,True,plan reaches the bound,0,2.9607,1.2551,4.22,9,26,0,58.57,0.2124,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t25-s105,M,0,163,163,0,163.0,294.0,True,plan reaches the bound,0,16.7984,8.6423,25.44,5,163,0,61.94,0.1025,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t25-s105,M,1,163,163,0,163.0,294.0,True,plan reaches the bound,0,15.0615,6.6115,21.67,6,163,0,61.51,0.2187,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t25-s105,M,2,163,163,0,163.0,294.0,True,plan reaches the bound,0,16.8507,6.8555,23.71,7,163,0,61.85,0.108,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t25-s105,M,3,163,163,0,163.0,294.0,True,plan reaches the bound,0,16.2252,6.6877,22.91,8,163,0,62.42,0.1183,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t25-s105,M,4,163,163,0,163.0,294.0,True,plan reaches the bound,0,15.9987,6.9639,22.96,9,163,0,61.88,0.1073,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t25-s106,M,0,155,155,0,155.0,331.0,True,plan reaches the bound,0,16.0288,5.1445,21.17,5,155,0,63.13,0.1719,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t25-s106,M,1,155,155,0,155.0,331.0,True,plan reaches the bound,0,14.5911,4.652,19.24,6,155,0,61.73,0.2515,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t25-s106,M,2,155,155,0,155.0,331.0,True,plan reaches the bound,0,13.5287,4.6303,18.16,7,155,0,62.01,0.1177,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t25-s106,M,3,155,155,0,155.0,331.0,True,plan reaches the bound,0,12.5836,4.4002,16.98,8,155,0,61.78,0.0988,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t25-s106,M,4,155,155,0,155.0,331.0,True,plan reaches the bound,0,12.3849,4.5271,16.91,9,155,0,61.8,0.0931,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t75-s107,M,0,168,131,0,156.0,156.94655853849383,True,no improving column at the LP prices (exact pricing),10,55.9052,5.1655,61.07,5,140,0,61.87,0.0978,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t75-s107,M,1,168,131,0,156.0,156.8852459016394,True,no improving column at the LP prices (exact pricing),11,55.4196,4.9868,60.41,6,140,0,62.69,0.1366,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t75-s107,M,2,168,131,0,156.0,156.94655853849386,True,no improving column at the LP prices (exact pricing),10,54.9629,4.5569,59.52,7,140,0,63.19,0.1117,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t75-s107,M,3,168,134,0,156.0,156.8852459016394,True,no improving column at the LP prices (exact pricing),14,54.52,5.3104,59.83,8,140,0,62.08,0.136,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-grid-t75-s107,M,4,168,138,0,156.0,156.88524590163945,True,no improving column at the LP prices (exact pricing),13,56.5657,6.1787,62.74,9,140,0,62.89,0.1499,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t75-s108,M,0,149,124,0,143.0,143.67308325245023,False,time,16,55.9272,5.8407,61.77,5,139,0,64.71,0.1062,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t75-s108,M,1,149,124,0,143.0,143.51554535235368,False,time,19,56.63,5.4504,62.08,6,139,0,62.97,0.2005,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t75-s108,M,2,149,123,0,143.0,143.51554002511085,False,time,18,57.6677,7.0386,64.71,7,139,0,63.21,0.1124,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t75-s108,M,3,149,124,0,143.0,143.5297144467539,False,time,19,56.3873,6.3066,62.69,8,139,0,63.34,0.1091,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-M-geo-t75-s108,M,4,149,124,0,143.0,143.67308325245023,False,time,16,55.6587,5.9486,61.61,9,139,0,64.33,0.2051,20261102T153902Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-grid-t50-s109,L,0,646,446,0,646.0,764.0,False,round too slow for the budget,0,55.3089,31.0542,86.36,5,516,0,88.73,0.1001,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-grid-t50-s109,L,1,646,446,0,646.0,764.0,False,round too slow for the budget,0,56.7121,26.9801,83.69,6,516,0,88.58,0.1198,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-grid-t50-s109,L,2,646,421,0,646.0,721.9766854570215,False,time,2,55.5838,26.0611,81.64,7,516,0,90.03,0.2165,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-grid-t50-s109,L,3,646,421,0,646.0,715.1173104570215,False,time,2,55.0984,25.236,80.33,8,516,0,83.46,0.125,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-grid-t50-s109,L,4,646,455,0,646.0,764.0,False,round too slow for the budget,0,54.446,26.7953,81.24,9,516,0,87.03,0.1953,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-geo-t50-s110,L,0,579,483,0,579.0,875.5242994231987,False,time,3,56.0427,24.9768,81.02,5,528,0,81.77,0.2369,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-geo-t50-s110,L,1,579,483,0,579.0,875.5242994231988,False,time,3,56.1344,26.0065,82.14,6,528,0,84.45,0.0967,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-geo-t50-s110,L,2,579,483,0,579.0,744.7202087828118,False,time,5,56.3269,25.4622,81.79,7,528,0,79.51,0.097,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-geo-t50-s110,L,3,579,483,0,579.0,875.5242994231987,False,time,4,56.2944,23.9183,80.21,8,528,0,82.96,0.1349,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
+SYNTHETIC-L-geo-t50-s110,L,4,579,483,0,579.0,875.5242994231987,False,time,4,56.0779,24.4687,80.55,9,528,0,82.97,0.1094,20261102T164918Z-e2_colgen-x-b2_vrptw-o5
