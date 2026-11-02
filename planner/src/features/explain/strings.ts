@@ -59,12 +59,12 @@ export const EXPLAIN = {
     en: 'From every checked departure time, no road route that avoids the flames in the fire scenarios reaches a candidate shelter and completes the {dwell}-minute stay by {close}.',
   },
   allUnreachable: {
-    ko: '{next}에 출발하면 {deadline}에 확인된 대피소 {n}곳 모두(출발 마감 경로의 대피소 포함), 시나리오상 화염을 피하는 도로로는 제때(체류 포함) 도착할 수 없습니다.',
-    en: 'Leaving at {next}, none of the {n} shelters checked at {deadline} (including the one on the route shown) can be reached in time (stay included) by a road route that avoids the flames in the fire scenarios.',
+    ko: '{next}에 출발하면 {deadline}에 확인된 대피소 {n}곳 어디에도 시나리오상 화염을 피하는 도로로 제때(체류 포함) 도착할 수 없습니다.',
+    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches any of the {n} shelters checked at {deadline} in time (stay included).',
   },
   oneUnreachable: {
-    ko: '{next}에 출발하면 시나리오상 화염을 피하는 어떤 도로로도 출발 마감 경로의 대피소에 제때(체류 포함) 도착할 수 없습니다.',
-    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches the shelter of the route shown in time (stay included).',
+    ko: '{next}에 출발하면 시나리오상 화염을 피하는 도로로는 그 대피소에 제때(체류 포함) 도착할 수 없습니다.',
+    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches that shelter in time (stay included).',
   },
   flame: {
     ko: '{next}에 출발하면 출발 마감 경로는 {where}에서 {contact}에 시나리오상 화염과 만납니다({members}).',

@@ -77,7 +77,7 @@ describe('explanation text (structured fields only)', () => {
     expect(ko.title).toBe('왜 이 시각인가요?');
     expect(ko.lines[0]).toBe('09:40에 출발하면 출발 마감 경로는 합성마을 부근 도로(1.2 km 거리)에서 09:41에 시나리오상 화염과 만납니다(화재 시나리오 4개 중 1개).');
     expect(ko.lines[1]).toBe('출발 마감 09:30에 출발하면 차량은 09:31에 그 도로의 해당 375 m 격자 칸을 벗어나며, 시나리오상 화염이 그 칸에 닿는 시각(09:36)보다 4분 이상 앞섭니다.');
-    expect(ko.lines[2]).toBe('09:40에 출발하면 시나리오상 화염을 피하는 어떤 도로로도 출발 마감 경로의 대피소에 제때(체류 포함) 도착할 수 없습니다.');
+    expect(ko.lines[2]).toBe('09:40에 출발하면 시나리오상 화염을 피하는 도로로는 그 대피소에 제때(체류 포함) 도착할 수 없습니다.');
     expect(ko.lines.length).toBe(3);
     expect(ko.dots).toEqual({ members: [1], total: 4, text: '화재 시나리오 4개 중 1개' });
     expect(ko.basis).toBe('예측에서 나온 화재 시나리오 4개를 기준으로 한 결과이며, 관측이 아닙니다.');
@@ -106,7 +106,7 @@ describe('explanation text (structured fields only)', () => {
     expect(detour.lines[0]).toContain('no road route that avoids the flames in the fire scenarios reaches the shelter');
     expect(detour.lines[0]).toContain('(no flame-avoiding arrival at all by 10:00, when the scenarios end)');
     expect(detour.lines[0]).toContain('so this leave-by time comes from the flames in the fire scenarios');
-    expect(detour.lines[1]).toBe('Leaving at 09:40, none of the 3 shelters checked at 09:30 (including the one on the route shown) can be reached in time (stay included) by a road route that avoids the flames in the fire scenarios.');
+    expect(detour.lines[1]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters checked at 09:30 in time (stay included).');
     const late = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_detour', window: { close_s: 3600, dwell_s: 120, fire_free: false, fastest_end_s: 3371, flame_avoiding_arrival_s: 3579, limit: 'scenario_window', horizon_s: 3600 } }), 'ko');
     expect(late.lines[0]).toContain('(화염을 피하면 09:59 전에는 도착할 수 없음)');
     expect(late.lines.length).toBe(1);
