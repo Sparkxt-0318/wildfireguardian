@@ -100,7 +100,7 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
   let sub = t('headline.unresolvedSub');
   if (!place.checkable || plan?.note === 'not_checkable') sub = t('list.notCheckable') + ' — ' + t('headline.notCheckableSub');
   else if (plan?.note === 'rejected' && plan.rejectReason) sub = t('headline.rejectedSub', { code: plan.rejectReason.code, message: plan.rejectReason.message });
-  else if (plan?.note === 'not_computed') sub = issuedAt ? t('drawn.notComputedSub') : t('headline.notComputedSub');
+  else if (plan?.note === 'not_computed') sub = issuedAt ? t(STATIC_DEMO ? 'demo.drawn.notComputedSub' : 'drawn.notComputedSub') : t('headline.notComputedSub');
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_SPREAD_ZONES_NOT_EVALUATED'))) sub = t('drawn.mockUnresolvedSub');
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_NO_RECORDED_RESULT'))) sub = t('headline.mockNoRecordSub');
   // departure times whose recorded result IS "no route in the model" (the origin stays unresolved)

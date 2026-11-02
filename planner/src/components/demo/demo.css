@@ -74,7 +74,6 @@
 /* the card takes the focus at every step (its buttons are the next Tab stops) */
 .tour-card:focus { outline: none; }
 .tour-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-.btn.btn-ghost:hover { background: var(--surface); }
 
 /* plan sheets of the static demo: "DEMO · recorded … scenario replay · research prototype" in the A4
    top margin (absolutely placed: the sheet's layout does not move; printed with every sheet) */
