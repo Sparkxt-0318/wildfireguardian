@@ -60,11 +60,14 @@ bounds feed the best-bound column of every table of the same set and host (any b
 
 **Comparing with B2 (batch 2 on).** Timed comparisons run B2 interleaved with the challenger in one bench-lock hold:
 `evacplan run --method X --interleave-with b2_vrptw --set dev --budget-s 60 --repeats 5 [--instances ...]` alternates
-B2 and X per instance and seed (ABAB), times a fixed workload before every pair (the speed check,
-`results/speed/speed_check.csv`) and adds B2 repeats without replacing earlier ones (`docs/ASSUMPTIONS.md` #96). Every
-row also records how long the final oracle certification took (`certify_s`, a fresh oracle, outside the budget); the
-leaderboard shows **time to certified plan** = runtime + certification. A hold must finish within the 2 h job limit:
-on the cloud VM run the 8 S and M instances and the 2 L instances as two holds.
+B2 and X per instance and seed (ABAB) and times a fixed workload before every pair (the speed check,
+`results/speed/speed_check.csv`). By default B2's seeds continue after its rows on the hold's instances, so each hold
+adds B2 repeats; an explicit `--partner-seed-offset` may not replace B2 rows, and a hold may not replace X's rows
+unless `--replace` is given (`docs/ASSUMPTIONS.md` #96). In a table with interleaved holds, X gets a verdict only if
+each of its rows has a B2 row in the same hold and pair. Every row also records how long the final oracle
+certification took (`certify_s`, a fresh oracle, outside the budget); the leaderboard shows **mean time to certified
+plan**, the mean of runtime + certification. A hold must finish within the 2 h job limit: on the cloud VM run the 8 S
+and M instances and the 2 L instances as two holds.
 
 **Safety margins.** `delivered_slack_ge_Xm` counts the residents delivered with a safety slack of at least X minutes:
 the smallest oracle leg slack over their vehicle's legs from the start of its itinerary through the unloading that

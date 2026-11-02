@@ -37,6 +37,19 @@ Consequences, by construction
   no such rejection in 50 runs: every warm start passed the oracle).
 * Before the first changed itinerary is checked, the oracle's cost per leg is E1's prior ``oracle_s_per_leg0``
   (E1's calibration check was of a warm-start itinerary, which E1b does not check in the loop).
+
+Diagnostics added after the KILL (batch-2 review E1b-D1)
+---------------------------------------------------------
+Counters only: the search and the returned plans are those of ``dae67e86``, which produced the committed rows.
+
+* ``certifications`` is E1's count, kept for comparability: every certification pass that completed, including a
+  pass that valued only unchanged warm-start itineraries (relaxed, no oracle call). ``certifications_oracle`` counts
+  the passes in which at least one itinerary had an oracle verdict from the loop (checked in that pass or in an
+  earlier one, E1's cache); ``certifications_relaxed_only`` the passes in which every itinerary was an unchanged
+  warm-start one, valued relaxed. The two add up to ``certifications`` unless a pass's only changed itineraries were
+  stopped before the oracle (E1's relaxed-check block or an emit error).
+* ``incumbent_relaxed_itineraries`` runs parallel to E1's ``incumbents``: per entry, how many itineraries of that
+  incumbent were valued relaxed (0: every itinerary checked by the oracle in the loop).
 """
 from __future__ import annotations
 
@@ -48,6 +61,21 @@ class _WarmCert(_Cert):
     """Relaxed values of an unchanged warm-start itinerary (NOT an oracle verdict; it declares no state)."""
 
     __slots__ = ()
+
+
+class _Incumbents(list):
+    """E1's incumbent history (its last 12 entries are ``diagnostics["incumbents"]``), unchanged. ``relaxed`` runs
+    parallel to it: per entry, the number of the new incumbent's itineraries valued relaxed. E1 sets the incumbent
+    (``run.inc``) before every append."""
+
+    def __init__(self, run: "_RunB", entries=()):
+        super().__init__(entries)
+        self.run = run
+        self.relaxed: list = [None] * len(self)      # entries recorded before the loop (none in E1's flow)
+
+    def append(self, entry) -> None:
+        super().append(entry)
+        self.relaxed.append(self.run.relaxed_itineraries(self.run.inc))
 
 
 class _LazyActions:
@@ -71,11 +99,19 @@ class _RunB(_Run):
         super().__init__(*args, **kwargs)
         self.warm = None                 # E1's run sets it to the decoded warm start
         self.warm_relaxed = 0            # times an unchanged warm-start itinerary was valued without the oracle
+        self.oracle_checked: set = set()     # (vehicle, trips) the oracle checked in the loop (E1's cache keys)
+        self.pass_kinds = None           # inside a certification pass: the kinds of values it used
+        self.certifications_oracle = 0   # passes with at least one oracle verdict from the loop
+        self.certifications_relaxed_only = 0     # passes that valued only unchanged warm-start itineraries
 
     def is_warm(self, v: int, d: VDec) -> bool:
         """Is ``d`` vehicle v's warm-start itinerary, unchanged (same trips, hence the same decode and actions)?"""
         w = self.warm
         return w is not None and bool(d.outs) and d.trips == w.vd[v].trips
+
+    def relaxed_itineraries(self, st) -> int:
+        """How many itineraries of ``st`` are valued relaxed (unchanged warm-start ones, no oracle verdict)."""
+        return sum(1 for v, d in enumerate(st.vd) if d.outs and isinstance(self.cert.get((v, d.trips)), _WarmCert))
 
     def _estimate(self, st) -> float:
         """Seconds to certify ``st``: only its changed itineraries not yet checked, with the safety factor."""
@@ -86,9 +122,15 @@ class _RunB(_Run):
         return legs * self.s_per_leg * self.cfg["oracle_safety"]
 
     def _check(self, v: int, d: VDec, hard: float, prefix: bool = False) -> _Cert | None:
-        if not self.is_warm(v, d):
-            return super()._check(v, d, hard, prefix)       # a changed itinerary: E1's oracle path, cached
         key = (v, d.trips)
+        if not self.is_warm(v, d):
+            n = self.oracle_checks
+            got = super()._check(v, d, hard, prefix)       # a changed itinerary: E1's oracle path, cached
+            if self.oracle_checks > n:
+                self.oracle_checked.add(key)
+            if got is not None and self.pass_kinds is not None:    # "other": stopped before the oracle
+                self.pass_kinds.add("oracle" if key in self.oracle_checked else "other")
+            return got
         got = self.cert.get(key)
         if got is None:
             got = _WarmCert()
@@ -97,7 +139,27 @@ class _RunB(_Run):
             got.actions = _LazyActions(self.net, v, d)
             self.cert[key] = got
             self.warm_relaxed += 1
+        if self.pass_kinds is not None:
+            self.pass_kinds.add("relaxed")
         return got
+
+    def certify(self, st, hard: float):
+        """E1's certification pass, unchanged; a pass that completes is also counted by the kinds of values it used."""
+        kinds = self.pass_kinds = set()
+        try:
+            got = super().certify(st, hard)
+        finally:
+            self.pass_kinds = None
+        if got is not None:
+            if "oracle" in kinds:
+                self.certifications_oracle += 1
+            elif kinds == {"relaxed"}:
+                self.certifications_relaxed_only += 1
+        return got
+
+    def _alns(self, st, hard: float) -> dict:
+        self.history = _Incumbents(self, self.history)     # E1's history, plus the relaxed count of each entry
+        return super()._alns(st, hard)
 
     def run(self) -> MethodResult:
         res = super().run()
@@ -112,6 +174,10 @@ class _RunB(_Run):
         diag = res.diagnostics
         diag["certified"] = all_checked                     # every returned itinerary checked by the oracle in the loop
         diag["delivered_certified"] = self.inc_delivered if all_checked else None
+        diag["certifications_oracle"] = self.certifications_oracle      # of E1's "certifications" (module docstring)
+        diag["certifications_relaxed_only"] = self.certifications_relaxed_only
+        relaxed = getattr(self.history, "relaxed", [None] * len(self.history))
+        diag["incumbent_relaxed_itineraries"] = relaxed[-12:]          # parallel to E1's "incumbents" (its last 12)
         diag["incremental"] = {
             "changed_vehicles": len(changed),               # returned itineraries the search changed (oracle-checked)
             "unchanged_warm_vehicles": len(kept),           # returned warm-start itineraries (checked by the harness)

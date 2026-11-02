@@ -1,7 +1,7 @@
 """E1b analysis: ``results.csv`` and the README's tables from the harness's result rows (``evacplan/results/*.csv``,
 ``evacplan/results/speed/speed_check.csv``): E1b against B2 in the same interleaved holds, per seed and per instance,
 with time to certified plan (runtime + ``certify_s``). Dev rows of one host only (default: this machine's host
-string). Reads rows only; runs nothing. Everything here is SYNTHETIC.
+string). Reads rows only; runs nothing. Everything here is SYNTHETIC (``results.csv`` says so in its ``label`` column).
 
     .venv/bin/python evacplan/experiments/E1b-incremental-cert/e1b_analysis.py [--host HOST] [--results-dir DIR]
 """
@@ -63,7 +63,8 @@ def main() -> int:
         inc = d.get("incremental", {})
         ts = d.get("time_s", {})
         rec = {
-            "instance": r["instance"], "seed": int(r["seed"]), "hold": c["hold"], "speed_probe_s": c.get("speed_probe_s"),
+            "instance": r["instance"], "seed": int(r["seed"]), "label": "SYNTHETIC", "hold": c["hold"],
+            "speed_probe_s": c.get("speed_probe_s"),
             "e1b_delivered": int(r["delivered_checked"]), "e1b_unresolved": int(r["unresolved"]),
             "e1b_model_no_route": int(r["model_no_route"]), "e1b_runtime_s": float(r["runtime_s"]),
             "e1b_certify_s": c.get("certify_s"), "e1b_time_to_certified_s": ttc(r),

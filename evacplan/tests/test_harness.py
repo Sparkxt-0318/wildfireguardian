@@ -3,6 +3,7 @@ the bench lock; the 2026-11-01 comparison rules (5 repeats with median and range
 the bar for beating B2, safety-margin columns and the margin figure). Runs on a throw-away split of
 SYNTHETIC instances (seeds 9301-9303, outside the frozen split) and on hand-made rows in temporary
 folders."""
+import contextlib
 import csv
 import importlib.metadata
 import json
@@ -995,7 +996,7 @@ def test_every_row_records_a_cold_final_certification_time(mini):
     rows = run("b0_independent", "dev", 5, seeds=[0], lock="no", log=lambda s: None, **p)
     assert rows and all(float(row_config(r)["certify_s"]) >= 0 for r in rows)
     text = p["leaderboard_path"].read_text()
-    assert "| time to certified plan (s) |" in text and "slack ≥ 30 min (default)" in text
+    assert "| mean time to certified plan (s) |" in text and "slack ≥ 30 min (default)" in text
     line = next(x for x in text.splitlines() if x.startswith("| b0_independent |"))
     want = sum(float(r["runtime_s"]) + float(row_config(r)["certify_s"]) for r in rows) / len(rows)
     assert f"| {want:.1f} |" in line
@@ -1003,7 +1004,9 @@ def test_every_row_records_a_cold_final_certification_time(mini):
 
 def test_interleaved_hold_alternates_b2_and_the_challenger_with_a_speed_check(mini):
     """ABAB in one lock hold: for every instance and seed, a speed probe, then the partner, then the challenger. The
-    partner's seeds continue after its earlier rows, so a second hold adds repeats and replaces none."""
+    partner's seeds continue after its rows on the hold's instances, so a second hold adds partner repeats and replaces
+    none. A hold re-runs seeds the challenger already has only with replace=True; without it, it is refused before
+    anything runs (batch-2 review H-D2)."""
     root, split = mini
     p = paths(root, "interleave")
     ids = split.ids("dev")
@@ -1014,22 +1017,30 @@ def test_interleaved_hold_alternates_b2_and_the_challenger_with_a_speed_check(mi
     hold = cfgs[0]["hold"]
     assert all(c["hold"] == hold and c["certify_s"] >= 0 and c["speed_probe_s"] > 0 for c in cfgs)
     assert [c["pair"] for c in cfgs[::2]] == [c["pair"] for c in cfgs[1::2]] == [f"{i}/{s}" for i in ids for s in (0, 1)]
-    second = run("noop", "dev", 5, seeds=[0, 1], interleave_with="b0_independent", lock="no", log=lambda s: None, **p)
+    second = run("noop", "dev", 5, seeds=[0, 1], interleave_with="b0_independent", replace=True, lock="no",
+                 log=lambda s: None, **p)                                       # re-runs noop seeds 0-1: replace=True
     assert sorted({int(r["seed"]) for r in second if r["method"] == "b0_independent"}) == [2, 3]
     b0 = rows_of(p["results_dir"] / "b0_independent.csv")[1]
     assert sorted({int(r["seed"]) for r in b0}) == [0, 1, 2, 3]                # both holds' repeats are kept
+    noop = rows_of(p["results_dir"] / "noop.csv")[1]
+    assert len(noop) == 2 * len(ids) and {row_config(r)["hold"] for r in noop} == {row_config(second[0])["hold"]}
     speed = speed_rows(p["results_dir"])
     assert len(speed) == 2 * len(ids) * 2 and {r["hold"] for r in speed} == {hold, row_config(second[0])["hold"]}
     text = p["leaderboard_path"].read_text()
     assert "Interleaved holds" in text and text.count("| speed check (s) |") == 2
+    files = {n: (p["results_dir"] / f"{n}.csv").read_text() for n in ("noop", "b0_independent")}
+    with pytest.raises(ValueError, match="replace=True"):           # noop seed 1 has rows: never replaced silently
+        run("noop", "dev", 5, seeds=[1, 4], interleave_with="b0_independent", lock="no", log=lambda s: None, **p)
+    assert {n: (p["results_dir"] / f"{n}.csv").read_text() for n in files} == files
     with pytest.raises(ValueError):
         run("noop", "dev", 5, seeds=[0], interleave_with="noop", lock="no", log=lambda s: None, **p)
 
 
 def test_partner_seeds_are_shared_by_holds_on_disjoint_instances_and_never_replaced(mini):
     """Holds on disjoint instances (S+M, then L in batch 2) give the partner the same seeds, so its per-seed totals
-    cover every instance; a later hold on the same instances continues after them; an explicit offset that would
-    replace a partner row is refused (program/DECISIONS.md 2026-11-02)."""
+    cover every instance; a later hold on the same instances continues after them; an offset that would replace a
+    partner row (an explicit one, or the default with a negative seed) and a negative offset are refused
+    (program/DECISIONS.md 2026-11-02). The holds that re-run noop seeds pass replace=True (batch-2 review H-D2)."""
     root, split = mini
     p = paths(root, "offsets")
     a, b = split.ids("dev")
@@ -1037,10 +1048,148 @@ def test_partner_seeds_are_shared_by_holds_on_disjoint_instances_and_never_repla
     seeds_of = lambda rows: sorted((r["instance"], int(r["seed"])) for r in rows if r["method"] == "b0_independent")
     assert seeds_of(run("noop", "dev", 5, seeds=[0, 1], instances=[a], **kw)) == [(a, 0), (a, 1)]
     assert seeds_of(run("noop", "dev", 5, seeds=[0, 1], instances=[b], **kw)) == [(b, 0), (b, 1)]
-    assert seeds_of(run("noop", "dev", 5, seeds=[0], **kw)) == sorted([(a, 2), (b, 2)])
+    assert seeds_of(run("noop", "dev", 5, seeds=[0], replace=True, **kw)) == sorted([(a, 2), (b, 2)])
     with pytest.raises(ValueError, match="replaces none"):
         run("noop", "dev", 5, seeds=[0, 1], instances=[b], partner_seed_offset=1, **kw)
-    assert seeds_of(run("noop", "dev", 5, seeds=[0], instances=[b], partner_seed_offset=5, **kw)) == [(b, 5)]
+    with pytest.raises(ValueError, match="negative"):
+        run("noop", "dev", 5, seeds=[0], instances=[b], partner_seed_offset=-1, **kw)
+    assert seeds_of(run("noop", "dev", 5, seeds=[0], instances=[b], partner_seed_offset=5, replace=True,
+                        **kw)) == [(b, 5)]
+    with pytest.raises(ValueError, match="replaces none"):         # default offset 6, but seed -1 lands on (b, 5)
+        run("noop", "dev", 5, seeds=[-1], instances=[b], **kw)
     b0 = rows_of(p["results_dir"] / "b0_independent.csv")[1]
     assert sorted((r["instance"], int(r["seed"])) for r in b0) == sorted([
         (a, 0), (a, 1), (a, 2), (b, 0), (b, 1), (b, 2), (b, 5)])
+
+
+def test_the_hold_offset_is_decided_again_once_the_bench_lock_is_held(mini, monkeypatch):
+    """A direct ``evacplan run --interleave-with`` that waits for the bench lock takes its partner seeds from the rows
+    as they are once it holds the lock: rows another hold wrote meanwhile are seen, never replaced (batch-2 review
+    H-D2)."""
+    import evacplan.harness as harness
+    root, split = mini
+    p = paths(root, "late-lock")
+    kw = dict(p, instances=[split.ids("dev")[0]], leaderboard_path=None, interleave_with="b0_independent", lock="no")
+    other = [r for r in run("noop", "dev", 5, seeds=[0], log=lambda s: None, **kw) if r["method"] == "b0_independent"]
+    real = harness.bench_guard
+
+    @contextlib.contextmanager
+    def waiting(mode, label, log):                 # while this hold waits, another hold writes b0 seeds 1 and 2
+        upsert_rows(p["results_dir"] / "b0_independent.csv", [dict(r, seed=str(s)) for r in other for s in (1, 2)])
+        with real(mode, label, log) as state:
+            yield state
+    monkeypatch.setattr(harness, "bench_guard", waiting)
+    logs = []
+    rows = run("noop", "dev", 5, seeds=[1], log=logs.append, **kw)
+    assert [int(r["seed"]) for r in rows if r["method"] == "b0_independent"] == [4]      # 1 + 3, not 1 + 1
+    assert any("seed offset 1 -> 3" in x and "waited for the bench lock" in x for x in logs)
+    assert sorted(int(r["seed"]) for r in read_rows(p["results_dir"] / "b0_independent.csv")) == [0, 1, 2, 4]
+
+
+def test_final_certification_is_cold_one_fresh_oracle_per_row(mini, monkeypatch):
+    """Every returned plan is certified once, by an oracle whose query cache is empty when the check starts: no cache
+    is shared across rows (batch-2 review H-D6; program/DECISIONS.md 2026-11-02)."""
+    import evacplan.harness as harness
+    root, split = mini
+    sizes = []                                    # (cache entries when check_plan starts, when it returns)
+
+    class Recording(harness.Oracle):
+        def check_plan(self, solution):
+            start = len(self._cache)
+            out = super().check_plan(solution)
+            sizes.append((start, len(self._cache)))
+            return out
+    monkeypatch.setattr(harness, "Oracle", Recording)
+    rows = run("b1_greedy", "dev", 5, seeds=[0, 1], lock="no", log=lambda s: None, **paths(root, "cold"))
+    assert len(rows) == 2 * len(split.ids("dev")) and len(sizes) == len(rows)    # one final check per row
+    assert [start for start, _ in sizes] == [0] * len(rows)
+    assert any(end > 0 for _, end in sizes)       # the checks fill the cache: a reused oracle would show above
+
+
+def test_mean_time_to_certified_plan_is_a_dash_when_a_row_lacks_certify_s(mini):
+    """A method whose rows mix rows with and without certify_s (rows from before 2026-11-02) shows "–" as its mean
+    time to certified plan, not a mean over some of its rows (batch-2 review H-D6)."""
+    from evacplan.harness import write_leaderboard
+    root, split = mini
+    p = paths(root, "ttc-dash")
+    run("noop", "dev", 5, seeds=[0], lock="no", log=lambda s: None, **p)
+
+    def ttc():
+        table = _table(p["leaderboard_path"].read_text(), "| method |")
+        col = [c.strip() for c in table[0].strip("|").split("|")].index("mean time to certified plan (s)")
+        return [c.strip() for c in next(x for x in table if x.startswith("| noop |")).strip("|").split("|")][col]
+    assert float(ttc()) >= 0
+    path = p["results_dir"] / "noop.csv"
+    old = read_rows(path)[0]
+    cfg = row_config(old)
+    del cfg["certify_s"]
+    upsert_rows(path, [dict(old, config=json.dumps(cfg, sort_keys=True, separators=(",", ":")))])
+    write_leaderboard(p["results_dir"], split, p["leaderboard_path"])
+    assert ttc() == "–" and len(read_rows(path)) == len(split.ids("dev"))
+
+
+def test_a_challenger_row_run_without_b2_makes_its_verdict_n_a(mini):
+    """In a table with interleaved holds, a challenger row with no B2 row in its hold and pair makes the challenger's
+    verdict n/a; its row interleaved with B2 is matched by hold and pair, so 1 row is counted, not 2 (batch-2 review
+    H-D3; program/DECISIONS.md 2026-11-02 item 5)."""
+    root, split = mini
+    p = paths(root, "unpaired")
+    a = split.ids("dev")[0]
+    register("noop-judged", "evacplan.methods.noop:NoopMethod", replace=True)    # the empty plan, judged (noop is not)
+    run("noop-judged", "dev", 5, seeds=[0], instances=[a], interleave_with="B2", lock="no", log=lambda s: None,
+        **dict(p, leaderboard_path=None))
+    run("noop-judged", "dev", 5, seeds=[1], instances=[a], lock="no", log=lambda s: None, **p)     # not interleaved
+    line = next(x for x in p["leaderboard_path"].read_text().splitlines() if x.startswith("| noop-judged |"))
+    assert "| n/a (not interleaved with B2: 1 row) |" in line
+
+
+def _held(rows, hold, probes=None):
+    """``rows`` (as :func:`_rows` writes them) as rows of the interleaved hold ``hold``: pair ``<instance>/<seed>`` and
+    the pair's speed probe (``probes``: seed -> seconds; default 0.15)."""
+    for r in rows:
+        cfg = json.loads(r["config"])
+        probe = (probes or {}).get(int(r["seed"]), 0.15)
+        cfg.update(hold=hold, pair=f"{r['instance']}/{r['seed']}", speed_probe_s=probe)
+        r["config"] = json.dumps(cfg, sort_keys=True, separators=(",", ":"))
+    return rows
+
+
+def test_with_holds_only_rows_paired_with_b2_are_judged_and_flagged_speed_checks_are_counted():
+    """In a table with interleaved holds a challenger is judged only if each of its rows has a B2 row in the same hold
+    and pair (program/DECISIONS.md 2026-11-02 item 5); a line under the bar counts the holds whose speed check is
+    flagged (batch-2 review H-D3). Tables without holds are judged as before (test_bar_for_beating_b2_and_verdicts)."""
+    from evacplan.harness import compare_to_b2, render_leaderboard
+    slow = {4: 0.20}                                       # hold h1: probes 0.15 and 0.20 s, a spread of 33 %
+    rows = _held(_five("b2_vrptw", (119,) * 5), "h1", slow)
+    rows += _held(_five("e_paired", (141, 150, 145, 160, 142)), "h1", slow)
+    rows += _five("e_alone", (200,) * 5) + _held(_five("e_other", (200,) * 5), "h2")     # no hold; a hold without B2
+    cmp = compare_to_b2(rows, ("I1", "I2"), set_name="dev", budget=60.0, host="host-A", observations=[])
+    assert cmp.bar == 119 and cmp.verdicts == {
+        "b2_vrptw": "baseline", "e_paired": "beats B2", "e_alone": "n/a (not interleaved with B2: 10 rows)",
+        "e_other": "n/a (not interleaved with B2: 10 rows)"}
+    lines = _sections(render_leaderboard(rows, _split(("I1", "I2")), observations=[]))[
+        "## dev, budget 60 s, host host-A"].splitlines()
+    k = next(i for i, x in enumerate(lines) if x.startswith("Bar for beating B2 on this host: max("))
+    assert lines[k + 2] == ("Speed check flagged in 1 of 2 holds (probe spread over 10 % of the median): timings on "
+                            "this host are indicative; final timed results are re-run on the Mac "
+                            "(DECISIONS 2026-11-02).")
+    assert "spread 33 % ⚠ over 10 %" in "\n".join(lines)
+    calm = [r for r in rows if row_config(r).get("hold") != "h1"]                   # no flagged hold: no line
+    assert "Speed check flagged" not in render_leaderboard(calm, _split(("I1", "I2")), observations=[])
+
+
+def test_cli_refuses_a_hold_that_would_replace_rows(mini, capsys):
+    """``evacplan run --interleave-with`` prints "refused: ..." and exits 2 when the hold would replace the challenger's
+    rows without --replace or put a partner seed on an existing row; nothing is written (batch-2 review H-D2)."""
+    root, split = mini
+    p = paths(root, "cli-refused")
+    common = ["--split", str(p["split_path"]), "--cache-dir", str(p["cache_dir"]), "--results-dir",
+              str(p["results_dir"]), "--leaderboard", str(p["leaderboard_path"]), "--instances", split.ids("dev")[0]]
+    hold = ["run", "--method", "noop", "--set", "dev", "--budget-s", "5", "--seeds", "0", "--lock", "no",
+            "--interleave-with", "b0_independent", *common]
+    assert main(hold) == 0
+    files = {n: (p["results_dir"] / f"{n}.csv").read_text() for n in ("noop", "b0_independent")}
+    capsys.readouterr()
+    assert main(hold) == 2 and "refused:" in capsys.readouterr().err                    # noop seed 0 exists
+    assert main([*hold, "--replace", "--partner-seed-offset", "0"]) == 2                 # b0 seed 0 exists
+    assert {n: (p["results_dir"] / f"{n}.csv").read_text() for n in files} == files

@@ -1,7 +1,8 @@
 """``evacplan`` command line.
 
     evacplan run --method noop --set dev --budget-s 60 [--repeats 5 | --seeds 0 1 2] [--instances ID ...]
-                 [--interleave-with b2_vrptw]   (ABAB with B2 in one lock hold, a speed probe before every pair)
+                 [--interleave-with b2_vrptw [--partner-seed-offset N] [--replace]]
+                 (ABAB with B2 in one lock hold, a speed probe before every pair)
     evacplan leaderboard
     evacplan instances [--set dev] [--materialize]
     evacplan generate --size S --tightness 0.5 --graph grid --seed 7 --out DIR
@@ -12,7 +13,9 @@
 while timing (``--lock auto`` skips acquiring when a parent ``program/benchlock.py`` already holds it).
 ``--repeats N`` runs seeds 0 .. N-1: the comparison rule (``program/DECISIONS.md``, 2026-11-01) is
 ``--repeats 5`` on a quiet machine. ``--set test`` is refused unless ``--allow-test`` is given
-(milestones only, after Siyeong approves).
+(milestones only, after Siyeong approves). An interleaved hold never replaces the partner's rows, and
+re-runs seeds the method already has rows for only with ``--replace``; a run without
+``--interleave-with`` replaces the method's rows of the same seeds.
 """
 from __future__ import annotations
 
@@ -70,7 +73,11 @@ def build_parser() -> argparse.ArgumentParser:
                    help="run METHOD (in practice b2_vrptw) in the same lock hold, alternating with --method (ABAB) per "
                         "instance and seed, with a speed probe before every pair")
     r.add_argument("--partner-seed-offset", type=int, default=None,
-                   help="the partner's seed = seed + this (default: after its existing rows of this set, budget, host)")
+                   help="the partner's seed = seed + this (default: after the partner's rows on the hold's instances "
+                        "for this set, budget and host); refused if negative or if it would replace a partner row")
+    r.add_argument("--replace", action="store_true",
+                   help="with --interleave-with: re-run seeds --method already has rows for on these instances, "
+                        "replacing those rows (the partner still gets new seeds); without it such a hold is refused")
     _paths(r)
 
     lb = sub.add_parser("leaderboard", help="regenerate LEADERBOARD.md and its margin figures from results/*.csv")
@@ -108,10 +115,13 @@ def main(argv: list[str] | None = None) -> int:
                         method_config=cfg, allow_test=args.allow_test, lock=args.lock, split_path=args.split,
                         cache_dir=args.cache_dir, results_dir=args.results_dir, leaderboard_path=args.leaderboard,
                         save_plans=not args.no_save_plans, interleave_with=args.interleave_with,
-                        partner_seed_offset=args.partner_seed_offset)
+                        partner_seed_offset=args.partner_seed_offset, replace=args.replace)
         except harness.TestSetRefused as exc:
             print(f"refused: {exc}", file=sys.stderr)
             return 3
+        except harness.HoldRefused as exc:
+            print(f"refused: {exc}", file=sys.stderr)
+            return 2
         return 0
     if args.cmd == "leaderboard":
         harness.write_leaderboard(args.results_dir, load_split(args.split), args.leaderboard)

@@ -38,7 +38,7 @@ listings: [`profile/`](profile/). Reproduce (from the worktree root, about 7 min
 **Where the time goes** (cProfile of a further cold `check_plan`, cumulative time as a share of the check; the
 profiler inflates the total to 40.3 / 41.5 s, so shares are approximate):
 
-| part | L-grid | L-geo |
+| SYNTHETIC, part of a cold check | L-grid | L-geo |
 |---|---|---|
 | hazard_contract queries (`Oracle._hazard`) | **88.8 %** | **89.3 %** |
 | · `ScenarioSet.query_uniform` (drive legs; stays are point queries) | 88.0 % | 88.2 % |
@@ -57,7 +57,7 @@ profiler inflates the total to 40.3 / 41.5 s, so shares are approximate):
 
 **Scaling with the K = 8 members** (cold `check_plan` of the same plan with the first K members):
 
-| K | 1 | 2 | 4 | 8 | linear fit |
+| SYNTHETIC, K | 1 | 2 | 4 | 8 | linear fit |
 |---|---|---|---|---|---|
 | L-grid, ms per leg | 9.0 | 10.6 | 13.6 | 18.7 | 7.9 + 1.38 K |
 | L-geo, ms per leg | 10.8 | 10.9 | 14.2 | 17.9 | 9.4 + 1.08 K |
@@ -269,9 +269,16 @@ hold: S and M 714 [714–716] / 705; L 730 [730–869] / 1044.
 B2 delivered the same on every seed of both holds. On S and M every E1b plan was fully checked by the oracle in the
 loop (every returned itinerary had changed; 0 unchanged warm-start itineraries).
 
+![SYNTHETIC: E1b vs B2 per instance, residents delivered](figures/SYNTHETIC_e1b_vs_b2_delivered_by_instance.png)
+
+Per instance, E1b's median with its min-max over seeds 0-4 against B2 in the same holds, as a share of the instance's
+residents, with the counts beside each row (drawn from the committed rows by [`e1b_figure.py`](e1b_figure.py)). The
+leaderboard's margin figure for this host (residents delivered against the required safety margin, 0-60 min, every
+method in this host's table): [`evacplan/figures/margin_dev_60s_…-416-1bfaaa35.png`](../../figures/margin_dev_60s_vm-linux-x86-64-intel-r-xeon-r-processor-2-80ghz-4-cpu-python-3-12-3-vm-boot-416-1bfaaa35.png).
+
 **The 10 L runs, one by one:**
 
-| L run | E1b | B2 | iterations | new bests | relaxed best | in-loop oracle: itineraries / legs / s | outcome |
+| SYNTHETIC L run | E1b | B2 | iterations | new bests | relaxed best | in-loop oracle: itineraries / legs / s | outcome |
 |---|---|---|---|---|---|---|---|
 | L-grid s0 | 427 | 516 | 1 | 1 | 427 | 9 / 1,538 / 35.3 | certified at 54.1 s (9 changed vehicles, 1 kept its warm-start itinerary) |
 | L-grid s1 | 383 | 516 | 1 | 1 | 383 | 10 / 1,757 / 35.8 | certified at 54.5 s |
@@ -284,7 +291,7 @@ loop (every returned itinerary had changed; 0 unchanged warm-start itineraries).
 | L-geo s3 | 395 | 528 | 15 | 8 | 526 | 7 / 1,091 / 22.3 | certification cut short: B1's plan returned |
 | L-geo s4 | 395 | 528 | 24 | 1 | 521 | 5 / 707 / 14.5 | certification cut short: B1's plan returned |
 
-| E1b vs B2, sums over the 10 instances per seed | E1b median [min–max] | B2 median [min–max] |
+| SYNTHETIC dev, E1b vs B2, sums over the 10 instances per seed | E1b median [min–max] | B2 median [min–max] |
 |---|---|---|
 | delivered (checked in all K members) | 1446 [1444–1583] | 1749 |
 | unresolved / model_no_route | 0 / 0 | 0 / 0 |
@@ -292,6 +299,7 @@ loop (every returned itinerary had changed; 0 unchanged warm-start itineraries).
 | delivered with slack ≥ 5 / 15 / 30 min (30 min: provisional default) | 1351 [1283–1428] / 1267 [1265–1311] / 1030 [992–1061] | 1482 [1473–1514] / 1464 [1463–1464] / 1285 [1284–1285] |
 | minimum slack | 1.9 s (B1's plan on L-grid) | 16.7 s |
 | mean runtime / mean time to certified plan (runtime + `certify_s`) | 56.7 s / 66.3 s | 57.5 s / 66.3 s |
+| of which in-loop oracle time (inside runtime; the harness's cold check comes on top, so E1b's time to certified plan counts certification twice) | 14.0 s | 0 s (no oracle call inside its budget: `repair` false) |
 | runs over budget | 0 of 50 | 0 of 50 |
 | residents the in-loop oracle cut (dose or otherwise), relaxed-check blocks, emit errors | 0, 0, 0 | – |
 
@@ -309,25 +317,32 @@ whether a certification fits in the time left, so it is the result most exposed 
   VM session). The in-loop oracle took 10-36 s per M run (E1: 15-37 s); E1b saves essentially only E1's calibration
   check there, because every returned S and M itinerary was a changed one.
 * **L: the in-loop certification of one changed plan does not fit, or barely fits.** Where a candidate was certified,
-  the first iteration had changed 9-10 of the 10 vehicles: 1,500-1,800 legs at the measured 18.8-22.9 ms per leg (E1's
+  the first iteration had changed 9-10 of the 10 vehicles: 1,500-1,800 legs at the measured 19.7-22.9 ms per leg (E1's
   `oracle_s_per_leg` on this host), i.e. 32-36 s of the ~47 s left after the warm start (7.9-10.2 s).
   * In 4 runs the first iteration was slow (8-13 s: cold time-dependent route caches, regret repair). E1 keeps twice the
     recent iteration time free, so the trigger ("the time left only suffices to certify") fired right after it. The
     certification fit in 3: 427, 383, 486, against B1's 335 and 395. In L-grid s3 the per-check guard refused the next
     itinerary after 8 had been checked.
-  * In the other 6 runs the iterations were fast (1-2.5 s on average). The trigger estimated the certification at E1's prior,
-    0.01 s per leg x 1.5 = 15 ms per leg: no changed itinerary had been checked yet, and E1b never checks a warm-start
-    one (pre-registered consequence). The true cost was 19-23 ms per leg, and E1's per-check guard then wants 1.5x the
-    measured cost before each vehicle. The certification started too late (29-40 s into the run): 5-8 changed
-    itineraries were checked, and the guard refused the next. By E1's unchanged flow a certification that does not
-    complete ends the search, so E1b returned B1's plan. In these runs the relaxed best was 521-533: as good as B2 (516, 528) and the post hoc
-    no-oracle variant (525-553), but not certifiable in the time left.
+  * In the other 6 runs the iterations were fast (0.8-2.5 s on average). The trigger estimated the certification at
+    E1's prior, 0.01 s per leg x 1.5 = 15 ms per leg: no changed itinerary had been checked yet, and E1b never checks a
+    warm-start one (pre-registered consequence). The true cost was 18.8-21.4 ms per leg, and E1's per-check guard then
+    wants 1.5x the measured cost before each vehicle. The certification started too late (29-40 s into the run): 5-8
+    changed itineraries were checked, and the guard refused the next. By E1's unchanged flow a certification that does
+    not complete ends the search, so E1b returned B1's plan. In these runs the relaxed best was 521-533: at or above B2
+    (516 on L-grid, 528 on L-geo) in 3 (L-grid s2 533, L-grid s4 530, L-geo s0 530) and 2-7 below it in the other 3
+    (L-geo s2 522, s3 526, s4 521); the post hoc no-oracle variant reached 525-553 per L instance (an earlier VM
+    session). None of these plans was certifiable in the time left.
   * Even when it fits, one certification takes most of the L budget. The best L outcome here (L-geo s1, 486) is still
     42 below B2's 528.
 * **Time to certified plan** (the new secondary metric) is the same for both, 66.3 s on average: E1b's runtime is about
   1 s shorter (on L it stops when its certification ends or fails, 50-56 s), and its final certification takes about
-  as long as B2's (S 1-4 s, M 4-7 s, L 28-37 s). The harness certifies with a fresh oracle, so E1b's in-loop checks
-  do not shorten `certify_s`.
+  as long as B2's (`certify_s`: E1b S 0.9-4.1 s, M 4.2-7.7 s, L 28.2-37.1 s; B2 S 0.7-3.7 s, M 3.9-6.9 s, L
+  25.3-34.3 s). The harness certifies with a fresh oracle, so E1b's in-loop checks do not shorten `certify_s`.
+  **For E1b this metric counts certification twice:** its in-loop oracle time is inside its runtime (14.0 s per run
+  on average; S 1.0-4.2 s, M 9.9-35.9 s, L 14.5-35.8 s; per instance in the table above) and the harness's cold check
+  comes on top, e.g. L-geo s1: 31.6 s of oracle time in the loop plus 28.2 s `certify_s`. B2 makes no oracle call
+  inside its budget (`repair` false in its rows), so its time counts one check. Both methods fill most of the budget,
+  so the tie is mostly the budget plus one cold check.
 * **Dose.** No in-loop check cut a trip in any of the 50 runs, and no returned plan had an unresolved or
   model_no_route resident: on the dev set the relaxed model was exact again, as in E1.
 
@@ -342,9 +357,11 @@ the in-loop certification of a changed plan does not fit, or fits once.
 
 No further E1 runs. What the two iterations established, for Siyeong's next decisions (none of this is started):
 
-1. **E1's search is not the limit; certifying inside the budget is.** On S and M the ALNS beats B2 at equal time with every
-   trip oracle-checked in the loop (+1, +8). On L its relaxed best reached B2's level (521-533 vs 516/528) in 6 of 10 runs
-   within 20-30 s of search, but one in-loop certification of a changed L plan costs 32-36 s at ~20 ms per leg.
+1. **On L, certifying inside the budget is the binding limit; the search reached B2's level in 3 of 10 runs.** On S and
+   M the ALNS beats B2 at equal time with every trip oracle-checked in the loop (+1, +8). On L its relaxed best (not
+   certified in any of these runs) was at or above B2 (516 / 528) in 3 of 10 runs (L-grid s2 533, L-grid s4 530, L-geo
+   s0 530) and 2-7 below it in 3 more (L-geo s2 522, s3 526, s4 521), within 20-30 s of search; the other 4 runs had
+   one iteration each. One in-loop certification of a changed L plan costs 32-36 s at ~20 ms per leg.
 2. **Oracle speed** (profile above) is the lever for any method that certifies in the loop on L, and it also bounds the
    new metric: the harness's cold certification costs 25-37 s per L plan. The four proposals in the profile section
    (estimated 2-3x on a cold check, not measured) are hazard_contract and oracle internals: the orchestrator's
@@ -359,11 +376,36 @@ No further E1 runs. What the two iterations established, for Siyeong's next deci
 
 ## Changes after seeing dev results
 
-* Method (`e1b_alns.py`), its tests and the parameters (E1's): none after the dev smoke. The smoke and both holds ran at
-  `dae67e86`.
-* README only: the results, decision and next step above; the "Before the final run" section was written during hold 1
+* Method (`e1b_alns.py`), its tests and the parameters (E1's): none after the dev smoke up to the decision. The smoke
+  and both holds ran at `dae67e86`.
+* README: the results, decision and next step above; the "Before the final run" section was written during hold 1
   (kept outside the checkout until hold 2 had recorded its commit, so that both holds ran at the same clean commit).
-  `results.csv` comes from `e1b_analysis.py`, which was committed before the final run and is unchanged.
+  `results.csv` comes from `e1b_analysis.py`, which was committed before the final run.
+* After the KILL, from the independent batch-2 review (part 1, findings E1b-D1 to D4). None of these changes a row
+  (`evacplan/results/*.csv`), the method's search or returned plans, or the decision (KILL):
+  * **Diagnostics added (E1b-D1).** E1's `certifications` also counts a pass that valued only unchanged warm-start
+    itineraries (relaxed, no oracle call). In the committed rows the 7 L runs that returned B1's plan with no changed
+    vehicle show 1 certification (also in `results.csv`), although the oracle checked none of their returned
+    itineraries in the loop; L-grid s0's incumbent counts 419 residents checked in the loop and 8 valued relaxed.
+    `e1b_alns.py` now also reports `certifications_oracle` (passes with at least one oracle verdict from the loop),
+    `certifications_relaxed_only` (passes that valued only unchanged warm-start itineraries) and
+    `incumbent_relaxed_itineraries` (per entry of `incumbents`, the itineraries valued relaxed). E1's `certifications`
+    and E1's module are unchanged. The additions only count (they wrap E1's certification pass and incumbent history),
+    and the committed rows predate them. `test_e1b_alns.py` has a new test (a warm-only run: no oracle certification,
+    not certified, its incumbent all relaxed) and new assertions in three existing ones.
+  * **README corrections (E1b-D2).** On L the relaxed best was at or above B2 in 3 of 10 runs and 2-7 below it in 3
+    more; the README said "B2's level ... in 6 of 10 runs" (Next step 1, now reframed) and "as good as B2" (What
+    happened). The ms per leg were swapped: 19.7-22.9 for the runs with a certified candidate (said 18.8-22.9) and
+    18.8-21.4 for the 6 late-trigger runs (said 19-23). Iterations in those runs took 0.8-2.5 s on average (said
+    1-2.5 s). `certify_s` is now given per method (said S 1-4 s, M 4-7 s, L 28-37 s; E1b's M reaches 7.7 s and B2's L
+    starts at 25.3 s).
+  * **Labels and figure (E1b-D3).** SYNTHETIC added to the headers of four tables (profile shares, K scaling, the 10
+    L runs, the sums). `results.csv` has a `label` column (SYNTHETIC), added to `e1b_analysis.py` and regenerated from
+    the same rows; every other cell is unchanged. New `figures/` with one figure, drawn from the committed rows by
+    `e1b_figure.py` and linked under the per-instance table, together with the leaderboard's margin figure.
+  * **Time to certified plan (E1b-D4).** The README now says that E1b's time to certified plan counts certification
+    twice (in-loop oracle time inside its runtime, plus the cold check) and gives the in-loop oracle time beside it
+    (What happened; a row in the sums table).
 
 ## Budget used
 

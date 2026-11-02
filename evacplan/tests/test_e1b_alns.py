@@ -1,6 +1,7 @@
 """E1b (E1's ALNS with incremental certification): oracle-valid plans; never fewer residents than the warm start;
 unchanged warm-start itineraries never reach the oracle in the loop; each distinct changed itinerary is checked once;
-in-loop oracle time counts toward the budget; the budget; determinism with an iteration cap; E1's parameters.
+in-loop oracle time counts toward the budget; the budget; determinism with an iteration cap; E1's parameters; the
+certification counters added after the KILL (a relaxed-only pass is not an oracle certification; review E1b-D1).
 SYNTHETIC instances only: hand-built (evacplan_testkit) and generated with seeds 9701+, outside the frozen split."""
 import time
 
@@ -126,6 +127,8 @@ def test_certify_sends_only_changed_itineraries_to_the_oracle(generated, oracle_
     run, res = warm_run(g)
     assert oracle_calls == [] and run.oracle_checks == 0               # no search: nothing checked in the loop
     assert res.diagnostics["incremental"]["changed_vehicles"] == 0 and not res.diagnostics["certified"]
+    # the warm run's one certification pass valued only warm-start itineraries (review E1b-D1)
+    assert (run.certifications, run.certifications_oracle, run.certifications_relaxed_only) == (1, 0, 1)
     warm = run.warm
     assert run._estimate(warm) == 0.0
     multi = [v for v, d in enumerate(warm.vd) if len(d.outs) >= 2]
@@ -138,11 +141,31 @@ def test_certify_sends_only_changed_itineraries_to_the_oracle(generated, oracle_
     got = run.certify(st, time.monotonic() + 60.0)
     assert got is not None
     assert [c[0] for c in oracle_calls] == [run.net.vid[v]]
+    assert (run.certifications, run.certifications_oracle, run.certifications_relaxed_only) == (2, 1, 1)
+    assert run.relaxed_itineraries(got[0]) == len([u for u, d in enumerate(st.vd) if d.outs]) - 1   # all but v
     assert run._estimate(st) == 0.0
     assert run.certify(st, time.monotonic() + 60.0) is not None and len(oracle_calls) == 1     # cached
+    assert (run.certifications_oracle, run.certifications_relaxed_only) == (2, 1)    # a cached verdict is the oracle's
     for u, d in enumerate(st.vd):
         if d.outs:
             assert isinstance(run.cert[(u, d.trips)], _WarmCert) == (u != v)
+
+
+def test_a_warm_only_run_counts_no_oracle_certification(generated, oracle_calls):
+    """Review E1b-D1: with no search iteration, E1's flow certifies the warm start, which E1b values relaxed. E1's
+    count shows that pass as a certification (kept for comparability); the diagnostics added after the KILL show
+    that the oracle checked nothing, the plan is not certified, and the incumbent's itineraries were all valued
+    relaxed."""
+    run, res = warm_run(generated[2])
+    d = res.diagnostics
+    assert oracle_calls == [] and d["oracle_calls"] == 0 and d["stop"] == "max_iterations"
+    kept = d["incremental"]["unchanged_warm_vehicles"]
+    assert kept >= 2 and d["incremental"]["changed_vehicles"] == 0
+    assert d["certifications"] == d["certifications_relaxed_only"] == 1
+    assert d["certifications_oracle"] == 0
+    assert d["certified"] is False and d["delivered_certified"] is None
+    assert [(e[0], e[2], e[3]) for e in d["incumbents"]] == [(0, d["warm_planned"], "warm")]
+    assert d["incumbent_relaxed_itineraries"] == [kept]                 # every itinerary of that incumbent relaxed
 
 
 def test_unchanged_warm_itineraries_are_never_checked_and_changed_ones_once(generated, oracle_calls):
@@ -159,6 +182,12 @@ def test_unchanged_warm_itineraries_are_never_checked_and_changed_ones_once(gene
         assert not any(warm.get(vid) == acts for vid, acts in oracle_calls)
         assert len(set(oracle_calls)) == len(oracle_calls) == res.diagnostics["oracle_calls"]
         prov = res.solution.provenance
+        d = res.diagnostics                                # the counters added after the KILL (review E1b-D1)
+        assert d["certifications_oracle"] + d["certifications_relaxed_only"] <= d["certifications"]
+        assert len(d["incumbent_relaxed_itineraries"]) == len(d["incumbents"])
+        if prov["checked_in_loop"]:                        # a changed itinerary was certified in the loop
+            assert d["certifications_oracle"] >= 1
+            assert d["incumbent_relaxed_itineraries"][-1] == len(prov["unchanged_warm_start"])
         plan = Oracle(inst, ss).check_plan(res.solution)
         for it, v in zip(res.solution.itineraries, plan.vehicles):
             acts = it.model_dump_json()
@@ -217,7 +246,8 @@ def test_deterministic_given_seed_and_iteration_cap(generated):
     assert a.diagnostics["iterations"] == b.diagnostics["iterations"] == 40
     assert a.diagnostics["stop"] == "max_iterations"
     assert a.solution == b.solution
-    keys = ("accepted", "improvements", "new_best", "weights", "used", "relaxed_best", "incremental", "oracle_calls")
+    keys = ("accepted", "improvements", "new_best", "weights", "used", "relaxed_best", "incremental", "oracle_calls",
+            "certifications", "certifications_oracle", "certifications_relaxed_only", "incumbent_relaxed_itineraries")
     assert {k: a.diagnostics[k] for k in keys} == {k: b.diagnostics[k] for k in keys}
 
 
