@@ -2,16 +2,22 @@
  * Judge onboarding of the public static demo: a dismissible bilingual introduction (≤ 80 words with
  * its title and the three verdict chips) and a 3-step tour —
  *   1. pick a village or care facility from the urgency list,
- *   2. read its 출발 마감 / leave-by time and the evidence,
+ *   2. read its 출발 마감 / leave-by time and the evidence (the tour picks the first origin in the
+ *      list that has a checked route unless the user picked one themselves),
  *   3. open the A4 plan sheet.
  * Dismissal is remembered in localStorage (inside try/catch: private windows and blocked storage
  * just show the introduction again). The ribbon's "둘러보기 / Tour" button reopens it.
+ *
+ * Keyboard: the introduction is a modal dialog (focus stays inside it; Escape closes it wherever the
+ * focus is). The tour card is a non-modal dialog that takes the focus at every step, so its buttons
+ * are the next Tab stops; Escape ends the tour. Closing either returns the focus to the button that
+ * opened it (the ribbon's tour button after the first-visit introduction).
  */
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { create } from 'zustand';
 import { useLang, useLangStore, useT } from '../../i18n';
-import { openDialog } from '../../state/controller';
-import { useStore } from '../../state/store';
+import { openDialog, selectOrigin } from '../../state/controller';
+import { getState, useStore } from '../../state/store';
 import { isNarrowScreen, setMobilePane, type MobilePane } from '../MobileNav';
 import { StatusChip } from '../StatusChip';
 import { CloseIcon } from '../Icons';
@@ -47,19 +53,32 @@ function safeStorage(): Storage | null {
 
 export type TourStep = 'intro' | 1 | 2 | 3 | null;
 
-export const useTour = create<{ step: TourStep; setStep: (s: TourStep) => void }>((set) => ({
+/** `opener`: the element that had the focus when the introduction was opened (gets it back on close). */
+export const useTour = create<{ step: TourStep; opener: HTMLElement | null; setStep: (s: TourStep) => void }>((set) => ({
   step: null,
+  opener: null,
   setStep: (step) => set({ step }),
 }));
 
-/** Opens the introduction (ribbon button). */
-export function openIntro(): void {
-  useTour.getState().setStep('intro');
+/** The ribbon's "둘러보기 / Tour" button: where the focus goes when nothing else opened the tour. */
+export const TOUR_BUTTON = '[data-testid="demo-tour-open"]';
+
+/** Opens the introduction (ribbon button; the first visit opens it without an opener). */
+export function openIntro(opener: HTMLElement | null = null): void {
+  useTour.setState({ step: 'intro', opener });
 }
 
-function endTour(): void {
+/**
+ * Ends the introduction or the tour and remembers the dismissal. The focus returns to the opener
+ * (or the ribbon's tour button) unless something else takes it next (the plan sheet).
+ */
+export function endTour({ restoreFocus = true }: { restoreFocus?: boolean } = {}): void {
   rememberIntroDismissed();
-  useTour.getState().setStep(null);
+  const { opener } = useTour.getState();
+  useTour.setState({ step: null, opener: null });
+  if (!restoreFocus || typeof document === 'undefined') return;
+  const target = opener?.isConnected ? opener : document.querySelector<HTMLElement>(TOUR_BUTTON);
+  target?.focus({ preventScroll: true });
 }
 
 const TARGETS: Record<1 | 2 | 3, { selector: string[]; pane: MobilePane }> = {
@@ -76,10 +95,43 @@ function findTarget(step: 1 | 2 | 3): HTMLElement | null {
   return null;
 }
 
-/** The village or facility at the top of the urgency list as shown (step 2 needs one selected). */
-function selectTopOfList(): void {
-  document.querySelector<HTMLButtonElement>('.origin-list .origin-row')?.click();
+const ORIGIN_ID = /^origin-(.+)$/;
+
+/**
+ * Step 2 shows a leave-by time: the first village or care facility of the urgency list (as shown)
+ * that has a checked route (a research-panel origin only when no village or facility has one) — or,
+ * when the filter or search hides every such row, the earliest leave-by time in the store. Returns
+ * the selected id (null when no origin of the scenario has a checked route: the selection stays).
+ */
+export function selectFirstCheckedRoute(): string | null {
+  const s = getState();
+  const research = new Set(s.places.filter((p) => p.role === 'research_origin').map((p) => p.id));
+  const shown = [...document.querySelectorAll<HTMLElement>('.origin-list .origin-row')]
+    .filter((row) => row.querySelector('.status.checked_route'))
+    .map((row) => ORIGIN_ID.exec(row.dataset.testid ?? '')?.[1])
+    .filter((id): id is string => Boolean(id));
+  let id = shown.find((x) => !research.has(x)) ?? shown[0] ?? null;
+  if (!id) {
+    // hidden by the filter or search: the earliest leave-by time, as the urgency list would order it
+    const rank = (x: string) => [research.has(x) ? 1 : 0, s.plans[x]?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY] as const;
+    const checked = Object.keys(s.plans).filter((x) => s.plans[x]?.bestVerdict === 'checked_route');
+    checked.sort((a, b) => rank(a)[0] - rank(b)[0] || rank(a)[1] - rank(b)[1]);
+    id = checked[0] ?? null;
+  }
+  if (id) selectOrigin(id);
+  return id;
 }
+
+function hasCheckedRoute(id: string | null): boolean {
+  return Boolean(id && getState().plans[id]?.bestVerdict === 'checked_route');
+}
+
+/** Another modal dialog (plan sheet, export, about) handles its own keys. */
+function otherModalOpen(except: Element | null): boolean {
+  return [...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].some((d) => d !== except);
+}
+
+const FOCUSABLE = 'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const CARD_W = 340;
 
@@ -101,21 +153,59 @@ function IntroCard() {
   const setStep = useTour((s) => s.setStep);
   const period = useRecordedPeriod();
   const regions = useRecordedRegionNames();
+  const dialog = useRef<HTMLDivElement | null>(null);
   const primary = useRef<HTMLButtonElement | null>(null);
+
+  // modal: the focus starts on the primary action and stays inside; Escape closes from anywhere
   useEffect(() => {
     primary.current?.focus();
+    const open = () => useTour.getState().step === 'intro';
+    const focusables = () => [...(dialog.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? [])];
+    const onKey = (e: KeyboardEvent) => {
+      if (!open()) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        endTour();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0]!;
+      const last = items[items.length - 1]!;
+      const active = document.activeElement;
+      const inside = !!active && !!dialog.current?.contains(active);
+      if (e.shiftKey && (!inside || active === first)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (!inside || active === last)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    // focus moved out by other means (a click on the page behind is caught by the backdrop)
+    const onFocusIn = (e: FocusEvent) => {
+      if (open() && dialog.current && e.target instanceof Node && !dialog.current.contains(e.target)) primary.current?.focus();
+    };
+    window.addEventListener('keydown', onKey, true);
+    document.addEventListener('focusin', onFocusIn);
+    return () => {
+      window.removeEventListener('keydown', onKey, true);
+      document.removeEventListener('focusin', onFocusIn);
+    };
   }, []);
+
   return (
-    <div className="demo-intro-backdrop" onClick={endTour}>
+    <div className="demo-intro-backdrop" onClick={() => endTour()}>
       <div
+        ref={dialog}
         className="demo-intro"
         role="dialog"
         aria-modal="true"
         aria-labelledby="demo-intro-title"
+        aria-describedby="demo-intro-body"
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') endTour();
-        }}
         data-testid="demo-intro"
       >
         <div className="demo-intro-head">
@@ -128,11 +218,11 @@ function IntroCard() {
               English
             </button>
           </div>
-          <button type="button" className="demo-icon-btn" onClick={endTour} aria-label={t('demo.intro.closeAria')} title={t('demo.intro.closeAria')}>
+          <button type="button" className="demo-icon-btn" onClick={() => endTour()} aria-label={t('demo.intro.closeAria')} title={t('demo.intro.closeAria')}>
             <CloseIcon size={16} />
           </button>
         </div>
-        <p className="demo-intro-body" data-testid="demo-intro-body">
+        <p className="demo-intro-body" id="demo-intro-body" data-testid="demo-intro-body">
           {t('demo.intro.body', { period: period ?? '', regions })}
         </p>
         <div className="demo-intro-verdicts" role="group" aria-label={t('demo.intro.verdicts')}>
@@ -141,7 +231,7 @@ function IntroCard() {
           <StatusChip verdict="unresolved" />
         </div>
         <div className="demo-intro-actions">
-          <button type="button" className="btn" onClick={endTour} data-testid="demo-intro-close">
+          <button type="button" className="btn" onClick={() => endTour()} data-testid="demo-intro-close">
             {t('demo.intro.close')}
           </button>
           <button ref={primary} type="button" className="btn btn-ink" onClick={() => setStep(1)} data-testid="demo-tour-start">
@@ -158,15 +248,32 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
   const setStep = useTour((s) => s.setStep);
   const selected = useStore((s) => s.selectedOriginId);
   const [pos, setPos] = useState<CSSProperties>({});
+  const card = useRef<HTMLDivElement | null>(null);
   const startSelected = useRef(selected);
 
-  // step 1 → 2 as soon as the user picks a village or facility themselves
+  // step 1 → 2 as soon as the user picks a village or facility themselves (their pick is kept)
   useEffect(() => {
     if (step === 1) startSelected.current = useStore.getState().selectedOriginId;
   }, [step]);
   useEffect(() => {
     if (step === 1 && selected && selected !== startSelected.current) setStep(2);
   }, [step, selected, setStep]);
+
+  // every step takes the focus: its buttons are the next Tab stops (no hunt through the page)
+  useEffect(() => {
+    card.current?.focus({ preventScroll: true });
+  }, [step]);
+
+  // Escape ends the tour, wherever the focus is (another open modal dialog handles its own keys)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || e.defaultPrevented || otherModalOpen(null)) return;
+      e.preventDefault();
+      endTour();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   // highlight the step's target (and show its pane on a narrow screen)
   useLayoutEffect(() => {
@@ -197,30 +304,33 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
 
   const next = () => {
     if (step === 1) {
-      if (!useStore.getState().selectedOriginId) selectTopOfList();
+      if (!hasCheckedRoute(useStore.getState().selectedOriginId)) selectFirstCheckedRoute();
       setStep(2);
     } else if (step === 2) setStep(3);
   };
   return (
     <div
+      ref={card}
       className={`tour-card${pos.left === undefined ? ' centered' : ''}`}
       role="dialog"
       aria-modal="false"
       aria-labelledby="tour-title"
+      aria-describedby="tour-body"
+      tabIndex={-1}
       style={pos}
       data-testid="tour-card"
       data-step={step}
     >
       <div className="tour-step tnum">{t('demo.tour.step', { n: step })}</div>
       <h3 id="tour-title">{t(`demo.tour.${step}.title`)}</h3>
-      <p>{t(`demo.tour.${step}.body`)}</p>
+      <p id="tour-body">{t(`demo.tour.${step}.body`)}</p>
       <div className="tour-actions">
-        <button type="button" className="btn btn-ghost" onClick={endTour} data-testid="tour-skip">
+        <button type="button" className="btn btn-ghost" onClick={() => endTour()} data-testid="tour-skip">
           {t('demo.tour.skip')}
         </button>
         <span className="tour-spacer" />
         {step > 1 ? (
-          <button type="button" className="btn" onClick={() => setStep((step - 1) as 1 | 2)}>
+          <button type="button" className="btn" onClick={() => setStep((step - 1) as 1 | 2)} data-testid="tour-back">
             {t('demo.tour.back')}
           </button>
         ) : null}
@@ -233,7 +343,7 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
             type="button"
             className="btn btn-ink"
             onClick={() => {
-              endTour();
+              endTour({ restoreFocus: false }); // the plan sheet takes the focus
               openDialog('planSheet');
             }}
             data-testid="tour-open-plansheet"
@@ -246,13 +356,12 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
   );
 }
 
-/** Mount once (static demo). Shows the introduction on the first visit. */
+/** Mount once (static demo), right after the ribbon: the tour card's buttons follow it in Tab order. */
 export function DemoIntro() {
   const step = useTour((s) => s.step);
-  const setStep = useTour((s) => s.setStep);
   useEffect(() => {
-    if (!introDismissed()) setStep('intro');
-  }, [setStep]);
+    if (!introDismissed()) openIntro(null);
+  }, []);
   if (step === null) return null;
   if (step === 'intro') return <IntroCard />;
   return <TourCard step={step} />;

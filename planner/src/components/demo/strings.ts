@@ -43,9 +43,9 @@ export const DEMO_STRINGS = {
 
     'demo.tour.step': '{n} / 3단계',
     'demo.tour.1.title': '마을·요양시설 고르기',
-    'demo.tour.1.body': '왼쪽 목록은 급한 순서입니다: 모델상 경로 없음 → 미확인 → 출발 마감이 이른 곳. 마을이나 요양시설을 하나 고르십시오.',
+    'demo.tour.1.body': '출발지 목록은 급한 순서입니다: 모델상 경로 없음 → 미확인 → 출발 마감이 이른 곳. 마을이나 요양시설을 하나 고르십시오.',
     'demo.tour.2.title': '출발 마감과 근거 읽기',
-    'demo.tour.2.body': '출발 마감은 모델 안에서 점검된 차량 경로가 남아 있는 가장 늦은 출발 시각입니다. 아래에 출발 시각별 결과, 점검된 경로, 시나리오별 열 노출과 출처가 있습니다. 경로가 없으면 그 이유가 표시됩니다.',
+    'demo.tour.2.body': '출발 마감은 모델 안에서 점검된 차량 경로가 남아 있는 가장 늦은 출발 시각입니다. 아래에 출발 시각별 결과, 점검된 경로, 시나리오별 열 노출과 출처가 있습니다. 점검된 경로가 있는 출발 시각이 없으면 시각 대신 그 결과(모델상 경로 없음 또는 미확인)를 표시합니다.',
     'demo.tour.3.title': 'A4 계획서 열기',
     'demo.tour.3.body': '계획서는 마을·시설마다 A4 한 장에 출발 마감, 대피 장소, 경로 지도, 대안 계획과 한계를 담습니다. 인쇄하거나 PDF로 저장할 수 있습니다.',
     'demo.tour.next': '다음',
@@ -87,9 +87,9 @@ export const DEMO_STRINGS = {
 
     'demo.tour.step': 'Step {n} of 3',
     'demo.tour.1.title': 'Pick a village or care facility',
-    'demo.tour.1.body': 'The list on the left is sorted by urgency: no route in the model, then unresolved, then the earliest leave-by time. Pick a village or a care facility.',
+    'demo.tour.1.body': 'The list of origins is sorted by urgency: no route in the model, then unresolved, then the earliest leave-by time. Pick a village or a care facility.',
     'demo.tour.2.title': 'Read the leave-by time and the evidence',
-    'demo.tour.2.body': 'The leave-by time (출발 마감) is the latest departure that still has a checked vehicle route within the model. Below it: the result per departure time, the checked route, heat exposure per fire scenario and the provenance. Without a route, the reason is shown instead.',
+    'demo.tour.2.body': 'The leave-by time (출발 마감) is the latest departure that still has a checked vehicle route within the model. Below it: the result per departure time, the checked route, heat exposure per fire scenario and the provenance. If no departure time has a checked route, it shows that result (no route in the model, or unresolved) instead of a time.',
     'demo.tour.3.title': 'Open the A4 plan sheet',
     'demo.tour.3.body': 'The plan sheet gives each village or facility one A4 page: leave-by time, shelter, route map, alternative plans and limitations — ready to print or save as PDF.',
     'demo.tour.next': 'Next',

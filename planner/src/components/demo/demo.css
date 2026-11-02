@@ -68,6 +68,9 @@
 .tour-actions { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
 .tour-spacer { flex: 1 1 auto; }
 .tour-target { outline: 3px solid var(--ink) !important; outline-offset: -3px; border-radius: 10px; }
+/* the card takes the focus at every step (its buttons are the next Tab stops) */
+.tour-card:focus { outline: none; }
+.tour-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .btn.btn-ghost:hover { background: var(--surface); }
 
 /* narrow-screen pane switcher: hidden on wide screens (see styles/mobile.css) */

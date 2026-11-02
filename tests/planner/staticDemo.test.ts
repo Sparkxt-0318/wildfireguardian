@@ -480,6 +480,14 @@ describe('demo texts', async () => {
     expect(translate('en', 'demo.chipText', { period: 'March 2025' })).toBe('recorded March 2025 scenarios · research prototype');
     expect(periodLabel([], (k, v) => translate('en', k, v))).toBeNull();
   });
+  it('the tour texts do not depend on the layout and the step-2 text is neutral', () => {
+    for (const lang of ['ko', 'en'] as const) {
+      const one = translate(lang, 'demo.tour.1.body');
+      const two = translate(lang, 'demo.tour.2.body');
+      expect(one).not.toMatch(/왼쪽|오른쪽|\bleft\b|\bright\b|아래쪽|위쪽/i);
+      expect(two).not.toMatch(/그 이유가 표시됩니다|the reason is shown/i);
+    }
+  });
   it('the introduction stays within 80 words in both languages (title + text + the three verdicts)', () => {
     for (const lang of ['ko', 'en'] as const) {
       const t = (k: string, v?: Record<string, string | number>) => translate(lang, k, v);

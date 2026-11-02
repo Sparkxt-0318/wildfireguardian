@@ -8,7 +8,7 @@
  * - FeedbackLink: "의견 보내기 / Feedback" → VITE_FEEDBACK_URL (default: the repository's
  *   planner-feedback issue template). No personal e-mail address is ever shown.
  */
-import { useMemo } from 'react';
+import { useMemo, type MouseEvent } from 'react';
 import { CONFIG } from '../../config/env';
 import { kstDate } from '../../domain/clock';
 import { useLang, useT, type Lang, type TFunction } from '../../i18n';
@@ -84,7 +84,7 @@ export function FeedbackLink({ className = 'btn' }: { className?: string }) {
 }
 
 /** The thin strip under the top bar in the static demo. */
-export function DemoRibbon({ onTour }: { onTour: () => void }) {
+export function DemoRibbon({ onTour }: { onTour: (opener: HTMLElement | null) => void }) {
   const t = useT();
   const period = useRecordedPeriod();
   return (
@@ -98,7 +98,7 @@ export function DemoRibbon({ onTour }: { onTour: () => void }) {
       </span>
       <span className="demo-ribbon-note">{t('demo.noLive')}</span>
       <span className="demo-ribbon-spacer" />
-      <button type="button" className="demo-ribbon-btn" onClick={onTour} data-testid="demo-tour-open">
+      <button type="button" className="demo-ribbon-btn" onClick={(e: MouseEvent<HTMLButtonElement>) => onTour(e.currentTarget)} data-testid="demo-tour-open">
         <InfoIcon size={13} />
         {t('demo.tour')}
       </button>

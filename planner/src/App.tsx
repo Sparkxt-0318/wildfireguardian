@@ -112,6 +112,7 @@ export function App() {
     <div className={`app${STATIC_DEMO ? ' with-ribbon' : ''}`} data-mobile-pane={pane}>
       <TopBar />
       {STATIC_DEMO ? <DemoRibbon onTour={openIntro} /> : null}
+      {STATIC_DEMO ? <DemoIntro /> : null}
       <div className="main">
         <LeftPanel />
         <main className="center">
@@ -123,7 +124,6 @@ export function App() {
       <MobileNav />
       <Footer />
       <Dialogs />
-      {STATIC_DEMO ? <DemoIntro /> : null}
     </div>
   );
 }
