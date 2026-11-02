@@ -248,11 +248,12 @@ describe('static data flow against the committed cache', () => {
     for (const s of apiSpies) s.mockRestore();
 
     // every request: same-origin, under the base, never the API; answered by a committed file
+    // (optional files the app tolerates may be missing: temporary housing, generated explanations)
     expect(seen.length).toBeGreaterThan(0);
     for (const r of seen) {
       expect(forbidden(r.url), r.url).toBe(false);
       expect(r.url.startsWith(BASE), r.url).toBe(true);
-      if (r.status !== 200) expect(r.url, 'only the optional temporary housing file may be missing').toMatch(/\/temporary_housing\.geojson$/);
+      if (r.status !== 200) expect(r.url, 'only optional data files may be missing').toMatch(/\/data\/(regions\/[^/]+\/temporary_housing\.geojson|explanations\/[^/]+\.json)$/);
     }
     const paths = new Set(seen.map((r) => r.url.slice(BASE.length)));
     const expected = new Set([
@@ -263,7 +264,9 @@ describe('static data flow against the committed cache', () => {
     ]);
     const drawnRegion = store.getState().regionId!;
     expected.add(`data/regions/${drawnRegion}/footprints.geojson`);
-    expect([...paths].sort()).toEqual([...expected].sort());
+    for (const p of expected) expect(paths.has(p), `requested ${p}`).toBe(true);
+    // anything else can only be another static file under data/ (e.g. generated public/data/** files)
+    expect([...paths].filter((p) => !expected.has(p) && !p.startsWith('data/'))).toEqual([]);
   }, 120_000);
 });
 
