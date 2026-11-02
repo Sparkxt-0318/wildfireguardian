@@ -55,3 +55,36 @@ api-panel:
 
 api-smoke:
 	bash scripts/api_smoke.sh
+
+# ---- Solve 2027 reviewer reproduction (docs/solve2027/REPRODUCE.md) ---------------------------------------------
+#   make reproduce-linux  verify identities and frozen evidence, fetch the recorded inputs if missing, replay Uljin FX1
+#                         with an EXTENDED budget (Linux reproduction, not the evaluated 30 s macOS benchmark; the
+#                         same request at 30 s is reported, never asserted), then the API fast tests
+#   make reproduce-uljin  only the extended-budget Uljin FX1 replay (needs the recorded inputs)
+#   make docker-build     build the API and planner images (no push)
+#   make docker-up        docker compose up --build: planner http://127.0.0.1:8080, API http://127.0.0.1:8765/v1
+#   make docker-down      stop the containers (job records stay in the api-runtime volume)
+REPRO_OUT ?= artifacts/solve2027/uljin-fx1-$(shell date -u +%Y%m%dT%H%M%SZ)
+WFG_GIT_COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo unknown)
+
+.PHONY: reproduce-linux reproduce-uljin docker-build docker-up docker-down
+
+reproduce-uljin:
+	$(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT)
+
+reproduce-linux:
+	@if [ ! -d .venv ]; then $(MAKE) --no-print-directory api-setup; fi
+	$(PY) tools/verify_release.py
+	$(PY) tools/verify_postmerge_preservation.py
+	@$(MAKE) --no-print-directory api-inputs
+	$(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT) --also-evaluated-budget
+	@$(MAKE) --no-print-directory api-test
+
+docker-build:
+	WFG_GIT_COMMIT=$(WFG_GIT_COMMIT) docker compose build
+
+docker-up:
+	WFG_GIT_COMMIT=$(WFG_GIT_COMMIT) docker compose up --build
+
+docker-down:
+	docker compose down
