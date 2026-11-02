@@ -175,3 +175,42 @@ def test_routes_meeting_the_same_road_at_different_times_are_not_merged(tmp_path
     I, _ = load_kit_checker()
     KG = I.Graph(raw)
     assert kit_crosscheck(I, KG, I.Packet(tmp_path / "pk", KG), pk, rec, ev, 3600)["kit_b"] is True
+
+
+def test_routes_with_an_identical_contact_are_merged_and_each_is_validated(tmp_path):
+    """Shelters s1 via A-B-C and s2 via A-B-D share road A->B at the same times (both leave cell 5 at 615 s when leaving
+    at 600). Member 2 ignites cell 5 at 650 s, so both shifted routes first meet it there: one item lists both shelters,
+    and each route's claim is still checked on its own (a tampered second claim fails assertion b)."""
+    raw = synth.graph({"A": (50, 150), "B": (250, 150), "C": (350, 150), "D": (250, 50)},
+                      [("AB", "A", "B", 20), ("BC", "B", "C", 10), ("BD", "B", "D", 10)])
+    checks, atts = {}, []
+    for off in OFFSETS:
+        for dest, node, edges in (("s1", "C", ["AB", "BC"]), ("s2", "D", ["AB", "BD"])):
+            jid = "%s_%d" % (dest, off)
+            if off <= 600:
+                job = synth.route_job(jid, start="A", dest=node, depart=off, legs_edges=edges, raw_graph=raw)
+                atts.append(synth.attempt(dest, off, "checked_route", jid, job["result"]["arrival_s"]))
+            else:
+                job = synth.refusal_job(jid, start="A", dest=node, depart=off)
+                atts.append(synth.attempt(dest, off, "model_no_route", jid))
+            checks[jid] = job
+    doc = synth.cache_doc([("o1", atts)], checks)
+    g = RoadGraph(raw)
+    synth.write_packet(tmp_path / "pk", ignitions={2: {5: 650.0}})
+    pk = Packet(tmp_path / "pk", g.grid)
+    ctx = Context(region_id="synthetic", input_time="2025-01-01T00:00:00Z", scenario_set_id="synthetic:set", graph=g, packet=pk,
+                  index=ContactIndex(g, pk), places=None, model=CacheModel(doc), to_lonlat=synth.lonlat_identity, horizon=3600)
+    rec, ev = explain_plan(ctx, ctx.model.plans["o1"])
+    assert (rec["status"], rec["reason_code"]) == ("explained", "flame_on_route")
+    assert rec["deadline_route"]["destination_id"] == "s1"               # equal arrival 630 s: destination id decides
+    assert len(rec["binding"]) == 1
+    b = rec["binding"][0]
+    assert b["destination_ids"] == ["s1", "s2"] and b["members"] == [2] and b["leg_index"] == 0
+    assert (b["pass_time_at_deadline_s"], b["slack_s"], b["flame_time_s"], b["contact_time_s"]) == (615.0, 35.0, 650.0, 1205.0)
+    assert [c["destination_id"] for c in ev.binding_checks] == ["s1", "s2"]
+    assert validate(ctx, rec, ev)["b"] is True
+    I, _ = load_kit_checker()
+    KG = I.Graph(raw)
+    assert kit_crosscheck(I, KG, I.Packet(tmp_path / "pk", KG), pk, rec, ev, 3600)["kit_b"] is True
+    ev.binding_checks[1]["members"] = {0}
+    assert validate(ctx, rec, ev)["b"] is False

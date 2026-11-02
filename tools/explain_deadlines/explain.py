@@ -22,6 +22,7 @@ model_no_route origin: every attempted (offset, shelter) must be proven by the r
 from __future__ import annotations
 
 import collections
+import json
 from dataclasses import dataclass, field
 from fractions import Fraction as F
 
@@ -257,25 +258,24 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
         rec.update(reason_code="window", detail_code=cls)
     elif cls == "flame_on_route":
         rec.update(reason_code="flame_on_route", detail_code="route_meets_flame_when_shifted")
-        # one item per distinct first-contact road among the routes checked at D (the shown route first)
+        # one item per distinct first contact among the routes checked at D (the shown route's item first)
         order = [best.destination_id] + sorted(d for d in results if d != best.destination_id)
         seen = {}
         for d in order:
             r = results[d]
             if r["cls"] != "flame_on_route":
                 continue
-            fc = r["first"]
-            # merge two routes only when they meet flame on the same road segment at the same times
-            key = (fc.segment.kind, fc.segment.edge, fc.segment.node, fc.segment.start, fc.segment.end)
+            item, check = _binding_item(ctx, r["segs"], r["first"], delta, [d])
+            check["destination_id"] = d
+            ev.binding_checks.append(check)          # every route's claim is validated, merged or not
+            ev.times += check["times"]
+            # merge two routes only when every field of their items is identical (same road, times, members, leg)
+            key = json.dumps({k: v for k, v in item.items() if k != "destination_ids"}, sort_keys=True)
             if key in seen:
                 seen[key]["destination_ids"].append(d)
                 continue
-            item, check = _binding_item(ctx, r["segs"], fc, delta, [d])
-            check["destination_id"] = d
             seen[key] = item
             rec["binding"].append(item)
-            ev.binding_checks.append(check)
-            ev.times += check["times"]
         for item in rec["binding"]:
             item["destination_ids"] = sorted(item["destination_ids"])
     elif cls == "dwell":
