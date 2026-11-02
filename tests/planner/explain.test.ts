@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { explainView, matchesShown, slackText, whereText } from '../../planner/src/features/explain/text';
 import { clearExplanationCache, explanationUrl, loadExplanationFile, parseExplanationFile } from '../../planner/src/features/explain/load';
-import type { ExplFile, ExplItem, ExplOrigin, ShownPlan } from '../../planner/src/features/explain/types';
+import type { ExplFile, ExplItem, ExplOrigin, ExplShelter, ShownPlan } from '../../planner/src/features/explain/types';
 
 const INPUT = '2025-01-01T00:00:00Z'; // 09:00 KST
 
@@ -70,55 +70,124 @@ function view(rec: ExplOrigin, lang: 'ko' | 'en' = 'ko', shown: ShownPlan | null
   return explainView({ state: 'ready', file: file({ o: rec }), originId: 'o', inputTime: INPUT, lang, shown });
 }
 
+const FW = { close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 3895, flame_avoiding_arrival_s: null, limit: 'scenario_window' as const, horizon_s: 3600 };
+
+function shelter(id: string, over: Partial<ExplShelter> = {}): ExplShelter {
+  return { destination_id: id, checked_at_deadline: true, tried_next: true, class: 'window_fire_free', proven: true, close_s: 3600, dwell_s: 120,
+    fire_free_fits: false, fire_free_end_s: 3895, flame_avoiding_arrival_s: null, ...over };
+}
+
+function noRouteOrigin(over: Partial<ExplOrigin> = {}): ExplOrigin {
+  return origin({ verdict_summary: 'model_no_route', deadline_offset_s: null, next_offset_s: null, next_verdict: null, binding: [], deadline_route: null, ...over });
+}
+const NO_ROUTE: ShownPlan = { bestVerdict: 'model_no_route', deadlineS: null };
+
 describe('explanation text (structured fields only)', () => {
-  it('flame on the shown route: places, clock times, k of 4 and the slack', () => {
+  it('flame on the shown route: place, clock times, k of 4 and the margin as a lower bound', () => {
     const ko = view(origin());
     expect(ko.kind).toBe('explained');
     expect(ko.title).toBe('왜 이 시각인가요?');
-    expect(ko.lines[0]).toBe('09:40에 출발하면 출발 마감 경로는 합성마을 부근 도로(1.2 km 거리)에서 09:41에 시나리오상 화염과 만납니다(화재 시나리오 4개 중 1개).');
-    expect(ko.lines[1]).toBe('출발 마감 09:30에 출발하면 차량은 09:31에 그 도로의 해당 375 m 격자 칸을 벗어나며, 시나리오상 화염이 그 칸에 닿는 시각(09:36)보다 4분 이상 앞섭니다.');
-    expect(ko.lines[2]).toBe('09:40에 출발하면 시나리오상 화염을 피하는 도로로는 그 대피소에 제때(체류 포함) 도착할 수 없습니다.');
-    expect(ko.lines.length).toBe(3);
+    expect(ko.lines).toEqual([
+      '09:40에 출발해 09:30에 확인된 같은 경로로 가면 합성마을에서 약 1.2 km 떨어진 도로에서 09:41에 시나리오상 화염과 만납니다(화재 시나리오 4개 중 1개).',
+      '출발 마감 09:30에 출발하면 차량은 09:31에 그 375 m 격자 칸을 벗어납니다. 그 시나리오에서 이 칸이 타기 시작하는 09:36보다 4분 이상 이릅니다.',
+      '09:40에 출발하면 시나리오상 화염을 피하는 도로로는 그 대피소에 10:00까지 도착해 2분 체류를 마칠 수 없습니다.',
+    ]);
     expect(ko.dots).toEqual({ members: [1], total: 4, text: '화재 시나리오 4개 중 1개' });
     expect(ko.basis).toBe('예측에서 나온 화재 시나리오 4개를 기준으로 한 결과이며, 관측이 아닙니다.');
     const en = view(origin(), 'en');
     expect(en.title).toBe('Why this time?');
-    expect(en.lines[0]).toContain('the road near Hapseong-ri (1.2 km away) at 09:41 (1 of 4 fire scenarios)');
-    expect(en.lines[1]).toBe('Leaving at the leave-by time 09:30, the vehicle leaves the 375 m grid cell in question on that road at 09:31, at least 4 min before the flame reaches that cell in the fire scenarios (09:36).');
+    expect(en.lines).toEqual([
+      'Leaving at 09:40 on the same route that was checked for 09:30, the vehicle would meet flames on a road about 1.2 km from Hapseong-ri at 09:41 (1 of 4 fire scenarios).',
+      'Leaving at the leave-by time 09:30, the vehicle clears that 375 m grid cell at 09:31, at least 4 min before that cell starts burning in that scenario (09:36).',
+      'Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches that shelter by 10:00 (including the 2-minute stay).',
+    ]);
+    expect(en.basis).toBe('Based on 4 fire scenarios from the forecast; not an observation.');
     // without a proof for every shelter checked at the deadline, no unreachability sentence
     expect(view(origin({ status: 'explained_partial', checked_at_deadline: 2, proven_unreachable_next: 1 })).lines.length).toBe(2);
-    expect(en.basis).toBe('Based on 4 fire scenarios from the forecast; not an observation.');
   });
 
-  it('slack is rounded down and unnamed roads name their node', () => {
+  it('several members, another cell, the same minute and several shelters', () => {
+    const b = item({ members: [0, 2], contact_cell: 5, slack_cell: 6, pass_time_at_deadline_s: 1925, flame_time_s: 1950, slack_s: 25 });
+    const en = view(origin({ binding: [b], checked_at_deadline: 3, proven_unreachable_next: 3,
+      shelters_next: [shelter('synthetic:shelter', { class: 'flame_on_route', fire_free_fits: true, fire_free_end_s: 2600 }), shelter('b'), shelter('c')] }), 'en');
+    expect(en.lines[1]).toBe('Leaving at the leave-by time 09:30, the vehicle clears a 375 m grid cell on that road at 09:32:05, under 1 min before that cell starts burning in one of those scenarios (09:32:30).');
+    expect(en.lines[2]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters with a checked route at 09:30 by 10:00 (including the 2-minute stay).');
+    expect(en.dots?.text).toBe('2 of 4 fire scenarios');
+  });
+
+  it('slack is rounded down; places are named with a straight-line distance, the origin itself as this village', () => {
     expect(slackText(287.7, 'ko')).toBe('4분 이상');
     expect(slackText(60, 'en')).toBe('at least 1 min');
     expect(slackText(59.9, 'en')).toBe('under 1 min');
     expect(whereText(item({ label_source: 'unnamed', label_ko: null, label_en: null }), 'ko')).toBe('이름 없는 도로(도로 노드 synthetic:n1)');
-    expect(whereText(item({ label_en: null }), 'en')).toBe('the road near 합성마을 (1.2 km away)'); // never transliterated
+    expect(whereText(item({ label_en: null }), 'en')).toBe('a road about 1.2 km from 합성마을'); // never transliterated
+    expect(whereText(item({ place_is_origin: true, place_kind: 'village' }), 'en')).toBe('a road about 1.2 km from Hapseong-ri (this village)');
+    expect(whereText(item({ place_is_origin: true, place_kind: 'village' }), 'ko')).toBe('이 마을(합성마을)에서 약 1.2 km 떨어진 도로');
+    expect(whereText(item({ place_is_origin: true, place_kind: 'town' }), 'en')).toBe('a road about 1.2 km from Hapseong-ri (this place)');
   });
 
-  it('window: fire-free and detour wording, never a fire claim for the fire-free case', () => {
-    const free = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: { close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 3895, flame_avoiding_arrival_s: null, limit: 'scenario_window', horizon_s: 3600 } }));
-    expect(free.lines[0]).toBe('09:40에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 2분 머무는 일이 10:04에야 끝나, 기록된 화재 시나리오가 끝나는 10:00를 넘습니다. 따라서 출발 마감 뒤에 이 대피소로 갈 수 없게 되는 것은 예측 화염이 아니라 1시간 시나리오 범위 때문입니다.');
-    expect(free.lines.length).toBe(1);
-    expect(free.dots).toBeNull();
-    // several shelters: "even ignoring the fire" only when every one of them is out of reach without fire
-    const fw = { close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 3895, flame_avoiding_arrival_s: null, limit: 'scenario_window' as const, horizon_s: 3600 };
-    const allFree = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: fw, checked_at_deadline: 2, proven_unreachable_next: 2,
-      destination_classes: { a: 'window_fire_free', b: 'window_fire_free' } }), 'en');
-    expect(allFree.lines[1]).toBe('Leaving at 09:40, even ignoring the fire, no road route reaches any of the 2 shelters checked at 09:30 in time (stay included).');
-    const mixed = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: fw, checked_at_deadline: 3, proven_unreachable_next: 3,
-      destination_classes: { a: 'window_fire_free', b: 'window_fire_detour', c: 'window_fire_detour' } }), 'en');
-    expect(mixed.lines[1]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters checked at 09:30 in time (stay included).');
-    const detour = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_detour', checked_at_deadline: 3, proven_unreachable_next: 3 }), 'en');
-    expect(detour.lines[0]).toContain('no road route that avoids the flames in the fire scenarios reaches the shelter');
-    expect(detour.lines[0]).toContain('(no flame-avoiding arrival at all by 10:00, when the scenarios end)');
-    expect(detour.lines[0]).toContain('so this leave-by time comes from the flames in the fire scenarios');
-    expect(detour.lines[1]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters checked at 09:30 in time (stay included).');
-    const late = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_detour', window: { close_s: 3600, dwell_s: 120, fire_free: false, fastest_end_s: 3371, flame_avoiding_arrival_s: 3579, limit: 'scenario_window', horizon_s: 3600 } }), 'ko');
-    expect(late.lines[0]).toContain('(화염을 피하면 09:59 전에는 도착할 수 없음)');
-    expect(late.lines.length).toBe(1);
+  it('time window: the range conclusion only when no shelter considered would be reached even without fire', () => {
+    const one = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: FW, deadline_cause: 'time_window',
+      shelters_next: [shelter('synthetic:shelter')] }));
+    expect(one.lines).toEqual([
+      '09:40에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 2분 머무는 일이 10:04에야 끝나, 기록된 화재 시나리오가 끝나는 10:00를 넘습니다.',
+      '이보다 늦은 출발은 1시간 시나리오 범위를 벗어나므로, 이 출발 마감은 예측 화염이 아니라 시나리오 범위로 정해진 것입니다.',
+    ]);
+    expect(one.dots).toBeNull();
+    const three = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: FW, deadline_cause: 'time_window',
+      checked_at_deadline: 1, proven_unreachable_next: 1, shelters_next: [shelter('synthetic:shelter'), shelter('b', { checked_at_deadline: false }), shelter('c', { checked_at_deadline: false })] }), 'en');
+    expect(three.lines.slice(1)).toEqual([
+      'Even ignoring the fire, none of the other 2 candidate shelters can be reached by 10:00 (including the 2-minute stay) either.',
+      'For every one of these shelters a later departure falls outside the one-hour scenario range, so this leave-by time is set by that range, not by predicted flames.',
+    ]);
+    // cause not established (a shelter would fit without fire, unproven): no conclusion, no claim about the others
+    const open = view(origin({ status: 'explained_partial', reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: FW, deadline_cause: null,
+      shelters_next: [shelter('synthetic:shelter'), shelter('b', { class: 'open', proven: false, fire_free_fits: true, fire_free_end_s: 3300 })] }), 'en');
+    expect(open.lines.length).toBe(1);
+  });
+
+  it('B2: a fire-free end in the same minute as the scenario end is shown with seconds', () => {
+    const v = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: { ...FW, fastest_end_s: 3616 }, deadline_cause: 'time_window',
+      shelters_next: [shelter('synthetic:shelter', { fire_free_end_s: 3616 })] }), 'en');
+    expect(v.lines[0]).toBe('Leaving at 09:40, even the fastest road route, ignoring the fire, would finish the 2-minute stay at the shelter only at 10:00:16, after the recorded fire scenarios end at 10:00:00.');
+    const arr = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', deadline_cause: 'time_window',
+      window: { close_s: 3000, dwell_s: 120, fire_free: true, fastest_end_s: 3030, flame_avoiding_arrival_s: null, limit: 'arrival_window', horizon_s: 3600 },
+      shelters_next: [shelter('synthetic:shelter', { close_s: 3000, fire_free_end_s: 3030 })] }), 'en');
+    expect(arr.lines[0]).toContain("only at 09:50:30, after this recorded mission's arrival window closes at 09:50:00.");
+    expect(arr.lines[1]).toBe("A later departure to this shelter falls outside this recorded mission's arrival window, so this leave-by time is set by that window, not by predicted flames.");
+  });
+
+  it('B1: shown shelter out of the range, the others only blocked by the flames', () => {
+    const rec = origin({ reason_code: 'no_flame_avoiding_route', binding: [], detail_code: 'other_shelters_flame_blocked', window: { ...FW, fastest_end_s: 3851 },
+      deadline_cause: 'flames', checked_at_deadline: 3, proven_unreachable_next: 3,
+      shelters_next: [shelter('synthetic:shelter', { fire_free_end_s: 3851 }), shelter('b', { class: 'window_fire_detour', fire_free_fits: true, fire_free_end_s: 3563 }),
+        shelter('c', { class: 'window_fire_detour', fire_free_fits: true, fire_free_end_s: 3552 })] });
+    expect(view(rec, 'en').lines).toEqual([
+      "Leaving at 09:40, the shown route's shelter is beyond the one-hour scenario range even without fire (the stay would end at 10:04); the other 2 shelters, which a fire-free road would still reach in time, cannot be reached on any road that avoids the flames in the fire scenarios. So this leave-by time comes from the flames in the fire scenarios.",
+    ]);
+    expect(view(rec, 'ko').lines).toEqual([
+      '09:40에 출발하면 표시된 경로의 대피소는 화재가 없어도 1시간 시나리오 범위 안에 체류를 마칠 수 없고(10:04), 화재가 없다면 제때 갈 수 있는 나머지 대피소 2곳은 시나리오상 화염을 피하는 도로로 갈 수 없습니다. 따라서 이 출발 마감은 시나리오상 화염 때문입니다.',
+    ]);
+    // S1: one other shelter out of the range as well, one (refused at the deadline too) blocked by the flames
+    const s1 = origin({ ...rec, shelters_next: [shelter('synthetic:shelter', { fire_free_end_s: 3851 }), shelter('b', { fire_free_end_s: 3760 }),
+      shelter('c', { checked_at_deadline: false, class: 'flame_blocked', fire_free_fits: true, fire_free_end_s: 3490 })] });
+    expect(view(s1, 'en').lines[0]).toContain('; another shelter, which a fire-free road would still reach in time, cannot be reached on any road that avoids the flames in the fire scenarios. One more shelter cannot be reached in time even without fire. So this leave-by time');
+  });
+
+  it('flame-forced detour and a no-route origin', () => {
+    const detour = view(origin({ reason_code: 'no_flame_avoiding_route', binding: [], detail_code: 'window_fire_detour', deadline_cause: 'flames', checked_at_deadline: 3, proven_unreachable_next: 3,
+      window: { close_s: 3600, dwell_s: 120, fire_free: false, fastest_end_s: 3312, flame_avoiding_arrival_s: null, limit: 'scenario_window', horizon_s: 3600 } }), 'en');
+    expect(detour.lines[0]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches the shelter in time to finish the 2-minute stay by 10:00 (no flame-avoiding arrival at all by 10:00, when the scenarios end). Without fire the fastest road would finish the stay at 09:55. So this leave-by time comes from the flames in the fire scenarios.');
+    expect(detour.lines[1]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters with a checked route at 09:30 by 10:00 (including the 2-minute stay).');
+    // N5: without an established cause the whole-origin conclusion is not stated
+    expect(view(origin({ reason_code: 'no_flame_avoiding_route', binding: [], detail_code: 'window_fire_detour', deadline_cause: null,
+      window: { close_s: 3600, dwell_s: 120, fire_free: false, fastest_end_s: 3312, flame_avoiding_arrival_s: 3579, limit: 'scenario_window', horizon_s: 3600 } }), 'ko').lines[0])
+      .toBe('09:40에 출발하면 시나리오상 화염을 피하는 도로로는 10:00까지 대피소에 도착해 2분 체류를 마칠 수 없습니다(화염을 피하면 09:59 전에는 도착할 수 없음). 화재가 없다면 가장 빠른 도로로 09:55에 체류를 마칠 수 있습니다.');
+    const nr = view(noRouteOrigin({ reason_code: 'no_flame_avoiding_route', detail_code: 'no_flame_avoiding_route_fits_window', deadline_cause: 'flames' }), 'en', NO_ROUTE);
+    expect(nr.title).toBe('Why is there no checked route?');
+    expect(nr.lines[0]).toContain('A fire-free road would reach at least one of them in time, so this comes from the flames in the fire scenarios.');
+    const ff = view(noRouteOrigin({ reason_code: 'window', detail_code: 'no_route_even_without_fire', deadline_cause: 'time_window' }), 'ko', NO_ROUTE);
+    expect(ff.lines[0]).toBe('점검한 어느 출발 시각에도 화재가 없더라도 후보 대피소에 10:00까지 도착해 2분 체류를 마칠 수 있는 도로가 없으므로, 이는 예측 화염이 아니라 시간 범위 때문입니다.');
   });
 
   it('last checked offset and unresolved next time are stated plainly', () => {
@@ -132,55 +201,53 @@ describe('explanation text (structured fields only)', () => {
     expect(un.basis).toBeNull();
   });
 
-  it('cut-off origin lists the blocked exits with k of 4', () => {
-    const rec = origin({
-      verdict_summary: 'model_no_route', deadline_offset_s: null, next_offset_s: null, next_verdict: null, reason_code: 'all_exits_blocked',
-      binding: [], deadline_route: null, detail_code: 'flame_free_area_closed',
-      exits: [item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null }),
-              item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 140, pass_time_at_deadline_s: null, slack_s: null, label_ko: '합성리', label_en: null })],
-    });
-    const v = view(rec, 'ko', { bestVerdict: 'model_no_route', deadlineS: null });
+  it('cut-off origin: both road exits, the same road in both directions, k of 4', () => {
+    const rec = noRouteOrigin({ reason_code: 'all_exits_blocked', detail_code: 'flame_free_area_closed',
+      exits: [item({ edge_id: 'w123:s80:r', osm_way_id: 123, members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null }),
+              item({ edge_id: 'w123:s87:f', osm_way_id: 123, members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 140, pass_time_at_deadline_s: null, slack_s: null, label_ko: '합성리', label_en: null })] });
+    const v = view(rec, 'ko', NO_ROUTE);
     expect(v.title).toBe('왜 확인된 경로가 없나요?');
-    expect(v.lines[0]).toBe('진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로 2개가 모두 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).');
-    expect(v.lines[1]).toBe('이 도로들은 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.');
-    expect(v.list).toEqual(['합성마을 부근 도로(1.2 km 거리): 시나리오 4/4', '합성리 부근 도로(1.2 km 거리): 시나리오 4/4']);
+    expect(v.lines).toEqual([
+      '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역의 도로 출구 2곳이 모두 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).',
+      '두 출구는 같은 도로(OSM way 123)의 양쪽 방향입니다.',
+      '이 도로들은 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.',
+    ]);
+    expect(v.list).toEqual(['합성마을에서 약 1.2 km 떨어진 도로: 시나리오 4/4', '합성리에서 약 1.2 km 떨어진 도로: 시나리오 4/4']);
     expect(v.dots?.members).toEqual([0, 1, 2, 3]);
+    const en = view(rec, 'en', NO_ROUTE);
+    expect(en.lines[0]).toBe('Both road exits from the area that can be reached from the entry point without meeting flames run into flames in the fire scenarios (4 of 4 fire scenarios).');
+    expect(en.lines[1]).toBe('Both are on the same road (OSM way 123), one in each direction.');
+    expect(en.list[0]).toBe('A road about 1.2 km from Hapseong-ri: 4/4 scenarios');
   });
 
   it('a single exit is stated in the singular', () => {
-    const rec = origin({
-      verdict_summary: 'model_no_route', deadline_offset_s: null, next_offset_s: null, next_verdict: null, reason_code: 'all_exits_blocked',
-      binding: [], deadline_route: null, detail_code: 'flame_free_area_closed',
-      exits: [item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null })],
-    });
-    const en = view(rec, 'en', { bestVerdict: 'model_no_route', deadlineS: null });
-    expect(en.lines).toEqual([
+    const rec = noRouteOrigin({ reason_code: 'all_exits_blocked', detail_code: 'flame_free_area_closed',
+      exits: [item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null })] });
+    expect(view(rec, 'en', NO_ROUTE).lines).toEqual([
       'The only road leading out of the area that can be reached from the entry point without meeting flames runs into flames in the fire scenarios (4 of 4 fire scenarios).',
       'It crosses cells already marked as burning at the input time (09:00).',
     ]);
-    const ko = view(rec, 'ko', { bestVerdict: 'model_no_route', deadlineS: null });
-    expect(ko.lines[0]).toBe('진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).');
+    expect(view(rec, 'ko', NO_ROUTE).lines[0]).toBe('진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).');
   });
 
   it('exits blocked in different members: "at least k", no single set of dots', () => {
-    const rec = origin({
-      verdict_summary: 'model_no_route', deadline_offset_s: null, next_offset_s: null, next_verdict: null, reason_code: 'all_exits_blocked',
-      binding: [], deadline_route: null, detail_code: 'flame_free_area_closed',
+    const rec = noRouteOrigin({ reason_code: 'all_exits_blocked', detail_code: 'flame_free_area_closed',
       exits: [item({ members: [0, 2], flame_time_s: 600, contact_time_s: 700, pass_time_at_deadline_s: null, slack_s: null }),
-              item({ members: [1, 2, 3], flame_time_s: 900, contact_time_s: 950, pass_time_at_deadline_s: null, slack_s: null })],
-    });
-    const v = view(rec, 'en', { bestVerdict: 'model_no_route', deadlineS: null });
+              item({ members: [1, 2, 3], flame_time_s: 900, contact_time_s: 950, pass_time_at_deadline_s: null, slack_s: null })] });
+    const v = view(rec, 'en', NO_ROUTE);
     expect(v.lines[0]).toContain('(at least 2 of 4 fire scenarios)');
     expect(v.dots).toBeNull();
-    expect(v.list).toEqual(['the road near Hapseong-ri (1.2 km away): 2/4 scenarios', 'the road near Hapseong-ri (1.2 km away): 3/4 scenarios']);
+    expect(v.list).toEqual(['A road about 1.2 km from Hapseong-ri: 2/4 scenarios', 'A road about 1.2 km from Hapseong-ri: 3/4 scenarios']);
   });
 
-  it('refuses an explanation made from other results, and falls back when absent or missing', () => {
+  it('refuses an explanation made for another route check; neutral fallbacks', () => {
     expect(matchesShown(origin(), SHOWN)).toBe(true);
     expect(view(origin(), 'ko', { ...SHOWN, deadlineS: 1200 }).kind).toBe('mismatch');
     expect(view(origin(), 'ko', { ...SHOWN, bestJobId: 'rc_live' }).kind).toBe('mismatch');
+    expect(view(origin(), 'ko', { ...SHOWN, bestJobId: null }).kind).toBe('mismatch'); // S6: the printed route must be that check
     expect(view(origin(), 'ko', { ...SHOWN, bestVerdict: 'unresolved' }).kind).toBe('mismatch');
-    expect(view(origin(), 'ko', null).kind).toBe('mismatch');
+    const none = view(origin(), 'en', null); // N6: no result shown is not a difference
+    expect([none.kind, none.lines[0]]).toEqual(['no_plan', 'There is no leave-by result for this origin to explain.']);
     expect(explainView({ state: 'absent', file: null, originId: 'o', inputTime: INPUT, lang: 'ko', shown: SHOWN }).lines).toEqual(['이 시나리오에 대한 설명 파일이 없습니다.']);
     expect(explainView({ state: 'ready', file: file({}), originId: 'o', inputTime: INPUT, lang: 'en', shown: SHOWN }).lines).toEqual(['No explanation for this origin.']);
   });
@@ -292,7 +359,7 @@ describe('ExplainBlock (jsdom render)', () => {
     expect(sec.dataset.explainState).toBe('explained');
     expect(sec.dataset.explainReason).toBe('flame_on_route');
     expect(sec.textContent).toContain('Why this time?');
-    expect(sec.textContent).toContain('Leaving at 09:40, the route shown for the leave-by time meets flames');
+    expect(sec.textContent).toContain('Leaving at 09:40 on the same route that was checked for 09:30, the vehicle would meet flames');
     expect(sec.textContent).toContain('Based on 4 fire scenarios from the forecast; not an observation.');
     const dots = sec.querySelector('.wfgx-dots') as HTMLElement;
     expect(dots.getAttribute('aria-label')).toBe('1 of 4 fire scenarios');
@@ -315,14 +382,18 @@ describe('ExplainBlock (jsdom render)', () => {
     vi.stubGlobal('fetch', vi.fn(async (u: string) => (String(u).includes('20250101T000000Z')
       ? new Response(JSON.stringify(file({ o: origin() })), { status: 200, headers: { 'content-type': 'application/json' } })
       : new Response('nope', { status: 404 }))));
-    const scen = (input: string) => ({ scenarioSetId: `synthetic:${input}`, inputTimeIso: input, bestVerdict: 'checked_route', latestSafeDepartureS: 1800, contiguousSafeDepartureS: 1800, sweep: [], shelter: { id: 'synthetic:shelter', name: '합성 대피소', sourceTag: 'amenity=school', lon: 127, lat: 36, arrivalS: 2000 }, route: null, travelOnlyRoute: null, exposure: [], computeS: null, host: null, reasonCode: null });
-    const sheet = { region: { id: 'synthetic_region', nameKo: '합성', nameEn: 'Synthetic', fireYear: 2025 }, fireInputLabel: '합성', mock: false, origin: { id: 'o', name: '합성마을', categoryLabel: '마을', sourceTag: 'place=village', lon: 127, lat: 36, snapDistanceM: 10, vulnerable: false }, facilities: [], scenarios: [scen(INPUT), scen('2025-01-02T00:00:00Z')], generatedAtIso: INPUT, provenance: { checkpoint: 'x', packageVersion: '1', kit: 'v3', apiMode: 'cache', apiVersion: null, cacheCreatedAtIso: null, gitCommit: null } };
+    const route = (job: string) => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: [[127, 36], [127.01, 36.01]] }, properties: { times_s: [], job_id: job, policy: 'full' } });
+    const scen = (input: string, job = 'rc_synthetic') => ({ scenarioSetId: `synthetic:${input}`, inputTimeIso: input, bestVerdict: 'checked_route', latestSafeDepartureS: 1800, contiguousSafeDepartureS: 1800, sweep: [], shelter: { id: 'synthetic:shelter', name: '합성 대피소', sourceTag: 'amenity=school', lon: 127, lat: 36, arrivalS: 2000 }, route: route(job), travelOnlyRoute: null, exposure: [], computeS: null, host: null, reasonCode: null });
+    const sheet = { region: { id: 'synthetic_region', nameKo: '합성', nameEn: 'Synthetic', fireYear: 2025 }, fireInputLabel: '합성', mock: false, origin: { id: 'o', name: '합성마을', categoryLabel: '마을', sourceTag: 'place=village', lon: 127, lat: 36, snapDistanceM: 10, vulnerable: false }, facilities: [], scenarios: [scen(INPUT), scen('2025-01-02T00:00:00Z'), scen(INPUT, 'rc_other')], generatedAtIso: INPUT, provenance: { checkpoint: 'x', packageVersion: '1', kit: 'v3', apiMode: 'cache', apiVersion: null, cacheCreatedAtIso: null, gitCommit: null } };
     const h = await render(React.createElement(mod.ExplainSheetSection, { sheet, lang: 'ko' }));
     const rows = h.querySelectorAll<HTMLElement>('.wfgx-sheet__row');
-    expect(rows.length).toBe(2);
+    expect(rows.length).toBe(3);
     expect(rows[0]!.dataset.explainState).toBe('explained');
     expect(rows[0]!.textContent).toContain('화재 시나리오 4개 중 1개');
     expect(rows[1]!.dataset.explainState).toBe('absent');
+    // S6: a printed route from another route check never gets this explanation (no road it does not use is named)
+    expect(rows[2]!.dataset.explainState).toBe('mismatch');
+    expect(rows[2]!.textContent).not.toContain('합성마을에서');
     expect(h.textContent).toContain('예측에서 나온 화재 시나리오 4개를 기준으로 한 결과이며, 관측이 아닙니다.');
   });
 });

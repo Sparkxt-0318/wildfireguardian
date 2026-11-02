@@ -111,9 +111,16 @@ export function ExplainBlock({ regionId, inputTime, originId, lang, shown }: Exp
   );
 }
 
+/** Route-check job id of the route printed on the sheet (routeFeature properties.job_id), else null. */
+export function printedJobId(s: PlanSheetScenario): string | null {
+  const v = (s.route?.properties as Record<string, unknown> | null | undefined)?.['job_id'];
+  return typeof v === 'string' && v ? v : null;
+}
+
 function SheetRow({ regionId, originId, s, index, lang }: { regionId: string; originId: string; s: PlanSheetScenario; index: number; lang: Lang }) {
   const st = useExplanationFile(regionId, s.inputTimeIso);
-  const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null };
+  // like the panel: the explanation is printed only for the very route check whose route is printed
+  const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null, bestJobId: printedJobId(s) };
   const v = viewFor(st, originId, s.inputTimeIso, lang, shown);
   const full = v.kind === 'explained' || v.kind === 'explained_partial';
   return (
