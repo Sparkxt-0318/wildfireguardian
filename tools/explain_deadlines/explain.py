@@ -1,0 +1,427 @@
+"""Per-origin deadline explanations (schema wfg.explanation/1). See README.md for the rules; summary:
+
+checked origin, deadline D (planner's 출발 마감) and the next attempted offset N = D + delta:
+  * no later offset                         -> no_later_offset            (explained)
+  * N is a "시간창 밖" cell (research mission)  -> window                    (explained; zero-travel rule)
+  * N unresolved                            -> unresolved_next            (not_explainable; never turned into a reason)
+  * N model_no_route: for every shelter with a checked route at D (the set C_D):
+      - fire-free fastest road journey from N cannot finish the stay in the window          -> window_fire_free
+      - else the route checked at D, replayed rigidly shifted to N, meets flame first on a
+        moving segment (closed-footprint or router rule, any member)                       -> flame_on_route
+      - else no flame-avoiding relaxed journey (reach.py) arrives by close - dwell            -> window_fire_detour
+      - else every stay [a, a + dwell] the relaxation allows meets flame                     -> dwell
+      - else                                                                                  -> open
+    a shelter is PROVEN unreachable at N when window_fire_free, the relaxation is late, or every stay meets flame;
+    the origin's reason is the class of the route the planner shows (best attempt at D);
+    status explained when every shelter of C_D is proven, explained_partial otherwise or for dwell,
+    not_explainable when the shown route's class is open.
+model_no_route origin: every attempted (offset, shelter) must be proven by the relaxation without turn restrictions;
+  all shelters unreachable within the hazard window -> all_exits_blocked (exits = roads where the flame-free
+  reachable area ends), otherwise window. Unresolved origin -> not_explainable.
+"""
+from __future__ import annotations
+
+import collections
+from dataclasses import dataclass, field
+from fractions import Fraction as F
+
+from .labels import PlaceIndex, label_for
+from .packet import Packet
+from .plans import CacheModel, OriginPlan, RouteError, reconstruct_legs, tie_at
+from .reach import ContactIndex, dwell_free_arrival, earliest_free, flame_avoiding
+from .replay import build_segments, first_contact, any_contact, segment_contact
+from .roads import RoadGraph
+
+SCHEMA = "wfg.explanation/1"
+STATUSES = ("explained", "explained_partial", "not_explainable")
+REASONS = ("flame_on_route", "all_exits_blocked", "dwell_at_destination", "unresolved_next", "window",
+           "no_later_offset", "other")
+
+
+def r1(x) -> float:
+    """Round a time (Fraction/float) to 0.1 s for output."""
+    return round(float(x), 1)
+
+
+@dataclass
+class Context:
+    region_id: str
+    input_time: str
+    scenario_set_id: str
+    graph: RoadGraph
+    packet: Packet
+    index: ContactIndex
+    places: PlaceIndex | None
+    model: CacheModel
+    to_lonlat: object            # (x, y) EPSG:5179 -> (lon, lat)
+    horizon: int
+
+
+@dataclass
+class Evidence:
+    """Everything the validator needs to re-check one explanation (not written to the JSON)."""
+    origin_id: str
+    deadline_routes: list = field(default_factory=list)   # [(destination_id, job_id, route, segs, request)]
+    shift: F | None = None
+    binding_checks: list = field(default_factory=list)    # [(segs, segment_index, members, slack_exact, shift)]
+    window_proofs: list = field(default_factory=list)     # [dict]
+    exits_proof: dict | None = None
+    times: list = field(default_factory=list)             # every event timestamp reported (exact or float)
+
+
+def _job_request(job: dict) -> dict:
+    req = job.get("request") or {}
+    win = req.get("destination_window")
+    return {"start": req["start"]["node_id"], "destination": req["destination"]["node_id"],
+            "dwell": int(req.get("dwell_s", 120)), "open": int(float(win[0])) if win else 0,
+            "close": int(float(win[1])) if win else None, "offset": int(float(req.get("depart_offset_s", 0)))}
+
+
+def _close(ctx: Context, req: dict) -> int:
+    return min(req["close"], ctx.horizon) if req["close"] is not None else ctx.horizon
+
+
+def _members(ctx: Context, idx) -> list:
+    return sorted(ctx.packet.member_label(s) for s in idx)
+
+
+def _point_label(ctx: Context, p0, p1, u: F, node_id: str) -> dict:
+    x = float(p0[0] + u * (p1[0] - p0[0]))
+    y = float(p0[1] + u * (p1[1] - p0[1]))
+    lab = label_for(ctx.places, x, y, node_id)
+    lon, lat = ctx.to_lonlat(x, y)
+    lab["point"] = [round(lon, 6), round(lat, 6)]
+    return lab
+
+
+def _way(ctx: Context, edge_id: str):
+    w = ctx.graph.source_way[ctx.graph.edge_index[edge_id]]
+    return int(w) if isinstance(w, (int, float)) else None
+
+
+# ------------------------------------------------------------------------------------------------ binding items
+def _binding_item(ctx: Context, segs: list, sc, shift: F, destination_ids: list) -> tuple:
+    """Item for the first contact segment ``sc`` (closed-rule pairs at ``shift``). Returns (item, check)."""
+    seg = sc.segment
+    kind = seg.kind.lower()
+    # the road of the item: the segment's own edge; the next edge for the issue point or a wait; the arriving edge
+    # for the destination stay
+    if seg.kind == "EDGE":
+        edge_seg = seg
+    elif seg.kind in ("ISSUE", "WAIT"):
+        edge_seg = next((s for s in segs[seg.index:] if s.kind == "EDGE"), None)
+    else:
+        edge_seg = next((s for s in reversed(segs[:seg.index]) if s.kind == "EDGE"), None)
+    pairs = sc.pairs
+    # slack: smallest (birth - leave_at_D) over the contact pairs; the pair also gives flame and pass times
+    best = min(pairs, key=lambda p: (p[3] - p[5], p[0], p[1]))
+    slack = best[3] - best[5]
+    contact_time = min(p[2] for p in pairs)
+    witness = min(pairs, key=lambda p: (p[2], p[0], p[1]))
+    # label at the witness point (where the shifted journey first meets flame)
+    if seg.end > seg.start:
+        u = (witness[2] - (seg.start + shift)) / (seg.end - seg.start)
+    else:
+        u = F(0)
+    u = min(max(u, F(0)), F(1))
+    node_for_label = (seg.node if seg.node else ctx.graph.u[ctx.graph.edge_index[seg.edge]])
+    lab = _point_label(ctx, seg.p0, seg.p1, u, node_for_label)
+    item = {"edge_id": edge_seg.edge if edge_seg else None, "osm_way_id": _way(ctx, edge_seg.edge) if edge_seg else None,
+            **lab, "flame_time_s": r1(best[3]), "contact_time_s": r1(contact_time),
+            "members": _members(ctx, {p[0] for p in pairs}), "members_total": ctx.packet.S,
+            "pass_time_at_deadline_s": r1(best[5]), "slack_s": r1(slack), "segment": kind,
+            "leg_index": seg.leg_index, "destination_ids": sorted(destination_ids),
+            "rules": {"closed_footprint": bool(pairs), "router_cells": bool(sc.router_members)}}
+    member_times = {}
+    for p in pairs:
+        member_times[p[0]] = min(member_times.get(p[0], p[2]), p[2])
+    check = {"segs": segs, "segment_index": seg.index, "members": {p[0] for p in pairs}, "slack": slack, "shift": shift,
+             "times": [best[3], contact_time, best[5]], "member_times": member_times}
+    return item, check
+
+
+# ------------------------------------------------------------------------------------------------ checked origins
+def _analyse_destination(ctx: Context, attempt, next_offset: int, delta: F, ev: Evidence, notes: list) -> dict:
+    job = ctx.model.job(attempt.job_id)
+    if job is None:
+        return {"cls": "unknown", "proven": False, "why": "route_check_job_missing"}
+    try:
+        route = reconstruct_legs(job)
+    except (RouteError, KeyError, TypeError, ValueError) as exc:
+        return {"cls": "unknown", "proven": False, "why": "route_reconstruction_failed: %s" % exc}
+    req = _job_request(job)
+    close = _close(ctx, req)
+    g = ctx.graph
+    segs = build_segments(grid=g.grid, packet=ctx.packet, xy=g.xy, legs=route["legs"], edges=g.edge,
+                          start_node=route["start_node"], departure=route["departure"], destination=route["destination"],
+                          dwell=req["dwell"])
+    ev.deadline_routes.append((attempt.destination_id, attempt.job_id, route, segs, req))
+    c0 = any_contact(ctx.packet, segs, F(0), F(ctx.horizon))
+    if c0:
+        notes.append("CONTRADICTION: checked route %s has flame contact at its recorded time" % attempt.job_id)
+        return {"cls": "unknown", "proven": False, "why": "recorded_route_contact"}
+    fast = g.fastest_ticks(req["start"], [req["destination"]], max_ticks=ctx.horizon)[req["destination"]]
+    fire_free_late = fast is None or next_offset + fast + req["dwell"] > close
+    relax = flame_avoiding(ctx.index, req["start"], next_offset, [req["destination"]], close - req["dwell"])
+    ea = relax["arrival"][req["destination"]]
+    relax_late = ea is None
+    dwell_blocked = False
+    if not fire_free_late and not relax_late:
+        dwell_blocked = dwell_free_arrival(ctx.index, req["destination"], ea, close - req["dwell"], req["dwell"]) is None
+    # earliest flame-avoiding arrival within the whole hazard window (reported only; None = not reachable by then)
+    relax_h = flame_avoiding(ctx.index, req["start"], next_offset, [req["destination"]], ctx.horizon)
+    ea_h = relax_h["arrival"][req["destination"]]
+    fc = first_contact(ctx.packet, segs, delta, F(ctx.horizon))
+    if fc is not None and not fc.router_members <= {p[0] for p in fc.pairs}:
+        notes.append("CONTRADICTION: router-rule contact without closed-rule contact on %s" % attempt.job_id)
+        return {"cls": "unknown", "proven": False, "why": "rule_subset_violation"}
+    if fire_free_late:
+        cls = "window_fire_free"
+    elif fc is not None and fc.segment.kind != "DWELL":
+        cls = "flame_on_route"
+    elif relax_late:
+        cls = "window_fire_detour"
+    elif dwell_blocked or (fc is not None and fc.segment.kind == "DWELL"):
+        cls = "dwell"
+    else:
+        cls = "open"
+    proven = fire_free_late or relax_late or dwell_blocked
+    ev.window_proofs.append({"destination_id": attempt.destination_id, "start": req["start"], "destination": req["destination"],
+                             "next": next_offset, "dwell": req["dwell"], "close": close, "fastest_ticks": fast,
+                             "fire_free_late": fire_free_late, "relax_late": relax_late, "dwell_blocked": dwell_blocked,
+                             "relax_arrival": ea})
+    return {"cls": cls, "proven": proven, "segs": segs, "first": fc, "route": route, "req": req, "close": close,
+            "fastest_ticks": fast, "fire_free_late": fire_free_late, "relax_late": relax_late, "dwell_blocked": dwell_blocked,
+            "flame_avoiding_arrival_h": ea_h, "job": job}
+
+
+def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -> None:
+    D = plan.latest_s
+    rec["deadline_offset_s"] = D
+    later = [c for c in plan.sweep if c.offset_s > D]
+    dcell = next(c for c in plan.sweep if c.offset_s == D)
+    best = dcell.best
+    rec["deadline_route"] = _deadline_route(ctx, best)
+    if tie_at(dcell.attempts):
+        rec["notes"].append("tie_on_arrival_at_deadline")
+    if not later:
+        rec.update(status="explained", reason_code="no_later_offset", next_offset_s=None, next_verdict=None,
+                   detail_code="last_checked_offset")
+        rec["window"] = {"close_s": ctx.horizon, "fire_free": None, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+        # still verify the deadline route against the packet (assertion a: no contact at D)
+        _verify_deadline_routes(ctx, dcell, ev, rec)
+        return
+    nxt = later[0]
+    rec["next_offset_s"] = nxt.offset_s
+    ev.times += [D, nxt.offset_s]
+    if nxt.skipped == "window_unsatisfiable" and not nxt.attempts:
+        rec["next_verdict"] = "window"
+        job = ctx.model.job(best.job_id)
+        req = _job_request(job)
+        close = _close(ctx, req)
+        rec.update(status="explained", reason_code="window", detail_code="outside_recorded_arrival_window")
+        rec["window"] = {"open_s": req["open"], "close_s": close, "dwell_s": req["dwell"], "fire_free": True,
+                         "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+        ev.window_proofs.append({"zero_travel": True, "next": nxt.offset_s, "open": req["open"], "close": close, "dwell": req["dwell"]})
+        _verify_deadline_routes(ctx, dcell, ev, rec)
+        return
+    rec["next_verdict"] = nxt.verdict
+    if nxt.verdict == "unresolved":
+        rec.update(status="not_explainable", reason_code="unresolved_next", detail_code="next_offset_unresolved",
+                   next_attempt_verdicts=_verdict_counts(nxt.attempts))
+        _verify_deadline_routes(ctx, dcell, ev, rec)
+        return
+    if nxt.verdict != "model_no_route":       # cannot happen: D is the latest checked offset
+        raise AssertionError("next cell after the deadline is %s" % nxt.verdict)
+    delta = F(nxt.offset_s - D)
+    ev.shift = delta
+    checked = [a for a in dcell.attempts if a.verdict == "checked_route"]
+    results = {a.destination_id: _analyse_destination(ctx, a, nxt.offset_s, delta, ev, rec["notes"]) for a in checked}
+    rec["checked_at_deadline"] = len(checked)
+    rec["proven_unreachable_next"] = sum(1 for r in results.values() if r["proven"])
+    rec["next_attempts"] = dict(sorted(collections.Counter(a.verdict for a in nxt.attempts).items()))
+    shown = results[best.destination_id]
+    cls = shown["cls"]
+    all_proven = all(r["proven"] for r in results.values())
+    rec["destination_classes"] = {d: r["cls"] for d, r in sorted(results.items())}
+    if shown.get("req"):
+        rec["window"] = {"close_s": shown["close"], "dwell_s": shown["req"]["dwell"], "fire_free": bool(shown["fire_free_late"]),
+                         "fastest_end_s": None if shown["fastest_ticks"] is None else nxt.offset_s + shown["fastest_ticks"] + shown["req"]["dwell"],
+                         "flame_avoiding_arrival_s": shown["flame_avoiding_arrival_h"]}
+    if cls in ("window_fire_free", "window_fire_detour"):
+        rec.update(reason_code="window", detail_code=cls)
+    elif cls == "flame_on_route":
+        rec.update(reason_code="flame_on_route", detail_code="route_meets_flame_when_shifted")
+        # one item per distinct first-contact road among the routes checked at D (the shown route first)
+        order = [best.destination_id] + sorted(d for d in results if d != best.destination_id)
+        seen = {}
+        for d in order:
+            r = results[d]
+            if r["cls"] != "flame_on_route":
+                continue
+            fc = r["first"]
+            key = (fc.segment.kind, fc.segment.edge, fc.segment.node)
+            if key in seen:
+                seen[key]["destination_ids"].append(d)
+                continue
+            item, check = _binding_item(ctx, r["segs"], fc, delta, [d])
+            seen[key] = item
+            rec["binding"].append(item)
+            ev.binding_checks.append(check)
+            ev.times += check["times"]
+        for item in rec["binding"]:
+            item["destination_ids"] = sorted(item["destination_ids"])
+    elif cls == "dwell":
+        rec.update(reason_code="dwell_at_destination", detail_code="stay_meets_flame")
+        fc = shown["first"]
+        if fc is not None and fc.segment.kind == "DWELL":
+            item, check = _binding_item(ctx, shown["segs"], fc, delta, [best.destination_id])
+            rec["binding"].append(item)
+            ev.binding_checks.append(check)
+            ev.times += check["times"]
+    else:
+        rec.update(reason_code="other", detail_code="refusal_not_reproduced" if cls == "open" else cls)
+    if rec["reason_code"] == "other":
+        rec["status"] = "not_explainable"
+    elif rec["reason_code"] == "dwell_at_destination" or not all_proven:
+        rec["status"] = "explained_partial"
+    else:
+        rec["status"] = "explained"
+
+
+def _deadline_route(ctx: Context, best) -> dict | None:
+    job = ctx.model.job(best.job_id) if best else None
+    if job is None:
+        return None
+    res = job.get("result") or {}
+    req = job.get("request") or {}
+    return {"route_check_job_id": best.job_id, "destination_id": best.destination_id,
+            "departure_s": res.get("departure_s"), "arrival_s": res.get("arrival_s"), "dwell_s": req.get("dwell_s"),
+            "route_sha256": ((res.get("route") or {}).get("properties") or {}).get("route_sha256"),
+            "raw_status": res.get("raw_status")}
+
+
+def _verify_deadline_routes(ctx: Context, dcell, ev: Evidence, rec: dict) -> None:
+    """Assertion (a) material for deadlines explained without a replay: rebuild every route checked at D."""
+    g = ctx.graph
+    for a in dcell.attempts:
+        if a.verdict != "checked_route":
+            continue
+        job = ctx.model.job(a.job_id)
+        try:
+            route = reconstruct_legs(job)
+        except (RouteError, KeyError, TypeError, ValueError):
+            rec["notes"].append("route_reconstruction_failed:%s" % a.job_id)
+            continue
+        req = _job_request(job)
+        segs = build_segments(grid=g.grid, packet=ctx.packet, xy=g.xy, legs=route["legs"], edges=g.edge,
+                              start_node=route["start_node"], departure=route["departure"], destination=route["destination"],
+                              dwell=req["dwell"])
+        ev.deadline_routes.append((a.destination_id, a.job_id, route, segs, req))
+
+
+# ------------------------------------------------------------------------------------------------ no-route origins
+def _explain_no_route(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -> None:
+    attempts = [a for c in plan.sweep for a in c.attempts]
+    reqs = []
+    for a in attempts:
+        job = ctx.model.job(a.job_id)
+        if job is None:
+            rec.update(status="not_explainable", reason_code="other", detail_code="route_check_job_missing")
+            return
+        reqs.append((a, _job_request(job)))
+    starts = {r["start"] for _, r in reqs}
+    if len(starts) != 1:
+        rec.update(status="not_explainable", reason_code="other", detail_code="several_start_nodes")
+        return
+    start = starts.pop()
+    proven, unreachable, fire_free = True, True, True
+    for a, r in reqs:
+        close = _close(ctx, r)
+        fast = ctx.graph.fastest_ticks(start, [r["destination"]], max_ticks=ctx.horizon)[r["destination"]]
+        fire_free &= fast is None or a.offset_s + fast + r["dwell"] > close
+        late = flame_avoiding(ctx.index, start, a.offset_s, [r["destination"]], close - r["dwell"], turns=False)
+        anytime = flame_avoiding(ctx.index, start, a.offset_s, [r["destination"]], ctx.horizon, turns=False)
+        ok_late = late["arrival"][r["destination"]] is None
+        ok_any = anytime["arrival"][r["destination"]] is None
+        ev.window_proofs.append({"no_route_attempt": True, "start": start, "destination": r["destination"], "offset": a.offset_s,
+                                 "dwell": r["dwell"], "close": close, "late": ok_late, "unreachable": ok_any})
+        proven &= ok_late
+        unreachable &= ok_any
+    t0 = min(a.offset_s for a, _ in reqs)
+    rec["first_offset_s"] = t0
+    if not proven:
+        rec.update(status="not_explainable", reason_code="other", detail_code="refusal_not_reproduced")
+        return
+    if not unreachable:
+        rec.update(status="explained", reason_code="window", detail_code="no_flame_avoiding_route_fits_window")
+        rec["window"] = {"close_s": min(_close(ctx, r) for _, r in reqs), "dwell_s": reqs[0][1]["dwell"],
+                         "fire_free": fire_free, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+        return
+    run = flame_avoiding(ctx.index, start, t0, [], ctx.horizon, turns=False)
+    if run["issue_blocked"]:
+        rec.update(status="explained", reason_code="all_exits_blocked", detail_code="entry_point_in_flame")
+        rec["exits"] = []
+        return
+    if run["horizon_cut"] or not run["frontier"]:
+        # the flame-free area is not closed by flame alone within the window: the proof is a timing one
+        rec.update(status="explained", reason_code="window", detail_code="no_flame_avoiding_route_fits_window")
+        rec["reachable_nodes"] = run["reached_nodes"]
+        rec["window"] = {"close_s": min(_close(ctx, r) for _, r in reqs), "dwell_s": reqs[0][1]["dwell"],
+                         "fire_free": fire_free, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+        return
+    g = ctx.graph
+    exits = []
+    for edge_id, at in run["frontier"]:
+        e = g.edge_index[edge_id]
+        blocks = ctx.index.edge_blocks(e)
+        tau = g.ticks[e]
+        hit = [b for b in blocks if b[0] <= at < b[1]]
+        if not hit:     # cannot happen: a frontier edge is blocked at every start second from ``at`` on
+            raise AssertionError("frontier edge %s free at its first reach time" % edge_id)
+        at_eval = at
+        p0, p1 = g.xy(g.u[e]), g.xy(g.v[e])
+        # contact pairs of a traversal starting at at_eval (closed rule)
+        sc_pairs = []
+        for (lo, hi, s, cell, b) in hit:
+            occ = [o for o in ctx.index.occupancies(p0, p1, F(tau)) if o[0] == cell][0]
+            w = max(at_eval + occ[1], b)
+            sc_pairs.append((s, cell, w, b, occ[1]))
+        witness = min(sc_pairs, key=lambda p: (p[2], p[0], p[1]))
+        u = (witness[2] - at_eval) / tau if tau else F(0)
+        u = min(max(u, F(0)), F(1))
+        lab = _point_label(ctx, p0, p1, u, g.u[e])
+        exits.append({"edge_id": edge_id, "osm_way_id": _way(ctx, edge_id), **lab,
+                      "flame_time_s": r1(min(p[3] for p in sc_pairs)), "contact_time_s": r1(witness[2]),
+                      "members": _members(ctx, {p[0] for p in sc_pairs}), "members_total": ctx.packet.S,
+                      "pass_time_at_deadline_s": None, "slack_s": None, "reached_at_s": int(at),
+                      "segment": "edge"})
+        ev.times += [min(p[3] for p in sc_pairs), witness[2]]
+    rec["exits"] = exits
+    rec["reachable_nodes"] = run["reached_nodes"]
+    ev.exits_proof = {"start": start, "t0": t0, "frontier": run["frontier"], "horizon_cut": run["horizon_cut"]}
+    rec.update(status="explained", reason_code="all_exits_blocked", detail_code="flame_free_area_closed")
+
+
+def _verdict_counts(attempts) -> dict:
+    """{"model_no_route": n, "unresolved/<reason_code>": n, ...} (reason codes only for unresolved attempts)."""
+    c = collections.Counter(a.verdict if a.verdict != "unresolved" else "unresolved/%s" % (a.reason_code or "UNKNOWN")
+                            for a in attempts)
+    return dict(sorted(c.items()))
+
+
+# ------------------------------------------------------------------------------------------------ entry point
+def explain_plan(ctx: Context, plan: OriginPlan) -> tuple:
+    rec = {"status": None, "verdict_summary": plan.best_verdict, "deadline_offset_s": plan.latest_s, "next_offset_s": None,
+           "next_verdict": None, "reason_code": None, "binding": [], "exits": [], "notes": list(plan.notes),
+           "detail_code": None, "origin_kind": plan.kind}
+    ev = Evidence(plan.origin_id)
+    if plan.best_verdict == "unresolved":
+        rec.update(status="not_explainable", reason_code="other", detail_code="origin_unresolved",
+                   attempt_verdicts=_verdict_counts([a for c in plan.sweep for a in c.attempts]))
+    elif plan.best_verdict == "model_no_route":
+        _explain_no_route(ctx, plan, rec, ev)
+    else:
+        _explain_checked(ctx, plan, rec, ev)
+    assert rec["status"] in STATUSES and rec["reason_code"] in REASONS, rec
+    return rec, ev
