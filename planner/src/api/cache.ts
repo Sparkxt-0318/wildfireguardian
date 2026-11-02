@@ -14,6 +14,7 @@
  * - provenance: api.mode, created_at, generator.client_host and each result's provenance.host;
  *   results from a host other than the evaluated Apple-silicon macOS host are marked test data.
  */
+import { appPath } from '../config/paths';
 import type { WireCacheFile, WireCacheRejected, WireCacheIndexEntry, WireDispatchPlanJob, WireDispatchPlanRequest, WireRouteCheckJob } from './wire';
 import type { CacheData, CacheEntry, CacheMeta, HostInfo, OriginPlan, RouteDetail, SkipReason, Attempt } from '../domain/types';
 import { adaptDispatchJob, adaptHealth, adaptHost, adaptRouteJob, attemptFromRoute, isMockHealth } from './adapter';
@@ -41,7 +42,8 @@ export function isTestDataHost(h: HostInfo | null | undefined, mock: boolean): b
   return !isEvaluationHost(h);
 }
 
-export const CACHE_BASE = '/cache';
+/** The cache folder under the app base ("/cache", "/wildfireguardian/cache" or "./cache"). */
+export const CACHE_BASE = appPath('cache');
 
 function num(v: unknown): number | null {
   return typeof v === 'number' && Number.isFinite(v) ? v : null;

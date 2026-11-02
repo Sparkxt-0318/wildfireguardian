@@ -16,20 +16,37 @@ const MIME: Record<string, string> = {
 };
 
 /**
- * Serves planner/cache/** (written by planner/scripts/precompute.py) at /cache/** in dev and
+ * Vite `base` from VITE_BASE_PATH: "" or "/" → "/"; "./" stays relative (a build that works under
+ * any path); "wildfireguardian" or "/wildfireguardian" → "/wildfireguardian/" (GitHub Pages).
+ * Full URLs are refused: the app loads its own files from its own origin.
+ */
+export function normalizeBasePath(raw: string | undefined): string {
+  const b = String(raw ?? '').trim();
+  if (b === '' || b === '/') return '/';
+  if (b === '.' || b === './') return './';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(b) || b.startsWith('//')) throw new Error(`VITE_BASE_PATH must be a path ("/", "/wildfireguardian/" or "./"), not ${b}`);
+  if (b.startsWith('./')) return b.endsWith('/') ? b : `${b}/`;
+  const trimmed = b.replace(/^\/+/, '').replace(/\/+$/, '');
+  return trimmed ? `/${trimmed}/` : '/';
+}
+
+/**
+ * Serves planner/cache/** (written by planner/scripts/precompute.py) at <base>cache/** in dev and
  * preview, and copies it into dist/cache on build. A missing folder is fine: the app then
  * reports "no precomputed cache" and computes through the API instead.
  */
 /**
- * Precompute cache folder served at /cache/**. Default planner/cache (the booth cache).
+ * Precompute cache folder served at <base>cache/**. Default planner/cache (the booth cache).
  * WFG_CACHE_DIR (relative to planner/ or absolute; environment or .env) points elsewhere, e.g.
  * planner/.test-cache for results computed on a non-evaluation host (ARCHITECTURE.md §6).
  */
-function plannerCache(CACHE_DIR: string): Plugin {
+function plannerCache(CACHE_DIR: string, basePath: string): Plugin {
   let outDir = resolve(here, 'dist');
   let isBuild = false;
   const middleware = (req: IncomingMessage, res: ServerResponse, next: () => void) => {
-    const url = (req.url ?? '').split('?')[0] ?? '';
+    let url = (req.url ?? '').split('?')[0] ?? '';
+    // the dev/preview servers may hand the URL over with or without the base path
+    if (basePath.startsWith('/') && basePath !== '/' && url.startsWith(basePath)) url = `/${url.slice(basePath.length)}`;
     if (!url.startsWith('/cache/')) return next();
     let rel: string;
     try {
@@ -100,6 +117,7 @@ export default defineConfig(({ mode }) => {
   // The one switch: mock → the mock server on 8765; real → VITE_WFG_API_TARGET (default 8765,
   // where the real API runs on the booth machine).
   const apiMode = (env.VITE_WFG_API_MODE || 'mock').trim().toLowerCase() === 'real' ? 'real' : 'mock';
+  const base = normalizeBasePath(env.VITE_BASE_PATH);
   const target = (apiMode === 'mock' ? 'http://127.0.0.1:8765' : env.VITE_WFG_API_TARGET || 'http://127.0.0.1:8765').replace(/\/+$/, '');
   const proxy: Record<string, ProxyOptions> = {
     '/api/v1': {
@@ -110,8 +128,9 @@ export default defineConfig(({ mode }) => {
   };
   return {
     root: here,
+    base,
     envPrefix: ['VITE_', 'VWORLD_'],
-    plugins: [react(), plannerCache(cacheDir)],
+    plugins: [react(), plannerCache(cacheDir, base)],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
     build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },
