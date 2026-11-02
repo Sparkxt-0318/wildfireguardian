@@ -45,11 +45,11 @@ export const EXPLAIN = {
     en: "Leaving at {next}, even the fastest road route, ignoring the fire, would finish the {dwell}-minute stay only at {fastestEnd}, after this recorded mission's arrival window closes at {close}.",
   },
   windowDetour: {
-    ko: '{next}에 출발하면 시나리오상 화염을 피하는 도로 경로로는 대피소에 도착해 {dwell}분 머무는 일을 {close}까지 마칠 수 없습니다({fa}). 화염이 없다면 가장 빠른 도로로 {fastestEnd}에 마칠 수 있으므로, 이 마감은 화염을 피하는 우회 때문입니다.',
-    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches the shelter and completes the {dwell}-minute stay by {close} ({fa}). Without fire the fastest road would finish at {fastestEnd}, so this leave-by time comes from the detour around the flames.',
+    ko: '{next}에 출발하면 시나리오상 화염을 피하는 도로 경로로는 대피소에 도착해 {dwell}분 머무는 일을 {close}까지 마칠 수 없습니다({fa}). 화염이 없다면 가장 빠른 도로로 {fastestEnd}에 마칠 수 있으므로, 이 마감은 시나리오상 화염 때문입니다.',
+    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches the shelter and completes the {dwell}-minute stay by {close} ({fa}). Without fire the fastest road would finish at {fastestEnd}, so this leave-by time comes from the flames in the fire scenarios.',
   },
-  faArrival: { ko: '화염을 피하는 가장 이른 도착: {time}', en: 'earliest flame-avoiding arrival: {time}' },
-  faNone: { ko: '그 시각까지 화염을 피해 도착하는 경로 없음', en: 'no flame-avoiding arrival before then' },
+  faArrival: { ko: '화염을 피하면 {time} 전에는 도착할 수 없음', en: 'avoiding the flames, no arrival before {time}' },
+  faNone: { ko: '시나리오가 끝나는 {end}까지 화염을 피해 도착하는 경로 없음', en: 'no flame-avoiding arrival at all by {end}, when the scenarios end' },
   windowSkip: {
     ko: '{next}에 출발하면 이 기록 임무의 도착 허용 시간({open}–{close}) 안에 {dwell}분 체류를 마칠 수 없어 그 시각은 점검하지 않았습니다(시간창 밖).',
     en: "Leaving at {next}, the {dwell}-minute stay cannot fit this recorded mission's arrival window ({open}–{close}), so that time was not checked (outside the window).",
@@ -58,17 +58,21 @@ export const EXPLAIN = {
     ko: '점검한 어느 출발 시각에도 시나리오상 화염을 피하는 도로 경로로 후보 대피소에 도착해 {dwell}분 머무는 일을 {close}까지 마칠 수 없습니다.',
     en: 'From every checked departure time, no road route that avoids the flames in the fire scenarios reaches a candidate shelter and completes the {dwell}-minute stay by {close}.',
   },
-  othersUnreachable: {
-    ko: '{deadline}에 확인된 다른 대피소 {k}곳도 {next}에 출발하면 화염을 피하는 도로로 제때(체류 포함) 도착할 수 없습니다.',
-    en: 'The other {k} shelter(s) checked at {deadline} cannot be reached in time (stay included) from {next} either by a road route that avoids the flames.',
+  allUnreachable: {
+    ko: '{next}에 출발하면 {deadline}에 확인된 대피소 {n}곳 모두(출발 마감 경로의 대피소 포함), 시나리오상 화염을 피하는 도로로는 제때(체류 포함) 도착할 수 없습니다.',
+    en: 'Leaving at {next}, none of the {n} shelters checked at {deadline} (including the one on the route shown) can be reached in time (stay included) by a road route that avoids the flames in the fire scenarios.',
+  },
+  oneUnreachable: {
+    ko: '{next}에 출발하면 시나리오상 화염을 피하는 어떤 도로로도 출발 마감 경로의 대피소에 제때(체류 포함) 도착할 수 없습니다.',
+    en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches the shelter of the route shown in time (stay included).',
   },
   flame: {
     ko: '{next}에 출발하면 출발 마감 경로는 {where}에서 {contact}에 시나리오상 화염과 만납니다({members}).',
     en: 'Leaving at {next}, the route shown for the leave-by time meets flames in the fire scenarios on {where} at {contact} ({members}).',
   },
   flameSlack: {
-    ko: '출발 마감 {deadline}에 출발하면 차량은 {pass}에 그 375 m 격자 칸을 벗어나며, 그곳에 화염이 닿는 예측 시각({flame})보다 {slack} 앞섭니다.',
-    en: 'Leaving at the leave-by time {deadline}, the vehicle leaves that 375 m grid cell at {pass}, {slack} before the flame is predicted to reach it ({flame}).',
+    ko: '출발 마감 {deadline}에 출발하면 차량은 {pass}에 그 도로의 해당 375 m 격자 칸을 벗어나며, 시나리오상 화염이 그 칸에 닿는 시각({flame})보다 {slack} 앞섭니다.',
+    en: 'Leaving at the leave-by time {deadline}, the vehicle leaves the 375 m grid cell in question on that road at {pass}, {slack} before the flame reaches that cell in the fire scenarios ({flame}).',
   },
   dwell: {
     ko: '{next}에 출발하면 대피소에 도착한 뒤 {dwell}분 머무는 동안 {contact}에 대피소 주변(375 m 격자 칸)이 시나리오상 화염과 만납니다({members}).',
@@ -119,6 +123,7 @@ export const EXPLAIN = {
   sheetTitle: { ko: '왜 이 시각인가요? (출발 마감 설명)', en: 'Why this time? (leave-by time explanations)' },
 
   // ---- units ----
-  minutes: { ko: '{m}분', en: '{m} min' },
+  /** margins are rounded down to whole minutes, so they are stated as a lower bound */
+  atLeastMinutes: { ko: '{m}분 이상', en: 'at least {m} min' },
   underMinute: { ko: '1분 미만', en: 'under 1 min' },
 } as const;

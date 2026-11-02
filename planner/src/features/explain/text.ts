@@ -38,10 +38,10 @@ function t(s: L10n, lang: Lang, vars: Record<string, string | number> = {}): str
   return fill(pick(s, lang), vars);
 }
 
-/** Margin in whole minutes, rounded down (never overstates the time available). */
+/** Margin as a lower bound in whole minutes (rounded down: never overstates the time available). */
 export function slackText(seconds: number, lang: Lang): string {
   if (!(seconds >= 60)) return pick(EXPLAIN.underMinute, lang);
-  return t(EXPLAIN.minutes, lang, { m: Math.floor(seconds / 60) });
+  return t(EXPLAIN.atLeastMinutes, lang, { m: Math.floor(seconds / 60) });
 }
 
 export function whereText(it: ExplItem, lang: Lang): string {
@@ -97,8 +97,9 @@ export function explainView(args: {
   const list: string[] = [];
   let dots: ExplainDots | null = null;
   const base = { deadline: at(rec.deadline_offset_s), next: at(rec.next_offset_s), end: at(horizon), dwell: dwellMin };
-  const others = (rec.checked_at_deadline ?? 0) - 1;
-  const allProven = rec.checked_at_deadline !== undefined && rec.proven_unreachable_next === rec.checked_at_deadline;
+  const nChecked = rec.checked_at_deadline ?? 0;
+  // every shelter checked at the deadline is proven unreachable (stay included) from the next time by flame-avoiding roads
+  const allProven = nChecked > 0 && rec.proven_unreachable_next === nChecked;
 
   switch (rec.reason_code) {
     case 'no_later_offset':
@@ -119,11 +120,11 @@ export function explainView(args: {
           lines.push(t(EXPLAIN.windowFireFree, lang, { ...base, fastestEnd: at(w.fastest_end_s) }));
         }
       } else if (w) {
-        const fa = w.flame_avoiding_arrival_s === null ? pick(EXPLAIN.faNone, lang) : t(EXPLAIN.faArrival, lang, { time: at(w.flame_avoiding_arrival_s) });
+        const fa = w.flame_avoiding_arrival_s === null ? t(EXPLAIN.faNone, lang, base) : t(EXPLAIN.faArrival, lang, { time: at(w.flame_avoiding_arrival_s) });
         lines.push(t(EXPLAIN.windowDetour, lang, { ...base, close: at(w.close_s), fa, fastestEnd: at(w.fastest_end_s) }));
       }
-      if (rec.verdict_summary === 'checked_route' && others > 0 && allProven && rec.detail_code !== 'outside_recorded_arrival_window') {
-        lines.push(t(EXPLAIN.othersUnreachable, lang, { ...base, k: others }));
+      if (rec.verdict_summary === 'checked_route' && nChecked > 1 && allProven && rec.detail_code !== 'outside_recorded_arrival_window') {
+        lines.push(t(EXPLAIN.allUnreachable, lang, { ...base, n: nChecked }));
       }
       break;
     }
@@ -136,7 +137,7 @@ export function explainView(args: {
       if (b.pass_time_at_deadline_s !== null && b.slack_s !== null) {
         lines.push(t(EXPLAIN.flameSlack, lang, { ...base, pass: at(b.pass_time_at_deadline_s), slack: slackText(b.slack_s, lang), flame: at(b.flame_time_s) }));
       }
-      if (others > 0 && allProven) lines.push(t(EXPLAIN.othersUnreachable, lang, { ...base, k: others }));
+      if (allProven) lines.push(nChecked > 1 ? t(EXPLAIN.allUnreachable, lang, { ...base, n: nChecked }) : t(EXPLAIN.oneUnreachable, lang, base));
       break;
     }
     case 'dwell_at_destination': {
@@ -153,9 +154,11 @@ export function explainView(args: {
         break;
       }
       const kmin = Math.min(...rec.exits.map((e) => e.members.length));
-      const common = rec.exits.map((e) => e.members).reduce((acc, m) => acc.filter((x) => m.includes(x)));
-      const members = kmin === total ? t(EXPLAIN.members, lang, { k: kmin, total }) : t(EXPLAIN.membersAtLeast, lang, { k: kmin, total });
-      dots = { members: common, total, text: members };
+      // one set of dots only when every exit is blocked in the same members; otherwise "at least k" and per-exit counts
+      const sets = rec.exits.map((e) => [...e.members].sort((a, b) => a - b).join(','));
+      const same = sets.every((x) => x === sets[0]);
+      const members = same ? t(EXPLAIN.members, lang, { k: kmin, total }) : t(EXPLAIN.membersAtLeast, lang, { k: kmin, total });
+      dots = same ? { members: [...rec.exits[0]!.members], total, text: members } : null;
       lines.push(t(EXPLAIN.exits, lang, { n: rec.exits.length, members }));
       if (rec.exits.every((e) => e.flame_time_s === 0)) lines.push(t(EXPLAIN.exitsPresent, lang, { input: at(0) }));
       else lines.push(t(EXPLAIN.exitsLatest, lang, { latest: at(Math.max(...rec.exits.map((e) => e.contact_time_s ?? e.flame_time_s))) }));
