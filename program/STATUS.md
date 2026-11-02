@@ -9,7 +9,8 @@
   (`vm boot 4169abd4`): batch 2's rows form a new table; the recorded 1750/1751 keep its bar at 1751.
   - E1b: done, **KILL** (worst of 5 = 1444 < 1751; B2 1749 in every seed of the same holds). Merged into
     `evacplan/phase0` (`11670593`).
-  - E2 (column generation): debugging under the lock, then two interleaved holds with B2 seeds 5-9 (E1b used 0-4).
+  - E2 (column generation): S+M hold done (15:39-16:44 UTC), L hold running; B2 seeds 5-9 (E1b used 0-4).
+  - Review part 1 (harness, E1b): 0 major, 6 minor, 4 notes; fixed in `42e0d2a5` (pushed, 55 tests pass).
   - Then a proportional review (one reproduction agent, one reviewer) and checkpoint 4 (one page, at most 5 questions).
 - **Updated:** 2026-11-02 (UTC).
 
@@ -52,7 +53,7 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 |---|---|---|---|
 | E1b incremental certification | C | done: KILL (worst 1444 < 1751); oracle profile on L in its README; merged | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
 | E2 column generation | C | set partitioning over itineraries, pricing on E4's network, bound when valid; final run ABAB with B2 (seeds 5-9) | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
-| Orchestrator | C | harness: B2's default seed offset per hold instances, explicit offsets may not replace rows | `../wfg-evacplan` |
+| Orchestrator | C | review part-1 fixes on `evacplan/phase0` (`42e0d2a5`); next: merge E2, review part 2, reproduction | `../wfg-evacplan` |
 
 Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees were removed (branches stay on origin).
 

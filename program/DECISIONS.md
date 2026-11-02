@@ -203,4 +203,12 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   are keyed by (set, budget, instance, method, seed, host) and the two branches would otherwise collide on merge.
   The harness's default offset now counts only the hold's own instances (two holds, S+M then L, share B2's seeds),
   and an explicit offset that would replace a row is refused (`97536395`, guard test).
+- **2026-11-02** — Batch-2 review, part 1 (harness and E1b: 0 major, 6 minor, 4 notes; E1b's KILL and numbers stand),
+  fixed in `42e0d2a5` (55 tests pass under the lock). Orchestrator calls:
+  - a hold never replaces rows silently (`--replace` for the challenger's seeds), and the offset is decided inside the
+    lock;
+  - in a table with interleaved holds, a method is judged only if each of its rows has B2 in the same hold and pair;
+  - a flagged speed check is named under the bar. ABAB with one probe per pair is kept as specified (no ABBA, no
+    per-run probe, no further speed work);
+  - E1b gets post-KILL diagnostics that separate oracle from relaxed-only certification passes.
 
