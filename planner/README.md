@@ -75,25 +75,22 @@ e.g. a busy port).
 
 ### Real Route-Check API
 
-The real API is **not part of this branch's tree**: it lives on branch `feat/api` (repository-root
-`Makefile` and `api/`, contract v1.5.0, commit `bb2acd0`). `make api` therefore exists only in a
-checkout where that branch is merged or checked out.
+The Route-Check API is part of this repository: [`api/`](../api/README.md) with the repository-root
+`Makefile` (contract in `contracts/wfg_api_v1.yaml`; the planner's copy is
+[`contract/wfg_api_v1.yaml`](contract/wfg_api_v1.yaml)). To run it locally:
 
-- If the repository root has a `Makefile` with an `api` target, run `make api` there.
-- Otherwise use a separate worktree:
+```bash
+# from the repository root
+make api            # first use: creates .venv (Python 3.12), installs pinned dependencies and
+                    # fetches the SHA-verified recorded inputs into data/routing; then serves
+                    # http://127.0.0.1:8765/v1 (Swagger UI at /docs)
+```
 
-  ```bash
-  git fetch origin feat/api
-  git worktree add --detach ../wfg-api origin/feat/api
-  (cd ../wfg-api && make api)
-  ```
-
-- Prerequisites: Python 3.12, GNU `time` (`/usr/bin/time`) and `procps` (`/bin/ps`); `make api`
-  creates its `.venv` and fetches the recorded inputs on first use.
+- Prerequisites: Python 3.12, GNU `time` (`/usr/bin/time`) and `procps` (`/bin/ps`) — see
+  [`api/README.md`](../api/README.md) (requirements, the fixed 30 s budget per check, endpoints).
 - It serves `http://127.0.0.1:8765/v1` — the same port as the mock, so stop the mock first.
-- Then, from this planner checkout: `planner/scripts/precompute_planner.sh` (booth cache) or
-  `npm run demo -- --mode real`. The precompute script talks to the API over HTTP only, so the two
-  checkouts may be separate.
+- Then, in `planner/`: `npm run demo -- --mode real` (the app with this API), or
+  `planner/scripts/precompute_planner.sh` (booth cache). The planner talks to the API over HTTP only.
 - The booth cache (`planner/cache/`) must come from the evaluated Apple M5 Pro host (native macOS
   arm64). On any other host the script refuses unless `ALLOW_NON_MAC=1`, and then writes test data
   to `planner/.test-cache/` (never committed; view with `WFG_CACHE_DIR=.test-cache npm run dev`).
@@ -106,6 +103,83 @@ Deep links (query, used by `scripts/screenshots.mjs` and `scripts/export_plan_pd
 the hash (`#region=…&scenario=<scenario_set_id|drawn>&origin=…`), which also works as a link.
 `html[data-wfg-data-ready]` is `"true"` once the selected scenario's results (or the drawn-zone state)
 are loaded and `"false"` while loading.
+
+## Static demo (public, no server)
+
+`VITE_WFG_API_MODE=static` (or `vite build --mode static`) builds the planner as a static site that
+replays the committed precompute cache — `planner/cache/` (2025 의성·안동 and 영덕, 3 recorded input
+times each, 9,722 route checks computed through the Route-Check API on the evaluated macOS host; see
+`cache/INDEX.json`) — with no server and no API. It is published on GitHub Pages at
+<https://sparkxt-0318.github.io/wildfireguardian/> by
+[`.github/workflows/planner-pages.yml`](../.github/workflows/planner-pages.yml).
+
+```bash
+cd planner && npm ci
+VITE_BASE_PATH=/wildfireguardian/ npm run build:static   # tsc + vite build --mode static + dist checks
+VITE_BASE_PATH=/wildfireguardian/ npm run preview:static # http://127.0.0.1:4173/wildfireguardian/
+npm run smoke:static                                     # headless Chromium smoke test (see below)
+```
+
+**What it shows and what it does not do**
+
+- Everything is read from static files under the base path: `data/regions/**` (places, footprints),
+  `basemap/**` (offline PMTiles, glyphs, sprites) and `cache/**` (INDEX.json + one file per region
+  and input time, byte-identical to `planner/cache/`; the build checks every SHA-256 against
+  `INDEX.json`). Only regions with recorded results are listed.
+- The API is never contacted. The client answers every API call with `STATIC_DEMO` without sending it,
+  `src/config/sameOrigin.ts` refuses any request that would leave the page's origin or reach
+  `…/api/…` (e.g. `http://127.0.0.1:8765`, `localhost`), and the built `index.html` carries a
+  Content-Security-Policy (`connect-src 'self'` …) so the browser enforces the same. The VWorld
+  raster and `VWORLD_API_KEY` are never part of a static build.
+- Disabled, with a bilingual note and a link to [Real Route-Check API](#real-route-check-api), because
+  they need live computation: "이 출발지 다시 계산" (recompute), comparison routes that are not in the
+  cache, batches for scenarios without a cache, and checks of drawn spread zones (drawing and the
+  recorded-footprint presets still work; every origin stays 미확인 · not computed). The forecast-cell
+  layer is served only by the API (`GET /regions/{id}/forecast`), so the static demo does not show it.
+- The honesty rules above all stay: fire-input banner, planning-aid footer, three verdicts as colour +
+  icon + text, the "시험 데이터 · 평가 호스트 아님" marking for caches from another host (the committed
+  cache is from the evaluated host, so it is not shown), MOCK only for MOCK-made data.
+- A "DEMO · 2025년 3월 기록 시나리오 · 연구 프로토타입" chip (the period comes from `cache/INDEX.json`), a
+  dismissible introduction with a 3-step tour (pick an origin → read its 출발 마감 and evidence → open
+  the A4 plan sheet; dismissal is remembered in `localStorage`), and "의견 보내기 / Feedback" →
+  `VITE_FEEDBACK_URL` (default: the repository's
+  [planner-feedback issue template](../.github/ISSUE_TEMPLATE/planner-feedback.md)). On a first visit
+  the language follows the browser (Korean, else English); `?lang=ko|en` and the toggle still work.
+- Phones: below 900 px the list, map and details are one pane at a time (tab bar), and the A4 plan
+  sheet reflows into a readable column on screen (printing still produces A4).
+
+**Base path.** `VITE_BASE_PATH` sets Vite's `base`: `/` (default), `/wildfireguardian/` (GitHub Pages
+project site) or `./` (relative: one build that works under any path). Code reaches its own files only
+through `src/config/paths.ts` (`appPath`, `appUrl`, `fetchAppJson`). Any file added under
+`planner/public/data/**` (e.g. generated `data/explanations/<region>__<input>.json`) is copied into the
+build and served at `<base>data/…`; `fetchAppJson('data/…')` reads it (null when missing), and a
+root-absolute `fetch('/data/…')` is moved under a sub-path base automatically.
+
+**GitHub Pages (owner, once).** Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+Then run "Planner static demo (GitHub Pages)" from the Actions tab (or push a change under `planner/`
+to `Main`). The workflow runs `npm ci`, `npm test`, `npm run build:static` with
+`VITE_BASE_PATH=/<repository>/` (override with the repository variable `PLANNER_BASE_PATH`, e.g. `/`
+for a custom domain) and deploys `planner/dist` with `actions/upload-pages-artifact` +
+`actions/deploy-pages`.
+
+**Any other static host (e.g. Vercel, Netlify, S3).** Build with the base the host serves the app
+under (`VITE_BASE_PATH=/` for a site root, or `./` for any folder) and upload the contents of
+`planner/dist/` as they are — no server, rewrites or environment variables are needed (Vercel:
+framework "Other", output directory `planner/dist`, or `vercel deploy planner/dist`). The host must
+answer HTTP range requests for `*.pmtiles` (GitHub Pages does; check other hosts); without them the
+basemap tiles do not load — the places, routes and results still do.
+
+**Sizes** (`npm run build:static` prints them): about 183 MB in about 1,070 files — `cache/` 147 MB
+(six JSON files of 22–26 MB), `basemap/` 30 MB, `assets/` 5 MB; every file < 100 MB, total ≪ 1 GB.
+`planner/research-map/` and `planner/mock_api/` are not part of the build.
+
+**Smoke test.** `npm run smoke:static` starts `vite preview` of `dist/` under `/wildfireguardian/` and
+drives headless Chromium (the `playwright` package must be resolvable, e.g. a global install or
+`PLAYWRIGHT_MODULE=/path/to/node_modules/playwright`; it never installs browsers): desktop and 375 px,
+Korean and English — intro → pick an origin → its 출발 마감 and evidence → A4 plan sheet → English. It
+records every request (all must stay under the page's origin and base path), checks that the CSP
+refuses a deliberate cross-origin probe, checks the honesty texts, and writes screenshots to
+[`docs/screenshots/solve-demo/`](docs/screenshots/solve-demo/).
 
 ## Data flow
 
@@ -182,8 +256,11 @@ polygons and the app sends them to the API as `fire_input {type: "spread_zones"}
 
 | Key | Default | Meaning |
 |---|---|---|
-| `VITE_WFG_API_MODE` | `mock` | `mock` → proxy `/api/v1` to the mock on `:8765`; `real` → to `VITE_WFG_API_TARGET` |
+| `VITE_WFG_API_MODE` | `mock` | `mock` → proxy `/api/v1` to the mock on `:8765`; `real` → to `VITE_WFG_API_TARGET`; `static` → no API, cache only ([Static demo](#static-demo-public-no-server); also `vite build --mode static`) |
 | `VITE_WFG_API_TARGET` | `http://127.0.0.1:8765` | real API base (see [Real Route-Check API](#real-route-check-api)) |
+| `VITE_BASE_PATH` | `/` | Vite `base`: `/wildfireguardian/` for GitHub Pages, `./` for a path-independent build |
+| `VITE_FEEDBACK_URL` | static: the planner-feedback issue template | "의견 보내기 / Feedback" link (https only); outside the static demo the button shows only when set |
+| `VITE_REPO_URL` | `https://github.com/Sparkxt-0318/wildfireguardian` | repository link used by the static demo's "how to run it locally" note |
 | `VITE_DEPARTURE_STEP_MIN` | `10` | departure offset step (5/10/15/20/30 min) over `[0, horizon)` |
 | `VITE_SHELTERS_PER_ORIGIN` | `3` | K nearest shelters per origin with distinct entry nodes (1–5) |
 | `VITE_WFG_ALLOW_BATCH` | `1` | `0`: never offer "점검 시작" for a scenario without a cache (real API) |
@@ -191,21 +268,25 @@ polygons and the app sends them to the API as `fire_input {type: "spread_zones"}
 | `WFG_CACHE_DIR` | `cache` | server-side: folder served at `/cache/**` and copied into `dist/cache` (the build warns when it is not the booth cache) |
 
 The browser always calls same-origin `/api/v1/*`; `vite dev` and `vite preview` proxy it, and
-both serve the cache folder at `/cache/**` (its `.state/` working folder is never served).
+both serve the cache folder at `<base>cache/**` (its `.state/` working folder is never served). In
+static mode there is no proxy and no API call at all.
 
 ## Source layout
 
 ```
 src/
   api/wire.ts         contract v1.5 wire types (only the adapter reads them)
-  api/client.ts       fetch + timeouts + polling + abort; ApiError(code, message)
+  api/client.ts       fetch + timeouts + polling + abort; ApiError(code, message); static: never sends
   api/adapter.ts      wire ⇄ internal model; request builders (the only module that knows the wire)
-  api/cache.ts        /cache/INDEX.json + cache files → internal model
+  api/cache.ts        <base>cache/INDEX.json + cache files → internal model
+  config/             env (API mode incl. static), paths (base-path URLs), sameOrigin (static fetch guard)
   domain/             internal model, planning rules (plan.ts), clock (KST), banner/MOCK rules
-  data/staticData.ts  /data/regions/index.json, places.geojson (+ optional temporary housing)
+  data/staticData.ts  <base>data/regions/index.json, places.geojson (+ optional temporary housing)
   state/              zustand store, controller (data flow), selectors, feature-module inputs
   map/                MapLibre view, offline basemap style (local PMTiles, Korean labels)
-  components/         top bar, left list, right panel, timeline, time slider, icons
+  components/         top bar, left list, right panel, timeline, time slider, icons, MobileNav (phones)
+  components/demo/    static demo: DEMO ribbon, intro + tour, feedback link, "nothing computed" notes
+  styles/mobile.css   ≤ 900 px layout (one pane at a time; plan sheet reflow on screen)
   i18n/               Korean-first strings with English mirror; useT()
   features/           About, plan sheet (A4/PDF), exports — feature builder (see its README)
 ```
@@ -216,6 +297,8 @@ src/
 |---|---|
 | `npm run dev` / `npm run preview` | app with the API proxy and `/cache` |
 | `npm run build` | `tsc -b` (app, config and tests) + production build (copies the cache into `dist/cache`) |
+| `npm run build:static` / `npm run preview:static` | static demo build (+ `scripts/check_static_dist.mjs`: sizes, CSP, cache SHA-256) / its preview |
+| `npm run smoke:static` | Playwright smoke test of the static demo (`scripts/static_smoke.mjs`) |
 | `npm test` | Vitest: `tests/planner/*.test.ts` |
 | `npm run mock` | the MOCK server |
 | `npm run demo` | booth launcher (`scripts/demo.mjs`) |
