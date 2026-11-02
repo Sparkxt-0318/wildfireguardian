@@ -237,6 +237,14 @@ def assertions(run: dict, rec: dict, request: dict) -> list:
     return [{"check": name, "passed": bool(ok), "observed": observed} for name, ok, observed in checks]
 
 
+def load_average():
+    """Host load (1, 5, 15 min) - other work on a shared host inflates every timing reported here."""
+    try:
+        return [round(x, 2) for x in os.getloadavg()]
+    except (AttributeError, OSError):
+        return None
+
+
 def git_commit() -> str | None:
     """HEAD of this checkout; in a copy without git metadata (e.g. the Docker image) the WFG_API_GIT_COMMIT fallback."""
     try:
@@ -283,6 +291,7 @@ def main(argv=None) -> int:
         return 2
     out.mkdir(parents=True)
     started = dt.datetime.now(dt.timezone.utc).isoformat()
+    load_at_start = load_average()
     runs = {"extended": attempt(paths, a.kit.resolve(), out / "extended_budget", a.budget_s, a.python,
                                 "SOLVE2027_LINUX_REPRO_EXTENDED_%ds" % int(a.budget_s))}
     checks = assertions(runs["extended"], rec, request)
@@ -301,7 +310,8 @@ def main(argv=None) -> int:
         "budgets_s": {"this_run": a.budget_s, "evaluated": EVALUATED_BUDGET_S},
         "within_evaluated_30s_budget": bool(ext.get("wall_s") is not None and ext["wall_s"] <= EVALUATED_BUDGET_S),
         "host": {"platform": platform.platform(), "machine": platform.machine(), "python": platform.python_version(),
-                 "cpu_count": os.cpu_count(), "gnu_time": gnu_time_version(), "evaluated_host": False},
+                 "cpu_count": os.cpu_count(), "gnu_time": gnu_time_version(), "evaluated_host": False,
+                 "load_average_1_5_15_min": {"start": load_at_start, "end": load_average()}},
         "git_commit": git_commit(), "started_at": started, "finished_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "wfg_latest": ident,
         "input_sha256": {"graph": sha256(paths["graph"]), "hazard": sha256(paths["packet"] / "HAZARD.json"),
@@ -361,8 +371,9 @@ def markdown(report: dict) -> str:
                   "after %s s. Unresolved is never reported as safe." % (
                       e.get("authoritative_status"), " (`%s`)" % e["unresolved_reason"] if e.get("unresolved_reason") else "",
                       "%.2f" % e["wall_s"] if e.get("wall_s") is not None else "n/a"), ""]
-    lines += ["Host: %s, %s CPUs, Python %s. Assertions: %d/%d passed." % (
+    lines += ["Host: %s, %s CPUs, Python %s, load average at start %s. Assertions: %d/%d passed." % (
         report["host"]["platform"], report["host"]["cpu_count"], report["host"]["python"],
+        report["host"]["load_average_1_5_15_min"]["start"],
         sum(c["passed"] for c in report["assertions"]), len(report["assertions"])), ""]
     return "\n".join(lines) + "\n"
 
