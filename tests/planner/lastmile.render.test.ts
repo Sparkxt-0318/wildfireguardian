@@ -90,8 +90,11 @@ describe('FieldMessagesDialog (jsdom)', () => {
       expect(b.querySelectorAll('.wfgl-text').length).toBe(2);
       expect(b.querySelectorAll('pre').length).toBe(2);
     }
-    expect(dlg.querySelector('[data-block="sms"] [data-lang="ko"] .wfgl-text__count')!.textContent).toBe('84 / 90바이트 (EUC-KR)');
-    expect(dlg.querySelector('[data-block="sms"] [data-lang="en"] .wfgl-text__count')!.textContent).toBe('139 / 160자 (GSM-7)');
+    expect(dlg.querySelector('[data-block="sms"] [data-lang="ko"] .wfgl-text__count')!.textContent).toBe('78 / 90바이트 (EUC-KR)');
+    expect(dlg.querySelector('[data-block="sms"] [data-lang="en"] .wfgl-text__count')!.textContent).toBe('129 / 160자 (GSM-7)');
+    // both languages are still awaiting native-speaker and field review, and say so
+    expect(dlg.querySelectorAll('[data-block="sms"] [data-review="pending"]').length).toBe(2);
+    expect(dlg.querySelector('[data-block="sms"] [data-review="pending"]')!.textContent).toBe('원어민·현장 검토 전');
     expect(dlg.querySelector('[data-testid="field-messages-checks"]')!.textContent).toBe('검사 통과: 길이·필수 문구·금지어');
     expect(dlg.querySelector('[data-explanation-state="ready"]')!.textContent).toContain('이 출발지: 이유 문장 포함');
     expect(dlg.querySelector('.wfgl-preview [data-card-status="checked_route"]')).not.toBeNull();

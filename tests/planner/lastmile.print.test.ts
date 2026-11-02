@@ -18,7 +18,7 @@ import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
 import type { CardContent } from '../../planner/src/features/lastmile/compose';
-import { loadBoothCaches, syntheticExplanationFor } from './lastmile.cachedata';
+import { loadBoothCaches, realExplanationFor, syntheticExplanationFor } from './lastmile.cachedata';
 import { estimate, type CardSize } from './lastmile.printfit';
 
 const PLANNER = new URL('../../planner/', import.meta.url);
@@ -39,11 +39,14 @@ let items: { path: string; fm: FieldMessages }[] = [];
 beforeAll(async () => {
   // every origin as it is now (no explanation file), plus — the longest cards — every origin whose
   // messages gain a reason line from a synthetic contract-shaped explanation with a long road name
+  // (and, when the real explanation files are present, every origin they give a reason line)
   items = loadBoothCaches().flatMap((c) => {
     const file = syntheticExplanationFor(c);
+    const real = realExplanationFor(c).file;
     const plain = c.inputs.map((input) => ({ path: c.entry.path, fm: buildFieldMessages(input, null) }));
     const reasoned = c.inputs.map((input) => ({ path: `${c.entry.path} +reason`, fm: buildFieldMessages(input, file) })).filter((x) => x.fm.reason);
-    return [...plain, ...reasoned];
+    const withReal = real ? c.inputs.map((input) => ({ path: `${c.entry.path} +real`, fm: buildFieldMessages(input, real) })).filter((x) => x.fm.reason) : [];
+    return [...plain, ...reasoned, ...withReal];
   });
   const cardPath = '../../planner/src/features/lastmile/FieldCard';
   FieldCard = ((await import(/* @vite-ignore */ cardPath)) as { FieldCard: unknown }).FieldCard;
@@ -145,6 +148,7 @@ const MEASURE = `(() => {
     overflowY: c.scrollHeight - c.clientHeight,
     overflowX: c.scrollWidth - c.clientWidth,
     minBodyPx: Math.min(...[...c.querySelectorAll(body)].map((e) => parseFloat(getComputedStyle(e).fontSize))),
+    minHeadFootPx: Math.min(...[...c.querySelectorAll('.wfgl-card__head, .wfgl-card__head *, .wfgl-card__footrule, .wfgl-card__cat')].map((e) => parseFloat(getComputedStyle(e).fontSize))),
     spareMm: (() => {
       const lines = c.querySelector('.wfgl-card__lines').getBoundingClientRect();
       const bottom = c.querySelector('.wfgl-card__bottom').getBoundingClientRect();
@@ -160,7 +164,7 @@ const MEASURE = `(() => {
 })()`;
 
 describe('origin cards in Chromium (print media, bundled Pretendard)', () => {
-  it('no card overflows its A5 / A4 page and body text is ≥ 14 pt (Korean and English, every origin)', async (ctx) => {
+  it('no card overflows its A5 / A4 page, body text is ≥ 14 pt and header / footer ≥ 12 pt (Korean and English, every origin)', async (ctx) => {
     if (!browser) {
       console.warn(`print layout check skipped: ${skipReason}`);
       ctx.skip();
@@ -174,7 +178,7 @@ describe('origin cards in Chromium (print media, bundled Pretendard)', () => {
           await page.setContent(pageHtml(items.map(({ fm }) => ({ card: fm.text[lang].card, size, id: fm.originId })), false), { waitUntil: 'load' });
           const fontOk = await page.evaluate<boolean>(`document.fonts.ready.then(() => document.fonts.check('14pt "Pretendard Variable"', '가'))`);
           expect(fontOk).toBe(true);
-          const res = await page.evaluate<{ id: string; overflowY: number; overflowX: number; minBodyPx: number; spareMm: number; usedPx: number }[]>(MEASURE);
+          const res = await page.evaluate<{ id: string; overflowY: number; overflowX: number; minBodyPx: number; minHeadFootPx: number; spareMm: number; usedPx: number }[]>(MEASURE);
           expect(res.length).toBe(items.length);
           // the browser-free estimate above must never be below the real height (it stands in for this test in CI)
           const under = res
@@ -182,10 +186,15 @@ describe('origin cards in Chromium (print media, bundled Pretendard)', () => {
             .filter(({ r, e }) => e.usedPx < r.usedPx - 0.5)
             .map(({ r, e }) => `${lang} ${size} ${r.id}: estimate ${e.usedPx.toFixed(1)} < real ${r.usedPx.toFixed(1)} px`);
           expect(under).toEqual([]);
-          const bad = res.filter((r) => r.overflowY > 0.5 || r.overflowX > 0.5 || r.minBodyPx < 14 * PT_PX - 0.05).map((r) => `${lang} ${size} ${r.id}: ${JSON.stringify(r)}`);
+          // body ≥ 14 pt; header, category and the planner footer line ≥ 12 pt
+          const bad = res
+            .filter((r) => r.overflowY > 0.5 || r.overflowX > 0.5 || r.minBodyPx < 14 * PT_PX - 0.05 || r.minHeadFootPx < 12 * PT_PX - 0.05)
+            .map((r) => `${lang} ${size} ${r.id}: ${JSON.stringify(r)}`);
           expect(bad).toEqual([]);
           const minSpare = Math.min(...res.map((r) => r.spareMm));
-          console.info(`cards ${lang} ${size}: ${res.length} rendered, smallest free space ${minSpare.toFixed(1)} mm, smallest body ${(Math.min(...res.map((r) => r.minBodyPx)) / PT_PX).toFixed(1)} pt`);
+          console.info(
+            `cards ${lang} ${size}: ${res.length} rendered, smallest free space ${minSpare.toFixed(1)} mm, smallest body ${(Math.min(...res.map((r) => r.minBodyPx)) / PT_PX).toFixed(1)} pt, smallest header/footer ${(Math.min(...res.map((r) => r.minHeadFootPx)) / PT_PX).toFixed(1)} pt`,
+          );
           expect(minSpare).toBeGreaterThanOrEqual(0);
         }
       }

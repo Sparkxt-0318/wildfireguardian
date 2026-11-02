@@ -3,9 +3,13 @@
  * "합성 …" / "Synthetic …", the region is not a real region and every number is made up for the
  * tests — none of it is a village, shelter, road, fire or result of any recorded scenario.
  *
- * SYNTHETIC_EXPLANATION follows the deadline-explanation contract `wfg.explanation/1`
+ * synExplanation() follows the deadline-explanation contract `wfg.explanation/1`
  * (planner/public/data/explanations/<region_id>__<input>.json, written by tools/explain_deadlines)
- * field by field, so the reader is tested against the contract before the real files exist.
+ * field by field, including the fields of the real files (detail_code, window, destination_classes,
+ * destination_ids, …) and one origin for each reason code they use: flame_on_route, window
+ * (window_fire_free, window_fire_detour; no_flame_avoiding_route_fits_window for model_no_route),
+ * no_later_offset, all_exits_blocked (one exit, duplicate labels, several), unresolved_next and
+ * other. The real files are not part of this branch; the reader is tested against the contract.
  */
 import type { ExplanationFile, LastMileInput, LmCell } from '../../planner/src/features/lastmile/types';
 
@@ -77,9 +81,14 @@ export function synInput(over: Partial<LastMileInput> & { originId?: string } = 
 export const SYN_NO_ROUTE_ID = 'syn:origin:noroute';
 export const SYN_UNRESOLVED_ID = 'syn:origin:unresolved';
 
-export function synNoRoute(): LastMileInput {
+/** The same input under another origin id (one id per reason code of the synthetic file). */
+export function withId(input: LastMileInput, id: string): LastMileInput {
+  return { ...input, origin: { ...input.origin, id } };
+}
+
+export function synNoRoute(id = SYN_NO_ROUTE_ID): LastMileInput {
   return synInput({
-    originId: SYN_NO_ROUTE_ID,
+    originId: id,
     plan: {
       bestVerdict: 'model_no_route',
       latestSafeDepartureS: null,
@@ -103,16 +112,101 @@ export function synUnresolved(): LastMileInput {
   });
 }
 
+/** Checked at every departure time: T is the last departure time requested (no later offset). */
+export function synNoLater(id = 'syn:origin:nolater'): LastMileInput {
+  return synInput({
+    originId: id,
+    plan: {
+      bestVerdict: 'checked_route',
+      latestSafeDepartureS: 3000,
+      contiguousSafeDepartureS: 3000,
+      sweep: cells(['checked_route', 'checked_route', 'checked_route', 'checked_route', 'checked_route', 'checked_route']),
+      note: null,
+    },
+  });
+}
+
+/** Origin ids of the synthetic file, one per reason code of the real files. */
+export const SYN_IDS = {
+  flame: 'syn:origin:checked',
+  windowFree: 'syn:origin:window',
+  windowMixed: 'syn:origin:window-mixed',
+  detour: 'syn:origin:detour',
+  noLater: 'syn:origin:nolater',
+  unresolvedNext: 'syn:origin:unresolved-next',
+  exits: SYN_NO_ROUTE_ID,
+  exitOne: 'syn:origin:exit-one',
+  exitDup: 'syn:origin:exit-dup',
+  noRouteWindow: 'syn:origin:noroute-window',
+  unresolved: SYN_UNRESOLVED_ID,
+} as const;
+
 const item = (over: Record<string, unknown> = {}) => ({
   edge_id: 'w100:s1:f',
+  osm_way_id: 100,
   label_ko: '합성로',
   label_en: 'Hapseong-ro',
   label_source: 'osm_name',
+  place_osm_id: null,
+  place_distance_m: null,
+  near_node_id: 'osm:1',
+  point: [128.5, 36.4],
   flame_time_s: 2700, // 18:45 KST
+  contact_time_s: 2950,
   members: [0, 2],
   members_total: 4,
   pass_time_at_deadline_s: 2100,
   slack_s: 600,
+  segment: 'edge',
+  leg_index: 3,
+  destination_ids: ['syn:dest:a'],
+  rules: { closed_footprint: true, router_cells: true },
+  ...over,
+});
+
+/** An exit item (no deadline fields, `reached_at_s`, no binding-only fields). */
+const exit = (over: Record<string, unknown> = {}) => {
+  const it: Record<string, unknown> = item({ pass_time_at_deadline_s: null, slack_s: null, reached_at_s: 60, ...over });
+  delete it.destination_ids;
+  delete it.leg_index;
+  delete it.rules;
+  return it;
+};
+
+const deadlineRoute = { route_check_job_id: 'rc_synthetic', destination_id: 'syn:dest:a', departure_s: 1800, arrival_s: 3300, dwell_s: 120, route_sha256: 'synthetic', raw_status: 'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN' };
+const windowFacts = (over: Record<string, unknown> = {}) => ({ close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 4020, flame_avoiding_arrival_s: null, limit: 'scenario_window', horizon_s: 3600, ...over });
+
+const leaveByEntry = (over: Record<string, unknown>) => ({
+  status: 'explained',
+  verdict_summary: 'checked_route',
+  deadline_offset_s: 1800,
+  next_offset_s: 2400,
+  next_verdict: 'model_no_route',
+  binding: [],
+  exits: [],
+  notes: [],
+  origin_kind: 'dispatch',
+  deadline_route: deadlineRoute,
+  checked_at_deadline: 1,
+  proven_unreachable_next: 1,
+  next_attempts: { model_no_route: 2 },
+  checks: { a_route: true, c: true, kit_a_route: true },
+  ...over,
+});
+
+const noRouteEntry = (over: Record<string, unknown>) => ({
+  status: 'explained',
+  verdict_summary: 'model_no_route',
+  deadline_offset_s: null,
+  next_offset_s: null,
+  next_verdict: null,
+  binding: [],
+  exits: [],
+  notes: [],
+  origin_kind: 'dispatch',
+  first_offset_s: 0,
+  reachable_nodes: 38,
+  checks: { c: true, e: true },
   ...over,
 });
 
@@ -123,47 +217,102 @@ export function synExplanation(): ExplanationFile {
     region_id: SYN_REGION,
     input_time: SYN_INPUT_TIME,
     scenario_set_id: SYN_SET,
-    provenance: { cache_sha256: 'synthetic', packet_hashes: { hazard: 'synthetic' }, code_commit: 'synthetic' },
-    summary: { explained: 2, explained_partial: 0, not_explainable: 1 },
+    provenance: { cache_sha256: 'synthetic', packet_hashes: { 'HAZARD.json': 'synthetic' }, code_commit: 'synthetic', horizon_s: 3600 },
+    summary: { origins: 11, explained: 9, explained_partial: 0, not_explainable: 2 },
     origins: {
-      'syn:origin:checked': {
-        status: 'explained',
-        verdict_summary: 'checked_route',
-        deadline_offset_s: 1800,
-        next_offset_s: 2400,
-        next_verdict: 'model_no_route',
+      [SYN_IDS.flame]: leaveByEntry({
         reason_code: 'flame_on_route',
-        binding: [item() as never],
-        exits: [],
-        notes: [],
-      },
-      [SYN_NO_ROUTE_ID]: {
-        status: 'explained',
-        verdict_summary: 'model_no_route',
-        deadline_offset_s: null,
+        detail_code: 'route_meets_flame_when_shifted',
+        binding: [item()],
+        destination_classes: { 'syn:dest:a': 'flame_on_route' },
+        window: windowFacts({ fire_free: false, fastest_end_s: 3500 }),
+      }),
+      [SYN_IDS.windowFree]: leaveByEntry({
+        reason_code: 'window',
+        detail_code: 'window_fire_free',
+        destination_classes: { 'syn:dest:a': 'window_fire_free' },
+        window: windowFacts(),
+        checks: { a_route: true, c: true, w: true, kit_a_route: true },
+      }),
+      // the destination of the message is window-limited but another one is not: no "not a fire" claim
+      [SYN_IDS.windowMixed]: leaveByEntry({
+        reason_code: 'window',
+        detail_code: 'window_fire_free',
+        destination_classes: { 'syn:dest:a': 'window_fire_free', 'syn:dest:c': 'flame_on_route' },
+        checked_at_deadline: 2,
+        proven_unreachable_next: 2,
+        window: windowFacts(),
+      }),
+      [SYN_IDS.detour]: leaveByEntry({
+        reason_code: 'window',
+        detail_code: 'window_fire_detour',
+        destination_classes: { 'syn:dest:a': 'window_fire_detour' },
+        window: windowFacts({ fire_free: false, fastest_end_s: 3450 }),
+      }),
+      [SYN_IDS.noLater]: leaveByEntry({
+        deadline_offset_s: 3000,
         next_offset_s: null,
         next_verdict: null,
+        reason_code: 'no_later_offset',
+        detail_code: 'last_checked_offset',
+        deadline_route: { ...deadlineRoute, departure_s: 3000, arrival_s: 3300 },
+        window: windowFacts({ fire_free: null, fastest_end_s: null }),
+        checked_at_deadline: undefined,
+        proven_unreachable_next: undefined,
+        next_attempts: undefined,
+      }),
+      [SYN_IDS.unresolvedNext]: leaveByEntry({
+        status: 'not_explainable',
+        next_verdict: 'unresolved',
+        reason_code: 'unresolved_next',
+        detail_code: 'next_offset_unresolved',
+        next_attempt_verdicts: { 'unresolved/AT_ISSUE_FAILURE': 2 },
+      }),
+      [SYN_IDS.exits]: noRouteEntry({
         reason_code: 'all_exits_blocked',
-        binding: [],
+        detail_code: 'flame_free_area_closed',
         exits: [
-          item({ edge_id: 'w200:s1:f', label_ko: '합성로', label_en: 'Hapseong-ro', flame_time_s: 900, members: [0, 1, 2], pass_time_at_deadline_s: null, slack_s: null }) as never,
-          item({ edge_id: 'w201:s1:f', label_ko: '7', label_en: '7', label_source: 'osm_ref', flame_time_s: 1500, members: [3], pass_time_at_deadline_s: null, slack_s: null }) as never,
-          item({ edge_id: 'w202:s1:r', label_ko: null, label_en: null, label_source: 'unnamed', flame_time_s: 2400, members: [0, 1], pass_time_at_deadline_s: null, slack_s: null }) as never,
+          exit({ edge_id: 'w200:s1:f', label_ko: '합성로', label_en: 'Hapseong-ro', flame_time_s: 900, members: [0, 1, 2] }),
+          exit({ edge_id: 'w201:s1:f', label_ko: '7', label_en: '7', label_source: 'osm_ref', flame_time_s: 1500, members: [3] }),
+          exit({ edge_id: 'w202:s1:r', label_ko: null, label_en: null, label_source: 'unnamed', flame_time_s: 2400, members: [0, 1] }),
         ],
-        notes: [],
-      },
-      [SYN_UNRESOLVED_ID]: {
+      }),
+      [SYN_IDS.exitOne]: noRouteEntry({
+        reason_code: 'all_exits_blocked',
+        detail_code: 'flame_free_area_closed',
+        exits: [exit({ edge_id: 'w300:s2:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_osm_id: 'node/1', place_distance_m: 797, flame_time_s: 0, members: [0, 1, 2, 3] })],
+      }),
+      [SYN_IDS.exitDup]: noRouteEntry({
+        reason_code: 'all_exits_blocked',
+        detail_code: 'flame_free_area_closed',
+        exits: [
+          exit({ edge_id: 'w400:s1:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_distance_m: 640, flame_time_s: 0, members: [0, 1, 2, 3] }),
+          exit({ edge_id: 'w401:s5:r', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_distance_m: 910, flame_time_s: 0, members: [0, 1, 2, 3] }),
+        ],
+      }),
+      [SYN_IDS.noRouteWindow]: noRouteEntry({
+        reason_code: 'window',
+        detail_code: 'no_flame_avoiding_route_fits_window',
+        notes: ['recheck_replaced_attempts'],
+        window: windowFacts({ fire_free: false, fastest_end_s: null }),
+        checks: { e: true },
+      }),
+      [SYN_IDS.unresolved]: {
         status: 'not_explainable',
         verdict_summary: 'unresolved',
         deadline_offset_s: null,
         next_offset_s: null,
         next_verdict: null,
         reason_code: 'other',
+        detail_code: 'origin_unresolved',
         binding: [],
         exits: [],
-        notes: ['synthetic: unresolved origins are never explained'],
+        notes: [],
+        origin_kind: 'dispatch',
+        attempt_verdicts: { 'unresolved/AT_ISSUE_FAILURE': 12 },
+        checks: {},
       },
-    },
+    } as unknown as ExplanationFile['origins'],
   };
 }
 
@@ -174,3 +323,4 @@ export function withEntry(id: string, entry: Record<string, unknown>): Explanati
 }
 
 export const ITEM = item;
+export const EXIT = exit;

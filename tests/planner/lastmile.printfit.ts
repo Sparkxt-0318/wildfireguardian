@@ -138,23 +138,26 @@ export function estimate(card: CardContent, size: CardSize): CardEstimate {
   const font = (scale: number, weight: number): Font => ({ fs: scale * F, weight, ls });
   const para = (text: string, f: Font, widthPx: number, lh = LH) => wrapLines(text, widthPx, f) * f.fs * lh;
   const parts: CardEstimate['parts'] = { head: 0, title: 0, status: 0, big: 0, lines: 0, official: 0, data: 0, model: 0, limits: 0, foot: 0, gaps: 0 };
-  // head: a wrapping flex row at 0.72 em (document 800, the rest 600, badges 800 with 0.3 em side
-  // padding and a 1.2 pt border), gap 0.35 em, padding-bottom 0.3 em, 1.2 pt rule
-  const hf = 0.72 * F;
+  // head: a wrapping flex row at 0.72 em (A5: 12 pt) (document 800, the rest 600, badges 800 with
+  // 0.3 em side padding and a 1.2 pt border), gap 0.35 em, padding-bottom 0.3 em, 1.2 pt rule
+  const small = size === 'a5' ? (12 * PT_PX) / F : null;
+  const hs = small ?? 0.72;
+  const hf = hs * F;
   const headItems: FlexItem[] = [
-    { text: card.docTitle, font: font(0.72, 800), lh: LH },
-    { text: '·', font: font(0.72, 600), lh: LH },
-    { text: card.regionName, font: font(0.72, 600), lh: LH },
-    { text: '·', font: font(0.72, 600), lh: LH },
-    { text: card.fireInputLabel, font: font(0.72, 600), lh: LH },
-    ...card.badges.map((x) => ({ text: x, font: font(0.72, 800), lh: LH, padX: 0.6 * hf + 2 * BORDER1_2PT, padY: 2 * BORDER1_2PT })),
+    { text: card.docTitle, font: font(hs, 800), lh: LH },
+    { text: '·', font: font(hs, 600), lh: LH },
+    { text: card.regionName, font: font(hs, 600), lh: LH },
+    { text: '·', font: font(hs, 600), lh: LH },
+    { text: card.fireInputLabel, font: font(hs, 600), lh: LH },
+    ...card.badges.map((x) => ({ text: x, font: font(hs, 800), lh: LH, padX: 0.6 * hf + 2 * BORDER1_2PT, padY: 2 * BORDER1_2PT })),
   ];
   parts.head = flexRowsHeight(headItems, 0.35 * hf, W, 0) + 0.3 * hf + BORDER1_2PT;
   // title (1.5 em, 800, line-height 1.15, letter-spacing -0.02 em, margin-top 0.2 em); the category
-  // follows the last word at half size (700) after a 0.4 em margin, with no break before it
+  // follows the last word at half size (A5: 12 pt) (700) after a 0.4 em margin, with no break before it
   const tf = 1.5 * F;
   const titleFont: Font = { fs: tf, weight: 800, ls: TITLE_LS_EM * tf };
-  const catPx = card.category ? 0.2 * tf + runPx(card.category, { fs: 0.5 * tf, weight: 700, ls: TITLE_LS_EM * tf }) : 0;
+  const cf = size === 'a5' ? 12 * PT_PX : 0.5 * tf;
+  const catPx = card.category ? 0.4 * cf + runPx(card.category, { fs: cf, weight: 700, ls: TITLE_LS_EM * tf }) : 0;
   parts.title = 0.2 * tf + wrapLines(card.title, W, titleFont, catPx) * tf * 1.15;
   // status block (1.12 em, 800, line-height 1.25, padding 0.25/0.5 em, 2 pt border, 30 px icon, gap
   // 0.4 em, margin-top 0.35 em)
@@ -174,7 +177,7 @@ export function estimate(card: CardContent, size: CardSize): CardEstimate {
   const weightOf = (role: string) => (role === 'instruction' ? 760 : role === 'reason' ? 620 : 400);
   parts.lines = 0.35 * F + card.lines.reduce((a, l) => a + para(l.text, font(1, weightOf(l.role)), W - 0.85 * F), 0) + Math.max(0, card.lines.length - 1) * 0.15 * F;
   // bottom block (padding-top 0.35 em, 4 gaps of 0.15 em): official box (1.08 em, 850, padding
-  // 0.2/0.45 em, 2 pt border), data and model lines (650), limits (400), footer (0.7 em, line-height
+  // 0.2/0.45 em, 2 pt border), data and model lines (650), limits (400), footer (0.7 em, A5 12 pt, line-height
   // 1.3, margin-top 0.15 em, padding-top 0.25 em, 1.2 pt rule; rule 700, meta 400, gap 0.1 em)
   const of = 1.08 * F;
   parts.gaps = 0.35 * F + 4 * 0.15 * F;
@@ -182,8 +185,11 @@ export function estimate(card: CardContent, size: CardSize): CardEstimate {
   parts.data = para(card.dataLine, font(1, 650), W);
   parts.model = para(card.modelLine, font(1, 650), W);
   parts.limits = para(card.limits, font(1, 400), W);
-  const ff = 0.7 * F;
-  parts.foot = 0.15 * F + 0.25 * ff + BORDER1_2PT + para(card.footer, font(0.7, 700), W, 1.3) + para(card.meta, font(0.7, 400), W, 1.3) + 0.1 * ff;
+  const fs = small ?? 0.7;
+  const ff = fs * F;
+  // A5: the provenance line is 10 pt
+  const ms = size === 'a5' ? (10 * PT_PX) / F : fs;
+  parts.foot = 0.15 * F + 0.25 * ff + BORDER1_2PT + para(card.footer, font(fs, 700), W, 1.3) + para(card.meta, font(ms, 400), W, 1.3) + 0.1 * ff;
   const usedPx = Object.values(parts).reduce((a, x) => a + x, 0);
   return { usedPx, availablePx: H, parts };
 }
