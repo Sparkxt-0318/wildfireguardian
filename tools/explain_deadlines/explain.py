@@ -181,8 +181,10 @@ def _analyse_destination(ctx: Context, attempt, next_offset: int, delta: F, ev: 
         cls = "flame_on_route"
     elif relax_late:
         cls = "window_fire_detour"
-    elif dwell_blocked or (fc is not None and fc.segment.kind == "DWELL"):
+    elif fc is not None and fc.segment.kind == "DWELL":
         cls = "dwell"
+    elif dwell_blocked:
+        cls = "stay_blocked_without_shown_route_contact"     # proven, but not localised on the shown route
     else:
         cls = "open"
     proven = fire_free_late or relax_late or dwell_blocked
@@ -217,6 +219,9 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
     if nxt.skipped == "window_unsatisfiable" and not nxt.attempts:
         rec["next_verdict"] = "window"
         job = ctx.model.job(best.job_id)
+        if job is None:
+            rec.update(status="not_explainable", reason_code="other", detail_code="route_check_job_missing")
+            return
         req = _job_request(job)
         close = _close(ctx, req)
         rec.update(status="explained", reason_code="window", detail_code="outside_recorded_arrival_window")
@@ -260,11 +265,13 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
             if r["cls"] != "flame_on_route":
                 continue
             fc = r["first"]
-            key = (fc.segment.kind, fc.segment.edge, fc.segment.node)
+            # merge two routes only when they meet flame on the same road segment at the same times
+            key = (fc.segment.kind, fc.segment.edge, fc.segment.node, fc.segment.start, fc.segment.end)
             if key in seen:
                 seen[key]["destination_ids"].append(d)
                 continue
             item, check = _binding_item(ctx, r["segs"], fc, delta, [d])
+            check["destination_id"] = d
             seen[key] = item
             rec["binding"].append(item)
             ev.binding_checks.append(check)
@@ -276,11 +283,12 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
         fc = shown["first"]
         if fc is not None and fc.segment.kind == "DWELL":
             item, check = _binding_item(ctx, shown["segs"], fc, delta, [best.destination_id])
+            check["destination_id"] = best.destination_id
             rec["binding"].append(item)
             ev.binding_checks.append(check)
             ev.times += check["times"]
     else:
-        rec.update(reason_code="other", detail_code="refusal_not_reproduced" if cls == "open" else cls)
+        rec.update(reason_code="other", detail_code="refusal_not_reproduced" if cls == "open" else (shown.get("why") or cls))
     if rec["reason_code"] == "other":
         rec["status"] = "not_explainable"
     elif rec["reason_code"] == "dwell_at_destination" or not all_proven:

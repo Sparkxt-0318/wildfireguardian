@@ -188,8 +188,8 @@ def kit_crosscheck(I, KG, KP, packet, rec: dict, ev, horizon: int) -> dict:
         out["kit_a_route"] = bool(ok)
     if ev.binding_checks:
         ok = True
-        for chk, item in zip(ev.binding_checks, rec["binding"]):
-            dest = item["destination_ids"][0]
+        for chk in ev.binding_checks:
+            dest = chk["destination_id"]                 # the route that produced this item
             route, req = next((rt, rq) for d, _, rt, _, rq in ev.deadline_routes if d == dest)
             shift = int(chk["shift"])
             seg = chk["segs"][chk["segment_index"]]

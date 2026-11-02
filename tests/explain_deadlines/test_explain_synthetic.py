@@ -137,3 +137,41 @@ def test_record_is_json_serialisable(tmp_path):
     v[0] = v[600] = "checked_route"
     _, rec, _ = build(tmp_path, line_world(), v, {"ignitions": {1: {5: 630.0}}})
     json.dumps(rec, allow_nan=False)
+
+
+def test_routes_meeting_the_same_road_at_different_times_are_not_merged(tmp_path):
+    """Shelter s1 via A-B-C reaches road A->B at once; shelter s2 via A-Y-A-B-D reaches it 10 s later. Member 2 ignites
+    cell 5 (on A->B) at 650 s. Leaving at 600 both are clear (they leave cell 5 at 615 and 625); leaving at 1200 both
+    meet it, so the binding lists two items with their own pass times and slack (35 s and 25 s)."""
+    raw = synth.graph({"A": (50, 150), "B": (250, 150), "C": (350, 150), "Y": (50, 250), "D": (250, 50)},
+                      [("AB", "A", "B", 20), ("BC", "B", "C", 10), ("AY", "A", "Y", 5), ("YA", "Y", "A", 5), ("BD", "B", "D", 10)])
+    checks, atts = {}, []
+    for off in OFFSETS:
+        for dest, node, edges in (("s1", "C", ["AB", "BC"]), ("s2", "D", ["AY", "YA", "AB", "BD"])):
+            jid = "%s_%d" % (dest, off)
+            if off <= 600:
+                job = synth.route_job(jid, start="A", dest=node, depart=off, legs_edges=edges, raw_graph=raw)
+                atts.append(synth.attempt(dest, off, "checked_route", jid, job["result"]["arrival_s"]))
+            else:
+                job = synth.refusal_job(jid, start="A", dest=node, depart=off)
+                atts.append(synth.attempt(dest, off, "model_no_route", jid))
+            checks[jid] = job
+    doc = synth.cache_doc([("o1", atts)], checks)
+    g = RoadGraph(raw)
+    synth.write_packet(tmp_path / "pk", ignitions={2: {5: 650.0}})
+    pk = Packet(tmp_path / "pk", g.grid)
+    ctx = Context(region_id="synthetic", input_time="2025-01-01T00:00:00Z", scenario_set_id="synthetic:set", graph=g, packet=pk,
+                  index=ContactIndex(g, pk), places=None, model=CacheModel(doc), to_lonlat=synth.lonlat_identity, horizon=3600)
+    rec, ev = explain_plan(ctx, ctx.model.plans["o1"])
+    assert (rec["status"], rec["reason_code"]) == ("explained", "flame_on_route")
+    assert rec["deadline_route"]["destination_id"] == "s1"               # earliest arrival at 600 s
+    items = {tuple(b["destination_ids"]): b for b in rec["binding"]}
+    assert set(items) == {("s1",), ("s2",)}
+    assert (items[("s1",)]["pass_time_at_deadline_s"], items[("s1",)]["slack_s"]) == (615.0, 35.0)
+    assert (items[("s2",)]["pass_time_at_deadline_s"], items[("s2",)]["slack_s"]) == (625.0, 25.0)
+    assert rec["binding"][0]["destination_ids"] == ["s1"]                # the shown route's item first
+    checks_ = validate(ctx, rec, ev)
+    assert checks_["a"] and checks_["b"]
+    I, _ = load_kit_checker()
+    KG = I.Graph(raw)
+    assert kit_crosscheck(I, KG, I.Packet(tmp_path / "pk", KG), pk, rec, ev, 3600)["kit_b"] is True
