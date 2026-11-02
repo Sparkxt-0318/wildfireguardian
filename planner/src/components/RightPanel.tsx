@@ -1,9 +1,9 @@
 import { CONFIG } from '../config/env';
-import { FieldMessagesEntry } from '../features/lastmile/FieldMessagesEntry';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
+import { FieldMessagesEntry } from '../features/lastmile/FieldMessagesEntry';
 import { useLang, useT, type TFunction } from '../i18n';
 import { useEffect } from 'react';
 import { cancelRecompute, ensureRoute, ensureTravelOnly, originCheckCount, recomputeOrigin, selectOffset } from '../state/controller';
