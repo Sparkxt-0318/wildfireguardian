@@ -1,0 +1,43 @@
+# WildfireGuardian planner + Route-Check API on any Docker host. Guide: docs/solve2027/REPRODUCE.md
+#
+#   WFG_GIT_COMMIT=$(git rev-parse HEAD) docker compose up --build
+#     planner  http://127.0.0.1:8080        (static build; /api/v1/* is proxied to the API)
+#     API      http://127.0.0.1:8765/v1     (Swagger UI http://127.0.0.1:8765/docs)
+#
+# Both ports are published on 127.0.0.1 only: the API has no authentication and is meant for local use.
+# The API keeps its fixed 30 s request budget. A container is not the evaluated host (native macOS, Apple M5 Pro),
+# so heavy missions can end unresolved/TIMEOUT; that is reported, never shown as safe.
+name: wildfireguardian
+
+services:
+  api:
+    build:
+      context: .
+      target: api
+      args:
+        # Recorded in every response's provenance (the image itself carries no .git).
+        WFG_GIT_COMMIT: ${WFG_GIT_COMMIT:-unknown}
+    image: wildfireguardian-api:local
+    # The kit controller launches every check as its own process tree; an init process reaps any orphan.
+    init: true
+    ports:
+      - "127.0.0.1:8765:8765"
+    volumes:
+      # Job records and per-request packets survive restarts; `docker compose down -v` removes them.
+      - api-runtime:/app/artifacts/api_runtime
+
+  planner:
+    build:
+      context: .
+      target: planner
+    image: wildfireguardian-planner:local
+    environment:
+      WFG_API_UPSTREAM: api:8765
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  api-runtime:
