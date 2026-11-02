@@ -5,11 +5,13 @@
  *
  * synExplanation() follows the deadline-explanation contract `wfg.explanation/1`
  * (planner/public/data/explanations/<region_id>__<input>.json, written by tools/explain_deadlines)
- * field by field, including the fields of the real files (detail_code, window, destination_classes,
- * destination_ids, …) and one origin for each reason code they use: flame_on_route, window
- * (window_fire_free, window_fire_detour; no_flame_avoiding_route_fits_window for model_no_route),
- * no_later_offset, all_exits_blocked (one exit, duplicate labels, several), unresolved_next and
- * other. The real files are not part of this branch; the reader is tested against the contract.
+ * field by field, including the fields of the real files (detail_code, deadline_cause,
+ * shelters_next, window, destination_classes, destination_ids, place_is_origin, …) and one origin for
+ * each final reason code: flame_on_route, dwell_at_destination, no_flame_avoiding_route
+ * (window_fire_detour, other_shelters_flame_blocked; no_flame_avoiding_route_fits_window for
+ * model_no_route), window (window_fire_free; no_route_even_without_fire for model_no_route),
+ * no_later_offset, all_exits_blocked (several exits, one exit, a shared label, entry_point_in_flame),
+ * unresolved_next, other, and an unknown code. The real files are not part of this branch.
  */
 import type { ExplanationFile, LastMileInput, LmCell } from '../../planner/src/features/lastmile/types';
 
@@ -132,12 +134,17 @@ export const SYN_IDS = {
   windowFree: 'syn:origin:window',
   windowMixed: 'syn:origin:window-mixed',
   detour: 'syn:origin:detour',
+  otherShelters: 'syn:origin:other-shelters',
+  dwell: 'syn:origin:dwell',
+  unknown: 'syn:origin:unknown-code',
   noLater: 'syn:origin:nolater',
   unresolvedNext: 'syn:origin:unresolved-next',
   exits: SYN_NO_ROUTE_ID,
   exitOne: 'syn:origin:exit-one',
   exitDup: 'syn:origin:exit-dup',
   noRouteWindow: 'syn:origin:noroute-window',
+  noRouteTime: 'syn:origin:noroute-time',
+  entryInFlame: 'syn:origin:entry-in-flame',
   unresolved: SYN_UNRESOLVED_ID,
 } as const;
 
@@ -148,7 +155,9 @@ const item = (over: Record<string, unknown> = {}) => ({
   label_en: 'Hapseong-ro',
   label_source: 'osm_name',
   place_osm_id: null,
+  place_kind: null,
   place_distance_m: null,
+  place_is_origin: false,
   near_node_id: 'osm:1',
   point: [128.5, 36.4],
   flame_time_s: 2700, // 18:45 KST
@@ -218,11 +227,12 @@ export function synExplanation(): ExplanationFile {
     input_time: SYN_INPUT_TIME,
     scenario_set_id: SYN_SET,
     provenance: { cache_sha256: 'synthetic', packet_hashes: { 'HAZARD.json': 'synthetic' }, code_commit: 'synthetic', horizon_s: 3600 },
-    summary: { origins: 11, explained: 9, explained_partial: 0, not_explainable: 2 },
+    summary: { origins: 17, explained: 12, explained_partial: 2, not_explainable: 2 },
     origins: {
       [SYN_IDS.flame]: leaveByEntry({
         reason_code: 'flame_on_route',
         detail_code: 'route_meets_flame_when_shifted',
+        deadline_cause: 'flames',
         binding: [item()],
         destination_classes: { 'syn:dest:a': 'flame_on_route' },
         window: windowFacts({ fire_free: false, fastest_end_s: 3500 }),
@@ -230,25 +240,49 @@ export function synExplanation(): ExplanationFile {
       [SYN_IDS.windowFree]: leaveByEntry({
         reason_code: 'window',
         detail_code: 'window_fire_free',
+        deadline_cause: 'time_window',
         destination_classes: { 'syn:dest:a': 'window_fire_free' },
+        shelters_next: [{ destination_id: 'syn:dest:a', checked_at_deadline: true, tried_next: true, class: 'window_fire_free', proven: true, close_s: 3600, dwell_s: 120, fire_free_fits: false, fire_free_end_s: 4020, flame_avoiding_arrival_s: null }],
         window: windowFacts(),
         checks: { a_route: true, c: true, w: true, kit_a_route: true },
       }),
-      // the destination of the message is window-limited but another one is not: no "not a fire" claim
+      // window with the cause not established (explained_partial): no "not a fire" claim
       [SYN_IDS.windowMixed]: leaveByEntry({
+        status: 'explained_partial',
         reason_code: 'window',
         detail_code: 'window_fire_free',
+        deadline_cause: null,
         destination_classes: { 'syn:dest:a': 'window_fire_free', 'syn:dest:c': 'flame_on_route' },
         checked_at_deadline: 2,
         proven_unreachable_next: 2,
         window: windowFacts(),
       }),
       [SYN_IDS.detour]: leaveByEntry({
-        reason_code: 'window',
+        reason_code: 'no_flame_avoiding_route',
         detail_code: 'window_fire_detour',
+        deadline_cause: 'flames',
         destination_classes: { 'syn:dest:a': 'window_fire_detour' },
         window: windowFacts({ fire_free: false, fastest_end_s: 3450 }),
       }),
+      // the shown shelter is out of reach even without fire, the others are blocked by the flames
+      [SYN_IDS.otherShelters]: leaveByEntry({
+        reason_code: 'no_flame_avoiding_route',
+        detail_code: 'other_shelters_flame_blocked',
+        deadline_cause: 'flames',
+        destination_classes: { 'syn:dest:a': 'window_fire_free', 'syn:dest:c': 'window_fire_detour' },
+        checked_at_deadline: 2,
+        proven_unreachable_next: 2,
+        window: windowFacts(),
+      }),
+      [SYN_IDS.dwell]: leaveByEntry({
+        status: 'explained_partial',
+        reason_code: 'dwell_at_destination',
+        detail_code: 'stay_meets_flame',
+        deadline_cause: 'flames',
+        binding: [item({ edge_id: 'dwell:syn:dest:a', segment: 'dwell', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_kind: 'village', place_distance_m: 1240, flame_time_s: 3400, pass_time_at_deadline_s: 3300, slack_s: 100 })],
+        window: windowFacts({ fire_free: false }),
+      }),
+      [SYN_IDS.unknown]: leaveByEntry({ reason_code: 'brand_new_reason', detail_code: 'brand_new_detail', deadline_cause: 'flames' }),
       [SYN_IDS.noLater]: leaveByEntry({
         deadline_offset_s: 3000,
         next_offset_s: null,
@@ -280,19 +314,25 @@ export function synExplanation(): ExplanationFile {
       [SYN_IDS.exitOne]: noRouteEntry({
         reason_code: 'all_exits_blocked',
         detail_code: 'flame_free_area_closed',
-        exits: [exit({ edge_id: 'w300:s2:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_osm_id: 'node/1', place_distance_m: 797, flame_time_s: 0, members: [0, 1, 2, 3] })],
+        deadline_cause: 'flames',
+        // the place is the origin itself: "a road about 800 m from this village"
+        exits: [exit({ edge_id: 'w300:s2:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_osm_id: 'node/1', place_kind: 'village', place_is_origin: true, place_distance_m: 797, flame_time_s: 0, members: [0, 1, 2, 3] })],
       }),
       [SYN_IDS.exitDup]: noRouteEntry({
         reason_code: 'all_exits_blocked',
         detail_code: 'flame_free_area_closed',
+        deadline_cause: 'flames',
         exits: [
-          exit({ edge_id: 'w400:s1:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_distance_m: 640, flame_time_s: 0, members: [0, 1, 2, 3] }),
-          exit({ edge_id: 'w401:s5:r', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_distance_m: 910, flame_time_s: 0, members: [0, 1, 2, 3] }),
+          exit({ edge_id: 'w400:s1:f', label_ko: '옆마을', label_en: 'Yeop-ri', label_source: 'nearest_place', place_kind: 'hamlet', place_distance_m: 780, flame_time_s: 0, members: [0, 1, 2, 3] }),
+          exit({ edge_id: 'w401:s5:r', label_ko: '옆마을', label_en: 'Yeop-ri', label_source: 'nearest_place', place_kind: 'hamlet', place_distance_m: 820, flame_time_s: 0, members: [0, 1, 2, 3] }),
         ],
       }),
+      [SYN_IDS.entryInFlame]: noRouteEntry({ reason_code: 'all_exits_blocked', detail_code: 'entry_point_in_flame', deadline_cause: 'flames', exits: [] }),
+      [SYN_IDS.noRouteTime]: noRouteEntry({ reason_code: 'window', detail_code: 'no_route_even_without_fire', deadline_cause: 'time_window', window: windowFacts({ fastest_end_s: null }) }),
       [SYN_IDS.noRouteWindow]: noRouteEntry({
-        reason_code: 'window',
+        reason_code: 'no_flame_avoiding_route',
         detail_code: 'no_flame_avoiding_route_fits_window',
+        deadline_cause: 'flames',
         notes: ['recheck_replaced_attempts'],
         window: windowFacts({ fire_free: false, fastest_end_s: null }),
         checks: { e: true },

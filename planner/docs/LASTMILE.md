@@ -49,13 +49,14 @@ kinds and fails closed to the less specific one on any inconsistency.
   - nothing later was requested (the last departure checked, 50 min after the input time in the
     booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 이 시각은 불길 때문에 정한 것이 아닙니다", and
     the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by`;
-  - explanation `window` / `window_fire_free` for every destination checked at T — the file proves
-    only that the NEXT checked time fails, and the line says exactly that: "다음 점검 시각인 N에
+  - explanation `window` with `deadline_cause: time_window` — the file proves only that the NEXT
+    checked time fails, and the line says exactly that: "다음 점검 시각인 N에
     출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은
     불길 때문에 정한 것이 아닙니다" (same label);
-  - explanation `flame_on_route` for the message's destination: the fire reason (road, time, k of 4
-    fire scenarios from the forecast); `window_fire_detour`: "다음 점검 시각인 N에 출발하면 … 불길을
-    피해 가는 길로는 자료 범위가 끝나는 19:00 전에 도착해 머물 수 없습니다";
+  - explanation `flame_on_route` for the message's destination: the fire reason (where, when, k of 4
+    fire scenarios from the forecast; leaving at the next checked time may meet it);
+    `no_flame_avoiding_route` (cause `flames`): "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상
+    불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다";
   - otherwise the neutral "T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다".
 - **checked_route without a contiguous basis → `partial`** — no departure time; "출발 시각에 따라
   모델 결과가 달라, 출발 시각을 하나로 안내하지 않습니다"; follow official evacuation guidance. (No
@@ -158,18 +159,24 @@ departure recorded as `model_no_route` (an unresolved next time is never explain
 
 | `reason_code` (`detail_code`) | used when | printed as |
 |---|---|---|
-| `flame_on_route`, `dwell_at_destination` | `binding[0]` (the shown route's item) is usable and the message's destination is in its `destination_ids` | fire reason: road, time, k of n |
-| `window` (`window_fire_free`) | status `explained`; every destination checked at T is `window_fire_free` and proven (`destination_classes`, `checked_at_deadline`, `proven_unreachable_next`) | leaving at the next checked time the trip cannot finish within the 1-hour range, so later departures were not checked; not set by fire |
-| `window` (`window_fire_detour`) | the message's destination is `window_fire_detour` | fire reason: leaving at the next checked time, no flame-avoiding road arrives and ends the stay before the range ends |
+| `flame_on_route`, `dwell_at_destination` | `binding[0]` (the shown route's item) is usable and the message's destination is in its `destination_ids` | fire reason: where (label below), when, k of n; leaving at the next checked time may meet it |
+| `no_flame_avoiding_route` (`window_fire_detour`, `other_shelters_flame_blocked`) | status `explained`, `deadline_cause: flames` | "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다" |
+| `window` (`window_fire_free`) | status `explained`, `deadline_cause: time_window` | leaving at the next checked time the trip cannot finish within the 1-hour range, so later departures were not checked; not set by fire |
+| `window` (`outside_recorded_arrival_window`) | — (the next time is window-closed: the planner's own "last departure checked" line) | — |
 | `no_later_offset` | — (the planner's own "last departure checked" line already says it) | — |
-| `all_exits_blocked` (model_no_route) | every exit usable, one `members_total` | roads out by car, distinct labels (§2) |
-| `window` (`no_flame_avoiding_route_fits_window`, model_no_route) | status `explained` | no flame-avoiding road fits the range (no clock time) |
-| `unresolved_next`, `other` | never | — |
+| `all_exits_blocked` (`flame_free_area_closed`; model_no_route) | every exit usable, one `members_total` | roads out by car, distinct labels (§2) |
+| `all_exits_blocked` (`entry_point_in_flame`) | status `explained` | the road entry point is in flames at departure |
+| `no_flame_avoiding_route` (`no_flame_avoiding_route_fits_window`; model_no_route) | `deadline_cause: flames` | no flame-avoiding road fits the range (no clock time) |
+| `window` (`no_route_even_without_fire`; model_no_route) | `deadline_cause: time_window` | no destination fits the range even without fire |
+| `unresolved_next`, `other`, any unknown code | never | — |
 
 A usable item has a finite flame time inside the recorded window, distinct members
 `0 … members_total − 1`, flame contact after the vehicle passes (binding items), and a label from
-the data (`osm_name`, `osm_ref`, `nearest_place` → "구암리 부근 도로", or "unnamed road"),
-≤ 40 characters. The SMS never carries a reason (no room).
+the data: `osm_name`, `osm_ref`, `unnamed`, or `nearest_place`, which names a road point by a
+nearby place and the straight-line distance to it, never as the road's name — "구암리에서 약 800 m
+떨어진 도로" / "a road about 800 m from Guam-ri", or "이 마을에서 … / … from this village" when the
+place is the origin itself (`place_is_origin`). The composed label is at most 40 characters. The
+SMS never carries a reason (no room).
 
 ## 7. Languages
 

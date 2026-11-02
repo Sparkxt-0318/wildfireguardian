@@ -125,8 +125,28 @@ function noRouteResidents(p: MessagePlan): string {
     ? '이용자·가족: 시설과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.'
     : '주민: 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.';
 }
-function noRouteWindowSpoken(p: MessagePlan): string {
-  return `산불 예측에서는 불길을 피해 가는 길로 ${durationText(p.input.scenario.horizonS, 'ko')} 안에 닿을 수 있는 도착지가 없습니다.`;
+/** The model_no_route reason in writing (long text, card), or null. */
+function noRouteReasonWritten(p: MessagePlan, max: number): string | null {
+  const r = p.reason;
+  const range = durationText(p.input.scenario.horizonS, 'ko');
+  if (!r) return null;
+  if (r.kind === 'all_exits_blocked') return exitsWritten(p, r, max);
+  if (r.kind === 'entry_in_flame') return `이유: 산불 예측 시나리오상 이 ${placeWord(p)}의 진입 지점(가장 가까운 도로 지점)이 출발 시각에 이미 불길 안에 있습니다.`;
+  if (r.kind === 'no_route_flames') return `이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `이유: 점검한 어느 출발 시각에도, 불길이 없더라도 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
+  return null;
+}
+
+/** The model_no_route reason, spoken (optional broadcast block; a call-script line), or null. */
+function noRouteReasonSpoken(p: MessagePlan): string | null {
+  const r = p.reason;
+  const range = durationText(p.input.scenario.horizonS, 'ko');
+  if (!r) return null;
+  if (r.kind === 'all_exits_blocked') return exitsSpoken(p, r);
+  if (r.kind === 'entry_in_flame') return '산불 예측에서는 이곳의 진입 지점이 이미 불길 안에 있습니다.';
+  if (r.kind === 'no_route_flames') return `산불 예측에서는 불길을 피하는 길로 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `불길이 없더라도 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
+  return null;
 }
 function noRouteSpoken(p: MessagePlan): string {
   return `${facility(p) ? '시설과' : '이장과'} 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.`;
@@ -142,20 +162,20 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
   const r = p.reason;
   const t0 = iso(p);
   const range = durationText(p.input.scenario.horizonS, 'ko');
+  // the explanation proves only that the NEXT checked departure fails, so the lines say exactly that
+  const N = hm(t0, p.nextOffsetS ?? p.leaveByS ?? 0);
   if (r && (r.kind === 'flame_on_route' || r.kind === 'dwell_at_destination')) {
     const F = hm(t0, r.flameS);
-    const tail = card ? '' : r.kind === 'flame_on_route' ? ` ${T}보다 늦게 출발하면 그곳에서 불길과 만날 수 있습니다.` : ` ${T}보다 늦게 출발하면 도착 뒤 머무는 동안 불길과 만날 수 있습니다.`;
+    const tail = card ? '' : r.kind === 'flame_on_route' ? ` 다음 점검 시각인 ${N}에 출발하면 그곳에서 불길과 만날 수 있습니다.` : ` 다음 점검 시각인 ${N}에 출발하면 도착 뒤 머무는 동안 불길과 만날 수 있습니다.`;
     return {
       role: 'reason',
       text: r.kind === 'flame_on_route' ? `이유: ${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${F}쯤 불길이 닿습니다.${tail}` : `이유: ${kOfN(r.k, r.n)} 도착지 부근(${r.road.text.ko})에 ${F}쯤 불길이 닿습니다.${tail}`,
     };
   }
-  // the explanation proves only that the NEXT checked departure fails, so the lines say exactly that
-  const N = hm(t0, p.nextOffsetS ?? p.leaveByS ?? 0);
-  if (r && r.kind === 'window_fire_detour') {
-    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 ${hm(t0, r.closeS)} 전에 도착해 머물 수 없습니다.` };
+  if (r && r.kind === 'no_flame_avoiding_route') {
+    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.` };
   }
-  if (r && r.kind === 'window_fire_free') {
+  if (r && r.kind === 'time_window') {
     return { role: 'after', text: `다음 점검 시각인 ${N}에 출발하면 ${range} 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. ${NOT_FIRE_KO}` };
   }
   if (p.after === 'horizon') {
@@ -173,8 +193,8 @@ function afterSpoken(p: MessagePlan): string {
   const t0 = iso(p);
   if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)} 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
-  if (r && r.kind === 'window_fire_detour') return '다음 점검 시각에 출발하면 산불 예측상 불길을 피해 가는 길로는 제때 도착할 수 없습니다.';
-  if (r && r.kind === 'window_fire_free') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
+  if (r && r.kind === 'no_flame_avoiding_route') return '다음 점검 시각에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.';
+  if (r && r.kind === 'time_window') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';
   return '그보다 늦게 출발하는 길은 확인되지 않았습니다.';
@@ -219,11 +239,8 @@ function bodyLines(p: MessagePlan, target: 'lms' | 'card'): CardLine[] {
     if (target === 'lms') out.push({ role: 'status', text: '모델상 확인된 차량 경로가 없습니다.' });
     out.push({ role: 'instruction', text: noRouteStaff(p) });
     out.push({ role: 'instruction', text: noRouteResidents(p) });
-    const r = p.reason;
-    if (r && r.kind === 'all_exits_blocked') out.push({ role: 'reason', text: exitsWritten(p, r, target === 'card' ? 2 : 3) });
-    else if (r && r.kind === 'no_route_window') {
-      out.push({ role: 'reason', text: `이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피해 가는 길로는 ${durationText(p.input.scenario.horizonS, 'ko')} 자료 범위 안에 도착지에 닿을 수 없습니다.` });
-    }
+    const why = noRouteReasonWritten(p, target === 'card' ? 2 : 3);
+    if (why) out.push({ role: 'reason', text: why });
     if (target === 'card') out.push({ role: 'meaning', text: '모델상 경로 없음: 점검한 모든 출발 시각과 도착지에서 확인된 경로가 없었다는 뜻입니다.' });
     return out;
   }
@@ -366,9 +383,8 @@ export const KO: TemplateSet = {
       blocks.push(repeat ?? { optional: 'repeat', text: `다시 알려 드립니다. ${S}까지 출발하십시오.` });
     } else if (p.kind === 'no_route') {
       blocks.push({ text: `컴퓨터 예측 계산으로는 이곳에서 차로 나가는 확인된 길이 없습니다. ${noRouteSpoken(p)}` });
-      const r = p.reason;
-      if (r && r.kind === 'all_exits_blocked') blocks.push({ optional: 'reason', text: exitsSpoken(p, r) });
-      else if (r && r.kind === 'no_route_window') blocks.push({ optional: 'reason', text: noRouteWindowSpoken(p) });
+      const why = noRouteReasonSpoken(p);
+      if (why) blocks.push({ optional: 'reason', text: why });
       blocks.push(repeat ?? { optional: 'repeat', text: `다시 알려 드립니다. ${noRouteSpoken(p)}` });
     } else if (p.kind === 'partial') {
       blocks.push({ text: '출발 시각에 따라 컴퓨터 예측 계산 결과가 달라, 출발 시각을 하나로 알려 드리지 않습니다. 공식 대피 안내를 따르십시오.' });
@@ -409,9 +425,8 @@ export const KO: TemplateSet = {
       if (o.kind === 'village') lines.push('어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.');
     } else if (p.kind === 'no_route') {
       lines.push(`컴퓨터 예측 계산(모델)으로는 ${place}에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 ${facility(p) ? '시설' : '이장'}은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.`);
-      const r = p.reason;
-      if (r && r.kind === 'all_exits_blocked') lines.push(exitsSpoken(p, r));
-      else if (r && r.kind === 'no_route_window') lines.push(noRouteWindowSpoken(p));
+      const why = noRouteReasonSpoken(p);
+      if (why) lines.push(why);
     } else if (p.kind === 'partial') {
       lines.push('출발 시각에 따라 컴퓨터 예측 계산 결과가 달라, 출발 시각을 하나로 알려 드리지 않습니다. 공식 대피 안내를 따라야 합니다.');
     } else {

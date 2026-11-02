@@ -101,6 +101,7 @@ export type ExplanationVerdict = 'checked_route' | 'model_no_route' | 'unresolve
 export type ExplanationNextVerdict = 'model_no_route' | 'unresolved' | 'window' | null;
 export type ExplanationReasonCode =
   | 'flame_on_route'
+  | 'no_flame_avoiding_route'
   | 'all_exits_blocked'
   | 'dwell_at_destination'
   | 'unresolved_next'
@@ -127,8 +128,12 @@ export interface ExplanationItem {
   contact_time_s?: number | null;
   /** binding items: the destinations whose routes share this item (the shown route's item comes first) */
   destination_ids?: string[];
-  /** nearest_place labels: distance from the place to the contact point (m) */
+  /** nearest_place labels: straight-line distance (m) from the road point the item is about to the place node */
   place_distance_m?: number | null;
+  /** nearest_place labels: the place node is the origin itself ("this village") */
+  place_is_origin?: boolean;
+  /** nearest_place labels: the place's OSM `place` value (village, hamlet, …) */
+  place_kind?: string | null;
 }
 
 /** Window facts of an origin (reason `window` and the classes behind it). */
@@ -154,6 +159,10 @@ export interface ExplanationOrigin {
   notes: string[];
   /** finer machine code, e.g. window_fire_free · window_fire_detour · last_checked_offset */
   detail_code?: string;
+  /** what keeps a later departure from working, over every candidate shelter: the time window, the flames, or not established */
+  deadline_cause?: 'time_window' | 'flames' | null;
+  /** per candidate shelter at the next checked time (class, proven, …) */
+  shelters_next?: unknown[];
   window?: ExplanationWindow;
   /** class of every destination checked at the deadline (window_fire_free, flame_on_route, …) */
   destination_classes?: Record<string, string>;

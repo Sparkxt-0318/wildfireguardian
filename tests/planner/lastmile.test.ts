@@ -20,6 +20,7 @@ import {
 } from '../../planner/src/features/lastmile/encoding';
 import { cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime } from '../../planner/src/features/lastmile/compose';
 import {
+  approxDistance,
   clearExplanationCache,
   explanationUrl,
   loadExplanation,
@@ -386,8 +387,9 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const fm = buildFieldMessages(synInput(), synExplanation());
     expect(fm.violations).toEqual([]);
     expect(fm.reason).toMatchObject({ kind: 'flame_on_route', k: 2, n: 4, flameS: 2700, slackS: 600 });
-    expect(fm.text.ko.lms).toContain('이유: 산불 예측 시나리오 4가지 중 2가지에서 합성로에 18:45쯤 불길이 닿습니다. 18:30보다 늦게 출발하면 그곳에서 불길과 만날 수 있습니다.');
-    expect(fm.text.en.lms).toContain('Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45 KST. If you leave after 18:30, you may meet the fire there.');
+    // only what the file proves: the route shifted to the next checked time (18:40) meets the flames
+    expect(fm.text.ko.lms).toContain('이유: 산불 예측 시나리오 4가지 중 2가지에서 합성로에 18:45쯤 불길이 닿습니다. 다음 점검 시각인 18:40에 출발하면 그곳에서 불길과 만날 수 있습니다.');
+    expect(fm.text.en.lms).toContain('Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45 KST. If you leave at the next checked time, 18:40, you may meet the fire there.');
     expect(fm.text.ko.call).toContain('산불 예측 시나리오 4가지 중 2가지에서 합성로에 오후 6시 45분쯤 불길이 닿습니다.');
     expect(cardText(fm.text.ko.card)).toContain('이유: 산불 예측 시나리오 4가지 중 2가지에서 합성로에 18:45쯤 불길이 닿습니다.');
     expect(cardText(fm.text.en.card)).toContain('Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45.');
@@ -412,17 +414,30 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const one = buildFieldMessages(synNoRoute(SYN_IDS.exitOne), synExplanation());
     expect(one.violations).toEqual([]);
     expect(one.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 1, kMin: 4, atStart: true });
-    expect(one.text.ko.lms).toContain('이유: 이 마을에서 차로 빠져나갈 수 있는 길은 1곳(합성리 부근 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
-    expect(one.text.en.lms).toContain('Why: the only road out of this village by car (the road near Hapseong-ri) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
+    // P2's label semantics: a nearby place and the straight-line distance to it ("this village" for the origin)
+    expect(one.text.ko.lms).toContain('이유: 이 마을에서 차로 빠져나갈 수 있는 길은 1곳(이 마을에서 약 800 m 떨어진 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
+    expect(one.text.en.lms).toContain('Why: the only road out of this village by car (a road about 800 m from this village) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
     const dup = buildFieldMessages(synNoRoute(SYN_IDS.exitDup), synExplanation());
     expect(dup.violations).toEqual([]);
     expect(dup.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 2, atStart: true });
-    expect(dup.text.ko.lms).toContain('길 2곳(둘 다 합성리 부근 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
-    expect(dup.text.en.lms).toContain('Why: the 2 roads out of this village by car (both near Hapseong-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
+    expect(dup.text.ko.lms).toContain('길 2곳(둘 다 옆마을에서 약 800 m 떨어진 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
+    expect(dup.text.en.lms).toContain('Why: the 2 roads out of this village by car (both about 800 m from Yeop-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
+    // no_flame_avoiding_route for a model_no_route origin (cause: flames)
     const win = buildFieldMessages(synNoRoute(SYN_IDS.noRouteWindow), synExplanation());
     expect(win.violations).toEqual([]);
-    expect(win.reason).toMatchObject({ kind: 'no_route_window', closeS: 3600 });
-    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피해 가는 길로는 1시간 자료 범위 안에 도착지에 닿을 수 없습니다.');
+    expect(win.reason).toEqual({ kind: 'no_route_flames' });
+    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
+    // window for a model_no_route origin (cause: time window) — never a fire reason
+    const time = buildFieldMessages(synNoRoute(SYN_IDS.noRouteTime), synExplanation());
+    expect(time.violations).toEqual([]);
+    expect(time.reason).toEqual({ kind: 'no_route_time_window' });
+    expect(time.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 불길이 없더라도 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
+    expect(time.text.en.lms).toContain('Why: from every departure time checked, no destination can be reached and the stay finished within the 1-hour data range, even without fire.');
+    // all_exits_blocked / entry_point_in_flame
+    const entry = buildFieldMessages(synNoRoute(SYN_IDS.entryInFlame), synExplanation());
+    expect(entry.violations).toEqual([]);
+    expect(entry.reason).toEqual({ kind: 'entry_in_flame' });
+    expect(entry.text.ko.lms).toContain('이유: 산불 예측 시나리오상 이 마을의 진입 지점(가장 가까운 도로 지점)이 출발 시각에 이미 불길 안에 있습니다.');
   });
 
   it('deadlines set by the one-hour range or by the last departure checked are never presented as fire deadlines', () => {
@@ -430,25 +445,36 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     // window_fire_free for every destination checked at T
     const free = buildFieldMessages(withId(synInput(), SYN_IDS.windowFree), ex);
     expect(free.violations).toEqual([]);
-    expect(free.reason).toEqual({ kind: 'window_fire_free', closeS: 3600 });
+    expect(free.reason).toEqual({ kind: 'time_window' });
     // the file proves only that the NEXT checked departure (18:40) fails, and the line says exactly that
     expect(free.text.ko.lms).toContain('다음 점검 시각인 18:40에 출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
     expect(free.text.en.lms).toContain('Leaving at the next checked time, 18:40, the trip cannot finish within the 1-hour data range, so later departures were not checked; this time was not set by fire.');
     expect(free.text.ko.broadcast + free.text.ko.call).not.toMatch(/18:30보다 늦은 출발은 .*도착할 수 없/);
     expect(free.text.ko.card.big?.label).toBe('점검한 마지막 출발');
     expect(free.text.en.card.big?.label).toBe('Checked up to');
-    // another destination checked at T is fire-limited: no "not a fire" claim, the neutral line stays
+    // the cause is not established (explained_partial): no "not a fire" claim, the neutral line stays
     const mixed = buildFieldMessages(withId(synInput(), SYN_IDS.windowMixed), ex);
     expect(mixed.reason).toBeNull();
     expect(mixed.text.ko.lms).toContain('18:30보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.');
     expect(mixed.text.ko.card.big?.label).toBe('출발 마감');
-    // window_fire_detour: a fire reason for the message's destination
-    const detour = buildFieldMessages(withId(synInput(), SYN_IDS.detour), ex);
-    expect(detour.violations).toEqual([]);
-    expect(detour.reason).toEqual({ kind: 'window_fire_detour', closeS: 3600 });
-    expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 19:00 전에 도착해 머물 수 없습니다.');
-    expect(detour.text.en.lms).toContain('Why: leaving at the next checked time, 18:40, routes that avoid the flames in the fire scenarios from the forecast cannot reach the destination and finish the stay before the data range ends at 19:00 KST.');
-    expect(detour.text.ko.card.big?.label).toBe('출발 마감');
+    // no_flame_avoiding_route (window_fire_detour or other_shelters_flame_blocked): fire-related, only the next checked time
+    for (const id of [SYN_IDS.detour, SYN_IDS.otherShelters]) {
+      const detour = buildFieldMessages(withId(synInput(), id), ex);
+      expect(detour.violations).toEqual([]);
+      expect(detour.reason).toEqual({ kind: 'no_flame_avoiding_route' });
+      expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.');
+      expect(detour.text.en.lms).toContain(
+        'Why: leaving at the next checked time, 18:40, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.',
+      );
+      expect(detour.text.ko.card.big?.label).toBe('출발 마감');
+    }
+    // dwell_at_destination (always explained_partial): the binding item on the message's destination
+    const dwell = buildFieldMessages(withId(synInput(), SYN_IDS.dwell), ex);
+    expect(dwell.violations).toEqual([]);
+    expect(dwell.reason).toMatchObject({ kind: 'dwell_at_destination', flameS: 3400 });
+    expect(dwell.text.ko.lms).toContain('도착지 부근(합성리에서 약 1.2 km 떨어진 도로)에 18:56쯤 불길이 닿습니다. 다음 점검 시각인 18:40에 출발하면 도착 뒤 머무는 동안 불길과 만날 수 있습니다.');
+    // an unknown reason code gives no reason line
+    expect(buildFieldMessages(withId(synInput(), SYN_IDS.unknown), ex).reason).toBeNull();
     // no_later_offset: T is the last departure checked (the planner's own horizon line; no file needed)
     const later = buildFieldMessages(synNoLater(SYN_IDS.noLater), ex);
     expect(later.violations).toEqual([]);
@@ -509,7 +535,19 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
   it('labels roads only from the data: OSM name, ref, nearby place or "unnamed"', () => {
     expect(roadLabel({ label_ko: '7', label_en: '7', label_source: 'osm_ref' })!.text).toEqual({ ko: '7번 도로', en: 'Route 7' });
     expect(roadLabel({ label_ko: '국도7호선', label_en: null, label_source: 'osm_ref' })!.text).toEqual({ ko: '국도7호선', en: '국도7호선' });
-    expect(roadLabel({ label_ko: '신석리 부근', label_en: 'near Sinseok-ri', label_source: 'nearest_place' })!.text).toEqual({ ko: '신석리 부근 도로', en: 'the road near Sinseok-ri' });
+    expect(roadLabel({ label_ko: '신석리 부근', label_en: 'near Sinseok-ri', label_source: 'nearest_place' })!.text).toEqual({ ko: '신석리 부근 도로', en: 'a road near Sinseok-ri' });
+    // P2's semantics: a nearby named place and the straight-line distance to it, never a road name
+    expect(roadLabel({ label_ko: '신석리', label_en: 'Sinseok-ri', label_source: 'nearest_place', place_distance_m: 1083 })!.text).toEqual({
+      ko: '신석리에서 약 1.1 km 떨어진 도로',
+      en: 'a road about 1.1 km from Sinseok-ri',
+    });
+    expect(roadLabel({ label_ko: '신석리', label_en: 'Sinseok-ri', label_source: 'nearest_place', place_distance_m: 399, place_is_origin: true })!.text).toEqual({
+      ko: '이 마을에서 약 400 m 떨어진 도로',
+      en: 'a road about 400 m from this village',
+    });
+    expect([797, 950, 1885, 40].map(approxDistance)).toEqual(['800 m', '1.0 km', '1.9 km', '100 m']);
+    // a composed label longer than the tested maximum makes the item unusable
+    expect(roadLabel({ label_ko: '가', label_en: 'A-very-long-hamlet-name-for-testing', label_source: 'nearest_place', place_distance_m: 1885 })).toBeNull();
     expect(roadLabel({ label_ko: null, label_en: null, label_source: 'osm_name' })!.text).toEqual({ ko: '이름 없는 도로', en: 'an unnamed road' });
     expect(usableItem(ITEM(), 3600, 1800)).toBe(true);
     expect(selectReason(undefined, { kind: 'leave_by', latestS: 1800, leaveByS: 1800, nextOffsetS: 2400, nextVerdict: 'model_no_route', destinationId: 'syn:dest:a', horizonS: 3600 })).toBeNull();
@@ -627,7 +665,7 @@ describe('synthetic snapshots (both languages)', () => {
 
       - Leave by car no later than 18:30 KST (6:30 p.m.). Do not wait until that time.
       - Destination the model checked: Hapseong Elementary School. Leaving at 18:30, arrival around 18:55 KST (about 25 min by car; traffic not included).
-      - Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45 KST. If you leave after 18:30, you may meet the fire there.
+      - Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45 KST. If you leave at the next checked time, 18:40, you may meet the fire there.
       - Follow official guidance on where to go and which roads to use.
       - If you have no car or cannot move on your own, tell the village head or the eup/myeon office now.
       - Times refer to the nearest road point (entry point), 120 m from the village. Time to get ready and board is not included.
@@ -676,7 +714,7 @@ describe('synthetic snapshots (both languages)', () => {
 
       ■ 18:30(오후 6시 30분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
       ■ 모델이 점검한 도착지: 합성초등학교. 18:30에 출발하면 18:55쯤 도착합니다(차로 약 25분, 교통 정체 미반영).
-      ■ 이유: 산불 예측 시나리오 4가지 중 2가지에서 합성로에 18:45쯤 불길이 닿습니다. 18:30보다 늦게 출발하면 그곳에서 불길과 만날 수 있습니다.
+      ■ 이유: 산불 예측 시나리오 4가지 중 2가지에서 합성로에 18:45쯤 불길이 닿습니다. 다음 점검 시각인 18:40에 출발하면 그곳에서 불길과 만날 수 있습니다.
       ■ 실제 대피 장소와 길은 공식 안내를 따르십시오.
       ■ 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
       ■ 시각은 마을에서 120 m 떨어진 가장 가까운 도로 지점(진입 지점) 기준이며, 준비·탑승 시간은 포함되지 않았습니다.

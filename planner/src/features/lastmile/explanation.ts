@@ -11,9 +11,12 @@
  *   flame item), and every number it carries is finite and inside the recorded scenario window;
  * - a flame reason uses only `binding[0]` (the shown route's item) and only when the message's
  *   destination is one of its `destination_ids`;
- * - a deadline set by the one-hour scenario range (`window` / `window_fire_free`) is printed as
- *   such — never as a fire deadline — and only when every destination checked at the deadline is in
- *   that class and proven out of reach;
+ * - `window` with `deadline_cause: time_window` is printed as a time limit — never as a fire
+ *   deadline; `no_flame_avoiding_route` (cause `flames`) says only what the file proves: at the next
+ *   checked time no destination can be reached in time on a road that avoids the flames;
+ * - road labels follow the file's semantics: a nearby named place and the straight-line distance
+ *   to it ("구암리에서 약 800 m 떨어진 도로" / "this village"), never a road name;
+ * - an unknown reason or detail code gives no reason line;
  * - `unresolved` is never turned into a reason; an unresolved or out-of-window next departure gives
  *   no reason either (the planner's own "after the deadline" line is used instead).
  */
@@ -31,10 +34,10 @@ import {
 const STATUSES = ['explained', 'explained_partial', 'not_explainable'] as const;
 const VERDICTS = ['checked_route', 'model_no_route', 'unresolved'] as const;
 const NEXT_VERDICTS = ['model_no_route', 'unresolved', 'window'] as const;
-const REASONS = ['flame_on_route', 'all_exits_blocked', 'dwell_at_destination', 'unresolved_next', 'window', 'no_later_offset', 'other'] as const;
+const REASONS = ['flame_on_route', 'no_flame_avoiding_route', 'all_exits_blocked', 'dwell_at_destination', 'unresolved_next', 'window', 'no_later_offset', 'other'] as const;
 const LABEL_SOURCES: readonly ExplanationLabelSource[] = ['osm_name', 'osm_ref', 'nearest_place', 'unnamed'];
 
-/** Longest road label printed (longer ones make the item unusable rather than being cut). */
+/** Longest road label printed, as composed (longer ones make the item unusable rather than being cut). */
 export const MAX_LABEL_CHARS = 40;
 
 // ---------------------------------------------------------------- file location + loading
@@ -153,7 +156,7 @@ export interface RoadLabel {
 
 export type LmReason =
   | {
-      /** leave_by: the route to the message's destination, shifted to the next departure time, meets flames */
+      /** leave_by: the route to the message's destination, shifted to the next checked time, meets flames */
       kind: 'flame_on_route' | 'dwell_at_destination';
       road: RoadLabel;
       edgeId: string;
@@ -167,17 +170,17 @@ export type LmReason =
     }
   | {
       /**
-       * leave_by: after T even the fastest road, ignoring the fire, cannot finish the trip and stay
-       * before the recorded scenarios end — for every destination checked at T (not a fire deadline)
+       * leave_by (`window`, cause `time_window`): at the next checked time no candidate destination
+       * can be reached in time even without fire — a time limit, not a fire deadline
        */
-      kind: 'window_fire_free';
-      /** end of the recorded scenario range (s after input time) */
-      closeS: number;
+      kind: 'time_window';
     }
   | {
-      /** leave_by: after T no road that avoids the flames reaches the message's destination within the range */
-      kind: 'window_fire_detour';
-      closeS: number;
+      /**
+       * leave_by (`no_flame_avoiding_route`, cause `flames`): at the next checked time no candidate
+       * destination can be reached in time on a road that avoids the flames in the fire scenarios
+       */
+      kind: 'no_flame_avoiding_route';
     }
   | {
       /** model_no_route: every road out of the area reachable without meeting flames is blocked */
@@ -193,9 +196,16 @@ export type LmReason =
       atStart: boolean;
     }
   | {
-      /** model_no_route: from every departure time checked, no road that avoids the flames fits the range */
-      kind: 'no_route_window';
-      closeS: number;
+      /** model_no_route (`all_exits_blocked` / `entry_point_in_flame`): the road entry point is in flames at departure */
+      kind: 'entry_in_flame';
+    }
+  | {
+      /** model_no_route (`no_flame_avoiding_route`): from every departure time checked, no road that avoids the flames fits the range */
+      kind: 'no_route_flames';
+    }
+  | {
+      /** model_no_route (`window`, cause `time_window`): no destination fits the range even without fire */
+      kind: 'no_route_time_window';
     };
 
 /** What the planner itself says about the origin (the explanation must agree with it). */
@@ -221,28 +231,45 @@ function cleanLabel(v: unknown): string | null {
   return s.length ? s : null;
 }
 
-/** Road label in both languages, or null when the item's label is unusable. */
-export function roadLabel(it: Pick<ExplanationItem, 'label_ko' | 'label_en' | 'label_source'>): RoadLabel | null {
+/** "800 m" / "1.1 km": the distance rounded to 100 m (it is a straight line to a place, not along a road). */
+export function approxDistance(m: number): string {
+  const tenths = Math.max(1, Math.round(m / 100));
+  return tenths < 10 ? `${tenths * 100} m` : `${(tenths / 10).toFixed(1)} km`;
+}
+
+/**
+ * Road label in both languages, or null when the item's label is unusable. A nearest_place label
+ * names a road point by a nearby place, never the road: "구암리에서 약 800 m 떨어진 도로" / "a road about
+ * 800 m from Guam-ri", or "이 마을에서 … / … from this village" when the place is the origin itself.
+ */
+export function roadLabel(
+  it: Pick<ExplanationItem, 'label_ko' | 'label_en' | 'label_source'> & Partial<Pick<ExplanationItem, 'place_distance_m' | 'place_is_origin'>>,
+): RoadLabel | null {
   const src = it.label_source;
   if (!LABEL_SOURCES.includes(src)) return null;
   const ko = cleanLabel(it.label_ko);
   const en = cleanLabel(it.label_en);
   if ((ko && ko.length > MAX_LABEL_CHARS) || (en && en.length > MAX_LABEL_CHARS)) return null;
-  if (src === 'unnamed' || (!ko && !en)) return { source: 'unnamed', text: { ko: '이름 없는 도로', en: 'an unnamed road' } };
-  const k = ko ?? en!;
-  const e = en ?? ko!;
-  if (src === 'osm_ref') {
-    return {
-      source: src,
-      text: { ko: /^\d+$/.test(k) ? `${k}번 도로` : k, en: /^\d+$/.test(e) ? `Route ${e}` : e },
-    };
+  let label: RoadLabel;
+  if (src === 'unnamed' || (!ko && !en)) label = { source: 'unnamed', text: { ko: '이름 없는 도로', en: 'an unnamed road' } };
+  else {
+    const k = ko ?? en!;
+    const e = en ?? ko!;
+    if (src === 'osm_ref') label = { source: src, text: { ko: /^\d+$/.test(k) ? `${k}번 도로` : k, en: /^\d+$/.test(e) ? `Route ${e}` : e } };
+    else if (src === 'nearest_place') {
+      const origin = it.place_is_origin === true;
+      const place = origin ? { ko: '이 마을', en: 'this village' } : { ko: k.replace(/\s*(부근|근처|인근)$/, ''), en: e.replace(/^near\s+/i, '') };
+      const dm = it.place_distance_m;
+      const d = typeof dm === 'number' && Number.isFinite(dm) && dm >= 0 ? approxDistance(dm) : null;
+      label = {
+        source: src,
+        text: d ? { ko: `${place.ko}에서 약 ${d} 떨어진 도로`, en: `a road about ${d} from ${place.en}` } : { ko: `${place.ko} 부근 도로`, en: `a road near ${place.en}` },
+        place,
+      };
+    } else label = { source: src, text: { ko: k, en: e } };
   }
-  if (src === 'nearest_place') {
-    const kp = k.replace(/\s*(부근|근처|인근)$/, '');
-    const ep = e.replace(/^near\s+/i, '');
-    return { source: src, text: { ko: `${kp} 부근 도로`, en: `the road near ${ep}` }, place: { ko: kp, en: ep } };
-  }
-  return { source: src, text: { ko: k, en: e } };
+  // the composed label is what a reader sees: it must stay within the tested length too
+  return label.text.ko.length > MAX_LABEL_CHARS || label.text.en.length > MAX_LABEL_CHARS ? null : label;
 }
 
 function finite(v: unknown): v is number {
@@ -293,23 +320,6 @@ function originEntry(v: unknown): ExplanationOrigin | null {
   return v as unknown as ExplanationOrigin;
 }
 
-function windowClose(e: ExplanationOrigin, horizonS: number): number | null {
-  const c = e.window?.close_s;
-  return finite(c) && c > 0 && c <= horizonS ? c : null;
-}
-
-/**
- * Every destination checked at the deadline is in `cls` and proven out of reach at the next time
- * (`destination_classes` lists exactly `checked_at_deadline` destinations).
- */
-function allDestinationsIn(e: ExplanationOrigin, cls: string): boolean {
-  const classes = e.destination_classes;
-  const n = e.checked_at_deadline;
-  if (!isObj(classes) || !Number.isInteger(n) || (n as number) < 1) return false;
-  const values = Object.values(classes);
-  return values.length === n && values.every((c) => c === cls) && e.proven_unreachable_next === n;
-}
-
 /**
  * The reason to print for one origin, or null. `entry` is `file.origins[originId]` (any shape).
  */
@@ -341,21 +351,18 @@ export function selectReason(entry: unknown, ctx: ReasonContext): LmReason | nul
         slackS: finite(item.slack_s) ? item.slack_s : null,
       };
     }
-    if (e.reason_code === 'window' && e.status === 'explained') {
-      const close = windowClose(e, ctx.horizonS);
-      if (close === null) return null;
-      if (e.detail_code === 'window_fire_free' && allDestinationsIn(e, 'window_fire_free')) return { kind: 'window_fire_free', closeS: close };
-      if (e.detail_code === 'window_fire_detour' && e.destination_classes?.[dest] === 'window_fire_detour') return { kind: 'window_fire_detour', closeS: close };
-    }
+    // claims about every candidate destination need a fully proven entry and an established cause
+    if (e.status !== 'explained') return null;
+    if (e.reason_code === 'window' && e.deadline_cause === 'time_window') return { kind: 'time_window' };
+    if (e.reason_code === 'no_flame_avoiding_route' && e.deadline_cause === 'flames') return { kind: 'no_flame_avoiding_route' };
     return null;
   }
   if (ctx.kind === 'no_route') {
     if (e.verdict_summary !== 'model_no_route' || e.status !== 'explained') return null;
-    if (e.reason_code === 'window' && e.detail_code === 'no_flame_avoiding_route_fits_window') {
-      const close = windowClose(e, ctx.horizonS);
-      return close === null ? null : { kind: 'no_route_window', closeS: close };
-    }
+    if (e.reason_code === 'window' && e.deadline_cause === 'time_window') return { kind: 'no_route_time_window' };
+    if (e.reason_code === 'no_flame_avoiding_route' && e.deadline_cause === 'flames') return { kind: 'no_route_flames' };
     if (e.reason_code !== 'all_exits_blocked') return null;
+    if (e.detail_code === 'entry_point_in_flame') return { kind: 'entry_in_flame' };
     // "all n roads" is printed only when every exit item is usable
     if (e.exits.length === 0 || !e.exits.every((it) => usableItem(it, ctx.horizonS, null))) return null;
     const totals = new Set(e.exits.map((it) => it.members_total));

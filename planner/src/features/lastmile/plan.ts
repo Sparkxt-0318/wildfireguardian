@@ -64,11 +64,11 @@ export const ENTRY_SPOKEN_MIN_M = 500;
 /**
  * How the card labels the leave-by time: `last_checked` when T is simply the last departure the
  * model checked (nothing later was requested) or when later departures cannot finish within the
- * recorded range even ignoring the fire (explanation `window_fire_free`) — never a fire deadline;
+ * recorded range even ignoring the fire (explanation `window`, cause `time_window`) — never a fire deadline;
  * `deadline` otherwise ("출발 마감 / Leave by").
  */
 export function bigLabelKind(p: MessagePlan): 'deadline' | 'last_checked' {
-  return p.after === 'horizon' || p.reason?.kind === 'window_fire_free' ? 'last_checked' : 'deadline';
+  return p.after === 'horizon' || p.reason?.kind === 'time_window' ? 'last_checked' : 'deadline';
 }
 
 export function messagePlan(input: LastMileInput, explanation: ExplanationFile | null = null): MessagePlan {
