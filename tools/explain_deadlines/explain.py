@@ -403,6 +403,15 @@ def _explain_no_route(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -
     rec.update(status="explained", reason_code="all_exits_blocked", detail_code="flame_free_area_closed")
 
 
+def _window_limit(ctx: Context, rec: dict) -> None:
+    """Name the limit a window block refers to: the 1-hour scenario window (close = hazard horizon) or a recorded
+    mission's own arrival window (close < horizon)."""
+    w = rec.get("window")
+    if w is not None:
+        w["limit"] = "scenario_window" if w["close_s"] >= ctx.horizon else "arrival_window"
+        w["horizon_s"] = ctx.horizon
+
+
 def _verdict_counts(attempts) -> dict:
     """{"model_no_route": n, "unresolved/<reason_code>": n, ...} (reason codes only for unresolved attempts)."""
     c = collections.Counter(a.verdict if a.verdict != "unresolved" else "unresolved/%s" % (a.reason_code or "UNKNOWN")
@@ -423,5 +432,6 @@ def explain_plan(ctx: Context, plan: OriginPlan) -> tuple:
         _explain_no_route(ctx, plan, rec, ev)
     else:
         _explain_checked(ctx, plan, rec, ev)
+    _window_limit(ctx, rec)
     assert rec["status"] in STATUSES and rec["reason_code"] in REASONS, rec
     return rec, ev

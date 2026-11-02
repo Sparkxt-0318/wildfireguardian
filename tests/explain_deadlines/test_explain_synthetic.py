@@ -77,7 +77,7 @@ def test_window_fire_free(tmp_path):
     assert (rec["status"], rec["reason_code"], rec["detail_code"]) == ("explained", "window", "window_fire_free")
     # the relaxed arrival 1200 + 2500 = 3700 s lies beyond the 3600 s hazard horizon, so none is reported
     assert rec["window"] == {"close_s": 3600, "dwell_s": 120, "fire_free": True, "fastest_end_s": 1200 + 2500 + 120,
-                             "flame_avoiding_arrival_s": None}
+                             "flame_avoiding_arrival_s": None, "limit": "scenario_window", "horizon_s": 3600}
     assert rec["binding"] == []
     assert validate(ctx, rec, ev)["w"] is True
 
