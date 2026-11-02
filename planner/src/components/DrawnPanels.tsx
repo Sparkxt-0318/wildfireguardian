@@ -11,7 +11,8 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { flattenAssumptions, mockAssumptionText } from '../domain/assumptions';
 import { kstDate, kstClock, kstDateTime } from '../domain/clock';
 import { defaultPresetTimes, issuedAtFor, isNested, MAX_ISSUE_OFFSET_H, MAX_MARGIN_MIN, NEAR_ZONE_M, zoneSummary, type RsgTag, type ZoneKey } from '../domain/zones';
-import { CONFIG } from '../config/env';
+import { CONFIG, STATIC_DEMO } from '../config/env';
+import { StaticNote } from './demo/StaticDemo';
 import { useLang, useT } from '../i18n';
 import { cancelBatch, drawnBatchPreview, prepareDrawnBatch, startDrawnBatch } from '../state/controller';
 import { useDrawnFireKey, useRecordedInputTimes, useZoneIssues } from '../state/selectors';
@@ -398,6 +399,7 @@ function BatchCard() {
       <div className="section-title" id="dbatch-title">
         {t('drawn.batch.title')}
       </div>
+      {STATIC_DEMO ? <StaticNote /> : null}
       {!readiness.ok ? (
         <div className="small-note">{readiness.problems.map((p) => t(`drawn.problem.${p}`)).join(' · ')}</div>
       ) : preview ? (

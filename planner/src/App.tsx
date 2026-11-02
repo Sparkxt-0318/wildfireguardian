@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
+import { STATIC_DEMO } from './config/env';
+import { DemoIntro, openIntro } from './components/demo/DemoIntro';
+import { DemoRibbon } from './components/demo/StaticDemo';
 import { MobileNav, useMobilePane } from './components/MobileNav';
 import { AboutPanel } from './features/about/AboutPanel';
 import { ExportDialog } from './features/exports/ExportDialog';
@@ -106,8 +109,9 @@ export function App() {
     void initApp();
   }, []);
   return (
-    <div className="app" data-mobile-pane={pane}>
+    <div className={`app${STATIC_DEMO ? ' with-ribbon' : ''}`} data-mobile-pane={pane}>
       <TopBar />
+      {STATIC_DEMO ? <DemoRibbon onTour={openIntro} /> : null}
       <div className="main">
         <LeftPanel />
         <main className="center">
@@ -119,6 +123,7 @@ export function App() {
       <MobileNav />
       <Footer />
       <Dialogs />
+      {STATIC_DEMO ? <DemoIntro /> : null}
     </div>
   );
 }

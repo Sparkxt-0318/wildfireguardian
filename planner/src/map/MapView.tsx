@@ -8,7 +8,7 @@ import { hoverEdgeClass } from './hoverEdge';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import maplibregl, { type GeoJSONSource, type Map as MLMap, type MapLayerMouseEvent } from 'maplibre-gl';
 import type { Feature, FeatureCollection, LineString, Point } from 'geojson';
-import { CONFIG } from '../config/env';
+import { CONFIG, STATIC_DEMO } from '../config/env';
 import { positionAt } from '../domain/plan';
 import type { Place, RouteDetail } from '../domain/types';
 import { translate, useLang, useLangStore, useT } from '../i18n';
@@ -568,7 +568,7 @@ export function MapView() {
     scenarioId === DRAWN_SCENARIO
       ? null
       : forecast.state === 'unavailable'
-        ? t('map.forecastUnavailable')
+        ? t(STATIC_DEMO ? 'demo.static.forecast' : 'map.forecastUnavailable')
         : forecast.state === 'error'
           ? t('map.forecastError', { code: errorText(forecast.error, t) })
           : null;

@@ -1,4 +1,5 @@
-import { CONFIG } from '../config/env';
+import { CONFIG, STATIC_DEMO } from '../config/env';
+import { StaticNote } from './demo/StaticDemo';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
@@ -521,7 +522,7 @@ function Recompute({ place, drawn = false }: { place: Place; drawn?: boolean }) 
       {!place.checkable ? (
         <span className="small-note">{t('recompute.notCheckable')}</span>
       ) : !apiOnline ? (
-        <span className="small-note">{t('recompute.offline')}</span>
+        STATIC_DEMO ? <StaticNote compact /> : <span className="small-note">{t('recompute.offline')}</span>
       ) : drawn && !ready.ok ? (
         <span className="small-note">{ready.problems.map((p) => t(`drawn.problem.${p}`)).join(' · ')}</span>
       ) : drawn && !running ? (
