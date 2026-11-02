@@ -2,8 +2,8 @@
 /**
  * Checks a static-demo build (`npm run build:static` → planner/dist) before it is published:
  *
- *   - every file < 100 MB and the whole folder < 1 GB (GitHub Pages limits; prints the totals and
- *     the largest files);
+ *   - every file < 100 MiB and the whole folder < 1 GiB (GitHub Pages limits; prints the totals and
+ *     the largest files, in MiB = 1024² bytes);
  *   - index.html carries the static-demo Content-Security-Policy (connect-src 'self') and loads
  *     its scripts from the configured base path;
  *   - dist/cache/INDEX.json lists every cache file, and each shipped file has exactly the bytes
@@ -51,11 +51,11 @@ const files = walk(dist);
 const total = files.reduce((n, f) => n + f.bytes, 0);
 const largest = [...files].sort((a, b) => b.bytes - a.bytes).slice(0, 12);
 for (const f of files) {
-  if (f.bytes >= FILE_LIMIT) fail(`${f.path} is ${(f.bytes / MB).toFixed(1)} MB (limit 100 MB)`);
+  if (f.bytes >= FILE_LIMIT) fail(`${f.path} is ${(f.bytes / MB).toFixed(1)} MiB (limit 100 MiB)`);
   if (f.path.split('/').some((part) => part.startsWith('.'))) fail(`hidden file shipped: ${f.path}`);
   if (/(^|\/)\.?env(\.|$)/.test(f.path)) fail(`env file shipped: ${f.path}`);
 }
-if (total >= TOTAL_LIMIT) fail(`dist is ${(total / MB).toFixed(1)} MB (limit 1 GB)`);
+if (total >= TOTAL_LIMIT) fail(`dist is ${(total / MB).toFixed(1)} MiB (limit 1 GiB)`);
 
 const byTop = {};
 for (const f of files) {
@@ -121,9 +121,9 @@ const report = {
   failures,
 };
 
-console.log(`[check] ${files.length} files, ${report.total_mb} MB in ${dist}`);
-console.log(`[check] by folder (MB): ${JSON.stringify(report.by_folder_mb)}`);
-console.log(`[check] largest: ${report.largest.slice(0, 6).map((f) => `${f.path} ${f.mb} MB`).join(' · ')}`);
+console.log(`[check] ${files.length} files, ${report.total_mb} MiB (${total} bytes) in ${dist}`);
+console.log(`[check] by folder (MiB): ${JSON.stringify(report.by_folder_mb)}`);
+console.log(`[check] largest: ${report.largest.slice(0, 6).map((f) => `${f.path} ${f.mb} MiB`).join(' · ')}`);
 console.log(`[check] cache: ${cacheReport.length} files verified against INDEX.json sha256, ${report.cache_checks_total} recorded checks`);
 console.log(`[check] CSP: ${csp ?? '—'}`);
 if (jsonOut) writeFileSync(jsonOut, JSON.stringify(report, null, 2));
@@ -131,4 +131,4 @@ if (failures.length) {
   for (const f of failures) console.error(`[check] FAIL ${f}`);
   process.exit(1);
 }
-console.log('[check] OK — every file < 100 MB, total < 1 GB, CSP present, cache identical to INDEX.json');
+console.log('[check] OK — every file < 100 MiB, total < 1 GiB, CSP present, cache identical to INDEX.json');

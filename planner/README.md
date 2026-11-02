@@ -163,14 +163,16 @@ for a custom domain) and deploys `planner/dist` with `actions/upload-pages-artif
 `actions/deploy-pages`.
 
 **Any other static host (e.g. Vercel, Netlify, S3).** Build with the base the host serves the app
-under (`VITE_BASE_PATH=/` for a site root, or `./` for any folder) and upload the contents of
+under (`VITE_BASE_PATH=/` for a site root, or `./` for any folder — the page URL must then end in `/`
+or `index.html`) and upload the contents of
 `planner/dist/` as they are — no server, rewrites or environment variables are needed (Vercel:
 framework "Other", output directory `planner/dist`, or `vercel deploy planner/dist`). The host must
 answer HTTP range requests for `*.pmtiles` (GitHub Pages does; check other hosts); without them the
 basemap tiles do not load — the places, routes and results still do.
 
-**Sizes** (`npm run build:static` prints them): about 183 MB in about 1,070 files — `cache/` 147 MB
-(six JSON files of 22–26 MB), `basemap/` 30 MB, `assets/` 5 MB; every file < 100 MB, total ≪ 1 GB.
+**Sizes** (`npm run build:static` prints them, in MiB): 1,073 files, 183.2 MiB (192.1 MB) — `cache/`
+147.1 MiB (six JSON files of 22.2–25.7 MiB), `basemap/` 30.4 MiB, `assets/` 5.1 MiB, `data/` 0.6 MiB;
+every file < 100 MiB, total ≪ 1 GiB.
 `planner/research-map/` and `planner/mock_api/` are not part of the build.
 
 **Smoke test.** `npm run smoke:static` starts `vite preview` of `dist/` under `/wildfireguardian/` and
