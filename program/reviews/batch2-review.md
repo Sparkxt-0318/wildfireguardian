@@ -21,6 +21,9 @@ this file is the record.
     plan (395), as in 6 of the 10 committed L runs.
 - **Bound validity.** 80 bound rows (E2, B3, E4) against 480 plan rows, 3,900 comparisons: **0 violations**.
 
+After the fixes, the full evacplan suite at `fcb7fc58` (merged into `next/integration` as `00155c5a`): **438 passed**
+under the lock (12.7 min). On the merge, the program and bench-guard tests passed (7).
+
 ## Review findings (0 major, 9 minor, 6 notes, plus one note from the reproduction; no result or decision changes)
 
 | id | finding | status |

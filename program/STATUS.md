@@ -5,15 +5,10 @@
 
 ## Now
 
-- **Phase:** **Phase 1, Track C batch 2 (E1b, E2)**, approved 2026-11-02 (`DECISIONS.md`). New VM session
-  (`vm boot 4169abd4`): batch 2's rows form a new table; the recorded 1750/1751 keep its bar at 1751.
-  - E1b: done, **KILL** (worst of 5 = 1444 < 1751; B2 1749 in every seed of the same holds). Merged into
-    `evacplan/phase0` (`11670593`).
-  - E2: done, **ITERATE** (worst 1585 < 1751; proven bounds 156 and 143 on the tight M instances, the tightest so
-    far; time to certified plan 44.8 s vs B2's 66.0 s). Merged (`a67b8ea2`), leaderboard `5d0991ca`.
-  - Review part 2 (E2, merge, part-1 fixes) and the clean-checkout reproduction: running.
-  - Review part 1 (harness, E1b): 0 major, 6 minor, 4 notes; fixed in `42e0d2a5` (pushed, 55 tests pass).
-  - Then a proportional review (one reproduction agent, one reviewer) and checkpoint 4 (one page, at most 5 questions).
+- **Phase:** **Checkpoint 4: stopped, waiting for Siyeong** (`program/reviews/checkpoint-4.md`, 5 ranked questions).
+  Track C batch 2 is closed: E1b **KILL** (worst 1444), E2 **ITERATE** (worst 1585; bounds 156/143). Proportional
+  review: `program/reviews/batch2-review.md` (reproduction clean; 0 major, 9 minor, 6 notes, all fixed or answered).
+  `evacplan/phase0` `fcb7fc58` (438 tests pass) merged into `next/integration` as `00155c5a`.
 - **Updated:** 2026-11-02 (UTC).
 
 ## Host and data (important)
@@ -51,12 +46,8 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Agents
 
-| Agent | Track | Doing | Worktree / branch |
-|---|---|---|---|
-| E1b incremental certification | C | done: KILL (worst 1444 < 1751); oracle profile on L in its README; merged | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
-| E2 column generation | C | done: ITERATE (worst 1585; bounds 156/143); merged | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
-| Reviewer, reproduction | C | review part 2 (E2); clean-checkout suite and headline reruns at `5d0991ca` | `../wfg-review-b2`, `../wfg-repro-b2` |
-| Orchestrator | C | review part-1 fixes on `evacplan/phase0` (`42e0d2a5`); next: merge E2, review part 2, reproduction | `../wfg-evacplan` |
+None running. Batch-2 worktrees: `../wfg-exp-E1b`, `../wfg-exp-E2` (branches pushed),
+`../wfg-review-b2` (detached, read-only) and `../wfg-repro-b2` (detached, clean), all removable.
 
 Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees were removed (branches stay on origin).
 
@@ -69,10 +60,9 @@ Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees we
 
 ## Next step
 
-1. Wait for E2 (pre-registration, tests, smoke, two interleaved holds: S+M, then L; B2 seeds 5-9).
-2. Merge E2 into `evacplan/phase0`; regenerate the leaderboard and run the suite under the lock; merge into
-   `next/integration`; push.
-3. Proportional review, fixes, push; checkpoint 4 (`program/reviews/checkpoint-4.md`, one page); stop.
+1. Wait for Siyeong's answers to checkpoint 4. Proposed batch 3: E5 (E1's ALNS with no in-loop oracle), E2 as
+   certificate (bound only on M), and a bit-for-bit oracle speed-up (hazard_contract 1.0.2, no interface change).
+2. Then prepare a one-command rerun kit for the Mac (timed reruns, Track A real data).
 
 ## Log
 
@@ -216,3 +206,9 @@ Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees we
   instances optimal in 4-23 s, with 0 bound violations over 370 plan rows. Time to certified plan is 44.8 s vs 66.0 s;
   at the 30-min default margin it delivers 1350 vs 1284. Merged into `evacplan/phase0` (`a67b8ea2`, B2's rows unioned:
   seeds 0-9). Review part 1 was fixed in `42e0d2a5`.
+- 2026-11-02 Batch 2 closed.
+  - Review part 2 (E2: 0 major, 3 minor, 3 notes) fixed in `601b6ec9` and `a2794d07`.
+  - Clean-checkout reproduction at `5d0991ca`: 433 + 76 tests pass, leaderboard byte-identical, E2 and E1b
+    headlines reproduce, 0 bound violations.
+  - Final suite at `fcb7fc58`: 438 passed. Merged into `next/integration` as `00155c5a`.
+  - Checkpoint 4 written; stopped.
