@@ -1024,3 +1024,23 @@ def test_interleaved_hold_alternates_b2_and_the_challenger_with_a_speed_check(mi
     assert "Interleaved holds" in text and text.count("| speed check (s) |") == 2
     with pytest.raises(ValueError):
         run("noop", "dev", 5, seeds=[0], interleave_with="noop", lock="no", log=lambda s: None, **p)
+
+
+def test_partner_seeds_are_shared_by_holds_on_disjoint_instances_and_never_replaced(mini):
+    """Holds on disjoint instances (S+M, then L in batch 2) give the partner the same seeds, so its per-seed totals
+    cover every instance; a later hold on the same instances continues after them; an explicit offset that would
+    replace a partner row is refused (program/DECISIONS.md 2026-11-02)."""
+    root, split = mini
+    p = paths(root, "offsets")
+    a, b = split.ids("dev")
+    kw = dict(p, leaderboard_path=None, interleave_with="b0_independent", lock="no", log=lambda s: None)
+    seeds_of = lambda rows: sorted((r["instance"], int(r["seed"])) for r in rows if r["method"] == "b0_independent")
+    assert seeds_of(run("noop", "dev", 5, seeds=[0, 1], instances=[a], **kw)) == [(a, 0), (a, 1)]
+    assert seeds_of(run("noop", "dev", 5, seeds=[0, 1], instances=[b], **kw)) == [(b, 0), (b, 1)]
+    assert seeds_of(run("noop", "dev", 5, seeds=[0], **kw)) == sorted([(a, 2), (b, 2)])
+    with pytest.raises(ValueError, match="replaces none"):
+        run("noop", "dev", 5, seeds=[0, 1], instances=[b], partner_seed_offset=1, **kw)
+    assert seeds_of(run("noop", "dev", 5, seeds=[0], instances=[b], partner_seed_offset=5, **kw)) == [(b, 5)]
+    b0 = rows_of(p["results_dir"] / "b0_independent.csv")[1]
+    assert sorted((r["instance"], int(r["seed"])) for r in b0) == sorted([
+        (a, 0), (a, 1), (a, 2), (b, 0), (b, 1), (b, 2), (b, 5)])

@@ -594,8 +594,10 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
     ``interleave_with`` (in practice B2): a second method run in the same lock hold, alternating with ``method``
     (ABAB). For every instance and seed s: a speed probe (:func:`speed_probe`, written to
     ``results/speed/speed_check.csv``), then the partner with seed s + offset, then ``method`` with seed s. The
-    partner's seeds continue after its rows of this set, budget and host (``partner_seed_offset`` overrides), so a
-    hold adds repeats and replaces none. Rows of both methods carry ``hold``, ``pair`` and ``speed_probe_s`` in
+    partner's seeds continue after its rows on this hold's instances for this set, budget and host, so holds on
+    disjoint instances (S+M, then L) share the partner's seeds and a repeated hold adds repeats and replaces none.
+    ``partner_seed_offset`` overrides the offset (e.g. to keep two branches' partner rows apart) but is refused if it
+    would replace an existing partner row. Rows of both methods carry ``hold``, ``pair`` and ``speed_probe_s`` in
     their config."""
     method = canonical(method)
     if not (isinstance(budget_s, (int, float)) and math.isfinite(budget_s) and budget_s > 0):
@@ -624,12 +626,17 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
     commit, host, versions = git_commit(), host_string(), package_versions()
     offset, hold = 0, None
     if partner is not None:
-        if partner_seed_offset is None:
-            prev = [int(r["seed"]) for r in read_rows(Path(results_dir) / f"{partner}.csv")
-                    if table_key(r) == (set_name, float(budget_s), host)]
-            offset = max(prev) + 1 if prev else 0
+        ids = {e.id for e in entries}
+        prev = {(r["instance"], int(r["seed"])) for r in read_rows(Path(results_dir) / f"{partner}.csv")
+                if table_key(r) == (set_name, float(budget_s), host) and r["instance"] in ids}
+        if partner_seed_offset is None:                 # after the partner's seeds on this hold's instances
+            offset = max((s for _, s in prev), default=-1) + 1
         else:
             offset = int(partner_seed_offset)
+            clash = sorted(k for k in ((e.id, s + offset) for e in entries for s in seeds) if k in prev)
+            if offset < 0 or clash:
+                raise ValueError(f"partner_seed_offset {offset} would replace {len(clash)} existing {partner} "
+                                 f"row(s), e.g. {clash[:1]}; a hold adds repeats and replaces none")
         hold = f"{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}-{method}-x-{partner}-o{offset}"
     log(f"[evacplan] {method} on {set_name} ({len(entries)} instances x {len(seeds)} seeds) at {budget_s:g} s; "
         f"commit {commit}; host {host}")
