@@ -25,9 +25,10 @@ export const DEMO_STRINGS = {
     'demo.static.title': '정적 데모에서는 새로 계산하지 않습니다',
     'demo.static.body': '이 공개 데모는 미리 계산해 둔 결과만 보여 줍니다. 다시 계산하기, 비교 경로 계산, 확산 구역 점검에는 로컬에서 실행하는 Route-Check API가 필요합니다.',
     'demo.static.link': '로컬 실행 방법 (README)',
-    'demo.static.forecast': '예측 격자 레이어는 Route-Check API가 제공하므로 정적 데모에는 없습니다',
+    'demo.static.forecast': '이 시나리오의 예측 격자 파일이 정적 데모에 없습니다',
     'demo.static.noResults': '이 정적 데모에는 이 화재 입력의 사전 계산 결과가 없습니다',
     'error.STATIC_DEMO': '정적 데모: Route-Check API 없음 (요청을 보내지 않음)',
+    'error.FORECAST_MISMATCH': '예측 격자 파일이 이 시나리오와 맞지 않아 표시하지 않습니다',
 
     'demo.intro.title': 'WildfireGuardian 공개 데모',
     // ≤ 80 words together with the title and the three verdict chips (see tests/planner/staticDemo.test.ts)
@@ -68,9 +69,10 @@ export const DEMO_STRINGS = {
     'demo.static.title': 'Nothing is computed in the static demo',
     'demo.static.body': 'This public demo shows precomputed results only. Recomputing, comparison routes and checks of drawn spread zones need the Route-Check API running locally.',
     'demo.static.link': 'How to run it locally (README)',
-    'demo.static.forecast': 'The forecast-cell layer comes from the Route-Check API, so it is not part of the static demo',
+    'demo.static.forecast': 'No forecast-cell file for this scenario in the static demo',
     'demo.static.noResults': 'This static demo has no precomputed results for this fire input',
     'error.STATIC_DEMO': 'Static demo: no Route-Check API (nothing was sent)',
+    'error.FORECAST_MISMATCH': 'The forecast file does not match this scenario, so it is not shown',
 
     'demo.intro.title': 'WildfireGuardian public demo',
     // ≤ 80 words together with the title and the three verdict chips (see tests/planner/staticDemo.test.ts)

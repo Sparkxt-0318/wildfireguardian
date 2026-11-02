@@ -9,9 +9,13 @@
  *   temporary_housing.geojson);
  * - every scenario of the cache loads; the verdicts on screen are exactly the recorded verdicts of
  *   planner/cache/INDEX.json; every route detail and travel-time-only comparison is served from the
- *   cache; live computation (recompute, batches, drawn-zone checks, forecast cells) sends nothing;
+ *   cache; the forecast cells come from the saved API responses in public/data/forecast (refused
+ *   when they belong to another scenario); live computation (recompute, batches, drawn-zone checks)
+ *   sends nothing;
+ * - the saved forecast files match their INDEX.json and the cached route checks' packet;
  * - the same-origin guard, base-path helpers and demo texts (intro ≤ 80 words, no e-mail address).
  */
+import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -58,6 +62,7 @@ type Mods = {
   store: typeof import('../../planner/src/state/store');
   selectors: typeof import('../../planner/src/state/selectors');
   labels: typeof import('../../planner/src/domain/labels');
+  i18n: typeof import('../../planner/src/i18n');
 };
 let m: Mods;
 const fetchStub = vi.fn(serveCommittedFile);
@@ -67,6 +72,7 @@ beforeAll(async () => {
   vi.stubEnv('BASE_URL', BASE);
   vi.stubGlobal('fetch', fetchStub);
   vi.resetModules();
+  await import('../../planner/src/components/demo/strings'); // main.tsx registers the demo strings in the app
   m = {
     env: await import('../../planner/src/config/env'),
     paths: await import('../../planner/src/config/paths'),
@@ -75,6 +81,7 @@ beforeAll(async () => {
     store: await import('../../planner/src/state/store'),
     selectors: await import('../../planner/src/state/selectors'),
     labels: await import('../../planner/src/domain/labels'),
+    i18n: await import('../../planner/src/i18n'),
   };
 });
 
@@ -92,6 +99,9 @@ interface IndexEntry {
   verdicts: Record<string, number>;
 }
 const INDEX: IndexEntry[] = JSON.parse(readFileSync(join(PLANNER, 'cache', 'INDEX.json'), 'utf8'));
+const FORECAST_DIR = join(PLANNER, 'public', 'data', 'forecast');
+/** data/forecast/<region>__<YYYYMMDDTHHMMSSZ>.json of a cache entry */
+const forecastName = (e: { region_id: string; input_time: string }) => `${e.region_id}__${e.input_time.replace(/[-:]/g, '')}.json`;
 
 function forbidden(url: string): boolean {
   return /127\.0\.0\.1|localhost|\/api\/|^[a-z]+:\/\/|^\/\//i.test(url);
@@ -171,8 +181,14 @@ describe('static data flow against the committed cache', () => {
         expect(s.cache?.meta.mock).toBe(false);
         expect(s.cache?.meta.testData).toBe(false);
         expect(selectors.isMockActive(s)).toBe(false);
-        // the forecast layer needs the API: unavailable, nothing requested
-        expect(s.forecast.state).toBe('unavailable');
+        // the forecast cells: the saved API response of this scenario (data/forecast), never MOCK
+        await vi.waitFor(() => expect(store.getState().forecast.state).toBe('ready'));
+        s = store.getState();
+        const saved = JSON.parse(readFileSync(join(FORECAST_DIR, forecastName(e)), 'utf8')) as { features: unknown[] };
+        expect(s.forecast.key).toBe(`${region}|${e.input_time}`);
+        expect(s.forecast.data?.cells.features.length, e.path).toBe(saved.features.length);
+        expect(s.forecast.data?.mock).toBe(false);
+        expect(selectors.isMockActive(s)).toBe(false);
 
         // every recorded route check is served from the cache
         const doc = JSON.parse(readFileSync(join(PLANNER, 'cache', ...e.path.split('/')), 'utf8')) as { route_checks: Record<string, unknown> };
@@ -225,7 +241,7 @@ describe('static data flow against the committed cache', () => {
     controller.prepareBatch();
     await controller.startBatch();
     await controller.ensureTravelOnly(anyOrigin.id, true);
-    await controller.loadForecast();
+    await controller.loadForecast(); // already loaded for the scenario on screen: no new request
     expect(store.getState().recompute).toBeNull();
     expect(store.getState().batch.state).toBe('idle');
     expect(fetchStub.mock.calls.length).toBe(calls);
@@ -260,6 +276,7 @@ describe('static data flow against the committed cache', () => {
       'data/regions/index.json',
       'cache/INDEX.json',
       ...INDEX.map((e) => `cache/${e.path}`),
+      ...INDEX.map((e) => `data/forecast/${forecastName(e)}`),
       ...cachedRegions.flatMap((r) => [`data/regions/${r}/places.geojson`, `data/regions/${r}/temporary_housing.geojson`]),
     ]);
     const drawnRegion = store.getState().regionId!;
@@ -268,6 +285,85 @@ describe('static data flow against the committed cache', () => {
     // anything else can only be another static file under data/ (e.g. generated public/data/** files)
     expect([...paths].filter((p) => !expected.has(p) && !p.startsWith('data/'))).toEqual([]);
   }, 120_000);
+
+  it('refuses a forecast file of another scenario, and says so when a file is missing', async () => {
+    const { controller, store } = m;
+    const e = INDEX[0]!;
+    const other = INDEX.find((x) => x.region_id === e.region_id && x.input_time !== e.input_time)!;
+    await controller.selectRegion(e.region_id);
+    await controller.selectScenario(other.scenario_set_id);
+    await vi.waitFor(() => expect(store.getState().forecast.state).toBe('ready'));
+    const swap = (to: string | null) =>
+      fetchStub.mockImplementation((input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+        if (!url.endsWith(`data/forecast/${forecastName(e)}`)) return serveCommittedFile(input);
+        return serveCommittedFile(to === null ? url.replace('.json', '.missing.json') : url.replace(forecastName(e), to));
+      });
+    try {
+      swap(forecastName(other)); // the other input time's cells under this scenario's name
+      await controller.selectScenario(e.scenario_set_id);
+      await vi.waitFor(() => expect(store.getState().forecast.state).toBe('error'));
+      expect(store.getState().forecast.error?.code).toBe('FORECAST_MISMATCH');
+      expect(store.getState().forecast.data).toBeNull();
+      await controller.selectScenario(other.scenario_set_id);
+      await vi.waitFor(() => expect(store.getState().forecast.state).toBe('ready'));
+      swap(null);
+      await controller.selectScenario(e.scenario_set_id);
+      await vi.waitFor(() => expect(store.getState().forecast.state).toBe('unavailable'));
+      expect(m.i18n.translate('en', 'demo.static.forecast')).toBe('No forecast-cell file for this scenario in the static demo');
+    } finally {
+      fetchStub.mockImplementation(serveCommittedFile);
+    }
+  }, 60_000);
+});
+
+describe('saved forecast cells (planner/public/data/forecast)', () => {
+  type FcFile = { region_id: string; input_time: string; scenario_set_id: string; path: string; bytes: number; sha256: string; cells: number; matches_cached_checks: Record<string, unknown> };
+  const idx = JSON.parse(readFileSync(join(FORECAST_DIR, 'INDEX.json'), 'utf8')) as {
+    schema: string;
+    request: string;
+    api: { git_dirty: boolean; api_version: string };
+    code: { dirty: boolean; same_files_as_booth_cache_api_commit: Record<string, boolean> };
+    files: FcFile[];
+  };
+  it('one file per cached scenario, unchanged since it was saved from the real API (not the MOCK server)', () => {
+    expect(idx.schema).toBe('wfg.planner.forecast-index/1');
+    expect(idx.request).toBe('GET /v1/regions/{region}/forecast?input_time={input_time}&only_nonzero=true');
+    expect(idx.api.git_dirty).toBe(false);
+    expect(idx.code.dirty).toBe(false);
+    // the code that served them is the code of the API that computed the booth cache
+    expect(Object.keys(idx.code.same_files_as_booth_cache_api_commit).length).toBeGreaterThan(0);
+    expect(Object.values(idx.code.same_files_as_booth_cache_api_commit).every(Boolean)).toBe(true);
+    expect(idx.files.length).toBe(INDEX.length);
+    expect(readdirSync(FORECAST_DIR).sort()).toEqual(['INDEX.json', ...INDEX.map(forecastName)].sort());
+    for (const e of INDEX) {
+      const f = idx.files.find((x) => x.region_id === e.region_id && x.input_time === e.input_time)!;
+      expect(f, e.path).toBeDefined();
+      expect(f.path).toBe(forecastName(e));
+      expect(f.scenario_set_id).toBe(e.scenario_set_id);
+      const bytes = readFileSync(join(FORECAST_DIR, f.path));
+      expect(bytes.length).toBe(f.bytes);
+      expect(createHash('sha256').update(bytes).digest('hex')).toBe(f.sha256);
+      for (const k of ['region', 'input_time', 'scenario_set_id', 'checkpoint', 'graph_id', 'packet_hashes', 'not_mock']) expect(f.matches_cached_checks[k], `${f.path} ${k}`).toBe(true);
+      const fc = JSON.parse(bytes.toString('utf8')) as { region: string; input_time: string; features: unknown[]; provenance: { scenario_set_id: string; mock?: boolean; input_hashes: Record<string, string> } };
+      expect([fc.region, fc.input_time, fc.provenance.scenario_set_id]).toEqual([e.region_id, e.input_time, e.scenario_set_id]);
+      expect(fc.provenance.mock).not.toBe(true);
+      expect(fc.features.length).toBe(f.cells);
+    }
+  });
+  it('the forecast packet is the packet the cached route checks of that scenario used', () => {
+    const KEYS = ['packet/constructed_arrays.npz', 'packet/NATIVE_METADATA.json'];
+    for (const e of INDEX) {
+      const fc = JSON.parse(readFileSync(join(FORECAST_DIR, forecastName(e)), 'utf8')) as { provenance: { input_hashes: Record<string, string>; checkpoint: string } };
+      const doc = JSON.parse(readFileSync(join(PLANNER, 'cache', ...e.path.split('/')), 'utf8')) as {
+        route_checks: Record<string, { provenance?: { input_hashes?: Record<string, string>; checkpoint?: string }; result?: { provenance?: { input_hashes?: Record<string, string>; checkpoint?: string } } }>;
+      };
+      const provs = Object.values(doc.route_checks).map((j) => j.result?.provenance ?? j.provenance ?? {});
+      expect(provs.length).toBe(e.checks);
+      for (const k of KEYS) expect(new Set(provs.map((p) => p.input_hashes?.[k])), `${e.path} ${k}`).toEqual(new Set([fc.provenance.input_hashes[k]]));
+      expect(new Set(provs.map((p) => p.checkpoint))).toEqual(new Set([fc.provenance.checkpoint]));
+    }
+  }, 60_000);
 });
 
 describe('same-origin guard', async () => {

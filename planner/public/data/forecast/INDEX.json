@@ -1,0 +1,214 @@
+{
+ "schema": "wfg.planner.forecast-index/1",
+ "description": "Recorded c651 forecast cells (next-hour new-burn probability, validity, burning at the input time) of every cached scenario, saved unchanged from the Route-Check API for the static demo. A data read of recorded files: no forecast or route was computed. Values do not depend on the host; host and generated_at in each file's provenance say where and when it was saved.",
+ "generator": "planner/scripts/save_forecasts.py",
+ "generated_at": "2026-11-02T16:55:09+00:00",
+ "request": "GET /v1/regions/{region}/forecast?input_time={input_time}&only_nonzero=true",
+ "api": {
+  "api_version": "1.8.0",
+  "package": "wfg_latest",
+  "package_version": "1.0.0",
+  "kit": "v3",
+  "kit_candidate_id": "WFG-latest-completion-kit-20261015-v3",
+  "checkpoint": "c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843",
+  "git_commit": "729f714d230d02274970125680b08af7b4c64ce1",
+  "git_dirty": false,
+  "host": {
+   "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+   "machine": "x86_64",
+   "python": "3.12.3",
+   "cpu_count": 2
+  }
+ },
+ "code": {
+  "commit": "729f714d230d02274970125680b08af7b4c64ce1",
+  "dirty": false,
+  "files": {
+   "api/__init__.py": "ceb79272be30f99ce7b04924079f84d47ce3243c",
+   "api/app.py": "a425fede0bbae5349f0b04480d4dda3cc656f3f3",
+   "api/config.py": "2a24b30b0fba967f49e5beb92de4682307f6f41c",
+   "api/forecast.py": "99653a891da91e0d0ddfb4d8ce95c15e31346f77",
+   "api/provenance.py": "77144e905400588e0a08cc17ff43bda7a52e0541",
+   "api/regions.py": "a28c2b666b76016097b0bb60d3555e10726501fc",
+   "integration/src/wfg_latest/packets.py": "7863ed66890589d71fccf471077da4b80040c46b"
+  },
+  "same_files_as_booth_cache_api_commit": {
+   "f8765a68cf4afc6231123e3de5fd207b0c6c99cf": true
+  }
+ },
+ "inputs": {
+  "archive": "WFG-evaluated-routing-inputs-20261015.zip (release research-final-20261015)",
+  "archive_sha256": "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202",
+  "fetched_with": "tools/fetch_routing_inputs.py (archive and per-file SHA-256 verified)"
+ },
+ "files": [
+  {
+   "region_id": "uiseong_andong_2025",
+   "input_time": "2025-03-23T01:00:00Z",
+   "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+   "path": "uiseong_andong_2025__20250323T010000Z.json",
+   "request": "GET /v1/regions/uiseong_andong_2025/forecast?input_time=2025-03-23T01%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 158068,
+   "sha256": "30c4926256357656c1d07928e22f428a2f76debe813d817e1f8c40ce90979e83",
+   "cells": 364,
+   "input_hashes": {
+    "forecast_export": "ac1cb7d5eae8ddbfa3fb1bb2a92da15c13e16c5534c843c5d39e2438702e29ee",
+    "forecast_record": "6d7fcf13955622b3293858654116bf5ba0784795e07ad9fdc064987b451d8494",
+    "packet/constructed_arrays.npz": "e471830a42223cb59ef2ed56da8a948d4387233efe7e51adca2a20f5a6aaea13",
+    "packet/NATIVE_METADATA.json": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c"
+   },
+   "matches_cached_checks": {
+    "cache_file": "uiseong_andong_2025/20250323T010000Z.json",
+    "route_checks": 1523,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  },
+  {
+   "region_id": "uiseong_andong_2025",
+   "input_time": "2025-03-24T09:00:00Z",
+   "scenario_set_id": "ffb1:20250324T090000Z:08721049cc48e045",
+   "path": "uiseong_andong_2025__20250324T090000Z.json",
+   "request": "GET /v1/regions/uiseong_andong_2025/forecast?input_time=2025-03-24T09%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 195301,
+   "sha256": "4326e389032c3568e9258e9af20c5d6c5aa2cd18c41204132a6ffb00b8ee8666",
+   "cells": 450,
+   "input_hashes": {
+    "forecast_export": "db24fd1e72c4c3a3fc14b2ed5f2806e8f45615bea57d0a1bb0237a2765c36a4d",
+    "forecast_record": "d1180235f57f66860e2a904e1a00809cccc9780858b731e0a3e61840ff1ff8b6",
+    "packet/constructed_arrays.npz": "21325e301191d93f2fceab58d391ef828d6ed5e05c7bc77ecc0c64588462363e",
+    "packet/NATIVE_METADATA.json": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d"
+   },
+   "matches_cached_checks": {
+    "cache_file": "uiseong_andong_2025/20250324T090000Z.json",
+    "route_checks": 1518,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  },
+  {
+   "region_id": "uiseong_andong_2025",
+   "input_time": "2025-03-25T17:00:00Z",
+   "scenario_set_id": "ffb1:20250325T170000Z:53e6da7897bf9b5b",
+   "path": "uiseong_andong_2025__20250325T170000Z.json",
+   "request": "GET /v1/regions/uiseong_andong_2025/forecast?input_time=2025-03-25T17%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 413569,
+   "sha256": "2b6a9e2eb1e6bae303db1c9eb796cfca9ec3a01aaa3c432ce9c4c40962e33939",
+   "cells": 977,
+   "input_hashes": {
+    "forecast_export": "5e95e82e79459896fc495a790a64b2fda4509eeb122834ef2aff9bcebc746e9f",
+    "forecast_record": "c625a246f2c4e7d49a81f4a51bfdd6c27cd5ff550fb397681dc2f8a3181eedac",
+    "packet/constructed_arrays.npz": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+    "packet/NATIVE_METADATA.json": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa"
+   },
+   "matches_cached_checks": {
+    "cache_file": "uiseong_andong_2025/20250325T170000Z.json",
+    "route_checks": 1557,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  },
+  {
+   "region_id": "yeongdeok_2025",
+   "input_time": "2025-03-25T19:00:00Z",
+   "scenario_set_id": "ffb1:20250325T190000Z:20cb6955b51ab0c6",
+   "path": "yeongdeok_2025__20250325T190000Z.json",
+   "request": "GET /v1/regions/yeongdeok_2025/forecast?input_time=2025-03-25T19%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 164556,
+   "sha256": "0f2542207d018a606345d9ffc4f2ddca699cc536b90cdc794cc717d9488d37e8",
+   "cells": 389,
+   "input_hashes": {
+    "forecast_export": "f23418aea92fb04076cce97f411e60dfc6042f10e43b871ec2192d0a1933ddc1",
+    "forecast_record": "d4992006670cb67b4313d546948f0d50a6b8b870712f48622258694386e58488",
+    "packet/constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a",
+    "packet/NATIVE_METADATA.json": "3821802805a64bb1172a9152f8aff301caaa8b23fa078e7c7500d2977c98a695"
+   },
+   "matches_cached_checks": {
+    "cache_file": "yeongdeok_2025/20250325T190000Z.json",
+    "route_checks": 1810,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  },
+  {
+   "region_id": "yeongdeok_2025",
+   "input_time": "2025-03-25T23:00:00Z",
+   "scenario_set_id": "ffb1:20250325T230000Z:c1b46f3c00c2036c",
+   "path": "yeongdeok_2025__20250325T230000Z.json",
+   "request": "GET /v1/regions/yeongdeok_2025/forecast?input_time=2025-03-25T23%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 32853,
+   "sha256": "bf79d3c20a61ff05f62971dfdeb3c1dfc1db452e0cfbf51517cc2a0b3caa5def",
+   "cells": 74,
+   "input_hashes": {
+    "forecast_export": "9ac3a8123fda9e09d98d99e676e20d4770027bc64ff91ec81ef0caf5c414c9bd",
+    "forecast_record": "0dd6471f68f89deb495b4e7f10f08453ce6cd95b2f4aec2fb57212661bed0d58",
+    "packet/constructed_arrays.npz": "7dd677f41f1ef8927283c20bddbc1d4f404dc64e81dc5b5d7dc04e630e674af5",
+    "packet/NATIVE_METADATA.json": "7932aec9970c07de0329536c60a25868524204e7d75535852144220fdc3b181b"
+   },
+   "matches_cached_checks": {
+    "cache_file": "yeongdeok_2025/20250325T230000Z.json",
+    "route_checks": 1673,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  },
+  {
+   "region_id": "yeongdeok_2025",
+   "input_time": "2025-03-26T08:00:00Z",
+   "scenario_set_id": "ffb1:20250326T080000Z:d8d21b8e3ced8a48",
+   "path": "yeongdeok_2025__20250326T080000Z.json",
+   "request": "GET /v1/regions/yeongdeok_2025/forecast?input_time=2025-03-26T08%3A00%3A00Z&only_nonzero=true",
+   "content_type": "application/geo+json",
+   "bytes": 6915,
+   "sha256": "4dd6c6b4c9ccb897654935c5722e88b8e4a913b59527f6b0afc84519de26cab2",
+   "cells": 12,
+   "input_hashes": {
+    "forecast_export": "0b10827259d4abd6032dd7741dc55522362ceb33d5d99a0d187685e7d159e61e",
+    "forecast_record": "c0f043b50ad2df2dec89678d67f64af34d449eeacbffe80b4eb4f894013b3a48",
+    "packet/constructed_arrays.npz": "645c363012c1c7237d30da2393dec877ec92bd0d444ee9b7df28a2cab7aa5356",
+    "packet/NATIVE_METADATA.json": "9a2896435d81a8f84eba9e099dec4c8e3c7fdd8eaf8716fe10dd6787c5fb00fc"
+   },
+   "matches_cached_checks": {
+    "cache_file": "yeongdeok_2025/20250326T080000Z.json",
+    "route_checks": 1641,
+    "region": true,
+    "input_time": true,
+    "scenario_set_id": true,
+    "checkpoint": true,
+    "graph_id": true,
+    "packet_hashes": true,
+    "not_mock": true
+   }
+  }
+ ]
+}

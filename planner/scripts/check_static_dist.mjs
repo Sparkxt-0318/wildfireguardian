@@ -8,6 +8,9 @@
  *     its scripts from the configured base path;
  *   - dist/cache/INDEX.json lists every cache file, and each shipped file has exactly the bytes
  *     and SHA-256 that INDEX.json records (the demo replays the committed results unchanged);
+ *   - the forecast cells (dist/data/forecast, saved by scripts/save_forecasts.py): every file has
+ *     the bytes and SHA-256 its INDEX.json records, matched the cached route checks when it was
+ *     saved, and every cached scenario has one;
  *   - no hidden working folders (cache/.state) or .env files are shipped.
  *
  * Usage: node scripts/check_static_dist.mjs [dist] [--base /wildfireguardian/] [--json report.json]
@@ -107,6 +110,38 @@ else {
   }
 }
 
+// forecast cells of the cached scenarios (the static demo's forecast layer)
+const cacheEntries = existsSync(indexPath) ? (JSON.parse(readFileSync(indexPath, 'utf8')) ?? []) : [];
+const compact = (iso) => String(iso).replace(/[-:]/g, '').replace(/\.\d+/, '');
+const forecastReport = [];
+const fcIndexPath = join(dist, 'data', 'forecast', 'INDEX.json');
+if (!existsSync(fcIndexPath)) console.log('[check] no dist/data/forecast/INDEX.json: the forecast layer stays off in the static demo');
+else {
+  const fcIndex = JSON.parse(readFileSync(fcIndexPath, 'utf8'));
+  const fcFiles = Array.isArray(fcIndex.files) ? fcIndex.files : [];
+  for (const f of fcFiles) {
+    const p = join(dist, 'data', 'forecast', ...String(f.path).split('/'));
+    if (!existsSync(p)) {
+      fail(`forecast file listed but missing: ${f.path}`);
+      continue;
+    }
+    const bytes = statSync(p).size;
+    const digest = await sha256(p);
+    if (bytes !== f.bytes) fail(`forecast ${f.path}: ${bytes} bytes, INDEX.json says ${f.bytes}`);
+    if (digest !== f.sha256) fail(`forecast ${f.path}: sha256 ${digest} ≠ INDEX.json ${f.sha256}`);
+    const matched = f.matches_cached_checks ?? {};
+    const flags = ['region', 'input_time', 'scenario_set_id', 'checkpoint', 'graph_id', 'packet_hashes', 'not_mock'];
+    if (!flags.every((k) => matched[k] === true)) fail(`forecast ${f.path}: did not match the cached route checks when saved ${JSON.stringify(matched)}`);
+    if (f.path !== `${f.region_id}__${compact(f.input_time)}.json`) fail(`forecast ${f.path}: name does not match ${f.region_id} ${f.input_time}`);
+    forecastReport.push({ path: f.path, bytes, sha256: digest, cells: f.cells });
+  }
+  for (const e of cacheEntries) {
+    const f = fcFiles.find((x) => x.region_id === e.region_id && x.input_time === e.input_time);
+    if (!f) fail(`no forecast file for the cached scenario ${e.region_id} ${e.input_time}`);
+    else if (f.scenario_set_id !== e.scenario_set_id) fail(`forecast ${f.path}: scenario set ${f.scenario_set_id} ≠ cache ${e.scenario_set_id}`);
+  }
+}
+
 const report = {
   dist,
   files: files.length,
@@ -118,6 +153,7 @@ const report = {
   scripts: scriptSrcs,
   cache: cacheReport,
   cache_checks_total: cacheReport.reduce((n, c) => n + (c.checks ?? 0), 0),
+  forecast: forecastReport,
   failures,
 };
 
@@ -125,10 +161,11 @@ console.log(`[check] ${files.length} files, ${report.total_mb} MiB (${total} byt
 console.log(`[check] by folder (MiB): ${JSON.stringify(report.by_folder_mb)}`);
 console.log(`[check] largest: ${report.largest.slice(0, 6).map((f) => `${f.path} ${f.mb} MiB`).join(' · ')}`);
 console.log(`[check] cache: ${cacheReport.length} files verified against INDEX.json sha256, ${report.cache_checks_total} recorded checks`);
+console.log(`[check] forecast: ${forecastReport.length} files verified against data/forecast/INDEX.json sha256 (${forecastReport.reduce((n, f) => n + (f.cells ?? 0), 0)} cells)`);
 console.log(`[check] CSP: ${csp ?? '—'}`);
 if (jsonOut) writeFileSync(jsonOut, JSON.stringify(report, null, 2));
 if (failures.length) {
   for (const f of failures) console.error(`[check] FAIL ${f}`);
   process.exit(1);
 }
-console.log('[check] OK — every file < 100 MiB, total < 1 GiB, CSP present, cache identical to INDEX.json');
+console.log('[check] OK — every file < 100 MiB, total < 1 GiB, CSP present, cache and forecast files identical to their INDEX.json');

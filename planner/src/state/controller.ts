@@ -41,8 +41,10 @@ import {
   type RecordedContext,
 } from '../api/adapter';
 import { findCacheEntry, loadCacheFile, loadCacheIndex } from '../api/cache';
+import type { WireForecastCollection } from '../api/wire';
 import { CONFIG, STATIC_DEMO } from '../config/env';
-import { parseUtc } from '../domain/clock';
+import { fetchAppJson } from '../config/paths';
+import { compactUtc, parseUtc } from '../domain/clock';
 import {
   coarseToFine,
   countAttempts,
@@ -657,12 +659,40 @@ export function applyDefaultPreset(items: Footprint[] = getState().drawn.footpri
   if (h5 || h8) applyPreset({ h5, h8 });
 }
 
+/**
+ * Static demo: the recorded forecast cells saved unchanged from the Route-Check API
+ * (planner/public/data/forecast/<region>__<input>.json, written by scripts/save_forecasts.py). Shown
+ * only when the file's region, input time and scenario set are those of the scenario on screen; a
+ * missing file leaves the layer unavailable.
+ */
+async function loadStaticForecast(regionId: string, set: { id: string; inputTime: string }, key: string): Promise<void> {
+  setState({ forecast: { state: 'loading', key, data: null, error: null } });
+  try {
+    const fc = await fetchAppJson<WireForecastCollection>(`data/forecast/${encodeURIComponent(regionId)}__${compactUtc(set.inputTime)}.json`);
+    if (getState().forecast.key !== key) return;
+    if (!fc) {
+      setState({ forecast: { state: 'unavailable', key, data: null, error: null } });
+      return;
+    }
+    const same = fc.region === regionId && parseUtc(String(fc.input_time)) === parseUtc(set.inputTime) && fc.provenance?.scenario_set_id === set.id;
+    if (!same) {
+      setState({ forecast: { state: 'error', key, data: null, error: { code: 'FORECAST_MISMATCH', message: `${String(fc.region)} ${String(fc.input_time)} ${String(fc.provenance?.scenario_set_id)}` } } });
+      return;
+    }
+    setState({ forecast: { state: 'ready', key, data: adaptForecast(fc, regionId, set.inputTime), error: null } });
+  } catch (e) {
+    if (getState().forecast.key !== key) return;
+    setState({ forecast: { state: 'error', key, data: null, error: errInfo(e) } });
+  }
+}
+
 export async function loadForecast(): Promise<void> {
   const s = getState();
   const set = currentScenarioSet(s);
   if (!s.regionId || !set) return;
   const key = `${s.regionId}|${set.inputTime}`;
   if (s.forecast.key === key && (s.forecast.state === 'ready' || s.forecast.state === 'loading')) return;
+  if (STATIC_DEMO) return loadStaticForecast(s.regionId, set, key);
   if (s.apiStatus !== 'online') {
     setState({ forecast: { state: 'unavailable', key, data: null, error: null } });
     return;
