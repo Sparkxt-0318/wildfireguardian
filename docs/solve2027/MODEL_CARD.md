@@ -19,7 +19,7 @@ The forecast is WildfireGuardian's only learned component; routing and checking 
 
 ## Inputs
 
-The model reads the current cumulative burned state plus 19 ordered environmental channels. The ablation methods list their families: weather ("temperature and both wind components"), slope, tree cover and biome ("fourteen one-hot indicators") ([methods](../../research/forecast/FORECAST_ABLATION_METHODS.md#controlled-component-removals)). Rate kernels act on currently burned neighbours: "A completely unburned source neighborhood receives structural-zero probability when required environmental context is available" ([forecast/README.md](../../forecast/README.md#quick-example)). External environmental rasters are not bundled ([data and rights](../DATA_AND_RIGHTS.md)).
+The model reads the current cumulative burned state plus 19 ordered environmental channels. The forecast ablation names the input families it removes: weather ("temperature and both wind components"), slope, tree cover and biome ("fourteen one-hot indicators") ([methods](../../research/forecast/FORECAST_ABLATION_METHODS.md#controlled-component-removals)). Rate kernels act on currently burned neighbours: "A completely unburned source neighborhood receives structural-zero probability when required environmental context is available" ([forecast/README.md](../../forecast/README.md#quick-example)). External environmental rasters are not bundled ([data and rights](../DATA_AND_RIGHTS.md)).
 
 ## Training and evaluation data
 
@@ -57,7 +57,7 @@ Each check uses "one scenario set of 4 members". Besides the fire already burnin
 ## Limitations
 
 - Reconstructed labels, few held-out Korean fires and a historically examined partition (above).
-- No spotting beyond the 9×9 context: an unburned neighbourhood gets structural-zero probability.
+- No new burning is predicted outside the 9×9-cell context of the current burned area: an unburned neighbourhood gets structural-zero probability.
 - Radiation and heat: flame-front radiation v2 is under "**Physics HOLD**" ([README](../../README.md#current-research-status)); heat parameters are uncalibrated.
 - The routing horizon is one hour after each recorded input time.
 - General forecast superiority is not established, by this card's ablation or by the later study.

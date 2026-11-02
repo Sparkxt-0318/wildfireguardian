@@ -41,7 +41,7 @@ Sources: [planner README](../../planner/README.md#honesty-rules-the-ui-applies) 
 3. **A leave-by time built on an unresolved departure.**
 4. **A village, shelter, route, fire or number that is not in its inputs.**
 5. **That its scenarios are simulations of the actual fire.** Each check uses "one scenario set of 4 members". Besides the fire already burning at the input time, each member's new ignitions are independent per-cell draws from the forecast's next-hour new-burn probabilities, at uniformly drawn times within the one-hour horizon (`draw_ignitions` in [integration/src/wfg_latest/bridge.py](../../integration/src/wfg_latest/bridge.py)).
-6. **That it replaces official orders or live command.** It is a pre-season planning aid.
+6. **That it can direct a live evacuation.** Every screen's footer says it is a planning aid, not for live evacuation operations.
 
 ## Outside the decision's scope
 
