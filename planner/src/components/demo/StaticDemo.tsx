@@ -12,7 +12,6 @@ import { useMemo, type MouseEvent } from 'react';
 import { CONFIG } from '../../config/env';
 import { useLang, useT } from '../../i18n';
 import { useStore } from '../../state/store';
-import { InfoIcon } from '../Icons';
 import { joinNames, localRunUrl, periodLabel } from './labels';
 import './strings';
 import './demo.css';
@@ -35,6 +34,17 @@ export function useRecordedRegionNames(): string {
     const names = regions.filter((r) => cacheIndex.some((e) => e.regionId === r.id)).map((r) => (lang === 'en' ? r.nameEn : r.nameKo));
     return joinNames(names, lang);
   }, [regions, cacheIndex, lang]);
+}
+
+/** Tour: a signpost (the top bar's About keeps the ⓘ). */
+function TourGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M8 1.25v13.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M8 2.6h4.9L15 4.75 12.9 6.9H8z" fill="currentColor" />
+      <path d="M8 8.1H3.1L1 10.25l2.1 2.15H8z" fill="currentColor" />
+    </svg>
+  );
 }
 
 function FeedbackGlyph() {
@@ -89,7 +99,7 @@ export function DemoRibbon({ onTour }: { onTour: (opener: HTMLElement | null) =>
         title={t('demo.tour')}
         data-testid="demo-tour-open"
       >
-        <InfoIcon size={13} />
+        <TourGlyph />
         <span className="demo-btn-label">{t('demo.tour')}</span>
       </button>
       <FeedbackLink className="demo-ribbon-btn" />
