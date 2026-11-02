@@ -179,3 +179,21 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   - B2's 5 repeats are re-run in one quiet hold, with a `/proc` sampler recording every other process's CPU use;
     the new rows replace those of the 05:03-05:55 hold, which overlapped about 3 min of agents' work outside the lock.
   - Reason: review finding harness D1.
+- **2026-11-02** — Siyeong's checkpoint 3 answers (they override earlier entries where they differ):
+  1. **E1b approved** (E1's second iteration): incremental certification, i.e. oracle results cached per vehicle
+     itinerary and only vehicles whose itinerary changed are checked again. Profile the oracle first and report where
+     the 33-41 s go on L. KILL only if E1b's worst of 5 seeds is still below 1751.
+  2. **Final certification stays outside every method's budget; in-loop oracle calls count.** New secondary metric:
+     time to certified plan = search + final certification.
+  3. **Default margin: 30 min, provisional.** The delivered-vs-margin curve stays; the margin will later be derived
+     from Track A's measured forecast error.
+  4. **Batch 2 = E1b and E2.** E3b and E4b wait until real-data hazards exist.
+  5. **Timed comparisons run B2 interleaved with each challenger (ABAB) in one lock hold, with a speed-check row.**
+     No further work on the VM's speed drift: final timed results will be re-run on the Mac.
+  6. (Q6) The SYNTHETIC vs Korean peak-flux and dose comparison was in checkpoint-3.md §3; restated in chat.
+- **2026-11-02** — **Process, effective now.** Review is proportional: for SYNTHETIC batches one clean-checkout
+  reproduction agent and one reviewer, no verifier layer (the large review only for results shown externally).
+  Checkpoint reports: at most one page and at most 5 ranked questions, each with a recommendation; everything else is
+  the orchestrator's call, logged here. Rule incidents: fix, add a guard test, one line here.
+- **2026-11-02** — The container restarted (new VM session `vm boot 4169abd4`), so batch 2's rows form a new table.
+  The recorded observations (1750, 1751) still raise its bar: dev at 60 s needs a worst of 5 above 1751.
