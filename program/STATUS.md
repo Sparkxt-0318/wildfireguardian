@@ -5,14 +5,13 @@
 
 ## Now
 
-- **Phase:** **Checkpoint 3: stopped, waiting for Siyeong.** Track C batch 1 (E1, E4, E3) is done, independently
-  reviewed (41 agents, 32 discrepancies, each verified) and fixed. Report: `program/reviews/checkpoint-3.md`; review:
-  `program/reviews/batch1-review.md`.
-  - E1: ITERATE, 1 of the 2 approved iterations run (the brief had cut the approved budget; `DECISIONS.md`).
-  - E4: KEEP. E3: KEEP; recommended provisional default margin 30 min (Siyeong decides).
-  - B2 re-run quietly: 1737 [1721-1737]; the bar is 1751. This VM's speed drifts within a session.
-  - Nothing new runs until Siyeong answers.
-- **Updated:** 2026-11-01 (UTC).
+- **Phase:** **Phase 1, Track C batch 2 (E1b, E2)**, approved 2026-11-02 (`DECISIONS.md`). New VM session
+  (`vm boot 4169abd4`): batch 2's rows form a new table; the recorded 1750/1751 keep its bar at 1751.
+  - Harness for batch 2 (orchestrator): time to certified plan, interleaved B2 holds (ABAB) with a speed check, the
+    30-min provisional default margin.
+  - E1b (incremental certification; profile the oracle on L first) and E2 (column generation) in their worktrees.
+  - Then a proportional review (one reproduction agent, one reviewer) and checkpoint 4 (one page, at most 5 questions).
+- **Updated:** 2026-11-02 (UTC).
 
 ## Host and data (important)
 
@@ -49,20 +48,13 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 ## Agents
 
-| Agent | Track | Doing / outcome | Worktree / branch |
+| Agent | Track | Doing | Worktree / branch |
 |---|---|---|---|
-| C-infra (done) | C | harness rules of 2026-11-01 (`03b339e0`) | `../wfg-evacplan` |
-| H0 hazard intensity (done, merged) | C | SYNTHETIC much hotter by its rule (dose_lower), cooler on dose_upper | `evacplan/exp-H0-hazard-intensity` |
-| A-fresh (done, merged) | A | 2025 US truth-source proposal | `../wfg-firecast` |
-| E1 ALNS, untuned (done, merged) | C | ITERATE: 1 of 2 approved iterations (first reported as KILL) | `evacplan/exp-E1-alns` |
-| E3 scenario robustness (done, merged) | C | KEEP | `evacplan/exp-E3-scenario-robustness` |
-| E4 flow bound (done, merged) | C | KEEP | `evacplan/exp-E4-flow-bound` |
-| Review R0 + review workflow (done) | C, A | 32 discrepancies, every one verified | read-only |
-| Doc-fix workflow (done) | C, A | the review's documentation findings, each fix checked by a second agent | `../wfg-evacplan`, `../wfg-firecast` |
-| Orchestrator jobs (done) | C | B2 × 5 quiet re-run, suite, regenerated outputs (`b0bd9b7d`, `262ac6c6`) | `../wfg-evacplan` |
-| Checkpoint-3 verification (done) | C, A | three agents checked the report and the review file against the repo | read-only |
+| E1b incremental certification | C | oracle profile on L, then E1 with in-loop checks only for changed itineraries; final run ABAB with B2 | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
+| E2 column generation | C | set partitioning over itineraries, pricing on E4's network, bound when valid; final run ABAB with B2 | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
+| Orchestrator | C | harness for batch 2 on `evacplan/phase0` | `../wfg-evacplan` |
 
-No agent is running.
+Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees were removed (branches stay on origin).
 
 ## Blockers
 
@@ -73,9 +65,9 @@ No agent is running.
 
 ## Next step
 
-Wait for Siyeong's answers to checkpoint 3 (questions in `program/reviews/checkpoint-3.md` §8). Record them in
-`DECISIONS.md`; only then start batch 2 (proposed: E1b, the approved second iteration of E1; E2 column generation; E3b
-or E4b). If question 5 is approved, implement the interleaved timing and the per-row speed probe before any timed run.
+1. Merge the batch-2 harness into `next/integration` once pushed on `evacplan/phase0`; tell E1b and E2 it is there.
+2. Wait for E1b and E2 (each: pre-registration, tests, smoke, two interleaved holds: S+M, then L).
+3. Proportional review, fixes, merges, push; checkpoint 4 (`program/reviews/checkpoint-4.md`, one page); stop.
 
 ## Log
 
@@ -205,3 +197,6 @@ or E4b). If question 5 is approved, implement the interleaved timing and the per
   program 6 and the lock-related evacplan tests 43 passed. A B1 calibration took 7-18 % less time at 16:00 than its
   seed-0 rows of 09:15-09:20 (suggestive: B1's seeds already vary within one hold). Three agents verified the
   checkpoint-3 report and the review file against the repository before publication. Checkpoint 3 written; stopped.
+- 2026-11-02 Siyeong answered checkpoint 3 (`DECISIONS.md`): E1b and E2 approved; certification outside the budget with
+  a time-to-certified-plan metric; 30-min provisional default margin; B2 interleaved with each challenger; proportional
+  reviews and one-page checkpoints. The container restarted (new VM session `4169abd4`). E1b and E2 agents launched.
