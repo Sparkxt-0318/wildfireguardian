@@ -5,8 +5,10 @@
  * For every language and output:
  * - length: Korean SMS ≤ 90 bytes (strict EUC-KR), long text ≤ 2,000 bytes, English SMS ≤ 160
  *   GSM-7 characters, no character outside the SMS encoding, broadcast ≤ 60 s at the assumed rate;
- * - mandatory phrases (REQUIRED_PHRASES), the data time, and — for a recorded scenario — the
- *   replay note with its year;
+ * - mandatory phrases (requiredPhrases), the data time, and — for a recorded scenario — the
+ *   replay note with its year, the replay marker on the FIRST line of the SMS and long text, and
+ *   "이 방송은 실제 상황이 아닙니다 / This is not a real emergency" as the broadcast's first line;
+ * - resident- and family-facing outputs (SMS, broadcast, call script) never say "call 119 now";
  * - no forbidden word (FORBIDDEN, both languages; names from data are masked first);
  * - a message that is not `leave_by` gives no departure instruction and names no clock time other
  *   than the data time; a `leave_by` message names its leave-by time in every output.
@@ -14,7 +16,7 @@
 import { BROADCAST_MAX_S, LMS_MAX_BYTES, spokenSeconds } from './encoding';
 import { cardText, enDate, enDateSpoken, enSpokenTime, hm, kstParts, koDate, koDateSpoken, koSmsDate, koSpokenTime, ymd } from './compose';
 import type { FieldMessages } from './messages';
-import { DEPARTURE_INSTRUCTION, FORBIDDEN, REQUIRED_PHRASES, SHIPPED_LANGS, type OutputKind } from './strings';
+import { DEPARTURE_INSTRUCTION, FORBIDDEN, NOT_REAL, requiredPhrases, RESIDENT_119_NOW, SHIPPED_LANGS, type OutputKind } from './strings';
 import type { LmLang } from './types';
 
 export const OUTPUT_KINDS: readonly OutputKind[] = ['sms', 'lms', 'broadcast', 'call', 'card'];
@@ -87,17 +89,23 @@ export function checkFieldMessages(fm: FieldMessages): string[] {
     if (broadcastS > BROADCAST_MAX_S) v.push(`${lang}.broadcast: ${broadcastS.toFixed(2)} s > ${BROADCAST_MAX_S} s`);
     for (const kind of OUTPUT_KINDS) {
       const text = texts[kind];
-      for (const phrase of REQUIRED_PHRASES[kind][lang]) if (!text.includes(phrase)) v.push(`${lang}.${kind}: missing "${phrase}"`);
+      for (const phrase of requiredPhrases(kind, lang, input.replay)) if (!text.includes(phrase)) v.push(`${lang}.${kind}: missing "${phrase}"`);
       const dt = dataTimeToken(kind, lang, iso);
       if (!text.includes(dt)) v.push(`${lang}.${kind}: missing the data time "${dt}"`);
       if (input.replay) {
         const words = lang === 'ko' ? (kind === 'sms' ? ['재현', 'MOCK', '시험'] : ['재현']) : ['replay'];
         if (!words.some((w) => text.toLowerCase().includes(w.toLowerCase()))) v.push(`${lang}.${kind}: missing the replay note`);
+        // the replay marker comes first: a replay must never read as a live alert
+        const first = (text.split('\n')[0] ?? '').toLowerCase();
+        if ((kind === 'sms' || kind === 'lms') && !words.some((w) => first.includes(w.toLowerCase()))) v.push(`${lang}.${kind}: the first line does not say it is a replay`);
+        if (kind === 'lms' && !first.includes(lang === 'ko' ? '실제 상황 아님' : 'not a real emergency')) v.push(`${lang}.lms: the first line does not say it is not a real situation`);
+        if (kind === 'broadcast' && first !== NOT_REAL[lang].toLowerCase()) v.push(`${lang}.broadcast: does not open with "${NOT_REAL[lang]}"`);
         // the year: written in full except in the Korean SMS, whose date is "25.3.24"
         if (!(lang === 'ko' && kind === 'sms') && !text.includes(year)) v.push(`${lang}.${kind}: replay note without the year ${year}`);
       }
       const masked = maskData(text, fm.inserted);
       const low = masked.toLowerCase();
+      if ((kind === 'sms' || kind === 'broadcast' || kind === 'call') && RESIDENT_119_NOW[lang].test(masked)) v.push(`${lang}.${kind}: tells residents or families to call 119 now`);
       for (const w of [...FORBIDDEN.ko, ...FORBIDDEN.en]) if (low.includes(w.toLowerCase())) v.push(`${lang}.${kind}: forbidden word "${w}"`);
       if (fm.kind === 'leave_by') {
         if (fm.leaveByS === null) v.push(`${lang}.${kind}: leave_by without a time`);

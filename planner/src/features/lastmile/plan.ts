@@ -58,6 +58,19 @@ function sorted(cells: LmCell[]): LmCell[] {
   return [...cells].sort((a, b) => a.offsetS - b.offsetS);
 }
 
+/** Road entry points farther than this from the village are named in the spoken scripts. */
+export const ENTRY_SPOKEN_MIN_M = 500;
+
+/**
+ * How the card labels the leave-by time: `last_checked` when T is simply the last departure the
+ * model checked (nothing later was requested) or when later departures cannot finish within the
+ * recorded range even ignoring the fire (explanation `window_fire_free`) — never a fire deadline;
+ * `deadline` otherwise ("출발 마감 / Leave by").
+ */
+export function bigLabelKind(p: MessagePlan): 'deadline' | 'last_checked' {
+  return p.after === 'horizon' || p.reason?.kind === 'window_fire_free' ? 'last_checked' : 'deadline';
+}
+
 export function messagePlan(input: LastMileInput, explanation: ExplanationFile | null = null): MessagePlan {
   const p = input.plan;
   const verdict: Verdict = p?.bestVerdict ?? 'unresolved';
@@ -76,7 +89,7 @@ export function messagePlan(input: LastMileInput, explanation: ExplanationFile |
   };
   if (!p || verdict === 'unresolved') return { ...base, kind: 'unresolved' };
   if (verdict === 'model_no_route') {
-    const reason = selectReason(entry, { kind: 'no_route', latestS: null, leaveByS: null, nextOffsetS: null, nextVerdict: null, horizonS });
+    const reason = selectReason(entry, { kind: 'no_route', latestS: null, leaveByS: null, nextOffsetS: null, nextVerdict: null, destinationId: null, horizonS });
     return { ...base, kind: 'no_route', reason };
   }
 
@@ -120,7 +133,7 @@ export function messagePlan(input: LastMileInput, explanation: ExplanationFile |
   const after: AfterKind = contiguous < latest ? 'gap' : laterRequested.length === 0 ? 'horizon' : 'none_checked';
   const next = cells.find((c) => c.offsetS > latest) ?? null;
   const nextVerdict: ExplanationNextVerdict = !next ? null : next.verdict === 'window_closed' ? 'window' : next.verdict === 'checked_route' ? null : next.verdict;
-  const reason = selectReason(entry, { kind: 'leave_by', latestS: latest, leaveByS, nextOffsetS: next?.offsetS ?? null, nextVerdict, horizonS });
+  const reason = selectReason(entry, { kind: 'leave_by', latestS: latest, leaveByS, nextOffsetS: next?.offsetS ?? null, nextVerdict, destinationId: destination?.id ?? null, horizonS });
   return {
     ...base,
     kind: 'leave_by',

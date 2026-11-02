@@ -114,15 +114,32 @@ export interface ExplanationItem {
   label_ko: string | null;
   label_en: string | null;
   label_source: ExplanationLabelSource;
-  /** first predicted flame contact on this edge (s after input_time) */
+  /** flame start in the grid cell the route crosses there, in the fire scenarios (s after input_time) */
   flame_time_s: number;
-  /** scenario members with flame contact there */
+  /** scenario members (suffixes 0 … members_total − 1) with flame contact there */
   members: number[];
   members_total: number;
-  /** when the vehicle departing at the deadline passes this edge (s after input_time) */
+  /** when the vehicle departing at the deadline leaves that cell (s after input_time) */
   pass_time_at_deadline_s: number | null;
-  /** flame arrival minus passing time at the deadline (s) */
+  /** flame start minus passing time at the deadline (s) */
   slack_s: number | null;
+  /** when the vehicle leaving at the next departure time meets the flame (s after input_time) */
+  contact_time_s?: number | null;
+  /** binding items: the destinations whose routes share this item (the shown route's item comes first) */
+  destination_ids?: string[];
+  /** nearest_place labels: distance from the place to the contact point (m) */
+  place_distance_m?: number | null;
+}
+
+/** Window facts of an origin (reason `window` and the classes behind it). */
+export interface ExplanationWindow {
+  close_s: number;
+  dwell_s?: number;
+  fire_free: boolean | null;
+  fastest_end_s: number | null;
+  flame_avoiding_arrival_s: number | null;
+  limit: string;
+  horizon_s: number;
 }
 
 export interface ExplanationOrigin {
@@ -135,6 +152,16 @@ export interface ExplanationOrigin {
   binding: ExplanationItem[];
   exits: ExplanationItem[];
   notes: string[];
+  /** finer machine code, e.g. window_fire_free · window_fire_detour · last_checked_offset */
+  detail_code?: string;
+  window?: ExplanationWindow;
+  /** class of every destination checked at the deadline (window_fire_free, flame_on_route, …) */
+  destination_classes?: Record<string, string>;
+  /** destinations with a checked route at the deadline / of those, proven unreachable at the next time */
+  checked_at_deadline?: number;
+  proven_unreachable_next?: number;
+  /** the planner's shown route at the deadline */
+  deadline_route?: { destination_id?: string; departure_s?: number; arrival_s?: number };
 }
 
 export interface ExplanationFile {

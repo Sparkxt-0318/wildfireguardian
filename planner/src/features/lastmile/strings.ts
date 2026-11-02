@@ -56,11 +56,16 @@ export const MODEL_NOT_LIVE: LmText = { ko: '모델 기반 계획 정보 · 실�
 
 /**
  * Short forms used ONLY in the single SMS, where the verbatim lines cannot fit: a Korean SMS is
- * 90 bytes (45 Hangul) in total, and the two lines alone take 61. The long text (LMS), the card,
- * the broadcast and the call script carry the verbatim lines.
+ * 90 bytes (45 Hangul) in total, and the two lines alone take 62 bytes (28 + 34). The long text
+ * (LMS), the card, the broadcast and the call script carry the verbatim lines.
  */
 export const OFFICIAL_FIRST_SMS: LmText = { ko: '공식명령 우선', en: 'Official orders come first.' };
-export const MODEL_NOT_LIVE_SMS: LmText = { ko: '실시간 아님', en: 'Model-based info, not live.' };
+export const MODEL_NOT_LIVE_SMS: LmText = { ko: '실시간 아님', en: 'not live' };
+/** The SMS's model attribution ("모델상 02:20까지 차로 출발", "Model-based plan: …"). */
+export const MODEL_SMS: LmText = { ko: '모델', en: 'Model-based plan' };
+
+/** "Model-based planning information" on its own (a replay broadcast says it is not a real situation instead of "not live"). */
+export const MODEL_PLAN_SPOKEN: LmText = { ko: '모델 기반 계획 정보', en: 'model-based planning information' };
 
 /** Spoken form of MODEL_NOT_LIVE (scripts read aloud). */
 export const MODEL_NOT_LIVE_SPOKEN: LmText = {
@@ -68,22 +73,28 @@ export const MODEL_NOT_LIVE_SPOKEN: LmText = {
   en: 'model-based planning information',
 };
 
+/** First sentence of a replay broadcast (B1 of the P3 review: a replay must never sound like a live alert). */
+export const NOT_REAL: LmText = { ko: '이 방송은 실제 상황이 아닙니다.', en: 'This is not a real emergency.' };
+
 export type OutputKind = 'sms' | 'lms' | 'broadcast' | 'call' | 'card';
 
 /**
  * Phrases each output must contain (besides the data time and, for a recorded scenario, the
  * replay note, which are checked separately). Checked by checkFieldMessages().
  */
-export const REQUIRED_PHRASES: Record<OutputKind, Record<LmLang, string[]>> = {
-  sms: {
-    ko: [OFFICIAL_FIRST_SMS.ko, MODEL_NOT_LIVE_SMS.ko, '모델'],
-    en: [OFFICIAL_FIRST_SMS.en, MODEL_NOT_LIVE_SMS.en],
-  },
-  lms: { ko: [OFFICIAL_FIRST.ko, MODEL_NOT_LIVE.ko], en: [OFFICIAL_FIRST.en, MODEL_NOT_LIVE.en] },
-  card: { ko: [OFFICIAL_FIRST.ko, MODEL_NOT_LIVE.ko], en: [OFFICIAL_FIRST.en, MODEL_NOT_LIVE.en] },
-  broadcast: { ko: [OFFICIAL_FIRST.ko, MODEL_NOT_LIVE_SPOKEN.ko], en: [OFFICIAL_FIRST.en, MODEL_NOT_LIVE_SPOKEN.en, 'not live'] },
-  call: { ko: [OFFICIAL_FIRST.ko, MODEL_NOT_LIVE_SPOKEN.ko], en: [OFFICIAL_FIRST.en, MODEL_NOT_LIVE_SPOKEN.en, 'not live'] },
-};
+export function requiredPhrases(kind: OutputKind, lang: LmLang, replay: boolean): string[] {
+  switch (kind) {
+    case 'sms':
+      return [OFFICIAL_FIRST_SMS[lang], MODEL_NOT_LIVE_SMS[lang], MODEL_SMS[lang]];
+    case 'lms':
+    case 'card':
+      return [OFFICIAL_FIRST[lang], MODEL_NOT_LIVE[lang]];
+    case 'broadcast':
+      return [OFFICIAL_FIRST[lang], MODEL_PLAN_SPOKEN[lang], replay ? NOT_REAL[lang] : lang === 'ko' ? '실시간 정보가 아닙니다' : 'not live'];
+    case 'call':
+      return [OFFICIAL_FIRST[lang], MODEL_NOT_LIVE_SPOKEN[lang], ...(lang === 'en' ? ['not live'] : []), ...(replay ? [lang === 'ko' ? '실제 상황이 아니라' : 'not a real emergency'] : [])];
+  }
+}
 
 /** Replay note markers (recorded fire input): the year plus one of these words. */
 export const REPLAY_WORDS: LmText = { ko: '재현', en: 'replay' };
@@ -149,6 +160,16 @@ export const FORBIDDEN: Record<LmLang, string[]> = {
   ],
 };
 
+/**
+ * "Call 119 now" said to residents or families: only the long text and the card, addressed to the
+ * 이장 / facility staff, carry it; the SMS, broadcast and call script say "follow the official
+ * instructions; in an emergency, report to 119".
+ */
+export const RESIDENT_119_NOW: Record<LmLang, RegExp> = {
+  ko: /(지금 바로|즉시)\s*119/,
+  en: /call 119 (now|immediately|right away)|119 or the eup\/myeon office now/i,
+};
+
 /** A departure instruction (allowed only when a checked departure window exists). */
 export const DEPARTURE_INSTRUCTION: Record<LmLang, RegExp> = {
   ko: /까지\s*(차로\s*)?출발|출발하(십시오|세요)|출발 마감/,
@@ -169,6 +190,10 @@ export const UI = {
     en: 'Field messages are not made from user-drawn spread zones (an assumption). Choose a recorded scenario.',
   },
   noData: { ko: '결과가 없어 현장 문구를 만들 수 없습니다.', en: 'No results, so no field messages can be made.' },
+  researchNote: {
+    ko: '연구용 출발 지점에는 현장 문구를 만들지 않습니다(주민이 사는 곳이 아님). 마을과 돌봄 시설의 문구는 열어서 볼 수 있습니다.',
+    en: 'No field messages for research start points (nobody lives there). Messages for villages and care facilities can be opened here.',
+  },
   dialogTitle: { ko: '현장 전달 문구', en: 'Field messages' },
   dialogLead: {
     ko: '이장·돌봄 인력이 주민과 가족에게 전할 문구입니다. 모든 문구에 자료 시각, "공식 대피 명령이 우선합니다", "모델 기반 계획 정보 · 실시간 아님"이 들어 있습니다. 정해진 틀로만 만들며 실시간 정보가 아닙니다.',
@@ -207,6 +232,11 @@ export const UI = {
   },
   callSeconds: { ko: '읽는 시간 약 {s}초', en: 'about {s} s to read' },
   checksOk: { ko: '검사 통과: 길이·필수 문구·금지어', en: 'Checks passed: length, mandatory lines, forbidden words' },
+  csvFailed: { ko: '검사 실패 — 사용 금지', en: 'Check failed — do not use' },
+  review: {
+    done: { ko: '원어민·현장 검토 완료', en: 'reviewed by native speakers and in the field' },
+    pending: { ko: '원어민·현장 검토 전', en: 'not yet reviewed by native speakers or in the field' },
+  },
   checksFailed: { ko: '검사 실패 — 이 문구는 쓰지 마십시오', en: 'Check failed — do not use this text' },
   cardLang: { ko: '카드 언어', en: 'Card language' },
   printA5: { ko: '이 카드 인쇄 (A5)', en: 'Print this card (A5)' },

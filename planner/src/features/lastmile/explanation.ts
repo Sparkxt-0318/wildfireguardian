@@ -7,8 +7,13 @@
  * - the file is fetched same-origin under the app's base path; 404, HTML (an SPA fallback), bad
  *   JSON, another schema, region, input time or scenario set → no file, no reason lines;
  * - an origin entry is used only when its verdict, deadline and next departure time match the
- *   planner's own result for that origin, its status is `explained` (or `explained_partial` with a
- *   usable item), and every number it carries is finite and inside the recorded scenario window;
+ *   planner's own result for that origin, its status is `explained` (or `explained_partial` for a
+ *   flame item), and every number it carries is finite and inside the recorded scenario window;
+ * - a flame reason uses only `binding[0]` (the shown route's item) and only when the message's
+ *   destination is one of its `destination_ids`;
+ * - a deadline set by the one-hour scenario range (`window` / `window_fire_free`) is printed as
+ *   such — never as a fire deadline — and only when every destination checked at the deadline is in
+ *   that class and proven out of reach;
  * - `unresolved` is never turned into a reason; an unresolved or out-of-window next departure gives
  *   no reason either (the planner's own "after the deadline" line is used instead).
  */
@@ -146,23 +151,49 @@ export interface RoadLabel {
 
 export type LmReason =
   | {
+      /** leave_by: the route to the message's destination, shifted to the next departure time, meets flames */
       kind: 'flame_on_route' | 'dwell_at_destination';
       road: RoadLabel;
       edgeId: string;
-      /** first predicted flame contact on that road (s after input time) */
+      /** flame start in the cell the route crosses there, in the fire scenarios (s after input time) */
       flameS: number;
       /** scenario members with contact / members in the set */
       k: number;
       n: number;
-      /** minutes of margin at the deadline (s), when given and consistent */
+      /** margin at the deadline (s), when given and consistent */
       slackS: number | null;
     }
   | {
+      /**
+       * leave_by: after T even the fastest road, ignoring the fire, cannot finish the trip and stay
+       * before the recorded scenarios end — for every destination checked at T (not a fire deadline)
+       */
+      kind: 'window_fire_free';
+      /** end of the recorded scenario range (s after input time) */
+      closeS: number;
+    }
+  | {
+      /** leave_by: after T no road that avoids the flames reaches the message's destination within the range */
+      kind: 'window_fire_detour';
+      closeS: number;
+    }
+  | {
+      /** model_no_route: every road out of the area reachable without meeting flames is blocked */
       kind: 'all_exits_blocked';
+      /** distinct road labels, in file order */
       exits: RoadLabel[];
-      /** every exit meets flames in at least kMin of n members */
+      /** number of exit roads (may exceed the distinct labels) */
+      roads: number;
+      /** every exit meets flames in at least kMin of n members (each road on its own) */
       kMin: number;
       n: number;
+      /** every exit is already burning at the input time */
+      atStart: boolean;
+    }
+  | {
+      /** model_no_route: from every departure time checked, no road that avoids the flames fits the range */
+      kind: 'no_route_window';
+      closeS: number;
     };
 
 /** What the planner itself says about the origin (the explanation must agree with it). */
@@ -176,6 +207,8 @@ export interface ReasonContext {
   /** next requested departure after D in the planner's sweep (null: none) */
   nextOffsetS: number | null;
   nextVerdict: ExplanationNextVerdict;
+  /** destination the message names (leave_by), null otherwise */
+  destinationId: string | null;
   /** recorded scenario window (s) */
   horizonS: number;
 }
@@ -231,7 +264,8 @@ export function usableItem(it: unknown, horizonS: number, deadlineS: number | nu
   if (!Number.isInteger(total) || (total as number) < 1) return false;
   const members = it.members;
   if (!Array.isArray(members) || members.length < 1 || members.length > (total as number)) return false;
-  if (!members.every((m) => Number.isInteger(m) && m >= 0 && m <= (total as number))) return false;
+  // members are scenario suffixes 0 … members_total − 1
+  if (!members.every((m) => Number.isInteger(m) && m >= 0 && m < (total as number))) return false;
   if (new Set(members).size !== members.length) return false;
   if (deadlineS !== null) {
     const pass = it.pass_time_at_deadline_s;
@@ -257,6 +291,23 @@ function originEntry(v: unknown): ExplanationOrigin | null {
   return v as unknown as ExplanationOrigin;
 }
 
+function windowClose(e: ExplanationOrigin, horizonS: number): number | null {
+  const c = e.window?.close_s;
+  return finite(c) && c > 0 && c <= horizonS ? c : null;
+}
+
+/**
+ * Every destination checked at the deadline is in `cls` and proven out of reach at the next time
+ * (`destination_classes` lists exactly `checked_at_deadline` destinations).
+ */
+function allDestinationsIn(e: ExplanationOrigin, cls: string): boolean {
+  const classes = e.destination_classes;
+  const n = e.checked_at_deadline;
+  if (!isObj(classes) || !Number.isInteger(n) || (n as number) < 1) return false;
+  const values = Object.values(classes);
+  return values.length === n && values.every((c) => c === cls) && e.proven_unreachable_next === n;
+}
+
 /**
  * The reason to print for one origin, or null. `entry` is `file.origins[originId]` (any shape).
  */
@@ -269,33 +320,56 @@ export function selectReason(entry: unknown, ctx: ReasonContext): LmReason | nul
     if (ctx.latestS === null || ctx.leaveByS !== ctx.latestS) return null;
     if (e.deadline_offset_s !== ctx.latestS) return null;
     if (e.next_offset_s !== ctx.nextOffsetS || e.next_verdict !== ctx.nextVerdict) return null;
-    // only a recorded "no route" at the next departure is explained by flames; never unresolved
+    // only a recorded "no route" at the next departure is explained; never unresolved
     if (e.next_verdict !== 'model_no_route' || ctx.nextOffsetS === null) return null;
-    if (e.reason_code !== 'flame_on_route' && e.reason_code !== 'dwell_at_destination') return null;
-    const item = e.binding.find((it) => usableItem(it, ctx.horizonS, ctx.latestS));
-    if (!item) return null;
-    const road = roadLabel(item)!;
-    return {
-      kind: e.reason_code,
-      road,
-      edgeId: item.edge_id,
-      flameS: item.flame_time_s,
-      k: item.members.length,
-      n: item.members_total,
-      slackS: finite(item.slack_s) ? item.slack_s : null,
-    };
+    const dest = ctx.destinationId;
+    if (!dest) return null;
+    if (e.reason_code === 'flame_on_route' || e.reason_code === 'dwell_at_destination') {
+      // the contract's binding item is the first one (the shown route's); it must cover our destination
+      const item = e.binding[0];
+      if (!usableItem(item, ctx.horizonS, ctx.latestS)) return null;
+      if (!Array.isArray(item.destination_ids) || !item.destination_ids.includes(dest)) return null;
+      return {
+        kind: e.reason_code,
+        road: roadLabel(item)!,
+        edgeId: item.edge_id,
+        flameS: item.flame_time_s,
+        k: item.members.length,
+        n: item.members_total,
+        slackS: finite(item.slack_s) ? item.slack_s : null,
+      };
+    }
+    if (e.reason_code === 'window' && e.status === 'explained') {
+      const close = windowClose(e, ctx.horizonS);
+      if (close === null) return null;
+      if (e.detail_code === 'window_fire_free' && allDestinationsIn(e, 'window_fire_free')) return { kind: 'window_fire_free', closeS: close };
+      if (e.detail_code === 'window_fire_detour' && e.destination_classes?.[dest] === 'window_fire_detour') return { kind: 'window_fire_detour', closeS: close };
+    }
+    return null;
   }
   if (ctx.kind === 'no_route') {
-    if (e.verdict_summary !== 'model_no_route' || e.reason_code !== 'all_exits_blocked') return null;
+    if (e.verdict_summary !== 'model_no_route' || e.status !== 'explained') return null;
+    if (e.reason_code === 'window' && e.detail_code === 'no_flame_avoiding_route_fits_window') {
+      const close = windowClose(e, ctx.horizonS);
+      return close === null ? null : { kind: 'no_route_window', closeS: close };
+    }
+    if (e.reason_code !== 'all_exits_blocked') return null;
     // "all n roads" is printed only when every exit item is usable
     if (e.exits.length === 0 || !e.exits.every((it) => usableItem(it, ctx.horizonS, null))) return null;
     const totals = new Set(e.exits.map((it) => it.members_total));
     if (totals.size !== 1) return null;
+    const labels: RoadLabel[] = [];
+    for (const it of e.exits) {
+      const l = roadLabel(it)!;
+      if (!labels.some((x) => x.text.ko === l.text.ko && x.text.en === l.text.en)) labels.push(l);
+    }
     return {
       kind: 'all_exits_blocked',
-      exits: e.exits.map((it) => roadLabel(it)!),
+      exits: labels,
+      roads: e.exits.length,
       kMin: Math.min(...e.exits.map((it) => it.members.length)),
       n: e.exits[0]!.members_total,
+      atStart: e.exits.every((it) => it.flame_time_s === 0),
     };
   }
   return null;

@@ -171,35 +171,48 @@ export function cardText(c: CardContent): string {
 
 // ---------------------------------------------------------------- spoken scripts
 
-export type SpokenOptional = 'reason' | 'repeat' | 'carless';
+/** Optional blocks of a spoken script (the no-car line is required: it is never dropped). */
+export type SpokenOptional = 'reason' | 'repeat';
 
 export interface SpokenBlock {
   text: string;
   /** omitted when the script would exceed its time budget; added in SPOKEN_PRIORITY order */
   optional?: SpokenOptional;
+  /**
+   * Shorter wording of a required block (same facts, fewer words — e.g. without a long place name
+   * that the written outputs carry). Used, block by block in order, only while the required blocks
+   * alone exceed the budget.
+   */
+  short?: string;
 }
 
-export const SPOKEN_PRIORITY: readonly SpokenOptional[] = ['reason', 'repeat', 'carless'];
+export const SPOKEN_PRIORITY: readonly SpokenOptional[] = ['reason', 'repeat'];
 
 /**
- * Joins the blocks (one per line) keeping every required block and adding optional ones, in the
- * fixed priority order, while the estimated reading time stays within `maxS`.
+ * Joins the blocks (one per line): every required block — in its shorter wording, block by block
+ * in order, only while the required blocks alone would exceed `maxS` — then the optional ones in
+ * the fixed priority order while the estimated reading time stays within `maxS`. Deterministic.
  */
 export function assembleSpoken(blocks: SpokenBlock[], lang: LmLang, maxS: number): string {
-  const keep = new Set<SpokenBlock>(blocks.filter((b) => !b.optional));
-  const text = (set: Set<SpokenBlock>) =>
-    blocks
+  const used = blocks.map((b) => ({ ...b }));
+  const join = (set: Set<SpokenBlock>) =>
+    used
       .filter((b) => set.has(b))
       .map((b) => b.text)
       .join('\n');
+  const keep = new Set<SpokenBlock>(used.filter((b) => !b.optional));
+  for (const b of used) {
+    if (spokenSeconds(join(keep), lang) <= maxS) break;
+    if (!b.optional && b.short) b.text = b.short;
+  }
   for (const pri of SPOKEN_PRIORITY) {
-    for (const b of blocks.filter((x) => x.optional === pri)) {
+    for (const b of used.filter((x) => x.optional === pri)) {
       const next = new Set(keep);
       next.add(b);
-      if (spokenSeconds(text(next), lang) <= maxS) keep.add(b);
+      if (spokenSeconds(join(next), lang) <= maxS) keep.add(b);
     }
   }
-  return text(keep);
+  return join(keep);
 }
 
 export function pickText(t: LmText, lang: LmLang): string {

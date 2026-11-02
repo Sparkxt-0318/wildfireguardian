@@ -184,6 +184,10 @@ export function koReadAloud(text: string): string {
   });
   // native counters
   s = s.replace(new RegExp(`(\\d{1,2})\\s*(${NATIVE_COUNTERS.join('|')})`, 'g'), (_m, n: string, c: string) => `${nativeKorean(Number(n))} ${c}`);
+  // units read in full ("1.4 km" → "1.4 킬로미터", "650 m" → "650 미터")
+  s = s.replace(/(\d)\s*km\b/g, '$1 킬로미터').replace(/(\d)\s*m\b/g, '$1 미터');
+  // decimals: "1.4" → "일점사"
+  s = s.replace(/(\d+)\.(\d+)/g, (_m, a: string, b: string) => `${sinoKorean(Number(a))}점${[...b].map((d) => SINO[Number(d)]).join('')}`);
   // emergency / phone style numbers: read digit by digit
   s = s.replace(/\b(1\d{2})\b(?!\s*(년|월|일|분|초|번|호|m|km))/g, (_m, n: string) => [...n].map((d) => SINO[Number(d)]).join(''));
   // any other number: Sino-Korean
@@ -214,8 +218,10 @@ export function enSpokenWords(text: string): number {
       continue;
     }
     const digits = tok.replace(/[^0-9]/g, '').length;
+    // "1.4" is read "one point four"
+    const points = (tok.match(/\d\.\d/g) ?? []).length;
     const letters = /\p{L}/u.test(tok) ? 1 : 0;
-    n += digits + letters;
+    n += digits + points + letters;
   }
   return n;
 }
