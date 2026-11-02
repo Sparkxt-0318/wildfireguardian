@@ -9,6 +9,8 @@ import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { explainView, matchesShown, slackText, whereText } from '../../planner/src/features/explain/text';
 import { clearExplanationCache, explanationUrl, loadExplanationFile, parseExplanationFile } from '../../planner/src/features/explain/load';
 import type { ExplFile, ExplItem, ExplOrigin, ExplShelter, ShownPlan } from '../../planner/src/features/explain/types';
+import { cacheToModel, parseCacheIndex } from '../../planner/src/api/cache';
+import type { WireCacheFile } from '../../planner/src/api/wire';
 
 const INPUT = '2025-01-01T00:00:00Z'; // 09:00 KST
 
@@ -420,6 +422,37 @@ describe('committed explanation files render in both languages', () => {
         if (rec.status !== 'not_explainable') expect(v.basis).toBeTruthy();
         if (rec.reason_code === 'flame_on_route') expect(v.dots?.members).toEqual(rec.binding[0]!.members);
       }
+    }
+  });
+});
+
+describe('committed explanation files agree with the planner (TypeScript cacheToModel)', () => {
+  // N2: the deadline, next time and shown route each file explains are the planner's own, computed here by the
+  // planner code from the recorded cache files (planner/cache), not by the Python mirror in tools/explain_deadlines.
+  const cacheDir = new URL('../../planner/cache/', import.meta.url);
+  const explDir = new URL('../../planner/public/data/explanations/', import.meta.url);
+  const index = parseCacheIndex(JSON.parse(readFileSync(new URL('INDEX.json', cacheDir), 'utf8')));
+
+  it('covers the six recorded caches', () => {
+    expect(index.length).toBe(6);
+  });
+
+  it.each(index.map((e) => [e.path, e] as const))('%s', (_path, entry) => {
+    const model = cacheToModel(JSON.parse(readFileSync(new URL(entry.path, cacheDir), 'utf8')) as WireCacheFile, entry);
+    const compact = entry.inputTime.replace(/[-:]/g, '').replace(/\.\d+/, '');
+    const f = JSON.parse(readFileSync(new URL(`${entry.regionId}__${compact}.json`, explDir), 'utf8')) as ExplFile;
+    expect(f.input_time).toBe(entry.inputTime);
+    expect(Object.keys(f.origins).sort()).toEqual(Object.keys(model.plans).sort());
+    for (const [oid, rec] of Object.entries(f.origins)) {
+      const plan = model.plans[oid]!;
+      expect([oid, rec.verdict_summary, rec.deadline_offset_s]).toEqual([oid, plan.bestVerdict, plan.latestSafeDepartureS]);
+      const later = plan.latestSafeDepartureS === null ? [] : plan.sweep.filter((c) => c.offsetS > plan.latestSafeDepartureS!);
+      if (plan.latestSafeDepartureS !== null) expect([oid, rec.next_offset_s]).toEqual([oid, later[0]?.offsetS ?? null]);
+      if (rec.deadline_route) {
+        expect([oid, rec.deadline_route.route_check_job_id, rec.deadline_route.destination_id]).toEqual([oid, plan.best?.jobId ?? null, plan.best?.destinationId ?? null]);
+      }
+      const shown: ShownPlan = { bestVerdict: plan.bestVerdict, deadlineS: plan.latestSafeDepartureS, bestDestinationId: plan.best?.destinationId ?? null, bestJobId: plan.best?.jobId ?? null };
+      expect([oid, matchesShown(rec, shown)]).toEqual([oid, true]); // what the panel passes shows every explanation
     }
   });
 });
