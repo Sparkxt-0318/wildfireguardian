@@ -18,7 +18,7 @@ There are exactly three verdicts: `checked_route` (a checked route within the mo
 ## Try it
 
 - **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/>. Live only once the static planner demo (proposed separately, below) is on `Main` and GitHub Pages is enabled.
-- **Docker:** `docker compose up --build` is set up to start the planner at <http://127.0.0.1:8080> with the Route-Check API behind it. CI is configured to build and run both images ([reproduction guide](REPRODUCE.md)).
+- **Docker:** `docker compose up --build` is set up to start the planner at <http://127.0.0.1:8080> with the Route-Check API behind it. CI built and ran both images on `linux/amd64` for commit `2b1d54d1` ([run](https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/41494735774); [reproduction guide](REPRODUCE.md)).
 - **Linux or macOS with Python 3.12:** `make reproduce-linux` (Linux also needs GNU `time`).
 
 ## How we know it works

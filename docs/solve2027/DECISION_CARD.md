@@ -40,7 +40,7 @@ Sources: [planner README](../../planner/README.md#honesty-rules-the-ui-applies) 
 - **Every screen states its inputs.** A fire-input banner ("2025년 실제 산불 기록 기반 시나리오 재현" for recorded scenarios, "사용자 입력 확산 구역 (가정)" for drawn zones), a `MOCK` badge whenever data comes from the mock, and the footer "사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다." / "Planning aid only — not for live evacuation operations."
 - **Assumptions are labelled.** Drawn spread zones carry "approximation, requires expert review"; the travel-time-only comparison is a dashed line labelled "이동시간만 고려한 경로 (비교용)" and is "never green or called safe"; dispatch plans accept only the `full` policy.
 - **No invented places.** "Never invent villages, shelters, routes, fires or numbers." Unnamed places stay unnamed; a place with no accepted road node within 2 km is shown as "도로망 2 km 밖 — 점검 불가" and never sent.
-- **Host is visible.** Results from a host that is not native macOS on arm64 are marked "시험 데이터 · 평가 호스트 아님". The planner checks platform and machine only ("the test is macOS + arm64"), so it cannot verify the chip ([planner/src/api/cache.ts](../../planner/src/api/cache.ts)). Every live result shows the host it was computed on next to its compute time.
+- **Host is visible.** Precomputed (cache) results from a host that is not native macOS on arm64 are marked "시험 데이터 · 평가 호스트 아님"; live results, including any run under Docker, carry no such marker. The planner checks platform and machine only ("the test is macOS + arm64"), so it cannot verify the chip ([planner/src/api/cache.ts](../../planner/src/api/cache.ts)). Every live result shows the host it was computed on next to its compute time.
 
 ## What the system never says
 
