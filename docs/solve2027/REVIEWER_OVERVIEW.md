@@ -14,7 +14,7 @@ A wildfire forecast map does not tell a care-facility manager or a local safety 
 4. **Leave-by deadlines.** For every village and care facility, the planner shows **출발 마감**, "the latest departure offset with a checked route". Each time comes "with the evidence behind it: the route, per-scenario heat exposure, compute time and full provenance".
 5. **Plan sheets.** Printable A4/PDF plan sheets and data exports ([planner](../../planner/README.md#source-layout)).
 
-There are exactly three verdicts: `checked_route`, `model_no_route` and `unresolved`. Unresolved is never safe and never counts toward a deadline ([decision card](DECISION_CARD.md)).
+There are exactly three verdicts: `checked_route` (a checked route within the model), `model_no_route` and `unresolved`. Unresolved is never safe and never counts toward a deadline ([decision card](DECISION_CARD.md)).
 
 ## Try it
 
