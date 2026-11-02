@@ -12,7 +12,8 @@ The endpoint is a data read, not a search: it reformats the recorded c651 foreca
 (FORECAST_<t>.npz, its record) and the recorded packet (constructed_arrays.npz) of that input time
 (api/forecast.py). It is refused unless the response's scenario set, checkpoint and packet hashes
 (packet/constructed_arrays.npz, packet/NATIVE_METADATA.json) equal those the cached route checks of
-that scenario recorded, and never from the MOCK server.
+that scenario recorded, and never from the MOCK server (its fixtures hold the same values — south-up
+rows, rounded coordinates — but are labelled MOCK, without the packet hashes this check compares).
 
     make api   # or: WFG_API_PORT=18766 python -m api   (repository root; recorded inputs from
                #     python tools/fetch_routing_inputs.py)
@@ -81,7 +82,8 @@ def main() -> None:
 
     health = json.loads(get(a.api, "/v1/health")[0])
     if health.get("mode") == "mock" or health.get("mock") is True:
-        raise SystemExit("this is the MOCK server: its forecast fixtures are not the API's forecast; refusing")
+        raise SystemExit("this is the MOCK server: its forecast fixtures hold the same values (south-up rows, "
+                         "rounded coordinates) but are labelled MOCK; save from the real API — refusing")
     index = json.loads((PLANNER / "cache" / "INDEX.json").read_text())
     a.out.mkdir(parents=True, exist_ok=True)
     files = []

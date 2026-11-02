@@ -150,7 +150,8 @@ npm run smoke:static        # headless Chromium smoke test against that dist-onl
   is a data read of the recorded c651 forecast export and packet (`api/forecast.py`; nothing is
   computed), and the script keeps a response only when its scenario set, checkpoint, graph and packet
   hashes (`constructed_arrays.npz`, `NATIVE_METADATA.json`) equal those recorded by the cached route
-  checks of that scenario; it refuses the MOCK server, whose forecast fixtures differ.
+  checks of that scenario. It refuses the MOCK server, whose forecast fixtures are labelled MOCK
+  (same values; south-up rows, rounded coordinates).
   [`data/forecast/INDEX.json`](public/data/forecast/INDEX.json) records the request, the API identity
   (1.8.0, clean git commit, host), the blob ids of the serving code (the same files as the API commit
   that computed the cache), the input archive SHA-256 and each file's bytes, SHA-256 and checks;
