@@ -7,9 +7,9 @@
 
 - **Phase:** **Phase 1, Track C batch 2 (E1b, E2)**, approved 2026-11-02 (`DECISIONS.md`). New VM session
   (`vm boot 4169abd4`): batch 2's rows form a new table; the recorded 1750/1751 keep its bar at 1751.
-  - Harness for batch 2 (orchestrator): time to certified plan, interleaved B2 holds (ABAB) with a speed check, the
-    30-min provisional default margin.
-  - E1b (incremental certification; profile the oracle on L first) and E2 (column generation) in their worktrees.
+  - E1b: done, **KILL** (worst of 5 = 1444 < 1751; B2 1749 in every seed of the same holds). Merged into
+    `evacplan/phase0` (`11670593`).
+  - E2 (column generation): debugging under the lock, then two interleaved holds with B2 seeds 5-9 (E1b used 0-4).
   - Then a proportional review (one reproduction agent, one reviewer) and checkpoint 4 (one page, at most 5 questions).
 - **Updated:** 2026-11-02 (UTC).
 
@@ -50,9 +50,9 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 
 | Agent | Track | Doing | Worktree / branch |
 |---|---|---|---|
-| E1b incremental certification | C | oracle profile on L, then E1 with in-loop checks only for changed itineraries; final run ABAB with B2 | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
-| E2 column generation | C | set partitioning over itineraries, pricing on E4's network, bound when valid; final run ABAB with B2 | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
-| Orchestrator | C | harness for batch 2 on `evacplan/phase0` | `../wfg-evacplan` |
+| E1b incremental certification | C | done: KILL (worst 1444 < 1751); oracle profile on L in its README; merged | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
+| E2 column generation | C | set partitioning over itineraries, pricing on E4's network, bound when valid; final run ABAB with B2 (seeds 5-9) | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
+| Orchestrator | C | harness: B2's default seed offset per hold instances, explicit offsets may not replace rows | `../wfg-evacplan` |
 
 Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees were removed (branches stay on origin).
 
@@ -65,9 +65,10 @@ Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees we
 
 ## Next step
 
-1. Merge the batch-2 harness into `next/integration` once pushed on `evacplan/phase0`; tell E1b and E2 it is there.
-2. Wait for E1b and E2 (each: pre-registration, tests, smoke, two interleaved holds: S+M, then L).
-3. Proportional review, fixes, merges, push; checkpoint 4 (`program/reviews/checkpoint-4.md`, one page); stop.
+1. Wait for E2 (pre-registration, tests, smoke, two interleaved holds: S+M, then L; B2 seeds 5-9).
+2. Merge E2 into `evacplan/phase0`; regenerate the leaderboard and run the suite under the lock; merge into
+   `next/integration`; push.
+3. Proportional review, fixes, push; checkpoint 4 (`program/reviews/checkpoint-4.md`, one page); stop.
 
 ## Log
 
@@ -200,3 +201,9 @@ Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees we
 - 2026-11-02 Siyeong answered checkpoint 3 (`DECISIONS.md`): E1b and E2 approved; certification outside the budget with
   a time-to-certified-plan metric; 30-min provisional default margin; B2 interleaved with each challenger; proportional
   reviews and one-page checkpoints. The container restarted (new VM session `4169abd4`). E1b and E2 agents launched.
+- 2026-11-02 E1b **KILL**: worst of 5 = 1444 < 1751 (B2 1749 in every seed of the same two holds at commit `dae67e86`).
+  S and M: +1 and +8 over B2 with every trip oracle-checked in the loop. L: −181 and −133, because certifying one
+  changed L plan in the loop costs 32-36 s; in 6 of 10 L runs the certify trigger fired late (E1's prior 0.01 s per leg
+  vs ~20 ms measured) and B1's plan was returned. Oracle profile on L (B1's plans): cold `check_plan` 30-31 s, 89 %
+  hazard_contract queries (48 % per-member flux and dose bounds, 25 % cell geometry), 10 % exact leg slack. Time to
+  certified plan 66.3 s for both. Merged into `evacplan/phase0` (`11670593`). E2 told to use B2 seeds 5-9.

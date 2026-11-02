@@ -197,3 +197,8 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   the orchestrator's call, logged here. Rule incidents: fix, add a guard test, one line here.
 - **2026-11-02** — The container restarted (new VM session `vm boot 4169abd4`), so batch 2's rows form a new table.
   The recorded observations (1750, 1751) still raise its bar: dev at 60 s needs a worst of 5 above 1751.
+- **2026-11-02** — **E1b: KILL** by its pre-registered rule (worst of 5 = 1444 < 1751). The E1 line ends; no further E1
+  runs without a new approval.
+- **2026-11-02** — B2's partner rows: E1b's holds used seeds 0-4 and E2's use 5-9 (`--partner-seed-offset 5`), because rows
+  are keyed by (set, budget, instance, method, seed, host) and the two branches would otherwise collide on merge.
+
