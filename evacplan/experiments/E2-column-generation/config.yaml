@@ -1,0 +1,53 @@
+# E2: column generation over vehicle itineraries with a proven bound (SYNTHETIC dev). Fixed before any dev run
+# (README, Pre-registration). The method's defaults (evacplan/src/evacplan/methods/e2_colgen.py) are these values;
+# every result row records them in its config. Literature: Dantzig-Wolfe; Lagrangian bound (Lübbecke & Desrosiers
+# 2005); Wentges (1997) smoothing with the mispricing rule of Pessoa et al. (2018).
+experiment: E2-column-generation
+method: e2_colgen
+label: SYNTHETIC
+set: dev                         # never test (rule 5); KR-2025 data never opened
+budget_s: 60                     # wall clock per instance and seed: setup, column generation, MIP, in-budget oracle check
+repeats: 5                       # seeds 0-4; the seed is HiGHS's random seed (otherwise deterministic)
+threads: 1                       # HiGHS single-threaded in a persistent child process; the parent waits while it runs
+partner: b2_vrptw                # interleaved ABAB in the same lock hold (harness --interleave-with)
+holds:
+  - {label: E2-final-SM, instances: "the 4 S and 4 M dev instances"}
+  - {label: E2-final-L, instances: "the 2 L dev instances"}
+
+network:                         # E4's FlowNetwork, reused by import
+  grouping: vehicle              # one convexity row and one pricing problem per vehicle
+  delta_s: 60                    # E4's rule: 60 s with at most 10 facilities, else 120 s (reduced to the shortest
+  large_delta_s: 120             #   free-flow time between two locations when shorter)
+  large_facilities: 10
+  trip_cuts: true                # E4's trip limits as master rows (valid for every checked itinerary, E4 step 8)
+
+pricing:                         # the clock DP (README, The method)
+  clock_unit: "smallest divisor of delta <= the shortest positive per-resident action time of the type, table <= max_cells"
+  max_cells: 24000000            # per batch (float64: 192 MB); a vehicle type is split into smaller batches if needed
+  columns_per_vehicle: 3         # per vehicle, mode and round: best empty end state at up to 3 locations
+  relaxed_mode: "floor times; a move from any unit of its cell (E4's semantics) -> the bound and LP columns"
+  restricted_mode: "ceil times; a move only at its cell start -> columns that are realized for the integer plan"
+
+master:
+  smoothing_alpha: 0.5           # Wentges: y_sep = alpha y_center + (1 - alpha) y_LP
+  mispricing: "no column with positive reduced cost at y_LP -> price again at y_LP in the same round; none -> converged"
+  reduced_cost_tol: 1.0e-7
+  bound: "floor(fsum(y b) + sum_v max(0, DP_v(y)) + 1e-6), smallest over rounds, min with the resource bound"
+  tie_break: "integer master only: delivered - eps * vehicle time, eps = 1 / (1 + sum of shift lengths)"
+
+integer_plan:
+  greedy_each_round: true        # packing of the realized columns by delivered (desc), vehicle time (asc)
+  mip_share: 0.10                # final set-packing MIP: up to 10 % of the budget (HiGHS, greedy as start)
+  reserve: "2 s + 25 % of the budget: column generation stops at deadline - reserve"
+  oracle_check_min_left: 0.12    # in-budget oracle check of the plan if >= 12 % of the budget is left
+  oracle_repairs: 2              # cut a column before its first trip the oracle does not check; at most 2 rounds
+
+metric: "delivered (oracle checked) per instance and seed; per-seed totals (all 10, and the 4 M); worst of 5; E2 bound and gap; time to certified plan"
+validity_checks:
+  - "every E2 bound >= every delivered value of every method in every dev row (any seed, budget, host)"
+  - "tests: bound >= brute-force optimum on tiny instances; bound >= every oracle-checked plan on random small instances"
+  - "tests: plans oracle-valid; budget respected; same seed, same plan when the time limit does not bind"
+decision:
+  keep: "leaderboard verdict 'beats B2' (worst of 5 above the bar 1751)"
+  iterate: "(a) E2 worst-of-5 M total >= B2 worst-of-5 M total in the same interleaved hold, or (b) a valid E2 bound in every M row, strictly below the trivial bound on M-grid-t75-s107 (168) or M-geo-t75-s108 (149)"
+  kill: "otherwise"

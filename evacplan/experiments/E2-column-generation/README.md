@@ -1,0 +1,224 @@
+# E2: column generation over vehicle itineraries, with a proven bound (SYNTHETIC dev)
+
+**Type:** planner with a proven upper bound. **Track:** C, Phase 1 batch 2. **Data:** the frozen SYNTHETIC dev
+split only (rule 5: no test instance is generated, read or run; the KR-2025 data are never opened). **Label:** every
+number and figure here is SYNTHETIC. **Code:** `evacplan/src/evacplan/methods/e2_colgen.py` (method `e2_colgen`),
+`methods/e2_pricing.py` (the pricing dynamic programme on E4's network), `methods/e2_worker.py` (a persistent HiGHS
+worker in a child process); tests in `evacplan/tests/test_e2_colgen.py`. Approved by Siyeong at checkpoint 3
+(2026-11-02) as proposed: "Column generation (set partitioning over itineraries; pricing by a resource-constrained
+shortest path on E4's network; its LP bound certifies its own plans). Hypothesis: within 60 s it matches B2 on S/M
+and gives plan and bound on M. Kill if worst of 5 < B2 on M with no usable bound. About 5 h work, 1.5 h bench."
+
+## Pre-registration (written before any dev run)
+
+What had been run before this section was written: construction times of `Reach` and of E4's `FlowNetwork` (no LP)
+on four generated SYNTHETIC instances outside the split (`S-grid-t75-s9801`, `M-grid-t75-s9802`, `M-geo-t25-s9803`,
+`L-geo-t50-s9804`; 0.6 s, 1.6 s, 2.5 s and 6 s), under the bench lock; HiGHS's dual sign convention on a two-row toy
+LP. No dev instance has been generated, read or run by E2, and no E2 code existed.
+
+### Hypothesis
+
+Within 60 s per instance, a Dantzig-Wolfe decomposition of the dispatch problem by vehicle (a set-packing master
+over single-vehicle itineraries, priced by an exact dynamic programme on E4's contact-free time-expanded network)
+(i) delivers as many residents as B2 on S and M, and (ii) proves, on every M instance, an upper bound on the residents
+any plan can deliver that is at least as tight as E4's (160 and 144 on the two tight M instances, where the trivial
+bound is 168 and 149).
+
+### Why it might work (the math)
+
+* **Decomposition.** Every constraint of the problem except three families is internal to one vehicle (its route,
+  its clock, its space per class, its shift). The three coupling families are linear in what each vehicle does:
+  residents per facility and class, shelter capacity per class, at most one itinerary per vehicle. Dantzig-Wolfe
+  (Dantzig and Wolfe 1960) keeps the coupling rows in a master problem over whole itineraries and moves everything
+  else into a pricing problem per vehicle, a resource-constrained longest path (Irnich and Desaulniers 2005; the
+  VRPTW scheme of Desrochers, Desrosiers and Solomon 1992). By Geoffrion (1974), the master's LP optimum equals the
+  Lagrangian dual over the convex hull of each vehicle's *integral* itineraries, so it is at least as tight as any
+  LP that lets fractions of one vehicle work in parallel, which is what E4's bound has to fight with trip cuts and
+  free-space rows (E4 README, amendment and next steps).
+* **A bound at every iteration, whatever the solver does.** For any nonnegative prices `y` on the coupling rows,
+  weak Lagrangian duality gives: residents delivered by any plan <= `y . b + sum over vehicles of max(0, best
+  itinerary value at y)` (Lübbecke and Desrosiers 2005, Sect. 2.1). The right-hand side needs only an exact (or
+  relaxed) pricing solve; it does not need the master LP to be optimal or converged. E2 evaluates it in every round
+  and keeps the smallest value.
+* **Why plans might be good.** The integer plan is a set-packing MIP over generated itineraries (price-and-branch).
+  It chooses whole itineraries jointly for all vehicles against shared residents and shelter room, which neither B2
+  (static times, hazard only in the windows) nor a greedy can do; the duals price what each facility's residents and
+  each shelter's room are worth near the fire's deadlines.
+* **Stabilisation.** Wentges's dual smoothing (Wentges 1997) with the standard mispricing rule (Pessoa, Sadykov,
+  Uchoa and Vanderbeck 2018) against the tailing-off of plain column generation.
+
+### The method (`e2_colgen`)
+
+**Network.** E4's `FlowNetwork` (reused by import, `grouping="vehicle"`, E4's step rule: `delta` = 60 s on instances
+with at most 10 facilities, 120 s otherwise, reduced automatically to the shortest free-flow time between two
+locations): locations = facility and shelter nodes; the kept moves `(i, k) -> (j, EA)` (NEGATIVE earliest arrival
+`EA` leaving `i` at `k delta`, departure cut-off, dominated moves pruned); each vehicle's entries; each site's action
+sets per class (`Site.usable`); the trip limits (`FlowNetwork.trip_limits`).
+
+**Master (restricted, LP and MIP).** Columns are single-vehicle itineraries `p` with residents boarded
+`a[p, f, c]`, unloaded `u[p, s, c]` and delivered `d[p] = sum u`. Rows: at most one itinerary per vehicle; residents
+per facility and class; shelter capacity per class (only where it can bind); E4's trip cuts per vehicle and
+facility, residents per class and boarding seconds (valid for every checked itinerary, E4 README step 8; only where
+tighter than the residents). Objective: residents delivered (the first criterion). Tie-break in the integer master
+only: minus `eps` x vehicle time of the realized itinerary, `eps` = 1 / (1 + sum over vehicles of their shift
+lengths), so one resident always outweighs any time saving (third criterion). The second criterion (minimum safety
+slack) is not modelled.
+
+**Pricing: the clock DP.** For one vehicle and dual prices `y`, maximize (residents unloaded, each worth 1 minus the
+shelter's capacity price) minus (residents boarded, each costing the facility's resident price plus the vehicle's
+trip-cut prices). States: (time unit `u`, location, load per class), the clock in units of `g` seconds (`g` divides
+`delta`). Transitions: wait one unit; board or unload ONE resident of one class at one site of the location, taking
+that resident's seconds; take one of E4's moves; enter at the vehicle's entries; end with an empty vehicle. A dense
+table over (unit, vehicle of a batch, location, load) computed in blocks shorter than the shortest action (numpy,
+vectorized over loads and over the vehicles of one type). Two modes on the same table:
+
+* RELAXED (the bound, and columns for the LP): times rounded down to units (`floor`), each action allowed at unit
+  `u` iff `u >= floor(lo / g)` and `u + floor(secs / g) <= floor(hi / g)` for an interval `[lo, hi]` of the site's
+  action set for the class, and by the vehicle's shift end; a vehicle anywhere in cell `k` may take a move from
+  `(i, k)` (E4's semantics: the departure is rounded down to the cell start), arriving at unit `floor(EA / g)`.
+* RESTRICTED (columns for the integer plan): times rounded up (`ceil`), a move from `(i, k)` only at the cell start
+  `k delta`, arriving at `ceil(EA / g)`. Its columns are then realized.
+
+Columns are read off the table by backtracking from the best empty end state at each location (at most 3 per
+vehicle and mode per round). **Clock unit rule (fixed a priori):** per vehicle type, `g` = the smallest divisor of
+`delta` that is at most the shortest positive per-resident boarding or unloading time of a class the type carries
+(so every action advances the relaxed clock), with all vehicles of the type in one batch, such that the table has at
+most 24 million cells (192 MB); if none fits, the batch is split. (On the profiled instances: S and M `g` = 1 s; L
+`g` = 1-4 s by type.)
+
+**Rounds.** Round 0 prices at `y = 0`. Then each round: solve the master LP (HiGHS, warm-started simplex in a
+persistent child process); smoothed prices `y_sep = 0.5 y_center + 0.5 y_LP` (`y_center`: the prices with the best
+bound so far); RELAXED DP at `y_sep` for every vehicle: the Lagrangian bound `L(y_sep)` (kept if smaller), columns
+with positive reduced cost at the LP's prices go to the master; if none does (mispricing), the RELAXED DP runs again
+at `y_LP` in the same round, and if that finds none either, the LP is optimal over all relaxed itineraries
+(converged). RESTRICTED DP at `y_LP`: its columns are realized one by one (`methods.realize`, ASAP on the POSITIVE
+masks, as B2 and B3 do; each column alone, with every resident and all shelter room available) and the realized
+versions (residents actually kept) enter both masters. Stop when the LP has converged, when the floored bound equals
+the best integer plan (proven optimal), or at the reserve.
+
+**Integer plan.** A greedy packing of the realized columns each round (an incumbent); at the end the set-packing
+MIP over the realized columns (HiGHS, one thread, the greedy as start, up to 10 % of the budget). Any selection
+the MIP's rows allow realizes exactly as its columns did alone: vehicles do not interact on roads (ASSUMPTIONS #6,
+#16), and the rows keep the residents and shelter room the realizer shares. **In-budget oracle check:** if at least
+12 % of the budget is left, the plan is checked by the oracle (`Oracle.check_plan`); a vehicle with a trip that is
+not `checked` (peak or dose, which the masks do not model) has its column cut before that trip and realized again,
+the old column is forbidden and the MIP re-solved (at most 2 such repairs). The harness then certifies the returned
+plan with a fresh oracle, outside the budget. **Budget:** setup (Reach, FlowNetwork, DP tables) and everything else
+inside the 60 s; the column generation stops at `deadline - (2 s + 0.25 budget)`; the final MIP gets up to 10 % of
+the budget, the oracle check the rest of the reserve. Single-threaded throughout (the parent waits while HiGHS
+runs). `seed` = HiGHS's random seed; otherwise deterministic (repeats differ only when the time limit binds).
+
+### Why the bound is valid (the argument)
+
+Notation: a *checked plan* is any plan and its oracle result; residents count as delivered iff their trip is
+`checked`. Fix any nonnegative prices `y` (the LP's, smoothed, or zero; HiGHS's status and tolerances do not
+matter) and any checked plan `P`.
+
+1. *Keep only what counts* (E4 step 1). Per vehicle keep the itinerary up to its last delivering unloading and of
+   each boarding only the residents that are delivered. Everything kept is checked; loads and seconds of work only
+   drop. Call `q_v` vehicle `v`'s kept itinerary (empty if it delivers nobody) and `A(q_v)` its row usage.
+2. *The kept plan satisfies every master row.* Residents per facility and class: they were boarded at boardings
+   the validator accepted (no overboarding). Shelter capacity: first come first served flags any excess. Trip cuts:
+   E4 step 8, for each vehicle alone. So `sum_v A(q_v) <= b`.
+3. *Each `q_v` is a path of the RELAXED clock DP with the same counts* (shown below). Then its value at `y` is at
+   most the DP's optimum `DP_v(y)`, and at most `max(0, DP_v(y))` also for an empty `q_v`.
+4. Hence `delivered(P) = sum_v d(q_v) = sum_v [d(q_v) - y A(q_v)] + y sum_v A(q_v) <= sum_v max(0, DP_v(y)) + y b`
+   (step 2 and `y >= 0`). E2 reports `floor(that + 1e-6)`, the smallest over the rounds, and at most the resource
+   bound (`timexp.trivial_bound`). The sum `y b` is taken with `math.fsum`; the margin covers the float error of the DP
+   (at most ~1e-11 here: sums of at most ~10^4 terms of size ~1).
+
+Step 3, the mapping. With a complete 1 s lattice (persistent burning and whole-second data, ASSUMPTIONS #72;
+otherwise `FlowNetwork` refuses and E2 claims only the resource bound), every time of the kept itinerary may be
+floored to a whole second and stays feasible (E4 step 3). Let `tau` be the DP vehicle's clock (in seconds, `u g`)
+and `t` the real one. By induction the DP vehicle is at the same location with the same load and `tau <= t`:
+
+* *Entry.* E4's entries: at the depot's location at the start time, or (depot not a location) at the first
+  facility at the NEGATIVE earliest arrival from the depot at the start, which is no later than the real arrival
+  (E4 step 3; the first kept stop boards someone, so it is a facility).
+* *Waits.* The DP may wait any number of units at any location (the NEGATIVE relaxation waits anywhere).
+* *Actions.* Each real boarding or unloading of `n` residents is `n` back-to-back single-resident actions of
+  whole seconds; each lies inside one interval `[lo, hi]` of the site's action set for its class (E4 step 4:
+  boarding starts at or after the release, ends before the node ignites and before `LD_neg + 1`; unloading inside
+  a window, by the horizon, before the shelter node ignites) and ends within the shift. The DP vehicle, being no
+  later, starts the same resident at unit `floor(t0 / g) >= floor(lo / g)` (waiting if needed) and ends at
+  `floor(t0 / g) + floor(secs / g) <= floor((t0 + secs) / g) <= floor(hi / g)` (floors are superadditive), i.e.
+  no later than the real end. Loads per class stay within `[0, space]` because the real ones do. Several sites at
+  one location (co-located facility and shelter) are covered: any interleaving of single-resident actions is a DP
+  path.
+* *Moves.* The real drive leaves location `i` at `beta` (cell `k = floor(beta / delta)`) and reaches the next kept
+  stop `j` at `alpha'`. E4 step 3 shows that the move `(i, k) -> j` exists in E4's network (departure cut-off,
+  arrival by the end of `j`'s action sets, alive nodes) with `EA <= alpha'`, or, if it was pruned as dominated, a
+  path of two kept moves through another location that arrives no later than `EA` (E4's pruning rule: an earlier
+  cell, or the same cell no later, i.e. arrival time `<= EA`). The DP vehicle at `tau <= beta` waits until cell `k`
+  (if it is earlier) and takes that move or path: RELAXED mode lets any unit of cell `k` take the move, and `g`
+  divides `delta`, so cell membership of a unit is exact. It arrives at unit `floor(EA / g) <= floor(alpha' / g)`.
+* *End.* The kept itinerary ends with an unloading after which nobody is on board: an empty DP state, which may end.
+
+So the DP optimum covers every kept itinerary; with `g > 1` the floors only enlarge the DP's feasible set. If a
+block of the DP ever had an action of zero units (a zero-second boarding or unloading), positive-value cycles of
+such actions at one location would make the DP unbounded; E2 then detects them and claims only the resource bound
+for that instance (this cannot happen on the SYNTHETIC generators, whose shortest action is about 24 s).
+
+**What is relaxed** (each only enlarges the DP's set of itineraries): the departure from a location rounded down to
+its cell start (E4); NEGATIVE travel (only certain contact blocks, waits anywhere, no turn rules, unknown cells
+passable; E4); actions checked only against the sites' action sets (no stay contact check beyond node ignition, no
+dose, no peak flux); no per-itinerary limit on residents boarded per facility (the master's rows limit the total);
+`g`-rounding. **Nothing in the bound depends on** the master LP being solved to optimality, on the columns
+generated, on the RESTRICTED mode, on realization or on HiGHS's tolerances: only on `y >= 0` and an exact RELAXED DP.
+
+E2 declares no state about any plan (rule 3): its plans are checked by the oracle in the harness; its in-budget
+oracle call only decides which columns to keep.
+
+### Setup
+
+* Instances: the 10 frozen dev instances (4 S, 4 M, 2 L), SYNTHETIC, regenerated and fingerprint-checked by the
+  harness. Budget 60 s per instance and seed, seeds 0-4 (comparison rule, DECISIONS 2026-11-01).
+* Final run (DECISIONS 2026-11-02 item 5): B2 interleaved with E2 (ABAB, a speed probe before every pair) in one
+  lock hold per group, through the harness: hold 1 = the 8 S and M instances, hold 2 = the 2 L instances:
+  `benchlock.py --wait-max 1800 --label E2-final-SM -- evacplan run --method e2_colgen --interleave-with b2_vrptw
+  --set dev --budget-s 60 --repeats 5 --instances <ids>`. Nothing else heavy runs beside a hold.
+* Before the final run, one smoke run (one S and one M instance, seed 0) into a scratch results directory, so no dev
+  row is written before the final run. Any change after that smoke is a deviation and is recorded here.
+* Parameters: `config.yaml` (and the method's defaults, recorded in every row's config).
+
+### Baseline, metric, validity checks
+
+* Baseline: B2 (`b2_vrptw`) in the same interleaved holds (same machine state, alternating). The bar for beating B2 on
+  this host is 1751 (the leaderboard's rule, with the recorded 1750/1751).
+* Metrics: residents delivered per instance and seed (oracle `checked`), per-seed totals over the 10 instances and
+  over the 4 M instances, worst of 5; E2's proven bound per instance and its gap to the best plan; time to certified
+  plan (runtime + the harness's `certify_s`).
+* Validity checks (a bound-only failure is a bug, not a result): (1) every E2 bound is at least every delivered value
+  of every method in every row on dev (any seed, budget or host), the same check as E4's `check_validity.py`;
+  (2) tests: bound >= the brute-force optimum on tiny generated instances (B3's and E4's tiny instance and its random
+  off-grid variants); bound >= every oracle-checked plan (random plans, B0, B1, B3, E2's own) on random small
+  instances; E2's plans are oracle-valid; the budget is respected; same seed, same plan (when the time limit does not
+  bind).
+
+### Budget and decision rule
+
+Time-box: about 5 h of work; bench: tests and the smoke (about 20 min) plus the two interleaved holds (about 90 and
+35 min including B2's partner runs and cold certification; the approved 1.5 h predates the interleaving).
+
+* **KEEP** if the leaderboard verdict is "beats B2" (worst of 5 above the bar 1751).
+* **ITERATE** if not, but either (a) E2's worst-of-5 total over the 4 M instances is at least B2's worst-of-5 total
+  over the same 4 M instances in the same interleaved hold, or (b) E2 proves a valid bound on every M instance (in
+  every E2 row there) that is strictly below the trivial bound on at least one of the two tight M instances
+  (`SYNTHETIC-M-grid-t75-s107`: 168, `SYNTHETIC-M-geo-t75-s108`: 149), the smallest E2 bound per instance counting.
+* **KILL** otherwise.
+
+## Results
+
+(Not yet run.)
+
+## References
+
+Dantzig, G. B., Wolfe, P. (1960). Decomposition principle for linear programs. *Operations Research* 8(1), 101-111.
+Desrochers, M., Desrosiers, J., Solomon, M. (1992). A new optimization algorithm for the vehicle routing problem
+with time windows. *Operations Research* 40(2), 342-354. Geoffrion, A. M. (1974). Lagrangean relaxation for integer
+programming. *Mathematical Programming Study* 2, 82-114. Irnich, S., Desaulniers, G. (2005). Shortest path problems
+with resource constraints. In *Column Generation*, Springer, 33-65. Lübbecke, M. E., Desrosiers, J. (2005). Selected
+topics in column generation. *Operations Research* 53(6), 1007-1023. Pessoa, A., Sadykov, R., Uchoa, E., Vanderbeck,
+F. (2018). Automation and combination of linear-programming based stabilization techniques in column generation.
+*INFORMS Journal on Computing* 30(2), 339-360. Wentges, P. (1997). Weighted Dantzig-Wolfe decomposition for linear
+mixed-integer programming. *International Transactions in Operational Research* 4(2), 151-162.
