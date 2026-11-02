@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="905.97825pt" height="561.063781pt" viewBox="0 0 905.97825 561.063781" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="833.172656pt" height="560.597594pt" viewBox="0 0 833.172656 560.597594" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -20,28 +20,28 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 561.063781 
-L 905.97825 561.063781 
-L 905.97825 0 
+   <path d="M 0 560.597594 
+L 833.172656 560.597594 
+L 833.172656 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 182.547 500.85225 
-L 817.2 500.85225 
-L 817.2 31.99625 
-L 182.547 31.99625 
+    <path d="M 182.547 500.386062 
+L 817.2 500.386062 
+L 817.2 43.194062 
+L 182.547 43.194062 
 z
 " style="fill: #ffffff"/>
    </g>
    <g id="matplotlib.axis_1">
     <g id="xtick_1">
      <g id="line2d_1">
-      <path d="M 182.547 500.85225 
-L 182.547 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 182.547 500.386062 
+L 182.547 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_2">
       <defs>
@@ -50,141 +50,141 @@ L 0 3.5
 " style="stroke: #52514e; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#mf83647d664" x="182.547" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="182.547" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_1">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="182.547" y="514.690844" transform="rotate(-0 182.547 514.690844)">0</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="182.547" y="514.224656" transform="rotate(-0 182.547 514.224656)">0</text>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_3">
-      <path d="M 302.746432 500.85225 
-L 302.746432 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 302.746432 500.386062 
+L 302.746432 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_4">
       <g>
-       <use xlink:href="#mf83647d664" x="302.746432" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="302.746432" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="302.746432" y="514.690844" transform="rotate(-0 302.746432 514.690844)">10</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="302.746432" y="514.224656" transform="rotate(-0 302.746432 514.224656)">10</text>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_5">
-      <path d="M 422.945864 500.85225 
-L 422.945864 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 422.945864 500.386062 
+L 422.945864 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_6">
       <g>
-       <use xlink:href="#mf83647d664" x="422.945864" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="422.945864" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_3">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="422.945864" y="514.690844" transform="rotate(-0 422.945864 514.690844)">20</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="422.945864" y="514.224656" transform="rotate(-0 422.945864 514.224656)">20</text>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_7">
-      <path d="M 543.145295 500.85225 
-L 543.145295 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 543.145295 500.386062 
+L 543.145295 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_8">
       <g>
-       <use xlink:href="#mf83647d664" x="543.145295" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="543.145295" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_4">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="543.145295" y="514.690844" transform="rotate(-0 543.145295 514.690844)">30</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="543.145295" y="514.224656" transform="rotate(-0 543.145295 514.224656)">30</text>
      </g>
     </g>
     <g id="xtick_5">
      <g id="line2d_9">
-      <path d="M 663.344727 500.85225 
-L 663.344727 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 663.344727 500.386062 
+L 663.344727 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_10">
       <g>
-       <use xlink:href="#mf83647d664" x="663.344727" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="663.344727" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_5">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="663.344727" y="514.690844" transform="rotate(-0 663.344727 514.690844)">40</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="663.344727" y="514.224656" transform="rotate(-0 663.344727 514.224656)">40</text>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_11">
-      <path d="M 783.544159 500.85225 
-L 783.544159 31.99625 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+      <path d="M 783.544159 500.386062 
+L 783.544159 43.194062 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
      </g>
      <g id="line2d_12">
       <g>
-       <use xlink:href="#mf83647d664" x="783.544159" y="500.85225" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
+       <use xlink:href="#mf83647d664" x="783.544159" y="500.386062" style="fill: #52514e; stroke: #52514e; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_6">
-      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="783.544159" y="514.690844" transform="rotate(-0 783.544159 514.690844)">50</text>
+      <text style="fill: #52514e; font: 9px 'DejaVu Sans'; text-anchor: middle" x="783.544159" y="514.224656" transform="rotate(-0 783.544159 514.224656)">50</text>
      </g>
     </g>
     <g id="text_7">
-     <text style="fill: #0b0b0b; font: 9px 'DejaVu Sans'; text-anchor: middle" x="499.8735" y="527.401156" transform="rotate(-0 499.8735 527.401156)">Travel time to the same destination, minutes after departure (same departure time)</text>
+     <text style="fill: #0b0b0b; font: 9px 'DejaVu Sans'; text-anchor: middle" x="499.8735" y="526.934969" transform="rotate(-0 499.8735 526.934969)">Travel time to the same destination, minutes after departure (same departure time)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2"/>
    <g id="line2d_13">
-    <path d="M 368.255122 413.215614 
-L 382.679054 413.215614 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 368.255122 414.929614 
+L 382.679054 414.929614 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_14">
-    <path d="M 281.911864 369.397297 
-L 288.122168 369.397297 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 281.911864 372.20139 
+L 288.122168 372.20139 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_15">
-    <path d="M 468.421315 325.578979 
-L 509.489455 325.578979 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 468.421315 329.473165 
+L 509.489455 329.473165 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_16">
-    <path d="M 327.78798 281.760661 
-L 426.551847 281.760661 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 327.78798 286.744941 
+L 426.551847 286.744941 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_17">
-    <path d="M 461.009017 237.942343 
-L 566.584185 237.942343 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 461.009017 244.016717 
+L 566.584185 244.016717 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_18">
-    <path d="M 473.629957 194.124026 
-L 579.205125 194.124026 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 473.629957 201.288492 
+L 579.205125 201.288492 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_19">
-    <path d="M 473.229293 150.305708 
-L 538.938315 150.305708 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 473.229293 158.560268 
+L 538.938315 158.560268 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_20">
-    <path d="M 302.946764 106.48739 
-L 565.181858 106.48739 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 302.946764 115.832044 
+L 565.181858 115.832044 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="line2d_21">
-    <path d="M 468.421315 62.669072 
-L 509.489455 62.669072 
-" clip-path="url(#p5c9c3e2cdb)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 468.421315 73.10382 
+L 509.489455 73.10382 
+" clip-path="url(#p0546d9c8ae)" style="fill: none; stroke: #c3c2b7; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="patch_3">
-    <path d="M 182.547 500.85225 
-L 817.2 500.85225 
+    <path d="M 182.547 500.386062 
+L 817.2 500.386062 
 " style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="PathCollection_1">
@@ -201,8 +201,8 @@ C -1.978501 3.406664 -1.009863 3.807887 0 3.807887
 z
 " style="stroke: #0b0b0c; stroke-width: 1.8"/>
     </defs>
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="368.255122" y="413.215614" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="368.255122" y="414.929614" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_2">
@@ -219,168 +219,169 @@ C -1.978501 3.406664 -1.009863 3.807887 0 3.807887
 z
 " style="stroke: #ffffff; stroke-width: 1.5"/>
     </defs>
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="382.679054" y="413.215614" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="382.679054" y="414.929614" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_8">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="389.89102" y="415.423114" transform="rotate(-0 389.89102 415.423114)">+1.2 min, +1.5 km (flame contact in 4 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="389.89102" y="417.137114" transform="rotate(-0 389.89102 417.137114)">+1.2 min, +1.5 km (flame contact in 4 of 4 members)</text>
    </g>
    <g id="text_9">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(32.941282 411.00078)">Pyeongpal-ri (osm:node/415160459)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 419.735074)">2025-03-26 02:00 KST, departing +40 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(32.941282 412.71478)">Pyeongpal-ri (osm:node/415160459)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 421.449073)">2025-03-26 02:00 KST, departing +40 min</text>
    </g>
    <g id="PathCollection_3">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="281.911864" y="369.397297" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="281.911864" y="372.20139" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_4">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="288.122168" y="369.397297" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="288.122168" y="372.20139" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_10">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="295.334134" y="371.604797" transform="rotate(-0 295.334134 371.604797)">+0.5 min, +0.3 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="295.334134" y="374.40889" transform="rotate(-0 295.334134 374.40889)">+0.5 min, +0.3 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_11">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(32.942501 367.182462)">Myeonggo-ri (osm:node/415160474)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 375.916756)">2025-03-24 18:00 KST, departing +40 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(32.942501 369.986555)">Myeonggo-ri (osm:node/415160474)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 378.720849)">2025-03-24 18:00 KST, departing +40 min</text>
    </g>
    <g id="PathCollection_5">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="468.421315" y="325.578979" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="468.421315" y="329.473165" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_6">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="509.489455" y="325.578979" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="509.489455" y="329.473165" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_12">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="516.70142" y="327.786479" transform="rotate(-0 516.70142 327.786479)">+3.4 min, +1.6 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="516.70142" y="331.680665" transform="rotate(-0 516.70142 331.680665)">+3.4 min, +1.6 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_13">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(45.434689 323.364145)">Majeon-ri (osm:node/415160440)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 332.098438)">2025-03-24 18:00 KST, departing +30 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(45.434689 327.258331)">Majeon-ri (osm:node/415160440)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 335.992625)">2025-03-24 18:00 KST, departing +30 min</text>
    </g>
    <g id="PathCollection_7">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="327.78798" y="281.760661" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="327.78798" y="286.744941" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_8">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="426.551847" y="281.760661" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="426.551847" y="286.744941" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_14">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="433.763812" y="283.968161" transform="rotate(-0 433.763812 283.968161)">+8.2 min, +4.4 km (flame contact in 4 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="433.763812" y="288.952441" transform="rotate(-0 433.763812 288.952441)">+8.2 min, +4.4 km (flame contact in 4 of 4 members)</text>
    </g>
    <g id="text_15">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(47.495595 279.545827)">Yunam-ri (osm:node/415160355)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 288.280121)">2025-03-24 18:00 KST, departing +30 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(47.495595 284.530107)">Yunam-ri (osm:node/415160355)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 293.2644)">2025-03-24 18:00 KST, departing +30 min</text>
    </g>
    <g id="PathCollection_9">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="461.009017" y="237.942343" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="461.009017" y="244.016717" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_10">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="566.584185" y="237.942343" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="566.584185" y="244.016717" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_16">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="573.796151" y="240.149843" transform="rotate(-0 573.796151 240.149843)">+8.8 min, +4.8 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="573.796151" y="246.224217" transform="rotate(-0 573.796151 246.224217)">+8.8 min, +4.8 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_17">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(55.545439 235.727509)">Gido-ri (osm:node/415160438)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 244.461803)">2025-03-24 18:00 KST, departing +20 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(55.545439 241.801882)">Gido-ri (osm:node/415160438)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 250.536176)">2025-03-24 18:00 KST, departing +20 min</text>
    </g>
    <g id="PathCollection_11">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="473.629957" y="194.124026" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="473.629957" y="201.288492" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_12">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="579.205125" y="194.124026" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="579.205125" y="201.288492" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_18">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="586.417091" y="196.331526" transform="rotate(-0 586.417091 196.331526)">+8.8 min, +4.8 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="586.417091" y="203.495992" transform="rotate(-0 586.417091 203.495992)">+8.8 min, +4.8 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_19">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(39.276345 191.909191)">Changgil-ri (osm:node/415160435)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 200.643485)">2025-03-24 18:00 KST, departing +20 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(39.276345 199.073658)">Changgil-ri (osm:node/415160435)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 207.807952)">2025-03-24 18:00 KST, departing +20 min</text>
    </g>
    <g id="PathCollection_13">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="473.229293" y="150.305708" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="473.229293" y="158.560268" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_14">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="538.938315" y="150.305708" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="538.938315" y="158.560268" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_20">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="546.150281" y="152.513208" transform="rotate(-0 546.150281 152.513208)">+5.5 min, +2.6 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="546.150281" y="160.767768" transform="rotate(-0 546.150281 160.767768)">+5.5 min, +2.6 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_21">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(41.94297 148.090874)">Jangnim-ri (osm:node/415160433)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 156.825167)">2025-03-24 18:00 KST, departing +20 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(41.94297 156.345434)">Jangnim-ri (osm:node/415160433)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 165.079727)">2025-03-24 18:00 KST, departing +20 min</text>
    </g>
    <g id="PathCollection_15">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="302.946764" y="106.48739" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="302.946764" y="115.832044" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_16">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="565.181858" y="106.48739" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="565.181858" y="115.832044" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_22">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="572.393824" y="108.69489" transform="rotate(-0 572.393824 108.69489)">+21.8 min, +12.8 km (flame contact in 4 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="572.393824" y="118.039544" transform="rotate(-0 572.393824 118.039544)">+21.8 min, +12.8 km (flame contact in 4 of 4 members)</text>
    </g>
    <g id="text_23">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(44.382907 104.272556)">Sin-gye-ri (osm:node/415160362)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 113.00685)">2025-03-24 18:00 KST, departing +20 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(44.382907 113.617209)">Sin-gye-ri (osm:node/415160362)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 122.351503)">2025-03-24 18:00 KST, departing +20 min</text>
    </g>
    <g id="PathCollection_17">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m7acad00483" x="468.421315" y="62.669072" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m7acad00483" x="468.421315" y="73.10382" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="PathCollection_18">
-    <g clip-path="url(#p5c9c3e2cdb)">
-     <use xlink:href="#m1a3d055303" x="509.489455" y="62.669072" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
+    <g clip-path="url(#p0546d9c8ae)">
+     <use xlink:href="#m1a3d055303" x="509.489455" y="73.10382" style="fill: #1a9e55; stroke: #ffffff; stroke-width: 1.5"/>
     </g>
    </g>
    <g id="text_24">
-    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="516.70142" y="64.876572" transform="rotate(-0 516.70142 64.876572)">+3.4 min, +1.6 km (flame contact in 1 of 4 members)</text>
+    <text style="fill: #0b0b0b; font: 8px 'DejaVu Sans'; text-anchor: start" x="516.70142" y="75.31132" transform="rotate(-0 516.70142 75.31132)">+3.4 min, +1.6 km (flame contact in 1 of 4 members)</text>
    </g>
    <g id="text_25">
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(45.434689 60.454238)">Majeon-ri (osm:node/415160440)</text>
-    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 69.188532)">2025-03-23 10:00 KST, departing +30 min</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(45.434689 70.888985)">Majeon-ri (osm:node/415160440)</text>
+    <text style="fill: #0b0b0b; font: 7.8px 'DejaVu Sans'" transform="translate(9.708251 79.623279)">2025-03-23 10:00 KST, departing +30 min</text>
    </g>
    <g id="text_26">
-    <text style="fill: #0b0b0b; font: 10px 'DejaVu Sans'" transform="translate(182.547 14.798437)">Where the fastest route meets predicted flames: 9 of 501 comparisons (all in Uiseong-Andong)</text>
-    <text style="fill: #0b0b0b; font: 10px 'DejaVu Sans'" transform="translate(182.547 25.99625)">In the other 492, the travel-time-only route had no predicted flame contact and arrived at the same second as the checked route (492 of 492).</text>
+    <text style="fill: #0b0b0b; font: 10px 'DejaVu Sans'" transform="translate(182.547 14.798437)">Where the fastest route meets predicted flames: 9 of the 147 comparisons at leave-by deadlines before +50 min</text>
+    <text style="fill: #0b0b0b; font: 10px 'DejaVu Sans'" transform="translate(182.547 25.99625)">(all in Uiseong-Andong), none of the 354 at +50 min. In the other 492 comparisons the travel-time-only route had no</text>
+    <text style="fill: #0b0b0b; font: 10px 'DejaVu Sans'" transform="translate(182.547 37.194062)">predicted flame contact and arrived at the same second as the checked route (492 of 492).</text>
    </g>
    <g id="legend_1">
     <g id="patch_4">
-     <path d="M 406.672578 496.60225 
-L 811.25 496.60225 
-Q 812.95 496.60225 812.95 494.90225 
-L 812.95 470.799437 
-Q 812.95 469.099437 811.25 469.099437 
-L 406.672578 469.099437 
-Q 404.972578 469.099437 404.972578 470.799437 
-L 404.972578 494.90225 
-Q 404.972578 496.60225 406.672578 496.60225 
+     <path d="M 406.672578 496.136062 
+L 811.25 496.136062 
+Q 812.95 496.136062 812.95 494.436062 
+L 812.95 470.33325 
+Q 812.95 468.63325 811.25 468.63325 
+L 406.672578 468.63325 
+Q 404.972578 468.63325 404.972578 470.33325 
+L 404.972578 494.436062 
+Q 404.972578 496.136062 406.672578 496.136062 
 z
 " style="fill: #ffffff; stroke: #e1e0d9; stroke-linejoin: miter"/>
     </g>
@@ -399,11 +400,11 @@ z
 " style="stroke: #0b0b0c; stroke-width: 1.8"/>
      </defs>
      <g>
-      <use xlink:href="#m6f4817323e" x="416.872578" y="475.983109" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
+      <use xlink:href="#m6f4817323e" x="416.872578" y="475.516922" style="fill: #ffffff; stroke: #0b0b0c; stroke-width: 1.8"/>
      </g>
     </g>
     <g id="text_27">
-     <text style="fill: #0b0b0b; font: 8.5px 'DejaVu Sans'; text-anchor: start" x="432.172578" y="478.958109" transform="rotate(-0 432.172578 478.958109)">Travel-time-only route (comparison only; meets predicted flames in &gt;= 1 of 4 members)</text>
+     <text style="fill: #0b0b0b; font: 8.5px 'DejaVu Sans'; text-anchor: start" x="432.172578" y="478.491922" transform="rotate(-0 432.172578 478.491922)">Travel-time-only route (comparison only; meets predicted flames in &gt;= 1 of 4 members)</text>
     </g>
     <g id="line2d_23">
      <defs>
@@ -420,22 +421,23 @@ z
 " style="stroke: #ffffff"/>
      </defs>
      <g>
-      <use xlink:href="#m2525b6ef50" x="416.872578" y="488.459516" style="fill: #1a9e55; stroke: #ffffff"/>
+      <use xlink:href="#m2525b6ef50" x="416.872578" y="487.993328" style="fill: #1a9e55; stroke: #ffffff"/>
      </g>
     </g>
     <g id="text_28">
-     <text style="fill: #0b0b0b; font: 8.5px 'DejaVu Sans'; text-anchor: start" x="432.172578" y="491.434516" transform="rotate(-0 432.172578 491.434516)">Checked route (within the model), same destination</text>
+     <text style="fill: #0b0b0b; font: 8.5px 'DejaVu Sans'; text-anchor: start" x="432.172578" y="490.968328" transform="rotate(-0 432.172578 490.968328)">Checked route (within the model), same destination</text>
     </g>
    </g>
   </g>
   <g id="text_29">
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 543.905656)">Comparison at each place's leave-by deadline toward the destination of its default checked route. Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the forecast; 1-hour</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 552.304016)">horizon; OSM roads at an assumed 40 km/h, no congestion). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 535.041109)">Comparison at each place's leave-by deadline toward the destination of its default checked route. Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 543.439469)">forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is checked to one of its three nearest OSM-mapped schools or community halls (not official shelters; for one Yeongdeok</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 551.837828)">place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
   </g>
  </g>
  <defs>
-  <clipPath id="p5c9c3e2cdb">
-   <rect x="182.547" y="31.99625" width="634.653" height="468.856"/>
+  <clipPath id="p0546d9c8ae">
+   <rect x="182.547" y="43.194062" width="634.653" height="457.192"/>
   </clipPath>
  </defs>
 </svg>

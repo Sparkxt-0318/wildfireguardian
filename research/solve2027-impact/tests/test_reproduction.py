@@ -88,7 +88,7 @@ def test_invariants_the_text_relies_on():
             assert N[f'cell.window_unsatisfiable.offset_{t:04d}s@{sc}']['value'] == 0
         assert sum(N[f'deadline.{c}@{sc}']['value'] for c in numbers_mod.DEADLINE_CATS) == n
         assert sum(N[f'best_verdict.{v}@{sc}']['value'] for v in ('checked_route', 'model_no_route', 'unresolved')) == n
-        # no origin has a gap: the figure-1 subtitle and "share checked at t = share with deadline >= t" rely on it
+        # no origin has a gap: "share checked at t = share with deadline >= t" relies on it
         assert N[f'contiguous_differs_from_latest@{sc}']['value'] == 0
         assert N[f'no_checked_route_any_offset@{sc}']['value'] == \
             N[f'deadline.none_model_no_route@{sc}']['value'] + N[f'deadline.none_unresolved@{sc}']['value']
@@ -106,6 +106,64 @@ def test_invariants_the_text_relies_on():
     assert N['travel_only.fastest_meets_flames@yeongdeok_2025/pooled']['value'] == 0   # "all in Uiseong-Andong"
 
 
+def test_window_classification_partitions_and_never_hides_a_checked_route():
+    scopes = [s for s in NUMBERS['scopes'] if s.endswith('Z')] + ['uiseong_andong_2025/pooled', 'yeongdeok_2025/pooled', 'all/pooled']
+    for sc in scopes:
+        n = N[f'cases@{sc}']['value']
+        for t in sources.GRID_OFFSETS_S:
+            o = f'offset_{t:04d}s@{sc}'
+            lim, fit = N[f'window_limited.{o}'], N[f'not_checked_although_fits.{o}']
+            assert lim['denominator'] == n and fit['denominator'] == n - lim['numerator']
+            for v in ('model_no_route', 'unresolved'):     # fits + limited = the planner's own cell count
+                assert N[f'cell_window.{v}.fits.{o}']['value'] + N[f'cell_window.{v}.limited.{o}']['value'] == \
+                    N[f'cell.{v}.{o}']['value']
+            assert fit['numerator'] == N[f'cell_window.model_no_route.fits.{o}']['value'] + \
+                N[f'cell_window.unresolved.fits.{o}']['value']
+            # every checked cell fits: window-limited cells are all among the unchecked ones
+            assert lim['numerator'] == N[f'cell_window.model_no_route.limited.{o}']['value'] + \
+                N[f'cell_window.unresolved.limited.{o}']['value']
+            wl = N[f'window_limited_among_not_checked.{o}']
+            assert wl['numerator'] == lim['numerator'] and wl['denominator'] == n - N[f'cell.checked_route.{o}']['value']
+        closes = N[f'window_closes_within_hour@{sc}']['value']
+        assert N[f'deadline_set_by.window@{sc}']['denominator'] == closes
+        assert N[f'deadline_set_by.window@{sc}']['value'] + N[f'deadline_set_by.fire_or_limits@{sc}']['value'] == closes
+        for t in sources.GRID_OFFSETS_S[:-1]:
+            assert N[f'deadline.latest_{t:04d}s.set_by_window@{sc}']['value'] + \
+                N[f'deadline.latest_{t:04d}s.set_by_fire_or_limits@{sc}']['value'] == N[f'deadline.latest_{t:04d}s@{sc}']['value']
+        assert N[f'window_limited.offset_0000s@{sc}']['value'] == 0       # at the forecast time everything fits
+    # the fire-free trip model is the API's own travel-time-only route time
+    assert N['trip_model.equals_travel_only@all/pooled']['share'] == 1.0
+    a, b = N['travel_only.fastest_meets_flames@all/pooled#leave_by_3000s'], N['travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s']
+    tot = N['travel_only.fastest_meets_flames@all/pooled']
+    assert (a['numerator'] + b['numerator'], a['denominator'] + b['denominator']) == (tot['numerator'], tot['denominator'])
+
+
+def test_wording_that_depends_on_numbers():
+    # S2 "(Yeongdeok: ..., at both)"
+    y0, y30 = N['not_checked_although_fits.offset_0000s@yeongdeok_2025/pooled'], N['not_checked_although_fits.offset_1800s@yeongdeok_2025/pooled']
+    assert (y0['numerator'], y0['denominator']) == (y30['numerator'], y30['denominator'])
+    # S5 "in none of the ... at +50 minutes", "all in Uiseong-Andong"
+    assert N['travel_only.fastest_meets_flames@all/pooled#leave_by_3000s']['numerator'] == 0
+    assert N['travel_only.fastest_meets_flames@yeongdeok_2025/pooled']['numerator'] == 0
+    # S3 caution "for all ... of them the fastest fire-free trip fits"
+    assert N['no_checked_route_any_offset.trip_fits_at_offset_0000s@all/pooled']['share'] == 1.0
+    # S4 caution "Of these places, ... had no checked route at any departure time" (a subset of the S4 count)
+    assert N['places.no_checked_route_any_offset_any_input@all/places']['numerator'] <= \
+        N['places.not_checked_although_fits_any_offset_any_input@all/places']['numerator']
+    # README "Read this first" 2: "most of the drop toward +50 min in Uiseong-Andong is window-limited",
+    # "most deadlines before +50 min are window-set"
+    assert N['window_limited_among_not_checked.offset_3000s@uiseong_andong_2025/pooled']['share'] > 0.5
+    assert N['deadline_set_by.window@all/pooled']['share'] > 0.5
+    # "the 1-hour scenario window" and the 480 s / 1,080 s trip limits: valid_until 3600 s, 120 s stay, every file
+    for sc, s in NUMBERS['scopes'].items():
+        if 'graph_sha256' in s:
+            assert s['valid_until_s'] == 3600 and s['valid_from_s'] == 0 and s['dt_s'] == 1
+    # README "the shared road usually extends well beyond the entry node itself"
+    assert N['redundancy.shared_stretch_within_100m@all/places']['share'] < 0.5
+    # S6 shared stretch statistic covers exactly the single-path places
+    assert N['redundancy.shared_stretch_m.median@all/places']['n'] == N['redundancy.turn_aware_paths_1@all/places']['numerator']
+
+
 def test_hand_written_readme_facts_match_numbers():
     readme = (PACKAGE_ROOT / 'README.md').read_text(encoding='utf-8')
     assert N['places@all/places#care_facility']['value'] == 5 and 'care_facility' not in \
@@ -113,7 +171,12 @@ def test_hand_written_readme_facts_match_numbers():
     assert '5 care facilities are mapped in OSM (all in Uiseong-Andong), none in Yeongdeok' in readme
     assert N['osm_origins_not_checkable@all/places']['value'] == 3 and 'the 3 not-checkable villages' in readme
     assert N['research_origins@all/places']['value'] == 8 and 'the 8 research' in readme
-    assert N['destinations_used.shelter@yeongdeok_2025/places']['value'] == 1 and 'one OSM-mapped' in readme
+    assert N['destinations_used.shelter@yeongdeok_2025/places']['value'] == 1
+    assert 'an unnamed OSM point tagged `amenity=shelter` without `shelter_type`' in readme
+    lo, hi = N['fastest_trip_s.min@all/places#care_facility']['value'], N['fastest_trip_s.max@all/places#care_facility']['value']
+    assert f'They are {lo}-{hi} s fire-free drive' in readme and hi <= 480       # "the window never limits them"
+    assert N['places.window_limited_at_offset_3000s@all/places#care_facility']['numerator'] == 0
+    assert 'takes at most 480 s (8 min); at +40 min, at most 1,080 s' in readme
     assert N['destinations_used.shelter@uiseong_andong_2025/places']['value'] == 0
     assert N['redundancy.turn_aware_equals_plain@all/places']['share'] == 1.0 and 'equal for every place' in readme
     for marker in ('사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.', 'Planning aid only — not for live evacuation operations.'):

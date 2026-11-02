@@ -4,6 +4,11 @@ Verdict encoding = the planner's fixed verdict colours (planner/docs/ARCHITECTUR
 hatch on unresolved (its grey is below 3:1 contrast on white, so it never relies on colour): checked_route green
 #1A9E55, model_no_route ink #0B0B0C, unresolved grey #9A9AA0 hatched. The travel-time-only route is never green
 (planner README honesty rules); it is drawn in ink with an open marker.
+
+The 1-hour scenario window is shown separately: white dots over a verdict fill mark the window-limited part (fig 1:
+departures where even the fastest fire-free trip plus the 120 s stay ends after the window, so no route could be
+checked whatever the fire; fig 2: leave-by deadlines set by that window at the next departure). Dots are a pattern,
+not a colour, and every dotted part is also counted in text.
 """
 from __future__ import annotations
 
@@ -24,8 +29,13 @@ LABEL = {pr.CHECKED: 'Checked route (within the model)',
          pr.NO_ROUTE: 'No route in the model (model_no_route)',
          pr.UNRESOLVED: 'Unresolved: cannot judge, never safe'}
 FOOTER = ('Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell '
-          'from the forecast; 1-hour horizon; OSM roads at an assumed 40 km/h, no congestion). Not evacuation outcomes. '
+          'from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is '
+          'checked to one of its three nearest OSM-mapped schools or community halls (not official shelters; for one '
+          'Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. '
           'Planning aid only - not for live evacuation operations.')
+WINDOW_HATCH = '..'
+WINDOW_TEXT = ('even the fastest fire-free trip + the 120 s stay would end after the 1-hour scenario window, so no route '
+               'could be checked whatever the fire')
 OFFSETS = sources.GRID_OFFSETS_S
 
 
@@ -49,20 +59,25 @@ def _save(fig, out_dir: Path, stem: str) -> list[Path]:
     return paths
 
 
-def _bar(ax, x, bottom, height, verdict, width):
-    """One verdict segment: solid fill with a 1.5 px surface gap; unresolved additionally hatched."""
+def _bar(ax, x, bottom, height, verdict, width, window=False):
+    """One verdict segment: solid fill with a 1.5 px surface gap; unresolved additionally hatched; the window-limited
+    (fig 1) or window-set (fig 2) part additionally dotted."""
     color = {pr.CHECKED: CHECKED_C, pr.NO_ROUTE: NOROUTE_C, pr.UNRESOLVED: UNRES_C}[verdict]
     if height <= 0:
         return
     ax.bar(x, height, width, bottom=bottom, color=color, edgecolor=SURFACE, linewidth=1.5, zorder=2)
-    if verdict == pr.UNRESOLVED:
-        ax.bar(x, height, width, bottom=bottom, color='none', edgecolor=HATCH_C, hatch='////', linewidth=0, zorder=3)
+    hatch = ('////' if verdict == pr.UNRESOLVED else '') + (WINDOW_HATCH if window else '')
+    if hatch:
+        ax.bar(x, height, width, bottom=bottom, color='none', edgecolor=HATCH_C, hatch=hatch, linewidth=0, zorder=3)
 
 
-def _legend_handles():
-    return [Patch(facecolor=CHECKED_C, label=LABEL[pr.CHECKED]),
-            Patch(facecolor=NOROUTE_C, label=LABEL[pr.NO_ROUTE]),
-            Patch(facecolor=UNRES_C, edgecolor=HATCH_C, hatch='////', label=LABEL[pr.UNRESOLVED])]
+def _legend_handles(window_label: str | None = None, window_face: str = NOROUTE_C):
+    h = [Patch(facecolor=CHECKED_C, label=LABEL[pr.CHECKED]),
+         Patch(facecolor=NOROUTE_C, label=LABEL[pr.NO_ROUTE]),
+         Patch(facecolor=UNRES_C, edgecolor=HATCH_C, hatch='////', label=LABEL[pr.UNRESOLVED])]
+    if window_label:
+        h.append(Patch(facecolor=window_face, edgecolor=HATCH_C, hatch=WINDOW_HATCH, label=window_label))
+    return h
 
 
 def _osm(records):
@@ -73,7 +88,7 @@ def fig_checked_share(records, numbers, metas, out_dir: Path, table_dir: Path) -
     _style()
     recs = _osm(records)
     scopes = [m['scope'] for m in metas]
-    fig, axes = plt.subplots(2, 3, figsize=(11.5, 6.6), sharey=True)
+    fig, axes = plt.subplots(2, 3, figsize=(11.5, 6.9), sharey=True)
     rows = []
     for i, region in enumerate(sources.REGIONS):
         reg_scopes = [s for s in scopes if s.startswith(region)]
@@ -83,43 +98,69 @@ def fig_checked_share(records, numbers, metas, out_dir: Path, table_dir: Path) -
             n = len(rr)
             for k, t in enumerate(OFFSETS):
                 c = {v: sum(1 for r in rr if r['cells'][t] == v) for v in pr.VERDICTS}
+                split = {(v, fits): sum(1 for r in rr if r['cells'][t] == v and r['fits'][t] == fits)
+                         for v in (pr.NO_ROUTE, pr.UNRESOLVED) for fits in (True, False)}
                 for v in pr.VERDICTS:      # every displayed count equals NUMBERS.json
                     assert numbers[f'cell.{v}.offset_{t:04d}s@{sc}']['numerator'] == c[v]
-                assert sum(c.values()) == n
+                for (v, fits), x in split.items():
+                    cls = 'fits' if fits else 'limited'
+                    assert numbers[f'cell_window.{v}.{cls}.offset_{t:04d}s@{sc}']['numerator'] == x
+                assert sum(c.values()) == n and not any(r['cells'][t] == pr.CHECKED and not r['fits'][t] for r in rr)
+                wl = split[(pr.NO_ROUTE, False)] + split[(pr.UNRESOLVED, False)]
+                assert numbers[f'window_limited.offset_{t:04d}s@{sc}']['numerator'] == wl
+                segments = [(pr.CHECKED, c[pr.CHECKED], False), (pr.NO_ROUTE, split[(pr.NO_ROUTE, True)], False),
+                            (pr.UNRESOLVED, split[(pr.UNRESOLVED, True)], False),
+                            (pr.NO_ROUTE, split[(pr.NO_ROUTE, False)], True),
+                            (pr.UNRESOLVED, split[(pr.UNRESOLVED, False)], True)]
                 bottom = 0.0
-                for v in pr.VERDICTS:
-                    h = 100.0 * c[v] / n
-                    _bar(ax, k, bottom, h, v, 0.68)
+                for v, x, window in segments:
+                    h = 100.0 * x / n
+                    _bar(ax, k, bottom, h, v, 0.68, window=window)
                     bottom += h
                 share = 100.0 * c[pr.CHECKED] / n
                 if t in (0, OFFSETS[-1]):
                     ax.text(k, share - 3, f'{share:.0f}%', ha='center', va='top', color='#ffffff', fontsize=7.5,
                             fontweight='bold', zorder=4)
+                if wl:     # boxed count of window-limited places: in the dotted part, or just above the bar if thin
+                    inside = 100.0 * wl / n >= 9
+                    ax.text(k, 100.0 - 50.0 * wl / n if inside else 102.0, str(wl), ha='center',
+                            va='center' if inside else 'bottom', fontsize=7.5, color=INK, zorder=5,
+                            bbox={'boxstyle': 'round,pad=0.18', 'facecolor': SURFACE, 'edgecolor': NOROUTE_C,
+                                  'linewidth': 0.6})
                 rows.append({'scope': sc, 'region': region, 'input_time_utc': metas[scopes.index(sc)]['input_time'],
                              'input_kst': metas[scopes.index(sc)]['input_kst'], 'depart_offset_s': t,
-                             'depart_offset_min': t // 60, 'n_origins': n, 'checked_route': c[pr.CHECKED],
+                             'depart_offset_min': t // 60, 'n_places': n, 'checked_route': c[pr.CHECKED],
                              'model_no_route': c[pr.NO_ROUTE], 'unresolved': c[pr.UNRESOLVED],
                              'checked_share': round(c[pr.CHECKED] / n, 4),
-                             'numbers_key': f'cell.checked_route.offset_{t:04d}s@{sc}'})
+                             'model_no_route_trip_fits': split[(pr.NO_ROUTE, True)],
+                             'unresolved_trip_fits': split[(pr.UNRESOLVED, True)],
+                             'model_no_route_window_limited': split[(pr.NO_ROUTE, False)],
+                             'unresolved_window_limited': split[(pr.UNRESOLVED, False)], 'window_limited': wl,
+                             'numbers_key': f'cell.checked_route.offset_{t:04d}s@{sc}',
+                             'numbers_key_window_limited': f'window_limited.offset_{t:04d}s@{sc}'})
             m = metas[scopes.index(sc)]
-            ax.set_title(f'{m["input_kst"]}  (n = {n})', fontsize=9, color=INK, loc='left')
+            ax.set_title(f'{m["input_kst"]}  (n = {n} places)', fontsize=9, color=INK, loc='left', pad=4)
             ax.set_xticks(range(len(OFFSETS)), [f'+{t // 60}' for t in OFFSETS])
-            ax.set_ylim(0, 100)
+            ax.set_ylim(0, 111)                    # room above 100 % for the boxed counts of thin dotted parts
             ax.set_yticks([0, 25, 50, 75, 100])
+            ax.spines['left'].set_bounds(0, 100)
             ax.yaxis.grid(True, color=GRID, linewidth=0.8, zorder=0)
             ax.set_axisbelow(True)
             if j == 0:
-                ax.set_ylabel(f'{sources.REGION_NAMES[region]}\n% of checked origins', fontsize=9)
+                ax.set_ylabel(f'{sources.REGION_NAMES[region]}\n% of places (villages + care facilities)', fontsize=8.5)
             if i == 1:
-                ax.set_xlabel('Departure, minutes after the recorded input time')
-    fig.suptitle('Survival of the checked departure window: share of villages and care facilities with a checked route',
-                 x=0.01, ha='left',
-                 fontsize=12, fontweight='bold')
-    fig.text(0.01, 0.935, 'Green = the survival of the checked departure window (no origin had a gap: the share checked '
-             'at a departure time equals the share whose leave-by deadline is at or after it).', fontsize=8.5, color=MUTED)
-    fig.legend(handles=_legend_handles(), loc='upper left', bbox_to_anchor=(0.01, 0.925), ncol=3, frameon=False, fontsize=8.5)
-    fig.text(0.01, -0.02, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
-    fig.tight_layout(rect=(0, 0.01, 1, 0.88))
+                ax.set_xlabel('Departure, minutes after the forecast time')
+    fig.suptitle('Share of villages and care facilities with a checked route, by departure time',
+                 x=0.01, ha='left', fontsize=12, fontweight='bold')
+    fig.text(0.01, 0.945, 'Dotted, with boxed count = window-limited: even the fastest fire-free trip + the 120 s stay '
+             'would end after the 1-hour scenario window,\nso no route could be checked whatever the fire. At +50 min '
+             'only places within 8 min (480 s) of a destination can be checked.\nSolid ink or grey = no checked route '
+             'although a fire-free trip would fit the window (fire scenarios, model limits or an unresolved check).',
+             fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
+    fig.legend(handles=_legend_handles('Window-limited (dotted on either verdict)'), loc='upper left',
+               bbox_to_anchor=(0.01, 0.875), ncol=4, frameon=False, fontsize=8.3)
+    fig.text(0.01, -0.03, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
+    fig.tight_layout(rect=(0, 0.01, 1, 0.865))
     _write_csv(table_dir / 'fig1_checked_share_by_offset.csv', rows)
     return _save(fig, out_dir, 'fig1_checked_share_by_offset')
 
@@ -132,7 +173,7 @@ DEADLINE_LABELS = [(f'latest_{t:04d}s', f'+{t // 60}') for t in OFFSETS[:-1]] + 
 def fig_deadlines(records, numbers, out_dir: Path, table_dir: Path) -> list[Path]:
     _style()
     recs = _osm(records)
-    fig, axes = plt.subplots(2, 2, figsize=(11.5, 6.8))
+    fig, axes = plt.subplots(2, 2, figsize=(11.5, 7.1))
     rows = []
     types = [('village', 'Villages and hamlets'), ('care_facility', 'Care facilities')]
     for i, (otype, tname) in enumerate(types):
@@ -142,40 +183,60 @@ def fig_deadlines(records, numbers, out_dir: Path, table_dir: Path) -> list[Path
             places = len({r['origin_id'] for r in rr})
             if not rr:
                 ax.axis('off')
-                ax.text(0.5, 0.5, f'{tname} - {sources.REGION_NAMES[region]}:\nnone in the OSM extract (0 origins)',
+                ax.text(0.5, 0.5, f'{tname} - {sources.REGION_NAMES[region]}:\nnone in the OSM extract (0 places)',
                         ha='center', va='center', transform=ax.transAxes, color=MUTED, fontsize=9)
                 continue
             key_scope = f'{region}/pooled#{otype}'
             ymax = 0
             for k, (cat, lab) in enumerate(DEADLINE_LABELS):
-                c = sum(1 for r in rr if r['deadline_category'] == cat)
+                sel = [r for r in rr if r['deadline_category'] == cat]
+                c = len(sel)
                 assert numbers[f'deadline.{cat}@{key_scope}']['numerator'] == c
-                v = pr.NO_ROUTE if cat == 'none_model_no_route' else pr.UNRESOLVED if cat == 'none_unresolved' else pr.CHECKED
-                _bar(ax, k, 0, c, v, 0.68)
-                ax.text(k, c, str(c), ha='center', va='bottom', fontsize=8, color=INK)
+                w = sum(1 for r in sel if r['deadline_set_by'] == 'window')
+                f = sum(1 for r in sel if r['deadline_set_by'] == 'fire_or_limits')
+                split = cat.startswith('latest_') and cat != f'latest_{OFFSETS[-1]:04d}s'
+                if split:
+                    assert w + f == c
+                    assert numbers[f'deadline.{cat}.set_by_window@{key_scope}']['numerator'] == w
+                    assert numbers[f'deadline.{cat}.set_by_fire_or_limits@{key_scope}']['numerator'] == f
+                    _bar(ax, k, 0, f, pr.CHECKED, 0.68)
+                    _bar(ax, k, f, w, pr.CHECKED, 0.68, window=True)
+                else:
+                    assert w == f == 0
+                    v = pr.NO_ROUTE if cat == 'none_model_no_route' else pr.UNRESOLVED if cat == 'none_unresolved' else pr.CHECKED
+                    _bar(ax, k, 0, c, v, 0.68)
+                ax.text(k, c, str(c) + (f'\n({w} window)' if split and w else ''), ha='center', va='bottom',
+                        fontsize=8 if not (split and w) else 7.2, color=INK, linespacing=1.05)
                 ymax = max(ymax, c)
                 rows.append({'region': region, 'origin_type': otype, 'places': places, 'cases': len(rr),
                              'deadline_category': cat, 'label': lab.replace('\n', ' '), 'cases_in_category': c,
-                             'numbers_key': f'deadline.{cat}@{key_scope}'})
+                             'set_by_window': w if split else '', 'set_by_fire_or_limits': f if split else '',
+                             'numbers_key': f'deadline.{cat}@{key_scope}',
+                             'numbers_key_window': f'deadline.{cat}.set_by_window@{key_scope}' if split else ''})
             ax.set_xticks(range(len(DEADLINE_LABELS)), [lab for _, lab in DEADLINE_LABELS], fontsize=8)
-            ax.set_ylim(0, ymax * 1.15 + 1)
+            ax.set_xlim(-0.6, len(DEADLINE_LABELS) - 0.4)
+            ax.set_ylim(0, ymax * 1.22 + 1)
             ax.yaxis.grid(True, color=GRID, linewidth=0.8, zorder=0)
             ax.set_axisbelow(True)
-            ax.set_title(f'{tname} - {sources.REGION_NAMES[region]} ({places} places x 3 input times = {len(rr)} cases)',
+            ax.set_title(f'{tname} - {sources.REGION_NAMES[region]} ({places} places x 3 forecast times = {len(rr)} cases)',
                          loc='left', fontsize=9)
             if j == 0:
-                ax.set_ylabel('cases (place x input time)')
+                ax.set_ylabel('cases (place x forecast time)')
             if i == 1:
-                ax.set_xlabel('Leave-by deadline: latest departure (min after input time) with a checked route')
+                ax.set_xlabel('Leave-by deadline: latest departure (min after the forecast time) with a checked route')
             elif otype == 'village':
-                ax.set_xlabel('Leave-by deadline (min after input time)', fontsize=8.5)
-    fig.suptitle('Leave-by deadline by origin type', x=0.01, ha='left', fontsize=12, fontweight='bold')
-    fig.text(0.01, 0.935, '* +50 = still checked at the last checked departure (+50 min); the 1-hour scenario window '
-             'gives no later limit. Departures are checked every 10 min; times in between are not checked.',
-             fontsize=8.5, color=MUTED)
-    fig.legend(handles=_legend_handles(), loc='upper left', bbox_to_anchor=(0.01, 0.925), ncol=3, frameon=False, fontsize=8.5)
-    fig.text(0.01, -0.02, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
-    fig.tight_layout(rect=(0, 0.01, 1, 0.88))
+                ax.set_xlabel('Leave-by deadline (min after the forecast time)', fontsize=8.5)
+    fig.suptitle('Leave-by deadline by origin type, and whether the 1-hour window set it', x=0.01, ha='left',
+                 fontsize=12, fontweight='bold')
+    fig.text(0.01, 0.945, 'Dotted = deadline set by the window: at the next departure (10 min later) even the fastest '
+             'fire-free trip + the 120 s stay would end\nafter the 1-hour scenario window, so no later route could be '
+             'checked whatever the fire. Solid green before +50 = set by the fire scenarios\nor model limits (a '
+             'fire-free trip would still fit at the next departure). * +50 = checked at the last checked departure; '
+             'the window gives no later limit.', fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
+    fig.legend(handles=_legend_handles('Checked route, deadline set by the window (dotted)', CHECKED_C),
+               loc='upper left', bbox_to_anchor=(0.01, 0.875), ncol=4, frameon=False, fontsize=8.3)
+    fig.text(0.01, -0.03, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
+    fig.tight_layout(rect=(0, 0.01, 1, 0.865))
     _write_csv(table_dir / 'fig2_deadline_by_origin_type.csv', rows)
     return _save(fig, out_dir, 'fig2_deadline_by_origin_type')
 
@@ -216,11 +277,17 @@ def fig_travel_only(pairs, numbers, metas, out_dir: Path, table_dir: Path) -> li
     ax.set_axisbelow(True)
     ax.set_xlabel('Travel time to the same destination, minutes after departure (same departure time)')
     clear = numbers['travel_only.clear_pairs_equal_arrival@all/pooled']
-    ax.set_title(f'Where the fastest route meets predicted flames: {len(flame)} of {len(comp)} comparisons '
-                 f'(all in {sources.REGION_NAMES["uiseong_andong_2025"]})\n'
-                 f'In the other {clear["denominator"]}, the travel-time-only route had no predicted flame contact and '
-                 f'arrived at the same second as the checked route ({clear["numerator"]} of {clear["denominator"]}).',
-                 loc='left', fontsize=10)
+    early = numbers['travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s']
+    late = numbers['travel_only.fastest_meets_flames@all/pooled#leave_by_3000s']
+    assert early['numerator'] == len(flame) and late['numerator'] == 0
+    assert early['denominator'] + late['denominator'] == len(comp)
+    assert all(p['depart_offset_s'] < OFFSETS[-1] for p in flame)
+    ax.set_title(f'Where the fastest route meets predicted flames: {len(flame)} of the {early["denominator"]} '
+                 f'comparisons at leave-by deadlines before +{OFFSETS[-1] // 60} min\n(all in '
+                 f'{sources.REGION_NAMES["uiseong_andong_2025"]}), none of the {late["denominator"]} at '
+                 f'+{OFFSETS[-1] // 60} min. In the other {clear["denominator"]} comparisons the travel-time-only '
+                 f'route had no\npredicted flame contact and arrived at the same second as the checked route '
+                 f'({clear["numerator"]} of {clear["denominator"]}).', loc='left', fontsize=10)
     handles = [plt.Line2D([], [], marker='o', linestyle='none', markerfacecolor=SURFACE, markeredgecolor=NOROUTE_C,
                           markeredgewidth=1.8, markersize=8,
                           label='Travel-time-only route (comparison only; meets predicted flames in >= 1 of 4 members)'),
