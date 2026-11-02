@@ -234,7 +234,9 @@ oracle call only decides which columns to keep.
 * Final run (DECISIONS 2026-11-02 item 5): B2 interleaved with E2 (ABAB, a speed probe before every pair) in one
   lock hold per group, through the harness: hold 1 = the 8 S and M instances, hold 2 = the 2 L instances:
   `benchlock.py --wait-max 1800 --label E2-final-SM -- evacplan run --method e2_colgen --interleave-with b2_vrptw
-  --set dev --budget-s 60 --repeats 5 --instances <ids>`. Nothing else heavy runs beside a hold.
+  --set dev --budget-s 60 --repeats 5 --partner-seed-offset 5 --instances <ids>`. Nothing else heavy runs beside a
+  hold. `--partner-seed-offset 5` (orchestrator, 2026-11-02): E1b's holds wrote B2 seeds 0-4 on all 10 dev instances on
+  this host, so B2's partner seeds here are 5-9 in both holds (nothing collides, and every B2 seed covers all 10).
 * Before the final run, one smoke run (one S and one M instance, seed 0) into a scratch results directory, so no dev
   row is written before the final run. Any change after that smoke is a deviation and is recorded here.
 * Parameters: `config.yaml` (and the method's defaults, recorded in every row's config).
