@@ -1,8 +1,8 @@
 name: Linux reproduction (extended budget, not the evaluated benchmark)
 # Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark.
-# On a clean GitHub-hosted Linux runner: source identities and frozen evidence verify, the recorded routing inputs
-# download and verify, wfg_latest.api.route_and_check(..., budget_s=300) replays the recorded Uljin FX1 journey, the
-# Route-Check API fast tests pass with those inputs, and both Docker images build and serve (nothing is pushed).
+# Checks on a clean GitHub-hosted Linux runner that source identities and frozen evidence verify, the recorded routing
+# inputs download and verify, wfg_latest.api.route_and_check(..., budget_s=300) replays the recorded Uljin FX1 journey,
+# the Route-Check API fast tests pass with those inputs, and both Docker images build and serve (nothing is pushed).
 # The evaluated benchmark ran on native macOS (Apple M5 Pro) with a fixed 30 s budget; timings here are not
 # benchmark results. Guide: docs/solve2027/REPRODUCE.md
 #
