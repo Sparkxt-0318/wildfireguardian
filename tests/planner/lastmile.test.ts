@@ -250,6 +250,9 @@ describe('templates per verdict', () => {
     expect(en.broadcast).toContain('Leave by car no later than 6:30 p.m. The computer forecast checked a route to Hapseong Elementary School');
     expect(en.broadcast).toContain('If you have no car, tell the village head now.');
     expect(en.broadcast).not.toContain('p.m..');
+    // the family call script of a village carries the no-car line too
+    expect(ko.call).toContain('어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.');
+    expect(en.call).toContain('If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.');
   });
 
   it('a facility or a far road entry point: the no-car line names the eup/myeon office; > 500 m the broadcast says where the times apply', () => {
@@ -414,8 +417,8 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const dup = buildFieldMessages(synNoRoute(SYN_IDS.exitDup), synExplanation());
     expect(dup.violations).toEqual([]);
     expect(dup.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 2, atStart: true });
-    expect(dup.text.ko.lms).toContain('길 2곳(합성리 부근 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
-    expect(dup.text.en.lms).toContain('both roads out of this village by car (the road near Hapseong-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
+    expect(dup.text.ko.lms).toContain('길 2곳(둘 다 합성리 부근 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
+    expect(dup.text.en.lms).toContain('Why: the 2 roads out of this village by car (both near Hapseong-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
     const win = buildFieldMessages(synNoRoute(SYN_IDS.noRouteWindow), synExplanation());
     expect(win.violations).toEqual([]);
     expect(win.reason).toMatchObject({ kind: 'no_route_window', closeS: 3600 });
@@ -428,8 +431,10 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const free = buildFieldMessages(withId(synInput(), SYN_IDS.windowFree), ex);
     expect(free.violations).toEqual([]);
     expect(free.reason).toEqual({ kind: 'window_fire_free', closeS: 3600 });
-    expect(free.text.ko.lms).toContain('18:30보다 늦은 출발은 1시간 자료 범위 안에 도착할 수 없어 점검하지 못했습니다. 불길 때문이라는 뜻은 아닙니다.');
-    expect(free.text.en.lms).toContain('Departures after 18:30 could not be checked within the 1-hour data range; this is not a fire prediction.');
+    // the file proves only that the NEXT checked departure (18:40) fails, and the line says exactly that
+    expect(free.text.ko.lms).toContain('다음 점검 시각인 18:40에 출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
+    expect(free.text.en.lms).toContain('Leaving at the next checked time, 18:40, the trip cannot finish within the 1-hour data range, so later departures were not checked; this time was not set by fire.');
+    expect(free.text.ko.broadcast + free.text.ko.call).not.toMatch(/18:30보다 늦은 출발은 .*도착할 수 없/);
     expect(free.text.ko.card.big?.label).toBe('점검한 마지막 출발');
     expect(free.text.en.card.big?.label).toBe('Checked up to');
     // another destination checked at T is fire-limited: no "not a fire" claim, the neutral line stays
@@ -441,13 +446,14 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const detour = buildFieldMessages(withId(synInput(), SYN_IDS.detour), ex);
     expect(detour.violations).toEqual([]);
     expect(detour.reason).toEqual({ kind: 'window_fire_detour', closeS: 3600 });
-    expect(detour.text.ko.lms).toContain('이유: 18:30보다 늦게 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 19:00까지 도착지에 닿을 수 없습니다.');
+    expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 19:00 전에 도착해 머물 수 없습니다.');
+    expect(detour.text.en.lms).toContain('Why: leaving at the next checked time, 18:40, routes that avoid the flames in the fire scenarios from the forecast cannot reach the destination and finish the stay before the data range ends at 19:00 KST.');
     expect(detour.text.ko.card.big?.label).toBe('출발 마감');
     // no_later_offset: T is the last departure checked (the planner's own horizon line; no file needed)
     const later = buildFieldMessages(synNoLater(SYN_IDS.noLater), ex);
     expect(later.violations).toEqual([]);
     expect(later.reason).toBeNull();
-    expect(later.text.ko.lms).toContain('모델이 점검한 마지막 출발 시각이 18:50입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 1시간). 불길 때문에 정해진 시각이 아닙니다.');
+    expect(later.text.ko.lms).toContain('모델이 점검한 마지막 출발 시각이 18:50입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 1시간). 이 시각은 불길 때문에 정한 것이 아닙니다.');
     expect(later.text.ko.card.big?.label).toBe('점검한 마지막 출발');
     // unresolved_next is never turned into a reason
     expect(buildFieldMessages(withId(synInput(), SYN_IDS.unresolvedNext), ex).reason).toBeNull();
@@ -598,6 +604,7 @@ describe('synthetic snapshots (both languages)', () => {
       This is not a real emergency: it is model-based planning information from a replay of recorded wildfire data, March 24, 2025, 6 p.m. Korea time.
       In the computer forecast (the model), leaving by car from the road near the village no later than 6:30 p.m. gives a checked route to Hapseong Elementary School.
       In 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 6:45 p.m.
+      If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.
       Official evacuation orders come first. The actual place and time of any move may change with official guidance.
       If you have questions, please call [phone number]. Thank you.",
           "card": "Evacuation plan card · Synthetic region · Recorded 2025 wildfire · scenario replay · Not a real emergency
@@ -646,6 +653,7 @@ describe('synthetic snapshots (both languages)', () => {
       지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 24일 오후 6시 산불 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산(모델)으로는 마을 근처 도로에서 오후 6시 30분까지 차로 출발하면 합성초등학교까지 가는 경로가 확인되었습니다.
       산불 예측 시나리오 4가지 중 2가지에서 합성로에 오후 6시 45분쯤 불길이 닿습니다.
+      어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.
       공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
       궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.",
           "card": "산불 대피 계획 카드 · 합성 지역 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님

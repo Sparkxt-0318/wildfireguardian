@@ -93,9 +93,10 @@ function exitMembers(r: Exits): string {
 function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
   const place = placeWord(p);
   const when = r.atStart ? '자료 시각에 이미 불길에 막혀 있습니다' : `자료 시각부터 ${durationText(p.input.scenario.horizonS, 'ko')} 안에 불길에 막힙니다`;
-  return r.roads === 1
-    ? `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`
-    : `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
+  if (r.roads === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`;
+  // several roads with one label: "길 2곳(둘 다 구계리 부근 도로)이 …"
+  if (r.exits.length === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${r.roads === 2 ? '둘 다' : '모두'} ${r.exits[0]!.text.ko})이 ${when}(${exitMembers(r)}).`;
+  return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
 }
 
 function exitsSpoken(p: MessagePlan, r: Exits): string {
@@ -133,6 +134,9 @@ function noRouteSpoken(p: MessagePlan): string {
 
 const PARTIAL_TEXT = '출발 시각에 따라 모델 결과가 달라, 출발 시각을 하나로 안내하지 않습니다.';
 
+/** Said wherever the time is the end of the checked range, not a fire deadline. */
+const NOT_FIRE_KO = '이 시각은 불길 때문에 정한 것이 아닙니다.';
+
 /** What limits T, in writing (long text). Never implies a fire deadline unless the explanation says so. */
 function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
   const r = p.reason;
@@ -146,16 +150,18 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
       text: r.kind === 'flame_on_route' ? `이유: ${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${F}쯤 불길이 닿습니다.${tail}` : `이유: ${kOfN(r.k, r.n)} 도착지 부근(${r.road.text.ko})에 ${F}쯤 불길이 닿습니다.${tail}`,
     };
   }
+  // the explanation proves only that the NEXT checked departure fails, so the lines say exactly that
+  const N = hm(t0, p.nextOffsetS ?? p.leaveByS ?? 0);
   if (r && r.kind === 'window_fire_detour') {
-    return { role: 'reason', text: `이유: ${T}보다 늦게 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 ${hm(t0, r.closeS)}까지 도착지에 닿을 수 없습니다.` };
+    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피해 가는 길로는 자료 범위가 끝나는 ${hm(t0, r.closeS)} 전에 도착해 머물 수 없습니다.` };
   }
   if (r && r.kind === 'window_fire_free') {
-    return { role: 'after', text: `${T}보다 늦은 출발은 ${range} 자료 범위 안에 도착할 수 없어 점검하지 못했습니다. 불길 때문이라는 뜻은 아닙니다.` };
+    return { role: 'after', text: `다음 점검 시각인 ${N}에 출발하면 ${range} 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. ${NOT_FIRE_KO}` };
   }
   if (p.after === 'horizon') {
     return card
-      ? { role: 'after', text: `그 뒤 출발은 점검하지 않았습니다(자료 범위 ${range}). 불길 때문에 정해진 시각이 아닙니다.` }
-      : { role: 'after', text: `모델이 점검한 마지막 출발 시각이 ${T}입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 ${range}). 불길 때문에 정해진 시각이 아닙니다.` };
+      ? { role: 'after', text: `그 뒤 출발은 점검하지 않았습니다(자료 범위 ${range}). ${NOT_FIRE_KO}` }
+      : { role: 'after', text: `모델이 점검한 마지막 출발 시각이 ${T}입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 ${range}). ${NOT_FIRE_KO}` };
   }
   if (p.after === 'gap') return { role: 'after', text: `${T} 이후에는 확인되지 않은 출발 시각이 있어, 이 안내는 ${T}까지의 출발만 다룹니다.` };
   return { role: 'after', text: `${T}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.` };
@@ -167,9 +173,9 @@ function afterSpoken(p: MessagePlan): string {
   const t0 = iso(p);
   if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)} 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
-  if (r && r.kind === 'window_fire_detour') return '그보다 늦으면 산불 예측상 불길을 피해 가는 길로는 제때 도착할 수 없습니다.';
-  // the end of the checked range (no later departure requested, or none can finish within the recorded range)
-  if ((r && r.kind === 'window_fire_free') || p.after === 'horizon') return '그 뒤 출발은 점검 범위 밖입니다. 불길 때문은 아닙니다.';
+  if (r && r.kind === 'window_fire_detour') return '다음 점검 시각에 출발하면 산불 예측상 불길을 피해 가는 길로는 제때 도착할 수 없습니다.';
+  if (r && r.kind === 'window_fire_free') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
+  if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';
   return '그보다 늦게 출발하는 길은 확인되지 않았습니다.';
 }
@@ -400,6 +406,7 @@ export const KO: TemplateSet = {
           : `컴퓨터 예측 계산(모델)으로는 ${from} ${S}까지 차로 출발하는 경로가 확인되었습니다. 도착지는 출발 시각에 따라 다릅니다.`,
       );
       lines.push(afterSpoken(p));
+      if (o.kind === 'village') lines.push('어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.');
     } else if (p.kind === 'no_route') {
       lines.push(`컴퓨터 예측 계산(모델)으로는 ${place}에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 ${facility(p) ? '시설' : '이장'}은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.`);
       const r = p.reason;

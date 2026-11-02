@@ -147,6 +147,8 @@ export function loadExplanation(
 export interface RoadLabel {
   text: LmText;
   source: ExplanationLabelSource;
+  /** nearest_place labels: the place itself ("구계리" / "Gugye-ri") */
+  place?: LmText;
 }
 
 export type LmReason =
@@ -238,7 +240,7 @@ export function roadLabel(it: Pick<ExplanationItem, 'label_ko' | 'label_en' | 'l
   if (src === 'nearest_place') {
     const kp = k.replace(/\s*(부근|근처|인근)$/, '');
     const ep = e.replace(/^near\s+/i, '');
-    return { source: src, text: { ko: `${kp} 부근 도로`, en: `the road near ${ep}` } };
+    return { source: src, text: { ko: `${kp} 부근 도로`, en: `the road near ${ep}` }, place: { ko: kp, en: ep } };
   }
   return { source: src, text: { ko: k, en: e } };
 }

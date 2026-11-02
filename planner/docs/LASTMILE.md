@@ -24,7 +24,7 @@ Code: `planner/src/features/lastmile/` · tests: `tests/planner/lastmile*.ts` ·
 | SMS 단문 | residents, families | Korean ≤ 90 bytes in strict EUC-KR (KS X 1001); English ≤ 160 GSM-7 characters | First line: data time + `기록재현` / `REPLAY … not live`; short forms of the mandatory lines (§3) |
 | Long text 장문 (LMS) | 이장, facility staff | ≤ 2,000 bytes EUC-KR (both languages) | First line `[2025년 기록 재현 · 실제 상황 아님]`; verbatim mandatory lines |
 | Village broadcast 마을방송 | residents | ≤ 60 s read aloud at the assumed rate (§4) | Opens with `이 방송은 실제 상황이 아닙니다.` (replay); required blocks, then optional ones (§5) |
-| Phone-call script | care staff → families | none; estimated duration shown | `[brackets]` for the caller; "before the call" checks first |
+| Phone-call script | care staff → families | none; estimated duration shown | `[brackets]` for the caller; "before the call" checks first; villages: the no-car line |
 | One-page card | 이장, facility staff (may be posted) | A5 at 14 pt or A4 at 18 pt, one page | Status as icon + text, the time in large type, badge `실제 상황 아님` |
 | CSV | staff | — | One row per origin (§8) |
 
@@ -47,12 +47,15 @@ kinds and fails closed to the less specific one on any inconsistency.
   the arrival time and minutes by car when known, what limits T (below), the data time and the
   mandatory lines. **What limits T is never presented as fire unless the explanation file says so**:
   - nothing later was requested (the last departure checked, 50 min after the input time in the
-    booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 불길 때문에 정해진 시각이 아닙니다", and
+    booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 이 시각은 불길 때문에 정한 것이 아닙니다", and
     the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by`;
-  - explanation `window` / `window_fire_free` for every destination checked at T: "T보다 늦은 출발은
-    1시간 자료 범위 안에 도착할 수 없어 점검하지 못했습니다. 불길 때문이라는 뜻은 아닙니다" (same label);
-  - explanation `flame_on_route` (or `window_fire_detour`) for the message's destination: the fire
-    reason (road, time, k of 4 fire scenarios from the forecast);
+  - explanation `window` / `window_fire_free` for every destination checked at T — the file proves
+    only that the NEXT checked time fails, and the line says exactly that: "다음 점검 시각인 N에
+    출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은
+    불길 때문에 정한 것이 아닙니다" (same label);
+  - explanation `flame_on_route` for the message's destination: the fire reason (road, time, k of 4
+    fire scenarios from the forecast); `window_fire_detour`: "다음 점검 시각인 N에 출발하면 … 불길을
+    피해 가는 길로는 자료 범위가 끝나는 19:00 전에 도착해 머물 수 없습니다";
   - otherwise the neutral "T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다".
 - **checked_route without a contiguous basis → `partial`** — no departure time; "출발 시각에 따라
   모델 결과가 달라, 출발 시각을 하나로 안내하지 않습니다"; follow official evacuation guidance. (No
@@ -63,7 +66,8 @@ kinds and fails closed to the less specific one on any inconsistency.
   and the 읍·면사무소 and, in an emergency, to report to 119 — never "call 119 now". No departure time,
   no clock time other than the data time, no tactical advice. With a consistent explanation: the
   roads out of the area reachable without meeting flames ("이 마을에서 차로 빠져나갈 수 있는 길 n곳"),
-  distinct labels only, singular wording for one road, "자료 시각에 이미" when every exit is burning
+  distinct labels only ("길 2곳(둘 다 구계리 부근 도로)" when they share one), singular wording for
+  one road, "자료 시각에 이미" when every exit is burning
   at the input time, and "길마다 … 최소 k가지" so k never reads as one scenario blocking every road.
 - **unresolved (incl. not computed / not checkable) → `unresolved`** — the model could not check a
   route; this means neither that a route exists nor that it does not; follow official evacuation
@@ -155,8 +159,8 @@ departure recorded as `model_no_route` (an unresolved next time is never explain
 | `reason_code` (`detail_code`) | used when | printed as |
 |---|---|---|
 | `flame_on_route`, `dwell_at_destination` | `binding[0]` (the shown route's item) is usable and the message's destination is in its `destination_ids` | fire reason: road, time, k of n |
-| `window` (`window_fire_free`) | status `explained`; every destination checked at T is `window_fire_free` and proven (`destination_classes`, `checked_at_deadline`, `proven_unreachable_next`) | "not checked within the 1-hour range; not a fire prediction" |
-| `window` (`window_fire_detour`) | the message's destination is `window_fire_detour` | fire reason: no flame-avoiding road fits the range |
+| `window` (`window_fire_free`) | status `explained`; every destination checked at T is `window_fire_free` and proven (`destination_classes`, `checked_at_deadline`, `proven_unreachable_next`) | leaving at the next checked time the trip cannot finish within the 1-hour range, so later departures were not checked; not set by fire |
+| `window` (`window_fire_detour`) | the message's destination is `window_fire_detour` | fire reason: leaving at the next checked time, no flame-avoiding road arrives and ends the stay before the range ends |
 | `no_later_offset` | — (the planner's own "last departure checked" line already says it) | — |
 | `all_exits_blocked` (model_no_route) | every exit usable, one `members_total` | roads out by car, distinct labels (§2) |
 | `window` (`no_flame_avoiding_route_fits_window`, model_no_route) | status `explained` | no flame-avoiding road fits the range (no clock time) |

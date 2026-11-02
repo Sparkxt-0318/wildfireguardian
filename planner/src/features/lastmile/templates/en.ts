@@ -89,9 +89,14 @@ function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
   const range = durationText(p.input.scenario.horizonS, 'en');
   const when = r.atStart ? 'already blocked by flames at the data time' : `blocked by flames within ${range} of the data time`;
   const members = r.kMin >= r.n ? `in all ${r.n} fire scenarios from the forecast` : `in at least ${r.kMin} of ${r.n} fire scenarios from the forecast`;
-  return r.roads === 1
-    ? `Why: the only road out of this ${placeWord(p)} by car (${exitNames(r, max)}) is ${when} (${members}).`
-    : `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of this ${placeWord(p)} by car (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
+  if (r.roads === 1) return `Why: the only road out of this ${placeWord(p)} by car (${exitNames(r, max)}) is ${when} (${members}).`;
+  if (r.exits.length === 1) {
+    // several roads with one label: "(both near Gugye-ri)"
+    const l = r.exits[0]!;
+    const what = l.source === 'unnamed' ? 'unnamed' : l.place ? `near ${l.place.en}` : l.text.en;
+    return `Why: the ${r.roads} roads out of this ${placeWord(p)} by car (${r.roads === 2 ? 'both' : 'all'} ${what}) are ${when} (on each road, ${members}).`;
+  }
+  return `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of this ${placeWord(p)} by car (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
 }
 
 function exitsSpoken(p: MessagePlan, r: Exits): string {
@@ -131,6 +136,9 @@ function noRouteSpoken(p: MessagePlan): string {
 
 const PARTIAL_TEXT = 'Model results differ by departure time, so no single departure time is given.';
 
+/** Said wherever the time is the end of the checked range, not a fire deadline. */
+const NOT_FIRE_EN = 'this time was not set by fire.';
+
 /** What limits T, in writing. Never implies a fire deadline unless the explanation says so. */
 function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
   const r = p.reason;
@@ -148,16 +156,21 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
         : `Why: in ${kOfN(r.k, r.n)}, flames reach the destination area (${r.road.text.en}) around ${F} KST. If you leave after ${T}, you may meet the fire while staying there.`,
     };
   }
+  // the explanation proves only that the NEXT checked departure fails, so the lines say exactly that
+  const N = hm(t0, p.nextOffsetS ?? p.leaveByS ?? 0);
   if (r && r.kind === 'window_fire_detour') {
-    return { role: 'reason', text: `Why: leaving after ${T}, routes that avoid the flames in the fire scenarios from the forecast cannot reach the destination before the data range ends at ${hm(t0, r.closeS)}${card ? '' : ' KST'}.` };
+    return {
+      role: 'reason',
+      text: `Why: leaving at the next checked time, ${N}, routes that avoid the flames in the fire scenarios from the forecast cannot reach the destination and finish the stay before the data range ends at ${hm(t0, r.closeS)}${card ? '' : ' KST'}.`,
+    };
   }
   if (r && r.kind === 'window_fire_free') {
-    return { role: 'after', text: `Departures after ${T} could not be checked within the ${rangeAdj(p)} data range; this is not a fire prediction.` };
+    return { role: 'after', text: `Leaving at the next checked time, ${N}, the trip cannot finish within the ${rangeAdj(p)} data range, so later departures were not checked; ${NOT_FIRE_EN}` };
   }
   if (p.after === 'horizon') {
     return card
-      ? { role: 'after', text: `Later departures were not checked (data range ${range}). This time is not set by fire.` }
-      : { role: 'after', text: `${T} KST is the last departure time the model checked. Later departures were not checked (data range: ${range} from the data time). This time is not set by fire.` };
+      ? { role: 'after', text: `Later departures were not checked (data range ${range}); ${NOT_FIRE_EN}` }
+      : { role: 'after', text: `${T} KST is the last departure time the model checked. Later departures were not checked (data range: ${range} from the data time); ${NOT_FIRE_EN}` };
   }
   if (p.after === 'gap') {
     return card
@@ -172,8 +185,9 @@ function afterSpoken(p: MessagePlan): string {
   const t0 = iso(p);
   if (r && r.kind === 'flame_on_route') return latin(r.road.text.en) ? sentence(`In ${kOfN(r.k, r.n)}, flames reach ${r.road.text.en} around ${enSpokenTime(t0, r.flameS)}`) : sentence(`In ${kOfN(r.k, r.n)}, flames reach a road on the way around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'dwell_at_destination') return sentence(`In ${kOfN(r.k, r.n)}, flames reach the destination area around ${enSpokenTime(t0, r.flameS)}`);
-  if (r && r.kind === 'window_fire_detour') return 'Leaving later, routes around the flames in the forecast do not arrive in time.';
-  if ((r && r.kind === 'window_fire_free') || p.after === 'horizon') return 'Later departures are outside the range that was checked; this time is not set by fire.';
+  if (r && r.kind === 'window_fire_detour') return 'Leaving at the next checked time, routes around the flames in the forecast do not arrive in time.';
+  if (r && r.kind === 'window_fire_free') return `Later departures were not confirmed; ${NOT_FIRE_EN}`;
+  if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
   if (p.after === 'gap') return 'Some later departure times were not checked.';
   return 'Later departures have no checked route.';
 }
@@ -394,6 +408,7 @@ export const EN: TemplateSet = {
           : `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route. The destination depends on the departure time.`,
       );
       lines.push(afterSpoken(p));
+      if (o.kind === 'village') lines.push('If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.');
     } else if (p.kind === 'no_route') {
       lines.push(
         `In the computer forecast (the model), there was no checked vehicle route from the ${place}. With a result like this, the ${facility(p) ? 'facility' : 'village head'} must call 119 and the eup/myeon office right away and follow official instructions.`,
@@ -444,7 +459,7 @@ export const EN: TemplateSet = {
         `Scenario ${p.input.scenario.scenarioSetId}`,
         `Prepared ${kstStamp(p.input.generatedAtIso)}`,
         cache ? `Precomputed ${kstStamp(cache)}` : null,
-        p.kind === 'leave_by' && d && !d.name ? `Destination ID ${d.id}` : null,
+        p.kind === 'leave_by' && d && !d.name ? `Dest. ID ${d.id}` : null,
       ]
         .filter(Boolean)
         .join(' · '),

@@ -197,13 +197,17 @@ describe('audiences and replays (independent checks)', () => {
     }
   });
 
-  it('every leave-by broadcast keeps the no-car line, and names the road entry point when it is over 500 m away', () => {
+  it('every leave-by broadcast (and village call script) keeps the no-car line, and names the road entry point when it is over 500 m away', () => {
     let far = 0;
     for (const x of all) {
       if (x.fm.kind !== 'leave_by') continue;
       const fac = x.input.origin.kind === 'facility';
       expect(x.fm.text.ko.broadcast).toContain(fac ? '차가 부족하면 읍·면사무소에 바로 알리십시오.' : '차가 없는 분은 이장에게 바로 알리십시오.');
       expect(x.fm.text.en.broadcast).toContain(fac ? 'If vehicles are short, tell the eup/myeon office now.' : 'If you have no car, tell the village head now.');
+      if (!fac) {
+        expect(x.fm.text.ko.call).toContain('어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.');
+        expect(x.fm.text.en.call).toContain('If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.');
+      }
       const d = x.input.origin.entryDistanceM;
       if (d !== null && d > 500) {
         far += 1;
@@ -275,6 +279,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       This is not a real emergency: it is model-based planning information from a replay of recorded wildfire data, March 26, 2025, 2 a.m. Korea time.
       In the computer forecast (the model), leaving by car from the road near the village no later than 2:20 a.m. gives a checked route to Uiseong Bukbu Elementary School.
       Later departures have no checked route.
+      If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.
       Official evacuation orders come first. The actual place and time of any move may change with official guidance.
       If you have questions, please call [phone number]. Thank you.",
           "card": "Evacuation plan card · Uiseong–Andong · Recorded 2025 wildfire · scenario replay · Not a real emergency
@@ -325,6 +330,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산(모델)으로는 마을 근처 도로에서 새벽 2시 20분까지 차로 출발하면 의성북부초등학교까지 가는 경로가 확인되었습니다.
       그보다 늦게 출발하는 길은 확인되지 않았습니다.
+      어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.
       공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
       궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.",
           "card": "산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
