@@ -93,13 +93,14 @@ RUN npm run build
 
 # ============================================================================== planner web server (target: planner)
 FROM ${NGINX_IMAGE} AS planner
-# Upstream for /api/v1/* (host:port) and the DNS resolver nginx uses to find it at request time. 127.0.0.11 is
-# Docker's embedded DNS on compose networks; set WFG_DNS_RESOLVER when running this image elsewhere.
+# Upstream for /api/v1/* (host:port). nginx resolves it at request time, so the static app keeps working while the
+# API is starting or absent. NGINX_ENTRYPOINT_LOCAL_RESOLVERS makes the image's entrypoint export the container's
+# nameservers from /etc/resolv.conf as NGINX_LOCAL_RESOLVERS (Docker's embedded DNS on compose networks).
 ENV WFG_API_UPSTREAM=api:8765 \
-    WFG_DNS_RESOLVER=127.0.0.11
+    NGINX_ENTRYPOINT_LOCAL_RESOLVERS=1
 COPY --from=planner-build /src/planner/dist/ /usr/share/nginx/html/
-# The nginx image renders /etc/nginx/templates/*.template with envsubst at start-up (only ${WFG_...} values are
-# defined environment variables; nginx's own $variables are left untouched).
+# The nginx image renders /etc/nginx/templates/*.template with envsubst at start-up. Only defined environment
+# variables are replaced (${WFG_API_UPSTREAM}, ${NGINX_LOCAL_RESOLVERS}); nginx's own $variables are left untouched.
 COPY <<"NGINX" /etc/nginx/templates/default.conf.template
 # WildfireGuardian planner: static build + same-origin proxy of /api/v1/* to the Route-Check API (/v1/*).
 server {
@@ -115,7 +116,7 @@ server {
 
     # The app always calls /api/v1/*; planner/vite.config.ts maps it to <API>/v1/* the same way.
     location ^~ /api/v1/ {
-        resolver ${WFG_DNS_RESOLVER} valid=10s ipv6=off;
+        resolver ${NGINX_LOCAL_RESOLVERS} valid=10s ipv6=off;
         set $wfg_api_upstream ${WFG_API_UPSTREAM};
         rewrite ^/api(/v1/.*)$ $1 break;
         proxy_pass http://$wfg_api_upstream;
