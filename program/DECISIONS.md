@@ -201,4 +201,6 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   runs without a new approval.
 - **2026-11-02** — B2's partner rows: E1b's holds used seeds 0-4 and E2's use 5-9 (`--partner-seed-offset 5`), because rows
   are keyed by (set, budget, instance, method, seed, host) and the two branches would otherwise collide on merge.
+  The harness's default offset now counts only the hold's own instances (two holds, S+M then L, share B2's seeds),
+  and an explicit offset that would replace a row is refused (`97536395`, guard test).
 
