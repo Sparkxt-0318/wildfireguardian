@@ -18,7 +18,7 @@ const MIME: Record<string, string> = {
 /**
  * Vite `base` from VITE_BASE_PATH: "" or "/" → "/"; "./" stays relative (a build that works under
  * any path); "wildfireguardian" or "/wildfireguardian" → "/wildfireguardian/" (GitHub Pages).
- * Full URLs are refused: the app loads its own files from its own origin.
+ * Full URLs are refused: the static demo loads nothing from another origin.
  */
 export function normalizeBasePath(raw: string | undefined): string {
   const b = String(raw ?? '').trim();
@@ -28,6 +28,39 @@ export function normalizeBasePath(raw: string | undefined): string {
   if (b.startsWith('./')) return b.endsWith('/') ? b : `${b}/`;
   const trimmed = b.replace(/^\/+/, '').replace(/\/+$/, '');
   return trimmed ? `/${trimmed}/` : '/';
+}
+
+/**
+ * Content-Security-Policy of static builds (the public demo): every fetch, image, font, script,
+ * worker and style must come from the page's own origin (MapLibre's worker and the plan sheet's
+ * map snapshot use blob:/data: URLs, which never leave the browser). The browser refuses anything
+ * else — e.g. a request to http://127.0.0.1:8765, localhost or an internet tile server.
+ */
+export const STATIC_CSP = [
+  "default-src 'self'",
+  "connect-src 'self' data: blob:",
+  "script-src 'self'",
+  "worker-src 'self' blob:",
+  "child-src 'self' blob:",
+  "img-src 'self' data: blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
+  "media-src 'self'",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'none'",
+].join('; ');
+
+/** Adds the static-demo CSP as the first element of <head> (build only: dev needs inline HMR scripts). */
+function staticCsp(): Plugin {
+  return {
+    name: 'wfg-static-csp',
+    apply: 'build',
+    transformIndexHtml() {
+      return [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: STATIC_CSP }, injectTo: 'head-prepend' }];
+    },
+  };
 }
 
 /**
@@ -115,22 +148,28 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, here, ['VITE_', 'VWORLD_', 'WFG_']);
   const cacheDir = resolve(here, env.WFG_CACHE_DIR || 'cache');
   // The one switch: mock → the mock server on 8765; real → VITE_WFG_API_TARGET (default 8765,
-  // where the real API runs on the booth machine).
-  const apiMode = (env.VITE_WFG_API_MODE || 'mock').trim().toLowerCase() === 'real' ? 'real' : 'mock';
+  // where the real API runs on the booth machine); static (`--mode static`) → no API at all.
+  const rawMode = (env.VITE_WFG_API_MODE || 'mock').trim().toLowerCase();
+  const apiMode = mode === 'static' || rawMode === 'static' ? 'static' : rawMode === 'real' ? 'real' : 'mock';
   const base = normalizeBasePath(env.VITE_BASE_PATH);
   const target = (apiMode === 'mock' ? 'http://127.0.0.1:8765' : env.VITE_WFG_API_TARGET || 'http://127.0.0.1:8765').replace(/\/+$/, '');
-  const proxy: Record<string, ProxyOptions> = {
-    '/api/v1': {
-      target,
-      changeOrigin: true,
-      rewrite: (p) => p.replace(/^\/api\/v1/, '/v1'),
-    },
-  };
+  // static: no proxy, so even the dev/preview server never forwards anything to an API
+  const proxy: Record<string, ProxyOptions> =
+    apiMode === 'static'
+      ? {}
+      : {
+          '/api/v1': {
+            target,
+            changeOrigin: true,
+            rewrite: (p) => p.replace(/^\/api\/v1/, '/v1'),
+          },
+        };
   return {
     root: here,
     base,
-    envPrefix: ['VITE_', 'VWORLD_'],
-    plugins: [react(), plannerCache(cacheDir, base)],
+    // the static demo's public bundle never carries the optional VWorld key
+    envPrefix: apiMode === 'static' ? ['VITE_'] : ['VITE_', 'VWORLD_'],
+    plugins: [react(), plannerCache(cacheDir, base), ...(apiMode === 'static' ? [staticCsp()] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
     build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },

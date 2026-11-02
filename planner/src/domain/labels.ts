@@ -22,10 +22,15 @@ export function fireInputBanner(
     : `Recorded ${fireYear} wildfire · scenario replay`;
 }
 
-export type ApiModeSetting = 'mock' | 'real';
+/**
+ * mock → the MOCK server; real → the Route-Check API; static → no API at all (public static demo:
+ * every result comes from the committed precompute cache and static files).
+ */
+export type ApiModeSetting = 'mock' | 'real' | 'static';
 
 export function parseApiMode(v: unknown): ApiModeSetting {
-  return String(v ?? '').trim().toLowerCase() === 'real' ? 'real' : 'mock';
+  const s = String(v ?? '').trim().toLowerCase();
+  return s === 'real' ? 'real' : s === 'static' ? 'static' : 'mock';
 }
 
 /**
@@ -33,7 +38,8 @@ export function parseApiMode(v: unknown): ApiModeSetting {
  * - VITE_WFG_API_MODE=mock (the configured switch),
  * - /health reports mode "mock" or mock: true,
  * - any loaded result, plan, cache or provenance carries mock: true.
- * With mode "real", a real API (no markers) and no MOCK-derived results, it disappears.
+ * With mode "real" (or "static"), a real API or cache (no markers) and no MOCK-derived results, it
+ * disappears.
  */
 export function mockActive(signals: { envMode: ApiModeSetting; healthMock: boolean; resultsMock: boolean; realCacheOnly?: boolean }): boolean {
   if (signals.healthMock || signals.resultsMock) return true;
