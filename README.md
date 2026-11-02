@@ -4,7 +4,7 @@
 > - **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/> (placeholder until the static planner demo is merged and GitHub Pages is enabled)
 > - **Two-minute overview:** [reviewer overview](docs/solve2027/REVIEWER_OVERVIEW.md) · [model card](docs/solve2027/MODEL_CARD.md) · [decision card](docs/solve2027/DECISION_CARD.md)
 > - **Planner** (leave-by time for every village and care facility): [`planner/`](planner/README.md)
-> - **Reproduce:** `docker compose up --build`, or `make reproduce-linux` with Python 3.12 and GNU `time` ([guide](docs/solve2027/REPRODUCE.md); Linux uses an extended budget and is not the evaluated 30 s macOS benchmark)
+> - **Reproduce:** `docker compose up --build`, or `make reproduce-linux` with Python 3.12 and GNU `time` ([guide](docs/solve2027/REPRODUCE.md); the Linux replay uses an extended budget and is not the evaluated 30 s macOS benchmark)
 
 # WildfireGuardian
 
