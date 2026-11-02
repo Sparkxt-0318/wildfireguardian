@@ -1,7 +1,8 @@
 /**
  * Narrow screens (≤ 900 px, e.g. a 375 px phone): the three columns (list · map · details) become
  * one pane at a time, switched by this tab bar (src/styles/mobile.css). Selecting a village or
- * facility opens its details. Wide screens never show the bar and keep the three columns.
+ * facility — or tapping the list row of the one already selected — opens its details. Wide screens
+ * never show the bar and keep the three columns.
  */
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
@@ -43,6 +44,14 @@ export function MobileNav() {
     if (selected && selected !== last.current && isNarrowScreen()) setPane('detail');
     last.current = selected;
   }, [selected, setPane]);
+  // a tap on a list row opens its details even when that row is already selected (no change above)
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.target instanceof Element && e.target.closest('.origin-list .origin-row') && isNarrowScreen()) setPane('detail');
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [setPane]);
   const tabs: { id: MobilePane; label: string; extra?: string }[] = [
     { id: 'list', label: t('mobile.list'), extra: String(origins.length) },
     { id: 'map', label: t('mobile.map') },

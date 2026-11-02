@@ -24,6 +24,9 @@
 }
 .demo-ribbon-btn:hover { background: var(--grey-tint); }
 .demo-ext { font-size: 11px; color: var(--text-2); }
+/* phones (≤ 480 px, styles/mobile.css): the short chip text and icon-only ribbon buttons */
+.demo-chip-short,
+.demo-icon-only { display: none; }
 
 /* "nothing is computed in the static demo" */
 .static-note {

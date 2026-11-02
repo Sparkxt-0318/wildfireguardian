@@ -107,6 +107,31 @@
   .demo-intro-head h2 { flex-basis: calc(100% - 44px); font-size: 17px; }
 }
 
+/* phones (≤ 480 px): the top bar keeps one row of controls above the fire-input banner (brand text,
+   export and about become accessible-name-only labels next to their icons) and the DEMO ribbon is
+   one line (short chip text, icon buttons) */
+@media (max-width: 480px) {
+  .topbar { padding: 6px 10px; gap: 6px; }
+  .brand { flex: 0 0 auto; }
+  .brand-text,
+  .topbar-right .btn-label,
+  .demo-ribbon .demo-btn-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .topbar-right { flex-wrap: nowrap; gap: 4px; }
+  .topbar-right .btn { padding: 0 8px; gap: 5px; }
+  .topbar-right .seg button { padding: 0 8px; }
+  .banner { min-height: 26px; padding: 3px 10px; font-size: 12px; }
+
+  .demo-ribbon { flex-wrap: nowrap; padding: 4px 10px; gap: 4px; }
+  .demo-chip { min-width: 0; padding: 1px 8px; gap: 4px; font-size: 11px; }
+  .demo-chip-full { display: none; }
+  .demo-chip-short { display: inline; }
+  .demo-ribbon .demo-icon-only { display: inline-flex; }
+  .demo-ribbon .demo-ext { display: none; }
+  .demo-ribbon-btn { width: 28px; height: 28px; padding: 0; justify-content: center; border-radius: 14px; }
+}
+
 /* plan-sheet dialog chrome on narrow screens */
 @media screen and (max-width: 900px) {
   .wfgf-plansheet { grid-template-rows: auto minmax(0, 1fr) auto; }

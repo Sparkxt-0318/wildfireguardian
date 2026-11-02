@@ -467,7 +467,7 @@ describe('base-path helpers', async () => {
 
 describe('demo texts', async () => {
   const { translate } = await import('../../planner/src/i18n');
-  const { periodLabel, joinNames, localRunUrl } = await import('../../planner/src/components/demo/StaticDemo');
+  const { periodLabel, joinNames, localRunUrl } = await import('../../planner/src/components/demo/labels');
   const { preferredLanguage } = await import('../../planner/src/components/demo/language');
   const { introDismissed, rememberIntroDismissed } = await import('../../planner/src/components/demo/DemoIntro');
   const { DEMO_STRINGS } = await import('../../planner/src/components/demo/strings');
@@ -479,6 +479,10 @@ describe('demo texts', async () => {
     expect(periodLabel(times, (k, v) => translate('ko', k, v))).toBe('2025년 3월');
     expect(translate('en', 'demo.chipText', { period: 'March 2025' })).toBe('recorded March 2025 scenarios · research prototype');
     expect(periodLabel([], (k, v) => translate('en', k, v))).toBeNull();
+    // phones: the same three facts, shorter
+    const short = periodLabel(times, (k, v) => translate('en', k, v), true)!;
+    expect(translate('en', 'demo.chipShort', { period: short })).toBe('Mar 2025 replay · research prototype');
+    expect(translate('ko', 'demo.chipShort', { period: periodLabel(times, (k, v) => translate('ko', k, v), true)! })).toBe('2025년 3월 기록 · 연구 프로토타입');
   });
   it('the tour texts do not depend on the layout and the step-2 text is neutral', () => {
     for (const lang of ['ko', 'en'] as const) {

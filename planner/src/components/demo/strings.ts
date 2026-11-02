@@ -13,7 +13,9 @@ export const DEMO_STRINGS = {
     'demo.chip': 'DEMO',
     'demo.chipText': '{period} 기록 시나리오 · 연구 프로토타입',
     'demo.chipTextNoPeriod': '기록 시나리오 · 연구 프로토타입',
+    'demo.chipShort': '{period} 기록 · 연구 프로토타입',
     'demo.period': '{year}년 {month}월',
+    'demo.periodShort': '{year}년 {month}월',
     'demo.periodRange': '{from}–{to}',
     'demo.chipTitle': '공개 정적 데모: 평가 호스트에서 Route-Check API로 미리 계산해 저장소에 넣어 둔 결과만 재생합니다. 이 화면에서는 아무것도 새로 계산하지 않습니다.',
     'demo.noLive': '실시간 계산 없음',
@@ -57,7 +59,9 @@ export const DEMO_STRINGS = {
     'demo.chip': 'DEMO',
     'demo.chipText': 'recorded {period} scenarios · research prototype',
     'demo.chipTextNoPeriod': 'recorded scenarios · research prototype',
+    'demo.chipShort': '{period} replay · research prototype',
     'demo.period': '{monthName} {year}',
+    'demo.periodShort': '{monthShort} {year}',
     'demo.periodRange': '{from}–{to}',
     'demo.chipTitle': 'Public static demo: replays results that the Route-Check API computed beforehand on the evaluated host and that are committed to the repository. Nothing is computed on this page.',
     'demo.noLive': 'nothing computed live',
@@ -103,11 +107,12 @@ registerStrings({ ko: { ...DEMO_STRINGS.ko }, en: { ...DEMO_STRINGS.en } });
 
 const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-/** "2025-03" → {year: 2025, month: 3, monthName: "March"} (null when not YYYY-MM). */
-export function monthParts(ym: string): { year: number; month: number; monthName: string } | null {
+/** "2025-03" → {year: 2025, month: 3, monthName: "March", monthShort: "Mar"} (null when not YYYY-MM). */
+export function monthParts(ym: string): { year: number; month: number; monthName: string; monthShort: string } | null {
   const m = /^(\d{4})-(\d{2})$/.exec(ym);
   if (!m) return null;
   const month = Number(m[2]);
   if (month < 1 || month > 12) return null;
-  return { year: Number(m[1]), month, monthName: MONTHS_EN[month - 1]! };
+  const monthName = MONTHS_EN[month - 1]!;
+  return { year: Number(m[1]), month, monthName, monthShort: monthName.slice(0, 3) };
 }
