@@ -8,10 +8,18 @@ name: Planner static demo (GitHub Pages)
 # "GitHub Actions". Until then the deploy job fails ("Ensure GitHub Pages has been enabled"); the
 # build job (tests, static build, size and integrity checks) still runs. After enabling Pages, run
 # this workflow once from the Actions tab (workflow_dispatch) or push a planner change to Main.
+#
+# Pull requests that touch the planner run the build job only (npm ci, tests, static build and its
+# checks) — nothing is uploaded or deployed.
 
 on:
   push:
     branches: [Main]
+    paths:
+      - 'planner/**'
+      - 'tests/planner/**'
+      - '.github/workflows/planner-pages.yml'
+  pull_request:
     paths:
       - 'planner/**'
       - 'tests/planner/**'
@@ -21,9 +29,10 @@ on:
 permissions:
   contents: read
 
+# one deployment at a time; a pull request only cancels its own older runs
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('planner-pages-pr-{0}', github.event.pull_request.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -52,12 +61,14 @@ jobs:
         # build:static = tsc -b && vite build --mode static && scripts/check_static_dist.mjs
         run: npm run build:static
       - name: Upload the Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
           path: planner/dist
 
   deploy:
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       pages: write
