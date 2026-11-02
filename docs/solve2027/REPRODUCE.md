@@ -56,6 +56,8 @@ python -m pytest tests/api -m "not golden and not panel" -rs
 
 `make reproduce-linux` runs the same sequence. The root README's quick path does not list GNU `time`, but the [Makefile](../../Makefile) warns that "every route check will fail without it". The replay script stops with a clear message instead.
 
+One fast test, `test_route_check_lifecycle_and_exports` in [tests/api/test_contract_data.py](../../tests/api/test_contract_data.py), runs the recorded Hongseong FD1 check through the API at the fixed 30 s budget and expects `checked_route`. On a slow or heavily loaded host that check can end `unresolved`/`TIMEOUT` and fail the test. That is the documented host-speed behaviour, not a different answer; rerun it on an idle machine.
+
 ## Time and memory to expect
 
 | What | Evaluated host (recorded) | Other hosts (not benchmark results) |
