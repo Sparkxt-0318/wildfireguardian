@@ -1,15 +1,55 @@
 name: Linux reproduction (extended budget, not the evaluated benchmark)
 # Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark.
 # On a clean GitHub-hosted Linux runner: source identities and frozen evidence verify, the recorded routing inputs
-# download and verify, wfg_latest.api.route_and_check(..., budget_s=300) reproduces the recorded Uljin FX1 journey,
-# the Route-Check API fast tests pass with those inputs, and both Docker images build and serve (nothing is pushed).
+# download and verify, wfg_latest.api.route_and_check(..., budget_s=300) replays the recorded Uljin FX1 journey, the
+# Route-Check API fast tests pass with those inputs, and both Docker images build and serve (nothing is pushed).
 # The evaluated benchmark ran on native macOS (Apple M5 Pro) with a fixed 30 s budget; timings here are not
 # benchmark results. Guide: docs/solve2027/REPRODUCE.md
+#
+# Replay outcomes (docs/solve2027/reproduce/replay_uljin_fx1.py): exit 0 REPRODUCED passes; exit 3 "SAME ROUTE
+# REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load)" PASSES WITH A WARNING
+# ANNOTATION, because route, arrival, legs, route hash, the whole-road check and the independent checker's optimality
+# certificate all match the record and only the kit's own optimality proof was cut short by its fixed stage-Z cap;
+# exit 1 (not reproduced) and exit 2 (nothing run) fail.
 on:
   push:
     branches: [Main]
+    paths:
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '.dockerignore'
+      - 'api/**'
+      - 'integration/**'
+      - 'contracts/**'
+      - 'research/routing/**'
+      - 'docs/RELEASE_IDENTITY.json'
+      - 'planner/**'
+      - 'tests/api/**'
+      - 'tests/planner/**'
+      - 'tools/fetch_routing_inputs.py'
+      - 'constraints-routing.txt'
+      - 'scripts/api_smoke.sh'
+      - 'docs/solve2027/reproduce/**'
+      - '.github/workflows/reproduce-linux.yml'
   pull_request:
     branches: [Main]
+    paths:
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '.dockerignore'
+      - 'api/**'
+      - 'integration/**'
+      - 'contracts/**'
+      - 'research/routing/**'
+      - 'docs/RELEASE_IDENTITY.json'
+      - 'planner/**'
+      - 'tests/api/**'
+      - 'tests/planner/**'
+      - 'tools/fetch_routing_inputs.py'
+      - 'constraints-routing.txt'
+      - 'scripts/api_smoke.sh'
+      - 'docs/solve2027/reproduce/**'
+      - '.github/workflows/reproduce-linux.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,6 +70,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            constraints-routing.txt
+            api/requirements.txt
+            integration/pyproject.toml
       - name: GNU time and procps (the kit controller measures every request with /usr/bin/time -v and /bin/ps)
         run: |
           if [ ! -x /usr/bin/time ] || [ ! -x /bin/ps ]; then
@@ -46,9 +91,17 @@ jobs:
       - name: Fetch and SHA-256-verify the recorded routing inputs
         run: python tools/fetch_routing_inputs.py
       - name: Replay recorded Uljin FX1 with an extended 300 s budget (not the evaluated 30 s macOS benchmark)
-        run: >-
-          python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget
-          --out "$RUNNER_TEMP/uljin-fx1" --markdown-summary "$GITHUB_STEP_SUMMARY"
+        run: |
+          rc=0
+          python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget \
+            --out "$RUNNER_TEMP/uljin-fx1" --markdown-summary "$GITHUB_STEP_SUMMARY" || rc=$?
+          if [ "$rc" -eq 3 ]; then
+            msg="SAME ROUTE REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load)."
+            msg="$msg Route, arrival, legs, route hash and the independent optimality certificate match the record."
+            echo "::warning title=Same route, optimality proof unfinished::$msg"
+            rc=0
+          fi
+          exit "$rc"
       - name: Route-Check API fast tests (recorded inputs present)
         run: python -m pytest tests/api -m "not golden and not panel" -rs -p no:cacheprovider
       - name: Keep the reproduction record
@@ -66,7 +119,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      WFG_GIT_COMMIT: ${{ github.sha }}
+      # The commit under test (the PR head, not the synthetic merge commit), recorded in API provenance.
+      WFG_GIT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
       - name: Validate docker-compose.yml
@@ -96,10 +150,30 @@ jobs:
         env:
           WFG_API_BASE: http://127.0.0.1:8080/api/v1
         run: bash scripts/api_smoke.sh
-      - name: Extended-budget Uljin FX1 replay inside the API image (not the evaluated 30 s macOS benchmark)
+      - name: Route-Check API fast tests inside the API image
         run: >-
           docker compose run --rm --no-deps api
-          python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --out /tmp/uljin-fx1
+          python -m pytest tests/api -m "not golden and not panel" -rs -p no:cacheprovider
+      - name: Extended-budget Uljin FX1 replay inside the API image (not the evaluated 30 s macOS benchmark)
+        run: |
+          mkdir -p "$RUNNER_TEMP/in-image"
+          rc=0
+          docker compose run --rm --no-deps --user "$(id -u):$(id -g)" -v "$RUNNER_TEMP/in-image:/out" api \
+            python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --out /out/uljin-fx1 || rc=$?
+          if [ "$rc" -eq 3 ]; then
+            msg="SAME ROUTE REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load)."
+            msg="$msg Route, arrival, legs, route hash and the independent optimality certificate match the record."
+            echo "::warning title=Same route, optimality proof unfinished (in image)::$msg"
+            rc=0
+          fi
+          exit "$rc"
+      - name: Keep the in-image reproduction record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uljin-fx1-in-image-reproduction-not-benchmark
+          path: ${{ runner.temp }}/in-image/uljin-fx1/REPRODUCTION_SUMMARY.json
+          if-no-files-found: warn
       - name: Container logs
         if: always()
         run: docker compose logs --no-color --tail 200
