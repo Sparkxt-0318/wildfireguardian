@@ -55,8 +55,8 @@ of the four members (every member must be clear, so "k of 4" counts the members 
 2. **Router cells** — `routing-package/routing/core.py` (`edge_occupancies`, `evaluate_occupancy`) on `HAZARD.json`:
    the chord is cut at interior grid lines, each open piece belongs to the cell of its midpoint and each cut point to
    its floor cell; an occupancy (cell, [lo, hi]) is sampled at lo, hi and every breakpoint strictly inside, bin
-   min(n−1, bisect_right(bp, p)−1) (half-open bins, last bin closed at the horizon). Dwell, waits and the issue point
-   use the node's cell.
+   min(len(bp)−2, bisect_right(bp, p)−1) (half-open bins, last bin closed at the horizon). Dwell, waits and the issue
+   point use the node's cell.
 
 Every router occupancy lies inside its cell's closed rectangle during a sub-interval of that cell's closed-rule
 occupancy, so router contact implies closed contact (property-tested). The closed rule therefore decides the first
@@ -73,27 +73,38 @@ Checked origin with deadline D and next offset N = D + Δ:
 | N `unresolved` | `unresolved_next` — stated plainly, never turned into a reason | not_explainable |
 | N `model_no_route` | per shelter checked at D, below | |
 
-For each shelter j with a checked route at D (the set C_D) at departure N:
+For each shelter j with a checked route at D (the set C_D) at departure N, the first class that applies:
 
 * `window_fire_free` — N + fastest fire-free road time (exact turn-restricted search, `roads.fastest_ticks`) + dwell
   > window close. No route exists at all, fire or not.
 * `flame_on_route` — the route checked at D, replayed rigidly shifted by Δ, first meets flame (rule above) on a
-  moving segment. The binding item is that segment: `flame_time_s` = predicted flame start in the cell (birth),
-  `pass_time_at_deadline_s` = when the vehicle leaving at D leaves that cell's footprint, `slack_s` = their difference
-  (the smallest over the contact pairs; contact at shift s starts exactly at s = birth − leave), `contact_time_s` =
-  when the vehicle leaving at N meets the flame, `members` = members with contact on that segment at N.
+  moving segment (issue point, edge or wait). The binding item is that segment: `flame_time_s` = flame start in the
+  cell in the fire scenarios (birth), `pass_time_at_deadline_s` = when the vehicle leaving at D leaves that cell's
+  footprint, `slack_s` = their difference (the smallest over the contact pairs; contact at shift s starts exactly at
+  s = birth − leave), `contact_time_s` = when the vehicle leaving at N meets the flame, `members` = members with
+  contact on that segment at N.
 * `window_fire_detour` — `reach.flame_avoiding` finds no journey from N that reaches j by close − dwell. The
   relaxation keeps closed-footprint contact in every member for edge traversals and the issue point plus the router's
   movement rules, but allows waiting anywhere unchecked and ignores heat limits, so it contains every checked journey:
   "too late or unreachable even here" proves no checked route exists.
-* `dwell` — the relaxation arrives in time but every stay [a, a+dwell] it allows meets flame.
+* `dwell` — the shifted route first meets flame during its stay at the shelter.
+* `stay_blocked_without_shown_route_contact` — the shifted route meets no flame, yet every stay [a, a+dwell] the
+  relaxation allows (a ≥ its earliest arrival, a + dwell ≤ close) meets flame: proven, but not located on the shown
+  route.
 * `open` — none of the above.
 
-j is **proven** unreachable at N for `window_fire_free`, a late relaxation, or a blocked stay. The origin's reason is
-the class of the shown route (`window` for both window classes); status is `explained` when every shelter of C_D is
-proven, `explained_partial` otherwise or for `dwell_at_destination`, `not_explainable` (`refusal_not_reproduced`)
-for `open`. Shelters attempted at N but without a checked route at D were already refused at D and are not part of
-the change from D to N.
+j is **proven** unreachable at N for `window_fire_free`, a late relaxation, or a blocked stay (every allowed stay
+meets flame). The origin's reason is the class of the shown route (`window` for both window classes,
+`dwell_at_destination` for `dwell`); status is `explained` when every shelter of C_D is proven, `explained_partial`
+otherwise and, conservatively, always for `dwell_at_destination`. A shown route classed
+`stay_blocked_without_shown_route_contact` or `open` (`refusal_not_reproduced`), or one that cannot be analysed (job
+missing, rebuild failed, a contradiction), makes the origin `not_explainable` (`other`). Shelters attempted at N but
+without a checked route at D were already refused at D and are not part of the change from D to N.
+
+`binding` holds one item per distinct first contact among the routes of C_D that are `flame_on_route`, the shown
+route's item first (the UI reads only that one). Two routes share an item (`destination_ids`) only when every other
+field of their items is identical (same road, times, members and leg); routes that reach the same burning road at
+different times get separate items. Every route behind an item is validated on its own (section 5).
 
 `model_no_route` origin: every attempted (offset, shelter) must be proven by the relaxation (turn restrictions also
 dropped). If no shelter is reachable within the hazard window and the flame-free reachable area is closed by flame
@@ -101,14 +112,18 @@ alone (no edge cut by time), the reason is `all_exits_blocked`; `exits` lists ev
 (`reached_at_s` = earliest time the vehicle can be there; each is flame-blocked for every start second from then until
 the window ends; departing later cannot help because the relaxation may wait at the start). Otherwise the reason is
 `window` (`no_flame_avoiding_route_fits_window`). **The literal "first edges out of the entry point" are open in 10 of
-the 11 recorded `model_no_route` origins; the blockage lies further out, so the exits reported are the roads where the
-flame-free area ends.** `unresolved` origins: `not_explainable` (`origin_unresolved`), with their attempt verdicts.
+the 11 recorded `model_no_route` origins (in the 11th one of its two first edges is in flame at departure); the
+blockage lies further out, so the exits reported are the roads where the flame-free area ends.** `unresolved`
+origins: `not_explainable` (`origin_unresolved`), with their attempt verdicts.
 
 ## 5 Validation (counts in every file's `summary.validation`; a failure withdraws the explanation)
 
-| id | assertion (exact arithmetic) | applicable / passed / failed (all 6 files) |
+Counts are origins (an origin passes when every instance passes); a, b and kit_b run once per route behind a binding
+item (21 routes for the 8 `flame_on_route` origins).
+
+| id | assertion (exact arithmetic) | applicable / passed / failed origins (all 6 files) |
 |---|---|---|
-| a | at D the shown route is clear on the binding segment in every member and leaves every contact cell before the flame arrives (0 < slack ≤ Δ) | 8 / 8 / 0 |
+| a | at D the route is clear on the binding segment in every member and leaves every contact cell before the flame arrives (0 < slack ≤ Δ) | 8 / 8 / 0 |
 | a_route | every route checked at D is flame-free along its whole journey at its recorded times (re-verifies packet identification) | 507 / 507 / 0 |
 | b | at N the shifted route meets flame on the binding segment in exactly the stated members, and on no earlier segment (either rule) | 8 / 8 / 0 |
 | c | every event time (deadline, next offset, flame, contact and pass times) lies in the packet's [valid_from, valid_until] | 517 / 517 / 0 |
@@ -163,11 +178,12 @@ seconds after `input_time`.
 
 `window` = 136 `window_fire_free` + 6 `window_fire_detour` + 1 `no_flame_avoiding_route_fits_window`; `other` = 12
 `origin_unresolved`. No `dwell_at_destination` case occurs. **Most leave-by times in these recorded replays are set by
-the one-hour scenario range, not by a predicted flame**: 355 are simply the last departure checked (50 min after the
-input time) and 136 cannot finish the 2-minute stay before the window ends even on fire-free roads. A predicted
-flame contact on the shown route binds 8 deadlines (each in 1 of 4 members, from first-new ignitions); flame-forced
-detours that no longer fit bind 7; 10 `model_no_route` origins are cut off by fire already burning at the input
-time (4 of 4 members).
+the one-hour scenario range, not by flames in the fire scenarios**: 355 are simply the last departure checked (50 min after the
+input time) and 136 cannot finish the 2-minute stay before the window ends even on fire-free roads. A flame
+contact on the shown route binds 8 deadlines (each in 1 of 4 members, from first-new ignitions); for 6 more, no
+flame-avoiding road route from the next departure time fits the window although a fire-free one would (in 5 of them
+the shelter cannot be reached that way within the hour at all); 1 `model_no_route` origin has no flame-avoiding route
+that fits the window, and 10 are cut off by fire already burning at the input time (4 of 4 members).
 
 ## 9 Limitations
 
