@@ -20,7 +20,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
 const PLANNER = fileURLToPath(new URL('../../planner/', import.meta.url));
 const REPO = fileURLToPath(new URL('../../', import.meta.url));
@@ -64,6 +64,7 @@ type Mods = {
   selectors: typeof import('../../planner/src/state/selectors');
   labels: typeof import('../../planner/src/domain/labels');
   featureData: typeof import('../../planner/src/state/featureData');
+  tourPick: typeof import('../../planner/src/components/demo/tourPick');
   i18n: typeof import('../../planner/src/i18n');
 };
 let m: Mods;
@@ -84,6 +85,7 @@ beforeAll(async () => {
     selectors: await import('../../planner/src/state/selectors'),
     labels: await import('../../planner/src/domain/labels'),
     featureData: await import('../../planner/src/state/featureData'),
+    tourPick: await import('../../planner/src/components/demo/tourPick'),
     i18n: await import('../../planner/src/i18n'),
   };
 });
@@ -333,6 +335,85 @@ describe('static data flow against the committed cache', () => {
       expect(new Set(sheets.map((x) => x.demoLabel))).toEqual(new Set([want]));
     }
   }, 60_000);
+});
+
+describe('tour step 2: the origin the tour shows', () => {
+  const entry = INDEX.find((e) => e.region_id === 'uiseong_andong_2025' && e.input_time === '2025-03-23T01:00:00Z')!;
+  /** An explanation file as package P2 ships it (contract wfg.explanation/1), reduced to four origins. */
+  const FIXTURE = {
+    schema: 'wfg.explanation/1',
+    region_id: 'uiseong_andong_2025',
+    input_time: '2025-03-23T01:00:00Z',
+    scenario_set_id: 'ffb1:20250323T010000Z:da4a13e53bc0b6a2',
+    origins: {
+      'osm:node/415160449': { status: 'explained', reason_code: 'window' }, // 용봉리: the first village with a checked route
+      'osm:node/415160438': { status: 'explained_partial', reason_code: 'flame_on_route' }, // 기도리: earlier, but not fully explained
+      'osm:node/415160424': { status: 'explained', reason_code: 'flame_on_route' }, // 박곡리 (Bakgok-ri): the pick
+      'osm:node/415160476': { status: 'explained', reason_code: 'flame_on_route' }, // 업리: later in the list
+    },
+  };
+  const FALLBACK = 'osm:node/415160449';
+  /** Serves `body` (null: 404) for data/explanations/*, every other file from the repository. */
+  const explanationFile = (body: string | null) =>
+    fetchStub.mockImplementation((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+      if (!url.startsWith(`${BASE}data/explanations/`)) return serveCommittedFile(input);
+      seen.push({ url, status: body === null ? 404 : 200 });
+      return Promise.resolve(body === null ? new Response('not found', { status: 404 }) : new Response(body, { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    });
+
+  beforeAll(async () => {
+    expect(FIXTURE.scenario_set_id).toBe(entry.scenario_set_id);
+    await m.controller.selectRegion(entry.region_id);
+    await m.controller.selectScenario(entry.scenario_set_id);
+  }, 60_000);
+  afterEach(() => {
+    fetchStub.mockImplementation(serveCommittedFile);
+    m.tourPick.forgetExplanations();
+    m.controller.selectOrigin(null);
+  });
+
+  it('without an explanation file: the first village or care facility with a checked route', async () => {
+    explanationFile(null);
+    expect(await m.tourPick.selectTourOrigin()).toBe(FALLBACK);
+    expect(m.store.getState().selectedOriginId).toBe(FALLBACK);
+    expect(seen.at(-1)?.url).toBe('/wildfireguardian/data/explanations/uiseong_andong_2025__20250323T010000Z.json');
+  });
+  it('with the explanation file: the first origin whose leave-by time is set by flames on the route', async () => {
+    explanationFile(JSON.stringify(FIXTURE));
+    expect(await m.tourPick.selectTourOrigin()).toBe('osm:node/415160424');
+    expect(m.store.getState().selectedOriginId).toBe('osm:node/415160424');
+    expect(m.store.getState().plans['osm:node/415160424']?.bestVerdict).toBe('checked_route');
+  });
+  it('falls back when the file is malformed, of another scenario, or names no such origin', async () => {
+    for (const body of [
+      '{"schema": "wfg.explanation/1", "origins": {',
+      JSON.stringify({ ...FIXTURE, schema: 'wfg.explanation/0' }),
+      JSON.stringify({ ...FIXTURE, origins: [] }),
+      JSON.stringify({ ...FIXTURE, input_time: '2025-03-24T09:00:00Z' }),
+      JSON.stringify({ ...FIXTURE, scenario_set_id: 'ffb1:20250323T010000Z:another' }),
+      JSON.stringify({ ...FIXTURE, origins: { 'osm:node/415160449': { status: 'explained', reason_code: 'window' } } }),
+    ]) {
+      m.tourPick.forgetExplanations();
+      explanationFile(body);
+      expect(await m.tourPick.selectTourOrigin(), body.slice(0, 80)).toBe(FALLBACK);
+    }
+  });
+  it('picks among the rows in list order (pure)', () => {
+    const { pickTourOrigin } = m.tourPick;
+    const rows = [
+      { id: 'a', checked: false, research: false },
+      { id: 'r', checked: true, research: true },
+      { id: 'b', checked: true, research: false },
+      { id: 'c', checked: true, research: false },
+    ];
+    expect(pickTourOrigin(rows, null)).toBe('b');
+    expect(pickTourOrigin(rows, new Set())).toBe('b');
+    expect(pickTourOrigin(rows, new Set(['a', 'c']))).toBe('c'); // 'a' has no checked route
+    expect(pickTourOrigin(rows, new Set(['r', 'c']))).toBe('r');
+    expect(pickTourOrigin([{ id: 'r', checked: true, research: true }], null)).toBe('r');
+    expect(pickTourOrigin([{ id: 'a', checked: false, research: false }], new Set(['a']))).toBeNull();
+  });
 });
 
 describe('saved forecast cells (planner/public/data/forecast)', () => {

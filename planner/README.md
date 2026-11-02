@@ -161,14 +161,19 @@ npm run smoke:static        # headless Chromium smoke test against that dist-onl
   icon + text, the "시험 데이터 · 평가 호스트 아님" marking for caches from another host (the committed
   cache is from the evaluated host, so it is not shown), MOCK only for MOCK-made data.
 - A "DEMO · 2025년 3월 기록 시나리오 · 연구 프로토타입" chip (the period comes from `cache/INDEX.json`), a
-  dismissible introduction with a 3-step tour (the urgency list → the 출발 마감 and evidence of the
-  village or facility the user picks, else of the first one in the list with a checked route → the A4
-  plan sheet; dismissal is remembered in `localStorage`), and "의견 보내기 / Feedback" →
-  `VITE_FEEDBACK_URL` (default: the repository's
+  dismissible introduction with a 3-step tour (dismissal is remembered in `localStorage`), and
+  "의견 보내기 / Feedback" → `VITE_FEEDBACK_URL` (default: the repository's
   [planner-feedback issue template](../.github/ISSUE_TEMPLATE/planner-feedback.md)). On a first visit
   the language follows the browser (Korean, else English); `?lang=ko|en` and the toggle still work.
-  Keyboard: the introduction is a modal dialog (Tab stays inside, Escape closes it, the focus returns
-  to the button that opened it); the tour card takes the focus at every step and Escape ends it.
+- The tour: the urgency list → the 출발 마감 and evidence of a village or facility → the A4 plan sheet.
+  Unless the user picks one, step 2 shows the first origin of the list whose leave-by time is set by
+  predicted flames on the route — when the scenario's explanation file
+  `data/explanations/<region_id>__<input>.json` (schema `wfg.explanation/1`) has one with status
+  `explained` and reason `flame_on_route` — else the first village or care facility with a checked
+  route ([`tourPick.ts`](src/components/demo/tourPick.ts); a missing, malformed or other-scenario file
+  means the fallback). Keyboard: the introduction is a modal dialog (Tab stays inside, Escape closes
+  it, the focus returns to the button that opened it); the tour card takes the focus at every step
+  and Escape ends it.
 - Every plan sheet carries "DEMO · 2025년 3월 기록 시나리오 재생 · 연구 프로토타입" / "DEMO · recorded
   March 2025 scenario replay · research prototype" in its A4 top margin, so printed and PDF sheets
   say what they are.
@@ -213,8 +218,8 @@ for anything missing — no single-page-app fallback — and HTTP Range for the 
 headless Chromium (the `playwright` package must be resolvable, e.g. a global install or
 `PLAYWRIGHT_MODULE=/path/to/node_modules/playwright`; it never installs browsers; `--server vite` uses
 `vite preview --mode static`, `--url` an already running server): desktop and 375 px, Korean and
-English — intro (focus trap, Escape, focus back to the opener) → tour (step 2 shows the first village
-or facility with a checked route) → its 출발 마감, evidence and forecast cells → A4 plan sheet with its
+English — intro (focus trap, Escape, focus back to the opener) → tour (step 2 shows the tour's pick,
+with or without an explanation file) → its 출발 마감, evidence and forecast cells → A4 plan sheet with its
 DEMO marker → English; on the phone also the one-line ribbon and a tap on the selected row. It records
 every request (all must stay under the page's origin and base path), checks that the CSP refuses a
 deliberate cross-origin probe, checks the honesty texts, and writes screenshots to

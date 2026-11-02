@@ -2,8 +2,10 @@
  * Judge onboarding of the public static demo: a dismissible bilingual introduction (≤ 80 words with
  * its title and the three verdict chips) and a 3-step tour —
  *   1. pick a village or care facility from the urgency list,
- *   2. read its 출발 마감 / leave-by time and the evidence (the tour picks the first origin in the
- *      list that has a checked route unless the user picked one themselves),
+ *   2. read its 출발 마감 / leave-by time and the evidence (unless the user picked one themselves, the
+ *      tour picks an origin with a checked route: one whose leave-by time is set by predicted flames
+ *      on the route when the scenario's explanation file says so, else the first village or care
+ *      facility in the list — see tourPick.ts),
  *   3. open the A4 plan sheet.
  * Dismissal is remembered in localStorage (inside try/catch: private windows and blocked storage
  * just show the introduction again). The ribbon's "둘러보기 / Tour" button reopens it.
@@ -16,12 +18,13 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { create } from 'zustand';
 import { useLang, useLangStore, useT } from '../../i18n';
-import { openDialog, selectOrigin } from '../../state/controller';
+import { openDialog } from '../../state/controller';
 import { getState, useStore } from '../../state/store';
 import { isNarrowScreen, setMobilePane, type MobilePane } from '../MobileNav';
 import { StatusChip } from '../StatusChip';
 import { CloseIcon } from '../Icons';
 import { useRecordedPeriod, useRecordedRegionNames } from './StaticDemo';
+import { loadFlameOnRoute, selectTourOrigin, tourScenario } from './tourPick';
 import './strings';
 import './demo.css';
 
@@ -93,33 +96,6 @@ function findTarget(step: 1 | 2 | 3): HTMLElement | null {
     if (el) return el;
   }
   return null;
-}
-
-const ORIGIN_ID = /^origin-(.+)$/;
-
-/**
- * Step 2 shows a leave-by time: the first village or care facility of the urgency list (as shown)
- * that has a checked route (a research-panel origin only when no village or facility has one) — or,
- * when the filter or search hides every such row, the earliest leave-by time in the store. Returns
- * the selected id (null when no origin of the scenario has a checked route: the selection stays).
- */
-export function selectFirstCheckedRoute(): string | null {
-  const s = getState();
-  const research = new Set(s.places.filter((p) => p.role === 'research_origin').map((p) => p.id));
-  const shown = [...document.querySelectorAll<HTMLElement>('.origin-list .origin-row')]
-    .filter((row) => row.querySelector('.status.checked_route'))
-    .map((row) => ORIGIN_ID.exec(row.dataset.testid ?? '')?.[1])
-    .filter((id): id is string => Boolean(id));
-  let id = shown.find((x) => !research.has(x)) ?? shown[0] ?? null;
-  if (!id) {
-    // hidden by the filter or search: the earliest leave-by time, as the urgency list would order it
-    const rank = (x: string) => [research.has(x) ? 1 : 0, s.plans[x]?.latestSafeDepartureS ?? Number.POSITIVE_INFINITY] as const;
-    const checked = Object.keys(s.plans).filter((x) => s.plans[x]?.bestVerdict === 'checked_route');
-    checked.sort((a, b) => rank(a)[0] - rank(b)[0] || rank(a)[1] - rank(b)[1]);
-    id = checked[0] ?? null;
-  }
-  if (id) selectOrigin(id);
-  return id;
 }
 
 function hasCheckedRoute(id: string | null): boolean {
@@ -253,7 +229,11 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
 
   // step 1 → 2 as soon as the user picks a village or facility themselves (their pick is kept)
   useEffect(() => {
-    if (step === 1) startSelected.current = useStore.getState().selectedOriginId;
+    if (step !== 1) return;
+    startSelected.current = useStore.getState().selectedOriginId;
+    // read the scenario's explanation file now, so "Next" has it at once (optional; null on 404)
+    const scenario = tourScenario(getState());
+    if (scenario) void loadFlameOnRoute(scenario);
   }, [step]);
   useEffect(() => {
     if (step === 1 && selected && selected !== startSelected.current) setStep(2);
@@ -302,10 +282,11 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
     };
   }, [step, selected]);
 
-  const next = () => {
+  const next = async () => {
     if (step === 1) {
-      if (!hasCheckedRoute(useStore.getState().selectedOriginId)) selectFirstCheckedRoute();
-      setStep(2);
+      if (!hasCheckedRoute(useStore.getState().selectedOriginId)) await selectTourOrigin();
+      // the tour may have been ended while the explanation file was read
+      if (useTour.getState().step === 1) setStep(2);
     } else if (step === 2) setStep(3);
   };
   return (
@@ -335,7 +316,7 @@ function TourCard({ step }: { step: 1 | 2 | 3 }) {
           </button>
         ) : null}
         {step < 3 ? (
-          <button type="button" className="btn btn-ink" onClick={next} data-testid="tour-next">
+          <button type="button" className="btn btn-ink" onClick={() => void next()} data-testid="tour-next">
             {t('demo.tour.next')}
           </button>
         ) : (

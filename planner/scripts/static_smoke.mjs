@@ -138,7 +138,8 @@ const consoleErrors = [];
 const pageErrors = [];
 /** The one deliberate cross-origin probe (an <img>) that the page's CSP must refuse. */
 const CSP_PROBE = 'http://127.0.0.1:8765/v1/probe.png';
-const OPTIONAL_404 = /\/temporary_housing\.geojson$/;
+/** Optional files the app reads when present: temporary housing, explanation files (package P2). */
+const OPTIONAL_404 = /\/(temporary_housing\.geojson|data\/explanations\/[^/]+\.json)$/;
 
 function watch(page, label) {
   page.on('request', (r) => requests.push({ label, url: r.url(), method: r.method() }));
@@ -213,13 +214,34 @@ async function honesty(page, label, lang) {
   if (colours.unresolvedImg) check(colours.unresolvedImg.startsWith('url('), `${label}: unresolved chip is grey hatch, never green`);
 }
 
-/** The selected origin is the first village or care facility (OSM) of the urgency list with a checked route. */
-async function selectedIsFirstChecked(page) {
-  return page.evaluate(() => {
+/**
+ * The tour's step-2 pick (src/components/demo/tourPick.ts): when the scenario's explanation file
+ * (data/explanations/<region>__<input>.json, package P2) exists, the first origin of the list with a
+ * checked route whose explanation is explained / flame_on_route; else the first village or care
+ * facility (OSM) of the list with a checked route.
+ */
+async function selectedIsTourPick(page) {
+  return page.evaluate(async () => {
     const rows = [...document.querySelectorAll('.origin-list .origin-row')];
-    const first = rows.find((r) => r.getAttribute('data-testid')?.startsWith('origin-osm:') && r.querySelector('.status.checked_route'));
+    const idOf = (r) => r?.getAttribute('data-testid')?.replace(/^origin-/, '') ?? null;
     const sel = rows.find((r) => r.getAttribute('aria-selected') === 'true');
-    return { ok: Boolean(first && sel && first === sel), first: first?.getAttribute('data-testid') ?? null, selected: sel?.getAttribute('data-testid') ?? null, topVerdict: rows[0]?.querySelector('.status')?.className ?? null };
+    const region = document.querySelector('[data-testid^="region-"][aria-pressed="true"]')?.getAttribute('data-testid')?.slice('region-'.length);
+    const input = document.querySelector('[data-testid^="scenario-"][aria-pressed="true"]')?.getAttribute('data-testid')?.slice('scenario-'.length);
+    let flame = null;
+    let file = 'no explanation file';
+    if (region && input) {
+      const name = `${region}__${input.replace(/\.\d+/, '').replace(/[-:]/g, '')}.json`;
+      const r = await fetch(`data/explanations/${name}`);
+      if (r.ok) {
+        const doc = await r.json().catch(() => null);
+        const usable = doc?.schema === 'wfg.explanation/1' && doc.region_id === region && doc.origins && typeof doc.origins === 'object';
+        flame = usable ? new Set(Object.entries(doc.origins).filter(([, o]) => o?.status === 'explained' && o?.reason_code === 'flame_on_route').map(([id]) => id)) : null;
+        file = usable ? `${name}: ${flame.size} flame_on_route` : `${name}: unusable`;
+      }
+    }
+    const checked = rows.filter((r) => r.querySelector('.status.checked_route'));
+    const want = (flame && checked.find((r) => flame.has(idOf(r)))) || checked.find((r) => r.getAttribute('data-testid')?.startsWith('origin-osm:')) || checked[0];
+    return { ok: Boolean(want && sel && want === sel), want: idOf(want), selected: idOf(sel), file, topVerdict: rows[0]?.querySelector('.status')?.className ?? null };
   });
 }
 
@@ -293,8 +315,8 @@ try {
     await page.waitForSelector('[data-testid="tour-card"][data-step="2"]');
     check((await focusInfo(page)).id === 'tour-card', 'desktop: tour step 2 takes the focus');
     await page.waitForSelector('[data-testid="headline"]');
-    const picked = await selectedIsFirstChecked(page);
-    check(picked.ok, `desktop: step 2 selected the first village or facility with a checked route (${picked.selected}; the list starts with ${picked.topVerdict})`);
+    const picked = await selectedIsTourPick(page);
+    check(picked.ok, `desktop: step 2 selected the tour's pick ${picked.selected} (expected ${picked.want}; ${picked.file}; the list starts with ${picked.topVerdict})`);
     const headline = await text(page, '[data-testid="headline"]');
     check(/출발 마감 \d{2}:\d{2}/.test(headline), `desktop: step 2 shows a leave-by time "${headline.slice(0, 40)}"`);
     const tour2 = await text(page, '[data-testid="tour-card"]');
@@ -315,7 +337,7 @@ try {
     await page.waitForSelector('[data-testid="plan-sheet-dialog"]');
     await page.waitForSelector('.wfgf-plansheet-root[data-wfg-current-ready="true"]', { timeout: 60000 });
     const sheet = await text(page, '.wfgf-sheet[data-current="true"]');
-    const name = picked.selected ? (await text(page, `[data-testid="${picked.selected}"] .name`)) : '';
+    const name = picked.selected ? await text(page, `[data-testid="origin-${picked.selected}"] .name`) : '';
     check(sheet.includes(name.split(' ')[0]) && sheet.includes('2025년 실제 산불 기록 기반 시나리오 재현'), 'desktop: A4 plan sheet of the selected origin with its fire-input label');
     check(sheet.includes('사전 계획 보조 도구입니다') || (await text(page, '.wfgf-plansheet__foot')).includes('사전 계획 보조 도구입니다'), 'desktop: plan sheet carries the planning-aid footer');
     const marker = await text(page, '.wfgf-sheet[data-current="true"] [data-demo-label]');
@@ -440,8 +462,8 @@ try {
     await page.tap('[data-testid="tour-next"]');
     await page.waitForSelector('[data-testid="tour-card"][data-step="2"]');
     await page.waitForFunction(() => document.querySelector('.app')?.getAttribute('data-mobile-pane') === 'detail');
-    const tourPick = await selectedIsFirstChecked(page);
-    check(tourPick.ok && /출발 마감 \d{2}:\d{2}/.test(await text(page, '[data-testid="headline"]')), `phone: tour step 2 shows the details of the first village or facility with a checked route (${tourPick.selected})`);
+    const tourPick = await selectedIsTourPick(page);
+    check(tourPick.ok && /출발 마감 \d{2}:\d{2}/.test(await text(page, '[data-testid="headline"]')), `phone: tour step 2 shows the details of the tour's pick ${tourPick.selected} (${tourPick.file})`);
     await page.tap('[data-testid="tour-skip"]');
     await page.tap('[data-testid="mobile-tab-list"]');
     const { name } = await pickCheckedOrigin(page, { tap: true });
@@ -500,10 +522,10 @@ try {
   check(apiLike.length === 0, `no request to the Route-Check API, 127.0.0.1:8765 or localhost (${apiLike.length})`);
   const forecastFiles = new Set(audited.filter((r) => r.url.includes('/data/forecast/')).map((r) => r.url.split('/').pop()));
   check(forecastFiles.size >= 2, `the forecast cells come from data/forecast/ (${[...forecastFiles].join(', ')})`);
-  // the optional temporary_housing.geojson answers 404; the app reads the status and drops the body (ERR_ABORTED)
+  // optional files (temporary_housing.geojson, explanation files) answer 404; the app reads the status and drops the body (ERR_ABORTED)
   const otherFailed = failedRequests.filter((r) => r.url !== CSP_PROBE && !OPTIONAL_404.test(r.url));
   check(otherFailed.length === 0, `no failed request ${JSON.stringify(otherFailed.slice(0, 3))}`);
-  check(badResponses.length === 0, `no error response except the optional temporary_housing.geojson (${badResponses.slice(0, 3).join(' | ')})`);
+  check(badResponses.length === 0, `no error response except optional files (temporary housing, explanations) (${badResponses.slice(0, 3).join(' | ')})`);
   const deliberate = (c) =>
     /\[static demo\] blocked: (cross-origin request http:\/\/127\.0\.0\.1:8765 |Route-Check API request \/api\/v1\/health )/.test(c.text) ||
     c.text.includes(CSP_PROBE) ||
