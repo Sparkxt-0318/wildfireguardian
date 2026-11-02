@@ -211,4 +211,7 @@ Dated, one line of reason each. Interface changes also bump `hazard_contract.CON
   - a flagged speed check is named under the bar. ABAB with one probe per pair is kept as specified (no ABBA, no
     per-run probe, no further speed work);
   - E1b gets post-KILL diagnostics that separate oracle from relaxed-only certification passes.
+- **2026-11-02** — **E2: ITERATE** by its pre-registered rule. Not KEEP: worst of 5 = 1585 ≤ 1751. Condition (a) fails: the
+  M total is 572 < 597. Condition (b) holds: valid bounds on every M row, 156 < 168 and 143 < 149. A second E2 iteration
+  needs Siyeong's approval. Merged into `evacplan/phase0` (`a67b8ea2`) by a union of keyed rows; leaderboard `5d0991ca`.
 

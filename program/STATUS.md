@@ -9,7 +9,9 @@
   (`vm boot 4169abd4`): batch 2's rows form a new table; the recorded 1750/1751 keep its bar at 1751.
   - E1b: done, **KILL** (worst of 5 = 1444 < 1751; B2 1749 in every seed of the same holds). Merged into
     `evacplan/phase0` (`11670593`).
-  - E2 (column generation): S+M hold done (15:39-16:44 UTC), L hold running; B2 seeds 5-9 (E1b used 0-4).
+  - E2: done, **ITERATE** (worst 1585 < 1751; proven bounds 156 and 143 on the tight M instances, the tightest so
+    far; time to certified plan 44.8 s vs B2's 66.0 s). Merged (`a67b8ea2`), leaderboard `5d0991ca`.
+  - Review part 2 (E2, merge, part-1 fixes) and the clean-checkout reproduction: running.
   - Review part 1 (harness, E1b): 0 major, 6 minor, 4 notes; fixed in `42e0d2a5` (pushed, 55 tests pass).
   - Then a proportional review (one reproduction agent, one reviewer) and checkpoint 4 (one page, at most 5 questions).
 - **Updated:** 2026-11-02 (UTC).
@@ -52,7 +54,8 @@ Merge `next/integration` into both track branches before Phase 1 work starts the
 | Agent | Track | Doing | Worktree / branch |
 |---|---|---|---|
 | E1b incremental certification | C | done: KILL (worst 1444 < 1751); oracle profile on L in its README; merged | `../wfg-exp-E1b`, `evacplan/exp-E1b-incremental-cert` |
-| E2 column generation | C | set partitioning over itineraries, pricing on E4's network, bound when valid; final run ABAB with B2 (seeds 5-9) | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
+| E2 column generation | C | done: ITERATE (worst 1585; bounds 156/143); merged | `../wfg-exp-E2`, `evacplan/exp-E2-column-generation` |
+| Reviewer, reproduction | C | review part 2 (E2); clean-checkout suite and headline reruns at `5d0991ca` | `../wfg-review-b2`, `../wfg-repro-b2` |
 | Orchestrator | C | review part-1 fixes on `evacplan/phase0` (`42e0d2a5`); next: merge E2, review part 2, reproduction | `../wfg-evacplan` |
 
 Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees were removed (branches stay on origin).
@@ -208,3 +211,8 @@ Batch 1 is closed (E1 → E1b; E3, E4 KEEP). The batch-1 experiment worktrees we
   vs ~20 ms measured) and B1's plan was returned. Oracle profile on L (B1's plans): cold `check_plan` 30-31 s, 89 %
   hazard_contract queries (48 % per-member flux and dose bounds, 25 % cell geometry), 10 % exact leg slack. Time to
   certified plan 66.3 s for both. Merged into `evacplan/phase0` (`11670593`). E2 told to use B2 seeds 5-9.
+- 2026-11-02 E2 **ITERATE**: worst of 5 = 1585 (B2 1749 in its holds). S 109 vs 108, M 572-580 vs 597, L 904-938 vs 1044.
+  It proves the tightest bounds so far within 60 s: 156 on M-s107 (E4 160) and 143 on M-s108 (E4 144). It proves four
+  instances optimal in 4-23 s, with 0 bound violations over 370 plan rows. Time to certified plan is 44.8 s vs 66.0 s;
+  at the 30-min default margin it delivers 1350 vs 1284. Merged into `evacplan/phase0` (`a67b8ea2`, B2's rows unioned:
+  seeds 0-9). Review part 1 was fixed in `42e0d2a5`.
