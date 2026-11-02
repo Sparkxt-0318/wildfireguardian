@@ -1193,3 +1193,19 @@ def test_cli_refuses_a_hold_that_would_replace_rows(mini, capsys):
     assert main(hold) == 2 and "refused:" in capsys.readouterr().err                    # noop seed 0 exists
     assert main([*hold, "--replace", "--partner-seed-offset", "0"]) == 2                 # b0 seed 0 exists
     assert {n: (p["results_dir"] / f"{n}.csv").read_text() for n in files} == files
+
+
+def test_the_commit_column_keeps_dirty():
+    """A row run from a checkout with uncommitted changes records ``<sha>+dirty``; the leaderboard's method table and
+    the bound note show it as 12 hex digits plus ``+dirty``, not just the digits (batch-2 review E2-D1)."""
+    from evacplan.harness import render_leaderboard, short_commit
+    sha = "ceca7380f686" + "0" * 28
+    assert short_commit(sha) == "ceca7380f686" and short_commit(sha + "+dirty") == "ceca7380f686+dirty"
+    rows = _five("e_x", (150,) * 5)
+    for r in rows[:2]:
+        r["commit"] = sha + "+dirty"
+    for r in rows[2:]:
+        r["commit"] = sha
+    line = next(x for x in render_leaderboard(rows, _split(("I1", "I2")), observations=[]).splitlines()
+                if x.startswith("| e_x |"))
+    assert line.endswith("| ceca7380f686, ceca7380f686+dirty |")

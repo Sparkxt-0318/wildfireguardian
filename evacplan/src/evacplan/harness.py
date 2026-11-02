@@ -1278,12 +1278,19 @@ def _bounds_table(plans: list[dict], bound_rows: list[dict], inst_ids: list[str]
                  for z, v in sorted(gaps[m].items(), key=lambda kv: (kv[0] == "all", order.get(kv[0], 3), kv[0]))]
         rs = [r for r in bound_rows if r["method"] == m]
         budgets = ", ".join(f"{b:g} s" for b in sorted({float(row_config(r)["budget_s"]) for r in rs}))
-        commits = ", ".join(sorted({r["commit"][:12] for r in rs}))
+        commits = ", ".join(sorted({short_commit(r["commit"]) for r in rs}))
         out += ["", f"Mean gap of {m} by size (instances): {', '.join(parts) or '–'}; computed at budget {budgets}, "
                     f"commit {commits}."]
     if invalid:
         out += ["", "**INVALID BOUND** (a proven bound below a delivered plan is a bug): " + "; ".join(invalid) + "."]
     return out
+
+
+def short_commit(commit: str) -> str:
+    """A row's commit as the leaderboard shows it: the first 12 hex digits, keeping ``+dirty`` (a run from a checkout
+    with uncommitted changes under ``evacplan/``, ``hazard_contract/`` or ``program/``; batch-2 review E2-D1)."""
+    sha, dirty = commit.removesuffix("+dirty"), commit.endswith("+dirty")
+    return sha[:12] + ("+dirty" if dirty else "")
 
 
 def render_leaderboard(rows: list[dict], split: Split | None = None, facility_rows: list[dict] | None = None, *,
@@ -1378,6 +1385,9 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "table, the verdicts and the margin figure. A proven bound does not depend on the budget that computed it, so "
         "their rows join every table of the same set and host.",
         "* **SYNTHETIC** rows are SYNTHETIC instances (`evacplan/instances/SPLIT.json`), not real-world results.",
+        "* **commit** = the git commits of the method's rows (12 hex digits); `+dirty` marks a run from a checkout "
+        "with uncommitted changes under `evacplan/`, `hazard_contract/` or `program/` (other than the generated "
+        "outputs).",
         "",
     ]
     if not rows:
@@ -1426,7 +1436,7 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             certs = [row_config(r).get("certify_s") for r in rs]
             ttc = (None if any(c is None for c in certs)
                    else sum(float(r["runtime_s"]) + float(c) for r, c in zip(rs, certs)) / len(rs))
-            commits = sorted({r["commit"][:12] for r in rs})
+            commits = sorted({short_commit(r["commit"]) for r in rs})
             lines.append(
                 f"| {meth} | {label} | {len(ids)} | {len(seeds)} | {_total(rs, 'delivered_checked', n_res)} | "
                 f"{_total(rs, 'unresolved')} | {_total(rs, 'model_no_route')} | {not_planned} | "

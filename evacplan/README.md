@@ -116,8 +116,9 @@ frozen `integration/` folder, used by the router-graph adapter) only goes on the
 file, because `pip install -e` would write build files into a frozen folder. ortools must stay below 9.15
 (`pyproject.toml` caps it): 9.15's Python wrapper rejects the list argument of `SetAllowedVehiclesForIndex`
 and B2 crashes. The editable installs write git-ignored `src/*.egg-info` folders into `evacplan/` and
-`hazard_contract/`, nothing else. The test suite takes about ten minutes on the cloud VM (B2, B3, E1 and E4 run with
-short budgets), so it runs only through the bench lock: started any other way it exits with code 75 and says why
+`hazard_contract/`, nothing else. The test suite takes about 15 minutes on the cloud VM (13.4 min for 433 tests at
+batch 2; B2, B3, E1, E1b, E2 and E4 run with short budgets), so it runs only through the bench lock: started any
+other way it exits with code 75 and says why
 (`tests/conftest.py`; `EVACPLAN_TESTS_UNLOCKED=1` lets a light selection run while nobody holds the lock):
 
 ```sh
