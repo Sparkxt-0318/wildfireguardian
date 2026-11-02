@@ -6,7 +6,7 @@ Each sentence and its caution are rendered from [`NUMBERS.json`](NUMBERS.json); 
 
 ## S1
 
-> Using forecasts our model produced retrospectively for the recorded fire conditions of the March 2025 Uiseong-Andong and Yeongdeok wildfires, our planner checked vehicle departures from 174 OpenStreetMap-mapped villages and care facilities, each to one of its three nearest OSM-mapped schools or community halls (not official shelters), against 4 fire scenarios from the forecast at six departure times 10 minutes apart after each of three forecast times per region, in 9,396 recorded route checks (one per place, forecast time, candidate destination and departure time).
+> Using forecasts our model produced retrospectively for the recorded fire conditions of the March 2025 Uiseong-Andong and Yeongdeok wildfires, our planner checked vehicle departures from each of 174 OpenStreetMap-mapped villages and care facilities to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts), against 4 fire scenarios from the forecast at six departure times 10 minutes apart after each of three forecast times per region, in 9,396 recorded route checks (one per place, forecast time, candidate destination and departure time).
 
 NUMBERS.json keys: `places@all/places`, `attempts@all/pooled`, `destinations_used.school@all/places`, `destinations_used.community_hall@all/places`, `records.route_checks@all/pooled`, `records.dispatch_attempts@all/pooled`, `records.rechecks@all/pooled`, `records.research_route_checks@all/pooled`, `osm_origins_not_checkable@all/places`, `cases@all/pooled`, `destinations_used.shelter@all/places`
 

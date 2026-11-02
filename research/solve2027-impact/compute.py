@@ -7,7 +7,8 @@ Run from anywhere with the venv described in README.md (Python 3.12, requirement
     python research/solve2027-impact/compute.py --check    # recompute; fail if any committed text output differs
     python research/solve2027-impact/verify.py             # path B: independent recomputation of every number
 
-Needs the SHA-verified road graphs (python tools/fetch_routing_inputs.py) for redundancy and route lengths.
+Needs the SHA-verified road graphs and HAZARD packets (python tools/fetch_routing_inputs.py): graphs for redundancy,
+route lengths and fire-free trips, HAZARD.json for the scenario window (valid_from, valid_until, dt).
 """
 from __future__ import annotations
 

@@ -920,8 +920,8 @@ L 415.292572 457.432
   </g>
   <g id="text_77">
    <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 507.855047)">Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 516.253406)">checked to one of its three nearest OSM-mapped schools or community halls (not official shelters; for one Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 524.651766)">aid only - not for live evacuation operations.</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 516.253406)">checked to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts; for one Yeongdeok place one of the three is an unnamed OSM amenity=shelter point).</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 524.651766)">Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
   </g>
   <g id="legend_1">
    <g id="patch_35">

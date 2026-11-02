@@ -5,8 +5,10 @@ Inputs (all read-only):
   (schema ``wfg.planner.cache/1``, written by ``planner/scripts/precompute.py`` on the evaluated macOS host);
 * ``planner/public/data/regions/<region>/places.geojson`` (origin types, as the planner tags them);
 * ``data/routing/graphs/<region>/graph.json`` from ``python tools/fetch_routing_inputs.py`` (SHA-verified release
-  archive); only needed for road redundancy and route lengths. Its SHA-256 must equal the ``input_hashes.graph`` that
-  the API recorded in every cached route check, and its ``revision`` must equal the recorded ``graph_id``.
+  archive) for road redundancy, route lengths and fire-free trips. Its SHA-256 must equal the ``input_hashes.graph``
+  that the API recorded in every cached route check, and its ``revision`` must equal the recorded ``graph_id``;
+* ``data/routing/latest_inputs_try02/packets/<region>/<input time>/HAZARD.json`` from the same tool, for the scenario
+  window only (``valid_from``, ``valid_until``, ``dt``); its SHA-256 must equal the recorded ``input_hashes.hazard``.
 
 Every file is verified by SHA-256 before use; a mismatch stops the run.
 """

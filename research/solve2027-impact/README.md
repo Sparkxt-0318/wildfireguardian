@@ -300,7 +300,7 @@ From the repository root, with Python 3.12:
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -c constraints-routing.txt './integration[packets]'
 .venv/bin/python -m pip install -c constraints-routing.txt -r research/solve2027-impact/requirements.txt
-.venv/bin/python tools/fetch_routing_inputs.py             # SHA-verified road graphs (only needed once)
+.venv/bin/python tools/fetch_routing_inputs.py             # SHA-verified road graphs and HAZARD packets (only needed once)
 .venv/bin/python research/solve2027-impact/compute.py       # path A: NUMBERS.json, tables, figures, generated text
 .venv/bin/python research/solve2027-impact/verify.py        # path B: independent recomputation, exits 1 on mismatch
 .venv/bin/python -m pytest -q research/solve2027-impact/tests

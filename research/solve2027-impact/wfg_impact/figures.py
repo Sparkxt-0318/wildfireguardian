@@ -30,7 +30,8 @@ LABEL = {pr.CHECKED: 'Checked route (within the model)',
          pr.UNRESOLVED: 'Unresolved: cannot judge, never safe'}
 FOOTER = ('Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell '
           'from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is '
-          'checked to one of its three nearest OSM-mapped schools or community halls (not official shelters; for one '
+          'checked to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked '
+          'route to any one counts; for one '
           'Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. '
           'Planning aid only - not for live evacuation operations.')
 WINDOW_HATCH = '..'
@@ -116,6 +117,10 @@ def fig_checked_share(records, numbers, metas, out_dir: Path, table_dir: Path) -
                 for v, x, window in segments:
                     h = 100.0 * x / n
                     _bar(ax, k, bottom, h, v, 0.68, window=window)
+                    if window and 0 < h < 6:   # a 1-2 case sliver is thinner than the hatch lattice: one row of
+                        # explicit white dots, outlined so they stay visible where they overlap the gap or background
+                        ax.scatter([k - 0.2, k, k + 0.2], [bottom + h / 2] * 3, s=9, facecolor=HATCH_C, edgecolor=INK,
+                                   linewidths=0.5, zorder=4)
                     bottom += h
                 share = 100.0 * c[pr.CHECKED] / n
                 if t in (0, OFFSETS[-1]):

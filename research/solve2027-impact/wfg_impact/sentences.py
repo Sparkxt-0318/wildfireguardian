@@ -9,7 +9,7 @@ window, the 120 s required stay and hence the 8-minute (480 s) trip limit at +50
 recorded inputs, not computed numbers. Wording that depends on a number ("none", "at both", "all in Uiseong-Andong")
 is asserted by tests/test_reproduction.py.
 
-Every sentence names its destination scope: each place is checked to one of its three nearest OSM-mapped schools or
+Every sentence names its destination scope: each place is checked to each of its three nearest OSM-mapped schools or
 community halls, not official shelters (one Yeongdeok place also has an unnamed OSM ``amenity=shelter`` point without
 ``shelter_type`` among its three; DEST_NOTE). Departures that the 1-hour scenario window rules out whatever the fire
 ("window-limited") are never counted as fire effects (numbers.WINDOW_RULE).
@@ -18,7 +18,8 @@ from __future__ import annotations
 
 import re
 
-DEST = 'one of its three nearest OSM-mapped schools or community halls (not official shelters)'
+DEST = ('each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any '
+        'one counts)')
 _HALLS = 'three nearest OSM-mapped schools or community halls'
 DEST_NOTE = ('Destinations: {v:destinations_used.school@all/places} OSM schools and '
              '{v:destinations_used.community_hall@all/places} OSM community halls; for one Yeongdeok place one of '
@@ -31,7 +32,7 @@ SENTENCES = [
         'text': (
             'Using forecasts our model produced retrospectively for the recorded fire conditions of the March 2025 '
             'Uiseong-Andong and Yeongdeok wildfires, our planner checked vehicle departures from '
-            '{v:places@all/places} OpenStreetMap-mapped villages and care facilities, each to ' + DEST + ', against '
+            'each of {v:places@all/places} OpenStreetMap-mapped villages and care facilities to ' + DEST + ', against '
             '4 fire scenarios from the forecast at six departure times 10 minutes apart after each of three forecast '
             'times per region, in {v:attempts@all/pooled} recorded route checks (one per place, forecast time, '
             'candidate destination and departure time).'),
