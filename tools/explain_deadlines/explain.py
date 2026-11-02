@@ -4,20 +4,25 @@ checked origin, deadline D (planner's 출발 마감) and the next attempted offs
   * no later offset                         -> no_later_offset            (explained)
   * N is a "시간창 밖" cell (research mission)  -> window                    (explained; zero-travel rule)
   * N unresolved                            -> unresolved_next            (not_explainable; never turned into a reason)
-  * N model_no_route: for every shelter with a checked route at D (the set C_D):
+  * N model_no_route: for every shelter with a checked route at D (the set C_D), the first class that holds at N:
       - fire-free fastest road journey from N cannot finish the stay in the window          -> window_fire_free
-      - else the route checked at D, replayed rigidly shifted to N, meets flame first on a
+      - the route checked at D, replayed rigidly shifted to N, meets flame first on a
         moving segment (closed-footprint or router rule, any member)                       -> flame_on_route
-      - else no flame-avoiding relaxed journey (reach.py) arrives by close - dwell            -> window_fire_detour
-      - else every stay [a, a + dwell] the relaxation allows meets flame                     -> dwell
+      - no flame-avoiding relaxed journey (reach.py) arrives by close - dwell                -> window_fire_detour
+      - the shifted route first meets flame during its stay                                 -> dwell
+      - every stay [a, a + dwell] the relaxation allows meets flame                          -> stay_blocked_without_shown_route_contact
       - else                                                                                  -> open
-    a shelter is PROVEN unreachable at N when window_fire_free, the relaxation is late, or every stay meets flame;
-    the origin's reason is the class of the route the planner shows (best attempt at D);
-    status explained when every shelter of C_D is proven, explained_partial otherwise or for dwell,
-    not_explainable when the shown route's class is open.
+    shelters tried at N without a checked route at D get window_fire_free / flame_blocked / stay_blocked / open;
+    a shelter is PROVEN unreachable at N when window_fire_free, the relaxation is late, or every stay meets flame.
+    deadline_cause over all shelters considered: time_window when none can be reached in time even without fire,
+    flames when one would be reached by a fire-free road but is proven unreachable on every flame-avoiding road.
+    The origin's reason follows the shown route's class (window_fire_free -> window when the cause is time_window,
+    no_flame_avoiding_route / other_shelters_flame_blocked when it is flames; window_fire_detour ->
+    no_flame_avoiding_route); explained when every shelter considered is proven and the cause is established.
 model_no_route origin: every attempted (offset, shelter) must be proven by the relaxation without turn restrictions;
-  all shelters unreachable within the hazard window -> all_exits_blocked (exits = roads where the flame-free
-  reachable area ends), otherwise window. Unresolved origin -> not_explainable.
+  none reachable in time even without fire -> window (no_route_even_without_fire); otherwise all shelters
+  unreachable within the hazard window and the flame-free area closed by flame -> all_exits_blocked (exits = roads
+  leaving that area), else no_flame_avoiding_route. Unresolved origin -> not_explainable.
 """
 from __future__ import annotations
 
@@ -35,8 +40,8 @@ from .roads import RoadGraph
 
 SCHEMA = "wfg.explanation/1"
 STATUSES = ("explained", "explained_partial", "not_explainable")
-REASONS = ("flame_on_route", "all_exits_blocked", "dwell_at_destination", "unresolved_next", "window",
-           "no_later_offset", "other")
+REASONS = ("flame_on_route", "no_flame_avoiding_route", "all_exits_blocked", "dwell_at_destination", "unresolved_next",
+           "window", "no_later_offset", "other")
 
 
 def r1(x) -> float:
@@ -132,7 +137,9 @@ def _binding_item(ctx: Context, segs: list, sc, shift: F, destination_ids: list)
             "members": _members(ctx, {p[0] for p in pairs}), "members_total": ctx.packet.S,
             "pass_time_at_deadline_s": r1(best[5]), "slack_s": r1(slack), "segment": kind,
             "leg_index": seg.leg_index, "destination_ids": sorted(destination_ids),
-            "rules": {"closed_footprint": bool(pairs), "router_cells": bool(sc.router_members)}}
+            "rules": {"closed_footprint": bool(pairs), "router_cells": bool(sc.router_members)},
+            # router-grid cells of the earliest contact at N and of the smallest margin at D (pass/flame/slack refer to it)
+            "contact_cell": witness[1], "slack_cell": best[1]}
     member_times = {}
     for p in pairs:
         member_times[p[0]] = min(member_times.get(p[0], p[2]), p[2])
@@ -198,6 +205,51 @@ def _analyse_destination(ctx: Context, attempt, next_offset: int, delta: F, ev: 
             "flame_avoiding_arrival_h": ea_h, "job": job}
 
 
+def _analyse_refused(ctx: Context, attempt, next_offset: int, ev: Evidence) -> dict:
+    """A shelter tried at N that had no checked route at D (refused there too): whether a fire-free road would still
+    reach it in time from N and, if so, whether the flame-avoiding relaxation proves it unreachable (or every stay it
+    allows meets flame)."""
+    job = ctx.model.job(attempt.job_id)
+    if job is None:
+        return {"cls": "unknown", "proven": False, "why": "route_check_job_missing"}
+    try:
+        req = _job_request(job)
+    except (KeyError, TypeError, ValueError):
+        return {"cls": "unknown", "proven": False, "why": "request_unreadable"}
+    close = _close(ctx, req)
+    g = ctx.graph
+    fast = g.fastest_ticks(req["start"], [req["destination"]], max_ticks=ctx.horizon)[req["destination"]]
+    fire_free_late = fast is None or next_offset + fast + req["dwell"] > close
+    relax_late = dwell_blocked = False
+    ea = ea_h = None
+    if not fire_free_late:
+        ea = flame_avoiding(ctx.index, req["start"], next_offset, [req["destination"]], close - req["dwell"])["arrival"][req["destination"]]
+        relax_late = ea is None
+        if not relax_late:
+            dwell_blocked = dwell_free_arrival(ctx.index, req["destination"], ea, close - req["dwell"], req["dwell"]) is None
+        ea_h = flame_avoiding(ctx.index, req["start"], next_offset, [req["destination"]], ctx.horizon)["arrival"][req["destination"]]
+    cls = "window_fire_free" if fire_free_late else "flame_blocked" if relax_late else "stay_blocked" if dwell_blocked else "open"
+    ev.window_proofs.append({"destination_id": attempt.destination_id, "start": req["start"], "destination": req["destination"],
+                             "next": next_offset, "dwell": req["dwell"], "close": close, "fastest_ticks": fast,
+                             "fire_free_late": fire_free_late, "relax_late": relax_late, "dwell_blocked": dwell_blocked,
+                             "relax_arrival": ea})
+    return {"cls": cls, "proven": fire_free_late or relax_late or dwell_blocked, "req": req, "close": close,
+            "fastest_ticks": fast, "fire_free_late": fire_free_late, "relax_late": relax_late, "dwell_blocked": dwell_blocked,
+            "flame_avoiding_arrival_h": ea_h}
+
+
+def _shelter_record(destination_id: str, r: dict, next_offset: int, checked_at_deadline: bool, tried_next: bool) -> dict:
+    """Per-shelter facts at N for the JSON (`shelters_next`)."""
+    req, fast = r.get("req"), r.get("fastest_ticks")
+    known = req is not None and r.get("fire_free_late") is not None
+    return {"destination_id": destination_id, "checked_at_deadline": checked_at_deadline, "tried_next": tried_next,
+            "class": r["cls"], "proven": bool(r["proven"]), "close_s": r.get("close"),
+            "dwell_s": req["dwell"] if req else None,
+            "fire_free_fits": (not r["fire_free_late"]) if known else None,
+            "fire_free_end_s": next_offset + fast + req["dwell"] if (known and fast is not None) else None,
+            "flame_avoiding_arrival_s": r.get("flame_avoiding_arrival_h")}
+
+
 def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -> None:
     D = plan.latest_s
     rec["deadline_offset_s"] = D
@@ -243,19 +295,44 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
     ev.shift = delta
     checked = [a for a in dcell.attempts if a.verdict == "checked_route"]
     results = {a.destination_id: _analyse_destination(ctx, a, nxt.offset_s, delta, ev, rec["notes"]) for a in checked}
+    # shelters tried at N without a checked route at D were refused at D as well; they do not explain the change from
+    # D to N, but they decide whether the fire is what keeps a later departure from working (deadline_cause)
+    extra = {}
+    for a in nxt.attempts:
+        if a.destination_id not in results and a.destination_id not in extra:
+            extra[a.destination_id] = _analyse_refused(ctx, a, nxt.offset_s, ev)
+    considered = {**results, **extra}
+    tried = {a.destination_id for a in nxt.attempts}
     rec["checked_at_deadline"] = len(checked)
     rec["proven_unreachable_next"] = sum(1 for r in results.values() if r["proven"])
     rec["next_attempts"] = dict(sorted(collections.Counter(a.verdict for a in nxt.attempts).items()))
+    rec["destination_classes"] = {d: r["cls"] for d, r in sorted(results.items())}
+    rec["shelters_next"] = [_shelter_record(d, considered[d], nxt.offset_s, d in results, d in tried) for d in sorted(considered)]
     shown = results[best.destination_id]
     cls = shown["cls"]
-    all_proven = all(r["proven"] for r in results.values())
-    rec["destination_classes"] = {d: r["cls"] for d, r in sorted(results.items())}
     if shown.get("req"):
         rec["window"] = {"close_s": shown["close"], "dwell_s": shown["req"]["dwell"], "fire_free": bool(shown["fire_free_late"]),
                          "fastest_end_s": None if shown["fastest_ticks"] is None else nxt.offset_s + shown["fastest_ticks"] + shown["req"]["dwell"],
                          "flame_avoiding_arrival_s": shown["flame_avoiding_arrival_h"]}
-    if cls in ("window_fire_free", "window_fire_detour"):
-        rec.update(reason_code="window", detail_code=cls)
+    # what keeps a later departure from working, over every shelter considered at N (checked at D or tried at N):
+    #   time_window -- none of them can be reached in time at N even without fire;
+    #   flames      -- at least one would be reached in time by a fire-free road but is proven unreachable on every
+    #                  flame-avoiding road (so without the fire a later departure would work);
+    #   None        -- not established
+    all_out_of_window = all(r.get("fire_free_late") is True for r in considered.values())
+    fire_limited = sorted(d for d, r in considered.items() if r.get("fire_free_late") is False and r["proven"])
+    cause = "time_window" if all_out_of_window else "flames" if fire_limited else None
+    rec["deadline_cause"] = cause
+    if cls == "window_fire_free":
+        if cause == "time_window":
+            rec.update(reason_code="window", detail_code="window_fire_free")
+        elif cause == "flames":
+            # the shown shelter is out of reach even without fire, other shelters only because of the flames
+            rec.update(reason_code="no_flame_avoiding_route", detail_code="other_shelters_flame_blocked")
+        else:
+            rec.update(reason_code="window", detail_code="window_fire_free")
+    elif cls == "window_fire_detour":
+        rec.update(reason_code="no_flame_avoiding_route", detail_code="window_fire_detour")
     elif cls == "flame_on_route":
         rec.update(reason_code="flame_on_route", detail_code="route_meets_flame_when_shifted")
         # one item per distinct first contact among the routes checked at D (the shown route's item first)
@@ -291,7 +368,7 @@ def _explain_checked(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) ->
         rec.update(reason_code="other", detail_code="refusal_not_reproduced" if cls == "open" else (shown.get("why") or cls))
     if rec["reason_code"] == "other":
         rec["status"] = "not_explainable"
-    elif rec["reason_code"] == "dwell_at_destination" or not all_proven:
+    elif rec["reason_code"] == "dwell_at_destination" or cause is None or not all(r["proven"] for r in considered.values()):
         rec["status"] = "explained_partial"
     else:
         rec["status"] = "explained"
@@ -343,17 +420,19 @@ def _explain_no_route(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -
         rec.update(status="not_explainable", reason_code="other", detail_code="several_start_nodes")
         return
     start = starts.pop()
-    proven, unreachable, fire_free = True, True, True
+    proven, unreachable, out_of_window = True, True, True
     for a, r in reqs:
         close = _close(ctx, r)
         fast = ctx.graph.fastest_ticks(start, [r["destination"]], max_ticks=ctx.horizon)[r["destination"]]
-        fire_free &= fast is None or a.offset_s + fast + r["dwell"] > close
+        ff_late = fast is None or a.offset_s + fast + r["dwell"] > close
+        out_of_window &= ff_late
         late = flame_avoiding(ctx.index, start, a.offset_s, [r["destination"]], close - r["dwell"], turns=False)
         anytime = flame_avoiding(ctx.index, start, a.offset_s, [r["destination"]], ctx.horizon, turns=False)
         ok_late = late["arrival"][r["destination"]] is None
         ok_any = anytime["arrival"][r["destination"]] is None
         ev.window_proofs.append({"no_route_attempt": True, "start": start, "destination": r["destination"], "offset": a.offset_s,
-                                 "dwell": r["dwell"], "close": close, "late": ok_late, "unreachable": ok_any})
+                                 "dwell": r["dwell"], "close": close, "late": ok_late, "unreachable": ok_any,
+                                 "fastest_ticks": fast, "fire_free_late": ff_late})
         proven &= ok_late
         unreachable &= ok_any
     t0 = min(a.offset_s for a, _ in reqs)
@@ -361,26 +440,32 @@ def _explain_no_route(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -
     if not proven:
         rec.update(status="not_explainable", reason_code="other", detail_code="refusal_not_reproduced")
         return
+    window = {"close_s": min(_close(ctx, r) for _, r in reqs), "dwell_s": reqs[0][1]["dwell"],
+              "fire_free": out_of_window, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+    if out_of_window:
+        # even without fire no attempted shelter could be reached in time: the fire is not what prevents a route
+        rec.update(status="explained", reason_code="window", detail_code="no_route_even_without_fire",
+                   deadline_cause="time_window", window=window)
+        return
+    rec["deadline_cause"] = "flames"
     if not unreachable:
-        rec.update(status="explained", reason_code="window", detail_code="no_flame_avoiding_route_fits_window")
-        rec["window"] = {"close_s": min(_close(ctx, r) for _, r in reqs), "dwell_s": reqs[0][1]["dwell"],
-                         "fire_free": fire_free, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
+        rec.update(status="explained", reason_code="no_flame_avoiding_route", detail_code="no_flame_avoiding_route_fits_window",
+                   window=window)
         return
     run = flame_avoiding(ctx.index, start, t0, [], ctx.horizon, turns=False)
     if run["issue_blocked"]:
         rec.update(status="explained", reason_code="all_exits_blocked", detail_code="entry_point_in_flame")
         rec["exits"] = []
         return
-    if run["horizon_cut"] or not run["frontier"]:
+    if run["horizon_cut_exits"] or not run["frontier_exits"]:
         # the flame-free area is not closed by flame alone within the window: the proof is a timing one
-        rec.update(status="explained", reason_code="window", detail_code="no_flame_avoiding_route_fits_window")
+        rec.update(status="explained", reason_code="no_flame_avoiding_route", detail_code="no_flame_avoiding_route_fits_window",
+                   window=window)
         rec["reachable_nodes"] = run["reached_nodes"]
-        rec["window"] = {"close_s": min(_close(ctx, r) for _, r in reqs), "dwell_s": reqs[0][1]["dwell"],
-                         "fire_free": fire_free, "fastest_end_s": None, "flame_avoiding_arrival_s": None}
         return
     g = ctx.graph
     exits = []
-    for edge_id, at in run["frontier"]:
+    for edge_id, at in run["frontier_exits"]:
         e = g.edge_index[edge_id]
         blocks = ctx.index.edge_blocks(e)
         tau = g.ticks[e]
@@ -407,7 +492,7 @@ def _explain_no_route(ctx: Context, plan: OriginPlan, rec: dict, ev: Evidence) -
         ev.times += [min(p[3] for p in sc_pairs), witness[2]]
     rec["exits"] = exits
     rec["reachable_nodes"] = run["reached_nodes"]
-    ev.exits_proof = {"start": start, "t0": t0, "frontier": run["frontier"], "horizon_cut": run["horizon_cut"]}
+    ev.exits_proof = {"start": start, "t0": t0, "frontier": run["frontier_exits"], "horizon_cut": run["horizon_cut_exits"]}
     rec.update(status="explained", reason_code="all_exits_blocked", detail_code="flame_free_area_closed")
 
 
@@ -441,5 +526,8 @@ def explain_plan(ctx: Context, plan: OriginPlan) -> tuple:
     else:
         _explain_checked(ctx, plan, rec, ev)
     _window_limit(ctx, rec)
+    for it in rec["binding"] + rec["exits"]:
+        # the named place is the origin itself (planner origin ids are "osm:<type>/<id>")
+        it["place_is_origin"] = bool(it.get("place_osm_id")) and "osm:%s" % it["place_osm_id"] == plan.origin_id
     assert rec["status"] in STATUSES and rec["reason_code"] in REASONS, rec
     return rec, ev

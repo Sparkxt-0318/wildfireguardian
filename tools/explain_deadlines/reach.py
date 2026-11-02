@@ -30,6 +30,8 @@ class ContactIndex:
     """Blocked departure intervals of edges and points, for one packet and graph (cached per edge)."""
 
     def __init__(self, graph: RoadGraph, packet: Packet):
+        if packet.dt != 1:                    # travel ticks, waits and departure offsets are used as seconds
+            raise ValueError("routing tick is not 1 s")
         self.g = graph
         self.pk = packet
         self.burning = set(packet.burning_cells)
@@ -100,12 +102,16 @@ def flame_avoiding(index: ContactIndex, start: str, depart: int, targets, latest
     * ``horizon_cut`` -- time ran out: even an immediate start would end after ``latest_arrival``.
 
     ``turns=False`` also drops the turn restrictions (a further superset: every edge leaving a reached node is tried).
-    Returns {"arrival", "issue_blocked", "frontier": [(edge, at_s)], "horizon_cut": [(edge, at_s)], "reached_nodes"}."""
+    ``frontier_exits`` / ``horizon_cut_exits`` keep only the edges whose end node was never reached, i.e. the roads that
+    leave the reached area (a blocked edge between two reached nodes does not close anything off).
+    Returns {"arrival", "issue_blocked", "frontier": [(edge, at_s)], "horizon_cut": [(edge, at_s)], "frontier_exits",
+    "horizon_cut_exits", "reached_nodes"}."""
     g = index.g
     targets = set(targets)
     issue = [b for b in index.point_blocks(start, F(0)) if b[0] <= depart < b[1]]
     out = {"arrival": {t: None for t in targets}, "issue_blocked": bool(issue), "frontier": [], "horizon_cut": [],
-           "reached_nodes": 0, "issue_pairs": [(b[2], b[3], b[4]) for b in issue]}
+           "frontier_exits": [], "horizon_cut_exits": [], "reached_nodes": 0,
+           "issue_pairs": [(b[2], b[3], b[4]) for b in issue]}
     if issue:
         return out
     dist: dict = {}
@@ -149,6 +155,8 @@ def flame_avoiding(index: ContactIndex, start: str, depart: int, targets, latest
     out["frontier"] = sorted(((g.edge_ids[e], a) for e, a in frontier.items() if e not in dist), key=lambda x: (x[1], x[0]))
     out["horizon_cut"] = sorted(((g.edge_ids[e], a) for e, a in cut.items() if e not in dist and e not in frontier),
                                 key=lambda x: (x[1], x[0]))
+    out["frontier_exits"] = [(eid, a) for eid, a in out["frontier"] if g.v[g.edge_index[eid]] not in reached]
+    out["horizon_cut_exits"] = [(eid, a) for eid, a in out["horizon_cut"] if g.v[g.edge_index[eid]] not in reached]
     out["reached_nodes"] = len(reached)
     return out
 

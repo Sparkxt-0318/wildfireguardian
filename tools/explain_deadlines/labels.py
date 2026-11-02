@@ -52,6 +52,6 @@ def label_for(index: PlaceIndex | None, x: float, y: float, node_id: str) -> dic
         p, d = index.nearest(x, y)
         if p is not None and d <= MAX_PLACE_M:
             return {"label_ko": p["ko"], "label_en": p["en"], "label_source": "nearest_place",
-                    "place_osm_id": p["osm_id"], "place_distance_m": int(round(d)), "near_node_id": node_id}
-    return {"label_ko": None, "label_en": None, "label_source": "unnamed", "place_osm_id": None,
+                    "place_osm_id": p["osm_id"], "place_kind": p["kind"], "place_distance_m": int(round(d)), "near_node_id": node_id}
+    return {"label_ko": None, "label_en": None, "label_source": "unnamed", "place_osm_id": None, "place_kind": None,
             "place_distance_m": None, "near_node_id": node_id}

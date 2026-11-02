@@ -82,11 +82,27 @@ def test_file_matches_its_inputs_and_the_planner(entry):
         for it in o["binding"]:
             assert 0 < it["slack_s"] <= o["next_offset_s"] - o["deadline_offset_s"]
             assert it["pass_time_at_deadline_s"] < it["flame_time_s"]
-        if o["reason_code"] == "window" and o["verdict_summary"] == "checked_route" and o["detail_code"] != "outside_recorded_arrival_window":
+        for it in o["binding"] + o["exits"]:
+            assert it["place_is_origin"] == (it["place_osm_id"] is not None and "osm:" + it["place_osm_id"] == oid)
+        sh = o.get("shelters_next")
+        if o["next_verdict"] == "model_no_route" and o["verdict_summary"] == "checked_route":
+            # every shelter checked at D and every shelter tried at N is accounted for
+            ids = {x["destination_id"] for x in sh}
+            assert set(o["destination_classes"]) <= ids and sum(x["checked_at_deadline"] for x in sh) == o["checked_at_deadline"]
+            fits = [x for x in sh if x["fire_free_fits"]]
+            for x in sh:
+                assert x["fire_free_fits"] == (x["fire_free_end_s"] is not None and x["fire_free_end_s"] <= x["close_s"])
+            if o["deadline_cause"] == "time_window":
+                assert not fits and o["reason_code"] == "window" and o["detail_code"] == "window_fire_free"
+            if o["deadline_cause"] == "flames":
+                assert any(x["proven"] for x in fits) and o["reason_code"] in ("flame_on_route", "no_flame_avoiding_route", "dwell_at_destination")
+        if o["reason_code"] == "window" and o["detail_code"] == "window_fire_free":
+            # the time window alone: no shelter considered at N would be reached in time even without fire
+            assert o["deadline_cause"] == "time_window" and all(x["fire_free_fits"] is False for x in sh)
             w = o["window"]
-            assert o["proven_unreachable_next"] == o["checked_at_deadline"]
-            if w["fire_free"]:
-                assert w["fastest_end_s"] is None or w["fastest_end_s"] > w["close_s"]
+            assert w["fire_free"] and (w["fastest_end_s"] is None or w["fastest_end_s"] > w["close_s"])
+        if o["reason_code"] == "no_flame_avoiding_route":
+            assert o["deadline_cause"] == "flames"
 
 
 def test_regeneration_is_identical(tmp_path):

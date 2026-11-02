@@ -27,6 +27,9 @@ class RoadGraph:
         self.u = [e["u"] for e in raw["edges"]]
         self.v = [e["v"] for e in raw["edges"]]
         self.ticks = [int(e["travel_ticks"]) for e in raw["edges"]]
+        # travel times are whole routing ticks of 1 s (the packet's dt, asserted in packet.py and reach.py)
+        if any(t < 1 or t != e["travel_ticks"] for t, e in zip(self.ticks, raw["edges"])):
+            raise ValueError("graph travel_ticks must be positive integers (1 s ticks)")
         self.source_way = [e.get("source_way") for e in raw["edges"]]
         self.out: dict = {}
         for i, a in enumerate(self.u):

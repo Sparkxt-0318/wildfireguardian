@@ -170,6 +170,8 @@ def generate(args) -> int:
                 raise InputError("packet members are not the scenario set %s" % doc["scenario_set_id"])
             if compact(pk.time_origin) != tag:
                 raise InputError("packet time origin differs from the input time")
+            if pk.crs != G.crs:
+                raise InputError("packet CRS %r differs from the graph CRS %r" % (pk.crs, G.crs))
             hash_checks = verify_cache_provenance(doc, region, doc["input_time"], doc["scenario_set_id"], graph_sha, pk)
             model = CacheModel(doc)
             ctx = Context(region_id=region, input_time=doc["input_time"], scenario_set_id=doc["scenario_set_id"], graph=G,

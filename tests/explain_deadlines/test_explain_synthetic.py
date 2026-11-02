@@ -214,3 +214,91 @@ def test_routes_with_an_identical_contact_are_merged_and_each_is_validated(tmp_p
     assert kit_crosscheck(I, KG, I.Packet(tmp_path / "pk", KG), pk, rec, ev, 3600)["kit_b"] is True
     ev.binding_checks[1]["members"] = {0}
     assert validate(ctx, rec, ev)["b"] is False
+
+
+def build_multi(tmp_path, raw, shelters, packet_kw, start="A", origin="o1"):
+    """shelters: [(destination_id, node, edges, window, checked_offsets)]; refused (model_no_route) at other offsets."""
+    checks, atts = {}, []
+    for off in OFFSETS:
+        for dest, node, edges, window, checked in shelters:
+            jid = "%s_%d" % (dest, off)
+            if off in checked:
+                job = synth.route_job(jid, start=start, dest=node, depart=off, legs_edges=list(edges), raw_graph=raw, window=window)
+                atts.append(synth.attempt(dest, off, "checked_route", jid, job["result"]["arrival_s"]))
+            else:
+                job = synth.refusal_job(jid, start=start, dest=node, depart=off, window=window)
+                atts.append(synth.attempt(dest, off, "model_no_route", jid))
+            checks[jid] = job
+    doc = synth.cache_doc([(origin, atts)], checks)
+    g = RoadGraph(raw)
+    synth.write_packet(tmp_path / "pk", **packet_kw)
+    pk = Packet(tmp_path / "pk", g.grid)
+    ctx = Context(region_id="synthetic", input_time="2025-01-01T00:00:00Z", scenario_set_id="synthetic:set", graph=g, packet=pk,
+                  index=ContactIndex(g, pk), places=None, model=CacheModel(doc), to_lonlat=synth.lonlat_identity, horizon=3600)
+    rec, ev = explain_plan(ctx, ctx.model.plans[origin])
+    return ctx, rec, ev
+
+
+def mixed_world(bc=200):
+    """A-B-C (C = shelter s2, the fast road A->B crosses cell 5) and A-Y (Y = shelter s1)."""
+    return synth.graph({"A": (50, 150), "B": (250, 150), "C": (350, 150), "Y": (50, 250)},
+                       [("AB", "A", "B", 20), ("BC", "B", "C", bc), ("AY", "A", "Y", 100)])
+
+
+def test_shown_shelter_out_of_window_but_another_blocked_by_flames(tmp_path):
+    """Leaving at 600: s1 (Y, arrival window closes at 900 s) arrives at 700 (shown: earliest), s2 (C) at 820.
+    Leaving at 1200: s1 cannot finish its stay by 900 s even without fire; s2 would finish at 1200 + 220 + 120 = 1540 on
+    a fire-free road, but member 1 ignites cell 5 at 630 s (burning to 4630 s) and A->B is the only road to C. So the
+    leave-by time comes from the flames, not from s1's window."""
+    shelters = [("s1", "Y", ["AY"], (0, 900), (0, 600)), ("s2", "C", ["AB", "BC"], (0, 3600), (0, 600))]
+    ctx, rec, ev = build_multi(tmp_path, mixed_world(), shelters, {"ignitions": {1: {5: 630.0}}})
+    assert rec["deadline_route"]["destination_id"] == "s1"
+    assert (rec["status"], rec["reason_code"], rec["detail_code"], rec["deadline_cause"]) == \
+        ("explained", "no_flame_avoiding_route", "other_shelters_flame_blocked", "flames")
+    sh = {s["destination_id"]: s for s in rec["shelters_next"]}
+    assert (sh["s1"]["class"], sh["s1"]["fire_free_fits"], sh["s1"]["fire_free_end_s"], sh["s1"]["close_s"]) == ("window_fire_free", False, 1420, 900)
+    assert (sh["s2"]["class"], sh["s2"]["fire_free_fits"], sh["s2"]["fire_free_end_s"], sh["s2"]["flame_avoiding_arrival_s"]) == ("flame_on_route", True, 1540, None)
+    assert rec["binding"] == []
+    assert validate(ctx, rec, ev)["w"] is True
+
+
+def test_a_shelter_refused_at_the_deadline_too_still_decides_the_cause(tmp_path):
+    """s1 (checked at 600) is out of its window at 1200 even without fire. s3 was refused at every time: its only road
+    A->B crosses cell 5, burning from the input time. With s3 close by (fire-free end 1540 s) the flames keep a later
+    departure from working; with s3 far away (fire-free end 3640 s > 3600 s) nothing would, fire or not."""
+    near = [("s1", "Y", ["AY"], (0, 900), (0, 600)), ("s3", "C", ["AB", "BC"], (0, 3600), ())]
+    ctx, rec, ev = build_multi(tmp_path / "near", mixed_world(200), near, {"current": [5], "R": 3700.0})
+    assert (rec["reason_code"], rec["detail_code"], rec["deadline_cause"], rec["status"]) == \
+        ("no_flame_avoiding_route", "other_shelters_flame_blocked", "flames", "explained")
+    s3 = next(s for s in rec["shelters_next"] if s["destination_id"] == "s3")
+    assert (s3["checked_at_deadline"], s3["tried_next"], s3["class"], s3["fire_free_end_s"]) == (False, True, "flame_blocked", 1540)
+    assert validate(ctx, rec, ev)["w"] is True
+    ctx, rec, ev = build_multi(tmp_path / "far", mixed_world(2300), near, {"current": [5], "R": 3700.0})
+    assert (rec["reason_code"], rec["detail_code"], rec["deadline_cause"], rec["status"]) == \
+        ("window", "window_fire_free", "time_window", "explained")
+    assert validate(ctx, rec, ev)["w"] is True
+
+
+def test_flame_forced_detour_is_a_flame_reason(tmp_path):
+    """The fast road A->B->C (30 s) crosses cell 5, burning from the input time; the recorded routes take the detour
+    A-Y-Z-C (1700 s). Leaving at 1800 the detour arrives at 3500 s, too late for the 120 s stay by 3600 s, while a
+    fire-free road would finish at 1800 + 30 + 120 = 1950 s."""
+    raw = synth.graph({"A": (50, 150), "B": (250, 150), "C": (350, 150), "Y": (50, 250), "Z": (350, 250)},
+                      [("AB", "A", "B", 20), ("BC", "B", "C", 10), ("AY", "A", "Y", 100), ("YZ", "Y", "Z", 1500), ("ZC", "Z", "C", 100)])
+    shelters = [("s1", "C", ["AY", "YZ", "ZC"], (0, 3600), (0, 600, 1200))]
+    ctx, rec, ev = build_multi(tmp_path, raw, shelters, {"current": [5], "R": 3700.0})
+    assert (rec["deadline_offset_s"], rec["next_offset_s"]) == (1200, 1800)
+    assert (rec["status"], rec["reason_code"], rec["detail_code"], rec["deadline_cause"]) == \
+        ("explained", "no_flame_avoiding_route", "window_fire_detour", "flames")
+    assert rec["window"]["fastest_end_s"] == 1950 and rec["window"]["fire_free"] is False
+    assert rec["window"]["flame_avoiding_arrival_s"] == 3500           # the detour itself, the only flame-avoiding way
+    assert validate(ctx, rec, ev)["w"] is True
+
+
+def test_no_route_origin_out_of_reach_even_without_fire(tmp_path):
+    """No route at any time and the shelter is 20 + 4000 s away: not the fire (window, time_window)."""
+    v = {o: "model_no_route" for o in OFFSETS}
+    ctx, rec, ev = build(tmp_path, line_world(20, 4000), v, {"ignitions": {1: {5: 630.0}}})
+    assert (rec["status"], rec["reason_code"], rec["detail_code"], rec["deadline_cause"]) == \
+        ("explained", "window", "no_route_even_without_fire", "time_window")
+    assert validate(ctx, rec, ev)["e"] is True

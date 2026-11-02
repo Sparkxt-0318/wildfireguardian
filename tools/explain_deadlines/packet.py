@@ -73,9 +73,21 @@ class Packet:
                 (grid.x0, grid.y0, grid.res, grid.W, grid.H):
             raise PacketError("HAZARD grid differs from the graph grid")
         self.time_origin = hz["time_origin"]
+        self.crs = hz.get("crs")
         self.valid_from = exact(hz["valid_from"])
         self.valid_until = exact(hz["valid_until"])
         self.dt = int(hz["dt"])
+        # one routing tick is one second (graph travel_ticks, waits and offsets are all read as seconds)
+        if exact(hz["dt"]) != 1 or exact(md.get("settings", {}).get("routing_dt_s", 1)) != 1:
+            raise PacketError("routing tick is not 1 s (HAZARD dt %r)" % hz["dt"])
+        # the scenario window starts at the input time and ends at the construction horizon
+        if self.valid_from != 0 or self.valid_until != self.horizon:
+            raise PacketError("HAZARD window [%s, %s] differs from [0, horizon_s %s]" % (hz["valid_from"], hz["valid_until"], self.horizon))
+        # the npz rows are read north-up on the graph grid: REPORT's affine must be that grid
+        top = grid.y0 + grid.res * grid.H
+        want = [grid.res, 0, grid.x0, 0, -grid.res, top]
+        if [exact(v) for v in md.get("affine_transform", [])] != want or md.get("crs") != hz.get("crs"):
+            raise PacketError("REPORT affine/CRS differ from the graph grid")
         self.member_ids = [m["id"] for m in hz["members"]]
         incurred_ids = list(report["rows"][0]["request"]["incurred"])
         if incurred_ids != self.member_ids:

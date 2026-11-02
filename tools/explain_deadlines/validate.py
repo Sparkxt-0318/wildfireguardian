@@ -11,10 +11,12 @@ Own assertions (exact rational arithmetic, run for every origin before anything 
   (c)  every reported event time (deadline and next offset, flame, contact and pass times) lies in the recorded scenario
        window [valid_from, valid_until] of the packet;
   (w)  window claims: next + fastest road time + dwell > close (fire-free claim) re-derived with an independent
-       node-based Dijkstra lower bound that ignores turn restrictions; flame-avoiding claims re-derived by the
-       relaxation;
+       node-based Dijkstra lower bound that ignores turn restrictions; "a fire-free road would fit" claims re-derived
+       by a separate turn-restricted search; flame-avoiding claims re-derived by the relaxation (also without turn
+       restrictions); the deadline cause must follow from these claims;
   (e)  exits: every exit road is flame-blocked for every start second from the moment it can first be reached until
-       the window ends, and no candidate shelter is reached.
+       the window ends, no road leaving the reached area is cut by time, and no candidate shelter is reached;
+       "no route even without fire" re-derived with the node lower bound.
 A failed assertion turns the origin into ``not_explainable`` (``validation_failed:<id>``); counts are reported.
 
 Independent cross-check (``kit``): the kit's frozen independent checker (integration/kit/runner/
@@ -58,6 +60,32 @@ def node_lower_bound(graph, start: str, target: str, max_ticks: int):
     return None
 
 
+def turn_fastest(graph, start: str, target: str, max_ticks: int):
+    """Fastest fire-free travel ticks start -> target honouring forbidden turns, admitted on arrival over an edge
+    (a separate implementation of roads.fastest_ticks, used to re-derive "a fire-free road would fit" claims)."""
+    best: dict = {}
+    heap = []
+    for e in graph.out.get(start, []):
+        t = graph.ticks[e]
+        if t <= max_ticks and t < best.get(e, 1 << 62):
+            best[e] = t
+            heapq.heappush(heap, (t, e))
+    while heap:
+        d, e = heapq.heappop(heap)
+        if d != best.get(e):
+            continue
+        if graph.v[e] == target:
+            return d
+        for f in graph.out.get(graph.v[e], []):
+            if (e, f) in graph.forbidden:
+                continue
+            nd = d + graph.ticks[f]
+            if nd <= max_ticks and nd < best.get(f, 1 << 62):
+                best[f] = nd
+                heapq.heappush(heap, (nd, f))
+    return None
+
+
 def validate(ctx, rec: dict, ev) -> dict:
     """Run the assertions that apply to this origin. Returns {id: True/False} for applicable ones only."""
     pk, H = ctx.packet, F(ctx.horizon)
@@ -95,10 +123,9 @@ def validate(ctx, rec: dict, ev) -> dict:
     times = [t for t in times if t is not None]
     if times:
         out["c"] = all(lo <= F(t) <= hi for t in times)
-    # (w) window proofs
+    # (w) window proofs and the deadline cause (checked origins)
     proofs = [w for w in ev.window_proofs if not w.get("no_route_attempt")]
-    needed = rec.get("reason_code") == "window" or rec.get("detail_code") in ("window_fire_free", "window_fire_detour") or proofs
-    if needed and proofs:
+    if proofs:
         ok = True
         for w in proofs:
             if w.get("zero_travel"):
@@ -108,19 +135,37 @@ def validate(ctx, rec: dict, ev) -> dict:
                 lb = node_lower_bound(ctx.graph, w["start"], w["destination"], ctx.horizon)
                 ok &= (lb is None or w["next"] + lb + w["dwell"] > w["close"]) and \
                     (w["fastest_ticks"] is None or w["next"] + w["fastest_ticks"] + w["dwell"] > w["close"])
-            elif w["relax_late"]:
-                again = flame_avoiding(ctx.index, w["start"], w["next"], [w["destination"]], w["close"] - w["dwell"], turns=False)
-                ok &= again["arrival"][w["destination"]] is None or \
-                    flame_avoiding(ctx.index, w["start"], w["next"], [w["destination"]], w["close"] - w["dwell"])["arrival"][w["destination"]] is None
-        if rec.get("reason_code") == "window" and rec.get("detail_code") != "outside_recorded_arrival_window":
+            else:
+                # "a fire-free road would still fit": the fastest time is re-derived by a separate search
+                ok &= w["fastest_ticks"] is not None and \
+                    turn_fastest(ctx.graph, w["start"], w["destination"], ctx.horizon) == w["fastest_ticks"] and \
+                    w["next"] + w["fastest_ticks"] + w["dwell"] <= w["close"]
+                if w["relax_late"]:
+                    again = flame_avoiding(ctx.index, w["start"], w["next"], [w["destination"]], w["close"] - w["dwell"], turns=False)
+                    ok &= again["arrival"][w["destination"]] is None or \
+                        flame_avoiding(ctx.index, w["start"], w["next"], [w["destination"]], w["close"] - w["dwell"])["arrival"][w["destination"]] is None
+        real = [w for w in proofs if not w.get("zero_travel")]
+        dest = (rec.get("deadline_route") or {}).get("destination_id")
+        if rec.get("detail_code") in ("window_fire_free", "window_fire_detour", "other_shelters_flame_blocked"):
             # the shown destination's own claim must be one of the proven kinds
-            ok &= any((w.get("fire_free_late") or w.get("relax_late")) for w in proofs
-                      if w.get("destination_id") == (rec.get("deadline_route") or {}).get("destination_id"))
+            ok &= any((w.get("fire_free_late") or w.get("relax_late")) for w in real if w.get("destination_id") == dest)
+        if rec.get("deadline_cause") == "time_window":
+            ok &= bool(real) and all(w["fire_free_late"] for w in real)
+        if rec.get("deadline_cause") == "flames":
+            ok &= any(not w["fire_free_late"] and (w["relax_late"] or w["dwell_blocked"]) for w in real)
         out["w"] = bool(ok)
     # (e) exits / no-route attempts
     nr = [w for w in ev.window_proofs if w.get("no_route_attempt")]
     if nr:
         ok = all(w["late"] for w in nr)
+        if rec.get("detail_code") == "no_route_even_without_fire":
+            for w in nr:
+                lb = node_lower_bound(ctx.graph, w["start"], w["destination"], ctx.horizon)
+                ok &= w["fire_free_late"] and (lb is None or w["offset"] + lb + w["dwell"] > w["close"])
+        if rec.get("deadline_cause") == "flames":
+            # some attempt would fit on a fire-free road (re-derived by the separate search)
+            ok &= any(w["fastest_ticks"] is not None and w["offset"] + w["fastest_ticks"] + w["dwell"] <= w["close"] and
+                      turn_fastest(ctx.graph, w["start"], w["destination"], ctx.horizon) == w["fastest_ticks"] for w in nr)
         if rec.get("reason_code") == "all_exits_blocked":
             ok &= all(w["unreachable"] for w in nr)
             if ev.exits_proof:

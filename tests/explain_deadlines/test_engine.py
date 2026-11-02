@@ -4,6 +4,7 @@ Router cell index = row * 4 + col with rows counted from the south. Node A (50,1
 cell 6, C (350,150) in cell 7. Edge A->B (20 ticks) runs along y = 150 and crosses x = 100 at z = 1/4 and x = 200 at
 z = 3/4, so a traversal starting at t spends [t, t+5] in cell 4, [t+5, t+15] in cell 5 and [t+15, t+20] in cell 6.
 """
+import json
 from fractions import Fraction as F
 
 import pytest
@@ -145,6 +146,7 @@ def test_flame_avoiding_detour_and_window(tmp_path):
     run = flame_avoiding(idx, "S", 0, ["T"], 3600)
     assert run["arrival"]["T"] == 70                                    # M-T crosses burning cell 2: detour S-N-P-T
     assert ("MT", 10) in run["frontier"]
+    assert run["frontier_exits"] == []           # M-T is flame-blocked but T is reached another way: not an exit
     late = flame_avoiding(idx, "S", 0, ["T"], 60)
     assert late["arrival"]["T"] is None and ("PT", 50) in late["horizon_cut"]
 
@@ -154,7 +156,33 @@ def test_flame_avoiding_closed_area(tmp_path):
     run = flame_avoiding(ContactIndex(g, pk), "S", 0, ["T"], 3600, turns=False)
     assert run["arrival"]["T"] is None
     assert run["frontier"] == [("MT", 10), ("NP", 20)] and run["horizon_cut"] == []
+    assert run["frontier_exits"] == run["frontier"] and run["horizon_cut_exits"] == []
     assert run["reached_nodes"] == 3
+
+
+def _rewrite(path, fn):
+    doc = json.loads(path.read_text())
+    fn(doc)
+    path.write_text(json.dumps(doc))
+
+
+def test_packet_refuses_other_tick_window_or_grid(tmp_path):
+    g = RoadGraph(synth.graph({"A": (50, 150), "B": (250, 150)}, [("AB", "A", "B", 20)]))
+    cases = {
+        "dt": ("HAZARD.json", lambda d: d.update(dt=2)),
+        "window": ("HAZARD.json", lambda d: d.update(valid_until=1800.0)),
+        "affine": ("REPORT.json", lambda d: d["native_metadata"].update(affine_transform=[100.0, 0.0, 0.0, 0.0, -100.0, 400.0])),
+        "crs": ("REPORT.json", lambda d: d["native_metadata"].update(crs="EPSG:4326")),
+    }
+    for name, (fname, fn) in cases.items():
+        d = tmp_path / name
+        synth.write_packet(d)
+        Packet(d, g.grid)                                  # the unmodified packet is accepted
+        _rewrite(d / fname, fn)
+        with pytest.raises(PacketError):
+            Packet(d, g.grid)
+    with pytest.raises(ValueError):
+        RoadGraph(synth.graph({"A": (50, 150), "B": (250, 150)}, [("AB", "A", "B", 2.5)]))
 
 
 def test_dwell_free_arrival(tmp_path):
