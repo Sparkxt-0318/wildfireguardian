@@ -100,8 +100,17 @@ describe('explanation text (structured fields only)', () => {
 
   it('window: fire-free and detour wording, never a fire claim for the fire-free case', () => {
     const free = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: { close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 3895, flame_avoiding_arrival_s: null, limit: 'scenario_window', horizon_s: 3600 } }));
-    expect(free.lines[0]).toBe('09:40에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 2분 머무는 일이 10:04에야 끝나, 기록된 화재 시나리오가 끝나는 10:00를 넘습니다. 이 마감은 예측 화염이 아니라 1시간 시나리오 범위에서 정해졌습니다.');
+    expect(free.lines[0]).toBe('09:40에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 2분 머무는 일이 10:04에야 끝나, 기록된 화재 시나리오가 끝나는 10:00를 넘습니다. 따라서 출발 마감 뒤에 이 대피소로 갈 수 없게 되는 것은 예측 화염이 아니라 1시간 시나리오 범위 때문입니다.');
+    expect(free.lines.length).toBe(1);
     expect(free.dots).toBeNull();
+    // several shelters: "even ignoring the fire" only when every one of them is out of reach without fire
+    const fw = { close_s: 3600, dwell_s: 120, fire_free: true, fastest_end_s: 3895, flame_avoiding_arrival_s: null, limit: 'scenario_window' as const, horizon_s: 3600 };
+    const allFree = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: fw, checked_at_deadline: 2, proven_unreachable_next: 2,
+      destination_classes: { a: 'window_fire_free', b: 'window_fire_free' } }), 'en');
+    expect(allFree.lines[1]).toBe('Leaving at 09:40, even ignoring the fire, no road route reaches any of the 2 shelters checked at 09:30 in time (stay included).');
+    const mixed = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_free', window: fw, checked_at_deadline: 3, proven_unreachable_next: 3,
+      destination_classes: { a: 'window_fire_free', b: 'window_fire_detour', c: 'window_fire_detour' } }), 'en');
+    expect(mixed.lines[1]).toBe('Leaving at 09:40, no road route that avoids the flames in the fire scenarios reaches any of the 3 shelters checked at 09:30 in time (stay included).');
     const detour = view(origin({ reason_code: 'window', binding: [], detail_code: 'window_fire_detour', checked_at_deadline: 3, proven_unreachable_next: 3 }), 'en');
     expect(detour.lines[0]).toContain('no road route that avoids the flames in the fire scenarios reaches the shelter');
     expect(detour.lines[0]).toContain('(no flame-avoiding arrival at all by 10:00, when the scenarios end)');
@@ -136,6 +145,21 @@ describe('explanation text (structured fields only)', () => {
     expect(v.lines[1]).toBe('이 도로들은 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.');
     expect(v.list).toEqual(['합성마을 부근 도로(1.2 km 거리): 시나리오 4/4', '합성리 부근 도로(1.2 km 거리): 시나리오 4/4']);
     expect(v.dots?.members).toEqual([0, 1, 2, 3]);
+  });
+
+  it('a single exit is stated in the singular', () => {
+    const rec = origin({
+      verdict_summary: 'model_no_route', deadline_offset_s: null, next_offset_s: null, next_verdict: null, reason_code: 'all_exits_blocked',
+      binding: [], deadline_route: null, detail_code: 'flame_free_area_closed',
+      exits: [item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null })],
+    });
+    const en = view(rec, 'en', { bestVerdict: 'model_no_route', deadlineS: null });
+    expect(en.lines).toEqual([
+      'The only road leading out of the area that can be reached from the entry point without meeting flames runs into flames in the fire scenarios (4 of 4 fire scenarios).',
+      'It crosses cells already marked as burning at the input time (09:00).',
+    ]);
+    const ko = view(rec, 'ko', { bestVerdict: 'model_no_route', deadlineS: null });
+    expect(ko.lines[0]).toBe('진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).');
   });
 
   it('exits blocked in different members: "at least k", no single set of dots', () => {

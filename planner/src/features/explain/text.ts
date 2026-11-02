@@ -107,6 +107,8 @@ export function explainView(args: {
       break;
     case 'window': {
       const w = rec.window;
+      const classes = Object.values(rec.destination_classes ?? {});
+      const allFireFree = classes.length === nChecked && classes.every((c) => c === 'window_fire_free');
       if (rec.detail_code === 'outside_recorded_arrival_window' && w) {
         lines.push(t(EXPLAIN.windowSkip, lang, { ...base, open: at(w.open_s ?? 0), close: at(w.close_s) }));
       } else if (rec.verdict_summary === 'model_no_route') {
@@ -124,7 +126,7 @@ export function explainView(args: {
         lines.push(t(EXPLAIN.windowDetour, lang, { ...base, close: at(w.close_s), fa, fastestEnd: at(w.fastest_end_s) }));
       }
       if (rec.verdict_summary === 'checked_route' && nChecked > 1 && allProven && rec.detail_code !== 'outside_recorded_arrival_window') {
-        lines.push(t(EXPLAIN.allUnreachable, lang, { ...base, n: nChecked }));
+        lines.push(t(allFireFree ? EXPLAIN.allUnreachableFireFree : EXPLAIN.allUnreachable, lang, { ...base, n: nChecked }));
       }
       break;
     }
@@ -159,9 +161,10 @@ export function explainView(args: {
       const same = sets.every((x) => x === sets[0]);
       const members = same ? t(EXPLAIN.members, lang, { k: kmin, total }) : t(EXPLAIN.membersAtLeast, lang, { k: kmin, total });
       dots = same ? { members: [...rec.exits[0]!.members], total, text: members } : null;
-      lines.push(t(EXPLAIN.exits, lang, { n: rec.exits.length, members }));
-      if (rec.exits.every((e) => e.flame_time_s === 0)) lines.push(t(EXPLAIN.exitsPresent, lang, { input: at(0) }));
-      else lines.push(t(EXPLAIN.exitsLatest, lang, { latest: at(Math.max(...rec.exits.map((e) => e.contact_time_s ?? e.flame_time_s))) }));
+      const one = rec.exits.length === 1;
+      lines.push(t(one ? EXPLAIN.exitsOne : EXPLAIN.exits, lang, { n: rec.exits.length, members }));
+      if (rec.exits.every((e) => e.flame_time_s === 0)) lines.push(t(one ? EXPLAIN.exitsPresentOne : EXPLAIN.exitsPresent, lang, { input: at(0) }));
+      else lines.push(t(one ? EXPLAIN.exitsLatestOne : EXPLAIN.exitsLatest, lang, { latest: at(Math.max(...rec.exits.map((e) => e.contact_time_s ?? e.flame_time_s))) }));
       for (const e of rec.exits.slice(0, 3)) list.push(t(EXPLAIN.exitItem, lang, { where: whereText(e, lang), k: e.members.length, total: e.members_total }));
       if (rec.exits.length > 3) list.push(t(EXPLAIN.exitsMore, lang, { n: rec.exits.length - 3 }));
       break;

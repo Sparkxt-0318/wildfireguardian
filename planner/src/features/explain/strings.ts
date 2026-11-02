@@ -32,13 +32,14 @@ export const EXPLAIN = {
     ko: '점검한 마지막 출발 시각이 {deadline}입니다. 기록된 화재 시나리오는 입력 시각부터 {hours}시간({end}까지)만 다루므로 그 뒤의 출발은 점검하지 않았습니다. 이 시각은 예측 화염으로 정해진 것이 아닙니다.',
     en: '{deadline} is the last departure time that was checked. The recorded fire scenarios cover only {hours} h after the input time (until {end}), so later departures were not checked. This time is not set by predicted flames.',
   },
+  // the conclusion is about the shelter of the route shown only (other shelters are covered by allUnreachable*)
   windowFireFree: {
-    ko: '{next}에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 {dwell}분 머무는 일이 {fastestEnd}에야 끝나, 기록된 화재 시나리오가 끝나는 {end}를 넘습니다. 이 마감은 예측 화염이 아니라 1시간 시나리오 범위에서 정해졌습니다.',
-    en: 'Leaving at {next}, even the fastest road route, ignoring the fire, would finish the {dwell}-minute stay at the shelter only at {fastestEnd}, after the recorded fire scenarios end at {end}. This leave-by time comes from the one-hour scenario range, not from predicted flames.',
+    ko: '{next}에 출발하면 화재가 없더라도 가장 빠른 도로로 대피소에 도착해 {dwell}분 머무는 일이 {fastestEnd}에야 끝나, 기록된 화재 시나리오가 끝나는 {end}를 넘습니다. 따라서 출발 마감 뒤에 이 대피소로 갈 수 없게 되는 것은 예측 화염이 아니라 1시간 시나리오 범위 때문입니다.',
+    en: 'Leaving at {next}, even the fastest road route, ignoring the fire, would finish the {dwell}-minute stay at the shelter only at {fastestEnd}, after the recorded fire scenarios end at {end}. So the one-hour scenario range, not predicted flames, rules out this shelter after the leave-by time.',
   },
   windowFireFreeUnreachable: {
-    ko: '{next}에 출발하면 화재가 없더라도 어떤 도로로도 기록된 화재 시나리오가 끝나는 {end} 전에 대피소에 도착해 {dwell}분 머물 수 없습니다. 이 마감은 예측 화염이 아니라 1시간 시나리오 범위에서 정해졌습니다.',
-    en: 'Leaving at {next}, no road route, even ignoring the fire, reaches the shelter and completes the {dwell}-minute stay before the recorded fire scenarios end at {end}. This leave-by time comes from the one-hour scenario range, not from predicted flames.',
+    ko: '{next}에 출발하면 화재가 없더라도 어떤 도로로도 기록된 화재 시나리오가 끝나는 {end} 전에 대피소에 도착해 {dwell}분 머물 수 없습니다. 따라서 출발 마감 뒤에 이 대피소로 갈 수 없게 되는 것은 예측 화염이 아니라 1시간 시나리오 범위 때문입니다.',
+    en: 'Leaving at {next}, no road route, even ignoring the fire, reaches the shelter and completes the {dwell}-minute stay before the recorded fire scenarios end at {end}. So the one-hour scenario range, not predicted flames, rules out this shelter after the leave-by time.',
   },
   windowArrivalFireFree: {
     ko: '{next}에 출발하면 화재가 없더라도 가장 빠른 도로로 도착해 {dwell}분 머무는 일이 {fastestEnd}에야 끝나, 이 기록 임무의 도착 허용 시간({close}까지)을 넘습니다.',
@@ -62,6 +63,10 @@ export const EXPLAIN = {
     ko: '{next}에 출발하면 {deadline}에 확인된 대피소 {n}곳 어디에도 시나리오상 화염을 피하는 도로로 제때(체류 포함) 도착할 수 없습니다.',
     en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches any of the {n} shelters checked at {deadline} in time (stay included).',
   },
+  allUnreachableFireFree: {
+    ko: '{next}에 출발하면 화재가 없더라도 {deadline}에 확인된 대피소 {n}곳 어디에도 제때(체류 포함) 도착할 수 없습니다.',
+    en: 'Leaving at {next}, even ignoring the fire, no road route reaches any of the {n} shelters checked at {deadline} in time (stay included).',
+  },
   oneUnreachable: {
     ko: '{next}에 출발하면 시나리오상 화염을 피하는 도로로는 그 대피소에 제때(체류 포함) 도착할 수 없습니다.',
     en: 'Leaving at {next}, no road route that avoids the flames in the fire scenarios reaches that shelter in time (stay included).',
@@ -81,6 +86,18 @@ export const EXPLAIN = {
   exits: {
     ko: '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로 {n}개가 모두 시나리오상 화염과 만납니다({members}).',
     en: 'All {n} roads leading out of the area that can be reached from the entry point without meeting flames run into flames in the fire scenarios ({members}).',
+  },
+  exitsOne: {
+    ko: '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다({members}).',
+    en: 'The only road leading out of the area that can be reached from the entry point without meeting flames runs into flames in the fire scenarios ({members}).',
+  },
+  exitsPresentOne: {
+    ko: '이 도로는 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.',
+    en: 'It crosses cells already marked as burning at the input time ({input}).',
+  },
+  exitsLatestOne: {
+    ko: '차량이 가장 일찍 닿을 수 있는 시각에 이미 막혀 있으며, {latest}에는 화염과 만납니다.',
+    en: 'It is already blocked when the vehicle could first reach it and meets flames by {latest}.',
   },
   exitsPresent: {
     ko: '이 도로들은 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.',

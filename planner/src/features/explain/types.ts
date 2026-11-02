@@ -61,6 +61,8 @@ export interface ExplOrigin {
   detail_code?: string | null;
   window?: ExplWindow | null;
   deadline_route?: { route_check_job_id: string | null; destination_id: string | null; arrival_s?: number | null; dwell_s?: number | null } | null;
+  /** class per shelter checked at the deadline (window_fire_free, window_fire_detour, flame_on_route, ...) */
+  destination_classes?: Record<string, string>;
   checked_at_deadline?: number;
   proven_unreachable_next?: number;
   checks?: Record<string, boolean>;
