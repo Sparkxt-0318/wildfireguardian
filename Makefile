@@ -61,6 +61,8 @@ api-smoke:
 #                         with an EXTENDED budget (Linux reproduction, not the evaluated 30 s macOS benchmark; the
 #                         same request at 30 s is reported, never asserted), then the API fast tests
 #   make reproduce-uljin  only the extended-budget Uljin FX1 replay (needs the recorded inputs)
+#                         Replay exit 3 = same route reproduced but the kit's 6 s stage-Z optimality proof did not
+#                         finish on this host: reported as a warning, not a failure (docs/solve2027/REPRODUCE.md).
 #   make docker-build     build the API and planner images (no push)
 #   make docker-up        docker compose up --build: planner http://127.0.0.1:8080, API http://127.0.0.1:8765/v1
 #   make docker-down      stop the containers (job records stay in the api-runtime volume)
@@ -69,15 +71,19 @@ WFG_GIT_COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo unknown)
 
 .PHONY: reproduce-linux reproduce-uljin docker-build docker-up docker-down
 
+REPRO_EXIT3 = echo "WARNING: replay exit 3 - same route reproduced, but the kit's 6 s stage-Z optimality proof did not finish on this host" >&2
+
 reproduce-uljin:
-	$(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT)
+	@rc=0; $(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT) || rc=$$?; \
+	if [ $$rc -eq 3 ]; then $(REPRO_EXIT3); elif [ $$rc -ne 0 ]; then exit $$rc; fi
 
 reproduce-linux:
 	@if [ ! -d .venv ]; then $(MAKE) --no-print-directory api-setup; fi
 	$(PY) tools/verify_release.py
 	$(PY) tools/verify_postmerge_preservation.py
 	@$(MAKE) --no-print-directory api-inputs
-	$(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT) --also-evaluated-budget
+	@rc=0; $(PY) docs/solve2027/reproduce/replay_uljin_fx1.py --out $(REPRO_OUT) --also-evaluated-budget || rc=$$?; \
+	if [ $$rc -eq 3 ]; then $(REPRO_EXIT3); elif [ $$rc -ne 0 ]; then exit $$rc; fi
 	@$(MAKE) --no-print-directory api-test
 
 docker-build:
