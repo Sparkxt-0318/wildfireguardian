@@ -187,7 +187,8 @@ def attempt(paths: dict, kit: Path, out: Path, budget_s: float, python: str, lab
             "route_sha256": rhash, "published_stage": stage,
             "receipt": {k: receipt.get(k) for k in ("on_time_complete_publication", "exit_code", "cleanup_state",
                                                      "deadline_termination_requested", "memory_guard_triggered",
-                                                     "external_launch_to_completion_wall_s", "raw_primary_status")}}
+                                                     "external_launch_to_completion_wall_s", "raw_primary_status",
+                                                     "memory_guard_mib", "sampled_family_peak_rss_bytes")}}
 
 
 def assertions(run: dict, rec: dict, request: dict) -> list:
