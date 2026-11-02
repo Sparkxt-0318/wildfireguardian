@@ -16,6 +16,64 @@ on four generated SYNTHETIC instances outside the split (`S-grid-t75-s9801`, `M-
 `L-geo-t50-s9804`; 0.6 s, 1.6 s, 2.5 s and 6 s), under the bench lock; HiGHS's dual sign convention on a two-row toy
 LP. No dev instance has been generated, read or run by E2, and no E2 code existed.
 
+**Amendment 1 (before any dev run; 2026-11-02, about 13:40 UTC).** Debugging on a generated SYNTHETIC instance
+outside the split (`S-grid-t75-s9801`, one van) showed the bound right and the plan weak: E2 proved 22 (the optimum:
+B1, B2 and B3 deliver 22, E4 proves 22) but planned 18. A DP path may board one facility on several visits beyond its
+residents (the DP has no per-itinerary resident count; that is a relaxation, fine for the bound), and the realizer
+then drops such boardings whole. Changes to the plan side only (the bound still uses only the RELAXED DP and
+nonnegative prices, so its argument below is unchanged); nothing was fitted to any result:
+
+1. *Capping.* Before a RESTRICTED column is realized, its boardings are capped by each facility's residents, first
+   boardings first (`cap_sequence`).
+2. *Residual re-optimization* (block-coordinate ascent): each vehicle in turn gets its best RESTRICTED itinerary
+   given the other vehicles' columns: profit 1 per resident unloaded where shelter room is left, boarding only where
+   residents are left, the paths capped by the residual residents and realized against the residual resources; a
+   second DP pass forbids the facility classes the best paths over-boarded. One pass before the column generation (a
+   constructive start: vehicles by decreasing space, then start time), then passes after the MIP until a pass changes
+   nothing. Each vehicle has its own single-vehicle table for this (its type's clock unit).
+3. *RESTRICTED moves* depart from any unit of their cell with that cell's travel time (arrival shifted by the delay),
+   instead of waiting for the next cell start; still never earlier than the RELAXED arrival.
+4. *Budget split:* the column generation stops at `deadline - (2 s + 40 % of the budget)` (was 25 %); the MIP gets up
+   to 10 %, the re-optimization runs until `deadline - (1 s + 15 %)`, then a short MIP (5 %) if it found new columns;
+   then the in-budget oracle check, per vehicle, only while the time left covers 1.5 x its estimated cost (legs x the
+   slowest observed seconds per leg, a priori 30 ms: E1 measured 18-25.5 ms; an L plan costs about 40 s, so on L it
+   mostly skips).
+
+**Amendment 2 (before any dev run; 2026-11-02, about 14:50 UTC).** A second debugging run on generated SYNTHETIC
+instances outside the split (`S-grid-t75-s9801`, `M-grid-t75-s9802`, `M-geo-t25-s9803`, `L-geo-t50-s9804`, and the
+tests' tiny instance) gave plans of 20 / 123 / 121 / 354 against bounds of 22 / 139 / 132 / 583, and 3 against a
+proven 5 on the tiny instance; on `M-grid-t75-s9802` E2 stopped after 16.5 s with the re-optimization at a local
+optimum and 43 s unused, and on L the column generation managed two rounds in 19 s. Changes, again to the plan side
+only and fixed from first principles, not fitted to any result:
+
+5. *Lagrangian pricing of over-boarding in the re-optimization* (the standard Lagrangian heuristic for resource
+   constraints a shortest-path DP does not track; Beasley and Christofides 1989): instead of forbidding a facility
+   class a path over-boarded, each pass prices it halfway towards 1 (at 1 its residents would be worthless), up to 3
+   passes, keeping the best capped and realized itinerary. (On the tiny instance the first pass shuttles to the
+   nearer facility, whose 3 residents the cap keeps; at price 0.5 the far facility is served first: 5.)
+6. *Large-neighbourhood search* after the re-optimization passes, until the re-optimization reserve: remove the
+   itineraries of 1 to 3 random vehicles and re-insert them in random order with the single-vehicle DP (the exact
+   repair of each), accepting any result that is not worse (residents, then vehicle time); numpy's generator seeded with
+   the run's seed.
+7. *Re-optimization clock:* 3 s (or the type's unit if coarser): every single-resident action rounded up by at most
+   2 s, a 3x smaller table (computational).
+8. *Column-generation round guard:* the column generation stops after any round (round 0 included) whose pricing and
+   realization took more than 10 % of the budget, keeping the bound found so far: fewer than about 5 rounds cannot
+   converge and only take the time from the plan (on the profiled L instance a round takes about 9 s).
+
+**Amendment 3 (before any dev run; 2026-11-02, about 15:25 UTC).** With amendment 2 the generated instances gave 22 /
+138 / 123 / 382 (S proven optimal, 22 = bound; M-t75 138 of a bound of 139), and the tests passed (one test's own
+expected value was wrong and is fixed). The loose M instance stayed at 123 of 132: on loose instances the bus's
+single-vehicle optimum takes ambulatory residents first and leaves wheelchair users without slots in time, and only 19
+LNS iterations fit. E1's precedent (`e1_alns`, warm start) is followed:
+
+9. *B1 warm start:* B1's earliest-deadline-first insertion (B1's own trip rule, `B1Greedy._trip` and `_key`) on E2's
+   Reach, within at most 25 % of the budget; each vehicle's trips become a stop sequence, realized alone as a column;
+   together they are B1's plan (it satisfies every master row). The constructive re-optimization pass of amendment 1
+   (from an empty plan) also runs; the better of the two plans is the first incumbent. So E2 never plans fewer residents
+   than B1's plan as realized here. (A first version started the pass from B1's plan instead: on the generated L
+   instance that gave 365, below the 382 of the construction from an empty plan, so both are built.)
+
 ### Hypothesis
 
 Within 60 s per instance, a Dantzig-Wolfe decomposition of the dispatch problem by vehicle (a set-packing master
@@ -213,7 +271,8 @@ Time-box: about 5 h of work; bench: tests and the smoke (about 20 min) plus the 
 
 ## References
 
-Dantzig, G. B., Wolfe, P. (1960). Decomposition principle for linear programs. *Operations Research* 8(1), 101-111.
+Beasley, J. E., Christofides, N. (1989). An algorithm for the resource constrained shortest path problem. *Networks*
+19(4), 379-394. Dantzig, G. B., Wolfe, P. (1960). Decomposition principle for linear programs. *Operations Research* 8(1), 101-111.
 Desrochers, M., Desrosiers, J., Solomon, M. (1992). A new optimization algorithm for the vehicle routing problem
 with time windows. *Operations Research* 40(2), 342-354. Geoffrion, A. M. (1974). Lagrangean relaxation for integer
 programming. *Mathematical Programming Study* 2, 82-114. Irnich, S., Desaulniers, G. (2005). Shortest path problems

@@ -26,7 +26,7 @@ pricing:                         # the clock DP (README, The method)
   max_cells: 24000000            # per batch (float64: 192 MB); a vehicle type is split into smaller batches if needed
   columns_per_vehicle: 3         # per vehicle, mode and round: best empty end state at up to 3 locations
   relaxed_mode: "floor times; a move from any unit of its cell (E4's semantics) -> the bound and LP columns"
-  restricted_mode: "ceil times; a move only at its cell start -> columns that are realized for the integer plan"
+  restricted_mode: "ceil times; a move from any unit of its cell with the cell's travel time -> columns that are realized (amendment 1)"
 
 master:
   smoothing_alpha: 0.5           # Wentges: y_sep = alpha y_center + (1 - alpha) y_LP
@@ -35,12 +35,24 @@ master:
   bound: "floor(fsum(y b) + sum_v max(0, DP_v(y)) + 1e-6), smallest over rounds, min with the resource bound"
   tie_break: "integer master only: delivered - eps * vehicle time, eps = 1 / (1 + sum of shift lengths)"
 
-integer_plan:
+integer_plan:                    # amendment 1 (before any dev run): capping, residual re-optimization, budget split
+  capping: "restricted columns capped by each facility's residents (first boardings first) before realization"
+  reoptimization: "each vehicle in turn: best RESTRICTED itinerary given the others (profit 1 per resident; residual residents and room); one pass before CG, passes after the MIP until no change; a second DP pass forbids over-boarded facility classes"
   greedy_each_round: true        # packing of the realized columns by delivered (desc), vehicle time (asc)
-  mip_share: 0.10                # final set-packing MIP: up to 10 % of the budget (HiGHS, greedy as start)
-  reserve: "2 s + 25 % of the budget: column generation stops at deadline - reserve"
-  oracle_check_min_left: 0.12    # in-budget oracle check of the plan if >= 12 % of the budget is left
+  cg_reserve_s: 2.0              # column generation stops at deadline - (2 s + 40 % of the budget)
+  cg_reserve_share: 0.40
+  mip_share: 0.10                # set-packing MIP after CG: up to 10 % of the budget (HiGHS, greedy as start)
+  reopt_until: "deadline - (1 s + 15 % of the budget); then a 5 % MIP if new columns"
+  oracle_reserve_share: 0.15
+  oracle_check_min_left: 0.12    # in-budget oracle check if >= 12 % of the budget is left ...
+  oracle_s_per_leg: 0.03         # ... per vehicle, while time left >= 1.5 x legs x (slowest observed s/leg, a priori 30 ms)
   oracle_repairs: 2              # cut a column before its first trip the oracle does not check; at most 2 rounds
+  reopt_passes: 3                # amendment 2: Lagrangian prices on over-boarded facility classes, halfway to 1 per pass
+  reopt_clock_s: 3               # amendment 2: re-optimization DP clock (or the type's unit if coarser)
+  lns_max_remove: 3              # amendment 2: LNS removes 1-3 random vehicles, re-inserts them in random order (seeded)
+  cg_round_max_share: 0.10       # amendment 2: CG stops after a round that took > 10 % of the budget
+  warm_start: "amendment 3: B1 (B1Greedy._trip/_key on E2's Reach), its trips realized as columns = the first incumbent"
+  warm_start_share: 0.25         # at most 25 % of the budget for the warm start
 
 metric: "delivered (oracle checked) per instance and seed; per-seed totals (all 10, and the 4 M); worst of 5; E2 bound and gap; time to certified plan"
 validity_checks:

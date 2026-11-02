@@ -24,6 +24,7 @@ _REGISTRY: dict[str, str | Callable[..., Method]] = {
     "b2_vrptw": "evacplan.methods.b2_vrptw:B2VRPTW",
     "b3_mip": "evacplan.methods.b3_mip:B3MIP",
     "e1_alns": "evacplan.methods.e1_alns:E1ALNS",
+    "e2_colgen": "evacplan.methods.e2_colgen:E2ColGen",
     "e4_flow_bound": "evacplan.methods.flow_bound:E4FlowBound",
 }
 ALIASES = {"b0": "b0_independent", "b1": "b1_greedy", "b2": "b2_vrptw", "b3": "b3_mip"}
