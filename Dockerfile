@@ -13,9 +13,11 @@
 # A container is not the evaluated host (native macOS, Apple M5 Pro): heavy missions can end unresolved/TIMEOUT. Every
 # API result records its compute host in its provenance, and the planner shows that host next to each compute time.
 
-ARG PYTHON_IMAGE=python:3.12.14-slim-bookworm
-ARG NODE_IMAGE=node:22.23.4-bookworm-slim
-ARG NGINX_IMAGE=nginxinc/nginx-unprivileged:1.30.6-alpine
+# Base images are pinned by multi-architecture index digest; the tag stays in each reference for readability:
+#   python:3.12.14-slim-bookworm, node:22.23.4-bookworm-slim, nginxinc/nginx-unprivileged:1.30.6-alpine
+ARG PYTHON_IMAGE=python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+ARG NODE_IMAGE=node:22.23.4-bookworm-slim@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da
+ARG NGINX_IMAGE=nginxinc/nginx-unprivileged:1.30.6-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03
 
 # ===================================================================================== Route-Check API (target: api)
 FROM ${PYTHON_IMAGE} AS api
@@ -31,10 +33,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     WFG_API_GIT_COMMIT=${WFG_GIT_COMMIT}
 
 # GNU time (/usr/bin/time -v) and procps (/bin/ps): the frozen kit controller launches and measures every request
-# with them. Debian security updates move these package versions, so they are not pinned.
+# with them. git: the API's provenance tests (tests/api/test_provenance.py) build throwaway repositories, and the API
+# asks git for its commit (the image has no .git, so it reports WFG_API_GIT_COMMIT instead). Debian security updates
+# move these package versions, so they are not pinned.
 # hadolint ignore=DL3008
 RUN apt-get update \
- && apt-get install -y --no-install-recommends time procps \
+ && apt-get install -y --no-install-recommends time procps git \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -77,8 +81,10 @@ CMD ["python", "-m", "api"]
 FROM ${NODE_IMAGE} AS planner-build
 # Node's heap is capped for the build (2048 MB by default); raise NODE_MAX_OLD_SPACE_MB if a build runs out of memory.
 ARG NODE_MAX_OLD_SPACE_MB=2048
+# The app is served from the site root; VITE_BASE_PATH=/ keeps it there if the planner build makes its base configurable.
 ENV NODE_OPTIONS=--max-old-space-size=${NODE_MAX_OLD_SPACE_MB} \
     VITE_WFG_API_MODE=real \
+    VITE_BASE_PATH=/ \
     npm_config_audit=false \
     npm_config_fund=false \
     npm_config_update_notifier=false
