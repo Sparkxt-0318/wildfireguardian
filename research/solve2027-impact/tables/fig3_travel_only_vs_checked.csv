@@ -1,0 +1,10 @@
+scope,input_kst,origin_id,name,name_en,origin_type,depart_offset_s,destination_id,fastest_route_minutes_after_departure,checked_route_minutes_after_departure,extra_arrival_s,extra_length_m,fastest_contact_members_of_4,fastest_whole_road_contact
+uiseong_andong_2025/20250325T170000Z,2025-03-26 02:00 KST,osm:node/415160459,평팔리,Pyeongpal-ri,village,2400,osm:way/1422813447,15.45,16.65,72,1451.8,4,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160474,명고리,Myeonggo-ri,village,2400,osm:way/1442746952,8.267,8.783,31,270.7,1,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160440,마전리,Majeon-ri,village,1800,osm:way/1265051896,23.783,27.2,205,1634.0,1,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160355,윤암리,Yunam-ri,village,1800,osm:way/1290409015,12.083,20.3,493,4363.2,4,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160438,기도리,Gido-ri,village,1200,osm:way/1265051896,23.167,31.95,527,4808.6,1,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160435,창길리,Changgil-ri,village,1200,osm:way/854170625,24.217,33.0,527,4808.6,1,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160433,장림리,Jangnim-ri,village,1200,osm:way/854170625,24.183,29.65,328,2646.9,1,DEFINITE_CONTACT
+uiseong_andong_2025/20250324T090000Z,2025-03-24 18:00 KST,osm:node/415160362,신계리,Sin-gye-ri,village,1200,osm:way/1290409015,10.017,31.833,1309,12783.2,4,DEFINITE_CONTACT
+uiseong_andong_2025/20250323T010000Z,2025-03-23 10:00 KST,osm:node/415160440,마전리,Majeon-ri,village,1800,osm:way/1265051896,23.783,27.2,205,1634.0,1,DEFINITE_CONTACT
