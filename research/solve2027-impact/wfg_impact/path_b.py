@@ -5,15 +5,21 @@ module does not import:
 
 * attempts are rebuilt from the cache's ``route_checks`` (each check's OWN request - start node, destination node,
   ``depart_offset_s`` - and its own result), not from the dispatch plans' ``attempts`` arrays; origin and destination
-  ids come from the top-level ``requests`` list by node id; a re-check (``recheck_of``) replaces its original, and its
-  request must equal the original's apart from ``client_ref``;
+  ids come from the top-level ``requests`` list by node id; a re-check (``recheck_of``) replaces its original. Its
+  request must equal the original's apart from ``client_ref`` and the incurred dose: in all 279 recorded re-checks the
+  original omits ``incurred_dose_kj_m2`` and the re-check sends an explicit 0, the API's default for an omitted value,
+  and the API's recorded ``provenance.input_hashes.request`` is identical for every original/re-check pair (checked
+  below);
 * research origins come from ``research_checks`` with verdicts looked up in ``route_checks``;
 * cell verdicts, deadlines and contiguity are pandas group-by / cumulative operations;
 * the fastest route's flame contact is read from ``full_policy_assessment.per_scenario[*].contact`` (path A reads
   ``exposure[*].contact``); failing the full policy from a non-empty ``violations`` list (path A:
   ``passes_full_centre_and_contact``); arrivals from the last ``times_s`` entry (path A: ``arrival_s``); route length
   from consecutive ``node_ids`` (path A: ``edge_ids``);
-* road redundancy with networkx's Edmonds-Karp on graphs built here (path A: its own max-flow);
+* road redundancy with networkx's Edmonds-Karp on graphs built here (path A: its own max-flow); the road segments
+  shared by every route are grown on networkx's residual network (path A: its own residual arrays);
+* fastest fire-free trips and shared-stretch lengths with networkx's Dijkstra on a turn-expanded graph built here
+  (path A: its own heap Dijkstra); the scenario window is read from each HAZARD.json here (path A: ``sources``);
 * origin types read directly from ``places.geojson`` properties.
 Only file locations and SHA-256 checks are shared (``sources``).
 """
@@ -82,7 +88,8 @@ def checks_frame(doc: dict) -> pd.DataFrame:
                      'offset': int(req['depart_offset_s']), 'verdict': _verdict(j),
                      'reason': (j.get('result') or {}).get('reason_code') if _verdict(j) == UN else None,
                      'arrival_end': _times_end(j) if _verdict(j) == CH else None,
-                     'req_cmp': _request_identity(req)})
+                     'req_cmp': _request_identity(req),
+                     'req_hash': (((j.get('result') or {}).get('provenance') or {}).get('input_hashes') or {}).get('request')})
     df = pd.DataFrame(rows)
     assert (df['key'] == df['job_id']).all()
     return df
@@ -97,6 +104,8 @@ def substitute_rechecks(checks: pd.DataFrame) -> pd.DataFrame:
     m = orig['job_id'].isin(re.index)
     same_req = (orig.loc[m, 'req_cmp'].values == re.loc[orig.loc[m, 'job_id'], 'req_cmp'].values)
     assert same_req.all(), 'a re-check request differs from its original'
+    same_hash = (orig.loc[m, 'req_hash'].values == re.loc[orig.loc[m, 'job_id'], 'req_hash'].values)
+    assert same_hash.all() and orig.loc[m, 'req_hash'].notna().all(), 'a re-check request hash differs from its original'
     for col in ('verdict', 'reason', 'arrival_end'):
         orig.loc[m, col] = re.loc[orig.loc[m, 'job_id'], col].values
     orig.loc[m, 'eff_job'] = re.loc[orig.loc[m, 'job_id'], 'job_id'].values
@@ -156,13 +165,24 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
     scope = entry['scope']
     checks = checks_frame(doc)
     # dispatch geometry from the top-level requests list (not from the plan jobs)
-    o_node, dests, offs = {}, {}, {}
+    o_node, dests, offs, detail = {}, {}, {}, {}
     for req in doc['requests']:
         for o in req['origins']:
             assert o['location']['node_id'] not in o_node
             o_node[o['location']['node_id']] = o['id']
             dests[o['id']] = {d['location']['node_id']: d['id'] for d in req['destinations']}
             offs[o['id']] = sorted({int(x) for x in req['depart_offsets_s']})
+            # the fit rule below needs no wait for an opening: every destination window opens at 0
+            assert all(float(d['window'][0]) == 0 for d in req['destinations']), 'a destination window opens late'
+            detail[o['id']] = tuple((d['location']['node_id'], d.get('dwell_s', req['dwell_s']), d['window'][1])
+                                    for d in req['destinations'])
+    hz_sha = {((j.get('result') or {}).get('provenance') or {}).get('input_hashes', {}).get('hazard')
+              for j in doc['route_checks'].values()}
+    assert len(hz_sha) == 1
+    hz_path = (sources.routing_data_root() / 'latest_inputs_try02' / 'packets' / entry['region_id'] /
+               entry['path'].split('/')[-1][:-len('.json')] / 'HAZARD.json')
+    assert sources.sha256_file(hz_path) == hz_sha.pop(), 'hazard packet differs from the API provenance'
+    hz = json.loads(hz_path.read_text(encoding='utf-8'))
     research_jobs = {r['job_id'] for r in doc['research_checks'] if r.get('job_id')}
     results = {}
     for substitute in (True, False):
@@ -226,17 +246,21 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
     cases['api_contiguous'] = cases['origin_id'].map(lambda o: rec.get(o, (None, None, None))[2])
     cases['entry_node'] = cases['origin_id'].map({v: k for k, v in o_node.items()})
     cases['dest_nodes'] = cases['origin_id'].map(lambda o: tuple(dests[o]) if o in dests else None)
+    cases['dest_detail'] = cases['origin_id'].map(lambda o: detail.get(o))
+    cases['valid_from'], cases['valid_until'] = float(hz['valid_from']), float(hz['valid_until'])
     # travel-only comparisons
     tos = []
     for _, c in cases[cases['kind'].isin(['village', 'care_facility']) & cases['latest_s'].notna()].iterrows():
         t = doc['travel_only'].get(c['origin_id'])
-        row = {'scope': scope, 'region': entry['region_id'], 'origin_id': c['origin_id'], 'has': False}
+        row = {'scope': scope, 'region': entry['region_id'], 'origin_id': c['origin_id'], 'has': False,
+               'latest': int(c['latest_s'])}
         if t is not None and int(t['request']['depart_offset_s']) == int(c['latest_s']) and \
                 t['request']['start']['node_id'] == c['best_start_node'] and t['request']['destination']['node_id'] == c['best_dest_node']:
             fpa = t['result']['full_policy_assessment']
             bj = doc['route_checks'][c['best_job']]
             row.update({'has': True, 'members': sum(1 for v in fpa['per_scenario'].values() if v['contact'] is True),
                         'fails_full': len(fpa['violations']) > 0, 'fast_end': _times_end(t), 'checked_end': _times_end(bj),
+                        'dest_node': t['request']['destination']['node_id'], 'depart': int(t['request']['depart_offset_s']),
                         'fast_nodes': t['result']['route']['properties']['node_ids'],
                         'checked_nodes': bj['result']['route']['properties']['node_ids']})
         tos.append(row)
@@ -247,7 +271,7 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
             'research_checks': int(research_in_checks.sum()),
             'graph_sha': {((j.get('result') or {}).get('provenance') or {}).get('input_hashes', {}).get('graph')
                           for j in doc['route_checks'].values()},
-            'research_ids': set(roffs),
+            'research_ids': set(roffs), 'dt': float(hz['dt']),
             'destinations': {d['id'] for req in doc['requests'] for d in req['destinations']}}
     del doc
     gc.collect()
@@ -262,13 +286,16 @@ class NxRedundancy:
         g = json.loads(path.read_text(encoding='utf-8'))
         self.coords = {n['id']: (float(n['x']), float(n['y'])) for n in g['nodes']}
         forb = {tuple(p) for p in g['forbidden_turns']}
-        self.outs, self.ins = defaultdict(list), defaultdict(list)
+        self.outs, self.ins, self.tail = defaultdict(list), defaultdict(list), {}
         for e in g['edges']:
             self.outs[e['u']].append(e['id'])
             self.ins[e['v']].append(e['id'])
+            self.tail[e['id']] = e['u']
         L = nx.DiGraph()
         for e in g['edges']:
-            L.add_edge(('in', e['id']), ('out', e['id']), capacity=1)
+            (x0, y0), (x1, y1) = self.coords[e['u']], self.coords[e['v']]
+            L.add_edge(('in', e['id']), ('out', e['id']), capacity=1, ticks=int(e['travel_ticks']),
+                       chord=float(np.hypot(x1 - x0, y1 - y0)))
         for node in set(self.outs) | set(self.ins):
             for a in self.ins[node]:
                 for b in self.outs[node]:
@@ -296,27 +323,68 @@ class NxRedundancy:
             R.remove_edge(v, u)
         return value
 
-    def turn_aware(self, entry, dests):
+    def turn_aware(self, entry, dests, chain=False):
+        """(max-flow value, road edges every legal walk drives in walking order - value 1 only - or None)."""
         arcs = [('S', ('in', b)) for b in self.outs[entry]] + [(('out', a), 'T') for d in dests for a in self.ins[d]]
-        return self._flow(self.L, self.RL, 'S', 'T', arcs)
+        R = self.RL
+        for u, v in arcs:
+            R.add_edge(u, v, capacity=R.graph['inf'])
+            R.add_edge(v, u, capacity=0)
+        value = edmonds_karp(self.L, 'S', 'T', residual=R).graph['flow_value']
+        common = self._common_edges(R, 'S', 'T') if (chain and value == 1) else None
+        for u, v in arcs:
+            R.remove_edge(u, v)
+            R.remove_edge(v, u)
+        return value, common
+
+    @staticmethod
+    def _common_edges(R, s, t):
+        """Grow the residual closure of s in networkx's residual network (flow attributes still set); each time it
+        stops short of t, the single saturated arc leaving it is a road edge on every s-t walk."""
+        seen, stack, blocked, chain = {s}, [s], [], []
+        while True:
+            while stack:
+                u = stack.pop()
+                for v, attr in R[u].items():
+                    if v in seen:
+                        continue
+                    if attr['capacity'] - attr['flow'] > 0:
+                        seen.add(v)
+                        stack.append(v)
+                    elif attr['capacity'] > 0:
+                        blocked.append((u, v))
+            if t in seen:
+                return chain
+            live = {(u, v) for u, v in blocked if v not in seen}
+            assert len(live) == 1, live
+            u, v = live.pop()
+            assert u[0] == 'in' and v[0] == 'out' and u[1] == v[1], (u, v)
+            chain.append(u[1])
+            seen.add(v)
+            stack.append(v)
+            blocked = [x for x in blocked if x[1] not in seen]
+
+    def _from_entry(self, entry, fn):
+        arcs = [('S', ('in', b)) for b in self.outs[entry]]
+        self.L.add_edges_from(arcs)
+        try:
+            return fn()
+        finally:
+            self.L.remove_edges_from(arcs)
+
+    def trips(self, entry, dests):
+        """Fastest fire-free legal travel time (ticks) to each destination node: networkx Dijkstra on the line graph."""
+        dist = self._from_entry(entry, lambda: nx.single_source_dijkstra_path_length(
+            self.L, 'S', weight=lambda u, v, d: d.get('ticks', 0)))
+        return {x: min((dist[('out', a)] for a in self.ins[x] if ('out', a) in dist), default=None) for x in dests}
+
+    def stretch(self, entry, last_edge):
+        """Shortest legal-walk length (m) from the entry node to the end of last_edge."""
+        return self._from_entry(entry, lambda: nx.dijkstra_path_length(
+            self.L, 'S', ('out', last_edge), weight=lambda u, v, d: d.get('chord', 0.0)))
 
     def plain(self, entry, dests):
         return self._flow(self.P, self.RP, entry, 'T', [(d, 'T') for d in dests])
-
-    def cut_at_entry(self, entry, dests) -> bool:
-        """True iff removing one road edge leaving the entry node leaves no legal walk to any destination
-        (reachability on the turn-aware line graph; for a place with value 1 this is the same as its nearest
-        minimum cut being that edge)."""
-        arcs = [('S', ('in', b)) for b in self.outs[entry]] + [(('out', a), 'T') for d in dests for a in self.ins[d]]
-        self.L.add_edges_from(arcs)
-        try:
-            for b in self.outs[entry]:
-                view = nx.restricted_view(self.L, [], [(('in', b), ('out', b))])
-                if not nx.has_path(view, 'S', 'T'):
-                    return True
-            return False
-        finally:
-            self.L.remove_edges_from(arcs)
 
     def length(self, nodes):
         xy = np.array([self.coords[n] for n in nodes])
@@ -356,12 +424,19 @@ def compute() -> dict:
         geo = cases_all[(cases_all['region'] == region) & cases_all['entry_node'].notna()]
         geo = geo.drop_duplicates(['origin_id', 'entry_node', 'dest_nodes'])
         assert geo['origin_id'].is_unique
+        dts = {m['dt'] for m in metas if m['region'] == region}
+        assert len(dts) == 1
+        dt = dts.pop()
+        dt = int(dt) if dt.is_integer() else dt
         for _, g in geo.iterrows():
-            ta = nr.turn_aware(g['entry_node'], list(g['dest_nodes']))
+            dn = list(g['dest_nodes'])
+            ta, common = nr.turn_aware(g['entry_node'], dn, chain=True)
+            trip = nr.trips(g['entry_node'], dn)
             red_rows.append({'region': region, 'origin_id': g['origin_id'], 'kind': g['kind'], 'ta': ta,
-                             'pl': nr.plain(g['entry_node'], list(g['dest_nodes'])),
-                             'out_deg': len(nr.outs[g['entry_node']]),
-                             'cut_at_entry': nr.cut_at_entry(g['entry_node'], list(g['dest_nodes'])) if ta == 1 else None})
+                             'pl': nr.plain(g['entry_node'], dn), 'out_deg': len(nr.outs[g['entry_node']]),
+                             'cut_at_entry': (nr.tail[common[0]] == g['entry_node']) if common else None,
+                             'stretch': nr.stretch(g['entry_node'], common[-1]) if common else None,
+                             'trip': {x: (None if v is None else v * dt) for x, v in trip.items()}})
         m = (tr['region'] == region) & tr['has']
         tr.loc[m, 'extra_len'] = [nr.length(c) - nr.length(f) for c, f in zip(tr.loc[m, 'checked_nodes'], tr.loc[m, 'fast_nodes'])]
         del nr
@@ -564,4 +639,96 @@ def compute() -> dict:
         _put(out, 'redundancy_x.no_checked_route_at_offset_0000s' + tag, k, k, len(d))
         k = int((d[f'c{last}'] != CH).sum())
         _put(out, f'redundancy_x.not_checked_at_offset_{last:04d}s' + tag, k, k, len(d))
+    # ---- scenario window: could the departure be checked at all if there were no fire?
+    trip_of = {(r['region'], r['origin_id']): r['trip'] for _, r in red.iterrows()}
+
+    def fits_at(case, t):
+        trip = trip_of[(case['region'], case['origin_id'])]
+        return any(trip[node] is not None and t >= case['valid_from'] and
+                   t + trip[node] + dwell <= min(close, case['valid_until']) for node, dwell, close in case['dest_detail'])
+    for t in sources.GRID_OFFSETS_S:
+        osm[f'f{t}'] = [fits_at(c, t) for _, c in osm.iterrows()]
+        assert not ((osm[f'c{t}'] == CH) & ~osm[f'f{t}']).any(), 'checked although no fire-free trip fits'
+    osm['trip_min'] = [min(v for v in trip_of[(r, o)].values() if v is not None) for r, o in zip(osm['region'], osm['origin_id'])]
+
+    def set_by(case):
+        if pd.isna(case['latest_s']) or case['latest_s'] >= last:
+            return None
+        nxt = min(t for t in sources.GRID_OFFSETS_S if t > case['latest_s'])
+        return 'fire_or_limits' if case[f'f{nxt}'] else 'window'
+    osm['set_by'] = [set_by(c) for _, c in osm.iterrows()]
+    for sc in scopes:
+        for sub in ('', 'village', 'care_facility'):
+            d = pick(osm, sc)
+            if sub:
+                d = d[d['kind'] == sub]
+            if d.empty:
+                continue
+            tag = f'@{sc}' + (f'#{sub}' if sub else '')
+            n = len(d)
+            closes = d[d['latest_s'].notna() & (d['latest_s'] < last)]
+            for by in ('window', 'fire_or_limits'):
+                k = int((closes['set_by'] == by).sum())
+                _put(out, f'deadline_set_by.{by}' + tag, k, k, len(closes))
+                for t in sources.GRID_OFFSETS_S[:-1]:
+                    k = int(((d['latest_s'] == t) & (d['set_by'] == by)).sum())
+                    _put(out, f'deadline.latest_{t:04d}s.set_by_{by}' + tag, k, k, n)
+            none = d[d['latest_s'].isna()]
+            k = int(none['f0'].sum())
+            _put(out, 'no_checked_route_any_offset.trip_fits_at_offset_0000s' + tag, k, k, len(none))
+            if sub:
+                continue
+            for t in sources.GRID_OFFSETS_S:
+                lim, fit = d[~d[f'f{t}']], d[d[f'f{t}']]
+                _put(out, f'window_limited.offset_{t:04d}s' + tag, len(lim), len(lim), n)
+                notc = d[d[f'c{t}'] != CH]
+                k = int((~notc[f'f{t}']).sum())
+                _put(out, f'window_limited_among_not_checked.offset_{t:04d}s' + tag, k, k, len(notc))
+                k = int((fit[f'c{t}'] != CH).sum())
+                _put(out, f'not_checked_although_fits.offset_{t:04d}s' + tag, k, k, len(fit))
+                for v in (NR, UN):
+                    for cls, grp in (('fits', fit), ('limited', lim)):
+                        k = int((grp[f'c{t}'] == v).sum())
+                        _put(out, f'cell_window.{v}.{cls}.offset_{t:04d}s' + tag, k, k, n)
+    for reg in list(sources.REGIONS) + ['all']:
+        for sub in ('', 'village', 'care_facility'):
+            d = pick(osm, f'{reg}/places')
+            if sub:
+                d = d[d['kind'] == sub]
+            if d.empty:
+                continue
+            tag = f'@{reg}/places' + (f'#{sub}' if sub else '')
+            g = d.assign(nl=d[f'c{last}'] != CH, nlf=(d[f'c{last}'] != CH) & d[f'f{last}'],
+                         anyf=pd.concat([(d[f'c{t}'] != CH) & d[f'f{t}'] for t in sources.GRID_OFFSETS_S], axis=1).any(axis=1),
+                         lim_last=~d[f'f{last}']).groupby(['region', 'origin_id']).agg(
+                nl=('nl', 'any'), nlf=('nlf', 'any'), anyf=('anyf', 'any'), lim_last=('lim_last', 'all'),
+                lim_last_any=('lim_last', 'any'), tmin=('trip_min', 'min'), tmax=('trip_min', 'max'))
+            assert (g['lim_last'] == g['lim_last_any']).all() and (g['tmin'] == g['tmax']).all()
+            k = int(g['nlf'].sum())
+            _put(out, f'places.not_checked_although_fits_at_offset_{last:04d}s_any_input' + tag, k, k, int(g['nl'].sum()))
+            k = int(g['anyf'].sum())
+            _put(out, 'places.not_checked_although_fits_any_offset_any_input' + tag, k, k, len(g))
+            k = int(g['lim_last'].sum())
+            _put(out, f'places.window_limited_at_offset_{last:04d}s' + tag, k, k, len(g))
+            for stat in ('min', 'median', 'max'):
+                v = float(getattr(g['tmin'], stat)())
+                _put(out, f'fastest_trip_s.{stat}' + tag, int(v) if v.is_integer() else v)
+    comp = tr[tr['has']]
+    trip_ok = [trip_of[(r, o)][dn] == fe - dep for r, o, dn, fe, dep in
+               zip(comp['region'], comp['origin_id'], comp['dest_node'], comp['fast_end'], comp['depart'])]
+    _put(out, 'trip_model.equals_travel_only@all/pooled', int(sum(trip_ok)), int(sum(trip_ok)), len(comp))
+    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
+        d = pick(tr[tr['has']], sc)
+        for name, sel in (('leave_by_3000s', d['latest'] == last), ('leave_by_before_3000s', d['latest'] < last)):
+            grp = d[sel]
+            k = int(grp['meets'].sum())
+            _put(out, f'travel_only.fastest_meets_flames@{sc}#{name}', k, k, len(grp))
+    one = red[red['kind'].isin(['village', 'care_facility']) & (red['ta'] == 1)]
+    for reg in list(sources.REGIONS) + ['all']:
+        d = one if reg == 'all' else one[one['region'] == reg]
+        tag = f'@{reg}/places'
+        for stat in ('min', 'median', 'max'):
+            _put(out, f'redundancy.shared_stretch_m.{stat}' + tag, round(float(getattr(d['stretch'].astype(float), stat)()), 1))
+        k = int((d['stretch'] <= 100.0).sum())
+        _put(out, 'redundancy.shared_stretch_within_100m' + tag, k, k, len(d))
     return out, {'cases': osm, 'red': red, 'travel': tr}

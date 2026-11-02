@@ -29,11 +29,17 @@ CAVEATS = [
     'forecast ("fire scenarios from the forecast"); they are not fire-spread simulations of the actual fire.',
     'Horizon: 1 hour after each recorded input time. Departures were checked every 10 minutes (0-50 min); times '
     'between checked departures are not checked, and a leave-by deadline of +50 min means the window may extend later.',
+    'Scenario window: a departure can only be checked if arrival plus the 120 s stay ends within the 1-hour window '
+    '(valid_until 3600 s), so at +50 min only places whose fastest fire-free trip to a candidate destination is at most '
+    '480 s can have a checked route. Missing checked routes at later departures and early leave-by deadlines are '
+    'therefore often set by the window, not by fire: use window_limited.*, not_checked_although_fits.* and '
+    'deadline_set_by.* for statements about fire.',
     'Roads: provisional historical OpenStreetMap snapshot (2025-03-21) at an assumed 40 km/h (rounded up to 1 s '
     'ticks), no congestion, missing one-way tags assumed two-way, no field validation of passability.',
     'Destinations: for each place the 3 nearest (straight line) OpenStreetMap destinations with distinct road entry '
-    'nodes; those used are OSM schools, community halls and one OSM-mapped shelter (keys destinations_used.*) - not '
-    'official evacuation shelters. Travel between a mapped point and its road entry '
+    'nodes; those used are OSM schools, community halls and one unnamed OSM point tagged amenity=shelter without '
+    'shelter_type (a candidate for one Yeongdeok place; keys destinations_used.*) - not official evacuation shelters. '
+    'Travel between a mapped point and its road entry '
     'node is not modelled. Places come from a 2026-10-17 OSM extract (current data) while the road graph is the '
     'pre-fire snapshot.',
     'Host: the cache was computed by the Route-Check API on the evaluated macOS arm64 host (purpose "booth") with the '
@@ -54,8 +60,9 @@ def numbers_document(result: dict, nums: dict) -> dict:
         scopes[m['scope']] = {k: m[k] for k in ('region', 'input_time', 'input_kst', 'scenario_set_id', 'cache_file',
                                                 'cache_sha256', 'created_at', 'api_version', 'purpose', 'step_min',
                                                 'shelters_per_origin', 'host', 'graph_id', 'graph_sha256',
-                                                'hazard_sha256', 'route_check_records', 'recheck_records',
-                                                'travel_only_records', 'tie_breaks')}
+                                                'hazard_sha256', 'hazard_file', 'valid_from_s', 'valid_until_s', 'dt_s',
+                                                'route_check_records', 'recheck_records', 'travel_only_records',
+                                                'tie_breaks')}
     for key, e in nums.items():
         if e['scope'] not in scopes:
             scopes[e['scope']] = {'text': e['scope_text'],
@@ -84,12 +91,12 @@ def numbers_document(result: dict, nums: dict) -> dict:
                      'members of the March 2025 Uiseong-Andong and Yeongdeok fires (planner cache, computed on the '
                      'evaluated macOS host). None is an evacuation outcome.',
         'generator': {'script': numbers_mod.SCRIPT,
-                      'path_a': 'research/solve2027-impact/wfg_impact/{sources,planner_rules,api_rules,maxflow,analysis,numbers}.py',
+                      'path_a': 'research/solve2027-impact/wfg_impact/{sources,planner_rules,api_rules,maxflow,trips,analysis,numbers}.py',
                       'independent_check': 'research/solve2027-impact/verify.py (path B: research/solve2027-impact/wfg_impact/path_b.py, '
                                            'pandas + networkx, recomputes every key from route_checks)',
                       'requirements': 'research/solve2027-impact/requirements.txt', 'python': '3.12'},
         'definitions_common': {'population': numbers_mod.POP, 'cell_verdict': numbers_mod.CELL_RULE,
-                               'leave_by_deadline': numbers_mod.DEADLINE_RULE,
+                               'leave_by_deadline': numbers_mod.DEADLINE_RULE, 'scenario_window': numbers_mod.WINDOW_RULE,
                                'key_format': '<metric>@<scope>[#<subset>]; see README.md "Key format"'},
         'caveats': CAVEATS,
         'inputs': inputs,
@@ -127,6 +134,10 @@ def table_rows(result: dict) -> dict[str, list[dict]]:
         for t in offs:
             row[f'cell_{t:04d}s'] = r['cells'].get(t, '')
         row['other_offsets'] = ';'.join(f'{t}:{v}' for t, v in sorted(r['cells'].items()) if t not in offs)
+        row['fastest_fire_free_trip_s'] = _blank(r.get('trip_min_s'))
+        for t in offs:
+            row[f'trip_fits_window_{t:04d}s'] = '' if 'fits' not in r else r['fits'][t]
+        row['deadline_set_by'] = r.get('deadline_set_by') or ''
         row.update({'n_attempts': r['n_attempts'], 'n_rechecked_attempts': r['n_rechecked_attempts'],
                     'unresolved_reasons': ';'.join(f'{k}:{v}' for k, v in sorted(r['unresolved_reasons'].items())),
                     'api_best_verdict': (r.get('api') or {}).get('recorded', {}).get('best_verdict', ''),
@@ -159,7 +170,10 @@ def table_rows(result: dict) -> dict[str, list[dict]]:
                     'entry_out_degree': x['entry_out_degree'], 'turn_aware_paths': x['turn_aware_paths'],
                     'plain_paths': x['plain_paths'], 'single_cut_at_entry_node': x['cut_at_entry_node'] if x['turn_aware_paths'] == 1 else '',
                     'min_cut_edges_source_side': ';'.join(x['cut_edges']),
-                    'min_cut_osm_ways': ';'.join(str(w) for w in x['cut_source_ways'])})
+                    'min_cut_osm_ways': ';'.join(str(w) for w in x['cut_source_ways']),
+                    'common_edges_on_every_route': '' if x['common_edges'] is None else len(x['common_edges']),
+                    'shared_stretch_m': _round(x['shared_stretch_m']),
+                    'fastest_fire_free_trip_s': min(v for v in x['trip_by_dest_s'].values() if v is not None)})
     return {'origin_cases.csv': cases, 'travel_only_pairs.csv': pairs, 'redundancy_places.csv': red}
 
 
@@ -180,33 +194,48 @@ def _frac(e) -> str:
 def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     H = nums
     rows = ['| Key (NUMBERS.json) | Value | Meaning (short; full definition in NUMBERS.json) |', '|---|---:|---|']
+    ua, yd = 'Uiseong-Andong', 'Yeongdeok'
     short = {
         'records.route_checks@all/pooled': 'route-check records in the six cache files (incl. re-checks)',
         'records.rechecks@all/pooled': 're-checks of timed-out checks among them',
-        'places@all/places': 'distinct villages/hamlets + care facilities checked (both regions)',
+        'attempts@all/pooled': 'route checks behind the cases (place x forecast time x candidate destination x departure)',
+        'places@all/places': 'distinct OSM-mapped villages/hamlets + care facilities checked (both regions)',
         'osm_origins_not_checkable@all/places': 'listed OSM villages with no road node within 2 km (never checked)',
-        'cases@all/pooled': 'place-input-time cases (each place once per recorded input time)',
-        'cell.checked_route.offset_0000s@all/pooled': 'cases with a checked route for departure at the input time',
-        'cell.checked_route.offset_3000s@all/pooled': 'cases with a checked route for departure at +50 min',
-        'cell.checked_route.offset_0000s@uiseong_andong_2025/pooled': 'same, Uiseong-Andong, departure at +0 min',
-        'cell.checked_route.offset_3000s@uiseong_andong_2025/pooled': 'same, Uiseong-Andong, departure at +50 min',
-        'cell.checked_route.offset_0000s@yeongdeok_2025/pooled': 'same, Yeongdeok, departure at +0 min',
-        'cell.checked_route.offset_3000s@yeongdeok_2025/pooled': 'same, Yeongdeok, departure at +50 min',
-        'no_checked_route_at_offset_0000s@all/pooled': 'cases with no checked route for departure at the input time',
+        'cases@all/pooled': 'place-forecast-time cases (each place once per recorded forecast time)',
+        'cell.checked_route.offset_0000s@all/pooled': 'cases with a checked route for departure at the forecast time',
         'no_checked_route_any_offset@all/pooled': 'cases with no checked route at any departure time',
-        'attempts@all/pooled': 'route checks behind the cases (place x candidate destination x departure)',
-        'best_verdict.model_no_route@all/pooled': 'cases with model_no_route at every attempt (no route within the model)',
-        'best_verdict.unresolved@all/pooled': 'cases with no checked route and >= 1 unresolved attempt (cannot judge)',
-        'window_closes_within_hour@all/pooled': 'cases whose checked departure window ends before +50 min',
-        'window_closes_within_hour@uiseong_andong_2025/pooled': 'same, Uiseong-Andong',
-        'places.no_checked_route_at_offset_0000s_any_input@all/places': 'places with no checked route at +0 min in >= 1 input time',
-        'places.not_checked_at_offset_3000s_any_input@all/places': 'places with no checked route at +50 min in >= 1 input time',
-        'deadline.latest_3000s@all/pooled#care_facility': 'care-facility cases still checked at +50 min',
+        'best_verdict.model_no_route@all/pooled': 'of those, model_no_route at every attempt (no route within the model)',
+        'best_verdict.unresolved@all/pooled': 'of those, >= 1 unresolved attempt (cannot judge, never safe)',
+        'no_checked_route_any_offset.trip_fits_at_offset_0000s@all/pooled':
+            'of those, a fire-free trip fits the window at +0 min (the window does not explain them)',
+        'not_checked_although_fits.offset_0000s@uiseong_andong_2025/pooled':
+            f'{ua}, departure at +0 min: no checked route although a fire-free trip fits the window',
+        'not_checked_although_fits.offset_1800s@uiseong_andong_2025/pooled': f'same, {ua}, +30 min',
+        'not_checked_although_fits.offset_2400s@uiseong_andong_2025/pooled': f'same, {ua}, +40 min',
+        'not_checked_although_fits.offset_3000s@uiseong_andong_2025/pooled': f'same, {ua}, +50 min (only trips <= 480 s fit)',
+        'not_checked_although_fits.offset_0000s@yeongdeok_2025/pooled': f'same, {yd}, +0 min',
+        'not_checked_although_fits.offset_1800s@yeongdeok_2025/pooled': f'same, {yd}, +30 min',
+        'window_limited_among_not_checked.offset_3000s@all/pooled':
+            'cases without a checked route at +50 min that are window-limited (none possible whatever the fire)',
+        'window_limited_among_not_checked.offset_3000s@uiseong_andong_2025/pooled': f'same, {ua}',
+        'deadline_set_by.window@all/pooled': 'deadlines before +50 min set by the 1-hour window (next departure cannot fit)',
+        'deadline_set_by.fire_or_limits@all/pooled': 'deadlines before +50 min set by fire scenarios or limits (next would fit)',
+        'places.not_checked_although_fits_any_offset_any_input@all/places':
+            'places with an unchecked departure that would fit the window, in >= 1 forecast time',
+        'places.not_checked_although_fits_at_offset_3000s_any_input@all/places':
+            'of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit',
+        'fastest_trip_s.median@uiseong_andong_2025/places#village':
+            f'fastest fire-free trip to the nearest candidate, {ua} villages, median (s)',
+        'fastest_trip_s.median@yeongdeok_2025/places#village': f'same, {yd} villages, median (s)',
+        'fastest_trip_s.min@all/places#care_facility': 'same, care facilities, min (s)',
+        'fastest_trip_s.max@all/places#care_facility': 'same, care facilities, max (s)',
+        'trip_model.equals_travel_only@all/pooled': 'fire-free trip model = API travel-only route time (validation)',
         'api_check.recorded_equals_planner_rule_on_original@all/pooled': 'API recorded fields = planner rules on original attempts',
         'api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled': 'planner-displayed deadline = API latest_checked_depart_offset_s',
         'api_check.displayed_differs_explained_by_recheck@all/pooled': 'displayed differences explained by re-checks',
         'travel_only.fastest_meets_flames@all/pooled': 'fastest (travel-time-only) routes with predicted flame contact, at the leave-by time',
-        'travel_only.fastest_meets_flames@uiseong_andong_2025/pooled': 'same, Uiseong-Andong',
+        'travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s': 'same, leave-by deadline before +50 min',
+        'travel_only.fastest_meets_flames@all/pooled#leave_by_3000s': 'same, leave-by deadline +50 min',
         'travel_only.clear_pairs_equal_arrival@all/pooled': 'other comparisons: checked route arrives at the same second',
         'travel_only.extra_arrival_s.min@all/pooled': 'extra arrival time of the checked alternative, min (s)',
         'travel_only.extra_arrival_s.median@all/pooled': 'extra arrival time, median (s)',
@@ -214,11 +243,13 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         'travel_only.extra_length_m.min@all/pooled': 'extra route length, min (m)',
         'travel_only.extra_length_m.median@all/pooled': 'extra route length, median (m)',
         'travel_only.extra_length_m.max@all/pooled': 'extra route length, max (m)',
-        'redundancy.turn_aware_paths_1@all/places': 'places with one edge-disjoint legal path (a single bottleneck segment)',
-        'redundancy.single_cut_at_entry_node@all/places': 'of those, bottleneck = first segment leaving the entry node',
+        'redundancy.turn_aware_paths_1@all/places': 'places whose routes all pass through >= 1 common road segment',
+        'redundancy.single_cut_at_entry_node@all/places': 'of those, the first common segment leaves the entry point',
         'redundancy.turn_aware_equals_plain@all/places': 'turn-aware count = count ignoring turn restrictions',
+        'redundancy.shared_stretch_m.median@all/places': 'entry point to the end of the last common segment, median (m)',
+        'redundancy.shared_stretch_within_100m@all/places': 'of those, the common segments end within 100 m',
     }
-    assert set(short) == set(numbers_mod.HEADLINE_KEYS)
+    assert set(short) == set(numbers_mod.HEADLINE_KEYS), set(short) ^ set(numbers_mod.HEADLINE_KEYS)
     for k in numbers_mod.HEADLINE_KEYS:
         e = H[k]
         val = _frac(e) if e['denominator'] else (f'{e["value"]:,}' if isinstance(e['value'], int) else f'{e["value"]}')
@@ -227,22 +258,27 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         rows.append(f'| `{k}` | {val} | {short[k]} |')
     headline = '\n'.join(rows)
 
-    by = ['| Region | Recorded input time | Origins | Checked at +0 min | Checked at +50 min | No checked route at any '
-          'departure (model_no_route + unresolved) | Window closes before +50 min | Fastest route meets predicted flames |',
-          '|---|---|---:|---:|---:|---:|---:|---:|']
+    def nd(e):
+        return f'{e["numerator"]}/{e["denominator"]}'
+    by = ['| Region | Forecast time | Cases | Checked at +0 min | Checked at +50 min | Window-limited at +50 min | '
+          'No checked route although a fire-free trip fits: +0 · +30 · +50 min | No checked route at any departure '
+          '(model_no_route + unresolved) | Deadline before +50 min: set by window + by fire/limits | Fastest route '
+          'meets predicted flames |',
+          '|---|---|---:|---:|---:|---:|---:|---:|---:|---:|']
+
+    def by_row(sc, region_label, time_label):
+        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
+        nr, un = g('best_verdict.model_no_route')['numerator'], g('best_verdict.unresolved')['numerator']
+        fits = ' · '.join(nd(g(f'not_checked_although_fits.offset_{t:04d}s')) for t in (0, 1800, 3000))
+        return (f'| {region_label} | {time_label} | {g("cases")["value"]} | {_frac(g("cell.checked_route.offset_0000s"))} | '
+                f'{_frac(g("cell.checked_route.offset_3000s"))} | {_frac(g("window_limited.offset_3000s"))} | {fits} | '
+                f'{nr} + {un} | {g("deadline_set_by.window")["numerator"]} + {g("deadline_set_by.fire_or_limits")["numerator"]} | '
+                f'{_frac(g("travel_only.fastest_meets_flames"))} |')
     for m in result['metas']:
-        sc = m['scope']
-        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
-        nr, un = g('best_verdict.model_no_route')['numerator'], g('best_verdict.unresolved')['numerator']
-        by.append(f'| {sources.REGION_NAMES[m["region"]]} | {m["input_kst"]} ({m["input_time"]}) | {g("cases")["value"]} | '
-                  f'{_frac(g("cell.checked_route.offset_0000s"))} | {_frac(g("cell.checked_route.offset_3000s"))} | '
-                  f'{nr} + {un} | {_frac(g("window_closes_within_hour"))} | {_frac(g("travel_only.fastest_meets_flames"))} |')
-    for sc, name in [(f'{r}/pooled', sources.REGION_NAMES[r] + ', 3 input times') for r in sources.REGIONS] + [('all/pooled', 'Both regions, 6 input times')]:
-        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
-        nr, un = g('best_verdict.model_no_route')['numerator'], g('best_verdict.unresolved')['numerator']
-        by.append(f'| **{name}** | pooled cases | {g("cases")["value"]} | {_frac(g("cell.checked_route.offset_0000s"))} | '
-                  f'{_frac(g("cell.checked_route.offset_3000s"))} | {nr} + {un} | {_frac(g("window_closes_within_hour"))} | '
-                  f'{_frac(g("travel_only.fastest_meets_flames"))} |')
+        by.append(by_row(m['scope'], sources.REGION_NAMES[m['region']], f'{m["input_kst"]} ({m["input_time"]})'))
+    for sc, name in [(f'{r}/pooled', '**' + sources.REGION_NAMES[r] + ', 3 forecast times**') for r in sources.REGIONS] + \
+            [('all/pooled', '**Both regions, 6 forecast times**')]:
+        by.append(by_row(sc, name, 'pooled cases'))
     by_scope = '\n'.join(by)
 
     dl = ['| Subset | Cases | +10 | +20 | +30 | +40 | +50 (last checked; may be later) | none: model_no_route | none: unresolved |',
@@ -252,13 +288,20 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
                       ('yeongdeok_2025/pooled#village', 'Yeongdeok villages')]:
         g = lambda k: H[f'{k}@{sc}']  # noqa: E731
         assert g('deadline.latest_0000s')['numerator'] == 0
-        cells = [str(g(f'deadline.latest_{t:04d}s')['numerator']) for t in sources.GRID_OFFSETS_S[1:]]
+        cells = [f'{g(f"deadline.latest_{t:04d}s")["numerator"]} ({g(f"deadline.latest_{t:04d}s.set_by_window")["numerator"]})'
+                 for t in sources.GRID_OFFSETS_S[1:-1]]
+        cells.append(str(g(f'deadline.latest_{sources.GRID_OFFSETS_S[-1]:04d}s')['numerator']))
         dl.append(f'| {label} | {g("cases")["value"]} | ' + ' | '.join(cells) +
                   f' | {g("deadline.none_model_no_route")["numerator"]} | {g("deadline.none_unresolved")["numerator"]} |')
-    deadlines = '\n'.join(dl) + ('\n\nNo case had its last checked departure at +0 min (`deadline.latest_0000s@*` = 0). '
-                                 'Yeongdeok has no care facility in the OSM extract.')
+    a_w, a_f = H['deadline_set_by.window@all/pooled'], H['deadline_set_by.fire_or_limits@all/pooled']
+    deadlines = '\n'.join(dl) + (
+        f'\n\nIn parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by_window@*`): at the next '
+        f'departure even the fastest fire-free trip plus the 120 s stay would end after the window. Overall '
+        f'{a_w["numerator"]} of the {a_w["denominator"]} deadlines before +50 min are set by the window and '
+        f'{a_f["numerator"]} by the fire scenarios or model limits (`deadline_set_by.*@all/pooled`). No case had its last '
+        'checked departure at +0 min (`deadline.latest_0000s@*` = 0). Yeongdeok has no care facility in the OSM extract.')
 
-    rd = ['| Subset | Places | 1 path | 2 paths | 3 paths | >= 4 | 1 path, bottleneck at the entry node |',
+    rd = ['| Subset | Places | 1 path | 2 paths | 3 paths | >= 4 | 1 path, first common segment at the entry point |',
           '|---|---:|---:|---:|---:|---:|---:|']
     for sc, label in [('uiseong_andong_2025/places#village', 'Uiseong-Andong villages'),
                       ('uiseong_andong_2025/places#care_facility', 'Uiseong-Andong care facilities'),
@@ -267,12 +310,19 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         rd.append(f'| {label} | {g("redundancy.places")["value"]} | ' +
                   ' | '.join(str(g(f'redundancy.turn_aware_paths_{k}')['numerator']) for k in (1, 2, 3, '4plus')) +
                   f' | {g("redundancy.single_cut_at_entry_node")["numerator"]}/{g("redundancy.single_cut_at_entry_node")["denominator"]} |')
+    rd += ['', '| Region | Places with 1 path | Entry point to the end of the last common segment: median (min - max) | '
+           'Ends within 100 m |', '|---|---:|---:|---:|']
+    for reg, label in [(r, sources.REGION_NAMES[r]) for r in sources.REGIONS] + [('all', 'Both regions')]:
+        g = lambda k: H[f'{k}@{reg}/places']  # noqa: E731
+        rd.append(f'| {label} | {g("redundancy.shared_stretch_m.median")["n"]} | '
+                  f'{g("redundancy.shared_stretch_m.median")["value"]:,} m ({g("redundancy.shared_stretch_m.min")["value"]:,} - '
+                  f'{g("redundancy.shared_stretch_m.max")["value"]:,} m) | {_frac(g("redundancy.shared_stretch_within_100m"))} |')
     x1, x2 = H['redundancy_x.no_checked_route_at_offset_0000s@all/pooled#rc1'], H['redundancy_x.no_checked_route_at_offset_0000s@all/pooled#rc2plus']
-    y1, y2 = H['redundancy_x.not_checked_at_offset_3000s@all/pooled#rc1'], H['redundancy_x.not_checked_at_offset_3000s@all/pooled#rc2plus']
     redundancy = '\n'.join(rd) + (
         f'\n\nDescriptive only (no causal or statistical claim): no checked route at +0 min in {_frac(x1)} cases of '
-        f'single-path places versus {_frac(x2)} of places with at least two paths; no checked route at +50 min in '
-        f'{_frac(y1)} versus {_frac(y2)} (keys `redundancy_x.*@all/pooled#rc1|rc2plus`).')
+        f'single-path places versus {_frac(x2)} of places with at least two paths (keys '
+        '`redundancy_x.*@all/pooled#rc1|rc2plus`). Later departures are not compared here because the window, not the '
+        'road network, dominates them.')
 
     cc = ['| Scenario set | Origins | Recorded = API rule on original attempts | Recorded = planner rules on original attempts | '
           'Displayed = recorded: latest / contiguous / best verdict | Origins with re-checked attempts | Differences explained by re-checks |',

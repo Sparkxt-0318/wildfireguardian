@@ -71,9 +71,42 @@ class UnitFlow:
                         queue.append(v)
         return False
 
-    def max_flow(self, s: int, t: int, extra_arcs: list[tuple[int, int, int]]):
+    def _cut_chain(self, s: int, t: int) -> list[int]:
+        """For a max-flow of value 1 (current residual state): the forward arcs that every s-t path uses, in order.
+        Grow the residual closure of s; when it stops short of t, exactly one saturated forward arc leaves it (the
+        closure is residual-closed and does not contain t, so the arcs leaving it carry the whole flow of 1). That arc
+        is on every s-t path; add its head and keep growing until t is reached."""
+        self._stamp += 1
+        stamp, seen, cap, to, adj = self._stamp, self._seen, self.cap, self.to, self.adj
+        seen[s] = stamp
+        stack, blocked, chain = [s], [], []
+        while True:
+            while stack:
+                u = stack.pop()
+                for k in adj[u]:
+                    v = to[k]
+                    if seen[v] == stamp:
+                        continue
+                    if cap[k] > 0:
+                        seen[v] = stamp
+                        stack.append(v)
+                    elif k % 2 == 0:                   # saturated forward arc (odd arcs without flow are not arcs)
+                        blocked.append(k)
+            if seen[t] == stamp:
+                return chain
+            live = {k for k in blocked if seen[to[k]] != stamp}
+            if len(live) != 1:
+                raise AssertionError(f'expected one saturated arc leaving the closure, found {len(live)}')
+            k = live.pop()
+            chain.append(k)
+            seen[to[k]] = stamp
+            stack.append(to[k])
+            blocked = [x for x in blocked if seen[to[x]] != stamp]
+
+    def max_flow(self, s: int, t: int, extra_arcs: list[tuple[int, int, int]], chain: bool = False):
         """Max-flow from s to t after adding ``extra_arcs`` (removed again, all capacities restored, on return).
-        Returns (value, source_side) where source_side(v) tells whether v is reachable in the final residual."""
+        Returns (value, source_side, chain): source_side(v) tells whether v is reachable in the final residual;
+        chain = arcs on every s-t path (only computed when asked and the value is 1)."""
         base_len = len(self.to)
         added = []
         for u, v, c in extra_arcs:
@@ -99,6 +132,7 @@ class UnitFlow:
                 v = self.to[k ^ 1]
             flow += b
         stamp, seen = self._stamp, list(self._seen)   # final failed BFS = source side of a minimum cut
+        arcs = self._cut_chain(s, t) if (chain and flow == 1) else None
         for pair, (c0, c1) in saved.items():
             self.cap[pair], self.cap[pair + 1] = c0, c1
         for u, v in reversed(added):                  # per-query arcs were appended last to these lists
@@ -106,7 +140,7 @@ class UnitFlow:
             self.adj[u].pop()
         del self.to[base_len:]
         del self.cap[base_len:]
-        return flow, (lambda x: seen[x] == stamp)
+        return flow, (lambda x: seen[x] == stamp), arcs
 
 
 class RoadGraph:
@@ -161,17 +195,25 @@ class RedundancySolver:
         for e in range(m):
             self.pl.add_arc(graph.eu[e], graph.ev[e], 1)
 
-    def turn_aware(self, origin: int, dests: list[int]):
+    def turn_aware(self, origin: int, dests: list[int], chain: bool = False):
+        """(value, source-side minimum cut edge ids, common edge indices in walking order or None).
+        The common edges (value 1 only) are the road edges that every legal walk to the destinations drives."""
         g = self.g
+        m = len(g.edge_ids)
         extra = [(self.ta_s, 2 * b, BIG) for b in g.out_edges[origin]]
         extra += [(2 * a + 1, self.ta_t, BIG) for d in dests for a in g.in_edges[d]]
-        value, src = self.ta.max_flow(self.ta_s, self.ta_t, extra)
-        cut = [g.edge_ids[e] for e in range(len(g.edge_ids)) if src(2 * e) and not src(2 * e + 1)]
-        return value, cut
+        value, src, arcs = self.ta.max_flow(self.ta_s, self.ta_t, extra, chain=chain)
+        cut = [g.edge_ids[e] for e in range(m) if src(2 * e) and not src(2 * e + 1)]
+        common = None
+        if arcs is not None:
+            if any(k >= 2 * m for k in arcs):           # vertex arcs in(e)->out(e) are arcs 0 .. 2m-1 (index 2e)
+                raise AssertionError('a non-road arc carries a unit cut')
+            common = [k // 2 for k in arcs]
+        return value, cut, common
 
     def plain(self, origin: int, dests: list[int]):
         extra = [(d, self.pl_t, BIG) for d in dests]
-        value, _ = self.pl.max_flow(origin, self.pl_t, extra)
+        value, _, _ = self.pl.max_flow(origin, self.pl_t, extra)
         return value
 
 

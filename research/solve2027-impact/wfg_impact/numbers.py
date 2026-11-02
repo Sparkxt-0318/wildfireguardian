@@ -31,13 +31,24 @@ DEADLINE_CATS = tuple(f'latest_{t:04d}s' for t in OFFSETS) + ('none_model_no_rou
 
 POP = ('checked OSM origins (villages/hamlets + care facilities with an accepted road entry node within 2 km; '
        'research-mission origins and the 3 not-checkable villages excluded)')
-CELL_RULE = ('the cell verdict at a departure offset follows the planner (planner/src/domain/plan.ts combineVerdicts, '
+CELL_RULE = ('The cell verdict at a departure offset follows the planner (planner/src/domain/plan.ts combineVerdicts, '
              'lines 106-111): checked_route if ANY of the origin\'s candidate destinations has a checked route, '
              'model_no_route only if EVERY attempted destination is model_no_route, otherwise unresolved; '
              're-checks replace the attempt they re-ran (planner/src/api/cache.ts lines 120-145)')
 DEADLINE_RULE = ('leave-by deadline (출발 마감) = the latest departure offset whose cell is checked_route '
                  '(plan.ts latestSafeDeparture, lines 155-161); offsets are 0, 600, ..., 3000 s after the recorded '
                  'input time; unresolved cells never count')
+DEADLINE_DEF = ('The leave-by deadline (출발 마감) is the latest departure offset whose cell is checked_route '
+                '(plan.ts latestSafeDeparture, lines 155-161); unresolved cells never count.')
+WINDOW_RULE = ('A departure at offset t can only be checked if arrival plus the required stay ends by the destination '
+               'window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if '
+               'arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). "Fits" = for at least '
+               'one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the '
+               'fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph\'s 40 km/h '
+               'assumption) from the entry node, with no waits. "Window-limited" = nothing fits: no route can be '
+               'checked at that departure whatever the fire does. Planner verdicts are unchanged.')
+WINDOW_NOTE = (' At later departure offsets many such cells are window-limited (no checked route is possible even '
+               'without fire); see window_limited.* and not_checked_although_fits.*.')
 
 
 def _scope_text(scope: str, metas: dict) -> str:
@@ -131,10 +142,13 @@ def case_numbers(b: Builder, records: list[dict]):
                 k = sum(1 for r in rows if r['deadline_category'] == cat)
                 if cat.startswith('latest_'):
                     t = int(cat[7:11])
-                    d = (f'Cases whose {DEADLINE_RULE} is exactly {t} s (+{t // 60} min)' +
-                         ('; at this last checked offset the 1-hour scenario window gives no later limit, so the '
-                          'true limit may be later' if t == LAST else '; the next offset (+%d min) had no checked '
-                          'route' % (t // 60 + 10)) + '.')
+                    d = (f'Cases whose leave-by deadline is exactly {t} s (+{t // 60} min) after the recorded input '
+                         f'time. {DEADLINE_DEF} ' +
+                         ('This is the last checked offset, so the true limit may be later: the scenario window '
+                          'simply ends.' if t == LAST else
+                          f'The next offset (+{t // 60 + 10} min) had no checked route; deadline.{cat}.set_by_window '
+                          f'and .set_by_fire_or_limits say whether a fire-free trip would still have fitted the 1-hour '
+                          f'scenario window at that next offset.'))
                 else:
                     v = cat[5:]
                     d = (f'Cases with no checked route at any departure offset whose overall verdict is {v}'
@@ -148,16 +162,18 @@ def case_numbers(b: Builder, records: list[dict]):
                    f'(model_no_route or unresolved). {CELL_RULE}.{st}')
             kw = sum(1 for r in rows if r['latest_s'] is not None and r['latest_s'] < LAST)
             b.frac('window_closes_within_hour' + tag, kw, n,
-                   f'Cases with a checked route at some offset whose {DEADLINE_RULE} is before {LAST} s, i.e. the '
-                   f'departure offsets with a checked route end inside the recorded 1-hour scenario window.{st}')
+                   f'Cases that have a checked route at some departure offset but whose leave-by deadline is before '
+                   f'{LAST} s, i.e. the last departure with a checked route is +{(LAST - 600) // 60} min or earlier. '
+                   f'{DEADLINE_DEF} Many of these deadlines are set by the 1-hour scenario window rather than by '
+                   f'fire: see deadline_set_by.*.{st}')
             kn = sum(1 for r in rows if r['latest_s'] is None)
             b.frac('no_checked_route_any_offset' + tag, kn, n,
                    'Cases with no checked route at any of the departure offsets (overall verdict model_no_route or '
                    f'unresolved; the sum of the two deadline.none_* counts).{st}')
             kl = sum(1 for r in rows if r['cells'][LAST] != pr.CHECKED)
             b.frac(f'not_checked_at_offset_{LAST:04d}s' + tag, kl, n,
-                   f'Cases whose cell at the last departure offset ({LAST} s, +{LAST // 60} min) is not checked_route: '
-                   f'the window closes within the hour or no checked route exists at all.{st}')
+                   f'Cases whose cell at the last departure offset ({LAST} s, +{LAST // 60} min) is not checked_route '
+                   f'(earlier leave-by deadline, or no checked route at all).{WINDOW_NOTE}{st}')
             if sub:
                 continue
             for t in OFFSETS:
@@ -165,9 +181,10 @@ def case_numbers(b: Builder, records: list[dict]):
                     k = sum(1 for r in rows if r['cells'][t] == cat)
                     extra = (' window_unsatisfiable ("시간창 밖") = no request was sent because the recorded arrival '
                              'window cannot be met from this offset; it is never a verdict.' if cat == pr.WINDOW_UNSATISFIABLE else '')
+                    note = WINDOW_NOTE if cat in (pr.NO_ROUTE, pr.UNRESOLVED) else ''
                     b.frac(f'cell.{cat}.offset_{t:04d}s' + tag, k, n,
                            f'Cases whose cell at departure offset {t} s (+{t // 60} min after the input time) is '
-                           f'{cat}. {CELL_RULE}.{extra}')
+                           f'{cat}. {CELL_RULE}.{extra}{note}')
             kc = sum(1 for r in rows if r['latest_s'] is not None and r['contiguous_s'] != r['latest_s'])
             b.frac('contiguous_differs_from_latest' + tag, kc, sum(1 for r in rows if r['latest_s'] is not None),
                    'Cases with a checked route whose contiguous deadline (contract latest_contiguous_checked_depart_'
@@ -212,12 +229,13 @@ def place_numbers(b: Builder, records: list[dict]):
             kl = sum(1 for rs in by_place.values() if any(r['cells'][LAST] != pr.CHECKED for r in rs))
             b.frac(f'places.not_checked_at_offset_{LAST:04d}s_any_input' + tag, kl, n,
                    f'Distinct places whose cell at the last departure offset ({LAST} s, +{LAST // 60} min) is not '
-                   'checked_route in at least one of the region\'s three recorded scenario sets (the checked departure '
-                   f'window closes within the hour, or there is no checked route at all).{st}')
+                   'checked_route in at least one of the region\'s three recorded scenario sets (earlier leave-by '
+                   f'deadline, or no checked route at all).{WINDOW_NOTE}{st}')
             kw = sum(1 for rs in by_place.values() if any(r['latest_s'] is not None and r['latest_s'] < LAST for r in rs))
             b.frac('places.window_closes_within_hour_any_input' + tag, kw, n,
-                   f'Distinct places with, in at least one recorded scenario set, a checked route whose {DEADLINE_RULE} '
-                   f'is before {LAST} s.{st}')
+                   'Distinct places that, in at least one recorded scenario set, have a checked route at some departure '
+                   f'offset but a leave-by deadline before {LAST} s (set by the scenario window or by fire/limits). '
+                   f'{DEADLINE_DEF}{st}')
             kn = sum(1 for rs in by_place.values() if any(r['latest_s'] is None for r in rs))
             b.frac('places.no_checked_route_any_offset_any_input' + tag, kn, n,
                    'Distinct places with no checked route at any departure offset in at least one recorded scenario '
@@ -407,28 +425,167 @@ def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
                len(rows), d + f'; numerator: cases whose cell at offset {LAST} s is not checked_route.', graphs=True)
 
 
+def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundancy: list[dict]):
+    """Which unchecked departures could not be checked anyway because of the 1-hour scenario window."""
+    scopes = list(b.metas) + [f'{r}/pooled' for r in sources.REGIONS] + ['all/pooled']
+    for sc in scopes:
+        for sub in ('', 'village', 'care_facility'):
+            rows = _sel(records, sc, sub)
+            if not rows:
+                continue
+            tag = f'@{sc}' + (f'#{sub}' if sub else '')
+            n = len(rows)
+            st = SUBSET_TEXT[sub]
+            closes = [r for r in rows if r['latest_s'] is not None and r['latest_s'] < LAST]
+            for by, text in (('window', 'the next departure offset is window-limited: even the fastest fire-free '
+                                        'trip plus the stay would end after the 1-hour scenario window'),
+                             ('fire_or_limits', 'a fire-free trip would still fit the window at the next departure '
+                                                'offset, so the model\'s fire scenarios or limits (or an unresolved '
+                                                'check) set the deadline')):
+                k = sum(1 for r in closes if r['deadline_set_by'] == by)
+                b.frac(f'deadline_set_by.{by}' + tag, k, len(closes),
+                       f'Among cases whose leave-by deadline is before {LAST} s (denominator), those where {text} '
+                       f'(numerator). {WINDOW_RULE}{st}')
+                for t in OFFSETS[:-1]:
+                    k = sum(1 for r in rows if r['latest_s'] == t and r['deadline_set_by'] == by)
+                    b.frac(f'deadline.latest_{t:04d}s.set_by_{by}' + tag, k, n,
+                           f'Cases whose leave-by deadline is {t} s and where {text}. {WINDOW_RULE}{st}')
+            none = [r for r in rows if r['latest_s'] is None]
+            k = sum(1 for r in none if r['fits'][0])
+            b.frac('no_checked_route_any_offset.trip_fits_at_offset_0000s' + tag, k, len(none),
+                   'Among cases with no checked route at any departure offset (denominator), those whose fastest '
+                   f'fire-free trip fits the scenario window for departure at 0 s (numerator). {WINDOW_RULE}{st}')
+            if sub:
+                continue
+            for t in OFFSETS:
+                lim = [r for r in rows if not r['fits'][t]]
+                fit = [r for r in rows if r['fits'][t]]
+                b.frac(f'window_limited.offset_{t:04d}s' + tag, len(lim), n,
+                       f'Cases whose departure at {t} s (+{t // 60} min) is window-limited: no route could be checked '
+                       f'whatever the fire. {WINDOW_RULE}')
+                notc = [r for r in rows if r['cells'][t] != pr.CHECKED]
+                b.frac(f'window_limited_among_not_checked.offset_{t:04d}s' + tag, sum(1 for r in notc if not r['fits'][t]),
+                       len(notc), f'Among cases whose cell at {t} s (+{t // 60} min) is not checked_route (denominator), '
+                       f'those that are window-limited (numerator); every checked cell fits, so window-limited cells are '
+                       f'always among the unchecked ones. {WINDOW_RULE}')
+                k = sum(1 for r in fit if r['cells'][t] != pr.CHECKED)
+                b.frac(f'not_checked_although_fits.offset_{t:04d}s' + tag, k, len(fit),
+                       f'Among cases whose fastest fire-free trip fits the scenario window for departure at {t} s '
+                       f'(+{t // 60} min) (denominator), those whose cell there is not checked_route (numerator): the '
+                       f'model\'s fire scenarios or limits rule it out, or the check is unresolved. {WINDOW_RULE} '
+                       f'{CELL_RULE}.')
+                for v in (pr.NO_ROUTE, pr.UNRESOLVED):
+                    for cls, group in (('fits', fit), ('limited', lim)):
+                        k = sum(1 for r in group if r['cells'][t] == v)
+                        b.frac(f'cell_window.{v}.{cls}.offset_{t:04d}s' + tag, k, n,
+                               f'Cases whose cell at {t} s is {v} and whose fastest fire-free trip '
+                               f'{"fits" if cls == "fits" else "does not fit (window-limited)"} the scenario window '
+                               f'at that departure. {WINDOW_RULE}')
+    for reg in list(sources.REGIONS) + ['all']:
+        for sub in ('', 'village', 'care_facility'):
+            rows = _sel(records, f'{reg}/places', sub)
+            if not rows:
+                continue
+            tag = f'@{reg}/places' + (f'#{sub}' if sub else '')
+            st = SUBSET_TEXT[sub]
+            by_place = defaultdict(list)
+            for r in rows:
+                by_place[(r['region'], r['origin_id'])].append(r)
+            n = len(by_place)
+            unchecked_last = [rs for rs in by_place.values() if any(r['cells'][LAST] != pr.CHECKED for r in rs)]
+            k = sum(1 for rs in unchecked_last if any(r['cells'][LAST] != pr.CHECKED and r['fits'][LAST] for r in rs))
+            b.frac(f'places.not_checked_although_fits_at_offset_{LAST:04d}s_any_input' + tag, k, len(unchecked_last),
+                   f'Among distinct places with an unchecked departure at {LAST} s in at least one recorded scenario '
+                   f'set (denominator), those for which such an unchecked {LAST} s departure would fit the scenario '
+                   f'window fire-free (numerator). {WINDOW_RULE}{st}')
+            k = sum(1 for rs in by_place.values()
+                    if any(r['cells'][t] != pr.CHECKED and r['fits'][t] for r in rs for t in OFFSETS))
+            b.frac('places.not_checked_although_fits_any_offset_any_input' + tag, k, n,
+                   'Distinct places with, in at least one recorded scenario set, at least one departure offset that '
+                   f'has no checked route although its fastest fire-free trip fits the scenario window. {WINDOW_RULE}{st}')
+            trip = {}
+            for key, rs in by_place.items():
+                vals = {r['trip_min_s'] for r in rs}
+                if len(vals) != 1:
+                    raise AssertionError(f'{key}: fire-free trip differs between input times')
+                trip[key] = vals.pop()
+            k = sum(1 for key, rs in by_place.items() if not rs[0]['fits'][LAST])
+            b.frac(f'places.window_limited_at_offset_{LAST:04d}s' + tag, k, n,
+                   f'Distinct places whose departure at {LAST} s is window-limited (fastest fire-free trip to the '
+                   f'nearest candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}')
+            for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
+                v = fn(list(trip.values()))
+                if isinstance(v, float) and v.is_integer():
+                    v = int(v)
+                b.add(f'fastest_trip_s.{stat}' + tag, v,
+                      f'{stat} over distinct places (field n) of the fastest fire-free trip from the entry node to the '
+                      f'nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, '
+                      f'dt = 1 s; the graph assumes 40 km/h; no congestion, no fire).{st}', unit='s', graphs=True, n=n)
+    comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
+    b.frac('trip_model.equals_travel_only@all/pooled', sum(1 for p in comp if p['trip_model_s'] ==
+                                                           p['fastest_arrival_s'] - p['depart_offset_s']), len(comp),
+           'Validation of the fire-free trip model: travel-only comparisons (denominator) whose recorded travel-time-only '
+           'route (API policy travel_only) takes exactly as long (arrival - departure) as this package\'s turn-aware '
+           'Dijkstra to the same destination (numerator).', graphs=True)
+    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
+        reg = sc.split('/')[0]
+        sel = [p for p in comp if reg == 'all' or p['region'] == reg]
+        for name, f in (('leave_by_3000s', lambda p: p['depart_offset_s'] == LAST),
+                        ('leave_by_before_3000s', lambda p: p['depart_offset_s'] < LAST)):
+            group = [p for p in sel if f(p)]
+            b.frac(f'travel_only.fastest_meets_flames@{sc}#{name}', sum(1 for p in group if p['fastest_meets_flames']),
+                   len(group), 'Travel-time-only comparisons at the leave-by deadline, restricted to cases whose '
+                   'leave-by deadline is ' + ('the last checked offset (3000 s)' if name == 'leave_by_3000s' else
+                                              'before 3000 s') + ' (denominator); numerator: the fastest route has '
+                   'predicted flame contact (exposure contact = true) in at least one of the 4 scenario members.')
+    single = [x for x in redundancy if x['origin_type'] in OSM_TYPES and x['turn_aware_paths'] == 1]
+    for reg in list(sources.REGIONS) + ['all']:
+        rows = [x for x in single if reg == 'all' or x['region'] == reg]
+        tag = f'@{reg}/places'
+        d = ('Places with turn-aware redundancy value 1 (field n): every legal walk from the entry node to the '
+             'candidate destinations drives a common chain of road edges. Shared stretch = shortest legal-walk length '
+             '(sum of straight edge chords, EPSG:5179 m) from the entry node to the end of the last road edge that '
+             'every such walk drives (common edges found by growing the max-flow residual closure).')
+        for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
+            b.add(f'redundancy.shared_stretch_m.{stat}' + tag, round(fn([x['shared_stretch_m'] for x in rows]), 1),
+                  d + f' {stat}, rounded to 0.1 m.', unit='m', graphs=True, n=len(rows))
+        b.frac('redundancy.shared_stretch_within_100m' + tag, sum(1 for x in rows if x['shared_stretch_m'] <= 100.0),
+               len(rows), d + ' Numerator: places whose shared stretch ends within 100 m of the entry node.', graphs=True)
+
+
 HEADLINE_KEYS = (
-    'records.route_checks@all/pooled', 'records.rechecks@all/pooled',
+    'records.route_checks@all/pooled', 'records.rechecks@all/pooled', 'attempts@all/pooled',
     'places@all/places', 'osm_origins_not_checkable@all/places', 'cases@all/pooled',
-    'cell.checked_route.offset_0000s@all/pooled', 'cell.checked_route.offset_3000s@all/pooled',
-    'cell.checked_route.offset_0000s@uiseong_andong_2025/pooled', 'cell.checked_route.offset_3000s@uiseong_andong_2025/pooled',
-    'cell.checked_route.offset_0000s@yeongdeok_2025/pooled', 'cell.checked_route.offset_3000s@yeongdeok_2025/pooled',
-    'no_checked_route_at_offset_0000s@all/pooled', 'no_checked_route_any_offset@all/pooled', 'attempts@all/pooled',
-    'best_verdict.model_no_route@all/pooled', 'best_verdict.unresolved@all/pooled',
-    'window_closes_within_hour@all/pooled', 'window_closes_within_hour@uiseong_andong_2025/pooled',
-    'places.no_checked_route_at_offset_0000s_any_input@all/places', 'places.not_checked_at_offset_3000s_any_input@all/places',
-    'deadline.latest_3000s@all/pooled#care_facility',
+    'cell.checked_route.offset_0000s@all/pooled',
+    'no_checked_route_any_offset@all/pooled', 'best_verdict.model_no_route@all/pooled', 'best_verdict.unresolved@all/pooled',
+    'no_checked_route_any_offset.trip_fits_at_offset_0000s@all/pooled',
+    'not_checked_although_fits.offset_0000s@uiseong_andong_2025/pooled',
+    'not_checked_although_fits.offset_1800s@uiseong_andong_2025/pooled',
+    'not_checked_although_fits.offset_2400s@uiseong_andong_2025/pooled',
+    'not_checked_although_fits.offset_3000s@uiseong_andong_2025/pooled',
+    'not_checked_although_fits.offset_0000s@yeongdeok_2025/pooled',
+    'not_checked_although_fits.offset_1800s@yeongdeok_2025/pooled',
+    'window_limited_among_not_checked.offset_3000s@all/pooled',
+    'window_limited_among_not_checked.offset_3000s@uiseong_andong_2025/pooled',
+    'deadline_set_by.window@all/pooled', 'deadline_set_by.fire_or_limits@all/pooled',
+    'places.not_checked_although_fits_any_offset_any_input@all/places',
+    'places.not_checked_although_fits_at_offset_3000s_any_input@all/places',
+    'fastest_trip_s.median@uiseong_andong_2025/places#village', 'fastest_trip_s.median@yeongdeok_2025/places#village',
+    'fastest_trip_s.min@all/places#care_facility', 'fastest_trip_s.max@all/places#care_facility',
+    'trip_model.equals_travel_only@all/pooled',
     'api_check.recorded_equals_planner_rule_on_original@all/pooled',
     'api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled',
     'api_check.displayed_differs_explained_by_recheck@all/pooled',
-    'travel_only.fastest_meets_flames@all/pooled', 'travel_only.fastest_meets_flames@uiseong_andong_2025/pooled',
+    'travel_only.fastest_meets_flames@all/pooled', 'travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s',
+    'travel_only.fastest_meets_flames@all/pooled#leave_by_3000s',
     'travel_only.clear_pairs_equal_arrival@all/pooled',
     'travel_only.extra_arrival_s.min@all/pooled', 'travel_only.extra_arrival_s.median@all/pooled',
     'travel_only.extra_arrival_s.max@all/pooled',
     'travel_only.extra_length_m.min@all/pooled', 'travel_only.extra_length_m.median@all/pooled',
     'travel_only.extra_length_m.max@all/pooled',
     'redundancy.turn_aware_paths_1@all/places', 'redundancy.single_cut_at_entry_node@all/places',
-    'redundancy.turn_aware_equals_plain@all/places',
+    'redundancy.turn_aware_equals_plain@all/places', 'redundancy.shared_stretch_m.median@all/places',
+    'redundancy.shared_stretch_within_100m@all/places',
 )
 
 
@@ -441,6 +598,7 @@ def build(result: dict) -> dict:
     api_numbers(b, records)
     travel_numbers(b, result['pairs'])
     redundancy_numbers(b, result['redundancy'], records)
+    window_numbers(b, records, result['pairs'], result['redundancy'])
     for key in HEADLINE_KEYS:                        # fully self-contained provenance on every headline number
         e = b.numbers[key]
         e['headline'] = True
