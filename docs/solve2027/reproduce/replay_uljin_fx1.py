@@ -297,10 +297,14 @@ def main(argv=None) -> int:
                                 "SOLVE2027_LINUX_REPRO_EXTENDED_%ds" % int(a.budget_s))}
     checks = assertions(runs["extended"], rec, request)
     if a.also_evaluated_budget:
-        ev = attempt(paths, a.kit.resolve(), out / "evaluated_budget_report_only", EVALUATED_BUDGET_S, a.python,
-                     "SOLVE2027_LINUX_REPORT_ONLY_30s")
-        ev["note"] = ("Report only, never asserted. The evaluated campaign ran on native macOS (Apple M5 Pro); on a slower "
-                      "host the unchanged 30 s budget can end this mission unresolved/TIMEOUT, which is never reported as safe.")
+        note = ("Report only, never asserted. The evaluated campaign ran on native macOS (Apple M5 Pro); on a slower "
+                "host the unchanged 30 s budget can end this mission unresolved/TIMEOUT, which is never reported as safe.")
+        try:
+            ev = attempt(paths, a.kit.resolve(), out / "evaluated_budget_report_only", EVALUATED_BUDGET_S, a.python,
+                         "SOLVE2027_LINUX_REPORT_ONLY_30s")
+        except Exception as exc:   # reported, never asserted: an error here must not hide the asserted result above
+            ev = {"budget_s": EVALUATED_BUDGET_S, "route_and_check": {"authoritative_status": None, "error": repr(exc)}}
+        ev["note"] = note
         runs["evaluated_budget_report_only"] = ev
     ext = runs["extended"]["route_and_check"]
     report = {
@@ -332,9 +336,10 @@ def main(argv=None) -> int:
           % ", ".join("%.2f" % w for w in rec["recorded_wall_s_m5_pro"]))
     if "evaluated_budget_report_only" in runs:
         e = runs["evaluated_budget_report_only"]["route_and_check"]
-        print("report-only 30 s attempt on this host: %s%s, wall_s %s (not asserted)"
+        print("report-only 30 s attempt on this host: %s%s, wall_s %s (not asserted)%s"
               % (e.get("authoritative_status"), " / " + str(e.get("unresolved_reason")) if e.get("unresolved_reason") else "",
-                 "%.2f" % e["wall_s"] if e.get("wall_s") is not None else "n/a"))
+                 "%.2f" % e["wall_s"] if e.get("wall_s") is not None else "n/a",
+                 "; error: " + e["error"] if e.get("error") else ""))
     print("summary: %s" % (out / "REPRODUCTION_SUMMARY.json"))
     print(("REPRODUCED: " if report["passed"] else "NOT REPRODUCED: ") + LABEL)
     if a.markdown_summary is not None:
@@ -368,10 +373,14 @@ def markdown(report: dict) -> str:
     ev = report["runs"].get("evaluated_budget_report_only")
     if ev:
         e = ev["route_and_check"]
-        lines += ["Report only (never asserted): the same request with the evaluated 30 s budget on this host returned `%s`%s "
-                  "after %s s. Unresolved is never reported as safe." % (
-                      e.get("authoritative_status"), " (`%s`)" % e["unresolved_reason"] if e.get("unresolved_reason") else "",
-                      "%.2f" % e["wall_s"] if e.get("wall_s") is not None else "n/a"), ""]
+        if e.get("error"):
+            lines += ["Report only (never asserted): the same request with the evaluated 30 s budget raised `%s` on this "
+                      "host." % e["error"], ""]
+        else:
+            lines += ["Report only (never asserted): the same request with the evaluated 30 s budget on this host returned "
+                      "`%s`%s after %s s. Unresolved is never reported as safe." % (
+                          e.get("authoritative_status"), " (`%s`)" % e["unresolved_reason"] if e.get("unresolved_reason") else "",
+                          "%.2f" % e["wall_s"] if e.get("wall_s") is not None else "n/a"), ""]
     lines += ["Host: %s, %s CPUs, Python %s, load average at start %s. Assertions: %d/%d passed." % (
         report["host"]["platform"], report["host"]["cpu_count"], report["host"]["python"],
         report["host"]["load_average_1_5_15_min"]["start"],
