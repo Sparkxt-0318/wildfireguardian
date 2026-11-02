@@ -16,7 +16,9 @@ Dantzig-Wolfe decomposition by vehicle (``evacplan/experiments/E2-column-generat
   by the oracle inside the budget, cutting columns before trips it does not check. The harness certifies the plan.
 
 Stabilisation: Wentges smoothing of the prices with the mispricing rule. Single-threaded: the parent waits while HiGHS
-runs. Declares no state (rule 3).
+runs, but never past the deadline: every worker call's timeout is capped at the time left minus ``CALL_MARGIN_S``, and a
+call that fails or times out retires the worker (its child killed) while E2 keeps its incumbent (review E2-D4).
+Declares no state (rule 3).
 """
 from __future__ import annotations
 
@@ -44,6 +46,8 @@ DEFAULTS = dict(delta_s=60, large_delta_s=120, large_facilities=10, trip_cuts=Tr
                 lns_max_remove=3, warm_start_share=0.25)
 BOUND_MARGIN = 1e-6
 ORACLE_S_PER_LEG = 0.03       # a priori oracle cost per leg (E1 measured 18-25.5 ms on M and L)
+CALL_MARGIN_S = 0.5           # every worker call's timeout ends at least this long before the deadline (review E2-D4)
+MIN_CALL_S = 0.05             # HighsWorker.call waits at least this long: with less time left no call is sent
 
 
 # ------------------------------------------------------------------------------------------------ columns
@@ -405,6 +409,38 @@ class _Run:
             return self.rb
         return min(self.rb, int(math.floor(self.best_bound_value + BOUND_MARGIN)))
 
+    # -------------------------------------------------------------------------------------------- worker
+    def _left(self) -> float:
+        """Seconds a worker call may still wait: the time left to the deadline minus ``CALL_MARGIN_S``."""
+        return self.deadline - time.monotonic() - CALL_MARGIN_S
+
+    def _call(self, cmd: str, *, timeout: float, **payload):
+        """``HighsWorker.call`` with its timeout capped at :meth:`_left`, so that no worker call (LP, MIP or other) can
+        make the parent wait past the deadline (review E2-D4); with less than ``MIN_CALL_S`` left the call is not sent.
+        Any failure (timeout, no time left, an error reply, a child gone) retires the worker: :meth:`_retire` kills
+        the child, ``self.worker`` becomes ``None`` and ``info["worker_error"]`` keeps the first error. Raises
+        :class:`WorkerError`; the callers keep their incumbent."""
+        w = self.worker
+        if w is None:
+            raise WorkerError(f"worker call {cmd!r}: no worker")
+        left = self._left()
+        try:
+            if left < MIN_CALL_S:
+                raise WorkerError(f"worker call {cmd!r}: no time left before the deadline")
+            return w.call(cmd, timeout=min(float(timeout), left), **payload)
+        except WorkerError as exc:
+            self.info.setdefault("worker_error", str(exc))
+            self._retire()
+            raise
+
+    def _retire(self) -> None:
+        """Close the worker without waiting past the deadline: a quit message only while there is time for it, then
+        the child is killed (``HighsWorker.close``). ``self.worker`` becomes ``None``."""
+        w, self.worker = self.worker, None
+        if w is not None:
+            left = self._left()
+            w.close(timeout=min(2.0, left) if left >= MIN_CALL_S else 0.0)
+
     # ------------------------------------------------------------------------------------------- columns
     def _add_lp(self, cols: list[Column]) -> int:
         new = [c for c in cols if c.key not in self.by_key]
@@ -416,9 +452,9 @@ class _Run:
             start.append(len(index))
             index += r
             value += v
-        out = self.worker.call("add_cols", timeout=max(1.0, self.deadline - time.monotonic()), model="lp",
-                               cost=[float(c.delivered) for c in new], lower=[0.0] * len(new),
-                               upper=[1.0] * len(new), start=start, index=index, value=value)
+        out = self._call("add_cols", timeout=max(1.0, self.deadline - time.monotonic()), model="lp",
+                         cost=[float(c.delivered) for c in new], lower=[0.0] * len(new),
+                         upper=[1.0] * len(new), start=start, index=index, value=value)
         for i, c in enumerate(new):
             c.lp = out["first"] + i
             self.by_key[c.key] = c
@@ -434,9 +470,12 @@ class _Run:
             start.append(len(index))
             index += r
             value += v
-        out = self.worker.call("add_cols", timeout=max(1.0, self.deadline - time.monotonic()), model="mip",
-                               cost=[self._mip_cost(c) for c in cols], lower=[0.0] * len(cols),
-                               upper=[1.0] * len(cols), start=start, index=index, value=value, integer=True)
+        try:
+            out = self._call("add_cols", timeout=max(1.0, self.deadline - time.monotonic()), model="mip",
+                             cost=[self._mip_cost(c) for c in cols], lower=[0.0] * len(cols),
+                             upper=[1.0] * len(cols), start=start, index=index, value=value, integer=True)
+        except WorkerError:
+            return                      # the worker is retired (_call): no more MIP; the columns stay in the pool
         for i, c in enumerate(cols):
             c.mip = out["first"] + i
             self.mip_cols.append(c)
@@ -538,9 +577,9 @@ class _Run:
             if c.mip is not None:
                 start[c.mip] = 1.0
         try:
-            out = self.worker.call("solve", timeout=time_limit + 2.0, model="mip", time_limit=time_limit, start=start,
-                                   options={"mip_rel_gap": 0.0, "mip_abs_gap": min(1e-6, self.eps / 4)})
-        except WorkerError as exc:
+            out = self._call("solve", timeout=time_limit + 2.0, model="mip", time_limit=time_limit, start=start,
+                             options={"mip_rel_gap": 0.0, "mip_abs_gap": min(1e-6, self.eps / 4)})
+        except WorkerError as exc:                       # timed out or failed: the incumbent stays (review E2-D4)
             self.info["mip_error"] = str(exc)
             self.worker = None
             return
@@ -556,9 +595,9 @@ class _Run:
         self.forbidden.add(col.key)
         if col.mip is not None and self.worker is not None:
             try:
-                self.worker.call("set_bounds", timeout=5.0, model="mip", index=[col.mip], lower=[0.0], upper=[0.0])
+                self._call("set_bounds", timeout=5.0, model="mip", index=[col.mip], lower=[0.0], upper=[0.0])
             except WorkerError:
-                self.worker = None
+                pass                    # the worker is retired (_call); the column stays forbidden
 
     def _plan(self, chosen: list[Column]):
         seqs = [c.seq for c in sorted(chosen, key=lambda c: self.vids.index(c.vehicle))]
@@ -765,9 +804,12 @@ class _Run:
         y = np.zeros(n_rows)
         rounds, converged, why = 0, False, "time"
         try:
-            self.worker = HighsWorker(start_timeout=max(2.0, min(20.0, self.deadline - time.monotonic())))
-            self.worker.call("init", timeout=10.0, row_lower=np.full(n_rows, -np.inf), row_upper=self.b,
-                             threads=int(cfg["threads"]), seed=self.seed)
+            left = self._left()                                  # the start (its ping) is capped as every call
+            if left < MIN_CALL_S:
+                raise WorkerError("no time left before the deadline to start the worker")
+            self.worker = HighsWorker(start_timeout=min(20.0, left))
+            self._call("init", timeout=10.0, row_lower=np.full(n_rows, -np.inf), row_upper=self.b,
+                       threads=int(cfg["threads"]), seed=self.seed)
         except WorkerError as exc:
             info["worker_error"] = str(exc)
             self.worker = None
@@ -800,7 +842,10 @@ class _Run:
             slow = time.monotonic() - t_b > float(cfg["cg_round_max_share"]) * self.budget
             if slow:
                 why = "round too slow for the budget"                # keep round 0's bound, give the time to the plan
-            while not slow and self.worker is not None and rounds < int(cfg["max_rounds"]):
+            while not slow and rounds < int(cfg["max_rounds"]):
+                if self.worker is None:
+                    why = "worker error"                             # failed or timed out (review E2-D4): no LP
+                    break
                 if self.bound <= self.incumbent[0]:
                     converged, why = True, "plan reaches the bound"
                     break
@@ -809,8 +854,8 @@ class _Run:
                     break
                 rounds += 1
                 t_round = time.monotonic()
-                lp = self.worker.call("solve", timeout=max(0.5, cg_end - time.monotonic()) + 2.0, model="lp",
-                                      time_limit=max(0.2, cg_end - time.monotonic()))
+                lp = self._call("solve", timeout=max(0.5, cg_end - time.monotonic()) + 2.0, model="lp",
+                                time_limit=max(0.2, cg_end - time.monotonic()))
                 self.stats["lp_s"] += lp["solve_s"]
                 if lp["row_dual"] is None or lp["objective"] is None:
                     why = f"LP status {lp['status']}"
@@ -853,6 +898,7 @@ class _Run:
         except WorkerError as exc:
             info["worker_error"] = str(exc)
             self.worker = None
+            why = "worker error"
         info.update(rounds=rounds, converged=converged, stop=why, lp_value=lp_value,
                     lagrangian_bound=None if not math.isfinite(self.best_bound_value) else self.best_bound_value,
                     bound_round=self.bound_round, unbounded=self.unbounded)
@@ -881,14 +927,14 @@ class _Run:
         plan_cols, real = info["oracle"].pop("_plan")
         phases["oracle_s"] = time.monotonic() - t_d
         sol = real.solution(inst, self.m.name, {"seed": self.seed, "note": "E2 column generation (SYNTHETIC instances)"})
-        if self.worker is not None:
-            self.worker.close()
+        self._retire()
         info.update(planned=sum(c.delivered for c in plan_cols), columns=len(self.columns),
                     realized_columns=len(self.realized), total_s=round(time.monotonic() - self.t_start, 3),
                     timing={k: round(v, 3) for k, v in {**self.stats, **phases}.items()}, bound=self.bound)
         diag = {k: info.get(k) for k in ("warm_start", "construct", "rounds", "converged", "stop", "lp_value", "lagrangian_bound", "bound",
                                          "resource_bound", "planned", "columns", "realized_columns", "setup_s",
-                                         "total_s", "unbounded", "improve_passes", "lns_iterations")}
+                                         "total_s", "unbounded", "improve_passes", "lns_iterations",
+                                         "worker_error", "mip_error")}          # None unless a worker call failed
         diag["batches"] = [(b["g"], len(b["vehicles"])) for b in self.batches]
         diag["mip"] = info.get("mip")
         diag["oracle"] = info["oracle"]

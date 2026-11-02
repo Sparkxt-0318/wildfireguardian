@@ -99,10 +99,12 @@ class HighsWorker:
             raise WorkerError(f"worker call {cmd!r}: {out['error']}")
         return out
 
-    def close(self) -> None:
-        if self.alive:
+    def close(self, timeout: float = 2.0) -> None:
+        """Ask the child to quit, waiting at most ``timeout`` seconds (no message if ``timeout`` <= 0: a caller at its
+        deadline, e2_colgen review E2-D4), then kill it if it is still there. Idempotent."""
+        if self.alive and timeout > 0:
             try:
-                self.call("quit", timeout=2.0)
+                self.call("quit", timeout=timeout)
             except WorkerError:
                 pass
         self._kill()

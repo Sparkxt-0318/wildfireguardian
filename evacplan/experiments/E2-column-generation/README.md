@@ -142,7 +142,9 @@ vehicle and mode per round). **Clock unit rule (fixed a priori):** per vehicle t
 `delta` that is at most the shortest positive per-resident boarding or unloading time of a class the type carries
 (so every action advances the relaxed clock), with all vehicles of the type in one batch, such that the table has at
 most 24 million cells (192 MB); if none fits, the batch is split. (On the profiled instances: S and M `g` = 1 s; L
-`g` = 1-4 s by type.)
+`g` = 1-4 s by type.) On dev, S and M ran at `g` = 1 s, L-grid at 1, 2 and 4 s, and L-geo at 7 s for 7 of its 10
+vehicles (`diagnostics.batches`: 1 s for 3 vehicles, 7 s for 5 and 7 s for 2); this is valid, since `g` never exceeds
+the type's shortest positive action, so every such action still takes at least one unit.
 
 **Rounds.** Round 0 prices at `y = 0`. Then each round: solve the master LP (HiGHS, warm-started simplex in a
 persistent child process); smoothed prices `y_sep = 0.5 y_center + 0.5 y_LP` (`y_center`: the prices with the best
@@ -163,7 +165,10 @@ not `checked` (peak or dose, which the masks do not model) has its column cut be
 the old column is forbidden and the MIP re-solved (at most 2 such repairs). The harness then certifies the returned
 plan with a fresh oracle, outside the budget. **Budget:** setup (Reach, FlowNetwork, DP tables) and everything else
 inside the 60 s; the column generation stops at `deadline - (2 s + 0.25 budget)`; the final MIP gets up to 10 % of
-the budget, the oracle check the rest of the reserve. Single-threaded throughout (the parent waits while HiGHS
+the budget, the oracle check the rest of the reserve. (This paragraph is the pre-registered text. Amendment 1, item 4,
+changed two of its details before any dev run: the in-budget check runs per vehicle, `Oracle.check_itinerary`, only
+while the time left covers 1.5 x its estimated cost; and the column generation stops at `deadline - (2 s + 40 % of the
+budget)`.) Single-threaded throughout (the parent waits while HiGHS
 runs). `seed` = HiGHS's random seed; otherwise deterministic (repeats differ only when the time limit binds).
 
 ### Why the bound is valid (the argument)
@@ -272,7 +277,11 @@ Time-box: about 5 h of work; bench: tests and the smoke (about 20 min) plus the 
 **Smoke** (dev, seed 0, one S and one M instance, into a scratch results directory: no dev row was written before the
 final run): `SYNTHETIC-S-geo-t25-s102` 37/39 in 53.6 s, `SYNTHETIC-M-grid-t75-s107` 131/168 with a proven bound of 156 in
 56.6 s, both within the budget and every trip checked. **No change was made after it** (no deviation): the final run
-used the same commit, `ceca7380`.
+used the same commit, `ceca7380`. The 20 rows of the L hold (`20261102T164918Z-e2_colgen-x-b2_vrptw-o5`: 10 E2, 10 B2
+seeds 5-9) record `ceca7380+dirty` because `analyze.py` in this folder was edited between and during the holds (16:44,
+16:45 and 16:55 UTC; the harness's dirty check covers `evacplan/` except its generated outputs), but no file under
+`src/` or `tests/` changed between `ceca7380` (15:33 UTC) and the results commit `08db627e` (17:19 UTC), so their code
+is `ceca7380`'s (review E2-D1).
 
 **Final run** (DECISIONS 2026-11-02 item 5): B2 interleaved with E2 (ABAB, a speed probe before every pair) through
 `evacplan run --method e2_colgen --interleave-with b2_vrptw --set dev --budget-s 60 --repeats 5 --partner-seed-offset 5`,
@@ -303,7 +312,9 @@ plan = runtime + the harness's certification, median over the seeds (s); SYNTHET
 
 **Totals** per seed 0-4 (E2 / its B2 partners): all 10 instances E2 1611, 1611, 1585, 1589, 1627 / B2 1749 in every seed;
 the 4 M instances E2 573, 573, 572, 576, 580 / B2 597; the 4 S instances E2 109 / B2 108 in every seed. Leaderboard
-(this host): E2 1611 [1585–1627], verdict **no (worst 1585 ≤ bar 1751)**; mean time to certified plan E2 44.8 s, B2 65.8 s.
+(this host): E2 1611 [1585–1627], verdict **no (worst 1585 ≤ bar 1751)**; mean time to certified plan E2 44.8 s, B2 65.8 s
+over its 5 partner seeds (5-9) in these holds. The merged leaderboard (`5d0991ca`) shows B2 at 66.0 s, over all 10 of its
+seeds on this host (0-9, E1b's partner rows included).
 
 ![SYNTHETIC: E2's proven bounds and plans per dev instance, as a share of the trivial bound](figures/bounds_and_plans_dev.png)
 
@@ -313,13 +324,16 @@ on `M-grid-t75-s107` (E4 160, trivial 168; the column generation converged in 10
 ran out, Lagrangian value 143.52-143.67), in every seed, against E4's 165-200 s per M instance. Against the best plan of any
 method, the certified gap is 3.8 % on s107 (150, E1's) and 2.8 % on s108 (139), against E4's 6.25 % and 3.5 %: E2 closes
 67 % and 60 % of the trivial gap (E4: 44 % and 50 %). On `S-grid-t75-s103` it proves 25, as E4. On L it claims only the
-resource bound: the column generation gets 0-5 rounds there (a round takes 5-9 s; the round guard of amendment 2 stopped it
+resource bound: the column generation gets 0-5 rounds there (a round, as `cg_s` / (rounds + 1), takes 2.6-3.1 s on L-geo
+and 4.5-7.1 s on L-grid; the 9 s of amendment 2 was the profiled, generated L instance; the round guard of amendment 2 stopped it
 after round 0 in three of the five L-grid seeds), and its Lagrangian values (715-876) stay above the resource bounds (646,
 579). Where a plan reaches the bound (S-s101, S-s104, M-s105, M-s106) E2
 proves it optimal and stops: certified plans in 4-23 s, against B2's ~60 s.
 
-**Validity check** (the core): **0 violations** over the 50 E2 rows against 370 plan rows of 7 methods on dev (any seed,
-budget or host, `analyze.py`): every E2 bound is at least every delivered value. Tests (`tests/test_e2_colgen.py`, 35
+**Validity check** (the core): **0 violations** over the 50 E2 rows against all 470 dev plan rows of 8 methods at the
+merged leaderboard commit `5d0991ca` (any seed, budget or host, noop and E2 included; `analyze.py`'s check, recomputed over
+the merged rows; 370 rows of 7 methods when first run, before the merge added E1b's rows and B2's seeds 0-4): every E2 bound
+is at least every delivered value. Tests (`tests/test_e2_colgen.py`, 35
 passed under the bench lock at `ceca7380`): bound >= the brute-force optimum on B3's tiny instance and 10 off-grid variants;
 bound >= every oracle-checked plan (random plans, B0, B1, B3 every third seed, E2's own) on 12 random small instances; the
 Lagrangian value covers the optimum for random nonnegative prices; the RESTRICTED optimum never exceeds the RELAXED one and
@@ -342,7 +356,8 @@ re-optimization prefers earlier, shorter itineraries.
 machine's speed varied during the holds; ABAB alternation exposes both methods to the same conditions, and B2's 5 partner
 seeds gave identical totals.
 
-**Bench time** (all under the lock): profiling and three debugging/test runs on generated instances (about 25 min), the smoke
+**Bench time** (all under the lock): profiling (two runs, about 4 min) and six debugging/test runs on generated instances
+(about 19 min: 13:16 and 13:20 UTC, then four test-and-debug batches between 14:43 and 15:33 UTC), the smoke
 (2.5 min), the holds (65 + 28.5 min), the leaderboard: about 2 h, of which 1.5 h in the final holds (the approved 1.5 h
 predates B2's interleaving). Work time: about 5 h.
 
@@ -370,6 +385,44 @@ it is strictly below the trivial bound on both tight M instances (156 < 168, 143
    planner?
 2. At the provisional 30-min margin E2 delivers more than B2 (1350 against 1284) while delivering fewer in total: should
    the margin-weighted count enter the verdict once the margin is final?
+
+## Changes after seeing dev results
+
+* Method (`e2_colgen.py`, `e2_pricing.py`, `e2_worker.py`), parameters and tests: none between the smoke and the
+  decision. The smoke and both holds ran `ceca7380`'s code; the L hold's rows are marked `+dirty` only because of edits
+  to `analyze.py` (Results).
+* After the ITERATE decision, from the independent batch-2 review (part 2, findings E2-D1 to E2-D4), to prepare a
+  possible second iteration. None of these changes a row (`evacplan/results/*.csv`), a plan, the bound or the decision
+  (ITERATE), and neither changed code path ran in any dev row. `diagnostics.oracle.repairs` is 0 in all 50 E2 rows. No
+  worker call timed out: every row added LP columns, the 30 rows that reached the integer phase record a successful MIP
+  solve, and the other 20 stopped when the plan reached the bound. Every run also returned at least 2.33 s before its
+  deadline (longest 57.67 s of 60), so the new 0.5 s cap could not have cut any call.
+  * **Repair test (E2-D3).** `test_e2_colgen.py` now drives the in-budget oracle repair path (`_oracle_repairs`) on
+    the dose-limited tiny case of E1b's tests (`tiny_case(dose=0.02)`, 8 s). B1's plan (13 residents, one van) fails
+    the check. E2 makes 2 repairs, cuts 10 residents and returns 5, checked by E2 after its last repair and, trip by
+    trip, by a fresh oracle, within the budget.
+  * **Deadline cap (E2-D4).** Each worker call's timeout is now capped at the time left to the deadline minus 0.5 s
+    (`CALL_MARGIN_S`), the child's start and its quit message included. With less than 0.05 s left, no call is sent.
+    Before, the repair path's MIP call could wait until about 1 s past the deadline (its time limit + 2 s), and the
+    other calls had fixed or floored timeouts (`init` 10 s, `set_bounds` 5 s, `quit` 2 s, the child's start at least
+    2 s, column additions at least 1 s). A call that times out or fails retires the worker: the existing kill path
+    stops the child, and E2 keeps its incumbent and returns normally. A failure during the column generation stops it
+    with `stop` = "worker error". Rows of a later run record `worker_error` and `mip_error` in their diagnostics (None
+    when nothing failed). `HighsWorker.close` takes the quit message's timeout (default 2 s, as before). New tests:
+    * a MIP solve whose own grace ends after the deadline, sent to a HiGHS child that stops answering (SIGSTOP),
+      returns before the deadline, with the child killed and the incumbent kept;
+    * through `solve`, a child frozen in the repair path is killed before the deadline, and E2 returns its incumbent
+      within the budget;
+    * on the generated M instance, no worker call (LP and MIP solves included) could wait past the deadline.
+  * **README corrections (E2-D1, E2-D2).**
+    * The `+dirty` note on the L hold's rows (Results).
+    * B2's mean time to certified plan: 65.8 s over its partner seeds, 66.0 s over its 10 seeds on the merged leaderboard.
+    * The validity check over the merged rows: 470 plan rows of 8 methods, 0 violations (said 370 of 7).
+    * Seconds per column-generation round on dev L: 2.6-3.1 s on L-geo and 4.5-7.1 s on L-grid (said 5-9 s).
+    * Six locked debugging and test runs (said three; the review counted five and missed the 13:20 UTC run of B1, B2,
+      B3 and E4 on the generated S instance that gave amendment 1 its reference numbers).
+    * A pointer from the method section to amendment 1 (per-vehicle check, 40 % reserve).
+    * The clock units used on dev L (`g` = 7 s on L-geo).
 
 ## References
 
