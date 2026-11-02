@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 /**
- * Smoke test of the public static demo in headless Chromium, against `vite preview` of a static
- * build with the GitHub Pages base path (default /wildfireguardian/).
+ * Smoke test of the public static demo in headless Chromium. By default it serves planner/dist
+ * itself, the way GitHub Pages does (scripts/serve_static.mjs: dist/ only under the base path,
+ * 404 without a single-page-app fallback, HTTP Range for the PMTiles basemaps) — so what is tested
+ * is exactly the folder that gets published.
  *
  *   VITE_BASE_PATH=/wildfireguardian/ npm run build:static     # once
- *   npm run smoke:static                                        # starts vite preview itself
+ *   npm run smoke:static                                        # dist-only server (default)
+ *   node scripts/static_smoke.mjs --server vite                 # `vite preview --mode static` instead
  *   node scripts/static_smoke.mjs --url http://127.0.0.1:4173/wildfireguardian/   # an already running server
- *     [--base /wildfireguardian/] [--out docs/screenshots/solve-demo] [--no-screenshots]
+ *     [--base /wildfireguardian/] [--port 4179] [--out docs/screenshots/solve-demo] [--no-screenshots]
  *
- * Desktop 1440×900 and phone 375×812, Korean and English: load → judge intro → pick a village or
- * care facility → its 출발 마감 / leave-by time and evidence → A4 plan sheet → English. Every
- * request is recorded and must stay on the page's origin under the base path (no 127.0.0.1:8765,
- * no localhost API, no internet); the page's Content-Security-Policy must refuse a deliberate
- * cross-origin probe; the honesty texts (fire-input banner, planning-aid footer, three verdicts
- * as colour + icon + text) must be visible. Screenshots go to docs/screenshots/solve-demo/.
+ * Desktop 1440×900 and phone 375×812, Korean and English: load → judge intro (keyboard: focus
+ * trap, Escape, focus back to the opener) → 3-step tour (step 2 picks the first origin with a
+ * checked route) → its 출발 마감 / leave-by time, evidence and the recorded forecast cells →
+ * A4 plan sheet with its DEMO marker → English. Every request is recorded and must stay on the
+ * page's origin under the base path (no 127.0.0.1:8765, no localhost API, no internet); the page's
+ * Content-Security-Policy must refuse a deliberate cross-origin probe; the honesty texts
+ * (fire-input banner, planning-aid footer, three verdicts as colour + icon + text) must be visible.
+ * Screenshots go to docs/screenshots/solve-demo/.
  *
  * Playwright: the `playwright` package reachable by require() (e.g. a global install on NODE_PATH)
  * or PLAYWRIGHT_MODULE=/path/to/node_modules/playwright. This script never installs browsers.
@@ -24,11 +29,12 @@ import { existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { startStaticServer } from './serve_static.mjs';
 
 const PLANNER = resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 function parseArgs(argv) {
-  const out = { base: process.env.VITE_BASE_PATH || '/wildfireguardian/', out: join(PLANNER, 'docs', 'screenshots', 'solve-demo'), port: '4179', screenshots: true, url: '' };
+  const out = { base: process.env.VITE_BASE_PATH || '/wildfireguardian/', out: join(PLANNER, 'docs', 'screenshots', 'solve-demo'), port: '4179', screenshots: true, url: '', server: 'dist' };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--no-screenshots') out.screenshots = false;
@@ -80,30 +86,41 @@ async function waitForServer(url, ms = 30000) {
   return false;
 }
 
-let server = null;
+let stopServer = async () => {};
 let appUrl = opts.url;
+let serverKind = opts.url ? `external ${opts.url}` : opts.server;
 if (!appUrl) {
-  if (!existsSync(join(PLANNER, 'dist', 'index.html'))) {
+  const dist = join(PLANNER, 'dist');
+  if (!existsSync(join(dist, 'index.html'))) {
     console.error('[smoke] planner/dist missing — run: VITE_BASE_PATH=/wildfireguardian/ npm run build:static');
     process.exit(1);
   }
-  appUrl = `http://127.0.0.1:${opts.port}${opts.base}`;
-  server = spawn(join(PLANNER, 'node_modules', '.bin', 'vite'), ['preview', '--mode', 'static', '--port', opts.port, '--strictPort'], {
-    cwd: PLANNER,
-    env: { ...process.env, VITE_BASE_PATH: opts.base },
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
-  server.stdout.on('data', () => {});
-  server.stderr.on('data', (d) => process.stderr.write(d));
-  if (!(await waitForServer(appUrl))) {
-    console.error(`[smoke] vite preview did not answer at ${appUrl}`);
-    server.kill('SIGTERM');
-    process.exit(1);
+  if (opts.server === 'vite') {
+    appUrl = `http://127.0.0.1:${opts.port}${opts.base}`;
+    const child = spawn(join(PLANNER, 'node_modules', '.bin', 'vite'), ['preview', '--mode', 'static', '--port', opts.port, '--strictPort'], {
+      cwd: PLANNER,
+      env: { ...process.env, VITE_BASE_PATH: opts.base },
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    child.stdout.on('data', () => {});
+    child.stderr.on('data', (d) => process.stderr.write(d));
+    stopServer = async () => child.kill('SIGTERM');
+    if (!(await waitForServer(appUrl))) {
+      console.error(`[smoke] vite preview did not answer at ${appUrl}`);
+      await stopServer();
+      process.exit(1);
+    }
+    serverKind = 'vite preview --mode static (dist only)';
+  } else {
+    const srv = await startStaticServer({ dir: dist, base: opts.base, port: Number(opts.port) });
+    appUrl = srv.url;
+    stopServer = srv.close;
+    serverKind = 'dist only, like GitHub Pages (scripts/serve_static.mjs)';
   }
 }
 const ORIGIN = new URL(appUrl).origin;
 const APP_PREFIX = `${ORIGIN}${new URL(appUrl).pathname}`;
-console.log(`[smoke] ${appUrl}`);
+console.log(`[smoke] ${appUrl} — ${serverKind}`);
 
 if (opts.screenshots) mkdirSync(opts.out, { recursive: true });
 const shots = [];
@@ -147,6 +164,15 @@ async function text(page, sel) {
   return (await page.locator(sel).first().innerText({ timeout: 15000 })).replace(/\s+/g, ' ').trim();
 }
 
+/** data-testid of the focused element and whether it is inside `within` (a selector). */
+async function focusInfo(page, within) {
+  return page.evaluate((sel) => {
+    const a = document.activeElement;
+    const box = sel ? document.querySelector(sel) : null;
+    return { id: a?.getAttribute('data-testid') ?? a?.tagName ?? null, inside: Boolean(box && a && box.contains(a)) };
+  }, within ?? null);
+}
+
 async function noHorizontalScroll(page, label) {
   const w = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, vw: window.innerWidth }));
   check(w.doc <= w.vw + 1, `${label}: no horizontal page scroll (scrollWidth ${w.doc} ≤ ${w.vw})`);
@@ -161,7 +187,9 @@ async function honesty(page, label, lang) {
   const vw = page.viewportSize().width;
   check(Boolean(footerBox) && footerBox.x >= 0 && footerBox.x + footerBox.width <= vw + 1, `${label}: footer rule fully inside the viewport`);
   const chip = await text(page, '[data-testid="demo-chip"]');
-  check(chip.includes('DEMO') && chip.includes(lang === 'ko' ? '2025년 3월 기록 시나리오 · 연구 프로토타입' : 'recorded March 2025 scenarios · research prototype'), `${label}: DEMO chip "${chip}"`);
+  const phone = vw <= 480;
+  const wantChip = lang === 'ko' ? (phone ? '2025년 3월 기록 · 연구 프로토타입' : '2025년 3월 기록 시나리오 · 연구 프로토타입') : phone ? 'Mar 2025 replay · research prototype' : 'recorded March 2025 scenarios · research prototype';
+  check(chip.includes('DEMO') && chip.includes(wantChip), `${label}: DEMO chip "${chip}"`);
   check((await page.locator('[data-testid="mock-badge"]').count()) === 0, `${label}: no MOCK badge (cache from the real API)`);
   check((await page.locator('[data-testid="test-badge"], [data-testid="test-data"]').count()) === 0, `${label}: no "not the evaluation host" marking (cache computed on the evaluated host)`);
   // three verdicts, each colour + icon + text
@@ -185,18 +213,53 @@ async function honesty(page, label, lang) {
   if (colours.unresolvedImg) check(colours.unresolvedImg.startsWith('url('), `${label}: unresolved chip is grey hatch, never green`);
 }
 
+/** The selected origin is the first village or care facility (OSM) of the urgency list with a checked route. */
+async function selectedIsFirstChecked(page) {
+  return page.evaluate(() => {
+    const rows = [...document.querySelectorAll('.origin-list .origin-row')];
+    const first = rows.find((r) => r.getAttribute('data-testid')?.startsWith('origin-osm:') && r.querySelector('.status.checked_route'));
+    const sel = rows.find((r) => r.getAttribute('aria-selected') === 'true');
+    return { ok: Boolean(first && sel && first === sel), first: first?.getAttribute('data-testid') ?? null, selected: sel?.getAttribute('data-testid') ?? null, topVerdict: rows[0]?.querySelector('.status')?.className ?? null };
+  });
+}
+
+/** Forecast layer of the static demo: on, with its legend, no "unavailable" notice. */
+async function forecastLayer(page, label, lang) {
+  await page.waitForFunction(() => {
+    const b = document.querySelector('.map-tools .btn');
+    return b && !b.disabled;
+  }, null, { timeout: 30000 });
+  const toggle = page.locator('.map-tools .btn').first();
+  check(!(await toggle.isDisabled()) && (await toggle.getAttribute('aria-pressed')) === 'true', `${label}: forecast-cell layer is enabled and on`);
+  const legend = page.locator('[data-testid="map-legend"]');
+  if ((await legend.getAttribute('class'))?.includes('collapsed')) await legend.locator('.lg-toggle').click();
+  const legendText = await text(page, '[data-testid="map-legend"]');
+  check(legendText.includes(lang === 'ko' ? '다음 1시간 신규 연소 확률 (예측 c651)' : 'Next-hour new-burn probability (c651)') && legendText.includes(lang === 'ko' ? '입력 시각 연소 중' : 'Burning at input time'), `${label}: forecast legend keeps its labels`);
+  const notice = (await page.locator('.map-notice').count()) ? await text(page, '.map-notice') : '';
+  check(!/예측 격자|forecast/i.test(notice), `${label}: no forecast notice ("${notice}")`);
+}
+
 /** First OSM village or care facility in the urgency list with a checked route (a leave-by time). */
 async function pickCheckedOrigin(page, { tap = false } = {}) {
   const row = page.locator('.origin-list .origin-row[data-testid^="origin-osm:"]:has(.status.checked_route)').first();
   const name = (await row.locator('.name').innerText()).trim();
   if (tap) await row.tap();
   else await row.click();
-  return name;
+  return { name, row };
+}
+
+async function heights(page) {
+  return page.evaluate(() => {
+    const h = (sel) => Math.round(document.querySelector(sel)?.getBoundingClientRect().height ?? -1);
+    const chip = document.querySelector('[data-testid="demo-chip"]');
+    return { topbar: h('.topbar'), ribbon: h('.demo-ribbon'), chip: h('[data-testid="demo-chip"]'), chipOneLine: chip ? chip.getBoundingClientRect().height <= 24 : false };
+  });
 }
 
 const chromium = loadChromium();
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 let exitCode = 0;
+const measured = {};
 try {
   // ------------------------------------------------------------------ desktop, Korean
   {
@@ -209,40 +272,88 @@ try {
     await page.waitForSelector('[data-testid="demo-intro"]');
     const intro = await text(page, '[data-testid="demo-intro-body"]');
     check(intro.includes('2025년 3월') && intro.includes('의성·안동') && intro.includes('영덕'), `desktop: intro names the recorded period and regions`);
+    // keyboard: the modal introduction keeps the focus inside
+    check((await focusInfo(page, '[data-testid="demo-intro"]')).id === 'demo-tour-start', 'desktop: the introduction opens with the focus on "3단계 둘러보기"');
+    for (let i = 0; i < 9; i += 1) await page.keyboard.press('Tab');
+    const afterTab = await focusInfo(page, '[data-testid="demo-intro"]');
+    for (let i = 0; i < 4; i += 1) await page.keyboard.press('Shift+Tab');
+    const afterShiftTab = await focusInfo(page, '[data-testid="demo-intro"]');
+    check(afterTab.inside && afterShiftTab.inside, `desktop: Tab and Shift+Tab stay inside the introduction (${afterTab.id}, ${afterShiftTab.id})`);
     await page.waitForTimeout(1500);
     await shot(page, 'desktop-ko-01-intro');
     await page.click('[data-testid="demo-tour-start"]');
     await page.waitForSelector('[data-testid="tour-card"][data-step="1"]');
     check((await page.locator('.origin-list.tour-target').count()) === 1, 'desktop: tour step 1 highlights the urgency list');
+    check((await focusInfo(page)).id === 'tour-card', 'desktop: tour step 1 takes the focus');
+    await page.keyboard.press('Tab');
+    check((await focusInfo(page, '[data-testid="tour-card"]')).inside, 'desktop: the next Tab stop is a button of the tour card');
     await shot(page, 'desktop-ko-02-tour-list');
-    const name = await pickCheckedOrigin(page);
+    // step 2 without picking: the tour picks the first origin with a checked route
+    await page.click('[data-testid="tour-next"]');
     await page.waitForSelector('[data-testid="tour-card"][data-step="2"]');
+    check((await focusInfo(page)).id === 'tour-card', 'desktop: tour step 2 takes the focus');
+    await page.waitForSelector('[data-testid="headline"]');
+    const picked = await selectedIsFirstChecked(page);
+    check(picked.ok, `desktop: step 2 selected the first village or facility with a checked route (${picked.selected}; the list starts with ${picked.topVerdict})`);
     const headline = await text(page, '[data-testid="headline"]');
-    check(/출발 마감 \d{2}:\d{2}/.test(headline), `desktop: ${name} shows its leave-by time "${headline.slice(0, 40)}"`);
+    check(/출발 마감 \d{2}:\d{2}/.test(headline), `desktop: step 2 shows a leave-by time "${headline.slice(0, 40)}"`);
+    const tour2 = await text(page, '[data-testid="tour-card"]');
+    check(!tour2.includes('그 이유가 표시됩니다'), 'desktop: tour step 2 text is neutral');
     for (const id of ['shelter-card', 'exposure', 'provenance', 'travel-only']) check((await page.locator(`[data-testid="${id}"]`).count()) > 0, `desktop: evidence block ${id} shown`);
     check(await page.locator('[data-testid="recompute"]').isDisabled(), 'desktop: "이 출발지 다시 계산" is disabled in the static demo');
     check((await page.locator('.panel-right [data-testid="static-note"] a').count()) === 1, 'desktop: static note links the local Route-Check API instructions');
     const apiStatus = await text(page, '[data-testid="api-status"]');
     check(apiStatus.includes('정적 데모'), `desktop: API status "${apiStatus}" (never "connected")`);
     await honesty(page, 'desktop ko', 'ko');
+    await forecastLayer(page, 'desktop ko', 'ko');
     await page.waitForTimeout(2500); // route + basemap tiles
     await shot(page, 'desktop-ko-03-leave-by');
     await page.click('[data-testid="tour-next"]');
     await page.waitForSelector('[data-testid="tour-card"][data-step="3"]');
+    check((await focusInfo(page)).id === 'tour-card', 'desktop: tour step 3 takes the focus');
     await page.click('[data-testid="tour-open-plansheet"]');
     await page.waitForSelector('[data-testid="plan-sheet-dialog"]');
     await page.waitForSelector('.wfgf-plansheet-root[data-wfg-current-ready="true"]', { timeout: 60000 });
     const sheet = await text(page, '.wfgf-sheet[data-current="true"]');
+    const name = picked.selected ? (await text(page, `[data-testid="${picked.selected}"] .name`)) : '';
     check(sheet.includes(name.split(' ')[0]) && sheet.includes('2025년 실제 산불 기록 기반 시나리오 재현'), 'desktop: A4 plan sheet of the selected origin with its fire-input label');
     check(sheet.includes('사전 계획 보조 도구입니다') || (await text(page, '.wfgf-plansheet__foot')).includes('사전 계획 보조 도구입니다'), 'desktop: plan sheet carries the planning-aid footer');
+    const marker = await text(page, '.wfgf-sheet[data-current="true"] [data-demo-label]');
+    check(marker === 'DEMO · 2025년 3월 기록 시나리오 재생 · 연구 프로토타입', `desktop: plan sheet DEMO marker "${marker}"`);
+    const place = await page.evaluate(() => {
+      const s = document.querySelector('.wfgf-sheet[data-current="true"]');
+      const m = s?.querySelector('[data-demo-label]')?.getBoundingClientRect();
+      const h = s?.querySelector('.wfgf-sheet__head')?.getBoundingClientRect();
+      const b = s?.getBoundingClientRect();
+      return m && h && b ? { inMargin: m.bottom <= h.top + 0.5 && m.top >= b.top, inside: m.right <= b.right } : null;
+    });
+    check(Boolean(place?.inMargin && place?.inside), `desktop: the DEMO marker sits in the A4 top margin, above the sheet header (${JSON.stringify(place)})`);
+    const sheetCount = await page.locator('.wfgf-sheet').count();
+    const markers = await page.locator('.wfgf-sheet [data-demo-label]').count();
+    check(sheetCount > 0 && markers === sheetCount, `desktop: every plan sheet carries the marker (${markers}/${sheetCount})`);
     await shot(page, 'desktop-ko-04-plan-sheet');
     await page.keyboard.press('Escape');
     await page.waitForSelector('[data-testid="plan-sheet-dialog"]', { state: 'detached' });
+    // the ribbon's Tour button reopens the introduction; Escape closes it wherever the focus is
+    await page.click('[data-testid="demo-tour-open"]');
+    await page.waitForSelector('[data-testid="demo-intro"]');
+    await page.click('[data-testid="demo-intro-body"]'); // a click on text: the focus leaves the buttons
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('[data-testid="demo-intro"]', { state: 'detached' });
+    check((await focusInfo(page)).id === 'demo-tour-open', 'desktop: Escape closes the introduction and the focus returns to the Tour button');
+    await page.keyboard.press('Enter');
+    await page.waitForSelector('[data-testid="demo-intro"]');
+    await page.keyboard.press('Enter'); // "3단계 둘러보기" has the focus
+    await page.waitForSelector('[data-testid="tour-card"][data-step="1"]');
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('[data-testid="tour-card"]', { state: 'detached' });
+    check((await focusInfo(page)).id === 'demo-tour-open', 'desktop: Escape ends the tour and the focus returns to the Tour button');
     // English
     await page.locator('.topbar-right .seg button[lang="en"]').click();
     const headlineEn = await text(page, '[data-testid="headline"]');
     check(/Leave by \d{2}:\d{2}/.test(headlineEn), `desktop: English leave-by headline "${headlineEn.slice(0, 30)}"`);
     await honesty(page, 'desktop en', 'en');
+    await forecastLayer(page, 'desktop en', 'en');
     await shot(page, 'desktop-en-05-leave-by');
     // a root-absolute public/data path works under the base (the generic loader for generated files)
     const probe = await page.evaluate(async (probeUrl) => {
@@ -270,7 +381,8 @@ try {
     await ready(page);
     const bannerDrawn = await text(page, '[data-testid="fire-banner"]');
     check(bannerDrawn.includes('사용자 입력 확산 구역 (가정)'), `desktop: drawn zones are labelled as an assumption (${bannerDrawn})`);
-    check((await page.locator('[data-testid="headline"]').count()) === 0 || /미확인/.test(await text(page, '[data-testid="headline"]')), 'desktop: the selected origin is 미확인 (not computed) under drawn zones');
+    const drawnHead = (await page.locator('[data-testid="headline"]').count()) ? await text(page, '[data-testid="headline"]') : '';
+    check(!drawnHead || (/미확인/.test(drawnHead) && !drawnHead.includes('API에 점검을 요청')), `desktop: under drawn zones the selected origin is 미확인 with the static-demo wording ("${drawnHead.slice(0, 80)}")`);
     await page.click('[data-testid="tab-zones"]');
     await page.waitForSelector('[data-testid="drawn-batch"]');
     check((await page.locator('[data-testid="drawn-batch"] [data-testid="static-note"]').count()) === 1, 'desktop: drawn-zone checks show the static-demo note');
@@ -281,6 +393,7 @@ try {
     await ready(page);
     const bannerDeep = await text(page, '[data-testid="fire-banner"]');
     check(bannerDeep.includes('2025-03-26 08:00 KST'), `desktop: deep link opens Yeongdeok 2025-03-26 08:00 KST (${bannerDeep})`);
+    await forecastLayer(page, 'desktop deep link', 'en');
     await ctx.close();
   }
 
@@ -294,6 +407,7 @@ try {
     check((await page.getAttribute('html', 'lang')) === 'en', 'first visit from an English browser opens in English');
     check((await text(page, '[data-testid="demo-intro-body"]')).includes('March 2025 Uiseong–Andong and Yeongdeok wildfires'), 'English intro names the recorded period and regions');
     await page.click('[data-testid="demo-intro-close"]');
+    check((await focusInfo(page)).id === 'demo-tour-open', 'closing the first-visit introduction puts the focus on the Tour button');
     await page.reload();
     await ready(page);
     check((await page.locator('[data-testid="demo-intro"]').count()) === 0, 'a dismissed introduction stays closed after a reload (localStorage)');
@@ -315,16 +429,37 @@ try {
     check((await page.locator('[data-testid="mobile-nav"]').isVisible()) && (await page.getAttribute('.app', 'data-mobile-pane')) === 'list', 'phone: list pane with the tab bar');
     await noHorizontalScroll(page, 'phone list');
     await honesty(page, 'phone ko', 'ko');
+    measured.ko = await heights(page);
+    check(measured.ko.chipOneLine && measured.ko.ribbon <= 38, `phone ko: the DEMO ribbon is one line (${measured.ko.ribbon} px)`);
+    check(measured.ko.topbar <= 96, `phone ko: top bar is one row of controls above the banner (${measured.ko.topbar} px)`);
     await shot(page, 'phone-375-ko-02-list');
-    const name = await pickCheckedOrigin(page, { tap: true });
+    // the tour on a phone: step 2 opens the details of the first origin with a checked route
+    await page.tap('[data-testid="demo-tour-open"]');
+    await page.tap('[data-testid="demo-tour-start"]');
+    await page.waitForSelector('[data-testid="tour-card"][data-step="1"]');
+    await page.tap('[data-testid="tour-next"]');
+    await page.waitForSelector('[data-testid="tour-card"][data-step="2"]');
+    await page.waitForFunction(() => document.querySelector('.app')?.getAttribute('data-mobile-pane') === 'detail');
+    const tourPick = await selectedIsFirstChecked(page);
+    check(tourPick.ok && /출발 마감 \d{2}:\d{2}/.test(await text(page, '[data-testid="headline"]')), `phone: tour step 2 shows the details of the first village or facility with a checked route (${tourPick.selected})`);
+    await page.tap('[data-testid="tour-skip"]');
+    await page.tap('[data-testid="mobile-tab-list"]');
+    const { name } = await pickCheckedOrigin(page, { tap: true });
     await page.waitForFunction(() => document.querySelector('.app')?.getAttribute('data-mobile-pane') === 'detail');
     const headline = await text(page, '[data-testid="headline"]');
     check(/출발 마감 \d{2}:\d{2}/.test(headline), `phone: ${name} → details with its leave-by time "${headline.slice(0, 30)}"`);
+    // the already selected village: a tap on its row opens the details again
+    await page.tap('[data-testid="mobile-tab-list"]');
+    await page.locator('.origin-list .origin-row[aria-selected="true"]').tap();
+    await page.waitForTimeout(200);
+    check((await page.getAttribute('.app', 'data-mobile-pane')) === 'detail', 'phone: tapping the already selected row opens its details again');
     await noHorizontalScroll(page, 'phone details');
     const rp = await page.locator('.panel-right').boundingBox();
     check(Boolean(rp) && rp.width <= 375 && rp.x >= 0, `phone: details pane fits the screen (${rp && Math.round(rp.width)} px)`);
     await shot(page, 'phone-375-ko-03-leave-by');
     await page.tap('[data-testid="mobile-tab-map"]');
+    await forecastLayer(page, 'phone ko', 'ko');
+    await page.locator('[data-testid="map-legend"] .lg-toggle').tap(); // close the legend again: the map is small
     await page.waitForTimeout(2500);
     await shot(page, 'phone-375-ko-04-map');
     await page.tap('[data-testid="open-plansheet"]');
@@ -333,6 +468,7 @@ try {
     check(Boolean(sheetBox) && sheetBox.width <= 375, `phone: plan sheet reflows to the screen (${sheetBox && Math.round(sheetBox.width)} px wide)`);
     const sheetText = await text(page, '.wfgf-sheet[data-current="true"]');
     check(sheetText.includes('2025년 실제 산불 기록 기반 시나리오 재현'), 'phone: plan sheet keeps its fire-input label');
+    check(sheetText.includes('DEMO · 2025년 3월 기록 시나리오 재생 · 연구 프로토타입'), 'phone: plan sheet carries the DEMO marker');
     await noHorizontalScroll(page, 'phone plan sheet');
     await shot(page, 'phone-375-ko-05-plan-sheet');
     await page.tap('.wfgf-plansheet__actions .wfgf-iconbtn');
@@ -342,6 +478,9 @@ try {
     const headlineEn = await text(page, '[data-testid="headline"]');
     check(/Leave by \d{2}:\d{2}/.test(headlineEn), `phone: English leave-by headline "${headlineEn.slice(0, 30)}"`);
     await honesty(page, 'phone en', 'en');
+    measured.en = await heights(page);
+    check(measured.en.chipOneLine && measured.en.ribbon <= 38, `phone en: the DEMO ribbon is one line (${measured.en.ribbon} px)`);
+    check(measured.en.topbar <= 96, `phone en: top bar is one row of controls above the banner (${measured.en.topbar} px)`);
     await noHorizontalScroll(page, 'phone details en');
     await shot(page, 'phone-375-en-06-leave-by');
     const csp = await page.evaluate(() => window.__cspViolations);
@@ -359,6 +498,8 @@ try {
   check(audited.length > 0 && offOrigin.length === 0, `all ${audited.length} requests stay under ${APP_PREFIX} (off-origin or outside the base: ${offOrigin.length}${offOrigin.length ? ` e.g. ${offOrigin[0].url}` : ''})`);
   const apiLike = audited.filter((r) => /127\.0\.0\.1:8765|localhost|\/api\//.test(r.url));
   check(apiLike.length === 0, `no request to the Route-Check API, 127.0.0.1:8765 or localhost (${apiLike.length})`);
+  const forecastFiles = new Set(audited.filter((r) => r.url.includes('/data/forecast/')).map((r) => r.url.split('/').pop()));
+  check(forecastFiles.size >= 2, `the forecast cells come from data/forecast/ (${[...forecastFiles].join(', ')})`);
   // the optional temporary_housing.geojson answers 404; the app reads the status and drops the body (ERR_ABORTED)
   const otherFailed = failedRequests.filter((r) => r.url !== CSP_PROBE && !OPTIONAL_404.test(r.url));
   check(otherFailed.length === 0, `no failed request ${JSON.stringify(otherFailed.slice(0, 3))}`);
@@ -377,14 +518,17 @@ try {
     byKind[kind] = (byKind[kind] ?? 0) + 1;
   }
   console.log(`[smoke] requests by folder: ${JSON.stringify(byKind)}`);
+  console.log(`[smoke] phone heights (px): ${JSON.stringify(measured)}`);
   if (opts.screenshots) {
     const report = {
       url: appUrl,
       base: opts.base,
+      server: serverKind,
       requests: audited.length,
       requests_by_folder: byKind,
       off_origin: offOrigin.length,
       csp_probe_refused: probeFailures.map((r) => r.error),
+      phone_heights_px: measured,
       checks_passed: notes.length,
       failures,
       screenshots: shots.map((s) => s.file),
@@ -397,7 +541,7 @@ try {
   console.error(e);
 } finally {
   await browser.close();
-  if (server) server.kill('SIGTERM');
+  await stopServer();
 }
 if (failures.length) {
   console.error(`[smoke] ${failures.length} failed:\n  ${failures.join('\n  ')}`);

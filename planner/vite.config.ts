@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { cpSync, createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
+import { cpSync, createReadStream, existsSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -64,6 +64,45 @@ function staticCsp(): Plugin {
 }
 
 /**
+ * Static builds: the demo lists only the regions that have recorded results in the cache
+ * (state/controller.ts regionsWithResults), so the basemaps of the other regions are not shipped —
+ * dist/basemap/<region>.pmtiles is removed for every region of public/data/regions/index.json
+ * without an entry in the cache's INDEX.json. Without readable indexes, or without any cached
+ * region (the app then lists every region), nothing is removed.
+ */
+export function unlistedBasemaps(regionIds: string[], cachedRegionIds: string[]): string[] {
+  const listed = new Set(cachedRegionIds.filter((id) => regionIds.includes(id)));
+  return listed.size ? regionIds.filter((id) => !listed.has(id)) : [];
+}
+
+function staticBasemaps(CACHE_DIR: string): Plugin {
+  let outDir = resolve(here, 'dist');
+  return {
+    name: 'wfg-static-basemaps',
+    apply: 'build',
+    configResolved(cfg) {
+      outDir = resolve(cfg.root, cfg.build.outDir);
+    },
+    closeBundle() {
+      if (process.env.VITEST) return;
+      let regionIds: string[];
+      let cached: string[];
+      try {
+        regionIds = (JSON.parse(readFileSync(resolve(here, 'public/data/regions/index.json'), 'utf8')) as { region_id: string }[]).map((r) => String(r.region_id));
+        cached = (JSON.parse(readFileSync(join(CACHE_DIR, 'INDEX.json'), 'utf8')) as { region_id?: string }[]).map((e) => String(e.region_id));
+      } catch {
+        this.warn('static build: region or cache index unreadable — every basemap is shipped');
+        return;
+      }
+      for (const id of unlistedBasemaps(regionIds, cached)) {
+        const file = join(outDir, 'basemap', `${id}.pmtiles`);
+        if (existsSync(file)) rmSync(file);
+      }
+    },
+  };
+}
+
+/**
  * Serves planner/cache/** (written by planner/scripts/precompute.py) at <base>cache/** in dev and
  * preview, and copies it into dist/cache on build. A missing folder is fine: the app then
  * reports "no precomputed cache" and computes through the API instead.
@@ -73,7 +112,7 @@ function staticCsp(): Plugin {
  * WFG_CACHE_DIR (relative to planner/ or absolute; environment or .env) points elsewhere, e.g.
  * planner/.test-cache for results computed on a non-evaluation host (ARCHITECTURE.md §6).
  */
-function plannerCache(CACHE_DIR: string, basePath: string): Plugin {
+function plannerCache(CACHE_DIR: string, basePath: string, { preview = true }: { preview?: boolean } = {}): Plugin {
   let outDir = resolve(here, 'dist');
   let isBuild = false;
   const middleware = (req: IncomingMessage, res: ServerResponse, next: () => void) => {
@@ -112,8 +151,9 @@ function plannerCache(CACHE_DIR: string, basePath: string): Plugin {
     configureServer(server) {
       server.middlewares.use(middleware);
     },
+    // static: `vite preview` serves dist/ only (dist/cache is the copy the build verified), like Pages
     configurePreviewServer(server) {
-      server.middlewares.use(middleware);
+      if (preview) server.middlewares.use(middleware);
     },
     closeBundle() {
       if (!isBuild) return;
@@ -169,7 +209,7 @@ export default defineConfig(({ mode }) => {
     base,
     // the static demo's public bundle never carries the optional VWorld key
     envPrefix: apiMode === 'static' ? ['VITE_'] : ['VITE_', 'VWORLD_'],
-    plugins: [react(), plannerCache(cacheDir, base), ...(apiMode === 'static' ? [staticCsp()] : [])],
+    plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
     build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },

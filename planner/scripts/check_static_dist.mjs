@@ -11,6 +11,8 @@
  *   - the forecast cells (dist/data/forecast, saved by scripts/save_forecasts.py): every file has
  *     the bytes and SHA-256 its INDEX.json records, matched the cached route checks when it was
  *     saved, and every cached scenario has one;
+ *   - basemaps: dist/basemap/<region>.pmtiles for every region the demo lists (regions with cached
+ *     results) and none for the regions it does not list;
  *   - no hidden working folders (cache/.state) or .env files are shipped.
  *
  * Usage: node scripts/check_static_dist.mjs [dist] [--base /wildfireguardian/] [--json report.json]
@@ -142,6 +144,22 @@ else {
   }
 }
 
+// basemaps: the listed regions (cached results) only
+const regionsPath = join(dist, 'data', 'regions', 'index.json');
+const regionIds = existsSync(regionsPath) ? JSON.parse(readFileSync(regionsPath, 'utf8')).map((r) => r.region_id) : [];
+const cachedRegions = new Set(cacheEntries.map((e) => e.region_id).filter((id) => regionIds.includes(id)));
+const basemaps = { listed: [], removed: [] };
+for (const id of regionIds) {
+  const shipped = existsSync(join(dist, 'basemap', `${id}.pmtiles`));
+  if (!cachedRegions.size || cachedRegions.has(id)) {
+    if (!shipped) fail(`basemap/${id}.pmtiles missing for a listed region`);
+    basemaps.listed.push(id);
+  } else {
+    if (shipped) fail(`basemap/${id}.pmtiles shipped although the demo does not list ${id}`);
+    basemaps.removed.push(id);
+  }
+}
+
 const report = {
   dist,
   files: files.length,
@@ -154,6 +172,7 @@ const report = {
   cache: cacheReport,
   cache_checks_total: cacheReport.reduce((n, c) => n + (c.checks ?? 0), 0),
   forecast: forecastReport,
+  basemaps,
   failures,
 };
 
@@ -162,10 +181,11 @@ console.log(`[check] by folder (MiB): ${JSON.stringify(report.by_folder_mb)}`);
 console.log(`[check] largest: ${report.largest.slice(0, 6).map((f) => `${f.path} ${f.mb} MiB`).join(' · ')}`);
 console.log(`[check] cache: ${cacheReport.length} files verified against INDEX.json sha256, ${report.cache_checks_total} recorded checks`);
 console.log(`[check] forecast: ${forecastReport.length} files verified against data/forecast/INDEX.json sha256 (${forecastReport.reduce((n, f) => n + (f.cells ?? 0), 0)} cells)`);
+console.log(`[check] basemaps: ${basemaps.listed.join(', ') || '—'} shipped; not listed, not shipped: ${basemaps.removed.join(', ') || '—'}`);
 console.log(`[check] CSP: ${csp ?? '—'}`);
 if (jsonOut) writeFileSync(jsonOut, JSON.stringify(report, null, 2));
 if (failures.length) {
   for (const f of failures) console.error(`[check] FAIL ${f}`);
   process.exit(1);
 }
-console.log('[check] OK — every file < 100 MiB, total < 1 GiB, CSP present, cache and forecast files identical to their INDEX.json');
+console.log('[check] OK — every file < 100 MiB, total < 1 GiB, CSP present, cache and forecast files identical to their INDEX.json, basemaps of the listed regions only');

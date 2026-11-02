@@ -14,6 +14,7 @@
     "build:static": "tsc -b && vite build --mode static && node scripts/check_static_dist.mjs dist",
     "preview": "vite preview",
     "preview:static": "vite preview --mode static",
+    "serve:static": "node scripts/serve_static.mjs",
     "test": "vitest run",
     "smoke:static": "node scripts/static_smoke.mjs",
     "mock": "python3 mock_api/server.py",
