@@ -23,8 +23,11 @@
 .wfgx-fallback { display: block; }
 
 /* plan sheet (A4): compact, one line per scenario row */
+/* tighter than the other sheet sections so the map section above keeps its legend inside (print-fit test) */
+.wfgx-sheet.wfgf-sheet__section { padding-top: 2.6mm; }
+.wfgx-sheet.wfgf-sheet__section h2 { margin-bottom: 1.2mm; }
 .wfgx-sheet__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.2mm; }
-.wfgx-sheet__row { display: flex; align-items: baseline; gap: 2mm; font-size: 7.6pt; line-height: 1.35; }
+.wfgx-sheet__row { display: flex; align-items: baseline; gap: 2mm; font-size: 7.2pt; line-height: 1.3; }
 .wfgx-sheet__row .wfgx-dots { flex: none; transform: translateY(0.4mm); }
 .wfgx-sheet__row .wfgx-dot { width: 2.2mm; height: 2.2mm; border-width: 0.25mm; }
 .wfgx-sheet__text { flex: 1 1 auto; }
