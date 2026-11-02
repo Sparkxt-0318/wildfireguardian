@@ -99,8 +99,8 @@ def main(argv: list[str] | None = None) -> int:
         if t["e2_bound"] is not None:
             bound_min[t["instance"]] = min(bound_min.get(t["instance"], math.inf), t["e2_bound"])
     trivial = {i: min(residents[i] - unserv.get(i, 0.0),
-                      min((row_config(r).get("diagnostics", {}).get("resource_bound") or math.inf)
-                          for r in e2 if r["instance"] == i)) for i in dev}
+                      min(((row_config(r).get("diagnostics", {}).get("resource_bound") or math.inf)
+                           for r in e2 if r["instance"] == i), default=math.inf)) for i in dev}
     every_m_row_bound = all(t["e2_bound"] is not None for t in table if t["size"] == "M")
     below = {i: (i in bound_min and bound_min[i] < trivial[i]) for i in TIGHT_M}
     worst_all = min(tot_all_e2.values()) if len(tot_all_e2) >= 5 else None
@@ -114,17 +114,32 @@ def main(argv: list[str] | None = None) -> int:
           f"{len({r['method'] for r in rows if not is_bound_only(r)})} methods on dev (any seed, budget, host)")
     for v in violations:
         print("  VIOLATION", v)
-    print("\n| instance (SYNTHETIC) | residents | trivial | E2 bound (min) | E2 delivered [seeds 0-4] | B2 delivered "
-          "(partner seeds) | E2 time to certified (s) |")
-    print("|---|---|---|---|---|---|---|")
+    e4 = {}
+    for r in rows:
+        if r["method"] == "e4_flow_bound" and r["best_bound"] not in (None, ""):
+            e4[r["instance"]] = min(e4.get(r["instance"], math.inf), float(r["best_bound"]))
+    best_plan = {i: max((int(r["delivered_checked"]) for r in rows if r["instance"] == i and not is_bound_only(r)),
+                        default=0) for i in dev}
+
+    def med(xs):
+        xs = [x for x in xs if x is not None]
+        return statistics.median(xs) if xs else float("nan")
+    print("\nPer instance and seed: E2 / its B2 partner of the same pair (B2 seed = E2 seed + 5); bounds: trivial "
+          "(residents of servable classes), E4 (bound only, smallest row), E2 (smallest; the same in every seed unless "
+          "noted); time to certified plan = runtime + certification, median over the seeds (s).\n")
+    print("| instance (SYNTHETIC) | residents | trivial | E4 bound | **E2 bound** | seed 0 | seed 1 | seed 2 | seed 3 | "
+          "seed 4 | best plan, any method | E2 t-cert | B2 t-cert |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for i in dev:
-        ts = [t for t in table if t["instance"] == i]
+        ts = sorted((t for t in table if t["instance"] == i), key=lambda t: t["seed"])
         if not ts:
             continue
-        print(f"| {i.replace('SYNTHETIC-', '')} | {residents[i]} | {trivial[i]:g} | "
-              f"{bound_min.get(i, float('nan')):g} | {', '.join(str(t['e2_delivered']) for t in ts)} | "
-              f"{', '.join(str(t['b2_delivered']) for t in ts)} | "
-              f"{statistics.median([t['e2_time_to_certified_s'] for t in ts if t['e2_time_to_certified_s'] is not None] or [float('nan')]):.1f} |")
+        bounds = sorted({t["e2_bound"] for t in ts})
+        btxt = f"**{bounds[0]:g}**" + ("" if len(bounds) == 1 else f" ({', '.join(f'{b:g}' for b in bounds)})")
+        cells = [f"{t['e2_delivered']} / {t['b2_delivered']}" for t in ts]
+        print(f"| {i.replace('SYNTHETIC-', '')} | {residents[i]} | {trivial[i]:g} | {e4.get(i, float('nan')):g} | {btxt} | "
+              + " | ".join(cells) + f" | {best_plan[i]} | {med(t['e2_time_to_certified_s'] for t in ts):.1f} | "
+              f"{med(t['b2_time_to_certified_s'] for t in ts):.1f} |")
     print(f"\nper-seed totals, all 10: E2 {dict(tot_all_e2)}  B2 partners {dict(tot_all_b2)}")
     print(f"per-seed totals, M (4): E2 {dict(tot_m_e2)}  B2 partners {dict(tot_m_b2)}")
     print(f"worst of 5, all: E2 {worst_all}; bar {BAR}")
@@ -133,11 +148,50 @@ def main(argv: list[str] | None = None) -> int:
     print(f"(b) bound in every M row: {every_m_row_bound}; below trivial on tight M: {below}: {cond_b}")
     print(f"decision: {decision}")
     if not args.no_write:
+        _figure(dev, table, trivial, e4, best_plan, HERE / "figures" / "bounds_and_plans_dev.png")
         with (HERE / "results.csv").open("w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(table[0]), lineterminator="\n")
             w.writeheader()
             w.writerows(table)
     return 1 if violations else 0
+
+
+def _figure(dev, table, trivial, e4, best_plan, path: Path) -> None:
+    """Per instance, as a share of the trivial bound: E2's and E4's bounds, the best plan of any method, E2's and B2's
+    plans (median over the seeds of the interleaved holds). SYNTHETIC."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    insts = [i for i in dev if any(t["instance"] == i for t in table)]
+    x = list(range(len(insts)))
+
+    def share(v, i):
+        return None if v is None or not math.isfinite(v) else v / trivial[i]
+    series = [
+        ("E2 bound (smallest)", [share(min(t["e2_bound"] for t in table if t["instance"] == i), i) for i in insts], "v", "C0"),
+        ("E4 bound", [share(e4.get(i), i) for i in insts], "^", "C1"),
+        ("best plan, any method", [share(best_plan[i], i) for i in insts], "*", "k"),
+        ("E2 plan (median)", [share(statistics.median(t["e2_delivered"] for t in table if t["instance"] == i), i)
+                              for i in insts], "o", "C0"),
+        ("B2 plan (median, partner seeds)", [share(statistics.median(t["b2_delivered"] for t in table
+                                                                     if t["instance"] == i and t["b2_delivered"] is not None), i)
+                                             for i in insts], "s", "C3"),
+    ]
+    fig, ax = plt.subplots(figsize=(9, 4.2), dpi=120)
+    for k, (label, ys, mk, col) in enumerate(series):
+        xs = [xi + (k - 2) * 0.08 for xi in x]
+        ax.plot([a for a, b in zip(xs, ys) if b is not None], [b for b in ys if b is not None], mk, color=col,
+                label=label, markersize=7 if mk != "*" else 10, markerfacecolor="none" if "plan (" in label else col)
+    ax.axhline(1.0, color="0.6", lw=0.8)
+    ax.set_xticks(x)
+    ax.set_xticklabels([i.replace("SYNTHETIC-", "") for i in insts], rotation=30, ha="right", fontsize=8)
+    ax.set_ylabel("residents / trivial bound")
+    ax.set_title("SYNTHETIC dev, 60 s: E2's proven bounds and plans (E2 vs B2 interleaved)", fontsize=10)
+    ax.legend(fontsize=7, loc="lower left", ncol=2)
+    fig.tight_layout()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path)
+    plt.close(fig)
 
 
 if __name__ == "__main__":

@@ -269,7 +269,107 @@ Time-box: about 5 h of work; bench: tests and the smoke (about 20 min) plus the 
 
 ## Results
 
-(Not yet run.)
+**Smoke** (dev, seed 0, one S and one M instance, into a scratch results directory: no dev row was written before the
+final run): `SYNTHETIC-S-geo-t25-s102` 37/39 in 53.6 s, `SYNTHETIC-M-grid-t75-s107` 131/168 with a proven bound of 156 in
+56.6 s, both within the budget and every trip checked. **No change was made after it** (no deviation): the final run
+used the same commit, `ceca7380`.
+
+**Final run** (DECISIONS 2026-11-02 item 5): B2 interleaved with E2 (ABAB, a speed probe before every pair) through
+`evacplan run --method e2_colgen --interleave-with b2_vrptw --set dev --budget-s 60 --repeats 5 --partner-seed-offset 5`,
+commit `ceca7380`, host `vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3, vm boot 4169abd4)`:
+hold `20261102T153902Z-e2_colgen-x-b2_vrptw-o5` (the 8 S and M instances, 40 pairs, 15:39-16:44 UTC) and hold
+`20261102T164918Z-e2_colgen-x-b2_vrptw-o5` (the 2 L instances, 10 pairs, 16:49-17:18 UTC). Rows:
+`evacplan/results/e2_colgen.csv` (+ `.facilities.csv`), B2's partner rows (seeds 5-9) in `b2_vrptw.csv`, the speed checks in
+`results/speed/speed_check.csv`; the table below and `results.csv` come from `analyze.py` (rows only). Every row is within
+the budget (leaderboard: 0 over budget), and every E2 and B2 trip in both holds is `checked` (0 unresolved, 0
+model_no_route).
+
+Per instance and seed, E2 / its B2 partner of the same pair (B2 seed = E2 seed + 5); bounds: trivial (residents of
+servable classes), E4 (bound only, previous host's rows), **E2** (smallest; the same in every seed); time to certified
+plan = runtime + the harness's certification, median over the seeds (s); SYNTHETIC:
+
+| instance (SYNTHETIC) | residents | trivial | E4 bound | **E2 bound** | seed 0 | seed 1 | seed 2 | seed 3 | seed 4 | best plan, any method | E2 t-cert | B2 t-cert |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| S-grid-t25-s101 | 23 | 23 | 23 | **23** | 23 / 23 | 23 / 23 | 23 / 23 | 23 / 23 | 23 / 23 | 23 | 5.1 | 59.0 |
+| S-geo-t25-s102 | 39 | 39 | 39 | **39** | 37 / 36 | 37 / 36 | 37 / 36 | 37 / 36 | 37 / 36 | 37 | 56.9 | 61.3 |
+| S-grid-t75-s103 | 27 | 26 | 25 | **25** | 23 / 23 | 23 / 23 | 23 / 23 | 23 / 23 | 23 / 23 | 23 | 52.1 | 58.9 |
+| S-geo-t75-s104 | 26 | 26 | 26 | **26** | 26 / 26 | 26 / 26 | 26 / 26 | 26 / 26 | 26 / 26 | 26 | 4.0 | 58.6 |
+| M-grid-t25-s105 | 163 | 163 | 163 | **163** | 163 / 163 | 163 / 163 | 163 / 163 | 163 / 163 | 163 / 163 | 163 | 23.0 | 61.9 |
+| M-geo-t25-s106 | 155 | 155 | 155 | **155** | 155 / 155 | 155 / 155 | 155 / 155 | 155 / 155 | 155 / 155 | 155 | 18.2 | 61.8 |
+| M-grid-t75-s107 | 168 | 168 | 160 | **156** | 131 / 140 | 131 / 140 | 131 / 140 | 134 / 140 | 138 / 140 | 150 | 60.4 | 62.7 |
+| M-geo-t75-s108 | 149 | 149 | 144 | **143** | 124 / 139 | 124 / 139 | 123 / 139 | 124 / 139 | 124 / 139 | 139 | 62.1 | 63.3 |
+| L-grid-t50-s109 | 646 | 646 | 646 | **646** | 446 / 516 | 446 / 516 | 421 / 516 | 421 / 516 | 455 / 516 | 516 | 81.6 | 88.6 |
+| L-geo-t50-s110 | 579 | 579 | 579 | **579** | 483 / 528 | 483 / 528 | 483 / 528 | 483 / 528 | 483 / 528 | 528 | 81.0 | 83.0 |
+
+**Totals** per seed 0-4 (E2 / its B2 partners): all 10 instances E2 1611, 1611, 1585, 1589, 1627 / B2 1749 in every seed;
+the 4 M instances E2 573, 573, 572, 576, 580 / B2 597; the 4 S instances E2 109 / B2 108 in every seed. Leaderboard
+(this host): E2 1611 [1585–1627], verdict **no (worst 1585 ≤ bar 1751)**; mean time to certified plan E2 44.8 s, B2 65.8 s.
+
+![SYNTHETIC: E2's proven bounds and plans per dev instance, as a share of the trivial bound](figures/bounds_and_plans_dev.png)
+
+**Bounds (what works).** E2 proves, inside the 60 s budget, the tightest bounds known on both tight M instances: **156**
+on `M-grid-t75-s107` (E4 160, trivial 168; the column generation converged in 10-14 rounds, 12-18 s, Lagrangian value
+156.89-156.95) and **143** on `M-geo-t75-s108` (E4 144, trivial 149; 16-19 rounds, not yet converged when its 34 s share
+ran out, Lagrangian value 143.52-143.67), in every seed, against E4's 165-200 s per M instance. Against the best plan of any
+method, the certified gap is 3.8 % on s107 (150, E1's) and 2.8 % on s108 (139), against E4's 6.25 % and 3.5 %: E2 closes
+67 % and 60 % of the trivial gap (E4: 44 % and 50 %). On `S-grid-t75-s103` it proves 25, as E4. On L it claims only the
+resource bound: the column generation gets 0-5 rounds there (a round takes 5-9 s; the round guard of amendment 2 stopped it
+after round 0 in three of the five L-grid seeds), and its Lagrangian values (715-876) stay above the resource bounds (646,
+579). Where a plan reaches the bound (S-s101, S-s104, M-s105, M-s106) E2
+proves it optimal and stops: certified plans in 4-23 s, against B2's ~60 s.
+
+**Validity check** (the core): **0 violations** over the 50 E2 rows against 370 plan rows of 7 methods on dev (any seed,
+budget or host, `analyze.py`): every E2 bound is at least every delivered value. Tests (`tests/test_e2_colgen.py`, 35
+passed under the bench lock at `ceca7380`): bound >= the brute-force optimum on B3's tiny instance and 10 off-grid variants;
+bound >= every oracle-checked plan (random plans, B0, B1, B3 every third seed, E2's own) on 12 random small instances; the
+Lagrangian value covers the optimum for random nonnegative prices; the RESTRICTED optimum never exceeds the RELAXED one and
+every path read off the table carries its table value; E2's plans pass the validator and the oracle; the budget (an M
+instance at 20 s); the same seed gives the same plan when no phase runs into the time limit; only the resource bound on an
+incomplete lattice; the worker's dual signs, errors and kill path; no `highspy` in the parent process.
+
+**Plans (what does not).** E2 matches or beats B2 on S (S-geo-t25-s102: 37 against 36 in every seed, the best plan
+known) and matches it on the loose M instances (163, 155, proven optimal), but falls short on the tight M instances (131-138
+against 140; 123-124 against 139) and on L (421-455 against 516; 483 against 528). The integer side (realized columns, the
+set-packing MIP, residual single-vehicle re-optimization, LNS) cannot match B2's routing search where vehicles must
+interleave many facilities near their deadlines: on M-s107 the best of its starts is the DP construction (131; B1 100), LNS
+adds 0-7; on M-s108 the starts give 101 (B1) and 86, LNS reaches 123-124. On L each single-vehicle DP takes 0.26-0.41 s,
+so 0-2 LNS iterations fit (starts: B1 335 and 395, the DP construction 380 and 334); on L-grid the two seeds whose column
+generation ran 2 rounds instead of stopping at round 0 planned 421 against 446-455. Secondary: at the provisional 30-min default margin E2 delivers more than B2 (1350
+[1330–1356] against 1284 [1284–1285]; more on S-s102, M-s105, M-s108 and L-s110, fewer on M-s107 and L-s109): its
+re-optimization prefers earlier, shorter itineraries.
+
+**Speed check.** The speed probes spread 114-115 % within each hold (0.09-0.25 s; flagged by the leaderboard), so the
+machine's speed varied during the holds; ABAB alternation exposes both methods to the same conditions, and B2's 5 partner
+seeds gave identical totals.
+
+**Bench time** (all under the lock): profiling and three debugging/test runs on generated instances (about 25 min), the smoke
+(2.5 min), the holds (65 + 28.5 min), the leaderboard: about 2 h, of which 1.5 h in the final holds (the approved 1.5 h
+predates B2's interleaving). Work time: about 5 h.
+
+### Decision: **ITERATE**
+
+By the pre-registered rule: not KEEP (worst of 5 = 1585, not above the bar 1751; leaderboard verdict "no"). (a) fails: E2's
+worst-of-5 M total 572 < B2's 597 in the same hold. (b) holds: every one of the 20 E2 rows on M carries a valid bound, and
+it is strictly below the trivial bound on both tight M instances (156 < 168, 143 < 149), in every seed. Hence **ITERATE**.
+
+### Next step
+
+1. **Use E2 as the certificate, not the planner.** Its bound is the best proven on M within 60 s and needs no plan; paired
+   with the best planner it turns plans into certified gaps (s107: E1's 150 against 156; s108: B2's 139 against 143). Any
+   planner's itineraries can enter E2's master as columns (the bound is unaffected), so the MIP and LNS would start from the
+   best plan instead of B1's.
+2. **Tighten the bound further:** M-s108's column generation had not converged at 34 s (its LP value can only be lower than
+   143.5); give the bound-only use a larger budget, and add the remaining E4-style strengthenings as master rows.
+3. **Plan side, if pursued:** per-facility resident counters in the RESTRICTED DP (limited-memory labels, as ng-routes) so
+   that columns stop over-boarding at the source; branch-and-price diving on the realized columns; a faster DP on L (the
+   numpy block loop is the bottleneck, 0.26-0.41 s per single-vehicle table there).
+
+### Questions for Siyeong
+
+1. Should E2 continue as the bound/certificate provider for the best planner (next step 1) rather than as a standalone
+   planner?
+2. At the provisional 30-min margin E2 delivers more than B2 (1350 against 1284) while delivering fewer in total: should
+   the margin-weighted count enter the verdict once the margin is final?
 
 ## References
 
