@@ -1,0 +1,62 @@
+# E1b: E1's ALNS with incremental certification, the approved second iteration of E1 (Siyeong, program/DECISIONS.md
+# 2026-11-02, items 1-2). Committed before any E1b dev run. Every ALNS and oracle value below is E1's, unchanged and
+# untuned (evacplan/experiments/E1-alns/config.yaml); e1b_alns runs E1's DEFAULTS and records them in every row.
+experiment: E1b-incremental-cert
+method: e1b_alns                 # evacplan/src/evacplan/methods/e1b_alns.py (subclass of e1_alns; E1's code unchanged)
+label: SYNTHETIC
+set: dev                         # dev only; the test set and the KR-2025 data are never opened (rule 5)
+budget_s: 60                     # wall clock per instance and seed: setup, B1 warm start, search, in-loop oracle checks
+repeats: 5                       # seeds 0-4
+threads: 1
+host: "this VM session (vm boot 4169abd4); B2 interleaved in the same lock holds"
+baseline: b2_vrptw               # interleaved ABAB, a speed check before every pair (harness aa0aeddd)
+holds:                           # each under the 2 h job limit; B2 seed s pairs with E1b seed s in both holds
+  S_M: >-
+    .venv/bin/python /home/user/wildfireguardian/program/benchlock.py --wait-max 1200 --label E1b-final-SM --
+    .venv/bin/evacplan run --method e1b_alns --interleave-with b2_vrptw --partner-seed-offset 0 --set dev --budget-s 60
+    --repeats 5 --instances SYNTHETIC-S-grid-t25-s101 SYNTHETIC-S-geo-t25-s102 SYNTHETIC-S-grid-t75-s103
+    SYNTHETIC-S-geo-t75-s104 SYNTHETIC-M-grid-t25-s105 SYNTHETIC-M-geo-t25-s106 SYNTHETIC-M-grid-t75-s107
+    SYNTHETIC-M-geo-t75-s108
+  L: >-
+    .venv/bin/python /home/user/wildfireguardian/program/benchlock.py --wait-max 1800 --label E1b-final-L --
+    .venv/bin/evacplan run --method e1b_alns --interleave-with b2_vrptw --partner-seed-offset 0 --set dev --budget-s 60
+    --repeats 5 --instances SYNTHETIC-L-grid-t50-s109 SYNTHETIC-L-geo-t50-s110
+smoke: "SYNTHETIC-S-grid-t25-s101 and SYNTHETIC-L-grid-t50-s109, seed 0, 60 s, rows into a scratch results directory"
+change:                          # the only difference from E1
+  in_loop_oracle: "only itineraries the search changed: an itinerary equal to its vehicle's warm-start itinerary (same trips) is never sent to the oracle inside the budget; wherever E1 would check it, E1b uses its relaxed values (decoded residents, relaxed slack, no cut)"
+  changed_itineraries: "E1's unchanged path: RelaxedContactCheck, then Oracle.check_itinerary, cached per (vehicle, trips), E1's per-check time guard; trips the oracle does not check (dose) are cut with the rest of the itinerary"
+  estimate: "the certification estimate (time kept free before an iteration, repair's stop) counts only changed itineraries not in the cache"
+  final_certification: "the harness's, by a fresh oracle after the timed solve, outside the budget (certify_s), as for every method"
+alns:                            # E1's, unchanged (Ropke & Pisinger 2006; see E1's config.yaml for the sources)
+  segment: 100
+  reaction: 0.1
+  scores: [33, 9, 13]
+  remove_min: 0.1
+  remove_max: 0.4
+  p_shaw: 6
+  p_worst: 3
+  shaw_weights: [9, 3, 2, 5]
+  noise: 0.025
+  start_worse: 0.05
+  cooling: 0.99975
+  cooling_iterations: 25000
+  regret_k: [2, 3]
+  destroy: [random, worst_slack, related, trips, vehicles]
+  initial_weights: 1
+model:                           # E1's, unchanged
+  max_stops: 3
+  warm_start: "B1 (b1_greedy, vehicle_rule per_resident) run inside the budget on the same Reach"
+  dose: "left entirely to the oracle for every changed itinerary: no dose weights, penalties or thresholds"
+oracle:                          # E1's, unchanged
+  reserve_s: null                # 0.5 s + 3 % of the budget
+  oracle_safety: 1.5
+  oracle_s_per_leg0: 0.01        # E1b: also the estimate until its first changed itinerary is checked
+  max_iterations: null
+metric:
+  primary: "residents delivered (checked in all K members) summed over the 10 dev instances, per seed: median [min-max], worst of 5"
+  secondary: "time to certified plan = runtime_s + certify_s (DECISIONS 2026-11-02 item 2)"
+bar: "the leaderboard's (compare_to_b2): max(B2 best observed, best-of-baselines total) with the recorded observations 1750 and 1751: at least 1751"
+decision:
+  keep: "the leaderboard verdict is 'beats B2' (worst of 5 above the bar, which is at least 1751)"
+  kill: "worst of 5 below 1751"
+  iterate: "otherwise"

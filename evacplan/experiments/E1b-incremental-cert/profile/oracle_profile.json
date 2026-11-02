@@ -1,0 +1,580 @@
+{
+ "label": "SYNTHETIC",
+ "commit": "22f6b594cd8f56924fd127bea3e4e8a8e8a27390",
+ "host": "vm (Linux x86_64, Intel(R) Xeon(R) Processor @ 2.80GHz, 4 cpu, python 3.12.3, vm boot 4169abd4)",
+ "python": "3.12.3",
+ "started_utc": "2026-11-02T12:49:45Z",
+ "instances": [
+  {
+   "instance": "SYNTHETIC-L-grid-t50-s109",
+   "label": "SYNTHETIC",
+   "K": 8,
+   "vehicles": 10,
+   "residents": 646,
+   "scenario_index_s": 0.001,
+   "b1_solve_s": 7.269,
+   "delivered": 335,
+   "unresolved": 0,
+   "model_no_route": 0,
+   "legs": 1772,
+   "legs_by_kind": {
+    "board": 53,
+    "drive": 1666,
+    "unload": 53
+   },
+   "trips": 53,
+   "cold_check_s": 29.999,
+   "cold_ms_per_leg": 16.929,
+   "unique_hazard_queries": 1772,
+   "warm_recheck_s": 3.122,
+   "warm_ms_per_leg": 1.762,
+   "profiled_check_s": 40.304,
+   "profile_parts": [
+    {
+     "part": "Oracle.check_plan (total)",
+     "cum_s": 40.291,
+     "share": 1.0,
+     "calls": 1
+    },
+    {
+     "part": "validator (validate_solution: simulate, shared capacities)",
+     "cum_s": 0.008,
+     "share": 0.0002,
+     "calls": 1
+    },
+    {
+     "part": "Oracle._evaluate (all legs of all vehicles)",
+     "cum_s": 40.282,
+     "share": 0.9998,
+     "calls": 10
+    },
+    {
+     "part": "  hazard_contract queries (Oracle._hazard)",
+     "cum_s": 35.782,
+     "share": 0.8881,
+     "calls": 1772
+    },
+    {
+     "part": "    ScenarioSet.query_uniform (drive legs)",
+     "cum_s": 35.456,
+     "share": 0.88,
+     "calls": 1666
+    },
+    {
+     "part": "      uniform_pieces (cut at grid lines)",
+     "cum_s": 0.644,
+     "share": 0.016,
+     "calls": 3332
+    },
+    {
+     "part": "      _point_burning (contact under uniform motion)",
+     "cum_s": 3.278,
+     "share": 0.0814,
+     "calls": 12904
+    },
+    {
+     "part": "    ScenarioSet.query (every piece twice, and stays)",
+     "cum_s": 31.426,
+     "share": 0.78,
+     "calls": 11344
+    },
+    {
+     "part": "      _member_result (per member: flux and dose bounds)",
+     "cum_s": 19.387,
+     "share": 0.4812,
+     "calls": 90752
+    },
+    {
+     "part": "      polyline_rect_dmin (near-box distances)",
+     "cum_s": 2.08,
+     "share": 0.0516,
+     "calls": 11344
+    },
+    {
+     "part": "      solid_angle_rects (exact kernels at probes)",
+     "cum_s": 0.579,
+     "share": 0.0144,
+     "calls": 11344
+    },
+    {
+     "part": "geometry: polyline_cells (all callers)",
+     "cum_s": 9.939,
+     "share": 0.2467,
+     "calls": 38924
+    },
+    {
+     "part": "  Oracle._classify (states from the member results)",
+     "cum_s": 0.023,
+     "share": 0.0006,
+     "calls": 1772
+    },
+    {
+     "part": "  Oracle.leg_slack (exact slack of checked legs)",
+     "cum_s": 4.047,
+     "share": 0.1004,
+     "calls": 1772
+    },
+    {
+     "part": "    contact_records",
+     "cum_s": 3.93,
+     "share": 0.0975,
+     "calls": 1772
+    },
+    {
+     "part": "pydantic BaseModel.__init__ (result objects, all callers)",
+     "cum_s": 0.264,
+     "share": 0.0066,
+     "calls": 16370
+    },
+    {
+     "part": "SegmentHazard dataclass (all callers)",
+     "cum_s": 0.0,
+     "share": 0.0,
+     "calls": 0
+    }
+   ],
+   "polyline_cells_by_caller_s": {
+    "scenario.py:query": 3.854,
+    "scenario.py:_point_burning": 2.809,
+    "oracle.py:_point_cells": 2.696,
+    "oracle.py:contact_records": 0.579
+   },
+   "pydantic_init_by_caller_s": {
+    "oracle.py:_evaluate": 0.264,
+    "schema.py:of": 0.001,
+    "oracle.py:check_plan": 0.0
+   },
+   "e1_check_path": {
+    "vehicles": [
+     {
+      "vehicle": "V01",
+      "trips": 4,
+      "decoded_legs": 141,
+      "oracle_legs": 141,
+      "emit_s": 0.001,
+      "relaxed_s": 0.216,
+      "oracle_s": 2.234,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V02",
+      "trips": 6,
+      "decoded_legs": 200,
+      "oracle_legs": 200,
+      "emit_s": 0.0,
+      "relaxed_s": 0.249,
+      "oracle_s": 3.117,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V03",
+      "trips": 5,
+      "decoded_legs": 197,
+      "oracle_legs": 197,
+      "emit_s": 0.0,
+      "relaxed_s": 0.343,
+      "oracle_s": 3.05,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V04",
+      "trips": 7,
+      "decoded_legs": 195,
+      "oracle_legs": 195,
+      "emit_s": 0.001,
+      "relaxed_s": 0.272,
+      "oracle_s": 3.204,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V05",
+      "trips": 5,
+      "decoded_legs": 190,
+      "oracle_legs": 190,
+      "emit_s": 0.001,
+      "relaxed_s": 0.252,
+      "oracle_s": 2.798,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V06",
+      "trips": 5,
+      "decoded_legs": 179,
+      "oracle_legs": 179,
+      "emit_s": 0.0,
+      "relaxed_s": 0.341,
+      "oracle_s": 3.484,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V07",
+      "trips": 5,
+      "decoded_legs": 138,
+      "oracle_legs": 138,
+      "emit_s": 0.0,
+      "relaxed_s": 0.206,
+      "oracle_s": 2.174,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V08",
+      "trips": 5,
+      "decoded_legs": 192,
+      "oracle_legs": 192,
+      "emit_s": 0.0,
+      "relaxed_s": 0.281,
+      "oracle_s": 2.991,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V09",
+      "trips": 6,
+      "decoded_legs": 177,
+      "oracle_legs": 177,
+      "emit_s": 0.001,
+      "relaxed_s": 0.244,
+      "oracle_s": 2.824,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V10",
+      "trips": 5,
+      "decoded_legs": 163,
+      "oracle_legs": 163,
+      "emit_s": 0.0,
+      "relaxed_s": 0.208,
+      "oracle_s": 2.979,
+      "relaxed_blocked": false
+     }
+    ],
+    "totals": {
+     "emit_s": 0.004,
+     "relaxed_s": 2.612,
+     "oracle_s": 28.855
+    },
+    "decoded_legs": 1772,
+    "oracle_legs": 1772,
+    "s_per_decoded_leg": 0.01776,
+    "itineraries_equal_b1": true
+   },
+   "k_scaling": {
+    "runs": [
+     {
+      "K": 1,
+      "check_s": 16.032,
+      "ms_per_leg": 9.048,
+      "delivered": 335
+     },
+     {
+      "K": 2,
+      "check_s": 18.862,
+      "ms_per_leg": 10.645,
+      "delivered": 335
+     },
+     {
+      "K": 4,
+      "check_s": 24.116,
+      "ms_per_leg": 13.61,
+      "delivered": 335
+     },
+     {
+      "K": 8,
+      "check_s": 33.213,
+      "ms_per_leg": 18.743,
+      "delivered": 335
+     }
+    ],
+    "fit_ms_per_leg": {
+     "intercept": 7.853,
+     "per_member": 1.376
+    }
+   }
+  },
+  {
+   "instance": "SYNTHETIC-L-geo-t50-s110",
+   "label": "SYNTHETIC",
+   "K": 8,
+   "vehicles": 10,
+   "residents": 579,
+   "scenario_index_s": 0.0,
+   "b1_solve_s": 9.407,
+   "delivered": 395,
+   "unresolved": 0,
+   "model_no_route": 0,
+   "legs": 1658,
+   "legs_by_kind": {
+    "board": 61,
+    "drive": 1536,
+    "unload": 61
+   },
+   "trips": 61,
+   "cold_check_s": 31.251,
+   "cold_ms_per_leg": 18.849,
+   "unique_hazard_queries": 1658,
+   "warm_recheck_s": 3.221,
+   "warm_ms_per_leg": 1.943,
+   "profiled_check_s": 41.495,
+   "profile_parts": [
+    {
+     "part": "Oracle.check_plan (total)",
+     "cum_s": 41.485,
+     "share": 1.0,
+     "calls": 1
+    },
+    {
+     "part": "validator (validate_solution: simulate, shared capacities)",
+     "cum_s": 0.011,
+     "share": 0.0003,
+     "calls": 1
+    },
+    {
+     "part": "Oracle._evaluate (all legs of all vehicles)",
+     "cum_s": 41.473,
+     "share": 0.9997,
+     "calls": 10
+    },
+    {
+     "part": "  hazard_contract queries (Oracle._hazard)",
+     "cum_s": 37.029,
+     "share": 0.8926,
+     "calls": 1658
+    },
+    {
+     "part": "    ScenarioSet.query_uniform (drive legs)",
+     "cum_s": 36.606,
+     "share": 0.8824,
+     "calls": 1536
+    },
+    {
+     "part": "      uniform_pieces (cut at grid lines)",
+     "cum_s": 0.63,
+     "share": 0.0152,
+     "calls": 3072
+    },
+    {
+     "part": "      _point_burning (contact under uniform motion)",
+     "cum_s": 3.322,
+     "share": 0.0801,
+     "calls": 12146
+    },
+    {
+     "part": "    ScenarioSet.query (every piece twice, and stays)",
+     "cum_s": 32.614,
+     "share": 0.7862,
+     "calls": 10732
+    },
+    {
+     "part": "      _member_result (per member: flux and dose bounds)",
+     "cum_s": 20.095,
+     "share": 0.4844,
+     "calls": 85856
+    },
+    {
+     "part": "      polyline_rect_dmin (near-box distances)",
+     "cum_s": 2.147,
+     "share": 0.0518,
+     "calls": 10732
+    },
+    {
+     "part": "      solid_angle_rects (exact kernels at probes)",
+     "cum_s": 0.606,
+     "share": 0.0146,
+     "calls": 10732
+    },
+    {
+     "part": "geometry: polyline_cells (all callers)",
+     "cum_s": 10.184,
+     "share": 0.2455,
+     "calls": 36682
+    },
+    {
+     "part": "  Oracle._classify (states from the member results)",
+     "cum_s": 0.026,
+     "share": 0.0006,
+     "calls": 1658
+    },
+    {
+     "part": "  Oracle.leg_slack (exact slack of checked legs)",
+     "cum_s": 4.111,
+     "share": 0.0991,
+     "calls": 1658
+    },
+    {
+     "part": "    contact_records",
+     "cum_s": 3.986,
+     "share": 0.0961,
+     "calls": 1658
+    },
+    {
+     "part": "pydantic BaseModel.__init__ (result objects, all callers)",
+     "cum_s": 0.137,
+     "share": 0.0033,
+     "calls": 15399
+    },
+    {
+     "part": "SegmentHazard dataclass (all callers)",
+     "cum_s": 0.0,
+     "share": 0.0,
+     "calls": 0
+    }
+   ],
+   "polyline_cells_by_caller_s": {
+    "scenario.py:query": 4.022,
+    "scenario.py:_point_burning": 2.836,
+    "oracle.py:_point_cells": 2.736,
+    "oracle.py:contact_records": 0.59
+   },
+   "pydantic_init_by_caller_s": {
+    "oracle.py:_evaluate": 0.135,
+    "schema.py:of": 0.003,
+    "oracle.py:check_plan": 0.0
+   },
+   "e1_check_path": {
+    "vehicles": [
+     {
+      "vehicle": "V01",
+      "trips": 4,
+      "decoded_legs": 119,
+      "oracle_legs": 119,
+      "emit_s": 0.0,
+      "relaxed_s": 0.158,
+      "oracle_s": 1.901,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V02",
+      "trips": 7,
+      "decoded_legs": 189,
+      "oracle_legs": 189,
+      "emit_s": 0.001,
+      "relaxed_s": 0.315,
+      "oracle_s": 3.442,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V03",
+      "trips": 7,
+      "decoded_legs": 187,
+      "oracle_legs": 187,
+      "emit_s": 0.0,
+      "relaxed_s": 0.289,
+      "oracle_s": 3.228,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V04",
+      "trips": 6,
+      "decoded_legs": 163,
+      "oracle_legs": 163,
+      "emit_s": 0.001,
+      "relaxed_s": 0.258,
+      "oracle_s": 2.711,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V05",
+      "trips": 6,
+      "decoded_legs": 188,
+      "oracle_legs": 188,
+      "emit_s": 0.001,
+      "relaxed_s": 0.276,
+      "oracle_s": 3.432,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V06",
+      "trips": 7,
+      "decoded_legs": 189,
+      "oracle_legs": 189,
+      "emit_s": 0.001,
+      "relaxed_s": 0.273,
+      "oracle_s": 3.757,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V07",
+      "trips": 5,
+      "decoded_legs": 117,
+      "oracle_legs": 117,
+      "emit_s": 0.0,
+      "relaxed_s": 0.171,
+      "oracle_s": 2.435,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V08",
+      "trips": 6,
+      "decoded_legs": 194,
+      "oracle_legs": 194,
+      "emit_s": 0.001,
+      "relaxed_s": 0.284,
+      "oracle_s": 3.944,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V09",
+      "trips": 6,
+      "decoded_legs": 135,
+      "oracle_legs": 135,
+      "emit_s": 0.0,
+      "relaxed_s": 0.263,
+      "oracle_s": 2.265,
+      "relaxed_blocked": false
+     },
+     {
+      "vehicle": "V10",
+      "trips": 7,
+      "decoded_legs": 177,
+      "oracle_legs": 177,
+      "emit_s": 0.001,
+      "relaxed_s": 0.382,
+      "oracle_s": 3.529,
+      "relaxed_blocked": false
+     }
+    ],
+    "totals": {
+     "emit_s": 0.006,
+     "relaxed_s": 2.669,
+     "oracle_s": 30.644
+    },
+    "decoded_legs": 1658,
+    "oracle_legs": 1658,
+    "s_per_decoded_leg": 0.0201,
+    "itineraries_equal_b1": true
+   },
+   "k_scaling": {
+    "runs": [
+     {
+      "K": 1,
+      "check_s": 17.917,
+      "ms_per_leg": 10.806,
+      "delivered": 395
+     },
+     {
+      "K": 2,
+      "check_s": 18.011,
+      "ms_per_leg": 10.863,
+      "delivered": 395
+     },
+     {
+      "K": 4,
+      "check_s": 23.582,
+      "ms_per_leg": 14.223,
+      "delivered": 395
+     },
+     {
+      "K": 8,
+      "check_s": 29.682,
+      "ms_per_leg": 17.902,
+      "delivered": 395
+     }
+    ],
+    "fit_ms_per_leg": {
+     "intercept": 9.416,
+     "per_member": 1.075
+    }
+   }
+  }
+ ],
+ "finished_utc": "2026-11-02T12:56:55Z"
+}
