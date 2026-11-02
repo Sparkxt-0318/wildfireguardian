@@ -1,20 +1,35 @@
 {
   "url": "http://127.0.0.1:4179/wildfireguardian/",
   "base": "/wildfireguardian/",
-  "requests": 149,
+  "server": "dist only, like GitHub Pages (scripts/serve_static.mjs)",
+  "requests": 150,
   "requests_by_folder": {
     "index.html": 5,
     "assets": 25,
     "blob": 11,
-    "data": 17,
+    "data": 22,
     "cache": 10,
-    "basemap": 81
+    "basemap": 77
   },
   "off_origin": 0,
   "csp_probe_refused": [
     "csp"
   ],
-  "checks_passed": 85,
+  "phone_heights_px": {
+    "ko": {
+      "topbar": 86,
+      "ribbon": 37,
+      "chip": 22,
+      "chipOneLine": true
+    },
+    "en": {
+      "topbar": 86,
+      "ribbon": 37,
+      "chip": 22,
+      "chipOneLine": true
+    }
+  },
+  "checks_passed": 119,
   "failures": [],
   "screenshots": [
     "docs/screenshots/solve-demo/desktop-ko-01-intro.png",
