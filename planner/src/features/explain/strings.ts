@@ -120,12 +120,12 @@ export const EXPLAIN = {
     en: '{k} other shelters, which a fire-free road would still reach in time, cannot be reached on any road that avoids the flames in the fire scenarios.',
   },
   mixedAlsoOutOne: {
-    ko: '다른 대피소 {k}곳도 화재가 없어도 제때 갈 수 없습니다.',
-    en: 'One more shelter cannot be reached in time even without fire.',
+    ko: '나머지 대피소 {k}곳은 화재가 없어도 제때 갈 수 없습니다.',
+    en: 'The remaining shelter cannot be reached in time even without fire.',
   },
   mixedAlsoOut: {
-    ko: '다른 대피소 {k}곳도 화재가 없어도 제때 갈 수 없습니다.',
-    en: '{k} more shelters cannot be reached in time even without fire.',
+    ko: '나머지 대피소 {k}곳은 화재가 없어도 제때 갈 수 없습니다.',
+    en: 'The remaining {k} shelters cannot be reached in time even without fire.',
   },
   /** only with deadline_cause "flames": without the fire a later departure would reach a shelter in time */
   flamesConclusion: { ko: '따라서 이 출발 마감은 시나리오상 화염 때문입니다.', en: 'So this leave-by time comes from the flames in the fire scenarios.' },

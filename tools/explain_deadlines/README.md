@@ -209,7 +209,7 @@ seconds after `input_time`.
 `dwell_at_destination` case occurs. **Most leave-by times in these recorded replays are not set by flames in the fire
 scenarios**: 355 are simply the last departure checked (50 min after the input time) and for 134 no candidate shelter
 (checked at D or tried at N) could be reached in time from N even on fire-free roads (`deadline_cause` `time_window`).
-The flames set it for 27 (`deadline_cause` `flames`): a flame contact on the shown route binds 8 deadlines (each in 1
+Flames are the cause for 27 (16 leave-by times, 11 no-route origins; `deadline_cause` `flames`): a flame contact on the shown route binds 8 deadlines (each in 1
 of 4 members, from first-new ignitions); for 6 the shown shelter is reachable on a fire-free road but on no
 flame-avoiding one (in 5 of them not within the hour at all); for 2 the shown shelter is out of reach even without fire
 while other candidates are blocked by the flames (하령리 `osm:node/415160436`, 2025-03-24T09Z: two shelters with a

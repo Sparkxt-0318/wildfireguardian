@@ -173,7 +173,8 @@ describe('explanation text (structured fields only)', () => {
     // S1: one other shelter out of the range as well, one (refused at the deadline too) blocked by the flames
     const s1 = origin({ ...rec, shelters_next: [shelter('synthetic:shelter', { fire_free_end_s: 3851 }), shelter('b', { fire_free_end_s: 3760 }),
       shelter('c', { checked_at_deadline: false, class: 'flame_blocked', fire_free_fits: true, fire_free_end_s: 3490 })] });
-    expect(view(s1, 'en').lines[0]).toContain('; another shelter, which a fire-free road would still reach in time, cannot be reached on any road that avoids the flames in the fire scenarios. One more shelter cannot be reached in time even without fire. So this leave-by time');
+    expect(view(s1, 'en').lines[0]).toContain('; another shelter, which a fire-free road would still reach in time, cannot be reached on any road that avoids the flames in the fire scenarios. The remaining shelter cannot be reached in time even without fire. So this leave-by time');
+    expect(view(s1, 'ko').lines[0]).toBe('09:40에 출발하면 표시된 경로의 대피소는 화재가 없어도 1시간 시나리오 범위 안에 체류를 마칠 수 없고(10:04), 화재가 없다면 제때 갈 수 있는 다른 대피소 1곳은 시나리오상 화염을 피하는 도로로 갈 수 없습니다. 나머지 대피소 1곳은 화재가 없어도 제때 갈 수 없습니다. 따라서 이 출발 마감은 시나리오상 화염 때문입니다.');
   });
 
   it('flame-forced detour and a no-route origin', () => {
