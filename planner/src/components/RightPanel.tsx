@@ -14,6 +14,7 @@ import { categoryLabel, computeLabel, errorText, fmtKstStamp, fmtNum, hostLabel,
 import { ChevronIcon, NoRouteIcon, RefreshIcon, UnresolvedIcon, CheckIcon } from './Icons';
 import { StatusChip } from './StatusChip';
 import { Timeline } from './Timeline';
+import { ExplainBlock } from '../features/explain';
 
 function entryLabelKey(p: Place): string {
   if (p.role === 'research_origin' || p.role === 'research_destination') return 'entry.research';
@@ -581,6 +582,8 @@ function ComputeList({ plan, inputTime }: { plan: OriginPlan; inputTime: string 
 /** Detail of the selected origin (recorded scenario or drawn zones). */
 function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inputTime: string; issuedAt: string | null; drawn: boolean }) {
   const t = useT();
+  const lang = useLang();
+  const regionId = useStore((s) => s.regionId);
   const plan = useSelectedPlan();
   const selectedOffsetS = useStore((s) => s.selectedOffsetS);
   const recompute = useStore((s) => s.recompute);
@@ -659,6 +662,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         <span className="small-note">{t('rsg.outside')}</span>
       ) : null}
       <Headline place={place} plan={plan} inputTime={inputTime} issuedAt={issuedAt} computing={Boolean(progress)} />
+      {!drawn ? <ExplainBlock regionId={regionId} inputTime={inputTime} originId={place.id} lang={lang} shown={plan ? { bestVerdict: plan.bestVerdict, deadlineS: plan.latestSafeDepartureS, bestDestinationId: plan.best?.destinationId ?? null, bestJobId: plan.best?.jobId ?? null } : null} /> : null}
       {drawn && notComputed && !progress ? <Recompute place={place} drawn /> : null}
       {plan && plan.sweep.length ? (
         <div className="section">

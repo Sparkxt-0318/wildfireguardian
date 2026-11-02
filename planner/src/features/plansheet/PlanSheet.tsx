@@ -19,6 +19,7 @@ import {
   scenarioTag,
 } from './sheetLogic';
 import { MapLegendGlyph, StaticRouteMap } from './StaticRouteMap';
+import { ExplainSheetSection } from '../explain/ExplainBlock';
 import { SHEET } from './strings';
 import type { PlanSheetData, PlanSheetScenario } from './types';
 
@@ -294,6 +295,8 @@ export function PlanSheet(props: PlanSheetProps) {
         </div>
         {!dense && <p className="wfgf-sheet__note">{t(SHEET.tableNote)}</p>}
       </section>
+
+      <ExplainSheetSection sheet={sheet} lang={lang} />
 
       <section className="wfgf-sheet__section wfgf-sheet__mapsec">
         <h2>{t(SHEET.mapTitle)}</h2>
