@@ -1,0 +1,77 @@
+# SYNTHETIC SYNTHETIC-L-grid-t50-s109: cProfile of a cold Oracle.check_plan of B1's plan (seed 0)
+         19130320 function calls in 40.288 seconds
+
+   Ordered by: cumulative time
+   List reduced from 189 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001   40.291   40.291 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:525(check_plan)
+       10    0.123    0.012   40.282    4.028 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:441(_evaluate)
+     1772    0.047    0.000   35.782    0.020 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:372(_hazard)
+     1666    0.355    0.000   35.456    0.021 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:215(query_uniform)
+    11344    2.246    0.000   31.426    0.003 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:148(query)
+    90752    7.701    0.000   19.387    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:289(_member_result)
+    38924    0.801    0.000    9.939    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:130(polyline_cells)
+    38924    1.172    0.000    6.651    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:100(_closed_cells_of_points)
+   145912    0.657    0.000    6.043    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/lib/arraysetops.py:138(unique)
+     1772    0.060    0.000    4.047    0.002 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:428(leg_slack)
+     1772    0.088    0.000    3.930    0.002 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:291(contact_records)
+    12904    0.335    0.000    3.278    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:264(_point_burning)
+  1225723    3.024    0.000    3.024    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   145912    1.858    0.000    3.001    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/lib/arraysetops.py:323(_unique1d)
+    12904    0.048    0.000    2.907    0.000 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:308(add)
+   181504    2.109    0.000    2.875    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:336(upper)
+    12904    0.033    0.000    2.747    0.000 /home/user/wfg-exp-E1b/evacplan/src/evacplan/oracle.py:286(_point_cells)
+    11344    0.308    0.000    2.080    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:182(polyline_rect_dmin)
+   357763    0.752    0.000    1.899    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:71(_wrapreduction)
+   196180    0.373    0.000    1.400    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:615(flatnonzero)
+   445536    0.363    0.000    1.373    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53(_wrapfunc)
+   181504    0.279    0.000    1.075    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:2177(sum)
+    90752    0.300    0.000    1.054    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:408(count_active)
+    77848    0.374    0.000    1.053    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:1393(moveaxis)
+   317632    0.227    0.000    1.038    0.000 {method 'max' of 'numpy.ndarray' objects}
+    12904    0.516    0.000    1.025    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:114(_segment_probe_points)
+   155696    0.889    0.000    1.023    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/shape_base.py:372(stack)
+    44952    0.732    0.000    0.998    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:155(_point_segment_dist)
+   233544    0.193    0.000    0.836    0.000 {method 'any' of 'numpy.ndarray' objects}
+   317632    0.112    0.000    0.810    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/_methods.py:39(_amax)
+
+
+         19130320 function calls in 40.288 seconds
+
+   Ordered by: internal time
+   List reduced from 189 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    90752    7.701    0.000   19.387    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:289(_member_result)
+  1225723    3.024    0.000    3.024    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    11344    2.246    0.000   31.426    0.003 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:148(query)
+   181504    2.109    0.000    2.875    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:336(upper)
+   145912    1.858    0.000    3.001    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/lib/arraysetops.py:323(_unique1d)
+    38924    1.172    0.000    6.651    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:100(_closed_cells_of_points)
+   155696    0.889    0.000    1.023    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/shape_base.py:372(stack)
+    38924    0.801    0.000    9.939    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:130(polyline_cells)
+   357763    0.752    0.000    1.899    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:71(_wrapreduction)
+    44952    0.732    0.000    0.998    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:155(_point_segment_dist)
+   145912    0.657    0.000    6.043    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/lib/arraysetops.py:138(unique)
+    53600    0.652    0.000    0.679    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:46(to_pixel)
+   427952    0.542    0.000    0.542    0.000 {method 'astype' of 'numpy.ndarray' objects}
+    12904    0.516    0.000    1.025    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:114(_segment_probe_points)
+    22688    0.461    0.000    0.475    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:228(solid_angle_upper)
+   139354    0.450    0.000    0.669    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:274(full)
+   168600    0.383    0.000    0.383    0.000 {method 'sort' of 'numpy.ndarray' objects}
+   181504    0.379    0.000    0.379    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+    77848    0.374    0.000    1.053    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:1393(moveaxis)
+   196180    0.373    0.000    1.400    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:615(flatnonzero)
+   155696    0.373    0.000    0.491    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/numeric.py:1330(normalize_axis_tuple)
+    45376    0.364    0.000    0.364    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:214(F)
+   445536    0.363    0.000    1.373    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/fromnumeric.py:53(_wrapfunc)
+     1666    0.355    0.000   35.456    0.021 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:215(query_uniform)
+    65050    0.343    0.000    0.733    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:96(is_stationary)
+     3332    0.339    0.000    0.644    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:414(uniform_pieces)
+    12904    0.335    0.000    3.278    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/scenario.py:264(_point_burning)
+   104080    0.328    0.000    0.744    0.000 <string>:2(__init__)
+    38924    0.313    0.000    0.374    0.000 /home/user/wfg-exp-E1b/.venv/lib/python3.12/site-packages/numpy/core/_internal.py:436(_promote_fields)
+    11344    0.308    0.000    2.080    0.000 /home/user/wfg-exp-E1b/hazard_contract/src/hazard_contract/geometry.py:182(polyline_rect_dmin)
+
+
