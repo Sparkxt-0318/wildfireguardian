@@ -24,7 +24,7 @@ from evacplan.cli import main
 from evacplan.generators import SyntheticConfig
 from evacplan.harness import (
     COLUMNS, FACILITY_COLUMNS, TestSetRefused, bench_guard, git_commit, load_benchlock, lock_held_by_ancestor,
-    make_row, read_rows, run, upsert_rows,
+    make_row, read_rows, row_config, run, speed_rows, upsert_rows,
 )
 from evacplan.instances import Split, SplitEntry, build_split, write_split
 from evacplan.methods import Method, MethodResult, available, get_method, register
@@ -984,3 +984,43 @@ def test_harness_runs_the_bound_only_method_end_to_end(mini):
     text = p["leaderboard_path"].read_text()
     assert "Proven upper bounds of bound-only methods" in text
     assert not any(x.startswith("| e4_flow_bound |") for x in text.splitlines())      # no method row
+
+
+# ------------------------------------------------------------- batch 2: certification time, interleaved holds
+def test_every_row_records_a_cold_final_certification_time(mini):
+    """Final certification stays outside the budget, but its time is recorded (config certify_s) so the leaderboard
+    can show time to a certified plan = runtime + certification (program/DECISIONS.md, 2026-11-02)."""
+    root, split = mini
+    p = paths(root, "certify")
+    rows = run("b0_independent", "dev", 5, seeds=[0], lock="no", log=lambda s: None, **p)
+    assert rows and all(float(row_config(r)["certify_s"]) >= 0 for r in rows)
+    text = p["leaderboard_path"].read_text()
+    assert "| time to certified plan (s) |" in text and "slack ≥ 30 min (default)" in text
+    line = next(x for x in text.splitlines() if x.startswith("| b0_independent |"))
+    want = sum(float(r["runtime_s"]) + float(row_config(r)["certify_s"]) for r in rows) / len(rows)
+    assert f"| {want:.1f} |" in line
+
+
+def test_interleaved_hold_alternates_b2_and_the_challenger_with_a_speed_check(mini):
+    """ABAB in one lock hold: for every instance and seed, a speed probe, then the partner, then the challenger. The
+    partner's seeds continue after its earlier rows, so a second hold adds repeats and replaces none."""
+    root, split = mini
+    p = paths(root, "interleave")
+    ids = split.ids("dev")
+    first = run("noop", "dev", 5, seeds=[0, 1], interleave_with="b0_independent", lock="no", log=lambda s: None, **p)
+    assert [r["method"] for r in first] == ["b0_independent", "noop"] * (len(ids) * 2)
+    assert [(r["instance"], int(r["seed"])) for r in first[::2]] == [(i, s) for i in ids for s in (0, 1)]
+    cfgs = [row_config(r) for r in first]
+    hold = cfgs[0]["hold"]
+    assert all(c["hold"] == hold and c["certify_s"] >= 0 and c["speed_probe_s"] > 0 for c in cfgs)
+    assert [c["pair"] for c in cfgs[::2]] == [c["pair"] for c in cfgs[1::2]] == [f"{i}/{s}" for i in ids for s in (0, 1)]
+    second = run("noop", "dev", 5, seeds=[0, 1], interleave_with="b0_independent", lock="no", log=lambda s: None, **p)
+    assert sorted({int(r["seed"]) for r in second if r["method"] == "b0_independent"}) == [2, 3]
+    b0 = rows_of(p["results_dir"] / "b0_independent.csv")[1]
+    assert sorted({int(r["seed"]) for r in b0}) == [0, 1, 2, 3]                # both holds' repeats are kept
+    speed = speed_rows(p["results_dir"])
+    assert len(speed) == 2 * len(ids) * 2 and {r["hold"] for r in speed} == {hold, row_config(second[0])["hold"]}
+    text = p["leaderboard_path"].read_text()
+    assert "Interleaved holds" in text and text.count("| speed check (s) |") == 2
+    with pytest.raises(ValueError):
+        run("noop", "dev", 5, seeds=[0], interleave_with="noop", lock="no", log=lambda s: None, **p)

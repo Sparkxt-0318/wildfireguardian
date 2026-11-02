@@ -1,6 +1,7 @@
 """``evacplan`` command line.
 
     evacplan run --method noop --set dev --budget-s 60 [--repeats 5 | --seeds 0 1 2] [--instances ID ...]
+                 [--interleave-with b2_vrptw]   (ABAB with B2 in one lock hold, a speed probe before every pair)
     evacplan leaderboard
     evacplan instances [--set dev] [--materialize]
     evacplan generate --size S --tightness 0.5 --graph grid --seed 7 --out DIR
@@ -65,6 +66,11 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--lock", choices=("auto", "yes", "no"), default="auto", help="shared bench lock (default auto)")
     r.add_argument("--allow-test", action="store_true", help="run the test set (milestones only, with approval)")
     r.add_argument("--no-save-plans", action="store_true", help="do not keep plans and oracle results")
+    r.add_argument("--interleave-with", default=None, metavar="METHOD",
+                   help="run METHOD (in practice b2_vrptw) in the same lock hold, alternating with --method (ABAB) per "
+                        "instance and seed, with a speed probe before every pair")
+    r.add_argument("--partner-seed-offset", type=int, default=None,
+                   help="the partner's seed = seed + this (default: after its existing rows of this set, budget, host)")
     _paths(r)
 
     lb = sub.add_parser("leaderboard", help="regenerate LEADERBOARD.md and its margin figures from results/*.csv")
@@ -101,7 +107,8 @@ def main(argv: list[str] | None = None) -> int:
             harness.run(args.method, args.set_name, args.budget_s, seeds=seeds, instances=args.instances,
                         method_config=cfg, allow_test=args.allow_test, lock=args.lock, split_path=args.split,
                         cache_dir=args.cache_dir, results_dir=args.results_dir, leaderboard_path=args.leaderboard,
-                        save_plans=not args.no_save_plans)
+                        save_plans=not args.no_save_plans, interleave_with=args.interleave_with,
+                        partner_seed_offset=args.partner_seed_offset)
         except harness.TestSetRefused as exc:
             print(f"refused: {exc}", file=sys.stderr)
             return 3
