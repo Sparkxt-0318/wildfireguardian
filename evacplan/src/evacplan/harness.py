@@ -88,6 +88,7 @@ from .validate import TIME_TOL_S, validate_solution
 MARGINS_MIN = (0, 1, 2, 5, 10, 15, 20, 30, 45, 60)     # required safety margins (min): the curve in each row's config
 ROW_MARGINS_MIN = (0, 5, 15, 30)                       # ... and the ones with their own column
 LEADERBOARD_MARGINS_MIN = (5, 15, 30)                  # ... and the ones in the leaderboard tables
+DEFAULT_MARGIN_MIN = 30                                 # provisional default robust count (DECISIONS 2026-11-02)
 
 
 def margin_column(minutes: int) -> str:
@@ -372,7 +373,8 @@ def _margin_curve(margins: Mapping[int, int], delivered: int) -> dict[int, int]:
 def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_config: dict, seed: int,
              budget_s: float, plan, runtime_s: float, best_bound: float | None, commit: str, host: str,
              versions: dict | None = None, diagnostics: dict | None = None,
-             margins: Mapping[int, int] | None = None, bound_only: bool = False) -> dict:
+             margins: Mapping[int, int] | None = None, bound_only: bool = False,
+             extra: Mapping | None = None) -> dict:
     """One result row. ``margins`` (minutes -> residents, every m in :data:`MARGINS_MIN`) defaults to
     :func:`delivered_by_margin` of ``plan``; slack >= 0 must equal ``plan.delivered_total``. ``bound_only``: the
     method plans nothing and only proves ``best_bound`` (:attr:`evacplan.methods.Method.bound_only`); the row's
@@ -397,6 +399,8 @@ def make_row(*, entry: SplitEntry, set_name: str, method_name: str, method_confi
         config["diagnostics"] = dict(diagnostics)
     if bound_only:
         config["bound_only"] = True
+    if extra:
+        config.update(extra)            # e.g. certify_s, and an interleaved hold's hold / pair / speed_probe_s
     return {
         "instance": entry.id, "method": method_name, "seed": str(int(seed)), "delivered_checked": str(delivered),
         "unresolved": str(int(plan.unresolved_total)), "model_no_route": str(int(plan.model_no_route_total)),
@@ -538,15 +542,61 @@ def upsert_rows(path: Path, new: Iterable[dict]) -> list[dict]:
 
 
 # ----------------------------------------------------------------------------------- run
+SPEED_DIR = "speed"                                      # results/speed/speed_check.csv: one probe per pair
+SPEED_COLUMNS = ("hold", "pair", "time_utc", "probe_s", "set", "budget_s", "method", "partner", "commit", "host")
+
+
+def speed_probe() -> float:
+    """Wall-clock seconds of a fixed, deterministic pure-Python workload: the speed check recorded before every pair
+    of an interleaved hold (program/DECISIONS.md, 2026-11-02). It measures the machine, not a method."""
+    t0 = time.perf_counter()
+    acc = 0
+    for i in range(1_500_000):
+        acc = (acc * 31 + i) % 1_000_003
+    assert acc >= 0
+    return time.perf_counter() - t0
+
+
+def speed_rows(results_dir: Path = RESULTS_DIR) -> list[dict]:
+    path = Path(results_dir) / SPEED_DIR / "speed_check.csv"
+    if not path.is_file():
+        return []
+    with path.open(newline="") as fh:
+        return list(csv.DictReader(fh))
+
+
+def _add_speed_row(results_dir: Path, row: dict) -> None:
+    path = Path(results_dir) / SPEED_DIR / "speed_check.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    merged = {(r["hold"], r["pair"]): r for r in speed_rows(results_dir)}
+    merged[(row["hold"], row["pair"])] = row
+    with path.open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=SPEED_COLUMNS, lineterminator="\n")
+        w.writeheader()
+        w.writerows(merged.values())
+
+
 def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (0,), instances: Iterable[str] | None = None,
         method_config: dict | None = None, allow_test: bool = False, lock: str = "auto",
         split_path: Path = SPLIT_PATH, cache_dir: Path = CACHE_DIR, results_dir: Path = RESULTS_DIR,
         leaderboard_path: Path | None = LEADERBOARD_PATH, save_plans: bool = True,
+        interleave_with: str | None = None, partner_seed_offset: int | None = None,
         log: Callable[[str], None] = print) -> list[dict]:
     """Run ``method`` on every instance of ``set_name`` (or the listed ``instances``) and seed at
     ``budget_s`` seconds each; returns the result rows (also upserted into the CSV). ``method`` may be an
     alias (``B2``); rows and files use the registered name. Instances the method does not apply to
-    (:meth:`~evacplan.methods.Method.applicable`, e.g. B3 beyond S) are skipped and get no row."""
+    (:meth:`~evacplan.methods.Method.applicable`, e.g. B3 beyond S) are skipped and get no row.
+
+    Every returned plan is certified by a fresh oracle after the timed solve (outside the budget; the oracle's
+    query cache is not shared across rows), and the row's config records that time as ``certify_s``: time to a
+    certified plan = ``runtime_s`` + ``certify_s`` (program/DECISIONS.md, 2026-11-02).
+
+    ``interleave_with`` (in practice B2): a second method run in the same lock hold, alternating with ``method``
+    (ABAB). For every instance and seed s: a speed probe (:func:`speed_probe`, written to
+    ``results/speed/speed_check.csv``), then the partner with seed s + offset, then ``method`` with seed s. The
+    partner's seeds continue after its rows of this set, budget and host (``partner_seed_offset`` overrides), so a
+    hold adds repeats and replaces none. Rows of both methods carry ``hold``, ``pair`` and ``speed_probe_s`` in
+    their config."""
     method = canonical(method)
     if not (isinstance(budget_s, (int, float)) and math.isfinite(budget_s) and budget_s > 0):
         raise ValueError("budget_s must be a positive number of seconds")
@@ -565,49 +615,84 @@ def run(method: str, set_name: str, budget_s: float, *, seeds: Iterable[int] = (
             raise KeyError(f"not in set {set_name!r}: {missing}")
         entries = [known[i] for i in wanted]
     m = get_method(method, **(method_config or {}))
+    partner, mp = None, None
+    if interleave_with is not None:
+        partner = canonical(interleave_with)
+        if partner == method:
+            raise ValueError("interleave_with must name another method")
+        mp = get_method(partner)
     commit, host, versions = git_commit(), host_string(), package_versions()
+    offset, hold = 0, None
+    if partner is not None:
+        if partner_seed_offset is None:
+            prev = [int(r["seed"]) for r in read_rows(Path(results_dir) / f"{partner}.csv")
+                    if table_key(r) == (set_name, float(budget_s), host)]
+            offset = max(prev) + 1 if prev else 0
+        else:
+            offset = int(partner_seed_offset)
+        hold = f"{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}-{method}-x-{partner}-o{offset}"
     log(f"[evacplan] {method} on {set_name} ({len(entries)} instances x {len(seeds)} seeds) at {budget_s:g} s; "
         f"commit {commit}; host {host}")
+    if hold:
+        log(f"[evacplan] interleaved hold {hold}: {partner} seeds {[s + offset for s in seeds]} alternate with "
+            f"{method} seeds {seeds} (ABAB), a speed probe before every pair")
     loaded = [(e, *load_entry(e, cache_dir)) for e in entries]          # regenerate before timing
-    csv_path = Path(results_dir) / f"{method}.csv"
-    fac_path = Path(results_dir) / f"{method}{FACILITY_SUFFIX}"
     rows: list[dict] = []
-    with bench_guard(lock, f"evacplan run {method} {set_name} {budget_s:g}s", log) as lock_state:
+
+    def one(name: str, meth, e, inst, ss, deadlines, seed: int, extra: dict) -> dict:
+        t0 = time.monotonic()
+        res = meth.solve(inst, ss, budget_s=float(budget_s), seed=seed, deadline=t0 + float(budget_s))
+        runtime = time.monotonic() - t0
+        tc = time.monotonic()
+        plan = Oracle(inst, ss).check_plan(res.solution)                 # final certification: cold, not in the budget
+        certify = time.monotonic() - tc
+        row = make_row(entry=e, set_name=set_name, method_name=name, method_config=meth.config(), seed=seed,
+                       budget_s=budget_s, plan=plan, runtime_s=runtime, best_bound=res.best_bound,
+                       commit=commit, host=host, versions=versions, diagnostics=res.diagnostics,
+                       bound_only=bool(getattr(meth, "bound_only", False)),
+                       extra={**extra, "certify_s": round(certify, 4)})
+        upsert_rows(Path(results_dir) / f"{name}.csv", [row])
+        upsert_rows(Path(results_dir) / f"{name}{FACILITY_SUFFIX}", make_facility_rows(
+            entry=e, method_name=name, seed=seed, row=row, instance=inst, deadlines=deadlines,
+            outcomes=facility_outcomes(inst, res.solution, plan)))
+        if save_plans:
+            d = Path(results_dir) / "runs" / name / f"{set_name}-b{budget_s:g}"
+            d.mkdir(parents=True, exist_ok=True)
+            sol = res.solution.model_copy(update={"provenance": {
+                **res.solution.provenance, "commit": commit, "seed": seed, "host": host,
+                "config": row_config(row)}})
+            (d / f"{e.id}-s{seed}.solution.json").write_text(sol.model_dump_json(indent=1) + "\n")
+            (d / f"{e.id}-s{seed}.result.json").write_text(plan.model_dump_json(indent=1) + "\n")
+            (d / f"{e.id}.deadlines.json").write_text(
+                "[\n" + ",\n".join(x.model_dump_json() for x in deadlines) + "\n]\n")
+        log(f"  {e.id} {name} seed {seed}: delivered {row['delivered_checked']}/{inst.residents_total} "
+            f"unresolved {row['unresolved']} model_no_route {row['model_no_route']} "
+            f"unservable {sum(d.unservable for d in deadlines)} "
+            f"runtime {row['runtime_s']} s, certified in {certify:.1f} s [{e.label or 'real'}]")
+        return row
+
+    label = f"evacplan run {method} {set_name} {budget_s:g}s" + (f" x {partner}" if partner else "")
+    with bench_guard(lock, label, log) as lock_state:
         for e, inst, ss in loaded:
-            if not m.applicable(inst):
-                log(f"  {e.id}: skipped ({method} does not apply to this instance)")
+            if not m.applicable(inst) or (mp is not None and not mp.applicable(inst)):
+                log(f"  {e.id}: skipped ({method}{' or ' + partner if partner else ''} does not apply to this instance)")
                 continue
-            oracle = Oracle(inst, ss)
-            deadlines = class_deadlines(inst, ss, oracle=oracle)          # per facility; not timed
+            deadlines = class_deadlines(inst, ss, oracle=Oracle(inst, ss))   # per facility; not timed
             for seed in seeds:
-                t0 = time.monotonic()
-                res = m.solve(inst, ss, budget_s=float(budget_s), seed=seed, deadline=t0 + float(budget_s))
-                runtime = time.monotonic() - t0
-                plan = oracle.check_plan(res.solution)
-                row = make_row(entry=e, set_name=set_name, method_name=method, method_config=m.config(), seed=seed,
-                               budget_s=budget_s, plan=plan, runtime_s=runtime, best_bound=res.best_bound,
-                               commit=commit, host=host, versions=versions, diagnostics=res.diagnostics,
-                               bound_only=bool(getattr(m, "bound_only", False)))
-                upsert_rows(csv_path, [row])
-                upsert_rows(fac_path, make_facility_rows(
-                    entry=e, method_name=method, seed=seed, row=row, instance=inst, deadlines=deadlines,
-                    outcomes=facility_outcomes(inst, res.solution, plan)))
-                rows.append(row)
-                if save_plans:
-                    d = Path(results_dir) / "runs" / method / f"{set_name}-b{budget_s:g}"
-                    d.mkdir(parents=True, exist_ok=True)
-                    sol = res.solution.model_copy(update={"provenance": {
-                        **res.solution.provenance, "commit": commit, "seed": seed, "host": host,
-                        "config": row_config(row)}})
-                    (d / f"{e.id}-s{seed}.solution.json").write_text(sol.model_dump_json(indent=1) + "\n")
-                    (d / f"{e.id}-s{seed}.result.json").write_text(plan.model_dump_json(indent=1) + "\n")
-                    (d / f"{e.id}.deadlines.json").write_text(
-                        "[\n" + ",\n".join(x.model_dump_json() for x in deadlines) + "\n]\n")
-                log(f"  {e.id} seed {seed}: delivered {row['delivered_checked']}/{inst.residents_total} "
-                    f"unresolved {row['unresolved']} model_no_route {row['model_no_route']} "
-                    f"unservable {sum(d.unservable for d in deadlines)} "
-                    f"runtime {row['runtime_s']} s [{e.label or 'real'}]")
-    log(f"[evacplan] bench lock: {lock_state}; rows -> {csv_path}, per facility -> {fac_path}")
+                if mp is None:
+                    rows.append(one(method, m, e, inst, ss, deadlines, seed, {}))
+                    continue
+                probe = speed_probe()
+                pair = f"{e.id}/{seed}"
+                _add_speed_row(results_dir, {
+                    "hold": hold, "pair": pair, "time_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "probe_s": f"{probe:.4f}", "set": set_name, "budget_s": f"{float(budget_s):g}",
+                    "method": method, "partner": partner, "commit": commit, "host": host})
+                extra = {"hold": hold, "pair": pair, "speed_probe_s": round(probe, 4)}
+                rows.append(one(partner, mp, e, inst, ss, deadlines, seed + offset, extra))
+                rows.append(one(method, m, e, inst, ss, deadlines, seed, extra))
+    log(f"[evacplan] bench lock: {lock_state}; rows -> {Path(results_dir)}/{method}.csv"
+        + (f" and {partner}.csv; speed checks -> {Path(results_dir)}/{SPEED_DIR}/speed_check.csv" if partner else ""))
     if leaderboard_path is not None:
         write_leaderboard(results_dir, split, leaderboard_path)
         log(f"[evacplan] leaderboard -> {leaderboard_path}")
@@ -808,6 +893,38 @@ def _scope(o: RecordedObservation, host: str) -> str:
     return "this host" if o.host == host else "an earlier session of this host class"
 
 
+def _holds_table(rows: list[dict]) -> list[str]:
+    """The interleaved holds of one table: per hold, B2 and the challenger on the same pairs (totals over the hold's
+    instances, per seed) and the speed-check row (seconds of :func:`speed_probe` before every pair)."""
+    by_hold: dict[str, list[dict]] = defaultdict(list)
+    for r in rows:
+        h = row_config(r).get("hold")
+        if h:
+            by_hold[h].append(r)
+    if not by_hold:
+        return []
+    out = ["", "Interleaved holds (ABAB in one lock hold; per-seed totals over the hold's instances):", "",
+           "| hold | instances | pairs | row | median [min–max] | worst |", "|---|---|---|---|---|---|"]
+    for h, rs in sorted(by_hold.items()):
+        insts = sorted({r["instance"] for r in rs})
+        cfgs = [row_config(r) for r in rs]
+        probes = list({c["pair"]: float(c["speed_probe_s"]) for c in cfgs if "speed_probe_s" in c}.values())
+        methods = sorted({r["method"] for r in rs}, key=lambda m: (m != B2, m))
+        first = True
+        for meth in methods:
+            tots = list(seed_totals([r for r in rs if r["method"] == meth], "delivered_checked", insts).values())
+            out.append(f"| {h if first else ''} | {len(insts) if first else ''} | "
+                       f"{len({c['pair'] for c in cfgs}) if first else ''} | {meth} | "
+                       f"{_stat(tots) if tots else '–'} | {_count(min(tots)) if tots else '–'} |")
+            first = False
+        if probes:
+            med = statistics.median(probes)
+            spread = (max(probes) - min(probes)) / med if med else 0.0
+            flag = f"spread {100 * spread:.0f} %" + (" ⚠ over 10 %" if spread > 0.10 else "")
+            out.append(f"|  |  |  | speed check (s) | {med:.3f} [{min(probes):.3f}–{max(probes):.3f}] | {flag} |")
+    return out
+
+
 def _verdict(method: str, rows: list[dict], instances: tuple[str, ...], bar: float | None, budget: float) -> str:
     if method in BASELINES:
         return "baseline"
@@ -989,6 +1106,9 @@ def write_margin_figure(rows: Iterable[dict], path: Path, *, set_name: str, budg
         ax.set_xlim(0, 60)
         ax.set_xticks([0, 5, 10, 15, 20, 30, 45, 60])
         ax.set_ylim(bottom=0)
+        ax.axvline(DEFAULT_MARGIN_MIN, color=_MUTED, linestyle=(0, (4, 3)), linewidth=1.0, zorder=0)
+        ax.text(DEFAULT_MARGIN_MIN + 0.6, 0.02, "provisional default", transform=ax.get_xaxis_transform(),
+                color=_INK_2, fontsize=8, va="bottom")
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         ax.set_xlabel("required safety margin (min): residents count when their slack is at least this", color=_INK_2)
         ax.set_ylabel("residents delivered (sum over instances)", color=_INK_2)
@@ -1093,7 +1213,10 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "and never delivered; `model_no_route` is scoped to the hazard model, its members and horizon; not planned = "
         "residents no itinerary boards. **best bound** and **gap** come from the methods' own proofs (e.g. B3's "
         "relaxed MIP), not from the oracle. **runtime** is the harness's wall clock around the method's solve (the "
-        "oracle check is not timed).",
+        "oracle check is not timed). **time to certified plan** = runtime + the final certification of the returned "
+        "plan by a fresh oracle (cold cache), a secondary metric; final certification stays outside every method's "
+        "budget, and oracle calls inside a method's search count toward its runtime (`program/DECISIONS.md`, "
+        "2026-11-02).",
         "* **unservable** = residents that no plan can serve within the model, fleet and horizon: a scoped "
         "`model_no_route` per facility and mobility class, declared by the oracle (`results/<method>.facilities.csv`, "
         "which also holds each facility's latest first-arrival and last-departure times). They are counted again "
@@ -1128,7 +1251,13 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
         "slack over their vehicle's legs from the start of its itinerary through the unloading that delivers them, "
         "each leg's slack capped at the time left before the hazard horizon (`docs/ASSUMPTIONS.md` #91). slack ≥ 0 "
         "equals delivered. The problem definition is unchanged: delivered counts every checked trip whatever its "
-        "margin. Each table's figure plots residents delivered against the required margin (0-60 min).",
+        "margin. **slack ≥ 30 min is the provisional default robust count** (`program/DECISIONS.md`, 2026-11-02; to be "
+        "derived later from Track A's measured forecast error). Each table's figure plots residents delivered against "
+        "the required margin (0-60 min).",
+        "* **Interleaved holds**: a challenger and B2 alternate per instance and seed in one bench-lock hold (ABAB), "
+        "so both see the same machine; B2's seeds continue after its earlier rows, so each hold adds repeats. The "
+        "**speed check** row times a fixed workload before every pair (`results/speed/speed_check.csv`); a range over "
+        "10 % of its median is flagged.",
         "* **mean gap** = mean of (best bound - delivered) / best bound over the method's own proven bounds (exact or "
         "relaxation methods, e.g. B3 on S instances only); a method that runs on fewer instances is summed over fewer "
         "residents (see the size table).",
@@ -1158,9 +1287,11 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             lines += ["No plans for this set, budget and host (bound-only rows only).", "", *bounds_lines, ""]
             continue
         lines += ["| method | label | instances | seeds | delivered | unresolved | model_no_route | not planned | "
-                  "unservable | residents | " + " | ".join(f"slack ≥ {m} min" for m, _ in slack_cols) +
-                  " | min slack (s) | mean runtime (s) | over budget | mean gap | B2 verdict | commit |",
-                  "|---|---|---|---|---|---|---|---|---|---|" + "---|" * len(slack_cols) + "---|---|---|---|---|---|"]
+                  "unservable | residents | " + " | ".join(
+                      f"slack ≥ {m} min" + (" (default)" if m == DEFAULT_MARGIN_MIN else "") for m, _ in slack_cols) +
+                  " | min slack (s) | mean runtime (s) | time to certified plan (s) | over budget | mean gap | "
+                  "B2 verdict | commit |",
+                  "|---|---|---|---|---|---|---|---|---|---|" + "---|" * len(slack_cols) + "---|---|---|---|---|---|---|"]
         by_method: dict[tuple[str, str], list[dict]] = defaultdict(list)
         for r in g:
             by_method[(r["method"], row_config(r)["label"] or "real")].append(r)
@@ -1181,6 +1312,9 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
             slacks = [float(r["min_slack_s"]) for r in rs if r["min_slack_s"]]
             gaps = [float(r["gap"]) for r in rs if r["gap"]]
             over = sum(float(r["runtime_s"]) > budget for r in rs)
+            certs = [row_config(r).get("certify_s") for r in rs]
+            ttc = (None if any(c is None for c in certs)
+                   else sum(float(r["runtime_s"]) + float(c) for r, c in zip(rs, certs)) / len(rs))
             commits = sorted({r["commit"][:12] for r in rs})
             lines.append(
                 f"| {meth} | {label} | {len(ids)} | {len(seeds)} | {_total(rs, 'delivered_checked', n_res)} | "
@@ -1188,10 +1322,11 @@ def render_leaderboard(rows: list[dict], split: Split | None = None, facility_ro
                 f"{'–' if any(u is None for u in us) else _count(sum(us))} | {'–' if n_res is None else n_res} | "
                 + " | ".join(_total(rs, c) for _, c in slack_cols) +
                 f" | {_fmt(min(slacks) if slacks else None)} | "
-                f"{_fmt(sum(float(r['runtime_s']) for r in rs) / len(rs), 3)} | {over} | "
+                f"{_fmt(sum(float(r['runtime_s']) for r in rs) / len(rs), 3)} | {_fmt(ttc, 1)} | {over} | "
                 f"{_fmt(sum(gaps) / len(gaps) if gaps else None, 3)} | {cmp.verdicts.get(meth, '–')} | "
                 f"{', '.join(commits)} |")
         lines += ["", cmp.bar_line()]
+        lines += _holds_table(g)
         for o in cmp.recorded:
             extra = "" if o.unresolved is None else f", {o.unresolved} unresolved"
             what = "B2 observation" if o.method == B2 else "best-of-baselines total"
