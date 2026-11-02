@@ -2,14 +2,14 @@
   "url": "http://127.0.0.1:4179/wildfireguardian/",
   "base": "/wildfireguardian/",
   "server": "dist only, like GitHub Pages (scripts/serve_static.mjs)",
-  "requests": 150,
+  "requests": 158,
   "requests_by_folder": {
     "index.html": 5,
     "assets": 25,
     "blob": 11,
-    "data": 22,
+    "data": 26,
     "cache": 10,
-    "basemap": 77
+    "basemap": 81
   },
   "off_origin": 0,
   "csp_probe_refused": [
