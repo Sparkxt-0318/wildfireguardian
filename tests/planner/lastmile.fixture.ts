@@ -142,6 +142,7 @@ export const SYN_IDS = {
   exits: SYN_NO_ROUTE_ID,
   exitOne: 'syn:origin:exit-one',
   exitDup: 'syn:origin:exit-dup',
+  exitPlace: 'syn:origin:exit-place',
   noRouteWindow: 'syn:origin:noroute-window',
   noRouteTime: 'syn:origin:noroute-time',
   entryInFlame: 'syn:origin:entry-in-flame',
@@ -227,7 +228,7 @@ export function synExplanation(): ExplanationFile {
     input_time: SYN_INPUT_TIME,
     scenario_set_id: SYN_SET,
     provenance: { cache_sha256: 'synthetic', packet_hashes: { 'HAZARD.json': 'synthetic' }, code_commit: 'synthetic', horizon_s: 3600 },
-    summary: { origins: 17, explained: 12, explained_partial: 2, not_explainable: 2 },
+    summary: { origins: 18, explained: 13, explained_partial: 2, not_explainable: 2 },
     origins: {
       [SYN_IDS.flame]: leaveByEntry({
         reason_code: 'flame_on_route',
@@ -325,6 +326,16 @@ export function synExplanation(): ExplanationFile {
         exits: [
           exit({ edge_id: 'w400:s1:f', label_ko: '옆마을', label_en: 'Yeop-ri', label_source: 'nearest_place', place_kind: 'hamlet', place_distance_m: 780, flame_time_s: 0, members: [0, 1, 2, 3] }),
           exit({ edge_id: 'w401:s5:r', label_ko: '옆마을', label_en: 'Yeop-ri', label_source: 'nearest_place', place_kind: 'hamlet', place_distance_m: 820, flame_time_s: 0, members: [0, 1, 2, 3] }),
+        ],
+      }),
+      // two exits near the same place at different distances: one merged label
+      [SYN_IDS.exitPlace]: noRouteEntry({
+        reason_code: 'all_exits_blocked',
+        detail_code: 'flame_free_area_closed',
+        deadline_cause: 'flames',
+        exits: [
+          exit({ edge_id: 'w500:s1:f', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_kind: 'village', place_is_origin: true, place_distance_m: 702, flame_time_s: 0, members: [0, 1, 2, 3] }),
+          exit({ edge_id: 'w501:s2:r', label_ko: '합성리', label_en: 'Hapseong-ri', label_source: 'nearest_place', place_kind: 'village', place_is_origin: true, place_distance_m: 1488, flame_time_s: 0, members: [0, 1, 2, 3] }),
         ],
       }),
       [SYN_IDS.entryInFlame]: noRouteEntry({ reason_code: 'all_exits_blocked', detail_code: 'entry_point_in_flame', deadline_cause: 'flames', exits: [] }),

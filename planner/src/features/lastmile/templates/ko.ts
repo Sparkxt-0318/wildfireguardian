@@ -32,7 +32,7 @@ import {
   type SpokenBlock,
   type TemplateSet,
 } from '../compose';
-import type { LmReason } from '../explanation';
+import { groupExitLabels, type LmReason } from '../explanation';
 import { bigLabelKind, ENTRY_SPOKEN_MIN_M, type MessagePlan, type PlannedDestination } from '../plan';
 import { MODEL_NOT_LIVE, MODEL_NOT_LIVE_SMS, MODEL_NOT_LIVE_SPOKEN, MODEL_PLAN_SPOKEN, MODEL_SMS, NOT_REAL, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS } from '../strings';
 
@@ -78,9 +78,9 @@ function kOfN(k: number, n: number): string {
 
 type Exits = Extract<LmReason, { kind: 'all_exits_blocked' }>;
 
-/** At most `max` names (3 in the long text, 2 on the card), then "외". */
+/** At most `max` names (3 in the long text, 2 on the card), then "외"; one place's roads are merged. */
 function exitNames(r: Exits, max: number): string {
-  const names = r.exits.map((e) => e.text.ko);
+  const names = groupExitLabels(r.exits).map((e) => e.ko);
   return names.length > max ? `${names.slice(0, max).join('·')} 외` : names.join('·');
 }
 
@@ -169,7 +169,7 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     const tail = card ? '' : r.kind === 'flame_on_route' ? ` 다음 점검 시각인 ${N}에 출발하면 그곳에서 불길과 만날 수 있습니다.` : ` 다음 점검 시각인 ${N}에 출발하면 도착 뒤 머무는 동안 불길과 만날 수 있습니다.`;
     return {
       role: 'reason',
-      text: r.kind === 'flame_on_route' ? `이유: ${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${F}쯤 불길이 닿습니다.${tail}` : `이유: ${kOfN(r.k, r.n)} 도착지 부근(${r.road.text.ko})에 ${F}쯤 불길이 닿습니다.${tail}`,
+      text: r.kind === 'flame_on_route' ? `이유: ${kOfN(r.k, r.n)}는 ${r.road.text.ko}에 ${F}쯤 불길이 닿습니다.${tail}` : `이유: ${kOfN(r.k, r.n)}는 도착지 부근(${r.road.text.ko})에 ${F}쯤 불길이 닿습니다.${tail}`,
     };
   }
   if (r && r.kind === 'no_flame_avoiding_route') {
@@ -191,9 +191,11 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
 function afterSpoken(p: MessagePlan): string {
   const r = p.reason;
   const t0 = iso(p);
-  if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)} ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
-  if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)} 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
-  if (r && r.kind === 'no_flame_avoiding_route') return '다음 점검 시각에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.';
+  if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)}는 ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
+  if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)}는 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
+  if (r && r.kind === 'no_flame_avoiding_route') {
+    return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.`;
+  }
   if (r && r.kind === 'time_window') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';

@@ -16,7 +16,7 @@
  *   checked time no destination can be reached in time on a road that avoids the flames;
  * - road labels follow the file's semantics: a nearby named place and the straight-line distance
  *   to it ("구암리에서 약 800 m 떨어진 도로" / "this village"), never a road name;
- * - an unknown reason or detail code gives no reason line;
+ * - an unknown reason code, or a detail code not listed for its reason (DETAILS), gives no reason line;
  * - `unresolved` is never turned into a reason; an unresolved or out-of-window next departure gives
  *   no reason either (the planner's own "after the deadline" line is used instead).
  */
@@ -36,6 +36,29 @@ const VERDICTS = ['checked_route', 'model_no_route', 'unresolved'] as const;
 const NEXT_VERDICTS = ['model_no_route', 'unresolved', 'window'] as const;
 const REASONS = ['flame_on_route', 'no_flame_avoiding_route', 'all_exits_blocked', 'dwell_at_destination', 'unresolved_next', 'window', 'no_later_offset', 'other'] as const;
 const LABEL_SOURCES: readonly ExplanationLabelSource[] = ['osm_name', 'osm_ref', 'nearest_place', 'unnamed'];
+
+/**
+ * The detail codes each reason may carry for a message kind (tools/explain_deadlines README §4).
+ * Anything else — a new or unknown detail, or none — gives no reason line (fail closed).
+ */
+const DETAILS: Record<'leave_by' | 'no_route', Partial<Record<(typeof REASONS)[number], readonly string[]>>> = {
+  leave_by: {
+    flame_on_route: ['route_meets_flame_when_shifted'],
+    dwell_at_destination: ['stay_meets_flame'],
+    no_flame_avoiding_route: ['window_fire_detour', 'other_shelters_flame_blocked'],
+    window: ['window_fire_free', 'outside_recorded_arrival_window'],
+  },
+  no_route: {
+    all_exits_blocked: ['flame_free_area_closed', 'entry_point_in_flame'],
+    no_flame_avoiding_route: ['no_flame_avoiding_route_fits_window'],
+    window: ['no_route_even_without_fire'],
+  },
+};
+
+function knownDetail(e: ExplanationOrigin, kind: 'leave_by' | 'no_route'): boolean {
+  const list = DETAILS[kind][e.reason_code as (typeof REASONS)[number]];
+  return Boolean(list && typeof e.detail_code === 'string' && list.includes(e.detail_code));
+}
 
 /** Longest road label printed, as composed (longer ones make the item unusable rather than being cut). */
 export const MAX_LABEL_CHARS = 40;
@@ -150,8 +173,10 @@ export function loadExplanation(
 export interface RoadLabel {
   text: LmText;
   source: ExplanationLabelSource;
-  /** nearest_place labels: the place itself ("구계리" / "Gugye-ri") */
+  /** nearest_place labels: the place itself ("구계리" / "Gugye-ri", or "이 마을" / "this village") */
   place?: LmText;
+  /** nearest_place labels: the rounded straight-line distance ("800 m") */
+  distance?: string;
 }
 
 export type LmReason =
@@ -265,11 +290,34 @@ export function roadLabel(
         source: src,
         text: d ? { ko: `${place.ko}에서 약 ${d} 떨어진 도로`, en: `a road about ${d} from ${place.en}` } : { ko: `${place.ko} 부근 도로`, en: `a road near ${place.en}` },
         place,
+        ...(d ? { distance: d } : {}),
       };
     } else label = { source: src, text: { ko: k, en: e } };
   }
   // the composed label is what a reader sees: it must stay within the tested length too
   return label.text.ko.length > MAX_LABEL_CHARS || label.text.en.length > MAX_LABEL_CHARS ? null : label;
+}
+
+/**
+ * Exit labels for a list: labels at the same nearby place are merged ("이 마을에서 약 700 m·1.5 km
+ * 떨어진 도로" / "roads about 700 m and 1.5 km from this village"); other labels are kept as they are.
+ */
+export function groupExitLabels(exits: RoadLabel[]): LmText[] {
+  const groups: { place?: LmText; ds: string[]; text: LmText }[] = [];
+  for (const e of exits) {
+    if (e.source === 'nearest_place' && e.place && e.distance) {
+      const g = groups.find((x) => x.place && x.place.ko === e.place!.ko && x.place.en === e.place!.en);
+      if (g) {
+        if (!g.ds.includes(e.distance)) g.ds.push(e.distance);
+        continue;
+      }
+      groups.push({ place: e.place, ds: [e.distance], text: e.text });
+    } else groups.push({ ds: [], text: e.text });
+  }
+  const and = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+  return groups.map((g) =>
+    g.place && g.ds.length > 1 ? { ko: `${g.place.ko}에서 약 ${g.ds.join('·')} 떨어진 도로`, en: `roads about ${and(g.ds)} from ${g.place.en}` } : g.text,
+  );
 }
 
 function finite(v: unknown): v is number {
@@ -327,7 +375,7 @@ export function selectReason(entry: unknown, ctx: ReasonContext): LmReason | nul
   const e = originEntry(entry);
   if (!e || e.status === 'not_explainable') return null;
   if (ctx.kind === 'leave_by') {
-    if (e.verdict_summary !== 'checked_route') return null;
+    if (e.verdict_summary !== 'checked_route' || !knownDetail(e, 'leave_by')) return null;
     // the explanation is about the deadline D; a message based on an earlier time gets none
     if (ctx.latestS === null || ctx.leaveByS !== ctx.latestS) return null;
     if (e.deadline_offset_s !== ctx.latestS) return null;
@@ -358,7 +406,7 @@ export function selectReason(entry: unknown, ctx: ReasonContext): LmReason | nul
     return null;
   }
   if (ctx.kind === 'no_route') {
-    if (e.verdict_summary !== 'model_no_route' || e.status !== 'explained') return null;
+    if (e.verdict_summary !== 'model_no_route' || e.status !== 'explained' || !knownDetail(e, 'no_route')) return null;
     if (e.reason_code === 'window' && e.deadline_cause === 'time_window') return { kind: 'no_route_time_window' };
     if (e.reason_code === 'no_flame_avoiding_route' && e.deadline_cause === 'flames') return { kind: 'no_route_flames' };
     if (e.reason_code !== 'all_exits_blocked') return null;

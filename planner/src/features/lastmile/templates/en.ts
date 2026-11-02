@@ -21,7 +21,7 @@ import {
   type SpokenBlock,
   type TemplateSet,
 } from '../compose';
-import type { LmReason } from '../explanation';
+import { groupExitLabels, type LmReason } from '../explanation';
 import { bigLabelKind, ENTRY_SPOKEN_MIN_M, type MessagePlan, type PlannedDestination } from '../plan';
 import { MODEL_NOT_LIVE, MODEL_NOT_LIVE_SMS, MODEL_NOT_LIVE_SPOKEN, MODEL_PLAN_SPOKEN, MODEL_SMS, NOT_REAL, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS } from '../strings';
 
@@ -79,9 +79,9 @@ function latin(name: string): boolean {
 
 type Exits = Extract<LmReason, { kind: 'all_exits_blocked' }>;
 
-/** At most `max` names (3 in the long text, 2 on the card), then "and others". */
+/** At most `max` names (3 in the long text, 2 on the card), then "and others"; one place's roads are merged. */
 function exitNames(r: Exits, max: number): string {
-  const names = r.exits.map((e) => e.text.en);
+  const names = groupExitLabels(r.exits).map((e) => e.en);
   return names.length > max ? `${names.slice(0, max).join(', ')} and others` : names.join(', ');
 }
 
@@ -205,7 +205,9 @@ function afterSpoken(p: MessagePlan): string {
   const t0 = iso(p);
   if (r && r.kind === 'flame_on_route') return latin(r.road.text.en) ? sentence(`In ${kOfN(r.k, r.n)}, flames reach ${r.road.text.en} around ${enSpokenTime(t0, r.flameS)}`) : sentence(`In ${kOfN(r.k, r.n)}, flames reach a road on the way around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'dwell_at_destination') return sentence(`In ${kOfN(r.k, r.n)}, flames reach the destination area around ${enSpokenTime(t0, r.flameS)}`);
-  if (r && r.kind === 'no_flame_avoiding_route') return 'Leaving at the next checked time, no destination can be reached in time on a road that avoids the flames in the forecast.';
+  if (r && r.kind === 'no_flame_avoiding_route') {
+    return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, no destination can be reached in time on a road that avoids the flames in the forecast.`;
+  }
   if (r && r.kind === 'time_window') return `Later departures were not confirmed; ${NOT_FIRE_EN}`;
   if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
   if (p.after === 'gap') return 'Some later departure times were not checked.';

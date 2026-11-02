@@ -103,6 +103,8 @@ export function syntheticExplanationFor(cache: BoothCache, shift = 0): Explanati
         next_offset_s: p.nextOffsetS,
         next_verdict: 'model_no_route',
         reason_code: 'flame_on_route',
+        detail_code: 'route_meets_flame_when_shifted',
+        deadline_cause: 'flames',
         binding: [item(p.nextOffsetS + 300, p.leaveByS + 300, p.destination ? [p.destination.id] : [])],
         exits: [],
         notes: [],
@@ -115,6 +117,8 @@ export function syntheticExplanationFor(cache: BoothCache, shift = 0): Explanati
         next_offset_s: null,
         next_verdict: null,
         reason_code: 'all_exits_blocked',
+        detail_code: 'flame_free_area_closed',
+        deadline_cause: 'flames',
         binding: [],
         // four exits with distinct 40-character labels (the longest the reader accepts)
         exits: [1, 2, 3, 4].map((i) => ({
