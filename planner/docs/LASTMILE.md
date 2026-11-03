@@ -384,9 +384,9 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   reaches past the screen edge, except the card preview inside its own box.
 - `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin (all
   four outputs and the card appear in both languages, and in Korean for each of leave by, no route
-  and unresolved); §2's statement of what each output of a
-  leave-by origin gives holds for all 501 leave-by origins of the six caches with their explanation
-  files, with the counts it states; and §3 lists every word of `FORBIDDEN`.
+  and unresolved); §2's statement of what each output of a leave-by origin gives holds for all 501
+  leave-by origins of the six caches with their explanation files, with the counts it states; §8
+  names the CSV's counter columns; and §3 lists every word of `FORBIDDEN`.
 
 Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cachedata.ts`,
 `lastmile.generator.ts`) are marked SYNTHETIC and never leave the tests.
@@ -416,7 +416,8 @@ Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cacheda
   results are marked test data (fail closed), even when the API ran on the evaluated host; after
   that, the opened routes' host is taken for the origin's results (one batch job or one recompute
   computes all of an origin's checks).
-- Print fit is verified in Chromium only; other browsers' print engines may break lines differently.
+- Print fit and the dialog's phone-width layout (375 and 320 px) are verified in Chromium only;
+  other browsers may break lines differently.
 - Carriers differ in how they count and split Korean messages; the 90/2,000-byte limits follow the
   common EUC-KR convention.
 
