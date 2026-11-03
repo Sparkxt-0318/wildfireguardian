@@ -5,7 +5,9 @@ The source flags are checked from both sides: test_cache_only.py proves that eve
 reproduced with data/routing/ unreachable; here, perturbing only the road-graph-derived values must change nothing but
 numbers flagged uses_graph (and uses_hazard where trip times or the window are involved).
 """
+import collections
 import copy
+import csv
 import html
 import json
 import re
@@ -231,6 +233,17 @@ def test_readme_names_the_table_columns_computed_here():
             part = part.split(name[:4] + ' ', 1)[1].split(';')[0]
         named = {c for tok in re.findall(r'`([^`]+)`', part) for c in fnmatch.filter(header, tok)}
         assert named == expected, (name, named ^ expected)
+    # the row counts typed in those rows
+    pairs = list(csv.DictReader((PACKAGE_ROOT / 'tables' / 'travel_only_pairs.csv').open(encoding='utf-8')))
+    n_pairs = N['travel_only.pairs@all/pooled']['numerator']
+    assert len(pairs) == n_pairs and f'paired with a village or care-facility case ({n_pairs};' in files
+    kinds = collections.Counter(r['origin_type'] for r in
+                                csv.DictReader((PACKAGE_ROOT / 'tables' / 'redundancy_places.csv').open(encoding='utf-8')))
+    n_places, n_research = N['places@all/places']['value'], N['research_origins@all/places']['value']
+    assert kinds == {'village': kinds['village'], 'care_facility': n_places - kinds['village'], 'research': n_research}
+    assert N['redundancy.places@all/places']['value'] == n_places
+    assert (f'one row per checked place ({n_places}) and per recorded research-mission origin ({n_research}, '
+            '`origin_type` research, not used in any number)') in files
     # the README's "Key format" lists every subset used in a key
     key_format = ' '.join(README.split('\n## Key format\n', 1)[1].split())
     for subset in {k.split('#', 1)[1] for k in N if '#' in k}:
@@ -244,8 +257,8 @@ def test_readme_names_the_table_columns_computed_here():
 
 
 # "from the place" (village, facility, ...) is only correct as "from the place's road entry point"
-FROM_PLACE = re.compile(r"\bfrom (?:the|each|a|every|its|their) (?:place|village|hamlet|care facility|facility|origin)s?\b"
-                        r"(?!'s (?:mapped )?road entry point)", flags=re.I)
+FROM_PLACE = re.compile(r"\bfrom (?:the|each|a|every|its|their) (?:places?|villages?|hamlets?|(?:care )?facilit(?:y|ies)"
+                        r"|origins?)\b(?!'s (?:mapped )?road entry point)", flags=re.I)
 
 
 def _entry_note(text: str) -> bool:
@@ -272,7 +285,9 @@ def test_departures_are_said_to_start_at_the_road_entry_point():
             assert not FROM_PLACE.search(part), (s['id'], FROM_PLACE.search(part))
         assert _entry_note(caution), s['id']
     assert not FROM_PLACE.search(SENTENCES_MD) and not FROM_PLACE.search(figures.FOOTER)
-    assert FROM_PLACE.search('no checked route from the place to any') and FROM_PLACE.search('trips from each village')
+    for bad in ('no checked route from the place to any', 'trips from each village', 'routes from the care facilities'):
+        assert FROM_PLACE.search(bad), bad
+    assert not FROM_PLACE.search("route from the place's road entry point to any")
     g = lambda k: N[k]  # noqa: E731
     med, mx = g('entry_distance_m.median@all/places')['value'], g('entry_distance_m.max@all/places')['value']
     o500, o1k = g('entry_distance_over_500m@all/places'), g('entry_distance_over_1000m@all/places')
