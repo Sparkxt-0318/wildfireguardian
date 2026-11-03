@@ -1,5 +1,5 @@
-"""Whole-file replays of recorded routes (validation ``replay_checked_routes`` / ``replay_travel_only``) and the
-fail-closed command line, on synthetic worlds with hand-computed answers.
+"""Whole-file replays of recorded routes (validation ``replay_checked_routes`` / ``replay_travel_only``), the
+computed-on / evaluated-host provenance and the fail-closed command line, on synthetic worlds with hand-computed answers.
 
 Geometry (see test_engine.py): A (50,150) -> B (250,150) -> C (350,150); a traversal of A->B (20 ticks) starting at t
 occupies cell 5 on [t+5, t+15]. Member 1 ignites cell 5 at 630 s (burning until 4630 s), so a route leaving A at 600 s
@@ -7,6 +7,7 @@ passes cell 5 on [605, 615] before the flame (clear), and one leaving at 1200 s 
 """
 import hashlib
 import json
+import platform
 
 import pytest
 
@@ -106,6 +107,18 @@ def test_chord_cache_gives_the_same_replay(tmp_path):
     assert set(cache) == {"AB", "BC"}
 
 
+# ------------------------------------------------------------------------------------------------ host provenance
+def test_evaluated_host_only_on_request_and_only_on_native_macos_arm64():
+    host = cli.host_record()
+    assert set(host) == {"platform", "system", "machine", "python", "numpy", "pyproj"}
+    assert all(isinstance(v, str) and v for v in host.values())
+    assert cli.evaluated_host_flag(False, host) is False
+    assert cli.evaluated_host_flag(True, dict(host, system="Darwin", machine="arm64")) is True
+    for system, machine in (("Linux", "x86_64"), ("Darwin", "x86_64"), ("Linux", "aarch64"), ("Windows", "AMD64")):
+        with pytest.raises(cli.InputError, match="native macOS arm64"):
+            cli.evaluated_host_flag(True, dict(host, system=system, machine=machine))
+
+
 # ------------------------------------------------------------------------------------------------ command line, end to end
 INPUT = "2025-01-01T00:00:00Z"
 SET = "synthetic:set"
@@ -163,11 +176,14 @@ def run(repo, out, *extra):
     return cli.main(["generate", "--repo", str(repo), "--out", str(out), "--no-kit", *extra])
 
 
-def test_cli_writes_replay_counts(tmp_path):
+def test_cli_writes_replay_counts_and_the_computing_host(tmp_path):
     repo = repo_world(tmp_path, travel_only=travel_world([False, True, False, False], "DEFINITE_CONTACT"))
     out = tmp_path / "out"
     assert run(repo, out) == 0
     f = json.loads((out / "synthetic__20250101T000000Z.json").read_text())
+    p = f["provenance"]
+    assert p["computed_on"] == cli.host_record()
+    assert p["evaluated_host"] is False
     v = f["summary"]["validation"]
     assert v["replay_checked_routes"] == {"applicable": 2, "contact_free": 2, "failed": 0, "mismatches": 0, "not_replayed": 0,
                                           "passed": 2, "routes": 2, "unit": "route"}
@@ -187,3 +203,15 @@ def test_cli_writes_nothing_when_a_recorded_route_does_not_replay(tmp_path, case
     with pytest.raises(ReplayMismatch):
         run(repo, out)
     assert not out.exists() or not list(out.glob("*.json"))
+
+
+def test_cli_evaluated_host_opt_in(tmp_path):
+    repo = repo_world(tmp_path)
+    out = tmp_path / "out"
+    if (platform.system(), platform.machine()) == cli.EVALUATED_HOST_PLATFORM:
+        assert run(repo, out, "--evaluated-host") == 0
+        assert json.loads((out / "synthetic__20250101T000000Z.json").read_text())["provenance"]["evaluated_host"] is True
+    else:
+        with pytest.raises(cli.InputError, match="native macOS arm64"):
+            run(repo, out, "--evaluated-host")
+        assert not out.exists()

@@ -8,6 +8,11 @@ Inputs are never trusted by name: the cache file must match its INDEX.json sha25
 match the hashes recorded in INPUT_FILES.json of the fetched release archive AND the ``input_hashes`` that every cached
 route check and dispatch plan recorded at computation time. Any mismatch stops the run (nothing is written). So does
 any recorded route whose replay disagrees with its recorded result (validate.replay_recorded_routes).
+
+The route checks are recorded results of the evaluated host; everything else in an explanation is computed by this
+tool on the machine that runs it, recorded in ``provenance.computed_on``. ``provenance.evaluated_host`` is false unless
+``--evaluated-host`` is given, which is accepted only on native macOS arm64 and is meant only for a run on the evaluated
+host itself (README "Recorded and computed").
 """
 from __future__ import annotations
 
@@ -15,6 +20,7 @@ import argparse
 import collections
 import datetime as dt
 import json
+import platform
 import subprocess
 import sys
 import time
@@ -34,10 +40,32 @@ INPUTS_ARCHIVE_SHA256 = "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f
 CONTACT_RULE = ("closed road segment vs closed 375 m cell rectangle, closed occupancy vs half-open phase [birth, birth+T) "
                 "(present fire [0, R)), any of the members (runtime whole-road check, contact_first.py); router cell-piece "
                 "sampling on HAZARD.json reported alongside (routing/core.py evaluate_occupancy)")
+# the evaluated host computed planner/cache natively on macOS arm64 (planner/cache/INDEX.json "host")
+EVALUATED_HOST_PLATFORM = ("Darwin", "arm64")
+# provenance fields that describe one run, not the content (ignored by ``check`` and the regeneration test)
+RUN_STAMPS = ("generated_at", "code_commit", "code_dirty", "computed_on")
 
 
 class InputError(RuntimeError):
     pass
+
+
+def host_record() -> dict:
+    """Where this run computes: the same platform / machine / python fields as the API's host record (api/provenance.py),
+    plus the numerical libraries the replay and the labels use."""
+    import numpy
+    import pyproj
+    return {"platform": platform.platform(), "system": platform.system(), "machine": platform.machine(),
+            "python": platform.python_version(), "numpy": numpy.__version__, "pyproj": pyproj.__version__}
+
+
+def evaluated_host_flag(requested: bool, host: dict) -> bool:
+    """``evaluated_host`` is true only on explicit request, and the request is refused off native macOS arm64."""
+    if not requested:
+        return False
+    if (host["system"], host["machine"]) != EVALUATED_HOST_PLATFORM:
+        raise InputError("--evaluated-host is accepted only on native macOS arm64 (this run: %s %s)" % (host["system"], host["machine"]))
+    return True
 
 
 def compact(iso: str) -> str:
@@ -139,6 +167,8 @@ def generate(args) -> int:
     rows = input_rows(data_root)
     to_5179, to_lonlat = transformers()
     git = git_state(repo)
+    host = host_record()
+    on_evaluated_host = evaluated_host_flag(getattr(args, "evaluated_host", False), host)
     kit = None
     if not args.no_kit:
         kit = load_kit_checker()
@@ -209,6 +239,7 @@ def generate(args) -> int:
                                   **git, "generator": "tools/explain_deadlines %s" % VERSION,
                                   "kit_checker_sha256": kit[1] if kit else None,
                                   "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+                                  "computed_on": host, "evaluated_host": on_evaluated_host,
                                   "hash_checks": {**hash_checks, "hazard_vs_npz": pk.consistency},
                                   "horizon_s": int(pk.horizon), "members": pk.member_ids,
                                   "contact_rule": CONTACT_RULE, "method": "tools/explain_deadlines/README.md"},
@@ -227,7 +258,8 @@ def generate(args) -> int:
 
 
 def check(args) -> int:
-    """Re-run generation in memory and compare with the written files (everything but generated_at)."""
+    """Re-run generation into ``--tmp`` and compare with the written files: every field but the run stamps
+    (RUN_STAMPS: generated_at, code_commit, code_dirty, computed_on). ``evaluated_host`` is compared."""
     repo = Path(args.repo).resolve()
     out_dir = repo / args.out
     tmp = Path(args.tmp).resolve()
@@ -241,13 +273,15 @@ def check(args) -> int:
     for f in sorted(Path(sub.out if Path(sub.out).is_absolute() else repo / sub.out).glob("*.json")):
         a = json.loads(f.read_text())
         b = json.loads((out_dir / f.name).read_text())
+        hosts = [d["provenance"].get("computed_on") for d in (a, b)]
         for d in (a, b):
-            d["provenance"].pop("generated_at", None)
-            d["provenance"].pop("code_commit", None)
-            d["provenance"].pop("code_dirty", None)
+            for k in RUN_STAMPS:
+                d["provenance"].pop(k, None)
         same = a == b
         bad += not same
-        print("%s %s" % ("SAME" if same else "DIFFERENT", f.name))
+        note = "" if hosts[0] == hosts[1] else "  (written on %s, checked on %s)" % (
+            (hosts[1] or {}).get("platform"), (hosts[0] or {}).get("platform"))
+        print("%s %s%s" % ("SAME" if same else "DIFFERENT", f.name, note))
     return 1 if bad else 0
 
 
@@ -262,6 +296,9 @@ def main(argv=None) -> int:
         p.add_argument("--out", default="planner/public/data/explanations")
         p.add_argument("--only", nargs="*", help="cache paths relative to the cache dir (as in INDEX.json)")
         p.add_argument("--no-kit", action="store_true", help="skip the kit independent-checker cross-check")
+        p.add_argument("--evaluated-host", action="store_true",
+                       help="mark the output as computed on the evaluated host (provenance.evaluated_host true); refused "
+                            "off native macOS arm64 -- use it only on the evaluated host itself (README)")
         if name == "check":
             p.add_argument("--tmp", required=True, help="scratch directory for the regenerated files")
     a = ap.parse_args(argv)
