@@ -1,20 +1,22 @@
-"""Provenance: which numbers depend on this package's own road-graph computation, and which inputs every headline
-number records.
+"""Provenance and attribution: which numbers depend on this package's own road-graph computation (and say so wherever
+they are published), which inputs every headline number records, and the citations and versions in the README.
 
 The source flags are checked from both sides: test_cache_only.py proves that every uses_graph = false number is
 reproduced with data/routing/ unreachable; here, perturbing only the road-graph-derived values must change nothing but
 numbers flagged uses_graph (and uses_hazard where trip times or the window are involved).
 """
 import copy
+import html
 import json
 import re
 
 from conftest import PACKAGE_ROOT
-from wfg_impact import analysis, numbers as numbers_mod, sources
+from wfg_impact import analysis, figures, numbers as numbers_mod, sentences, sources
 
 NUMBERS = json.loads((PACKAGE_ROOT / 'NUMBERS.json').read_text(encoding='utf-8'))
 N = NUMBERS['numbers']
 README = (PACKAGE_ROOT / 'README.md').read_text(encoding='utf-8')
+SENTENCES_MD = (PACKAGE_ROOT / 'APPLICATION_SENTENCES.md').read_text(encoding='utf-8')
 
 # families written out here independently of numbers.py: the 1-hour window classification and fire-free trip times
 # (graph.json travel_ticks x HAZARD.json dt, window from HAZARD.json) and the graph-only road metrics
@@ -124,6 +126,82 @@ def test_source_flags_follow_the_real_dependencies(path_a_result):
         assert set(must) <= changed, (mutate.__name__, set(must) - changed)
         wrong = sorted(k for k in changed if not N[k]['uses_graph'] or (hazard and not N[k]['uses_hazard']))
         assert not wrong, (mutate.__name__, wrong[:20])
+
+
+SOURCE_PHRASES = ('computed by this package', 'Linux container', 'not evaluated-host output')
+
+
+def _svg_text(path) -> str:
+    """The text of an SVG drawn with svg.fonttype 'none': one <text> element per wrapped line, joined by spaces."""
+    parts = re.findall(r'<text[^>]*>([^<]*)</text>', path.read_text(encoding='utf-8'))
+    return ' '.join(' '.join(html.unescape(p) for p in parts).split())
+
+
+def test_attribution_is_split_wherever_numbers_are_published():
+    statement = NUMBERS['statement'] + ' ' + ' '.join(NUMBERS['attribution'].values())
+    assert 'evaluated macOS arm64 host' in statement and all(p in statement for p in ('Linux container', 'not evaluated-host output'))
+    assert 'Every number describes what' not in statement
+    assert any('not evaluated-host output' in c for c in NUMBERS['caveats'])
+    # every number that depends on this package's own computation says so in its own definition
+    for key, e in N.items():
+        if e['uses_graph']:
+            assert all(p in e['definition'] for p in SOURCE_PHRASES), key
+    # README: no claim that every number is read from the cache; the headline Source column follows the flags
+    assert 'they are read from the recorded cache, not recomputed by the router' not in README
+    assert all(p in README for p in SOURCE_PHRASES) and '2-vCPU' not in README
+    for key in numbers_mod.HEADLINE_KEYS:
+        row = re.search(rf'^\| `{re.escape(key)}` \| [^|]+ \| ([^|]+) \|', README, flags=re.M)
+        assert row and row.group(1).strip() == ('computed here' if N[key]['uses_graph'] else 'recorded'), key
+    # application sentences: the preamble splits the sources; every sentence relying on a computed number says so
+    preamble = SENTENCES_MD.split('## S1')[0]
+    assert 'recorded on the evaluated macOS arm64 host' in preamble and all(p in preamble for p in SOURCE_PHRASES[1:])
+    assert 'it describes what the Route-Check API concluded' not in SENTENCES_MD
+    relying = 0
+    for s in sentences.SENTENCES:
+        _, caution, keys = sentences.render(s, N)
+        if any(N[k]['uses_graph'] for k in keys):
+            relying += 1
+            assert all(p in caution for p in SOURCE_PHRASES), s['id']
+    assert relying == 5                         # S2-S6
+    # figure footers (committed SVGs): the recorded / computed split of that figure
+    for stem, fig in (('fig1_checked_share_by_offset', 'fig1'), ('fig2_deadline_by_origin_type', 'fig2'),
+                      ('fig3_travel_only_vs_checked', 'fig3')):
+        text = _svg_text(PACKAGE_ROOT / 'figures' / f'{stem}.svg')
+        assert figures.SOURCES[fig] in text and 'evaluated macOS arm64 host' in text, stem
+        assert all(p in text for p in SOURCE_PHRASES) and 'road entry point' in text, stem
+
+
+def test_departures_are_said_to_start_at_the_road_entry_point():
+    preamble = SENTENCES_MD.split('## S1')[0]
+    for text in (preamble, figures.FOOTER, ' '.join(NUMBERS['caveats'])):
+        assert 'road entry point' in text and 'at most 2 km' in text and 'not modelled' in text
+    s1_text, s1_caution, _ = sentences.render(sentences.SENTENCES[0], N)
+    assert 'checked vehicle departures from the road entry point of each of' in s1_text and 'at most 2 km' in s1_text
+    assert 'road entry point' in s1_caution and 'not modelled' in s1_caution
+    g = lambda k: N[k]  # noqa: E731
+    med, mx = g('entry_distance_m.median@all/places')['value'], g('entry_distance_m.max@all/places')['value']
+    o500, o1k = g('entry_distance_over_500m@all/places'), g('entry_distance_over_1000m@all/places')
+    readme = ' '.join(README.split())
+    assert (f'at most 2 km away (median {med:,} m, maximum {mx:,} m; {o500["numerator"]} of {o500["denominator"]} places are '
+            f'more than 500 m and {o1k["numerator"]} more than 1 km away') in readme
+    lo, hi = g('fastest_trip_s.min@all/places#care_facility')['value'], g('fastest_trip_s.max@all/places#care_facility')['value']
+    cmin, cmax = g('entry_distance_m.min@all/places#care_facility')['value'], g('entry_distance_m.max@all/places#care_facility')['value']
+    assert (f'The fastest fire-free trip from their road entry points to a candidate destination takes {lo}-{hi} s') in readme
+    assert f'their entry points lie {cmin:,}-{cmax:,} m from the mapped facilities' in readme
+    assert 'fire-free drive from a candidate destination' not in readme
+
+
+def test_planner_line_citations_name_their_commit():
+    commit = numbers_mod.PLANNER_LINES_COMMIT
+    assert commit == '0cd95db2'
+    cite = re.compile(r'(plan|cache|adapter|controller|staticData)\.ts\b[^;]*?\blines? \d')
+    texts = [e['definition'] for e in N.values()] + list(NUMBERS['definitions_common'].values())
+    cited = [t for t in texts if cite.search(t)]
+    assert len(cited) > 500
+    assert all(f'at commit {commit}' in t for t in cited)
+    assert f'## Definitions (replicated exactly from the planner; line numbers at commit {commit})' in README
+    for module in ('planner_rules.py', 'analysis.py', 'api_rules.py', 'numbers.py'):
+        assert commit in (PACKAGE_ROOT / 'wfg_impact' / module).read_text(encoding='utf-8'), module
 
 
 def _pins(path) -> dict:

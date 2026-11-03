@@ -2,7 +2,8 @@
 
 The API's aggregation code, ``api/dispatch.py`` (unmodified; it imports only ``statistics``), is loaded by file path
 so that its ``origin_plan`` (lines 34-44: ``best_verdict`` 9-17, ``latest_checked_depart_offset_s`` 37,
-``contiguous_latest`` 20-31) can be re-applied to the ORIGINAL attempts recorded in each cached dispatch plan.
+``contiguous_latest`` 20-31) can be re-applied to the ORIGINAL attempts recorded in each cached dispatch plan. Line
+numbers in this module refer to repository commit 0cd95db2.
 
 Three comparisons are reported per origin:
 1. recorded API fields  vs  ``api/dispatch.py`` re-applied to the recorded attempts (data integrity);

@@ -197,7 +197,8 @@ def test_hand_written_readme_facts_match_numbers():
     assert N['destinations_used.shelter@yeongdeok_2025/places']['value'] == 1
     assert 'an unnamed OSM point tagged `amenity=shelter` without `shelter_type`' in readme
     lo, hi = N['fastest_trip_s.min@all/places#care_facility']['value'], N['fastest_trip_s.max@all/places#care_facility']['value']
-    assert f'They are {lo}-{hi} s fire-free drive' in readme and hi <= 480       # "the window never limits them"
+    assert (f'The fastest fire-free trip from their road entry points to a candidate destination takes {lo}-{hi} s'
+            in ' '.join(readme.split())) and hi <= 480       # "the window never limits them"
     assert N['places.window_limited_at_offset_3000s@all/places#care_facility']['numerator'] == 0
     assert 'takes at most 480 s (8 min); at +40 min, at most 1,080 s' in readme
     assert N['destinations_used.shelter@uiseong_andong_2025/places']['value'] == 0

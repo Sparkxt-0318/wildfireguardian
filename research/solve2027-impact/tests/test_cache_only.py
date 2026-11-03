@@ -116,3 +116,12 @@ def test_check_level_counts_and_per_type_survival_add_up():
         g = lambda k: N[f'{k}@{sc}']['value']  # noqa: E731
         assert sum(g(f'research_checks.verdict.{v}') for v in pr.VERDICTS) == g('records.research_route_checks')
 
+
+def test_entry_distances_cover_every_checked_place():
+    for reg in list(sources.REGIONS) + ['all']:
+        e = N[f'entry_distance_m.max@{reg}/places']
+        assert e['n'] == N[f'places@{reg}/places']['value']
+        assert e['value'] <= 2000.0                           # checkable = an entry point within 2 km
+        assert N[f'entry_distance_m.min@{reg}/places']['value'] <= N[f'entry_distance_m.median@{reg}/places']['value'] \
+            <= e['value']
+        assert N[f'entry_distance_over_1000m@{reg}/places']['numerator'] <= N[f'entry_distance_over_500m@{reg}/places']['numerator']

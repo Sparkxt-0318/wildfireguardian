@@ -6,6 +6,8 @@ Cache files are loaded one at a time; each road graph is loaded once, after its 
 ``run(with_graphs=False)`` reads nothing from ``data/routing/`` (no road graph, no HAZARD packet): it yields the
 records behind every cache-only number (``uses_graph`` false in NUMBERS.json) and nothing that needs the road graph
 or the scenario window.
+
+Planner line numbers cited in this module refer to repository commit 0cd95db2.
 """
 from __future__ import annotations
 
@@ -111,6 +113,10 @@ def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> d
         rec['best_job_id'] = best['job_id'] if best else None
         w = wire.get(o['id'])
         if w is not None:
+            if w['entry_node'] != o['entry_node']:      # the checks started at the place's own entry point
+                raise sources.InputIdentityError(f'{o["id"]}: request start node {w["entry_node"]} is not the '
+                                                 f'places.geojson entry node {o["entry_node"]}')
+            rec['entry_distance_m'] = o['entry_distance_m']
             rec['entry_node'], rec['dest_nodes'] = w['entry_node'], list(w['dest_nodes'])
             rec['dest_ids'], rec['dest_dwell_s'], rec['dest_window'] = list(w['dest_ids']), w['dest_dwell'], w['dest_window']
             recorded = api_rules.recorded_fields(w['plan'])

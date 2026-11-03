@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="827.891016pt" height="560.597594pt" viewBox="0 0 827.891016 560.597594" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="824.4pt" height="593.314094pt" viewBox="0 0 824.4 593.314094" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -20,9 +20,9 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 560.597594 
-L 827.891016 560.597594 
-L 827.891016 0 
+   <path d="M 0 593.314094 
+L 824.4 593.314094 
+L 824.4 0 
 L 0 0 
 z
 " style="fill: #ffffff"/>
@@ -430,9 +430,11 @@ z
    </g>
   </g>
   <g id="text_29">
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 535.041109)">Comparison at each place's leave-by deadline toward the destination of its default checked route. Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 543.439469)">forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is checked to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 551.837828)">to any one counts; for one Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 550.960891)">Comparison at each place's leave-by deadline toward the destination of its default checked route. Sources: flame contact and arrival times = Route-Check API results recorded on the evaluated macOS arm64 host</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 559.35925)">(planner cache); route lengths (km) = computed by this package in a Linux container (not evaluated-host output) from the SHA-verified road graph. Model-relative results for recorded 2025 fire scenarios (4 scenario</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 567.757609)">members per input time, drawn per cell from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is checked from its road entry point (the nearest node of the main</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 576.155969)">road network, at most 2 km from the mapped place; travel to it is not modelled) to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts; for one</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 584.554328)">Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
   </g>
  </g>
  <defs>

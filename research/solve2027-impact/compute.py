@@ -40,15 +40,43 @@ CAVEATS = [
     'Destinations: for each place the 3 nearest (straight line) OpenStreetMap destinations with distinct road entry '
     'nodes; those used are OSM schools, community halls and one unnamed OSM point tagged amenity=shelter without '
     'shelter_type (a candidate for one Yeongdeok place; keys destinations_used.*) - not official evacuation shelters. '
-    'Travel between a mapped point and its road entry '
-    'node is not modelled. Places come from a 2026-10-17 OSM extract (current data) while the road graph is the '
-    'pre-fire snapshot.',
-    'Host: the cache was computed by the Route-Check API on the evaluated macOS arm64 host (purpose "booth") with the '
-    'fixed 30 s request budget; timed-out checks that were re-checked are shown as their re-check, as in the planner.',
+    'Places come from a 2026-10-17 OSM extract (current data) while the road graph is the pre-fire snapshot.',
+    'Road entry points: departures, leave-by deadlines and fire-free trips are at each place\'s road entry point '
+    '(진입 지점: the nearest node of the main road network, at most 2 km from the mapped point; keys '
+    'entry_distance_m.*), not at the place itself; travel between the place and its entry point is not modelled.',
+    'Sources: verdicts, leave-by deadlines, re-checks and travel-only results were computed by the Route-Check API on '
+    'the evaluated macOS arm64 host (purpose "booth", fixed 30 s request budget; planner cache); timed-out checks that '
+    'were re-checked are shown as their re-check, as in the planner. Fire-free trip times, the scenario-window '
+    'classification, road redundancy and route lengths (uses_graph = true) were computed by this package from the '
+    'SHA-verified road graph and hazard packets in a Linux container: not Route-Check API results and not '
+    'evaluated-host output.',
     'Model-relative: checked_route = a route that passed the checks within the model and its inputs; model_no_route is '
     'not proof that escape is impossible; unresolved = cannot judge, never safe. None of these numbers are evacuation '
     'outcomes, observed travel times or casualties avoided.',
 ]
+STATEMENT = ('Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok '
+             'fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the '
+             'evaluated macOS arm64 host (planner cache; uses_graph = false), and values this package computed itself '
+             'from the SHA-verified road graph and hazard packets in a Linux container (uses_graph = true), which are '
+             'not Route-Check API results and not evaluated-host output. None is an evacuation outcome.')
+ATTRIBUTION = {
+    'recorded': ('uses_graph = false: aggregates of recorded inputs only - Route-Check API results in the planner cache '
+                 '(verdicts, leave-by deadlines, re-checks, travel-only flame contact and arrival times), computed on '
+                 'the evaluated macOS arm64 host (purpose booth, fixed 30 s budget per check), and the planner\'s place '
+                 'files. This package counts them with the planner\'s own rules; it runs no route check.'),
+    'computed_by_this_package': ('uses_graph = true: the number also depends on this package\'s own computation on the '
+                                 'SHA-verified road graph (data/routing graph.json): fire-free trip times, the 1-hour '
+                                 'scenario-window classification (fits / window-limited, deadline set by the window), '
+                                 'road redundancy and shared stretches, and route lengths; uses_hazard = true: also on '
+                                 'the recorded hazard packets (HAZARD.json: valid_from, valid_until, dt). These are not '
+                                 'Route-Check API results, so they are not evaluated-host output; the committed values '
+                                 'were computed in a Linux container. The fire-free trip model equals the API\'s own '
+                                 'recorded travel-time-only route time in every comparison '
+                                 '(trip_model.equals_travel_only@all/pooled).'),
+    'headline_inputs': ('Headline entries list every input file with its SHA-256, including graph.json and HAZARD.json '
+                        'where uses_graph / uses_hazard is true; the other entries carry the two flags, and the inputs '
+                        'section lists every file.'),
+}
 
 
 # ------------------------------------------------------------------------------------------------ NUMBERS.json
@@ -89,9 +117,8 @@ def numbers_document(result: dict, nums: dict) -> dict:
     return {
         'schema': SCHEMA,
         'title': 'Who needs more time: model-relative impact numbers from the recorded 2025 planner cache',
-        'statement': 'Every number describes what the WildfireGuardian Route-Check API concluded for recorded fire-scenario '
-                     'members of the March 2025 Uiseong-Andong and Yeongdeok fires (planner cache, computed on the '
-                     'evaluated macOS host). None is an evacuation outcome.',
+        'statement': STATEMENT,
+        'attribution': ATTRIBUTION,
         'generator': {'script': numbers_mod.SCRIPT,
                       'path_a': 'research/solve2027-impact/wfg_impact/{sources,planner_rules,api_rules,maxflow,trips,analysis,numbers}.py',
                       'independent_check': 'research/solve2027-impact/verify.py (path B: research/solve2027-impact/wfg_impact/path_b.py, '
@@ -193,6 +220,9 @@ def _frac(e) -> str:
     return f'{e["numerator"]:,}/{e["denominator"]:,} ({100.0 * e["numerator"] / e["denominator"]:.1f}%)'
 
 
+SOURCE_LABEL = {False: 'recorded', True: 'computed here'}
+
+
 def index_reconciliation(result: dict, nums: dict) -> list[dict]:
     """planner/cache/INDEX.json totals per cache file against this package's counts (P4F-06). INDEX counts (precompute.py):
     origins = dispatch origins + research origins; checks = every stored route check (dispatch attempts, re-checks,
@@ -228,7 +258,8 @@ def index_reconciliation(result: dict, nums: dict) -> list[dict]:
 
 def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     H = nums
-    rows = ['| Key (NUMBERS.json) | Value | Meaning (short; full definition in NUMBERS.json) |', '|---|---:|---|']
+    rows = ['| Key (NUMBERS.json) | Value | Source | Meaning (short; full definition in NUMBERS.json) |',
+            '|---|---:|---|---|']
     ua, yd = 'Uiseong-Andong', 'Yeongdeok'
     short = {
         'records.route_checks@all/pooled': 'route-check records in the six cache files (incl. re-checks)',
@@ -290,7 +321,7 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         val = _frac(e) if e['denominator'] else (f'{e["value"]:,}' if isinstance(e['value'], int) else f'{e["value"]}')
         if 'n' in e:
             val += f' (n = {e["n"]})'
-        rows.append(f'| `{k}` | {val} | {short[k]} |')
+        rows.append(f'| `{k}` | {val} | {SOURCE_LABEL[e["uses_graph"]]} | {short[k]} |')
     headline = '\n'.join(rows)
 
     def nd(e):
@@ -331,7 +362,9 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     a_w, a_f = H['deadline_set_by.window@all/pooled'], H['deadline_set_by.fire_or_limits@all/pooled']
     deadlines = '\n'.join(dl) + (
         f'\n\nIn parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by_window@*`): at the next '
-        f'departure even the fastest fire-free trip plus the 120 s stay would end after the window. Overall '
+        f'departure even the fastest fire-free trip plus the 120 s stay would end after the window. This split is computed '
+        f'here from fire-free trips on the road graph (not by the Route-Check API); the deadlines are recorded results. '
+        f'Overall '
         f'{a_w["numerator"]} of the {a_w["denominator"]} deadlines before +50 min are set by the window and '
         f'{a_f["numerator"]} by the fire scenarios or model limits (`deadline_set_by.*@all/pooled`). No case had its last '
         'checked departure at +0 min (`deadline.latest_0000s@*` = 0). Yeongdeok has no care facility in the OSM extract.')
@@ -459,7 +492,6 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         'flame contact (`travel_only.records_not_paired.fastest_meets_flames@all/pooled`).')
     return {'headline': headline, 'by-scenario': by_scope, 'deadlines': deadlines, 'redundancy': redundancy,
             'crosscheck': crosscheck, 'inputs': '\n'.join(scopes), 'by-type': by_type, 'index': index}
-
 
 
 def fill_readme(text: str, blocks: dict[str, str]) -> str:

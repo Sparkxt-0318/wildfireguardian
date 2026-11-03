@@ -14,6 +14,14 @@ Population ("origins") unless stated otherwise: OpenStreetMap villages/hamlets a
 sent to the Route-Check API. The 3 OSM villages without such a node (never checked; shown by the planner as
 unresolved "도로망 2 km 밖 — 점검 불가") and the 8 recorded research-mission origins are excluded and reported
 separately.
+
+Sources, flagged on every number: ``uses_graph`` false = an aggregate of recorded inputs only (Route-Check API results
+in the planner cache, computed on the evaluated macOS arm64 host, and the planner's place files), counted here with the
+planner's rules; ``uses_graph`` true = the number also depends on this package's own computation on the SHA-verified
+road graph (fire-free trip times, the scenario-window classification, road redundancy, route lengths), and
+``uses_hazard`` true = also on the recorded HAZARD packets (scenario window ``valid_from``/``valid_until``, time step
+``dt``). Those computations are not Route-Check API results and not evaluated-host output (SOURCE_COMPUTED).
+Planner line numbers cited below refer to repository commit 0cd95db2 (``PLANNER_LINES_COMMIT``).
 """
 from __future__ import annotations
 
@@ -31,15 +39,29 @@ DEADLINE_CATS = tuple(f'latest_{t:04d}s' for t in OFFSETS) + ('none_model_no_rou
 
 POP = ('checked OSM origins (villages/hamlets + care facilities with an accepted road entry node within 2 km; '
        'research-mission origins and the 3 not-checkable villages excluded)')
+PLANNER_LINES_COMMIT = '0cd95db2'      # the planner line numbers cited in definitions are those of this commit
+AT = f'at commit {PLANNER_LINES_COMMIT}'
 CELL_RULE = ('The cell verdict at a departure offset follows the planner (planner/src/domain/plan.ts combineVerdicts, '
-             'lines 106-111): checked_route if ANY of the origin\'s candidate destinations has a checked route, '
+             f'lines 106-111 {AT}): checked_route if ANY of the origin\'s candidate destinations has a checked route, '
              'model_no_route only if EVERY attempted destination is model_no_route, otherwise unresolved; '
-             're-checks replace the attempt they re-ran (planner/src/api/cache.ts lines 120-145)')
+             f're-checks replace the attempt they re-ran (planner/src/api/cache.ts lines 120-145 {AT})')
 DEADLINE_RULE = ('leave-by deadline (출발 마감) = the latest departure offset whose cell is checked_route '
-                 '(plan.ts latestSafeDeparture, lines 155-161); offsets are 0, 600, ..., 3000 s after the recorded '
-                 'input time; unresolved cells never count')
+                 f'(plan.ts latestSafeDeparture, lines 155-161 {AT}); offsets are 0, 600, ..., 3000 s after the '
+                 'recorded input time; unresolved cells never count')
 DEADLINE_DEF = ('The leave-by deadline (출발 마감) is the latest departure offset whose cell is checked_route '
-                '(plan.ts latestSafeDeparture, lines 155-161); unresolved cells never count.')
+                f'(plan.ts latestSafeDeparture, lines 155-161 {AT}); unresolved cells never count.')
+ENTRY_NOTE = ('Departures, leave-by deadlines and fire-free trips start at each place\'s road entry point (진입 지점: the '
+              'nearest node of the main road network, at most 2 km from the mapped point); travel between the place '
+              'and that point is not modelled.')
+# appended to the definition of every number that depends on this package's own road-graph computation
+SOURCE_COMPUTED = {
+    False: (' Source: computed by this package from the SHA-verified road graph (data/routing graph.json) and the '
+            'recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was '
+            'computed in a Linux container.'),
+    True: (' Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing '
+           'graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host '
+           'output; the committed value was computed in a Linux container.'),
+}
 WINDOW_RULE = ('A departure at offset t can only be checked if arrival plus the required stay ends by the destination '
                'window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if '
                'arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). "Fits" = for at least '
@@ -99,6 +121,8 @@ class Builder:
             raise ValueError(f'{key}: every hazard-dependent number also depends on the road graph (fire-free trips)')
         metric, _, rest = key.partition('@')
         scope, _, subset = rest.partition('#')
+        if graphs:
+            definition += SOURCE_COMPUTED[hazard]
         entry = {'value': value, 'unit': unit, 'numerator': numerator, 'denominator': denominator,
                  'definition': definition, 'scope': scope, 'subset': subset or None,
                  'scope_text': _scope_text(scope, self.metas), 'script': SCRIPT,
@@ -145,7 +169,7 @@ def case_numbers(b: Builder, records: list[dict]):
                 k = sum(1 for r in rows if r['best_verdict'] == v)
                 b.frac(f'best_verdict.{v}' + tag, k, n,
                        f'Cases whose overall verdict (planner bestVerdict = contract best_verdict over all attempts, '
-                       f'plan.ts lines 106-111 / 204) is {v}. {CELL_RULE}.{st}')
+                       f'plan.ts lines 106-111 / 204 {AT}) is {v}. {CELL_RULE}.{st}')
             for cat in DEADLINE_CATS:
                 k = sum(1 for r in rows if r['deadline_category'] == cat)
                 if cat.startswith('latest_'):
@@ -194,7 +218,7 @@ def case_numbers(b: Builder, records: list[dict]):
             kc = sum(1 for r in rows if r['latest_s'] is not None and r['contiguous_s'] != r['latest_s'])
             b.frac('contiguous_differs_from_latest' + tag, kc, sum(1 for r in rows if r['latest_s'] is not None),
                    'Cases with a checked route whose contiguous deadline (contract latest_contiguous_checked_depart_'
-                   f'offset_s; plan.ts contiguousSafeDeparture, lines 169-178) differs from the leave-by deadline. '
+                   f'offset_s; plan.ts contiguousSafeDeparture, lines 169-178 {AT}) differs from the leave-by deadline. '
                    'When this is 0, the share checked at offset t equals the share whose deadline is at or after t.' + st)
             att = [(r['scope'], r['origin_id'], k, v) for r in rows for k, v in r['unresolved_reasons'].items()]
             n_att = sum(r['n_attempts'] for r in rows)
@@ -437,6 +461,33 @@ def research_numbers(b: Builder, records: list[dict]):
                'Research-origin route checks (denominator) that are unresolved with any other (or no) reason_code.')
 
 
+def entry_numbers(b: Builder, records: list[dict]):
+    """How far each checked place lies from its road entry point, where every check of the place started (D3)."""
+    d = ('Straight-line distance (EPSG:5179 metres, rounded to 0.1 m by the planner\'s data builder; places.geojson '
+         'entry.distance_m) from the mapped OSM point of a place to its road entry point (진입 지점), the nearest node '
+         'of the main road network (largest strongly connected component of the road graph), which is the start node '
+         'of every route check of the place (asserted). ' + ENTRY_NOTE)
+    for reg in list(sources.REGIONS) + ['all']:
+        for sub in ('', 'village', 'care_facility'):
+            rows = _sel(records, f'{reg}/places', sub)
+            if not rows:
+                continue
+            tag = f'@{reg}/places' + (f'#{sub}' if sub else '')
+            st = SUBSET_TEXT[sub]
+            dist = {}
+            for r in rows:
+                if dist.setdefault((r['region'], r['origin_id']), r['entry_distance_m']) != r['entry_distance_m']:
+                    raise AssertionError(f'{r["origin_id"]}: entry distance differs between input times')
+            vals = list(dist.values())
+            for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
+                b.add(f'entry_distance_m.{stat}' + tag, round(fn(vals), 2),
+                      f'{stat} over distinct places (field n). ' + d + st, unit='m', n=len(vals))
+            for lim in (500, 1000):
+                b.frac(f'entry_distance_over_{lim}m' + tag, sum(1 for v in vals if v > lim), len(vals),
+                       f'Distinct places (denominator) whose road entry point is more than {lim} m from the mapped point '
+                       f'(numerator). ' + d + st)
+
+
 def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
     rdef = ('Road redundancy on the exact routing graph the API used (SHA-256 = input_hashes.graph of every cached '
             'route check): maximum number of walks from the origin\'s entry node (진입 지점) to any of its candidate '
@@ -676,6 +727,7 @@ def build(result: dict) -> dict:
         travel_by_deadline_numbers(b, result['pairs'])
     travel_unpaired_numbers(b, result['travel_unpaired'])
     research_numbers(b, records)
+    entry_numbers(b, records)
     for key in HEADLINE_KEYS:                        # fully self-contained provenance on every headline number
         if key not in b.numbers and not b.with_graphs:
             continue

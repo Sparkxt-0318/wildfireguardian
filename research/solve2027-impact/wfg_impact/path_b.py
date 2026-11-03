@@ -20,7 +20,7 @@ module does not import:
   shared by every route are grown on networkx's residual network (path A: its own residual arrays);
 * fastest fire-free trips and shared-stretch lengths with networkx's Dijkstra on a turn-expanded graph built here
   (path A: its own heap Dijkstra); the scenario window is read from each HAZARD.json here (path A: ``sources``);
-* origin types read directly from ``places.geojson`` properties;
+* origin types and road entry-point distances read directly from ``places.geojson`` properties;
 * travel-only records that are not paired are found from the cache's ``travel_only`` map and read their flame contact
   from ``full_policy_assessment`` (path A: ``exposure``).
 Only file locations and SHA-256 checks are shared (``sources``). ``compute(with_graphs=False)`` reads nothing from
@@ -55,8 +55,10 @@ def places_frame(region: str) -> pd.DataFrame:
             continue
         kind = ('not_checkable' if not checkable else 'research' if p['role'] == 'research_origin'
                 else 'care_facility' if p.get('vulnerable') is True else 'village')
+        entry = p.get('entry') or {}
         rows.append({'region': region, 'origin_id': p['id'], 'role': p['role'], 'kind': kind,
-                     'scenario_set_id': p.get('scenario_set_id')})
+                     'scenario_set_id': p.get('scenario_set_id'), 'entry_node': entry.get('node'),
+                     'entry_m': entry.get('distance_m')})
     return pd.DataFrame(rows)
 
 
@@ -656,6 +658,25 @@ def compute(with_graphs: bool = True) -> dict:
         k = int((~reasons.isin(['AT_ISSUE_FAILURE', 'TIMEOUT'])).sum())
         _put(out, 'research_checks.unresolved.other' + tag, k, k, nr)
 
+    # road entry points of the checked places (straight from places.geojson)
+    ent = osm.drop_duplicates(['region', 'origin_id']).merge(
+        places[['region', 'origin_id', 'entry_node', 'entry_m']], on=['region', 'origin_id'], how='left',
+        suffixes=('', '_place'))
+    assert (ent['entry_node'] == ent['entry_node_place']).all(), 'a check did not start at the place entry node'
+    for reg in list(sources.REGIONS) + ['all']:
+        for sub in ('', 'village', 'care_facility'):
+            d = pick(ent, f'{reg}/places')
+            if sub:
+                d = d[d['kind'] == sub]
+            if d.empty:
+                continue
+            tag = f'@{reg}/places' + (f'#{sub}' if sub else '')
+            m = d['entry_m'].astype(float)
+            for stat in ('min', 'median', 'max'):
+                _put(out, f'entry_distance_m.{stat}' + tag, round(float(getattr(m, stat)()), 2))
+            for lim in (500, 1000):
+                k = int((m > lim).sum())
+                _put(out, f'entry_distance_over_{lim}m' + tag, k, k, len(m))
     if not with_graphs:
         return out, {'cases': osm, 'travel': tr}
 

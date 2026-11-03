@@ -3,7 +3,10 @@
 Reproducible, model-relative numbers and English figures for the MIT Solve 2027 application, computed from the
 six booth-cache files the village evacuation planner already ships (`planner/cache/`, 2 regions x 3 recorded input
 times). This package re-reads those recorded Route-Check API results; it runs no new route checks and changes no
-routing, forecast or checking code.
+routing, forecast or checking code. It also computes some values itself from the SHA-verified road graph and hazard
+packets (fire-free trip times, the scenario-window classification, road redundancy, route lengths). Those are marked
+on every number in `NUMBERS.json` (`uses_graph`) and were computed in a Linux container, not on the evaluated host
+(item 6 below).
 
 > **사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다. / Planning aid only — not for live evacuation operations.**
 > Fire input: 2025년 실제 산불 기록 기반 시나리오 재현 / Recorded 2025 wildfire · scenario replay.
@@ -29,78 +32,95 @@ routing, forecast or checking code.
 4. **Destinations are not official shelters.** Each place is checked against its 3 nearest (straight-line) OSM
    destinations with distinct road entry nodes: OSM-mapped schools and community halls, plus, for one Yeongdeok place,
    an unnamed OSM point tagged `amenity=shelter` without `shelter_type` (`destinations_used.*` keys). None is an
-   official evacuation shelter. Travel between a mapped point and its road entry node (진입 지점) is not modelled.
-   Places come from a 2026-10-17 OSM extract (current data), roads from the pre-fire snapshot.
-5. **Recorded on the evaluated host.** Every result in the cache was computed by the Route-Check API on a native macOS
-   arm64 host, the planner's test for the evaluated booth host (purpose `booth`, fixed 30 s budget per check); the API
-   records platform and machine, not the chip. Checks that timed out and were re-checked are shown
-   as their re-check, exactly as the planner shows them.
-6. **Model-relative only.** `checked_route` = a route that passed the checks within the model and its inputs (never
+   official evacuation shelter. Places come from a 2026-10-17 OSM extract (current data), roads from the pre-fire
+   snapshot.
+5. **Departures are at each place's road entry point, not at the place.** Every check of a place starts at its road
+   entry point (진입 지점): the nearest node of the main road network (the road graph's largest strongly connected
+   component) to the mapped OSM point, at most 2 km away (median 198.25 m, maximum 1,917.1 m; 30 of 174 places are more
+   than 500 m and 7 more than 1 km away: `entry_distance_m.*`, `entry_distance_over_*`). Leave-by deadlines and
+   fire-free trip times are therefore at the entry point; travel between the place and its entry point is not
+   modelled.
+6. **Two sources: recorded API results and this package's own road-graph values.** Every verdict, leave-by deadline,
+   re-check and travel-only result was computed by the Route-Check API on a native macOS arm64 host, the planner's
+   test for the evaluated booth host (purpose `booth`, fixed 30 s budget per check); the API records platform and
+   machine, not the chip. Checks that timed out and were re-checked are shown as their re-check, exactly as the planner
+   shows them. This package only counts those results with the planner's rules. Fire-free trip times, the 1-hour
+   window classification (`window_limited.*`, `not_checked_although_fits.*`, `deadline_set_by.*` and the other
+   window keys), road redundancy, shared road stretches and route lengths are different: this package computed them
+   itself from the SHA-verified road graph and hazard packets, in a Linux container. They are not Route-Check API
+   results and not evaluated-host output. `NUMBERS.json` marks this on every number (`uses_graph`, `uses_hazard`), and
+   the headline table shows it in its Source column. The fire-free trip model reproduces the API's own recorded
+   travel-time-only route time in every comparison (`trip_model.equals_travel_only@all/pooled`).
+7. **Model-relative only.** `checked_route` = a route that passed the checks within the model and its inputs (never
    "safe"); `model_no_route` = no route within this model and input scope (not proof that escape is impossible);
    `unresolved` = cannot judge (never safe, never a deadline). **None of these numbers are evacuation outcomes,
    observed travel times or casualties avoided.**
-7. **Small and incomplete samples.** 5 care facilities are mapped in OSM (all in Uiseong-Andong), none in Yeongdeok.
-   They are 25-290 s fire-free drive from a candidate destination (`fastest_trip_s.*@all/places#care_facility`), so the
-   window never limits them; most of their apparent advantage over villages at late departures is this short
-   distance, not lower fire exposure. OSM coverage of villages and facilities is incomplete. Results are specific to
-   these recorded scenarios.
+8. **Small and incomplete samples.** 5 care facilities are mapped in OSM (all in Uiseong-Andong), none in Yeongdeok.
+   The fastest fire-free trip from their road entry points to a candidate destination takes 25-290 s
+   (`fastest_trip_s.*@all/places#care_facility`), so the window never limits them; their entry points lie 6.2-1,191.5 m
+   from the mapped facilities (`entry_distance_m.*@all/places#care_facility`), and that stretch is not modelled. Most
+   of their apparent advantage over villages at late departures is this short trip, not lower fire exposure. OSM
+   coverage of villages and facilities is incomplete. Results are specific to these recorded scenarios.
 
 ## Headline numbers
 
-All values come from [`NUMBERS.json`](NUMBERS.json) (key, definition, value, numerator/denominator, scope, script and
-input SHA-256 for each). "Cases" count each place once per recorded input time (forecast time); "places" count each
-place once. "Fits" = the fastest fire-free trip plus the 120 s stay fits the 1-hour scenario window at that departure;
-"window-limited" = it does not (definitions below).
+All values come from [`NUMBERS.json`](NUMBERS.json) (key, definition, value, numerator/denominator, scope, sources,
+script and input SHA-256 for each). "Cases" count each place once per recorded input time (forecast time); "places"
+count each place once. "Fits" = the fastest fire-free trip plus the 120 s stay fits the 1-hour scenario window at that
+departure; "window-limited" = it does not (definitions below). Source: `recorded` = counted from Route-Check API
+results recorded on the evaluated macOS arm64 host (and the planner's place files); `computed here` = also depends on
+this package's own computation on the SHA-verified road graph (and hazard packets), run in a Linux container: not a
+Route-Check API result and not evaluated-host output (`uses_graph` = true).
 
 <!-- BEGIN GENERATED: headline -->
-| Key (NUMBERS.json) | Value | Meaning (short; full definition in NUMBERS.json) |
-|---|---:|---|
-| `records.route_checks@all/pooled` | 9,722 | route-check records in the six cache files (incl. re-checks) |
-| `records.rechecks@all/pooled` | 279 | re-checks of timed-out checks among them |
-| `attempts@all/pooled` | 9,396 | route checks behind the cases (place x forecast time x candidate destination x departure) |
-| `places@all/places` | 174 | distinct OSM-mapped villages/hamlets + care facilities checked (both regions) |
-| `osm_origins_not_checkable@all/places` | 3 | listed OSM villages with no road node within 2 km (never checked) |
-| `cases@all/pooled` | 522 | place-forecast-time cases (each place once per recorded forecast time) |
-| `cell.checked_route.offset_0000s@all/pooled` | 501/522 (96.0%) | cases with a checked route for departure at the forecast time |
-| `no_checked_route_any_offset@all/pooled` | 21/522 (4.0%) | cases with no checked route at any departure time |
-| `best_verdict.model_no_route@all/pooled` | 11/522 (2.1%) | of those, model_no_route at every attempt (no route within the model) |
-| `best_verdict.unresolved@all/pooled` | 10/522 (1.9%) | of those, >= 1 unresolved attempt (cannot judge, never safe) |
-| `no_checked_route_any_offset.trip_fits_at_offset_0000s@all/pooled` | 21/21 (100.0%) | of those, a fire-free trip fits the window at +0 min (the window does not explain them) |
-| `not_checked_although_fits.offset_0000s@uiseong_andong_2025/pooled` | 13/252 (5.2%) | Uiseong-Andong, departure at +0 min: no checked route although a fire-free trip fits the window |
-| `not_checked_although_fits.offset_1800s@uiseong_andong_2025/pooled` | 23/246 (9.3%) | same, Uiseong-Andong, +30 min |
-| `not_checked_although_fits.offset_2400s@uiseong_andong_2025/pooled` | 19/204 (9.3%) | same, Uiseong-Andong, +40 min |
-| `not_checked_although_fits.offset_3000s@uiseong_andong_2025/pooled` | 8/111 (7.2%) | same, Uiseong-Andong, +50 min (only trips <= 480 s fit) |
-| `not_checked_although_fits.offset_0000s@yeongdeok_2025/pooled` | 8/270 (3.0%) | same, Yeongdeok, +0 min |
-| `not_checked_although_fits.offset_1800s@yeongdeok_2025/pooled` | 8/270 (3.0%) | same, Yeongdeok, +30 min |
-| `window_limited_among_not_checked.offset_3000s@all/pooled` | 153/168 (91.1%) | cases without a checked route at +50 min that are window-limited (none possible whatever the fire) |
-| `window_limited_among_not_checked.offset_3000s@uiseong_andong_2025/pooled` | 141/149 (94.6%) | same, Uiseong-Andong |
-| `deadline_set_by.window@all/pooled` | 132/147 (89.8%) | deadlines before +50 min set by the 1-hour window (next departure cannot fit) |
-| `deadline_set_by.fire_or_limits@all/pooled` | 15/147 (10.2%) | deadlines before +50 min set by fire scenarios or limits (next would fit) |
-| `places.not_checked_although_fits_any_offset_any_input@all/places` | 30/174 (17.2%) | places with an unchecked departure that would fit the window, in >= 1 forecast time |
-| `places.not_checked_although_fits_at_offset_3000s_any_input@all/places` | 14/65 (21.5%) | of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit |
-| `fastest_trip_s.median@uiseong_andong_2025/places#village` | 583 (n = 79) | fastest fire-free trip to the nearest candidate, Uiseong-Andong villages, median (s) |
-| `fastest_trip_s.median@yeongdeok_2025/places#village` | 87.5 (n = 90) | same, Yeongdeok villages, median (s) |
-| `fastest_trip_s.min@all/places#care_facility` | 25 (n = 5) | same, care facilities, min (s) |
-| `fastest_trip_s.max@all/places#care_facility` | 290 (n = 5) | same, care facilities, max (s) |
-| `trip_model.equals_travel_only@all/pooled` | 501/501 (100.0%) | fire-free trip model = API travel-only route time (validation) |
-| `api_check.recorded_equals_planner_rule_on_original@all/pooled` | 522/522 (100.0%) | API recorded fields = planner rules on original attempts |
-| `api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled` | 517/522 (99.0%) | planner-displayed deadline = API latest_checked_depart_offset_s |
-| `api_check.displayed_differs_explained_by_recheck@all/pooled` | 8/8 (100.0%) | displayed differences explained by re-checks |
-| `travel_only.fastest_meets_flames@all/pooled` | 9/501 (1.8%) | fastest (travel-time-only) routes with predicted flame contact, at the leave-by time |
-| `travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s` | 9/147 (6.1%) | same, leave-by deadline before +50 min |
-| `travel_only.fastest_meets_flames@all/pooled#leave_by_3000s` | 0/354 (0.0%) | same, leave-by deadline +50 min |
-| `travel_only.clear_pairs_equal_arrival@all/pooled` | 492/492 (100.0%) | other comparisons: checked route arrives at the same second |
-| `travel_only.extra_arrival_s.min@all/pooled` | 31 (n = 9) | extra arrival time of the checked alternative, min (s) |
-| `travel_only.extra_arrival_s.median@all/pooled` | 328 (n = 9) | extra arrival time, median (s) |
-| `travel_only.extra_arrival_s.max@all/pooled` | 1,309 (n = 9) | extra arrival time, max (s) |
-| `travel_only.extra_length_m.min@all/pooled` | 270.7 (n = 9) | extra route length, min (m) |
-| `travel_only.extra_length_m.median@all/pooled` | 2646.9 (n = 9) | extra route length, median (m) |
-| `travel_only.extra_length_m.max@all/pooled` | 12783.2 (n = 9) | extra route length, max (m) |
-| `redundancy.turn_aware_paths_1@all/places` | 115/174 (66.1%) | places whose routes all pass through >= 1 common road segment |
-| `redundancy.single_cut_at_entry_node@all/places` | 108/115 (93.9%) | of those, the first common segment leaves the entry point |
-| `redundancy.turn_aware_equals_plain@all/places` | 174/174 (100.0%) | turn-aware count = count ignoring turn restrictions |
-| `redundancy.shared_stretch_m.median@all/places` | 673.6 (n = 115) | entry point to the end of the last common segment, median (m) |
-| `redundancy.shared_stretch_within_100m@all/places` | 10/115 (8.7%) | of those, the common segments end within 100 m |
+| Key (NUMBERS.json) | Value | Source | Meaning (short; full definition in NUMBERS.json) |
+|---|---:|---|---|
+| `records.route_checks@all/pooled` | 9,722 | recorded | route-check records in the six cache files (incl. re-checks) |
+| `records.rechecks@all/pooled` | 279 | recorded | re-checks of timed-out checks among them |
+| `attempts@all/pooled` | 9,396 | recorded | route checks behind the cases (place x forecast time x candidate destination x departure) |
+| `places@all/places` | 174 | recorded | distinct OSM-mapped villages/hamlets + care facilities checked (both regions) |
+| `osm_origins_not_checkable@all/places` | 3 | recorded | listed OSM villages with no road node within 2 km (never checked) |
+| `cases@all/pooled` | 522 | recorded | place-forecast-time cases (each place once per recorded forecast time) |
+| `cell.checked_route.offset_0000s@all/pooled` | 501/522 (96.0%) | recorded | cases with a checked route for departure at the forecast time |
+| `no_checked_route_any_offset@all/pooled` | 21/522 (4.0%) | recorded | cases with no checked route at any departure time |
+| `best_verdict.model_no_route@all/pooled` | 11/522 (2.1%) | recorded | of those, model_no_route at every attempt (no route within the model) |
+| `best_verdict.unresolved@all/pooled` | 10/522 (1.9%) | recorded | of those, >= 1 unresolved attempt (cannot judge, never safe) |
+| `no_checked_route_any_offset.trip_fits_at_offset_0000s@all/pooled` | 21/21 (100.0%) | computed here | of those, a fire-free trip fits the window at +0 min (the window does not explain them) |
+| `not_checked_although_fits.offset_0000s@uiseong_andong_2025/pooled` | 13/252 (5.2%) | computed here | Uiseong-Andong, departure at +0 min: no checked route although a fire-free trip fits the window |
+| `not_checked_although_fits.offset_1800s@uiseong_andong_2025/pooled` | 23/246 (9.3%) | computed here | same, Uiseong-Andong, +30 min |
+| `not_checked_although_fits.offset_2400s@uiseong_andong_2025/pooled` | 19/204 (9.3%) | computed here | same, Uiseong-Andong, +40 min |
+| `not_checked_although_fits.offset_3000s@uiseong_andong_2025/pooled` | 8/111 (7.2%) | computed here | same, Uiseong-Andong, +50 min (only trips <= 480 s fit) |
+| `not_checked_although_fits.offset_0000s@yeongdeok_2025/pooled` | 8/270 (3.0%) | computed here | same, Yeongdeok, +0 min |
+| `not_checked_although_fits.offset_1800s@yeongdeok_2025/pooled` | 8/270 (3.0%) | computed here | same, Yeongdeok, +30 min |
+| `window_limited_among_not_checked.offset_3000s@all/pooled` | 153/168 (91.1%) | computed here | cases without a checked route at +50 min that are window-limited (none possible whatever the fire) |
+| `window_limited_among_not_checked.offset_3000s@uiseong_andong_2025/pooled` | 141/149 (94.6%) | computed here | same, Uiseong-Andong |
+| `deadline_set_by.window@all/pooled` | 132/147 (89.8%) | computed here | deadlines before +50 min set by the 1-hour window (next departure cannot fit) |
+| `deadline_set_by.fire_or_limits@all/pooled` | 15/147 (10.2%) | computed here | deadlines before +50 min set by fire scenarios or limits (next would fit) |
+| `places.not_checked_although_fits_any_offset_any_input@all/places` | 30/174 (17.2%) | computed here | places with an unchecked departure that would fit the window, in >= 1 forecast time |
+| `places.not_checked_although_fits_at_offset_3000s_any_input@all/places` | 14/65 (21.5%) | computed here | of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit |
+| `fastest_trip_s.median@uiseong_andong_2025/places#village` | 583 (n = 79) | computed here | fastest fire-free trip to the nearest candidate, Uiseong-Andong villages, median (s) |
+| `fastest_trip_s.median@yeongdeok_2025/places#village` | 87.5 (n = 90) | computed here | same, Yeongdeok villages, median (s) |
+| `fastest_trip_s.min@all/places#care_facility` | 25 (n = 5) | computed here | same, care facilities, min (s) |
+| `fastest_trip_s.max@all/places#care_facility` | 290 (n = 5) | computed here | same, care facilities, max (s) |
+| `trip_model.equals_travel_only@all/pooled` | 501/501 (100.0%) | computed here | fire-free trip model = API travel-only route time (validation) |
+| `api_check.recorded_equals_planner_rule_on_original@all/pooled` | 522/522 (100.0%) | recorded | API recorded fields = planner rules on original attempts |
+| `api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled` | 517/522 (99.0%) | recorded | planner-displayed deadline = API latest_checked_depart_offset_s |
+| `api_check.displayed_differs_explained_by_recheck@all/pooled` | 8/8 (100.0%) | recorded | displayed differences explained by re-checks |
+| `travel_only.fastest_meets_flames@all/pooled` | 9/501 (1.8%) | recorded | fastest (travel-time-only) routes with predicted flame contact, at the leave-by time |
+| `travel_only.fastest_meets_flames@all/pooled#leave_by_before_3000s` | 9/147 (6.1%) | recorded | same, leave-by deadline before +50 min |
+| `travel_only.fastest_meets_flames@all/pooled#leave_by_3000s` | 0/354 (0.0%) | recorded | same, leave-by deadline +50 min |
+| `travel_only.clear_pairs_equal_arrival@all/pooled` | 492/492 (100.0%) | recorded | other comparisons: checked route arrives at the same second |
+| `travel_only.extra_arrival_s.min@all/pooled` | 31 (n = 9) | recorded | extra arrival time of the checked alternative, min (s) |
+| `travel_only.extra_arrival_s.median@all/pooled` | 328 (n = 9) | recorded | extra arrival time, median (s) |
+| `travel_only.extra_arrival_s.max@all/pooled` | 1,309 (n = 9) | recorded | extra arrival time, max (s) |
+| `travel_only.extra_length_m.min@all/pooled` | 270.7 (n = 9) | computed here | extra route length, min (m) |
+| `travel_only.extra_length_m.median@all/pooled` | 2646.9 (n = 9) | computed here | extra route length, median (m) |
+| `travel_only.extra_length_m.max@all/pooled` | 12783.2 (n = 9) | computed here | extra route length, max (m) |
+| `redundancy.turn_aware_paths_1@all/places` | 115/174 (66.1%) | computed here | places whose routes all pass through >= 1 common road segment |
+| `redundancy.single_cut_at_entry_node@all/places` | 108/115 (93.9%) | computed here | of those, the first common segment leaves the entry point |
+| `redundancy.turn_aware_equals_plain@all/places` | 174/174 (100.0%) | computed here | turn-aware count = count ignoring turn restrictions |
+| `redundancy.shared_stretch_m.median@all/places` | 673.6 (n = 115) | computed here | entry point to the end of the last common segment, median (m) |
+| `redundancy.shared_stretch_within_100m@all/places` | 10/115 (8.7%) | computed here | of those, the common segments end within 100 m |
 <!-- END GENERATED: headline -->
 
 Candidate wording for the application, with cautions: [`APPLICATION_SENTENCES.md`](APPLICATION_SENTENCES.md).
@@ -113,7 +133,8 @@ once per forecast time (one scenario set: cases = places).
 "No checked route although a fire-free trip fits" = the window-corrected count: cases without a checked route among
 cases whose fastest fire-free trip fits, at +0 · +30 · +50 min. "Deadline before +50 min" splits the cases whose
 checked departures end before +50 min by what set the end: the window at the next departure, or the fire scenarios
-or model limits (a fire-free trip would still have fitted).
+or model limits (a fire-free trip would still have fitted). The window columns and that split are computed here (item
+6 above); the verdict counts are recorded results.
 
 <!-- BEGIN GENERATED: by-scenario -->
 | Region | Forecast time | Cases | Checked at +0 min | Checked at +50 min | Window-limited at +50 min | No checked route although a fire-free trip fits: +0 · +30 · +50 min | No checked route at any departure (model_no_route + unresolved) | Deadline before +50 min: set by window + by fire/limits | Fastest route meets predicted flames |
@@ -170,7 +191,7 @@ input times of each region, with the window-set deadlines in parentheses. Origin
 | Uiseong-Andong care facilities | 15 | 0 (0) | 0 (0) | 0 (0) | 0 (0) | 15 | 0 | 0 |
 | Yeongdeok villages | 270 | 0 (0) | 0 (0) | 3 (3) | 8 (8) | 251 | 3 | 5 |
 
-In parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by_window@*`): at the next departure even the fastest fire-free trip plus the 120 s stay would end after the window. Overall 132 of the 147 deadlines before +50 min are set by the window and 15 by the fire scenarios or model limits (`deadline_set_by.*@all/pooled`). No case had its last checked departure at +0 min (`deadline.latest_0000s@*` = 0). Yeongdeok has no care facility in the OSM extract.
+In parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by_window@*`): at the next departure even the fastest fire-free trip plus the 120 s stay would end after the window. This split is computed here from fire-free trips on the road graph (not by the Route-Check API); the deadlines are recorded results. Overall 132 of the 147 deadlines before +50 min are set by the window and 15 by the fire scenarios or model limits (`deadline_set_by.*@all/pooled`). No case had its last checked departure at +0 min (`deadline.latest_0000s@*` = 0). Yeongdeok has no care facility in the OSM extract.
 <!-- END GENERATED: deadlines -->
 
 ## Road redundancy
@@ -178,7 +199,8 @@ In parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by
 Number of walks from each place's road entry node to any of its three candidate destination nodes that share no
 directed road segment, on the exact graph the API used (SHA-256 asserted against the `input_hashes.graph` of every
 cached route check). Turn-aware counts obey the graph's `forbidden_turns` as the routing kit does; counts ignoring turn
-restrictions are also computed and equal for every place.
+restrictions are also computed and equal for every place. Everything in this section is computed by this package in
+a Linux container: the Route-Check API was not asked this question, and none of it is evaluated-host output.
 
 <!-- BEGIN GENERATED: redundancy -->
 | Subset | Places | 1 path | 2 paths | 3 paths | >= 4 | 1 path, first common segment at the entry point |
@@ -214,10 +236,11 @@ PNG and SVG in [`figures/`](figures/); each has a CSV twin in [`tables/`](tables
 equal to `NUMBERS.json` when the figure is drawn. Verdicts use the planner's fixed colours (`planner/docs/ARCHITECTURE.md`
 section 7) plus text labels, and unresolved is always hatched, so no verdict relies on colour alone: green `#1A9E55`
 checked route, ink `#0B0B0C` model_no_route, grey `#9A9AA0` hatched unresolved. The window is a white-dot pattern over
-the verdict colour, with counts in text. The travel-time-only route is never green. Every footer states the
-destination scope (three nearest OSM-mapped schools or community halls, not official shelters). The figures are drawn
-from matplotlib's own defaults whatever the local matplotlibrc says, a figure file is rewritten only when its content
-changes, and `compute.py --check` compares them (SVG bytes, PNG pixels).
+the verdict colour, with counts in text. The travel-time-only route is never green. Every footer states the road entry
+point, the destination scope (three nearest OSM-mapped schools or community halls, not official shelters) and which
+parts are recorded API results and which this package computed in a Linux container (not evaluated-host output). The
+figures are drawn from matplotlib's own defaults whatever the local matplotlibrc says, a figure file is rewritten only
+when its content changes, and `compute.py --check` compares them (SVG bytes, PNG pixels).
 
 1. [`fig1_checked_share_by_offset`](figures/fig1_checked_share_by_offset.png) - share of places with a checked route
    at each departure time, per scenario set, split into the three verdicts. The window-limited part (no fire-free trip
@@ -231,7 +254,12 @@ changes, and `compute.py --check` compares them (SVG bytes, PNG pixels).
 
 ![Checked-route share by departure time](figures/fig1_checked_share_by_offset.png)
 
-## Definitions (replicated exactly from the planner)
+## Definitions (replicated exactly from the planner; line numbers at commit 0cd95db2)
+
+Planner line numbers here, in `NUMBERS.json` and in `wfg_impact/` refer to repository commit `0cd95db2`. Later
+commits moved some of them: at `952fcc59`, `cache.ts`, `controller.ts` and `staticData.ts` differ from `0cd95db2` only
+by app-path and static-demo changes outside the cited functions, and `plan.ts`, `adapter.ts` and `LeftPanel.tsx` are
+unchanged.
 
 - **Cell verdict at a departure offset** (`planner/src/domain/plan.ts` `combineVerdicts`/`cellVerdict`, lines 106-115):
   `checked_route` if any candidate destination has a checked route; `model_no_route` only if every attempted
@@ -338,8 +366,8 @@ redundancy and the common road segments use networkx's Edmonds-Karp and its resi
 shared-stretch lengths use networkx's Dijkstra on a turn-expanded graph built there, and the scenario window is read
 from each HAZARD.json there. It fails on any difference in value, numerator or denominator. The tests run it.
 
-Without `data/routing/`, both paths still recompute every cache-only number (`uses_graph` = false, 1,344 of the
-2,198 numbers) without reading any file from it: `verify.py --cache-only` for path B, and
+Without `data/routing/`, both paths still recompute every cache-only number (`uses_graph` = false, 1,384 of the
+2,238 numbers) without reading any file from it: `verify.py --cache-only` for path B, and
 `tests/test_cache_only.py` for both paths against `NUMBERS.json`. Only the tests that need the road graphs or HAZARD
 packets skip then.
 
@@ -365,10 +393,13 @@ standard library only.
 `compute.py --check` recomputes and fails if any committed output would change: the text outputs (NUMBERS.json,
 tables, generated README blocks, APPLICATION_SENTENCES.md, figure CSV twins) and the six figure files (SVG bytes, PNG
 pixels). Without `data/routing/`, run `verify.py --cache-only` instead (it checks the cache-only numbers and reads
-nothing from `data/routing/`). On a shared, heavily loaded 2-vCPU Linux container
-`compute.py` took about 1.5 minutes, `verify.py` 4-8 minutes and the tests about 9 minutes, each below 1 GB peak
-memory. The numbers do not
-depend on the host running this package: they are read from the recorded cache, not recomputed by the router.
+nothing from `data/routing/`). In the shared 4-CPU Linux container used for the committed outputs (other jobs
+running at the same time), `compute.py` took about 40 seconds, `verify.py` about 4 minutes, `verify.py --cache-only`
+about 15 seconds and the tests about 5.5 minutes, each below 1 GB peak memory.
+
+No route check is re-run: verdicts, deadlines and travel-only results are read from the recorded cache (evaluated
+macOS arm64 host). The `uses_graph` numbers are recomputed by this package on whatever machine runs it; the committed
+ones were computed in the Linux container above, not on the evaluated host, so they are not evaluated-host output.
 
 ## Inputs
 
@@ -411,7 +442,7 @@ Proposed one-line link text, for the owner to add if that file is ever unfrozen:
 | `compute.py` | path A entry point: writes every output below |
 | `verify.py` | path B entry point: recomputes and compares every number (`--cache-only`: the `uses_graph` = false numbers, without `data/routing/`) |
 | `wfg_impact/` | `sources` (inputs, hashes), `planner_rules` (planner port), `api_rules` (API cross-check), `maxflow` (redundancy, common segments), `trips` (fire-free trips), `analysis`, `numbers`, `figures`, `sentences`, `path_b` |
-| `NUMBERS.json` | every number with definition, value, numerator/denominator, scope and sources (`uses_graph`, `uses_hazard`); the `headline` entries also carry script, input paths and their SHA-256 (graph.json and HAZARD.json included where used); `inputs` lists every input file |
+| `NUMBERS.json` | every number with definition, value, numerator/denominator, scope and sources (`uses_graph`, `uses_hazard`); the `headline` entries also carry script, input paths and their SHA-256 (graph.json and HAZARD.json included where used); `inputs` lists every input file, `attribution` the two sources |
 | `APPLICATION_SENTENCES.md` | 7 candidate sentences rendered from NUMBERS.json, with keys and cautions |
 | `tables/origin_cases.csv` | one row per scenario set x origin (verdict cell and window fit per offset, deadlines and what set them, fastest fire-free trip, API fields, reasons) |
 | `tables/travel_only_pairs.csv`, `tables/redundancy_places.csv` | per comparison / per place details |
