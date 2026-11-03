@@ -260,10 +260,16 @@ describe('explanation file loader', () => {
   afterEach(() => {
     clearExplanationCache();
     vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
   });
 
   it('builds a same-origin path under the base URL', () => {
+    // set the base explicitly: CI runs the tests with VITE_BASE_PATH=/<repository>/ (planner-pages.yml)
+    vi.stubEnv('BASE_URL', '/');
     expect(explanationUrl('synthetic_region', '2025-03-24T09:00:00Z')).toBe('/data/explanations/synthetic_region__20250324T090000Z.json');
+    vi.stubEnv('BASE_URL', '/wildfireguardian/');
+    expect(explanationUrl('synthetic_region', '2025-03-24T09:00:00Z')).toBe('/wildfireguardian/data/explanations/synthetic_region__20250324T090000Z.json');
+    vi.unstubAllEnvs();
   });
 
   it('accepts only wfg.explanation/1 for this region and input time', () => {
