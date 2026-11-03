@@ -9,17 +9,28 @@ The 1-hour scenario window is shown separately: white dots over a verdict fill m
 departures where even the fastest fire-free trip plus the 120 s stay ends after the window, so no route could be
 checked whatever the fire; fig 2: leave-by deadlines set by that window at the next departure). Dots are a pattern,
 not a colour, and every dotted part is also counted in text.
+
+Every footer separates the two sources (SOURCES): verdicts, deadlines and travel-only results recorded by the
+Route-Check API on the evaluated macOS arm64 host, and what this package computed itself in a Linux container (the
+window classification from fire-free trips, route lengths), which is not evaluated-host output.
+
+Drawing is independent of the ambient matplotlib configuration (matplotlibrc, MATPLOTLIBRC): ``draw_all`` starts from
+matplotlib's own defaults and pins the settings that shape the output. A figure file is rewritten only when its content
+changes (SVG bytes, PNG pixels), because the PNG encoder's compressed bytes can differ between zlib builds.
 """
 from __future__ import annotations
 
 import csv
+import io
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.style  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
+from PIL import Image  # noqa: E402  (matplotlib's own PNG dependency)
 
 from . import planner_rules as pr, sources  # noqa: E402
 
@@ -30,10 +41,21 @@ LABEL = {pr.CHECKED: 'Checked route (within the model)',
          pr.UNRESOLVED: 'Unresolved: cannot judge, never safe'}
 FOOTER = ('Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell '
           'from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is '
-          'checked to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked '
-          'route to any one counts; for one '
+          'checked from its road entry point (the nearest node of the main road network, at most 2 km from the mapped '
+          'place; travel to it is not modelled) to each of its three nearest OSM-mapped schools or community halls (not '
+          'official shelters; a checked route to any one counts; for one '
           'Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. '
-          'Planning aid only - not for live evacuation operations.')
+          'Planning aid only — not for live evacuation operations.')
+_RECORDED = 'Route-Check API results recorded on the evaluated macOS arm64 host (planner cache)'
+_COMPUTED = 'computed by this package in a Linux container (not evaluated-host output) from the SHA-verified road graph'
+SOURCES = {
+    'fig1': f'Sources: verdicts = {_RECORDED}; dotted window-limited parts = {_COMPUTED} and hazard packets.',
+    'fig2': f'Sources: leave-by deadlines = {_RECORDED}; dotted "set by the window" = {_COMPUTED} and hazard packets.',
+    'fig3': f'Sources: flame contact and arrival times = {_RECORDED}; route lengths (km) = {_COMPUTED}.',
+}
+# matplotlib 3.9 defaults, pinned explicitly because an ambient matplotlibrc changing them changes every figure
+PINNED_RC = {'text.hinting': 'force_autohint', 'text.hinting_factor': 8, 'text.antialiased': True,
+             'figure.dpi': 100.0, 'text.kerning_factor': 0}
 WINDOW_HATCH = '..'
 WINDOW_TEXT = ('even the fastest fire-free trip + the 120 s stay would end after the 1-hour scenario window, so no route '
                'could be checked whatever the fire')
@@ -41,12 +63,31 @@ OFFSETS = sources.GRID_OFFSETS_S
 
 
 def _style():
+    """Called inside draw_all's matplotlib.style.context('default'), so nothing ambient leaks in."""
     plt.rcParams.update({
         'font.family': 'DejaVu Sans', 'font.size': 9, 'axes.edgecolor': '#c3c2b7', 'axes.linewidth': 0.8,
         'axes.labelcolor': INK, 'xtick.color': MUTED, 'ytick.color': MUTED, 'text.color': INK,
         'axes.spines.top': False, 'axes.spines.right': False, 'svg.hashsalt': 'wfg-solve2027-p4',
         'svg.fonttype': 'none', 'hatch.linewidth': 1.0, 'figure.facecolor': SURFACE, 'axes.facecolor': SURFACE,
+        **PINNED_RC,
     })
+
+
+def _png_pixels(data: bytes) -> tuple:
+    with Image.open(io.BytesIO(data)) as im:
+        return im.size, im.mode, im.tobytes()
+
+
+def _same_content(ext: str, a: bytes, b: bytes) -> bool:
+    """SVG: identical bytes. PNG: identical decoded pixels (size, mode, RGBA bytes); the compressed stream may differ
+    between zlib builds without any visible difference."""
+    if ext == 'svg':
+        return a == b
+    return a == b or _png_pixels(a) == _png_pixels(b)
+
+
+def same_figure(new: Path, committed: Path) -> bool:
+    return committed.is_file() and _same_content(new.suffix[1:], new.read_bytes(), committed.read_bytes())
 
 
 def _save(fig, out_dir: Path, stem: str) -> list[Path]:
@@ -54,7 +95,11 @@ def _save(fig, out_dir: Path, stem: str) -> list[Path]:
     for ext in ('png', 'svg'):
         p = out_dir / f'{stem}.{ext}'
         kw = {'metadata': {'Date': None}} if ext == 'svg' else {'metadata': {'Software': None}}
-        fig.savefig(p, dpi=150, bbox_inches='tight', **kw)
+        buf = io.BytesIO()
+        fig.savefig(buf, format=ext, dpi=150, bbox_inches='tight', **kw)
+        data = buf.getvalue()
+        if not (p.is_file() and _same_content(ext, data, p.read_bytes())):   # never rewrite an unchanged figure
+            p.write_bytes(data)
         paths.append(p)
     plt.close(fig)
     return paths
@@ -164,7 +209,7 @@ def fig_checked_share(records, numbers, metas, out_dir: Path, table_dir: Path) -
              fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
     fig.legend(handles=_legend_handles('Window-limited (dotted on either verdict)'), loc='upper left',
                bbox_to_anchor=(0.01, 0.875), ncol=4, frameon=False, fontsize=8.3)
-    fig.text(0.01, -0.03, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
+    fig.text(0.01, -0.01, SOURCES['fig1'] + ' ' + FOOTER, fontsize=7.5, color=MUTED, wrap=True, va='top')
     fig.tight_layout(rect=(0, 0.01, 1, 0.865))
     _write_csv(table_dir / 'fig1_checked_share_by_offset.csv', rows)
     return _save(fig, out_dir, 'fig1_checked_share_by_offset')
@@ -236,11 +281,11 @@ def fig_deadlines(records, numbers, out_dir: Path, table_dir: Path) -> list[Path
     fig.text(0.01, 0.945, 'Dotted = deadline set by the window: at the next departure (10 min later) even the fastest '
              'fire-free trip + the 120 s stay would end\nafter the 1-hour scenario window, so no later route could be '
              'checked whatever the fire. Solid green before +50 = set by the fire scenarios\nor model limits (a '
-             'fire-free trip would still fit at the next departure). * +50 = checked at the last checked departure; '
-             'the window gives no later limit.', fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
+             'fire-free trip would still fit at the next departure). * +50 = the last departure checked; later '
+             'departures were not checked.', fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
     fig.legend(handles=_legend_handles('Checked route, deadline set by the window (dotted)', CHECKED_C),
                loc='upper left', bbox_to_anchor=(0.01, 0.875), ncol=4, frameon=False, fontsize=8.3)
-    fig.text(0.01, -0.03, FOOTER, fontsize=7.5, color=MUTED, wrap=True)
+    fig.text(0.01, -0.01, SOURCES['fig2'] + ' ' + FOOTER, fontsize=7.5, color=MUTED, wrap=True, va='top')
     fig.tight_layout(rect=(0, 0.01, 1, 0.865))
     _write_csv(table_dir / 'fig2_deadline_by_origin_type.csv', rows)
     return _save(fig, out_dir, 'fig2_deadline_by_origin_type')
@@ -299,8 +344,8 @@ def fig_travel_only(pairs, numbers, metas, out_dir: Path, table_dir: Path) -> li
                plt.Line2D([], [], marker='o', linestyle='none', markerfacecolor=CHECKED_C, markeredgecolor=SURFACE,
                           markersize=8, label='Checked route (within the model), same destination')]
     ax.legend(handles=handles, loc='lower right', frameon=True, framealpha=1.0, edgecolor=GRID, fontsize=8.5)
-    fig.text(0.01, -0.02, 'Comparison at each place\'s leave-by deadline toward the destination of its default checked '
-             'route. ' + FOOTER, fontsize=7.5, color=MUTED, wrap=True)
+    fig.text(0.01, -0.01, 'Comparison at each place\'s leave-by deadline toward the destination of its default checked '
+             'route. ' + SOURCES['fig3'] + ' ' + FOOTER, fontsize=7.5, color=MUTED, wrap=True, va='top')
     fig.tight_layout()
     _write_csv(table_dir / 'fig3_travel_only_vs_checked.csv', rows)
     return _save(fig, out_dir, 'fig3_travel_only_vs_checked')
@@ -316,7 +361,9 @@ def _write_csv(path: Path, rows: list[dict]):
 def draw_all(result: dict, numbers: dict, out_dir: Path, table_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     table_dir.mkdir(parents=True, exist_ok=True)
-    paths = fig_checked_share(result['records'], numbers, result['metas'], out_dir, table_dir)
-    paths += fig_deadlines(result['records'], numbers, out_dir, table_dir)
-    paths += fig_travel_only(result['pairs'], numbers, result['metas'], out_dir, table_dir)
+    # matplotlib's own defaults whatever matplotlibrc / MATPLOTLIBRC say (restored on exit); _style() pins the rest
+    with matplotlib.style.context('default'):
+        paths = fig_checked_share(result['records'], numbers, result['metas'], out_dir, table_dir)
+        paths += fig_deadlines(result['records'], numbers, out_dir, table_dir)
+        paths += fig_travel_only(result['pairs'], numbers, result['metas'], out_dir, table_dir)
     return paths

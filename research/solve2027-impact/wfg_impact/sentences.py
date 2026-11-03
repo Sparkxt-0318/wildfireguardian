@@ -13,6 +13,16 @@ Every sentence names its destination scope: each place is checked to each of its
 community halls, not official shelters (one Yeongdeok place also has an unnamed OSM ``amenity=shelter`` point without
 ``shelter_type`` among its three; DEST_NOTE). Departures that the 1-hour scenario window rules out whatever the fire
 ("window-limited") are never counted as fire effects (numbers.WINDOW_RULE).
+
+Sources: verdicts, leave-by times, re-checks and travel-only results are Route-Check API results recorded on the
+evaluated macOS arm64 host. Every sentence that relies on a number this package computed itself on the road graph
+(``uses_graph`` true: the window classification, fire-free trips, redundancy, route lengths) says so in its caution
+(COMPUTED_*; asserted by tests/test_provenance.py).
+
+Departures and leave-by times are at each place's road entry point, not at the mapped place. Because a sentence and
+its caution may be quoted alone, no sentence says "from the place" without naming that entry point, and every caution
+carries the entry-point note (ENTRY_NOTE; S6, which counts routes from that point, uses ENTRY_POINT with the same
+"not modelled" clause), asserted by tests/test_provenance.py.
 """
 from __future__ import annotations
 
@@ -25,21 +35,39 @@ DEST_NOTE = ('Destinations: {v:destinations_used.school@all/places} OSM schools 
              '{v:destinations_used.community_hall@all/places} OSM community halls; for one Yeongdeok place one of '
              'its three candidates is an unnamed OSM point tagged amenity=shelter without shelter_type. None is an '
              'official evacuation shelter.')
+ENTRY_POINT = ('(진입 지점: the nearest node of the main road network, at most 2 km from the mapped point; median '
+               '{v:entry_distance_m.median@all/places} m, {n:entry_distance_over_1000m@all/places} of '
+               '{d:entry_distance_over_1000m@all/places} places more than 1 km away)')
+ENTRY_NOTE = ('Departures and leave-by times are at each place\'s road entry point ' + ENTRY_POINT + '; travel between '
+              'the place and that point is not modelled.')
+_NOT_API = ('not by the Route-Check API on the evaluated host, so it is not evaluated-host output; the verdicts it is '
+            'combined with are recorded API results')
+COMPUTED_WINDOW = ('Source: the window classification (fastest fire-free trips on the road graph) was computed by this '
+                   'package from the SHA-verified road graph and hazard packets in a Linux container, ' + _NOT_API + '.')
+COMPUTED_LENGTH = ('Source: arrival times and flame contact are recorded API results; the route lengths (km) were computed '
+                   'by this package from the SHA-verified road graph in a Linux container, not by the Route-Check API, '
+                   'so they are not evaluated-host output.')
+COMPUTED_GRAPH = ('Source: computed by this package on the SHA-verified road graph in a Linux container; the Route-Check '
+                  'API was not asked this question, and it is not evaluated-host output.')
+# the planner's footer, which README.md and the figures also carry; the generated page ends with it
+FOOTER = '사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다. / Planning aid only — not for live evacuation operations.'
 
 SENTENCES = [
     {
         'id': 'S1',
         'text': (
             'Using forecasts our model produced retrospectively for the recorded fire conditions of the March 2025 '
-            'Uiseong-Andong and Yeongdeok wildfires, our planner checked vehicle departures from '
-            'each of {v:places@all/places} OpenStreetMap-mapped villages and care facilities to ' + DEST + ', against '
+            'Uiseong-Andong and Yeongdeok wildfires, our planner checked vehicle departures from the road entry point '
+            'of each of {v:places@all/places} OpenStreetMap-mapped villages and care facilities (the nearest node of '
+            'the model\'s main road network, at most 2 km from the mapped place) to ' + DEST + ', against '
             '4 fire scenarios from the forecast at six departure times 10 minutes apart after each of three forecast '
             'times per region, in {v:attempts@all/pooled} recorded route checks (one per place, forecast time, '
             'candidate destination and departure time).'),
-        'related': ['cases@all/pooled', 'records.dispatch_attempts@all/pooled', 'destinations_used.shelter@all/places'],
+        'related': ['cases@all/pooled', 'records.dispatch_attempts@all/pooled', 'destinations_used.shelter@all/places',
+                    'entry_distance_m.max@all/places'],
         'caution': (
             'Route checks are model computations by the Route-Check API recorded on the evaluated macOS host, not field '
-            'trials or drills. The forecasts were produced in 2026 from recorded 2025 inputs (release '
+            'trials or drills. ' + ENTRY_NOTE + ' The forecasts were produced in 2026 from recorded 2025 inputs (release '
             'research-final-20261015), not issued during the fires; the 4 fire scenarios are scenario members drawn '
             'independently per cell from the forecast, not simulations of the actual fire. ' + DEST_NOTE + ' The cache '
             'holds {v:records.route_checks@all/pooled} route-check records in all: the '
@@ -79,15 +107,16 @@ SENTENCES = [
             '{p:not_checked_although_fits.offset_2400s@uiseong_andong_2025/pooled} and '
             '{p:not_checked_although_fits.offset_3000s@uiseong_andong_2025/pooled} in Uiseong-Andong. "No checked '
             'route" = model_no_route or unresolved; it is not a prediction that residents could not escape. Cases '
-            'count each place once per forecast time ({v:places@uiseong_andong_2025/places} places x 3).'),
+            'count each place once per forecast time ({v:places@uiseong_andong_2025/places} places x 3). '
+            + ENTRY_NOTE + ' ' + COMPUTED_WINDOW),
     },
     {
         'id': 'S3',
         'text': (
             'In {n:no_checked_route_any_offset@all/pooled} of {d:no_checked_route_any_offset@all/pooled} '
             'place-and-forecast-time cases ({p:no_checked_route_any_offset@all/pooled}), the model found no checked '
-            'route from the place to any of its ' + _HALLS + ' (not official shelters) at any of the six departure '
-            'times: '
+            'route from the place\'s road entry point to any of its ' + _HALLS + ' (not official shelters) at any of '
+            'the six departure times: '
             '{n:best_verdict.model_no_route@all/pooled} had no route within the model and '
             '{n:best_verdict.unresolved@all/pooled} were unresolved, which the planner never presents as safe.'),
         'related': ['deadline.none_model_no_route@all/pooled', 'deadline.none_unresolved@all/pooled',
@@ -103,7 +132,7 @@ SENTENCES = [
             '("limits already exceeded at departure") and {n:attempts.unresolved.TIMEOUT@all/pooled} with TIMEOUT. '
             'These cases involve {n:places.no_checked_route_any_offset_any_input@all/places} distinct places; they are '
             'also exactly the {n:no_checked_route_at_offset_0000s@all/pooled} cases without a checked route for '
-            'immediate departure.'),
+            'immediate departure. ' + ENTRY_NOTE + ' ' + COMPUTED_WINDOW),
     },
     {
         'id': 'S4',
@@ -123,7 +152,7 @@ SENTENCES = [
             '{d:places.not_checked_although_fits_at_offset_3000s_any_input@all/places} places with an unchecked '
             'departure at +50 minutes, only {n:places.not_checked_although_fits_at_offset_3000s_any_input@all/places} '
             'had a fire-free trip that fits; the others are more than 8 minutes from every candidate destination. A '
-            'place outside this count is not "safe".'),
+            'place outside this count is not "safe". ' + ENTRY_NOTE + ' ' + COMPUTED_WINDOW),
     },
     {
         'id': 'S5',
@@ -149,31 +178,32 @@ SENTENCES = [
             '{d:travel_only.clear_pairs_equal_arrival@all/pooled} comparisons the fastest route had no predicted flame '
             'contact and arrived at the same second as the checked route '
             '({n:travel_only.clear_pairs_equal_arrival@all/pooled} of {d:travel_only.clear_pairs_equal_arrival@all/pooled}). '
-            + DEST_NOTE + ' Never describe the checked route as "safe".'),
+            + ENTRY_NOTE + ' ' + DEST_NOTE + ' Never describe the checked route as "safe". ' + COMPUTED_LENGTH),
     },
     {
         'id': 'S6',
         'text': (
             'On the road graph used for routing, for {n:redundancy.turn_aware_paths_1@all/places} of the '
             '{d:redundancy.turn_aware_paths_1@all/places} OSM-mapped villages and care facilities '
-            '({p:redundancy.turn_aware_paths_1@all/places}), all routes starting from the place\'s mapped road entry '
-            'point toward its ' + _HALLS + ' (not official shelters) pass through '
-            'at least one common road segment, a single point of failure in the model\'s road network; measured along '
-            'the shortest route, the last segment that all routes share ends a median of '
+            '({p:redundancy.turn_aware_paths_1@all/places}), all routes starting from the place\'s road entry point '
+            'toward its ' + _HALLS + ' (not official shelters) pass through at least one common road segment, a '
+            'single point of failure for these routes in the model\'s road graph; measured along the shortest route, '
+            'the last segment that all routes share ends a median of '
             '{m:redundancy.shared_stretch_m.median@all/places} m from the entry point, and within 100 m for only '
             '{n:redundancy.shared_stretch_within_100m@all/places} of the {d:redundancy.shared_stretch_within_100m@all/places}.'),
         'related': ['redundancy.entry_out_degree_1@all/places', 'redundancy.shared_stretch_m.min@all/places',
                     'redundancy.shared_stretch_m.max@all/places'],
         'caution': (
             'A property of the provisional pre-fire OSM road graph (2025-03-21 snapshot; missing one-way tags assumed '
-            'two-way) and of the planner\'s entry point (nearest node of the routable road network to the OSM point), '
-            'not a field-verified count of access roads. "Pass through at least one common road segment" = the largest '
+            'two-way) and of the planner\'s road entry point ' + ENTRY_POINT + ', not a field-verified count of access '
+            'roads; travel between the place and that point is not modelled. "Pass through at least one common road '
+            'segment" = the largest '
             'set of routes that pairwise share no directed road segment has one route (unit-capacity max-flow = 1, '
             'computed with and without turn restrictions, equal for {n:redundancy.turn_aware_equals_plain@all/places} '
             'of {d:redundancy.turn_aware_equals_plain@all/places} places); it ignores road capacity, travel time and '
             'fire. For {n:redundancy.single_cut_at_entry_node@all/places} of the '
             '{d:redundancy.single_cut_at_entry_node@all/places} the first shared segment is the one leaving the entry '
-            'point; lengths are sums of straight edge chords (EPSG:5179). ' + DEST_NOTE),
+            'point; lengths are sums of straight edge chords (EPSG:5179). ' + DEST_NOTE + ' ' + COMPUTED_GRAPH),
     },
     {
         'id': 'S7',
@@ -190,7 +220,7 @@ SENTENCES = [
             'model, the road data or real-world safety. The planner displays re-checks, so its deadline equals the '
             'API\'s recorded latest_checked_depart_offset_s for '
             '{n:api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled} of '
-            '{d:api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled} cases.'),
+            '{d:api_check.displayed_equals_recorded.latest_checked_depart_offset_s@all/pooled} cases. ' + ENTRY_NOTE),
     },
 ]
 
@@ -237,16 +267,24 @@ def render(s: dict, numbers: dict) -> tuple[str, str, list[str]]:
 
 
 def markdown(numbers: dict) -> str:
+    entry = _PH.sub(lambda m: _fmt(m.group(1), numbers[m.group(2)]), ENTRY_NOTE)
     out = ['# Candidate application sentences (MIT Solve 2027)', '',
            '<!-- Generated by research/solve2027-impact/compute.py from NUMBERS.json; do not edit by hand. -->', '',
            'Each sentence and its caution are rendered from [`NUMBERS.json`](NUMBERS.json); the keys they rely on '
-           'follow. Every number is model-relative: it describes what the Route-Check API concluded for fire-scenario '
-           'members of forecasts produced retrospectively for the March 2025 fires, not what happened to residents, '
-           'and never an evacuation outcome or casualties avoided. Departures that the 1-hour scenario window rules '
-           'out whatever the fire ("window-limited") are never counted as fire effects. Say "checked route (within '
-           'the model)", never "safe route". Definitions and caveats: [README.md](README.md).', '']
+           'follow. Every number is model-relative: it concerns fire-scenario members of forecasts produced '
+           'retrospectively for the March 2025 fires, not what happened to residents, and is never an evacuation '
+           'outcome or casualties avoided. The numbers come from two sources. Verdicts, leave-by times, re-checks and '
+           'travel-only results are what the Route-Check API concluded, recorded on the evaluated macOS arm64 host '
+           '(planner cache). Fire-free trip times, the 1-hour scenario-window classification, road redundancy and '
+           'route lengths were computed by this package from the SHA-verified road graph and hazard packets in a Linux '
+           'container: they are not Route-Check API conclusions and not evaluated-host output (NUMBERS.json '
+           'uses_graph = true), and every sentence that relies on them says so in its caution. ' + entry +
+           ' Departures that the 1-hour scenario window rules out whatever the fire ("window-limited") are never '
+           'counted as fire effects. Say "checked route (within the model)", never "safe route". Definitions and '
+           'caveats: [README.md](README.md).', '']
     for s in SENTENCES:
         text, caution, keys = render(s, numbers)
         out += [f'## {s["id"]}', '', f'> {text}', '', 'NUMBERS.json keys: ' + ', '.join(f'`{k}`' for k in keys), '',
                 f'Caution: {caution}', '']
+    out.append(f'**{FOOTER}**')
     return '\n'.join(out)

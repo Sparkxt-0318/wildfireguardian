@@ -2,6 +2,12 @@
 
 Cache files are loaded one at a time; each road graph is loaded once, after its SHA-256 has been matched to the
 ``input_hashes.graph`` recorded in every cached route check of that region.
+
+``run(with_graphs=False)`` reads nothing from ``data/routing/`` (no road graph, no HAZARD packet): it yields the
+records behind every cache-only number (``uses_graph`` false in NUMBERS.json) and nothing that needs the road graph
+or the scenario window.
+
+Planner line numbers cited in this module refer to repository commit 0cd95db2.
 """
 from __future__ import annotations
 
@@ -36,7 +42,7 @@ def _route_props(job: dict) -> dict:
     return (((job.get('result') or {}).get('route') or {}).get('properties')) or {}
 
 
-def analyse_file(entry: dict, places: list[dict]) -> dict:
+def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> dict:
     doc = sources.load_cache(entry)
     pr.TieCounter.n = 0
     model = pr.cache_to_model(doc)
@@ -60,7 +66,9 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
     (sset, itime, region), = prov
     if (sset, itime, region) != (doc['scenario_set_id'], doc['input_time'], doc['region_id']):
         raise sources.InputIdentityError(f'{entry["path"]}: result provenance differs from the file header')
-    window = sources.hazard_window(doc['region_id'], doc['input_time'], next(iter(hazards)))
+    hazard_sha = next(iter(hazards))
+    window = (sources.hazard_window(doc['region_id'], doc['input_time'], hazard_sha) if with_graphs else
+              {'path': None, 'valid_from': None, 'valid_until': None, 'dt': None})
 
     # API wire plans (recorded fields) and the request geometry of every dispatch origin
     wire = {}
@@ -94,6 +102,7 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
             'latest_s': plan['latest_safe_departure_s'], 'contiguous_s': plan['contiguous_safe_departure_s'],
             'deadline_category': deadline_category(plan['best_verdict'], plan['latest_safe_departure_s']),
             'cells': cells, 'n_attempts': len(attempts),
+            'attempt_verdicts': dict(Counter(a['verdict'] for a in attempts)),
             'n_rechecked_attempts': sum(1 for a in attempts if a.get('recheck_of')),
             'unresolved_reasons': dict(Counter(a['reason_code'] or 'NONE' for a in attempts if a['verdict'] == pr.UNRESOLVED)),
             'entry_node': None, 'dest_nodes': None,
@@ -104,6 +113,10 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
         rec['best_job_id'] = best['job_id'] if best else None
         w = wire.get(o['id'])
         if w is not None:
+            if w['entry_node'] != o['entry_node']:      # the checks started at the place's own entry point
+                raise sources.InputIdentityError(f'{o["id"]}: request start node {w["entry_node"]} is not the '
+                                                 f'places.geojson entry node {o["entry_node"]}')
+            rec['entry_distance_m'] = o['entry_distance_m']
             rec['entry_node'], rec['dest_nodes'] = w['entry_node'], list(w['dest_nodes'])
             rec['dest_ids'], rec['dest_dwell_s'], rec['dest_window'] = list(w['dest_ids']), w['dest_dwell'], w['dest_window']
             recorded = api_rules.recorded_fields(w['plan'])
@@ -160,6 +173,18 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
                                        if pair['fastest_arrival_s'] is not None and pair['checked_arrival_s'] is not None else None)
         pairs.append(pair)
 
+    # every stored travel_only record that is not one of the pairs above, with its origin type and flame contact
+    paired = {p['origin_id'] for p in pairs if p['has_comparison'] and p['same_start_destination_offset']}
+    kinds = {r['origin_id']: r['origin_type'] for r in records}
+    unpaired = []
+    for oid, job in sorted((doc.get('travel_only') or {}).items()):
+        if oid in paired:
+            continue
+        res = job.get('result') or {}
+        unpaired.append({'scope': entry['scope'], 'origin_id': oid, 'origin_type': kinds.get(oid, 'unknown'),
+                         'depart_offset_s': (job.get('request') or {}).get('depart_offset_s'),
+                         'contact_members': sum(1 for e in res.get('exposure') or [] if e.get('contact') is True)})
+
     meta = {
         'scope': entry['scope'], 'region': doc['region_id'], 'input_time': doc['input_time'],
         'input_kst': sources.kst_label(doc['input_time']), 'scenario_set_id': doc['scenario_set_id'],
@@ -168,7 +193,8 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
         'purpose': doc['generator'].get('purpose'), 'step_min': step_min,
         'shelters_per_origin': doc['generator'].get('shelters_per_origin'),
         'host': [{'platform': k[0], 'machine': k[1], 'results': v} for k, v in sorted(hosts.items())],
-        'graph_sha256': next(iter(graphs)), 'graph_id': next(iter(graph_ids)), 'hazard_sha256': next(iter(hazards)),
+        'graph_sha256': next(iter(graphs)), 'graph_id': next(iter(graph_ids)), 'hazard_sha256': hazard_sha,
+        'hazard_rel': sources.hazard_rel(doc['region_id'], doc['input_time']),
         'hazard_file': window['path'], 'valid_from_s': window['valid_from'], 'valid_until_s': window['valid_until'],
         'dt_s': window['dt'],
         'route_check_records': len(jobs),
@@ -185,7 +211,7 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
         raise ValueError(f'{entry["path"]}: route checks are not dispatch attempts + re-checks + research checks')
     del doc, model, plans
     gc.collect()
-    return {'records': records, 'pairs': pairs, 'meta': meta}
+    return {'records': records, 'pairs': pairs, 'meta': meta, 'travel_unpaired': unpaired}
 
 
 def graph_metrics_for_region(region: str, metas: list[dict], records: list[dict], pairs: list[dict]) -> tuple[list, dict]:
@@ -245,7 +271,7 @@ def graph_metrics_for_region(region: str, metas: list[dict], records: list[dict]
         pair['extra_length_m'] = pair['checked_length_m'] - pair['fastest_length_m']
         node = pair['destination_node']
         pair['trip_model_s'] = trips[pair['origin_id']][node]
-    graph_info = {'region': region, 'graph_file': sources.rel(path), 'graph_sha256': sources.sha256_file(path),
+    graph_info = {'region': region, 'graph_file': sources.graph_rel(region), 'graph_sha256': sources.sha256_file(path),
                   'graph_id': graph.revision, 'nodes': len(graph.node_ids), 'edges': len(graph.edge_ids),
                   'forbidden_turns': len(graph.forbidden), 'allowed_turns': solver.allowed_turns}
     del solver, graph
@@ -290,12 +316,13 @@ def classify_window(records: list[dict], metas: list[dict], redundancy: list[dic
 def run(with_graphs: bool = True) -> dict:
     entries = sources.load_index()
     places = {r: [pr.place_from_properties(p) for p in sources.load_places(r)] for r in sources.REGIONS}
-    records, pairs, metas = [], [], []
+    records, pairs, metas, unpaired = [], [], [], []
     for e in entries:
-        out = analyse_file(e, places[e['region_id']])
+        out = analyse_file(e, places[e['region_id']], with_graphs)
         records += out['records']
         pairs += out['pairs']
         metas.append(out['meta'])
+        unpaired += out['travel_unpaired']
     redundancy, graphs = [], []
     if with_graphs:
         for region in sources.REGIONS:
@@ -305,4 +332,4 @@ def run(with_graphs: bool = True) -> dict:
             graphs.append(info)
         classify_window(records, metas, redundancy)
     return {'entries': entries, 'records': records, 'pairs': pairs, 'metas': metas, 'redundancy': redundancy,
-            'graphs': graphs}
+            'graphs': graphs, 'travel_unpaired': unpaired, 'with_graphs': with_graphs}
