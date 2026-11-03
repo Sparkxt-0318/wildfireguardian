@@ -18,7 +18,7 @@
 .wfgx-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #0b0b0c; background: transparent; display: inline-block; }
 .wfgx-dot--on { background: #0b0b0c; }
 .wfgx-list { margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.5; }
-.wfgx-basis, .wfgx-prov { margin: 0; }
+.wfgx-basis, .wfgx-note, .wfgx-host, .wfgx-prov { margin: 0; }
 .wfgx-prov { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; word-break: break-all; }
 .wfgx-fallback { display: block; }
 
