@@ -225,17 +225,24 @@ describe('explanation text (structured fields only)', () => {
               item({ edge_id: 'w123:s87:f', osm_way_id: 123, members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 140, pass_time_at_deadline_s: null, slack_s: null, label_ko: '합성리', label_en: null })] });
     const v = view(rec, 'ko', NO_ROUTE);
     expect(v.title).toBe('왜 확인된 경로가 없나요?');
+    // every sentence about the computed exits carries the mark, and so does every item of the exit list
     expect(v.lines).toEqual([
       '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역의 도로 출구 2곳이 모두 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).*',
-      '두 출구는 같은 도로(OSM way 123)의 양쪽 방향입니다.',
-      '이 도로들은 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.',
+      '두 출구는 같은 도로(OSM way 123)의 양쪽 방향입니다.*',
+      '이 도로들은 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.*',
     ]);
-    expect(v.list).toEqual(['합성마을에서 약 1.2 km 떨어진 도로: 시나리오 4/4', '합성리에서 약 1.2 km 떨어진 도로: 시나리오 4/4']);
+    expect(v.list).toEqual(['합성마을에서 약 1.2 km 떨어진 도로: 시나리오 4/4*', '합성리에서 약 1.2 km 떨어진 도로: 시나리오 4/4*']);
     expect(v.dots?.members).toEqual([0, 1, 2, 3]);
+    expect([v.marked, v.computedNote]).toEqual([true, '* 기록된 점검이 아니라 이 설명을 위해 도로망과 화재 시나리오로 계산한 값입니다.']);
     const en = view(rec, 'en', NO_ROUTE);
     expect(en.lines[0]).toBe('Both road exits from the area that can be reached from the entry point without meeting flames run into flames in the fire scenarios (4 of 4 fire scenarios).*');
-    expect(en.lines[1]).toBe('Both are on the same road (OSM way 123), one in each direction.');
-    expect(en.list[0]).toBe('A road about 1.2 km from Hapseong-ri: 4/4 scenarios');
+    expect(en.lines[1]).toBe('Both are on the same road (OSM way 123), one in each direction.*');
+    expect(en.lines[2]).toBe('They cross cells already marked as burning at the input time (09:00).*');
+    expect(en.list[0]).toBe('A road about 1.2 km from Hapseong-ri: 4/4 scenarios*');
+    // the same road in one direction
+    const oneWay = noRouteOrigin({ ...rec, exits: rec.exits.map((e) => ({ ...e, edge_id: e.edge_id!.replace(/:[fr]$/, ':f') })) });
+    expect(view(oneWay, 'en', NO_ROUTE).lines[1]).toBe('Both are on the same road (OSM way 123).*');
+    expect(view(oneWay, 'ko', NO_ROUTE).lines[1]).toBe('두 출구는 같은 도로(OSM way 123)에 있습니다.*');
   });
 
   it('a single exit is stated in the singular', () => {
@@ -243,9 +250,25 @@ describe('explanation text (structured fields only)', () => {
       exits: [item({ members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null })] });
     expect(view(rec, 'en', NO_ROUTE).lines).toEqual([
       'The only road leading out of the area that can be reached from the entry point without meeting flames runs into flames in the fire scenarios (4 of 4 fire scenarios).*',
-      'It crosses cells already marked as burning at the input time (09:00).',
+      'It crosses cells already marked as burning at the input time (09:00).*',
     ]);
-    expect(view(rec, 'ko', NO_ROUTE).lines[0]).toBe('진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).*');
+    expect(view(rec, 'ko', NO_ROUTE).lines).toEqual([
+      '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역을 벗어나는 도로는 1개뿐이며, 이 도로가 시나리오상 화염과 만납니다(화재 시나리오 4개 중 4개).*',
+      '이 도로는 입력 시각(09:00)에 이미 타고 있는 것으로 표시된 칸을 지납니다.*',
+    ]);
+    expect(view(rec, 'en', NO_ROUTE).list).toEqual(['A road about 1.2 km from Hapseong-ri: 4/4 scenarios*']);
+  });
+
+  it('more than three exits: three listed and the rest counted, every item marked', () => {
+    const exits = [0, 1, 2, 3, 4].map((i) => item({ edge_id: `w${100 + i}:s1:f`, osm_way_id: 100 + i, members: [0, 1, 2, 3], flame_time_s: 0, contact_time_s: 80, pass_time_at_deadline_s: null, slack_s: null }));
+    const rec = noRouteOrigin({ reason_code: 'all_exits_blocked', detail_code: 'flame_free_area_closed', exits });
+    const en = view(rec, 'en', NO_ROUTE);
+    expect(en.lines).toEqual([
+      'All 5 road exits from the area that can be reached from the entry point without meeting flames run into flames in the fire scenarios (4 of 4 fire scenarios).*',
+      'They cross cells already marked as burning at the input time (09:00).*',
+    ]);
+    expect(en.list).toEqual([...Array(3).fill('A road about 1.2 km from Hapseong-ri: 4/4 scenarios*'), 'and 2 more*']);
+    expect(view(rec, 'ko', NO_ROUTE).list[3]).toBe('외 2개*');
   });
 
   it('C4: an entry point in flames is stated for the first checked departure and at least one scenario only', () => {
@@ -261,7 +284,8 @@ describe('explanation text (structured fields only)', () => {
     const v = view(rec, 'en', NO_ROUTE);
     expect(v.lines[0]).toContain('(at least 2 of 4 fire scenarios)');
     expect(v.dots).toBeNull();
-    expect(v.list).toEqual(['A road about 1.2 km from Hapseong-ri: 2/4 scenarios', 'A road about 1.2 km from Hapseong-ri: 3/4 scenarios']);
+    expect(v.list).toEqual(['A road about 1.2 km from Hapseong-ri: 2/4 scenarios*', 'A road about 1.2 km from Hapseong-ri: 3/4 scenarios*']);
+    expect(v.lines[1]).toBe('Each is already blocked when the vehicle could first reach it; the last one meets flames by 09:15.*');
   });
 
   it('refuses an explanation made for another route check; neutral fallbacks', () => {
@@ -282,7 +306,9 @@ describe('recorded vs computed, and claims no wider than the replay', () => {
   const COMPUTED = ['windowFireFree', 'windowFireFreeUnreachable', 'windowArrivalFireFree', 'othersFireFreeOne', 'othersFireFree', 'rangeOne', 'rangeMany',
     'arrivalOne', 'limitsMany', 'noRouteFireFree', 'windowDetour', 'mixedFlameAllOne', 'mixedFlameAll', 'mixedFlameSomeOne', 'mixedFlameSome', 'mixedAlsoOutOne',
     'mixedAlsoOut', 'flamesConclusion', 'noRouteFlames', 'cdUnreachable', 'oneUnreachable', 'flame', 'flameSlackOne', 'flameSlackMany', 'dwell', 'exitsOne',
-    'exitsTwo', 'exits', 'exitsLatestOne', 'exitsLatest', 'entryInFlame'];
+    'exitsTwo', 'exits', 'exitsSameWayBothDirections', 'exitsSameWay', 'exitsPresentOne', 'exitsPresent', 'exitsLatestOne', 'exitsLatest', 'entryInFlame'];
+  /** exit-list items (not sentences, no full stop): a computed exit with its place distance and member count, the rest counted */
+  const COMPUTED_ITEMS = ['exitItem', 'exitsMore'];
   /** the notes that explain the mark */
   const NOTES = ['computedNote', 'sheetNoteOff', 'sheetNoteOffUnknown', 'sheetNoteOn'];
   const LINUX = { platform: 'Linux-6.18.44-x86_64-with-glibc2.39', system: 'Linux', machine: 'x86_64', python: '3.12.3', numpy: '1.26.4', pyproj: '3.7.0' };
@@ -303,6 +329,9 @@ describe('recorded vs computed, and claims no wider than the replay', () => {
           expect([key, lang, text.endsWith('.*')]).toEqual([key, lang, true]);
           // every mark follows a full stop: one per sentence, never inside a sentence
           expect([key, lang, [...text.matchAll(/\*/g)].every((m) => text[m.index! - 1] === '.')]).toEqual([key, lang, true]);
+        } else if (COMPUTED_ITEMS.includes(key)) {
+          // one mark, ending the item
+          expect([key, lang, text.endsWith(COMPUTED_MARK), text.split(COMPUTED_MARK).length - 1, text.includes('.')]).toEqual([key, lang, true, 1, false]);
         } else expect([key, lang, text.includes('*')]).toEqual([key, lang, false]);
       }
     }
@@ -575,10 +604,18 @@ describe('committed explanation files render in both languages', () => {
           expect(v.host).toMatch(lang === 'en' ? /not on the evaluated host.*no new route checks/ : /평가 호스트가 아닌.*새 경로 점검은 하지 않았습니다/);
         }
         // a sentence resting on a computed value carries the mark, and the notes explain it
-        const marked = v.lines.some((l) => l.includes(COMPUTED_MARK));
+        const marked = [...v.lines, ...v.list].some((l) => l.includes(COMPUTED_MARK));
         expect([oid, lang, v.marked, Boolean(v.computedNote), Boolean(v.sheetNote)]).toEqual([oid, lang, marked, marked, marked]);
         if (['flame_on_route', 'no_flame_avoiding_route', 'all_exits_blocked'].includes(rec.reason_code) || rec.detail_code === 'window_fire_free') expect([oid, marked]).toEqual([oid, true]);
         if (rec.reason_code === 'no_later_offset' || rec.reason_code === 'unresolved_next' || rec.reason_code === 'other') expect([oid, marked]).toEqual([oid, false]);
+        // sentence by sentence: in a computed explanation every sentence ends with the mark and so does every exit-list
+        // item; a recorded-only explanation (last checked time, 시간창 밖 skip, unresolved, withdrawn) carries none
+        if (rec.status !== 'not_explainable') {
+          const recordedOnly = ['no_later_offset', 'unresolved_next', 'other'].includes(rec.reason_code) || rec.detail_code === 'outside_recorded_arrival_window';
+          const sentences = v.lines.flatMap((l) => l.split(/(?<=\.\*?) (?=\S)/));
+          const unmarked = [...sentences.filter((s) => !s.endsWith(`.${COMPUTED_MARK}`)), ...v.list.filter((x) => !x.endsWith(COMPUTED_MARK))];
+          expect([oid, lang, recordedOnly ? marked : unmarked]).toEqual([oid, lang, recordedOnly ? false : []]);
+        }
         // a time-window conclusion names the next checked departure, the only later time evaluated
         if (rec.detail_code === 'window_fire_free' && rec.deadline_cause === 'time_window') {
           const last = v.lines[v.lines.length - 1]!;

@@ -6,14 +6,16 @@
  * it (deadline_cause), and it names the next checked departure — the only later time that was evaluated.
  *
  * Recorded vs computed: a sentence that rests on a value tools/explain_deadlines computed for the explanation (road
- * times from the road graph, flame-avoiding arrivals, replay contact and pass times, exits) ends with COMPUTED_MARK
- * ('*') after its full stop; `computedNote` / `sheetNote*` say what the mark means, `host*` where the file was computed.
- * Sentences that restate recorded results only (the last checked time, a "시간창 밖" skip, an unresolved next time)
- * carry no mark.
+ * times from the road graph, flame-avoiding arrivals, replay contact and pass times, the exits and everything said
+ * about them) ends with COMPUTED_MARK ('*') after its full stop, and so does each item of the exit list (a computed
+ * exit with its place distance and member count; no full stop). `computedNote` / `sheetNote*` say what the mark means,
+ * `host*` where the file was computed. Sentences that restate recorded results only (the last checked time, a "시간창
+ * 밖" skip, an unresolved next time or origin) carry no mark. The member dots repeat the k of n of the marked sentence
+ * they illustrate.
  */
 import type { L10n } from '../shared/strings';
 
-/** Ends every sentence that rests on a value computed for the explanation rather than a recorded check. */
+/** Ends every sentence (and exit-list item) that rests on a value computed for the explanation rather than a recorded check. */
 export const COMPUTED_MARK = '*';
 
 export const EXPLAIN = {
@@ -187,18 +189,19 @@ export const EXPLAIN = {
     ko: '진입 지점에서 화염과 만나지 않고 갈 수 있는 구역의 도로 출구 {n}곳이 모두 시나리오상 화염과 만납니다({members}).*',
     en: 'All {n} road exits from the area that can be reached from the entry point without meeting flames run into flames in the fire scenarios ({members}).*',
   },
+  // the follow-up sentences describe the computed exits of the sentence before them: marked as well
   exitsSameWayBothDirections: {
-    ko: '두 출구는 같은 도로(OSM way {way})의 양쪽 방향입니다.',
-    en: 'Both are on the same road (OSM way {way}), one in each direction.',
+    ko: '두 출구는 같은 도로(OSM way {way})의 양쪽 방향입니다.*',
+    en: 'Both are on the same road (OSM way {way}), one in each direction.*',
   },
-  exitsSameWay: { ko: '두 출구는 같은 도로(OSM way {way})에 있습니다.', en: 'Both are on the same road (OSM way {way}).' },
+  exitsSameWay: { ko: '두 출구는 같은 도로(OSM way {way})에 있습니다.*', en: 'Both are on the same road (OSM way {way}).*' },
   exitsPresentOne: {
-    ko: '이 도로는 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.',
-    en: 'It crosses cells already marked as burning at the input time ({input}).',
+    ko: '이 도로는 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.*',
+    en: 'It crosses cells already marked as burning at the input time ({input}).*',
   },
   exitsPresent: {
-    ko: '이 도로들은 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.',
-    en: 'They cross cells already marked as burning at the input time ({input}).',
+    ko: '이 도로들은 입력 시각({input})에 이미 타고 있는 것으로 표시된 칸을 지납니다.*',
+    en: 'They cross cells already marked as burning at the input time ({input}).*',
   },
   exitsLatestOne: {
     ko: '차량이 가장 일찍 닿을 수 있는 시각에 이미 막혀 있으며, {latest}에는 화염과 만납니다.*',
@@ -208,8 +211,9 @@ export const EXPLAIN = {
     ko: '차량이 가장 일찍 닿을 수 있는 시각에 이미 막혀 있으며, 마지막 도로도 {latest}에는 화염과 만납니다.*',
     en: 'Each is already blocked when the vehicle could first reach it; the last one meets flames by {latest}.*',
   },
-  exitItem: { ko: '{where}: 시나리오 {k}/{total}', en: '{where}: {k}/{total} scenarios' },
-  exitsMore: { ko: '외 {n}개', en: 'and {n} more' },
+  // exit list items (not sentences): a computed exit, its place distance and member count; the mark ends each item
+  exitItem: { ko: '{where}: 시나리오 {k}/{total}*', en: '{where}: {k}/{total} scenarios*' },
+  exitsMore: { ko: '외 {n}개*', en: 'and {n} more*' },
   entryInFlame: {
     ko: '점검한 첫 출발 시각인 {first}에 진입 지점이 이미 화재 시나리오 중 적어도 하나에서 화염 안에 있습니다.*',
     en: 'At the first checked departure, {first}, the entry point itself is already in flames in at least one of the fire scenarios.*',

@@ -4,10 +4,10 @@
  * only when it describes exactly the results on screen (verdict, deadline and the route-check job of the shown
  * route); otherwise a fallback.
  *
- * Recorded vs computed: a template whose text carries COMPUTED_MARK states something computed for the explanation
- * (not a recorded check); using one sets `marked`, and the view then carries the note that explains the mark
- * (`computedNote` in the panel, `sheetNote` once per plan sheet). `host` says where the file was computed
- * (provenance.computed_on / evaluated_host) and that no new route checks were run.
+ * Recorded vs computed: a template whose text carries COMPUTED_MARK (a sentence, or an exit-list item) states something
+ * computed for the explanation (not a recorded check); using one sets `marked`, and the view then carries the note
+ * that explains the mark (`computedNote` in the panel, `sheetNote` once per plan sheet). `host` says where the file
+ * was computed (provenance.computed_on / evaluated_host) and that no new route checks were run.
  */
 import { kstClock } from '../../domain/clock';
 import { formatDistanceM } from '../shared/format';
@@ -34,7 +34,7 @@ export interface ExplainView {
   list: string[];
   basis: string | null;
   provenance: string | null;
-  /** some line states a value computed for the explanation (marked with COMPUTED_MARK) */
+  /** some line or list item states a value computed for the explanation (marked with COMPUTED_MARK) */
   marked: boolean;
   /** panel: what the mark means (only when marked) */
   computedNote: string | null;

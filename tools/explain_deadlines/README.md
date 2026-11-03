@@ -282,15 +282,20 @@ stamps `generated_at`, `code_commit`, `code_dirty` and `computed_on` (it prints 
 ## 11 How the planner words it (`planner/src/features/explain`)
 
 - **Recorded vs computed.** Every sentence that rests on a value this tool computed — road times from the road graph,
-  flame-avoiding arrivals, replay contact and pass times, exits — ends with `*` after its full stop. The panel explains
-  the mark ("* Computed for this explanation from the road graph and the fire scenarios, not a recorded check." /
-  "* 기록된 점검이 아니라 이 설명을 위해 도로망과 화재 시나리오로 계산한 값입니다.") and always says where the file was
-  computed: "Computed for this explanation on Linux x86_64, not on the evaluated host: the recorded route checks are
-  replayed against the same hazard packet; no new route checks were run." The A4 plan sheet prints it once per sheet,
-  in the explanation section's footer after the forecast basis, when a printed row carries the mark ("* Computed on
-  Linux x86_64 (not the evaluated host), not a recorded check."). Sentences that only restate recorded results (the
-  last checked time, a "시간창 밖" skip, an unresolved next time or origin) carry no mark. The evaluated host is named
-  only when `evaluated_host` is true and `computed_on` is macOS (Darwin) arm64.
+  flame-avoiding arrivals, replay contact and pass times, the exits and everything said about them (the same OSM way,
+  cells burning at the input time) — ends with `*` after its full stop, and so does every item of the exit list (a
+  computed exit with its place distance and member count, e.g. "A road about 797 m from Guam-ri (this village): 4/4
+  scenarios*"; the count of further exits likewise). The panel explains the mark ("* Computed for this explanation
+  from the road graph and the fire scenarios, not a recorded check." / "* 기록된 점검이 아니라 이 설명을 위해 도로망과
+  화재 시나리오로 계산한 값입니다.") and always says where the file was computed: "Computed for this explanation on
+  Linux x86_64, not on the evaluated host: the recorded route checks are replayed against the same hazard packet; no
+  new route checks were run." The A4 plan sheet prints it once per sheet, in the explanation section's footer after
+  the forecast basis, when a printed row carries the mark ("* Computed on Linux x86_64 (not the evaluated host), not a
+  recorded check."). Sentences that only restate recorded results (the last checked time, a "시간창 밖" skip, an
+  unresolved next time or origin, a withdrawn explanation) carry no mark; the member dots and their caption repeat the
+  k of n of the marked sentence they illustrate. The evaluated host is named only when `evaluated_host` is true and
+  `computed_on` is macOS (Darwin) arm64. `tests/planner/explain.test.ts` checks every template and, for all 530
+  committed origins in both languages, every sentence and exit-list item.
 - **Labels.** `explained` reads "Explained (replay of recorded checks)" / "설명됨(기록된 점검 재현)", `explained_partial`
   "Partly explained (replay of recorded checks)" / "부분 설명(기록된 점검 재현)": replays of recorded checks against
   the same forecast scenarios, not a verification of what happens on the ground.

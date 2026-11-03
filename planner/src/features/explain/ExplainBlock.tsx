@@ -2,8 +2,8 @@
  * "왜 이 시각인가요? / Why this time?" — the origin detail panel block and the plan-sheet section.
  * Renders text built from the structured fields only (text.ts). Falls back to a plain line when the explanation file
  * is absent, the origin is missing, the explanation belongs to other results, or it is not_explainable.
- * Sentences resting on values computed for the explanation end with a mark; the panel explains the mark and says where
- * the file was computed, the plan sheet says both once in its section footer.
+ * Sentences and exit-list items resting on values computed for the explanation end with a mark; the panel explains the
+ * mark and says where the file was computed, the plan sheet says both once in its section footer.
  */
 import { useEffect, useState } from 'react';
 import { scenarioTag } from '../plansheet/sheetLogic';
