@@ -302,7 +302,10 @@ no result for the origin, §2), the reason data ("이유 자료": the explanatio
 `code_commit` and `generated_at`, when a reason line is used), the rule-check result, the review
 state, the preparation time and, last, the planner footer ("용도 / Intended use": `사전 계획 보조
 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.`) — in every row, also when a long text that carries it
-is withheld. The dialog shows the same result source for the chosen origin.
+is withheld. The dialog shows the same result source for the chosen origin. On a phone the dialog
+keeps to the screen width: its one-column body (`minmax(0, 1fr)`) lets the origin picker, a
+`<select>` as wide as its longest option, shrink, and the result source wrap inside the cache
+file name; only the card preview scrolls sideways, inside its own box (tested at 375 and 320 px, §9).
 
 Card layout (`lastmile.css`): A5 148 × 209.6 mm with 7/8 mm padding at 14 pt, A4 210 × 296.6 mm
 with 14/16 mm padding at 18 pt, line-height 1.32, black on white, bundled Pretendard Variable. On A5
@@ -325,7 +328,7 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   ../tests/planner/lastmile.test.ts ../tests/planner/lastmile.cache.test.ts \
   ../tests/planner/lastmile.property.test.ts ../tests/planner/lastmile.provenance.test.ts \
   ../tests/planner/lastmile.render.test.ts ../tests/planner/lastmile.print.test.ts \
-  ../tests/planner/lastmile.docs.test.ts
+  ../tests/planner/lastmile.layout.test.ts ../tests/planner/lastmile.docs.test.ts
 ```
 
 - `lastmile.test.ts` — counting rules, KST wording, the arrival rounding, the message plan per
@@ -375,6 +378,10 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   Chromium is installed, the real print layout of every card and of the 60 tightest badge /
   provenance variants per language and size (no overflow, body ≥ 14 pt, header / footer line ≥
   12 pt, estimate never below the real height) and PDFs with exactly one page per card.
+- `lastmile.layout.test.ts` — when Playwright with Chromium is installed: the dialog rendered for
+  every booth cache (the first origin of each message kind, Korean and English UI) and laid out with
+  the app's style sheets and the bundled font at 375 px and 320 px: nothing scrolls sideways or
+  reaches past the screen edge, except the card preview inside its own box.
 - `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin (all
   four outputs and the card appear in both languages, and in Korean for each of leave by, no route
   and unresolved); §2's statement of what each output of a
