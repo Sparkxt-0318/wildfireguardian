@@ -3,6 +3,7 @@ import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
+import { FieldMessagesEntry } from '../features/lastmile/FieldMessagesEntry';
 import { useLang, useT, type TFunction } from '../i18n';
 import { useEffect } from 'react';
 import { cancelRecompute, ensureRoute, ensureTravelOnly, originCheckCount, recomputeOrigin, selectOffset } from '../state/controller';
@@ -719,6 +720,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         </>
       )}
       {plan && plan.windows.length && !notComputed ? <Windows plan={plan} inputTime={inputTime} /> : null}
+      <FieldMessagesEntry originId={place.id} />
       {plan && (!drawn || !notComputed) ? <Provenance route={route ?? evidence ?? (drawn ? anyRoute : null)} plan={plan} recheckOf={recheckOf} /> : null}
       {!drawn || !notComputed || progress ? <Recompute place={place} drawn={drawn} /> : null}
       {routeError ? <span className="small-note">{errorText(routeError, t)}</span> : null}
