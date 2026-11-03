@@ -10,7 +10,7 @@ import json
 import re
 
 from conftest import PACKAGE_ROOT
-from wfg_impact import analysis, numbers as numbers_mod
+from wfg_impact import analysis, numbers as numbers_mod, sources
 
 NUMBERS = json.loads((PACKAGE_ROOT / 'NUMBERS.json').read_text(encoding='utf-8'))
 N = NUMBERS['numbers']
@@ -124,6 +124,34 @@ def test_source_flags_follow_the_real_dependencies(path_a_result):
         assert set(must) <= changed, (mutate.__name__, set(must) - changed)
         wrong = sorted(k for k in changed if not N[k]['uses_graph'] or (hazard and not N[k]['uses_hazard']))
         assert not wrong, (mutate.__name__, wrong[:20])
+
+
+def _pins(path) -> dict:
+    out = {}
+    for line in path.read_text(encoding='utf-8').splitlines():
+        m = re.match(r'^([A-Za-z0-9_.-]+)==([^\s#]+)', line.strip())
+        if m:
+            out[m.group(1).lower()] = m.group(2)
+    return out
+
+
+def test_readme_records_the_exact_library_versions():
+    req = _pins(PACKAGE_ROOT / 'requirements.txt')
+    cons = _pins(sources.REPO / 'constraints-routing.txt')
+    m = re.search(r'Versions used for the committed outputs: (.+?)\n\n', README, flags=re.S)
+    line = ' '.join(m.group(1).split())
+    assert 'Python 3.12.3' in line and f'numpy {cons["numpy"]}' in line
+    for name in ('pandas', 'matplotlib', 'networkx', 'pytest', 'pillow'):
+        assert f'{name} {req[name]}' in line, name
+
+
+def test_owner_decision_proposes_one_link_line_for_the_frozen_research_readme():
+    section = README.split('\n## Owner decision\n', 1)[1].split('\n## ', 1)[0]
+    assert 'research/README.md' in section and 'FROZEN_GIT_BLOBS.json' in section
+    m = re.search(r'```markdown\n(.+?)\n```', section, flags=re.S)
+    line = m.group(1)
+    assert '\n' not in line and line.startswith('- [solve2027-impact/](solve2027-impact/README.md): ')
+    assert 'safe' not in line.lower()
 
 
 def test_readme_counts_of_cache_only_numbers_match():

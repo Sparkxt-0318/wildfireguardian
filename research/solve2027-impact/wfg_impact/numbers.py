@@ -182,9 +182,7 @@ def case_numbers(b: Builder, records: list[dict]):
             b.frac(f'not_checked_at_offset_{LAST:04d}s' + tag, kl, n,
                    f'Cases whose cell at the last departure offset ({LAST} s, +{LAST // 60} min) is not checked_route '
                    f'(earlier leave-by deadline, or no checked route at all).{WINDOW_NOTE}{st}')
-            if sub:
-                continue
-            for t in OFFSETS:
+            for t in OFFSETS:            # per origin type too: the survival curve of each type
                 for cat in CELL_CATS:
                     k = sum(1 for r in rows if r['cells'][t] == cat)
                     extra = (' window_unsatisfiable ("시간창 밖") = no request was sent because the recorded arrival '
@@ -192,17 +190,22 @@ def case_numbers(b: Builder, records: list[dict]):
                     note = WINDOW_NOTE if cat in (pr.NO_ROUTE, pr.UNRESOLVED) else ''
                     b.frac(f'cell.{cat}.offset_{t:04d}s' + tag, k, n,
                            f'Cases whose cell at departure offset {t} s (+{t // 60} min after the input time) is '
-                           f'{cat}. {CELL_RULE}.{extra}{note}')
+                           f'{cat}. {CELL_RULE}.{extra}{note}{st}')
             kc = sum(1 for r in rows if r['latest_s'] is not None and r['contiguous_s'] != r['latest_s'])
             b.frac('contiguous_differs_from_latest' + tag, kc, sum(1 for r in rows if r['latest_s'] is not None),
                    'Cases with a checked route whose contiguous deadline (contract latest_contiguous_checked_depart_'
-                   'offset_s; plan.ts contiguousSafeDeparture, lines 169-178) differs from the leave-by deadline. When '
-                   'this is 0, the share checked at offset t equals the share whose deadline is at or after t.')
+                   f'offset_s; plan.ts contiguousSafeDeparture, lines 169-178) differs from the leave-by deadline. '
+                   'When this is 0, the share checked at offset t equals the share whose deadline is at or after t.' + st)
             att = [(r['scope'], r['origin_id'], k, v) for r in rows for k, v in r['unresolved_reasons'].items()]
             n_att = sum(r['n_attempts'] for r in rows)
             b.add('attempts' + tag, n_att,
                   'Route-check attempts behind these cases as the planner displays them (one per origin x candidate '
-                  'destination x departure offset; a re-check replaces the attempt it re-ran).')
+                  'destination x departure offset; a re-check replaces the attempt it re-ran).' + st)
+            for v in pr.VERDICTS:        # check-level verdict counts (the case-level ones are best_verdict.*)
+                b.frac(f'attempts.verdict.{v}' + tag, sum(r['attempt_verdicts'].get(v, 0) for r in rows), n_att,
+                       f'Displayed route-check attempts (denominator; a re-check replaces the attempt it re-ran) whose own '
+                       f'verdict is {v} (numerator): counts of single checks (place x candidate destination x departure '
+                       f'offset), not of cases.{st}')
             reasons = Counter()
             for _, _, code, cnt in att:
                 reasons[code] += cnt
@@ -211,10 +214,10 @@ def case_numbers(b: Builder, records: list[dict]):
                        f'Displayed attempts whose verdict is unresolved with API reason_code {code} '
                        + ('(api/README.md: "The limits were already exceeded at departure, for example because of '
                           'incurred dose"; dispatch requests carry no incurred dose).' if code == 'AT_ISSUE_FAILURE'
-                          else '(the fixed 30 s request budget was exceeded).') + ' Unresolved is never safe.')
+                          else '(the fixed 30 s request budget was exceeded).') + ' Unresolved is never safe.' + st)
             other = sum(v for k, v in reasons.items() if k not in ('AT_ISSUE_FAILURE', 'TIMEOUT'))
             b.frac('attempts.unresolved.other' + tag, other, n_att,
-                   'Displayed unresolved attempts with any other (or no) reason_code.')
+                   'Displayed unresolved attempts with any other (or no) reason_code.' + st)
 
 
 def place_numbers(b: Builder, records: list[dict]):
@@ -386,6 +389,52 @@ def travel_numbers(b: Builder, pairs: list[dict]):
            len({(p['region'], p['origin_id']) for p in pairs if p.get('has_comparison')}),
            pdef + 'Distinct places with a flame-contact comparison in at least one scenario set (numerator) among places '
                   'with at least one comparison (denominator).')
+
+
+def travel_unpaired_numbers(b: Builder, unpaired: list[dict]):
+    """travel_only records that are not one of the village/care-facility comparisons (P4F-04)."""
+    tag = '@all/pooled'
+    total = sum(m['travel_only_records'] for m in b.metas.values())
+    b.frac('travel_only.records_not_paired' + tag, len(unpaired), total,
+           'travel_only comparison records stored in the six cache files (denominator; records.travel_only) that are '
+           'not paired with a village/care-facility case (numerator): every record whose origin is not an OSM case with '
+           'a checked route at the same start, destination and departure as its default checked route.')
+    res = [u for u in unpaired if u['origin_type'] == 'research']
+    b.frac('travel_only.records_not_paired.research_origin' + tag, len(res), len(unpaired),
+           'Of the unpaired travel_only records (denominator), those of recorded research-mission origins (numerator); '
+           'they are left out like every other research-origin result.')
+    b.frac('travel_only.records_not_paired.fastest_meets_flames' + tag,
+           sum(1 for u in unpaired if u['contact_members'] > 0), len(unpaired),
+           'Of the unpaired travel_only records (denominator), those whose travel-time-only route has predicted flame '
+           'contact (exposure contact = true, centre model) in at least one of the 4 scenario members (numerator); '
+           'reported for completeness, not part of travel_only.fastest_meets_flames.')
+
+
+def research_numbers(b: Builder, records: list[dict]):
+    """Recorded research-mission origins, kept out of every village/care-facility number: their origin-cases and route
+    checks as the planner shows them, so that the totals of planner/cache/INDEX.json reconcile."""
+    for sc in list(b.metas) + ['all/pooled']:
+        rows = [r for r in records if r['origin_type'] == 'research' and (sc == 'all/pooled' or r['scope'] == sc)]
+        tag = '@' + sc
+        b.add('research_origins' + tag, len(rows),
+              'Recorded research-mission origins of the scenario set(s) (planner scenarioOrigins: the origins of the '
+              'recorded missions, one per recorded mission); not villages or care facilities.')
+        n_att = sum(r['n_attempts'] for r in rows)
+        if any(r['n_rechecked_attempts'] for r in rows):
+            raise AssertionError(f'{sc}: a research-origin check was re-checked; the definitions below assume none')
+        for v in pr.VERDICTS:
+            b.frac(f'research_checks.verdict.{v}' + tag, sum(r['attempt_verdicts'].get(v, 0) for r in rows), n_att,
+                   'Route checks of the research-mission origins as the planner shows them (denominator; no re-check '
+                   f'replaced any) whose verdict is {v} (numerator). Not part of any village/care-facility number.')
+        reasons = Counter()
+        for r in rows:
+            reasons.update(r['unresolved_reasons'])
+        for code in ('AT_ISSUE_FAILURE', 'TIMEOUT'):
+            b.frac(f'research_checks.unresolved.{code}' + tag, reasons.get(code, 0), n_att,
+                   f'Research-origin route checks (denominator) that are unresolved with API reason_code {code}.')
+        b.frac('research_checks.unresolved.other' + tag,
+               sum(v for k, v in reasons.items() if k not in ('AT_ISSUE_FAILURE', 'TIMEOUT')), n_att,
+               'Research-origin route checks (denominator) that are unresolved with any other (or no) reason_code.')
 
 
 def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
@@ -625,6 +674,8 @@ def build(result: dict) -> dict:
         window_numbers(b, records, result['pairs'], result['redundancy'])
     else:
         travel_by_deadline_numbers(b, result['pairs'])
+    travel_unpaired_numbers(b, result['travel_unpaired'])
+    research_numbers(b, records)
     for key in HEADLINE_KEYS:                        # fully self-contained provenance on every headline number
         if key not in b.numbers and not b.with_graphs:
             continue

@@ -1,16 +1,21 @@
 """Checks that need only the committed inputs (planner cache, INDEX.json, places files), never data/routing/: they
-run, and never skip, whether or not the road graphs and HAZARD packets are present. Both independent paths recompute
-every cache-only number (uses_graph = false) with data/routing/ made unreachable, and the result equals NUMBERS.json,
-so those numbers truly need nothing else.
+run, and never skip, whether or not the road graphs and HAZARD packets are present.
+
+* both independent paths recompute every cache-only number (uses_graph = false) with data/routing/ made unreachable,
+  and the result equals NUMBERS.json, so those numbers truly need nothing else;
+* planner/cache/INDEX.json totals reconcile with the published counts;
+* every travel_only record is accounted for; check-level and per-type counts add up.
 """
 import json
 
 from conftest import PACKAGE_ROOT, no_routing_data
-from wfg_impact import numbers as numbers_mod
+from wfg_impact import numbers as numbers_mod, planner_rules as pr, sources
 
 NUMBERS = json.loads((PACKAGE_ROOT / 'NUMBERS.json').read_text(encoding='utf-8'))
 N = NUMBERS['numbers']
 CACHE_ONLY = {k: e for k, e in N.items() if not e['uses_graph']}
+FILE_SCOPES = [s for s in NUMBERS['scopes'] if s.endswith('Z')]
+CASE_SCOPES = FILE_SCOPES + [f'{r}/pooled' for r in sources.REGIONS] + ['all/pooled']
 
 
 def test_path_a_recomputes_every_cache_only_number_without_routing_data(cache_only_result, tmp_path):
@@ -35,3 +40,79 @@ def test_path_b_recomputes_every_cache_only_number_without_routing_data(tmp_path
         problems = verify.compare(NUMBERS, recomputed, cache_only=True)
     assert set(recomputed) == set(CACHE_ONLY)
     assert not problems, '\n'.join(problems[:50])
+
+
+def test_index_json_totals_reconcile_with_the_published_counts():
+    index = [e for e in json.loads((sources.CACHE_DIR / 'INDEX.json').read_text(encoding='utf-8'))
+             if e['region_id'] in sources.REGIONS]
+    assert len(index) == 6
+    pairs = {'checked_route': ('attempts.verdict.checked_route', 'research_checks.verdict.checked_route'),
+             'model_no_route': ('attempts.verdict.model_no_route', 'research_checks.verdict.model_no_route'),
+             'unresolved/AT_ISSUE_FAILURE': ('attempts.unresolved.AT_ISSUE_FAILURE', 'research_checks.unresolved.AT_ISSUE_FAILURE'),
+             'unresolved/TIMEOUT': ('attempts.unresolved.TIMEOUT', 'research_checks.unresolved.TIMEOUT')}
+    for e in index:
+        sc = sources.scope_id(e['region_id'], e['input_time'])
+        g = lambda k: N[f'{k}@{sc}']['value']  # noqa: E731
+        # origins = the OSM origins of the dispatch plans + the recorded research-mission origins
+        assert e['origins'] == g('cases') + g('research_origins')
+        # checks = every stored route-check record (travel_only comparisons are not counted)
+        assert e['checks'] == g('records.route_checks') == g('records.dispatch_attempts') + g('records.rechecks') + \
+            g('records.research_route_checks')
+        assert g('records.dispatch_attempts') == g('attempts')
+        assert N[f'research_checks.verdict.checked_route@{sc}']['denominator'] == g('records.research_route_checks')
+        # verdicts = displayed dispatch attempts (re-checks substituted) + research checks, by verdict and reason code
+        assert set(e['verdicts']) <= set(pairs)
+        for name, (displayed, research) in pairs.items():
+            assert e['verdicts'].get(name, 0) == g(displayed) + g(research), (sc, name)
+        assert g('attempts.unresolved.other') == g('research_checks.unresolved.other') == 0
+        assert sum(e['verdicts'].values()) == e['checks'] - g('records.rechecks')
+    readme = (PACKAGE_ROOT / 'README.md').read_text(encoding='utf-8')
+    assert '## Reconciliation with planner/cache/INDEX.json' in readme
+    assert '| **all six** | 530 = 522 + 8 | 9,722 = 9,396 + 279 + 47 |' in readme
+
+
+def test_every_travel_only_record_is_accounted_for():
+    a = 'all/pooled'
+    records = N[f'records.travel_only@{a}']['value']
+    assert records == sum(N[f'records.travel_only@{s}']['value'] for s in FILE_SCOPES)
+    paired, unpaired = N[f'travel_only.pairs@{a}'], N[f'travel_only.records_not_paired@{a}']
+    assert unpaired['denominator'] == records == paired['numerator'] + unpaired['numerator']
+    assert paired['numerator'] == paired['denominator']           # every case with a checked route has its comparison
+    research = N[f'travel_only.records_not_paired.research_origin@{a}']
+    assert research['numerator'] == research['denominator'] == unpaired['numerator']   # all unpaired: research origins
+    assert unpaired['numerator'] <= N[f'research_origins@{a}']['value']
+    flame = N[f'travel_only.records_not_paired.fastest_meets_flames@{a}']
+    assert flame['denominator'] == unpaired['numerator']
+    readme = (PACKAGE_ROOT / 'README.md').read_text(encoding='utf-8')
+    assert (f'store {records} travel_only comparison checks (`records.travel_only@all/pooled`): the '
+            f'{paired["numerator"]} comparisons paired with village/care-facility cases') in readme
+
+
+def test_check_level_counts_and_per_type_survival_add_up():
+    for sc in CASE_SCOPES:
+        for sub in ('', '#village', '#care_facility'):
+            if f'cases@{sc}{sub}' not in N:
+                assert sub == '#care_facility' and sc.startswith('yeongdeok')      # no care facility in Yeongdeok
+                continue
+            g = lambda k: N[f'{k}@{sc}{sub}']['value']  # noqa: E731
+            n_att = g('attempts')
+            assert n_att == 18 * g('cases')                      # 3 candidate destinations x 6 departure offsets
+            assert sum(g(f'attempts.verdict.{v}') for v in pr.VERDICTS) == n_att
+            assert g('attempts.verdict.unresolved') == sum(g(f'attempts.unresolved.{c}')
+                                                           for c in ('AT_ISSUE_FAILURE', 'TIMEOUT', 'other'))
+            # the documented equivalence: no case has a gap, so "checked at +t" = "leave-by deadline at or after +t"
+            assert g('contiguous_differs_from_latest') == 0
+            for t in sources.GRID_OFFSETS_S:
+                assert sum(g(f'cell.{c}.offset_{t:04d}s') for c in numbers_mod.CELL_CATS) == g('cases')
+                assert g(f'cell.checked_route.offset_{t:04d}s') == sum(
+                    g(f'deadline.latest_{u:04d}s') for u in sources.GRID_OFFSETS_S if u >= t)
+        # village + care facility = all, for every per-type family
+        for fam in (['attempts', 'contiguous_differs_from_latest'] + [f'attempts.verdict.{v}' for v in pr.VERDICTS] +
+                    [f'attempts.unresolved.{c}' for c in ('AT_ISSUE_FAILURE', 'TIMEOUT', 'other')] +
+                    [f'cell.{c}.offset_{t:04d}s' for c in numbers_mod.CELL_CATS for t in sources.GRID_OFFSETS_S]):
+            parts = [N[k]['value'] for k in (f'{fam}@{sc}#village', f'{fam}@{sc}#care_facility') if k in N]
+            assert sum(parts) == N[f'{fam}@{sc}']['value'], (fam, sc)
+    for sc in FILE_SCOPES + ['all/pooled']:
+        g = lambda k: N[f'{k}@{sc}']['value']  # noqa: E731
+        assert sum(g(f'research_checks.verdict.{v}') for v in pr.VERDICTS) == g('records.research_route_checks')
+

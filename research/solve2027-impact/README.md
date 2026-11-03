@@ -133,6 +133,29 @@ Pooling: within a region the three input times are different scenario sets for t
 place-input-time cases (descriptive, not independent samples). Distinct-place counts (`@*/places` keys) count each
 place once. The two regions share no place.
 
+## Checked share and route checks by origin type
+
+Cases with a checked route at each departure (the survival curve of each origin type), and the single route checks
+behind them by their own verdict (recorded results only).
+
+<!-- BEGIN GENERATED: by-type -->
+| Subset | Cases | Checked route at +0 min | Checked route at +10 min | Checked route at +20 min | Checked route at +30 min | Checked route at +40 min | Checked route at +50 min |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Uiseong-Andong villages | 237 | 224/237 (94.5%) | 224/237 (94.5%) | 221/237 (93.2%) | 208/237 (87.8%) | 170/237 (71.7%) | 88/237 (37.1%) |
+| Uiseong-Andong care facilities | 15 | 15/15 (100.0%) | 15/15 (100.0%) | 15/15 (100.0%) | 15/15 (100.0%) | 15/15 (100.0%) | 15/15 (100.0%) |
+| Yeongdeok villages | 270 | 262/270 (97.0%) | 262/270 (97.0%) | 262/270 (97.0%) | 262/270 (97.0%) | 259/270 (95.9%) | 251/270 (93.0%) |
+| All cases (both regions) | 522 | 501/522 (96.0%) | 501/522 (96.0%) | 498/522 (95.4%) | 485/522 (92.9%) | 444/522 (85.1%) | 354/522 (67.8%) |
+
+| Subset | Route checks | checked_route | model_no_route | unresolved | unresolved by API reason: AT_ISSUE_FAILURE · TIMEOUT · other |
+|---|---:|---:|---:|---:|---:|
+| Uiseong-Andong villages | 4,266 | 3,098/4,266 (72.6%) | 1,072/4,266 (25.1%) | 96/4,266 (2.3%) | 96 · 0 · 0 |
+| Uiseong-Andong care facilities | 270 | 264/270 (97.8%) | 6/270 (2.2%) | 0/270 (0.0%) | 0 · 0 · 0 |
+| Yeongdeok villages | 4,860 | 4,388/4,860 (90.3%) | 376/4,860 (7.7%) | 96/4,860 (2.0%) | 90 · 6 · 0 |
+| All cases (both regions) | 9,396 | 7,750/9,396 (82.5%) | 1,454/9,396 (15.5%) | 192/9,396 (2.0%) | 186 · 6 · 0 |
+
+Per-type keys: `cell.<verdict>.offset_<t>s@<scope>#village|care_facility` (every verdict at every departure) and `attempts.verdict.*@<scope>#<type>`. No case has a gap in its checked departures (`contiguous_differs_from_latest@*` = 0 for every scope and type), so the share with a checked route at +t min equals the share whose leave-by deadline is +t min or later. A route check is one attempt (place x forecast time x candidate destination x departure) as the planner displays it; a case counts as checked at a departure if any of its three candidate destinations is.
+<!-- END GENERATED: by-type -->
+
 ## Leave-by deadline (출발 마감) by origin type
 
 Cases by the latest departure (minutes after the recorded input time) with a checked route, pooled over the three
@@ -282,6 +305,27 @@ re-checked attempts whose original attempts reproduce the recorded fields exactl
 that were re-checked as `checked_route` or `model_no_route`). The planner shows the re-check, so its deadline is the
 re-checked one.
 
+## Reconciliation with planner/cache/INDEX.json
+
+The totals `planner/cache/INDEX.json` records for each cache file (`origins`, `checks`, `verdicts`) against this
+package's counts. Each cell reads "INDEX value = the counts that make it up".
+
+<!-- BEGIN GENERATED: index -->
+| Scenario set | Origins: INDEX = cases + research origins | Checks: INDEX = dispatch attempts + re-checks + research checks | checked_route: INDEX = displayed + research | model_no_route: INDEX = displayed + research | unresolved AT_ISSUE_FAILURE: INDEX = displayed + research | unresolved TIMEOUT: INDEX = displayed + research | travel_only records (not in INDEX) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| uiseong_andong_2025/20250323T010000Z | 86 = 84 + 2 | 1,523 = 1,512 + 0 + 11 | 1,188 = 1,183 + 5 | 335 = 329 + 6 | 0 = 0 + 0 | 0 = 0 + 0 | 85 |
+| uiseong_andong_2025/20250324T090000Z | 85 = 84 + 1 | 1,518 = 1,512 + 0 + 6 | 1,158 = 1,155 + 3 | 354 = 351 + 3 | 6 = 6 + 0 | 0 = 0 + 0 | 85 |
+| uiseong_andong_2025/20250325T170000Z | 85 = 84 + 1 | 1,557 = 1,512 + 39 + 6 | 1,029 = 1,024 + 5 | 399 = 398 + 1 | 90 = 90 + 0 | 0 = 0 + 0 | 73 |
+| yeongdeok_2025/20250325T190000Z | 92 = 90 + 2 | 1,810 = 1,620 + 179 + 11 | 1,400 = 1,400 + 0 | 161 = 160 + 1 | 54 = 54 + 0 | 16 = 6 + 10 | 84 |
+| yeongdeok_2025/20250325T230000Z | 91 = 90 + 1 | 1,673 = 1,620 + 47 + 6 | 1,486 = 1,485 + 1 | 138 = 135 + 3 | 0 = 0 + 0 | 2 = 0 + 2 | 91 |
+| yeongdeok_2025/20250326T080000Z | 91 = 90 + 1 | 1,641 = 1,620 + 14 + 7 | 1,510 = 1,503 + 7 | 81 = 81 + 0 | 36 = 36 + 0 | 0 = 0 + 0 | 89 |
+| **all six** | 530 = 522 + 8 | 9,722 = 9,396 + 279 + 47 | 7,771 = 7,750 + 21 | 1,468 = 1,454 + 14 | 186 = 186 + 0 | 18 = 6 + 12 | 507 |
+
+`planner/cache/INDEX.json` is written by `planner/scripts/precompute.py`. Per cache file it counts **origins** = the OSM origins sent in dispatch plans plus the recorded research-mission origins; **checks** = every stored route-check record (dispatch attempts, re-checks of timed-out attempts and research-origin checks; the travel_only comparison checks are not counted); **verdicts** = the verdict (and reason code) of every stored check except an original that was re-checked (its re-check counts instead), i.e. the dispatch attempts as the planner displays them plus the research-origin checks. Every identity in the table holds exactly (the INDEX verdicts add up to the checks minus the 279 re-checked originals; `tests/test_cache_only.py` asserts it from INDEX.json). This package's village/care-facility numbers leave the research origins and their checks out: for example INDEX lists 16 TIMEOUT verdicts for yeongdeok_2025/20250325T190000Z, of which 6 are displayed dispatch attempts (`attempts.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z`) and 10 research-origin checks.
+
+**travel_only records.** The cache files store 507 travel_only comparison checks (`records.travel_only@all/pooled`): the 501 comparisons paired with village/care-facility cases (`travel_only.pairs@all/pooled`, one per case with a checked route) and 6 records that are not paired (`travel_only.records_not_paired@all/pooled`), all of recorded research-mission origins (6 of 6), which are left out like every research-origin result; 1 of those 6 has predicted flame contact (`travel_only.records_not_paired.fastest_meets_flames@all/pooled`).
+<!-- END GENERATED: index -->
+
 ## Independent second computation
 
 `verify.py` recomputes every key of `NUMBERS.json` with different code (`wfg_impact/path_b.py`, pandas + networkx):
@@ -294,8 +338,8 @@ redundancy and the common road segments use networkx's Edmonds-Karp and its resi
 shared-stretch lengths use networkx's Dijkstra on a turn-expanded graph built there, and the scenario window is read
 from each HAZARD.json there. It fails on any difference in value, numerator or denominator. The tests run it.
 
-Without `data/routing/`, both paths still recompute every cache-only number (`uses_graph` = false, 817 of the
-1,671 numbers) without reading any file from it: `verify.py --cache-only` for path B, and
+Without `data/routing/`, both paths still recompute every cache-only number (`uses_graph` = false, 1,344 of the
+2,198 numbers) without reading any file from it: `verify.py --cache-only` for path B, and
 `tests/test_cache_only.py` for both paths against `NUMBERS.json`. Only the tests that need the road graphs or HAZARD
 packets skip then.
 
@@ -312,6 +356,11 @@ python3.12 -m venv .venv
 .venv/bin/python research/solve2027-impact/verify.py        # path B: independent recomputation, exits 1 on mismatch
 .venv/bin/python -m pytest -q research/solve2027-impact/tests
 ```
+
+Versions used for the committed outputs: Python 3.12.3; numpy 1.26.4 (pinned by `constraints-routing.txt`); pandas
+2.2.3, matplotlib 3.9.4, networkx 3.4.2 and pytest 9.1.1 with their transitive dependencies as pinned in
+[`requirements.txt`](requirements.txt) (for example pillow 13.0.0). Path A's planner rules, max-flow and trips use the
+standard library only.
 
 `compute.py --check` recomputes and fails if any committed output would change: the text outputs (NUMBERS.json,
 tables, generated README blocks, APPLICATION_SENTENCES.md, figure CSV twins) and the six figure files (SVG bytes, PNG
@@ -345,6 +394,16 @@ without an API key, cited exactly. The official resident-registration statistics
 `jumin.mois.go.kr`; KOSIS) are served through interactive forms or a keyed API, and a fetch of `jumin.mois.go.kr` was
 not permitted from this environment. No population figure is used here, and none should be added without such a citation.
 
+## Owner decision
+
+`research/README.md` is frozen (listed in `research/postmerge-fixes-20261031/FROZEN_GIT_BLOBS.json`;
+`tools/verify_postmerge_preservation.py` fails if it changes), so this package does not link itself from there.
+Proposed one-line link text, for the owner to add if that file is ever unfrozen:
+
+```markdown
+- [solve2027-impact/](solve2027-impact/README.md): model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an independent second computation; recorded Route-Check API results and this package's own road-graph values are marked separately.
+```
+
 ## Files
 
 | Path | Content |
@@ -358,7 +417,7 @@ not permitted from this environment. No population figure is used here, and none
 | `tables/travel_only_pairs.csv`, `tables/redundancy_places.csv` | per comparison / per place details |
 | `tables/fig*_*.csv` | table twins of the figures |
 | `figures/` | 3 figures, PNG + SVG |
-| `tests/` | synthetic-case tests of the planner port and max-flow; cache-only recomputation by both paths (runs without `data/routing/`); source-flag checks; the full path A / path B reproduction |
+| `tests/` | synthetic-case tests of the planner port and max-flow; cache-only recomputation by both paths and the INDEX.json reconciliation (run without `data/routing/`); provenance and wording checks; the full path A / path B reproduction |
 | `requirements.txt` | pinned analysis dependencies |
 
 ## Key format

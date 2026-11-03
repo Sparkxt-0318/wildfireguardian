@@ -20,7 +20,9 @@ module does not import:
   shared by every route are grown on networkx's residual network (path A: its own residual arrays);
 * fastest fire-free trips and shared-stretch lengths with networkx's Dijkstra on a turn-expanded graph built here
   (path A: its own heap Dijkstra); the scenario window is read from each HAZARD.json here (path A: ``sources``);
-* origin types read directly from ``places.geojson`` properties.
+* origin types read directly from ``places.geojson`` properties;
+* travel-only records that are not paired are found from the cache's ``travel_only`` map and read their flame contact
+  from ``full_policy_assessment`` (path A: ``exposure``).
 Only file locations and SHA-256 checks are shared (``sources``). ``compute(with_graphs=False)`` reads nothing from
 ``data/routing/`` and recomputes only the cache-only numbers (``uses_graph`` false in NUMBERS.json).
 """
@@ -230,6 +232,7 @@ def analyse_file(entry: dict, places: pd.DataFrame, with_graphs: bool = True) ->
         results[substitute] = both
         if substitute:
             disp_attempts = disp
+            research_attempts = ratt.assign(scope=scope, region=entry['region_id'])
     cases = results[True]
     orig = results[False].set_index('origin_id')
     kinds = places.set_index('origin_id')['kind']
@@ -268,6 +271,11 @@ def analyse_file(entry: dict, places: pd.DataFrame, with_graphs: bool = True) ->
                         'fast_nodes': t['result']['route']['properties']['node_ids'],
                         'checked_nodes': bj['result']['route']['properties']['node_ids']})
         tos.append(row)
+    # travel_only records that are none of the comparisons above (their origin kind straight from places.geojson)
+    paired_ids = {row['origin_id'] for row in tos if row['has']}
+    unpaired = [{'scope': scope, 'origin_id': oid, 'kind': kinds.get(oid, 'unknown'),
+                 'meets': any(v['contact'] is True for v in t['result']['full_policy_assessment']['per_scenario'].values())}
+                for oid, t in doc['travel_only'].items() if oid not in paired_ids]
     research_in_checks = checks['job_id'].isin(research_jobs)
     meta = {'scope': scope, 'region': entry['region_id'], 'route_checks': len(doc['route_checks']),
             'rechecks': int(checks['recheck_of'].notna().sum()), 'travel_only': len(doc['travel_only']),
@@ -279,7 +287,7 @@ def analyse_file(entry: dict, places: pd.DataFrame, with_graphs: bool = True) ->
             'destinations': {d['id'] for req in doc['requests'] for d in req['destinations']}}
     del doc
     gc.collect()
-    return {'cases': cases, 'travel': tos, 'meta': meta,
+    return {'cases': cases, 'travel': tos, 'meta': meta, 'unpaired': unpaired, 'research_attempts': research_attempts,
             'attempts': disp_attempts.assign(scope=scope, region=entry['region_id'])}
 
 
@@ -407,13 +415,15 @@ def compute(with_graphs: bool = True) -> dict:
     ``with_graphs=False`` nothing is read from data/routing/ and only the cache-only numbers are computed."""
     entries = sources.load_index()
     places = pd.concat([places_frame(r) for r in sources.REGIONS], ignore_index=True)
-    frames, travel, metas, attempts = [], [], [], []
+    frames, travel, metas, attempts, unpaired, research = [], [], [], [], [], []
     for e in entries:
         res = analyse_file(e, places[places['region'] == e['region_id']], with_graphs)
         frames.append(res['cases'])
         travel += res['travel']
         metas.append(res['meta'])
         attempts.append(res['attempts'])
+        unpaired += res['unpaired']
+        research.append(res['research_attempts'])
     cases_all = pd.concat(frames, ignore_index=True)
     att_all = pd.concat(attempts, ignore_index=True)
     tr = pd.DataFrame(travel)
@@ -518,8 +528,6 @@ def compute(with_graphs: bool = True) -> dict:
             _put(out, 'no_checked_route_any_offset' + tag, k, k, n)
             k = int((d[f'c{last}'] != CH).sum())
             _put(out, f'not_checked_at_offset_{last:04d}s' + tag, k, k, n)
-            if sub:
-                continue
             for t in sources.GRID_OFFSETS_S:
                 vc = d[f'c{t}'].value_counts()
                 for v in (CH, NR, UN, WIN):
@@ -532,6 +540,9 @@ def compute(with_graphs: bool = True) -> dict:
             a = a[a['origin_id'].isin(set(d['origin_id']))]
             na = len(a)
             _put(out, 'attempts' + tag, na)
+            vc = a['verdict'].value_counts()
+            for v in (CH, NR, UN):
+                _put(out, f'attempts.verdict.{v}' + tag, int(vc.get(v, 0)), int(vc.get(v, 0)), na)
             un = a[a['verdict'] == UN]['reason'].fillna('NONE')
             for code in ('AT_ISSUE_FAILURE', 'TIMEOUT'):
                 k = int((un == code).sum())
@@ -618,6 +629,33 @@ def compute(with_graphs: bool = True) -> dict:
             grp = d[sel]
             k = int(grp['meets'].sum())
             _put(out, f'travel_only.fastest_meets_flames@{sc}#{name}', k, k, len(grp))
+    # travel_only records outside the comparisons
+    up = pd.DataFrame(unpaired, columns=['scope', 'origin_id', 'kind', 'meets'])
+    n_to = sum(m['travel_only'] for m in metas)
+    _put(out, 'travel_only.records_not_paired@all/pooled', len(up), len(up), n_to)
+    k = int((up['kind'] == 'research').sum())
+    _put(out, 'travel_only.records_not_paired.research_origin@all/pooled', k, k, len(up))
+    k = int(up['meets'].sum())
+    _put(out, 'travel_only.records_not_paired.fastest_meets_flames@all/pooled', k, k, len(up))
+
+    # research-mission origins and their checks (reconciliation with INDEX.json)
+    rch = pd.concat(research, ignore_index=True)
+    res_cases = cases_all[cases_all['kind'] == 'research']
+    for sc in file_scopes + ['all/pooled']:
+        tag = '@' + sc
+        _put(out, 'research_origins' + tag, len(pick(res_cases, sc)))
+        r = pick(rch, sc)
+        nr = len(r)
+        vc = r['verdict'].value_counts()
+        for v in (CH, NR, UN):
+            _put(out, f'research_checks.verdict.{v}' + tag, int(vc.get(v, 0)), int(vc.get(v, 0)), nr)
+        reasons = r.loc[r['verdict'] == UN, 'reason'].fillna('NONE')
+        for code in ('AT_ISSUE_FAILURE', 'TIMEOUT'):
+            k = int((reasons == code).sum())
+            _put(out, f'research_checks.unresolved.{code}' + tag, k, k, nr)
+        k = int((~reasons.isin(['AT_ISSUE_FAILURE', 'TIMEOUT'])).sum())
+        _put(out, 'research_checks.unresolved.other' + tag, k, k, nr)
+
     if not with_graphs:
         return out, {'cases': osm, 'travel': tr}
 

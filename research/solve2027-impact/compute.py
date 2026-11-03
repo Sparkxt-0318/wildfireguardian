@@ -193,6 +193,39 @@ def _frac(e) -> str:
     return f'{e["numerator"]:,}/{e["denominator"]:,} ({100.0 * e["numerator"] / e["denominator"]:.1f}%)'
 
 
+def index_reconciliation(result: dict, nums: dict) -> list[dict]:
+    """planner/cache/INDEX.json totals per cache file against this package's counts (P4F-06). INDEX counts (precompute.py):
+    origins = dispatch origins + research origins; checks = every stored route check (dispatch attempts, re-checks,
+    research checks; not the travel_only checks); verdicts = every stored check except a re-checked original."""
+    H, rows = nums, []
+    for e in result['entries']:
+        sc = e['scope']
+        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
+        row = {'scope': sc, 'index_origins': e['origins'], 'cases': g('cases')['value'],
+               'research_origins': g('research_origins')['value'], 'index_checks': e['checks'],
+               'dispatch': g('records.dispatch_attempts')['value'], 'rechecks': g('records.rechecks')['value'],
+               'research_checks': g('records.research_route_checks')['value'],
+               'travel_only': g('records.travel_only')['value'], 'verdicts': {}}
+        known = {'checked_route': ('attempts.verdict.checked_route', 'research_checks.verdict.checked_route'),
+                 'model_no_route': ('attempts.verdict.model_no_route', 'research_checks.verdict.model_no_route'),
+                 'unresolved/AT_ISSUE_FAILURE': ('attempts.unresolved.AT_ISSUE_FAILURE',
+                                                 'research_checks.unresolved.AT_ISSUE_FAILURE'),
+                 'unresolved/TIMEOUT': ('attempts.unresolved.TIMEOUT', 'research_checks.unresolved.TIMEOUT')}
+        if set(e['verdicts']) - set(known):
+            raise SystemExit(f'{sc}: INDEX.json verdict keys {sorted(set(e["verdicts"]) - set(known))} are not reconciled')
+        if g('attempts.unresolved.other')['value'] or g('research_checks.unresolved.other')['value']:
+            raise SystemExit(f'{sc}: unresolved checks without a known reason_code are not reconciled')
+        for name, (disp, res) in known.items():
+            row['verdicts'][name] = (e['verdicts'].get(name, 0), g(disp)['value'], g(res)['value'])
+        # the identities the README table shows: they must hold exactly
+        assert row['index_origins'] == row['cases'] + row['research_origins'], row
+        assert row['index_checks'] == row['dispatch'] + row['rechecks'] + row['research_checks'], row
+        assert all(i == d + r for i, d, r in row['verdicts'].values()), row
+        assert sum(i for i, _, _ in row['verdicts'].values()) == row['index_checks'] - row['rechecks'], row
+        rows.append(row)
+    return rows
+
+
 def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     H = nums
     rows = ['| Key (NUMBERS.json) | Value | Meaning (short; full definition in NUMBERS.json) |', '|---|---:|---|']
@@ -345,8 +378,88 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         scopes.append(f'| {m["scope"]} | `{m["cache_file"]}` | `{m["cache_sha256"][:16]}…` | `{m["scenario_set_id"]}` | '
                       f'`{m["hazard_sha256"][:16]}…` | `{m["graph_sha256"][:16]}…` | '
                       f'{m["host"][0]["platform"]} ({m["host"][0]["results"]} results) | {m["created_at"]} |')
+
+    # per origin type: survival curve and check-level verdicts (P4F-05)
+    subsets = [('uiseong_andong_2025/pooled#village', 'Uiseong-Andong villages'),
+               ('uiseong_andong_2025/pooled#care_facility', 'Uiseong-Andong care facilities'),
+               ('yeongdeok_2025/pooled#village', 'Yeongdeok villages'), ('all/pooled', 'All cases (both regions)')]
+    grid = sources.GRID_OFFSETS_S
+    sv = ['| Subset | Cases | ' + ' | '.join(f'Checked route at +{t // 60} min' for t in grid) + ' |',
+          '|---|---:|' + '---:|' * len(grid)]
+    ck = ['| Subset | Route checks | checked_route | model_no_route | unresolved | unresolved by API reason: '
+          'AT_ISSUE_FAILURE · TIMEOUT · other |', '|---|---:|---:|---:|---:|---:|']
+    for sc, label in subsets:
+        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
+        assert g('contiguous_differs_from_latest')['value'] == 0
+        sv.append(f'| {label} | {g("cases")["value"]} | ' +
+                  ' | '.join(_frac(g(f'cell.checked_route.offset_{t:04d}s')) for t in grid) + ' |')
+        ck.append(f'| {label} | {g("attempts")["value"]:,} | ' +
+                  ' | '.join(_frac(g(f'attempts.verdict.{v}')) for v in ('checked_route', 'model_no_route', 'unresolved')) +
+                  ' | ' + ' · '.join(f'{g(f"attempts.unresolved.{c}")["numerator"]:,}' for c in ('AT_ISSUE_FAILURE', 'TIMEOUT', 'other'))
+                  + ' |')
+    by_type = '\n'.join(sv) + '\n\n' + '\n'.join(ck) + (
+        '\n\nPer-type keys: `cell.<verdict>.offset_<t>s@<scope>#village|care_facility` (every verdict at every departure) '
+        'and `attempts.verdict.*@<scope>#<type>`. No case has a gap in its checked departures '
+        '(`contiguous_differs_from_latest@*` = 0 for every scope and type), so the share with a checked route at +t min '
+        'equals the share whose leave-by deadline is +t min or later. A route check is one attempt (place x forecast '
+        'time x candidate destination x departure) as the planner displays it; a case counts as checked at a departure '
+        'if any of its three candidate destinations is.')
+
+    # reconciliation with planner/cache/INDEX.json (P4F-06) and the travel_only records (P4F-04)
+    rec = index_reconciliation(result, nums)
+    ix = ['| Scenario set | Origins: INDEX = cases + research origins | Checks: INDEX = dispatch attempts + re-checks + '
+          'research checks | checked_route: INDEX = displayed + research | model_no_route: INDEX = displayed + research | '
+          'unresolved AT_ISSUE_FAILURE: INDEX = displayed + research | unresolved TIMEOUT: INDEX = displayed + research | '
+          'travel_only records (not in INDEX) |', '|---|---:|---:|---:|---:|---:|---:|---:|']
+    tot = {'o': [0, 0, 0], 'c': [0, 0, 0, 0], 't': 0, 'v': {k: [0, 0, 0] for k in rec[0]['verdicts']}}
+    for r in rec:
+        ix.append(f'| {r["scope"]} | {r["index_origins"]} = {r["cases"]} + {r["research_origins"]} | '
+                  f'{r["index_checks"]:,} = {r["dispatch"]:,} + {r["rechecks"]} + {r["research_checks"]} | ' +
+                  ' | '.join(f'{i:,} = {d:,} + {s}' for i, d, s in r['verdicts'].values()) + f' | {r["travel_only"]} |')
+        for i, x in enumerate((r['index_origins'], r['cases'], r['research_origins'])):
+            tot['o'][i] += x
+        for i, x in enumerate((r['index_checks'], r['dispatch'], r['rechecks'], r['research_checks'])):
+            tot['c'][i] += x
+        tot['t'] += r['travel_only']
+        for k, v in r['verdicts'].items():
+            for i, x in enumerate(v):
+                tot['v'][k][i] += x
+    a = 'all/pooled'
+    assert (tot['o'][1], tot['o'][2], tot['c'][1], tot['c'][2], tot['c'][3], tot['t']) == (
+        H[f'cases@{a}']['value'], H[f'research_origins@{a}']['value'], H[f'records.dispatch_attempts@{a}']['value'],
+        H[f'records.rechecks@{a}']['value'], H[f'records.research_route_checks@{a}']['value'],
+        H[f'records.travel_only@{a}']['value'])
+    ix.append(f'| **all six** | {tot["o"][0]} = {tot["o"][1]} + {tot["o"][2]} | {tot["c"][0]:,} = {tot["c"][1]:,} + '
+              f'{tot["c"][2]} + {tot["c"][3]} | ' + ' | '.join(f'{i:,} = {d:,} + {s}' for i, d, s in tot['v'].values()) +
+              f' | {tot["t"]} |')
+    t_np, t_res = H[f'travel_only.records_not_paired@{a}'], H[f'travel_only.records_not_paired.research_origin@{a}']
+    t_fl, t_pairs = H[f'travel_only.records_not_paired.fastest_meets_flames@{a}'], H[f'travel_only.pairs@{a}']
+    assert t_pairs['numerator'] + t_np['numerator'] == t_np['denominator'] == tot['t']
+    assert t_pairs['numerator'] == t_pairs['denominator'] and t_res['numerator'] == t_res['denominator']   # "all"
+    to_ex = H['attempts.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z']['numerator']
+    to_res = H['research_checks.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z']['numerator']
+    index = '\n'.join(ix) + (
+        '\n\n`planner/cache/INDEX.json` is written by `planner/scripts/precompute.py`. Per cache file it counts '
+        '**origins** = the OSM origins sent in dispatch plans plus the recorded research-mission origins; **checks** = '
+        'every stored route-check record (dispatch attempts, re-checks of timed-out attempts and research-origin checks; '
+        'the travel_only comparison checks are not counted); **verdicts** = the verdict (and reason code) of every stored '
+        'check except an original that was re-checked (its re-check counts instead), i.e. the dispatch attempts as the '
+        'planner displays them plus the research-origin checks. Every identity in the table holds exactly (the INDEX '
+        f'verdicts add up to the checks minus the {H[f"records.rechecks@{a}"]["value"]} re-checked originals; '
+        '`tests/test_cache_only.py` asserts it from INDEX.json). This package\'s village/care-facility numbers leave the '
+        f'research origins and their checks out: for example INDEX lists {to_ex + to_res} TIMEOUT verdicts for '
+        f'yeongdeok_2025/20250325T190000Z, of which {to_ex} are displayed dispatch attempts '
+        f'(`attempts.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z`) and {to_res} research-origin checks.\n\n'
+        f'**travel_only records.** The cache files store {t_np["denominator"]} travel_only comparison checks '
+        f'(`records.travel_only@all/pooled`): the {t_pairs["numerator"]} comparisons paired with village/care-facility '
+        f'cases (`travel_only.pairs@all/pooled`, one per case with a checked route) and {t_np["numerator"]} records that '
+        'are not paired (`travel_only.records_not_paired@all/pooled`), all of recorded research-mission origins '
+        f'({t_res["numerator"]} of {t_res["denominator"]}), which are left out like every research-origin result; '
+        f'{t_fl["numerator"]} of those {t_fl["denominator"]} {"has" if t_fl["numerator"] == 1 else "have"} predicted '
+        'flame contact (`travel_only.records_not_paired.fastest_meets_flames@all/pooled`).')
     return {'headline': headline, 'by-scenario': by_scope, 'deadlines': deadlines, 'redundancy': redundancy,
-            'crosscheck': crosscheck, 'inputs': '\n'.join(scopes)}
+            'crosscheck': crosscheck, 'inputs': '\n'.join(scopes), 'by-type': by_type, 'index': index}
+
 
 
 def fill_readme(text: str, blocks: dict[str, str]) -> str:

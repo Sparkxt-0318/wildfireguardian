@@ -100,6 +100,7 @@ def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> d
             'latest_s': plan['latest_safe_departure_s'], 'contiguous_s': plan['contiguous_safe_departure_s'],
             'deadline_category': deadline_category(plan['best_verdict'], plan['latest_safe_departure_s']),
             'cells': cells, 'n_attempts': len(attempts),
+            'attempt_verdicts': dict(Counter(a['verdict'] for a in attempts)),
             'n_rechecked_attempts': sum(1 for a in attempts if a.get('recheck_of')),
             'unresolved_reasons': dict(Counter(a['reason_code'] or 'NONE' for a in attempts if a['verdict'] == pr.UNRESOLVED)),
             'entry_node': None, 'dest_nodes': None,
@@ -166,6 +167,18 @@ def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> d
                                        if pair['fastest_arrival_s'] is not None and pair['checked_arrival_s'] is not None else None)
         pairs.append(pair)
 
+    # every stored travel_only record that is not one of the pairs above, with its origin type and flame contact
+    paired = {p['origin_id'] for p in pairs if p['has_comparison'] and p['same_start_destination_offset']}
+    kinds = {r['origin_id']: r['origin_type'] for r in records}
+    unpaired = []
+    for oid, job in sorted((doc.get('travel_only') or {}).items()):
+        if oid in paired:
+            continue
+        res = job.get('result') or {}
+        unpaired.append({'scope': entry['scope'], 'origin_id': oid, 'origin_type': kinds.get(oid, 'unknown'),
+                         'depart_offset_s': (job.get('request') or {}).get('depart_offset_s'),
+                         'contact_members': sum(1 for e in res.get('exposure') or [] if e.get('contact') is True)})
+
     meta = {
         'scope': entry['scope'], 'region': doc['region_id'], 'input_time': doc['input_time'],
         'input_kst': sources.kst_label(doc['input_time']), 'scenario_set_id': doc['scenario_set_id'],
@@ -192,7 +205,7 @@ def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> d
         raise ValueError(f'{entry["path"]}: route checks are not dispatch attempts + re-checks + research checks')
     del doc, model, plans
     gc.collect()
-    return {'records': records, 'pairs': pairs, 'meta': meta}
+    return {'records': records, 'pairs': pairs, 'meta': meta, 'travel_unpaired': unpaired}
 
 
 def graph_metrics_for_region(region: str, metas: list[dict], records: list[dict], pairs: list[dict]) -> tuple[list, dict]:
@@ -297,12 +310,13 @@ def classify_window(records: list[dict], metas: list[dict], redundancy: list[dic
 def run(with_graphs: bool = True) -> dict:
     entries = sources.load_index()
     places = {r: [pr.place_from_properties(p) for p in sources.load_places(r)] for r in sources.REGIONS}
-    records, pairs, metas = [], [], []
+    records, pairs, metas, unpaired = [], [], [], []
     for e in entries:
         out = analyse_file(e, places[e['region_id']], with_graphs)
         records += out['records']
         pairs += out['pairs']
         metas.append(out['meta'])
+        unpaired += out['travel_unpaired']
     redundancy, graphs = [], []
     if with_graphs:
         for region in sources.REGIONS:
@@ -312,4 +326,4 @@ def run(with_graphs: bool = True) -> dict:
             graphs.append(info)
         classify_window(records, metas, redundancy)
     return {'entries': entries, 'records': records, 'pairs': pairs, 'metas': metas, 'redundancy': redundancy,
-            'graphs': graphs, 'with_graphs': with_graphs}
+            'graphs': graphs, 'travel_unpaired': unpaired, 'with_graphs': with_graphs}
