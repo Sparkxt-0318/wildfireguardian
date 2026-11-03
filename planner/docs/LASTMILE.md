@@ -90,6 +90,26 @@ kinds and fails closed to the less specific one on any inconsistency.
 User-drawn spread zones (an assumption) produce no field messages. MOCK and test data are marked in
 every output, including the first line of the SMS.
 
+**Provenance per origin.** Each origin's messages take their provenance from that origin's own result
+(`input.ts` `originProvenance`, fed by `connect.ts`), never from the session:
+
+- a result from the precomputed cache keeps the cache's provenance — its created time ("사전 계산
+  2026-10-18 08:10 KST" on the long text's data line and the card's staff line; the cache file and
+  time in the CSV) and the cache's own test-data flag (`planner/cache/**` was computed on the
+  evaluated native macOS arm64 host);
+- a result computed through the API — an origin recomputed in a cached scenario, or a live session
+  such as the Docker front door's Linux API — never carries the cache's stamp; it says "실시간 API
+  계산 · 계산 호스트 Linux x86_64 · 4 vCPU" (the hosts its results' route provenance reports, as the
+  planner labels them) and is marked as test data — "시험 데이터 · 평가 호스트 아님" on the card, the
+  SMS tag `시험자료` / `TEST`, the long text's first line and a closing note naming the host, the
+  spoken "시험용 계산 자료입니다", the CSV — unless every host its results report is native macOS
+  arm64, the planner's own evaluated-host rule (`src/api/cache.ts` `isTestDataHost`; the API reports
+  only platform and machine, so the chip cannot be verified). A host that is not reported counts as
+  not evaluated (fail closed). A live plan without any API result is never called computed.
+- MOCK stays session-wide (the planner's MOCK rule, `isMockActive`): with the default `mock` build
+  setting a live session is marked MOCK rather than test data; the Docker front door builds with
+  `VITE_WFG_API_MODE=real`.
+
 ## 3. Mandatory lines and words never used
 
 Written outputs (card, long text) carry verbatim: `공식 대피 명령이 우선합니다.` /
@@ -211,7 +231,11 @@ estimated seconds), its review state and a copy button. It previews the card and
 origin at A5 or A4, or every origin at A5, one card per page) through a print-only root (`@page`
 size, everything else hidden). The CSV (UTF-8 BOM, CRLF, Korean or English headers) has one row per
 origin with every text, its counters, the deadline, destination, data time, scenario, fire input,
-MOCK/test flags, reason source, the rule-check result and the review state.
+MOCK/test flags, the origin's result source ("결과 출처": `사전 계산 캐시 · <cache file> · <created
+KST>` or `실시간 API 계산 · 계산 호스트 <host>`, with `· 평가 호스트 아님` when not established as
+evaluated-host output), the reason data ("이유 자료": the explanation file with its `code_commit` and
+`generated_at`, when a reason line is used), the rule-check result and the review state. The dialog
+shows the same result source for the chosen origin.
 
 Card layout (`lastmile.css`): A5 148 × 209.6 mm with 7/8 mm padding at 14 pt, A4 210 × 296.6 mm
 with 14/16 mm padding at 18 pt, line-height 1.32, black on white, bundled Pretendard Variable. On A5

@@ -4,6 +4,7 @@
  * model, no network. The result carries its length metrics and the list of rule violations found
  * by ./checks.ts (the panel refuses to offer a text that has any).
  */
+import { compactUtc } from '../../domain/clock';
 import type { Verdict } from '../../domain/types';
 import { checkFieldMessages } from './checks';
 import { assembleSpoken, cardText, type CardContent, type TemplateSet } from './compose';
@@ -43,6 +44,15 @@ export interface FieldMetrics {
   callS: number;
 }
 
+/** The deadline explanation file a reason line comes from (CSV "이유 자료 / Reason data"). */
+export interface ReasonSource {
+  /** file name under data/explanations/ */
+  file: string;
+  /** the file's provenance.code_commit / generated_at, when it states them */
+  codeCommit: string | null;
+  generatedAtIso: string | null;
+}
+
 export interface FieldMessages {
   originId: string;
   urgencyRank: number;
@@ -50,6 +60,8 @@ export interface FieldMessages {
   verdict: Verdict;
   leaveByS: number | null;
   reason: LmReason | null;
+  /** where the reason line comes from (null without a reason line) */
+  reasonSource: ReasonSource | null;
   plan: MessagePlan;
   text: Record<LmLang, FieldTexts>;
   metrics: Record<LmLang, FieldMetrics>;
@@ -76,9 +88,16 @@ function insertedStrings(plan: MessagePlan): string[] {
     const r = plan.reason;
     if (r && r.kind === 'all_exits_blocked') for (const e of r.exits) add(e.text[l]);
     else if (r && 'road' in r) add(r.road.text[l]);
+    // a live result's compute host, as the API reports it
+    add(plan.input.provenance.host?.[l]);
   }
   add(plan.input.scenario.scenarioSetId);
   return [...out].sort((a, b) => b.length - a.length);
+}
+
+function explanationSource(f: ExplanationFile): ReasonSource {
+  const str = (v: unknown) => (typeof v === 'string' && v.length > 0 ? v : null);
+  return { file: `${f.region_id}__${compactUtc(f.input_time)}.json`, codeCommit: str(f.provenance?.code_commit), generatedAtIso: str(f.provenance?.generated_at) };
 }
 
 function metricsOf(lang: LmLang, t: FieldTexts): FieldMetrics {
@@ -131,6 +150,7 @@ export function buildFieldMessages(input: LastMileInput, explanation: Explanatio
     verdict: plan.verdict,
     leaveByS: plan.leaveByS,
     reason: plan.reason,
+    reasonSource: plan.reason && explanation ? explanationSource(explanation) : null,
     plan,
     text,
     metrics,

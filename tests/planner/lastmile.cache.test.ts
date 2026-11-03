@@ -383,14 +383,14 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       No checked route for departures after 02:20.
       Follow official guidance on where to go. No car or need help? Tell the village head or eup/myeon office now.
       Official evacuation orders come first.
-      Data time: 2025-03-26 02:00 KST · Replay of recorded 2025 wildfire scenarios
+      Data time: 2025-03-26 02:00 KST · replay of 2025 data
       Model-based planning information · not live
       Times at the road entry point 195 m away; boarding time not included · Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
       Planning aid only — not for live evacuation operations.
       Scenario ffb1:20250325T170000Z:53e6da7897bf9b5b · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 08:10 KST",
           "lms": "[REPLAY of recorded 2025 data - not a real emergency]
       Wildfire evacuation plan information - Samchun-ri (Village)
-      Data time: 2025-03-26 02:00 KST
+      Data time: 2025-03-26 02:00 KST · Precomputed 2026-10-18 08:10 KST
 
       - Leave by car no later than 02:20 KST (2:20 a.m.). Do not wait until that time.
       - Destination the model checked: Uiseong Bukbu Elementary School. Leaving at 02:20, arrival around 02:51 KST (about 31 min by car; traffic not included).
@@ -441,7 +441,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST",
           "lms": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 삼춘리(마을)
-      자료 기준: 2025년 3월 26일 02:00 (한국 시각)
+      자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
 
       ■ 02:20(새벽 2시 20분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
       ■ 모델이 점검한 도착지: 의성북부초등학교. 02:20에 출발하면 02:51쯤 도착합니다(차로 약 31분, 교통 정체 미반영).
@@ -487,14 +487,14 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       Residents: follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.
       "No route in the model": no checked route at any departure time or destination checked.
       Official evacuation orders come first.
-      Data time: 2025-03-26 02:00 KST · Replay of recorded 2025 wildfire scenarios
+      Data time: 2025-03-26 02:00 KST · replay of 2025 data
       Model-based planning information · not live
       Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
       Planning aid only — not for live evacuation operations.
       Scenario ffb1:20250325T170000Z:53e6da7897bf9b5b · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 08:10 KST",
           "lms": "[REPLAY of recorded 2025 data - not a real emergency]
       Wildfire evacuation plan information - Gugye-ri (Village)
-      Data time: 2025-03-26 02:00 KST
+      Data time: 2025-03-26 02:00 KST · Precomputed 2026-10-18 08:10 KST
 
       - No checked vehicle route in the model.
       - Village head: call 119 and the eup/myeon office now and follow official instructions.
@@ -538,7 +538,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST",
           "lms": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 구계리(마을)
-      자료 기준: 2025년 3월 26일 02:00 (한국 시각)
+      자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
 
       ■ 모델상 확인된 차량 경로가 없습니다.
       ■ 이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.
@@ -578,14 +578,14 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       Unresolved means neither that a route exists nor that it does not.
       Follow official evacuation guidance.
       Official evacuation orders come first.
-      Data time: 2025-03-26 02:00 KST · Replay of recorded 2025 wildfire scenarios
+      Data time: 2025-03-26 02:00 KST · replay of 2025 data
       Model-based planning information · not live
       Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
       Planning aid only — not for live evacuation operations.
       Scenario ffb1:20250325T170000Z:53e6da7897bf9b5b · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 08:10 KST",
           "lms": "[REPLAY of recorded 2025 data - not a real emergency]
       Wildfire evacuation plan information - Gwang-yeon-ri (Village)
-      Data time: 2025-03-26 02:00 KST
+      Data time: 2025-03-26 02:00 KST · Precomputed 2026-10-18 08:10 KST
 
       - The model could not check a vehicle route (unresolved).
       - Unresolved means neither that a route exists nor that it does not.
@@ -626,7 +626,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST",
           "lms": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 광연리(마을)
-      자료 기준: 2025년 3월 26일 02:00 (한국 시각)
+      자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
 
       ■ 모델로 차량 경로를 확인하지 못했습니다(미확인).
       ■ 미확인은 경로가 있다는 뜻도, 없다는 뜻도 아닙니다.

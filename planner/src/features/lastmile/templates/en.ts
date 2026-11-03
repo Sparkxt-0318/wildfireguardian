@@ -16,6 +16,7 @@ import {
   enSpokenTime,
   hm,
   kstParts,
+  resultSource,
   ymd,
   type CardContent,
   type CardLine,
@@ -203,7 +204,7 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     return {
       role: 'after',
       text: card
-        ? `At the next checked time, ${N}, even without fire no destination checked can be reached and the stay finished within the ${rangeAdj(p)} range; no checked route after ${T}; ${NOT_FIRE_EN}`
+        ? `Next checked time ${N}: even without fire, no destination checked fits the ${rangeAdj(p)} range (arrival and stay). No checked route after ${T}; ${NOT_FIRE_EN}`
         : `Leaving at the next checked time, ${N}, none of the destinations checked can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire; departures after ${T} have no checked route in the model; ${NOT_FIRE_EN}`,
     };
   }
@@ -329,8 +330,17 @@ function closingNotes(p: MessagePlan): string[] {
   const out: string[] = [];
   if (p.input.replay) out.push(`Replay of recorded ${year(p)} wildfire scenarios.`);
   if (p.input.mock) out.push('MOCK: recorded results replayed by the mock server.');
-  if (p.input.testData) out.push('Test data: computed on a host other than the evaluation host.');
+  if (p.input.testData) out.push(testDataNote(p));
   return out;
+}
+
+/** Why the result is marked test data (see ko.ts). */
+function testDataNote(p: MessagePlan): string {
+  const v = p.input.provenance;
+  if (v.source === 'cache') return 'Test data: computed on a host other than the evaluation host.';
+  return v.host
+    ? `Test data: computed through the live API on a host other than the evaluation host (${v.host.en}).`
+    : 'Test data: the compute host is unknown, so this is not treated as evaluation-host output.';
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -365,7 +375,7 @@ export const EN: TemplateSet = {
     return [
       lmsTag(p),
       `Wildfire evacuation plan information - ${originWritten(p)}`,
-      `Data time: ${enDate(iso(p))}`,
+      `Data time: ${enDate(iso(p))} · ${resultSource(p.input, 'en')}`,
       '',
       ...bodyLines(p, 'lms').map((l) => `- ${l.text}`),
       '',
@@ -475,7 +485,6 @@ export const EN: TemplateSet = {
     if (p.input.replay) badges.push('Not a real emergency');
     if (p.input.mock) badges.push('MOCK');
     if (p.input.testData) badges.push('Test data · not the evaluation host');
-    const cache = p.input.provenance.cacheCreatedAtIso;
     const d = p.destination;
     return {
       lang: 'en',
@@ -493,14 +502,16 @@ export const EN: TemplateSet = {
           : null,
       lines: p.kind === 'leave_by' ? leaveByCardLines(p) : bodyLines(p, 'card'),
       official: OFFICIAL_FIRST.en,
-      dataLine: `Data time: ${enDate(t0)}${p.input.replay ? ` · Replay of recorded ${year(p)} wildfire scenarios` : ''}`,
+      // one line on A5 (the header already says "Recorded 2025 wildfire · scenario replay"), leaving room for a MOCK / test-data badge row
+      dataLine: `Data time: ${enDate(t0)}${p.input.replay ? ` · replay of ${year(p)} data` : ''}`,
       modelLine: MODEL_NOT_LIVE.en,
       limits: cardLimits(p),
       footer: FOOTER_APP.en,
       meta: [
         `Scenario ${p.input.scenario.scenarioSetId}`,
         `Prepared ${kstStamp(p.input.generatedAtIso)}`,
-        cache ? `Precomputed ${kstStamp(cache)}` : null,
+        // per origin: the cache's created time, or the live API and its compute host — never mixed up
+        resultSource(p.input, 'en'),
         p.kind === 'leave_by' && d && !d.name ? `Dest. ID ${d.id}` : null,
       ]
         .filter(Boolean)

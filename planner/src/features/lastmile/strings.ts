@@ -204,6 +204,8 @@ export const UI = {
   origin: { ko: '출발지', en: 'Origin' },
   verdict: { ko: '모델 판정', en: 'Model verdict' },
   kind: { ko: '안내 종류', en: 'Message type' },
+  /** per origin: precomputed cache (file, created time) or live API (compute host) */
+  resultSource: { ko: '결과 출처', en: 'Result source' },
   kindLabel: {
     leave_by: { ko: '출발 마감 안내', en: 'Leave-by message' },
     no_route: { ko: '모델상 경로 없음 · 즉시 연락', en: 'No route in the model · contact now' },

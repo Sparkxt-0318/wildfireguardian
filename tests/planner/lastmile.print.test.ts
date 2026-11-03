@@ -16,7 +16,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
+import { buildFieldMessages, TEMPLATES, type FieldMessages } from '../../planner/src/features/lastmile/messages';
 import type { CardContent } from '../../planner/src/features/lastmile/compose';
 import { loadBoothCaches, realExplanationFor, syntheticExplanationFor } from './lastmile.cachedata';
 import { estimate, type CardSize } from './lastmile.printfit';
@@ -68,6 +68,33 @@ describe('origin cards: box-model estimate (no browser needed)', () => {
           if (e.usedPx > e.availablePx) over.push(`${path} ${fm.originId} ${lang} ${size}: ${e.usedPx.toFixed(0)} > ${e.availablePx.toFixed(0)} px ${JSON.stringify(e.parts)}`);
         }
         console.info(`estimate ${lang} ${size}: ${items.length} cards, smallest estimated free space ${(minSpare / MM_PX).toFixed(1)} mm`);
+      }
+    }
+    expect(over).toEqual([]);
+  });
+
+  it('with the longest provenance lines and badges the app can produce, every card still fits', () => {
+    const host = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
+    const live = { source: 'live' as const, cachePath: null, cacheCreatedAtIso: null, host };
+    // reachable combinations (input.ts originProvenance: a live result is never test data under MOCK):
+    // a non-evaluated cache viewed with the MOCK server on (three badges), a live result on a
+    // non-evaluated host, and a live result from the MOCK server
+    const variants = [
+      { name: 'cache+mock+test', over: { mock: true, testData: true } },
+      { name: 'live+test', over: { testData: true, provenance: live } },
+      { name: 'live+mock', over: { mock: true, provenance: live } },
+    ];
+    const over: string[] = [];
+    for (const v of variants) {
+      for (const { path, fm } of items) {
+        const input = { ...fm.plan.input, ...v.over };
+        for (const lang of ['ko', 'en'] as const) {
+          const card = TEMPLATES[lang].card({ ...fm.plan, input });
+          for (const size of ['a5', 'a4'] as const) {
+            const e = estimate(card, size);
+            if (e.usedPx > e.availablePx) over.push(`${v.name} ${path} ${fm.originId} ${lang} ${size}: ${e.usedPx.toFixed(0)} > ${e.availablePx.toFixed(0)} px`);
+          }
+        }
       }
     }
     expect(over).toEqual([]);

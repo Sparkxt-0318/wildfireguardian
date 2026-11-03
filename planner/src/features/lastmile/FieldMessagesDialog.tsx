@@ -15,7 +15,7 @@ import { MockBadge, VerdictBadge } from '../shared/VerdictIcon';
 import { useModal } from '../shared/useModal';
 import { downloadText } from '../exports/download';
 import { MIME } from '../exports/exports';
-import { hm } from './compose';
+import { hm, resultSourceFull } from './compose';
 import { fieldMessagesCSV, fieldMessagesFileName } from './csv';
 import { BROADCAST_MAX_S, EN_WORDS_PER_S, KO_SYLLABLES_PER_S, LMS_MAX_BYTES } from './encoding';
 import type { ExplanationState } from './explanation';
@@ -155,7 +155,8 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
   const doCsv = () => {
     if (!first) return;
     try {
-      const name = fieldMessagesFileName(first);
+      // MOCK / TEST in the file name when any origin is (provenance is per origin)
+      const name = fieldMessagesFileName({ ...first, mock: items.some((x) => x.plan.input.mock), testData: items.some((x) => x.plan.input.testData) });
       downloadText(name, MIME.csv, fieldMessagesCSV(items, { lang: lang === 'en' ? 'en' : 'ko' }));
       setStatus({ key: 'csv', text: lmFill(t(UI.csvSaved), { name }) });
     } catch (e) {
@@ -211,6 +212,9 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                 <span>
                   {t(UI.kind)}: <b>{t(UI.kindLabel[current.kind])}</b>
                   {current.leaveByS !== null ? <b className="wfgf-num"> · {hm(current.plan.input.scenario.inputTimeIso, current.leaveByS)}</b> : null}
+                </span>
+                <span data-testid="field-messages-source" data-source={current.plan.input.provenance.source} data-test-data={current.plan.input.testData ? 'true' : 'false'}>
+                  {t(UI.resultSource)}: {resultSourceFull(current.plan.input, lang === 'en' ? 'en' : 'ko')}
                 </span>
                 <span className={failed ? 'wfgl-checks wfgl-checks--fail' : 'wfgl-checks'} role="status" data-testid="field-messages-checks">
                   {failed ? `${t(UI.checksFailed)}: ${current.violations.join(' | ')}` : t(UI.checksOk)}

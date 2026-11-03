@@ -1,17 +1,21 @@
 /**
  * CSV of every field message of one region and recorded input time: one row per origin in the
  * planner's urgency order, Korean and English texts side by side (mail-merge / bulk-SMS ready).
+ * Every row carries the data time and its own result source ("결과 출처": the precomputed cache file
+ * and its created time, or the live API and the compute host, with "평가 호스트 아님" when not
+ * established as evaluated-host output) and, with a reason line, the explanation file it comes from.
  * An origin whose texts fail a rule check gets empty text cells and "검사 실패 — 사용 금지"; the
  * last columns state each language's native-speaker / field review state.
  * UTF-8 with BOM, CRLF, RFC 4180 quoting and formula neutralising — the same writer as the
  * dispatch list (../exports/exports.ts).
  */
 import { compactUtc } from '../../domain/clock';
-import { kstDateClock, slug } from '../shared/format';
+import { kstDateClock, kstStamp, slug } from '../shared/format';
 import { CSV_BOM, csvRow } from '../exports/exports';
-import { allTexts, type FieldMessages } from './messages';
+import { resultSourceFull } from './compose';
+import { allTexts, type FieldMessages, type ReasonSource } from './messages';
 import { LANGUAGES, SHIPPED_LANGS, UI } from './strings';
-import type { LastMileInput, LmLang } from './types';
+import { EXPLANATION_SCHEMA, type LastMileInput, type LmLang } from './types';
 
 export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
   ko: [
@@ -28,7 +32,8 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     '산불 입력',
     'MOCK',
     '시험 데이터',
-    '이유 문장 출처',
+    '결과 출처',
+    '이유 자료',
     '문자 KO',
     '문자 KO 바이트 (EUC-KR · 최대 90)',
     '장문 KO',
@@ -60,7 +65,8 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     'Fire input',
     'MOCK',
     'Test data',
-    'Reason line source',
+    'Result source',
+    'Reason data',
     'SMS KO',
     'SMS KO bytes (EUC-KR; max 90)',
     'Long text KO',
@@ -85,6 +91,14 @@ const VERDICT_TEXT: Record<string, Record<LmLang, string>> = {
   model_no_route: { ko: '모델상 경로 없음', en: 'No route in the model' },
   unresolved: { ko: '미확인', en: 'Unresolved' },
 };
+
+/** "uiseong_andong_2025__20250325T170000Z.json (wfg.explanation/1 · 코드 커밋 6855cc61f83e · 생성 2026-11-03 03:14 KST)" */
+export function reasonSourceText(r: ReasonSource, lang: LmLang): string {
+  const parts = [EXPLANATION_SCHEMA];
+  if (r.codeCommit) parts.push(`${lang === 'ko' ? '코드 커밋' : 'code commit'} ${r.codeCommit.slice(0, 12)}`);
+  if (r.generatedAtIso) parts.push(`${lang === 'ko' ? '생성' : 'generated'} ${kstStamp(r.generatedAtIso)}`);
+  return `${r.file} (${parts.join(' · ')})`;
+}
 
 /** "한국어: 검토 전 · English: 검토 전" — every shipped language's native-speaker / field review state. */
 export function reviewStatus(lang: LmLang): string {
@@ -119,7 +133,9 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         input.fireInputLabel[lang],
         input.mock ? 'MOCK' : '',
         input.testData ? (lang === 'ko' ? '시험 데이터' : 'test data') : '',
-        fm.reason ? 'wfg.explanation/1' : '',
+        // per origin: the precomputed cache (file, created time) or the live API (compute host)
+        resultSourceFull(input, lang),
+        fm.reasonSource ? reasonSourceText(fm.reasonSource, lang) : '',
         ko.sms,
         fm.metrics.ko.smsUnits,
         ko.lms,

@@ -4,9 +4,10 @@
  * for a recorded scenario with results; user-drawn spread zones (an assumption) are refused.
  */
 import { useMemo } from 'react';
-import { currentScenarioSet, horizonOf, isMockActive, regionEntry } from '../../state/selectors';
+import type { HostInfo } from '../../domain/types';
+import { currentScenarioSet, horizonOf, isMockActive, regionEntry, routeById } from '../../state/selectors';
 import { DRAWN_SCENARIO, getState, useStore, type PlannerState } from '../../state/store';
-import { buildLastMileInputs, isFieldOrigin, type LastMileBuildArgs } from './input';
+import { buildLastMileInputs, isFieldOrigin, liveHostsOf, type LastMileBuildArgs } from './input';
 import type { LastMileInput } from './types';
 
 export type LastMileAvailability = { ok: true; args: LastMileBuildArgs } | { ok: false; reason: 'drawn' | 'no_scenario' | 'no_data' };
@@ -17,6 +18,10 @@ export function lastMileArgs(s: PlannerState, now: Date = new Date()): LastMileA
   const set = currentScenarioSet(s);
   if (!region || !set) return { ok: false, reason: 'no_scenario' };
   if (s.dataSource === 'none' || Object.keys(s.plans).length === 0) return { ok: false, reason: 'no_data' };
+  // provenance is per origin (input.ts originProvenance): a plan recomputed through the API in a cached
+  // scenario is a live result, with the hosts its own results report
+  const liveHosts: Record<string, HostInfo[]> = {};
+  for (const [id, p] of Object.entries(s.plans)) if (p.source === 'live') liveHosts[id] = liveHostsOf(p, (jobId) => routeById(s, jobId));
   return {
     ok: true,
     args: {
@@ -25,9 +30,9 @@ export function lastMileArgs(s: PlannerState, now: Date = new Date()): LastMileA
       places: s.places,
       plans: s.plans,
       mock: isMockActive(s),
-      testData: s.dataSource === 'cache' && s.cache?.meta.testData === true,
+      cache: s.cache ? { path: s.cache.meta.entry.path, createdAtIso: s.cache.meta.createdAt || null, testData: s.cache.meta.testData === true } : null,
+      liveHosts,
       source: s.dataSource === 'cache' ? 'cache' : 'live',
-      cacheCreatedAtIso: s.dataSource === 'cache' ? (s.cache?.meta.createdAt ?? null) : null,
       generatedAtIso: now.toISOString(),
     },
   };
@@ -55,12 +60,14 @@ export function useLastMileInputs(active: boolean): { inputs: LastMileInput[]; a
   const cache = useStore((s) => s.cache);
   const dataSource = useStore((s) => s.dataSource);
   const regionId = useStore((s) => s.regionId);
+  // live results' route provenance (compute hosts)
+  const routes = useStore((s) => s.routes);
   return useMemo(() => {
     if (!active) return { inputs: [], args: null, reason: null };
     const a = lastMileArgs(getState());
     if (!a.ok) return { inputs: [], args: null, reason: a.reason };
     return { inputs: buildLastMileInputs(a.args), args: a.args, reason: null };
-  }, [active, scenarioId, plans, places, cache, dataSource, regionId]);
+  }, [active, scenarioId, plans, places, cache, dataSource, regionId, routes]);
 }
 
 /** The selected origin is a research origin (no field messages are made for it). */

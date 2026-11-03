@@ -58,14 +58,33 @@ export function loadBoothCaches(): BoothCache[] {
       places,
       plans,
       mock: model.meta.mock,
-      testData: model.meta.testData,
+      cache: { path: entry.path, createdAtIso: model.meta.createdAt || null, testData: model.meta.testData },
+      liveHosts: {},
       source: 'cache',
-      cacheCreatedAtIso: model.meta.createdAt,
       generatedAtIso: FIXED_GENERATED_AT,
     });
     out.push({ entry, inputs, cachedOrigins, researchOrigins });
   }
   return out;
+}
+
+/**
+ * One booth cache as the app holds it in the store (CacheData, places, region entry, index entry),
+ * every scenario origin completed with an unresolved plan when it has no result — for tests that
+ * drive the store-aware connect.ts with a real cache.
+ */
+export function loadBoothCacheModel(path: string) {
+  const index = parseCacheIndex(JSON.parse(readFileSync(new URL('cache/INDEX.json', PLANNER), 'utf8')));
+  const entry = index.find((e) => e.path === path);
+  if (!entry) throw new Error(`${path} not in planner/cache/INDEX.json`);
+  const region = parseRegionIndex(JSON.parse(readFileSync(new URL('public/data/regions/index.json', PLANNER), 'utf8'))).find((r) => r.id === entry.regionId)!;
+  const model = cacheToModel(JSON.parse(readFileSync(new URL(`cache/${entry.path}`, PLANNER), 'utf8')) as Parameters<typeof cacheToModel>[0], entry);
+  const places = parsePlaces(JSON.parse(readFileSync(new URL(`public/data/regions/${entry.regionId}/places.geojson`, PLANNER), 'utf8')));
+  const plans: Record<string, OriginPlan> = { ...model.plans };
+  for (const o of scenarioOrigins(places, entry.scenarioSetId)) {
+    if (!plans[o.id]) plans[o.id] = unresolvedPlan(o.id, model.offsetsS, o.checkable ? 'not_computed' : 'not_checkable', 'cache', model.meta.mock);
+  }
+  return { entry, region, model, places, plans };
 }
 
 /** A made-up road name exactly as long as the reader accepts (MAX_LABEL_CHARS = 40) in both languages. Tests only. */

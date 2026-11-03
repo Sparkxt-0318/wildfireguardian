@@ -45,9 +45,13 @@ export interface LastMileInput {
   fireInputLabel: LmText;
   /** recorded scenario replay (only recorded fire inputs are supported) */
   replay: boolean;
-  /** data from the MOCK server */
+  /** data from the MOCK server (the planner's session-wide MOCK rule, state/selectors.ts isMockActive) */
   mock: boolean;
-  /** computed on a host other than the evaluated booth host */
+  /**
+   * THIS origin's result is not established as output of the evaluated host (native macOS arm64): a
+   * precomputed cache made on another host, or a live API result whose compute host is another or
+   * unknown one (src/api/cache.ts isTestDataHost). Marked in every output ("시험 데이터 · 평가 호스트 아님").
+   */
   testData: boolean;
   scenario: {
     scenarioSetId: string;
@@ -80,9 +84,15 @@ export interface LastMileInput {
   destinations: Record<string, LmDestination>;
   /** 1-based position in the planner's urgency order */
   urgencyRank: number;
+  /** where THIS origin's result comes from — its own plan's source, never the session's */
   provenance: {
-    cacheCreatedAtIso: string | null;
+    /** 'cache': the precomputed cache on screen; 'live': checks run through the API in this session */
     source: 'cache' | 'live';
+    /** cache results: the cache file under planner/cache/ and its created_at */
+    cachePath: string | null;
+    cacheCreatedAtIso: string | null;
+    /** live results: the compute host(s) their route provenance reports, as the planner labels them; null when unknown */
+    host: LmText | null;
   };
   /** when the messages were assembled (ISO) */
   generatedAtIso: string;

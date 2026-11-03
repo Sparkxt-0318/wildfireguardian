@@ -6,11 +6,12 @@
  * Names come only from the places file (OSM) or the planner's descriptors; an origin without a
  * result is unresolved (never safe), with the planner's note (not checkable / not computed).
  */
+import { isTestDataHost } from '../../api/cache';
 import { scenarioOrigins } from '../../data/staticData';
 import { fireInputBanner } from '../../domain/labels';
 import { sortByUrgency } from '../../domain/plan';
-import type { OriginPlan, Place } from '../../domain/types';
-import { categoryLabel, placeName } from '../../components/format';
+import type { HostInfo, OriginPlan, Place, RouteDetail } from '../../domain/types';
+import { categoryLabel, hostLabel, placeName } from '../../components/format';
 import { translate } from '../../i18n';
 import type { LastMileInput, LmCell, LmDestination, LmOriginKind, LmText } from './types';
 
@@ -19,10 +20,14 @@ export interface LastMileBuildArgs {
   scenario: { scenarioSetId: string; inputTimeIso: string; horizonS: number };
   places: Place[];
   plans: Record<string, OriginPlan>;
+  /** MOCK data (session-wide, the planner's MOCK rule) */
   mock: boolean;
-  testData: boolean;
+  /** the precomputed cache on screen, if any: the provenance of every plan whose source is 'cache' */
+  cache: { path: string; createdAtIso: string | null; testData: boolean } | null;
+  /** the compute hosts of each live plan's results (liveHostsOf), by origin id */
+  liveHosts: Record<string, HostInfo[]>;
+  /** the session's data source — used only for an origin that has no plan at all */
   source: 'cache' | 'live';
-  cacheCreatedAtIso: string | null;
   generatedAtIso: string;
 }
 
@@ -49,6 +54,51 @@ function display(p: Place): LmText {
 function kindOf(p: Place): LmOriginKind {
   if (p.role === 'research_origin') return 'research';
   return p.category === 'village' || p.category === 'hamlet' ? 'village' : 'facility';
+}
+
+/**
+ * The compute hosts a live plan's results report (each route's provenance `host`), distinct, in
+ * sweep order. `routeOf` looks a job up (the store's routes); a result without provenance adds
+ * nothing, so a plan whose results carry no host gives [] (an unknown host).
+ */
+export function liveHostsOf(plan: OriginPlan, routeOf: (jobId: string) => RouteDetail | null): HostInfo[] {
+  const out: HostInfo[] = [];
+  const seen = new Set<string>();
+  for (const c of plan.sweep) {
+    for (const a of c.attempts) {
+      const h = a.jobId ? routeOf(a.jobId)?.provenance?.host ?? null : null;
+      if (!h) continue;
+      const key = JSON.stringify([h.recorded, h.platform, h.os, h.machine, h.cpuCount]);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(h);
+    }
+  }
+  return out;
+}
+
+/**
+ * Provenance of ONE origin's result, from its own plan (never the session): a cache result keeps
+ * the cache's provenance (created time, evaluated host or test data); a live result never carries
+ * the cache's stamp and is test data unless every host its results report is the evaluated host
+ * (isTestDataHost — an unknown host counts as not evaluated). A live plan with no API result at all
+ * (nothing was computed for it) is not marked as computed anywhere.
+ */
+export function originProvenance(plan: OriginPlan | undefined, originId: string, a: LastMileBuildArgs): { testData: boolean; provenance: LastMileInput['provenance'] } {
+  const source = plan ? plan.source : a.source;
+  if (source === 'cache') {
+    return {
+      // a cache result without the cache's metadata has no established provenance: marked
+      testData: a.cache ? a.cache.testData : true,
+      provenance: { source, cachePath: a.cache?.path ?? null, cacheCreatedAtIso: a.cache?.createdAtIso ?? null, host: null },
+    };
+  }
+  const hosts = a.liveHosts[originId] ?? [];
+  const computed = Boolean(plan?.sweep.some((c) => c.attempts.some((x) => x.jobId)));
+  const testData = !a.mock && computed && (hosts.length === 0 || hosts.some((h) => isTestDataHost(h, false)));
+  const label = (lang: 'ko' | 'en') => [...new Set(hosts.map((h) => hostLabel(h, lang === 'ko' ? tKo : tEn)).filter((x): x is string => Boolean(x)))].join(', ');
+  const host = label('ko') ? { ko: label('ko'), en: label('en') } : null;
+  return { testData, provenance: { source, cachePath: null, cacheCreatedAtIso: null, host } };
 }
 
 function cellsOf(plan: OriginPlan): LmCell[] {
@@ -103,12 +153,13 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
       : !o.checkable
         ? { bestVerdict: 'unresolved', latestSafeDepartureS: null, contiguousSafeDepartureS: null, sweep: [], note: 'not_checkable' }
         : null;
+    const prov = originProvenance(plan, o.id, a);
     const input = {
       region: { id: a.region.id, name: { ko: a.region.nameKo, en: a.region.nameEn }, fireYear: a.region.fireYear },
       fireInputLabel,
       replay: true,
       mock: a.mock,
-      testData: a.testData,
+      testData: prov.testData,
       scenario: { ...a.scenario },
       origin: {
         id: o.id,
@@ -123,7 +174,7 @@ export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
       plan: lmPlan,
       destinations,
       urgencyRank: i + 1,
-      provenance: { cacheCreatedAtIso: a.cacheCreatedAtIso, source: a.source },
+      provenance: prov.provenance,
       generatedAtIso: a.generatedAtIso,
     } satisfies LastMileInput;
     return [input];

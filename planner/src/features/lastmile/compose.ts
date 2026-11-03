@@ -5,9 +5,10 @@
  */
 import { parseUtc } from '../../domain/clock';
 import type { Verdict } from '../../domain/types';
+import { kstStamp } from '../shared/format';
 import { spokenSeconds } from './encoding';
 import type { MessagePlan } from './plan';
-import type { LmLang, LmText } from './types';
+import type { LastMileInput, LmLang, LmText } from './types';
 
 /** One language's templates (./templates/<lang>.ts). Every output is built from fixed text only. */
 export interface TemplateSet {
@@ -131,6 +132,32 @@ export function durationText(s: number, lang: LmLang): string {
 export function distanceText(m: number): string {
   if (m >= 1000) return `${(m / 1000).toFixed(1)} km`;
   return `${Math.round(m)} m`;
+}
+
+// ---------------------------------------------------------------- result provenance
+
+/**
+ * Where an origin's result comes from, as the long text's data line and the card's staff line say
+ * it: "사전 계산 2026-10-18 08:10 KST" (the precomputed cache's created time) or "실시간 API 계산 ·
+ * 계산 호스트 Linux x86_64 · 4 vCPU" ("Live API · host …"). A live result never carries the cache's stamp.
+ */
+export function resultSource(input: Pick<LastMileInput, 'provenance'>, lang: LmLang): string {
+  const p = input.provenance;
+  if (p.source === 'cache') {
+    const at = p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null;
+    return lang === 'ko' ? (at ? `사전 계산 ${at}` : '사전 계산 캐시') : at ? `Precomputed ${at}` : 'Precomputed cache';
+  }
+  return lang === 'ko' ? `실시간 API 계산 · 계산 호스트 ${p.host?.ko ?? '미상'}` : `Live API · host ${p.host?.en ?? 'unknown'}`;
+}
+
+/** The same with the cache file and the evaluated-host status, for the CSV and the panel. */
+export function resultSourceFull(input: Pick<LastMileInput, 'provenance' | 'testData'>, lang: LmLang): string {
+  const p = input.provenance;
+  const head =
+    p.source === 'cache'
+      ? [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', p.cachePath, p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null].filter(Boolean).join(' · ')
+      : resultSource(input, lang);
+  return input.testData ? `${head} · ${lang === 'ko' ? '평가 호스트 아님' : 'not the evaluation host'}` : head;
 }
 
 // ---------------------------------------------------------------- card content

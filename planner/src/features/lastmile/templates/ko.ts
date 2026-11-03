@@ -28,6 +28,7 @@ import {
   koDateSpoken,
   koSmsDate,
   koSpokenTime,
+  resultSource,
   type CardContent,
   type CardLine,
   type SpokenBlock,
@@ -316,8 +317,17 @@ function closingNotes(p: MessagePlan): string[] {
   const out: string[] = [];
   if (p.input.replay) out.push(`${year(p)}년 실제 산불 기록을 재현한 시나리오입니다.`);
   if (p.input.mock) out.push('MOCK: 모의 서버가 기록 결과를 재생한 자료입니다.');
-  if (p.input.testData) out.push('시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.');
+  if (p.input.testData) out.push(testDataNote(p));
   return out;
+}
+
+/** Why the result is marked test data (per origin: a cache made elsewhere, or a live result's host). */
+function testDataNote(p: MessagePlan): string {
+  const v = p.input.provenance;
+  if (v.source === 'cache') return '시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.';
+  return v.host
+    ? `시험 데이터: 평가 호스트가 아닌 장비(${v.host.ko})에서 실시간 API로 계산한 결과입니다.`
+    : '시험 데이터: 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -357,7 +367,7 @@ export const KO: TemplateSet = {
     return [
       lmsTag(p),
       `산불 대피 계획 정보 · ${originWritten(p)}`,
-      `자료 기준: ${koDate(iso(p))} (한국 시각)`,
+      `자료 기준: ${koDate(iso(p))} (한국 시각) · ${resultSource(p.input, 'ko')}`,
       '',
       ...bodyLines(p, 'lms').map((l) => `■ ${l.text}`),
       '',
@@ -462,7 +472,6 @@ export const KO: TemplateSet = {
     if (p.input.replay) badges.push('실제 상황 아님');
     if (p.input.mock) badges.push('MOCK');
     if (p.input.testData) badges.push('시험 데이터 · 평가 호스트 아님');
-    const cache = p.input.provenance.cacheCreatedAtIso;
     const d = p.destination;
     return {
       lang: 'ko',
@@ -487,7 +496,8 @@ export const KO: TemplateSet = {
       meta: [
         `시나리오 ${p.input.scenario.scenarioSetId}`,
         `작성 ${kstStamp(p.input.generatedAtIso)}`,
-        cache ? `사전 계산 ${kstStamp(cache)}` : null,
+        // per origin: the cache's created time, or the live API and its compute host — never mixed up
+        resultSource(p.input, 'ko'),
         p.kind === 'leave_by' && d && !d.name ? `도착지 ID ${d.id}` : null,
       ]
         .filter(Boolean)

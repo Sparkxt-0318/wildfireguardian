@@ -74,7 +74,7 @@ export function synInput(over: Partial<LastMileInput> & { originId?: string } = 
       'syn:dest:b': { id: 'syn:dest:b', name: null, display: { ko: '이름 없는 마을회관 · node 9', en: 'Unnamed community hall · node 9' }, category: { ko: '마을회관', en: 'Community hall' } },
     },
     urgencyRank: 1,
-    provenance: { cacheCreatedAtIso: '2026-10-17T22:54:05Z', source: 'cache' },
+    provenance: { source: 'cache', cachePath: 'synthetic_region/20250324T090000Z.json', cacheCreatedAtIso: '2026-10-17T22:54:05Z', host: null },
     generatedAtIso: '2026-11-02T05:00:00Z',
   };
   return { ...base, ...rest };

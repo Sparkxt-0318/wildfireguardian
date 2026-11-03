@@ -671,6 +671,23 @@ describe('CSV of every message (per region / input time)', () => {
     expect(out).not.toContain('모델상 18:30까지 차로 출발');
     expect(fieldMessagesFileName(synInput({ mock: true }))).toBe('wfg_synthetic_region_20250324T090000Z_field_messages_MOCK.csv');
   });
+
+  it('every row carries its own result source; a reason line names the explanation file it comes from', () => {
+    const rows = fieldMessagesCSV([buildFieldMessages(synInput(), synExplanation()), buildFieldMessages(synUnresolved(), synExplanation())].map((fm, i) => ({ ...fm, urgencyRank: i + 1 })), { lang: 'ko' }).split('\r\n');
+    const head = rows[0]!.slice(1).split(',');
+    const col = (name: string) => head.indexOf(name);
+    expect(col('결과 출처')).toBe(col('시험 데이터') + 1);
+    expect(col('이유 자료')).toBe(col('결과 출처') + 1);
+    for (const r of rows.slice(1, 3)) expect(r).toContain(',사전 계산 캐시 · synthetic_region/20250324T090000Z.json · 2026-10-18 07:54 KST,');
+    // with a reason line: the file (and its code commit); without one: empty
+    expect(rows[1]).toContain(',synthetic_region__20250324T090000Z.json (wfg.explanation/1 · 코드 커밋 synthetic),');
+    expect(rows[2]).toContain('2026-10-18 07:54 KST,,');
+    const en = fieldMessagesCSV([buildFieldMessages(synInput(), synExplanation())], { lang: 'en' });
+    expect(en).toContain(',Precomputed cache · synthetic_region/20250324T090000Z.json · 2026-10-18 07:54 KST,synthetic_region__20250324T090000Z.json (wfg.explanation/1 · code commit synthetic),');
+    // the long text says it too (the card's staff line already did)
+    expect(buildFieldMessages(synInput()).text.ko.lms).toContain('자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST');
+    expect(buildFieldMessages(synInput()).text.en.lms).toContain('Data time: 2025-03-24 18:00 KST · Precomputed 2026-10-18 07:54 KST');
+  });
 });
 
 describe('panel wording claims no more than the outputs carry', () => {
@@ -765,14 +782,14 @@ describe('synthetic snapshots (both languages)', () => {
       Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45.
       Follow official guidance on where to go. No car or need help? Tell the village head or eup/myeon office now.
       Official evacuation orders come first.
-      Data time: 2025-03-24 18:00 KST · Replay of recorded 2025 wildfire scenarios
+      Data time: 2025-03-24 18:00 KST · replay of 2025 data
       Model-based planning information · not live
       Times at the road entry point 120 m away; boarding time not included · Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
       Planning aid only — not for live evacuation operations.
       Scenario ffb1:20250324T090000Z:synthetic0000 · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 07:54 KST",
           "lms": "[REPLAY of recorded 2025 data - not a real emergency]
       Wildfire evacuation plan information - Hapseong-ri (Village)
-      Data time: 2025-03-24 18:00 KST
+      Data time: 2025-03-24 18:00 KST · Precomputed 2026-10-18 07:54 KST
 
       - Leave by car no later than 18:30 KST (6:30 p.m.). Do not wait until that time.
       - Destination the model checked: Hapseong Elementary School. Leaving at 18:30, arrival around 18:55 KST (about 25 min by car; traffic not included).
@@ -821,7 +838,7 @@ describe('synthetic snapshots (both languages)', () => {
       시나리오 ffb1:20250324T090000Z:synthetic0000 · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 07:54 KST",
           "lms": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 합성마을
-      자료 기준: 2025년 3월 24일 18:00 (한국 시각)
+      자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST
 
       ■ 18:30(오후 6시 30분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
       ■ 모델이 점검한 도착지: 합성초등학교. 18:30에 출발하면 18:55쯤 도착합니다(차로 약 25분, 교통 정체 미반영).
@@ -861,7 +878,7 @@ describe('synthetic snapshots (both languages)', () => {
       공식 대피 명령이 우선합니다.",
         "lms_ko": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 합성마을
-      자료 기준: 2025년 3월 24일 18:00 (한국 시각)
+      자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST
 
       ■ 모델상 확인된 차량 경로가 없습니다.
       ■ 이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.

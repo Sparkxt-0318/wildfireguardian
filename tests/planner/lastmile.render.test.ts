@@ -99,6 +99,27 @@ describe('FieldMessagesDialog (jsdom)', () => {
     expect(dlg.querySelector('[data-explanation-state="ready"]')!.textContent).toContain('이 출발지: 이유 문장 포함');
     expect(dlg.querySelector('.wfgl-preview [data-card-status="checked_route"]')).not.toBeNull();
     expect(dlg.textContent).toContain('사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.');
+    // the origin's own result source (per origin, never the session's)
+    const src = dlg.querySelector('[data-testid="field-messages-source"]')!;
+    expect(src.getAttribute('data-source')).toBe('cache');
+    expect(src.textContent).toBe('결과 출처: 사전 계산 캐시 · synthetic_region/20250324T090000Z.json · 2026-10-18 07:54 KST');
+  });
+
+  it('a live result on a non-evaluated host: the panel and the CSV file name say so', async () => {
+    const created: Blob[] = [];
+    Object.defineProperty(URL, 'createObjectURL', { value: (b: Blob) => (created.push(b), 'blob:x'), configurable: true });
+    Object.defineProperty(URL, 'revokeObjectURL', { value: () => undefined, configurable: true });
+    vi.spyOn((window as unknown as { HTMLAnchorElement: { prototype: HTMLAnchorElement } }).HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined);
+    const live = synInput({ testData: true, provenance: { source: 'live', cachePath: null, cacheCreatedAtIso: null, host: { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' } } });
+    // the first origin is a cached one: the file name follows ANY origin's provenance, not the first's
+    const items = [buildFieldMessages(synNoRoute()), buildFieldMessages(live)].map((fm, i) => ({ ...fm, urgencyRank: i + 1 }));
+    const dlg = await render(items, undefined, 'ko', 'syn:origin:checked');
+    const src = dlg.querySelector('[data-testid="field-messages-source"]')!;
+    expect(src.getAttribute('data-source')).toBe('live');
+    expect(src.getAttribute('data-test-data')).toBe('true');
+    expect(src.textContent).toBe('결과 출처: 실시간 API 계산 · 계산 호스트 Linux x86_64 · 4 vCPU · 평가 호스트 아님');
+    await click(dlg.querySelector('[data-testid="field-messages-csv"]'));
+    expect(dlg.textContent).toContain('저장됨: wfg_synthetic_region_20250324T090000Z_field_messages_TEST.csv');
   });
 
   it('switching to an unresolved origin shows no departure time and a grey (never green) status', async () => {
