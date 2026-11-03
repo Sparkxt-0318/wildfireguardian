@@ -16,7 +16,6 @@
  * (planner/public/data/explanations/, or a directory named by WFG_EXPLANATIONS_DIR) and is
  * skipped otherwise.
  */
-import { execFileSync } from 'node:child_process';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { enDateSpoken, hm, koDateSpoken } from '../../planner/src/features/lastmile/compose';
 import { maskData } from '../../planner/src/features/lastmile/checks';
@@ -26,6 +25,7 @@ import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import { MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST } from '../../planner/src/features/lastmile/strings';
 import type { LastMileInput } from '../../planner/src/features/lastmile/types';
 import { loadBoothCaches, realExplanationDir, realExplanationFor, syntheticExplanationFor, type BoothCache } from './lastmile.cachedata';
+import { DEPART, expectedReasonKind, GSM7, HANGUL, NEVER, pythonEucKr } from './lastmile.oracle';
 
 let caches: BoothCache[] = [];
 let all: { cache: BoothCache; input: LastMileInput; fm: FieldMessages }[] = [];
@@ -35,29 +35,7 @@ beforeAll(() => {
   all = caches.flatMap((cache) => cache.inputs.map((input) => ({ cache, input, fm: buildFieldMessages(input, null) })));
 }, 180_000);
 
-// independent oracles -----------------------------------------------------------------------
-
-const GSM7 = /^[@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !"#¤%&'()*+,\-./0-9:;<=>?¡A-ZÄÖÑÜ§¿a-zäöñüà]*$/;
-const NEVER = /안전|구조|구출|데리러|모시러|픽업|태워|실내 대피|옥내 대피|보장|안심|걱정|\bsafe|safety|rescue|pick[ -]?up|shelter[ -]in[ -]place|stay (indoors|inside|home|put)|guarantee|don'?t worry|no danger/i;
-const DEPART = /까지\s*(차로\s*)?출발|출발하(십시오|세요)|출발 마감|leave by|depart by|leave now|leave before/i;
-
-function pythonEucKr(texts: string[]): (number | string)[] | null {
-  const script =
-    'import json,sys\n' +
-    'out=[]\n' +
-    'for t in json.load(sys.stdin):\n' +
-    '    try: out.append(len(t.encode("euc_kr")))\n' +
-    '    except UnicodeEncodeError as e: out.append("unencodable: "+t[e.start:e.end])\n' +
-    'print(json.dumps(out))\n';
-  for (const py of ['python3', 'python']) {
-    try {
-      return JSON.parse(execFileSync(py, ['-I', '-c', script], { input: JSON.stringify(texts), maxBuffer: 64 * 1024 * 1024 }).toString('utf8'));
-    } catch {
-      /* try the next interpreter */
-    }
-  }
-  return null;
-}
+// independent oracles (GSM7, NEVER, DEPART, HANGUL, pythonEucKr, expectedReasonKind): lastmile.oracle.ts
 
 describe('all six booth caches, every origin', () => {
   it('loads 2 regions × 3 recorded input times and one input per origin of each scenario', () => {
@@ -274,7 +252,6 @@ describe('MOCK and test-data markers on every origin (mock-server dev setup; res
 });
 
 describe('numbers and names a reader hears or reads (independent checks over every origin)', () => {
-  const HANGUL = /[ᄀ-ᇿ㄰-㆏가-힣]/;
 
   it('the arrival clock and the travel minutes come from one rounding: minutes = shown arrival − departure, arrival never earlier than the model', () => {
     let lines = 0;
@@ -711,10 +688,36 @@ describe('with the real deadline explanation files, when present', () => {
       expect(file, url.pathname).not.toBeNull();
       for (const input of cache.inputs) {
         const fm = buildFieldMessages(input, file);
-        expect(fm.violations, `${cache.entry.path} ${input.origin.id}`).toEqual([]);
+        const where = `${cache.entry.path} ${input.origin.id}`;
+        expect(fm.violations, where).toEqual([]);
         const key = `${fm.kind}/${fm.reason?.kind ?? 'none'}`;
         kinds[key] = (kinds[key] ?? 0) + 1;
         if (fm.kind === 'unresolved') expect(fm.reason).toBeNull();
+        // every entry yields the reason its own fields call for (oracle without the detail-code
+        // whitelist: a new or renamed code in the files fails here instead of dropping the reason)
+        const entry = (file!.origins as Record<string, unknown>)[input.origin.id] as Record<string, unknown> & { binding: Record<string, unknown>[]; exits: Record<string, unknown>[] };
+        expect(fm.reason?.kind ?? null, where).toBe(expectedReasonKind(entry, fm));
+        const iso = input.scenario.inputTimeIso;
+        if (fm.reason?.kind === 'flame_on_route' || fm.reason?.kind === 'dwell_at_destination') {
+          const it0 = entry.binding[0]! as { flame_time_s: number; members: number[]; members_total: number };
+          expect([fm.reason.flameS, fm.reason.k, fm.reason.n], where).toEqual([it0.flame_time_s, it0.members.length, it0.members_total]);
+          const kn = it0.members.length >= it0.members_total ? `${it0.members_total}가지 모두에서` : `${it0.members_total}가지 중 ${it0.members.length}가지에서`;
+          expect(fm.text.ko.lms, where).toContain(`산불 예측 시나리오 ${kn}는`);
+          expect(fm.text.ko.lms, where).toContain(`${hm(iso, it0.flame_time_s)}쯤 불길이 닿습니다`);
+        }
+        if (fm.reason?.kind === 'all_exits_blocked') {
+          const exits = entry.exits as { flame_time_s: number; members: number[]; members_total: number }[];
+          expect([fm.reason.roads, fm.reason.n, fm.reason.kMin, fm.reason.atStart], where).toEqual([
+            exits.length,
+            exits[0]!.members_total,
+            Math.min(...exits.map((x) => x.members.length)),
+            exits.every((x) => x.flame_time_s === 0),
+          ]);
+          expect(fm.text.ko.lms, where).toContain(exits.length === 1 ? '구역을 벗어나는 길은 1곳(' : `구역을 벗어나는 길 ${exits.length}곳(`);
+        }
+        if (fm.reason?.kind === 'time_window' || fm.reason?.kind === 'no_flame_avoiding_route') {
+          expect(fm.text.ko.lms, where).toContain(`다음 점검 시각인 ${hm(iso, entry.next_offset_s as number)}에 출발하면`);
+        }
         // reasons say no more than the file establishes: exits are the roads out of the area reachable
         // without meeting flames (not "the roads out of the village"); "no destination" claims cover the
         // destinations checked (candidate shelters) only
@@ -728,5 +731,16 @@ describe('with the real deadline explanation files, when present', () => {
       }
     }
     console.info(`real explanation files: ${JSON.stringify(kinds)}`);
+    // pinned: the six files shipped in planner/public/data/explanations/ (generated at code_commit
+    // 6855cc61). A change in the files' classes or codes must show up here, not pass unnoticed.
+    expect(kinds).toEqual({
+      'leave_by/flame_on_route': 8,
+      'leave_by/no_flame_avoiding_route': 7,
+      'leave_by/time_window': 131,
+      'leave_by/none': 355,
+      'no_route/all_exits_blocked': 10,
+      'no_route/no_route_flames': 1,
+      'unresolved/none': 19,
+    });
   });
 });
