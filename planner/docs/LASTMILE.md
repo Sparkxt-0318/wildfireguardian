@@ -22,7 +22,7 @@ Code: `planner/src/features/lastmile/` · tests: `tests/planner/lastmile*.ts` ·
 | Output | Audience | Limit (enforced) | Notes |
 |---|---|---|---|
 | SMS 단문 | residents, families | Korean ≤ 90 bytes in strict EUC-KR (KS X 1001); English ≤ 160 GSM-7 characters | First line: data time + `기록재현` / `REPLAY … not live`; short forms of the mandatory lines (§3) |
-| Long text 장문 (LMS) | 이장, facility staff | ≤ 2,000 bytes EUC-KR (both languages) | First line `[2025년 기록 재현 · 실제 상황 아님]`; verbatim mandatory lines |
+| Long text 장문 (LMS) | 이장, facility staff | ≤ 2,000 bytes EUC-KR (both languages) | First line `[2025년 기록 재현 · 실제 상황 아님]`; the data line names the origin's result source (§2); verbatim mandatory lines |
 | Village broadcast 마을방송 | residents | ≤ 60 s read aloud at the assumed rate (§4) | Opens with `이 방송은 실제 상황이 아닙니다.` (replay); required blocks, then optional ones (§5) |
 | Phone-call script | care staff → families | none; estimated duration shown | `[brackets]` for the caller; "before the call" checks first; villages: the no-car line |
 | One-page card | 이장, facility staff (may be posted) | A5 at 14 pt or A4 at 18 pt, one page | Status as icon + text, the time in large type, badge `실제 상황 아님` |
@@ -126,11 +126,17 @@ A Korean SMS is 90 bytes (45 Hangul) in total and the two verbatim lines alone t
 (28 + 34), so the single SMS — and only the SMS — uses short forms: `공식명령 우선·실시간 아님` with
 `모델`, and `Official orders come first.` / `not live` / `Model-based plan` (`strings.ts`).
 
-Never used, in any output (`FORBIDDEN`, case-insensitive substrings; names from the data are
-masked first so a village called 안전마을 does not trip it): 안전/safe, rescue or pickup words
-(구조, 데리러, 태워, 픽업, "we will send", "vehicle will" …), shelter-in-place or "stay home/wait"
-advice, and reassurance (보장, 안심, 괜찮, "guarantee", "don't worry", "no danger" …). Scenario
-members are always "fire scenarios from the forecast" (산불 예측 시나리오). A departure instruction
+Never used, in any output of either language (`strings.ts` `FORBIDDEN`: case-insensitive
+substrings, every word checked in every output; names from the data are masked first so a village
+called 안전마을 does not trip it) — "safe", promises of a rescue, pickup or vehicle, shelter-in-place
+or "stay / wait" advice, and reassurance. The full list (a test checks that it matches `FORBIDDEN`):
+
+<!-- forbidden-list -->
+- Korean (26): `안전`, `구조`, `구출`, `데리러`, `모시러`, `모시고 가`, `태워`, `픽업`, `차량을 보내`, `차를 보내`, `버스를 보내`, `차량 지원`, `이송해 드`, `실내 대피`, `옥내 대피`, `집 안에`, `집에 머`, `머무르십시오`, `대기하십시오`, `기다리십시오`, `보장`, `안심`, `걱정`, `괜찮`, `확실`, `무사`
+- English (23): `safe`, `rescue`, `pick up`, `pickup`, `pick-up`, `we will send`, `will be sent`, `vehicle will`, `bus will`, `transport will`, `shelter in place`, `shelter-in-place`, `stay indoors`, `stay inside`, `stay home`, `stay put`, `wait for help`, `guarantee`, `certain`, `don't worry`, `do not worry`, `no danger`, `secure`
+<!-- /forbidden-list -->
+
+Scenario members are always "fire scenarios from the forecast" (산불 예측 시나리오). A departure instruction
 (`DEPARTURE_INSTRUCTION`) appears only in `leave_by` messages; "call 119 now" (`RESIDENT_119_NOW`)
 never in the SMS, broadcast or call script.
 
@@ -160,9 +166,10 @@ same function as their oracle plus independent re-implementations (§9).
   「다문화가정 이주여성의 발화속도와 쉼」, *The Journal of the Acoustical Society of Korea* 31(2):63–72
   (https://www.koreascience.kr/article/JAKO201212961960491.pdf) measured 5.04 syllables/s overall,
   pauses included, for native Korean speakers reading aloud; 3.0 is about 40 % slower, so a script
-  that fits at 3.0 also fits a slow, deliberate announcer. English: **2.0 words/s** (120 wpm),
-  below the 150–160 wpm usually quoted for read speech. Both are assumptions for a loudspeaker to
-  older listeners, not measurements of one; the panel states them next to the estimate.
+  that fits at 3.0 also fits a slow, deliberate announcer. English: **2.0 words/s** (120 wpm) — an
+  assumption without a measured source, chosen slow for loudspeaker listening, with every digit
+  counted as a word. Both are assumptions for a loudspeaker to older listeners, not measurements of
+  one; the panel states them next to the estimate.
 
 ## 5. Plain Korean for older listeners; the broadcast
 
@@ -252,7 +259,10 @@ Card layout (`lastmile.css`): A5 148 × 209.6 mm with 7/8 mm padding at 14 pt, A
 with 14/16 mm padding at 18 pt, line-height 1.32, black on white, bundled Pretendard Variable. On A5
 the header, category and planner footer line are 12 pt; the staff provenance line (scenario id,
 stamps, unnamed-destination id) stays at 10 pt so every card keeps one page. The fit is tested (§9)
-for every origin of the six caches, plain and with 40-character road names.
+for every origin of the six caches, plain, with 40-character road names, and with the MOCK /
+test-data badges and live staff lines the app can produce. The English card's data line is one line
+("Data time: … KST · replay of 2025 data"; the header already names the recorded fire) so that a
+badge row still fits on A5.
 
 ## 9. Tests
 
@@ -261,46 +271,409 @@ Run from `planner/` (single worker on small machines):
 ```
 NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --maxWorkers=1 \
   ../tests/planner/lastmile.test.ts ../tests/planner/lastmile.cache.test.ts \
-  ../tests/planner/lastmile.render.test.ts ../tests/planner/lastmile.print.test.ts
+  ../tests/planner/lastmile.property.test.ts ../tests/planner/lastmile.provenance.test.ts \
+  ../tests/planner/lastmile.render.test.ts ../tests/planner/lastmile.print.test.ts \
+  ../tests/planner/lastmile.docs.test.ts
 ```
 
-- `lastmile.test.ts` — counting rules, KST wording, the message plan per verdict (contiguous
-  basis, gaps, partial, destination coverage, window-closed times), each template per verdict and
-  audience, MOCK/test marking, worst-case dates, explanation loading/fallback/consistency with a
-  synthetic file that mirrors every reason code of the real files (flame, window fire-free / mixed
-  / detour, no later offset, unresolved next, one exit, duplicate labels, no-route window), rule
-  checks, CSV, the language registry, and inline snapshots of synthetic messages.
+- `lastmile.test.ts` — counting rules, KST wording, the arrival rounding, the message plan per
+  verdict (contiguous basis, gaps, partial, destination coverage, window-closed times), each
+  template per verdict and audience, MOCK / test-data / both marking, the spoken-script fallbacks,
+  worst-case dates and names, explanation loading/fallback/consistency with a synthetic file that
+  mirrors every reason code (flame, window fire-free / mixed / detour, no later offset, unresolved
+  next, one exit, duplicate labels, no-route window), rule checks and per-output fail-closed, the
+  CSV (result source, reason data, per-cell withholding), panel wording, the language registry, and
+  inline snapshots of synthetic messages.
 - `lastmile.cache.test.ts` — property tests over every village and facility of the six booth caches
   (2 regions × 3 recorded input times, loaded through the app's own cache reader): limits (Korean
   bytes cross-checked with Python `euc_kr`, an independent GSM-7 class), mandatory lines, replay
-  first, broadcast opening, no "119 now" to residents, the no-car line and far entry points in every
-  leave-by broadcast, forbidden words and departure instructions with independent patterns; then
-  the same with a contract-shaped synthetic explanation (40-character road names) and with one
-  whose deadlines are off by one step (no reason at all); and, when the real explanation files are
-  present (`planner/public/data/explanations/`, or a directory named by `WFG_EXPLANATIONS_DIR`),
-  every rule over every origin with them. Inline snapshots of three real origins: 삼춘리
-  (leave_by), 구계리 (no_route), 광연리 (unresolved).
-- `lastmile.render.test.ts` — the dialog and card in jsdom: counters, review labels, copy, print
-  root, CSV, fail-closed disabling, verdict icons.
+  first, broadcast opening, no "119 now" to residents, the no-route family instruction, the no-car
+  line and far entry points, forbidden words and departure instructions with independent patterns,
+  the arrival rounding, no Hangul read in English, "checked up to" only for the last departure
+  checked, MOCK / test-data / both on every origin (limits and markers); then a contract-shaped
+  synthetic explanation (40-character road names) and one whose deadlines are off by one step (no
+  reason at all); and the six real explanation files (`planner/public/data/explanations/`, or a
+  directory named by `WFG_EXPLANATIONS_DIR`): every rule, the reason each entry calls for with its
+  flame time, k of n and exits (oracle in `lastmile.oracle.ts`, without the detail-code whitelist),
+  and the pinned per-kind counts. Inline snapshots of 삼춘리 (leave_by), 구계리 (no_route) and
+  광연리 (unresolved) without explanation files.
+- `lastmile.property.test.ts` — 600 seeded synthetic cases (`lastmile.generator.ts`, mulberry32,
+  seed 20261103, no new dependency) through the app's own plan and input builders: any date and
+  minute, 30–120 min horizons, every step, gaps, late first checks, window-closed tails, missing /
+  Hangul-only / long names, far entry points, cache or live results, MOCK and test flags,
+  explanation entries of every code, consistent or not; the same independent properties.
+- `lastmile.provenance.test.ts` — the store-aware `lastMileArgs` with the real booth cache: an
+  origin recomputed through the API on a Linux, a macOS arm64 or an unreported host, and a live-only
+  session built with `VITE_WFG_API_MODE=real` (the Docker front door) or the default MOCK setting.
+- `lastmile.render.test.ts` — the dialog and card in jsdom: counters, review labels, the result
+  source, copy, print root, CSV and its file name, per-output fail-closed (only the failing text or
+  card withheld; "print all" prints the cards that pass and lists the rest), verdict icons.
 - `lastmile.print.test.ts` — a browser-free box-model estimate (`lastmile.printfit.ts`, measured
-  advance widths of the bundled font) that every card fits; and, when Playwright with Chromium is
-  installed, the real print layout of every card (no overflow, body ≥ 14 pt, header / footer line
-  ≥ 12 pt, estimate never below the real height) and PDFs with exactly one page per card.
+  advance widths of the bundled font) that every card fits, also with the longest provenance lines
+  and badges the app can produce; and, when Playwright with Chromium is installed, the real print
+  layout of every card (no overflow, body ≥ 14 pt, header / footer line ≥ 12 pt, estimate never
+  below the real height) and PDFs with exactly one page per card.
+- `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin, and §3
+  lists every word of `FORBIDDEN`.
 
-Synthetic fixtures (`lastmile.fixture.ts`, `lastmile.cachedata.ts`) are marked SYNTHETIC and never
-leave the tests.
+Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cachedata.ts`,
+`lastmile.generator.ts`) are marked SYNTHETIC and never leave the tests.
 
 ## 10. Limitations
 
-- The deadline explanation files are produced by another work package and are not in this branch;
-  the committed tests use contract-shaped synthetic files (the real-file test runs when they are
-  present).
+- **Not an official alerting channel — 재난문자·공식 경보가 아닙니다.** The kit prepares wording for
+  village heads and care staff to pass on, built from a model replay of recorded data. It sends
+  nothing, is not a cell broadcast (재난문자) or an official warning, and never replaces the
+  instructions of the 읍·면사무소, 119 or the 이장; every output says that official orders come first.
+- The six deadline explanation files ship in `planner/public/data/explanations/` (written by
+  `tools/explain_deadlines`); the kit uses an entry only when it agrees with the planner, and the
+  real-file test runs over all six (pinned per-kind counts). A newer file with other codes or
+  classes gives no reason line until the kit is updated (fail closed).
 - The wording has not been reviewed with village heads, care staff or older residents, nor by a
   native English speaker; reading rates are assumptions (§4).
-- The single SMS uses short forms of the mandatory lines; the long text, card and scripts carry them
-  verbatim.
+- The single SMS uses short forms of the mandatory lines; the long text and the card carry them
+  verbatim, the broadcast and the call script say them as sentences.
 - Results are model results for vehicles from the road entry point: no walking, boarding time,
-  congestion, road closures or smoke; departure times between the 10-minute steps are not checked.
+  congestion, road closures or smoke; departure times between the checked steps (10 minutes in the
+  booth caches) are not checked.
+- A live API result counts as evaluated-host output only when every host its results report is
+  native macOS arm64 — the planner's own rule; the API reports platform and machine only, so the
+  chip cannot be verified.
 - Print fit is verified in Chromium only; other browsers' print engines may break lines differently.
 - Carriers differ in how they count and split Korean messages; the 90/2,000-byte limits follow the
   common EUC-KR convention.
+
+## 11. Examples from the booth caches
+
+Every block below is the kit's output for a real origin of a booth cache (`planner/cache/…`, the
+recorded scenarios computed on the evaluated host) with the deadline explanation file of the same
+scenario (`planner/public/data/explanations/`) — what the panel shows. Labelled by region, recorded
+input time, cache file and origin. Only the card's "작성 / Prepared" stamp is fixed (2026-11-02 14:00
+KST, the time the tests use). `tests/planner/lastmile.docs.test.ts` regenerates each block and fails
+if it differs.
+
+### 삼춘리 (Samchun-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
+
+`uiseong_andong_2025/20250325T170000Z.json`, origin `osm:node/415160437`: checked route, leave by
+02:20; the next checked time (02:30) has no checked route, and the file shows that the 1-hour range,
+not fire, sets the time (`window`, `time_window`) — so the card says `출발 마감`, never "checked up to".
+The Korean broadcast has room for the repeat but not for the reason line; the English one has both.
+
+SMS (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 ko.sms -->
+```text
+[25.3.26 02:00 기록재현]
+모델상 02:20까지 차로 출발
+공식명령 우선·실시간 아님
+```
+
+Long text (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 ko.lms -->
+```text
+[2025년 기록 재현 · 실제 상황 아님]
+산불 대피 계획 정보 · 삼춘리(마을)
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
+
+■ 02:20(새벽 2시 20분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
+■ 모델이 점검한 도착지: 의성북부초등학교. 02:20에 출발하면 02:51쯤 도착합니다(차로 약 31분, 교통 정체 미반영).
+■ 다음 점검 시각인 02:30에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. 02:20보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
+■ 실제 대피 장소와 길은 공식 안내를 따르십시오.
+■ 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
+■ 시각은 마을에서 195 m 떨어진 가장 가까운 도로 지점(진입 지점) 기준이며, 준비·탑승 시간은 포함되지 않았습니다.
+
+공식 대피 명령이 우선합니다.
+모델 기반 계획 정보 · 실시간 아님
+2025년 실제 산불 기록을 재현한 시나리오입니다.
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+```
+
+Village broadcast (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 ko.broadcast -->
+```text
+이 방송은 실제 상황이 아닙니다.
+삼춘리 주민 여러분께 알려 드립니다.
+2025년 3월 26일 새벽 2시 기록을 재현한 모델 기반 계획 정보입니다.
+새벽 2시 20분까지 차로 출발하십시오. 의성북부초등학교까지 가는 길이 컴퓨터 예측 계산으로 확인되었습니다.
+차가 없는 분은 이장에게 바로 알리십시오.
+대피 장소는 공식 안내를 따르십시오.
+다시 알려 드립니다. 실제 상황이 아닌 2025년 기록 재현입니다.
+공식 대피 명령이 우선합니다.
+```
+
+Family call script (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 ko.call -->
+```text
+[통화 전 확인] 공식 대피 명령이 우선합니다. 아래 내용은 모델 기반 계획 정보이며, 실시간 정보가 아닙니다. [ ] 안은 직접 채워 말하십시오.
+안녕하세요. [소속·이름]입니다. 삼춘리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
+지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
+컴퓨터 예측 계산(모델)으로는 마을 근처 도로에서 새벽 2시 20분까지 차로 출발하면 의성북부초등학교까지 가는 경로가 확인되었습니다.
+그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
+어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.
+공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
+궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.
+```
+
+Card (Korean; the printed card shows the same strings):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 ko.card -->
+```text
+산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
+삼춘리 (마을)
+모델로 확인된 차량 경로 있음
+출발 마감 02:20 (새벽 2시 20분 · 한국 시각)
+이 시각까지 기다리지 말고 미리 차로 출발하십시오.
+모델이 점검한 도착지: 의성북부초등학교 · 02:20 출발 시 02:51쯤 도착(차로 약 31분, 교통 정체 미반영)
+다음 점검 시각인 02:30에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. 02:20보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
+실제 대피 장소와 길은 공식 안내를 따르십시오. 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
+공식 대피 명령이 우선합니다.
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 2025년 실제 산불 기록을 재현한 시나리오
+모델 기반 계획 정보 · 실시간 아님
+시각은 마을에서 195 m 떨어진 도로 지점(진입 지점) 기준, 준비·탑승 시간 제외 · 차량 이동만 계산 · 교통 정체·도로 통제·연기 미반영 · 주민·현장 검증 전
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST
+```
+
+SMS (English):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 en.sms -->
+```text
+REPLAY of 2025-03-26 02:00 KST data, not live
+Model-based plan: leave by car no later than 02:20 KST.
+Official orders come first.
+```
+
+Village broadcast (English):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 en.broadcast -->
+```text
+This is not a real emergency.
+Attention, residents of Samchun-ri.
+This is model-based planning information from a replay of recorded wildfire data, March 26, 2025, 2 a.m. Korea time.
+Leave by car no later than 2:20 a.m. The computer forecast checked a route to Uiseong Bukbu Elementary School for departures up to then.
+If you have no car, tell the village head now.
+Follow official guidance on where to go.
+Later departures have no checked route; this time was not set by fire.
+Again: this is not a real emergency; it is a replay of recorded 2025 data.
+Official evacuation orders come first.
+```
+
+
+### 구계리 (Gugye-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
+
+`uiseong_andong_2025/20250325T170000Z.json`, origin `osm:node/415160471`: no route in the model; the
+file shows the two roads leading out of the area reachable without meeting flames blocked at the data
+time (`all_exits_blocked`).
+
+SMS (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160471 ko.sms -->
+```text
+[25.3.26 02:00 기록재현]
+모델상 경로 없음·실시간 아님
+공식명령 우선, 위급 시 119
+```
+
+Long text (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160471 ko.lms -->
+```text
+[2025년 기록 재현 · 실제 상황 아님]
+산불 대피 계획 정보 · 구계리(마을)
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
+
+■ 모델상 확인된 차량 경로가 없습니다.
+■ 이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.
+■ 주민: 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
+■ 이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).
+
+공식 대피 명령이 우선합니다.
+모델 기반 계획 정보 · 실시간 아님
+2025년 실제 산불 기록을 재현한 시나리오입니다.
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+```
+
+Village broadcast (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160471 ko.broadcast -->
+```text
+이 방송은 실제 상황이 아닙니다.
+구계리 주민 여러분께 알려 드립니다.
+2025년 3월 26일 새벽 2시 기록을 재현한 모델 기반 계획 정보입니다.
+컴퓨터 예측 계산으로는 이곳에서 차로 나가는 확인된 길이 없습니다. 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
+산불 예측에서는 이곳에서 불길을 피해 갈 수 있는 구역의 출구 2곳이 모두 이미 불길에 막혀 있습니다.
+공식 대피 명령이 우선합니다.
+```
+
+Family call script (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160471 ko.call -->
+```text
+[통화 전 확인] 공식 대피 명령이 우선합니다. 아래 내용은 모델 기반 계획 정보이며, 실시간 정보가 아닙니다. [ ] 안은 직접 채워 말하십시오.
+[통화 전 확인] 이장이 119와 읍·면사무소에 먼저 연락했는지 확인하십시오.
+안녕하세요. [소속·이름]입니다. 구계리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
+지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
+컴퓨터 예측 계산(모델)으로는 마을에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 이장은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.
+산불 예측에서는 이곳에서 불길을 피해 갈 수 있는 구역의 출구 2곳이 모두 이미 불길에 막혀 있습니다.
+이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
+공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
+궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.
+```
+
+
+### 광연리 (Gwang-yeon-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
+
+`uiseong_andong_2025/20250325T170000Z.json`, origin `osm:node/415160467`: unresolved — no departure
+time, never green, no reason.
+
+SMS (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.sms -->
+```text
+[25.3.26 02:00 기록재현]
+모델 경로 미확인·실시간 아님
+공식명령 우선·공식안내 따르십시오
+```
+
+Village broadcast (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.broadcast -->
+```text
+이 방송은 실제 상황이 아닙니다.
+광연리 주민 여러분께 알려 드립니다.
+2025년 3월 26일 새벽 2시 기록을 재현한 모델 기반 계획 정보입니다.
+컴퓨터 예측 계산으로는 이곳의 차량 대피 길을 확인하지 못했습니다. 길이 있다는 뜻도, 없다는 뜻도 아닙니다. 공식 대피 안내를 따르십시오.
+다시 알려 드립니다. 실제 상황이 아닌 2025년 기록 재현입니다.
+공식 대피 명령이 우선합니다.
+```
+
+Card (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.card -->
+```text
+산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
+광연리 (마을)
+미확인: 모델로 확인하지 못함
+미확인은 경로가 있다는 뜻도, 없다는 뜻도 아닙니다.
+공식 대피 안내를 따르십시오.
+공식 대피 명령이 우선합니다.
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 2025년 실제 산불 기록을 재현한 시나리오
+모델 기반 계획 정보 · 실시간 아님
+차량 이동만 계산 · 교통 정체·도로 통제·연기 미반영 · 주민·현장 검증 전
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST
+```
+
+
+### 석탑리 (Seoktap-ri) — 의성·안동, recorded input 2025-03-24 18:00 KST
+
+`uiseong_andong_2025/20250324T090000Z.json`, origin `osm:node/415160428`: leave by 18:10 with the
+fire reason from the file (`flame_on_route`: the route checked at 18:10, shifted to 18:20, meets the
+flames on a road about 1.3 km from 하화리 in 1 of 4 fire scenarios from the forecast).
+
+Long text (Korean):
+
+<!-- example uiseong_andong_2025/20250324T090000Z.json osm:node/415160428 ko.lms -->
+```text
+[2025년 기록 재현 · 실제 상황 아님]
+산불 대피 계획 정보 · 석탑리(마을)
+자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST
+
+■ 18:10(오후 6시 10분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
+■ 모델이 점검한 도착지: 의성북부초등학교. 18:10에 출발하면 18:26쯤 도착합니다(차로 약 16분, 교통 정체 미반영).
+■ 이유: 산불 예측 시나리오 4가지 중 1가지에서는 하화리에서 약 1.3 km 떨어진 도로에 18:24쯤 불길이 닿습니다. 다음 점검 시각인 18:20에 출발하면 그곳에서 불길과 만날 수 있습니다.
+■ 실제 대피 장소와 길은 공식 안내를 따르십시오.
+■ 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
+■ 시각은 마을에서 1.3 km 떨어진 가장 가까운 도로 지점(진입 지점) 기준이며, 준비·탑승 시간은 포함되지 않았습니다.
+
+공식 대피 명령이 우선합니다.
+모델 기반 계획 정보 · 실시간 아님
+2025년 실제 산불 기록을 재현한 시나리오입니다.
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+```
+
+Village broadcast (Korean; no room for the reason line):
+
+<!-- example uiseong_andong_2025/20250324T090000Z.json osm:node/415160428 ko.broadcast -->
+```text
+이 방송은 실제 상황이 아닙니다.
+석탑리 주민 여러분께 알려 드립니다.
+2025년 3월 24일 오후 6시 기록을 재현한 모델 기반 계획 정보입니다.
+오후 6시 10분까지 차로 출발하십시오. 의성북부초등학교까지 가는 길이 컴퓨터 예측 계산으로 확인되었습니다.
+시각은 마을에서 1.3 km 떨어진 도로 기준입니다.
+차가 없는 분은 이장에게 바로 알리십시오.
+대피 장소는 공식 안내를 따르십시오.
+공식 대피 명령이 우선합니다.
+```
+
+Long text (English):
+
+<!-- example uiseong_andong_2025/20250324T090000Z.json osm:node/415160428 en.lms -->
+```text
+[REPLAY of recorded 2025 data - not a real emergency]
+Wildfire evacuation plan information - Seoktap-ri (Village)
+Data time: 2025-03-24 18:00 KST · Precomputed 2026-10-18 07:54 KST
+
+- Leave by car no later than 18:10 KST (6:10 p.m.). Do not wait until that time.
+- Destination the model checked: Uiseong Bukbu Elementary School. Leaving at 18:10, arrival around 18:26 KST (about 16 min by car; traffic not included).
+- Why: in 1 of 4 fire scenarios from the forecast, flames reach a road about 1.3 km from Hahwa-ri around 18:24 KST. If you leave at the next checked time, 18:20, you may meet the fire there.
+- Follow official guidance on where to go and which roads to use.
+- If you have no car or cannot move on your own, tell the village head or the eup/myeon office now.
+- Times refer to the nearest road point (entry point), 1.3 km from the village. Time to get ready and board is not included.
+
+Official evacuation orders come first.
+Model-based planning information · not live
+Replay of recorded 2025 wildfire scenarios.
+Planning aid only - not for live evacuation operations.
+```
+
+
+### 용봉리 (Yongbong-ri) — 의성·안동, recorded input 2025-03-23 10:00 KST
+
+`uiseong_andong_2025/20250323T010000Z.json`, origin `osm:node/415160449`: a deadline set by the
+1-hour range (`window`, `time_window`); the arrival 10:52:55 is shown as "10:53쯤 … 약 43분".
+The English card keeps the Korean destination name (OSM has no English one); spoken English never
+reads it.
+
+Card (Korean):
+
+<!-- example uiseong_andong_2025/20250323T010000Z.json osm:node/415160449 ko.card -->
+```text
+산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
+용봉리 (마을)
+모델로 확인된 차량 경로 있음
+출발 마감 10:10 (오전 10시 10분 · 한국 시각)
+이 시각까지 기다리지 말고 미리 차로 출발하십시오.
+모델이 점검한 도착지: 일직초등학교 · 10:10 출발 시 10:53쯤 도착(차로 약 43분, 교통 정체 미반영)
+다음 점검 시각인 10:20에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. 10:10보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
+실제 대피 장소와 길은 공식 안내를 따르십시오. 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
+공식 대피 명령이 우선합니다.
+자료 기준: 2025년 3월 23일 10:00 (한국 시각) · 2025년 실제 산불 기록을 재현한 시나리오
+모델 기반 계획 정보 · 실시간 아님
+시각은 마을에서 65 m 떨어진 도로 지점(진입 지점) 기준, 준비·탑승 시간 제외 · 차량 이동만 계산 · 교통 정체·도로 통제·연기 미반영 · 주민·현장 검증 전
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+시나리오 ffb1:20250323T010000Z:da4a13e53bc0b6a2 · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 07:54 KST
+```
+
+Card (English):
+
+<!-- example uiseong_andong_2025/20250323T010000Z.json osm:node/415160449 en.card -->
+```text
+Evacuation plan card · Uiseong–Andong · Recorded 2025 wildfire · scenario replay · Not a real emergency
+Yongbong-ri (Village)
+Checked vehicle route in the model
+Leave by 10:10 (10:10 a.m. KST)
+Do not wait until this time: leave by car early.
+Model-checked destination: 일직초등학교 (School); leave 10:10, arrive around 10:53 (about 43 min by car; traffic not included)
+Next checked time 10:20: even without fire, no destination checked fits the 1-hour range (arrival and stay). No checked route after 10:10; this time was not set by fire.
+Follow official guidance on where to go. No car or need help? Tell the village head or eup/myeon office now.
+Official evacuation orders come first.
+Data time: 2025-03-23 10:00 KST · replay of 2025 data
+Model-based planning information · not live
+Times at the road entry point 65 m away; boarding time not included · Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
+Planning aid only — not for live evacuation operations.
+Scenario ffb1:20250323T010000Z:da4a13e53bc0b6a2 · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 07:54 KST
+```

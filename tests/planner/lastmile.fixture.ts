@@ -11,7 +11,9 @@
  * (window_fire_detour, other_shelters_flame_blocked; no_flame_avoiding_route_fits_window for
  * model_no_route), window (window_fire_free; no_route_even_without_fire for model_no_route),
  * no_later_offset, all_exits_blocked (several exits, one exit, a shared label, entry_point_in_flame),
- * unresolved_next, other, and an unknown code. The real files are not part of this branch.
+ * unresolved_next, other, and an unknown code — also the codes and cases the six real files do not
+ * contain. The real files ship in planner/public/data/explanations/ and are tested over every origin
+ * in lastmile.cache.test.ts.
  */
 import type { ExplanationFile, LastMileInput, LmCell } from '../../planner/src/features/lastmile/types';
 
