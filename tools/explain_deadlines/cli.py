@@ -6,7 +6,8 @@
 
 Inputs are never trusted by name: the cache file must match its INDEX.json sha256; the graph and every packet file must
 match the hashes recorded in INPUT_FILES.json of the fetched release archive AND the ``input_hashes`` that every cached
-route check and dispatch plan recorded at computation time. Any mismatch stops the run (nothing is written).
+route check and dispatch plan recorded at computation time. Any mismatch stops the run (nothing is written). So does
+any recorded route whose replay disagrees with its recorded result (validate.replay_recorded_routes).
 """
 from __future__ import annotations
 
@@ -26,7 +27,7 @@ from .packet import Packet, sha256_file
 from .plans import CacheModel
 from .reach import ContactIndex
 from .roads import RoadGraph
-from .validate import apply_checks, kit_crosscheck, load_kit_checker, validate
+from .validate import apply_checks, kit_crosscheck, load_kit_checker, replay_recorded_routes, require_replays_clean, validate
 
 REPO = Path(__file__).resolve().parents[2]
 INPUTS_ARCHIVE_SHA256 = "d7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202"
@@ -105,7 +106,9 @@ def verify_cache_provenance(doc: dict, region: str, input_time: str, sset: str, 
     return {"route_checks_verified": n_rc, "dispatch_plans_verified": n_plan}
 
 
-def summarise(origins: dict) -> dict:
+def summarise(origins: dict, replays: dict | None = None) -> dict:
+    """Totals per status and reason, and ``validation``: per-origin assertion counts (applicable/passed/failed origins)
+    merged with the route-level replays of the whole cache file (``replays``; unit "route")."""
     st = collections.Counter(r["status"] for r in origins.values())
     by_reason = collections.Counter(r["reason_code"] for r in origins.values())
     by_sr = collections.Counter("%s/%s" % (r["status"], r["reason_code"]) for r in origins.values())
@@ -116,6 +119,10 @@ def summarise(origins: dict) -> dict:
             d = val.setdefault(k, {"applicable": 0, "passed": 0, "failed": 0})
             d["applicable"] += 1
             d["passed" if v else "failed"] += 1
+    for k, v in (replays or {}).items():
+        if k in val:
+            raise ValueError("validation id %s used twice" % k)
+        val[k] = dict(sorted(v.items()))
     return {"origins": len(origins), "explained": st.get("explained", 0), "explained_partial": st.get("explained_partial", 0),
             "not_explainable": st.get("not_explainable", 0), "by_reason": dict(sorted(by_reason.items())),
             "by_status_reason": dict(sorted(by_sr.items())), "by_detail": dict(sorted(by_detail.items())),
@@ -149,6 +156,7 @@ def generate(args) -> int:
         del raw_graph
         places_path = repo / "planner" / "data" / "osm" / ("%s.overpass.json" % region)
         places = PlaceIndex(places_path, to_5179) if places_path.is_file() else None
+        chord_cache = {}                      # router-cell geometry per edge of this region's graph (replays)
         for e in sorted((x for x in entries if x["region_id"] == region), key=lambda x: x["input_time"]):
             cache_path = cache_dir / e["path"]
             raw = cache_path.read_bytes()
@@ -173,6 +181,10 @@ def generate(args) -> int:
             if pk.crs != G.crs:
                 raise InputError("packet CRS %r differs from the graph CRS %r" % (pk.crs, G.crs))
             hash_checks = verify_cache_provenance(doc, region, doc["input_time"], doc["scenario_set_id"], graph_sha, pk)
+            # every recorded checked route must replay flame-free, every travel-only route must reproduce the API's
+            # per-member contact flags -- otherwise the contact semantics differ and nothing is written
+            replays, problems = replay_recorded_routes(G, pk, doc, int(pk.horizon), chord_cache)
+            require_replays_clean(replays, problems, e["path"])
             model = CacheModel(doc)
             ctx = Context(region_id=region, input_time=doc["input_time"], scenario_set_id=doc["scenario_set_id"], graph=G,
                           packet=pk, index=ContactIndex(G, pk), places=places, model=model, to_lonlat=to_lonlat,
@@ -200,7 +212,7 @@ def generate(args) -> int:
                                   "hash_checks": {**hash_checks, "hazard_vs_npz": pk.consistency},
                                   "horizon_s": int(pk.horizon), "members": pk.member_ids,
                                   "contact_rule": CONTACT_RULE, "method": "tools/explain_deadlines/README.md"},
-                   "summary": summarise(origins), "origins": origins}
+                   "summary": summarise(origins, replays), "origins": origins}
             out_dir.mkdir(parents=True, exist_ok=True)
             path = out_dir / ("%s__%s.json" % (region, tag))
             path.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":"), allow_nan=False) + "\n", encoding="utf-8")
