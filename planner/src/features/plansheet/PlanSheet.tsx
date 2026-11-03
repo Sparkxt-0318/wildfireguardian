@@ -150,6 +150,7 @@ function apiModeText(sheet: PlanSheetData, lang: Lang): string {
     if (sheet.fireInputType === 'spread_zones') return pick(SHEET.modeMockZones, lang);
     return pick(p.mockNothingReplayed ? SHEET.modeMockNone : SHEET.modeMock, lang);
   }
+  if (p.apiMode === 'static') return pick(SHEET.modeStatic, lang);
   if (p.apiMode === 'live') return pick(SHEET.modeLive, lang);
   if (p.cacheApiMode) return fill(pick(SHEET.modeCacheOf, lang), { mode: p.cacheApiMode === 'mock' ? 'MOCK' : 'live API' });
   return pick(SHEET.modeCache, lang);

@@ -124,7 +124,7 @@ export interface PlanSheetData {
     checkpoint: string;
     packageVersion: string;
     kit: string;
-    apiMode: 'mock' | 'live' | 'cache';
+    apiMode: 'mock' | 'live' | 'cache' | 'static';
     apiVersion: string | null;
     cacheCreatedAtIso: string | null;
     gitCommit: string | null;

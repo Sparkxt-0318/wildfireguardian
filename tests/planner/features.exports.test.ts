@@ -419,6 +419,17 @@ describe('dispatchListCSV', () => {
     expect(late[11]).toContain('MOCK');
   });
 
+  it('labels the static demo in the CSV API-mode column, never as live API (ko and en)', () => {
+    for (const [lang, want] of [
+      ['ko', '정적 데모 (API 없음, 계산 안 함)'],
+      ['en', 'static demo (no API, nothing computed)'],
+    ] as const) {
+      const rows = parseCsv(dispatchListCSV(input({ provenance: { ...PROV, apiMode: 'static', cacheApiMode: null } }), { lang }).slice(1)).slice(1);
+      expect(rows.length).toBeGreaterThan(0);
+      for (const r of rows) expect(r[10]).toBe(want);
+    }
+  });
+
   it('notes the entry-point gap and the MOCK raw status (never "기타 (OTHER)") in the CSV', () => {
     const inp = input({
       origins: [
