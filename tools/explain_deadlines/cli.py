@@ -2,6 +2,7 @@
 
     python -m tools.explain_deadlines generate            # all cache files listed in planner/cache/INDEX.json
     python -m tools.explain_deadlines generate --only uiseong_andong_2025/20250323T010000Z.json
+    python -m tools.explain_deadlines generate --generated-at 2026-11-03T00:00:00Z   # pinned stamp: byte-identical reruns
     python -m tools.explain_deadlines check               # re-validate the written files against their inputs
 
 Inputs are never trusted by name: the cache file must match its INDEX.json sha256; the graph and every packet file must
@@ -68,6 +69,20 @@ def evaluated_host_flag(requested: bool, host: dict) -> bool:
     if (host["system"], host["machine"]) != EVALUATED_HOST_PLATFORM:
         raise InputError("--evaluated-host is accepted only on native macOS arm64 (this run: %s %s)" % (host["system"], host["machine"]))
     return True
+
+
+def generated_at_stamp(pinned: str | None) -> str | None:
+    """``--generated-at``: the pinned ``provenance.generated_at``, in UTC to the second like the default stamp; None when
+    not pinned (each file then gets the time it is written)."""
+    if pinned is None:
+        return None
+    try:
+        t = dt.datetime.fromisoformat(pinned.replace("Z", "+00:00"))
+    except ValueError:
+        raise InputError("--generated-at %r is not an ISO 8601 time" % pinned) from None
+    if t.tzinfo is None:
+        raise InputError("--generated-at %r has no UTC offset (e.g. 2026-11-03T00:00:00Z)" % pinned)
+    return t.astimezone(dt.timezone.utc).isoformat(timespec="seconds")
 
 
 def compact(iso: str) -> str:
@@ -187,6 +202,7 @@ def generate(args) -> int:
     git = git_state(repo)
     host = host_record()
     on_evaluated_host = evaluated_host_flag(getattr(args, "evaluated_host", False), host)
+    pinned_at = generated_at_stamp(getattr(args, "generated_at", None))
     kit = None
     if not args.no_kit:
         kit = load_kit_checker()
@@ -257,7 +273,7 @@ def generate(args) -> int:
                                   "places_osm_base": places.osm_base if places else None,
                                   **git, "generator": "tools/explain_deadlines %s" % VERSION,
                                   "kit_checker_sha256": kit[1] if kit else None,
-                                  "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+                                  "generated_at": pinned_at or dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
                                   "computed_on": host, "evaluated_host": on_evaluated_host,
                                   "hash_checks": {**hash_checks, "hazard_vs_npz": pk.consistency},
                                   "horizon_s": int(pk.horizon), "members": pk.member_ids,
@@ -318,17 +334,22 @@ def main(argv=None) -> int:
         p.add_argument("--evaluated-host", action="store_true",
                        help="mark the output as computed on the evaluated host (provenance.evaluated_host true); refused "
                             "off native macOS arm64 -- use it only on the evaluated host itself (README)")
+        p.add_argument("--generated-at", metavar="TIME",
+                       help="pin provenance.generated_at to this ISO 8601 time with a UTC offset (e.g. 2026-11-03T00:00:00Z): "
+                            "a rerun of the same commit on the same host then writes byte-identical files")
         if name == "check":
             p.add_argument("--tmp", required=True, help="scratch directory for the regenerated files")
     a = ap.parse_args(argv)
-    if a.evaluated_host:
-        # refused off native macOS arm64 before anything is read or written: one line, exit status 2 (generate() itself
-        # refuses as well, for callers that bypass the command line)
-        try:
+    # refused before anything is read or written: one line, exit status 2 (generate() itself refuses as well, for callers
+    # that bypass the command line) -- a --generated-at that is not a time with a UTC offset, --evaluated-host off native
+    # macOS arm64
+    try:
+        generated_at_stamp(a.generated_at)
+        if a.evaluated_host:
             evaluated_host_flag(True, host_record())
-        except InputError as exc:
-            print("%s: error: %s" % (ap.prog, exc), file=sys.stderr)
-            return 2
+    except InputError as exc:
+        print("%s: error: %s" % (ap.prog, exc), file=sys.stderr)
+        return 2
     return generate(a) if a.cmd == "generate" else check(a)
 
 

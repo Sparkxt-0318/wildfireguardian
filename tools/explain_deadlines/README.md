@@ -287,7 +287,9 @@ itself — the platform check cannot tell that machine from another Mac, so the 
 committed files were generated in a Linux x86_64 container (`computed_on`: `Linux-6.18.44-fc-v230-x86_64-with-glibc2.39`,
 Python 3.12.3, numpy 1.26.4, pyproj 3.7.0), so `evaluated_host` is `false`. `check` compares every field except the run
 stamps `generated_at`, `code_commit`, `code_dirty` and `computed_on` (it prints both hosts when they differ);
-`evaluated_host` is compared.
+`evaluated_host` is compared. `generate --generated-at <ISO 8601 time with a UTC offset>` pins `generated_at` (stored in
+UTC to the second; anything else is refused with a one-line error, exit status 2): a rerun of the same commit on the
+same host with the same pin then writes byte-identical files (`tests/explain_deadlines/test_replays.py`).
 
 ## 11 How the planner words it (`planner/src/features/explain`)
 

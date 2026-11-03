@@ -327,3 +327,23 @@ def test_cli_evaluated_host_opt_in(tmp_path, capsys):
             assert err.count("\n") == 1 and err.startswith("python -m tools.explain_deadlines: error: --evaluated-host")
             assert "native macOS arm64 (this run: %s %s)" % (platform.system(), platform.machine()) in err
         assert not out.exists() and not tmp.exists()
+
+
+def test_cli_generated_at_pin_gives_byte_identical_reruns(tmp_path, capsys):
+    """Re-running reproduces a file byte for byte once generated_at is pinned (same commit, same host); the pin is
+    stored in UTC to the second like the default stamp; anything but a time with a UTC offset is refused up front."""
+    repo = repo_world(tmp_path, travel_only=travel_world([False, True, False, False], "DEFINITE_CONTACT"))
+    name = "synthetic__20250101T000000Z.json"
+    assert run(repo, tmp_path / "a", "--generated-at", "2026-11-03T09:30:00+09:00") == 0
+    assert run(repo, tmp_path / "b", "--generated-at", "2026-11-03T00:30:00Z") == 0
+    assert (tmp_path / "a" / name).read_bytes() == (tmp_path / "b" / name).read_bytes()
+    assert json.loads((tmp_path / "a" / name).read_text())["provenance"]["generated_at"] == "2026-11-03T00:30:00+00:00"
+    capsys.readouterr()
+    out, tmp = tmp_path / "out", tmp_path / "tmp"
+    for bad in ("yesterday", "2026-11-03T00:30:00"):                   # not a time; no UTC offset
+        for argv in (["generate", "--repo", str(repo), "--out", str(out), "--no-kit", "--generated-at", bad],
+                     ["check", "--repo", str(repo), "--out", str(out), "--tmp", str(tmp), "--no-kit", "--generated-at", bad]):
+            assert cli.main(argv) == 2
+            err = capsys.readouterr().err
+            assert err.count("\n") == 1 and err.startswith("python -m tools.explain_deadlines: error: --generated-at %r" % bad)
+    assert not out.exists() and not tmp.exists()
