@@ -1,4 +1,4 @@
-# Who needs more time: impact numbers from the recorded 2025 planner cache
+# Who needs more time: model-relative impact numbers from the recorded 2025 planner cache and this package's own road-graph values
 
 Reproducible, model-relative numbers and English figures for the MIT Solve 2027 application, computed from the
 six booth-cache files the village evacuation planner already ships (`planner/cache/`, 2 regions x 3 recorded input
@@ -434,13 +434,13 @@ not permitted from this environment. No population figure is used here, and none
 Proposed one-line link text, for the owner to add if that file is ever unfrozen, as a list item:
 
 ```markdown
-- [solve2027-impact/](solve2027-impact/README.md): model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an independent second computation; recorded Route-Check API results and this package's own road-graph values are marked separately.
+- [solve2027-impact/](solve2027-impact/README.md): model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache and this package's own road-graph values (the two sources are marked on every number), with an independent second computation.
 ```
 
 or, matching that file's paragraphs, as a one-sentence paragraph:
 
 ```markdown
-[`solve2027-impact/`](solve2027-impact/README.md) holds model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an independent second computation; recorded Route-Check API results and this package's own road-graph values are marked separately.
+[`solve2027-impact/`](solve2027-impact/README.md) holds model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache and this package's own road-graph values (the two sources are marked on every number), with an independent second computation.
 ```
 
 ## Files

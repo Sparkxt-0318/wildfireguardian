@@ -1,6 +1,6 @@
 {
  "schema": "wfg.solve2027.impact_numbers/1",
- "title": "Who needs more time: model-relative impact numbers from the recorded 2025 planner cache",
+ "title": "Who needs more time: model-relative impact numbers from the recorded 2025 planner cache and this package's own road-graph values",
  "statement": "Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the evaluated macOS arm64 host, counted together with the planner's place files (planner cache and place files; uses_graph = false), and values this package computed itself from the SHA-verified road graph and hazard packets in a Linux container (uses_graph = true), which are not Route-Check API results and not evaluated-host output. None is an evacuation outcome.",
  "attribution": {
   "recorded": "uses_graph = false: aggregates of recorded inputs only - Route-Check API results in the planner cache (verdicts, leave-by deadlines, re-checks, travel-only flame contact and arrival times), computed on the evaluated macOS arm64 host (purpose booth, fixed 30 s budget per check), and the planner's place files. This package counts them with the planner's own rules; it runs no route check.",

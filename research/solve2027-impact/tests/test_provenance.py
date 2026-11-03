@@ -135,6 +135,10 @@ SOURCE_PHRASES = ('computed by this package', 'Linux container', 'not evaluated-
 # the blanket attributions the package once made: every number = what the Route-Check API concluded / read from the cache
 BLANKET = re.compile(r'describ(?:e|es|ing) what the (?:WildfireGuardian )?Route-Check API concluded'
                      r'|read from the recorded cache, not recomputed|Every number describes', flags=re.I)
+# the package as a whole has two sources; its titles once named only the recorded cache
+TWO_SOURCES = "from the recorded 2025 planner cache and this package's own road-graph values"
+ONE_SOURCE = re.compile(r"(?:impact numbers|numbers and figures) from the recorded (?:2025 )?planner cache"
+                        r"(?! and this package\\?'s own road-graph values)", flags=re.I)
 
 
 def _prose(text: str) -> str:
@@ -182,7 +186,10 @@ def test_attribution_is_split_wherever_numbers_are_published():
         assert figures.SOURCES[fig] in text and 'evaluated macOS arm64 host' in text, stem
         assert all(p in text for p in SOURCE_PHRASES) and 'road entry point' in text, stem
         assert 'Planning aid only — not for live evacuation operations.' in text, stem      # the exact footer text
-    # no blanket attribution left anywhere: the code (module docstrings included) and every published text
+    # titles: NUMBERS.json, the README H1 (the same text) and the package docstring's first sentence name both sources
+    assert TWO_SOURCES in NUMBERS['title'] and README.split('\n', 1)[0] == '# ' + NUMBERS['title']
+    assert TWO_SOURCES in ' '.join(wfg_impact.__doc__.split('\n\n', 1)[0].split())
+    # no blanket or one-source attribution left anywhere: the code (module docstrings included) and every published text
     texts = {p.relative_to(PACKAGE_ROOT).as_posix(): p.read_text(encoding='utf-8')
              for p in [PACKAGE_ROOT / 'compute.py', PACKAGE_ROOT / 'verify.py',
                        *sorted((PACKAGE_ROOT / 'wfg_impact').glob('*.py')), PACKAGE_ROOT / 'NUMBERS.json']}
@@ -191,13 +198,21 @@ def test_attribution_is_split_wherever_numbers_are_published():
     assert {'compute.py', 'verify.py', 'wfg_impact/__init__.py', 'wfg_impact/numbers.py', 'wfg_impact/sentences.py',
             'NUMBERS.json'} <= set(texts) and len(texts) >= 19, sorted(texts)
     for name, text in texts.items():
-        m = BLANKET.search(_prose(text))
+        m = BLANKET.search(_prose(text)) or ONE_SOURCE.search(_prose(text))
         assert not m, (name, m and m.group(0))
     for old in ('All results are model-relative: they describe what the Route-Check API concluded for recorded',
                 "'Every number describes what the WildfireGuardian Route-Check API concluded for recorded fire-scenario '",
                 "it describes what the '\n           'Route-Check API concluded for",
                 'depend on the host running this package: they are read from the recorded cache, not recomputed by'):
         assert BLANKET.search(_prose(old)), old
+    for old in ('# Who needs more time: impact numbers from the recorded 2025 planner cache\n\nReproducible, model-relative',
+                "'title': 'Who needs more time: model-relative impact numbers from the recorded 2025 planner cache',",
+                "'impact numbers from the recorded 2025 planner '\n         'cache')",
+                ': model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an'):
+        assert ONE_SOURCE.search(_prose(old)), old
+    for new in ('"... impact numbers from the recorded 2025 planner cache and this package\'s "\n "own road-graph values")',
+                "'... impact numbers from the recorded 2025 planner cache and this package\\'s '\n 'own road-graph values')"):
+        assert not ONE_SOURCE.search(_prose(new)), new
     package_doc = ' '.join(wfg_impact.__doc__.split())
     assert 'two sources' in package_doc and all(p in package_doc for p in ('evaluated macOS arm64 host', *SOURCE_PHRASES[1:]))
 
@@ -339,7 +354,7 @@ def test_owner_decision_proposes_one_link_line_for_the_frozen_research_readme():
     m = re.search(r'```markdown\n(.+?)\n```', section, flags=re.S)
     line = m.group(1)
     assert '\n' not in line and line.startswith('- [solve2027-impact/](solve2027-impact/README.md): ')
-    assert 'safe' not in line.lower()
+    assert 'safe' not in line.lower() and TWO_SOURCES in line
     # the same text as a one-sentence paragraph, matching that file's paragraph style
     blocks = re.findall(r'```markdown\n(.+?)\n```', section, flags=re.S)
     assert len(blocks) == 2 and blocks[0] == line and '\n' not in blocks[1]

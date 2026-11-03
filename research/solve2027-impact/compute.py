@@ -27,6 +27,9 @@ sys.path.insert(0, str(HERE))
 from wfg_impact import analysis, figures, numbers as numbers_mod, sentences, sources  # noqa: E402
 
 SCHEMA = 'wfg.solve2027.impact_numbers/1'
+# names both sources, as the statement and attribution below do; README.md's first line is "# " + TITLE
+TITLE = ("Who needs more time: model-relative impact numbers from the recorded 2025 planner cache and this package's "
+         "own road-graph values")
 CAVEATS = [
     'Fire scenarios: each recorded input time has 4 scenario members drawn independently per 375 m cell from the c651 '
     'forecast ("fire scenarios from the forecast"); they are not fire-spread simulations of the actual fire.',
@@ -119,7 +122,7 @@ def numbers_document(result: dict, nums: dict) -> dict:
                                            'inputs', 'input_sha256') if k in e}
     return {
         'schema': SCHEMA,
-        'title': 'Who needs more time: model-relative impact numbers from the recorded 2025 planner cache',
+        'title': TITLE,
         'statement': STATEMENT,
         'attribution': ATTRIBUTION,
         'generator': {'script': numbers_mod.SCRIPT,
