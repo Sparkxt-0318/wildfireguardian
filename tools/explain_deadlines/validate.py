@@ -19,6 +19,16 @@ Own assertions (exact rational arithmetic, run for every origin before anything 
        "no route even without fire" re-derived with the node lower bound.
 A failed assertion turns the origin into ``not_explainable`` (``validation_failed:<id>``); counts are reported.
 
+Route replays of the whole cache file (``replay_recorded_routes``; counted in routes, not origins; any failure stops
+the run and nothing is written for that file -- the semantics must then be fixed, never the routes filtered):
+  replay_checked_routes  EVERY ``route_checks`` entry with verdict ``checked_route`` (not only the routes checked at a
+                         deadline), rebuilt exactly (route_sha256) and replayed at its own recorded times: it must be
+                         clear of flame in every member under both rules;
+  replay_travel_only     EVERY ``travel_only`` route (router policy travel_only: flame contact not enforced), rebuilt
+                         exactly and replayed at its recorded times: the per-member contact flags must equal the API's
+                         recorded ``result.full_policy_assessment.per_scenario[*].contact`` and the closed-rule status
+                         its ``whole_road_contact`` (CLEAR / DEFINITE_CONTACT).
+
 Independent cross-check (``kit``): the kit's frozen independent checker (integration/kit/runner/
 ffi_independent_checker.py, hash-pinned in CANDIDATE_MANIFEST.json; numpy + standard library, reads
 constructed_arrays.npz rather than HAZARD.json) re-checks (a') with its ``whole_road_contact`` and router-conservative
@@ -33,8 +43,9 @@ import json
 from fractions import Fraction as F
 from pathlib import Path
 
+from .plans import RouteError, reconstruct_legs
 from .reach import earliest_free, flame_avoiding
-from .replay import any_contact, segment_contact
+from .replay import any_contact, build_segments, segment_contact
 
 REPO = Path(__file__).resolve().parents[2]
 KIT_CHECKER = REPO / "integration" / "kit" / "runner" / "ffi_independent_checker.py"
@@ -189,6 +200,109 @@ def apply_checks(rec: dict, checks: dict) -> dict:
                    binding=[], exits=[])
     rec["checks"] = checks
     return rec
+
+
+# ------------------------------------------------------------------------------------------------ recorded routes
+class ReplayMismatch(RuntimeError):
+    """A recorded route whose replay disagrees with the recorded result (or cannot be replayed): the semantics differ
+    from the evaluated checker, so the run stops and nothing is written for the file."""
+
+
+def replay_contacts(graph, packet, job: dict, horizon, chord_cache: dict | None = None) -> tuple:
+    """Rebuild a recorded route exactly (``reconstruct_legs``: the legs must hash to ``route_sha256``) and replay the
+    whole journey (issue point, legs, destination stay) at its own recorded times with both contact rules.
+    Returns (closed-rule members, router-rule members, router occupancy outside the packet bins); raises RouteError /
+    KeyError / TypeError / ValueError when the route cannot be rebuilt."""
+    route = reconstruct_legs(job)
+    req = job["request"]
+    if route["start_node"] != req["start"]["node_id"] or route["destination"] != req["destination"]["node_id"]:
+        raise RouteError("route ends differ from the request")
+    segs = build_segments(grid=graph.grid, packet=packet, xy=graph.xy, legs=route["legs"], edges=graph.edge,
+                          start_node=route["start_node"], departure=route["departure"], destination=route["destination"],
+                          dwell=int(req["dwell_s"]), chord_cache=chord_cache)
+    closed, router, unsupported = set(), set(), False
+    for seg in segs:
+        sc = segment_contact(packet, seg, F(0), F(horizon))
+        closed |= {p[0] for p in sc.pairs}
+        router |= sc.router_members
+        unsupported |= sc.router_unsupported
+    return closed, router, unsupported
+
+
+def replay_recorded_routes(graph, packet, doc: dict, horizon, chord_cache: dict | None = None) -> tuple:
+    """Replays of every recorded route of one cache file (route counts; see the module docstring):
+
+    * ``replay_checked_routes`` -- every ``route_checks`` entry with verdict ``checked_route``: no contact in any member
+      under either rule (``contact_free``), else a mismatch;
+    * ``replay_travel_only`` -- every ``travel_only`` entry with a route: per member, contact under either rule must
+      equal ``full_policy_assessment.per_scenario[<member id>].contact`` (the kit centre model OR a whole-road witness,
+      api/runner.py), and the closed-rule status (CLEAR / DEFINITE_CONTACT) its ``whole_road_contact``.
+
+    Routes that cannot be rebuilt or compared count as ``not_replayed``. Returns (stats, problems): ``stats`` is
+    {id: counts} with ``applicable``/``passed``/``failed`` as for the per-origin assertions (failed = mismatches +
+    not_replayed); ``problems`` lists the first offending entries (for the error message, not written)."""
+    ids = packet.member_ids
+    problems = []
+    chord_cache = {} if chord_cache is None else chord_cache
+    rc = {"unit": "route", "routes": 0, "contact_free": 0, "mismatches": 0, "not_replayed": 0}
+    for key, job in sorted((doc.get("route_checks") or {}).items()):
+        if not isinstance(job, dict) or (job.get("result") or {}).get("verdict") != "checked_route":
+            continue
+        rc["routes"] += 1
+        try:
+            closed, router, unsupported = replay_contacts(graph, packet, job, horizon, chord_cache)
+        except (RouteError, KeyError, TypeError, ValueError) as exc:
+            rc["not_replayed"] += 1
+            problems.append("route_checks/%s: not replayed (%s)" % (key, exc))
+            continue
+        if closed or router or unsupported:
+            rc["mismatches"] += 1
+            problems.append("route_checks/%s: recorded checked_route meets flame in members %s (closed) %s (router)%s"
+                            % (key, sorted(closed), sorted(router), " / router occupancy outside the bins" if unsupported else ""))
+        else:
+            rc["contact_free"] += 1
+    rc.update(applicable=rc["routes"], passed=rc["contact_free"], failed=rc["mismatches"] + rc["not_replayed"])
+    to = {"unit": "route", "entries": 0, "routes": 0, "matches": 0, "mismatches": 0, "not_replayed": 0,
+          "member_flags": 0, "with_contact": 0}
+    for key, job in sorted((doc.get("travel_only") or {}).items()):
+        if not isinstance(job, dict):
+            continue
+        to["entries"] += 1
+        res = job.get("result") or {}
+        if res.get("verdict") != "checked_route":
+            continue                                   # no route to replay (counted in entries only)
+        to["routes"] += 1
+        try:
+            fpa = res["full_policy_assessment"]
+            per = fpa["per_scenario"]
+            if set(per) != set(ids):
+                raise KeyError("assessed members %s differ from the packet members" % sorted(per))
+            recorded = [bool(per[m]["contact"]) for m in ids]
+            recorded_status = fpa["whole_road_contact"]
+            closed, router, unsupported = replay_contacts(graph, packet, job, horizon, chord_cache)
+        except (RouteError, KeyError, TypeError, ValueError) as exc:
+            to["not_replayed"] += 1
+            problems.append("travel_only/%s: not replayed (%s)" % (key, exc))
+            continue
+        mine = [s in closed or s in router for s in range(len(ids))]
+        mine_status = "DEFINITE_CONTACT" if closed else "CLEAR"
+        to["member_flags"] += len(ids)
+        to["with_contact"] += any(recorded)
+        if unsupported or mine != recorded or mine_status != recorded_status:
+            to["mismatches"] += 1
+            problems.append("travel_only/%s: replay %s/%s, recorded %s/%s" % (key, mine, mine_status, recorded, recorded_status))
+        else:
+            to["matches"] += 1
+    to.update(applicable=to["routes"], passed=to["matches"], failed=to["mismatches"] + to["not_replayed"])
+    return {"replay_checked_routes": rc, "replay_travel_only": to}, problems
+
+
+def require_replays_clean(stats: dict, problems: list, where: str) -> None:
+    """Fail closed: any mismatch or route that could not be replayed stops the run before the explanation file of this
+    cache file is written."""
+    bad = {k: v["failed"] for k, v in stats.items() if v["failed"]}
+    if bad or problems:
+        raise ReplayMismatch("%s: recorded-route replay failed %s; first: %s" % (where, bad, "; ".join(problems[:5])))
 
 
 # ------------------------------------------------------------------------------------------------ kit cross-check

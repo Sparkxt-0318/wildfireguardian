@@ -335,6 +335,29 @@ describe('static data flow against the committed cache', () => {
       expect(new Set(sheets.map((x) => x.demoLabel))).toEqual(new Set([want]));
     }
   }, 60_000);
+
+  it('drawn-zone plan sheets and exports state the static demo as their API mode, never live API computation', async () => {
+    const { controller, store, featureData, i18n } = m;
+    const e = INDEX[0]!;
+    await controller.selectRegion(e.region_id);
+    await controller.selectScenario(store.DRAWN_SCENARIO, { preset: true });
+    await vi.waitFor(() => expect(store.getState().drawn.footprints.state).toBe('ready'));
+    controller.applyDefaultPreset();
+    const s = store.getState();
+    expect(s.dataSource).not.toBe('cache');
+    for (const lang of ['ko', 'en'] as const) {
+      const sheets = featureData.buildPlanSheets(s, (k, v) => i18n.translate(lang, k, v), lang);
+      expect(sheets.length).toBeGreaterThan(0);
+      expect(new Set(sheets.map((x) => x.provenance.apiMode))).toEqual(new Set(['static']));
+      const input = featureData.buildExportInput(s, (k, v) => i18n.translate(lang, k, v), lang);
+      if (input) expect(input.provenance.apiMode).toBe('static');
+    }
+    // the rule itself: cache stays cache, MOCK stays MOCK, and only outside the static demo is the rest live
+    expect(featureData.provenanceApiMode({ dataSource: 'cache' }, false, true)).toBe('cache');
+    expect(featureData.provenanceApiMode({ dataSource: 'none' }, true, true)).toBe('mock');
+    expect(featureData.provenanceApiMode({ dataSource: 'none' }, false, true)).toBe('static');
+    expect(featureData.provenanceApiMode({ dataSource: 'live' }, false, false)).toBe('live');
+  }, 60_000);
 });
 
 describe('tour step 2: the origin the tour shows', () => {

@@ -9,6 +9,9 @@
  * of the 이장 and the 읍·면사무소; in an emergency, report to 119". The long text and the card are
  * written for the 이장 / facility staff and address each audience by name. A recorded replay says so
  * first in every SMS and long text, and the broadcast opens with "이 방송은 실제 상황이 아닙니다."
+ * One exception: the Korean SMS has room for one tag, so for a MOCK or test-data origin its first
+ * line carries the marker (MOCK, 시험자료, MOCK시험) in place of 기록재현; its other outputs still
+ * say that it is a replay (smsTag).
  *
  * Every inserted name or time is followed only by particles that do not depend on the last syllable
  * (까지, 에, 의, 에서, 입니다), so a place name never breaks the grammar. Names are never invented:
@@ -19,6 +22,7 @@ import { kstStamp } from '../../shared/format';
 import { FOOTER_APP } from '../../shared/strings';
 import { ENTRY_LIMIT_M } from '../../../domain/plan';
 import {
+  arrivalShown,
   durationText,
   distanceText,
   hm,
@@ -27,6 +31,7 @@ import {
   koDateSpoken,
   koSmsDate,
   koSpokenTime,
+  resultSource,
   type CardContent,
   type CardLine,
   type SpokenBlock,
@@ -90,23 +95,31 @@ function exitMembers(r: Exits): string {
   return r.kMin >= r.n ? `길마다 산불 예측 시나리오 ${r.n}가지 모두에서` : `길마다 산불 예측 시나리오 ${r.n}가지 중 최소 ${r.kMin}가지에서`;
 }
 
+/**
+ * The exits of the explanation file are the roads where the area reachable by car from the entry
+ * point WITHOUT meeting flames ends (tools/explain_deadlines README §4) — not the roads out of the
+ * village: the first roads out of the entry point are open in most recorded cases.
+ */
 function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
-  const place = placeWord(p);
+  const area = `이 ${placeWord(p)}에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길`;
   const when = r.atStart ? '자료 시각에 이미 불길에 막혀 있습니다' : `자료 시각부터 ${durationText(p.input.scenario.horizonS, 'ko')} 안에 불길에 막힙니다`;
-  if (r.roads === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`;
+  if (r.roads === 1) return `이유: ${area}은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`;
   // several roads with one label: "길 2곳(둘 다 구계리 부근 도로)이 …"
-  if (r.exits.length === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${r.roads === 2 ? '둘 다' : '모두'} ${r.exits[0]!.text.ko})이 ${when}(${exitMembers(r)}).`;
-  return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
+  if (r.exits.length === 1) return `이유: ${area} ${r.roads}곳(${r.roads === 2 ? '둘 다' : '모두'} ${r.exits[0]!.text.ko})이 ${when}(${exitMembers(r)}).`;
+  return `이유: ${area} ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
 }
 
+/** Spoken (optional broadcast block): "the exits of the area one can reach avoiding the flames". */
 function exitsSpoken(p: MessagePlan, r: Exits): string {
+  const area = '이곳에서 불길을 피해 갈 수 있는 구역의 출구';
   const when = r.atStart ? '이미 불길에 막혀 있습니다' : `${durationText(p.input.scenario.horizonS, 'ko')} 안에 불길에 막힙니다`;
-  return r.roads === 1 ? `산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 1곳이 ${when}.` : `산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 ${r.roads}곳이 모두 ${when}.`;
+  return r.roads === 1 ? `산불 예측에서는 ${area} 1곳이 ${when}.` : `산불 예측에서는 ${area} ${r.roads}곳이 모두 ${when}.`;
 }
 
 /** First line of the SMS: date + what the data is ("[25.3.26 02:00 기록재현]"). */
 function smsTag(p: MessagePlan): string {
-  const word = p.input.mock ? 'MOCK' : p.input.testData ? '시험자료' : p.input.replay ? '기록재현' : '계획자료';
+  // both markers in as many bytes as "기록재현" (8): the tag never pushes the SMS over 90 bytes
+  const word = p.input.mock && p.input.testData ? 'MOCK시험' : p.input.mock ? 'MOCK' : p.input.testData ? '시험자료' : p.input.replay ? '기록재현' : '계획자료';
   return `[${koSmsDate(iso(p))} ${word}]`;
 }
 
@@ -132,8 +145,9 @@ function noRouteReasonWritten(p: MessagePlan, max: number): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsWritten(p, r, max);
   if (r.kind === 'entry_in_flame') return `이유: 산불 예측 시나리오상 이 ${placeWord(p)}의 진입 지점(가장 가까운 도로 지점)이 출발 시각에 이미 불길 안에 있습니다.`;
-  if (r.kind === 'no_route_flames') return `이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
-  if (r.kind === 'no_route_time_window') return `이유: 점검한 어느 출발 시각에도, 불길이 없더라도 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
+  // the file's claim covers the candidate shelters the planner tried, never every possible destination
+  if (r.kind === 'no_route_flames') return `이유: 점검한 어느 출발 시각에도, 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `이유: 점검한 어느 출발 시각에도, 불길이 없더라도 점검한 도착지(후보 대피소) 중 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.`;
   return null;
 }
 
@@ -144,8 +158,8 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsSpoken(p, r);
   if (r.kind === 'entry_in_flame') return '산불 예측에서는 이곳의 진입 지점이 이미 불길 안에 있습니다.';
-  if (r.kind === 'no_route_flames') return `산불 예측에서는 불길을 피하는 길로 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
-  if (r.kind === 'no_route_time_window') return `불길이 없더라도 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
+  if (r.kind === 'no_route_flames') return `산불 예측에서는 점검한 도착지 중 불길을 피하는 길로 ${range} 안에 닿을 수 있는 곳이 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `불길이 없더라도 점검한 도착지 중 ${range} 안에 닿을 수 있는 곳이 없습니다.`;
   return null;
 }
 function noRouteSpoken(p: MessagePlan): string {
@@ -173,17 +187,23 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     };
   }
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.` };
+    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다.` };
   }
   if (r && r.kind === 'time_window') {
-    return { role: 'after', text: `다음 점검 시각인 ${N}에 출발하면 ${range} 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. ${NOT_FIRE_KO}` };
+    // only what is established: at the next checked time no destination checked fits the window even
+    // without fire (the file), and no later departure has a checked route (the planner's sweep)
+    return {
+      role: 'after',
+      text: `다음 점검 시각인 ${N}에 출발하면 불길이 없더라도 점검한 도착지 중 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. ${T}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. ${NOT_FIRE_KO}`,
+    };
   }
   if (p.after === 'horizon') {
     return card
       ? { role: 'after', text: `그 뒤 출발은 점검하지 않았습니다(자료 범위 ${range}). ${NOT_FIRE_KO}` }
       : { role: 'after', text: `모델이 점검한 마지막 출발 시각이 ${T}입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 ${range}). ${NOT_FIRE_KO}` };
   }
-  if (p.after === 'gap') return { role: 'after', text: `${T} 이후에는 확인되지 않은 출발 시각이 있어, 이 안내는 ${T}까지의 출발만 다룹니다.` };
+  // a later time without a checked route may have been checked (model_no_route): never "not checked"
+  if (p.after === 'gap') return { role: 'after', text: `${T} 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 ${T}까지의 출발만 다룹니다.` };
   return { role: 'after', text: `${T}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.` };
 }
 
@@ -194,12 +214,14 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)}는 ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)}는 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.`;
+    return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 점검한 도착지 중 산불 예측상 불길을 피하는 길로 제시간에 닿을 수 있는 곳이 없습니다.`;
   }
-  if (r && r.kind === 'time_window') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
+  // as the written lines say it: later times have no checked route (they may have been checked) —
+  // never "확인되지 않았습니다", which is heard as 미확인 (not checked)
+  if (r && r.kind === 'time_window') return `그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
-  if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';
-  return '그보다 늦게 출발하는 길은 확인되지 않았습니다.';
+  if (p.after === 'gap') return '그 뒤에는 컴퓨터 예측 계산으로 확인된 길이 없는 출발 시각이 있습니다.';
+  return '그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다.';
 }
 
 function entryNote(p: MessagePlan): string {
@@ -224,9 +246,9 @@ function bodyLines(p: MessagePlan, target: 'lms' | 'card'): CardLine[] {
     if (d) {
       if (p.destinationVaries) {
         out.push({ role: 'destination', text: `도착지는 출발 시각에 따라 다릅니다. ${T}에 출발할 때 모델이 점검한 도착지: ${destWritten(d)}.` });
-      } else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-        const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-        out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}. ${T}에 출발하면 ${hm(t0, d.arrivalS)}쯤 도착합니다(차로 약 ${min}분, 교통 정체 미반영).` });
+      } else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+        const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+        out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}. ${T}에 출발하면 ${a.hm}쯤 도착합니다(차로 약 ${a.min}분, 교통 정체 미반영).` });
       } else {
         out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}.` });
       }
@@ -276,9 +298,9 @@ function leaveByCardLines(p: MessagePlan): CardLine[] {
   const d = p.destination;
   if (d) {
     if (p.destinationVaries) out.push({ role: 'destination', text: `도착지는 출발 시각에 따라 다릅니다. ${T} 출발 때 모델이 점검한 도착지: ${destWritten(d)}` });
-    else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-      const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-      out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)} · ${T} 출발 시 ${hm(t0, d.arrivalS)}쯤 도착(차로 약 ${min}분, 교통 정체 미반영)` });
+    else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+      const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+      out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)} · ${T} 출발 시 ${a.hm}쯤 도착(차로 약 ${a.min}분, 교통 정체 미반영)` });
     } else out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}` });
   }
   out.push(afterWritten(p, T, true));
@@ -302,8 +324,23 @@ function closingNotes(p: MessagePlan): string[] {
   const out: string[] = [];
   if (p.input.replay) out.push(`${year(p)}년 실제 산불 기록을 재현한 시나리오입니다.`);
   if (p.input.mock) out.push('MOCK: 모의 서버가 기록 결과를 재생한 자료입니다.');
-  if (p.input.testData) out.push('시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.');
+  if (p.input.testData) out.push(testDataNote(p));
   return out;
+}
+
+/**
+ * Why the result is marked test data (per origin: a cache made elsewhere, or a live result's host).
+ * Names only the hosts that are not the evaluated host (provenance.testHost).
+ */
+function testDataNote(p: MessagePlan): string {
+  const v = p.input.provenance;
+  if (v.source === 'cache') return v.computed ? '시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.' : '시험 데이터: 평가 호스트가 아닌 장비에서 만든 캐시입니다.';
+  if (!v.host) return '시험 데이터: 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
+  const other = v.testHost === undefined ? v.host : v.testHost;
+  if (!other) return '시험 데이터: 일부 결과의 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
+  return other.ko === v.host.ko
+    ? `시험 데이터: 평가 호스트가 아닌 장비(${other.ko})에서 API로 계산한 결과입니다.`
+    : `시험 데이터: 평가 호스트가 아닌 장비(${other.ko})에서 API로 계산한 결과가 섞여 있습니다.`;
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -325,6 +362,19 @@ function dataSentence(p: MessagePlan, lead: string, fire: boolean): string {
   return core + (p.input.mock ? ' 모의 서버 자료입니다.' : '') + (p.input.testData ? ' 시험용 계산 자료입니다.' : '');
 }
 
+/**
+ * The broadcast's data sentence. With a MOCK / test-data marker it has a shorter wording that
+ * keeps every marker inside the sentence ("…기록을 모의 서버로 재현한 시험용 모델 기반 계획
+ * 정보입니다."), so a marker never pushes a real origin's broadcast over its time budget.
+ */
+function dataBlock(p: MessagePlan): SpokenBlock {
+  const text = dataSentence(p, '', false);
+  if (!p.input.replay || (!p.input.mock && !p.input.testData)) return { text };
+  const via = p.input.mock ? '모의 서버로 ' : '';
+  const test = p.input.testData ? '시험용 ' : '';
+  return { text, short: `${koDateSpoken(iso(p))} 기록을 ${via}재현한 ${test}${MODEL_PLAN_SPOKEN.ko}입니다.` };
+}
+
 export const KO: TemplateSet = {
   lang: 'ko',
 
@@ -343,7 +393,7 @@ export const KO: TemplateSet = {
     return [
       lmsTag(p),
       `산불 대피 계획 정보 · ${originWritten(p)}`,
-      `자료 기준: ${koDate(iso(p))} (한국 시각)`,
+      `자료 기준: ${koDate(iso(p))} (한국 시각) · ${resultSource(p.input, 'ko')}`,
       '',
       ...bodyLines(p, 'lms').map((l) => `■ ${l.text}`),
       '',
@@ -359,12 +409,15 @@ export const KO: TemplateSet = {
     const o = p.input.origin;
     const blocks: SpokenBlock[] = [];
     if (p.input.replay) blocks.push({ text: NOT_REAL.ko });
+    // a long place name is the last thing dropped (the written outputs carry it)
     blocks.push(
       o.name && o.kind === 'facility'
-        ? { text: `${o.name.ko} 직원과 이용자 여러분께 알려 드립니다.`, short: `${o.name.ko} 여러분께 알려 드립니다.` }
-        : { text: o.name ? `${o.name.ko} 주민 여러분께 알려 드립니다.` : '주민 여러분께 알려 드립니다.' },
+        ? { text: `${o.name.ko} 직원과 이용자 여러분께 알려 드립니다.`, short: `${o.name.ko} 여러분께 알려 드립니다.`, shortest: '여러분께 알려 드립니다.' }
+        : o.name
+          ? { text: `${o.name.ko} 주민 여러분께 알려 드립니다.`, shortest: '주민 여러분께 알려 드립니다.' }
+          : { text: '주민 여러분께 알려 드립니다.' },
     );
-    blocks.push({ text: dataSentence(p, '', false) });
+    blocks.push(dataBlock(p));
     const repeat: SpokenBlock | null = p.input.replay ? { optional: 'repeat', text: `다시 알려 드립니다. 실제 상황이 아닌 ${year(p)}년 기록 재현입니다.` } : null;
     if (p.kind === 'leave_by' && p.leaveByS !== null) {
       const S = koSpokenTime(t0, p.leaveByS);
@@ -429,6 +482,8 @@ export const KO: TemplateSet = {
       lines.push(`컴퓨터 예측 계산(모델)으로는 ${place}에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 ${facility(p) ? '시설' : '이장'}은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.`);
       const why = noRouteReasonSpoken(p);
       if (why) lines.push(why);
+      // what the family itself is told (as in the broadcast): follow official instructions; 119 in an emergency
+      lines.push(noRouteSpoken(p));
     } else if (p.kind === 'partial') {
       lines.push('출발 시각에 따라 컴퓨터 예측 계산 결과가 달라, 출발 시각을 하나로 알려 드리지 않습니다. 공식 대피 안내를 따라야 합니다.');
     } else {
@@ -446,7 +501,6 @@ export const KO: TemplateSet = {
     if (p.input.replay) badges.push('실제 상황 아님');
     if (p.input.mock) badges.push('MOCK');
     if (p.input.testData) badges.push('시험 데이터 · 평가 호스트 아님');
-    const cache = p.input.provenance.cacheCreatedAtIso;
     const d = p.destination;
     return {
       lang: 'ko',
@@ -471,7 +525,8 @@ export const KO: TemplateSet = {
       meta: [
         `시나리오 ${p.input.scenario.scenarioSetId}`,
         `작성 ${kstStamp(p.input.generatedAtIso)}`,
-        cache ? `사전 계산 ${kstStamp(cache)}` : null,
+        // per origin: the cache's created time, or this session's API checks and their compute host — never mixed up
+        resultSource(p.input, 'ko'),
         p.kind === 'leave_by' && d && !d.name ? `도착지 ID ${d.id}` : null,
       ]
         .filter(Boolean)

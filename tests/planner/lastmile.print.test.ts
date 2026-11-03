@@ -16,7 +16,8 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
+import { buildFieldMessages, TEMPLATES, type FieldMessages } from '../../planner/src/features/lastmile/messages';
+import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import type { CardContent } from '../../planner/src/features/lastmile/compose';
 import { loadBoothCaches, realExplanationFor, syntheticExplanationFor } from './lastmile.cachedata';
 import { estimate, type CardSize } from './lastmile.printfit';
@@ -72,7 +73,49 @@ describe('origin cards: box-model estimate (no browser needed)', () => {
     }
     expect(over).toEqual([]);
   });
+
+  it('with the longest provenance lines and badges the app can produce, every card still fits', () => {
+    const over: string[] = [];
+    for (const lang of ['ko', 'en'] as const) {
+      for (const size of ['a5', 'a4'] as const) {
+        for (const v of variantCards(lang)) {
+          const e = estimate(v.card, size);
+          if (e.usedPx > e.availablePx) over.push(`${v.id} ${lang} ${size}: ${e.usedPx.toFixed(0)} > ${e.availablePx.toFixed(0)} px`);
+        }
+      }
+    }
+    expect(over).toEqual([]);
+  }, 120_000);
 });
+
+/**
+ * Every card again with the longest provenance lines and badges the app produces — reachable
+ * combinations only (input.ts originProvenance: a live result is never test data under MOCK): a
+ * non-evaluated cache viewed with the MOCK server on (three badges; the not-checkable origins with
+ * "· 이 출발지 결과 없음"), a live result on a non-evaluated host — one host, or two (the hosts are
+ * joined with ", "; two server-class labels are the longest plausible line), a live result from the
+ * MOCK server (its recorded host, "기록된 실행 (Apple M5 Pro)" as the planner labels it), and every
+ * origin as a live origin WITHOUT an API result under MOCK (unresolved, the longest note: not
+ * checkable, "API 점검 · 이 출발지 결과 없음").
+ */
+function variantCards(lang: 'ko' | 'en'): { id: string; card: CardContent }[] {
+  const live = (host: { ko: string; en: string } | null, computed = true) => ({ source: 'live' as const, computed, cachePath: null, cacheCreatedAtIso: null, host, testHost: host });
+  const linux = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
+  const two = { ko: 'Linux aarch64 · 128 vCPU, Linux x86_64 · 64 vCPU', en: 'Linux aarch64 · 128 vCPU, Linux x86_64 · 64 vCPU' };
+  const recorded = { ko: '기록된 실행 (Apple M5 Pro)', en: 'recorded execution (Apple M5 Pro)' };
+  const variants = [
+    { name: 'cache+mock+test', over: { mock: true, testData: true } },
+    { name: 'live+test', over: { testData: true, provenance: live(linux) } },
+    { name: 'live+test two hosts', over: { testData: true, provenance: live(two) } },
+    { name: 'live+mock', over: { mock: true, provenance: live(recorded) } },
+  ];
+  const withResult = variants.flatMap((v) => items.map(({ path, fm }) => ({ id: `${v.name} ${path} ${fm.originId}`, card: TEMPLATES[lang].card({ ...fm.plan, input: { ...fm.plan.input, ...v.over } }) })));
+  const none = items.map(({ path, fm }) => {
+    const input = { ...fm.plan.input, mock: true, testData: false, provenance: live(null, false), plan: { bestVerdict: 'unresolved' as const, latestSafeDepartureS: null, contiguousSafeDepartureS: null, sweep: [], note: 'not_checkable' as const } };
+    return { id: `live no result+mock ${path} ${fm.originId}`, card: TEMPLATES[lang].card(messagePlan(input, null)) };
+  });
+  return [...withResult, ...none];
+}
 
 // ---------------------------------------------------------------- 2. real layout in Chromium
 
@@ -196,6 +239,38 @@ describe('origin cards in Chromium (print media, bundled Pretendard)', () => {
             `cards ${lang} ${size}: ${res.length} rendered, smallest free space ${minSpare.toFixed(1)} mm, smallest body ${(Math.min(...res.map((r) => r.minBodyPx)) / PT_PX).toFixed(1)} pt, smallest header/footer ${(Math.min(...res.map((r) => r.minHeadFootPx)) / PT_PX).toFixed(1)} pt`,
           );
           expect(minSpare).toBeGreaterThanOrEqual(0);
+        }
+      }
+    } finally {
+      await page.close();
+    }
+  }, 300_000);
+
+  it('the tightest cards with MOCK / test-data badges and live staff lines also fit in Chromium (and the estimate holds for them)', async (ctx) => {
+    if (!browser) {
+      ctx.skip();
+      return;
+    }
+    const page = await browser.newPage();
+    try {
+      await page.emulateMedia({ media: 'print' });
+      for (const lang of ['ko', 'en'] as const) {
+        for (const size of ['a5', 'a4'] as const) {
+          // the 60 cards with the least estimated free space (the estimate never undershoots: tested above)
+          const tight = variantCards(lang)
+            .map((v) => ({ ...v, e: estimate(v.card, size) }))
+            .sort((a, b) => a.e.availablePx - a.e.usedPx - (b.e.availablePx - b.e.usedPx))
+            .slice(0, 60);
+          await page.setContent(pageHtml(tight.map((v) => ({ card: v.card, size, id: v.id })), false), { waitUntil: 'load' });
+          await page.evaluate(`document.fonts.ready.then(() => true)`);
+          const res = await page.evaluate<{ id: string; overflowY: number; overflowX: number; minBodyPx: number; minHeadFootPx: number; spareMm: number; usedPx: number }[]>(MEASURE);
+          expect(res.length).toBe(tight.length);
+          const bad = res
+            .map((r, i) => ({ r, e: tight[i]!.e }))
+            .filter(({ r, e }) => r.overflowY > 0.5 || r.overflowX > 0.5 || r.minBodyPx < 14 * PT_PX - 0.05 || r.minHeadFootPx < 12 * PT_PX - 0.05 || r.spareMm < 0 || e.usedPx < r.usedPx - 0.5)
+            .map(({ r, e }) => `${lang} ${size} ${r.id}: estimate ${e.usedPx.toFixed(1)} ${JSON.stringify(r)}`);
+          expect(bad).toEqual([]);
+          console.info(`badge/live variants ${lang} ${size}: ${res.length} tightest rendered, smallest free space ${Math.min(...res.map((r) => r.spareMm)).toFixed(1)} mm`);
         }
       }
     } finally {

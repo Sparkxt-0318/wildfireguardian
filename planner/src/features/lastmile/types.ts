@@ -45,9 +45,14 @@ export interface LastMileInput {
   fireInputLabel: LmText;
   /** recorded scenario replay (only recorded fire inputs are supported) */
   replay: boolean;
-  /** data from the MOCK server */
+  /** data from the MOCK server (the planner's session-wide MOCK rule, state/selectors.ts isMockActive) */
   mock: boolean;
-  /** computed on a host other than the evaluated booth host */
+  /**
+   * THIS origin's result is not established as output of the evaluated host (native macOS arm64): a
+   * precomputed cache made on another host, or a result of this session's API checks whose compute
+   * host is another or unknown one (src/api/cache.ts isTestDataHost). Marked in every output ("시험
+   * 데이터 · 평가 호스트 아님"). Never set for a live origin without any API result (nothing computed).
+   */
   testData: boolean;
   scenario: {
     scenarioSetId: string;
@@ -80,9 +85,26 @@ export interface LastMileInput {
   destinations: Record<string, LmDestination>;
   /** 1-based position in the planner's urgency order */
   urgencyRank: number;
+  /** where THIS origin's result comes from — its own plan's source, never the session's */
   provenance: {
-    cacheCreatedAtIso: string | null;
+    /** 'cache': the precomputed cache on screen; 'live': checks run through the API in this session */
     source: 'cache' | 'live';
+    /**
+     * the source holds a result for THIS origin: at least one route check with a job id. false —
+     * nothing was computed for it (not computed yet, not checkable, or refused): no output calls it
+     * computed (the result source says "… · 이 출발지 결과 없음 / … · no result for this origin").
+     */
+    computed: boolean;
+    /** cache results: the cache file under planner/cache/ and its created_at */
+    cachePath: string | null;
+    cacheCreatedAtIso: string | null;
+    /** live results: the compute host(s) their route provenance reports, as the planner labels them; null when unknown */
+    host: LmText | null;
+    /**
+     * live results: those of the reported hosts that are NOT the evaluated host (the test-data note
+     * names only these); null when none of them has a label. Absent: the same as `host`.
+     */
+    testHost?: LmText | null;
   };
   /** when the messages were assembled (ISO) */
   generatedAtIso: string;

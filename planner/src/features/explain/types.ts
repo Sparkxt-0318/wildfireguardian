@@ -99,7 +99,19 @@ export interface ExplOrigin {
   shelters_next?: ExplShelter[];
   checked_at_deadline?: number;
   proven_unreachable_next?: number;
+  /** model_no_route origins: the first checked departure offset */
+  first_offset_s?: number | null;
   checks?: Record<string, boolean>;
+}
+
+/** Where tools/explain_deadlines computed the file (Python's platform.platform/system/machine and library versions). */
+export interface ExplComputedOn {
+  platform?: string;
+  system?: string;
+  machine?: string;
+  python?: string;
+  numpy?: string;
+  pyproj?: string;
 }
 
 export interface ExplFile {
@@ -116,6 +128,9 @@ export interface ExplFile {
     horizon_s?: number;
     /** scenario ids of the set (4 members) */
     members?: string[];
+    computed_on?: ExplComputedOn | null;
+    /** true only for a run on the evaluated host (generate --evaluated-host, native macOS arm64); else not an evaluated-host computation */
+    evaluated_host?: boolean;
   };
   summary: { origins: number; explained: number; explained_partial: number; not_explainable: number; by_reason: Record<string, number> };
   origins: Record<string, ExplOrigin>;

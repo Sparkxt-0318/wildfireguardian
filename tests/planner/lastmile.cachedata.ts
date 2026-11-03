@@ -12,9 +12,9 @@ import { compactUtc } from '../../planner/src/domain/clock';
 import { parseExplanationFile } from '../../planner/src/features/lastmile/explanation';
 import { cacheToModel, parseCacheIndex } from '../../planner/src/api/cache';
 import { parsePlaces, parseRegionIndex, scenarioOrigins } from '../../planner/src/data/staticData';
-import { unresolvedPlan } from '../../planner/src/domain/plan';
-import type { CacheEntry, OriginPlan } from '../../planner/src/domain/types';
-import { buildLastMileInputs, isFieldOrigin } from '../../planner/src/features/lastmile/input';
+import { planFromAttempts, unresolvedPlan } from '../../planner/src/domain/plan';
+import type { CacheEntry, HostInfo, OriginPlan, RouteDetail } from '../../planner/src/domain/types';
+import { buildLastMileInputs, isFieldOrigin, liveHostsOf, type LastMileBuildArgs } from '../../planner/src/features/lastmile/input';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import type { ExplanationFile, LastMileInput } from '../../planner/src/features/lastmile/types';
 
@@ -58,14 +58,107 @@ export function loadBoothCaches(): BoothCache[] {
       places,
       plans,
       mock: model.meta.mock,
-      testData: model.meta.testData,
+      cache: { path: entry.path, createdAtIso: model.meta.createdAt || null, testData: model.meta.testData },
+      liveHosts: {},
       source: 'cache',
-      cacheCreatedAtIso: model.meta.createdAt,
       generatedAtIso: FIXED_GENERATED_AT,
     });
     out.push({ entry, inputs, cachedOrigins, researchOrigins });
   }
   return out;
+}
+
+/**
+ * One booth cache as the app holds it in the store (CacheData, places, region entry, index entry),
+ * every scenario origin completed with an unresolved plan when it has no result — for tests that
+ * drive the store-aware connect.ts with a real cache.
+ */
+export function loadBoothCacheModel(path: string) {
+  const index = parseCacheIndex(JSON.parse(readFileSync(new URL('cache/INDEX.json', PLANNER), 'utf8')));
+  const entry = index.find((e) => e.path === path);
+  if (!entry) throw new Error(`${path} not in planner/cache/INDEX.json`);
+  const region = parseRegionIndex(JSON.parse(readFileSync(new URL('public/data/regions/index.json', PLANNER), 'utf8'))).find((r) => r.id === entry.regionId)!;
+  const model = cacheToModel(JSON.parse(readFileSync(new URL(`cache/${entry.path}`, PLANNER), 'utf8')) as Parameters<typeof cacheToModel>[0], entry);
+  const places = parsePlaces(JSON.parse(readFileSync(new URL(`public/data/regions/${entry.regionId}/places.geojson`, PLANNER), 'utf8')));
+  const plans: Record<string, OriginPlan> = { ...model.plans };
+  for (const o of scenarioOrigins(places, entry.scenarioSetId)) {
+    if (!plans[o.id]) plans[o.id] = unresolvedPlan(o.id, model.offsetsS, o.checkable ? 'not_computed' : 'not_checkable', 'cache', model.meta.mock);
+  }
+  return { entry, region, model, places, plans };
+}
+
+export type BoothCacheModel = ReturnType<typeof loadBoothCacheModel>;
+
+/**
+ * SYNTHETIC provenance: a cached plan "recomputed" through the API — the same attempts under new job
+ * ids whose routes report `host` (a function: the host of the n-th departure time; null: routes
+ * without provenance). The verdicts stay the cache's; only where they come from changes.
+ */
+export function reliveOnHost(m: BoothCacheModel, plan: OriginPlan, host: HostInfo | null | ((cell: number) => HostInfo), tag: string): { plan: OriginPlan; routes: Record<string, RouteDetail> } {
+  const routes: Record<string, RouteDetail> = {};
+  const skipped = Object.fromEntries(plan.sweep.filter((c) => c.skipped).map((c) => [c.offsetS, c.skipped!]));
+  const attempts = plan.sweep.flatMap((c, cell) =>
+    c.attempts.map((a, k) => {
+      const jobId = `${tag}:${plan.originId}:${cell}:${k}`;
+      const h = typeof host === 'function' ? host(cell) : host;
+      routes[jobId] = { jobId, mock: false, provenance: h ? { host: h } : null } as unknown as RouteDetail;
+      return { ...a, jobId };
+    }),
+  );
+  return { plan: planFromAttempts({ originId: plan.originId, offsetsS: m.model.offsetsS, attempts, source: 'live', mock: false, skipped }), routes };
+}
+
+/** Origins of a live session that have no API result, by how the controller stores them. */
+export interface NoResultOrigins {
+  /** not computed yet (completePlans before a batch result arrives) */
+  notComputed?: string[];
+  /** refused by the API (runDispatchGroups: a rejected origin) */
+  rejected?: string[];
+  /** every check failed before a job existed (recompute: attempts without a job id) */
+  failed?: string[];
+}
+
+/**
+ * A SYNTHETIC live-only session over a real booth cache — no precomputed cache on screen, the Docker
+ * front door's case: every origin the cache computed is "recomputed" on `host` (reliveOnHost); a
+ * not-checkable origin is stored as the controller completes a live session (unresolved, source
+ * live); the ids in `none` get no API result in the way named there.
+ */
+export function liveOnlySession(m: BoothCacheModel, host: HostInfo, tag: string, none: NoResultOrigins = {}): { plans: Record<string, OriginPlan>; routes: Record<string, RouteDetail> } {
+  const plans: Record<string, OriginPlan> = {};
+  const routes: Record<string, RouteDetail> = {};
+  for (const [id, p] of Object.entries(m.plans)) {
+    if (none.notComputed?.includes(id)) plans[id] = unresolvedPlan(id, m.model.offsetsS, 'not_computed', 'live', false);
+    else if (none.rejected?.includes(id)) {
+      const r = unresolvedPlan(id, m.model.offsetsS, 'rejected', 'live', false);
+      r.rejectReason = { code: 'SYNTHETIC_REFUSAL', message: 'SYNTHETIC: refused by the API' };
+      plans[id] = r;
+    } else if (none.failed?.includes(id)) {
+      const attempts = p.sweep.flatMap((c) => c.attempts).map((a) => ({ ...a, verdict: 'unresolved' as const, arrivalS: null, computeS: null, jobId: null, reasonCode: 'BUSY', rawStatus: 'SYNTHETIC: the API was busy' }));
+      plans[id] = planFromAttempts({ originId: id, offsetsS: m.model.offsetsS, attempts, source: 'live', mock: false });
+    } else if (p.sweep.some((c) => c.attempts.length)) {
+      const live = reliveOnHost(m, p, host, tag);
+      plans[id] = live.plan;
+      Object.assign(routes, live.routes);
+    } else plans[id] = { ...p, source: 'live' };
+  }
+  return { plans, routes };
+}
+
+/** Build arguments of a live-only session as connect.ts makes them (no cache; hosts from the routes). */
+export function liveOnlyArgs(m: BoothCacheModel, session: { plans: Record<string, OriginPlan>; routes: Record<string, RouteDetail> }, mock = false): LastMileBuildArgs {
+  const liveHosts = Object.fromEntries(Object.entries(session.plans).map(([id, p]) => [id, liveHostsOf(p, (j) => session.routes[j] ?? null)]));
+  return {
+    region: { id: m.region.id, nameKo: m.region.nameKo, nameEn: m.region.nameEn, fireYear: m.region.fireYear },
+    scenario: { scenarioSetId: m.entry.scenarioSetId, inputTimeIso: m.entry.inputTime, horizonS: m.model.horizonS ?? 3600 },
+    places: m.places,
+    plans: session.plans,
+    mock,
+    cache: null,
+    liveHosts,
+    source: 'live',
+    generatedAtIso: FIXED_GENERATED_AT,
+  };
 }
 
 /** A made-up road name exactly as long as the reader accepts (MAX_LABEL_CHARS = 40) in both languages. Tests only. */

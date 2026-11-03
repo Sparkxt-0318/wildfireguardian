@@ -18,7 +18,7 @@ import {
   SMS_KO_MAX_BYTES,
   spokenSeconds,
 } from '../../planner/src/features/lastmile/encoding';
-import { cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime } from '../../planner/src/features/lastmile/compose';
+import { arrivalShown, assembleSpoken, cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime, type SpokenBlock } from '../../planner/src/features/lastmile/compose';
 import {
   approxDistance,
   clearExplanationCache,
@@ -30,10 +30,10 @@ import {
   usableItem,
 } from '../../planner/src/features/lastmile/explanation';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
-import { allTexts, buildFieldMessages, enabledLangs, TEMPLATES } from '../../planner/src/features/lastmile/messages';
-import { checkFieldMessages, clockTimes, maskData } from '../../planner/src/features/lastmile/checks';
+import { allTexts, buildFieldMessages, enabledLangs, outputOk, TEMPLATES } from '../../planner/src/features/lastmile/messages';
+import { checkFieldMessages, clockTimes, markerWords, maskData } from '../../planner/src/features/lastmile/checks';
 import { fieldMessagesCSV, fieldMessagesFileName, LASTMILE_CSV_COLUMNS } from '../../planner/src/features/lastmile/csv';
-import { FORBIDDEN, LANGUAGES, MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST, RESIDENT_119_NOW, SHIPPED_LANGS } from '../../planner/src/features/lastmile/strings';
+import { FORBIDDEN, LANGUAGES, MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST, requiredPhrases, RESIDENT_119_NOW, SHIPPED_LANGS, UI } from '../../planner/src/features/lastmile/strings';
 import { cells, EXIT, ITEM, SYN_IDS, SYN_INPUT_TIME, SYN_NO_ROUTE_ID, SYN_REGION, SYN_SET, synExplanation, synInput, synNoLater, synNoRoute, synUnresolved, withEntry, withId } from './lastmile.fixture';
 
 const EXPECT = { regionId: SYN_REGION, inputTimeIso: SYN_INPUT_TIME, scenarioSetId: SYN_SET };
@@ -71,6 +71,15 @@ describe('lengths: EUC-KR bytes, GSM-7, spoken time', () => {
     expect(koSpokenSyllables('새벽 2시 20분')).toBe(7); // 새벽 두시 이십분
   });
 
+  it('assembles a spoken script: required blocks take their short wording block by block, then the shortest; optional ones only while they fit', () => {
+    // English: 2 words per second
+    const blocks: SpokenBlock[] = [{ text: 'a b c d e f', short: 'a b c', shortest: 'a' }, { text: 'g h i j', short: 'g h' }, { text: 'k', optional: 'reason' }];
+    expect(assembleSpoken(blocks, 'en', 5.5)).toBe('a b c d e f\ng h i j\nk');
+    expect(assembleSpoken(blocks, 'en', 4)).toBe('a b c\ng h i j\nk');
+    expect(assembleSpoken(blocks, 'en', 2.5)).toBe('a b c\ng h');
+    expect(assembleSpoken(blocks, 'en', 1.5)).toBe('a\ng h');
+  });
+
   it('counts English words pessimistically (every digit is a word; a.m./p.m. two)', () => {
     expect(enSpokenWords('Leave by 6:40 p.m.')).toBe(2 + 3 + 2);
     expect(enSpokenWords('Call 119 now.')).toBe(1 + 3 + 1);
@@ -92,6 +101,25 @@ describe('time wording (KST)', () => {
     expect(koSmsDate(SYN_INPUT_TIME)).toBe('25.3.24 18:00');
     expect(koDateSpoken(SYN_INPUT_TIME)).toBe('2025년 3월 24일 오후 6시');
     expect(enDateSpoken(SYN_INPUT_TIME)).toBe('March 24, 2025, 6 p.m.');
+  });
+
+  it('shows the arrival from one rounding: clock rounded up to the minute, minutes = shown arrival − departure', () => {
+    // 10:10 KST + 2,575 s (42 min 55 s): 10:53, 43 min (never "10:52 … 43 min")
+    expect(arrivalShown('2025-03-23T01:00:00Z', 600, 600 + 2575)).toEqual({ hm: '10:53', min: 43 });
+    // 18:10 KST departure, arrival 1,531 s after the input time (18:25:31): 18:26, 16 min
+    expect(arrivalShown(SYN_INPUT_TIME, 600, 1531)).toEqual({ hm: '18:26', min: 16 });
+    // an arrival on the minute stays on it; across midnight the minutes still count
+    expect(arrivalShown(SYN_INPUT_TIME, 1800, 3300)).toEqual({ hm: '18:55', min: 25 });
+    expect(arrivalShown('2025-03-25T14:30:00Z', 1200, 1200 + 1801)).toEqual({ hm: '00:21', min: 31 });
+    const shifted = cells(['checked_route', 'checked_route', 'checked_route', 'checked_route', 'model_no_route', 'model_no_route']).map((c) => ({
+      ...c,
+      attempts: c.attempts.map((a) => (a.arrivalS === null ? a : { ...a, arrivalS: a.arrivalS + 31 })),
+    }));
+    const fm = buildFieldMessages(synInput({ plan: { ...synInput().plan!, sweep: shifted } }));
+    expect(fm.text.ko.lms).toContain('18:30에 출발하면 18:56쯤 도착합니다(차로 약 26분, 교통 정체 미반영).');
+    expect(fm.text.en.lms).toContain('Leaving at 18:30, arrival around 18:56 KST (about 26 min by car; traffic not included).');
+    expect(cardText(fm.text.ko.card)).toContain('18:30 출발 시 18:56쯤 도착(차로 약 26분');
+    expect(cardText(fm.text.en.card)).toContain('leave 18:30, arrive around 18:56 (about 26 min by car');
   });
 
   it('finds the clock times a text names (date-time stamps excluded)', () => {
@@ -139,6 +167,28 @@ describe('message plan per verdict', () => {
     expect(p.kind).toBe('leave_by');
     expect(p.leaveByS).toBe(1200);
     expect(p.after).toBe('gap');
+  });
+
+  it('a gap time may have been checked (no route in the model): the texts say "no checked route", never "not checked"', () => {
+    const fm = buildFieldMessages(
+      synInput({
+        plan: {
+          bestVerdict: 'checked_route',
+          latestSafeDepartureS: 3000,
+          contiguousSafeDepartureS: 1200,
+          sweep: cells(['checked_route', 'checked_route', 'checked_route', 'model_no_route', 'checked_route', 'checked_route']),
+          note: null,
+        },
+      }),
+    );
+    expect(fm.violations).toEqual([]);
+    expect(fm.plan.after).toBe('gap');
+    expect(fm.text.ko.lms).toContain('18:20 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 18:20까지의 출발만 다룹니다.');
+    expect(fm.text.en.lms).toContain('Some departure times after 18:20 have no checked route in the model, so this message covers departures up to 18:20 only.');
+    expect(fm.text.en.card.lines.map((l) => l.text)).toContain('Some departure times after 18:20 have no checked route; this card covers up to 18:20.');
+    expect(fm.text.ko.call).toContain('그 뒤에는 컴퓨터 예측 계산으로 확인된 길이 없는 출발 시각이 있습니다.');
+    expect(fm.text.en.call).toContain('Some later departure times have no checked route.');
+    for (const t of texts(fm)) expect(t).not.toMatch(/확인되지 않은|확인되지 않았|not checked|could not be checked|not confirmed/);
   });
 
   it('no contiguous basis (the first departure time is not checked) → partial, no departure time', () => {
@@ -275,6 +325,30 @@ describe('templates per verdict', () => {
     expect(unnamed.text.ko.broadcast).toContain('이름 없는 학교까지 가는 길이');
   });
 
+  it('English spoken outputs never read a Hangul name: generic wording when OSM has no Latin-script name', () => {
+    const base = synInput();
+    const hangulOnly = {
+      ...base,
+      origin: { ...base.origin, name: { ko: '합성마을', en: '합성마을' }, display: { ko: '합성마을', en: '합성마을' } },
+      destinations: { ...base.destinations, 'syn:dest:a': { ...base.destinations['syn:dest:a']!, name: { ko: '합성초등학교', en: '합성초등학교' }, display: { ko: '합성초등학교', en: '합성초등학교' } } },
+    };
+    const fm = buildFieldMessages(hangulOnly);
+    expect(fm.violations).toEqual([]);
+    for (const k of ['broadcast', 'call'] as const) expect(fm.text.en[k]).not.toMatch(/[ㄱ-ㆎ가-힣]/);
+    expect(fm.text.en.call).toContain('I am calling the family of [resident name] about the wildfire evacuation plan.');
+    // the caller fills the name in from the card ([brackets]); the family has no card to look at
+    expect(fm.text.en.call).toContain('no later than 6:30 p.m. gives a checked route to [destination name from the card].');
+    expect(fm.text.en.call).not.toContain('named on the card');
+    expect(fm.text.en.broadcast).toContain('Attention, residents.');
+    // written English (long text, card) still names the place as the map data has it
+    expect(fm.text.en.lms).toContain('합성초등학교');
+    const fac = buildFieldMessages({ ...hangulOnly, origin: { ...hangulOnly.origin, kind: 'facility', category: { ko: '요양시설', en: 'Nursing home' } } });
+    for (const k of ['broadcast', 'call'] as const) expect(fac.text.en[k]).not.toMatch(/[ㄱ-ㆎ가-힣]/);
+    expect(fac.text.en.call).toContain('Hello, this is [staff name] from the nursing home.');
+    // a Latin-script name is still read out
+    expect(buildFieldMessages(base).text.en.call).toContain('who lives in Hapseong-ri');
+  });
+
   it('no_route: contact 119 / 읍·면사무소 now and follow official instructions — no departure time, no tactical advice', () => {
     const fm = buildFieldMessages(synNoRoute());
     expect(fm.violations).toEqual([]);
@@ -286,6 +360,12 @@ describe('templates per verdict', () => {
     expect(fm.text.ko.broadcast).toContain('이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
     expect(fm.text.ko.call).toContain('이런 결과라면 이장은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.');
     expect(fm.text.en.broadcast).toContain('Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.');
+    // the family call script tells the family itself what to do, as the broadcast does
+    expect(fm.text.ko.call).toContain('이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
+    expect(fm.text.en.call).toContain('Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.');
+    const fac = buildFieldMessages({ ...synNoRoute(), origin: { ...synNoRoute().origin, kind: 'facility', category: { ko: '요양시설', en: 'Care home' } } });
+    expect(fac.text.ko.call).toContain('시설과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
+    expect(fac.text.en.call).toContain('Follow official instructions from the facility and the eup/myeon office. In an emergency, call 119.');
     for (const l of ['ko', 'en'] as const) for (const t of [fm.text[l].sms, fm.text[l].broadcast, fm.text[l].call]) expect(t).not.toMatch(RESIDENT_119_NOW[l]);
     expect(fm.text.ko.card.statusIcon).toBe('model_no_route');
     expect(fm.text.ko.card.big).toBeNull();
@@ -318,20 +398,51 @@ describe('templates per verdict', () => {
     }
   });
 
-  it('MOCK and test data are marked in every output; the Korean SMS still fits 90 bytes', () => {
-    for (const flags of [{ mock: true }, { testData: true }]) {
+  it('MOCK and test data are marked in every output (both when both apply); the Korean SMS still fits 90 bytes', () => {
+    const tags = { mock: ['[25.3.24 18:00 MOCK]', 'MOCK REPLAY of'], test: ['[25.3.24 18:00 시험자료]', 'TEST REPLAY of'], both: ['[25.3.24 18:00 MOCK시험]', 'MOCK TEST REPLAY of'] };
+    for (const [name, flags] of [['mock', { mock: true }], ['test', { testData: true }], ['both', { mock: true, testData: true }]] as const) {
       for (const input of [synInput(flags), { ...synNoRoute(), ...flags }, { ...synUnresolved(), ...flags }]) {
         const fm = buildFieldMessages(input);
         expect(fm.violations).toEqual([]);
-        const word = 'mock' in flags ? 'MOCK' : '시험';
-        expect(fm.text.ko.sms).toContain(word);
-        expect(fm.text.ko.lms).toContain(word === 'MOCK' ? 'MOCK' : '시험 데이터');
-        expect(fm.text.en.sms.split('\n')[0]).toContain(word === 'MOCK' ? 'MOCK REPLAY' : 'TEST REPLAY');
-        expect(fm.text.ko.sms.split('\n')[0]).toContain(word);
+        expect(fm.text.ko.sms.split('\n')[0]).toBe(tags[name][0]);
+        expect(fm.text.en.sms.split('\n')[0]).toContain(tags[name][1]);
+        for (const l of ['ko', 'en'] as const) {
+          for (const kind of ['sms', 'lms', 'broadcast', 'call', 'card'] as const) {
+            const text = allTexts(fm, l)[kind].toLowerCase();
+            for (const w of markerWords(kind, l, 'mock' in flags, 'testData' in flags)) expect(text, `${l}.${kind}`).toContain(w.toLowerCase());
+          }
+        }
         expect(fm.metrics.ko.smsUnits).toBeLessThanOrEqual(SMS_KO_MAX_BYTES);
         expect(fm.metrics.en.smsUnits).toBeLessThanOrEqual(SMS_EN_MAX_GSM7);
       }
     }
+  });
+
+  it('a marker never pushes a broadcast over 60 s: the data sentence keeps it in fewer words; a long place name is dropped last', () => {
+    // the 용상3구경로당 case (a facility whose plain broadcast reads in exactly 60 s) and worse: two-digit
+    // dates, a far entry point, a long facility name and a long village name, both markers
+    const base = synInput({ scenario: { scenarioSetId: SYN_SET, inputTimeIso: '2025-12-24T14:59:00Z', horizonS: 3600 } });
+    const longVillage = '합성마을가나다라마바사아자차카타파하';
+    const facility = { ...base.origin, kind: 'facility' as const, name: { ko: '합성군노인복지관부설재가노인복지센터', en: '합성군노인복지관부설재가노인복지센터' }, display: { ko: '합성군노인복지관부설재가노인복지센터', en: '합성군노인복지관부설재가노인복지센터' }, category: { ko: '사회복지시설', en: 'Social facility' }, entryDistanceM: 1999 };
+    const village = { ...base.origin, name: { ko: longVillage, en: 'Hapseong-garanadaramabasa-ri' }, display: { ko: longVillage, en: 'Hapseong-garanadaramabasa-ri' }, entryDistanceM: 1999 };
+    for (const origin of [facility, village]) {
+      for (const flags of [{ mock: true }, { testData: true }, { mock: true, testData: true }]) {
+        const fm = buildFieldMessages({ ...base, origin, ...flags });
+        expect(fm.violations, JSON.stringify(flags)).toEqual([]);
+        expect(spokenSeconds(fm.text.ko.broadcast, 'ko')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+        expect(spokenSeconds(fm.text.en.broadcast, 'en')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+      }
+    }
+    // the short data sentence keeps every marker in one sentence (used here in Korean)
+    const both = buildFieldMessages({ ...base, origin: facility, mock: true, testData: true });
+    expect(both.text.ko.broadcast).toContain('2025년 12월 24일 밤 11시 59분 기록을 모의 서버로 재현한 시험용 모델 기반 계획 정보입니다.');
+    expect(TEMPLATES.en.broadcastBlocks(both.plan)[2]!.short).toBe(
+      'This is model-based planning information from a replay of recorded wildfire data, December 24, 2025, 11:59 p.m. Korea time; mock server test results.',
+    );
+    // the long name goes last: the shortest greeting
+    expect(both.text.ko.broadcast.split('\n')[1]).toBe('여러분께 알려 드립니다.');
+    // without markers the wording is unchanged (no short form needed)
+    expect(buildFieldMessages(synInput()).text.ko.broadcast).toContain('2025년 3월 24일 오후 6시 기록을 재현한 모델 기반 계획 정보입니다.\n');
   });
 
   it('worst-case dates (two-digit month and day) and long names still fit every limit', () => {
@@ -401,10 +512,10 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     expect(fm.violations).toEqual([]);
     expect(fm.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 3, kMin: 1, n: 4, atStart: false });
     expect(fm.text.ko.lms).toContain(
-      '이유: 이 마을에서 차로 빠져나갈 수 있는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).',
+      '이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).',
     );
     expect(fm.text.en.lms).toContain(
-      'Why: all 3 roads out of this village by car (Hapseong-ro, Route 7, an unnamed road) are blocked by flames within 1 hour of the data time (on each road, in at least 1 of 4 fire scenarios from the forecast).',
+      'Why: all 3 roads leading out of the area reachable by car from this village without meeting flames (Hapseong-ro, Route 7, an unnamed road) are blocked by flames within 1 hour of the data time (on each road, in at least 1 of 4 fire scenarios from the forecast).',
     );
     for (const t of texts(fm)) expect(clockTimes(maskData(t, fm.inserted)).every((c) => c === '18:00')).toBe(true);
     expect(clockTimes('ffb1:20250324T090000Z')).toEqual([]);
@@ -415,29 +526,29 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     expect(one.violations).toEqual([]);
     expect(one.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 1, kMin: 4, atStart: true });
     // P2's label semantics: a nearby place and the straight-line distance to it ("this village" for the origin)
-    expect(one.text.ko.lms).toContain('이유: 이 마을에서 차로 빠져나갈 수 있는 길은 1곳(이 마을에서 약 800 m 떨어진 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
-    expect(one.text.en.lms).toContain('Why: the only road out of this village by car (a road about 800 m from this village) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
+    expect(one.text.ko.lms).toContain('이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길은 1곳(이 마을에서 약 800 m 떨어진 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
+    expect(one.text.en.lms).toContain('Why: the only road leading out of the area reachable by car from this village without meeting flames (a road about 800 m from this village) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
     const dup = buildFieldMessages(synNoRoute(SYN_IDS.exitDup), synExplanation());
     expect(dup.violations).toEqual([]);
     expect(dup.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 2, atStart: true });
-    expect(dup.text.ko.lms).toContain('길 2곳(둘 다 옆마을에서 약 800 m 떨어진 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
-    expect(dup.text.en.lms).toContain('Why: the 2 roads out of this village by car (both about 800 m from Yeop-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
+    expect(dup.text.ko.lms).toContain('구역을 벗어나는 길 2곳(둘 다 옆마을에서 약 800 m 떨어진 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
+    expect(dup.text.en.lms).toContain('Why: the 2 roads leading out of the area reachable by car from this village without meeting flames (both about 800 m from Yeop-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
     // roads near the same place at different distances: one merged label
     const place = buildFieldMessages(synNoRoute(SYN_IDS.exitPlace), synExplanation());
     expect(place.violations).toEqual([]);
-    expect(place.text.ko.lms).toContain('길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다');
-    expect(place.text.en.lms).toContain('Why: both roads out of this village by car (roads about 700 m and 1.5 km from this village) are already blocked by flames at the data time');
+    expect(place.text.ko.lms).toContain('구역을 벗어나는 길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다');
+    expect(place.text.en.lms).toContain('Why: both roads leading out of the area reachable by car from this village without meeting flames (roads about 700 m and 1.5 km from this village) are already blocked by flames at the data time');
     // no_flame_avoiding_route for a model_no_route origin (cause: flames)
     const win = buildFieldMessages(synNoRoute(SYN_IDS.noRouteWindow), synExplanation());
     expect(win.violations).toEqual([]);
     expect(win.reason).toEqual({ kind: 'no_route_flames' });
-    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
+    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.');
     // window for a model_no_route origin (cause: time window) — never a fire reason
     const time = buildFieldMessages(synNoRoute(SYN_IDS.noRouteTime), synExplanation());
     expect(time.violations).toEqual([]);
     expect(time.reason).toEqual({ kind: 'no_route_time_window' });
-    expect(time.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 불길이 없더라도 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
-    expect(time.text.en.lms).toContain('Why: from every departure time checked, no destination can be reached and the stay finished within the 1-hour data range, even without fire.');
+    expect(time.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 불길이 없더라도 점검한 도착지(후보 대피소) 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.');
+    expect(time.text.en.lms).toContain('Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the 1-hour data range, even without fire.');
     // all_exits_blocked / entry_point_in_flame
     const entry = buildFieldMessages(synNoRoute(SYN_IDS.entryInFlame), synExplanation());
     expect(entry.violations).toEqual([]);
@@ -451,12 +562,23 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const free = buildFieldMessages(withId(synInput(), SYN_IDS.windowFree), ex);
     expect(free.violations).toEqual([]);
     expect(free.reason).toEqual({ kind: 'time_window' });
-    // the file proves only that the NEXT checked departure (18:40) fails, and the line says exactly that
-    expect(free.text.ko.lms).toContain('다음 점검 시각인 18:40에 출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
-    expect(free.text.en.lms).toContain('Leaving at the next checked time, 18:40, the trip cannot finish within the 1-hour data range, so later departures were not checked; this time was not set by fire.');
+    // the file proves that the NEXT checked departure (18:40) fails for every destination checked even
+    // without fire; the later departures WERE checked (model_no_route in the sweep): the time is a
+    // leave-by time, never "the last departure checked", and no text says later times were not checked
+    expect(free.text.ko.lms).toContain(
+      '다음 점검 시각인 18:40에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. 18:30보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.',
+    );
+    expect(free.text.en.lms).toContain(
+      'Leaving at the next checked time, 18:40, none of the destinations checked can be reached and the stay finished within the 1-hour data range, even without fire; departures after 18:30 have no checked route in the model; this time was not set by fire.',
+    );
     expect(free.text.ko.broadcast + free.text.ko.call).not.toMatch(/18:30보다 늦은 출발은 .*도착할 수 없/);
-    expect(free.text.ko.card.big?.label).toBe('점검한 마지막 출발');
-    expect(free.text.en.card.big?.label).toBe('Checked up to');
+    // spoken as the written line says it (both languages agree): later departures have no checked route
+    expect(free.text.ko.call).toContain('그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
+    expect(free.text.en.call).toContain('Later departures have no checked route; this time was not set by fire.');
+    expect(free.text.ko.card.big?.label).toBe('출발 마감');
+    expect(free.text.en.card.big?.label).toBe('Leave by');
+    // never "not checked" — nor the Korean "확인되지 않았습니다", which is heard as 미확인 (unresolved)
+    for (const t of texts(free)) expect(t).not.toMatch(/점검하지 (못했|않았)|점검한 마지막|확인되지 않았|확인되지 않은|not checked|not confirmed|Checked up to/);
     // the cause is not established (explained_partial): no "not a fire" claim, the neutral line stays
     const mixed = buildFieldMessages(withId(synInput(), SYN_IDS.windowMixed), ex);
     expect(mixed.reason).toBeNull();
@@ -467,14 +589,14 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
       const detour = buildFieldMessages(withId(synInput(), id), ex);
       expect(detour.violations).toEqual([]);
       expect(detour.reason).toEqual({ kind: 'no_flame_avoiding_route' });
-      expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.');
+      expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다.');
       expect(detour.text.en.lms).toContain(
-        'Why: leaving at the next checked time, 18:40, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.',
+        'Why: leaving at the next checked time, 18:40, none of the destinations checked (candidate shelters) can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.',
       );
       expect(detour.text.ko.card.big?.label).toBe('출발 마감');
       // spoken: the next checked time is named
-      expect(detour.text.ko.call).toContain('다음 점검 시각인 오후 6시 40분에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.');
-      expect(detour.text.en.call).toContain('Leaving at the next checked time, 6:40 p.m., no destination can be reached in time on a road that avoids the flames in the forecast.');
+      expect(detour.text.ko.call).toContain('다음 점검 시각인 오후 6시 40분에 출발하면 점검한 도착지 중 산불 예측상 불길을 피하는 길로 제시간에 닿을 수 있는 곳이 없습니다.');
+      expect(detour.text.en.call).toContain('Leaving at the next checked time, 6:40 p.m., none of the destinations checked can be reached in time on a road that avoids the flames in the forecast.');
     }
     // dwell_at_destination (always explained_partial): the binding item on the message's destination
     const dwell = buildFieldMessages(withId(synInput(), SYN_IDS.dwell), ex);
@@ -588,6 +710,29 @@ describe('rule checks (fail closed)', () => {
     const long = structuredClone(fm);
     long.metrics.ko.smsUnits = 91;
     expect(checkFieldMessages(long).join()).toContain('91 bytes > 90');
+    // a MOCK / test-data origin whose output lost its marker
+    const mock = buildFieldMessages({ ...synNoRoute(), mock: true, testData: true });
+    expect(mock.violations).toEqual([]);
+    const lost = structuredClone(mock);
+    lost.text.ko.broadcast = lost.text.ko.broadcast.replace(' 모의 서버 자료입니다.', '');
+    lost.text.en.card.badges = lost.text.en.card.badges.filter((b) => !b.startsWith('Test data'));
+    expect(checkFieldMessages(lost)).toEqual(['ko.broadcast: missing the MOCK / test-data marker "모의 서버"', 'en.card: missing the MOCK / test-data marker "test data"']);
+  });
+
+  it('every violation names its output (the panel and the CSV withhold only that output)', () => {
+    const fm = buildFieldMessages(synNoRoute());
+    const copy = structuredClone(fm);
+    copy.text.ko.call += '\n19:10까지 출발하십시오.';
+    copy.metrics.en.smsUnits = 161;
+    const v = checkFieldMessages(copy);
+    expect(v.length).toBeGreaterThan(1);
+    for (const x of v) expect(x).toMatch(/^(ko|en)\.(sms|lms|broadcast|call|card): /);
+    const failed = { ...copy, violations: v };
+    expect(outputOk(failed, 'ko', 'call')).toBe(false);
+    expect(outputOk(failed, 'en', 'sms')).toBe(false);
+    for (const [l, k] of [['ko', 'sms'], ['ko', 'lms'], ['ko', 'broadcast'], ['ko', 'card'], ['en', 'call'], ['en', 'card']] as const) expect(outputOk(failed, l, k), `${l}.${k}`).toBe(true);
+    // a violation that names no output blocks every output
+    expect(outputOk({ ...fm, violations: ['inconsistent plan'] }, 'ko', 'sms')).toBe(false);
   });
 
   it('a place name from the data is masked: a village called "안전마을" does not trip the word check', () => {
@@ -608,12 +753,81 @@ describe('CSV of every message (per region / input time)', () => {
     expect(csv).toContain('"[25.3.24 18:00 기록재현]\n모델상 18:30까지 차로 출발\n공식명령 우선·실시간 아님"');
     expect(csv).toContain('한국어: 원어민·현장 검토 전 · English: 원어민·현장 검토 전');
     expect(csv.endsWith('\r\n')).toBe(true);
-    // a text that fails a rule check is never exported
+    // a text that fails a rule check is never exported; the origin's other texts are (fail closed per output)
     const failing = { ...items[1]!, violations: ['ko.sms: 91 bytes > 90'] };
     const out = fieldMessagesCSV([failing], { lang: 'ko' });
     expect(out).toContain('검사 실패 — 사용 금지: ko.sms: 91 bytes > 90');
     expect(out).not.toContain('모델상 18:30까지 차로 출발');
+    expect(out).toContain('18:30(오후 6시 30분)까지 차로 출발하십시오.');
+    expect(out).toContain('REPLAY of 2025-03-24 18:00 KST data, not live');
+    // a violation that names no output: no text at all
+    const blocked = fieldMessagesCSV([{ ...items[1]!, violations: ['inconsistent plan'] }], { lang: 'ko' });
+    expect(blocked).not.toContain('차로 출발');
+    expect(blocked).not.toContain('REPLAY');
+    // the planner footer still ends the row (its own column), although every long text is withheld
+    expect(blocked).not.toContain('■');
+    expect(blocked.split('\r\n')[1]!.endsWith(',사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.')).toBe(true);
+    for (const r of csv.split('\r\n').slice(1, 4)) expect(r.endsWith(',사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.')).toBe(true);
+    expect(fieldMessagesCSV([items[1]!], { lang: 'en' }).split('\r\n')[1]!.endsWith(',Planning aid only — not for live evacuation operations.')).toBe(true);
     expect(fieldMessagesFileName(synInput({ mock: true }))).toBe('wfg_synthetic_region_20250324T090000Z_field_messages_MOCK.csv');
+  });
+
+  it('every row carries its own result source; a reason line names the explanation file it comes from', () => {
+    const rows = fieldMessagesCSV([buildFieldMessages(synInput(), synExplanation()), buildFieldMessages(synUnresolved(), synExplanation())].map((fm, i) => ({ ...fm, urgencyRank: i + 1 })), { lang: 'ko' }).split('\r\n');
+    const head = rows[0]!.slice(1).split(',');
+    const col = (name: string) => head.indexOf(name);
+    expect(col('결과 출처')).toBe(col('시험 데이터') + 1);
+    expect(col('이유 자료')).toBe(col('결과 출처') + 1);
+    for (const r of rows.slice(1, 3)) expect(r).toContain(',사전 계산 캐시 · synthetic_region/20250324T090000Z.json · 2026-10-18 07:54 KST,');
+    // with a reason line: the file (and its code commit); without one: empty
+    expect(rows[1]).toContain(',synthetic_region__20250324T090000Z.json (wfg.explanation/1 · 코드 커밋 synthetic),');
+    expect(rows[2]).toContain('2026-10-18 07:54 KST,,');
+    const en = fieldMessagesCSV([buildFieldMessages(synInput(), synExplanation())], { lang: 'en' });
+    expect(en).toContain(',Precomputed cache · synthetic_region/20250324T090000Z.json · 2026-10-18 07:54 KST,synthetic_region__20250324T090000Z.json (wfg.explanation/1 · code commit synthetic),');
+    // the long text says it too (the card's staff line already did)
+    expect(buildFieldMessages(synInput()).text.ko.lms).toContain('자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST');
+    expect(buildFieldMessages(synInput()).text.en.lms).toContain('Data time: 2025-03-24 18:00 KST · Precomputed 2026-10-18 07:54 KST');
+  });
+});
+
+describe('panel wording claims no more than the outputs carry', () => {
+  it('the model_no_route label keeps "in the model"', () => {
+    expect(UI.kindLabel.no_route).toEqual({ ko: '모델상 경로 없음 · 즉시 연락', en: 'No route in the model · contact now' });
+    expect(fieldMessagesCSV([buildFieldMessages(synNoRoute())], { lang: 'ko' })).toContain(',모델상 경로 없음,모델상 경로 없음 · 즉시 연락,');
+    expect(fieldMessagesCSV([buildFieldMessages(synNoRoute())], { lang: 'en' })).toContain(',No route in the model,No route in the model · contact now,');
+  });
+
+  it('the dialog lead names exactly what each output is checked to carry (verbatim / short forms / spoken)', () => {
+    const strip = (s: string) => s.replace(/\.$/, '');
+    for (const l of ['ko', 'en'] as const) {
+      const lead = UI.dialogLead[l];
+      // verbatim in the long text and the card (the checks require exactly these)
+      expect(requiredPhrases('lms', l, true)).toEqual([OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]);
+      expect(requiredPhrases('card', l, true)).toEqual([OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]);
+      expect(lead).toContain(strip(OFFICIAL_FIRST[l]));
+      expect(lead).toContain(MODEL_NOT_LIVE[l]);
+      // the SMS short forms, as the checks require them
+      for (const phrase of requiredPhrases('sms', l, true)) expect(lead).toContain(`"${phrase}"`);
+      // spoken: a replay broadcast says "not a real situation" instead of "not live"
+      expect(requiredPhrases('broadcast', l, true)).toContain(NOT_REAL[l]);
+      expect(lead).toContain(l === 'ko' ? '실제 상황이 아닙니다' : strip(NOT_REAL[l]));
+    }
+    // and each output really carries them (synthetic leave_by, no_route, unresolved)
+    for (const input of [synInput(), synNoRoute(), synUnresolved()]) {
+      const fm = buildFieldMessages(input);
+      for (const l of ['ko', 'en'] as const) {
+        const t = allTexts(fm, l);
+        for (const k of ['lms', 'card'] as const) for (const phrase of [OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]) expect(t[k]).toContain(phrase);
+        for (const phrase of requiredPhrases('sms', l, true)) expect(t.sms).toContain(phrase);
+        for (const k of ['broadcast', 'call'] as const) expect(t[k]).toContain(OFFICIAL_FIRST[l]);
+      }
+    }
+  });
+
+  it('research panel origins: named for what the data shows (no claim about who lives there)', () => {
+    expect(UI.researchNote.ko).toContain('기록 임무의 출발 도로 지점 — 마을·돌봄 시설이 아님');
+    expect(UI.researchNote.en).toContain("a recorded mission's start road node, not a village or care facility");
+    for (const l of ['ko', 'en'] as const) expect(UI.researchNote[l]).not.toMatch(/주민이 사는|사람이 살|nobody|no one lives|lives there/i);
   });
 });
 
@@ -668,14 +882,14 @@ describe('synthetic snapshots (both languages)', () => {
       Why: in 2 of 4 fire scenarios from the forecast, flames reach Hapseong-ro around 18:45.
       Follow official guidance on where to go. No car or need help? Tell the village head or eup/myeon office now.
       Official evacuation orders come first.
-      Data time: 2025-03-24 18:00 KST · Replay of recorded 2025 wildfire scenarios
+      Data time: 2025-03-24 18:00 KST · replay of 2025 data
       Model-based planning information · not live
       Times at the road entry point 120 m away; boarding time not included · Vehicle travel only · traffic, road closures and smoke not in the model · not yet tested with residents
       Planning aid only — not for live evacuation operations.
       Scenario ffb1:20250324T090000Z:synthetic0000 · Prepared 2026-11-02 14:00 KST · Precomputed 2026-10-18 07:54 KST",
           "lms": "[REPLAY of recorded 2025 data - not a real emergency]
       Wildfire evacuation plan information - Hapseong-ri (Village)
-      Data time: 2025-03-24 18:00 KST
+      Data time: 2025-03-24 18:00 KST · Precomputed 2026-10-18 07:54 KST
 
       - Leave by car no later than 18:30 KST (6:30 p.m.). Do not wait until that time.
       - Destination the model checked: Hapseong Elementary School. Leaving at 18:30, arrival around 18:55 KST (about 25 min by car; traffic not included).
@@ -724,7 +938,7 @@ describe('synthetic snapshots (both languages)', () => {
       시나리오 ffb1:20250324T090000Z:synthetic0000 · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 07:54 KST",
           "lms": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 합성마을
-      자료 기준: 2025년 3월 24일 18:00 (한국 시각)
+      자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST
 
       ■ 18:30(오후 6시 30분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
       ■ 모델이 점검한 도착지: 합성초등학교. 18:30에 출발하면 18:55쯤 도착합니다(차로 약 25분, 교통 정체 미반영).
@@ -753,23 +967,23 @@ describe('synthetic snapshots (both languages)', () => {
       Attention, residents of Hapseong-ri.
       This is model-based planning information from a replay of recorded wildfire data, March 24, 2025, 6 p.m. Korea time.
       In the computer forecast, there is no checked vehicle route from here. Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.
-      In the forecast, all 3 roads out of here by car are blocked by flames within 1 hour.
+      In the forecast, all 3 roads leading out of the area reachable from here without meeting flames are blocked by flames within 1 hour.
       Again: this is not a real emergency; it is a replay of recorded 2025 data.
       Official evacuation orders come first.",
         "broadcast_ko": "이 방송은 실제 상황이 아닙니다.
       합성마을 주민 여러분께 알려 드립니다.
       2025년 3월 24일 오후 6시 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산으로는 이곳에서 차로 나가는 확인된 길이 없습니다. 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
-      산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 3곳이 모두 1시간 안에 불길에 막힙니다.
+      산불 예측에서는 이곳에서 불길을 피해 갈 수 있는 구역의 출구 3곳이 모두 1시간 안에 불길에 막힙니다.
       공식 대피 명령이 우선합니다.",
         "lms_ko": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 합성마을
-      자료 기준: 2025년 3월 24일 18:00 (한국 시각)
+      자료 기준: 2025년 3월 24일 18:00 (한국 시각) · 사전 계산 2026-10-18 07:54 KST
 
       ■ 모델상 확인된 차량 경로가 없습니다.
       ■ 이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.
       ■ 주민: 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
-      ■ 이유: 이 마을에서 차로 빠져나갈 수 있는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).
+      ■ 이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).
 
       공식 대피 명령이 우선합니다.
       모델 기반 계획 정보 · 실시간 아님

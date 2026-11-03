@@ -336,6 +336,17 @@ describe('PlanSheetDialog (jsdom render)', () => {
     return document.querySelector<HTMLElement>('.wfgf-plansheet-root')!;
   }
 
+  it.each([
+    ['ko', '정적 데모 · API 없음 · 계산 안 함', '실시간 API 계산'],
+    ['en', 'static demo · no API · nothing computed', 'live API computation'],
+  ] as const)('a static-demo sheet states its API mode as the static demo, never live API computation (%s)', async (lang, want, never) => {
+    const base = sheet('S', [scenario(0, {})]);
+    const dlg = await render([{ ...base, provenance: { ...base.provenance, apiMode: 'static', cacheApiMode: null } }], lang);
+    const text = dlg.querySelector('.wfgf-sheet')?.textContent ?? '';
+    expect(text).toContain(want);
+    expect(text).not.toContain(never);
+  });
+
   it('renders one A4 sheet per origin with the fire input, MOCK and footer', async () => {
     const dlg = await render([MIXED, sheet('B', [scenario(0, {})])]);
     expect(dlg).toBeTruthy();

@@ -2,15 +2,16 @@
  * Builds every field message of one origin: Korean (source) and English SMS, long text, village
  * broadcast script, family call script and the printable card. Deterministic templates only — no
  * model, no network. The result carries its length metrics and the list of rule violations found
- * by ./checks.ts (the panel refuses to offer a text that has any).
+ * by ./checks.ts (the panel and the CSV withhold each output that has one: outputOk).
  */
+import { compactUtc } from '../../domain/clock';
 import type { Verdict } from '../../domain/types';
 import { checkFieldMessages } from './checks';
 import { assembleSpoken, cardText, type CardContent, type TemplateSet } from './compose';
 import { BROADCAST_MAX_S, eucKrBytes, gsm7Length, spokenSeconds } from './encoding';
 import type { LmReason } from './explanation';
 import { messagePlan, type MessageKind, type MessagePlan } from './plan';
-import { LANGUAGES, SHIPPED_LANGS } from './strings';
+import { LANGUAGES, SHIPPED_LANGS, type OutputKind } from './strings';
 import { EN } from './templates/en';
 import { KO } from './templates/ko';
 import type { ExplanationFile, LastMileInput, LmLang } from './types';
@@ -43,6 +44,15 @@ export interface FieldMetrics {
   callS: number;
 }
 
+/** The deadline explanation file a reason line comes from (CSV "이유 자료 / Reason data"). */
+export interface ReasonSource {
+  /** file name under data/explanations/ */
+  file: string;
+  /** the file's provenance.code_commit / generated_at, when it states them */
+  codeCommit: string | null;
+  generatedAtIso: string | null;
+}
+
 export interface FieldMessages {
   originId: string;
   urgencyRank: number;
@@ -50,6 +60,8 @@ export interface FieldMessages {
   verdict: Verdict;
   leaveByS: number | null;
   reason: LmReason | null;
+  /** where the reason line comes from (null without a reason line) */
+  reasonSource: ReasonSource | null;
   plan: MessagePlan;
   text: Record<LmLang, FieldTexts>;
   metrics: Record<LmLang, FieldMetrics>;
@@ -76,9 +88,17 @@ function insertedStrings(plan: MessagePlan): string[] {
     const r = plan.reason;
     if (r && r.kind === 'all_exits_blocked') for (const e of r.exits) add(e.text[l]);
     else if (r && 'road' in r) add(r.road.text[l]);
+    // a live result's compute host(s), as the API reports them (all, and the non-evaluated ones the note names)
+    add(plan.input.provenance.host?.[l]);
+    add(plan.input.provenance.testHost?.[l]);
   }
   add(plan.input.scenario.scenarioSetId);
   return [...out].sort((a, b) => b.length - a.length);
+}
+
+function explanationSource(f: ExplanationFile): ReasonSource {
+  const str = (v: unknown) => (typeof v === 'string' && v.length > 0 ? v : null);
+  return { file: `${f.region_id}__${compactUtc(f.input_time)}.json`, codeCommit: str(f.provenance?.code_commit), generatedAtIso: str(f.provenance?.generated_at) };
 }
 
 function metricsOf(lang: LmLang, t: FieldTexts): FieldMetrics {
@@ -131,6 +151,7 @@ export function buildFieldMessages(input: LastMileInput, explanation: Explanatio
     verdict: plan.verdict,
     leaveByS: plan.leaveByS,
     reason: plan.reason,
+    reasonSource: plan.reason && explanation ? explanationSource(explanation) : null,
     plan,
     text,
     metrics,
@@ -139,6 +160,21 @@ export function buildFieldMessages(input: LastMileInput, explanation: Explanatio
   };
   fm.violations = checkFieldMessages(fm);
   return fm;
+}
+
+const OUTPUT_OF = /^(ko|en)\.(sms|lms|broadcast|call|card):/;
+
+/**
+ * Fail closed per OUTPUT: true when no rule check failed for this language and output. Every rule is
+ * checked for each output on its own (checks.ts prefixes each violation "<lang>.<output>:"), so a
+ * passing output may be used even when another output of the origin failed; a violation that names
+ * no output blocks every output of the origin.
+ */
+export function outputOk(fm: FieldMessages, lang: LmLang, kind: OutputKind): boolean {
+  return fm.violations.every((v) => {
+    const m = OUTPUT_OF.exec(v);
+    return m !== null && !(m[1] === lang && m[2] === kind);
+  });
 }
 
 /** Every output of one language as plain text, in a fixed order (CSV, checks). */

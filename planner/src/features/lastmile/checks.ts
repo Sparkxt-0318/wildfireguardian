@@ -6,8 +6,11 @@
  * - length: Korean SMS ≤ 90 bytes (strict EUC-KR), long text ≤ 2,000 bytes, English SMS ≤ 160
  *   GSM-7 characters, no character outside the SMS encoding, broadcast ≤ 60 s at the assumed rate;
  * - mandatory phrases (requiredPhrases), the data time, and — for a recorded scenario — the
- *   replay note with its year, the replay marker on the FIRST line of the SMS and long text, and
- *   "이 방송은 실제 상황이 아닙니다 / This is not a real emergency" as the broadcast's first line;
+ *   replay note with its year, the replay marker on the FIRST line of the SMS and long text (a
+ *   Korean SMS of a MOCK / test-data origin carries the marker — MOCK, 시험자료, MOCK시험 — in place
+ *   of 기록재현: one tag fits), and "이 방송은 실제 상황이 아닙니다 / This is not a real emergency" as
+ *   the broadcast's first line;
+ * - MOCK and test-data results are marked in every output (markerWords; the SMS on its first line);
  * - resident- and family-facing outputs (SMS, broadcast, call script) never say "call 119 now";
  * - no forbidden word (FORBIDDEN, both languages; names from data are masked first);
  * - a message that is not `leave_by` gives no departure instruction and names no clock time other
@@ -31,6 +34,20 @@ export function dataTimeToken(kind: OutputKind, lang: LmLang, inputIso: string):
   if (kind === 'sms') return `${ymd(inputIso)} ${hm(inputIso)}`;
   if (kind === 'broadcast' || kind === 'call') return enDateSpoken(inputIso);
   return enDate(inputIso);
+}
+
+/**
+ * Words that mark a MOCK or test-data (not evaluated-host) result in each output, matched without
+ * case: the SMS tag ("MOCK", "시험자료", "MOCK시험" / "MOCK", "TEST"), the spoken data sentence
+ * ("모의 서버", "시험용" / "mock server", "test results"), the long text's first line and the card's
+ * badges ("MOCK", "시험 데이터" / "MOCK", "test data").
+ */
+export function markerWords(kind: OutputKind, lang: LmLang, mock: boolean, testData: boolean): string[] {
+  const spoken = kind === 'broadcast' || kind === 'call';
+  const out: string[] = [];
+  if (mock) out.push(spoken ? (lang === 'ko' ? '모의 서버' : 'mock server') : 'MOCK');
+  if (testData) out.push(kind === 'sms' ? (lang === 'ko' ? '시험' : 'TEST') : spoken ? (lang === 'ko' ? '시험용' : 'test results') : lang === 'ko' ? '시험 데이터' : 'test data');
+  return out;
 }
 
 /** Replaces every data string (place / road names) with a neutral token. */
@@ -102,6 +119,11 @@ export function checkFieldMessages(fm: FieldMessages): string[] {
         if (kind === 'broadcast' && first !== NOT_REAL[lang].toLowerCase()) v.push(`${lang}.broadcast: does not open with "${NOT_REAL[lang]}"`);
         // the year: written in full except in the Korean SMS, whose date is "25.3.24"
         if (!(lang === 'ko' && kind === 'sms') && !text.includes(year)) v.push(`${lang}.${kind}: replay note without the year ${year}`);
+      }
+      // MOCK / test data: marked in every output, the SMS on its first line
+      if (input.mock || input.testData) {
+        const where = (kind === 'sms' ? (text.split('\n')[0] ?? '') : text).toLowerCase();
+        for (const w of markerWords(kind, lang, input.mock, input.testData)) if (!where.includes(w.toLowerCase())) v.push(`${lang}.${kind}: missing the MOCK / test-data marker "${w}"`);
       }
       const masked = maskData(text, fm.inserted);
       const low = masked.toLowerCase();

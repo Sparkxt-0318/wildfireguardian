@@ -11,7 +11,9 @@
  * (window_fire_detour, other_shelters_flame_blocked; no_flame_avoiding_route_fits_window for
  * model_no_route), window (window_fire_free; no_route_even_without_fire for model_no_route),
  * no_later_offset, all_exits_blocked (several exits, one exit, a shared label, entry_point_in_flame),
- * unresolved_next, other, and an unknown code. The real files are not part of this branch.
+ * unresolved_next, other, and an unknown code — also the codes and cases the six real files do not
+ * contain. The real files ship in planner/public/data/explanations/ and are tested over every origin
+ * in lastmile.cache.test.ts.
  */
 import type { ExplanationFile, LastMileInput, LmCell } from '../../planner/src/features/lastmile/types';
 
@@ -74,10 +76,13 @@ export function synInput(over: Partial<LastMileInput> & { originId?: string } = 
       'syn:dest:b': { id: 'syn:dest:b', name: null, display: { ko: '이름 없는 마을회관 · node 9', en: 'Unnamed community hall · node 9' }, category: { ko: '마을회관', en: 'Community hall' } },
     },
     urgencyRank: 1,
-    provenance: { cacheCreatedAtIso: '2026-10-17T22:54:05Z', source: 'cache' },
+    provenance: { source: 'cache', computed: true, cachePath: 'synthetic_region/20250324T090000Z.json', cacheCreatedAtIso: '2026-10-17T22:54:05Z', host: null },
     generatedAtIso: '2026-11-02T05:00:00Z',
   };
-  return { ...base, ...rest };
+  const out = { ...base, ...rest };
+  // as the app's input builder says it (input.ts originProvenance): a plan without any check holds no result
+  if (!rest.provenance) out.provenance = { ...out.provenance, computed: Boolean(out.plan?.sweep.some((c) => c.attempts.length > 0)) };
+  return out;
 }
 
 export const SYN_NO_ROUTE_ID = 'syn:origin:noroute';
