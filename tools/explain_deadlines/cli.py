@@ -6,9 +6,10 @@
 
 Inputs are never trusted by name: the cache file must match its INDEX.json sha256; the graph and every packet file must
 match the hashes recorded in INPUT_FILES.json of the fetched release archive AND the ``input_hashes`` that every cached
-route check and dispatch plan recorded at computation time. Any mismatch stops the run before the explanation file of
-that cache file is written (files of cache files processed earlier in the same run are complete and stay written). So
-does any recorded route whose replay disagrees with its recorded result (validate.replay_recorded_routes).
+route check, travel-only check and dispatch plan recorded at computation time (verify_cache_provenance, before any
+replay). Any mismatch stops the run before the explanation file of that cache file is written (files of cache files
+processed earlier in the same run are complete and stay written). So does any recorded route whose replay disagrees
+with its recorded result (validate.replay_recorded_routes).
 
 The route checks are recorded results of the evaluated host; everything else in an explanation is computed by this
 tool on the machine that runs it, recorded in ``provenance.computed_on``. ``provenance.evaluated_host`` is false unless
@@ -96,30 +97,50 @@ def input_rows(data_root: Path) -> dict:
     return {r["path"]: r["sha256"] for r in rows}
 
 
+def check_identity(what: str, key: str, job, policy: str, *, region: str, input_time: str, sset: str, want: dict,
+                   members: list) -> None:
+    """One cached route check or travel-only check must have been computed on this graph and this hazard packet, for
+    this scenario set, region and input time and the packet's members, from recorded fire input under ``policy``.
+    ``want``: the sha256 of the graph and the packet files under their ``input_hashes`` names. The graph and hazard
+    hashes are required of every job (the API records both when it accepts a job), the three ``packet/*`` hashes of
+    every job with a result (recorded on completion); every recorded one must equal the file used here."""
+    if not isinstance(job, dict):
+        raise InputError("%s %s: not a job record" % (what, key))
+    res = job.get("result") or {}
+    prov = res.get("provenance") or job.get("provenance") or {}
+    ih = prov.get("input_hashes") or {}
+    for k, v in want.items():
+        if k not in ih:
+            if k in ("graph", "hazard") or res:
+                raise InputError("%s %s: no %s hash recorded" % (what, key, k))
+        elif ih[k] != v:
+            raise InputError("%s %s: %s hash differs" % (what, key, k))
+    if prov.get("scenario_set_id") != sset or prov.get("region") != region or prov.get("input_time") != input_time:
+        raise InputError("%s %s: scenario set / region / input time differ" % (what, key))
+    if list(prov.get("scenario_ids") or []) != members:
+        raise InputError("%s %s: scenario ids differ from the packet members" % (what, key))
+    if prov.get("fire_input_type") != "recorded" or prov.get("policy") != policy:
+        raise InputError("%s %s: not a recorded %s-policy check" % (what, key, policy))
+
+
 def verify_cache_provenance(doc: dict, region: str, input_time: str, sset: str, graph_sha: str, pk: Packet) -> dict:
-    """Every cached route check and dispatch plan must name this graph, this hazard packet and this scenario set."""
+    """Before anything of the cache file is used: every cached route check (policy ``full``) and every travel-only check
+    (policy ``travel_only``; their routes and recorded contact flags are replayed, validate.replay_recorded_routes) must
+    name this graph, this hazard packet, this scenario set, region, input time and members (``check_identity``), and every
+    dispatch plan this graph, hazard and scenario set. Returns the counts verified (``provenance.hash_checks``)."""
     hz = pk.sha256
-    want_packet = {"hazard": hz["HAZARD.json"], "packet/REPORT.json": hz["REPORT.json"],
-                   "packet/NATIVE_METADATA.json": hz["NATIVE_METADATA.json"], "packet/constructed_arrays.npz": hz["constructed_arrays.npz"]}
-    n_rc = n_plan = 0
+    want = {"graph": graph_sha, "hazard": hz["HAZARD.json"], "packet/REPORT.json": hz["REPORT.json"],
+            "packet/NATIVE_METADATA.json": hz["NATIVE_METADATA.json"], "packet/constructed_arrays.npz": hz["constructed_arrays.npz"]}
+    ident = {"region": region, "input_time": input_time, "sset": sset, "want": want, "members": pk.member_ids}
+    n_rc = n_to = n_plan = 0
     for key, job in (doc.get("route_checks") or {}).items():
-        res = job.get("result") or {}
-        prov = res.get("provenance") or job.get("provenance") or {}
-        ih = prov.get("input_hashes") or {}
-        if ih.get("graph") != graph_sha:
-            raise InputError("route check %s: graph hash differs" % key)
-        for k, v in want_packet.items():
-            if k in ih and ih[k] != v:
-                raise InputError("route check %s: %s hash differs" % (key, k))
-        if res and "hazard" not in ih:
-            raise InputError("route check %s: no hazard hash recorded" % key)
-        if prov.get("scenario_set_id") != sset or prov.get("region") != region or prov.get("input_time") != input_time:
-            raise InputError("route check %s: scenario set / region / input time differ" % key)
-        if list(prov.get("scenario_ids") or []) != pk.member_ids:
-            raise InputError("route check %s: scenario ids differ from the packet members" % key)
-        if prov.get("fire_input_type") != "recorded" or prov.get("policy") != "full":
-            raise InputError("route check %s: not a recorded full-policy check" % key)
+        check_identity("route check", key, job, "full", **ident)
         n_rc += 1
+    for key, job in (doc.get("travel_only") or {}).items():
+        if not isinstance(job, dict):
+            continue                  # not a job record: never replayed (replay_recorded_routes) nor shown (planner cache.ts)
+        check_identity("travel-only check", key, job, "travel_only", **ident)
+        n_to += 1
     for job in doc.get("plans") or []:
         if not isinstance(job, dict):
             continue
@@ -128,11 +149,7 @@ def verify_cache_provenance(doc: dict, region: str, input_time: str, sset: str, 
         if ih.get("graph") != graph_sha or ih.get("hazard") != hz["HAZARD.json"] or prov.get("scenario_set_id") != sset:
             raise InputError("dispatch plan %s: inputs differ" % job.get("job_id"))
         n_plan += 1
-    for key, job in (doc.get("travel_only") or {}).items():
-        prov = ((job.get("result") or {}).get("provenance")) or {}
-        if (prov.get("input_hashes") or {}).get("graph") not in (None, graph_sha):
-            raise InputError("travel-only check %s: graph hash differs" % key)
-    return {"route_checks_verified": n_rc, "dispatch_plans_verified": n_plan}
+    return {"route_checks_verified": n_rc, "travel_only_verified": n_to, "dispatch_plans_verified": n_plan}
 
 
 def summarise(origins: dict, replays: dict | None = None) -> dict:
@@ -211,6 +228,7 @@ def generate(args) -> int:
                 raise InputError("packet time origin differs from the input time")
             if pk.crs != G.crs:
                 raise InputError("packet CRS %r differs from the graph CRS %r" % (pk.crs, G.crs))
+            # every route check, travel-only check and plan must name this graph and packet before any of them is used
             hash_checks = verify_cache_provenance(doc, region, doc["input_time"], doc["scenario_set_id"], graph_sha, pk)
             # every recorded checked route must replay flame-free, every travel-only route must reproduce the API's
             # per-member contact flags -- otherwise the contact semantics differ and nothing is written
