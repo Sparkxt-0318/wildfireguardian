@@ -64,11 +64,12 @@ kinds and fails closed to the less specific one on any inconsistency.
     arrival time, "do not wait" or what limits T: there is no room;
   - **broadcast and call script**: T and the destination (an unnamed one as "이름 없는 학교" / "an
     unnamed school"), except when it depends on the departure time and, in English, when it has no
-    Latin-script name (§5; the English call script then says "the destination named on the card");
-    the broadcast also leaves it out when its required blocks would otherwise exceed 60 s (the
-    shorter leave-by sentence, §5). What limits T: the call script always, the broadcast only when
-    the 60 s budget leaves room for that optional block (§5). Both say the data time and the
-    mandatory lines as sentences (§3); neither gives the arrival time or "do not wait".
+    Latin-script name (§5; the English call script then has the caller say it from the card,
+    `[destination name from the card]`); the broadcast also leaves it out when its required blocks
+    would otherwise exceed 60 s (the shorter leave-by sentence, §5). What limits T: the call script
+    always, the broadcast only when the 60 s budget leaves room for that optional block (§5). Both
+    say the data time and the mandatory lines as sentences (§3); neither gives the arrival time or
+    "do not wait".
 
   Over the 501 leave-by origins of the six booth caches with their explanation files (what the
   panel shows), what limits T is in 10 Korean and 495 English broadcasts, the Korean broadcast leaves
@@ -220,7 +221,8 @@ not depend on the preceding sound (까지/에/의/에서/입니다) follow inser
 destination is "지도 자료에 이름이 없는 학교" in writing and "이름 없는 학교" when spoken; its OSM id
 appears only in the card's staff footer. English spoken outputs (broadcast and call script) read a
 place name only when OSM has a Latin-script name (`name:en`); otherwise they use generic wording
-("Attention, residents.", "from the nursing home", "the destination named on the card") — never a
+("Attention, residents.", "from the nursing home") or, in the call script, a bracket the caller
+fills in from the card like the other `[brackets]` (`[destination name from the card]`) — never a
 Hangul name read in English (tested over every origin). Written English (long text, card) keeps the
 name as the map data has it. The English text is the project's own translation of the Korean
 source; both were drafted with AI assistance, not produced by a translation engine, and

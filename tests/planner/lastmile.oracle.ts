@@ -102,8 +102,8 @@ const DONT_WAIT: Record<LmLang, { lms: string; card: string; any: RegExp }> = {
 const ARRIVAL_ANY: Record<LmLang, RegExp> = { ko: /쯤 도착|차로 약 \d+분/, en: /arriv(e|al) around|min by car/i };
 const DEST_ANY: Record<LmLang, RegExp> = { ko: /도착|대피소/, en: /destination|arriv|shelter/i };
 const VARIES: Record<LmLang, string> = { ko: '도착지는 출발 시각에 따라 다릅니다', en: 'depends on the departure time' };
-/** What the English call script says for a destination without a Latin-script name. */
-export const EN_CALL_CARD_DESTINATION = 'the destination named on the card';
+/** What the English call script says for a destination without a Latin-script name (the caller fills it in from the card). */
+export const EN_CALL_CARD_DESTINATION = '[destination name from the card]';
 
 export interface LeaveByFacts {
   /** statements of LASTMILE.md §2 ("What each output gives") that do not hold for this origin */

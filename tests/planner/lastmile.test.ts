@@ -336,7 +336,9 @@ describe('templates per verdict', () => {
     expect(fm.violations).toEqual([]);
     for (const k of ['broadcast', 'call'] as const) expect(fm.text.en[k]).not.toMatch(/[ㄱ-ㆎ가-힣]/);
     expect(fm.text.en.call).toContain('I am calling the family of [resident name] about the wildfire evacuation plan.');
-    expect(fm.text.en.call).toContain('no later than 6:30 p.m. gives a checked route to the destination named on the card.');
+    // the caller fills the name in from the card ([brackets]); the family has no card to look at
+    expect(fm.text.en.call).toContain('no later than 6:30 p.m. gives a checked route to [destination name from the card].');
+    expect(fm.text.en.call).not.toContain('named on the card');
     expect(fm.text.en.broadcast).toContain('Attention, residents.');
     // written English (long text, card) still names the place as the map data has it
     expect(fm.text.en.lms).toContain('합성초등학교');

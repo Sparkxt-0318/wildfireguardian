@@ -467,7 +467,8 @@ export const EN: TemplateSet = {
       const S = enSpokenTime(t0, p.leaveByS);
       const dist = o.entryDistanceM;
       const from = dist !== null && dist > ENTRY_SPOKEN_MIN_M ? `the road ${distanceText(dist)} from the ${place}` : `the road near the ${place}`;
-      const dest = p.destination && !p.destinationVaries ? (p.destination.name === null || latin(p.destination.name.en) ? destSpoken(p.destination) : 'the destination named on the card') : null;
+      // no Latin-script name: the caller says it from the card ([brackets], as for the resident's name); the family has no card
+      const dest = p.destination && !p.destinationVaries ? (p.destination.name === null || latin(p.destination.name.en) ? destSpoken(p.destination) : '[destination name from the card]') : null;
       lines.push(
         dest
           ? `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route to ${dest}.`
