@@ -8,7 +8,7 @@ import { hoverEdgeClass } from './hoverEdge';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import maplibregl, { type GeoJSONSource, type Map as MLMap, type MapLayerMouseEvent } from 'maplibre-gl';
 import type { Feature, FeatureCollection, LineString, Point } from 'geojson';
-import { CONFIG } from '../config/env';
+import { CONFIG, STATIC_DEMO } from '../config/env';
 import { positionAt } from '../domain/plan';
 import type { Place, RouteDetail } from '../domain/types';
 import { translate, useLang, useLangStore, useT } from '../i18n';
@@ -545,12 +545,14 @@ export function MapView() {
     }
     const lons = pts.map((p) => p[0]);
     const lats = pts.map((p) => p[1]);
+    // the wide left padding keeps the route clear of the legend; a phone-width map has no room for it
+    const narrow = map.getContainer().clientWidth < 600;
     map.fitBounds(
       [
         [Math.min(...lons), Math.min(...lats)],
         [Math.max(...lons), Math.max(...lats)],
       ],
-      { padding: { top: 60, bottom: 60, left: 270, right: 60 }, duration: 600, maxZoom: 14 },
+      { padding: narrow ? { top: 56, bottom: 40, left: 32, right: 32 } : { top: 60, bottom: 60, left: 270, right: 60 }, duration: 600, maxZoom: 14 },
     );
   }, [selectedId, route, travel, byId]);
 
@@ -566,7 +568,7 @@ export function MapView() {
     scenarioId === DRAWN_SCENARIO
       ? null
       : forecast.state === 'unavailable'
-        ? t('map.forecastUnavailable')
+        ? t(STATIC_DEMO ? 'demo.static.forecast' : 'map.forecastUnavailable')
         : forecast.state === 'error'
           ? t('map.forecastError', { code: errorText(forecast.error, t) })
           : null;

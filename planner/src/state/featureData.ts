@@ -16,6 +16,8 @@ import { recordedComparison } from './controller';
 import { currentScenarioSet, drawnFireInput, drawnIssuedAt, isMockActive, regionEntry, routeById, scenarioSetsOf, travelOnlyDetail } from './selectors';
 import { DRAWN_SCENARIO, type PlannerState } from './store';
 import { scenarioOrigins } from '../data/staticData';
+import { STATIC_DEMO } from '../config/env';
+import { demoSheetLabel } from '../components/demo/labels';
 
 /** Fixed identities of the evaluated configuration (ARCHITECTURE.md §1), used only when no API or cache provenance is loaded. */
 const FIXED = { checkpoint: 'c651f6724fe6b036b0162edf264cb0063c061b80c2c936d48965ee66afbd1843', packageVersion: '1.0.0', kit: 'v3' };
@@ -238,6 +240,8 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
   const prov = provenanceOf(s, t, null);
   const mock = isMockActive(s);
   const label = fireInputBanner({ type: drawn ? 'spread_zones' : 'recorded' }, region.fireYear, lang);
+  // public static demo: every sheet says it is a replay of recorded scenarios (printed in the top margin)
+  const demoLabel = STATIC_DEMO ? demoSheetLabel(drawn ? [] : [set!.inputTime], t, drawn) : null;
   const vulnerable = origins.filter((o) => o.vulnerable);
   const routeOf = (jobId: string | null | undefined) => routeById(s, jobId);
   const sources: RowSource[] = [];
@@ -295,6 +299,7 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
       fireInputLabel: label,
       fireInputType: drawn ? 'spread_zones' : 'recorded',
       mock,
+      demoLabel,
       origin: {
         id: o.id,
         name: o.name,

@@ -1,4 +1,5 @@
-import { CONFIG } from '../config/env';
+import { CONFIG, STATIC_DEMO } from '../config/env';
+import { StaticNote } from './demo/StaticDemo';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
@@ -101,7 +102,7 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
   let sub = t('headline.unresolvedSub');
   if (!place.checkable || plan?.note === 'not_checkable') sub = t('list.notCheckable') + ' — ' + t('headline.notCheckableSub');
   else if (plan?.note === 'rejected' && plan.rejectReason) sub = t('headline.rejectedSub', { code: plan.rejectReason.code, message: plan.rejectReason.message });
-  else if (plan?.note === 'not_computed') sub = issuedAt ? t('drawn.notComputedSub') : t('headline.notComputedSub');
+  else if (plan?.note === 'not_computed') sub = issuedAt ? t(STATIC_DEMO ? 'demo.drawn.notComputedSub' : 'drawn.notComputedSub') : t('headline.notComputedSub');
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_SPREAD_ZONES_NOT_EVALUATED'))) sub = t('drawn.mockUnresolvedSub');
   else if (plan && plan.mock && plan.sweep.some((c) => c.attempts.some((a) => a.rawStatus === 'MOCK_NO_RECORDED_RESULT'))) sub = t('headline.mockNoRecordSub');
   // departure times whose recorded result IS "no route in the model" (the origin stays unresolved)
@@ -523,7 +524,7 @@ function Recompute({ place, drawn = false }: { place: Place; drawn?: boolean }) 
       {!place.checkable ? (
         <span className="small-note">{t('recompute.notCheckable')}</span>
       ) : !apiOnline ? (
-        <span className="small-note">{t('recompute.offline')}</span>
+        STATIC_DEMO ? <StaticNote compact /> : <span className="small-note">{t('recompute.offline')}</span>
       ) : drawn && !ready.ok ? (
         <span className="small-note">{ready.problems.map((p) => t(`drawn.problem.${p}`)).join(' · ')}</span>
       ) : drawn && !running ? (

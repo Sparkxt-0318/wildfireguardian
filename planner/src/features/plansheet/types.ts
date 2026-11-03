@@ -92,6 +92,8 @@ export interface PlanSheetData {
   /** recorded (default) or drawn spread zones */
   fireInputType?: 'recorded' | 'spread_zones';
   mock: boolean;
+  /** public static demo only: "DEMO · recorded March 2025 scenario replay · research prototype" (printed in the top margin) */
+  demoLabel?: string | null;
   origin: {
     id: string;
     name: string | null;

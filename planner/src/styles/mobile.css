@@ -1,0 +1,198 @@
+/* Narrow screens (≤ 900 px; designed for a 375 px phone). Wide screens are unchanged.
+   - one pane at a time — list · map · details — switched by the tab bar (components/MobileNav.tsx);
+     the panes are stacked in one grid cell and the hidden ones keep their size (the map stays
+     measurable) with visibility: hidden;
+   - the fire-input banner and the planning-aid footer stay visible and wrap instead of truncating;
+   - the A4 plan sheet reflows into a readable column on screen; print keeps the A4 layout. */
+
+@media (max-width: 900px) {
+  .app,
+  .app.with-ribbon {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* top bar: brand + language/actions, then the fire-input banner on its own row */
+  .topbar { flex: none; flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 6px 8px; }
+  .brand { flex: 1 1 auto; min-width: 0; gap: 8px; }
+  .brand-text { min-width: 0; }
+  .brand-title { font-size: 14px; white-space: normal; line-height: 1.2; }
+  .brand-sub { display: none; }
+  .topbar-right { flex: 1 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 6px; min-width: 0; }
+  .topbar-right .btn { height: 30px; padding: 0 9px; font-size: 12.5px; }
+  .topbar-right .seg { height: 30px; }
+  .topbar-mid { order: 3; flex: 1 1 100%; flex-wrap: wrap; gap: 6px; }
+  .banner { height: auto; min-height: 28px; padding: 4px 10px; white-space: normal; border-radius: 14px; font-size: 12.5px; line-height: 1.3; }
+  .banner .banner-text { overflow: visible; text-overflow: clip; }
+  .banner .banner-time { white-space: nowrap; }
+  /* the static demo says "DEMO · nothing computed live" in its ribbon */
+  .app.with-ribbon .topbar-right .api-status { display: none; }
+
+  .demo-ribbon { flex: none; flex-wrap: wrap; padding: 5px 12px; gap: 6px; }
+  .demo-chip { white-space: normal; height: auto; min-height: 22px; padding: 2px 10px; line-height: 1.3; }
+  .demo-ribbon-note { display: none; }
+
+  /* panes */
+  .main {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .main > .panel-left,
+  .main > .center,
+  .main > .panel-right {
+    grid-area: 1 / 1;
+    min-height: 0;
+    min-width: 0;
+    border: 0;
+    visibility: hidden;
+  }
+  .app[data-mobile-pane='list'] .main > .panel-left,
+  .app[data-mobile-pane='map'] .main > .center,
+  .app[data-mobile-pane='detail'] .main > .panel-right {
+    visibility: visible;
+    z-index: 1;
+  }
+  /* the list pane scrolls as a whole (a short phone screen leaves no room for a nested scroller) */
+  .main > .panel-left { overflow-y: auto; }
+  .panel-left .origin-list { flex: none; overflow: visible; }
+  .rp { padding: 16px 14px 24px; }
+  .rp-empty { padding: 28px 18px; }
+
+  .mobile-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex: none;
+    border-top: 1px solid var(--hairline);
+    background: var(--paper);
+  }
+  .mobile-nav button {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    height: 44px; border: 0; background: var(--paper); font-size: 13.5px; font-weight: 600; color: var(--text-2);
+  }
+  .mobile-nav button[aria-pressed='true'] { color: var(--ink); box-shadow: inset 0 3px 0 var(--ink); }
+  .mobile-nav-n { font-size: 11px; font-weight: 600; color: var(--text-2); }
+
+  /* footer: the planning-aid rule wraps instead of being cut */
+  .footer { flex: none; flex-wrap: wrap; white-space: normal; height: auto; padding: 6px 12px; gap: 2px 12px; font-size: 11px; line-height: 1.35; }
+  .footer .spacer { display: none; }
+
+  /* map overlays */
+  .map-legend { max-width: calc(100% - 24px); }
+  .map-tools { left: auto; }
+  .slider-dock { padding: 8px 12px; }
+  .slider-row { gap: 8px; }
+  .clock { min-width: 104px; }
+
+  /* tour card: a sheet above the tab bar */
+  .tour-card,
+  .tour-card.centered {
+    left: 8px;
+    right: 8px;
+    top: auto;
+    bottom: calc(44px + 56px);
+    width: auto;
+    transform: none;
+  }
+
+  /* dialogs */
+  .modal { width: calc(100vw - 24px); max-height: calc(100dvh - 48px); padding: 18px; }
+  .demo-intro { padding: 16px; gap: 12px; }
+  .demo-intro-head { flex-wrap: wrap; }
+  .demo-intro-head h2 { flex-basis: calc(100% - 44px); font-size: 17px; }
+}
+
+/* phones (≤ 480 px): the top bar keeps one row of controls above the fire-input banner (brand text,
+   export and about become accessible-name-only labels next to their icons) and the DEMO ribbon is
+   one line (short chip text, icon buttons) */
+@media (max-width: 480px) {
+  .topbar { padding: 6px 10px; gap: 6px; }
+  .brand { flex: 0 0 auto; }
+  .brand-text,
+  .topbar-right .btn-label,
+  .demo-ribbon .demo-btn-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .topbar-right { flex-wrap: nowrap; gap: 4px; }
+  .topbar-right .btn { padding: 0 8px; gap: 5px; }
+  .topbar-right .seg button { padding: 0 8px; }
+  .banner { min-height: 26px; padding: 3px 10px; font-size: 12px; }
+
+  .demo-ribbon { flex-wrap: nowrap; padding: 4px 10px; gap: 4px; }
+  .demo-chip { min-width: 0; padding: 1px 8px; gap: 4px; font-size: 11px; }
+  .demo-chip-full { display: none; }
+  .demo-chip-short { display: inline; }
+  .demo-ribbon .demo-icon-only { display: inline-flex; }
+  .demo-ribbon .demo-ext { display: none; }
+  .demo-ribbon-btn { width: 28px; height: 28px; padding: 0; justify-content: center; border-radius: 14px; }
+}
+
+/* plan-sheet dialog chrome on narrow screens */
+@media screen and (max-width: 900px) {
+  .wfgf-plansheet { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .wfgf-plansheet__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    padding: 8px 12px;
+    gap: 6px 8px;
+  }
+  .wfgf-plansheet__titlewrap { grid-column: 1; grid-row: 1; }
+  .wfgf-plansheet__title { font-size: 15px; white-space: normal; }
+  .wfgf-plansheet__nav { grid-column: 2; grid-row: 1; }
+  .wfgf-plansheet__actions { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; flex-wrap: wrap; }
+  .wfgf-plansheet__viewport { padding: 10px 8px 24px; scroll-padding-top: 10px; }
+  .wfgf-plansheet__foot { flex-direction: column; gap: 2px; padding: 6px 12px; }
+}
+
+/* the A4 sheet itself reflows on screens narrower than the page (print media keeps A4) */
+@media screen and (max-width: 860px) {
+  .wfgf-sheet {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 16px 14px 18px;
+    margin: 0 auto 14px;
+    font-size: 13px;
+    overflow: visible;
+  }
+  .wfgf-sheet__demo { position: static; align-self: flex-start; height: auto; min-height: 20px; margin-bottom: 8px; padding: 2px 8px; font-size: 11px; line-height: 1.3; white-space: normal; }
+  .wfgf-sheet__head { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 11.5px; }
+  .wfgf-sheet__doctitle { font-size: 12px; }
+  .wfgf-sheet__title { font-size: 22px; }
+  .wfgf-sheet__cat { font-size: 13px; }
+  .wfgf-sheet__vuln,
+  .wfgf-sheet__rsg { font-size: 11px; }
+  .wfgf-sheet__facts { gap: 4px 14px; }
+  .wfgf-sheet__section h2 { font-size: 14px; }
+  .wfgf-sheet__facilities li { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; }
+  /* the scenario table keeps its A4 columns and scrolls sideways inside its section */
+  .wfgf-sheet__section:has(> .wfgf-sheet__table) { overflow-x: auto; }
+  .wfgf-sheet__table { min-width: 640px; }
+  .wfgf-sheet__table th { font-size: 11px; }
+  .wfgf-sheet .wfgf-verdict { font-size: 12.5px; }
+  .wfgf-sheet__deadline { font-size: 16px; }
+  .wfgf-sheet__sub,
+  .wfgf-sheet__sweep,
+  .wfgf-sheet__legend,
+  .wfgf-sheet__note,
+  .wfgf-sheet__maplegend,
+  .wfgf-sheet__prov,
+  .wfgf-sheet__limits,
+  .wfgf-sheet__foot { font-size: 11px; }
+  .wfgf-sheet__mono { font-size: 10.5px; }
+  .wfgf-sheet__mapsec { flex: none; }
+  .wfgf-sheetmap--fill { flex: none; height: 62vw; min-height: 200px; max-height: 440px; }
+  .wfgf-sheet__alt li { grid-template-columns: auto auto minmax(0, 1fr); gap: 2px 8px; }
+  .wfgf-sheet__alt li > .wfgf-sheet__alttext { grid-column: 1 / -1; }
+  .wfgf-sheet__alt li.wfgf-sheet__altcaveat { grid-template-columns: auto minmax(0, 1fr); }
+  .wfgf-sheet__alt li.wfgf-sheet__altcaveat > .wfgf-sheet__alttext { grid-column: auto; }
+  .wfgf-sheet__basisgrid,
+  .wfgf-sheet__prov,
+  .wfgf-sheet__limits { grid-template-columns: minmax(0, 1fr); }
+  .wfgf-sheet__foot { flex-direction: column; gap: 2px; }
+}

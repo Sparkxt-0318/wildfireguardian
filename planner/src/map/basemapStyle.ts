@@ -1,9 +1,10 @@
 /**
  * Offline basemap style (planner/public/basemap, see its README.md).
  *
- * - Vector tiles come only from the region's local PMTiles file (`/basemap/<region>.pmtiles`);
- *   the app never requests internet tiles. The optional VWorld raster (VWORLD_API_KEY) is a
- *   separate, explicitly enabled layer (see `vworldRasterSource`).
+ * - Vector tiles come only from the region's local PMTiles file (`basemap/<region>.pmtiles` under
+ *   the app base, see config/paths.ts); the app never requests internet tiles. The optional VWorld
+ *   raster (VWORLD_API_KEY) is a separate, explicitly enabled layer (see `vworldRasterSource`); the
+ *   static demo never offers it.
  * - Labels are Korean (`lang: 'ko'`). MapLibre draws Hangul client-side; styles/map-hangul-fonts.css maps
  *   the basemap's "Noto Sans …" stacks to the bundled Pretendard for Hangul, Latin glyphs come from the
  *   bundled Noto Sans PBF ranges.
@@ -16,6 +17,7 @@ import maplibregl from 'maplibre-gl';
 import type { LayerSpecification, StyleSpecification } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
 import { layers as protomapsLayers, namedFlavor } from '@protomaps/basemaps';
+import { appUrl } from '../config/paths';
 
 export type BasemapFlavor = 'light' | 'white' | 'grayscale';
 
@@ -35,15 +37,14 @@ export function ensurePmtilesProtocol(): void {
   protocolInstalled = true;
 }
 
-/** Absolute same-origin URL; template tokens such as {fontstack} stay unescaped. */
+/** Absolute same-origin URL under the app base; template tokens such as {fontstack} stay unescaped. */
 function abs(path: string): string {
-  if (typeof window === 'undefined' || !window.location) return path;
-  return `${window.location.origin}${path.startsWith('/') ? '' : '/'}${path}`;
+  return appUrl(path);
 }
 
 /** URL of a region's local PMTiles archive. */
 export function pmtilesUrl(regionId: string): string {
-  return abs(`/basemap/${encodeURIComponent(regionId)}.pmtiles`);
+  return abs(`basemap/${encodeURIComponent(regionId)}.pmtiles`);
 }
 
 /**
@@ -57,8 +58,8 @@ export function basemapStyle(regionId: string, opts?: { flavor?: BasemapFlavor }
   );
   return {
     version: 8,
-    glyphs: abs('/basemap/fonts/{fontstack}/{range}.pbf'),
-    sprite: abs(`/basemap/sprites/v4/${flavor}`),
+    glyphs: abs('basemap/fonts/{fontstack}/{range}.pbf'),
+    sprite: abs(`basemap/sprites/v4/${flavor}`),
     sources: {
       protomaps: {
         type: 'vector',
@@ -86,7 +87,7 @@ function offsetPlaceLabels(layer: LayerSpecification): LayerSpecification {
 export function paperStyle(): StyleSpecification {
   return {
     version: 8,
-    glyphs: abs('/basemap/fonts/{fontstack}/{range}.pbf'),
+    glyphs: abs('basemap/fonts/{fontstack}/{range}.pbf'),
     sources: {},
     layers: [{ id: 'paper', type: 'background', paint: { 'background-color': '#FAFAFA' } }],
   };

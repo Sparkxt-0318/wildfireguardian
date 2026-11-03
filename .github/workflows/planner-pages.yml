@@ -1,0 +1,82 @@
+name: Planner static demo (GitHub Pages)
+
+# Builds the evacuation planner (planner/) as a static site that replays the committed precompute
+# cache (planner/cache, 2025 Uiseong–Andong and Yeongdeok) with no server and no Route-Check API, and
+# deploys it to GitHub Pages: https://<owner>.github.io/<repository>/
+#
+# One-time setup by the repository owner: Settings → Pages → Build and deployment → Source:
+# "GitHub Actions". Until then the deploy job fails ("Ensure GitHub Pages has been enabled"); the
+# build job (tests, static build, size and integrity checks) still runs. After enabling Pages, run
+# this workflow once from the Actions tab (workflow_dispatch) or push a planner change to Main.
+#
+# Pull requests that touch the planner run the build job only (npm ci, tests, static build and its
+# checks) — nothing is uploaded or deployed.
+
+on:
+  push:
+    branches: [Main]
+    paths:
+      - 'planner/**'
+      - 'tests/planner/**'
+      - '.github/workflows/planner-pages.yml'
+  pull_request:
+    paths:
+      - 'planner/**'
+      - 'tests/planner/**'
+      - '.github/workflows/planner-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# one deployment at a time; a pull request only cancels its own older runs
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('planner-pages-pr-{0}', github.event.pull_request.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: planner
+    env:
+      # Pages serves https://<owner>.github.io/<repository>/ → base "/<repository>/" (here
+      # "/wildfireguardian/"). A custom domain at the root: set the repository variable
+      # PLANNER_BASE_PATH to "/".
+      VITE_BASE_PATH: ${{ vars.PLANNER_BASE_PATH || format('/{0}/', github.event.repository.name) }}
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: planner/package-lock.json
+      - name: Install (npm ci)
+        run: npm ci
+      - name: Unit tests (Vitest, incl. the static-demo data flow against the committed cache)
+        run: npm test
+      - name: Static build + checks (no API, CSP, every file < 100 MB, cache identical to INDEX.json)
+        # build:static = tsc -b && vite build --mode static && scripts/check_static_dist.mjs
+        run: npm run build:static
+      - name: Upload the Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: planner/dist
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

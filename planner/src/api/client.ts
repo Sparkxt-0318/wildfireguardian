@@ -2,7 +2,11 @@
  * HTTP client for the Route-Check API (same-origin /api/v1/*, proxied by Vite dev and preview to
  * the configured target). Timeouts, polling and abort; every failure becomes an ApiError that
  * carries the API's error.code and error.message (unknown codes are kept verbatim).
+ *
+ * Static demo (VITE_WFG_API_MODE=static): there is no API. Every call rejects at once with
+ * ApiError(0, STATIC_DEMO) and nothing is sent; results come from the precompute cache only.
  */
+import { STATIC_DEMO } from '../config/env';
 import type {
   WireDispatchPlanJob,
   WireDispatchPlanRequest,
@@ -63,7 +67,11 @@ function linkSignals(outer: AbortSignal | undefined, timeoutMs: number): { signa
   };
 }
 
+/** ApiError code of every API call in the static demo (no request is sent). */
+export const STATIC_DEMO_CODE = 'STATIC_DEMO';
+
 async function request<T>(method: 'GET' | 'POST', path: string, body: unknown, opts: RequestOpts = {}): Promise<T> {
+  if (STATIC_DEMO) throw new ApiError(0, STATIC_DEMO_CODE, `static demo: no Route-Check API (${method} ${API_BASE}${path} was not sent)`);
   const { signal, cleanup, timedOut } = linkSignals(opts.signal, opts.timeoutMs ?? 20000);
   let r: Response;
   try {

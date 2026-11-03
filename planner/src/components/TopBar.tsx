@@ -1,5 +1,7 @@
+import { STATIC_DEMO } from '../config/env';
 import { fireInputBanner } from '../domain/labels';
 import { kstDateTime } from '../domain/clock';
+import { FeedbackLink, StaticApiStatus } from './demo/StaticDemo';
 import { useLang, useLangStore, useT } from '../i18n';
 import { openDialog } from '../state/controller';
 import { useCurrentScenarioSet, useMockActive, useRegionEntry } from '../state/selectors';
@@ -91,7 +93,7 @@ export function TopBar() {
         {testData ? <TestDataChip short /> : null}
       </div>
       <div className="topbar-right">
-        <ApiStatusLabel />
+        {STATIC_DEMO ? <StaticApiStatus /> : <ApiStatusLabel />}
         <div className="seg" role="group" aria-label={t('top.lang')}>
           <button type="button" aria-pressed={lang === 'ko'} onClick={() => setLang('ko')} lang="ko">
             한국어
@@ -100,18 +102,21 @@ export function TopBar() {
             English
           </button>
         </div>
-        <button type="button" className="btn" onClick={() => openDialog('planSheet')}>
+        <button type="button" className="btn" onClick={() => openDialog('planSheet')} data-testid="open-plansheet">
           <DocumentIcon size={14} />
           {t('top.planSheet')}
         </button>
-        <button type="button" className="btn" onClick={() => openDialog('export')}>
+        {/* phones (≤ 480 px) show these two as icons; the label stays the accessible name */}
+        <button type="button" className="btn" onClick={() => openDialog('export')} title={t('top.export')}>
           <ExportIcon size={14} />
-          {t('top.export')}
+          <span className="btn-label">{t('top.export')}</span>
         </button>
-        <button type="button" className="btn" onClick={() => openDialog('about')}>
+        <button type="button" className="btn" onClick={() => openDialog('about')} title={t('top.about')}>
           <InfoIcon size={14} />
-          {t('top.about')}
+          <span className="btn-label">{t('top.about')}</span>
         </button>
+        {/* the static demo has it in its ribbon; elsewhere only when VITE_FEEDBACK_URL is set */}
+        {STATIC_DEMO ? null : <FeedbackLink />}
       </div>
     </header>
   );

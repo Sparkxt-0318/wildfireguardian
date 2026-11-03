@@ -22,8 +22,12 @@
  * Drawn results live in `plans` while drawn mode is shown and are tagged with the fire-input
  * fingerprint; editing the zones or settings drops them. Recorded results are stashed when the user
  * switches to drawn mode and come back when they switch back (and vice versa).
+ *
+ * Static demo (VITE_WFG_API_MODE=static): the API is never contacted (status "offline" with code
+ * STATIC_DEMO, no health polling); only regions with recorded results in the cache are listed, and
+ * everything is read from the cache — the same path as "offline with a cache" above.
  */
-import { api, ApiError, isAbort, runPool, waitDispatch, waitRouteCheck } from '../api/client';
+import { api, ApiError, isAbort, runPool, STATIC_DEMO_CODE, waitDispatch, waitRouteCheck } from '../api/client';
 import {
   adaptDispatchJob,
   adaptForecast,
@@ -37,8 +41,10 @@ import {
   type RecordedContext,
 } from '../api/adapter';
 import { findCacheEntry, loadCacheFile, loadCacheIndex } from '../api/cache';
-import { CONFIG } from '../config/env';
-import { parseUtc } from '../domain/clock';
+import type { WireForecastCollection } from '../api/wire';
+import { CONFIG, STATIC_DEMO } from '../config/env';
+import { fetchAppJson } from '../config/paths';
+import { compactUtc, parseUtc } from '../domain/clock';
 import {
   coarseToFine,
   countAttempts,
@@ -316,6 +322,11 @@ function writeHash(): void {
 // ---------------------------------------------------------------- API status
 
 export async function refreshApi(): Promise<void> {
+  if (STATIC_DEMO) {
+    // no API in the static demo: nothing is sent; every result comes from the precompute cache
+    setState({ apiStatus: 'offline', health: null, apiError: { code: STATIC_DEMO_CODE, message: 'static demo: no Route-Check API' } });
+    return;
+  }
   const before = getState().apiStatus;
   try {
     const health = adaptHealth(await api.health());
@@ -348,6 +359,15 @@ function onApiCameOnline(): void {
 
 let initStarted = false;
 
+/**
+ * Static demo: only regions with recorded results in the cache index (the others could show
+ * nothing but "not computed"). With no cache entry at all, every region stays listed.
+ */
+export function regionsWithResults<R extends { id: string }>(index: R[], cacheIndex: { regionId: string }[]): R[] {
+  const cached = index.filter((r) => cacheIndex.some((e) => e.regionId === r.id));
+  return cached.length ? cached : index;
+}
+
 export async function initApp(): Promise<void> {
   if (initStarted) return; // React StrictMode runs effects twice in development
   initStarted = true;
@@ -360,7 +380,7 @@ export async function initApp(): Promise<void> {
     scenario: query.scenario ?? hash.scenario,
     origin: query.origin ?? hash.origin,
   };
-  const [index] = await Promise.all([
+  const [allRegions] = await Promise.all([
     loadRegionIndex().catch((e) => {
       setState({ regionIndexError: e instanceof Error ? e.message : String(e) });
       return [];
@@ -368,8 +388,9 @@ export async function initApp(): Promise<void> {
     refreshApi(),
     loadCacheIndex().then((cacheIndex) => setState({ cacheIndex })),
   ]);
+  const index = STATIC_DEMO ? regionsWithResults(allRegions, getState().cacheIndex) : allRegions;
   setState({ regionIndex: index });
-  if (healthTimer === null) healthTimer = setInterval(() => void refreshApi(), HEALTH_POLL_MS);
+  if (healthTimer === null && !STATIC_DEMO) healthTimer = setInterval(() => void refreshApi(), HEALTH_POLL_MS);
   const region = index.find((r) => r.id === link.region) ?? index.find((r) => r.demo) ?? index[0];
   if (region) {
     await selectRegion(region.id, {
@@ -638,12 +659,40 @@ export function applyDefaultPreset(items: Footprint[] = getState().drawn.footpri
   if (h5 || h8) applyPreset({ h5, h8 });
 }
 
+/**
+ * Static demo: the recorded forecast cells saved unchanged from the Route-Check API
+ * (planner/public/data/forecast/<region>__<input>.json, written by scripts/save_forecasts.py). Shown
+ * only when the file's region, input time and scenario set are those of the scenario on screen; a
+ * missing file leaves the layer unavailable.
+ */
+async function loadStaticForecast(regionId: string, set: { id: string; inputTime: string }, key: string): Promise<void> {
+  setState({ forecast: { state: 'loading', key, data: null, error: null } });
+  try {
+    const fc = await fetchAppJson<WireForecastCollection>(`data/forecast/${encodeURIComponent(regionId)}__${compactUtc(set.inputTime)}.json`);
+    if (getState().forecast.key !== key) return;
+    if (!fc) {
+      setState({ forecast: { state: 'unavailable', key, data: null, error: null } });
+      return;
+    }
+    const same = fc.region === regionId && parseUtc(String(fc.input_time)) === parseUtc(set.inputTime) && fc.provenance?.scenario_set_id === set.id;
+    if (!same) {
+      setState({ forecast: { state: 'error', key, data: null, error: { code: 'FORECAST_MISMATCH', message: `${String(fc.region)} ${String(fc.input_time)} ${String(fc.provenance?.scenario_set_id)}` } } });
+      return;
+    }
+    setState({ forecast: { state: 'ready', key, data: adaptForecast(fc, regionId, set.inputTime), error: null } });
+  } catch (e) {
+    if (getState().forecast.key !== key) return;
+    setState({ forecast: { state: 'error', key, data: null, error: errInfo(e) } });
+  }
+}
+
 export async function loadForecast(): Promise<void> {
   const s = getState();
   const set = currentScenarioSet(s);
   if (!s.regionId || !set) return;
   const key = `${s.regionId}|${set.inputTime}`;
   if (s.forecast.key === key && (s.forecast.state === 'ready' || s.forecast.state === 'loading')) return;
+  if (STATIC_DEMO) return loadStaticForecast(s.regionId, set, key);
   if (s.apiStatus !== 'online') {
     setState({ forecast: { state: 'unavailable', key, data: null, error: null } });
     return;
@@ -800,6 +849,7 @@ function batchInput(): BatchPlanInput | null {
  * VITE_WFG_ALLOW_BATCH=0 a real API never offers it (state 'disabled').
  */
 export function prepareBatch(): void {
+  if (STATIC_DEMO) return; // no API: a batch is never offered
   if (getState().scenarioId === DRAWN_SCENARIO) {
     prepareDrawnBatch();
     return;
@@ -839,6 +889,7 @@ function finalBatch(b: BatchState, guard: RunGuard, firstReject: ApiErrorInfo | 
 }
 
 export async function startBatch(): Promise<void> {
+  if (STATIC_DEMO) return; // no API: nothing is ever submitted
   if (getState().scenarioId === DRAWN_SCENARIO) return startDrawnBatch();
   if (getState().batch.state === 'disabled') return;
   const input = batchInput();

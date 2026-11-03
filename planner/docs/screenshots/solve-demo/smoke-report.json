@@ -1,0 +1,48 @@
+{
+  "url": "http://127.0.0.1:4179/wildfireguardian/",
+  "base": "/wildfireguardian/",
+  "server": "dist only, like GitHub Pages (scripts/serve_static.mjs)",
+  "requests": 158,
+  "requests_by_folder": {
+    "index.html": 5,
+    "assets": 25,
+    "blob": 11,
+    "data": 26,
+    "cache": 10,
+    "basemap": 81
+  },
+  "off_origin": 0,
+  "csp_probe_refused": [
+    "csp"
+  ],
+  "phone_heights_px": {
+    "ko": {
+      "topbar": 86,
+      "ribbon": 37,
+      "chip": 22,
+      "chipOneLine": true
+    },
+    "en": {
+      "topbar": 86,
+      "ribbon": 37,
+      "chip": 22,
+      "chipOneLine": true
+    }
+  },
+  "checks_passed": 119,
+  "failures": [],
+  "screenshots": [
+    "docs/screenshots/solve-demo/desktop-ko-01-intro.png",
+    "docs/screenshots/solve-demo/desktop-ko-02-tour-list.png",
+    "docs/screenshots/solve-demo/desktop-ko-03-leave-by.png",
+    "docs/screenshots/solve-demo/desktop-ko-04-plan-sheet.png",
+    "docs/screenshots/solve-demo/desktop-en-05-leave-by.png",
+    "docs/screenshots/solve-demo/desktop-ko-06-drawn-zones.png",
+    "docs/screenshots/solve-demo/phone-375-ko-01-intro.png",
+    "docs/screenshots/solve-demo/phone-375-ko-02-list.png",
+    "docs/screenshots/solve-demo/phone-375-ko-03-leave-by.png",
+    "docs/screenshots/solve-demo/phone-375-ko-04-map.png",
+    "docs/screenshots/solve-demo/phone-375-ko-05-plan-sheet.png",
+    "docs/screenshots/solve-demo/phone-375-en-06-leave-by.png"
+  ]
+}

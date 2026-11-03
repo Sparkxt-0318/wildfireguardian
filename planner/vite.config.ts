@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { cpSync, createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
+import { cpSync, createReadStream, existsSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -16,20 +16,109 @@ const MIME: Record<string, string> = {
 };
 
 /**
- * Serves planner/cache/** (written by planner/scripts/precompute.py) at /cache/** in dev and
+ * Vite `base` from VITE_BASE_PATH: "" or "/" → "/"; "./" stays relative (a build that works under
+ * any path); "wildfireguardian" or "/wildfireguardian" → "/wildfireguardian/" (GitHub Pages).
+ * Full URLs are refused: the static demo loads nothing from another origin.
+ */
+export function normalizeBasePath(raw: string | undefined): string {
+  const b = String(raw ?? '').trim();
+  if (b === '' || b === '/') return '/';
+  if (b === '.' || b === './') return './';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(b) || b.startsWith('//')) throw new Error(`VITE_BASE_PATH must be a path ("/", "/wildfireguardian/" or "./"), not ${b}`);
+  if (b.startsWith('./')) return b.endsWith('/') ? b : `${b}/`;
+  const trimmed = b.replace(/^\/+/, '').replace(/\/+$/, '');
+  return trimmed ? `/${trimmed}/` : '/';
+}
+
+/**
+ * Content-Security-Policy of static builds (the public demo): every fetch, image, font, script,
+ * worker and style must come from the page's own origin (MapLibre's worker and the plan sheet's
+ * map snapshot use blob:/data: URLs, which never leave the browser). The browser refuses anything
+ * else — e.g. a request to http://127.0.0.1:8765, localhost or an internet tile server.
+ */
+export const STATIC_CSP = [
+  "default-src 'self'",
+  "connect-src 'self' data: blob:",
+  "script-src 'self'",
+  "worker-src 'self' blob:",
+  "child-src 'self' blob:",
+  "img-src 'self' data: blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
+  "media-src 'self'",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'none'",
+].join('; ');
+
+/** Adds the static-demo CSP as the first element of <head> (build only: dev needs inline HMR scripts). */
+function staticCsp(): Plugin {
+  return {
+    name: 'wfg-static-csp',
+    apply: 'build',
+    transformIndexHtml() {
+      return [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: STATIC_CSP }, injectTo: 'head-prepend' }];
+    },
+  };
+}
+
+/**
+ * Static builds: the demo lists only the regions that have recorded results in the cache
+ * (state/controller.ts regionsWithResults), so the basemaps of the other regions are not shipped —
+ * dist/basemap/<region>.pmtiles is removed for every region of public/data/regions/index.json
+ * without an entry in the cache's INDEX.json. Without readable indexes, or without any cached
+ * region (the app then lists every region), nothing is removed.
+ */
+export function unlistedBasemaps(regionIds: string[], cachedRegionIds: string[]): string[] {
+  const listed = new Set(cachedRegionIds.filter((id) => regionIds.includes(id)));
+  return listed.size ? regionIds.filter((id) => !listed.has(id)) : [];
+}
+
+function staticBasemaps(CACHE_DIR: string): Plugin {
+  let outDir = resolve(here, 'dist');
+  return {
+    name: 'wfg-static-basemaps',
+    apply: 'build',
+    configResolved(cfg) {
+      outDir = resolve(cfg.root, cfg.build.outDir);
+    },
+    closeBundle() {
+      if (process.env.VITEST) return;
+      let regionIds: string[];
+      let cached: string[];
+      try {
+        regionIds = (JSON.parse(readFileSync(resolve(here, 'public/data/regions/index.json'), 'utf8')) as { region_id: string }[]).map((r) => String(r.region_id));
+        cached = (JSON.parse(readFileSync(join(CACHE_DIR, 'INDEX.json'), 'utf8')) as { region_id?: string }[]).map((e) => String(e.region_id));
+      } catch {
+        this.warn('static build: region or cache index unreadable — every basemap is shipped');
+        return;
+      }
+      for (const id of unlistedBasemaps(regionIds, cached)) {
+        const file = join(outDir, 'basemap', `${id}.pmtiles`);
+        if (existsSync(file)) rmSync(file);
+      }
+    },
+  };
+}
+
+/**
+ * Serves planner/cache/** (written by planner/scripts/precompute.py) at <base>cache/** in dev and
  * preview, and copies it into dist/cache on build. A missing folder is fine: the app then
  * reports "no precomputed cache" and computes through the API instead.
  */
 /**
- * Precompute cache folder served at /cache/**. Default planner/cache (the booth cache).
+ * Precompute cache folder served at <base>cache/**. Default planner/cache (the booth cache).
  * WFG_CACHE_DIR (relative to planner/ or absolute; environment or .env) points elsewhere, e.g.
  * planner/.test-cache for results computed on a non-evaluation host (ARCHITECTURE.md §6).
  */
-function plannerCache(CACHE_DIR: string): Plugin {
+function plannerCache(CACHE_DIR: string, basePath: string, { preview = true }: { preview?: boolean } = {}): Plugin {
   let outDir = resolve(here, 'dist');
   let isBuild = false;
   const middleware = (req: IncomingMessage, res: ServerResponse, next: () => void) => {
-    const url = (req.url ?? '').split('?')[0] ?? '';
+    let url = (req.url ?? '').split('?')[0] ?? '';
+    // the dev/preview servers may hand the URL over with or without the base path
+    if (basePath.startsWith('/') && basePath !== '/' && url.startsWith(basePath)) url = `/${url.slice(basePath.length)}`;
     if (!url.startsWith('/cache/')) return next();
     let rel: string;
     try {
@@ -62,8 +151,9 @@ function plannerCache(CACHE_DIR: string): Plugin {
     configureServer(server) {
       server.middlewares.use(middleware);
     },
+    // static: `vite preview` serves dist/ only (dist/cache is the copy the build verified), like Pages
     configurePreviewServer(server) {
-      server.middlewares.use(middleware);
+      if (preview) server.middlewares.use(middleware);
     },
     closeBundle() {
       if (!isBuild) return;
@@ -98,20 +188,28 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, here, ['VITE_', 'VWORLD_', 'WFG_']);
   const cacheDir = resolve(here, env.WFG_CACHE_DIR || 'cache');
   // The one switch: mock → the mock server on 8765; real → VITE_WFG_API_TARGET (default 8765,
-  // where the real API runs on the booth machine).
-  const apiMode = (env.VITE_WFG_API_MODE || 'mock').trim().toLowerCase() === 'real' ? 'real' : 'mock';
+  // where the real API runs on the booth machine); static (`--mode static`) → no API at all.
+  const rawMode = (env.VITE_WFG_API_MODE || 'mock').trim().toLowerCase();
+  const apiMode = mode === 'static' || rawMode === 'static' ? 'static' : rawMode === 'real' ? 'real' : 'mock';
+  const base = normalizeBasePath(env.VITE_BASE_PATH);
   const target = (apiMode === 'mock' ? 'http://127.0.0.1:8765' : env.VITE_WFG_API_TARGET || 'http://127.0.0.1:8765').replace(/\/+$/, '');
-  const proxy: Record<string, ProxyOptions> = {
-    '/api/v1': {
-      target,
-      changeOrigin: true,
-      rewrite: (p) => p.replace(/^\/api\/v1/, '/v1'),
-    },
-  };
+  // static: no proxy, so even the dev/preview server never forwards anything to an API
+  const proxy: Record<string, ProxyOptions> =
+    apiMode === 'static'
+      ? {}
+      : {
+          '/api/v1': {
+            target,
+            changeOrigin: true,
+            rewrite: (p) => p.replace(/^\/api\/v1/, '/v1'),
+          },
+        };
   return {
     root: here,
-    envPrefix: ['VITE_', 'VWORLD_'],
-    plugins: [react(), plannerCache(cacheDir)],
+    base,
+    // the static demo's public bundle never carries the optional VWorld key
+    envPrefix: apiMode === 'static' ? ['VITE_'] : ['VITE_', 'VWORLD_'],
+    plugins: [react(), plannerCache(cacheDir, base, { preview: apiMode !== 'static' }), ...(apiMode === 'static' ? [staticCsp(), staticBasemaps(cacheDir)] : [])],
     server: { host: '127.0.0.1', port: 5173, strictPort: false, proxy },
     preview: { host: '127.0.0.1', port: 4173, strictPort: false, proxy },
     build: { outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 1700, sourcemap: false },
