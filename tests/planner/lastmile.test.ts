@@ -762,6 +762,11 @@ describe('CSV of every message (per region / input time)', () => {
     const blocked = fieldMessagesCSV([{ ...items[1]!, violations: ['inconsistent plan'] }], { lang: 'ko' });
     expect(blocked).not.toContain('차로 출발');
     expect(blocked).not.toContain('REPLAY');
+    // the planner footer still ends the row (its own column), although every long text is withheld
+    expect(blocked).not.toContain('■');
+    expect(blocked.split('\r\n')[1]!.endsWith(',사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.')).toBe(true);
+    for (const r of csv.split('\r\n').slice(1, 4)) expect(r.endsWith(',사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.')).toBe(true);
+    expect(fieldMessagesCSV([items[1]!], { lang: 'en' }).split('\r\n')[1]!.endsWith(',Planning aid only — not for live evacuation operations.')).toBe(true);
     expect(fieldMessagesFileName(synInput({ mock: true }))).toBe('wfg_synthetic_region_20250324T090000Z_field_messages_MOCK.csv');
   });
 

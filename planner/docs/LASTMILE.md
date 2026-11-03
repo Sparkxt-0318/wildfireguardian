@@ -268,8 +268,10 @@ MOCK/test flags, the origin's result source ("결과 출처": `사전 계산 캐
 KST>` or `API 점검 결과 · 계산 호스트 <host>`, with `· 평가 호스트 아님` when not established as
 evaluated-host output; `… · 이 출발지 결과 없음` / `API 점검 · 이 출발지 결과 없음` when the source holds
 no result for the origin, §2), the reason data ("이유 자료": the explanation file with its
-`code_commit` and `generated_at`, when a reason line is used), the rule-check result and the review
-state. The dialog shows the same result source for the chosen origin.
+`code_commit` and `generated_at`, when a reason line is used), the rule-check result, the review
+state, the preparation time and, last, the planner footer ("용도 / Intended use": `사전 계획 보조
+도구입니다. 실시간 대피 지휘·운영용이 아닙니다.`) — in every row, also when a long text that carries it
+is withheld. The dialog shows the same result source for the chosen origin.
 
 Card layout (`lastmile.css`): A5 148 × 209.6 mm with 7/8 mm padding at 14 pt, A4 210 × 296.6 mm
 with 14/16 mm padding at 18 pt, line-height 1.32, black on white, bundled Pretendard Variable. On A5
@@ -301,8 +303,8 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   worst-case dates and names, explanation loading/fallback/consistency with a synthetic file that
   mirrors every reason code (flame, window fire-free / mixed / detour, no later offset, unresolved
   next, one exit, duplicate labels, no-route window), rule checks and per-output fail-closed, the
-  CSV (result source, reason data, per-cell withholding), panel wording, the language registry, and
-  inline snapshots of synthetic messages.
+  CSV (result source, reason data, per-cell withholding, the footer in every row), panel wording,
+  the language registry, and inline snapshots of synthetic messages.
 - `lastmile.cache.test.ts` — property tests over every village and facility of the six booth caches
   (2 regions × 3 recorded input times, loaded through the app's own cache reader): limits (Korean
   bytes cross-checked with Python `euc_kr`, an independent GSM-7 class), mandatory lines, replay

@@ -7,13 +7,15 @@
  * no result for the origin) and, with a reason line, the explanation file it comes from.
  * A text that fails a rule check gets an empty cell (only that text: fail closed per output) and
  * the rule-check column says "검사 실패 — 사용 금지" with the violations; the last columns state each
- * language's native-speaker / field review state.
+ * language's native-speaker / field review state, the preparation time and — in every row, also when
+ * a long text is withheld — the planner footer ("사전 계획 보조 도구입니다. …").
  * UTF-8 with BOM, CRLF, RFC 4180 quoting and formula neutralising — the same writer as the
  * dispatch list (../exports/exports.ts).
  */
 import { compactUtc } from '../../domain/clock';
 import { kstDateClock, kstStamp, slug } from '../shared/format';
 import { CSV_BOM, csvRow } from '../exports/exports';
+import { FOOTER_APP } from '../shared/strings';
 import { resultSourceFull } from './compose';
 import { allTexts, outputOk, type FieldMessages, type ReasonSource } from './messages';
 import { LANGUAGES, SHIPPED_LANGS, UI, type OutputKind } from './strings';
@@ -52,6 +54,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     '규칙 검사',
     '문구 검토 (원어민·현장)',
     '작성 시각 (KST)',
+    '용도',
   ],
   en: [
     'Priority',
@@ -85,6 +88,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     'Rule checks',
     'Wording review (native speaker; field)',
     'Prepared (KST)',
+    'Intended use',
   ],
 };
 
@@ -158,6 +162,8 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         failed ? `${UI.csvFailed[lang]}: ${fm.violations.join(' | ')}` : 'OK',
         reviewStatus(lang),
         kstDateClock(input.generatedAtIso, 0),
+        // the planner footer in every row, also when a long text (which carries it) is withheld
+        FOOTER_APP[lang],
       ]),
     );
   }
