@@ -271,7 +271,7 @@ def graph_metrics_for_region(region: str, metas: list[dict], records: list[dict]
         pair['extra_length_m'] = pair['checked_length_m'] - pair['fastest_length_m']
         node = pair['destination_node']
         pair['trip_model_s'] = trips[pair['origin_id']][node]
-    graph_info = {'region': region, 'graph_file': sources.rel(path), 'graph_sha256': sources.sha256_file(path),
+    graph_info = {'region': region, 'graph_file': sources.graph_rel(region), 'graph_sha256': sources.sha256_file(path),
                   'graph_id': graph.revision, 'nodes': len(graph.node_ids), 'edges': len(graph.edge_ids),
                   'forbidden_turns': len(graph.forbidden), 'allowed_turns': solver.allowed_turns}
     del solver, graph

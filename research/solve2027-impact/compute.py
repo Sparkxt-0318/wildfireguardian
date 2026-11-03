@@ -4,11 +4,13 @@ generated blocks of README.md.
 
 Run from anywhere with the venv described in README.md (Python 3.12, requirements.txt):
     python research/solve2027-impact/compute.py            # write all outputs
-    python research/solve2027-impact/compute.py --check    # recompute; fail if any committed text output differs
+    python research/solve2027-impact/compute.py --check    # recompute; fail if any committed output differs
+                                                           # (text outputs; figures: SVG bytes, PNG pixels)
     python research/solve2027-impact/verify.py             # path B: independent recomputation of every number
 
 Needs the SHA-verified road graphs and HAZARD packets (python tools/fetch_routing_inputs.py): graphs for redundancy,
-route lengths and fire-free trips, HAZARD.json for the scenario window (valid_from, valid_until, dt).
+route lengths and fire-free trips, HAZARD.json for the scenario window (valid_from, valid_until, dt). Without them it
+exits with status 2 and a hint (verify.py --cache-only checks the cache-only numbers without them).
 """
 from __future__ import annotations
 
@@ -522,9 +524,13 @@ def build_outputs(result: dict) -> tuple[dict, dict[str, str]]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--check', action='store_true', help='recompute and compare with the committed text outputs')
-    ap.add_argument('--no-figures', action='store_true')
+    ap.add_argument('--check', action='store_true',
+                    help='recompute and compare with the committed outputs (text outputs; figures: SVG bytes, PNG pixels)')
+    ap.add_argument('--no-figures', action='store_true', help='write the text outputs only (no figures, no CSV twins)')
     a = ap.parse_args()
+    if not sources.routing_inputs_available():
+        print(sources.missing_routing_inputs_hint(), file=sys.stderr)
+        return 2
     result = analysis.run(with_graphs=True)
     nums, texts = build_outputs(result)
     if a.check:

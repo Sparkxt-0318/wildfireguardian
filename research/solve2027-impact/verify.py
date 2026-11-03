@@ -7,7 +7,8 @@
 Exit status 1 on any missing/extra key or any difference in value, numerator or denominator (lengths in metres are
 compared to 0.05 m because NUMBERS.json stores them rounded to 0.1 m; everything else must be equal exactly). Also
 checks that NUMBERS.json's recorded input SHA-256 values match the files on disk (in --cache-only mode: the files
-outside data/routing/).
+outside data/routing/). Exit status 2, with a hint, if the full check is asked for and the road graphs or HAZARD
+packets are missing.
 """
 from __future__ import annotations
 
@@ -65,6 +66,9 @@ def main() -> int:
     ap.add_argument('--cache-only', action='store_true',
                     help='recompute and compare only the uses_graph = false numbers; read nothing from data/routing/')
     a = ap.parse_args()
+    if not a.cache_only and not sources.routing_inputs_available():
+        print(sources.missing_routing_inputs_hint(), file=sys.stderr)
+        return 2
     doc = json.loads((HERE / 'NUMBERS.json').read_text(encoding='utf-8'))
     recomputed, _ = path_b.compute(with_graphs=not a.cache_only)
     problems = compare(doc, recomputed, cache_only=a.cache_only)

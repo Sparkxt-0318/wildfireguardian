@@ -117,6 +117,34 @@ def test_check_level_counts_and_per_type_survival_add_up():
         assert sum(g(f'research_checks.verdict.{v}') for v in pr.VERDICTS) == g('records.research_route_checks')
 
 
+def test_entry_points_stop_with_a_hint_without_routing_data(tmp_path):
+    """compute.py (write and --check) and a full verify.py exit with status 2 and a hint, not a traceback, when the
+    road graphs and HAZARD packets are missing; verify.py --cache-only is what runs without them (tested above)."""
+    import os
+    import subprocess
+    import sys
+    env = {**os.environ, 'WFG_ROUTING_DATA': str(tmp_path / 'no-routing-data'), 'PYTHONDONTWRITEBYTECODE': '1'}
+    for script, args in (('compute.py', ['--check']), ('compute.py', []), ('verify.py', [])):
+        r = subprocess.run([sys.executable, str(PACKAGE_ROOT / script), *args], env=env, capture_output=True,
+                           text=True, timeout=300)
+        assert r.returncode == 2, (script, args, r.stdout, r.stderr[-2000:])
+        assert r.stdout == '' and 'Traceback' not in r.stderr
+        assert r.stderr.startswith('MISSING INPUTS: ') and 'tools/fetch_routing_inputs.py' in r.stderr
+        assert 'verify.py --cache-only' in r.stderr and str(tmp_path / 'no-routing-data') in r.stderr
+
+
+def test_routing_inputs_are_recorded_under_repository_paths():
+    """Wherever WFG_ROUTING_DATA points, graph and HAZARD files are recorded as data/routing/... paths."""
+    graphs = sorted(g['graph_file'] for g in NUMBERS['graphs'])
+    assert graphs == sorted(sources.graph_rel(r) for r in sources.REGIONS) == \
+        sorted(f'data/routing/graphs/{r}/graph.json' for r in sources.REGIONS)
+    meta = NUMBERS['scopes']
+    hazards = sorted(meta[s]['hazard_file'] for s in FILE_SCOPES)
+    assert len(hazards) == 6 and hazards == sorted(sources.hazard_rel(meta[s]['region'], meta[s]['input_time'])
+                                                   for s in FILE_SCOPES)
+    assert sorted(p for p in NUMBERS['inputs'] if p.startswith('data/routing/')) == sorted(graphs + hazards)
+
+
 def test_entry_distances_cover_every_checked_place():
     for reg in list(sources.REGIONS) + ['all']:
         e = N[f'entry_distance_m.max@{reg}/places']

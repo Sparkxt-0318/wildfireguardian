@@ -393,9 +393,11 @@ standard library only.
 `compute.py --check` recomputes and fails if any committed output would change: the text outputs (NUMBERS.json,
 tables, generated README blocks, APPLICATION_SENTENCES.md, figure CSV twins) and the six figure files (SVG bytes, PNG
 pixels). Without `data/routing/`, run `verify.py --cache-only` instead (it checks the cache-only numbers and reads
-nothing from `data/routing/`). In the shared 4-CPU Linux container used for the committed outputs (other jobs
-running at the same time), `compute.py` took about 40 seconds, `verify.py` about 4 minutes, `verify.py --cache-only`
-about 15 seconds and the tests about 5.5 minutes, each below 1 GB peak memory.
+nothing from `data/routing/`); `compute.py` and a full `verify.py` then stop with exit status 2 and that hint. The
+environment variable `WFG_ROUTING_DATA` may point at a copy of `data/routing/` elsewhere: its files are SHA-verified
+in the same way and recorded under their `data/routing/` paths. In the shared 4-CPU Linux container used for the
+committed outputs (other jobs running at the same time), `compute.py` took about 40 seconds, `verify.py` about 4
+minutes, `verify.py --cache-only` about 15 seconds and the tests about 5.5 minutes, each below 1 GB peak memory.
 
 No route check is re-run: verdicts, deadlines and travel-only results are read from the recorded cache (evaluated
 macOS arm64 host). The `uses_graph` numbers are recomputed by this package on whatever machine runs it; the committed
