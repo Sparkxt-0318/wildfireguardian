@@ -8,6 +8,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { beforeAll, describe, expect, it } from 'vitest';
+import { LASTMILE_CSV_COLUMNS } from '../../planner/src/features/lastmile/csv';
 import { allTexts, buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { FORBIDDEN } from '../../planner/src/features/lastmile/strings';
 import { loadBoothCaches, realExplanationFor, type BoothCache } from './lastmile.cachedata';
@@ -86,6 +87,18 @@ describe('planner/docs/LASTMILE.md', () => {
     expect(leftOut.en).toBe(0);
     expect(said!.slice(1).map(Number)).toEqual([n, reason.ko, reason.en, leftOut.ko, noLatin]);
   }, 60_000);
+
+  it('§8 names the CSV\'s counter columns as csv.ts writes them', () => {
+    const flat = DOC.replace(/\s+/g, ' ');
+    expect(flat).toContain("the counters of the SMS and the broadcast in both languages and of the Korean long text (the English long text's bytes and the call scripts' estimated seconds are in the dialog only)");
+    expect(LASTMILE_CSV_COLUMNS.en.filter((c) => /bytes|characters|seconds/.test(c))).toEqual([
+      'SMS KO bytes (EUC-KR; max 90)',
+      'Long text KO bytes (max 2000)',
+      'Broadcast KO est. seconds (max 60)',
+      'SMS EN GSM-7 characters (max 160)',
+      'Broadcast EN est. seconds (max 60)',
+    ]);
+  });
 
   it('§3 lists every forbidden word of strings.ts FORBIDDEN, and nothing else', () => {
     const block = DOC.slice(DOC.indexOf('<!-- forbidden-list -->'), DOC.indexOf('<!-- /forbidden-list -->'));

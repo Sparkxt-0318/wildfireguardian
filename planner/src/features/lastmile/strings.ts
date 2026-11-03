@@ -6,7 +6,7 @@
  * Adding a language: write ./templates/<code>.ts against the same TemplateSet, register it below
  * with `nativeSpeakerReview: 'pending'` and its SMS encoding; it stays out of the panel, the CSV and
  * every output (`enabled: false`) until a native speaker has reviewed it and the flag is 'done'.
- * Machine-translated languages are never shipped (tests/planner/lastmile.test.ts checks the flags).
+ * No further language is shipped before that review (tests/planner/lastmile.test.ts checks the flags).
  */
 import type { LmLang, LmText } from './types';
 
@@ -41,7 +41,7 @@ export const LANGUAGES: Record<LmLang, LanguageMeta> = {
     nativeSpeakerReview: 'pending',
     enabled: true,
     sms: { encoding: 'gsm7', limit: 160, unit: 'chars' },
-    note: 'Translation of the Korean source, written by the project (not machine-translated); native-speaker review pending.',
+    note: 'Translation of the Korean source, written by the project with AI assistance (not produced by a translation engine); native-speaker review pending.',
   },
 };
 
@@ -57,7 +57,9 @@ export const MODEL_NOT_LIVE: LmText = { ko: '모델 기반 계획 정보 · 실�
 /**
  * Short forms used ONLY in the single SMS, where the verbatim lines cannot fit: a Korean SMS is
  * 90 bytes (45 Hangul) in total, and the two lines alone take 62 bytes (28 + 34). The long text
- * (LMS), the card, the broadcast and the call script carry the verbatim lines.
+ * (LMS) and the card carry both lines verbatim; the broadcast and the call script say OFFICIAL_FIRST
+ * as it is and MODEL_NOT_LIVE as a sentence (MODEL_PLAN_SPOKEN, MODEL_NOT_LIVE_SPOKEN), never in its
+ * written "· 실시간 아님" form.
  */
 export const OFFICIAL_FIRST_SMS: LmText = { ko: '공식명령 우선', en: 'Official orders come first.' };
 export const MODEL_NOT_LIVE_SMS: LmText = { ko: '실시간 아님', en: 'not live' };

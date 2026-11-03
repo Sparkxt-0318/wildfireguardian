@@ -223,7 +223,8 @@ place name only when OSM has a Latin-script name (`name:en`); otherwise they use
 ("Attention, residents.", "from the nursing home", "the destination named on the card") — never a
 Hangul name read in English (tested over every origin). Written English (long text, card) keeps the
 name as the map data has it. The English text is the project's own translation of the Korean
-source, not machine translation.
+source; both were drafted with AI assistance, not produced by a translation engine, and
+native-speaker review is pending (§7).
 
 The broadcast (`assembleSpoken`) keeps every required block — for a replay the opening "이 방송은
 실제 상황이 아닙니다.", the greeting, the data sentence, the leave-by sentence with the destination,
@@ -289,8 +290,10 @@ rule-check result and each text in both languages with its counter (bytes, GSM-7
 estimated seconds), its review state and a copy button. It previews the card and prints it (this
 origin at A5 or A4, or every origin at A5, one card per page) through a print-only root (`@page`
 size, everything else hidden). The CSV (UTF-8 BOM, CRLF, Korean or English headers) has one row per
-origin with every text, its counters, the deadline, destination, data time, scenario, fire input,
-MOCK/test flags, the origin's result source ("결과 출처": `사전 계산 캐시 · <cache file> · <created
+origin with every text in both languages; the counters of the SMS and the broadcast in both
+languages and of the Korean long text (the English long text's bytes and the call scripts'
+estimated seconds are in the dialog only); the deadline, destination, data time, scenario, fire
+input, MOCK/test flags, the origin's result source ("결과 출처": `사전 계산 캐시 · <cache file> · <created
 KST>` or `API 점검 결과 · 계산 호스트 <host>`, with `· 평가 호스트 아님` when not established as
 evaluated-host output; `… · 이 출발지 결과 없음` / `API 점검 · 이 출발지 결과 없음` when the source holds
 no result for the origin, §2), the reason data ("이유 자료": the explanation file with its

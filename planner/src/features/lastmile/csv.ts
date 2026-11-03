@@ -98,7 +98,7 @@ const VERDICT_TEXT: Record<string, Record<LmLang, string>> = {
   unresolved: { ko: '미확인', en: 'Unresolved' },
 };
 
-/** "uiseong_andong_2025__20250325T170000Z.json (wfg.explanation/1 · 코드 커밋 6855cc61f83e · 생성 2026-11-03 03:14 KST)" */
+/** "uiseong_andong_2025__20250325T170000Z.json (wfg.explanation/1 · 코드 커밋 6855cc61f83e · 생성 2026-11-03 03:15 KST)" */
 export function reasonSourceText(r: ReasonSource, lang: LmLang): string {
   const parts = [EXPLANATION_SCHEMA];
   if (r.codeCommit) parts.push(`${lang === 'ko' ? '코드 커밋' : 'code commit'} ${r.codeCommit.slice(0, 12)}`);

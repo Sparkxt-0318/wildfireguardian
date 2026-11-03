@@ -6,8 +6,10 @@
  * - length: Korean SMS ≤ 90 bytes (strict EUC-KR), long text ≤ 2,000 bytes, English SMS ≤ 160
  *   GSM-7 characters, no character outside the SMS encoding, broadcast ≤ 60 s at the assumed rate;
  * - mandatory phrases (requiredPhrases), the data time, and — for a recorded scenario — the
- *   replay note with its year, the replay marker on the FIRST line of the SMS and long text, and
- *   "이 방송은 실제 상황이 아닙니다 / This is not a real emergency" as the broadcast's first line;
+ *   replay note with its year, the replay marker on the FIRST line of the SMS and long text (a
+ *   Korean SMS of a MOCK / test-data origin carries the marker — MOCK, 시험자료, MOCK시험 — in place
+ *   of 기록재현: one tag fits), and "이 방송은 실제 상황이 아닙니다 / This is not a real emergency" as
+ *   the broadcast's first line;
  * - MOCK and test-data results are marked in every output (markerWords; the SMS on its first line);
  * - resident- and family-facing outputs (SMS, broadcast, call script) never say "call 119 now";
  * - no forbidden word (FORBIDDEN, both languages; names from data are masked first);

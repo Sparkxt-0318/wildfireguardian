@@ -9,6 +9,9 @@
  * of the 이장 and the 읍·면사무소; in an emergency, report to 119". The long text and the card are
  * written for the 이장 / facility staff and address each audience by name. A recorded replay says so
  * first in every SMS and long text, and the broadcast opens with "이 방송은 실제 상황이 아닙니다."
+ * One exception: the Korean SMS has room for one tag, so for a MOCK or test-data origin its first
+ * line carries the marker (MOCK, 시험자료, MOCK시험) in place of 기록재현; its other outputs still
+ * say that it is a replay (smsTag).
  *
  * Every inserted name or time is followed only by particles that do not depend on the last syllable
  * (까지, 에, 의, 에서, 입니다), so a place name never breaks the grammar. Names are never invented:
