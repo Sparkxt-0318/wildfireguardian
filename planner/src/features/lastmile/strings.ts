@@ -191,13 +191,14 @@ export const UI = {
   },
   noData: { ko: '결과가 없어 현장 문구를 만들 수 없습니다.', en: 'No results, so no field messages can be made.' },
   researchNote: {
-    ko: '연구용 출발 지점에는 현장 문구를 만들지 않습니다(주민이 사는 곳이 아님). 마을과 돌봄 시설의 문구는 열어서 볼 수 있습니다.',
-    en: 'No field messages for research start points (nobody lives there). Messages for villages and care facilities can be opened here.',
+    ko: '연구 패널 출발점에는 현장 문구를 만들지 않습니다(기록 임무의 출발 도로 지점 — 마을·돌봄 시설이 아님). 마을과 돌봄 시설의 문구는 열어서 볼 수 있습니다.',
+    en: "No field messages for research panel origins (a recorded mission's start road node, not a village or care facility). Messages for villages and care facilities can be opened here.",
   },
   dialogTitle: { ko: '현장 전달 문구', en: 'Field messages' },
+  /** what each output carries (requiredPhrases + the data-time check in checks.ts; tested) */
   dialogLead: {
-    ko: '이장·돌봄 인력이 주민과 가족에게 전할 문구입니다. 모든 문구에 자료 시각, "공식 대피 명령이 우선합니다", "모델 기반 계획 정보 · 실시간 아님"이 들어 있습니다. 정해진 틀로만 만들며 실시간 정보가 아닙니다.',
-    en: 'Wording for village heads and care staff to pass on. Every message states the data time, "Official evacuation orders come first" and "Model-based planning information · not live". Built from fixed templates only; not live information.',
+    ko: '이장·돌봄 인력이 주민과 가족에게 전할 문구입니다. 모든 문구에 자료 시각과 "공식 대피 명령이 우선합니다", "모델 기반 계획 정보 · 실시간 아님"이 들어 있습니다. 장문과 카드는 이 두 줄을 그대로, 단문 문자는 줄인 말("공식명령 우선", "모델", "실시간 아님")로 싣고, 마을방송과 전화 대본은 말로 풀어 전합니다(기록 재현 방송은 "실시간 아님" 대신 "실제 상황이 아닙니다"). 정해진 틀로만 만들며 실시간 정보가 아닙니다.',
+    en: 'Wording for village heads and care staff to pass on. Every text carries the data time and the notices "Official evacuation orders come first" and "Model-based planning information · not live": verbatim in the long text and the card, as short forms in the SMS ("Official orders come first.", "Model-based plan", "not live"), spoken in the broadcast and call script (a replay broadcast says "This is not a real emergency" instead of "not live"). Built from fixed templates only; not live information.',
   },
   close: { ko: '닫기', en: 'Close' },
   origin: { ko: '출발지', en: 'Origin' },
@@ -205,7 +206,7 @@ export const UI = {
   kind: { ko: '안내 종류', en: 'Message type' },
   kindLabel: {
     leave_by: { ko: '출발 마감 안내', en: 'Leave-by message' },
-    no_route: { ko: '경로 없음 · 즉시 연락', en: 'No route · contact now' },
+    no_route: { ko: '모델상 경로 없음 · 즉시 연락', en: 'No route in the model · contact now' },
     unresolved: { ko: '미확인 · 공식 안내 따르기', en: 'Unresolved · follow official guidance' },
     partial: { ko: '부분 확인 · 공식 안내 따르기', en: 'Partly checked · follow official guidance' },
   },

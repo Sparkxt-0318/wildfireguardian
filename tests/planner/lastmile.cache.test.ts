@@ -192,7 +192,9 @@ describe('audiences and replays (independent checks)', () => {
       for (const lang of ['ko', 'en'] as const) for (const t of [x.fm.text[lang].sms, x.fm.text[lang].broadcast, x.fm.text[lang].call]) expect(t).not.toMatch(now);
       if (x.fm.kind === 'no_route') {
         expect(x.fm.text.ko.lms).toMatch(/(이장|시설 담당자): 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오\./);
-        expect(x.fm.text.ko.broadcast).toContain('위급하면 119에 신고하십시오.');
+        // residents (broadcast) and families (call script) are told what to do themselves
+        for (const t of [x.fm.text.ko.broadcast, x.fm.text.ko.call]) expect(t).toMatch(/(이장과|시설과) 읍·면사무소의 공식 지시를 따르십시오\. 위급하면 119에 신고하십시오\./);
+        for (const t of [x.fm.text.en.broadcast, x.fm.text.en.call]) expect(t).toMatch(/Follow official instructions from the (village head|facility) and the eup\/myeon office\. In an emergency, call 119\./);
       }
     }
   });
@@ -439,6 +441,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       Hello, this is [your name and role]. I am calling the family of [resident name], who lives in Gugye-ri, about the wildfire evacuation plan.
       This is not a real emergency: it is model-based planning information from a replay of recorded wildfire data, March 26, 2025, 2 a.m. Korea time.
       In the computer forecast (the model), there was no checked vehicle route from the village. With a result like this, the village head must call 119 and the eup/myeon office right away and follow official instructions.
+      Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.
       Official evacuation orders come first. The actual place and time of any move may change with official guidance.
       If you have questions, please call [phone number]. Thank you.",
           "card": "Evacuation plan card · Uiseong–Andong · Recorded 2025 wildfire · scenario replay · Not a real emergency
@@ -482,6 +485,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       안녕하세요. [소속·이름]입니다. 구계리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
       지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산(모델)으로는 마을에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 이장은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.
+      이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
       공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
       궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.",
           "card": "산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
@@ -623,6 +627,16 @@ describe('with the real deadline explanation files, when present', () => {
         const key = `${fm.kind}/${fm.reason?.kind ?? 'none'}`;
         kinds[key] = (kinds[key] ?? 0) + 1;
         if (fm.kind === 'unresolved') expect(fm.reason).toBeNull();
+        // reasons say no more than the file establishes: exits are the roads out of the area reachable
+        // without meeting flames (not "the roads out of the village"); "no destination" claims cover the
+        // destinations checked (candidate shelters) only
+        for (const lang of ['ko', 'en'] as const) {
+          for (const t of Object.values(allTexts(fm, lang))) expect(t, input.origin.id).not.toMatch(/차로 빠져나갈 수 있는|out of (this village|this facility|here) by car|도착지가 없습니다|no destination can be reached/);
+        }
+        if (fm.reason?.kind === 'all_exits_blocked') {
+          expect(fm.text.ko.lms).toMatch(/이 (마을|시설)에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길/);
+          expect(fm.text.en.lms).toMatch(/leading out of the area reachable by car from this (village|facility) without meeting flames/);
+        }
       }
     }
     console.info(`real explanation files: ${JSON.stringify(kinds)}`);

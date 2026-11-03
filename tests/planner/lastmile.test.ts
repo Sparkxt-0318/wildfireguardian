@@ -33,7 +33,7 @@ import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import { allTexts, buildFieldMessages, enabledLangs, TEMPLATES } from '../../planner/src/features/lastmile/messages';
 import { checkFieldMessages, clockTimes, maskData } from '../../planner/src/features/lastmile/checks';
 import { fieldMessagesCSV, fieldMessagesFileName, LASTMILE_CSV_COLUMNS } from '../../planner/src/features/lastmile/csv';
-import { FORBIDDEN, LANGUAGES, MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST, RESIDENT_119_NOW, SHIPPED_LANGS } from '../../planner/src/features/lastmile/strings';
+import { FORBIDDEN, LANGUAGES, MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST, requiredPhrases, RESIDENT_119_NOW, SHIPPED_LANGS, UI } from '../../planner/src/features/lastmile/strings';
 import { cells, EXIT, ITEM, SYN_IDS, SYN_INPUT_TIME, SYN_NO_ROUTE_ID, SYN_REGION, SYN_SET, synExplanation, synInput, synNoLater, synNoRoute, synUnresolved, withEntry, withId } from './lastmile.fixture';
 
 const EXPECT = { regionId: SYN_REGION, inputTimeIso: SYN_INPUT_TIME, scenarioSetId: SYN_SET };
@@ -286,6 +286,12 @@ describe('templates per verdict', () => {
     expect(fm.text.ko.broadcast).toContain('이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
     expect(fm.text.ko.call).toContain('이런 결과라면 이장은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.');
     expect(fm.text.en.broadcast).toContain('Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.');
+    // the family call script tells the family itself what to do, as the broadcast does
+    expect(fm.text.ko.call).toContain('이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
+    expect(fm.text.en.call).toContain('Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.');
+    const fac = buildFieldMessages({ ...synNoRoute(), origin: { ...synNoRoute().origin, kind: 'facility', category: { ko: '요양시설', en: 'Care home' } } });
+    expect(fac.text.ko.call).toContain('시설과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.');
+    expect(fac.text.en.call).toContain('Follow official instructions from the facility and the eup/myeon office. In an emergency, call 119.');
     for (const l of ['ko', 'en'] as const) for (const t of [fm.text[l].sms, fm.text[l].broadcast, fm.text[l].call]) expect(t).not.toMatch(RESIDENT_119_NOW[l]);
     expect(fm.text.ko.card.statusIcon).toBe('model_no_route');
     expect(fm.text.ko.card.big).toBeNull();
@@ -401,10 +407,10 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     expect(fm.violations).toEqual([]);
     expect(fm.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 3, kMin: 1, n: 4, atStart: false });
     expect(fm.text.ko.lms).toContain(
-      '이유: 이 마을에서 차로 빠져나갈 수 있는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).',
+      '이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).',
     );
     expect(fm.text.en.lms).toContain(
-      'Why: all 3 roads out of this village by car (Hapseong-ro, Route 7, an unnamed road) are blocked by flames within 1 hour of the data time (on each road, in at least 1 of 4 fire scenarios from the forecast).',
+      'Why: all 3 roads leading out of the area reachable by car from this village without meeting flames (Hapseong-ro, Route 7, an unnamed road) are blocked by flames within 1 hour of the data time (on each road, in at least 1 of 4 fire scenarios from the forecast).',
     );
     for (const t of texts(fm)) expect(clockTimes(maskData(t, fm.inserted)).every((c) => c === '18:00')).toBe(true);
     expect(clockTimes('ffb1:20250324T090000Z')).toEqual([]);
@@ -415,29 +421,29 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     expect(one.violations).toEqual([]);
     expect(one.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 1, kMin: 4, atStart: true });
     // P2's label semantics: a nearby place and the straight-line distance to it ("this village" for the origin)
-    expect(one.text.ko.lms).toContain('이유: 이 마을에서 차로 빠져나갈 수 있는 길은 1곳(이 마을에서 약 800 m 떨어진 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
-    expect(one.text.en.lms).toContain('Why: the only road out of this village by car (a road about 800 m from this village) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
+    expect(one.text.ko.lms).toContain('이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길은 1곳(이 마을에서 약 800 m 떨어진 도로)뿐이며, 자료 시각에 이미 불길에 막혀 있습니다(산불 예측 시나리오 4가지 모두에서).');
+    expect(one.text.en.lms).toContain('Why: the only road leading out of the area reachable by car from this village without meeting flames (a road about 800 m from this village) is already blocked by flames at the data time (in all 4 fire scenarios from the forecast).');
     const dup = buildFieldMessages(synNoRoute(SYN_IDS.exitDup), synExplanation());
     expect(dup.violations).toEqual([]);
     expect(dup.reason).toMatchObject({ kind: 'all_exits_blocked', roads: 2, atStart: true });
-    expect(dup.text.ko.lms).toContain('길 2곳(둘 다 옆마을에서 약 800 m 떨어진 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
-    expect(dup.text.en.lms).toContain('Why: the 2 roads out of this village by car (both about 800 m from Yeop-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
+    expect(dup.text.ko.lms).toContain('구역을 벗어나는 길 2곳(둘 다 옆마을에서 약 800 m 떨어진 도로)이 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).');
+    expect(dup.text.en.lms).toContain('Why: the 2 roads leading out of the area reachable by car from this village without meeting flames (both about 800 m from Yeop-ri) are already blocked by flames at the data time (on each road, in all 4 fire scenarios from the forecast).');
     // roads near the same place at different distances: one merged label
     const place = buildFieldMessages(synNoRoute(SYN_IDS.exitPlace), synExplanation());
     expect(place.violations).toEqual([]);
-    expect(place.text.ko.lms).toContain('길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다');
-    expect(place.text.en.lms).toContain('Why: both roads out of this village by car (roads about 700 m and 1.5 km from this village) are already blocked by flames at the data time');
+    expect(place.text.ko.lms).toContain('구역을 벗어나는 길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다');
+    expect(place.text.en.lms).toContain('Why: both roads leading out of the area reachable by car from this village without meeting flames (roads about 700 m and 1.5 km from this village) are already blocked by flames at the data time');
     // no_flame_avoiding_route for a model_no_route origin (cause: flames)
     const win = buildFieldMessages(synNoRoute(SYN_IDS.noRouteWindow), synExplanation());
     expect(win.violations).toEqual([]);
     expect(win.reason).toEqual({ kind: 'no_route_flames' });
-    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
+    expect(win.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.');
     // window for a model_no_route origin (cause: time window) — never a fire reason
     const time = buildFieldMessages(synNoRoute(SYN_IDS.noRouteTime), synExplanation());
     expect(time.violations).toEqual([]);
     expect(time.reason).toEqual({ kind: 'no_route_time_window' });
-    expect(time.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 불길이 없더라도 1시간 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.');
-    expect(time.text.en.lms).toContain('Why: from every departure time checked, no destination can be reached and the stay finished within the 1-hour data range, even without fire.');
+    expect(time.text.ko.lms).toContain('이유: 점검한 어느 출발 시각에도, 불길이 없더라도 점검한 도착지(후보 대피소) 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.');
+    expect(time.text.en.lms).toContain('Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the 1-hour data range, even without fire.');
     // all_exits_blocked / entry_point_in_flame
     const entry = buildFieldMessages(synNoRoute(SYN_IDS.entryInFlame), synExplanation());
     expect(entry.violations).toEqual([]);
@@ -476,14 +482,14 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
       const detour = buildFieldMessages(withId(synInput(), id), ex);
       expect(detour.violations).toEqual([]);
       expect(detour.reason).toEqual({ kind: 'no_flame_avoiding_route' });
-      expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.');
+      expect(detour.text.ko.lms).toContain('이유: 다음 점검 시각인 18:40에 출발하면 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다.');
       expect(detour.text.en.lms).toContain(
-        'Why: leaving at the next checked time, 18:40, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.',
+        'Why: leaving at the next checked time, 18:40, none of the destinations checked (candidate shelters) can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.',
       );
       expect(detour.text.ko.card.big?.label).toBe('출발 마감');
       // spoken: the next checked time is named
-      expect(detour.text.ko.call).toContain('다음 점검 시각인 오후 6시 40분에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.');
-      expect(detour.text.en.call).toContain('Leaving at the next checked time, 6:40 p.m., no destination can be reached in time on a road that avoids the flames in the forecast.');
+      expect(detour.text.ko.call).toContain('다음 점검 시각인 오후 6시 40분에 출발하면 점검한 도착지 중 산불 예측상 불길을 피하는 길로 제시간에 닿을 수 있는 곳이 없습니다.');
+      expect(detour.text.en.call).toContain('Leaving at the next checked time, 6:40 p.m., none of the destinations checked can be reached in time on a road that avoids the flames in the forecast.');
     }
     // dwell_at_destination (always explained_partial): the binding item on the message's destination
     const dwell = buildFieldMessages(withId(synInput(), SYN_IDS.dwell), ex);
@@ -626,6 +632,47 @@ describe('CSV of every message (per region / input time)', () => {
   });
 });
 
+describe('panel wording claims no more than the outputs carry', () => {
+  it('the model_no_route label keeps "in the model"', () => {
+    expect(UI.kindLabel.no_route).toEqual({ ko: '모델상 경로 없음 · 즉시 연락', en: 'No route in the model · contact now' });
+    expect(fieldMessagesCSV([buildFieldMessages(synNoRoute())], { lang: 'ko' })).toContain(',모델상 경로 없음,모델상 경로 없음 · 즉시 연락,');
+    expect(fieldMessagesCSV([buildFieldMessages(synNoRoute())], { lang: 'en' })).toContain(',No route in the model,No route in the model · contact now,');
+  });
+
+  it('the dialog lead names exactly what each output is checked to carry (verbatim / short forms / spoken)', () => {
+    const strip = (s: string) => s.replace(/\.$/, '');
+    for (const l of ['ko', 'en'] as const) {
+      const lead = UI.dialogLead[l];
+      // verbatim in the long text and the card (the checks require exactly these)
+      expect(requiredPhrases('lms', l, true)).toEqual([OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]);
+      expect(requiredPhrases('card', l, true)).toEqual([OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]);
+      expect(lead).toContain(strip(OFFICIAL_FIRST[l]));
+      expect(lead).toContain(MODEL_NOT_LIVE[l]);
+      // the SMS short forms, as the checks require them
+      for (const phrase of requiredPhrases('sms', l, true)) expect(lead).toContain(`"${phrase}"`);
+      // spoken: a replay broadcast says "not a real situation" instead of "not live"
+      expect(requiredPhrases('broadcast', l, true)).toContain(NOT_REAL[l]);
+      expect(lead).toContain(l === 'ko' ? '실제 상황이 아닙니다' : strip(NOT_REAL[l]));
+    }
+    // and each output really carries them (synthetic leave_by, no_route, unresolved)
+    for (const input of [synInput(), synNoRoute(), synUnresolved()]) {
+      const fm = buildFieldMessages(input);
+      for (const l of ['ko', 'en'] as const) {
+        const t = allTexts(fm, l);
+        for (const k of ['lms', 'card'] as const) for (const phrase of [OFFICIAL_FIRST[l], MODEL_NOT_LIVE[l]]) expect(t[k]).toContain(phrase);
+        for (const phrase of requiredPhrases('sms', l, true)) expect(t.sms).toContain(phrase);
+        for (const k of ['broadcast', 'call'] as const) expect(t[k]).toContain(OFFICIAL_FIRST[l]);
+      }
+    }
+  });
+
+  it('research panel origins: named for what the data shows (no claim about who lives there)', () => {
+    expect(UI.researchNote.ko).toContain('기록 임무의 출발 도로 지점 — 마을·돌봄 시설이 아님');
+    expect(UI.researchNote.en).toContain("a recorded mission's start road node, not a village or care facility");
+    for (const l of ['ko', 'en'] as const) expect(UI.researchNote[l]).not.toMatch(/주민이 사는|사람이 살|nobody|no one lives|lives there/i);
+  });
+});
+
 describe('languages: Korean source + English; more only after native-speaker review', () => {
   it('every shipped language has a full template set and an SMS encoding', () => {
     expect([...SHIPPED_LANGS]).toEqual(['ko', 'en']);
@@ -762,14 +809,14 @@ describe('synthetic snapshots (both languages)', () => {
       Attention, residents of Hapseong-ri.
       This is model-based planning information from a replay of recorded wildfire data, March 24, 2025, 6 p.m. Korea time.
       In the computer forecast, there is no checked vehicle route from here. Follow official instructions from the village head and the eup/myeon office. In an emergency, call 119.
-      In the forecast, all 3 roads out of here by car are blocked by flames within 1 hour.
+      In the forecast, all 3 roads leading out of the area reachable from here without meeting flames are blocked by flames within 1 hour.
       Again: this is not a real emergency; it is a replay of recorded 2025 data.
       Official evacuation orders come first.",
         "broadcast_ko": "이 방송은 실제 상황이 아닙니다.
       합성마을 주민 여러분께 알려 드립니다.
       2025년 3월 24일 오후 6시 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산으로는 이곳에서 차로 나가는 확인된 길이 없습니다. 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
-      산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 3곳이 모두 1시간 안에 불길에 막힙니다.
+      산불 예측에서는 이곳에서 불길을 피해 갈 수 있는 구역의 출구 3곳이 모두 1시간 안에 불길에 막힙니다.
       공식 대피 명령이 우선합니다.",
         "lms_ko": "[2025년 기록 재현 · 실제 상황 아님]
       산불 대피 계획 정보 · 합성마을
@@ -778,7 +825,7 @@ describe('synthetic snapshots (both languages)', () => {
       ■ 모델상 확인된 차량 경로가 없습니다.
       ■ 이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.
       ■ 주민: 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
-      ■ 이유: 이 마을에서 차로 빠져나갈 수 있는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).
+      ■ 이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 3곳(합성로·7번 도로·이름 없는 도로)이 모두 자료 시각부터 1시간 안에 불길에 막힙니다(길마다 산불 예측 시나리오 4가지 중 최소 1가지에서).
 
       공식 대피 명령이 우선합니다.
       모델 기반 계획 정보 · 실시간 아님

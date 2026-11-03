@@ -30,8 +30,9 @@ Code: `planner/src/features/lastmile/` · tests: `tests/planner/lastmile*.ts` ·
 
 Every output states the data time (KST) and, for a recorded fire, that it is a replay of the
 recorded 2025 data — first, in the SMS and the long text. Clock times are the input time plus the
-planner's offsets, in KST. Research origins (recorded mission start points) get no field messages:
-nobody lives there, so no resident-addressed text is made for them.
+planner's offsets, in KST. Research panel origins get no field messages: they are the start road
+nodes of recorded research missions, not villages or care facilities, so there is no village or
+facility to address (the data says nothing about who lives near them).
 
 ## 2. What each verdict may say
 
@@ -59,8 +60,9 @@ kinds and fails closed to the less specific one on any inconsistency.
     때문에 정한 것이 아닙니다". The card label stays `출발 마감 / Leave by`;
   - explanation `flame_on_route` for the message's destination: the fire reason (where, when, k of 4
     fire scenarios from the forecast; leaving at the next checked time may meet it);
-    `no_flame_avoiding_route` (cause `flames`): "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상
-    불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다";
+    `no_flame_avoiding_route` (cause `flames`): "다음 점검 시각인 N에 출발하면 점검한 도착지(후보
+    대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다" — the
+    file's claim covers the candidate shelters the planner tried, so the line names them;
   - otherwise the neutral "T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다".
 - **checked_route without a contiguous basis → `partial`** — no departure time; "출발 시각에 따라
   모델 결과가 달라, 출발 시각을 하나로 안내하지 않습니다"; follow official evacuation guidance. (No
@@ -68,12 +70,16 @@ kinds and fails closed to the less specific one on any inconsistency.
 - **model_no_route → `no_route`** — by audience: the long text and card tell the 이장 / facility
   staff to contact 119 and the 읍·면사무소 now and follow official instructions; residents and families
   (SMS, broadcast, call script) are told to follow the official instructions of the 이장 (facility)
-  and the 읍·면사무소 and, in an emergency, to report to 119 — never "call 119 now". No departure time,
-  no clock time other than the data time, no tactical advice. With a consistent explanation: the
-  roads out of the area reachable without meeting flames ("이 마을에서 차로 빠져나갈 수 있는 길 n곳"),
-  distinct labels only ("길 2곳(둘 다 구계리 부근 도로)" when they share one), singular wording for
-  one road, "자료 시각에 이미" when every exit is burning
-  at the input time, and "길마다 … 최소 k가지" so k never reads as one scenario blocking every road.
+  and the 읍·면사무소 and, in an emergency, to report to 119 ("이장과 읍·면사무소의 공식 지시를
+  따르십시오. 위급하면 119에 신고하십시오." in the broadcast and the call script; "위급 시 119" in the SMS)
+  — never "call 119 now". No departure time, no clock time other than the data time, no tactical
+  advice. With a consistent explanation: the roads leading out of the area reachable by car without
+  meeting flames — the explanation's exits, not the roads out of the village, whose first roads are
+  open in most recorded cases ("이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 n곳"),
+  distinct labels only ("길 2곳(둘 다 구계리 부근 도로)" when they share one), singular wording for one
+  road, "자료 시각에 이미" when every exit is burning at the input time, and "길마다 … 최소 k가지" so k
+  never reads as one scenario blocking every road. The other no-route reasons name "점검한 도착지(후보
+  대피소)" — the destinations the planner tried — never "no destination" at all.
 - **unresolved (incl. not computed / not checkable) → `unresolved`** — the model could not check a
   route; this means neither that a route exists nor that it does not; follow official evacuation
   guidance. Never green, never a departure time, never explained.
@@ -164,14 +170,14 @@ departure recorded as `model_no_route` (an unresolved next time is never explain
 | `reason_code` (`detail_code`) | used when | printed as |
 |---|---|---|
 | `flame_on_route`, `dwell_at_destination` | `binding[0]` (the shown route's item) is usable and the message's destination is in its `destination_ids` | fire reason: where (label below), when, k of n; leaving at the next checked time may meet it |
-| `no_flame_avoiding_route` (`window_fire_detour`, `other_shelters_flame_blocked`) | status `explained`, `deadline_cause: flames` | "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다" |
+| `no_flame_avoiding_route` (`window_fire_detour`, `other_shelters_flame_blocked`) | status `explained`, `deadline_cause: flames` | "다음 점검 시각인 N에 출발하면 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다" |
 | `window` (`window_fire_free`) | status `explained`, `deadline_cause: time_window` | leaving at the next checked time none of the destinations checked can be reached and the stay finished within the 1-hour range even without fire; departures after T have no checked route; not set by fire (label `출발 마감 / Leave by`) |
 | `window` (`outside_recorded_arrival_window`) | — (the next time is window-closed: the planner's own "last departure checked" line) | — |
 | `no_later_offset` | — (the planner's own "last departure checked" line already says it) | — |
-| `all_exits_blocked` (`flame_free_area_closed`; model_no_route) | every exit usable, one `members_total` | roads out by car, distinct labels (§2) |
+| `all_exits_blocked` (`flame_free_area_closed`; model_no_route) | every exit usable, one `members_total` | the roads leading out of the area reachable by car without meeting flames, distinct labels (§2) — never "the roads out of the village" |
 | `all_exits_blocked` (`entry_point_in_flame`) | status `explained` | the road entry point is in flames at departure |
-| `no_flame_avoiding_route` (`no_flame_avoiding_route_fits_window`; model_no_route) | `deadline_cause: flames` | no flame-avoiding road fits the range (no clock time) |
-| `window` (`no_route_even_without_fire`; model_no_route) | `deadline_cause: time_window` | no destination fits the range even without fire |
+| `no_flame_avoiding_route` (`no_flame_avoiding_route_fits_window`; model_no_route) | `deadline_cause: flames` | none of the destinations checked (candidate shelters) can be reached in the range on a flame-avoiding road (no clock time) |
+| `window` (`no_route_even_without_fire`; model_no_route) | `deadline_cause: time_window` | none of the destinations checked (candidate shelters) can be reached in the range even without fire |
 | `unresolved_next`, `other`, any unknown code | never | — |
 
 A usable item has a finite flame time inside the recorded window, distinct members

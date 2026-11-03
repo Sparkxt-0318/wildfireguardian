@@ -90,18 +90,25 @@ function exitMembers(r: Exits): string {
   return r.kMin >= r.n ? `길마다 산불 예측 시나리오 ${r.n}가지 모두에서` : `길마다 산불 예측 시나리오 ${r.n}가지 중 최소 ${r.kMin}가지에서`;
 }
 
+/**
+ * The exits of the explanation file are the roads where the area reachable by car from the entry
+ * point WITHOUT meeting flames ends (tools/explain_deadlines README §4) — not the roads out of the
+ * village: the first roads out of the entry point are open in most recorded cases.
+ */
 function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
-  const place = placeWord(p);
+  const area = `이 ${placeWord(p)}에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길`;
   const when = r.atStart ? '자료 시각에 이미 불길에 막혀 있습니다' : `자료 시각부터 ${durationText(p.input.scenario.horizonS, 'ko')} 안에 불길에 막힙니다`;
-  if (r.roads === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`;
+  if (r.roads === 1) return `이유: ${area}은 1곳(${exitNames(r, max)})뿐이며, ${when}(${exitMembers(r)}).`;
   // several roads with one label: "길 2곳(둘 다 구계리 부근 도로)이 …"
-  if (r.exits.length === 1) return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${r.roads === 2 ? '둘 다' : '모두'} ${r.exits[0]!.text.ko})이 ${when}(${exitMembers(r)}).`;
-  return `이유: 이 ${place}에서 차로 빠져나갈 수 있는 길 ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
+  if (r.exits.length === 1) return `이유: ${area} ${r.roads}곳(${r.roads === 2 ? '둘 다' : '모두'} ${r.exits[0]!.text.ko})이 ${when}(${exitMembers(r)}).`;
+  return `이유: ${area} ${r.roads}곳(${exitNames(r, max)})이 모두 ${when}(${exitMembers(r)}).`;
 }
 
+/** Spoken (optional broadcast block): "the exits of the area one can reach avoiding the flames". */
 function exitsSpoken(p: MessagePlan, r: Exits): string {
+  const area = '이곳에서 불길을 피해 갈 수 있는 구역의 출구';
   const when = r.atStart ? '이미 불길에 막혀 있습니다' : `${durationText(p.input.scenario.horizonS, 'ko')} 안에 불길에 막힙니다`;
-  return r.roads === 1 ? `산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 1곳이 ${when}.` : `산불 예측에서는 이곳에서 차로 빠져나갈 수 있는 길 ${r.roads}곳이 모두 ${when}.`;
+  return r.roads === 1 ? `산불 예측에서는 ${area} 1곳이 ${when}.` : `산불 예측에서는 ${area} ${r.roads}곳이 모두 ${when}.`;
 }
 
 /** First line of the SMS: date + what the data is ("[25.3.26 02:00 기록재현]"). */
@@ -132,8 +139,9 @@ function noRouteReasonWritten(p: MessagePlan, max: number): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsWritten(p, r, max);
   if (r.kind === 'entry_in_flame') return `이유: 산불 예측 시나리오상 이 ${placeWord(p)}의 진입 지점(가장 가까운 도로 지점)이 출발 시각에 이미 불길 안에 있습니다.`;
-  if (r.kind === 'no_route_flames') return `이유: 점검한 어느 출발 시각에도, 산불 예측 시나리오상 불길을 피하는 길로는 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
-  if (r.kind === 'no_route_time_window') return `이유: 점검한 어느 출발 시각에도, 불길이 없더라도 ${range} 자료 범위 안에 도착해 머물 수 있는 도착지가 없습니다.`;
+  // the file's claim covers the candidate shelters the planner tried, never every possible destination
+  if (r.kind === 'no_route_flames') return `이유: 점검한 어느 출발 시각에도, 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `이유: 점검한 어느 출발 시각에도, 불길이 없더라도 점검한 도착지(후보 대피소) 중 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다.`;
   return null;
 }
 
@@ -144,8 +152,8 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsSpoken(p, r);
   if (r.kind === 'entry_in_flame') return '산불 예측에서는 이곳의 진입 지점이 이미 불길 안에 있습니다.';
-  if (r.kind === 'no_route_flames') return `산불 예측에서는 불길을 피하는 길로 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
-  if (r.kind === 'no_route_time_window') return `불길이 없더라도 ${range} 안에 닿을 수 있는 도착지가 없습니다.`;
+  if (r.kind === 'no_route_flames') return `산불 예측에서는 점검한 도착지 중 불길을 피하는 길로 ${range} 안에 닿을 수 있는 곳이 없습니다.`;
+  if (r.kind === 'no_route_time_window') return `불길이 없더라도 점검한 도착지 중 ${range} 안에 닿을 수 있는 곳이 없습니다.`;
   return null;
 }
 function noRouteSpoken(p: MessagePlan): string {
@@ -173,7 +181,7 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     };
   }
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.` };
+    return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 점검한 도착지(후보 대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다.` };
   }
   if (r && r.kind === 'time_window') {
     // only what is established: at the next checked time no destination checked fits the window even
@@ -199,7 +207,7 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'flame_on_route') return `${kOfN(r.k, r.n)}는 ${r.road.text.ko}에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'dwell_at_destination') return `${kOfN(r.k, r.n)}는 도착지 부근에 ${koSpokenTime(t0, r.flameS)}쯤 불길이 닿습니다.`;
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.`;
+    return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 점검한 도착지 중 산불 예측상 불길을 피하는 길로 제시간에 닿을 수 있는 곳이 없습니다.`;
   }
   if (r && r.kind === 'time_window') return `그보다 늦게 출발하는 길은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
@@ -434,6 +442,8 @@ export const KO: TemplateSet = {
       lines.push(`컴퓨터 예측 계산(모델)으로는 ${place}에서 차로 나가는 확인된 경로가 없었습니다. 이런 결과라면 ${facility(p) ? '시설' : '이장'}은 바로 119와 읍·면사무소에 연락해 공식 지시를 따라야 합니다.`);
       const why = noRouteReasonSpoken(p);
       if (why) lines.push(why);
+      // what the family itself is told (as in the broadcast): follow official instructions; 119 in an emergency
+      lines.push(noRouteSpoken(p));
     } else if (p.kind === 'partial') {
       lines.push('출발 시각에 따라 컴퓨터 예측 계산 결과가 달라, 출발 시각을 하나로 알려 드리지 않습니다. 공식 대피 안내를 따라야 합니다.');
     } else {

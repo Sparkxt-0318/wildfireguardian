@@ -59,15 +59,18 @@ function cellsOf(plan: OriginPlan): LmCell[] {
   }));
 }
 
-/** Research origins (recorded mission start points) are not places where people live or stay. */
+/**
+ * Field messages are made for villages and care facilities only. Research panel origins are the
+ * start road nodes of recorded research missions — not villages or care facilities — so there is
+ * no village or facility to address (the data says nothing about who lives near them).
+ */
 export function isFieldOrigin(p: Pick<Place, 'role'>): boolean {
   return p.role !== 'research_origin';
 }
 
 /**
  * One input per village and care facility of the recorded scenario, in the planner's urgency order
- * (`urgencyRank` keeps the planner's position). Research origins get no field messages: nobody
- * there would be addressed as a resident.
+ * (`urgencyRank` keeps the planner's position); research panel origins get none (isFieldOrigin).
  */
 export function buildLastMileInputs(a: LastMileBuildArgs): LastMileInput[] {
   const origins = scenarioOrigins(a.places, a.scenario.scenarioSetId);

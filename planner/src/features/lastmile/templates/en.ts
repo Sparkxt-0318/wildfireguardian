@@ -85,24 +85,31 @@ function exitNames(r: Exits, max: number): string {
   return names.length > max ? `${names.slice(0, max).join(', ')} and others` : names.join(', ');
 }
 
+/**
+ * The exits of the explanation file are the roads where the area reachable by car from the entry
+ * point WITHOUT meeting flames ends (tools/explain_deadlines README §4) — not the roads out of the
+ * village (see ko.ts).
+ */
 function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
   const range = durationText(p.input.scenario.horizonS, 'en');
+  const area = `leading out of the area reachable by car from this ${placeWord(p)} without meeting flames`;
   const when = r.atStart ? 'already blocked by flames at the data time' : `blocked by flames within ${range} of the data time`;
   const members = r.kMin >= r.n ? `in all ${r.n} fire scenarios from the forecast` : `in at least ${r.kMin} of ${r.n} fire scenarios from the forecast`;
-  if (r.roads === 1) return `Why: the only road out of this ${placeWord(p)} by car (${exitNames(r, max)}) is ${when} (${members}).`;
+  if (r.roads === 1) return `Why: the only road ${area} (${exitNames(r, max)}) is ${when} (${members}).`;
   if (r.exits.length === 1) {
     // several roads with one label: "(both near Gugye-ri)"
     const l = r.exits[0]!;
     // "a road about 800 m from this village" → "(both about 800 m from this village)"
     const what = l.source === 'unnamed' ? 'unnamed' : l.text.en.replace(/^(a|the) road /, '');
-    return `Why: the ${r.roads} roads out of this ${placeWord(p)} by car (${r.roads === 2 ? 'both' : 'all'} ${what}) are ${when} (on each road, ${members}).`;
+    return `Why: the ${r.roads} roads ${area} (${r.roads === 2 ? 'both' : 'all'} ${what}) are ${when} (on each road, ${members}).`;
   }
-  return `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of this ${placeWord(p)} by car (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
+  return `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} ${area} (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
 }
 
 function exitsSpoken(p: MessagePlan, r: Exits): string {
+  const area = 'leading out of the area reachable from here without meeting flames';
   const when = r.atStart ? 'already blocked by flames' : `blocked by flames within ${durationText(p.input.scenario.horizonS, 'en')}`;
-  return r.roads === 1 ? `In the forecast, the only road out of here by car is ${when}.` : `In the forecast, ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of here by car are ${when}.`;
+  return r.roads === 1 ? `In the forecast, the only road ${area} is ${when}.` : `In the forecast, ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} ${area} are ${when}.`;
 }
 
 /** The model_no_route reason in writing (long text, card), or null. */
@@ -111,8 +118,9 @@ function noRouteReasonWritten(p: MessagePlan, max: number): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsWritten(p, r, max);
   if (r.kind === 'entry_in_flame') return `Why: in the fire scenarios from the forecast, the entry point of this ${placeWord(p)} (the nearest road point) is already in flames at departure.`;
-  if (r.kind === 'no_route_flames') return `Why: from every departure time checked, no destination can be reached and the stay finished within the ${rangeAdj(p)} data range on a road that avoids the flames in the fire scenarios from the forecast.`;
-  if (r.kind === 'no_route_time_window') return `Why: from every departure time checked, no destination can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire.`;
+  // the file's claim covers the candidate shelters the planner tried, never every possible destination
+  if (r.kind === 'no_route_flames') return `Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the ${rangeAdj(p)} data range on a road that avoids the flames in the fire scenarios from the forecast.`;
+  if (r.kind === 'no_route_time_window') return `Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire.`;
   return null;
 }
 
@@ -123,8 +131,8 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsSpoken(p, r);
   if (r.kind === 'entry_in_flame') return 'In the forecast, the road entry point here is already in flames.';
-  if (r.kind === 'no_route_flames') return `In the forecast, no route that avoids the flames reaches a destination within ${range}.`;
-  if (r.kind === 'no_route_time_window') return `Even without fire, no destination can be reached within ${range}.`;
+  if (r.kind === 'no_route_flames') return `In the forecast, no route that avoids the flames reaches any of the destinations checked within ${range}.`;
+  if (r.kind === 'no_route_time_window') return `Even without fire, none of the destinations checked can be reached within ${range}.`;
   return null;
 }
 
@@ -182,7 +190,12 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     };
   }
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return { role: 'reason', text: `Why: leaving at the next checked time, ${N}, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.` };
+    return {
+      role: 'reason',
+      text: card
+        ? `Why: at the next checked time, ${N}, no destination checked can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.`
+        : `Why: leaving at the next checked time, ${N}, none of the destinations checked (candidate shelters) can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.`,
+    };
   }
   if (r && r.kind === 'time_window') {
     // only what is established (see ko.ts): the next checked time fails for every destination checked, later times have no checked route
@@ -212,7 +225,7 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'flame_on_route') return latin(r.road.text.en) ? sentence(`In ${kOfN(r.k, r.n)}, flames reach ${r.road.text.en} around ${enSpokenTime(t0, r.flameS)}`) : sentence(`In ${kOfN(r.k, r.n)}, flames reach a road on the way around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'dwell_at_destination') return sentence(`In ${kOfN(r.k, r.n)}, flames reach the destination area around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, no destination can be reached in time on a road that avoids the flames in the forecast.`;
+    return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, none of the destinations checked can be reached in time on a road that avoids the flames in the forecast.`;
   }
   if (r && r.kind === 'time_window') return `Later departures have no checked route; ${NOT_FIRE_EN}`;
   if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
@@ -439,6 +452,8 @@ export const EN: TemplateSet = {
       );
       const why = noRouteReasonSpoken(p);
       if (why) lines.push(why);
+      // what the family itself is told (as in the broadcast): follow official instructions; 119 in an emergency
+      lines.push(noRouteSpoken(p));
     } else if (p.kind === 'partial') {
       lines.push('Computer forecast results differ by departure time, so no single departure time is given. Official evacuation guidance must be followed.');
     } else {
