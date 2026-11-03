@@ -15,8 +15,9 @@ Every file is verified by SHA-256 before use; a mismatch stops the run. Without 
 ``path_b.compute(with_graphs=False)`` read no file from it.
 
 The environment variable ``WFG_ROUTING_DATA`` may point at another copy of ``data/routing/`` (inside or outside the
-repository; the tests point it at an empty folder to prove what needs it). Its files are verified in the same way and
-are always recorded under their repository-style ``data/routing/...`` paths (``graph_rel``, ``hazard_rel``).
+repository; the tests point it at a folder that does not exist to prove what needs it). Its files are verified in the
+same way and are always recorded under their repository-style ``data/routing/...`` paths (``graph_rel``,
+``hazard_rel``).
 """
 from __future__ import annotations
 

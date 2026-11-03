@@ -257,9 +257,9 @@ when its content changes, and `compute.py --check` compares them (SVG bytes, PNG
 ## Definitions (replicated exactly from the planner; line numbers at commit 0cd95db2)
 
 Planner line numbers here, in `NUMBERS.json` and in `wfg_impact/` refer to repository commit `0cd95db2`. Later
-commits moved some of them: at `952fcc59`, `cache.ts`, `controller.ts` and `staticData.ts` differ from `0cd95db2` only
-by app-path and static-demo changes outside the cited functions, and `plan.ts`, `adapter.ts` and `LeftPanel.tsx` are
-unchanged.
+commits moved some of them: at `Main` commit `9fdc33f4` (and at `952fcc59`, where these files are identical),
+`cache.ts`, `controller.ts` and `staticData.ts` differ from `0cd95db2` only by app-path and static-demo changes outside
+the cited functions, and `plan.ts`, `adapter.ts` and `LeftPanel.tsx` are unchanged.
 
 - **Cell verdict at a departure offset** (`planner/src/domain/plan.ts` `combineVerdicts`/`cellVerdict`, lines 106-115):
   `checked_route` if any candidate destination has a checked route; `model_no_route` only if every attempted
@@ -396,8 +396,8 @@ pixels). Without `data/routing/`, run `verify.py --cache-only` instead (it check
 nothing from `data/routing/`); `compute.py` and a full `verify.py` then stop with exit status 2 and that hint. The
 environment variable `WFG_ROUTING_DATA` may point at a copy of `data/routing/` elsewhere: its files are SHA-verified
 in the same way and recorded under their `data/routing/` paths. In the shared 4-CPU Linux container used for the
-committed outputs (other jobs running at the same time), `compute.py` took about 40 seconds, `verify.py` 4 to 5
-minutes, `verify.py --cache-only` about 15 seconds and the tests about 5.5 minutes, each below 1 GB peak memory.
+committed outputs (other jobs running at the same time), `compute.py` took 40 to 55 seconds, `verify.py` 4 to 5
+minutes, `verify.py --cache-only` about 15 seconds and the tests 5.5 to 6 minutes, each below 1 GB peak memory.
 
 No route check is re-run: verdicts, deadlines and travel-only results are read from the recorded cache (evaluated
 macOS arm64 host). The `uses_graph` numbers are recomputed by this package on whatever machine runs it; the committed

@@ -27,7 +27,7 @@ ROUTING_SKIP = 'road graphs / HAZARD packets missing: run python tools/fetch_rou
 
 @contextmanager
 def no_routing_data(tmp_dir: Path):
-    """Point the package at an empty data/routing/ so that any read from it fails loudly."""
+    """Point the package at a data/routing/ folder that does not exist, so that any read from it fails loudly."""
     old = os.environ.get('WFG_ROUTING_DATA')
     os.environ['WFG_ROUTING_DATA'] = str(tmp_dir / 'no-routing-data')
     try:
