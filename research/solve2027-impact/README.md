@@ -192,7 +192,9 @@ equal to `NUMBERS.json` when the figure is drawn. Verdicts use the planner's fix
 section 7) plus text labels, and unresolved is always hatched, so no verdict relies on colour alone: green `#1A9E55`
 checked route, ink `#0B0B0C` model_no_route, grey `#9A9AA0` hatched unresolved. The window is a white-dot pattern over
 the verdict colour, with counts in text. The travel-time-only route is never green. Every footer states the
-destination scope (three nearest OSM-mapped schools or community halls, not official shelters).
+destination scope (three nearest OSM-mapped schools or community halls, not official shelters). The figures are drawn
+from matplotlib's own defaults whatever the local matplotlibrc says, a figure file is rewritten only when its content
+changes, and `compute.py --check` compares them (SVG bytes, PNG pixels).
 
 1. [`fig1_checked_share_by_offset`](figures/fig1_checked_share_by_offset.png) - share of places with a checked route
    at each departure time, per scenario set, split into the three verdicts. The window-limited part (no fire-free trip
@@ -306,8 +308,9 @@ python3.12 -m venv .venv
 .venv/bin/python -m pytest -q research/solve2027-impact/tests
 ```
 
-`compute.py --check` recomputes and fails if any committed text output (NUMBERS.json, tables, generated README blocks,
-APPLICATION_SENTENCES.md, figure CSV twins) would change. On a shared, heavily loaded 2-vCPU Linux container
+`compute.py --check` recomputes and fails if any committed output would change: the text outputs (NUMBERS.json,
+tables, generated README blocks, APPLICATION_SENTENCES.md, figure CSV twins) and the six figure files (SVG bytes, PNG
+pixels). On a shared, heavily loaded 2-vCPU Linux container
 `compute.py` took about 1.5 minutes, `verify.py` 4-8 minutes and the tests about 9 minutes, each below 1 GB peak
 memory. The numbers do not
 depend on the host running this package: they are read from the recorded cache, not recomputed by the router.

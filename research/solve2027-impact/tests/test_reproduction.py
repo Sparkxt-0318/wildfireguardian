@@ -20,16 +20,30 @@ def test_committed_text_outputs_reproduce_exactly(built):
         assert (PACKAGE_ROOT / name).read_text(encoding='utf-8') == body, f'{name} is out of date: run compute.py'
 
 
-def test_figure_table_twins_reproduce_exactly(path_a_result, built):
+def test_figures_and_table_twins_reproduce_exactly_whatever_the_matplotlib_config(path_a_result, built):
+    """Drawn under a deliberately different ambient matplotlib configuration (as a matplotlibrc or MATPLOTLIBRC would
+    set it), the figures still equal the committed ones: SVG byte for byte, PNG pixel for pixel; the ambient settings
+    are restored afterwards."""
+    import matplotlib
     from wfg_impact import figures
     nums, _ = built
-    with tempfile.TemporaryDirectory() as td:
-        figures.draw_all(path_a_result, nums, Path(td), Path(td))
+    hostile = {  # settings figures._style() pins ...
+               'text.hinting': 'no_hinting', 'font.family': ['serif'], 'font.size': 14.0, 'figure.dpi': 72.0,
+               'svg.fonttype': 'path', 'svg.hashsalt': 'ambient', 'hatch.linewidth': 3.0, 'axes.facecolor': '#eeeeee',
+               'figure.facecolor': '#dddddd', 'savefig.dpi': 300.0,
+               # ... and settings only the reset to matplotlib's defaults protects against
+               'xtick.labelsize': 20.0, 'ytick.labelsize': 20.0, 'axes.labelsize': 20.0, 'axes.xmargin': 0.3,
+               'axes.ymargin': 0.3, 'legend.handlelength': 5.0, 'patch.antialiased': False, 'lines.antialiased': False,
+               'lines.linewidth': 3.0, 'grid.alpha': 0.1}
+    with tempfile.TemporaryDirectory() as td, matplotlib.rc_context(hostile):
+        drawn = figures.draw_all(path_a_result, nums, Path(td), Path(td))
+        assert matplotlib.rcParams['text.hinting'] == 'no_hinting' and matplotlib.rcParams['font.size'] == 14.0
         for p in sorted(Path(td).glob('*.csv')):
             assert (PACKAGE_ROOT / 'tables' / p.name).read_text(encoding='utf-8') == p.read_text(encoding='utf-8')
-        for stem in ('fig1_checked_share_by_offset', 'fig2_deadline_by_origin_type', 'fig3_travel_only_vs_checked'):
-            for ext in ('png', 'svg'):
-                assert (PACKAGE_ROOT / 'figures' / f'{stem}.{ext}').is_file()
+        assert sorted(p.name for p in drawn) == sorted(f'{stem}.{ext}' for ext in ('png', 'svg') for stem in (
+            'fig1_checked_share_by_offset', 'fig2_deadline_by_origin_type', 'fig3_travel_only_vs_checked'))
+        for p in drawn:
+            assert figures.same_figure(p, PACKAGE_ROOT / 'figures' / p.name), f'{p.name} is out of date: run compute.py'
 
 
 @pytest.mark.skipif(not graphs_available(), reason='road graphs missing: run python tools/fetch_routing_inputs.py')

@@ -384,15 +384,17 @@ def main() -> int:
     if a.check:
         import tempfile
         with tempfile.TemporaryDirectory() as td:
-            figures.draw_all(result, nums, Path(td), Path(td))      # figure CSV twins (images are not compared)
+            drawn = figures.draw_all(result, nums, Path(td), Path(td))      # the figures and their CSV twins
             for p in sorted(Path(td).glob('*.csv')):
                 texts[f'tables/{p.name}'] = p.read_text(encoding='utf-8')
-        bad = [name for name, body in texts.items()
-               if not (HERE / name).is_file() or (HERE / name).read_text(encoding='utf-8') != body]
+            bad = [name for name, body in texts.items()
+                   if not (HERE / name).is_file() or (HERE / name).read_text(encoding='utf-8') != body]
+            bad += [f'figures/{p.name}' for p in drawn if not figures.same_figure(p, HERE / 'figures' / p.name)]
         if bad:
             print('OUT OF DATE: ' + ', '.join(bad))
             return 1
-        print(f'OK: {len(texts)} committed text outputs reproduce exactly ({len(nums)} numbers)')
+        print(f'OK: {len(texts)} committed text outputs and {len(drawn)} figure files (SVG bytes, PNG pixels) reproduce '
+              f'exactly ({len(nums)} numbers)')
         return 0
     for name, body in texts.items():
         (HERE / name).parent.mkdir(parents=True, exist_ok=True)
