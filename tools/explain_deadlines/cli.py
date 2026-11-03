@@ -12,10 +12,11 @@ replay). Any mismatch stops the run before the explanation file of that cache fi
 processed earlier in the same run are complete and stay written). So does any recorded route whose replay disagrees
 with its recorded result (validate.replay_recorded_routes).
 
-The route checks are recorded results of the evaluated host; everything else in an explanation is computed by this
-tool on the machine that runs it, recorded in ``provenance.computed_on``. ``provenance.evaluated_host`` is false unless
-``--evaluated-host`` is given, which is accepted only on native macOS arm64 and is meant only for a run on the evaluated
-host itself (README "Recorded and computed").
+The route checks and travel-only checks are recorded results of the evaluated host, and flame birth and expiry are
+forecast data from the frozen hazard packet; everything else in an explanation is computed by this tool, from the
+recorded routes, the road graph and that packet, on the machine that runs it, recorded in ``provenance.computed_on``.
+``provenance.evaluated_host`` is false unless ``--evaluated-host`` is given, which is accepted only on native macOS
+arm64 and is meant only for a run on the evaluated host itself (README "Recorded and computed").
 """
 from __future__ import annotations
 
