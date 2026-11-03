@@ -44,6 +44,21 @@ export function hm(inputIso: string, offsetS = 0): string {
   return `${p2(p.h)}:${p2(p.mi)}`;
 }
 
+/**
+ * The arrival shown next to a departure time, from ONE rounding: the arrival rounded UP to the whole
+ * minute (never earlier than the model's arrival; the departure is shown as hm() shows it) and the
+ * travel minutes as the difference of the two clocks shown — "10:10에 출발하면 10:53쯤 도착(차로 약
+ * 43분)" for a 42 min 55 s trip, so the clock and the minutes always agree.
+ */
+export function arrivalShown(inputIso: string, departS: number, arrivalS: number): { hm: string; min: number } {
+  const t0 = parseUtc(inputIso);
+  // whole minutes since the epoch (KST is a whole number of minutes ahead of UTC)
+  const depMin = Math.floor((t0 + Math.floor(departS) * 1000) / 60000);
+  const arrMin = Math.ceil((t0 + arrivalS * 1000) / 60000);
+  const k = new Date(arrMin * 60000 + KST_MS);
+  return { hm: `${p2(k.getUTCHours())}:${p2(k.getUTCMinutes())}`, min: arrMin - depMin };
+}
+
 /** "2025-03-24" (KST). */
 export function ymd(inputIso: string, offsetS = 0): string {
   const p = kstParts(inputIso, offsetS);

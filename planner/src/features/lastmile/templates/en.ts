@@ -8,6 +8,7 @@ import { kstStamp } from '../../shared/format';
 import { FOOTER_APP } from '../../shared/strings';
 import { ENTRY_LIMIT_M } from '../../../domain/plan';
 import {
+  arrivalShown,
   durationText,
   distanceText,
   enDate,
@@ -254,9 +255,9 @@ function bodyLines(p: MessagePlan, target: 'lms' | 'card'): CardLine[] {
     if (d) {
       if (p.destinationVaries) {
         out.push({ role: 'destination', text: `The destination depends on the departure time. Destination the model checked for leaving at ${T}: ${destWritten(d)}.` });
-      } else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-        const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-        out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}. Leaving at ${T}, arrival around ${hm(t0, d.arrivalS)} KST (about ${min} min by car; traffic not included).` });
+      } else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+        const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+        out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}. Leaving at ${T}, arrival around ${a.hm} KST (about ${a.min} min by car; traffic not included).` });
       } else {
         out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}.` });
       }
@@ -302,9 +303,9 @@ function leaveByCardLines(p: MessagePlan): CardLine[] {
   const d = p.destination;
   if (d) {
     if (p.destinationVaries) out.push({ role: 'destination', text: `The destination depends on the departure time; for ${T}: ${destWritten(d)}` });
-    else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-      const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-      out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}; leave ${T}, arrive around ${hm(t0, d.arrivalS)} (about ${min} min by car; traffic not included)` });
+    else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+      const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+      out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}; leave ${T}, arrive around ${a.hm} (about ${a.min} min by car; traffic not included)` });
     } else out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}` });
   }
   out.push(afterWritten(p, T, true));
@@ -427,9 +428,11 @@ export const EN: TemplateSet = {
     const lines: string[] = [];
     lines.push(`[Before the call] ${OFFICIAL_FIRST.en} What follows is ${MODEL_NOT_LIVE_SPOKEN.en}, not live information. Fill in the [brackets] yourself.`);
     if (p.kind === 'no_route') lines.push(`[Before the call] Check that the ${facility(p) ? 'facility' : 'village head'} has contacted 119 and the eup/myeon office first.`);
+    // a name without a Latin-script form (OSM name:en) is never read out: generic wording, as in the broadcast
     if (o.name && o.kind === 'facility') {
-      lines.push(`Hello, this is [staff name] from ${o.name.en}. I am calling the family of [resident name] about the wildfire evacuation plan.`);
-    } else if (o.name && o.kind === 'village') {
+      const from = latin(o.name.en) ? o.name.en : `the ${o.category.en.toLowerCase()}`;
+      lines.push(`Hello, this is [staff name] from ${from}. I am calling the family of [resident name] about the wildfire evacuation plan.`);
+    } else if (o.name && o.kind === 'village' && latin(o.name.en)) {
       lines.push(`Hello, this is [your name and role]. I am calling the family of [resident name], who lives in ${o.name.en}, about the wildfire evacuation plan.`);
     } else {
       lines.push('Hello, this is [your name and role]. I am calling the family of [resident name] about the wildfire evacuation plan.');
@@ -439,9 +442,10 @@ export const EN: TemplateSet = {
       const S = enSpokenTime(t0, p.leaveByS);
       const dist = o.entryDistanceM;
       const from = dist !== null && dist > ENTRY_SPOKEN_MIN_M ? `the road ${distanceText(dist)} from the ${place}` : `the road near the ${place}`;
+      const dest = p.destination && !p.destinationVaries ? (p.destination.name === null || latin(p.destination.name.en) ? destSpoken(p.destination) : 'the destination named on the card') : null;
       lines.push(
-        p.destination && !p.destinationVaries
-          ? `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route to ${destSpoken(p.destination)}.`
+        dest
+          ? `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route to ${dest}.`
           : `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route. The destination depends on the departure time.`,
       );
       lines.push(afterSpoken(p));

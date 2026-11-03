@@ -45,8 +45,11 @@ kinds and fails closed to the less specific one on any inconsistency.
   not, the message keeps T (earlier than the planner's headline deadline) and says why. Window-closed
   times are not requests. Each output gives: leave by T ("do not wait until this time"), the
   destination checked at every time up to T (or "the destination depends on the departure time"),
-  the arrival time and minutes by car when known, what limits T (below), the data time and the
-  mandatory lines. **What limits T is never presented as fire unless the explanation file says so**:
+  the arrival time and minutes by car when known — both from one rounding: the arrival rounded up
+  to the whole minute (never earlier than the model's; the planner's panel shows it to the second)
+  and the minutes as the difference of the two clocks shown, e.g. "10:10에 출발하면 10:53쯤 도착합니다
+  (차로 약 43분 …)" for a 42 min 55 s trip (`compose.ts` `arrivalShown`) — what limits T (below), the
+  data time and the mandatory lines. **What limits T is never presented as fire unless the explanation file says so**:
   - nothing later was requested (the last departure checked, 50 min after the input time in the
     booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 이 시각은 불길 때문에 정한 것이 아닙니다", and
     the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by` —
@@ -141,8 +144,12 @@ Short sentences in 하십시오체 (the SMS too: `공식안내 따르십시오`)
 + hour ("새벽 2시 20분"); "컴퓨터 예측 계산" instead of "모델" in spoken text; only particles that do
 not depend on the preceding sound (까지/에/의/에서/입니다) follow inserted names or times. An unnamed
 destination is "지도 자료에 이름이 없는 학교" in writing and "이름 없는 학교" when spoken; its OSM id
-appears only in the card's staff footer. The English text is the project's own translation of the
-Korean source, not machine translation.
+appears only in the card's staff footer. English spoken outputs (broadcast and call script) read a
+place name only when OSM has a Latin-script name (`name:en`); otherwise they use generic wording
+("Attention, residents.", "from the nursing home", "the destination named on the card") — never a
+Hangul name read in English (tested over every origin). Written English (long text, card) keeps the
+name as the map data has it. The English text is the project's own translation of the Korean
+source, not machine translation.
 
 The broadcast (`assembleSpoken`) keeps every required block — for a replay the opening "이 방송은
 실제 상황이 아닙니다.", the greeting, the data sentence, the leave-by sentence with the destination,

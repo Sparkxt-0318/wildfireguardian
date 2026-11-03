@@ -18,7 +18,7 @@ import {
   SMS_KO_MAX_BYTES,
   spokenSeconds,
 } from '../../planner/src/features/lastmile/encoding';
-import { cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime } from '../../planner/src/features/lastmile/compose';
+import { arrivalShown, cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime } from '../../planner/src/features/lastmile/compose';
 import {
   approxDistance,
   clearExplanationCache,
@@ -92,6 +92,25 @@ describe('time wording (KST)', () => {
     expect(koSmsDate(SYN_INPUT_TIME)).toBe('25.3.24 18:00');
     expect(koDateSpoken(SYN_INPUT_TIME)).toBe('2025년 3월 24일 오후 6시');
     expect(enDateSpoken(SYN_INPUT_TIME)).toBe('March 24, 2025, 6 p.m.');
+  });
+
+  it('shows the arrival from one rounding: clock rounded up to the minute, minutes = shown arrival − departure', () => {
+    // 10:10 KST + 2,575 s (42 min 55 s): 10:53, 43 min (never "10:52 … 43 min")
+    expect(arrivalShown('2025-03-23T01:00:00Z', 600, 600 + 2575)).toEqual({ hm: '10:53', min: 43 });
+    // 18:10 KST departure, arrival 1,531 s after the input time (18:25:31): 18:26, 16 min
+    expect(arrivalShown(SYN_INPUT_TIME, 600, 1531)).toEqual({ hm: '18:26', min: 16 });
+    // an arrival on the minute stays on it; across midnight the minutes still count
+    expect(arrivalShown(SYN_INPUT_TIME, 1800, 3300)).toEqual({ hm: '18:55', min: 25 });
+    expect(arrivalShown('2025-03-25T14:30:00Z', 1200, 1200 + 1801)).toEqual({ hm: '00:21', min: 31 });
+    const shifted = cells(['checked_route', 'checked_route', 'checked_route', 'checked_route', 'model_no_route', 'model_no_route']).map((c) => ({
+      ...c,
+      attempts: c.attempts.map((a) => (a.arrivalS === null ? a : { ...a, arrivalS: a.arrivalS + 31 })),
+    }));
+    const fm = buildFieldMessages(synInput({ plan: { ...synInput().plan!, sweep: shifted } }));
+    expect(fm.text.ko.lms).toContain('18:30에 출발하면 18:56쯤 도착합니다(차로 약 26분, 교통 정체 미반영).');
+    expect(fm.text.en.lms).toContain('Leaving at 18:30, arrival around 18:56 KST (about 26 min by car; traffic not included).');
+    expect(cardText(fm.text.ko.card)).toContain('18:30 출발 시 18:56쯤 도착(차로 약 26분');
+    expect(cardText(fm.text.en.card)).toContain('leave 18:30, arrive around 18:56 (about 26 min by car');
   });
 
   it('finds the clock times a text names (date-time stamps excluded)', () => {
@@ -273,6 +292,28 @@ describe('templates per verdict', () => {
     }
     expect(unnamed.text.ko.lms).toContain('모델이 점검한 도착지: 지도 자료에 이름이 없는 학교.');
     expect(unnamed.text.ko.broadcast).toContain('이름 없는 학교까지 가는 길이');
+  });
+
+  it('English spoken outputs never read a Hangul name: generic wording when OSM has no Latin-script name', () => {
+    const base = synInput();
+    const hangulOnly = {
+      ...base,
+      origin: { ...base.origin, name: { ko: '합성마을', en: '합성마을' }, display: { ko: '합성마을', en: '합성마을' } },
+      destinations: { ...base.destinations, 'syn:dest:a': { ...base.destinations['syn:dest:a']!, name: { ko: '합성초등학교', en: '합성초등학교' }, display: { ko: '합성초등학교', en: '합성초등학교' } } },
+    };
+    const fm = buildFieldMessages(hangulOnly);
+    expect(fm.violations).toEqual([]);
+    for (const k of ['broadcast', 'call'] as const) expect(fm.text.en[k]).not.toMatch(/[ㄱ-ㆎ가-힣]/);
+    expect(fm.text.en.call).toContain('I am calling the family of [resident name] about the wildfire evacuation plan.');
+    expect(fm.text.en.call).toContain('no later than 6:30 p.m. gives a checked route to the destination named on the card.');
+    expect(fm.text.en.broadcast).toContain('Attention, residents.');
+    // written English (long text, card) still names the place as the map data has it
+    expect(fm.text.en.lms).toContain('합성초등학교');
+    const fac = buildFieldMessages({ ...hangulOnly, origin: { ...hangulOnly.origin, kind: 'facility', category: { ko: '요양시설', en: 'Nursing home' } } });
+    for (const k of ['broadcast', 'call'] as const) expect(fac.text.en[k]).not.toMatch(/[ㄱ-ㆎ가-힣]/);
+    expect(fac.text.en.call).toContain('Hello, this is [staff name] from the nursing home.');
+    // a Latin-script name is still read out
+    expect(buildFieldMessages(base).text.en.call).toContain('who lives in Hapseong-ri');
   });
 
   it('no_route: contact 119 / 읍·면사무소 now and follow official instructions — no departure time, no tactical advice', () => {

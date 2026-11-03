@@ -19,6 +19,7 @@ import { kstStamp } from '../../shared/format';
 import { FOOTER_APP } from '../../shared/strings';
 import { ENTRY_LIMIT_M } from '../../../domain/plan';
 import {
+  arrivalShown,
   durationText,
   distanceText,
   hm,
@@ -237,9 +238,9 @@ function bodyLines(p: MessagePlan, target: 'lms' | 'card'): CardLine[] {
     if (d) {
       if (p.destinationVaries) {
         out.push({ role: 'destination', text: `도착지는 출발 시각에 따라 다릅니다. ${T}에 출발할 때 모델이 점검한 도착지: ${destWritten(d)}.` });
-      } else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-        const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-        out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}. ${T}에 출발하면 ${hm(t0, d.arrivalS)}쯤 도착합니다(차로 약 ${min}분, 교통 정체 미반영).` });
+      } else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+        const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+        out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}. ${T}에 출발하면 ${a.hm}쯤 도착합니다(차로 약 ${a.min}분, 교통 정체 미반영).` });
       } else {
         out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}.` });
       }
@@ -289,9 +290,9 @@ function leaveByCardLines(p: MessagePlan): CardLine[] {
   const d = p.destination;
   if (d) {
     if (p.destinationVaries) out.push({ role: 'destination', text: `도착지는 출발 시각에 따라 다릅니다. ${T} 출발 때 모델이 점검한 도착지: ${destWritten(d)}` });
-    else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-      const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-      out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)} · ${T} 출발 시 ${hm(t0, d.arrivalS)}쯤 도착(차로 약 ${min}분, 교통 정체 미반영)` });
+    else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+      const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+      out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)} · ${T} 출발 시 ${a.hm}쯤 도착(차로 약 ${a.min}분, 교통 정체 미반영)` });
     } else out.push({ role: 'destination', text: `모델이 점검한 도착지: ${destWritten(d)}` });
   }
   out.push(afterWritten(p, T, true));

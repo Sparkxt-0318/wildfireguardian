@@ -221,6 +221,42 @@ describe('audiences and replays (independent checks)', () => {
   });
 });
 
+describe('numbers and names a reader hears or reads (independent checks over every origin)', () => {
+  const HANGUL = /[ᄀ-ᇿ㄰-㆏가-힣]/;
+
+  it('the arrival clock and the travel minutes come from one rounding: minutes = shown arrival − departure, arrival never earlier than the model', () => {
+    let lines = 0;
+    for (const x of all) {
+      if (x.fm.kind !== 'leave_by' || !x.fm.plan.destination || x.fm.plan.destinationVaries) continue;
+      const d = x.fm.plan.destination;
+      if (d.arrivalS === null || d.arrivalS <= x.fm.leaveByS!) continue;
+      const iso = x.input.scenario.inputTimeIso;
+      // input times and departures are whole minutes in the recorded data: ceil of the travel time
+      const min = Math.ceil((d.arrivalS - x.fm.leaveByS!) / 60);
+      const T = hm(iso, x.fm.leaveByS!);
+      const A = hm(iso, x.fm.leaveByS! + 60 * min);
+      expect(A, x.input.origin.id).toBe(hm(iso, Math.ceil(d.arrivalS / 60) * 60));
+      expect(x.fm.text.ko.lms).toContain(`${T}에 출발하면 ${A}쯤 도착합니다(차로 약 ${min}분,`);
+      expect(x.fm.text.en.lms).toContain(`Leaving at ${T}, arrival around ${A} KST (about ${min} min by car;`);
+      expect(allTexts(x.fm, 'ko').card).toContain(`${T} 출발 시 ${A}쯤 도착(차로 약 ${min}분,`);
+      expect(allTexts(x.fm, 'en').card).toContain(`leave ${T}, arrive around ${A} (about ${min} min by car;`);
+      lines += 1;
+    }
+    expect(lines).toBe(all.filter((x) => x.fm.kind === 'leave_by').length);
+  });
+
+  it('English spoken outputs (broadcast, call script) never read a Hangul name', () => {
+    let hangulNames = 0;
+    for (const x of all) {
+      const names = [x.input.origin.name?.en, x.fm.plan.destination?.name?.en].filter((n): n is string => Boolean(n));
+      if (names.some((n) => HANGUL.test(n))) hangulNames += 1;
+      for (const t of [x.fm.text.en.broadcast, x.fm.text.en.call]) expect(t, x.input.origin.id).not.toMatch(HANGUL);
+    }
+    // the fallback is exercised: many places have no Latin-script name in OSM
+    expect(hangulNames).toBeGreaterThan(100);
+  });
+});
+
 /**
  * "점검한 마지막 출발 / Checked up to" only when T really is the last departure checked: no requested
  * (not window-closed) departure after T in the sweep — read here from the sweep itself, not from
@@ -343,7 +379,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       Checked vehicle route in the model
       Leave by 02:20 (2:20 a.m. KST)
       Do not wait until this time: leave by car early.
-      Model-checked destination: Uiseong Bukbu Elementary School; leave 02:20, arrive around 02:50 (about 30 min by car; traffic not included)
+      Model-checked destination: Uiseong Bukbu Elementary School; leave 02:20, arrive around 02:51 (about 31 min by car; traffic not included)
       No checked route for departures after 02:20.
       Follow official guidance on where to go. No car or need help? Tell the village head or eup/myeon office now.
       Official evacuation orders come first.
@@ -357,7 +393,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       Data time: 2025-03-26 02:00 KST
 
       - Leave by car no later than 02:20 KST (2:20 a.m.). Do not wait until that time.
-      - Destination the model checked: Uiseong Bukbu Elementary School. Leaving at 02:20, arrival around 02:50 KST (about 30 min by car; traffic not included).
+      - Destination the model checked: Uiseong Bukbu Elementary School. Leaving at 02:20, arrival around 02:51 KST (about 31 min by car; traffic not included).
       - Departures after 02:20 have no checked route in the model.
       - Follow official guidance on where to go and which roads to use.
       - If you have no car or cannot move on your own, tell the village head or the eup/myeon office now.
@@ -394,7 +430,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       모델로 확인된 차량 경로 있음
       출발 마감 02:20 (새벽 2시 20분 · 한국 시각)
       이 시각까지 기다리지 말고 미리 차로 출발하십시오.
-      모델이 점검한 도착지: 의성북부초등학교 · 02:20 출발 시 02:50쯤 도착(차로 약 30분, 교통 정체 미반영)
+      모델이 점검한 도착지: 의성북부초등학교 · 02:20 출발 시 02:51쯤 도착(차로 약 31분, 교통 정체 미반영)
       02:20보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.
       실제 대피 장소와 길은 공식 안내를 따르십시오. 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
       공식 대피 명령이 우선합니다.
@@ -408,7 +444,7 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       자료 기준: 2025년 3월 26일 02:00 (한국 시각)
 
       ■ 02:20(새벽 2시 20분)까지 차로 출발하십시오. 이 시각까지 기다리지 마십시오.
-      ■ 모델이 점검한 도착지: 의성북부초등학교. 02:20에 출발하면 02:50쯤 도착합니다(차로 약 30분, 교통 정체 미반영).
+      ■ 모델이 점검한 도착지: 의성북부초등학교. 02:20에 출발하면 02:51쯤 도착합니다(차로 약 31분, 교통 정체 미반영).
       ■ 02:20보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.
       ■ 실제 대피 장소와 길은 공식 안내를 따르십시오.
       ■ 차가 없거나 혼자 움직이기 어려우면 이장이나 읍·면사무소에 바로 알리십시오.
