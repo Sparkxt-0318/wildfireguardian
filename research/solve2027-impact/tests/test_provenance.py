@@ -171,13 +171,36 @@ def test_attribution_is_split_wherever_numbers_are_published():
         assert all(p in text for p in SOURCE_PHRASES) and 'road entry point' in text, stem
 
 
+# "from the place" (village, facility, ...) is only correct as "from the place's road entry point"
+FROM_PLACE = re.compile(r"\bfrom (?:the|each|a|every|its|their) (?:place|village|hamlet|care facility|facility|origin)s?\b"
+                        r"(?!'s (?:mapped )?road entry point)", flags=re.I)
+
+
+def _entry_note(text: str) -> bool:
+    return 'road entry point' in text and 'at most 2 km' in text and 'not modelled' in text
+
+
 def test_departures_are_said_to_start_at_the_road_entry_point():
     preamble = SENTENCES_MD.split('## S1')[0]
     for text in (preamble, figures.FOOTER, ' '.join(NUMBERS['caveats'])):
-        assert 'road entry point' in text and 'at most 2 km' in text and 'not modelled' in text
-    s1_text, s1_caution, _ = sentences.render(sentences.SENTENCES[0], N)
+        assert _entry_note(text)
+    s1_text = sentences.render(sentences.SENTENCES[0], N)[0]
     assert 'checked vehicle departures from the road entry point of each of' in s1_text and 'at most 2 km' in s1_text
-    assert 'road entry point' in s1_caution and 'not modelled' in s1_caution
+    s3_text = sentences.render(sentences.SENTENCES[2], N)[0]
+    assert "no checked route from the place's road entry point to any of its" in s3_text
+    # each sentence and its caution may be quoted alone: no sentence or caution places a departure at the mapped place,
+    # and every caution carries the entry-point note (rendered here and in the committed APPLICATION_SENTENCES.md)
+    cautions = re.findall(r'^Caution: (.+)$', SENTENCES_MD, flags=re.M)
+    quoted = re.findall(r'^> (.+)$', SENTENCES_MD, flags=re.M)
+    assert len(cautions) == len(quoted) == len(sentences.SENTENCES)
+    for s, md_text, md_caution in zip(sentences.SENTENCES, quoted, cautions):
+        text, caution, _ = sentences.render(s, N)
+        assert (md_text, md_caution) == (text, caution), s['id']
+        for part in (text, caution):
+            assert not FROM_PLACE.search(part), (s['id'], FROM_PLACE.search(part))
+        assert _entry_note(caution), s['id']
+    assert not FROM_PLACE.search(SENTENCES_MD) and not FROM_PLACE.search(figures.FOOTER)
+    assert FROM_PLACE.search('no checked route from the place to any') and FROM_PLACE.search('trips from each village')
     g = lambda k: N[k]  # noqa: E731
     med, mx = g('entry_distance_m.median@all/places')['value'], g('entry_distance_m.max@all/places')['value']
     o500, o1k = g('entry_distance_over_500m@all/places'), g('entry_distance_over_1000m@all/places')
