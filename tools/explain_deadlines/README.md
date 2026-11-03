@@ -8,10 +8,15 @@ rigorously. It never modifies routing, forecast or checking code; it reads the r
 ```sh
 python3.12 -m venv .venv && .venv/bin/python -m pip install -c constraints-routing.txt './integration[packets]' pytest hypothesis==6.170.13
 .venv/bin/python tools/fetch_routing_inputs.py                      # frozen graphs + hazard packets (SHA-verified)
-.venv/bin/python -m tools.explain_deadlines generate                 # writes planner/public/data/explanations/*.json (~2 min)
+.venv/bin/python -m tools.explain_deadlines generate                 # writes planner/public/data/explanations/*.json (~3 min)
 .venv/bin/python -m tools.explain_deadlines check --tmp /tmp/wfg-x  # regenerate and compare (all but run stamps)
 .venv/bin/python -m pytest -q tests/explain_deadlines                # hand-computed, property and real-data tests
 ```
+
+The route checks shown by the planner are recorded results of the evaluated host; this tool runs no new route checks.
+Everything else in an explanation is computed by this tool on the machine that runs it, which the files record
+(`provenance.computed_on`, `provenance.evaluated_host`; section 10). The committed files were computed in a Linux x86_64
+container: `evaluated_host` is `false`.
 
 ## 1 Inputs and identity (fail-closed)
 
@@ -23,8 +28,11 @@ python3.12 -m venv .venv && .venv/bin/python -m pip install -c constraints-routi
 | `HAZARD.json` vs `constructed_arrays.npz` | for every member and cell the router's flame bins equal the npz phase with the writer's rounded-up extinction (`Packet.verify_consistency`) |
 | time and grid | one routing tick is one second (`HAZARD.dt` = `REPORT` `routing_dt_s` = 1; graph `travel_ticks` positive integers); the scenario window is [0, `horizon_s`]; `REPORT` `affine_transform` and CRS equal the graph grid (the npz is read north-up on it); packet CRS equals the graph CRS |
 
-Any mismatch stops the run; nothing is written. Each output records the cache, packet and graph hashes, the number of
-cached jobs whose hashes were verified, the generating commit (`code_commit`, `code_dirty`) and the places file.
+Any mismatch stops the run before the file of that cache file is written (files of cache files processed earlier in the
+same run are complete). So does any recorded route whose replay disagrees with its recorded result (section 5,
+`replay_*`). Each output records the cache, packet and graph hashes, the number of cached jobs whose hashes were
+verified, the generating commit (`code_commit`, `code_dirty`), the places file and where it was computed
+(`computed_on`, `evaluated_host`).
 
 ## 2 The deadline being explained
 
@@ -137,8 +145,9 @@ are open in 10 of the 11 recorded `model_no_route` origins (in the 11th one of i
 departure); the blockage lies further out, so the exits reported are the roads where the flame-free area ends.**
 `unresolved` origins: `not_explainable` (`origin_unresolved`), with their attempt verdicts.
 
-## 5 Validation (counts in every file's `summary.validation`; a failure withdraws the explanation)
+## 5 Validation (counts in every file's `summary.validation`)
 
+Per-origin assertions (a failure withdraws that origin's explanation: `not_explainable`, `validation_failed:<ids>`).
 Counts are origins (an origin passes when every instance passes); a, b and kit_b run once per route behind a binding
 item (21 routes for the 8 `flame_on_route` origins).
 
@@ -152,6 +161,25 @@ item (21 routes for the 8 `flame_on_route` origins).
 | e | every exit is startable before the window ends yet flame-blocked at every start second; no road leaving the area cut by time; every attempt proven; fire-free fit (cause `flames`) or the node lower bound (`no_route_even_without_fire`) re-derived | 11 / 11 / 0 |
 | kit_a_route | the kit's frozen independent checker (`runner/ffi_independent_checker.py`, sha256 pinned in `CANDIDATE_MANIFEST.json`; reads the npz, not `HAZARD.json`): `whole_road_contact` CLEAR and router-conservative `centre_model` without contact for every route checked at D | 507 / 507 / 0 |
 | kit_b | the same checker on the shifted route truncated after the binding leg: earliest witness per member on the binding segment, exact contact time equal, same member set | 8 / 8 / 0 |
+
+Route replays of the whole cache file (`validate.replay_recorded_routes`; counted in **routes**, `"unit": "route"`,
+with the same `applicable`/`passed`/`failed` fields plus the named counts). Each route is rebuilt exactly (its legs
+must hash to the recorded `route_sha256`) and replayed at its own recorded times — issue point, every leg and the
+destination stay — with both contact rules of section 3. Any mismatch, or a route that cannot be rebuilt or compared
+(`not_replayed`), **stops the run and nothing is written for that file**: it would mean the replay semantics differ
+from the evaluated checker, which must then be fixed; routes are never filtered out.
+
+| id | what is replayed and required | per file (uiseong_andong_2025 03-23T01, 03-24T09, 03-25T17; yeongdeok_2025 03-25T19, 03-25T23, 03-26T08) | all 6 files |
+|---|---|---|---|
+| `replay_checked_routes` | **every** `route_checks` entry with verdict `checked_route` (not only those at a deadline, which `a_route` covers): no contact in any member under either rule — `routes` / `contact_free` / `mismatches` | 1,188 / 1,158 / 1,029 / 1,400 / 1,486 / 1,510 routes, all contact-free | 7,771 / 7,771 / 0 |
+| `replay_travel_only` | **every** `travel_only` route (router policy `travel_only`: flame contact not enforced): per member, contact under either rule must equal the API's recorded `result.full_policy_assessment.per_scenario[<member>].contact` (`api/runner.py`: the kit's exact-phase centre model OR a `whole_road_contact` witness), and the closed-rule status (`CLEAR` / `DEFINITE_CONTACT`) its `whole_road_contact` — `routes` / `matches` / `mismatches`; `member_flags` compared; `with_contact` = routes with recorded contact in some member | 85 / 85 / 73 / 84 / 91 / 89 routes, all matching; with contact 1 / 8 / 1 / 0 / 0 / 0 | 507 / 507 / 0 (2,028 member flags; 10 routes with contact) |
+
+The travel-only comparison is not trivially "all clear": the 10 routes with recorded contact are reproduced in exactly
+the recorded members. Both flags reduce to the closed rule: a centre-model contact (exact phases on the router's cell
+pieces) is always a closed-rule contact, and a router-rule contact is one too except inside the sub-ulp gap between a
+phase's exact expiry and the router's rounded-up extinction — the replay shows that no recorded route falls there.
+Source: each file's `summary.validation`, written by `python -m tools.explain_deadlines generate`;
+`tests/explain_deadlines/test_real_data.py` recounts the routes from the cache files and checks these totals.
 
 ## 6 Labels
 
@@ -174,8 +202,8 @@ seconds after `input_time`.
 | Field | Meaning |
 |---|---|
 | `schema`, `region_id`, `input_time`, `scenario_set_id` | identity (equal to the cache file) |
-| `provenance` | `cache_file`, `cache_sha256`, `packet_dir`, `packet_hashes`, `graph_sha256`, `code_commit`, `code_dirty`, `generated_at`, plus `graph_revision`, `inputs_release`, `places_file`/`places_sha256`, `hash_checks`, `kit_checker_sha256`, `horizon_s`, `members`, `contact_rule` |
-| `summary` | `origins`, `explained`, `explained_partial`, `not_explainable`, `by_reason`, `by_status_reason`, `by_detail`, `validation` |
+| `provenance` | `cache_file`, `cache_sha256`, `packet_dir`, `packet_hashes`, `graph_sha256`, `code_commit`, `code_dirty`, `generated_at`, `computed_on` (`platform`, `system`, `machine`, `python`, `numpy`, `pyproj` of the generating run), `evaluated_host` (section 10), plus `generator`, `graph_revision`, `inputs_release`, `places_file`/`places_sha256`, `hash_checks`, `kit_checker_sha256`, `horizon_s`, `members`, `contact_rule` |
+| `summary` | `origins`, `explained`, `explained_partial`, `not_explainable`, `by_reason`, `by_status_reason`, `by_detail`, `validation` (per-origin assertion counts and the route-level `replay_*` entries, section 5) |
 | `origins.<id>` | keyed exactly as the planner keys origins |
 | `.status` | `explained` · `explained_partial` · `not_explainable` |
 | `.verdict_summary` | the planner's best verdict: `checked_route` · `model_no_route` · `unresolved` |
@@ -228,5 +256,46 @@ has no flame-avoiding route that fits the window, and 10 are cut off by fire alr
   considered, and "without the fire" also drops heat limits.
 - Heat limits (10 kW/m², 100 kJ/m²) never needed to be invoked: every recorded refusal here is reproduced by contact
   and timing alone. A refusal that only heat limits explain would be reported `not_explainable`.
-- Results computed on the evaluated macOS host are explained as recorded; nothing is recomputed.
+- Only the route checks being explained are recorded results of the evaluated host. The explanations themselves —
+  contact replays, road times, flame-avoiding arrivals, exits — are computed by this tool, and the committed files were
+  computed in a Linux x86_64 container, not on the evaluated host (section 10).
 - Road names are not available from repository data (section 6).
+
+## 10 Recorded and computed
+
+| Value in an explanation | Where it comes from |
+|---|---|
+| verdicts per departure time and shelter, the leave-by time D and the next checked time N, the recorded routes (vertex times, edges, waits), arrival windows and dwell; the travel-only routes and their `full_policy_assessment` | **recorded**: the route checks in `planner/cache`, computed on the evaluated native macOS arm64 host (`host` in `planner/cache/INDEX.json`); read as recorded and never recomputed — this tool runs no new route checks |
+| flame birth and expiry per member and cell, the one-hour scenario window | **forecast data**: the frozen hazard packet the checks used (hash-verified, section 1) |
+| contact replays: every recorded route at its own times (section 5), the route checked at D shifted to N (`binding`: `contact_time_s`, `members`, `pass_time_at_deadline_s`, `slack_s`), the destination stay | **computed by this tool** (exact arithmetic, section 3) |
+| fire-free fastest road times (`fastest_end_s`, `fire_free_end_s`, `fire_free_fits`), flame-avoiding relaxed arrivals and proofs (`flame_avoiding_arrival_s`, `proven`, the classes of section 4), exits (`exits[]`, `reached_at_s`), labels and distances | **computed by this tool** from the road graph (with the packet) |
+
+The machine that computed them is recorded in `provenance.computed_on`. `provenance.evaluated_host` is `false` unless
+`generate --evaluated-host` is given; that flag is refused unless the run is native macOS arm64
+(`platform.system()` `Darwin`, `platform.machine()` `arm64`), and it is meant only for a run on the evaluated host
+itself — the platform check cannot tell that machine from another Mac, so the flag is the operator's statement. The
+committed files were generated in a Linux x86_64 container (`computed_on`: `Linux-6.18.44-fc-v230-x86_64-with-glibc2.39`,
+Python 3.12.3, numpy 1.26.4, pyproj 3.7.0), so `evaluated_host` is `false`. `check` compares every field except the run
+stamps `generated_at`, `code_commit`, `code_dirty` and `computed_on` (it prints both hosts when they differ);
+`evaluated_host` is compared.
+
+## 11 How the planner words it (`planner/src/features/explain`)
+
+- **Recorded vs computed.** Every sentence that rests on a value this tool computed — road times from the road graph,
+  flame-avoiding arrivals, replay contact and pass times, exits — ends with `*` after its full stop. The panel explains
+  the mark ("* Computed for this explanation from the road graph and the fire scenarios, not a recorded check." /
+  "* 기록된 점검이 아니라 이 설명을 위해 도로망과 화재 시나리오로 계산한 값입니다.") and always says where the file was
+  computed: "Computed for this explanation on Linux x86_64, not on the evaluated host: the recorded route checks are
+  replayed against the same hazard packet; no new route checks were run." The A4 plan sheet prints it once per sheet,
+  in the explanation section's footer after the forecast basis, when a printed row carries the mark ("* Computed on
+  Linux x86_64 (not the evaluated host), not a recorded check."). Sentences that only restate recorded results (the
+  last checked time, a "시간창 밖" skip, an unresolved next time or origin) carry no mark. The evaluated host is named
+  only when `evaluated_host` is true and `computed_on` is macOS (Darwin) arm64.
+- **Labels.** `explained` reads "Explained (replay of recorded checks)" / "설명됨(기록된 점검 재현)", `explained_partial`
+  "Partly explained (replay of recorded checks)" / "부분 설명(기록된 점검 재현)": replays of recorded checks against
+  the same forecast scenarios, not a verification of what happens on the ground.
+- **Scope.** Beyond a leave-by time D only the next checked departure N is evaluated, so a time-window conclusion
+  names it: "At the next checked departure, {next}, the trip to every one of these shelters falls outside the one-hour
+  scenario range, so this leave-by time is set by that range, not by predicted flames." Nothing is claimed about times
+  between D and N. An entry point in flames is stated for the first checked departure and "at least one of the fire
+  scenarios" (the relaxation's test).
