@@ -289,13 +289,15 @@ stamps `generated_at`, `code_commit`, `code_dirty` and `computed_on` (it prints 
   from the road graph and the fire scenarios, not a recorded check." / "* 기록된 점검이 아니라 이 설명을 위해 도로망과
   화재 시나리오로 계산한 값입니다.") and always says where the file was computed: "Computed for this explanation on
   Linux x86_64, not on the evaluated host: the recorded route checks are replayed against the same hazard packet; no
-  new route checks were run." The A4 plan sheet prints it once per sheet, in the explanation section's footer after
-  the forecast basis, when a printed row carries the mark ("* Computed on Linux x86_64 (not the evaluated host), not a
-  recorded check."). Sentences that only restate recorded results (the last checked time, a "시간창 밖" skip, an
-  unresolved next time or origin, a withdrawn explanation) carry no mark; the member dots and their caption repeat the
-  k of n of the marked sentence they illustrate. The evaluated host is named only when `evaluated_host` is true and
-  `computed_on` is macOS (Darwin) arm64. `tests/planner/explain.test.ts` checks every template and, for all 530
-  committed origins in both languages, every sentence and exit-list item.
+  new route checks were run." The A4 plan sheet prints both once per sheet, in the explanation section's footer after
+  the forecast basis, when a printed row carries the mark: "* Computed on Linux x86_64 (not the evaluated host); not a
+  recorded or new route check." / "* 평가 호스트가 아닌 Linux x86_64에서 계산한 값이며, 기록된 점검도 새 경로 점검도
+  아닙니다." (one line on every sheet; rows from files computed on different hosts would get one note per host).
+  Sentences that only restate recorded results (the last checked time, a "시간창 밖" skip, an unresolved next time or
+  origin, a withdrawn explanation) carry no mark; the member dots and their caption repeat the k of n of the marked
+  sentence they illustrate. The evaluated host is named only when `evaluated_host` is true and `computed_on` is macOS
+  (Darwin) arm64. `tests/planner/explain.test.ts` checks every template and, for all 530 committed origins in both
+  languages, every sentence and exit-list item.
 - **Labels.** `explained` reads "Explained (replay of recorded checks)" / "설명됨(기록된 점검 재현)", `explained_partial`
   "Partly explained (replay of recorded checks)" / "부분 설명(기록된 점검 재현)": replays of recorded checks against
   the same forecast scenarios, not a verification of what happens on the ground.

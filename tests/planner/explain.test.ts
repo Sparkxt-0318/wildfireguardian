@@ -353,23 +353,24 @@ describe('recorded vs computed, and claims no wider than the replay', () => {
     const linux = withProv(rec, { computed_on: LINUX, evaluated_host: false });
     const en = explainView({ state: 'ready', file: linux, originId: 'o', inputTime: INPUT, lang: 'en', shown: SHOWN });
     expect(en.host).toBe('Computed for this explanation on Linux x86_64, not on the evaluated host: the recorded route checks are replayed against the same hazard packet; no new route checks were run.');
-    expect(en.sheetNote).toBe('* Computed on Linux x86_64 (not the evaluated host), not a recorded check.');
+    expect(en.sheetNote).toBe('* Computed on Linux x86_64 (not the evaluated host); not a recorded or new route check.');
     const ko = explainView({ state: 'ready', file: linux, originId: 'o', inputTime: INPUT, lang: 'ko', shown: SHOWN });
     expect(ko.host).toBe('이 설명은 평가 호스트가 아닌 Linux x86_64에서 계산했습니다. 기록된 경로 점검을 같은 위험 패킷으로 재현했으며, 새 경로 점검은 하지 않았습니다.');
-    expect(ko.sheetNote).toBe('* 평가 호스트가 아닌 Linux x86_64에서 계산한 값이며, 기록된 점검이 아닙니다.');
+    expect(ko.sheetNote).toBe('* 평가 호스트가 아닌 Linux x86_64에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.');
     // the evaluated host only for evaluated_host true on native macOS arm64
     const mac = { ...LINUX, platform: 'macOS-27.0.1-arm64-arm-64bit', system: 'Darwin', machine: 'arm64' };
     expect(onEvaluatedHost({ computed_on: mac, evaluated_host: true })).toBe(true);
     expect(hostText({ computed_on: mac, evaluated_host: true }, 'en')).toBe('Computed for this explanation on the evaluated host (macOS arm64): the recorded route checks are replayed against the same hazard packet; no new route checks were run.');
-    expect(sheetNoteText({ computed_on: mac, evaluated_host: true }, 'ko')).toBe('* 평가 호스트(macOS arm64)에서 계산한 값이며, 기록된 점검이 아닙니다.');
+    expect(sheetNoteText({ computed_on: mac, evaluated_host: true }, 'ko')).toBe('* 평가 호스트(macOS arm64)에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.');
+    expect(sheetNoteText({ computed_on: mac, evaluated_host: true }, 'en')).toBe('* Computed on the evaluated host (macOS arm64); not a recorded or new route check.');
     expect(onEvaluatedHost({ computed_on: mac, evaluated_host: false })).toBe(false);
     expect(onEvaluatedHost({ computed_on: LINUX, evaluated_host: true })).toBe(false); // inconsistent: not claimed
     expect(hostText({ computed_on: LINUX, evaluated_host: true }, 'en')).toContain('on Linux x86_64, not on the evaluated host');
     // no record of the computing host: still never the evaluated host
     expect(computedOnText({})).toBeNull();
     expect(hostText({}, 'en')).toBe('Not computed on the evaluated host: the recorded route checks are replayed against the same hazard packet; no new route checks were run.');
-    expect(sheetNoteText({}, 'en')).toBe('* Computed off the evaluated host, not a recorded check.');
-    expect(sheetNoteText({ evaluated_host: true }, 'ko')).toBe('* 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검이 아닙니다.');
+    expect(sheetNoteText({}, 'en')).toBe('* Computed off the evaluated host; not a recorded or new route check.');
+    expect(sheetNoteText({ evaluated_host: true }, 'ko')).toBe('* 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.');
   });
 
   it('status labels say replay, and conclusions name the next checked departure only', () => {
@@ -544,7 +545,7 @@ describe('ExplainBlock (jsdom render)', () => {
     const notes = h.querySelectorAll('[data-explain-note="computed"]');
     expect(notes.length).toBe(1);
     expect(notes[0]!.closest('.wfgx-sheet__basis')).not.toBeNull();
-    expect(notes[0]!.textContent).toBe(' * 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검이 아닙니다.');
+    expect(notes[0]!.textContent).toBe(' * 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.');
   });
 
   function sheetOf(scenarios: unknown[]) {
@@ -561,7 +562,7 @@ describe('ExplainBlock (jsdom render)', () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify(f), { status: 200, headers: { 'content-type': 'application/json' } })));
     const marked = await render(React.createElement(mod.ExplainSheetSection, { sheet: sheetOf([scenRow(INPUT, 1800)]), lang: 'en' }));
     expect(marked.querySelector('.wfgx-sheet__basis')?.textContent).toBe(
-      'Based on 4 fire scenarios from the forecast; not an observation. * Computed on Linux x86_64 (not the evaluated host), not a recorded check.',
+      'Based on 4 fire scenarios from the forecast; not an observation. * Computed on Linux x86_64 (not the evaluated host); not a recorded or new route check.',
     );
     await React.act(() => root!.unmount());
     host?.remove();
@@ -573,6 +574,30 @@ describe('ExplainBlock (jsdom render)', () => {
     expect(plain.querySelector('.wfgx-sheet__row')?.textContent).not.toContain('*');
     expect(plain.querySelector('[data-explain-note]')).toBeNull();
     expect(plain.querySelector('.wfgx-sheet__basis')?.textContent).toBe('Based on 4 fire scenarios from the forecast; not an observation.');
+  });
+
+  it('plan sheet footer: one note per distinct computing host among the marked rows', async () => {
+    const at = (input: string, computed_on: Record<string, string>, evaluated_host: boolean): ExplFile => {
+      const f = file({ o: origin() });
+      return { ...f, input_time: input, provenance: { ...f.provenance, computed_on, evaluated_host } };
+    };
+    const byTag: Record<string, ExplFile> = {
+      '20250101T000000Z': at(INPUT, { system: 'Linux', machine: 'x86_64' }, false),
+      '20250102T000000Z': at('2025-01-02T00:00:00Z', { system: 'Linux', machine: 'x86_64' }, false),
+      '20250103T000000Z': at('2025-01-03T00:00:00Z', { system: 'Darwin', machine: 'arm64' }, true),
+    };
+    vi.stubGlobal('fetch', vi.fn(async (u: string) => {
+      const hit = Object.entries(byTag).find(([tag]) => String(u).includes(tag));
+      return hit ? new Response(JSON.stringify(hit[1]), { status: 200, headers: { 'content-type': 'application/json' } }) : new Response('nope', { status: 404 });
+    }));
+    const sheet = sheetOf([scenRow(INPUT, 1800), scenRow('2025-01-02T00:00:00Z', 1800), scenRow('2025-01-03T00:00:00Z', 1800)]);
+    const h = await render(React.createElement(mod.ExplainSheetSection, { sheet, lang: 'en' }));
+    expect([...h.querySelectorAll('.wfgx-sheet__row')].map((r) => r.getAttribute('data-explain-state'))).toEqual(['explained', 'explained', 'explained']);
+    // two rows computed on Linux share one note; the row from the evaluated host gets its own
+    expect([...h.querySelectorAll('.wfgx-sheet__basis [data-explain-note="computed"]')].map((n) => n.textContent)).toEqual([
+      ' * Computed on Linux x86_64 (not the evaluated host); not a recorded or new route check.',
+      ' * Computed on the evaluated host (macOS arm64); not a recorded or new route check.',
+    ]);
   });
 });
 

@@ -172,7 +172,7 @@ function SheetRow({ s, index, v }: { s: PlanSheetScenario; index: number; v: Exp
 /**
  * Plan-sheet section: one line per recorded scenario row (drawn-zone rows have no explanation). The footer states the
  * forecast basis and — once per sheet, when a printed sentence carries the mark — what the mark means and where it
- * was computed.
+ * was computed (one note per distinct computing host among the marked rows; the committed files share one).
  */
 export function ExplainSheetSection({ sheet, lang }: { sheet: PlanSheetData; lang: Lang }) {
   const rows = sheet.fireInputType === 'spread_zones' ? [] : sheet.scenarios.map((s, i) => ({ s, i })).filter(({ s }) => !s.issuedAtIso);
@@ -184,7 +184,8 @@ export function ExplainSheetSection({ sheet, lang }: { sheet: PlanSheetData; lan
     return { s, i, v: viewFor(files[s.inputTimeIso]!, sheet.origin.id, s.inputTimeIso, lang, shown) };
   });
   const total = rows.map(({ s }) => files[s.inputTimeIso]?.file?.provenance.members?.length).find((n) => n) ?? null;
-  const note = views.find(({ v }) => v.sheetNote)?.v.sheetNote ?? null;
+  // the note names the computing host of the file: rows from files computed on different hosts get one note each
+  const notes = [...new Set(views.map(({ v }) => v.sheetNote).filter((n): n is string => Boolean(n)))];
   return (
     <section className="wfgf-sheet__section wfgx-sheet" data-explain-sheet="true">
       <h2>{pick(EXPLAIN.sheetTitle, lang)}</h2>
@@ -193,15 +194,15 @@ export function ExplainSheetSection({ sheet, lang }: { sheet: PlanSheetData; lan
           <SheetRow key={`${s.scenarioSetId}-${i}`} s={s} index={i} v={v} />
         ))}
       </ul>
-      {total || note ? (
+      {total || notes.length ? (
         <p className="wfgf-sheet__muted wfgx-sheet__basis">
           {total ? fill(pick(EXPLAIN.basis, lang), { total }) : null}
-          {note ? (
-            <span className="wfgx-sheet__note" data-explain-note="computed">
-              {total ? ' ' : ''}
+          {notes.map((note, k) => (
+            <span key={note} className="wfgx-sheet__note" data-explain-note="computed">
+              {total || k > 0 ? ' ' : ''}
               {note}
             </span>
-          ) : null}
+          ))}
         </p>
       ) : null}
     </section>

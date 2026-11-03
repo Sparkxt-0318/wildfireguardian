@@ -257,17 +257,18 @@ export const EXPLAIN = {
     ko: '이 설명은 평가 호스트({platform})에서 계산했습니다. 기록된 경로 점검을 같은 위험 패킷으로 재현했으며, 새 경로 점검은 하지 않았습니다.',
     en: 'Computed for this explanation on the evaluated host ({platform}): the recorded route checks are replayed against the same hazard packet; no new route checks were run.',
   },
+  // A4 footer: the mark's meaning, the computing host, and that it is no new route check either (fits one line)
   sheetNoteOff: {
-    ko: '* 평가 호스트가 아닌 {platform}에서 계산한 값이며, 기록된 점검이 아닙니다.',
-    en: '* Computed on {platform} (not the evaluated host), not a recorded check.',
+    ko: '* 평가 호스트가 아닌 {platform}에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.',
+    en: '* Computed on {platform} (not the evaluated host); not a recorded or new route check.',
   },
   sheetNoteOffUnknown: {
-    ko: '* 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검이 아닙니다.',
-    en: '* Computed off the evaluated host, not a recorded check.',
+    ko: '* 평가 호스트가 아닌 곳에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.',
+    en: '* Computed off the evaluated host; not a recorded or new route check.',
   },
   sheetNoteOn: {
-    ko: '* 평가 호스트({platform})에서 계산한 값이며, 기록된 점검이 아닙니다.',
-    en: '* Computed on the evaluated host ({platform}), not a recorded check.',
+    ko: '* 평가 호스트({platform})에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다.',
+    en: '* Computed on the evaluated host ({platform}); not a recorded or new route check.',
   },
 
   // ---- provenance ----
