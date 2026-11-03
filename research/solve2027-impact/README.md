@@ -396,7 +396,7 @@ pixels). Without `data/routing/`, run `verify.py --cache-only` instead (it check
 nothing from `data/routing/`); `compute.py` and a full `verify.py` then stop with exit status 2 and that hint. The
 environment variable `WFG_ROUTING_DATA` may point at a copy of `data/routing/` elsewhere: its files are SHA-verified
 in the same way and recorded under their `data/routing/` paths. In the shared 4-CPU Linux container used for the
-committed outputs (other jobs running at the same time), `compute.py` took about 40 seconds, `verify.py` about 4
+committed outputs (other jobs running at the same time), `compute.py` took about 40 seconds, `verify.py` 4 to 5
 minutes, `verify.py --cache-only` about 15 seconds and the tests about 5.5 minutes, each below 1 GB peak memory.
 
 No route check is re-run: verdicts, deadlines and travel-only results are read from the recorded cache (evaluated
