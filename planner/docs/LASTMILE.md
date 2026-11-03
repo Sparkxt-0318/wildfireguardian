@@ -1,8 +1,8 @@
 # Last-mile kit — 현장 전달 문구 / Field messages
 
 The planner's result for a village or care facility is only useful if it reaches the people who
-must act on it. In the March 2025 Gyeongbuk wildfires most of the people killed or seriously injured
-were 60 or older (Newsis, 2025-03-27, 「산불 피해 '최대·최다·최악'…사상자 56명, 대부분 60대 이상」,
+must act on it. In the March 2025 Gyeongbuk wildfires most of the people killed or injured were 60
+or older (Newsis, 2025-03-27, 「산불 피해 '최대·최다·최악'…사상자 56명, 대부분 60대 이상」,
 https://www.newsis.com/view/NISX20250327_0003115304), and vulnerable residents reportedly missed
 their evacuation window partly because older phones did not receive disaster texts (Kyongbuk Maeil,
 2025-04-16, 「경북산불, 인명피해 증가…이유는?」, https://kbmaeil.com/article/20250416500546). The kit
@@ -21,7 +21,7 @@ Code: `planner/src/features/lastmile/` · tests: `tests/planner/lastmile*.ts` ·
 
 | Output | Audience | Limit (enforced) | Notes |
 |---|---|---|---|
-| SMS 단문 | residents, families | Korean ≤ 90 bytes in strict EUC-KR (KS X 1001); English ≤ 160 GSM-7 characters | First line: data time + `기록재현` / `REPLAY … not live`; short forms of the mandatory lines (§3) |
+| SMS 단문 | residents, families | Korean ≤ 90 bytes in strict EUC-KR (KS X 1001); English ≤ 160 GSM-7 characters | First line: data time + `기록재현` / `REPLAY … not live` (with a MOCK / test-data marker the Korean tag is the marker instead, §2); short forms of the mandatory lines (§3) |
 | Long text 장문 (LMS) | 이장, facility staff | ≤ 2,000 bytes EUC-KR (both languages) | First line `[2025년 기록 재현 · 실제 상황 아님]`; the data line names the origin's result source (§2); verbatim mandatory lines |
 | Village broadcast 마을방송 | residents | ≤ 60 s read aloud at the assumed rate (§4) | Opens with `이 방송은 실제 상황이 아닙니다.` (replay); required blocks, then optional ones (§5) |
 | Phone-call script | care staff → families | none; estimated duration shown | `[brackets]` for the caller; "before the call" checks first; villages: the no-car line |
@@ -29,10 +29,14 @@ Code: `planner/src/features/lastmile/` · tests: `tests/planner/lastmile*.ts` ·
 | CSV | staff | — | One row per origin (§8) |
 
 Every output states the data time (KST) and, for a recorded fire, that it is a replay of the
-recorded 2025 data — first, in the SMS and the long text. Clock times are the input time plus the
-planner's offsets, in KST. Research panel origins get no field messages: they are the start road
-nodes of recorded research missions, not villages or care facilities, so there is no village or
-facility to address (the data says nothing about who lives near them).
+recorded 2025 data — first, in the SMS and the long text. One exception: a Korean SMS of a MOCK or
+test-data origin has room for one tag only, and its first line carries the marker (`MOCK`, `시험자료`
+or `MOCK시험`) in place of `기록재현`; it still says `실시간 아님`, and the long text, the broadcast and
+the call script of the same origin still say it is a replay (the English SMS keeps `REPLAY` after
+the marker). Clock times are the input time plus the planner's offsets, in KST. Research panel
+origins get no field messages: they are the start road nodes of recorded research missions, not
+villages or care facilities, so there is no village or facility to address (the data says nothing
+about who lives near them).
 
 ## 2. What each verdict may say
 
