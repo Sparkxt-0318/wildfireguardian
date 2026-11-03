@@ -176,7 +176,12 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     return { role: 'reason', text: `이유: 다음 점검 시각인 ${N}에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다.` };
   }
   if (r && r.kind === 'time_window') {
-    return { role: 'after', text: `다음 점검 시각인 ${N}에 출발하면 ${range} 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. ${NOT_FIRE_KO}` };
+    // only what is established: at the next checked time no destination checked fits the window even
+    // without fire (the file), and no later departure has a checked route (the planner's sweep)
+    return {
+      role: 'after',
+      text: `다음 점검 시각인 ${N}에 출발하면 불길이 없더라도 점검한 도착지 중 ${range} 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. ${T}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. ${NOT_FIRE_KO}`,
+    };
   }
   if (p.after === 'horizon') {
     return card
@@ -196,7 +201,7 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'no_flame_avoiding_route') {
     return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 산불 예측상 불길을 피하는 길로는 제시간에 닿을 수 있는 도착지가 없습니다.`;
   }
-  if (r && r.kind === 'time_window') return `그 뒤 출발은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
+  if (r && r.kind === 'time_window') return `그보다 늦게 출발하는 길은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';
   return '그보다 늦게 출발하는 길은 확인되지 않았습니다.';

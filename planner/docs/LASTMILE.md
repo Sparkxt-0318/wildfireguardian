@@ -48,11 +48,15 @@ kinds and fails closed to the less specific one on any inconsistency.
   mandatory lines. **What limits T is never presented as fire unless the explanation file says so**:
   - nothing later was requested (the last departure checked, 50 min after the input time in the
     booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 이 시각은 불길 때문에 정한 것이 아닙니다", and
-    the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by`;
-  - explanation `window` with `deadline_cause: time_window` — the file proves only that the NEXT
-    checked time fails, and the line says exactly that: "다음 점검 시각인 N에
-    출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은
-    불길 때문에 정한 것이 아닙니다" (same label);
+    the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by` —
+    the only case with that label (`plan.ts` `bigLabelKind`);
+  - explanation `window` with `deadline_cause: time_window` — the next departure N **was** checked
+    and has no checked route; the file proves that leaving at N none of the destinations checked can
+    be reached and the stay finished in time even without fire. The line says only that, plus what
+    the sweep shows: "다음 점검 시각인 N에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에
+    도착해 머물 수 있는 곳이 없습니다. T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은
+    불길 때문에 정한 것이 아닙니다"; spoken: "그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길
+    때문에 정한 것이 아닙니다". The card label stays `출발 마감 / Leave by`;
   - explanation `flame_on_route` for the message's destination: the fire reason (where, when, k of 4
     fire scenarios from the forecast; leaving at the next checked time may meet it);
     `no_flame_avoiding_route` (cause `flames`): "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상
@@ -161,7 +165,7 @@ departure recorded as `model_no_route` (an unresolved next time is never explain
 |---|---|---|
 | `flame_on_route`, `dwell_at_destination` | `binding[0]` (the shown route's item) is usable and the message's destination is in its `destination_ids` | fire reason: where (label below), when, k of n; leaving at the next checked time may meet it |
 | `no_flame_avoiding_route` (`window_fire_detour`, `other_shelters_flame_blocked`) | status `explained`, `deadline_cause: flames` | "다음 점검 시각인 N에 출발하면 산불 예측 시나리오상 불길을 피하는 길로는 제시간에 도착해 머물 수 있는 도착지가 없습니다" |
-| `window` (`window_fire_free`) | status `explained`, `deadline_cause: time_window` | leaving at the next checked time the trip cannot finish within the 1-hour range, so later departures were not checked; not set by fire |
+| `window` (`window_fire_free`) | status `explained`, `deadline_cause: time_window` | leaving at the next checked time none of the destinations checked can be reached and the stay finished within the 1-hour range even without fire; departures after T have no checked route; not set by fire (label `출발 마감 / Leave by`) |
 | `window` (`outside_recorded_arrival_window`) | — (the next time is window-closed: the planner's own "last departure checked" line) | — |
 | `no_later_offset` | — (the planner's own "last departure checked" line already says it) | — |
 | `all_exits_blocked` (`flame_free_area_closed`; model_no_route) | every exit usable, one `members_total` | roads out by car, distinct labels (§2) |

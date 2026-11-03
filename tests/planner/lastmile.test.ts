@@ -451,12 +451,21 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
     const free = buildFieldMessages(withId(synInput(), SYN_IDS.windowFree), ex);
     expect(free.violations).toEqual([]);
     expect(free.reason).toEqual({ kind: 'time_window' });
-    // the file proves only that the NEXT checked departure (18:40) fails, and the line says exactly that
-    expect(free.text.ko.lms).toContain('다음 점검 시각인 18:40에 출발하면 1시간 자료 범위 안에 도착해 머물 수 없어, 그보다 늦은 출발은 점검하지 못했습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
-    expect(free.text.en.lms).toContain('Leaving at the next checked time, 18:40, the trip cannot finish within the 1-hour data range, so later departures were not checked; this time was not set by fire.');
+    // the file proves that the NEXT checked departure (18:40) fails for every destination checked even
+    // without fire; the later departures WERE checked (model_no_route in the sweep): the time is a
+    // leave-by time, never "the last departure checked", and no text says later times were not checked
+    expect(free.text.ko.lms).toContain(
+      '다음 점검 시각인 18:40에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에 도착해 머물 수 있는 곳이 없습니다. 18:30보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.',
+    );
+    expect(free.text.en.lms).toContain(
+      'Leaving at the next checked time, 18:40, none of the destinations checked can be reached and the stay finished within the 1-hour data range, even without fire; departures after 18:30 have no checked route in the model; this time was not set by fire.',
+    );
     expect(free.text.ko.broadcast + free.text.ko.call).not.toMatch(/18:30보다 늦은 출발은 .*도착할 수 없/);
-    expect(free.text.ko.card.big?.label).toBe('점검한 마지막 출발');
-    expect(free.text.en.card.big?.label).toBe('Checked up to');
+    expect(free.text.ko.call).toContain('그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
+    expect(free.text.en.call).toContain('Later departures have no checked route; this time was not set by fire.');
+    expect(free.text.ko.card.big?.label).toBe('출발 마감');
+    expect(free.text.en.card.big?.label).toBe('Leave by');
+    for (const t of texts(free)) expect(t).not.toMatch(/점검하지 (못했|않았)|점검한 마지막|not checked|not confirmed|Checked up to/);
     // the cause is not established (explained_partial): no "not a fire" claim, the neutral line stays
     const mixed = buildFieldMessages(withId(synInput(), SYN_IDS.windowMixed), ex);
     expect(mixed.reason).toBeNull();

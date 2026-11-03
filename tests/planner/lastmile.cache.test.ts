@@ -219,6 +219,60 @@ describe('audiences and replays (independent checks)', () => {
   });
 });
 
+/**
+ * "점검한 마지막 출발 / Checked up to" only when T really is the last departure checked: no requested
+ * (not window-closed) departure after T in the sweep — read here from the sweep itself, not from
+ * plan.ts. Otherwise the later departures were checked, and no text may say they were not.
+ */
+function checkLastCheckedWording(fm: FieldMessages): 'last' | 'later_checked' | null {
+  if (fm.kind !== 'leave_by' || fm.leaveByS === null) return null;
+  const T = fm.leaveByS;
+  const last = !fm.plan.input.plan!.sweep.some((c) => c.verdict !== 'window_closed' && c.offsetS > T);
+  expect(fm.text.ko.card.big?.label, fm.originId).toBe(last ? '점검한 마지막 출발' : '출발 마감');
+  expect(fm.text.en.card.big?.label, fm.originId).toBe(last ? 'Checked up to' : 'Leave by');
+  if (!last) {
+    for (const lang of ['ko', 'en'] as const) {
+      for (const t of Object.values(allTexts(fm, lang))) expect(t, fm.originId).not.toMatch(/점검하지 (않았|못했)|점검한 마지막|not checked|checked up to|last departure time the model checked/i);
+    }
+  }
+  return last ? 'last' : 'later_checked';
+}
+
+describe('"checked up to" only when T is the last departure checked (independent of plan.ts)', () => {
+  it('without explanation files: every leave-by origin', () => {
+    const n = { last: 0, later_checked: 0 };
+    for (const x of all) {
+      const k = checkLastCheckedWording(x.fm);
+      if (k) n[k] += 1;
+    }
+    expect(n.last).toBeGreaterThan(0);
+    expect(n.later_checked).toBeGreaterThan(0);
+  });
+
+  it('with the real explanation files: the deadlines set by the 1-hour window are leave-by times, and the line says only what the file and the sweep establish', (ctx) => {
+    const found = caches.map((c) => ({ cache: c, ...realExplanationFor(c) }));
+    if (found.every((f) => !f.file)) {
+      ctx.skip();
+      return;
+    }
+    let window = 0;
+    for (const { cache, file } of found) {
+      for (const input of cache.inputs) {
+        const fm = buildFieldMessages(input, file);
+        const k = checkLastCheckedWording(fm);
+        if (fm.reason?.kind !== 'time_window') continue;
+        window += 1;
+        expect(k, input.origin.id).toBe('later_checked');
+        // the next checked time is named and later departures have "no checked route", never "not checked"
+        expect(fm.text.ko.lms).toContain(`다음 점검 시각인 ${hm(input.scenario.inputTimeIso, fm.plan.nextOffsetS!)}에 출발하면 불길이 없더라도 점검한 도착지 중`);
+        expect(fm.text.ko.lms).toContain(`${hm(input.scenario.inputTimeIso, fm.leaveByS!)}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.`);
+        expect(fm.text.en.lms).toContain(`departures after ${hm(input.scenario.inputTimeIso, fm.leaveByS!)} have no checked route in the model`);
+      }
+    }
+    expect(window).toBeGreaterThan(0);
+  });
+});
+
 describe('with a contract-shaped explanation file built from the planner deadlines (synthetic road name)', () => {
   const explanationFor = syntheticExplanationFor;
 

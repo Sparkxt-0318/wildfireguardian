@@ -62,13 +62,14 @@ function sorted(cells: LmCell[]): LmCell[] {
 export const ENTRY_SPOKEN_MIN_M = 500;
 
 /**
- * How the card labels the leave-by time: `last_checked` when T is simply the last departure the
- * model checked (nothing later was requested) or when later departures cannot finish within the
- * recorded range even ignoring the fire (explanation `window`, cause `time_window`) — never a fire deadline;
- * `deadline` otherwise ("출발 마감 / Leave by").
+ * How the card labels the leave-by time: `last_checked` ("점검한 마지막 출발 / Checked up to") only
+ * when T really is the last departure the model checked (nothing later was requested); `deadline`
+ * ("출발 마감 / Leave by") otherwise — also when the 1-hour window sets T (explanation `window`, cause
+ * `time_window`): the next departure WAS checked and has no checked route, so T is not "the last
+ * time checked"; the after-T line says that it was not set by fire.
  */
 export function bigLabelKind(p: MessagePlan): 'deadline' | 'last_checked' {
-  return p.after === 'horizon' || p.reason?.kind === 'time_window' ? 'last_checked' : 'deadline';
+  return p.after === 'horizon' ? 'last_checked' : 'deadline';
 }
 
 export function messagePlan(input: LastMileInput, explanation: ExplanationFile | null = null): MessagePlan {

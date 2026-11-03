@@ -185,7 +185,13 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     return { role: 'reason', text: `Why: leaving at the next checked time, ${N}, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.` };
   }
   if (r && r.kind === 'time_window') {
-    return { role: 'after', text: `Leaving at the next checked time, ${N}, the trip cannot finish within the ${rangeAdj(p)} data range, so later departures were not checked; ${NOT_FIRE_EN}` };
+    // only what is established (see ko.ts): the next checked time fails for every destination checked, later times have no checked route
+    return {
+      role: 'after',
+      text: card
+        ? `At the next checked time, ${N}, even without fire no destination checked can be reached and the stay finished within the ${rangeAdj(p)} range; no checked route after ${T}; ${NOT_FIRE_EN}`
+        : `Leaving at the next checked time, ${N}, none of the destinations checked can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire; departures after ${T} have no checked route in the model; ${NOT_FIRE_EN}`,
+    };
   }
   if (p.after === 'horizon') {
     return card
@@ -208,7 +214,7 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'no_flame_avoiding_route') {
     return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, no destination can be reached in time on a road that avoids the flames in the forecast.`;
   }
-  if (r && r.kind === 'time_window') return `Later departures were not confirmed; ${NOT_FIRE_EN}`;
+  if (r && r.kind === 'time_window') return `Later departures have no checked route; ${NOT_FIRE_EN}`;
   if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
   if (p.after === 'gap') return 'Some later departure times were not checked.';
   return 'Later departures have no checked route.';
