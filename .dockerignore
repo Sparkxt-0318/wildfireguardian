@@ -1,0 +1,43 @@
+# Docker build context for the two images in ./Dockerfile (targets "api" and "planner").
+# Allowlist: everything is excluded, then only what the images COPY is re-included. Recorded routing inputs are
+# never taken from the build context: the API image downloads and SHA-256-verifies them (tools/fetch_routing_inputs.py).
+*
+
+# Route-Check API image
+!constraints-routing.txt
+!api/
+!integration/
+!contracts/
+!docs/RELEASE_IDENTITY.json
+!research/routing/
+!tools/fetch_routing_inputs.py
+!tests/__init__.py
+!tests/api/
+!scripts/api_smoke.sh
+!docs/solve2027/reproduce/
+
+# Planner image (static build; tests/planner is type-checked by `npm run build`)
+!planner/
+!tests/planner/
+
+# Never part of an image: local environments, caches, builds, secrets and planner working folders
+**/__pycache__
+**/*.py[cod]
+**/*.egg-info
+**/.pytest_cache
+**/.DS_Store
+**/.env
+**/.env.*
+!**/.env.example
+integration/build
+planner/node_modules
+planner/dist
+planner/.assets
+planner/.test-cache
+planner/cache/.state
+planner/exports
+planner/test-results
+planner/playwright-report
+planner/research-map
+planner/docs
+planner/mock_api

@@ -1,0 +1,1164 @@
+{
+ "label": "Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark",
+ "benchmark": false,
+ "evaluated_host": false,
+ "host": {
+  "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.12.3",
+  "cpu_count": 2,
+  "mem_total_kib": 8220248,
+  "gnu_time": "time (GNU Time) UNKNOWN\nCopyright (C) 2018 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by David Keppel, David MacKenzie, and Assaf Gordon.",
+  "note": "Shared cloud VM (no swap) running other agents' jobs at the same time; timings are inflated by their load and are not benchmark results. No Docker daemon on this host."
+ },
+ "git_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7",
+ "git_tracked_changes": false,
+ "headline": {
+  "replay_outcome": "REPRODUCED, exit 0; input checks 3/3, result checks 16/16",
+  "extended_budget_300s": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN, arrival 3119 s, 512 road legs, request wall_s 48.57 (call incl. independent check 54.74 s), stage Z CONDITIONAL_OPTIMUM after 5.09 s, sampled family peak RSS 227.4 MiB",
+  "evaluated_budget_30s_report_only": "UNRESOLVED / LATE_RESULT after 30.12 s",
+  "run_frozen_case_unchanged_30s": "UNRESOLVED / LATE_RESULT after 30.22 s, script exit code 2",
+  "api_fast_tests": "1 failed, 108 passed, 2 deselected, 1 warning in 185.03s (0:03:05); largest process 418.4 MiB; rerun: 1 failed, 108 passed, 2 deselected, 1 warning in 160.58s (0:02:40), failing test test_route_check_lifecycle_and_exports (Hongseong FD1 at the fixed 30 s budget: unresolved / TIMEOUT)",
+  "planner_build": "npm run build 85.57 s, largest process 492.8 MiB; dist 183.2 MiB",
+  "load_average_during_replay": "[3.54, 3.19, 2.72] at start, [3.72, 3.41, 2.84] at end (1/5/15 min, 2 vCPUs shared)",
+  "replay_cpu_quota_48_percent": "SAME_ROUTE_OPTIMALITY_PROOF_UNFINISHED, exit 3; CHECKED_JOURNEY_FEASIBLE; stage Z TIMEOUT (WALL_CLOCK_AFTER_CHECK) after 6.22 s, published stage Z, 0 completed lower bounds; route hash equals the record; result checks 15/16",
+  "replay_cpu_quota_35_percent": "REPRODUCED, exit 0; CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN; stage Z TIMEOUT (WALL_CLOCK) after 6.04 s, published stage LO, 1 completed lower bounds; route hash equals the record; result checks 16/16",
+  "api_image_layout_simulation": "API fast tests with git: 1 failed, 108 passed, 2 deselected, 1 warning in 210.41s (0:03:30) (rerun: 1 failed, 108 passed, 2 deselected, 1 warning in 231.15s (0:03:51), failing test_route_check_lifecycle_and_exports); test_provenance.py without git: 3 failed in 3.03s, with git: 3 passed in 0.92s; replay with --out outside /app: SAME_ROUTE_OPTIMALITY_PROOF_UNFINISHED, exit 3; writes inside /app outside artifacts/: 0; API process tree during scripts/api_smoke.sh: 348.0 MiB idle, peak 453.0 MiB summed RSS (4 processes, workers 1)"
+ },
+ "environment": {
+  "PYTHONDONTWRITEBYTECODE": "1",
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1"
+ },
+ "cpu_quota_method": "cgroup v1 cpu.cfs_quota_us / cpu.cfs_period_us = quota% x 100000 / 100000 us for the replay process tree only (controller, kit worker, independent checker); other processes on the host are not limited",
+ "started_at": "2026-11-02T17:17:26.531876+00:00",
+ "finished_at": "2026-11-02T17:27:29.540462+00:00",
+ "steps": [
+  {
+   "step": "verify_release",
+   "command": "python tools/verify_release.py",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 1.3,
+   "max_rss_largest_process_kib": 46952,
+   "load_average_start": [
+    3.42,
+    3.12,
+    2.67
+   ],
+   "load_average_end": [
+    3.42,
+    3.12,
+    2.67
+   ],
+   "output_tail": [
+    "PASS: 367 copied source/artifact hashes, checkpoint, accepted scores, Python syntax and privacy exclusions"
+   ]
+  },
+  {
+   "step": "verify_postmerge_preservation",
+   "command": "python tools/verify_postmerge_preservation.py",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 9.91,
+   "max_rss_largest_process_kib": 21276,
+   "load_average_start": [
+    3.42,
+    3.12,
+    2.67
+   ],
+   "load_average_end": [
+    3.43,
+    3.13,
+    2.68
+   ],
+   "output_tail": [
+    "PASS: 3640 frozen artifacts byte-identical"
+   ]
+  },
+  {
+   "step": "fetch_routing_inputs (fresh --out, network + SHA-256 checks)",
+   "command": "python tools/fetch_routing_inputs.py --out <scratch>/fetch-check-20261102T171725Z",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 2.11,
+   "max_rss_largest_process_kib": 28080,
+   "load_average_start": [
+    3.43,
+    3.13,
+    2.68
+   ],
+   "load_average_end": [
+    3.43,
+    3.13,
+    2.68
+   ],
+   "output_tail": [
+    "Verified 132 frozen input files at <scratch>/fetch-check-20261102T171725Z"
+   ]
+  },
+  {
+   "step": "integration/examples/run_frozen_case.py (README quick path, unchanged 30 s budget)",
+   "command": "python integration/examples/run_frozen_case.py --out artifacts/solve2027/run-frozen-case-20261102T171725Z",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 2,
+   "wall_s": 37.02,
+   "max_rss_largest_process_kib": 393760,
+   "load_average_start": [
+    3.43,
+    3.13,
+    2.68
+   ],
+   "load_average_end": [
+    3.54,
+    3.19,
+    2.72
+   ],
+   "output_tail": [
+    "  \"out_dir\": \"artifacts/solve2027/run-frozen-case-20261102T171725Z\"",
+    "}",
+    "Command exited with non-zero status 2"
+   ]
+  },
+  {
+   "step": "replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget",
+   "command": "python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --also-evaluated-budget --out artifacts/solve2027/uljin-fx1-receipt-20261102T171725Z",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 89.53,
+   "max_rss_largest_process_kib": 397600,
+   "load_average_start": [
+    3.54,
+    3.19,
+    2.72
+   ],
+   "load_average_end": [
+    3.72,
+    3.41,
+    2.84
+   ],
+   "output_tail": [
+    "input checks 3/3, result checks 16/16",
+    "summary: artifacts/solve2027/uljin-fx1-receipt-20261102T171725Z/REPRODUCTION_SUMMARY.json",
+    "REPRODUCED: Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark [exit 0]"
+   ]
+  },
+  {
+   "step": "replay_uljin_fx1.py --budget-s 300, process tree limited to 48% of one CPU (cgroup CPU quota, emulated load)",
+   "command": "python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --out artifacts/solve2027/uljin-fx1-quota48-20261102T171725Z",
+   "cpu_quota_percent_of_one_cpu": 48,
+   "exit_code": 3,
+   "wall_s": 67.44,
+   "max_rss_largest_process_kib": 397616,
+   "load_average_start": [
+    3.72,
+    3.41,
+    2.84
+   ],
+   "load_average_end": [
+    2.64,
+    3.19,
+    2.81
+   ],
+   "output_tail": [
+    "Only the authoritative status differs (CHECKED_JOURNEY_FEASIBLE; recorded CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN). Stage Z, whose lower bound backs the optimality proof, stopped at the kit's fixed cap after 6.22 s (reason WALL_CLOCK_AFTER_CHECK); with 0 completed lower bounds the kit published the whole-road-certified route without the proof. Route hash, arrival, legs, destination, the whole-road che",
+    "SAME ROUTE REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load) [exit 3]",
+    "Command exited with non-zero status 3"
+   ]
+  },
+  {
+   "step": "replay_uljin_fx1.py --budget-s 300, process tree limited to 35% of one CPU (cgroup CPU quota, emulated load)",
+   "command": "python docs/solve2027/reproduce/replay_uljin_fx1.py --budget-s 300 --out artifacts/solve2027/uljin-fx1-quota35-20261102T171725Z",
+   "cpu_quota_percent_of_one_cpu": 35,
+   "exit_code": 0,
+   "wall_s": 106.86,
+   "max_rss_largest_process_kib": 397536,
+   "load_average_start": [
+    2.64,
+    3.19,
+    2.81
+   ],
+   "load_average_end": [
+    5.57,
+    3.9,
+    3.1
+   ],
+   "output_tail": [
+    "input checks 3/3, result checks 16/16",
+    "summary: artifacts/solve2027/uljin-fx1-quota35-20261102T171725Z/REPRODUCTION_SUMMARY.json",
+    "REPRODUCED: Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark [exit 0]"
+   ]
+  },
+  {
+   "step": "API fast tests",
+   "command": "python -m pytest tests/api -m not golden and not panel -rs -q -p no:cacheprovider",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 1,
+   "wall_s": 191.56,
+   "max_rss_largest_process_kib": 428404,
+   "load_average_start": [
+    5.57,
+    3.9,
+    3.1
+   ],
+   "load_average_end": [
+    7.94,
+    6.05,
+    4.11
+   ],
+   "output_tail": [
+    "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+    "1 failed, 108 passed, 2 deselected, 1 warning in 185.03s (0:03:05)",
+    "Command exited with non-zero status 1"
+   ]
+  },
+  {
+   "step": "API fast tests, rerun on the same commit with failures listed",
+   "command": "python -m pytest tests/api -m \"not golden and not panel\" -rfs -q -p no:cacheprovider",
+   "exit_code": 1,
+   "wall_s": 165.7,
+   "max_rss_largest_process_kib": 428128,
+   "load_average_start": [
+    7.34,
+    7.03,
+    4.75
+   ],
+   "load_average_end": [
+    5.54,
+    6.36,
+    4.88
+   ],
+   "summary": "1 failed, 108 passed, 2 deselected, 1 warning in 160.58s (0:02:40)",
+   "failed_tests": [
+    "tests/api/test_contract_data.py::test_route_check_lifecycle_and_exports"
+   ],
+   "assertion": "{'verdict': 'unresolved', 'reason_code': 'TIMEOUT', 'raw_status': 'UNRESOLVED', 'raw_reason': 'LATE_RESULT', ...}",
+   "kit_attempts_that_timed_out": [
+    {
+     "label": "API__rc_b015f07247c447e1b1b5",
+     "status": "TIMEOUT",
+     "road": "UNRESOLVED",
+     "ontime": false,
+     "wall": 30.11,
+     "cpu": 14.44,
+     "rss_mb": 66.8,
+     "fam_peak_mb": 68.4,
+     "mem_stop": false,
+     "term": true,
+     "killed": false,
+     "desc": 0,
+     "desc_left": 0,
+     "cleanup": "CLEAN",
+     "prep": "COLD_FAST",
+     "hit": false,
+     "exit": 2,
+     "utc": "2026-11-02T17:29:53.663032+00:00"
+    }
+   ],
+   "note": "test_route_check_lifecycle_and_exports runs the recorded Hongseong FD1 check at the fixed 30 s budget and expects checked_route; on this loaded 2-vCPU host the kit attempt ended unresolved (TIMEOUT / LATE_RESULT). This is the documented host-speed behaviour, not a different answer."
+  },
+  {
+   "step": "planner image stage: npm ci (native copy of the build context, warm npm cache)",
+   "command": "npm ci",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 11.59,
+   "max_rss_largest_process_kib": 452060,
+   "load_average_start": [
+    7.94,
+    6.05,
+    4.11
+   ],
+   "load_average_end": [
+    9.3,
+    6.4,
+    4.25
+   ],
+   "output_tail": [
+    "added 178 packages in 11s",
+    "npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation"
+   ]
+  },
+  {
+   "step": "planner image stage: npm run build (NODE_OPTIONS=--max-old-space-size=2048, VITE_WFG_API_MODE=real, VITE_BASE_PATH=/)",
+   "command": "npm run build",
+   "cpu_quota_percent_of_one_cpu": null,
+   "exit_code": 0,
+   "wall_s": 85.57,
+   "max_rss_largest_process_kib": 504616,
+   "load_average_start": [
+    9.3,
+    6.4,
+    4.25
+   ],
+   "load_average_end": [
+    9.67,
+    7.4,
+    4.8
+   ],
+   "output_tail": [
+    "(!) \u0000<scratch>/planner-stage-20261102T171725Z/src/planner/node_modules/maplibre-gl/dist/maplibre-gl.js?commonjs-es-import is dynamically imported by <scratch>/planner-stage-20261102T171725Z/src/planner/src/features/plansheet/staticMap.ts but also statically imported by <scratch>/planner-stage-20261102T171725Z/src/planner/src/map/MapView.tsx, <scratch>/planner-stage-20261102T171725Z/src/planner/src",
+    "[plugin vite:reporter] ",
+    "(!) <scratch>/planner-stage-20261102T171725Z/src/planner/src/map/basemapStyle.ts is dynamically imported by <scratch>/planner-stage-20261102T171725Z/src/planner/src/features/plansheet/staticMap.ts but also statically imported by <scratch>/planner-stage-20261102T171725Z/src/planner/src/map/MapView.tsx, dynamic import will not move module into another chunk."
+   ]
+  }
+ ],
+ "run_frozen_case_result": {
+  "on_time": false,
+  "wall_s": 30.219342168000367,
+  "cleanup_state": "CLEAN",
+  "primary_status": "TIMEOUT",
+  "runtime_whole_road": "UNRESOLVED",
+  "authoritative_status": "UNRESOLVED",
+  "successful_journey": false,
+  "unresolved_reason": "LATE_RESULT",
+  "arrival_s": null,
+  "independent": {
+   "classification": {
+    "overall": "FEASIBLE_ROUTE_EXISTS",
+    "trajectory": null,
+    "centre_model": null,
+    "whole_road_contact": null,
+    "runtime_whole_road_status": null,
+    "optimality_or_refusal": "FEASIBLE_ROUTE_EXISTS",
+    "contradictions": []
+   },
+   "verdict": "FEASIBLE_ROUTE_EXISTS",
+   "contradictions": [],
+   "status": null
+  }
+ },
+ "replay": {
+  "outcome": "REPRODUCED",
+  "exit_code": 0,
+  "outcome_line": "REPRODUCED: Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark",
+  "outcome_note": null,
+  "input_checks": [
+   {
+    "id": "recorded",
+    "passed": true
+   },
+   {
+    "id": "stay",
+    "passed": true
+   },
+   {
+    "id": "package",
+    "passed": true
+   }
+  ],
+  "result_checks": [
+   {
+    "id": "on_time",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "cleanup",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "status",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "decision",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "published",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "whole_road",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "arrival",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "legs",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "road_legs",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "destination",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "route_hash",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "ind_completed",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "ind_trajectory",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "ind_contact",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "ind_optimum",
+    "passed": true,
+    "observed": null
+   },
+   {
+    "id": "ind_no_contradiction",
+    "passed": true,
+    "observed": null
+   }
+  ],
+  "recorded": {
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "arrival_s": 3119,
+   "recorded_wall_s_m5_pro": [
+    14.532054333001724,
+    14.585103332996368
+   ],
+   "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "legs": 512,
+   "route_hash": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+   "ablation_arrival_s": 3119,
+   "dwell_s": 120,
+   "sources": {
+    "state_arrival_wall": "research/routing/INDEPENDENT_ROWS.csv",
+    "legs_route_hash_status": "research/routing/final-input-ablation/data/ROWS.csv",
+    "dwell": "data/routing/latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json"
+   }
+  },
+  "within_evaluated_30s_budget": false,
+  "extended": {
+   "budget_s": 300.0,
+   "route_and_check": {
+    "arm": "RDA_CAND",
+    "on_time": true,
+    "wall_s": 48.572956646999955,
+    "cleanup_state": "CLEAN",
+    "primary_status": "CHECKED_ROUTE",
+    "runtime_whole_road": "CERTIFIED_ADMISSIBLE",
+    "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "successful_journey": true,
+    "unresolved_reason": null,
+    "arrival_s": 3119,
+    "independent": {
+     "classification": {
+      "overall": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "trajectory": "VALID",
+      "centre_model": "FEASIBLE",
+      "whole_road_contact": "CLEAR",
+      "runtime_whole_road_status": "CERTIFIED_ADMISSIBLE",
+      "optimality_or_refusal": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "contradictions": []
+     },
+     "verdict": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+     "contradictions": [],
+     "status": null
+    }
+   },
+   "journey": {
+    "arrival_s": 3119,
+    "legs_total": 512,
+    "edge_legs": 512,
+    "wait_legs": 0,
+    "destination": "osm:4744584066"
+   },
+   "independent_grammar": {
+    "ok": true,
+    "arrival": 3119.0,
+    "mission_end": 3239.0,
+    "legs": 512
+   },
+   "independent_whole_road_contact": "CLEAR",
+   "route_sha256": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+   "published_stage": "Z",
+   "primary_reason": "WHOLE_ROAD_CERTIFIED_FULL_MODEL_OPTIMUM_BY_CERTIFICATE",
+   "stage_z": {
+    "wall_cap_s": 6.0,
+    "elapsed_s": 5.087852835000376,
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": "EXACT_CONTACT_SWEEP",
+    "arrival": 3119,
+    "n_legs": 512,
+    "kit_cap_rule": "min(remaining - 3, 6)",
+    "kit_cap_max_s": 6.0,
+    "time_capped": [],
+    "completed_lower_bounds": 1,
+    "optimality_certificate_present": true,
+    "hit_cap": false
+   },
+   "receipt": {
+    "on_time_complete_publication": true,
+    "exit_code": 0,
+    "cleanup_state": "CLEAN",
+    "deadline_termination_requested": false,
+    "memory_guard_triggered": false,
+    "external_launch_to_completion_wall_s": 48.572956646999955,
+    "raw_primary_status": "CHECKED_ROUTE",
+    "memory_guard_mib": 3072.0,
+    "sampled_family_peak_rss_bytes": 238473216
+   },
+   "call_wall_s_including_independent_check": 54.743055650000315
+  },
+  "evaluated_budget_report_only": {
+   "budget_s": 30.0,
+   "route_and_check": {
+    "arm": "RDA_CAND",
+    "on_time": false,
+    "wall_s": 30.12308374300119,
+    "cleanup_state": "CLEAN",
+    "primary_status": "TIMEOUT",
+    "runtime_whole_road": "UNRESOLVED",
+    "authoritative_status": "UNRESOLVED",
+    "successful_journey": false,
+    "unresolved_reason": "LATE_RESULT",
+    "arrival_s": null,
+    "independent": {
+     "classification": {
+      "overall": "FEASIBLE_ROUTE_EXISTS",
+      "trajectory": null,
+      "centre_model": null,
+      "whole_road_contact": null,
+      "runtime_whole_road_status": null,
+      "optimality_or_refusal": "FEASIBLE_ROUTE_EXISTS",
+      "contradictions": []
+     },
+     "verdict": "FEASIBLE_ROUTE_EXISTS",
+     "contradictions": [],
+     "status": null
+    }
+   },
+   "journey": {
+    "arrival_s": null,
+    "legs_total": 0,
+    "edge_legs": 0,
+    "wait_legs": 0,
+    "destination": null
+   },
+   "independent_grammar": {
+    "ok": null,
+    "arrival": null,
+    "mission_end": null,
+    "legs": null
+   },
+   "independent_whole_road_contact": null,
+   "route_sha256": null,
+   "published_stage": null,
+   "primary_reason": null,
+   "stage_z": {
+    "wall_cap_s": 6.0,
+    "elapsed_s": 3.6501404190003086,
+    "status": "CONDITIONAL_OPTIMUM",
+    "reason": "EXACT_CONTACT_SWEEP",
+    "arrival": 3119,
+    "n_legs": 512,
+    "kit_cap_rule": "min(remaining - 3, 6)",
+    "kit_cap_max_s": 6.0,
+    "time_capped": [],
+    "completed_lower_bounds": 0,
+    "optimality_certificate_present": false,
+    "hit_cap": false
+   },
+   "receipt": {
+    "on_time_complete_publication": false,
+    "exit_code": 2,
+    "cleanup_state": "CLEAN",
+    "deadline_termination_requested": true,
+    "memory_guard_triggered": false,
+    "external_launch_to_completion_wall_s": 30.12308374300119,
+    "raw_primary_status": "TIMEOUT",
+    "memory_guard_mib": 3072.0,
+    "sampled_family_peak_rss_bytes": 195129344
+   },
+   "call_wall_s_including_independent_check": 34.00191835900114
+  },
+  "wfg_latest": {
+   "version": "1.0.0",
+   "api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+   "repository_api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966"
+  },
+  "input_sha256": {
+   "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+   "hazard": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+   "request": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39"
+  },
+  "host_load_average": {
+   "start": [
+    3.54,
+    3.19,
+    2.72
+   ],
+   "end": [
+    3.72,
+    3.41,
+    2.84
+   ]
+  },
+  "git_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7"
+ },
+ "replay_with_cpu_quota": {
+  "48%": {
+   "outcome": "SAME_ROUTE_OPTIMALITY_PROOF_UNFINISHED",
+   "exit_code": 3,
+   "outcome_line": "SAME ROUTE REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load)",
+   "outcome_note": "Only the authoritative status differs (CHECKED_JOURNEY_FEASIBLE; recorded CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN). Stage Z, whose lower bound backs the optimality proof, stopped at the kit's fixed cap after 6.22 s (reason WALL_CLOCK_AFTER_CHECK); with 0 completed lower bounds the kit published the whole-road-certified route without the proof. Route hash, arrival, legs, destination, the whole-road check and the independent checker's optimality certificate match the record.",
+   "input_checks": [
+    {
+     "id": "recorded",
+     "passed": true
+    },
+    {
+     "id": "stay",
+     "passed": true
+    },
+    {
+     "id": "package",
+     "passed": true
+    }
+   ],
+   "result_checks": [
+    {
+     "id": "on_time",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "cleanup",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "status",
+     "passed": false,
+     "observed": "CHECKED_JOURNEY_FEASIBLE"
+    },
+    {
+     "id": "decision",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "published",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "whole_road",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "arrival",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "legs",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "road_legs",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "destination",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "route_hash",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_completed",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_trajectory",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_contact",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_optimum",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_no_contradiction",
+     "passed": true,
+     "observed": null
+    }
+   ],
+   "recorded": {
+    "state": "CHECKED_CENTRE_OPTIMUM",
+    "arrival_s": 3119,
+    "recorded_wall_s_m5_pro": [
+     14.532054333001724,
+     14.585103332996368
+    ],
+    "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "legs": 512,
+    "route_hash": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+    "ablation_arrival_s": 3119,
+    "dwell_s": 120,
+    "sources": {
+     "state_arrival_wall": "research/routing/INDEPENDENT_ROWS.csv",
+     "legs_route_hash_status": "research/routing/final-input-ablation/data/ROWS.csv",
+     "dwell": "data/routing/latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json"
+    }
+   },
+   "within_evaluated_30s_budget": false,
+   "extended": {
+    "budget_s": 300.0,
+    "route_and_check": {
+     "arm": "RDA_CAND",
+     "on_time": true,
+     "wall_s": 56.831273649999275,
+     "cleanup_state": "CLEAN",
+     "primary_status": "CHECKED_ROUTE",
+     "runtime_whole_road": "CERTIFIED_ADMISSIBLE",
+     "authoritative_status": "CHECKED_JOURNEY_FEASIBLE",
+     "successful_journey": true,
+     "unresolved_reason": null,
+     "arrival_s": 3119,
+     "independent": {
+      "classification": {
+       "overall": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+       "trajectory": "VALID",
+       "centre_model": "FEASIBLE",
+       "whole_road_contact": "CLEAR",
+       "runtime_whole_road_status": "CERTIFIED_ADMISSIBLE",
+       "optimality_or_refusal": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+       "contradictions": []
+      },
+      "verdict": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "contradictions": [],
+      "status": null
+     }
+    },
+    "journey": {
+     "arrival_s": 3119,
+     "legs_total": 512,
+     "edge_legs": 512,
+     "wait_legs": 0,
+     "destination": "osm:4744584066"
+    },
+    "independent_grammar": {
+     "ok": true,
+     "arrival": 3119.0,
+     "mission_end": 3239.0,
+     "legs": 512
+    },
+    "independent_whole_road_contact": "CLEAR",
+    "route_sha256": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+    "published_stage": "Z",
+    "primary_reason": "WHOLE_ROAD_CERTIFIED_NO_OPTIMALITY_CLAIM",
+    "stage_z": {
+     "wall_cap_s": 6.0,
+     "elapsed_s": 6.219535326999903,
+     "status": "TIMEOUT",
+     "reason": "WALL_CLOCK_AFTER_CHECK",
+     "arrival": null,
+     "n_legs": 0,
+     "kit_cap_rule": "min(remaining - 3, 6)",
+     "kit_cap_max_s": 6.0,
+     "time_capped": [
+      "Z:search"
+     ],
+     "completed_lower_bounds": 0,
+     "optimality_certificate_present": false,
+     "hit_cap": true
+    },
+    "receipt": {
+     "on_time_complete_publication": true,
+     "exit_code": 0,
+     "cleanup_state": "CLEAN",
+     "deadline_termination_requested": false,
+     "memory_guard_triggered": false,
+     "external_launch_to_completion_wall_s": 56.831273649999275,
+     "raw_primary_status": "CHECKED_ROUTE",
+     "memory_guard_mib": 3072.0,
+     "sampled_family_peak_rss_bytes": 204988416
+    },
+    "call_wall_s_including_independent_check": 66.88541156399879
+   },
+   "evaluated_budget_report_only": null,
+   "wfg_latest": {
+    "version": "1.0.0",
+    "api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+    "repository_api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966"
+   },
+   "input_sha256": {
+    "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "hazard": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+    "request": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39"
+   },
+   "host_load_average": {
+    "start": [
+     3.72,
+     3.41,
+     2.84
+    ],
+    "end": [
+     2.64,
+     3.19,
+     2.81
+    ]
+   },
+   "git_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7"
+  },
+  "35%": {
+   "outcome": "REPRODUCED",
+   "exit_code": 0,
+   "outcome_line": "REPRODUCED: Linux reproduction with extended budget — not the evaluated 30 s macOS benchmark",
+   "outcome_note": null,
+   "input_checks": [
+    {
+     "id": "recorded",
+     "passed": true
+    },
+    {
+     "id": "stay",
+     "passed": true
+    },
+    {
+     "id": "package",
+     "passed": true
+    }
+   ],
+   "result_checks": [
+    {
+     "id": "on_time",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "cleanup",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "status",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "decision",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "published",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "whole_road",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "arrival",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "legs",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "road_legs",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "destination",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "route_hash",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_completed",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_trajectory",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_contact",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_optimum",
+     "passed": true,
+     "observed": null
+    },
+    {
+     "id": "ind_no_contradiction",
+     "passed": true,
+     "observed": null
+    }
+   ],
+   "recorded": {
+    "state": "CHECKED_CENTRE_OPTIMUM",
+    "arrival_s": 3119,
+    "recorded_wall_s_m5_pro": [
+     14.532054333001724,
+     14.585103332996368
+    ],
+    "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+    "legs": 512,
+    "route_hash": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+    "ablation_arrival_s": 3119,
+    "dwell_s": 120,
+    "sources": {
+     "state_arrival_wall": "research/routing/INDEPENDENT_ROWS.csv",
+     "legs_route_hash_status": "research/routing/final-input-ablation/data/ROWS.csv",
+     "dwell": "data/routing/latest_inputs_try02/requests/uljin_2022/20220304T030000Z_FX1.json"
+    }
+   },
+   "within_evaluated_30s_budget": false,
+   "extended": {
+    "budget_s": 300.0,
+    "route_and_check": {
+     "arm": "RDA_CAND",
+     "on_time": true,
+     "wall_s": 91.99110932400072,
+     "cleanup_state": "CLEAN",
+     "primary_status": "CHECKED_ROUTE",
+     "runtime_whole_road": "CERTIFIED_ADMISSIBLE",
+     "authoritative_status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     "successful_journey": true,
+     "unresolved_reason": null,
+     "arrival_s": 3119,
+     "independent": {
+      "classification": {
+       "overall": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+       "trajectory": "VALID",
+       "centre_model": "FEASIBLE",
+       "whole_road_contact": "CLEAR",
+       "runtime_whole_road_status": "CERTIFIED_ADMISSIBLE",
+       "optimality_or_refusal": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+       "contradictions": []
+      },
+      "verdict": "INDEPENDENTLY_CERTIFIED_OPTIMAL",
+      "contradictions": [],
+      "status": null
+     }
+    },
+    "journey": {
+     "arrival_s": 3119,
+     "legs_total": 512,
+     "edge_legs": 512,
+     "wait_legs": 0,
+     "destination": "osm:4744584066"
+    },
+    "independent_grammar": {
+     "ok": true,
+     "arrival": 3119.0,
+     "mission_end": 3239.0,
+     "legs": 512
+    },
+    "independent_whole_road_contact": "CLEAR",
+    "route_sha256": "f4c67f3895d718cbafb9fe45a291e0b74ce98ba94139be11d45454a8e1793670",
+    "published_stage": "LO",
+    "primary_reason": "WHOLE_ROAD_CERTIFIED_FULL_MODEL_OPTIMUM_BY_CERTIFICATE",
+    "stage_z": {
+     "wall_cap_s": 6.0,
+     "elapsed_s": 6.03825323700039,
+     "status": "TIMEOUT",
+     "reason": "WALL_CLOCK",
+     "arrival": null,
+     "n_legs": 0,
+     "kit_cap_rule": "min(remaining - 3, 6)",
+     "kit_cap_max_s": 6.0,
+     "time_capped": [
+      "Z:search"
+     ],
+     "completed_lower_bounds": 1,
+     "optimality_certificate_present": true,
+     "hit_cap": true
+    },
+    "receipt": {
+     "on_time_complete_publication": true,
+     "exit_code": 0,
+     "cleanup_state": "CLEAN",
+     "deadline_termination_requested": false,
+     "memory_guard_triggered": false,
+     "external_launch_to_completion_wall_s": 91.99110932400072,
+     "raw_primary_status": "CHECKED_ROUTE",
+     "memory_guard_mib": 3072.0,
+     "sampled_family_peak_rss_bytes": 324431872
+    },
+    "call_wall_s_including_independent_check": 105.89089111799876
+   },
+   "evaluated_budget_report_only": null,
+   "wfg_latest": {
+    "version": "1.0.0",
+    "api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966",
+    "repository_api_py_sha256": "29e302b181a902d8cd7780301fc725c434e2e6471c0da4fdaf0b089247c86966"
+   },
+   "input_sha256": {
+    "graph": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "hazard": "3a5a8ead2ce296125fd10deacb6a56f1b89202683a913bcc88a5c392c705e9ff",
+    "request": "219c2bf7dd7ba93ca148a7a77e10e56b38971ce5236540ab5da01613700cee39"
+   },
+   "host_load_average": {
+    "start": [
+     2.64,
+     3.19,
+     2.81
+    ],
+    "end": [
+     5.57,
+     3.9,
+     3.1
+    ]
+   },
+   "git_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7"
+  }
+ },
+ "planner_build_output": {
+  "dist_bytes": 192066294,
+  "dist_cache_index_present": true,
+  "index_html_present": true
+ },
+ "docker": "Not built on this host (no Docker daemon). .github/workflows/reproduce-linux.yml is configured to build both images, start them, run the smoke checks, and run the API fast tests and the replay inside the API image.",
+ "api_image_layout_simulation": {
+  "repo_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7",
+  "note": "Simulation of the image layout on the receipt host (no Docker daemon); not the image itself.",
+  "fetch": {
+   "exit_code": 0,
+   "tail": [
+    "Verified 132 frozen input files at <scratch>/sim/api-root-r2/app/data/routing"
+   ]
+  },
+  "git_metadata_in_copy": false,
+  "fast_tests_with_git": {
+   "exit_code": 1,
+   "wall_s": 216.62,
+   "summary": "1 failed, 108 passed, 2 deselected, 1 warning in 210.41s (0:03:30)"
+  },
+  "provenance_tests_without_git": {
+   "git_lookup": "git: not found",
+   "exit_code": 1,
+   "summary": "3 failed in 3.03s"
+  },
+  "provenance_tests_with_git": {
+   "exit_code": 0,
+   "summary": "3 passed in 0.92s"
+  },
+  "replay_out_outside_app": {
+   "exit_code": 3,
+   "wall_s": 73.23,
+   "outcome": "SAME_ROUTE_OPTIMALITY_PROOF_UNFINISHED",
+   "git_commit_recorded": "95b48f65d2e81886a126b954f535d2f610c82ec7",
+   "last_line": "SAME ROUTE REPRODUCED — optimality proof not finished within the kit's 6 s stage-Z cap (host load) [exit 3]",
+   "load_average_1_5_15_min": {
+    "start": [
+     7.76,
+     8.0,
+     6.22
+    ],
+    "end": [
+     8.0,
+     8.06,
+     6.38
+    ]
+   },
+   "authoritative_status": "CHECKED_JOURNEY_FEASIBLE",
+   "stage_z": {
+    "status": "TIMEOUT",
+    "reason": "WALL_CLOCK_AFTER_CHECK",
+    "elapsed_s": 7.6241186749994085,
+    "completed_lower_bounds": 0,
+    "optimality_certificate_present": false
+   },
+   "published_stage": "Z",
+   "failed_result_checks": [
+    "status"
+   ],
+   "route_hash_equals_record": true,
+   "outcome_note": "Only the authoritative status differs (CHECKED_JOURNEY_FEASIBLE; recorded CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN). Stage Z, whose lower bound backs the optimality proof, stopped at the kit's fixed cap after 7.62 s (reason WALL_CLOCK_AFTER_CHECK); with 0 completed lower bounds the kit published the whole-road-certified route without the proof. Route hash, arrival, legs, destination, the whole-road check and the independent checker's optimality certificate match the record."
+  },
+  "writes_inside_app_outside_artifacts": [],
+  "api_smoke_memory": {
+   "health_status": "ok",
+   "health_git_commit": "95b48f65d2e81886a126b954f535d2f610c82ec7",
+   "workers": 1,
+   "smoke_exit_code": 0,
+   "smoke_wall_s": 50.76,
+   "smoke_tail": [
+    "  provenance.approximation=\"approximation, requires expert review\"",
+    "[5/5] summary",
+    "  recorded     rc_f6a966f552dd4565aaee  status=done verdict=unresolved",
+    "  spread_zones rc_a311a9b7c2c24a489ef0  status=done verdict=model_no_route",
+    "  note: unresolved is never safe; it means no checked route and no scoped refusal were established.",
+    "SMOKE OK: both jobs finished"
+   ],
+   "server_tree_idle_rss_mib": 348.0,
+   "server_tree_peak_summed_rss_mib": 453.0,
+   "processes_at_peak": 4,
+   "method": "sum of VmRSS over the API server and all its descendant processes, sampled every 0.2 s"
+  },
+  "fast_tests_with_git_rerun": {
+   "command": "python -m pytest tests/api -m \"not golden and not panel\" -rfs -q -p no:cacheprovider",
+   "exit_code": 1,
+   "wall_s": 238.88,
+   "summary": "1 failed, 108 passed, 2 deselected, 1 warning in 231.15s (0:03:51)",
+   "failed_tests": [
+    "tests/api/test_contract_data.py::test_route_check_lifecycle_and_exports"
+   ],
+   "assertion": "{'verdict': 'unresolved', 'reason_code': 'TIMEOUT', 'raw_status': 'UNRESOLVED', 'raw_reason': 'LATE_RESULT', ...}",
+   "load_average_start": [
+    10.46,
+    8.85,
+    6.82
+   ],
+   "load_average_end": [
+    7.59,
+    8.8,
+    7.31
+   ]
+  },
+  "label": "Daemon-free simulation of the API image: the files the Dockerfile \"api\" stage copies (real .dockerignore), the same pinned packages in a fresh venv and a fresh input fetch, without .git; run on this host as root, so read-only permissions are checked by listing writes instead"
+ }
+}
