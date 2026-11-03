@@ -13,10 +13,12 @@ python3.12 -m venv .venv && .venv/bin/python -m pip install -c constraints-routi
 .venv/bin/python -m pytest -q tests/explain_deadlines                # hand-computed, property and real-data tests
 ```
 
-The route checks shown by the planner are recorded results of the evaluated host; this tool runs no new route checks.
-Everything else in an explanation is computed by this tool on the machine that runs it, which the files record
-(`provenance.computed_on`, `provenance.evaluated_host`; section 10). The committed files were computed in a Linux x86_64
-container: `evaluated_host` is `false`.
+The route checks shown by the planner (and the travel-only checks the replays compare with) are recorded results of
+the evaluated host, and flame birth and expiry per member and cell are forecast data from the frozen hazard packet; this
+tool runs no new route checks. Everything else in an explanation is computed by this tool, from the recorded routes,
+the road graph and that packet, on the machine that runs it, which the files record (`provenance.computed_on`,
+`provenance.evaluated_host`; section 10). The committed files were computed in a Linux x86_64 container:
+`evaluated_host` is `false`.
 
 ## 1 Inputs and identity (fail-closed)
 
@@ -113,10 +115,11 @@ for `window_fire_free`, a late relaxation, or a blocked stay. The candidate shel
 N (in the recorded data C_D is always among those tried at N); each is listed in `shelters_next` with its class,
 close, fire-free end of the stay leaving at N and relaxed arrival.
 
-**What keeps a later departure from working** (`deadline_cause`, over all candidate shelters):
-`time_window` when none of them could be reached in time at N even without fire; `flames` when at least one would be
-reached in time on a fire-free road but is proven unreachable on every flame-avoiding road (so without the fire a
-later departure would work); null when neither is established. The origin's reason follows the shown route's class:
+**What keeps the next checked departure from working** (`deadline_cause`, at N, over all candidate shelters; nothing
+is claimed about times between D and N): `time_window` when none of them could be reached in time at N even without
+fire; `flames` when at least one would be reached in time on a fire-free road but is proven unreachable on every
+flame-avoiding road (so without the fire, leaving at N would reach it in time); null when neither is established. The
+origin's reason follows the shown route's class:
 
 | shown route's class | `deadline_cause` | `reason_code` (`detail_code`) |
 |---|---|---|
@@ -265,9 +268,10 @@ has no flame-avoiding route that fits the window, and 10 are cut off by fire alr
   considered, and "without the fire" also drops heat limits.
 - Heat limits (10 kW/m², 100 kJ/m²) never needed to be invoked: every recorded refusal here is reproduced by contact
   and timing alone. A refusal that only heat limits explain would be reported `not_explainable`.
-- Only the route checks being explained are recorded results of the evaluated host. The explanations themselves —
-  contact replays, road times, flame-avoiding arrivals, exits — are computed by this tool, and the committed files were
-  computed in a Linux x86_64 container, not on the evaluated host (section 10).
+- Only the cached route checks and travel-only checks are recorded results of the evaluated host, and flame birth and
+  expiry are forecast data from the frozen packet. The explanations themselves — contact replays, road times,
+  flame-avoiding arrivals, exits — are computed by this tool, and the committed files were computed in a Linux x86_64
+  container, not on the evaluated host (section 10).
 - Road names are not available from repository data (section 6).
 
 ## 10 Recorded and computed
@@ -299,12 +303,15 @@ same host with the same pin then writes byte-identical files (`tests/explain_dea
   computed exit with its place distance and member count, e.g. "A road about 797 m from Guam-ri (this village): 4/4
   scenarios*"; the count of further exits likewise). The panel explains the mark ("* Computed for this explanation
   from the road graph and the fire scenarios, not a recorded check." / "* 기록된 점검이 아니라 이 설명을 위해 도로망과
-  화재 시나리오로 계산한 값입니다.") and always says where the file was computed: "Computed for this explanation on
-  Linux x86_64, not on the evaluated host: the recorded route checks are replayed against the same hazard packet; no
-  new route checks were run." The A4 plan sheet prints both once per sheet, in the explanation section's footer after
-  the forecast basis, when a printed row carries the mark: "* Computed on Linux x86_64 (not the evaluated host); not a
-  recorded or new route check." / "* 평가 호스트가 아닌 Linux x86_64에서 계산한 값이며, 기록된 점검도 새 경로 점검도
-  아닙니다." (one line on every sheet; rows from files computed on different hosts would get one note per host).
+  화재 시나리오로 계산한 값입니다.") and, with every explanation it shows (`explained`, `explained_partial`), says where
+  the file was computed: "Computed for this explanation on Linux x86_64, not on the evaluated host: the recorded route
+  checks are replayed against the same hazard packet; no new route checks were run." A `not_explainable` origin shows
+  only its status and a plain sentence that restates recorded results (no mark, no host line). The A4 plan sheet prints
+  both once per sheet, in the explanation section's footer after the forecast basis, when a printed row carries the
+  mark: "* Computed on Linux x86_64 (not the evaluated host); not a recorded or new route check." / "* 평가 호스트가
+  아닌 Linux x86_64에서 계산한 값이며, 기록된 점검도 새 경로 점검도 아닙니다." (one line on every sheet; rows from
+  files computed on different hosts would get one note per host, which the A4 fit was not measured for: re-run
+  `tests/planner/explainPrintFit.test.ts` if files computed on different hosts are ever committed together).
   Sentences that only restate recorded results (the last checked time, a "시간창 밖" skip, an unresolved next time or
   origin, a withdrawn explanation) carry no mark; the member dots and their caption repeat the k of n of the marked
   sentence they illustrate. The evaluated host is named only when `evaluated_host` is true and `computed_on` is macOS
@@ -318,3 +325,8 @@ same host with the same pin then writes byte-identical files (`tests/explain_dea
   scenario range, so this leave-by time is set by that range, not by predicted flames." Nothing is claimed about times
   between D and N. An entry point in flames is stated for the first checked departure and "at least one of the fire
   scenarios" (the relaxation's test).
+- **Printing.** The plan-sheet dialog's readiness (outside this package: `data-wfg-sheets-ready`, which
+  `planner/scripts/export_plan_pdfs.mjs` waits for with `?print=all`, and the dialog's own print buttons) covers the
+  maps and fonts, not the explanation rows, which load their file on their own. A sheet printed before its file has
+  loaded shows "Loading the explanation…" in that row; automation should also wait until no
+  `.wfgx-sheet__row[data-explain-state="loading"]` remains, as `tests/planner/explainPrintFit.test.ts` does.
