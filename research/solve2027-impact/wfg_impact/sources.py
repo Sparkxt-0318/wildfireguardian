@@ -10,7 +10,14 @@ Inputs (all read-only):
 * ``data/routing/latest_inputs_try02/packets/<region>/<input time>/HAZARD.json`` from the same tool, for the scenario
   window only (``valid_from``, ``valid_until``, ``dt``); its SHA-256 must equal the recorded ``input_hashes.hazard``.
 
-Every file is verified by SHA-256 before use; a mismatch stops the run.
+Every file is verified by SHA-256 before use; a mismatch stops the run. Without ``data/routing/`` the cache-only numbers
+(``uses_graph`` false in NUMBERS.json) can still be recomputed: ``analysis.run(with_graphs=False)`` and
+``path_b.compute(with_graphs=False)`` read no file from it.
+
+The environment variable ``WFG_ROUTING_DATA`` may point at another copy of ``data/routing/`` (inside or outside the
+repository; the tests point it at a folder that does not exist to prove what needs it). Its files are verified in the
+same way and are always recorded under their repository-style ``data/routing/...`` paths (``graph_rel``,
+``hazard_rel``).
 """
 from __future__ import annotations
 
@@ -122,6 +129,11 @@ def load_places(region: str) -> list[dict]:
     return out
 
 
+def graph_rel(region: str) -> str:
+    """Repository-style path of a road graph (as listed in NUMBERS.json), wherever WFG_ROUTING_DATA points."""
+    return f'data/routing/graphs/{region}/graph.json'
+
+
 def graph_path(region: str) -> Path:
     return routing_data_root() / 'graphs' / region / 'graph.json'
 
@@ -142,8 +154,32 @@ def verify_graph(region: str, expected_sha256: str, expected_revision: str | Non
     return p
 
 
+def hazard_rel(region: str, input_time: str) -> str:
+    """Repository-style path of a recorded HAZARD packet (as listed in NUMBERS.json)."""
+    return f'data/routing/latest_inputs_try02/packets/{region}/{compact_time(input_time)}/HAZARD.json'
+
+
 def hazard_path(region: str, input_time: str) -> Path:
     return routing_data_root() / 'latest_inputs_try02' / 'packets' / region / compact_time(input_time) / 'HAZARD.json'
+
+
+def routing_input_files() -> list[Path]:
+    """The files this package reads from data/routing/ (tools/fetch_routing_inputs.py): the two road graphs and the
+    HAZARD packets of the six recorded input times listed in planner/cache/INDEX.json."""
+    index = json.loads((CACHE_DIR / 'INDEX.json').read_text(encoding='utf-8'))
+    times = sorted({(e['region_id'], e['input_time']) for e in index if e['region_id'] in REGIONS})
+    return [graph_path(r) for r in REGIONS] + [hazard_path(r, t) for r, t in times]
+
+
+def routing_inputs_available() -> bool:
+    return all(p.is_file() for p in routing_input_files())
+
+
+def missing_routing_inputs_hint() -> str:
+    """What compute.py and a full verify.py print (exit status 2) instead of a traceback when the inputs are missing."""
+    return (f'MISSING INPUTS: the road graphs and HAZARD packets are not under {routing_data_root()}: run '
+            'python tools/fetch_routing_inputs.py (SHA-verified release inputs), or run verify.py --cache-only, which '
+            'recomputes and compares the uses_graph = false numbers without them.')
 
 
 def hazard_window(region: str, input_time: str, expected_sha256: str) -> dict:
@@ -156,7 +192,7 @@ def hazard_window(region: str, input_time: str, expected_sha256: str) -> dict:
     if digest != expected_sha256:
         raise InputIdentityError(f'{p}: sha256 {digest} != API provenance input_hashes.hazard {expected_sha256}')
     hz = json.loads(p.read_text(encoding='utf-8'))
-    return {'path': f'data/routing/latest_inputs_try02/packets/{region}/{compact_time(input_time)}/HAZARD.json',
+    return {'path': hazard_rel(region, input_time),
             'sha256': digest, 'valid_from': float(hz['valid_from']), 'valid_until': float(hz['valid_until']),
             'dt': float(hz['dt'])}
 
@@ -175,11 +211,11 @@ def input_files_record(entries: list[dict], with_graphs: bool) -> list[dict]:
                 'd7e0a5fcdd8b968b2542d221b1c4fe6cb6a958681ea69546cd0b92f950882202)')
         for r in REGIONS:
             p = graph_path(r)
-            rows.append({'path': 'data/routing/graphs/%s/graph.json' % r, 'sha256': sha256_file(p),
+            rows.append({'path': graph_rel(r), 'sha256': sha256_file(p),
                          'bytes': p.stat().st_size, 'note': note})
         for e in entries:
             p = hazard_path(e['region_id'], e['input_time'])
-            rows.append({'path': f'data/routing/latest_inputs_try02/packets/{e["region_id"]}/'
-                                 f'{compact_time(e["input_time"])}/HAZARD.json',
-                         'sha256': sha256_file(p), 'bytes': p.stat().st_size, 'note': note + '; only valid_until and dt are read'})
+            rows.append({'path': hazard_rel(e['region_id'], e['input_time']),
+                         'sha256': sha256_file(p), 'bytes': p.stat().st_size,
+                         'note': note + '; only valid_from, valid_until and dt are read'})
     return rows

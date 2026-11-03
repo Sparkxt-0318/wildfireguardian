@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="826.783594pt" height="518.867531pt" viewBox="0 0 826.783594 518.867531" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="826.150781pt" height="547.084031pt" viewBox="0 0 826.150781 547.084031" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -20,10 +20,10 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 518.867531 
-L 826.783594 518.867531 
-L 826.783594 -0 
-L 0 -0 
+   <path d="M 0 547.084031 
+L 826.150781 547.084031 
+L 826.150781 0 
+L 0 0 
 z
 " style="fill: #ffffff"/>
   </g>
@@ -2505,9 +2505,11 @@ z
    <text style="fill: #52514e; font: 8.3px 'DejaVu Sans'" transform="translate(7.2 50.744412)">Solid ink or grey = no checked route although a fire-free trip would fit the window (fire scenarios, model limits or an unresolved check).</text>
   </g>
   <g id="text_90">
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 493.311047)">Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 501.709406)">checked to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts; for one Yeongdeok place one of the three is an unnamed OSM amenity=shelter</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 510.107766)">point). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 504.730828)">Sources: verdicts = Route-Check API results recorded on the evaluated macOS arm64 host (planner cache); dotted window-limited parts = computed by this package in a Linux container (not evaluated-host output)</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 513.129187)">from the SHA-verified road graph and hazard packets. Model-relative results for recorded 2025 fire scenarios (4 scenario members per input time, drawn per cell from the forecast; 1-hour scenario window; OSM roads</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 521.527547)">at an assumed 40 km/h, no congestion). Each place is checked from its road entry point (the nearest node of the main road network, at most 2 km from the mapped place; travel to it is not modelled) to each of its</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 529.925906)">three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts; for one Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 538.324266)">outcomes. Planning aid only — not for live evacuation operations.</text>
   </g>
   <g id="legend_1">
    <g id="patch_174">

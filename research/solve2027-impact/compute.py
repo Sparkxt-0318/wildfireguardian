@@ -4,11 +4,13 @@ generated blocks of README.md.
 
 Run from anywhere with the venv described in README.md (Python 3.12, requirements.txt):
     python research/solve2027-impact/compute.py            # write all outputs
-    python research/solve2027-impact/compute.py --check    # recompute; fail if any committed text output differs
+    python research/solve2027-impact/compute.py --check    # recompute; fail if any committed output differs
+                                                           # (text outputs; figures: SVG bytes, PNG pixels)
     python research/solve2027-impact/verify.py             # path B: independent recomputation of every number
 
 Needs the SHA-verified road graphs and HAZARD packets (python tools/fetch_routing_inputs.py): graphs for redundancy,
-route lengths and fire-free trips, HAZARD.json for the scenario window (valid_from, valid_until, dt).
+route lengths and fire-free trips, HAZARD.json for the scenario window (valid_from, valid_until, dt). Without them it
+exits with status 2 and a hint (verify.py --cache-only checks the cache-only numbers without them).
 """
 from __future__ import annotations
 
@@ -25,6 +27,9 @@ sys.path.insert(0, str(HERE))
 from wfg_impact import analysis, figures, numbers as numbers_mod, sentences, sources  # noqa: E402
 
 SCHEMA = 'wfg.solve2027.impact_numbers/1'
+# names both sources, as the statement and attribution below do; README.md's first line is "# " + TITLE
+TITLE = ("Who needs more time: model-relative impact numbers from the recorded 2025 planner cache and this package's "
+         "own road-graph values")
 CAVEATS = [
     'Fire scenarios: each recorded input time has 4 scenario members drawn independently per 375 m cell from the c651 '
     'forecast ("fire scenarios from the forecast"); they are not fire-spread simulations of the actual fire.',
@@ -40,15 +45,44 @@ CAVEATS = [
     'Destinations: for each place the 3 nearest (straight line) OpenStreetMap destinations with distinct road entry '
     'nodes; those used are OSM schools, community halls and one unnamed OSM point tagged amenity=shelter without '
     'shelter_type (a candidate for one Yeongdeok place; keys destinations_used.*) - not official evacuation shelters. '
-    'Travel between a mapped point and its road entry '
-    'node is not modelled. Places come from a 2026-10-17 OSM extract (current data) while the road graph is the '
-    'pre-fire snapshot.',
-    'Host: the cache was computed by the Route-Check API on the evaluated macOS arm64 host (purpose "booth") with the '
-    'fixed 30 s request budget; timed-out checks that were re-checked are shown as their re-check, as in the planner.',
+    'Places come from a 2026-10-17 OSM extract (current data) while the road graph is the pre-fire snapshot.',
+    'Road entry points: departures, leave-by deadlines and fire-free trips are at each place\'s road entry point '
+    '(진입 지점: the nearest node of the main road network, at most 2 km from the mapped point; keys '
+    'entry_distance_m.*), not at the place itself; travel between the place and its entry point is not modelled.',
+    'Sources: verdicts, leave-by deadlines, re-checks and travel-only results were computed by the Route-Check API on '
+    'the evaluated macOS arm64 host (purpose "booth", fixed 30 s request budget; planner cache); timed-out checks that '
+    'were re-checked are shown as their re-check, as in the planner. Fire-free trip times, the scenario-window '
+    'classification, road redundancy and route lengths (uses_graph = true) were computed by this package from the '
+    'SHA-verified road graph and hazard packets in a Linux container: not Route-Check API results and not '
+    'evaluated-host output.',
     'Model-relative: checked_route = a route that passed the checks within the model and its inputs; model_no_route is '
     'not proof that escape is impossible; unresolved = cannot judge, never safe. None of these numbers are evacuation '
     'outcomes, observed travel times or casualties avoided.',
 ]
+STATEMENT = ('Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok '
+             'fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the '
+             'evaluated macOS arm64 host, counted together with the planner\'s place files (planner cache and place '
+             'files; uses_graph = false), and values this package computed itself from the SHA-verified road graph and '
+             'hazard packets in a Linux container (uses_graph = true), which are not Route-Check API results and not '
+             'evaluated-host output. None is an evacuation outcome.')
+ATTRIBUTION = {
+    'recorded': ('uses_graph = false: aggregates of recorded inputs only - Route-Check API results in the planner cache '
+                 '(verdicts, leave-by deadlines, re-checks, travel-only flame contact and arrival times), computed on '
+                 'the evaluated macOS arm64 host (purpose booth, fixed 30 s budget per check), and the planner\'s place '
+                 'files. This package counts them with the planner\'s own rules; it runs no route check.'),
+    'computed_by_this_package': ('uses_graph = true: the number also depends on this package\'s own computation on the '
+                                 'SHA-verified road graph (data/routing graph.json): fire-free trip times, the 1-hour '
+                                 'scenario-window classification (fits / window-limited, deadline set by the window), '
+                                 'road redundancy and shared stretches, and route lengths; uses_hazard = true: also on '
+                                 'the recorded hazard packets (HAZARD.json: valid_from, valid_until, dt). These are not '
+                                 'Route-Check API results, so they are not evaluated-host output; the committed values '
+                                 'were computed in a Linux container. The fire-free trip model equals the API\'s own '
+                                 'recorded travel-time-only route time in every comparison '
+                                 '(trip_model.equals_travel_only@all/pooled).'),
+    'headline_inputs': ('Headline entries list every input file with its SHA-256, including graph.json and HAZARD.json '
+                        'where uses_graph / uses_hazard is true; the other entries carry the two flags, and the inputs '
+                        'section lists every file.'),
+}
 
 
 # ------------------------------------------------------------------------------------------------ NUMBERS.json
@@ -78,19 +112,19 @@ def numbers_document(result: dict, nums: dict) -> dict:
         if 'n' in e:
             c['n'] = e['n']
         c.update({'unit': e['unit'], 'scope': e['scope'], 'subset': e['subset'], 'uses_graph': e['uses_graph'],
-                  'definition': e['definition']})
+                  'uses_hazard': e['uses_hazard'], 'definition': e['definition']})
         compact[key] = c
     headline = {}
     for key in numbers_mod.HEADLINE_KEYS:
         e = nums[key]
         headline[key] = {k: e[k] for k in ('value', 'numerator', 'denominator', 'share', 'n', 'unit', 'definition',
-                                           'scope', 'subset', 'scope_text', 'script', 'inputs', 'input_sha256') if k in e}
+                                           'scope', 'subset', 'scope_text', 'uses_graph', 'uses_hazard', 'script',
+                                           'inputs', 'input_sha256') if k in e}
     return {
         'schema': SCHEMA,
-        'title': 'Who needs more time: model-relative impact numbers from the recorded 2025 planner cache',
-        'statement': 'Every number describes what the WildfireGuardian Route-Check API concluded for recorded fire-scenario '
-                     'members of the March 2025 Uiseong-Andong and Yeongdeok fires (planner cache, computed on the '
-                     'evaluated macOS host). None is an evacuation outcome.',
+        'title': TITLE,
+        'statement': STATEMENT,
+        'attribution': ATTRIBUTION,
         'generator': {'script': numbers_mod.SCRIPT,
                       'path_a': 'research/solve2027-impact/wfg_impact/{sources,planner_rules,api_rules,maxflow,trips,analysis,numbers}.py',
                       'independent_check': 'research/solve2027-impact/verify.py (path B: research/solve2027-impact/wfg_impact/path_b.py, '
@@ -192,9 +226,46 @@ def _frac(e) -> str:
     return f'{e["numerator"]:,}/{e["denominator"]:,} ({100.0 * e["numerator"] / e["denominator"]:.1f}%)'
 
 
+SOURCE_LABEL = {False: 'recorded', True: 'computed here'}
+
+
+def index_reconciliation(result: dict, nums: dict) -> list[dict]:
+    """planner/cache/INDEX.json totals per cache file against this package's counts (P4F-06). INDEX counts (precompute.py):
+    origins = dispatch origins + research origins; checks = every stored route check (dispatch attempts, re-checks,
+    research checks; not the travel_only checks); verdicts = every stored check except a re-checked original."""
+    H, rows = nums, []
+    for e in result['entries']:
+        sc = e['scope']
+        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
+        row = {'scope': sc, 'index_origins': e['origins'], 'cases': g('cases')['value'],
+               'research_origins': g('research_origins')['value'], 'index_checks': e['checks'],
+               'dispatch': g('records.dispatch_attempts')['value'], 'rechecks': g('records.rechecks')['value'],
+               'research_checks': g('records.research_route_checks')['value'],
+               'travel_only': g('records.travel_only')['value'], 'verdicts': {}}
+        known = {'checked_route': ('attempts.verdict.checked_route', 'research_checks.verdict.checked_route'),
+                 'model_no_route': ('attempts.verdict.model_no_route', 'research_checks.verdict.model_no_route'),
+                 'unresolved/AT_ISSUE_FAILURE': ('attempts.unresolved.AT_ISSUE_FAILURE',
+                                                 'research_checks.unresolved.AT_ISSUE_FAILURE'),
+                 'unresolved/TIMEOUT': ('attempts.unresolved.TIMEOUT', 'research_checks.unresolved.TIMEOUT')}
+        if set(e['verdicts']) - set(known):
+            raise SystemExit(f'{sc}: INDEX.json verdict keys {sorted(set(e["verdicts"]) - set(known))} are not reconciled')
+        if g('attempts.unresolved.other')['value'] or g('research_checks.unresolved.other')['value']:
+            raise SystemExit(f'{sc}: unresolved checks without a known reason_code are not reconciled')
+        for name, (disp, res) in known.items():
+            row['verdicts'][name] = (e['verdicts'].get(name, 0), g(disp)['value'], g(res)['value'])
+        # the identities the README table shows: they must hold exactly
+        assert row['index_origins'] == row['cases'] + row['research_origins'], row
+        assert row['index_checks'] == row['dispatch'] + row['rechecks'] + row['research_checks'], row
+        assert all(i == d + r for i, d, r in row['verdicts'].values()), row
+        assert sum(i for i, _, _ in row['verdicts'].values()) == row['index_checks'] - row['rechecks'], row
+        rows.append(row)
+    return rows
+
+
 def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     H = nums
-    rows = ['| Key (NUMBERS.json) | Value | Meaning (short; full definition in NUMBERS.json) |', '|---|---:|---|']
+    rows = ['| Key (NUMBERS.json) | Value | Source | Meaning (short; full definition in NUMBERS.json) |',
+            '|---|---:|---|---|']
     ua, yd = 'Uiseong-Andong', 'Yeongdeok'
     short = {
         'records.route_checks@all/pooled': 'route-check records in the six cache files (incl. re-checks)',
@@ -226,7 +297,7 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         'places.not_checked_although_fits_at_offset_3000s_any_input@all/places':
             'of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit',
         'fastest_trip_s.median@uiseong_andong_2025/places#village':
-            f'fastest fire-free trip to the nearest candidate, {ua} villages, median (s)',
+            f'fastest fire-free trip to the quickest-to-reach of the 3 candidates, {ua} villages, median (s)',
         'fastest_trip_s.median@yeongdeok_2025/places#village': f'same, {yd} villages, median (s)',
         'fastest_trip_s.min@all/places#care_facility': 'same, care facilities, min (s)',
         'fastest_trip_s.max@all/places#care_facility': 'same, care facilities, max (s)',
@@ -256,7 +327,7 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         val = _frac(e) if e['denominator'] else (f'{e["value"]:,}' if isinstance(e['value'], int) else f'{e["value"]}')
         if 'n' in e:
             val += f' (n = {e["n"]})'
-        rows.append(f'| `{k}` | {val} | {short[k]} |')
+        rows.append(f'| `{k}` | {val} | {SOURCE_LABEL[e["uses_graph"]]} | {short[k]} |')
     headline = '\n'.join(rows)
 
     def nd(e):
@@ -297,7 +368,9 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
     a_w, a_f = H['deadline_set_by.window@all/pooled'], H['deadline_set_by.fire_or_limits@all/pooled']
     deadlines = '\n'.join(dl) + (
         f'\n\nIn parentheses: deadlines set by the 1-hour window (`deadline.latest_<t>s.set_by_window@*`): at the next '
-        f'departure even the fastest fire-free trip plus the 120 s stay would end after the window. Overall '
+        f'departure even the fastest fire-free trip plus the 120 s stay would end after the window. This split is computed '
+        f'here from fire-free trips on the road graph (not by the Route-Check API); the deadlines are recorded results. '
+        f'Overall '
         f'{a_w["numerator"]} of the {a_w["denominator"]} deadlines before +50 min are set by the window and '
         f'{a_f["numerator"]} by the fire scenarios or model limits (`deadline_set_by.*@all/pooled`). No case had its last '
         'checked departure at +0 min (`deadline.latest_0000s@*` = 0). Yeongdeok has no care facility in the OSM extract.')
@@ -344,8 +417,87 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         scopes.append(f'| {m["scope"]} | `{m["cache_file"]}` | `{m["cache_sha256"][:16]}…` | `{m["scenario_set_id"]}` | '
                       f'`{m["hazard_sha256"][:16]}…` | `{m["graph_sha256"][:16]}…` | '
                       f'{m["host"][0]["platform"]} ({m["host"][0]["results"]} results) | {m["created_at"]} |')
+
+    # per origin type: survival curve and check-level verdicts (P4F-05)
+    subsets = [('uiseong_andong_2025/pooled#village', 'Uiseong-Andong villages'),
+               ('uiseong_andong_2025/pooled#care_facility', 'Uiseong-Andong care facilities'),
+               ('yeongdeok_2025/pooled#village', 'Yeongdeok villages'), ('all/pooled', 'All cases (both regions)')]
+    grid = sources.GRID_OFFSETS_S
+    sv = ['| Subset | Cases | ' + ' | '.join(f'Checked route at +{t // 60} min' for t in grid) + ' |',
+          '|---|---:|' + '---:|' * len(grid)]
+    ck = ['| Subset | Route checks | checked_route | model_no_route | unresolved | unresolved by API reason: '
+          'AT_ISSUE_FAILURE · TIMEOUT · other |', '|---|---:|---:|---:|---:|---:|']
+    for sc, label in subsets:
+        g = lambda k: H[f'{k}@{sc}']  # noqa: E731
+        assert g('contiguous_differs_from_latest')['value'] == 0
+        sv.append(f'| {label} | {g("cases")["value"]} | ' +
+                  ' | '.join(_frac(g(f'cell.checked_route.offset_{t:04d}s')) for t in grid) + ' |')
+        ck.append(f'| {label} | {g("attempts")["value"]:,} | ' +
+                  ' | '.join(_frac(g(f'attempts.verdict.{v}')) for v in ('checked_route', 'model_no_route', 'unresolved')) +
+                  ' | ' + ' · '.join(f'{g(f"attempts.unresolved.{c}")["numerator"]:,}' for c in ('AT_ISSUE_FAILURE', 'TIMEOUT', 'other'))
+                  + ' |')
+    by_type = '\n'.join(sv) + '\n\n' + '\n'.join(ck) + (
+        '\n\nPer-type keys: `cell.<verdict>.offset_<t>s@<scope>#village|care_facility` (every verdict at every departure) '
+        'and `attempts.verdict.*@<scope>#<type>`. No case has a gap in its checked departures '
+        '(`contiguous_differs_from_latest@*` = 0 for every scope and type), so the share with a checked route at +t min '
+        'equals the share whose leave-by deadline is +t min or later. A route check is one attempt (place x forecast '
+        'time x candidate destination x departure) as the planner displays it; a case counts as checked at a departure '
+        'if any of its three candidate destinations is.')
+
+    # reconciliation with planner/cache/INDEX.json (P4F-06) and the travel_only records (P4F-04)
+    rec = index_reconciliation(result, nums)
+    ix = ['| Scenario set | Origins: INDEX = cases + research origins | Checks: INDEX = dispatch attempts + re-checks + '
+          'research checks | checked_route: INDEX = displayed + research | model_no_route: INDEX = displayed + research | '
+          'unresolved AT_ISSUE_FAILURE: INDEX = displayed + research | unresolved TIMEOUT: INDEX = displayed + research | '
+          'travel_only records (not in INDEX) |', '|---|---:|---:|---:|---:|---:|---:|---:|']
+    tot = {'o': [0, 0, 0], 'c': [0, 0, 0, 0], 't': 0, 'v': {k: [0, 0, 0] for k in rec[0]['verdicts']}}
+    for r in rec:
+        ix.append(f'| {r["scope"]} | {r["index_origins"]} = {r["cases"]} + {r["research_origins"]} | '
+                  f'{r["index_checks"]:,} = {r["dispatch"]:,} + {r["rechecks"]} + {r["research_checks"]} | ' +
+                  ' | '.join(f'{i:,} = {d:,} + {s}' for i, d, s in r['verdicts'].values()) + f' | {r["travel_only"]} |')
+        for i, x in enumerate((r['index_origins'], r['cases'], r['research_origins'])):
+            tot['o'][i] += x
+        for i, x in enumerate((r['index_checks'], r['dispatch'], r['rechecks'], r['research_checks'])):
+            tot['c'][i] += x
+        tot['t'] += r['travel_only']
+        for k, v in r['verdicts'].items():
+            for i, x in enumerate(v):
+                tot['v'][k][i] += x
+    a = 'all/pooled'
+    assert (tot['o'][1], tot['o'][2], tot['c'][1], tot['c'][2], tot['c'][3], tot['t']) == (
+        H[f'cases@{a}']['value'], H[f'research_origins@{a}']['value'], H[f'records.dispatch_attempts@{a}']['value'],
+        H[f'records.rechecks@{a}']['value'], H[f'records.research_route_checks@{a}']['value'],
+        H[f'records.travel_only@{a}']['value'])
+    ix.append(f'| **all six** | {tot["o"][0]} = {tot["o"][1]} + {tot["o"][2]} | {tot["c"][0]:,} = {tot["c"][1]:,} + '
+              f'{tot["c"][2]} + {tot["c"][3]} | ' + ' | '.join(f'{i:,} = {d:,} + {s}' for i, d, s in tot['v'].values()) +
+              f' | {tot["t"]} |')
+    t_np, t_res = H[f'travel_only.records_not_paired@{a}'], H[f'travel_only.records_not_paired.research_origin@{a}']
+    t_fl, t_pairs = H[f'travel_only.records_not_paired.fastest_meets_flames@{a}'], H[f'travel_only.pairs@{a}']
+    assert t_pairs['numerator'] + t_np['numerator'] == t_np['denominator'] == tot['t']
+    assert t_pairs['numerator'] == t_pairs['denominator'] and t_res['numerator'] == t_res['denominator']   # "all"
+    to_ex = H['attempts.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z']['numerator']
+    to_res = H['research_checks.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z']['numerator']
+    index = '\n'.join(ix) + (
+        '\n\n`planner/cache/INDEX.json` is written by `planner/scripts/precompute.py`. Per cache file it counts '
+        '**origins** = the OSM origins sent in dispatch plans plus the recorded research-mission origins; **checks** = '
+        'every stored route-check record (dispatch attempts, re-checks of timed-out attempts and research-origin checks; '
+        'the travel_only comparison checks are not counted); **verdicts** = the verdict (and reason code) of every stored '
+        'check except an original that was re-checked (its re-check counts instead), i.e. the dispatch attempts as the '
+        'planner displays them plus the research-origin checks. Every identity in the table holds exactly (the INDEX '
+        f'verdicts add up to the checks minus the {H[f"records.rechecks@{a}"]["value"]} re-checked originals; '
+        '`tests/test_cache_only.py` asserts it from INDEX.json). This package\'s village/care-facility numbers leave the '
+        f'research origins and their checks out: for example INDEX lists {to_ex + to_res} TIMEOUT verdicts for '
+        f'yeongdeok_2025/20250325T190000Z, of which {to_ex} are displayed dispatch attempts '
+        f'(`attempts.unresolved.TIMEOUT@yeongdeok_2025/20250325T190000Z`) and {to_res} research-origin checks.\n\n'
+        f'**travel_only records.** The cache files store {t_np["denominator"]} travel_only comparison checks '
+        f'(`records.travel_only@all/pooled`): the {t_pairs["numerator"]} comparisons paired with village/care-facility '
+        f'cases (`travel_only.pairs@all/pooled`, one per case with a checked route) and {t_np["numerator"]} records that '
+        'are not paired (`travel_only.records_not_paired@all/pooled`), all of recorded research-mission origins '
+        f'({t_res["numerator"]} of {t_res["denominator"]}), which are left out like every research-origin result; '
+        f'{t_fl["numerator"]} of those {t_fl["denominator"]} {"has" if t_fl["numerator"] == 1 else "have"} predicted '
+        'flame contact (`travel_only.records_not_paired.fastest_meets_flames@all/pooled`).')
     return {'headline': headline, 'by-scenario': by_scope, 'deadlines': deadlines, 'redundancy': redundancy,
-            'crosscheck': crosscheck, 'inputs': '\n'.join(scopes)}
+            'crosscheck': crosscheck, 'inputs': '\n'.join(scopes), 'by-type': by_type, 'index': index}
 
 
 def fill_readme(text: str, blocks: dict[str, str]) -> str:
@@ -376,23 +528,29 @@ def build_outputs(result: dict) -> tuple[dict, dict[str, str]]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--check', action='store_true', help='recompute and compare with the committed text outputs')
-    ap.add_argument('--no-figures', action='store_true')
+    ap.add_argument('--check', action='store_true',
+                    help='recompute and compare with the committed outputs (text outputs; figures: SVG bytes, PNG pixels)')
+    ap.add_argument('--no-figures', action='store_true', help='write the text outputs only (no figures, no CSV twins)')
     a = ap.parse_args()
+    if not sources.routing_inputs_available():
+        print(sources.missing_routing_inputs_hint(), file=sys.stderr)
+        return 2
     result = analysis.run(with_graphs=True)
     nums, texts = build_outputs(result)
     if a.check:
         import tempfile
         with tempfile.TemporaryDirectory() as td:
-            figures.draw_all(result, nums, Path(td), Path(td))      # figure CSV twins (images are not compared)
+            drawn = figures.draw_all(result, nums, Path(td), Path(td))      # the figures and their CSV twins
             for p in sorted(Path(td).glob('*.csv')):
                 texts[f'tables/{p.name}'] = p.read_text(encoding='utf-8')
-        bad = [name for name, body in texts.items()
-               if not (HERE / name).is_file() or (HERE / name).read_text(encoding='utf-8') != body]
+            bad = [name for name, body in texts.items()
+                   if not (HERE / name).is_file() or (HERE / name).read_text(encoding='utf-8') != body]
+            bad += [f'figures/{p.name}' for p in drawn if not figures.same_figure(p, HERE / 'figures' / p.name)]
         if bad:
             print('OUT OF DATE: ' + ', '.join(bad))
             return 1
-        print(f'OK: {len(texts)} committed text outputs reproduce exactly ({len(nums)} numbers)')
+        print(f'OK: {len(texts)} committed text outputs and {len(drawn)} figure files (SVG bytes, PNG pixels) reproduce '
+              f'exactly ({len(nums)} numbers)')
         return 0
     for name, body in texts.items():
         (HERE / name).parent.mkdir(parents=True, exist_ok=True)

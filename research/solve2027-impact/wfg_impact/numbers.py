@@ -7,13 +7,23 @@ Key format: ``<metric>@<scope>[#<subset>]``.
   cases, never places;
 * scope ``<region>/places`` and ``all/places`` - distinct places (no double counting across input times);
 * subset ``#village`` / ``#care_facility`` - origin type as the planner tags it (LeftPanel.tsx glyphKind);
-  ``#rc1`` / ``#rc2plus`` - places with one / at least two turn-aware edge-disjoint paths.
+  ``#rc1`` / ``#rc2plus`` - places with one / at least two turn-aware edge-disjoint paths;
+  ``#leave_by_3000s`` / ``#leave_by_before_3000s`` - travel-only comparisons whose leave-by deadline is the last
+  checked departure (3000 s, +50 min) / earlier.
 
 Population ("origins") unless stated otherwise: OpenStreetMap villages/hamlets and care facilities
 (``nursing_home`` / ``social_facility``) with an accepted road entry node within 2 km, i.e. the origins the planner
 sent to the Route-Check API. The 3 OSM villages without such a node (never checked; shown by the planner as
 unresolved "도로망 2 km 밖 — 점검 불가") and the 8 recorded research-mission origins are excluded and reported
 separately.
+
+Sources, flagged on every number: ``uses_graph`` false = an aggregate of recorded inputs only (Route-Check API results
+in the planner cache, computed on the evaluated macOS arm64 host, and the planner's place files), counted here with the
+planner's rules; ``uses_graph`` true = the number also depends on this package's own computation on the SHA-verified
+road graph (fire-free trip times, the scenario-window classification, road redundancy, route lengths), and
+``uses_hazard`` true = also on the recorded HAZARD packets (scenario window ``valid_from``/``valid_until``, time step
+``dt``). Those computations are not Route-Check API results and not evaluated-host output (SOURCE_COMPUTED).
+Planner line numbers cited below refer to repository commit 0cd95db2 (``PLANNER_LINES_COMMIT``).
 """
 from __future__ import annotations
 
@@ -31,15 +41,29 @@ DEADLINE_CATS = tuple(f'latest_{t:04d}s' for t in OFFSETS) + ('none_model_no_rou
 
 POP = ('checked OSM origins (villages/hamlets + care facilities with an accepted road entry node within 2 km; '
        'research-mission origins and the 3 not-checkable villages excluded)')
+PLANNER_LINES_COMMIT = '0cd95db2'      # the planner line numbers cited in definitions are those of this commit
+AT = f'at commit {PLANNER_LINES_COMMIT}'
 CELL_RULE = ('The cell verdict at a departure offset follows the planner (planner/src/domain/plan.ts combineVerdicts, '
-             'lines 106-111): checked_route if ANY of the origin\'s candidate destinations has a checked route, '
+             f'lines 106-111 {AT}): checked_route if ANY of the origin\'s candidate destinations has a checked route, '
              'model_no_route only if EVERY attempted destination is model_no_route, otherwise unresolved; '
-             're-checks replace the attempt they re-ran (planner/src/api/cache.ts lines 120-145)')
+             f're-checks replace the attempt they re-ran (planner/src/api/cache.ts lines 120-145 {AT})')
 DEADLINE_RULE = ('leave-by deadline (출발 마감) = the latest departure offset whose cell is checked_route '
-                 '(plan.ts latestSafeDeparture, lines 155-161); offsets are 0, 600, ..., 3000 s after the recorded '
-                 'input time; unresolved cells never count')
+                 f'(plan.ts latestSafeDeparture, lines 155-161 {AT}); offsets are 0, 600, ..., 3000 s after the '
+                 'recorded input time; unresolved cells never count')
 DEADLINE_DEF = ('The leave-by deadline (출발 마감) is the latest departure offset whose cell is checked_route '
-                '(plan.ts latestSafeDeparture, lines 155-161); unresolved cells never count.')
+                f'(plan.ts latestSafeDeparture, lines 155-161 {AT}); unresolved cells never count.')
+ENTRY_NOTE = ('Departures, leave-by deadlines and fire-free trips start at each place\'s road entry point (진입 지점: the '
+              'nearest node of the main road network, at most 2 km from the mapped point); travel between the place '
+              'and that point is not modelled.')
+# appended to the definition of every number that depends on this package's own road-graph computation
+SOURCE_COMPUTED = {
+    False: (' Source: computed by this package from the SHA-verified road graph (data/routing graph.json) and the '
+            'recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was '
+            'computed in a Linux container.'),
+    True: (' Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing '
+           'graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host '
+           'output; the committed value was computed in a Linux container.'),
+}
 WINDOW_RULE = ('A departure at offset t can only be checked if arrival plus the required stay ends by the destination '
                'window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if '
                'arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). "Fits" = for at least '
@@ -70,31 +94,41 @@ def _scope_text(scope: str, metas: dict) -> str:
 class Builder:
     def __init__(self, result: dict):
         self.metas = {m['scope']: m for m in result['metas']}
-        self.inputs = {row['path']: row['sha256'] for row in sources.input_files_record(result['entries'], True)}
+        self.with_graphs = result['with_graphs']
+        self.inputs = {row['path']: row['sha256'] for row in sources.input_files_record(result['entries'], self.with_graphs)}
         self.numbers: dict[str, dict] = {}
 
-    def scope_inputs(self, scope: str, graphs: bool = False) -> list[str]:
+    def scope_inputs(self, scope: str, graphs: bool = False, hazard: bool = False) -> list[str]:
+        """Every input file a number of this scope is computed from: INDEX.json, the scope's cache files and place files,
+        plus the region graphs (graphs) and the scope's HAZARD packets (hazard: scenario window and time step)."""
         reg = scope.split('/')[0]
         regions = sources.REGIONS if reg == 'all' else (reg,)
-        files = ['planner/cache/INDEX.json']
-        for m in self.metas.values():
-            if m['region'] in regions and (scope.split('#')[0].endswith(('/pooled', '/places')) or m['scope'] == scope.split('#')[0]):
-                files.append(m['cache_file'])
+        metas = [m for m in self.metas.values() if m['region'] in regions and
+                 (scope.split('#')[0].endswith(('/pooled', '/places')) or m['scope'] == scope.split('#')[0])]
+        files = ['planner/cache/INDEX.json'] + [m['cache_file'] for m in metas]
         files += [f'planner/public/data/regions/{r}/places.geojson' for r in regions]
         if graphs:
             files += [f'data/routing/graphs/{r}/graph.json' for r in regions]
+        if hazard:
+            files += [m['hazard_rel'] for m in metas]
         return files
 
     def add(self, key: str, value, definition: str, numerator=None, denominator=None, unit: str = 'count',
-            graphs: bool = False, n: int | None = None):
+            graphs: bool = False, n: int | None = None, hazard: bool = False):
         if key in self.numbers:
             raise KeyError(f'duplicate number {key}')
+        if (graphs or hazard) and not self.with_graphs:
+            raise ValueError(f'{key} needs the road graph / hazard packets, but this run read no data/routing input')
+        if hazard and not graphs:
+            raise ValueError(f'{key}: every hazard-dependent number also depends on the road graph (fire-free trips)')
         metric, _, rest = key.partition('@')
         scope, _, subset = rest.partition('#')
+        if graphs:
+            definition += SOURCE_COMPUTED[hazard]
         entry = {'value': value, 'unit': unit, 'numerator': numerator, 'denominator': denominator,
                  'definition': definition, 'scope': scope, 'subset': subset or None,
                  'scope_text': _scope_text(scope, self.metas), 'script': SCRIPT,
-                 'inputs': self.scope_inputs(rest, graphs), 'uses_graph': graphs}
+                 'inputs': self.scope_inputs(rest, graphs, hazard), 'uses_graph': graphs, 'uses_hazard': hazard}
         if n is not None:
             entry['n'] = n
         if numerator is not None and denominator:
@@ -137,7 +171,7 @@ def case_numbers(b: Builder, records: list[dict]):
                 k = sum(1 for r in rows if r['best_verdict'] == v)
                 b.frac(f'best_verdict.{v}' + tag, k, n,
                        f'Cases whose overall verdict (planner bestVerdict = contract best_verdict over all attempts, '
-                       f'plan.ts lines 106-111 / 204) is {v}. {CELL_RULE}.{st}')
+                       f'plan.ts lines 106-111 / 204 {AT}) is {v}. {CELL_RULE}.{st}')
             for cat in DEADLINE_CATS:
                 k = sum(1 for r in rows if r['deadline_category'] == cat)
                 if cat.startswith('latest_'):
@@ -174,9 +208,7 @@ def case_numbers(b: Builder, records: list[dict]):
             b.frac(f'not_checked_at_offset_{LAST:04d}s' + tag, kl, n,
                    f'Cases whose cell at the last departure offset ({LAST} s, +{LAST // 60} min) is not checked_route '
                    f'(earlier leave-by deadline, or no checked route at all).{WINDOW_NOTE}{st}')
-            if sub:
-                continue
-            for t in OFFSETS:
+            for t in OFFSETS:            # per origin type too: the survival curve of each type
                 for cat in CELL_CATS:
                     k = sum(1 for r in rows if r['cells'][t] == cat)
                     extra = (' window_unsatisfiable ("시간창 밖") = no request was sent because the recorded arrival '
@@ -184,17 +216,22 @@ def case_numbers(b: Builder, records: list[dict]):
                     note = WINDOW_NOTE if cat in (pr.NO_ROUTE, pr.UNRESOLVED) else ''
                     b.frac(f'cell.{cat}.offset_{t:04d}s' + tag, k, n,
                            f'Cases whose cell at departure offset {t} s (+{t // 60} min after the input time) is '
-                           f'{cat}. {CELL_RULE}.{extra}{note}')
+                           f'{cat}. {CELL_RULE}.{extra}{note}{st}')
             kc = sum(1 for r in rows if r['latest_s'] is not None and r['contiguous_s'] != r['latest_s'])
             b.frac('contiguous_differs_from_latest' + tag, kc, sum(1 for r in rows if r['latest_s'] is not None),
                    'Cases with a checked route whose contiguous deadline (contract latest_contiguous_checked_depart_'
-                   'offset_s; plan.ts contiguousSafeDeparture, lines 169-178) differs from the leave-by deadline. When '
-                   'this is 0, the share checked at offset t equals the share whose deadline is at or after t.')
+                   f'offset_s; plan.ts contiguousSafeDeparture, lines 169-178 {AT}) differs from the leave-by deadline. '
+                   'When this is 0, the share checked at offset t equals the share whose deadline is at or after t.' + st)
             att = [(r['scope'], r['origin_id'], k, v) for r in rows for k, v in r['unresolved_reasons'].items()]
             n_att = sum(r['n_attempts'] for r in rows)
             b.add('attempts' + tag, n_att,
                   'Route-check attempts behind these cases as the planner displays them (one per origin x candidate '
-                  'destination x departure offset; a re-check replaces the attempt it re-ran).')
+                  'destination x departure offset; a re-check replaces the attempt it re-ran).' + st)
+            for v in pr.VERDICTS:        # check-level verdict counts (the case-level ones are best_verdict.*)
+                b.frac(f'attempts.verdict.{v}' + tag, sum(r['attempt_verdicts'].get(v, 0) for r in rows), n_att,
+                       f'Displayed route-check attempts (denominator; a re-check replaces the attempt it re-ran) whose own '
+                       f'verdict is {v} (numerator): counts of single checks (place x candidate destination x departure '
+                       f'offset), not of cases.{st}')
             reasons = Counter()
             for _, _, code, cnt in att:
                 reasons[code] += cnt
@@ -203,10 +240,10 @@ def case_numbers(b: Builder, records: list[dict]):
                        f'Displayed attempts whose verdict is unresolved with API reason_code {code} '
                        + ('(api/README.md: "The limits were already exceeded at departure, for example because of '
                           'incurred dose"; dispatch requests carry no incurred dose).' if code == 'AT_ISSUE_FAILURE'
-                          else '(the fixed 30 s request budget was exceeded).') + ' Unresolved is never safe.')
+                          else '(the fixed 30 s request budget was exceeded).') + ' Unresolved is never safe.' + st)
             other = sum(v for k, v in reasons.items() if k not in ('AT_ISSUE_FAILURE', 'TIMEOUT'))
             b.frac('attempts.unresolved.other' + tag, other, n_att,
-                   'Displayed unresolved attempts with any other (or no) reason_code.')
+                   'Displayed unresolved attempts with any other (or no) reason_code.' + st)
 
 
 def place_numbers(b: Builder, records: list[dict]):
@@ -366,6 +403,8 @@ def travel_numbers(b: Builder, pairs: list[dict]):
                 b.add(f'travel_only.extra_arrival_s.{stat}' + tag, v,
                       pdef + f'{stat} over the flame-contact comparisons (field n) of (checked arrival - fastest-route '
                       'arrival), same departure.', unit='s', n=len(flame))
+                if not b.with_graphs:
+                    continue
                 v = fn([p['extra_length_m'] for p in flame])
                 b.add(f'travel_only.extra_length_m.{stat}' + tag, round(v, 1),
                       pdef + f'{stat} over the flame-contact comparisons (field n) of (checked route length - fastest '
@@ -376,6 +415,79 @@ def travel_numbers(b: Builder, pairs: list[dict]):
            len({(p['region'], p['origin_id']) for p in pairs if p.get('has_comparison')}),
            pdef + 'Distinct places with a flame-contact comparison in at least one scenario set (numerator) among places '
                   'with at least one comparison (denominator).')
+
+
+def travel_unpaired_numbers(b: Builder, unpaired: list[dict]):
+    """travel_only records that are not one of the village/care-facility comparisons (P4F-04)."""
+    tag = '@all/pooled'
+    total = sum(m['travel_only_records'] for m in b.metas.values())
+    b.frac('travel_only.records_not_paired' + tag, len(unpaired), total,
+           'travel_only comparison records stored in the six cache files (denominator; records.travel_only) that are '
+           'not paired with a village/care-facility case (numerator): every record whose origin is not an OSM case with '
+           'a checked route at the same start, destination and departure as its default checked route.')
+    res = [u for u in unpaired if u['origin_type'] == 'research']
+    b.frac('travel_only.records_not_paired.research_origin' + tag, len(res), len(unpaired),
+           'Of the unpaired travel_only records (denominator), those of recorded research-mission origins (numerator); '
+           'they are left out like every other research-origin result.')
+    b.frac('travel_only.records_not_paired.fastest_meets_flames' + tag,
+           sum(1 for u in unpaired if u['contact_members'] > 0), len(unpaired),
+           'Of the unpaired travel_only records (denominator), those whose travel-time-only route has predicted flame '
+           'contact (exposure contact = true, centre model) in at least one of the 4 scenario members (numerator); '
+           'reported for completeness, not part of travel_only.fastest_meets_flames.')
+
+
+def research_numbers(b: Builder, records: list[dict]):
+    """Recorded research-mission origins, kept out of every village/care-facility number: their origin-cases and route
+    checks as the planner shows them, so that the totals of planner/cache/INDEX.json reconcile."""
+    for sc in list(b.metas) + ['all/pooled']:
+        rows = [r for r in records if r['origin_type'] == 'research' and (sc == 'all/pooled' or r['scope'] == sc)]
+        tag = '@' + sc
+        b.add('research_origins' + tag, len(rows),
+              'Recorded research-mission origins of the scenario set(s) (planner scenarioOrigins: the origins of the '
+              'recorded missions, one per recorded mission); not villages or care facilities.')
+        n_att = sum(r['n_attempts'] for r in rows)
+        if any(r['n_rechecked_attempts'] for r in rows):
+            raise AssertionError(f'{sc}: a research-origin check was re-checked; the definitions below assume none')
+        for v in pr.VERDICTS:
+            b.frac(f'research_checks.verdict.{v}' + tag, sum(r['attempt_verdicts'].get(v, 0) for r in rows), n_att,
+                   'Route checks of the research-mission origins as the planner shows them (denominator; no re-check '
+                   f'replaced any) whose verdict is {v} (numerator). Not part of any village/care-facility number.')
+        reasons = Counter()
+        for r in rows:
+            reasons.update(r['unresolved_reasons'])
+        for code in ('AT_ISSUE_FAILURE', 'TIMEOUT'):
+            b.frac(f'research_checks.unresolved.{code}' + tag, reasons.get(code, 0), n_att,
+                   f'Research-origin route checks (denominator) that are unresolved with API reason_code {code}.')
+        b.frac('research_checks.unresolved.other' + tag,
+               sum(v for k, v in reasons.items() if k not in ('AT_ISSUE_FAILURE', 'TIMEOUT')), n_att,
+               'Research-origin route checks (denominator) that are unresolved with any other (or no) reason_code.')
+
+
+def entry_numbers(b: Builder, records: list[dict]):
+    """How far each checked place lies from its road entry point, where every check of the place started (D3)."""
+    d = ('Straight-line distance (EPSG:5179 metres, rounded to 0.1 m by the planner\'s data builder; places.geojson '
+         'entry.distance_m) from the mapped OSM point of a place to its road entry point (진입 지점), the nearest node '
+         'of the main road network (largest strongly connected component of the road graph), which is the start node '
+         'of every route check of the place (asserted). ' + ENTRY_NOTE)
+    for reg in list(sources.REGIONS) + ['all']:
+        for sub in ('', 'village', 'care_facility'):
+            rows = _sel(records, f'{reg}/places', sub)
+            if not rows:
+                continue
+            tag = f'@{reg}/places' + (f'#{sub}' if sub else '')
+            st = SUBSET_TEXT[sub]
+            dist = {}
+            for r in rows:
+                if dist.setdefault((r['region'], r['origin_id']), r['entry_distance_m']) != r['entry_distance_m']:
+                    raise AssertionError(f'{r["origin_id"]}: entry distance differs between input times')
+            vals = list(dist.values())
+            for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
+                b.add(f'entry_distance_m.{stat}' + tag, round(fn(vals), 2),
+                      f'{stat} over distinct places (field n). ' + d + st, unit='m', n=len(vals))
+            for lim in (500, 1000):
+                b.frac(f'entry_distance_over_{lim}m' + tag, sum(1 for v in vals if v > lim), len(vals),
+                       f'Distinct places (denominator) whose road entry point is more than {lim} m from the mapped point '
+                       f'(numerator). ' + d + st)
 
 
 def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
@@ -425,8 +537,27 @@ def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
                len(rows), d + f'; numerator: cases whose cell at offset {LAST} s is not checked_route.', graphs=True)
 
 
+WIN = {'graphs': True, 'hazard': True}       # fire-free trips on graph.json x dt and the window from HAZARD.json
+
+
+def travel_by_deadline_numbers(b: Builder, pairs: list[dict]):
+    """The travel-only flame-contact share split by the leave-by deadline (recorded results only)."""
+    comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
+    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
+        reg = sc.split('/')[0]
+        sel = [p for p in comp if reg == 'all' or p['region'] == reg]
+        for name, f in (('leave_by_3000s', lambda p: p['depart_offset_s'] == LAST),
+                        ('leave_by_before_3000s', lambda p: p['depart_offset_s'] < LAST)):
+            group = [p for p in sel if f(p)]
+            b.frac(f'travel_only.fastest_meets_flames@{sc}#{name}', sum(1 for p in group if p['fastest_meets_flames']),
+                   len(group), 'Travel-time-only comparisons at the leave-by deadline, restricted to cases whose '
+                   'leave-by deadline is ' + ('the last checked offset (3000 s)' if name == 'leave_by_3000s' else
+                                              'before 3000 s') + ' (denominator); numerator: the fastest route has '
+                   'predicted flame contact (exposure contact = true) in at least one of the 4 scenario members.')
+
+
 def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundancy: list[dict]):
-    """Which unchecked departures could not be checked anyway because of the 1-hour scenario window."""
+    """Which unchecked departures could not be checked anyway because of the 1-hour scenario window (graph + hazard)."""
     scopes = list(b.metas) + [f'{r}/pooled' for r in sources.REGIONS] + ['all/pooled']
     for sc in scopes:
         for sub in ('', 'village', 'care_facility'):
@@ -445,16 +576,16 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
                 k = sum(1 for r in closes if r['deadline_set_by'] == by)
                 b.frac(f'deadline_set_by.{by}' + tag, k, len(closes),
                        f'Among cases whose leave-by deadline is before {LAST} s (denominator), those where {text} '
-                       f'(numerator). {WINDOW_RULE}{st}')
+                       f'(numerator). {WINDOW_RULE}{st}', **WIN)
                 for t in OFFSETS[:-1]:
                     k = sum(1 for r in rows if r['latest_s'] == t and r['deadline_set_by'] == by)
                     b.frac(f'deadline.latest_{t:04d}s.set_by_{by}' + tag, k, n,
-                           f'Cases whose leave-by deadline is {t} s and where {text}. {WINDOW_RULE}{st}')
+                           f'Cases whose leave-by deadline is {t} s and where {text}. {WINDOW_RULE}{st}', **WIN)
             none = [r for r in rows if r['latest_s'] is None]
             k = sum(1 for r in none if r['fits'][0])
             b.frac('no_checked_route_any_offset.trip_fits_at_offset_0000s' + tag, k, len(none),
                    'Among cases with no checked route at any departure offset (denominator), those whose fastest '
-                   f'fire-free trip fits the scenario window for departure at 0 s (numerator). {WINDOW_RULE}{st}')
+                   f'fire-free trip fits the scenario window for departure at 0 s (numerator). {WINDOW_RULE}{st}', **WIN)
             if sub:
                 continue
             for t in OFFSETS:
@@ -462,25 +593,25 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
                 fit = [r for r in rows if r['fits'][t]]
                 b.frac(f'window_limited.offset_{t:04d}s' + tag, len(lim), n,
                        f'Cases whose departure at {t} s (+{t // 60} min) is window-limited: no route could be checked '
-                       f'whatever the fire. {WINDOW_RULE}')
+                       f'whatever the fire. {WINDOW_RULE}', **WIN)
                 notc = [r for r in rows if r['cells'][t] != pr.CHECKED]
                 b.frac(f'window_limited_among_not_checked.offset_{t:04d}s' + tag, sum(1 for r in notc if not r['fits'][t]),
                        len(notc), f'Among cases whose cell at {t} s (+{t // 60} min) is not checked_route (denominator), '
                        f'those that are window-limited (numerator); every checked cell fits, so window-limited cells are '
-                       f'always among the unchecked ones. {WINDOW_RULE}')
+                       f'always among the unchecked ones. {WINDOW_RULE}', **WIN)
                 k = sum(1 for r in fit if r['cells'][t] != pr.CHECKED)
                 b.frac(f'not_checked_although_fits.offset_{t:04d}s' + tag, k, len(fit),
                        f'Among cases whose fastest fire-free trip fits the scenario window for departure at {t} s '
                        f'(+{t // 60} min) (denominator), those whose cell there is not checked_route (numerator): the '
                        f'model\'s fire scenarios or limits rule it out, or the check is unresolved. {WINDOW_RULE} '
-                       f'{CELL_RULE}.')
+                       f'{CELL_RULE}.', **WIN)
                 for v in (pr.NO_ROUTE, pr.UNRESOLVED):
                     for cls, group in (('fits', fit), ('limited', lim)):
                         k = sum(1 for r in group if r['cells'][t] == v)
                         b.frac(f'cell_window.{v}.{cls}.offset_{t:04d}s' + tag, k, n,
                                f'Cases whose cell at {t} s is {v} and whose fastest fire-free trip '
                                f'{"fits" if cls == "fits" else "does not fit (window-limited)"} the scenario window '
-                               f'at that departure. {WINDOW_RULE}')
+                               f'at that departure. {WINDOW_RULE}', **WIN)
     for reg in list(sources.REGIONS) + ['all']:
         for sub in ('', 'village', 'care_facility'):
             rows = _sel(records, f'{reg}/places', sub)
@@ -497,12 +628,13 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
             b.frac(f'places.not_checked_although_fits_at_offset_{LAST:04d}s_any_input' + tag, k, len(unchecked_last),
                    f'Among distinct places with an unchecked departure at {LAST} s in at least one recorded scenario '
                    f'set (denominator), those for which such an unchecked {LAST} s departure would fit the scenario '
-                   f'window fire-free (numerator). {WINDOW_RULE}{st}')
+                   f'window fire-free (numerator). {WINDOW_RULE}{st}', **WIN)
             k = sum(1 for rs in by_place.values()
                     if any(r['cells'][t] != pr.CHECKED and r['fits'][t] for r in rs for t in OFFSETS))
             b.frac('places.not_checked_although_fits_any_offset_any_input' + tag, k, n,
                    'Distinct places with, in at least one recorded scenario set, at least one departure offset that '
-                   f'has no checked route although its fastest fire-free trip fits the scenario window. {WINDOW_RULE}{st}')
+                   f'has no checked route although its fastest fire-free trip fits the scenario window. {WINDOW_RULE}{st}',
+                   **WIN)
             trip = {}
             for key, rs in by_place.items():
                 vals = {r['trip_min_s'] for r in rs}
@@ -512,32 +644,23 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
             k = sum(1 for key, rs in by_place.items() if not rs[0]['fits'][LAST])
             b.frac(f'places.window_limited_at_offset_{LAST:04d}s' + tag, k, n,
                    f'Distinct places whose departure at {LAST} s is window-limited (fastest fire-free trip to the '
-                   f'nearest candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}')
+                   f'quickest-to-reach candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}', **WIN)
             for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
                 v = fn(list(trip.values()))
                 if isinstance(v, float) and v.is_integer():
                     v = int(v)
                 b.add(f'fastest_trip_s.{stat}' + tag, v,
                       f'{stat} over distinct places (field n) of the fastest fire-free trip from the entry node to the '
-                      f'nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, '
-                      f'dt = 1 s; the graph assumes 40 km/h; no congestion, no fire).{st}', unit='s', graphs=True, n=n)
+                      f'quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on '
+                      f'travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no '
+                      f'fire).{st}', unit='s', n=n, **WIN)
     comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
     b.frac('trip_model.equals_travel_only@all/pooled', sum(1 for p in comp if p['trip_model_s'] ==
                                                            p['fastest_arrival_s'] - p['depart_offset_s']), len(comp),
            'Validation of the fire-free trip model: travel-only comparisons (denominator) whose recorded travel-time-only '
            'route (API policy travel_only) takes exactly as long (arrival - departure) as this package\'s turn-aware '
-           'Dijkstra to the same destination (numerator).', graphs=True)
-    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
-        reg = sc.split('/')[0]
-        sel = [p for p in comp if reg == 'all' or p['region'] == reg]
-        for name, f in (('leave_by_3000s', lambda p: p['depart_offset_s'] == LAST),
-                        ('leave_by_before_3000s', lambda p: p['depart_offset_s'] < LAST)):
-            group = [p for p in sel if f(p)]
-            b.frac(f'travel_only.fastest_meets_flames@{sc}#{name}', sum(1 for p in group if p['fastest_meets_flames']),
-                   len(group), 'Travel-time-only comparisons at the leave-by deadline, restricted to cases whose '
-                   'leave-by deadline is ' + ('the last checked offset (3000 s)' if name == 'leave_by_3000s' else
-                                              'before 3000 s') + ' (denominator); numerator: the fastest route has '
-                   'predicted flame contact (exposure contact = true) in at least one of the 4 scenario members.')
+           'Dijkstra to the same destination (numerator).', **WIN)
+    travel_by_deadline_numbers(b, pairs)
     single = [x for x in redundancy if x['origin_type'] in OSM_TYPES and x['turn_aware_paths'] == 1]
     for reg in list(sources.REGIONS) + ['all']:
         rows = [x for x in single if reg == 'all' or x['region'] == reg]
@@ -590,6 +713,8 @@ HEADLINE_KEYS = (
 
 
 def build(result: dict) -> dict:
+    """Every number. With ``result['with_graphs']`` false (``analysis.run(with_graphs=False)``) only the cache-only
+    numbers (uses_graph false) are built: no road graph or HAZARD packet was read."""
     b = Builder(result)
     records = result['records']
     scope_numbers(b, result)
@@ -597,9 +722,17 @@ def build(result: dict) -> dict:
     place_numbers(b, records)
     api_numbers(b, records)
     travel_numbers(b, result['pairs'])
-    redundancy_numbers(b, result['redundancy'], records)
-    window_numbers(b, records, result['pairs'], result['redundancy'])
+    if b.with_graphs:
+        redundancy_numbers(b, result['redundancy'], records)
+        window_numbers(b, records, result['pairs'], result['redundancy'])
+    else:
+        travel_by_deadline_numbers(b, result['pairs'])
+    travel_unpaired_numbers(b, result['travel_unpaired'])
+    research_numbers(b, records)
+    entry_numbers(b, records)
     for key in HEADLINE_KEYS:                        # fully self-contained provenance on every headline number
+        if key not in b.numbers and not b.with_graphs:
+            continue
         e = b.numbers[key]
         e['headline'] = True
         e['input_sha256'] = {p: b.inputs[p] for p in e['inputs']}

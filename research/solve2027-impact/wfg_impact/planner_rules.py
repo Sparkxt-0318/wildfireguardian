@@ -1,6 +1,7 @@
 """Path A: an exact Python port of the planner's own verdict and deadline rules (standard library only).
 
-Replicated source (repository commit 0cd95db2, files unchanged by this package):
+Replicated source (repository commit 0cd95db2; every line number in this module refers to that commit, files
+unchanged by this package):
 
 * ``planner/src/domain/plan.ts``
   - ``combineVerdicts`` / ``cellVerdict``  (lines 106-115): a departure offset is ``checked_route`` if ANY candidate
@@ -396,7 +397,8 @@ def place_from_properties(p: dict) -> dict:
             'name_en': p.get('name_en'),
             'checkable': p.get('checkable') is not False, 'vulnerable': p.get('vulnerable') is True,
             'scenario_set_id': p.get('scenario_set_id'), 'recorded': p.get('recorded'),
-            'entry_node': (p.get('entry') or {}).get('node')}
+            'entry_node': (p.get('entry') or {}).get('node'),
+            'entry_distance_m': js_num((p.get('entry') or {}).get('distance_m'))}
 
 
 def scenario_origins(places: list[dict], scenario_set_id: str) -> list[dict]:
