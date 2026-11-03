@@ -74,32 +74,35 @@ describe('origin cards: box-model estimate (no browser needed)', () => {
   });
 
   it('with the longest provenance lines and badges the app can produce, every card still fits', () => {
-    const host = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
-    const live = { source: 'live' as const, cachePath: null, cacheCreatedAtIso: null, host };
-    // reachable combinations (input.ts originProvenance: a live result is never test data under MOCK):
-    // a non-evaluated cache viewed with the MOCK server on (three badges), a live result on a
-    // non-evaluated host, and a live result from the MOCK server
-    const variants = [
-      { name: 'cache+mock+test', over: { mock: true, testData: true } },
-      { name: 'live+test', over: { testData: true, provenance: live } },
-      { name: 'live+mock', over: { mock: true, provenance: live } },
-    ];
     const over: string[] = [];
-    for (const v of variants) {
-      for (const { path, fm } of items) {
-        const input = { ...fm.plan.input, ...v.over };
-        for (const lang of ['ko', 'en'] as const) {
-          const card = TEMPLATES[lang].card({ ...fm.plan, input });
-          for (const size of ['a5', 'a4'] as const) {
-            const e = estimate(card, size);
-            if (e.usedPx > e.availablePx) over.push(`${v.name} ${path} ${fm.originId} ${lang} ${size}: ${e.usedPx.toFixed(0)} > ${e.availablePx.toFixed(0)} px`);
-          }
+    for (const lang of ['ko', 'en'] as const) {
+      for (const size of ['a5', 'a4'] as const) {
+        for (const v of variantCards(lang)) {
+          const e = estimate(v.card, size);
+          if (e.usedPx > e.availablePx) over.push(`${v.id} ${lang} ${size}: ${e.usedPx.toFixed(0)} > ${e.availablePx.toFixed(0)} px`);
         }
       }
     }
     expect(over).toEqual([]);
   });
 });
+
+/**
+ * Every card again with the longest provenance lines and badges the app can produce — reachable
+ * combinations only (input.ts originProvenance: a live result is never test data under MOCK): a
+ * non-evaluated cache viewed with the MOCK server on (three badges), a live result on a
+ * non-evaluated host, and a live result from the MOCK server.
+ */
+function variantCards(lang: 'ko' | 'en'): { id: string; card: CardContent }[] {
+  const host = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
+  const live = { source: 'live' as const, cachePath: null, cacheCreatedAtIso: null, host };
+  const variants = [
+    { name: 'cache+mock+test', over: { mock: true, testData: true } },
+    { name: 'live+test', over: { testData: true, provenance: live } },
+    { name: 'live+mock', over: { mock: true, provenance: live } },
+  ];
+  return variants.flatMap((v) => items.map(({ path, fm }) => ({ id: `${v.name} ${path} ${fm.originId}`, card: TEMPLATES[lang].card({ ...fm.plan, input: { ...fm.plan.input, ...v.over } }) })));
+}
 
 // ---------------------------------------------------------------- 2. real layout in Chromium
 
@@ -223,6 +226,38 @@ describe('origin cards in Chromium (print media, bundled Pretendard)', () => {
             `cards ${lang} ${size}: ${res.length} rendered, smallest free space ${minSpare.toFixed(1)} mm, smallest body ${(Math.min(...res.map((r) => r.minBodyPx)) / PT_PX).toFixed(1)} pt, smallest header/footer ${(Math.min(...res.map((r) => r.minHeadFootPx)) / PT_PX).toFixed(1)} pt`,
           );
           expect(minSpare).toBeGreaterThanOrEqual(0);
+        }
+      }
+    } finally {
+      await page.close();
+    }
+  }, 300_000);
+
+  it('the tightest cards with MOCK / test-data badges and live staff lines also fit in Chromium (and the estimate holds for them)', async (ctx) => {
+    if (!browser) {
+      ctx.skip();
+      return;
+    }
+    const page = await browser.newPage();
+    try {
+      await page.emulateMedia({ media: 'print' });
+      for (const lang of ['ko', 'en'] as const) {
+        for (const size of ['a5', 'a4'] as const) {
+          // the 60 cards with the least estimated free space (the estimate never undershoots: tested above)
+          const tight = variantCards(lang)
+            .map((v) => ({ ...v, e: estimate(v.card, size) }))
+            .sort((a, b) => a.e.availablePx - a.e.usedPx - (b.e.availablePx - b.e.usedPx))
+            .slice(0, 60);
+          await page.setContent(pageHtml(tight.map((v) => ({ card: v.card, size, id: v.id })), false), { waitUntil: 'load' });
+          await page.evaluate(`document.fonts.ready.then(() => true)`);
+          const res = await page.evaluate<{ id: string; overflowY: number; overflowX: number; minBodyPx: number; minHeadFootPx: number; spareMm: number; usedPx: number }[]>(MEASURE);
+          expect(res.length).toBe(tight.length);
+          const bad = res
+            .map((r, i) => ({ r, e: tight[i]!.e }))
+            .filter(({ r, e }) => r.overflowY > 0.5 || r.overflowX > 0.5 || r.minBodyPx < 14 * PT_PX - 0.05 || r.minHeadFootPx < 12 * PT_PX - 0.05 || r.spareMm < 0 || e.usedPx < r.usedPx - 0.5)
+            .map(({ r, e }) => `${lang} ${size} ${r.id}: estimate ${e.usedPx.toFixed(1)} ${JSON.stringify(r)}`);
+          expect(bad).toEqual([]);
+          console.info(`badge/live variants ${lang} ${size}: ${res.length} tightest rendered, smallest free space ${Math.min(...res.map((r) => r.spareMm)).toFixed(1)} mm`);
         }
       }
     } finally {

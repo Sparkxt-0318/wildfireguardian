@@ -311,8 +311,9 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
 - `lastmile.print.test.ts` — a browser-free box-model estimate (`lastmile.printfit.ts`, measured
   advance widths of the bundled font) that every card fits, also with the longest provenance lines
   and badges the app can produce; and, when Playwright with Chromium is installed, the real print
-  layout of every card (no overflow, body ≥ 14 pt, header / footer line ≥ 12 pt, estimate never
-  below the real height) and PDFs with exactly one page per card.
+  layout of every card and of the 60 tightest badge / live-provenance variants per language and size
+  (no overflow, body ≥ 14 pt, header / footer line ≥ 12 pt, estimate never below the real height)
+  and PDFs with exactly one page per card.
 - `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin, and §3
   lists every word of `FORBIDDEN`.
 
