@@ -38,11 +38,22 @@ function anyProvenance(s: PlannerState): ProvenanceInfo | null {
   return null;
 }
 
+/**
+ * API mode stated on plan sheets and exports. In the static demo there is no API: results that do not
+ * come from the recorded cache (e.g. drawn spread zones, where nothing is computed) are labelled
+ * 'static', never 'live'.
+ */
+export function provenanceApiMode(s: Pick<PlannerState, 'dataSource'>, mock: boolean, staticDemo: boolean = STATIC_DEMO): ExportProvenance['apiMode'] {
+  if (s.dataSource === 'cache') return 'cache';
+  if (mock) return 'mock';
+  return staticDemo ? 'static' : 'live';
+}
+
 function provenanceOf(s: PlannerState, t: TFunction, route: RouteDetail | null): ExportProvenance {
   const p = route?.provenance ?? anyProvenance(s);
   const health = s.health ?? s.cache?.meta.health ?? null;
   const set = currentScenarioSet(s);
-  const apiMode: ExportProvenance['apiMode'] = s.dataSource === 'cache' ? 'cache' : isMockActive(s) ? 'mock' : 'live';
+  const apiMode = provenanceApiMode(s, isMockActive(s));
   return {
     checkpoint: p?.checkpoint ?? health?.checkpoint ?? FIXED.checkpoint,
     packageName: p?.packageName ?? 'wfg_latest',

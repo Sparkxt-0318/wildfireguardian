@@ -561,6 +561,7 @@ export function orderOrigins(origins: ExportOrigin[], lang: Lang = 'ko'): Export
 function apiModeLabel(p: ExportProvenance, lang: Lang): string {
   const test = p.testData ? ` · ${pick(TEST_DATA_NOTE, lang)}` : '';
   if (p.apiMode === 'mock') return 'MOCK';
+  if (p.apiMode === 'static') return (lang === 'en' ? 'static demo (no API, nothing computed)' : '정적 데모 (API 없음, 계산 안 함)') + test;
   if (p.apiMode === 'live') return (lang === 'en' ? 'live API' : '실시간 API') + test;
   const inner = p.cacheApiMode === 'mock' ? 'MOCK' : p.cacheApiMode === 'live' ? (lang === 'en' ? 'live API' : '실시간 API') : null;
   const head = lang === 'en' ? 'precomputed cache' : '사전 계산 캐시';

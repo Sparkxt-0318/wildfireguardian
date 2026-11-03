@@ -91,6 +91,7 @@ export const SHEET = {
   modeMockZones: { ko: 'MOCK (구역 평가 안 함)', en: 'MOCK (zones not evaluated)' },
   modeMockNone: { ko: 'MOCK (기록된 실행 없음 · 계산 안 함)', en: 'MOCK (no recorded execution · nothing computed)' },
   modeLive: { ko: '실시간 API 계산', en: 'live API computation' },
+  modeStatic: { ko: '정적 데모 · API 없음 · 계산 안 함', en: 'static demo · no API · nothing computed' },
   modeCache: { ko: '사전 계산 캐시', en: 'precomputed cache' },
   modeCacheOf: { ko: '사전 계산 캐시 ({mode})', en: 'precomputed cache ({mode})' },
   footer: { ko: '사전 계획 보조 자료 · 실시간 대피 지휘용 아님 · 주민 검증 전', en: 'Pre-season planning aid · not for live evacuation command · not validated with residents' },

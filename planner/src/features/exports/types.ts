@@ -66,7 +66,8 @@ export interface ExportProvenance {
   packageName?: string;
   packageVersion: string;
   kit: string;
-  apiMode: 'mock' | 'live' | 'cache';
+  /** 'static': the public static demo (VITE_WFG_API_MODE=static) — there is no API, nothing is computed live */
+  apiMode: 'mock' | 'live' | 'cache' | 'static';
   /** for apiMode 'cache': the mode of the API that produced the cache */
   cacheApiMode?: 'mock' | 'live' | null;
   apiVersion: string | null;
