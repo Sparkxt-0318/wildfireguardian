@@ -111,9 +111,8 @@ replays the committed precompute cache — `planner/cache/` (2025 의성·안동
 times each, 9,722 route checks computed through the Route-Check API on the evaluated macOS host; see
 `cache/INDEX.json`) — with no server and no API.
 [`.github/workflows/planner-pages.yml`](../.github/workflows/planner-pages.yml) publishes it at
-<https://sparkxt-0318.github.io/wildfireguardian/> **once the repository owner has enabled GitHub
-Pages** (Settings → Pages → Source: GitHub Actions — a step to do before merging, see
-[GitHub Pages](#github-pages-owner-before-merging) below); until then that address answers 404.
+<https://sparkxt-0318.github.io/wildfireguardian/> on every push to `Main` that changes the planner
+(one-time owner setup: [GitHub Pages](#github-pages-owner-before-merging) below).
 
 ```bash
 cd planner && npm ci

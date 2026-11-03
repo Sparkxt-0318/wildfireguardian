@@ -17,7 +17,7 @@ There are exactly three verdicts: `checked_route` (a checked route within the mo
 
 ## Try it
 
-- **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/>. Live only once the static planner demo (proposed separately, below) is on `Main` and GitHub Pages is enabled.
+- **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/>. The planner as a static site that replays the committed 2025 precompute cache, with no server and no API ([static demo](../../planner/README.md#static-demo-public-no-server)).
 - **Docker:** `docker compose up --build` is set up to start the planner at <http://127.0.0.1:8080> with the Route-Check API behind it. CI built and ran both images on `linux/amd64` for commit `2b1d54d1` ([run](https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/41494735774); [reproduction guide](REPRODUCE.md)).
 - **Linux or macOS with Python 3.12:** `make reproduce-linux` (Linux also needs GNU `time`).
 
@@ -47,6 +47,11 @@ From [scientific next steps](../../README.md#scientific-next-steps) and [future 
 3. Address scenario support, causal forecast alignment and broader held-out evaluation.
 4. Evaluate operationally with intended users and responders.
 
-## Proposed separately
+## Added for Solve 2027
 
-Proposed in November 2026 as separate pull requests (check the repository for their status): public static planner demo; explained deadlines; field-message kit; impact numbers (`research/solve2027-impact/`).
+Merged to `Main` on 3 November 2026:
+
+- **Public static demo** of the planner ([static demo](../../planner/README.md#static-demo-public-no-server), [workflow](../../.github/workflows/planner-pages.yml)).
+- **Explained deadlines:** why each leave-by time is what it is ([`tools/explain_deadlines/`](../../tools/explain_deadlines/README.md); files in `planner/public/data/explanations/`).
+- **Field-message kit:** SMS, loudspeaker and call scripts and cards for caregivers and village heads ([last-mile kit](../../planner/docs/LASTMILE.md)).
+- **Impact numbers** from the recorded 2025 replay, each recomputed by a second implementation ([`research/solve2027-impact/`](../../research/solve2027-impact/README.md)).

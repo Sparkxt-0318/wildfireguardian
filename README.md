@@ -1,7 +1,7 @@
 > [!TIP]
 > **Start here (MIT Solve 2027 reviewers).** WildfireGuardian is a research prototype that checks each vehicle evacuation journey against fire scenarios drawn from a wildfire forecast, so that responders, local safety staff and care-facility managers can plan earlier departures for residents who need more time, including older adults. Planning aid only — not for live evacuation operations.
 >
-> - **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/> (live only once the static planner demo is on `Main` and GitHub Pages is enabled)
+> - **Demo:** <https://sparkxt-0318.github.io/wildfireguardian/> (the planner as a static site replaying the committed 2025 results; no server)
 > - **Two-minute overview:** [reviewer overview](docs/solve2027/REVIEWER_OVERVIEW.md) · [model card](docs/solve2027/MODEL_CARD.md) · [decision card](docs/solve2027/DECISION_CARD.md)
 > - **Planner** (leave-by time for every village and care facility): [`planner/`](planner/README.md)
 > - **Run the planner and API:** `WFG_GIT_COMMIT=$(git rev-parse HEAD) docker compose up --build` (the variable puts the commit in API provenance; this does not run the replay)
