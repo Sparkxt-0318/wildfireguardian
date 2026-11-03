@@ -49,6 +49,8 @@ COMPUTED_LENGTH = ('Source: arrival times and flame contact are recorded API res
                    'so they are not evaluated-host output.')
 COMPUTED_GRAPH = ('Source: computed by this package on the SHA-verified road graph in a Linux container; the Route-Check '
                   'API was not asked this question, and it is not evaluated-host output.')
+# the planner's footer, which README.md and the figures also carry; the generated page ends with it
+FOOTER = '사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다. / Planning aid only — not for live evacuation operations.'
 
 SENTENCES = [
     {
@@ -183,10 +185,10 @@ SENTENCES = [
         'text': (
             'On the road graph used for routing, for {n:redundancy.turn_aware_paths_1@all/places} of the '
             '{d:redundancy.turn_aware_paths_1@all/places} OSM-mapped villages and care facilities '
-            '({p:redundancy.turn_aware_paths_1@all/places}), all routes starting from the place\'s mapped road entry '
-            'point toward its ' + _HALLS + ' (not official shelters) pass through '
-            'at least one common road segment, a single point of failure in the model\'s road network; measured along '
-            'the shortest route, the last segment that all routes share ends a median of '
+            '({p:redundancy.turn_aware_paths_1@all/places}), all routes starting from the place\'s road entry point '
+            'toward its ' + _HALLS + ' (not official shelters) pass through at least one common road segment, a '
+            'single point of failure for these routes in the model\'s road graph; measured along the shortest route, '
+            'the last segment that all routes share ends a median of '
             '{m:redundancy.shared_stretch_m.median@all/places} m from the entry point, and within 100 m for only '
             '{n:redundancy.shared_stretch_within_100m@all/places} of the {d:redundancy.shared_stretch_within_100m@all/places}.'),
         'related': ['redundancy.entry_out_degree_1@all/places', 'redundancy.shared_stretch_m.min@all/places',
@@ -284,4 +286,5 @@ def markdown(numbers: dict) -> str:
         text, caution, keys = render(s, numbers)
         out += [f'## {s["id"]}', '', f'> {text}', '', 'NUMBERS.json keys: ' + ', '.join(f'`{k}`' for k in keys), '',
                 f'Caution: {caution}', '']
+    out.append(f'**{FOOTER}**')
     return '\n'.join(out)

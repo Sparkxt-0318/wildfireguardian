@@ -916,7 +916,7 @@ L 415.292572 457.432
   <g id="text_76">
    <text style="fill: #52514e; font: 8.3px 'DejaVu Sans'" transform="translate(7.2 31.398703)">Dotted = deadline set by the window: at the next departure (10 min later) even the fastest fire-free trip + the 120 s stay would end</text>
    <text style="fill: #52514e; font: 8.3px 'DejaVu Sans'" transform="translate(7.2 41.323558)">after the 1-hour scenario window, so no later route could be checked whatever the fire. Solid green before +50 = set by the fire scenarios</text>
-   <text style="fill: #52514e; font: 8.3px 'DejaVu Sans'" transform="translate(7.2 51.248412)">or model limits (a fire-free trip would still fit at the next departure). * +50 = checked at the last checked departure; the window gives no later limit.</text>
+   <text style="fill: #52514e; font: 8.3px 'DejaVu Sans'" transform="translate(7.2 51.248412)">or model limits (a fire-free trip would still fit at the next departure). * +50 = the last departure checked; later departures were not checked.</text>
   </g>
   <g id="text_77">
    <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 518.986828)">Sources: leave-by deadlines = Route-Check API results recorded on the evaluated macOS arm64 host (planner cache); dotted "set by the window" = computed by this package in a Linux container (not evaluated-host</text>

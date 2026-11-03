@@ -271,9 +271,10 @@ def test_readme_names_the_table_columns_computed_here():
     assert 'fire-free trip to the nearest candidate' not in README
 
 
-# "from the place" (village, facility, ...) is only correct as "from the place's road entry point"
+# "from the place" (village, facility, ...) is only correct as "from the place's road entry point" (the nearest node of
+# the road graph: not a mapped feature, so never "mapped road entry point")
 FROM_PLACE = re.compile(r"\bfrom (?:the|each|a|every|its|their) (?:places?|villages?|hamlets?|(?:care )?facilit(?:y|ies)"
-                        r"|origins?)\b(?!'s (?:mapped )?road entry point)", flags=re.I)
+                        r"|origins?)\b(?!'s road entry point)", flags=re.I)
 
 
 def _entry_note(text: str) -> bool:
@@ -300,7 +301,8 @@ def test_departures_are_said_to_start_at_the_road_entry_point():
             assert not FROM_PLACE.search(part), (s['id'], FROM_PLACE.search(part))
         assert _entry_note(caution), s['id']
     assert not FROM_PLACE.search(SENTENCES_MD) and not FROM_PLACE.search(figures.FOOTER)
-    for bad in ('no checked route from the place to any', 'trips from each village', 'routes from the care facilities'):
+    for bad in ('no checked route from the place to any', 'trips from each village', 'routes from the care facilities',
+                "all routes starting from the place's mapped road entry point toward"):
         assert FROM_PLACE.search(bad), bad
     assert not FROM_PLACE.search("route from the place's road entry point to any")
     g = lambda k: N[k]  # noqa: E731
@@ -365,3 +367,13 @@ def test_owner_decision_proposes_one_link_line_for_the_frozen_research_readme():
 def test_readme_counts_of_cache_only_numbers_match():
     cache_only = sum(1 for e in N.values() if not e['uses_graph'])
     assert f'(`uses_graph` = false, {cache_only:,} of the {len(N):,} numbers)' in ' '.join(README.split())
+
+
+def test_sentences_page_footer_and_the_fig2_last_departure_note():
+    # the generated sentences page ends with the planner's footer line, as README.md and the figures do
+    assert SENTENCES_MD.endswith('\n\n**사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다. / '
+                                 'Planning aid only — not for live evacuation operations.**\n')
+    # fig2's "+50*" bars: +50 min is the last departure checked, so a deadline there may be later
+    text = _svg_text(PACKAGE_ROOT / 'figures' / 'fig2_deadline_by_origin_type.svg')
+    assert '* +50 = the last departure checked; later departures were not checked.' in text
+    assert 'the window gives no later limit' not in text

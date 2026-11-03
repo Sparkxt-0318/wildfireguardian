@@ -46,7 +46,7 @@ Caution: Only 9 of 501 comparisons in all; do not generalise. The comparison exi
 
 ## S6
 
-> On the road graph used for routing, for 115 of the 174 OSM-mapped villages and care facilities (66.1%), all routes starting from the place's mapped road entry point toward its three nearest OSM-mapped schools or community halls (not official shelters) pass through at least one common road segment, a single point of failure in the model's road network; measured along the shortest route, the last segment that all routes share ends a median of 674 m from the entry point, and within 100 m for only 10 of the 115.
+> On the road graph used for routing, for 115 of the 174 OSM-mapped villages and care facilities (66.1%), all routes starting from the place's road entry point toward its three nearest OSM-mapped schools or community halls (not official shelters) pass through at least one common road segment, a single point of failure for these routes in the model's road graph; measured along the shortest route, the last segment that all routes share ends a median of 674 m from the entry point, and within 100 m for only 10 of the 115.
 
 NUMBERS.json keys: `redundancy.turn_aware_paths_1@all/places`, `redundancy.shared_stretch_m.median@all/places`, `redundancy.shared_stretch_within_100m@all/places`, `entry_distance_m.median@all/places`, `entry_distance_over_1000m@all/places`, `redundancy.turn_aware_equals_plain@all/places`, `redundancy.single_cut_at_entry_node@all/places`, `destinations_used.school@all/places`, `destinations_used.community_hall@all/places`, `redundancy.entry_out_degree_1@all/places`, `redundancy.shared_stretch_m.min@all/places`, `redundancy.shared_stretch_m.max@all/places`
 
@@ -60,3 +60,4 @@ NUMBERS.json keys: `api_check.recorded_equals_planner_rule_on_original@all/poole
 
 Caution: Internal consistency of software and recorded data only. It does not validate the forecast, the hazard model, the road data or real-world safety. The planner displays re-checks, so its deadline equals the API's recorded latest_checked_depart_offset_s for 517 of 522 cases. Departures and leave-by times are at each place's road entry point (진입 지점: the nearest node of the main road network, at most 2 km from the mapped point; median 198.25 m, 7 of 174 places more than 1 km away); travel between the place and that point is not modelled.
 
+**사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다. / Planning aid only — not for live evacuation operations.**

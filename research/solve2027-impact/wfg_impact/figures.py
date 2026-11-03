@@ -281,8 +281,8 @@ def fig_deadlines(records, numbers, out_dir: Path, table_dir: Path) -> list[Path
     fig.text(0.01, 0.945, 'Dotted = deadline set by the window: at the next departure (10 min later) even the fastest '
              'fire-free trip + the 120 s stay would end\nafter the 1-hour scenario window, so no later route could be '
              'checked whatever the fire. Solid green before +50 = set by the fire scenarios\nor model limits (a '
-             'fire-free trip would still fit at the next departure). * +50 = checked at the last checked departure; '
-             'the window gives no later limit.', fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
+             'fire-free trip would still fit at the next departure). * +50 = the last departure checked; later '
+             'departures were not checked.', fontsize=8.3, color=MUTED, va='top', linespacing=1.3)
     fig.legend(handles=_legend_handles('Checked route, deadline set by the window (dotted)', CHECKED_C),
                loc='upper left', bbox_to_anchor=(0.01, 0.875), ncol=4, frameon=False, fontsize=8.3)
     fig.text(0.01, -0.01, SOURCES['fig2'] + ' ' + FOOTER, fontsize=7.5, color=MUTED, wrap=True, va='top')
