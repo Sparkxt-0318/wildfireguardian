@@ -58,9 +58,10 @@ CAVEATS = [
 ]
 STATEMENT = ('Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok '
              'fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the '
-             'evaluated macOS arm64 host (planner cache; uses_graph = false), and values this package computed itself '
-             'from the SHA-verified road graph and hazard packets in a Linux container (uses_graph = true), which are '
-             'not Route-Check API results and not evaluated-host output. None is an evacuation outcome.')
+             'evaluated macOS arm64 host, counted together with the planner\'s place files (planner cache and place '
+             'files; uses_graph = false), and values this package computed itself from the SHA-verified road graph and '
+             'hazard packets in a Linux container (uses_graph = true), which are not Route-Check API results and not '
+             'evaluated-host output. None is an evacuation outcome.')
 ATTRIBUTION = {
     'recorded': ('uses_graph = false: aggregates of recorded inputs only - Route-Check API results in the planner cache '
                  '(verdicts, leave-by deadlines, re-checks, travel-only flame contact and arrival times), computed on '
@@ -293,7 +294,7 @@ def readme_blocks(result: dict, nums: dict) -> dict[str, str]:
         'places.not_checked_although_fits_at_offset_3000s_any_input@all/places':
             'of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit',
         'fastest_trip_s.median@uiseong_andong_2025/places#village':
-            f'fastest fire-free trip to the nearest candidate, {ua} villages, median (s)',
+            f'fastest fire-free trip to the quickest-to-reach of the 3 candidates, {ua} villages, median (s)',
         'fastest_trip_s.median@yeongdeok_2025/places#village': f'same, {yd} villages, median (s)',
         'fastest_trip_s.min@all/places#care_facility': 'same, care facilities, min (s)',
         'fastest_trip_s.max@all/places#care_facility': 'same, care facilities, max (s)',

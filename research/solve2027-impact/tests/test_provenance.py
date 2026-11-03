@@ -150,6 +150,7 @@ def test_attribution_is_split_wherever_numbers_are_published():
     statement = NUMBERS['statement'] + ' ' + ' '.join(NUMBERS['attribution'].values())
     assert 'evaluated macOS arm64 host' in statement and all(p in statement for p in ('Linux container', 'not evaluated-host output'))
     assert 'Every number describes what' not in statement
+    assert '(planner cache and place files; uses_graph = false)' in NUMBERS['statement']   # place-file counts too
     assert any('not evaluated-host output' in c for c in NUMBERS['caveats'])
     # every number that depends on this package's own computation says so in its own definition
     for key, e in N.items():
@@ -178,6 +179,7 @@ def test_attribution_is_split_wherever_numbers_are_published():
         text = _svg_text(PACKAGE_ROOT / 'figures' / f'{stem}.svg')
         assert figures.SOURCES[fig] in text and 'evaluated macOS arm64 host' in text, stem
         assert all(p in text for p in SOURCE_PHRASES) and 'road entry point' in text, stem
+        assert 'Planning aid only — not for live evacuation operations.' in text, stem      # the exact footer text
     # no blanket attribution left anywhere: the code (module docstrings included) and every published text
     texts = {p.relative_to(PACKAGE_ROOT).as_posix(): p.read_text(encoding='utf-8')
              for p in [PACKAGE_ROOT / 'compute.py', PACKAGE_ROOT / 'verify.py',
@@ -196,6 +198,49 @@ def test_attribution_is_split_wherever_numbers_are_published():
         assert BLANKET.search(_prose(old)), old
     package_doc = ' '.join(wfg_impact.__doc__.split())
     assert 'two sources' in package_doc and all(p in package_doc for p in ('evaluated macOS arm64 host', *SOURCE_PHRASES[1:]))
+
+
+# columns of the committed tables that hold this package's own road-graph / HAZARD values (written out independently of
+# the README, which must name exactly these as "computed here")
+COMPUTED_COLUMNS = {
+    'origin_cases.csv': {'fastest_fire_free_trip_s', 'deadline_set_by'} |
+                        {f'trip_fits_window_{t:04d}s' for t in sources.GRID_OFFSETS_S},
+    'travel_only_pairs.csv': {'checked_length_m', 'fastest_length_m', 'extra_length_m'},
+    'redundancy_places.csv': {'entry_out_degree', 'turn_aware_paths', 'plain_paths', 'single_cut_at_entry_node',
+                              'min_cut_edges_source_side', 'min_cut_osm_ways', 'common_edges_on_every_route',
+                              'shared_stretch_m', 'fastest_fire_free_trip_s'},
+    'fig1_checked_share_by_offset.csv': {'model_no_route_trip_fits', 'unresolved_trip_fits', 'window_limited',
+                                         'model_no_route_window_limited', 'unresolved_window_limited'},
+    'fig2_deadline_by_origin_type.csv': {'set_by_window', 'set_by_fire_or_limits'},
+    'fig3_travel_only_vs_checked.csv': {'extra_length_m'},
+}
+
+
+def test_readme_names_the_table_columns_computed_here():
+    import fnmatch
+    files = README.split('\n## Files\n', 1)[1].split('\n## ', 1)[0]
+    prose = ' '.join(files.split())
+    assert 'Table columns marked "computed here"' in prose and 'not evaluated-host output' in prose
+    for name, expected in COMPUTED_COLUMNS.items():
+        header = (PACKAGE_ROOT / 'tables' / name).read_text(encoding='utf-8').splitlines()[0].split(',')
+        assert expected <= set(header), name
+        row = next(r for r in files.splitlines() if r.startswith(f'| `tables/{name}`') or
+                   (name.startswith('fig') and r.startswith('| `tables/fig*_*.csv`')))
+        part = row.split('computed here:', 1)[1]
+        if name.startswith('fig'):
+            part = part.split(name[:4] + ' ', 1)[1].split(';')[0]
+        named = {c for tok in re.findall(r'`([^`]+)`', part) for c in fnmatch.filter(header, tok)}
+        assert named == expected, (name, named ^ expected)
+    # the README's "Key format" lists every subset used in a key
+    key_format = ' '.join(README.split('\n## Key format\n', 1)[1].split())
+    for subset in {k.split('#', 1)[1] for k in N if '#' in k}:
+        assert f'`#{subset}`' in key_format, subset
+    # "nearest" would read as the straight-line nearest: the trip is to whichever candidate is quickest to reach
+    for key, e in [*N.items(), *NUMBERS['headline'].items()]:
+        if key.startswith(('fastest_trip_s.', 'places.window_limited_at_offset_')):
+            assert 'quickest-to-reach' in e['definition'] and 'nearest' not in e['definition'], key
+    assert all(h['definition'] == N[k]['definition'] for k, h in NUMBERS['headline'].items())
+    assert 'fire-free trip to the nearest candidate' not in README
 
 
 # "from the place" (village, facility, ...) is only correct as "from the place's road entry point"
@@ -280,6 +325,11 @@ def test_owner_decision_proposes_one_link_line_for_the_frozen_research_readme():
     line = m.group(1)
     assert '\n' not in line and line.startswith('- [solve2027-impact/](solve2027-impact/README.md): ')
     assert 'safe' not in line.lower()
+    # the same text as a one-sentence paragraph, matching that file's paragraph style
+    blocks = re.findall(r'```markdown\n(.+?)\n```', section, flags=re.S)
+    assert len(blocks) == 2 and blocks[0] == line and '\n' not in blocks[1]
+    assert blocks[1].startswith('[`solve2027-impact/`](solve2027-impact/README.md) holds model-relative ')
+    assert blocks[1].split(' holds ', 1)[1] == line.split(': ', 1)[1]
 
 
 def test_readme_counts_of_cache_only_numbers_match():

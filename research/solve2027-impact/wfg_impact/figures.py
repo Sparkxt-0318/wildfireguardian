@@ -45,7 +45,7 @@ FOOTER = ('Model-relative results for recorded 2025 fire scenarios (4 scenario m
           'place; travel to it is not modelled) to each of its three nearest OSM-mapped schools or community halls (not '
           'official shelters; a checked route to any one counts; for one '
           'Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. '
-          'Planning aid only - not for live evacuation operations.')
+          'Planning aid only — not for live evacuation operations.')
 _RECORDED = 'Route-Check API results recorded on the evaluated macOS arm64 host (planner cache)'
 _COMPUTED = 'computed by this package in a Linux container (not evaluated-host output) from the SHA-verified road graph'
 SOURCES = {

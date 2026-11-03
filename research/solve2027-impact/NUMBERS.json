@@ -1,7 +1,7 @@
 {
  "schema": "wfg.solve2027.impact_numbers/1",
  "title": "Who needs more time: model-relative impact numbers from the recorded 2025 planner cache",
- "statement": "Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the evaluated macOS arm64 host (planner cache; uses_graph = false), and values this package computed itself from the SHA-verified road graph and hazard packets in a Linux container (uses_graph = true), which are not Route-Check API results and not evaluated-host output. None is an evacuation outcome.",
+ "statement": "Model-relative numbers for recorded fire-scenario members of the March 2025 Uiseong-Andong and Yeongdeok fires, from two sources marked on every number (see attribution): Route-Check API results recorded on the evaluated macOS arm64 host, counted together with the planner's place files (planner cache and place files; uses_graph = false), and values this package computed itself from the SHA-verified road graph and hazard packets in a Linux container (uses_graph = true), which are not Route-Check API results and not evaluated-host output. None is an evacuation outcome.",
  "attribution": {
   "recorded": "uses_graph = false: aggregates of recorded inputs only - Route-Check API results in the planner cache (verdicts, leave-by deadlines, re-checks, travel-only flame contact and arrival times), computed on the evaluated macOS arm64 host (purpose booth, fixed 30 s budget per check), and the planner's place files. This package counts them with the planner's own rules; it runs no route check.",
   "computed_by_this_package": "uses_graph = true: the number also depends on this package's own computation on the SHA-verified road graph (data/routing graph.json): fire-free trip times, the 1-hour scenario-window classification (fits / window-limited, deadline set by the window), road redundancy and shared stretches, and route lengths; uses_hazard = true: also on the recorded hazard packets (HAZARD.json: valid_from, valid_until, dt). These are not Route-Check API results, so they are not evaluated-host output; the committed values were computed in a Linux container. The fire-free trip model equals the API's own recorded travel-time-only route time in every comparison (trip_model.equals_travel_only@all/pooled).",
@@ -1352,7 +1352,7 @@
    "denominator": null,
    "n": 79,
    "unit": "s",
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
    "scope": "uiseong_andong_2025/places",
    "subset": "village",
    "scope_text": "distinct places of Uiseong-Andong (each place counted once, whatever the number of recorded input times)",
@@ -1388,7 +1388,7 @@
    "denominator": null,
    "n": 90,
    "unit": "s",
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
    "scope": "yeongdeok_2025/places",
    "subset": "village",
    "scope_text": "distinct places of Yeongdeok (each place counted once, whatever the number of recorded input times)",
@@ -1424,7 +1424,7 @@
    "denominator": null,
    "n": 5,
    "unit": "s",
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
    "scope": "all/places",
    "subset": "care_facility",
    "scope_text": "distinct places of both 2025 regions (each place counted once, whatever the number of recorded input times)",
@@ -1476,7 +1476,7 @@
    "denominator": null,
    "n": 5,
    "unit": "s",
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container.",
    "scope": "all/places",
    "subset": "care_facility",
    "scope_text": "distinct places of both 2025 regions (each place counted once, whatever the number of recorded input times)",
@@ -27106,7 +27106,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@uiseong_andong_2025/places": {
    "value": 25,
@@ -27118,7 +27118,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@uiseong_andong_2025/places": {
    "value": 547,
@@ -27130,7 +27130,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@uiseong_andong_2025/places": {
    "value": 2287,
@@ -27142,7 +27142,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@uiseong_andong_2025/places#village": {
    "value": 7,
@@ -27178,7 +27178,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@uiseong_andong_2025/places#village": {
    "value": 50,
@@ -27190,7 +27190,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@uiseong_andong_2025/places#village": {
    "value": 583,
@@ -27202,7 +27202,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@uiseong_andong_2025/places#village": {
    "value": 2287,
@@ -27214,7 +27214,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@uiseong_andong_2025/places#care_facility": {
    "value": 0,
@@ -27249,7 +27249,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@uiseong_andong_2025/places#care_facility": {
    "value": 25,
@@ -27261,7 +27261,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@uiseong_andong_2025/places#care_facility": {
    "value": 187,
@@ -27273,7 +27273,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@uiseong_andong_2025/places#care_facility": {
    "value": 290,
@@ -27285,7 +27285,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@yeongdeok_2025/places": {
    "value": 7,
@@ -27321,7 +27321,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@yeongdeok_2025/places": {
    "value": 5,
@@ -27333,7 +27333,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@yeongdeok_2025/places": {
    "value": 87.5,
@@ -27345,7 +27345,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@yeongdeok_2025/places": {
    "value": 1111,
@@ -27357,7 +27357,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@yeongdeok_2025/places#village": {
    "value": 7,
@@ -27393,7 +27393,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@yeongdeok_2025/places#village": {
    "value": 5,
@@ -27405,7 +27405,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@yeongdeok_2025/places#village": {
    "value": 87.5,
@@ -27417,7 +27417,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@yeongdeok_2025/places#village": {
    "value": 1111,
@@ -27429,7 +27429,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@all/places": {
    "value": 14,
@@ -27465,7 +27465,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@all/places": {
    "value": 5,
@@ -27477,7 +27477,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@all/places": {
    "value": 197,
@@ -27489,7 +27489,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@all/places": {
    "value": 2287,
@@ -27501,7 +27501,7 @@
    "subset": null,
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@all/places#village": {
    "value": 14,
@@ -27537,7 +27537,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@all/places#village": {
    "value": 5,
@@ -27549,7 +27549,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@all/places#village": {
    "value": 198,
@@ -27561,7 +27561,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@all/places#village": {
    "value": 2287,
@@ -27573,7 +27573,7 @@
    "subset": "village",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: villages/hamlets (vulnerable = false). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "places.not_checked_although_fits_at_offset_3000s_any_input@all/places#care_facility": {
    "value": 0,
@@ -27608,7 +27608,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the nearest candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "Distinct places whose departure at 3000 s is window-limited (fastest fire-free trip to the quickest-to-reach candidate destination + 120 s stay > 600 s). A departure at offset t can only be checked if arrival plus the required stay ends by the destination window close and the hazard valid_until (3600 s): the kit accepts a destination arrival only if arrival + dwell <= min(close, horizon) (temporal_contract.py check_mission). \"Fits\" = for at least one candidate destination, t + fastest fire-free trip + required stay (120 s) <= 3600 s, where the fastest fire-free trip is a turn-aware Dijkstra on travel_ticks (dt = 1 s, the graph's 40 km/h assumption) from the entry node, with no waits. \"Window-limited\" = nothing fits: no route can be checked at that departure whatever the fire does. Planner verdicts are unchanged. Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.min@all/places#care_facility": {
    "value": 25,
@@ -27620,7 +27620,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "min over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.median@all/places#care_facility": {
    "value": 187,
@@ -27632,7 +27632,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "median over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "fastest_trip_s.max@all/places#care_facility": {
    "value": 290,
@@ -27644,7 +27644,7 @@
    "subset": "care_facility",
    "uses_graph": true,
    "uses_hazard": true,
-   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
+   "definition": "max over distinct places (field n) of the fastest fire-free trip from the entry node to the quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire). Subset: care facilities (nursing_home / social_facility, vulnerable = true). Source: computed by this package from the SHA-verified road graph and hazard packets (data/routing graph.json, HAZARD.json) and the recorded cache, not by the Route-Check API, so it is not evaluated-host output; the committed value was computed in a Linux container."
   },
   "trip_model.equals_travel_only@all/pooled": {
    "value": 501,

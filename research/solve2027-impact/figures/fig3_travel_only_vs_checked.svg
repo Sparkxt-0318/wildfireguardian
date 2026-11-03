@@ -434,7 +434,7 @@ z
    <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 559.35925)">(planner cache); route lengths (km) = computed by this package in a Linux container (not evaluated-host output) from the SHA-verified road graph. Model-relative results for recorded 2025 fire scenarios (4 scenario</text>
    <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 567.757609)">members per input time, drawn per cell from the forecast; 1-hour scenario window; OSM roads at an assumed 40 km/h, no congestion). Each place is checked from its road entry point (the nearest node of the main</text>
    <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 576.155969)">road network, at most 2 km from the mapped place; travel to it is not modelled) to each of its three nearest OSM-mapped schools or community halls (not official shelters; a checked route to any one counts; for one</text>
-   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 584.554328)">Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning aid only - not for live evacuation operations.</text>
+   <text style="fill: #52514e; font: 7.5px 'DejaVu Sans'" transform="translate(7.2 584.554328)">Yeongdeok place one of the three is an unnamed OSM amenity=shelter point). Not evacuation outcomes. Planning aid only — not for live evacuation operations.</text>
   </g>
  </g>
  <defs>

@@ -98,7 +98,7 @@ Route-Check API result and not evaluated-host output (`uses_graph` = true).
 | `deadline_set_by.fire_or_limits@all/pooled` | 15/147 (10.2%) | computed here | deadlines before +50 min set by fire scenarios or limits (next would fit) |
 | `places.not_checked_although_fits_any_offset_any_input@all/places` | 30/174 (17.2%) | computed here | places with an unchecked departure that would fit the window, in >= 1 forecast time |
 | `places.not_checked_although_fits_at_offset_3000s_any_input@all/places` | 14/65 (21.5%) | computed here | of the places unchecked at +50 min in >= 1 forecast time, those where +50 min would fit |
-| `fastest_trip_s.median@uiseong_andong_2025/places#village` | 583 (n = 79) | computed here | fastest fire-free trip to the nearest candidate, Uiseong-Andong villages, median (s) |
+| `fastest_trip_s.median@uiseong_andong_2025/places#village` | 583 (n = 79) | computed here | fastest fire-free trip to the quickest-to-reach of the 3 candidates, Uiseong-Andong villages, median (s) |
 | `fastest_trip_s.median@yeongdeok_2025/places#village` | 87.5 (n = 90) | computed here | same, Yeongdeok villages, median (s) |
 | `fastest_trip_s.min@all/places#care_facility` | 25 (n = 5) | computed here | same, care facilities, min (s) |
 | `fastest_trip_s.max@all/places#care_facility` | 290 (n = 5) | computed here | same, care facilities, max (s) |
@@ -431,10 +431,16 @@ not permitted from this environment. No population figure is used here, and none
 
 `research/README.md` is frozen (listed in `research/postmerge-fixes-20261031/FROZEN_GIT_BLOBS.json`;
 `tools/verify_postmerge_preservation.py` fails if it changes), so this package does not link itself from there.
-Proposed one-line link text, for the owner to add if that file is ever unfrozen:
+Proposed one-line link text, for the owner to add if that file is ever unfrozen, as a list item:
 
 ```markdown
 - [solve2027-impact/](solve2027-impact/README.md): model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an independent second computation; recorded Route-Check API results and this package's own road-graph values are marked separately.
+```
+
+or, matching that file's paragraphs, as a one-sentence paragraph:
+
+```markdown
+[`solve2027-impact/`](solve2027-impact/README.md) holds model-relative "who needs more time" numbers and figures from the recorded 2025 planner cache, with an independent second computation; recorded Route-Check API results and this package's own road-graph values are marked separately.
 ```
 
 ## Files
@@ -446,15 +452,23 @@ Proposed one-line link text, for the owner to add if that file is ever unfrozen:
 | `wfg_impact/` | `sources` (inputs, hashes), `planner_rules` (planner port), `api_rules` (API cross-check), `maxflow` (redundancy, common segments), `trips` (fire-free trips), `analysis`, `numbers`, `figures`, `sentences`, `path_b` |
 | `NUMBERS.json` | every number with definition, value, numerator/denominator, scope and sources (`uses_graph`, `uses_hazard`); the `headline` entries also carry script, input paths and their SHA-256 (graph.json and HAZARD.json included where used); `inputs` lists every input file, `attribution` the two sources |
 | `APPLICATION_SENTENCES.md` | 7 candidate sentences rendered from NUMBERS.json, with keys and cautions |
-| `tables/origin_cases.csv` | one row per scenario set x origin (verdict cell and window fit per offset, deadlines and what set them, fastest fire-free trip, API fields, reasons) |
-| `tables/travel_only_pairs.csv`, `tables/redundancy_places.csv` | per comparison / per place details |
-| `tables/fig*_*.csv` | table twins of the figures |
+| `tables/origin_cases.csv` | one row per scenario set x origin (verdict cell and window fit per offset, deadlines and what set them, fastest fire-free trip, API fields, reasons); computed here: `fastest_fire_free_trip_s`, `trip_fits_window_*`, `deadline_set_by` |
+| `tables/travel_only_pairs.csv` | one row per travel-only comparison (recorded arrival times and flame contact); computed here: `checked_length_m`, `fastest_length_m`, `extra_length_m` |
+| `tables/redundancy_places.csv` | one row per checked place; computed here: `entry_out_degree`, `turn_aware_paths`, `plain_paths`, `single_cut_at_entry_node`, `min_cut_edges_source_side`, `min_cut_osm_ways`, `common_edges_on_every_route`, `shared_stretch_m`, `fastest_fire_free_trip_s` |
+| `tables/fig*_*.csv` | table twins of the figures; computed here: fig1 `model_no_route_trip_fits`, `unresolved_trip_fits`, `model_no_route_window_limited`, `unresolved_window_limited`, `window_limited`; fig2 `set_by_window`, `set_by_fire_or_limits`; fig3 `extra_length_m` |
 | `figures/` | 3 figures, PNG + SVG |
 | `tests/` | synthetic-case tests of the planner port and max-flow; cache-only recomputation by both paths and the INDEX.json reconciliation (run without `data/routing/`); provenance and wording checks; the full path A / path B reproduction |
 | `requirements.txt` | pinned analysis dependencies |
+
+Table columns marked "computed here" are this package's own values from the SHA-verified road graph (and, for trips
+and the window, the HAZARD packets), computed in a Linux container: not Route-Check API results and not
+evaluated-host output. The other columns are recorded results (counted with the planner's rules), planner place data
+or labels.
 
 ## Key format
 
 `<metric>@<scope>[#<subset>]`. Scope: `<region>/<input time>` (one scenario set), `<region>/pooled` or `all/pooled`
 (place-input-time cases), `<region>/places` or `all/places` (distinct places). Subset: `#village`, `#care_facility`;
-`#rc1` / `#rc2plus` for places with one / at least two edge-disjoint paths.
+`#rc1` / `#rc2plus` for places with one / at least two edge-disjoint paths; `#leave_by_3000s` /
+`#leave_by_before_3000s` for travel-only comparisons whose leave-by deadline is the last checked departure (+50 min) /
+earlier.

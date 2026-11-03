@@ -7,7 +7,9 @@ Key format: ``<metric>@<scope>[#<subset>]``.
   cases, never places;
 * scope ``<region>/places`` and ``all/places`` - distinct places (no double counting across input times);
 * subset ``#village`` / ``#care_facility`` - origin type as the planner tags it (LeftPanel.tsx glyphKind);
-  ``#rc1`` / ``#rc2plus`` - places with one / at least two turn-aware edge-disjoint paths.
+  ``#rc1`` / ``#rc2plus`` - places with one / at least two turn-aware edge-disjoint paths;
+  ``#leave_by_3000s`` / ``#leave_by_before_3000s`` - travel-only comparisons whose leave-by deadline is the last
+  checked departure (3000 s, +50 min) / earlier.
 
 Population ("origins") unless stated otherwise: OpenStreetMap villages/hamlets and care facilities
 (``nursing_home`` / ``social_facility``) with an accepted road entry node within 2 km, i.e. the origins the planner
@@ -642,16 +644,16 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
             k = sum(1 for key, rs in by_place.items() if not rs[0]['fits'][LAST])
             b.frac(f'places.window_limited_at_offset_{LAST:04d}s' + tag, k, n,
                    f'Distinct places whose departure at {LAST} s is window-limited (fastest fire-free trip to the '
-                   f'nearest candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}', **WIN)
+                   f'quickest-to-reach candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}', **WIN)
             for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
                 v = fn(list(trip.values()))
                 if isinstance(v, float) and v.is_integer():
                     v = int(v)
                 b.add(f'fastest_trip_s.{stat}' + tag, v,
                       f'{stat} over distinct places (field n) of the fastest fire-free trip from the entry node to the '
-                      f'nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, '
-                      f'x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire).{st}', unit='s',
-                      n=n, **WIN)
+                      f'quickest-to-reach of the 3 candidate destinations, in seconds (turn-aware Dijkstra on '
+                      f'travel_ticks, x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no '
+                      f'fire).{st}', unit='s', n=n, **WIN)
     comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
     b.frac('trip_model.equals_travel_only@all/pooled', sum(1 for p in comp if p['trip_model_s'] ==
                                                            p['fastest_arrival_s'] - p['depart_offset_s']), len(comp),
