@@ -169,6 +169,28 @@ describe('message plan per verdict', () => {
     expect(p.after).toBe('gap');
   });
 
+  it('a gap time may have been checked (no route in the model): the texts say "no checked route", never "not checked"', () => {
+    const fm = buildFieldMessages(
+      synInput({
+        plan: {
+          bestVerdict: 'checked_route',
+          latestSafeDepartureS: 3000,
+          contiguousSafeDepartureS: 1200,
+          sweep: cells(['checked_route', 'checked_route', 'checked_route', 'model_no_route', 'checked_route', 'checked_route']),
+          note: null,
+        },
+      }),
+    );
+    expect(fm.violations).toEqual([]);
+    expect(fm.plan.after).toBe('gap');
+    expect(fm.text.ko.lms).toContain('18:20 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 18:20까지의 출발만 다룹니다.');
+    expect(fm.text.en.lms).toContain('Some departure times after 18:20 have no checked route in the model, so this message covers departures up to 18:20 only.');
+    expect(fm.text.en.card.lines.map((l) => l.text)).toContain('Some departure times after 18:20 have no checked route; this card covers up to 18:20.');
+    expect(fm.text.ko.call).toContain('그 뒤에는 컴퓨터 예측 계산으로 확인된 길이 없는 출발 시각이 있습니다.');
+    expect(fm.text.en.call).toContain('Some later departure times have no checked route.');
+    for (const t of texts(fm)) expect(t).not.toMatch(/확인되지 않은|확인되지 않았|not checked|could not be checked|not confirmed/);
+  });
+
   it('no contiguous basis (the first departure time is not checked) → partial, no departure time', () => {
     const fm = buildFieldMessages(
       synInput({
@@ -548,11 +570,13 @@ describe('deadline explanation (wfg.explanation/1): loading and fallback', () =>
       'Leaving at the next checked time, 18:40, none of the destinations checked can be reached and the stay finished within the 1-hour data range, even without fire; departures after 18:30 have no checked route in the model; this time was not set by fire.',
     );
     expect(free.text.ko.broadcast + free.text.ko.call).not.toMatch(/18:30보다 늦은 출발은 .*도착할 수 없/);
-    expect(free.text.ko.call).toContain('그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
+    // spoken as the written line says it (both languages agree): later departures have no checked route
+    expect(free.text.ko.call).toContain('그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
     expect(free.text.en.call).toContain('Later departures have no checked route; this time was not set by fire.');
     expect(free.text.ko.card.big?.label).toBe('출발 마감');
     expect(free.text.en.card.big?.label).toBe('Leave by');
-    for (const t of texts(free)) expect(t).not.toMatch(/점검하지 (못했|않았)|점검한 마지막|not checked|not confirmed|Checked up to/);
+    // never "not checked" — nor the Korean "확인되지 않았습니다", which is heard as 미확인 (unresolved)
+    for (const t of texts(free)) expect(t).not.toMatch(/점검하지 (못했|않았)|점검한 마지막|확인되지 않았|확인되지 않은|not checked|not confirmed|Checked up to/);
     // the cause is not established (explained_partial): no "not a fire" claim, the neutral line stays
     const mixed = buildFieldMessages(withId(synInput(), SYN_IDS.windowMixed), ex);
     expect(mixed.reason).toBeNull();

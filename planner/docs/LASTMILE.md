@@ -41,11 +41,13 @@ kinds and fails closed to the less specific one on any inconsistency.
 
 - **checked_route → `leave_by`** — only when every requested departure time from the first one up
   to T has a checked route, T being the contract's contiguous basis
-  (`latest_contiguous_checked_depart_offset_s`). If later times are checked but one in between is
-  not, the message keeps T (earlier than the planner's headline deadline) and says why. Window-closed
-  times are not requests. Each output gives: leave by T ("do not wait until this time"), the
-  destination checked at every time up to T (or "the destination depends on the departure time"),
-  the arrival time and minutes by car when known — both from one rounding: the arrival rounded up
+  (`latest_contiguous_checked_depart_offset_s`). If a later time has a checked route but one in
+  between does not, the message keeps T (earlier than the planner's headline deadline) and says so:
+  "T 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 T까지의 출발만 다룹니다" — never "not
+  checked", since that time may have been checked (`model_no_route`). Window-closed times are not
+  requests. Each output gives: leave by T ("do not wait until this time"), the destination checked
+  at every time up to T (or "the destination depends on the departure time"), the arrival time and
+  minutes by car when known — both from one rounding: the arrival rounded up
   to the whole minute (never earlier than the model's; the planner's panel shows it to the second)
   and the minutes as the difference of the two clocks shown, e.g. "10:10에 출발하면 10:53쯤 도착합니다
   (차로 약 43분 …)" for a 42 min 55 s trip (`compose.ts` `arrivalShown`) — what limits T (below), the
@@ -59,14 +61,16 @@ kinds and fails closed to the less specific one on any inconsistency.
     be reached and the stay finished in time even without fire. The line says only that, plus what
     the sweep shows: "다음 점검 시각인 N에 출발하면 불길이 없더라도 점검한 도착지 중 1시간 자료 범위 안에
     도착해 머물 수 있는 곳이 없습니다. T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다. 이 시각은
-    불길 때문에 정한 것이 아닙니다"; spoken: "그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길
-    때문에 정한 것이 아닙니다". The card label stays `출발 마감 / Leave by`;
+    불길 때문에 정한 것이 아닙니다"; spoken the same way: "그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된
+    길이 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다" (never "확인되지 않았습니다", which is heard as
+    미확인). The card label stays `출발 마감 / Leave by`;
   - explanation `flame_on_route` for the message's destination: the fire reason (where, when, k of 4
     fire scenarios from the forecast; leaving at the next checked time may meet it);
     `no_flame_avoiding_route` (cause `flames`): "다음 점검 시각인 N에 출발하면 점검한 도착지(후보
     대피소) 중 산불 예측 시나리오상 불길을 피하는 길로 제시간에 도착해 머물 수 있는 곳이 없습니다" — the
     file's claim covers the candidate shelters the planner tried, so the line names them;
-  - otherwise the neutral "T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다".
+  - otherwise the neutral "T보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다" (spoken: "그보다 늦게
+    출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다" / "Later departures have no checked route").
 - **checked_route without a contiguous basis → `partial`** — no departure time; "출발 시각에 따라
   모델 결과가 달라, 출발 시각을 하나로 안내하지 않습니다"; follow official evacuation guidance. (No
   origin of the six booth caches is in this state; covered by synthetic tests.)
@@ -305,7 +309,7 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   first, broadcast opening, no "119 now" to residents, the no-route family instruction, the no-car
   line and far entry points, forbidden words and departure instructions with independent patterns,
   the arrival rounding, no Hangul read in English, "checked up to" only for the last departure
-  checked, the 9 origins the caches hold no result for never
+  checked (and no Korean "확인되지 않았습니다"), the 9 origins the caches hold no result for never
   called precomputed, MOCK / test-data / both on every origin (limits and markers); then a
   contract-shaped synthetic explanation (40-character road names) and one whose deadlines are off by
   one step (no reason at all); and the six real explanation files (`planner/public/data/explanations/`, or a
@@ -440,7 +444,7 @@ Family call script (Korean):
 안녕하세요. [소속·이름]입니다. 삼춘리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
 지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
 컴퓨터 예측 계산(모델)으로는 마을 근처 도로에서 새벽 2시 20분까지 차로 출발하면 의성북부초등학교까지 가는 경로가 확인되었습니다.
-그보다 늦게 출발하는 길은 확인되지 않았습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
+그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.
 어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.
 공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
 궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.

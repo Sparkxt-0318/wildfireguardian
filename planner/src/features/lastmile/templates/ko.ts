@@ -199,7 +199,8 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
       ? { role: 'after', text: `그 뒤 출발은 점검하지 않았습니다(자료 범위 ${range}). ${NOT_FIRE_KO}` }
       : { role: 'after', text: `모델이 점검한 마지막 출발 시각이 ${T}입니다. 그보다 늦은 출발은 점검하지 않았습니다(자료 범위: 자료 시각부터 ${range}). ${NOT_FIRE_KO}` };
   }
-  if (p.after === 'gap') return { role: 'after', text: `${T} 이후에는 확인되지 않은 출발 시각이 있어, 이 안내는 ${T}까지의 출발만 다룹니다.` };
+  // a later time without a checked route may have been checked (model_no_route): never "not checked"
+  if (p.after === 'gap') return { role: 'after', text: `${T} 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 ${T}까지의 출발만 다룹니다.` };
   return { role: 'after', text: `${T}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.` };
 }
 
@@ -212,10 +213,12 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'no_flame_avoiding_route') {
     return `다음 점검 시각인 ${koSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}에 출발하면 점검한 도착지 중 산불 예측상 불길을 피하는 길로 제시간에 닿을 수 있는 곳이 없습니다.`;
   }
-  if (r && r.kind === 'time_window') return `그보다 늦게 출발하는 길은 확인되지 않았습니다. ${NOT_FIRE_KO}`;
+  // as the written lines say it: later times have no checked route (they may have been checked) —
+  // never "확인되지 않았습니다", which is heard as 미확인 (not checked)
+  if (r && r.kind === 'time_window') return `그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. ${NOT_FIRE_KO}`;
   if (p.after === 'horizon') return `그 뒤 출발은 점검하지 않았습니다. ${NOT_FIRE_KO}`;
-  if (p.after === 'gap') return '그 뒤에는 확인되지 않은 출발 시각이 있습니다.';
-  return '그보다 늦게 출발하는 길은 확인되지 않았습니다.';
+  if (p.after === 'gap') return '그 뒤에는 컴퓨터 예측 계산으로 확인된 길이 없는 출발 시각이 있습니다.';
+  return '그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다.';
 }
 
 function entryNote(p: MessagePlan): string {

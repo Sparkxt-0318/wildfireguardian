@@ -313,7 +313,8 @@ describe('numbers and names a reader hears or reads (independent checks over eve
 /**
  * "점검한 마지막 출발 / Checked up to" only when T really is the last departure checked: no requested
  * (not window-closed) departure after T in the sweep — read here from the sweep itself, not from
- * plan.ts. Otherwise the later departures were checked, and no text may say they were not.
+ * plan.ts. Otherwise the later departures were checked, and no text may say they were not — nor
+ * the Korean "확인되지 않았습니다 / 확인되지 않은", which is heard as 미확인 (not checked).
  */
 function checkLastCheckedWording(fm: FieldMessages): 'last' | 'later_checked' | null {
   if (fm.kind !== 'leave_by' || fm.leaveByS === null) return null;
@@ -323,7 +324,7 @@ function checkLastCheckedWording(fm: FieldMessages): 'last' | 'later_checked' | 
   expect(fm.text.en.card.big?.label, fm.originId).toBe(last ? 'Checked up to' : 'Leave by');
   if (!last) {
     for (const lang of ['ko', 'en'] as const) {
-      for (const t of Object.values(allTexts(fm, lang))) expect(t, fm.originId).not.toMatch(/점검하지 (않았|못했)|점검한 마지막|not checked|checked up to|last departure time the model checked/i);
+      for (const t of Object.values(allTexts(fm, lang))) expect(t, fm.originId).not.toMatch(/점검하지 (않았|못했)|점검한 마지막|확인되지 않았|확인되지 않은|not checked|checked up to|last departure time the model checked/i);
     }
   }
   return last ? 'last' : 'later_checked';
@@ -358,6 +359,9 @@ describe('"checked up to" only when T is the last departure checked (independent
         expect(fm.text.ko.lms).toContain(`다음 점검 시각인 ${hm(input.scenario.inputTimeIso, fm.plan.nextOffsetS!)}에 출발하면 불길이 없더라도 점검한 도착지 중`);
         expect(fm.text.ko.lms).toContain(`${hm(input.scenario.inputTimeIso, fm.leaveByS!)}보다 늦은 출발 시각에는 모델로 확인된 경로가 없습니다.`);
         expect(fm.text.en.lms).toContain(`departures after ${hm(input.scenario.inputTimeIso, fm.leaveByS!)} have no checked route in the model`);
+        // spoken as written (both languages agree)
+        expect(fm.text.ko.call).toContain('그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다. 이 시각은 불길 때문에 정한 것이 아닙니다.');
+        expect(fm.text.en.call).toContain('Later departures have no checked route; this time was not set by fire.');
       }
     }
     expect(window).toBeGreaterThan(0);
@@ -468,13 +472,13 @@ describe('real outputs (booth cache, no explanation file) — snapshots in both 
       새벽 2시 20분까지 차로 출발하십시오. 의성북부초등학교까지 가는 길이 컴퓨터 예측 계산으로 확인되었습니다.
       차가 없는 분은 이장에게 바로 알리십시오.
       대피 장소는 공식 안내를 따르십시오.
-      그보다 늦게 출발하는 길은 확인되지 않았습니다.
+      그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다.
       공식 대피 명령이 우선합니다.",
           "call": "[통화 전 확인] 공식 대피 명령이 우선합니다. 아래 내용은 모델 기반 계획 정보이며, 실시간 정보가 아닙니다. [ ] 안은 직접 채워 말하십시오.
       안녕하세요. [소속·이름]입니다. 삼춘리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
       지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
       컴퓨터 예측 계산(모델)으로는 마을 근처 도로에서 새벽 2시 20분까지 차로 출발하면 의성북부초등학교까지 가는 경로가 확인되었습니다.
-      그보다 늦게 출발하는 길은 확인되지 않았습니다.
+      그보다 늦게 출발하면 컴퓨터 예측 계산으로 확인된 길이 없습니다.
       어르신께서 차가 없거나 혼자 움직이기 어려우시면 이장이나 읍·면사무소에 바로 알려 주십시오.
       공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
       궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.",

@@ -213,10 +213,11 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
       ? { role: 'after', text: `Later departures were not checked (data range ${range}); ${NOT_FIRE_EN}` }
       : { role: 'after', text: `${T} KST is the last departure time the model checked. Later departures were not checked (data range: ${range} from the data time); ${NOT_FIRE_EN}` };
   }
+  // a later time without a checked route may have been checked (model_no_route): never "not checked"
   if (p.after === 'gap') {
     return card
-      ? { role: 'after', text: `Some departure times after ${T} were not checked; this card covers up to ${T}.` }
-      : { role: 'after', text: `Some departure times after ${T} could not be checked, so this message covers departures up to ${T} only.` };
+      ? { role: 'after', text: `Some departure times after ${T} have no checked route; this card covers up to ${T}.` }
+      : { role: 'after', text: `Some departure times after ${T} have no checked route in the model, so this message covers departures up to ${T} only.` };
   }
   return { role: 'after', text: card ? `No checked route for departures after ${T}.` : `Departures after ${T} have no checked route in the model.` };
 }
@@ -231,7 +232,7 @@ function afterSpoken(p: MessagePlan): string {
   }
   if (r && r.kind === 'time_window') return `Later departures have no checked route; ${NOT_FIRE_EN}`;
   if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
-  if (p.after === 'gap') return 'Some later departure times were not checked.';
+  if (p.after === 'gap') return 'Some later departure times have no checked route.';
   return 'Later departures have no checked route.';
 }
 
