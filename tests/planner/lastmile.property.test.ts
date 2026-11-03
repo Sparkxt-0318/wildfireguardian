@@ -19,7 +19,7 @@ import { BROADCAST_MAX_S, LMS_MAX_BYTES, SMS_EN_MAX_GSM7, SMS_KO_MAX_BYTES, spok
 import { allTexts, buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
 import { OFFICIAL_FIRST } from '../../planner/src/features/lastmile/strings';
 import { generateCases, type GenCase } from './lastmile.generator';
-import { DEPART, expectedReasonKind, GSM7, HANGUL, NEVER, pythonEucKr } from './lastmile.oracle';
+import { DEPART, expectedReasonKind, GSM7, HANGUL, leaveByOutputFacts, NEVER, pythonEucKr } from './lastmile.oracle';
 
 /** Fixed seed (the date of this test); the cases are the same on every run. */
 const SEED = 20261103;
@@ -181,6 +181,24 @@ describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, ()
       expect(c.fm.reason?.kind ?? null, where(c)).toBe(c.file ? expectedReasonKind(entry, c.fm) : null);
       if (c.fm.kind === 'unresolved' || c.fm.kind === 'partial') expect(c.fm.reason, where(c)).toBeNull();
     }
+  });
+
+  it('what each output of a leave-by message gives (LASTMILE.md §2), every leave-by case: varying destinations, gaps, markers', () => {
+    const seen = new Set<string>();
+    const bad: string[] = [];
+    for (const c of cases) {
+      if (c.fm.kind !== 'leave_by') continue;
+      const f = leaveByOutputFacts(c.fm);
+      bad.push(...f.violations.map((v) => `${where(c)}: ${v}`));
+      if (c.fm.plan.destinationVaries) seen.add('varies');
+      if (f.noLatinName) seen.add('no_latin_name');
+      if (c.input.mock || c.input.testData) seen.add('marker');
+      for (const l of ['ko', 'en'] as const) seen.add(`${l}.broadcast_reason:${f.broadcastReason[l]}`);
+      if (c.fm.plan.after) seen.add(`after:${c.fm.plan.after}`);
+    }
+    expect(bad).toEqual([]);
+    // the cases reach the branches the booth caches do not (a destination that varies, gaps, markers)
+    for (const k of ['varies', 'no_latin_name', 'marker', 'ko.broadcast_reason:true', 'ko.broadcast_reason:false', 'en.broadcast_reason:true', 'after:gap', 'after:horizon', 'after:none_checked']) expect(seen.has(k), k).toBe(true);
   });
 
   it('the arrival clock and the travel minutes agree (one rounding)', () => {

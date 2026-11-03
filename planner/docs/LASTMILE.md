@@ -49,13 +49,35 @@ kinds and fails closed to the less specific one on any inconsistency.
   between does not, the message keeps T (earlier than the planner's headline deadline) and says so:
   "T 이후에는 모델로 확인된 경로가 없는 출발 시각이 있어, 이 안내는 T까지의 출발만 다룹니다" — never "not
   checked", since that time may have been checked (`model_no_route`). Window-closed times are not
-  requests. Each output gives: leave by T ("do not wait until this time"), the destination checked
-  at every time up to T (or "the destination depends on the departure time"), the arrival time and
-  minutes by car when known — both from one rounding: the arrival rounded up
-  to the whole minute (never earlier than the model's; the planner's panel shows it to the second)
-  and the minutes as the difference of the two clocks shown, e.g. "10:10에 출발하면 10:53쯤 도착합니다
-  (차로 약 43분 …)" for a 42 min 55 s trip (`compose.ts` `arrivalShown`) — what limits T (below), the
-  data time and the mandatory lines. **What limits T is never presented as fire unless the explanation file says so**:
+  requests. What each output gives (length limits: §1):
+  - **long text and card**: leave by T with "do not wait until this time" (`이 시각까지 기다리지
+    마십시오` / `Do not wait until that time`; the card: `이 시각까지 기다리지 말고 미리 차로
+    출발하십시오` / `Do not wait until this time: leave by car early`); the destination checked at every
+    time up to T, or "the destination depends on the departure time" with the one checked at T; for a
+    destination that does not vary, the arrival time and minutes by car when known — both from one
+    rounding: the arrival rounded up to the whole minute (never earlier than the model's; the
+    planner's panel shows it to the second) and the minutes as the difference of the two clocks
+    shown, e.g. "10:10에 출발하면 10:53쯤 도착합니다(차로 약 43분 …)" for a 42 min 55 s trip (`compose.ts`
+    `arrivalShown`); what limits T (below; the card in fewer words); the data time; the mandatory
+    lines verbatim (§3);
+  - **SMS**: T, the data time and the short forms of the mandatory lines (§3) — no destination,
+    arrival time, "do not wait" or what limits T: there is no room;
+  - **broadcast and call script**: T and the destination (an unnamed one as "이름 없는 학교" / "an
+    unnamed school"), except when it depends on the departure time and, in English, when it has no
+    Latin-script name (§5; the English call script then says "the destination named on the card");
+    the broadcast also leaves it out when its required blocks would otherwise exceed 60 s (the
+    shorter leave-by sentence, §5). What limits T: the call script always, the broadcast only when
+    the 60 s budget leaves room for that optional block (§5). Both say the data time and the
+    mandatory lines as sentences (§3); neither gives the arrival time or "do not wait".
+
+  Over the 501 leave-by origins of the six booth caches with their explanation files (what the
+  panel shows), what limits T is in 10 Korean and 495 English broadcasts, the Korean broadcast leaves
+  the destination out for 6 (60 s), and the English broadcast and call script cannot name it for 373
+  (no Latin-script name). `lastmile.docs.test.ts` checks this list over all of them, and
+  `lastmile.property.test.ts` over the 600 synthetic cases (also destinations that vary, gaps and
+  MOCK / test-data markers).
+
+  **What limits T is never presented as fire unless the explanation file says so**:
   - nothing later was requested (the last departure checked, 50 min after the input time in the
     booth caches): "모델이 점검한 마지막 출발 시각이 T입니다 … 이 시각은 불길 때문에 정한 것이 아닙니다", and
     the card labels the time `점검한 마지막 출발 / Checked up to` instead of `출발 마감 / Leave by` —
@@ -328,7 +350,8 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   minute, 30–120 min horizons, every step, gaps, late first checks, window-closed tails, missing /
   Hangul-only / long names, far entry points, cache or live results with or without a result, MOCK
   and test flags, explanation entries of every code, consistent or not; the same independent
-  properties, and an origin without a result never called computed.
+  properties, an origin without a result never called computed, and what each output of a leave-by
+  message gives (§2; oracle `leaveByOutputFacts` in `lastmile.oracle.ts`).
 - `lastmile.provenance.test.ts` — the store-aware `lastMileArgs` with the real booth cache: an
   origin recomputed through the API on a Linux, a macOS arm64, an unreported or a mixed pair of
   hosts; the not-checkable origins the cache holds no result for; and a live-only session built with
@@ -348,7 +371,9 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   provenance variants per language and size (no overflow, body ≥ 14 pt, header / footer line ≥
   12 pt, estimate never below the real height) and PDFs with exactly one page per card.
 - `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin (all
-  four outputs and the card in both languages appear), and §3 lists every word of `FORBIDDEN`.
+  four outputs and the card in both languages appear); §2's statement of what each output of a
+  leave-by origin gives holds for all 501 leave-by origins of the six caches with their explanation
+  files, with the counts it states; and §3 lists every word of `FORBIDDEN`.
 
 Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cachedata.ts`,
 `lastmile.generator.ts`) are marked SYNTHETIC and never leave the tests.

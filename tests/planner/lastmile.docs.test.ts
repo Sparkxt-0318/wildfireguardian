@@ -1,14 +1,17 @@
 /**
  * planner/docs/LASTMILE.md stays true to the code: every example block marked
  * `<!-- example <cache path> <origin id> <lang>.<output> -->` equals the kit's output for that origin
- * of that booth cache with the scenario's deadline explanation file (as the panel shows it), and the
- * forbidden-word list in §3 is exactly strings.ts FORBIDDEN.
+ * of that booth cache with the scenario's deadline explanation file (as the panel shows it), §2's
+ * statement of what each output of a leave-by origin gives holds for every leave-by origin of the six
+ * booth caches (with the counts it states), and the forbidden-word list in §3 is exactly strings.ts
+ * FORBIDDEN.
  */
 import { readFileSync } from 'node:fs';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { allTexts, buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { FORBIDDEN } from '../../planner/src/features/lastmile/strings';
 import { loadBoothCaches, realExplanationFor, type BoothCache } from './lastmile.cachedata';
+import { leaveByOutputFacts } from './lastmile.oracle';
 
 const DOC = readFileSync(new URL('../../planner/docs/LASTMILE.md', import.meta.url), 'utf8');
 const EXAMPLE = /<!-- example (\S+) (\S+) (ko|en)\.(sms|lms|broadcast|call|card) -->\n```text\n([\s\S]*?)\n```/g;
@@ -40,6 +43,48 @@ describe('planner/docs/LASTMILE.md', () => {
       expect(fm.violations).toEqual([]);
       expect(text, `${path} ${id} ${lang}.${kind}`).toBe(allTexts(fm, lang as 'ko' | 'en')[kind as 'sms']);
     }
+  }, 60_000);
+
+  it('§2 says per output what a leave-by origin\'s messages give — true for every leave-by origin of the six caches, with the counts it states', () => {
+    // the old sentence claimed that every output carried every item (destination, arrival, "do not wait", …)
+    expect(DOC).not.toContain('Each output gives');
+    const flat = DOC.replace(/\s+/g, ' ');
+    for (const head of [
+      '**long text and card**: leave by T with "do not wait until this time"',
+      '**SMS**: T, the data time and the short forms of the mandatory lines (§3) — no destination, arrival time, "do not wait" or what limits T',
+      '**broadcast and call script**: T and the destination',
+      'What limits T: the call script always, the broadcast only when the 60 s budget leaves room for that optional block (§5)',
+    ]) {
+      expect(flat, head).toContain(head);
+    }
+    const said = /Over the (\d+) leave-by origins of the six booth caches with their explanation files \(what the panel shows\), what limits T is in (\d+) Korean and (\d+) English broadcasts, the Korean broadcast leaves the destination out for (\d+) \(60 s\), and the English broadcast and call script cannot name it for (\d+) \(no Latin-script name\)/.exec(flat);
+    expect(said, 'the counts sentence of §2').not.toBeNull();
+    let n = 0;
+    let noLatin = 0;
+    const reason = { ko: 0, en: 0 };
+    const leftOut = { ko: 0, en: 0 };
+    const bad: string[] = [];
+    for (const cache of caches) {
+      const { file, error } = realExplanationFor(cache);
+      expect(error ?? null).toBeNull();
+      expect(file, cache.entry.path).not.toBeNull();
+      for (const input of cache.inputs) {
+        const fm = buildFieldMessages(input, file);
+        if (fm.kind !== 'leave_by') continue;
+        n += 1;
+        const f = leaveByOutputFacts(fm);
+        bad.push(...f.violations.map((v) => `${cache.entry.path} ${input.origin.id} ${v}`));
+        for (const l of ['ko', 'en'] as const) {
+          if (f.broadcastReason[l]) reason[l] += 1;
+          if (f.destinationLeftOut60s[l]) leftOut[l] += 1;
+        }
+        if (f.noLatinName) noLatin += 1;
+      }
+    }
+    expect(bad).toEqual([]);
+    // §2 names the Korean broadcast only: no English broadcast leaves its destination out for time
+    expect(leftOut.en).toBe(0);
+    expect(said!.slice(1).map(Number)).toEqual([n, reason.ko, reason.en, leftOut.ko, noLatin]);
   }, 60_000);
 
   it('§3 lists every forbidden word of strings.ts FORBIDDEN, and nothing else', () => {
