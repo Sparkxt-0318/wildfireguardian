@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from conftest import PACKAGE_ROOT, graphs_available
+from conftest import PACKAGE_ROOT, ROUTING_SKIP, routing_inputs_available
 from wfg_impact import numbers as numbers_mod, sentences, sources
 
 NUMBERS = json.loads((PACKAGE_ROOT / 'NUMBERS.json').read_text(encoding='utf-8'))
@@ -46,7 +46,7 @@ def test_figures_and_table_twins_reproduce_exactly_whatever_the_matplotlib_confi
             assert figures.same_figure(p, PACKAGE_ROOT / 'figures' / p.name), f'{p.name} is out of date: run compute.py'
 
 
-@pytest.mark.skipif(not graphs_available(), reason='road graphs missing: run python tools/fetch_routing_inputs.py')
+@pytest.mark.skipif(not routing_inputs_available(), reason=ROUTING_SKIP)
 def test_independent_path_b_reproduces_every_number():
     import verify
     from wfg_impact import path_b
@@ -58,12 +58,21 @@ def test_independent_path_b_reproduces_every_number():
 def test_headline_numbers_are_self_contained():
     assert list(NUMBERS['headline']) == list(numbers_mod.HEADLINE_KEYS)
     for key, h in NUMBERS['headline'].items():
-        for field in ('value', 'definition', 'scope', 'scope_text', 'script', 'inputs', 'input_sha256', 'unit'):
+        for field in ('value', 'definition', 'scope', 'scope_text', 'script', 'inputs', 'input_sha256', 'unit',
+                      'uses_graph', 'uses_hazard'):
             assert field in h, (key, field)
         assert set(h['input_sha256']) == set(h['inputs'])
         assert all(NUMBERS['inputs'][p]['sha256'] == d for p, d in h['input_sha256'].items())
         assert (h.get('numerator') is None) == (h.get('denominator') is None)
         assert h['script'] == 'research/solve2027-impact/compute.py'
+        # the road graph and the HAZARD packets are listed (with SHA-256) exactly when the number needs them
+        assert any(p.endswith('/graph.json') for p in h['input_sha256']) == h['uses_graph'] == N[key]['uses_graph'], key
+        assert any(p.endswith('/HAZARD.json') for p in h['input_sha256']) == h['uses_hazard'] == N[key]['uses_hazard'], key
+    window = [k for k in NUMBERS['headline'] if k.split('@')[0].startswith(
+        ('not_checked_although_fits.', 'window_limited_among_not_checked.', 'deadline_set_by.',
+         'places.not_checked_although_fits', 'no_checked_route_any_offset.trip_fits', 'fastest_trip_s.', 'trip_model.'))]
+    assert len(window) == 18          # 13 window classification + 4 fire-free trip time + 1 trip-model validation keys
+    assert all(NUMBERS['headline'][k]['uses_graph'] and NUMBERS['headline'][k]['uses_hazard'] for k in window)
 
 
 def test_every_number_has_a_definition_and_a_known_scope():
@@ -80,7 +89,7 @@ def test_input_hashes_match_the_files_and_index():
         if path in by_path:
             assert row['sha256'] == by_path[path]
         if path.startswith('data/routing/'):
-            if graphs_available():
+            if routing_inputs_available():
                 assert sources.sha256_file(sources.routing_data_root() / path[len('data/routing/'):]) == row['sha256']
         else:
             assert sources.sha256_file(sources.REPO / path) == row['sha256']

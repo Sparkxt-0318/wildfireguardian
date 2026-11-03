@@ -21,7 +21,8 @@ module does not import:
 * fastest fire-free trips and shared-stretch lengths with networkx's Dijkstra on a turn-expanded graph built here
   (path A: its own heap Dijkstra); the scenario window is read from each HAZARD.json here (path A: ``sources``);
 * origin types read directly from ``places.geojson`` properties.
-Only file locations and SHA-256 checks are shared (``sources``).
+Only file locations and SHA-256 checks are shared (``sources``). ``compute(with_graphs=False)`` reads nothing from
+``data/routing/`` and recomputes only the cache-only numbers (``uses_graph`` false in NUMBERS.json).
 """
 from __future__ import annotations
 
@@ -160,7 +161,7 @@ def origin_summary(att: pd.DataFrame, offsets: dict, window: dict) -> pd.DataFra
     return pd.DataFrame(out)
 
 
-def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
+def analyse_file(entry: dict, places: pd.DataFrame, with_graphs: bool = True) -> dict:
     doc = json.loads(entry['abs_path'].read_text(encoding='utf-8'))
     scope = entry['scope']
     checks = checks_frame(doc)
@@ -179,10 +180,12 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
     hz_sha = {((j.get('result') or {}).get('provenance') or {}).get('input_hashes', {}).get('hazard')
               for j in doc['route_checks'].values()}
     assert len(hz_sha) == 1
-    hz_path = (sources.routing_data_root() / 'latest_inputs_try02' / 'packets' / entry['region_id'] /
-               entry['path'].split('/')[-1][:-len('.json')] / 'HAZARD.json')
-    assert sources.sha256_file(hz_path) == hz_sha.pop(), 'hazard packet differs from the API provenance'
-    hz = json.loads(hz_path.read_text(encoding='utf-8'))
+    hz = None
+    if with_graphs:                 # the scenario window and time step: only the graph/window numbers need them
+        hz_path = (sources.routing_data_root() / 'latest_inputs_try02' / 'packets' / entry['region_id'] /
+                   entry['path'].split('/')[-1][:-len('.json')] / 'HAZARD.json')
+        assert sources.sha256_file(hz_path) == hz_sha.pop(), 'hazard packet differs from the API provenance'
+        hz = json.loads(hz_path.read_text(encoding='utf-8'))
     research_jobs = {r['job_id'] for r in doc['research_checks'] if r.get('job_id')}
     results = {}
     for substitute in (True, False):
@@ -247,7 +250,8 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
     cases['entry_node'] = cases['origin_id'].map({v: k for k, v in o_node.items()})
     cases['dest_nodes'] = cases['origin_id'].map(lambda o: tuple(dests[o]) if o in dests else None)
     cases['dest_detail'] = cases['origin_id'].map(lambda o: detail.get(o))
-    cases['valid_from'], cases['valid_until'] = float(hz['valid_from']), float(hz['valid_until'])
+    if with_graphs:
+        cases['valid_from'], cases['valid_until'] = float(hz['valid_from']), float(hz['valid_until'])
     # travel-only comparisons
     tos = []
     for _, c in cases[cases['kind'].isin(['village', 'care_facility']) & cases['latest_s'].notna()].iterrows():
@@ -271,7 +275,7 @@ def analyse_file(entry: dict, places: pd.DataFrame) -> dict:
             'research_checks': int(research_in_checks.sum()),
             'graph_sha': {((j.get('result') or {}).get('provenance') or {}).get('input_hashes', {}).get('graph')
                           for j in doc['route_checks'].values()},
-            'research_ids': set(roffs), 'dt': float(hz['dt']),
+            'research_ids': set(roffs), 'dt': float(hz['dt']) if with_graphs else None,
             'destinations': {d['id'] for req in doc['requests'] for d in req['destinations']}}
     del doc
     gc.collect()
@@ -398,13 +402,14 @@ def _put(out, key, value, num=None, den=None):
     out[key] = {'value': value, 'numerator': num, 'denominator': den}
 
 
-def compute() -> dict:
-    """Every number, keyed exactly as in NUMBERS.json: {key: {value, numerator, denominator}}."""
+def compute(with_graphs: bool = True) -> dict:
+    """Every number, keyed exactly as in NUMBERS.json: {key: {value, numerator, denominator}}. With
+    ``with_graphs=False`` nothing is read from data/routing/ and only the cache-only numbers are computed."""
     entries = sources.load_index()
     places = pd.concat([places_frame(r) for r in sources.REGIONS], ignore_index=True)
     frames, travel, metas, attempts = [], [], [], []
     for e in entries:
-        res = analyse_file(e, places[places['region'] == e['region_id']])
+        res = analyse_file(e, places[places['region'] == e['region_id']], with_graphs)
         frames.append(res['cases'])
         travel += res['travel']
         metas.append(res['meta'])
@@ -416,7 +421,7 @@ def compute() -> dict:
 
     # redundancy (networkx) and route lengths
     red_rows = []
-    for region in sources.REGIONS:
+    for region in (sources.REGIONS if with_graphs else ()):
         shas = set().union(*[m['graph_sha'] for m in metas if m['region'] == region])
         assert len(shas) == 1
         path = sources.verify_graph(region, shas.pop())
@@ -441,7 +446,8 @@ def compute() -> dict:
         tr.loc[m, 'extra_len'] = [nr.length(c) - nr.length(f) for c, f in zip(tr.loc[m, 'checked_nodes'], tr.loc[m, 'fast_nodes'])]
         del nr
         gc.collect()
-    red = pd.DataFrame(red_rows)
+    red = pd.DataFrame(red_rows, columns=['region', 'origin_id', 'kind', 'ta', 'pl', 'out_deg', 'cut_at_entry',
+                                          'stretch', 'trip'])
 
     osm = cases_all[cases_all['kind'].isin(['village', 'care_facility'])].copy()
     for t in sources.GRID_OFFSETS_S:
@@ -601,10 +607,19 @@ def compute() -> dict:
             for stat in ('min', 'median', 'max'):
                 v = getattr(fl['extra_s'], stat)()
                 _put(out, f'travel_only.extra_arrival_s.{stat}' + tag, int(v) if float(v).is_integer() else float(v))
-                _put(out, f'travel_only.extra_length_m.{stat}' + tag, round(float(getattr(fl['extra_len'], stat)()), 1))
+                if with_graphs:
+                    _put(out, f'travel_only.extra_length_m.{stat}' + tag, round(float(getattr(fl['extra_len'], stat)()), 1))
     hp = tr[tr['has']].drop_duplicates(['region', 'origin_id'])
     fp = tr[tr['meets']].drop_duplicates(['region', 'origin_id'])
     _put(out, 'travel_only.places_fastest_meets_flames_any_input@all/places', len(fp), len(fp), len(hp))
+    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):          # split by the leave-by deadline (recorded only)
+        d = pick(tr[tr['has']], sc)
+        for name, sel in (('leave_by_3000s', d['latest'] == last), ('leave_by_before_3000s', d['latest'] < last)):
+            grp = d[sel]
+            k = int(grp['meets'].sum())
+            _put(out, f'travel_only.fastest_meets_flames@{sc}#{name}', k, k, len(grp))
+    if not with_graphs:
+        return out, {'cases': osm, 'travel': tr}
 
     # redundancy
     ro = red[red['kind'].isin(['village', 'care_facility'])]
@@ -717,12 +732,6 @@ def compute() -> dict:
     trip_ok = [trip_of[(r, o)][dn] == fe - dep for r, o, dn, fe, dep in
                zip(comp['region'], comp['origin_id'], comp['dest_node'], comp['fast_end'], comp['depart'])]
     _put(out, 'trip_model.equals_travel_only@all/pooled', int(sum(trip_ok)), int(sum(trip_ok)), len(comp))
-    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
-        d = pick(tr[tr['has']], sc)
-        for name, sel in (('leave_by_3000s', d['latest'] == last), ('leave_by_before_3000s', d['latest'] < last)):
-            grp = d[sel]
-            k = int(grp['meets'].sum())
-            _put(out, f'travel_only.fastest_meets_flames@{sc}#{name}', k, k, len(grp))
     one = red[red['kind'].isin(['village', 'care_facility']) & (red['ta'] == 1)]
     for reg in list(sources.REGIONS) + ['all']:
         d = one if reg == 'all' else one[one['region'] == reg]

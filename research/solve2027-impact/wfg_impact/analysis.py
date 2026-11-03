@@ -2,6 +2,10 @@
 
 Cache files are loaded one at a time; each road graph is loaded once, after its SHA-256 has been matched to the
 ``input_hashes.graph`` recorded in every cached route check of that region.
+
+``run(with_graphs=False)`` reads nothing from ``data/routing/`` (no road graph, no HAZARD packet): it yields the
+records behind every cache-only number (``uses_graph`` false in NUMBERS.json) and nothing that needs the road graph
+or the scenario window.
 """
 from __future__ import annotations
 
@@ -36,7 +40,7 @@ def _route_props(job: dict) -> dict:
     return (((job.get('result') or {}).get('route') or {}).get('properties')) or {}
 
 
-def analyse_file(entry: dict, places: list[dict]) -> dict:
+def analyse_file(entry: dict, places: list[dict], with_graphs: bool = True) -> dict:
     doc = sources.load_cache(entry)
     pr.TieCounter.n = 0
     model = pr.cache_to_model(doc)
@@ -60,7 +64,9 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
     (sset, itime, region), = prov
     if (sset, itime, region) != (doc['scenario_set_id'], doc['input_time'], doc['region_id']):
         raise sources.InputIdentityError(f'{entry["path"]}: result provenance differs from the file header')
-    window = sources.hazard_window(doc['region_id'], doc['input_time'], next(iter(hazards)))
+    hazard_sha = next(iter(hazards))
+    window = (sources.hazard_window(doc['region_id'], doc['input_time'], hazard_sha) if with_graphs else
+              {'path': None, 'valid_from': None, 'valid_until': None, 'dt': None})
 
     # API wire plans (recorded fields) and the request geometry of every dispatch origin
     wire = {}
@@ -168,7 +174,8 @@ def analyse_file(entry: dict, places: list[dict]) -> dict:
         'purpose': doc['generator'].get('purpose'), 'step_min': step_min,
         'shelters_per_origin': doc['generator'].get('shelters_per_origin'),
         'host': [{'platform': k[0], 'machine': k[1], 'results': v} for k, v in sorted(hosts.items())],
-        'graph_sha256': next(iter(graphs)), 'graph_id': next(iter(graph_ids)), 'hazard_sha256': next(iter(hazards)),
+        'graph_sha256': next(iter(graphs)), 'graph_id': next(iter(graph_ids)), 'hazard_sha256': hazard_sha,
+        'hazard_rel': sources.hazard_rel(doc['region_id'], doc['input_time']),
         'hazard_file': window['path'], 'valid_from_s': window['valid_from'], 'valid_until_s': window['valid_until'],
         'dt_s': window['dt'],
         'route_check_records': len(jobs),
@@ -292,7 +299,7 @@ def run(with_graphs: bool = True) -> dict:
     places = {r: [pr.place_from_properties(p) for p in sources.load_places(r)] for r in sources.REGIONS}
     records, pairs, metas = [], [], []
     for e in entries:
-        out = analyse_file(e, places[e['region_id']])
+        out = analyse_file(e, places[e['region_id']], with_graphs)
         records += out['records']
         pairs += out['pairs']
         metas.append(out['meta'])
@@ -305,4 +312,4 @@ def run(with_graphs: bool = True) -> dict:
             graphs.append(info)
         classify_window(records, metas, redundancy)
     return {'entries': entries, 'records': records, 'pairs': pairs, 'metas': metas, 'redundancy': redundancy,
-            'graphs': graphs}
+            'graphs': graphs, 'with_graphs': with_graphs}

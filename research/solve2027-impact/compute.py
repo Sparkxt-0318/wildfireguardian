@@ -78,13 +78,14 @@ def numbers_document(result: dict, nums: dict) -> dict:
         if 'n' in e:
             c['n'] = e['n']
         c.update({'unit': e['unit'], 'scope': e['scope'], 'subset': e['subset'], 'uses_graph': e['uses_graph'],
-                  'definition': e['definition']})
+                  'uses_hazard': e['uses_hazard'], 'definition': e['definition']})
         compact[key] = c
     headline = {}
     for key in numbers_mod.HEADLINE_KEYS:
         e = nums[key]
         headline[key] = {k: e[k] for k in ('value', 'numerator', 'denominator', 'share', 'n', 'unit', 'definition',
-                                           'scope', 'subset', 'scope_text', 'script', 'inputs', 'input_sha256') if k in e}
+                                           'scope', 'subset', 'scope_text', 'uses_graph', 'uses_hazard', 'script',
+                                           'inputs', 'input_sha256') if k in e}
     return {
         'schema': SCHEMA,
         'title': 'Who needs more time: model-relative impact numbers from the recorded 2025 planner cache',

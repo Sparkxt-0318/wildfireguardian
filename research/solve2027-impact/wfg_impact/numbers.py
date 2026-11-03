@@ -70,31 +70,39 @@ def _scope_text(scope: str, metas: dict) -> str:
 class Builder:
     def __init__(self, result: dict):
         self.metas = {m['scope']: m for m in result['metas']}
-        self.inputs = {row['path']: row['sha256'] for row in sources.input_files_record(result['entries'], True)}
+        self.with_graphs = result['with_graphs']
+        self.inputs = {row['path']: row['sha256'] for row in sources.input_files_record(result['entries'], self.with_graphs)}
         self.numbers: dict[str, dict] = {}
 
-    def scope_inputs(self, scope: str, graphs: bool = False) -> list[str]:
+    def scope_inputs(self, scope: str, graphs: bool = False, hazard: bool = False) -> list[str]:
+        """Every input file a number of this scope is computed from: INDEX.json, the scope's cache files and place files,
+        plus the region graphs (graphs) and the scope's HAZARD packets (hazard: scenario window and time step)."""
         reg = scope.split('/')[0]
         regions = sources.REGIONS if reg == 'all' else (reg,)
-        files = ['planner/cache/INDEX.json']
-        for m in self.metas.values():
-            if m['region'] in regions and (scope.split('#')[0].endswith(('/pooled', '/places')) or m['scope'] == scope.split('#')[0]):
-                files.append(m['cache_file'])
+        metas = [m for m in self.metas.values() if m['region'] in regions and
+                 (scope.split('#')[0].endswith(('/pooled', '/places')) or m['scope'] == scope.split('#')[0])]
+        files = ['planner/cache/INDEX.json'] + [m['cache_file'] for m in metas]
         files += [f'planner/public/data/regions/{r}/places.geojson' for r in regions]
         if graphs:
             files += [f'data/routing/graphs/{r}/graph.json' for r in regions]
+        if hazard:
+            files += [m['hazard_rel'] for m in metas]
         return files
 
     def add(self, key: str, value, definition: str, numerator=None, denominator=None, unit: str = 'count',
-            graphs: bool = False, n: int | None = None):
+            graphs: bool = False, n: int | None = None, hazard: bool = False):
         if key in self.numbers:
             raise KeyError(f'duplicate number {key}')
+        if (graphs or hazard) and not self.with_graphs:
+            raise ValueError(f'{key} needs the road graph / hazard packets, but this run read no data/routing input')
+        if hazard and not graphs:
+            raise ValueError(f'{key}: every hazard-dependent number also depends on the road graph (fire-free trips)')
         metric, _, rest = key.partition('@')
         scope, _, subset = rest.partition('#')
         entry = {'value': value, 'unit': unit, 'numerator': numerator, 'denominator': denominator,
                  'definition': definition, 'scope': scope, 'subset': subset or None,
                  'scope_text': _scope_text(scope, self.metas), 'script': SCRIPT,
-                 'inputs': self.scope_inputs(rest, graphs), 'uses_graph': graphs}
+                 'inputs': self.scope_inputs(rest, graphs, hazard), 'uses_graph': graphs, 'uses_hazard': hazard}
         if n is not None:
             entry['n'] = n
         if numerator is not None and denominator:
@@ -366,6 +374,8 @@ def travel_numbers(b: Builder, pairs: list[dict]):
                 b.add(f'travel_only.extra_arrival_s.{stat}' + tag, v,
                       pdef + f'{stat} over the flame-contact comparisons (field n) of (checked arrival - fastest-route '
                       'arrival), same departure.', unit='s', n=len(flame))
+                if not b.with_graphs:
+                    continue
                 v = fn([p['extra_length_m'] for p in flame])
                 b.add(f'travel_only.extra_length_m.{stat}' + tag, round(v, 1),
                       pdef + f'{stat} over the flame-contact comparisons (field n) of (checked route length - fastest '
@@ -425,8 +435,27 @@ def redundancy_numbers(b: Builder, redundancy: list[dict], records: list[dict]):
                len(rows), d + f'; numerator: cases whose cell at offset {LAST} s is not checked_route.', graphs=True)
 
 
+WIN = {'graphs': True, 'hazard': True}       # fire-free trips on graph.json x dt and the window from HAZARD.json
+
+
+def travel_by_deadline_numbers(b: Builder, pairs: list[dict]):
+    """The travel-only flame-contact share split by the leave-by deadline (recorded results only)."""
+    comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
+    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
+        reg = sc.split('/')[0]
+        sel = [p for p in comp if reg == 'all' or p['region'] == reg]
+        for name, f in (('leave_by_3000s', lambda p: p['depart_offset_s'] == LAST),
+                        ('leave_by_before_3000s', lambda p: p['depart_offset_s'] < LAST)):
+            group = [p for p in sel if f(p)]
+            b.frac(f'travel_only.fastest_meets_flames@{sc}#{name}', sum(1 for p in group if p['fastest_meets_flames']),
+                   len(group), 'Travel-time-only comparisons at the leave-by deadline, restricted to cases whose '
+                   'leave-by deadline is ' + ('the last checked offset (3000 s)' if name == 'leave_by_3000s' else
+                                              'before 3000 s') + ' (denominator); numerator: the fastest route has '
+                   'predicted flame contact (exposure contact = true) in at least one of the 4 scenario members.')
+
+
 def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundancy: list[dict]):
-    """Which unchecked departures could not be checked anyway because of the 1-hour scenario window."""
+    """Which unchecked departures could not be checked anyway because of the 1-hour scenario window (graph + hazard)."""
     scopes = list(b.metas) + [f'{r}/pooled' for r in sources.REGIONS] + ['all/pooled']
     for sc in scopes:
         for sub in ('', 'village', 'care_facility'):
@@ -445,16 +474,16 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
                 k = sum(1 for r in closes if r['deadline_set_by'] == by)
                 b.frac(f'deadline_set_by.{by}' + tag, k, len(closes),
                        f'Among cases whose leave-by deadline is before {LAST} s (denominator), those where {text} '
-                       f'(numerator). {WINDOW_RULE}{st}')
+                       f'(numerator). {WINDOW_RULE}{st}', **WIN)
                 for t in OFFSETS[:-1]:
                     k = sum(1 for r in rows if r['latest_s'] == t and r['deadline_set_by'] == by)
                     b.frac(f'deadline.latest_{t:04d}s.set_by_{by}' + tag, k, n,
-                           f'Cases whose leave-by deadline is {t} s and where {text}. {WINDOW_RULE}{st}')
+                           f'Cases whose leave-by deadline is {t} s and where {text}. {WINDOW_RULE}{st}', **WIN)
             none = [r for r in rows if r['latest_s'] is None]
             k = sum(1 for r in none if r['fits'][0])
             b.frac('no_checked_route_any_offset.trip_fits_at_offset_0000s' + tag, k, len(none),
                    'Among cases with no checked route at any departure offset (denominator), those whose fastest '
-                   f'fire-free trip fits the scenario window for departure at 0 s (numerator). {WINDOW_RULE}{st}')
+                   f'fire-free trip fits the scenario window for departure at 0 s (numerator). {WINDOW_RULE}{st}', **WIN)
             if sub:
                 continue
             for t in OFFSETS:
@@ -462,25 +491,25 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
                 fit = [r for r in rows if r['fits'][t]]
                 b.frac(f'window_limited.offset_{t:04d}s' + tag, len(lim), n,
                        f'Cases whose departure at {t} s (+{t // 60} min) is window-limited: no route could be checked '
-                       f'whatever the fire. {WINDOW_RULE}')
+                       f'whatever the fire. {WINDOW_RULE}', **WIN)
                 notc = [r for r in rows if r['cells'][t] != pr.CHECKED]
                 b.frac(f'window_limited_among_not_checked.offset_{t:04d}s' + tag, sum(1 for r in notc if not r['fits'][t]),
                        len(notc), f'Among cases whose cell at {t} s (+{t // 60} min) is not checked_route (denominator), '
                        f'those that are window-limited (numerator); every checked cell fits, so window-limited cells are '
-                       f'always among the unchecked ones. {WINDOW_RULE}')
+                       f'always among the unchecked ones. {WINDOW_RULE}', **WIN)
                 k = sum(1 for r in fit if r['cells'][t] != pr.CHECKED)
                 b.frac(f'not_checked_although_fits.offset_{t:04d}s' + tag, k, len(fit),
                        f'Among cases whose fastest fire-free trip fits the scenario window for departure at {t} s '
                        f'(+{t // 60} min) (denominator), those whose cell there is not checked_route (numerator): the '
                        f'model\'s fire scenarios or limits rule it out, or the check is unresolved. {WINDOW_RULE} '
-                       f'{CELL_RULE}.')
+                       f'{CELL_RULE}.', **WIN)
                 for v in (pr.NO_ROUTE, pr.UNRESOLVED):
                     for cls, group in (('fits', fit), ('limited', lim)):
                         k = sum(1 for r in group if r['cells'][t] == v)
                         b.frac(f'cell_window.{v}.{cls}.offset_{t:04d}s' + tag, k, n,
                                f'Cases whose cell at {t} s is {v} and whose fastest fire-free trip '
                                f'{"fits" if cls == "fits" else "does not fit (window-limited)"} the scenario window '
-                               f'at that departure. {WINDOW_RULE}')
+                               f'at that departure. {WINDOW_RULE}', **WIN)
     for reg in list(sources.REGIONS) + ['all']:
         for sub in ('', 'village', 'care_facility'):
             rows = _sel(records, f'{reg}/places', sub)
@@ -497,12 +526,13 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
             b.frac(f'places.not_checked_although_fits_at_offset_{LAST:04d}s_any_input' + tag, k, len(unchecked_last),
                    f'Among distinct places with an unchecked departure at {LAST} s in at least one recorded scenario '
                    f'set (denominator), those for which such an unchecked {LAST} s departure would fit the scenario '
-                   f'window fire-free (numerator). {WINDOW_RULE}{st}')
+                   f'window fire-free (numerator). {WINDOW_RULE}{st}', **WIN)
             k = sum(1 for rs in by_place.values()
                     if any(r['cells'][t] != pr.CHECKED and r['fits'][t] for r in rs for t in OFFSETS))
             b.frac('places.not_checked_although_fits_any_offset_any_input' + tag, k, n,
                    'Distinct places with, in at least one recorded scenario set, at least one departure offset that '
-                   f'has no checked route although its fastest fire-free trip fits the scenario window. {WINDOW_RULE}{st}')
+                   f'has no checked route although its fastest fire-free trip fits the scenario window. {WINDOW_RULE}{st}',
+                   **WIN)
             trip = {}
             for key, rs in by_place.items():
                 vals = {r['trip_min_s'] for r in rs}
@@ -512,7 +542,7 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
             k = sum(1 for key, rs in by_place.items() if not rs[0]['fits'][LAST])
             b.frac(f'places.window_limited_at_offset_{LAST:04d}s' + tag, k, n,
                    f'Distinct places whose departure at {LAST} s is window-limited (fastest fire-free trip to the '
-                   f'nearest candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}')
+                   f'nearest candidate destination + 120 s stay > {3600 - LAST} s). {WINDOW_RULE}{st}', **WIN)
             for stat, fn in (('min', min), ('median', statistics.median), ('max', max)):
                 v = fn(list(trip.values()))
                 if isinstance(v, float) and v.is_integer():
@@ -520,24 +550,15 @@ def window_numbers(b: Builder, records: list[dict], pairs: list[dict], redundanc
                 b.add(f'fastest_trip_s.{stat}' + tag, v,
                       f'{stat} over distinct places (field n) of the fastest fire-free trip from the entry node to the '
                       f'nearest of the 3 candidate destinations, in seconds (turn-aware Dijkstra on travel_ticks, '
-                      f'dt = 1 s; the graph assumes 40 km/h; no congestion, no fire).{st}', unit='s', graphs=True, n=n)
+                      f'x dt = 1 s from HAZARD.json; the graph assumes 40 km/h; no congestion, no fire).{st}', unit='s',
+                      n=n, **WIN)
     comp = [p for p in pairs if p.get('has_comparison') and p['same_start_destination_offset']]
     b.frac('trip_model.equals_travel_only@all/pooled', sum(1 for p in comp if p['trip_model_s'] ==
                                                            p['fastest_arrival_s'] - p['depart_offset_s']), len(comp),
            'Validation of the fire-free trip model: travel-only comparisons (denominator) whose recorded travel-time-only '
            'route (API policy travel_only) takes exactly as long (arrival - departure) as this package\'s turn-aware '
-           'Dijkstra to the same destination (numerator).', graphs=True)
-    for sc in ('all/pooled', 'uiseong_andong_2025/pooled'):
-        reg = sc.split('/')[0]
-        sel = [p for p in comp if reg == 'all' or p['region'] == reg]
-        for name, f in (('leave_by_3000s', lambda p: p['depart_offset_s'] == LAST),
-                        ('leave_by_before_3000s', lambda p: p['depart_offset_s'] < LAST)):
-            group = [p for p in sel if f(p)]
-            b.frac(f'travel_only.fastest_meets_flames@{sc}#{name}', sum(1 for p in group if p['fastest_meets_flames']),
-                   len(group), 'Travel-time-only comparisons at the leave-by deadline, restricted to cases whose '
-                   'leave-by deadline is ' + ('the last checked offset (3000 s)' if name == 'leave_by_3000s' else
-                                              'before 3000 s') + ' (denominator); numerator: the fastest route has '
-                   'predicted flame contact (exposure contact = true) in at least one of the 4 scenario members.')
+           'Dijkstra to the same destination (numerator).', **WIN)
+    travel_by_deadline_numbers(b, pairs)
     single = [x for x in redundancy if x['origin_type'] in OSM_TYPES and x['turn_aware_paths'] == 1]
     for reg in list(sources.REGIONS) + ['all']:
         rows = [x for x in single if reg == 'all' or x['region'] == reg]
@@ -590,6 +611,8 @@ HEADLINE_KEYS = (
 
 
 def build(result: dict) -> dict:
+    """Every number. With ``result['with_graphs']`` false (``analysis.run(with_graphs=False)``) only the cache-only
+    numbers (uses_graph false) are built: no road graph or HAZARD packet was read."""
     b = Builder(result)
     records = result['records']
     scope_numbers(b, result)
@@ -597,9 +620,14 @@ def build(result: dict) -> dict:
     place_numbers(b, records)
     api_numbers(b, records)
     travel_numbers(b, result['pairs'])
-    redundancy_numbers(b, result['redundancy'], records)
-    window_numbers(b, records, result['pairs'], result['redundancy'])
+    if b.with_graphs:
+        redundancy_numbers(b, result['redundancy'], records)
+        window_numbers(b, records, result['pairs'], result['redundancy'])
+    else:
+        travel_by_deadline_numbers(b, result['pairs'])
     for key in HEADLINE_KEYS:                        # fully self-contained provenance on every headline number
+        if key not in b.numbers and not b.with_graphs:
+            continue
         e = b.numbers[key]
         e['headline'] = True
         e['input_sha256'] = {p: b.inputs[p] for p in e['inputs']}

@@ -294,6 +294,11 @@ redundancy and the common road segments use networkx's Edmonds-Karp and its resi
 shared-stretch lengths use networkx's Dijkstra on a turn-expanded graph built there, and the scenario window is read
 from each HAZARD.json there. It fails on any difference in value, numerator or denominator. The tests run it.
 
+Without `data/routing/`, both paths still recompute every cache-only number (`uses_graph` = false, 817 of the
+1,671 numbers) without reading any file from it: `verify.py --cache-only` for path B, and
+`tests/test_cache_only.py` for both paths against `NUMBERS.json`. Only the tests that need the road graphs or HAZARD
+packets skip then.
+
 ## Reproduce
 
 From the repository root, with Python 3.12:
@@ -310,7 +315,8 @@ python3.12 -m venv .venv
 
 `compute.py --check` recomputes and fails if any committed output would change: the text outputs (NUMBERS.json,
 tables, generated README blocks, APPLICATION_SENTENCES.md, figure CSV twins) and the six figure files (SVG bytes, PNG
-pixels). On a shared, heavily loaded 2-vCPU Linux container
+pixels). Without `data/routing/`, run `verify.py --cache-only` instead (it checks the cache-only numbers and reads
+nothing from `data/routing/`). On a shared, heavily loaded 2-vCPU Linux container
 `compute.py` took about 1.5 minutes, `verify.py` 4-8 minutes and the tests about 9 minutes, each below 1 GB peak
 memory. The numbers do not
 depend on the host running this package: they are read from the recorded cache, not recomputed by the router.
@@ -344,15 +350,15 @@ not permitted from this environment. No population figure is used here, and none
 | Path | Content |
 |---|---|
 | `compute.py` | path A entry point: writes every output below |
-| `verify.py` | path B entry point: recomputes and compares every number |
+| `verify.py` | path B entry point: recomputes and compares every number (`--cache-only`: the `uses_graph` = false numbers, without `data/routing/`) |
 | `wfg_impact/` | `sources` (inputs, hashes), `planner_rules` (planner port), `api_rules` (API cross-check), `maxflow` (redundancy, common segments), `trips` (fire-free trips), `analysis`, `numbers`, `figures`, `sentences`, `path_b` |
-| `NUMBERS.json` | every number with definition, value, numerator/denominator, scope, script, inputs; `headline` entries carry their input SHA-256 inline |
+| `NUMBERS.json` | every number with definition, value, numerator/denominator, scope and sources (`uses_graph`, `uses_hazard`); the `headline` entries also carry script, input paths and their SHA-256 (graph.json and HAZARD.json included where used); `inputs` lists every input file |
 | `APPLICATION_SENTENCES.md` | 7 candidate sentences rendered from NUMBERS.json, with keys and cautions |
 | `tables/origin_cases.csv` | one row per scenario set x origin (verdict cell and window fit per offset, deadlines and what set them, fastest fire-free trip, API fields, reasons) |
 | `tables/travel_only_pairs.csv`, `tables/redundancy_places.csv` | per comparison / per place details |
 | `tables/fig*_*.csv` | table twins of the figures |
 | `figures/` | 3 figures, PNG + SVG |
-| `tests/` | synthetic-case tests of the planner port and max-flow, and the full path A / path B reproduction |
+| `tests/` | synthetic-case tests of the planner port and max-flow; cache-only recomputation by both paths (runs without `data/routing/`); source-flag checks; the full path A / path B reproduction |
 | `requirements.txt` | pinned analysis dependencies |
 
 ## Key format
