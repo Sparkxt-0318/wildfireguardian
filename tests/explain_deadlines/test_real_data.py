@@ -55,6 +55,10 @@ def test_file_matches_its_inputs_and_the_planner(entry):
     assert set(host) == {"platform", "system", "machine", "python", "numpy", "pyproj"}
     assert p["evaluated_host"] is False or (host["system"], host["machine"]) == EVALUATED_HOST_PLATFORM
     raw = json.loads(cache.read_text())
+    # the recorded identity of every route check, travel-only check and dispatch plan was verified before use (README 1)
+    hc = p["hash_checks"]
+    assert (hc["route_checks_verified"], hc["travel_only_verified"], hc["dispatch_plans_verified"]) == \
+        (len(raw["route_checks"]), sum(isinstance(j, dict) for j in raw["travel_only"].values()), sum(isinstance(j, dict) for j in raw["plans"]))
     # every recorded checked route and every travel-only route of the cache file was replayed (counted independently here)
     n_checked = sum(1 for j in raw["route_checks"].values() if (j.get("result") or {}).get("verdict") == "checked_route")
     n_travel = sum(1 for j in raw["travel_only"].values() if (j.get("result") or {}).get("verdict") == "checked_route")
