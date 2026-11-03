@@ -1,0 +1,25 @@
+region,origin_type,places,cases,deadline_category,label,cases_in_category,set_by_window,set_by_fire_or_limits,numbers_key,numbers_key_window
+uiseong_andong_2025,village,79,237,latest_0000s,+0,0,0,0,deadline.latest_0000s@uiseong_andong_2025/pooled#village,deadline.latest_0000s.set_by_window@uiseong_andong_2025/pooled#village
+uiseong_andong_2025,village,79,237,latest_0600s,+10,3,2,1,deadline.latest_0600s@uiseong_andong_2025/pooled#village,deadline.latest_0600s.set_by_window@uiseong_andong_2025/pooled#village
+uiseong_andong_2025,village,79,237,latest_1200s,+20,13,3,10,deadline.latest_1200s@uiseong_andong_2025/pooled#village,deadline.latest_1200s.set_by_window@uiseong_andong_2025/pooled#village
+uiseong_andong_2025,village,79,237,latest_1800s,+30,38,34,4,deadline.latest_1800s@uiseong_andong_2025/pooled#village,deadline.latest_1800s.set_by_window@uiseong_andong_2025/pooled#village
+uiseong_andong_2025,village,79,237,latest_2400s,+40,82,82,0,deadline.latest_2400s@uiseong_andong_2025/pooled#village,deadline.latest_2400s.set_by_window@uiseong_andong_2025/pooled#village
+uiseong_andong_2025,village,79,237,latest_3000s,+50*,88,,,deadline.latest_3000s@uiseong_andong_2025/pooled#village,
+uiseong_andong_2025,village,79,237,none_model_no_route,none: no route,8,,,deadline.none_model_no_route@uiseong_andong_2025/pooled#village,
+uiseong_andong_2025,village,79,237,none_unresolved,none: unresolved,5,,,deadline.none_unresolved@uiseong_andong_2025/pooled#village,
+yeongdeok_2025,village,90,270,latest_0000s,+0,0,0,0,deadline.latest_0000s@yeongdeok_2025/pooled#village,deadline.latest_0000s.set_by_window@yeongdeok_2025/pooled#village
+yeongdeok_2025,village,90,270,latest_0600s,+10,0,0,0,deadline.latest_0600s@yeongdeok_2025/pooled#village,deadline.latest_0600s.set_by_window@yeongdeok_2025/pooled#village
+yeongdeok_2025,village,90,270,latest_1200s,+20,0,0,0,deadline.latest_1200s@yeongdeok_2025/pooled#village,deadline.latest_1200s.set_by_window@yeongdeok_2025/pooled#village
+yeongdeok_2025,village,90,270,latest_1800s,+30,3,3,0,deadline.latest_1800s@yeongdeok_2025/pooled#village,deadline.latest_1800s.set_by_window@yeongdeok_2025/pooled#village
+yeongdeok_2025,village,90,270,latest_2400s,+40,8,8,0,deadline.latest_2400s@yeongdeok_2025/pooled#village,deadline.latest_2400s.set_by_window@yeongdeok_2025/pooled#village
+yeongdeok_2025,village,90,270,latest_3000s,+50*,251,,,deadline.latest_3000s@yeongdeok_2025/pooled#village,
+yeongdeok_2025,village,90,270,none_model_no_route,none: no route,3,,,deadline.none_model_no_route@yeongdeok_2025/pooled#village,
+yeongdeok_2025,village,90,270,none_unresolved,none: unresolved,5,,,deadline.none_unresolved@yeongdeok_2025/pooled#village,
+uiseong_andong_2025,care_facility,5,15,latest_0000s,+0,0,0,0,deadline.latest_0000s@uiseong_andong_2025/pooled#care_facility,deadline.latest_0000s.set_by_window@uiseong_andong_2025/pooled#care_facility
+uiseong_andong_2025,care_facility,5,15,latest_0600s,+10,0,0,0,deadline.latest_0600s@uiseong_andong_2025/pooled#care_facility,deadline.latest_0600s.set_by_window@uiseong_andong_2025/pooled#care_facility
+uiseong_andong_2025,care_facility,5,15,latest_1200s,+20,0,0,0,deadline.latest_1200s@uiseong_andong_2025/pooled#care_facility,deadline.latest_1200s.set_by_window@uiseong_andong_2025/pooled#care_facility
+uiseong_andong_2025,care_facility,5,15,latest_1800s,+30,0,0,0,deadline.latest_1800s@uiseong_andong_2025/pooled#care_facility,deadline.latest_1800s.set_by_window@uiseong_andong_2025/pooled#care_facility
+uiseong_andong_2025,care_facility,5,15,latest_2400s,+40,0,0,0,deadline.latest_2400s@uiseong_andong_2025/pooled#care_facility,deadline.latest_2400s.set_by_window@uiseong_andong_2025/pooled#care_facility
+uiseong_andong_2025,care_facility,5,15,latest_3000s,+50*,15,,,deadline.latest_3000s@uiseong_andong_2025/pooled#care_facility,
+uiseong_andong_2025,care_facility,5,15,none_model_no_route,none: no route,0,,,deadline.none_model_no_route@uiseong_andong_2025/pooled#care_facility,
+uiseong_andong_2025,care_facility,5,15,none_unresolved,none: unresolved,0,,,deadline.none_unresolved@uiseong_andong_2025/pooled#care_facility,
