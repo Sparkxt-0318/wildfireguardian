@@ -26,12 +26,13 @@ beforeAll(() => {
 describe('planner/docs/LASTMILE.md', () => {
   it('every example in §11 is the kit\'s output for that real origin (with the scenario\'s explanation file)', () => {
     const examples = [...DOC.matchAll(EXAMPLE)];
-    expect(examples.length).toBeGreaterThanOrEqual(17);
+    expect(examples.length).toBeGreaterThanOrEqual(20);
     // the four outputs (and the card) all appear, in both languages
     const outs = new Set(examples.map((m) => `${m[3]}.${m[4]}`));
     for (const o of ['ko.sms', 'ko.lms', 'ko.broadcast', 'ko.call', 'ko.card', 'en.sms', 'en.lms', 'en.broadcast', 'en.call', 'en.card']) expect(outs.has(o), o).toBe(true);
     // an origin the cache holds no result for shows that on its data line (§2), as a real example
     expect(examples.some((m) => m[4] === 'lms' && m[5]!.split('\n')[2]!.endsWith(' · 이 출발지 결과 없음'))).toBe(true);
+    const covered = new Set<string>();
     for (const [, path, id, lang, kind, text] of examples) {
       const cache = caches.find((c) => c.entry.path === path);
       expect(cache, path).toBeDefined();
@@ -43,6 +44,11 @@ describe('planner/docs/LASTMILE.md', () => {
       const fm = buildFieldMessages(input!, file);
       expect(fm.violations).toEqual([]);
       expect(text, `${path} ${id} ${lang}.${kind}`).toBe(allTexts(fm, lang as 'ko' | 'en')[kind as 'sms']);
+      covered.add(`${fm.kind} ${lang}.${kind}`);
+    }
+    // every Korean output of every message kind the booth caches hold has a real example
+    for (const k of ['leave_by', 'no_route', 'unresolved']) {
+      for (const o of ['sms', 'lms', 'broadcast', 'call', 'card']) expect(covered.has(`${k} ko.${o}`), `${k} ko.${o}`).toBe(true);
     }
   }, 60_000);
 

@@ -376,7 +376,8 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   provenance variants per language and size (no overflow, body ≥ 14 pt, header / footer line ≥
   12 pt, estimate never below the real height) and PDFs with exactly one page per card.
 - `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin (all
-  four outputs and the card in both languages appear); §2's statement of what each output of a
+  four outputs and the card appear in both languages, and in Korean for each of leave by, no route
+  and unresolved); §2's statement of what each output of a
   leave-by origin gives holds for all 501 leave-by origins of the six caches with their explanation
   files, with the counts it states; and §3 lists every word of `FORBIDDEN`.
 
@@ -606,6 +607,25 @@ Family call script (Korean):
 궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.
 ```
 
+Card (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160471 ko.card -->
+```text
+산불 대피 계획 카드 · 의성·안동 · 2025년 실제 산불 기록 기반 시나리오 재현 · 실제 상황 아님
+구계리 (마을)
+모델상 확인된 차량 경로 없음
+이장: 지금 바로 119와 읍·면사무소에 연락해 공식 지시를 따르십시오.
+주민: 이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.
+이유: 이 마을에서 불길을 만나지 않고 차로 갈 수 있는 구역을 벗어나는 길 2곳(이 마을에서 약 700 m·1.5 km 떨어진 도로)이 모두 자료 시각에 이미 불길에 막혀 있습니다(길마다 산불 예측 시나리오 4가지 모두에서).
+모델상 경로 없음: 점검한 모든 출발 시각과 도착지에서 확인된 경로가 없었다는 뜻입니다.
+공식 대피 명령이 우선합니다.
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 2025년 실제 산불 기록을 재현한 시나리오
+모델 기반 계획 정보 · 실시간 아님
+차량 이동만 계산 · 교통 정체·도로 통제·연기 미반영 · 주민·현장 검증 전
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST
+```
+
 
 ### 광연리 (Gwang-yeon-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
 
@@ -621,6 +641,24 @@ SMS (Korean):
 공식명령 우선·공식안내 따르십시오
 ```
 
+Long text (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.lms -->
+```text
+[2025년 기록 재현 · 실제 상황 아님]
+산불 대피 계획 정보 · 광연리(마을)
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 2026-10-18 08:10 KST
+
+■ 모델로 차량 경로를 확인하지 못했습니다(미확인).
+■ 미확인은 경로가 있다는 뜻도, 없다는 뜻도 아닙니다.
+■ 공식 대피 안내를 따르십시오.
+
+공식 대피 명령이 우선합니다.
+모델 기반 계획 정보 · 실시간 아님
+2025년 실제 산불 기록을 재현한 시나리오입니다.
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
+```
+
 Village broadcast (Korean):
 
 <!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.broadcast -->
@@ -631,6 +669,18 @@ Village broadcast (Korean):
 컴퓨터 예측 계산으로는 이곳의 차량 대피 길을 확인하지 못했습니다. 길이 있다는 뜻도, 없다는 뜻도 아닙니다. 공식 대피 안내를 따르십시오.
 다시 알려 드립니다. 실제 상황이 아닌 2025년 기록 재현입니다.
 공식 대피 명령이 우선합니다.
+```
+
+Family call script (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160467 ko.call -->
+```text
+[통화 전 확인] 공식 대피 명령이 우선합니다. 아래 내용은 모델 기반 계획 정보이며, 실시간 정보가 아닙니다. [ ] 안은 직접 채워 말하십시오.
+안녕하세요. [소속·이름]입니다. 광연리에 사시는 [어르신 성함]의 가족분께 산불 대피 계획을 알려 드리려고 전화드렸습니다.
+지금 드리는 내용은 실제 상황이 아니라, 2025년 3월 26일 새벽 2시 산불 기록을 재현한 모델 기반 계획 정보입니다.
+컴퓨터 예측 계산(모델)으로는 마을의 차량 대피 경로를 확인하지 못했습니다(미확인). 경로가 있다는 뜻도, 없다는 뜻도 아닙니다. 공식 대피 안내를 따라야 합니다.
+공식 대피 명령이 우선합니다. 실제 이동 장소와 시각은 공식 안내에 따라 바뀔 수 있습니다.
+궁금하신 점은 [연락처]로 연락해 주십시오. 감사합니다.
 ```
 
 Card (Korean):
