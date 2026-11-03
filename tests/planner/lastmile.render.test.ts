@@ -186,14 +186,49 @@ describe('FieldMessagesDialog (jsdom)', () => {
     expect(dlg.textContent).toContain('저장됨: wfg_synthetic_region_20250324T090000Z_field_messages.csv');
   });
 
-  it('fails closed: a text with a rule violation cannot be copied or printed and says why', async () => {
+  it('fails closed per output: only the text that fails is greyed and cannot be copied; the rest stays usable', async () => {
     const items = ITEMS();
     items[0] = { ...items[0]!, violations: ['ko.sms: 91 bytes > 90'] };
     const dlg = await render(items, undefined, 'ko', 'syn:origin:checked');
-    expect(dlg.querySelector('[data-testid="field-messages-checks"]')!.textContent).toContain('검사 실패 — 이 문구는 쓰지 마십시오: ko.sms: 91 bytes > 90');
-    expect((dlg.querySelector('[data-testid="copy-sms-ko"]') as HTMLButtonElement).disabled).toBe(true);
-    expect((dlg.querySelector('[data-testid="print-card-a5"]') as HTMLButtonElement).disabled).toBe(true);
-    expect((dlg.querySelector('[data-testid="print-card-all"]') as HTMLButtonElement).disabled).toBe(true);
+    expect(dlg.querySelector('[data-testid="field-messages-checks"]')!.textContent).toContain('검사 실패 — 회색으로 표시된 문구는 쓰지 마십시오: ko.sms: 91 bytes > 90');
+    const disabled = (id: string) => (dlg.querySelector(`[data-testid="${id}"]`) as HTMLButtonElement).disabled;
+    expect(disabled('copy-sms-ko')).toBe(true);
+    expect(dlg.querySelector('[data-block="sms"] [data-lang="ko"] pre')!.getAttribute('data-failed')).toBe('true');
+    for (const id of ['copy-sms-en', 'copy-lms-ko', 'copy-broadcast-ko', 'copy-call-ko', 'print-card-a5', 'print-card-a4', 'print-card-all']) expect(disabled(id), id).toBe(false);
+    expect(dlg.querySelector('[data-block="lms"] [data-lang="ko"] pre')!.getAttribute('data-failed')).toBeNull();
+  });
+
+  it('a card that fails: no print of that card; "print all" prints the cards that pass and lists the one left out', async () => {
+    const print = vi.fn();
+    Object.defineProperty(window, 'print', { value: print, configurable: true });
+    const items = ITEMS();
+    items[1] = { ...items[1]!, violations: ['ko.card: missing "공식 대피 명령이 우선합니다."'] };
+    vi.useFakeTimers();
+    try {
+      const dlg = await render(items, undefined, 'ko', 'syn:origin:noroute');
+      const disabled = (id: string) => (dlg.querySelector(`[data-testid="${id}"]`) as HTMLButtonElement).disabled;
+      expect(disabled('print-card-a5')).toBe(true);
+      expect(disabled('print-card-a4')).toBe(true);
+      expect(disabled('copy-sms-ko')).toBe(false);
+      expect(dlg.querySelector('[data-testid="print-card-all-left-out"]')!.textContent).toBe('검사 실패로 인쇄하지 않는 카드 1곳: 2. 합성마을');
+      await click(dlg.querySelector('[data-testid="print-card-all"]'));
+      const rootEl = document.querySelector('[data-testid="field-card-print-root"]')!;
+      expect([...rootEl.querySelectorAll('.wfgl-card')].map((c) => c.getAttribute('data-card-origin'))).toEqual(['syn:origin:checked', 'syn:origin:unresolved']);
+      // the English card of the same origin passes and can be printed
+      await click([...dlg.querySelectorAll('.wfgl-seg button')].find((b) => b.textContent === 'English')!);
+      expect(disabled('print-card-a5')).toBe(false);
+      expect(dlg.querySelector('[data-testid="print-card-all-left-out"]')).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('a violation that names no output blocks every output of the origin', async () => {
+    const items = ITEMS();
+    items[0] = { ...items[0]!, violations: ['inconsistent plan'] };
+    const dlg = await render(items, undefined, 'ko', 'syn:origin:checked');
+    for (const id of ['copy-sms-ko', 'copy-sms-en', 'copy-lms-en', 'copy-call-ko', 'print-card-a5', 'print-card-a4']) expect((dlg.querySelector(`[data-testid="${id}"]`) as HTMLButtonElement).disabled, id).toBe(true);
+    expect(dlg.querySelector('[data-testid="print-card-all-left-out"]')!.textContent).toContain('1. 합성마을');
   });
 });
 

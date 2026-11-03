@@ -18,7 +18,7 @@ import {
   SMS_KO_MAX_BYTES,
   spokenSeconds,
 } from '../../planner/src/features/lastmile/encoding';
-import { arrivalShown, cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime } from '../../planner/src/features/lastmile/compose';
+import { arrivalShown, assembleSpoken, cardText, enDateSpoken, enSpokenTime, koDateSpoken, koSmsDate, koSpokenTime, type SpokenBlock } from '../../planner/src/features/lastmile/compose';
 import {
   approxDistance,
   clearExplanationCache,
@@ -30,8 +30,8 @@ import {
   usableItem,
 } from '../../planner/src/features/lastmile/explanation';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
-import { allTexts, buildFieldMessages, enabledLangs, TEMPLATES } from '../../planner/src/features/lastmile/messages';
-import { checkFieldMessages, clockTimes, maskData } from '../../planner/src/features/lastmile/checks';
+import { allTexts, buildFieldMessages, enabledLangs, outputOk, TEMPLATES } from '../../planner/src/features/lastmile/messages';
+import { checkFieldMessages, clockTimes, markerWords, maskData } from '../../planner/src/features/lastmile/checks';
 import { fieldMessagesCSV, fieldMessagesFileName, LASTMILE_CSV_COLUMNS } from '../../planner/src/features/lastmile/csv';
 import { FORBIDDEN, LANGUAGES, MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST, requiredPhrases, RESIDENT_119_NOW, SHIPPED_LANGS, UI } from '../../planner/src/features/lastmile/strings';
 import { cells, EXIT, ITEM, SYN_IDS, SYN_INPUT_TIME, SYN_NO_ROUTE_ID, SYN_REGION, SYN_SET, synExplanation, synInput, synNoLater, synNoRoute, synUnresolved, withEntry, withId } from './lastmile.fixture';
@@ -69,6 +69,15 @@ describe('lengths: EUC-KR bytes, GSM-7, spoken time', () => {
     expect(koReadAloud('119에 연락')).toBe('일일구에 연락');
     expect(koSpokenSyllables('2025년 3월 24일')).toBe(12); // 이천이십오년 삼월 이십사일
     expect(koSpokenSyllables('새벽 2시 20분')).toBe(7); // 새벽 두시 이십분
+  });
+
+  it('assembles a spoken script: required blocks take their short wording block by block, then the shortest; optional ones only while they fit', () => {
+    // English: 2 words per second
+    const blocks: SpokenBlock[] = [{ text: 'a b c d e f', short: 'a b c', shortest: 'a' }, { text: 'g h i j', short: 'g h' }, { text: 'k', optional: 'reason' }];
+    expect(assembleSpoken(blocks, 'en', 5.5)).toBe('a b c d e f\ng h i j\nk');
+    expect(assembleSpoken(blocks, 'en', 4)).toBe('a b c\ng h i j\nk');
+    expect(assembleSpoken(blocks, 'en', 2.5)).toBe('a b c\ng h');
+    expect(assembleSpoken(blocks, 'en', 1.5)).toBe('a\ng h');
   });
 
   it('counts English words pessimistically (every digit is a word; a.m./p.m. two)', () => {
@@ -365,20 +374,51 @@ describe('templates per verdict', () => {
     }
   });
 
-  it('MOCK and test data are marked in every output; the Korean SMS still fits 90 bytes', () => {
-    for (const flags of [{ mock: true }, { testData: true }]) {
+  it('MOCK and test data are marked in every output (both when both apply); the Korean SMS still fits 90 bytes', () => {
+    const tags = { mock: ['[25.3.24 18:00 MOCK]', 'MOCK REPLAY of'], test: ['[25.3.24 18:00 시험자료]', 'TEST REPLAY of'], both: ['[25.3.24 18:00 MOCK시험]', 'MOCK TEST REPLAY of'] };
+    for (const [name, flags] of [['mock', { mock: true }], ['test', { testData: true }], ['both', { mock: true, testData: true }]] as const) {
       for (const input of [synInput(flags), { ...synNoRoute(), ...flags }, { ...synUnresolved(), ...flags }]) {
         const fm = buildFieldMessages(input);
         expect(fm.violations).toEqual([]);
-        const word = 'mock' in flags ? 'MOCK' : '시험';
-        expect(fm.text.ko.sms).toContain(word);
-        expect(fm.text.ko.lms).toContain(word === 'MOCK' ? 'MOCK' : '시험 데이터');
-        expect(fm.text.en.sms.split('\n')[0]).toContain(word === 'MOCK' ? 'MOCK REPLAY' : 'TEST REPLAY');
-        expect(fm.text.ko.sms.split('\n')[0]).toContain(word);
+        expect(fm.text.ko.sms.split('\n')[0]).toBe(tags[name][0]);
+        expect(fm.text.en.sms.split('\n')[0]).toContain(tags[name][1]);
+        for (const l of ['ko', 'en'] as const) {
+          for (const kind of ['sms', 'lms', 'broadcast', 'call', 'card'] as const) {
+            const text = allTexts(fm, l)[kind].toLowerCase();
+            for (const w of markerWords(kind, l, 'mock' in flags, 'testData' in flags)) expect(text, `${l}.${kind}`).toContain(w.toLowerCase());
+          }
+        }
         expect(fm.metrics.ko.smsUnits).toBeLessThanOrEqual(SMS_KO_MAX_BYTES);
         expect(fm.metrics.en.smsUnits).toBeLessThanOrEqual(SMS_EN_MAX_GSM7);
       }
     }
+  });
+
+  it('a marker never pushes a broadcast over 60 s: the data sentence keeps it in fewer words; a long place name is dropped last', () => {
+    // the 용상3구경로당 case (a facility whose plain broadcast reads in exactly 60 s) and worse: two-digit
+    // dates, a far entry point, a long facility name and a long village name, both markers
+    const base = synInput({ scenario: { scenarioSetId: SYN_SET, inputTimeIso: '2025-12-24T14:59:00Z', horizonS: 3600 } });
+    const longVillage = '합성마을가나다라마바사아자차카타파하';
+    const facility = { ...base.origin, kind: 'facility' as const, name: { ko: '합성군노인복지관부설재가노인복지센터', en: '합성군노인복지관부설재가노인복지센터' }, display: { ko: '합성군노인복지관부설재가노인복지센터', en: '합성군노인복지관부설재가노인복지센터' }, category: { ko: '사회복지시설', en: 'Social facility' }, entryDistanceM: 1999 };
+    const village = { ...base.origin, name: { ko: longVillage, en: 'Hapseong-garanadaramabasa-ri' }, display: { ko: longVillage, en: 'Hapseong-garanadaramabasa-ri' }, entryDistanceM: 1999 };
+    for (const origin of [facility, village]) {
+      for (const flags of [{ mock: true }, { testData: true }, { mock: true, testData: true }]) {
+        const fm = buildFieldMessages({ ...base, origin, ...flags });
+        expect(fm.violations, JSON.stringify(flags)).toEqual([]);
+        expect(spokenSeconds(fm.text.ko.broadcast, 'ko')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+        expect(spokenSeconds(fm.text.en.broadcast, 'en')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+      }
+    }
+    // the short data sentence keeps every marker in one sentence (used here in Korean)
+    const both = buildFieldMessages({ ...base, origin: facility, mock: true, testData: true });
+    expect(both.text.ko.broadcast).toContain('2025년 12월 24일 밤 11시 59분 기록을 모의 서버로 재현한 시험용 모델 기반 계획 정보입니다.');
+    expect(TEMPLATES.en.broadcastBlocks(both.plan)[2]!.short).toBe(
+      'This is model-based planning information from a replay of recorded wildfire data, December 24, 2025, 11:59 p.m. Korea time; mock server test results.',
+    );
+    // the long name goes last: the shortest greeting
+    expect(both.text.ko.broadcast.split('\n')[1]).toBe('여러분께 알려 드립니다.');
+    // without markers the wording is unchanged (no short form needed)
+    expect(buildFieldMessages(synInput()).text.ko.broadcast).toContain('2025년 3월 24일 오후 6시 기록을 재현한 모델 기반 계획 정보입니다.\n');
   });
 
   it('worst-case dates (two-digit month and day) and long names still fit every limit', () => {
@@ -644,6 +684,29 @@ describe('rule checks (fail closed)', () => {
     const long = structuredClone(fm);
     long.metrics.ko.smsUnits = 91;
     expect(checkFieldMessages(long).join()).toContain('91 bytes > 90');
+    // a MOCK / test-data origin whose output lost its marker
+    const mock = buildFieldMessages({ ...synNoRoute(), mock: true, testData: true });
+    expect(mock.violations).toEqual([]);
+    const lost = structuredClone(mock);
+    lost.text.ko.broadcast = lost.text.ko.broadcast.replace(' 모의 서버 자료입니다.', '');
+    lost.text.en.card.badges = lost.text.en.card.badges.filter((b) => !b.startsWith('Test data'));
+    expect(checkFieldMessages(lost)).toEqual(['ko.broadcast: missing the MOCK / test-data marker "모의 서버"', 'en.card: missing the MOCK / test-data marker "test data"']);
+  });
+
+  it('every violation names its output (the panel and the CSV withhold only that output)', () => {
+    const fm = buildFieldMessages(synNoRoute());
+    const copy = structuredClone(fm);
+    copy.text.ko.call += '\n19:10까지 출발하십시오.';
+    copy.metrics.en.smsUnits = 161;
+    const v = checkFieldMessages(copy);
+    expect(v.length).toBeGreaterThan(1);
+    for (const x of v) expect(x).toMatch(/^(ko|en)\.(sms|lms|broadcast|call|card): /);
+    const failed = { ...copy, violations: v };
+    expect(outputOk(failed, 'ko', 'call')).toBe(false);
+    expect(outputOk(failed, 'en', 'sms')).toBe(false);
+    for (const [l, k] of [['ko', 'sms'], ['ko', 'lms'], ['ko', 'broadcast'], ['ko', 'card'], ['en', 'call'], ['en', 'card']] as const) expect(outputOk(failed, l, k), `${l}.${k}`).toBe(true);
+    // a violation that names no output blocks every output
+    expect(outputOk({ ...fm, violations: ['inconsistent plan'] }, 'ko', 'sms')).toBe(false);
   });
 
   it('a place name from the data is masked: a village called "안전마을" does not trip the word check', () => {
@@ -664,11 +727,17 @@ describe('CSV of every message (per region / input time)', () => {
     expect(csv).toContain('"[25.3.24 18:00 기록재현]\n모델상 18:30까지 차로 출발\n공식명령 우선·실시간 아님"');
     expect(csv).toContain('한국어: 원어민·현장 검토 전 · English: 원어민·현장 검토 전');
     expect(csv.endsWith('\r\n')).toBe(true);
-    // a text that fails a rule check is never exported
+    // a text that fails a rule check is never exported; the origin's other texts are (fail closed per output)
     const failing = { ...items[1]!, violations: ['ko.sms: 91 bytes > 90'] };
     const out = fieldMessagesCSV([failing], { lang: 'ko' });
     expect(out).toContain('검사 실패 — 사용 금지: ko.sms: 91 bytes > 90');
     expect(out).not.toContain('모델상 18:30까지 차로 출발');
+    expect(out).toContain('18:30(오후 6시 30분)까지 차로 출발하십시오.');
+    expect(out).toContain('REPLAY of 2025-03-24 18:00 KST data, not live');
+    // a violation that names no output: no text at all
+    const blocked = fieldMessagesCSV([{ ...items[1]!, violations: ['inconsistent plan'] }], { lang: 'ko' });
+    expect(blocked).not.toContain('차로 출발');
+    expect(blocked).not.toContain('REPLAY');
     expect(fieldMessagesFileName(synInput({ mock: true }))).toBe('wfg_synthetic_region_20250324T090000Z_field_messages_MOCK.csv');
   });
 

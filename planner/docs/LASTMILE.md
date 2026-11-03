@@ -88,7 +88,9 @@ kinds and fails closed to the less specific one on any inconsistency.
   guidance. Never green, never a departure time, never explained.
 
 User-drawn spread zones (an assumption) produce no field messages. MOCK and test data are marked in
-every output, including the first line of the SMS.
+every output, including the first line of the SMS (`MOCK`, `시험자료`, and `MOCK시험` — as many bytes
+as `기록재현` — when both apply; English `MOCK` / `TEST` / `MOCK TEST`); the checks enforce it
+(`checks.ts` `markerWords`), and no marker may push an output over its limit (§5).
 
 **Provenance per origin.** Each origin's messages take their provenance from that origin's own result
 (`input.ts` `originProvenance`, fed by `connect.ts`), never from the session:
@@ -134,10 +136,14 @@ never in the SMS, broadcast or call script.
 
 `checks.ts` checks all of this for every output of every origin (lengths, mandatory phrases, data
 time, replay note with its year, the replay marker on the first line of the SMS and long text, the
-broadcast's opening sentence, forbidden words, departure instructions, "119 now" to residents, clock
-times). The panel disables copy and print for a text that fails and says why; the CSV leaves its
-cells empty and marks it `검사 실패 — 사용 금지`. The tests use the same function as their oracle plus
-independent re-implementations (§9).
+broadcast's opening sentence, the MOCK / test-data marker, forbidden words, departure instructions,
+"119 now" to residents, clock times). Every violation names its output (`ko.broadcast: …`), and the
+kit fails closed **per output** (`messages.ts` `outputOk`): the panel greys the text that fails,
+disables its copy button (or the print of that card) and says why, while the origin's other texts
+stay usable; "print all cards" prints every card that passes and lists the ones left out; the CSV
+leaves only the failing text's cell empty and marks the row `검사 실패 — 사용 금지` with the
+violations. A violation that names no output blocks every output of the origin. The tests use the
+same function as their oracle plus independent re-implementations (§9).
 
 ## 4. How lengths are counted
 
@@ -175,10 +181,15 @@ The broadcast (`assembleSpoken`) keeps every required block — for a replay the
 실제 상황이 아닙니다.", the greeting, the data sentence, the leave-by sentence with the destination,
 the road entry point when it is more than 500 m away, **the no-car line** ("차가 없는 분은 이장에게
 바로 알리십시오" / facilities: "차가 부족하면 읍·면사무소에 바로 알리십시오"), "대피 장소는 공식 안내를
-따르십시오" and "공식 대피 명령이 우선합니다". If those alone exceed 60 s, a block's shorter wording
-(without a long facility or destination name) is used, block by block. Then the optional blocks are
-added while the script stays within 60 s: the reason (what limits T, or the flame reason), then the
-repeat ("다시 알려 드립니다. 실제 상황이 아닌 2025년 기록 재현입니다.").
+따르십시오" and "공식 대피 명령이 우선합니다". If those alone exceed 60 s, a block's shorter wording is
+used, block by block: without a long facility or destination name, and — for a MOCK or test-data
+origin — the data sentence with its markers folded in ("…기록을 모의 서버로 재현한 시험용 모델 기반
+계획 정보입니다" instead of two extra sentences). Still over, a last-resort wording follows, block by
+block (the greeting without the place name: "주민 여러분께 알려 드립니다."). Then the optional blocks
+are added while the script stays within 60 s: the reason (what limits T, or the flame reason), then
+the repeat ("다시 알려 드립니다. 실제 상황이 아닌 2025년 기록 재현입니다."). With MOCK, test-data or
+both markers every origin of the six caches keeps every limit (tested); the plain outputs are
+unchanged by these fallbacks.
 
 ## 6. Deadline explanation (P2 contract `wfg.explanation/1`)
 

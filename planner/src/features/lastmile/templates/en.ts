@@ -142,7 +142,7 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
 function smsTag(p: MessagePlan): string {
   const t = `${ymd(iso(p))} ${hm(iso(p))} KST`;
   if (!p.input.replay) return `Planning data of ${t}, ${MODEL_NOT_LIVE_SMS.en}`;
-  const pre = p.input.mock ? 'MOCK ' : p.input.testData ? 'TEST ' : '';
+  const pre = (p.input.mock ? 'MOCK ' : '') + (p.input.testData ? 'TEST ' : '');
   return `${pre}REPLAY of ${t} data, ${MODEL_NOT_LIVE_SMS.en}`;
 }
 
@@ -359,6 +359,14 @@ function dataSentence(p: MessagePlan, lead: string): string {
   return core + (p.input.mock ? ' This is mock server data.' : '') + (p.input.testData ? ' These are test results.' : '');
 }
 
+/** The broadcast's data sentence; with a MOCK / test-data marker, a shorter wording that keeps every marker (see ko.ts). */
+function dataBlock(p: MessagePlan): SpokenBlock {
+  const text = dataSentence(p, 'This is ');
+  if (!p.input.replay || (!p.input.mock && !p.input.testData)) return { text };
+  const marker = p.input.mock && p.input.testData ? 'mock server test results' : p.input.mock ? 'mock server data' : 'test results';
+  return { text, short: `This is ${MODEL_PLAN_SPOKEN.en} from a replay of recorded wildfire data, ${enDateSpoken(iso(p))} Korea time; ${marker}.` };
+}
+
 export const EN: TemplateSet = {
   lang: 'en',
 
@@ -391,14 +399,17 @@ export const EN: TemplateSet = {
     const o = p.input.origin;
     const blocks: SpokenBlock[] = [];
     if (p.input.replay) blocks.push({ text: NOT_REAL.en });
+    // a long place name is the last thing dropped (the written outputs carry it)
     blocks.push(
       o.kind === 'facility'
         ? o.name && latin(o.name.en)
-          ? { text: `Attention, staff and residents of ${o.name.en}.`, short: `Attention, ${o.name.en}.` }
-          : { text: 'Attention, staff and residents of this facility.' }
-        : { text: o.name && latin(o.name.en) ? `Attention, residents of ${o.name.en}.` : 'Attention, residents.' },
+          ? { text: `Attention, staff and residents of ${o.name.en}.`, short: `Attention, ${o.name.en}.`, shortest: 'Attention, everyone.' }
+          : { text: 'Attention, staff and residents of this facility.', shortest: 'Attention, everyone.' }
+        : o.name && latin(o.name.en)
+          ? { text: `Attention, residents of ${o.name.en}.`, shortest: 'Attention, residents.' }
+          : { text: 'Attention, residents.' },
     );
-    blocks.push({ text: dataSentence(p, 'This is ') });
+    blocks.push(dataBlock(p));
     const repeat: SpokenBlock | null = p.input.replay ? { optional: 'repeat', text: `Again: this is not a real emergency; it is a replay of recorded ${year(p)} data.` } : null;
     if (p.kind === 'leave_by' && p.leaveByS !== null) {
       const S = enSpokenTime(t0, p.leaveByS);

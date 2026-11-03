@@ -222,18 +222,24 @@ export interface SpokenBlock {
   optional?: SpokenOptional;
   /**
    * Shorter wording of a required block (same facts, fewer words — e.g. without a long place name
-   * that the written outputs carry). Used, block by block in order, only while the required blocks
-   * alone exceed the budget.
+   * that the written outputs carry, or the MOCK / test-data marker folded into the data sentence).
+   * Used, block by block in order, only while the required blocks alone exceed the budget.
    */
   short?: string;
+  /**
+   * A last-resort wording (e.g. the greeting without the place name), used the same way only while
+   * the required blocks still exceed the budget after every `short`.
+   */
+  shortest?: string;
 }
 
 export const SPOKEN_PRIORITY: readonly SpokenOptional[] = ['reason', 'repeat'];
 
 /**
  * Joins the blocks (one per line): every required block — in its shorter wording, block by block
- * in order, only while the required blocks alone would exceed `maxS` — then the optional ones in
- * the fixed priority order while the estimated reading time stays within `maxS`. Deterministic.
+ * in order, only while the required blocks alone would exceed `maxS`; then, still over, in its
+ * shortest wording, block by block — then the optional ones in the fixed priority order while the
+ * estimated reading time stays within `maxS`. Deterministic.
  */
 export function assembleSpoken(blocks: SpokenBlock[], lang: LmLang, maxS: number): string {
   const used = blocks.map((b) => ({ ...b }));
@@ -243,9 +249,12 @@ export function assembleSpoken(blocks: SpokenBlock[], lang: LmLang, maxS: number
       .map((b) => b.text)
       .join('\n');
   const keep = new Set<SpokenBlock>(used.filter((b) => !b.optional));
-  for (const b of used) {
-    if (spokenSeconds(join(keep), lang) <= maxS) break;
-    if (!b.optional && b.short) b.text = b.short;
+  for (const level of ['short', 'shortest'] as const) {
+    for (const b of used) {
+      if (spokenSeconds(join(keep), lang) <= maxS) break;
+      const s = b[level];
+      if (!b.optional && s) b.text = s;
+    }
   }
   for (const pri of SPOKEN_PRIORITY) {
     for (const b of used.filter((x) => x.optional === pri)) {

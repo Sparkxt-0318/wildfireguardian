@@ -4,8 +4,10 @@
  * and rule checks; a card preview with print (A5 / A4 / every origin) and a CSV of every message
  * of the region and input time. Presentational: the entry (FieldMessagesEntry) builds the items.
  *
- * Fail closed: a text whose rule checks fail is shown greyed with the violations and cannot be
- * copied. Works offline (no network: everything is built in the browser).
+ * Fail closed per output: a text whose rule checks fail is shown greyed with the violations and
+ * cannot be copied or printed; the origin's other texts stay usable, and "print all cards" prints
+ * the cards that pass and lists the ones left out. Works offline (no network: everything is built
+ * in the browser).
  */
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -20,7 +22,7 @@ import { fieldMessagesCSV, fieldMessagesFileName } from './csv';
 import { BROADCAST_MAX_S, EN_WORDS_PER_S, KO_SYLLABLES_PER_S, LMS_MAX_BYTES } from './encoding';
 import type { ExplanationState } from './explanation';
 import { FieldCard, type CardSize } from './FieldCard';
-import { allTexts, enabledLangs, type FieldMessages } from './messages';
+import { allTexts, enabledLangs, outputOk, type FieldMessages } from './messages';
 import { LANGUAGES, lmFill, UI } from './strings';
 import type { LmLang } from './types';
 import '../shared/features.css';
@@ -165,6 +167,9 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
   };
 
   const failed = Boolean(current && current.violations.length);
+  // "print all cards": every card of the chosen language that passes its checks; the rest are listed
+  const printable = items.filter((x) => outputOk(x, cardLang, 'card'));
+  const leftOut = items.filter((x) => !outputOk(x, cardLang, 'card'));
 
   const dialog = (
     <div className="wfgf wfgl-root" lang={lang}>
@@ -228,6 +233,7 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                     {langs.map((l) => {
                       const text = allTexts(current, l)[kind];
                       const key = `${current.originId}:${kind}:${l}`;
+                      const ok = outputOk(current, l, kind);
                       return (
                         <div key={l} className="wfgl-text" data-lang={l}>
                           <div className="wfgl-text__head">
@@ -238,11 +244,11 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                               </span>
                             ) : null}
                             <span className="wfgl-text__count wfgf-num">{counterText(current, l, kind, lang)}</span>
-                            <button type="button" className="wfgf-btn wfgl-text__copy" disabled={failed} onClick={() => void doCopy(key, text)} data-testid={`copy-${kind}-${l}`}>
+                            <button type="button" className="wfgf-btn wfgl-text__copy" disabled={!ok} onClick={() => void doCopy(key, text)} data-testid={`copy-${kind}-${l}`}>
                               {t(UI.copy)}
                             </button>
                           </div>
-                          <pre className={`wfgl-text__body${failed ? ' wfgl-text__body--failed' : ''}`} lang={l}>
+                          <pre className={`wfgl-text__body${ok ? '' : ' wfgl-text__body--failed'}`} lang={l} data-failed={ok ? undefined : 'true'}>
                             {text}
                           </pre>
                           {status?.key === key ? (
@@ -267,24 +273,29 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                       </button>
                     ))}
                   </div>
-                  <button type="button" className="wfgf-btn" disabled={failed} onClick={() => setPrintJob({ size: 'a5', lang: cardLang, scope: 'one' })} data-testid="print-card-a5">
+                  <button type="button" className="wfgf-btn" disabled={!outputOk(current, cardLang, 'card')} onClick={() => setPrintJob({ size: 'a5', lang: cardLang, scope: 'one' })} data-testid="print-card-a5">
                     <IconPrint size={18} />
                     {t(UI.printA5)}
                   </button>
-                  <button type="button" className="wfgf-btn" disabled={failed} onClick={() => setPrintJob({ size: 'a4', lang: cardLang, scope: 'one' })} data-testid="print-card-a4">
+                  <button type="button" className="wfgf-btn" disabled={!outputOk(current, cardLang, 'card')} onClick={() => setPrintJob({ size: 'a4', lang: cardLang, scope: 'one' })} data-testid="print-card-a4">
                     <IconPrint size={18} />
                     {t(UI.printA4)}
                   </button>
                   <button
                     type="button"
                     className="wfgf-btn wfgf-btn--ink"
-                    disabled={items.some((x) => x.violations.length)}
+                    disabled={printable.length === 0}
                     onClick={() => setPrintJob({ size: 'a5', lang: cardLang, scope: 'all' })}
                     data-testid="print-card-all"
                   >
                     <IconPrint size={18} />
                     {t(UI.printAll)}
                   </button>
+                  {leftOut.length ? (
+                    <span className="wfgl-text__status" role="status" data-testid="print-card-all-left-out">
+                      {lmFill(t(UI.printAllLeftOut), { n: leftOut.length, list: leftOut.map((x) => `${x.urgencyRank}. ${x.plan.input.origin.display[cardLang]}`).join(', ') })}
+                    </span>
+                  ) : null}
                 </div>
                 <div className="wfgl-preview">
                   <div className="wfgl-preview__scale">
@@ -314,7 +325,8 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
     </div>
   );
 
-  const printCards = printJob ? (printJob.scope === 'all' ? items : current ? [current] : []) : [];
+  // only cards that pass their checks are ever printed
+  const printCards = printJob ? (printJob.scope === 'all' ? items : current ? [current] : []).filter((x) => outputOk(x, printJob.lang, 'card')) : [];
   const printRoot = printJob ? (
     <div className="wfgf wfgl-print-root" data-print-size={printJob.size} data-testid="field-card-print-root">
       <style>{`@page { size: ${printJob.size === 'a4' ? 'A4' : 'A5'} portrait; margin: 0; }`}</style>

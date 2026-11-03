@@ -115,7 +115,8 @@ function exitsSpoken(p: MessagePlan, r: Exits): string {
 
 /** First line of the SMS: date + what the data is ("[25.3.26 02:00 기록재현]"). */
 function smsTag(p: MessagePlan): string {
-  const word = p.input.mock ? 'MOCK' : p.input.testData ? '시험자료' : p.input.replay ? '기록재현' : '계획자료';
+  // both markers in as many bytes as "기록재현" (8): the tag never pushes the SMS over 90 bytes
+  const word = p.input.mock && p.input.testData ? 'MOCK시험' : p.input.mock ? 'MOCK' : p.input.testData ? '시험자료' : p.input.replay ? '기록재현' : '계획자료';
   return `[${koSmsDate(iso(p))} ${word}]`;
 }
 
@@ -349,6 +350,19 @@ function dataSentence(p: MessagePlan, lead: string, fire: boolean): string {
   return core + (p.input.mock ? ' 모의 서버 자료입니다.' : '') + (p.input.testData ? ' 시험용 계산 자료입니다.' : '');
 }
 
+/**
+ * The broadcast's data sentence. With a MOCK / test-data marker it has a shorter wording that
+ * keeps every marker inside the sentence ("…기록을 모의 서버로 재현한 시험용 모델 기반 계획
+ * 정보입니다."), so a marker never pushes a real origin's broadcast over its time budget.
+ */
+function dataBlock(p: MessagePlan): SpokenBlock {
+  const text = dataSentence(p, '', false);
+  if (!p.input.replay || (!p.input.mock && !p.input.testData)) return { text };
+  const via = p.input.mock ? '모의 서버로 ' : '';
+  const test = p.input.testData ? '시험용 ' : '';
+  return { text, short: `${koDateSpoken(iso(p))} 기록을 ${via}재현한 ${test}${MODEL_PLAN_SPOKEN.ko}입니다.` };
+}
+
 export const KO: TemplateSet = {
   lang: 'ko',
 
@@ -383,12 +397,15 @@ export const KO: TemplateSet = {
     const o = p.input.origin;
     const blocks: SpokenBlock[] = [];
     if (p.input.replay) blocks.push({ text: NOT_REAL.ko });
+    // a long place name is the last thing dropped (the written outputs carry it)
     blocks.push(
       o.name && o.kind === 'facility'
-        ? { text: `${o.name.ko} 직원과 이용자 여러분께 알려 드립니다.`, short: `${o.name.ko} 여러분께 알려 드립니다.` }
-        : { text: o.name ? `${o.name.ko} 주민 여러분께 알려 드립니다.` : '주민 여러분께 알려 드립니다.' },
+        ? { text: `${o.name.ko} 직원과 이용자 여러분께 알려 드립니다.`, short: `${o.name.ko} 여러분께 알려 드립니다.`, shortest: '여러분께 알려 드립니다.' }
+        : o.name
+          ? { text: `${o.name.ko} 주민 여러분께 알려 드립니다.`, shortest: '주민 여러분께 알려 드립니다.' }
+          : { text: '주민 여러분께 알려 드립니다.' },
     );
-    blocks.push({ text: dataSentence(p, '', false) });
+    blocks.push(dataBlock(p));
     const repeat: SpokenBlock | null = p.input.replay ? { optional: 'repeat', text: `다시 알려 드립니다. 실제 상황이 아닌 ${year(p)}년 기록 재현입니다.` } : null;
     if (p.kind === 'leave_by' && p.leaveByS !== null) {
       const S = koSpokenTime(t0, p.leaveByS);

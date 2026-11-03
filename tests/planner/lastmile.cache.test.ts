@@ -20,7 +20,7 @@ import { execFileSync } from 'node:child_process';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { enDateSpoken, hm, koDateSpoken } from '../../planner/src/features/lastmile/compose';
 import { maskData } from '../../planner/src/features/lastmile/checks';
-import { BROADCAST_MAX_S, LMS_MAX_BYTES, SMS_EN_MAX_GSM7, SMS_KO_MAX_BYTES } from '../../planner/src/features/lastmile/encoding';
+import { BROADCAST_MAX_S, eucKrBytes, LMS_MAX_BYTES, SMS_EN_MAX_GSM7, SMS_KO_MAX_BYTES, spokenSeconds } from '../../planner/src/features/lastmile/encoding';
 import { allTexts, buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import { MODEL_NOT_LIVE, NOT_REAL, OFFICIAL_FIRST } from '../../planner/src/features/lastmile/strings';
@@ -219,6 +219,58 @@ describe('audiences and replays (independent checks)', () => {
     }
     expect(far).toBeGreaterThan(0);
   });
+});
+
+describe('MOCK and test-data markers on every origin (mock-server dev setup; results not from the evaluated host)', () => {
+  const variants = [
+    { name: 'MOCK', flags: { mock: true, testData: false } },
+    { name: 'test data', flags: { mock: false, testData: true } },
+    // a non-evaluated cache viewed while the mock server is on (MOCK is session-wide)
+    { name: 'MOCK and test data', flags: { mock: true, testData: true } },
+  ];
+  for (const v of variants) {
+    it(`${v.name}: every output of every origin passes every rule, carries the marker and keeps every limit, without and with the real explanation files`, () => {
+      let n = 0;
+      for (const cache of caches) {
+        const real = realExplanationFor(cache).file;
+        for (const file of real ? [null, real] : [null]) {
+          for (const input of cache.inputs) {
+            const fm = buildFieldMessages({ ...input, ...v.flags }, file);
+            n += 1;
+            expect(fm.violations, `${cache.entry.path} ${input.origin.id}`).toEqual([]);
+            // independent of checks.ts: the marker in each output (the SMS and long text on the first line)
+            const first = (t: string) => t.split('\n')[0]!;
+            if (v.flags.mock) {
+              for (const l of ['ko', 'en'] as const) {
+                expect(first(fm.text[l].sms)).toContain('MOCK');
+                expect(first(fm.text[l].lms)).toContain('MOCK');
+                expect(fm.text[l].card.badges).toContain('MOCK');
+              }
+              expect(fm.text.ko.broadcast).toContain('모의 서버');
+              expect(fm.text.en.broadcast).toContain('mock server');
+            }
+            if (v.flags.testData) {
+              expect(first(fm.text.ko.sms)).toContain('시험');
+              expect(first(fm.text.en.sms)).toContain('TEST');
+              expect(first(fm.text.ko.lms)).toContain('시험 데이터');
+              expect(first(fm.text.en.lms)).toContain('TEST DATA');
+              expect(fm.text.ko.broadcast).toContain('시험용');
+              expect(fm.text.en.broadcast).toContain('test results');
+              expect(fm.text.ko.card.badges).toContain('시험 데이터 · 평가 호스트 아님');
+              expect(fm.text.en.card.badges).toContain('Test data · not the evaluation host');
+            }
+            // the limits, recounted here
+            expect(spokenSeconds(fm.text.ko.broadcast, 'ko')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+            expect(spokenSeconds(fm.text.en.broadcast, 'en')).toBeLessThanOrEqual(BROADCAST_MAX_S);
+            expect(eucKrBytes(fm.text.ko.sms).bytes).toBeLessThanOrEqual(SMS_KO_MAX_BYTES);
+            expect(fm.text.en.sms.length).toBeLessThanOrEqual(SMS_EN_MAX_GSM7);
+            expect(GSM7.test(fm.text.en.sms)).toBe(true);
+          }
+        }
+      }
+      expect(n).toBeGreaterThan(1000);
+    });
+  }
 });
 
 describe('numbers and names a reader hears or reads (independent checks over every origin)', () => {

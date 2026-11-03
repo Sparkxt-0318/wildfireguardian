@@ -4,8 +4,9 @@
  * Every row carries the data time and its own result source ("결과 출처": the precomputed cache file
  * and its created time, or the live API and the compute host, with "평가 호스트 아님" when not
  * established as evaluated-host output) and, with a reason line, the explanation file it comes from.
- * An origin whose texts fail a rule check gets empty text cells and "검사 실패 — 사용 금지"; the
- * last columns state each language's native-speaker / field review state.
+ * A text that fails a rule check gets an empty cell (only that text: fail closed per output) and
+ * the rule-check column says "검사 실패 — 사용 금지" with the violations; the last columns state each
+ * language's native-speaker / field review state.
  * UTF-8 with BOM, CRLF, RFC 4180 quoting and formula neutralising — the same writer as the
  * dispatch list (../exports/exports.ts).
  */
@@ -13,8 +14,8 @@ import { compactUtc } from '../../domain/clock';
 import { kstDateClock, kstStamp, slug } from '../shared/format';
 import { CSV_BOM, csvRow } from '../exports/exports';
 import { resultSourceFull } from './compose';
-import { allTexts, type FieldMessages, type ReasonSource } from './messages';
-import { LANGUAGES, SHIPPED_LANGS, UI } from './strings';
+import { allTexts, outputOk, type FieldMessages, type ReasonSource } from './messages';
+import { LANGUAGES, SHIPPED_LANGS, UI, type OutputKind } from './strings';
 import { EXPLANATION_SCHEMA, type LastMileInput, type LmLang } from './types';
 
 export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
@@ -112,11 +113,15 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
   for (const fm of sorted) {
     const input = fm.plan.input;
     const iso = input.scenario.inputTimeIso;
-    // a text that fails a rule check is never exported (fail closed): its cells stay empty
+    // a text that fails a rule check is never exported (fail closed per output): its cell stays empty
     const failed = fm.violations.length > 0;
-    const blank = { sms: '', lms: '', broadcast: '', call: '', card: '' };
-    const ko = failed ? blank : allTexts(fm, 'ko');
-    const en = failed ? blank : allTexts(fm, 'en');
+    const texts = (lang: LmLang) => {
+      const t = allTexts(fm, lang);
+      const keep = (kind: OutputKind) => (outputOk(fm, lang, kind) ? t[kind] : '');
+      return { sms: keep('sms'), lms: keep('lms'), broadcast: keep('broadcast'), call: keep('call') };
+    };
+    const ko = texts('ko');
+    const en = texts('en');
     const d = fm.plan.destination;
     lines.push(
       csvRow([

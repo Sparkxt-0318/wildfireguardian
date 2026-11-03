@@ -2,7 +2,7 @@
  * Builds every field message of one origin: Korean (source) and English SMS, long text, village
  * broadcast script, family call script and the printable card. Deterministic templates only — no
  * model, no network. The result carries its length metrics and the list of rule violations found
- * by ./checks.ts (the panel refuses to offer a text that has any).
+ * by ./checks.ts (the panel and the CSV withhold each output that has one: outputOk).
  */
 import { compactUtc } from '../../domain/clock';
 import type { Verdict } from '../../domain/types';
@@ -11,7 +11,7 @@ import { assembleSpoken, cardText, type CardContent, type TemplateSet } from './
 import { BROADCAST_MAX_S, eucKrBytes, gsm7Length, spokenSeconds } from './encoding';
 import type { LmReason } from './explanation';
 import { messagePlan, type MessageKind, type MessagePlan } from './plan';
-import { LANGUAGES, SHIPPED_LANGS } from './strings';
+import { LANGUAGES, SHIPPED_LANGS, type OutputKind } from './strings';
 import { EN } from './templates/en';
 import { KO } from './templates/ko';
 import type { ExplanationFile, LastMileInput, LmLang } from './types';
@@ -159,6 +159,21 @@ export function buildFieldMessages(input: LastMileInput, explanation: Explanatio
   };
   fm.violations = checkFieldMessages(fm);
   return fm;
+}
+
+const OUTPUT_OF = /^(ko|en)\.(sms|lms|broadcast|call|card):/;
+
+/**
+ * Fail closed per OUTPUT: true when no rule check failed for this language and output. Every rule is
+ * checked for each output on its own (checks.ts prefixes each violation "<lang>.<output>:"), so a
+ * passing output may be used even when another output of the origin failed; a violation that names
+ * no output blocks every output of the origin.
+ */
+export function outputOk(fm: FieldMessages, lang: LmLang, kind: OutputKind): boolean {
+  return fm.violations.every((v) => {
+    const m = OUTPUT_OF.exec(v);
+    return m !== null && !(m[1] === lang && m[2] === kind);
+  });
 }
 
 /** Every output of one language as plain text, in a fixed order (CSV, checks). */
