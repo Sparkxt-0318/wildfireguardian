@@ -58,10 +58,12 @@ def _closed_occupancies(grid: Grid, burning: set, p0, p1, start: F, end: F) -> l
 
 
 def build_segments(*, grid: Grid, packet: Packet, xy, legs: list, edges, start_node: str, departure,
-                   destination: str, dwell) -> list:
+                   destination: str, dwell, chord_cache: dict | None = None) -> list:
     """Segments of a full mission (ISSUE, legs, DWELL) with burning-cell occupancies at the recorded times.
 
-    ``xy(node_id) -> (Fraction, Fraction)``; ``edges(edge_id) -> {"u", "v", "travel_ticks"}``."""
+    ``xy(node_id) -> (Fraction, Fraction)``; ``edges(edge_id) -> {"u", "v", "travel_ticks"}``. ``chord_cache``
+    (optional, one dict per graph) memoises ``chord_pieces`` of each edge id across calls; the cached lists are only
+    read, so the segments are the same with or without it."""
     burning = set(packet.burning_cells)
     segs = []
     dep = exact(departure)
@@ -85,7 +87,12 @@ def build_segments(*, grid: Grid, packet: Packet, xy, legs: list, edges, start_n
             p0, p1 = xy(e["u"]), xy(e["v"])
             seg = Segment("EDGE", len(segs), i, leg["edge"], None, st, en, p0, p1)
             seg.closed = _closed_occupancies(grid, burning, p0, p1, st, en)
-            pieces, points = chord_pieces(grid, p0, p1)
+            if chord_cache is None:
+                pieces, points = chord_pieces(grid, p0, p1)
+            else:
+                if leg["edge"] not in chord_cache:
+                    chord_cache[leg["edge"]] = chord_pieces(grid, p0, p1)
+                pieces, points = chord_cache[leg["edge"]]
             when = lambda z, st=st, en=en: st + (en - st) * z
             seg.router = [(cc, when(a), when(b)) for cc, a, b in pieces if cc in burning] + \
                          [(cc, when(z), when(z)) for cc, z in points if cc in burning]

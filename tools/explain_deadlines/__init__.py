@@ -5,4 +5,4 @@ the frozen hazard packets with the same contact rules the runtime checks use, an
 the next departure time has no checked route. See README.md.
 """
 SCHEMA = "wfg.explanation/1"
-VERSION = "1.0.0"
+VERSION = "1.1.0"

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from tools.explain_deadlines.cli import compact, main as cli_main
+from tools.explain_deadlines.cli import EVALUATED_HOST_PLATFORM, RUN_STAMPS, compact, main as cli_main
 from tools.explain_deadlines.explain import REASONS, STATUSES
 from tools.explain_deadlines.plans import CacheModel
 
@@ -50,7 +50,27 @@ def test_file_matches_its_inputs_and_the_planner(entry):
     for name, h in p["packet_hashes"].items():
         assert sha(REPO / p["packet_dir"] / name) == h
     assert p["code_dirty"] is False and len(p["code_commit"]) == 40
-    plans = CacheModel(json.loads(cache.read_text())).plans
+    # where the explanation was computed; evaluated_host only for a native macOS arm64 run (--evaluated-host)
+    host = p["computed_on"]
+    assert set(host) == {"platform", "system", "machine", "python", "numpy", "pyproj"}
+    assert p["evaluated_host"] is False or (host["system"], host["machine"]) == EVALUATED_HOST_PLATFORM
+    raw = json.loads(cache.read_text())
+    # the recorded identity of every route check, travel-only check and dispatch plan was verified before use (README 1)
+    hc = p["hash_checks"]
+    assert (hc["route_checks_verified"], hc["travel_only_verified"], hc["dispatch_plans_verified"]) == \
+        (len(raw["route_checks"]), sum(isinstance(j, dict) for j in raw["travel_only"].values()), sum(isinstance(j, dict) for j in raw["plans"]))
+    # every recorded checked route and every travel-only route of the cache file was replayed (counted independently here)
+    n_checked = sum(1 for j in raw["route_checks"].values() if (j.get("result") or {}).get("verdict") == "checked_route")
+    n_travel = sum(1 for j in raw["travel_only"].values() if (j.get("result") or {}).get("verdict") == "checked_route")
+    v = d["summary"]["validation"]
+    assert v["replay_checked_routes"] == {"unit": "route", "routes": n_checked, "contact_free": n_checked, "mismatches": 0,
+                                          "not_replayed": 0, "applicable": n_checked, "passed": n_checked, "failed": 0}
+    rt = v["replay_travel_only"]
+    assert (rt["entries"], rt["routes"], rt["matches"], rt["mismatches"], rt["not_replayed"], rt["member_flags"]) == \
+        (len(raw["travel_only"]), n_travel, n_travel, 0, 0, 4 * n_travel)
+    assert rt["with_contact"] == sum(1 for j in raw["travel_only"].values()
+                                     if any(s["contact"] for s in j["result"]["full_policy_assessment"]["per_scenario"].values()))
+    plans = CacheModel(raw).plans
     assert set(d["origins"]) == set(plans)                     # keyed exactly as the planner keys origins
     s = d["summary"]
     assert s["explained"] + s["explained_partial"] + s["not_explainable"] == s["origins"] == len(plans)
@@ -112,7 +132,7 @@ def test_regeneration_is_identical(tmp_path):
     a = json.loads((tmp_path / out_path(entry).name).read_text())
     b = json.loads(out_path(entry).read_text())
     for d in (a, b):
-        for k in ("generated_at", "code_commit", "code_dirty", "kit_checker_sha256"):
+        for k in (*RUN_STAMPS, "kit_checker_sha256"):
             d["provenance"].pop(k, None)
         d["summary"]["validation"] = {k: v for k, v in d["summary"]["validation"].items() if not k.startswith("kit_")}
         for o in d["origins"].values():

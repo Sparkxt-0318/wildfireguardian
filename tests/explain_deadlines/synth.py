@@ -156,5 +156,28 @@ def attempt(dest, off, verdict, job_id, arrival=None, reason=None):
             "route_check_job_id": job_id}
 
 
+def travel_only_job(job_id, *, contact, status, raw_graph, member_ids, **route_kw):
+    """A cached travel-only route check (router policy travel_only) with the API's recorded full-policy assessment:
+    ``contact`` = per-member contact flags in member order, ``status`` = its whole_road_contact."""
+    job = route_job(job_id, raw_graph=raw_graph, **route_kw)
+    job["request"]["policy"] = "travel_only"
+    job["result"]["policy"] = "travel_only"
+    job["result"]["full_policy_assessment"] = {
+        "whole_road_contact": status, "grammar_ok": True,
+        "per_scenario": {m: {"peak_kw_m2": 0.0, "dose_kj_m2": 0.0, "contact": bool(c)} for m, c in zip(member_ids, contact)}}
+    return job
+
+
+def with_provenance(job: dict, *, graph_sha, packet_sha: dict, set_id, region, input_time, member_ids, policy="full") -> dict:
+    """Attach the result provenance the API records (input hashes of the graph and the packet files)."""
+    job.setdefault("result", {})["provenance"] = {
+        "input_hashes": {"graph": graph_sha, "hazard": packet_sha["HAZARD.json"],
+                         "packet/REPORT.json": packet_sha["REPORT.json"], "packet/NATIVE_METADATA.json": packet_sha["NATIVE_METADATA.json"],
+                         "packet/constructed_arrays.npz": packet_sha["constructed_arrays.npz"]},
+        "scenario_set_id": set_id, "region": region, "input_time": input_time, "scenario_ids": list(member_ids),
+        "fire_input_type": "recorded", "policy": policy}
+    return job
+
+
 def lonlat_identity(x, y):
     return (float(x), float(y))

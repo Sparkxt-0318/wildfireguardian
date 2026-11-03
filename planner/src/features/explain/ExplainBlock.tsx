@@ -2,6 +2,8 @@
  * "왜 이 시각인가요? / Why this time?" — the origin detail panel block and the plan-sheet section.
  * Renders text built from the structured fields only (text.ts). Falls back to a plain line when the explanation file
  * is absent, the origin is missing, the explanation belongs to other results, or it is not_explainable.
+ * Sentences and exit-list items resting on values computed for the explanation end with a mark; the panel explains the
+ * mark and says where the file was computed, the plan sheet says both once in its section footer.
  */
 import { useEffect, useState } from 'react';
 import { scenarioTag } from '../plansheet/sheetLogic';
@@ -16,6 +18,12 @@ import './explain.css';
 export interface ExplanationState {
   state: 'idle' | 'loading' | 'ready' | 'absent';
   file: ExplFile | null;
+}
+
+/** State of one file from the in-memory cache: settled files render synchronously, others are loading. */
+function cachedState(regionId: string, inputTime: string): ExplanationState {
+  const hit = settledExplanation(regionId, inputTime);
+  return hit === undefined ? { state: 'loading', file: null } : { state: hit ? 'ready' : 'absent', file: hit };
 }
 
 /** Loads (once per region and input time) and returns the explanation file. */
@@ -44,6 +52,34 @@ export function useExplanationFile(regionId: string | null, inputTime: string | 
     };
   }, [regionId, inputTime]);
   return st;
+}
+
+/**
+ * Loads the explanation files of one region for several input times (the rows of one plan sheet) and returns their
+ * state per input time, so that one render sees every row (the sheet footer depends on all of them).
+ */
+export function useExplanationFiles(regionId: string | null, inputTimes: string[]): Record<string, ExplanationState> {
+  const [loaded, setLoaded] = useState<Record<string, ExplanationState>>({});
+  const out: Record<string, ExplanationState> = {};
+  for (const it of inputTimes) {
+    out[it] = !regionId ? { state: 'idle', file: null } : (loaded[`${regionId}|${it}`] ?? cachedState(regionId, it));
+  }
+  // the input times this render shows as loading; the loader returns the same (possibly settled) promise per file, so
+  // a file that settles between this render and the effect still updates the rows
+  const waiting = [...new Set(inputTimes.filter((it) => out[it]!.state === 'loading'))].join('|');
+  useEffect(() => {
+    if (!regionId || !waiting) return;
+    let live = true;
+    for (const it of waiting.split('|')) {
+      void loadExplanationFile(regionId, it).then((f) => {
+        if (live) setLoaded((prev) => ({ ...prev, [`${regionId}|${it}`]: { state: f ? 'ready' : 'absent', file: f } }));
+      });
+    }
+    return () => {
+      live = false;
+    };
+  }, [regionId, waiting]);
+  return out;
 }
 
 export function MemberDots({ dots }: { dots: ExplainDots }) {
@@ -102,6 +138,8 @@ export function ExplainBlock({ regionId, inputTime, originId, lang, shown }: Exp
             </ul>
           ) : null}
           {v.basis ? <p className="small-note wfgx-basis">{v.basis}</p> : null}
+          {v.computedNote ? <p className="small-note wfgx-note" data-explain-note="computed">{v.computedNote}</p> : null}
+          {v.host ? <p className="small-note wfgx-host" data-explain-note="host">{v.host}</p> : null}
           {v.provenance ? <p className="small-note wfgx-prov">{v.provenance}</p> : null}
         </div>
       ) : (
@@ -117,11 +155,7 @@ export function printedJobId(s: PlanSheetScenario): string | null {
   return typeof v === 'string' && v ? v : null;
 }
 
-function SheetRow({ regionId, originId, s, index, lang }: { regionId: string; originId: string; s: PlanSheetScenario; index: number; lang: Lang }) {
-  const st = useExplanationFile(regionId, s.inputTimeIso);
-  // like the panel: the explanation is printed only for the very route check whose route is printed
-  const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null, bestJobId: printedJobId(s) };
-  const v = viewFor(st, originId, s.inputTimeIso, lang, shown);
+function SheetRow({ s, index, v }: { s: PlanSheetScenario; index: number; v: ExplainView }) {
   const full = v.kind === 'explained' || v.kind === 'explained_partial';
   return (
     <li className="wfgx-sheet__row" data-explain-state={v.kind} data-explain-reason={v.reason ?? ''} data-scenario={s.scenarioSetId}>
@@ -135,21 +169,42 @@ function SheetRow({ regionId, originId, s, index, lang }: { regionId: string; or
   );
 }
 
-/** Plan-sheet section: one line per recorded scenario row (drawn-zone rows have no explanation). */
+/**
+ * Plan-sheet section: one line per recorded scenario row (drawn-zone rows have no explanation). The footer states the
+ * forecast basis and — once per sheet, when a printed sentence carries the mark — what the mark means and where it
+ * was computed (one note per distinct computing host among the marked rows; the committed files share one).
+ */
 export function ExplainSheetSection({ sheet, lang }: { sheet: PlanSheetData; lang: Lang }) {
   const rows = sheet.fireInputType === 'spread_zones' ? [] : sheet.scenarios.map((s, i) => ({ s, i })).filter(({ s }) => !s.issuedAtIso);
-  const first = useExplanationFile(rows.length ? sheet.region.id : null, rows[0]?.s.inputTimeIso ?? null);
+  const files = useExplanationFiles(rows.length ? sheet.region.id : null, rows.map(({ s }) => s.inputTimeIso));
   if (!rows.length) return null;
-  const total = first.file?.provenance.members?.length ?? null;
+  const views = rows.map(({ s, i }) => {
+    // like the panel: the explanation is printed only for the very route check whose route is printed
+    const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null, bestJobId: printedJobId(s) };
+    return { s, i, v: viewFor(files[s.inputTimeIso]!, sheet.origin.id, s.inputTimeIso, lang, shown) };
+  });
+  const total = rows.map(({ s }) => files[s.inputTimeIso]?.file?.provenance.members?.length).find((n) => n) ?? null;
+  // the note names the computing host of the file: rows from files computed on different hosts get one note each
+  const notes = [...new Set(views.map(({ v }) => v.sheetNote).filter((n): n is string => Boolean(n)))];
   return (
     <section className="wfgf-sheet__section wfgx-sheet" data-explain-sheet="true">
       <h2>{pick(EXPLAIN.sheetTitle, lang)}</h2>
       <ul className="wfgx-sheet__list">
-        {rows.map(({ s, i }) => (
-          <SheetRow key={`${s.scenarioSetId}-${i}`} regionId={sheet.region.id} originId={sheet.origin.id} s={s} index={i} lang={lang} />
+        {views.map(({ s, i, v }) => (
+          <SheetRow key={`${s.scenarioSetId}-${i}`} s={s} index={i} v={v} />
         ))}
       </ul>
-      {total ? <p className="wfgf-sheet__muted wfgx-sheet__basis">{fill(pick(EXPLAIN.basis, lang), { total })}</p> : null}
+      {total || notes.length ? (
+        <p className="wfgf-sheet__muted wfgx-sheet__basis">
+          {total ? fill(pick(EXPLAIN.basis, lang), { total }) : null}
+          {notes.map((note, k) => (
+            <span key={note} className="wfgx-sheet__note" data-explain-note="computed">
+              {total || k > 0 ? ' ' : ''}
+              {note}
+            </span>
+          ))}
+        </p>
+      ) : null}
     </section>
   );
 }
