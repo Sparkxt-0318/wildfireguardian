@@ -6,7 +6,7 @@
  * Adding a language: write ./templates/<code>.ts against the same TemplateSet, register it below
  * with `nativeSpeakerReview: 'pending'` and its SMS encoding; it stays out of the panel, the CSV and
  * every output (`enabled: false`) until a native speaker has reviewed it and the flag is 'done'.
- * Machine-translated languages are never shipped (tests/planner/lastmile.test.ts checks the flags).
+ * No further language is shipped before that review (tests/planner/lastmile.test.ts checks the flags).
  */
 import type { LmLang, LmText } from './types';
 
@@ -41,7 +41,7 @@ export const LANGUAGES: Record<LmLang, LanguageMeta> = {
     nativeSpeakerReview: 'pending',
     enabled: true,
     sms: { encoding: 'gsm7', limit: 160, unit: 'chars' },
-    note: 'Translation of the Korean source, written by the project (not machine-translated); native-speaker review pending.',
+    note: 'Translation of the Korean source, written by the project with AI assistance (not produced by a translation engine); native-speaker review pending.',
   },
 };
 
@@ -57,7 +57,9 @@ export const MODEL_NOT_LIVE: LmText = { ko: '모델 기반 계획 정보 · 실�
 /**
  * Short forms used ONLY in the single SMS, where the verbatim lines cannot fit: a Korean SMS is
  * 90 bytes (45 Hangul) in total, and the two lines alone take 62 bytes (28 + 34). The long text
- * (LMS), the card, the broadcast and the call script carry the verbatim lines.
+ * (LMS) and the card carry both lines verbatim; the broadcast and the call script say OFFICIAL_FIRST
+ * as it is and MODEL_NOT_LIVE as a sentence (MODEL_PLAN_SPOKEN, MODEL_NOT_LIVE_SPOKEN), never in its
+ * written "· 실시간 아님" form.
  */
 export const OFFICIAL_FIRST_SMS: LmText = { ko: '공식명령 우선', en: 'Official orders come first.' };
 export const MODEL_NOT_LIVE_SMS: LmText = { ko: '실시간 아님', en: 'not live' };
@@ -191,21 +193,24 @@ export const UI = {
   },
   noData: { ko: '결과가 없어 현장 문구를 만들 수 없습니다.', en: 'No results, so no field messages can be made.' },
   researchNote: {
-    ko: '연구용 출발 지점에는 현장 문구를 만들지 않습니다(주민이 사는 곳이 아님). 마을과 돌봄 시설의 문구는 열어서 볼 수 있습니다.',
-    en: 'No field messages for research start points (nobody lives there). Messages for villages and care facilities can be opened here.',
+    ko: '연구 패널 출발점에는 현장 문구를 만들지 않습니다(기록 임무의 출발 도로 지점 — 마을·돌봄 시설이 아님). 마을과 돌봄 시설의 문구는 열어서 볼 수 있습니다.',
+    en: "No field messages for research panel origins (a recorded mission's start road node, not a village or care facility). Messages for villages and care facilities can be opened here.",
   },
   dialogTitle: { ko: '현장 전달 문구', en: 'Field messages' },
+  /** what each output carries (requiredPhrases + the data-time check in checks.ts; tested) */
   dialogLead: {
-    ko: '이장·돌봄 인력이 주민과 가족에게 전할 문구입니다. 모든 문구에 자료 시각, "공식 대피 명령이 우선합니다", "모델 기반 계획 정보 · 실시간 아님"이 들어 있습니다. 정해진 틀로만 만들며 실시간 정보가 아닙니다.',
-    en: 'Wording for village heads and care staff to pass on. Every message states the data time, "Official evacuation orders come first" and "Model-based planning information · not live". Built from fixed templates only; not live information.',
+    ko: '이장·돌봄 인력이 주민과 가족에게 전할 문구입니다. 모든 문구에 자료 시각과 "공식 대피 명령이 우선합니다", "모델 기반 계획 정보 · 실시간 아님"이 들어 있습니다. 장문과 카드는 이 두 줄을 그대로, 단문 문자는 줄인 말("공식명령 우선", "모델", "실시간 아님")로 싣고, 마을방송과 전화 대본은 말로 풀어 전합니다(기록 재현 방송은 "실시간 아님" 대신 "실제 상황이 아닙니다"). 정해진 틀로만 만들며 실시간 정보가 아닙니다.',
+    en: 'Wording for village heads and care staff to pass on. Every text carries the data time and the notices "Official evacuation orders come first" and "Model-based planning information · not live": verbatim in the long text and the card, as short forms in the SMS ("Official orders come first.", "Model-based plan", "not live"), spoken in the broadcast and call script (a replay broadcast says "This is not a real emergency" instead of "not live"). Built from fixed templates only; not live information.',
   },
   close: { ko: '닫기', en: 'Close' },
   origin: { ko: '출발지', en: 'Origin' },
   verdict: { ko: '모델 판정', en: 'Model verdict' },
   kind: { ko: '안내 종류', en: 'Message type' },
+  /** per origin: precomputed cache (file, created time) or API checks of this session (compute host); "no result for this origin" when there is none */
+  resultSource: { ko: '결과 출처', en: 'Result source' },
   kindLabel: {
     leave_by: { ko: '출발 마감 안내', en: 'Leave-by message' },
-    no_route: { ko: '경로 없음 · 즉시 연락', en: 'No route · contact now' },
+    no_route: { ko: '모델상 경로 없음 · 즉시 연락', en: 'No route in the model · contact now' },
     unresolved: { ko: '미확인 · 공식 안내 따르기', en: 'Unresolved · follow official guidance' },
     partial: { ko: '부분 확인 · 공식 안내 따르기', en: 'Partly checked · follow official guidance' },
   },
@@ -237,11 +242,12 @@ export const UI = {
     done: { ko: '원어민·현장 검토 완료', en: 'reviewed by native speakers and in the field' },
     pending: { ko: '원어민·현장 검토 전', en: 'not yet reviewed by native speakers or in the field' },
   },
-  checksFailed: { ko: '검사 실패 — 이 문구는 쓰지 마십시오', en: 'Check failed — do not use this text' },
+  checksFailed: { ko: '검사 실패 — 회색으로 표시된 문구는 쓰지 마십시오', en: 'Check failed — do not use the greyed texts' },
   cardLang: { ko: '카드 언어', en: 'Card language' },
   printA5: { ko: '이 카드 인쇄 (A5)', en: 'Print this card (A5)' },
   printA4: { ko: '이 카드 인쇄 (A4)', en: 'Print this card (A4)' },
   printAll: { ko: '전체 출발지 카드 인쇄 (A5)', en: 'Print all origin cards (A5)' },
+  printAllLeftOut: { ko: '검사 실패로 인쇄하지 않는 카드 {n}곳: {list}', en: '{n} cards left out (check failed): {list}' },
   csv: { ko: '전체 문구 CSV ({n}곳)', en: 'All messages CSV ({n} origins)' },
   csvSaved: { ko: '저장됨: {name}', en: 'Saved: {name}' },
   csvError: { ko: '저장하지 못했습니다: {msg}', en: 'Could not save: {msg}' },

@@ -5,9 +5,10 @@
  */
 import { parseUtc } from '../../domain/clock';
 import type { Verdict } from '../../domain/types';
+import { kstStamp } from '../shared/format';
 import { spokenSeconds } from './encoding';
 import type { MessagePlan } from './plan';
-import type { LmLang, LmText } from './types';
+import type { LastMileInput, LmLang, LmText } from './types';
 
 /** One language's templates (./templates/<lang>.ts). Every output is built from fixed text only. */
 export interface TemplateSet {
@@ -42,6 +43,21 @@ const p2 = (n: number) => String(n).padStart(2, '0');
 export function hm(inputIso: string, offsetS = 0): string {
   const p = kstParts(inputIso, offsetS);
   return `${p2(p.h)}:${p2(p.mi)}`;
+}
+
+/**
+ * The arrival shown next to a departure time, from ONE rounding: the arrival rounded UP to the whole
+ * minute (never earlier than the model's arrival; the departure is shown as hm() shows it) and the
+ * travel minutes as the difference of the two clocks shown — "10:10에 출발하면 10:53쯤 도착(차로 약
+ * 43분)" for a 42 min 55 s trip, so the clock and the minutes always agree.
+ */
+export function arrivalShown(inputIso: string, departS: number, arrivalS: number): { hm: string; min: number } {
+  const t0 = parseUtc(inputIso);
+  // whole minutes since the epoch (KST is a whole number of minutes ahead of UTC)
+  const depMin = Math.floor((t0 + Math.floor(departS) * 1000) / 60000);
+  const arrMin = Math.ceil((t0 + arrivalS * 1000) / 60000);
+  const k = new Date(arrMin * 60000 + KST_MS);
+  return { hm: `${p2(k.getUTCHours())}:${p2(k.getUTCMinutes())}`, min: arrMin - depMin };
 }
 
 /** "2025-03-24" (KST). */
@@ -118,6 +134,40 @@ export function distanceText(m: number): string {
   return `${Math.round(m)} m`;
 }
 
+// ---------------------------------------------------------------- result provenance
+
+/** "이 출발지 결과 없음": the source holds no result for this origin (provenance.computed false). */
+const NO_RESULT: LmText = { ko: '이 출발지 결과 없음', en: 'no result for this origin' };
+
+/**
+ * Where an origin's result comes from, as the long text's data line and the card's staff line say
+ * it: "사전 계산 2026-10-18 08:10 KST" (the precomputed cache's created time) or "API 점검 결과 ·
+ * 계산 호스트 Linux x86_64 · 4 vCPU" ("API results · host …", the planner's own name for results
+ * of API checks run in this session). A live result never carries the cache's stamp. An origin the
+ * source holds no result for is never called computed: "사전 계산 캐시 2026-10-18 08:10 KST · 이
+ * 출발지 결과 없음" / "API 점검 · 이 출발지 결과 없음" ("… · no result for this origin").
+ */
+export function resultSource(input: Pick<LastMileInput, 'provenance'>, lang: LmLang): string {
+  const p = input.provenance;
+  if (p.source === 'cache') {
+    const at = p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null;
+    if (!p.computed) return [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', at].filter(Boolean).join(' ') + ` · ${NO_RESULT[lang]}`;
+    return lang === 'ko' ? (at ? `사전 계산 ${at}` : '사전 계산 캐시') : at ? `Precomputed ${at}` : 'Precomputed cache';
+  }
+  if (!p.computed) return lang === 'ko' ? `API 점검 · ${NO_RESULT.ko}` : `API checks · ${NO_RESULT.en}`;
+  return lang === 'ko' ? `API 점검 결과 · 계산 호스트 ${p.host?.ko ?? '미상'}` : `API results · host ${p.host?.en ?? 'unknown'}`;
+}
+
+/** The same with the cache file and the evaluated-host status, for the CSV and the panel. */
+export function resultSourceFull(input: Pick<LastMileInput, 'provenance' | 'testData'>, lang: LmLang): string {
+  const p = input.provenance;
+  const head =
+    p.source === 'cache'
+      ? [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', p.cachePath, p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null, p.computed ? null : NO_RESULT[lang]].filter(Boolean).join(' · ')
+      : resultSource(input, lang);
+  return input.testData ? `${head} · ${lang === 'ko' ? '평가 호스트 아님' : 'not the evaluation host'}` : head;
+}
+
 // ---------------------------------------------------------------- card content
 
 export type CardLineRole = 'instruction' | 'destination' | 'guide' | 'reason' | 'after' | 'note' | 'status' | 'meaning';
@@ -180,18 +230,24 @@ export interface SpokenBlock {
   optional?: SpokenOptional;
   /**
    * Shorter wording of a required block (same facts, fewer words — e.g. without a long place name
-   * that the written outputs carry). Used, block by block in order, only while the required blocks
-   * alone exceed the budget.
+   * that the written outputs carry, or the MOCK / test-data marker folded into the data sentence).
+   * Used, block by block in order, only while the required blocks alone exceed the budget.
    */
   short?: string;
+  /**
+   * A last-resort wording (e.g. the greeting without the place name), used the same way only while
+   * the required blocks still exceed the budget after every `short`.
+   */
+  shortest?: string;
 }
 
 export const SPOKEN_PRIORITY: readonly SpokenOptional[] = ['reason', 'repeat'];
 
 /**
  * Joins the blocks (one per line): every required block — in its shorter wording, block by block
- * in order, only while the required blocks alone would exceed `maxS` — then the optional ones in
- * the fixed priority order while the estimated reading time stays within `maxS`. Deterministic.
+ * in order, only while the required blocks alone would exceed `maxS`; then, still over, in its
+ * shortest wording, block by block — then the optional ones in the fixed priority order while the
+ * estimated reading time stays within `maxS`. Deterministic.
  */
 export function assembleSpoken(blocks: SpokenBlock[], lang: LmLang, maxS: number): string {
   const used = blocks.map((b) => ({ ...b }));
@@ -201,9 +257,12 @@ export function assembleSpoken(blocks: SpokenBlock[], lang: LmLang, maxS: number
       .map((b) => b.text)
       .join('\n');
   const keep = new Set<SpokenBlock>(used.filter((b) => !b.optional));
-  for (const b of used) {
-    if (spokenSeconds(join(keep), lang) <= maxS) break;
-    if (!b.optional && b.short) b.text = b.short;
+  for (const level of ['short', 'shortest'] as const) {
+    for (const b of used) {
+      if (spokenSeconds(join(keep), lang) <= maxS) break;
+      const s = b[level];
+      if (!b.optional && s) b.text = s;
+    }
   }
   for (const pri of SPOKEN_PRIORITY) {
     for (const b of used.filter((x) => x.optional === pri)) {

@@ -28,8 +28,8 @@ export const BROADCAST_MAX_S = 60;
  */
 export const KO_SYLLABLES_PER_S = 3.0;
 /**
- * Assumed English reading rate: 2.0 words per second (120 words per minute), a conservative figure
- * below the 150–160 wpm usually quoted for read speech; every digit is counted as a word.
+ * Assumed English reading rate: 2.0 words per second (120 words per minute) — an assumption without
+ * a measured source, chosen slow for loudspeaker listening; every digit is counted as a word.
  */
 export const EN_WORDS_PER_S = 2.0;
 

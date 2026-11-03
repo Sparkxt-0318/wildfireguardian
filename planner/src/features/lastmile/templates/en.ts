@@ -8,6 +8,7 @@ import { kstStamp } from '../../shared/format';
 import { FOOTER_APP } from '../../shared/strings';
 import { ENTRY_LIMIT_M } from '../../../domain/plan';
 import {
+  arrivalShown,
   durationText,
   distanceText,
   enDate,
@@ -15,6 +16,7 @@ import {
   enSpokenTime,
   hm,
   kstParts,
+  resultSource,
   ymd,
   type CardContent,
   type CardLine,
@@ -85,24 +87,31 @@ function exitNames(r: Exits, max: number): string {
   return names.length > max ? `${names.slice(0, max).join(', ')} and others` : names.join(', ');
 }
 
+/**
+ * The exits of the explanation file are the roads where the area reachable by car from the entry
+ * point WITHOUT meeting flames ends (tools/explain_deadlines README §4) — not the roads out of the
+ * village (see ko.ts).
+ */
 function exitsWritten(p: MessagePlan, r: Exits, max: number): string {
   const range = durationText(p.input.scenario.horizonS, 'en');
+  const area = `leading out of the area reachable by car from this ${placeWord(p)} without meeting flames`;
   const when = r.atStart ? 'already blocked by flames at the data time' : `blocked by flames within ${range} of the data time`;
   const members = r.kMin >= r.n ? `in all ${r.n} fire scenarios from the forecast` : `in at least ${r.kMin} of ${r.n} fire scenarios from the forecast`;
-  if (r.roads === 1) return `Why: the only road out of this ${placeWord(p)} by car (${exitNames(r, max)}) is ${when} (${members}).`;
+  if (r.roads === 1) return `Why: the only road ${area} (${exitNames(r, max)}) is ${when} (${members}).`;
   if (r.exits.length === 1) {
     // several roads with one label: "(both near Gugye-ri)"
     const l = r.exits[0]!;
     // "a road about 800 m from this village" → "(both about 800 m from this village)"
     const what = l.source === 'unnamed' ? 'unnamed' : l.text.en.replace(/^(a|the) road /, '');
-    return `Why: the ${r.roads} roads out of this ${placeWord(p)} by car (${r.roads === 2 ? 'both' : 'all'} ${what}) are ${when} (on each road, ${members}).`;
+    return `Why: the ${r.roads} roads ${area} (${r.roads === 2 ? 'both' : 'all'} ${what}) are ${when} (on each road, ${members}).`;
   }
-  return `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of this ${placeWord(p)} by car (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
+  return `Why: ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} ${area} (${exitNames(r, max)}) are ${when} (on each road, ${members}).`;
 }
 
 function exitsSpoken(p: MessagePlan, r: Exits): string {
+  const area = 'leading out of the area reachable from here without meeting flames';
   const when = r.atStart ? 'already blocked by flames' : `blocked by flames within ${durationText(p.input.scenario.horizonS, 'en')}`;
-  return r.roads === 1 ? `In the forecast, the only road out of here by car is ${when}.` : `In the forecast, ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} out of here by car are ${when}.`;
+  return r.roads === 1 ? `In the forecast, the only road ${area} is ${when}.` : `In the forecast, ${r.roads === 2 ? 'both roads' : `all ${r.roads} roads`} ${area} are ${when}.`;
 }
 
 /** The model_no_route reason in writing (long text, card), or null. */
@@ -111,8 +120,9 @@ function noRouteReasonWritten(p: MessagePlan, max: number): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsWritten(p, r, max);
   if (r.kind === 'entry_in_flame') return `Why: in the fire scenarios from the forecast, the entry point of this ${placeWord(p)} (the nearest road point) is already in flames at departure.`;
-  if (r.kind === 'no_route_flames') return `Why: from every departure time checked, no destination can be reached and the stay finished within the ${rangeAdj(p)} data range on a road that avoids the flames in the fire scenarios from the forecast.`;
-  if (r.kind === 'no_route_time_window') return `Why: from every departure time checked, no destination can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire.`;
+  // the file's claim covers the candidate shelters the planner tried, never every possible destination
+  if (r.kind === 'no_route_flames') return `Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the ${rangeAdj(p)} data range on a road that avoids the flames in the fire scenarios from the forecast.`;
+  if (r.kind === 'no_route_time_window') return `Why: from every departure time checked, none of the destinations checked (candidate shelters) can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire.`;
   return null;
 }
 
@@ -123,8 +133,8 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
   if (!r) return null;
   if (r.kind === 'all_exits_blocked') return exitsSpoken(p, r);
   if (r.kind === 'entry_in_flame') return 'In the forecast, the road entry point here is already in flames.';
-  if (r.kind === 'no_route_flames') return `In the forecast, no route that avoids the flames reaches a destination within ${range}.`;
-  if (r.kind === 'no_route_time_window') return `Even without fire, no destination can be reached within ${range}.`;
+  if (r.kind === 'no_route_flames') return `In the forecast, no route that avoids the flames reaches any of the destinations checked within ${range}.`;
+  if (r.kind === 'no_route_time_window') return `Even without fire, none of the destinations checked can be reached within ${range}.`;
   return null;
 }
 
@@ -132,7 +142,7 @@ function noRouteReasonSpoken(p: MessagePlan): string | null {
 function smsTag(p: MessagePlan): string {
   const t = `${ymd(iso(p))} ${hm(iso(p))} KST`;
   if (!p.input.replay) return `Planning data of ${t}, ${MODEL_NOT_LIVE_SMS.en}`;
-  const pre = p.input.mock ? 'MOCK ' : p.input.testData ? 'TEST ' : '';
+  const pre = (p.input.mock ? 'MOCK ' : '') + (p.input.testData ? 'TEST ' : '');
   return `${pre}REPLAY of ${t} data, ${MODEL_NOT_LIVE_SMS.en}`;
 }
 
@@ -182,20 +192,32 @@ function afterWritten(p: MessagePlan, T: string, card: boolean): CardLine {
     };
   }
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return { role: 'reason', text: `Why: leaving at the next checked time, ${N}, no destination can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.` };
+    return {
+      role: 'reason',
+      text: card
+        ? `Why: at the next checked time, ${N}, no destination checked can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.`
+        : `Why: leaving at the next checked time, ${N}, none of the destinations checked (candidate shelters) can be reached and the stay finished in time on a road that avoids the flames in the fire scenarios from the forecast.`,
+    };
   }
   if (r && r.kind === 'time_window') {
-    return { role: 'after', text: `Leaving at the next checked time, ${N}, the trip cannot finish within the ${rangeAdj(p)} data range, so later departures were not checked; ${NOT_FIRE_EN}` };
+    // only what is established (see ko.ts): the next checked time fails for every destination checked, later times have no checked route
+    return {
+      role: 'after',
+      text: card
+        ? `Next checked time ${N}: even without fire, no destination checked fits the ${rangeAdj(p)} range (arrival and stay). No checked route after ${T}; ${NOT_FIRE_EN}`
+        : `Leaving at the next checked time, ${N}, none of the destinations checked can be reached and the stay finished within the ${rangeAdj(p)} data range, even without fire; departures after ${T} have no checked route in the model; ${NOT_FIRE_EN}`,
+    };
   }
   if (p.after === 'horizon') {
     return card
       ? { role: 'after', text: `Later departures were not checked (data range ${range}); ${NOT_FIRE_EN}` }
       : { role: 'after', text: `${T} KST is the last departure time the model checked. Later departures were not checked (data range: ${range} from the data time); ${NOT_FIRE_EN}` };
   }
+  // a later time without a checked route may have been checked (model_no_route): never "not checked"
   if (p.after === 'gap') {
     return card
-      ? { role: 'after', text: `Some departure times after ${T} were not checked; this card covers up to ${T}.` }
-      : { role: 'after', text: `Some departure times after ${T} could not be checked, so this message covers departures up to ${T} only.` };
+      ? { role: 'after', text: `Some departure times after ${T} have no checked route; this card covers up to ${T}.` }
+      : { role: 'after', text: `Some departure times after ${T} have no checked route in the model, so this message covers departures up to ${T} only.` };
   }
   return { role: 'after', text: card ? `No checked route for departures after ${T}.` : `Departures after ${T} have no checked route in the model.` };
 }
@@ -206,11 +228,11 @@ function afterSpoken(p: MessagePlan): string {
   if (r && r.kind === 'flame_on_route') return latin(r.road.text.en) ? sentence(`In ${kOfN(r.k, r.n)}, flames reach ${r.road.text.en} around ${enSpokenTime(t0, r.flameS)}`) : sentence(`In ${kOfN(r.k, r.n)}, flames reach a road on the way around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'dwell_at_destination') return sentence(`In ${kOfN(r.k, r.n)}, flames reach the destination area around ${enSpokenTime(t0, r.flameS)}`);
   if (r && r.kind === 'no_flame_avoiding_route') {
-    return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, no destination can be reached in time on a road that avoids the flames in the forecast.`;
+    return `Leaving at the next checked time, ${enSpokenTime(t0, p.nextOffsetS ?? p.leaveByS ?? 0)}, none of the destinations checked can be reached in time on a road that avoids the flames in the forecast.`;
   }
-  if (r && r.kind === 'time_window') return `Later departures were not confirmed; ${NOT_FIRE_EN}`;
+  if (r && r.kind === 'time_window') return `Later departures have no checked route; ${NOT_FIRE_EN}`;
   if (p.after === 'horizon') return `Later departures were not checked; ${NOT_FIRE_EN}`;
-  if (p.after === 'gap') return 'Some later departure times were not checked.';
+  if (p.after === 'gap') return 'Some later departure times have no checked route.';
   return 'Later departures have no checked route.';
 }
 
@@ -235,9 +257,9 @@ function bodyLines(p: MessagePlan, target: 'lms' | 'card'): CardLine[] {
     if (d) {
       if (p.destinationVaries) {
         out.push({ role: 'destination', text: `The destination depends on the departure time. Destination the model checked for leaving at ${T}: ${destWritten(d)}.` });
-      } else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-        const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-        out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}. Leaving at ${T}, arrival around ${hm(t0, d.arrivalS)} KST (about ${min} min by car; traffic not included).` });
+      } else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+        const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+        out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}. Leaving at ${T}, arrival around ${a.hm} KST (about ${a.min} min by car; traffic not included).` });
       } else {
         out.push({ role: 'destination', text: `Destination the model checked: ${destWritten(d)}.` });
       }
@@ -283,9 +305,9 @@ function leaveByCardLines(p: MessagePlan): CardLine[] {
   const d = p.destination;
   if (d) {
     if (p.destinationVaries) out.push({ role: 'destination', text: `The destination depends on the departure time; for ${T}: ${destWritten(d)}` });
-    else if (d.arrivalS !== null && d.arrivalS >= p.leaveByS) {
-      const min = Math.max(1, Math.round((d.arrivalS - p.leaveByS) / 60));
-      out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}; leave ${T}, arrive around ${hm(t0, d.arrivalS)} (about ${min} min by car; traffic not included)` });
+    else if (d.arrivalS !== null && d.arrivalS > p.leaveByS) {
+      const a = arrivalShown(t0, p.leaveByS, d.arrivalS);
+      out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}; leave ${T}, arrive around ${a.hm} (about ${a.min} min by car; traffic not included)` });
     } else out.push({ role: 'destination', text: `Model-checked destination: ${destWritten(d)}` });
   }
   out.push(afterWritten(p, T, true));
@@ -309,8 +331,20 @@ function closingNotes(p: MessagePlan): string[] {
   const out: string[] = [];
   if (p.input.replay) out.push(`Replay of recorded ${year(p)} wildfire scenarios.`);
   if (p.input.mock) out.push('MOCK: recorded results replayed by the mock server.');
-  if (p.input.testData) out.push('Test data: computed on a host other than the evaluation host.');
+  if (p.input.testData) out.push(testDataNote(p));
   return out;
+}
+
+/** Why the result is marked test data (see ko.ts; names only the hosts that are not the evaluated host). */
+function testDataNote(p: MessagePlan): string {
+  const v = p.input.provenance;
+  if (v.source === 'cache') return v.computed ? 'Test data: computed on a host other than the evaluation host.' : 'Test data: a cache made on a host other than the evaluation host.';
+  if (!v.host) return 'Test data: the compute host is unknown, so this is not treated as evaluation-host output.';
+  const other = v.testHost === undefined ? v.host : v.testHost;
+  if (!other) return 'Test data: the compute host of some results is unknown, so this is not treated as evaluation-host output.';
+  return other.en === v.host.en
+    ? `Test data: computed through the API on a host other than the evaluation host (${other.en}).`
+    : `Test data: includes results computed through the API on a host other than the evaluation host (${other.en}).`;
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -329,6 +363,14 @@ function dataSentence(p: MessagePlan, lead: string): string {
   return core + (p.input.mock ? ' This is mock server data.' : '') + (p.input.testData ? ' These are test results.' : '');
 }
 
+/** The broadcast's data sentence; with a MOCK / test-data marker, a shorter wording that keeps every marker (see ko.ts). */
+function dataBlock(p: MessagePlan): SpokenBlock {
+  const text = dataSentence(p, 'This is ');
+  if (!p.input.replay || (!p.input.mock && !p.input.testData)) return { text };
+  const marker = p.input.mock && p.input.testData ? 'mock server test results' : p.input.mock ? 'mock server data' : 'test results';
+  return { text, short: `This is ${MODEL_PLAN_SPOKEN.en} from a replay of recorded wildfire data, ${enDateSpoken(iso(p))} Korea time; ${marker}.` };
+}
+
 export const EN: TemplateSet = {
   lang: 'en',
 
@@ -345,7 +387,7 @@ export const EN: TemplateSet = {
     return [
       lmsTag(p),
       `Wildfire evacuation plan information - ${originWritten(p)}`,
-      `Data time: ${enDate(iso(p))}`,
+      `Data time: ${enDate(iso(p))} · ${resultSource(p.input, 'en')}`,
       '',
       ...bodyLines(p, 'lms').map((l) => `- ${l.text}`),
       '',
@@ -361,14 +403,17 @@ export const EN: TemplateSet = {
     const o = p.input.origin;
     const blocks: SpokenBlock[] = [];
     if (p.input.replay) blocks.push({ text: NOT_REAL.en });
+    // a long place name is the last thing dropped (the written outputs carry it)
     blocks.push(
       o.kind === 'facility'
         ? o.name && latin(o.name.en)
-          ? { text: `Attention, staff and residents of ${o.name.en}.`, short: `Attention, ${o.name.en}.` }
-          : { text: 'Attention, staff and residents of this facility.' }
-        : { text: o.name && latin(o.name.en) ? `Attention, residents of ${o.name.en}.` : 'Attention, residents.' },
+          ? { text: `Attention, staff and residents of ${o.name.en}.`, short: `Attention, ${o.name.en}.`, shortest: 'Attention, everyone.' }
+          : { text: 'Attention, staff and residents of this facility.', shortest: 'Attention, everyone.' }
+        : o.name && latin(o.name.en)
+          ? { text: `Attention, residents of ${o.name.en}.`, shortest: 'Attention, residents.' }
+          : { text: 'Attention, residents.' },
     );
-    blocks.push({ text: dataSentence(p, 'This is ') });
+    blocks.push(dataBlock(p));
     const repeat: SpokenBlock | null = p.input.replay ? { optional: 'repeat', text: `Again: this is not a real emergency; it is a replay of recorded ${year(p)} data.` } : null;
     if (p.kind === 'leave_by' && p.leaveByS !== null) {
       const S = enSpokenTime(t0, p.leaveByS);
@@ -408,9 +453,11 @@ export const EN: TemplateSet = {
     const lines: string[] = [];
     lines.push(`[Before the call] ${OFFICIAL_FIRST.en} What follows is ${MODEL_NOT_LIVE_SPOKEN.en}, not live information. Fill in the [brackets] yourself.`);
     if (p.kind === 'no_route') lines.push(`[Before the call] Check that the ${facility(p) ? 'facility' : 'village head'} has contacted 119 and the eup/myeon office first.`);
+    // a name without a Latin-script form (OSM name:en) is never read out: generic wording, as in the broadcast
     if (o.name && o.kind === 'facility') {
-      lines.push(`Hello, this is [staff name] from ${o.name.en}. I am calling the family of [resident name] about the wildfire evacuation plan.`);
-    } else if (o.name && o.kind === 'village') {
+      const from = latin(o.name.en) ? o.name.en : `the ${o.category.en.toLowerCase()}`;
+      lines.push(`Hello, this is [staff name] from ${from}. I am calling the family of [resident name] about the wildfire evacuation plan.`);
+    } else if (o.name && o.kind === 'village' && latin(o.name.en)) {
       lines.push(`Hello, this is [your name and role]. I am calling the family of [resident name], who lives in ${o.name.en}, about the wildfire evacuation plan.`);
     } else {
       lines.push('Hello, this is [your name and role]. I am calling the family of [resident name] about the wildfire evacuation plan.');
@@ -420,9 +467,11 @@ export const EN: TemplateSet = {
       const S = enSpokenTime(t0, p.leaveByS);
       const dist = o.entryDistanceM;
       const from = dist !== null && dist > ENTRY_SPOKEN_MIN_M ? `the road ${distanceText(dist)} from the ${place}` : `the road near the ${place}`;
+      // no Latin-script name: the caller says it from the card ([brackets], as for the resident's name); the family has no card
+      const dest = p.destination && !p.destinationVaries ? (p.destination.name === null || latin(p.destination.name.en) ? destSpoken(p.destination) : '[destination name from the card]') : null;
       lines.push(
-        p.destination && !p.destinationVaries
-          ? `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route to ${destSpoken(p.destination)}.`
+        dest
+          ? `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route to ${dest}.`
           : `In the computer forecast (the model), leaving by car from ${from} no later than ${S} gives a checked route. The destination depends on the departure time.`,
       );
       lines.push(afterSpoken(p));
@@ -433,6 +482,8 @@ export const EN: TemplateSet = {
       );
       const why = noRouteReasonSpoken(p);
       if (why) lines.push(why);
+      // what the family itself is told (as in the broadcast): follow official instructions; 119 in an emergency
+      lines.push(noRouteSpoken(p));
     } else if (p.kind === 'partial') {
       lines.push('Computer forecast results differ by departure time, so no single departure time is given. Official evacuation guidance must be followed.');
     } else {
@@ -450,7 +501,6 @@ export const EN: TemplateSet = {
     if (p.input.replay) badges.push('Not a real emergency');
     if (p.input.mock) badges.push('MOCK');
     if (p.input.testData) badges.push('Test data · not the evaluation host');
-    const cache = p.input.provenance.cacheCreatedAtIso;
     const d = p.destination;
     return {
       lang: 'en',
@@ -468,14 +518,16 @@ export const EN: TemplateSet = {
           : null,
       lines: p.kind === 'leave_by' ? leaveByCardLines(p) : bodyLines(p, 'card'),
       official: OFFICIAL_FIRST.en,
-      dataLine: `Data time: ${enDate(t0)}${p.input.replay ? ` · Replay of recorded ${year(p)} wildfire scenarios` : ''}`,
+      // one line on A5 (the header already says "Recorded 2025 wildfire · scenario replay"), leaving room for a MOCK / test-data badge row
+      dataLine: `Data time: ${enDate(t0)}${p.input.replay ? ` · replay of ${year(p)} data` : ''}`,
       modelLine: MODEL_NOT_LIVE.en,
       limits: cardLimits(p),
       footer: FOOTER_APP.en,
       meta: [
         `Scenario ${p.input.scenario.scenarioSetId}`,
         `Prepared ${kstStamp(p.input.generatedAtIso)}`,
-        cache ? `Precomputed ${kstStamp(cache)}` : null,
+        // per origin: the cache's created time, or this session's API checks and their compute host — never mixed up
+        resultSource(p.input, 'en'),
         p.kind === 'leave_by' && d && !d.name ? `Dest. ID ${d.id}` : null,
       ]
         .filter(Boolean)

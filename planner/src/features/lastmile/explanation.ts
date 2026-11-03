@@ -13,7 +13,10 @@
  *   destination is one of its `destination_ids`;
  * - `window` with `deadline_cause: time_window` is printed as a time limit — never as a fire
  *   deadline; `no_flame_avoiding_route` (cause `flames`) says only what the file proves: at the next
- *   checked time no destination can be reached in time on a road that avoids the flames;
+ *   checked time none of the destinations checked (the candidate shelters the planner tried) can be
+ *   reached in time on a road that avoids the flames;
+ * - `all_exits_blocked` exits are the roads leaving the area reachable WITHOUT meeting flames, never
+ *   "the roads out of the village";
  * - road labels follow the file's semantics: a nearby named place and the straight-line distance
  *   to it ("구암리에서 약 800 m 떨어진 도로" / "this village"), never a road name;
  * - an unknown reason code, or a detail code not listed for its reason (DETAILS), gives no reason line;

@@ -1,17 +1,25 @@
 /**
  * CSV of every field message of one region and recorded input time: one row per origin in the
  * planner's urgency order, Korean and English texts side by side (mail-merge / bulk-SMS ready).
- * An origin whose texts fail a rule check gets empty text cells and "검사 실패 — 사용 금지"; the
- * last columns state each language's native-speaker / field review state.
+ * Every row carries the data time and its own result source ("결과 출처": the precomputed cache file
+ * and its created time, or the API checks of this session and the compute host, with "평가 호스트
+ * 아님" when not established as evaluated-host output, and "이 출발지 결과 없음" when the source holds
+ * no result for the origin) and, with a reason line, the explanation file it comes from.
+ * A text that fails a rule check gets an empty cell (only that text: fail closed per output) and
+ * the rule-check column says "검사 실패 — 사용 금지" with the violations; the last columns state each
+ * language's native-speaker / field review state, the preparation time and — in every row, also when
+ * a long text is withheld — the planner footer ("사전 계획 보조 도구입니다. …").
  * UTF-8 with BOM, CRLF, RFC 4180 quoting and formula neutralising — the same writer as the
  * dispatch list (../exports/exports.ts).
  */
 import { compactUtc } from '../../domain/clock';
-import { kstDateClock, slug } from '../shared/format';
+import { kstDateClock, kstStamp, slug } from '../shared/format';
 import { CSV_BOM, csvRow } from '../exports/exports';
-import { allTexts, type FieldMessages } from './messages';
-import { LANGUAGES, SHIPPED_LANGS, UI } from './strings';
-import type { LastMileInput, LmLang } from './types';
+import { FOOTER_APP } from '../shared/strings';
+import { resultSourceFull } from './compose';
+import { allTexts, outputOk, type FieldMessages, type ReasonSource } from './messages';
+import { LANGUAGES, SHIPPED_LANGS, UI, type OutputKind } from './strings';
+import { EXPLANATION_SCHEMA, type LastMileInput, type LmLang } from './types';
 
 export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
   ko: [
@@ -28,7 +36,8 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     '산불 입력',
     'MOCK',
     '시험 데이터',
-    '이유 문장 출처',
+    '결과 출처',
+    '이유 자료',
     '문자 KO',
     '문자 KO 바이트 (EUC-KR · 최대 90)',
     '장문 KO',
@@ -45,6 +54,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     '규칙 검사',
     '문구 검토 (원어민·현장)',
     '작성 시각 (KST)',
+    '용도',
   ],
   en: [
     'Priority',
@@ -60,7 +70,8 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     'Fire input',
     'MOCK',
     'Test data',
-    'Reason line source',
+    'Result source',
+    'Reason data',
     'SMS KO',
     'SMS KO bytes (EUC-KR; max 90)',
     'Long text KO',
@@ -77,6 +88,7 @@ export const LASTMILE_CSV_COLUMNS: Record<LmLang, string[]> = {
     'Rule checks',
     'Wording review (native speaker; field)',
     'Prepared (KST)',
+    'Intended use',
   ],
 };
 
@@ -85,6 +97,14 @@ const VERDICT_TEXT: Record<string, Record<LmLang, string>> = {
   model_no_route: { ko: '모델상 경로 없음', en: 'No route in the model' },
   unresolved: { ko: '미확인', en: 'Unresolved' },
 };
+
+/** "uiseong_andong_2025__20250325T170000Z.json (wfg.explanation/1 · 코드 커밋 6855cc61f83e · 생성 2026-11-03 03:15 KST)" */
+export function reasonSourceText(r: ReasonSource, lang: LmLang): string {
+  const parts = [EXPLANATION_SCHEMA];
+  if (r.codeCommit) parts.push(`${lang === 'ko' ? '코드 커밋' : 'code commit'} ${r.codeCommit.slice(0, 12)}`);
+  if (r.generatedAtIso) parts.push(`${lang === 'ko' ? '생성' : 'generated'} ${kstStamp(r.generatedAtIso)}`);
+  return `${r.file} (${parts.join(' · ')})`;
+}
 
 /** "한국어: 검토 전 · English: 검토 전" — every shipped language's native-speaker / field review state. */
 export function reviewStatus(lang: LmLang): string {
@@ -98,11 +118,15 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
   for (const fm of sorted) {
     const input = fm.plan.input;
     const iso = input.scenario.inputTimeIso;
-    // a text that fails a rule check is never exported (fail closed): its cells stay empty
+    // a text that fails a rule check is never exported (fail closed per output): its cell stays empty
     const failed = fm.violations.length > 0;
-    const blank = { sms: '', lms: '', broadcast: '', call: '', card: '' };
-    const ko = failed ? blank : allTexts(fm, 'ko');
-    const en = failed ? blank : allTexts(fm, 'en');
+    const texts = (lang: LmLang) => {
+      const t = allTexts(fm, lang);
+      const keep = (kind: OutputKind) => (outputOk(fm, lang, kind) ? t[kind] : '');
+      return { sms: keep('sms'), lms: keep('lms'), broadcast: keep('broadcast'), call: keep('call') };
+    };
+    const ko = texts('ko');
+    const en = texts('en');
     const d = fm.plan.destination;
     lines.push(
       csvRow([
@@ -119,7 +143,9 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         input.fireInputLabel[lang],
         input.mock ? 'MOCK' : '',
         input.testData ? (lang === 'ko' ? '시험 데이터' : 'test data') : '',
-        fm.reason ? 'wfg.explanation/1' : '',
+        // per origin: the precomputed cache (file, created time) or this session's API checks (compute host); never computed without a result
+        resultSourceFull(input, lang),
+        fm.reasonSource ? reasonSourceText(fm.reasonSource, lang) : '',
         ko.sms,
         fm.metrics.ko.smsUnits,
         ko.lms,
@@ -136,6 +162,8 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         failed ? `${UI.csvFailed[lang]}: ${fm.violations.join(' | ')}` : 'OK',
         reviewStatus(lang),
         kstDateClock(input.generatedAtIso, 0),
+        // the planner footer in every row, also when a long text (which carries it) is withheld
+        FOOTER_APP[lang],
       ]),
     );
   }
