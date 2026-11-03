@@ -322,13 +322,19 @@ function closingNotes(p: MessagePlan): string[] {
   return out;
 }
 
-/** Why the result is marked test data (per origin: a cache made elsewhere, or a live result's host). */
+/**
+ * Why the result is marked test data (per origin: a cache made elsewhere, or a live result's host).
+ * Names only the hosts that are not the evaluated host (provenance.testHost).
+ */
 function testDataNote(p: MessagePlan): string {
   const v = p.input.provenance;
-  if (v.source === 'cache') return '시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.';
-  return v.host
-    ? `시험 데이터: 평가 호스트가 아닌 장비(${v.host.ko})에서 실시간 API로 계산한 결과입니다.`
-    : '시험 데이터: 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
+  if (v.source === 'cache') return v.computed ? '시험 데이터: 평가 호스트가 아닌 장비에서 계산한 결과입니다.' : '시험 데이터: 평가 호스트가 아닌 장비에서 만든 캐시입니다.';
+  if (!v.host) return '시험 데이터: 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
+  const other = v.testHost === undefined ? v.host : v.testHost;
+  if (!other) return '시험 데이터: 일부 결과의 계산 호스트를 알 수 없어 평가 호스트의 결과로 보지 않습니다.';
+  return other.ko === v.host.ko
+    ? `시험 데이터: 평가 호스트가 아닌 장비(${other.ko})에서 API로 계산한 결과입니다.`
+    : `시험 데이터: 평가 호스트가 아닌 장비(${other.ko})에서 API로 계산한 결과가 섞여 있습니다.`;
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -513,7 +519,7 @@ export const KO: TemplateSet = {
       meta: [
         `시나리오 ${p.input.scenario.scenarioSetId}`,
         `작성 ${kstStamp(p.input.generatedAtIso)}`,
-        // per origin: the cache's created time, or the live API and its compute host — never mixed up
+        // per origin: the cache's created time, or this session's API checks and their compute host — never mixed up
         resultSource(p.input, 'ko'),
         p.kind === 'leave_by' && d && !d.name ? `도착지 ID ${d.id}` : null,
       ]

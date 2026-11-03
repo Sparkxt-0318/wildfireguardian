@@ -99,15 +99,26 @@ as `기록재현` — when both apply; English `MOCK` / `TEST` / `MOCK TEST`); t
   2026-10-18 08:10 KST" on the long text's data line and the card's staff line; the cache file and
   time in the CSV) and the cache's own test-data flag (`planner/cache/**` was computed on the
   evaluated native macOS arm64 host);
-- a result computed through the API — an origin recomputed in a cached scenario, or a live session
-  such as the Docker front door's Linux API — never carries the cache's stamp; it says "실시간 API
-  계산 · 계산 호스트 Linux x86_64 · 4 vCPU" (the hosts its results' route provenance reports, as the
-  planner labels them) and is marked as test data — "시험 데이터 · 평가 호스트 아님" on the card, the
-  SMS tag `시험자료` / `TEST`, the long text's first line and a closing note naming the host, the
-  spoken "시험용 계산 자료입니다", the CSV — unless every host its results report is native macOS
-  arm64, the planner's own evaluated-host rule (`src/api/cache.ts` `isTestDataHost`; the API reports
-  only platform and machine, so the chip cannot be verified). A host that is not reported counts as
-  not evaluated (fail closed). A live plan without any API result is never called computed.
+- a result of API checks run in this session — an origin recomputed in a cached scenario, or a live
+  session such as the Docker front door's Linux API — never carries the cache's stamp; it says "API
+  점검 결과 · 계산 호스트 Linux x86_64 · 4 vCPU" / "API results · host …" (the planner's own name for
+  them, "API 점검 결과"; never "실시간", which the same texts deny; the hosts its results' route
+  provenance reports, as the planner labels them) and is marked as test data — "시험 데이터 · 평가
+  호스트 아님" on the card, the SMS tag `시험자료` / `TEST`, the long text's first line and a closing
+  note naming the non-evaluated host(s) only, the spoken "시험용 계산 자료입니다", the CSV — unless
+  every host its results report is native macOS arm64, the planner's own evaluated-host rule
+  (`src/api/cache.ts` `isTestDataHost`; the API reports only platform and machine, so the chip cannot
+  be verified). The hosts are those the route provenance the planner holds reports; when none of an
+  origin's results reports one, the host is unknown ("계산 호스트 미상") and counts as not evaluated
+  (fail closed);
+- an origin its source holds **no result** for (`provenance.computed`: no route check with a job id)
+  is never called computed. In a live session — not computed yet, not checkable, refused by the
+  API, or every check failed before a job existed — it says "API 점검 · 이 출발지 결과 없음" / "API
+  checks · no result for this origin" and is not marked as test data (nothing was computed); in a
+  cached scenario — the not-checkable villages, 9 across the six booth caches — "사전 계산 캐시
+  2026-10-18 08:10 KST · 이 출발지 결과 없음" / "Precomputed cache … · no result for this origin". The
+  body of the same text says why when the planner records it (not checkable, not computed yet,
+  refused);
 - MOCK stays session-wide (the planner's MOCK rule, `isMockActive`): with the default `mock` build
   setting a live session is marked MOCK rather than test data; the Docker front door builds with
   `VITE_WFG_API_MODE=real`.
@@ -250,17 +261,21 @@ origin at A5 or A4, or every origin at A5, one card per page) through a print-on
 size, everything else hidden). The CSV (UTF-8 BOM, CRLF, Korean or English headers) has one row per
 origin with every text, its counters, the deadline, destination, data time, scenario, fire input,
 MOCK/test flags, the origin's result source ("결과 출처": `사전 계산 캐시 · <cache file> · <created
-KST>` or `실시간 API 계산 · 계산 호스트 <host>`, with `· 평가 호스트 아님` when not established as
-evaluated-host output), the reason data ("이유 자료": the explanation file with its `code_commit` and
-`generated_at`, when a reason line is used), the rule-check result and the review state. The dialog
-shows the same result source for the chosen origin.
+KST>` or `API 점검 결과 · 계산 호스트 <host>`, with `· 평가 호스트 아님` when not established as
+evaluated-host output; `… · 이 출발지 결과 없음` / `API 점검 · 이 출발지 결과 없음` when the source holds
+no result for the origin, §2), the reason data ("이유 자료": the explanation file with its
+`code_commit` and `generated_at`, when a reason line is used), the rule-check result and the review
+state. The dialog shows the same result source for the chosen origin.
 
 Card layout (`lastmile.css`): A5 148 × 209.6 mm with 7/8 mm padding at 14 pt, A4 210 × 296.6 mm
 with 14/16 mm padding at 18 pt, line-height 1.32, black on white, bundled Pretendard Variable. On A5
 the header, category and planner footer line are 12 pt; the staff provenance line (scenario id,
 stamps, unnamed-destination id) stays at 10 pt so every card keeps one page. The fit is tested (§9)
 for every origin of the six caches, plain, with 40-character road names, and with the MOCK /
-test-data badges and live staff lines the app can produce. The English card's data line is one line
+test-data badges and the staff lines a session produces: a live result from one compute host or
+from two (two server-class labels, "Linux aarch64 · 128 vCPU, Linux x86_64 · 64 vCPU", stand in for
+the longest plausible line; more hosts would make it longer), the MOCK server's recorded host, and
+"no result for this origin" on an unresolved card. The English card's data line is one line
 ("Data time: … KST · replay of 2025 data"; the header already names the recorded fire) so that a
 badge row still fits on A5.
 
@@ -290,9 +305,10 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
   first, broadcast opening, no "119 now" to residents, the no-route family instruction, the no-car
   line and far entry points, forbidden words and departure instructions with independent patterns,
   the arrival rounding, no Hangul read in English, "checked up to" only for the last departure
-  checked, MOCK / test-data / both on every origin (limits and markers); then a contract-shaped
-  synthetic explanation (40-character road names) and one whose deadlines are off by one step (no
-  reason at all); and the six real explanation files (`planner/public/data/explanations/`, or a
+  checked, the 9 origins the caches hold no result for never
+  called precomputed, MOCK / test-data / both on every origin (limits and markers); then a
+  contract-shaped synthetic explanation (40-character road names) and one whose deadlines are off by
+  one step (no reason at all); and the six real explanation files (`planner/public/data/explanations/`, or a
   directory named by `WFG_EXPLANATIONS_DIR`): every rule, the reason each entry calls for with its
   flame time, k of n and exits (oracle in `lastmile.oracle.ts`, without the detail-code whitelist),
   and the pinned per-kind counts. Inline snapshots of 삼춘리 (leave_by), 구계리 (no_route) and
@@ -300,22 +316,29 @@ NODE_OPTIONS=--max-old-space-size=2048 npx vitest run --no-file-parallelism --ma
 - `lastmile.property.test.ts` — 600 seeded synthetic cases (`lastmile.generator.ts`, mulberry32,
   seed 20261103, no new dependency) through the app's own plan and input builders: any date and
   minute, 30–120 min horizons, every step, gaps, late first checks, window-closed tails, missing /
-  Hangul-only / long names, far entry points, cache or live results, MOCK and test flags,
-  explanation entries of every code, consistent or not; the same independent properties.
+  Hangul-only / long names, far entry points, cache or live results with or without a result, MOCK
+  and test flags, explanation entries of every code, consistent or not; the same independent
+  properties, and an origin without a result never called computed.
 - `lastmile.provenance.test.ts` — the store-aware `lastMileArgs` with the real booth cache: an
-  origin recomputed through the API on a Linux, a macOS arm64 or an unreported host, and a live-only
-  session built with `VITE_WFG_API_MODE=real` (the Docker front door) or the default MOCK setting.
+  origin recomputed through the API on a Linux, a macOS arm64, an unreported or a mixed pair of
+  hosts; the not-checkable origins the cache holds no result for; and a live-only session built with
+  `VITE_WFG_API_MODE=real` (the Docker front door) or the default MOCK setting, with origins that
+  have no API result — not computed yet, not checkable, refused, every check failed, or all of them
+  before any result: the long text's data line, the card's staff line and the CSV cell (parsed)
+  claim no computation.
 - `lastmile.render.test.ts` — the dialog and card in jsdom: counters, review labels, the result
-  source, copy, print root, CSV and its file name, per-output fail-closed (only the failing text or
-  card withheld; "print all" prints the cards that pass and lists the rest), verdict icons.
+  source (also a live session over a real booth cache: the panel, the rendered long texts, the card
+  preview and the exported CSV of the origins without an API result), copy, print root, CSV and its
+  file name, per-output fail-closed (only the failing text or card withheld; "print all" prints the
+  cards that pass and lists the rest), verdict icons.
 - `lastmile.print.test.ts` — a browser-free box-model estimate (`lastmile.printfit.ts`, measured
-  advance widths of the bundled font) that every card fits, also with the longest provenance lines
-  and badges the app can produce; and, when Playwright with Chromium is installed, the real print
-  layout of every card and of the 60 tightest badge / live-provenance variants per language and size
-  (no overflow, body ≥ 14 pt, header / footer line ≥ 12 pt, estimate never below the real height)
-  and PDFs with exactly one page per card.
-- `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin, and §3
-  lists every word of `FORBIDDEN`.
+  advance widths of the bundled font) that every card fits, also with the badges and staff lines of
+  §8 (one or two compute hosts, the MOCK server's host, no result); and, when Playwright with
+  Chromium is installed, the real print layout of every card and of the 60 tightest badge /
+  provenance variants per language and size (no overflow, body ≥ 14 pt, header / footer line ≥
+  12 pt, estimate never below the real height) and PDFs with exactly one page per card.
+- `lastmile.docs.test.ts` — every example in §11 equals the kit's output for that origin (all
+  four outputs and the card in both languages appear), and §3 lists every word of `FORBIDDEN`.
 
 Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cachedata.ts`,
 `lastmile.generator.ts`) are marked SYNTHETIC and never leave the tests.
@@ -337,9 +360,14 @@ Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cacheda
 - Results are model results for vehicles from the road entry point: no walking, boarding time,
   congestion, road closures or smoke; departure times between the checked steps (10 minutes in the
   booth caches) are not checked.
-- A live API result counts as evaluated-host output only when every host its results report is
-  native macOS arm64 — the planner's own rule; the API reports platform and machine only, so the
-  chip cannot be verified.
+- A result of this session's API checks counts as evaluated-host output only when every host its
+  results report is native macOS arm64 — the planner's own rule; the API reports platform and
+  machine only, so the chip cannot be verified. For the results of a whole-scenario (batch) run the
+  planner holds a route's provenance only once that route is opened (selecting the origin or a
+  departure time fetches it): until then the compute host is unknown ("계산 호스트 미상") and the
+  results are marked test data (fail closed), even when the API ran on the evaluated host; after
+  that, the opened routes' host is taken for the origin's results (one batch job or one recompute
+  computes all of an origin's checks).
 - Print fit is verified in Chromium only; other browsers' print engines may break lines differently.
 - Carriers differ in how they count and split Korean messages; the 90/2,000-byte limits follow the
   common EUC-KR convention.
@@ -462,6 +490,20 @@ Again: this is not a real emergency; it is a replay of recorded 2025 data.
 Official evacuation orders come first.
 ```
 
+Family call script (English):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160437 en.call -->
+```text
+[Before the call] Official evacuation orders come first. What follows is model-based planning information, not live information. Fill in the [brackets] yourself.
+Hello, this is [your name and role]. I am calling the family of [resident name], who lives in Samchun-ri, about the wildfire evacuation plan.
+This is not a real emergency: it is model-based planning information from a replay of recorded wildfire data, March 26, 2025, 2 a.m. Korea time.
+In the computer forecast (the model), leaving by car from the road near the village no later than 2:20 a.m. gives a checked route to Uiseong Bukbu Elementary School.
+Later departures have no checked route; this time was not set by fire.
+If [resident name] has no car or cannot move alone, please tell the village head or the eup/myeon office right away.
+Official evacuation orders come first. The actual place and time of any move may change with official guidance.
+If you have questions, please call [phone number]. Thank you.
+```
+
 
 ### 구계리 (Gugye-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
 
@@ -566,6 +608,33 @@ Card (Korean):
 차량 이동만 계산 · 교통 정체·도로 통제·연기 미반영 · 주민·현장 검증 전
 사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
 시나리오 ffb1:20250325T170000Z:53e6da7897bf9b5b · 작성 2026-11-02 14:00 KST · 사전 계산 2026-10-18 08:10 KST
+```
+
+
+### 고곡리 (Gogok-ri) — 의성·안동, recorded input 2025-03-26 02:00 KST
+
+`uiseong_andong_2025/20250325T170000Z.json`, origin `osm:node/415160364`: not checkable (no road
+point within 2 km), so the cache holds no result for it; the data line and the card's staff line say
+so instead of a precomputed stamp (§2). In a live session the same origin says "API 점검 · 이 출발지
+결과 없음".
+
+Long text (Korean):
+
+<!-- example uiseong_andong_2025/20250325T170000Z.json osm:node/415160364 ko.lms -->
+```text
+[2025년 기록 재현 · 실제 상황 아님]
+산불 대피 계획 정보 · 고곡리(마을)
+자료 기준: 2025년 3월 26일 02:00 (한국 시각) · 사전 계산 캐시 2026-10-18 08:10 KST · 이 출발지 결과 없음
+
+■ 모델로 차량 경로를 확인하지 못했습니다(미확인).
+■ 미확인은 경로가 있다는 뜻도, 없다는 뜻도 아닙니다.
+■ 공식 대피 안내를 따르십시오.
+■ 이 마을은 2 km 안에 점검할 수 있는 도로 지점이 없어 점검하지 않았습니다.
+
+공식 대피 명령이 우선합니다.
+모델 기반 계획 정보 · 실시간 아님
+2025년 실제 산불 기록을 재현한 시나리오입니다.
+사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.
 ```
 
 

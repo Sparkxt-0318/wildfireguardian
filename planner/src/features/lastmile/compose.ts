@@ -136,18 +136,26 @@ export function distanceText(m: number): string {
 
 // ---------------------------------------------------------------- result provenance
 
+/** "이 출발지 결과 없음": the source holds no result for this origin (provenance.computed false). */
+const NO_RESULT: LmText = { ko: '이 출발지 결과 없음', en: 'no result for this origin' };
+
 /**
  * Where an origin's result comes from, as the long text's data line and the card's staff line say
- * it: "사전 계산 2026-10-18 08:10 KST" (the precomputed cache's created time) or "실시간 API 계산 ·
- * 계산 호스트 Linux x86_64 · 4 vCPU" ("Live API · host …"). A live result never carries the cache's stamp.
+ * it: "사전 계산 2026-10-18 08:10 KST" (the precomputed cache's created time) or "API 점검 결과 ·
+ * 계산 호스트 Linux x86_64 · 4 vCPU" ("API results · host …", the planner's own name for results
+ * of API checks run in this session). A live result never carries the cache's stamp. An origin the
+ * source holds no result for is never called computed: "사전 계산 캐시 2026-10-18 08:10 KST · 이
+ * 출발지 결과 없음" / "API 점검 · 이 출발지 결과 없음" ("… · no result for this origin").
  */
 export function resultSource(input: Pick<LastMileInput, 'provenance'>, lang: LmLang): string {
   const p = input.provenance;
   if (p.source === 'cache') {
     const at = p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null;
+    if (!p.computed) return [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', at].filter(Boolean).join(' ') + ` · ${NO_RESULT[lang]}`;
     return lang === 'ko' ? (at ? `사전 계산 ${at}` : '사전 계산 캐시') : at ? `Precomputed ${at}` : 'Precomputed cache';
   }
-  return lang === 'ko' ? `실시간 API 계산 · 계산 호스트 ${p.host?.ko ?? '미상'}` : `Live API · host ${p.host?.en ?? 'unknown'}`;
+  if (!p.computed) return lang === 'ko' ? `API 점검 · ${NO_RESULT.ko}` : `API checks · ${NO_RESULT.en}`;
+  return lang === 'ko' ? `API 점검 결과 · 계산 호스트 ${p.host?.ko ?? '미상'}` : `API results · host ${p.host?.en ?? 'unknown'}`;
 }
 
 /** The same with the cache file and the evaluated-host status, for the CSV and the panel. */
@@ -155,7 +163,7 @@ export function resultSourceFull(input: Pick<LastMileInput, 'provenance' | 'test
   const p = input.provenance;
   const head =
     p.source === 'cache'
-      ? [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', p.cachePath, p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null].filter(Boolean).join(' · ')
+      ? [lang === 'ko' ? '사전 계산 캐시' : 'Precomputed cache', p.cachePath, p.cacheCreatedAtIso ? kstStamp(p.cacheCreatedAtIso) : null, p.computed ? null : NO_RESULT[lang]].filter(Boolean).join(' · ')
       : resultSource(input, lang);
   return input.testData ? `${head} · ${lang === 'ko' ? '평가 호스트 아님' : 'not the evaluation host'}` : head;
 }

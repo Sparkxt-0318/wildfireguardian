@@ -2,8 +2,9 @@
  * CSV of every field message of one region and recorded input time: one row per origin in the
  * planner's urgency order, Korean and English texts side by side (mail-merge / bulk-SMS ready).
  * Every row carries the data time and its own result source ("결과 출처": the precomputed cache file
- * and its created time, or the live API and the compute host, with "평가 호스트 아님" when not
- * established as evaluated-host output) and, with a reason line, the explanation file it comes from.
+ * and its created time, or the API checks of this session and the compute host, with "평가 호스트
+ * 아님" when not established as evaluated-host output, and "이 출발지 결과 없음" when the source holds
+ * no result for the origin) and, with a reason line, the explanation file it comes from.
  * A text that fails a rule check gets an empty cell (only that text: fail closed per output) and
  * the rule-check column says "검사 실패 — 사용 금지" with the violations; the last columns state each
  * language's native-speaker / field review state.
@@ -138,7 +139,7 @@ export function fieldMessagesCSV(items: FieldMessages[], opts: { lang?: LmLang }
         input.fireInputLabel[lang],
         input.mock ? 'MOCK' : '',
         input.testData ? (lang === 'ko' ? '시험 데이터' : 'test data') : '',
-        // per origin: the precomputed cache (file, created time) or the live API (compute host)
+        // per origin: the precomputed cache (file, created time) or this session's API checks (compute host); never computed without a result
         resultSourceFull(input, lang),
         fm.reasonSource ? reasonSourceText(fm.reasonSource, lang) : '',
         ko.sms,

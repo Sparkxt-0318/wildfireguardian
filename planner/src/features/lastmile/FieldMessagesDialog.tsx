@@ -218,7 +218,12 @@ export function FieldMessagesDialog(props: FieldMessagesDialogProps): JSX.Elemen
                   {t(UI.kind)}: <b>{t(UI.kindLabel[current.kind])}</b>
                   {current.leaveByS !== null ? <b className="wfgf-num"> · {hm(current.plan.input.scenario.inputTimeIso, current.leaveByS)}</b> : null}
                 </span>
-                <span data-testid="field-messages-source" data-source={current.plan.input.provenance.source} data-test-data={current.plan.input.testData ? 'true' : 'false'}>
+                <span
+                  data-testid="field-messages-source"
+                  data-source={current.plan.input.provenance.source}
+                  data-computed={current.plan.input.provenance.computed ? 'true' : 'false'}
+                  data-test-data={current.plan.input.testData ? 'true' : 'false'}
+                >
                   {t(UI.resultSource)}: {resultSourceFull(current.plan.input, lang === 'en' ? 'en' : 'ko')}
                 </span>
                 <span className={failed ? 'wfgl-checks wfgl-checks--fail' : 'wfgl-checks'} role="status" data-testid="field-messages-checks">

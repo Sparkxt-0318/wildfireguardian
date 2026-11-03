@@ -68,6 +68,30 @@ describe('all six booth caches, every origin', () => {
     expect(all.length).toBeGreaterThan(500);
   });
 
+  it('an origin the cache holds no result for (not checkable) is never called precomputed; every other one is, with the cache\'s created time', () => {
+    let none = 0;
+    for (const x of all) {
+      const at = `${x.cache.entry.path} ${x.input.origin.id}`;
+      // independent of input.ts: the cache holds a result for an origin iff its sweep holds a check
+      const has = (x.input.plan?.sweep ?? []).some((c) => c.attempts.length > 0);
+      expect(x.input.provenance.computed, at).toBe(has);
+      const ko = [x.fm.text.ko.lms.split('\n')[2]!, x.fm.text.ko.card.meta];
+      const en = [x.fm.text.en.lms.split('\n')[2]!, x.fm.text.en.card.meta];
+      if (has) {
+        expect(ko[0], at).toMatch(/ · 사전 계산 \d{4}-\d{2}-\d{2} \d{2}:\d{2} KST$/);
+        for (const t of [...ko, ...en]) expect(t, at).not.toMatch(/결과 없음|no result/);
+        continue;
+      }
+      none += 1;
+      expect(x.input.plan?.note, at).toBe('not_checkable');
+      for (const t of ko) expect(t, at).toMatch(/ · 사전 계산 캐시 \d{4}-\d{2}-\d{2} \d{2}:\d{2} KST · 이 출발지 결과 없음$/);
+      for (const t of en) expect(t, at).toMatch(/ · Precomputed cache \d{4}-\d{2}-\d{2} \d{2}:\d{2} KST · no result for this origin$/);
+      for (const l of ['ko', 'en'] as const) for (const t of Object.values(allTexts(x.fm, l))) expect(t, at).not.toMatch(/사전 계산 \d|Precomputed \d/);
+    }
+    // 고곡리 and 화신리 in each 의성·안동 scenario, 상의리 in each 영덕 one
+    expect(none).toBe(9);
+  });
+
   it('every output passes the module rule checks (limits, mandatory lines, data time, replay note, words, instructions)', () => {
     const bad = all.filter((x) => x.fm.violations.length).map((x) => `${x.cache.entry.path} ${x.input.origin.id}: ${x.fm.violations.join(' | ')}`);
     expect(bad).toEqual([]);

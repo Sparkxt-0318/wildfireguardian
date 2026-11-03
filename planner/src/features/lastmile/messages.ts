@@ -88,8 +88,9 @@ function insertedStrings(plan: MessagePlan): string[] {
     const r = plan.reason;
     if (r && r.kind === 'all_exits_blocked') for (const e of r.exits) add(e.text[l]);
     else if (r && 'road' in r) add(r.road.text[l]);
-    // a live result's compute host, as the API reports it
+    // a live result's compute host(s), as the API reports them (all, and the non-evaluated ones the note names)
     add(plan.input.provenance.host?.[l]);
+    add(plan.input.provenance.testHost?.[l]);
   }
   add(plan.input.scenario.scenarioSetId);
   return [...out].sort((a, b) => b.length - a.length);

@@ -77,28 +77,37 @@ export function liveHostsOf(plan: OriginPlan, routeOf: (jobId: string) => RouteD
   return out;
 }
 
+/** "Linux x86_64 · 4 vCPU, macOS arm64 · 12 vCPU" — the hosts as the planner labels them (null: none labelled). */
+function hostsLabel(hosts: HostInfo[]): LmText | null {
+  const label = (lang: 'ko' | 'en') => [...new Set(hosts.map((h) => hostLabel(h, lang === 'ko' ? tKo : tEn)).filter((x): x is string => Boolean(x)))].join(', ');
+  return label('ko') ? { ko: label('ko'), en: label('en') } : null;
+}
+
 /**
  * Provenance of ONE origin's result, from its own plan (never the session): a cache result keeps
  * the cache's provenance (created time, evaluated host or test data); a live result never carries
  * the cache's stamp and is test data unless every host its results report is the evaluated host
- * (isTestDataHost — an unknown host counts as not evaluated). A live plan with no API result at all
- * (nothing was computed for it) is not marked as computed anywhere.
+ * (isTestDataHost — an unknown host counts as not evaluated). `computed` says whether the source
+ * holds a result for this origin at all (a route check with a job id): an origin without one — not
+ * computed yet, not checkable, or refused — is never called computed in any output (its result
+ * source says "… · 이 출발지 결과 없음"), and a live one is not test data (nothing was computed).
  */
 export function originProvenance(plan: OriginPlan | undefined, originId: string, a: LastMileBuildArgs): { testData: boolean; provenance: LastMileInput['provenance'] } {
   const source = plan ? plan.source : a.source;
+  const computed = Boolean(plan?.sweep.some((c) => c.attempts.some((x) => x.jobId)));
   if (source === 'cache') {
     return {
       // a cache result without the cache's metadata has no established provenance: marked
       testData: a.cache ? a.cache.testData : true,
-      provenance: { source, cachePath: a.cache?.path ?? null, cacheCreatedAtIso: a.cache?.createdAtIso ?? null, host: null },
+      provenance: { source, computed, cachePath: a.cache?.path ?? null, cacheCreatedAtIso: a.cache?.createdAtIso ?? null, host: null, testHost: null },
     };
   }
-  const hosts = a.liveHosts[originId] ?? [];
-  const computed = Boolean(plan?.sweep.some((c) => c.attempts.some((x) => x.jobId)));
+  const hosts = computed ? (a.liveHosts[originId] ?? []) : [];
   const testData = !a.mock && computed && (hosts.length === 0 || hosts.some((h) => isTestDataHost(h, false)));
-  const label = (lang: 'ko' | 'en') => [...new Set(hosts.map((h) => hostLabel(h, lang === 'ko' ? tKo : tEn)).filter((x): x is string => Boolean(x)))].join(', ');
-  const host = label('ko') ? { ko: label('ko'), en: label('en') } : null;
-  return { testData, provenance: { source, cachePath: null, cacheCreatedAtIso: null, host } };
+  return {
+    testData,
+    provenance: { source, computed, cachePath: null, cacheCreatedAtIso: null, host: hostsLabel(hosts), testHost: hostsLabel(hosts.filter((h) => isTestDataHost(h, false))) },
+  };
 }
 
 function cellsOf(plan: OriginPlan): LmCell[] {

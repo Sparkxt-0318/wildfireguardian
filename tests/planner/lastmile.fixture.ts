@@ -76,10 +76,13 @@ export function synInput(over: Partial<LastMileInput> & { originId?: string } = 
       'syn:dest:b': { id: 'syn:dest:b', name: null, display: { ko: '이름 없는 마을회관 · node 9', en: 'Unnamed community hall · node 9' }, category: { ko: '마을회관', en: 'Community hall' } },
     },
     urgencyRank: 1,
-    provenance: { source: 'cache', cachePath: 'synthetic_region/20250324T090000Z.json', cacheCreatedAtIso: '2026-10-17T22:54:05Z', host: null },
+    provenance: { source: 'cache', computed: true, cachePath: 'synthetic_region/20250324T090000Z.json', cacheCreatedAtIso: '2026-10-17T22:54:05Z', host: null },
     generatedAtIso: '2026-11-02T05:00:00Z',
   };
-  return { ...base, ...rest };
+  const out = { ...base, ...rest };
+  // as the app's input builder says it (input.ts originProvenance): a plan without any check holds no result
+  if (!rest.provenance) out.provenance = { ...out.provenance, computed: Boolean(out.plan?.sweep.some((c) => c.attempts.length > 0)) };
+  return out;
 }
 
 export const SYN_NO_ROUTE_ID = 'syn:origin:noroute';

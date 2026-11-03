@@ -17,6 +17,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildFieldMessages, TEMPLATES, type FieldMessages } from '../../planner/src/features/lastmile/messages';
+import { messagePlan } from '../../planner/src/features/lastmile/plan';
 import type { CardContent } from '../../planner/src/features/lastmile/compose';
 import { loadBoothCaches, realExplanationFor, syntheticExplanationFor } from './lastmile.cachedata';
 import { estimate, type CardSize } from './lastmile.printfit';
@@ -88,20 +89,32 @@ describe('origin cards: box-model estimate (no browser needed)', () => {
 });
 
 /**
- * Every card again with the longest provenance lines and badges the app can produce — reachable
+ * Every card again with the longest provenance lines and badges the app produces — reachable
  * combinations only (input.ts originProvenance: a live result is never test data under MOCK): a
- * non-evaluated cache viewed with the MOCK server on (three badges), a live result on a
- * non-evaluated host, and a live result from the MOCK server.
+ * non-evaluated cache viewed with the MOCK server on (three badges; the not-checkable origins with
+ * "· 이 출발지 결과 없음"), a live result on a non-evaluated host — one host, or two (the hosts are
+ * joined with ", "; two server-class labels are the longest plausible line), a live result from the
+ * MOCK server (its recorded host, "기록된 실행 (Apple M5 Pro)" as the planner labels it), and every
+ * origin as a live origin WITHOUT an API result under MOCK (unresolved, the longest note: not
+ * checkable, "API 점검 · 이 출발지 결과 없음").
  */
 function variantCards(lang: 'ko' | 'en'): { id: string; card: CardContent }[] {
-  const host = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
-  const live = { source: 'live' as const, cachePath: null, cacheCreatedAtIso: null, host };
+  const live = (host: { ko: string; en: string } | null, computed = true) => ({ source: 'live' as const, computed, cachePath: null, cacheCreatedAtIso: null, host, testHost: host });
+  const linux = { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' };
+  const two = { ko: 'Linux aarch64 · 128 vCPU, Linux x86_64 · 64 vCPU', en: 'Linux aarch64 · 128 vCPU, Linux x86_64 · 64 vCPU' };
+  const recorded = { ko: '기록된 실행 (Apple M5 Pro)', en: 'recorded execution (Apple M5 Pro)' };
   const variants = [
     { name: 'cache+mock+test', over: { mock: true, testData: true } },
-    { name: 'live+test', over: { testData: true, provenance: live } },
-    { name: 'live+mock', over: { mock: true, provenance: live } },
+    { name: 'live+test', over: { testData: true, provenance: live(linux) } },
+    { name: 'live+test two hosts', over: { testData: true, provenance: live(two) } },
+    { name: 'live+mock', over: { mock: true, provenance: live(recorded) } },
   ];
-  return variants.flatMap((v) => items.map(({ path, fm }) => ({ id: `${v.name} ${path} ${fm.originId}`, card: TEMPLATES[lang].card({ ...fm.plan, input: { ...fm.plan.input, ...v.over } }) })));
+  const withResult = variants.flatMap((v) => items.map(({ path, fm }) => ({ id: `${v.name} ${path} ${fm.originId}`, card: TEMPLATES[lang].card({ ...fm.plan, input: { ...fm.plan.input, ...v.over } }) })));
+  const none = items.map(({ path, fm }) => {
+    const input = { ...fm.plan.input, mock: true, testData: false, provenance: live(null, false), plan: { bestVerdict: 'unresolved' as const, latestSafeDepartureS: null, contiguousSafeDepartureS: null, sweep: [], note: 'not_checkable' as const } };
+    return { id: `live no result+mock ${path} ${fm.originId}`, card: TEMPLATES[lang].card(messagePlan(input, null)) };
+  });
+  return [...withResult, ...none];
 }
 
 // ---------------------------------------------------------------- 2. real layout in Chromium

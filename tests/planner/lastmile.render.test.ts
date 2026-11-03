@@ -1,12 +1,16 @@
 /**
  * "현장 전달 문구 / Field messages" dialog and the printable card, rendered in a local jsdom
  * (the vitest config runs in node; React and the TSX components are loaded at runtime, as in
- * features.plansheet.test.ts). All data is SYNTHETIC (lastmile.fixture.ts).
+ * features.plansheet.test.ts). All data is SYNTHETIC (lastmile.fixture.ts), except one live-session
+ * test built over a real booth cache with SYNTHETIC live provenance (lastmile.cachedata.ts).
  */
 import { createRequire } from 'node:module';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import type { HostInfo } from '../../planner/src/domain/types';
+import { buildLastMileInputs } from '../../planner/src/features/lastmile/input';
 import { buildFieldMessages, type FieldMessages } from '../../planner/src/features/lastmile/messages';
 import type { ExplanationState } from '../../planner/src/features/lastmile/explanation';
+import { liveOnlyArgs, liveOnlySession, loadBoothCacheModel } from './lastmile.cachedata';
 import { synExplanation, synInput, synNoRoute, synUnresolved } from './lastmile.fixture';
 
 const req = createRequire(new URL('../../planner/package.json', import.meta.url));
@@ -110,17 +114,68 @@ describe('FieldMessagesDialog (jsdom)', () => {
     Object.defineProperty(URL, 'createObjectURL', { value: (b: Blob) => (created.push(b), 'blob:x'), configurable: true });
     Object.defineProperty(URL, 'revokeObjectURL', { value: () => undefined, configurable: true });
     vi.spyOn((window as unknown as { HTMLAnchorElement: { prototype: HTMLAnchorElement } }).HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined);
-    const live = synInput({ testData: true, provenance: { source: 'live', cachePath: null, cacheCreatedAtIso: null, host: { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' } } });
+    const live = synInput({ testData: true, provenance: { source: 'live', computed: true, cachePath: null, cacheCreatedAtIso: null, host: { ko: 'Linux x86_64 · 4 vCPU', en: 'Linux x86_64 · 4 vCPU' } } });
     // the first origin is a cached one: the file name follows ANY origin's provenance, not the first's
     const items = [buildFieldMessages(synNoRoute()), buildFieldMessages(live)].map((fm, i) => ({ ...fm, urgencyRank: i + 1 }));
     const dlg = await render(items, undefined, 'ko', 'syn:origin:checked');
     const src = dlg.querySelector('[data-testid="field-messages-source"]')!;
     expect(src.getAttribute('data-source')).toBe('live');
+    expect(src.getAttribute('data-computed')).toBe('true');
     expect(src.getAttribute('data-test-data')).toBe('true');
-    expect(src.textContent).toBe('결과 출처: 실시간 API 계산 · 계산 호스트 Linux x86_64 · 4 vCPU · 평가 호스트 아님');
+    expect(src.textContent).toBe('결과 출처: API 점검 결과 · 계산 호스트 Linux x86_64 · 4 vCPU · 평가 호스트 아님');
     await click(dlg.querySelector('[data-testid="field-messages-csv"]'));
     expect(dlg.textContent).toContain('저장됨: wfg_synthetic_region_20250324T090000Z_field_messages_TEST.csv');
   });
+
+  it('a live session (real booth cache, SYNTHETIC live provenance): an origin without an API result is never called computed — panel, long text, card and exported CSV', async () => {
+    const created: Blob[] = [];
+    Object.defineProperty(URL, 'createObjectURL', { value: (b: Blob) => (created.push(b), 'blob:x'), configurable: true });
+    Object.defineProperty(URL, 'revokeObjectURL', { value: () => undefined, configurable: true });
+    vi.spyOn((window as unknown as { HTMLAnchorElement: { prototype: HTMLAnchorElement } }).HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined);
+    const LINUX: HostInfo = { recorded: false, machine: 'x86_64', os: 'Linux', platform: 'Linux-6.18-x86_64-with-glibc2.39', cpuCount: 4 };
+    const data = loadBoothCacheModel('uiseong_andong_2025/20250325T170000Z.json');
+    // 용봉리 not computed yet, 구계리 refused, 광연리 every check failed before a job; 고곡리 not checkable
+    const none = { notComputed: ['osm:node/415160449'], rejected: ['osm:node/415160471'], failed: ['osm:node/415160467'] };
+    const targets = [...none.notComputed, ...none.rejected, ...none.failed, 'osm:node/415160364'];
+    const items = buildLastMileInputs(liveOnlyArgs(data, liveOnlySession(data, LINUX, 'render', none))).map((i) => buildFieldMessages(i, null));
+    for (const [lang, want, label] of [
+      ['ko', 'API 점검 · 이 출발지 결과 없음', '결과 출처'],
+      ['en', 'API checks · no result for this origin', 'Result source'],
+    ] as const) {
+      for (const id of targets) {
+        const dlg = await render(items, undefined, lang, id);
+        expect((dlg.querySelector('[data-testid="field-messages-origin"]') as HTMLSelectElement).value).toBe(id);
+        const src = dlg.querySelector('[data-testid="field-messages-source"]')!;
+        expect(src.getAttribute('data-source'), id).toBe('live');
+        expect(src.getAttribute('data-computed'), id).toBe('false');
+        expect(src.getAttribute('data-test-data'), id).toBe('false');
+        expect(src.textContent, id).toBe(`${label}: ${want}`);
+        // the long texts' data lines and the previewed card's staff line, as rendered
+        expect(dlg.querySelector('[data-block="lms"] [data-lang="ko"] pre')!.textContent!.split('\n')[2], id).toBe('자료 기준: 2025년 3월 26일 02:00 (한국 시각) · API 점검 · 이 출발지 결과 없음');
+        expect(dlg.querySelector('[data-block="lms"] [data-lang="en"] pre')!.textContent!.split('\n')[2], id).toBe('Data time: 2025-03-26 02:00 KST · API checks · no result for this origin');
+        const card = dlg.querySelector('.wfgl-preview')!.textContent!;
+        expect(card, id).toContain(want);
+        expect(dlg.textContent, id).not.toMatch(/API 점검 결과|API results|계산 호스트|host unknown|실시간 API|Live API|평가 호스트 아님|not the evaluation host/);
+        await React.act(() => root!.unmount());
+        root = null;
+        host?.remove();
+      }
+    }
+    // the exported CSV (Korean headers): the same result source in the origin's row
+    const dlg = await render(items, undefined, 'ko', targets[0]!);
+    await click(dlg.querySelector('[data-testid="field-messages-csv"]'));
+    expect(created.length).toBe(1);
+    const csv = await created[0]!.text();
+    const rows = csv.replace(/^﻿/, '').split('\r\n');
+    const head = rows[0]!.split(',');
+    const at = head.indexOf('결과 출처');
+    expect(at).toBeGreaterThan(0);
+    for (const id of targets) {
+      const row = rows.find((r) => r.split(',')[1] === id)!;
+      // the cells up to "결과 출처" hold no quotes or commas (ids, names, labels, times)
+      expect(row.split(',')[at], id).toBe('API 점검 · 이 출발지 결과 없음');
+    }
+  }, 60_000);
 
   it('switching to an unresolved origin shows no departure time and a grey (never green) status', async () => {
     const dlg = await render(ITEMS());

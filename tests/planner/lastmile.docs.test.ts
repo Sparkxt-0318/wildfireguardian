@@ -22,10 +22,12 @@ beforeAll(() => {
 describe('planner/docs/LASTMILE.md', () => {
   it('every example in §11 is the kit\'s output for that real origin (with the scenario\'s explanation file)', () => {
     const examples = [...DOC.matchAll(EXAMPLE)];
-    expect(examples.length).toBeGreaterThanOrEqual(15);
+    expect(examples.length).toBeGreaterThanOrEqual(17);
     // the four outputs (and the card) all appear, in both languages
     const outs = new Set(examples.map((m) => `${m[3]}.${m[4]}`));
-    for (const o of ['ko.sms', 'ko.lms', 'ko.broadcast', 'ko.call', 'ko.card', 'en.sms', 'en.lms', 'en.broadcast', 'en.card']) expect(outs.has(o), o).toBe(true);
+    for (const o of ['ko.sms', 'ko.lms', 'ko.broadcast', 'ko.call', 'ko.card', 'en.sms', 'en.lms', 'en.broadcast', 'en.call', 'en.card']) expect(outs.has(o), o).toBe(true);
+    // an origin the cache holds no result for shows that on its data line (§2), as a real example
+    expect(examples.some((m) => m[4] === 'lms' && m[5]!.split('\n')[2]!.endsWith(' · 이 출발지 결과 없음'))).toBe(true);
     for (const [, path, id, lang, kind, text] of examples) {
       const cache = caches.find((c) => c.entry.path === path);
       expect(cache, path).toBeDefined();

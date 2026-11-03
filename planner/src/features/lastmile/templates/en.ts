@@ -334,13 +334,16 @@ function closingNotes(p: MessagePlan): string[] {
   return out;
 }
 
-/** Why the result is marked test data (see ko.ts). */
+/** Why the result is marked test data (see ko.ts; names only the hosts that are not the evaluated host). */
 function testDataNote(p: MessagePlan): string {
   const v = p.input.provenance;
-  if (v.source === 'cache') return 'Test data: computed on a host other than the evaluation host.';
-  return v.host
-    ? `Test data: computed through the live API on a host other than the evaluation host (${v.host.en}).`
-    : 'Test data: the compute host is unknown, so this is not treated as evaluation-host output.';
+  if (v.source === 'cache') return v.computed ? 'Test data: computed on a host other than the evaluation host.' : 'Test data: a cache made on a host other than the evaluation host.';
+  if (!v.host) return 'Test data: the compute host is unknown, so this is not treated as evaluation-host output.';
+  const other = v.testHost === undefined ? v.host : v.testHost;
+  if (!other) return 'Test data: the compute host of some results is unknown, so this is not treated as evaluation-host output.';
+  return other.en === v.host.en
+    ? `Test data: computed through the API on a host other than the evaluation host (${other.en}).`
+    : `Test data: includes results computed through the API on a host other than the evaluation host (${other.en}).`;
 }
 
 const STATUS: Record<MessagePlan['kind'], string> = {
@@ -521,7 +524,7 @@ export const EN: TemplateSet = {
       meta: [
         `Scenario ${p.input.scenario.scenarioSetId}`,
         `Prepared ${kstStamp(p.input.generatedAtIso)}`,
-        // per origin: the cache's created time, or the live API and its compute host — never mixed up
+        // per origin: the cache's created time, or this session's API checks and their compute host — never mixed up
         resultSource(p.input, 'en'),
         p.kind === 'leave_by' && d && !d.name ? `Dest. ID ${d.id}` : null,
       ]

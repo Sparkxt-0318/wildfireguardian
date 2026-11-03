@@ -8,8 +8,9 @@
  * the planner's verdict, a leave-by time is the contiguous basis with every earlier requested time
  * checked, no departure instruction or clock time without a checked departure window, no forbidden
  * word, no Hangul read in English, never a green status without a checked route, the arrival clock and
- * minutes from one rounding, the MOCK / test markers, the reason the explanation entry calls for,
- * and every length limit (Korean bytes counted again with Python's `euc_kr` codec).
+ * minutes from one rounding, the MOCK / test markers, an origin without a result never called
+ * computed, the reason the explanation entry calls for, and every length limit (Korean bytes counted
+ * again with Python's `euc_kr` codec).
  */
 import { beforeAll, describe, expect, it } from 'vitest';
 import { enDateSpoken, hm, koDateSpoken } from '../../planner/src/features/lastmile/compose';
@@ -32,6 +33,9 @@ beforeAll(() => {
 
 const where = (c: GenCase) => `case ${c.n} [${c.tags.join(' ')}] ${c.input.scenario.inputTimeIso}`;
 
+/** Independent of the module: every generated check has a job id, so an origin has a result iff its sweep holds a check. */
+const hasResult = (c: GenCase) => (c.input.plan?.sweep ?? []).some((x) => x.attempts.length > 0);
+
 describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, () => {
   it('the generator is deterministic and covers every message kind, reason kind and flag', () => {
     const again = generateCases(SEED, 25).map((c) => buildFieldMessages(c.input, c.file));
@@ -43,6 +47,7 @@ describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, ()
       if (c.fm.kind === 'leave_by') seen.add(`after:${c.fm.plan.after}`);
       if (c.input.mock) seen.add('mock');
       if (c.input.testData) seen.add(`test:${c.input.provenance.source}`);
+      if (!hasResult(c)) seen.add(`no_result:${c.input.provenance.source}`);
       if (c.fm.plan.destinationVaries) seen.add('destination_varies');
     }
     for (const k of [
@@ -65,6 +70,8 @@ describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, ()
       'mock',
       'test:cache',
       'test:live',
+      'no_result:cache',
+      'no_result:live',
       'destination_varies',
     ]) {
       expect(seen.has(k), k).toBe(true);
@@ -147,6 +154,24 @@ describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, ()
       }
       // a live result never carries the precomputed cache's stamp
       if (c.input.provenance.source === 'live') for (const l of ['ko', 'en'] as const) for (const t of Object.values(allTexts(c.fm, l))) expect(t, where(c)).not.toMatch(/사전 계산|Precomputed/);
+    }
+  });
+
+  it('an origin without a result is never called computed (data line, card staff line); a live one is never test data', () => {
+    for (const c of cases) {
+      const has = hasResult(c);
+      expect(c.input.provenance.computed, where(c)).toBe(has);
+      const line = (l: 'ko' | 'en') => c.fm.text[l].lms.split('\n')[2]!;
+      if (has) {
+        expect(line('ko'), where(c)).not.toContain('결과 없음');
+        if (c.input.provenance.source === 'live') expect(line('ko'), where(c)).toContain(' · API 점검 결과 · 계산 호스트 ');
+        continue;
+      }
+      expect(line('ko').endsWith(' · 이 출발지 결과 없음'), where(c)).toBe(true);
+      expect(line('en').endsWith(' · no result for this origin'), where(c)).toBe(true);
+      for (const l of ['ko', 'en'] as const) expect(c.fm.text[l].card.meta.endsWith(l === 'ko' ? ' · 이 출발지 결과 없음' : ' · no result for this origin'), where(c)).toBe(true);
+      for (const l of ['ko', 'en'] as const) for (const t of Object.values(allTexts(c.fm, l))) expect(t, where(c)).not.toMatch(/API 점검 결과|API results|계산 호스트|host unknown|사전 계산 2|Precomputed 2/);
+      if (c.input.provenance.source === 'live') expect(c.input.testData, where(c)).toBe(false);
     }
   });
 
