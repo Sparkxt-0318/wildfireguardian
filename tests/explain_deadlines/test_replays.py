@@ -205,13 +205,19 @@ def test_cli_writes_nothing_when_a_recorded_route_does_not_replay(tmp_path, case
     assert not out.exists() or not list(out.glob("*.json"))
 
 
-def test_cli_evaluated_host_opt_in(tmp_path):
+def test_cli_evaluated_host_opt_in(tmp_path, capsys):
     repo = repo_world(tmp_path)
     out = tmp_path / "out"
     if (platform.system(), platform.machine()) == cli.EVALUATED_HOST_PLATFORM:
         assert run(repo, out, "--evaluated-host") == 0
         assert json.loads((out / "synthetic__20250101T000000Z.json").read_text())["provenance"]["evaluated_host"] is True
     else:
-        with pytest.raises(cli.InputError, match="native macOS arm64"):
-            run(repo, out, "--evaluated-host")
-        assert not out.exists()
+        # refused before anything is read or written: exit status 2 and one line on stderr (no traceback), for both commands
+        tmp = tmp_path / "tmp"
+        for argv in (["generate", "--repo", str(repo), "--out", str(out), "--no-kit", "--evaluated-host"],
+                     ["check", "--repo", str(repo), "--out", str(out), "--tmp", str(tmp), "--no-kit", "--evaluated-host"]):
+            assert cli.main(argv) == 2
+            err = capsys.readouterr().err
+            assert err.count("\n") == 1 and err.startswith("python -m tools.explain_deadlines: error: --evaluated-host")
+            assert "native macOS arm64 (this run: %s %s)" % (platform.system(), platform.machine()) in err
+        assert not out.exists() and not tmp.exists()

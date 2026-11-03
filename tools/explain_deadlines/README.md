@@ -177,9 +177,13 @@ from the evaluated checker, which must then be fixed; routes are never filtered 
 The travel-only comparison is not trivially "all clear": the 10 routes with recorded contact are reproduced in exactly
 the recorded members. Both flags reduce to the closed rule: a centre-model contact (exact phases on the router's cell
 pieces) is always a closed-rule contact, and a router-rule contact is one too except inside the sub-ulp gap between a
-phase's exact expiry and the router's rounded-up extinction — the replay shows that no recorded route falls there.
+phase's exact expiry and the router's rounded-up extinction. A member with a router-rule contact only (inside that gap)
+would show up in these counts: on a travel-only route as a mismatch (the replay flag, either rule, set; the recorded
+flag, which reduces to the closed rule, clear), on a checked route as a contact. With 0 mismatches and every checked
+route contact-free, no recorded route falls there.
 Source: each file's `summary.validation`, written by `python -m tools.explain_deadlines generate`;
-`tests/explain_deadlines/test_real_data.py` recounts the routes from the cache files and checks these totals.
+`tests/explain_deadlines/test_real_data.py` recounts the routes from the cache files (with the routing inputs
+installed) and `tests/explain_deadlines/test_committed_files.py` checks these totals from the committed files alone.
 
 ## 6 Labels
 
@@ -272,7 +276,8 @@ has no flame-avoiding route that fits the window, and 10 are cut off by fire alr
 
 The machine that computed them is recorded in `provenance.computed_on`. `provenance.evaluated_host` is `false` unless
 `generate --evaluated-host` is given; that flag is refused unless the run is native macOS arm64
-(`platform.system()` `Darwin`, `platform.machine()` `arm64`), and it is meant only for a run on the evaluated host
+(`platform.system()` `Darwin`, `platform.machine()` `arm64`; otherwise the command stops with a one-line error and exit
+status 2 before reading or writing anything), and it is meant only for a run on the evaluated host
 itself — the platform check cannot tell that machine from another Mac, so the flag is the operator's statement. The
 committed files were generated in a Linux x86_64 container (`computed_on`: `Linux-6.18.44-fc-v230-x86_64-with-glibc2.39`,
 Python 3.12.3, numpy 1.26.4, pyproj 3.7.0), so `evaluated_host` is `false`. `check` compares every field except the run

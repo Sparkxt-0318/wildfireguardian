@@ -6,8 +6,9 @@
 
 Inputs are never trusted by name: the cache file must match its INDEX.json sha256; the graph and every packet file must
 match the hashes recorded in INPUT_FILES.json of the fetched release archive AND the ``input_hashes`` that every cached
-route check and dispatch plan recorded at computation time. Any mismatch stops the run (nothing is written). So does
-any recorded route whose replay disagrees with its recorded result (validate.replay_recorded_routes).
+route check and dispatch plan recorded at computation time. Any mismatch stops the run before the explanation file of
+that cache file is written (files of cache files processed earlier in the same run are complete and stay written). So
+does any recorded route whose replay disagrees with its recorded result (validate.replay_recorded_routes).
 
 The route checks are recorded results of the evaluated host; everything else in an explanation is computed by this
 tool on the machine that runs it, recorded in ``provenance.computed_on``. ``provenance.evaluated_host`` is false unless
@@ -302,6 +303,14 @@ def main(argv=None) -> int:
         if name == "check":
             p.add_argument("--tmp", required=True, help="scratch directory for the regenerated files")
     a = ap.parse_args(argv)
+    if a.evaluated_host:
+        # refused off native macOS arm64 before anything is read or written: one line, exit status 2 (generate() itself
+        # refuses as well, for callers that bypass the command line)
+        try:
+            evaluated_host_flag(True, host_record())
+        except InputError as exc:
+            print("%s: error: %s" % (ap.prog, exc), file=sys.stderr)
+            return 2
     return generate(a) if a.cmd == "generate" else check(a)
 
 

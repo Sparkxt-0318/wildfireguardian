@@ -121,20 +121,6 @@ def test_file_matches_its_inputs_and_the_planner(entry):
             assert o["deadline_cause"] == "flames"
 
 
-def test_replay_totals_over_the_six_files():
-    """README section 5: 7,771 recorded checked routes replayed flame-free; 507 travel-only routes whose per-member
-    contact flags equal the API's full-policy assessment (10 of them with contact in some member)."""
-    tot = {"checked": 0, "contact_free": 0, "travel": 0, "matches": 0, "with_contact": 0}
-    for e in INDEX:
-        v = json.loads(out_path(e).read_text())["summary"]["validation"]
-        tot["checked"] += v["replay_checked_routes"]["routes"]
-        tot["contact_free"] += v["replay_checked_routes"]["contact_free"]
-        tot["travel"] += v["replay_travel_only"]["routes"]
-        tot["matches"] += v["replay_travel_only"]["matches"]
-        tot["with_contact"] += v["replay_travel_only"]["with_contact"]
-    assert tot == {"checked": 7771, "contact_free": 7771, "travel": 507, "matches": 507, "with_contact": 10}
-
-
 def test_regeneration_is_identical(tmp_path):
     """Regenerate the smallest file from the same inputs and compare every field but the run stamps."""
     entry = [e for e in INDEX if e["path"] == "yeongdeok_2025/20250326T080000Z.json"][0]

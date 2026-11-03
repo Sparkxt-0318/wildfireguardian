@@ -298,7 +298,8 @@ def replay_recorded_routes(graph, packet, doc: dict, horizon, chord_cache: dict 
 
 
 def require_replays_clean(stats: dict, problems: list, where: str) -> None:
-    """Fail closed: any mismatch or route that could not be replayed stops the run (nothing is written)."""
+    """Fail closed: any mismatch or route that could not be replayed stops the run before the explanation file of this
+    cache file is written."""
     bad = {k: v["failed"] for k, v in stats.items() if v["failed"]}
     if bad or problems:
         raise ReplayMismatch("%s: recorded-route replay failed %s; first: %s" % (where, bad, "; ".join(problems[:5])))
