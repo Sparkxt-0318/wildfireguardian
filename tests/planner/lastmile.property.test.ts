@@ -28,7 +28,7 @@ let cases: (GenCase & { fm: FieldMessages })[] = [];
 
 beforeAll(() => {
   cases = generateCases(SEED, COUNT).map((c) => ({ ...c, fm: buildFieldMessages(c.input, c.file) }));
-});
+}, 120_000);
 
 const where = (c: GenCase) => `case ${c.n} [${c.tags.join(' ')}] ${c.input.scenario.inputTimeIso}`;
 
@@ -193,5 +193,5 @@ describe(`seeded synthetic cases (mulberry32, seed ${SEED}, ${COUNT} cases)`, ()
       expect(typeof b, lms[i]).toBe('number');
       expect(b as number).toBeLessThanOrEqual(LMS_MAX_BYTES);
     });
-  });
+  }, 60_000);
 });

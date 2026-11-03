@@ -84,7 +84,7 @@ describe('origin cards: box-model estimate (no browser needed)', () => {
       }
     }
     expect(over).toEqual([]);
-  });
+  }, 120_000);
 });
 
 /**

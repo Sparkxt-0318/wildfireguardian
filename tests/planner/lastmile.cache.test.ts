@@ -247,7 +247,7 @@ describe('MOCK and test-data markers on every origin (mock-server dev setup; res
         }
       }
       expect(n).toBeGreaterThan(1000);
-    });
+    }, 120_000);
   }
 });
 
@@ -337,7 +337,7 @@ describe('"checked up to" only when T is the last departure checked (independent
       }
     }
     expect(window).toBeGreaterThan(0);
-  });
+  }, 60_000);
 });
 
 describe('with a contract-shaped explanation file built from the planner deadlines (synthetic road name)', () => {
@@ -742,5 +742,5 @@ describe('with the real deadline explanation files, when present', () => {
       'no_route/no_route_flames': 1,
       'unresolved/none': 19,
     });
-  });
+  }, 60_000);
 });

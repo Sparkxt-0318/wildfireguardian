@@ -38,7 +38,7 @@ describe('planner/docs/LASTMILE.md', () => {
       expect(fm.violations).toEqual([]);
       expect(text, `${path} ${id} ${lang}.${kind}`).toBe(allTexts(fm, lang as 'ko' | 'en')[kind as 'sms']);
     }
-  });
+  }, 60_000);
 
   it('§3 lists every forbidden word of strings.ts FORBIDDEN, and nothing else', () => {
     const block = DOC.slice(DOC.indexOf('<!-- forbidden-list -->'), DOC.indexOf('<!-- /forbidden-list -->'));

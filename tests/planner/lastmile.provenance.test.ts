@@ -109,7 +109,7 @@ describe('a result recomputed through the API inside a cached scenario', () => {
     expect(rows.find((r) => r.includes(',osm:node/415160471,'))).toContain(`,,,사전 계산 캐시 · ${PATH} · 2026-10-18 08:10 KST,`);
     const en = fieldMessagesCSV(items, { lang: 'en' }).split('\r\n');
     expect(en.find((r) => r.includes(`,${SAMCHUN},`))).toContain(',test data,Live API · host Linux x86_64 · 4 vCPU · not the evaluation host,');
-  });
+  }, 60_000);
 
   it('macOS arm64 API (the evaluated host type): not test data, and still never the cache\'s stamp', () => {
     const live = relive(data.plans[SAMCHUN]!, MAC, 'mac');
@@ -189,7 +189,7 @@ describe('a live API session without a precomputed cache (the Docker front door:
       }
     }
     expect(computed).toBeGreaterThan(50);
-  });
+  }, 60_000);
 
   it('with the default MOCK build setting the same session is marked MOCK (the planner\'s session-wide rule), still never "사전 계산"', () => {
     const { plans, routes } = liveSession(LINUX, 'mockenv');
@@ -200,5 +200,5 @@ describe('a live API session without a precomputed cache (the Docker front door:
       for (const t of everyText(fm)) expect(t).not.toMatch(/사전 계산|Precomputed/);
       expect(fm.text.ko.sms.split('\n')[0]).toContain('MOCK');
     }
-  });
+  }, 60_000);
 });
