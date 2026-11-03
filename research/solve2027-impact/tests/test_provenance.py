@@ -11,6 +11,7 @@ import json
 import re
 
 from conftest import PACKAGE_ROOT
+import wfg_impact
 from wfg_impact import analysis, figures, numbers as numbers_mod, sentences, sources
 
 NUMBERS = json.loads((PACKAGE_ROOT / 'NUMBERS.json').read_text(encoding='utf-8'))
@@ -129,6 +130,14 @@ def test_source_flags_follow_the_real_dependencies(path_a_result):
 
 
 SOURCE_PHRASES = ('computed by this package', 'Linux container', 'not evaluated-host output')
+# the blanket attributions the package once made: every number = what the Route-Check API concluded / read from the cache
+BLANKET = re.compile(r'describ(?:e|es|ing) what the (?:WildfireGuardian )?Route-Check API concluded'
+                     r'|read from the recorded cache, not recomputed|Every number describes', flags=re.I)
+
+
+def _prose(text: str) -> str:
+    """Whitespace collapsed and implicitly concatenated string literals joined, so a phrase split over lines is found."""
+    return re.sub(r'''(['"]) [rbf]{0,2}\1''', '', ' '.join(text.split()))
 
 
 def _svg_text(path) -> str:
@@ -169,6 +178,24 @@ def test_attribution_is_split_wherever_numbers_are_published():
         text = _svg_text(PACKAGE_ROOT / 'figures' / f'{stem}.svg')
         assert figures.SOURCES[fig] in text and 'evaluated macOS arm64 host' in text, stem
         assert all(p in text for p in SOURCE_PHRASES) and 'road entry point' in text, stem
+    # no blanket attribution left anywhere: the code (module docstrings included) and every published text
+    texts = {p.relative_to(PACKAGE_ROOT).as_posix(): p.read_text(encoding='utf-8')
+             for p in [PACKAGE_ROOT / 'compute.py', PACKAGE_ROOT / 'verify.py',
+                       *sorted((PACKAGE_ROOT / 'wfg_impact').glob('*.py')), PACKAGE_ROOT / 'NUMBERS.json']}
+    texts.update({'README.md': README, 'APPLICATION_SENTENCES.md': SENTENCES_MD})
+    texts.update({f'figures/{p.name}': _svg_text(p) for p in sorted((PACKAGE_ROOT / 'figures').glob('*.svg'))})
+    assert {'compute.py', 'verify.py', 'wfg_impact/__init__.py', 'wfg_impact/numbers.py', 'wfg_impact/sentences.py',
+            'NUMBERS.json'} <= set(texts) and len(texts) >= 19, sorted(texts)
+    for name, text in texts.items():
+        m = BLANKET.search(_prose(text))
+        assert not m, (name, m and m.group(0))
+    for old in ('All results are model-relative: they describe what the Route-Check API concluded for recorded',
+                "'Every number describes what the WildfireGuardian Route-Check API concluded for recorded fire-scenario '",
+                "it describes what the '\n           'Route-Check API concluded for",
+                'depend on the host running this package: they are read from the recorded cache, not recomputed by'):
+        assert BLANKET.search(_prose(old)), old
+    package_doc = ' '.join(wfg_impact.__doc__.split())
+    assert 'two sources' in package_doc and all(p in package_doc for p in ('evaluated macOS arm64 host', *SOURCE_PHRASES[1:]))
 
 
 # "from the place" (village, facility, ...) is only correct as "from the place's road entry point"
