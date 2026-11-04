@@ -605,7 +605,7 @@ const hp0 = new URLSearchParams(location.hash.slice(1));
 const stored = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
 let RID = hp0.get('region') || stored('wfg3d.region') || 'uiseong_andong_2025';
 if (!RIDX.some(r => r.id === RID)) RID = 'uiseong_andong_2025';
-const EN = (hp0.get('lang') || stored('wfg3d.lang') || 'ko') === 'en';
+const EN = (hp0.get('lang') || stored('wfg3d.lang') || 'en') === 'en';
 const tr = (ko, en) => EN ? en : ko;
 document.documentElement.lang = EN ? 'en' : 'ko';
 if (EN) {
