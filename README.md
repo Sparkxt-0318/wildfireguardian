@@ -31,6 +31,9 @@ The forecast is the learned component; routing is a search-and-check algorithm. 
 
 ## Current research status
 
+> **November 2026 research update:** A subsequent missing-input audit found that 11 of 15 saved route witnesses touched cells without native new-burn probability estimates. A stricter-policy sensitivity, fictional facility exercises, and synthetic hourly forecast controls are summarized in [the November research note](research/november-20261111/README.md). These are retrospective research results, not physical safety or institutional validation.
+
+
 Status as of **31 October 2026**, following merged PRs [#85](https://github.com/Sparkxt-0318/wildfireguardian/pull/85), [#86](https://github.com/Sparkxt-0318/wildfireguardian/pull/86), [#87](https://github.com/Sparkxt-0318/wildfireguardian/pull/87), [#88](https://github.com/Sparkxt-0318/wildfireguardian/pull/88) and [#89](https://github.com/Sparkxt-0318/wildfireguardian/pull/89). **HOLD** means the stated scientific acceptance requirements remain unmet; it does not mean the code failed to run.
 
 | Component | Available evidence and implementation | Acceptance boundary |
