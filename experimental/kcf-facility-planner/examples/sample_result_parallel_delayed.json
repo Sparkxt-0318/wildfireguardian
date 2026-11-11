@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "case_id": "contract-delayed",
+  "status": "CHECKED_ROUTE",
+  "reason": "Every group has a fully supported legal schedule; final unloading at 25s.",
+  "reason_codes": [
+    "ALL_GROUPS_SUPPORTED"
+  ],
+  "final_unload_s": 25,
+  "groups_total": 2,
+  "people_total": 12,
+  "people_with_checked_transport": 12,
+  "groups_with_checked_transport": [
+    "G1",
+    "G2"
+  ],
+  "groups_awaiting_checked_transport": [],
+  "people_awaiting_checked_transport": 0,
+  "mode": "parallel",
+  "trips": [
+    {
+      "vehicle_id": "V1",
+      "kind": "outbound",
+      "group_id": "G1",
+      "people": 6,
+      "seats": 6,
+      "start_node": "A",
+      "end_node": "C",
+      "incoming_edge_at_start": null,
+      "ready_s": 0,
+      "boarding_start_s": 0,
+      "boarding_end_s": 1,
+      "departure_s": 1,
+      "arrival_s": 9,
+      "unloading_start_s": 9,
+      "unloading_end_s": 11,
+      "edges": [
+        {
+          "edge_id": "e1",
+          "from": "A",
+          "to": "B",
+          "entry_s": 1,
+          "exit_s": 4
+        },
+        {
+          "edge_id": "e2",
+          "from": "B",
+          "to": "C",
+          "entry_s": 4,
+          "exit_s": 9
+        }
+      ],
+      "waits": [],
+      "binding_constraints": [],
+      "uses_unknown_input": false,
+      "trip_id": "T1"
+    },
+    {
+      "vehicle_id": "V2",
+      "kind": "outbound",
+      "group_id": "G2",
+      "people": 6,
+      "seats": 6,
+      "start_node": "A",
+      "end_node": "C",
+      "incoming_edge_at_start": null,
+      "ready_s": 10,
+      "boarding_start_s": 10,
+      "boarding_end_s": 11,
+      "departure_s": 11,
+      "arrival_s": 23,
+      "unloading_start_s": 23,
+      "unloading_end_s": 25,
+      "edges": [
+        {
+          "edge_id": "e3",
+          "from": "A",
+          "to": "D",
+          "entry_s": 11,
+          "exit_s": 17
+        },
+        {
+          "edge_id": "e4",
+          "from": "D",
+          "to": "C",
+          "entry_s": 17,
+          "exit_s": 23
+        }
+      ],
+      "waits": [],
+      "binding_constraints": [],
+      "uses_unknown_input": false,
+      "trip_id": "T2"
+    }
+  ],
+  "missing_information": [],
+  "assumptions": [
+    "All times are integer seconds from the exercise origin; travel on an edge occupies [entry, exit).",
+    "An edge may not be entered if [entry, exit) has positive-duration overlap with a closed interval; supported (checked) schedules also avoid every unknown interval. Unlisted times within the horizon are known and open.",
+    "Every journey leg must finish by horizon_s; unloading must finish by min(destination window close, horizon_s). Completion exactly at the horizon or window close is allowed.",
+    "Waiting is allowed at every node and keeps the incoming edge, so forbidden turns apply after waits and between shuttle legs. Nodes are assumed supported and open in this contract.",
+    "A destination arrival counts only as an edge arrival inside the window; waiting at the destination is not an arrival.",
+    "Boarding takes board_s at the origin and starts no earlier than vehicle availability (or its return). Boarding is placed to end exactly at departure, so any hold happens at the facility before residents board.",
+    "Parallel mode: group i uses vehicle i, one trip, no return. Shuttle mode: one vehicle serves groups in listed order with empty returns; no other vehicle is introduced.",
+    "No road capacity, vehicle interaction, destination capacity, driver availability, loading variability, heat exposure, smoke or physical road status is modelled."
+  ],
+  "failures": [],
+  "diagnostics": [],
+  "search": {
+    "settled_labels": 20,
+    "label_cap": 2000000,
+    "time_limit_s": null,
+    "cap_reached": false,
+    "supported_view": "FOUND",
+    "optimistic_view": "FOUND"
+  },
+  "tool": "kcf-facility-planner/1",
+  "input_schema_version": 1,
+  "wall_s": 0.000216,
+  "verification": {
+    "independent_replay": {
+      "module": "kcf_planner.replay",
+      "violations": [],
+      "ok": true
+    },
+    "wfg_sipp": {
+      "available": true,
+      "source": "experimental/sipp-routing/src/wfg_sipp",
+      "checks": [
+        {
+          "trip_id": "T1",
+          "view": "supported",
+          "predicate_violations": [],
+          "sipp_status": "FOUND",
+          "sipp_earliest_arrival": 9,
+          "emitted_arrival": 9,
+          "bruteforce_earliest_arrival": 9,
+          "ok": true
+        },
+        {
+          "trip_id": "T2",
+          "view": "supported",
+          "predicate_violations": [],
+          "sipp_status": "FOUND",
+          "sipp_earliest_arrival": 23,
+          "emitted_arrival": 23,
+          "bruteforce_earliest_arrival": 23,
+          "ok": true
+        }
+      ],
+      "all_ok": true
+    },
+    "wall_s": 0.004406
+  }
+}

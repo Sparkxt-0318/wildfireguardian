@@ -1,0 +1,51 @@
+{
+ "schema_version": 1,
+ "case_id": "contract-missing-input",
+ "horizon_s": 40,
+ "origin": "A",
+ "destination": "C",
+ "edges": [
+  {
+   "id": "e1",
+   "u": "A",
+   "v": "B",
+   "travel_s": 3,
+   "closed": [],
+   "unknown": [
+    [
+     0,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "e2",
+   "u": "B",
+   "v": "C",
+   "travel_s": 5,
+   "closed": [],
+   "unknown": []
+  }
+ ],
+ "vehicles": [
+  {
+   "id": "V1",
+   "available_s": 0,
+   "seats": 6
+  }
+ ],
+ "groups": [
+  {
+   "id": "G1",
+   "people": 6
+  }
+ ],
+ "board_s": 1,
+ "unload_s": 2,
+ "destination_window": [
+  0,
+  40
+ ],
+ "forbidden_turns": [],
+ "mode": "parallel"
+}

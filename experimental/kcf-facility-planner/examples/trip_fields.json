@@ -1,0 +1,228 @@
+{
+ "schema": "kcf-facility-planner result fields, schema_version 1",
+ "result_fields": {
+  "schema_version": {
+   "type": "integer",
+   "meaning": "1"
+  },
+  "case_id": {
+   "type": "string|null",
+   "meaning": "from input"
+  },
+  "status": {
+   "type": "string",
+   "meaning": "CHECKED_ROUTE | MISSING_INPUT | MODEL_SCOPED_NO_ROUTE | UNRESOLVED | INVALID_INPUT"
+  },
+  "reason": {
+   "type": "string",
+   "meaning": "human-readable explanation"
+  },
+  "reason_codes": {
+   "type": "array of string",
+   "meaning": "machine-readable reasons (see SCHEMA.md)"
+  },
+  "final_unload_s": {
+   "type": "integer|null",
+   "meaning": "last unloading end; non-null only for CHECKED_ROUTE"
+  },
+  "groups_total": {
+   "type": "integer|null",
+   "meaning": "number of input groups"
+  },
+  "people_total": {
+   "type": "integer|null",
+   "meaning": "sum of group people"
+  },
+  "people_with_checked_transport": {
+   "type": "integer",
+   "meaning": "people in groups with a supported witness trip in `trips`"
+  },
+  "groups_with_checked_transport": {
+   "type": "array",
+   "meaning": "group ids witnessed in `trips`"
+  },
+  "groups_awaiting_checked_transport": {
+   "type": "array",
+   "meaning": "group ids without a supported witness"
+  },
+  "people_awaiting_checked_transport": {
+   "type": "integer",
+   "meaning": "people_total - people_with_checked_transport"
+  },
+  "trips": {
+   "type": "array of trip",
+   "meaning": "supported (checked) witness trips only; all groups when CHECKED_ROUTE, a witnessed subset otherwise"
+  },
+  "conditional_trips": {
+   "type": "array of trip (MISSING_INPUT only)",
+   "meaning": "a schedule that is legal only if the listed unknown intervals are open; NOT checked"
+  },
+  "conditional_final_unload_s": {
+   "type": "integer (MISSING_INPUT only)",
+   "meaning": "final unloading of conditional_trips"
+  },
+  "optimistic_final_unload_s": {
+   "type": "integer (CHECKED_ROUTE, optional)",
+   "meaning": "earlier completion possible only if unknown inputs proved open"
+  },
+  "missing_information": {
+   "type": "array",
+   "meaning": "{kind: UNKNOWN_EDGE_INTERVAL, edge_id, unknown_interval (as listed), traversal, vehicle_id, group_id, trip_kind, needed_for: ANY_FEASIBLE_SCHEDULE|EARLIER_COMPLETION_IF_OPEN}"
+  },
+  "assumptions": {
+   "type": "array of string",
+   "meaning": "modelling assumptions and input notes"
+  },
+  "failures": {
+   "type": "array",
+   "meaning": "per-view chain failures: CAPACITY | NO_ADMISSIBLE_LEG | NO_VEHICLE_ASSIGNED"
+  },
+  "diagnostics": {
+   "type": "array",
+   "meaning": "hypothetical counterfactual runs used for MODEL_SCOPED_NO_ROUTE reasons; never schedules"
+  },
+  "search": {
+   "type": "object",
+   "meaning": "settled_labels, label_cap, time_limit_s, cap_reached, supported_view, optimistic_view"
+  },
+  "verification": {
+   "type": "object",
+   "meaning": "independent_replay {violations, ok}; wfg_sipp {checks, all_ok}"
+  },
+  "gated_from_status": {
+   "type": "string (only if gated)",
+   "meaning": "original status when an emitted witness failed replay and was withheld as UNRESOLVED"
+  }
+ },
+ "trip_fields": {
+  "trip_id": {
+   "type": "string",
+   "meaning": "T1, T2, ... in output order"
+  },
+  "vehicle_id": {
+   "type": "string",
+   "meaning": "vehicle making this trip"
+  },
+  "kind": {
+   "type": "string",
+   "meaning": "'outbound' (carries a group) or 'empty_return' (destination -> origin, no people)"
+  },
+  "group_id": {
+   "type": "string|null",
+   "meaning": "group carried; null for empty_return"
+  },
+  "people": {
+   "type": "integer",
+   "meaning": "people on board (0 for empty_return)"
+  },
+  "seats": {
+   "type": "integer",
+   "meaning": "vehicle seats"
+  },
+  "start_node": {
+   "type": "string",
+   "meaning": "origin for outbound, destination for empty_return"
+  },
+  "end_node": {
+   "type": "string",
+   "meaning": "destination for outbound, origin for empty_return"
+  },
+  "incoming_edge_at_start": {
+   "type": "string|null",
+   "meaning": "edge the vehicle last arrived on (kept through waits; used for the first turn check); null only before the first trip"
+  },
+  "ready_s": {
+   "type": "integer",
+   "meaning": "vehicle availability (first trip), unloading end (return trip), or return arrival (later outbound) - integer seconds from exercise origin"
+  },
+  "boarding_start_s": {
+   "type": "integer|null",
+   "meaning": "outbound only; >= ready_s; boarding_end_s - boarding_start_s == board_s"
+  },
+  "boarding_end_s": {
+   "type": "integer|null",
+   "meaning": "outbound only; equals departure_s (holds happen at the facility before boarding)"
+  },
+  "departure_s": {
+   "type": "integer",
+   "meaning": "entry second of the first edge"
+  },
+  "arrival_s": {
+   "type": "integer",
+   "meaning": "exit second of the last edge (admission arrival)"
+  },
+  "unloading_start_s": {
+   "type": "integer|null",
+   "meaning": "outbound only; equals arrival_s"
+  },
+  "unloading_end_s": {
+   "type": "integer|null",
+   "meaning": "outbound only; arrival_s + unload_s"
+  },
+  "edges": {
+   "type": "array",
+   "meaning": "ordered traversals: {edge_id, from, to, entry_s, exit_s}; exit_s - entry_s == travel_s; occupies [entry_s, exit_s)"
+  },
+  "waits": {
+   "type": "array",
+   "meaning": "{node, start_s, end_s, incoming_edge_id, phase: before_boarding|on_board|empty_vehicle, causes:[...]}"
+  },
+  "binding_constraints": {
+   "type": "array",
+   "meaning": "constraints that forced waiting in the earliest-departure witness: EDGE_CLOSED|EDGE_UNKNOWN {edge_id, interval, delay_s} or DESTINATION_NOT_OPEN {window_open_s, delay_s}"
+  },
+  "uses_unknown_input": {
+   "type": "boolean",
+   "meaning": "true only in conditional_trips (never in checked trips)"
+  },
+  "length_m": {
+   "type": "number (optional)",
+   "meaning": "sum of edge length_m when every edge provides it (display only)"
+  }
+ },
+ "example_trip": {
+  "vehicle_id": "V1",
+  "kind": "empty_return",
+  "group_id": null,
+  "people": 0,
+  "seats": 6,
+  "start_node": "C",
+  "end_node": "A",
+  "incoming_edge_at_start": "e2",
+  "ready_s": 10,
+  "boarding_start_s": null,
+  "boarding_end_s": null,
+  "departure_s": 10,
+  "arrival_s": 18,
+  "unloading_start_s": null,
+  "unloading_end_s": null,
+  "edges": [
+   {
+    "edge_id": "e6",
+    "from": "C",
+    "to": "D",
+    "entry_s": 10,
+    "exit_s": 12
+   },
+   {
+    "edge_id": "e7",
+    "from": "D",
+    "to": "B",
+    "entry_s": 12,
+    "exit_s": 15
+   },
+   {
+    "edge_id": "e8",
+    "from": "B",
+    "to": "A",
+    "entry_s": 15,
+    "exit_s": 18
+   }
+  ],
+  "waits": [],
+  "binding_constraints": [],
+  "uses_unknown_input": false,
+  "trip_id": "T2"
+ },
+ "example_source": "examples/sample_result_shuttle.json (fixtures/contract/shuttle.json)"
+}

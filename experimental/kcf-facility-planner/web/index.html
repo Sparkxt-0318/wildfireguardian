@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시설 이송 지연 계획</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#16191d;--muted:#5c6570;--line:#d9dde3;
+  --v1:#2563eb;--v2:#d97706;--board:#0d9488;--unload:#7c3aed;--hold:#94a3b8;--prep:#e2e8f0;--ret:#64748b;
+  --closed:#dc2626;--unknown:#ca8a04;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--info:#1d4ed8;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1216;--panel:#171b21;--ink:#e8ebef;--muted:#9aa4af;--line:#2b323b;
+  --v1:#60a5fa;--v2:#fbbf24;--board:#2dd4bf;--unload:#a78bfa;--hold:#64748b;--prep:#2a3240;--ret:#94a3b8;
+  --closed:#f87171;--unknown:#facc15;--ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--info:#93c5fd;}}
+:root[data-theme="dark"]{
+  --bg:#0f1216;--panel:#171b21;--ink:#e8ebef;--muted:#9aa4af;--line:#2b323b;
+  --v1:#60a5fa;--v2:#fbbf24;--board:#2dd4bf;--unload:#a78bfa;--hold:#64748b;--prep:#2a3240;--ret:#94a3b8;
+  --closed:#f87171;--unknown:#facc15;--ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--info:#93c5fd;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0 2px}h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:13px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+input[type=range]{width:220px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px}
+.status{font-weight:700;font-size:16px}
+.s-CHECKED_ROUTE{color:var(--ok)}.s-MISSING_INPUT{color:var(--warn)}.s-MODEL_SCOPED_NO_ROUTE{color:var(--bad)}.s-UNRESOLVED{color:var(--info)}
+.big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:14px}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.delta{font-weight:700}
+ul.clean{margin:0;padding-left:18px}ul.clean li{margin:3px 0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+td.route{white-space:normal;min-width:220px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}
+.sw{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+svg text{fill:var(--ink);font-size:11px}
+svg .muted{fill:var(--muted)}
+.small{font-size:12px;color:var(--muted)}
+.warnbox{border-left:4px solid var(--warn);padding:6px 10px;background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.cond{border-left:4px dashed var(--unknown);padding-left:8px}
+details summary{cursor:pointer;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <div class="row" style="justify-content:space-between">
+    <div>
+      <span class="badge">가상 사례 · FICTIONAL</span><span class="badge">오프라인 · 지도 타일 없음</span><span class="badge">계획 보조용 · 실제 대피 지시 아님</span>
+      <h1 id="headline">“2호차가 10분 늦게 도착합니다” — 요양시설 이송 계획은 어떻게 바뀌나?</h1>
+      <div class="sub">What does a vehicle delay mean for a fictional care facility? Every number below is recomputed by the planner and independently replayed.</div>
+    </div>
+  </div>
+
+  <section class="panel" aria-label="입력 변경">
+    <h2>1. 한 가지만 바꿔 보세요</h2>
+    <div class="row" role="group" aria-label="사례 선택">
+      <button id="case-two" aria-pressed="true">주 사례: 차량 2대 동시 이송</button>
+      <button id="case-shuttle" aria-pressed="false">별도 사례: 차량 1대 왕복</button>
+    </div>
+    <div class="row" style="margin-top:10px" role="group" aria-label="지연 시간">
+      <span id="delay-label">2호차 지연:</span>
+      <span id="delay-buttons" class="row"></span>
+      <input id="delay-range" type="range" min="0" max="60" step="1" value="10" aria-label="지연(분)">
+      <b id="delay-value">10분</b>
+    </div>
+    <p class="small" id="fixture-note"></p>
+  </section>
+
+  <section class="panel" aria-live="polite">
+    <h2>2. 결과 비교</h2>
+    <div class="grid2" id="cards"></div>
+    <div id="why" style="margin-top:12px"></div>
+  </section>
+
+  <section class="panel">
+    <h2>3. 전후 타임라인 (Before / after timeline)</h2>
+    <div class="legend" id="legend"></div>
+    <div id="timeline"></div>
+  </section>
+
+  <section class="panel">
+    <h2>4. 차량별 일정과 도로</h2>
+    <div class="grid2">
+      <div><h3>지연 반영 일정</h3><div class="tablewrap" id="trips"></div></div>
+      <div><h3>개략도 (실제 지도 아님)</h3><div id="map"></div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>5. 사람이 꼭 확인해야 할 부분</h2>
+    <ul class="clean" id="checks"></ul>
+  </section>
+
+  <section class="panel">
+    <h2>6. 이 데모가 실제로 검사하는 것 / 검사하지 않는 것</h2>
+    <div class="grid2">
+      <div><h3>검사함 (모든 결과를 독립 재검증)</h3>
+        <ul class="clean small">
+          <li>도로 구간 연결·이동 시간 (도착 = 진입 + 이동시간, [진입, 진출) 구간)</li>
+          <li>모의 통제 구간과 양의 길이로 겹치는 통행 금지 (경계에서 맞닿는 것은 허용)</li>
+          <li>미확인(예측 누락) 구간은 확인된 계획에 사용 금지 — 필요하면 “입력 누락”으로 분리</li>
+          <li>회전 금지 (대기 중·왕복 사이에도 진입 방향 유지)</li>
+          <li>차량 위치·시각·좌석 연속성, 탑승은 차량 가용(또는 복귀) 이후</li>
+          <li>대피소 수용 시간 안 도착, 하차 완료 ≤ 수용 종료·계획 범위(horizon)</li>
+          <li>기존 저장소 모듈 wfg_sipp(SIPP·전수 시간격자·JS-1~8, JS-11 판정식)로 교차 확인</li>
+        </ul></div>
+      <div><h3>검사하지 않음 (미해결)</h3>
+        <ul class="clean small">
+          <li>누적 열 노출·최대 복사열 (JS-9, JS-10) — 이 입력에는 열 자료가 없음</li>
+          <li>실제 도로 개방, 교통, 연기, 야간 시야</li>
+          <li>대피소 수용 능력·준비 상태, 운전자·입소자 건강, 탑승 시간 변동</li>
+          <li>다른 차량과의 상호작용, 도로 용량</li>
+        </ul></div>
+    </div>
+    <p class="small">상태 구분: <b>확인된 이송 계획</b> · <b>입력 누락</b>(미확인 구간이 열려 있어야만 가능) · <b>모델 범위 내 불가</b>(미확인 구간을 모두 열어도 불가; 계획 범위 밖 시간·수용 시간·통제로 이유를 구분) · <b>계산 미완료</b>(탐색 한도; 불가 판정 아님).</p>
+  </section>
+
+  <section class="panel">
+    <h2>7. 기록된 과거 사례 (참고 · 재계산 아님)</h2>
+    <p class="small">저장소의 2026년 11월 연구 노트(research/november-20261111/README.md)에 기록된 의성–안동 회고 사례: 차량 2대, 가상 입소자 각 6명, 복귀 없음, 출발·도착지 약 4.5 km. 보수적 전 시간대 모의 화재 제한을 적용하자 경로가 <b>602초·6.041 km → 1,288초·12.650 km</b>로 바뀌었습니다. 제한은 모의값이며 최종 누적 열 노출은 미해결이었습니다. 이 수치는 그 사례의 출처 정보일 뿐, 위의 가상 사례나 새 시간 의존 계획기의 기대값이 아닙니다. 원본 기록 파일은 이 환경에 없어 재생하지 않았습니다.</p>
+  </section>
+
+  <p class="small">WildfireGuardian 연구용 프로토타입 · 계획 보조용 · 실제 거주자 자료 없음 · 실제 대피 지시나 안전 판단에 사용하지 마십시오.</p>
+</main>
+<script>
+const EMBED = /*__KCF_EMBED__*/null;
+const state = {caseKey: "two", delayMin: 10};
+const DELAYS = [0, 5, 10, 15, 20, 25, 30];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function fmt(t){ if(t===null||t===undefined) return "—"; t=Math.round(t); const m=Math.floor(t/60), s=t%60; return `T+${m}:${String(s).padStart(2,"0")}`; }
+function mins(t){ return t===null||t===undefined ? "—" : `${(t/60).toFixed(t%60?1:0)}분`; }
+const VCOL = (vid, i) => (i===0 ? "var(--v1)" : "var(--v2)");
+
+async function getPlan(caseKey, delayMin){
+  const key = `${caseKey}|${delayMin*60}`;
+  if (EMBED) { if (EMBED[key]) return EMBED[key]; throw new Error("not precomputed"); }
+  const r = await fetch(`/api/plan?case=${caseKey}&delay_s=${delayMin*60}`);
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+function buildControls(){
+  const box = $("delay-buttons"); box.innerHTML = "";
+  for (const d of DELAYS){
+    const b = document.createElement("button");
+    b.textContent = d===0 ? "지연 없음" : `${d}분`;
+    b.setAttribute("aria-pressed", String(d===state.delayMin));
+    b.onclick = () => { state.delayMin = d; $("delay-range").value = d; update(); };
+    box.appendChild(b);
+  }
+}
+$("delay-range").oninput = (e) => { state.delayMin = +e.target.value; update(); };
+$("case-two").onclick = () => { state.caseKey="two"; update(); };
+$("case-shuttle").onclick = () => { state.caseKey="shuttle"; update(); };
+
+function edgeName(p, id){ const e = p.edges.find(x=>x.id===id); return e ? (e.name_ko || id) : id; }
+function nodeName(p, n){ return (p.fixture.node_labels_ko||{})[n] || n; }
+function nodePath(p, ids){ if(!ids||!ids.length) return ""; const E=Object.fromEntries(p.edges.map(e=>[e.id,e])); return [E[ids[0]].u, ...ids.map(i=>E[i].v)].map(n=>esc(nodeName(p,n))).join(" → "); }
+
+function card(p, tag){
+  const r = p[tag];
+  const label = tag==="before" ? "원래 계획" : `지연 반영 (${p.delayed_vehicle_ko} +${p.delay_s/60}분)`;
+  const awaiting = r.people_total - r.people_with_checked_transport;
+  let h = `<div class="card"><h3>${esc(label)}</h3>
+    <div class="status s-${r.status}">${esc(p.status_ko[tag])}</div>
+    <div class="small">${esc(r.status)}</div>
+    <dl class="kv" style="margin-top:8px">
+      <dt>마지막 하차 완료</dt><dd class="big">${fmt(r.final_unload_s)}</dd>
+      <dt>확인된 이송 인원</dt><dd>${r.people_with_checked_transport} / ${r.people_total}명</dd>
+      <dt>이송 대기 인원</dt><dd>${awaiting}명 ${awaiting? "("+esc((r.groups_awaiting_checked_transport||[]).join(", "))+")":""}</dd>`;
+  if (r.conditional_final_unload_s!=null) h += `<dt>조건부 완료</dt><dd>${fmt(r.conditional_final_unload_s)} <span class="small">(미확인 구간이 열려 있을 때만)</span></dd>`;
+  if (r.optimistic_final_unload_s!=null) h += `<dt>자료 확인 시</dt><dd>${fmt(r.optimistic_final_unload_s)} <span class="small">(미확인 구간 확인 후에만)</span></dd>`;
+  h += `</dl><ul class="clean small" style="margin-top:6px">${(p.reason_ko[tag]||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  return h;
+}
+
+function renderWhy(p){
+  const c = p.compare; let h = "";
+  if (c.final_delta_s!=null){
+    h += `<p><span class="delta">마지막 하차 완료가 ${c.final_delta_s>=0?"+":""}${mins(c.final_delta_s)} ${c.final_delta_s>0?"늦어집니다":"변하지 않습니다"}</span>
+      <span class="small">(${fmt(c.final_before_s)} → ${fmt(c.final_after_s)})</span></p>`;
+  } else if (p.before.status!==p.after.status){
+    h += `<p class="delta">결과 상태가 바뀝니다: ${esc(p.status_ko.before)} → ${esc(p.status_ko.after)}</p>`;
+  }
+  if (c.route_changed) h += `<p>도로가 바뀝니다: <b>${nodePath(p,c.route_before)}</b><br>⇒ <b>${nodePath(p,c.route_after)}</b></p>`;
+  h += `<h3>결정적 제약 (binding constraint)</h3><ul class="clean">${(c.binding||[]).map(m=>`<li>${esc(m.text_ko)}<div class="small">${esc(m.text_en)}</div></li>`).join("") || "<li>변화 없음</li>"}</ul>`;
+  $("why").innerHTML = h;
+}
+
+const SEG = {prep:["var(--prep)","준비(차량 가용 전)"], hold:["var(--hold)","대기"], board:["var(--board)","탑승"],
+  travel:["", "이동(차량색)"], ret:["var(--ret)","빈 차 복귀"], unload:["var(--unload)","하차"]};
+function legend(){
+  $("legend").innerHTML = Object.entries(SEG).map(([k,[c,l]])=> k==="travel"
+    ? `<span><span class="sw" style="background:var(--v1)"></span><span class="sw" style="background:var(--v2)"></span>${l}</span>`
+    : `<span><span class="sw" style="background:${c}"></span>${l}</span>`).join("") +
+    `<span><span class="sw" style="background:var(--closed)"></span>모의 통제</span><span><span class="sw" style="background:var(--unknown)"></span>미확인(예측 누락)</span><span><span class="sw" style="border:1px dashed var(--unknown)"></span>조건부 일정</span>`;
+}
+
+function timeline(p){
+  const H = p.fixture.horizon_s, W = 1100, left = 150, right = 20, rowH = 26;
+  const vids = p.fixture.vehicles.map(v=>v.id);
+  const rows = [];
+  for (const tag of ["before","after"]){
+    rows.push({type:"title", text: tag==="before" ? "원래 계획" : `지연 반영 (+${p.delay_s/60}분)`});
+    const r = p[tag];
+    vids.forEach((vid, i) => {
+      const trips = r.trips.filter(t=>t.vehicle_id===vid);
+      const cond = (r.conditional_trips||[]).filter(t=>t.vehicle_id===vid && !trips.some(x=>x.trip_id===t.trip_id && x.departure_s===t.departure_s));
+      const avail = (tag==="before" ? p.fixture.vehicles[i].available_s : p.fixture.vehicles[i].available_s + (vid===p.delayed_vehicle_id? p.delay_s:0));
+      rows.push({type:"veh", vid, i, trips, cond: trips.length? [] : cond, avail, status:r.status});
+    });
+  }
+  const edgesWith = p.edges.filter(e => (e.closed||[]).length || (e.unknown||[]).length);
+  rows.push({type:"title", text:"도로 제약"});
+  edgesWith.forEach(e => rows.push({type:"edge", e}));
+  const Hh = rows.length*rowH + 30;
+  const x = (t) => left + (Math.min(Math.max(t,0),H)/H)*(W-left-right);
+  let s = `<svg viewBox="0 0 ${W} ${Hh}" width="100%" role="img" aria-label="전후 타임라인">`;
+  for (let m=0; m<=H/60; m+= (H>3600?10:5)){ const xx=x(m*60); s+=`<line x1="${xx}" y1="0" x2="${xx}" y2="${Hh-20}" stroke="var(--line)"/><text x="${xx}" y="${Hh-6}" text-anchor="middle" class="muted">${m}분</text>`; }
+  s += `<line x1="${x(H)}" y1="0" x2="${x(H)}" y2="${Hh-20}" stroke="var(--bad)" stroke-dasharray="4 3"/><text x="${x(H)-4}" y="10" text-anchor="end" class="muted">계획 범위 끝</text>`;
+  const rect = (a,b,y,fill,extra="") => b>a ? `<rect x="${x(a)}" y="${y+5}" width="${Math.max(1,x(b)-x(a))}" height="${rowH-10}" rx="3" fill="${fill}" ${extra}/>` : "";
+  rows.forEach((row, k) => {
+    const y = k*rowH;
+    if (row.type==="title"){ s += `<text x="4" y="${y+17}" style="font-weight:700">${esc(row.text)}</text>`; return; }
+    if (row.type==="edge"){
+      s += `<text x="4" y="${y+17}" class="muted">${esc((row.e.name_ko||row.e.id).slice(0,16))}</text>`;
+      (row.e.closed||[]).forEach(([a,b])=> s+=rect(a,Math.min(b,H),y,"var(--closed)",'opacity="0.55"'));
+      (row.e.unknown||[]).forEach(([a,b])=> s+=rect(a,Math.min(b,H),y,"var(--unknown)",'opacity="0.55"'));
+      return;
+    }
+    const v = p.fixture.vehicles[row.i];
+    s += `<text x="4" y="${y+17}">${esc(v.name_ko||row.vid)}</text>`;
+    s += rect(0,row.avail,y,"var(--prep)");
+    const draw = (t, dashed) => {
+      const col = t.kind==="outbound" ? VCOL(row.vid,row.i) : "var(--ret)";
+      const ex = dashed ? 'stroke="var(--unknown)" stroke-dasharray="4 2" fill-opacity="0.45"' : "";
+      for (const w of t.waits) s += rect(w.start_s,w.end_s,y,"var(--hold)",ex);
+      if (t.kind==="outbound") s += rect(t.boarding_start_s,t.boarding_end_s,y,"var(--board)",ex);
+      for (const e of t.edges) s += rect(e.entry_s,e.exit_s,y,col,ex);
+      if (t.kind==="outbound") s += rect(t.unloading_start_s,t.unloading_end_s,y,"var(--unload)",ex);
+      if (t.kind==="outbound") s += `<text x="${Math.min(x(t.unloading_end_s)+4, W-60)}" y="${y+17}" class="muted">${fmt(t.unloading_end_s)}</text>`;
+    };
+    row.trips.forEach(t=>draw(t,false));
+    row.cond.forEach(t=>draw(t,true));
+    if (!row.trips.length && !row.cond.length) s += `<text x="${x(row.avail)+6}" y="${y+17}" style="fill:var(--bad)">확인된 이송 없음 — 대기</text>`;
+    else if (!row.trips.length) s += `<text x="${x(0)+4}" y="${y+17}" style="fill:var(--warn)"> </text>`;
+  });
+  s += `</svg>`;
+  $("timeline").innerHTML = s + `<p class="small">회색 = 차량 가용 전 준비, 짙은 회색 = 대기(시설에서 탑승 전에 하도록 배치), 점선 = 미확인 입력이 있어야만 가능한 조건부 일정.</p>`;
+}
+
+function tripsTable(p){
+  const r = p.after;
+  const list = r.trips.length || !(r.conditional_trips||[]).length ? r.trips.map(t=>[t,false]) : [];
+  (r.conditional_trips||[]).forEach(t=>{ if(!r.trips.some(x=>x.vehicle_id===t.vehicle_id && x.departure_s===t.departure_s)) list.push([t,true]); });
+  if (!list.length){ $("trips").innerHTML = `<p class="small">확인된 일정이 없습니다.</p>`; return; }
+  let h = `<table><thead><tr><th>차량</th><th>구분</th><th>가용</th><th>탑승</th><th>출발</th><th>도착</th><th>하차 완료</th><th>인원</th><th>거리</th></tr></thead><tbody>`;
+  for (const [t,cond] of list){
+    h += `<tr${cond?' class="cond"':''}><td>${esc(t.vehicle_id)}</td><td>${t.kind==="outbound"?"이송 "+esc(t.group_id):"빈 차 복귀"}${cond?" <b>(조건부)</b>":""}</td><td>${fmt(t.ready_s)}</td><td>${t.boarding_start_s!=null?fmt(t.boarding_start_s)+"~"+fmt(t.boarding_end_s):"—"}</td><td>${fmt(t.departure_s)}</td><td>${fmt(t.arrival_s)}</td><td>${fmt(t.unloading_end_s)}</td><td>${t.people}명/${t.seats}석</td><td>${t.length_m?(t.length_m/1000).toFixed(1)+" km":"—"}</td></tr>
+      <tr${cond?' class="cond"':''}><td></td><td class="route small" colspan="8">${(()=>{const E=Object.fromEntries(p.edges.map(x=>[x.id,x])); return esc(nodeName(p,E[t.edges[0].edge_id].u))+" "+t.edges.map(e=>`<span class="muted">[${fmt(e.entry_s)}–${fmt(e.exit_s)})</span> → ${esc(nodeName(p,E[e.edge_id].v))}`).join(" ");})()}${t.waits.length? "<br>대기: "+t.waits.map(w=>`${esc(nodeName(p,w.node))} ${fmt(w.start_s)}~${fmt(w.end_s)}`).join(", "):""}</td></tr>`;
+  }
+  $("trips").innerHTML = h + "</tbody></table>";
+}
+
+function mapView(p){
+  const xy = p.fixture.node_xy || {}; const W=720, Hm=500;
+  const used = {};
+  const r = p.after;
+  [...r.trips, ...(r.conditional_trips||[])].forEach(t => t.edges.forEach(e => { (used[e.edge_id] ||= new Set()).add(t.vehicle_id); }));
+  const vidx = Object.fromEntries(p.fixture.vehicles.map((v,i)=>[v.id,i]));
+  let s = `<svg viewBox="0 0 ${W} ${Hm}" width="100%" role="img" aria-label="개략도">`;
+  for (const e of p.edges){
+    const a = xy[e.u], b = xy[e.v]; if(!a||!b) continue;
+    const dx=b[0]-a[0], dy=b[1]-a[1], L=Math.hypot(dx,dy)||1, ox=-dy/L*5, oy=dx/L*5;
+    const x1=a[0]+ox,y1=a[1]+oy,x2=b[0]+ox,y2=b[1]+oy;
+    let col="var(--line)", w=2, dash="";
+    if ((e.closed||[]).length){ col="var(--closed)"; dash='stroke-dasharray="7 4"'; }
+    else if ((e.unknown||[]).length){ col="var(--unknown)"; dash='stroke-dasharray="2 3"'; }
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${w}" ${dash}/>`;
+    if (used[e.id]) [...used[e.id]].forEach((vid,k)=>{ s += `<line x1="${x1+ox*k*0.8}" y1="${y1+oy*k*0.8}" x2="${x2+ox*k*0.8}" y2="${y2+oy*k*0.8}" stroke="${VCOL(vid,vidx[vid])}" stroke-width="4" opacity="0.85"/>`; });
+    const mx=(x1+x2)/2+ox*2, my=(y1+y2)/2+oy*2;
+    s += `<polygon points="${x2-dx/L*14+ox*0},${y2-dy/L*14} ${x2-dx/L*22-dy/L*4},${y2-dy/L*22+dx/L*4} ${x2-dx/L*22+dy/L*4},${y2-dy/L*22-dx/L*4}" fill="var(--muted)"/>`;
+  }
+  for (const [n,[cx,cy]] of Object.entries(xy)){
+    const special = n===p.fixture.origin || n===p.fixture.destination;
+    s += `<circle cx="${cx}" cy="${cy}" r="${special?9:5}" fill="${special?"var(--ink)":"var(--panel)"}" stroke="var(--ink)"/>`;
+    s += `<text x="${cx}" y="${cy-14}" text-anchor="middle" style="font-size:17px;font-weight:${special?700:400}">${esc(nodeName(p,n))}</text>`;
+  }
+  s += `</svg>`;
+  $("map").innerHTML = s + `<div class="legend"><span><span class="sw" style="background:var(--v1)"></span>1호차</span><span><span class="sw" style="background:var(--v2)"></span>2호차</span><span><span class="sw" style="background:var(--closed)"></span>모의 통제 구간이 있는 도로</span><span><span class="sw" style="background:var(--unknown)"></span>미확인 구간이 있는 도로</span></div><p class="small">선 길이는 실제 거리가 아닙니다. 지도 타일·인터넷을 쓰지 않습니다.</p>`;
+}
+
+async function update(){
+  $("case-two").setAttribute("aria-pressed", String(state.caseKey==="two"));
+  $("case-shuttle").setAttribute("aria-pressed", String(state.caseKey==="shuttle"));
+  $("delay-value").textContent = `${state.delayMin}분`;
+  const vname = state.caseKey==="two" ? "2호차가" : "유일한 차량(1호차)이";
+  $("headline").textContent = state.delayMin ? `“${vname} ${state.delayMin}분 늦게 도착합니다” — 요양시설 이송 계획은 어떻게 바뀌나?` : "지연이 없을 때의 기준 계획 — 지연 시간을 골라 보세요";
+  $("delay-label").textContent = state.caseKey==="two" ? "2호차 지연:" : "1호차(유일한 차량) 지연:";
+  buildControls();
+  let p;
+  try { p = await getPlan(state.caseKey, state.delayMin); }
+  catch(err){ $("cards").innerHTML = `<p class="warnbox">계산 결과를 불러오지 못했습니다: ${esc(err.message)}</p>`; return; }
+  $("fixture-note").textContent = (p.fixture.note_ko||"") + (p.case_key==="shuttle" ? " 이 사례는 차량 1대만 사용하며, 두 번째 차량을 추가하지 않습니다." : "");
+  $("cards").innerHTML = card(p,"before") + card(p,"after");
+  renderWhy(p); timeline(p); tripsTable(p); mapView(p);
+  $("checks").innerHTML = p.checks_after.map(c=>`<li>${esc(c.text_ko)}</li>`).join("");
+}
+legend(); update();
+</script>
+</body>
+</html>

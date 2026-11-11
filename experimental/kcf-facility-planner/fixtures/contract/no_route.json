@@ -1,0 +1,73 @@
+{
+ "schema_version": 1,
+ "case_id": "contract-no-route",
+ "horizon_s": 40,
+ "origin": "A",
+ "destination": "C",
+ "edges": [
+  {
+   "id": "e1",
+   "u": "A",
+   "v": "B",
+   "travel_s": 3,
+   "closed": [
+    [
+     0,
+     40
+    ]
+   ],
+   "unknown": []
+  },
+  {
+   "id": "e2",
+   "u": "B",
+   "v": "C",
+   "travel_s": 5,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e3",
+   "u": "A",
+   "v": "C",
+   "travel_s": 9,
+   "closed": [
+    [
+     5,
+     40
+    ]
+   ],
+   "unknown": []
+  }
+ ],
+ "vehicles": [
+  {
+   "id": "V1",
+   "available_s": 0,
+   "seats": 6
+  },
+  {
+   "id": "V2",
+   "available_s": 2,
+   "seats": 6
+  }
+ ],
+ "groups": [
+  {
+   "id": "G1",
+   "people": 6
+  },
+  {
+   "id": "G2",
+   "people": 6
+  }
+ ],
+ "board_s": 1,
+ "unload_s": 2,
+ "destination_window": [
+  0,
+  40
+ ],
+ "forbidden_turns": [],
+ "mode": "parallel"
+}

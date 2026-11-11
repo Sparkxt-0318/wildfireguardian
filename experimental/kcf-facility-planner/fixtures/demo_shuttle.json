@@ -1,0 +1,251 @@
+{
+ "schema_version": 1,
+ "fictional": true,
+ "title": "Fictional care facility — one-vehicle shuttle",
+ "title_ko": "가상 요양시설 — 차량 1대 왕복 이송 (별도 사례)",
+ "note": "FICTIONAL FIXTURE. Invented roads, times and residents; the closure is a simulated fire restriction, the unknown interval imitates a missing forecast input. Not a real place, road status or safety assessment.",
+ "note_ko": "가상 사례입니다. 도로·시간·입소자는 모두 지어낸 값이며, 통제 구간은 모의 화재 제한, '미확인' 구간은 예측 입력 누락을 흉내 낸 것입니다. 실제 도로 상황이나 안전 판단이 아닙니다.",
+ "node_labels_ko": {
+  "FAC": "해오름 요양원(가상)",
+  "J1": "삼거리",
+  "BR": "하천교",
+  "SH": "가상 대피소",
+  "D1": "우회 고개",
+  "D2": "저수지길",
+  "LP": "대피소 출구 순환로"
+ },
+ "horizon_s": 6000,
+ "origin": "FAC",
+ "destination": "SH",
+ "edges": [
+  {
+   "id": "e_fac_j1",
+   "u": "FAC",
+   "v": "J1",
+   "travel_s": 120,
+   "closed": [],
+   "unknown": [],
+   "length_m": 1100,
+   "name_ko": "시설 진입로 → 삼거리"
+  },
+  {
+   "id": "e_j1_br",
+   "u": "J1",
+   "v": "BR",
+   "travel_s": 180,
+   "closed": [
+    [
+     1800,
+     9000
+    ]
+   ],
+   "unknown": [],
+   "length_m": 1600,
+   "name_ko": "삼거리 → 하천교 (주도로)"
+  },
+  {
+   "id": "e_br_sh",
+   "u": "BR",
+   "v": "SH",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "하천교 → 대피소 (주도로)"
+  },
+  {
+   "id": "e_j1_d1",
+   "u": "J1",
+   "v": "D1",
+   "travel_s": 400,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3400,
+   "name_ko": "삼거리 → 우회 고개"
+  },
+  {
+   "id": "e_d1_d2",
+   "u": "D1",
+   "v": "D2",
+   "travel_s": 420,
+   "closed": [],
+   "unknown": [
+    [
+     2800,
+     3300
+    ]
+   ],
+   "length_m": 3900,
+   "name_ko": "우회 고개 → 저수지길"
+  },
+  {
+   "id": "e_d2_sh",
+   "u": "D2",
+   "v": "SH",
+   "travel_s": 360,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3200,
+   "name_ko": "저수지길 → 대피소"
+  },
+  {
+   "id": "e_sh_lp",
+   "u": "SH",
+   "v": "LP",
+   "travel_s": 45,
+   "closed": [],
+   "unknown": [],
+   "length_m": 300,
+   "name_ko": "대피소 출구 순환로"
+  },
+  {
+   "id": "e_lp_br",
+   "u": "LP",
+   "v": "BR",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "순환로 → 하천교 (귀로)"
+  },
+  {
+   "id": "e_sh_br",
+   "u": "SH",
+   "v": "BR",
+   "travel_s": 300,
+   "closed": [],
+   "unknown": [],
+   "length_m": 2000,
+   "name_ko": "대피소 → 하천교 (회차)"
+  },
+  {
+   "id": "e_br_j1",
+   "u": "BR",
+   "v": "J1",
+   "travel_s": 180,
+   "closed": [
+    [
+     1800,
+     9000
+    ]
+   ],
+   "unknown": [],
+   "length_m": 1600,
+   "name_ko": "하천교 → 삼거리 (귀로)"
+  },
+  {
+   "id": "e_j1_fac",
+   "u": "J1",
+   "v": "FAC",
+   "travel_s": 120,
+   "closed": [],
+   "unknown": [],
+   "length_m": 1100,
+   "name_ko": "삼거리 → 시설 (귀로)"
+  },
+  {
+   "id": "e_sh_d2",
+   "u": "SH",
+   "v": "D2",
+   "travel_s": 360,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3200,
+   "name_ko": "대피소 → 저수지길 (귀로)"
+  },
+  {
+   "id": "e_d2_d1",
+   "u": "D2",
+   "v": "D1",
+   "travel_s": 420,
+   "closed": [],
+   "unknown": [
+    [
+     2800,
+     3300
+    ]
+   ],
+   "length_m": 3900,
+   "name_ko": "저수지길 → 우회 고개 (귀로)"
+  },
+  {
+   "id": "e_d1_j1",
+   "u": "D1",
+   "v": "J1",
+   "travel_s": 400,
+   "closed": [],
+   "unknown": [],
+   "length_m": 3400,
+   "name_ko": "우회 고개 → 삼거리 (귀로)"
+  }
+ ],
+ "vehicles": [
+  {
+   "id": "V1",
+   "available_s": 600,
+   "seats": 6,
+   "name_ko": "1호차 (유일한 차량)"
+  }
+ ],
+ "groups": [
+  {
+   "id": "G1",
+   "people": 6,
+   "name_ko": "1조 (입소자 6명, 가상)"
+  },
+  {
+   "id": "G2",
+   "people": 6,
+   "name_ko": "2조 (입소자 6명, 가상)"
+  }
+ ],
+ "board_s": 300,
+ "unload_s": 300,
+ "destination_window": [
+  600,
+  6300
+ ],
+ "forbidden_turns": [
+  [
+   "e_br_sh",
+   "e_sh_br"
+  ],
+  [
+   "e_d2_sh",
+   "e_sh_d2"
+  ]
+ ],
+ "mode": "shuttle",
+ "case_id": "kcf-demo-shuttle-v1",
+ "node_xy": {
+  "FAC": [
+   100,
+   300
+  ],
+  "J1": [
+   240,
+   300
+  ],
+  "BR": [
+   420,
+   220
+  ],
+  "SH": [
+   640,
+   240
+  ],
+  "D1": [
+   340,
+   440
+  ],
+  "D2": [
+   520,
+   450
+  ],
+  "LP": [
+   680,
+   130
+  ]
+ },
+ "provenance": "Fictional fixture written for the KCF interview demo (2026-11-11). Scale loosely echoes the archived Uiseong-Andong exercise (endpoints ~4.5 km apart) but no number is copied from or expected to match that case."
+}

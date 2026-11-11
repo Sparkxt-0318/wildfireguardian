@@ -1,0 +1,87 @@
+{
+ "schema_version": 1,
+ "case_id": "contract-shuttle",
+ "horizon_s": 60,
+ "origin": "A",
+ "destination": "C",
+ "edges": [
+  {
+   "id": "e1",
+   "u": "A",
+   "v": "B",
+   "travel_s": 3,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e2",
+   "u": "B",
+   "v": "C",
+   "travel_s": 4,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e5",
+   "u": "C",
+   "v": "B",
+   "travel_s": 4,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e6",
+   "u": "C",
+   "v": "D",
+   "travel_s": 2,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e7",
+   "u": "D",
+   "v": "B",
+   "travel_s": 3,
+   "closed": [],
+   "unknown": []
+  },
+  {
+   "id": "e8",
+   "u": "B",
+   "v": "A",
+   "travel_s": 3,
+   "closed": [],
+   "unknown": []
+  }
+ ],
+ "vehicles": [
+  {
+   "id": "V1",
+   "available_s": 0,
+   "seats": 6
+  }
+ ],
+ "groups": [
+  {
+   "id": "G1",
+   "people": 6
+  },
+  {
+   "id": "G2",
+   "people": 6
+  }
+ ],
+ "board_s": 1,
+ "unload_s": 2,
+ "destination_window": [
+  0,
+  60
+ ],
+ "forbidden_turns": [
+  [
+   "e2",
+   "e5"
+  ]
+ ],
+ "mode": "shuttle"
+}

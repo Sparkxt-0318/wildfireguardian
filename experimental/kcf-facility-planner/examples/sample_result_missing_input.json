@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "case_id": "contract-missing-input",
+  "status": "MISSING_INPUT",
+  "reason": "No fully supported schedule exists; a schedule exists only if the listed unknown intervals are open. A person must obtain those inputs before relying on it.",
+  "reason_codes": [
+    "FEASIBLE_ONLY_IF_UNKNOWN_OPEN"
+  ],
+  "final_unload_s": null,
+  "groups_total": 1,
+  "people_total": 6,
+  "people_with_checked_transport": 0,
+  "groups_with_checked_transport": [],
+  "groups_awaiting_checked_transport": [
+    "G1"
+  ],
+  "people_awaiting_checked_transport": 6,
+  "mode": "parallel",
+  "trips": [],
+  "missing_information": [
+    {
+      "kind": "UNKNOWN_EDGE_INTERVAL",
+      "edge_id": "e1",
+      "unknown_interval": [
+        0,
+        40
+      ],
+      "traversal": [
+        1,
+        4
+      ],
+      "vehicle_id": "V1",
+      "group_id": "G1",
+      "trip_kind": "outbound",
+      "needed_for": "ANY_FEASIBLE_SCHEDULE"
+    }
+  ],
+  "assumptions": [
+    "All times are integer seconds from the exercise origin; travel on an edge occupies [entry, exit).",
+    "An edge may not be entered if [entry, exit) has positive-duration overlap with a closed interval; supported (checked) schedules also avoid every unknown interval. Unlisted times within the horizon are known and open.",
+    "Every journey leg must finish by horizon_s; unloading must finish by min(destination window close, horizon_s). Completion exactly at the horizon or window close is allowed.",
+    "Waiting is allowed at every node and keeps the incoming edge, so forbidden turns apply after waits and between shuttle legs. Nodes are assumed supported and open in this contract.",
+    "A destination arrival counts only as an edge arrival inside the window; waiting at the destination is not an arrival.",
+    "Boarding takes board_s at the origin and starts no earlier than vehicle availability (or its return). Boarding is placed to end exactly at departure, so any hold happens at the facility before residents board.",
+    "Parallel mode: group i uses vehicle i, one trip, no return. Shuttle mode: one vehicle serves groups in listed order with empty returns; no other vehicle is introduced.",
+    "No road capacity, vehicle interaction, destination capacity, driver availability, loading variability, heat exposure, smoke or physical road status is modelled."
+  ],
+  "failures": [
+    {
+      "code": "NO_ADMISSIBLE_LEG",
+      "leg_index": 0,
+      "leg_kind": "outbound",
+      "group_id": "G1",
+      "detail": "no admissible outbound leg for vehicle V1 within the horizon",
+      "view": "supported",
+      "vehicle_id": "V1"
+    }
+  ],
+  "diagnostics": [],
+  "search": {
+    "settled_labels": 4,
+    "label_cap": 2000000,
+    "time_limit_s": null,
+    "cap_reached": false,
+    "supported_view": "INFEASIBLE",
+    "optimistic_view": "FOUND"
+  },
+  "tool": "kcf-facility-planner/1",
+  "input_schema_version": 1,
+  "wall_s": 0.000168,
+  "conditional_trips": [
+    {
+      "vehicle_id": "V1",
+      "kind": "outbound",
+      "group_id": "G1",
+      "people": 6,
+      "seats": 6,
+      "start_node": "A",
+      "end_node": "C",
+      "incoming_edge_at_start": null,
+      "ready_s": 0,
+      "boarding_start_s": 0,
+      "boarding_end_s": 1,
+      "departure_s": 1,
+      "arrival_s": 9,
+      "unloading_start_s": 9,
+      "unloading_end_s": 11,
+      "edges": [
+        {
+          "edge_id": "e1",
+          "from": "A",
+          "to": "B",
+          "entry_s": 1,
+          "exit_s": 4
+        },
+        {
+          "edge_id": "e2",
+          "from": "B",
+          "to": "C",
+          "entry_s": 4,
+          "exit_s": 9
+        }
+      ],
+      "waits": [],
+      "binding_constraints": [],
+      "uses_unknown_input": true,
+      "trip_id": "T1"
+    }
+  ],
+  "conditional_final_unload_s": 11,
+  "verification": {
+    "independent_replay": {
+      "module": "kcf_planner.replay",
+      "violations": [],
+      "ok": true
+    },
+    "wfg_sipp": {
+      "available": true,
+      "source": "experimental/sipp-routing/src/wfg_sipp",
+      "checks": [
+        {
+          "trip_id": "T1",
+          "view": "optimistic",
+          "predicate_violations": [],
+          "sipp_status": "FOUND",
+          "sipp_earliest_arrival": 9,
+          "emitted_arrival": 9,
+          "bruteforce_earliest_arrival": 9,
+          "ok": true
+        }
+      ],
+      "all_ok": true
+    },
+    "wall_s": 0.004252
+  }
+}
