@@ -9,7 +9,7 @@ q = 1..8 = 3-hour blocks 00-03 ... 21-24 in *Pacific local time*; date in the pa
 <epoch> = Unix epoch seconds UTC (list entries are '<epoch>.jpg', ~1/min).
 Only HEAD requests (or the list GET, ~2.7 kB) are used: no image or video bytes are downloaded here.
 """
-import sys, pathlib
+import sys, pathlib, re
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from hpwren_common import fetch
 
@@ -42,7 +42,9 @@ def get_list(cam, date, q):
     r = fetch(list_url(cam, date, q))
     if r["status"] != 200:
         return r["status"], []
-    eps = [int(l[:10]) for l in r["body"].decode().split() if l[:10].isdigit()]
+    # two formats: new "<epoch>.jpg" per line; older "00001 <epoch>.jpg captured YYYYMMDD_HHMMSS-0700"
+    # preceded by an "echo Metadata: ..." line (seen for 2023 dates).
+    eps = [int(m) for m in re.findall(r"(?<!\d)(\d{10})\.jpg", r["body"].decode())]
     return 200, eps
 
 
