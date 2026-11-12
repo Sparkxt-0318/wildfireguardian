@@ -69,6 +69,30 @@ its optional destination block within 20 s; varying/unnamed destinations are nev
 room); reason+timing 120 (= the 30 no-route/unresolved places × 4 outputs, which by design carry no time — under the
 draft, messages for them would all be withheld: a policy question, not a template defect).
 
+### W6 fix (Mira's FAIL on the issuer path)
+Metric (Mira): the share of outputs that are four-field complete AND not withheld (no violation of any rule), check on,
+531 real origins, synthetic issuer `합성군 재난안전과` / `000-0000-0000`:
+
+| output | before fix | after fix |
+|---|---|---|
+| ko head / voice / family script / family text | 0 / 0 / 0 / 0 | 299 / 299 / 440 / 0 |
+| en head / voice / family script / family text | 64 / 64 / 64 / 0 | 64 / 64 / 64 / 0 |
+| violations other than missing decree fields | 2,440 | 0 |
+
+Before the fix, the issuer path itself withheld outputs: "안전" inside the supplied agency name tripped the forbidden-word
+scan (531 × 3 Korean outputs), the appended contact line pushed 316 Korean heads over 35 s, and the English family text
+carried the Hangul agency name (531 not-GSM-7; the fit test counted GSM-7 characters only). Fixes:
+1. Supplied issuer strings are masked as data in the word checks, like place names; a forbidden word anywhere else is
+   still caught (test plants one in Korean and English).
+2. The head's contact line has its own spoken budget (`HEAD_CONTACT_MAX_S` = 10 s); `fullS` still measures opener + core +
+   closer. A contact line over budget is left out of the head (only that field is missing), never a length withhold.
+3. English outputs use the supplied `agencyEn`, else a letter-by-letter Revised Romanization (`romanizeKo`, no
+   sound-change rules — a supplied English name is preferred); never Hangul. The SMS fit test now also requires every
+   character to be GSM-7 (Korean: EUC-KR encodable).
+What remains is content, not the issuer path: English shelter names are missing where a destination has no English
+name, the family texts have no room for the shelter, and no-route/unresolved places carry no time (see above). The
+same table holds with a supplied English name.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

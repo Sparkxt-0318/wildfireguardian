@@ -84,8 +84,12 @@ export interface ChannelOptions {
   orderStatus?: OrderStatusInput | null;
   issueOrderBy?: IssueOrderBy | null;
   timeStyle?: TimeStyle;
-  /** issuing agency and its contact number — SUPPLIED by the issuer, never invented or defaulted */
-  issuer?: { agency: string; contact: string } | null;
+  /**
+   * issuing agency and its contact number — SUPPLIED by the issuer, never invented or defaulted. `agencyEn` is the
+   * agency's own English name for English outputs; without it they use a machine romanisation of `agency`
+   * (romanizeKo), never Hangul.
+   */
+  issuer?: Issuer | null;
   /**
    * Apply the four-field check of the DRAFT decree (재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고
    * 제2026-1391호, notice of 2026-11-04, https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332; draft requirement, as of
@@ -94,12 +98,54 @@ export interface ChannelOptions {
   draftDecreeCheck?: boolean;
 }
 
+export interface Issuer {
+  agency: string;
+  contact: string;
+  agencyEn?: string;
+}
+
+/** Spoken-length budget of the head's contact line, separate from HEAD_FULL_MAX_S (Mira, W6). */
+export const HEAD_CONTACT_MAX_S = 10;
+
+const HANGUL = /[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]/;
+const RR_I = ['g', 'kk', 'n', 'd', 'tt', 'r', 'm', 'b', 'pp', 's', 'ss', '', 'j', 'jj', 'ch', 'k', 't', 'p', 'h'];
+const RR_V = ['a', 'ae', 'ya', 'yae', 'eo', 'e', 'yeo', 'ye', 'o', 'wa', 'wae', 'oe', 'yo', 'u', 'wo', 'we', 'wi', 'yu', 'eu', 'ui', 'i'];
+const RR_F = ['', 'k', 'k', 'k', 'n', 'n', 'n', 't', 'l', 'k', 'm', 'l', 'l', 'l', 'p', 'l', 'm', 'p', 'p', 't', 't', 'ng', 't', 't', 'k', 't', 'p', 't'];
+
+/**
+ * Revised Romanization of Korean, letter by letter: each syllable's initial, vowel and final (finals as their
+ * representative sound), with no sound-change rules (so 신라 → Sinra, not Silla). Every word is capitalised; any
+ * character that is not a Hangul syllable is kept. Used only when no English agency name was supplied.
+ */
+export function romanizeKo(s: string): string {
+  let out = '';
+  for (const ch of s) {
+    const c = ch.codePointAt(0)! - 0xac00;
+    if (c < 0 || c > 11171) {
+      out += ch;
+      continue;
+    }
+    out += RR_I[Math.floor(c / 588)]! + RR_V[Math.floor((c % 588) / 28)]! + RR_F[c % 28]!;
+  }
+  return out.replace(/(^|[\s(\[\-/])([a-z])/g, (_, a: string, b: string) => a + b.toUpperCase());
+}
+
+/** The issuer strings each language uses, or null when none was supplied (a blank field counts as none). */
+export function issuerFor(iss: Issuer | null | undefined): Record<LmLang, { agency: string; contact: string }> | null {
+  if (!iss || !iss.agency.trim() || !iss.contact.trim()) return null;
+  const agency = iss.agency.trim();
+  const contact = iss.contact.trim();
+  const sup = iss.agencyEn?.trim();
+  const en = sup && !HANGUL.test(sup) ? sup : HANGUL.test(agency) ? romanizeKo(agency) : agency;
+  return { ko: { agency, contact }, en: { agency: en, contact } };
+}
+
 /** The four fields of the draft decree (안 제49조② 1–4). */
 export type DecreeField = 'area_people' | 'reason_timing' | 'shelter' | 'agency_contact';
 export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_timing', 'shelter', 'agency_contact'];
 
 /** Which of the four fields a resident-facing text carries (by content, not by template). */
-export function decreeFields(p: MessagePlan, text: string, lang: LmLang, issuer: ChannelOptions['issuer']): DecreeField[] {
+export function decreeFields(p: MessagePlan, text: string, lang: LmLang, issuer: { agency: string; contact: string } | null | undefined): DecreeField[] {
   const out: DecreeField[] = [];
   const v = p.input.origin.name?.[lang];
   if (v && text.includes(v)) out.push('area_people');
@@ -134,8 +180,10 @@ export interface HeadScript {
   /** the same at the slower 2.5 syllables/s (Korean; English is unchanged) */
   coreSlowS: number;
   fullSlowS: number;
-  /** the only exportable form: opener + core + closer, inseparable */
+  /** the only exportable form: opener + core + closer (+ the issuer's contact line, last), inseparable */
   script: string;
+  /** spoken length of the issuer's contact line (0 without one); budgeted by HEAD_CONTACT_MAX_S, not in fullS */
+  contactS: number;
 }
 
 export interface ChannelTexts {
@@ -153,6 +201,8 @@ export interface ChannelSet {
   /** the single destination any output may name (null: none may) */
   destinationName: Record<LmLang, string> | null;
   text: Record<LmLang, ChannelTexts>;
+  /** the supplied issuer strings each language's outputs use (masked as data in the word checks); null: none */
+  issuer: Record<LmLang, { agency: string; contact: string }> | null;
   violations: string[];
 }
 
@@ -281,7 +331,7 @@ export function headScript(p: MessagePlan, lang: LmLang): HeadScript {
   const coreS = spokenSeconds(core, lang);
   const fullS = spokenSeconds(script, lang);
   const slow = lang === 'ko' ? 3.0 / SLOW_SYLLABLES_PER_S : 1;
-  return { opener, core, closer, elements, coreS, fullS, coreSlowS: coreS * slow, fullSlowS: fullS * slow, script };
+  return { opener, core, closer, elements, coreS, fullS, coreSlowS: coreS * slow, fullSlowS: fullS * slow, script, contactS: 0 };
 }
 
 // ------------------------------------------------------------------------------------------------ voice call (ARS)
@@ -485,30 +535,38 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
-  const iss = opt.issuer && opt.issuer.agency.trim() && opt.issuer.contact.trim() ? opt.issuer : null;
-  if (iss) {
+  const issuer = issuerFor(opt.issuer);
+  if (issuer) {
     for (const lang of ['ko', 'en'] as LmLang[]) {
       const t = text[lang];
+      const iss = issuer[lang];
       const line = lang === 'ko' ? `문의: ${iss.agency} ${iss.contact}` : `Contact: ${iss.agency} ${iss.contact}`;
+      // The contact line has its own spoken budget (fullS still measures opener + core + closer only). If it does not
+      // fit, only this field is left out: the head is not withheld for its length (Mira, W6).
       const h = t.head;
-      h.closer = `${h.closer}\n${line}`;
-      h.script = [h.opener, h.core, h.closer].join('\n');
-      h.fullS = spokenSeconds(h.script, lang);
-      h.fullSlowS = h.fullS * (lang === 'ko' ? 3.0 / SLOW_SYLLABLES_PER_S : 1);
+      const cS = spokenSeconds(line, lang);
+      if (cS <= HEAD_CONTACT_MAX_S) {
+        h.closer = `${h.closer}\n${line}`;
+        h.script = [h.opener, h.core, h.closer].join('\n');
+        h.contactS = cS;
+      }
       t.voice = `${t.voice}\n${line}`;
       t.familyScript = [t.familyScript[0], t.familyScript[1], `${t.familyScript[2]} ${line}`];
       const withIssuer = `${t.familyText}\n[${iss.agency} ${iss.contact}]`;
-      const fits = lang === 'ko' ? eucKrBytes(withIssuer).bytes <= SMS_KO_MAX_BYTES : gsm7Length(withIssuer).chars <= SMS_EN_MAX_GSM7;
-      if (fits) t.familyText = withIssuer; // otherwise the field stays missing and the decree check withholds it
+      const fits =
+        lang === 'ko'
+          ? eucKrBytes(withIssuer).unencodable.length === 0 && eucKrBytes(withIssuer).bytes <= SMS_KO_MAX_BYTES
+          : gsm7Length(withIssuer).nonGsm.length === 0 && gsm7Length(withIssuer).chars <= SMS_EN_MAX_GSM7;
+      if (fits) t.familyText = withIssuer; // otherwise only this field is missing (the decree check reports it)
     }
   }
-  const set: ChannelSet = { originId: p.input.origin.id, kind: p.kind, destinationName: namedDestination(p), text, violations: [] };
+  const set: ChannelSet = { originId: p.input.origin.id, kind: p.kind, destinationName: namedDestination(p), text, issuer, violations: [] };
   set.violations = checkChannels(p, set);
   if (opt.draftDecreeCheck) {
     for (const lang of ['ko', 'en'] as LmLang[]) {
       const t = text[lang];
       for (const [name, s] of [['head', t.head.script], ['voice', t.voice], ['familyText', t.familyText], ['familyScript', t.familyScript.join('\n')]] as [string, string][]) {
-        const have = decreeFields(p, s, lang, iss);
+        const have = decreeFields(p, s, lang, issuer?.[lang]);
         const missing = DECREE_FIELDS.filter((f) => !have.includes(f));
         if (missing.length) set.violations.push(`${lang}.${name}: draft decree (2026-11-04 notice) fields missing: ${missing.join(',')}`);
       }
@@ -527,7 +585,10 @@ function inserted(p: MessagePlan): string[] {
 /** Every rule violation of every output, each prefixed with its output (e.g. "ko.head.core: …"). */
 export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
   const v: string[] = [];
-  const names = inserted(p);
+  // supplied issuer strings are data too: an agency called 재난안전과 must not trip "안전" (Mira, W6); the rest of the
+  // text is still scanned
+  const issuerStrings = set.issuer ? (['ko', 'en'] as LmLang[]).flatMap((l) => [set.issuer![l].agency, set.issuer![l].contact]) : [];
+  const names = [...inserted(p), ...issuerStrings].sort((a, b) => b.length - a.length);
   const dataHm = hm(iso(p));
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = set.text[lang];
@@ -554,7 +615,7 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       if (p.input.replay && name !== 'staff' && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
-      const allowed = [set.destinationName?.[lang], p.input.origin.name?.[lang]].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
+      const allowed = [set.destinationName?.[lang], p.input.origin.name?.[lang], ...issuerStrings].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
       const rest = maskData(s, allowed);
       const dests = Object.values(p.input.destinations)
         .flatMap((d) => (d.name ? [d.name[lang]] : []))
@@ -563,6 +624,8 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
     }
     if (t.head.coreS > HEAD_CORE_MAX_S) v.push(`${lang}.head.core: ${t.head.coreS.toFixed(1)} s > ${HEAD_CORE_MAX_S} s`);
     if (t.head.fullS > HEAD_FULL_MAX_S) v.push(`${lang}.head: ${t.head.fullS.toFixed(1)} s > ${HEAD_FULL_MAX_S} s`);
+    if (t.head.contactS > HEAD_CONTACT_MAX_S) v.push(`${lang}.head: contact line ${t.head.contactS.toFixed(1)} s > ${HEAD_CONTACT_MAX_S} s`);
+    if (lang === 'en' && set.issuer && HANGUL.test(set.issuer.en.agency)) v.push('en: issuer agency in Hangul');
     const missing = ELEMENTS.filter((e) => !t.head.elements.includes(e));
     if (missing.length) v.push(`${lang}.head.core: missing elements ${missing.join(',')}`);
     if (lang === 'ko') {

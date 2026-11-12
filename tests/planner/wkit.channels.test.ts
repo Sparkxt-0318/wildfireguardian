@@ -19,6 +19,9 @@ import {
   CBS_CHAR_LIMIT,
   DECREE_FIELDS,
   decreeFields,
+  HEAD_CONTACT_MAX_S,
+  issuerFor,
+  romanizeKo,
   cbsChars,
   cbsClassFor,
   transportNeedList,
@@ -288,6 +291,74 @@ describe('draft decree four-field check (안 제49조②, notice 2026-11-04; dra
     for (const iss of [null, { agency: '', contact: '' }, { agency: '  ', contact: '1' }]) {
       const t = buildChannels(p, { nowIso: NOW, issuer: iss }).text;
       expect([t.ko.head.script, t.ko.voice, t.ko.familyText, ...t.ko.familyScript].join('\n')).not.toMatch(/문의:/);
+    }
+  });
+
+  // Mira W6 metric: an output counts only if it is four-field complete AND not withheld (no violation of any rule).
+  const usable = (iss: Parameters<typeof buildChannels>[1]['issuer']) => {
+    const ok: Record<string, number> = {};
+    let otherViolations = 0;
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: iss, draftDecreeCheck: true });
+      otherViolations += s.violations.filter((v) => !/draft decree/.test(v)).length;
+      for (const lang of ['ko', 'en'] as const)
+        for (const name of ['head', 'voice', 'familyText', 'familyScript']) {
+          const k = `${lang}.${name}`;
+          ok[k] = (ok[k] ?? 0) + Number(!s.violations.some((v) => new RegExp(`^${lang}\\.${name}[.:]`).test(v)));
+        }
+    }
+    return { ok, otherViolations };
+  };
+
+  it('W6 metric (531 real origins): four-field complete AND not withheld — 0 without an issuer; with a synthetic issuer ko head 299, voice 299, family script 440; en 64 / 64 / 64; family texts 0; no other violation', () => {
+    expect(usable(null).ok).toEqual({ 'ko.head': 0, 'ko.voice': 0, 'ko.familyText': 0, 'ko.familyScript': 0, 'en.head': 0, 'en.voice': 0, 'en.familyText': 0, 'en.familyScript': 0 });
+    const after = { 'ko.head': 299, 'ko.voice': 299, 'ko.familyText': 0, 'ko.familyScript': 440, 'en.head': 64, 'en.voice': 64, 'en.familyText': 0, 'en.familyScript': 64 };
+    for (const iss of [ISS, { ...ISS, agencyEn: 'Hapseong County Disaster Office' }]) {
+      const u = usable(iss);
+      expect(u.ok).toEqual(after);
+      expect(u.otherViolations).toBe(0); // before the W6 fix: "안전" in the agency, 316 heads over 35 s, Hangul in en SMS
+    }
+  });
+
+  it('a supplied agency name is masked in the forbidden-word scan, but a forbidden word in generated text is still caught', () => {
+    for (const p of [...real.slice(0, 40), ...syn.slice(0, 40)]) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS });
+      expect(s.violations.filter((v) => /forbidden word/.test(v))).toEqual([]);
+      const planted: ChannelSet = { ...s, text: { ...s.text, ko: { ...s.text.ko, voice: `${s.text.ko.voice}\n안전한 곳으로 가십시오` } } };
+      expect(checkChannels(p, planted)).toContain('ko.voice: forbidden word "안전"');
+      const plantedEn: ChannelSet = { ...s, text: { ...s.text, en: { ...s.text.en, voice: `${s.text.en.voice}\nWe will send a bus for you.` } } };
+      expect(checkChannels(p, plantedEn).some((v) => /^en\.voice: forbidden word/.test(v))).toBe(true);
+    }
+  });
+
+  it('the contact line has its own spoken budget: a long one leaves only that field out of the head, which is not withheld for length', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const plain = buildChannels(p, { nowIso: NOW });
+    const long = { agency: '합성군 재난안전대책본부 현장지휘소 주민대피지원반 상황관리팀', contact: '000-0000-0000 내선 0000' };
+    const s = buildChannels(p, { nowIso: NOW, issuer: long });
+    expect(s.text.ko.head.contactS).toBe(0);
+    expect(s.text.ko.head.script).toBe(plain.text.ko.head.script);
+    expect(s.violations.filter((v) => /^ko\.head[.:]/.test(v))).toEqual([]);
+    const ok = buildChannels(p, { nowIso: NOW, issuer: ISS }).text.ko.head;
+    expect(ok.contactS).toBeGreaterThan(0);
+    expect(ok.contactS).toBeLessThanOrEqual(HEAD_CONTACT_MAX_S);
+    expect(ok.fullS).toBe(plain.text.ko.head.fullS);
+    expect(ok.script.endsWith(`문의: ${ISS.agency} ${ISS.contact}`)).toBe(true);
+  });
+
+  it('English outputs never carry Hangul agency text: the supplied English name, else a romanisation; the family text stays GSM-7', () => {
+    expect(romanizeKo('합성군 재난안전과')).toBe('Hapseonggun Jaenananjeongwa');
+    expect(romanizeKo('의성군청')).toBe('Uiseongguncheong');
+    expect(issuerFor(ISS)!.en.agency).toBe('Hapseonggun Jaenananjeongwa');
+    expect(issuerFor({ ...ISS, agencyEn: 'Hapseong County' })!.en.agency).toBe('Hapseong County');
+    expect(issuerFor({ ...ISS, agencyEn: '합성군' })!.en.agency).toBe('Hapseonggun Jaenananjeongwa'); // Hangul "English" name refused
+    const hangul = /[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]/;
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS });
+      const t = s.text.en;
+      const issuerPart = [t.head.closer, t.voice.split('\n').pop()!, t.familyScript[2], t.familyText.split('\n').pop()!].filter((x) => /Contact:|\[/.test(x));
+      for (const x of issuerPart) expect(x).not.toMatch(hangul);
+      expect(s.violations.filter((v) => /not GSM-7|Hangul/.test(v))).toEqual([]);
     }
   });
 
