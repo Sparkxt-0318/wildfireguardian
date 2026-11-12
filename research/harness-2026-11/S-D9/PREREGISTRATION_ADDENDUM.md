@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 9, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 10, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 15 | H refinements: Chebyshev reach, one-pixel tolerance, resolution labels per lead, H-dev open to D1 and D2, half-step comparator; Marcus's GOFER disclosure (Marcus, Iris) | §2.1 | Added before any H score |
 | 14 | Short-horizon stratum H for the D1 continuous-time claim (orchestrator) | §2.1 | Declared before any score on H. Membership is computed after the metadata filters run |
 | 13 | Recalibrated d4 is a part-c comparator that D1/D2 must beat (Iris) | §3, §6.1 | Added. Chosen after seeing the development-only R result (`derive/LOGISTIC_DEV.md`) |
 | 11 | Part b NOT run now, kept for a later named candidate; covariate check gains tail bounds, and failure makes results descriptive (orchestrator and Iris) | §1.2 items 4 and 14, §6.1 | Added |
@@ -106,21 +107,25 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
 **Why.** D1's claim is that a continuous-time formulation removes the hourly 4-cell reach cap. On NIROPS survey intervals of 12 h or more the cap never binds: in R, 0 of 1,310 tail positives were beyond reach (`derive/REACH.json`). Marcus's sizing, descriptive and unverified, says the cap binds for about 1–9% of new cells on hourly GOFER perimeters. D1's accuracy case therefore cannot show on NIROPS. H is where it can.
 
 **Fires.**
+- **Disclosure (revision 15).** Before this rule existed, at the orchestrator's request, Marcus (S-D1) ran a perimeter-only descriptive analysis on all 28 GOFER fires (s-d1 branch a902678, `gofer_cap.py`, `RESULTS_gofer_cap.json`). It computed per-fire shares of new cells beyond 4 cells/h and distance quantiles. No model, forecast, score or covariate was used. Every H fire, including future H-test members, therefore has its **label displacement statistics inspected (aggregate, label-only)**. This is recorded in the ledger. It does not change membership, because H is descriptive. Per-fire beyond-cap shares for H-test fires must not be used to tune a D1 candidate.
 - These are the GOFER v0.2 fires (Zenodo 14642378) with no project use. Daniel's name match lists 17: Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth.
 - They are filtered by §1.3, using point of origin and discovery date against every FIT or SELECTED_ON fire. Caldor 2021 (INSPECTED) is also excluded. Exclusions are logged.
 - The survivors are ordered by `u = sha256("S-D9-A1|GOFER|" + GOFER fire name)` (same construction as §1.2).
-  - The **first ⌊n/2⌋ form H-dev**: D1/D2 may use them for development, including Marcus's sizing.
+  - The **first ⌊n/2⌋ form H-dev**: open to **both D1 and D2** for development (revision 15). Each use is logged in the ledger.
   - The **rest form H-test**: closed until the D1 candidate is frozen by SHA.
 - Korean 2025 overpass detections (including the 25 March KFS_01 run) are **exposed** (KR2025 was scored by forecast-v2) and are reported **descriptively only**, never as H-test.
 
 **Horizons.** Lead times of 1, 2, 3, 6 and 12 h from each cutoff, where the cutoff is a GOFER hourly perimeter time at least 12 h after the fire's first perimeter. Weather is held at the cutoff hour, as in §2.
 
-**Strata (the D1-specific question).** Cells are split by reach ratio r = dist / (1,500 m/h × lead hours):
-- **r ≥ 1** (beyond the hourly cap on every path), the stratum where D1 should help.
-- **r < 1**.
+**Strata (the D1-specific question).** Cells are split by the kernel's own geometry: **r = d_cheb / (4 × lead hours)**, where d_cheb is the chessboard distance in 375 m cells to the cutoff union (revision 15, per Marcus).
+- **r ≥ 1** (beyond the hourly cap on every path) is the stratum where D1 should help.
+- **r < 1** is the rest.
+- **One-pixel tolerance (revision 15, per Iris and Marcus).** Every r ≥ 1 result is reported twice: raw, and tolerant (d_cheb > 4 × lead + 6, one GOES pixel ≈ 2 km). **A D1 gain counts only if it is present under the tolerant definition.** Marcus's perimeter-only sizing: 8.9% of new cells raw vs 1.25% tolerant.
+- **Label resolution per lead.** The ratio of pixel to reach is 2 km / (1.5 km/h × lead): 1.33 at 1 h, 0.67 at 2 h, 0.44 at 3 h, 0.22 at 6 h, 0.11 at 12 h. **The 1 h lead exceeds 1, so it is labelled "below label resolution" and not interpreted.**
+- Note: the R reach diagnostic (`derive/REACH.json`) used Euclidean distance ÷ 1.5 km/h. Euclidean distance is never smaller than chessboard distance, so its r is never smaller than the Chebyshev r, and its "0 tail positives beyond reach" holds a fortiori.
 These are reported by lead time, with entry, positive and fire counts. The primary H population is the r ≥ 1 cells within the horizon-scaled band (§4) plus the full domain. The 4 km NIROPS band is not used at hourly leads.
 
-**Predictors.** The D1 candidate (SHA-frozen) and `d4_wind_seed0`, both on **rebuilt covariates** for every H fire. Also `d4_wind_recal`, `persistence` and `dilation_8h`; `logistic` too if its covariates can be built.
+**Predictors.** The D1 candidate (SHA-frozen) and `d4_wind_seed0`, both on **rebuilt covariates** for every H fire. Also the **half-step-corrected hourly scheme** (Marcus's, SHA-frozen), which shows whether a simple correction matches first-passage at short leads. Also `d4_wind_recal`, `persistence` and `dilation_8h`; `logistic` too if its covariates can be built.
 
 **Metrics.**
 - Brier and paired Brier difference (D1 minus d4_wind, and D1 minus d4_wind_recal), with whole-fire bootstrap intervals (10,000 draws, seed 20261030).
