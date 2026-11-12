@@ -280,6 +280,7 @@ def _ckpt_write(path: Path, obj):
 
 def _beat(ckpt, fold, msg):
     if ckpt:
+        Path(ckpt).mkdir(parents=True, exist_ok=True)
         with open(Path(ckpt) / f"fold{fold}.heartbeat.log", "a") as fh:
             fh.write(f"{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())} {msg}\n")
 
