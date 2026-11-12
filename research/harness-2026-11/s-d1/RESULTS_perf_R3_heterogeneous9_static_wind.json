@@ -1,0 +1,25 @@
+{
+ "n": 2000,
+ "regime": "R3_heterogeneous9_static_wind",
+ "trajectory_batch_size": 500,
+ "threads": "numba single thread; torch.set_num_threads(1)",
+ "arms": {
+  "baseline_imports": {
+   "seconds": 0.0,
+   "peak_rss_mib": 848.41796875,
+   "ms_per_trajectory": 0.0
+  },
+  "fpp": {
+   "seconds": 0.5312626589998217,
+   "mean_new": 121.4955,
+   "peak_rss_mib": 940.8984375,
+   "ms_per_trajectory": 0.26563132949991086
+  },
+  "hourly_rollout": {
+   "seconds": 59.0557320439998,
+   "mean_new": 82.53349304199219,
+   "peak_rss_mib": 1734.98828125,
+   "ms_per_trajectory": 29.527866021999902
+  }
+ }
+}
