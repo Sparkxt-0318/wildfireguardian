@@ -1,0 +1,28 @@
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323 UNRESOLVED/LATE_RESULT               arr=None wall=450.3 peak=9766
+    BM 66.9s EA 54.9s | mem end/hw GiB: BM 0.40/9.54 EA 2.07/9.54 solve 2.13/9.54
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324 UNRESOLVED/LATE_RESULT               arr=None wall=450.3 peak=9766
+    BM 75.9s EA 58.0s | mem end/hw GiB: BM 0.40/9.54 EA 2.07/9.54 solve 2.16/9.54
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158323 UNRESOLVED/LATE_RESULT               arr=None wall=450.3 peak=9224
+    BM 66.9s EA 52.2s | mem end/hw GiB: BM 0.40/9.01 EA 2.07/9.01 solve 2.13/9.01
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158324 UNRESOLVED/LATE_RESULT               arr=None wall=450.3 peak=9224
+    BM 69.0s EA 53.3s | mem end/hw GiB: BM 0.40/9.01 EA 2.07/9.01 solve 2.13/9.01
+gdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=59 wall=156.0 peak=4827
+    BM 11.9s EA 81.1s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.49/4.71
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  186.0 status CONDITIONAL_OPTIMUM reason EXACT_SEARCH_CHECKED     labels 33 exp 18
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=3953 wall=219.7 peak=4831
+    BM 13.6s EA 73.5s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.49/4.72
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  189.1 status CONDITIONAL_OPTIMUM reason EXACT_SEARCH_CHECKED     labels 1963 exp 1669
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=274 wall=147.7 peak=4826
+    BM 11.6s EA 74.2s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.49/4.71
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  190.3 status CONDITIONAL_OPTIMUM reason EXACT_SEARCH_CHECKED     labels 130 exp 114
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=3953 wall=208.7 peak=4829
+    BM 12.3s EA 74.0s | mem end/hw GiB: BM 0.59/2.30 EA 4.44/4.44 solve 4.51/4.72
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  189.4 status CONDITIONAL_OPTIMUM reason EXACT_SEARCH_CHECKED     labels 1963 exp 1669
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=274 wall=136.3 peak=4824
+    BM 10.0s EA 71.1s | mem end/hw GiB: BM 0.59/2.30 EA 4.44/4.44 solve 4.49/4.71
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  192.7 status CONDITIONAL_OPTIMUM reason EXACT_SEARCH_CHECKED     labels 130 exp 114

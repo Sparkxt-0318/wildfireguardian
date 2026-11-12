@@ -221,3 +221,69 @@ budget, elapsed time and lifetime RSS.
 - **Reported:** expansions per stage, check outcomes, wall, peak RSS.
 
 Run order: (a), then (b).
+
+## A3(a) and A3(b) results — 12 Nov 2026, 14:45 UTC
+
+### A3(a): offline re-check, outside the kit
+
+- **What was checked:** 4 witness checks covering 3 distinct routes; one route was checked against both packets.
+- **Whole-road checker** (unchanged, byte-identical to the job's `checker_sha256`): 4/4 `CERTIFIED_ADMISSIBLE`.
+  Lifetime RSS 411–511 MiB, so the gate was never reached.
+- **Independent checker** (`routing.independent` after validation): 4/4 ok, with no error codes.
+- **What this shows and does not show:** the routes are **admissible**. Optimality is not re-established; "conditional
+  optimum" is the kit's own search label.
+- **Margins:** the two checkers agree on the verdict with very different margins.
+  - Enclosure: dose ≤ 0.049, peak ≤ 0.054.
+  - Cell-binned: dose ≤ 0.0123, peak ≤ 0.0006.
+  - The enclosure is the looser bound.
+- **Label:** re-checked offline outside the kit; not published by the kit. Counted separately from the kit's 2/12.
+- **Files:** `results/fdyn/a3a/` (A3A.jsonl, A3A_INDEPENDENT.jsonl, A3A_HASHES.json).
+
+### A3(b): modified test kit, all three gates at 12 GiB
+
+**Setup.** Test copy `window-kit-gate12k`; the only edit is `hybrid_checker.RSS_LIMIT_MB` (`results/fdyn/gate12k_kit.diff`).
+450 s, the 9 requests, 1 repetition. Every row comes from a **modified kit**. They are kept apart from the kit's own
+count and from the A3(a) line.
+
+**Pre-registered count: 5 of 9 reach a checked result.** All 5 are Yeongdeok `CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN`:
+
+| Request | Arrival | Wall | LO labels / expansions |
+|---|---|---|---|
+| kriged …207 | 59 | 156.0 s | 33 / 18 |
+| kriged …168 | 274 | 147.7 s | 130 / 114 |
+| kriged …166 | 3953 | 219.7 s | 1963 / 1669 |
+| firms …168 | 274 | 136.3 s | 130 / 114 |
+| firms …166 | 3953 | 208.7 s | 1963 / 1669 |
+
+In each, LO returned a conditional optimum and its check certified it. Peak 4.8 GiB.
+
+**By the A2 rule, ≥ 3 of 9 maps to "precompute is the lever". That reading is NOT supported, and I am not adopting
+it:**
+- All 5 resolved within 136–220 s. That is less than the 300 s budget, so they did not need the extra 150 s that the
+  450 s budget was meant to test.
+- What changed them from unresolved (A1, 300 s) to proven is the checker gate, not the time.
+- So the rule's question (would precomputing the bounds let search finish?) was not answered for Yeongdeok. Its
+  outcome there is decided by memory accounting.
+- For Uiseong the answer is 0 of 4.
+- The pass rule did not anticipate this confound. The count stands as written, but its interpretation is replaced by
+  the per-region statement below.
+
+**Uiseong, 4 requests: all UNRESOLVED / LATE_RESULT at 450.3 s.**
+- Bounds are built by about 147–164 s: bound model 67–76 s, EA bound 52–58 s, and Z overran to 20–23 s.
+- **LO then ran 246–273 s and returned TIMEOUT**, against a wall cap of about 0.55 × remaining ≈ 160–165 s.
+  So LO also overran its cap, by about 80–110 s.
+- One request (kriged …324) did not return from LO at all before the deadline.
+- HI never ran to completion.
+- Labels and expansions for Uiseong are **not recorded**. The worker writes them only in SEARCH_RESULT.json, which a
+  deadline stop never writes.
+- So Uiseong search cost remains **unmeasured, except that LO did not finish in about 250–270 s with the bounds
+  already built**.
+
+**Per-region statement (modified kit, 450 s, 1 rep).**
+- **Yeongdeok:** search finishes in ≤ 1,669 expansions. All 5 are proven once the checker's lifetime-peak gate is
+  lifted.
+- **Uiseong:** the LO search does not finish in about 250–270 s, and the wall caps for Z and LO are not enforced
+  promptly. There the search, not only the bounds, is the limit at this budget.
+
+**New open item: the LO wall-cap overrun on Uiseong** (246–273 s elapsed against about a 160 s cap). It adds to the
+Z overrun (21–23 s against a 6 s cap).
