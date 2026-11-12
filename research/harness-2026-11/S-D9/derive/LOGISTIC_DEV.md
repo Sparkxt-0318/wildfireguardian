@@ -29,3 +29,21 @@
 - These are LOFO fits on 6 exposed fires; the transfer to untouched fires is unknown.
 - The frozen logistic was fit on the 23 fit fires, but the LOFO models are fit on R, so their training data differ.
 - An ablation of the frozen logistic's wind, slope and biome terms needs per-cell covariates. Requested from Daniel (rebuilt), or the owner archive.
+
+## Follow-up: are the tail misses beyond d4's structural reach? (`reach.py` → `REACH.json`, about 1 s)
+
+d4's kernel is 9×9 (forecast-v2 RUN_PROTOCOL `kernel_size` 9), so its reach is at most 4 cells per hourly step: 1,500 m/h along an axis and 2,121 m/h diagonally. The reach ratio is r = dist_m / (1,500 m/h × hours). The tail is the entries with d4 p < 1e-5.
+
+| r (axis) | tail entries (4 km band) | positives | burn rate | d4 mean p | recalibrated d4 mean p |
+|---|---|---|---|---|---|
+| [0, 0.05) | 71,156 | 281 | 0.0039 | 1.9e-6 | 0.0016 |
+| [0.05, 0.1) | 215,830 | 677 | 0.0031 | 4.3e-7 | 0.0014 |
+| [0.1, 0.25) | 57,196 | 345 | 0.0060 | 5.5e-8 | 0.0013 |
+| [0.25, 0.5) | 702 | 7 | 0.0100 | 2.3e-7 | 0.0012 |
+| [0.5, 1) | 283 | 0 | 0 | 3.8e-10 | 0.0011 |
+| ≥ 1 (beyond reach) | **0** | **0** | — | — | — |
+
+- **None of the 1,310 band tail positives is beyond reach.** 958 of them (73%) lie within 10% of the reach distance for their interval. The largest r anywhere in the 4 km band is 0.61. In the full domain, the 1,651 tail positives are also all within reach (r < 0.5).
+- **Reading (hypothesis):** on this cohort, the hourly reach cap does **not** explain the tail. The cells are reachable many times over, yet d4 assigns them about 1e-6 to 1e-8. The cause is spread magnitude: rates too low, or probability decaying too fast with distance. That is consistent with Elena's plug-in bias (her synthetic fitted rate is about half of truth). Prediction: a D2 refit should shrink the tail without a recalibration layer. D1's continuous-time step is not the limiting factor here, unless it also changes rate magnitude.
+- **The recalibrated d4 is still about 2–4× too low in the tail** (about 0.0013–0.0016 against 0.003–0.006 observed), so recalibration only partly fixes it.
+- **Integration caution (Iris).** Recalibrated marginals must not feed the per-cell independent member draws used for routing. Lifting the floor everywhere would scatter isolated ignitions.
