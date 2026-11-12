@@ -103,7 +103,7 @@ hazard telescopes to survival, agreement with Monte Carlo, upper-tail precision,
 
 | Estimator | Held-out excess NLL | Kernel rel. L2 | Σk̂/Σk |
 |---|---:|---:|---:|
-| oracle (true tau) | 0.0445 ± 0.0269 | 0.325 ± 0.074 | 0.999 ± 0.024 |
+| complete-data MLE on true tau ("oracle"; not a floor) | 0.0445 ± 0.0269 | 0.325 ± 0.074 | 0.999 ± 0.024 |
 | plug-in at first observation time (Ganguly-style) | 0.2752 ± 0.0574 | 0.773 ± 0.066 | 0.882 ± 0.035 |
 | **MCEM interval-censored** | **0.0909 ± 0.0444** | **0.602 ± 0.131** | **1.012 ± 0.023** |
 
@@ -113,7 +113,7 @@ On held-out NLL, MCEM beats the plug-in in **16/16** replicates (paired Δ −0.
 
 | Estimator | Held-out excess NLL | Kernel rel. L2 | Σk̂/Σk |
 |---|---:|---:|---:|
-| oracle | 0.0445 ± 0.0269 | 0.325 ± 0.074 | 0.999 ± 0.024 |
+| complete-data MLE on true tau ("oracle") | 0.0445 ± 0.0269 | 0.325 ± 0.074 | 0.999 ± 0.024 |
 | plug-in (kriged mean as exact) | 0.0578 ± 0.0137 | 0.451 ± 0.077 | 0.861 ± 0.028 |
 | hard hourly (current pipeline) | 0.0502 ± 0.0112 | 0.432 ± 0.068 | 0.911 ± 0.031 |
 | sd-weighted hard hourly (forecast-v2 rule, L = 1 h) | 0.1238 ± 0.0261 | 0.499 ± 0.056 | 0.673 ± 0.050 |
@@ -121,6 +121,16 @@ On held-out NLL, MCEM beats the plug-in in **16/16** replicates (paired Δ −0.
 | soft risk set (weight P(tau>t), conditional hazard) | 0.0536 ± 0.0100 | 0.402 ± 0.053 | 0.886 ± 0.026 |
 | soft risk set + soft source features | **0.0333 ± 0.0094** | 0.392 ± 0.069 | 0.879 ± 0.024 |
 | MCEM (Gaussian error model) | 0.0777 ± 0.0400 | 0.507 ± 0.143 | **0.998 ± 0.030** |
+
+**Verification (Hannah, PASS WITH NOTES, c7f7df3).** She re-ran replicates 0–3 on py3.12 / numpy 2.5.4:
+* the simulation is identical;
+* the deterministic estimators agree within 3.2e-4 relative;
+* MCEM rows differ by up to 34% per replicate across builds, because the chain amplifies last-digit differences.
+
+All paired directions held (perimeter MCEM beat the plug-in 4/4; kriged MCEM beat hard hourly 0/4). MCEM rows are Monte
+Carlo estimates whose variability is comparable to the between-replicate sd, so close counts such as 3/16 are not
+decision inputs. "Oracle" is the complete-data MLE on one training field, not the true θ, so it is not a floor:
+soft_risk_softfeat beats it on held-out NLL.
 
 Findings (synthetic, conditional on this generator):
 

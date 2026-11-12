@@ -46,13 +46,14 @@ def main(argv=None):
     ap.add_argument("--allowlist", type=Path, required=True)
     ap.add_argument("--min-surveys", type=int, default=20)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--source-ref", default="", help="commit the allowlist was read from (pinned with its sha256)")
     a = ap.parse_args(argv)
     allow_sha = hashlib.sha256(a.allowlist.read_bytes()).hexdigest()
     al = pd.read_csv(a.allowlist)
     chosen = sorted(al.loc[al.surveys >= a.min_surveys, "Incident_C"])
     a.out.mkdir(parents=True, exist_ok=True)
     to5070 = Transformer.from_crs("EPSG:4326", "EPSG:5070", always_xy=True)
-    index = dict(allowlist=str(a.allowlist.name), allowlist_sha256=allow_sha, rule=f"surveys >= {a.min_surveys}",
+    index = dict(allowlist=str(a.allowlist.name), allowlist_sha256=allow_sha, allowlist_commit=a.source_ref, rule=f"surveys >= {a.min_surveys}",
                  part="a", fires={})
     for inc in chosen:
         assert "'" not in inc
