@@ -84,3 +84,13 @@ windows.
   difference statement is worded "relative to the time-dependent model".
 * **Harness rule (all cuts).** Before each cut, diff every README hunk that Main changed since my previous cut, so a
   whole-file copy cannot revert a verified erratum.
+* **(f) Road-limited no-route (routing reviewer, via the orchestrator).**
+  * Every multi-hour "no route" computed on today's clipped graphs (graphs_interim) is labelled **ROAD-LIMITED**:
+    *"graph clipped to the recorded one-hour window; a road out may never have been loaded"*. It is counted separately
+    from fire-limited no-route. This holds until Daniel's full-export-grid graph is verified by Hannah.
+  * **Split.** A no-route is reported as *possibly road-limited* if the set of nodes reachable from the origin at the
+    departure in the field (states with a feasible continuation ignored) contains a graph-boundary node: a node of
+    degree 1 within one cell of the clipped window edge. Otherwise it is reported as *fire-limited within the loaded
+    graph*.
+  * Where the split cannot be computed, the output says so. Neither label claims that a real road out exists or does
+    not exist.
