@@ -104,7 +104,7 @@ def run(a):
     t0 = time.perf_counter()
     doc = json.loads(Path(a.instance_json).read_text())
     inst = next(i for i in doc["instances"] if i["region"] == a.region and i["horizon_s"] == int(a.horizon_s)
-                and i["start_tag"] == a.start)
+                and i["start_tag"] == (a.instance_start or a.start))
     specs = {}
     for o in inst["origins"]:
         for d in o["destinations"]:
@@ -181,7 +181,7 @@ def run(a):
                 rcl.append({"origin": o, "dest": dnode, "dwell": dwell, "leave_by_s": ld, "codes_/2": c2["codes"]})
         del fld
     return {"what": "no_reentry/2 acceptance 6-7 (NOREENTRY2_ACCEPTANCE_RULE.md)", "region": a.region,
-            "start": a.start, "H": H, "packets": {"nr1": str(a.nr1), "nr2": str(a.nr2)},
+            "start": a.start, "H": H, "instance_start_tag": a.instance_start or a.start, "packets": {"nr1": str(a.nr1), "nr2": str(a.nr2)},
             "writer_identity_nr2": wid, "flux_label": FLUX_NOTE,
             "C0": {"h_ms": c0["h_ms"], "export_burned_router_cells": len(c0["export_burned"]),
                    "variant_before_start_router_cells": len(c0["variant_before_start"]), "C0_router_cells": len(C0),
@@ -202,6 +202,7 @@ def main():
     for k in ("graph", "nr1", "nr2", "export", "raster", "start", "instance-json", "region", "horizon-s", "out"):
         ap.add_argument("--" + k, required=True)
     ap.add_argument("--plan-meta")
+    ap.add_argument("--instance-start", help="INSTANCE entry to take places from when the start has none (labelled)")
     a = ap.parse_args()
     out = run(a)
     Path(a.out).write_text(json.dumps(out, indent=1, default=str))
