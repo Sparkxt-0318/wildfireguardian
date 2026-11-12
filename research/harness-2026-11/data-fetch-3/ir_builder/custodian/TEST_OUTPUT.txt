@@ -1,1 +1,1 @@
-PASS 6 pages fetched in fixture; stderr lines: 6
+PASS: fetched 32 URLs (ROOT + constructed + 1 group page), stderr lines 32
