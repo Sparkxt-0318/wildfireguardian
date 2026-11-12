@@ -1,6 +1,6 @@
 # F-3.2 certificate-to-request binding: rule (written before any code)
 
-Status: rule only. Implementation follows after review; Mira verifies.
+Status: rule only, revision 2 (Mira GO with changes, ledger 99). Implementation follows; Mira verifies.
 
 ## The gap today
 
@@ -10,64 +10,106 @@ Status: rule only. Implementation follows after review; Mira verifies.
 - The input shas (graph, request, `HAZARD.json`, packet arrays, build summary) exist only in the `.wfgc.json`
   sidecar and the run manifest. Neither checker reads them (FORMAT.md: "Checkers need not compute it").
 
-## Rule
+## Rule (revision 2, after Mira's review, ledger 99)
 
 **R1. Format version 2 carries a BIND section.**
 - Header `WFGC 2`.
 - A `BIND` section sits between `END_INSTANCE` and `CLAIM`.
-- Each digest is written as 8 integers in `[0, 2^32 - 1]`: the SHA-256 in big-endian 32-bit words. This keeps the
-  stream integer-only for the C reader.
+- Each digest is written as 8 integers in `[0, 2^32 - 1]`: the SHA-256 in big-endian 32-bit words.
 - The fields are fixed, in this order:
   1. `I`: SHA-256 of the exact bytes from the `I` of `INSTANCE` through the newline after `END_INSTANCE`.
   2. `G`: SHA-256 of the graph file bytes.
-  3. `P`: SHA-256 of the `HAZARD.json` bytes.
-  4. `W`: the packet's `packet_writer_sha256`. All-zero if the packet declares none; the sidecar then says so.
-  5. `Q`: SHA-256 of the canonical request bytes (JSON, sorted keys, separators `,` and `:`, UTF-8). It covers
-     origin, destination(s), departure, horizon, dwell, policy id and limits.
-- In version 2, the sidecar's arrays and build-summary shas stay in the sidecar. P1/X1 already ties the arrays to
-  `HAZARD.json`.
+  3. `A`: the **routed-hazard digest**: SHA-256 of the canonical bytes (R6) of exactly what the router's
+     `ContactModel.from_packet` reads (`contact.py:88-96`):
+     - from `constructed_arrays.npz`: `ignition_time_s` and `current_active`, each as `name`, `dtype.str`,
+       `shape` and C-order data bytes;
+     - from `REPORT.json`: `native_metadata.construction.assumptions.burning_duration_s`,
+       `...initial_remaining_s`, and the member ids (`rows[0].request.incurred` keys, in order).
+
+     Raw file bytes are NOT used. The `.npz` zip entries carry write timestamps, and `REPORT.json` and
+     `HAZARD.json` embed an absolute module path (Mira ledger 74). A consumer that rebuilds the same packet
+     elsewhere would get a false REJECT. `HAZARD.json` is not bound: the router does not read it. X1/P1 is
+     what ties it to the arrays.
+  4. `W`: `packet_writer_sha256` from `HAZARD.json` `provenance.identity`.
+     - All-zero means "the packet declares none".
+     - It is compared as an exact value. All-zero matches only a consumer whose own packet also declares none.
+       It is never a wildcard.
+  5. `Q`: SHA-256 of the canonical bytes (R6) of the **request projection `wfg.request-projection/1`**. These are
+     exactly the request fields that `build_instance` and the at-issue checks read (`frontend.py`):
+     - `position.node`, `incoming_edge`, `departure`, `horizon`;
+     - `destinations[]` as `{node, dwell, open_intervals}`, in request order;
+     - `budgets.dose`, `incurred`.
+
+     Fields outside the projection do not enter Q. Test T8 proves that none of them changes the instance.
+- The sidecar keeps the raw file shas (graph, request, `HAZARD.json`, arrays, build summary) for provenance. They
+  are not part of the binding.
 
 **R2. Self-binding (both checkers, no external input).**
 - Each checker computes `I` from the bytes it read and rejects on mismatch (`REJECT BIND_INSTANCE_DIGEST`).
-- The C checker gets its own SHA-256, written from FIPS 180-4, sharing no code with the Python side, and tested on
-  the NIST short-message vectors.
+- The C checker gets its own SHA-256, written from FIPS 180-4, sharing no code with the Python side.
 
 **R3. External binding (both checkers).**
-- The consumer, who holds its own graph, packet and request, supplies the expected `G P W Q` digests on the command
-  line (`--expect G=<hex>,P=<hex>,W=<hex>,Q=<hex>`).
-- The checker rejects if any one differs (`REJECT BIND_<field>`), or if the bundle has no BIND section.
-- ACCEPT is printed only after both binding steps and C0–C4 pass. The output line becomes
-  `ACCEPT <claim> <T> BOUND <first 16 hex of I>`.
-- Without `--expect`, a version-2 bundle that passes prints `ACCEPT <claim> <T> UNBOUND`. Exit status is still 0,
-  but no report may count it as a bound result.
+- The consumer computes `G A W Q` from its own inputs, with the shared reference tool `bind_digests.py`. The
+  C checker never parses JSON or npz.
+- The consumer supplies them as `--expect G=<hex>,A=<hex>,W=<hex>,Q=<hex>`.
+- The checker rejects on any difference (`REJECT BIND_<field>`), on a missing BIND section, or on a version-1
+  bundle (`REJECT BIND_MISSING`).
+- ACCEPT is printed only after R2, R3 and C0–C4 pass: `ACCEPT <claim> <T> BOUND <first 16 hex of I>`.
+- Without `--expect`, a version-2 bundle that passes prints `ACCEPT <claim> <T> UNBOUND`. No report counts it as
+  bound.
 
 **R4. Version 1 bundles.**
-- They keep their current output, `ACCEPT <claim> <T>`, and are reported as UNBOUND.
-- Existing committed results are unchanged and are relabelled "UNBOUND (v1)" where quoted, not re-certified silently.
+- Without `--expect` they keep their current output and are reported as UNBOUND (v1).
+- With `--expect` they REJECT (R3).
+- Committed v1 results are not re-certified silently.
 
 **R5. What binding does and does not prove.**
-- It proves: this certificate was issued for an instance whose bytes hash to `I`, under inputs that hash to the
-  consumer's own `G P W Q`. A bundle moved to another request, or with any edited instance byte, is rejected.
-- It does NOT prove that `I` is the correct translation of (G, P, Q). A generator could write correct `G P W Q`
-  labels next to a wrong instance.
-- That translation is obligation O2: `derive_instance.py` independently re-derives `I` from the raw inputs, and
-  its SHA-256 must equal BIND `I`.
-- A bundle counts as **fully bound** only when R2, R3 and the O2 comparison all pass. Each step is reported
-  separately.
+- It proves: this certificate was issued for an instance whose bytes hash to `I`, under a graph, routed hazard,
+  writer and request projection equal to the consumer's own.
+- It does NOT prove that `I` is the correct translation of those inputs. That is obligation O2.
+- O2 today is a semantic comparison, not a sha: `derive_instance.compare_semantic`, 0 differences required. T7
+  uses exactly that, against the instance **parsed from the bound bundle's own bytes** (the bytes hashed into
+  `I`), not against the solver's in-memory object.
+- **Fully bound** = R2 + R3 + O2 (`compare_semantic` with 0 differences on the parsed bundle instance). Each step
+  is reported separately.
+
+**R6. Canonical bytes.**
+- RFC 8785 (JCS) over a JSON value built only from integers, strings, arrays and objects. There are no floats.
+- Rationals and float times are first converted to the exact reduced string `"p/q"`, or `"p"` when q = 1, using
+  `fractions.Fraction(x)` on the stored value.
+- Strings are NFC-normalised. `allow_nan` is false; a non-finite value is a REJECT at digest time.
+- Array data bytes enter as lowercase hex strings of the C-order buffer.
+- The reference tool asserts that its output equals a JCS implementation on every digest it computes in the tests.
 
 ## Tests (written before the code; both checkers must pass every case)
 
-- **T1 swap.** Bundle for request A, checked with request B's expected digests → REJECT (`BIND_Q`, or the first
-  differing field). Run it on pairs that share graph and packet but differ only in the request (origin, or
-  departure 0 vs 7200), so that `Q` alone has to catch it.
+- **T1 swap.** Bundle for request A, checked with request B's expected digests → REJECT. Run it on pairs that share
+  graph and packet but differ only in the request (origin, or departure 0 vs 7200), so that `Q` alone has to catch
+  it.
 - **T2 single-digest mutation.** Flip one bit in each of the 5 fields in turn → REJECT with that field's reason.
-- **T3 instance edit.** Change one instance token, for example one `D_j` or one EB bound, and leave BIND untouched
-  → `REJECT BIND_INSTANCE_DIGEST`. This holds even where the edited certificate would still pass C0–C4.
-- **T4 missing or misplaced BIND.** No BIND, BIND after CLAIM, a field out of order, or a word ≥ 2^32 → REJECT.
+- **T3 instance edit.** Change one instance token and leave BIND untouched → `REJECT BIND_INSTANCE_DIGEST`. This
+  holds even where the edited certificate would still pass C0–C4.
+- **T4 malformed BIND.** No BIND, BIND after CLAIM, a field out of order, or a word ≥ 2^32 → REJECT. A version-1
+  bundle with `--expect` → `REJECT BIND_MISSING`.
 - **T5 unbound.** A valid v2 bundle without `--expect` → `ACCEPT … UNBOUND`, and the harness counts it as unbound.
-- **T6 positive.** For every case in the existing mutation suite (30 file tests + 2 extra), the v2 form with
-  correct `--expect` → the same ACCEPT/REJECT as today, plus `BOUND`.
-- **T7 O2 tie.** On the frozen 20-request panel, `derive_instance.py`'s SHA-256 equals BIND `I` for every bundle.
+- **T6 positive.** For every case in the existing mutation suite (30 file tests + 2 extra), the v2 form with correct
+  `--expect` → the same ACCEPT/REJECT as today, plus `BOUND`.
+- **T7 O2 tie.** On the frozen 20-request panel, `compare_semantic` on the instance parsed from each bound bundle →
+  0 differences.
+- **T8 request-projection completeness.** For every field of every panel request, each top-level field and each
+  destination subfield, mutate it in turn (change a value, or delete it where optional). Required:
+  - `Q` changes, OR
+  - the rebuilt instance bytes are identical, OR
+  - `build_instance` refuses the mutated request.
+
+  Any field that changes the instance without changing `Q` fails the test.
+- **T9 routed-hazard completeness.** Same as T8, for the packet:
+  - perturbing one element of each array in `constructed_arrays.npz`, and each scalar of `REPORT.json`, must change
+    `A`, or leave the instance bytes identical, or be refused;
+  - rewriting the `.npz` with a different zip timestamp, or editing an absolute path in `REPORT.json`, must leave
+    `A` unchanged.
+- **T10 C SHA-256.** The NIST short vectors; multi-block messages; lengths 55, 56, 63, 64 and 65 bytes; the
+  one-million-`a` vector. Every committed v2 bundle's `I` is also cross-checked against Python `hashlib`.
 
 ## Order of work
 
