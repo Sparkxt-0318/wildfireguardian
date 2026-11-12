@@ -295,6 +295,17 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
   * **The median ratio over all intervals is 0.33**: in a typical interval the fire got only a third as far as the
     model's 95th percentile.
   * No interval touched the grid edge (saturation flag 0).
+* **Rank of the observed reach among the 64 simulated reaches** (Iris's calibration check, 206 intervals):
+  * Decile histogram: **67** / 21 / 22 / 3 / 8 / 12 / 16 / 12 / 16 / **29**. It is U-shaped and heavier at the low
+    end.
+  * Rank < 0.05 in 27.2% of intervals; rank ≥ 0.95 in 11.7%, fire-clustered bootstrap 95% CI [5.8%, 18.5%], against
+    5% nominal.
+  * So the model is **too fast on many intervals and too slow on some**, with the low end, slow days, the larger
+    misfit. The top excess only just clears nominal once clustering by fire is respected.
+* **Stalled intervals** (no new burn): 7 of 213 (3.3%), small.
+* **Detached far burn:** 5 of the 25 run intervals have their farthest new cell in an 8-connected component that
+  contains no cutoff-burned cell. Over all intervals the share is 15%. Spot fires or mapping changes may account for
+  part of the runs.
 * **Reading (*hypothesis*):** one constant rate is **overdispersed in the wrong way**. It over-reaches on most
   intervals and under-reaches on about 12%, which is the slow-day / run-day mixture (Sofia, Iris). It argues for a
   run-state or frailty term on top of the corrected average rate, and for checking whether wind predicts the run
