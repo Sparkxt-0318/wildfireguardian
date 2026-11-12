@@ -857,6 +857,9 @@ function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang, plan: Mess
   // fail closed in the kit itself (Mira N1): a label about a deadline where the kit gives no checked time is refused
   // and REPORTED as "not established", the same in both languages
   if (timed && (plan.kind !== 'leave_by' || plan.leaveByS === null)) return staffProvenanceLine({ kind: 'not_established', why: 'no_record_time' }, lang, plan);
+  // and the symmetric case (Mira's note on #143): "timed out · exact analysis: no route" describes an unresolved place
+  // only; on any other place (a leave-by time, partial, no route) it is refused and reported the same way
+  if (p.kind === 'unresolved_proven_no_route' && plan.kind !== 'unresolved') return staffProvenanceLine({ kind: 'not_established', why: 'no_record_time' }, lang, plan);
   const text = provenanceText(p, lang);
   if (!text || p.kind === 'none') return null;
   const head = lang === 'ko' ? '[직원용] 마감 근거(모델)' : '[Staff] Deadline set by (model)';

@@ -233,4 +233,27 @@ describe('kit staff line fails closed on a mismatched label (Mira N1)', () => {
     }
     expect(n).toBe(30 * 3);
   });
+
+  it('the symmetric case: a "proven no route" label on a place that is not unresolved (leave-by, partial, no route) is refused and reported as not established; on an unresolved place it is kept, in ko and en', () => {
+    const byKind: Record<string, number> = {};
+    for (const b of booth) for (const i of b.inputs) {
+      const mp = messagePlan(i, null);
+      const a = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z' });
+      const s = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z', deadlineProvenance: { kind: 'unresolved_proven_no_route' } });
+      if (mp.kind === 'unresolved') {
+        expect(s.text.ko.staff.provenance).toMatch(/정밀 분석상 경로 없음/);
+        expect(s.text.en.staff.provenance).toMatch(/exact analysis: no route/);
+      } else {
+        expect(s.text.ko.staff.provenance).toMatch(/근거 확인 안 됨/);
+        expect(s.text.en.staff.provenance).toMatch(/Provenance not established/);
+        expect(s.text.ko.staff.provenance).not.toMatch(/경로 없음|시간 초과/);
+        expect(s.text.en.staff.provenance).not.toMatch(/no route|timed out/i);
+      }
+      expect(s.violations).toEqual(a.violations);
+      byKind[mp.kind] = (byKind[mp.kind] ?? 0) + 1;
+    }
+    console.log('[provenance] symmetric guard cases by kit kind:', JSON.stringify(byKind));
+    expect(byKind.leave_by ?? 0).toBeGreaterThan(0);
+    expect(byKind.unresolved ?? 0).toBeGreaterThan(0);
+  });
 });
