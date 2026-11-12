@@ -143,9 +143,9 @@ def test_v31_envelope_end_covers_exact():
 
 
 def test_footprint_law_never_clears_a_burn_set_cell():
-    """ENVELOPE_FOOTPRINT_RULE.md (Iris/orchestrator condition): under envelope_footprint no burn-set cell, and no
+    """ENVELOPE_BURNSET_RULE.md (Iris/orchestrator condition): under envelope_burnset no burn-set cell, and no
     present-fire cell, is ever marked clear within the horizon - including cells the export lists as burned and present
-    fire whose writer `remaining` falls inside the horizon. Uses the real footprint_members with a stub radiation model."""
+    fire whose writer `remaining` falls inside the horizon. Uses the real burnset_members with a stub radiation model."""
     import importlib.util
     spec = importlib.util.spec_from_file_location('pc', str(Path(__file__).resolve().parents[1] / 'fdyn' / '_packet_child.py'))
     pc = importlib.util.module_from_spec(spec)
@@ -170,7 +170,7 @@ def test_footprint_law_never_clears_a_burn_set_cell():
     births = np.where(footprint & (rng.random(footprint.shape) < 0.7), 0.0, np.inf)     # export-burned cells skipped
     built = {'settings': {'horizon_s': 18000.0}, 'affine_transform': None, 'current': current,
              'remaining_s': 3000.0, 'events': births[None]}
-    (m,) = pc.footprint_members(_B, np, built, 5179, footprint)
+    (m,) = pc.burnset_members(_B, np, built, 5179, footprint)
     assert m['breakpoints'] == [0.0, 18000.0]                                           # one interval, whole window
     assert m['flame'].shape[0] == 1 and np.array_equal(m['flame'][0], footprint | current)
     assert np.all(np.isinf(m['extinction_breakpoint_s']))                               # nothing ends in the horizon

@@ -316,13 +316,13 @@ independent scalar-law checker **does not apply and was not run** on them. Never
 - `kriged_mean`
 - `firms_early` and `envelope`: both labelled bracket-start, not a lower bound.
 - `envelope_sound`: **WITHDRAWN as a bound** (Nora FAIL, row 28; see `SOUND_ENVELOPE_RULE.md` status). Do not
-  score it. A fix is proposed in `ENVELOPE_FOOTPRINT_RULE.md`.
+  score it. A fix is proposed in `ENVELOPE_BURNSET_RULE.md`.
 
 All four use the v3.1 convention. `envelope_ahi_bounded` was **withdrawn** after its reach table: it applied a
 pixel time per cell, which burned cells early and burned them out before arrival. See `STARTS_RULE.md` and
 `ahi_results/README.md`. No fifth variant is planned.
 
-## `envelope_footprint` (ENVELOPE_FOOTPRINT_RULE.md @3fbd229, adopted; replaces withdrawn `envelope_sound`)
+## `envelope_burnset` (ENVELOPE_BURNSET_RULE.md @3fbd229, adopted; replaces withdrawn `envelope_sound`)
 
 - **Static law.** The final mapped burn set (16,176 cells) is burning on the whole window [0, H) at every start. No
   cell is cleared within the horizon. lo = ignition, chosen on principle: non-detections fail on both attribution and
@@ -341,8 +341,8 @@ pixel time per cell, which burned cells early and burned them out before arrival
   The unit is a 375 m road cell, and "blocked" means inside the burn set for the whole window. The Uiseong road
   graph window lies 99.7% inside the final burn set, so this is not a share of roads burning at once: that is 0–9%
   at any instant under the timing scenarios. See "How to read the blocked road share" in
-  ENVELOPE_FOOTPRINT_RULE.md.
+  ENVELOPE_BURNSET_RULE.md.
 - **Still to come from Richard's field:** origins with a checked route, and origins with an unchanged deadline.
-- **Manifest.** `MANIFEST_v3_2.json` (wfg.fdyn.manifest/3) has `envelope_footprint` in place of `envelope_sound`.
+- **Manifest.** `MANIFEST_v3_2.json` (wfg.fdyn.manifest/3) has `envelope_burnset` in place of `envelope_sound`.
   The other three variants' entries are identical to v3.1. `MANIFEST_v3_1.json` is not edited and is listed as
   superseded.

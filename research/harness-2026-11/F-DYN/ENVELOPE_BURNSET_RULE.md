@@ -1,4 +1,4 @@
-# `envelope_footprint`: ADOPTED (orchestrator decision, option A; amendment 2 to the withdrawn `envelope_sound`)
+# `envelope_burnset` (adopted as `envelope_footprint`; renamed after Nora's PASS): ADOPTED (orchestrator decision, option A; amendment 2 to the withdrawn `envelope_sound`)
 
 Adopted 2026-11-12, after Nora's FAIL on the soundness claim of `envelope_sound` (ledger row 28), with Iris's
 conditions. **This rule is committed before any computation under it.** The word "sound" is not used for this
@@ -97,3 +97,26 @@ address point 2 at all.
 - **What it does not say.** It does **not** say that 99% of the real roads were burning or impassable at any moment
   in March 2025: at any one instant the timing scenarios burn 0–9% of Uiseong road cells. It says nothing about roads
   outside the graph window.
+
+## Nora: PASS WITH NOTES (ledger row 32); rename and label (label-only change, orchestrator)
+
+- **Verdict.** Nora re-derived the burn set from the raw TOA, FIRMS and AHI membership: 16,176 cells (10,955
+  kriged, 281 detection-only, 4,940 AHI-only), identical to ours.
+  - The sample rebuild has flame equal to the burn set for the whole window, and nothing is cleared.
+  - Blocked shares and the manifest reproduce.
+- **Pixel-versus-cell pass:**
+  - (i) Attribution can only add burn-set cells. All 7,573 cells touched by the nominal footprints of all 6,852 FIRMS
+    detections lie inside the burn set.
+  - (ii) Present fire and burned cells only add.
+  - (iii) Radiation uses the writer's own centre model on the static mask.
+  - (iv) The scalar self-check validates the writer path, **not** the override. Her direct packet-versus-burn-set
+    comparison is the only check of the override, so the label keeps "single implementation, not independently
+    checked".
+- **Rename.** `envelope_footprint` → **`envelope_burnset`** ("footprint" could be confused with the pixel
+  footprint). The arrays are identical. Files: `variants/envelope_burnset_{lo,hi}.npz`, `fdyn/burnset.py`, this
+  file.
+- **Label.** "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell
+  cleared within the horizon; single implementation, not independently checked". The bare word "sound" is never
+  used.
+- **Manifest.** `MANIFEST_v3_3.json` (wfg.fdyn.manifest/4). `MANIFEST_v3_2.json` (sha d4dcf43b…) is kept and listed
+  as superseded.

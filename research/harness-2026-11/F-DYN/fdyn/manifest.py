@@ -19,15 +19,16 @@ VARIANTS = {
     'firms_early': ['--arrival', f'{D}/variants/firms_early.npz', '--arrival-variant', 'firms_early'],
     'envelope': ['--arrival', f'{D}/variants/firms_early.npz', '--arrival-hi', f'{D}/variants/firms_constrained.npz',
                  '--arrival-variant', 'envelope'],
-    'envelope_footprint': ['--arrival', f'{D}/variants/envelope_footprint_lo.npz', '--arrival-hi',
-                           f'{D}/variants/envelope_footprint_hi.npz', '--arrival-variant', 'envelope_footprint'],
+    'envelope_burnset': ['--arrival', f'{D}/variants/envelope_burnset_lo.npz', '--arrival-hi',
+                           f'{D}/variants/envelope_burnset_hi.npz', '--arrival-variant', 'envelope_burnset'],
 }
 SOUNDNESS = {'kriged_mean': 'kriged mean (not a bound; sd ~17 h; late for the coastal run)',
              'firms_early': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)',
              'envelope': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check',
-             'envelope_footprint': 'BOUND RELATIVE TO THE FINAL MAPPED BURN SET (lo = ignition; no cell cleared within the horizon); PENDING NORA; per-cell static law, no independent check'}
+             'envelope_burnset': 'SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)'}
 SUPERSEDED_V3 = 'c76b746d9a8131b2fec162177736fce72a76a43cba80f467ff63ae503d5da3fe'
 SUPERSEDED_V31 = '1c2e73db20db7b1caa309ebde42d20629054cd49c8f1f2cd9e4e81b0b9c89bbe'
+SUPERSEDED_V32 = 'd4dcf43b4029048c6d7e876d599d34d8d75e0b1419316e3a3e123fc4d9a5fc15'
 RECORDED = {'uiseong_andong_2025': {'20250323T010000Z', '20250324T090000Z', '20250325T170000Z'},
             'yeongdeok_2025': {'20250325T190000Z', '20250325T230000Z', '20250326T080000Z'}}
 
@@ -56,11 +57,14 @@ def main():
                 entries.append({'region': region, 'start': start, 'start_kind': 'recorded' if recorded else 'synthetic',
                                 'horizon_h': H, 'variant': v, 'out': out, 'cmd': cmd,
                                 'soundness': SOUNDNESS[v]})
-    a.out.write_text(json.dumps({'schema': 'wfg.fdyn.manifest/3', 'graph': 'interim full-grid (fdyn/regrid_graph.py)',
+    a.out.write_text(json.dumps({'schema': 'wfg.fdyn.manifest/4', 'graph': 'interim full-grid (fdyn/regrid_graph.py)',
                                  'quantization': {'version': 'wfg.fdyn.quant/3.1', 'rule': 'QUANT_v3_1_RULE.md'},
-                                 'superseded': [{'manifest': 'MANIFEST_v3_1.json', 'sha256': SUPERSEDED_V31,
+                                 'superseded': [{'manifest': 'MANIFEST_v3_2.json', 'sha256': SUPERSEDED_V32,
+                                                 'reason': 'pure rename envelope_footprint -> envelope_burnset and label after '
+                                                           'Nora PASS (row 32); arrays identical'},
+                                                {'manifest': 'MANIFEST_v3_1.json', 'sha256': SUPERSEDED_V31,
                                                  'reason': 'envelope_sound withdrawn as a bound (Nora, row 28); replaced '
-                                                           'by envelope_footprint (ENVELOPE_FOOTPRINT_RULE.md)'},
+                                                           'by envelope_burnset (ENVELOPE_BURNSET_RULE.md)'},
                                                 {'manifest': 'MANIFEST_v3.json', 'sha256': SUPERSEDED_V3,
                                                  'reason': 'binary64 floor_300 flips a quantum at exact minute '
                                                            'boundaries (Thomas, F-3.2 O2); see DIFF_v3_v31.json'}],

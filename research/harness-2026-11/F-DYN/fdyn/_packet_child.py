@@ -52,8 +52,8 @@ def rebuild_members(B, np, built, epsg, ext_of):
     return out
 
 
-def footprint_members(B, np, built, epsg, footprint):
-    """ENVELOPE_FOOTPRINT_RULE.md: one interval [0, H) with flame = burn set | present fire; nothing clears."""
+def burnset_members(B, np, built, epsg, footprint):
+    """ENVELOPE_BURNSET_RULE.md: one interval [0, H) with flame = burn set | present fire; nothing clears."""
     st = built['settings']
     horizon = float(st['horizon_s'])
     model = B.radiation_model(built['affine_transform'], st, epsg)
@@ -100,7 +100,7 @@ def main():
         times = z['times'].copy()
         meta = json.loads(str(z['meta']))
         hi_rel = z['hi_rel'].copy() if 'hi_rel' in z.files else None
-        footprint = z['footprint_mask'].copy() if 'footprint_mask' in z.files else None
+        footprint = z['burnset_mask'].copy() if 'burnset_mask' in z.files else None
     S = times.shape[0]
     horizon = float(meta['horizon_s'])
     calls = []
@@ -139,13 +139,11 @@ def main():
                 s['fdyn']['soundness'] = ('WITHDRAWN AS A BOUND (Nora, ledger row 28): lo = last confirmed-clear view is '
                                           'not a lower bound because detection-to-cell attribution is pixel-level; '
                                           'bracket scenario only, do not score')
-            if meta.get('arrival_variant') == 'envelope_footprint':
-                s['source_law_version'] = 'wfg.fdyn.envelope-footprint-static/1'
+            if meta.get('arrival_variant') == 'envelope_burnset':
+                s['source_law_version'] = 'wfg.fdyn.envelope-burnset-static/1'
                 s['fdyn']['envelope'] = ('static law: burn set | present fire burning on [0, H); no cell cleared within '
-                                         'the horizon (ENVELOPE_FOOTPRINT_RULE.md)')
-                s['fdyn']['soundness'] = ('BOUND RELATIVE TO THE FINAL MAPPED BURN SET (lo = ignition; no cell cleared '
-                                          'within the horizon); nothing about fire outside the mapped burn set; single '
-                                          'implementation, not independently checked; PENDING NORA')
+                                         'the horizon (ENVELOPE_BURNSET_RULE.md)')
+                s['fdyn']['soundness'] = ('SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)')
             if meta.get('arrival_variant') == 'envelope':
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
                                           'fire arrived before that overpass (use envelope_sound)')
@@ -174,7 +172,7 @@ def main():
             if footprint is not None:
                 if footprint.shape != H:
                     raise SystemExit('FOOTPRINT_MASK_SHAPE')
-                built['members'] = footprint_members(B, np, built, epsg, footprint)
+                built['members'] = burnset_members(B, np, built, epsg, footprint)
             else:
                 built['members'] = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, np.where(np.isfinite(b), hi_rel[k], np.inf), T))
             envelope_checks.append(1)

@@ -106,4 +106,4 @@ true arrival. This is the same footprint argument §2 uses against a finite hi.
 - Nothing has been scored on it.
 - The name "sound" is used for nothing until a rebuilt variant passes.
 
-A fix is proposed in `ENVELOPE_FOOTPRINT_RULE.md`. It is not yet adopted.
+A fix is proposed in `ENVELOPE_BURNSET_RULE.md`. It is not yet adopted.
