@@ -54,6 +54,23 @@ environments were used, Linux x86_64 in both:
 - The wrapper's own claims (items 1 and 3) do not depend on it: B and C are compared with A built in the same
   environment.
 
+**Both flux rules, side by side.** Amendment A1 is in DESIGN.md: post hoc, proposed, committed at 7e8420ea before
+this evaluation.
+- No packet was rebuilt. `amended_rule.py` re-reads the A builds; output in `AMENDED_RULE_RESULTS.json`.
+- The existing rule (relative ≤ 1e-9) **stays the rule of record**.
+- Hannah decides whether A1 is acceptable.
+
+| Rule | numpy 2.5.3 / Py 3.13 | numpy 1.26.4 / Py 3.12 |
+|---|---|---|
+| Existing: flux relative ≤ 1e-9 | 14 / 15 (Uiseong 03-24 09Z FAIL: 14 entries) | 14 / 15 (same packet FAIL: 6 entries) |
+| A1 (proposed): relative ≤ 1e-9 **or** absolute ≤ 1e-12 kW/m² | 15 / 15 (0 entries fail) | 15 / 15 (0 entries fail) |
+
+- **Across all 15 packets,** the largest absolute flux difference is 1.1e-15 kW/m², in Yeongdeok 03-25 19Z
+  (numpy 2.5.3).
+- **Ids, breakpoints, flame and support** are exact on all 15 packets in both environments.
+- **Writer identity** is recorded per compared instance, both built and stored. That is the orchestrator's condition
+  for keeping the scenario ids.
+
 **Unsupported cells under `c651_unknown/1`** (of the packet window's cells; the same in both environments):
 
 | Packet | Unsupported | Cells |
