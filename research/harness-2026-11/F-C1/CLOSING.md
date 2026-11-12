@@ -30,7 +30,19 @@ conclusion is about the data, not the method.
 | indeterminate | non-negative, not robust to the leave-by simplification | 12 | 0 | **12** |
 | non-negative, not robust to the leave-by simplification | non-negative, not robust to the leave-by simplification | 11 | 0 | **11** |
 
-- **No place has a negative sign**, for flames or smoke.
+- **No place has a robust negative sign.** A robust sign needs both timing rows and both visibility settings to agree
+  (amendment 1.2).
+- **12 places have a negative gap in at least one row and setting.** Correction, Hannah 2026-11-12: an earlier
+  wording said "no place has a negative sign", which overstated. All 12 are classed indeterminate:
+  - **괴산리 and 신월리** (Uiseong): negative under **both** settings, for flames and smoke, in the detected-cells
+    bracket row. Indeterminate only because the wide (kriged ±2 sd) row does not agree.
+  - **괴산리 and 대탄리** (Yeongdeok): flame negative under the pessimistic setting in **both** timing rows. Not
+    negative under the optimistic setting.
+  - **9 more**: flame negative under the pessimistic setting in the detected-cells row only. These are 신덕리,
+    하령리, 하화리, 덕곡리, 신애리, 오천리, 삼화리, 노물리 and 기사리.
+  - **Why this matters.** A negative gap under the preliminary leave-by, which is an upper bound on the deadline, is
+    the direction that is robust to that simplification. These places are where better timing data would most
+    likely settle the question.
 - **Non-negative signs (23 places, all in the first slice) are not robust.** The preliminary leave-by (arrival
   minus the fastest fire-free trip) is an upper bound on the true deadline (amendment 1.3).
 - **Not bracketed** (56 places) means no FIRMS detection within 500 m of the place plus its entry cell. That
