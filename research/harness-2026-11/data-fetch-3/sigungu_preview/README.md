@@ -22,3 +22,10 @@ The boundary file itself is private and is not committed. Its member sha256 valu
 - Output: sha256 8eaa76b67587b1e9627659676c58b8426197af35b0e9615926f58f91c095a202, 66,584 bytes. It reads EPSG:5186 (KGD2002 / Central Belt 2010) from the file, and its base date is 2025-06-30.
 - Counts are identical to run 1: 177 of 177 established at 0, 25, 50 and 100 m. 의성군 48, 안동시 38, 영덕군 82, 청송군 4, 영양군 5.
 - Clara commits this file as delivered. The preview above is superseded.
+
+## Run 3 (FINAL, as delivered): `labels_run3_script_92757b2e_final_source.json`
+
+- Same script (92757b2e) and the same command as run 2. Only `--source` changed, to Sofia's revised Korean source line.
+- Output: sha256 0896957b8c23f1abafcf0652bd3b57d2c1c6013e050d2fc1edbc8a231c5be52c, 71,746 bytes.
+- Every label is identical to run 2 apart from its `source` string, and the counts are identical: 177 of 177 established.
+- Clara commits this file as delivered. Runs 1 and 2 are superseded.
