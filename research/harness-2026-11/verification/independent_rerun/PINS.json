@@ -114,9 +114,15 @@
   "refit_receipts_and_checkpoints": "logistic_rebuilt, d4_wind_rebuilt (for d4_wind_recal), d2_bracket_rebuilt: checkpoint sha256 per receipt",
   "d4_wind_recal_code": "Marcus writes it (owner of the d4_wind refit), Owen verifies; not committed yet",
   "parta_prediction_inputs": "score_parta.py is pinned above; still pending its real checkpoint, the final events list and Daniel's input manifest, and Victor's confirmation of the format (shared multi-model mask)",
-  "d4_wind_recal_details": "Victor's proposal awaiting the orchestrator: 0.05 negative subsample with inverse weights, full grid, p clipped to [1e-6, 1-1e-6]",
   "committed_parta_table": "PARTA_SCORES.json written by freeze/score_criteria.py (pinned above) after the refits and Marcus's merge step (one file per fire, all p_ columns on common support, y and dist_m asserted equal, population full_rectangle, a p_dilation_8h producer): commit, sha256 and env hash. s4_score.py is the independent second run (Victor: compared within 1e-9 on every reported pair; observed agreement 1e-12)",
   "d2_bracket_final_head": "STAGE2_PINS: final head and Owen's verification",
   "merge_step": "Marcus: merge of per-model score_parta.py outputs to one file per fire, plus the dilation_8h producer"
+ },
+ "recal_check": {
+  "pinned_at": "claude/s-d9-stage2 ad611755 (STAGE2_PINS; fallback corrected at ce8cf01e)",
+  "i_arithmetic": "predictions from the frozen coefficient file within absolute 1e-8",
+  "ii_refit": "coefficients within relative 1e-6; else fallback: max |dp| <= 1e-5 on part a AND |d pooled 4 km-band Brier| <= 2.9e-7; beyond that = failed reproduction, never loosened",
+  "inputs_checked_before_draw": "label hash per fire (S1) and entry count vs the producer receipt",
+  "draw": "keep = (y==1) | (default_rng(0).random(n) < 0.05) over entries sorted by fire id, interval, row-major cell; scaler fit on the kept subsample, unweighted; p float64 clipped at 1e-6; solver tol default"
  }
 }
