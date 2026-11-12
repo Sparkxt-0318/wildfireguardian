@@ -29,8 +29,9 @@ Per setting (flames):
   hour, 3 mixed members, 21 no route.
 - **Pessimistic:** 76 visible now, 415 censored, **10 negative (8 places)**, 21 no route.
 - **The 10 pessimistic negatives are all fire-set deadlines** (`fire_or_limits`, D = 1200–1800 s) at Uiseong
-  03-23 01Z and 03-24 09Z. Fire is 1.3–4.6 km away. In every one of them the optimistic setting sees flames at the
-  input time, so all 10 are **indeterminate**: the sign depends on the observer and flame-height assumptions.
+  03-23 01Z and 03-24 09Z. Fire is 1.3–4.6 km away. The optimistic setting sees flames at the input time in every
+  scenario member for 7 of the 10, and in some members for the other 3. So all 10 are **indeterminate**: the sign
+  depends on the observer and flame-height assumptions.
 
 **Smoke, per setting.**
 
