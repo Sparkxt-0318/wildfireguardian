@@ -66,3 +66,11 @@ Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,8
   certificate is ≈0.5–1.5× the full instance, before any completeness authentication: optimality genuinely depends on
   most of the reachable region. A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
   a loose upper bound that alone exceeds the instance; a real multi-proof design is unmeasured.
+
+## Departure-sweep cohort (reconstruction — NOT the November 106-request cohort or its 2 unproved claims)
+
+`cohort.py`: the 20 frozen requests re-issued at departures 0, 300, …, 1800 s (`results/cohort_departure_sweep.json`).
+140 distinct requests: 75 ROUTE + 65 NO_ROUTE; both checkers accept all 140 certificates; the independent copied
+frozen sweep agrees on every verdict and every arrival (0 disagreements, 0 unresolved, 0 at-issue refusals). Max
+certify 17.8 s, max C check 0.07 s, max bundle 7.1 MB. It reuses 5 graphs, 15 packets and 4 parent fires; departures
+of one request are not independent tests.
