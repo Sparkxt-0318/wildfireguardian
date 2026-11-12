@@ -94,3 +94,12 @@ windows.
     graph*.
   * Where the split cannot be computed, the output says so. Neither label claims that a real road out exists or does
     not exist.
+* **(g) Acceptance 7 (Leo's NOREENTRY_RULE, delegated by the orchestrator).** This is a row of the headline results.
+  * **Unit.** Each no-re-entry deadline witness is checked by the unchanged full checker on both packets: the v3.6
+    reopening packet and the v3.6 no-re-entry packet (F1 flux).
+  * **Count.** Requests whose PEAK_BUDGET / DOSE_BUDGET codes differ, split into pass → fail and fail → pass, by
+    variant.
+  * **Flame-contact differences** are reported separately and are expected to be 0. The field equality holds at the
+    deadline (`results/NOREENTRY_CHECK_v36.json`).
+  * **Scope.** The headline set: v3.6 packets × 4 variants × 6 starts × {5 h, 8 h}. The headline runs use the v3.6
+    no-re-entry packets directly; they are content-identical to the never arm, checked on UA 25T17 h5.
