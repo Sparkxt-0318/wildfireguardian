@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from deadline_field import intervals as iv  # noqa: E402
-from deadline_field.core import backward, issue_set, witness  # noqa: E402
+from deadline_field.core import backward, issue_set, witness_greedy  # noqa: E402
 from deadline_field.real import PacketModel  # noqa: E402
 from deadline_field.verify import full_check  # noqa: E402
 
@@ -36,10 +36,12 @@ def run(graph: Path, packet: Path, instance: dict, *, verify=True, step=1800):
     t_all = time.perf_counter()
     t0 = time.perf_counter()
     pm = PacketModel(graph, packet)
-    hazard = json.loads((packet / "HAZARD.json").read_text())
+    hazard = json.loads((packet / "HAZARD.json").read_text()) if verify else None
     prep = time.perf_counter() - t0
     H = pm.H
     peak_l, dose_l = instance["limits"]["peak_kw_m2"], instance["limits"]["dose_kj_m2"]
+    if hazard is None:
+        hazard = json.loads((packet / "HAZARD.json").read_text())
     ok, pre = pm.full_policy_reduces_to_contact(hazard, peak_limit=peak_l, dose_limit=dose_l, incurred=0.0)
     max_dur = pre["max_exact_journey_duration_s"]
     offsets = list(range(0, H + 1, step))
@@ -71,7 +73,7 @@ def run(graph: Path, packet: Path, instance: dict, *, verify=True, step=1800):
                     if not f:
                         continue
                     ld = f[-1][1]
-                    w = witness(fld, pm.nidx[o], ld)
+                    w = witness_greedy(fld, pm.nidx[o], ld)   # feasible witness; arrival not necessarily earliest
                     legs = [(k, (pm.g.edge_ids[x] if k == "EDGE" else pm.node_ids[x]), a, b) for k, x, a, b in w[1]]
                     dur = (w[0] + dwell) - ld
                     chk = full_check(pm, hazard, origin=o, legs=legs, dest=dnode, dwell=dwell, window=window,

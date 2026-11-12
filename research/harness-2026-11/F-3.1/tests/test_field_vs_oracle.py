@@ -150,3 +150,19 @@ def test_export_cert_roundtrip():
         check_fixed_point(Field(inst, R, G, {}))
         for o in range(inst.n_nodes):
             assert [tuple(p) for p in cert["states"]["issue:%d" % o]["R"]] == __import__("deadline_field.core", fromlist=["x"]).issue_core(fld, o)
+
+
+def test_greedy_witness_legal_and_complete():
+    """witness_greedy returns a legal accepted journey exactly when the departure is feasible."""
+    from deadline_field.core import witness_greedy
+    for seed in range(800):
+        raw = random_instance(seed)
+        inst = Instance(**{k: (list(v) if isinstance(v, list) else v) for k, v in raw.items()})
+        fld = backward(inst)
+        for o in range(raw["n_nodes"]):
+            S = iv.to_set(issue_set(fld, o))
+            for t in range(raw["H"] + 1):
+                w = witness_greedy(fld, o, t)
+                assert (w is not None) == (t in S), (seed, o, t)
+                if w is not None:
+                    replay_witness(raw, o, t, w)
