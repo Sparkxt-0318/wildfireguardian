@@ -44,7 +44,9 @@ def _starts(e: F, l: F, b: F, x, H: int):
 class PacketModel:
     """Per (graph, packet): blocked start intervals of every edge, wait and issue point, per rule."""
 
-    def __init__(self, graph_path, packet_dir, *, H: int | None = None):
+    def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None):
+        """extra_blocks: {router cell: start second} adds a pseudo-phase [start, beyond H) to that cell under BOTH
+        rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
         self.g = RoadGraph(self.raw)
         self.pk = Packet(packet_dir, self.g.grid)
@@ -61,6 +63,11 @@ class PacketModel:
             for c, (b, xe, xr, _k) in self.pk.phases[s].items():
                 self.router_ph.setdefault(c, []).append((b, None if xr >= H else xr, s))
                 self.closed_ph.setdefault(c, []).append((b, xe, s))
+        self.extra_blocks = dict(extra_blocks or {})
+        for c, st in self.extra_blocks.items():
+            self.router_ph.setdefault(c, []).append((F(int(st)), None, -1))
+            self.closed_ph.setdefault(c, []).append((F(int(st)), None, -1))
+            self.burning.add(c)
         E = len(self.g.u)
         self.B = {"router": [[] for _ in range(E)], "closed": [[] for _ in range(E)]}
         self.edges_touching = 0
