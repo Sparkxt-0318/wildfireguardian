@@ -1,73 +1,99 @@
 # Comprehension test of the leave-by outputs — protocol (PLAN ONLY)
 
-Status: draft for Iris, then the owner. Plan only: no recruitment, no publication, no data collected. The owner
-arranges participants, consent and any ethics review. Written 2026-11-12 after the orchestrator paused new wording
-until one comprehension test with real readers has run.
+Status: v2, after Iris's reading of v1 (bbbb640). Plan only: no recruitment, no publication, no data collected. The
+owner arranges participants, consent and any ethics review. Written 2026-11-12 after the orchestrator paused new
+wording until one comprehension test with real readers has run.
+
+**What a pass can mean.** This pilot is a go / no-go for the existing wording, not a measured comprehension rate. A
+miss is decisive. A clean result at this size is weak: 0 misses of 8 does not show that misses are rare. A pass allows
+paused wording work to resume. It supports **no statement about comprehension in public material**.
 
 ## Questions
-1. **Find the time.** Can a reader find the leave-by time within 30 s from each channel?
-2. **"Not the deadline".** Does the later-window wording read as intended? It must NOT be taken as a safe or planned
-   departure time.
+1. **Find the time.** Can a reader find the leave-by time from each channel? Report every time; 30 s is the stated
+   cut.
+2. **"Not the deadline".** Is a later or next time ever read as usable?
    - Staff headline: "…this is not the deadline; do not plan on it".
    - Resident card, gap case: "Leaving at the next computed time has no checked road".
-3. **Never safe.** Is an unresolved or no-route result ever read as "safe" or "stay"?
+3. **Never safe, never "stay".** Is an unresolved or no-route result ever read as "safe" or as "stay where you are"?
+4. **Official first.** Do readers name the official orders as coming first?
 
 ## Participants (two groups, reported separately, never pooled)
-- **A. Older adults:** 65+, living in rural 시·군 like the replayed areas. Pilot size 8–12.
-- **B. County and village staff:** 이장, 읍·면 담당자, 시·군 재난 담당. Pilot size 6–8.
+- **A. Older adults:** 65+, living in rural 시·군 like the replayed areas, N = 8–12.
+- **B. County and village staff:** 이장, 읍·면 담당자, 시·군 재난 담당, N = 6–8.
 - Record only the age band, the group and whether the person reads Korean on a phone without help. No names. No real
   resident data anywhere.
+- **English outputs are not tested; no claim is made about them.** (Too few English readers to give a usable number,
+  and the English call is not produced at 373 of 531 places.)
 
 ## Materials (existing replay only, unchanged, every item carries its replay mark)
-Five fixed cases from the six booth caches, one per state, chosen by a fixed rule (first by origin id) and listed
-with their ids before the sessions:
-- leave-by, "later departures not checked";
-- leave-by, gap ("next computed time has no checked road", with a later window in staff outputs);
-- partial;
-- no route;
-- unresolved.
+Five fixed cases, chosen by a fixed rule (the first origin id of each state in INDEX order) and listed with their ids
+before any session:
+- C1: leave-by, "later departures not checked";
+- C2: leave-by, gap (with the staff later window);
+- C3: partial;
+- C4: no route;
+- C5: unresolved.
 
-Channels, as the kit produces them today:
-- **A:** the village-head broadcast (read aloud by the facilitator from the script, once, with one repeat allowed on
-  request); the family text (SMS shown on a phone); the public replay card (offline on a phone; the page stays
-  unpublished).
-- **B:** the planner staff headline and the A4 plan sheet.
+Only C1 and C2 carry a leave-by time.
 
-The automated voice call is omitted from the pilot, because no TTS engine is in scope.
+Channels:
+- **A:** the village-head broadcast, as ONE fixed audio recording of the script played to everyone (not a live
+  reading), with one repeat on request, and whether the repeat was used recorded; the family text (SMS shown on a
+  phone); the public replay card (offline on a phone; the page stays unpublished).
+- **B:** the staff headline in the planner and the A4 plan sheet.
 
-## Procedure (one-to-one, about 20 min, no coaching)
-1. Each channel × case is presented in a counterbalanced order (Latin square).
-2. Q1: "By what time does this message say to leave?" The timer starts when the item is shown, or when the broadcast
-   finishes, and stops at the answer. Record the answer verbatim and the seconds.
-3. Q2 (gap case): "If you left at <the later-window time / the next computed time>, does this message say you would
-   be able to get out?"
-4. Q3 (partial, no route, unresolved): "Does this message tell you it is safe to stay where you are?"
-5. Q4 (every item): "Whose instruction comes first if they differ?" Correct: official orders, the 재난문자, the 이장 /
-   읍·면사무소.
+The automated voice call is omitted (no TTS engine in scope). The broadcast result is reported as **"script heard at a
+table"**, the best case: a miss counts, and a pass does not transfer to an outdoor loudspeaker.
 
-## Pre-stated targets (fixed before any session)
-- **Q1:** per group and channel, at least 80 % give the correct leave-by time within 30 s.
-- **Q2:** 0 participants answer "yes / I would be able to get out" for the later or next time.
-- **Q3:** 0 participants answer that the message says it is safe to stay.
-- **Q4:** at least 90 % name the official source.
+## Design and procedure (one-to-one, fixed script, no feedback between items)
+- **Facilitator:** follows a fixed script, gives no feedback, and is not someone who wrote the wording, if the owner can
+  arrange it.
+- **Exposures:**
+  - A: 5 cases × 3 channels = 15 items, about 35–40 min with a break;
+  - B: 5 × 2 = 10 items, about 25 min.
+  - Order follows a Latin square over case × channel.
+- **Primary analysis = the FIRST exposure of each case** (a reading). Later exposures of the same case in other
+  channels are recall, and are reported as secondary.
+- **For each item, in this order:**
+  1. **Open question first.** For C1 and C2: "What does this message tell you?" For C2, also "What does it tell you
+     about leaving at <the later / next time>?" For C3–C5: "What does this message tell you to do?" Record verbatim.
+  2. **Then the closed questions.** Q1 (C1, C2): "By what time does it say to leave?" The timer runs from the item shown
+     (or the end of the recording) to the answer. Q2 (C2): "If you left at <time>, does it say you could get out?" Q3
+     (C3–C5): "Does it tell you it is safe to stay where you are?"
+- **Q4,** "Whose instruction comes first if they differ?", is scored on each participant's **first item only**, and
+  asked once more at the end (secondary).
+- **Coding:** the coding rule for open answers is fixed below before any session. A second person codes every open
+  answer without seeing the first coding. Disagreements are reported, not resolved silently.
 
-## What counts as a miss
-- **Q1:** a wrong time, a correct time after more than 30 s, or "no time" given where one is shown.
-- **Q2 critical miss:** any reading of the later or next time as usable. One critical miss sends the wording back.
-- **Q3 critical miss:** any "safe to stay" reading.
-- **Q4:** naming the model or the page as the authority.
+## Coding rule for open answers (fixed now)
+- **USABLE-LATER:** the later or next time is described as one at which one can still leave or get out.
+- **STAY:** the answer to C3–C5 implies staying put ("stay", "wait", "no need to go", "it's safe here").
+- **TIME-INVENTED:** a clock time is given for C3–C5.
+- **OFFICIAL:** an official source (orders, 재난문자, 이장 / 읍·면사무소) is named as coming first.
+- **Otherwise:** NEUTRAL. Verbatim text is always kept.
 
-Every miss is reported verbatim with its case, channel and group. Counts are exact (n / N) and no percentage is shown
-without its N.
+## Pre-stated targets (fixed before any session, as counts)
+- **Q1** (per group × channel × leave-by case, first exposures and all exposures reported):
+  - allowed misses ≤ ⌊0.2·N⌋;
+  - that is 1 miss at N = 6–9 and 2 misses at N = 10–12.
+  - A miss is a wrong time, a correct time after more than 30 s, or "no time" where one is shown.
+  - Report the median and the longest time per channel.
+- **Q1 critical miss:** TIME-INVENTED on C3–C5 (a time given where none is shown). 0 allowed.
+- **Q2:** 0 USABLE-LATER readings, open or closed.
+- **Q3:** 0 STAY readings, open or closed, and 0 "yes, safe to stay".
+- **Q4** (first item): misses ≤ ⌊0.1·N⌋, i.e. 0 at N ≤ 9 and 1 at N = 10–12.
+
+Every miss is reported verbatim with its case, channel, group and exposure order. No percentage without its n/N.
 
 ## Decision rule
-- Every target met: the paused wording work may resume, scoped by the results.
-- Any target missed, or any critical miss: the failing wording is revised first, with Iris and Sofia, and re-tested on
-  new participants, before any new wording is added.
-- The pilot cannot show that the outputs are safe in a real emergency. It shows only whether these readers, at a table,
-  read them as intended.
+- **All targets met:** the paused wording work may resume, scoped by the results. No public statement about
+  comprehension is made.
+- **Any target missed, or any critical miss:** the failing wording is revised first, with Iris and Sofia, and re-tested
+  on new participants, before any new wording is added.
 
 ## Limits
-- Small samples, not representative, and no time pressure, smoke or stress.
-- No hearing-impaired or non-Korean-reading subgroup unless the owner recruits one. The English outputs are not
-  covered unless English readers are recruited.
+- Small samples, not representative, a table setting with no time pressure, smoke or stress.
+- A miss is decisive; a clean result is weak. The 30 s cut has no published basis; it is a stated cut.
+- First-exposure cells are small: about N/3 per case and channel in group A. That is why they are reported with counts
+  only.
+- No hearing-impaired subgroup unless the owner recruits one. English is not tested.
