@@ -170,7 +170,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   use uncapped 1-second deadlines. "window" at 1 h means the scenario horizon and travel time bind, not that the place
   is safe.
 
-## F-DYN multi-hour deadline fields (SCENARIO, not what happened; Nora request #4 pending)
+## F-DYN multi-hour deadline fields (SCENARIO, not what happened; VERIFIED: Nora request #4, PASS WITH NOTES, ledger row 33)
 
 * **Claim file and inputs.** The claim file is `results/FDYN_V31_recorded_starts.json` (commit `505b8d3`), built by
   `deadline_field/fdyn_run.py` on Leo's MANIFEST_v3_1.
@@ -182,6 +182,18 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   both still pass.
 * **Caveat.** Fire-set deadlines are few per packet: UA 0–10 of 84 origins, YD 0–2 of 90. **Most witnesses therefore
   test the scenario window, not the fire.**
+* **Verifier notes (Nora, request #4).**
+  * **Reproduction.** Nora rebuilt 3 of the 24 packets (UA 24T09 h5, UA 25T17 h5, YD 25T19 h5; all kriged_mean) and
+    reran them; they match the claim rows exactly. The 30-min grid is INSTANCE `depart_offsets_s`.
+  * **Independent checks.** All 8 fire-set deadline witnesses at UA 24T09 are INDEPENDENTLY_CERTIFIED_OPTIMAL and
+    whole-road CLEAR, with departure + 1 s RELAXATION_INFEASIBLE. Both UA 24T09 holes are confirmed (the hole second
+    is relaxation-infeasible and the reopen route is valid).
+  * **Witness arrivals.** The greedy witness is feasible, not earliest. The kit calls 3 hole-reopening witnesses
+    NOT_OPTIMAL_COUNTEREXAMPLE, but they are valid and CLEAR. No claim rests on witness arrival times.
+  * **Fire-set witnesses.** Every sampled fire-set witness arrives at 17,880 s = H − dwell. Fire lengthens the route,
+    but the window still binds the deadline.
+  * **The 2 `upper_bound` rows are exact in effect.** The witness passes the full policy, and the contact field
+    excludes departure + 1 s.
 
 ## Burn-duration sensitivity of feasible-departure holes (Uiseong; rule committed before running)
 
