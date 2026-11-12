@@ -147,3 +147,32 @@ sensitivity range, **not a count of unsafe routes**.
 - ember ignition of slow or stopped vehicles before the front arrives;
 - smoke and visibility loss (road-departure deaths at Yeongyang).
 A flux-only standoff does not cover either.
+
+## 7. Surface-fire and crown-fire cases; spotting distances (orchestrator and Iris, 11:27 UTC) — plan committed before results
+
+**7a. Standoff table with separate fire types** (Sofia's sourced ranges). This supersedes §3 and §6 as the main table;
+both stay as exploratory.
+
+**Model:** solid vertical planar flame, receiver facing it at flame-centre height, τ = 1, view factor of four corner
+rectangles (H/2 × W/2).
+
+| Case | E (kW/m²) | H (m) | W (m) |
+|---|---|---|---|
+| Surface fire | 76 (AS 3959) | {1, 2, 5, 10} | 100 |
+| Crown fire | {112, 118} (1200 K); sensitivity {150, 200} (measured crown) | {10, 20, 30, 40, 50} | 100 |
+| Long-front sensitivity | the same values | as above | 3,750 |
+
+- Window factor 1.0 by default; 0.5 is a labelled sensitivity.
+- Thresholds are 1.0 and 2.5 kW/m².
+- Count rule as in §3: routes whose published clearance is strictly below the standoff.
+- No convection allowance; Zárate +20% is stated only.
+
+**7b. Spotting distance: route side.** For d ∈ {500, 1000, 2000} m:
+
+- the number of the 15 published routes with published clearance < d;
+- for each route, the seconds of its mission (integer-second positions as in §4a) spent within distance d of any
+  active flaming cell rectangle, split into moving (EDGE) and stationary (WAIT + DWELL + ISSUE);
+- the number of routes with stationary seconds inside d.
+
+These are reported beside Richard's deadline-side numbers at the same d. No downwind version is attempted, because
+there is no wind field.
