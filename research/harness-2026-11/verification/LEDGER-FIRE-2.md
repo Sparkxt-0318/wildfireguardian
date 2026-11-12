@@ -78,6 +78,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 70 | 2026-11-12 | F-3.4 REQUEST 11 F-DYN A3(a)/(b) | Priya | 7e88cfc | plan before runs; (a) 4/4 CERTIFIED_ADMISSIBLE + 4/4 independent ok, checker hashes = fresh unmodified kit; (b) 5/9 Yeongdeok proven, Uiseong 0/4; non-adoption of the pre-registered reading supported by A1 rows (same LO finished, only the checker gate failed) | rows/STAGES/hashes + fresh kit | PASS WITH NOTES |
 | 71 | 2026-11-12 | Phone tidy + symmetric provenance guard | Clara | 2776a4f | phone allowlist identical to ccbee1a; unresolved_proven_no_route kept only on unresolved (178), reported not established on leave_by 791 / no_route 84 / partial 78; violations unchanged; guard removal caught; 449/449 | own forced probe + mutation | PASS |
 | 72 | 2026-11-12 | P-PROTO empty public page (one no-data line) | Clara | eccec7f | 18/18; mutation (old PublicView) fails all 4 new tests; 453/453; build OK; 0 public-view files and no no-data strings in dist; wording regexes pass the shipped ko/en and catch the earlier draft | fresh npm ci, mutation, dist grep, independent regex check | PASS |
+| 73 | 2026-11-12 | PR #151 raw-array guard | Thomas | 53fab56 | own v3.4 envelope packet (marker set, all births NaN): from_raw, tier_r.native_masks, unknown_support.masks raise; ContactModel raises on NaN; v3/v3.1/panel packets accepted; no other F-3.2 array reader; tests OK; panel P1 file byte-identical | own build at Leo faa89c4 + grep + tests | PASS |
+| 74 | 2026-11-12 | v3.4 HAZARD.json host dependence (orchestrator question) | Leo (build.py) | faa89c4 | same packet built from two checkout paths: arrays byte-identical; HAZARD differs only in /provenance/identity/radiation_operator/module (absolute path); manifest pins no HAZARD sha | own two-path rebuild + structural diff | FINDING (reproducibility) |
 
 ## Notes
 
@@ -356,3 +358,8 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - No envelope packet was certified. The #145 erratum's "confirmed by Mira" should be limited to the v3 Yeongdeok packet.
 
 **70.** N1: firms …168 was FEASIBLE (not unresolved) in A1. N2: the Uiseong LO cap is inferred, not recorded. The per-route re-run was not possible (ORIGINAL_REQUEST.json not committed).
+
+**73.** Note: ContactModel does not check the marker (safe today because v3.4 envelope births are all NaN). The end-to-end test skip message should ask for a routable packet.
+
+**74.** Suggest writing the radiation module path repo-relative, or excluding it from the identity, so HAZARD hashes match across hosts.
+
