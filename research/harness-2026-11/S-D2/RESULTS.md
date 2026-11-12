@@ -302,6 +302,24 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
     5% nominal.
   * So the model is **too fast on many intervals and too slow on some**, with the low end, slow days, the larger
     misfit. The top excess only just clears nominal once clustering by fire is respected.
+* **Iris's checks** (`python displacement_checks.py`; `results/displacement_{mcem,plugin}.json`, which supersede
+  `displacement.json`):
+  * **Ties broken at random:** deciles 63 / 25 / 13 / 8 / 10 / 13 / 17 / 15 / 14 / 28.
+  * **Low tail (rank < 0.05):** 24.8%, fire-clustered 95% CI [16.4%, 34.3%], so robust. The low-rank intervals have
+    a median observed reach of 2 cells, and 22% reach ≤ 1 cell.
+  * **Top tail (rank ≥ 0.95):** 10.7% [5.2%, 17.0%]. **With detached intervals removed: 10.3% [4.7%, 16.5%], which
+    includes 5%.** The run excess is not established once spotting or mapping candidates are excluded.
+  * **Covariates:** the night-time fraction (local mean solar time) does not separate low-rank intervals (mean 0.50
+    vs 0.50). **Interval length does:** intervals > 26 h are low-rank 42% of the time, against 19% for ≤ 26 h. Some
+    of the "too fast" end is a constant rate integrated over longer gaps, and that is observable at forecast time.
+  * **Kernel used:** the main run uses each fire's MCEM kernel, the corrected and higher rate. With the **plug-in
+    kernel** (`--estimator plugin`), 93% of intervals fall below rank 0.05 and none above 0.95: the plug-in
+    over-reaches almost everywhere despite its 0.45× total rate.
+* **Kernel shape on real fires:** the share of the fitted rate on distance-2 offsets (median over 25 fires) is
+  plug-in 0.635 and mean-field NLL 0.679, against MCEM 0.066 and composite 0.006. The estimators that treat
+  survey-time states as exact assign most of the rate to **long-range** offsets, because cells mapped together in one
+  survey look like simultaneous arrivals from distant sources. Their error is **misallocation toward reach**, not
+  just a low total rate.
 * **Stalled intervals** (no new burn): 7 of 213 (3.3%), small.
 * **Detached far burn:** 5 of the 25 run intervals have their farthest new cell in an 8-connected component that
   contains no cutoff-burned cell. Over all intervals the share is 15%. Spot fires or mapping changes may account for

@@ -37,6 +37,14 @@ from cv_part_a import simulate_cells
 CELL_M = 375.0
 
 
+def night_fraction(t0_utc, a, b, lon, step=0.25):
+    """Share of the interval (t0 + a, t0 + b] with local mean solar hour outside [6, 18)."""
+    hrs = np.arange(a, b, step) + step / 2
+    utc_hour = (t0_utc.hour + t0_utc.minute / 60 + hrs) % 24
+    solar = (utc_hour + lon / 15.0) % 24
+    return float(np.mean((solar < 6) | (solar >= 18)))
+
+
 def fire_job(args):
     path, theta, hours, sims, seed = args
     p, obs = F.load_fire(Path(path), hours, 0)
@@ -48,6 +56,12 @@ def fire_job(args):
     edge = edge.ravel()
     hi_t = np.where(obs["burned"], obs["hi"], S.INF)
     theta = np.asarray(theta)
+    import pandas as pd
+    from pyproj import Transformer
+    t0_utc = pd.Timestamp(str(z["survey_utc"][0]))
+    tr = z["transform"]
+    cx, cy = tr[2] + tr[0] * w / 2, tr[5] + tr[4] * h / 2
+    lon = Transformer.from_crs(int(z["epsg"]), 4326, always_xy=True).transform(cx, cy)[0]
     rng = np.random.default_rng(seed)
     rows = []
     for a, b in zip(obs["surveys"][:-1], obs["surveys"][1:]):
@@ -72,9 +86,11 @@ def fire_job(args):
             d_sim.append(float(dist[nb].max()) if nb.any() else 0.0)
         d95 = float(np.percentile(d_sim, 95))
         ds = np.array(d_sim)
+        d_sim_store = [round(x, 1) for x in d_sim]
         rank = float(((ds < d_obs).sum() + 0.5 * (ds == d_obs).sum()) / len(ds))   # PIT-style mid-rank
         rows.append(dict(a=float(a), b=float(b), hours=float(b - a), new_cells=int(new.sum()), stalled=False,
-                         rank=rank, detached=detached, d_obs_m=d_obs,
+                         rank=rank, detached=detached, d_obs_m=d_obs, d_obs_cells=d_obs / CELL_M,
+                         d_sim_m=d_sim_store, night_fraction=night_fraction(t0_utc, float(a), float(b), lon),
                          d95_model_m=d95, ratio=d_obs / max(d95, CELL_M), run=bool(d_obs > d95),
                          saturated=bool((new & edge).any()), min_speed_kmh=d_obs / 1000 / float(b - a)))
     return Path(path).stem, rows
@@ -88,9 +104,11 @@ def main(argv=None):
     ap.add_argument("--sims", type=int, default=64)
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--out", type=Path, default=Path("results/displacement.json"))
+    ap.add_argument("--estimator", default="mcem", choices=["mcem", "plugin", "bracket_composite", "meanfield_nll"],
+                    help="which fitted kernel from --fit drives the simulations")
     a = ap.parse_args(argv)
     fit = json.loads(a.fit.read_text())
-    jobs = [(str(a.brackets / f"{f['fire']}.npz"), f["estimators"]["mcem"]["theta"], a.hours, a.sims, 5150 + i)
+    jobs = [(str(a.brackets / f"{f['fire']}.npz"), f["estimators"][a.estimator]["theta"], a.hours, a.sims, 5150 + i)
             for i, f in enumerate(fit["fires"])]
     t0 = time.time()
     with ProcessPoolExecutor(a.workers) as pool:
@@ -124,7 +142,7 @@ def main(argv=None):
                    detached_share_all=float(np.mean([r["detached"] for r in allr])),
                    fires_with_runs=sum(any(r.get("run", False) for r in rs) for rs in res.values()), fires=len(res))
     a.out.parent.mkdir(parents=True, exist_ok=True)
-    a.out.write_text(json.dumps(dict(command="python displacement_diag.py " + " ".join(argv or os.sys.argv[1:]),
+    a.out.write_text(json.dumps(dict(command="python displacement_diag.py " + " ".join(argv or os.sys.argv[1:]), estimator=a.estimator,
                                      sims=a.sims, hours=a.hours, wall_seconds=time.time() - t0,
                                      summary=summary, per_fire=res), indent=1))
     print(json.dumps(summary, indent=1))

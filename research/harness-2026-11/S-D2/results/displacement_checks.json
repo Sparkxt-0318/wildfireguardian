@@ -1,0 +1,118 @@
+{
+ "displacement_mcem": {
+  "estimator": "mcem",
+  "intervals": 206,
+  "histogram_10_random_ties": [
+   63,
+   25,
+   13,
+   8,
+   10,
+   13,
+   17,
+   15,
+   14,
+   28
+  ],
+  "low_tail": {
+   "share": 0.24757281553398058,
+   "ci95": [
+    0.1643192488262911,
+    0.3431372549019608
+   ]
+  },
+  "top_tail": {
+   "share": 0.10679611650485436,
+   "ci95": [
+    0.051643192488262914,
+    0.16981132075471697
+   ]
+  },
+  "top_tail_without_detached": {
+   "share": 0.10285714285714286,
+   "ci95": [
+    0.047118878965198646,
+    0.16463593974175034
+   ]
+  },
+  "detached_intervals": 31,
+  "low_rank_observed_reach_cells": {
+   "median": 2.0,
+   "share_at_most_1_cell": 0.21568627450980393
+  },
+  "covariates": {
+   "hours_median_low": 24.51666666666668,
+   "hours_median_rest": 24.000000000000004,
+   "night_fraction_mean_low": 0.49873160113311304,
+   "night_fraction_mean_rest": 0.4970745067519539,
+   "low_share_by_hours": {
+    "0-20h": 0.19047619047619047,
+    "20-26h": 0.1893939393939394,
+    "26-1000h": 0.41509433962264153
+   },
+   "low_share_by_night": {
+    "0-0.4": 0.21428571428571427,
+    "0.4-0.6": 0.25405405405405407,
+    "0.6-1.01": 0.14285714285714285
+   }
+  }
+ },
+ "displacement_plugin": {
+  "estimator": "plugin",
+  "intervals": 206,
+  "histogram_10_random_ties": [
+   196,
+   6,
+   1,
+   1,
+   1,
+   0,
+   1,
+   0,
+   0,
+   0
+  ],
+  "low_tail": {
+   "share": 0.9320388349514563,
+   "ci95": [
+    0.8627404516308894,
+    0.9901960784313726
+   ]
+  },
+  "top_tail": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "top_tail_without_detached": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "detached_intervals": 31,
+  "low_rank_observed_reach_cells": {
+   "median": 4.123105625617661,
+   "share_at_most_1_cell": 0.06770833333333333
+  },
+  "covariates": {
+   "hours_median_low": 24.191666666666663,
+   "hours_median_rest": 24.133333333333333,
+   "night_fraction_mean_low": 0.49810765735847534,
+   "night_fraction_mean_rest": 0.48894214225102633,
+   "low_share_by_hours": {
+    "0-20h": 0.9047619047619048,
+    "20-26h": 0.9242424242424242,
+    "26-1000h": 0.9622641509433962
+   },
+   "low_share_by_night": {
+    "0-0.4": 0.8571428571428571,
+    "0.4-0.6": 0.9459459459459459,
+    "0.6-1.01": 0.7142857142857143
+   }
+  }
+ }
+}
