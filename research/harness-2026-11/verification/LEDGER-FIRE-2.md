@@ -37,6 +37,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 29 | 2026-11-12 | FIRE 6.2 radiant §6 (literature flame set) | Priya | eda51f2 | reproduces Sofia's standoffs; route-count ranges W100/W3750 × window | `python3 F-4.2/standoff_lit.py` + own code | PASS |
 | 30 | 2026-11-12 | W-KIT W6 redo (issuer report-only) | Clara | e69c3d1 | four FAIL points fixed; complete-and-not-withheld 0/0/0/0 → 299/299/0/440; withheld 2,124 → 0 | fresh `npm ci`; `-t W6`; full suite; build:static; own issuer probe (4 issuers × 531) | PASS WITH NOTES |
 | 31 | 2026-11-12 | PR #123 scope check (research-scout batch 5) | Sofia | bab9148 | docs only, no private link, no footer | diff vs base a1ce97f + body | READY |
+| 32 | 2026-11-12 | FIRE 6.2 radiant §7 (surface vs crown table; distance counts) | Priya | e33256b | 7a standoffs and counts; 7b 4/9/12 clearance, 3/5/7 stationary, FX2 643 s within 1 km | `radiant_s7.py` + own bisection + own per-second distance code | PASS WITH NOTE |
 
 ## Notes
 
@@ -217,3 +218,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
   - The decree check is report-only (pending Iris).
 
 **31. PR #123 @ bab9148**: 1 file (LOG.md +57); no URLs or private references; event-level news facts only; no footer. READY.
+
+**32. Radiant §7 @ e33256b** (plan 5dbae3c, 42 s earlier):
+- The JSON regenerates identically. All 22 standoff rows and their counts are reproduced by own code.
+- 4/9/12 is correct. FX2 1 km = 643 s (523 + 120 dwell), confirmed.
+- N1: the stationary 3/5/7 count includes departure-only routes; with real wait/dwell it is 2/4/5 (FW2 @0.5 km; Miryang FN1 @1 km; Hongseong FD1 + Miryang FN1 @2 km).
+- c49b3f8 (issue field for 4a/5a) resolves entry 28's note, but §7 is not yet split.
