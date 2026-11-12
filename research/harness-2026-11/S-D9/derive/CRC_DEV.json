@@ -1,0 +1,2841 @@
+{
+ "label": "DEVELOPMENT-ONLY on exposed cohort R (US2024, 6 fires); A1 \u00a75.4; not confirmatory",
+ "declared_in": "A1 revision 27, commit 2c9f6349",
+ "population": "full_rectangle",
+ "alphas": [
+  0.1,
+  0.2,
+  0.3
+ ],
+ "primary_alpha": 0.2,
+ "results": {
+  "full_domain": {
+   "d4_wind_seed0": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 1.0972083686056067e-08,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03998170580262114,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 1.0972083686056067e-08,
+        "positives": 3744,
+        "fnr": 0.1546474358974359,
+        "zone_cells_mean_per_interval": 2185.0576923076924,
+        "zone_share_of_scored": 0.22994974915051172,
+        "precision": 0.02785527578043178
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 2.0358078070548125e-11,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039976006273690946,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 2.0358078070548125e-11,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1209.404761904762,
+        "zone_share_of_scored": 0.2657921175460996,
+        "precision": 0.008622895954326214
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 8.97162344415392e-11,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03996855486388095,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 8.97162344415392e-11,
+        "positives": 662,
+        "fnr": 0.0256797583081571,
+        "zone_cells_mean_per_interval": 1710.7021276595744,
+        "zone_share_of_scored": 0.3110728517816381,
+        "precision": 0.008022088728032535
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 2.0358078070548125e-11,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039976006273690946,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 2.0358078070548125e-11,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1901.425,
+        "zone_share_of_scored": 0.26929695355984534,
+        "precision": 0.012648408430519216
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 2.261790754687354e-11,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03998740450238393,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 2.261790754687354e-11,
+        "positives": 956,
+        "fnr": 0.0010460251046025104,
+        "zone_cells_mean_per_interval": 1698.3454545454545,
+        "zone_share_of_scored": 0.372089595640518,
+        "precision": 0.01022385423246154
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 3.1859010984902625e-09,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03999587315834519,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 3.1859010984902625e-09,
+        "positives": 1758,
+        "fnr": 0.1075085324232082,
+        "zone_cells_mean_per_interval": 1747.5945945945946,
+        "zone_share_of_scored": 0.28370913462593184,
+        "precision": 0.02426501291350273
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.04814695862223395,
+     "mean_zone_share": 0.2886517337174241,
+     "folds_feasible": 6
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 4.590626122080721e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599657604098213,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 4.590626122080721e-05,
+        "positives": 3744,
+        "fnr": 0.29139957264957267,
+        "zone_cells_mean_per_interval": 1272.7115384615386,
+        "zone_share_of_scored": 0.13393682923818256,
+        "precision": 0.04008703404300328
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 5.972397502773674e-06,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15998677865684913,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 5.972397502773674e-06,
+        "positives": 438,
+        "fnr": 0.0091324200913242,
+        "zone_cells_mean_per_interval": 529.547619047619,
+        "zone_share_of_scored": 0.11637922012683928,
+        "precision": 0.01951351108313475
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 4.31284643127583e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15991637203964357,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 4.31284643127583e-05,
+        "positives": 662,
+        "fnr": 0.27341389728096677,
+        "zone_cells_mean_per_interval": 703.8936170212766,
+        "zone_share_of_scored": 0.1279955120516888,
+        "precision": 0.0145391893117311
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 1.0886013114941306e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599718383000128,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 1.0886013114941306e-05,
+        "positives": 962,
+        "fnr": 0.06652806652806653,
+        "zone_cells_mean_per_interval": 838.35,
+        "zone_share_of_scored": 0.11873468636254196,
+        "precision": 0.026778791674121786
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 1.1716126209648792e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15992252495279294,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 1.1716126209648792e-05,
+        "positives": 956,
+        "fnr": 0.07112970711297072,
+        "zone_cells_mean_per_interval": 798.6363636363636,
+        "zone_share_of_scored": 0.17497281298921682,
+        "precision": 0.020216277746158223
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 4.9196900363313034e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15997146097826284,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 4.9196900363313034e-05,
+        "positives": 1758,
+        "fnr": 0.30602957906712175,
+        "zone_cells_mean_per_interval": 783.8378378378378,
+        "zone_share_of_scored": 0.12725031042546936,
+        "precision": 0.04206606440935108
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.16960554045500378,
+     "mean_zone_share": 0.13321156186565644,
+     "folds_feasible": 6
+    }
+   },
+   "logistic": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.002135553903284929,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039965079790616226,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.002135553903284929,
+        "positives": 3744,
+        "fnr": 0.037927350427350424,
+        "zone_cells_mean_per_interval": 3600.4423076923076,
+        "zone_share_of_scored": 0.37890111936145193,
+        "precision": 0.01923908921446617
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0018434834977077111,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039859960147214095,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0018434834977077111,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1623.2142857142858,
+        "zone_share_of_scored": 0.3567354584842079,
+        "precision": 0.006424642464246425
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0050308216872240645,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03985171851494841,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0050308216872240645,
+        "positives": 662,
+        "fnr": 0.3021148036253776,
+        "zone_cells_mean_per_interval": 911.7234042553191,
+        "zone_share_of_scored": 0.16578713196889389,
+        "precision": 0.010781545354834193
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0018434834977077111,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039859960147214095,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0018434834977077111,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2783.425,
+        "zone_share_of_scored": 0.39421374651238544,
+        "precision": 0.00864043399768271
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0018434834977077111,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039859960147214095,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0018434834977077111,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2259.509090909091,
+        "zone_share_of_scored": 0.49503463605256554,
+        "precision": 0.007692740981548687
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.001877781009093575,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03999841841609213,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.001877781009093575,
+        "positives": 1758,
+        "fnr": 0.009101251422070534,
+        "zone_cells_mean_per_interval": 3165.864864864865,
+        "zone_share_of_scored": 0.5139548862943316,
+        "precision": 0.014871475281081127
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.058190567579133094,
+     "mean_zone_share": 0.3841044964456393,
+     "folds_feasible": 6
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.01037591812198046,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599601423505698,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.01037591812198046,
+        "positives": 3744,
+        "fnr": 0.21794871794871795,
+        "zone_cells_mean_per_interval": 1611.3653846153845,
+        "zone_share_of_scored": 0.1695758731160991,
+        "precision": 0.03494408707379074
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.008183478874337572,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15998440670823405,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.008183478874337572,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 600.1428571428571,
+        "zone_share_of_scored": 0.13189400757686753,
+        "precision": 0.017376815044037135
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.014879789042051715,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15998947273105518,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.014879789042051715,
+        "positives": 662,
+        "fnr": 0.5619335347432024,
+        "zone_cells_mean_per_interval": 378.8085106382979,
+        "zone_share_of_scored": 0.06888226873524973,
+        "precision": 0.016288474500112334
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.00880414715441332,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15985757090401795,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.00880414715441332,
+        "positives": 962,
+        "fnr": 0.0498960498960499,
+        "zone_cells_mean_per_interval": 1118.475,
+        "zone_share_of_scored": 0.15840851473649922,
+        "precision": 0.020429602807393997
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.00898832654419503,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15994729411500908,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.00898832654419503,
+        "positives": 956,
+        "fnr": 0.07531380753138076,
+        "zone_cells_mean_per_interval": 929.0,
+        "zone_share_of_scored": 0.2035341122295739,
+        "precision": 0.01730110578334475
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.009567145870284002,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1597741792247948,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.009567145870284002,
+        "positives": 1758,
+        "fnr": 0.13196814562002276,
+        "zone_cells_mean_per_interval": 1463.2162162162163,
+        "zone_share_of_scored": 0.2375423955632193,
+        "precision": 0.028186704593730953
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.1728433759565623,
+     "mean_zone_share": 0.1616395286595848,
+     "folds_feasible": 6
+    }
+   },
+   "c651_mc": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.025390625,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15842718892600935,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.025390625,
+        "positives": 3744,
+        "fnr": 0.3314636752136752,
+        "zone_cells_mean_per_interval": 1307.5,
+        "zone_share_of_scored": 0.13759787582393787,
+        "precision": 0.036814237387851154
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0087890625,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15930578908939877,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0087890625,
+        "positives": 438,
+        "fnr": 0.0045662100456621,
+        "zone_cells_mean_per_interval": 666.9047619047619,
+        "zone_share_of_scored": 0.1465663394520376,
+        "precision": 0.015565869332381292
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.021484375,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15884852363462937,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.021484375,
+        "positives": 662,
+        "fnr": 0.27341389728096677,
+        "zone_cells_mean_per_interval": 889.9787234042553,
+        "zone_share_of_scored": 0.16183309474987426,
+        "precision": 0.011499199120227593
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.01171875,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15768624831819922,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.01171875,
+        "positives": 962,
+        "fnr": 0.0841995841995842,
+        "zone_cells_mean_per_interval": 892.175,
+        "zone_share_of_scored": 0.12635786820003683,
+        "precision": 0.024686860761621878
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0107421875,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15876497461816788,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0107421875,
+        "positives": 956,
+        "fnr": 0.05753138075313807,
+        "zone_cells_mean_per_interval": 867.2545454545455,
+        "zone_share_of_scored": 0.1900063336772374,
+        "precision": 0.018889284890668566
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0205078125,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15844944203847353,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0205078125,
+        "positives": 1758,
+        "fnr": 0.257679180887372,
+        "zone_cells_mean_per_interval": 1012.1351351351351,
+        "zone_share_of_scored": 0.16431269826644376,
+        "precision": 0.03484739245373708
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.16814232139673305,
+     "mean_zone_share": 0.15444570169492797,
+     "folds_feasible": 6
+    }
+   },
+   "dilation_8h": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3744,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 9502.326923076924,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.007577091441165221
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4550.190476190476,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0022918977750800594
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 662,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 5499.36170212766,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.002561225674159477
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 7060.7,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0034061778577194894
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 4564.345454545454,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00380817323204761
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1758,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 6159.810810810811,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.0077134696134051155
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    }
+   }
+  },
+  "band_4km": {
+   "d4_wind_seed0": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 5.0131315987300695e-08,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039999208690111906,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 5.0131315987300695e-08,
+        "positives": 3489,
+        "fnr": 0.11607910576096303,
+        "zone_cells_mean_per_interval": 2026.0576923076924,
+        "zone_share_of_scored": 0.6219707300946342,
+        "precision": 0.02927245977884296
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 5.096207011945353e-09,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039842072284941375,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 5.096207011945353e-09,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 898.6904761904761,
+        "zone_share_of_scored": 0.693319373266472,
+        "precision": 0.011604185984898662
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 8.898528136569439e-09,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0399594781737565,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 8.898528136569439e-09,
+        "positives": 635,
+        "fnr": 0.02204724409448819,
+        "zone_cells_mean_per_interval": 1358.531914893617,
+        "zone_share_of_scored": 0.8444000687676052,
+        "precision": 0.009725767803166748
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 5.174680239861118e-09,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039905615936273876,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 5.174680239861118e-09,
+        "positives": 962,
+        "fnr": 0.0031185031185031187,
+        "zone_cells_mean_per_interval": 1457.0,
+        "zone_share_of_scored": 0.643999248593876,
+        "precision": 0.016455044612216883
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 6.426811083315442e-09,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03996151893909298,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 6.426811083315442e-09,
+        "positives": 956,
+        "fnr": 0.012552301255230125,
+        "zone_cells_mean_per_interval": 1351.7454545454545,
+        "zone_share_of_scored": 0.7080976055774616,
+        "precision": 0.012697387889059263
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 5.2886349521941156e-08,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039926336442095596,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 5.2886349521941156e-08,
+        "positives": 1699,
+        "fnr": 0.12007062978222484,
+        "zone_cells_mean_per_interval": 1490.945945945946,
+        "zone_share_of_scored": 0.54199703284503,
+        "precision": 0.027100516631922415
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.04564463066856822,
+     "mean_zone_share": 0.6756306765241799,
+     "folds_feasible": 6
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 6.00032253714744e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15987680553471836,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 6.00032253714744e-05,
+        "positives": 3489,
+        "fnr": 0.2470621954714818,
+        "zone_cells_mean_per_interval": 1234.9807692307693,
+        "zone_share_of_scored": 0.37912143055334174,
+        "precision": 0.04090689671281085
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 1.6379230146412738e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15988258436200367,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 1.6379230146412738e-05,
+        "positives": 438,
+        "fnr": 0.0091324200913242,
+        "zone_cells_mean_per_interval": 478.8333333333333,
+        "zone_share_of_scored": 0.3694090850645653,
+        "precision": 0.021580229725026105
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 6.43907769699581e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15994388512700392,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 6.43907769699581e-05,
+        "positives": 635,
+        "fnr": 0.2614173228346457,
+        "zone_cells_mean_per_interval": 669.3191489361702,
+        "zone_share_of_scored": 0.4160175621883968,
+        "precision": 0.014908767245215844
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 2.692934504011646e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599479119659331,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 2.692934504011646e-05,
+        "positives": 962,
+        "fnr": 0.0841995841995842,
+        "zone_cells_mean_per_interval": 762.45,
+        "zone_share_of_scored": 0.3370056465960198,
+        "precision": 0.02888714014033707
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 2.8874077543150634e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15997132326306718,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 2.8874077543150634e-05,
+        "positives": 956,
+        "fnr": 0.09309623430962342,
+        "zone_cells_mean_per_interval": 726.6727272727272,
+        "zone_share_of_scored": 0.38065984722936547,
+        "precision": 0.021692896639727774
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 8.164577593561262e-05,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15957480467415822,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 8.164577593561262e-05,
+        "positives": 1699,
+        "fnr": 0.32077692760447324,
+        "zone_cells_mean_per_interval": 702.7567567567568,
+        "zone_share_of_scored": 0.2554700779123805,
+        "precision": 0.044381201446042615
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.1692807807518554,
+     "mean_zone_share": 0.3562806082573449,
+     "folds_feasible": 6
+    }
+   },
+   "logistic": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0030783863595603973,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039799604213687535,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0030783863595603973,
+        "positives": 3489,
+        "fnr": 0.006878761822871883,
+        "zone_cells_mean_per_interval": 2985.019230769231,
+        "zone_share_of_scored": 0.9163582050782518,
+        "precision": 0.02232301041740486
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0029198155945450864,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03991181187799594,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0029198155945450864,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1202.5238095238096,
+        "zone_share_of_scored": 0.9277199169743392,
+        "precision": 0.008672236961945115
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.006547322625392908,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0399900077046698,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.006547322625392908,
+        "positives": 635,
+        "fnr": 0.33385826771653543,
+        "zone_cells_mean_per_interval": 748.9148936170212,
+        "zone_share_of_scored": 0.4654905642910986,
+        "precision": 0.012017386857581181
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0029198155945450864,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03991181187799594,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0029198155945450864,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2154.65,
+        "zone_share_of_scored": 0.9523630617589534,
+        "precision": 0.011161905645928573
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0029198155945450864,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03991181187799594,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0029198155945450864,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1778.5636363636363,
+        "zone_share_of_scored": 0.9316818103891651,
+        "precision": 0.00977295263798162
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0030729729616903296,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.039743626199777476,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0030729729616903296,
+        "positives": 1699,
+        "fnr": 0.00529723366686286,
+        "zone_cells_mean_per_interval": 2606.675675675676,
+        "zone_share_of_scored": 0.9475933622188817,
+        "precision": 0.01752257716673406
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.05767237720104503,
+     "mean_zone_share": 0.8568678201184482,
+     "folds_feasible": 6
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.011119649719995702,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15996206354908718,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.011119649719995702,
+        "positives": 3489,
+        "fnr": 0.16852966466036112,
+        "zone_cells_mean_per_interval": 1550.4615384615386,
+        "zone_share_of_scored": 0.4759695139589938,
+        "precision": 0.035981841635245086
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.009353609579909668,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15999731847265622,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.009353609579909668,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 544.952380952381,
+        "zone_share_of_scored": 0.42041843463566064,
+        "precision": 0.019136665501572878
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.016213054435482516,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599146055993349,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.016213054435482516,
+        "positives": 635,
+        "fnr": 0.5653543307086614,
+        "zone_cells_mean_per_interval": 356.36170212765956,
+        "zone_share_of_scored": 0.22149781133872012,
+        "precision": 0.01647859573705893
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.009967283360444848,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.1599938505290238,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.009967283360444848,
+        "positives": 962,
+        "fnr": 0.061330561330561334,
+        "zone_cells_mean_per_interval": 1029.025,
+        "zone_share_of_scored": 0.4548327568869686,
+        "precision": 0.02193824251111489
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.01037449221137618,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15997512366482794,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.01037449221137618,
+        "positives": 956,
+        "fnr": 0.10669456066945607,
+        "zone_cells_mean_per_interval": 850.290909090909,
+        "zone_share_of_scored": 0.44541592852924927,
+        "precision": 0.01826112988068255
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.010504779363922743,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15976980839660732,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.010504779363922743,
+        "positives": 1699,
+        "fnr": 0.12124779281930548,
+        "zone_cells_mean_per_interval": 1383.6216216216217,
+        "zone_share_of_scored": 0.50298189249467,
+        "precision": 0.029163573856311287
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.17052615169805754,
+     "mean_zone_share": 0.420186056307377,
+     "folds_feasible": 6
+    }
+   },
+   "c651_mc": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0009765625,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.029328019309871844,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0009765625,
+        "positives": 3489,
+        "fnr": 0.11120664946976211,
+        "zone_cells_mean_per_interval": 2310.9615384615386,
+        "zone_share_of_scored": 0.7094321354987632,
+        "precision": 0.025805109428309894
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0009765625,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.03709024384773245,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0009765625,
+        "positives": 1699,
+        "fnr": 0.07239552678045909,
+        "zone_cells_mean_per_interval": 1844.4054054054054,
+        "zone_share_of_scored": 0.6704885980684018,
+        "precision": 0.02309394370118547
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0306003627083702,
+     "mean_zone_share": 0.8966534555945275,
+     "folds_feasible": 2
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0283203125,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.157209168668282,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0283203125,
+        "positives": 3489,
+        "fnr": 0.29263399254800804,
+        "zone_cells_mean_per_interval": 1269.5576923076924,
+        "zone_share_of_scored": 0.38973605133745404,
+        "precision": 0.03738431010194344
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.013671875,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15967440671591998,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.013671875,
+        "positives": 438,
+        "fnr": 0.0045662100456621,
+        "zone_cells_mean_per_interval": 600.452380952381,
+        "zone_share_of_scored": 0.46323542918021343,
+        "precision": 0.017288552282009595
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.02734375,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15932195942394053,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.02734375,
+        "positives": 635,
+        "fnr": 0.25984251968503935,
+        "zone_cells_mean_per_interval": 839.9574468085107,
+        "zone_share_of_scored": 0.5220783686208128,
+        "precision": 0.0119053650134252
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.017578125,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15664666204284333,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.017578125,
+        "positives": 962,
+        "fnr": 0.10187110187110188,
+        "zone_cells_mean_per_interval": 803.2,
+        "zone_share_of_scored": 0.3550172933909411,
+        "precision": 0.026892430278884463
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0166015625,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15717685442604987,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0166015625,
+        "positives": 956,
+        "fnr": 0.08054393305439331,
+        "zone_cells_mean_per_interval": 787.290909090909,
+        "zone_share_of_scored": 0.41241404270720233,
+        "precision": 0.020299762130204846
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.02734375,
+        "feasible": true,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.15820041038861177,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.02734375,
+        "positives": 1699,
+        "fnr": 0.2654502648616833,
+        "zone_cells_mean_per_interval": 931.4594594594595,
+        "zone_share_of_scored": 0.33860936717069,
+        "precision": 0.036211699164345405
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.1674846703443147,
+     "mean_zone_share": 0.4135150920678856,
+     "folds_feasible": 6
+    }
+   },
+   "dilation_8h": {
+    "0.1": {
+     "alpha": 0.1,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.1,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": -0.07999999999999999
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.2": {
+     "alpha": 0.2,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.2,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.040000000000000036
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    },
+    "0.3": {
+     "alpha": 0.3,
+     "folds": 6,
+     "per_fire": {
+      "ID-BOF-000683_Wapiti_Wapiti": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 3489,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 3257.480769230769,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.020597559463719602
+       }
+      },
+      "ID-BOF-000904_Goat": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 438,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1296.2142857142858,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.008045406954317519
+       }
+      },
+      "ID-BOF-001080_Lava": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 635,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1608.872340425532,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.00839758255418755
+       }
+      },
+      "ID-SCF-240202_RedRock": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 962,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2262.425,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.010630186636021083
+       }
+      },
+      "WA-SES-000173_Pioneer": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 956,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 1908.9818181818182,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.009105282206602281
+       }
+      },
+      "WY-BTF-002416_FishCreek": {
+       "calibration": {
+        "threshold": 0.0,
+        "feasible": false,
+        "n_calibration_fires": 5,
+        "alpha": 0.3,
+        "calibration_mean_fnr": 0.0,
+        "required_mean_fnr": 0.15999999999999998
+       },
+       "held_out": {
+        "threshold": 0.0,
+        "positives": 1699,
+        "fnr": 0.0,
+        "zone_cells_mean_per_interval": 2750.837837837838,
+        "zone_share_of_scored": 1.0,
+        "precision": 0.01669270296027746
+       }
+      }
+     },
+     "mean_held_out_fnr": 0.0,
+     "mean_zone_share": 1.0,
+     "folds_feasible": 0
+    }
+   }
+  }
+ }
+}
