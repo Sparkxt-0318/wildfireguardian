@@ -7,6 +7,17 @@ Plan changes adopted on the orchestrator's decision, following Iris:
 - Gate 1 is the convergence of the sub-stepped CA to the sampler.
 - The accuracy comparison waits for a refit (with Elena) and for Victor's frozen protocol.
 
+**Positioning (external-review framing correction, 2026-11-12; the numbers were checked by Victor against these
+files).** S-D1 makes **no accuracy claim for the continuous-time formulation at survey horizons.** The evidence:
+- **Between NIROPS surveys:** the hourly reach limit is exceeded by **0.23%** of new cells overall
+  (`RESULTS_nirops_cap.json` all_pairs 0.002289, 3,273 pairs). On the 490 part-a fires it is **0%**: all of the
+  overall share comes from fit-23, in one binding pair.
+- **Between hourly GOFER perimeters:** **8.9%** (`RESULTS_gofer_cap.json`, 28 California fires, 4,071 pairs), or
+  **1.25%** with a one-GOES-pixel tolerance. Both are quoted.
+- **Different population:** the 1,310 near-zero-probability positives (S-D9 `REACH.json`, cohort R, 4 km band,
+  p < 1e-5) all lie within reach. They are not the same cells as the 0.23%.
+- **Role:** D1 is positioned as **the sampling engine**, plus a **short-horizon (hourly-cadence) claim**.
+
 Nothing here changes `forecast/` or any frozen artifact. Every numerical result is synthetic or descriptive unless stated otherwise.
 
 Reproduce: Python ≥ 3.12, `pip install numpy scipy numba pytest torch pandas geopandas pyogrio rasterio pyproj`. Run commands from the repository root.
@@ -120,7 +131,14 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 | VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | **essentially one event:** 326 of the 346 beyond-cap cells (94%) are on the single 25 Mar 16:09 UTC pass (median distance ≈ 17 km; possibly a separate front or spotting); max 45 km in 10.7 h |
 
 - **GOFER:** all 28 fires were read before S-D9 set its GOFER membership rule. This is recorded in the S-D9 ledger as aggregate label-only inspection, and per-fire stats of H-test fires must not tune a candidate. GOFER boundaries come from ~2 km GOES pixels, hence the tolerance column.
-- **NIROPS:** parts b–d and held-out fires were never read.
+- **NIROPS (corrected 2026-11-12; declared to Hannah):** the committed results use only part-a (final allowlist)
+  plus fit-23 incidents. However, the FIRST run of `nirops_cap.py` (09:20–09:23 UTC, script version a902678, before
+  the `--allowlist` argument existed) computed cap-binding statistics over all 620 NIROPS incidents with at least 2
+  surveys except the six US2024 fires, **including parts b, c and d**.
+  - Only its pooled aggregates were viewed: survey-gap quantiles of 21/24/31 h and a beyond-cap share of 0.15%.
+  - Its per-incident output was never viewed and never committed, and it was overwritten at about 09:27.
+  - Every version of the script also loads the full NIROPS attribute table in memory before filtering it.
+  - See the declaration to Hannah (S-D9 ACCESS_CONTROL).
 - **Korea VIIRS:** KFS_01 is held out in forecast-v2, so this is descriptive only. The jump envelope (`RESULTS_firms_korea_cap.json`) is an **upper** envelope, inflated by omission. For gaps of 0.5–3 h, 21% of new cells are > 0.5 km from earlier detections, 7.4% > 1 km and 1.2% > 2 km.
 
 **Reading (agreed with Iris and Victor).** The cap binds for roughly 1–9% of new cells per hourly interval on GOFER. It essentially never binds over ~24 h survey brackets, and it binds strongly in the 25 March Korean run. Victor's US2024 diagnostic: all 1,651 tail positives where d4 gives p < 1e-5 are within hourly reach. So the continuous-time step alone does not fix that tail. **D1's case is short horizons and fast events** (S-D9 A1 §2.1 stratum r = d_cheb / (4·lead) ≥ 1, counted only under the one-pixel tolerance) **plus tail estimation**.
