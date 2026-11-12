@@ -680,7 +680,14 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
       '가'.repeat(26) + '과',
       '합 성 군 재 난 안 전 과 팀',
     ];
+    // Mira's FAIL set at 344657e: instruction-, transport-, status- and time-shaped names that end in a valid suffix
+    adversarial.push(
+      '구조대 도착 예정 본부', '119구조 출동 중 센터', '버스 배차 완료 상황실', '셔틀 운행 센터', '대피 불필요 상황실', '오늘 밤 대피 불필요 군',
+      '대피 안 해도 됨 군', '대피명령 해제 상황실', '지금 바로 대피 동', '즉시 대피 대피소', '여섯시 출발 상황실', '30분 내 대피 본부',
+      '반시간 후 출발 본부', '산불 진화 완료 본부', '셔틀운행센터', '대피불필요본부', '구조대도착예정본부', '버스배차상황실',
+    );
     for (const a of adversarial) expect(agencyLike(a, 'ko'), a).toBe(false);
+    for (const a of ['Rescue is coming Unit', 'Help is on the way Team', 'Transport provided Agency', 'No need to evacuate Office', 'Evacuate at six Office', 'Go now Unit', 'All clear Division', 'Evacuation cancelled Office', 'Bus at the hall Station', 'No Need To Evacuate Office', 'All Clear Division', 'Transport Provided Agency', 'Go Now Unit', 'Rescue Coming Unit', 'Shuttle Service']) expect(agencyLike(a, 'en'), a).toBe(false);
     for (const a of ['Leave now 18:30 you are safe', 'Leave by 6 p.m. Office', 'You are safe. Division', 'We will send a bus Office', 'Stay inside County']) expect(agencyLike(a, 'en'), a).toBe(false);
   });
 
@@ -697,5 +704,32 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     }
     console.log('[W6] places whose Korean guidance as a whole carries all four items:', whole, 'of 531 (leave-by', leaveBy, '); timed Korean outputs without the nameable shelter, by output:', JSON.stringify(firstMissingDest));
     expect(whole).toBeGreaterThan(0);
+  });
+});
+
+describe('W6 issuer guard after Mira FAIL @ 344657e: registry first, structure second; staff told when a name is refused; packed SMS segments', () => {
+  it('with an agency registry, only registry names are accepted (the stronger check); without one, the form rule', () => {
+    const registry = { ko: ['합성군 재난안전과'], en: ['Synthetic County Disaster Safety Division'] };
+    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000' }, registry)).not.toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' }, registry)).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: 'Synthetic County Office' }, contact: '000-0000-0000' }, registry)!.agency.en).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군 산림과' }, contact: '000-0000-0000' })).not.toBeNull();
+  });
+
+  it('an issuer refused by the name check adds no contact line, and both staff reports say why', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    const s = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '구조대 도착 예정 본부', en: 'Rescue is coming Unit' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    expect(residentTexts(s).join('\n')).not.toMatch(/문의|Contact|도착 예정|coming/);
+    expect(s.text.ko.staff.decree).toMatch(/문의처 없음: 입력한 기관명이 기관명 형식 점검/);
+    expect(s.text.en.staff.decree).toMatch(/No contact line: the supplied agency name did not pass/);
+    const ok = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: '합성군 재난안전과' }, contact: '000-0000-0000', forDrillOrReplay: true }, draftDecreeCheck: true });
+    expect(ok.text.ko.staff.decree).not.toMatch(/문의처 없음/);
+  });
+
+  it('SMS segments are packed: an escape pair or a surrogate pair never straddles a segment boundary (Mira note)', () => {
+    expect(smsSegments(`${'a'.repeat(152)}{${'a'.repeat(152)}`).segments).toBe(3); // 306 septets, naive ceil = 2
+    expect(smsSegments(`${'a'.repeat(153)}${'a'.repeat(153)}`).segments).toBe(2);
+    expect(smsSegments(`${'가'.repeat(66)}😀${'가'.repeat(66)}`).segments).toBe(3); // 134 units, naive ceil = 2
+    expect(smsSegments('가'.repeat(134)).segments).toBe(2);
   });
 });

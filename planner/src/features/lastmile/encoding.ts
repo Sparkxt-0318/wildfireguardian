@@ -127,9 +127,23 @@ export function gsm7Length(text: string): Gsm7Count {
  */
 export function smsSegments(text: string): { encoding: 'gsm7' | 'ucs2'; units: number; segments: number } {
   const g = gsm7Length(text);
-  if (g.nonGsm.length === 0) return { encoding: 'gsm7', units: g.chars, segments: g.chars <= 160 ? 1 : Math.ceil(g.chars / 153) };
-  const u = text.length; // UTF-16 code units
-  return { encoding: 'ucs2', units: u, segments: u <= 70 ? 1 : Math.ceil(u / 67) };
+  // segments are packed: an escape pair (GSM-7) or a surrogate pair (UCS-2) is never split across a segment boundary
+  const pack = (costs: number[], single: number, multi: number): number => {
+    const total = costs.reduce((a, b) => a + b, 0);
+    if (total <= single) return 1;
+    let n = 1, cur = 0;
+    for (const c of costs) {
+      if (cur + c > multi) { n += 1; cur = 0; }
+      cur += c;
+    }
+    return n;
+  };
+  if (g.nonGsm.length === 0) {
+    const costs = [...text].map((ch) => (GSM_EXTENSION.includes(ch) ? 2 : 1));
+    return { encoding: 'gsm7', units: g.chars, segments: pack(costs, 160, 153) };
+  }
+  const costs = [...text].map((ch) => (ch.codePointAt(0)! > 0xffff ? 2 : 1));
+  return { encoding: 'ucs2', units: text.length, segments: pack(costs, 70, 67) };
 }
 
 // ---------------------------------------------------------------- spoken length

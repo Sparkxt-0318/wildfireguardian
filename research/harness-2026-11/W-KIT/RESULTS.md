@@ -218,6 +218,33 @@ and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplie
   0·0 / 431·431. Withheld 0. Reasons with the issuer: not applicable 240, not supplied 1,197, does not fit 1,715.
 - Suite 23 files / 415 tests; build:static OK.
 
+## W6 — issuer guard after Mira's FAIL at 344657e (UNVERIFIED)
+Mira found that the suffix-plus-blocklist guard let instruction-, transport-, status- and time-shaped names through
+whenever they ended in a valid suffix: 18/21 Korean and 11/15 English of her own names, e.g. "구조대 도착 예정 본부",
+"Transport provided Agency". End to end, these produced a contact line in all 531 sets with 0 violations. Everything
+else at 344657e passed. The guard is now, in her order of preference:
+1. **Registry first.** When the caller supplies `agencyRegistry` (official Korean and English agency names), only
+   names in it are accepted. The repository holds no registry, so the form rule below is the fallback.
+2. **Structure.**
+   - Korean: every word is Hangul (digits allowed) and ends in a place ending (도/시/군/구/읍/면/동/리…) or a
+     department ending (과/실/청/본부/센터/단/…). No word may contain an instruction, transport, status or time word
+     (대피, 출발, 출동, 도착, 배차, 운행, 해제, 완료, 필요, 지금, 즉시, 바로, 예정, 버스, 셔틀, 진화, 오늘, 밤, 시간, Korean hour
+     numerals, digits + 분/시간, …). Standard compounds (주민대피지원단, 재난안전, 119구조, 구조대, …) are removed first.
+   - English: every word is Capitalised or a connector, the last word is an agency noun, and no word is an instruction,
+     transport, status or time word (now, go, coming, clear, need, transport, provided, bus, evacuat*, cancel*, at,
+     six, …).
+3. **Staff are told.** A supplied issuer that is refused adds no contact line, and both staff reports say why.
+
+Acceptance:
+- 17/17 real issuer strings pass. This is still the tuning list, not an independent test.
+- All 31 Korean adversarial names fail: the original 13, Mira's 14, and 4 run-together variants such as "셔틀운행센터".
+- All 15 English adversarial names fail: Mira's 9 plus Title-Case variants.
+- **Form only:** this cannot show that an agency exists. A registry is the stronger check.
+
+Also fixed (Mira's minor note): `smsSegments` packs segments, so an escape pair or a surrogate pair never straddles a
+boundary. 152 'a' + '{' + 152 'a' is 3 segments, not 2, and similarly for UCS-2 with an emoji.
+Suite 23 files / 418 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

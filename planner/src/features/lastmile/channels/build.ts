@@ -90,6 +90,8 @@ export interface ChannelOptions {
    * English or romanised name); a Korean name is never put into an English output.
    */
   issuer?: IssuerInput | null;
+  /** official agency registry; when given, an issuer name outside it is refused (the stronger check) */
+  agencyRegistry?: AgencyRegistry | null;
   /**
    * Report, per resident-facing output, which of the four fields of the DRAFT decree it carries (draft requirement, as
    * of the notice date 2026-11-04: 재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고 제2026-1391호,
@@ -99,6 +101,12 @@ export interface ChannelOptions {
 }
 
 // ------------------------------------------------------------------------------------------------ issuer + draft decree
+
+/** Official agency names (Korean and English) a deployment trusts; when supplied, only these are accepted. */
+export interface AgencyRegistry {
+  ko: readonly string[];
+  en: readonly string[];
+}
 
 export interface IssuerInput {
   agency: { ko: string; en?: string | null };
@@ -130,37 +138,58 @@ export const HEAD_CONTACT_MAX_S = 10;
 const ONE_LINE = /^[^\r\n\t\u0000-\u001f\u007f]+$/;
 const EN_NAME = /^[A-Za-z0-9 .,'()&/-]+$/;
 
-/** Agency-name endings accepted (Mira N2): an agency name is a name, not a sentence. */
-const AGENCY_SUFFIX: Record<LmLang, RegExp> = {
-  ko: /(과|실|청|본부|센터|단|군|시|구|읍|면|동|소|국|대|팀|처|원|부|도|서|사무소|상황실)$/,
-  en: /\b(Division|Office|Center|Centre|Department|County|City|Headquarters|Team|Bureau|Unit|Agency|Service|Station|Section)$/i,
-};
-/** Standard agency-name compounds that contain a kit-forbidden word; removed before the word check of a name. */
-const AGENCY_COMPOUNDS: Record<LmLang, string[]> = {
-  ko: ['재난안전', '안전재난', '행정안전', '안전관리', '안전총괄', '안전정책', '시민안전', '안전건설', '안전도시', '안전센터', '구조구급', '119구조', '구조대'],
-  en: ['safety', 'rescue'],
-};
-
 /**
- * A supplied agency name must look like a name (Mira N2): whole contact lines are masked before the kit's scans, so the
- * name itself is checked here. Refused: a clock time, a departure instruction, a sentence ending, a kit-forbidden word
- * outside a standard agency compound, or a name that does not end in an agency suffix.
+ * Agency-name form rule (Mira N2, tightened after her FAIL at 344657e). An agency name is a sequence of PLACE and
+ * DEPARTMENT tokens, never a sentence with an agency word stuck on the end:
+ * - Korean: every word is Hangul (digits allowed, e.g. 119안전센터), ends in a place ending (도/시/군/구/읍/면/동/리…)
+ *   or a department ending (과/실/청/본부/센터/단/…), and contains no instruction / status / time word.
+ * - English: every word is Capitalised (or of/and/the/for/&), the last one is an agency noun, and no word is an
+ *   instruction / status / time word.
+ * This checks FORM only; it cannot show the agency exists. When the caller supplies a registry of official agency
+ * names (`agencyRegistry`), only names in it are accepted, which is the stronger check.
  */
-export function agencyLike(name: string, lang: LmLang): boolean {
+const KO_PLACE_END = '(특별시|광역시|특별자치시|특별자치도|도|시|군|구|읍|면|동|리)';
+const KO_DEPT_END = '(과|실|청|본부|센터|단|국|팀|처|원|부|소|서|사무소|상황실|대|지원단|위원회)';
+const KO_WORD = new RegExp(`^[가-힣0-9]{1,}(${KO_PLACE_END.slice(1, -1)}|${KO_DEPT_END.slice(1, -1)})$`);
+const KO_LAST = new RegExp(`${KO_DEPT_END}$|${KO_PLACE_END}$`);
+/** words that make a name a message: instructions, transport, status, time (Korean) */
+const KO_NOT_NAME = [
+  '대피', '출발', '출동', '도착', '배차', '운행', '해제', '완료', '필요', '지금', '즉시', '바로', '예정', '셔틀', '버스', '차량',
+  '진화', '오늘', '내일', '밤', '아침', '저녁', '시간', '귀가', '복귀', '이동', '수송', '이송', '탑승', '대기', '머무', '안심',
+  '괜찮', '무사', '보장', '확실', '데리', '모시', '태워', '픽업', '구출', '귀가', '경보', '명령', '권고', '발령', '종료', '취소',
+];
+/** standard agency compounds that contain one of those words or a kit-forbidden word */
+const KO_COMPOUNDS = ['주민대피지원단', '대피지원', '재난안전', '안전재난', '행정안전', '안전관리', '안전총괄', '안전정책', '시민안전', '안전건설', '안전도시', '안전센터', '구조구급', '119구조', '구조대', '산림청', '소방본부', '종합상황실'];
+const KO_HOUR = /(한|두|세|네|다섯|여섯|일곱|여덟|아홉|열|열한|열두|\d{1,2})\s*시(?![청군구도])|\d+\s*(분|시간)|반시간/;
+const EN_CONNECTOR = /^(of|and|the|for|&)$/;
+const EN_LAST = /^(Division|Office|Center|Centre|Department|County|City|Province|Headquarters|Team|Bureau|Unit|Agency|Service|Station|Section|Ministry|Administration)$/;
+const EN_NOT_NAME = /^(now|go|going|gone|come|coming|way|clear|cleared|need|needed|needs|no|not|none|transport|transportation|provided|provide|providing|bus|buses|shuttle|cancel\w*|evacuat\w*|leave|leaving|left|help|arriv\w*|depart\w*|at|by|before|after|until|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|noon|midnight|minute\w*|hour\w*|tonight|today|tomorrow|morning|evening|is|are|was|were|will|be|been|you|your|we|our|all|safe|secure|stay|wait|ok|okay|done|finished|over|lifted|ended|called|sent|send|pick\w*|ride|car|cars|vehicle\w*)$/i;
+
+export function agencyLike(name: string, lang: LmLang, registry: readonly string[] | null = null): boolean {
   const n = name.trim();
-  // main rule: a name that ends in an agency suffix, short, with no sentence punctuation (Iris)
-  if (!AGENCY_SUFFIX[lang].test(n)) return false;
-  if (n.length > AGENCY_NAME_MAX[lang] || n.split(/\s+/).length > AGENCY_WORDS_MAX) return false;
-  if (/[.!?;:。·…"'“”‘’]/.test(lang === 'en' ? n.replace(/\b(Dept|St|No)\./g, '$1') : n)) return false;
-  // secondary rejections: clock-time patterns (not digits: 119안전센터 is a real name), departure instructions,
-  // sentence endings at the end of any word, kit-forbidden words outside standard agency compounds
-  if (clockTimes(n).length || /\d{1,2}\s*:\s*\d{2}/.test(n) || /\d{1,2}\s*시(\s|$|까지|에|\d)/.test(n) || /\b\d{1,2}\s*(a\.?m|p\.?m)\b/i.test(n)) return false;
-  if (DEPARTURE_INSTRUCTION.ko.test(n) || DEPARTURE_INSTRUCTION.en.test(n)) return false;
-  if (n.split(/\s+/).some((w) => /(니다|시오|세요|하라|바람|바랍니다|해요|어요|아요)$/.test(w))) return false;
+  if (registry) return registry.includes(n);
+  if (n.length > AGENCY_NAME_MAX[lang]) return false;
+  const words = n.split(/\s+/);
+  if (words.length > AGENCY_WORDS_MAX) return false;
+  if (lang === 'ko') {
+    if (!KO_LAST.test(n) || !words.every((w) => KO_WORD.test(w))) return false;
+    let rest = n;
+    for (const c of KO_COMPOUNDS) rest = rest.split(c).join(' ');
+    if (KO_NOT_NAME.some((w) => rest.includes(w)) || KO_HOUR.test(rest)) return false;
+    if (FORBIDDEN.ko.some((w) => rest.includes(w))) return false;
+    if (clockTimes(n).length || DEPARTURE_INSTRUCTION.ko.test(n)) return false;
+    return true;
+  }
+  if (!EN_LAST.test(words[words.length - 1]!)) return false;
+  for (const w of words) {
+    if (EN_CONNECTOR.test(w)) continue;
+    if (!/^([A-Z][A-Za-z'-]*|[0-9]+)$/.test(w)) return false;
+    if (EN_NOT_NAME.test(w)) return false;
+  }
+  if (clockTimes(n).length || DEPARTURE_INSTRUCTION.en.test(n)) return false;
   let rest = n.toLowerCase();
-  for (const c of AGENCY_COMPOUNDS[lang]) rest = rest.split(c.toLowerCase()).join(' ');
-  if (FORBIDDEN[lang].some((w) => rest.includes(w.toLowerCase()))) return false;
-  return true;
+  for (const c of ['safety', 'rescue']) rest = rest.split(c).join(' ');
+  return !FORBIDDEN.en.some((w) => rest.includes(w.toLowerCase()));
 }
 
 /** Form limits of an agency name (Iris): characters and words. */
@@ -168,16 +197,16 @@ const AGENCY_NAME_MAX: Record<LmLang, number> = { ko: 25, en: 60 };
 const AGENCY_WORDS_MAX = 8;
 
 /** The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. */
-export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {
+export function validIssuer(raw: IssuerInput | null | undefined, registry: AgencyRegistry | null = null): Issuer | null {
   if (!raw || typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return null;
   const ko = raw.agency.ko.trim();
   const contact = raw.contact.trim();
-  if (!ko || ko.length > AGENCY_MAX_CHARS || !ONE_LINE.test(ko) || !agencyLike(ko, 'ko')) return null;
+  if (!ko || ko.length > AGENCY_MAX_CHARS || !ONE_LINE.test(ko) || !agencyLike(ko, 'ko', registry?.ko ?? null)) return null;
   // a contact number is digits with optional hyphens; emergency numbers are not an agency's contact line
   if (!/^[0-9]+(-[0-9]+)*$/.test(contact) || contact.replace(/-/g, '').length < 3 || contact.replace(/-/g, '').length > 12) return null;
   if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return null;
   const enRaw = typeof raw.agency.en === 'string' ? raw.agency.en.trim() : '';
-  const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 && agencyLike(enRaw, 'en') ? enRaw : null;
+  const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 && agencyLike(enRaw, 'en', registry?.en ?? null) ? enRaw : null;
   return { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true };
 }
 
@@ -693,7 +722,9 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
-  const iss = validIssuer(opt.issuer);
+  const iss = validIssuer(opt.issuer, opt.agencyRegistry ?? null);
+  // an issuer was supplied but refused by the name check: staff are told why (never silent)
+  const issuerRefused = !!opt.issuer && !iss;
   const contact = {} as Record<LmLang, Record<ResidentOutput, ContactStatus>>;
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = text[lang];
@@ -741,6 +772,12 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
           ? `이장 방송 길이: 기본 ${h.fullS.toFixed(1)}초(한도 ${HEAD_FULL_MAX_S}초) + 문의 ${(h.contactS ?? 0).toFixed(1)}초(한도 ${HEAD_CONTACT_MAX_S}초) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)}초`
           : `Village-head script length: ${h.fullS.toFixed(1)} s (limit ${HEAD_FULL_MAX_S} s) + contact ${(h.contactS ?? 0).toFixed(1)} s (limit ${HEAD_CONTACT_MAX_S} s) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)} s`,
       ];
+      if (issuerRefused)
+        extra.push(
+          lang === 'ko'
+            ? '문의처 없음: 입력한 기관명이 기관명 형식 점검(또는 등록 기관 목록)을 통과하지 못해 문의처를 넣지 않았습니다.'
+            : 'No contact line: the supplied agency name did not pass the agency-name check (or the agency registry), so no contact was added.',
+        );
       const nd = namedDestination(p);
       if (nd && !nd.en && !EN_VOICE_KOREAN_SHELTER)
         extra.push(
