@@ -69,7 +69,7 @@ function stamp(input: LastMileInput): LmText {
   const t = input.scenario.inputTimeIso;
   const k = kstParts(t);
   const d = `${k.y}-${p2(k.mo)}-${p2(k.d)}`;
-  return { ko: `${d} ${REPLAY_MARK.ko}`, en: `${d} ${REPLAY_MARK.en}` };
+  return { ko: `${d} ${REPLAY_MARK.ko} · 모델 추정`, en: `${d} ${REPLAY_MARK.en} · model estimate` };
 }
 
 function age(input: LastMileInput): LmText {
@@ -126,7 +126,11 @@ export function cardFor(input: LastMileInput, coords: (destinationId: string) =>
       ...base,
       tone: 'leave',
       icon: 'clock',
-      words: { ko: '모델 계산: 이 시각까지 차로 출발', en: 'Model: leave by car by this time' },
+      // Iris: descriptive mood — what the model found, not an instruction
+      words:
+        p.after === 'horizon'
+          ? { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었습니다. 그 뒤 출발은 점검하지 않았습니다', en: 'Model: a checked road out by car existed for departures up to this time; later departures were not checked' }
+          : { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이 없습니다', en: 'Model: a checked road out by car existed for departures up to this time; none after' },
       time: t,
       guidance: { ko: '공식 대피 명령이 우선합니다. 차가 없으면 이장에게 바로 알리십시오.', en: 'Official evacuation orders come first. No car? Tell the village head now.' },
       handoff: handoffFor(p, coords),
@@ -167,4 +171,33 @@ export function exampleIds(inputs: LastMileInput[]): string[] {
 
 export function pick(t: LmText, lang: LmLang): string {
   return t[lang] || t.ko;
+}
+
+/**
+ * Places by URL (?scenario=<cache index path>&place=<origin id>). Both parameters are UNTRUSTED: the scenario must equal
+ * one of the committed cache index paths exactly (it is matched, never fetched as given) and the place must be an origin
+ * of that scenario; anything else yields nulls (the page then shows its empty state).
+ */
+export function parseLink(search: string, entryPaths: string[]): { scenario: string | null; place: string | null } {
+  let q: URLSearchParams;
+  try {
+    q = new URLSearchParams(search);
+  } catch {
+    return { scenario: null, place: null };
+  }
+  const sc = q.get('scenario');
+  const scenario = sc !== null && entryPaths.includes(sc) ? sc : null;
+  const pl = q.get('place');
+  const place = scenario && pl !== null && /^[A-Za-z0-9:/._-]{1,120}$/.test(pl) ? pl : null;
+  return { scenario, place };
+}
+
+/** The place id only if it is an origin of the loaded scenario. */
+export function validPlace(place: string | null, inputs: LastMileInput[]): string | null {
+  return place !== null && inputs.some((i) => i.origin.id === place) ? place : null;
+}
+
+/** A shareable link for a place (sharing it reveals the chosen place). */
+export function linkFor(scenario: string, place: string): string {
+  return `?${new URLSearchParams({ scenario, place }).toString()}`;
 }

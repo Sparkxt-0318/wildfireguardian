@@ -33,7 +33,9 @@ from wfg_scenario_members.contact import ContactModel  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 
 KMH = {"R1.5": F(15, 10), "R8.2": F(82, 10)}
-EVENT_DAYS = {"KFS_01": ("2025-03-21", "2025-04-01")}
+# event windows (acq_date, inclusive): KFS_01 from Leo's F-DYN window; others from Daniel's data-fetch-3 README
+EVENT_DAYS = {"KFS_01": ("2025-03-21", "2025-04-01"), "KFS_02": ("2022-03-03", "2022-03-14"),
+              "KFS_11": ("2022-05-30", "2022-06-04"), "KFS_05": ("2023-04-01", "2023-04-05")}
 
 
 def native_masks(packet):
@@ -118,8 +120,8 @@ def extras(model, graph, cells_block_all, cells_ignite, s0, H, v):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kfs01", required=True)
-    ap.add_argument("--firms-dir", required=True)
+    ap.add_argument("--toa", nargs="+", required=True, help="EVENT=path/to/<event>_pswt_ok_toa.tif ...")
+    ap.add_argument("--firms-dir", nargs="+", required=True, help="directories of FIRMS country CSVs (all are read)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--c-checker", required=True)
     a = ap.parse_args()
@@ -132,9 +134,13 @@ def main():
         event = meta["construction"]["parent_forecast"]["event_id"]
         u_state, u_q, cur, pos = native_masks(case["packet"])
         key = case["region"] + "/" + case["mission"].split("_")[0]
-        if event in EVENT_DAYS:
-            info = footprint_share(case["packet"], a.kfs01)
-            hit, ndet = firms_cells(case["packet"], a.firms_dir, EVENT_DAYS[event])
+        toa = dict(x.split("=", 1) for x in a.toa)
+        if event in EVENT_DAYS and event in toa:
+            info = footprint_share(case["packet"], toa[event])
+            hit, ndet = np.zeros_like(u_state), 0
+            for fd in a.firms_dir:
+                h1, n1 = firms_cells(case["packet"], fd, EVENT_DAYS[event])
+                hit |= h1; ndet += n1
             info.update(event=event, firms_detections_in_grid=ndet, firms_cells=int(hit.sum()),
                         U_state_with_firms=int((hit & u_state).sum()), b_available=True)
         else:
