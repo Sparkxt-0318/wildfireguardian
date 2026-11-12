@@ -98,3 +98,33 @@ FEASIBLE or OPTIMUM_PROVEN with a completed whole-road check (Iris's question), 
    At 300 s / 3,072 MiB, the same requests reached EA, which needs 4.4 GiB, and were stopped by the guard. The
    difference is whether Z had a certified incumbent when its fixed 6 s cap expired. That is a run-to-run timing
    effect at the Z cap, not an effect of the larger budget (hypothesis; 1 repetition each).
+
+## Amendment A2: the precompute counterfactual, committed before it runs
+
+This aligns with Iris and the orchestrator (12:58–12:59 UTC). Run (i) is the A1 run above, started about 13:01 UTC.
+**Run (ii) is added here and has not started.**
+
+**(ii) 450 s budget, both gates at 12,288 MiB.**
+- Setup: controller `--memory-guard-mib 12288`, request `limits.rss_limit_mb = 12288`.
+- Requests: only the 9 left UNRESOLVED in the 300 s / 12,288 MiB controller-only repeat (`fdyn_b300_g12k`):
+  - Uiseong kriged and firms, origins …323 and …324;
+  - Yeongdeok kriged, all 3 origins;
+  - Yeongdeok firms, origins …166 and …168.
+- One repetition. Output `fdyn_b450_g12k_rss12k`. It runs after (i) finishes.
+- **Why 450 s.** It is 300 s plus the measured bound time, rounded up. The measured bound time (bound model + EA
+  bound) is 104–116 s on Uiseong and 84–96 s on Yeongdeok. So the search sees at least the time it would have if the
+  bounds were free.
+- **Pass rule (written before running).** Count the requests among the 9 that reach `CHECKED_JOURNEY_FEASIBLE` or
+  `CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN` with a completed whole-road check:
+  - **0 of 9** → "search is the limit";
+  - **≥ 3 of 9** → "precompute is the lever";
+  - **1–2 of 9** → inconclusive.
+- **Also reported for all 9:** expansions and labels per stage. "0 of 9 with many expansions" and "0 of 9 with few
+  expansions" mean different things.
+
+**Statements fixed for the write-up.**
+- **Radiation cost at 5 h is unmeasured, not cheap.** In the existing runs, almost no route reached a whole-road
+  check (route-check radiation 0.06 s in total).
+- **Cache-saving report.** If a bound cache is ever evaluated, the saving is reported separately for the road bound
+  model (keyed by forecast and window) and for the EA bound (keyed by forecast and destination set). A regression
+  test would check that cached arrays equal freshly built ones (Iris).
