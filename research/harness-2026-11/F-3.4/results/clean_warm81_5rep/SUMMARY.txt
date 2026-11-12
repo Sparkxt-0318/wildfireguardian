@@ -1,0 +1,23 @@
+group                                  sum_s   share    median      max
+startup_imports                        18.41    0.9%     0.170     0.31
+input_binding                          39.07    1.8%     0.205     1.34
+per_forecast_admission_and_models     280.59   13.2%     1.785     8.62
+request_validation                      2.38    0.1%     0.005     0.18
+search                                854.84   40.2%     1.595    70.80
+route_check_contact                    56.37    2.6%     0.227     2.37
+route_check_radiation_exposure        708.14   33.3%     1.403    30.29
+publication_and_exit                  104.72    4.9%     0.800     4.25
+unattributed                           62.88    3.0%     0.150    21.35
+TOTAL complete wall                  2127.41
+coverage: {"executions_with_at_least_95pct_attributed": 91, "executions": 100, "min_attributed_share": 0.7375969846528265, "total_attributed_share": 0.9704429560859903}
+  mem graph_preparation          hw_end med   114.7 max  1539.4 MiB | increase med    0.0 max   105.0
+  mem hazard_validation          hw_end med   114.7 max  1539.4 MiB | increase med    0.0 max     0.0
+  mem request_validation         hw_end med   114.7 max  1539.4 MiB | increase med    0.0 max     0.0
+  mem bound_model                hw_end med   118.6 max  1265.6 MiB | increase med    0.7 max   775.6
+  mem search                     hw_end med   129.7 max  1551.4 MiB | increase med    4.8 max   969.8
+  mem check_contact_setup        hw_end med   156.5 max  1547.7 MiB | increase med    0.0 max     2.1
+  mem check_contact              hw_end med   156.5 max  1547.7 MiB | increase med    0.0 max     0.0
+  mem check_radiation_prep       hw_end med   156.5 max  1547.7 MiB | increase med    0.0 max     2.1
+  mem check_radiation            hw_end med   236.8 max  1547.7 MiB | increase med   25.8 max   110.4
+  mem publication                hw_end med   210.1 max  1551.4 MiB | increase med    0.0 max     0.0
+  mem check_adaptive_fallback    hw_end med    80.4 max    80.4 MiB | increase med    0.0 max     0.0

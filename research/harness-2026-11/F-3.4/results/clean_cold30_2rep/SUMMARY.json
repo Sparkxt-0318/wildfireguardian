@@ -1,0 +1,731 @@
+{
+ "coverage": {
+  "executions": 40,
+  "executions_with_at_least_95pct_attributed": 37,
+  "min_attributed_share": 0.11474291974324591,
+  "total_attributed_share": 0.9074936568147427
+ },
+ "executions": 40,
+ "family_peak_rss_mib": {
+  "max": 1311.5078125,
+  "median": 207.396484375
+ },
+ "groups": {
+  "input_binding": {
+   "max_s": 1.1180336959987471,
+   "median_s": 0.19137383900033456,
+   "share_of_total": 0.022015739020220016,
+   "sum_s": 14.54579716599801
+  },
+  "per_forecast_admission_and_models": {
+   "max_s": 12.074124056001892,
+   "median_s": 2.0676042169998254,
+   "share_of_total": 0.23442565645618857,
+   "sum_s": 154.885014134019
+  },
+  "publication_and_exit": {
+   "max_s": 2.985289587997613,
+   "median_s": 0.7448603009988801,
+   "share_of_total": 0.051166217631821824,
+   "sum_s": 33.805516259992146
+  },
+  "request_validation": {
+   "max_s": 0.10395541000070807,
+   "median_s": 0.005543081500036351,
+   "share_of_total": 0.0012348431148758228,
+   "sum_s": 0.8158607559944357
+  },
+  "route_check_contact": {
+   "max_s": 1.6913482889995066,
+   "median_s": 0.03307482800028083,
+   "share_of_total": 0.023937825010987655,
+   "sum_s": 15.81571924000309
+  },
+  "route_check_radiation_exposure": {
+   "max_s": 28.04809529600061,
+   "median_s": 1.0902307919986924,
+   "share_of_total": 0.3301451381841915,
+   "sum_s": 218.12686873500388
+  },
+  "search": {
+   "max_s": 18.603688121000232,
+   "median_s": 1.4847262875000524,
+   "share_of_total": 0.23332926925181854,
+   "sum_s": 154.16063118800412
+  },
+  "startup_imports": {
+   "max_s": 0.3502162139975553,
+   "median_s": 0.16588401399894792,
+   "share_of_total": 0.0112389681446388,
+   "sum_s": 7.42558543398809
+  },
+  "unattributed": {
+   "max_s": 26.75280274800025,
+   "median_s": 0.24188192949895893,
+   "share_of_total": 0.09250634318525727,
+   "sum_s": 61.11893419998887
+  }
+ },
+ "median_wall_s": 16.772450023499914,
+ "memory_mib": {
+  "bound_model": {
+   "highwater_at_phase_end_max": 1283.171875,
+   "highwater_at_phase_end_median": 127.46484375,
+   "highwater_increase_in_phase_max": 735.16015625,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "check_contact": {
+   "highwater_at_phase_end_max": 876.59765625,
+   "highwater_at_phase_end_median": 155.10546875,
+   "highwater_increase_in_phase_max": 0.0,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "check_contact_setup": {
+   "highwater_at_phase_end_max": 876.59765625,
+   "highwater_at_phase_end_median": 155.10546875,
+   "highwater_increase_in_phase_max": 2.0,
+   "highwater_increase_in_phase_median": 0.013671875
+  },
+  "check_radiation": {
+   "highwater_at_phase_end_max": 876.59765625,
+   "highwater_at_phase_end_median": 205.607421875,
+   "highwater_increase_in_phase_max": 104.2265625,
+   "highwater_increase_in_phase_median": 32.09375
+  },
+  "check_radiation_prep": {
+   "highwater_at_phase_end_max": 876.59765625,
+   "highwater_at_phase_end_median": 155.10546875,
+   "highwater_increase_in_phase_max": 0.375,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "graph_preparation": {
+   "highwater_at_phase_end_max": 1309.81640625,
+   "highwater_at_phase_end_median": 127.46484375,
+   "highwater_increase_in_phase_max": 301.14453125,
+   "highwater_increase_in_phase_median": 62.875
+  },
+  "hazard_validation": {
+   "highwater_at_phase_end_max": 1309.81640625,
+   "highwater_at_phase_end_median": 127.46484375,
+   "highwater_increase_in_phase_max": 0.0,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "publication": {
+   "highwater_at_phase_end_max": 1309.81640625,
+   "highwater_at_phase_end_median": 210.822265625,
+   "highwater_increase_in_phase_max": 0.0,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "request_validation": {
+   "highwater_at_phase_end_max": 1309.81640625,
+   "highwater_at_phase_end_median": 127.46484375,
+   "highwater_increase_in_phase_max": 0.0,
+   "highwater_increase_in_phase_median": 0.0
+  },
+  "search": {
+   "highwater_at_phase_end_max": 1309.81640625,
+   "highwater_at_phase_end_median": 131.13671875,
+   "highwater_increase_in_phase_max": 659.26953125,
+   "highwater_increase_in_phase_median": 3.123046875
+  }
+ },
+ "per_mission": {
+  "hongseong_2023/20230402T070000Z_FN1": {
+   "groups_median_s": {
+    "input_binding": 0.026201718498668924,
+    "per_forecast_admission_and_models": 0.1617524350021995,
+    "publication_and_exit": 0.0799066440004026,
+    "request_validation": 0.0003916369987564394,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 0.2743503450001299,
+    "startup_imports": 0.1739417870003308,
+    "unattributed": 0.029703472999244696
+   },
+   "reps": 2,
+   "status": [
+    "FULL_MODEL_REFUSAL_PROVEN"
+   ],
+   "wall_cv": 0.09394046991000907,
+   "wall_median_s": 0.7462480394997328,
+   "wall_range_s": 0.14020578300005582,
+   "wall_s": [
+    0.6761451479997049,
+    0.8163509309997607
+   ]
+  },
+  "hongseong_2023/20230402T070000Z_FX1": {
+   "groups_median_s": {
+    "input_binding": 0.026634941499651177,
+    "per_forecast_admission_and_models": 0.18958931300039694,
+    "publication_and_exit": 0.06591782200030138,
+    "request_validation": 0.0011270264994891477,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 0.2141174049993424,
+    "startup_imports": 0.1479128575001596,
+    "unattributed": 0.03356379100023332
+   },
+   "reps": 2,
+   "status": [
+    "FULL_MODEL_REFUSAL_PROVEN"
+   ],
+   "wall_cv": 0.011008270856147482,
+   "wall_median_s": 0.678863156499574,
+   "wall_range_s": 0.014946219002013095,
+   "wall_s": [
+    0.6863362660005805,
+    0.6713900469985674
+   ]
+  },
+  "hongseong_2023/20230402T140000Z_FW2": {
+   "groups_median_s": {
+    "input_binding": 0.027630591000161075,
+    "per_forecast_admission_and_models": 0.22838296749978326,
+    "publication_and_exit": 0.29436129900022934,
+    "request_validation": 0.000445650500296324,
+    "route_check_contact": 0.04648531200018624,
+    "route_check_radiation_exposure": 28.00949438800035,
+    "search": 0.21389987400016253,
+    "startup_imports": 0.15084020599897485,
+    "unattributed": 0.04913163799938047
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.0013166659992219635,
+   "wall_median_s": 29.020671925999523,
+   "wall_range_s": 0.07642106399907789,
+   "wall_s": [
+    29.05888245799906,
+    28.982461393999984
+   ]
+  },
+  "hongseong_2023/20230402T230000Z_FD1": {
+   "groups_median_s": {
+    "input_binding": 0.026986876999217202,
+    "per_forecast_admission_and_models": 0.25229001799925754,
+    "publication_and_exit": 0.2012598285009517,
+    "request_validation": 0.0004179164998276974,
+    "route_check_contact": 0.039525368500108016,
+    "route_check_radiation_exposure": 16.609290978500212,
+    "search": 0.14653965050001716,
+    "startup_imports": 0.13924390300053346,
+    "unattributed": 0.04027762600071583
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.00840272151460161,
+   "wall_median_s": 17.45583216650084,
+   "wall_range_s": 0.2933529930014629,
+   "wall_s": [
+    17.30915567000011,
+    17.602508663001572
+   ]
+  },
+  "miryang_2022/20220531T100000Z_FN1": {
+   "groups_median_s": {
+    "input_binding": 0.03244575100052316,
+    "per_forecast_admission_and_models": 0.3303526145000433,
+    "publication_and_exit": 0.31093014200087055,
+    "request_validation": 0.0007365994997599046,
+    "route_check_contact": 0.03201400800026022,
+    "route_check_radiation_exposure": 26.810342943498654,
+    "search": 0.24254288649899536,
+    "startup_imports": 0.13949401799891348,
+    "unattributed": 0.10399434900227789
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.006272139522415759,
+   "wall_median_s": 28.002853312000298,
+   "wall_range_s": 0.3512756059972162,
+   "wall_s": [
+    27.82721550900169,
+    28.178491114998906
+   ]
+  },
+  "miryang_2022/20220601T020000Z_FW1": {
+   "groups_median_s": {
+    "input_binding": 0.04016523099926417,
+    "per_forecast_admission_and_models": 0.3062713280041862,
+    "publication_and_exit": 0.29805634549848037,
+    "request_validation": 0.0007886479979788419,
+    "route_check_contact": 0.03153170799942018,
+    "route_check_radiation_exposure": 14.540404371001387,
+    "search": 0.2557823665010801,
+    "startup_imports": 0.14480126750004274,
+    "unattributed": 0.06331003449849959
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.03536950069344691,
+   "wall_median_s": 15.681111300000339,
+   "wall_range_s": 1.1092661539987603,
+   "wall_s": [
+    16.23574437699972,
+    15.126478223000959
+   ]
+  },
+  "miryang_2022/20220601T080000Z_FD1": {
+   "groups_median_s": {
+    "input_binding": 0.03781209350017889,
+    "per_forecast_admission_and_models": 0.19060551799975656,
+    "publication_and_exit": 0.06882985100037331,
+    "request_validation": 0.0008161579999068636,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 0.3372473075005473,
+    "startup_imports": 0.14403198649961269,
+    "unattributed": 0.03740499249943241
+   },
+   "reps": 2,
+   "status": [
+    "FULL_MODEL_REFUSAL_PROVEN"
+   ],
+   "wall_cv": 0.04917364177621153,
+   "wall_median_s": 0.816747906999808,
+   "wall_range_s": 0.08032493800055818,
+   "wall_s": [
+    0.776585437999529,
+    0.8569103760000871
+   ]
+  },
+  "miryang_2022/20220601T080000Z_FX1": {
+   "groups_median_s": {
+    "input_binding": 0.03105355299976509,
+    "per_forecast_admission_and_models": 0.16917883149926638,
+    "publication_and_exit": 0.0680812614991737,
+    "request_validation": 0.0006460460008383961,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 0.3804825900006108,
+    "startup_imports": 0.1331029494995164,
+    "unattributed": 0.0322427434994097
+   },
+   "reps": 2,
+   "status": [
+    "FULL_MODEL_REFUSAL_PROVEN"
+   ],
+   "wall_cv": 0.0003941172549336696,
+   "wall_median_s": 0.8147879749985805,
+   "wall_range_s": 0.0006422440001188079,
+   "wall_s": [
+    0.8151090969986399,
+    0.8144668529985211
+   ]
+  },
+  "uiseong_andong_2025/20250323T010000Z_FD1": {
+   "groups_median_s": {
+    "input_binding": 0.5089429479994578,
+    "per_forecast_admission_and_models": 5.661369715999172,
+    "publication_and_exit": 1.7494049500000983,
+    "request_validation": 0.015757406001284835,
+    "route_check_contact": 1.6196845535005195,
+    "route_check_radiation_exposure": 1.0902307919986924,
+    "search": 3.1496531669999968,
+    "startup_imports": 0.2106020034998437,
+    "unattributed": 0.24869932500041614
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.03447285096524595,
+   "wall_median_s": 14.254344860999481,
+   "wall_range_s": 0.9827758120009094,
+   "wall_s": [
+    13.762956954999026,
+    14.745732766999936
+   ]
+  },
+  "uiseong_andong_2025/20250323T010000Z_FX2": {
+   "groups_median_s": {
+    "input_binding": 0.48853465800038975,
+    "per_forecast_admission_and_models": 5.510314280501916,
+    "publication_and_exit": 1.6748250295022444,
+    "request_validation": 0.016318255498845247,
+    "route_check_contact": 0.9793983004992697,
+    "route_check_radiation_exposure": 2.3806383924993497,
+    "search": 3.29015866950067,
+    "startup_imports": 0.1842877264989511,
+    "unattributed": 0.2511887949976881
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.007323201090192531,
+   "wall_median_s": 14.775664107499324,
+   "wall_range_s": 0.2164103190007154,
+   "wall_s": [
+    14.667458947998966,
+    14.883869266999682
+   ]
+  },
+  "uiseong_andong_2025/20250324T090000Z_FL2": {
+   "groups_median_s": {
+    "input_binding": 0.5387946950004334,
+    "per_forecast_admission_and_models": 5.189616622498761,
+    "publication_and_exit": 2.1462800830013293,
+    "request_validation": 0.01464328200017917,
+    "route_check_contact": 1.6268700549999267,
+    "route_check_radiation_exposure": 1.6700155640000958,
+    "search": 3.9601008009994985,
+    "startup_imports": 0.19749888699971052,
+    "unattributed": 0.2571319604994642
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.01341881627929253,
+   "wall_median_s": 15.600951949999398,
+   "wall_range_s": 0.41869261599822494,
+   "wall_s": [
+    15.810298257998511,
+    15.391605642000286
+   ]
+  },
+  "uiseong_andong_2025/20250325T170000Z_FW1": {
+   "groups_median_s": {
+    "input_binding": 0.4666864364999128,
+    "per_forecast_admission_and_models": 9.462398411499635,
+    "publication_and_exit": 1.7776764414984427,
+    "request_validation": 0.017468293001002166,
+    "route_check_contact": 1.1585108700001001,
+    "route_check_radiation_exposure": 1.0621519495007306,
+    "search": 4.315092542000457,
+    "startup_imports": 0.19610247950004123,
+    "unattributed": 0.27366463049929735
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.022508212270236614,
+   "wall_median_s": 18.72975205399962,
+   "wall_range_s": 0.8431464700006472,
+   "wall_s": [
+    18.308178818999295,
+    19.151325288999942
+   ]
+  },
+  "uljin_2022/20220304T030000Z_FD1": {
+   "groups_median_s": {
+    "input_binding": 0.2073019449999265,
+    "per_forecast_admission_and_models": 2.2889551525031493,
+    "publication_and_exit": 0.7254977554957804,
+    "request_validation": 0.004937859999699867,
+    "route_check_contact": 0.4479138360002253,
+    "route_check_radiation_exposure": 13.01219381950068,
+    "search": 1.125287992500489,
+    "startup_imports": 0.17414928499965754,
+    "unattributed": 0.20115539299968077
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.021812725834232393,
+   "wall_median_s": 18.18739303899929,
+   "wall_range_s": 0.7934332359982363,
+   "wall_s": [
+    17.79067642100017,
+    18.584109656998407
+   ]
+  },
+  "uljin_2022/20220304T030000Z_FX1": {
+   "groups_median_s": {
+    "input_binding": 0.20913072950042988,
+    "per_forecast_admission_and_models": 1.307375257500098,
+    "publication_and_exit": 0.0,
+    "request_validation": 0.006214413000634522,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 2.1876007745004244,
+    "startup_imports": 0.15650576999996701,
+    "unattributed": 26.329990500998974
+   },
+   "reps": 2,
+   "status": [
+    "UNRESOLVED"
+   ],
+   "wall_cv": 0.0007802014414949261,
+   "wall_median_s": 30.19681744550053,
+   "wall_range_s": 0.04711920099907729,
+   "wall_s": [
+    30.17325784500099,
+    30.220377046000067
+   ]
+  },
+  "uljin_2022/20220304T060000Z_FL1": {
+   "groups_median_s": {
+    "input_binding": 0.19137383900033456,
+    "per_forecast_admission_and_models": 2.121513374000642,
+    "publication_and_exit": 1.1716346945013356,
+    "request_validation": 0.0057064579996222164,
+    "route_check_contact": 0.7921219105001001,
+    "route_check_radiation_exposure": 1.222375467999882,
+    "search": 1.8242588690000048,
+    "startup_imports": 0.18523212249965582,
+    "unattributed": 0.2554312164993462
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.008419018262303452,
+   "wall_median_s": 7.769647952000923,
+   "wall_range_s": 0.13082561599912879,
+   "wall_s": [
+    7.704235144001359,
+    7.835060760000488
+   ]
+  },
+  "uljin_2022/20220304T120000Z_FW2": {
+   "groups_median_s": {
+    "input_binding": 0.195007428500503,
+    "per_forecast_admission_and_models": 2.243888767498902,
+    "publication_and_exit": 0.8894927889996325,
+    "request_validation": 0.0060696304999510176,
+    "route_check_contact": 0.6856278795003163,
+    "route_check_radiation_exposure": 2.2777718770012143,
+    "search": 1.0851364134996402,
+    "startup_imports": 0.14571902099942236,
+    "unattributed": 0.21624897699985013
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.008799741510039214,
+   "wall_median_s": 7.744962783499432,
+   "wall_range_s": 0.1363073409993376,
+   "wall_s": [
+    7.676809112999763,
+    7.8131164539991005
+   ]
+  },
+  "yeongdeok_2025/20250325T190000Z_FD1": {
+   "groups_median_s": {
+    "input_binding": 1.0201358630001778,
+    "per_forecast_admission_and_models": 10.90802578649982,
+    "publication_and_exit": 0.8384477064992097,
+    "request_validation": 0.08840917599991371,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 15.741657979499905,
+    "startup_imports": 0.3138009799986321,
+    "unattributed": 0.5118832380021558
+   },
+   "reps": 2,
+   "status": [
+    "UNRESOLVED"
+   ],
+   "wall_cv": 0.0031320293210725936,
+   "wall_median_s": 29.422360729499815,
+   "wall_range_s": 0.18430339299993648,
+   "wall_s": [
+    29.330209032999846,
+    29.514512425999783
+   ]
+  },
+  "yeongdeok_2025/20250325T190000Z_FX2": {
+   "groups_median_s": {
+    "input_binding": 1.1124893989990596,
+    "per_forecast_admission_and_models": 10.770085655000003,
+    "publication_and_exit": 0.85355421550139,
+    "request_validation": 0.09284779599965987,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 15.69187541700012,
+    "startup_imports": 0.23875694100115652,
+    "unattributed": 0.5020828429987887
+   },
+   "reps": 2,
+   "status": [
+    "UNRESOLVED"
+   ],
+   "wall_cv": 0.0007897045833857642,
+   "wall_median_s": 29.261692266500177,
+   "wall_range_s": 0.04621618500095792,
+   "wall_s": [
+    29.238584173999698,
+    29.284800359000656
+   ]
+  },
+  "yeongdeok_2025/20250325T230000Z_FL2": {
+   "groups_median_s": {
+    "input_binding": 1.0105067780004902,
+    "per_forecast_admission_and_models": 8.202604052500647,
+    "publication_and_exit": 0.8628033254990441,
+    "request_validation": 0.09083717049998086,
+    "route_check_contact": 0.0,
+    "route_check_radiation_exposure": 0.0,
+    "search": 18.397353163500156,
+    "startup_imports": 0.2632717424994553,
+    "unattributed": 0.5630446284994832
+   },
+   "reps": 2,
+   "status": [
+    "UNRESOLVED"
+   ],
+   "wall_cv": 0.00179560545420718,
+   "wall_median_s": 29.390420860999257,
+   "wall_range_s": 0.10554719999890949,
+   "wall_s": [
+    29.44319446099871,
+    29.337647260999802
+   ]
+  },
+  "yeongdeok_2025/20250326T080000Z_FW1": {
+   "groups_median_s": {
+    "input_binding": 1.0750631070004601,
+    "per_forecast_admission_and_models": 11.947936965501867,
+    "publication_and_exit": 2.825797945996783,
+    "request_validation": 0.04335095549959078,
+    "route_check_contact": 0.4481758185011131,
+    "route_check_radiation_exposure": 0.37852382400069473,
+    "search": 4.247177379999812,
+    "startup_imports": 0.2734967834994677,
+    "unattributed": 0.5593169445000967
+   },
+   "reps": 2,
+   "status": [
+    "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN"
+   ],
+   "wall_cv": 0.0006307972659826471,
+   "wall_median_s": 21.798839724499885,
+   "wall_range_s": 0.027501296999616898,
+   "wall_s": [
+    21.812590372999693,
+    21.785089076000077
+   ]
+  }
+ },
+ "phases": {
+  "bound_model": {
+   "max_s": 4.707702674999382,
+   "median_s": 0.24870750199988834,
+   "share_of_total": 0.05904833553784861,
+   "sum_s": 39.01323098600005
+  },
+  "check_adaptive_fallback": {
+   "max_s": 0.0,
+   "median_s": 0.0,
+   "share_of_total": 0.0,
+   "sum_s": 0.0
+  },
+  "check_contact": {
+   "max_s": 1.6913482889995066,
+   "median_s": 0.03307482800028083,
+   "share_of_total": 0.023937825010987655,
+   "sum_s": 15.81571924000309
+  },
+  "check_contact_setup": {
+   "max_s": 4.120290856999418,
+   "median_s": 0.09628663300190965,
+   "share_of_total": 0.04266136741404892,
+   "sum_s": 28.186362341002678
+  },
+  "check_other": {
+   "max_s": 1.057395985997573,
+   "median_s": 0.02634238799873856,
+   "share_of_total": 0.009912320848303196,
+   "sum_s": 6.549069661994508
+  },
+  "check_radiation": {
+   "max_s": 28.04809529600061,
+   "median_s": 1.0902307919986924,
+   "share_of_total": 0.3301451381841915,
+   "sum_s": 218.12686873500388
+  },
+  "check_radiation_prep": {
+   "max_s": 0.3837953889997152,
+   "median_s": 0.015187354499175854,
+   "share_of_total": 0.005629511603328184,
+   "sum_s": 3.719417906000672
+  },
+  "engine_imports_hash": {
+   "max_s": 0.258933506998801,
+   "median_s": 0.08987979650009947,
+   "share_of_total": 0.0066751724603030735,
+   "sum_s": 4.41028595798889
+  },
+  "exit_controller": {
+   "max_s": 0.2584304289994179,
+   "median_s": 0.10632623149922438,
+   "share_of_total": 0.006922940737980951,
+   "sum_s": 4.573986440991575
+  },
+  "finalize_write": {
+   "max_s": 0.9466192899999442,
+   "median_s": 0.16198331199939275,
+   "share_of_total": 0.01573443950028486,
+   "sum_s": 10.395743031001984
+  },
+  "graph_preparation": {
+   "max_s": 6.819930280002154,
+   "median_s": 1.0036628290017688,
+   "share_of_total": 0.12513645819258534,
+   "sum_s": 82.67764880701907
+  },
+  "hazard_validation": {
+   "max_s": 0.09187218700026278,
+   "median_s": 0.01983615799963445,
+   "share_of_total": 0.001949983708377494,
+   "sum_s": 1.2883540939965314
+  },
+  "input_load_hash": {
+   "max_s": 1.1180336959987471,
+   "median_s": 0.19137383900033456,
+   "share_of_total": 0.022015739020220016,
+   "sum_s": 14.54579716599801
+  },
+  "launch_interpreter": {
+   "max_s": 0.04483851100121683,
+   "median_s": 0.01804503650055267,
+   "share_of_total": 0.0011963899912190853,
+   "sum_s": 0.7904547799971624
+  },
+  "publication": {
+   "max_s": 1.4413152740016812,
+   "median_s": 0.11513136649955413,
+   "share_of_total": 0.018596516545252816,
+   "sum_s": 12.286717126004078
+  },
+  "request_validation": {
+   "max_s": 0.10395541000070807,
+   "median_s": 0.005543081500036351,
+   "share_of_total": 0.0012348431148758228,
+   "sum_s": 0.8158607559944357
+  },
+  "search": {
+   "max_s": 18.603688121000232,
+   "median_s": 1.4847262875000524,
+   "share_of_total": 0.23332926925181854,
+   "sum_s": 154.16063118800412
+  },
+  "unattributed": {
+   "max_s": 26.75280274800025,
+   "median_s": 0.24188192949895893,
+   "share_of_total": 0.09250634318525727,
+   "sum_s": 61.11893419998887
+  },
+  "worker_imports": {
+   "max_s": 0.1163706719999027,
+   "median_s": 0.05232160949981335,
+   "share_of_total": 0.0033674056931166404,
+   "sum_s": 2.2248446960020374
+  }
+ },
+ "total_wall_s": 660.6999271129916
+}
