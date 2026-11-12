@@ -457,3 +457,44 @@ sweep?
   by the packet writer with its own identity (Leo).
 - v2 code stays unchanged under it, and G1 still compares like with like on the frozen packets.
 - No-re-entry results are reported as their own line.
+
+## Amendment C (16:1x UTC): review §12.7 (orchestrator, 16:10 UTC)
+
+**Facts first (my F-DYN results; non-evaluated runs).**
+- **Today, linear dose decides 0 multi-hour requests.**
+  - The kit's 2 routes have a certified dose upper bound of at most 0.0017 kJ/m².
+  - The modified kit's 5 routes reach at most 4.92 kJ/m², on the 3,953 s route. That is a mean enclosure flux of about
+    1.2 W/m² over about 4,070 s of journey plus dwell.
+  - No request was refused on dose. Every F-DYN UNRESOLVED was a memory or search stop, and the AT_ISSUE failures are
+    contact.
+- **The reviewer's arithmetic is right as a capacity statement.** Using the packet's maximum non-flame road-cell flux
+  (cell-binned model flux, not the checker's enclosure):
+  - Uiseong 0325T17, 0.016 kW/m²: 100 kJ/m² after **6,250 s (104 min)**;
+  - Yeongdeok 0325T23, 0.0089 kW/m²: after **11,236 s (187 min)**;
+  - the reviewer's 0.012 kW/m² gives 8,333 s (139 min), and 216 kJ/m² over 18,000 s.
+- **So linear dose would bind only for journeys or waits of about 1.7–3 h spent near the highest-background road
+  cells.** The routes found so far are 59 s to 3,953 s long and pass through low-flux cells.
+- **Caveat.** The checker integrates its own enclosure, which can exceed cell flux. The binding time under the
+  checker could therefore be shorter than the cell-flux figures above. This is not measured.
+
+**Step 9 (new): thresholded dose as a labelled multi-hour policy variant.**
+- **What.** Flux below a stated threshold contributes nothing to dose. The linear dose stays as the frozen reference.
+- **Reporting.** **Both** are reported for every multi-hour result, side by side, never pooled. No operational output
+  uses the variant. Making it a default is the owner's decision.
+- **Threshold value and source.** Only from literature Sofia has actually read, with its citation and the caveat that
+  occupants are behind glass. To be requested from Sofia.
+- **Review.** Thomas reviews admissibility; the variant must still be an upper bound of the thresholded quantity under
+  the checker's enclosure. Iris assesses.
+- **Acceptance (written before any code).**
+  - The linear results are byte-identical to the reference.
+  - The variant never certifies a route that the linear rule rejects **on contact or peak**. It may only differ on
+    dose.
+  - Every difference is listed.
+
+**Reporting rule (R): road-limited "no route".**
+- Every multi-hour "no route" on today's clipped graphs is reported as **"no route (road-limited: graph clipped to the
+  one-hour window)"**, counted separately.
+  - Roads exist only inside the recorded one-hour windows.
+  - The Uiseong window lies 99.7% inside the final burn set, and about 45% of burned cells lie outside the windows.
+- This holds until Daniel's full-export-grid graph is verified.
+- It applies equally to `FULL_MODEL_REFUSAL_PROVEN` and to any relaxation NO_ROUTE.
