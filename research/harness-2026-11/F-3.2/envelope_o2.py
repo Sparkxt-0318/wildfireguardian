@@ -8,8 +8,8 @@ Exact rationals of the stored binary64 values throughout:
   kept iff lo, hi finite, b < H, (hi − h)·3600 > −T, and the cell is not export-burned
   (source_burned_area_valid ∧ source_burned_area == 1); present fire = heat__initial_active_burning_probability > 0
   on [0, R), R = the writer's scalar enclosure (NATIVE_METADATA).
-Compared (i) per cell with HAZARD.json flame sets (differences classified: HAZARD end later by < 1 µs = the writer's
-round-up of the float sum), and (ii) as integer instances: derive_instance on these intervals vs frontend.build_instance
+Compared (i) per cell with HAZARD.json flame sets (differences classified: same starts and every end within 1 µs in
+either direction = binary64 rounding of the end sum; anything else is an 'other' difference), and (ii) as integer instances: derive_instance on these intervals vs frontend.build_instance
 on the HAZARD intervals, for the first N origins of the region's INSTANCE.json entry, departure 0.
 Usage: python envelope_o2.py --leo WORKTREE --packet REL --start 20250325T110000Z --origins N
 """
@@ -110,11 +110,17 @@ def main():
     mine = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in mine_raw.items()) if v}
     haz = {k: v for k, v in P.from_hazard(hz, Hs).items() if v}
     diff = [k for k in set(mine) | set(haz) if mine.get(k) != haz.get(k)]
+    # Same starts, every end within 1 us in EITHER direction: binary64 rounding of the end sum. (An earlier version
+    # counted only HAZARD-later ends and so reported 0 differences when the float-mode run had 820 sub-us ones.)
     roundup = [k for k in diff if len(mine.get(k, [])) == len(haz.get(k, [])) and all(
-        x0 == y0 and y1 >= x1 and y1 - x1 < F(1, 10**6) for (x0, x1), (y0, y1) in zip(mine[k], haz[k]))]
+        x0 == y0 and abs(y1 - x1) < F(1, 10**6) for (x0, x1), (y0, y1) in zip(mine[k], haz[k]))]
+    later = sum(1 for k in roundup if any(y1 > x1 for (_, x1), (_, y1) in zip(mine[k], haz[k])))
+    earlier = sum(1 for k in roundup if any(y1 < x1 for (_, x1), (_, y1) in zip(mine[k], haz[k])))
+    maxdev = max((abs(y1 - x1) for k in roundup for (_, x1), (_, y1) in zip(mine[k], haz[k])), default=F(0))
     other = sorted(set(diff) - set(roundup))
     report = dict(packet=a.packet, **info, active_cells_mine=len(mine), active_cells_hazard=len(haz), differing_cells=len(diff),
-                  hazard_end_later_lt_1us=len(roundup), other_differences=len(other),
+                  end_within_1us=len(roundup), end_within_1us_hazard_later=later, end_within_1us_hazard_earlier=earlier,
+                  end_within_1us_max_abs_s=float(maxdev), other_differences=len(other),
                   other_examples=[{"cell": k, "mine": [[str(x), str(y)] for x, y in mine.get(k, [])][:2],
                                    "hazard": [[str(x), str(y)] for x, y in haz.get(k, [])][:2]} for k in other[:5]])
     print(json.dumps({k: v for k, v in report.items() if k != "other_examples"}), flush=True)

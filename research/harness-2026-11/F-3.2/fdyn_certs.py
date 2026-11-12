@@ -32,8 +32,17 @@ from wfg_sipp.frontend import build_instance, prepared  # noqa: E402
 
 
 def run(cmd, path):
-    t0 = time.perf_counter()
-    out = subprocess.run(cmd + [str(path)], capture_output=True, text=True).stdout.strip()
+    """Checker stdout and wall time. An empty stdout is a failure to RUN the checker (seen on 69 rows of the first F-DYN batch while
+    another job ran; the cause is unknown because exit status and stderr were not kept), not a verdict: retry once, and if it is still
+    empty return 'NORUN exit=<code> <last stderr line>' so it can never be mistaken for ACCEPT or REJECT."""
+    for _ in range(2):
+        t0 = time.perf_counter()
+        p = subprocess.run(cmd + [str(path)], capture_output=True, text=True)
+        out = p.stdout.strip()
+        if out:
+            break
+    if not out:
+        out = "NORUN exit=%s %s" % (p.returncode, (p.stderr.strip().splitlines() or [""])[-1][:200])
     return out, round(time.perf_counter() - t0, 3)
 
 
