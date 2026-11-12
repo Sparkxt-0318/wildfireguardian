@@ -66,6 +66,26 @@ Unit (each template, each kind), property (the kit's 600 synthetic cases via `la
 ordering of the transport-need list (incl. ties and unresolved), no-order message only when status `not_issued`,
 data-age line present, determinism. Independent re-implementation of the length counters is already in the kit tests.
 
+## Draft decree four-field report (W6)
+The kit checks each resident-facing output against the four items of draft 제49조② (재난 및 안전관리 기본법 시행령
+일부개정령안, 행정안전부공고 제2026-1391호, notice of 2026-11-04, comment period to 2026-12-14). **This is a draft
+requirement as of the notice date, and it may change.** The check (`draftDecreeCheck`) is a REPORT, shown in every staff
+output (`staff.decree`, Korean and English). It never withholds a message, and **the kit does not decide whether a
+notice missing an item may be sent: that is for officials.** Each missing item carries one reason:
+- not applicable: no checked departure time, so no timing;
+- not supplied: no issuer, no English agency name, no drill/replay mark, or no nameable place or shelter;
+- does not fit: the item exists but a length budget left it out.
+
+On a reading of the draft text (Sofia; hers, not an official reading), the duty attaches to the evacuation guidance as
+a whole, and ③ lets the issuer choose and combine channels. A short family text without the contact is therefore not
+by itself a gap in the notice. Sofia flags that ③ refers to "제1항" where the list is in ②, apparently a drafting slip.
+
+Agency and contact number are supplied inputs only (`issuer`), never invented or defaulted:
+- In replay, mock or test-data outputs, the contact line is rendered only if the issuer record is explicitly marked
+  `forDrillOrReplay`. A real number in a replay of a 2025 event invites real calls.
+- Committed fixtures use all-zero placeholder numbers.
+- English outputs use only a supplied English or romanised agency name, never Hangul.
+
 ## Open questions for Iris
 
 1. 20 s for a head's script with mandatory replay + "official first" sentences leaves ≈ 35 syllables for content.

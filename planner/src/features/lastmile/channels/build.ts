@@ -19,7 +19,8 @@
  */
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
-import { eucKrBytes, gsm7Length, spokenSeconds, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
+import { activeRegistry } from './agencyRegistry';
+import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
 import type { LmLang } from '../types';
@@ -84,6 +85,260 @@ export interface ChannelOptions {
   orderStatus?: OrderStatusInput | null;
   issueOrderBy?: IssueOrderBy | null;
   timeStyle?: TimeStyle;
+  /**
+   * Issuing agency and its contact number: SUPPLIED by officials, never invented or defaulted. Validated by
+   * `validIssuer`; anything that fails validation counts as not supplied. English outputs use only `agency.en` (a supplied
+   * English or romanised name); a Korean name is never put into an English output.
+   */
+  issuer?: IssuerInput | null;
+  /**
+   * Report, per resident-facing output, which of the four fields of the DRAFT decree it carries (draft requirement, as
+   * of the notice date 2026-11-04: 재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고 제2026-1391호,
+   * https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332). A report only: a missing field never withholds a message.
+   */
+  draftDecreeCheck?: boolean;
+}
+
+// ------------------------------------------------------------------------------------------------ issuer + draft decree
+
+export interface IssuerInput {
+  agency: { ko: string; en?: string | null };
+  contact: string;
+  /**
+   * Explicitly marked by whoever supplied it as usable in drills and replays. A replay, mock or test-data message
+   * renders the contact line ONLY with this mark: a real agency number in a replay of a 2025 event invites real calls.
+   */
+  forDrillOrReplay?: boolean;
+}
+
+/** A supplied issuer that passed validation; `en` null = no usable English name (the English field is withheld). */
+export interface Issuer {
+  agency: { ko: string; en: string | null };
+  contact: string;
+  forDrillOrReplay: boolean;
+}
+
+/** Longest agency name accepted (characters): Korean 40; English 60 (romanised names run longer). */
+export const AGENCY_MAX_CHARS = 40;
+export const AGENCY_EN_MAX_CHARS = 60;
+/**
+ * Spoken budget of the contact line in the village-head script, separate from the 35 s budget of opener + core + closer
+ * (which the Korean script already uses up to 32.7 s over the 531 real places, so no contact line fits inside it).
+ * Over budget => the contact line is left out of the head (the field is withheld there, not the message).
+ */
+export const HEAD_CONTACT_MAX_S = 10;
+
+const ONE_LINE = /^[^\r\n\t\u0000-\u001f\u007f]+$/;
+
+/**
+ * Agency-name form rule (Mira N2, tightened after her FAIL at 344657e). An agency name is a sequence of PLACE and
+ * DEPARTMENT tokens, never a sentence with an agency word stuck on the end:
+ * - Korean: every word is Hangul (digits allowed, e.g. 119안전센터), ends in a place ending (도/시/군/구/읍/면/동/리…)
+ *   or a department ending (과/실/청/본부/센터/단/…), and contains no instruction / status / time word.
+ * - English: every word is Capitalised (or of/and/the/for/&), the last one is an agency noun, and no word is an
+ *   instruction / status / time word.
+ * This checks FORM only; it cannot show the agency exists. The committed registry (agencyRegistry.ts) decides what
+ * renders; this lint never admits a name.
+ */
+const KO_PLACE_END = '(특별시|광역시|특별자치시|특별자치도|도|시|군|구|읍|면|동|리)';
+const KO_DEPT_END = '(과|실|청|본부|센터|단|국|팀|처|원|부|소|서|사무소|상황실|대|지원단|위원회)';
+const KO_WORD = new RegExp(`^[가-힣0-9]{1,}(${KO_PLACE_END.slice(1, -1)}|${KO_DEPT_END.slice(1, -1)})$`);
+const KO_LAST = new RegExp(`${KO_DEPT_END}$|${KO_PLACE_END}$`);
+/** words that make a name a message: instructions, transport, status, time (Korean) */
+const KO_NOT_NAME = [
+  '대피', '출발', '출동', '도착', '배차', '운행', '해제', '완료', '필요', '지금', '즉시', '바로', '예정', '셔틀', '버스', '차량',
+  '진화', '오늘', '내일', '밤', '아침', '저녁', '시간', '귀가', '복귀', '이동', '수송', '이송', '탑승', '대기', '머무', '안심',
+  '괜찮', '무사', '보장', '확실', '데리', '모시', '태워', '픽업', '구출', '귀가', '경보', '명령', '권고', '발령', '종료', '취소',
+];
+/** standard agency compounds that contain one of those words or a kit-forbidden word */
+const KO_COMPOUNDS = ['주민대피지원단', '대피지원', '재난안전', '안전재난', '행정안전', '안전관리', '안전총괄', '안전정책', '시민안전', '안전건설', '안전도시', '안전센터', '구조구급', '119구조', '구조대', '산림청', '소방본부', '종합상황실'];
+const KO_HOUR = /(한|두|세|네|다섯|여섯|일곱|여덟|아홉|열|열한|열두|\d{1,2})\s*시(?![청군구도])|\d+\s*(분|시간)|반시간/;
+const EN_CONNECTOR = /^(of|and|the|for|&)$/;
+const EN_LAST = /^(Division|Office|Center|Centre|Department|County|City|Province|Headquarters|Team|Bureau|Unit|Agency|Service|Station|Section|Ministry|Administration)$/;
+const EN_NOT_NAME = /^(now|go|going|gone|come|coming|way|clear|cleared|need|needed|needs|no|not|none|transport|transportation|provided|provide|providing|bus|buses|shuttle|cancel\w*|evacuat\w*|leave|leaving|left|help|arriv\w*|depart\w*|at|by|before|after|until|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|noon|midnight|minute\w*|hour\w*|tonight|today|tomorrow|morning|evening|is|are|was|were|will|be|been|you|your|we|our|all|safe|secure|stay|wait|ok|okay|done|finished|over|lifted|ended|called|sent|send|pick\w*|ride|car|cars|vehicle\w*)$/i;
+
+export function agencyLike(name: string, lang: LmLang): boolean {
+  const n = name.trim();
+  if (n.length > AGENCY_NAME_MAX[lang]) return false;
+  const words = n.split(/\s+/);
+  if (words.length > AGENCY_WORDS_MAX) return false;
+  if (lang === 'ko') {
+    if (!KO_LAST.test(n) || !words.every((w) => KO_WORD.test(w))) return false;
+    let rest = n;
+    for (const c of KO_COMPOUNDS) rest = rest.split(c).join(' ');
+    if (KO_NOT_NAME.some((w) => rest.includes(w)) || KO_HOUR.test(rest)) return false;
+    if (FORBIDDEN.ko.some((w) => rest.includes(w))) return false;
+    if (clockTimes(n).length || DEPARTURE_INSTRUCTION.ko.test(n)) return false;
+    return true;
+  }
+  if (!EN_LAST.test(words[words.length - 1]!)) return false;
+  for (const w of words) {
+    if (EN_CONNECTOR.test(w)) continue;
+    if (!/^([A-Z][A-Za-z'-]*|[0-9]+)$/.test(w)) return false;
+    if (EN_NOT_NAME.test(w)) return false;
+  }
+  if (clockTimes(n).length || DEPARTURE_INSTRUCTION.en.test(n)) return false;
+  let rest = n.toLowerCase();
+  for (const c of ['safety', 'rescue']) rest = rest.split(c).join(' ');
+  return !FORBIDDEN.en.some((w) => rest.includes(w.toLowerCase()));
+}
+
+/** Form limits of an agency name (Iris): characters and words. */
+const AGENCY_NAME_MAX: Record<LmLang, number> = { ko: 25, en: 60 };
+const AGENCY_WORDS_MAX = 8;
+
+/** Why a supplied issuer is or is not used. */
+export type IssuerCheck = 'none' | 'bad_name' | 'bad_number' | 'not_in_registry' | 'ok';
+
+/**
+ * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC, mobile 01X-BBB(B)-CCCC, or a
+ * representative number 1XXX-XXXX. Times, dates and bare digit runs ("18-30", "2025-03-25", "1830") never match.
+ * Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
+ */
+export function phoneShaped(n: string): boolean {
+  if (!/^(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})$/.test(n)) return false;
+  return !['112', '119', '110'].includes(n.replace(/-/g, ''));
+}
+
+/** The exact-match key: Unicode NFC and surrounding whitespace only (Iris); nothing that widens the match. */
+export function registryKey(s: string): string {
+  return s.normalize('NFC').trim();
+}
+
+/**
+ * The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. ALLOWLIST: the Korean
+ * name must exactly match an entry of the committed registry (orchestrator decision); the English name is used only
+ * when it equals that entry's own published English name. The name-form lint (`agencyLike`) never admits a name.
+ */
+export function checkIssuer(raw: IssuerInput | null | undefined): { status: IssuerCheck; issuer: Issuer | null } {
+  const registry = activeRegistry();
+  if (!raw) return { status: 'none', issuer: null };
+  if (typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return { status: 'bad_name', issuer: null };
+  const ko = registryKey(raw.agency.ko);
+  if (!ko || !ONE_LINE.test(ko)) return { status: 'bad_name', issuer: null };
+  const entry = registry.find((e) => registryKey(e.ko) === ko);
+  if (!entry) return { status: 'not_in_registry', issuer: null };
+  const contact = raw.contact.normalize('NFC').trim();
+  if (!phoneShaped(contact)) return { status: 'bad_number', issuer: null };
+  const enRaw = typeof raw.agency.en === 'string' ? registryKey(raw.agency.en) : '';
+  const en = entry.en && enRaw === entry.en ? entry.en : null;
+  return { status: 'ok', issuer: { agency: { ko: entry.ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true } };
+}
+
+export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {
+  return checkIssuer(raw).issuer;
+}
+
+/** The four fields of the draft decree (안 제49조② 1–4). */
+export type DecreeField = 'area_people' | 'reason_timing' | 'shelter' | 'agency_contact';
+export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_timing', 'shelter', 'agency_contact'];
+export type ResidentOutput = 'head' | 'voice' | 'familyText' | 'familyScript';
+export const RESIDENT_OUTPUTS: readonly ResidentOutput[] = ['head', 'voice', 'familyText', 'familyScript'];
+/** Why an output has no agency/contact field. */
+export type ContactStatus = 'included' | 'not_supplied' | 'not_in_registry' | 'no_english_name' | 'replay_not_marked' | 'over_length';
+/**
+ * Why a decree field is missing (Iris): not_applicable = no checked departure time, so no timing can be given;
+ * not_supplied = the input lacks it (no issuer, no English name, no drill/replay mark, no nameable place or shelter);
+ * does_not_fit = it exists but the output's length budget left it out.
+ */
+export type MissingReason = 'not_applicable' | 'not_supplied' | 'does_not_fit';
+
+export interface DecreeReport {
+  present: DecreeField[];
+  missing: DecreeField[];
+  /** one reason per missing field */
+  reasons: Partial<Record<DecreeField, MissingReason>>;
+  contact: ContactStatus;
+}
+
+const ASCII = /^[\x20-\x7E]+$/;
+
+/** Why `field` is missing from an output (the field is known to be missing). */
+function missingReason(p: MessagePlan, field: DecreeField, lang: LmLang, contact: ContactStatus, output: ResidentOutput): MissingReason {
+  if (field === 'reason_timing') return p.kind === 'leave_by' && p.leaveByS !== null ? 'does_not_fit' : 'not_applicable';
+  if (field === 'agency_contact') return contact === 'over_length' ? 'does_not_fit' : 'not_supplied';
+  if (field === 'shelter') {
+    // a shelter with only a Korean name is shown in Hangul in English text (owner decision), so it is supplied — except
+    // in the English automated voice call, which never reads Hangul (interim, orchestrator): not supplied there
+    const d = namedDestination(p);
+    if (!d) return 'not_supplied';
+    if (lang === 'en' && output === 'voice' && !d.en && !EN_VOICE_KOREAN_SHELTER) return 'not_supplied';
+    return 'does_not_fit';
+  }
+  const name = p.input.origin.name?.[lang];
+  // English outputs never carry a non-ASCII place name: such a name counts as not supplied in English
+  return name && (lang === 'ko' || ASCII.test(name)) ? 'does_not_fit' : 'not_supplied';
+}
+
+const FIELD_LABEL: Record<LmLang, Record<DecreeField, string>> = {
+  ko: { area_people: '대피 대상 지역·대상자', reason_timing: '대피 사유·시기', shelter: '대피장소 명칭·위치', agency_contact: '안내 기관 명칭·문의 연락처' },
+  en: { area_people: 'area and people', reason_timing: 'reason and timing', shelter: 'shelter name and location', agency_contact: 'issuing agency and contact number' },
+};
+const REASON_LABEL: Record<LmLang, Record<MissingReason, string>> = {
+  ko: { not_applicable: '해당 없음(확인된 출발 시각 없음)', not_supplied: '입력 없음', does_not_fit: '길이 제한으로 빠짐' },
+  en: { not_applicable: 'not applicable (no checked departure time)', not_supplied: 'not supplied', does_not_fit: 'does not fit (length)' },
+};
+const OUTPUT_LABEL: Record<LmLang, Record<ResidentOutput, string>> = {
+  ko: { head: '이장 방송', voice: '자동 음성전화', familyText: '가족 문자', familyScript: '가족 전화 대본' },
+  en: { head: 'village head', voice: 'voice call', familyText: 'family text', familyScript: 'family call script' },
+};
+
+/** Staff-only text of the decree report: always shown when the check is on, never silent. */
+export function decreeReportText(r: Record<ResidentOutput, DecreeReport>, lang: LmLang, extra: string[] = []): string {
+  const head =
+    lang === 'ko'
+      ? '[직원용] 입법예고안(2026-11-04 공고) 제49조② 네 항목 점검 — 초안 기준이며, 항목이 빠진 안내를 보낼지는 담당 기관이 정합니다.'
+      : '[Staff] Four items of draft Article 49(2) of the disaster management enforcement decree (notice of 2026-11-04) — a draft requirement as of that date; whether a notice missing an item may be sent is for officials to decide.';
+  const lines = RESIDENT_OUTPUTS.map((o) => {
+    const x = r[o];
+    const body = x.missing.length === 0 ? (lang === 'ko' ? '네 항목 모두 있음' : 'all four present') : x.missing.map((f) => `${FIELD_LABEL[lang][f]}: ${REASON_LABEL[lang][x.reasons[f]!]}`).join('; ');
+    return `${OUTPUT_LABEL[lang][o]} — ${body}`;
+  });
+  return [head, ...lines, ...extra].join('\n');
+}
+
+/** Which of the four fields a resident-facing text carries (by content, not by template). */
+export function decreeFields(p: MessagePlan, text: string, lang: LmLang, issuer: Issuer | null): DecreeField[] {
+  const out: DecreeField[] = [];
+  const v = p.input.origin.name?.[lang];
+  if (v && text.includes(v)) out.push('area_people');
+  const hazard = lang === 'ko' ? text.includes('산불') : /wildfire/i.test(text);
+  if (hazard && p.kind === 'leave_by' && p.leaveByS !== null && DEPARTURE_INSTRUCTION[lang].test(text)) out.push('reason_timing');
+  const nd = namedDestination(p);
+  const d = nd ? (lang === 'ko' ? nd.ko : nd.en || nd.ko) : null;
+  if (d && text.includes(d)) out.push('shelter');
+  const a = issuer?.agency[lang];
+  if (issuer && a && text.includes(a) && text.includes(issuer.contact)) out.push('agency_contact');
+  return out;
+}
+
+/** The contact line, or null when this language has no usable agency name. */
+export function contactLine(iss: Issuer, lang: LmLang): string | null {
+  if (lang === 'ko') return `문의: ${iss.agency.ko} ${iss.contact}`;
+  return iss.agency.en ? `Contact: ${iss.agency.en} ${iss.contact}` : null;
+}
+
+/** The compact contact line of the family text (SMS), or null when this language has no usable agency name. */
+export function contactSmsLine(iss: Issuer, lang: LmLang): string | null {
+  if (lang === 'ko') return `문의 ${iss.agency.ko} ${iss.contact}`;
+  return iss.agency.en ? `Contact ${iss.agency.en} ${iss.contact}` : null;
+}
+
+/**
+ * The exact lines the builder inserts for a supplied issuer. Only these whole lines are masked before the word checks,
+ * never the agency name on its own: the same word anywhere else in generated text is still caught, even when the
+ * agency name is that word.
+ */
+export function issuerLines(iss: Issuer | null): string[] {
+  if (!iss) return [];
+  return (['ko', 'en'] as LmLang[]).flatMap((l) => [contactLine(iss, l), contactSmsLine(iss, l)]).filter((x): x is string => !!x);
+}
+
+/** Spoken length of a contact line; the number is read digit by digit (one syllable / one word per digit). */
+export function contactSeconds(line: string, iss: Issuer, lang: LmLang): number {
+  if (lang === 'en') return spokenSeconds(line, 'en');
+  const digits = iss.contact.replace(/[^0-9]/g, '').length;
+  return spokenSeconds(line.split(iss.contact).join(' '), 'ko') + digits / KO_SYLLABLES_PER_S;
 }
 
 export type Element = 'source' | 'hazard' | 'location' | 'time' | 'guidance';
@@ -109,8 +364,11 @@ export interface HeadScript {
   /** the same at the slower 2.5 syllables/s (Korean; English is unchanged) */
   coreSlowS: number;
   fullSlowS: number;
-  /** the only exportable form: opener + core + closer, inseparable */
+  /** the only exportable form: opener + core + closer (+ the supplied contact line), inseparable */
   script: string;
+  /** the supplied agency/contact line after the closer (own budget HEAD_CONTACT_MAX_S), or null */
+  contact?: string | null;
+  contactS?: number;
 }
 
 export interface ChannelTexts {
@@ -119,7 +377,7 @@ export interface ChannelTexts {
   familyText: string;
   familyScript: [string, string, string];
   /** staff / village-head only (never resident-facing) */
-  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null };
+  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null };
 }
 
 export interface ChannelSet {
@@ -129,6 +387,10 @@ export interface ChannelSet {
   destinationName: Record<LmLang, string> | null;
   text: Record<LmLang, ChannelTexts>;
   violations: string[];
+  /** the validated supplied issuer (its names and number are data: masked before the word checks), or null */
+  issuer?: Issuer | null;
+  /** draft-decree field report per resident output (only with draftDecreeCheck) */
+  decree?: Record<LmLang, Record<ResidentOutput, DecreeReport>>;
 }
 
 const iso = (p: MessagePlan) => p.input.scenario.inputTimeIso;
@@ -211,7 +473,7 @@ function framing(p: MessagePlan, lang: LmLang): { opener: string; closer: string
   return { opener: o.join('\n'), closer: OFFICIAL_FIRST.en };
 }
 
-function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
+function headCoreBlocks(p: MessagePlan, lang: LmLang, koShelterInEn = true): TaggedBlock[] {
   const v = villageName(p, lang);
   const dest = namedDestination(p);
   const facility = p.input.origin.kind === 'facility';
@@ -235,7 +497,9 @@ function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
   const b: TaggedBlock[] = [{ text: `${who} Wildfire evacuation notice${v && /^[\x20-\x7E]+$/.test(v) ? ` for ${v}` : ' for this village'}.`, short: `${who} Wildfire evacuation notice for this place.`, elements: ['source', 'location', 'hazard'] }];
   if (p.kind === 'leave_by' && p.leaveByS !== null) {
     b.push({ text: `Leave by car by ${spokenLeaveBy(p, 'en')}.`, elements: ['time', 'guidance'] });
-    if (dest && dest.en) b.push({ text: `Go toward ${dest.en}.`, elements: ['location'], optional: true });
+    // OWNER DECISION: no English name => the Korean (Hangul) shelter name, never a romanisation
+    const en = dest ? dest.en || (koShelterInEn ? dest.ko : '') : '';
+    if (en) b.push({ text: `Go toward ${en}.`, elements: ['location'], optional: true });
     b.push({ text: facility ? 'Short of cars? Tell the town office.' : 'No car? Tell the village head.', elements: ['guidance'] });
   } else if (p.kind === 'no_route') {
     b.push({ text: `Data from ${enSpokenTime(iso(p))} shows no checked road out.`, elements: ['time'] });
@@ -247,9 +511,9 @@ function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
   return b;
 }
 
-export function headScript(p: MessagePlan, lang: LmLang): HeadScript {
+export function headScript(p: MessagePlan, lang: LmLang, koShelterInEn = true): HeadScript {
   const { opener, closer } = framing(p, lang);
-  const blocks = assemble(headCoreBlocks(p, lang), lang, HEAD_CORE_MAX_S);
+  const blocks = assemble(headCoreBlocks(p, lang, koShelterInEn), lang, HEAD_CORE_MAX_S);
   const core = blocks.map((b) => b.text).join('\n');
   const elements = ELEMENTS.filter((e) => blocks.some((b) => b.elements.includes(e)));
   const script = [opener, core, closer].join('\n');
@@ -271,8 +535,21 @@ export function replyCode(kind: MessagePlan['kind'], key: string): ReplyCode {
   return 'unknown';
 }
 
+/**
+ * English automated voice call: a Korean shelter name is NOT read (a TTS voice cannot be relied on to pronounce
+ * Hangul); how it should be handled is open with Iris, so the call keeps its earlier behaviour and the shelter field
+ * is reported as missing.
+ */
+export const EN_VOICE_KOREAN_SHELTER = false;
+export const VOICE_EN_SHELTER_POINTER = 'The shelter has no English name; it is named in the Korean message.';
+/** Staff note for a human reader of the English village-head script (orchestrator: interim). */
+export function headReaderNote(p: MessagePlan): string | null {
+  const d = namedDestination(p);
+  return d && !d.en ? `Reader: say the shelter name in Korean: ${d.ko}` : null;
+}
+
 function voice(p: MessagePlan, lang: LmLang): string {
-  const h = headScript(p, lang);
+  const h = headScript(p, lang, EN_VOICE_KOREAN_SHELTER);
   const leave = p.kind === 'leave_by';
   if (lang === 'ko') {
     return [
@@ -284,10 +561,14 @@ function voice(p: MessagePlan, lang: LmLang): string {
       h.closer,
     ].join('\n');
   }
+  const d = namedDestination(p);
   return [
     h.opener,
     'This is an automated wildfire evacuation call.',
     h.core,
+    // interim (orchestrator, reported to the owner): the English call never reads a Korean shelter name; it points to
+    // the Korean message instead. GAP: an English-only listener who gets only this call has no destination.
+    ...(d && !d.en && !EN_VOICE_KOREAN_SHELTER ? [VOICE_EN_SHELTER_POINTER] : []),
     `Press 1 ${leave ? 'if you are leaving now' : 'if you heard this notice'}, 2 if you have no car or cannot leave on your own, 3 to hear this again.`,
     'If you press 2, your answer is passed to the village head and the town office.',
     h.closer,
@@ -337,7 +618,7 @@ function familyScript(p: MessagePlan, lang: LmLang): [string, string, string] {
   const l1 = `[Name], this is a wildfire evacuation notice for ${v && /^[\x20-\x7E]+$/.test(v) ? v : 'your village'}. ${replay ? 'It is a replay of records, not a real emergency, ' : ''}from a computer forecast, not live.`;
   const l2 =
     p.kind === 'leave_by' && p.leaveByS !== null
-      ? `Leave by car by ${spokenLeaveBy(p, 'en')}${dest && dest.en ? `, toward ${dest.en}` : ''}.`
+      ? `Leave by car by ${spokenLeaveBy(p, 'en')}${dest ? `, toward ${dest.en || dest.ko}` : ''}.`
       : p.kind === 'no_route'
         ? `Data from ${enSpokenTime(iso(p))} shows no checked road out by car.`
         : `Data from ${enSpokenTime(iso(p))} could not check a road out.`;
@@ -460,22 +741,108 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
-  const set: ChannelSet = { originId: p.input.origin.id, kind: p.kind, destinationName: namedDestination(p), text, violations: [] };
+  const checked = checkIssuer(opt.issuer);
+  const iss = checked.issuer;
+  const contact = {} as Record<LmLang, Record<ResidentOutput, ContactStatus>>;
+  for (const lang of ['ko', 'en'] as LmLang[]) {
+    const t = text[lang];
+    const line = iss ? contactLine(iss, lang) : null;
+    const nonLive = p.input.replay || p.input.mock || p.input.testData;
+    const base: ContactStatus = !iss ? (checked.status === 'not_in_registry' ? 'not_in_registry' : 'not_supplied') : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
+    const c: Record<ResidentOutput, ContactStatus> = { head: base, voice: base, familyText: base, familyScript: base };
+    if (iss && line !== null && base === 'included') {
+      const h = t.head;
+      const sec = contactSeconds(line, iss, lang);
+      if (sec <= HEAD_CONTACT_MAX_S) {
+        h.contact = line;
+        h.contactS = sec;
+        h.script = [h.opener, h.core, h.closer, line].join('\n');
+      } else c.head = 'over_length';
+      t.voice = `${t.voice}\n${line}`;
+      t.familyScript = [t.familyScript[0], t.familyScript[1], `${t.familyScript[2]} ${line}`];
+      const withLine = `${t.familyText}\n${contactSmsLine(iss, lang)}`;
+      const fits = lang === 'ko' ? eucKrBytes(withLine).bytes <= SMS_KO_MAX_BYTES && eucKrBytes(withLine).unencodable.length === 0 : gsm7Length(withLine).chars <= SMS_EN_MAX_GSM7 && gsm7Length(withLine).nonGsm.length === 0;
+      if (fits) t.familyText = withLine;
+      else c.familyText = 'over_length';
+    }
+    contact[lang] = c;
+  }
+  text.en.staff.readerNote = text.en.head.script.includes(namedDestination(p)?.ko ?? '\u0000') ? headReaderNote(p) : null;
+  const set: ChannelSet = { originId: p.input.origin.id, kind: p.kind, destinationName: namedDestination(p), text, violations: [], issuer: iss };
   set.violations = checkChannels(p, set);
+  if (opt.draftDecreeCheck) {
+    const decree = {} as Record<LmLang, Record<ResidentOutput, DecreeReport>>;
+    for (const lang of ['ko', 'en'] as LmLang[]) {
+      const t = text[lang];
+      const texts: Record<ResidentOutput, string> = { head: t.head.script, voice: t.voice, familyText: t.familyText, familyScript: t.familyScript.join('\n') };
+      const r = {} as Record<ResidentOutput, DecreeReport>;
+      for (const o of RESIDENT_OUTPUTS) {
+        const present = decreeFields(p, texts[o], lang, iss);
+        const missing = DECREE_FIELDS.filter((f) => !present.includes(f));
+        const reasons: Partial<Record<DecreeField, MissingReason>> = {};
+        for (const f of missing) reasons[f] = missingReason(p, f, lang, contact[lang][o], o);
+        r[o] = { present, missing, reasons, contact: contact[lang][o] };
+      }
+      decree[lang] = r;
+      const h = t.head;
+      const extra = [
+        lang === 'ko'
+          ? `이장 방송 길이: 기본 ${h.fullS.toFixed(1)}초(한도 ${HEAD_FULL_MAX_S}초) + 문의 ${(h.contactS ?? 0).toFixed(1)}초(한도 ${HEAD_CONTACT_MAX_S}초) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)}초`
+          : `Village-head script length: ${h.fullS.toFixed(1)} s (limit ${HEAD_FULL_MAX_S} s) + contact ${(h.contactS ?? 0).toFixed(1)} s (limit ${HEAD_CONTACT_MAX_S} s) = ${(h.fullS + (h.contactS ?? 0)).toFixed(1)} s`,
+      ];
+      if (checked.status === 'not_in_registry')
+        extra.push(
+          lang === 'ko'
+            ? '문의처 없음 — 고칠 항목: 기관명. 입력한 기관명이 등록된 공식 발령 기관(시·군) 목록에 없습니다. 목록은 아직 일부만 담고 있으며, 기관을 추가하려면 공식 명칭과 출처가 필요합니다.'
+            : 'No contact line — field to fix: issuer name. It is not in the registry of official issuing bodies (시·군). The registry is incomplete; adding a body needs its exact official name and a source.',
+        );
+      if (checked.status === 'bad_name')
+        extra.push(lang === 'ko' ? '문의처 없음 — 고칠 항목: 기관명 (비어 있거나 한 줄이 아닙니다).' : 'No contact line — field to fix: issuer name (empty or not a single line).');
+      if (checked.status === 'bad_number')
+        extra.push(
+          lang === 'ko'
+            ? '문의처 없음 — 고칠 항목: 연락처. 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나 긴급번호입니다.'
+            : 'No contact line — field to fix: contact number. It is not a phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX) or it is an emergency number.',
+        );
+      if (checked.status === 'ok' && iss && contact[lang].voice === 'included')
+        extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);
+      const nd = namedDestination(p);
+      if (nd && !nd.en && !EN_VOICE_KOREAN_SHELTER)
+        extra.push(
+          lang === 'ko'
+            ? '공백: 영어 자동 음성전화는 한글 대피장소 이름을 읽지 않습니다. 그 전화만 받는 영어 사용자는 대피장소를 알 수 없습니다.'
+            : 'Gap: the English automated voice call does not read the Korean shelter name; an English-only listener who gets only that call has no destination.',
+        );
+      t.staff.decree = decreeReportText(r, lang, extra);
+    }
+    set.decree = decree;
+    set.violations = checkChannels(p, set);
+  }
   return set;
 }
 
-/** Names from data, masked before the word checks (a village called 안전마을 must not trip "안전"). */
-function inserted(p: MessagePlan): string[] {
+/** True when no violation names this output (an output with a violation is withheld). */
+export function outputWithheld(set: ChannelSet, lang: LmLang, output: ResidentOutput): boolean {
+  return set.violations.some((v) => v.startsWith(`${lang}.${output}:`) || v.startsWith(`${lang}.${output}.`));
+}
+
+/**
+ * Names from data, masked before the word checks (a village called 안전마을 must not trip "안전"; an agency called
+ * 재난안전과 must not either). Supplied proper nouns only: place names, and the exact contact lines built from the
+ * supplied issuer (issuerLines).
+ */
+function inserted(p: MessagePlan, iss: Issuer | null = null): string[] {
   const out: string[] = [];
   for (const t of [p.input.origin.name, p.destination?.name]) if (t) for (const s of [t.ko, t.en]) if (s) out.push(s);
+  out.push(...issuerLines(iss));
   return out.sort((a, b) => b.length - a.length);
 }
 
 /** Every rule violation of every output, each prefixed with its output (e.g. "ko.head.core: …"). */
 export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
   const v: string[] = [];
-  const names = inserted(p);
+  const iss = set.issuer ?? null;
+  const names = inserted(p, iss);
   const dataHm = hm(iso(p));
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = set.text[lang];
@@ -486,6 +853,8 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       ['familyScript', t.familyScript.join('\n')],
       ['staff', `${t.staff.dataAge}\n${t.staff.issueOrderBy}`],
       ...(t.staff.noOrder !== null ? ([['staff.noOrder', t.staff.noOrder]] as [string, string][]) : []),
+      ...(t.staff.decree ? ([['staff.decree', t.staff.decree]] as [string, string][]) : []),
+      ...(t.staff.readerNote ? ([['staff.readerNote', t.staff.readerNote]] as [string, string][]) : []),
     ];
     for (const [name, s] of outs) {
       const id = `${lang}.${name}`;
@@ -497,20 +866,27 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
         const extra = clockTimes(maskData(s, names)).filter((c) => c !== dataHm);
         if (extra.length) v.push(`${id}: clock time ${extra.join(',')} without a checked window`);
       }
-      if (name !== 'staff' && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
+      if (!['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
       const markerInstead = lang === 'ko' && name === 'familyText' && (p.input.mock || p.input.testData) && /MOCK|시험자료/.test(s);
-      if (p.input.replay && name !== 'staff' && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
+      if (p.input.replay && !['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
-      const allowed = [set.destinationName?.[lang], p.input.origin.name?.[lang]].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
+      const allowed = [set.destinationName?.[lang], ...(lang === 'en' ? [set.destinationName?.ko] : []), p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
       const rest = maskData(s, allowed);
       const dests = Object.values(p.input.destinations)
-        .flatMap((d) => (d.name ? [d.name[lang]] : []))
+        .flatMap((d) => (d.name ? (lang === 'en' ? [d.name.en, d.name.ko] : [d.name[lang]]) : []))
         .filter((n): n is string => !!n && n.length > 1);
       for (const d of new Set(dests)) if (rest.includes(d)) v.push(`${id}: names destination "${d}" the plan does not allow`);
+      // English resident outputs carry Hangul only as the plan's own shelter name (owner decision), nowhere else
+      if (lang === 'en' && !name.startsWith('staff')) {
+        const ko = set.destinationName?.ko;
+        const left = ko ? s.split(ko).join('') : s;
+        if (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/.test(left)) v.push(`${id}: Hangul outside the shelter name`);
+      }
     }
     if (t.head.coreS > HEAD_CORE_MAX_S) v.push(`${lang}.head.core: ${t.head.coreS.toFixed(1)} s > ${HEAD_CORE_MAX_S} s`);
     if (t.head.fullS > HEAD_FULL_MAX_S) v.push(`${lang}.head: ${t.head.fullS.toFixed(1)} s > ${HEAD_FULL_MAX_S} s`);
+    if ((t.head.contactS ?? 0) > HEAD_CONTACT_MAX_S) v.push(`${lang}.head: contact line ${t.head.contactS!.toFixed(1)} s > ${HEAD_CONTACT_MAX_S} s`);
     const missing = ELEMENTS.filter((e) => !t.head.elements.includes(e));
     if (missing.length) v.push(`${lang}.head.core: missing elements ${missing.join(',')}`);
     if (lang === 'ko') {
