@@ -38,3 +38,25 @@ The commit that adds this file is the rule commit.
   reason.
 - **Comparison rows:** per-village differences between `kriged_mean` and `firms_early` deadlines are reported as a
   result (how much the timing source matters).
+
+## Amendment: `envelope_ahi_bounded` added to the scoring set (AHI rule passed by Hannah; before any deadline on it)
+
+- **Variant.** `envelope_ahi_bounded`, the per-cell envelope law built from `ahi_results/ahi_bounded_{lo,hi}.npz`
+  (AHI_RULE.md @469796e + def5016, code 68b0b23; PASS WITH NOTES, Hannah 2026-11-12).
+  - For a burned cell in a firing AHI pixel: hi = min(firms hi, t_f(pixel)) and lo = min(firms_early lo,
+    t_prev(pixel)).
+  - Every other cell is as `envelope`.
+- **Soundness label (corrects AHI_RULE.md §"F-DYN variant", which called it conservative).**
+  - The label is **"BRACKET (AHI + FIRMS bracket-start), NOT A SOUND BOUND"**.
+  - lo is not a lower bound: a previous non-fire AHI scan is not absence of fire (cloud, smoke, sub-threshold), the
+    same reason as `firms_early`.
+  - hi = t_f(pixel) is pixel-level, so it is not a sound per-cell upper bound (SOUND_ENVELOPE_RULE.md §2). Because
+    burning ends at hi + T, an early hi can **end** burning early.
+  - The variant moves ignition earlier where AHI fired, but it is not conservative as a whole. **Only
+    `envelope_sound` is a sound bound.**
+- **Not for training** (AHI_RULE.md amendment 1).
+- **Build criterion.** The union is re-evaluated with this variant included. Every start is already built (61
+  region-starts), so the built set cannot grow. It is recomputed and recorded anyway.
+- **Quantization.** The variant files carry no `timestamp_exact` mask. AHI scan times are not whole milliseconds in
+  the stored hours (max 0.498 ms from an integer), so every cell is treated as real-valued and rounded to 1 ms, per
+  QUANT_v3_1_RULE.md.
