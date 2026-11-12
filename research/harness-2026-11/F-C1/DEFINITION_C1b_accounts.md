@@ -105,3 +105,22 @@ not computed. Cheongsong 파천면 is excluded because it has no coordinates.
 3. **Trip time.** trip_min is a **fire-free drive from the road entry point at the model speed**. It has no time to
    get ready, reach the vehicle or help others, which matters most for the older residents this project is about.
    That makes L later still, so it remains an upper bound.
+
+## Sources (URL-only commit; §6 step 2)
+
+Sofia fetched and read all three pages in full on 2026-11-12, all HTTP 200. Her answers are recorded as given. Nothing
+in §1–5 or amendment 1 is changed.
+
+| Case | URL | Read in full | Sofia's confirmation |
+|---|---|---|---|
+| C1 | https://dgmbc.com/NewsArticle/628364 (대구MBC, interview with 지품면장) | yes | **S:** "한 4시 반쯤에 … 북쪽에서 연기가 검은 연기가 밀려와서 남쪽으로 자꾸 오는 상황이었습니다." **17:55 flames at the 면사무소: NO.** The interview has no 17:55 and no flames at the office; its other fire lines are untimed. The 17:55 comes from item C2's article (a phone call from a resident, village not named, "바로 뒤에 불길"), so it is not an arrival at this observer. |
+| C2 | https://www.hankookilbo.com/news/article/A2025032714350000238 | yes | **Body:** "오후 8시 이장이 집집마다 문을 두드리자 … '내가 피하고 10분 뒤 불길이 마을을 집어삼켰다'". **The about 20:30 departure is in the photo caption, not the body:** "오후 8시 30분쯤 대피했다". |
+| C3 | https://www.nocutnews.co.kr/news/6318424 (2 Apr 2025 visit to 임하면 신덕1리) | yes | **S:** "3월 25일 오후 5시 반에서 6시 사이였던 것 같다 … 벌건 불이 넘어오는 게 보였다." The time is hedged. **Delay:** "약 10분 만에 불이 번져 황급히 차를 타고 대피했고, 이 과정에서 날아온 불씨에 화상을 입었다". Arrival at the place is **implied, not stated in words**. The house survived; buildings about 50 m away burned. |
+
+**Consequence under the rule as fixed (§1: "Arrival A at the place, as reported"; §4):**
+
+- C1: A is not documented, so there is no account-based sign. S is shown beside the satellite bracket.
+- C2: S is not documented, so there is no sign.
+- C3: A is not reported in words, so there is no account-based sign.
+
+The visibility rows (§5) are computed for C1 and C3.
