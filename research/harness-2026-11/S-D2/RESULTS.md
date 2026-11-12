@@ -490,3 +490,24 @@ numpy 1.26.4, scipy 1.13.1, pandas 2.2.3, scikit-learn 1.5.2, torch 2.5.1. `chec
 
 The verified results earlier today (Hannah and Owen) were run and rerun in E1 or in verifiers' own environments. Their
 verdicts stand as recorded. Environment sensitivity is under review by Owen.
+
+### Owen's verdicts, ledger rows 46–48 (verification/owen-smoke-2 at 4e3f1b4e)
+
+- **Row 46, cv_part_a 96f99bf6: SPLIT.**
+  - **Composite: FAIL** (optimizer collapse). Void until the pinned rerun.
+  - **Plug-in, NLL and MCEM: PASS WITH NOTES.** Owen reran folds 0 and 2 from scratch in the pinned environment.
+    - MCEM − plug-in: +0.01068 pinned vs +0.01072 E1, with per-fire sign agreement 10/10.
+    - MCEM − NLL: +0.00967 vs +0.00968, 9/10.
+    - The maximum per-fire relative Brier difference is 0.36%.
+    - **The conclusions do not depend on the environment.** The numbers are not bit-reproducible across stacks.
+  - The percentile fire bootstrap is mildly anti-conservative (6.3–6.8% under a sign-flip null). The exact sign-flip
+    test gives p ≈ 0.0001 for MCEM − plug-in and MCEM − NLL.
+- **Row 47, cv_baselines 7cc21f47: SPLIT.**
+  - Baselines and non-composite pairs: **PASS WITH NOTES**. Composite rows: **FAIL**.
+  - Correction: the 0–1 km share of the MCEM − plug-in gap is **92.5%**, not ~91%.
+- **Row 48, fold-kernel diagnostics c31aa70a: PASS WITH NOTES.**
+  - The chain reproduces in the pinned environment, using the E1 fold kernels (none at a bound).
+  - "Weak evidence" is the right strength for the detrended persistence: the interval only just clears 0, and the p
+    values are unadjusted across ~32 configurations.
+- The full pinned CV (E3, results/cv_part_a_pinned.json) is still the version of record. It includes the composite
+  with the guard.
