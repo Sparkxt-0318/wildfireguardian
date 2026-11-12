@@ -1,10 +1,15 @@
 {
  "schema": "S-D9 FREEZE stage 1",
+ "headline_candidate_part_c": {
+  "primary": "d2_bracket_rebuilt",
+  "fallback": "d2_nll_rebuilt",
+  "others": "secondary, each with its own \u00a76.1 verdict, no multiplicity adjustment",
+  "declared": "A1 revision 29, before any part b/c/d access"
+ },
  "status": "STAGE 1 (A1 text, harness, cohorts and code pins). Not in force until Hannah verifies this commit and Iris re-assesses A1 (A1 \u00a79). Stage 2 is added by amendment before part c opens.",
- "frozen_from_commit_parent": "f5c7d17c7d3893c96392cbf37295f11576880035",
- "a1_sha256": "8edb4e7735042158fe02b592cb81fdfa2efed4b6bbdc646816c7df7e85c14de1",
+ "a1_sha256": "79010003bafa747d0caf27aaa1e6a2dc5214bd6e6c1a20a1cd8505bb81b0d51e",
  "local_files": {
-  "PREREGISTRATION_ADDENDUM.md": "8edb4e7735042158fe02b592cb81fdfa2efed4b6bbdc646816c7df7e85c14de1",
+  "PREREGISTRATION_ADDENDUM.md": "79010003bafa747d0caf27aaa1e6a2dc5214bd6e6c1a20a1cd8505bb81b0d51e",
   "INVENTORY.md": "d7f854869a52f0249999bc5aa7eba5c7599a8f7f7f352ba49d1723024bfa5377",
   "README.md": "f8b1d4bca0fb5fa041c12da88f26ebd92e2dc426abc4217f063de54bbb246782",
   "requirements.txt": "576468924943b8d368b3ffa5b97244c8ef2a478d91b0c7529eeb018760202d79",
@@ -65,49 +70,49 @@
  "external_pins": [
   {
    "label": "forecast-v2 pipeline (unchanged)",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "research/forecast-v2/scripts/pipeline.py",
    "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
   },
   {
    "label": "forecast-v2 RUN_PROTOCOL",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "research/forecast-v2/RUN_PROTOCOL.json",
    "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243"
   },
   {
    "label": "forecast/wildfire prepare.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/prepare.py",
    "sha256": "e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0"
   },
   {
    "label": "forecast/wildfire train.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/train.py",
    "sha256": "9c8a62150589b7d7785205e160f32e6a0d209dd4c01de27736c38d4244244b0e"
   },
   {
    "label": "forecast/wildfire data.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/data.py",
    "sha256": "8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230"
   },
   {
    "label": "forecast/wildfire search.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/search.py",
    "sha256": "136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4"
   },
   {
    "label": "forecast/wildfire baselines.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/baselines.py",
    "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f"
   },
   {
    "label": "forecast/wildfire survival.py",
-   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "commit": "this commit",
    "path": "forecast/wildfire/survival.py",
    "sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
   },
@@ -166,6 +171,24 @@
    "sha256": "8099d39ad766a0ff2fc5688316db48746f6a77075141762cd738340644f22a3a"
   },
   {
+   "label": "d2_nll_rebuilt wrapper (\u00a73.1 item 21)",
+   "commit": "10b022850bd9b86f0047ca34e0d3a2c820ba2d4f",
+   "path": "research/harness-2026-11/S-D2/refit/run_d2.py",
+   "sha256": "e3c0843c60ff8a5f315a1095a6ac990936ed25c8682269dc8259ad4942a1b435"
+  },
+  {
+   "label": "Daniel archive-vs-rebuild comparison (\u00a71.2 item 14)",
+   "commit": "4c6430332d1213808b0a4a70120828b128e6d27a",
+   "path": "research/harness-2026-11/data-fetch-3/archive_vs_rebuild/cmp_region.py",
+   "sha256": "9857fe46dd81fed7ba946b06e4a5abcdfff74a9ab071f0107cd5fda68cde717c"
+  },
+  {
+   "label": "Daniel archive-vs-rebuild AlderCreek table",
+   "commit": "4c6430332d1213808b0a4a70120828b128e6d27a",
+   "path": "research/harness-2026-11/data-fetch-3/archive_vs_rebuild/AlderCreek_archive_vs_rebuild.csv",
+   "sha256": "28ac46d8263d49dc89f8dedf1406e0ac0b9f9789a33aeb5f387b5ccc9a80ede6"
+  },
+  {
    "label": "events.json used for the c651 data root",
    "commit": "8d50f2e294f36e6a29a86d1b859cd4f02514ba3b",
    "path": "forecast/data/environment/events.json",
@@ -175,7 +198,7 @@
  "stage2_required_before_part_c_opens": [
   "rebuilt input manifest: data root layout, every input file sha256, rebuild_env.sh commit (Daniel)",
   "refit checkpoints and receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, c651 arms on/off (with REFIT_RECEIPT_ADDENDUM bound to each wrapper receipt)",
-  "D2 wrapper shas: d2_nll_rebuilt, d2_bracket_rebuilt (Elena), recorded before each runs",
+  "D2 wrapper sha: d2_bracket_rebuilt (Elena), recorded before it runs (d2_nll_rebuilt is pinned in stage 1)",
   "rate-mixture final form, if adopted by amendment",
   "\u00a75.2 native cumulative marginals demonstrated on R for each D1/D2 candidate",
   "part-c manifests (incident list, perimeters by hash) verified before part c opens (\u00a79)",

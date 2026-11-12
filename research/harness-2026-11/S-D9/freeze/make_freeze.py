@@ -1,5 +1,7 @@
 """Write FREEZE.json, stage 1 (A1 §9): the frozen identity of A1, the harness, the cohorts and every
-pinned external file. It is run from a clean checkout and refuses on any pin mismatch.
+pinned external file. It refuses on any pin mismatch. The output depends only on file contents and
+pinned git objects, so it is identical whenever it is re-run at the commit that contains it (no HEAD
+or working-tree field is recorded).
 
 External pins are checked by reading the file at its commit (`git show COMMIT:PATH`) and hashing
 it, so a pin never relies on a hash copied by hand. Stage 2 (inputs, checkpoints, D2 wrappers,
@@ -53,6 +55,12 @@ EXTERNAL = [
      "research/harness-2026-11/data-fetch-3/kr_smoke/kr_check.py", "d3683886"),
     ("Daniel KR non-weather check (13 events)", "dd154036bad4b43f4d2e23157a2f1b13f7888239",
      "research/harness-2026-11/data-fetch-3/kr_nonweather_13/kr_check_all.py", "8099d39a"),
+    ("d2_nll_rebuilt wrapper (§3.1 item 21)", "10b022850bd9b86f0047ca34e0d3a2c820ba2d4f",
+     "research/harness-2026-11/S-D2/refit/run_d2.py", "e3c0843c"),
+    ("Daniel archive-vs-rebuild comparison (§1.2 item 14)", "4c6430332d1213808b0a4a70120828b128e6d27a",
+     "research/harness-2026-11/data-fetch-3/archive_vs_rebuild/cmp_region.py", "9857fe46"),
+    ("Daniel archive-vs-rebuild AlderCreek table", "4c6430332d1213808b0a4a70120828b128e6d27a",
+     "research/harness-2026-11/data-fetch-3/archive_vs_rebuild/AlderCreek_archive_vs_rebuild.csv", "28ac46d8"),
     ("events.json used for the c651 data root", "8d50f2e294f36e6a29a86d1b859cd4f02514ba3b",
      "forecast/data/environment/events.json", "607f831e"),
 ]
@@ -61,7 +69,7 @@ STAGE2_REQUIRED = [
     "rebuilt input manifest: data root layout, every input file sha256, rebuild_env.sh commit (Daniel)",
     "refit checkpoints and receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, c651 arms on/off "
     "(with REFIT_RECEIPT_ADDENDUM bound to each wrapper receipt)",
-    "D2 wrapper shas: d2_nll_rebuilt, d2_bracket_rebuilt (Elena), recorded before each runs",
+    "D2 wrapper sha: d2_bracket_rebuilt (Elena), recorded before it runs (d2_nll_rebuilt is pinned in stage 1)",
     "rate-mixture final form, if adopted by amendment",
     "§5.2 native cumulative marginals demonstrated on R for each D1/D2 candidate",
     "part-c manifests (incident list, perimeters by hash) verified before part c opens (§9)",
@@ -81,8 +89,6 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, type=Path)
     args = ap.parse_args()
-    if git("status", "--porcelain", "--", str(HERE)).strip():
-        raise SystemExit("refusing: uncommitted changes under S-D9; freeze from a clean checkout")
     local = {}
     for pattern in LOCAL_GLOBS:
         for f in sorted(HERE.glob(pattern)):
@@ -94,13 +100,14 @@ def main() -> None:
         h = sha(data)
         if not h.startswith(prefix):
             raise SystemExit(f"pin mismatch for {label}: {h[:12]} does not start with {prefix}")
-        external.append(dict(label=label, commit=commit or git("rev-parse", "HEAD").decode().strip(),
-                             path=path, sha256=h))
+        external.append(dict(label=label, commit=commit or "this commit", path=path, sha256=h))
     out = dict(
         schema="S-D9 FREEZE stage 1",
+        headline_candidate_part_c=dict(primary="d2_bracket_rebuilt", fallback="d2_nll_rebuilt",
+                                       others="secondary, each with its own §6.1 verdict, no multiplicity adjustment",
+                                       declared="A1 revision 29, before any part b/c/d access"),
         status="STAGE 1 (A1 text, harness, cohorts and code pins). Not in force until Hannah verifies this "
                "commit and Iris re-assesses A1 (A1 §9). Stage 2 is added by amendment before part c opens.",
-        frozen_from_commit_parent=git("rev-parse", "HEAD").decode().strip(),
         a1_sha256=local["PREREGISTRATION_ADDENDUM.md"],
         local_files=local, external_pins=external, stage2_required_before_part_c_opens=STAGE2_REQUIRED,
         sealed=dict(parts=["b", "c", "d"], h_test=["Windy", "SCU Lightning Complex", "Dolan", "Walker",
