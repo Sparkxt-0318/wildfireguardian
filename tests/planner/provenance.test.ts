@@ -212,3 +212,22 @@ describe('message-kit staff block (W-KIT): the provenance line goes to staff onl
     expect(counts).toEqual({ window: 473, present_fire: 7, forecast_dependent: 21, unresolved_proven_no_route: 10, none: 20 });
   });
 });
+
+describe('kit staff line fails closed on a mismatched label (Mira N1)', () => {
+  it('a deadline label (window / present_fire / forecast_dependent) on a place without a checked time gives no line and no new violation, in ko and en', () => {
+    let n = 0;
+    for (const b of booth) for (const i of b.inputs) {
+      const mp = messagePlan(i, null);
+      if (mp.kind === 'leave_by') continue;
+      for (const prov of [{ kind: 'window', horizonS: 3600 }, { kind: 'present_fire', horizonS: 3600 }, { kind: 'forecast_dependent', laterMin: 7, horizonS: 3600 }] as const) {
+        const a = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z' });
+        const s = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z', deadlineProvenance: prov });
+        expect(s.text.ko.staff.provenance ?? null).toBeNull();
+        expect(s.text.en.staff.provenance ?? null).toBeNull();
+        expect(s.violations).toEqual(a.violations);
+        n += 1;
+      }
+    }
+    expect(n).toBe(30 * 3);
+  });
+});

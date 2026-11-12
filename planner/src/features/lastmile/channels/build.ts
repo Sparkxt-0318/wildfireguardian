@@ -744,7 +744,7 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       voice: voice(p, lang),
       familyText: familyText(p, lang),
       familyScript: familyScript(p, lang),
-      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt), provenance: staffProvenanceLine(opt.deadlineProvenance ?? null, lang) },
+      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt), provenance: staffProvenanceLine(opt.deadlineProvenance ?? null, lang, p) },
     };
   }
   const checked = checkIssuer(opt.issuer);
@@ -845,11 +845,13 @@ function inserted(p: MessagePlan, iss: Issuer | null = null): string[] {
 }
 
 /** The staff provenance line: tag, text, help sentence and footer, as in the planner panel (staff only). */
-function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang): string | null {
+function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang, plan: MessagePlan): string | null {
   if (!p) return null;
+  const timed = p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent';
+  // fail closed in the kit itself (Mira N1): a label about a deadline is dropped where the kit gives no checked time
+  if (timed && (plan.kind !== 'leave_by' || plan.leaveByS === null)) return null;
   const text = provenanceText(p, lang);
   if (!text || p.kind === 'none') return null;
-  const timed = p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent';
   const head = lang === 'ko' ? '[직원용] 마감 근거(모델)' : '[Staff] Deadline set by (model)';
   return [`${head}: ${PROVENANCE_TAG[p.kind][lang]} — ${text}`, ...(timed ? [PROVENANCE_HELP[lang]] : []), PROVENANCE_FOOTER[lang]].join(' ');
 }
