@@ -72,6 +72,7 @@ def part_4a(routes_dir):
                              'dwell_seconds_q_ge_1': int((in1 & (kinds == 'DWELL')).sum()), 'dwell_seconds_q_ge_2p5': int((in25 & (kinds == 'DWELL')).sum()),
                              'wait_seconds_q_ge_1': int((in1 & (kinds == 'WAIT')).sum()), 'wait_seconds_q_ge_2p5': int((in25 & (kinds == 'WAIT')).sum()),
                              'moving_seconds_q_ge_1': int((in1 & (kinds == 'EDGE')).sum()),
+                             'issue_seconds_q_ge_1': int((in1 & (kinds == 'ISSUE')).sum()),   # departure instant; dwell+wait+moving+issue = total
                              'destination_inside_1p0_during_stay': bool((in1 & (kinds == 'DWELL')).any()),
                              'destination_inside_2p5_during_stay': bool((in25 & (kinds == 'DWELL')).any()),
                              'max_q_kw_m2': float(q.max()), 'fractional_dose': fd, 'fd_ge_1': fd >= 1.0})
