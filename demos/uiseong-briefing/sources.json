@@ -1,0 +1,51 @@
+{
+  "schema": "wfg.uiseong-briefing-sources/1",
+  "projection": "EPSG:5179",
+  "window": [
+    1111500,
+    1819200,
+    1121250,
+    1828950
+  ],
+  "studyInputsSha256": {
+    "graph": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "ways": "a30e1f054a5e1447f024a35320703030e1e2b56de76e78f672ee035587b1cb17",
+    "firms": "d8f98e5e68e6f7b765d03a2bc0be2fb171246600a0fcf5bb1d2eb71d634f1e9a"
+  },
+  "nasaCountryFilesSha256": {
+    "viirs-jpss1_2025_Republic_of_Korea.csv": "2aedf6756368b9b9de573ad7d1f51dfa43e8f55abd87a39ddd72d339d55db17a",
+    "viirs-snpp_2025_Republic_of_Korea.csv": "991230c0358dcead74cf8e7d883852e8e3e3c936d384a125123a668c0051a0f8"
+  },
+  "archivedCorridor": {
+    "archiveCase": "counterfactual_baseline_first",
+    "checksSha256": "6ee580abf62fd673790242cdc8cdd445ac7486370f4f87d363175af83dba6368",
+    "graphSha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "crs": "EPSG:5179"
+  },
+  "modelWindows": [
+    {
+      "start": "2025-03-23T01:00:00+00:00",
+      "endExclusive": "2025-03-23T02:00:00+00:00",
+      "arraysSha256": "e471830a42223cb59ef2ed56da8a948d4387233efe7e51adca2a20f5a6aaea13",
+      "metadataSha256": "d9d672c006e9718f71c5efe1ccc09721e9c28ee1d1d3bf7192e058997a1bdf4c"
+    },
+    {
+      "start": "2025-03-24T09:00:00+00:00",
+      "endExclusive": "2025-03-24T10:00:00+00:00",
+      "arraysSha256": "21325e301191d93f2fceab58d391ef828d6ed5e05c7bc77ecc0c64588462363e",
+      "metadataSha256": "e2e48196261def27bf62ac0221f433e161c4348e6b883d988072d9d58448213d"
+    },
+    {
+      "start": "2025-03-25T17:00:00+00:00",
+      "endExclusive": "2025-03-25T18:00:00+00:00",
+      "arraysSha256": "d581ba929d1fb1086e1c92857f14bff25c94a7d21e224264a433b5ca4ca44198",
+      "metadataSha256": "754a38db01f9d9b14de9c4e572826b473a4a66ea87d8a6c6cbe783b887b0cefa"
+    }
+  ],
+  "embeddedComponentsSha256": {
+    "data/replay.json": "dbe833e8ca9e91c0434b6bc76800c617465e291d67e463acc8133a37a7c1edc2",
+    "field/watch.json": "9641cd3bf7806df82127bb1ae5e31e32afd3b0a99b359e1a9a0c6ba881d08cea",
+    "field/forecasts.json": "798bfaf5046089a218167c39931c35da19ebfd46ad812d15d1a5095f53948fea"
+  },
+  "dataJsSha256": "3f069eba7404fa7e53efb0a86f292aa18579645f0c7dce28845404c162def5fb"
+}
