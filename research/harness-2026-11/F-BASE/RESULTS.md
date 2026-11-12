@@ -160,7 +160,7 @@ Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `pyth
   - Only 554 of 23,158 nodes (Uiseong) and 1,527 of 56,369 (Yeongdeok) are waitable.
   - These are road-limited relaxation verdicts.
 - **Rates:** per request, N1 14/432 and N2 10/432. Per distinct case, failures occur in 7 cases (N1 5, N2 2) out of
-  the 432 requests, which are ~216 distinct (start, origin, departure) triples across 2 horizons × 2 variants.
+  108 distinct (start, origin, departure) triples (432 requests = 108 × 2 horizons × 2 variants).
 
 **Verification:** Nora, **PASS WITH NOTES** (ledger row 55).
 - She recounted every number and re-ran 6 packets (108 requests, including all 7 distinct failures), which came out
