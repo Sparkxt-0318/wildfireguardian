@@ -1,6 +1,6 @@
 """Per-cell NIROPS survey brackets for part-a training fires (raw-bracket arm input).
 
-Reads ONLY incidents listed in S-D9's PART_A_ALLOWLIST_FINAL.csv (sha256 801acdd8...; each incident is
+Reads ONLY incidents listed in S-D9's PART_A_ALLOWLIST_FINAL.csv (sha256 7db3cc0e... at 2d40d170; earlier 801acdd8 superseded; each incident is
 read with an attribute filter, nothing else is opened). Selection rule, fixed before any perimeter is
 read: allowlisted incidents with ``surveys >= 20``, in Incident_C order.
 
