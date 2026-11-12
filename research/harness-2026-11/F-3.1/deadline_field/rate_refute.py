@@ -103,13 +103,46 @@ def main():
            "secondary_all_pairs": {"max_kmh": allpair_max,
                                    "note": "dominated by simultaneous detections on separate fronts; not used for the decision"},
            "decision": None}
+    # documented interval (KFS: 25 Mar 14:00 -> 26 Mar 02:00 KST = 05:00 -> 17:00 UTC) and consecutive overpasses
+    import pandas as pd
+    P = sorted(d.t.unique())
+    near = lambda t: min(P, key=lambda p: abs(p - t))
+
+    def advance(a, b, newer):
+        A = d[d.t <= a]
+        B = d[newer]
+        XA = np.c_[A.x.values, A.y.values]
+        dist = np.array([np.min(np.hypot(*(XA - [x, y]).T)) for x, y in zip(B.x.values, B.y.values)]) / 1000.0
+        return float(dist.max()), int(np.argmax(dist)), B
+
+    pa, pb = near(pd.Timestamp("2025-03-25 05:00")), near(pd.Timestamp("2025-03-25 17:00"))
+    dmax, k, B = advance(pa, pb, (d.t > pa) & (d.t <= pb))
+    gap = (pb - pa).total_seconds() / 3600
+    out["documented_interval_check"] = {"interval": "KFS 25 Mar 14:00 -> 26 Mar 02:00 KST (05:00 -> 17:00 UTC)",
+                                        "overpasses": [str(pa), str(pb)], "gap_h": round(gap, 2),
+                                        "max_new_detection_distance_from_prior_extent_km": round(dmax, 2),
+                                        "at": {"time": str(B.t.iloc[k]), "lat": float(B.latitude.iloc[k]),
+                                               "lon": float(B.longitude.iloc[k])},
+                                        "implied_mean_kmh": round(dmax / gap, 2)}
+    cons = []
+    for a_, b_ in zip(P, P[1:]):
+        dm, _, _ = advance(a_, b_, d.t == b_)
+        h = (b_ - a_).total_seconds() / 3600
+        cons.append({"from": str(a_), "to": str(b_), "gap_h": round(h, 2), "km": round(dm, 2), "kmh": round(dm / h, 2)})
+    ge3 = [c for c in cons if c["gap_h"] >= 3]
+    out["context_consecutive_overpasses"] = {
+        "max_gap_ge_3h": max(ge3, key=lambda c: c["kmh"]) if ge3 else None,
+        "max_any_gap": max(cons, key=lambda c: c["kmh"]),
+        "note": "context only; short gaps are confounded by sensor swath coverage", "all": cons}
+    out["wording"] = "uninformative about 8.2 km/h (low power), not contradicted"
     out["decision"] = ("8.2 km/h EXCEEDED by %d detections: refuted unless each is attributed to a separate ignition or "
                        "spotting (case-by-case, see top10)" % out["primary_r_j_kmh"]["n_gt_8.2"]
                        if out["primary_r_j_kmh"]["n_gt_8.2"] else
-                       "not refuted by these detections (not a proof: unseen arrivals between overpasses, cloud/smoke)")
+                       "not refuted; low power (max per-detection lower bound %.2f km/h, documented 12-h mean ~4.25 km/h)"
+                       % out["primary_r_j_kmh"]["max"])
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({k: out[k] for k in ("filters", "overpasses_with_detection", "detections_without_earlier_source",
-                                          "primary_r_j_kmh", "secondary_all_pairs", "decision")}, indent=1, default=str))
+                                          "primary_r_j_kmh", "secondary_all_pairs", "documented_interval_check", "decision")}, indent=1, default=str))
 
 
 if __name__ == "__main__":
