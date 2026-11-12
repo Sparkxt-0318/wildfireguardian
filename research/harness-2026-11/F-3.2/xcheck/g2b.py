@@ -1,9 +1,10 @@
 """G2b (kit v2 PLAN.md, Thomas's review): necessary-condition cross-check of v2 decisions against the F-3.2 certified
 contact relaxation, which is a lower bound on the full policy (CERTIFICATE_SPEC.md §4a, §5).
 
-Per v2 run folder (JOB.json, RESULT.json, COMPLETE_PROCESS_RECEIPT.json; paths in JOB relative to --kit-root):
-  decision      the kit's own journey_decision_v2_1.decision_from_worker_record (as native_tally does), or a
-                DECISION.json in the folder if present;
+Per v2 run folder (JOB.json, RESULT.json, COMPLETE_PROCESS_RECEIPT.json; JOB paths absolute, or relative to --kit-root):
+  decision      the decision the worker PUBLISHED (RESULT.decision); else DECISION.json; else the kit's
+                decision/<--decision-module, default journey_decision>.decision_from_worker_record. The route is
+                RESULT.result if it has a destination, else RESULT.result.checked_incumbent (Z-published routes);
   packet gate   X1 rules 0-2 on the packet (arrays routable, HAZARD cells = ContactModel cells, starts equal, ends within
                 1 us); a packet that fails is NOT_APPLICABLE (the relaxation would not describe the stated hazard);
   relaxation    build_instance + generate.certify, accepted by BOTH checkers with the same claim/T.
@@ -13,7 +14,8 @@ non-integer departure is reported NOT_APPLICABLE_NONINTEGER, never a violation):
   (b) relaxation NO_ROUTE => no success status (no published route);
   (c) FULL_MODEL_REFUSAL_PROVEN while the relaxation has a ROUTE is LISTED (not a contradiction: the relaxation is weaker).
 These are necessary conditions, not a proof of optimality. Exit status 1 on any violation or checker failure.
-Usage: python g2b.py --kit-root R --runs DIR [DIR...] --c-checker PATH --out FILE
+Usage: python g2b.py --kit-root R --runs DIR [DIR...] --c-checker PATH --out FILE [--decision-module journey_decision]
+C checker: make -C research/harness-2026-11/F-3.2/checker_c  (builds research/harness-2026-11/F-3.2/checker_c/wfgc_check)
 """
 from __future__ import annotations
 
@@ -93,20 +95,44 @@ def relaxation(graph, request, pk, c_checker):
     return claim, T, ih, (py == cc == want), py, cc
 
 
-def decision_of(run, kit_root):
-    if (run / "DECISION.json").exists():
-        d = json.loads((run / "DECISION.json").read_text())
-        return d["authoritative_status"], d.get("journey") or {}, d
-    sys.path.insert(0, str(kit_root / "decision"))
-    import journey_decision_v2_1 as JD
+def route_of(sr):
+    """The kit's rule (journey_decision.route_of): the primary route if it has a destination, else a checked incumbent
+    (Z-published routes live in RESULT.result.checked_incumbent)."""
+    if not isinstance(sr, dict):
+        return None
+    if sr.get("destination") is not None:
+        return sr
+    inc = sr.get("checked_incumbent")
+    return inc if isinstance(inc, dict) and inc.get("destination") is not None else None
+
+
+def decision_of(run, kit_root, module="journey_decision"):
+    """The decision the worker PUBLISHED: RESULT.decision (what v2 claimed) when present; else DECISION.json; else the
+    kit's decision/<module>.decision_from_worker_record on the raw records. Returns (status, journey, source)."""
     J = lambda p: json.loads(Path(p).read_text())
-    job, res = J(run / "JOB.json"), J(run / "RESULT.json")
-    rc = J(run / "COMPLETE_PROCESS_RECEIPT.json")
-    dec = JD.decision_from_worker_record(res, rc, job, graph=J(kit_root / job["graph_path"]), request=J(kit_root / job["request_path"]),
-                                         hazard=J(kit_root / job["hazard_path"]), optimality_certificate=res.get("optimality_certificate"),
-                                         refusal_certificate=res.get("refusal_certificate"))
-    route, _ = JD.route_of(res.get("result") if isinstance(res.get("result"), dict) else {})
-    return dec["authoritative_status"], dict(dec.get("journey") or {}, legs=(route or {}).get("legs", [])), dec
+    res = J(run / "RESULT.json") if (run / "RESULT.json").exists() else {}
+    route = route_of(res.get("result")) or {}
+    if isinstance(res.get("decision"), dict) and res["decision"].get("authoritative_status"):
+        d = res["decision"]
+        j = dict(d.get("journey") or {})
+        j.setdefault("arrival", route.get("arrival")); j["legs"] = route.get("legs", [])
+        return d["authoritative_status"], j, "RESULT.decision"
+    if (run / "DECISION.json").exists():
+        d = J(run / "DECISION.json")
+        return d["authoritative_status"], d.get("journey") or {}, "DECISION.json"
+    sys.path.insert(0, str(kit_root / "decision"))
+    JD = __import__(module)
+    job, rc = J(run / "JOB.json"), J(run / "COMPLETE_PROCESS_RECEIPT.json")
+    dec = JD.decision_from_worker_record(res, rc, job, graph=J(resolve(kit_root, job["graph_path"])),
+                                         request=J(resolve(kit_root, job["request_path"])), hazard=J(resolve(kit_root, job["hazard_path"])),
+                                         optimality_certificate=res.get("optimality_certificate"), refusal_certificate=res.get("refusal_certificate"))
+    return dec["authoritative_status"], dict(dec.get("journey") or {}, legs=route.get("legs", [])), "decision/%s.py" % module
+
+
+def resolve(root, p):
+    """JOB paths may be absolute (v2 workers) or relative to the kit root (frozen runner)."""
+    p = Path(p)
+    return p if p.is_absolute() else Path(root) / p
 
 
 def main(argv=None):
@@ -115,15 +141,18 @@ def main(argv=None):
     ap.add_argument("--runs", nargs="+", required=True)
     ap.add_argument("--c-checker", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--decision-module", default="journey_decision", help="decision/<module>.py, used only when RESULT has no decision")
     a = ap.parse_args(argv)
     R = Path(a.kit_root)
     rows = []
     for run in map(Path, a.runs):
         job = json.loads((run / "JOB.json").read_text())
-        graph = json.loads((R / job["graph_path"]).read_text()); request = json.loads((R / job["request_path"]).read_text())
-        pk = R / job["source_directory"]
-        status, journey, _ = decision_of(run, R)
-        row = dict(run=run.name, status=status, arrival=str(journey.get("arrival")) if journey.get("arrival") is not None else None)
+        graph = json.loads(resolve(R, job["graph_path"]).read_text()); request = json.loads(resolve(R, job["request_path"]).read_text())
+        pk = resolve(R, job["source_directory"])
+        status, journey, source = decision_of(run, R, a.decision_module)
+        res = json.loads((run / "RESULT.json").read_text()) if (run / "RESULT.json").exists() else {}
+        row = dict(run=run.name, status=status, decision_source=source, kit_identity=res.get("kit_identity"),
+                   arrival=str(journey.get("arrival")) if journey.get("arrival") is not None else None)
         ok, gate, writer = packet_gate(pk, int(F(request["horizon"])))
         row.update(writer=writer, packet_gate=gate)
         if not ok:
