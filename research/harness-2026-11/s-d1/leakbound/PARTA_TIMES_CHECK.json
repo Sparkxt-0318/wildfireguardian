@@ -1,0 +1,16 @@
+{
+ "plan": "LEAK_BOUND_PLAN.md rev 1 (615ffc14) item 1",
+ "allowlist_sha256": "7db3cc0ef084d4ed09624a0b2ad14ffebc90a94fe7efb94cab8dd2d4f09f85cd",
+ "shapefile_sha256": "a14f391ae0e2f75a1d218aed91ad03eb35bfc311a4909021f9fe1f6310fdf09b",
+ "nirops_access_sha256": "08753d9669ccfedc48f50a0f6b3f42897f9a63e30ead8ea0e8c0183b80613a2b",
+ "perimeter_manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+ "parta_times_sha256": "dd6b36f9fdef3bba4f9aeadaab768d0a09eb608d21b34d51a65c1e890505de29",
+ "n_allowlisted": 490,
+ "n_with_metadata": 490,
+ "n_records_read": 5165,
+ "n_differ_from_states": 0,
+ "max_abs_d_last_s": 0.0,
+ "max_abs_d_first_s": 0.0,
+ "max_abs_d_surveys": 0,
+ "differing": []
+}
