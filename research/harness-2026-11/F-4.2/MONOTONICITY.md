@@ -42,17 +42,30 @@ needs no repeated search.
 
 Admissibility in general is **not** monotone, because advanced sources also burn out earlier. Take a destination
 dwell `[3480, 3600]` (t_end = H = 3600) and two sources near the destination, each giving flux k at the dwell point:
-S1 with `b = 10` and S2 with `b = 3590`, with T = 3970 and a dose budget `B = 200·k·s`.
+S1 with `b = 10` and S2 with `b = 3590`, T = 3970.464… s (the frozen exports' cell duration) and a dose budget
+`B = 200·k·s`. `counterexample.py` evaluates this in exact rational arithmetic:
 
-| δ (s) | S1 active over dwell | S2 active over dwell | dwell dose | admissible |
+| δ (s) | S1 over dwell (`[10−δ, 3980.46−δ)`) | S2 over dwell (`[3590−δ, …)`) | dwell dose | admissible |
 |---|---|---|---|---|
-| 0 | all 120 s (`[10, 3980)`) | 10 s (`[3590, …)`) | 130 k | yes |
-| 100 | all 120 s (`[−90, 3880)`) | 110 s (`[3490, …)`) | 230 k | **no** |
-| 500 | none (`[−490, 3480)` ends at the dwell start) | all 120 s | 120 k | **yes** |
+| 0 | 120 s | 10 s | 130 k | yes |
+| 100 | 120 s | 110 s | 230 k | **no** |
+| 450 | 50.46 s | 120 s | 170.46 k | **yes** |
+| 500 | 0.46 s | 120 s | 120.46 k | yes |
 
-The route is admissible at δ = 0, inadmissible at δ = 100 and admissible again at δ = 500. Bisection on δ can
-therefore land on a later transition and over-report the margin. The breakdown needs `δ ≥ b + T − t_end`, which is
-outside Claim 1's range.
+The route is admissible exactly on `δ ∈ [0, 70]` and on `δ ≥ 420.464…`, and inadmissible in between. Bisection on δ
+can therefore land on the later transition and over-report the margin. Re-admission needs `δ ≥ b + T − t_end` for
+some source, which lies outside Claim 1's range (here `δ < 380.46`).
+
+**Under the shipped limits on the frozen panel this cannot flip a verdict.** Across the 15 published routes the
+certified dose upper bound is at most 0.33 of the dose budget, and 0.30 of that is recorded incurred history on three
+missions. The certified peak upper bound is at most 0.0005 of the peak budget. Radiation never binds, so every verdict
+is decided by contact, which is monotone on `[0, T]` (Claim 2). The counterexample needs a dose limit that binds
+during the dwell.
+
+**Status (12 Nov):** following this counterexample and the finding that ignition timing rarely constrains these
+routes, the ignition-advance margin is dropped as the headline. The closed-form contact time margin
+`min(b − t_exit)` is kept as a diagnostic column. The primary margin is the spatial clearance in `clearance.py`
+(nested dilations, so it is monotone by construction).
 
 ## Consequences for computing a margin
 
