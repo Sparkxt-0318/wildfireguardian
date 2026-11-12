@@ -207,3 +207,9 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
   and no-re-entry: HAZARD, REPORT, NATIVE_METADATA and npz sha256 are identical to the earlier builds (`6940f293`,
   `509c3496`).
 - **Manifest unchanged.** `MANIFEST_v3_6` regenerates byte-identical.
+- **Nora: PASS, ledger row 56a.**
+  - Her rebuilds: HAZARD, npz, REPORT and NATIVE_METADATA are byte-identical to her 1fa85140 builds. BUILD_SUMMARY
+    differs only by the added `writer_identity` key.
+  - Her row-56 (a) byte comparison had included BUILD_SUMMARY, so she amended it. The reopening build is now
+    byte-identical to v3.5 in **4 of 5** files: everything except BUILD_SUMMARY. HAZARD identity, acceptance item 1,
+    still holds.
