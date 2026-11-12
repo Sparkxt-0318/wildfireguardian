@@ -68,7 +68,14 @@ def leave_one_fire_out(fires: np.ndarray, p: np.ndarray, y: np.ndarray, interval
         m = fires == held
         rows[held] = dict(calibration=c, held_out=evaluate(p[m], y[m], interval[m], c["threshold"]))
     fnrs = [r["held_out"]["fnr"] for r in rows.values() if r["held_out"]["fnr"] is not None]
+    feas = [r for r in rows.values() if r["calibration"]["feasible"]]
+    feas_fnr = [r["held_out"]["fnr"] for r in feas if r["held_out"]["fnr"] is not None]
+    # "all folds" averages count an infeasible fold as FNR 0 and zone 1 (the whole domain); the
+    # feasible-only means exclude those uninformative folds (Hannah's note). Report both.
     return dict(alpha=alpha, folds=len(names), per_fire=rows,
                 mean_held_out_fnr=float(np.mean(fnrs)) if fnrs else None,
                 mean_zone_share=float(np.mean([r["held_out"]["zone_share_of_scored"] for r in rows.values()])),
-                folds_feasible=int(sum(r["calibration"]["feasible"] for r in rows.values())))
+                folds_feasible=len(feas),
+                mean_held_out_fnr_feasible_only=float(np.mean(feas_fnr)) if feas_fnr else None,
+                mean_zone_share_feasible_only=float(np.mean([r["held_out"]["zone_share_of_scored"] for r in feas]))
+                if feas else None)

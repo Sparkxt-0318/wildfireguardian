@@ -128,3 +128,13 @@ def test_lofo_controls_risk_on_exchangeable_fires():
     assert out["folds_feasible"] == 60
     assert out["mean_held_out_fnr"] <= 0.2 + 0.03
     assert out["mean_zone_share"] < 1.0
+    assert out["mean_held_out_fnr_feasible_only"] == pytest.approx(out["mean_held_out_fnr"])
+
+
+def test_lofo_feasible_only_means_exclude_uninformative_folds():
+    fires = np.array(["A"] * 4 + ["B"] * 4)
+    p = np.array([0.9, 0.8, 0.1, 0.0, 0.9, 0.8, 0.1, 0.0])
+    y = np.array([1, 1, 0, 0, 1, 1, 0, 0])
+    out = leave_one_fire_out(fires, p, y, np.zeros(8, int), alpha=0.1)   # n = 1: infeasible
+    assert out["folds_feasible"] == 0 and out["mean_zone_share"] == 1.0
+    assert out["mean_held_out_fnr_feasible_only"] is None and out["mean_zone_share_feasible_only"] is None

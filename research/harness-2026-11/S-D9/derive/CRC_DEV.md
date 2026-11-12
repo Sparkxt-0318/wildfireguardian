@@ -2,7 +2,7 @@
 
 This is A1 §5.4 (revision 27). The procedure, the α values and the predictors were committed at 2c9f6349 **before** this run. It uses cohort R only: 6 exposed US2024 fires, full-rectangle perimeter labels, leave-one-fire-out, so each fold calibrates on n = 5 fires. **Nothing here is confirmatory, and no sealed fire is used.**
 
-Reproduce: `python derive/crc_dev.py --dist <derive_dist output> --out CRC_DEV.json` (sha256 41c35991…).
+Reproduce: `python derive/crc_dev.py --dist <derive_dist output> --out CRC_DEV.json` (sha256 9ddfc33a…; the earlier 41c35991… output lacked the feasible-only means, and its numbers are otherwise unchanged).
 
 **What is reported.**
 - The zone is {p ≥ t̂}. The FNR is the share of a held-out fire's new-burn cells that fall outside its zone.
@@ -28,7 +28,7 @@ Reproduce: `python derive/crc_dev.py --dist <derive_dist output> --out CRC_DEV.j
 - **4 km band, α = 0.2.**
   - d4_wind: zone share 0.676 of band cells, FNR 0.046.
   - logistic: 0.857 and 0.058.
-  - c651_mc: feasible on 2 of 6 folds only.
+  - c651_mc: feasible on 2 of 6 folds only. *Averaged over all folds* it shows FNR 0.031 and zone 0.897, but that mixes in 4 uninformative whole-domain folds. **Over the 2 feasible folds only** it is FNR 0.092 and zone 0.690 (Hannah's note). Every summary now reports both kinds of mean.
 
 ## Reading
 
@@ -41,6 +41,8 @@ Reproduce: `python derive/crc_dev.py --dist <derive_dist output> --out CRC_DEV.j
 4. **Per-fire FNR varies widely.** For example, the logistic misses 30% on Lava, and d4_wind misses 15.5% on Wapiti. The guarantee holds only in expectation over exchangeable fires, and 6 fires cannot verify it.
 
 ## Limits
+
+- **The guarantee is a marginal expectation over exchangeable fires.** It says nothing about any single fire, and 6 leave-one-fire-out folds cannot check it empirically.
 
 - Cohort R is exposed, and the 6 fires are from one season.
 - Intervals within a fire are dependent.
