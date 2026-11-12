@@ -393,6 +393,80 @@ def _fpp_cmc(K, offs, initial_flat, horizons, seg_len, n_samples, seed):
     return plain, lo1, lo2, hi1, gap_cells
 
 
+@njit(cache=True)
+def _fpp_cmc_fullgrid_reference(K, offs, initial_flat, horizons, seg_len, n_samples, seed):
+    """REFERENCE ONLY (tests): the original full-grid loop of _fpp_cmc (as of ada7709), kept unchanged so
+    that the frontier-restricted _fpp_cmc can be checked bitwise against it.
+
+    Per-trajectory plain indicators and conditional estimators, accumulated as sums and squares.
+
+    For cell i and horizon t the conditional estimator is
+        P(T_i <= t | T^{-i}) = 1 - exp(-sum_s [Lambda_si(t) - Lambda_si(T_s^{-i})]^+),
+    exact because a first passage to i never passes through i and E_si is independent of T^{-i}.
+    From one Dijkstra, T_s^{-i} = T_s for every in-neighbour s that is not a descendant of i in the
+    shortest-path tree. Descendants have T_s^{-i} >= T_s > T_i: dropping them gives the lower bound
+    ``lo``; using their full-graph T_s gives the upper bound ``hi``. If T_i >= t, every descendant has
+    T_s > t and contributes nothing, so lo == hi exactly on the cells not burned by t.
+    """
+    S, KK, H, W = K.shape
+    n = H * W
+    np.random.seed(seed)
+    positive = np.zeros((KK, H, W), dtype=np.bool_)
+    for j in range(S):
+        for c in range(KK):
+            for y in range(H):
+                for x in range(W):
+                    if K[j, c, y, x] > 0.0:
+                        positive[c, y, x] = True
+    nh = horizons.shape[0]
+    hmax = horizons.max()
+    plain = np.zeros((nh, n))
+    lo1 = np.zeros((nh, n))
+    lo2 = np.zeros((nh, n))
+    hi1 = np.zeros((nh, n))
+    gap_cells = np.zeros(nh, dtype=np.int64)
+    arrival = np.empty(n)
+    done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
+    for m in range(n_samples):
+        _fpp_one(K, offs, initial_flat, hmax, seg_len, arrival, done, positive, parent)
+        for i in range(n):
+            if initial_flat[i]:
+                continue
+            ty = i // W
+            tx = i - ty * W
+            for h in range(nh):
+                t = horizons[h]
+                if arrival[i] <= t:
+                    plain[h, i] += 1.0
+                a_lo = 0.0
+                a_hi = 0.0
+                for c in range(KK):
+                    if not positive[c, ty, tx]:
+                        continue
+                    sy = ty + offs[c, 0]
+                    sx = tx + offs[c, 1]
+                    if sy < 0 or sy >= H or sx < 0 or sx >= W:
+                        continue
+                    s = sy * W + sx
+                    ts = arrival[s]
+                    if ts >= t:
+                        continue
+                    contrib = _cum_hazard(K, c, ty, tx, t, seg_len) - _cum_hazard(K, c, ty, tx, ts, seg_len)
+                    a_hi += contrib
+                    if arrival[i] < t and _is_descendant(s, i, parent, arrival):
+                        continue
+                    a_lo += contrib
+                p_lo = -math.expm1(-a_lo)
+                p_hi = -math.expm1(-a_hi)
+                lo1[h, i] += p_lo
+                lo2[h, i] += p_lo * p_lo
+                hi1[h, i] += p_hi
+                if p_hi > p_lo:
+                    gap_cells[h] += 1
+    return plain, lo1, lo2, hi1, gap_cells
+
+
 def first_passage_cmc(K, initial, horizons, *, n_samples, seed, seg_len=1.0):
     """Plain and conditional Monte Carlo burn-probability estimates from the same trajectories.
 

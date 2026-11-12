@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **22 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **27 passed** in about 25 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -53,7 +53,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - **per-cell marginals of the reference CA equal to the real `wildfire.rollout.simulate`** (stub predictor with fixed kernels, 5σ);
 - the conditional estimators: exact on an analytic chain including a ~1e-4 tail cell; equal to plain counting on a random grid; the hourly conditional estimator exact on the hourly chain;
 - the half-step arm lying above the hourly CA;
-- the frontier-restricted CMC loop equal to a brute-force full-grid evaluation;
+- the frontier-restricted CMC loop: bitwise equal to the original full-grid loop on directional kernels with edge/corner ignitions (mutation-tested), plus a brute-force evaluation;
 - a global rate multiplier c scaling first-passage arrival times by exactly 1/c pathwise (static kernels; this is used by S-D4mix).
 
 ## 3. Gate 1: the sub-stepped CA converges to first-passage
@@ -75,7 +75,7 @@ The noise floor is the same distance between two independent first-passage runs.
 | R4 as R3 with wind rotating 45°/h (8 hourly kernels) | 82.5 | 0.0013 / 0.031 | 0.0097 / 0.556 | 0.0012 / 0.021 |
 | R5 heterogeneous 9×9 at c651 magnitude, 12 h | 31.0 | 0.0006 / 0.016 | 0.0018 / 0.234 | 0.0006 / 0.018 |
 
-- **R1, R3, R4, R5:** dt = 1/32 is at the noise floor.
+- **R1, R3, R4, R5:** dt = 1/32 is at the noise floor. For R5, Owen notes that dt = 1/16 (W1rel 0.027) is not better than 1/8 (0.018): below 1/8 everything is at the floor, so no ordering should be read into those rows.
 - **R2 (fastest):** still converging at about first order; W1rel 0.108 → 0.055 → 0.031 for dt = 1/8 → 1/16 → 1/32.
 - **R1:** the slow regime reproduces the hourly marginals within MC error (Iris's acceptance criterion 2).
 - **Small analytic case** (`convergence_check.py`): the gap shrinks 14.1 → 0.34 for dt = 1 → 1/64, i.e. first order.
@@ -117,7 +117,7 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 |---|---:|---:|---:|---|
 | GOFER v0.2 hourly perimeters, 28 CA fires (`gofer_cap.py`) | 4,071 hourly | 185,278 | **8.9%** (1.25% with one GOES-pixel tolerance, d > 4g + 6) | per-fire median 7.5%, range 0.7–22%; 804 intervals with any |
 | NIROPS survey pairs, S-D9 PART_A_ALLOWLIST_FINAL (2d40d170, 490) + 23 fit fires (`nirops_cap.py`) | 3,273 over 431 incidents (median gap 24 h) | 241,166 | 0.23% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
-| VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | 326 of 642 cells on 25 Mar 16:09 UTC beyond the 11-step reach, max 45 km in 10.7 h |
+| VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | **essentially one event:** 326 of the 346 beyond-cap cells (94%) are on the single 25 Mar 16:09 UTC pass (median distance ≈ 17 km; possibly a separate front or spotting); max 45 km in 10.7 h |
 
 - **GOFER:** all 28 fires were read before S-D9 set its GOFER membership rule. This is recorded in the S-D9 ledger as aggregate label-only inspection, and per-fire stats of H-test fires must not tune a candidate. GOFER boundaries come from ~2 km GOES pixels, hence the tolerance column.
 - **NIROPS:** parts b–d and held-out fires were never read.
@@ -178,27 +178,31 @@ Setup:
 
 The fair baseline is the hourly CA's own conditional estimator `Σ_k 1{unburned before k} q_i(k)`, which is exactly unbiased.
 
-| kernels | arm | ms/trajectory | peak RSS (MiB) | median gain over its own plain arm, by p bin (≥0.1 · 1e-2 · 1e-3 · 1e-4 · 1e-6) |
-|---|---|---:|---:|---|
-| c651 magnitude (Σ ≈ 0.25/h) | first-passage plain | 0.33 | 294 | — |
-| | **first-passage CMC** | **0.64** | 225 | **11.8 · 8.9 · 17.8 · 42.4 · 197** |
-| | hourly CA plain | 101* (clean: 86) | 502 | — |
-| | hourly CA conditional | 72 | 551 | 8.8 · 33 · 62 · 141 · 557* |
-| fast (Σ ≈ 0.6/h) | first-passage plain | 0.53 | 225 | — |
-| | **first-passage CMC** | **1.2** | 225 | **1.8 · 2.7 · 3.0 · 8.2 · 82** |
-| | hourly CA plain | 64 | 502 | — |
-| | hourly CA conditional | 64 | 551 | 2.2 · 9.6 · 10.8 · 25 · 207 |
+Owen's verification (6dcf3f9) reproduced every statistical field exactly. Following his note, **variance-only gains** (host-independent) are reported separately from **cost ratios** (host-specific).
 
-\* This run overlapped a single-threaded perimeter-preparation job on a 4-core host.
-- **Clean reruns** of the hourly c651-magnitude arms on a quiet host: plain 86.0 and 86.7 ms/trajectory; conditional 80.2 and 95.8 ms/trajectory (run-to-run noise ≈ ±10%).
-- **Corrected gains.** The overlapped plain value (101 ms) was ≈ 17% inflated. Rescaled to the clean plain time, the hourly-conditional gains for that row are ≈ 7.5 · 28 · 53 · 120 · 474.
-- **Unaffected timings.** The first-passage plain timings match the earlier run (0.33 vs 0.35 and 0.53 vs 0.53 ms).
+**Variance-only gains.** Median over cells of Var(plain per trajectory) / Var(conditional per trajectory), by p bin (≥0.1 · 1e-2 · 1e-3 · 1e-4 · 1e-6):
+
+| kernels | first-passage CMC vs first-passage plain | hourly conditional vs hourly plain |
+|---|---|---|
+| c651 magnitude (Σ ≈ 0.25/h) | 22.9 · 17.3 · 34.5 · 82 · 382 | 6.2 · 23.1 · 43.6 · 100 · 394 |
+| fast (Σ ≈ 0.6/h) | 4.2 · 6.1 · 6.8 · 18.7 · 186 | 2.2 · 9.6 · 10.8 · 24.8 · 208 |
+
+**Cost per trajectory** (this host; Owen's host gave 0.48 / 0.93 ms for first-passage CMC):
+
+| kernels | first-passage plain | first-passage CMC | hourly plain | hourly conditional | peak RSS (FPP / hourly) |
+|---|---:|---:|---:|---:|---|
+| c651 magnitude | 0.33 ms | 0.64 ms (1.9×) | 86 ms (clean rerun; 101 in the overlapped run) | 72–96 ms | 225–294 / 502–551 MiB |
+| fast | 0.53 ms | 1.2 ms (2.3×) | 64 ms | 64 ms | 225 / 502–551 MiB |
+
+The hourly conditional estimator should cost the same as hourly plain: it reuses q. The measured spread (0.71–1.11×) is timing noise.
+
+**Overlap.** The original c651 hourly-plain timing overlapped another single-threaded job. Owen's run indicates its timed gain column was inflated by about 1.6×, more than my first estimate of 1.25×. Use the variance-only gains above, not timed gains.
 
 **What this shows.**
-- **Iris was right.** Conditioning on its own gives large gains in the hourly model too; the gain is not specific to first-passage.
-- **Absolute cost.** First-passage CMC is about 100× cheaper per trajectory than either hourly arm, and uses less memory (225 vs 550 MiB).
-- **Loop restriction.** The first version looped over every cell per trajectory: 4.5 ms, with a net loss above p = 1e-4 in the fast regime. That earlier result is kept in git history at 1cd7748. Restricting the loop to cells with an in-neighbour burned before the horizon is exact; a brute-force equality test confirms it. It cut the cost about 7×.
-- **Bias bound.** The lower estimator's bias bound (hi − lo)/p has median 0. Its q99 is 0.02–0.03, and its max is 0.12 (c651) and 3.1 (fast, a single cell). Local repair remains needed for per-cell exactness in the fast regime.
+- **Conditioning is the main source of the variance gain (Iris).** For p < 0.1 the hourly conditional estimator gains as much as or more than first-passage CMC relative to its own plain arm. For the ≥ 0.1 bin the opposite holds: first-passage CMC 22.9 vs hourly 6.2 at c651 magnitude. The comparison must be stated per bin.
+- **Absolute cost.** First-passage CMC is roughly **80–160× cheaper per trajectory** than either hourly arm (host-dependent) and uses about half the memory. This compares sampler against sampler on synthetic kernels. In the real model the environment-to-kernel evaluation is common to both arms and is not included (Iris item 3; to be timed on a real case).
+- **Loop restriction.** The first version looped over every cell per trajectory: 4.5 ms, a net loss above p = 1e-4 in the fast regime (kept in git history at 1cd7748). Restricting the loop to cells with an in-neighbour burned before the horizon is exact. Owen checked it bitwise against the full-grid loop. The shipped test is now `test_cmc_frontier_loop_bitwise_equal_to_fullgrid_reference`, with directional kernels and edge/corner ignitions. It fails under a stencil-direction mutation, which the earlier test missed. The restriction cut the cost about 7×.
+- **Bias bound.** The lower estimator's bias bound (hi − lo)/p has median 0. Its q99 is 0.02–0.03, and its max is 0.12 (c651) and 3.1 (fast, a single cell). See §8a for the exact repair.
 
 ## 8a. Exact local repair (Iris item 4; threshold 0.05 fixed before use)
 

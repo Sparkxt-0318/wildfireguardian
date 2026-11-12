@@ -403,3 +403,28 @@ def test_repaired_cmc_exact_where_bounds_differ():
     assert out["hi"][0, 1] > exact + 5 * se
     p = out["plain"][0, 1]
     assert abs(p - exact) <= 5 * math.sqrt(exact * (1 - exact) / n)
+
+
+@pytest.mark.parametrize("k,S,seg,ign,seed", [
+    (3, 1, 1.0, "centre", 0), (5, 2, 0.5, "edge", 1), (7, 3, 1.0, "corner", 2),
+    (9, 1, 1.0, "offcentre", 3), (5, 4, 0.5, "edge", 4)])
+def test_cmc_frontier_loop_bitwise_equal_to_fullgrid_reference(k, S, seg, ign, seed):
+    """Frontier-restricted _fpp_cmc must equal the original full-grid loop BITWISE on every output.
+    Directional kernels: each offset is zeroed at random per cell (so the stencil direction matters),
+    multiple weather segments, ignitions at the edge/corner/off-centre (Owen's mutation-sensitive set)."""
+    from fpp import _check, _fpp_cmc, _fpp_cmc_fullgrid_reference
+    rng = np.random.default_rng(100 + seed)
+    H, W = 13, 11
+    K = rng.uniform(0, 0.4, size=(S, k * k, H, W))
+    K *= rng.random(K.shape) < 0.5           # random per-offset zeroing -> strongly directional
+    K[:, (k * k) // 2] = 0
+    init = np.zeros((H, W), bool)
+    pos = {"centre": (6, 5), "edge": (0, 4), "corner": (12, 10), "offcentre": (3, 8)}[ign]
+    init[pos] = True
+    K, init, offs = _check(K, init)
+    hs = np.array([0.5, 1.5, 3.0])
+    a = _fpp_cmc(K, offs, init.ravel(), hs, seg, 60, 77)
+    b = _fpp_cmc_fullgrid_reference(K, offs, init.ravel(), hs, seg, 60, 77)
+    for x, y in zip(a, b):
+        assert np.array_equal(x, y)
+    assert a[0].sum() > 0  # something burned
