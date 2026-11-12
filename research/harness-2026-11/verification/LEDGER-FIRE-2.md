@@ -17,6 +17,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 9 | 2026-11-12 | F-3.2 claim 10, P1 flame sets | Thomas | 421637f | 15 packets with hazard/raw/contact unions identical | `python3 F-3.2/p1_check.py` | PASS |
 | 10 | 2026-11-12 | F-4.2 spatial clearance | Priya | 0e6f7db | 15 published clearances; trade-offs; 90 witnesses certified | `clearance_panel.py --only FW2,FN1,FX2`; `analyze_clearance.py`; `verify_witnesses.py`; own independent geometry on all 15 | PASS WITH NOTES |
 | 11 | 2026-11-12 | W-KIT (N6/N7 fix) | Thomas | 01292ca | issue-by <= planner leave-by and field leave-by; latency order low >= median >= high | `cd planner && npx vitest run ../tests/planner/wkit.channels.test.ts && npx vitest run` + 10 probes | PASS |
+| 12 | 2026-11-12 | PR #109 torch install line (merge-readiness point) | Daniel | 5f384555 | torch line installs CPU torch 2.5.1 from the PyTorch CPU index only | the script venv block in a fresh venv, cold uv cache | PASS |
 
 ## Notes
 
@@ -82,3 +83,10 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 No time is ever rendered after the planner's leave-by. N7 example withdrawn: issue_by = leave_by - latency, so the original order was correct.
 
 **Amendment to 10 (F-4.2)**: N1 is withdrawn. The horizon deadline is D = H - dwell = 3480 s, which is below R_max for uiseong 0324 (3495.3) and uljin 1200 (3595.4). Present-fire standing blocks are [0, R), so an earlier dwell is never worse. The remaining note: in the RESULTS.md §2 hand table, the uljin FD1 "≤ +600" cell carries a † that belongs to the horizon entry (results/TABLE.md is correct).
+
+**12. PR #109 @ 5f384555 (torch line only)**: download.pytorch.org is reachable from this container.
+- Ran the venv block with a cold cache: base pins rc=0 in 47 s; torch rc=0 in 12 s.
+- Installed torch 2.5.1+cpu (cuda None) with 0 nvidia packages. The venv is 1.1 GB (torch 669 MB), against 5.4 GB before.
+- numpy is 1.26.4. torch's dependencies resolve from the CPU index alone, and `uv pip check` reports 34 packages compatible.
+- wildfire.survival and wildfire.rollout import.
+- The rest of #109 was not verified here (Hannah's PASS).
