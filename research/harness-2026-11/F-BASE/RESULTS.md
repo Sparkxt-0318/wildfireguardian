@@ -95,8 +95,20 @@ process, median of 3, on the same host as the F-BASE runs.
 - **Router peak RSS:** 84–409 MiB, including the packet and contact model. F-BASE exact: 20–227 MiB.
 - **Caveats.** The two searches run on different representations of the same contact relaxation: SIPP's native
   instance versus the O2 integer instance. All timings are host-specific. **No speed claim** is made beyond these
-  measured numbers, and no claim across hosts. Richard's F-3.1 field is not timed yet, because I don't have its
-  location and command.
+  measured numbers, and no claim across hosts. Richard's F-3.1 field is timed below.
+
+## Richard's F-3.1 field (dated rule 2026-11-12 (b); `RESULTS_f31_timing.json`)
+
+Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `python -m deadline_field.mission_timing
+--repeat 3`, on the same host. The frozen routing inputs are shared with the F-3.2 worktree.
+
+- **Consistency: 20/20.** Each mission's departure second is in F-3.1's feasible set exactly when the recorded SIPP
+  result is ROUTE: 15 routes are inside the set and 5 refusals have an empty set.
+- **Cost:** build 0.04–3.40 s per mission. Search, median of 3, 0.011–2.88 s per mission (13.05 s summed).
+- **Not like for like.** One F-3.1 search returns the whole feasible departure set over [0, H], for example
+  [0, 3112] for 2023-04-02T14 FW2. The router and F-BASE answer one departure each. The time is reported beside
+  theirs and no ratio is formed. Answering every departure second with the router would take up to H + 1
+  single-departure searches.
 
 ## Verification
 
@@ -107,6 +119,5 @@ was not built.
 
 ## Not done yet
 
-- Router (`run_panel.py` SIPP) and Richard's F-3.1 field timings under the same harness: no comparison claimed.
 - 140-request departure sweep; delta-debug smallest failing panel-derived instances (hand-built 2–3 node cases are in tests).
 - Second published baseline (Sofia).
