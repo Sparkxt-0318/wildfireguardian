@@ -213,3 +213,96 @@ These are the sources on which a verdict or quoted number depends, ordered by pr
 6. An optional timed-automaton export for cross-checking with Muntac.
 
 **Downloaded material:** PDFs and extracted text are in the scout session's scratchpad `dl/` folder.
+
+### Batch 2: ideas from sources read in full (2026-11-12)
+
+Each bullet gives the source, then the idea and the stream it serves. Every source listed here was opened and read. Sources that could not be opened are listed at the end of this batch.
+
+**Korea**
+
+- Greenpeace Korea survey (n=297): only 62% received the disaster text; broadcast and neighbours outranked the text (237 vs 112); 16.5% left in a neighbour's car; 92% of shelter users were moved at least once.
+  - Coupled driver/passenger deadlines (F-3.1).
+  - Certify the shelter for the whole stay plus the onward leg (F-4.2, F-3.2).
+- 행안부 2025-04-16 plan (newsseoul 1065591618401273): 5h/8h zones; 27.6 m/s worst case when the fire line is unknown; facilities must be out before sunset; elderly walking speed 72% of normal.
+  - Use as the official baseline on KFS_01 (S-D9).
+  - Sunset as a deadline constraint (F-3.1).
+- Nocut 6409424: KFS provided 2 h of an 8 h forecast and did not re-run after spot fires.
+  - Horizon-value experiment (S-D9).
+  - Re-run on spot-fire detection (F-3.1).
+- BAI audit (newsis NISX20251023_0003373693): texts averaged 1h39m from situation room; 41.8% never sent.
+  - Issue-order-by field (F-3.1, F-C1).
+- Hankook Ilbo A2025032714350000238: a son assumed his parents were safe because their 읍 was not named in the text; both died.
+  - Explicit "not ordered yet — leave by" message for every village.
+- Kyunghyang 202503261311001: 104 people trapped on breakwaters.
+  - Refuge nodes (F-4.2).
+- Nocut 6318424 (임하 신덕1리): about 10 minutes from first sight to arrival (F-C1).
+
+**Abroad**
+
+- LA County AAR, Eaton synopsis (file.lacounty.gov 1192777): aircraft grounded 27 minutes after ignition; rumour that the fire was "moving east".
+  - Intel-blind benchmark mode (S-D9).
+  - Publish uncertainty in fire direction (F-C1).
+- Citygate Eaton alert investigation (file.lacounty.gov 1208708): command learned of the westward spread at 2:18; orders at 3:25; front crossed at about 5:13; probable ember cast 1 mile; warning adjacent zones was not policy.
+  - Ember-keyed deadlines.
+  - Auto-flag adjacent zones (F-3.1).
+- Spokesman-Review on MonteCedro: night staff absent; 2 residents missed.
+  - Facility timing chain to the last resident out (F-3.1, F-3.2).
+- NIST TN 2252 (Camp NETTRA): Concow order 07:37, burnovers from 07:50; spotting 6 km ahead; at least 2 of 4 arteries closed 68% of the time; 31 refuge areas; Table 12 gives order and burnover times.
+  - Margins that survive k closures (F-4.2).
+  - Name a refuge in every no-route certificate (F-3.2).
+  - Ground truth (S-D9).
+- NIST TN 2103 (Chimney Tops 2): 74.6% acted on cues; among cues, smoke 92.5%, embers 46.5%, flames 43.2%.
+  - Cue-ladder viewshed (F-C1).
+- FSRI Lahaina Phase 1 and 2: about 75 minutes from reignition to Front St; locked gates; unmaintained dirt egress roads.
+  - Conditional edges listed in certificates (F-3.2, F-4.2).
+- NSW Bushfire Inquiry, Rec 73: compliant plans for aged-care facilities.
+  - A "stay" certificate (F-3.2).
+- PBS Frontline (Camp): 7,000 of 52,000 evacuees received an alert.
+  - Model alert reach per origin (F-C1).
+
+**Spread models**
+
+- Ganguly 2026 (arxiv html 2609.14951): approximates event times by the first observation and assigns ignition cause by rule; the authors call this biased; precision@k evaluation.
+  - S-D2 baseline and evaluation protocol.
+- Kenah & Robins 2007 (q-bio/0610057): epidemic percolation networks with a shared recovery time per node.
+  - S-D1 construction.
+  - Per-edge exponential clocks for time-varying weather.
+- Bu et al. 2022 (arXiv 1910.04221): DARCI data augmentation.
+  - DA-MCMC over ignition times (S-D2).
+- Zhenirovskyy 2026 (arxiv html 2606.11676): wind and slope cosine factors; no held-out fire.
+  - Edge-rate form and baseline (S-D1).
+- Veraverbeke 2014 (jin.ucdavis.edu): kriging standard errors of 0.8-3.6 days.
+  - Label noise (S-D2).
+- CFSDS (nature s41597-024-03436-4): no per-pixel uncertainty released; detections shifted to 19:00.
+  - Fit to raw detections instead (S-D2).
+- FPP survey (arxiv html 1511.03262): shape theorem; eikonal limit; t^{1/3} fluctuations.
+  - Diagnostics (S-D1).
+- FlamMap MTT help page: multi-cell segment edges.
+  - Stencil choice and zero-variance baseline (S-D1).
+
+**Routing**
+
+- CSA (arXiv 1703.05997): decreasing-time profile scan with front insert.
+  - Deadline-field algorithm (F-3.1).
+- Dean TDSP: waiting closure applied only at waitable nodes; O(mT) exact reference; post-burnout pitfall (F-3.1).
+- Li, Cova & Dennison 2015 and 2017 (csbs.utah.edu reprints): REDT and SKATER zoning; cumulative-viewshed prominence.
+  - Baseline and output layer (F-3.1).
+  - Inverted trigger landmarks (F-C1).
+- PERIL slides and lup.lub.lu.se records: safety factor ASET/RSET; uncertainty rosettes.
+  - λ* and δ* rosettes (F-4.2).
+- WiSE 2.0 (PSAM18 WA333): vehicle is safe if RSET ≤ SSET on every segment.
+  - Metric suite (F-4.2).
+- CP-SIPP (2511.18170) and Lindemann (2210.10254): a max-score over a fixed region gives a route guarantee without a union bound (F-4.2).
+- Moradi et al. (2608.05413) and Borgwardt et al. (2410.14500): soft/hard time windows; time-expanded max-flow.
+  - Capacity-aware deadline (F-3.1).
+
+**KFS_01 / NIROPS fact check (pages read)**
+
+- The box matches the FIRMS S-NPP detection envelope (36.336-36.590°N); there is no northern clip.
+- A second ignition, Angye at 14:36 KST, lies inside the box.
+- Grid area is 1,540 km² against KFS's 993 km²: inflated.
+- NIROPS public files: PolygonDateTime is empty; flight time appears only in Comments; no "Area Covered by IR Flight" layer was found in 32 zips.
+
+**Could not open:** patents.google.com and mdpi.com (DNS failed for the agents), NUREG/CR-7002 (403), ScienceDirect (Hajian 2016, 403), the original mois.go.kr press release, the full BAI report, the NARS PDF.
+
+Downloaded PDFs and extracted text are in the scout session's scratchpad (`dl/`, `dl2/`).
