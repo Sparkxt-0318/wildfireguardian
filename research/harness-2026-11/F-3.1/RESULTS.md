@@ -247,3 +247,37 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 | B8.2 | 27–60% | 22–56 |
 | R1.5 | 1–5% | 0–1 |
 | R8.2 | 3–21% | 0–5 |
+
+## Issue-order-by on F-DYN v3.1 (post-processing; SCENARIO; latency settings are assumptions)
+
+* **Files.** `results/ISSUE_ORDER_BY_FDYN_v31.json`, built by `deadline_field/fdyn_issue_by.py`.
+* **Definitions.**
+  * Leave-by is the **contiguous** deadline (merged rule).
+  * Issue-by = leave-by − alert latency − door-to-door time.
+  * Settings: latency 1.5 h or 2 h, each with 30 min door-to-door, plus the 1-h panel's low / median / high.
+* **Count categories, per packet.**
+  * future: the issue-by time is after the start.
+  * past: the issue-by time is before the start, i.e. the order is already late.
+  * late_window_only: no departure at the start, feasible only after a gap. The resident line is "no checked route at
+    the start, do not wait for an order"; the staff note says the later window is not the deadline.
+  * no_route: no feasible departure at all.
+* **Results at a 2 h latency.**
+
+  | start | future | past | late_window_only | no_route |
+  |---|---:|---:|---:|---:|
+  | UA 03-23 01Z | 81–82 | 2–3 | 0 | 0 |
+  | UA 03-24 09Z | 83 | 1 | 0 | 0 |
+  | UA 03-25 17Z | 57–58 | 15–17 | 9–12 | 0 |
+  | YD 03-25 19Z | 84–87 | 0–2 | 3–4 | 0 |
+  | YD 03-25 23Z | 90 | 0 | 0 | 0 |
+  | YD 03-26 08Z | 88 | 0 | 2 | 0 |
+
+* **Horizon censoring.** In Yeongdeok, 79–86 of 90 leave-bys lie within 10 min of the horizon. Their issue-by is
+  bounded by the scenario horizon, so it is not a finding about the fire. The corresponding figure for UA is 21–36
+  of 84.
+* **Placeholder dependencies.** A leave-by whose witness is dose `upper_bound` carries two placeholder dependencies:
+  the burning-duration law and the dose limit. This applies to 1 origin in each of YD 03-25 19Z 5 h kriged_mean and
+  firms_early.
+* **Note on the F-DYN exact-minus-grid statistics above.** `exact_cert` in the F-DYN claim file is the end of the
+  last feasible interval. For the origins with a hole, it is not the resident-facing contiguous deadline. Both are
+  in the file: `union_cert` holds every interval.
