@@ -182,3 +182,7 @@ address point 2 at all.
 - **Band role is undecided.** Whether `envelope_burnset` stays the pessimistic member of Richard's leave-by bands is
   pending the orchestrator and Iris; amendment (b) of Richard's headline rule currently requires it. The label
   applies either way.
+- **Orchestrator, 2026-11-12.**
+  - No v3.6.1 for a label string alone: the manifest label waits for the next manifest.
+  - **From now on, every result quoting burnset uses:** "burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176
+    cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only)".
