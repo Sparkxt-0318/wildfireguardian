@@ -165,3 +165,20 @@ address point 2 at all.
   hazard.
 - **The v3.4 manifest labels are not edited.** They still cite row 32, because the manifest file is pinned by builds
   in progress (Thomas X1, Richard). Row 37 is recorded here, and the next manifest version will carry it.
+
+## Burn-set scope and label for the next manifest (2026-11-12; Thomas and Mira flagged identical packets)
+
+- **Intended.** The 16,176-cell set is the same for every start and region. That follows from the rule: one shared
+  KFS_01 grid; burn set ∪ present fire on [0, H); no timing.
+- **Composition.**
+  - 10,955 cells in the kriged footprint;
+  - 4,940 cells only in buffered firing-AHI pixels (about 695 km², 31 %);
+  - 281 FIRMS-only cells.
+
+  The set is therefore broader than the reconstructed perimeter.
+- **Label committed for the next manifest's `soundness` string.** It is used verbatim by Richard:
+  - "static final-footprint bound (no timing; identical across starts)";
+  - plus "burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 4,940 AHI-buffer-only)".
+- **Band role is undecided.** Whether `envelope_burnset` stays the pessimistic member of Richard's leave-by bands is
+  pending the orchestrator and Iris; amendment (b) of Richard's headline rule currently requires it. The label
+  applies either way.
