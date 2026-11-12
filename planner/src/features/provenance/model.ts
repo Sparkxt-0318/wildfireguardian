@@ -90,16 +90,16 @@ const H = (s: number) => Math.round(s / 3600);
 /** Staff text (Iris wording; Korean pending Sofia). Never contains a clock time. */
 export function provenanceText(p: StaffProvenance, lang: LmLang): string | null {
   const T: Record<string, LmText> = {
-    window: { ko: '시나리오 시간창이 정한 시각입니다. 불은 이 시각을 바꾸지 않습니다. {h}시간 시나리오 이후는 계산하지 않았습니다.', en: 'Set by the scenario window; fire does not change it. Nothing after the {h}-hour scenario was computed.' },
-    present_fire: { ko: '이미 타고 있는 불이 정한 시각입니다 (예측된 새 발화를 빼도 같습니다).', en: 'Set by fire already burning (the same without forecast new ignitions).' },
+    window: { ko: '시나리오 시간창({h}시간)이 정한 시각입니다. 산불과는 관계없는 시각입니다. {h}시간 시나리오 이후는 계산하지 않았습니다.', en: 'Set by the scenario window ({h} h); fire does not change it. Nothing after the {h}-hour scenario was computed.' },
+    present_fire: { ko: '현재 타고 있는 불이 정한 시각입니다(예측된 새 발화를 빼도 같습니다).', en: 'Set by fire already burning (the same without forecast new ignitions).' },
     forecast_dependent: {
-      ko: '산불 예측에 따라 달라지는 시각입니다. 예측이 바뀔 때마다 다시 확인하십시오. 더 빨라질 수 있습니다. 예측된 새 발화를 빼면 모델 시각이 {n}분 늦어지지만, 그것은 여유 시간이 아니며 점검된 경로도 아닙니다.',
-      en: 'Depends on the fire forecast. Re-check at every update; it may move earlier. Without forecast new ignitions the model time would be {n} min later; that is not extra time and not a checked route.',
+      ko: '산불 예측에 따라 달라지는 시각입니다. 예측이 바뀔 때마다 다시 확인하십시오. 더 빨라질 수 있습니다. 예측된 새 발화를 빼면 모델 시각이 {n}분 늦어지지만, 이 차이는 여유 시간이 아니며 그 시각의 경로도 점검되지 않았습니다.',
+      en: 'Depends on the fire forecast. Re-check at every update; it may move earlier. Without forecast new ignitions the model time would be {n} min later, but that difference is not extra time, and no route was checked for that time.',
     },
-    not_established: { ko: '출처 확인 안 됨 — 이 시각의 근거를 정할 수 없습니다.', en: 'Provenance not established — what set this time cannot be determined.' },
-    not_computed: { ko: '출처 계산 안 됨.', en: 'Provenance not computed.' },
+    not_established: { ko: '근거 확인 안 됨 — 이 시각이 무엇으로 정해졌는지 판단할 수 없습니다.', en: 'Provenance not established — what set this time cannot be determined.' },
+    not_computed: { ko: '근거 계산 안 됨.', en: 'Provenance not computed.' },
     unresolved_proven_no_route: {
-      ko: '경로 점검이 시간 초과로 끝났습니다. 이후의 정밀 분석에서는 모델 안 어느 출발 시각에도 점검된 경로가 없습니다.',
+      ko: '경로 점검이 시간 초과로 끝났습니다. 이후 별도의 엄밀한 분석에서는 모델 범위 안의 어느 출발 시각에도 점검된 경로가 없었습니다.',
       en: 'The route check timed out; an exact later analysis finds no checked route at any departure in the model.',
     },
   };
@@ -114,7 +114,7 @@ export function provenanceText(p: StaffProvenance, lang: LmLang): string | null 
 }
 
 export const PROVENANCE_FOOTER: LmText = {
-  ko: '1시간 재현 기준의 모델 근거 표시이며 실제 상황에 쓸 수 없습니다. 이해도는 시험하지 않았습니다.',
+  ko: '1시간 재현을 기준으로 한 모델 근거 표시입니다. 실제 상황 판단에 사용할 수 없습니다. 이해도는 시험하지 않았습니다.',
   en: 'Model provenance on the 1-hour replay; not fit for live use. Comprehension is untested.',
 };
 
@@ -123,8 +123,8 @@ export const PROVENANCE_TAG: Record<Exclude<StaffProvenance['kind'], 'none'>, Lm
   window: { ko: '시간창', en: 'window-set' },
   present_fire: { ko: '타는 불', en: 'fire already burning' },
   forecast_dependent: { ko: '예측 의존', en: 'forecast-dependent' },
-  not_established: { ko: '출처 확인 안 됨', en: 'not established' },
-  not_computed: { ko: '출처 계산 안 됨', en: 'not computed' },
+  not_established: { ko: '근거 확인 안 됨', en: 'not established' },
+  not_computed: { ko: '근거 계산 안 됨', en: 'not computed' },
   unresolved_proven_no_route: { ko: '시간 초과 · 정밀 분석상 경로 없음', en: 'timed out · exact analysis: no route' },
 };
 
