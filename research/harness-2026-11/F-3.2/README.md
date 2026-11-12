@@ -154,7 +154,8 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
 
 `envelope_o2.py` was written from Leo's rule text, without reading `fdyn/ignitions.py` or `_packet_child.py`.
 
-> **Erratum (2026-11-12; Nora ledger row 34, confirmed by Mira and by this author).** Everything in this section
+> **Erratum (2026-11-12; Nora ledger row 34; measured by this author on all three packets below, and confirmed
+> independently by Mira on the v3 Yeongdeok packet).** Everything in this section
 > compares the rule against **HAZARD.json**: the per-cell intervals derived from the variant arrival files
 > (`variants/firms_early.npz`, `firms_constrained.npz`), and integer instances built from HAZARD.json intervals. It
 > never reads a packet's `constructed_arrays.npz` and never uses `ContactModel`. In the `envelope` packets (v3 and
