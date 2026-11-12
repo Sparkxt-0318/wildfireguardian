@@ -74,6 +74,7 @@ def main(argv=None):
     ap.add_argument('--arrival', type=Path, required=True)
     ap.add_argument('--arrival-variant', required=True)
     ap.add_argument('--arrival-source', default='{}', help='JSON provenance of the raster (doi, derivation)')
+    ap.add_argument('--arrival-hi', type=Path, default=None, help='envelope: bracket-end raster (arrival = bracket start)')
     ap.add_argument('--sd', type=Path, default=None)
     ap.add_argument('--member-set', default='central', choices=sorted(ignitions.MEMBER_SETS))
     ap.add_argument('--quantum-s', type=float, default=ignitions.DEFAULT_QUANTUM_S)
@@ -118,10 +119,16 @@ def main(argv=None):
     p = ignitions.plan(arrival, sd, arrival_variant=a.arrival_variant, arrival_source=source, start_h=start_h,
                        start_utc=start.isoformat(), horizon_s=a.horizon_h * 3600.0, quantum_s=a.quantum_s,
                        member_set=a.member_set, region=a.region, window=win,
-                       burned_at_start=burned_at_start, burn_duration_s=burn_T)
+                       burned_at_start=burned_at_start, burn_duration_s=burn_T,
+                       arrival_hi_h=read_raster(a.arrival_hi) if a.arrival_hi else None)
+    if (a.arrival_variant == 'envelope') != (a.arrival_hi is not None):
+        raise SystemExit('--arrival-variant envelope requires --arrival-hi (and only it)')
+    if a.arrival_hi is not None and a.domain != 'full_grid':
+        raise SystemExit('the envelope is built on the full grid only')
     a.out.parent.mkdir(parents=True, exist_ok=True)
     plan_path = a.out.with_name(a.out.name + '.plan.npz')
-    np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']))
+    extra = {} if p['hi_rel'] is None else {'hi_rel': p['hi_rel']}
+    np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']), **extra)
     cmd = [a.python, '-I', '-B', str(HERE / '_packet_child.py'), '--plan', str(plan_path), '--graph', str(graph),
            '--export-dir', str(export_dir), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
            '--region', a.region, '--event', EVENT, '--window-json', json.dumps(win), '--out', str(a.out)]

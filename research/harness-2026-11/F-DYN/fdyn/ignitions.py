@@ -64,9 +64,17 @@ def digest(arr: np.ndarray) -> str:
 
 def plan(arrival_h, sd_h, *, arrival_variant: str, arrival_source: dict, start_h: float, start_utc: str,
          horizon_s: float, quantum_s: float, member_set: str, region: str, window: dict | None,
-         burned_at_start: np.ndarray, burn_duration_s: float) -> dict:
-    members = MEMBER_SETS[member_set]
-    times = schedule(arrival_h, start_h, horizon_s, quantum_s, members, burned_at_start, burn_duration_s)
+         burned_at_start: np.ndarray, burn_duration_s: float, arrival_hi_h: np.ndarray | None = None) -> dict:
+    hi_rel = None
+    if arrival_hi_h is not None:
+        if member_set != 'central':
+            raise ValueError('the envelope is a single member')
+        members = ['envelope']
+        times, hi_rel = envelope_schedule(arrival_h, arrival_hi_h, start_h, horizon_s, quantum_s, burned_at_start,
+                                          burn_duration_s)
+    else:
+        members = MEMBER_SETS[member_set]
+        times = schedule(arrival_h, start_h, horizon_s, quantum_s, members, burned_at_start, burn_duration_s)
     a = np.asarray(arrival_h, float)
     rel = (a - start_h) * 3600.0
     catch_up = np.isfinite(a) & ~burned_at_start & (rel <= 0) & (rel > -burn_duration_s)
@@ -80,7 +88,14 @@ def plan(arrival_h, sd_h, *, arrival_variant: str, arrival_source: dict, start_h
     meta = {
         'fdyn_version': FDYN_VERSION, 'label': LABEL, 'region': region, 'start_utc': start_utc,
         'start_hours_since_t0': start_h, 'horizon_s': horizon_s, 'quantum_s': quantum_s,
-        'member_set': member_set, 'members': [{'name': n, **MEMBER_RULES[n]} for n in members],
+        'member_set': 'envelope' if hi_rel is not None else member_set,
+        'members': ([{'name': 'envelope', 'rule': 'burn [lo, hi + T): lo = arrival raster, hi = arrival_hi raster'}]
+                    if hi_rel is not None else [{'name': n, **MEMBER_RULES[n]} for n in members]),
+        'arrival_hi_raster_sha256': digest(arrival_hi_h) if arrival_hi_h is not None else None,
+        'envelope_width_h_in_igniting_cells': (
+            {'max': float(np.nanmax((arrival_hi_h - arrival_h)[np.isfinite(times[0])])),
+             'cells_with_positive_width': int(np.sum((arrival_hi_h - arrival_h)[np.isfinite(times[0])] > 0))}
+            if arrival_hi_h is not None and np.isfinite(times[0]).any() else None),
         'arrival_variant': arrival_variant, 'arrival_source': arrival_source,
         'arrival_raster_sha256': digest(arrival_h),
         'rule': ('t_k = floor_Q(s_k*(a-h)*3600 - shift_k) clamped at 0, for cells with a > h and t_k < horizon; '
@@ -100,4 +115,27 @@ def plan(arrival_h, sd_h, *, arrival_variant: str, arrival_source: dict, start_h
                                                      'taken_as_burned_out': int(burned_out.sum())},
     }
     meta['plan_sha256'] = hashlib.sha256(json.dumps(meta, sort_keys=True).encode()).hexdigest()
-    return {'meta': meta, 'times': times}
+    return {'meta': meta, 'times': times, 'hi_rel': hi_rel}
+
+
+def envelope_schedule(lo_h: np.ndarray, hi_h: np.ndarray, start_h: float, horizon_s: float, quantum_s: float,
+                      burned_at_start: np.ndarray, burn_duration_s: float):
+    """Envelope member (F-9.3 interval source): a cell with arrival in [lo, hi] burns from lo until hi + T.
+
+    Returns (births [1,H,W], hi_rel [1,H,W]) in seconds from the start: births = floor_Q(lo - h) clamped at 0 (inf = no
+    ignition within the horizon); hi_rel = floor_Q(hi - h) clamped at 0, so the packet end hi_rel + T + Q >= exact hi + T.
+    Export-burned cells never ignite; a cell with lo before the start but not export-burned ignites at 0 if hi + T is
+    after the start (it may still be burning), otherwise it is taken as burned out."""
+    lo = np.asarray(lo_h, float)
+    hi = np.asarray(hi_h, float)
+    if not np.array_equal(np.isfinite(lo), np.isfinite(hi)) or np.any(lo[np.isfinite(lo)] > hi[np.isfinite(hi)]):
+        raise ValueError('envelope needs lo <= hi on the same footprint')
+    rlo, rhi = (lo - start_h) * 3600.0, (hi - start_h) * 3600.0
+    ok = np.isfinite(lo) & ~np.asarray(burned_at_start, bool) & (rhi > -float(burn_duration_s))
+    births = np.floor(np.maximum(rlo, 0.0) / quantum_s) * quantum_s
+    hi_rel = np.floor(np.maximum(rhi, 0.0) / quantum_s) * quantum_s
+    ok &= births < horizon_s
+    b = np.full(lo.shape, np.inf)
+    e = np.full(lo.shape, np.inf)
+    b[ok], e[ok] = births[ok], hi_rel[ok]
+    return b[None], e[None]

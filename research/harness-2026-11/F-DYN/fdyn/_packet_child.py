@@ -21,6 +21,51 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def rebuild_members(B, np, built, epsg, ext_of):
+    """The bridge.construct member loop (verbatim law) with per-cell extinction ends ext_of(member, births)."""
+    st = built['settings']
+    horizon = float(st['horizon_s'])
+    current, remaining = built['current'], float(built['remaining_s'])
+    model = B.radiation_model(built['affine_transform'], st, epsg)
+    out = []
+    for s_idx in range(built['events'].shape[0]):
+        births = built['events'][s_idx]
+        fin = np.isfinite(births)
+        ext = ext_of(s_idx, births)
+        knots = {0.0, horizon}
+        knots.update(float(v) for v in births[fin] if 0.0 < v < horizon)
+        knots.update(float(v) for v in ext[fin] if 0.0 < v < horizon)
+        if current.any() and 0.0 < remaining < horizon:
+            knots.add(float(remaining))
+        bp = sorted(knots)
+        flame, flux = [], []
+        for left in bp[:-1]:
+            active = (fin & (births <= left) & (left < ext))
+            if current.any() and left < remaining:
+                active = active | current
+            f = model.predict_details(active.astype(float)).incident_heat_flux_w_m2.astype(float)
+            if active.any():
+                f = np.nextafter(f + 1e-8 * max(1.0, float(f.max())), np.inf)
+            flame.append(active.copy()); flux.append(f)
+        out.append({'breakpoints': bp, 'flame': np.array(flame, dtype=bool), 'flux_w_m2': np.array(flux, dtype=float),
+                    'ignition_time_s': births, 'extinction_breakpoint_s': ext})
+    return out
+
+
+def scalar_ext(B, np, births, T):
+    ext = np.full(births.shape, np.inf)
+    for idx in zip(*np.nonzero(np.isfinite(births))):
+        ext[idx] = B.round_up_sum(births[idx], T)
+    return ext
+
+
+def same_members(np, a, b):
+    return all(x['breakpoints'] == y['breakpoints'] and np.array_equal(x['flame'], y['flame']) and
+               np.array_equal(x['flux_w_m2'], y['flux_w_m2']) and np.array_equal(x['extinction_breakpoint_s'],
+                                                                                  y['extinction_breakpoint_s'])
+               for x, y in zip(a, b)) and len(a) == len(b)
+
+
 def main():
     ap = argparse.ArgumentParser()
     for k in ('--plan', '--graph', '--export-dir', '--cutoff', '--region', '--event', '--window-json', '--out'):
@@ -37,6 +82,7 @@ def main():
     with np.load(a.plan, allow_pickle=False) as z:
         times = z['times'].copy()
         meta = json.loads(str(z['meta']))
+        hi_rel = z['hi_rel'].copy() if 'hi_rel' in z.files else None
     S = times.shape[0]
     horizon = float(meta['horizon_s'])
     calls = []
@@ -65,6 +111,10 @@ def main():
                                           'quantum_s', 'member_set', 'members', 'arrival_variant',
                                           'arrival_source', 'arrival_raster_sha256')}
         s['fdyn']['present_fire_source'] = present_fire_source
+        if hi_rel is not None:
+            s['source_law_version'] = 'wfg.fdyn.envelope-per-cell/1'
+            s['fdyn']['envelope'] = ('per-cell law: burning [floor_Q(lo), floor_Q(hi) + T + Q); NOT the scalar law, so '
+                                     'the kit independent checker scalar recomputation does not apply')
         s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': T0 + Q,
                                           'export_consumed_fraction': cf0,
                                           'packet_consumed_fraction': cf0 * (T0 + Q) / T0}
@@ -72,6 +122,25 @@ def main():
 
     B.draw_ignitions = fdyn_draws
     B.settings_for = fdyn_settings
+    envelope_checks = []
+    if hi_rel is not None:
+        orig_construct = B.construct
+
+        def envelope_construct(forecast, *, cutoff_utc, epsg, settings):
+            built = orig_construct(forecast, cutoff_utc=cutoff_utc, epsg=epsg, settings=settings)
+            T = float(built['settings']['burning_duration_s'])
+            # self-check: the re-implemented loop with scalar ends reproduces the unchanged writer's members exactly
+            again = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, b, T))
+            if not same_members(np, again, built['members']):
+                raise SystemExit('ENVELOPE_LOOP_DOES_NOT_REPRODUCE_WRITER')
+            H = built['events'].shape[1:]
+            full = H == hi_rel.shape[1:]
+            if not full:
+                raise SystemExit('ENVELOPE_ONLY_ON_FULL_GRID')
+            built['members'] = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, np.where(np.isfinite(b), hi_rel[k], np.inf), T))
+            envelope_checks.append(1)
+            return built
+        B.construct = envelope_construct
     iso, _ = CT.normalize_cutoff(a.cutoff)
     exp = Path(a.export_dir)
     tag = CT.tag(iso)
@@ -96,6 +165,8 @@ def main():
                                             event_id=a.event, region_id=a.region, window=win)
     if len(calls) != 1:
         raise SystemExit('DRAW_INJECTION_NOT_USED_EXACTLY_ONCE')
+    if hi_rel is not None and len(envelope_checks) != 1:
+        raise SystemExit('ENVELOPE_NOT_APPLIED_EXACTLY_ONCE')
     sub = times if win is None else times[:, win['r0']:win['r1'] + 1, win['c0']:win['c1'] + 1]
     with np.load(Path(out) / 'constructed_arrays.npz', allow_pickle=False) as z:
         if not np.array_equal(z['ignition_time_s'], sub):

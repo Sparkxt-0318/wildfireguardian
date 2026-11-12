@@ -29,21 +29,45 @@
 - **Reach for every start:** `fdyn/reach_rule.py` writes `REACH_rule_<variant>.json` (kriged_mean and firms_early,
   central, Q = 300).
 
-## Finding: the kriged mean bunches the Yeongdeok coastal run at the next satellite overpass
+## Finding: the kriged mean is late for the Yeongdeok coastal run (CORRECTED at 0950 UTC)
+
+**Correction.** An earlier version said there was "no detection 05:06–16:09 UTC" and that the kriged mean was "up to
+about 11 h late". That was wrong. An ad-hoc listing script rounded pass times and showed a MODIS pass with 335
+detections as 0. `fdyn/variants.py` was not affected: it uses exact pass times.
+
+Corrected numbers:
 
 - **Burst.** 2,983 of 10,955 footprint cells (27%) have kriged arrival in one hour, 2025-03-25 16:24–17:24 UTC.
   There are 5,773 in the 3 h from 16:24.
-- **Detection gap.** FIRMS shows no VIIRS or MODIS detection in the grid between 05:06 UTC and 16:09 UTC on 25 March.
-  The 16:09 UTC NOAA-20 pass first-detects 579 cells.
-- **Reported timeline.** Documented accounts put the fire in Yeongdeok villages at about 18:00–21:00 KST, i.e.
-  09–12 UTC (Sofia; snippet-level sources).
-- **Reading (hypothesis):** for the coastal run the kriged mean is late by up to about 11 h. The defensible statement
-  is the detection bracket (05:06, 16:09] UTC.
-- **Effect.** With `firms_early`, fire reaches Yeongdeok roads and places from the 2025-03-24 23:00 UTC start
-  (8 h horizon) onward, about 6 h earlier than with `kriged_mean`. For example, the 03-25 08:00 UTC start at 5 h:
-  114 vs 0 road cells igniting, 13 vs 0 entry cells.
-- **Implication.** Workloads that matter for timing near the coastal run should use the bracket variants. The kriged
-  mean alone is not adequate there.
+- **Passes with detections on 25 March (UTC):**
+
+  | Time | Satellite | Detections |
+  |---|---|---:|
+  | 03:25 | S-NPP | 26 |
+  | 03:48 | NOAA-20 | 74 |
+  | 05:06 | S-NPP | 154 |
+  | 05:29 | NOAA-20 | 90 |
+  | 05:58 | MODIS | 59 |
+  | **12:25** | **MODIS** | **335** |
+  | 16:09 | NOAA-20 | 735 |
+  | 17:26 | S-NPP | 1,184 |
+  | 17:49 | NOAA-20 | 761 |
+  | 17:58 | MODIS | 40 |
+
+  The VIIRS-only gap is 05:29–16:09.
+- **Cells MODIS first detects at 12:25** (323 in the footprint): the kriged mean is a median **4.8 h after the
+  detection** (p10 3.7 h, p90 7.4 h). A detection proves fire by then, so for these cells **the kriged mean is late by
+  at least that**. Their bracket is (05:58, 12:25] UTC.
+- **Cells NOAA-20 first detects at 16:09** (509 in the footprint): kriged minus detection has median 1.5 h (p10 0.1,
+  p90 5.6). Their bracket is (12:25, 16:09].
+- **Reported timeline.** Documented village accounts (Sofia; snippet-level) put fire in Yeongdeok villages at about
+  09–12 UTC, which is consistent with the brackets.
+- **Implication.**
+  - The kriged mean cannot time the coastal run. The defensible statement is the per-cell detection bracket. MODIS
+    pixels are 1 km, so a 375 m-cell assignment from MODIS is coarse.
+  - With `firms_early`, fire reaches Yeongdeok roads and places from the 2025-03-24 23:00 UTC start (8 h) onward. For
+    example, at the 03-25 08:00 UTC start (5 h): 114 vs 0 road cells igniting and 13 vs 0 entry cells.
+  - Envelope bracket widths for igniting cells reach 6.5 h (Yeongdeok 03-25 05:00 UTC start).
 
 ## Why
 
