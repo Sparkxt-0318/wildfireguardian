@@ -25,6 +25,17 @@ Counts are identical at 0, 25, 50 and 100 m. There are no outside_all, multiple,
 | yeongdeok_2025 | 청송군 | 4 | 12 |
 | yeongdeok_2025 | 영양군 | 5 | 15 |
 
+**Verified by Hannah (ledger row 65): PASS.**
+- Archive leg: her own script, run unmodified by Daniel.
+  - The archive and all 5 member hashes match.
+  - EPSG:5186, 252 features, BASE_DATE 20250630.
+  - All 177 places lie in exactly one polygon, with the entry node in the same polygon: 0 mismatches.
+  - The smallest boundary distance is 189.1 m, so the 50 m margin never binds.
+  - All 9 청송/영양 places agree.
+  - The margin logic was read and found sound.
+- Independent leg: OSM admin_level-6 boundaries agree on 177/177.
+- **Not verified:** the archive's portal of origin. The source line keeps "출처 확인 중" until the owner confirms it.
+
 ## Kit rule
 
 `buildChannels` renders a registered issuer's contact line only when the place's `sigungu` is established **and** names the issuer's own 시·군.
