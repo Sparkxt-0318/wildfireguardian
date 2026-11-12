@@ -156,3 +156,20 @@ B5:
 4. The alarm is cancelled in `finally`. A **second arming while one is active raises** (never two alarms). The handler
    only raises (no IO). The watchdog is **best-effort**: a long C call delays delivery until it returns.
 5. Any firing is a finding, reported per mission with the stage, elapsed time and what was discarded.
+
+## Calibration result (20:0x UTC; `results/step3/Z_CALIBRATION.json`, kit-v2-step3a, 3 runs per mission)
+
+- **Budget: 2^28 = 268,435,456 units, labelled EXTRAPOLATED.**
+  - Only 3 of 20 missions were still running at 6 s (Yeongdeok 0325T19 FD1 and FX2, and 0325T23 FL2), fewer than 5,
+    so the pre-stated fallback applies: the median over all 20 of units ÷ Z wall × 6 = 148,100,980, rounded up.
+- **Spread:** max/min over the three runs is 1.000 on 17 missions; 1.082, 1.036 and 1.110 on the three time-capped ones.
+  None exceeds 1.25.
+- **Safeguard:**
+  - the largest mission completing within 6 s needs 93,965,879 units (Uiseong 0324T09 FL2), which is within budget;
+  - the largest setup alone is 8,085 units, also within budget;
+  - **not raised.**
+- **Consequence, stated before the G1 panel:**
+  - The three time-capped missions reached 127.0 M, 126.9 M and 213.7 M units at 6 s, so under the budget their Z runs
+    longer (about 12.7, 12.7 and 7.5 s at this host's rate) and may return a different Z outcome than today.
+  - G1 compares final status and arrival, with the FL2 rule for 0325T23 FL2; any Z-stage change is listed per mission.
+- Run 1 was interleaved with the frozen kit (`CAL_RUN1_PANEL_ROWS.jsonl.gz`); runs 2–3 were V2 only.

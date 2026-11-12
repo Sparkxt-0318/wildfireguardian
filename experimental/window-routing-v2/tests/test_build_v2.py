@@ -72,7 +72,7 @@ class BuildV2(unittest.TestCase):
 
 # Step 3: every added worker line carrying the Step 3 marker, exactly and in order (STEP3_ACCEPTANCE B).
 STEP3_WORKER_LINES = [
-    "V2_STEP3 = {'Z_work_units': None,   # kit-v2 Step 3: None = calibration kit (count only, parent 6 s wall cap)",
+    "V2_STEP3 = {'Z_work_units': 268435456,   # kit-v2 Step 3: 2**28, results/step3/Z_CALIBRATION.json (extrapolated; None = calibration kit)",
     "            'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3",
     "    import v2_work; _V2W = {'poisoned': False}   # kit-v2 Step 3",
     '    def _v2_run(name, cap_s, fn, bound_budget=True):   # kit-v2 Step 3: prompt cap checks + watchdog for one stage',
