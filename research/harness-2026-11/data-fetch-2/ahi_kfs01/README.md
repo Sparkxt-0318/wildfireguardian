@@ -15,6 +15,6 @@ The run took about 11 min and downloaded about 1 GB of raw files, streamed and d
 - **Coverage:** 576 of 576 scans, none missing. There are 448 AHI pixels whose centres fall inside the KFS_01 export grid (EPSG:5179 x 1085250–1174125,
   y 1815750–1845375). No NaN values.
 - **Times:** `scan_start_utc` is the nominal start of each 2.5-min Japan-area scan. The actual line time over Korea is within that scan.
-- **Saturation:** band 7 saturates near **400.1 K** in the most intense scans (around 05:50–06:40 UTC on 25 March). Treat B07 ≥ 399.9 K as saturated (a lower bound).
+- **Saturation:** band 7 saturates near **400.1 K** in 174 of 576 scans, spanning 2025-03-25 05:50–14:35 UTC. Treat B07 ≥ 399.9 K as saturated (a lower bound).
 - **Geolocation:** pixel centres are the nominal AHI fixed grid (about 2 km at nadir, coarser at 36° N). There is no parallax or terrain correction.
 - No hotspot thresholding has been applied; that is left to the consumers.
