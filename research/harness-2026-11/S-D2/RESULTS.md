@@ -395,3 +395,21 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
 Environment for these runs: Python 3.13, NumPy 2.1.3, SciPy 1.14.1, pandas 2.2.3, rasterio 1.4.3, 4 CPUs (Linux).
 Inputs: Zenodo 10.5281/zenodo.21788344 (sha256 612edf5f…), fetched with `research/harness-2026-11/data-fetch/fetch.py`
 from branch `daniel/data-fetch`.
+
+### Verifier notes on §3e and its follow-ups (Owen, 2026-11-12)
+
+- **Displacement inputs** (652b58cb, 84e41e76): **PASS WITH NOTES.** Owen reran the full chain from his own part-a
+  extraction. The per-interval rows, both summaries and displacement_checks.json are identical. This lifts the
+  input caveat on lag-1 persistence (fba72fbf, PASS WITH NOTES) and on the cutoff covariates (c317bef6, PASS WITH
+  NOTES).
+- **Notes:**
+  1. Kernels are in-sample and per fire. The histogram tests in-sample adequacy, not out-of-sample calibration.
+  2. The rank resolution is 1/64. Low-rank intervals have a median observed reach of 2 cells, and 21.6% are at ≤ 1
+     cell, so the low tail is partly quantisation and mapping resolution.
+  3. Quote the tie rule used: the mid-rank gives a low share of 27.2%; the seeded random tie-break gives 24.8%.
+  4. The composite far share on real data is a median of 0.006.
+  5. The scope is 25 part-a fires, including 4 GOFER fires assigned to H-dev (A1 item 25). This is development
+     evidence only.
+- **Shape recovery** (780cbabe): PASS. **Step check** (8b0fde65): PASS WITH NOTES (synthetic only).
+- **Covariates:** previous-interval growth shows no clear association. All covariate results are marginal
+  associations.
