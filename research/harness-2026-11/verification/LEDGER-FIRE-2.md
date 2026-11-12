@@ -69,6 +69,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 61 | 2026-11-12 | Kit provenance line N1 guard | Clara | 92c2e51 | timed kinds on no-time places: 0 lines in 1,020 forced cases; present on all 2,373 leave_by cases; violations and other outputs unchanged; 448/448 | own forced-kind probe | PASS |
 | 62 | 2026-11-12 | Kit provenance line: mismatch refused and reported | Clara | 60deae8 | 1,020/1,020 forced timed-on-no-time cases give the not-established line in ko and en, no deadline wording or clock time; violations and other outputs unchanged; 448/448 | own forced-kind probe | PASS |
 | 63 | 2026-11-12 | W-KIT phone-shape allowlist tidy | Clara | ccbee1a | 35-number probe as intended; all-zero placeholder renders only for drill/replay issuers; 446/446 | own probe | PASS |
+| 64 | 2026-11-12 | PR #144 scope check (research-scout batch 8/8b) | Sofia | b750fa7 | docs only (LOG.md +76); no phone numbers, no private links, no personal data; suggestion labelled; no footer | diff + body | READY |
 
 ## Notes
 
@@ -336,4 +337,3 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **61.** Optional: unresolved_proven_no_route is not dropped when forced onto a leave_by place (the real join never does this).
 
 **63.** Tiny: 00-000-0000 also counts as a placeholder; short call-centre numbers (031-120) and 080 toll-free are refused (conservative).
-
