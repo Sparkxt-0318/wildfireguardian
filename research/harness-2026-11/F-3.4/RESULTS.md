@@ -1,6 +1,7 @@
 # F-3.4 phase profile of the frozen 20-mission routing workload (interim)
 
-Status: **measured, verification by Nora pending.** Data: `results/primary_b81_3rep/` (primary) and
+Status: **measured; verified PASS WITH NOTES by Mira (12 Nov, @ b6c94bb)**, from 3+1 fresh runs plus the committed
+rows. Data: `results/primary_b81_3rep/` (primary) and
 `results/extended_b300_1rep/` (extended budget, one repetition). A clean rerun meeting Iris's acceptance criteria is
 queued: five cold and five warm repetitions, per-phase memory, and the 30 s budget plus an uninstrumented control.
 It will be added as `results/clean_*`.
@@ -86,20 +87,23 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
     property test.
   - B: dyadic outward snapping of receiver boxes, so that corners repeat and stay exact.
 
-## Linux-host findings (their own result)
+## Host findings (their own result; specific to THIS host, not to Linux in general)
 
 - **GNU time is required.** The kit's controller runs `/usr/bin/time -v`; without it every route check fails. The
   container image lacked it (`apt-get install time`). `make api-tools` only warns about this.
-- **The evaluated 30 s budget does not transfer.** At 30 s on this host, Uljin FX1 times out (wall 30.17 s, still
+- **The evaluated 30 s budget does not transfer to this host.** Here, at 30 s, Uljin FX1 times out (wall 30.17 s, still
   inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The full
-  30 s run is queued.
+  30 s run is queued. Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
+  there Uljin FX1 completes at 30 s in 24.3 s. Host speed, not the OS, decides this, and the speed-equivalence factor
+  (2.7× here) must be measured on each host.
 - **Cross-host packet bytes differ.** Rebuilt packets match the frozen ones exactly in arrays, flame sets, breakpoints
   and ids. HAZARD.json flux differs by at most 2.3e-9 relative, from FFT rounding (arm64 macOS vs x86 Linux). Compare
   on the integer instance and on verdicts.
 
 ## Not verified / limitations
 
-- Independent verification of this profile (Nora) is pending.
+- Mira verified this profile on 3 missions plus a plain-mode control, and recomputed the committed 60 rows. She did
+  not rerun all 60 executions.
 - Per-phase memory is not in this run; the harness gained memory capture afterwards. Warm-cache timings are not in
   this run either. Both come from the clean rerun.
 - The instrumentation overhead control in the plain runs so far was contended; a clean control is queued.

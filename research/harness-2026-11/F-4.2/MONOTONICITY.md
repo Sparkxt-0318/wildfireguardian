@@ -1,7 +1,7 @@
 # Is fixed-route admissibility monotone in a uniform ignition advance δ?
 
-Status: **analytical claim, awaiting independent verification (Hannah)**. Numerical checks on the frozen panel are in
-`RESULTS.md` once run.
+Status: **verified PASS WITH NOTES by Mira (12 Nov, @ b6c94bb)**. She confirmed the counterexample transitions by hand
+and found the Claim 1 and Claim 2 proofs correct.
 
 ## Model (as implemented by the frozen bridge `wfg.final-forecast-bridge/2.0-latest-c651`)
 
@@ -36,7 +36,9 @@ since `b + T − t0 > T − H > 0`). Each bad interval therefore starts at a pos
 The bad set intersected with `[0, T]` is `[min(b − t1), T]`, an up-set. ∎
 
 So the exact contact margin of a route is `min(b − t1)` over its visits to ignited cells. It has a closed form and
-needs no repeated search.
+needs no repeated search. **Range:** it is meaningful only when `min(b − t1) ≤ T`. Beyond T a visited cell may already
+have burned out, so contact-clearness can return. Report a larger value as "> T (no contact-driven failure within
+[0, T])".
 
 ## Counterexample (dose, δ beyond the monotone range)
 
