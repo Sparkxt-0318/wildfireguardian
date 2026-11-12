@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Custodian script: find the NIFC FTP IR folders of the EXPOSED incidents only (version 3).
+"""Custodian script: find the NIFC FTP IR folders of the EXPOSED incidents only (version 3.1).
 
 To be run ONCE, by the custodian (Hannah), not by Daniel.
 - v3: fetches NO root page and NO GACC page. Every URL is CONSTRUCTED from frozen lists (ROOTS x GACCS x TEMPLATES)
@@ -19,6 +19,10 @@ Log (stderr): per URL tried, a template (R<r>/GACC[i]/T<k>/<year>[/GROUP[j]], ne
 the sha256 of the response.
 
 Usage: python3 -I find_exposed_ir_folders.py EXPOSED.csv [--root URL ...] [--out FILE]
+       python3 -I find_exposed_ir_folders.py --years [--root URL ...] [--out FILE]
+v3.1 adds --years: for each year 2015-2024 it tries the constructed YEAR-level folder URLs only
+(ROOTS x GACCS x YEAR_TEMPLATES) and outputs per year only the counts of answered (2xx) and absent (404) URLs.
+No page body is parsed; nothing is listed or kept. The client identity is unchanged (wfg-custodian/1).
 Stdlib only.
 """
 import argparse, csv, hashlib, html.parser, re, sys, time, urllib.error, urllib.parse, urllib.request
@@ -161,7 +165,7 @@ def run(rows, roots, fetch, gaccs=GACCS):
 
 
 def fetch_url(url):
-    time.sleep(0.3)  # polite: about 500 constructed URLs in a full run
+    time.sleep(0.3)  # polite: called once per URL
     req = urllib.request.Request(url, headers={'User-Agent': 'wfg-custodian/1'})
     try:
         with urllib.request.urlopen(req, timeout=120) as r:
@@ -172,13 +176,46 @@ def fetch_url(url):
         raise
 
 
+# year-level templates only (both styles), for --years
+YEAR_TEMPLATES = ['{y}/', 'Z_{y}_HISTORIC/', 'GACC_Incidents/{y}/', 'Historic_archived NIROPS/{y}_fires/',
+                  'pre2015-great_basin_w/{y}/', '{y}_Incidents_Oregon/', '{y}_Incidents_Washington/']
+YEARS_MODE = [str(y) for y in range(2015, 2025)]  # never 2025+
+
+
+def years_mode(roots, fetch, gaccs=GACCS):
+    """Per year: counts of answered vs absent constructed year-folder URLs. Bodies are discarded unread."""
+    out = []
+    for y in YEARS_MODE:
+        ok = absent = 0
+        for root in roots:
+            for g in gaccs:
+                for tpl in YEAR_TEMPLATES:
+                    u = root + g + urllib.parse.quote(tpl.format(y=y))
+                    if re.search(r'202[5-9]', u):
+                        raise SystemExit('refused: 2025+ URL')
+                    try:
+                        fetch(u); ok += 1
+                    except Absent:
+                        absent += 1
+        print(f'year {y} answered={ok} absent={absent}', file=sys.stderr)
+        out.append((y, ok, absent))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('exposed'); ap.add_argument('--root', action='append', help='override ROOTS (repeatable)')
+    ap.add_argument('exposed', nargs='?'); ap.add_argument('--root', action='append', help='override ROOTS (repeatable)')
     ap.add_argument('--out')
+    ap.add_argument('--years', action='store_true', help='count answered/absent year folders 2015-2024 only')
     a = ap.parse_args()
-    res = run(list(csv.DictReader(open(a.exposed))), a.root or ROOTS, fetch_url)
-    text = ''.join(f'{i}\t{s}\t{v}\n' for i, s, v in res)
+    if a.years:
+        res = years_mode(a.root or ROOTS, fetch_url)
+        text = 'year\tanswered\tabsent\n' + ''.join(f'{y}\t{o}\t{n}\n' for y, o, n in res)
+    else:
+        if not a.exposed:
+            raise SystemExit('give EXPOSED.csv, or --years')
+        res = run(list(csv.DictReader(open(a.exposed))), a.root or ROOTS, fetch_url)
+        text = ''.join(f'{i}\t{s}\t{v}\n' for i, s, v in res)
     (open(a.out, 'w').write(text) if a.out else sys.stdout.write(text))
 
 

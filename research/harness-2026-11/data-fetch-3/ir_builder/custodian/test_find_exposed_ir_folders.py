@@ -72,3 +72,21 @@ try:
 except SystemExit:
     pass
 print('PASS: fetched', len(fetched), 'constructed URLs (no index page), stderr lines', len(err.getvalue().splitlines()))
+
+# --- v3.1 --years mode: counts only, constructed year-level URLs only, 2015-2024, bodies not parsed ---
+fy = []
+def fetch_y(u):
+    fy.append(u)
+    if u in (R + 'calif_n/2021/', R + 'pacific_nw/' + q('Z_2018_HISTORIC/')):
+        return b'<a href="CA-SECRET-000111_Sealedfire/">x</a>'
+    raise F.Absent()
+e3 = io.StringIO()
+with contextlib.redirect_stderr(e3):
+    yr = F.years_mode([R, R2], fetch_y, gaccs=gaccs)
+exp_y = {r + g + q(t.format(y=y)) for r in (R, R2) for g in gaccs for y in F.YEARS_MODE for t in F.YEAR_TEMPLATES}
+assert set(fy) == exp_y and len(fy) == len(exp_y), 'years mode fetched an unexpected URL'
+assert not any(y in u for y in ('2025', '2026') for u in fy)
+assert dict((y, (o, n)) for y, o, n in yr)['2021'] == (1, 41) and dict((y, (o, n)) for y, o, n in yr)['2018'] == (1, 41)
+assert sum(o for _, o, _ in yr) == 2 and [y for y, _, _ in yr] == [str(y) for y in range(2015, 2025)]
+assert 'Sealedfire' not in e3.getvalue() and 'calif_n' not in e3.getvalue()
+print('PASS years mode:', len(fy), 'constructed year URLs, counts only')

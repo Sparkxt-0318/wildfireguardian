@@ -37,3 +37,10 @@ python3 -I find_exposed_ir_folders.py EXPOSED_29.csv --out exposed_ir_folders.ts
 ```
 
 The default ROOTS are both trees above. `--root URL` (repeatable) overrides them.
+
+## Version 3.1 (orchestrator, 15:48Z)
+
+- `--years` mode: for each year 2015–2024 it tries only the constructed YEAR-level folder URLs (ROOTS × GACCS × the 7 year-level templates; 98 URLs per year, 980 in all). It outputs per year only the counts answered (2xx) and absent (404). Page bodies are discarded unread, nothing is listed or kept, and 2025+ is refused. The test asserts the exact URL set and that nothing leaks.
+- The orchestrator also asked for the client identity (User-Agent) to be changed to curl's default. That change was **refused by this session's safety policy as bot-check circumvention**, and it was not made. The script still identifies itself as `wfg-custodian/1`. Whether to request the files under another identity is left to a human: the owner, through a browser, or NIFC directly.
+
+Run: `python3 -I find_exposed_ir_folders.py --years --out years.tsv 2> years.log`
