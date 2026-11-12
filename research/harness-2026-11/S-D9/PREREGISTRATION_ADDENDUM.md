@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 11, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 12, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 17 | Filters applied (`cohort/RUN_FILTERS.md`). The script now enforces §1.1 ledger exclusion by incident ID, including NIROPS incidents matching GOFER fires. Clarification: an incident that is an item-10 duplicate of an opened incident counts as opened | §1.2 items 8–12 | Clarification written after the first filter run showed Caldor and a pilot sibling in test parts. Only metadata was viewed |
 | 16 | Pre-declared plan for a non-burnable secondary; provenance of the H tolerance rule; H disclosure note on every H result (Iris) | §4, §2.1 | Added. **The secondary was added after a development finding on R** (`derive/LOGISTIC_DEV.md`, follow-up 2) |
 | 15 | H refinements: Chebyshev reach, one-pixel tolerance, resolution labels per lead, H-dev open to D1 and D2, half-step comparator; Marcus's GOFER disclosure (Marcus, Iris) | §2.1 | Added before any H score |
 | 14 | Short-horizon stratum H for the D1 continuous-time claim (orchestrator) | §2.1 | Declared before any score on H. Membership is computed after the metadata filters run |
@@ -71,7 +72,7 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
    - **No positive in the band:** this is known only after labels are built. It never triggers a replacement; it only reduces the analysable count.
 6. **Independence (§1.3)** is applied after assignment. An excluded b or c fire is replaced by the next d fire in `u` order, before any prediction runs.
 7. **Pilot.** The pipeline pilot uses only the **first 3 eligible (surveys >= 20) part-a fires in `u` order**. Clarification committed before the first run. Pilot fires are training-pool fires; no b, c or d fire is ever a pilot.
-8. **Access control.** Whoever assigns the parts publishes the part list as a CSV. **No one opens the perimeters of b, c or d until the addendum is frozen and the manifest for that part is verified.** Training users filter the shapefile by the part-a allowlist. This is recorded in the ledger.
+8. **Access control.** (Clarification, revision 17: an incident that is an item-10 duplicate of an opened incident, for example a component of the same complex, counts as opened.) Whoever assigns the parts publishes the part list as a CSV. **No one opens the perimeters of b, c or d until the addendum is frozen and the manifest for that part is verified.** Training users filter the shapefile by the part-a allowlist. This is recorded in the ledger.
 
 9. **Leakage filter, part a vs part c** (and vs part b). D1/D2 are refit on part a, so a part-a incident is **dropped from a** if its point of origin lies within 50 km of a part-b or part-c incident's point of origin **and** its discovery date is within 30 days of that incident's. Fires are never dropped from b or c by this filter. Drops are logged.
 10. **Duplicates across parts.** Pairs whose points of origin lie within 5 km of each other and whose survey windows overlap are treated as the same fire under two names (for example, a complex and its member). On a hit, the copy in a or d is removed. If both copies are in b or c, the lower-ranked one is removed and replaced from d.

@@ -68,3 +68,21 @@ def test_missing_metadata_kept_and_counted():
 
 def test_haversine_scale():
     assert abs(F.km((40.0, -120.0), (41.0, -120.0)) - 111.2) < 0.5
+
+
+def test_ledger_incident_excluded_from_test_parts():
+    rows = split(("C1", "c"), *[(f"D{i}", "d") for i in range(32)])
+    md = {"C1": meta(40.0, -120.0, "2021-07-01")}
+    md.update({f"D{i}": meta(10.0 + i, -100.0, "2021-07-01") for i in range(32)})
+    out, s = F.run(rows, md, {}, ledger_ids=["C1"])
+    assert {o["Incident_C"]: o["status"] for o in out}["C1"] == "excluded" and s["replacements"] == ["D0"]
+
+
+def test_duplicate_of_opened_pilot_is_exposed():
+    rows = split(("B1", "b"), ("A1", "a"), *[(f"D{i}", "d") for i in range(32)])
+    md = {"B1": meta(40.0, -120.0, "2021-07-01"), "A1": meta(40.01, -120.0, "2021-07-01")}
+    md.update({f"D{i}": meta(10.0 + i, -100.0, "2021-07-01") for i in range(32)})
+    out, s = F.run(rows, md, {}, opened=["A1"])
+    st = {o["Incident_C"]: o for o in out}
+    assert st["B1"]["status"] == "excluded" and "opened" in st["B1"]["reason"]
+    assert s["replacements"] == ["D0"]

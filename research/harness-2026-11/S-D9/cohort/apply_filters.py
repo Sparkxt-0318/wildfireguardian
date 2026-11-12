@@ -61,7 +61,10 @@ def duplicate(m1, m2) -> bool:
             and km(m1["loc"], m2["loc"]) <= DUP_KM and m1["win"][0] <= m2["win"][1] and m2["win"][0] <= m1["win"][1])
 
 
-def run(split_rows, meta, ref) -> tuple[list[dict], dict]:
+def run(split_rows, meta, ref, ledger_ids=(), opened=()) -> tuple[list[dict], dict]:
+    """ledger_ids: incidents present in the S-D9 exposure ledger (excluded from b/c/d, §1.1).
+    opened: incidents whose perimeters were opened (e.g. the pilot); any b/c/d incident that is an
+    item-10 duplicate of one counts as opened and is excluded (§1.2 item 8 clarification)."""
     rows = sorted(split_rows, key=lambda r: float(r["u"]))
     status = {r["Incident_C"]: dict(Incident_C=r["Incident_C"], part=r["part"], status="kept", reason="") for r in rows}
     m = {r["Incident_C"]: meta.get(r["Incident_C"], dict(loc=None, day=None, win=None)) for r in rows}
@@ -72,6 +75,16 @@ def run(split_rows, meta, ref) -> tuple[list[dict], dict]:
         status[k]["status"] = "excluded"
         status[k]["reason"] = why
 
+    # §1.1: incidents in the exposure ledger cannot be test or held-back fires.
+    for k, s_ in status.items():
+        if s_["part"] in "bcd" and k in set(ledger_ids):
+            drop(k, "§1.1 in exposure ledger")
+    # §1.2 item 8: a b/c/d incident that duplicates an opened incident counts as opened.
+    for k, s_ in status.items():
+        if s_["part"] in "bcd" and s_["status"] == "kept":
+            hit = next((o for o in opened if o != k and o in m and duplicate(m[k], m[o])), None)
+            if hit:
+                drop(k, f"item 8 exposed: duplicate of opened incident {hit}")
     # §1.3 independence from reference fires (b, c and d; part a is training data, the rule does not apply).
     for k, s in status.items():
         if s["part"] in "bcd":
@@ -130,8 +143,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     for a in ("--split", "--meta", "--ref", "--out"):
         ap.add_argument(a, required=True, type=Path)
+    ap.add_argument("--ledger-id", action="append", default=[], help="incident in the exposure ledger (repeatable)")
+    ap.add_argument("--opened", action="append", default=[], help="incident whose perimeters were opened (repeatable)")
     args = ap.parse_args()
-    out, summary = run(list(csv.DictReader(args.split.open())), load_meta(args.meta), load_meta(args.ref))
+    out, summary = run(list(csv.DictReader(args.split.open())), load_meta(args.meta), load_meta(args.ref),
+                       ledger_ids=args.ledger_id, opened=args.opened)
     with args.out.open("w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["Incident_C", "part", "status", "reason"], lineterminator="\n")
         w.writeheader()
