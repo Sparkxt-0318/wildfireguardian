@@ -32,6 +32,9 @@ class Judge(unittest.TestCase):
         self.assertEqual(judge(OPT, 1000, False, "NO_ROUTE", 3601)[0], "NOT_APPLICABLE_NONINTEGER")
         self.assertEqual(judge(OPT, 1000, False, "ROUTE", 1922)[0], "NOT_APPLICABLE_NONINTEGER")
 
+    def test_no_decision_is_not_applicable(self):
+        self.assertEqual(judge("NO_DECISION", None, True, "ROUTE", 10)[0], "NOT_APPLICABLE_NO_DECISION")
+
     def test_other_statuses(self):
         self.assertEqual(judge("UNRESOLVED", None, True, "ROUTE", 10)[0], "NOT_APPLICABLE_STATUS")
 
@@ -62,6 +65,20 @@ class V2Format(unittest.TestCase):
             status, j, src = decision_of(run, Path("/nonexistent"))
             self.assertEqual((status, j["arrival"], src), (OPT, 1459, "RESULT.decision"))
             self.assertEqual(j["legs"], [{"kind": "EDGE", "start": 0}])
+
+    def test_fallback_uses_only_accepted_keywords_or_reports_no_decision(self):
+        with tempfile.TemporaryDirectory() as t:
+            kit, run = Path(t) / "kit", Path(t) / "run"
+            (kit / "decision").mkdir(parents=True); run.mkdir()
+            # a frozen-style module whose signature has no graph/request/hazard (Priya's TypeError case)
+            (kit / "decision" / "jd_frozen_sig.py").write_text(
+                "def decision_from_worker_record(r, rc, job, *, optimality_certificate=None, refusal_certificate=None):\n"
+                "    return {'authoritative_status': 'UNRESOLVED', 'journey': {}}\n")
+            for n, v in (("RESULT.json", {"result": {}}), ("JOB.json", {"graph_path": "g", "request_path": "r", "hazard_path": "h"}),
+                         ("COMPLETE_PROCESS_RECEIPT.json", {})):
+                (run / n).write_text(json.dumps(v))
+            self.assertEqual(decision_of(run, kit, "jd_frozen_sig")[0], "UNRESOLVED")
+            self.assertEqual(decision_of(run, kit, "no_such_module")[0], "NO_DECISION")
 
     def test_resolve_absolute_and_relative(self):
         self.assertEqual(resolve("/kit", "/abs/x.json"), Path("/abs/x.json"))

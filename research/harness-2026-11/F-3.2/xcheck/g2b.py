@@ -49,6 +49,8 @@ def judge(status, arrival, integral, relax_claim, relax_T):
         if relax_claim == "ROUTE":
             return "LISTED", "(c) full-model refusal while the relaxation has a route at %s" % relax_T
         return "PASS", "refusal consistent with relaxation NO_ROUTE"
+    if status == "NO_DECISION":
+        return "NOT_APPLICABLE_NO_DECISION", "no published decision and none could be recomputed; no claim to test"
     return "NOT_APPLICABLE_STATUS", "status %s makes no route or refusal claim" % status
 
 
@@ -120,12 +122,22 @@ def decision_of(run, kit_root, module="journey_decision"):
     if (run / "DECISION.json").exists():
         d = J(run / "DECISION.json")
         return d["authoritative_status"], d.get("journey") or {}, "DECISION.json"
-    sys.path.insert(0, str(kit_root / "decision"))
-    JD = __import__(module)
-    job, rc = J(run / "JOB.json"), J(run / "COMPLETE_PROCESS_RECEIPT.json")
-    dec = JD.decision_from_worker_record(res, rc, job, graph=J(resolve(kit_root, job["graph_path"])),
-                                         request=J(resolve(kit_root, job["request_path"])), hazard=J(resolve(kit_root, job["hazard_path"])),
-                                         optimality_certificate=res.get("optimality_certificate"), refusal_certificate=res.get("refusal_certificate"))
+    # No published decision (e.g. a worker stopped at its deadline writes RESULT from its failure path). Recompute with
+    # the kit's decision module, passing only the keywords its signature accepts (journey_decision takes no graph/
+    # request/hazard; journey_decision_v2_1 does). If that is impossible, the run carries no decision and no claim.
+    try:
+        import inspect
+        sys.path.insert(0, str(kit_root / "decision"))
+        JD = __import__(module)
+        job, rc = J(run / "JOB.json"), J(run / "COMPLETE_PROCESS_RECEIPT.json")
+        accepted = inspect.signature(JD.decision_from_worker_record).parameters
+        kw = {"optimality_certificate": res.get("optimality_certificate"), "refusal_certificate": res.get("refusal_certificate")}
+        for k, key in (("graph", "graph_path"), ("request", "request_path"), ("hazard", "hazard_path")):
+            if k in accepted:
+                kw[k] = J(resolve(kit_root, job[key]))
+        dec = JD.decision_from_worker_record(res, rc, job, **{k: v for k, v in kw.items() if k in accepted})
+    except Exception as e:                                      # noqa: BLE001 -- recorded, never a PASS
+        return "NO_DECISION", {"reason": repr(e)[:200]}, "none"
     return dec["authoritative_status"], dict(dec.get("journey") or {}, legs=route.get("legs", [])), "decision/%s.py" % module
 
 
