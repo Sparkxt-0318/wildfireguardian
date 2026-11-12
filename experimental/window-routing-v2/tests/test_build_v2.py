@@ -74,12 +74,20 @@ class Sealed(unittest.TestCase):
     def test_overlay_sealed(self):
         B.check_sealed()
 
-    def test_worker_overlay_is_parent_plus_identity_only(self):
+    def test_worker_overlay_is_parent_plus_declared_hunks_only(self):
+        # Step 0: exactly the 3 identity lines. Step 1 (STEP1_ACCEPTANCE): plus the progress-hook lines, each of which
+        # must carry a declared marker. No parent line may be removed except the one global statement Step 1 extends.
         parent = (B.REPO / 'experimental/window-routing/stack/phaseB/rda_worker_v1_1.py').read_text().splitlines()
         v2 = (B.HERE / 'stack-v2/phaseB/rda_worker_v1_1.py').read_text().splitlines()
+        removed = [l for l in parent if l not in v2]
+        self.assertEqual(removed, ['    global STATE, FOLDER, WRITE, ROOT'])
         added = [l for l in v2 if l not in parent]
-        self.assertEqual(len(v2) - len(parent), 3)
-        self.assertTrue(all('kit' in l.lower() or '_kid' in l for l in added), added)
+        ident = [l for l in added if ('kit' in l.lower() or '_kid' in l) and 'Step 1' not in l and '_V2_PROG' not in l]
+        self.assertEqual(len(ident), 3, ident)
+        markers = ('_prog', '_PROG', 'PROGRESS', 'p[', 'p = ', 'tmp', 'f_', 'm_', 'res_', "'stage'", "'info'", 'return',
+                   'try:', 'except', 'pass', 'with open', 'def ', 'global STATE')
+        rest = [l for l in added if l not in ident and l.strip()]
+        self.assertTrue(all(any(m in l for m in markers) for l in rest), [l for l in rest if not any(m in l for m in markers)])
 
 
 if __name__ == '__main__':

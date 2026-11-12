@@ -109,3 +109,31 @@ code or run exists yet.
 - the controller-only 12 GiB repeat's 9 rows with LO/HI RSS_LIMIT at 0 expansions → SEARCH_MEMORY_LIMIT, except
   where a SEARCH_RESULT is missing;
 - A1 Uiseong at 300 s → DEADLINE_STOP_NO_EVIDENCE.
+
+**Implementation note (before any run).** The progress file is named **`SEARCH_PROGRESS.json`**, not
+`STAGE_PROGRESS.json`. The harness reads every `STAGE_*.json` as a phase checkpoint with a `phase` key, so the
+original name would collide. The content is unchanged. After each LO, LO2 and HI return, the final metrics (expansions,
+labels, status, reason) are written with `final: true`. The "final counts equal SEARCH_RESULT" test compares those.
+
+## Amendment 2: rule (b) refined, before any Step 1 panel run (16:3x UTC)
+
+**Finding.** Checking the Step 0 records showed that rule (b) would label a deadline stop **after** search stages had
+run as "no evidence", which is untrue. Yeongdeok 0325T19 FX2 on the 1-hour panel is an example: Z and LO ran, then the
+outer deadline stopped the worker.
+
+**Rule (b) is split:**
+- **b1. DEADLINE_STOP_NO_EVIDENCE:** as before, **and** the worker recorded no search stage (`rda_stages` empty or
+  absent).
+- **b2. DEADLINE_STOP_DURING_SEARCH (new reason):** `receipt.deadline_termination_requested`, the frozen reason is
+  LATE_RESULT or STALE_OR_IDENTITY_MISMATCH, the worker stopped with DeadlineStop, **and** it recorded at least one
+  search stage. The evidence lists the stages with status and reason.
+
+**Expected reason changes on the 1-hour panel, stated now** (this replaces "expected 0"):
+- Yeongdeok 0325T19 FX2 changes in every rep where the outer deadline stopped it: LATE_RESULT →
+  DEADLINE_STOP_DURING_SEARCH. In Step 0 that happened in 3 of 4 runs.
+- **No other mission** is expected to change reason.
+- Statuses: **0 changes expected**, as before.
+- Any reason change on any other mission goes to review.
+
+**F-DYN replay expectation, corrected.** The A1 Uiseong rows (Z ran, then a deadline stop) give
+DEADLINE_STOP_DURING_SEARCH, not NO_EVIDENCE. The replay test is updated accordingly, before the panel run.

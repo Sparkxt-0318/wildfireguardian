@@ -40,6 +40,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 HERE = pathlib.Path(__file__).resolve().parent
 DECISION_DIR = HERE.parent / 'decision'
 STATE = {}; FOLDER = None; WRITE = None
+_V2_PROG_FLUSH = None   # kit-v2 Step 1: flush of the last stage progress, used on any stop
 
 ALLOCATION = {'version': 'wfg.rda.allocation/2-window-check-first',
               'Z_optional_prefilter': 'SKIPPED_FOR_ALL_Z_WITNESSES',
@@ -100,7 +101,7 @@ def jsonable(x):
 
 
 def main():
-    global STATE, FOLDER, WRITE, ROOT
+    global STATE, FOLDER, WRITE, ROOT, _V2_PROG_FLUSH
     p = argparse.ArgumentParser(); p.add_argument('--job-file', required=True); a = p.parse_args()
     job = json.loads(pathlib.Path(a.job_file).read_text())
     if job.get('root'):
@@ -155,6 +156,34 @@ def main():
     if job.get('core_sha256', actual_core_sha256) != actual_core_sha256:
         raise ValueError('ACTUAL_IMPORTED_CORE_HASH_MISMATCH')
     import road_core, road_bounds, zsweep, publication_v1_1
+    # kit-v2 Step 1: persisted stage progress (side effect only; SEARCH_PROGRESS.json at most every 2 s and on stop)
+    _PROG = {'stage': 'ADMISSION', 'last_write': 0.0, 'payload': None}
+    def _prog_write(force=False):
+        p = _PROG['payload']
+        if p is None or (not force and time.perf_counter() - _PROG['last_write'] < 2.0):
+            return
+        try:
+            with open('/proc/self/statm') as f_:
+                p['rss_mb_current'] = int(f_.read().split()[1]) * os.sysconf('SC_PAGE_SIZE') / 2 ** 20
+        except OSError:
+            p['rss_mb_current'] = None
+        p['utc'] = utc(); p['elapsed_from_outer_s'] = time.perf_counter() - origin
+        tmp = FOLDER / '.SEARCH_PROGRESS.json.tmp'
+        tmp.write_text(json.dumps(p, default=str)); os.replace(tmp, FOLDER / 'SEARCH_PROGRESS.json')
+        _PROG['last_write'] = time.perf_counter()
+    def _prog_hook(where, info):
+        _PROG['payload'] = {'stage': _PROG['stage'], 'where': where, 'info': dict(info)}
+        _prog_write()
+    def _prog_stage(name):
+        _PROG['stage'] = name
+    def _prog_done(res_):
+        m_ = (res_ or {}).get('metrics') or {}
+        _PROG['payload'] = {'stage': _PROG['stage'], 'where': 'road_core.solve:returned', 'final': True,
+                            'info': {'expansions': m_.get('expansions'), 'labels': m_.get('labels'),
+                                     'status': (res_ or {}).get('status'), 'reason': (res_ or {}).get('reason')}}
+        _prog_write(force=True)
+    road_core.PROGRESS_HOOK = _prog_hook; zsweep.PROGRESS_HOOK = _prog_hook
+    _V2_PROG_FLUSH = lambda: _prog_write(force=True)
     phaseb = {m.__name__ + '.py': sha(m.__file__) for m in (road_core, road_bounds, zsweep, publication_v1_1)}
     phaseb['rda_worker_v1_1.py'] = sha(__file__)
     for n, h in (job.get('phaseB_sha256') or {}).items():
@@ -318,6 +347,7 @@ def main():
         if cap > 0:
             t0 = time.perf_counter()
             try:
+                _prog_stage('Z')
                 z = zsweep.contact_sweep(graph, hazard, request, M, wall_s=cap, core=core,
                                          check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'))
             except zsweep.SweepUnsupported as exc:
@@ -336,6 +366,7 @@ def main():
         if not done and remaining() > ALLOCATION['HI_check_reserve_s']:
             t0 = time.perf_counter()
             try:
+                _prog_stage('EA')
                 EA = zsweep.EarliestArrivalBound(graph, hazard, request, M, core, deadline=deadline - ALLOCATION['HI_check_reserve_s'])
                 start_bound = EA.bound(request['position']['node'], request['incoming_edge'], request['departure'], True)
                 z_arr = next((c[2].get('arrival') for c in candidates if c[0] == 'Z'), None)
@@ -364,7 +395,9 @@ def main():
                 time_capped.append('LO:skipped')
             if cap >= ALLOCATION['min_search_cap_s']:
                 rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t0 = time.perf_counter()
+                _prog_stage('LO')
                 lo_res = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA)
+                _prog_done(lo_res)
                 STATE['engine_binding']['actual_invocations'] += 1
                 record('LO', 'lo', cap, t0, lo_res); checkpoint('LO_RETURNED')
                 done = consider('LO', 'lo', lo_res, 'road_lower_bound_lattice_relaxation')
@@ -383,7 +416,9 @@ def main():
                 cap = ALLOCATION['LO2_fraction_of_remaining'] * remaining()
                 if cap >= ALLOCATION['min_search_cap_s']:
                     rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t1 = time.perf_counter()
+                    _prog_stage('LO2')
                     lo2 = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('lo'), mode='lo', arrival_bound=EA)
+                    _prog_done(lo2)
                     STATE['engine_binding']['actual_invocations'] += 1
                     record('LO2', 'lo', cap, t1, lo2, {'refined_edges': nref, 'refinement_s': tref, 'refinement_selection': selinfo})
                     checkpoint('LO2_RETURNED')
@@ -395,7 +430,9 @@ def main():
                 time_capped.append('HI:skipped')
             if cap >= ALLOCATION['min_search_cap_s']:
                 rq = copy.deepcopy(request); rq['limits']['wall_s'] = cap; t0 = time.perf_counter()
+                _prog_stage('HI')
                 hi = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('hi'), mode='hi', arrival_bound=EA)
+                _prog_done(hi)
                 STATE['engine_binding']['actual_invocations'] += 1
                 record('HI', 'hi', cap, t0, hi); checkpoint('HI_RETURNED')
                 done = consider('HI', 'hi', hi, None)
@@ -467,6 +504,11 @@ if __name__ == '__main__':
             STATE['result'] = {'status': 'TIMEOUT' if isinstance(exc, DeadlineStop) else 'UNKNOWN', 'reason': str(exc),
                                'solver_status': 'INCOMPLETE_CAP' if isinstance(exc, DeadlineStop) else 'UNSUPPORTED',
                                'legs': [], 'destination': None, 'arrival': None, 'metrics': {}}
+        if _V2_PROG_FLUSH is not None:
+            try:
+                _V2_PROG_FLUSH()
+            except Exception:
+                pass
         WRITE('FAILURE', STATE)
         if not (FOLDER / 'RESULT.json').exists():
             WRITE('RESULT', STATE)
