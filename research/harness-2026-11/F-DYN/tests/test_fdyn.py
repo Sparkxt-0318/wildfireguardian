@@ -140,3 +140,37 @@ def test_v31_envelope_end_covers_exact():
     assert np.all(b[0][ok] * 1000 <= lo_ms[ok] - h_ms)
     assert np.all((e[0][ok] + 300) * 1000 >= hi_ms[ok] - h_ms)
     assert b[0, 0, 0] == 5100.0 and e[0, 0, 0] == 5100.0
+
+
+def test_footprint_law_never_clears_a_burn_set_cell():
+    """ENVELOPE_FOOTPRINT_RULE.md (Iris/orchestrator condition): under envelope_footprint no burn-set cell, and no
+    present-fire cell, is ever marked clear within the horizon - including cells the export lists as burned and present
+    fire whose writer `remaining` falls inside the horizon. Uses the real footprint_members with a stub radiation model."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('pc', str(Path(__file__).resolve().parents[1] / 'fdyn' / '_packet_child.py'))
+    pc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(pc)
+
+    class _Pred:
+        def __init__(self, a):
+            self.incident_heat_flux_w_m2 = a * 1000.0
+
+    class _Model:
+        def predict_details(self, a):
+            return _Pred(a)
+
+    class _B:
+        @staticmethod
+        def radiation_model(*_a):
+            return _Model()
+
+    rng = np.random.default_rng(1)
+    footprint = rng.random((20, 30)) < 0.4
+    current = np.zeros_like(footprint); current[3, 4] = current[10, 11] = True          # present fire, maybe outside
+    births = np.where(footprint & (rng.random(footprint.shape) < 0.7), 0.0, np.inf)     # export-burned cells skipped
+    built = {'settings': {'horizon_s': 18000.0}, 'affine_transform': None, 'current': current,
+             'remaining_s': 3000.0, 'events': births[None]}
+    (m,) = pc.footprint_members(_B, np, built, 5179, footprint)
+    assert m['breakpoints'] == [0.0, 18000.0]                                           # one interval, whole window
+    assert m['flame'].shape[0] == 1 and np.array_equal(m['flame'][0], footprint | current)
+    assert np.all(np.isinf(m['extinction_breakpoint_s']))                               # nothing ends in the horizon
