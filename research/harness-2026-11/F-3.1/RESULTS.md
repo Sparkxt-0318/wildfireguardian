@@ -314,3 +314,41 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Note on the F-DYN exact-minus-grid statistics above.** `exact_cert` in the F-DYN claim file is the end of the
   last feasible interval. For the origins with a hole, it is not the resident-facing contiguous deadline. Both are
   in the file: `union_cert` holds every interval.
+
+## F-DYN v3.3 envelope variants (SCENARIO, not what happened; not yet verified)
+
+* **Files and inputs.**
+  * Claim: `results/FDYN_V33_envelope_report.json`, built by `deadline_field/fdyn_v33_report.py` from 24 runs of
+    `deadline_field/fdyn_run.py`.
+  * Leo's MANIFEST_v3_3 (sha aaed2402…, commit 4463892) for the 6 recorded starts × {5 h, 8 h}.
+  * For per-cell-law packets, phases are read from the HAZARD flame bins, so the field follows the router's law.
+    envelope_sound is withdrawn and not scored.
+* **Labels.**
+  * envelope: bracket-start, not a lower bound.
+  * envelope_burnset: sound relative to the final mapped burn set (fire never mapped is outside it); single
+    implementation, not independently checked.
+* **Witnesses.** All pass the unchanged full checker and the closed replay:
+  * envelope: 3,120 of 3,120 (1 is upper_bound);
+  * envelope_burnset: 438 of 438.
+* **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
+  is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
+
+  | region | horizon | envelope: checked / unchanged | envelope_burnset: checked / unchanged | kriged_mean checked |
+  |---|---|---|---|---|
+  | Uiseong (252) | 5 h | 235 / 222 | 0 / 0 | 243 |
+  | Uiseong (252) | 8 h | 235 / 219 | 0 / 0 | 243 |
+  | Yeongdeok (270) | 5 h | 265 / 262 | 81 / 78 | 264 |
+  | Yeongdeok (270) | 8 h | 265 / 261 | 81 / 78 | 264 |
+
+  The counts per region-start are in the claim file.
+* **envelope_burnset blocked roads** (`results/BURNSET_BLOCKED_ROADS_v33.json`, built by
+  `deadline_field/burnset_blocked.py`). These are roads blocked for the whole horizon under both rules, at every start:
+  * Uiseong: 43,512 of 43,826 (99.28%);
+  * Yeongdeok: 76,541 of 111,924 (68.39%).
+
+  Every burn-set cell burns from t = 0 and never clears. Both regions share one 237 × 79 grid and the same
+  16,176-cell burn set: the 2025 fire spread from Uiseong into Yeongdeok. In Uiseong, therefore, no origin has a
+  route under this envelope. **For Uiseong routing the variant is uninformative, not a finding about the fire.**
+* **envelope vs kriged_mean is not ordered.** At YD 03-25 19Z 5 h, origin osm:node/415160165 is feasible from 0 under
+  envelope ([0, 17706]) but only from 6,071 s under kriged_mean. Envelope deadlines are therefore not a bound on
+  kriged_mean deadlines in either direction. This is consistent with the bracket-start label.
