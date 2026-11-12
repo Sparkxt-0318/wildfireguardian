@@ -418,9 +418,8 @@ describe('no replay data on the page (Iris: one line for every cause; nothing ab
     ['an index with no entries', (rel) => (rel === 'cache/INDEX.json' ? json('{"entries":[]}') : undefined)],
     ['a cache file that fails to load (500)', (rel) => (rel.startsWith('cache/') && rel !== 'cache/INDEX.json' ? json('server error', 500) : undefined)],
   ];
-  // affirmative "safe" / "no orders" wording in either language; the line's own negated sentence ("…명령이 없다는 뜻이
-  // 아닙니다" / "not a statement about any … official order") is not an affirmative and is not matched
-  const FORBIDDEN = [/\bsafe(ly|ty)?\b/i, /\bno (official |evacuation )?orders?\b/i, /\ball clear\b/i, /안전/, /명령이 없습니다|명령은 없|명령 없음|대피하지 않아도/];
+  // strict, no exceptions (Iris, orchestrator): no "safe" / "no orders" wording in either language, negated or not
+  const FORBIDDEN = [/\bsafe(ly|ty)?\b/i, /\bno (official |evacuation )?orders?\b/i, /\ball clear\b/i, /안전/, /명령이?\s*없|명령은\s*없|대피하지 않아도/];
   const warn = console.warn;
   let warned: string[] = [];
   beforeAll(() => { console.warn = (...a: unknown[]) => { warned.push(a.map(String).join(' ')); }; });
@@ -439,14 +438,18 @@ describe('no replay data on the page (Iris: one line for every cause; nothing ab
         expect(container.querySelectorAll('[data-pv="no-data"]').length).toBe(1);
         // banner and official-orders slot unchanged (the slot is fixed text and never empty)
         expect(container.querySelector('[data-pv="banner"]')!.textContent).toBe(BANNER[lang]);
+        // Iris cond. 2: the official-orders slot is rendered, non-empty and unchanged, so it cannot read as "no orders"
         expect(container.querySelector('[data-pv="official"]')!.textContent).toBe(OFFICIAL_SLOT[lang]);
+        expect(OFFICIAL_SLOT[lang].length).toBeGreaterThan(40);
         for (const sel of ['card', 'time', 'time-stamp', 'stamp', 'age', 'words', 'one-trip', 'handoff']) expect(container.querySelector(`[data-pv="${sel}"]`), `${cause} ${lang} ${sel}`).toBeNull();
         expect(container.querySelector('.pv-question')).toBeNull();
         expect(container.querySelector('.pv-scenario')).toBeNull();
         expect(container.querySelector('.pv-places')).toBeNull();
         expect(container.querySelector('a[href^="geo:"]')).toBeNull();
         const text = container.textContent ?? '';
+        // Iris cond. 3: no replay mark or replay date with nothing to refer to
         expect(text).not.toContain(REPLAY_MARK[lang]);
+        expect(text).not.toMatch(/2025-\d{2}-\d{2}|\d{1,2}월\s*\d{1,2}일|March \d/);
         expect(text).not.toMatch(/\b\d{1,2}:\d{2}\b/); // no clock time anywhere
         for (const f of FORBIDDEN) expect(text, `${cause} ${lang} ${f}`).not.toMatch(f);
         // the raw cause never reaches the page

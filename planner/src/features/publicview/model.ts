@@ -61,10 +61,11 @@ export const OFFICIAL_SLOT: LmText = {
 export const QUESTION: LmText = { ko: '대피해야 하나요? 언제까지?', en: 'Do I need to leave, and by when?' };
 /**
  * Shown when no replay data could be loaded (no cache index, an unreadable index, or a failed load) — one line for every
- * cause (Iris): it says what this page holds, never anything about a fire or an order. Korean pending Sofia's check.
+ * cause (Iris): it says what this page holds, never anything about a fire or an order. Korean: Sofia ("여부" covers both
+ * directions without ever writing "명령이 없" or "안전", which a skimmer could half-read as "there is no order").
  */
 export const NO_DATA: LmText = {
-  ko: '이 페이지에는 불러온 재현 자료가 없습니다. 산불이나 공식 대피 명령이 없다는 뜻이 아닙니다.',
+  ko: '이 화면에는 불러온 재현 자료가 없습니다. 이 화면으로는 산불이나 공식 대피 명령 여부를 알 수 없습니다.',
   en: 'No replay data is loaded on this page. This is not a statement about any fire or any official order.',
 };
 export const DEVICE_NOTE: LmText = {
