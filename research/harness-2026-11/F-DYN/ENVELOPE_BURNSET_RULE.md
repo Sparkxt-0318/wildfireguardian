@@ -131,3 +131,28 @@ address point 2 at all.
 - **Still valid:** readers that take phases from HAZARD flame bins, such as Richard's field.
 - **Not affected:** `kriged_mean` and `firms_early`, which use the scalar law and pass.
 - **Fix:** proposed to the orchestrator; a new manifest version will follow.
+
+### RESOLVED at v3.4 (faa89c4): Nora PASS WITH NOTES, ledger row 37 (2026-11-12)
+
+- **Packets checked.** Nora built Yeongdeok 25T11Z h5 in all 4 variants, and Uiseong 24T02Z h5 `envelope`, from
+  `MANIFEST_v3_4.json`.
+- **`kriged_mean`, `firms_early`, `envelope_burnset`:**
+  - the replay `Packet` gives HAZARD_FLAME_EQUALS_NPZ_PHASES;
+  - her own array-law check finds 0 cell-bin mismatches and 0 knots inside a bin.
+- **`envelope_burnset` HAZARD** equals her row-32 packet exactly: breakpoints, flame, flux and support. It is a fix,
+  not a new variant.
+- **`envelope` arrays (all-NaN)** are refused by every reader she probed:
+  - replay `Packet`;
+  - the kit's `ffi_independent_checker`;
+  - `ContactModel.from_packet`;
+  - `RoadExposure` and `RadiationBounds`;
+  - `contact_first` and `event_reference` (by code read).
+- **Her notes:**
+  - F-3.2 `p1_check.from_raw` **on Main** still accepts the NaN arrays silently. Thomas's fix is on `routing-next`
+    and has not been verified by Nora.
+  - `api/*` and `journey_decision*` were not probed individually.
+  - `envelope` results stay HAZARD-reader-only.
+- **Scope.** Row 34's scope limit is lifted for `envelope_burnset` **at v3.4 only**. The v3–v3.3 entries keep the
+  "arrays inconsistent with HAZARD" label (`MANIFEST_v3_4.json` `older_manifests`).
+- **The v3.4 manifest labels are not edited.** They still cite row 32, because the manifest file is pinned by builds
+  in progress (Thomas X1, Richard). Row 37 is recorded here, and the next manifest version will carry it.

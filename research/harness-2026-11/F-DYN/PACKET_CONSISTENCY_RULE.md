@@ -86,3 +86,10 @@ Nora re-verifies:
 - the replay's packet consistency check.
 
 Thomas runs X1. For `envelope`, X1 is expected to fail by design: its arrays are refused.
+
+## STATUS
+
+- **Fix implemented** at 588f74e and faa89c4 (`MANIFEST_v3_4.json`).
+- **Nora: PASS WITH NOTES, ledger row 37**
+  (2026-11-12). Details are under STATUS in `ENVELOPE_BURNSET_RULE.md`.
+- **Thomas X1:** running on the 16 v3.4 samples.
