@@ -43,8 +43,10 @@ verifier, instead of the dense per-second sweep (EarliestArrivalBound + LO/HI A*
 - the horizon;
 - both contact rules (ROUTER sampling and the closed footprint).
 
-**Tested.** Oracle-tested against brute force. On **7,771 of 7,771** recorded 1-hour routes it gives identical legs
-and arrival.
+**Tested (Richard's statement, edited per his note):**
+- Oracle equality on randomized small instances (`tests/test_field_vs_oracle.py`).
+- **7,771/7,771** recorded routes have identical legs and arrival under the CERT rule (router ∪ closed footprint).
+- All 1,468 recorded model_no_route jobs are infeasible under the ROUTER rule.
 
 **Cost.** Deterministic: states × interval pieces. These are natural work units for PLAN rule F and G6.
 
@@ -62,22 +64,35 @@ and arrival.
    - **On a dose or peak rejection there is no exact fallback.** The result is then labelled `upper_bound`, never
      optimal.
    - Precondition that makes contact = full policy: journey duration ≤ (dose limit − incurred) / max non-flame flux,
-     and peak cannot bind off flame. It held for 6,286 of 6,288 F-DYN v3.1 witnesses.
+     and peak cannot bind off flame. The packet-flux **predictor** held for 6,286 of 6,288 F-DYN v3.1 witnesses. All 6,288 witnesses passed the checker.
    - **[open — my concern, shared with Thomas's Step 7 review]** "max non-flame flux" must be a bound of the
      **checker's enclosure**, not the cell-binned packet flux. Otherwise the precondition can hold while the checker
      still rejects on dose. The precondition must be restated in the checker's own quantity, or used only as a
      predictor and never as a proof.
    - It must be revisited for the thresholded-dose variant (Step 9).
 3. **Waitable nodes and windows:** already exact; verification only.
-4. **Memory:** an interval representation instead of the dense int16 array. Its size must be measured on Uiseong and
-   Yeongdeok at 5 h before adoption. Same 3,072 MiB default, and the declared 12,288 MiB is reported separately.
+4. **Memory: measured by Richard** (F-DYN v3.1; one destination field held at a time; whole-process peak RSS,
+   including the greedy witnesses and full-checker verification; Python 3.13, exact rationals; `results/FDYN_V31_recorded_starts.json`, Nora row 33):
+
+   | Region | Field time per packet | Destinations | Peak RSS 5 h | Peak RSS 8 h |
+   |---|---|---|---|---|
+   | Uiseong (43,826 edges) | 28–34 s | 30 | 284–315 MiB | 368–423 MiB |
+   | Yeongdeok (111,924 edges) | 357–410 s | 151 | 517–540 MiB | 535–614 MiB |
+
+   - Both are far below the 3,072 MiB default.
+   - **Cautions:**
+     - Hold **one field per request** (destination set), not many. About 30 Yeongdeok fields at once reached about
+       6 GB.
+     - The exact A* earliest witness is the memory risk (7.4 GB on Yeongdeok multi-hour), not the field.
+   - These figures are Richard's and are cited as his, until verified.
 
 ## 4. How the gates verify it
 
 - **G2:** every returned route passes the frozen whole-road checker and `routing.independent`.
 - **G2c:** every NO_ROUTE carries a `.wfgc` certificate, accepted by `check_py` and the C99 checker.
-  - **Caveat (Thomas):** the step from field NO_ROUTE to kit-model no-route rests on the unverified dominance
-    argument, until that argument is verified.
+  - **Scope:** the dominance review was dropped by the orchestrator (0 hidden refusals among the multi-hour
+    unresolved). So **the step from field NO_ROUTE to kit no-route is not claimed**. NO_ROUTE certificates certify the
+    field's ROUTER instance only.
 - **G6:** 1-hour reproduction (identical legs and arrival; identical refusals; timeouts never contradict).
   - The field already reproduced 7,771/7,771 routes in Richard's own run.
   - G6a/G6b re-runs it as v2.
@@ -93,8 +108,11 @@ and arrival.
 - **Keep the frozen whole-road checker as the verifier,** unchanged.
 - **The dense path stays the 1-hour solver until G6 shows the field reproduces it,** so G1 identity is kept.
 - **Build order inside Step 6:**
-  1. earliest-arrival pass (option a first: it is simpler and its memory is bounded by the field);
-  2. measure the interval-field memory at 5 h;
+  1. earliest-arrival pass (option a first: it is simpler and its memory is bounded by the field).
+     **Acceptance test (Richard):** its arrival equals `core.witness` (exact A*) on all 1-hour jobs, and on the F-DYN
+     Uiseong packets where A* fits in memory. It also equals the kit's proven optima where they exist (Yeongdeok …166
+     = 3,953 s);
+  2. re-measure the interval-field memory at 5 h inside v2 (Richard's figures above are the expectation);
   3. restate the exactness precondition in the checker's own enclosure quantity (Thomas reviews);
   4. G2, G2b, G2c and G6 as above.
 - Steps 1–5 still come first: reasons, memory accounting, caps, precompute, EA memory. They also serve the 1-hour kit.
