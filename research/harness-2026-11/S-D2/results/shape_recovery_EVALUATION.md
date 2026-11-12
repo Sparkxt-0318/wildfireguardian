@@ -25,7 +25,7 @@ Setup: 64×64 grid, T = 240 h, 24 h brackets, 5 seeds per kernel. MCEM uses a 0.
 "misallocates toward far offsets" holds **for plug-in only**. It does **not** hold for mean-field NLL, which recovers
 here. No estimator collapses high_far.
 
-**What this means for the real part-a fits (unverified there):** on real data, mean-field NLL gives a far share
+**What this means for the real part-a fits (UNVERIFIED: the real-data numbers cited here have not been verified; Owen, note b):** on real data, mean-field NLL gives a far share
 of about 0.64–0.68, against 0.066 for MCEM. That gap is *not* explained by NLL estimator bias under this synthetic
 model, where both recover. It must come from something the synthetic world lacks: model misspecification, the
 environment modulation, observation error, or a real far-offset signal that MCEM misses. This result does not
@@ -47,3 +47,11 @@ On this synthetic problem, the grid step changes far_share by at most 0.0024 and
 Both are far below the ±0.05 tolerance and the seed SD (0.011–0.033). The 0.25 h step used by `d2_bracket`
 therefore does not change the recovery verdict here. It is a synthetic bound only: the real hazard is
 environment-modulated and there are 81 offsets.
+
+## Verifier notes (Owen, at 8b0fde65)
+
+- **Shape recovery: PASS.** The rerun matches to ≤0.0008 per seed. The tolerance file is byte-identical from 946f1e4e
+  to 8b0fde65. Owen applied the rule independently and reached the same verdicts.
+- **Step check: PASS WITH NOTES.** The rerun matches to ≤3.4e-4.
+  - (a) The 0.25 h carry-over is supported on this synthetic problem only.
+  - (b) The real part-a paragraph above stays unverified.
