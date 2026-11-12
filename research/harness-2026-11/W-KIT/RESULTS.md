@@ -177,6 +177,47 @@ and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplie
   asserts that every kit SMS also fits 90 characters and its own class. None of these outputs is a 재난문자.
 - Suite 23 files / 411 tests; build:static OK.
 
+## W6 — confirmed answers (Iris; orchestrator, interim for voice) (UNVERIFIED)
+- **Contact line: 35 s + its own 10 s (Iris signed off).** The line is the last thing in the head, after the closer,
+  and the core stays within 20 s (test over every real and synthetic set). Every staff report gives the total for its
+  message, e.g. "이장 방송 길이: 기본 32.0초(한도 35초) + 문의 7.7초(한도 10초) = 39.7초". Measured maximum over the
+  531 real Korean heads: **39.7 s**. Neither budget has been tested with people.
+- **Shelter name in English voice (INTERIM, reported to the owner; may change).**
+  - Human-read English head script: keeps the Hangul shelter name. The English staff output gets a reader note
+    ("Reader: say the shelter name in Korean: …"). 373 heads on the real set.
+  - English automated voice call: does not read the name. It says "The shelter has no English name; it is named in the
+    Korean message." and the shelter field is reported as **not supplied**.
+  - **GAP, recorded:** an English-only listener who gets only the automated call has no destination. Affected: **373
+    of the 531 real places**, every place whose shelter has no English name. The gap is stated in both staff reports.
+  - TTS reading of Hangul is not used. It would need a language-tagged Korean voice segment and a test that a Korean
+    listener can identify the shelter from the audio. No engine is in scope.
+- **Issuer form guard (Iris's specification).** The main rule: the name ends in an agency suffix, is ≤ 25 characters
+  (ko) / 60 (en) and ≤ 8 words, and contains no sentence punctuation. Secondary rejections:
+  - clock-time patterns (not digits, so 119안전센터 passes);
+  - departure instructions;
+  - a sentence ending at the end of any word (…니다/…시오/…세요/…하라/…바랍니다);
+  - kit-forbidden words outside standard agency compounds (재난안전, 행정안전, 안전센터, 119구조, 구조대, …).
+
+  Acceptance:
+  - 17 of 17 real issuer strings pass: the 2025 senders 의성군/청송군/안동시/영양군 and standard agencies (산림청,
+    행정안전부, 경상북도, 소방청, …). **This list was used to tune the guard.** Four failed at first (행정안전부,
+    경상북도, 의성소방서, 119안전센터) until the suffixes 도/서 and the compounds 행정안전/안전센터 were added, so it is
+    not an independent test.
+  - All 13 Korean and 5 English adversarial names fail, including instructions that end in a valid suffix ("지금 바로
+    출발하십시오 동", "18:30까지 대피 동") and Mira's string.
+  - **Form only:** the guard cannot show that an agency exists. The repository holds no issuer list, so no allowlist is
+    possible yet; with one, an allowlist match would be the stronger check.
+- **Guidance as a whole** (Sofia: the duty attaches to the guidance, not to each channel). **440 of 531** places have
+  four Korean outputs that together carry all four items: all 440 through the family script. Item 5 of 안 제49조② ("그
+  밖에 … 명령권자가 인정하는 사항") is open-ended and not checkable.
+- **First-message destination** (Iris, from Sofia's Andong case), measured over leave-by places with a nameable shelter:
+  timed Korean outputs without the shelter: family text 440 (by design, no room), head 141 and voice 141 (the head's
+  optional shelter block was dropped to keep the core within 20 s). The family script carries it in every case. This is
+  a report, not a rule.
+- Metric (complete AND not withheld, overall · applicable): ko 299·299 / 299·299 / 0·0 / 440·440; en 431·431 / 64·64 /
+  0·0 / 431·431. Withheld 0. Reasons with the issuer: not applicable 240, not supplied 1,197, does not fit 1,715.
+- Suite 23 files / 415 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

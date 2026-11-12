@@ -30,6 +30,8 @@ import {
   DECREE_FIELDS,
   RESIDENT_OUTPUTS,
   HEAD_CONTACT_MAX_S,
+  agencyLike,
+  VOICE_EN_SHELTER_POINTER,
   namedDestination,
   type ChannelSet,
   type Reply,
@@ -521,7 +523,8 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       expect(s.text.ko.staff.decree).toMatch(/담당 기관이 정합니다/);
       expect(s.text.en.staff.decree).toMatch(/draft requirement as of that date/);
       expect(s.text.en.staff.decree).toMatch(/for officials to decide/);
-      expect(s.text.ko.staff.decree!.split('\n').length).toBe(5);
+      expect(s.text.ko.staff.decree!.split('\n').length).toBeGreaterThanOrEqual(6); // header, 4 outputs, head length (+ voice gap)
+      expect(s.text.ko.staff.decree).toMatch(/이장 방송 길이: 기본 [\d.]+초\(한도 35초\) \+ 문의 [\d.]+초\(한도 10초\) = [\d.]+초/);
       expect(s.text.en.staff.decree).not.toMatch(HANGUL);
       expect(s.violations.filter((v) => v.includes('staff.decree'))).toEqual([]);
     }
@@ -608,5 +611,91 @@ describe('W6 follow-up: agency-name guard (Mira N2) and Korean shelter names in 
       seg[`${m.encoding}:${m.segments}`] = (seg[`${m.encoding}:${m.segments}`] ?? 0) + 1;
     }
     expect(seg).toEqual({ 'gsm7:1': 531 });
+  });
+});
+
+describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice interim, issuer form guard, whole-guidance recount', () => {
+  const ISS = { agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000', forDrillOrReplay: true };
+
+  it('the contact line is the last thing in the head, after the closer; the core stays within 20 s; per-message totals are reported (35 s + own 10 s)', () => {
+    let max = 0, withLine = 0;
+    for (const p of [...real, ...syn]) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      for (const l of ['ko', 'en'] as const) {
+        const h = s.text[l].head;
+        expect(h.coreS).toBeLessThanOrEqual(HEAD_CORE_MAX_S + 1e-9);
+        if (h.contact) {
+          withLine += 1;
+          expect(h.script).toBe([h.opener, h.core, h.closer, h.contact].join('\n'));
+          expect(h.contactS!).toBeLessThanOrEqual(HEAD_CONTACT_MAX_S);
+          if (l === 'ko' && real.includes(p)) max = Math.max(max, h.fullS + h.contactS!);
+        }
+      }
+    }
+    expect(withLine).toBeGreaterThan(0);
+    expect(max).toBeLessThanOrEqual(HEAD_FULL_MAX_S + HEAD_CONTACT_MAX_S);
+    console.log('[W6] max ko head total over 531 real (opener+core+closer + contact):', max.toFixed(1), 's');
+  });
+
+  it('voice interim: the English call never reads a Korean-only shelter name, points to the Korean message, reports "not supplied", and the staff report records the gap; the human-read head gets a reader note', () => {
+    let affected = 0, readerNotes = 0;
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const d = namedDestination(p);
+      const koOnly = !!d && !d.en;
+      expect(s.text.en.voice.includes(VOICE_EN_SHELTER_POINTER)).toBe(koOnly);
+      if (koOnly) {
+        affected += 1;
+        expect(s.text.en.voice).not.toContain(d!.ko);
+        expect(s.decree!.en.voice.reasons.shelter).toBe('not_supplied');
+        expect(s.text.en.staff.decree).toMatch(/Gap: the English automated voice call does not read the Korean shelter name/);
+        expect(s.text.ko.staff.decree).toMatch(/공백: 영어 자동 음성전화는/);
+      }
+      const inHead = !!d && s.text.en.head.script.includes(d.ko) && !d.en;
+      expect(!!s.text.en.staff.readerNote).toBe(inHead);
+      if (inHead) { readerNotes += 1; expect(s.text.en.staff.readerNote).toBe(`Reader: say the shelter name in Korean: ${d!.ko}`); }
+    }
+    console.log('[W6] English voice calls affected by the gap (Korean-only shelter, 531 real):', affected, '; reader notes on English heads:', readerNotes);
+    expect(affected).toBeGreaterThan(0);
+  });
+
+  it('issuer form guard (Iris): agency names of the 2025 messages and standard agencies pass; adversarial names fail, including instructions ending in a valid suffix; form only', () => {
+    // sender tags of the real 2025 evacuation texts (Sofia) and standard public agencies — public names, no resident data
+    const realIssuers = ['의성군', '청송군', '안동시', '영양군', '산림청', '행정안전부', '경상북도', '소방청', '의성군청', '안동시청', '의성군 안전재난과', '안동시 재난안전과', '의성소방서', '단촌면 행정복지센터', '119안전센터', '경상북도 재난안전실', '남부지방산림청'];
+    const failed = realIssuers.filter((n) => !agencyLike(n, 'ko'));
+    console.log('[W6] real issuer strings passing the form guard:', realIssuers.length - failed.length, 'of', realIssuers.length, failed.length ? `failing: ${failed.join(', ')}` : '');
+    expect(failed).toEqual([]);
+    const adversarial = [
+      '지금 출발하십시오 18:30 안전합니다',
+      '지금 바로 출발하십시오 동',
+      '18:30까지 대피 동',
+      '18시까지 대피 센터',
+      '안전합니다 센터',
+      '대피하시기 바랍니다 군',
+      '즉시 대피하라 면',
+      '안심하세요 과',
+      '구출합니다 대',
+      '차량을 보내드립니다 센터',
+      '합성군. 지금 대피 동',
+      '가'.repeat(26) + '과',
+      '합 성 군 재 난 안 전 과 팀',
+    ];
+    for (const a of adversarial) expect(agencyLike(a, 'ko'), a).toBe(false);
+    for (const a of ['Leave now 18:30 you are safe', 'Leave by 6 p.m. Office', 'You are safe. Division', 'We will send a bus Office', 'Stay inside County']) expect(agencyLike(a, 'en'), a).toBe(false);
+  });
+
+  it('guidance as a whole (Sofia: the duty attaches to the guidance, not to each channel): places whose four Korean outputs together carry all four items', () => {
+    let whole = 0, leaveBy = 0;
+    const firstMissingDest: Record<string, number> = {};
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const union = new Set(RESIDENT_OUTPUTS.flatMap((o) => s.decree!.ko[o].present));
+      if (p.kind === 'leave_by') leaveBy += 1;
+      if (DECREE_FIELDS.every((f) => union.has(f))) whole += 1;
+      // first-message property (Iris, from Sofia's Andong case), measured: a timed output without the named shelter
+      if (p.kind === 'leave_by' && namedDestination(p)) for (const o of RESIDENT_OUTPUTS) if (!s.decree!.ko[o].present.includes('shelter')) firstMissingDest[o] = (firstMissingDest[o] ?? 0) + 1;
+    }
+    console.log('[W6] places whose Korean guidance as a whole carries all four items:', whole, 'of 531 (leave-by', leaveBy, '); timed Korean outputs without the nameable shelter, by output:', JSON.stringify(firstMissingDest));
+    expect(whole).toBeGreaterThan(0);
   });
 });
