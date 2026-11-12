@@ -168,6 +168,7 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   | sample | active cells | single-interval cells: start equal / hi_rel equal | merged or clipped equal | boundary cells (birth / end) | integer instances equal |
   |---|---:|---:|---:|---:|---:|
   | (a) Uiseong 20250324T020000Z h5 envelope | 275 | 142 / 142 | 133 | 102 / 17 | 10 / 10 |
+  | (b) Uiseong 20250324T020000Z h5 firms_early (scalar law) | 247 | 216 / 216 | 31 | 102 / — | 10 / 10 |
   | (c) Yeongdeok 20250325T110000Z h5 envelope | 1,752 | 820 / 820 | 932 | 482 / 309 | 10 / 10 |
 
   - There are 0 mismatches.
@@ -175,4 +176,10 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   - Timestamp-exact cells were recovered to within 2.4e-8 ms of an integer.
   - A "boundary" cell is one whose rel_ms is an exact positive multiple of 300,000. At (c), these are exactly the
     cells v3 got wrong under the exact rule.
-  - Sample (b), firms_early at the (a) start, waits for Leo's per-cell scalar-law rule text.
+  - (b) uses Leo's scalar-law text (2026-11-12): central member, p/q = 1/1, shift 0; birth t = floor_div(max(rel, 0),
+    300000)·300 s; kept iff finite, not export-burned, rel > −T·1000 and t < H; interval [t, t + T + Q). That is the
+    envelope law with hi = lo (`--law scalar`). Its 102 boundary births match the 102 births Leo's v3→v3.1 diff moves
+    by +300 s at that start.
+  - The export's `contract__cell_duration_s` is asserted equal to T in every sample.
+  - Command: `envelope_o2.py --leo <f40e2af worktree> --packet <packets_v31/...> --start <tag> --mode v31 --law
+    envelope|scalar --tag a|b|c` (results `results/envelope_o2_v31_{a,b,c}.json`).

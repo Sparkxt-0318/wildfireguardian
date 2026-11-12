@@ -11,6 +11,7 @@
  "boundary_cells_lo": 482,
  "boundary_cells_hi": 309,
  "mode": "v31",
+ "law": "envelope",
  "active_cells_mine": 1752,
  "active_cells_hazard": 1752,
  "differing_cells": 820,

@@ -61,7 +61,7 @@ def find(d, key):
     return None
 
 
-def independent_intervals(L, pk, start_tag, H, mode='exact'):
+def independent_intervals(L, pk, start_tag, H, mode='exact', law='envelope'):
     lo = np.load(L / "variants/firms_early.npz")["arrival_h"]
     hi = np.load(L / "variants/firms_constrained.npz")["arrival_h"]
     t0 = datetime.fromisoformat(str(np.load(L / "variants/firms_early.npz")["t0_utc"]).replace("Z", "+00:00"))
@@ -77,7 +77,9 @@ def independent_intervals(L, pk, start_tag, H, mode='exact'):
     g = lambda r, c: (Hn - 1 - int(r)) * W + int(c)
     out, kept = {}, 0
     if mode == "v31":
-        return v31_intervals(L, pk, st, t0, burned, present, R, H, g, Hn, W)
+        if F(float(ex["contract__cell_duration_s"])) != T:
+            raise SystemExit("export cell duration %r is not T" % float(ex["contract__cell_duration_s"]))
+        return v31_intervals(L, pk, st, t0, burned, present, R, H, g, Hn, W, law)
     for r in range(Hn):
         for c in range(W):
             if burned[r, c] or not (np.isfinite(lo[r, c]) and np.isfinite(hi[r, c])):
@@ -115,8 +117,13 @@ def to_ms(arr, exact):
     return out, worst
 
 
-def v31_intervals(L, pk, st, t0, burned, present, R, H, g, Hn, W):
-    lo_z, hi_z = np.load(L / "variants/firms_early.npz"), np.load(L / "variants/firms_constrained.npz")
+def v31_intervals(L, pk, st, t0, burned, present, R, H, g, Hn, W, law="envelope"):
+    """law 'envelope': births from lo = firms_early, ends from hi = firms_constrained (rule §4).
+    law 'scalar' (Leo, 2026-11-12, central member p/q = 1/1, shift 0): lo = hi = firms_early; birth t =
+    floor_div(max(rel, 0), 300000)·300 s; kept iff finite, not export-burned, rel > −T·1000 and t < H; interval
+    [t, t + T + Q) — the same as the envelope law with hi = lo, so one code path."""
+    lo_z = np.load(L / "variants/firms_early.npz")
+    hi_z = lo_z if law == "scalar" else np.load(L / "variants/firms_constrained.npz")
     lo, hi = lo_z["arrival_h"], hi_z["arrival_h"]
     lo_ms, w_lo = to_ms(lo, lo_z["timestamp_exact"])
     hi_ms, w_hi = to_ms(hi, hi_z["timestamp_exact"])
@@ -187,14 +194,17 @@ def main():
     ap.add_argument("--start", required=True)
     ap.add_argument("--origins", type=int, default=10)
     ap.add_argument("--mode", choices=["exact", "float", "v31"], default="exact")
+    ap.add_argument("--law", choices=["envelope", "scalar"], default="envelope", help="v31 only: the packet's variant law")
+    ap.add_argument("--tag", default="", help="suffix for the results file name")
     a = ap.parse_args()
     L = Path(a.leo) / "research/harness-2026-11/F-DYN/_data"
     pk = Path(a.leo) / a.packet
     region = pk.parent.name
     hz = json.loads((pk / "HAZARD.json").read_text())
     H = int(F(float(hz["valid_until"])))
-    mine_raw, info = independent_intervals(L, pk, a.start, H, a.mode)
+    mine_raw, info = independent_intervals(L, pk, a.start, H, a.mode, a.law)
     info["mode"] = a.mode
+    info["law"] = a.law
     sched = info.pop("_sched", None)
     Hs = F(H)
     mine = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in mine_raw.items()) if v}
@@ -236,7 +246,7 @@ def main():
             print("INSTANCE DIFF", o["origin_id"], d[:2], flush=True)
     report.update(integer_instances_equal=n_eq, integer_instances_compared=n)
     print(json.dumps({"integer_instances_equal": n_eq, "of": n}))
-    (HERE / "results" / ("envelope_o2_%s.json" % a.mode)).write_text(json.dumps(report, indent=1) + "\n")
+    (HERE / "results" / ("envelope_o2_%s%s.json" % (a.mode, "_" + a.tag if a.tag else ""))).write_text(json.dumps(report, indent=1) + "\n")
 
 
 if __name__ == "__main__":
