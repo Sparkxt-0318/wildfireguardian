@@ -3,7 +3,8 @@
   kriged_mean        Choi 2026 TOA as published (Zenodo 10.5281/zenodo.21788344).
   firms_constrained  min(kriged TOA, first FIRMS detection in the cell): a detection proves fire by then (late bound),
                      so the cell can never arrive later than its first detection. Cells without a detection keep TOA.
-  firms_early        detected cells: the previous overpass (any of VIIRS S-NPP, NOAA-20, MODIS that recorded >= 1
+  firms_early        BRACKET-START, NOT A LOWER BOUND (orchestrator/Iris correction 2026-11-12: non-detection is not
+                     absence of fire; documented accounts fall before it). detected cells: the previous overpass (any of VIIRS S-NPP, NOAA-20, MODIS that recorded >= 1
                      detection in the grid) before the cell's first detection, i.e. the earliest arrival consistent
                      with a clear-sky non-detection; undetected cells: as firms_constrained. Clouds/smoke can hide fire
                      at that overpass, so the true arrival may be earlier still; this is a bracket under clear sky.
@@ -115,7 +116,9 @@ def main():
     constrained, early, stats = firms_variants(toa, r, c, h, src)
     a.out_dir.mkdir(parents=True, exist_ok=True)
     firms_sha = {f: hashlib.sha256((a.firms_dir / f'{f}.csv').read_bytes()).hexdigest() for f in FIRMS_FILES}
-    prov = {'toa_sha256': hashlib.sha256(a.toa.read_bytes()).hexdigest(), 'firms_csv_sha256': firms_sha,
+    prov = {'soundness': {'firms_constrained': 'upper side is a fact (burning by first detection)',
+                          'firms_early': 'BRACKET-START, NOT A LOWER BOUND'},
+            'toa_sha256': hashlib.sha256(a.toa.read_bytes()).hexdigest(), 'firms_csv_sha256': firms_sha,
             'firms_source': 'NASA FIRMS standard processing (daniel/data-fetch small/firms)', 'stats': stats}
     out = {}
     for name, arr in (('firms_constrained', constrained), ('firms_early', early)):

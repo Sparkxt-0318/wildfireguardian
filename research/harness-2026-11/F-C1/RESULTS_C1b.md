@@ -26,10 +26,16 @@
 
 **Account check.**
 
-- **4 of 5 bracketed villages are consistent.** V2 is consistent at 2 of its 3 halls. V3 is not consistent.
+- **Count (reconciled, Iris).** Of 6 villages, 1 (V5) is not bracketed. Of the 5 bracketed villages:
+  - **3 fully consistent:** V1, V4, V6.
+  - **1 mixed:** V2 is consistent at 2 of its 3 halls; 매정2리 is not.
+  - **1 not consistent:** V3.
+
+  That is 2 misses at observer level (매정2리 hall, 경정리).
 - **The two failures are both earlier than the bracket start.** The bracket start is "the previous overpass with ≥1
   detection anywhere in the grid", not a valid non-detection of that cell. It is **not a sound lower bound on
-  arrival**, as Elena noted for AHI. 1 km MODIS pixels and polar timing miss burning cells.
+  arrival**, as Elena noted for AHI. 1 km MODIS pixels and polar timing miss burning cells. Only the
+  upper side (burning by first detection) is a fact.
 
 **V1 test of the visibility model** (smoke visible from 지품면사무소 by 16:30 KST): **"possibly"** under both settings.
 Smoke becomes visible inside [14:58, —]. That is consistent with the account, but not a confirmation.

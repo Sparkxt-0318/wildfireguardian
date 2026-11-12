@@ -18,6 +18,9 @@ VARIANTS = {
     'envelope': ['--arrival', f'{D}/variants/firms_early.npz', '--arrival-hi', f'{D}/variants/firms_constrained.npz',
                  '--arrival-variant', 'envelope'],
 }
+SOUNDNESS = {'kriged_mean': 'kriged mean (not a bound; sd ~17 h; late for the coastal run)',
+             'firms_early': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)',
+             'envelope': 'BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check'}
 RECORDED = {'uiseong_andong_2025': {'20250323T010000Z', '20250324T090000Z', '20250325T170000Z'},
             'yeongdeok_2025': {'20250325T190000Z', '20250325T230000Z', '20250326T080000Z'}}
 
@@ -44,7 +47,8 @@ def main():
                     cmd += ['--kriged-toa', f'{D}/KFS_01_pswt_ok_toa.tif', '--synthetic-export-dir',
                             f'{D}/synthetic_exports']
                 entries.append({'region': region, 'start': start, 'start_kind': 'recorded' if recorded else 'synthetic',
-                                'horizon_h': H, 'variant': v, 'out': out, 'cmd': cmd})
+                                'horizon_h': H, 'variant': v, 'out': out, 'cmd': cmd,
+                                'soundness': SOUNDNESS[v]})
     a.out.write_text(json.dumps({'schema': 'wfg.fdyn.manifest/1', 'graph': 'interim full-grid (fdyn/regrid_graph.py)',
                                  'entries': entries}, indent=1))
     print(f'{len(entries)} packets for {len(seen)} region-starts -> {a.out}')

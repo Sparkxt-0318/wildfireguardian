@@ -9,6 +9,14 @@
 
 ## STATUS (read first)
 
+- **SOUNDNESS CORRECTION (2026-11-12, orchestrator and Iris).** `firms_early` and `envelope` use the FIRMS
+  **bracket-start**, "the previous overpass with ≥1 grid detection". That is **not a lower bound on arrival**:
+  non-detection is not absence of fire, and documented accounts fall before it (F-C1b).
+  - `firms_early` is therefore **not guaranteed early enough**, and `envelope` is **not guaranteed conservative**,
+    wherever fire arrived before that overpass. Results on them keep this label and are never called conservative.
+  - A sound envelope (`envelope_sound`) is defined in `SOUND_ENVELOPE_RULE.md`.
+  - Only "burning by first detection" (`firms_constrained`) is a fact.
+
 - **v1** (`3ced668`, 4 members, recorded window) and **v2-window** (`035681a`, packets under `packets_v2/`) are
   **SUPERSEDED. Do not score on them.** The hazard is the recorded routing window, which omits most of the burning and
   igniting fire. The writer's omitted-dose bound is 4,486–6,179 kJ/m² against the 100 kJ/m² limit (Nora's FAIL on v1;
@@ -64,6 +72,11 @@ Corrected numbers:
   p90 5.6). Their bracket is (12:25, 16:09].
 - **Reported timeline.** Documented village accounts (Sofia; snippet-level) put fire in Yeongdeok villages at about
   09–12 UTC, which is consistent with the brackets.
+- **What is solid and what is not.**
+  - **Solid:** the bound for the 323 cells MODIS first detects at 12:25 UTC. The kriged mean there is late by a
+    median of at least 4.8 h.
+  - **Not established:** a 7–10 h lag. That is what "**AHI indicates**" (`ahi_results/README.md`), from 2 km pixels
+    with a 3.75% daytime false-alarm rate, point-spread bleed and 62 left-censored pixels.
 - **Implication.**
   - The kriged mean cannot time the coastal run. The defensible statement is the per-cell detection bracket. MODIS
     pixels are 1 km, so a 375 m-cell assignment from MODIS is coarse.

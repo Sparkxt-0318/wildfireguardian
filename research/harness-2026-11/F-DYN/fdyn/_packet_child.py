@@ -115,6 +115,9 @@ def main():
             s['source_law_version'] = 'wfg.fdyn.envelope-per-cell/1'
             s['fdyn']['envelope'] = ('per-cell law: burning [floor_Q(lo), floor_Q(hi) + T + Q); NOT the scalar law, so '
                                      'the kit independent checker scalar recomputation does not apply')
+            if meta.get('arrival_variant') == 'envelope':
+                s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
+                                          'fire arrived before that overpass (use envelope_sound)')
         s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': T0 + Q,
                                           'export_consumed_fraction': cf0,
                                           'packet_consumed_fraction': cf0 * (T0 + Q) / T0}

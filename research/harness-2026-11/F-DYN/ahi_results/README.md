@@ -41,7 +41,7 @@ heat. Use the buffered membership (2 km disc) for any minimum constraint (Elena)
 - **Parallax.** The terrain parallax shift has median 217 m and max 808 m.
 - **Saturation.** Band-7 saturation sets t_f for only 1 pixel.
 
-## Coastal run (now reportable, with the caveats above)
+## Coastal run: "AHI indicates" (not established; caveats above)
 
 AHI first-fire times on 25 Mar cluster between **06:24 and 09:24 UTC (15:24–18:24 KST)**: 62, 38 and 76 pixels per
 hour. A further 26 / 14 / 23 pixels follow from 09:24 to 12:24 UTC.
