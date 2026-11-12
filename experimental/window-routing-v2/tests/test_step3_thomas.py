@@ -89,8 +89,11 @@ def enc(vals):
     return hashlib.sha256(repr([[(str(d), float(p).hex()) for d, p in v] for v in vals]).encode()).hexdigest()
 
 SKIP = ('stats', 'stage_budget', 'construct_s', 'coef_s', 'activity_s', 'build_s')
+DYN = None   # path prefixes the queries change (set after a fresh before/after full walk); None = walk everything
+def allowed(path):
+    return DYN is None or any(path.startswith(d) or d.startswith(path) for d in DYN)
 def walk(x, path, out, seen):
-    if id(x) in seen:
+    if id(x) in seen or not allowed(path):
         return
     if isinstance(x, (dict, list, tuple, set, np.ndarray)) or hasattr(x, '__dict__'):
         seen.add(id(x))
@@ -108,6 +111,13 @@ def walk(x, path, out, seen):
         return
     if isinstance(x, set):
         out[path] = ('set', repr(sorted(map(repr, x)))); return
+    if callable(x) and not isinstance(x, type):
+        # bound methods / functions: identity by qualified name and owner type (a repr carries a memory address);
+        # a memo (functools.lru_cache) is compared by its statistics' size field
+        owner = getattr(x, '__self__', None)
+        ci = x.cache_info().currsize if hasattr(x, 'cache_info') else None
+        out[path] = ('callable', getattr(x, '__qualname__', type(x).__name__), type(owner).__name__ if owner is not None else None, ci)
+        return
     if hasattr(x, '__dict__') and type(x).__module__ not in ('builtins',) and not callable(x) or (hasattr(x, '__dict__') and type(x).__name__ in ('RoadBoundModel', 'HybridRadiationBounds', 'Adaptive', 'MappingProxyType')):
         for k, v in vars(x).items():
             if k in SKIP or k.endswith('_s') and isinstance(v, float):
@@ -115,18 +125,37 @@ def walk(x, path, out, seen):
             walk(v, path + '.' + k, out, seen)
         return
     out[path] = ('v', repr(x))
-def state(M):
-    out = {}; walk(M, 'M', out, set()); return out
+def state(M, full=False):
+    global DYN
+    keep = DYN
+    if full:
+        DYN = None
+    out = {}; walk(M, 'M', out, set())
+    DYN = keep
+    return out
+def top(p, depth=2):
+    """prefix of a path: its first `depth` ATTRIBUTE segments, cut before any dict/list key (so a changed cache entry
+    selects its whole cache, e.g. 'M._coef', not one prefix per key)"""
+    import re
+    out = 'M'
+    for seg in re.findall(r'\.[^.\[]+|\[[^\]]*\]', p[1:])[:depth]:
+        if seg.startswith('['):
+            break
+        out += seg
+    return out
 def sizes(st):
     """Container sizes only (dict/list/tuple lengths and array shapes): what a chunk would grow if it had run."""
     return {p: (v[0], v[1]) if v[0] in ('dict', 'list', 'tuple') else (v[0], v[2]) if v[0] == 'nd' else (v[0],) for p, v in st.items()}
 
 if what == 'completeness':
-    fresh = model(); ref_vals = queries(fresh); ref_state = state(fresh)
+    fresh = model(); before = state(fresh, full=True); ref_vals = queries(fresh); ref_full = state(fresh, full=True)
+    changed = sorted(p for p in set(before) | set(ref_full) if before.get(p) != ref_full.get(p))
+    DYN = sorted({top(p) for p in changed})   # every container the queries touch (plus its subtree) is walked per k
+    ref_state = state(fresh)
     cnt = model(); cnt.stage_budget = TickAt(None); queries(cnt); total = cnt.stage_budget.ticks
     K = sorted({1, 2, 3, 5, total})
     snap = model(); snap.stage_budget = TickAt(None, snap, K); queries(snap); snaps = snap.stage_budget.snaps
-    res = {'total_ticks': total, 'cases': []}
+    res = {'total_ticks': total, 'cases': [], 'dynamic_prefixes': DYN, 'n_full_paths': len(ref_full)}
     for k in K:
         M = model(); M.stage_budget = TickAt(k); stopped = None
         try:
@@ -137,13 +166,14 @@ if what == 'completeness':
         mid = state(M)
         # Thomas 19:36: nothing of the chunk whose tick raised reached ANY reachable cache (ivkernel, hybrid_radiation,
         # adaptive, road_bounds): the state's container sizes equal those of an uninterrupted run AT tick k
-        grew = sorted(p for p in set(sizes(mid)) | set(snaps[k]) if sizes(mid).get(p) != snaps[k].get(p))
+        sm = sizes(mid)
+        grew = sorted(p for p in set(sm) | set(snaps[k]) if sm.get(p) != snaps[k].get(p))
         partial = [p for p, v in mid.items() if p in ref_state and ref_state[p] != v and v[0] != 'dict' and not p.startswith('M.n_override')]
         # entries present right after the interruption must equal the fresh model's (dict sizes may be smaller)
         missing_in_ref = [p for p in mid if p not in ref_state]
         vals = queries(M)
-        after = state(M)
-        diff = sorted(p for p in set(after) | set(ref_state) if after.get(p) != ref_state.get(p))
+        after = state(M, full=True)                     # final check: the WHOLE reachable state, not only DYN
+        diff = sorted(p for p in set(after) | set(ref_full) if after.get(p) != ref_full.get(p))
         res['cases'].append({'k': k, 'stopped': stopped, 'n_grown_vs_tick_k': len(grew), 'grown': grew[:5], 'partial_entries': partial[:5], 'n_partial': len(partial),
                              'paths_not_in_fresh': missing_in_ref[:5], 'n_paths_not_in_fresh': len(missing_in_ref),
                              'values_identical': enc(vals) == enc(ref_vals), 'state_diff': diff[:5], 'n_state_diff': len(diff),
@@ -173,7 +203,9 @@ def probe(region, case, what, arg):
 @unittest.skipIf(KIT is None, 'set WFG_V2_KIT')
 class WholeStateCompleteness(unittest.TestCase):
     def test_interrupt_at_k_then_replay(self):
-        for region, case in (('yeongdeok_2025', '20250325T190000Z_FX2'), ('uljin_2022', '20220304T120000Z_FW2')):
+        # missions with contact edges and 1.8k / 18.9k road edges (the 112k-edge Yeongdeok graph makes each whole-state
+        # walk minutes long; the bound-model code path is the same)
+        for region, case in (('hongseong_2023', '20230402T140000Z_FW2'), ('uljin_2022', '20220304T120000Z_FW2')):
             r = probe(region, case, 'completeness', {'n_edges': 40})
             self.assertGreater(r['total_ticks'], 5, r)
             for c in r['cases']:
