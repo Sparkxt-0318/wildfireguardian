@@ -41,3 +41,8 @@ interval; Brier score over cells within a 4 km band of each interval's initial p
 ```
 
 Six losses in total: 4 container reclaims while the session was idle and detached processes were running, and 2 hits on the 2 h tracked-task limit. After 16:26 the folds ran inside harness-tracked tasks, and there were no further container restarts.
+
+**Environment and invalidity note.** The CV ran in Python 3.13.18 with numpy 2.1.3 and scipy 1.14.1. The pooled
+composite collapsed to the floor in folds 0, 2, 3 and 4 (Owen), so all composite numbers here are INVALID. See
+results/cv_composite_rerun.json (pinned environment: Python 3.12.3, numpy 1.26.4, scipy 1.13.1). cv_baselines.py ran in
+the pinned environment but read the composite p from these checkpoints.

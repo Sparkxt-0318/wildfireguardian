@@ -463,3 +463,15 @@ from branch `daniel/data-fetch`.
   - Reporting rule for the rate arms: if both fail, the wording is "these two forms did not help", not "state does
     not matter". Neither arm has a one-interval memory. A lag-1 arm is to be proposed afterwards, with its own rule
     fixed first.
+
+- **INVALID: every pooled-COMPOSITE number in the part-a CV** (results/cv_part_a.json 96f99bf6 and cv_baselines.json
+  7cc21f47). Owen found that the pooled composite fit collapsed to the 1e-9 floor (all 25 parameters) in folds 0, 2, 3
+  and 4.
+  - Cause: under the run's numpy 2.1.3 / scipy 1.14.1, L-BFGS-B stopped with ABNORMAL_TERMINATION_IN_LNSRCH. The floor
+    objective is about 10× worse than the optimum found in the pinned environment (numpy 1.26.4 / scipy 1.13.1).
+  - Invalid numbers: pooled 0.0627, the reach profile 3,546 / 37 / 0.7, the 19,264 burned cells below 1/1024,
+    MCEM − composite and composite − plug-in, and the composite band Brier.
+  - Fix: `_lbfgs` now raises FitFailed on an all-at-floor solution, a non-finite objective or gradient, or a result
+    worse than the start. Composite is being rerun in the pinned environment (`cv_composite_rerun.py`, same seeds).
+  - The in-sample per-fire fits (real_bracket_fit.json) are not affected.
+  - Pending Owen: MCEM and NLL also differ slightly between environments.

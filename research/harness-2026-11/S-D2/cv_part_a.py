@@ -49,10 +49,22 @@ RINGS_KM = [(0, 1), (1, 2), (2, 4)]
 
 # ------------------------------------------------------------------ pooled fits
 
+class FitFailed(RuntimeError):
+    pass
+
+
 def _lbfgs(f, D1, x0=None, floor=1e-9):
+    """L-BFGS-B with a guard (after Owen's finding): an all-at-floor solution, a non-finite objective or gradient at
+    the solution, or a solution worse than the start is a failed optimization, not a fit. It raises FitFailed."""
     x0 = np.full(D1, 0.02) if x0 is None else np.maximum(x0, 1e-4)
-    return minimize(f, x0, jac=True, method="L-BFGS-B", bounds=[(floor, None)] * D1,
-                    options=dict(maxiter=3000, ftol=1e-12, gtol=1e-9)).x
+    res = minimize(f, x0, jac=True, method="L-BFGS-B", bounds=[(floor, None)] * D1,
+                   options=dict(maxiter=3000, ftol=1e-12, gtol=1e-9))
+    fx, gx = f(res.x)
+    f0 = f(x0)[0]
+    if np.all(res.x <= floor * (1 + 1e-6)) or not np.isfinite(fx) or not np.all(np.isfinite(gx)) or fx > f0:
+        raise FitFailed(f"L-BFGS-B failed: all_at_floor={bool(np.all(res.x <= floor * (1 + 1e-6)))}, "
+                        f"f={fx}, f0={f0}, finite_grad={bool(np.all(np.isfinite(gx)))}, msg={res.message}")
+    return res.x
 
 
 def pooled_complete(stats):
