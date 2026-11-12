@@ -127,13 +127,33 @@ def missions(data_root: Path):
     return out
 
 
+def summarize(res: dict) -> dict:
+    """Committed summary (results/FORECAST_ABLATION_1h.json): per cache the ignition counts, the count block and
+    every origin whose exact deadline or status differs; plus all missions. Present-only deadlines are contact-field
+    counterfactuals (their witnesses are not checked against a present-only full policy)."""
+    return {"what": "forecast ablation at 1 h: c651 members as recorded vs present fire only (cert contact field); diff = c651 - present",
+            "planner": [{"cache_file": p["cache_file"], "new_ignitions_per_member": p["new_ignitions_per_member"],
+                         "counts": p["counts"],
+                         "differing": [r for r in p["origins"].values()
+                                       if r["exact_diff_s"] not in (0, None) or r["status_c651"] != r["status_present"]]}
+                        for p in res["planner"]],
+            "missions": res.get("missions", [])}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("caches", nargs="*", type=Path)
     ap.add_argument("--data-root", type=Path, default=ROOT / "data" / "routing")
     ap.add_argument("--missions", action="store_true")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--summary-from", nargs=2, type=Path, metavar=("PLANNER_JSON", "MISSIONS_JSON"),
+                    help="only write the committed summary from two earlier raw outputs")
     a = ap.parse_args()
+    if a.summary_from:
+        pl = json.loads(a.summary_from[0].read_text())
+        mi = json.loads(a.summary_from[1].read_text())
+        a.out.write_text(json.dumps(summarize({"planner": pl["planner"], "missions": mi.get("missions", [])}), indent=1, default=str))
+        return
     res = {"planner": [planner(c.resolve(), a.data_root) for c in a.caches]}
     if a.missions:
         res["missions"] = missions(a.data_root)

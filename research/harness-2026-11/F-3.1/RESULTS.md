@@ -155,3 +155,17 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   rules. It is never later than what the router itself could find.
 * Origin = destination is modelled (`Instance.AN`) but never occurs in these caches.
 * Cross-host claims should compare the integer instance and verdicts, not float flux.
+
+## Forecast ablation and provenance (separate claims; verifier Owen: PASS WITH NOTES)
+
+* Forecast ablation at 1 h. The claim file is `results/FORECAST_ABLATION_1h.json` (claim at `50a7ac2`). It is produced
+  by `deadline_field/ablation.py`, and its committed summary by `--summary-from` (byte-identical). Its numbers: 22 of
+  530 place deadlines move earlier with the c651 forecast (by up to 24.6 min), with 0 status changes.
+  **Present-fire-only deadlines are contact-field counterfactuals, not policy-checked deadlines.** Their witnesses are
+  not checked against a present-only full policy, and the UA 03-24 FL2 present-only witness meets forecast flame on the
+  recorded packet.
+* Deadline provenance. The claim file is `results/DEADLINE_PROVENANCE_1h.json` (claim at `f0577de`, built by
+  `deadline_field/provenance.py`). Its counts: window 478, present_fire 8, forecast_dependent 22, no_checked_route 22.
+  The builder asserts the monotonicity its label precedence relies on: cert ≤ free, and c651 ≤ present ≤ free. Labels
+  use uncapped 1-second deadlines. "window" at 1 h means the scenario horizon and travel time bind, not that the place
+  is safe.

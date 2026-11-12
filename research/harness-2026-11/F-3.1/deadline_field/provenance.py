@@ -24,6 +24,11 @@ def build(reproduce_paths, ablation_path):
             rec = {"cache": d["cache_file"], "origin_id": oid, "kind": o["kind"], "leave_by_s": ec, "fire_free_leave_by_s": ef}
             if a is not None and a["exact_c651"] != ec:
                 raise AssertionError("ablation c651 != reproduction cert for %s %s" % (d["cache_file"], oid))
+            # monotonicity the label precedence relies on (more fire never allows a later departure):
+            # cert <= free, and c651 <= present <= free, with None = no departure (below every number)
+            le = lambda x, y: x is None or (y is not None and x <= y)
+            if not le(ec, ef) or (a is not None and not (le(a["exact_c651"], a["exact_present"]) and le(a["exact_present"], ef))):
+                raise AssertionError("monotonicity violated for %s %s" % (d["cache_file"], oid))
             if ec is None:
                 lab = "no_checked_route"
             elif a is None:
