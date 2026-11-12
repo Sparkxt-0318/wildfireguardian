@@ -65,7 +65,8 @@ def main():
         region = pk.parent.name
         start = name.split("_")[0]
         H = int(name.split("_h")[1].split("_")[0]) * 3600
-        variant = "kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name else "envelope"
+        variant = ("kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name
+                   else "envelope_burnset" if "_envelope_burnset_" in name else "envelope")
         # origins are the region's entry nodes (same for every start of a region and horizon); a synthetic start has no
         # entry of its own, so use the region/horizon entry and record it (prow["origins_from"])
         same = [i for i in instances if i["region"] == region and i["horizon_s"] == H]
