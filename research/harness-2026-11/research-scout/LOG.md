@@ -138,3 +138,47 @@ See `MISSION_A.md`: 15 Korean and 18 international findings, plus a village-leve
 - Korean study of cue-driven delay: none found.
 
 **Verdict: novel, moderate (~65-70%).**
+
+### Queue item 6: S-D9 benchmark (Victor), accessed 2026-11-12
+
+Labels: VERIFIED means the Zenodo record metadata was read through its API (zenodo.org is reachable). Everything else is SNIPPET.
+
+| Source | ID | Finding |
+|---|---|---|
+| WildfireSpreadTS, Gerard et al., NeurIPS 2023 D&B | zenodo 8006177 (VERIFIED) | 607 US fires 2018-21, next-day binary target, AP; leave-one-year-out; one horizon |
+| WSTS+ | arXiv 2502.12003 | Adds years; UTAE about 0.452 AP |
+| "Unobserved but Burning" WSTS annotations, WACV 2027 | zenodo 23876108 (VERIFIED) | 1,732 unreliable-negative fire-days plus an observation-aware protocol |
+| AFSeq "From Next Day Wildfire to Next Days Wildfire" | arXiv 2610.38086 | Multi-day seq2seq, 1,194 events, leave-one-region-out. **Closest competitor**; could not be re-found |
+| Gopakumar & Pannozzo 2026, "WildfireSpreadBench: The Metric Decides the Model…" | arXiv 2609.22191 | **Found.** Top-AP model over-predicts area 4-5×. No proper scores; one horizon |
+| Huot et al. 2022, TGRS (NDWS) | doi:10.1109/TGRS.2022.3192974 | Weekly split; fires can leak across splits |
+| GOFER, ESSD 16:1395 (2024) | zenodo 14642378 (VERIFIED) | Hourly GOES perimeters, 28 California fires |
+| ELMFIRE validation set | zenodo 23574586 (VERIFIED) | Arrival-time rasters for 31 fires |
+| NIROPS perimeters, W. US 2020-24 | Mendeley 10.17632/95rj5d379g | 737 incidents, 12,705 perimeters |
+| Allaire, Filippi & Mallet 2020, IJWF 29(2):160 | doi:10.1071/WF19073; HAL hal-02447187 | Monte Carlo fire ensembles scored probabilistically (Brier) on 7 Corsican fires. **Brier on spread maps is not new** |
+| arXiv 2609.17763; 2605.03148 | n/a | Brier/ECE on next-day ML spread maps |
+| arXiv 2603.26975 | zenodo 19599116 (VERIFIED) | Flow-matching arrival-time surrogate; scores unread |
+| WeatherBench 2, Rasp et al., JAMES 2024 | n/a | Fixed lead-time-stratified protocol with CRPS |
+| Bracher et al. 2021, PLOS CB | n/a | WIS ≈ CRPS; FluSight's truncated log score is improper |
+| Filippi et al. 2014, IJWF 23:46; NHESS 14:3077 | n/a | Spread-score review; metric choice changes rankings |
+| FireGraphNet arXiv 2610.19191; DailyWildfireCAN arXiv 2611.14207 | n/a | **Could not be re-found / contradicted.** Do not rely on them |
+
+- CRPS on fire arrival time: no precedent found.
+- Formal pre-registration of FluSight: unverified.
+
+**Verdict: incremental but a real gap (~0.65).**
+
+## Sources that most need a full read
+
+These are the sources on which a verdict or quoted number depends, ordered by priority. All are currently SNIPPET or abstract-level only.
+
+1. Ganguly et al. 2026, arXiv:2609.14951: the interval-censoring passage that the S-D2 novelty rests on.
+2. Hajian, Melachrinoudis & Kubat 2016, doi:10.1016/j.envsoft.2016.03.012: whether edge-time distributions are fitted to data (S-D1).
+3. Li, Cova & Dennison 2015 CEUS and 2017 Appl. Geog. (doi:10.1016/j.apgeog.2017.05.008): household triggers and the viewshed (F-3.1, F-C1).
+4. Dibbelt et al. CSA profile section, arXiv:1703.05997, and Chabini 1998: backward all-origins precedent (F-3.1).
+5. WiSE 2.0, PSAM18 WA333, and arXiv:2608.05413 (F-3.1, F-4.2).
+6. Wimmer & von Mutius, TACAS 2020; Wang & Abdulaziz, arXiv:2510.10189; Zeitz 2023, IPL 179 (F-3.2).
+7. US Patent 9,530,304: whether its margin subtracts vehicle arrival (F-4.2).
+8. CP-SIPP, arXiv:2511.18170; Dayan 2026, arXiv:2603.22331 (F-4.2 b).
+9. AFSeq, arXiv 2610.38086; Gopakumar & Pannozzo, arXiv 2609.22191; arXiv 2603.26975 evaluation section (S-D9).
+10. Kuligowski et al., NIST TN 2103: the 81.4% cue figure (F-C1).
+11. Mission A numbers: LA County AAR PDF; FSRI Lahaina reports; Greenpeace Korea survey PDF (percentages); BAI audit (1 h 39 min, 41.8%); 행안부 2025-04-16 release (5 h / 8 h zones); Nocut KFS data (2 of 8 h forecast).
