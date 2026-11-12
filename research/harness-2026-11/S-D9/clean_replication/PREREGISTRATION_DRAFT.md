@@ -1,13 +1,11 @@
 # Clean-replication cohort (CR1): pre-registration DRAFT
 
-**Status: DRAFT 4, not frozen. Nothing has been fetched, listed or read for this cohort.**
+**Status: DRAFT 13, not frozen. Nothing has been fetched, listed or read for this cohort.**
 - It is a new document, not an edit to A1.
 - Owner decision (relayed by the orchestrator, 2026-11-12): collect a fresh set of fires for a clean replication.
 - The current A1 parts b and c proceed, but are described as **"labels, perimeters and growth sealed; survey-timing metadata exposed; membership rules used it"**. H is descriptive. Neither is presented as the clean confirmation.
 
-Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Draft 5 answers her re-review of draft 4 (15:30Z): a canonical_id rule that survives archive moves, and the Tier-1 scope conflict with two earlier registrations. Draft 6 records the owner's scope decision (relayed 12 Nov): no 2026 fire in any tier, and Tier 2 starts 2027-01-01. It also adds the 2026+ no-access rule and Hannah's conditions on the rehearsal fallback (15:40Z). Draft 7 records the orchestrator's Tier-1 position and the freeze precondition on access (15:47Z). Draft 8 adds Hannah's fixed access attempt and outcome rule (16:01Z) and records the disagreement over the access gate as open. Draft 9 adds §9, a Korean prospective descriptive stratum (KR-P), at the orchestrator's request. Draft 10 records the owner's ftp.wildfire.gov finding and lays out the access-route options. Draft 11 drafts the in-season harvest route (d'), after Sofia's path correction, and the recommended route. In 11c, after Daniel's documentation answer, the harvest is primary and a compiled release is a cross-check. The §0 "cleanliness only" claim is qualified. 11d adds Hannah's no-look conditions a–g and her finding that the Maps tree serves only the current season. Draft 12 records the owner's decision approving the in-season harvest, and rewords §0. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
-- data availability (Daniel);
-- protocol review (Hannah).
+Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Draft 5 answers her re-review of draft 4 (15:30Z): a canonical_id rule that survives archive moves, and the Tier-1 scope conflict with two earlier registrations. Draft 6 records the owner's scope decision (relayed 12 Nov): no 2026 fire in any tier, and Tier 2 starts 2027-01-01. It also adds the 2026+ no-access rule and Hannah's conditions on the rehearsal fallback (15:40Z). Draft 7 records the orchestrator's Tier-1 position and the freeze precondition on access (15:47Z). Draft 8 adds Hannah's fixed access attempt and outcome rule (16:01Z) and records the disagreement over the access gate as open. Draft 9 adds §9, a Korean prospective descriptive stratum (KR-P), at the orchestrator's request. Draft 10 records the owner's ftp.wildfire.gov finding and lays out the access-route options. Draft 11 drafts the in-season harvest route (d'), after Sofia's path correction, and the recommended route. In 11c, after Daniel's documentation answer, the harvest is primary and a compiled release is a cross-check. The §0 "cleanliness only" claim is qualified. 11d adds Hannah's no-look conditions a–g and her finding that the Maps tree serves only the current season. Draft 12 records the owner's decision approving the in-season harvest, and rewords §0. Draft 13 adds Iris's assessment of the harvest route, adopted by the orchestrator (18:19Z): a content-free canary, incident metadata under the harvest route, a fixed flight-time rule, builder acceptance before the freeze, two independent harvest jobs, and a totals-only weekly log. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**. The live list is the "Open items" table at the end.
 
 ## 0. Why a new cohort
 The A1 hold-out parts are sealed for labels, perimeters and growth. But per-incident survey timing was readable by every session before the split, and the cohort's own membership rules used discovery date and the survey window (ACCESS_CONTROL, combined amendment). GOFER/H fires had aggregate labels and final sizes inspected. A replication that can be called clean needs fires about which **no session has read anything, not even metadata**, until the predictors and the scorer are frozen.
@@ -192,7 +190,7 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
         - **a. Unattended.** Only the custodian role runs the harvest, under §1, as an **unattended scheduled job**, not interactive tool calls, so folder names never enter any session transcript. The harvester writes only hashes, counts and status codes to stdout and logs. A test asserts that no name appears in its output, including on exceptions.
         - **b. Listing in memory, 2027 only.** Listing pages are parsed **in memory only**, as hrefs, with no text, sizes or mtimes, as in the finder. Only `<region>/2027…/` paths are touched, plus `2028…` for the extension. A test checks that 2026, or any other year, is refused **before** any request.
         - **c. No unpacking in season.** Downloads go straight into the encrypted sealed store. Nothing is unzipped or parsed during the season, and building waits for the snapshot.
-        - **d. Hashes at harvest.** `canonical_id` and the HMAC are computed at harvest. The weekly committed log holds HMACs, file sha256s, byte counts and HTTP status counts only. It has no folder names, and no dates finer than the week.
+        - **d. Hashes at harvest.** `canonical_id` and the HMAC are computed at harvest. The **detailed** log (HMACs, file sha256s, byte counts, HTTP status counts) stays in the sealed store. The **weekly committed log holds totals only**, plus the sha256 of the sealed detailed log at that moment (adopted 18:19Z; this replaces the earlier per-file weekly log). It has no folder names and no dates finer than the week.
         - **e. 13 months of custody continuity.**
           - The scheduled job runs under an owner-held identity and environment, with the salt and key as owner secrets.
           - Every session start or hand-over of the custodian role is logged (§1.5).
@@ -202,6 +200,46 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
           - A site layout change mid-season is logged and **fails closed**.
           - Any fix to the harvester after the freeze is a logged amendment that cannot change which deliveries count.
         - **g. Fixture-only rehearsal.** The harvester is rehearsed on the synthetic fixture only. It is **never run against the live site before 2027-01-01**, and its first live request is a 2027 path.
+      - **Harvest-route requirements (Iris's assessment, adopted by the orchestrator 18:19Z).** Items 1 to 4 are **MUST before the freeze**, and items 5 and 6 are adopted.
+        1. **Content-free canary.**
+           - On every run and for each region, the harvester records **two counts only**: the number of year-level entries listed, and the number of those matching the frozen 2027 (or 2028) year patterns.
+           - **Alert A (layout drift):** a region has year-level entries but none match. **Alert B (silent failure):** nothing at all has been harvested by **2027-06-30**, the start of the western fire season.
+           - Alerts carry **counts only**.
+           - **Rule when a canary fires:** the custodian may look at **year-level folder names only** (for example a new `2027_…` spelling), **never incident names**.
+           - The layout or pattern list is changed **only by a logged amendment** that states the old and new patterns. Deliveries already lost before the fix are E7.
+        2. **Incident metadata under the harvest route (origin, discovery date, IRWIN ID).**
+           - **Source:** the public WFIGS / IRWIN incident-location records. The candidate fields are the incident's IRWIN ID, its point-of-origin coordinates and its fire discovery date-time. The exact field names are frozen from the source's published schema before the freeze; Daniel identifies them from documentation only.
+           - **Who and when:** the custodian fetches them **once, at the snapshot (2028-01-31)**. It is filtered in memory to the IRWIN IDs found in the harvested deliveries, and lands in the sealed store. No worker sees it.
+           - **IRWIN ID:** it is read from the delivery's attribute table when present.
+           - **Rule when a delivery has no IRWIN ID:** match it to a WFIGS record by a frozen space-time rule. The match must be unique: the point of origin lies within B = 4 km of the first harvested perimeter, and the discovery date is within 3 days before that perimeter's flight date.
+             - With no unique match, the incident is **E8: no incident metadata**. It is counted, reported and never replaced.
+             - **Fixed note:** this matching is a rule, not a choice, and it is applied before any score exists.
+        3. **Flight-time rule (fixed now).**
+           - **Source:** the time is parsed from the delivery's free-text comment by the frozen builder rule, converted to UTC with the frozen per-region time-zone table.
+           - **Midnight rule:** a parsed local time of 12:00 or later is assigned to the day **before** the delivery folder date. An earlier time is assigned to the folder date itself. This follows the night-flight, morning-delivery pattern in A1 §7.
+           - **Missing or unparseable text:** t = the delivery folder date at 00:00 local, flagged **ESTIMATED**.
+           - **Δ rule:** an interval with an estimated endpoint **counts** under 0 < Δ ≤ 48 h using those times. This is the primary rule.
+           - **Pre-stated secondary:** the same analysis with every interval having an ESTIMATED endpoint dropped. It is reported beside the primary, with no decision role.
+           - **Caveat:** this rule is untested on real free text until after the closing date (see the synthetic-fixture limits).
+        4. **Builder acceptance (Daniel), before the freeze.**
+           - The builder's acceptance criteria are stated: geometry, and time where testable.
+           - The **13 of 37 Dixie nights that fail** (all 31 Jul to 30 Aug 2021; built perimeters 1–4% smaller) are either brought within the criteria, or **explained**, with the explanation recorded. Daniel's working hypothesis is that the August KMZ layers are a different perimeter product.
+           - The freeze waits for this.
+        5. **Two independent harvest jobs (adopted).**
+           - One job is run by the custodian and one by the second custodian (Nora), in **different environments**, at **different fixed UTC times** (for example about 06 and about 18 UTC).
+           - The sealed store keeps the **union of files by sha256**.
+           - Each job's detailed log is kept separately, so a delivery caught by only one job is visible in the counts.
+        6. **Weekly log and smaller items (adopted).**
+           - The weekly committed log holds totals only, plus the sha256 of the sealed detailed log (see d).
+           - It also carries the weekly **distribution of E7 counts and gap days**.
+           - All alerts carry counts only.
+           - Stale header and open-items rows are refreshed in this draft.
+        7. **OWNER DECISION PENDING (morning):** may the custodian **alone** use Sofia's 32 frozen 2026 deliveries **offline** to rehearse time parsing, given they are already exposed (row 46)?
+           - If yes, the rehearsal result is committed as counts only, and those deliveries stay excluded from every tier.
+           - If no, time parsing stays untested until after the closing date.
+        8. **OWNER DECISION PENDING (morning):** the owner checks the site's terms of use for a daily automated listing and download, two jobs a day.
+           - If the terms forbid it, the harvest route is reconsidered **before** the freeze.
+
       - **OWNER DECISION, 12 Nov 2026 (relayed by the orchestrator 16:31Z): in-season collection of 2027 fire data is APPROVED** ("feel free to collect fire data in season"). **Recorded route:** the primary source is the custodian in-season harvest (d') of the public Incident Specific Maps IR deliveries during 2027. A compiled release, if one exists, is a same-fire cross-check only. Nothing is fetched now, 2026 stays untouched, and the first harvest run is not before 2027-01-01.
       - **Design of the route (orchestrator position 16:10Z, now adopted by the owner's decision). Not frozen:**
         - **Why (a) cannot be primary (Daniel, 16:09Z; documentation only, nothing fetched):**
@@ -427,9 +465,15 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | canonical_id rehearsal | Daniel / custodian | **synthetic fixture** (no dual-path fire retrievable, rows 49 and 51) |
 | KR-P frozen rules (label source and minimum event count; also detection product, arrival method, eligibility) | Victor drafts; Hannah verifies | due **before 2027-01-01** |
 | access route for 2027 NIROPS-type IR | owner | **decided 12 Nov: in-season harvest (d') primary; compiled release a cross-check only.** Before the freeze: Hannah's and Iris's assessments of the harvest design (Hannah's a–g given); the frozen harvest script plus its synthetic-fixture rehearsal; and the owner-side setup (custodian environment through 2027, a daily job with missed-run alerting, and the two owner-held secrets), which the orchestrator walks the owner through |
-| frozen harvest script and synthetic-fixture rehearsal | to be assigned (orchestrator) | to do before the freeze; never run live before 2027-01-01 |
-| Daniel: the source of A1's 2020–24 NIROPS data, and whether yearly editions exist | Daniel | requested (documentation and ACCESS_LOG only) |
+| frozen harvest script and synthetic-fixture rehearsal (including the canary, two-job union and totals-only log) | to be assigned (orchestrator) | MUST before the freeze; never run live before 2027-01-01 |
+| WFIGS/IRWIN field names, and the no-IRWIN space-time match rule (E8) | Daniel (documentation only) | MUST before the freeze |
+| flight-time rule (midnight rule, ESTIMATED flag, Δ rule, secondary) | Victor (text); Daniel (builder code) | rule fixed in draft 13; code pending |
+| builder acceptance: criteria stated, and the 13/37 failing Dixie nights met or explained | Daniel | **MUST before the freeze** |
+| second harvest job (Nora, separate environment and time) | owner / orchestrator | to set up before 2027-01-01 |
+| custodian offline use of Sofia's 32 frozen 2026 deliveries to rehearse time parsing | owner | **PENDING (morning)** |
+| site terms for a daily automated listing and download | owner | **PENDING (morning)** |
+| Daniel: the source of A1's 2020–24 NIROPS data, and whether yearly editions exist | Daniel | **done** (16:09Z): Mendeley v1 only, no editions documented |
 | latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | **done** (ledger rows 43 and 45); per-session declarations (Q7) collected |
 | owner-held salt and key storage; dedicated custodian environment | owner / orchestrator | to set up before the freeze |
 | the custodian named by amendment (the role definition in §1.2) | orchestrator | Hannah and Nora as first holders |
-| section-by-section design assessment | Iris | draft 1 assessed (15:09Z); re-assess draft 2 |
+| section-by-section design assessment | Iris | harvest-route assessment adopted (18:19Z, items 1–8 above) |
