@@ -565,6 +565,38 @@ worker, the per-job identity record also carries the sha256 of `contact_first.py
 hashes equal the kit manifest's entries for those three files, and a deliberately modified copy in a scratch kit is
 recorded with its own hash, not the manifest's.
 
+**Step 3c (separate, later; Iris 23:43 UTC, adopted by the orchestrator): outcome determinism independent of host
+speed.** Step 3's known limit is that outcomes are deterministic only within about 1.9× of the reference host
+(Yeongdeok 0325T19 FD1 and FX2). Iris rejected deriving Z's watchdog from the remaining job time: that moves the cliff
+into a later stage or the job deadline instead of removing it.
+
+- **Design:**
+  1. Every stage is bounded by work units.
+  2. One wall watchdog, at **job** level only. When it fires, the result carries a **distinct "host too slow for this
+     job" status**. That status is never reported or compared as a model verdict, and never as plain UNRESOLVED.
+  3. A **host-speed preflight**: a fixed work-unit microbenchmark at the start of each job. Its factor against the
+     reference host is recorded in every result. Outside a stated factor, the run is flagged not comparable.
+- **Stages bounded by wall time today, and whether they can be work-bounded:**
+  - Z: already work-bounded (Step 3).
+  - LO, LO2, HI (`road_core.solve` with the bound model): **yes**, in expansions plus bound-model boxes, ticked at
+    the points Step 3 already uses for the wall check.
+  - EA build: **yes**, in backward sweep seconds × states, like Z's sweep.
+  - Admission, preparation and bound-model build: deterministic and finite, but not capped today. Work-boundable in
+    principle by ticking their loops; budgets would need the same calibration rule.
+  - **Whole-road checks (`HybridChecker`, adaptive fallback): NOT work-boundable without editing the checker.** The
+    checker is shared, certificate-adjacent code (Thomas reviews). Until then it stays bounded by the job deadline.
+    Under this design a check stopped by the job-level watchdog gets the distinct host-too-slow status.
+  - Publication and final binding: short and deterministic; covered by the job-level watchdog.
+- **Test, written before any code (Iris):**
+  - On the reference host, 1-hour panel verdicts and arrivals are unchanged, and the 9,722 gate (G6) passes.
+  - Injected slowdown at factors 1.5, 2 and 3, using a per-unit delay:
+    - unit counts are identical;
+    - verdicts are identical up to where the job-level watchdog fires, and beyond that only the distinct status
+      appears;
+    - **zero** cases where slowdown turns a refusal or a route into another model verdict, or into plain UNRESOLVED.
+  - FD1 keeps its refusal at 2× slowdown.
+  - The factor at which the watchdog first fires is measured and reported as the validity margin.
+
 **Step 3b (separate, later; NOT part of Step 3; orchestrator 20:02 UTC, from Iris's observation): cache
 `routing.core.edge_occupancies`.**
 - **Hypothesis**, measured once by cProfile under load: about 93% of the Uiseong F-DYN Z setup (about 18 s) is 11,011
