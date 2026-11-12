@@ -20,15 +20,15 @@ def contiguous(row):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--spot", type=Path, required=True)
-    ap.add_argument("--control", type=Path, required=True, help="kriged_mean fdyn_run outputs (same starts, h5)")
+    ap.add_argument("--control", type=Path, default=None, help="kriged_mean fdyn_run outputs (same starts, h5)")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
     rows = []
     starts = sorted({f.name.rsplit("_h5_", 1)[0] for f in a.spot.glob("*_h5_d*.json")})
     for st in starts:
         base = json.loads((a.spot / ("%s_h5_d0.json" % st)).read_text())["origins_detail"]
-        ctl_f = a.control / ("%s_h5_kriged_mean.json" % st)
-        ctl = json.loads(ctl_f.read_text())["origins_detail"] if ctl_f.exists() else None
+        ctl_f = a.control / ("%s_h5_kriged_mean.json" % st) if a.control else None
+        ctl = json.loads(ctl_f.read_text())["origins_detail"] if ctl_f and ctl_f.exists() else None
         d0 = {o: contiguous(r) for o, r in base.items()}
         control = None
         if ctl is not None:
@@ -65,17 +65,16 @@ def main():
                          **({"control_vs_kriged_mean": control} if d == 0 else {})})
     a.out.write_text(json.dumps({"what": "spotting-distance envelope (SPOTTING_RULE.md); per region-start and d, never "
                                          "pooled; CERT contact field; SCENARIO, not what happened; research variant "
-                                         "(reopening packets as built); lag 0 s isotropic dilation: shifts are upper "
-                                         "bounds under this dilation rule, not physical bounds; median is the upper "
+                                         "(reopening packets as built); lag 0 s isotropic dilation; shifts are NOT upper "
+                                         "bounds (see moves_later_note); median is the upper "
                                          "median",
-                                 "moves_later_note": "A place can move LATER with d. Checked on UA 24T09 d500 (9 "
-                                 "places later): the dilation moves 97 of the 135 cells burning in the d0 packet to "
-                                 "arrivals 4,227-47,988 s BEFORE the start; the builder treats them as burned out "
-                                 "before the start, so they are not phases and their roads are open. Under the "
-                                 "never-clears arm on the same two packets 10 places move later and none earlier. So "
-                                 "this is the packets' pre-start burn-out semantics (also in no_reentry/1: cells "
-                                 "burned out before the start stay open), not a field fault. Other starts not checked "
-                                 "per place.", "rows": rows}, indent=1))
+                                 "moves_later_note": "CONSTRUCTION ARTEFACT (Nora row 61): dilating the whole raster moves cells "
+                                 "that were NOT burned at the start (per the export) to pre-start arrivals; the builder "
+                                 "treats them as burned out, so their roads open and places move LATER. Spotting makes "
+                                 "places safer here, the shifts are NOT upper bounds even under the dilation rule, and "
+                                 "moves_earlier can be understated. UA 24T09 d500: 97 of 135 d0 phase cells dropped, 9 "
+                                 "places later (10 under never-clears, 0 earlier). Fix before any non-research use: "
+                                 "a_d = max(dilate(a), t_start) for cells not burned at the start.", "rows": rows}, indent=1))
     for r in rows:
         if "places" in r:
             print(r["region_start"][-24:], r["d_m"], "earlier", r["moves_earlier"], r["shift_s"], "before",

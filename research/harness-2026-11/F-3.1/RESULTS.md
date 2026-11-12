@@ -643,18 +643,18 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   one-destination-field-at-a-time version of `return_trip.py`. The selection logic is unchanged: earliest arrival,
   ties to the lowest node id.
 
-## Spotting-distance envelope, 5 h (SCENARIO, not what happened; research variant: reopening packets as built; NOT YET VERIFIED)
+## Spotting-distance envelope, 5 h (SCENARIO, not what happened; research variant: reopening packets as built; VERIFIED WITH NOTES: Nora request #17, PASS WITH NOTES, ledger row 61)
 
 * **Rule.** `SPOTTING_RULE.md`, committed before tabulating. **Files.** `results/SPOTTING_ENVELOPE_h5.json`, built by
   `deadline_field/spot_summary.py` from 24 `fdyn_run` outputs (v3.3 builder, Leo 4463892; packet HAZARD hashes are
   in the file).
 * **What it is.** Leo's isotropic `dilate(a, d, lag 0 s)` on the kriged_mean TOA, d ∈ {0, 500, 1000, 2000} m. Lag 0
-  makes every shift an upper bound **under this dilation rule**, not a physical bound. There is no wind field, so
-  there is no downwind shape. Nothing is claimed about actual spotting distances in 2025.
+  was meant to make every shift an upper bound under the dilation rule. **It does not** (construction artefact,
+  below). There is no wind field, so there is no downwind shape. Nothing is claimed about actual spotting distances in 2025.
 * **Field.** CERT contact field. Contiguous deadline (merged rule). Per region-start and d, never pooled.
 * **Control.** At d = 0 all 6 starts equal the kriged_mean field on every place (CERT and FREE sets; 0 places
-  differ). The control file is the v3.1 kriged_mean run; the rule names v3.3, whose kriged_mean packets were not
-  run separately.
+  differ). The control file is the v3.1 kriged_mean run; the rule names v3.3. Their content is identical (Nora
+  row 61: the d = 0 HAZARD flame, flux, support and breakpoints equal v3.3 kriged_mean).
 * **Witnesses.** 6,264 witnesses, all pass the unchanged full checker and the closed replay (exact or upper_bound);
   every next second is infeasible.
 
@@ -685,13 +685,19 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 | YD 03-26 08Z | 1000 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
 | YD 03-26 08Z | 2000 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
 
-* **Places that move later.** Some places move **later** as d grows. On UA 03-24 09Z, d = 500 m (9 places), the
-  dilation moves 97 of the 135 cells burning in the d = 0 packet to arrivals 4,227–47,988 s **before** the start.
-  The builder treats them as burned out before the start, so they are not phases and their roads are open. Under the
-  never-clears arm on the same two rebuilt packets (rebuilds reproduce the HAZARD hashes), 10 places move later and
-  none move earlier. This is the packets' pre-start burn-out semantics, not a field fault. no_reentry/1 has the same
-  semantics (NOREENTRY_RULE.md: cells burned out before the start stay open). Other starts were not checked place by
-  place.
+* **Places that move later: a construction artefact (Nora row 61).** Dilating the whole raster also moves cells
+  that were **not** burned at the start (per the export) to arrivals before the start. The builder then treats them as
+  burned out before the start, so they are not phases and their roads open.
+  * **Measured.** On UA 03-24 09Z, d = 500 m: 97 of the 135 phase cells of the d = 0 packet are dropped (their
+    dilated arrivals are 4,227–47,988 s before the start; all 18 present cells stay). 9 places move later. Under the
+    never-clears arm on the same two rebuilt packets, 10 move later and none earlier. Nora reproduced the d = 0 and
+    d = 500 rows exactly.
+  * **Consequence.** Here spotting makes places **safer**. The shifts are **not** upper bounds, even under the
+    dilation rule, and "moves earlier" can be understated. These rows are not for any non-research use.
+  * **Fix before any non-research use.** a_d = max(dilate(a), t_start) for cells not burned at the start (or dilate
+    only post-start arrivals). Then nothing can move later. Not done yet.
+  * **Reproducibility.** The batch script is now committed (`batch/spot_batch.py`; it builds in Leo's worktree at
+    4463892 from `fdyn/variants.dilate` outputs).
 * **Route side.** Priya's matching route-side count (clearance below d) is not in yet. It will be reported next to
   these counts, not merged with them.
 * **Assumption line.** Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists
