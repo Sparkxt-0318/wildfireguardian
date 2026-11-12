@@ -330,6 +330,20 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Witnesses.** All pass the unchanged full checker and the closed replay:
   * envelope: 3,120 of 3,120 (1 is upper_bound);
   * envelope_burnset: 438 of 438.
+* **Which representation each checker read** (stated after Nora row 34: on v3.3 envelope and burnset packets the raw
+  `constructed_arrays.npz` disagree with HAZARD.json; the arrays under-block).
+  * **Field.** Phases come from the HAZARD flame bins (`real.load_packet`, per-cell path), not from the arrays.
+  * **Full checker** (`routing-package/routing/independent.check_route`, unchanged). It reads **HAZARD.json** (flame,
+    flux bins, dose) and the graph. It does not read the arrays.
+  * **Closed replay** (`tools/explain_deadlines/replay.first_contact`). It reads `pk.phases`, which for these
+    packets my reader rebuilt **from the HAZARD flame bins**. It is therefore consistent with HAZARD, but **not
+    independent of the field's own reading of the packet**.
+  * **Router sampling rule** (`Packet.contact_router`). It reads the HAZARD flame bins.
+  * **Arrays.** None of my checks read the arrays. The kit's ffi checker, which Nora uses, does. Its verdicts on
+    these packets are therefore against the under-blocked arrays and are not part of my claim.
+  * **What the passes mean.** Each pass is against HAZARD.json, the representation the field uses. Only
+    `check_route` is independent of my code. Burnset will be rerun on Leo's MANIFEST_v3_4 (arrays equal HAZARD)
+    once Nora passes it.
 * **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
   is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
 
