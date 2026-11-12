@@ -190,3 +190,50 @@ separately and excluded from no rate's numerator silently.
 - Also: the share where S3 reaches the goal legally, and its T minus the exact T.
 - Wording in all text: "relative to the time-dependent model".
 - Tests: S3 with Δ ≥ H matches executing S1's single plan; every legal S3 ROUTE replays on the true instance.
+
+## Dated addition, 2026-11-12 (f): no-re-entry counts of (d)/(e) WITHDRAWN; no-re-entry instances rebuilt from the packet (rule fixed before any re-run)
+
+Orchestrator ruling of 19:24 UTC, on Nora's defect report (F-BASE/RESULTS.md, defect section at a4e28f0b).
+
+**Withdrawn, not replaced silently.**
+- Every `no_reentry` count of (d) S1/S2 (commit 553704ea: RESULTS_fdyn_static.json, fdyn_d/) and of (e) S3 (commit
+  6cd2019a: RESULTS_fdyn_s3.json, fdyn_e/) is withdrawn, at both departures. The headline totals mix the departures,
+  so none of them stands.
+- The (d) equivalence argument ("min of as-built EB_j") is withdrawn too. `build_instance` clips edge blocks to
+  [max(dep, ·), H] and drops empty ones, so the argument holds only for dep = 0.
+- `fbase_static.no_reentry` is retired. It is kept in the file for the record and is not called by any runner.
+- The `reopening` columns of (d)/(e) are not withdrawn; they are built from the as-built packet with no transform.
+  The files stay in the repository unchanged; this section is the withdrawal notice.
+
+**Construction (replaces the transform).**
+- A no-re-entry O2 instance is built by the unchanged `build_instance(graph, request_NR, ContactModel.from_packet(P_NR))`,
+  where P_NR is the no-re-entry packet for the same (region, start, H, variant). Blocks are never transformed after
+  instance construction.
+- request_NR is the (c) request (same origin, departure, destinations, horizon, limits), with each member-id key in
+  `budgets.dose` and `incurred` replaced by the P_NR member id at the same member index. Nothing else changes. The
+  runner asserts that the two requests differ only in those keys.
+- The instance sha is recorded. For no-re-entry it is no longer compared with (c); it is compared with Nora's
+  independent build (acceptance below).
+
+**Readings.**
+- **no_reentry/2** (manifest v3.7; cells burned out before the start are also closed on [0, H)) is the default once
+  Nora passes v3.7. The (d)/(e) re-runs are repeated on /2 then.
+- **no_reentry/1** (manifest v3.6 @ ff3c031c, NOREENTRY_RULE.md; cells burned out before the start stay open) may be
+  run meanwhile, ONLY as a labelled variant: "no_reentry/1 (labelled variant; not the default)".
+- Packets are built with Leo's `fdyn/build.py --no-reentry` exactly as in the manifest entry's cmd. The HAZARD sha256
+  of each built packet is recorded and compared with the manifest/BUILD_SUMMARY where one is listed.
+- Baselines, columns, Δ and the waitable-rule sentence are as in (d)/(e). Every no-re-entry count carries its version
+  label.
+
+**Acceptance, stated before any re-run.**
+1. **Regression test (Nora's counter-example).** UA, start 20250325T170000Z, h5, kriged_mean, origin
+   osm_node_415158323. Under no_reentry/1:
+   - dep 7200: exact is NO_ROUTE, S1 is NO_ROUTE, S2 is NO_ROUTE. The instance blocks edges 152, 153 and 154 at
+     departure 7200.
+   - dep 0: exact is ROUTE 259, S1 is ROUTE 259, S2 is NO_ROUTE.
+   These values are Nora's, from nora_nr_d.py.
+2. **Instance equality.** On Nora's sampled requests at BOTH departures, the instance equals the one built by her
+   nora_nr_o2.py from the same packet after clipping to usable starts (a + D_j ≤ H; waits a ≤ H − 1). Exact/S1/S2
+   must also be equal (nora_nr_d.py).
+3. **Signature check.** At dep 7200, the no_reentry/1 verdicts are reported next to reopening. Nothing is asserted;
+   this is the count that exposed the defect.
