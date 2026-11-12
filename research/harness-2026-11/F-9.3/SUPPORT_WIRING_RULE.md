@@ -106,3 +106,26 @@ NaN-array rewrite. It cannot:
 
 **Effect.** A per-cell envelope with unknown cells needs a writer path that can express both, e.g. option C. Until
 then, unknown cells in an envelope scenario are handled downstream under the three-way rule, as before.
+
+## STATUS: acceptance passes (code 5b3177d8, 2026-11-12)
+
+`tests/test_support_wiring.py`: 5 of 5 pass (Python 3.13, numpy 2.5.3).
+1. **Default unchanged.** The F-DYN `build.py` build of Yeongdeok 25T11Z h5 kriged_mean, without support arguments,
+   has HAZARD sha256 `6940f293…`, which equals v3.5 (Nora row 41).
+2. **c651 through `build()`** with `support='c651_unknown/1'` is byte-identical to `build_packet_f93.py` directly:
+   all 4 files, 2,885 unsupported cells.
+3. **All-true supplied mask:** all 4 files are sha256-identical to the no-mask build, and BUILD_SUMMARY
+   `fdyn.support.applied = false`.
+4. **Perimeter sequence (sampled, horizon = t_n = 4 h; domain = grid minus a 15 × 37 corner box):**
+   - ids, breakpoints, flame and flux equal the unmasked build;
+   - the wrapper identity is present, with base = the frozen writer;
+   - unsupported cells = 555 = the box;
+   - HAZARD support equals the flipped domain;
+   - builder self-check consistent, and no failure marker.
+5. **Perimeter with horizon 5 h > t_n:** refused with `SUPPORT_TIME_DEPENDENT`, and no output.
+6. **Envelope with a mask:** refused before build in both entry points (`SUPPORT_NOT_WIRED`;
+   `SUPPORT_ENVELOPE_UNSUPPORTED`), and no output.
+
+**Existing suites unchanged:** F-9.3 `test_iface.py` (3), F-DYN `tests/` (24) and `support_mask/` (13): 40 of 40 pass.
+
+**Verifiers:** Hannah (wrapper use) and Nora (F-DYN packets).
