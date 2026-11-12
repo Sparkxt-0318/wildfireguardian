@@ -1,0 +1,14 @@
+item,case,channel,open_code_1,followup_code_1,q4_code_1,doubt
+1,C1,broadcast,NEUTRAL,,OFFICIAL,
+2,C2,sms,OFFICIAL,NEUTRAL,,
+3,C4,card,NEUTRAL,,,"'follow official instructions' — is that 'named as coming first'? coded NEUTRAL (no ranking stated)"
+4,C5,broadcast,NEUTRAL,,,same doubt as item 3
+5,C2,card,OFFICIAL,NEUTRAL,,
+6,C4,broadcast,NEUTRAL,,,same doubt as item 3
+7,C5,sms,NEUTRAL,,,same doubt as item 3
+8,C1,sms,OFFICIAL,,,
+9,C4,sms,NEUTRAL,,,
+10,C5,card,NEUTRAL,,,same doubt as item 3
+11,C1,card,OFFICIAL,,,
+12,C2,broadcast,OFFICIAL,NEUTRAL,,
+end,,,,,OFFICIAL,

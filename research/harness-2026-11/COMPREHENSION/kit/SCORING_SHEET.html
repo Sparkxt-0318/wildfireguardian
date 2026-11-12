@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scoring sheet</title>
+<style>
+@page { size: A4; margin: 16mm; }
+body { font-family: Pretendard, "Noto Sans KR", system-ui, sans-serif; font-size: 14px; line-height: 1.55; color: #111; max-width: 46rem; margin: 0 auto; padding: 0 16px; }
+h1 { font-size: 20px; } h2 { font-size: 16px; border-top: 2px solid #111; padding-top: 3mm; margin-top: 6mm; }
+table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid #999; padding: 4px 6px; vertical-align: top; text-align: left; }
+code { font-size: 13px; } .badge { display: inline-block; border: 2px solid #111; padding: 2px 8px; font-weight: 700; }
+.p { border-left: 6px solid #111; padding: 4px 10px; background: #f3f3f3; }
+</style>
+</head>
+<body>
+<p class="badge">Fixed before any session · PROTOCOL.md v2.3 · plan only</p>
+<h1>Scoring sheet: coding rules and miss definitions</h1>
+<p>These rules come from PROTOCOL.md v2.3 and do not change once sessions begin. Two coders code every open answer (<code>open_verbatim</code>), every later-departure answer (<code>later_verbatim</code>) and every Q4 answer. Each coder works without seeing the other's codes or the facilitator's impressions, and writes into their own column: coder 1 in <code>*_code_1</code>, coder 2 in <code>*_code_2</code>. An answer may get several codes, separated by <code>;</code>.</p>
+<p class="p"><b>Principle.</b> A reader who accurately repeats what the item says is never a miss. If the accurate repetition is itself worrying, that is a <b>wording finding</b>, logged separately, not counted as a reader error.</p>
+
+<h2>Codes for open and later-departure answers</h2>
+<table>
+<tr><th>Code</th><th>Give it when…</th><th>Examples (invented, for coder training only)</th></tr>
+<tr><td><b>USABLE-LATER</b></td><td>A time later than the item's time is described as one at which one can still leave or get out.</td><td>"늦게 나가도 된대요" · "그 뒤에도 길이 있대요"</td></tr>
+<tr><td><b>STAY</b></td><td>The reader says the message tells them to remain where they are, or that leaving isn't needed. "No route; call 119 if urgent" alone is <i>not</i> STAY.</td><td>"집에 그대로 있으라는 거네" · "안 나가도 된대요"</td></tr>
+<tr><td><b>SHELTER-MENTION</b></td><td>The reader repeats that the A4 lists "실내 대피" as an alternative. Descriptive, not a miss. (If they add "so I can stay home", that is STAY.)</td><td>"실내 대피 같은 대안이 필요하대요"</td></tr>
+<tr><td><b>TIME-INVENTED</b></td><td>On C4/C5: a time given <b>as a time to leave or as a deadline</b>, where none is shown. Repeating a time the item shows is not TIME-INVENTED.</td><td>"10시까지 나가야 한대요" (miss) — but "오전 10시 자료로는 길이 없대요" is NOT</td></tr>
+<tr><td><b>AMBIGUOUS-TIME</b></td><td>On C4/C5: a clock time whose role is unclear. The closed time question resolves it: a time given there is a critical miss, and "none" clears it. A time that is plainly the item's own data time ("오전 10시 자료로는…", "10시 자료") is neither TIME-INVENTED nor AMBIGUOUS-TIME. The exemption applies only when the answer ties the time to the data or the record (자료, 기록, 기준). A clock time on its own ("10시래요") is AMBIGUOUS-TIME.</td><td>"10시라고 했어요"</td></tr>
+<tr><td><b>OFFICIAL</b></td><td>An official source is named <b>with stated precedence</b> (먼저, 우선, "comes first"). Official sources: 시·군 / 시장·군수, 공식 대피 명령 or 안내, 재난문자, 읍·면사무소, 이장.</td><td>"공식 명령이 우선이래요" · "이장님 말을 먼저 들으래요"</td></tr>
+<tr><td><b>OFFICIAL-FOLLOW</b></td><td>An official source is named as one to follow, with no stated precedence. Kept, no target.</td><td>"공식 안내를 따르라고 해요"</td></tr>
+<tr><td><b>EMERGENCY-SERVICE</b></td><td>In an open answer: <b>any</b> mention of 119 or the fire service, whether as a number to call or as the authority. Descriptive, no target. It is never OFFICIAL.</td><td>"위급하면 119래요" · "119에 연락하래요"</td></tr>
+<tr><td><b>NEUTRAL</b></td><td>None of the above.</td><td>"산불 안내네요"</td></tr>
+</table>
+
+<h2>Codes for Q4 answers (<code>q4_code_*</code>)</h2>
+<p>Q4 already asks "who comes first", so <b>naming an official source is enough for OFFICIAL</b>; it need not repeat "first". "119" alone is EMERGENCY-SERVICE. Other codes:</p>
+<ul>
+<li><b>NOT-STATED</b>: the reader says the item doesn't say.</li>
+<li><b>MODEL-AUTHORITY</b>: the reader names the model, the tool or the sheet as the authority. This is flagged.</li>
+<li><b>NEUTRAL</b>: anything else.</li>
+</ul>
+<p>Q4 is asked twice. The answer given on the participant's <b>first item</b> is the scored one (group A). The answer given at the <b>end</b> (<code>exposure = end</code>) is secondary and never scored.</p>
+<p>Group A: a Q4 miss is any first-item answer not coded OFFICIAL by <b>both</b> coders. Group B: Q4 is <b>descriptive</b> (no target), because the staff headline and the A4 do not state precedence. Every answer is reported verbatim with both coders' codes.</p>
+<p><b>Either-coder rule:</b> any other answer is a miss when <b>either</b> coder gives it a miss code. Disagreements are reported beside the result. They are not resolved, and the coders do not discuss them before scoring.</p>
+
+<h2>Miss definitions and targets (as counts, per group; groups are never pooled)</h2>
+<table>
+<tr><th>Question</th><th>What is counted</th><th>Miss</th><th>Allowed</th></tr>
+<tr><td>Q1: find the time</td><td>The <b>first exposure</b> of each leave-by case (C1, C2), pooled over channels. N = the group size.</td><td>
+<ul>
+<li>a wrong time;</li>
+<li>"none" or "unsure" given on C1 or C2;</li>
+<li>the correct time after more than 30 s on the broadcast, SMS, card or headline. <b>The A4 has no 30 s cut</b>: its seconds are reported only.</li>
+</ul></td><td>≤ ⌊0.2·N⌋: 1 at N = 6–9, 2 at N = 10–12</td></tr>
+<tr><td>Q1 critical</td><td>Every exposure of C4, C5</td><td>TIME-INVENTED, or a clock time given to the closed time question</td><td>0</td></tr>
+<tr><td>Q2: later is not usable</td><td>Every exposure of C1, C2: the open answer, the later-departure answer and the closed answer</td><td>USABLE-LATER, or "yes" to "그 시각보다 늦게 출발해도 나갈 수 있다고 합니까?". "No" and "not stated" are both correct.</td><td>0</td></tr>
+<tr><td>Q3: never stay</td><td>Every exposure of C4, C5</td><td>STAY, or "yes" to "그대로 있으라는 뜻인가요?"</td><td>0</td></tr>
+<tr><td>Q4: official first</td><td>Group A: each participant's <b>first item</b>. Group B: descriptive only.</td><td>Group A: not coded OFFICIAL by both coders.</td><td>Group A: ≤ ⌊0.1·N⌋, i.e. 0 at N ≤ 9 and 1 at N = 10–12</td></tr>
+</table>
+<p>"Unsure" or "not stated" is never a miss. These answers are counted and reported. The per-channel and all-exposure Q1 counts are descriptive. Every miss is reported verbatim with its case, channel, group and exposure order. No percentage is given without its n/N. Wording findings (e.g. "119" answers on the C4 broadcast, the A4 departure-time strip too small to read) are logged verbatim, apart from the targets.</p>
+
+<h2>Scoring</h2>
+<p><code>python3.12 tools/score.py results.csv --out RESULTS.md</code> applies exactly these rules. Exit code 0 means every target was met; 1 means a target was missed or a critical miss occurred; 2 means the sheet is malformed.</p>
+<p><b>Decision.</b> If every target is met, the paused wording work may resume, scoped by the results. No public statement about comprehension is made. If any target is missed, or any critical miss occurs, the failing wording is revised first, with Iris and Sofia, and re-tested on new participants before any new wording is added.</p>
+</body>
+</html>

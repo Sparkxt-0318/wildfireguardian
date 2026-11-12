@@ -1,0 +1,19 @@
+{
+  "items/C1/head.ko.txt": "6674e1ae858555cb0300a378ce3c7f5917c7aa53be80cc5da99cf06cc4b8ed88",
+  "items/C1/sms.ko.txt": "06177a1fc89653e1e5075ef7e682d7c15492c77203af3bacf1baa9ae6ecb11df",
+  "items/C1/card.ko.html": "471893727c560046184be40a171317a34c5ceeab3ef424950399d11576298bc9",
+  "items/C1/page.ko.html": "7d60a889dea8ee425fccbddc56ee9c951ca4bb0c9c514ac08072e5bce637ea87",
+  "items/C2/head.ko.txt": "0b3ac14fc306b13bfc1251ec21481e9c7b656de39aa46555248f367167b7b609",
+  "items/C2/sms.ko.txt": "ac2af6153cc7a9865cb070589f6f687051381ed51625d40eb9c0b42b98857796",
+  "items/C2/card.ko.html": "7240b5e241268c0dc174171fd96ac3c2e6d7642e79600461a06d1819c60394ed",
+  "items/C2/page.ko.html": "0d3828382708f9ad56db8ff3147ef194c0e2e176189be3d2663b9e944b2f875a",
+  "items/C4/head.ko.txt": "41f2b18276d4aa390332c6b2e35cbd28f3ef378559de8cb2fdf07dc607611c8d",
+  "items/C4/sms.ko.txt": "7c43ce076dfc80f96fc0d96977d9c5f866fe95b16372bdb13810c07e812c0e4c",
+  "items/C4/card.ko.html": "490ca0f16365cb094d20ddadb7a275b4587afa707204d398197aab9bbbf3d61b",
+  "items/C4/page.ko.html": "3b3e920f83f74fbda5c2ef4eba09ac3c2c4d871a2b89388ad8dd5ab38859de38",
+  "items/C5/head.ko.txt": "747a7e3f597b4f55021408ed120acc10bbdc66ca373a7d742962ea5ef0cabace",
+  "items/C5/sms.ko.txt": "efbdb1f57b60d30ec0b73a7da8e845344acacb9d1e682c5a1308571da32ad67b",
+  "items/C5/card.ko.html": "35ce66242ff9721abe4f4e601964f2e8ad5459f2ef3a8dbb167f469683c241cb",
+  "items/C5/page.ko.html": "8b69a562382bbcde08f4b8381a3070d4a468d9ee513807b5bcb086c134e04014",
+  "CASES.json": "a3ac1c32db1b86f53020adb1ff79370aacabc45ada5e6dd54e95984a635d249d"
+}

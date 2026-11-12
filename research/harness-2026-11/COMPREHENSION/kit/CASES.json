@@ -1,0 +1,116 @@
+{
+  "schema": "wfg.comprehension.cases/1",
+  "protocol": "v2.2",
+  "untested": "the gap wording, the partial message and the staff later-window line do not occur in the replay and are NOT tested by this pilot",
+  "rule": "first origin id (ascending) of each state, caches in planner/cache/INDEX.json order",
+  "now_iso": "2026-11-12T10:00:00Z",
+  "options": "buildChannels(plan, { nowIso }) — no order status, issuer or issue-order-by supplied",
+  "origins_by_state": {
+    "kit leave_by/horizon · staff deadline": 354,
+    "kit leave_by/none_checked · staff deadline": 147,
+    "kit no_route · staff no_route": 11,
+    "kit unresolved · staff unresolved": 19
+  },
+  "cases": [
+    {
+      "case": "C1",
+      "rule": "leave_by, after = horizon (\"later departures not checked\")",
+      "found": true,
+      "cache": "uiseong_andong_2025/20250323T010000Z.json",
+      "region": "uiseong_andong_2025",
+      "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+      "input_time": "2025-03-23T01:00:00Z",
+      "origin_id": "osm:node/415158323",
+      "kit_kind": "leave_by",
+      "kit_after": "horizon",
+      "leave_by_kst": "10:50",
+      "card_time": "10:50",
+      "next_computed_kst": "11:00",
+      "q2_case": false,
+      "staff_headline_kind": "deadline",
+      "staff_later_window": false,
+      "head_seconds": {
+        "core": 19.333333333333332,
+        "full": 32,
+        "core_slow": 23.2,
+        "full_slow": 38.4
+      },
+      "violations": []
+    },
+    {
+      "case": "C2",
+      "rule": "leave_by, after = none_checked (\"every later departure time computed has no checked road\")",
+      "found": true,
+      "cache": "uiseong_andong_2025/20250323T010000Z.json",
+      "region": "uiseong_andong_2025",
+      "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+      "input_time": "2025-03-23T01:00:00Z",
+      "origin_id": "osm:node/415158416",
+      "kit_kind": "leave_by",
+      "kit_after": "none_checked",
+      "leave_by_kst": "10:30",
+      "card_time": "10:30",
+      "next_computed_kst": "10:40",
+      "q2_case": true,
+      "staff_headline_kind": "deadline",
+      "staff_later_window": false,
+      "head_seconds": {
+        "core": 19.333333333333332,
+        "full": 32,
+        "core_slow": 23.2,
+        "full_slow": 38.4
+      },
+      "violations": []
+    },
+    {
+      "case": "C4",
+      "rule": "no_route",
+      "found": true,
+      "cache": "uiseong_andong_2025/20250323T010000Z.json",
+      "region": "uiseong_andong_2025",
+      "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+      "input_time": "2025-03-23T01:00:00Z",
+      "origin_id": "osm:node/415160353",
+      "kit_kind": "no_route",
+      "kit_after": null,
+      "leave_by_kst": null,
+      "card_time": null,
+      "next_computed_kst": null,
+      "q2_case": false,
+      "staff_headline_kind": "no_route",
+      "staff_later_window": false,
+      "head_seconds": {
+        "core": 19.666666666666668,
+        "full": 32.333333333333336,
+        "core_slow": 23.6,
+        "full_slow": 38.800000000000004
+      },
+      "violations": []
+    },
+    {
+      "case": "C5",
+      "rule": "unresolved",
+      "found": true,
+      "cache": "uiseong_andong_2025/20250323T010000Z.json",
+      "region": "uiseong_andong_2025",
+      "scenario_set_id": "ffb1:20250323T010000Z:da4a13e53bc0b6a2",
+      "input_time": "2025-03-23T01:00:00Z",
+      "origin_id": "osm:node/415160364",
+      "kit_kind": "unresolved",
+      "kit_after": null,
+      "leave_by_kst": null,
+      "card_time": null,
+      "next_computed_kst": null,
+      "q2_case": false,
+      "staff_headline_kind": "unresolved",
+      "staff_later_window": false,
+      "head_seconds": {
+        "core": 16.666666666666668,
+        "full": 29.333333333333332,
+        "core_slow": 20,
+        "full_slow": 35.199999999999996
+      },
+      "violations": []
+    }
+  ]
+}
