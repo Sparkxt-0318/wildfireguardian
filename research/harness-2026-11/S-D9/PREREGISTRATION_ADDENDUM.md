@@ -201,7 +201,7 @@ Every predictor is declared by SHA-256 before the manifest.
      - It passed a smoke test end to end on the forecast-v2 synthetic fixture.
    - Marcus confirmed these are not CLI-overridable: kernel 9 and dropout 0.0 are literals (pipeline.py:336), and weight_decay is `fit_mean_field`'s default of 1e-4 (survival.py:327).
    - The initial rate comes from the training-set prevalence, so it legitimately depends on the pool.
-3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed**, except the loss replacements of the two named D2 candidates below (revision 21).
+3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed**, except the loss and fitting-procedure replacements of the two named D2 candidates below (revision 21).
 4. **Part-a grid rule:**
    - EPSG:5070, 375 m cells, aligned to multiples of 375 m (the Choi reference-grid convention).
    - Extent = bounds of the union of all of the incident's NIROPS survey perimeters, plus 2 km.
