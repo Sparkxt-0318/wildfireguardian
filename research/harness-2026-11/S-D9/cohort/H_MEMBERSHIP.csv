@@ -1,0 +1,29 @@
+gofer,first_ignition_date,u,forced_h_dev,status,reason,h
+Antelope,2021-08-01,9eec8f4b81dad88815e0a8afce0901298b89e54051ff9b1ad0a84dce7c2db79e,False,excluded,"§1.3 near CA-KNF-006454_Antelope (1.8 km, +0 d)",
+August Complex,2020-08-16,90e6d893bf338eeaec8fcf01e8a1f0437d18f7c1871db92c3e725427e049dcf1,False,excluded,"§1.3 near CA-MNF-000753_AugustComplex (3.6 km, -1 d)",
+Beckwourth Complex,2021-06-30,20b83bda6e9d4abf1f7a5dc17187175b819e9b5893b883429fa30003b99271a6,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+Bobcat,2020-09-06,f293a55e4735d6b35678bc2934aac1c94f9cf0f6954a3f14390c1db3d1d43e23,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+CZU Lightning Complex,2020-08-17,126cca96b9009e647d0b844623b15caf41dd3c4bbfefc6b5528e13537978b4b8,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+Caldor,2021-08-15,649b137f84727439052a2286d1189ceb3206b597e034ebe8f647d27ff00cd3e6,False,excluded,Caldor 2021 INSPECTED,
+Creek,2020-09-05,ac88a88c04708e5a74204cbdd7f8fda65eca4226d7f3ca0cbc3e66a158895c7e,True,excluded,"§1.3 near CA-SNF-001391_Creek (0.7 km, +0 d)",
+Dixie,2021-07-14,595436aa1748515d3c5b95fb4c103799d56505448691b1a35ef9cd5cc83914ff,False,excluded,"§1.3 near CA-BTU-009205_Dixie (0.2 km, +0 d)",
+Dolan,2020-08-19,b5c4061d88b05daeea7203c0d8916edd25348f8d4d63e01c7c87567e9ae22e17,False,survivor,u order rank 3 of 7,H-test
+Glass,2020-09-27,7e22c721f878252d42388cf851667d81e78e501dba590a5eccc1621f79996fc3,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+July Complex,2020-07-22,d7dfaf06a694a2e112fa8596e85ae5b6c3fc5deea55ff2656b673456e0417d96,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+KNP Complex,2021-09-10,6d925f2863cebfc520b33b2c4bfa9ce16b23d89b122daa55d437ed1e7df3495f,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+Kincade,2019-10-24,e34cd98982f305e8bb3a08b97a8e3fa22faaeeb6131a064bb0f8255c939f0953,False,survivor,u order rank 6 of 7,H-test
+LNU Lightning Complex,2020-08-17,5ba4e06799477815edd5a5f26554557e5119bce7fb009774812c18eb7dc685e6,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+McCash,2021-08-01,533f1ab7c46549a283f8483e78357c874ae4bbcbad5d1556954d1fca48b49681,False,excluded,"§1.3 near CA-KNF-006385_RiverComplex_RiverComplex (32.2 km, +1 d)",
+McFarland,2021-07-30,e7e407785f1add7aaf9081e4e609b8e93dd312bedd266fdfe8ea7995bac2a3b5,False,survivor,u order rank 7 of 7,H-test
+Monument,2021-07-31,4bb60627e3171877304c1d960309ea12480188f600b7003cc30286a70cbd89c6,False,excluded,"§1.3 near CA-SHF-001187_Monument (0.2 km, +0 d)",
+North Complex,2020-08-17,3110ee3358531081822de88c5b374c624eaf3b425147bc63a68a87ac77d59006,False,excluded,"§1.3 near CA-PNF-001308_PNFNorthComplex (26.8 km, +0 d)",
+Red Salmon Complex,2020-07-27,1c1d846ab84c09ee3f69a645a9cd2e638d3e55d1ecba9d6ee3245dd4055f9b76,False,excluded,"§1.3 near CA-SRF-000656_RedSalmonComplex (3.6 km, -1 d)",
+River Complex,2021-08-01,317bb4d69fe03669a133ee5cbf45932f7592dc1b006c833466de95a793c9ff93,True,excluded,"§1.3 near CA-KNF-006385_RiverComplex_RiverComplex (14.4 km, +1 d)",
+SCU Lightning Complex,2020-08-16,938d8db2af29334f590c3bc61bf6b1e19e95cb7ec6bc87ca8ed2527651928c3d,False,survivor,u order rank 2 of 7,H-test
+SQF Complex,2020-08-20,8400d36a00d543368e0c3e61b8efaf373e0e6ea4412c7a7b72a5c10d9072b589,False,excluded,"§1.3 near CA-SQF-002622_SQFComplex (0.4 km, +1 d)",
+Slater and Devil,2020-09-08,b18558e1de52352089b4cb9adefacb65d4b44d66dc241fefe6822c1b8591bfef,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+Tamarack,2021-07-04,46a6ff13984e3c3a24f871ac18a0d0d1c0cef2cb00ac6f47528a9ad938bf9ad0,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev
+W-5 Cold Springs,2020-08-18,ce455ae1db87ef7f8dafd334ac90a7c8120ad9702a0fd0bb0f82bb0a236c3d7e,False,survivor,u order rank 5 of 7,H-test
+Walker,2019-09-04,c97fc37e6710eaebfb9bba383c43ee3bb895f62e3f5b8d3702d15d757fd20520,False,survivor,u order rank 4 of 7,H-test
+Windy,2021-09-10,8d9f513e6c4540b9b28ae38e2db4da7a885e68a9ead7670806d85af245172919,False,survivor,u order rank 1 of 7,H-test
+Zogg,2020-09-27,bbd84d773989c07c941034ff971faa8574649a868c305f2a818dcfce2709bd98,True,survivor,item 25 forced (GOFER fire matched to a kept part-a incident),H-dev

@@ -139,7 +139,10 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
     - *The rule.* Let **F** be the GOFER fires that `cohort/GOFER_MATCH.csv` (sha256 451675c1…) lists with status MATCH or UNDETERMINED against an incident **kept in part a** in `cohort/COHORT_FINAL.csv` (sha256 d5ae66f4…). The rule covers every part-a use, not only Elena's 42.
     - *The set F.* Bobcat; CZU Lightning Complex; Creek (via Bullfrog); Glass; July Complex (Allen, Caldwell); KNP Complex; LNU Lightning Complex (Meyers); Slater and Devil; Tamarack; Zogg; Beckwourth Complex (UNDETERMINED, treated as matched); River Complex (UNDETERMINED, name-only via Kootenai). Creek and River Complex are FIT fires and are removed from H by §1.3 in any case.
     - *Assignment.* Every survivor in F goes to **H-dev**. The remaining survivors are ordered by u. With **n = the number of GOFER survivors after §1.3**, H-dev also takes the first max(0, ⌊n/2⌋ − |F ∩ survivors|) of them, and **H-test is the rest**. H-test therefore contains no fire in F by construction.
-    - *Status.* Membership has not yet been computed. It is computed from metadata only, after this rule is committed, and logged in the ledger.
+    - *Membership, computed after this rule was committed* (`cohort/h_membership.py` → `cohort/H_MEMBERSHIP.csv`, sha256 255fae5d…; metadata only; logged in `ledger/ACCESS_CONTROL.md`).
+      - n = 17 survivors of 28; 11 are excluded (10 by §1.3, plus Caldor as INSPECTED).
+      - **H-dev (10, all in F):** Beckwourth Complex, Bobcat, CZU Lightning Complex, Glass, July Complex, KNP Complex, LNU Lightning Complex, Slater and Devil, Tamarack, Zogg.
+      - **H-test (7):** Windy, SCU Lightning Complex, Dolan, Walker, W-5 Cold Springs, Kincade, McFarland. Because |F ∩ survivors| = 10 > ⌊17/2⌋, H-dev takes no further fires.
     - *Consequence, stated now.* With about 17 survivors and F holding 10 of them, H-test will hold about 7 fires. It remains descriptive (see "Status" below).
 - Korean 2025 overpass detections (including the 25 March KFS_01 run) are **exposed** (KR2025 was scored by forecast-v2) and are reported **descriptively only**, never as H-test.
 
