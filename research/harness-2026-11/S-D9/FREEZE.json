@@ -1,0 +1,201 @@
+{
+ "schema": "S-D9 FREEZE stage 1",
+ "status": "STAGE 1 (A1 text, harness, cohorts and code pins). Not in force until Hannah verifies this commit and Iris re-assesses A1 (A1 \u00a79). Stage 2 is added by amendment before part c opens.",
+ "frozen_from_commit_parent": "f5c7d17c7d3893c96392cbf37295f11576880035",
+ "a1_sha256": "8edb4e7735042158fe02b592cb81fdfa2efed4b6bbdc646816c7df7e85c14de1",
+ "local_files": {
+  "PREREGISTRATION_ADDENDUM.md": "8edb4e7735042158fe02b592cb81fdfa2efed4b6bbdc646816c7df7e85c14de1",
+  "INVENTORY.md": "d7f854869a52f0249999bc5aa7eba5c7599a8f7f7f352ba49d1723024bfa5377",
+  "README.md": "f8b1d4bca0fb5fa041c12da88f26ebd92e2dc426abc4217f063de54bbb246782",
+  "requirements.txt": "576468924943b8d368b3ffa5b97244c8ef2a478d91b0c7529eeb018760202d79",
+  "sd9bench/__init__.py": "cac6099dddcd68b1ab0be54e4269e3dde3d9d1fc20b4727292c737b441748aa3",
+  "sd9bench/__main__.py": "204c40875a5f073284899312fd630fccbb3864150b86c4b4f204a90463c75fa7",
+  "sd9bench/arrival.py": "df3343be91fdc3fed229da170c4cbccee68014725791d7b7571d68b7842c175c",
+  "sd9bench/crc.py": "b2591ebf12468426d75b17060b7fc748f2ded1bd5b503d5cfc086c871756a71f",
+  "sd9bench/ensemble.py": "4797195a2d6bc4f8be12cf54dd22960b3b5c48cfed72d6ef0e12f372d42b337e",
+  "sd9bench/entries.py": "7eb3fd771e09b65dcaed5356cf78947d5f71d004a5bd9a8e3082d501d55ed8e9",
+  "sd9bench/score.py": "1ac8d933561eef4809ef227c90855bca5eeec3afe1d5d6f490388b3c0e3035c2",
+  "tests/conftest.py": "8659c4f6af34a32f61ecc29774fd873cf628e7e0828ce9ff04773418357a6cc6",
+  "tests/test_apply_filters.py": "57591959fd2e89fbbfb5d3171d6ef6e8b811e3694e33bbe01d48451f8c8fb862",
+  "tests/test_ensemble_crc.py": "7a1f1cdd8bc3e81bbf3db77c6ca8e158a6c5a25f568f4b372c59540dd1d68c7f",
+  "tests/test_harness_units.py": "6238e33b5b82a673beb8d4f9947a06084052e019a4051e948cb12a36873a1df2",
+  "tests/test_reproduce_forecast_v2.py": "91f21e59a87d5265a796878f70268f15c0dcd1b35070a97f5fa10506f4ffd9a3",
+  "ledger/ACCESS_CONTROL.md": "7613900023e239411f30f9364a6cbecca67db2fc8f755f470ba9dbd1dad79a63",
+  "ledger/EXPOSURE_LEDGER.csv": "e47d404f6bca15c09d50015616b00d5d862d256f7b26fed971acd07d71d0f3a2",
+  "ledger/INTERVAL_LEDGER.csv": "4d0d555fc4a95819485439c841700a9ca7965c10b48c44f6e0ed5d25114c860f",
+  "ledger/LEDGER.md": "3e6e15541590079c695f272f8965b2ca76baf8881794006edf2978b767e63a00",
+  "ledger/LEDGER_SUMMARY.json": "600657fa9559bf330078e1ccb7344609894d7b4c152895826a876464a8ec0cfd",
+  "ledger/build_ledger.py": "15b11c3c91a659b8278f6c028f6bcdfcf7eb3f1d2ddafe10a8d160330703cf5b",
+  "cohort/apply_filters.py": "f984955c3003f584b7b20662d01cfc7ccb9f29dfa139f61728120f38bbb8873c",
+  "cohort/gofer_match.py": "f03230c8b12adb286e988a8a0ca4b2f728edaf1310919ab42881bf9e039c4219",
+  "cohort/h_membership.py": "131434d233b6b05158a6e6217f151805acd33722c70f5e2135557e0eda722041",
+  "cohort/prepare_meta.py": "0b30db993df8c03c9fa027de4a6424a2fbfbefc9b09679f413718ce73e4c21b4",
+  "cohort/select_cohort.py": "ddae2607f3200e8b39c0e2bf9f191d89f6700aa25053eb1f819d88cb567c76d0",
+  "cohort/COHORT_FINAL.csv": "d5ae66f4208f9936fd6379000aae7ba3b2afbdf04ef09b6a6b4b09044f6452eb",
+  "cohort/COHORT_SPLIT.csv": "c083605af52f10f1bfe128367e2fed045d69dcab4f55f161bfbc7db32705d93b",
+  "cohort/GOFER_MATCH.csv": "451675c1cb06ff8b0f95c1eb662c30828206669b91df98208b05cf441a0f2af6",
+  "cohort/H_MEMBERSHIP.csv": "255fae5d61ffcf1e44a90c5d804a18c7769a27b5d989be3f26e9c280d09b66d2",
+  "cohort/PART_A_ALLOWLIST.csv": "956dfa098a22ac1b38447c4ebb22140bbc4611efca4e91fd60d084d172e25926",
+  "cohort/PART_A_ALLOWLIST_FINAL.csv": "7db3cc0ef084d4ed09624a0b2ad14ffebc90a94fe7efb94cab8dd2d4f09f85cd",
+  "cohort/RUN_FILTERS.md": "60a76368d46dd377af5af44342866e46a4edf722399149d272a763999c2813ff",
+  "derive/band_rule.py": "516a4426bb0d5ddce4193598c309d1128547640e12d7a2b60b29aa58072ef498",
+  "derive/c651_dev.py": "bfafb8f6ca1135f670f15cb13ffa8f2771f527e0f9ae5887b2b7c6a60711add6",
+  "derive/crc_dev.py": "9e93aa23d537030cbd2b94a69c5da83744f3449a58a39ff681ce9633b893bc3a",
+  "derive/decay.py": "3112e01908f17ce0555f4436c4b5c8177dfde4dc260e562e3422a95eeb7d2d6d",
+  "derive/derive_dist.py": "c32071f9d4e43b4f960237be44dccafd01f4ff6c11893722d6af865be6493c78",
+  "derive/enclosure.py": "6283505f9b157e71d5640557ea241e617f91035efd34153fffd3b3e9097f63b0",
+  "derive/fuel_split.py": "54cb97fbdb92d6a2b057dbaba8ad29bb125ab02ad70c203a9906dec056fa4900",
+  "derive/logistic_dev.py": "baa90db0a55f766f3521521c9bb8d3fb289de36b3c06144d5871ea011723298d",
+  "derive/power.py": "9b24778673a101add20b97c2e73246348fd640628010c5e98d011cbb1d8c1650",
+  "derive/reach.py": "ce3360b555c479605e5ea25c73cc154e66439a1cc74521b94b5f3da5d7f014c3",
+  "derive/BAND_RULE.json": "9ca2a748776607bde9f6a6521a8d7f5fbcff985749c56f6f86b70b297b31784e",
+  "derive/C651_DEV.json": "4f051a044fd7d2e36301312f836a1d38f974b3c4d099bc6a05527c315757dd3c",
+  "derive/CRC_DEV.json": "9ddfc33a59dbd7c5e75582084dfe0fec9c03fa65f42fe9568b77dfd77e23f603",
+  "derive/DECAY.json": "8c35b32656c7c4539132f4ac92e25db9fd330bce8e469153dadf01df32912d62",
+  "derive/ENCLOSURE.json": "12d826c98a6a9873deedf5d50db6799980adeb61f2e3e5e0e924b8cbae7b7c2c",
+  "derive/FUEL_SPLIT.json": "0d2b7079fe317ab8341aee9df1745c31ae0d2b8589d727732b76ea286fca9bc5",
+  "derive/LOGISTIC_DEV.json": "d7ce879e08a4f2c3cc6cedbe638f3b5cc255cad308c0d3b117a173cc74c5afd3",
+  "derive/POWER.json": "bc0778f19363cc6043be4affe974e09ab70a454c32e08d52fcdde8a13438190f",
+  "derive/REACH.json": "c6d40e7ec5068d838f38d046dbebd0ae47874b860bad25a0ba4debf547772fad",
+  "derive/C651_DEV.md": "248a85f332f050954085dad52ecece2d3a6410a44e72727911911691ac556b51",
+  "derive/CRC_DEV.md": "d0d558beaa4a4f52fa58b07f2f528a5eb87f75d53da64b39be6a0d3fc218c0d9",
+  "derive/LOGISTIC_DEV.md": "246fc12f8075abd5715dd082175fc89cf3593799687a34274f0a3bb7c68fa765",
+  "external/WSTS_DESIGN.md": "d2ccd3c6b2999575ee43b03bb630a6095ba7f38748f9748af935b9e686889149"
+ },
+ "external_pins": [
+  {
+   "label": "forecast-v2 pipeline (unchanged)",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "research/forecast-v2/scripts/pipeline.py",
+   "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67"
+  },
+  {
+   "label": "forecast-v2 RUN_PROTOCOL",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "research/forecast-v2/RUN_PROTOCOL.json",
+   "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243"
+  },
+  {
+   "label": "forecast/wildfire prepare.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/prepare.py",
+   "sha256": "e2c704333974ca3cb05e020075895ae50a7c38bcb7244640e5eaec9d95c62dd0"
+  },
+  {
+   "label": "forecast/wildfire train.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/train.py",
+   "sha256": "9c8a62150589b7d7785205e160f32e6a0d209dd4c01de27736c38d4244244b0e"
+  },
+  {
+   "label": "forecast/wildfire data.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/data.py",
+   "sha256": "8fb447ab28475e1909290e3b5af7717daace02db92655ff6f049861118d63230"
+  },
+  {
+   "label": "forecast/wildfire search.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/search.py",
+   "sha256": "136442fa7116938c1a895ba4d4be28f1a81547659b8d3efb3f0a194f3b0537b4"
+  },
+  {
+   "label": "forecast/wildfire baselines.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/baselines.py",
+   "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f"
+  },
+  {
+   "label": "forecast/wildfire survival.py",
+   "commit": "f5c7d17c7d3893c96392cbf37295f11576880035",
+   "path": "forecast/wildfire/survival.py",
+   "sha256": "c70db8adea511efb4c17dc5b39941e07b25502b620481ce82ceeb6d07e70bc5b"
+  },
+  {
+   "label": "S-D1 rebuilt-pipeline wrapper (\u00a73.1)",
+   "commit": "6dcf3f9d0dc3615bd14bef7d8780e3365e6513b7",
+   "path": "research/harness-2026-11/s-d1/refit/run_pipeline_rebuilt.py",
+   "sha256": "264deaeae7dc532bbfa27e55d35d3def7c01eb0c7f85cdf358ee529b866e1d1d"
+  },
+  {
+   "label": "S-D1 refit receipt addendum writer (\u00a74.1 rule 3)",
+   "commit": "ab7a1f77b893c9497224f56bc0edb90860dd381f",
+   "path": "research/harness-2026-11/s-d1/refit/write_receipt_addendum.py",
+   "sha256": "54b0f957f0b4e7df6123f0178e2b270e8c5d902b593a728376d094114cb7d93a"
+  },
+  {
+   "label": "S-D1 c651 recipe wrapper (\u00a73.2, item 26)",
+   "commit": "81dc7c2ea76046d835f45805439630dc407842fd",
+   "path": "research/harness-2026-11/s-d1/refit/run_c651_recipe.py",
+   "sha256": "3e99f4795efe2dd40e8131a3c8e73974824d88fba2ecc795644b39c99d4c065f"
+  },
+  {
+   "label": "S-D1 c651 recipe smoke test",
+   "commit": "81dc7c2ea76046d835f45805439630dc407842fd",
+   "path": "research/harness-2026-11/s-d1/refit/smoke_c651_recipe.py",
+   "sha256": "56f7fbee58369dbf6defcced458a74dcbbe435e9aeed05c8c173539aeafc99a0"
+  },
+  {
+   "label": "S-D1 c651 sampling gate (\u00a73.2)",
+   "commit": "03b55002d9c488adfdd6eb350e2f2b631b2ad7a0",
+   "path": "research/harness-2026-11/s-d1/refit/c651_sampling_gate.py",
+   "sha256": "153bf393cf5ecf7c9cf13698813af8c55ef2212260fdc45a109007f9f6e7cf63"
+  },
+  {
+   "label": "Daniel arrival-vs-union check (\u00a74.1 rule 5)",
+   "commit": "f5342c29d44a1ca1faf5e4448502f91300694c40",
+   "path": "research/harness-2026-11/data-fetch-3/arrival_vs_union/arrival_vs_union.py",
+   "sha256": "c847e3dfffbfc682eddcd30d342c52f0b49231e03eada433adf54db73a57de40"
+  },
+  {
+   "label": "Daniel arrival-vs-union output",
+   "commit": "f5342c29d44a1ca1faf5e4448502f91300694c40",
+   "path": "research/harness-2026-11/data-fetch-3/arrival_vs_union/arrival_vs_union.csv",
+   "sha256": "32dd398262ed18e514c06e9012fd26eaf48317f4a09658bb98be449e91a2ab31"
+  },
+  {
+   "label": "Daniel KR smoke check (KFS_02, KFS_03)",
+   "commit": "3b2c2fbb920a255052fa5c08eeb2d0bdc7a6bb16",
+   "path": "research/harness-2026-11/data-fetch-3/kr_smoke/kr_check.py",
+   "sha256": "d3683886f5c267ac9d0677efa08e18a90acd20351e5be57e719eee2bda788760"
+  },
+  {
+   "label": "Daniel KR non-weather check (13 events)",
+   "commit": "dd154036bad4b43f4d2e23157a2f1b13f7888239",
+   "path": "research/harness-2026-11/data-fetch-3/kr_nonweather_13/kr_check_all.py",
+   "sha256": "8099d39ad766a0ff2fc5688316db48746f6a77075141762cd738340644f22a3a"
+  },
+  {
+   "label": "events.json used for the c651 data root",
+   "commit": "8d50f2e294f36e6a29a86d1b859cd4f02514ba3b",
+   "path": "forecast/data/environment/events.json",
+   "sha256": "607f831ea64235449d7eb19e5cd931099486aaae44de1221c1ec27b34965ac8b"
+  }
+ ],
+ "stage2_required_before_part_c_opens": [
+  "rebuilt input manifest: data root layout, every input file sha256, rebuild_env.sh commit (Daniel)",
+  "refit checkpoints and receipts: d4_wind_rebuilt, logistic_rebuilt, d4_wind_recal, c651 arms on/off (with REFIT_RECEIPT_ADDENDUM bound to each wrapper receipt)",
+  "D2 wrapper shas: d2_nll_rebuilt, d2_bracket_rebuilt (Elena), recorded before each runs",
+  "rate-mixture final form, if adopted by amendment",
+  "\u00a75.2 native cumulative marginals demonstrated on R for each D1/D2 candidate",
+  "part-c manifests (incident list, perimeters by hash) verified before part c opens (\u00a79)",
+  "item 14 temperature and wind channels (AlderCreek, after rebuilt weather)"
+ ],
+ "sealed": {
+  "parts": [
+   "b",
+   "c",
+   "d"
+  ],
+  "h_test": [
+   "Windy",
+   "SCU Lightning Complex",
+   "Dolan",
+   "Walker",
+   "W-5 Cold Springs",
+   "Kincade",
+   "McFarland"
+  ],
+  "note": "no perimeter of a sealed incident has been opened (ledger/ACCESS_CONTROL.md)"
+ }
+}
