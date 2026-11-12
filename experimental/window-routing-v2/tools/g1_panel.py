@@ -18,6 +18,7 @@ def main():
     ap.add_argument('--out', type=Path, required=True); ap.add_argument('--reps', type=int, default=2)
     ap.add_argument('--budget', type=float, default=81.0); ap.add_argument('--inputs', type=Path, default=REPO / 'data/routing')
     ap.add_argument('--only', default=None)
+    ap.add_argument('--noiso-arm', action='store_true', help='Step 2 amendment F: add the labelled V2_NOISO baseline comparison arm (same V2 kit, v2_check_isolation false)')
     ap.add_argument('--resume', action='store_true', help='continue an interrupted panel (Elena: checkpoint per job, '
                     'log restarts; a restarted panel is excluded from timing claims)')
     a = ap.parse_args()
@@ -42,6 +43,8 @@ def main():
                                 'aborted_job_folders_moved': aborted}) + '\n')
     out.mkdir(parents=True, exist_ok=True)
     kits = {'FROZEN': a.frozen.resolve(), 'V2': a.v2.resolve()}
+    if a.noiso_arm:
+        kits['V2_NOISO'] = a.v2.resolve()
     todo = RP.missions(kits['FROZEN'])
     assert todo == RP.missions(kits['V2']), 'mission lists differ'
     if a.only:
@@ -49,7 +52,9 @@ def main():
     for rep in range(1, a.reps + 1):
         order = todo if rep % 2 else list(reversed(todo))
         for i, (region, case_id) in enumerate(order):
-            labels = ['FROZEN', 'V2'] if (rep + i) % 2 else ['V2', 'FROZEN']
+            arms = list(kits)                       # rotate the arm order by mission and rep (2 or 3 arms)
+            k = (rep + i) % len(arms)
+            labels = arms[k:] + arms[:k]
             for lab in labels:
                 if (rep, lab, region, case_id) in done:
                     continue
@@ -57,7 +62,7 @@ def main():
                 # Mira R14 N1: one fresh interpreter per job, so the controller and decision modules are the job's own kit's
                 import subprocess
                 pr = subprocess.run([sys.executable, '-B', str(Path(__file__).with_name('run_one_job.py')), str(kits[lab]),
-                                     str(a.inputs.resolve()), region, case_id, str(d), str(a.budget)], capture_output=True, text=True)
+                                     str(a.inputs.resolve()), region, case_id, str(d), str(a.budget)] + (['V2_NOISO'] if lab == 'V2_NOISO' else []), capture_output=True, text=True)
                 if pr.returncode != 0:
                     raise SystemExit(pr.stderr[-3000:])
                 row = json.loads(pr.stdout.strip().splitlines()[-1])
