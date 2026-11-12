@@ -176,3 +176,27 @@ rectangles (H/2 × W/2).
 
 These are reported beside Richard's deadline-side numbers at the same d. No downwind version is attempted, because
 there is no wind field.
+
+## Validation status of the flame model (Sofia 11:48 UTC; her reading, not checked here)
+
+No published independent comparison of a solid-flame view-factor model against flux measured 50–400 m from a
+vegetation fire front was found. Measured fluxes stop at about 15 m (Morandini 2006), and crown-fire wall panels at
+10–30 m give qualitative results only (Cohen 2000).
+
+**Bias direction.** Every check found reports that a blackbody solid flame (ε = 1, about 1200 K, τ = 1)
+**over-predicts**, increasingly with distance. Sofia's indicative back-test against Morandini 2006 is 2–3× high.
+
+**Possible under-prediction:**
+- convection on slopes and in wind;
+- hotter flames (+10% T is about +46% flux);
+- fronts wider than assumed.
+
+**Statement attached to every standoff table** (§3, §6, §7): the 50–400 m distances, the 1.0–2.5 kW/m² range,
+flames above about 25 m, smoke attenuation, and roadside or vehicle exposures are **not validated** anywhere found.
+These rows are extrapolations of a model that is conservative in the near field. Ember ignition and smoke are not
+covered at all.
+
+**Not applied** (proposals for the orchestrator and Iris):
+- a distance safety factor of about 1.5;
+- a flag that rows with H < 3 m are likely conservative;
+- a convective minimum of 20–50 m.
