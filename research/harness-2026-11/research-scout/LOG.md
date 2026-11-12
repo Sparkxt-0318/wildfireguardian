@@ -362,3 +362,34 @@ Not found:
 - Official guidance on village-broadcast (마을방송) length or repetition.
 - A real evacuation ARS script with key-press replies. The closest is the 진천 welfare ARS, which is not for evacuation.
 - Guidance on announcing or limiting shelter changes.
+
+**Leo, timed accounts for Yeongdeok and Cheongsong, 25 March 2025 (KST).**
+
+Correction to the earlier `MISSION_A.md` timeline: the 지품면 power cut was at 20:25, not 19:50. The official county timeline is newsro.kr/articles/832886, VERIFIED. Its entries:
+
+| Time | Event |
+|---|---|
+| 17:54 | CCTV detection |
+| 18:00 | Evacuation order and cell broadcast for 지품면 and 달산면 |
+| 18:25 | Cell broadcast on 황장재 |
+| 18:52 | Cell broadcast for 지품면 옥류리 |
+| 18:58 | National Route 34 closed |
+| 19:04 | Road closed |
+| 19:18 | Cell broadcast for 영해면 대리 |
+| 19:30 | Order for all 9 읍면 |
+| 19:40 | Cell broadcast for 창수면 |
+| 20:25 | Power cut in 11 지품면 villages |
+| 21:00 | County-wide cell broadcast |
+| 21:15 | Care facilities evacuated |
+| 21:58 | National Route 7 closed |
+
+New anchors (VERIFIED):
+
+- About 16:30: black smoke seen from 지품면 (면장 interview, dgmbc 628364).
+- 16:35: fire spreading from Andong toward Cheongsong (yeongnam).
+- 17:55: flames behind a resident's car (hankookilbo).
+- About 18:00 and about 19:00: deaths in Cheongsong (newsis 3113103).
+- About 20:40: fire arrives at 매정리 (hankookilbo, "10분 뒤").
+- 21:00 and 21:06: county-wide power and communications cut (hankyung, newsis 3113851).
+
+Official spread timeline: KFS gives only two points for the fire head, Uiseong at 14:00 and Yeongdeok at 02:00, giving 8.2 km/h. No intermediate head positions were published.
