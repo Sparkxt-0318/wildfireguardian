@@ -143,7 +143,7 @@ container. All 20 missions.
 - **GNU time is required.** The kit's controller runs `/usr/bin/time -v`; without it every route check fails. The
   container image lacked it (`apt-get install time`). `make api-tools` only warns about this.
 - **The evaluated 30 s budget does not transfer to this host.** Here, at 30 s, Uljin FX1 times out (wall 30.17 s, still
-  inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The full
+  inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The
   full 30 s run is in § Clean rerun (32/40 resolve). Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
   there Uljin FX1 completes at 30 s in 24.3 s. Host speed, not the OS, decides this, and the speed-equivalence factor
   (2.7× here) must be measured on each host.
