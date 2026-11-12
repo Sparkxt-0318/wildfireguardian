@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BANNER, cardFor, exampleIds, handoffFor, leaveByWords, linkFor, NOT_IN_MODEL, OFFICIAL_SLOT, ONE_TRIP, parseLink, REPLAY_MARK, sweepStepMin, validPlace, type AfterWords, type PublicCard } from '../../planner/src/features/publicview/model';
+import { BANNER, cardFor, exampleIds, handoffFor, leaveByWords, linkFor, nextRequestedMin, NOT_IN_MODEL, OFFICIAL_SLOT, ONE_TRIP, parseLink, REPLAY_MARK, sweepStepMin, validPlace, type AfterWords, type PublicCard } from '../../planner/src/features/publicview/model';
 import { readSaved, writeSaved } from '../../planner/src/features/publicview/load';
 import { DARK, LIGHT, SIZE } from '../../planner/src/features/publicview/tokens';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
@@ -67,6 +67,7 @@ describe('cards over every real and synthetic origin', () => {
   it('the leave-by sentence is true of the sweep it describes, for every real and synthetic origin (verifier note: "none after" was shown where the model found a later road after a gap)', () => {
     const shown: Record<string, { real: number; syn: number }> = {};
     const laterVerdicts: Record<string, number> = {};
+    const gapNext = { shown: 0, omitted: 0 };
     const check = (i: LastMileInput, set: 'real' | 'syn') => {
       const c = cardFor(i, () => null);
       const p = messagePlan(i, null);
@@ -77,9 +78,12 @@ describe('cards over every real and synthetic origin', () => {
       const upTo = requested.filter((x) => x.offsetS <= T);
       const later = requested.filter((x) => x.offsetS > T);
       const step = sweepStepMin(i);
-      const which = (['horizon', 'none_checked', 'gap'] as AfterWords[]).find((k) => leaveByWords(k, step).en === c.words.en);
-      expect(which, c.words.en).toBeDefined();
-      expect(c.words.ko).toBe(leaveByWords(which!, step).ko);
+      const nextMin = nextRequestedMin(i, p.leaveByS!);
+      // Iris: the three sentences are mutually exclusive and exhaustive — every timed card matches exactly one
+      const matches = (['horizon', 'none_checked', 'gap'] as AfterWords[]).filter((k) => leaveByWords(k, step, nextMin).en === c.words.en);
+      expect(matches.length, c.words.en).toBe(1);
+      const which = matches[0]!;
+      expect(c.words.ko).toBe(leaveByWords(which, step, nextMin).ko);
       // Iris note 1: the stated step is the sweep's own uniform step (recomputed here), or no step is stated
       const offs = [...new Set(i.plan!.sweep.map((x) => x.offsetS))].sort((a, b) => a - b);
       const diffs = new Set(offs.slice(1).map((v, k) => v - offs[k]!));
@@ -110,9 +114,13 @@ describe('cards over every real and synthetic origin', () => {
         expect(later.every((x) => x.verdict !== 'checked_route'), i.origin.id).toBe(true);
       }
       if (which === 'gap') {
-        // "the next departure time checked has none": the first requested departure after T has no checked road
+        // "leaving at the next computed time (N minutes later) has no checked road": the first requested departure
+        // after T has none, and when N is shown it is that departure's distance from T
         expect(later.length, i.origin.id).toBeGreaterThan(0);
         expect(later[0]!.verdict, i.origin.id).not.toBe('checked_route');
+        const m = c.words.en.match(/\((\d+) minutes later\)/);
+        if (m) expect(later[0]!.offsetS - T).toBe(Number(m[1]) * 60);
+        gapNext[m ? 'shown' : 'omitted'] += 1;
       }
       // an unresolved later departure is "no checked road" (none_checked / gap), never "not checked" (horizon)
       for (const x of later) laterVerdicts[`${set}:${which}:${x.verdict}`] = (laterVerdicts[`${set}:${which}:${x.verdict}`] ?? 0) + 1;
@@ -129,6 +137,7 @@ describe('cards over every real and synthetic origin', () => {
     expect(Object.keys(laterVerdicts).some((k) => k.endsWith(':model_no_route'))).toBe(true);
     console.log('[pproto] leave-by sentence shown (real / synthetic):', JSON.stringify(shown));
     console.log('[pproto] later requested departures by sentence and verdict:', JSON.stringify(laterVerdicts));
+    console.log('[pproto] gap sentences with the next time shown / omitted:', JSON.stringify(gapNext));
   });
 
   it('examples: one of each state, by a fixed rule', () => {

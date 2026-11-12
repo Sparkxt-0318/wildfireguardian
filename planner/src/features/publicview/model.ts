@@ -119,20 +119,23 @@ export function handoffFor(p: MessagePlan, coords: (destinationId: string) => { 
   return { name, lat: c.lat, lon: c.lon, text, gpxFileName: `REPLAY-${ymd(iso(p))}-NOT-REAL-${p.destination.id.replace(/[^A-Za-z0-9]+/g, '_')}.gpx`, gpx };
 }
 
-/** Iris: on every card that shows a time — the result covers one outbound trip and says nothing about going back. */
+/**
+ * Iris: on every card that shows a time — the result covers one outbound trip; the way back was not checked. Korean by
+ * Sofia ("빠져나가는"); both languages say the same thing (not checked), as Iris asked.
+ */
 export const ONE_TRIP: LmText = {
-  ko: '이 결과는 한 번 밖으로 나가는 길만 확인한 것입니다. 돌아오는 길은 확인하지 않았습니다.',
-  en: 'This result covers one trip out only. It says nothing about going back.',
+  ko: '이 결과는 한 번 빠져나가는 길만 확인한 것입니다. 돌아오는 길은 확인하지 않았습니다.',
+  en: 'This result checks one trip out only. The way back was not checked.',
 };
 
-/** What the model does not include, in plain words (Iris, from Sofia's March 2025 cases). */
+/** What the calculation does not include, in plain words, none implying a size or likelihood (Iris, Sofia). */
 export const NOT_IN_MODEL: { title: LmText; items: LmText[] } = {
-  title: { ko: '이 계산에 들어 있지 않은 것', en: 'What this calculation does not include' },
+  title: { ko: '계산에 넣지 않은 것', en: 'Not included in this calculation' },
   items: [
-    { ko: '연기', en: 'smoke' },
+    { ko: '연기(시야)', en: 'smoke (visibility)' },
     { ko: '좁은 길', en: 'narrow roads' },
-    { ko: '차량 정체(줄지어 늘어선 차)', en: 'queues of cars' },
-    { ko: '불티로 차에 불이 붙는 일', en: 'embers setting cars alight' },
+    { ko: '차량 정체', en: 'queues of cars' },
+    { ko: '불티로 인한 차량 화재', en: 'embers setting cars alight' },
     { ko: '돌아오는 길', en: 'the way back' },
   ],
 };
@@ -150,26 +153,36 @@ export function sweepStepMin(input: LastMileInput): number | null {
 export type AfterWords = 'horizon' | 'none_checked' | 'gap';
 
 /**
- * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction). "Checked" is
- * stated as checked: only the departure times in the sweep, every `stepMin` minutes (omitted when the step is not
- * uniform). "No checked road" covers both a model no-route and an unresolved check, never "no road" or "closed". Each
- * must be true of the sweep it describes (property test in tests/planner/pproto.test.ts):
- * - horizon: no departure after T was requested (only window-closed times or none) — later ones were not checked;
+ * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction; Korean by
+ * Sofia). Only the departure times in the sweep were computed, every `stepMin` minutes (the clause is omitted when the
+ * step is not uniform). "No checked road" (확인된 길 없음) covers both a model no-route and an unresolved check, never "no
+ * road" or "closed". Each must be true of the sweep it describes (property test in tests/planner/pproto.test.ts):
+ * - horizon: no departure after T was requested (only window-closed times or none): later ones were not checked;
  * - none_checked: no requested departure after T has a checked road;
- * - gap: the next requested departure after T has no checked road (a later one has one again; never mentioned, so the
- *   sentence cannot be read as "leaving later is also fine").
+ * - gap: the next requested departure after T has no checked road; `nextMin` = its distance from T in minutes (shown
+ *   only when it equals the step). A later checked road is never mentioned, so the sentence cannot be read as "leaving
+ *   later is also fine".
  */
-export function leaveByWords(after: AfterWords, stepMin: number | null): LmText {
+export function leaveByWords(after: AfterWords, stepMin: number | null, nextMin: number | null = null): LmText {
   const koStep = stepMin ? `${stepMin}분 간격으로 ` : '';
   const enStep = stepMin ? ` (every ${stepMin} minutes)` : '';
-  const ko = `모델 계산: 이 시각까지 ${koStep}확인한 출발 시각마다 차로 나가는 확인된 길이 있습니다.`;
-  const en = `Model: at each departure time checked up to this time${enStep}, there is a checked road out by car.`;
+  const ko = `모델 계산: 이 시각까지 ${koStep}계산한 출발 시각마다 차로 나갈 수 있는 확인된 길이 있습니다.`;
+  const en = `Model: at each departure time computed up to this time${enStep}, there is a checked road out by car.`;
+  const next = after === 'gap' && stepMin !== null && nextMin === stepMin ? nextMin : null;
   const tail: Record<AfterWords, LmText> = {
     horizon: { ko: '그 뒤 출발은 확인하지 않았습니다.', en: 'Later departures were not checked.' },
-    none_checked: { ko: '그 뒤에 확인한 출발 시각에는 확인된 길이 없습니다.', en: 'None of the later departure times checked has one.' },
-    gap: { ko: '바로 다음에 확인한 출발 시각에는 확인된 길이 없습니다.', en: 'The next departure time checked has none.' },
+    none_checked: { ko: '그 뒤의 출발 시각은 계산한 시각 모두 확인된 길이 없습니다.', en: 'Every later departure time computed has no checked road.' },
+    gap: next
+      ? { ko: `바로 다음 계산 시각(${next}분 뒤)에 출발하면 확인된 길이 없습니다.`, en: `Leaving at the next computed time (${next} minutes later) has no checked road.` }
+      : { ko: '바로 다음 계산 시각에 출발하면 확인된 길이 없습니다.', en: 'Leaving at the next computed time has no checked road.' },
   };
   return { ko: `${ko} ${tail[after].ko}`, en: `${en} ${tail[after].en}` };
+}
+
+/** Minutes from T to the next requested (not window-closed) departure time, or null. */
+export function nextRequestedMin(input: LastMileInput, leaveByS: number): number | null {
+  const n = (input.plan?.sweep ?? []).filter((c) => c.verdict !== 'window_closed' && c.offsetS > leaveByS).sort((a, b) => a.offsetS - b.offsetS)[0];
+  return n && (n.offsetS - leaveByS) % 60 === 0 ? (n.offsetS - leaveByS) / 60 : null;
 }
 
 export function cardFor(input: LastMileInput, coords: (destinationId: string) => { lat: number; lon: number } | null = () => null): PublicCard {
@@ -182,7 +195,7 @@ export function cardFor(input: LastMileInput, coords: (destinationId: string) =>
       tone: 'leave',
       icon: 'clock',
       // Iris: descriptive mood — what the model found, not an instruction
-      words: leaveByWords(p.after, sweepStepMin(input)),
+      words: leaveByWords(p.after, sweepStepMin(input), nextRequestedMin(input, p.leaveByS)),
       time: t,
       oneTrip: ONE_TRIP,
       guidance: { ko: '공식 대피 명령이 우선합니다. 차가 없으면 이장에게 바로 알리십시오.', en: 'Official evacuation orders come first. No car? Tell the village head now.' },
