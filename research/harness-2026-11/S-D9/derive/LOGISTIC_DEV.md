@@ -95,7 +95,7 @@ These use Daniel's **rebuilt** static layers (daniel/data-fetch 7d430806, LANDFI
 | d4 non-tail | 6,869 | 7.1% | 100% | 5.4% | 31.1% | 3.0% | 34.1% | 19.4% |
 
 **Reading.**
-- Non-burnable cells are only mildly over-represented in the tail (1.5×), at about 141 positives.
+- Non-burnable cells are only mildly over-represented in the tail (1.5×), at about 141 positives. **The pooled 10.8% vs 7.1% is essentially a Wapiti statement:** 134 of the 141 non-burnable tail positives (95%) are Wapiti; the other five fires have about 0–10% (see per fire below). Hannah verified this independently at 903da494.
 - There is **no missing-input gating**: every positive has all static layers valid.
 - About 89% of tail positives are on ordinary burnable fuel.
 - Taken with the island-neighbour test (follow-up 2) and geometric decay (follow-up 3), **structural zeros explain at most about a tenth of the tail.** The rest is d4's single-speed decay meeting real fast runs.
