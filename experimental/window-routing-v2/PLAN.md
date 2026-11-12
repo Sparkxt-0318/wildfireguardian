@@ -378,9 +378,19 @@ verified by Mira.**
   - Miryang 0601T08 FX1: I 136d908351445370, 137,294 B.
 - Input digests match the request, HAZARD and graph prefixes I sent. The packet gate P1 (X1 rules 1, 2 and 4) passes;
   rule 3 is covered by T7b.
-- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions, with the required wording: "relaxation refusal
-  independently checked by two checkers; implication to the kit model by an unverified dominance argument"
-  (`xcheck/DOMINANCE_RULE.md`, code reading only).
+- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions. **Required wording, W2′** (Thomas 22:45 UTC;
+  approved by Mira, ledgers 106–107; it replaces W1):
+  "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
+  dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
+  through Main aaaa02c6; reviewed by Mira as a document, the code reading itself not independently re-checked),
+  conditional on both sides using the same packet members, flame law and grid cells; packet, members and grid checked"
+  - Backing: the premise checks (grid rectangles, members, flame law, per-member flame phases), re-derived
+    independently by Mira (`xcheck/results/g2c_premises.json`, `g2c_stage_z_refusals.json` on `thomas/routing-next`).
+  - **Code identity of the four Step 0 jobs is manifest-based, not a per-run import-time hash.** Each RESULT records the
+    kit path and `kit_identity`. The kit-v2-step0 manifest (b37e0c79…) lists `contact_first.py` d2d2c4c8…,
+    `mission_contract.py` 2de57c83… and `hybrid_checker.py` ca7d0614…, which are the blobs DOMINANCE_RULE §1 was read
+    against. The files are unchanged since the kit build, which preceded the runs. A qualifier on this point may be
+    added (Thomas, pending Mira).
 - Yeongdeok 0325T19 FD1 (stage LO) stays `REEXECUTED_ONLY`.
 
 **G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
@@ -542,6 +552,12 @@ sweep?
    - The dense path stays the 1-hour solver until G6 shows the field reproduces it.
 7. **Then, by decision:** Step 1b (support outcomes); Step 7 (constant radiation tier and option A, 1-hour); Step 8
    (tie-break); Step 9 (thresholded-dose labelled variant). Iris reads the Step 9 sourcing lines before code.
+
+**Identity record, future steps (Thomas 22:46 UTC; test stated before code).** From the next step that edits the
+worker, the per-job identity record also carries the sha256 of `contact_first.py`, `mission_contract.py` and
+`hybrid_checker.py` as imported, read from each module's `__file__` at import time. Pre-stated test: a job's recorded
+hashes equal the kit manifest's entries for those three files, and a deliberately modified copy in a scratch kit is
+recorded with its own hash, not the manifest's.
 
 **Step 3b (separate, later; NOT part of Step 3; orchestrator 20:02 UTC, from Iris's observation): cache
 `routing.core.edge_occupancies`.**
