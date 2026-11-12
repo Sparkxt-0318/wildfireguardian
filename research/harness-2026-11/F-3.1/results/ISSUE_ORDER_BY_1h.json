@@ -1,0 +1,4928 @@
+[
+ {
+  "input_time": "2025-03-23T01:00:00Z",
+  "cache_file": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 7,
+    "future": 78,
+    "no_route": 1
+   },
+   "median": {
+    "past": 85,
+    "future": 0,
+    "no_route": 1
+   },
+   "high": {
+    "past": 85,
+    "future": 0,
+    "no_route": 1
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/415158323",
+    "kind": "dispatch",
+    "leave_by_s": 3221,
+    "message": "not ordered yet - leave by 01:53 UTC",
+    "issue_by_s_low": 1421,
+    "issue_by_s_median": -4519,
+    "issue_by_s_high": -11179
+   },
+   {
+    "origin": "osm:node/415158324",
+    "kind": "dispatch",
+    "leave_by_s": 3428,
+    "message": "not ordered yet - leave by 01:57 UTC",
+    "issue_by_s_low": 1628,
+    "issue_by_s_median": -4312,
+    "issue_by_s_high": -10972
+   },
+   {
+    "origin": "osm:node/415158334",
+    "kind": "dispatch",
+    "leave_by_s": 3212,
+    "message": "not ordered yet - leave by 01:53 UTC",
+    "issue_by_s_low": 1412,
+    "issue_by_s_median": -4528,
+    "issue_by_s_high": -11188
+   },
+   {
+    "origin": "osm:node/415158335",
+    "kind": "dispatch",
+    "leave_by_s": 3068,
+    "message": "not ordered yet - leave by 01:51 UTC",
+    "issue_by_s_low": 1268,
+    "issue_by_s_median": -4672,
+    "issue_by_s_high": -11332
+   },
+   {
+    "origin": "osm:node/415158338",
+    "kind": "dispatch",
+    "leave_by_s": 3017,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1217,
+    "issue_by_s_median": -4723,
+    "issue_by_s_high": -11383
+   },
+   {
+    "origin": "osm:node/415158416",
+    "kind": "dispatch",
+    "leave_by_s": 1817,
+    "message": "not ordered yet - leave by 01:30 UTC",
+    "issue_by_s_low": 17,
+    "issue_by_s_median": -5923,
+    "issue_by_s_high": -12583
+   },
+   {
+    "origin": "osm:node/415158417",
+    "kind": "dispatch",
+    "leave_by_s": 1866,
+    "message": "not ordered yet - leave by 01:31 UTC",
+    "issue_by_s_low": 66,
+    "issue_by_s_median": -5874,
+    "issue_by_s_high": -12534
+   },
+   {
+    "origin": "osm:node/415158418",
+    "kind": "dispatch",
+    "leave_by_s": 2423,
+    "message": "not ordered yet - leave by 01:40 UTC",
+    "issue_by_s_low": 623,
+    "issue_by_s_median": -5317,
+    "issue_by_s_high": -11977
+   },
+   {
+    "origin": "osm:node/415158419",
+    "kind": "dispatch",
+    "leave_by_s": 2301,
+    "message": "not ordered yet - leave by 01:38 UTC",
+    "issue_by_s_low": 501,
+    "issue_by_s_median": -5439,
+    "issue_by_s_high": -12099
+   },
+   {
+    "origin": "osm:node/415158420",
+    "kind": "dispatch",
+    "leave_by_s": 3119,
+    "message": "not ordered yet - leave by 01:51 UTC",
+    "issue_by_s_low": 1319,
+    "issue_by_s_median": -4621,
+    "issue_by_s_high": -11281
+   },
+   {
+    "origin": "osm:node/415158421",
+    "kind": "dispatch",
+    "leave_by_s": 2905,
+    "message": "not ordered yet - leave by 01:48 UTC",
+    "issue_by_s_low": 1105,
+    "issue_by_s_median": -4835,
+    "issue_by_s_high": -11495
+   },
+   {
+    "origin": "osm:node/415158432",
+    "kind": "dispatch",
+    "leave_by_s": 2159,
+    "message": "not ordered yet - leave by 01:35 UTC",
+    "issue_by_s_low": 359,
+    "issue_by_s_median": -5581,
+    "issue_by_s_high": -12241
+   },
+   {
+    "origin": "osm:node/415158434",
+    "kind": "dispatch",
+    "leave_by_s": 2570,
+    "message": "not ordered yet - leave by 01:42 UTC",
+    "issue_by_s_low": 770,
+    "issue_by_s_median": -5170,
+    "issue_by_s_high": -11830
+   },
+   {
+    "origin": "osm:node/415158533",
+    "kind": "dispatch",
+    "leave_by_s": 2952,
+    "message": "not ordered yet - leave by 01:49 UTC",
+    "issue_by_s_low": 1152,
+    "issue_by_s_median": -4788,
+    "issue_by_s_high": -11448
+   },
+   {
+    "origin": "osm:node/415158537",
+    "kind": "dispatch",
+    "leave_by_s": 3136,
+    "message": "not ordered yet - leave by 01:52 UTC",
+    "issue_by_s_low": 1336,
+    "issue_by_s_median": -4604,
+    "issue_by_s_high": -11264
+   },
+   {
+    "origin": "osm:node/415158538",
+    "kind": "dispatch",
+    "leave_by_s": 2764,
+    "message": "not ordered yet - leave by 01:46 UTC",
+    "issue_by_s_low": 964,
+    "issue_by_s_median": -4976,
+    "issue_by_s_high": -11636
+   },
+   {
+    "origin": "osm:node/415158550",
+    "kind": "dispatch",
+    "leave_by_s": 2897,
+    "message": "not ordered yet - leave by 01:48 UTC",
+    "issue_by_s_low": 1097,
+    "issue_by_s_median": -4843,
+    "issue_by_s_high": -11503
+   },
+   {
+    "origin": "osm:node/415158553",
+    "kind": "dispatch",
+    "leave_by_s": 2963,
+    "message": "not ordered yet - leave by 01:49 UTC",
+    "issue_by_s_low": 1163,
+    "issue_by_s_median": -4777,
+    "issue_by_s_high": -11437
+   },
+   {
+    "origin": "osm:node/415160343",
+    "kind": "dispatch",
+    "leave_by_s": 2969,
+    "message": "not ordered yet - leave by 01:49 UTC",
+    "issue_by_s_low": 1169,
+    "issue_by_s_median": -4771,
+    "issue_by_s_high": -11431
+   },
+   {
+    "origin": "osm:node/415160345",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160350",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 01:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160351",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 01:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160353",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160355",
+    "kind": "dispatch",
+    "leave_by_s": 2794,
+    "message": "not ordered yet - leave by 01:46 UTC",
+    "issue_by_s_low": 994,
+    "issue_by_s_median": -4946,
+    "issue_by_s_high": -11606
+   },
+   {
+    "origin": "osm:node/415160356",
+    "kind": "dispatch",
+    "leave_by_s": 3052,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1252,
+    "issue_by_s_median": -4688,
+    "issue_by_s_high": -11348
+   },
+   {
+    "origin": "osm:node/415160357",
+    "kind": "dispatch",
+    "leave_by_s": 2755,
+    "message": "not ordered yet - leave by 01:45 UTC",
+    "issue_by_s_low": 955,
+    "issue_by_s_median": -4985,
+    "issue_by_s_high": -11645
+   },
+   {
+    "origin": "osm:node/415160358",
+    "kind": "dispatch",
+    "leave_by_s": 3314,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1514,
+    "issue_by_s_median": -4426,
+    "issue_by_s_high": -11086
+   },
+   {
+    "origin": "osm:node/415160359",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160360",
+    "kind": "dispatch",
+    "leave_by_s": 3053,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1253,
+    "issue_by_s_median": -4687,
+    "issue_by_s_high": -11347
+   },
+   {
+    "origin": "osm:node/415160361",
+    "kind": "dispatch",
+    "leave_by_s": 3065,
+    "message": "not ordered yet - leave by 01:51 UTC",
+    "issue_by_s_low": 1265,
+    "issue_by_s_median": -4675,
+    "issue_by_s_high": -11335
+   },
+   {
+    "origin": "osm:node/415160362",
+    "kind": "dispatch",
+    "leave_by_s": 2918,
+    "message": "not ordered yet - leave by 01:48 UTC",
+    "issue_by_s_low": 1118,
+    "issue_by_s_median": -4822,
+    "issue_by_s_high": -11482
+   },
+   {
+    "origin": "osm:node/415160363",
+    "kind": "dispatch",
+    "leave_by_s": 2787,
+    "message": "not ordered yet - leave by 01:46 UTC",
+    "issue_by_s_low": 987,
+    "issue_by_s_median": -4953,
+    "issue_by_s_high": -11613
+   },
+   {
+    "origin": "osm:node/415160415",
+    "kind": "dispatch",
+    "leave_by_s": 3059,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1259,
+    "issue_by_s_median": -4681,
+    "issue_by_s_high": -11341
+   },
+   {
+    "origin": "osm:node/415160416",
+    "kind": "dispatch",
+    "leave_by_s": 2351,
+    "message": "not ordered yet - leave by 01:39 UTC",
+    "issue_by_s_low": 551,
+    "issue_by_s_median": -5389,
+    "issue_by_s_high": -12049
+   },
+   {
+    "origin": "osm:node/415160420",
+    "kind": "dispatch",
+    "leave_by_s": 2167,
+    "message": "not ordered yet - leave by 01:36 UTC",
+    "issue_by_s_low": 367,
+    "issue_by_s_median": -5573,
+    "issue_by_s_high": -12233
+   },
+   {
+    "origin": "osm:node/415160421",
+    "kind": "dispatch",
+    "leave_by_s": 2311,
+    "message": "not ordered yet - leave by 01:38 UTC",
+    "issue_by_s_low": 511,
+    "issue_by_s_median": -5429,
+    "issue_by_s_high": -12089
+   },
+   {
+    "origin": "osm:node/415160424",
+    "kind": "dispatch",
+    "leave_by_s": 2061,
+    "message": "not ordered yet - leave by 01:34 UTC",
+    "issue_by_s_low": 261,
+    "issue_by_s_median": -5679,
+    "issue_by_s_high": -12339
+   },
+   {
+    "origin": "osm:node/415160428",
+    "kind": "dispatch",
+    "leave_by_s": 2549,
+    "message": "not ordered yet - leave by 01:42 UTC",
+    "issue_by_s_low": 749,
+    "issue_by_s_median": -5191,
+    "issue_by_s_high": -11851
+   },
+   {
+    "origin": "osm:node/415160429",
+    "kind": "dispatch",
+    "leave_by_s": 2745,
+    "message": "not ordered yet - leave by 01:45 UTC",
+    "issue_by_s_low": 945,
+    "issue_by_s_median": -4995,
+    "issue_by_s_high": -11655
+   },
+   {
+    "origin": "osm:node/415160430",
+    "kind": "dispatch",
+    "leave_by_s": 3134,
+    "message": "not ordered yet - leave by 01:52 UTC",
+    "issue_by_s_low": 1334,
+    "issue_by_s_median": -4606,
+    "issue_by_s_high": -11266
+   },
+   {
+    "origin": "osm:node/415160431",
+    "kind": "dispatch",
+    "leave_by_s": 3197,
+    "message": "not ordered yet - leave by 01:53 UTC",
+    "issue_by_s_low": 1397,
+    "issue_by_s_median": -4543,
+    "issue_by_s_high": -11203
+   },
+   {
+    "origin": "osm:node/415160432",
+    "kind": "dispatch",
+    "leave_by_s": 2698,
+    "message": "not ordered yet - leave by 01:44 UTC",
+    "issue_by_s_low": 898,
+    "issue_by_s_median": -5042,
+    "issue_by_s_high": -11702
+   },
+   {
+    "origin": "osm:node/415160433",
+    "kind": "dispatch",
+    "leave_by_s": 2029,
+    "message": "not ordered yet - leave by 01:33 UTC",
+    "issue_by_s_low": 229,
+    "issue_by_s_median": -5711,
+    "issue_by_s_high": -12371
+   },
+   {
+    "origin": "osm:node/415160434",
+    "kind": "dispatch",
+    "leave_by_s": 2684,
+    "message": "not ordered yet - leave by 01:44 UTC",
+    "issue_by_s_low": 884,
+    "issue_by_s_median": -5056,
+    "issue_by_s_high": -11716
+   },
+   {
+    "origin": "osm:node/415160435",
+    "kind": "dispatch",
+    "leave_by_s": 1502,
+    "message": "not ordered yet - leave by 01:25 UTC",
+    "issue_by_s_low": -298,
+    "issue_by_s_median": -6238,
+    "issue_by_s_high": -12898
+   },
+   {
+    "origin": "osm:node/415160436",
+    "kind": "dispatch",
+    "leave_by_s": 1549,
+    "message": "not ordered yet - leave by 01:25 UTC",
+    "issue_by_s_low": -251,
+    "issue_by_s_median": -6191,
+    "issue_by_s_high": -12851
+   },
+   {
+    "origin": "osm:node/415160437",
+    "kind": "dispatch",
+    "leave_by_s": 1360,
+    "message": "not ordered yet - leave by 01:22 UTC",
+    "issue_by_s_low": -440,
+    "issue_by_s_median": -6380,
+    "issue_by_s_high": -13040
+   },
+   {
+    "origin": "osm:node/415160438",
+    "kind": "dispatch",
+    "leave_by_s": 1563,
+    "message": "not ordered yet - leave by 01:26 UTC",
+    "issue_by_s_low": -237,
+    "issue_by_s_median": -6177,
+    "issue_by_s_high": -12837
+   },
+   {
+    "origin": "osm:node/415160439",
+    "kind": "dispatch",
+    "leave_by_s": 2082,
+    "message": "not ordered yet - leave by 01:34 UTC",
+    "issue_by_s_low": 282,
+    "issue_by_s_median": -5658,
+    "issue_by_s_high": -12318
+   },
+   {
+    "origin": "osm:node/415160440",
+    "kind": "dispatch",
+    "leave_by_s": 1848,
+    "message": "not ordered yet - leave by 01:30 UTC",
+    "issue_by_s_low": 48,
+    "issue_by_s_median": -5892,
+    "issue_by_s_high": -12552
+   },
+   {
+    "origin": "osm:node/415160449",
+    "kind": "dispatch",
+    "leave_by_s": 905,
+    "message": "not ordered yet - leave by 01:15 UTC",
+    "issue_by_s_low": -895,
+    "issue_by_s_median": -6835,
+    "issue_by_s_high": -13495
+   },
+   {
+    "origin": "osm:node/415160451",
+    "kind": "dispatch",
+    "leave_by_s": 2166,
+    "message": "not ordered yet - leave by 01:36 UTC",
+    "issue_by_s_low": 366,
+    "issue_by_s_median": -5574,
+    "issue_by_s_high": -12234
+   },
+   {
+    "origin": "osm:node/415160454",
+    "kind": "dispatch",
+    "leave_by_s": 3125,
+    "message": "not ordered yet - leave by 01:52 UTC",
+    "issue_by_s_low": 1325,
+    "issue_by_s_median": -4615,
+    "issue_by_s_high": -11275
+   },
+   {
+    "origin": "osm:node/415160455",
+    "kind": "dispatch",
+    "leave_by_s": 3092,
+    "message": "not ordered yet - leave by 01:51 UTC",
+    "issue_by_s_low": 1292,
+    "issue_by_s_median": -4648,
+    "issue_by_s_high": -11308
+   },
+   {
+    "origin": "osm:node/415160456",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160457",
+    "kind": "dispatch",
+    "leave_by_s": 2891,
+    "message": "not ordered yet - leave by 01:48 UTC",
+    "issue_by_s_low": 1091,
+    "issue_by_s_median": -4849,
+    "issue_by_s_high": -11509
+   },
+   {
+    "origin": "osm:node/415160458",
+    "kind": "dispatch",
+    "leave_by_s": 2747,
+    "message": "not ordered yet - leave by 01:45 UTC",
+    "issue_by_s_low": 947,
+    "issue_by_s_median": -4993,
+    "issue_by_s_high": -11653
+   },
+   {
+    "origin": "osm:node/415160459",
+    "kind": "dispatch",
+    "leave_by_s": 2553,
+    "message": "not ordered yet - leave by 01:42 UTC",
+    "issue_by_s_low": 753,
+    "issue_by_s_median": -5187,
+    "issue_by_s_high": -11847
+   },
+   {
+    "origin": "osm:node/415160460",
+    "kind": "dispatch",
+    "leave_by_s": 2510,
+    "message": "not ordered yet - leave by 01:41 UTC",
+    "issue_by_s_low": 710,
+    "issue_by_s_median": -5230,
+    "issue_by_s_high": -11890
+   },
+   {
+    "origin": "osm:node/415160461",
+    "kind": "dispatch",
+    "leave_by_s": 3115,
+    "message": "not ordered yet - leave by 01:51 UTC",
+    "issue_by_s_low": 1315,
+    "issue_by_s_median": -4625,
+    "issue_by_s_high": -11285
+   },
+   {
+    "origin": "osm:node/415160463",
+    "kind": "dispatch",
+    "leave_by_s": 3008,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1208,
+    "issue_by_s_median": -4732,
+    "issue_by_s_high": -11392
+   },
+   {
+    "origin": "osm:node/415160464",
+    "kind": "dispatch",
+    "leave_by_s": 3282,
+    "message": "not ordered yet - leave by 01:54 UTC",
+    "issue_by_s_low": 1482,
+    "issue_by_s_median": -4458,
+    "issue_by_s_high": -11118
+   },
+   {
+    "origin": "osm:node/415160465",
+    "kind": "dispatch",
+    "leave_by_s": 3024,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1224,
+    "issue_by_s_median": -4716,
+    "issue_by_s_high": -11376
+   },
+   {
+    "origin": "osm:node/415160466",
+    "kind": "dispatch",
+    "leave_by_s": 3041,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1241,
+    "issue_by_s_median": -4699,
+    "issue_by_s_high": -11359
+   },
+   {
+    "origin": "osm:node/415160467",
+    "kind": "dispatch",
+    "leave_by_s": 2825,
+    "message": "not ordered yet - leave by 01:47 UTC",
+    "issue_by_s_low": 1025,
+    "issue_by_s_median": -4915,
+    "issue_by_s_high": -11575
+   },
+   {
+    "origin": "osm:node/415160468",
+    "kind": "dispatch",
+    "leave_by_s": 2879,
+    "message": "not ordered yet - leave by 01:47 UTC",
+    "issue_by_s_low": 1079,
+    "issue_by_s_median": -4861,
+    "issue_by_s_high": -11521
+   },
+   {
+    "origin": "osm:node/415160469",
+    "kind": "dispatch",
+    "leave_by_s": 3006,
+    "message": "not ordered yet - leave by 01:50 UTC",
+    "issue_by_s_low": 1206,
+    "issue_by_s_median": -4734,
+    "issue_by_s_high": -11394
+   },
+   {
+    "origin": "osm:node/415160470",
+    "kind": "dispatch",
+    "leave_by_s": 3199,
+    "message": "not ordered yet - leave by 01:53 UTC",
+    "issue_by_s_low": 1399,
+    "issue_by_s_median": -4541,
+    "issue_by_s_high": -11201
+   },
+   {
+    "origin": "osm:node/415160471",
+    "kind": "dispatch",
+    "leave_by_s": 2431,
+    "message": "not ordered yet - leave by 01:40 UTC",
+    "issue_by_s_low": 631,
+    "issue_by_s_median": -5309,
+    "issue_by_s_high": -11969
+   },
+   {
+    "origin": "osm:node/415160473",
+    "kind": "dispatch",
+    "leave_by_s": 2554,
+    "message": "not ordered yet - leave by 01:42 UTC",
+    "issue_by_s_low": 754,
+    "issue_by_s_median": -5186,
+    "issue_by_s_high": -11846
+   },
+   {
+    "origin": "osm:node/415160474",
+    "kind": "dispatch",
+    "leave_by_s": 2984,
+    "message": "not ordered yet - leave by 01:49 UTC",
+    "issue_by_s_low": 1184,
+    "issue_by_s_median": -4756,
+    "issue_by_s_high": -11416
+   },
+   {
+    "origin": "osm:node/415160475",
+    "kind": "dispatch",
+    "leave_by_s": 2677,
+    "message": "not ordered yet - leave by 01:44 UTC",
+    "issue_by_s_low": 877,
+    "issue_by_s_median": -5063,
+    "issue_by_s_high": -11723
+   },
+   {
+    "origin": "osm:node/415160476",
+    "kind": "dispatch",
+    "leave_by_s": 2175,
+    "message": "not ordered yet - leave by 01:36 UTC",
+    "issue_by_s_low": 375,
+    "issue_by_s_median": -5565,
+    "issue_by_s_high": -12225
+   },
+   {
+    "origin": "osm:node/415160477",
+    "kind": "dispatch",
+    "leave_by_s": 2571,
+    "message": "not ordered yet - leave by 01:42 UTC",
+    "issue_by_s_low": 771,
+    "issue_by_s_median": -5169,
+    "issue_by_s_high": -11829
+   },
+   {
+    "origin": "osm:node/415160478",
+    "kind": "dispatch",
+    "leave_by_s": 2838,
+    "message": "not ordered yet - leave by 01:47 UTC",
+    "issue_by_s_low": 1038,
+    "issue_by_s_median": -4902,
+    "issue_by_s_high": -11562
+   },
+   {
+    "origin": "osm:node/415160479",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 01:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160480",
+    "kind": "dispatch",
+    "leave_by_s": 3123,
+    "message": "not ordered yet - leave by 01:52 UTC",
+    "issue_by_s_low": 1323,
+    "issue_by_s_median": -4617,
+    "issue_by_s_high": -11277
+   },
+   {
+    "origin": "osm:node/415160483",
+    "kind": "dispatch",
+    "leave_by_s": 3300,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1500,
+    "issue_by_s_median": -4440,
+    "issue_by_s_high": -11100
+   },
+   {
+    "origin": "osm:node/415160497",
+    "kind": "dispatch",
+    "leave_by_s": 2948,
+    "message": "not ordered yet - leave by 01:49 UTC",
+    "issue_by_s_low": 1148,
+    "issue_by_s_median": -4792,
+    "issue_by_s_high": -11452
+   },
+   {
+    "origin": "osm:node/5344420465",
+    "kind": "dispatch",
+    "leave_by_s": 3190,
+    "message": "not ordered yet - leave by 01:53 UTC",
+    "issue_by_s_low": 1390,
+    "issue_by_s_median": -4550,
+    "issue_by_s_high": -11210
+   },
+   {
+    "origin": "osm:node/5344430780",
+    "kind": "dispatch",
+    "leave_by_s": 3240,
+    "message": "not ordered yet - leave by 01:54 UTC",
+    "issue_by_s_low": 1440,
+    "issue_by_s_median": -4500,
+    "issue_by_s_high": -11160
+   },
+   {
+    "origin": "osm:way/1265051875",
+    "kind": "dispatch",
+    "leave_by_s": 3319,
+    "message": "not ordered yet - leave by 01:55 UTC",
+    "issue_by_s_low": 1519,
+    "issue_by_s_median": -4421,
+    "issue_by_s_high": -11081
+   },
+   {
+    "origin": "osm:way/1265051876",
+    "kind": "dispatch",
+    "leave_by_s": 3293,
+    "message": "not ordered yet - leave by 01:54 UTC",
+    "issue_by_s_low": 1493,
+    "issue_by_s_median": -4447,
+    "issue_by_s_high": -11107
+   },
+   {
+    "origin": "osm:way/1372113459",
+    "kind": "dispatch",
+    "leave_by_s": 3455,
+    "message": "not ordered yet - leave by 01:57 UTC",
+    "issue_by_s_low": 1655,
+    "issue_by_s_median": -4285,
+    "issue_by_s_high": -10945
+   },
+   {
+    "origin": "research:uiseong_andong_2025:20250323T010000Z_FD1:origin",
+    "kind": "research",
+    "leave_by_s": 639,
+    "message": "not ordered yet - leave by 01:10 UTC",
+    "issue_by_s_low": -1161,
+    "issue_by_s_median": -7101,
+    "issue_by_s_high": -13761
+   },
+   {
+    "origin": "research:uiseong_andong_2025:20250323T010000Z_FX2:origin",
+    "kind": "research",
+    "leave_by_s": 1540,
+    "message": "not ordered yet - leave by 01:25 UTC",
+    "issue_by_s_low": -260,
+    "issue_by_s_median": -6200,
+    "issue_by_s_high": -12860
+   }
+  ]
+ },
+ {
+  "input_time": "2025-03-24T09:00:00Z",
+  "cache_file": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 11,
+    "future": 74,
+    "no_route": 0
+   },
+   "median": {
+    "past": 85,
+    "future": 0,
+    "no_route": 0
+   },
+   "high": {
+    "past": 85,
+    "future": 0,
+    "no_route": 0
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/415158323",
+    "kind": "dispatch",
+    "leave_by_s": 3221,
+    "message": "not ordered yet - leave by 09:53 UTC",
+    "issue_by_s_low": 1421,
+    "issue_by_s_median": -4519,
+    "issue_by_s_high": -11179
+   },
+   {
+    "origin": "osm:node/415158324",
+    "kind": "dispatch",
+    "leave_by_s": 3428,
+    "message": "not ordered yet - leave by 09:57 UTC",
+    "issue_by_s_low": 1628,
+    "issue_by_s_median": -4312,
+    "issue_by_s_high": -10972
+   },
+   {
+    "origin": "osm:node/415158334",
+    "kind": "dispatch",
+    "leave_by_s": 3212,
+    "message": "not ordered yet - leave by 09:53 UTC",
+    "issue_by_s_low": 1412,
+    "issue_by_s_median": -4528,
+    "issue_by_s_high": -11188
+   },
+   {
+    "origin": "osm:node/415158335",
+    "kind": "dispatch",
+    "leave_by_s": 3068,
+    "message": "not ordered yet - leave by 09:51 UTC",
+    "issue_by_s_low": 1268,
+    "issue_by_s_median": -4672,
+    "issue_by_s_high": -11332
+   },
+   {
+    "origin": "osm:node/415158338",
+    "kind": "dispatch",
+    "leave_by_s": 3017,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1217,
+    "issue_by_s_median": -4723,
+    "issue_by_s_high": -11383
+   },
+   {
+    "origin": "osm:node/415158416",
+    "kind": "dispatch",
+    "leave_by_s": 1817,
+    "message": "not ordered yet - leave by 09:30 UTC",
+    "issue_by_s_low": 17,
+    "issue_by_s_median": -5923,
+    "issue_by_s_high": -12583
+   },
+   {
+    "origin": "osm:node/415158417",
+    "kind": "dispatch",
+    "leave_by_s": 1866,
+    "message": "not ordered yet - leave by 09:31 UTC",
+    "issue_by_s_low": 66,
+    "issue_by_s_median": -5874,
+    "issue_by_s_high": -12534
+   },
+   {
+    "origin": "osm:node/415158418",
+    "kind": "dispatch",
+    "leave_by_s": 2423,
+    "message": "not ordered yet - leave by 09:40 UTC",
+    "issue_by_s_low": 623,
+    "issue_by_s_median": -5317,
+    "issue_by_s_high": -11977
+   },
+   {
+    "origin": "osm:node/415158419",
+    "kind": "dispatch",
+    "leave_by_s": 2301,
+    "message": "not ordered yet - leave by 09:38 UTC",
+    "issue_by_s_low": 501,
+    "issue_by_s_median": -5439,
+    "issue_by_s_high": -12099
+   },
+   {
+    "origin": "osm:node/415158420",
+    "kind": "dispatch",
+    "leave_by_s": 3119,
+    "message": "not ordered yet - leave by 09:51 UTC",
+    "issue_by_s_low": 1319,
+    "issue_by_s_median": -4621,
+    "issue_by_s_high": -11281
+   },
+   {
+    "origin": "osm:node/415158421",
+    "kind": "dispatch",
+    "leave_by_s": 2905,
+    "message": "not ordered yet - leave by 09:48 UTC",
+    "issue_by_s_low": 1105,
+    "issue_by_s_median": -4835,
+    "issue_by_s_high": -11495
+   },
+   {
+    "origin": "osm:node/415158432",
+    "kind": "dispatch",
+    "leave_by_s": 2159,
+    "message": "not ordered yet - leave by 09:35 UTC",
+    "issue_by_s_low": 359,
+    "issue_by_s_median": -5581,
+    "issue_by_s_high": -12241
+   },
+   {
+    "origin": "osm:node/415158434",
+    "kind": "dispatch",
+    "leave_by_s": 2570,
+    "message": "not ordered yet - leave by 09:42 UTC",
+    "issue_by_s_low": 770,
+    "issue_by_s_median": -5170,
+    "issue_by_s_high": -11830
+   },
+   {
+    "origin": "osm:node/415158533",
+    "kind": "dispatch",
+    "leave_by_s": 2952,
+    "message": "not ordered yet - leave by 09:49 UTC",
+    "issue_by_s_low": 1152,
+    "issue_by_s_median": -4788,
+    "issue_by_s_high": -11448
+   },
+   {
+    "origin": "osm:node/415158537",
+    "kind": "dispatch",
+    "leave_by_s": 3136,
+    "message": "not ordered yet - leave by 09:52 UTC",
+    "issue_by_s_low": 1336,
+    "issue_by_s_median": -4604,
+    "issue_by_s_high": -11264
+   },
+   {
+    "origin": "osm:node/415158538",
+    "kind": "dispatch",
+    "leave_by_s": 2764,
+    "message": "not ordered yet - leave by 09:46 UTC",
+    "issue_by_s_low": 964,
+    "issue_by_s_median": -4976,
+    "issue_by_s_high": -11636
+   },
+   {
+    "origin": "osm:node/415158550",
+    "kind": "dispatch",
+    "leave_by_s": 2897,
+    "message": "not ordered yet - leave by 09:48 UTC",
+    "issue_by_s_low": 1097,
+    "issue_by_s_median": -4843,
+    "issue_by_s_high": -11503
+   },
+   {
+    "origin": "osm:node/415158553",
+    "kind": "dispatch",
+    "leave_by_s": 2963,
+    "message": "not ordered yet - leave by 09:49 UTC",
+    "issue_by_s_low": 1163,
+    "issue_by_s_median": -4777,
+    "issue_by_s_high": -11437
+   },
+   {
+    "origin": "osm:node/415160343",
+    "kind": "dispatch",
+    "leave_by_s": 2969,
+    "message": "not ordered yet - leave by 09:49 UTC",
+    "issue_by_s_low": 1169,
+    "issue_by_s_median": -4771,
+    "issue_by_s_high": -11431
+   },
+   {
+    "origin": "osm:node/415160345",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160350",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 09:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160351",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 09:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160353",
+    "kind": "dispatch",
+    "leave_by_s": 2488,
+    "message": "not ordered yet - leave by 09:41 UTC",
+    "issue_by_s_low": 688,
+    "issue_by_s_median": -5252,
+    "issue_by_s_high": -11912
+   },
+   {
+    "origin": "osm:node/415160355",
+    "kind": "dispatch",
+    "leave_by_s": 2262,
+    "message": "not ordered yet - leave by 09:37 UTC",
+    "issue_by_s_low": 462,
+    "issue_by_s_median": -5478,
+    "issue_by_s_high": -12138
+   },
+   {
+    "origin": "osm:node/415160356",
+    "kind": "dispatch",
+    "leave_by_s": 3052,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1252,
+    "issue_by_s_median": -4688,
+    "issue_by_s_high": -11348
+   },
+   {
+    "origin": "osm:node/415160357",
+    "kind": "dispatch",
+    "leave_by_s": 2755,
+    "message": "not ordered yet - leave by 09:45 UTC",
+    "issue_by_s_low": 955,
+    "issue_by_s_median": -4985,
+    "issue_by_s_high": -11645
+   },
+   {
+    "origin": "osm:node/415160358",
+    "kind": "dispatch",
+    "leave_by_s": 3314,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1514,
+    "issue_by_s_median": -4426,
+    "issue_by_s_high": -11086
+   },
+   {
+    "origin": "osm:node/415160359",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160360",
+    "kind": "dispatch",
+    "leave_by_s": 3053,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1253,
+    "issue_by_s_median": -4687,
+    "issue_by_s_high": -11347
+   },
+   {
+    "origin": "osm:node/415160361",
+    "kind": "dispatch",
+    "leave_by_s": 1767,
+    "message": "not ordered yet - leave by 09:29 UTC",
+    "issue_by_s_low": -33,
+    "issue_by_s_median": -5973,
+    "issue_by_s_high": -12633
+   },
+   {
+    "origin": "osm:node/415160362",
+    "kind": "dispatch",
+    "leave_by_s": 1570,
+    "message": "not ordered yet - leave by 09:26 UTC",
+    "issue_by_s_low": -230,
+    "issue_by_s_median": -6170,
+    "issue_by_s_high": -12830
+   },
+   {
+    "origin": "osm:node/415160363",
+    "kind": "dispatch",
+    "leave_by_s": 2787,
+    "message": "not ordered yet - leave by 09:46 UTC",
+    "issue_by_s_low": 987,
+    "issue_by_s_median": -4953,
+    "issue_by_s_high": -11613
+   },
+   {
+    "origin": "osm:node/415160415",
+    "kind": "dispatch",
+    "leave_by_s": 3059,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1259,
+    "issue_by_s_median": -4681,
+    "issue_by_s_high": -11341
+   },
+   {
+    "origin": "osm:node/415160416",
+    "kind": "dispatch",
+    "leave_by_s": 2351,
+    "message": "not ordered yet - leave by 09:39 UTC",
+    "issue_by_s_low": 551,
+    "issue_by_s_median": -5389,
+    "issue_by_s_high": -12049
+   },
+   {
+    "origin": "osm:node/415160420",
+    "kind": "dispatch",
+    "leave_by_s": 2167,
+    "message": "not ordered yet - leave by 09:36 UTC",
+    "issue_by_s_low": 367,
+    "issue_by_s_median": -5573,
+    "issue_by_s_high": -12233
+   },
+   {
+    "origin": "osm:node/415160421",
+    "kind": "dispatch",
+    "leave_by_s": 2311,
+    "message": "not ordered yet - leave by 09:38 UTC",
+    "issue_by_s_low": 511,
+    "issue_by_s_median": -5429,
+    "issue_by_s_high": -12089
+   },
+   {
+    "origin": "osm:node/415160424",
+    "kind": "dispatch",
+    "leave_by_s": 2672,
+    "message": "not ordered yet - leave by 09:44 UTC",
+    "issue_by_s_low": 872,
+    "issue_by_s_median": -5068,
+    "issue_by_s_high": -11728
+   },
+   {
+    "origin": "osm:node/415160428",
+    "kind": "dispatch",
+    "leave_by_s": 1073,
+    "message": "not ordered yet - leave by 09:17 UTC",
+    "issue_by_s_low": -727,
+    "issue_by_s_median": -6667,
+    "issue_by_s_high": -13327
+   },
+   {
+    "origin": "osm:node/415160429",
+    "kind": "dispatch",
+    "leave_by_s": 2745,
+    "message": "not ordered yet - leave by 09:45 UTC",
+    "issue_by_s_low": 945,
+    "issue_by_s_median": -4995,
+    "issue_by_s_high": -11655
+   },
+   {
+    "origin": "osm:node/415160430",
+    "kind": "dispatch",
+    "leave_by_s": 3134,
+    "message": "not ordered yet - leave by 09:52 UTC",
+    "issue_by_s_low": 1334,
+    "issue_by_s_median": -4606,
+    "issue_by_s_high": -11266
+   },
+   {
+    "origin": "osm:node/415160431",
+    "kind": "dispatch",
+    "leave_by_s": 3197,
+    "message": "not ordered yet - leave by 09:53 UTC",
+    "issue_by_s_low": 1397,
+    "issue_by_s_median": -4543,
+    "issue_by_s_high": -11203
+   },
+   {
+    "origin": "osm:node/415160432",
+    "kind": "dispatch",
+    "leave_by_s": 2698,
+    "message": "not ordered yet - leave by 09:44 UTC",
+    "issue_by_s_low": 898,
+    "issue_by_s_median": -5042,
+    "issue_by_s_high": -11702
+   },
+   {
+    "origin": "osm:node/415160433",
+    "kind": "dispatch",
+    "leave_by_s": 1701,
+    "message": "not ordered yet - leave by 09:28 UTC",
+    "issue_by_s_low": -99,
+    "issue_by_s_median": -6039,
+    "issue_by_s_high": -12699
+   },
+   {
+    "origin": "osm:node/415160434",
+    "kind": "dispatch",
+    "leave_by_s": 1208,
+    "message": "not ordered yet - leave by 09:20 UTC",
+    "issue_by_s_low": -592,
+    "issue_by_s_median": -6532,
+    "issue_by_s_high": -13192
+   },
+   {
+    "origin": "osm:node/415160435",
+    "kind": "dispatch",
+    "leave_by_s": 1500,
+    "message": "not ordered yet - leave by 09:25 UTC",
+    "issue_by_s_low": -300,
+    "issue_by_s_median": -6240,
+    "issue_by_s_high": -12900
+   },
+   {
+    "origin": "osm:node/415160436",
+    "kind": "dispatch",
+    "leave_by_s": 1549,
+    "message": "not ordered yet - leave by 09:25 UTC",
+    "issue_by_s_low": -251,
+    "issue_by_s_median": -6191,
+    "issue_by_s_high": -12851
+   },
+   {
+    "origin": "osm:node/415160437",
+    "kind": "dispatch",
+    "leave_by_s": 1360,
+    "message": "not ordered yet - leave by 09:22 UTC",
+    "issue_by_s_low": -440,
+    "issue_by_s_median": -6380,
+    "issue_by_s_high": -13040
+   },
+   {
+    "origin": "osm:node/415160438",
+    "kind": "dispatch",
+    "leave_by_s": 1563,
+    "message": "not ordered yet - leave by 09:26 UTC",
+    "issue_by_s_low": -237,
+    "issue_by_s_median": -6177,
+    "issue_by_s_high": -12837
+   },
+   {
+    "origin": "osm:node/415160439",
+    "kind": "dispatch",
+    "leave_by_s": 2082,
+    "message": "not ordered yet - leave by 09:34 UTC",
+    "issue_by_s_low": 282,
+    "issue_by_s_median": -5658,
+    "issue_by_s_high": -12318
+   },
+   {
+    "origin": "osm:node/415160440",
+    "kind": "dispatch",
+    "leave_by_s": 1848,
+    "message": "not ordered yet - leave by 09:30 UTC",
+    "issue_by_s_low": 48,
+    "issue_by_s_median": -5892,
+    "issue_by_s_high": -12552
+   },
+   {
+    "origin": "osm:node/415160449",
+    "kind": "dispatch",
+    "leave_by_s": 905,
+    "message": "not ordered yet - leave by 09:15 UTC",
+    "issue_by_s_low": -895,
+    "issue_by_s_median": -6835,
+    "issue_by_s_high": -13495
+   },
+   {
+    "origin": "osm:node/415160451",
+    "kind": "dispatch",
+    "leave_by_s": 2166,
+    "message": "not ordered yet - leave by 09:36 UTC",
+    "issue_by_s_low": 366,
+    "issue_by_s_median": -5574,
+    "issue_by_s_high": -12234
+   },
+   {
+    "origin": "osm:node/415160454",
+    "kind": "dispatch",
+    "leave_by_s": 3125,
+    "message": "not ordered yet - leave by 09:52 UTC",
+    "issue_by_s_low": 1325,
+    "issue_by_s_median": -4615,
+    "issue_by_s_high": -11275
+   },
+   {
+    "origin": "osm:node/415160455",
+    "kind": "dispatch",
+    "leave_by_s": 3092,
+    "message": "not ordered yet - leave by 09:51 UTC",
+    "issue_by_s_low": 1292,
+    "issue_by_s_median": -4648,
+    "issue_by_s_high": -11308
+   },
+   {
+    "origin": "osm:node/415160456",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160457",
+    "kind": "dispatch",
+    "leave_by_s": 2891,
+    "message": "not ordered yet - leave by 09:48 UTC",
+    "issue_by_s_low": 1091,
+    "issue_by_s_median": -4849,
+    "issue_by_s_high": -11509
+   },
+   {
+    "origin": "osm:node/415160458",
+    "kind": "dispatch",
+    "leave_by_s": 2747,
+    "message": "not ordered yet - leave by 09:45 UTC",
+    "issue_by_s_low": 947,
+    "issue_by_s_median": -4993,
+    "issue_by_s_high": -11653
+   },
+   {
+    "origin": "osm:node/415160459",
+    "kind": "dispatch",
+    "leave_by_s": 2553,
+    "message": "not ordered yet - leave by 09:42 UTC",
+    "issue_by_s_low": 753,
+    "issue_by_s_median": -5187,
+    "issue_by_s_high": -11847
+   },
+   {
+    "origin": "osm:node/415160460",
+    "kind": "dispatch",
+    "leave_by_s": 2510,
+    "message": "not ordered yet - leave by 09:41 UTC",
+    "issue_by_s_low": 710,
+    "issue_by_s_median": -5230,
+    "issue_by_s_high": -11890
+   },
+   {
+    "origin": "osm:node/415160461",
+    "kind": "dispatch",
+    "leave_by_s": 3115,
+    "message": "not ordered yet - leave by 09:51 UTC",
+    "issue_by_s_low": 1315,
+    "issue_by_s_median": -4625,
+    "issue_by_s_high": -11285
+   },
+   {
+    "origin": "osm:node/415160463",
+    "kind": "dispatch",
+    "leave_by_s": 3008,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1208,
+    "issue_by_s_median": -4732,
+    "issue_by_s_high": -11392
+   },
+   {
+    "origin": "osm:node/415160464",
+    "kind": "dispatch",
+    "leave_by_s": 3282,
+    "message": "not ordered yet - leave by 09:54 UTC",
+    "issue_by_s_low": 1482,
+    "issue_by_s_median": -4458,
+    "issue_by_s_high": -11118
+   },
+   {
+    "origin": "osm:node/415160465",
+    "kind": "dispatch",
+    "leave_by_s": 3024,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1224,
+    "issue_by_s_median": -4716,
+    "issue_by_s_high": -11376
+   },
+   {
+    "origin": "osm:node/415160466",
+    "kind": "dispatch",
+    "leave_by_s": 3041,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1241,
+    "issue_by_s_median": -4699,
+    "issue_by_s_high": -11359
+   },
+   {
+    "origin": "osm:node/415160467",
+    "kind": "dispatch",
+    "leave_by_s": 2825,
+    "message": "not ordered yet - leave by 09:47 UTC",
+    "issue_by_s_low": 1025,
+    "issue_by_s_median": -4915,
+    "issue_by_s_high": -11575
+   },
+   {
+    "origin": "osm:node/415160468",
+    "kind": "dispatch",
+    "leave_by_s": 2879,
+    "message": "not ordered yet - leave by 09:47 UTC",
+    "issue_by_s_low": 1079,
+    "issue_by_s_median": -4861,
+    "issue_by_s_high": -11521
+   },
+   {
+    "origin": "osm:node/415160469",
+    "kind": "dispatch",
+    "leave_by_s": 3006,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1206,
+    "issue_by_s_median": -4734,
+    "issue_by_s_high": -11394
+   },
+   {
+    "origin": "osm:node/415160470",
+    "kind": "dispatch",
+    "leave_by_s": 3199,
+    "message": "not ordered yet - leave by 09:53 UTC",
+    "issue_by_s_low": 1399,
+    "issue_by_s_median": -4541,
+    "issue_by_s_high": -11201
+   },
+   {
+    "origin": "osm:node/415160471",
+    "kind": "dispatch",
+    "leave_by_s": 2431,
+    "message": "not ordered yet - leave by 09:40 UTC",
+    "issue_by_s_low": 631,
+    "issue_by_s_median": -5309,
+    "issue_by_s_high": -11969
+   },
+   {
+    "origin": "osm:node/415160473",
+    "kind": "dispatch",
+    "leave_by_s": 2554,
+    "message": "not ordered yet - leave by 09:42 UTC",
+    "issue_by_s_low": 754,
+    "issue_by_s_median": -5186,
+    "issue_by_s_high": -11846
+   },
+   {
+    "origin": "osm:node/415160474",
+    "kind": "dispatch",
+    "leave_by_s": 2953,
+    "message": "not ordered yet - leave by 09:49 UTC",
+    "issue_by_s_low": 1153,
+    "issue_by_s_median": -4787,
+    "issue_by_s_high": -11447
+   },
+   {
+    "origin": "osm:node/415160475",
+    "kind": "dispatch",
+    "leave_by_s": 2677,
+    "message": "not ordered yet - leave by 09:44 UTC",
+    "issue_by_s_low": 877,
+    "issue_by_s_median": -5063,
+    "issue_by_s_high": -11723
+   },
+   {
+    "origin": "osm:node/415160476",
+    "kind": "dispatch",
+    "leave_by_s": 3040,
+    "message": "not ordered yet - leave by 09:50 UTC",
+    "issue_by_s_low": 1240,
+    "issue_by_s_median": -4700,
+    "issue_by_s_high": -11360
+   },
+   {
+    "origin": "osm:node/415160477",
+    "kind": "dispatch",
+    "leave_by_s": 2571,
+    "message": "not ordered yet - leave by 09:42 UTC",
+    "issue_by_s_low": 771,
+    "issue_by_s_median": -5169,
+    "issue_by_s_high": -11829
+   },
+   {
+    "origin": "osm:node/415160478",
+    "kind": "dispatch",
+    "leave_by_s": 2838,
+    "message": "not ordered yet - leave by 09:47 UTC",
+    "issue_by_s_low": 1038,
+    "issue_by_s_median": -4902,
+    "issue_by_s_high": -11562
+   },
+   {
+    "origin": "osm:node/415160479",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 09:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160480",
+    "kind": "dispatch",
+    "leave_by_s": 3123,
+    "message": "not ordered yet - leave by 09:52 UTC",
+    "issue_by_s_low": 1323,
+    "issue_by_s_median": -4617,
+    "issue_by_s_high": -11277
+   },
+   {
+    "origin": "osm:node/415160483",
+    "kind": "dispatch",
+    "leave_by_s": 3300,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1500,
+    "issue_by_s_median": -4440,
+    "issue_by_s_high": -11100
+   },
+   {
+    "origin": "osm:node/415160497",
+    "kind": "dispatch",
+    "leave_by_s": 2948,
+    "message": "not ordered yet - leave by 09:49 UTC",
+    "issue_by_s_low": 1148,
+    "issue_by_s_median": -4792,
+    "issue_by_s_high": -11452
+   },
+   {
+    "origin": "osm:node/5344420465",
+    "kind": "dispatch",
+    "leave_by_s": 3190,
+    "message": "not ordered yet - leave by 09:53 UTC",
+    "issue_by_s_low": 1390,
+    "issue_by_s_median": -4550,
+    "issue_by_s_high": -11210
+   },
+   {
+    "origin": "osm:node/5344430780",
+    "kind": "dispatch",
+    "leave_by_s": 3240,
+    "message": "not ordered yet - leave by 09:54 UTC",
+    "issue_by_s_low": 1440,
+    "issue_by_s_median": -4500,
+    "issue_by_s_high": -11160
+   },
+   {
+    "origin": "osm:way/1265051875",
+    "kind": "dispatch",
+    "leave_by_s": 3319,
+    "message": "not ordered yet - leave by 09:55 UTC",
+    "issue_by_s_low": 1519,
+    "issue_by_s_median": -4421,
+    "issue_by_s_high": -11081
+   },
+   {
+    "origin": "osm:way/1265051876",
+    "kind": "dispatch",
+    "leave_by_s": 3293,
+    "message": "not ordered yet - leave by 09:54 UTC",
+    "issue_by_s_low": 1493,
+    "issue_by_s_median": -4447,
+    "issue_by_s_high": -11107
+   },
+   {
+    "origin": "osm:way/1372113459",
+    "kind": "dispatch",
+    "leave_by_s": 3455,
+    "message": "not ordered yet - leave by 09:57 UTC",
+    "issue_by_s_low": 1655,
+    "issue_by_s_median": -4285,
+    "issue_by_s_high": -10945
+   },
+   {
+    "origin": "research:uiseong_andong_2025:20250324T090000Z_FL2:origin",
+    "kind": "research",
+    "leave_by_s": 1337,
+    "message": "not ordered yet - leave by 09:22 UTC",
+    "issue_by_s_low": -463,
+    "issue_by_s_median": -6403,
+    "issue_by_s_high": -13063
+   }
+  ]
+ },
+ {
+  "input_time": "2025-03-25T17:00:00Z",
+  "cache_file": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 1,
+    "future": 72,
+    "no_route": 12
+   },
+   "median": {
+    "past": 73,
+    "future": 0,
+    "no_route": 12
+   },
+   "high": {
+    "past": 73,
+    "future": 0,
+    "no_route": 12
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/415158323",
+    "kind": "dispatch",
+    "leave_by_s": 3221,
+    "message": "not ordered yet - leave by 17:53 UTC",
+    "issue_by_s_low": 1421,
+    "issue_by_s_median": -4519,
+    "issue_by_s_high": -11179
+   },
+   {
+    "origin": "osm:node/415158324",
+    "kind": "dispatch",
+    "leave_by_s": 3428,
+    "message": "not ordered yet - leave by 17:57 UTC",
+    "issue_by_s_low": 1628,
+    "issue_by_s_median": -4312,
+    "issue_by_s_high": -10972
+   },
+   {
+    "origin": "osm:node/415158334",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415158335",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415158338",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415158416",
+    "kind": "dispatch",
+    "leave_by_s": 1817,
+    "message": "not ordered yet - leave by 17:30 UTC",
+    "issue_by_s_low": 17,
+    "issue_by_s_median": -5923,
+    "issue_by_s_high": -12583
+   },
+   {
+    "origin": "osm:node/415158417",
+    "kind": "dispatch",
+    "leave_by_s": 1866,
+    "message": "not ordered yet - leave by 17:31 UTC",
+    "issue_by_s_low": 66,
+    "issue_by_s_median": -5874,
+    "issue_by_s_high": -12534
+   },
+   {
+    "origin": "osm:node/415158418",
+    "kind": "dispatch",
+    "leave_by_s": 2423,
+    "message": "not ordered yet - leave by 17:40 UTC",
+    "issue_by_s_low": 623,
+    "issue_by_s_median": -5317,
+    "issue_by_s_high": -11977
+   },
+   {
+    "origin": "osm:node/415158419",
+    "kind": "dispatch",
+    "leave_by_s": 2301,
+    "message": "not ordered yet - leave by 17:38 UTC",
+    "issue_by_s_low": 501,
+    "issue_by_s_median": -5439,
+    "issue_by_s_high": -12099
+   },
+   {
+    "origin": "osm:node/415158420",
+    "kind": "dispatch",
+    "leave_by_s": 3119,
+    "message": "not ordered yet - leave by 17:51 UTC",
+    "issue_by_s_low": 1319,
+    "issue_by_s_median": -4621,
+    "issue_by_s_high": -11281
+   },
+   {
+    "origin": "osm:node/415158421",
+    "kind": "dispatch",
+    "leave_by_s": 2905,
+    "message": "not ordered yet - leave by 17:48 UTC",
+    "issue_by_s_low": 1105,
+    "issue_by_s_median": -4835,
+    "issue_by_s_high": -11495
+   },
+   {
+    "origin": "osm:node/415158432",
+    "kind": "dispatch",
+    "leave_by_s": 2159,
+    "message": "not ordered yet - leave by 17:35 UTC",
+    "issue_by_s_low": 359,
+    "issue_by_s_median": -5581,
+    "issue_by_s_high": -12241
+   },
+   {
+    "origin": "osm:node/415158434",
+    "kind": "dispatch",
+    "leave_by_s": 2570,
+    "message": "not ordered yet - leave by 17:42 UTC",
+    "issue_by_s_low": 770,
+    "issue_by_s_median": -5170,
+    "issue_by_s_high": -11830
+   },
+   {
+    "origin": "osm:node/415158533",
+    "kind": "dispatch",
+    "leave_by_s": 2952,
+    "message": "not ordered yet - leave by 17:49 UTC",
+    "issue_by_s_low": 1152,
+    "issue_by_s_median": -4788,
+    "issue_by_s_high": -11448
+   },
+   {
+    "origin": "osm:node/415158537",
+    "kind": "dispatch",
+    "leave_by_s": 3136,
+    "message": "not ordered yet - leave by 17:52 UTC",
+    "issue_by_s_low": 1336,
+    "issue_by_s_median": -4604,
+    "issue_by_s_high": -11264
+   },
+   {
+    "origin": "osm:node/415158538",
+    "kind": "dispatch",
+    "leave_by_s": 2764,
+    "message": "not ordered yet - leave by 17:46 UTC",
+    "issue_by_s_low": 964,
+    "issue_by_s_median": -4976,
+    "issue_by_s_high": -11636
+   },
+   {
+    "origin": "osm:node/415158550",
+    "kind": "dispatch",
+    "leave_by_s": 2897,
+    "message": "not ordered yet - leave by 17:48 UTC",
+    "issue_by_s_low": 1097,
+    "issue_by_s_median": -4843,
+    "issue_by_s_high": -11503
+   },
+   {
+    "origin": "osm:node/415158553",
+    "kind": "dispatch",
+    "leave_by_s": 2963,
+    "message": "not ordered yet - leave by 17:49 UTC",
+    "issue_by_s_low": 1163,
+    "issue_by_s_median": -4777,
+    "issue_by_s_high": -11437
+   },
+   {
+    "origin": "osm:node/415160343",
+    "kind": "dispatch",
+    "leave_by_s": 2969,
+    "message": "not ordered yet - leave by 17:49 UTC",
+    "issue_by_s_low": 1169,
+    "issue_by_s_median": -4771,
+    "issue_by_s_high": -11431
+   },
+   {
+    "origin": "osm:node/415160345",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 17:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160350",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 17:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160351",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 17:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160353",
+    "kind": "dispatch",
+    "leave_by_s": 2488,
+    "message": "not ordered yet - leave by 17:41 UTC",
+    "issue_by_s_low": 688,
+    "issue_by_s_median": -5252,
+    "issue_by_s_high": -11912
+   },
+   {
+    "origin": "osm:node/415160355",
+    "kind": "dispatch",
+    "leave_by_s": 2794,
+    "message": "not ordered yet - leave by 17:46 UTC",
+    "issue_by_s_low": 994,
+    "issue_by_s_median": -4946,
+    "issue_by_s_high": -11606
+   },
+   {
+    "origin": "osm:node/415160356",
+    "kind": "dispatch",
+    "leave_by_s": 3052,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1252,
+    "issue_by_s_median": -4688,
+    "issue_by_s_high": -11348
+   },
+   {
+    "origin": "osm:node/415160357",
+    "kind": "dispatch",
+    "leave_by_s": 2755,
+    "message": "not ordered yet - leave by 17:45 UTC",
+    "issue_by_s_low": 955,
+    "issue_by_s_median": -4985,
+    "issue_by_s_high": -11645
+   },
+   {
+    "origin": "osm:node/415160358",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160359",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 17:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415160360",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160361",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160362",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160363",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160415",
+    "kind": "dispatch",
+    "leave_by_s": 3059,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1259,
+    "issue_by_s_median": -4681,
+    "issue_by_s_high": -11341
+   },
+   {
+    "origin": "osm:node/415160416",
+    "kind": "dispatch",
+    "leave_by_s": 2351,
+    "message": "not ordered yet - leave by 17:39 UTC",
+    "issue_by_s_low": 551,
+    "issue_by_s_median": -5389,
+    "issue_by_s_high": -12049
+   },
+   {
+    "origin": "osm:node/415160420",
+    "kind": "dispatch",
+    "leave_by_s": 2167,
+    "message": "not ordered yet - leave by 17:36 UTC",
+    "issue_by_s_low": 367,
+    "issue_by_s_median": -5573,
+    "issue_by_s_high": -12233
+   },
+   {
+    "origin": "osm:node/415160421",
+    "kind": "dispatch",
+    "leave_by_s": 2311,
+    "message": "not ordered yet - leave by 17:38 UTC",
+    "issue_by_s_low": 511,
+    "issue_by_s_median": -5429,
+    "issue_by_s_high": -12089
+   },
+   {
+    "origin": "osm:node/415160424",
+    "kind": "dispatch",
+    "leave_by_s": 2688,
+    "message": "not ordered yet - leave by 17:44 UTC",
+    "issue_by_s_low": 888,
+    "issue_by_s_median": -5052,
+    "issue_by_s_high": -11712
+   },
+   {
+    "origin": "osm:node/415160428",
+    "kind": "dispatch",
+    "leave_by_s": 2549,
+    "message": "not ordered yet - leave by 17:42 UTC",
+    "issue_by_s_low": 749,
+    "issue_by_s_median": -5191,
+    "issue_by_s_high": -11851
+   },
+   {
+    "origin": "osm:node/415160429",
+    "kind": "dispatch",
+    "leave_by_s": 2745,
+    "message": "not ordered yet - leave by 17:45 UTC",
+    "issue_by_s_low": 945,
+    "issue_by_s_median": -4995,
+    "issue_by_s_high": -11655
+   },
+   {
+    "origin": "osm:node/415160430",
+    "kind": "dispatch",
+    "leave_by_s": 3134,
+    "message": "not ordered yet - leave by 17:52 UTC",
+    "issue_by_s_low": 1334,
+    "issue_by_s_median": -4606,
+    "issue_by_s_high": -11266
+   },
+   {
+    "origin": "osm:node/415160431",
+    "kind": "dispatch",
+    "leave_by_s": 3197,
+    "message": "not ordered yet - leave by 17:53 UTC",
+    "issue_by_s_low": 1397,
+    "issue_by_s_median": -4543,
+    "issue_by_s_high": -11203
+   },
+   {
+    "origin": "osm:node/415160432",
+    "kind": "dispatch",
+    "leave_by_s": 2615,
+    "message": "not ordered yet - leave by 17:43 UTC",
+    "issue_by_s_low": 815,
+    "issue_by_s_median": -5125,
+    "issue_by_s_high": -11785
+   },
+   {
+    "origin": "osm:node/415160433",
+    "kind": "dispatch",
+    "leave_by_s": 2029,
+    "message": "not ordered yet - leave by 17:33 UTC",
+    "issue_by_s_low": 229,
+    "issue_by_s_median": -5711,
+    "issue_by_s_high": -12371
+   },
+   {
+    "origin": "osm:node/415160434",
+    "kind": "dispatch",
+    "leave_by_s": 2684,
+    "message": "not ordered yet - leave by 17:44 UTC",
+    "issue_by_s_low": 884,
+    "issue_by_s_median": -5056,
+    "issue_by_s_high": -11716
+   },
+   {
+    "origin": "osm:node/415160435",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160436",
+    "kind": "dispatch",
+    "leave_by_s": 1848,
+    "message": "not ordered yet - leave by 17:30 UTC",
+    "issue_by_s_low": 48,
+    "issue_by_s_median": -5892,
+    "issue_by_s_high": -12552
+   },
+   {
+    "origin": "osm:node/415160437",
+    "kind": "dispatch",
+    "leave_by_s": 1659,
+    "message": "not ordered yet - leave by 17:27 UTC",
+    "issue_by_s_low": -141,
+    "issue_by_s_median": -6081,
+    "issue_by_s_high": -12741
+   },
+   {
+    "origin": "osm:node/415160438",
+    "kind": "dispatch",
+    "leave_by_s": 2090,
+    "message": "not ordered yet - leave by 17:34 UTC",
+    "issue_by_s_low": 290,
+    "issue_by_s_median": -5650,
+    "issue_by_s_high": -12310
+   },
+   {
+    "origin": "osm:node/415160439",
+    "kind": "dispatch",
+    "leave_by_s": 2082,
+    "message": "not ordered yet - leave by 17:34 UTC",
+    "issue_by_s_low": 282,
+    "issue_by_s_median": -5658,
+    "issue_by_s_high": -12318
+   },
+   {
+    "origin": "osm:node/415160440",
+    "kind": "dispatch",
+    "leave_by_s": 2053,
+    "message": "not ordered yet - leave by 17:34 UTC",
+    "issue_by_s_low": 253,
+    "issue_by_s_median": -5687,
+    "issue_by_s_high": -12347
+   },
+   {
+    "origin": "osm:node/415160449",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160451",
+    "kind": "dispatch",
+    "leave_by_s": 2166,
+    "message": "not ordered yet - leave by 17:36 UTC",
+    "issue_by_s_low": 366,
+    "issue_by_s_median": -5574,
+    "issue_by_s_high": -12234
+   },
+   {
+    "origin": "osm:node/415160454",
+    "kind": "dispatch",
+    "leave_by_s": 3125,
+    "message": "not ordered yet - leave by 17:52 UTC",
+    "issue_by_s_low": 1325,
+    "issue_by_s_median": -4615,
+    "issue_by_s_high": -11275
+   },
+   {
+    "origin": "osm:node/415160455",
+    "kind": "dispatch",
+    "leave_by_s": 3092,
+    "message": "not ordered yet - leave by 17:51 UTC",
+    "issue_by_s_low": 1292,
+    "issue_by_s_median": -4648,
+    "issue_by_s_high": -11308
+   },
+   {
+    "origin": "osm:node/415160456",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 17:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160457",
+    "kind": "dispatch",
+    "leave_by_s": 2891,
+    "message": "not ordered yet - leave by 17:48 UTC",
+    "issue_by_s_low": 1091,
+    "issue_by_s_median": -4849,
+    "issue_by_s_high": -11509
+   },
+   {
+    "origin": "osm:node/415160458",
+    "kind": "dispatch",
+    "leave_by_s": 2747,
+    "message": "not ordered yet - leave by 17:45 UTC",
+    "issue_by_s_low": 947,
+    "issue_by_s_median": -4993,
+    "issue_by_s_high": -11653
+   },
+   {
+    "origin": "osm:node/415160459",
+    "kind": "dispatch",
+    "leave_by_s": 2481,
+    "message": "not ordered yet - leave by 17:41 UTC",
+    "issue_by_s_low": 681,
+    "issue_by_s_median": -5259,
+    "issue_by_s_high": -11919
+   },
+   {
+    "origin": "osm:node/415160460",
+    "kind": "dispatch",
+    "leave_by_s": 2240,
+    "message": "not ordered yet - leave by 17:37 UTC",
+    "issue_by_s_low": 440,
+    "issue_by_s_median": -5500,
+    "issue_by_s_high": -12160
+   },
+   {
+    "origin": "osm:node/415160461",
+    "kind": "dispatch",
+    "leave_by_s": 3115,
+    "message": "not ordered yet - leave by 17:51 UTC",
+    "issue_by_s_low": 1315,
+    "issue_by_s_median": -4625,
+    "issue_by_s_high": -11285
+   },
+   {
+    "origin": "osm:node/415160463",
+    "kind": "dispatch",
+    "leave_by_s": 3008,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1208,
+    "issue_by_s_median": -4732,
+    "issue_by_s_high": -11392
+   },
+   {
+    "origin": "osm:node/415160464",
+    "kind": "dispatch",
+    "leave_by_s": 3282,
+    "message": "not ordered yet - leave by 17:54 UTC",
+    "issue_by_s_low": 1482,
+    "issue_by_s_median": -4458,
+    "issue_by_s_high": -11118
+   },
+   {
+    "origin": "osm:node/415160465",
+    "kind": "dispatch",
+    "leave_by_s": 3024,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1224,
+    "issue_by_s_median": -4716,
+    "issue_by_s_high": -11376
+   },
+   {
+    "origin": "osm:node/415160466",
+    "kind": "dispatch",
+    "leave_by_s": 3041,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1241,
+    "issue_by_s_median": -4699,
+    "issue_by_s_high": -11359
+   },
+   {
+    "origin": "osm:node/415160467",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160468",
+    "kind": "dispatch",
+    "leave_by_s": 2879,
+    "message": "not ordered yet - leave by 17:47 UTC",
+    "issue_by_s_low": 1079,
+    "issue_by_s_median": -4861,
+    "issue_by_s_high": -11521
+   },
+   {
+    "origin": "osm:node/415160469",
+    "kind": "dispatch",
+    "leave_by_s": 3006,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1206,
+    "issue_by_s_median": -4734,
+    "issue_by_s_high": -11394
+   },
+   {
+    "origin": "osm:node/415160470",
+    "kind": "dispatch",
+    "leave_by_s": 3199,
+    "message": "not ordered yet - leave by 17:53 UTC",
+    "issue_by_s_low": 1399,
+    "issue_by_s_median": -4541,
+    "issue_by_s_high": -11201
+   },
+   {
+    "origin": "osm:node/415160471",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160473",
+    "kind": "dispatch",
+    "leave_by_s": 2554,
+    "message": "not ordered yet - leave by 17:42 UTC",
+    "issue_by_s_low": 754,
+    "issue_by_s_median": -5186,
+    "issue_by_s_high": -11846
+   },
+   {
+    "origin": "osm:node/415160474",
+    "kind": "dispatch",
+    "leave_by_s": 2984,
+    "message": "not ordered yet - leave by 17:49 UTC",
+    "issue_by_s_low": 1184,
+    "issue_by_s_median": -4756,
+    "issue_by_s_high": -11416
+   },
+   {
+    "origin": "osm:node/415160475",
+    "kind": "dispatch",
+    "leave_by_s": 2677,
+    "message": "not ordered yet - leave by 17:44 UTC",
+    "issue_by_s_low": 877,
+    "issue_by_s_median": -5063,
+    "issue_by_s_high": -11723
+   },
+   {
+    "origin": "osm:node/415160476",
+    "kind": "dispatch",
+    "leave_by_s": 3040,
+    "message": "not ordered yet - leave by 17:50 UTC",
+    "issue_by_s_low": 1240,
+    "issue_by_s_median": -4700,
+    "issue_by_s_high": -11360
+   },
+   {
+    "origin": "osm:node/415160477",
+    "kind": "dispatch",
+    "leave_by_s": 2571,
+    "message": "not ordered yet - leave by 17:42 UTC",
+    "issue_by_s_low": 771,
+    "issue_by_s_median": -5169,
+    "issue_by_s_high": -11829
+   },
+   {
+    "origin": "osm:node/415160478",
+    "kind": "dispatch",
+    "leave_by_s": 2838,
+    "message": "not ordered yet - leave by 17:47 UTC",
+    "issue_by_s_low": 1038,
+    "issue_by_s_median": -4902,
+    "issue_by_s_high": -11562
+   },
+   {
+    "origin": "osm:node/415160479",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 17:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160480",
+    "kind": "dispatch",
+    "leave_by_s": 3123,
+    "message": "not ordered yet - leave by 17:52 UTC",
+    "issue_by_s_low": 1323,
+    "issue_by_s_median": -4617,
+    "issue_by_s_high": -11277
+   },
+   {
+    "origin": "osm:node/415160483",
+    "kind": "dispatch",
+    "leave_by_s": 3300,
+    "message": "not ordered yet - leave by 17:55 UTC",
+    "issue_by_s_low": 1500,
+    "issue_by_s_median": -4440,
+    "issue_by_s_high": -11100
+   },
+   {
+    "origin": "osm:node/415160497",
+    "kind": "dispatch",
+    "leave_by_s": 2948,
+    "message": "not ordered yet - leave by 17:49 UTC",
+    "issue_by_s_low": 1148,
+    "issue_by_s_median": -4792,
+    "issue_by_s_high": -11452
+   },
+   {
+    "origin": "osm:node/5344420465",
+    "kind": "dispatch",
+    "leave_by_s": 3190,
+    "message": "not ordered yet - leave by 17:53 UTC",
+    "issue_by_s_low": 1390,
+    "issue_by_s_median": -4550,
+    "issue_by_s_high": -11210
+   },
+   {
+    "origin": "osm:node/5344430780",
+    "kind": "dispatch",
+    "leave_by_s": 3240,
+    "message": "not ordered yet - leave by 17:54 UTC",
+    "issue_by_s_low": 1440,
+    "issue_by_s_median": -4500,
+    "issue_by_s_high": -11160
+   },
+   {
+    "origin": "osm:way/1265051875",
+    "kind": "dispatch",
+    "leave_by_s": 3319,
+    "message": "not ordered yet - leave by 17:55 UTC",
+    "issue_by_s_low": 1519,
+    "issue_by_s_median": -4421,
+    "issue_by_s_high": -11081
+   },
+   {
+    "origin": "osm:way/1265051876",
+    "kind": "dispatch",
+    "leave_by_s": 3293,
+    "message": "not ordered yet - leave by 17:54 UTC",
+    "issue_by_s_low": 1493,
+    "issue_by_s_median": -4447,
+    "issue_by_s_high": -11107
+   },
+   {
+    "origin": "osm:way/1372113459",
+    "kind": "dispatch",
+    "leave_by_s": 3455,
+    "message": "not ordered yet - leave by 17:57 UTC",
+    "issue_by_s_low": 1655,
+    "issue_by_s_median": -4285,
+    "issue_by_s_high": -10945
+   },
+   {
+    "origin": "research:uiseong_andong_2025:20250325T170000Z_FW1:origin",
+    "kind": "research",
+    "leave_by_s": 2907,
+    "message": "not ordered yet - leave by 17:48 UTC",
+    "issue_by_s_low": 1107,
+    "issue_by_s_median": -4833,
+    "issue_by_s_high": -11493
+   }
+  ]
+ },
+ {
+  "input_time": "2025-03-25T19:00:00Z",
+  "cache_file": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 1,
+    "future": 84,
+    "no_route": 7
+   },
+   "median": {
+    "past": 85,
+    "future": 0,
+    "no_route": 7
+   },
+   "high": {
+    "past": 85,
+    "future": 0,
+    "no_route": 7
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/11753630207",
+    "kind": "dispatch",
+    "leave_by_s": 3438,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1638,
+    "issue_by_s_median": -4302,
+    "issue_by_s_high": -10962
+   },
+   {
+    "origin": "osm:node/415158166",
+    "kind": "dispatch",
+    "leave_by_s": 3412,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1612,
+    "issue_by_s_median": -4328,
+    "issue_by_s_high": -10988
+   },
+   {
+    "origin": "osm:node/415158168",
+    "kind": "dispatch",
+    "leave_by_s": 3271,
+    "message": "not ordered yet - leave by 19:54 UTC",
+    "issue_by_s_low": 1471,
+    "issue_by_s_median": -4469,
+    "issue_by_s_high": -11129
+   },
+   {
+    "origin": "osm:node/415158176",
+    "kind": "dispatch",
+    "leave_by_s": 3457,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1657,
+    "issue_by_s_median": -4283,
+    "issue_by_s_high": -10943
+   },
+   {
+    "origin": "osm:node/415158181",
+    "kind": "dispatch",
+    "leave_by_s": 3394,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1594,
+    "issue_by_s_median": -4346,
+    "issue_by_s_high": -11006
+   },
+   {
+    "origin": "osm:node/415158182",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415158183",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 19:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415158184",
+    "kind": "dispatch",
+    "leave_by_s": 3365,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1565,
+    "issue_by_s_median": -4375,
+    "issue_by_s_high": -11035
+   },
+   {
+    "origin": "osm:node/415158185",
+    "kind": "dispatch",
+    "leave_by_s": 3419,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1619,
+    "issue_by_s_median": -4321,
+    "issue_by_s_high": -10981
+   },
+   {
+    "origin": "osm:node/415158186",
+    "kind": "dispatch",
+    "leave_by_s": 3433,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1633,
+    "issue_by_s_median": -4307,
+    "issue_by_s_high": -10967
+   },
+   {
+    "origin": "osm:node/415158187",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415158212",
+    "kind": "dispatch",
+    "leave_by_s": 3431,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1631,
+    "issue_by_s_median": -4309,
+    "issue_by_s_high": -10969
+   },
+   {
+    "origin": "osm:node/415158213",
+    "kind": "dispatch",
+    "leave_by_s": 3391,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1591,
+    "issue_by_s_median": -4349,
+    "issue_by_s_high": -11009
+   },
+   {
+    "origin": "osm:node/415158259",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415158318",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415158320",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415158321",
+    "kind": "dispatch",
+    "leave_by_s": 3459,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1659,
+    "issue_by_s_median": -4281,
+    "issue_by_s_high": -10941
+   },
+   {
+    "origin": "osm:node/415158322",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160130",
+    "kind": "dispatch",
+    "leave_by_s": 3270,
+    "message": "not ordered yet - leave by 19:54 UTC",
+    "issue_by_s_low": 1470,
+    "issue_by_s_median": -4470,
+    "issue_by_s_high": -11130
+   },
+   {
+    "origin": "osm:node/415160132",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160143",
+    "kind": "dispatch",
+    "leave_by_s": 3466,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1666,
+    "issue_by_s_median": -4274,
+    "issue_by_s_high": -10934
+   },
+   {
+    "origin": "osm:node/415160146",
+    "kind": "dispatch",
+    "leave_by_s": 3465,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1665,
+    "issue_by_s_median": -4275,
+    "issue_by_s_high": -10935
+   },
+   {
+    "origin": "osm:node/415160147",
+    "kind": "dispatch",
+    "leave_by_s": 3434,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1634,
+    "issue_by_s_median": -4306,
+    "issue_by_s_high": -10966
+   },
+   {
+    "origin": "osm:node/415160148",
+    "kind": "dispatch",
+    "leave_by_s": 3320,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1520,
+    "issue_by_s_median": -4420,
+    "issue_by_s_high": -11080
+   },
+   {
+    "origin": "osm:node/415160149",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160150",
+    "kind": "dispatch",
+    "leave_by_s": 3436,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1636,
+    "issue_by_s_median": -4304,
+    "issue_by_s_high": -10964
+   },
+   {
+    "origin": "osm:node/415160151",
+    "kind": "dispatch",
+    "leave_by_s": 3177,
+    "message": "not ordered yet - leave by 19:52 UTC",
+    "issue_by_s_low": 1377,
+    "issue_by_s_median": -4563,
+    "issue_by_s_high": -11223
+   },
+   {
+    "origin": "osm:node/415160153",
+    "kind": "dispatch",
+    "leave_by_s": 3423,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1623,
+    "issue_by_s_median": -4317,
+    "issue_by_s_high": -10977
+   },
+   {
+    "origin": "osm:node/415160154",
+    "kind": "dispatch",
+    "leave_by_s": 3399,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1599,
+    "issue_by_s_median": -4341,
+    "issue_by_s_high": -11001
+   },
+   {
+    "origin": "osm:node/415160155",
+    "kind": "dispatch",
+    "leave_by_s": 3397,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1597,
+    "issue_by_s_median": -4343,
+    "issue_by_s_high": -11003
+   },
+   {
+    "origin": "osm:node/415160156",
+    "kind": "dispatch",
+    "leave_by_s": 3470,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1670,
+    "issue_by_s_median": -4270,
+    "issue_by_s_high": -10930
+   },
+   {
+    "origin": "osm:node/415160157",
+    "kind": "dispatch",
+    "leave_by_s": 3376,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1576,
+    "issue_by_s_median": -4364,
+    "issue_by_s_high": -11024
+   },
+   {
+    "origin": "osm:node/415160158",
+    "kind": "dispatch",
+    "leave_by_s": 3468,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1668,
+    "issue_by_s_median": -4272,
+    "issue_by_s_high": -10932
+   },
+   {
+    "origin": "osm:node/415160159",
+    "kind": "dispatch",
+    "leave_by_s": 3405,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1605,
+    "issue_by_s_median": -4335,
+    "issue_by_s_high": -10995
+   },
+   {
+    "origin": "osm:node/415160160",
+    "kind": "dispatch",
+    "leave_by_s": 3305,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1505,
+    "issue_by_s_median": -4435,
+    "issue_by_s_high": -11095
+   },
+   {
+    "origin": "osm:node/415160162",
+    "kind": "dispatch",
+    "leave_by_s": 3443,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1643,
+    "issue_by_s_median": -4297,
+    "issue_by_s_high": -10957
+   },
+   {
+    "origin": "osm:node/415160163",
+    "kind": "dispatch",
+    "leave_by_s": 2485,
+    "message": "not ordered yet - leave by 19:41 UTC",
+    "issue_by_s_low": 685,
+    "issue_by_s_median": -5255,
+    "issue_by_s_high": -11915
+   },
+   {
+    "origin": "osm:node/415160164",
+    "kind": "dispatch",
+    "leave_by_s": 3039,
+    "message": "not ordered yet - leave by 19:50 UTC",
+    "issue_by_s_low": 1239,
+    "issue_by_s_median": -4701,
+    "issue_by_s_high": -11361
+   },
+   {
+    "origin": "osm:node/415160165",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160166",
+    "kind": "dispatch",
+    "leave_by_s": 3462,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1662,
+    "issue_by_s_median": -4278,
+    "issue_by_s_high": -10938
+   },
+   {
+    "origin": "osm:node/415160167",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160168",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415160169",
+    "kind": "dispatch",
+    "leave_by_s": 3341,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1541,
+    "issue_by_s_median": -4399,
+    "issue_by_s_high": -11059
+   },
+   {
+    "origin": "osm:node/415160170",
+    "kind": "dispatch",
+    "leave_by_s": 3440,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1640,
+    "issue_by_s_median": -4300,
+    "issue_by_s_high": -10960
+   },
+   {
+    "origin": "osm:node/415160171",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160172",
+    "kind": "dispatch",
+    "leave_by_s": 3346,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1546,
+    "issue_by_s_median": -4394,
+    "issue_by_s_high": -11054
+   },
+   {
+    "origin": "osm:node/415160173",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160175",
+    "kind": "dispatch",
+    "leave_by_s": 3396,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1596,
+    "issue_by_s_median": -4344,
+    "issue_by_s_high": -11004
+   },
+   {
+    "origin": "osm:node/415160176",
+    "kind": "dispatch",
+    "leave_by_s": 3142,
+    "message": "not ordered yet - leave by 19:52 UTC",
+    "issue_by_s_low": 1342,
+    "issue_by_s_median": -4598,
+    "issue_by_s_high": -11258
+   },
+   {
+    "origin": "osm:node/415160177",
+    "kind": "dispatch",
+    "leave_by_s": 3475,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1675,
+    "issue_by_s_median": -4265,
+    "issue_by_s_high": -10925
+   },
+   {
+    "origin": "osm:node/415160178",
+    "kind": "dispatch",
+    "leave_by_s": 3324,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1524,
+    "issue_by_s_median": -4416,
+    "issue_by_s_high": -11076
+   },
+   {
+    "origin": "osm:node/415160181",
+    "kind": "dispatch",
+    "leave_by_s": 3355,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1555,
+    "issue_by_s_median": -4385,
+    "issue_by_s_high": -11045
+   },
+   {
+    "origin": "osm:node/415160182",
+    "kind": "dispatch",
+    "leave_by_s": 3413,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1613,
+    "issue_by_s_median": -4327,
+    "issue_by_s_high": -10987
+   },
+   {
+    "origin": "osm:node/415160183",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160184",
+    "kind": "dispatch",
+    "leave_by_s": 3445,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1645,
+    "issue_by_s_median": -4295,
+    "issue_by_s_high": -10955
+   },
+   {
+    "origin": "osm:node/415160185",
+    "kind": "dispatch",
+    "leave_by_s": 2369,
+    "message": "not ordered yet - leave by 19:39 UTC",
+    "issue_by_s_low": 569,
+    "issue_by_s_median": -5371,
+    "issue_by_s_high": -12031
+   },
+   {
+    "origin": "osm:node/415160187",
+    "kind": "dispatch",
+    "leave_by_s": 3363,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1563,
+    "issue_by_s_median": -4377,
+    "issue_by_s_high": -11037
+   },
+   {
+    "origin": "osm:node/415160188",
+    "kind": "dispatch",
+    "leave_by_s": 3469,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1669,
+    "issue_by_s_median": -4271,
+    "issue_by_s_high": -10931
+   },
+   {
+    "origin": "osm:node/415160189",
+    "kind": "dispatch",
+    "leave_by_s": 3446,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1646,
+    "issue_by_s_median": -4294,
+    "issue_by_s_high": -10954
+   },
+   {
+    "origin": "osm:node/415160190",
+    "kind": "dispatch",
+    "leave_by_s": 3244,
+    "message": "not ordered yet - leave by 19:54 UTC",
+    "issue_by_s_low": 1444,
+    "issue_by_s_median": -4496,
+    "issue_by_s_high": -11156
+   },
+   {
+    "origin": "osm:node/415160192",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160193",
+    "kind": "dispatch",
+    "leave_by_s": 3368,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1568,
+    "issue_by_s_median": -4372,
+    "issue_by_s_high": -11032
+   },
+   {
+    "origin": "osm:node/415160194",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160195",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 19:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415160196",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160197",
+    "kind": "dispatch",
+    "leave_by_s": 3337,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1537,
+    "issue_by_s_median": -4403,
+    "issue_by_s_high": -11063
+   },
+   {
+    "origin": "osm:node/415160199",
+    "kind": "dispatch",
+    "leave_by_s": 3429,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1629,
+    "issue_by_s_median": -4311,
+    "issue_by_s_high": -10971
+   },
+   {
+    "origin": "osm:node/415160200",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160201",
+    "kind": "dispatch",
+    "leave_by_s": 3471,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1671,
+    "issue_by_s_median": -4269,
+    "issue_by_s_high": -10929
+   },
+   {
+    "origin": "osm:node/415160202",
+    "kind": "dispatch",
+    "leave_by_s": 3328,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1528,
+    "issue_by_s_median": -4412,
+    "issue_by_s_high": -11072
+   },
+   {
+    "origin": "osm:node/415160203",
+    "kind": "dispatch",
+    "leave_by_s": 3422,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1622,
+    "issue_by_s_median": -4318,
+    "issue_by_s_high": -10978
+   },
+   {
+    "origin": "osm:node/415160204",
+    "kind": "dispatch",
+    "leave_by_s": 3217,
+    "message": "not ordered yet - leave by 19:53 UTC",
+    "issue_by_s_low": 1417,
+    "issue_by_s_median": -4523,
+    "issue_by_s_high": -11183
+   },
+   {
+    "origin": "osm:node/415160205",
+    "kind": "dispatch",
+    "leave_by_s": 3301,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1501,
+    "issue_by_s_median": -4439,
+    "issue_by_s_high": -11099
+   },
+   {
+    "origin": "osm:node/415160206",
+    "kind": "dispatch",
+    "leave_by_s": 3390,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1590,
+    "issue_by_s_median": -4350,
+    "issue_by_s_high": -11010
+   },
+   {
+    "origin": "osm:node/415160207",
+    "kind": "dispatch",
+    "leave_by_s": 3380,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1580,
+    "issue_by_s_median": -4360,
+    "issue_by_s_high": -11020
+   },
+   {
+    "origin": "osm:node/415160208",
+    "kind": "dispatch",
+    "leave_by_s": 3359,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1559,
+    "issue_by_s_median": -4381,
+    "issue_by_s_high": -11041
+   },
+   {
+    "origin": "osm:node/415160209",
+    "kind": "dispatch",
+    "leave_by_s": 3432,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1632,
+    "issue_by_s_median": -4308,
+    "issue_by_s_high": -10968
+   },
+   {
+    "origin": "osm:node/415160302",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160303",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 19:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160309",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160310",
+    "kind": "dispatch",
+    "leave_by_s": 3426,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1626,
+    "issue_by_s_median": -4314,
+    "issue_by_s_high": -10974
+   },
+   {
+    "origin": "osm:node/415160311",
+    "kind": "dispatch",
+    "leave_by_s": 3397,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1597,
+    "issue_by_s_median": -4343,
+    "issue_by_s_high": -11003
+   },
+   {
+    "origin": "osm:node/415160312",
+    "kind": "dispatch",
+    "leave_by_s": 3448,
+    "message": "not ordered yet - leave by 19:57 UTC",
+    "issue_by_s_low": 1648,
+    "issue_by_s_median": -4292,
+    "issue_by_s_high": -10952
+   },
+   {
+    "origin": "osm:node/415160313",
+    "kind": "dispatch",
+    "leave_by_s": 3409,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1609,
+    "issue_by_s_median": -4331,
+    "issue_by_s_high": -10991
+   },
+   {
+    "origin": "osm:node/415160314",
+    "kind": "dispatch",
+    "leave_by_s": 3228,
+    "message": "not ordered yet - leave by 19:53 UTC",
+    "issue_by_s_low": 1428,
+    "issue_by_s_median": -4512,
+    "issue_by_s_high": -11172
+   },
+   {
+    "origin": "osm:node/415160315",
+    "kind": "dispatch",
+    "leave_by_s": 3400,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1600,
+    "issue_by_s_median": -4340,
+    "issue_by_s_high": -11000
+   },
+   {
+    "origin": "osm:node/415160316",
+    "kind": "dispatch",
+    "leave_by_s": 3158,
+    "message": "not ordered yet - leave by 19:52 UTC",
+    "issue_by_s_low": 1358,
+    "issue_by_s_median": -4582,
+    "issue_by_s_high": -11242
+   },
+   {
+    "origin": "osm:node/415160317",
+    "kind": "dispatch",
+    "leave_by_s": 3212,
+    "message": "not ordered yet - leave by 19:53 UTC",
+    "issue_by_s_low": 1412,
+    "issue_by_s_median": -4528,
+    "issue_by_s_high": -11188
+   },
+   {
+    "origin": "osm:node/415160318",
+    "kind": "dispatch",
+    "leave_by_s": 3387,
+    "message": "not ordered yet - leave by 19:56 UTC",
+    "issue_by_s_low": 1587,
+    "issue_by_s_median": -4353,
+    "issue_by_s_high": -11013
+   },
+   {
+    "origin": "osm:node/415160319",
+    "kind": "dispatch",
+    "leave_by_s": 2627,
+    "message": "not ordered yet - leave by 19:43 UTC",
+    "issue_by_s_low": 827,
+    "issue_by_s_median": -5113,
+    "issue_by_s_high": -11773
+   },
+   {
+    "origin": "research:yeongdeok_2025:20250325T190000Z_FD1:origin",
+    "kind": "research",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "research:yeongdeok_2025:20250325T190000Z_FX2:origin",
+    "kind": "research",
+    "leave_by_s": 968,
+    "message": "not ordered yet - leave by 19:16 UTC",
+    "issue_by_s_low": -832,
+    "issue_by_s_median": -6772,
+    "issue_by_s_high": -13432
+   }
+  ]
+ },
+ {
+  "input_time": "2025-03-25T23:00:00Z",
+  "cache_file": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 1,
+    "future": 90,
+    "no_route": 0
+   },
+   "median": {
+    "past": 91,
+    "future": 0,
+    "no_route": 0
+   },
+   "high": {
+    "past": 91,
+    "future": 0,
+    "no_route": 0
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/11753630207",
+    "kind": "dispatch",
+    "leave_by_s": 3438,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1638,
+    "issue_by_s_median": -4302,
+    "issue_by_s_high": -10962
+   },
+   {
+    "origin": "osm:node/415158166",
+    "kind": "dispatch",
+    "leave_by_s": 3401,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1601,
+    "issue_by_s_median": -4339,
+    "issue_by_s_high": -10999
+   },
+   {
+    "origin": "osm:node/415158168",
+    "kind": "dispatch",
+    "leave_by_s": 3271,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1471,
+    "issue_by_s_median": -4469,
+    "issue_by_s_high": -11129
+   },
+   {
+    "origin": "osm:node/415158176",
+    "kind": "dispatch",
+    "leave_by_s": 3457,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1657,
+    "issue_by_s_median": -4283,
+    "issue_by_s_high": -10943
+   },
+   {
+    "origin": "osm:node/415158181",
+    "kind": "dispatch",
+    "leave_by_s": 3394,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1594,
+    "issue_by_s_median": -4346,
+    "issue_by_s_high": -11006
+   },
+   {
+    "origin": "osm:node/415158182",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415158183",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415158184",
+    "kind": "dispatch",
+    "leave_by_s": 3365,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1565,
+    "issue_by_s_median": -4375,
+    "issue_by_s_high": -11035
+   },
+   {
+    "origin": "osm:node/415158185",
+    "kind": "dispatch",
+    "leave_by_s": 3419,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1619,
+    "issue_by_s_median": -4321,
+    "issue_by_s_high": -10981
+   },
+   {
+    "origin": "osm:node/415158186",
+    "kind": "dispatch",
+    "leave_by_s": 3433,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1633,
+    "issue_by_s_median": -4307,
+    "issue_by_s_high": -10967
+   },
+   {
+    "origin": "osm:node/415158187",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415158212",
+    "kind": "dispatch",
+    "leave_by_s": 3431,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1631,
+    "issue_by_s_median": -4309,
+    "issue_by_s_high": -10969
+   },
+   {
+    "origin": "osm:node/415158213",
+    "kind": "dispatch",
+    "leave_by_s": 3391,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1591,
+    "issue_by_s_median": -4349,
+    "issue_by_s_high": -11009
+   },
+   {
+    "origin": "osm:node/415158259",
+    "kind": "dispatch",
+    "leave_by_s": 3103,
+    "message": "not ordered yet - leave by 23:51 UTC",
+    "issue_by_s_low": 1303,
+    "issue_by_s_median": -4637,
+    "issue_by_s_high": -11297
+   },
+   {
+    "origin": "osm:node/415158318",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415158320",
+    "kind": "dispatch",
+    "leave_by_s": 2607,
+    "message": "not ordered yet - leave by 23:43 UTC",
+    "issue_by_s_low": 807,
+    "issue_by_s_median": -5133,
+    "issue_by_s_high": -11793
+   },
+   {
+    "origin": "osm:node/415158321",
+    "kind": "dispatch",
+    "leave_by_s": 3459,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1659,
+    "issue_by_s_median": -4281,
+    "issue_by_s_high": -10941
+   },
+   {
+    "origin": "osm:node/415158322",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160130",
+    "kind": "dispatch",
+    "leave_by_s": 3270,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1470,
+    "issue_by_s_median": -4470,
+    "issue_by_s_high": -11130
+   },
+   {
+    "origin": "osm:node/415160132",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160143",
+    "kind": "dispatch",
+    "leave_by_s": 3466,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1666,
+    "issue_by_s_median": -4274,
+    "issue_by_s_high": -10934
+   },
+   {
+    "origin": "osm:node/415160146",
+    "kind": "dispatch",
+    "leave_by_s": 3465,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1665,
+    "issue_by_s_median": -4275,
+    "issue_by_s_high": -10935
+   },
+   {
+    "origin": "osm:node/415160147",
+    "kind": "dispatch",
+    "leave_by_s": 3434,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1634,
+    "issue_by_s_median": -4306,
+    "issue_by_s_high": -10966
+   },
+   {
+    "origin": "osm:node/415160148",
+    "kind": "dispatch",
+    "leave_by_s": 3320,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1520,
+    "issue_by_s_median": -4420,
+    "issue_by_s_high": -11080
+   },
+   {
+    "origin": "osm:node/415160149",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160150",
+    "kind": "dispatch",
+    "leave_by_s": 3436,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1636,
+    "issue_by_s_median": -4304,
+    "issue_by_s_high": -10964
+   },
+   {
+    "origin": "osm:node/415160151",
+    "kind": "dispatch",
+    "leave_by_s": 3177,
+    "message": "not ordered yet - leave by 23:52 UTC",
+    "issue_by_s_low": 1377,
+    "issue_by_s_median": -4563,
+    "issue_by_s_high": -11223
+   },
+   {
+    "origin": "osm:node/415160153",
+    "kind": "dispatch",
+    "leave_by_s": 3423,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1623,
+    "issue_by_s_median": -4317,
+    "issue_by_s_high": -10977
+   },
+   {
+    "origin": "osm:node/415160154",
+    "kind": "dispatch",
+    "leave_by_s": 3399,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1599,
+    "issue_by_s_median": -4341,
+    "issue_by_s_high": -11001
+   },
+   {
+    "origin": "osm:node/415160155",
+    "kind": "dispatch",
+    "leave_by_s": 3397,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1597,
+    "issue_by_s_median": -4343,
+    "issue_by_s_high": -11003
+   },
+   {
+    "origin": "osm:node/415160156",
+    "kind": "dispatch",
+    "leave_by_s": 3470,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1670,
+    "issue_by_s_median": -4270,
+    "issue_by_s_high": -10930
+   },
+   {
+    "origin": "osm:node/415160157",
+    "kind": "dispatch",
+    "leave_by_s": 3376,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1576,
+    "issue_by_s_median": -4364,
+    "issue_by_s_high": -11024
+   },
+   {
+    "origin": "osm:node/415160158",
+    "kind": "dispatch",
+    "leave_by_s": 3468,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1668,
+    "issue_by_s_median": -4272,
+    "issue_by_s_high": -10932
+   },
+   {
+    "origin": "osm:node/415160159",
+    "kind": "dispatch",
+    "leave_by_s": 3405,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1605,
+    "issue_by_s_median": -4335,
+    "issue_by_s_high": -10995
+   },
+   {
+    "origin": "osm:node/415160160",
+    "kind": "dispatch",
+    "leave_by_s": 3305,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1505,
+    "issue_by_s_median": -4435,
+    "issue_by_s_high": -11095
+   },
+   {
+    "origin": "osm:node/415160162",
+    "kind": "dispatch",
+    "leave_by_s": 3443,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1643,
+    "issue_by_s_median": -4297,
+    "issue_by_s_high": -10957
+   },
+   {
+    "origin": "osm:node/415160163",
+    "kind": "dispatch",
+    "leave_by_s": 2485,
+    "message": "not ordered yet - leave by 23:41 UTC",
+    "issue_by_s_low": 685,
+    "issue_by_s_median": -5255,
+    "issue_by_s_high": -11915
+   },
+   {
+    "origin": "osm:node/415160164",
+    "kind": "dispatch",
+    "leave_by_s": 3350,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1550,
+    "issue_by_s_median": -4390,
+    "issue_by_s_high": -11050
+   },
+   {
+    "origin": "osm:node/415160165",
+    "kind": "dispatch",
+    "leave_by_s": 3306,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1506,
+    "issue_by_s_median": -4434,
+    "issue_by_s_high": -11094
+   },
+   {
+    "origin": "osm:node/415160166",
+    "kind": "dispatch",
+    "leave_by_s": 3462,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1662,
+    "issue_by_s_median": -4278,
+    "issue_by_s_high": -10938
+   },
+   {
+    "origin": "osm:node/415160167",
+    "kind": "dispatch",
+    "leave_by_s": 3309,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1509,
+    "issue_by_s_median": -4431,
+    "issue_by_s_high": -11091
+   },
+   {
+    "origin": "osm:node/415160168",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415160169",
+    "kind": "dispatch",
+    "leave_by_s": 3341,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1541,
+    "issue_by_s_median": -4399,
+    "issue_by_s_high": -11059
+   },
+   {
+    "origin": "osm:node/415160170",
+    "kind": "dispatch",
+    "leave_by_s": 3440,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1640,
+    "issue_by_s_median": -4300,
+    "issue_by_s_high": -10960
+   },
+   {
+    "origin": "osm:node/415160171",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160172",
+    "kind": "dispatch",
+    "leave_by_s": 3346,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1546,
+    "issue_by_s_median": -4394,
+    "issue_by_s_high": -11054
+   },
+   {
+    "origin": "osm:node/415160173",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160175",
+    "kind": "dispatch",
+    "leave_by_s": 3396,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1596,
+    "issue_by_s_median": -4344,
+    "issue_by_s_high": -11004
+   },
+   {
+    "origin": "osm:node/415160176",
+    "kind": "dispatch",
+    "leave_by_s": 3142,
+    "message": "not ordered yet - leave by 23:52 UTC",
+    "issue_by_s_low": 1342,
+    "issue_by_s_median": -4598,
+    "issue_by_s_high": -11258
+   },
+   {
+    "origin": "osm:node/415160177",
+    "kind": "dispatch",
+    "leave_by_s": 3475,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1675,
+    "issue_by_s_median": -4265,
+    "issue_by_s_high": -10925
+   },
+   {
+    "origin": "osm:node/415160178",
+    "kind": "dispatch",
+    "leave_by_s": 3324,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1524,
+    "issue_by_s_median": -4416,
+    "issue_by_s_high": -11076
+   },
+   {
+    "origin": "osm:node/415160181",
+    "kind": "dispatch",
+    "leave_by_s": 3355,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1555,
+    "issue_by_s_median": -4385,
+    "issue_by_s_high": -11045
+   },
+   {
+    "origin": "osm:node/415160182",
+    "kind": "dispatch",
+    "leave_by_s": 3413,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1613,
+    "issue_by_s_median": -4327,
+    "issue_by_s_high": -10987
+   },
+   {
+    "origin": "osm:node/415160183",
+    "kind": "dispatch",
+    "leave_by_s": 3284,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1484,
+    "issue_by_s_median": -4456,
+    "issue_by_s_high": -11116
+   },
+   {
+    "origin": "osm:node/415160184",
+    "kind": "dispatch",
+    "leave_by_s": 3445,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1645,
+    "issue_by_s_median": -4295,
+    "issue_by_s_high": -10955
+   },
+   {
+    "origin": "osm:node/415160185",
+    "kind": "dispatch",
+    "leave_by_s": 2369,
+    "message": "not ordered yet - leave by 23:39 UTC",
+    "issue_by_s_low": 569,
+    "issue_by_s_median": -5371,
+    "issue_by_s_high": -12031
+   },
+   {
+    "origin": "osm:node/415160187",
+    "kind": "dispatch",
+    "leave_by_s": 3363,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1563,
+    "issue_by_s_median": -4377,
+    "issue_by_s_high": -11037
+   },
+   {
+    "origin": "osm:node/415160188",
+    "kind": "dispatch",
+    "leave_by_s": 3469,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1669,
+    "issue_by_s_median": -4271,
+    "issue_by_s_high": -10931
+   },
+   {
+    "origin": "osm:node/415160189",
+    "kind": "dispatch",
+    "leave_by_s": 3446,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1646,
+    "issue_by_s_median": -4294,
+    "issue_by_s_high": -10954
+   },
+   {
+    "origin": "osm:node/415160190",
+    "kind": "dispatch",
+    "leave_by_s": 3244,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1444,
+    "issue_by_s_median": -4496,
+    "issue_by_s_high": -11156
+   },
+   {
+    "origin": "osm:node/415160192",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160193",
+    "kind": "dispatch",
+    "leave_by_s": 3368,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1568,
+    "issue_by_s_median": -4372,
+    "issue_by_s_high": -11032
+   },
+   {
+    "origin": "osm:node/415160194",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160195",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 23:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415160196",
+    "kind": "dispatch",
+    "leave_by_s": 3026,
+    "message": "not ordered yet - leave by 23:50 UTC",
+    "issue_by_s_low": 1226,
+    "issue_by_s_median": -4714,
+    "issue_by_s_high": -11374
+   },
+   {
+    "origin": "osm:node/415160197",
+    "kind": "dispatch",
+    "leave_by_s": 3337,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1537,
+    "issue_by_s_median": -4403,
+    "issue_by_s_high": -11063
+   },
+   {
+    "origin": "osm:node/415160199",
+    "kind": "dispatch",
+    "leave_by_s": 3429,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1629,
+    "issue_by_s_median": -4311,
+    "issue_by_s_high": -10971
+   },
+   {
+    "origin": "osm:node/415160200",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160201",
+    "kind": "dispatch",
+    "leave_by_s": 3471,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1671,
+    "issue_by_s_median": -4269,
+    "issue_by_s_high": -10929
+   },
+   {
+    "origin": "osm:node/415160202",
+    "kind": "dispatch",
+    "leave_by_s": 3328,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1528,
+    "issue_by_s_median": -4412,
+    "issue_by_s_high": -11072
+   },
+   {
+    "origin": "osm:node/415160203",
+    "kind": "dispatch",
+    "leave_by_s": 3422,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1622,
+    "issue_by_s_median": -4318,
+    "issue_by_s_high": -10978
+   },
+   {
+    "origin": "osm:node/415160204",
+    "kind": "dispatch",
+    "leave_by_s": 3217,
+    "message": "not ordered yet - leave by 23:53 UTC",
+    "issue_by_s_low": 1417,
+    "issue_by_s_median": -4523,
+    "issue_by_s_high": -11183
+   },
+   {
+    "origin": "osm:node/415160205",
+    "kind": "dispatch",
+    "leave_by_s": 3301,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1501,
+    "issue_by_s_median": -4439,
+    "issue_by_s_high": -11099
+   },
+   {
+    "origin": "osm:node/415160206",
+    "kind": "dispatch",
+    "leave_by_s": 3390,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1590,
+    "issue_by_s_median": -4350,
+    "issue_by_s_high": -11010
+   },
+   {
+    "origin": "osm:node/415160207",
+    "kind": "dispatch",
+    "leave_by_s": 3380,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1580,
+    "issue_by_s_median": -4360,
+    "issue_by_s_high": -11020
+   },
+   {
+    "origin": "osm:node/415160208",
+    "kind": "dispatch",
+    "leave_by_s": 3359,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1559,
+    "issue_by_s_median": -4381,
+    "issue_by_s_high": -11041
+   },
+   {
+    "origin": "osm:node/415160209",
+    "kind": "dispatch",
+    "leave_by_s": 3432,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1632,
+    "issue_by_s_median": -4308,
+    "issue_by_s_high": -10968
+   },
+   {
+    "origin": "osm:node/415160302",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160303",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 23:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160309",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160310",
+    "kind": "dispatch",
+    "leave_by_s": 3426,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1626,
+    "issue_by_s_median": -4314,
+    "issue_by_s_high": -10974
+   },
+   {
+    "origin": "osm:node/415160311",
+    "kind": "dispatch",
+    "leave_by_s": 3467,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1667,
+    "issue_by_s_median": -4273,
+    "issue_by_s_high": -10933
+   },
+   {
+    "origin": "osm:node/415160312",
+    "kind": "dispatch",
+    "leave_by_s": 3448,
+    "message": "not ordered yet - leave by 23:57 UTC",
+    "issue_by_s_low": 1648,
+    "issue_by_s_median": -4292,
+    "issue_by_s_high": -10952
+   },
+   {
+    "origin": "osm:node/415160313",
+    "kind": "dispatch",
+    "leave_by_s": 3409,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1609,
+    "issue_by_s_median": -4331,
+    "issue_by_s_high": -10991
+   },
+   {
+    "origin": "osm:node/415160314",
+    "kind": "dispatch",
+    "leave_by_s": 3228,
+    "message": "not ordered yet - leave by 23:53 UTC",
+    "issue_by_s_low": 1428,
+    "issue_by_s_median": -4512,
+    "issue_by_s_high": -11172
+   },
+   {
+    "origin": "osm:node/415160315",
+    "kind": "dispatch",
+    "leave_by_s": 3400,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1600,
+    "issue_by_s_median": -4340,
+    "issue_by_s_high": -11000
+   },
+   {
+    "origin": "osm:node/415160316",
+    "kind": "dispatch",
+    "leave_by_s": 3158,
+    "message": "not ordered yet - leave by 23:52 UTC",
+    "issue_by_s_low": 1358,
+    "issue_by_s_median": -4582,
+    "issue_by_s_high": -11242
+   },
+   {
+    "origin": "osm:node/415160317",
+    "kind": "dispatch",
+    "leave_by_s": 3212,
+    "message": "not ordered yet - leave by 23:53 UTC",
+    "issue_by_s_low": 1412,
+    "issue_by_s_median": -4528,
+    "issue_by_s_high": -11188
+   },
+   {
+    "origin": "osm:node/415160318",
+    "kind": "dispatch",
+    "leave_by_s": 3387,
+    "message": "not ordered yet - leave by 23:56 UTC",
+    "issue_by_s_low": 1587,
+    "issue_by_s_median": -4353,
+    "issue_by_s_high": -11013
+   },
+   {
+    "origin": "osm:node/415160319",
+    "kind": "dispatch",
+    "leave_by_s": 2627,
+    "message": "not ordered yet - leave by 23:43 UTC",
+    "issue_by_s_low": 827,
+    "issue_by_s_median": -5113,
+    "issue_by_s_high": -11773
+   },
+   {
+    "origin": "research:yeongdeok_2025:20250325T230000Z_FL2:origin",
+    "kind": "research",
+    "leave_by_s": 1558,
+    "message": "not ordered yet - leave by 23:25 UTC",
+    "issue_by_s_low": -242,
+    "issue_by_s_median": -6182,
+    "issue_by_s_high": -12842
+   }
+  ]
+ },
+ {
+  "input_time": "2025-03-26T08:00:00Z",
+  "cache_file": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+  "settings_s": {
+   "low": [
+    900,
+    900
+   ],
+   "median": [
+    5940,
+    1800
+   ],
+   "high": [
+    10800,
+    3600
+   ]
+  },
+  "counts": {
+   "low": {
+    "past": 0,
+    "future": 89,
+    "no_route": 2
+   },
+   "median": {
+    "past": 89,
+    "future": 0,
+    "no_route": 2
+   },
+   "high": {
+    "past": 89,
+    "future": 0,
+    "no_route": 2
+   }
+  },
+  "origins": [
+   {
+    "origin": "osm:node/11753630207",
+    "kind": "dispatch",
+    "leave_by_s": 3438,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1638,
+    "issue_by_s_median": -4302,
+    "issue_by_s_high": -10962
+   },
+   {
+    "origin": "osm:node/415158166",
+    "kind": "dispatch",
+    "leave_by_s": 3412,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1612,
+    "issue_by_s_median": -4328,
+    "issue_by_s_high": -10988
+   },
+   {
+    "origin": "osm:node/415158168",
+    "kind": "dispatch",
+    "leave_by_s": 3271,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1471,
+    "issue_by_s_median": -4469,
+    "issue_by_s_high": -11129
+   },
+   {
+    "origin": "osm:node/415158176",
+    "kind": "dispatch",
+    "leave_by_s": 3457,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1657,
+    "issue_by_s_median": -4283,
+    "issue_by_s_high": -10943
+   },
+   {
+    "origin": "osm:node/415158181",
+    "kind": "dispatch",
+    "leave_by_s": 3394,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1594,
+    "issue_by_s_median": -4346,
+    "issue_by_s_high": -11006
+   },
+   {
+    "origin": "osm:node/415158182",
+    "kind": "dispatch",
+    "leave_by_s": 3330,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1530,
+    "issue_by_s_median": -4410,
+    "issue_by_s_high": -11070
+   },
+   {
+    "origin": "osm:node/415158183",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415158184",
+    "kind": "dispatch",
+    "leave_by_s": 3365,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1565,
+    "issue_by_s_median": -4375,
+    "issue_by_s_high": -11035
+   },
+   {
+    "origin": "osm:node/415158185",
+    "kind": "dispatch",
+    "leave_by_s": 3419,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1619,
+    "issue_by_s_median": -4321,
+    "issue_by_s_high": -10981
+   },
+   {
+    "origin": "osm:node/415158186",
+    "kind": "dispatch",
+    "leave_by_s": 3433,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1633,
+    "issue_by_s_median": -4307,
+    "issue_by_s_high": -10967
+   },
+   {
+    "origin": "osm:node/415158187",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415158212",
+    "kind": "dispatch",
+    "leave_by_s": 3431,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1631,
+    "issue_by_s_median": -4309,
+    "issue_by_s_high": -10969
+   },
+   {
+    "origin": "osm:node/415158213",
+    "kind": "dispatch",
+    "leave_by_s": 3391,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1591,
+    "issue_by_s_median": -4349,
+    "issue_by_s_high": -11009
+   },
+   {
+    "origin": "osm:node/415158259",
+    "kind": "dispatch",
+    "leave_by_s": 3103,
+    "message": "not ordered yet - leave by 08:51 UTC",
+    "issue_by_s_low": 1303,
+    "issue_by_s_median": -4637,
+    "issue_by_s_high": -11297
+   },
+   {
+    "origin": "osm:node/415158318",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415158320",
+    "kind": "dispatch",
+    "leave_by_s": 2607,
+    "message": "not ordered yet - leave by 08:43 UTC",
+    "issue_by_s_low": 807,
+    "issue_by_s_median": -5133,
+    "issue_by_s_high": -11793
+   },
+   {
+    "origin": "osm:node/415158321",
+    "kind": "dispatch",
+    "leave_by_s": 3459,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1659,
+    "issue_by_s_median": -4281,
+    "issue_by_s_high": -10941
+   },
+   {
+    "origin": "osm:node/415158322",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160130",
+    "kind": "dispatch",
+    "leave_by_s": 3270,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1470,
+    "issue_by_s_median": -4470,
+    "issue_by_s_high": -11130
+   },
+   {
+    "origin": "osm:node/415160132",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160143",
+    "kind": "dispatch",
+    "leave_by_s": 3466,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1666,
+    "issue_by_s_median": -4274,
+    "issue_by_s_high": -10934
+   },
+   {
+    "origin": "osm:node/415160146",
+    "kind": "dispatch",
+    "leave_by_s": 3465,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1665,
+    "issue_by_s_median": -4275,
+    "issue_by_s_high": -10935
+   },
+   {
+    "origin": "osm:node/415160147",
+    "kind": "dispatch",
+    "leave_by_s": 3434,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1634,
+    "issue_by_s_median": -4306,
+    "issue_by_s_high": -10966
+   },
+   {
+    "origin": "osm:node/415160148",
+    "kind": "dispatch",
+    "leave_by_s": 3320,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1520,
+    "issue_by_s_median": -4420,
+    "issue_by_s_high": -11080
+   },
+   {
+    "origin": "osm:node/415160149",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160150",
+    "kind": "dispatch",
+    "leave_by_s": 3436,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1636,
+    "issue_by_s_median": -4304,
+    "issue_by_s_high": -10964
+   },
+   {
+    "origin": "osm:node/415160151",
+    "kind": "dispatch",
+    "leave_by_s": 3177,
+    "message": "not ordered yet - leave by 08:52 UTC",
+    "issue_by_s_low": 1377,
+    "issue_by_s_median": -4563,
+    "issue_by_s_high": -11223
+   },
+   {
+    "origin": "osm:node/415160153",
+    "kind": "dispatch",
+    "leave_by_s": 3423,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1623,
+    "issue_by_s_median": -4317,
+    "issue_by_s_high": -10977
+   },
+   {
+    "origin": "osm:node/415160154",
+    "kind": "dispatch",
+    "leave_by_s": 3399,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1599,
+    "issue_by_s_median": -4341,
+    "issue_by_s_high": -11001
+   },
+   {
+    "origin": "osm:node/415160155",
+    "kind": "dispatch",
+    "leave_by_s": 3397,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1597,
+    "issue_by_s_median": -4343,
+    "issue_by_s_high": -11003
+   },
+   {
+    "origin": "osm:node/415160156",
+    "kind": "dispatch",
+    "leave_by_s": 3470,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1670,
+    "issue_by_s_median": -4270,
+    "issue_by_s_high": -10930
+   },
+   {
+    "origin": "osm:node/415160157",
+    "kind": "dispatch",
+    "leave_by_s": 3376,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1576,
+    "issue_by_s_median": -4364,
+    "issue_by_s_high": -11024
+   },
+   {
+    "origin": "osm:node/415160158",
+    "kind": "dispatch",
+    "leave_by_s": 3468,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1668,
+    "issue_by_s_median": -4272,
+    "issue_by_s_high": -10932
+   },
+   {
+    "origin": "osm:node/415160159",
+    "kind": "dispatch",
+    "leave_by_s": 3405,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1605,
+    "issue_by_s_median": -4335,
+    "issue_by_s_high": -10995
+   },
+   {
+    "origin": "osm:node/415160160",
+    "kind": "dispatch",
+    "leave_by_s": 3305,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1505,
+    "issue_by_s_median": -4435,
+    "issue_by_s_high": -11095
+   },
+   {
+    "origin": "osm:node/415160162",
+    "kind": "dispatch",
+    "leave_by_s": 3443,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1643,
+    "issue_by_s_median": -4297,
+    "issue_by_s_high": -10957
+   },
+   {
+    "origin": "osm:node/415160163",
+    "kind": "dispatch",
+    "leave_by_s": 2485,
+    "message": "not ordered yet - leave by 08:41 UTC",
+    "issue_by_s_low": 685,
+    "issue_by_s_median": -5255,
+    "issue_by_s_high": -11915
+   },
+   {
+    "origin": "osm:node/415160164",
+    "kind": "dispatch",
+    "leave_by_s": 3350,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1550,
+    "issue_by_s_median": -4390,
+    "issue_by_s_high": -11050
+   },
+   {
+    "origin": "osm:node/415160165",
+    "kind": "dispatch",
+    "leave_by_s": 3306,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1506,
+    "issue_by_s_median": -4434,
+    "issue_by_s_high": -11094
+   },
+   {
+    "origin": "osm:node/415160166",
+    "kind": "dispatch",
+    "leave_by_s": 3462,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1662,
+    "issue_by_s_median": -4278,
+    "issue_by_s_high": -10938
+   },
+   {
+    "origin": "osm:node/415160167",
+    "kind": "dispatch",
+    "leave_by_s": 3309,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1509,
+    "issue_by_s_median": -4431,
+    "issue_by_s_high": -11091
+   },
+   {
+    "origin": "osm:node/415160168",
+    "kind": "dispatch",
+    "leave_by_s": 3458,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1658,
+    "issue_by_s_median": -4282,
+    "issue_by_s_high": -10942
+   },
+   {
+    "origin": "osm:node/415160169",
+    "kind": "dispatch",
+    "leave_by_s": 3341,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1541,
+    "issue_by_s_median": -4399,
+    "issue_by_s_high": -11059
+   },
+   {
+    "origin": "osm:node/415160170",
+    "kind": "dispatch",
+    "leave_by_s": 3440,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1640,
+    "issue_by_s_median": -4300,
+    "issue_by_s_high": -10960
+   },
+   {
+    "origin": "osm:node/415160171",
+    "kind": "dispatch",
+    "leave_by_s": 3403,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1603,
+    "issue_by_s_median": -4337,
+    "issue_by_s_high": -10997
+   },
+   {
+    "origin": "osm:node/415160172",
+    "kind": "dispatch",
+    "leave_by_s": 3346,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1546,
+    "issue_by_s_median": -4394,
+    "issue_by_s_high": -11054
+   },
+   {
+    "origin": "osm:node/415160173",
+    "kind": "dispatch",
+    "leave_by_s": 3418,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1618,
+    "issue_by_s_median": -4322,
+    "issue_by_s_high": -10982
+   },
+   {
+    "origin": "osm:node/415160175",
+    "kind": "dispatch",
+    "leave_by_s": 3396,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1596,
+    "issue_by_s_median": -4344,
+    "issue_by_s_high": -11004
+   },
+   {
+    "origin": "osm:node/415160176",
+    "kind": "dispatch",
+    "leave_by_s": 3142,
+    "message": "not ordered yet - leave by 08:52 UTC",
+    "issue_by_s_low": 1342,
+    "issue_by_s_median": -4598,
+    "issue_by_s_high": -11258
+   },
+   {
+    "origin": "osm:node/415160177",
+    "kind": "dispatch",
+    "leave_by_s": 3475,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1675,
+    "issue_by_s_median": -4265,
+    "issue_by_s_high": -10925
+   },
+   {
+    "origin": "osm:node/415160178",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160181",
+    "kind": "dispatch",
+    "leave_by_s": 3355,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1555,
+    "issue_by_s_median": -4385,
+    "issue_by_s_high": -11045
+   },
+   {
+    "origin": "osm:node/415160182",
+    "kind": "dispatch",
+    "leave_by_s": 3413,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1613,
+    "issue_by_s_median": -4327,
+    "issue_by_s_high": -10987
+   },
+   {
+    "origin": "osm:node/415160183",
+    "kind": "dispatch",
+    "leave_by_s": 3284,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1484,
+    "issue_by_s_median": -4456,
+    "issue_by_s_high": -11116
+   },
+   {
+    "origin": "osm:node/415160184",
+    "kind": "dispatch",
+    "leave_by_s": 3445,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1645,
+    "issue_by_s_median": -4295,
+    "issue_by_s_high": -10955
+   },
+   {
+    "origin": "osm:node/415160185",
+    "kind": "dispatch",
+    "leave_by_s": 2369,
+    "message": "not ordered yet - leave by 08:39 UTC",
+    "issue_by_s_low": 569,
+    "issue_by_s_median": -5371,
+    "issue_by_s_high": -12031
+   },
+   {
+    "origin": "osm:node/415160187",
+    "kind": "dispatch",
+    "leave_by_s": 3363,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1563,
+    "issue_by_s_median": -4377,
+    "issue_by_s_high": -11037
+   },
+   {
+    "origin": "osm:node/415160188",
+    "kind": "dispatch",
+    "leave_by_s": 3469,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1669,
+    "issue_by_s_median": -4271,
+    "issue_by_s_high": -10931
+   },
+   {
+    "origin": "osm:node/415160189",
+    "kind": "dispatch",
+    "leave_by_s": 3446,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1646,
+    "issue_by_s_median": -4294,
+    "issue_by_s_high": -10954
+   },
+   {
+    "origin": "osm:node/415160190",
+    "kind": "dispatch",
+    "leave_by_s": 3244,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1444,
+    "issue_by_s_median": -4496,
+    "issue_by_s_high": -11156
+   },
+   {
+    "origin": "osm:node/415160192",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160193",
+    "kind": "dispatch",
+    "leave_by_s": 3368,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1568,
+    "issue_by_s_median": -4372,
+    "issue_by_s_high": -11032
+   },
+   {
+    "origin": "osm:node/415160194",
+    "kind": "dispatch",
+    "leave_by_s": 3349,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1549,
+    "issue_by_s_median": -4391,
+    "issue_by_s_high": -11051
+   },
+   {
+    "origin": "osm:node/415160195",
+    "kind": "dispatch",
+    "leave_by_s": 3292,
+    "message": "not ordered yet - leave by 08:54 UTC",
+    "issue_by_s_low": 1492,
+    "issue_by_s_median": -4448,
+    "issue_by_s_high": -11108
+   },
+   {
+    "origin": "osm:node/415160196",
+    "kind": "dispatch",
+    "leave_by_s": 3026,
+    "message": "not ordered yet - leave by 08:50 UTC",
+    "issue_by_s_low": 1226,
+    "issue_by_s_median": -4714,
+    "issue_by_s_high": -11374
+   },
+   {
+    "origin": "osm:node/415160197",
+    "kind": "dispatch",
+    "leave_by_s": 3337,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1537,
+    "issue_by_s_median": -4403,
+    "issue_by_s_high": -11063
+   },
+   {
+    "origin": "osm:node/415160199",
+    "kind": "dispatch",
+    "leave_by_s": 3429,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1629,
+    "issue_by_s_median": -4311,
+    "issue_by_s_high": -10971
+   },
+   {
+    "origin": "osm:node/415160200",
+    "kind": "dispatch",
+    "leave_by_s": 3430,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1630,
+    "issue_by_s_median": -4310,
+    "issue_by_s_high": -10970
+   },
+   {
+    "origin": "osm:node/415160201",
+    "kind": "dispatch",
+    "leave_by_s": 3471,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1671,
+    "issue_by_s_median": -4269,
+    "issue_by_s_high": -10929
+   },
+   {
+    "origin": "osm:node/415160202",
+    "kind": "dispatch",
+    "leave_by_s": 3328,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1528,
+    "issue_by_s_median": -4412,
+    "issue_by_s_high": -11072
+   },
+   {
+    "origin": "osm:node/415160203",
+    "kind": "dispatch",
+    "leave_by_s": 3422,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1622,
+    "issue_by_s_median": -4318,
+    "issue_by_s_high": -10978
+   },
+   {
+    "origin": "osm:node/415160204",
+    "kind": "dispatch",
+    "leave_by_s": 3217,
+    "message": "not ordered yet - leave by 08:53 UTC",
+    "issue_by_s_low": 1417,
+    "issue_by_s_median": -4523,
+    "issue_by_s_high": -11183
+   },
+   {
+    "origin": "osm:node/415160205",
+    "kind": "dispatch",
+    "leave_by_s": 3301,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1501,
+    "issue_by_s_median": -4439,
+    "issue_by_s_high": -11099
+   },
+   {
+    "origin": "osm:node/415160206",
+    "kind": "dispatch",
+    "leave_by_s": 3390,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1590,
+    "issue_by_s_median": -4350,
+    "issue_by_s_high": -11010
+   },
+   {
+    "origin": "osm:node/415160207",
+    "kind": "dispatch",
+    "leave_by_s": 3380,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1580,
+    "issue_by_s_median": -4360,
+    "issue_by_s_high": -11020
+   },
+   {
+    "origin": "osm:node/415160208",
+    "kind": "dispatch",
+    "leave_by_s": 3359,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1559,
+    "issue_by_s_median": -4381,
+    "issue_by_s_high": -11041
+   },
+   {
+    "origin": "osm:node/415160209",
+    "kind": "dispatch",
+    "leave_by_s": 3432,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1632,
+    "issue_by_s_median": -4308,
+    "issue_by_s_high": -10968
+   },
+   {
+    "origin": "osm:node/415160302",
+    "kind": "dispatch",
+    "leave_by_s": 3404,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1604,
+    "issue_by_s_median": -4336,
+    "issue_by_s_high": -10996
+   },
+   {
+    "origin": "osm:node/415160303",
+    "kind": "dispatch",
+    "leave_by_s": 3302,
+    "message": "not ordered yet - leave by 08:55 UTC",
+    "issue_by_s_low": 1502,
+    "issue_by_s_median": -4438,
+    "issue_by_s_high": -11098
+   },
+   {
+    "origin": "osm:node/415160309",
+    "kind": "dispatch",
+    "leave_by_s": 3371,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1571,
+    "issue_by_s_median": -4369,
+    "issue_by_s_high": -11029
+   },
+   {
+    "origin": "osm:node/415160310",
+    "kind": "dispatch",
+    "leave_by_s": 3426,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1626,
+    "issue_by_s_median": -4314,
+    "issue_by_s_high": -10974
+   },
+   {
+    "origin": "osm:node/415160311",
+    "kind": "dispatch",
+    "leave_by_s": 3467,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1667,
+    "issue_by_s_median": -4273,
+    "issue_by_s_high": -10933
+   },
+   {
+    "origin": "osm:node/415160312",
+    "kind": "dispatch",
+    "leave_by_s": 3448,
+    "message": "not ordered yet - leave by 08:57 UTC",
+    "issue_by_s_low": 1648,
+    "issue_by_s_median": -4292,
+    "issue_by_s_high": -10952
+   },
+   {
+    "origin": "osm:node/415160313",
+    "kind": "dispatch",
+    "leave_by_s": 3409,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1609,
+    "issue_by_s_median": -4331,
+    "issue_by_s_high": -10991
+   },
+   {
+    "origin": "osm:node/415160314",
+    "kind": "dispatch",
+    "leave_by_s": null,
+    "message": "NO CHECKED ROUTE in this model at any departure - do not wait for an order"
+   },
+   {
+    "origin": "osm:node/415160315",
+    "kind": "dispatch",
+    "leave_by_s": 3400,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1600,
+    "issue_by_s_median": -4340,
+    "issue_by_s_high": -11000
+   },
+   {
+    "origin": "osm:node/415160316",
+    "kind": "dispatch",
+    "leave_by_s": 3158,
+    "message": "not ordered yet - leave by 08:52 UTC",
+    "issue_by_s_low": 1358,
+    "issue_by_s_median": -4582,
+    "issue_by_s_high": -11242
+   },
+   {
+    "origin": "osm:node/415160317",
+    "kind": "dispatch",
+    "leave_by_s": 3212,
+    "message": "not ordered yet - leave by 08:53 UTC",
+    "issue_by_s_low": 1412,
+    "issue_by_s_median": -4528,
+    "issue_by_s_high": -11188
+   },
+   {
+    "origin": "osm:node/415160318",
+    "kind": "dispatch",
+    "leave_by_s": 3387,
+    "message": "not ordered yet - leave by 08:56 UTC",
+    "issue_by_s_low": 1587,
+    "issue_by_s_median": -4353,
+    "issue_by_s_high": -11013
+   },
+   {
+    "origin": "osm:node/415160319",
+    "kind": "dispatch",
+    "leave_by_s": 2627,
+    "message": "not ordered yet - leave by 08:43 UTC",
+    "issue_by_s_low": 827,
+    "issue_by_s_median": -5113,
+    "issue_by_s_high": -11773
+   },
+   {
+    "origin": "research:yeongdeok_2025:20250326T080000Z_FW1:origin",
+    "kind": "research",
+    "leave_by_s": 3004,
+    "message": "not ordered yet - leave by 08:50 UTC",
+    "issue_by_s_low": 1204,
+    "issue_by_s_median": -4736,
+    "issue_by_s_high": -11396
+   }
+  ]
+ }
+]

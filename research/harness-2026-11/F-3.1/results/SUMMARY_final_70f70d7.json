@@ -1,0 +1,593 @@
+[
+ {
+  "cache_file": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+  "destination_specs": 32,
+  "jobs": 1523,
+  "attempts": {
+   "no_route:match": 335,
+   "checked:match": 1188
+  },
+  "jobs_all": {
+   "no_route:match": 335,
+   "total": 1523,
+   "checked:match": 1188,
+   "checked:identical_route_cert": 1188
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 86,
+   "cert:equal": 86
+  },
+  "deadline_classes": {
+   "window_set(same_as_fire_free)": 44,
+   "censored_at_last_offset": 36,
+   "fire_set(differs_from_fire_free)": 5,
+   "no_checked_departure": 1
+  },
+  "deadline_class_match": {
+   "window_set(same_as_fire_free):match": 44,
+   "censored_at_last_offset:match": 36,
+   "fire_set(differs_from_fire_free):match": 5,
+   "no_checked_departure:match": 1
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 86
+  },
+  "fire_cells": {
+   "fire_free_identical:model_no_route:match": 302,
+   "fire_free_identical:checked_route:match": 1184,
+   "fire_affected:model_no_route:match": 33,
+   "fire_affected:checked_route:match": 4
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 250,
+   "deadline_next_second_infeasible:True": 250,
+   "job_witness:PASS": 1188
+  },
+  "piece_stats": {
+   "router:states_nonempty": 1239346,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 1239346,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 1249443,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 460.1484375,
+  "timing_s": {
+   "prepare_packet_model": 0.9689756580000903,
+   "fields": {
+    "router": 36.29725540900108,
+    "cert": 39.21572863800111,
+    "free": 37.005813670999714
+   },
+   "issue_and_witness": {
+    "router": 1.8615137689992025,
+    "cert": 2.188500511001166,
+    "free": 1.8873456630003602
+   },
+   "fixed_point_certificate_check": {
+    "router": 4.969372737001322,
+    "cert": 5.080973523999091,
+    "free": 4.927163518000725
+   },
+   "witness_full_checker": {
+    "cert": 1039.7388119910004
+   },
+   "total_wall": 1175.379000363
+  },
+  "exact_vs_grid_cert": {
+   "differs": 49,
+   "same": 36
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 85,
+   "n_positive": 85,
+   "median": 293,
+   "max": 584
+  },
+  "recorded_compute_s_sum": 16005.504069055663,
+  "field_compute_s_both_variants": 119.42513331900273,
+  "field_compute_s_cert_only": 42.37320480700237,
+  "precondition_ok": true,
+  "mismatches": []
+ },
+ {
+  "cache_file": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+  "destination_specs": 31,
+  "jobs": 1518,
+  "attempts": {
+   "no_route:match": 354,
+   "checked:match": 1158,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 6
+  },
+  "jobs_all": {
+   "checked:match": 1158,
+   "checked:identical_route_cert": 1158,
+   "total": 1518,
+   "no_route:match": 354,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 6
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 85,
+   "cert:equal": 85
+  },
+  "deadline_classes": {
+   "window_set(same_as_fire_free)": 39,
+   "censored_at_last_offset": 36,
+   "fire_set(differs_from_fire_free)": 10
+  },
+  "deadline_class_match": {
+   "window_set(same_as_fire_free):match": 39,
+   "censored_at_last_offset:match": 36,
+   "fire_set(differs_from_fire_free):match": 10
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 85
+  },
+  "fire_cells": {
+   "fire_free_identical:checked_route:match": 1034,
+   "fire_free_identical:model_no_route:match": 292,
+   "fire_affected:model_no_route:match": 62,
+   "fire_affected:checked_route:match": 124,
+   "fire_free_identical:unresolved:unresolved_cell": 6
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 252,
+   "deadline_next_second_infeasible:True": 252,
+   "job_witness:PASS": 1158
+  },
+  "piece_stats": {
+   "router:states_nonempty": 1130634,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 1130634,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 1208523,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 703.05078125,
+  "timing_s": {
+   "prepare_packet_model": 1.3727049009999064,
+   "fields": {
+    "router": 33.84824392799965,
+    "cert": 35.91035798599955,
+    "free": 36.733384072000035
+   },
+   "issue_and_witness": {
+    "router": 341.3094232749995,
+    "cert": 341.9644212480007,
+    "free": 1.718086530001301
+   },
+   "fixed_point_certificate_check": {
+    "router": 4.517913454999643,
+    "cert": 4.295407683001031,
+    "free": 4.561609455999815
+   },
+   "witness_full_checker": {
+    "cert": 1133.6877121470015
+   },
+   "total_wall": 1941.267784584
+  },
+  "exact_vs_grid_cert": {
+   "differs": 49,
+   "same": 36
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 85,
+   "n_positive": 85,
+   "median": 298,
+   "max": 569
+  },
+  "recorded_compute_s_sum": 14749.448635333567,
+  "field_compute_s_both_variants": 792.8566219400007,
+  "field_compute_s_cert_only": 379.24748413500015,
+  "precondition_ok": true,
+  "mismatches": []
+ },
+ {
+  "cache_file": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+  "destination_specs": 31,
+  "jobs": 1518,
+  "attempts": {
+   "no_route:match": 399,
+   "checked:match": 1029,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 90
+  },
+  "jobs_all": {
+   "checked:match": 1029,
+   "checked:identical_route_cert": 1029,
+   "total": 1557,
+   "no_route:match": 399,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 90,
+   "unresolved[UNRESOLVED]:cert_feasible": 39
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 85,
+   "cert:equal": 85
+  },
+  "deadline_classes": {
+   "no_checked_departure": 12,
+   "window_set(same_as_fire_free)": 41,
+   "censored_at_last_offset": 31,
+   "fire_set(differs_from_fire_free)": 1
+  },
+  "deadline_class_match": {
+   "no_checked_departure:match": 12,
+   "window_set(same_as_fire_free):match": 41,
+   "censored_at_last_offset:match": 31,
+   "fire_set(differs_from_fire_free):match": 1
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 85
+  },
+  "fire_cells": {
+   "fire_free_identical:checked_route:match": 1009,
+   "fire_affected:model_no_route:match": 114,
+   "fire_free_identical:model_no_route:match": 285,
+   "fire_free_identical:unresolved:unresolved_cell": 37,
+   "fire_affected:unresolved:unresolved_cell": 92,
+   "fire_affected:checked_route:match": 20
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 215,
+   "deadline_next_second_infeasible:True": 215,
+   "job_witness:PASS": 1068
+  },
+  "piece_stats": {
+   "router:states_nonempty": 777089,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 777089,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 1215351,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 850.55859375,
+  "timing_s": {
+   "prepare_packet_model": 1.252243672000077,
+   "fields": {
+    "router": 26.11919627899715,
+    "cert": 25.528726853001444,
+    "free": 32.49725814399926
+   },
+   "issue_and_witness": {
+    "router": 149.25818311400167,
+    "cert": 207.97570428100062,
+    "free": 6.28592348400025
+   },
+   "fixed_point_certificate_check": {
+    "router": 3.2162422049982524,
+    "cert": 3.2149859349990493,
+    "free": 4.109531868000431
+   },
+   "witness_full_checker": {
+    "cert": 913.4654833419982
+   },
+   "total_wall": 1373.8451767139998
+  },
+  "exact_vs_grid_cert": {
+   "differs": 42,
+   "same": 31
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 73,
+   "n_positive": 73,
+   "median": 288,
+   "max": 584
+  },
+  "recorded_compute_s_sum": 22448.141895125387,
+  "field_compute_s_both_variants": 448.91723582700047,
+  "field_compute_s_cert_only": 234.75667480600214,
+  "precondition_ok": true,
+  "mismatches": []
+ },
+ {
+  "cache_file": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+  "destination_specs": 153,
+  "jobs": 1631,
+  "attempts": {
+   "checked:match": 1400,
+   "no_route:match": 161,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 54,
+   "unresolved[UNRESOLVED]:cert_feasible": 8,
+   "unresolved[UNRESOLVED]:router_infeasible": 8
+  },
+  "jobs_all": {
+   "checked:match": 1400,
+   "checked:identical_route_cert": 1400,
+   "total": 1810,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 54,
+   "unresolved[UNRESOLVED]:cert_feasible": 122,
+   "no_route:match": 161,
+   "unresolved[UNRESOLVED]:router_infeasible": 73
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 91,
+   "cert:equal": 91,
+   "router:field_later": 1,
+   "cert:field_later": 1
+  },
+  "deadline_classes": {
+   "censored_at_last_offset": 81,
+   "no_checked_departure": 7,
+   "window_set(same_as_fire_free)": 3,
+   "fire_set(differs_from_fire_free)": 1
+  },
+  "deadline_class_match": {
+   "censored_at_last_offset:match": 81,
+   "no_checked_departure:match": 7,
+   "window_set(same_as_fire_free):match": 3,
+   "fire_set(differs_from_fire_free):MISMATCH": 1
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 92
+  },
+  "fire_cells": {
+   "fire_free_identical:checked_route:match": 1400,
+   "fire_affected:unresolved:unresolved_cell": 104,
+   "fire_free_identical:unresolved:unresolved_cell": 145,
+   "fire_affected:model_no_route:match": 86,
+   "fire_free_identical:model_no_route:match": 75
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 244,
+   "deadline_next_second_infeasible:True": 244,
+   "job_witness:PASS": 1522
+  },
+  "piece_stats": {
+   "router:states_nonempty": 9631496,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 9631496,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 13945387,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 1130.0625,
+  "timing_s": {
+   "prepare_packet_model": 2.880595276999884,
+   "fields": {
+    "router": 316.62530731300035,
+    "cert": 318.64546666999695,
+    "free": 353.2140133709993
+   },
+   "issue_and_witness": {
+    "router": 29.381630589007045,
+    "cert": 28.59135257699836,
+    "free": 8.00004713699559
+   },
+   "fixed_point_certificate_check": {
+    "router": 39.73606155099765,
+    "cert": 39.936160332999634,
+    "free": 48.03930605300616
+   },
+   "witness_full_checker": {
+    "cert": 1555.8303123010026
+   },
+   "total_wall": 2744.498350562
+  },
+  "exact_vs_grid_cert": {
+   "same": 81,
+   "differs": 4
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 85,
+   "n_positive": 85,
+   "median": 397,
+   "max": 569
+  },
+  "recorded_compute_s_sum": 35199.78074103373,
+  "field_compute_s_both_variants": 1057.3384129339975,
+  "field_compute_s_cert_only": 350.1174145239952,
+  "precondition_ok": true,
+  "mismatches": []
+ },
+ {
+  "cache_file": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+  "destination_specs": 152,
+  "jobs": 1626,
+  "attempts": {
+   "checked:match": 1486,
+   "no_route:match": 138,
+   "unresolved[UNRESOLVED]:cert_feasible": 2
+  },
+  "jobs_all": {
+   "no_route:match": 138,
+   "total": 1673,
+   "checked:match": 1486,
+   "checked:identical_route_cert": 1486,
+   "unresolved[UNRESOLVED]:router_infeasible": 23,
+   "unresolved[UNRESOLVED]:cert_feasible": 26
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 90,
+   "cert:equal": 90,
+   "router:field_later": 1,
+   "cert:field_later": 1
+  },
+  "deadline_classes": {
+   "censored_at_last_offset": 86,
+   "window_set(same_as_fire_free)": 5
+  },
+  "deadline_class_match": {
+   "censored_at_last_offset:match": 86,
+   "window_set(same_as_fire_free):match": 4,
+   "window_set(same_as_fire_free):MISMATCH": 1
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 91
+  },
+  "fire_cells": {
+   "fire_free_identical:model_no_route:match": 87,
+   "fire_free_identical:checked_route:match": 1481,
+   "fire_affected:model_no_route:match": 51,
+   "fire_affected:unresolved:unresolved_cell": 18,
+   "fire_free_identical:unresolved:unresolved_cell": 31,
+   "fire_affected:checked_route:match": 5
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 259,
+   "deadline_next_second_infeasible:True": 259,
+   "job_witness:PASS": 1512
+  },
+  "piece_stats": {
+   "router:states_nonempty": 11009599,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 11009599,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 13896539,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 701.13671875,
+  "timing_s": {
+   "prepare_packet_model": 2.4587709240004187,
+   "fields": {
+    "router": 329.39597247599295,
+    "cert": 328.8148891979986,
+    "free": 341.5774071890005
+   },
+   "issue_and_witness": {
+    "router": 7.281466543005536,
+    "cert": 7.467620736000754,
+    "free": 7.629525751992787
+   },
+   "fixed_point_certificate_check": {
+    "router": 40.22088950499801,
+    "cert": 40.15634194199765,
+    "free": 45.56104715599895
+   },
+   "witness_full_checker": {
+    "cert": 1421.167427087999
+   },
+   "total_wall": 2575.3835221299996
+  },
+  "exact_vs_grid_cert": {
+   "same": 86,
+   "differs": 5
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 91,
+   "n_positive": 91,
+   "median": 394,
+   "max": 569
+  },
+  "recorded_compute_s_sum": 30786.256746723084,
+  "field_compute_s_both_variants": 1024.6256528179915,
+  "field_compute_s_cert_only": 338.74128085799975,
+  "precondition_ok": true,
+  "mismatches": []
+ },
+ {
+  "cache_file": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+  "destination_specs": 152,
+  "jobs": 1627,
+  "attempts": {
+   "checked:match": 1510,
+   "no_route:match": 81,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 36
+  },
+  "jobs_all": {
+   "checked:match": 1510,
+   "checked:identical_route_cert": 1510,
+   "total": 1641,
+   "no_route:match": 81,
+   "unresolved[UNRESOLVED]:router_infeasible": 2,
+   "unresolved[UNRESOLVED]:cert_feasible": 12,
+   "unresolved[AT_ISSUE_FAILURE]:issue_blocked(router)": 36
+  },
+  "job_mismatches": [],
+  "deadlines": {
+   "router:equal": 91,
+   "cert:equal": 91
+  },
+  "deadline_classes": {
+   "censored_at_last_offset": 85,
+   "window_set(same_as_fire_free)": 4,
+   "no_checked_departure": 2
+  },
+  "deadline_class_match": {
+   "censored_at_last_offset:match": 85,
+   "window_set(same_as_fire_free):match": 4,
+   "no_checked_departure:match": 2
+  },
+  "feasible_set_holes": {
+   "no_holes_cert": 91
+  },
+  "fire_cells": {
+   "fire_free_identical:checked_route:match": 1510,
+   "fire_free_identical:model_no_route:match": 81,
+   "fire_free_identical:unresolved:unresolved_cell": 17,
+   "fire_affected:unresolved:unresolved_cell": 33
+  },
+  "witness_checks": {
+   "deadline_witness:PASS": 262,
+   "deadline_next_second_infeasible:True": 262,
+   "job_witness:PASS": 1522
+  },
+  "piece_stats": {
+   "router:states_nonempty": 13842438,
+   "router:states_multi_interval": 0,
+   "router:max_intervals_per_state": 1,
+   "cert:states_nonempty": 13842438,
+   "cert:states_multi_interval": 0,
+   "cert:max_intervals_per_state": 1,
+   "free:states_nonempty": 13879858,
+   "free:states_multi_interval": 0,
+   "free:max_intervals_per_state": 1
+  },
+  "peak_rss_mib": 736.7109375,
+  "timing_s": {
+   "prepare_packet_model": 2.328791739999815,
+   "fields": {
+    "router": 346.3163657720006,
+    "cert": 348.7049961619996,
+    "free": 341.96102968700234
+   },
+   "issue_and_witness": {
+    "router": 14.864840355995966,
+    "cert": 15.337878080995324,
+    "free": 15.276915848001408
+   },
+   "fixed_point_certificate_check": {
+    "router": 44.73671888999661,
+    "cert": 45.7929580940031,
+    "free": 45.661139426994396
+   },
+   "witness_full_checker": {
+    "cert": 1404.8609632400044
+   },
+   "total_wall": 2629.682420048
+  },
+  "exact_vs_grid_cert": {
+   "same": 85,
+   "differs": 4
+  },
+  "exact_uncapped_minus_grid_cert_s": {
+   "n": 89,
+   "n_positive": 89,
+   "median": 396,
+   "max": 569
+  },
+  "recorded_compute_s_sum": 28711.016401278495,
+  "field_compute_s_both_variants": 1084.790817645995,
+  "field_compute_s_cert_only": 366.3716659829947,
+  "precondition_ok": true,
+  "mismatches": []
+ }
+]
