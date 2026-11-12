@@ -56,6 +56,9 @@ hazard = json.loads((packet / 'HAZARD.json').read_text())
 req = json.loads((data / 'latest_inputs_try02/requests' / region / (case + '.json')).read_text())
 win = (F(req['departure']), F(req['horizon']))
 def model():
+    # road_bounds._REGISTRY is a PROCESS-WIDE coefficient cache keyed by model identity, shared by every model built in
+    # this process; each probe model must start from an empty one, as a worker process does
+    road_bounds._REGISTRY.clear()
     return road_bounds.RoadBoundModel(graph, packet, active_window=win)
 
 class TickAt(v2_work.Budget):
