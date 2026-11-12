@@ -43,8 +43,10 @@ It has 273 SCORED case receipts plus their npz entry files.
   (row, col), every stored cell is in the score mask, and none is initially burned.
 - `RESULTS_d4_wind.jsonl` (Owen PASS WITH NOTES; reproduces to 4.2e-7, not identical): `sample_forecast(d4_wind_seed0)` compared with the stored `p_d4_wind_seed0` over all
   1,705,079 stored cells. 471,597 cells (27.7%) are bit-identical in float32; max |Δ| = 4.2e-7; all cells valid.
-- c651_mc (1024 trajectories, seed 0, batch 32, `pipeline.c651_monte_carlo` unchanged): **bit-identical** to the stored
-  `p_c651_mc`, max |Δ| = 0, on every cell of every case run.
+- c651_mc (1024 trajectories, seed 0, batch 32, `pipeline.c651_monte_carlo` unchanged): **34 of 273 cases run;
+  bit-identical to the stored `p_c651_mc` (max |Δ| = 0) on every case run.** This is not a claim about all 273 cases.
+  The orchestrator decided the subset stands as the control. Owen reruns cases outside these 34, chosen by him, to
+  cover the selection.
   - `RESULTS_c651_every10.jsonl` (b6db989f…): fixed subset, every 10th case in the script's case order (shards 0/20
     and 10/20). 28 cases covering all six fires (Wapiti 6, Lava 5, Pioneer 5, Goat 4, RedRock 4, FishCreek 4);
     175,773 cells, all bit-identical; all valid; all identity checks pass.
