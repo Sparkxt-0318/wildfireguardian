@@ -389,6 +389,19 @@ pixel time per cell, which burned cells early and burned them out before arrival
 - **Same packet for every h5 start.** The three h5 `envelope_burnset` samples are content-identical by construction:
   burn set ∪ present fire on [0, H), with present fire inside the burn set, on one grid. Thomas counts them as one
   hazard.
+- **Routing consequence of `envelope_burnset`** (Richard, F-3.1). The claim is at acb5366,
+  `results/FDYN_V33_envelope_report.json`. Nora PASS WITH NOTES, row 36, carried to v3.4 by row 37. SCENARIO, not
+  what happened.
+  - **Origins with a checked route at the start:**
+    - Uiseong: 0/84 at each of the 3 starts, 0 of 252 in total. kriged_mean: 84/84/75.
+    - Yeongdeok: 27/90 at each start, 81 of 270 in total, with 78 deadlines unchanged vs kriged_mean. kriged_mean:
+      86/90/88.
+    - Identical at 5 h and 8 h.
+  - **Roads blocked for the whole horizon:** Uiseong 43,512 of 43,826 (99.28%), Yeongdeok 76,541 of 111,924 (68.39%).
+    Identical at every start, as the content-identical packets imply. Nora recounted both regions independently and
+    got the same.
+  - 438 of 438 burnset witnesses pass `independent.check_route` and the closed replay.
+  - Richard is rerunning on `MANIFEST_v3_4` so the packet hashes match.
 - **The v3.4 manifest labels are not edited.** They still cite row 32, because the manifest file is pinned by builds
   in progress (Thomas X1, Richard). Row 37 is recorded here, and the next manifest version will carry it.
 
