@@ -1041,7 +1041,7 @@ describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT
         } else if (!own) {
           r.withheld += 1;
           const [ko, en] = staffBoth(s);
-          expect(ko).toBe(`문의처 없음 — 입력한 기관(${e.ko})이 행정구역 경계 자료(2025-06-30 기준)로는 이 장소의 시·군(${g!.ko})과 다릅니다. 이 장소의 문의처는 ${g!.ko}에 확인하십시오. 기관명을 잘못 입력했을 때만 고치십시오. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다.`);
+          expect(ko).toBe(`문의처 없음 — 입력한 기관(${e.ko})이 행정구역 경계 자료(2025-06-30 기준)로는 이 장소의 시·군(${g!.ko})과 다릅니다. 이 장소의 문의처는 ${g!.ko}에 확인하십시오. 기관명을 잘못 입력했을 때만 고치십시오. 주민 안내는 문의처 줄만 빠지고 나머지는 그대로 나갑니다.`);
           expect(en).toBe(`No contact line — the issuer entered (${e.ko}) is not the 시·군 this place lies in (${g!.ko}), by the boundary file dated 2025-06-30. Check this place's contact with ${g!.ko}. Correct the issuer name only if it was entered wrongly. Residents get the same message without the contact line.`);
           // never an instruction to "fix" a correct entry, never a status code
           expect(ko + en).not.toMatch(/고칠 항목|field to fix|not_established|near_boundary|outside_all|entry_differs/);
@@ -1065,7 +1065,7 @@ describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT
   it('item 2: no line where the label is not established, absent or malformed — each reason in plain words, both languages', () => {
     const pl = real.find((x) => x.input.origin.sigungu?.ko === '의성군')!;
     const cases: [unknown, RegExp, RegExp][] = [
-      [{ ko: null, status: 'not_established', reason: 'near_boundary', source: 's' }, /경계에서 50 m 안/, /within 50 m of a 시·군 boundary/],
+      [{ ko: null, status: 'not_established', reason: 'near_boundary', source: 's' }, /경계에서 50 m 이내/, /within 50 m of a 시·군 boundary/],
       [{ ko: null, status: 'not_established', reason: 'outside_all', source: 's' }, /어느 시·군 경계 안에도/, /inside no 시·군 boundary/],
       [{ ko: null, status: 'not_established', reason: 'multiple', source: 's' }, /두 시·군 경계/, /more than one 시·군 boundary/],
       [{ ko: null, status: 'not_established', reason: 'entry_differs', source: 's' }, /도로 진입 지점이 다른 시·군/, /road entry point lies in another 시·군/],
@@ -1078,7 +1078,7 @@ describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT
       expect(s.decree!.ko.familyScript.contact).toBe('jurisdiction_not_established');
       expect(s.text.ko.staff.jurisdiction).toMatch(ko);
       expect(s.text.en.staff.jurisdiction).toMatch(en);
-      expect(s.text.ko.staff.jurisdiction).toMatch(/^문의처 없음 — 행정구역 경계 자료(\(\d{4}-\d{2}-\d{2} 기준\))?로 이 장소의 시·군을 확인하지 못했습니다\(.+\)\. 문의처를 넣지 않았습니다\. 담당 시·군을 직접 확인하십시오\. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다\.$/);
+      expect(s.text.ko.staff.jurisdiction).toMatch(/^문의처 없음 — 행정구역 경계 자료(\(\d{4}-\d{2}-\d{2} 기준\))?로 이 장소의 시·군을 확인하지 못했습니다\(.+\)\. 문의처를 넣지 않았습니다\. 담당 시·군을 직접 확인하십시오\. 주민 안내는 문의처 줄만 빠지고 나머지는 그대로 나갑니다\.$/);
       expect(s.text.en.staff.jurisdiction).toMatch(/^No contact line — this place's 시·군 could not be read from the boundary file( dated \d{4}-\d{2}-\d{2})? \(.+\)\. No contact line was added\. Check which 시·군 is responsible\. Residents get the same message without the contact line\.$/);
       expect(s.text.ko.staff.jurisdiction! + s.text.en.staff.jurisdiction!).not.toMatch(/확정|not_established|near_boundary|outside_all|entry_differs|multiple\b/);
     }

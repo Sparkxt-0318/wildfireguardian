@@ -253,17 +253,17 @@ export function checkJurisdiction(iss: Issuer, sigungu: PlaceSigungu | null | un
 const SIGUNGU_REASON_TEXT: Record<SigunguReason | 'none', LmText> = {
   outside_all: { ko: '어느 시·군 경계 안에도 들지 않음', en: 'inside no 시·군 boundary' },
   multiple: { ko: '두 시·군 경계에 함께 걸림', en: 'inside more than one 시·군 boundary' },
-  near_boundary: { ko: '시·군 경계에서 50 m 안', en: 'within 50 m of a 시·군 boundary' },
+  near_boundary: { ko: '시·군 경계에서 50 m 이내', en: 'within 50 m of a 시·군 boundary' },
   entry_differs: { ko: '도로 진입 지점이 다른 시·군에 있음', en: 'its road entry point lies in another 시·군' },
   none: { ko: '행정구역 자료 없음', en: 'no boundary label for this place' },
 };
 
-/** Staff line for a withheld contact line (substance by Iris; Korean by Sofia, 2026-11-12; the residents sentence awaits Sofia). */
+/** Staff line for a withheld contact line (substance by Iris; Korean by Sofia, 2026-11-12; including the residents sentence). */
 export function jurisdictionStaffLine(j: JurisdictionCheck, iss: Issuer, sigungu: PlaceSigungu | null | undefined, lang: LmLang): string | null {
   if (j === 'ok') return null;
   // Iris: the line states where the 시·군 comes from (a boundary file with a base date), never that the entry is wrong
   // (영덕군 staff producing messages for a 청송군 place entered the right name), and tells staff what residents get
-  const resident = lang === 'ko' ? ' 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다.' : ' Residents get the same message without the contact line.';
+  const resident = lang === 'ko' ? ' 주민 안내는 문의처 줄만 빠지고 나머지는 그대로 나갑니다.' : ' Residents get the same message without the contact line.';
   const date = sigungu ? /BASE_DATE (\d{4}-\d{2}-\d{2})/.exec(sigungu.source)?.[1] ?? null : null;
   if (j === 'mismatch') {
     const y = sigungu!.ko;
