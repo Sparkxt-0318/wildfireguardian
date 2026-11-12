@@ -125,3 +125,22 @@ This supersedes (b) where they conflict. It is committed before any headline run
 * **If Iris overrules,** her ruling is committed as a further dated amendment before any headline run.
 * **Timing.** The headline runs do not start until Iris has answered or 60 minutes have passed since the ruling
   (18:36 UTC).
+
+## Amendment 2026-11-12 19:15 UTC: pre-start burned cells (orchestrator ruling), committed before any headline run
+
+* **Finding.** no_reentry/1 keeps cells that burned out **before the start** open (they are not phases;
+  NOREENTRY_RULE.md). In the spotting runs this lets a larger fire give a **later** leave-by (UA 03-24 09Z, d = 500 m:
+  97 of 135 burning cells move to burned-out-before-start; 9 places later, 10 under never-clears).
+* **Ruling.** The person-facing default is the stricter reading: a cell that has burned is closed for the whole
+  horizon, **including** cells that burned out before the start (closed on [0, H)). Leo adds transform
+  **no_reentry/2** (= no_reentry/1 plus pre-start burned-out cells closed on [0, H); own writer identity; manifest
+  v3.7; rule first; Nora verifies).
+* **The 19:36 run is a VARIANT, not the headline.** The run on v3.6 no_reentry/1 packets is labelled *"VARIANT: no
+  re-entry after the start; cells burned out before the start stay open"*. It is not person-facing. The headline is
+  rerun on no_reentry/2 when Nora passes it, with the same runner and outputs.
+* **Reported from the /1 variant run.** Per region, start and horizon: the places where an earlier-arrival timing
+  variant (firms_early or envelope) gives a **later** leave-by than kriged_mean (CERT and ROUTER), listed.
+* **Reported from the /2 headline run: monotonicity check.** Across nested hazards (spotting dilation d = 0 ⊆ 500 ⊆
+  1000 ⊆ 2000 m, and earlier-arrival variants vs kriged_mean where the arrival is pointwise earlier or equal), no
+  place's leave-by may get later. Every violation is listed and explained.
+* Iris may overrule; her ruling would be committed as a further dated amendment.

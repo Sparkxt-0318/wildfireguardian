@@ -45,6 +45,12 @@ STEP = 1800
 ASSUMPTION = ("Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists at "
               "multi-hour. The static final-footprint row shows whether the road crosses the eventual burn area, not "
               "when it was safe to leave.")
+TRANSFORM_LABEL = {
+    "no_reentry/1": "VARIANT (no_reentry/1), not the headline: no re-entry after the start; cells burned out before the "
+                    "start stay open (NOREENTRY_RULE.md; MULTIHOUR_HEADLINE_RULE.md amendment 19:15 UTC)",
+    "no_reentry/2": "HEADLINE arm (no_reentry/2): a cell that has burned is closed for the whole horizon, including cells "
+                    "burned out before the start",
+}
 ROAD_LIMITED = "graph clipped to the recorded one-hour window; a road out may never have been loaded"
 
 
@@ -115,6 +121,8 @@ def run(graph, nr_packet, re_packet, instance, window):
     window_iv = [0, H]
     offsets = list(range(0, H + 1, STEP))
     hz_nr = json.loads((Path(nr_packet) / "HAZARD.json").read_text())
+    bs = Path(nr_packet) / "BUILD_SUMMARY.json"
+    tr = ((json.loads(bs.read_text()).get("writer_identity") or {}).get("transform") if bs.exists() else None)
     ok_nr, pre_nr = pm.full_policy_reduces_to_contact(hz_nr, peak_limit=peak_l, dose_limit=dose_l, incurred=0.0)
     feas = {}
     nonprefix = Counter()
@@ -238,10 +246,10 @@ def run(graph, nr_packet, re_packet, instance, window):
             row["no_route"] = no_route[o["origin_id"]]
         origins_out[o["origin_id"]] = row
     split = Counter(v["split"] for v in no_route.values())
-    return {"schema": "wfg.f31.headline/1", "H": H, "label": "SCENARIO (F-DYN v3.6), not what happened; roads limited "
-            "to the recorded windows; exact = exact for the time-dependent model's field, not for the fire; "
-            "no re-entry contact field (no re-entry after the start: cells burned out before the start stay open, "
-            "NOREENTRY_RULE.md); witness checked against the as-built packet",
+    return {"schema": "wfg.f31.headline/1", "H": H, "transform": tr, "label": "SCENARIO (F-DYN), not what happened; "
+            "roads limited to the recorded windows; exact = exact for the time-dependent model's field, not for the fire; "
+            + TRANSFORM_LABEL.get(tr, "UNKNOWN TRANSFORM %r: not reportable" % tr)
+            + "; no re-entry contact field; witness checked against the as-built packet",
             "assumption": ASSUMPTION, "fields": "CERT = router OR closed footprint; ROUTER = router rule only; "
             "refusal-grade statements only from ROUTER", "precondition_noreentry": pre_nr,
             "precondition_noreentry_ok": ok_nr, "destinations": len(specs), "origins": len(origins_out),
