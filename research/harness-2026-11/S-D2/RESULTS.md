@@ -230,9 +230,18 @@ then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s)
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
   kriged-label arm. The kriged SD is both large and miscalibrated, and the synthetic study shows the bracket
   likelihood's gain is largest exactly when the observation is coarse.
-* **Next, from Iris:** fit the kernel shape with the composite, then fit one scalar rate multiplier by exact forward
-  simulation from the known survey states (`synthetic_robust.fit_scale_by_simulation`, tested). Compare it with MCEM
-  on rate, NLL, shape, time and memory before choosing the `d2_bracket` implementation.
+* **Negative result: composite shape + simulated scalar rate** (Iris's cheaper candidate).
+  * Run: `python run_composite_scale.py --replicates 8` (96 s; `results/composite_scale.md`). It uses the same
+    truths and brackets as the stored robustness rows.
+  * Method: the composite kernel shape is rescaled by one multiplier, chosen by exact forward simulation from the
+    known survey states so the simulated new-burn count matches the observed count.
+  * It **overshoots** the total rate: 1.086 (6 h), 1.177 (12 h), 1.367 (24 h), 1.293 (spotting), against MCEM's
+    1.03–1.10.
+  * Its held-out NLL is no better than plain composite and beats MCEM in 0–1/8 per scenario. Its cost is 5–15 s
+    versus MCEM's 30–55 s.
+  * Reading (*hypothesis*): front speed depends on how rate is distributed across offsets, so matching burned-area
+    counts with a misallocated shape over-corrects the total. Rate and shape are not separable this way.
+  * MCEM stays the `d2_bracket` reference. A cheaper exact alternative would need a joint (shape + scale) fit.
 * **Shared fire-day frailty** (Sofia): a random rate multiplier per fire-day, possibly a gamma with closed-form
   integration, to absorb run days. It is not yet tested.
 * **Refit arms:** a full-rectangle label-validity arm (same loss as today) runs separately from the likelihood change
