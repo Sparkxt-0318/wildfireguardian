@@ -156,8 +156,14 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   median 0.34 s (max 1.6 s). The 1-hour panel: C 0.015 s, Python 0.24 s (max 1.9 s).
 - **Soundness labels (manifest).** kriged_mean is "kriged mean (not a bound)". firms_early is "BRACKET-START, NOT A
   LOWER BOUND". So these certificates prove routes and no-routes in those hazards only, not against the real fire.
-- **v3 packets.** firms_early results are to be recomputed on v3.1 (QUANT_v3_1_RULE.md acceptance). kriged_mean is
-  unchanged by v3.1 according to Leo's diff.
+- **firms_early on v3.1** (). The five packets were rebuilt from
+  MANIFEST_v3_1.json (sha 1c2e73db…) argv lists at Leo f40e2af and certified at departures 0 and 7,200 s.
+  - All 864 requests are accepted by both checkers (841 ROUTE, 23 NO_ROUTE), with no empty outputs, and O2
+    first-origin diffs are 0.
+  - Claim and T are identical to the v3 rows for all 864. That is expected: per-cell flame starts are identical to v3
+    in all five packets (HAZARD differs only in identity digests, as in Leo's PACKET_DIFF_v3_v31.json). The +300 s
+    birth shifts of v3.1 fall at other starts, such as acceptance sample (b).
+  - kriged_mean is unchanged by v3.1 according to Leo's diff.
 
 ## Envelope O2 and the v3.1 acceptance check (measured; `envelope_o2.py`; NOT yet verified)
 
