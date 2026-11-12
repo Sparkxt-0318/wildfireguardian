@@ -127,3 +127,14 @@ packet grid.
 - Wiring into the F-DYN child and the F-9.3 interface `build()`. That is on PR #105, after Hannah's verdict.
 - Option C (the per-cell law in the writer and the independent checker).
 - Richard's and Thomas's tools keep applying the three-way rule downstream until Hannah passes this.
+
+## Correction 1 (after the first run; the rule is unchanged)
+
+- **Wrong claim.** Regression item 1 above says two builds of the frozen writer are not byte-identical because of the
+  zip member time. **That is wrong here.**
+- **Observed.** In both environments, every frozen rebuild A2 has `constructed_arrays.npz` byte-identical to A
+  (15 of 15). numpy writes a fixed zip timestamp.
+- **What changes.** Nothing in the comparison rule changes: the npz is still compared array for array. The raw-byte
+  equality of the npz, and of B against A, is now also reported. It holds 15 of 15.
+- **Wrong assumption.** The note assumed some packets could not be rebuilt. In fact all 15 recorded packets have their
+  export present here.
