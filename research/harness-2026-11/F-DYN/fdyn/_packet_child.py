@@ -102,6 +102,8 @@ def main():
     ap = argparse.ArgumentParser()
     for k in ('--plan', '--graph', '--export-dir', '--cutoff', '--region', '--event', '--window-json', '--out'):
         ap.add_argument(k, required=True)
+    for k in ('--support-mask', '--support-rule', '--support-provenance'):   # F-9.3 SUPPORT_WIRING_RULE.md
+        ap.add_argument(k, default=None)
     a = ap.parse_args()
     sys.path.insert(0, str(WFG))
     import build_packet as BP            # noqa: E402
@@ -247,6 +249,23 @@ def main():
     if float(hz['valid_until']) != horizon:
         raise SystemExit('HORIZON_NOT_WRITTEN')
     variant = meta.get('arrival_variant')
+    if a.support_mask is not None:                # F-9.3 SUPPORT_WIRING_RULE.md: before the envelope NaN rewrite
+        with np.load(a.support_mask, allow_pickle=False) as z:
+            smask = np.asarray(z['support'])
+        rec = {'rule': a.support_rule, 'provenance': json.loads(a.support_provenance),
+               'unsupported_cells': int((~smask).sum()), 'cells': int(smask.size)}
+        if smask.all():                           # rule B: an all-true mask is never applied
+            rec.update(applied=False, reason='all cells supported')
+        else:
+            sys.path.insert(0, str(REPO / 'research' / 'harness-2026-11' / 'F-9.3' / 'support_mask'))
+            import packets_f93 as PF              # noqa: E402  (the verified wrapper, merged #152)
+            try:
+                hz, summ = PF.apply_support(Path(out), graph, summ, smask, a.support_rule, rec['provenance'])
+            except Exception:
+                Path(out, 'SUPPORT_WRITE_FAILED').write_text('the support channel was not applied; do not use this packet\n')
+                raise
+            rec.update(applied=True, support_writer=summ['support_writer'])
+        meta['support'] = rec
     arrays = Path(out) / 'constructed_arrays.npz'
     if variant == 'envelope':                    # PACKET_CONSISTENCY_RULE.md B: HAZARD-only, array path must refuse
         meta['arrays_sha256_as_written'] = sha(arrays)

@@ -41,6 +41,7 @@ class ArrivalScenario:
     horizon_h: float = 1.0
     quantum_s: float = 300.0
     graph: Path | None = None            # full-grid graph for raster/perimeter sources
+    support: str | None = None           # SUPPORT_WIRING_RULE.md: None | 'c651_unknown/1' (c651) | 'known' (rasters/perimeters)
 
     def validate(self):
         if self.source not in SOURCES or self.rule not in RULES:
@@ -57,12 +58,22 @@ class ArrivalScenario:
         for k, v in self.known.items():
             if np.asarray(v).dtype != bool:
                 raise ValueError(f'known[{k}] must be boolean')
+        if self.support is not None:
+            ok = {'c651': ('c651_unknown/1',), 'perimeter_sequence': ('known',), 'arrival_raster': ('known',)}
+            if self.support not in ok.get(self.source, ()):
+                raise ValueError(f'SUPPORT_NOT_WIRED {self.source}/{self.support} (SUPPORT_WIRING_RULE.md section 2)')
+            if self.support == 'known' and self.rule == 'envelope':      # SUPPORT_WIRING_RULE.md correction 1
+                raise ValueError('SUPPORT_NOT_WIRED: per-cell envelope + mask (masks apply to scalar-law packets only)')
+            if self.support == 'known' and not self.known:
+                raise ValueError('SUPPORT_PROVENANCE_MISSING: support="known" needs known flags')
         return self
 
     def digest(self):
         h = hashlib.sha256(json.dumps({'source': self.source, 'rule': self.rule, 'region': self.region,
                                        'start': self.start_tag, 'label': self.label, 'prov': self.provenance},
                                       sort_keys=True, default=str).encode())
+        if self.support is not None:             # absent by default: digests of existing scenarios are unchanged
+            h.update(('support:' + self.support).encode())
         for a in (self.arrival_lo_h, self.arrival_hi_h):
             if a is not None:
                 h.update(np.ascontiguousarray(a, dtype='<f8').tobytes())
@@ -78,6 +89,31 @@ def _iso(tag):
     return f'{tag[0:4]}-{tag[4:6]}-{tag[6:8]}T{tag[9:11]}:00:00Z'
 
 
+def support_args(sc: ArrivalScenario, work: Path, meta: dict) -> list:
+    """SUPPORT_WIRING_RULE.md: the supplied/1 mask = AND of the scenario's known flags (export grid, north-up);
+    perimeter sequences whose in-domain no-polygon cells become unknown before the horizon are refused."""
+    flags = {k: np.asarray(v, bool) for k, v in sc.known.items()}
+    if any(v.shape != (79, 237) for v in flags.values()):
+        raise ValueError('SUPPORT_SHAPE: known flags must be on the KFS_01 export grid (79, 237)')
+    mask = np.logical_and.reduce(list(flags.values()))
+    if sc.source == 'perimeter_sequence':
+        import datetime as _dt
+        t0 = _dt.datetime(2025, 3, 22, 2, 24, tzinfo=_dt.timezone.utc)
+        start = _dt.datetime.strptime(sc.start_tag, '%Y%m%dT%H%M%SZ').replace(tzinfo=_dt.timezone.utc)
+        tn = _dt.datetime.fromisoformat(sc.provenance['perimeter_times'][-1])
+        uncovered_in_domain = mask & ~np.isfinite(sc.arrival_lo_h)
+        tn_after_start_h = (tn - start).total_seconds() / 3600.0
+        if uncovered_in_domain.any() and tn_after_start_h < sc.horizon_h:
+            raise ValueError(f'SUPPORT_TIME_DEPENDENT: {int(uncovered_in_domain.sum())} in-domain cells in no polygon '
+                             f'become unknown at t_n (+{tn_after_start_h:g} h) before the horizon ({sc.horizon_h:g} h)')
+    p = work / 'support.npz'
+    np.savez_compressed(p, support=mask)
+    prov = {'source': sc.source, 'flags': sorted(flags), 'rule_text': 'support = AND of the ArrivalScenario known flags',
+            'scenario_digest': sc.digest()}
+    meta['support'] = {'rule': 'supplied/1', 'unsupported_cells_export_grid': int((~mask).sum()), **prov}
+    return ['--support-mask', str(p), '--support-rule', 'supplied/1', '--support-provenance', json.dumps(prov, sort_keys=True)]
+
+
 def build(sc: ArrivalScenario, out: Path, python: str = sys.executable) -> dict:
     """Build the packet for a scenario; returns a small summary. out must not exist (the writer is write-once)."""
     sc.validate()
@@ -89,12 +125,17 @@ def build(sc: ArrivalScenario, out: Path, python: str = sys.executable) -> dict:
     if sc.source == 'c651':
         win, md = _recorded_window(sc.region, sc.start_tag)
         event = md['construction']['parent_forecast']['event_id']
-        cmd = [python, '-I', '-B', str(WFG / 'build_packet.py'), '--graph',
+        cli = (REPO / 'research' / 'harness-2026-11' / 'F-9.3' / 'support_mask' / 'build_packet_f93.py'
+               if sc.support == 'c651_unknown/1' else WFG / 'build_packet.py')
+        cmd = [python, '-I', '-B', str(cli), '--graph',
                str(REPO / 'data' / 'routing' / 'graphs' / sc.region / 'graph.json'),
                '--export-dir', str(INPUTS / 'exports' / event), '--event', event, '--cutoff', _iso(sc.start_tag),
                '--region', sc.region, '--out', str(out)]
         if win is not None:
             cmd += ['--window-json', json.dumps(win)]
+        if sc.support == 'c651_unknown/1':
+            cmd += ['--support-rule', 'c651_unknown/1']
+            meta['support'] = {'rule': 'c651_unknown/1', 'cli': 'support_mask/build_packet_f93.py'}
         r = subprocess.run(cmd, capture_output=True, text=True)
         if r.returncode != 0:
             raise RuntimeError('C651_BUILD_FAILED ' + (r.stdout + r.stderr)[-800:])
@@ -114,6 +155,8 @@ def build(sc: ArrivalScenario, out: Path, python: str = sys.executable) -> dict:
                '--horizon-h', str(sc.horizon_h), '--arrival', str(lo_p), '--arrival-source',
                json.dumps({'f93_source': sc.source, **sc.provenance}), '--quantum-s', str(sc.quantum_s),
                '--domain', 'full_grid', '--graph', str(sc.graph), '--out', str(out)]
+        if sc.support == 'known':
+            cmd += support_args(sc, work, meta)
         if sc.rule == 'envelope':
             hi_p = work / 'arrival_hi.npz'
             np.savez(hi_p, arrival_h=sc.arrival_hi_h, affine_transform=aff, t0_utc='2025-03-22T02:24:00+00:00')
