@@ -249,6 +249,19 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
   - c651 is the only scored model trained on hindsight-restricted labels. The arm is therefore defined as a **refit of the c651 recipe** with exactly one change.
   - `d4_wind`, `d4_wind_rebuilt`, `logistic` and `logistic_rebuilt` already train on perimeter states over the full crop. **For them the arm changes nothing**, and no new d4 or logistic model is created.
 - *Recipe.* c651's recorded candidate configuration is kept: `forecast/runs/20261010_categorical_balanced_benchmark/candidate_selection.json`, candidate `mixed_3_5_7_9_02_lr0.1_warmup_cosine`, which is kernel sizes 3/5/7/9 mixed with nonnegative mixing, CNN branches, hidden 64, depth 1, dropout 0.15, learning rate 0.1, weight decay 0.01, warmup-cosine with a 4,096 horizon, 32 warm-up epochs, minimum factor 0.01 and restart period 512, and 512 epochs. Its training events and splits, its sampling limits and its validation-based best-epoch rule are also kept. It is run on the §3.1 rebuilt covariates plus the Choi kriged arrival rasters, and the seed is recorded.
+  - *What committed files pin (Marcus, from the c651 checkpoint's own contract).* There are 44 events.
+    - Training and validation (a cell-hour split within the same fires) use **25 events**: KFS_02, KFS_03 and the 23 forecast-v2 US fit fires.
+    - The test set is KFS_01/04/06/13 plus the six US2024 fires. KFS_05/07/09/11/12/14/15/16/17 are unused.
+    - The population condition is "complete K = 9 context, ≥ 1 burned neighbour". The categorical balance is inverse-sqrt with min_freq 0.001, max_factor 10 and chunk 512. The training seed is 7, and the cache metadata sha256 is 6cd4ae58….
+    - The arm keeps all of these.
+  - *Not committed: the cache's `metadata.json`.* The negative-sampling limits, the split seed and fraction, and the chunking are pinned only by that hash.
+  - **Gate before the recipe is frozen.** Row sampling depends only on the arrival rasters, the seed and the limits. Marcus re-runs it on the Choi rasters with the candidate limits, and it must reproduce the committed totals in `forecast/documents/categorical_balance_training_20261009.json`: train row count 158,561, population weight sum 34,481,268.6405 and positive weight 64,420.
+    - If it matches, the limits are recovered and recorded here by amendment before any training.
+    - If not, the owner's `metadata.json` is required, and the arm waits.
+  - *Dependencies (Daniel to confirm).*
+    - prepare.py samples cell-hours across each event's **full** window. That needs hourly rebuilt weather for every hour of all 25 events, far more than the cutoff hours the perimeter pipeline needs.
+    - KFS_02 and KFS_03 need rebuilt covariates on the Korean grids (EPSG:5179).
+  - *Runner and cost.* Marcus runs it with a pinned in-memory wrapper. The unchanged-recipe comparator is the same wrapper with the injection switched off, so the two arms share every other byte. Each arm takes hours on CPU.
 - *The one change.* `forecast/wildfire/prepare.py` admits a target only if its whole k × k neighbourhood has a finite arrival time (lines 862–883), and label validity comes from the arrival raster (`data.py:477-492`). In the arm, **cells with no arrival value inside the event rectangle are known unburned for the whole event**, and the neighbourhood rule requires only that the window lie inside the rectangle.
   - The basis is §4.1 rule 5, which is verified cell for cell on 29 exposed US fires.
   - For Korean kriged-only training fires it is an **assumption** (no perimeters exist), and that is disclosed.
@@ -259,8 +272,12 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 **(2) Cheap rate candidate, `rate_composite`.**
 - *Definition.* The kernel shape is fit by the **composite (independent-bracket) likelihood**. Then **one scalar rate, or a small grid of rates** (at most the §3.1 rate-mixture grid m ∈ {1, 2, 4, 8, 16}), is fit by the bracket likelihood with the shape held fixed.
 - *Step 1, synthetic, before any refit.* On Elena's synthetic harness, it is compared with the full latent-time method (`d2_bracket_rebuilt`'s estimator) on rate recovery (ratio to truth), held-out likelihood, kernel-shape error, wall time and peak memory, with brackets of 12–24 h and perimeter-type inputs.
-- *Matching rule.* The full method is not reliably better than `rate_composite` if its rate-ratio advantage is within 0.05, the held-out likelihood is not better by more than its seed-to-seed spread, and the shape error is no worse. If so, **`rate_composite` is the rate candidate refit on the training pool**, under the §3.1 recipe and the §4.1 rule 3 label rule. Otherwise the full method stays the rate candidate.
-  - These thresholds are proposed here for agreement with Elena and Marcus before step 1 runs.
+- *Matching rule.* Marcus's amendments were adopted before step 1 runs, and Elena's agreement is pending. The design uses ≥ 5 seeds per regime, paired by seed, in **at least a slow-run and a fast-run synthetic regime**. The fast-run regime is where the tail lives. **All three conditions must hold in both regimes:**
+  - **Rate:** the error is |log(r̂ / r)|. The full method's mean advantage over seeds, as a difference of these errors, is ≤ 0.05.
+  - **Likelihood:** the mean paired held-out log-likelihood difference (full − composite) is < 2 × SD(paired differences) / √seeds.
+  - **Shape:** the composite's kernel-shape error is no worse than the full method's, within the same paired 2-SE tolerance.
+
+  If all three hold in both regimes, **`rate_composite` is the rate candidate refit on the training pool**, under the §3.1 recipe and the §4.1 rule 3 label rule. Otherwise the full method stays the rate candidate.
 - `rate_composite` does not replace `d2_bracket_rebuilt` as a D2 candidate. P-D2 and its ordering stand as recorded.
 
 **Iris's ranking of SMOKE experiments (planning order, not a decision rule).**
