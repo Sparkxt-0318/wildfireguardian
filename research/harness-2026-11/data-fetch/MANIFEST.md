@@ -1,5 +1,7 @@
 # External data and reference code — harness 2026-11
 
+> **Note (12 Nov 2026, orchestrator decision).** `nirops_incidents_v2.csv` and `incident_metadata.csv` carry per-incident timing for every NIROPS incident, S-D9 parts b, c and d included: first_utc, last_utc and days, plus discovery_utc, origins and names in incident_metadata. Those fields go beyond what the S-D9 split may use. Use the column-trimmed copies in `../data-fetch-3/allowed_fields/` instead. The originals are pinned and left unchanged.
+
 Owner: Daniel (data fetcher). Fetched and checked on 2026-11-12. Batches 1–2 ran under an allowlist (Zenodo, the
 Copernicus DEM S3 bucket, GitHub). Batch 3 ran after the user approved unrestricted network access, which brought
 in Mendeley, data.go.kr and figshare (see "Batch 3" below).
