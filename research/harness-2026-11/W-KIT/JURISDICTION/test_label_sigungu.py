@@ -25,14 +25,16 @@ def square(x: float, y: float, w: float) -> list[list[tuple[float, float]]]:
     return [[(x, y), (x, y + w), (x + w, y + w), (x + w, y), (x, y)]]  # clockwise ring (shapefile outer ring)
 
 
-def write_shp(dirpath: Path, polys: list[tuple[str, str, list]], encoding: str = "cp949", prj: str | None = None) -> Path:
+def write_shp(dirpath: Path, polys: list[tuple[str, str, list]], encoding: str = "cp949", prj: str | None = None, base_dates: list[str] | None = None) -> Path:
     base = dirpath / "sgg"
     w = shapefile.Writer(str(base), shapeType=shapefile.POLYGON, encoding=encoding)
+    if base_dates is not None:
+        w.field("BASE_DATE", "C", 8)
     w.field("SIGUNGU_CD", "C", 10)
     w.field("SIGUNGU_NM", "C", 40)
-    for code, name, rings in polys:
+    for i, (code, name, rings) in enumerate(polys):
         w.poly(rings)
-        w.record(code, name)
+        w.record(*([base_dates[i % len(base_dates)]] if base_dates is not None else []), code, name)
     w.close()
     (dirpath / "sgg.prj").write_text(prj if prj is not None else UTMK.to_wkt(WktVersion.WKT1_ESRI), encoding="utf-8")
     (dirpath / "sgg.cpg").write_text(encoding.upper(), encoding="ascii")
@@ -82,7 +84,7 @@ def test_rule_cases_and_reasons_in_order(tmp_path: Path, shp: Path) -> None:
     assert lab["entry_east"]["ko"] is None  # never assigned to the entry node's county
     assert lab["no_entry"]["reason"] == "entry_differs"
     for v in lab.values():
-        assert v["source"] == L.SOURCE_LINE
+        assert v["source"] == L.FIXTURE_SOURCE
         assert (v["status"] == "established") == (v["reason"] is None)
         assert v["reason"] in (None, *L.REASONS)
     assert res["fixture"] is True
@@ -117,7 +119,7 @@ def test_korean_names_read_from_cp949_and_utf8(tmp_path: Path) -> None:
         d = tmp_path / enc
         d.mkdir()
         shp = write_shp(d, TWO, encoding=enc)
-        counties, _, files = L.read_counties(shp)
+        counties, _, files, _ = L.read_counties(shp)
         assert [c.name for c in counties] == ["합성군", "다른군"]
         assert set(files) >= {"sgg.shp", "sgg.dbf", "sgg.shx", "sgg.prj"} and all(len(h) == 64 for h in files.values())
 
@@ -135,14 +137,14 @@ def real_like(gunwi_code: str) -> list:
 
 def test_sanity_required_counties_and_gunwi(tmp_path: Path) -> None:
     ok = tmp_path / "ok"; ok.mkdir()
-    counties, _, _ = L.read_counties(write_shp(ok, real_like("27720")))  # 군위군 under 대구 (27)
+    counties, _, _, _ = L.read_counties(write_shp(ok, real_like("27720")))  # 군위군 under 대구 (27)
     L.sanity(counties)
     bad = tmp_path / "bad"; bad.mkdir()
-    counties, _, _ = L.read_counties(write_shp(bad, real_like("47720")))  # 군위군 under 경북: wrong vintage
+    counties, _, _, _ = L.read_counties(write_shp(bad, real_like("47720")))  # 군위군 under 경북: wrong vintage
     with pytest.raises(L.SanityError, match="군위군"):
         L.sanity(counties)
     missing = tmp_path / "missing"; missing.mkdir()
-    counties, _, _ = L.read_counties(write_shp(missing, TWO))
+    counties, _, _, _ = L.read_counties(write_shp(missing, TWO))
     with pytest.raises(L.SanityError, match="의성군"):
         L.sanity(counties)
 
@@ -168,3 +170,44 @@ def test_real_places_input_is_complete() -> None:
     for p in ps:
         assert 128.0 < p["point"]["lon"] < 130.0 and 35.5 < p["point"]["lat"] < 37.5
         assert p["entry"] and p["entry"]["lon"] is not None
+
+
+KGD_CB = CRS.from_epsg(5186)  # KGD2002 Central Belt 2010: the CRS of the owner's real file (Daniel, 2026-11-12)
+
+
+def test_crs_is_read_from_the_prj_not_assumed(tmp_path: Path) -> None:
+    """The same ground squares written in EPSG:5186 instead of 5179 give the same labels and distances."""
+    to = Transformer.from_crs(UTMK, KGD_CB, always_xy=True)
+
+    def re(polys: list) -> list:
+        return [(c, n, [[to.transform(x, y) for x, y in ring] for ring in rings]) for c, n, rings in polys]
+
+    ps = [place("deep", (X0 + 5_000, Y0 + 5_000), (X0 + 5_010, Y0 + 5_000)), place("near", (EDGE - 30, Y0 + 5_000), (EDGE - 40, Y0 + 5_000))]
+    a = tmp_path / "utmk"; a.mkdir()
+    b = tmp_path / "kgd"; b.mkdir()
+    ra = L.run(write_shp(a, TWO), places_file(a, ps), 50, fixture=True)
+    rb = L.run(write_shp(b, re(TWO), prj=KGD_CB.to_wkt(WktVersion.WKT1_ESRI)), places_file(b, ps), 50, fixture=True)
+    assert rb["crs_epsg"] == 5186 and ra["crs_epsg"] == 5179
+    for pid in ("deep", "near"):
+        la, lb = ra["labels"][pid], rb["labels"][pid]
+        assert (la["ko"], la["status"], la["reason"]) == (lb["ko"], lb["status"], lb["reason"])
+        # 5179 has scale factor 0.9996 on its central meridian, 5186 has 1.0: distances agree to ~0.06 %, not exactly
+        assert abs(la["boundary_m"] - lb["boundary_m"]) <= 0.001 * la["boundary_m"] + 0.2
+
+
+def test_source_line_must_name_the_files_base_date(tmp_path: Path) -> None:
+    shp = write_shp(tmp_path, real_like("27720"), base_dates=["20250630"])
+    p = places_file(tmp_path, [place("x", (X0 + 5_000, Y0 + 5_000), (X0 + 5_010, Y0 + 5_000))])
+    with pytest.raises(L.SanityError, match="2025-06-30"):
+        L.run(shp, p, 50, fixture=False, source="행정구역: 시군구경계 2025-01-20")
+    with pytest.raises(L.SanityError, match="empty"):
+        L.run(shp, p, 50, fixture=False, source=None)
+    res = L.run(shp, p, 50, fixture=False, source="행정구역: BND_SIGUNGU_PG (기준일 2025-06-30)", archive_sha256="ab" * 32)
+    assert res["base_dates"] == ["2025-06-30"] and res["labels"]["x"]["source"].endswith("2025-06-30)") and res["archive_sha256"] == "ab" * 32
+
+
+def test_mixed_base_dates_stop_the_run(tmp_path: Path) -> None:
+    shp = write_shp(tmp_path, real_like("27720"), base_dates=["20250630", "20250120"])
+    p = places_file(tmp_path, [place("x", (X0 + 5_000, Y0 + 5_000), (X0 + 5_010, Y0 + 5_000))])
+    with pytest.raises(L.SanityError, match="mixes base dates"):
+        L.run(shp, p, 50, fixture=False, source="2025-06-30")

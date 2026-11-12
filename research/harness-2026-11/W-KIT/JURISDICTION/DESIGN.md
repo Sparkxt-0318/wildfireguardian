@@ -88,3 +88,12 @@ to the orchestrator and Iris with the numbers, since such a large loss would nee
   9 passed. Mutations: the entry check removed → 1 failed; the margin check removed → 3 failed.
 - Not yet run on real data: the 국토교통부 SHP is hosted on V-World, which these containers cannot reach. The owner
   is downloading it.
+
+## Addendum (2026-11-12, after the file arrived, before any label is applied)
+- **The file actually used.** The owner supplied it on 2026-11-12 via Drive; Daniel checked it. It is BND_SIGUNGU_PG: 252 polygons, BASE_DATE 2025-06-30 on every row, CP949, CRS EPSG:5186 (KGD2002 Central Belt 2010), SGIS code numbering (37 = 경북, 군위군 22520 under 대구). Archive sha256: bafb7ef2e548d51a2bc7a446cac12b40cb4a7dd3339efc69e90f8edad31a5b41.
+- **This is not the 2025-01-20 edition** this design first named, so the script no longer hard-codes a source line.
+  - The line is passed with `--source`.
+  - The run stops unless that line names the file's base date.
+  - The orchestrator confirms the portal of origin with the owner. If it differs, only the source line changes.
+- **Base date.** 2025-06-30 is after the March 2025 fires. The labels assume no 시군구 boundary change between those dates; this is assumed, not checked.
+- **CRS.** Read from the .prj, as before. The rule's metres are those of the file's CRS. EPSG:5186 has scale factor 1.0 and 5179 has 0.9996, so the two differ by about 0.04 % in distance. The pass rule is unchanged.
