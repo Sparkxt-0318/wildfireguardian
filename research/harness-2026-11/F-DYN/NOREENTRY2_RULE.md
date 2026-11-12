@@ -253,3 +253,58 @@ Richard commits his acceptance-6 rule in F-3.1 before running anything.
 2. Code: `build.py --no-reentry2`, the child (transform check for `/1` or `/2`), `manifest.py` for v3.7, and tests.
 3. The `noreentry2_check.py` sample run (acceptance 1–5), and the B0 counts.
 4. The Richard, then Nora, steps that follow.
+
+## STATUS (2026-11-12): acceptance 1–5 pass on all 8 samples; 6–8 with Richard; Nora to verify
+
+**Code and manifest.**
+- Code at 1762aebe:
+  - `fdyn/build.py --no-reentry2` (`add_b0`);
+  - `fdyn/_packet_child.py` (identity `/2`);
+  - `fdyn/manifest.py`;
+  - unit test `test_noreentry2_b0_born_at_0`. F-DYN tests: 23 pass.
+- `MANIFEST_v3_7.json`, `wfg.fdyn.manifest/8`, 1,464 entries:
+  - the 976 v3.6 commands and outputs, verbatim;
+  - 488 `no_reentry/2`;
+  - only `transform_label` changes on the old entries (`/1` relabelled VARIANT), plus `burnset_label` on burnset
+    entries.
+
+**Results.** `NOREENTRY2_CHECK.json`, from `fdyn/noreentry2_check.py`, numpy 2.5.3. Samples: Yeongdeok 25T11Z
+(synthetic export) and Uiseong 24T09Z (recorded export), h5, all 4 variants.
+
+1. **Unchanged paths.**
+   - The reopening kriged_mean HAZARD is `6940f293…`, equal to v3.5.
+   - A fresh `/1` rebuild is byte-identical to the stored v3.6 `/1` packet on all 8: HAZARD, REPORT and
+     NATIVE_METADATA bytes, and the npz array for array.
+2. **Self-check and identity (all 8).**
+   - The self-check is consistent.
+   - The identity carries `no_reentry/2`, `no-reentry-scalar/2`, the F1 label and `writer_identity.transform`.
+   - The ids differ from `/1` and reopening.
+3. **Own derivation.** 0 flame mismatches on all 8. B0 was recomputed independently, and it equals the plan meta on
+   all 8.
+
+   | Sample | YD kriged | YD firms_early | YD envelope | YD burnset | UA kriged | UA firms_early | UA envelope | UA burnset |
+   |---|---|---|---|---|---|---|---|---|
+   | C0 cells | 2,294 | 2,624 | 2,624 | 16,176 | 1,050 | 1,204 | 1,204 | 16,176 |
+   | B0 cells | 2,197 | 2,527 | 2,215 | 0 | 1,032 | 1,186 | 1,087 | 0 |
+
+   - C0 outside the burn set ∪ present fire: 0 cells on all 8.
+   - Burnset `/2` flame equals `/1` flame (both regions), as expected.
+4. **Flux, reported.**
+   - Max flux stays 0.69–0.70 kW/m² in every packet.
+   - **Integrated flux grows a lot**, as F1 predicts:
+
+     | Sample | `/2` vs `/1` | `/2` vs reopening |
+     |---|---|---|
+     | YD kriged_mean | × 6.0 | × 13.8 |
+     | YD firms_early | × 4.3 | × 11.2 |
+     | YD envelope | × 3.1 | × 4.8 |
+     | UA kriged_mean | × 14.5 | × 38.3 |
+     | UA firms_early | × 22.9 | × 63.6 |
+     | UA envelope | × 8.1 | × 10.6 |
+     | burnset | × 1.0 | × 1.0 |
+
+   - Richard's acceptance 7 counts and the "radiation-convention-limited" column decide what this means for verdicts.
+5. **Array path.** Consistent on all 8, envelope included.
+
+**Next.** Richard runs 6a–6d (pass/fail), 7 and 8 (reported), under F-3.1 `NOREENTRY2_ACCEPTANCE_RULE.md` @
+ed87b5bb. Nora verifies.
