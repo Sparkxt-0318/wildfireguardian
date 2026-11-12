@@ -60,7 +60,7 @@ blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely s
 
 ## Proof-carrying route slices (measured; `slices.py`, `results/slices.json`)
 
-Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,858 KB):
+Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (33–2,858 KB):
 - A, legality of the route only (corridor edges, their blocks, turns, waits, acceptance): **4.5–57 KB**.
 - Optimality: in the 5 routes whose arrival is forced by the destination opening (no state can complete before T),
   the COCERT proof needs only the acceptance record (≈0.1 KB). For the other 15 (10 routes, 5 no-route) the best slice
@@ -69,9 +69,10 @@ Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,8
   itself, because it depends on most of the reachable region. A per-node Merkle authentication estimate
   (32 B × ⌈log2 nV⌉ per node, no sharing) is a loose upper bound that alone exceeds the instance; a real multi-proof
   design is unmeasured.
-- **Consequence: a device can verify route legality only** (4.5–57 KB per route). Optimality and no-route proofs are
-  not smaller than the instance on this panel, so a device cannot check them more cheaply than by holding the whole
-  instance.
+- **Consequence: a device can always verify route legality** (4.5–57 KB). It can verify optimality only where the
+  arrival is forced by the destination opening (5 of 20, ≈0.1 KB). Otherwise optimality and no-route proofs are
+  0.82–3.08× the instance before completeness authentication, whose loose upper bound alone exceeds the instance, so on
+  this panel they offer no saving over holding the whole instance.
 - Erratum (2026-11-12): the corrected range above was verified by Mira and committed in ae5351a. The #141 routing cut
   (0685e03) carried an older README and silently restored the earlier, wrong draft figure "≈0.5–1.5×". Recomputed from
   the unchanged `results/slices.json` (same sha256 at ae5351a, 0685e03 and Main): ratio = min over forward/complement of
