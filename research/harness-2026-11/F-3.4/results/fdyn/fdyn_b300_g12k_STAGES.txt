@@ -1,0 +1,54 @@
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=141.7 peak=9766
+    BM 53.4s EA 50.8s | mem end/hw GiB: BM 0.40/9.54 EA 2.07/9.54 solve 2.09/9.54
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap   91.7 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  159.5 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=153.9 peak=9766
+    BM 65.0s EA 51.3s | mem end/hw GiB: BM 0.40/9.54 EA 2.07/9.54 solve 2.09/9.54
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap   84.6 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  146.8 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158334 AT_ISSUE_FAILURE/AT_ISSUE_FAILURE    arr=None wall=67.5 peak=9766
+    BM 57.4s EA 0.0s | mem end/hw GiB: BM 0.40/9.54 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    6.0 status AT_ISSUE_FAILURE   reason AT_ISSUE_CONSTRAINT_VIOLATION labels None exp None
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158323 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=144.9 peak=9224
+    BM 59.4s EA 49.8s | mem end/hw GiB: BM 0.40/9.01 EA 2.07/9.01 solve 2.09/9.01
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap   89.4 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  155.4 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158324 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=142.4 peak=9224
+    BM 56.0s EA 50.9s | mem end/hw GiB: BM 0.40/9.01 EA 2.07/9.01 solve 2.09/9.01
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap   90.6 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  157.8 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158334 AT_ISSUE_FAILURE/AT_ISSUE_FAILURE    arr=None wall=68.1 peak=9223
+    BM 58.3s EA 0.0s | mem end/hw GiB: BM 0.40/9.01 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    6.0 status AT_ISSUE_FAILURE   reason AT_ISSUE_CONSTRAINT_VIOLATION labels None exp None
+gdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=116.6 peak=4699
+    BM 9.4s EA 77.7s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.44/4.59
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  106.9 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  186.0 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=126.5 peak=4727
+    BM 13.5s EA 82.5s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.46/4.61
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  101.1 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  175.8 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=115.7 peak=4699
+    BM 11.1s EA 74.1s | mem end/hw GiB: BM 0.59/2.67 EA 4.42/4.46 solve 4.44/4.59
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  107.0 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  186.4 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+gdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN/ arr=59 wall=36.2 peak=2344
+    BM 8.6s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    6.0 status CONDITIONAL_OPTIMUM reason EXACT_CONTACT_SWEEP      labels None exp None
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=113.7 peak=4716
+    BM 8.5s EA 76.6s | mem end/hw GiB: BM 0.59/2.29 EA 4.44/4.44 solve 4.46/4.60
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  108.3 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  188.7 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=116.3 peak=4720
+    BM 10.0s EA 75.9s | mem end/hw GiB: BM 0.59/2.29 EA 4.44/4.44 solve 4.46/4.61
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  107.4 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  186.9 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0

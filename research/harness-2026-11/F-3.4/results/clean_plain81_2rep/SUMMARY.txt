@@ -1,0 +1,12 @@
+group                                  sum_s   share    median      max
+startup_imports                         7.28    0.8%     0.175     0.29
+input_binding                          14.76    1.6%     0.209     1.19
+per_forecast_admission_and_models     161.63   18.0%     2.378    13.24
+request_validation                      0.00    0.0%     0.000     0.00
+search                                334.35   37.3%     1.688    63.63
+route_check_contact                    19.89    2.2%     0.079     2.19
+route_check_radiation_exposure        276.38   30.8%     1.317    29.10
+publication_and_exit                   35.80    4.0%     0.751     3.15
+unattributed                           47.18    5.3%     0.151    15.91
+TOTAL complete wall                   897.26
+coverage: {"executions_with_at_least_95pct_attributed": 37, "executions": 40, "min_attributed_share": 0.8043293912651791, "total_attributed_share": 0.9474125402233581}

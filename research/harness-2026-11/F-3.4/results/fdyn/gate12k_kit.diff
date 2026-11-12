@@ -1,0 +1,13 @@
+Only in window-kit-gate12k: TEST_COPY_README.txt
+diff -ru window-kit/routing_candidate/baseline/hybrid_checker.py window-kit-gate12k/routing_candidate/baseline/hybrid_checker.py
+--- window-kit/routing_candidate/baseline/hybrid_checker.py	2026-11-12 08:47:53.723624457 +0000
++++ window-kit-gate12k/routing_candidate/baseline/hybrid_checker.py	2026-11-12 13:44:31.159582002 +0000
+@@ -6,7 +6,7 @@
+ from mission_contract import prepare_mission,graph_digest,q,unmasked,MissionInvalid
+ from hybrid_radiation import HybridRadiationBounds,DEFAULT_SETTINGS
+ 
+-RSS_LIMIT_MB=3072
++RSS_LIMIT_MB=12288
+ 
+ def rss_mb():return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/(1048576 if sys.platform=='darwin' else 1024)
+ def file_sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()

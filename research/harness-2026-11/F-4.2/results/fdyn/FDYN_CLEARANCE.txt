@@ -1,0 +1,7 @@
+KIT      gdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207 pub a=   59 r*= 12081.6 (CROP) dom=   2544 a0=59 | a0+0:r=5999/a=59 a0+60:r=5999/a=59 a0+300:r=5999/a=59 a0+600:r=5999/a=59 [148s]
+KIT      ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 pub a=  274 r*=  5118.1 (CROP) dom=   4653 a0=274 | a0+0:r=5117/a=274 a0+60:r=5117/a=274 a0+300:r=5117/a=274 a0+600:r=5117/a=274 [604s]
+TESTKIT  ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166 pub a= 3953 r*=     4.4 (FIRE) dom=   8039 a0=None |  [27s]
+TESTKIT  ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 pub a=  274 r*=  5118.1 (CROP) dom=   4653 a0=274 | a0+0:r=5117/a=274 a0+60:r=5117/a=274 a0+300:r=5117/a=274 a0+600:r=5117/a=274 [644s]
+TESTKIT  gdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207 pub a=   59 r*= 12081.6 (CROP) dom=   2544 a0=59 | a0+0:r=5999/a=59 a0+60:r=5999/a=59 a0+300:r=5999/a=59 a0+600:r=5999/a=59 [190s]
+TESTKIT  ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166 pub a= 3953 r*=     4.4 (FIRE) dom=   8039 a0=None |  [31s]
+TESTKIT  ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168 pub a=  274 r*=  5118.1 (CROP) dom=   4653 a0=274 | a0+0:r=5117/a=274 a0+60:r=5117/a=274 a0+300:r=5117/a=274 a0+600:r=5117/a=274 [760s]

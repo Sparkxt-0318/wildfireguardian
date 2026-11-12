@@ -34,11 +34,16 @@ def missions(kit):
     return seen
 
 
-def build_job(kit, inputs, region, case_id, out, budget, worker, label):
-    cutoff = case_id.split('_')[0]
-    graph = inputs / 'graphs' / region / 'graph.json'
-    packet = inputs / 'latest_inputs_try02/packets' / region / cutoff
-    request = inputs / 'latest_inputs_try02/requests' / region / (case_id + '.json')
+def build_job(kit, inputs, region, case_id, out, budget, worker, label, paths=None, memory_guard_mib=3072):
+    """Job exactly as wfg_latest.api.route_and_check builds it. `paths` = (graph, packet, request) overrides the
+    frozen-panel lookup (used for F-DYN packets)."""
+    if paths is None:
+        cutoff = case_id.split('_')[0]
+        graph = inputs / 'graphs' / region / 'graph.json'
+        packet = inputs / 'latest_inputs_try02/packets' / region / cutoff
+        request = inputs / 'latest_inputs_try02/requests' / region / (case_id + '.json')
+    else:
+        graph, packet, request = (Path(x).resolve() for x in paths)
     q = json.loads((kit / 'queues/LATEST_PREFLIGHT_REAL.json').read_text())['jobs'][0]
     req = json.loads(request.read_text())
     job = {'label': label, 'case_id': label, 'cohort': 'f34', 'arm': 'RDA_CAND', 'arm_key': 'RDA_CAND', 'rep': 1,
@@ -50,7 +55,7 @@ def build_job(kit, inputs, region, case_id, out, budget, worker, label):
            'core_sha256': q['core_sha256'], 'checker_module': q['checker_module'], 'checker_sha256': q['checker_sha256'],
            'root': None, 'decision_dir': None, 'output_path': str(out), 'campaign': 'F34', 'queue': 'F34',
            'preparation_mode': q['preparation_mode'], 'preparation_mode_sha256': q['preparation_mode_sha256'],
-           'preparation_source_sha256': q['preparation_source_sha256'], 'memory_guard_mib': 3072,
+           'preparation_source_sha256': q['preparation_source_sha256'], 'memory_guard_mib': memory_guard_mib,
            'phaseB_sha256': q['phaseB_sha256']}
     return job, graph, packet, request, req
 
@@ -59,14 +64,14 @@ def load(p):
     return json.loads(p.read_text()) if p.exists() else None
 
 
-def run_one(kit, inputs, region, case_id, out, budget, mode, python, cache_root=None):
+def run_one(kit, inputs, region, case_id, out, budget, mode, python, cache_root=None, paths=None, memory_guard_mib=3072):
     sys.path[:0] = [str(kit / 'runner'), str(kit / 'decision')]
     import wfg_controller as CTL
     import journey_decision_v2_1 as JD
     target = kit / 'phaseB/rda_worker_v1_1.py'
     worker = HERE / 'phase_worker.py' if mode == 'phase' else target
     label = '%s__%s' % (region, case_id)
-    job, graph, packet, request, req = build_job(kit, inputs, region, case_id, out, budget, worker, label)
+    job, graph, packet, request, req = build_job(kit, inputs, region, case_id, out, budget, worker, label, paths, memory_guard_mib)
     if mode == 'phase':
         job['env'] = {'WFG_PHASE_TARGET': str(target)}
     if cache_root is not None:
@@ -87,6 +92,7 @@ def run_one(kit, inputs, region, case_id, out, budget, mode, python, cache_root=
     row = {'region': region, 'case_id': case_id, 'mode': mode, 'budget_s': budget,
            'complete_wall_s': rc.get('external_launch_to_completion_wall_s'), 'harness_wall_s': harness_wall,
            'on_time': rc.get('on_time_complete_publication'), 'cleanup': rc.get('cleanup_state'),
+           'memory_guard_mib': memory_guard_mib, 'memory_guard_triggered': rc.get('memory_guard_triggered'),
            'family_peak_rss_mib': (rc.get('sampled_family_peak_rss_bytes') or 0) / 2 ** 20,
            'rss_sampling_cost_s': rc.get('rss_sampling_cost_s'),
            'primary_status': res.get('primary_status'), 'authoritative_status': dec.get('authoritative_status'),

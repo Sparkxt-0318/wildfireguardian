@@ -1,10 +1,10 @@
 # F-3.4 phase profile of the frozen 20-mission routing workload (interim)
 
 Status: **measured; verified PASS WITH NOTES by Mira (12 Nov, @ b6c94bb)**, from 3+1 fresh runs plus the committed
-rows. Data: `results/primary_b81_3rep/` (primary) and
-`results/extended_b300_1rep/` (extended budget, one repetition). A clean rerun meeting Iris's acceptance criteria is
-queued: five cold and five warm repetitions, per-phase memory, and the 30 s budget plus an uninstrumented control.
-It will be added as `results/clean_*`.
+rows. Data: `results/primary_b81_3rep/` (primary) and `results/extended_b300_1rep/` (extended budget, one
+repetition). The clean rerun is below (§ Clean rerun), **verified PASS WITH NOTES by Mira (REQUEST 8, @ db2c516)**.
+Option B is a verified negative (§ Option B, REQUEST 9). Option A's acceptance rule is fixed in `OPTION_A_PLAN.md`
+(314656d) before any build. The F-DYN multi-hour profile is in progress.
 
 ## What was measured
 
@@ -68,6 +68,10 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
 | yeongdeok 0325T23 FL2 | route (2 reps feasible, 1 optimum) | 72.89 | 0.063 | 1.31 (2%) | 50.30 | 12.93 | 1.98 | 0.24 |
 | yeongdeok 0326 FW1 | route, optimum proven | 21.51 | 0.041 | 0.31 (1%) | 3.98 | 11.93 | 0.45 | 0.23 |
 
+**Note on "refusal proven".** In these tables, "refusal proven" is the kit's status `FULL_MODEL_REFUSAL_PROVEN`.
+The kit accepts a refusal certificate on its declared fields and does not re-verify it. These refusals were **not**
+independently re-checked here; kit-v2 G2c adds that re-verification.
+
 ## Which efficiency direction (claim, pending verification)
 
 - **Not a persistent service.** Start-up and imports are 0.8% of wall time, with a median of 0.15 s per request.
@@ -81,19 +85,144 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
   bound is at most 0.33 of budget and the peak at most 0.0005 of budget. Same-forecast request pairs share 0 road
   edges, so a per-forecast cache of route checks would not be reused across them.
 - **On the large graphs, search dominates** (Yeongdeok 25–67 s), and Yeongdeok FX2 does not resolve at 81 s here.
-- Next step, approved by the orchestrator and Iris, test-first, as an opt-in kit only:
-  - A: a certified two-tier enclosure. The existing outward binary64 radial tier decides when it can, guarded at half
-    the budget; the exact tier runs otherwise. It requires zero nesting violations over the 80 executions and a
-    property test.
-  - B: dyadic outward snapping of receiver boxes, so that corners repeat and stay exact.
+- Speed-up options tested after this profile (opt-in kits only, frozen kit untouched):
+  - A: a certified two-tier enclosure. Acceptance rule written before any build: `OPTION_A_PLAN.md`.
+  - B: dyadic outward snapping of receiver boxes. **Negative** (below): identical verdicts, but slower.
+
+## Clean rerun (verified PASS WITH NOTES, Mira REQUEST 8 @ db2c516)
+
+Data: `results/clean_cold81_5rep`, `clean_warm81_5rep`, `clean_cold30_2rep`, `clean_plain81_2rep`. Host: this
+container. All 20 missions.
+
+- **Cold, 81 s, 5 reps (100 executions).** Shares of wall time:
+  - search 38.1%;
+  - radiation enclosure 30.9%;
+  - admission and models 18.1%;
+  - start-up 0.8%.
+  - Coverage: 95/100 executions have ≥ 95% of wall attributed (minimum 74.9%).
+  - **Search basis:** 38.1% sums the worker's own stage elapsed times (Z, LO, LO2, HI) plus the earliest-arrival
+    bound. Summing the function timers instead (contact sweep, EA bound, `road_core.solve`) gives 864.6 s = 39.9%
+    (Mira).
+  - **Outcomes:** 98/100 executions on time. 5 UNRESOLVED, all Yeongdeok 0325T19 FX2 (5/5 reps).
+- **Warm (the kit's authenticated prepared-graph cache), 81 s, 5 reps.**
+  - cache_hit on 100/100 measured runs.
+  - Graph preparation totals 188.3 s cold vs 59.1 s warm. The warm figure excludes the 5 unmeasured prime runs; with
+    them it is 73.5 s.
+  - Median per-mission warm/cold wall ratio 0.963.
+- **Instrumentation control (uninstrumented, 2 reps).** Median per-mission plain/instrumented wall ratio 1.038
+  (1.031 against cold reps 1–2 only). Plain is not faster, so the overhead is below run-to-run noise.
+- **30 s budget, 2 reps: 32 of 40 executions resolve on this host.** Unresolved in both reps:
+  - Uljin 0304T03 FX1;
+  - Yeongdeok 0325T19 FD1;
+  - Yeongdeok 0325T19 FX2;
+  - Yeongdeok 0325T23 FL2.
+- **Per-phase memory (high-water increase).** Radiation check median +31 MiB. Maxima: search +957 MiB, bound model
+  +736 MiB, graph preparation +404 MiB.
+
+## Option B: dyadic snapping (negative; verified PASS WITH NOTES, Mira REQUEST 9 @ db2c516)
+
+- **Method.** `fastrad/build_snap_kit.py` snaps each radiation receiver box outward to a 2^-k m grid before the
+  exact-rational analytic call, asserting containment. Compared uninstrumented with the plain control
+  (`fastrad/snap_compare.py`).
+- **Data:** `results/option_b/`.
+- **Results.**
+  - **snap10, 2 reps:** status and arrival identical on 20/20 missions. Sum of median walls 448.6 → 486.0 s (+8.3%).
+  - **snap6, 1 rep:** 19/20 identical. The difference is Yeongdeok 0325T23 FL2 (UNRESOLVED → FEASIBLE 1922).
+    FL2 varies across runs and modes (cap-sensitive): the plain control is UNRESOLVED in 2/2 reps, while the
+    instrumented cold runs give FEASIBLE 1922 in 5/5. snap6 wall +5.6%.
+  - **Certified bounds.** Dose and peak upper shares are unchanged to 4 decimals for every pair where both runs
+    completed the check. Exception: snap10 FL2 has no shares at all (CHECK_STARTED_NOT_COMPLETED in both reps), while
+    the base has 0.00183 (dose) and 0.000055 (peak).
+  - **Reasons.**
+    - On this host, Hongseong FW2, Miryang FN1 and Uljin FX1 certify via the adaptive fallback under snap10
+      (COMPLETE_CONTACT_AND_ADAPTIVE_RADIATION). This is **host-speed dependent**, not a property of snapping: the
+      hybrid tier has a wall cap (`hybrid_radiation.py:182-184`), and the slowdown pushes it past the cap. On Mira's
+      host, snap10 Uljin FX1 kept COMPLETE_CONTACT_AND_RADIATION (3119 s; 24.1 → 29.5 s, +22%).
+    - snap10 also changes Yeongdeok FX2's unresolved reason in one rep (NO_SOLVER_WITNESS → NO_CERTIFIED_WITNESS),
+      with the same status.
+- **Conclusion:** no status or arrival gain, and slower. Dropped.
+
+## F-DYN 5-hour profile (multi-hour; plan FDYN_PLAN.md with amendments A1–A3)
+
+**Status.** 30/300/900 s and the 12 GiB repeats are verified PASS WITH NOTES (Mira, REQUEST 10 @ 73f29a7). A3(a) and
+A3(b) are verified PASS WITH NOTES (Mira, REQUEST 11 @ 7e88cfc).
+
+**Setup.** Host: this container. Packets: Leo `MANIFEST_v3_1.json`, sha
+`1c2e73db20db7b1caa309ebde42d20629054cd49c8f1f2cd9e4e81b0b9c89bbe`.
+- 2 starts: Uiseong 0325T17 and Yeongdeok 0325T23.
+- 2 variants: `kriged_mean`, and `firms_early` (**bracket-start, not a lower bound**). `envelope_sound` (withdrawn)
+  is not used.
+- 3 origins each, giving 12 requests. 1 repetition per row.
+- Data: `results/fdyn/` (`*_ROWS.jsonl.gz`, `*_STAGES.txt`).
+
+**The kit as frozen (3,072 MiB guard). This is the kit's own count.**
+- **30 s:** 12/12 UNRESOLVED. 10 are LATE_RESULT (6 with a Z timeout, 4 with no stage recorded). 2 are
+  STALE_OR_IDENTITY_MISMATCH at 33.0 s: the outer-deadline SIGKILL left no evidence, so these are not identity
+  faults.
+- **300 s:** 12/12 memory-guard stops at 36–44 s.
+- **900 s:** 10 memory-guard stops. **2 CHECKED_JOURNEY_FEASIBLE** (Yeongdeok firms …207 arrival 59, …168 arrival
+  274), both from a Z incumbent with no EA bound built (peak 2.3 GiB).
+- **Kit count at 5 h: at most 2 of 12 certified.** Multi-hour certified routing is not demonstrated.
+
+**Non-evaluated repeats (memory limits raised; labelled).**
+- **Controller guard only at 12 GiB, 300 s:**
+  - 1 FULL_OPTIMUM_PROVEN (firms …207, 59, from Z);
+  - 2 AT_ISSUE_FAILURE (Uiseong …334);
+  - 9 UNRESOLVED, with LO/HI stopped by the solver gate (`RSS_LIMIT`) at 0 expansions.
+- **The same at 900 s:** a PARTIAL run, 1/12 rows, stopped by decision (it could not show search).
+- **A1: controller and solver at 12 GiB, 300 s:**
+  - 2 FEASIBLE (Z), 2 AT_ISSUE;
+  - 4 Uiseong LATE_RESULT;
+  - 4 Yeongdeok where LO/LO2/HI return conditional optima (18–1,669 expansions), but every check is discarded by the
+    checker gate.
+- **A3(a), re-checked offline outside the kit (not published by the kit):** 4 witness checks covering 3 distinct
+  routes pass both the unchanged whole-road checker and the independent checker **as admissible routes**.
+  Optimality is not re-established. The two checkers agree on the verdict with very different margins (enclosure
+  dose ≤ 0.049 and peak ≤ 0.054 vs cell-binned ≤ 0.0123 and ≤ 0.0006).
+- **A3(b), MODIFIED test kit (checker constant edited), all three gates at 12 GiB, 450 s, on the 9:**
+  - 5/9 FULL_OPTIMUM_PROVEN, all Yeongdeok, at walls of 136–220 s;
+  - Uiseong 0/4: LATE_RESULT, with LO overrunning its wall cap (246–273 s vs about 160 s).
+  - Of the 5 proven, 4 were UNRESOLVED and 1 (firms …168) was feasible-only in A1.
+  - Uiseong's LO cap of about 160 s is **inferred** from the 0.55 × remaining rule, not recorded.
+  - Uiseong kriged …324 never returned from LO: one `road_core.solve` call of 285.6 s was still running when the
+    deadline stopped it.
+  - The pre-registered reading "≥ 3/9 → precompute is the lever" is **not adopted**. The A1 rows, from a run made
+    before A3, already show LO returning the same conditional optima with the same expansions, under 300 s; only the
+    checks failed. The checker gate, not the extra time, changed the outcome (FDYN_PLAN.md, A3 notes).
+
+**Findings about the frozen kit at multi-hour (the kit itself is unchanged).**
+1. **Three independent 3 GiB lifetime-peak gates:** controller guard, solver (`phaseB/road_core.py:751-757`) and
+   checker (`hybrid_checker.py:9`, applied in `_finish`). Each compares the process-lifetime `ru_maxrss`, so a
+   transient peak permanently disables later stages.
+   - Uiseong: the bound-model build peaks at 9.0–9.5 GiB; about 0.4 GiB stays resident after it, and about 2.1 GiB
+     during search.
+   - Yeongdeok: the EA bound holds 4.4 GiB through search.
+   - These are end-of-call snapshots.
+2. **The checker gate replaces a completed check result** with `RSS_LIMIT`, and RESULT.json does not persist the real
+   outcome.
+3. **The terminal reason reads SEARCH_TIMEOUT where the search returned conditional optima,** or was stopped on
+   memory. Multi-hour tables must take reasons from the per-stage records.
+4. **Wall caps are not enforced promptly on Uiseong:** Z ran 20–23 s against a 6 s cap; LO ran 246–273 s against
+   about a 160 s cap.
+5. **Reproducibility:** on Yeongdeok firms, whether a request is published from Z (feasible) or proceeds to EA (and,
+   under the frozen guard, is stopped) depends on whether Z holds a certified incumbent when its fixed 6 s wall cap
+   expires. That is machine timing, not budget. Not sized: 1 rep each.
+6. **Time before search:** bound model plus EA bound take about 100–130 s per request (Uiseong bound model 53–82 s;
+   EA bound 50–83 s).
+7. **Radiation cost at 5 h is unmeasured, not cheap.** Few routes reached a whole-road check.
+
+**Bounds and origin dependence (code reading, Iris tests a–b).**
+- The road bound model depends on the forecast and the window only.
+- The EA bound depends on the forecast and the destination set; the origin is one extra state.
+- In this set, the bound-model identity keys are equal across the 3 origins of each packet.
 
 ## Host findings (their own result; specific to THIS host, not to Linux in general)
 
 - **GNU time is required.** The kit's controller runs `/usr/bin/time -v`; without it every route check fails. The
   container image lacked it (`apt-get install time`). `make api-tools` only warns about this.
 - **The evaluated 30 s budget does not transfer to this host.** Here, at 30 s, Uljin FX1 times out (wall 30.17 s, still
-  inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The full
-  30 s run is queued. Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
+  inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The
+  full 30 s run is in § Clean rerun (32/40 resolve). Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
   there Uljin FX1 completes at 30 s in 24.3 s. Host speed, not the OS, decides this, and the speed-equivalence factor
   (2.7× here) must be measured on each host.
 - **Cross-host packet bytes differ.** Rebuilt packets match the frozen ones exactly in arrays, flame sets, breakpoints
@@ -104,9 +233,7 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
 
 - Mira verified this profile on 3 missions plus a plain-mode control, and recomputed the committed 60 rows. She did
   not rerun all 60 executions.
-- Per-phase memory is not in this run; the harness gained memory capture afterwards. Warm-cache timings are not in
-  this run either. Both come from the clean rerun.
-- The instrumentation overhead control in the plain runs so far was contended; a clean control is queued.
+- Per-phase memory and warm-cache timings are not in the primary run; they come from the clean rerun above.
 - Shares on the evaluated macOS host and budget may differ.
 - cProfile shares are inflated by profiling overhead and indicate only where time goes.
 

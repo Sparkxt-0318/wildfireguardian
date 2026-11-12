@@ -1,0 +1,21 @@
+{
+ "whole_road_checker_files": {
+  "adaptive_checker.py": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+  "hybrid_checker.py": "ca7d0614e49f10f3a32420876c5936d0cd9972072436739338fb0f7293933b95",
+  "hybrid_radiation.py": "5609afe6047e30118ac25a43967cfff07b578fe229a44b51f4d004455a7a7834",
+  "contact_first.py": "d2d2c4c8b2d8e75d94f361224ec5ea5fb3f30c0c1da3933f0c3fd0dc0d8e0b6d",
+  "road_exposure.py": "7ba5ea9777030ef4119dbadcca538d818d66879c5f78f971eb11c9523368855a",
+  "mission_contract.py": "2de57c831b2bf1a30db27369aad4cb95999b7f7035863caa835a1922c40c8767"
+ },
+ "job_checker_sha256": {
+  "adaptive_checker.py": "1da95550b7b7e58122cabd6b578a21740b72b72fcf792b740475e3ec41060c13",
+  "ivkernel.py": "041f6cf057c4fe41f4e39ac16e9aa7c83e523c3b64294f01e793ec9dc16a2205"
+ },
+ "routes": {
+  "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166.route.json": "8ba8b8797c28aa80bad0c20ca5f2bdab2ac54dec153b5bf78aa0d6aa3cd5903d",
+  "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207.route.json": "872620a8aa4c6c7507edcf4b61bf6bd2f69990c9da49ef51dfa847dacf96944a",
+  "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166.route.json": "8ba8b8797c28aa80bad0c20ca5f2bdab2ac54dec153b5bf78aa0d6aa3cd5903d",
+  "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168.route.json": "7c9adfd4785f38a7401281f0939b88daef68013c7c28e5cbf34a89a2fd249ff4"
+ },
+ "label": "re-checked offline outside the kit; not published by the kit; counted separately from the kit count (2 of 12)"
+}

@@ -1,0 +1,46 @@
+{"region": "uiseong_andong_2025", "source_sha256": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc", "out_sha256": "2f87131b067208eb85cd566b10269c74b5b5274883ea4fbe0cc3d9c1ac6165cf", "revision": "uiseong-andong-osm-20250321-provisional-G2window-grid375-dt1-a30e1f054a5e-8b859334ebe8+fdyn-fullgrid-interim", "nodes": 23158, "edges": 43826}
+{"region": "yeongdeok_2025", "source_sha256": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9", "out_sha256": "679cc4e984c5c87129ea39a085a5c1e6858b593dff04a9d5ad503e60c092caf4", "revision": "yeongdeok-osm-20250321-provisional-G2window-grid375-dt1-8a804b26a635-8b859334ebe8+fdyn-fullgrid-interim", "nodes": 56369, "edges": 111924}
+{
+ "stats": {
+  "detections_in_grid": 5603,
+  "overpasses_with_detections": 46,
+  "burned_cells": 10955,
+  "burned_cells_with_detection": 2947,
+  "detected_cells_outside_kriged_footprint_not_used": 281,
+  "first_detection_minus_kriged_h": {
+   "median": -1.8226839701334612,
+   "p10": -9.6812917582194,
+   "p90": 7.284354858398442
+  },
+  "cells_moved_earlier_constrained": 2053,
+  "cells_moved_earlier_early": 2364
+ },
+ "sha256": {
+  "firms_constrained": "eed4288f4ad4324c81e70fae9e825211e2125c4f25722b59dc12d366323ea230",
+  "firms_early": "a138309e1e53254febfc773067d4a00ee937021d148b736e966baadad23f76a3"
+ }
+}
+12 instances, 1044 origin-instances -> research/harness-2026-11/F-DYN/_data/INSTANCE.json
+build research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300
+{"region": "uiseong_andong_2025", "cutoff": "2025-03-25T17:00:00Z", "shape": [79, 237], "ignitions_per_member": [5332], "present_fire_cells": 1505, "max_flux_kW_m2": 0.70246683998429}
+{"arrival_variant": "kriged_mean", "member_set": "central", "ignitions_in_domain": [5332], "distinct_ignition_times_in_domain": [60], "kriging_sd_h_at_first_member_ignitions": {"min": 16.657957077026367, "median": 17.442716598510742, "max": 19.538881301879883}}
+build research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300
+{"region": "uiseong_andong_2025", "cutoff": "2025-03-25T17:00:00Z", "shape": [79, 237], "ignitions_per_member": [4938], "present_fire_cells": 1505, "max_flux_kW_m2": 0.7024462034429255}
+{"arrival_variant": "firms_early", "member_set": "central", "ignitions_in_domain": [4938], "distinct_ignition_times_in_domain": [60], "kriging_sd_h_at_first_member_ignitions": null}
+build research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300
+{"region": "yeongdeok_2025", "cutoff": "2025-03-25T23:00:00Z", "shape": [79, 237], "ignitions_per_member": [465], "present_fire_cells": 160, "max_flux_kW_m2": 0.6993160542441316}
+{"arrival_variant": "kriged_mean", "member_set": "central", "ignitions_in_domain": [465], "distinct_ignition_times_in_domain": [60], "kriging_sd_h_at_first_member_ignitions": {"min": 16.659311294555664, "median": 16.944835662841797, "max": 18.386445999145508}}
+build research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300
+{"region": "yeongdeok_2025", "cutoff": "2025-03-25T23:00:00Z", "shape": [79, 237], "ignitions_per_member": [353], "present_fire_cells": 160, "max_flux_kW_m2": 0.6991690815459762}
+{"arrival_variant": "firms_early", "member_set": "central", "ignitions_in_domain": [353], "distinct_ignition_times_in_domain": [60], "kriging_sd_h_at_first_member_ignitions": null}
+1c2e73db20db7b1caa309ebde42d20629054cd49c8f1f2cd9e4e81b0b9c89bbe  research/harness-2026-11/F-DYN/MANIFEST_v3_1.json
+55426074f84088a1777f748ea3e317f584d9e9c4ecdb42046ccb1c0f5d62a24a  research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300/HAZARD.json
+d63b01b28ccafc32a9d52ef29ca341f92b64d7ec22c448282018d6137df9550d  research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300/HAZARD.json
+0c15bc3e1180efc8e30b017a6cea525691d52ee86297d3e15b2a196a6d709548  research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300/HAZARD.json
+cf4f134b8bba520a084a77b570b86794d3477890bd95e1b2b7e5fa5ab01d81ba  research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300/HAZARD.json
+9a69430eaf632cc57b27b671ebb7e31ecd63abfafeb5c57444503eac6c35b4d1  research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300/constructed_arrays.npz
+eadda12057fe874b057a75d834421fa08e554fb5c656fbdbbdc9ca492e42d8e5  research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300/constructed_arrays.npz
+880345df9d71324245bda58310c810133257381ab3e4d7bb4b3681db73e81080  research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300/constructed_arrays.npz
+de0d977c230ac7f1787cfbdae355a900a66a1740a772dd724e11e6a12610712d  research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300/constructed_arrays.npz
+2f87131b067208eb85cd566b10269c74b5b5274883ea4fbe0cc3d9c1ac6165cf  research/harness-2026-11/F-DYN/_data/graphs_interim/uiseong_andong_2025/graph.json
+679cc4e984c5c87129ea39a085a5c1e6858b593dff04a9d5ad503e60c092caf4  research/harness-2026-11/F-DYN/_data/graphs_interim/yeongdeok_2025/graph.json

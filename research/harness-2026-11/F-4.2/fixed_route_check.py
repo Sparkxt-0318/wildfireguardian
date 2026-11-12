@@ -36,7 +36,10 @@ def main():
            'radiation': (rec.get('radiation') or {}).get('status'),
            'adaptive': (rec.get('adaptive_fallback') or {}).get('status') if rec.get('adaptive_fallback') else None,
            'per_member': (rec.get('adaptive_fallback') or {}).get('per_member') or (rec.get('radiation') or {}).get('per_member'),
-           'arrival': route.get('arrival'), 'n_legs': len(legs), 'elapsed_s': time.perf_counter() - t0}
+           'arrival': route.get('arrival'), 'n_legs': len(legs), 'elapsed_s': time.perf_counter() - t0,
+           'process_lifetime_rss_mb': rec.get('process_lifetime_rss_mb'), 'rss_gate_mb': rec.get('rss_gate_mb'),
+           'checked_result_is_secondary': rec.get('checked_result_is_secondary'),
+           'secondary_status': (rec.get('checked_result') or {}).get('status')}
     print(json.dumps(out, default=str))
 
 
