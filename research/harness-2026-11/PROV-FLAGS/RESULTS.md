@@ -102,3 +102,12 @@ Measured from the source file by record kind:
   시각이 아닙니다". It avoids "관계없는" being read as "not urgent".
 - The CSV column header uses "·" instead of a comma.
 - Suite 26 files / 417 tests; build:static OK.
+
+## Message-kit staff block (branch clara/kit-provenance-line, after #138 and #139) (UNVERIFIED)
+`buildChannels` takes `deadlineProvenance` (the `staffProvenance` label) and writes **`staff.provenance` only**: tag,
+text, help sentence (for a labelled deadline) and footer, in Korean and English. It is excluded from the
+official-first and replay-note rules, as the other staff lines are. The kit's word scans still apply to it.
+Test over the 531 real places: every resident output, and every other staff field, is identical with and without the
+label, and the violations are identical. The line is present exactly when there is a label (473 window, 7 present_fire,
+21 forecast_dependent, 10 unresolved-proven-no-route; 20 none) and never carries a clock time. No app code calls the
+channel builder yet, so this is wiring for when it does. Suite 26 files / 447 tests; build:static OK.
