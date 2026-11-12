@@ -88,6 +88,20 @@ def fit_scale(lo, hi, mu, sd, shift=False):
                 nll_at_c1=float(nll([0.0, 0.0] if shift else [0.0])))
 
 
+def profile_scale(lo, hi, mu, sd, grid=np.exp(np.linspace(np.log(0.5), np.log(5.0), 241))):
+    """Profile NLL over the scale c (no shift) and the 95% likelihood-ratio interval.
+
+    The interval treats cells as independent, so it is optimistic for
+    spatially correlated kriging errors; the spread across fires is the more
+    honest uncertainty.
+    """
+    nll = np.array([-np.sum(np.maximum(interval_loglik(lo, hi, mu, c * sd), -745.0)) for c in grid])
+    best = int(np.argmin(nll))
+    inside = grid[2 * (nll - nll[best]) <= 3.841458820694124]
+    return dict(c_grid_best=float(grid[best]), lr95=[float(inside.min()), float(inside.max())],
+                at_edge=bool(best in (0, len(grid) - 1)))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--rasters", type=Path, required=True, help="rasters_us directory of the Zenodo archive")
@@ -122,19 +136,25 @@ def main(argv=None):
                    pit_histogram_10=np.histogram(pit, bins=10, range=(0, 1))[0].tolist(),
                    pit_mapped_histogram_10=np.histogram(pit[pos], bins=10, range=(0, 1))[0].tolist(),
                    central_interval_hit_rate=cov,
-                   scale_only=fit_scale(lo, hi, m, s), scale_and_shift=fit_scale(lo, hi, m, s, shift=True))
+                   scale_only=fit_scale(lo, hi, m, s), scale_and_shift=fit_scale(lo, hi, m, s, shift=True),
+                   scale_profile=profile_scale(lo, hi, m, s),
+                   bracket_over_sd_median_mapped=float(np.nanmedian(width[pos] / s[pos])) if pos.any() else None)
         per_event[ev] = rec
         pooled.append((lo, hi, m, s, pos))
         print(ev, json.dumps({k: rec[k] for k in ("cells_with_kriging", "mapped_cells_with_kriging",
                                                     "kriging_sd_hours_median", "bracket_width_hours_median_mapped",
-                                                    "central_interval_hit_rate", "scale_only", "scale_and_shift")}))
+                                                    "scale_only", "scale_profile", "bracket_over_sd_median_mapped")}))
     lo, hi, m, s, pos = (np.concatenate(x) for x in zip(*pooled))
     result = dict(
         reference="forecast-v2 held-out NIROPS survey rows, six US 2024 fires",
         product="Choi et al. 2026 PSwt-OK time of arrival and kriging SD (Zenodo 10.5281/zenodo.21788344)",
         per_event=per_event,
+        across_fires_scale=dict(values=[per_event[e]["scale_only"]["c"] for e in EVENTS],
+                                min=float(min(per_event[e]["scale_only"]["c"] for e in EVENTS)),
+                                max=float(max(per_event[e]["scale_only"]["c"] for e in EVENTS)),
+                                geometric_mean=float(np.exp(np.mean([np.log(per_event[e]["scale_only"]["c"]) for e in EVENTS])))),
         pooled=dict(cells=int(len(m)), mapped=int(pos.sum()),
-                    scale_only=fit_scale(lo, hi, m, s), scale_and_shift=fit_scale(lo, hi, m, s, shift=True),
+                    scale_only=fit_scale(lo, hi, m, s), scale_profile=profile_scale(lo, hi, m, s), scale_and_shift=fit_scale(lo, hi, m, s, shift=True),
                     mapped_only_scale_and_shift=fit_scale(lo[pos], hi[pos], m[pos], s[pos], shift=True)))
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_text(json.dumps(result, indent=1))
