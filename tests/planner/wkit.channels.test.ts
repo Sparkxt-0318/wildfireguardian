@@ -715,6 +715,23 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     };
     for (const p of real) check(p, true);
     for (const p of syn) check(p, false);
+    // Mira N1: the Korean automated call is unchanged by the drop — produced at every place, and identical to the call
+    // built for the same place with an English shelter name added (so the English call is produced)
+    let koSame = 0;
+    for (const p of [...real, ...syn]) {
+      if (!englishCallDropped(p)) continue;
+      const withEn = { ...p, destination: { ...p.destination!, name: { ...p.destination!.name!, en: 'Synthetic Shelter Hall' } } } as MessagePlan;
+      expect(englishCallDropped(withEn)).toBe(false);
+      const a = B(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      const b = B(withEn, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      expect(a.text.ko.voice).not.toBeNull();
+      expect(a.text.ko.voice).toBe(b.text.ko.voice);
+      expect(b.text.en.voice).toContain('Synthetic Shelter Hall');
+      koSame += 1;
+    }
+    expect(koSame).toBe(373 + 91);
+    // the Korean staff line has one label separator (Mira N3)
+    for (const p of real.filter(englishCallDropped).slice(0, 5)) expect(B(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true }).text.ko.staff.decree).toContain(`영어 자동 음성전화: ${NO_EN_CALL_REPORT.ko}`);
     // the removed interim sentence reaches no output anywhere
     for (const p of [...real, ...syn]) expect(residentTexts(B(p, { nowIso: NOW, issuer: ISS })).join('\n')).not.toMatch(/named in the Korean message|no English name/);
     // the kit summary shows the size of the gap (Iris)

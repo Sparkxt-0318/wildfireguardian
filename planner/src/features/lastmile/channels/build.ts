@@ -261,7 +261,7 @@ export interface DecreeReport {
   /** one reason per missing field */
   reasons: Partial<Record<DecreeField, MissingReason>>;
   contact: ContactStatus;
-  /** false: this output is not produced at all for this place (the English automated call, owner decision) */
+  /** false: this output is not produced at all for this place (the English automated call, design decision of this tool) */
   produced?: boolean;
 }
 
@@ -272,8 +272,8 @@ function missingReason(p: MessagePlan, field: DecreeField, lang: LmLang, contact
   if (field === 'reason_timing') return p.kind === 'leave_by' && p.leaveByS !== null ? 'does_not_fit' : 'not_applicable';
   if (field === 'agency_contact') return contact === 'over_length' ? 'does_not_fit' : 'not_supplied';
   if (field === 'shelter') {
-    // a shelter with only a Korean name is shown in Hangul in English human-read text (owner decision), so it is
-    // supplied there; the English automated call is not produced at all for such a place (owner decision)
+    // a shelter with only a Korean name is shown in Hangul in English human-read text (design decision of this tool), so it is
+    // supplied there; the English automated call is not produced at all for such a place (design decision of this tool)
     const d = namedDestination(p);
     if (!d) return 'not_supplied';
     return 'does_not_fit';
@@ -387,7 +387,7 @@ export interface HeadScript {
 
 export interface ChannelTexts {
   head: HeadScript;
-  /** null: no call for this place in this language (English, shelter without an English name: owner decision) */
+  /** null: no call for this place in this language (English, shelter without an English name: design decision of this tool) */
   voice: string | null;
   familyText: string;
   familyScript: [string, string, string];
@@ -512,7 +512,7 @@ function headCoreBlocks(p: MessagePlan, lang: LmLang, koShelterInEn = true): Tag
   const b: TaggedBlock[] = [{ text: `${who} Wildfire evacuation notice${v && /^[\x20-\x7E]+$/.test(v) ? ` for ${v}` : ' for this village'}.`, short: `${who} Wildfire evacuation notice for this place.`, elements: ['source', 'location', 'hazard'] }];
   if (p.kind === 'leave_by' && p.leaveByS !== null) {
     b.push({ text: `Leave by car by ${spokenLeaveBy(p, 'en')}.`, elements: ['time', 'guidance'] });
-    // OWNER DECISION: no English name => the Korean (Hangul) shelter name, never a romanisation
+    // DESIGN DECISION OF THIS TOOL: no English name => the Korean (Hangul) shelter name, never a romanisation
     const en = dest ? dest.en || (koShelterInEn ? dest.ko : '') : '';
     if (en) b.push({ text: `Go toward ${en}.`, elements: ['location'], optional: true });
     b.push({ text: facility ? 'Short of cars? Tell the town office.' : 'No car? Tell the village head.', elements: ['guidance'] });
@@ -551,7 +551,7 @@ export function replyCode(kind: MessagePlan['kind'], key: string): ReplyCode {
 }
 
 /**
- * English automated voice call (OWNER DECISION, replaces the interim pointer to the Korean message): for a place whose
+ * English automated voice call (DESIGN DECISION OF THIS TOOL, 2026-11-12; replaces the interim pointer to the Korean message): for a place whose
  * shelter has no English name, there is NO English automated call at all. A TTS voice cannot be relied on to read a
  * Hangul name, and a call without its destination is not produced. English-only callers at such a place get no
  * automated call. The human-read English script keeps the Korean name with a reader note.
@@ -845,8 +845,8 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
             ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호(지역번호 유선전화 또는 15XX·16XX·18XX 대표번호) 형식이 아닙니다. 휴대전화·050·070·긴급번호는 쓸 수 없습니다.'
             : 'No contact line — field to fix: contact number. It is not an agency number (an area-code landline or a 15XX/16XX/18XX representative number); mobile, 050, 070 and emergency numbers are not accepted.',
         );
-      // the Korean report lists Korean outputs only; it states the missing English call too (owner decision)
-      if (lang === 'ko' && englishCallDropped(p)) extra.push(`영어 ${OUTPUT_LABEL.ko.voice} — ${NO_EN_CALL_REPORT.ko}`);
+      // the Korean report lists Korean outputs only; it states the missing English call too (design decision of this tool)
+      if (lang === 'ko' && englishCallDropped(p)) extra.push(`영어 ${OUTPUT_LABEL.ko.voice}: ${NO_EN_CALL_REPORT.ko}`);
       if (checked.status === 'ok' && iss && contact[lang].familyScript === 'included')
         extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);
       t.staff.decree = decreeReportText(r, lang, extra);
@@ -930,7 +930,7 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
         .flatMap((d) => (d.name ? (lang === 'en' ? [d.name.en, d.name.ko] : [d.name[lang]]) : []))
         .filter((n): n is string => !!n && n.length > 1);
       for (const d of new Set(dests)) if (rest.includes(d)) v.push(`${id}: names destination "${d}" the plan does not allow`);
-      // English resident outputs carry Hangul only as the plan's own shelter name (owner decision), nowhere else
+      // English resident outputs carry Hangul only as the plan's own shelter name (design decision of this tool), nowhere else
       if (lang === 'en' && !name.startsWith('staff')) {
         const ko = set.destinationName?.ko;
         const left = ko ? s.split(ko).join('') : s;

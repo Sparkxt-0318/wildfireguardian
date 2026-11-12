@@ -357,8 +357,10 @@ appears only for a result checked on the pessimistic instance) is not yet in pla
 ### Staff wording revised (Iris, Sofia) — delta after 634f02d
 - The staff line now says exactly what happens. The English call is not produced, and the Korean automated call is
   unchanged. English-speaking residents here get no English automated call; in English, the shelter is named only in
-  the village-head script and the family call script, in Korean script. The test checks those claims for every one of
-  the 373 places. "Owner decision" is replaced by "a design decision of this tool" / "개발 측 결정" (Sofia: 소유자 reads
+  the village-head script and the family call script, in Korean script. The test checks the shelter-name claims at
+  every one of the 373 places. It also checks, directly, that the Korean call is unchanged (Mira N1): it is produced at
+  every dropped place, and it is identical to the call built for the same place with an English shelter name added
+  (373 real + 91 synthetic). "Owner decision" is replaced by "a design decision of this tool" / "개발 측 결정" (Sofia: 소유자 reads
   as a property owner; 운영책임자 is a defined role in 예규 361 제7조). Residents are "recipients", never "callers".
   Korean lines as Sofia wrote them: "한국어 자동 음성전화는 (모든 장소에서) 그대로 만듭니다" (stating that it is produced), and
   "영어 자료 가운데 대피장소 이름(한글)이 나오는 것은 이장 방송 대본과 가족 전화 대본뿐입니다."
