@@ -240,7 +240,8 @@ def run(graph, nr_packet, re_packet, instance, window):
     split = Counter(v["split"] for v in no_route.values())
     return {"schema": "wfg.f31.headline/1", "H": H, "label": "SCENARIO (F-DYN v3.6), not what happened; roads limited "
             "to the recorded windows; exact = exact for the time-dependent model's field, not for the fire; "
-            "no re-entry contact field; witness checked against the as-built packet",
+            "no re-entry contact field (no re-entry after the start: cells burned out before the start stay open, "
+            "NOREENTRY_RULE.md); witness checked against the as-built packet",
             "assumption": ASSUMPTION, "fields": "CERT = router OR closed footprint; ROUTER = router rule only; "
             "refusal-grade statements only from ROUTER", "precondition_noreentry": pre_nr,
             "precondition_noreentry_ok": ok_nr, "destinations": len(specs), "origins": len(origins_out),

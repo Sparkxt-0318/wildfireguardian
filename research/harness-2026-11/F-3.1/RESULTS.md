@@ -642,3 +642,57 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 * **Implementation note.** The YD runs (and the remaining runs after a memory kill) use the
   one-destination-field-at-a-time version of `return_trip.py`. The selection logic is unchanged: earliest arrival,
   ties to the lowest node id.
+
+## Spotting-distance envelope, 5 h (SCENARIO, not what happened; research variant: reopening packets as built; NOT YET VERIFIED)
+
+* **Rule.** `SPOTTING_RULE.md`, committed before tabulating. **Files.** `results/SPOTTING_ENVELOPE_h5.json`, built by
+  `deadline_field/spot_summary.py` from 24 `fdyn_run` outputs (v3.3 builder, Leo 4463892; packet HAZARD hashes are
+  in the file).
+* **What it is.** Leo's isotropic `dilate(a, d, lag 0 s)` on the kriged_mean TOA, d ∈ {0, 500, 1000, 2000} m. Lag 0
+  makes every shift an upper bound **under this dilation rule**, not a physical bound. There is no wind field, so
+  there is no downwind shape. Nothing is claimed about actual spotting distances in 2025.
+* **Field.** CERT contact field. Contiguous deadline (merged rule). Per region-start and d, never pooled.
+* **Control.** At d = 0 all 6 starts equal the kriged_mean field on every place (CERT and FREE sets; 0 places
+  differ). The control file is the v3.1 kriged_mean run; the rule names v3.3, whose kriged_mean packets were not
+  run separately.
+* **Witnesses.** 6,288 witnesses, all pass the unchanged full checker and the closed replay (exact or upper_bound);
+  every next second is infeasible.
+
+| region-start | d (m) | earlier | shift (s): median (upper) / max | before start | later | no route at d = 0 | witnesses |
+|---|---|---|---|---|---|---|---|
+| UA 03-23 01Z | 0 | 0 | – | 0 | 0 | 0 | exact:PASS 252 |
+| UA 03-23 01Z | 500 | 5 | 1145 / 5515 | 0 | 4 | 0 | exact:PASS 252 |
+| UA 03-23 01Z | 1000 | 13 | 525 / 14815 | 2 | 3 | 0 | exact:PASS 252 |
+| UA 03-23 01Z | 2000 | 8 | 525 / 2652 | 0 | 5 | 0 | exact:PASS 252 |
+| UA 03-24 09Z | 0 | 0 | – | 0 | 0 | 0 | exact:PASS 252 |
+| UA 03-24 09Z | 500 | 0 | – | 0 | 9 | 0 | exact:PASS 252 |
+| UA 03-24 09Z | 1000 | 7 | 106 / 8422 | 0 | 7 | 0 | exact:PASS 252 |
+| UA 03-24 09Z | 2000 | 8 | 2312 / 12965 | 0 | 8 | 0 | exact:PASS 252 |
+| UA 03-25 17Z | 0 | 0 | – | 0 | 0 | 9 | exact:PASS 252 |
+| UA 03-25 17Z | 500 | 19 | 369 / 6607 | 2 | 0 | 9 | exact:PASS 250, upper_bound:PASS 2 |
+| UA 03-25 17Z | 1000 | 17 | 939 / 4800 | 4 | 0 | 9 | exact:PASS 252 |
+| UA 03-25 17Z | 2000 | 22 | 3248 / 13719 | 5 | 1 | 9 | exact:PASS 246, upper_bound:PASS 6 |
+| YD 03-25 19Z | 0 | 0 | – | 0 | 0 | 4 | exact:PASS 269, upper_bound:PASS 1 |
+| YD 03-25 19Z | 500 | 2 | 9116 / 9116 | 2 | 0 | 4 | exact:PASS 269, upper_bound:PASS 1 |
+| YD 03-25 19Z | 1000 | 3 | 4692 / 11112 | 2 | 1 | 4 | exact:PASS 268, upper_bound:PASS 2 |
+| YD 03-25 19Z | 2000 | 4 | 15912 / 17592 | 2 | 2 | 4 | exact:PASS 270 |
+| YD 03-25 23Z | 0 | 0 | – | 0 | 0 | 0 | exact:PASS 270 |
+| YD 03-25 23Z | 500 | 0 | – | 0 | 0 | 0 | exact:PASS 270 |
+| YD 03-25 23Z | 1000 | 2 | 5956 / 5956 | 1 | 0 | 0 | exact:PASS 270 |
+| YD 03-25 23Z | 2000 | 1 | 16646 / 16646 | 1 | 0 | 0 | exact:PASS 270 |
+| YD 03-26 08Z | 0 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
+| YD 03-26 08Z | 500 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
+| YD 03-26 08Z | 1000 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
+| YD 03-26 08Z | 2000 | 0 | – | 0 | 0 | 2 | exact:PASS 270 |
+
+* **Places that move later.** Some places move **later** as d grows. On UA 03-24 09Z, d = 500 m (9 places), the
+  dilation moves 97 of the 135 cells burning in the d = 0 packet to arrivals 4,227–47,988 s **before** the start.
+  The builder treats them as burned out before the start, so they are not phases and their roads are open. Under the
+  never-clears arm on the same two rebuilt packets (rebuilds reproduce the HAZARD hashes), 10 places move later and
+  none move earlier. This is the packets' pre-start burn-out semantics, not a field fault. no_reentry/1 has the same
+  semantics (NOREENTRY_RULE.md: cells burned out before the start stay open). Other starts were not checked place by
+  place.
+* **Route side.** Priya's matching route-side count (clearance below d) is not in yet. It will be reported next to
+  these counts, not merged with them.
+* **Assumption line.** Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists
+  at multi-hour.
