@@ -61,7 +61,6 @@ class PacketDir(unittest.TestCase):
                 P.require_complete_packet_dir(d)                       # failed support write
 
 
-@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real routable (non-HAZARD-only) packet directory to run the end-to-end check")
 class Support(unittest.TestCase):
     """CERTIFICATE_SPEC 5.3 via require_full_support (F-9.3 masked packets differ only in `support`)."""
     def _check(self, **arrs):
@@ -99,6 +98,7 @@ class MaskedPacket(unittest.TestCase):
         self.assertGreater(len(P.routable_contact_model(MASKED, allow_unsupported=True).cell_intervals), 0)
 
 
+@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real routable (non-HAZARD-only) packet directory to run the end-to-end check")
 class EndToEnd(unittest.TestCase):
     def test_from_raw_refuses_marker_and_nan_but_reads_the_real_packet(self):
         n = len(P.from_raw(REAL, 18000))
