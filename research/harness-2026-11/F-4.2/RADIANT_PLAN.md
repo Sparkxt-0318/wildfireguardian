@@ -52,3 +52,37 @@ For each request, with its published route if one is published:
   claimed. Routes whose clearance is CROP-limited are counted the same way, and the count of those is reported
   separately.
 - **The same rule applies on F-DYN** to every published route there, once its clearances exist.
+
+## 4. Follow-ups approved 11:16 UTC (Iris; orchestrator) — written before computing
+
+These are a sensitivity range under the flame assumptions of §3, **not a count of unsafe routes**. A
+clearance-based policy variant is **not** approved; nothing here changes any policy.
+
+**4a. Time inside the standoff, and fractional dose, per published route.**
+- **Positions.** Sample the route's position at every integer second of the full mission (issue, edges with linear
+  timing, waits, the 120 s dwell). This is the same geometry as `clearance.py`.
+- **Distance.** d(t) is the Euclidean distance to the *nearest* closed cell rectangle that is active at t (any
+  member). Only the nearest source counts; the long-front width W = 3,750 m stands in for many adjacent burning cells.
+- **Flux.** q(t) = window · E · F(d(t)), with the §3 flame model and the same 24 cases (12 flames × window 1.0/0.5).
+- **Reported per route and case:**
+  - seconds with q(t) ≥ 1.0 and seconds with q(t) ≥ 2.5 kW/m²; this equals the time inside each standoff;
+  - how many of those seconds are on waits or the dwell, versus on moving edges;
+  - **fractional dose FD** = Σ over seconds with q ≥ 1.0 of q^(4/3) · 1 s, divided by **80 (kW/m²)^(4/3)·s**.
+- **Dose assumptions, stated.**
+  - The 4/3-power "thermal dose" form and the 80 TDU threshold, the low end of the pain / first-degree-burn range
+    commonly cited, are assumptions chosen here.
+  - The radiant term is zero below 1.0 kW/m² (Iris's rule).
+  - FD ≥ 1 is reported as "threshold dose reached under these assumptions".
+
+**4b. Per mission: is there a route with clearance above the standoff, and what does it cost?**
+- **Thresholds.** For each distinct standoff value d* in the §3 table (both thresholds and both windows, rounded up
+  to the next metre), run `clearance.Instance.search(d*)`. It returns the earliest arrival over routes with clearance
+  > d*, with the same opening/dwell/horizon rules.
+- **Reported per mission and d*:** whether such a route exists by the horizon, and its arrival cost relative to the
+  earliest arrival a(0).
+- **Sound "no route" statement.** "None exists" is claimed only when `relaxed(d*)` also finds nothing, or when its
+  relaxed arrival together with the opening start already exceeds the horizon deadline. Otherwise the result is
+  "not found (witness search)". The † condition (present-fire expiry before the deadline) is carried over.
+- **Witness checks.** Every witness route is re-checked with the unchanged full checker (`verify_witnesses.py`) and
+  for exact clearance > d*.
+- **Run order.** This runs after the F-DYN profile, which keeps priority on the quiet host.
