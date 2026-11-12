@@ -17,8 +17,13 @@ Categories:
   nirops    tool calls reading the raw NIROPS shapefile/dbf (pyogrio/fiona/ogr/geopandas/unzip). An unfiltered read is
             one with no where=, no fids= and no Incident_C-only column list
   gofer     tool calls reading raw GOFER files (GOFER zip, fireProg, fireLine, GOFERC_fireIg)
-  web       WebSearch/WebFetch/web-fetch agent calls, and curl/wget/requests/urllib calls; external hosts are listed
-  ftp2526   any tool input or result naming ftp.wildfire.gov together with a 2025 or 2026 path segment
+  wildfire_gov  every occurrence of 'wildfire.gov' in an input, result or text, whatever the year
+  web/net   WebSearch/WebFetch/agent web calls; curl/wget/rsync/scp/lftp/git clone; requests/urllib/urllib3/http.client/
+            httpx/aiohttp/ftplib/fsspec//vsicurl; read_*('http…'); fetch.py and remote_zip.py. Hosts are listed from every
+            URL (http, https, ftp, s3, gs) in any tool input
+  ftp2526   a wildfire.gov URL with a 2025/2026 segment, or a tool input naming wildfire.gov and 2025/2026 anywhere
+            (covers hosts in variables and ftplib cwd)
+  net_result_2025_2026  the result of a net or wildfire.gov call that contains 2025 or 2026 (directory listings)
   names:<L> matches against hash list L. A hash is sha256 of the normalised name: lowercase, alphanumerics only,
             tokens joined with no separator. Text is tokenised on non-alphanumerics, and n-grams of 1..6 tokens are
             hashed (incident IDs such as XX-UNIT-000000_Name span 4-6 tokens). Counts are per field (tool input / tool result / assistant text).
@@ -51,9 +56,14 @@ NIROPS = re.compile(r'NIROPS_2020_2024|\.shp\b|\.dbf\b', re.I)
 READ = re.compile(r'read_dataframe|read_info|pyogrio|fiona|ogr\.|ogrinfo|gpd\.read_file|geopandas|unzip|read_file\(', re.I)
 FILTERED = re.compile(r"where\s*=|fids\s*=|columns\s*=\s*\[\s*['\"]Incident_C['\"]\s*\]|nirops_access", re.I)
 GOFER = re.compile(r'GOFER[^\s\'"]*\.zip|fireProg|fireLine|GOFERC_fireIg', re.I)
-NETCMD = re.compile(r'\b(curl|wget)\b|requests\.(get|post)|urlopen|urllib\.request', re.I)
-URL = re.compile(r'https?://[^\s\'"<>)\]]+', re.I)
-FTP2526 = re.compile(r'ftp\.wildfire\.gov[^\s\'"]*(?:/|_)(2025|2026)(?:/|_)', re.I)
+NETCMD = re.compile(r'\b(curl|wget|rsync|scp|lftp|sftp|aria2c)\b|git\s+clone|requests\.(get|post|head|Session)|urlopen'
+                    r'|urllib\.request|urllib3|http\.client|httpx|aiohttp|ftplib|fsspec|/vsicurl|smart_open|boto3|gsutil'
+                    r'|read_(csv|json|parquet|table|file|dataframe)\(\s*[\'"](?:https?|ftp|s3|gs)://|fetch\.py|remote_zip\.py'
+                    r'|WebFetch|web-fetch', re.I)
+URL = re.compile(r'(?:https?|ftp|s3|gs)://[^\s\'"<>)\]\\,]+', re.I)
+WILDFIRE = re.compile(r'wildfire\.gov', re.I)
+YEAR2526 = re.compile(r'(?<!\d)(2025|2026)(?!\d)')
+FTP2526 = re.compile(r'wildfire\.gov[^\s\'"]*?(?<!\d)(2025|2026)(?!\d)', re.I)
 WEBTOOLS = {'WebSearch', 'WebFetch'}
 
 
@@ -86,27 +96,27 @@ def iter_files(paths):
 
 
 def blocks(rec):
-    """Yields (field, tool_name, text) for tool inputs, tool results and assistant text."""
+    """Yields (field, tool_name, tool_use_id, text) for tool inputs, tool results and assistant text."""
     m = rec.get('message')
     if not isinstance(m, dict):
         return
     c = m.get('content')
     if isinstance(c, str):
-        yield ('text' if rec.get('type') == 'assistant' else 'user_text', None, c)
+        yield ('text' if rec.get('type') == 'assistant' else 'user_text', None, None, c)
         return
     for b in c or []:
         if not isinstance(b, dict):
             continue
         t = b.get('type')
         if t == 'tool_use':
-            yield 'input', b.get('name'), json.dumps(b.get('input'), ensure_ascii=False)
+            yield 'input', b.get('name'), b.get('id'), json.dumps(b.get('input'), ensure_ascii=False)
         elif t == 'tool_result':
             cc = b.get('content')
             if isinstance(cc, list):
                 cc = ' '.join(x.get('text', '') for x in cc if isinstance(x, dict))
-            yield 'result', None, str(cc)
+            yield 'result', None, b.get('tool_use_id'), str(cc)
         elif t == 'text' and rec.get('type') == 'assistant':
-            yield 'text', None, b.get('text', '')
+            yield 'text', None, None, b.get('text', '')
 
 
 def audit(paths, name_sets):
@@ -118,6 +128,7 @@ def audit(paths, name_sets):
 
     for f in iter_files(paths):
         stem = os.path.splitext(os.path.basename(f))[0]
+        net_calls = {}                                   # tool_use_id -> True if the call is a net/wildfire.gov call
         for line in open(f, encoding='utf-8', errors='replace'):
             try:
                 rec = json.loads(line)
@@ -125,7 +136,11 @@ def audit(paths, name_sets):
                 continue
             sess = rec.get('sessionId') or stem
             ts = rec.get('timestamp', '')
-            for field, tool, text in blocks(rec):
+            for field, tool, tid, text in blocks(rec):
+                if WILDFIRE.search(text):
+                    hit(sess, 'wildfire_gov_' + field, ts)
+                if FTP2526.search(text) or (field == 'input' and WILDFIRE.search(text) and YEAR2526.search(text)):
+                    hit(sess, 'ftp2526_' + field, ts)
                 if field == 'input':
                     for k, rx in FILES.items():
                         if re.search(rx, text):
@@ -136,18 +151,22 @@ def audit(paths, name_sets):
                             hit(sess, 'nirops_unfiltered', ts)
                     if GOFER.search(text):
                         hit(sess, 'gofer_read', ts)
-                    if tool in WEBTOOLS or (tool or '').lower() == 'agent' and 'web-fetch' in text:
+                    is_web = tool in WEBTOOLS or ((tool or '').lower() == 'agent' and re.search(r'web-fetch|https?://', text))
+                    if is_web:
                         hit(sess, 'web_tool', ts)
-                    if NETCMD.search(text):
+                    is_net = bool(NETCMD.search(text)) or is_web
+                    if is_net:
                         hit(sess, 'net_cmd', ts)
-                        for u in URL.findall(text):
-                            S[sess]['hosts'][urlparse(u).netloc.lower()] += 1
+                    if is_net or WILDFIRE.search(text):
+                        net_calls[tid] = True
+                    for u in URL.findall(text):                       # hosts from EVERY tool input
+                        S[sess]['hosts'][urlparse(u).netloc.lower() or u[:30]] += 1
                 elif field == 'result':
                     for k, rx in FILES.items():
                         if re.search(rx, text):
                             hit(sess, k + '_in_result', ts)
-                if FTP2526.search(text):
-                    hit(sess, 'ftp2526_' + field, ts)
+                    if net_calls.pop(tid, False) and YEAR2526.search(text):
+                        hit(sess, 'net_result_2025_2026', ts)
                 if name_sets:
                     hs = ngram_hashes(text)
                     for label, hset in name_sets.items():
