@@ -273,8 +273,10 @@ Richard commits his acceptance-6 rule in F-3.1 before running anything.
 
 1. **Unchanged paths.**
    - The reopening kriged_mean HAZARD is `6940f293…`, equal to v3.5.
-   - A fresh `/1` rebuild is byte-identical to the stored v3.6 `/1` packet on all 8: HAZARD, REPORT and
-     NATIVE_METADATA bytes, and the npz array for array.
+   - A fresh `/1` rebuild is byte-identical to the stored v3.6 `/1` packet in **4 of 5 files** on all 8: HAZARD,
+     REPORT and NATIVE_METADATA bytes, and the npz array for array.
+   - BUILD_SUMMARY differs by design: its `writer_identity.fdyn_builder_sha256` records the changed `build.py` and
+     `_packet_child.py`. That is Nora's note on row 66.
 2. **Self-check and identity (all 8).**
    - The self-check is consistent.
    - The identity carries `no_reentry/2`, `no-reentry-scalar/2`, the F1 label and `writer_identity.transform`.
@@ -308,3 +310,42 @@ Richard commits his acceptance-6 rule in F-3.1 before running anything.
 
 **Next.** Richard runs 6a–6d (pass/fail), 7 and 8 (reported), under F-3.1 `NOREENTRY2_ACCEPTANCE_RULE.md` @
 ed87b5bb. Nora verifies.
+
+## Nora: PASS WITH NOTES (ledger row 66, at 819bcb91)
+
+Her scripts are `nora_nr2.py` and `nora_nr2_readers.py`, on `verification/nora-fire`.
+
+**What she checked.**
+- **Commit order:** draft c6497c49, then approval c22a59d9, then code 1762aebe.
+- **Manifest v3.7** (`7c178267`):
+  - the 976 old commands and outputs are unchanged; the only changes are `transform_label` ×488 and `burnset_label`
+    ×244;
+  - every `/2` command is the `/1` command with the flag and the directory swapped.
+- **Builds.** UA 24T09Z h5 ×4 variants × {reopening, `/1`, `/2`}, and YD 25T11Z h5 ×4 `/2`.
+- **Her own C0,** computed from the export npz and the rasters on her own millisecond time base:
+  - `/2` flame = C0 ∪ present fire ∪ `/1`, with 0 mismatches on all 8;
+  - B0 = UA 1,032 / 1,186 / 1,087 / 0 and YD 2,197 / 2,527 / 2,215 / 0. These equal Leo's counts and the plan meta;
+  - nothing leaves flame before H;
+  - `replaced_later_birth` is 0.
+- **Readers.** All 8 `/2` packets pass the self-check, replay, ContactModel, the kit checker and RoadExposure.
+- **Identity.** The `/2` strings and the law are present. The plan sha256 is recomputed, and the base plan hashes are
+  kept.
+- **Tests.** 25 pass.
+- **Byte-identity.** The YD `/1` rebuild is byte-identical to her own v3.6 build: HAZARD, npz, REPORT and
+  NATIVE_METADATA.
+
+**Leo's attack points, answered.**
+- (a) There are no ties at the start on either sample: 0 cells within 1 s. First-bin arrivals are already birth 0
+  under `/1`.
+- (b) On a synthetic start, C0 adds the FIRMS-earlier cells (330 at YD). That is per the rule, and stated.
+- (c) Ignitions at 0 on known-burned cells are accepted by every reader, and in contact they are exactly closed from
+  0. Under F1 they radiate for the whole horizon, so **the radiation-convention-limited column stays**.
+- (d) OK.
+
+**Notes.**
+- The `/1` rebuild matches in "4 of 5 files". This is fixed in STATUS item 1 above.
+- Exposure stays F1-labelled.
+- Richard's acceptance 6–8 are outstanding.
+
+**Default switch.** `no_reentry/2` becomes the person-facing default (F-BASE DESIGN.md) once Richard's 6a–6d pass.
+His 7 and 8 are reported, not gates.
