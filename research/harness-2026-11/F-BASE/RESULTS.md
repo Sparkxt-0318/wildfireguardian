@@ -162,6 +162,13 @@ Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `pyth
 - **Rates:** per request, N1 14/432 and N2 10/432. Per distinct case, failures occur in 7 cases (N1 5, N2 2) out of
   108 distinct (start, origin, departure) triples (432 requests = 108 × 2 horizons × 2 variants).
 
+**Rule before run:** established by **commit order only**. Rule (c) was committed at 13:53 (f3f0734d), the runner at
+13:57 (8b99a06c) and the results at 16:14 (6f0925fa). The per-request records carry no timestamps; runs from S3
+onward stamp started_utc in their header rows.
+
+**Where the waitable rule comes from:** [pending one line each from Richard and Thomas on which OSM tags or which file
+define the waitable nodes]. Any "routes into fire" or "no route" headline from this table carries this dependence.
+
 **Verification:** Nora, **PASS WITH NOTES** (ledger row 55).
 - She recounted every number and re-ran 6 packets (108 requests, including all 7 distinct failures), which came out
   identical on every request.
