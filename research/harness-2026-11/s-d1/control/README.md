@@ -45,8 +45,12 @@ It has 273 SCORED case receipts plus their npz entry files.
   1,705,079 stored cells. 471,597 cells (27.7%) are bit-identical in float32; max |Δ| = 4.2e-7; all cells valid.
 - c651_mc (1024 trajectories, seed 0, batch 32, `pipeline.c651_monte_carlo` unchanged): **34 of 273 cases run;
   bit-identical to the stored `p_c651_mc` (max |Δ| = 0) on every case run.** This is not a claim about all 273 cases.
-  The orchestrator decided the subset stands as the control. Owen reruns cases outside these 34, chosen by him, to
-  cover the selection.
+  The orchestrator decided the subset stands as the control.
+  - **Owen, PASS WITH NOTES (cc34b18a):** bit-identical on every case run, **40 of 273**. That is the 34 run here
+    plus 6 that Owen chose by a spacing rule fixed before any result (script-order indices 7→8, 53, 99, 145, 191,
+    237; one per fire, none in the 34). He also reran 2 of the 34. Over his reruns, 66,311 of 66,311 cells are
+    bit-identical.
+  - 233 of 273 cases have not been run by anyone. The claim stays "on every case run (40 of 273)".
   - `RESULTS_c651_every10.jsonl` (b6db989f…): fixed subset, every 10th case in the script's case order (shards 0/20
     and 10/20). 28 cases covering all six fires (Wapiti 6, Lava 5, Pioneer 5, Goat 4, RedRock 4, FishCreek 4);
     175,773 cells, all bit-identical; all valid; all identity checks pass.
