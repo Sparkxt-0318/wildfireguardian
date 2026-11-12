@@ -18,6 +18,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 10 | 2026-11-12 | F-4.2 spatial clearance | Priya | 0e6f7db | 15 published clearances; trade-offs; 90 witnesses certified | `clearance_panel.py --only FW2,FN1,FX2`; `analyze_clearance.py`; `verify_witnesses.py`; own independent geometry on all 15 | PASS WITH NOTES |
 | 11 | 2026-11-12 | W-KIT (N6/N7 fix) | Thomas | 01292ca | issue-by <= planner leave-by and field leave-by; latency order low >= median >= high | `cd planner && npx vitest run ../tests/planner/wkit.channels.test.ts && npx vitest run` + 10 probes | PASS |
 | 12 | 2026-11-12 | PR #109 torch install line (merge-readiness point) | Daniel | 5f384555 | torch line installs CPU torch 2.5.1 from the PyTorch CPU index only | the script venv block in a fresh venv, cold uv cache | PASS |
+| 13 | 2026-11-12 | P-PROTO P1-P4 (replay-only public page, not published) | Thomas | 477448d8 | P1 cards show time/hand-off only on leave_by, with stamp; P2 render order, same-origin; P3 contrast/CVD tokens; P4 built only with WFG_BUILD_PUBLIC_VIEW=1 | `cd planner && npx vitest run pproto && npx vitest run`; `npm run build:static` with and without the flag; own card scan + own P3 computation | PASS WITH NOTES |
+| 14 | 2026-11-12 | W-KIT W5 (재난문자 class limits) | Thomas | 477448d8 | kit SMS and family text fit 90 chars and their class | `npx vitest run wkit` | PASS |
 
 ## Notes
 
@@ -90,3 +92,13 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - numpy is 1.26.4. torch's dependencies resolve from the CPU index alone, and `uv pip check` reports 34 packages compatible.
 - wildfire.survival and wildfire.rollout import.
 - The rest of #109 was not verified here (Hannah's PASS).
+
+**13. P-PROTO @ 477448d8**:
+- pproto 10/10, planner 395/395.
+- P4: the default build:static gives 0 public-view files ([check] OK); the WFG_BUILD_PUBLIC_VIEW=1 build adds public-view.html and the publicView chunks; planner-pages.yml does not set the flag.
+- P1, own scan of 1,131 cards: non-leave_by cards show 0 times or hand-offs; every leave_by card carries the stamp; no "minutes old"; the GPX carries REPLAY. The 98 forbidden-word hits are all in synthetic place names (0 after masking, 0 real).
+- P2: no external URL or geo: in the built page; the jsdom render was not re-run by me.
+- P3, own WCAG/Machado/CIE76 computation: text ≥ 11.9:1; accents ≥ 8.66:1; min ΔE 20.4 (tritan, light); hues blue/vermilion/grey; dataAge 40 px = time 40 px.
+- N1: the dataAge line shows the replay input clock time on every card. This is intended, and RESULTS should state it.
+
+**14. W5 @ 477448d8**: wkit 20/20. ko familyText max 51 characters (≤ 90).
