@@ -83,6 +83,12 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
    - Pass requires a median absolute difference of ≤ 1.0 K for temperature, ≤ 1.0 m/s for each wind component, ≤ 1.0° for slope and ≤ 5 percentage points for tree cover, and at least 95% agreement on biome class.
    - Pass **also** requires tail bounds (revision 11): the 95th percentile of |difference| must be ≤ 3.0 K, ≤ 3.0 m/s per wind component, ≤ 3.0° and ≤ 15 percentage points respectively.
    - **How a channel passes (clarification, revision 12).** A channel whose rebuilt file is **byte-identical** to the archive file hash pinned in committed evidence (for example, FIT_COVERAGE.json) has a difference of 0 and passes. A channel whose hashes differ and whose archive values are not recoverable is **UNAVAILABLE**, and the fallback applies to it. *Disclosure:* this clarification was written after Daniel reported that 16 of 35 AlderCreek covariate files hash-match and that slope and tree cover differ. It adds no tolerance and changes no threshold. It only states how a hash match counts.
+   - **Hash-check outcome** (Daniel, daniel/data-fetch 78cbe58b `covariate_hash_table.csv`, fit fires AlderCreek, TrailCreek and GreenRidge):
+     - biome_class, arrival_time_hours and kriging_std_hours **PASS** (byte-identical; biome on all 34 events with an archive hash).
+     - slope_degrees and tree_cover_percent: bytes differ on all 3, and no archive values are committed, so **UNAVAILABLE**.
+     - temperature and wind: not yet built (Open-Meteo limit).
+     - The only archive-derived values are the frozen logistic's pooled feature scaler statistics. They are not per-channel values, so they do not satisfy the cell-wise check.
+     - **Consequence under the fallback below: decisions for archive-trained models on rebuilt inputs are descriptive**, unless the owner supplies archive values for one fit fire.
    - **Labels.** The rebuilt label pipeline reproduced all 52 committed Wapiti held-out cases exactly (grid, reference_cells, positives, y). This was reported by Daniel at 60a94974 and is not yet verified by Hannah.
    - **Fallback.** Untouched fires have no archive values, so the rebuilt source is used whatever the outcome. On a failure, or if no archive values are recoverable (check UNAVAILABLE), every decision on rebuilt inputs for a model trained on archive covariates is **descriptive, not confirmatory**, until the check passes (revision 11). The failing channels are reported.
 
