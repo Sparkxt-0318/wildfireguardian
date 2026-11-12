@@ -1,5 +1,6 @@
 """Write FREEZE.json, stage 1 (A1 §9): the frozen identity of A1, the harness, the cohorts and every
-pinned external file. It refuses on any pin mismatch. The output depends only on file contents and
+pinned external file. It refuses on any pin mismatch, and on uncommitted changes under S-D9 other than FREEZE.json itself
+(amendment 1; --allow-dirty is for dry runs only). The output depends only on file contents and
 pinned git objects, so it is identical whenever it is re-run at the commit that contains it (no HEAD
 or working-tree field is recorded).
 
@@ -88,7 +89,13 @@ def git(*args) -> bytes:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--allow-dirty", action="store_true", help="dry run on a modified tree (never for a freeze)")
     args = ap.parse_args()
+    dirty = git("status", "--porcelain", "--", str(HERE)).decode().split("\n")
+    dirty = [ln for ln in dirty if ln.strip() and not ln.rstrip().endswith("FREEZE.json")]
+    if dirty and not args.allow_dirty:
+        raise SystemExit("refusing: uncommitted changes under S-D9 (other than FREEZE.json); commit first or pass "
+                         "--allow-dirty for a dry run:\n" + "\n".join(dirty))
     local = {}
     for pattern in LOCAL_GLOBS:
         for f in sorted(HERE.glob(pattern)):
