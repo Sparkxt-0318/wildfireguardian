@@ -41,7 +41,7 @@ What `/2` adds is the rest of C0, the **burned-out-at-start set B0**:
 
 **One consequence: the placeholder burning duration no longer matters for blocking.** In `/1` and in reopening, T
 decides whether a pre-start cell is "still burning" (blocked) or "burned out" (open). In `/2`, every cell in C0 is
-blocked on [0, H) whatever T is. That T is the export's `contract__cell_duration_s`, 3,970.5 s (1.10 h), the placeholder flagged unsourced by Sofia.
+blocked on [0, H) whatever T is. That T is the export's `contract__cell_duration_s`, 3,970.46 s (1.10 h), the placeholder flagged unsourced by Sofia.
 
 `envelope_burnset` already blocks the burn set ∪ present fire on [0, H). Its `/2` packet therefore has the same
 content as its `/1` packet if **C0 ⊆ burn set ∪ present fire**. This is checked (acceptance 3). If it fails, the
