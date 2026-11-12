@@ -27,6 +27,18 @@ positions.
 
 (Corrected after Mira's REQUEST 5 review; earlier text presented the two bounds separately, each below 1.0.)
 
+**Verification of the first input (Nora, 12:15 UTC, PASS WITH NOTES; ledger row 29 on `verification/nora-fire`).**
+- Nora's scan covered every non-flame HAZARD.json flux value, over all members, bins and cells of the 15 one-hour
+  packets.
+- The maximum is 0.015545 kW/m² (Uiseong 03-25 17Z). The next largest are 0.01016 (Uljin 03-04 06Z) and 0.01004
+  (Yeongdeok 03-25 19Z); all others are ≤ 0.0067.
+
+**Scope (her note, adopted).** The statement covers the **packet's cell-binned flux model**, the one the router and
+kit verdicts read. Under it, a contact-free route never reads a flame bin, so its peak is ≤ 0.0156 kW/m². The
+statement does **not** bound the continuous whole-road radiation enclosure computed by the kit checker. The claim is
+therefore: "a 1.0 kW/m² ceiling changes no router or kit verdict on the 1-hour panel", not a statement about physical
+flux along the road.
+
 ## 2. F-DYN counts (per packet; the 4 packets and 12 requests of `../F-3.4/FDYN_PLAN.md`)
 
 For each request, with its published route if one is published:
