@@ -89,6 +89,9 @@ def git(*args) -> bytes:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--amends", type=Path, default=None,
+                    help="write an amendment record that references this existing FREEZE file (never rewrite it)")
+    ap.add_argument("--amendment-label", default=None)
     ap.add_argument("--allow-dirty", action="store_true", help="dry run on a modified tree (never for a freeze)")
     args = ap.parse_args()
     dirty = git("status", "--porcelain", "--", str(HERE)).decode().split("\n")
@@ -99,7 +102,7 @@ def main() -> None:
     local = {}
     for pattern in LOCAL_GLOBS:
         for f in sorted(HERE.glob(pattern)):
-            if f.is_file() and f.name != "FREEZE.json":
+            if f.is_file() and not f.name.startswith("FREEZE"):
                 local[str(f.relative_to(HERE))] = sha(f.read_bytes())
     external = []
     for label, commit, path, prefix in EXTERNAL:
@@ -121,6 +124,12 @@ def main() -> None:
                                                    "W-5 Cold Springs", "Kincade", "McFarland"],
                     note="no perimeter of a sealed incident has been opened (ledger/ACCESS_CONTROL.md)"),
     )
+    if args.amends is not None:
+        base = args.amends.read_bytes()
+        out = dict(schema="S-D9 FREEZE amendment", amendment=args.amendment_label,
+                   amends=dict(path=args.amends.name, sha256=sha(base)),
+                   note="The amended FREEZE file is kept unchanged; this record supersedes it for the files it lists.",
+                   **{k: v for k, v in out.items() if k != "schema"})
     args.out.write_text(json.dumps(out, indent=1, sort_keys=False) + "\n")
     print(f"wrote {args.out}: {len(local)} local files, {len(external)} external pins, A1 {out['a1_sha256'][:12]}")
 

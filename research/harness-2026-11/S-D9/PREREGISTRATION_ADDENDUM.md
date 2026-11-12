@@ -469,6 +469,7 @@ The score is the RPS over observation-censored arrival bins, on **all** cells of
     - If |z| ≤ 3, it is reported as the **resolution limit** of the score under that censoring. That is a finding, not a failure.
     - If the excess is below −3 SE (the shift beats the truth), it is a **failure**.
   - *Reported, not a pass condition:* the asymmetry between the shifted-earlier and shifted-later excesses. Iris proposed symmetry within error as a criterion. For a proper score the two excesses generally differ, because the hazard is not symmetric in time, so symmetry is reported as a diagnostic. A **negative** excess for either shift is a failure under the rule above.
+- **Resolution limit, carried into every admission result (Iris; orchestrator).** With a single survey inside the lead range, the RPS cannot tell a one-bin-late forecast from "never", as the test shows. **Every D1/D2 admission result reports how many scored fires, and how many cell-cutoff entries, have only one survey inside the lead range.**
 - **Climatology arrival baseline on real data.** It is a descriptive row: the pooled empirical P(first mapped by lead time t), fit on **part a only**. It is never a criterion object.
 
 ### 5.3 Joint-forecast verification (revision 27; development-only, descriptive)

@@ -29,3 +29,5 @@ With a single survey at 3 h, "one bin later" (t − 3 h = 0) is necessarily the 
 **Notes.**
 - In the stress patterns every lead is at or below 5 h. "Shifted later by 12 h" is therefore F(0) = 0 there, identical to "never", which is why those two rows match.
 - The earlier-to-later excess ratio (0.46, 4.5 and 3.3 across the three patterns) is a reported diagnostic. Under a proper score it is expected to depend on the hazard and the censoring pattern.
+
+**Consequence for admission (A1 amendment 1).** On fires with a single survey inside the lead range, the RPS cannot rank candidates on late-arrival timing. Every D1/D2 admission result therefore reports how many scored fires, and how many entries, are in that case.
