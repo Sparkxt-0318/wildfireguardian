@@ -143,3 +143,14 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
 - **Proposal:** Richard reports the count from his full-checker witnesses on the reopening and no-re-entry packets of
   each run. Orchestrator to decide.
 - Peak cannot flip: max flux 0.70 kW/m² against the 10 kW/m² budget. Dose can, because the integrated flux rises.
+
+### Acceptance 7 delegated (orchestrator, 2026-11-12)
+
+- **Who runs it.** Richard's headline pipeline reports the dose/peak verdict-change count as a row in his multi-hour
+  results, under his committed rule:
+  - the same witness is checked by the full checker on the reopening packet and on the no-re-entry packet;
+  - the count is the requests whose PEAK/DOSE codes differ.
+- **No second router is run here.**
+- **Why.** `routing-package`'s validator rejects RESEARCH_CONSTRUCTION packets (`EVIDENCE_CLASS`), and its full-grid
+  graph validation takes 190 s per call.
+- **Meanwhile the F1 label stands:** integrated flux × 1.6–2.6; peak unchanged at 0.70 kW/m²; dose may flip.
