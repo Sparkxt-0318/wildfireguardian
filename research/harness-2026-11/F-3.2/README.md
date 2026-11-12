@@ -63,9 +63,11 @@ blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely s
 Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,858 KB):
 - A, legality of the route only (corridor edges, their blocks, turns, waits, acceptance): **4.5–57 KB**.
 - Optimality: in the 5 routes whose arrival is forced by the destination opening (no state can complete before T),
-  the COCERT proof needs only the acceptance record (≈0.1 KB). Otherwise the best slice (forward or complement) plus
-  certificate is ≈0.5–1.5× the full instance, before any completeness authentication: optimality genuinely depends on
-  most of the reachable region. A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
+  the COCERT proof needs only the acceptance record (≈0.1 KB). For the other 15 (10 routes, 5 no-route) the best slice
+  (forward or complement) plus certificate is 0.82–3.08× the full instance (median 1.42×; 6 of 15 above 1.5×), before
+  any completeness authentication: on this panel an optimality or no-route proof is often LARGER than the instance
+  itself, because it depends on most of the reachable region. (Corrected after verification; an earlier draft said
+  ≈0.5–1.5×.) A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
   a loose upper bound that alone exceeds the instance; a real multi-proof design is unmeasured.
 
 ## Departure-sweep cohort (reconstruction — NOT the November 106-request cohort or its 2 unproved claims)
