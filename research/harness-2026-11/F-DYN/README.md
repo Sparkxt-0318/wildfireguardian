@@ -321,3 +321,25 @@ independent scalar-law checker **does not apply and was not run** on them. Never
 All four use the v3.1 convention. `envelope_ahi_bounded` was **withdrawn** after its reach table: it applied a
 pixel time per cell, which burned cells early and burned them out before arrival. See `STARTS_RULE.md` and
 `ahi_results/README.md`. No fifth variant is planned.
+
+## `envelope_footprint` (ENVELOPE_FOOTPRINT_RULE.md @3fbd229, adopted; replaces withdrawn `envelope_sound`)
+
+- **Static law.** The final mapped burn set (16,176 cells) is burning on the whole window [0, H) at every start. No
+  cell is cleared within the horizon. lo = ignition, chosen on principle: non-detections fail on both attribution and
+  omission.
+- **Label.** "Bound relative to the final mapped burn set". It is **pending Nora**, and the word "sound" is not used
+  until she passes it.
+- **Sample.** Yeongdeok 25T11Z h5. The HAZARD flame mask is a single interval [0, 18000), equal to the burn set
+  (16,176 cells). Present fire (97 cells) is inside it.
+- **Blocked road share** (`REACH_footprint.json`, identical for every start and horizon):
+
+  | Region | Road cells | Blocked | Share |
+  |---|---:|---:|---:|
+  | Uiseong-Andong | 1,656 | 1,646 | **99.4%** |
+  | Yeongdeok | 1,590 | 1,115 | **70.1%** |
+
+  The interim graph is the recorded roads, regridded, and lies mostly inside the fire area.
+- **Still to come from Richard's field:** origins with a checked route, and origins with an unchanged deadline.
+- **Manifest.** `MANIFEST_v3_2.json` (wfg.fdyn.manifest/3) has `envelope_footprint` in place of `envelope_sound`.
+  The other three variants' entries are identical to v3.1. `MANIFEST_v3_1.json` is not edited and is listed as
+  superseded.

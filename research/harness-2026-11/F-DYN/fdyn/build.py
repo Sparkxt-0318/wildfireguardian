@@ -137,6 +137,8 @@ def main(argv=None):
     a.out.parent.mkdir(parents=True, exist_ok=True)
     plan_path = a.out.with_name(a.out.name + '.plan.npz')
     extra = {} if p['hi_rel'] is None else {'hi_rel': p['hi_rel']}
+    if a.arrival_variant == 'envelope_footprint':          # ENVELOPE_FOOTPRINT_RULE.md: static law on the burn set
+        extra['footprint_mask'] = np.isfinite(arrival)
     np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']), **extra)
     cmd = [a.python, '-I', '-B', str(HERE / '_packet_child.py'), '--plan', str(plan_path), '--graph', str(graph),
            '--export-dir', str(export_dir), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
