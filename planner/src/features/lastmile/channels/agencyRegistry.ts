@@ -12,8 +12,11 @@
  * not in force), departments (only a secondary provincial table names them so far), 경상북도 / 산림청 / 행정안전부 (not
  * evacuation-order issuers under 제40조①).
  *
- * INCOMPLETE. 영덕군 is not registered: no verbatim sender tag and no own-site source yet (its site was unreachable). To
- * add a body: the exact official name as the body writes it, its own published English name only (never a romanisation
+ * 영덕군 is registered from a SECONDARY source (DESIGN DECISION OF THIS TOOL, 2026-11-12): the 경상북도 contact table, because no
+ * verbatim sender tag and no own-site source could be found (its site returned a web-firewall block page). Its entry
+ * says so (`secondary: true`); replace the source when the county's own page or a sender tag is found.
+ *
+ * INCOMPLETE: only the counties of the replayed fires. To add a body: the exact official name as the body writes it, its own published English name only (never a romanisation
  * made here), a source URL for each, and the reviewer. Contact NUMBERS are never stored here: they are supplied inputs,
  * checked for a Korean phone-number shape and labelled to staff as supplied and unverified.
  */
@@ -24,6 +27,8 @@ export interface RegistryEntry {
   en: string | null;
   /** where the exact names come from */
   source: string;
+  /** true: the name comes from a secondary source (not the body's own site or a sender tag), a design decision of this tool */
+  secondary?: boolean;
 }
 
 export const AGENCY_REGISTRY: readonly RegistryEntry[] = [
@@ -31,6 +36,13 @@ export const AGENCY_REGISTRY: readonly RegistryEntry[] = [
   { ko: '청송군', en: null, source: '긴급재난문자, 2025-03-25 16:49 (heraldcorp 10449892; via Sofia). English: none found.' },
   { ko: '안동시', en: 'Andong City', source: '긴급재난문자, 2025-03-25 (newsis NISX20250328_0003118155; via Sofia). English: own English site https://www.andong.go.kr/en/main.do ("Andong City").' },
   { ko: '영양군', en: null, source: '긴급재난문자, 2025-03-25 18:18 (imaeil 2025032518271151259; via Sofia). English: own site unreachable — none.' },
+  {
+    ko: '영덕군',
+    en: null,
+    source:
+      'SECONDARY SOURCE (design decision of this tool, 2026-11-12): 경상북도 table 재난대책기관 연락처(시군), https://www.gb.go.kr/gbsafe/page/2406/5015.tc (research-scout LOG batch 8). Own site yd.go.kr returned its web-firewall block page; no sender tag found. English: none.',
+    secondary: true,
+  },
 ];
 
 /**

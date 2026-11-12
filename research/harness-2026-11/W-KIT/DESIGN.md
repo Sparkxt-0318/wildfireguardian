@@ -28,6 +28,10 @@ text; English is a translation for review.
    "1번: 지금 출발합니다 / 2번: 차가 없어 이동 도움이 필요합니다 / 3번: 다시 듣기". Never promises transport (the kit's
    FORBIDDEN list bans 픽업, 데리러, 태워, 차량 지원, "pickup", "we will send"…): "2" is said to be *passed to the
    이장 and 읍·면사무소*, nothing more.
+   **English call (OWNER DECISION, 2026-11-12):** at a place whose shelter has no English name there is no English
+   automated call at all; the call is never produced without its destination. English-only callers at those places
+   (373 of the 531 real place-scenarios) get no automated call. The human-read English script keeps the Korean name
+   with a reader note.
    **Transport-need list (이동 도움 요청 명단)** for staff: pure function `transportNeedList(replies, plans)` →
    rows ordered: (a) origins with no checked leave-by (`no_route`, `unresolved`, `partial`) first, flagged
    "출발 마감 없음 — 먼저 확인"; then (b) `leave_by` ascending by T; ties by planner urgency rank, then reply time.
