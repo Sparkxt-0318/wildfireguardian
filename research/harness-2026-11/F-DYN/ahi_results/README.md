@@ -36,8 +36,11 @@ heat. Use the buffered membership (2 km disc) for any minimum constraint (Elena)
 
 - **Weak baseline everywhere.** All 365 firing pixels are flagged `weak_baseline`: each time-of-day slot has a single
   pre-ignition day or night (fewer than 2 valid scans).
-- **Left-censoring.** 62 pixels fire in the first scans of the 24 Mar 06 UTC window, because fire was already active
-  on the 24th. Their t_f is an upper bound only and t_lo is empty.
+- **Left-censoring.** **42** firing pixels have no earlier non-fire scan in the window (`t_lo_h` is NaN in
+  `ahi_first_fire.npz`), because fire was already active when the 24 Mar 06 UTC window opened. Their t_f is an upper
+  bound only. *Correction (2026-11-12):* this was earlier reported as 62, a figure no output supports. It was most
+  likely confused with the first hourly bin of the 25 Mar cluster (62 pixels). 50 pixels have t_f within the first
+  10 min of the window.
 - **Parallax.** The terrain parallax shift has median 217 m and max 808 m.
 - **Saturation.** Band-7 saturation sets t_f for only 1 pixel.
 
@@ -46,8 +49,11 @@ heat. Use the buffered membership (2 km disc) for any minimum constraint (Elena)
 AHI first-fire times on 25 Mar cluster between **06:24 and 09:24 UTC (15:24–18:24 KST)**: 62, 38 and 76 pixels per
 hour. A further 26 / 14 / 23 pixels follow from 09:24 to 12:24 UTC.
 
-This is consistent with the documented accounts: 지품 smoke about 16:30 KST and flames 17:55 KST, 매정리 about
-20:40 KST. It is consistent with MODIS 12:25 UTC, and many hours earlier than the kriged burst at 16:24 UTC.
+This is consistent with the documented accounts: 지품 smoke about 16:30 KST and 매정리 about 20:40 KST.
+*Correction:* an earlier version also cited "지품 flames 17:55 KST". Sofia read the full dgmbc interview: it has no
+17:55. That time comes from a different article, about an unnamed village (DEFINITION_C1b_accounts.md, Sources).
+
+The cluster is also consistent with MODIS 12:25 UTC, and many hours earlier than the kriged burst at 16:24 UTC.
 
 Pixel-level meaning only: **"some burned cell within about 2 km had fire by t_f"**.
 

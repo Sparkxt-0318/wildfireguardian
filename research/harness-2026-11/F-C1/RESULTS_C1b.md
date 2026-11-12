@@ -15,7 +15,7 @@
 
 | Village / observer | Village arrival bracket (KST), 500 m + entry cell | Flame | Smoke | Account (label) | Account inside bracket? |
 |---|---|---|---|---|---|
-| V1 지품면사무소 | 25 Mar 14:58 – 21:25 | indeterminate | indeterminate | smoke ~16:30, flames 17:55 (read in full) | **yes** |
+| V1 지품면사무소 | 25 Mar 14:58 – 21:25 | indeterminate | indeterminate | smoke ~16:30 (read in full); *the "flames 17:55" first listed here is not in the source (see note)* | **yes** |
 | V2 매정1리 hall | 14:58 – 21:25 | indeterminate | indeterminate | arrival ~20:40 (read in full) | **yes** |
 | V2 매정2리 hall | 21:25 – 26 Mar 01:09 | indeterminate | indeterminate | ~20:40 | **no** (earlier than the bracket start) |
 | V2 매정3리 hall | 14:58 – 21:25 | indeterminate | indeterminate | ~20:40 | **yes** |
@@ -23,6 +23,10 @@
 | V4 노물리 hall | 21:25 – 01:09 | indeterminate | indeterminate | ~midnight (snippet) | **yes** |
 | V5 강구2/4리 halls | no detection within 500 m: **not bracketed** | not bracketed | not bracketed | ~00:37 (snippet) | n/a |
 | V6 신덕리 (centroid, flagged) | 14:58 – 21:25 | indeterminate | indeterminate | flames ~17:30–18:00, arrival +10 min (read in full) | **yes** |
+
+**Correction (2026-11-12):** V1's "flames 17:55" is not in the dgmbc interview, which Sofia read in full. That
+time comes from a different article, about an unnamed village. V1's account check rests on smoke at about 16:30
+alone and is unchanged.
 
 **Account check.**
 
