@@ -65,7 +65,7 @@ For each request, with its published route if one is published:
   separately.
 - **The same rule applies on F-DYN** to every published route there, once its clearances exist.
 
-## 4. Follow-ups approved 11:16 UTC (Iris; orchestrator) — written before computing
+## 4. Follow-ups approved 11:16 UTC (Iris; orchestrator) — plan committed before results (5d88f09, 62 s before 12c32af)
 
 These are a sensitivity range under the flame assumptions of §3, **not a count of unsafe routes**. A
 clearance-based policy variant is **not** approved; nothing here changes any policy.
@@ -99,7 +99,7 @@ clearance-based policy variant is **not** approved; nothing here changes any pol
   for exact clearance > d*.
 - **Run order.** This runs after the F-DYN profile, which keeps priority on the quiet host.
 
-## 5. Refinements from Iris (11:19 UTC), written before computing
+## 5. Refinements from Iris (11:19 UTC) — plan committed before results (3b1b929 before 49a50b3)
 
 **5a. Destination versus wait exposure.** The stationary seconds of 4a are split into DWELL (the required stay at the
 destination) and WAIT (waits along the route). For each mission and each case, report:
