@@ -22,3 +22,12 @@ The run took about 11 min and downloaded about 1 GB of raw files, streamed and d
   It comes from object cleanup and does not affect the output; check for the final `DONE scans … missing 0` line instead.
 - **Verification:** Hannah (verifier) reported PASS at d791bf5a. She reproduced two 4-scan windows from the public bucket (2025-03-24 18:00 and 2025-03-25 10:00, the latter inside
   the saturation span). Pixel identities were identical, and B07 and B14 matched exactly (max |Δ| = 0). The full 24 h fetch was not rerun.
+
+## Additional baseline windows (Leo's request; same script, grid and pixel set)
+
+| File | sha256 | Window (UTC) | Scans | B07 max | Note |
+|---|---|---|---|---|---|
+| `kfs01_ahi_20250324T06_20250324T18.npz` / `.csv.gz` | `f0ac0e5c…f203` / `89ead0b5…660e` | 2025-03-24 06:00–17:57:30 | 288/288, none missing | 398.6 K (no scan ≥ 399.9 K) | Same-hour daytime window on 24 March. **The fire was already active** (KFS_01 ignited 2025-03-22 02:24 UTC), so this is not a fire-free baseline. |
+| `kfs01_ahi_20250320T06_20250320T18.npz` / `.csv.gz` | `675d5b43…73d5` / `a7bea9f9…f5edf` | 2025-03-20 06:00–17:57:30 | 288/288, none missing | 298.0 K | **Pre-ignition** daytime baseline (quiet background: solar reflection, surface heating). |
+
+Both have the same 448 pixels (`line`/`column` identical to the main file), with no NaN. The main 24 h file (`63dfc2b6…`) is unchanged.
