@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 15, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 16, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,6 +17,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 21 | D2 loss-only candidates admitted under the §3.1 recipe: `d2_nll_rebuilt` (mean-field Brier loss replaced by Bernoulli NLL) and `d2_bracket_rebuilt` (latent arrival-time augmentation within survey brackets). Elena's hypothesis is recorded before any refit. The soft-risk-set arm is development-only. Also corrects §3.1's stale allowlist sha (801acdd8… → 7db3cc0e…, per item 20) | §3.1 | Orchestrator decision on Elena's (S-D2) request. **Declared before either D2 refit runs**; the wrapper shas are recorded in FREEZE.json before any run |
 | 20 | Correction after Hannah's FAIL. CA-KNF-007084_Devil (GOFER "Slater and Devil") had been kept in part c and is now excluded. GOFER↔NIROPS matching is redone systematically by location and dates (`cohort/gofer_match.py`). Pinned inputs are by commit and file hash and are never edited in place | §1.1, §1.2 | **Made after Hannah's finding.** COHORT_FINAL went from 13078990… to d5ae66f4…, the part-a allowlist from 801acdd8… to 7db3cc0e…, and part c swapped Devil for ID-SCF-022091_WolfFang. The systematic matching found no further b/c/d exposure. Nothing had been scored on part c |
 | 19 | Refit deviations required to run on rebuilt inputs (Marcus): verbatim command line, input-manifest and train-events patches, part-a grid and window rules | §3.1 | Frozen before any refit. The patch is pinned by sha once Marcus sends it |
 | 18 | Rebuilt-pipeline refits of d4_wind and logistic on the training pool: the confirmatory comparators for part c (orchestrator decision; Iris option b) | §3.1 | Recipe frozen here **before any refit runs**. Archive-trained models become labelled descriptive rows |
@@ -178,7 +179,7 @@ Every predictor is declared by SHA-256 before the manifest.
 
 **Training data, identical for every refit and for every D1/D2 candidate.** It is the union of:
 - The 23 forecast-v2 US fit fires, rebuilt. They are already exposed as FIT.
-- The **part-a training pool** (`cohort/PART_A_ALLOWLIST_FINAL.csv`, sha 801acdd8…). An incident is used only if it has at least 2 surveys and a buildable grid.
+- The **part-a training pool** (`cohort/PART_A_ALLOWLIST_FINAL.csv`, sha 7db3cc0e…; corrected from the superseded 801acdd8… by item 21, following item 20). An incident is used only if it has at least 2 surveys and a buildable grid.
 - Intervals follow §2's rule (0 < Δ ≤ 48 h, timestamp-only), with all eligible intervals per fire. Build failures are logged, never replaced.
 - No US2024, KR2025, part b/c/d or H-test fire is used.
 
@@ -200,7 +201,7 @@ Every predictor is declared by SHA-256 before the manifest.
      - It passed a smoke test end to end on the forecast-v2 synthetic fixture.
    - Marcus confirmed these are not CLI-overridable: kernel 9 and dropout 0.0 are literals (pipeline.py:336), and weight_decay is `fit_mean_field`'s default of 1e-4 (survival.py:327).
    - The initial rate comes from the training-set prevalence, so it legitimately depends on the pool.
-3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed.**
+3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed**, except the loss replacements of the two named D2 candidates below (revision 21).
 4. **Part-a grid rule:**
    - EPSG:5070, 375 m cells, aligned to multiples of 375 m (the Choi reference-grid convention).
    - Extent = bounds of the union of all of the incident's NIROPS survey perimeters, plus 2 km.
@@ -218,6 +219,16 @@ Every predictor is declared by SHA-256 before the manifest.
 **`dilation_8h`** has no fitted weights, so it is unchanged.
 
 **Rate-mixture candidate** (development first, per Iris; added as a part-c comparator only if it performs in leave-one-fire-out development on R): `d4_wind_rebuilt` run at global rate multipliers m ∈ {1, 2, 4, 8, 16}, with mixture weights fit on the training data. Once weather covariates exist, a development check also tests whether the fast tail intervals are predictable from wind; if they are, one wind-dependent weight parameter is allowed. The final form is frozen by amendment before part c opens.
+
+**D2 candidates: loss-only deviations (revision 21; declared before either refit runs).** Two named D2 candidates use **the identical recipe** above: the same training data, rebuilt inputs and input pins, Marcus's wrapper (264deaea…) and its hash guards, the same command line and hyperparameters, seed 0, and receipts. Each **replaces only the training loss**. The replacement is injected in memory the same way as Marcus's wrapper, and `pipeline.py` and `survival.py` stay unchanged.
+- **`d2_nll_rebuilt`.** The mean-field model is trained with **Bernoulli negative log-likelihood** on the mean-field p(t2) in place of the Brier loss of `survival.fit_mean_field` (survival.py:334). It keeps the same weights and the same prevalence scaling. This is the same-regime NLL baseline Iris asked for.
+- **`d2_bracket_rebuilt`.** The same recipe plus **latent arrival-time augmentation within each survey bracket**. The E-step imputes each cell's arrival time inside (t_k, t_{k+1}] given the current model. The M-step maximizes the complete-data likelihood. It is fit under the same 3-epoch budget. **If it cannot finish within that budget, it is reported as not admitted, and the budget is not changed.**
+- **Code and freeze.** The code lives in `research/harness-2026-11/S-D2/refit/`. Each wrapper's sha256 is published for review and recorded in FREEZE.json **before it runs**. Neither candidate may change the training data, covariates, hyperparameters, architecture or seed.
+- **Admission to part c.** Both remain subject to §5.2: each must emit multi-observation cumulative marginals natively, demonstrated on R before its SHA freeze. Both are judged by §6.1, criteria 1–4 included.
+- **Soft-risk-set arm: development only.** It needs kriged arrival inputs, which exist only for the 23 fit fires, so it is **not a part-c candidate**.
+- **Hypothesis, recorded before any D2 refit (Elena, S-D2).** Ignoring within-bracket timing cuts the fitted spread rate by about 3–4×. **`d2_bracket_rebuilt`, not `d2_nll_rebuilt`, is therefore the arm predicted to shrink d4's near-zero tail without recalibration**: fewer positives at p < 1e-5 and p < 1/1024 in the 4 km band (§5), relative to `d4_wind_rebuilt`.
+  - *Motivating evidence (development, part a, Elena's stream; **not verified by Hannah**).* It comes from covariate-free spatial fits on NIROPS part-a brackets: 42 fires with ≥ 20 surveys, from allowlist 7db3cc0e at 2d40d170, first 240 h. On one fire (CooksPeak), the fitted total spread rate was 0.018/h plug-in (first observation time), 0.026/h mean-field NLL, 0.065/h composite likelihood and 0.069/h MCEM. A 24-fire run is pending, and its result is evidence for the hypothesis, not a change to it.
+  - If the prediction fails (`d2_bracket_rebuilt` does not reduce the tail counts, or `d2_nll_rebuilt` does so equally), that is reported as stated, whatever the Brier results.
 
 **Who runs it.** Marcus (S-D1) runs the baseline refits, and Elena's D2 refit uses the identical training data and pipeline. Every refit writes a receipt with input hashes, code SHA, seed and wall time.
 
