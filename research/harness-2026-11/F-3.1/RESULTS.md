@@ -655,7 +655,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 * **Control.** At d = 0 all 6 starts equal the kriged_mean field on every place (CERT and FREE sets; 0 places
   differ). The control file is the v3.1 kriged_mean run; the rule names v3.3, whose kriged_mean packets were not
   run separately.
-* **Witnesses.** 6,288 witnesses, all pass the unchanged full checker and the closed replay (exact or upper_bound);
+* **Witnesses.** 6,264 witnesses, all pass the unchanged full checker and the closed replay (exact or upper_bound);
   every next second is infeasible.
 
 | region-start | d (m) | earlier | shift (s): median (upper) / max | before start | later | no route at d = 0 | witnesses |
