@@ -5,9 +5,17 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from seebefore.compute import gap_class, tvis  # noqa: E402
+from seebefore.compute import gap_class, robust_class, tvis  # noqa: E402
 from seebefore.fire import FireSet  # noqa: E402
-from seebefore.summarize import displayed_class  # noqa: E402
+
+
+def test_robust_requires_agreement():
+    assert robust_class('negative', 'negative') == 'robust_negative'
+    assert robust_class('nonneg_visible_now', 'nonneg') == 'robust_nonneg'
+    assert robust_class('negative', 'indeterminate_mixed') == 'indeterminate'
+    assert robust_class('nonneg_visible_now', 'indeterminate_censored_deadline') == 'indeterminate'
+    assert robust_class('negative', 'nonneg') == 'indeterminate'
+    assert robust_class('no_route', 'no_route') == 'no_route'
 
 
 def case(L, by):
@@ -39,14 +47,6 @@ def test_censored_or_window_deadline_unseen_is_indeterminate():
     for by, L in (('grid_end', 3000), ('window', 2400)):
         assert gap_class(case(L, by), [None] * 4, 3600)[0] == 'indeterminate_censored_deadline'
         assert gap_class(case(L, by), [100.0] * 4, 3600)[0] == 'nonneg'
-
-
-def test_displayed_class():
-    r = {'latest_s': 1800}
-    assert displayed_class(r, [None] * 4) == 'unseen_before_displayed'
-    assert displayed_class(r, [0.0] * 4) == 'seen_before_displayed'
-    assert displayed_class(r, [0.0, None, None, None]) == 'mixed'
-    assert displayed_class({'latest_s': 3000}, [None] * 4) is None
 
 
 def test_tvis_present_then_new_ignition():

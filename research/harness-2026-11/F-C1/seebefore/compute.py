@@ -23,7 +23,14 @@ from seebefore.viewshed import required_height, ring_points, subpoints  # noqa: 
 STEP_M = 15.0
 EYE_PRIMARY, EYE_HIGH = 2.0, 10.0
 # observer variants: (name, ring index or None for centre, eye height)
-VARIANTS = ['centre_eye2', 'centre_eye10', 'best9_eye2']
+VARIANTS = ['centre_eye2', 'centre_eye10', 'best9_eye2', 'centre_eye2_cellcentre']
+# v2 fixed settings (DEFINITION.md, committed before the counted run): variant row, heights, range cap
+SETTINGS = {
+    'optimistic': {'variant': 'best9_eye2', 'flame': 10.0, 'smoke': 1000.0, 'cap_m': None},
+    'pessimistic': {'variant': 'centre_eye2_cellcentre', 'flame': 2.0, 'smoke': 300.0, 'cap_m': 15_000.0},
+}
+NONGROUND_DSM_EXCESS_M = 5.0     # observer DSM above the 5th percentile within 150 m -> flagged as not bare ground
+NONGROUND_RADIUS_M = 150.0
 # channel thresholds (target height above surface, m); primary first
 HEIGHTS = {'flame': [10.0, 2.0, 30.0], 'glow': [150.0, 50.0, 300.0], 'smoke': [1000.0, 300.0, 3000.0]}
 BEST9_HEIGHTS = (10.0, 150.0, 1000.0)    # primary heights; best9 variant evaluated only at these
@@ -54,9 +61,10 @@ def place_hreq(surface, px, py, cells_xy):
     """(variants, cells) minimum over 3x3 sub-points of the required height; best9 = min over 9 observer points."""
     sp = subpoints(cells_xy).reshape(-1, 2)
     nc = len(cells_xy)
-    centre = required_height(surface, px, py, [EYE_PRIMARY, EYE_HIGH], sp[:, 0], sp[:, 1], step=STEP_M,
-                             max_samples_per_chunk=CHUNK)
-    centre = np.fmin.reduce(centre.reshape(2, nc, 9), axis=2) if nc else centre.reshape(2, 0)
+    centre_all = required_height(surface, px, py, [EYE_PRIMARY, EYE_HIGH], sp[:, 0], sp[:, 1], step=STEP_M,
+                                 max_samples_per_chunk=CHUNK).reshape(2, nc, 9)
+    cell_centre = centre_all[0, :, 4].copy()           # sub-point index 4 = the cell centre (offsets -125, 0, +125)
+    centre = np.fmin.reduce(centre_all, axis=2) if nc else centre_all.reshape(2, 0)
     # best9 is evaluated at the primary heights only (BEST9_HEIGHTS); a cell already visible from the centre at the
     # lowest primary height needs no ring rays (best9 <= centre). Other cells get exact ring values.
     best = centre[0].copy()
@@ -67,7 +75,7 @@ def place_hreq(surface, px, py, cells_xy):
             h = required_height(surface, rx, ry, [EYE_PRIMARY], spn[:, 0], spn[:, 1], step=STEP_M,
                                 max_samples_per_chunk=CHUNK)[0]
             best[need] = np.fmin(best[need], np.fmin.reduce(h.reshape(-1, 9), axis=1))
-    return np.vstack([centre, best[None, :]])
+    return np.vstack([centre, best[None, :], cell_centre[None, :]])
 
 
 _W = {}
@@ -132,6 +140,25 @@ def gap_class(cs, tv_members, horizon):
     return 'indeterminate_censored_deadline', t_min, t_max
 
 
+def robust_class(opt: str, pes: str) -> str:
+    """Sign is robust only when both settings agree on it (DEFINITION.md v2)."""
+    sign = {'negative': '-', 'nonneg': '+', 'nonneg_visible_now': '+', 'no_route': 'no_route'}
+    a, b = sign.get(opt), sign.get(pes)
+    if a is not None and a == b:
+        return {'-': 'robust_negative', '+': 'robust_nonneg', 'no_route': 'no_route'}[a]
+    return 'indeterminate'
+
+
+def observer_nonground(surface, x, y):
+    """True when the DSM at the observer is > NONGROUND_DSM_EXCESS_M above the 5th percentile within 150 m."""
+    g = np.arange(-NONGROUND_RADIUS_M, NONGROUND_RADIUS_M + 1, surface.res)
+    gx, gy = np.meshgrid(g, g)
+    m = np.hypot(gx, gy) <= NONGROUND_RADIUS_M
+    z = surface.sample(x + gx[m], y + gy[m])
+    z0 = float(surface.sample(x, y))
+    return bool(z0 - np.nanpercentile(z, 5) > NONGROUND_DSM_EXCESS_M)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--surface', type=Path, required=True)
@@ -167,6 +194,7 @@ def main():
                     print(f'  {i}/{len(pids)} {time.time() - t_start:.0f}s', flush=True)
         np.savez_compressed(a.out / f'hreq_{region}.npz', keys=np.array(keys), pids=np.array(pids),
                             hreq=np.stack([H[p][0] for p in pids]), dist=np.stack([H[p][1] for p in pids]))
+        nonground = {pid: observer_nonground(surface, places[pid]['place_x'], places[pid]['place_y']) for pid in pids}
         for c in cs:
             if c['origin_id'] not in H:
                 continue
@@ -178,23 +206,21 @@ def main():
             row['light'] = 'night' if c['scope'] in NIGHT else 'dusk' if c['scope'] in DUSK else 'day'
             pres = np.array([dist_by_key[ckey(xy)] for xy in fs.present_xy])
             row['nearest_present_fire_km'] = float(pres.min() / 1000) if pres.size else None
+            row['observer_nonground'] = nonground[c['origin_id']]
             res = {}
-            for vi, vname in enumerate(VARIANTS):
-                hk = dict(zip(keys, hr[vi]))
-                for ch, hs in HEIGHTS.items():
-                    for h in hs:
-                        if vname == 'best9_eye2' and h not in BEST9_HEIGHTS:
-                            continue
-                        caps = [None, FLAME_RANGE_CAP_M] if ch == 'flame' else [None]
-                        for cap in caps:
-                            tag = f'{ch}{int(h)}' + ('_cap15km' if cap else '') + f'@{vname}'
-                            tv = tvis(fs, hk, dist_by_key, h, cap)
-                            cls, tmin, tmax = gap_class(c, tv, fs.valid_until_s)
-                            res[tag] = {'t_vis_members_s': tv, 'class': cls}
-                # visible fraction of present fire cells (flame primary), for description
+            for sname, st in SETTINGS.items():
+                hk = dict(zip(keys, hr[VARIANTS.index(st['variant'])]))
+                for ch in ('flame', 'smoke'):
+                    tv = tvis(fs, hk, dist_by_key, st[ch], st['cap_m'])
+                    cls, tmin, tmax = gap_class(c, tv, fs.valid_until_s)
+                    res[f'{ch}@{sname}'] = {'t_vis_members_s': tv, 'class': cls}
+                for ch in ('flame', 'smoke'):
+                    a_, b_ = res[f'{ch}@optimistic']['class'], res.get(f'{ch}@pessimistic', {}).get('class')
+                    if b_ is not None:
+                        res[f'{ch}@robust'] = {'class': robust_class(a_, b_)}
             row['results'] = res
             rows.append(row)
-    (a.out / 'cases_results.json').write_text(json.dumps({'surface': smeta, 'step_m': STEP_M, 'variants': VARIANTS,
+    (a.out / 'cases_results.json').write_text(json.dumps({'surface': smeta, 'step_m': STEP_M, 'variants': VARIANTS, 'settings': SETTINGS,
                                                           'heights': HEIGHTS, 'rows': rows}, ensure_ascii=False,
                                                          default=float))
     print(f'done {len(rows)} cases in {time.time() - t_start:.0f}s -> {a.out}')

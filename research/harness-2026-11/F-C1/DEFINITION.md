@@ -1,4 +1,39 @@
-# F-C1 see-before-leave gap: definitions (draft for verification, v1)
+# F-C1 see-before-leave gap: definitions (v2, fixed before the counted run)
+
+## v2 changes (Iris's assessment; orchestrator plan change)
+
+- **Scope.** The planner-cache version below is kept as a short **negative result**. It reports which cases are
+  decidable at all; 15 of 522 deadlines are fire-set. The main experiment moves to F-C1b on the observed arrival
+  reconstruction, with documented village timelines for timing. F-C1b gets its own definition note.
+- **Quantity name.** "Line of sight to modelled burning cells". It is not "when residents see the fire".
+- **Two fixed settings.** A gap sign is called **robust** only when both settings agree; otherwise it is
+  indeterminate. Parameters are fixed here, before the counted run, and are not tuned after seeing gaps.
+
+  | Item | Optimistic (early visibility) | Pessimistic (late visibility) |
+  |---|---|---|
+  | Observer | best of 9 points (OSM point + 8 at 250 m), eye 2 m | OSM point only, eye 2 m |
+  | Target point | any of 3 x 3 sub-points | cell centre only |
+  | Flame height | 10 m | 2 m |
+  | Smoke column | 1,000 m | 300 m |
+  | Range cap | none (export grid only) | 15 km for flames and smoke |
+
+- **Reported as a pair.** Flames are the late end of awareness and the smoke column is the early end. Seeing smoke is
+  not judging it a threat.
+- **Glow.** No night-glow distance has a source (Sofia), so glow is not reported.
+- **Stated limits** (also in the visibility table below):
+  - Earth curvature and refraction are included.
+  - Haze and smoke obscuration are not modelled; the range cap is the only stand-in.
+  - GLO-30 is a surface model. An observer "2 m above the DSM" in a canopy or building cell stands above the canopy.
+    Observer cells are therefore flagged where the DSM is more than 5 m above the local 5th-percentile surface within
+    150 m (a rough non-ground flag), and the counts are reported with and without them.
+  - Buildings and trees within about 50 m of the observer dominate the required heights of hidden targets. That is a
+    modelling limit, not a finding.
+- **Run status.** Run `run1` (2026-11-12 09:00 UTC) started before this assessment arrived. It is exploratory, and no
+  number from it is reported. The counted run is the first run at the commit that adds this section.
+
+---
+
+# v1 text (definitions retained unless overridden above)
 
 Status: **design decision, not yet computed for all 174 places.** For Hannah to verify and Iris to assess before
 the full run. Nothing here changes routing, forecast, planner or published results.
