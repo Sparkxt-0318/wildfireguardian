@@ -159,3 +159,12 @@ packet grid.
 - **Writer identity (orchestrator condition on keeping the scenario ids).** Every consumer that compares instances
   must print the writer identity (`packet_writer_sha256`, and `support_writer` if present). `regress.py` and
   `amended_rule.py` record it per packet. Downstream comparers (Richard, Thomas) are asked to do the same.
+
+### A1 status: adopted going forward (Hannah PASS WITH NOTES, ledger row 37, 2026-11-12)
+
+- **Rule from now on.** A1 applies to cross-environment flux comparisons going forward: flux relative ≤ 1e-9 OR
+  absolute ≤ 1e-12 kW/m².
+- **The Uiseong 03-24 09Z result stays as recorded.** The ledger keeps it as a FAIL under the rule in force at run
+  time, the relative 1e-9 rule, with A1 marked post hoc. A1 does not overwrite that result.
+- **Hannah's own check.** She ran amended_rule.py on her own builds (numpy 1.26.4 and 2.5.4): existing rule 14/15,
+  A1 15/15. This matches the committed results.

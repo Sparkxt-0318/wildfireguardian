@@ -57,8 +57,10 @@ environments were used, Linux x86_64 in both:
 **Both flux rules, side by side.** Amendment A1 is in DESIGN.md: post hoc, proposed, committed at 7e8420ea before
 this evaluation.
 - No packet was rebuilt. `amended_rule.py` re-reads the A builds; output in `AMENDED_RULE_RESULTS.json`.
-- The existing rule (relative ≤ 1e-9) **stays the rule of record**.
-- Hannah decides whether A1 is acceptable.
+- **Run-time verdict kept.** The existing rule (relative ≤ 1e-9) was the rule in force at run time, so the
+  Uiseong 03-24 09Z FAIL stays recorded under it.
+- **A1 adopted going forward.** Hannah PASS WITH NOTES, ledger row 37; she reproduced 14/15 and 15/15 on her own
+  numpy 1.26.4 and 2.5.4 builds.
 
 | Rule | numpy 2.5.3 / Py 3.13 | numpy 1.26.4 / Py 3.12 |
 |---|---|---|
