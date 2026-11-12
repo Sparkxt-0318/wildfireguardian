@@ -123,6 +123,10 @@ def main(argv=None):
         export_dir = a.synthetic_export_dir
     with np.load(export_dir / f'FORECAST_{a.start}.npz') as z:
         burned_at_start = z['source_burned_area_valid'] & (z['source_burned_area'] == 1)
+        if a.arrival_variant == 'envelope_burnset':   # PACKET_CONSISTENCY_RULE.md A: only present fire is skipped
+            iv = z['heat__initial_burning_valid'].astype(bool)
+            cur = (iv & (z['heat__initial_active_burning_probability'] == 1) & burned_at_start) | (burned_at_start & ~iv)
+            burned_at_start = cur
         burn_T = float(z['contract__cell_duration_s'])
     p = ignitions.plan(arrival, sd, arrival_variant=a.arrival_variant, arrival_source=source, start_h=start_h,
                        start_utc=start.isoformat(), horizon_s=a.horizon_h * 3600.0, quantum_s=a.quantum_s,

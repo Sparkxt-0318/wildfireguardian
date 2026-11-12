@@ -174,3 +174,16 @@ def test_footprint_law_never_clears_a_burn_set_cell():
     assert m['breakpoints'] == [0.0, 18000.0]                                           # one interval, whole window
     assert m['flame'].shape[0] == 1 and np.array_equal(m['flame'][0], footprint | current)
     assert np.all(np.isinf(m['extinction_breakpoint_s']))                               # nothing ends in the horizon
+
+
+def test_hazard_only_arrays_are_refused_by_contactmodel():
+    """PACKET_CONSISTENCY_RULE.md B: a HAZARD-only packet's arrays carry NaN births, which the router-side
+    ContactModel.from_arrays must reject loudly (it is only called here, never patched)."""
+    sys.path.insert(0, str(REPO / 'experimental' / 'scenario-members' / 'src'))
+    from wfg_scenario_members.contact import ContactModel
+    ign = np.full((1, 3, 4), np.nan)
+    cur = np.zeros((3, 4), bool)
+    with pytest.raises(ValueError):
+        ContactModel.from_arrays(ign, cur, 4270.0, 0.0)
+    ok = np.full((1, 3, 4), np.inf); ok[0, 1, 1] = 0.0
+    assert len(ContactModel.from_arrays(ok, cur, 18000.0, 0.0).cell_intervals) == 1

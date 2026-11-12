@@ -123,8 +123,10 @@ def main():
         s['timing'] = 'arrival-time raster (F-DYN), not uniform draws'
         # floor(ignition) + widened duration T+Q covers [exact ignition, exact ignition + T); consumed fraction scaled
         # so the emitted heat-release-rate density fuel*H*cf/T is unchanged (conservative for contact and radiation)
-        s['burning_duration_s'] = T0 + Q
-        s['consumed_fraction'] = cf0 * (T0 + Q) / T0
+        burnset = meta.get('arrival_variant') == 'envelope_burnset'
+        Tp = horizon if burnset else T0 + Q       # PACKET_CONSISTENCY_RULE.md A: burn set on [0, H) under the scalar law
+        s['burning_duration_s'] = Tp
+        s['consumed_fraction'] = cf0 * Tp / T0
         s['fdyn'] = {k: meta[k] for k in ('fdyn_version', 'label', 'plan_sha256', 'ignition_times_sha256',
                                           'quantum_s', 'member_set', 'members', 'arrival_variant',
                                           'arrival_source', 'arrival_raster_sha256')}
@@ -140,16 +142,18 @@ def main():
                                           'not a lower bound because detection-to-cell attribution is pixel-level; '
                                           'bracket scenario only, do not score')
             if meta.get('arrival_variant') == 'envelope_burnset':
-                s['source_law_version'] = 'wfg.fdyn.envelope-burnset-static/1'
-                s['fdyn']['envelope'] = ('static law: burn set | present fire burning on [0, H); no cell cleared within '
-                                         'the horizon (ENVELOPE_BURNSET_RULE.md)')
+                s['source_law_version'] = 'wfg.fdyn.burnset-scalar/1'
+                s['fdyn']['envelope'] = ('static law as the writer scalar law: birth 0 on burn set minus present fire, '
+                                         'T = H, R = H; burn set | present fire on [0, H) in HAZARD and in the arrays '
+                                         '(ENVELOPE_BURNSET_RULE.md, PACKET_CONSISTENCY_RULE.md A)')
                 s['fdyn']['soundness'] = ('SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)')
             if meta.get('arrival_variant') == 'envelope':
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
-                                          'fire arrived before that overpass (use envelope_sound)')
-        s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': T0 + Q,
+                                          'fire arrived before that overpass. HAZARD-only; not for array-based routing '
+                                          'or certification (PACKET_CONSISTENCY_RULE.md B)')
+        s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': Tp,
                                           'export_consumed_fraction': cf0,
-                                          'packet_consumed_fraction': cf0 * (T0 + Q) / T0}
+                                          'packet_consumed_fraction': cf0 * Tp / T0}
         return s
 
     B.draw_ignitions = fdyn_draws
@@ -172,7 +176,14 @@ def main():
             if footprint is not None:
                 if footprint.shape != H:
                     raise SystemExit('FOOTPRINT_MASK_SHAPE')
-                built['members'] = burnset_members(B, np, built, epsg, footprint)
+                if T != horizon:
+                    raise SystemExit('BURNSET_T_NOT_H')
+                built['remaining_s'], built['remaining_exact'] = horizon, False        # R = H (rule A)
+                built['members'] = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, b, T))
+                ref = burnset_members(B, np, built, epsg, footprint)                     # the stated law
+                for m, r in zip(built['members'], ref):
+                    if m['breakpoints'] != r['breakpoints'] or not np.array_equal(m['flame'], r['flame']):
+                        raise SystemExit('BURNSET_SCALAR_LAW_DIFFERS_FROM_STATED_LAW')
             else:
                 built['members'] = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, np.where(np.isfinite(b), hi_rel[k], np.inf), T))
             envelope_checks.append(1)
@@ -210,6 +221,25 @@ def main():
             raise SystemExit('WRITTEN_IGNITIONS_DIFFER_FROM_PLAN')
     if float(hz['valid_until']) != horizon:
         raise SystemExit('HORIZON_NOT_WRITTEN')
+    variant = meta.get('arrival_variant')
+    arrays = Path(out) / 'constructed_arrays.npz'
+    if variant == 'envelope':                    # PACKET_CONSISTENCY_RULE.md B: HAZARD-only, array path must refuse
+        meta['arrays_sha256_as_written'] = sha(arrays)
+        with np.load(arrays, allow_pickle=False) as z:
+            arr = {k: z[k] for k in z.files}
+        arr['ignition_time_s'] = np.full(arr['ignition_time_s'].shape, np.nan)
+        arr['per_cell_law_HAZARD_only'] = np.array(True)
+        np.savez_compressed(arrays, **arr)
+        summ['files_sha256']['constructed_arrays.npz'] = sha(arrays)
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from fdyn import consistency                 # PACKET_CONSISTENCY_RULE.md C: builder self-check, every variant
+    chk = consistency.check(out)
+    if variant == 'envelope':
+        if not str(chk.get('array_path', '')).startswith('REFUSED'):
+            raise SystemExit('HAZARD_ONLY_ARRAYS_NOT_REFUSED')
+    elif not chk['consistent']:
+        raise SystemExit('PACKET_INCONSISTENT ' + json.dumps(chk.get('member_rows')))
+    meta['packet_self_check'] = {k: chk.get(k) for k in ('consistent', 'array_path', 'member_rows')}
     summ.update(region=a.region, event_id=a.event, cutoff=iso, graph_sha256=sha(a.graph), forecast_npz_sha256=sha(npz),
                 forecast_record_sha256=sha(recp), fdyn=meta, window=win, status='BUILT')
     with (Path(out) / 'BUILD_SUMMARY.json').open('x') as f:
