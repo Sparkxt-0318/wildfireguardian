@@ -1,6 +1,6 @@
 # S-D1: continuous-time first-passage formulation of the SMOKE forecast
 
-Owner: Marcus. Status: **checkpoint 2**.
+Owner: Marcus. Status: **checkpoint 3**.
 
 Plan changes adopted on the orchestrator's decision, following Iris:
 - Running the first-passage sampler on c651 kernels without a refit gives a different, faster model. Any result from it is a labelled diagnostic, never an accuracy claim.
@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **14 passed** in about 5 min, most of it the rollout-parity test. They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **16 passed** in 11 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -52,7 +52,9 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - rate and offset parity with `wildfire.models.new_burn_probability` (K = 3, 5, 9; rtol 1e-12);
 - **per-cell marginals of the reference CA equal to the real `wildfire.rollout.simulate`** (stub predictor with fixed kernels, 5σ);
 - the conditional estimators: exact on an analytic chain including a ~1e-4 tail cell; equal to plain counting on a random grid; the hourly conditional estimator exact on the hourly chain;
-- the half-step arm lying above the hourly CA.
+- the half-step arm lying above the hourly CA;
+- the frontier-restricted CMC loop equal to a brute-force full-grid evaluation;
+- a global rate multiplier c scaling first-passage arrival times by exactly 1/c pathwise (static kernels; this is used by S-D4mix).
 
 ## 3. Gate 1: the sub-stepped CA converges to first-passage
 
@@ -106,7 +108,7 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 | data | pairs | new 375 m cells | share beyond 4 cells per gap-hour | notes |
 |---|---:|---:|---:|---|
 | GOFER v0.2 hourly perimeters, 28 CA fires (`gofer_cap.py`) | 4,071 hourly | 185,278 | **8.9%** (1.25% with one GOES-pixel tolerance, d > 4g + 6) | per-fire median 7.5%, range 0.7–22%; 804 intervals with any |
-| NIROPS survey pairs, S-D9 part-a allowlist + 23 fit fires (`nirops_cap.py`) | 3,725 (median gap 24 h) | 254,658 | 0.22% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
+| NIROPS survey pairs, S-D9 PART_A_ALLOWLIST_FINAL (489) + 23 fit fires (`nirops_cap.py`) | 3,262 over 430 incidents (median gap 24 h) | 240,434 | 0.23% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
 | VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | 326 of 642 cells on 25 Mar 16:09 UTC beyond the 11-step reach, max 45 km in 10.7 h |
 
 - **GOFER:** all 28 fires were read before S-D9 set its GOFER membership rule. This is recorded in the S-D9 ledger as aggregate label-only inspection, and per-fire stats of H-test fires must not tune a candidate. GOFER boundaries come from ~2 km GOES pixels, hence the tolerance column.
@@ -138,7 +140,7 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 
   In the 1e-6 – 1e-4 bin most cells get zero plain hits.
 - **Caveat.** (hi − lo)/p reaches 0.4–2.1 on a few tail cells, so the local repair is needed there. The repair re-runs the subtree with `i` deleted, reusing the per-edge clocks; the threshold must be fixed in advance.
-- **Real-size grid with peak memory and the fair hourly-conditioning baseline** (`cmc_real.py` → `RESULTS_cmc_real.json`): see §8, filled in when the run completes.
+- **Real-size grid with peak memory and the fair hourly-conditioning baseline** (`cmc_real.py` → `RESULTS_cmc_real.json`): see §8.
 
 ## 7. Performance against the real hourly rollout (`perf.py` → `RESULTS_perf_*.json`)
 
@@ -158,9 +160,57 @@ R5 kernels (c651 magnitude, 12 h):
 
 First-passage cost scales with the burned cells, not with grid × steps. The rollout's batch size (500) and its coverage-probe pass are part of its measured cost.
 
-## 8. Real-size conditional estimator
+## 8. Real-size conditional estimator (Iris's requirements)
 
-Pending: `RESULTS_cmc_real.json`.
+Command: `python research/harness-2026-11/s-d1/cmc_real.py --n 1000 --size 160` (≈30 min) → `RESULTS_cmc_real.json`.
+
+Setup:
+- 160×160 grid, 9×9 heterogeneous kernels, 3×3 ignition, 12 h, n = 1,000;
+- each arm in its own process; peak RSS includes imports.
+
+The fair baseline is the hourly CA's own conditional estimator `Σ_k 1{unburned before k} q_i(k)`, which is exactly unbiased.
+
+| kernels | arm | ms/trajectory | peak RSS (MiB) | median gain over its own plain arm, by p bin (≥0.1 · 1e-2 · 1e-3 · 1e-4 · 1e-6) |
+|---|---|---:|---:|---|
+| c651 magnitude (Σ ≈ 0.25/h) | first-passage plain | 0.33 | 294 | — |
+| | **first-passage CMC** | **0.64** | 225 | **11.8 · 8.9 · 17.8 · 42.4 · 197** |
+| | hourly CA plain | 101* | 502 | — |
+| | hourly CA conditional | 72 | 551 | 8.8 · 33 · 62 · 141 · 557 |
+| fast (Σ ≈ 0.6/h) | first-passage plain | 0.53 | 225 | — |
+| | **first-passage CMC** | **1.2** | 225 | **1.8 · 2.7 · 3.0 · 8.2 · 82** |
+| | hourly CA plain | 64 | 502 | — |
+| | hourly CA conditional | 64 | 551 | 2.2 · 9.6 · 10.8 · 25 · 207 |
+
+\* This run overlapped a single-threaded perimeter-preparation job on a 4-core host. The first-passage plain timings match the earlier run (0.33 vs 0.35 and 0.53 vs 0.53 ms). The hourly-plain c651 arm did not (101 vs 81 ms), so its gain column is inflated by up to about 1.25×.
+
+**What this shows.**
+- **Iris was right.** Conditioning on its own gives large gains in the hourly model too; the gain is not specific to first-passage.
+- **Absolute cost.** First-passage CMC is about 100× cheaper per trajectory than either hourly arm, and uses less memory (225 vs 550 MiB).
+- **Loop restriction.** The first version looped over every cell per trajectory: 4.5 ms, with a net loss above p = 1e-4 in the fast regime. That earlier result is kept in git history at 1cd7748. Restricting the loop to cells with an in-neighbour burned before the horizon is exact; a brute-force equality test confirms it. It cut the cost about 7×.
+- **Bias bound.** The lower estimator's bias bound (hi − lo)/p has median 0. Its q99 is 0.02–0.03, and its max is 0.12 (c651) and 3.1 (fast, a single cell). Local repair remains needed for per-cell exactness in the fast regime.
+
+## 9. A1 §3.1 baseline refits on the rebuilt pipeline (prepared, not run)
+
+The frozen `research/forecast-v2/scripts/pipeline.py` (sha256 88d376d2…, pinned in A1) cannot run unmodified on rebuilt inputs or the part-a pool:
+- its `Environment` is constructed without pins, so it demands the archive `EXTRACTION_MANIFEST.json`;
+- `command_final` hard-codes `SPLIT["fit"]["us_perimeter_and_kriged"]` as the training list.
+
+`refit/run_pipeline_rebuilt.py` leaves `pipeline.py`'s bytes untouched and checks its sha, and that of `RUN_PROTOCOL.json`. It injects exactly two things in memory:
+- `--input-manifest`: `{relative_path: sha256}` pins, so every file read is still hash-verified;
+- `--train-events`: the training list.
+
+It writes `REFIT_RECEIPT_<command>.json` (wrapper/pipeline/protocol shas, manifest and train-list shas, argv, host, wall time).
+
+**Smoke test.** On forecast-v2's own synthetic FIXTURE (`make_fixture.py`, Antelope + McCash; real grids and NIROPS states from `prepare_perimeters.py`; synthetic covariates), `final --variant d4_wind` ran end to end with pins verified. No scientific content.
+
+**Raised with S-D9 before any refit:**
+1. pins flag;
+2. train-events flag;
+3. part-a incidents have no Zenodo grid and are not handled by `prepare_perimeters.py`, so a frozen grid rule, `events.json` windows and a rasteriser are needed;
+4. the full command line frozen verbatim (CLI defaults differ: `--samples-per-step` 4, `--balance` off);
+5. compute: the archive fit used 1,303 intervals and took 2,284 s.
+
+Waiting on Daniel's rebuilt inputs (weather after the 00:00 UTC Open-Meteo reset) and Victor's grid rule.
 
 ## Blockers and dependencies
 

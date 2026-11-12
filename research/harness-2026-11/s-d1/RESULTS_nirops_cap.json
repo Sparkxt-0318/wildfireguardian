@@ -4,24 +4,24 @@
  "cap": "chessboard distance > 4 * ceil(gap_hours)",
  "max_gap_h": 48.0,
  "incidents_allowed": {
-  "part_a": 586,
+  "part_a": 489,
   "fit23": 23
  },
  "all_pairs": {
-  "incidents": 500,
-  "pairs": 3725,
-  "new_cells": 254658,
-  "share_cells_beyond_cap": 0.0021676130339514173,
+  "incidents": 430,
+  "pairs": 3262,
+  "new_cells": 240434,
+  "share_cells_beyond_cap": 0.002295848340916842,
   "pairs_with_any_beyond_cap": 1,
   "gap_h_q10_q50_q90": [
-   21.016666666666666,
-   24.033333333333335,
-   30.569999999999997
+   21.083333333333332,
+   24.016666666666666,
+   29.741666666666674
   ],
   "pair_max_rate_cells_per_h_q50_q90_q99_max": [
-   0.08264462809917356,
-   0.3293808177571677,
-   1.2649371092647403,
+   0.0837404047452896,
+   0.34782608695652173,
+   1.27850389321468,
    20.0
   ]
  },
@@ -44,38 +44,38 @@
   ]
  },
  "part_a": {
-  "incidents": 477,
-  "pairs": 2560,
-  "new_cells": 136113,
+  "incidents": 407,
+  "pairs": 2097,
+  "new_cells": 121889,
   "share_cells_beyond_cap": 0.0,
   "pairs_with_any_beyond_cap": 0,
   "gap_h_q10_q50_q90": [
-   20.883333333333333,
-   24.083333333333332,
-   36.31166666666661
+   20.95,
+   24.05,
+   31.170000000000034
   ],
   "pair_max_rate_cells_per_h_q50_q90_q99_max": [
-   0.07407407407407407,
-   0.29294843118163555,
-   1.1849124030332028,
+   0.08042895442359249,
+   0.3184150606793268,
+   1.2097928933174111,
    20.0
   ]
  },
  "short_gaps_le_12h": {
-  "incidents": 59,
-  "pairs": 73,
-  "new_cells": 4133,
+  "incidents": 47,
+  "pairs": 57,
+  "new_cells": 3320,
   "share_cells_beyond_cap": 0.0,
   "pairs_with_any_beyond_cap": 0,
   "gap_h_q10_q50_q90": [
    3.0,
-   7.2,
-   11.209999999999999
+   6.716666666666667,
+   11.163333333333334
   ],
   "pair_max_rate_cells_per_h_q50_q90_q99_max": [
-   0.3,
-   1.5731605886116435,
-   8.579310344827604,
+   0.37037037037037035,
+   1.6582143985297075,
+   11.11724137931031,
    20.0
   ]
  },
@@ -135,13 +135,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.12056262558606833
-  },
-  "AZ-ASF-000519_Guzzler": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.0453857791225416
   },
   "AZ-ASF-000613_Horton": {
    "pairs": 6,
@@ -282,20 +275,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.07905138339920949
-  },
-  "AZ-GID-000387_Mescal": {
-   "pairs": 4,
-   "new_cells": 977,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.6451612903225806
-  },
-  "AZ-KNF-000336_Hull": {
-   "pairs": 7,
-   "new_cells": 31,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.12903225806451613
   },
   "AZ-KNF-000391_ThreeLakes": {
    "pairs": 2,
@@ -647,13 +626,6 @@
    "group": "fit23",
    "max_rate_cells_per_h": 1.154518950437318
   },
-  "CA-KNF-007035_Slater": {
-   "pairs": 11,
-   "new_cells": 732,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.1762114537444934
-  },
   "CA-KNF-007241_Fox": {
    "pairs": 4,
    "new_cells": 32,
@@ -661,26 +633,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.09090909090909091
   },
-  "CA-KNF-6177_McKinney": {
-   "pairs": 3,
-   "new_cells": 179,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.18912529550827425
-  },
   "CA-KNP-000088_CoffeePot": {
    "pairs": 23,
    "new_cells": 294,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.25806451612903225
-  },
-  "CA-KNP-000116_Colony": {
-   "pairs": 8,
-   "new_cells": 695,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.587792012057272
   },
   "CA-KNP-000122_KNPComplex": {
    "pairs": 33,
@@ -801,13 +759,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.125
   },
-  "CA-MMU-016149_Oak": {
-   "pairs": 6,
-   "new_cells": 208,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.5042016806722689
-  },
   "CA-MNF-000753_AugustComplex": {
    "pairs": 45,
    "new_cells": 13372,
@@ -906,13 +857,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 1.4557377049180327
   },
-  "CA-RRU-119353_Snow": {
-   "pairs": 1,
-   "new_cells": 158,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.23566378633150042
-  },
   "CA-RRU-129712_Fairview": {
    "pairs": 2,
    "new_cells": 73,
@@ -961,13 +905,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.17053529133112272
-  },
-  "CA-SHF-001004_Pilot": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.04207573632538569
   },
   "CA-SHF-001004_ThreeNine": {
    "pairs": 5,
@@ -1025,13 +962,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.022962112514351322
   },
-  "CA-SQF-001285_Happy": {
-   "pairs": 2,
-   "new_cells": 30,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.1819560272934041
-  },
   "CA-SQF-001362_Borel": {
    "pairs": 10,
    "new_cells": 1624,
@@ -1053,13 +983,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.04
   },
-  "CA-SRF-000614_Charlie": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.0407055630936228
-  },
   "CA-SRF-000651_McCash": {
    "pairs": 52,
    "new_cells": 2322,
@@ -1073,34 +996,6 @@
    "beyond_cap": 0,
    "group": "fit23",
    "max_rate_cells_per_h": 1.8222222222222222
-  },
-  "CA-SRF-000986_Hancock": {
-   "pairs": 6,
-   "new_cells": 38,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.12866333095067906
-  },
-  "CA-SRF-000986_LonePine": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.0411522633744856
-  },
-  "CA-SRF-000986_Lost": {
-   "pairs": 2,
-   "new_cells": 8,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.07537688442211055
-  },
-  "CA-SRF-000986_Pearch": {
-   "pairs": 17,
-   "new_cells": 203,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.1948051948051948
   },
   "CA-TCU-007675_Aero": {
    "pairs": 1,
@@ -1129,13 +1024,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 1.6122840690978886
-  },
-  "CA-YNP-000056_Red": {
-   "pairs": 10,
-   "new_cells": 160,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.125
   },
   "CA-YNP-000058_Rodgers": {
    "pairs": 8,
@@ -1277,13 +1165,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.23715415019762848
   },
-  "CO-WRD-000166_FawnCreek": {
-   "pairs": 2,
-   "new_cells": 3,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.04395604395604396
-  },
   "ID-BOF-000212_BlackMountain": {
    "pairs": 1,
    "new_cells": 6,
@@ -1333,20 +1214,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.5172413793103449
   },
-  "ID-CTS-000550_JohnsonCreek": {
-   "pairs": 8,
-   "new_cells": 17,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.09090909090909091
-  },
-  "ID-CTS-000623_Scott": {
-   "pairs": 5,
-   "new_cells": 14,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.09202453987730061
-  },
   "ID-CTS-000714_Sunnyside_IronGate": {
    "pairs": 2,
    "new_cells": 3,
@@ -1360,13 +1227,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.20327498588368154
-  },
-  "ID-IPF-0000415_Columbus": {
-   "pairs": 3,
-   "new_cells": 23,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.041768186564566656
   },
   "ID-IPF-000212_DiamondWatch": {
    "pairs": 13,
@@ -1409,13 +1269,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.1674808094905792
-  },
-  "ID-IPF-000504_StateLineComplex": {
-   "pairs": 7,
-   "new_cells": 55,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.7489597780859917
   },
   "ID-IPF-000533_Bernard": {
    "pairs": 7,
@@ -1466,26 +1319,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.15463917525773196
   },
-  "ID-NCF-000463_Jumbo": {
-   "pairs": 17,
-   "new_cells": 50,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.19023462270133162
-  },
   "ID-NCF-000515_Anchor": {
    "pairs": 1,
    "new_cells": 13,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.19329896907216496
-  },
-  "ID-NCF-000548_StormCreek": {
-   "pairs": 13,
-   "new_cells": 306,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.2097902097902098
   },
   "ID-NCF-000552_Beaver": {
    "pairs": 2,
@@ -1501,13 +1340,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.06722689075630252
   },
-  "ID-NCF-000616_ArmyMule": {
-   "pairs": 2,
-   "new_cells": 6,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.05263157894736842
-  },
   "ID-NCF-000628_Sponge": {
    "pairs": 2,
    "new_cells": 2,
@@ -1515,68 +1347,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.041637751561415685
   },
-  "ID-NCF-000732_TwinLakes": {
-   "pairs": 4,
-   "new_cells": 11,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.08258774948382658
-  },
-  "ID-NCF-000742_StormTheatreComplex_Ashpile": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.021015761821366025
-  },
-  "ID-NCF-000742_StormTheatreComplex_Lonesome": {
-   "pairs": 5,
-   "new_cells": 10,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.1147227533460803
-  },
-  "ID-NCF-000742_StormTheatreComplex_SaddleCamp": {
-   "pairs": 1,
-   "new_cells": 2,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.17699115044247787
-  },
-  "ID-NCF-000763_SwansonCreek": {
-   "pairs": 1,
-   "new_cells": 2,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.03926701570680628
-  },
-  "ID-NCF-000774_WilliamsCreek": {
-   "pairs": 10,
-   "new_cells": 448,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.8073654390934843
-  },
   "ID-NCF-000819_MooseCreek_Halfway": {
    "pairs": 6,
    "new_cells": 34,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.11904761904761905
-  },
-  "ID-NCF-000819_MooseCreek_Monument": {
-   "pairs": 5,
-   "new_cells": 22,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.07936507936507936
-  },
-  "ID-NCF-000819_MooseCreek_Wye": {
-   "pairs": 6,
-   "new_cells": 132,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.25
   },
   "ID-NCF-00472_Shissler": {
    "pairs": 5,
@@ -1613,13 +1389,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.14218009478672985
   },
-  "ID-PAF-000427_Club": {
-   "pairs": 7,
-   "new_cells": 56,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.20134228187919465
-  },
   "ID-PAF-000433_Vinegar": {
    "pairs": 5,
    "new_cells": 25,
@@ -1640,13 +1409,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.1497326203208556
-  },
-  "ID-PAF-000673_French": {
-   "pairs": 1,
-   "new_cells": 6,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.12569832402234637
   },
   "ID-PAF-002673_ElkHorn": {
    "pairs": 5,
@@ -1669,20 +1431,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.04265908282971916
   },
-  "ID-PAF-005567_Tenmile": {
-   "pairs": 4,
-   "new_cells": 34,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.0636717368234878
-  },
-  "ID-PAF-005597_Parks": {
-   "pairs": 2,
-   "new_cells": 31,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.08492569002123142
-  },
   "ID-PAF-005658_Lemhi": {
    "pairs": 1,
    "new_cells": 1,
@@ -1690,26 +1438,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.0400266844563042
   },
-  "ID-PAF-00567_WolfCreek": {
-   "pairs": 2,
-   "new_cells": 7,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.04484304932735426
-  },
   "ID-PAF-005791_Logan": {
    "pairs": 7,
    "new_cells": 149,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.21826118588577664
-  },
-  "ID-PAF-5433_PatrolPoint": {
-   "pairs": 12,
-   "new_cells": 199,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.21505376344086022
   },
   "ID-PDS-000614_LelandComplex": {
    "pairs": 4,
@@ -1753,13 +1487,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.0425531914893617
   },
-  "ID-SCF-021158_Tango": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.040540540540540536
-  },
   "ID-SCF-022105_Moose": {
    "pairs": 51,
    "new_cells": 2817,
@@ -1787,13 +1514,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.36441586280814575
-  },
-  "ID-SCF-240235_Nugget": {
-   "pairs": 4,
-   "new_cells": 18,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.09868421052631579
   },
   "ID-SIS-000452_Copeland": {
    "pairs": 1,
@@ -1969,13 +1689,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.047281323877068564
-  },
-  "MT-BRF-024418_SharrottCreek": {
-   "pairs": 10,
-   "new_cells": 47,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.08504606661941885
   },
   "MT-CGF-21048_RobertsonDraw": {
    "pairs": 5,
@@ -2579,13 +2292,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.17179670722977808
   },
-  "OR-771S-000028_Lane1": {
-   "pairs": 25,
-   "new_cells": 577,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 1.3843351548269582
-  },
   "OR-781S-000037_SweetCreekMP2": {
    "pairs": 1,
    "new_cells": 3,
@@ -2621,13 +2327,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.5952380952380952
   },
-  "OR-953S-024272_FossilComplex_Service": {
-   "pairs": 7,
-   "new_cells": 530,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.47777040477770405
-  },
   "OR-954S-000022_MosierCreek": {
    "pairs": 2,
    "new_cells": 9,
@@ -2648,13 +2347,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.08069939475453934
-  },
-  "OR-973S-000250_BattleMountain_NFOwens": {
-   "pairs": 2,
-   "new_cells": 29,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.04175365344467641
   },
   "OR-981S-230203_Golden": {
    "pairs": 1,
@@ -2775,13 +2467,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.6737120211360634
   },
-  "OR-ORC-000008_NorthCascade_Dowty": {
-   "pairs": 1,
-   "new_cells": 4,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.04854368932038835
-  },
   "OR-ORC-000008_NorthCascade_Unger": {
    "pairs": 3,
    "new_cells": 13,
@@ -2866,13 +2551,6 @@
    "group": "fit23",
    "max_rate_cells_per_h": 0.5954198473282443
   },
-  "OR-UPF-000303_DiamondComplex_Loafer": {
-   "pairs": 1,
-   "new_cells": 1,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.032188841201716736
-  },
   "OR-UPF-000345_Chilcoot": {
    "pairs": 6,
    "new_cells": 30,
@@ -2900,13 +2578,6 @@
    "beyond_cap": 0,
    "group": "fit23",
    "max_rate_cells_per_h": 1.3341135166764189
-  },
-  "OR-UPF-240311_Homestead_Salmon33": {
-   "pairs": 6,
-   "new_cells": 6,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.06263048016701461
   },
   "OR-UPF-240402_DevilsKnob": {
    "pairs": 4,
@@ -2943,20 +2614,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.46198267564966317
   },
-  "OR-VAD-240166_BadlandComplex_Thompson": {
-   "pairs": 2,
-   "new_cells": 561,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.46198267564966317
-  },
-  "OR-WIF-200299_BeachieCreek": {
-   "pairs": 25,
-   "new_cells": 5593,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 2.58974358974359
-  },
   "OR-WIF-200430_HolidayFarm": {
    "pairs": 5,
    "new_cells": 1761,
@@ -2978,34 +2635,6 @@
    "group": "fit23",
    "max_rate_cells_per_h": 1.293103448275862
   },
-  "OR-WIF-230266_Bedrock": {
-   "pairs": 17,
-   "new_cells": 590,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.3181818181818182
-  },
-  "OR-WIF-230338_Wiley": {
-   "pairs": 2,
-   "new_cells": 3,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.043478260869565216
-  },
-  "OR-WIF-230409_PetesLake": {
-   "pairs": 6,
-   "new_cells": 82,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.27540983606557373
-  },
-  "OR-WIF-240208_208MF": {
-   "pairs": 30,
-   "new_cells": 316,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.3655352480417755
-  },
   "OR-WIF-240210_Pyramid": {
    "pairs": 3,
    "new_cells": 7,
@@ -3013,68 +2642,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.058027079303675046
   },
-  "OR-WIF-240214_MossMountain_Chalk": {
-   "pairs": 26,
-   "new_cells": 106,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.24291497975708504
-  },
-  "OR-WIF-240237_CoffeePot": {
-   "pairs": 17,
-   "new_cells": 159,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.1566579634464752
-  },
-  "OR-WIF-240365_Hiyu": {
-   "pairs": 2,
-   "new_cells": 3,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.046296296296296294
-  },
-  "OR-WIF-240371_LintonCreek": {
-   "pairs": 2,
-   "new_cells": 15,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.18867924528301888
-  },
-  "OR-WIF-240373_BoulderCreek": {
-   "pairs": 2,
-   "new_cells": 10,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.09654062751407885
-  },
-  "OR-WIF-240374_374MR": {
-   "pairs": 2,
-   "new_cells": 2,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.038510911424903725
-  },
   "OR-WSA-000026_S503": {
    "pairs": 1,
    "new_cells": 5,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.021937842778793418
-  },
-  "OR-WSA-000075_P515": {
-   "pairs": 5,
-   "new_cells": 65,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.18181818181818182
-  },
-  "OR-WWF-000353_GoatMountain2": {
-   "pairs": 5,
-   "new_cells": 8,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.07802340702210664
   },
   "OR-WWF-000400_DoubleCreek": {
    "pairs": 19,
@@ -3251,13 +2824,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.5306122448979592
   },
-  "WA-COF-002290_Muckamuck": {
-   "pairs": 4,
-   "new_cells": 180,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.34782608695652173
-  },
   "WA-COF-002348_BulldogMtn": {
    "pairs": 5,
    "new_cells": 18,
@@ -3293,13 +2859,6 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.29871977240398295
   },
-  "WA-MSF-000267_MurphyLake": {
-   "pairs": 5,
-   "new_cells": 10,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.08333333333333333
-  },
   "WA-MSF-000334_SuiattleRiver": {
    "pairs": 5,
    "new_cells": 128,
@@ -3307,33 +2866,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.12137559002022927
   },
-  "WA-MSF-000348_LochKatrine": {
-   "pairs": 4,
-   "new_cells": 51,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.47379755922469496
-  },
   "WA-NCP-000262_Sourdough": {
    "pairs": 6,
    "new_cells": 38,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.09385999217833399
-  },
-  "WA-NCP-000285_Ruby_RedMountain": {
-   "pairs": 2,
-   "new_cells": 2,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.043010752688172046
-  },
-  "WA-NCP-000285_Ruby_Ruby": {
-   "pairs": 2,
-   "new_cells": 11,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.06593406593406594
   },
   "WA-NES-001858_BoulderMountain": {
    "pairs": 8,
@@ -3384,33 +2922,12 @@
    "group": "part_a",
    "max_rate_cells_per_h": 0.08032128514056225
   },
-  "WA-OWF-000315_IrvingPeak": {
-   "pairs": 12,
-   "new_cells": 55,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.262582056892779
-  },
-  "WA-OWF-000319_WhiteRiver": {
-   "pairs": 27,
-   "new_cells": 171,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 1.2940330697340043
-  },
   "WA-OWF-000374_AirplaneLake": {
    "pairs": 3,
    "new_cells": 40,
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.27686222808174027
-  },
-  "WA-OWF-000397_Meander": {
-   "pairs": 2,
-   "new_cells": 2,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.07792207792207792
   },
   "WA-OWF-000407_Chikamin": {
    "pairs": 5,
@@ -3523,13 +3040,6 @@
    "beyond_cap": 0,
    "group": "part_a",
    "max_rate_cells_per_h": 0.1276595744680851
-  },
-  "WA-SPD-001947_Palmer_Palmer": {
-   "pairs": 6,
-   "new_cells": 158,
-   "beyond_cap": 0,
-   "group": "part_a",
-   "max_rate_cells_per_h": 0.25
   },
   "WA-WFS-000594_PearlHill": {
    "pairs": 2,
