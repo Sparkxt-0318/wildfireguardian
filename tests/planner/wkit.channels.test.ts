@@ -719,7 +719,7 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     for (const p of [...real, ...syn]) expect(residentTexts(B(p, { nowIso: NOW, issuer: ISS })).join('\n')).not.toMatch(/named in the Korean message|no English name/);
     // the kit summary shows the size of the gap (Iris)
     expect(staffSummary(real, 'en')).toBe('[Staff] Places with no English automated call: 373 of 531 (the shelter has no English name; a design decision of this tool). The Korean automated call is unchanged at every place.');
-    expect(staffSummary(real, 'ko')).toContain('531곳 중 373곳');
+    expect(staffSummary(real, 'ko')).toBe('[직원용] 영어 자동 음성전화를 만들지 않은 장소: 531곳 중 373곳 (대피장소에 영어 이름이 없음, 개발 측 결정). 한국어 자동 음성전화는 모든 장소에서 그대로 만듭니다.');
     // staff wording never uses "owner decision" / 소유자 / 운영책임자 (Iris, Sofia)
     for (const l of ['ko', 'en'] as const) for (const t of [NO_EN_CALL_REPORT[l], staffSummary(real, l)]) expect(t).not.toMatch(/owner|소유자|운영책임자|callers/i);
     console.log('[W6] English automated calls not produced (shelter without an English name, 531 real):', dropped, '; reader notes on English heads:', readerNotes);

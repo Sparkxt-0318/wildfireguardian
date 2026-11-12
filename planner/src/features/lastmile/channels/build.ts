@@ -567,7 +567,7 @@ export function englishCallDropped(p: MessagePlan): boolean {
  * owner's; Sofia: not 소유자 / 운영책임자, a defined role in 예규 361 제7조).
  */
 export const NO_EN_CALL_REPORT: LmText = {
-  ko: '만들지 않음 — 대피장소에 영어 이름이 없어 영어 자동 음성전화를 만들지 않습니다(개발 측 결정). 한국어 자동 음성전화는 그대로입니다. 이 대피장소로 안내되는 영어 사용 주민은 영어 자동 전화를 받지 않으며, 영어 안내 중 대피장소 이름은 이장 방송 대본과 가족 전화 대본에만 한글로 나옵니다.',
+  ko: '만들지 않음 — 대피장소에 영어 이름이 없어 영어 자동 음성전화를 만들지 않습니다(개발 측 결정). 한국어 자동 음성전화는 그대로 만듭니다. 이 대피장소로 안내되는 영어 사용 주민은 영어 자동 전화를 받지 않습니다. 영어 자료 가운데 대피장소 이름(한글)이 나오는 것은 이장 방송 대본과 가족 전화 대본뿐입니다.',
   en: 'not produced (English). The shelter has no English name, so no English automated call is made for this place (a design decision of this tool). The Korean automated call is unchanged. English-speaking residents here get no English automated call; in English, the shelter is named only in the village-head script and the family call script, in Korean script.',
 };
 
@@ -578,7 +578,7 @@ export const NO_EN_CALL_REPORT: LmText = {
 export function staffSummary(plans: readonly MessagePlan[], lang: LmLang): string {
   const n = plans.filter(englishCallDropped).length;
   return lang === 'ko'
-    ? `[직원용] 영어 자동 음성전화를 만들지 않은 장소: ${plans.length}곳 중 ${n}곳 (대피장소에 영어 이름이 없음, 개발 측 결정). 한국어 자동 음성전화는 모든 장소에 그대로입니다.`
+    ? `[직원용] 영어 자동 음성전화를 만들지 않은 장소: ${plans.length}곳 중 ${n}곳 (대피장소에 영어 이름이 없음, 개발 측 결정). 한국어 자동 음성전화는 모든 장소에서 그대로 만듭니다.`
     : `[Staff] Places with no English automated call: ${n} of ${plans.length} (the shelter has no English name; a design decision of this tool). The Korean automated call is unchanged at every place.`;
 }
 /** Staff note for a human reader of the English village-head script (orchestrator: interim). */
