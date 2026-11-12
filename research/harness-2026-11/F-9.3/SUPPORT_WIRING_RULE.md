@@ -149,6 +149,17 @@ then, unknown cells in an envelope scenario are handled downstream under the thr
   - Richard's HAZARD-only path (0f96a26) was not tested.
   - Until a reader that accepts support masks exists and is verified, results on masked packets are router-only.
     They are labelled "single implementation, not independently checked".
+  - **F-3.2 certificates (Thomas, 2026-11-12, `thomas/routing-next` 97dd5a5f).**
+    - **The finding.** F-3.2's ContactModel path never read `support`, so before this fix it would have issued
+      certificates on a masked packet as if it were fully supported.
+    - **The fix.** `routable_contact_model` now refuses any packet with an unsupported entry.
+    - **Past results.** None were affected: every packet used had full support.
+    - **Consequence.** **F-3.2 issues no certificate on an F-9.3 masked packet** (CERTIFICATE_SPEC §5.3). Certifying
+      only routes that avoid unsupported cells would need its own design, and none is planned.
+    - **Binding.** Thomas verified it on Leo's Yeongdeok 25T19Z pair (plain / `c651_unknown/1`):
+      - npz sha256 match (`f93307eb…` / `1c39f2fd…`);
+      - the binding digest A differs only through `support`, and W differs;
+      - a certificate on the frozen packet is rejected against the masked twin (`BIND_A`).
 
 ### Hannah: PASS WITH NOTES, ledger row 50 (wrapper side); notes handled
 

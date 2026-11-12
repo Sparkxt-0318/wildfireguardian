@@ -98,11 +98,29 @@ It is a planning list for next season, labelled: "replay of March 2025; not a fo
 day's wind. A place not on this list has not been shown to have a road escape." Without the last sentence it reads as
 a list of the villages at risk, and absence reads as safe (Iris).
 
-**Official link.** 행정안전부 고립예상지역대책 (data.go.kr 15139647; it has a field 헬기구조가능여부).
-- It is cross-referenced **only if Sofia confirms** that it is public, what it covers, and whether it has coordinates.
-- If it is public and has coordinates: a column "listed as an expected-isolation area (행안부)", with the
-  helicopter-rescue field quoted as is. **Its source and date go in the same cell**, so it does not read as our
-  assessment.
+**Official link: HELD.** 행정안전부 고립예상지역대책 (data.go.kr 15139647; field 헬기구조가능여부). Sofia, 22:44 UTC,
+from the dataset page and its catalog record only.
+- **Not usable from here.**
+  - It needs an account and a service key: "API 유형 LINK" to safetydata.go.kr, with a project or personal service
+    key. Our rule is no accounts.
+  - Coverage is not stated ("공간범위 --").
+  - It is updated in real time.
+  - It gives addresses (상세주소), not coordinates.
+  - **헬기구조가능여부 has no published definition**: its values, who assesses it, and landing vs hoist are all
+    unknown.
+  - 고립위험사유 suggests the isolation scenario may be flood or landslide rather than wildfire. That is Sofia's
+    inference, to be checked in a sample.
+- **No column is added.** The owner, as key-holder, would have to pull one 경북 sample and confirm four things:
+  - coverage and year;
+  - the hazard type in 고립위험사유;
+  - the value set of 헬기구조가능여부;
+  - whether the addresses geocode cleanly.
+- **If it is added later,** the field is quoted verbatim and labelled "행안부 고립예상지역 목록(위험 유형:
+  <고립위험사유>), 헬기구조가능여부 정의 미공개", with its source and date in the same cell.
+- **Sibling datasets.** Same provider and key terms; recorded, not used:
+  - 15139708 지역고립예상지점 (village name and 행정동코드);
+  - 15139648 교통두절예상지역: road segments expected to be cut, with designated detours. That one may matter for
+    routing; it would be a separate question for the owner.
 
 ## 3. AIR TABLE (secondary; staff-only)
 
@@ -222,7 +240,7 @@ The same gates and label apply as in 3.1.
 | Who | What | Status |
 |---|---|---|
 | Richard | §1 text, latest-departure field for §2, §5 breakwater check | positions agreed; text to follow after his `/1` batch and waiting runs |
-| Sofia | 행안부 고립예상지역 (15139647): public? coverage? coordinates? | asked |
+| Sofia | 행안부 고립예상지역 (15139647) | answered 22:44: needs a service key, coverage unstated, addresses only, field undefined; column HELD pending an owner sample |
 | Daniel | 산림청 CSV (15069465), one file, after the road extract | in fetch plan (cca4e27a) |
 | Priya | radiant stand-off rows (D1 only) | requested via the orchestrator |
 | Iris | reading of this note before any build | read 860aebea; changes applied; §2 may proceed after Nora's /2 pass, D0 after these changes |
