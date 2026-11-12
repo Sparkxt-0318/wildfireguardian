@@ -182,3 +182,33 @@ describe('fail closed on malformed records (Mira N1)', () => {
     expect(PROVENANCE_HELP.ko).toMatch(/그 시각이거나 그보다 앞선/);
   });
 });
+
+describe('message-kit staff block (W-KIT): the provenance line goes to staff only', () => {
+  it('over the 531 real places: staff.provenance present exactly when there is a label; resident outputs and violations unchanged; no clock time', () => {
+    const counts: Record<string, number> = {};
+    for (const b of booth) {
+      const f = files.get(b.entry.path)!;
+      for (const i of b.inputs) {
+        const plan = b.plans[i.origin.id]!;
+        const prov = staffProvenance(deadlineHeadline(plan), i.origin.id, f, plan);
+        const mp = messagePlan(i, null);
+        const a = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z' });
+        const s = buildChannels(mp, { nowIso: '2026-11-12T10:00:00Z', deadlineProvenance: prov });
+        expect(s.violations).toEqual(a.violations);
+        for (const l of ['ko', 'en'] as const) {
+          const { staff: sa, ...ra } = a.text[l];
+          const { staff: sb, ...rb } = s.text[l];
+          expect(rb).toEqual(ra); // every resident output identical
+          expect({ ...sb, provenance: undefined }).toEqual({ ...sa, provenance: undefined });
+          if (prov.kind === 'none') expect(sb.provenance ?? null).toBeNull();
+          else {
+            expect(sb.provenance).toContain(PROVENANCE_TAG[prov.kind][l]);
+            expect(clockTimes(sb.provenance!)).toEqual([]);
+          }
+        }
+        counts[prov.kind] = (counts[prov.kind] ?? 0) + 1;
+      }
+    }
+    expect(counts).toEqual({ window: 473, present_fire: 7, forecast_dependent: 21, unresolved_proven_no_route: 10, none: 20 });
+  });
+});

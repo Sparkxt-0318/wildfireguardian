@@ -20,6 +20,7 @@
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
 import { activeRegistry } from './agencyRegistry';
+import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_HELP, PROVENANCE_TAG, type StaffProvenance } from '../../provenance/model';
 import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
@@ -85,6 +86,11 @@ export interface ChannelOptions {
   orderStatus?: OrderStatusInput | null;
   issueOrderBy?: IssueOrderBy | null;
   timeStyle?: TimeStyle;
+  /**
+   * Deadline provenance label of this place (stream 3, from features/provenance staffProvenance) for the STAFF block
+   * only. It never reaches a resident output; the text never carries a clock time or the later forecast-free value.
+   */
+  deadlineProvenance?: StaffProvenance | null;
   /**
    * Issuing agency and its contact number: SUPPLIED by officials, never invented or defaulted. Validated by
    * `validIssuer`; anything that fails validation counts as not supplied. English outputs use only `agency.en` (a supplied
@@ -377,7 +383,7 @@ export interface ChannelTexts {
   familyText: string;
   familyScript: [string, string, string];
   /** staff / village-head only (never resident-facing) */
-  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null };
+  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null; provenance?: string | null };
 }
 
 export interface ChannelSet {
@@ -738,7 +744,7 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       voice: voice(p, lang),
       familyText: familyText(p, lang),
       familyScript: familyScript(p, lang),
-      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
+      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt), provenance: staffProvenanceLine(opt.deadlineProvenance ?? null, lang) },
     };
   }
   const checked = checkIssuer(opt.issuer);
@@ -838,6 +844,16 @@ function inserted(p: MessagePlan, iss: Issuer | null = null): string[] {
   return out.sort((a, b) => b.length - a.length);
 }
 
+/** The staff provenance line: tag, text, help sentence and footer, as in the planner panel (staff only). */
+function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang): string | null {
+  if (!p) return null;
+  const text = provenanceText(p, lang);
+  if (!text || p.kind === 'none') return null;
+  const timed = p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent';
+  const head = lang === 'ko' ? '[직원용] 마감 근거(모델)' : '[Staff] Deadline set by (model)';
+  return [`${head}: ${PROVENANCE_TAG[p.kind][lang]} — ${text}`, ...(timed ? [PROVENANCE_HELP[lang]] : []), PROVENANCE_FOOTER[lang]].join(' ');
+}
+
 /** Every rule violation of every output, each prefixed with its output (e.g. "ko.head.core: …"). */
 export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
   const v: string[] = [];
@@ -855,6 +871,7 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       ...(t.staff.noOrder !== null ? ([['staff.noOrder', t.staff.noOrder]] as [string, string][]) : []),
       ...(t.staff.decree ? ([['staff.decree', t.staff.decree]] as [string, string][]) : []),
       ...(t.staff.readerNote ? ([['staff.readerNote', t.staff.readerNote]] as [string, string][]) : []),
+      ...(t.staff.provenance ? ([['staff.provenance', t.staff.provenance]] as [string, string][]) : []),
     ];
     for (const [name, s] of outs) {
       const id = `${lang}.${name}`;
@@ -866,9 +883,9 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
         const extra = clockTimes(maskData(s, names)).filter((c) => c !== dataHm);
         if (extra.length) v.push(`${id}: clock time ${extra.join(',')} without a checked window`);
       }
-      if (!['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
+      if (!['staff', 'staff.decree', 'staff.readerNote', 'staff.provenance'].includes(name) && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
       const markerInstead = lang === 'ko' && name === 'familyText' && (p.input.mock || p.input.testData) && /MOCK|시험자료/.test(s);
-      if (p.input.replay && !['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
+      if (p.input.replay && !['staff', 'staff.decree', 'staff.readerNote', 'staff.provenance'].includes(name) && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
       const allowed = [set.destinationName?.[lang], ...(lang === 'en' ? [set.destinationName?.ko] : []), p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
