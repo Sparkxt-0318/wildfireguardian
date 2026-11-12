@@ -111,3 +111,68 @@ the 80 certificates (20 optimistic + 60 pessimistic) is accepted by both checker
   block U_state for the whole window, so tiers differ only through U_q.
 - NOT done: Iris §4 — U_state cells as possible radiation sources in the dose/peak precondition (contact only here);
   the full-policy checker on the pessimistic witnesses; separating "origin cell itself unknown" from other causes.
+
+## Tier R, all events (measured; `tier_r.py`, `results/tier_r.json`; NOT yet verified)
+
+Tier R(v) (Iris): U_state is not present fire; an unknown cell is blocked from d/v, with d measured from present fire
+∪ positive-probability cells; U_state cells with a FIRMS detection are blocked on [0, H]. FIRMS and TOA for all four
+events (KFS_01/02/05/11; Daniel's files, hashes matched). Every certificate (20 optimistic + 60 pessimistic) is accepted
+by both checkers.
+
+| Tier | checked | no_route | unresolved |
+|---|---:|---:|---:|
+| A | 5 | 5 | 10 |
+| R, v = 1.5 km/h | 12 | 5 | 3 |
+| R, v = 8.2 km/h | 10 | 5 | 5 |
+
+- **Change from the first run (2025 FIRMS only: R1.5 14/5/1, R8.2 11/5/4).** Three labels went from checked to
+  unresolved: Uljin 20220304T060000Z_FL1 (R1.5), and Hongseong 20230402T230000Z_FD1 (R1.5 and R8.2). In each case
+  U_state cells with FIRMS detections (17 at Uljin, 13 at Hongseong) are now blocked on [0, H]. The first run had no
+  FIRMS for those events, so its three checked labels there were not justified.
+- **U_state.** In every packet, 100% of U_state is outside the footprint, and no positive-probability cell is in U_state.
+- **Unresolved causes.** Tier A: U_state+U_q 6, U_state 2, U_q 2. R1.5: U_state 2, U_q 1. R8.2: U_state+U_q 4, U_state 1.
+- Contact relaxation only; the radiation precondition with U_state cells as sources is not computed.
+
+## F-DYN certificates (measured; `fdyn_certs.py`, `results/fdyn_certs.json`; NOT yet verified)
+
+The run covers 10 v3 packets: 5 kriged_mean and 5 firms_early, 5 h, central member, at Uiseong and Yeongdeok. It
+certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1,680 ROUTE, 48 NO_ROUTE).
+- **Checkers.** The C checker accepts 1,728/1,728. The Python checker accepted 1,659 in the batch. For the other 69 it
+  printed nothing: the checker failed to run, and the batch did not record its exit status or stderr. Each of the 69 was
+  regenerated and re-checked, and both checkers accept with the same claim and T (`results/fdyn_recheck69.txt`).
+  `fdyn_certs.run` now retries once and records `NORUN exit=…` instead of an empty string.
+- **Sizes.** Instance plus certificate has a median of ≈ 1.25 MB, about the 1-hour panel's median bundle (1.21 MB).
+  Forward certificates: median 27–28 kB, p90 272 kB, max 3.2 MB. COCERT: median 63–65 kB, max 3.5 MB.
+- **Times.** Median certify time is 0.21 s, max 29 s on one request. Checks: C median 0.014 s (max 0.19 s), Python
+  median 0.34 s (max 1.6 s). The 1-hour panel: C 0.015 s, Python 0.24 s (max 1.9 s).
+- **Soundness labels (manifest).** kriged_mean is "kriged mean (not a bound)". firms_early is "BRACKET-START, NOT A
+  LOWER BOUND". So these certificates prove routes and no-routes in those hazards only, not against the real fire.
+- **v3 packets.** firms_early results are to be recomputed on v3.1 (QUANT_v3_1_RULE.md acceptance). kriged_mean is
+  unchanged by v3.1 according to Leo's diff.
+
+## Envelope O2 and the v3.1 acceptance check (measured; `envelope_o2.py`; NOT yet verified)
+
+`envelope_o2.py` was written from Leo's rule text, without reading `fdyn/ignitions.py` or `_packet_child.py`.
+
+- **v3, Yeongdeok 20250325T110000Z h5 envelope.**
+  - Rule evaluated in binary64 (`--mode float`): 820 cells differ from HAZARD.json. Every one has the same start and
+    an end within 1.4e-12 s (97 HAZARD later, 723 earlier). There are 0 other differences, and 10/10 integer
+    instances are equal.
+  - Exact rationals (`--mode exact`): 791 cells differ by a 300 s quantum (482 births, 309 ends), plus 502 sub-µs end
+    differences. This was the finding behind v3.1.
+  - An earlier version of the classifier counted only HAZARD-later ends and so reported "0 differences" for the float
+    mode. Corrected.
+- **v3.1 (`--mode v31`, QUANT_v3_1_RULE.md @ f40e2af).** Packets were built with Leo's manifest commands at f40e2af,
+  after re-running `variants.py` there to get the `timestamp_exact` mask.
+
+  | sample | active cells | single-interval cells: start equal / hi_rel equal | merged or clipped equal | boundary cells (birth / end) | integer instances equal |
+  |---|---:|---:|---:|---:|---:|
+  | (a) Uiseong 20250324T020000Z h5 envelope | 275 | 142 / 142 | 133 | 102 / 17 | 10 / 10 |
+  | (c) Yeongdeok 20250325T110000Z h5 envelope | 1,752 | 820 / 820 | 932 | 482 / 309 | 10 / 10 |
+
+  - There are 0 mismatches.
+  - The largest end residue is 1.4e-12 s, the binary64 form of the same integer end.
+  - Timestamp-exact cells were recovered to within 2.4e-8 ms of an integer.
+  - A "boundary" cell is one whose rel_ms is an exact positive multiple of 300,000. At (c), these are exactly the
+    cells v3 got wrong under the exact rule.
+  - Sample (b), firms_early at the (a) start, waits for Leo's per-cell scalar-law rule text.
