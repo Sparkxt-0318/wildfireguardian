@@ -96,3 +96,36 @@ Recorded here after his answer (2026-11-12). The gated pass rule above is unchan
 - **OPEN (orchestrator / Iris):** which tier the planner presents as its headline. That is a policy choice; Tier A
   is the most conservative. The design reports every tier in staff, and pools none. F-DYN tiers do not exist yet
   (Leo's masked F-DYN packets).
+
+## Answers from Priya and Thomas (2026-11-12)
+**Priya (kit v2):**
+- v2 is at Step 0 and emits the frozen decision, "wfg.journey-decision/1", plus RESULT.kit_identity (the KIT's identity,
+  not the packet writer's). No per-attempt route_crosses or refusal_depends exists.
+  - route_crosses could be derived from the published route plus HAZARD support.
+  - refusal_depends needs the refusal certificate's reasoning, so it would be a new v2 step (plan amendment, with
+    Thomas reviewing), after v2 Step 1.
+- Agreed names: `memory_budget_mib`, `memory_budget_default` (PLAN D1: 3,072 MiB default, 12,288 declared); the writer
+  identity is `support.packet_writer_sha256`, aligned with Thomas's G2b field. When v2 adds them it bumps to
+  "wfg.journey-decision/2".
+- **Consequence for the planner today:** check "wfg.journey-decision/1" + kit_identity.candidate_id. Every masked
+  result is `not_evaluated`, hence unresolved, until v2 emits the fields. Today's planner caches hold no masked
+  packets, so nothing visible changes yet; the rule fails closed when they arrive.
+
+**Thomas (certificate):**
+- route_crosses → UNRESOLVED is right. Under c651_unknown/1 the packet carries no fire in unknown cells (the optimistic
+  instance), so a whole-road certificate holds only on the assumption that those cells are not burning.
+- Upgrade path, not implemented: a re-check on a pessimistic instance.
+  - Tier A fails any crossing route by construction.
+  - Tier R(v) can pass. Such a result is conditional and must read "checked under Tier R(v = …)", never "certified".
+  - The tooling is contact-only today.
+- Even a route that does NOT cross an unknown cell is not covered for fire spreading from unknown cells, or for heat
+  from them. So a certified route in a packet with unknown cells carries the assumption in its staff text.
+- **Staff wording (Thomas), replacing the draft above:**
+  - crossing: "Unresolved: this route passes through areas whose fire state is unknown (support mask <rule>, writer
+    <sha8>). The road check assumed no fire there; it does not cover the actual fire state in those areas."
+  - certified, but the packet window holds unknown areas: "Checked against the forecast hazard, which assumes no fire
+    in areas of unknown fire state (support mask <rule>, writer <sha8>). Fire spreading from, or heat from, those
+    areas is not covered."
+  - The Korean goes to Sofia. Staff only; residents unchanged unless Iris and the orchestrator decide otherwise.
+- **Addition to the pass rule (stricter, consistent with Thomas):** 8. 100 % of certified results from a masked packet
+  with unknown cells in the window carry the assumption sentence in staff outputs. 0 carry "certified" without it.
