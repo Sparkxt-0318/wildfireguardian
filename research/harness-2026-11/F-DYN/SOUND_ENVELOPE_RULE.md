@@ -66,3 +66,17 @@ cells blocked per packet.
 `envelope_sound` is **added** to the scoring set, by this rule, before any deadline is computed on it. The build
 criterion union is re-evaluated with it (and with `ahi_bounded` once Nora passes the AHI rule). Starts that become
 built are recorded, and every start is reported as before.
+
+## Amendment 1 (one stated change; made before any packet or deadline used the variant)
+
+**Error in §2.** For never-detected cells, "the latest confirmed-clear view at all" is **not** a lower bound. A clear
+non-detection at t_p means either the fire had not yet arrived, or it had **already burned out**. Without a later
+detection the second case cannot be excluded.
+
+- **Detected cells:** the bound holds. A cell first detected burning at t_d cannot have burned out before an earlier
+  clear view t_p < t_d (one burn per cell), apart from the untestable sub-threshold case.
+- **Corrected rule:** lo_sound = the latest confirmed-clear VIIRS view **before the first detection** for detected
+  cells. For **never-detected cells, lo_sound = the ignition time (0 h)**.
+
+The first computation (1.2 s, counts only, no packet, no deadline) used the erroneous clause. It is superseded and
+not reported.

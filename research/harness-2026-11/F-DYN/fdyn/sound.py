@@ -95,7 +95,9 @@ def main():
         if tree is not None:
             near[[i for i, l in enumerate(tree.query_ball_point(cells, NEAR_M)) if l]] = True
         clear_cell = clear_nb[k][cell_pix.ravel()] & ~near
-        eligible = burn_set.ravel() & clear_cell & (first.ravel() > tp)       # before the cell's first detection
+        # detected cells only (amendment 1): a clear non-detection before the first detection is a lower bound;
+        # for never-detected cells it is not (the cell may have burned out), so they keep the ignition time
+        eligible = detected.ravel() & clear_cell & (first.ravel() > tp)
         flat = lo_sound.ravel()
         flat[eligible] = np.maximum(flat[eligible], tp)
         has_clear.ravel()[eligible] = True
@@ -104,7 +106,7 @@ def main():
     lo_sound = np.where(burn_set, lo_sound, np.nan)
     hi = np.where(burn_set, HI_BEYOND_H, np.nan)
     a.out_dir.mkdir(parents=True, exist_ok=True)
-    prov = {'rule': 'SOUND_ENVELOPE_RULE.md @c79c510', 'label': 'envelope_sound: conservative routing envelope; '
+    prov = {'rule': 'SOUND_ENVELOPE_RULE.md @c79c510 + amendment 1', 'label': 'envelope_sound: conservative routing envelope; '
             'burning from last confirmed-clear VIIRS view (else ignition) to beyond the horizon'}
     for name, arr in (('envelope_sound_lo', lo_sound), ('envelope_sound_hi', hi)):
         np.savez_compressed(a.out_dir / f'{name}.npz', arrival_h=arr, affine_transform=AFFINE,
