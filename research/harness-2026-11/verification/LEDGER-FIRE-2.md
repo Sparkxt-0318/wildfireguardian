@@ -11,6 +11,11 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 3 | 2026-11-12 | F-3.4 phase profile | Priya | b6c94bb | radiation 78/96/15% on FX1/FD1/FX2; start-up 0.8% (0.15 s); hazard validation 0.1%; radiation 31% overall, 73-96% on present-fire missions; Yeongdeok FX2 unresolved at 81 s; 59/60 ≥95% attributed; FX1 times out at 30 s | `run_profile.py --kit K --out O --reps 1 --budget 81 --only <3 missions>` + `summarize.py`; `--mode plain`; `unittest test_harness` | PASS WITH NOTES |
 | 4 | 2026-11-12 | F-4.2 counterexample + MONOTONICITY Claims 1-2 | Priya | b6c94bb | admissible on [0,70], not on (70,420.464), admissible from 420.464; Claims 1 and 2 | `python3 F-4.2/counterexample.py` + hand proof check | PASS WITH NOTES |
 | 5 | 2026-11-12 | F-4.2 static obstacle | Priya | b6c94bb | 8/15 packets have zero drawn ignitions; 14/15 routes untouched; uljin 1200Z FW2 has 5 touches before ignition, margin 2320.05 s | `.venv/bin/python F-4.2/static_obstacle.py` | PASS |
+| 6 | 2026-11-12 | PR #103 data-fetch (re-check) | Daniel | ebc1a7f6 | max_acres wording and squash note; v2 rename; A1 time rule; make_input_manifest; AHI fetcher | fresh `rebuild_env.sh WS --project MT-BDF-006269_AlderCreek`; byte/diff checks | PASS WITH NOTES (squash merge only) |
+| 7 | 2026-11-12 | W-KIT (checkpoint 3) | Thomas | e28c4aff | N1-N5 fixed; 19 tests; planner 384/384 | `cd planner && npx vitest run ../tests/planner/wkit.channels.test.ts && npx vitest run` | PASS WITH NOTES |
+| 8 | 2026-11-12 | F-3.2 claim 9, departure-sweep cohort | Thomas | 560ad1a (checked at e28c4aff) | 140 requests, 75 ROUTE / 65 NO_ROUTE, both checkers accept all, sweep agrees 0 disagreements | `cohort.py --offsets 900 --c-checker checker_c/wfgc_check` + per-row compare | PASS WITH NOTES |
+| 9 | 2026-11-12 | F-3.2 claim 10, P1 flame sets | Thomas | 421637f | 15 packets with hazard/raw/contact unions identical | `python3 F-3.2/p1_check.py` | PASS |
+| 10 | 2026-11-12 | F-4.2 spatial clearance | Priya | 0e6f7db | 15 published clearances; trade-offs; 90 witnesses certified | `clearance_panel.py --only FW2,FN1,FX2`; `analyze_clearance.py`; `verify_witnesses.py`; own independent geometry on all 15 | PASS WITH NOTES |
 
 ## Notes
 
@@ -41,3 +46,28 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 - N6 The panel figures (dose ≤ 0.33 of budget, peak ≤ 0.0005) were not verified.
 
 **5. F-4.2 static obstacle @ b6c94bb**: exact reproduction in 24.8 s. 3 of the 15 routes were regenerated independently and match. The other 12 were not regenerated, and the clearance.py geometry was not re-implemented.
+
+**6. PR #103 @ ebc1a7f6**:
+- nirops_incidents_v2.csv is byte-identical to the 259ef5b version, with no max_acres. The A1 rule (floor or ceil to the hour) checked on 3 pilots. The AHI fetcher is keyless. The largest new blob is 25 KB.
+- Fresh-venv rebuild: all stages rc=0 except boundary_layer (Open-Meteo 429, known) and canopy (GLAD, known). input_manifest pins 77 files. numpy is 1.26.4.
+- Note: the torch line installs torch 2.5.1+cu124 plus 2.7 GB of nvidia wheels, because uv gives --extra-index-url (PyPI) priority over --index-url.
+- Not run: `--nirops` mode (1.39 GB download).
+- Squash merge keeps max_acres out of Main, but refs/pull/103/head keeps 0cf3995/3129ad5 fetchable.
+
+**7. W-KIT @ e28c4aff**: 19/19 and 384/384. N2-N5 confirmed by probe. The staff noOrder is shown only for an attributed, unexpired not_issued status.
+- N6: the issue-by bound uses the field's leaveByS, not the planner's. A field leaveBy of 3000 on a planner leave_by of 1800 renders issue-by 18:40-18:50, after the residents' 18:30, with 0 violations.
+- N7: low <= median <= high is not checked.
+
+**8. Cohort (claim 9)**: the offset-900 subset matches the committed JSON on 20/20 rows (claim, T, sweep, arrival, py, c, at-issue). The committed JSON has 140 rows, 140 ACCEPT/ACCEPT, 0 mismatches.
+- Bit-flip tampering: ROUTE certificate rejected 25/25. NO_ROUTE certificate rejected 23/25; the 2 accepted flips change edge endpoints in the embedded instance, because the checkers do not bind the instance to the request.
+- cohort.py does not run O2, so I ran derive_instance.compare on all 120 non-frozen departures: 0 differences.
+- The full 140-row run was not repeated.
+
+**9. P1 (claim 10)**: 15/15 packets 0/0/0. Own 30 single-member flag flips: the union changed in 19 cases and all 19 were detected.
+
+**10. F-4.2 clearance @ 0e6f7db**:
+- Panel run on FW2/FN1/FX2: r* 179.9/592.1/111.5. Trade-offs FW2 411.9 m @ +19 s and FN1 832.8 m @ +148 s. Witnesses 15/15 exact_ok and CERTIFIED_ADMISSIBLE.
+- Own segment-rectangle code reproduces all 15 published clearances to 0.1 m; limiting sources active.
+- best_radius reviewed: the upper bound is sound when blocks are up-sets before D (τ_max 258 s < T-H; † rule D > R_max exact), up to PAD_M 1e-6 m.
+- Notes: horizon columns for uiseong 0324 / uljin 1200 need † (R_max < H). The Yeongdeok FW1 bracket is written with lower above upper.
+- Not verified: the other 12 missions' searches and the other 75 witnesses.
