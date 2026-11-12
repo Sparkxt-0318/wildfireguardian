@@ -84,3 +84,19 @@ This tests Iris's hypothesis: the tail is the product of a per-hop probability c
 - **Rate-mixture grid:** global rate multipliers m ∈ {1, 2, 4, 8, 16}, log-spaced. Weights are fit on part a, then evaluated leave-one-fire-out on R against d4, d4_recal and logistic, in the band and in the tail bins. At about 1 decade per cell decay, reaching 0.3–0.6% at 10 cells likely needs m ≈ 8–16 at small weight (hypothesis).
 - **Are the runs predictable?** Compare covariates (wind speed first) between the top 10 tail intervals and the rest. If they differ, the mixture weight depends on wind (one extra parameter), and the model's wind response is too weak, which bears on Elena's refit. If they don't differ, a constant run weight is the honest model.
 - **Proposal awaiting the orchestrator's decision (not adopted):** refit d4_wind's exact recipe, plus logistic, on part a with rebuilt covariates (`d4_wind_rebuilt`, `logistic_rebuilt`; recipe and seed frozen first). All part-c models would then share one input pipeline, so the comparison is confirmatory within it. The archive-trained rows stay descriptive. The alternative is that the owner supplies archive values (A1 item 14).
+
+## Follow-up 4: fuel class of tail positives (Iris part a; `fuel_split.py` → `FUEL_SPLIT.json`)
+
+These use Daniel's **rebuilt** static layers (daniel/data-fetch 7d430806, LANDFIRE 2016 FBFM40, on the forecast-v2 rectangles).
+
+| 4 km band, R | positives | non-burnable (FBFM40 91–99) | all static layers valid | grass 10x | grass-shrub 12x | shrub 14x | timber understory 16x | timber litter 18x |
+|---|---|---|---|---|---|---|---|---|
+| d4 tail (p < 1e-5) | 1,310 | **10.8%** | 100% | 8.7% | 30.9% | 3.4% | 25.0% | 21.2% |
+| d4 non-tail | 6,869 | 7.1% | 100% | 5.4% | 31.1% | 3.0% | 34.1% | 19.4% |
+
+**Reading.**
+- Non-burnable cells are only mildly over-represented in the tail (1.5×), at about 141 positives.
+- There is **no missing-input gating**: every positive has all static layers valid.
+- About 89% of tail positives are on ordinary burnable fuel.
+- Taken with the island-neighbour test (follow-up 2) and geometric decay (follow-up 3), **structural zeros explain at most about a tenth of the tail.** The rest is d4's single-speed decay meeting real fast runs.
+- The A1 non-burnable secondary (revision 16) can now use FBFM40 91–99 as its covariate-defined class. It removes about 11% of tail positives and about 7% of other positives in R. That code list is to be fixed by amendment before any untouched score.
