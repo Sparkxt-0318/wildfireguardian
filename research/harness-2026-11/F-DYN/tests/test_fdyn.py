@@ -96,3 +96,21 @@ def test_firms_variants_never_later_than_kriged_and_ordered():
     assert np.array_equal(np.isfinite(c), np.isfinite(toa)) and np.array_equal(np.isfinite(e), np.isfinite(toa))
     f = np.isfinite(toa)
     assert np.all(c[f] <= toa[f]) and np.all(e[f] <= c[f])
+
+
+@pytest.mark.skipif(not (DATA / 'KFS_01_pswt_ok_toa.tif').exists() or not EXPORTS.exists(),
+                    reason='needs Daniel KFS_01 TOA and data/routing')
+@pytest.mark.parametrize('start', STARTS)
+def test_synthetic_export_reproduces_recorded(start):
+    """The SYNTHETIC present-fire generator, run at a recorded start, reproduces the recorded c651 export's burned,
+    active and remaining fields (booleans exactly; remaining within 1e-9 s)."""
+    from fdyn import build, synthetic_export
+    toa = build.read_raster(DATA / 'KFS_01_pswt_ok_toa.tif').astype(np.float64)
+    z = np.load(EXPORTS / f'FORECAST_{start}.npz')
+    h = (dt.datetime.strptime(start, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc) - build.T0_UTC).total_seconds() / 3600
+    s = synthetic_export.present_fire_arrays(toa, h, float(z['contract__cell_duration_s']))
+    for k in ('source_burned_area_valid', 'source_burned_area', 'heat__initial_active_burning_probability',
+              'heat__initial_burning_valid'):
+        assert np.array_equal(s[k], z[k]), k
+    np.testing.assert_allclose(s['heat__initial_remaining_burning_duration_s'],
+                               z['heat__initial_remaining_burning_duration_s'], rtol=0, atol=1e-9)

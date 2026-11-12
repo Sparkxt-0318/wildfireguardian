@@ -79,6 +79,9 @@ def main(argv=None):
     ap.add_argument('--quantum-s', type=float, default=ignitions.DEFAULT_QUANTUM_S)
     ap.add_argument('--domain', default='recorded_window', choices=['recorded_window', 'full_grid'])
     ap.add_argument('--graph', type=Path, default=None, help='required for full_grid (graph on the export grid)')
+    ap.add_argument('--synthetic-export-dir', type=Path, default=None,
+                    help='use a SYNTHETIC present-fire export (fdyn/synthetic_export.py) for a non-recorded start')
+    ap.add_argument('--kriged-toa', type=Path, default=None, help='published TOA for the synthetic present fire')
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--python', default=sys.executable)
     a = ap.parse_args(argv)
@@ -98,7 +101,18 @@ def main(argv=None):
         if a.graph is None:
             raise SystemExit('--domain full_grid needs --graph')
         win, graph = None, a.graph
-    with np.load(INPUTS / 'exports' / EVENT / f'FORECAST_{a.start}.npz') as z:
+    export_dir = INPUTS / 'exports' / EVENT
+    if a.synthetic_export_dir is not None:
+        if a.domain != 'full_grid':
+            raise SystemExit('synthetic starts are built on the full grid only')
+        if (export_dir / f'FORECAST_{a.start}.npz').exists():
+            raise SystemExit('a recorded export exists for this start; use it, not a synthetic one')
+        from fdyn import synthetic_export
+        if a.kriged_toa is None or sha(a.kriged_toa) != KRIGED_TOA_SHA256:
+            raise SystemExit('synthetic present fire needs --kriged-toa (the published TOA, as the recorded exports)')
+        synthetic_export.write(a.kriged_toa, a.start, a.synthetic_export_dir)
+        export_dir = a.synthetic_export_dir
+    with np.load(export_dir / f'FORECAST_{a.start}.npz') as z:
         burned_at_start = z['source_burned_area_valid'] & (z['source_burned_area'] == 1)
         burn_T = float(z['contract__cell_duration_s'])
     p = ignitions.plan(arrival, sd, arrival_variant=a.arrival_variant, arrival_source=source, start_h=start_h,
@@ -109,7 +123,7 @@ def main(argv=None):
     plan_path = a.out.with_name(a.out.name + '.plan.npz')
     np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']))
     cmd = [a.python, '-I', '-B', str(HERE / '_packet_child.py'), '--plan', str(plan_path), '--graph', str(graph),
-           '--export-dir', str(INPUTS / 'exports' / EVENT), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
+           '--export-dir', str(export_dir), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
            '--region', a.region, '--event', EVENT, '--window-json', json.dumps(win), '--out', str(a.out)]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:

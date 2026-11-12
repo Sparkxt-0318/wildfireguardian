@@ -64,6 +64,7 @@ def main():
         s['fdyn'] = {k: meta[k] for k in ('fdyn_version', 'label', 'plan_sha256', 'ignition_times_sha256',
                                           'quantum_s', 'member_set', 'members', 'arrival_variant',
                                           'arrival_source', 'arrival_raster_sha256')}
+        s['fdyn']['present_fire_source'] = present_fire_source
         s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': T0 + Q,
                                           'export_consumed_fraction': cf0,
                                           'packet_consumed_fraction': cf0 * (T0 + Q) / T0}
@@ -77,6 +78,17 @@ def main():
     npz = exp / ('FORECAST_%s.npz' % tag)
     recp = exp / ('FORECAST_RECORD_%s.json' % tag)
     rec = json.loads(recp.read_text())
+    synthetic = rec.get('fdyn_synthetic')
+    if synthetic is not None:
+        # this process only: the binding compares record.checkpoint_sha256 with this constant and the writer stamps it
+        # into the packet identity, so both say SYNTHETIC instead of claiming the c651 checkpoint
+        if not str(rec['checkpoint_sha256']).startswith('SYNTHETIC-fdyn-present-fire-from-TOA:'):
+            raise SystemExit('SYNTHETIC_RECORD_WITHOUT_MARKER')
+        CT.CHECKPOINT_SHA256 = rec['checkpoint_sha256']
+    elif rec.get('checkpoint_sha256') != CT.CHECKPOINT_SHA256:
+        raise SystemExit('RECORDED_EXPORT_NOT_C651')
+    present_fire_source = (('SYNTHETIC: ' + synthetic['label']) if synthetic else
+                           'recorded c651 export at a recorded input time (equals the kriged TOA thresholded there)')
     graph = json.loads(Path(a.graph).read_text())
     epsg = int(graph['crs'].split(':', 1)[1])
     win = json.loads(a.window_json)  # null = full event grid (un-clipped)
