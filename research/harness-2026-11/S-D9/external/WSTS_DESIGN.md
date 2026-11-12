@@ -46,7 +46,11 @@ A model that predicts new burn **cannot be scored on the official WSTS label wit
 - for j ∉ S: our P(new burn within 24 h);
 - for j ∈ S: a **declared persistence term**. The primary term is the indicator "j was detected active on day t", which is exactly WSTS persistence. The secondary is our `burnout` residence model, where available.
 
-Score A is pooled AP over the test year's pixels, from the day-6 target, on full centre-cropped scenes, as WSTS does. It is reported **with WSTS persistence computed on the identical pixels**, and with the repo commit stated. It measures "our new-burn forecast plus a stated persistence rule". It is not our model alone.
+Score A is pooled AP over the test year's pixels, from the day-6 target, on full centre-cropped scenes, as WSTS does.
+- **Reported as a decomposition on identical pixels (Iris).** (1) the persistence term alone; (2) persistence plus each model's new-burn probability; and (3) the increment, (2) − (1).
+  - Most next-day active pixels are active today, so Score A will be carried by the persistence term. **If the increment is near zero, that is the finding**, and it is stated.
+  - Score A is **placement only**. Score B answers the S-D9 question.
+  - Score A is never set beside published WSTS numbers without this sentence: "our inputs are rebuilt covariates, and our score includes a declared persistence term". It is reported **with WSTS persistence computed on the identical pixels**, and with the repo commit stated. It measures "our new-burn forecast plus a stated persistence rule". It is not our model alone.
 
 **Score B: native new-burn label, the S-D9 question.** The label is active on day t + 1 **and** not in S. Scores are computed over cells not in S:
 - Brier, AP and BSS against persistence (= 0) and against climatology;
@@ -56,6 +60,10 @@ Score A is pooled AP over the test year's pixels, from the day-6 target, on full
 - the Allaire binary rank histogram, for MC models.
 
 Score B is directly comparable in kind to S-D9's cohort scores. It is not comparable to published WSTS numbers.
+- **Cautions, stated with every Score B result (Iris).**
+  - The label and S are built from **detections**. Cells that burned but were never detected count as negatives, and S, the "already burned" set, is **undercounted**. This applies Elena's missed-detection result.
+  - The audit's flagged-only rule addresses only the part where a **whole day's empty map** is unreliable. It does not address cells that are missed within a day that has detections.
+  - **Setting.** It is one 24 h step with weather held at the cutoff hour. That differs from the hourly models' design point, so results are reported as "the model in a 24 h, held-weather setting".
 
 **Observation-aware variant (both scores).** Each score is repeated under the audit's flagged-only rule, which drops days whose empty maps are flagged unreliable. Both versions are reported.
 
