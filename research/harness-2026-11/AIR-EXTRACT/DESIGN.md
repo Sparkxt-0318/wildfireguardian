@@ -1,7 +1,7 @@
 # AIR-EXTRACT: open-ground candidates near places with no road escape (design note; SKELETON, plan only)
 
 **Status.**
-- This is a skeleton. Leo and Richard write it together. Richard has not yet agreed the split.
+- This is a skeleton. Leo and Richard write it together; the split is agreed (Richard: A, C's checker use, E; Leo: B, C margins, D).
 - **No code and no build** until Iris has assessed the finished note.
 - Person-facing wording waits until Clara's pause lifts.
 - Every threshold below is a **named parameter with no value** until a source is attached:
@@ -19,17 +19,19 @@ with no road escape. It comes after current work and must not displace `no_reent
 
 ## A. Which places have "no road escape" (Richard; Leo supplies the packets)
 
-**Draft definition.** A place is in the labelled set **NO_CHECKED_ROUTE** when it has no checked route under every
-named timing variant: kriged_mean, firms_early, envelope and envelope_burnset.
+**Draft definition.** A place is in the labelled set **NO_CHECKED_ROUTE** when it has no checked route under each of
+the three timing variants: kriged_mean, firms_early and envelope. envelope_burnset is reported as its own row
+(Richard, position 1 below).
 - Packets: `no_reentry/2` (MANIFEST_v3_7, once Nora passes it).
 - Router: Richard's full checker.
 - It is never reported as a bare "no route".
 
-**Split by cause.** Each place in the set gets exactly one label. The precedence is still to be fixed by Richard:
-1. **at-issue.** The origin cell is already burning, or burned, at the departure.
-2. **road-limited.** The only exits leave the loaded graph. The graph is clipped: the c651 window, or the export grid
-   + 5 km under Daniel's rebuild. So the result says nothing about roads outside it.
-3. **fire-limited.** Inside the loaded graph, every exit is blocked by fire under every variant.
+**Split by cause.** Each place in the set gets exactly one label, in Richard's precedence (position 3 below):
+1. **at-issue.** The origin is in flame at the departure.
+2. **fire-limited.** Inside the loaded graph, every exit is blocked by fire under every variant.
+3. **road-limited.** The only exits leave the loaded graph. The graph is clipped: the c651 window, or the export grid
+   + 5 km under Daniel's rebuild. So the result says nothing about roads outside it, and these places are listed
+   separately, not as air candidates.
 
 **Sensitivity to waiting.**
 - Waiting is allowed only at graph dead-end nodes, as supplied in graph.json; the rule is undocumented and the owner
@@ -39,9 +41,23 @@ named timing variant: kriged_mean, firms_early, envelope and envelope_burnset.
 
 **Departure grid.** As in Richard's headline: the 30-min grid, per region, start and horizon.
 
-**Open (Richard).**
-- Is "every variant" the right quantifier? The alternative is to report per variant and the intersection.
-- How is a place mapped to its origin node(s)?
+**Richard's positions (2026-11-12 22:31 UTC; his full A and E text to follow, committed with credit).**
+1. **Quantifier.**
+   - NO_CHECKED_ROUTE needs **all three timing variants** to give no route: kriged_mean, firms_early and envelope. It
+     is their intersection.
+   - A per-variant table is always shown alongside.
+   - envelope_burnset is its own row and does not enter the intersection.
+2. **Place to origin.** A place maps to its start node(s) as the caches record them. A place with several nodes
+   qualifies only if all of them have no route.
+3. **Cause precedence:**
+   1. at-issue: the origin point is in flame at departure;
+   2. fire-limited within the loaded graph;
+   3. otherwise possibly road-limited. A route off the clipped graph is not excluded, so these places are **not air
+      candidates by default**. They are listed separately as "graph window too small to decide".
+4. **Waiting.**
+   - The headline uses the supplied rule: waiting only at dead ends.
+   - "Waiting anywhere" can only remove places, and "waiting nowhere" can only add them. Both are reported as counts.
+5. **E.** Without a sourced incident list, the note states that nothing is validated.
 
 ## B. Candidate-site rule (Leo; layers from Daniel; thresholds from Sofia)
 
@@ -114,7 +130,7 @@ These are checks against reported events, not proof that a site is usable.
 
 | Who | What | Status |
 |---|---|---|
-| Richard | Agree the split; A definition, cause precedence, waiting sensitivity; E | asked |
+| Richard | Split agreed (he: A, C's checker use, E; Leo: B, C margins, D); positions recorded in A; full A/E text | to follow, after his /1 batch and waiting runs |
 | Daniel | Korea tree-cover/DEM products, OSM open-ground polygons in the extracts | asked |
 | Sofia (via orchestrator) | Sourced LZ size, slope, obstacle values | asked |
 | Priya (via orchestrator) | Radiant stand-off table and its assumptions | asked |
