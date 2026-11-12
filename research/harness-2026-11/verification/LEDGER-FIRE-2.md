@@ -8,6 +8,9 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 |---|---|---|---|---|---|---|---|
 | 1 | 2026-11-12 | PR #103 data-fetch (merge readiness) | Daniel | 7d43080 | fetch.py checksums pass; MANIFEST/resources.json match small/; nothing large or restricted; rebuild_env.sh runs; no secrets | see notes 1 | PASS WITH NOTES (squash merge only) |
 | 2 | 2026-11-12 | W-KIT | Thomas | 6ac1bc62 | 13 tests; 531 booth-cache origins, 0 violations; 600 synthetic, 18 violations (ko.head > 35 s); planner suite 378/378 | `cd planner && npm ci && npx vitest run ../tests/planner/wkit.channels.test.ts && npx vitest run` | PASS WITH NOTES |
+| 3 | 2026-11-12 | F-3.4 phase profile | Priya | b6c94bb | radiation 78/96/15% on FX1/FD1/FX2; start-up 0.8% (0.15 s); hazard validation 0.1%; radiation 31% overall, 73-96% on present-fire missions; Yeongdeok FX2 unresolved at 81 s; 59/60 ≥95% attributed; FX1 times out at 30 s | `run_profile.py --kit K --out O --reps 1 --budget 81 --only <3 missions>` + `summarize.py`; `--mode plain`; `unittest test_harness` | PASS WITH NOTES |
+| 4 | 2026-11-12 | F-4.2 counterexample + MONOTONICITY Claims 1-2 | Priya | b6c94bb | admissible on [0,70], not on (70,420.464), admissible from 420.464; Claims 1 and 2 | `python3 F-4.2/counterexample.py` + hand proof check | PASS WITH NOTES |
+| 5 | 2026-11-12 | F-4.2 static obstacle | Priya | b6c94bb | 8/15 packets have zero drawn ignitions; 14/15 routes untouched; uljin 1200Z FW2 has 5 touches before ignition, margin 2320.05 s | `.venv/bin/python F-4.2/static_obstacle.py` | PASS |
 
 ## Notes
 
@@ -25,3 +28,16 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 - N3 The destination-swap assertion is vacuous (`if (other?.name)`, fixture's second destination has no name). The check itself works when injected.
 - N4 The pythonEucKr oracle silently skips when python is absent (it ran here).
 - N5 Withholding is not enforced by any consumer yet (not wired into the UI or CSV).
+
+**3. F-3.4 @ b6c94bb**: fresh runs (phase, 81 s): FX1 arrival 3119, 24.66 s wall, radiation 77.6%; FX2 arrival 2540, 11.21 s, radiation 15.2%; FD1 arrival 531, 13.05 s, radiation 95.4%. Start-up median 0.157 s; 3/3 executions ≥95% attributed. Plain mode gives the same arrivals and statuses. Yeongdeok FX2 at 81 s: TIMEOUT/UNRESOLVED, search 72.1 of 81.2 s. summarize.py on the committed 60-run rows reproduces the table (0.8%, 0.1%, 38.1% search, 31.3% radiation, 59/60). unittest 3/3. Published routes for FX1, FX2 and FD1 match the fresh runs' edges.
+- N1 Claim (e) does not reproduce here: at a 30 s budget FX1 completes in 24.26 s on this host (theirs takes 32-33 s). It is host-specific.
+- N2 The speed-equivalence factor is host-specific (2.7× theirs, ≈2.0× here).
+- N3 Uiseong FX2 admission+models was 4.15 s here against their ≈5 s.
+- The full 60 executions were not re-run.
+
+**4. F-4.2 counterexample @ b6c94bb**: script rc=0. T matches cell_duration_s of the 120 frozen exports. Hand derivation of the dose: 130+δ (δ≤110), then 240, then 620.464−δ. Claims 1 and 2 proofs checked.
+- N4 The closed-form contact margin is valid only when ≤ T.
+- N5 The status line is stale ("awaiting Hannah").
+- N6 The panel figures (dose ≤ 0.33 of budget, peak ≤ 0.0005) were not verified.
+
+**5. F-4.2 static obstacle @ b6c94bb**: exact reproduction in 24.8 s. 3 of the 15 routes were regenerated independently and match. The other 12 were not regenerated, and the clearance.py geometry was not re-implemented.
