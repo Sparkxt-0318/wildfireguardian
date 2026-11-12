@@ -19,7 +19,9 @@
   - Radiation margin: reconstructed fire touches the grid edge in 5 cells; the nearest routed road node is 8.6 km
     (Uiseong) / 9.0 km (Yeongdeok) from them.
   - Roads outside the recorded windows are still absent. This is a road-limited interim until the OSM-built
-    un-clipped graph (blocked on the 2025-03-21 snapshot).
+    un-clipped graph (blocked on the 2025-03-21 snapshot). **4,976 of 10,955 burned cells (45%) lie outside both
+    recorded road windows** (Nora), so no roads exist there in v3. "Omitted dose = 0" covers hazard sources, not
+    missing roads.
 - **Dose binds** on F-DYN (Nora): non-flame flux about 0.012 kW/m² over 18,000 s exceeds 100 kJ/m². Contact-only
   reductions do not apply.
 - **Start rule** (fixed before computing): `STARTS_RULE.md`, commits `6042132` + `89d0222`. 29 starts every 3 h
@@ -176,6 +178,12 @@ Single-member 5 h packets are about 13–15 MB; Q = 60 is about 27 MB; `all4` is
 - Departures every 30 min; destination window [0, H].
 - Limits 10 kW/m² and 100 kJ/m².
 
+## Notes on `fdyn/sample.py`
+
+- It calls `python3` from PATH.
+- The writer refuses an existing output directory, so after a failed build remove the half-built packet
+  directories before re-running.
+
 ## Reproduce
 
 ```
@@ -216,18 +224,26 @@ independent scalar-law checker **does not apply and was not run** on them. Never
   be extended to per-cell burning intervals, re-deriving the blocked intervals from the raw bracket arrays.
 - **What exists.** A self-check in `_packet_child.py` proves the re-implemented member loop reproduces the unchanged
   writer exactly with scalar ends. The containment check shows each cell's interval covers [lo, hi + T).
+- **The envelope over-includes** (Nora): this is conservative, but it is stated.
+  - **Floor at 0.** On Uiseong 03-25 14Z, 7 cells burn from t = 0 although their bracket end says they were already
+    out before the start. The catch-up rule uses the bracket end plus T against the start, and floors at 0.
+  - **Wide brackets.** End margins reach about 21.5 h, because a wide bracket keeps a cell burning until hi + T.
+- **No independent route check.** Envelope results are reported as such wherever they are scored.
 
 ## v3 scoring workload (built starts, manifest, verification sample)
 
-- **Built starts:** `BUILT_STARTS.json`, criterion in `STARTS_RULE.md` @24bbad9 (union of three variants, inputs only).
-  That gives 44 region-start rows. Two rule starts coincide with recorded inputs (Uiseong 03-25 17Z, Yeongdeok 03-25
-  23Z), leaving **42 unique region-starts**: Uiseong 31 (only 03-26 14Z not built) and Yeongdeok 11. Yeongdeok
-  starts before 03-24 23Z and after 03-26 05Z are not built: no fire reaches its routed roads within 8 h in any
-  variant.
+- **Built starts:** `BUILT_STARTS.json`, criterion in `STARTS_RULE.md` @24bbad9 (union of three variants, inputs
+  only). *(Corrected after Nora's verification.)*
+  - **Three** rule starts coincide with recorded inputs: Uiseong 03-25 17Z, Yeongdeok 03-25 23Z and Yeongdeok
+    03-26 08Z (the last one is not built).
+  - That leaves **42 unique built region-starts: Uiseong 30, Yeongdeok 12.**
+  - Uiseong: only 03-26 14Z is not built.
+  - Yeongdeok: starts before 03-24 23Z and after 03-26 05Z are not built, because no fire reaches its routed roads
+    within 8 h in any variant.
 - **Manifest:** `MANIFEST_v3.json` lists **252 packets** (42 × {5 h, 8 h} × {kriged_mean, firms_early, envelope}) as
   exact `build.py` commands. Packets are about 63 MB each at 5 h, so consumers build what they need.
-- **Reach tables:** `REACH_rule_{kriged_mean,firms_early,envelope}.json`, all 29 rule starts + 6 recorded, both
-  regions, both horizons.
+- **Reach tables:** `REACH_rule_{kriged_mean,firms_early,envelope}.json`, **128 rows each**: per region, 29 rule
+  starts + that region's 3 recorded starts, × 2 horizons.
 - **Verification sample:** `SAMPLE_v3.json`, from `fdyn/sample.py`: Yeongdeok 03-25 11Z (synthetic), Yeongdeok
   03-25 23Z (recorded) and Uiseong 03-25 14Z (synthetic), at 5 h × 3 variants. All 9 are **OK**:
   - Omitted analysis is `{window: None, outside_sources_possible: False}`, i.e. omitted dose 0.

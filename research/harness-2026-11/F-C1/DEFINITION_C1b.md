@@ -75,3 +75,34 @@ flames count. Glow has no sourced distance and is not used.
 ## Reported beside each result
 
 The documented timeline from the table, with its label. **Accounts are a labelled third source, not truth.**
+
+## Amendment 1 (Iris's assessment, adopted; committed before any F-C1b computation is reported)
+
+A run started under the unamended text was stopped and nothing from it is reported.
+
+1. **Village footprint.** Cells within 500 m of the observer point, **plus the cell containing the nearest planner
+   place's road entry node**. Sensitivity rows at 250 m and 1,000 m. More cells can only make arrival earlier.
+2. **Sign must hold with undetected cells too.** A sign is called only if it holds in **both** rows:
+   - `bracket_detected_only`;
+   - `wide_bracket_all_burned`: undetected burned cells get the bracket [last overpass with no detection anywhere in
+     their own cell before their kriged mean − 2 sd, kriged mean + 2 sd]. That is wide on purpose.
+
+   Otherwise the result is **indeterminate**. Reason: satellites miss burning cells, which makes V late and biases
+   the gap toward negative.
+3. **Direction of the preliminary leave-by.** "Arrival minus fastest fire-free trip" ignores roads cut before the
+   village is reached, so it is an **upper bound** on the true deadline. A negative gap under it is robust to that
+   simplification; a non-negative one is **not**, and is labelled "not robust to the leave-by simplification" until
+   the F-DYN deadline field replaces it.
+4. **Selection.** The six villages are **case studies chosen because accounts exist, not a sample**. No rate or
+   share is quoted from them. The same intervals are computed for **all 174 planner places** (observer = OSM place
+   point, the unselected set). The six are presented as the subset with outside evidence.
+5. **Account check** (accounts are never substituted for missing detections).
+   - For each village: is the documented time inside the satellite arrival bracket? Reported as k of 6, labelled
+     with read-in-full or snippet.
+   - **V1 test of the visibility model:** does the model have smoke (both settings) visible from 지품면사무소 by
+     16:30 KST, 25 Mar?
+6. **Time zones.** Every time is written with its zone. Accounts are in KST (UTC+9); detections are stored in
+   hours since t0 = 2025-03-22 02:24 UTC.
+7. **Timing source.** FIRMS brackets as above. When the AHI rule (`AHI_RULE.md`, owner Leo) is committed and
+   validated, an `ahi_bounded` row is added: AHI first-fire in the containing 2 km pixel is used as an **upper bound
+   on arrival within about 2 km**, never as the cell's own arrival.
