@@ -481,8 +481,18 @@ sweep?
 - **What.** Flux below a stated threshold contributes nothing to dose. The linear dose stays as the frozen reference.
 - **Reporting.** **Both** are reported for every multi-hour result, side by side, never pooled. No operational output
   uses the variant. Making it a default is the owner's decision.
-- **Threshold value and source.** Only from literature Sofia has actually read, with its citation and the caveat that
-  occupants are behind glass. To be requested from Sofia.
+- **Threshold value and source (Sofia, 16:11 UTC; sources she has read; logged in her LOG.md, (5)).** No source gives
+  a multi-hour "no effect" flux, so every threshold is a labelled **modelling choice**, not a physiological fact.
+  - **Primary variant: 1.0 kW/m² at the occupant (q_occ).** Source: NCC 2022 Vol. 1 Specification 43, the
+    vulnerable-occupant refuge design limit. Label: "NCC Spec 43 vulnerable-occupant design limit; below it no dose
+    accrues (modelling assumption)". It is a design criterion, not pain or burn data, and gives no duration.
+  - **Sensitivity: 2.5 kW/m².** Source: ISO 13571:2007 §8.2 (read via DSTU ISO 13571:2012), "tolerated for 30 min or
+    longer". It is a tenability / pain-onset threshold for escape and is stretched beyond its stated 30 min at
+    multi-hour.
+  - **Glass.** Neither source covers vehicle glass. If q_occ = τ·q_ext is used, τ ≈ 0.5 is labelled as MTDC 1997-based
+    (windows block about half the radiant heat), with a glass-failure caveat: MTDC also reports breakage under fire
+    heating.
+  - **Reported:** both thresholds, plus how many hour-long background segments flip between them.
 - **Review.** Thomas reviews admissibility; the variant must still be an upper bound of the thresholded quantity under
   the checker's enclosure. Iris assesses.
 - **Acceptance (written before any code).**
