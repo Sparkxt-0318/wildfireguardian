@@ -1,0 +1,511 @@
+{
+ "definition": "DEFINITION_C1b_accounts.md @0674f70 + amendment 1 @02c312d + sources @2ba8a85",
+ "input": "C1B_documented.json",
+ "label": "ACCOUNT-BASED",
+ "cases": [
+  {
+   "case": "C1",
+   "village": "V1",
+   "observer": "지품면사무소",
+   "url": "https://dgmbc.com/NewsArticle/628364",
+   "trip_min_s": 67,
+   "trip_note": "fire-free drive from the road entry point at model speed; no time to get ready",
+   "S_reported": {
+    "kind": "about",
+    "t": "03-25 16:30",
+    "what": "black smoke from the north (면장, at the office)"
+   },
+   "S_note": null,
+   "A_reported": null,
+   "A_note": "17:55 not in the dgmbc source (Sofia); not an arrival at this observer",
+   "satellite_arrival_kst_500m": [
+    "03-25 14:58",
+    "03-25 21:25"
+   ],
+   "fdyn_leave_by": "not available (Richard F-3.1 field not present at computation; no substitute)",
+   "windows": {
+    "pm30": {
+     "S_h": [
+      76.6,
+      77.6
+     ],
+     "S_kst": [
+      "03-25 16:00",
+      "03-25 17:00"
+     ],
+     "A_h": null,
+     "A_kst": null,
+     "L_kst": null,
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": true,
+     "visibility_at_S": {
+      "bracket_detected_only": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "possible",
+       "smoke@pessimistic": "possible"
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "possible",
+       "smoke@pessimistic": "possible"
+      }
+     },
+     "first_visible_kst": {
+      "bracket_detected_only": {
+       "flame@optimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "smoke@optimistic": [
+        "03-25 14:58",
+        null
+       ],
+       "smoke@pessimistic": [
+        "03-25 14:58",
+        null
+       ]
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": [
+        "03-24 14:25",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-24 14:25",
+        "03-25 21:25"
+       ],
+       "smoke@optimistic": [
+        "03-24 12:44",
+        null
+       ],
+       "smoke@pessimistic": [
+        "03-24 13:07",
+        null
+       ]
+      }
+     }
+    },
+    "pm15": {
+     "S_h": [
+      76.85,
+      77.35
+     ],
+     "S_kst": [
+      "03-25 16:15",
+      "03-25 16:45"
+     ],
+     "A_h": null,
+     "A_kst": null,
+     "L_kst": null,
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": false,
+     "visibility_at_S": {
+      "bracket_detected_only": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "possible",
+       "smoke@pessimistic": "possible"
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "possible",
+       "smoke@pessimistic": "possible"
+      }
+     },
+     "first_visible_kst": {
+      "bracket_detected_only": {
+       "flame@optimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "smoke@optimistic": [
+        "03-25 14:58",
+        null
+       ],
+       "smoke@pessimistic": [
+        "03-25 14:58",
+        null
+       ]
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": [
+        "03-24 14:25",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-24 14:25",
+        "03-25 21:25"
+       ],
+       "smoke@optimistic": [
+        "03-24 12:44",
+        null
+       ],
+       "smoke@pessimistic": [
+        "03-24 13:07",
+        null
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "case": "C2",
+   "village": "V2",
+   "observer": "매정1리마을회관",
+   "url": "https://www.hankookilbo.com/news/article/A2025032714350000238",
+   "trip_min_s": 112,
+   "trip_note": "fire-free drive from the road entry point at model speed; no time to get ready",
+   "S_reported": null,
+   "S_note": "20:00 door-knock is a warning, not a sighting",
+   "A_reported": {
+    "kind": "about",
+    "t": "03-25 20:40",
+    "what": "'내가 피하고 10분 뒤 불길이 마을을 집어삼켰다' (body); departure ~20:30 from the photo caption"
+   },
+   "A_note": null,
+   "satellite_arrival_kst_500m": [
+    "03-25 14:58",
+    "03-25 21:25"
+   ],
+   "fdyn_leave_by": "not available (Richard F-3.1 field not present at computation; no substitute)",
+   "windows": {
+    "pm30": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      80.76666666666667,
+      81.76666666666667
+     ],
+     "A_kst": [
+      "03-25 20:10",
+      "03-25 21:10"
+     ],
+     "L_kst": [
+      "03-25 20:08",
+      "03-25 21:08"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": true
+    },
+    "pm15": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      81.01666666666667,
+      81.51666666666667
+     ],
+     "A_kst": [
+      "03-25 20:25",
+      "03-25 20:55"
+     ],
+     "L_kst": [
+      "03-25 20:23",
+      "03-25 20:53"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": false
+    }
+   }
+  },
+  {
+   "case": "C2",
+   "village": "V2",
+   "observer": "매정2리마을회관",
+   "url": "https://www.hankookilbo.com/news/article/A2025032714350000238",
+   "trip_min_s": 131,
+   "trip_note": "fire-free drive from the road entry point at model speed; no time to get ready",
+   "S_reported": null,
+   "S_note": "20:00 door-knock is a warning, not a sighting",
+   "A_reported": {
+    "kind": "about",
+    "t": "03-25 20:40",
+    "what": "'내가 피하고 10분 뒤 불길이 마을을 집어삼켰다' (body); departure ~20:30 from the photo caption"
+   },
+   "A_note": null,
+   "satellite_arrival_kst_500m": [
+    "03-25 21:25",
+    "03-26 01:09"
+   ],
+   "fdyn_leave_by": "not available (Richard F-3.1 field not present at computation; no substitute)",
+   "windows": {
+    "pm30": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      80.76666666666667,
+      81.76666666666667
+     ],
+     "A_kst": [
+      "03-25 20:10",
+      "03-25 21:10"
+     ],
+     "L_kst": [
+      "03-25 20:07",
+      "03-25 21:07"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": true
+    },
+    "pm15": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      81.01666666666667,
+      81.51666666666667
+     ],
+     "A_kst": [
+      "03-25 20:25",
+      "03-25 20:55"
+     ],
+     "L_kst": [
+      "03-25 20:22",
+      "03-25 20:52"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": false
+    }
+   }
+  },
+  {
+   "case": "C2",
+   "village": "V2",
+   "observer": "매정3리마을회관",
+   "url": "https://www.hankookilbo.com/news/article/A2025032714350000238",
+   "trip_min_s": 112,
+   "trip_note": "fire-free drive from the road entry point at model speed; no time to get ready",
+   "S_reported": null,
+   "S_note": "20:00 door-knock is a warning, not a sighting",
+   "A_reported": {
+    "kind": "about",
+    "t": "03-25 20:40",
+    "what": "'내가 피하고 10분 뒤 불길이 마을을 집어삼켰다' (body); departure ~20:30 from the photo caption"
+   },
+   "A_note": null,
+   "satellite_arrival_kst_500m": [
+    "03-25 14:58",
+    "03-25 21:25"
+   ],
+   "fdyn_leave_by": "not available (Richard F-3.1 field not present at computation; no substitute)",
+   "windows": {
+    "pm30": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      80.76666666666667,
+      81.76666666666667
+     ],
+     "A_kst": [
+      "03-25 20:10",
+      "03-25 21:10"
+     ],
+     "L_kst": [
+      "03-25 20:08",
+      "03-25 21:08"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": true
+    },
+    "pm15": {
+     "S_h": null,
+     "S_kst": null,
+     "A_h": [
+      81.01666666666667,
+      81.51666666666667
+     ],
+     "A_kst": [
+      "03-25 20:25",
+      "03-25 20:55"
+     ],
+     "L_kst": [
+      "03-25 20:23",
+      "03-25 20:53"
+     ],
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": false
+    }
+   }
+  },
+  {
+   "case": "C3",
+   "village": "V6",
+   "observer": "신덕리 (centroid, flagged)",
+   "url": "https://www.nocutnews.co.kr/news/6318424",
+   "trip_min_s": 412,
+   "trip_note": "fire-free drive from the road entry point at model speed; no time to get ready",
+   "S_reported": {
+    "kind": "range",
+    "t": [
+     "03-25 17:30",
+     "03-25 18:00"
+    ],
+    "what": "red flames coming over (hedged: ~였던 것 같다)"
+   },
+   "S_note": null,
+   "A_reported": null,
+   "A_note": "'약 10분 만에 불이 번져' - arrival at the place implied, not stated in words",
+   "satellite_arrival_kst_500m": [
+    "03-25 14:58",
+    "03-25 21:25"
+   ],
+   "fdyn_leave_by": "not available (Richard F-3.1 field not present at computation; no substitute)",
+   "windows": {
+    "pm30": {
+     "S_h": [
+      77.6,
+      79.1
+     ],
+     "S_kst": [
+      "03-25 17:00",
+      "03-25 18:30"
+     ],
+     "A_h": null,
+     "A_kst": null,
+     "L_kst": null,
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": true,
+     "visibility_at_S": {
+      "bracket_detected_only": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "not possible",
+       "smoke@optimistic": "certain by S",
+       "smoke@pessimistic": "possible"
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "certain by S",
+       "smoke@pessimistic": "possible"
+      }
+     },
+     "first_visible_kst": {
+      "bracket_detected_only": {
+       "flame@optimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-25 21:25",
+        "03-26 01:09"
+       ],
+       "smoke@optimistic": [
+        "03-24 12:44",
+        "03-24 13:07"
+       ],
+       "smoke@pessimistic": [
+        "03-25 14:58",
+        null
+       ]
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": [
+        "03-23 21:44",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-24 03:18",
+        "03-26 01:09"
+       ],
+       "smoke@optimistic": [
+        "03-23 15:18",
+        "03-24 13:07"
+       ],
+       "smoke@pessimistic": [
+        "03-23 21:44",
+        null
+       ]
+      }
+     }
+    },
+    "pm15": {
+     "S_h": [
+      77.85,
+      78.85
+     ],
+     "S_kst": [
+      "03-25 17:15",
+      "03-25 18:15"
+     ],
+     "A_h": null,
+     "A_kst": null,
+     "L_kst": null,
+     "margin_min": null,
+     "sign": "no account-based sign (S or A not documented)",
+     "sign_called": false,
+     "visibility_at_S": {
+      "bracket_detected_only": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "not possible",
+       "smoke@optimistic": "certain by S",
+       "smoke@pessimistic": "possible"
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": "possible",
+       "flame@pessimistic": "possible",
+       "smoke@optimistic": "certain by S",
+       "smoke@pessimistic": "possible"
+      }
+     },
+     "first_visible_kst": {
+      "bracket_detected_only": {
+       "flame@optimistic": [
+        "03-25 14:58",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-25 21:25",
+        "03-26 01:09"
+       ],
+       "smoke@optimistic": [
+        "03-24 12:44",
+        "03-24 13:07"
+       ],
+       "smoke@pessimistic": [
+        "03-25 14:58",
+        null
+       ]
+      },
+      "wide_bracket_all_burned": {
+       "flame@optimistic": [
+        "03-23 21:44",
+        "03-25 21:25"
+       ],
+       "flame@pessimistic": [
+        "03-24 03:18",
+        "03-26 01:09"
+       ],
+       "smoke@optimistic": [
+        "03-23 15:18",
+        "03-24 13:07"
+       ],
+       "smoke@pessimistic": [
+        "03-23 21:44",
+        null
+       ]
+      }
+     }
+    }
+   }
+  }
+ ]
+}

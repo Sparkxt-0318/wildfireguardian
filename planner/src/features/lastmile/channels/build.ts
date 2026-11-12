@@ -20,6 +20,7 @@
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
 import { activeRegistry } from './agencyRegistry';
+import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_HELP, PROVENANCE_TAG, type StaffProvenance } from '../../provenance/model';
 import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
@@ -85,6 +86,11 @@ export interface ChannelOptions {
   orderStatus?: OrderStatusInput | null;
   issueOrderBy?: IssueOrderBy | null;
   timeStyle?: TimeStyle;
+  /**
+   * Deadline provenance label of this place (stream 3, from features/provenance staffProvenance) for the STAFF block
+   * only. It never reaches a resident output; the text never carries a clock time or the later forecast-free value.
+   */
+  deadlineProvenance?: StaffProvenance | null;
   /**
    * Issuing agency and its contact number: SUPPLIED by officials, never invented or defaulted. Validated by
    * `validIssuer`; anything that fails validation counts as not supplied. English outputs use only `agency.en` (a supplied
@@ -191,15 +197,19 @@ const AGENCY_WORDS_MAX = 8;
 export type IssuerCheck = 'none' | 'bad_name' | 'bad_number' | 'not_in_registry' | 'ok';
 
 /**
- * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC or a representative number
- * 1XXX-XXXX. Mobile numbers (010/011/016–019) are refused: they are personal data, and an official contact is a landline
- * or a representative number (Mira note, orchestrator). Times, dates and bare digit runs ("18-30", "2025-03-25", "1830")
- * never match. Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
+ * An official agency phone number as published (hyphenated), allowlist of shapes (tidy-up after Mira's note on #140):
+ * - landline: Seoul 02 or a regional area code (031–033, 041–044, 051–055, 061–064), local number starting 2–9;
+ * - representative number: 15XX / 16XX / 18XX-XXXX;
+ * - the all-zero placeholder (000-000(0)-0000), undiallable, used only by drills and tests.
+ * Refused: mobiles (010/011/016–019, personal data), 050 personal safe numbers, 070 VoIP (often personal), unassigned
+ * prefixes (012/013, other 1XXX), emergency numbers, and every time-, date- or digit-run-shaped string. The number is a
+ * supplied input: staff are told it is unverified.
  */
 export function phoneShaped(n: string): boolean {
-  if (!/^(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})$/.test(n)) return false;
-  if (/^01[016789]-/.test(n)) return false;
-  return !['112', '119', '110'].includes(n.replace(/-/g, ''));
+  if (/^0{2,3}-0{3,4}-0{4}$/.test(n)) return true;
+  if (/^02-[2-9]\d{2,3}-\d{4}$/.test(n)) return true;
+  if (/^0(3[1-3]|4[1-4]|5[1-5]|6[1-4])-[2-9]\d{2,3}-\d{4}$/.test(n)) return true;
+  return /^1(5|6|8)\d{2}-\d{4}$/.test(n);
 }
 
 /** The exact-match key: Unicode NFC and surrounding whitespace only (Iris); nothing that widens the match. */
@@ -379,7 +389,7 @@ export interface ChannelTexts {
   familyText: string;
   familyScript: [string, string, string];
   /** staff / village-head only (never resident-facing) */
-  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null };
+  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null; readerNote?: string | null; provenance?: string | null };
 }
 
 export interface ChannelSet {
@@ -740,7 +750,7 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       voice: voice(p, lang),
       familyText: familyText(p, lang),
       familyScript: familyScript(p, lang),
-      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
+      staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt), provenance: staffProvenanceLine(opt.deadlineProvenance ?? null, lang, p) },
     };
   }
   const checked = checkIssuer(opt.issuer);
@@ -803,8 +813,8 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       if (checked.status === 'bad_number')
         extra.push(
           lang === 'ko'
-            ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나, 휴대전화 또는 긴급번호입니다.'
-            : 'No contact line — field to fix: contact number. It is not an agency phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX), or it is a mobile or emergency number.',
+            ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호(지역번호 유선전화 또는 15XX·16XX·18XX 대표번호) 형식이 아닙니다. 휴대전화·050·070·긴급번호는 쓸 수 없습니다.'
+            : 'No contact line — field to fix: contact number. It is not an agency number (an area-code landline or a 15XX/16XX/18XX representative number); mobile, 050, 070 and emergency numbers are not accepted.',
         );
       if (checked.status === 'ok' && iss && contact[lang].voice === 'included')
         extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);
@@ -840,6 +850,22 @@ function inserted(p: MessagePlan, iss: Issuer | null = null): string[] {
   return out.sort((a, b) => b.length - a.length);
 }
 
+/** The staff provenance line: tag, text, help sentence and footer, as in the planner panel (staff only). */
+function staffProvenanceLine(p: StaffProvenance | null, lang: LmLang, plan: MessagePlan): string | null {
+  if (!p) return null;
+  const timed = p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent';
+  // fail closed in the kit itself (Mira N1): a label about a deadline where the kit gives no checked time is refused
+  // and REPORTED as "not established", the same in both languages
+  if (timed && (plan.kind !== 'leave_by' || plan.leaveByS === null)) return staffProvenanceLine({ kind: 'not_established', why: 'no_record_time' }, lang, plan);
+  // and the symmetric case (Mira's note on #143): "timed out · exact analysis: no route" describes an unresolved place
+  // only; on any other place (a leave-by time, partial, no route) it is refused and reported the same way
+  if (p.kind === 'unresolved_proven_no_route' && plan.kind !== 'unresolved') return staffProvenanceLine({ kind: 'not_established', why: 'no_record_time' }, lang, plan);
+  const text = provenanceText(p, lang);
+  if (!text || p.kind === 'none') return null;
+  const head = lang === 'ko' ? '[직원용] 마감 근거(모델)' : '[Staff] Deadline set by (model)';
+  return [`${head}: ${PROVENANCE_TAG[p.kind][lang]} — ${text}`, ...(timed ? [PROVENANCE_HELP[lang]] : []), PROVENANCE_FOOTER[lang]].join(' ');
+}
+
 /** Every rule violation of every output, each prefixed with its output (e.g. "ko.head.core: …"). */
 export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
   const v: string[] = [];
@@ -857,6 +883,7 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       ...(t.staff.noOrder !== null ? ([['staff.noOrder', t.staff.noOrder]] as [string, string][]) : []),
       ...(t.staff.decree ? ([['staff.decree', t.staff.decree]] as [string, string][]) : []),
       ...(t.staff.readerNote ? ([['staff.readerNote', t.staff.readerNote]] as [string, string][]) : []),
+      ...(t.staff.provenance ? ([['staff.provenance', t.staff.provenance]] as [string, string][]) : []),
     ];
     for (const [name, s] of outs) {
       const id = `${lang}.${name}`;
@@ -868,9 +895,9 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
         const extra = clockTimes(maskData(s, names)).filter((c) => c !== dataHm);
         if (extra.length) v.push(`${id}: clock time ${extra.join(',')} without a checked window`);
       }
-      if (!['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
+      if (!['staff', 'staff.decree', 'staff.readerNote', 'staff.provenance'].includes(name) && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
       const markerInstead = lang === 'ko' && name === 'familyText' && (p.input.mock || p.input.testData) && /MOCK|시험자료/.test(s);
-      if (p.input.replay && !['staff', 'staff.decree', 'staff.readerNote'].includes(name) && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
+      if (p.input.replay && !['staff', 'staff.decree', 'staff.readerNote', 'staff.provenance'].includes(name) && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
       const allowed = [set.destinationName?.[lang], ...(lang === 'en' ? [set.destinationName?.ko] : []), p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
