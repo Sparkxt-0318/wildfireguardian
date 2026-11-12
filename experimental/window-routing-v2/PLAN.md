@@ -378,19 +378,20 @@ verified by Mira.**
   - Miryang 0601T08 FX1: I 136d908351445370, 137,294 B.
 - Input digests match the request, HAZARD and graph prefixes I sent. The packet gate P1 (X1 rules 1, 2 and 4) passes;
   rule 3 is covered by T7b.
-- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions. **Required wording, W2′** (Thomas 22:45 UTC;
-  approved by Mira, ledgers 106–107; it replaces W1):
+- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions. **Required wording, final** (Thomas 22:52 UTC;
+  Mira, ledgers 106–109; it replaces W1 and W2′; recorded in `g2c_stage_z_refusals.json` on `thomas/routing-next`):
   "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
   dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
-  through Main aaaa02c6; reviewed by Mira as a document, the code reading itself not independently re-checked),
+  through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and the run records' kit identity,
+  not per-run import hashes; reviewed by Mira as a document, the code reading itself not independently re-checked),
   conditional on both sides using the same packet members, flame law and grid cells; packet, members and grid checked"
   - Backing: the premise checks (grid rectangles, members, flame law, per-member flame phases), re-derived
     independently by Mira (`xcheck/results/g2c_premises.json`, `g2c_stage_z_refusals.json` on `thomas/routing-next`).
   - **Code identity of the four Step 0 jobs is manifest-based, not a per-run import-time hash.** Each RESULT records the
     kit path and `kit_identity`. The kit-v2-step0 manifest (b37e0c79…) lists `contact_first.py` d2d2c4c8…,
     `mission_contract.py` 2de57c83… and `hybrid_checker.py` ca7d0614…, which are the blobs DOMINANCE_RULE §1 was read
-    against. The files are unchanged since the kit build, which preceded the runs. A qualifier on this point may be
-    added (Thomas, pending Mira).
+    against. The files are unchanged since the kit build, which preceded the runs. Mira confirmed this chain from her own
+    Step 0 build (ledger 109), and the qualifier is in the final wording above.
 - Yeongdeok 0325T19 FD1 (stage LO) stays `REEXECUTED_ONLY`.
 
 **G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
