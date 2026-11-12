@@ -32,3 +32,18 @@ environment modulation, observation error, or a real far-offset signal that MCEM
 say which.
 
 **Scope:** this holds for MCEM on a 0.1 h grid only. The 0.25 h vs 0.05 h check (`run_step_check.py`) is running.
+
+## Step check (Victor's finding 3): MCEM at a 0.25 h vs a 0.05 h Gibbs grid
+
+Run: `python run_step_check.py --seeds 5 --workers 2 --out results/step_check.json` (wall time 827 s).
+Same truths, brackets and E-step seeds as above; the two steps are paired by seed.
+
+| kernel | far_share at 0.25 / 0.05 h | paired difference: mean, max \|·\| | rate ratio at 0.25 / 0.05 h | paired difference: mean, max \|·\| |
+|---|---|---|---|---|
+| low_far | 0.0801 / 0.0794 | +0.0008, 0.0024 | 1.0049 / 1.0054 | −0.0006, 0.0010 |
+| high_far | 0.5883 / 0.5880 | +0.0003, 0.0008 | 0.9905 / 0.9907 | −0.0002, 0.0004 |
+
+On this synthetic problem, the grid step changes far_share by at most 0.0024 and the rate ratio by at most 0.001.
+Both are far below the ±0.05 tolerance and the seed SD (0.011–0.033). The 0.25 h step used by `d2_bracket`
+therefore does not change the recovery verdict here. It is a synthetic bound only: the real hazard is
+environment-modulated and there are 81 offsets.
