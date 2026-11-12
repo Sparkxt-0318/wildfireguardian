@@ -226,6 +226,9 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Deadlines lost or gained.** Never-clears removes the contiguous deadline of 1 origin per 03-23 packet, and of 4
   (kriged_mean) or 15 (firms_early) per 03-25 packet. In these origins a present-fire cell that would have burned out
   stays burning. At f = 0.5, 2 firms_early origins at 03-25 gain one.
+* **Stated limit.** The sensitivity covers the scalar-law v3.1 packets only, not the per-cell envelope packets
+  (v3.3 envelope and envelope_burnset). Yeongdeok gets the never-clears arm only, on its packets with holes at f = 1
+  (rule addition dated 2026-11-12).
 * **What this means.** The contiguous deadline is sensitive to the placeholder burning duration: at f = 2 it moves
   for 2–10 of 84 origins per packet. Deadlines that depend on burn-out are not robust to that law.
 

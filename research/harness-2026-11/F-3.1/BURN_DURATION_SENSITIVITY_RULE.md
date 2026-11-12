@@ -51,3 +51,19 @@ up only in full-checker verdicts, which are not run under f ≠ 1.
   deadline, do not plan on it" (the merged rule).
 * Surfacing windows after a gap is reconsidered **only** if holes persist under never-clears with a physically
   grounded cause, and then for staff first.
+
+## Addition 2026-11-12: Yeongdeok, never-clears arm only (committed before running)
+
+The orchestrator approved this at low priority.
+
+* **Packets.** The Yeongdeok v3.1 packets that have at least one hole at f = 1 in
+  `results/FDYN_V31_recorded_starts.json`. These are 8 packets:
+  * 03-25 19Z × {5 h, 8 h} × {kriged_mean, firms_early}, with 6 / 3 holes;
+  * 03-26 08Z × {5 h, 8 h} × {kriged_mean, firms_early}, with 2 holes each.
+
+  03-25 23Z has none and is skipped.
+* **Factors.** f = 1 and never-clears only (`--factors 1,never`). ×0.5 and ×2 are not run.
+* **Counting and decision rule.** Unchanged from above. Every hole that survives never-clears is classified by cause.
+  Surfacing windows is reconsidered only if a hole persists with a physically grounded cause, and then for staff
+  first.
+* **Summary file.** `results/BURN_DURATION_SENSITIVITY_yeongdeok.json`.

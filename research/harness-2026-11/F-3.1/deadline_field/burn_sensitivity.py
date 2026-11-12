@@ -77,14 +77,14 @@ def summarize(outs: list) -> dict:
                "variant_label": "bracket-start, not a lower bound" if e.get("variant") == "firms_early" else None,
                "counts": {f: {k: v for k, v in x.items() if k != "timing"} for f, x in d["summary"].items()},
                "never_clears_holes": d["never_clears_holes"],
-               "holes": {f: sorted(o for o, r in d["per_origin"][f].items() if r["hole"]) for f in FACTORS},
+               "holes": {f: sorted(o for o, r in d["per_origin"][f].items() if r["hole"]) for f in d["per_origin"]},
                "deadline_changes": {f: {o: [base[o]["contiguous_deadline_s"], r["contiguous_deadline_s"]]
                                         for o, r in d["per_origin"][f].items()
                                         if r["contiguous_deadline_s"] != base[o]["contiguous_deadline_s"]}
-                                    for f in FACTORS if f != "1"},
+                                    for f in d["per_origin"] if f != "1"},
                "wall_s": {f: round(x["timing"]["seconds"], 1) for f, x in d["summary"].items()}}
         pk.append(row)
-    return {"what": "burn-duration sensitivity of feasible-departure holes, Uiseong F-DYN v3.1 packets (rule: "
+    return {"what": "burn-duration sensitivity of feasible-departure holes, F-DYN v3.1 packets (rule: "
                     "BURN_DURATION_SENSITIVITY_RULE.md). SCENARIO, not what happened; f != 1 are contact-field "
                     "counterfactuals (not policy-checked). deadline_changes: origin -> [f=1, f] contiguous deadline (s).",
             "packets": pk}
@@ -99,6 +99,7 @@ def main():
     ap.add_argument("--region")
     ap.add_argument("--start")
     ap.add_argument("--horizon-s", type=int)
+    ap.add_argument("--factors", default=",".join(FACTORS), help="comma list; must include 1 (the baseline)")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
     if a.summary_from:
@@ -107,25 +108,27 @@ def main():
     doc = json.loads(a.instance_json.read_text())
     cand = [i for i in doc["instances"] if i["region"] == a.region and i["horizon_s"] == a.horizon_s]
     inst = next((i for i in cand if i["start_tag"] == a.start), cand[0])
+    facs = tuple(a.factors.split(","))
+    assert "1" in facs and set(facs) <= set(FACTORS)
     res, tim = {}, {}
-    for f in FACTORS:
+    for f in facs:
         res[f], tim[f] = run_factor(a.graph, a.packet, inst, f)
     base = res["1"]
     summ = {}
-    for f in FACTORS:
+    for f in facs:
         r = res[f]
         summ[f] = {"origins": len(r), "origins_with_hole": sum(x["hole"] for x in r.values()),
                    "contiguous_deadline_changed_vs_f1": sum(r[o]["contiguous_deadline_s"] != base[o]["contiguous_deadline_s"] for o in r),
                    "contiguous_deadline_appeared": sum(base[o]["contiguous_deadline_s"] is None and r[o]["contiguous_deadline_s"] is not None for o in r),
                    "contiguous_deadline_disappeared": sum(base[o]["contiguous_deadline_s"] is not None and r[o]["contiguous_deadline_s"] is None for o in r),
                    "timing": tim[f]}
-    never_holes = {o: classify_never_hole(x) for o, x in res["never"].items() if x["hole"]}
+    never_holes = {o: classify_never_hole(x) for o, x in res["never"].items() if x["hole"]} if "never" in res else None
     out = {"schema": "wfg.f31.burn_sensitivity/1", "packet": str(a.packet), "region": a.region, "start": a.start,
            "horizon_s": a.horizon_s,
            "label": "SCENARIO (F-DYN), not what happened; contact-field counterfactuals for f != 1 (not policy-checked)",
            "summary": summ, "never_clears_holes": never_holes,
            "per_origin": {f: {o: {k: x[k] for k in ("union", "hole", "contiguous_deadline_s")} for o, x in res[f].items()}
-                          for f in FACTORS},
+                          for f in facs},
            "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0}
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({"summary": {f: {k: v for k, v in s.items() if k != "timing"} for f, s in summ.items()},
