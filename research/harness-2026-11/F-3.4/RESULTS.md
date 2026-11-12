@@ -68,6 +68,10 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
 | yeongdeok 0325T23 FL2 | route (2 reps feasible, 1 optimum) | 72.89 | 0.063 | 1.31 (2%) | 50.30 | 12.93 | 1.98 | 0.24 |
 | yeongdeok 0326 FW1 | route, optimum proven | 21.51 | 0.041 | 0.31 (1%) | 3.98 | 11.93 | 0.45 | 0.23 |
 
+**Note on "refusal proven".** In these tables, "refusal proven" is the kit's status `FULL_MODEL_REFUSAL_PROVEN`.
+The kit accepts a refusal certificate on its declared fields and does not re-verify it. These refusals were **not**
+independently re-checked here; kit-v2 G2c adds that re-verification.
+
 ## Which efficiency direction (claim, pending verification)
 
 - **Not a persistent service.** Start-up and imports are 0.8% of wall time, with a median of 0.15 s per request.
