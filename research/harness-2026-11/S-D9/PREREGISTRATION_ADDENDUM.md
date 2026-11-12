@@ -284,6 +284,21 @@ Every predictor is declared by SHA-256 before the manifest.
 2. The harness records the population (`sd9bench` `population`: `full_rectangle` | `hindsight_restricted`). Every hindsight-restricted result carries a note saying that its Brier, calibration, AP and prevalence are **not comparable** with full-rectangle results. **The two are never pooled, paired or used in one decision.** §6 decisions use full-rectangle populations only.
 3. **Training and part-c scoring paths for every A1 model** (the rebuilt refits, `d2_nll_rebuilt`, `d2_bracket_rebuilt`, D1 candidates) must take label validity from perimeter states over the full grid, as `perimeter_samples` does. They may not take it from an arrival raster. The receipt of any path that reads an arrival raster must state how that raster's validity is used. The D2 bracket E-step may impute arrival times **within survey brackets** for cells that are burned in the perimeter states. Cells never mapped as burned remain negatives over the full grid.
 4. Any forecast-v2 KR2025 number quoted in S-D9 reports is labelled hindsight-restricted and descriptive.
+5. **Definition, provisional until the cell-level check (Iris).** The working hypothesis is that "arrival no-data" means "outside the final footprint". It becomes the definition only once the arrival raster's valid mask has been compared **cell by cell** with the final perimeter union on every **exposed** fire that has both. Until then, only the FishCreek count match above stands. The check is requested from Daniel (data). No part b, c or d fire's raster is opened for it.
+6. **Repaired Korean stratum K-full (Iris; declared now, descriptive).** If rule 5 holds, a second Korean stratum is scored on the **full event rectangle**. Cells with no arrival value count as never burned, so the population no longer conditions on eventual burning. K-full is labelled `full_rectangle` but stays **descriptive**: its timing is kriged and the fires are exposed. It is never part of a §6 decision. *Availability:* the committed forecast-v2 KR2025 files hold predictions only on finite-arrival cells. K-full therefore needs the predictors re-run over the full rectangle, which needs the owner-only inputs. It is **UNAVAILABLE** for the current models until those inputs exist.
+
+**Training-label provenance of the predictors (revision 22; development fact, checked from code).** The same validity mask also governs **training** (Iris). A model trained on hindsight-restricted labels never saw a cell that stays unburned.
+
+| predictor | training label source | evidence |
+|---|---|---|
+| `c651_mc` (checkpoint c651f672…, run 20261010_categorical_balanced_benchmark) | **Hindsight-restricted kriged, interior only.** Targets are cells whose whole k × k neighbourhood has a finite reconstructed arrival time, so every training target, positive or negative, lies inside the final footprint at least k/2 cells from its edge | `forecast/wildfire/prepare.py:862-883` (`neighborhood_known = minimum_filter(finite, k) > 0`); label validity from `data.py:477-492`; training contract "boundary: unknown; complete interior patches only" (`train.py:371`) |
+| `d4_wind_seed0`, `d4_seed0`, `base`, `ellipse`, `burnout`, `burnout_spotting` (forecast-v2 final) | **Perimeter states, full crop**: score_mask = ~initial over the initial-extent crop + 10 cells | `pipeline.py:347-353` with `mixed=False` |
+| `mixed_base_seed0` | **Mixed**: perimeter states plus kriged windows (`finite & ~initial`, including Korean kriged-only fires) | `pipeline.py:354-358` (`mixed=True`), `kriged_samples` 253-288 |
+| frozen `logistic`, `dilation_best` / `dilation_8h` | **Perimeter states** (fit fires) | `pipeline.py:532-550` (`mixed=False`) |
+| `persistence` | none | — |
+| `d4_wind_rebuilt`, `logistic_rebuilt`, `d4_wind_recal`, `d2_nll_rebuilt`, `d2_bracket_rebuilt`, D1 candidates | **Perimeter states, full grid (required by rule 3)** | §3.1, §4.1 rule 3 |
+
+*Hypothesis only (Iris), not tested here.* A model trained without true far-field negatives has no reason to be calibrated on cells far from the front. This may bear on c651's tail behaviour. It does not explain d4_wind's tail, because d4_wind was trained on perimeter states (§4.1 table; `derive/LOGISTIC_DEV.md`).
 
 ## 5. Metrics
 
