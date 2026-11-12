@@ -465,3 +465,34 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
     areas, not spread.
 * **Literal all-pairs statistic.** Max 3,747 km/h. It is dominated by simultaneous detections on separate fronts and
   is not decisive.
+
+## Rate-assumed tier sensitivity at 1 h (rule `RATE_ASSUMED_RULE.md` §1, committed first at 8a16dc2; not yet verified)
+
+* **Files.** `results/RATE_ASSUMED_SENSITIVITY_1h.json`, built by `deadline_field/rate_sensitivity.py`.
+  * A, R1.5 and R8.2 come from the verified three-way runs (Nora row 43).
+  * R16.4 is new, through the same code (`threeway --only-tiers R16.4`). Its recomputed optimistic field equals the
+    base one for every origin (asserted).
+* **Scope.** CERT contact field; pessimistic "checked" is contact-only. Labels: "rate-assumed, v km/h"; Tier A = all
+  unknown support blocked from 0.
+* **Counts per origin against the optimistic field.**
+  * **Removed** = loses its deadline.
+  * **Moved** = deadline earlier; the shift (optimistic − variant) is given in seconds as median / max.
+
+| cache | Tier A removed / moved | R1.5 | R8.2 | R16.4 |
+|---|---|---|---|---|
+| UA 03-23 01Z | 34 / 1 | 0 / 11 (1,445 / 1,877) | 5 / 6 (2,859 / 2,915) | 6 / 28 (258 / 3,024) |
+| UA 03-24 09Z | 30 / 3 | 0 / 3 (489 / 686) | 0 / 15 (500 / 1,406) | 0 / 33 (909 / 1,945) |
+| UA 03-25 17Z | 24 / 0 | 0 / 4 (11 / 2,335) | 1 / 19 (1,248 / 3,070) | 5 / 19 (2,220 / 3,189) |
+| YD 03-25 19Z | 56 / 2 | 1 / 5 (1,435 / 2,177) | 3 / 47 (942 / 3,123) | 4 / 54 (2,191 / 3,370) |
+| YD 03-25 23Z | 56 / 3 | 0 / 4 (1,624 / 2,132) | 1 / 34 (1,131 / 3,232) | 3 / 56 (1,864 / 3,416) |
+| YD 03-26 08Z | 55 / 3 | 0 / 2 (1,588 / 1,588) | 0 / 27 (1,471 / 3,232) | 1 / 53 (1,722 / 3,380) |
+
+* **Tier A moved shifts.** Median / max per cache: UA 03-23 100 / 100; UA 03-24 489 / 686; UA 03-25 —; YD 03-25 19Z
+  107 / 107; YD 03-25 23Z and 03-26 08Z 107 / 673.
+* **Reading.**
+  * Doubling the assumed rate (8.2 → 16.4 km/h) removes 0–6 deadlines per cache and moves 19–56, typically by 15–37
+    minutes.
+  * Tier A removes 24–56 per cache.
+  * B16.4 (Iris) follows when its runs finish.
+* **One-hour tool only.** At 8.2 km/h a rate bound reaches 41 km in 5 h. These tiers are not extended to 5 h or 8 h
+  (MULTIHOUR_HEADLINE_RULE §4).
