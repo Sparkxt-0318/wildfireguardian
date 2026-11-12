@@ -30,6 +30,9 @@ The output contains:
   - `by_horizon`: horizon bins (0,12], (12,24], (24,36], (36,48] h, with entry, fire and interval counts per bin.
   - `by_band`: distance-to-cutoff-burn bands (0,1], (1,2], (2,4], (4,8] km. Requires `dist_m`.
   - `area_crps`: exact ensemble CRPS of the new-burn cell count per interval. Requires `area_samples`; otherwise it is marked unavailable and never approximated.
+  - `cumulative_bands`: the full forecast-v2 scoring, bootstrap included, restricted to dist_m ≤ 1, 2, 4 and 8 km, plus `positives_beyond_last_band`. Requires `dist_m`.
+  - `low_probability_bins` (edges 0, 1e-5, 1e-4, 1e-3, 1e-2, 0.1) and `zero_probability_positive_share`, pooled and in every stratum.
+  - Lead-time design (`sd9bench.load_arrival`, `score_arrival`; contract in `sd9bench/arrival.py`): survey-censored arrival ranked probability score, Brier by lead-hour bin, and paired whole-fire RPS intervals.
 
 ## Correctness check (measured)
 
@@ -38,7 +41,7 @@ python3.12 -m venv V && V/bin/pip install numpy==1.26.4 scipy==1.13.1 pytest
 cd research/harness-2026-11/S-D9 && ../../../V/bin/python -m pytest -q tests -p no:cacheprovider
 ```
 
-The result is `24 passed`. The reproduction tests take about 66 s on this container (4 tests) and the unit tests take 0.4 s (20 tests).
+The result is `34 passed` (at 29493b1 it was 24). The reproduction tests take about 66 s on this container (4 tests) and the unit tests take under 1 s (30 tests).
 
 `tests/test_reproduce_forecast_v2.py` recomputes the `heldout` block of `research/forecast-v2/RESULTS.json` from the committed per-fire entry files. It covers 1,705,079 entries, 8,520 positives and 6 fires. It compares **every** published field for all 16 predictors: pooled, per-fire, calibration bins, lowest bin, exact NLL, both BSS references, both paired-BSS intervals and the c651 Monte Carlo variance correction. It also compares all 30 paired whole-fire Brier intervals. Integers must match exactly; floats must agree within 1e-12 relative. All match.
 
@@ -46,5 +49,5 @@ The result is `24 passed`. The reproduction tests take about 66 s on this contai
 
 - The 8.17% Wapiti preprint figure is reproduced only arithmetically, from the stored aggregate record (`INVENTORY.md` §1). The cell-level M548 exports are not in git (a request is out to Daniel).
 - No per-horizon or per-band score on any cohort has been printed or inspected. This is deliberate: those strata and the primary statistic are fixed in the pre-registration addendum first.
-- The arrival-time score is not implemented yet. It needs hourly cumulative marginals per cell, and its file field will be agreed with D1 and D2.
+- The arrival RPS is implemented and unit-tested on invented data only. No model has emitted lead-time cdf files yet (addendum §10 Q2).
 - `dist_m` is not present in the forecast-v2 files. The cutoff burn masks are referenced by hash in the case receipts but are not in git, so band strata on US2024 need the inputs rebuilt.

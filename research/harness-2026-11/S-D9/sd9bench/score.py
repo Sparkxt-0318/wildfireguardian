@@ -33,6 +33,20 @@ from .entries import Entries  # noqa: E402
 
 DEFAULT_HORIZON_EDGES_H = (0.0, 12.0, 24.0, 36.0, 48.0)
 DEFAULT_BAND_EDGES_M = (0.0, 1000.0, 2000.0, 4000.0, 8000.0)
+DEFAULT_CUMULATIVE_BANDS_M = (1000.0, 2000.0, 4000.0, 8000.0)
+LOW_P_EDGES = (0.0, 1e-5, 1e-4, 1e-3, 1e-2, 0.1)
+
+
+def low_probability_bins(y: np.ndarray, p: np.ndarray, edges=LOW_P_EDGES) -> list[dict]:
+    """Reliability within [lo, hi) for each low-probability bin; the last bin is [lo, hi)."""
+    rows = []
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        use = (p >= lo) & (p < hi)
+        n = int(use.sum())
+        rows.append(dict(lower=float(lo), upper=float(hi), count=n, share=n / len(y) if len(y) else None,
+                         positives=int(y[use].sum()), mean_prediction=float(p[use].mean()) if n else None,
+                         observed_frequency=float(y[use].mean()) if n else None))
+    return rows
 SEED = 20261030
 DRAWS = 10000
 
@@ -80,6 +94,11 @@ def core(entries: Entries, references=("persistence", "dilation_best"), draws: i
         pooled = record["pooled"]
         unc = pbar * (1 - pbar) if pbar is not None else 0.0
         pooled["base_rate_bss"] = (1 - pooled["brier"] / unc) if unc else None
+    for name, record in scored["models"].items():
+        p = entries.predictions[name]
+        record["pooled"]["low_probability_bins"] = low_probability_bins(entries.y, p)
+        record["pooled"]["zero_probability_positive_share"] = (
+            float(((p == 0) & (entries.y == 1)).sum() / entries.y.sum()) if entries.y.sum() else None)
     scored["base_rate"] = pbar
     return scored
 
@@ -99,7 +118,7 @@ def stratified(entries: Entries, key: np.ndarray, edges, label: str) -> list[dic
         if use.sum():
             row["models"] = {n: B.score(sub.y, p) for n, p in sub.predictions.items()}
             for n, m in row["models"].items():
-                m.pop("calibration", None)
+                m["low_probability_bins"] = low_probability_bins(sub.y, sub.predictions[n])
                 for ref in ("persistence", "dilation_best"):
                     if ref in sub.predictions:
                         rb = float(np.mean((sub.predictions[ref] - sub.y) ** 2))
@@ -139,7 +158,7 @@ def area_crps(entries: Entries) -> dict:
 
 def score(entries: Entries, *, references=("persistence", "dilation_best"), draws: int = DRAWS, seed: int = SEED,
           horizon_edges=DEFAULT_HORIZON_EDGES_H, band_edges=DEFAULT_BAND_EDGES_M,
-          mc_trajectories: dict[str, int] | None = None) -> dict:
+          cumulative_bands=DEFAULT_CUMULATIVE_BANDS_M, mc_trajectories: dict[str, int] | None = None) -> dict:
     """``mc_trajectories`` declares, per Monte Carlo predictor, the number of trajectories
     behind each marginal. For each one it adds the finite-trajectory corrected Brier
     used by forecast-v2: Brier - mean(p(1-p))/(n-1)."""
@@ -158,8 +177,17 @@ def score(entries: Entries, *, references=("persistence", "dilation_best"), draw
         result["by_band"] = dict(status="UNAVAILABLE_NO_DIST_M")
     else:
         result["by_band"] = stratified(entries, entries.dist_m, band_edges, "distance_to_cutoff_burn_m")
+        result["cumulative_bands"] = {}
+        for width in cumulative_bands:
+            use = entries.dist_m <= width
+            sub = entries.subset(use)
+            result["cumulative_bands"][str(int(width))] = (
+                core(sub, references=references, draws=draws, seed=seed) if use.any() and sub.y.sum() else
+                dict(status="UNAVAILABLE_EMPTY_OR_NO_POSITIVES", entries=int(use.sum()), positives=int(sub.y.sum())))
+        result["positives_beyond_last_band"] = int((entries.y[entries.dist_m > max(cumulative_bands)]).sum())
     result["area_crps"] = area_crps(entries)
     result["settings"] = dict(references=list(references), draws=draws, seed=seed,
                               horizon_edges_h=list(horizon_edges), band_edges_m=list(band_edges),
+                              cumulative_bands_m=list(cumulative_bands), low_p_edges=list(LOW_P_EDGES),
                               calibration_bins=B.BINS.tolist(), log_floor=B.LOG_FLOOR)
     return result

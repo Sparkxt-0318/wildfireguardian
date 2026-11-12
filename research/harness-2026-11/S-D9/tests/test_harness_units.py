@@ -130,3 +130,85 @@ def test_mc_correction_declared_only(tmp_path):
     assert pooled["brier_mc_variance_corrected"] == pytest.approx(pooled["brier"] - np.mean(p * (1 - p)) / 1023)
     with pytest.raises(ValueError):
         score(e, draws=50, mc_trajectories={"nope": 10})
+
+
+# --- low-probability bins and cumulative bands ------------------------------
+
+def test_low_probability_bins_partition_below_tenth(tmp_path):
+    e = load([fire_file(tmp_path)])
+    r = score(e, draws=50)
+    for name, p in e.predictions.items():
+        rows = r["models"][name]["pooled"]["low_probability_bins"]
+        assert sum(x["count"] for x in rows) == int((p < 0.1).sum())
+        assert sum(x["positives"] for x in rows) == int(e.y[p < 0.1].sum())
+
+
+def test_zero_probability_positive_share(tmp_path):
+    e = load([fire_file(tmp_path)])
+    r = score(e, draws=50)
+    assert r["models"]["persistence"]["pooled"]["zero_probability_positive_share"] == 1.0
+
+
+def test_cumulative_bands_are_nested_and_count_beyond(tmp_path):
+    d = np.linspace(0, 10000, 40)
+    e = load([fire_file(tmp_path, dist_m=d)])
+    r = score(e, draws=50)
+    sizes = [r["cumulative_bands"][w]["entries"] for w in ("1000", "2000", "4000", "8000")
+             if "entries" in r["cumulative_bands"][w]]
+    assert sizes == sorted(sizes)
+    assert r["positives_beyond_last_band"] == int(e.y[d > 8000].sum())
+
+
+# --- arrival RPS (lead-time design) ----------------------------------------
+
+def arrival_file(tmp_path, name="A", **over):
+    # Two cutoffs; cutoff 0 has leads at 10, 20, 30 h, and cutoff 1 has one lead at 15 h.
+    arrays = dict(
+        cutoff=np.array([0, 0, 0, 1]), n_leads=np.array([3, 3, 3, 1]), arrival_bin=np.array([0, 2, 3, 1]),
+        lead_hours=np.array([[10.0, 20.0, 30.0], [15.0, np.nan, np.nan]]),
+        cdf_model=np.array([[0.5, 0.6, 0.9], [0.1, 0.2, 0.3], [0.0, 0.0, 0.0], [0.4, np.nan, np.nan]]),
+        cdf_persistence=np.zeros((4, 3)),
+    )
+    arrays.update(over)
+    np.savez(tmp_path / f"{name}.npz", **arrays)
+    return tmp_path / f"{name}.npz"
+
+
+def test_rps_hand_computed(tmp_path):
+    from sd9bench import load_arrival
+    from sd9bench.arrival import rps
+    e = load_arrival([arrival_file(tmp_path)])
+    r = rps(e, "model")
+    # bin 0 -> O = 1, 1, 1; bin 2 -> O = 0, 0, 1; bin 3 (none) -> O = 0, 0, 0; single lead, bin 1 (none) -> O = 0
+    expected = [0.25 + 0.16 + 0.01, 0.01 + 0.04 + 0.49, 0.0, 0.16]
+    assert r.tolist() == pytest.approx(expected)
+    assert rps(e, "persistence").tolist() == pytest.approx([3.0, 1.0, 0.0, 0.0])
+
+
+def test_rps_single_lead_equals_brier(tmp_path):
+    from sd9bench import load_arrival
+    from sd9bench.arrival import rps
+    e = load_arrival([arrival_file(tmp_path)])
+    assert rps(e, "model")[3] == pytest.approx((0.4 - 0.0) ** 2)
+
+
+def test_arrival_score_by_lead_and_paired(tmp_path):
+    from sd9bench import load_arrival, score_arrival
+    e = load_arrival([arrival_file(tmp_path, "A"), arrival_file(tmp_path, "B")])
+    r = score_arrival(e, draws=200, references=("persistence",))
+    by = {(x["lower"], x["upper"]): x for x in r["models"]["model"]["by_lead"]}
+    assert by[(0.0, 12.0)]["cell_leads"] == 6           # lead 10 h for 3 entries x 2 fires
+    assert by[(12.0, 24.0)]["cell_leads"] == 8          # 20 h x 3 plus 15 h x 1, per fire
+    assert "model__vs__persistence" in r["paired"]
+
+
+@pytest.mark.parametrize("over,msg", [
+    (dict(cdf_model=np.array([[0.5, 0.4, 0.9], [0.1, 0.2, 0.3], [0, 0, 0], [0.4, np.nan, np.nan]])), "nondecreasing"),
+    (dict(arrival_bin=np.array([0, 2, 4, 1])), "arrival_bin"),
+    (dict(n_leads=np.array([3, 3, 3, 0])), "n_leads"),
+    (dict(lead_hours=np.array([[10.0, 5.0, 30.0], [15.0, np.nan, np.nan]])), "increase"),
+])
+def test_arrival_contract_violations(tmp_path, over, msg):
+    from sd9bench import load_arrival
+    with pytest.raises(ValueError, match=msg):
+        load_arrival([arrival_file(tmp_path, **over)])
