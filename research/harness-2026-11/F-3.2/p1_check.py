@@ -57,6 +57,11 @@ def from_raw(packet, Hs):
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         ign, cur = a["ignition_time_s"], a["current_active"].astype(bool)
     S, Hn, W = ign.shape
+    # A valid packet marks "never ignites" with +inf. NaN marks a per-cell law that lives in HAZARD.json only
+    # (Leo 588f74e, envelope): its arrays are not a routable hazard, so refuse rather than silently drop those cells.
+    if np.isnan(ign).any():
+        raise ValueError("NaN ignition_time_s in %s: per-cell law is HAZARD-only; the arrays are not a routable hazard"
+                         % Path(packet).name)
     g = lambda r, c: (Hn - 1 - int(r)) * W + int(c)
     out = {}
     for s in range(S):
