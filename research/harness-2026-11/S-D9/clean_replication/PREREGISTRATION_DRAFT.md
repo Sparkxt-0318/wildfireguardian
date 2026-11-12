@@ -1,90 +1,119 @@
 # Clean-replication cohort (CR1): pre-registration DRAFT
 
-**Status: DRAFT 0, not frozen. Nothing has been fetched, listed or read for this cohort.**
+**Status: DRAFT 1, not frozen. Nothing has been fetched, listed or read for this cohort.**
 - It is a new document, not an edit to A1.
 - Owner decision (relayed by the orchestrator, 2026-11-12): collect a fresh set of fires for a clean replication.
 - The current A1 parts b and c proceed, but are described as **"labels, perimeters and growth sealed; survey-timing metadata exposed; membership rules used it"**. H is descriptive. Neither is presented as the clean confirmation.
 
-Open items, marked **[OPEN]**:
+Draft 1 adds Iris's design input of 2026-11-12, 15:06Z. Open items are marked **[OPEN]**:
 - data availability (Daniel);
-- design review (Iris);
 - protocol review (Hannah).
 
 ## 0. Why a new cohort
 The A1 hold-out parts are sealed for labels, perimeters and growth. But per-incident survey timing was readable by every session before the split, and the cohort's own membership rules used discovery date and the survey window (ACCESS_CONTROL, combined amendment). GOFER/H fires had aggregate labels and final sizes inspected. A replication that can be called clean needs fires about which **no session has read anything, not even metadata**, until the predictors and the scorer are frozen.
 
-## 1. Principles
-1. **Nothing is read before it is needed, and nothing is needed before the freeze.** Before the freeze, the only things anyone sees are the fire ID and the source name.
-2. **One custodian.** Hannah (verifier) is the only session that reads any CR1 byte beyond the ID list, and she reads it only after the freeze. She builds labels and inputs, runs the frozen scorer, and releases only the pre-declared statistics.
-3. **Everything is decided by rules written here first.** That covers which fires, which parts, eligibility, analysability, independence, scoring and the decision. Every rule is complete as written: if a rule needs a field, the field is named here.
-4. **Every access is logged.** Each read is logged with who, what, when and the hash. An unlogged read voids the cohort's "clean" label for the affected fires.
+**The replication differs from A1 part c in one thing only: cleanliness.** It keeps the same label type, the same criteria and the same candidates, so a different result can be interpreted.
 
-## 2. Source and window [OPEN: Daniel's data availability]
-- **Window:** fires whose **source record is first published after 2026-11-12**, or whose season lies wholly after the latest date in any file any session holds, whichever the availability report supports.
-  - The "latest date held" is established per source by Daniel and verified by Hannah from the repository and scratch logs.
-  - Candidates: the NIROPS/NIFC IR 2025 season and later, FEDS 2025+, WFIGS 2025+ operational perimeters, CWFIS/NBAC 2025+, and others.
-- **Label strata are not pooled.** A NIROPS-type IR source is primary, because it matches R's label type and so the A1 band and other R-fixed rules transfer. Other perimeter products are separate descriptive strata, as in A1 §1.1.
-- Any source that cannot list IDs **without** returning other attributes is either excluded, or listed by the custodian, who then releases the ID column only (§3).
+## 1. Principles
+1. **Nothing is read before the freeze except salted ID hashes.** Non-custodian sessions never see a raw incident ID, because IDs can carry names and dates.
+2. **One custodian, one second custodian.**
+   - Hannah is the only session that reads any CR1 byte beyond the hashed ID list, and only after the freeze.
+   - A second verifier, named before the freeze, independently reruns the frozen scorer on the sealed data. The two hashes of the released statistics must match.
+3. **Complete rules, written first.** Every rule that touches a CR1 fire's data, however mechanical, names its fields here. Nothing outside these lists is read for any purpose.
+4. **Every access is logged** with who, what, when and the hash. An unlogged read removes the "clean" label from the affected fires.
+
+## 2. Source, window and tiers [OPEN: Daniel's availability report]
+- **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
+  - If NIROPS yields too few fires, the fallback is a **longer window**, never another product.
+  - Other perimeter products (FEDS, WFIGS, CWFIS and others) may be declared here as **separate descriptive strata**. They are never pooled.
+- **Two tiers, declared now and never pooled:**
+  - **Tier 1, unseen retrospective.** Fires discovered after the latest date in any file any session holds (per source, established by Daniel, verified by Hannah) and **before** this document's freeze commit.
+    - *Stated weakness:* these are public events, so a session could know of them from other routes.
+  - **Tier 2, prospective.** Fires discovered **after** this document's freeze commit. This is the only tier clean against every route, and it is the one called **the confirmation**.
+    - It may mean waiting for the next season, and that is stated plainly.
+- **Snapshot and closing.** A **closing date** and a **"data as of" snapshot date** for each tier are fixed here [OPEN: dates]. The version of a revised product that counts is the one present at the snapshot.
 
 ## 3. Access protocol, from the first byte
 1. **ID listing.**
-   - Daniel writes an **ID-only reader** for the chosen source: an API field selection, a directory listing, or a manifest parse that returns the fire identifier and nothing else.
-   - The code is committed and reviewed by Hannah **before** it runs. It runs once.
-   - Its output, `CR1_IDS.csv` (columns: `source`, `fire_id`), is committed with its sha256.
-   - If the source returns other attributes in the same response, the reader discards them **in memory, before any print or write**, and a test proves it. This is the parta_price lesson.
-2. **Split fields, complete:** `source` and `fire_id`. No other field is read by anyone for any purpose before the freeze.
-3. **Order and parts.**
-   - `u = sha256("S-D9-CR1|" + source + "|" + fire_id)`, ascending.
-   - Part **T** (test): every listed fire, subject to post-freeze eligibility (§5).
-   - Part **H0** (held back): none by default. A held-back part may be declared here before listing, as a fixed fraction by `u`.
-4. **Freeze, before any further read.** The following are frozen in `CR1_FREEZE.json` and verified by Hannah:
-   - the predictors (D1/D2 candidates and comparators, by SHA, with their training data unchanged from A1 stage 2);
+   - Daniel writes an **ID-only reader**. It must be committed and reviewed by Hannah before it runs, and it runs once.
+   - It returns only the identifier. It discards every other attribute **in memory before any print or write**, and a test proves this.
+   - It writes:
+     - `CR1_IDS.csv` (`source`, `id_hash = sha256(salt + "|" + source + "|" + fire_id)`);
+     - the ID-to-hash mapping, sealed and held by the custodian only.
+   - The salt is generated by the custodian and never released until the decision is recorded.
+2. **Optional pre-freeze existence flag.** If a pre-freeze filter is ever forced, the only permitted field is a binary "a perimeter product exists for this ID". It is computed by the reader, and only the filtered hash list is released: no counts, dates or sizes. Survey count is **not** permitted, because it tracks duration and therefore outcome.
+3. **Split fields, complete:** `source` and `id_hash`. The order is ascending `u = sha256("S-D9-CR1|" + id_hash)`.
+4. **Freeze before any further read.** `CR1_FREEZE.json` is verified by Hannah. It holds:
+   - the predictors (A1 stage-2 candidates and comparators, by SHA);
    - the scorer (sd9bench SHA);
-   - the input-build pipeline (rebuild_env.sh SHA);
-   - this document.
-5. **After the freeze, the custodian only:**
-   - reads the CR1 metadata, perimeters and labels;
-   - builds inputs and labels;
-   - applies eligibility, independence and analysability (§5);
+   - the covariate and weather rebuild script (SHA);
+   - the custodian interface (SHA);
+   - this document;
+   - the salt commitment (its hash).
+5. **Rehearsal before the freeze.** Every candidate runs once end to end through the custodian interface on **part-a** fires, with receipts, and failed or unavailable cases are kept. A crash on CR1 is then a result, not a reason to touch code.
+6. **After the freeze, the custodian only:**
+   - reads metadata, perimeters and labels;
+   - fetches covariates and weather with the frozen rebuild script, outputs sealed, because fetching reveals place and date;
+   - applies §5;
    - runs the frozen predictors and scorer;
-   - releases the §6 statistics and attrition counts.
+   - releases only the §6 statistics and attrition counts.
 
-   Per-fire outputs are released only after the decision is recorded.
-6. **No other session** fetches, opens or derives anything from CR1 sources until the decision is recorded. Daniel's ID-only reader is the only exception.
+   The second custodian reruns the scorer, and the hashes are compared. Per-fire outputs are released only after the decision is recorded.
+7. **No other session** fetches, opens or derives anything from CR1 sources until the decision is recorded.
 
 ## 4. Training data and predictors
-- These are unchanged from A1 stage 2. CR1 adds no refit, no retuning and no new candidate.
-- A candidate admitted to A1 part c is scored on CR1 as frozen. A candidate not frozen at CR1's freeze is not scored.
+- These are unchanged from A1 stage 2. There is no refit, no retuning and no new candidate.
+- A candidate not frozen at CR1's freeze is not scored.
 
-## 5. Eligibility, independence, analysability (post-freeze, custodian only)
-- **Eligibility.** At least one valid interval under the A1 §2 interval rule (0 < Δ ≤ 48 h). There is **no survey-count threshold** [OPEN: Iris, whether a minimum is needed for cost or power].
-- **Independence.** A CR1 fire is excluded if it lies within 50 km and 30 days (point of origin, discovery date) of any A1 training-pool fire (fit-23 ∪ part a), or if it duplicates another CR1 fire (5 km plus overlapping record window; the lower `u` is kept).
-  - The custodian applies this and releases only the exclusion flags and counts.
-- **Analysable.** Inputs are built and there is at least one positive in the 4 km band.
-  - At least 20 analysable fires are needed; otherwise the result is INCONCLUSIVE and descriptive, as in A1 §6.1 item 6.
-  - Build failures are logged and never replaced by inspection.
+## 5. Eligibility, independence, analysability, stopping (custodian, post-freeze)
+- **Fields the custodian reads for these rules, complete:**
+  - perimeter or survey observation times and geometries (for the interval rule and labels);
+  - point of origin and discovery date (for independence and the tier);
+  - the covariate and weather inputs built by the frozen script.
+- **Eligibility categories, fixed now:**
+  - E1: no perimeter product;
+  - E2: no valid interval under the A1 §2 rule (0 < Δ ≤ 48 h);
+  - E3: input-build failure;
+  - E4: tier mismatch (discovery date outside the tier window);
+  - E5: not independent (below);
+  - E6: no positive in the 4 km band (counts against analysability, not a replacement).
+- **Independence.**
+  - *Date:* follows from the window.
+  - *Location:* a fire is excluded if its point of origin lies within 50 km and 30 days of any A1 training-pool fire (fit-23 ∪ part a), **or** if its final perimeter overlaps any training-fire perimeter (the same ground reburning, or a complex sharing a perimeter).
+  - *Duplicates:* fires within 5 km with overlapping record windows are duplicates; the lower `u` is kept.
+  - Only flags and counts are released.
+- **Stopping rule.**
+  - The custodian walks the `u` order and evaluates eligibility fire by fire.
+  - It stops at **N_target = 30 analysable fires** (20 plus a margin of 10), or at the closing date, whichever comes first.
+  - The stopping rule depends only on eligibility, never on a score.
+- **Underpowered outcome, fixed now.** If fewer than 20 analysable fires exist at the closing date, the result is reported as **underpowered and descriptive**. The extension rule [OPEN: choose one now] is either "none", or "extend the closing date once, by one season, for Tier 2 only". No extension is decided afterwards.
 
 ## 6. Scoring and decision
-- A1 §4–§6 apply unchanged: population, band, criteria 1–6, the whole-fire bootstrap (seed 20261030) and the secondaries.
-- A1 §6.1 is the confirmatory decision for each candidate frozen at CR1's freeze, with no multiplicity adjustment beyond A1's.
-- Also reported: results by tercile of survey span (A1 amendment rule g), computed by the custodian after the decision.
+- A1 §4–§6 apply unchanged: population, 4 km band, criteria 1–6, the whole-fire bootstrap (seed 20261030) and the secondaries.
+- Tier 2 carries the confirmatory §6.1 decision. Tier 1 is reported alongside, labelled "unseen retrospective", and is never pooled with Tier 2.
+- Also reported: results by tercile of survey span, computed by the custodian after the decision.
 
-## 7. Power and timing [OPEN]
-- Power uses A1 §6.3 (computed on R) at the expected analysable count, which is supplied by the availability report.
-- If fewer than 20 analysable fires can be expected from the chosen source and window, CR1 either waits for the next release or is labelled descriptive in advance. That choice is made here, before listing.
+## 7. Power [OPEN: computation]
+- The A1 §6.3 power calculation on R is repeated at the observed R effect **and at half of it** (the six-fire effect is likely optimistic), for N = 20 and N = 30.
+- Both figures are stated here before the freeze.
 
 ## 8. Reporting
 - **What gets reported:**
-  - the access log, with the ID-listing code and output hash;
-  - the freeze hash and the custodian's receipts;
-  - attrition counts;
+  - the access log;
+  - the hash of the ID-reader code and its output;
+  - the freeze hash;
+  - the rehearsal receipts;
+  - both custodians' statistic hashes;
+  - attrition by category E1–E6;
   - the §6 statistics.
-- **What does not:** CR1 per-fire metadata is never committed. Only hashes and derived statistics are committed, as for WSTS.
+- **What does not:** CR1 per-fire metadata and raw IDs are never committed before the decision. Afterwards, only hashes, the salt and derived statistics are committed.
 
 ## Open items
 | item | owner | status |
 |---|---|---|
-| sources, latest date held per source, ID-only listing feasibility, release lag, expected count, covariate coverage | Daniel | requested 2026-11-12 |
-| eligibility without metadata; label-type strata; timing | Iris | requested 2026-11-12 |
-| access protocol review, custodian role | Hannah | after the draft |
-| decision to proceed and fetch | orchestrator / owner | after all of the above |
+| latest date held per source; whether NIROPS 2025+ exists; ID-only listing feasibility; release lag; expected Tier 1/Tier 2 counts; covariate coverage | Daniel | requested 2026-11-12 |
+| closing and snapshot dates; the extension rule (choose now) | orchestrator / owner | after availability |
+| power at the R effect and at half of it, N = 20 and 30 | Victor | after the source is fixed |
+| naming the second custodian | orchestrator | — |
+| access protocol review, custodian interface | Hannah | after draft 1 |
+| section-by-section design assessment | Iris | after draft 1 |
