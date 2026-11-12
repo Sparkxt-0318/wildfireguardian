@@ -1,12 +1,12 @@
 # F-3.1 results: the deadline field on the six recorded planner caches (1-hour panel)
 
-Status: **final 1-hour reproduction numbers, sent for verification (Nora, request #2)**. The F-DYN multi-hour, forecast-ablation,
+Status: **final 1-hour reproduction numbers, VERIFIED: Nora, request #2, PASS WITH NOTES on all 6 caches (ledger row 25 @4ed6b8cb)**. The F-DYN multi-hour, forecast-ablation,
 unknown-support and clean-timing results are reported separately once run. All numbers below are measured. Anything
 not measured is labelled as such.
 
 ## What was run
 
-* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. Inputs are the frozen routing inputs
+* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. The verified commit `c8247d2` also contains changes made after `70f70d7`. These are inactive on these caches: origin = destination admission (0 such jobs), a start-position scope guard, the per-journey dose duration bound in the precondition output, and the `--timing-only` flag. It also contains opt-in modules that the reproduction does not use: `extra_blocks`/`present_only` packet modes, `unknown.py`/`threeway.py`, `ablation.py`, `fdyn_run.py`, `postprocess.py` and `export.py`. These are not just flags and docs. Results from those modules are separate claims, not part of this one. Inputs are the frozen routing inputs
   (`tools/fetch_routing_inputs.py`, SHA-verified) and the six committed `planner/cache` files (SHA as in `INDEX.json`).
 * **Host.** This Linux x86_64 container: 4 cores, Python 3.13.18. numpy was 2.x at process start, and 1.26.4 was
   installed into site-packages during the run. numpy is used only to read arrays; all contact arithmetic is exact
@@ -79,7 +79,12 @@ Class (`cert` field compared with the `free` control):
 | censored at the last planner offset (+50 min) | 355 | 355 |
 | no checked departure | 22 | 22 |
 
-As Iris predicted, the fire sets only **17 of 530** deadlines on this panel. The other 491 that have a deadline are
+At 1-second resolution (comparing the uncapped exact deadlines of the `cert` and `free` fields over all 530 origins),
+the fire moves **52** deadlines. 39 of these also differ at grid resolution; that count includes origins with no checked
+departure. The other **13** are fire-shortened only within a 10-minute step, so the grid table above counts them as
+window-set (Nora's note). 478 are identical at both resolutions.
+
+As Iris predicted, the fire sets only **17 of 530** deadlines on this panel (grid resolution, origins with a deadline). The other 491 that have a deadline are
 window-set or censored, which a fire-free search would also reproduce. Reproducing the fire-set ones is the
 non-trivial part: 16 of 16, and FX2 is resolved rather than contradicted.
 
@@ -98,7 +103,7 @@ non-trivial part: 16 of 16, and FX2 is resolved rather than contradicted.
 ## 4 Exact (1 s) deadline compared with the 10-minute grid
 
 Exact latest departure minus grid deadline, over origins with a deadline:
-* it is positive for **every** origin (522 of 522);
+* it is positive for **every** origin with a deadline (**508 of 508** = 530 − 22 with no checked departure);
 * median by file: 293 / 298 / 288 / 397 / 394 / 396 s;
 * max 584 s.
 
@@ -129,6 +134,19 @@ median 99+30 min, high 180+60 min. The results are in `results/ISSUE_ORDER_BY_1h
 **At the 1-hour horizon this output is degenerate.** Every leave-by is at most 3,480 s, bounded by the horizon, so
 under the median and high settings every village's issue-by time is already past at the input time. That is an
 artefact of the horizon, not a finding about the fire. It becomes meaningful only on the multi-hour F-DYN workload.
+
+## Verifier notes (Nora, request #2)
+
+* The identical-route check is not vacuous: every recorded route is rebuilt from legs that hash to its `route_sha256`
+  (minimum 15 legs) and compared tuple for tuple. But none of the 1,188 UA 03-23 recorded routes contains a WAIT leg,
+  so the identity check barely exercises waits. Across all six caches only 3 recorded checked routes have waits
+  (`tools/explain_deadlines` README).
+* The kit's frozen `ffi_independent_checker` was also run:
+  * 8/8 sampled resolved UNRESOLVED witnesses were INDEPENDENTLY_CERTIFIED_OPTIMAL, with the whole road CLEAR and the
+    same arrival;
+  * 5/5 sampled router-infeasible UNRESOLVED cells were RELAXATION_INFEASIBLE.
+* The 6 highest-dose deadline witnesses (up to 85.4 kJ/m² with incurred dose) all arrive at 3,480 = H − dwell. Their
+  next-second infeasibility is therefore set by the window, not the fire.
 
 ## Not verified / limits
 
