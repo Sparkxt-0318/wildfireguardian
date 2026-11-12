@@ -29,6 +29,7 @@ def main(argv=None):
     import build_packet as BP                     # the frozen CLI, imported (defines functions only)
     if '--support-rule' not in argv:
         return BP.main(argv)                      # complete hand-off
+    sys.path.insert(0, str(HERE))
     ap = argparse.ArgumentParser()
     for k in ('--graph', '--export-dir', '--event', '--cutoff', '--region', '--out', '--support-rule'):
         ap.add_argument(k, required=True)
@@ -36,8 +37,14 @@ def main(argv=None):
     ap.add_argument('--support-mask-npz', default=None)
     ap.add_argument('--support-provenance', default=None)
     a = ap.parse_args(argv)
+    import packets_f93 as PF0                     # validate the rule and its arguments before any build (Hannah note 1)
+    if a.support_rule not in PF0.RULES:
+        raise SystemExit(f'SUPPORT_RULE_UNKNOWN {a.support_rule!r} (known: {", ".join(PF0.RULES)})')
+    if a.support_rule == 'supplied/1' and (not a.support_mask_npz or not a.support_provenance):
+        raise SystemExit('SUPPORT_PROVENANCE_MISSING: supplied/1 needs --support-mask-npz and --support-provenance')
+    if a.support_rule == 'c651_unknown/1' and (a.support_mask_npz or a.support_provenance):
+        raise SystemExit('SUPPORT_RULE_MISMATCH: c651_unknown/1 is derived from the packet; no mask file or provenance')
     BP.install_radiation()
-    sys.path.insert(0, str(HERE))
     import contract as CT
     import numpy as np
     import packets_f93 as PF

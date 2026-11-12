@@ -97,3 +97,19 @@ def test_supplied_mask_wrong_shape_refused(tmp_path):
     d, graph = _copy(tmp_path)
     with pytest.raises(PF.SupportError, match='SUPPORT_SHAPE'):
         PF.apply_support(d, graph, {}, np.ones((3, 3), bool), 'supplied/1', {'test': 'shape'})
+
+
+@pytest.mark.parametrize('extra,err', [
+    (['--support-rule', 'foo/1'], 'SUPPORT_RULE_UNKNOWN'),
+    (['--support-rule', 'supplied/1'], 'SUPPORT_PROVENANCE_MISSING'),
+    (['--support-rule', 'c651_unknown/1', '--support-provenance', '{}'], 'SUPPORT_RULE_MISMATCH'),
+])
+def test_cli_validates_rule_before_build(tmp_path, extra, err):
+    """Hannah note 1: the CLI refuses an unknown rule or inconsistent arguments before anything is built."""
+    import subprocess
+    out = tmp_path / 'never'
+    r = subprocess.run([sys.executable, '-I', '-B', str(HERE / 'build_packet_f93.py'), '--graph', 'g', '--export-dir', 'e',
+                        '--event', 'KFS_01', '--cutoff', '2025-03-25T19:00:00Z', '--region', 'r', '--out', str(out), *extra],
+                       capture_output=True, text=True)
+    assert r.returncode != 0 and err in (r.stdout + r.stderr)
+    assert not out.exists()

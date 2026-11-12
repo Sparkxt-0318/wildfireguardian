@@ -101,6 +101,38 @@ python3 research/harness-2026-11/F-9.3/support_mask/regress.py --work WORKDIR --
 - About 1 minute per packet for its 4 builds (62 s measured on Yeongdeok 03-25 19Z).
 - Inputs: `data/routing/latest_inputs_try02` and `data/routing/graphs`, which are local data and not in git.
 
+## Consumer rules (Hannah, ledger row 36)
+
+1. **Writer identity in every key.** Masked packets keep the v1 scenario ids. Any cache, comparison or downstream
+   key must therefore include `packet_writer_sha256`, or `support_writer` when present. Every tool that compares
+   instances prints the writer identity. Thomas's `p1_check.writer_identity` does this on `routing-next`, and Richard
+   will once he uses masked packets.
+2. **Refuse failed or incomplete builds.** Refuse any packet directory that holds `SUPPORT_WRITE_FAILED`, or has no
+   `BUILD_SUMMARY.json`.
+   - When a masked build fails a hard condition (for example `SUPPORT_CONFLICT`), the directory still holds the frozen
+     writer's unmodified v1-identity files plus that marker.
+   - The marker is written before the error is raised. The CLI writes `BUILD_SUMMARY.json` only after success.
+
+## Implemented vs design-only
+
+- **Implemented:**
+  - `c651_unknown/1` (DESIGN.md unknown rule 1);
+  - `supplied/1` (rule 4).
+- **Design-only, not implemented here:**
+  - rule 2, arrival rasters (F-DYN);
+  - rule 3, perimeter sequences, including the `SUPPORT_TIME_DEPENDENT` refusal.
+
+  An adapter for either would produce a `supplied/1` mask with provenance, or a new named rule. That needs its own
+  rule entry and verification.
+- **CLI validation (after Hannah's note 1).** The CLI validates `--support-rule` and its arguments **before** any
+  build:
+  - an unknown rule gives `SUPPORT_RULE_UNKNOWN`;
+  - `supplied/1` without a mask file or provenance gives `SUPPORT_PROVENANCE_MISSING`;
+  - `c651_unknown/1` with a mask file or provenance gives `SUPPORT_RULE_MISMATCH`.
+
+  Before this fix an unknown rule crashed with a TypeError: it still failed closed, but late. The no-mask hand-off
+  path is unchanged. Unit tests: 13 pass.
+
 ## Not covered (DESIGN.md)
 
 - Time-dependent support (tier B; perimeter sequences ending before the horizon) and per-member support.
