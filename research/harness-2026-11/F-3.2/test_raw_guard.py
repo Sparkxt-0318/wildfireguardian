@@ -1,5 +1,6 @@
 """p1_check.require_routable_arrays / from_raw refuse HAZARD-only packets (Leo 588f74e) and never skip cells.
-Run: python research/harness-2026-11/F-3.2/test_raw_guard.py [REAL_PACKET_DIR]  (the optional real packet adds an end-to-end check via from_raw)."""
+Run: [WFG_REAL_PACKET=<real packet dir>] python research/harness-2026-11/F-3.2/test_raw_guard.py  (or pytest; the env var adds the end-to-end check)"""
+import os
 import shutil
 import sys
 import tempfile
@@ -11,7 +12,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import p1_check as P  # noqa: E402
 
-REAL = next((sys.argv.pop(i) for i, x in enumerate(sys.argv[1:], 1) if not x.startswith("-")), None)
+REAL = os.environ.get("WFG_REAL_PACKET")  # a real packet dir; argv is not used, so pytest and unittest both work
 
 
 def npz(**arrs):
@@ -47,7 +48,7 @@ class Guard(unittest.TestCase):
         self._ok(ignition_time_s=np.array([[[0.0]]]), per_cell_law_HAZARD_only=np.array(False))
 
 
-@unittest.skipUnless(REAL, "pass a real packet directory to run the end-to-end check")
+@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real packet directory to run the end-to-end check")
 class EndToEnd(unittest.TestCase):
     def test_from_raw_refuses_marker_and_nan_but_reads_the_real_packet(self):
         n = len(P.from_raw(REAL, 18000))
