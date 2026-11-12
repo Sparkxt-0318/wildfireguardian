@@ -1,21 +1,17 @@
-"""F-DYN ignition schedule: per-cell ignition times from an arrival-time field (observed kriged reconstruction) over a
-multi-hour horizon, on the full event grid, for the packet writer's ``bridge.draw_ignitions`` injection point.
+"""F-DYN ignition schedule (v2): per-cell ignition times from an arrival-time raster over a multi-hour horizon, on the
+full event grid, for the packet writer's ``bridge.draw_ignitions`` injection point.
 
-SCENARIO, NOT WHAT HAPPENED. The field (Choi, Seo & Cha 2026, Zenodo 10.5281/zenodo.21788344, CC-BY-4.0) is a
-retrospective kriging reconstruction inside the final perimeter, with ~17 h kriging sd; it is used as a realistic
-dynamic fire for testing routing, not as a record of when fire reached any place.
+SCENARIO built from a reconstruction, not "the 2025 fire", not a forecast.
 
-Rules (echoed in the packet metadata):
-* Start = a recorded input time of the region (so present fire, clock and contract binding come from the recorded,
-  hash-bound c651 export, which is exactly this field thresholded at the start; verified in tests).
-* A cell with arrival a (hours since t0) and start h ignites in member k at
-      t_k = floor_Q( s_k * (a - h) * 3600 - shift_k )      clamped to >= 0
-  when 0 < a - h (not burning or burned at the start) and t_k < horizon; otherwise it does not ignite in the horizon.
-  floor_Q rounds DOWN to a multiple of Q seconds (earlier = conservative). Members are deterministic variants, never
-  later than the reconstruction:
-      m0 central (s=1, shift=0); m1 1.33x faster (s=0.75); m2 2x faster (s=0.5); m3 1 h earlier (s=1, shift=3600 s).
-* Cells outside the reconstruction (NaN arrival: outside the final perimeter) never ignite: the reconstruction says the
-  fire did not burn there. This is a property of the observed event, not an assumption of zero hazard elsewhere.
+v2 rules (Iris / orchestrator decisions, 2026-11-12):
+* The arrival raster is an explicit, swappable input (hours since t0 on the KFS_01 export grid) with a ``variant``
+  label and SHA-256 recorded in the plan metadata: the kriged mean (Choi 2026), FIRMS detection brackets, dilations...
+* Members: the base workload is the central member only; each speed/offset variant is its own single-member packet;
+  one 4-member packet exercises the all-members code path.
+* Quantization: ignition is floored to a multiple of Q (earlier start). Extinction must not be earlier than the exact
+  ignition + T, so the packet's burning duration is widened to T + Q, and consumed_fraction is scaled by (T+Q)/T so
+  the emitted flux density (energy per unit time) is unchanged (see _packet_child.py). Contact then covers
+  [floor(t), floor(t) + T + Q) which contains [t, t + T): conservative for contact and radiation.
 """
 from __future__ import annotations
 
@@ -24,25 +20,37 @@ import json
 
 import numpy as np
 
-FDYN_VERSION = 'wfg.fdyn.arrival-field-ignitions/1'
-LABEL = 'SCENARIO from a retrospective arrival-time reconstruction; not what happened; not a forecast'
-MEMBERS = [
-    {'name': 'central', 'speed_factor': 1.0, 'shift_s': 0.0},
-    {'name': 'faster_1.33x', 'speed_factor': 0.75, 'shift_s': 0.0},
-    {'name': 'faster_2x', 'speed_factor': 0.5, 'shift_s': 0.0},
-    {'name': 'earlier_1h', 'speed_factor': 1.0, 'shift_s': 3600.0},
-]
+FDYN_VERSION = 'wfg.fdyn.arrival-field-ignitions/2'
+LABEL = 'SCENARIO built from an arrival-time reconstruction; not the 2025 fire; not a forecast'
+MEMBER_RULES = {
+    'central': {'speed_factor': 1.0, 'shift_s': 0.0},
+    'faster_1.33x': {'speed_factor': 0.75, 'shift_s': 0.0},
+    'faster_2x': {'speed_factor': 0.5, 'shift_s': 0.0},
+    'earlier_1h': {'speed_factor': 1.0, 'shift_s': 3600.0},
+}
+MEMBER_SETS = {'central': ['central'], 'faster_1.33x': ['faster_1.33x'], 'faster_2x': ['faster_2x'],
+               'earlier_1h': ['earlier_1h'], 'all4': ['central', 'faster_1.33x', 'faster_2x', 'earlier_1h']}
 DEFAULT_QUANTUM_S = 300.0
 
 
 def schedule(arrival_h: np.ndarray, start_h: float, horizon_s: float, quantum_s: float = DEFAULT_QUANTUM_S,
-             members=MEMBERS) -> np.ndarray:
-    """Return ignition times [S, H, W] in seconds from the start (inf = no ignition within the horizon)."""
+             members=('central',), burned_at_start=None, burn_duration_s: float | None = None) -> np.ndarray:
+    """Ignition times [S, H, W] in seconds from the start (inf = no ignition within the horizon).
+
+    ``burned_at_start`` (the recorded export's known-burned cells, present fire included) never ignite: the writer
+    keeps them as recorded. A variant raster can place a cell's arrival before the start although the export has it
+    unburned (e.g. a FIRMS detection earlier than the kriged mean); such a cell ignites at t = 0 if its variant arrival
+    lies within one burn duration before the start (it would still be burning), otherwise it is taken as burned out."""
     a = np.asarray(arrival_h, float)
     rel = (a - start_h) * 3600.0
-    future = np.isfinite(a) & (rel > 0)
+    burned = np.zeros(a.shape, bool) if burned_at_start is None else np.asarray(burned_at_start, bool)
+    if burned_at_start is not None and burn_duration_s is None:
+        raise ValueError('burn_duration_s required with burned_at_start')
+    late_lo = -float(burn_duration_s) if burn_duration_s is not None else 0.0
+    future = np.isfinite(a) & ~burned & (rel > late_lo)
     out = np.full((len(members),) + a.shape, np.inf)
-    for k, m in enumerate(members):
+    for k, name in enumerate(members):
+        m = MEMBER_RULES[name]
         t = m['speed_factor'] * rel - m['shift_s']
         t = np.floor(np.maximum(t, 0.0) / quantum_s) * quantum_s
         ok = future & (t < horizon_s)
@@ -50,34 +58,46 @@ def schedule(arrival_h: np.ndarray, start_h: float, horizon_s: float, quantum_s:
     return out
 
 
-def digest(times: np.ndarray) -> str:
-    return hashlib.sha256(np.ascontiguousarray(times, dtype='<f8').tobytes()).hexdigest()
+def digest(arr: np.ndarray) -> str:
+    return hashlib.sha256(np.ascontiguousarray(arr, dtype='<f8').tobytes()).hexdigest()
 
 
-def plan(arrival_h, sd_h, *, start_h: float, start_utc: str, horizon_s: float, quantum_s: float, source: dict,
-         region: str, window: dict) -> dict:
-    times = schedule(arrival_h, start_h, horizon_s, quantum_s)
-    r0, r1, c0, c1 = window['r0'], window['r1'], window['c0'], window['c1']
-    inwin = np.zeros(arrival_h.shape, bool)
-    inwin[r0:r1 + 1, c0:c1 + 1] = True
+def plan(arrival_h, sd_h, *, arrival_variant: str, arrival_source: dict, start_h: float, start_utc: str,
+         horizon_s: float, quantum_s: float, member_set: str, region: str, window: dict | None,
+         burned_at_start: np.ndarray, burn_duration_s: float) -> dict:
+    members = MEMBER_SETS[member_set]
+    times = schedule(arrival_h, start_h, horizon_s, quantum_s, members, burned_at_start, burn_duration_s)
+    a = np.asarray(arrival_h, float)
+    rel = (a - start_h) * 3600.0
+    catch_up = np.isfinite(a) & ~burned_at_start & (rel <= 0) & (rel > -burn_duration_s)
+    burned_out = np.isfinite(a) & ~burned_at_start & (rel <= -burn_duration_s)
+    inwin = np.ones(arrival_h.shape, bool)
+    if window is not None:
+        inwin[:] = False
+        inwin[window['r0']:window['r1'] + 1, window['c0']:window['c1'] + 1] = True
     fin = np.isfinite(times)
-    sd_ign = sd_h[np.isfinite(times[0]) & inwin]
+    sd_ign = sd_h[np.isfinite(times[0]) & inwin] if sd_h is not None else np.array([])
     meta = {
         'fdyn_version': FDYN_VERSION, 'label': LABEL, 'region': region, 'start_utc': start_utc,
         'start_hours_since_t0': start_h, 'horizon_s': horizon_s, 'quantum_s': quantum_s,
-        'members': MEMBERS, 'source': source,
+        'member_set': member_set, 'members': [{'name': n, **MEMBER_RULES[n]} for n in members],
+        'arrival_variant': arrival_variant, 'arrival_source': arrival_source,
+        'arrival_raster_sha256': digest(arrival_h),
         'rule': ('t_k = floor_Q(s_k*(a-h)*3600 - shift_k) clamped at 0, for cells with a > h and t_k < horizon; '
-                 'NaN arrival (outside final perimeter) never ignites'),
-        'ignitions_full_grid': [int(fin[k].sum()) for k in range(len(MEMBERS))],
-        'ignitions_in_window': [int((fin[k] & inwin).sum()) for k in range(len(MEMBERS))],
-        'distinct_ignition_times_in_window': [int(np.unique(times[k][fin[k] & inwin]).size) for k in range(len(MEMBERS))],
-        'kriging_sd_h_at_central_ignitions_in_window': (
+                 'NaN arrival never ignites; packet burning duration T+Q with consumed_fraction*(T+Q)/T'),
+        'ignitions_full_grid': [int(fin[k].sum()) for k in range(len(members))],
+        'ignitions_in_domain': [int((fin[k] & inwin).sum()) for k in range(len(members))],
+        'distinct_ignition_times_in_domain': [int(np.unique(times[k][fin[k] & inwin]).size)
+                                              for k in range(len(members))],
+        'kriging_sd_h_at_first_member_ignitions': (
             {'min': float(sd_ign.min()), 'median': float(np.median(sd_ign)), 'max': float(sd_ign.max())}
             if sd_ign.size else None),
-        'sd_note': ('The kriging sd (median ~17 h) exceeds the 5-8 h horizon, so absolute arrival times are uncertain '
-                    'by more than the horizon; members vary spread speed and offset (never later than the '
-                    'reconstruction) and are NOT sd quantiles or a probability model.'),
+        'sd_note': ('The kriging sd (median ~17 h) exceeds the 5-8 h horizon: absolute arrival times are not '
+                    'identified. Members vary spread speed and offset (never later than the arrival raster) and '
+                    'are NOT sd quantiles or a probability model.'),
         'ignition_times_sha256': digest(times),
+        'variant_cells_before_start_not_in_export': {'ignite_at_0_still_burning': int(catch_up.sum()),
+                                                     'taken_as_burned_out': int(burned_out.sum())},
     }
     meta['plan_sha256'] = hashlib.sha256(json.dumps(meta, sort_keys=True).encode()).hexdigest()
     return {'meta': meta, 'times': times}

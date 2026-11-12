@@ -49,12 +49,24 @@ def main():
 
     orig = B.settings_for
 
+    Q = float(meta['quantum_s'])
+
     def fdyn_settings(T):
         s = orig(T)
+        T0, cf0 = float(s['burning_duration_s']), float(s['consumed_fraction'])
         s['horizon_s'] = horizon
-        s['timing'] = 'arrival-time field (F-DYN), not uniform draws'
+        s['scenario_count'] = S
+        s['timing'] = 'arrival-time raster (F-DYN), not uniform draws'
+        # floor(ignition) + widened duration T+Q covers [exact ignition, exact ignition + T); consumed fraction scaled
+        # so the emitted heat-release-rate density fuel*H*cf/T is unchanged (conservative for contact and radiation)
+        s['burning_duration_s'] = T0 + Q
+        s['consumed_fraction'] = cf0 * (T0 + Q) / T0
         s['fdyn'] = {k: meta[k] for k in ('fdyn_version', 'label', 'plan_sha256', 'ignition_times_sha256',
-                                          'quantum_s', 'members', 'source')}
+                                          'quantum_s', 'member_set', 'members', 'arrival_variant',
+                                          'arrival_source', 'arrival_raster_sha256')}
+        s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': T0 + Q,
+                                          'export_consumed_fraction': cf0,
+                                          'packet_consumed_fraction': cf0 * (T0 + Q) / T0}
         return s
 
     B.draw_ignitions = fdyn_draws
@@ -67,14 +79,14 @@ def main():
     rec = json.loads(recp.read_text())
     graph = json.loads(Path(a.graph).read_text())
     epsg = int(graph['crs'].split(':', 1)[1])
-    win = json.loads(a.window_json)
+    win = json.loads(a.window_json)  # null = full event grid (un-clipped)
     out, hz, summ = P.write_regional_packet(graph, a.graph, npz, rec, sha(recp), iso, epsg, a.out,
                                             event_id=a.event, region_id=a.region, window=win)
     if len(calls) != 1:
         raise SystemExit('DRAW_INJECTION_NOT_USED_EXACTLY_ONCE')
-    r0, r1, c0, c1 = win['r0'], win['r1'], win['c0'], win['c1']
+    sub = times if win is None else times[:, win['r0']:win['r1'] + 1, win['c0']:win['c1'] + 1]
     with np.load(Path(out) / 'constructed_arrays.npz', allow_pickle=False) as z:
-        if not np.array_equal(z['ignition_time_s'], times[:, r0:r1 + 1, c0:c1 + 1]):
+        if not np.array_equal(z['ignition_time_s'], sub):
             raise SystemExit('WRITTEN_IGNITIONS_DIFFER_FROM_PLAN')
     if float(hz['valid_until']) != horizon:
         raise SystemExit('HORIZON_NOT_WRITTEN')

@@ -1,21 +1,18 @@
-# F-DYN: multi-hour dynamic routing workload from the 2025 KFS_01 arrival-time reconstruction
+# F-DYN: multi-hour dynamic routing workload from the 2025 KFS_01 arrival-time reconstruction (v2)
 
-> **SCENARIO, not what happened, not a forecast.**
+> **SCENARIO built from a reconstruction; not the 2025 fire; not a forecast.**
 >
-> - The fire comes from a retrospective kriging reconstruction of arrival times: Choi, Seo & Cha 2026, Zenodo
+> - The base raster is a retrospective kriging reconstruction of arrival times: Choi, Seo & Cha 2026, Zenodo
 >   10.5281/zenodo.21788344, CC-BY-4.0. It is built from VIIRS and Himawari detections inside the final perimeter.
 > - Its kriging sd is 16.6–19.5 h (about 17 h median), and independent checks suggest even that is too small.
-> - It is a realistic dynamic fire for testing routing. It says nothing reliable about when fire reached any place.
+> - Absolute arrival times are therefore not identified. The workload is a realistic moving fire for testing routing.
 
 ## Why
 
-The frozen 1-hour workload is close to routing around a static obstacle:
+The frozen 1-hour workload is close to routing around a static obstacle: 15 of 522 deadlines are set by the fire,
+and each member has 0–9 new ignitions per hour. F-DYN gives moving fire over 5 h and 8 h horizons.
 
-- 15 of 522 deadlines are set by the fire.
-- Each member has only 0–9 new ignitions per hour.
-
-F-DYN gives the routing streams a workload where moving fire, not the 1-hour window, drives outcomes. Measured new
-ignitions inside the routing window per start, central member:
+New ignitions inside the recorded routing window, central member, kriged mean:
 
 | Start (UTC) | 5 h | 8 h |
 |---|---:|---:|
@@ -26,87 +23,122 @@ ignitions inside the routing window per start, central member:
 | Yeongdeok 03-25 23:00 | 109 | 150 |
 | Yeongdeok 03-26 08:00 | 29 | 29 |
 
-## How it is built (the F-9.3 hazard interface, first case: an arrival-time field)
+## Construction (the F-9.3 hazard interface: an arrival-time raster as a hazard scenario)
 
 The **unchanged** packet writer (`integration/src/wfg_latest/packets.write_regional_packet`) is driven through the
-same two extension points `api/adapters/_zone_packet_child.py` uses:
+two extension points `api/adapters/_zone_packet_child.py` also uses:
 
-- `bridge.draw_ignitions` returns the F-DYN ignition schedule on the full KFS_01 event grid instead of random draws.
-- `bridge.settings_for` sets `horizon_s` (5 h or 8 h) and adds an `fdyn` entry. The settings digest, construction id
-  and scenario ids therefore identify the F-DYN output.
+- `bridge.draw_ignitions` returns the F-DYN schedule on the full KFS_01 event grid.
+- `bridge.settings_for` sets `horizon_s`, `scenario_count`, the widened burning duration and the `fdyn` metadata.
 
-Nothing else changes: present fire, radiation, flame semantics, the router validator and the routing kit are all as
-before.
+All of these enter the settings digest, and hence the construction id and the scenario ids. Present fire, radiation
+operator, flame semantics, router validator and routing kit are all unchanged.
 
-- **Start times** are the six recorded input times. At each one, the recorded c651 export's present fire, burned state
-  and remaining burn time **equal this arrival field thresholded at the start**, cell for cell (test
-  `test_recorded_export_is_the_field_thresholded`). So the packet continues the same reconstruction.
-- **Ignitions.** A cell with arrival `a` (hours since t0 = 2025-03-22 02:24 UTC) ignites at
-  `floor_300s(s_k * (a - h) * 3600 - shift_k)`, clamped at 0, if `a > h` and the time is within the horizon. Rounding
-  down is the earlier reading, which is the conservative one.
+1. **Arrival raster: an explicit, swappable input.** It is in hours since t0 = 2025-03-22 02:24 UTC on the KFS_01
+   export grid. Its variant label and SHA-256 are recorded in the plan and settings. `fdyn/variants.py` makes these
+   variants:
 
-  | Member | Name | Rule |
-  |---|---|---|
-  | m0 | central | as reconstructed |
-  | m1 | faster 1.33x | s = 0.75 |
-  | m2 | faster 2x | s = 0.5 |
-  | m3 | 1 h earlier | shift = 3600 s |
+   | Variant | Rule | Notes |
+   |---|---|---|
+   | `kriged_mean` | the published TOA | |
+   | `firms_constrained` | `min(TOA, first FIRMS detection in the cell)` | A detection proves fire by then: the late bound. |
+   | `firms_early` | detected cells: the previous overpass with at least one detection in the grid, before the cell's first detection | The earliest arrival consistent with a clear-sky non-detection. Cloud or smoke can hide fire, so the true arrival can be earlier still. |
+   | `dilate_<d>_<lag>` | isotropic spotting envelope | Proposed shared implementation for Richard and Priya. Downwind stretching needs a wind field, and none is in the KFS_01 inputs. |
 
-  Members are never later than the reconstruction. They are speed and offset variants, **not sd quantiles and not
-  probabilities**. The sd (about 17 h) is larger than the horizon, so absolute timing is not identified. The members
-  probe sensitivity to faster or earlier fire, the direction that matters for safety. The 2025 front was reported at
-  up to 8.2 km/h, against roughly 4 km/h overall.
-- **Fire outside the reconstruction** (NaN arrival, outside the final perimeter) never ignites. That is the observed
-  event, not an assumption.
-- **Source domain.** Ignitions are on the full event grid. The packet keeps each region's recorded window, which
-  contains every routed road (0 graph nodes outside the window). Fire outside the window appears only through the
-  writer's own omitted-source radiation bounds (`BUILD_SUMMARY.json` → `omitted`). No routed road lies in an omitted
-  cell.
+   FIRMS coverage, measured (`variants.py` stats):
+   - 5,603 detections over 46 overpasses (VIIRS S-NPP, NOAA-20, MODIS; NOAA-21 and Himawari unavailable).
+   - Only 2,947 of 10,955 burned cells contain a detection.
+   - In those cells, first detection minus kriged TOA has median −1.8 h (p10 −9.7 h, p90 +7.3 h). **The kriged mean is
+     usually later than the satellites saw fire.**
+   - 281 detected cells lie outside the kriged footprint. They are not used.
+2. **Start times** are the six recorded input times. At each, the recorded c651 export's present fire, burned state
+   and remaining burn time equal the kriged TOA thresholded at the start, cell for cell (tested). Export-burned cells
+   are never re-ignited.
+
+   A variant can place a cell's arrival before the start although the export has it unburned:
+   - Still burning (arrival within one burn duration T before the start): it **ignites at 0**.
+   - Otherwise: it is taken as burned out.
+
+   Counts are recorded as `variant_cells_before_start_not_in_export`. For example, the FIRMS variants at Yeongdeok
+   03-25 23:00 have 0 catch-up cells and 129 burned-out cells.
+3. **Ignition time.** A cell with arrival `a` and start `h` ignites at `floor_Q(s * (a − h) * 3600 − shift)`, clamped
+   at 0, when the time is within the horizon. Default Q = 300 s.
+4. **Burning duration widened to T + Q.** `consumed_fraction` is scaled by (T + Q)/T, so the emitted heat-release-rate
+   density is unchanged. This is a floor-start, ceil-end construction: each contact interval
+   `[floor(t), floor(t) + T + Q)` contains the exact `[t, t + T)`. Checked on Yeongdeok 03-25 23:00 against the exact
+   TOA:
+   - Q = 300: start ≤ exact for all cells; end margin 2.4–295.7 s.
+   - Q = 60: same; end margin 0.3–60.0 s.
+   - The Q = 300 intervals contain the Q = 60 intervals.
+
+   The deadline comparison between Q = 60 and Q = 300 is pending (to be run on Richard's exact deadline field).
+5. **Members** (Iris / orchestrator decision). The base workload is `central` only. The variants `faster_1.33x`
+   (s = 0.75), `faster_2x` (s = 0.5) and `earlier_1h` (shift 3600 s) are each a **single-member packet**, because an
+   all-members verdict collapses to the fastest member. One `all4` packet exercises the all-members code path. Members
+   are never later than their raster and are not sd quantiles.
+6. **Outside the footprint.**
+   - Outside the final perimeter but inside the mapped domain: observed no-fire.
+   - Unburned islands and perimeter mapping error are not represented.
+   - Outside the mapped domain (the export grid): unknown. The packet support channel is all-true inside the grid
+     (writer rule), and nothing outside the grid is in the packet.
+
+## Domain (open item: un-clipped road graph)
+
+The recorded graphs are clipped to the same box as their hazard packets (`grid_variant` "G2 region window"). "No
+routed road in cropped fire" is therefore true by construction (Nora). v2 packets above still use the recorded
+window.
+
+**Target:** a graph on the full KFS_01 export grid (about 89 × 30 km), which contains the whole fire footprint; only 5
+of 10,955 burned cells touch the grid edge. The writer requires the hazard grid to coincide with the forecast grid,
+so the domain cannot extend beyond it without a new export. Fire and roads beyond it remain outside the model.
+
+**Blocked:** no OSM-to-graph builder is in the repo, and Overpass is blocked here. Daniel has been asked for the
+2025-03-21 historical snapshot. The plan is to write a builder replicating the documented rules and validate it by
+rebuilding the two recorded clipped graphs exactly first. `fdyn/build.py --domain full_grid --graph G.json` is ready
+for it.
 
 ## Files (large; outside git)
 
-`fdyn/build.py` writes `packets/<region>/<start>_h<5|8>/`:
+`fdyn/build.py` writes `packets_v2/<region>/<start>_h<H>_<variant>_<members>_q<Q>/`:
 
-- `HAZARD.json`: `wfg.routing.edgegrid/1`, `valid_until` = 18000 or 28800, 4 members. About 56 MB for Yeongdeok
-  03-25 23:00 at 5 h.
+- `HAZARD.json`: `wfg.routing.edgegrid/1` with `valid_until` = 18000 or 28800.
 - `NATIVE_METADATA.json`, `REPORT.json`, `constructed_arrays.npz`.
-- `BUILD_SUMMARY.json`: includes the `fdyn` plan metadata, the sd at ignited cells, and the omitted-source bounds.
-- `<start>_h<H>.plan.npz`: the ignition schedule.
+- `BUILD_SUMMARY.json`: `fdyn` plan metadata and omitted-source bounds.
+- A `.plan.npz` next to the packet directory.
 
-`fdyn/instance.py` writes `INSTANCE.json` (schema `wfg.fdyn.instance/1`). It holds 12 instances: 6 starts × 2
-horizons. Each instance has:
+Single-member 5 h packets are about 13–15 MB; Q = 60 is about 27 MB; `all4` is about 56 MB.
 
-- **Origins:** the planner's 174 places (84 Uiseong-Andong, 90 Yeongdeok) at their road entry nodes.
-- **Destinations:** each origin's 3 recorded candidates, with a 120 s stay.
-- **Departures:** every 30 min over the horizon.
-- **Destination window:** [0, H].
-- **Limits:** peak 10 kW/m², dose 100 kJ/m², as in every recorded request.
+`fdyn/instance.py` writes `INSTANCE.json` (`wfg.fdyn.instance/1`):
 
-Requests are built with `api.requests_build.build_request`, as the API does.
+- 174 places at their entry nodes, each with its 3 recorded destinations and a 120 s stay.
+- Departures every 30 min; destination window [0, H].
+- Limits 10 kW/m² and 100 kJ/m².
 
 ## Reproduce
 
 ```
-python3 tools/fetch_routing_inputs.py                       # data/routing (SHA-checked)
-git show origin/daniel/data-fetch:research/harness-2026-11/data-fetch/small/choi2026_kfs01/KFS_01_pswt_ok_toa.tif > research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_toa.tif
-git show origin/daniel/data-fetch:research/harness-2026-11/data-fetch/small/choi2026_kfs01/KFS_01_pswt_ok_std.tif > research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_std.tif
-pip install numpy scipy rasterio pyproj
+python3 tools/fetch_routing_inputs.py
+git fetch origin daniel/data-fetch
+for f in KFS_01_pswt_ok_toa.tif KFS_01_pswt_ok_std.tif; do git show origin/daniel/data-fetch:research/harness-2026-11/data-fetch/small/choi2026_kfs01/$f > research/harness-2026-11/F-DYN/_data/$f; done
+mkdir -p research/harness-2026-11/F-DYN/_data/firms; for f in viirs-snpp viirs-jpss1 modis; do git show origin/daniel/data-fetch:research/harness-2026-11/data-fetch/small/firms/${f}_2025_Republic_of_Korea.csv > research/harness-2026-11/F-DYN/_data/firms/$f.csv; done
+pip install numpy scipy rasterio pyproj pandas
+python3 research/harness-2026-11/F-DYN/fdyn/variants.py --toa research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_toa.tif --firms-dir research/harness-2026-11/F-DYN/_data/firms --out-dir research/harness-2026-11/F-DYN/_data/variants
 python3 research/harness-2026-11/F-DYN/fdyn/build.py --region yeongdeok_2025 --start 20250325T230000Z --horizon-h 5 \
-   --toa research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_toa.tif --sd research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_std.tif \
-   --out research/harness-2026-11/F-DYN/_data/packets/yeongdeok_2025/20250325T230000Z_h5        # about 1 min
+  --arrival research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_toa.tif --arrival-variant kriged_mean \
+  --sd research/harness-2026-11/F-DYN/_data/KFS_01_pswt_ok_std.tif --member-set central \
+  --out research/harness-2026-11/F-DYN/_data/packets_v2/yeongdeok_2025/20250325T230000Z_h5_kriged_central_q300   # ~20 s
 python3 research/harness-2026-11/F-DYN/fdyn/instance.py --out research/harness-2026-11/F-DYN/_data/INSTANCE.json
 python3 -m pytest -q research/harness-2026-11/F-DYN/tests
 ```
 
-## Status and known issues
+## Findings so far (not timing claims)
 
-- **Built so far:** one packet, Yeongdeok 03-25 23:00 at 5 h. The router validator accepts it, and the written
-  ignitions equal the plan.
-- **Kit smoke test** (`fdyn/smoke_check.py`, arm RDA_CAND, unchanged kit, 30 s booth budget): 4 of 4 checks timed out
-  as UNRESOLVED/LATE_RESULT, with RSS 3.0–4.6 GB. The host was also running another 3-process job at the time, so this
-  is not a timing claim. Re-timing with free CPU and larger budgets is pending. The multi-hour, many-interval packet is
-  heavy for the evaluated path; that is a finding for the routing streams.
-- **Packet rebuild check:** rebuilding a recorded 1-hour packet with the unchanged writer in this container gives the
-  same scenario ids, breakpoints, flame and support. Flux differs by at most 1.1e-15 kW/m² (numpy 2.5 here vs the
-  pinned 1.26.4). The identity differs only in the absolute module path. Byte-identity holds between rebuilds in one
-  environment, not across hosts.
+- **Packets are consumed.** The unchanged kit (RDA_CAND) and its independent checker accept both v1 (4-member) and
+  v2 (1-member) packets.
+- **Memory, not time, is the limiter.** One v2 check with a 120 s budget was stopped at 23 s by the kit's **memory
+  guard** (3,072 MiB; RSS 4.4 GB). It was UNRESOLVED/LATE_RESULT, and the independent checker says
+  FEASIBLE_ROUTE_EXISTS. Clean timing and phase profiling are Priya's.
+- **Rebuild check.** Rebuilding a recorded 1-hour packet here gives identical scenario ids, breakpoints, flame and
+  support. Flux differs by at most 1.1e-15 kW/m² (numpy 2.5 here vs the pinned 1.26.4). The identity differs only in
+  the absolute radiation module path. The F-9.3 regression test will compare those fields exactly and flux within a
+  stated tolerance, under the pinned numpy.
