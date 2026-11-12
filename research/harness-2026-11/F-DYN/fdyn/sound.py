@@ -111,7 +111,7 @@ def main():
     for name, arr in (('envelope_sound_lo', lo_sound), ('envelope_sound_hi', hi)):
         np.savez_compressed(a.out_dir / f'{name}.npz', arrival_h=arr, affine_transform=AFFINE,
                             t0_utc=T0.replace(tzinfo=dt.timezone.utc).isoformat(), variant=name,
-                            provenance=json.dumps(prov))
+                            provenance=json.dumps(prov), timestamp_exact=burn_set)   # VIIRS pass times, 0 or 1e6 h
     counts = {'burn_set_cells': int(burn_set.sum()), 'of_which_kriged_footprint': int(np.isfinite(toa).sum()),
               'of_which_only_via_ahi_buffer': int((ahi_cells & ~np.isfinite(toa) & ~detected).sum()),
               'detected_cells': int(detected.sum()),

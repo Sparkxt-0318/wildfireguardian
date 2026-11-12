@@ -114,3 +114,29 @@ def test_synthetic_export_reproduces_recorded(start):
         assert np.array_equal(s[k], z[k]), k
     np.testing.assert_allclose(s['heat__initial_remaining_burning_duration_s'],
                                z['heat__initial_remaining_burning_duration_s'], rtol=0, atol=1e-9)
+
+
+def test_v31_boundary_exact():
+    """v3.1: a minute-resolution arrival exactly on a 300 s boundary floors to that boundary, whatever the binary64
+    representation error (Thomas's cell 8228: lo = 82.01666666666667, start 80.6 h -> 5100 s)."""
+    start_h = (dt.datetime(2025, 3, 25, 11, 0) - dt.datetime(2025, 3, 22, 2, 24)).total_seconds() / 3600
+    lo = np.array([[82.01666666666667, 80.6 + 4800 / 3600 - 1e-13, 80.6 + 4800 / 3600 + 1e-13]])
+    t = ignitions.schedule(lo, start_h, 5 * 3600, 300)
+    assert t[0, 0, 0] == 5100.0 and t[0, 0, 1] == 4800.0 and t[0, 0, 2] == 4800.0
+
+
+def test_v31_envelope_end_covers_exact():
+    """v3.1: envelope births = floor_Q(lo), hi_rel = floor_Q(hi), so hi_rel + T + Q >= hi + T exactly in integer ms."""
+    rng = np.random.default_rng(0)
+    start_h = 80.0
+    lo = start_h + rng.uniform(0, 5, (20, 20))
+    hi = lo + rng.uniform(0, 3, (20, 20))
+    hi[0, 0] = lo[0, 0] = start_h + 5100 / 3600           # exact boundary
+    b, e = ignitions.envelope_schedule(lo, hi, start_h, 8 * 3600, 300, np.zeros(lo.shape, bool), 3970)
+    lo_ms, _ = ignitions.to_ms(lo)
+    hi_ms, _ = ignitions.to_ms(hi)
+    h_ms = ignitions.hour_ms(start_h)
+    ok = np.isfinite(b[0])
+    assert np.all(b[0][ok] * 1000 <= lo_ms[ok] - h_ms)
+    assert np.all((e[0][ok] + 300) * 1000 >= hi_ms[ok] - h_ms)
+    assert b[0, 0, 0] == 5100.0 and e[0, 0, 0] == 5100.0

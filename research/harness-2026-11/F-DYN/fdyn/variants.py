@@ -97,9 +97,11 @@ def dilate(a: np.ndarray, d_m: float, lag_s: float, cell: float = 375.0) -> np.n
     return out
 
 
-def save(path: Path, arr: np.ndarray, variant: str, provenance: dict):
+def save(path: Path, arr: np.ndarray, variant: str, provenance: dict, timestamp_exact=None):
+    """timestamp_exact (v3.1, QUANT_v3_1_RULE.md): cells whose value is a FIRMS overpass time (whole minutes)."""
+    extra = {} if timestamp_exact is None else {'timestamp_exact': np.asarray(timestamp_exact, bool)}
     np.savez_compressed(path, arrival_h=arr, affine_transform=AFFINE, t0_utc=T0.replace(tzinfo=dt.timezone.utc).isoformat(),
-                        variant=variant, provenance=json.dumps(provenance))
+                        variant=variant, provenance=json.dumps(provenance), **extra)
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
@@ -121,8 +123,10 @@ def main():
             'toa_sha256': hashlib.sha256(a.toa.read_bytes()).hexdigest(), 'firms_csv_sha256': firms_sha,
             'firms_source': 'NASA FIRMS standard processing (daniel/data-fetch small/firms)', 'stats': stats}
     out = {}
+    foot = np.isfinite(toa)
     for name, arr in (('firms_constrained', constrained), ('firms_early', early)):
-        out[name] = save(a.out_dir / f'{name}.npz', arr, name, prov)
+        exact = foot & np.isfinite(arr) & (arr != toa)            # value taken from a FIRMS overpass time
+        out[name] = save(a.out_dir / f'{name}.npz', arr, name, prov, exact)
     print(json.dumps({'stats': stats, 'sha256': out}, indent=1))
 
 

@@ -38,6 +38,14 @@ def sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def read_exact(path: Path | None):
+    """v3.1: the variant's timestamp_exact mask (cells whose arrival is a source timestamp), None if not recorded."""
+    if path is None or path.suffix != '.npz':
+        return None
+    with np.load(path, allow_pickle=False) as z:
+        return z['timestamp_exact'].astype(bool) if 'timestamp_exact' in z.files else None
+
+
 def read_raster(path: Path) -> np.ndarray:
     if path.suffix == '.npz':
         with np.load(path, allow_pickle=False) as z:
@@ -120,7 +128,8 @@ def main(argv=None):
                        start_utc=start.isoformat(), horizon_s=a.horizon_h * 3600.0, quantum_s=a.quantum_s,
                        member_set=a.member_set, region=a.region, window=win,
                        burned_at_start=burned_at_start, burn_duration_s=burn_T,
-                       arrival_hi_h=read_raster(a.arrival_hi) if a.arrival_hi else None)
+                       arrival_hi_h=read_raster(a.arrival_hi) if a.arrival_hi else None,
+                       arrival_exact=read_exact(a.arrival), arrival_hi_exact=read_exact(a.arrival_hi))
     if a.arrival_variant.startswith('envelope') != (a.arrival_hi is not None):
         raise SystemExit('--arrival-variant envelope* requires --arrival-hi (and only it)')
     if a.arrival_hi is not None and a.domain != 'full_grid':

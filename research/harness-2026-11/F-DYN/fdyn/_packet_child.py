@@ -111,6 +111,8 @@ def main():
                                           'quantum_s', 'member_set', 'members', 'arrival_variant',
                                           'arrival_source', 'arrival_raster_sha256')}
         s['fdyn']['present_fire_source'] = present_fire_source
+        if 'quantization' in meta:                                  # v3.1 convention (QUANT_v3_1_RULE.md)
+            s['fdyn']['quantization'] = meta['quantization']
         if hi_rel is not None:
             s['source_law_version'] = 'wfg.fdyn.envelope-per-cell/1'
             s['fdyn']['envelope'] = ('per-cell law: burning [floor_Q(lo), floor_Q(hi) + T + Q); NOT the scalar law, so '

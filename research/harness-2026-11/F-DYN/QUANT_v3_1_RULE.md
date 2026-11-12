@@ -56,3 +56,13 @@ Orchestrator decision, 2026-11-12. Finding by Thomas (F-3.2 O2 independent deriv
   cells.
 - Results already computed on v3 kriged_mean packets stay valid if the diff confirms they are unchanged.
   firms_early and envelope results are recomputed on v3.1.
+
+## Correction 1 (made while implementing; before any rebuild or diff result)
+
+§5 wrongly called T an integer. The exports' `contract__cell_duration_s` is **T = 3,970.4642815249267 s**.
+
+- Comparisons against T (still burning at the start, burned out) compare the integer rel_ms with the binary64 value
+  −T·1000.
+- T·1000 is about 0.28 ms from the nearest integer, so the comparison cannot be flipped by representation error. The
+  code checks that T·1000 is either an exact integer or not within 1e-6 ms of one.
+- T is never floored, and the writer forms the packet end start + T + Q as before.
