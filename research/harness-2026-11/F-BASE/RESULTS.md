@@ -117,6 +117,19 @@ field equals the committed outputs. His own brute-force time-expanded search, sh
 solve_ten on 4,300 random instances. His wording notes are applied above. No speed claim is made, and the C checker
 was not built.
 
+Owen, router timing e20a0e08: **PASS WITH NOTES**.
+- Verdict and T equal on 20/20, consistent across repeats.
+- His search times were 0.001–2.60 s (3.97 s summed), and his exact/router ratio was median 4.2 with the same
+  13/7 split.
+- Agreement, consistency and order of magnitude are verified. Timings are host-specific. Keep the
+  "different representations" caveat.
+
+Owen, F-3.1 field timing a2f39381: **PASS WITH NOTES**.
+- Feasible sets equal on 20/20.
+- He recomputed departure membership independently and found 20/20 consistent.
+- Search was 11.2 s summed on his host.
+- No ratio against the router or exact baseline is formed.
+
 ## Not done yet
 
 - 140-request departure sweep; delta-debug smallest failing panel-derived instances (hand-built 2–3 node cases are in tests).
