@@ -20,6 +20,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 12 | 2026-11-12 | PR #109 torch install line (merge-readiness point) | Daniel | 5f384555 | torch line installs CPU torch 2.5.1 from the PyTorch CPU index only | the script venv block in a fresh venv, cold uv cache | PASS |
 | 13 | 2026-11-12 | P-PROTO P1-P4 (replay-only public page, not published) | Thomas | 477448d8 | P1 cards show time/hand-off only on leave_by, with stamp; P2 render order, same-origin; P3 contrast/CVD tokens; P4 built only with WFG_BUILD_PUBLIC_VIEW=1 | `cd planner && npx vitest run pproto && npx vitest run`; `npm run build:static` with and without the flag; own card scan + own P3 computation | PASS WITH NOTES |
 | 14 | 2026-11-12 | W-KIT W5 (재난문자 class limits) | Thomas | 477448d8 | kit SMS and family text fit 90 chars and their class | `npx vitest run wkit` | PASS |
+| 15 | 2026-11-12 | W-KIT W6 (draft-decree four-field check, issuer field) | Thomas | 66e3e62 | 0 decree passes without an issuer; with a synthetic issuer head 299 / voice 299 / family script 440 / family text 0; no agency invented | `npx vitest run wkit && npx vitest run` + probe with issuer over 531 | **FAIL** (issuer path only) |
+| 16 | 2026-11-12 | F-3.2 claim 11, F-DYN envelope O2 | Thomas | 66e3e62 | float semantics equals HAZARD (0 diffs), 10/10 instances; exact gives 1293 diffs, 0/10 | Leo 7eb3691 pipeline (variants, regrid, build per MANIFEST_v3, instance) + `envelope_o2.py --mode float/exact` | PASS WITH NOTES |
 
 ## Notes
 
@@ -102,3 +104,17 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - N1: the dataAge line shows the replay input clock time on every card. This is intended, and RESULTS should state it.
 
 **14. W5 @ 477448d8**: wkit 20/20. ko familyText max 51 characters (≤ 90).
+
+**15. W6 @ 66e3e62 — FAIL**:
+- wkit 23/23 and planner 398/398 reproduce, and the literal claims hold. But with any supplied issuer, all 531 real channel sets fail checkChannels, so every output is withheld:
+  - the issuer is not masked, so the test's own "합성군 재난안전과" trips forbidden 안전 in ko head, voice and family script (531 each), and "…구조대" trips 구조;
+  - the contact line pushes the ko head full script over 35 s in 316-317 sets;
+  - the Korean agency name is appended to the en familyText, which is then not GSM-7 (531).
+- The 299/299/440 "passes" count field presence on outputs that are withheld anyway.
+- The default path (no issuer) is unaffected. The last W-KIT PASS is 477448d8 (W5).
+
+**16. Claim 11 @ 66e3e62**: the full pipeline was rebuilt from Leo 7eb3691 (graph 56,369 nodes; packet 1,655 ignitions / 97 present cells).
+- float mode: differing_cells 820 (not 0 as messaged), all identical starts with |Δend| ≤ 1.36e-12 s in both directions; integer instances 10/10 equal.
+- exact mode: 1293 differences (482 start, 309 end at 300 s, 502 sub-µs); 0/10 equal.
+- Both modes match the committed results JSON.
+- Notes: the classifier only accepts the "HAZARD later" direction, which misfiles the 723 ulp-earlier ends; the message's "0 differences" is wrong; the exact sub-counts overlap, so they should be given as disjoint counts.
