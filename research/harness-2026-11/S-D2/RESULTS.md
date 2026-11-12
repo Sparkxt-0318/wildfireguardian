@@ -42,14 +42,40 @@ newly mapped held-out cells.
 
 Consequences:
 
-* The SD understates arrival uncertainty, by a pooled factor of 1.75 and up to 2.2 per fire. On three fires the mean is
-  also shifted by about two days. Soft labels built on the raw SD inherit this.
+* **Verified (Hannah, PASS WITH NOTES, 6d125bd):** the kriging SD understates uncertainty *relative to the NIROPS
+  bracket reference*. c > 1 also absorbs NIROPS survey-time and mapping error. The pooled factor is 1.75; per fire it
+  runs from 1.07 (Pioneer) to 2.21 (RedRock). The per-fire 95% profile-likelihood intervals are narrow (for example
+  Wapiti [1.83, 1.90], Pioneer [1.03, 1.11]) and do not overlap, so the fires differ. These intervals treat cells as
+  independent, so the range across fires (geometric mean 1.59) is the honest uncertainty. Brackets are 0.27–0.82 SD
+  wide, so the scale is identifiable.
+* **Declared use (ledger):** the US2024 held-out NIROPS brackets were used for this calibration only (no training, no
+  model choice). Per Victor (S-D9), US2024 is a descriptive reference for D2, not a test set, and D2 is scored on
+  part c. Recorded in S-D9 ledger/ACCESS_CONTROL.md.
+* On three fires the mean is also shifted by about two days (+53 to +57 h). Soft labels built on the raw SD inherit this.
 * The SD is **large relative to an hour**. The US medians are 27–96 h. The Korean training rasters have medians of
   5–21 h (KFS_01, the largest training event: 17 h). Hourly hard labels therefore claim timing precision the
   reconstruction does not have. A calibrated soft hourly label is nearly flat, with a peak of about `1/(2.5·c·sd)`, so
   it carries little hourly timing information.
-* Not done: block cross-validated standardized residuals. They need the raw FIRMS detections, which the deposit does
-  not redistribute, and Korean calibration needs independent Korean perimeters. Mapped extent is not flame arrival.
+* **Block-CV standardized residuals (detections):**
+  `python blockcv_kriging_sd.py --choi <zenodo> --firms firms_us2024_heldout6.csv.gz` (about 150 s).
+  * Method: VIIRS cells are held out by spatial block, following Choi et al.'s U.S. design, and
+    `z = (obs − pred)/kriging SD` is computed for each held-out cell. Kriging uses `choi_kriging.py`, my port of the
+    published algorithm; the downloaded code is not executed. This is P-OK without GOES points, with detections
+    selected by the raster mask.
+  * Result, pooled over 12,905 cells: z SD 1.08, and 10.2% of |z| exceed 1.645 (nominal 10%). In aggregate the
+    variance is about right, **but the shape is not Gaussian**: the robust SD (MAD) is 0.36, and 7.8% of |z| exceed
+    1.96 (nominal 5%). The core is too narrow and the tails too heavy.
+  * Per-fire z SD runs from 0.74 to 1.44.
+  * Replication of Choi's published P-OK CV is close for Goat (r 0.857 vs 0.853, MAE 108 vs 108 h) and rough for
+    Wapiti and Lava. It is poor for Pioneer, FishCreek and RedRock, probably because the mask selection admits
+    outliers that the polygon selection excludes. Per-fire values there are not reliable.
+  * Reading (*hypothesis*): the two checks measure different things. Block CV tests the kriging variance against
+    detection times at extrapolated locations, where the SD is about 200 h. The NIROPS check tests the product SD
+    (27–96 h) against mapped-extent timing, where c = 1.75. Together they say a Gaussian error law with the product
+    SD is the wrong shape and scale for training. A heavy-tailed law, or the raw brackets, is better founded.
+* Not done: block-CV residuals for PSwt-OK itself, which needs GOES points. Korean calibration is also not done; it
+  needs independent Korean brackets (the 2025 FIRMS detections now exist, which allows a first detection-bracket
+  check). Mapped extent is not flame arrival.
 
 ## 2. Soft labels (step 2)
 
