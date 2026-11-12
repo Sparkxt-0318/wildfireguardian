@@ -36,7 +36,7 @@ conclusion is about the data, not the method.
   wording said "no place has a negative sign", which overstated. All 12 are classed indeterminate:
   - **괴산리 and 신월리** (Uiseong): negative under **both** settings, for flames and smoke, in the detected-cells
     bracket row. Indeterminate only because the wide (kriged ±2 sd) row does not agree.
-  - **괴산리 and 대탄리** (Yeongdeok): flame negative under the pessimistic setting in **both** timing rows. Not
+  - **괴산리** (Uiseong, same place as above) **and 대탄리** (Yeongdeok): flame negative under the pessimistic setting in **both** timing rows. Not
     negative under the optimistic setting.
   - **9 more**: flame negative under the pessimistic setting in the detected-cells row only. These are 신덕리,
     하령리, 하화리, 덕곡리, 신애리, 오천리, 삼화리, 노물리 and 기사리.
