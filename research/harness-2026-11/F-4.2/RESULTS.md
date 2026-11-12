@@ -1,8 +1,15 @@
 # F-4.2 margin routing on the frozen 1-hour panel
 
 Status: the monotonicity counterexample, the proofs and the static-obstacle finding are **verified by Mira
-(PASS / PASS WITH NOTES, @ b6c94bb)**. The clearance margins below are **measured, with every witness self-checked
-two independent ways (see Verification); independent verification is pending.**
+(PASS / PASS WITH NOTES, @ b6c94bb)**. The clearance margins are **verified PASS WITH NOTES by Mira (@ 0e6f7db)**:
+
+- She re-derived all 15 published-route clearances with independent code, matching to 1 mm.
+- She confirmed the limiting source is active at the limiting time.
+- She reproduced 3 of 15 missions and 15 of 90 witnesses.
+- She found no flaw in the r_fail soundness argument; it is sound up to the 1e-6 m outward pad.
+
+Not independently verified: the other 12 missions' trade-off points and the other 75 witnesses. Those were
+self-checked by the unchanged full checker and the exact rational clearance.
 
 ## 1. The ignition-advance margin is dropped as the headline (verified)
 
@@ -57,7 +64,7 @@ node, then continue. The search at r = 0 reproduces all 15 published arrivals.
 | uljin 1200 FW2 | 1655 | **179.9** | fire | 5520 | [180, 412] | **412 @ +19 s** | 412 | 412 |
 | yeongdeok 0325T19 FX2 | 2512 | 503.7 | fire | 3057 | [504, 504] | 504 | 504 | 504 |
 | yeongdeok 0325T23 FL2 | 1922 | 640.8 | fire | 3668 | [641, 641] | 641 | 641 | 641 |
-| yeongdeok 0326 FW1 | 896 | 12870.8 | crop | 12 | [12871, ≥ 6000 search cap] | 12871 | 12871 | 12871 |
+| yeongdeok 0326 FW1 | 896 | 12870.8 | crop | 12 | lower 12871 (published route); upper censored (search cap 6000 < 12871) | 12871 | 12871 | 12871 |
 
 **Findings (measured, verification pending):**
 

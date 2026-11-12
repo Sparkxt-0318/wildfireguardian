@@ -40,7 +40,7 @@ def main():
             return '%.0f m @ +%d s%s' % (e['clearance_m'], e['arrival'] - r['a0'], '' if e.get('upper_bound_certified', True) else '†')
         label = r['published_limit_label'] + ('/' + r['published_limit_at_endpoint'] if r.get('published_limit_at_endpoint') else '')
         lines.append('| %s | %d | %.1f | %s | %.0f | [%.0f, %s] | %s | %s | %s | %s | %.0f |' % (
-            r['mission'], r['published_arrival'], pub, label, dom, lo, '≥6000 (cap)' if up is None else '%.0f' % up,
+            r['mission'], r['published_arrival'], pub, label, dom, lo, ('censored (cap 6000 < published %.0f)' % pub) if up is None else '%.0f' % up,
             pt('a0+60'), pt('a0+300'), pt('a0+600'), pt('horizon'), 60 * pub / SPREAD_M_PER_H))
         best = max((e for e in r['deadlines'] if e.get('arrival') is not None), key=lambda e: e['clearance_m'], default=None)
         out.append({'mission': r['mission'], 'published_arrival': r['published_arrival'], 'published_clearance_m': pub,
