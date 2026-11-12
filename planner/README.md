@@ -2,8 +2,10 @@
 
 Pre-season village evacuation planner for 지자체 safety staff, 산림청 / fire departments and care
 facility managers. For every village and care facility of a region it shows, per recorded fire
-scenario, **the latest departure time that still has a checked vehicle route to a shelter**
-("출발 마감 HH:MM"), with the evidence behind it: the route, per-scenario heat exposure, compute
+scenario, **the latest departure time up to which every departure time computed has a checked vehicle
+route to a shelter** ("출발 마감 HH:MM", the contiguous time, the same as residents get from the message kit). A
+later checked departure after a gap with no checked route is shown below it as a labelled window, never as the
+deadline. The headline comes with the evidence behind it: the route, per-scenario heat exposure, compute
 time and full provenance.
 
 > **사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.**
@@ -22,9 +24,22 @@ contract is [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
   toward a deadline.
 - Per departure time: checked if any candidate shelter is checked; model_no_route only if every
   attempted shelter is model_no_route; otherwise unresolved.
-- **출발 마감** = the latest departure offset with a checked route. When an earlier offset is not
-  checked (the contract's `latest_contiguous_checked_depart_offset_s` differs or is null) the
-  headline adds "앞선 출발 시각 중 확인되지 않은 구간이 있습니다 (연속 확인 기준 HH:MM | 없음)".
+- **출발 마감** = the contiguous time (the contract's `latest_contiguous_checked_depart_offset_s`): every requested
+  departure time up to it has a checked route. This is the time residents get from the message kit and the replay
+  card. CHANGED 2026-11-12: it was the latest offset with a checked route. When a later checked departure follows a
+  gap with no checked route, the panel shows it below the headline as "… — 출발 마감이 아니며 계획에 넣지
+  마십시오". The A4 sheet only notes that it exists, without the time. When the first departure time computed has no
+  checked route, there is no 출발 마감 ("출발 마감 없음", grey).
+- **CSV column change (2026-11-12):** "출발 마감 KST" now holds the contiguous time. The former "연속 확인 기준" column
+  is now "빈 구간 뒤 점검된 출발 KST (마감 아님)". It holds the later checked departure only when there is one after a
+  gap, and is otherwise empty. **For anyone parsing the CSV:**
+  - In a gap row, the deadline column now holds the contiguous time, not the latest checked departure.
+  - In a gap row, the 대피소 (shelter) and 도착 KST (arrival) columns are now EMPTY. They belonged to the route at the
+    later departure, so exporting them against the earlier deadline would pair a time with the wrong route. A note in
+    비고 says so.
+  - A place whose first departure time computed has no checked route gets "없음" in the deadline column.
+  - On the six booth caches the deadline, shelter and arrival columns are unchanged (0 gap rows); only the renamed
+    column changed, and it is now empty where it used to repeat the deadline.
   The urgency list sorts model_no_route first, then unresolved, then checked origins by the
   contiguous deadline ascending (contract `latest_contiguous_checked_depart_offset_s`, as the API
   sorts): a checked origin whose earliest departure time has no checked route ranks first among

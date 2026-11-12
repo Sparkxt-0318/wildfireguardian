@@ -244,7 +244,9 @@ describe('cache robustness and honesty', () => {
     expect(c300.attempts[0]).toMatchObject({ verdict: 'unresolved', reasonCode: 'NODE_NOT_ALLOWED' });
     expect(p.sweep.find((c) => c.offsetS === 3000)!.skipped).toBe('window_unsatisfiable');
     expect(p.contiguousSafeDepartureS).toBe(0);
-    expect(deadlineHeadline(p).caveat).toEqual({ contiguousS: 0 });
+    // staff headline = contiguous time (Iris E); the later checked departure is a labelled window, not the deadline
+    expect(deadlineHeadline(p)).toEqual({ kind: 'deadline', deadlineS: 0, laterWindowS: p.latestSafeDepartureS });
+    expect(p.latestSafeDepartureS).toBeGreaterThan(0);
     expect(p.note).toBeUndefined();
     // every request refused: the origin is "rejected" with the first code
     const all = cacheToModel(

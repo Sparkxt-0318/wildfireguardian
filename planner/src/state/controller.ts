@@ -50,6 +50,7 @@ import {
   countAttempts,
   gridOffsets,
   groupDispatch,
+  headlineDepartureS,
   kNearestDestinations,
   originOffsets,
   osmCheckSpecs,
@@ -134,6 +135,15 @@ function syncSubmittedApi(): void {
 }
 
 /** Test hook: forget every remembered submission. */
+/**
+ * The departure selected when an origin opens: the staff headline time (the contiguous time, Iris E), never a later
+ * departure after a gap. Without a headline time (partial), the first departure computed, whose evidence explains why.
+ */
+export function defaultOffsetS(plan: OriginPlan | undefined): number | null {
+  if (!plan || plan.bestVerdict !== 'checked_route') return plan?.latestSafeDepartureS ?? null;
+  return headlineDepartureS(plan) ?? plan.sweep.filter((c) => c.attempts.length).sort((a, b) => a.offsetS - b.offsetS)[0]?.offsetS ?? null;
+}
+
 export function forgetSubmittedJobs(): void {
   submittedJobs.clear();
 }
@@ -1209,7 +1219,7 @@ export function selectOrigin(originId: string | null): void {
     return;
   }
   const plan = s.plans[originId];
-  const offset = plan?.latestSafeDepartureS ?? null;
+  const offset = defaultOffsetS(plan);
   setState({ selectedOriginId: originId, selectedOffsetS: offset, playing: false, clockS: offset ?? s.clockS });
   if (s.scenarioId === DRAWN_SCENARIO) setRightTab('origin');
   writeHash();
@@ -1431,7 +1441,7 @@ export async function recomputeOrigin(originId: string): Promise<void> {
   const plan = getState().plans[originId];
   if (getState().selectedOriginId === originId) {
     // show the deadline's route; without a checked route, the first departure's evidence (reason, compute time)
-    setState({ selectedOffsetS: plan?.latestSafeDepartureS ?? getState().selectedOffsetS ?? plan?.sweep.find((c) => c.attempts.length)?.offsetS ?? null });
+    setState({ selectedOffsetS: defaultOffsetS(plan) ?? getState().selectedOffsetS ?? plan?.sweep.find((c) => c.attempts.length)?.offsetS ?? null });
     setState((st) => {
       const t = { ...st.travelOnly };
       if (t[originId] && t[originId]!.forJobId !== (plan?.best?.jobId ?? null)) delete t[originId];

@@ -5,7 +5,7 @@
 import type { Feature, FeatureCollection, LineString, MultiPolygon, Polygon } from 'geojson';
 import { compactUtc, kstDateTime } from '../domain/clock';
 import { fireInputBanner } from '../domain/labels';
-import { haversineM, sortByUrgency } from '../domain/plan';
+import { haversineM, headlineDepartureS, sortByUrgency } from '../domain/plan';
 import type { Attempt, CacheData, OriginPlan, Place, ProvenanceInfo, RouteDetail } from '../domain/types';
 import { rsgTags, sortDrawn, zonesFeatureCollection, zoneSummary, ZONE_KEYS, type RsgTag } from '../domain/zones';
 import type { Lang, TFunction } from '../i18n';
@@ -198,9 +198,13 @@ export interface RowSource {
 /** One plan-sheet scenario row of an origin (exported for tests). */
 export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, t: TFunction): PlanSheetScenario {
   const plan = src.plans[o.id];
-  const route = src.route(plan?.best?.jobId);
+  // the row follows the staff headline time (Iris E): the route checked at the contiguous time T, not the later
+  // departure after a gap; with no headline time (partial) no route is shown as the plan
+  const T = headlineDepartureS(plan);
+  const shown = !plan ? undefined : plan.bestVerdict !== 'checked_route' ? plan.best : T === null ? undefined : T === plan.latestSafeDepartureS ? plan.best : plan.sweep.find((c) => c.offsetS === T)?.best;
+  const route = src.route(shown?.jobId);
   const travel = src.travelOnly(o.id);
-  const dest = plan?.best ? byId.get(plan.best.destinationId) : null;
+  const dest = shown ? byId.get(shown.destinationId) : null;
   const compute = computeOf(plan, route);
   const reason = plan && plan.bestVerdict === 'unresolved' ? bestReason(plan) : null;
   return {
@@ -212,9 +216,9 @@ export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, 
     contiguousSafeDepartureS: plan?.contiguousSafeDepartureS ?? null,
     sweep: plan ? sweepCells(plan) : [],
     shelter: dest
-      ? { id: dest.id, name: dest.name, sourceTag: sourceTag(dest), lon: dest.lon, lat: dest.lat, arrivalS: plan?.best?.arrivalS ?? null, categoryLabel: categoryLabel(dest, t) }
+      ? { id: dest.id, name: dest.name, sourceTag: sourceTag(dest), lon: dest.lon, lat: dest.lat, arrivalS: shown?.arrivalS ?? null, categoryLabel: categoryLabel(dest, t) }
       : null,
-    departureS: plan?.latestSafeDepartureS ?? null,
+    departureS: plan?.bestVerdict === 'checked_route' ? T : (plan?.latestSafeDepartureS ?? null),
     route: routeFeature(route),
     travelOnlyRoute: travel?.coordinates && travel.coordinates.length > 1 ? { type: 'Feature', geometry: { type: 'LineString', coordinates: travel.coordinates }, properties: { policy: 'travel_only' } } : null,
     travelOnlyFullPolicyPass: travel?.fullPolicy?.pass ?? null,

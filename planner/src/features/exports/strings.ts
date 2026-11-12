@@ -23,8 +23,8 @@ export const EXP = {
   kml: { ko: 'KML', en: 'KML' },
   csvTitle: { ko: '출발지별 대피 목록', en: 'Dispatch list by origin' },
   csvDesc: {
-    ko: '출발지마다 한 줄: 우선순위, 판정, 출발 마감(KST), 연속 확인 기준, 대피소, 도착 시각, 비고. Excel에서 바로 열립니다 (UTF-8 BOM).',
-    en: 'One row per origin: priority, verdict, deadline (KST), contiguous basis, shelter, arrival, notes. Opens directly in Excel (UTF-8 BOM).',
+    ko: '출발지마다 한 줄: 우선순위, 판정, 출발 마감(KST, 연속 확인 시각), 빈 구간 뒤 점검된 출발(마감 아님), 대피소, 도착 시각, 비고. Excel에서 바로 열립니다 (UTF-8 BOM).',
+    en: 'One row per origin: priority, verdict, deadline (KST, the contiguous time), later checked departure after a gap (not the deadline), shelter, arrival, notes. Opens directly in Excel (UTF-8 BOM).',
   },
   csvCount: { ko: '출발지 {n}곳', en: '{n} origins' },
   csv: { ko: 'CSV', en: 'CSV' },

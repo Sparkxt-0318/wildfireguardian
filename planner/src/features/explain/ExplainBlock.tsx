@@ -14,6 +14,7 @@ import { EXPLAIN } from './strings';
 import { explainView, fill, type ExplainDots, type ExplainView } from './text';
 import type { ExplFile, ShownPlan } from './types';
 import './explain.css';
+import { headlineDepartureS } from '../../domain/plan';
 
 export interface ExplanationState {
   state: 'idle' | 'loading' | 'ready' | 'absent';
@@ -180,7 +181,9 @@ export function ExplainSheetSection({ sheet, lang }: { sheet: PlanSheetData; lan
   if (!rows.length) return null;
   const views = rows.map(({ s, i }) => {
     // like the panel: the explanation is printed only for the very route check whose route is printed
-    const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null, bestJobId: printedJobId(s) };
+    // the printed deadline is the staff headline time (Iris E); an explanation recorded for a later departure after a
+    // gap does not match it and is not printed (matchesShown fails closed)
+    const shown: ShownPlan = { bestVerdict: s.bestVerdict, deadlineS: s.bestVerdict === 'checked_route' ? headlineDepartureS(s) : s.latestSafeDepartureS, bestDestinationId: s.shelter?.id ?? null, bestJobId: printedJobId(s) };
     return { s, i, v: viewFor(files[s.inputTimeIso]!, sheet.origin.id, s.inputTimeIso, lang, shown) };
   });
   const total = rows.map(({ s }) => files[s.inputTimeIso]?.file?.provenance.members?.length).find((n) => n) ?? null;

@@ -7,7 +7,7 @@
  */
 import { createRequire } from 'node:module';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { alternativePlanItems, deadlineCell, drawableRoute, exposureSummary, partialCheckedScenarios } from '../../planner/src/features/plansheet/sheetLogic';
+import { alternativePlanItems, deadlineCell, drawableRoute, exposureSummary, partialCheckedScenarios, partialCheckedText } from '../../planner/src/features/plansheet/sheetLogic';
 import type { PlanSheetData, PlanSheetScenario } from '../../planner/src/features/plansheet/types';
 import { ALT_PLAN_TEXT, LIMITATIONS, NOTE_LABEL } from '../../planner/src/features/shared/strings';
 import { ENTRY_LIMIT_M, planFromAttempts } from '../../planner/src/domain/plan';
@@ -200,7 +200,9 @@ describe('partially checked scenarios', () => {
   it('a checked scenario whose earlier departures are unresolved is flagged, never "covered"', () => {
     const partial = sheet('P', [scenario(0, { latestSafeDepartureS: 600, contiguousSafeDepartureS: null })]);
     expect(alternativePlanItems(partial, 'ko')).toEqual([]);
-    expect(partialCheckedScenarios(partial).map((x) => [x.tag, x.deadline, x.contiguous])).toEqual([['S1', '18:10', null]]);
+    // no contiguous time: no deadline at all (Iris E); the later checked departure is not printed
+    expect(partialCheckedScenarios(partial).map((x) => [x.tag, x.deadline])).toEqual([['S1', null]]);
+    expect(partialCheckedText(partialCheckedScenarios(partial)[0]!, 'ko')).not.toMatch(/18:10/);
     const full = sheet('F', [scenario(0, { latestSafeDepartureS: 1800, contiguousSafeDepartureS: 1800 })]);
     expect(partialCheckedScenarios(full)).toEqual([]);
   });
@@ -262,12 +264,13 @@ describe('scenario rows without a checked route', () => {
 });
 
 describe('sheet helpers', () => {
-  it('formats the deadline with the contiguous basis', () => {
+  it('the deadline is the contiguous time (Iris E); a later checked departure after a gap is noted, never printed as a time', () => {
     const d = deadlineCell(scenario(0, {}), 'ko');
-    expect(d.main).toBe('18:30');
-    expect(d.sub).toBe('연속 확인 기준 18:20');
-    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: 1800 }), 'ko').sub).toBe('연속 확인 기준 동일');
-    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: null }), 'ko').sub).toBe('연속 확인 기준 없음');
+    expect(d.main).toBe('18:20');
+    expect(d.sub).toBe('그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님, 계획에 넣지 말 것 (화면 참고)');
+    expect(d.sub).not.toMatch(/18:30/);
+    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: 1800 }), 'ko')).toEqual({ main: '18:30', sub: '연속 확인 기준 동일' });
+    expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: null }), 'ko')).toEqual({ main: '—', sub: '첫 계산 출발 시각에 확인된 경로 없음 — 출발 마감 없음' });
     // unresolved never gets a deadline even if a number is passed by mistake
     expect(deadlineCell(scenario(0, { bestVerdict: 'unresolved', latestSafeDepartureS: 600 }), 'ko').main).toBe('—');
   });
@@ -408,8 +411,10 @@ describe('PlanSheetDialog (jsdom render)', () => {
     const caveat = dlg.querySelector<HTMLElement>('[data-alt-caveat]')!;
     expect(caveat).toBeTruthy();
     expect(caveat.textContent).toContain('S1');
-    expect(caveat.textContent).toContain('미확인');
-    expect(caveat.textContent).toContain('연속 확인 기준 없음');
+    // Iris E: no contiguous time means no deadline at all; the later checked departure (18:10) is not printed
+    expect(caveat.textContent).toContain('출발 마감이 없습니다');
+    expect(caveat.textContent).toContain('대체 계획');
+    expect(caveat.textContent).not.toContain('18:10');
     expect(caveat.querySelector('[data-verdict-icon]')!.getAttribute('data-verdict-icon')).toBe('unresolved');
     expect(dlg.textContent).not.toContain('출발 마감 전 출발 전제');
   });

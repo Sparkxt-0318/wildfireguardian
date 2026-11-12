@@ -296,6 +296,8 @@ button { cursor: pointer; }
 .tick i { display: block; width: 1px; height: 5px; background: var(--grey); }
 .tick.dep i { height: 7px; width: 2px; background: var(--ink); }
 .tick.deadline i { background: var(--green); width: 3px; }
+/* a later checked departure after a gap: never green, never the deadline (Iris E) */
+.tick.later-window i { background: var(--grey, #6E6E73); width: 2px; }
 .input-chips { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-2); white-space: nowrap; overflow-x: auto; }
 .input-chips .chip { height: 24px; font-size: 11.5px; padding: 0 9px; }
 .vehicle-state { margin-left: auto; font-size: 11.5px; color: var(--text-2); white-space: nowrap; }
@@ -352,6 +354,7 @@ button { cursor: pointer; }
 .tl-labels { display: flex; gap: 3px; font-size: 10.5px; color: var(--text-2); font-variant-numeric: tabular-nums; }
 .tl-labels span { flex: 1 1 0; min-width: 0; text-align: center; overflow: hidden; white-space: nowrap; }
 .tl-labels span.deadline { color: var(--ink); font-weight: 700; }
+.tl-labels span.later-window { color: var(--grey, #6E6E73); font-style: italic; }
 .tl-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; color: var(--text-2); }
 .tl-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .tl-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
