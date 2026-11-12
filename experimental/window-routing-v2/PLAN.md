@@ -121,6 +121,38 @@ A step that fixes multi-hour while slowing the 1-hour kit beyond this is not acc
   provides the instrument for judging every later step, including whether step 2 moved a result for the intended
   reason.
 
+### Step 1b: support outcomes (approved by the orchestrator 15:38 UTC; fields agreed with Clara)
+
+**Order.** Built in sequence after Steps 1 and 2, never ahead of them. It is placed here because it extends the
+decision layer that Step 1 touches.
+
+**What.** Each attempt's decision gains three things.
+
+1. **`support`**, or `null` when the packet has no mask (frozen writer):
+   `{writer_version, rule, mask_sha256, packet_writer_sha256, base_packet_writer_sha256}`.
+   The writer identity field is aligned with the one Thomas's G2b records.
+2. **`unknown_support_involved`**, one of:
+   - `none`;
+   - `route_crosses`: the published or candidate route enters a cell with unknown support, derived from the route's
+     occupied cells and HAZARD support;
+   - `refusal_depends`: **taken from the refusal certificate's own reasoning**, i.e. the certificate counts an
+     unsupported cell as blocking;
+   - `not_evaluated`.
+3. **`memory_budget_mib`** and **`memory_budget_default`**, per D1.
+
+The decision schema becomes `wfg.journey-decision/2`.
+
+**Review.** Thomas reviews before code, because `refusal_depends` is a statement about what a refusal certificate
+relies on.
+
+**Acceptance.** Committed before any run.
+- **Unmasked results are byte-identical** in every pre-existing decision field, on the 1-hour panel and on F-DYN. Only
+  the new fields are added.
+- On masked packets, each `route_crosses` and `refusal_depends` value is checked against an independent derivation:
+  - `route_crosses` from the route's cells and the mask;
+  - `refusal_depends` against the certificate.
+- G1–G3 and G5 apply. Clara's planner mapping is fail-closed: any missing field on a masked packet is unresolved.
+
 ### Step 2: memory accounting (the three 3 GiB lifetime-peak gates)
 
 **Findings it addresses** (F-DYN, verified):
