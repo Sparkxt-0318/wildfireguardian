@@ -1,0 +1,185 @@
+{
+ "uiseong_andong_2025/20250323T010000Z.json": {
+  "origins": 88,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 29,
+  "R8.2_vs_recorded": 10,
+  "R1.5_vs_recorded": 9,
+  "A_vs_recorded": 34,
+  "R8.2_direct_vs_downgrade_only": 0,
+  "kinds": {
+   "recorded": {
+    "deadline": 85,
+    "no_route": 1,
+    "unresolved": 2
+   },
+   "R1.5": {
+    "deadline": 85,
+    "no_route": 1,
+    "unresolved": 2
+   },
+   "R8.2": {
+    "deadline": 80,
+    "unresolved": 7,
+    "no_route": 1
+   },
+   "A": {
+    "deadline": 51,
+    "unresolved": 36,
+    "no_route": 1
+   }
+  }
+ },
+ "uiseong_andong_2025/20250324T090000Z.json": {
+  "origins": 87,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 30,
+  "R8.2_vs_recorded": 14,
+  "R1.5_vs_recorded": 3,
+  "A_vs_recorded": 33,
+  "R8.2_direct_vs_downgrade_only": 0,
+  "kinds": {
+   "recorded": {
+    "deadline": 85,
+    "unresolved": 2
+   },
+   "R1.5": {
+    "deadline": 85,
+    "unresolved": 2
+   },
+   "R8.2": {
+    "deadline": 85,
+    "unresolved": 2
+   },
+   "A": {
+    "deadline": 55,
+    "unresolved": 32
+   }
+  }
+ },
+ "uiseong_andong_2025/20250325T170000Z.json": {
+  "origins": 87,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 23,
+  "R8.2_vs_recorded": 18,
+  "R1.5_vs_recorded": 1,
+  "A_vs_recorded": 24,
+  "R8.2_direct_vs_downgrade_only": 5,
+  "kinds": {
+   "recorded": {
+    "no_route": 7,
+    "deadline": 73,
+    "unresolved": 7
+   },
+   "R1.5": {
+    "no_route": 7,
+    "deadline": 73,
+    "unresolved": 7
+   },
+   "R8.2": {
+    "no_route": 7,
+    "deadline": 72,
+    "unresolved": 8
+   },
+   "A": {
+    "no_route": 7,
+    "unresolved": 31,
+    "deadline": 49
+   }
+  }
+ },
+ "yeongdeok_2025/20250325T190000Z.json": {
+  "origins": 93,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 53,
+  "R8.2_vs_recorded": 37,
+  "R1.5_vs_recorded": 3,
+  "A_vs_recorded": 55,
+  "R8.2_direct_vs_downgrade_only": 4,
+  "kinds": {
+   "recorded": {
+    "deadline": 84,
+    "no_route": 3,
+    "unresolved": 6
+   },
+   "R1.5": {
+    "deadline": 84,
+    "no_route": 3,
+    "unresolved": 6
+   },
+   "R8.2": {
+    "deadline": 82,
+    "no_route": 3,
+    "unresolved": 8
+   },
+   "A": {
+    "unresolved": 61,
+    "deadline": 29,
+    "no_route": 3
+   }
+  }
+ },
+ "yeongdeok_2025/20250325T230000Z.json": {
+  "origins": 92,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 55,
+  "R8.2_vs_recorded": 30,
+  "R1.5_vs_recorded": 4,
+  "A_vs_recorded": 57,
+  "R8.2_direct_vs_downgrade_only": 1,
+  "kinds": {
+   "recorded": {
+    "deadline": 91,
+    "unresolved": 1
+   },
+   "R1.5": {
+    "deadline": 91,
+    "unresolved": 1
+   },
+   "R8.2": {
+    "deadline": 90,
+    "unresolved": 2
+   },
+   "A": {
+    "unresolved": 57,
+    "deadline": 35
+   }
+  }
+ },
+ "yeongdeok_2025/20250326T080000Z.json": {
+  "origins": 92,
+  "jobs_missing_in_tier_file": 0,
+  "R8.2_vs_A": 56,
+  "R8.2_vs_recorded": 25,
+  "R1.5_vs_recorded": 2,
+  "A_vs_recorded": 56,
+  "R8.2_direct_vs_downgrade_only": 2,
+  "kinds": {
+   "recorded": {
+    "deadline": 89,
+    "unresolved": 3
+   },
+   "R1.5": {
+    "deadline": 89,
+    "unresolved": 3
+   },
+   "R8.2": {
+    "deadline": 89,
+    "unresolved": 3
+   },
+   "A": {
+    "unresolved": 58,
+    "deadline": 34
+   }
+  }
+ },
+ "total": {
+  "origins": 539,
+  "R8.2_vs_A": 246,
+  "R8.2_vs_recorded": 134,
+  "R1.5_vs_recorded": 22,
+  "A_vs_recorded": 259,
+  "R8.2_direct_vs_downgrade_only": 12
+ },
+ "upgrade_attempts_direct_all_tiers": 988
+}

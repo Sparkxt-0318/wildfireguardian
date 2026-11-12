@@ -129,3 +129,38 @@ Recorded here after his answer (2026-11-12). The gated pass rule above is unchan
   - The Korean goes to Sofia. Staff only; residents unchanged unless Iris and the orchestrator decide otherwise.
 - **Addition to the pass rule (stricter, consistent with Thomas):** 8. 100 % of certified results from a masked packet
   with unknown cells in the window carry the assumption sentence in staff outputs. 0 carry "certified" without it.
+
+## Headline tier: provisional position and sensitivity (2026-11-12)
+- Provisional (orchestrator, supported by Iris; the owner picks): the headline uses the rate-assumed tier at 8.2 km/h
+  (R8.2). Staff see every tier unpooled. "Checked" is contact-only and never worded "certified". Name: "rate-assumed,
+  8.2 km/h", never "bounded" (Iris: the rate's primary source is unverified).
+- **Downgrade-only rule (new, from this measurement):** a tier can only make a recorded result MORE cautious.
+  - A recorded checked_route whose tier label is not checked(contact) becomes unresolved.
+  - A recorded model_no_route or unresolved NEVER changes.
+  - Why: a tier's no_route or checked(contact) comes from the contact-only deadline field, not from a whole-road
+    certificate or refusal. Mapped straight through, the tier labels would have UPGRADED 988 recorded job results
+    (all tiers), e.g. recorded unresolved → "no route", and changed 12 more R8.2 headlines. So the pass rule gains:
+    9. 0 recorded unresolved / model_no_route results are changed by any tier (test).
+- Measured with the planner's own planFromAttempts + deadlineHeadline on Richard's per-job rows (b927c21c; not yet
+  verified by Nora). Script: tier_sensitivity.test.ts; output: TIER_SENSITIVITY_1h.json. Results:
+  - the rebuild reproduces every recorded headline;
+  - 0 jobs are missing from the tier files;
+  - 539 plans = 531 field origins + 8 research origins.
+
+  Headline changed (kind or time), downgrade-only, summed over the six 1-h caches:
+
+  | Comparison | Plans changed (of 539) |
+  |---|---|
+  | R8.2 vs Tier A, i.e. Iris's staff flag "depends on the assumed maximum spread rate" | **246** |
+  | R8.2 vs recorded | 134 |
+  | R1.5 vs recorded | 22 |
+  | Tier A vs recorded | 259 |
+
+  - Per cache, the R8.2 vs Tier A counts are 29 / 30 / 23 (의성–안동) and 53 / 55 / 56 (영덕).
+  - "Twice 8.2" (16.4 km/h), which Iris asked for, is not in Richard's tiers yet; requested.
+- Prepared, not built (Iris):
+  - (b) the staff flag "depends on the assumed maximum spread rate" wherever the R8.2 and Tier A headlines differ
+    (246 / 539 at 1 h), with the same pattern as the forecast-dependent flag;
+  - (3) one resident item in "what this does not check": "Where the fire map has no data, the model assumes fire
+    cannot arrive faster than about 8 km an hour." Fallback: "…assumes a maximum fire speed; it could be wrong."
+    Korean to Sofia.
