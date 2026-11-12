@@ -179,6 +179,9 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   - Exact rationals (`--mode exact`), a NEGATIVE result: 791 cells differ by a whole 300 s quantum (482 births, 309
     ends), plus 502 sub-µs end differences, and 0/10 integer instances are equal. So the v3 packets do NOT implement
     the exact-rational law. This finding led to v3.1, whose integer-ms law the packets match (below).
+  - Float vs exact, no contradiction: the v3 writer evaluates the rule in binary64, so the float-mode derivation reproduces
+    its integer instances (10/10), while the exact-rational reading of the SAME stated rule differs by a 300 s quantum at
+    791 minute-boundary cells (0/10). That is, v3 implemented its rule in float, not as stated; v3.1 removes the gap.
   - An earlier version of the classifier counted only HAZARD-later ends and so reported "0 differences" for the float
     mode. Corrected.
 - **v3.1 (`--mode v31`, QUANT_v3_1_RULE.md @ f40e2af).** Packets were built with Leo's manifest commands at f40e2af,
