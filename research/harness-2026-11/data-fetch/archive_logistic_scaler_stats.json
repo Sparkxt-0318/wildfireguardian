@@ -1,0 +1,115 @@
+{
+ "source": "forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.pkl",
+ "extracted_without_unpickling": true,
+ "n_samples_seen": 12011242,
+ "features": [
+  {
+   "feature": "log1p(distance)",
+   "mean": 2.4571010943833245,
+   "std": 0.8846989863262864
+  },
+  {
+   "feature": "distance/hours",
+   "mean": 0.6292492600722935,
+   "std": 0.544019623426871
+  },
+  {
+   "feature": "alignment",
+   "mean": 0.10080231667570365,
+   "std": 0.689903402282843
+  },
+  {
+   "feature": "alignment*speed",
+   "mean": 0.21412740386022452,
+   "std": 1.530929570949434
+  },
+  {
+   "feature": "speed",
+   "mean": 1.903209085252419,
+   "std": 1.2390477904679051
+  },
+  {
+   "feature": "directional_slope_degrees/45",
+   "mean": -0.0033237637003432114,
+   "std": 0.18851047269855395
+  },
+  {
+   "feature": "log(hours)",
+   "mean": 3.2155811730559267,
+   "std": 0.2406944868278261
+  },
+  {
+   "feature": "biome=1",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=2",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=3",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=4",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=5",
+   "mean": 0.8774130935002392,
+   "std": 0.32796243207846315
+  },
+  {
+   "feature": "biome=6",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=7",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=8",
+   "mean": 0.02015586731164021,
+   "std": 0.14053329969992293
+  },
+  {
+   "feature": "biome=9",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=10",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=11",
+   "mean": 0.0,
+   "std": 1.0
+  },
+  {
+   "feature": "biome=12",
+   "mean": 0.08062022228841946,
+   "std": 0.272250990901264
+  },
+  {
+   "feature": "biome=13",
+   "mean": 0.02181081689970113,
+   "std": 0.14606541399533285
+  },
+  {
+   "feature": "biome=14",
+   "mean": 0.0,
+   "std": 1.0
+  }
+ ],
+ "n_samples_seen_note": "decoded as float64 from the pickle (sklearn stores it as a numpy scalar). It is consistent with a weighted count: 703,848 rows with negatives subsampled at 0.05 and weighted by 1/0.05. Not verified.",
+ "scale_note": "std = StandardScaler.scale_ (1.0 where the variance is 0, i.e. biome classes absent from the fit data)",
+ "meaning": "Pooled StandardScaler mean/std of the frozen logistic baseline features over forecast-v2 fit rows. These are the only committed archive-derived covariate values found. They are not per fire or per channel; directional_slope and speed are derived features, not raw channels."
+}

@@ -1,0 +1,33 @@
+{
+  "event_id": "CA-BDF-012520_Line",
+  "country": "US",
+  "epsg": 5070,
+  "height": 50,
+  "width": 72,
+  "pixel_size_m": 375,
+  "file": "regions/CA-BDF-012520_Line/biome/biome_class_375m.tif",
+  "sha256": "6f217b1ef8e5deb6a6e55058fcd607eb9fcc9380980ce185a875a6c40a48d6b7",
+  "biome_codes": [
+    12
+  ],
+  "class_pixel_counts": {
+    "12": 3600
+  },
+  "total_pixels": 3600,
+  "valid_pixels": 3600,
+  "missing_pixels": 0,
+  "valid_fraction": 1.0,
+  "valid_arrival_pixels": 1275,
+  "biome_covered_arrival_pixels": 1275,
+  "biome_missing_arrival_pixels": 0,
+  "conflicting_biome_pixels": 0,
+  "repaired_ecoregion_ids": [],
+  "retained_ecoregion_ids": [
+    422,
+    424
+  ],
+  "exact_reference_grid": true,
+  "all_pixel_centres_checked": true,
+  "independent_projected_rasterization_disagreements": 0,
+  "passed": true
+}

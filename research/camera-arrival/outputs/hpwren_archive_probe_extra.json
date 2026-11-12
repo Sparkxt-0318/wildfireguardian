@@ -1,0 +1,162 @@
+[
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2022/20221215/20221215_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2023/20230101/20230101_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2023/20230301/20230301_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "range": null,
+  "status": 200,
+  "storage": null,
+  "bytes": "7890",
+  "body": ""
+ },
+ {
+  "tag": "list-bisect",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2022/20221001/20221001_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2018/20180701/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2019/20190701/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/2020/20200701/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2018/20180701/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2017/20170701/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2019/20190115/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 200,
+  "storage": "DEEP_ARCHIVE",
+  "bytes": "25728473",
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/stgo-e-mobo-c/2020/20200906/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/stgo-e-mobo-c/2021/20210115/Q5.mp4",
+  "method": "HEAD",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": ""
+ },
+ {
+  "tag": "video-get",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-s-mobo-c/2020/20200906/Q5.mp4",
+  "method": "GET",
+  "range": "bytes=0-0",
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "alt-list-noyear",
+  "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/cp-e-mobo-c/20200906/20200906_cp-e-mobo-c_Q5.txt",
+  "method": "GET",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "alt-mta-dir",
+  "url": "https://cdn.hpwren.ucsd.edu/MTA/wilson-s-mobo-c/large/20200906/Q5/",
+  "method": "GET",
+  "range": null,
+  "status": 403,
+  "storage": null,
+  "bytes": null,
+  "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+ },
+ {
+  "tag": "alt-hpwren-www",
+  "url": "https://www.hpwren.ucsd.edu/cameras/",
+  "method": "GET",
+  "range": null,
+  "status": 200,
+  "storage": null,
+  "bytes": "218480",
+  "body": ""
+ }
+]
