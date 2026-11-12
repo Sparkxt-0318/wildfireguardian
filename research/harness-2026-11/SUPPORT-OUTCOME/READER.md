@@ -14,7 +14,7 @@ Design: DESIGN.md on branch clara/support-outcome. This cut ships only the reade
   `adaptRouteJob` (research origins, re-checks, travel-only comparisons). A gated route keeps no geometry, arrival or
   lower bound.
 - The writer identity travels inside the reason code as `<CODE>@<sha8>`. `reasonText` splits it and shows
-  "(UNKNOWN_SUPPORT_NOT_EVALUATED; writer ab12cd34)" / "작성기 ab12cd34" wherever reasons appear today: panel,
+  "(UNKNOWN_SUPPORT_NOT_EVALUATED; writer ab12cd34)" / "생성 프로그램 ab12cd34" wherever reasons appear today: panel,
   timeline, CSV, A4 sheet. Results of different writers are therefore never pooled under one code (Hannah, consumer
   rule 1).
 - Not covered here:
@@ -22,7 +22,7 @@ Design: DESIGN.md on branch clara/support-outcome. This cut ships only the reade
     producer (API / cache generator) must refuse such a packet (Hannah, consumer rule 2);
   - the memory-budget label (kit v2 does not emit `memory_budget_mib` yet);
   - the kit v2 outcome mapping (route_crosses / refusal_depends / none), which comes after Priya's Step 1b.
-- Staff labels (EN; Korean pending Sofia):
+- Staff labels (EN; Korean by Sofia: one term "산불 상태 미확인 구역", "생성 프로그램" for the writer):
   - UNKNOWN_SUPPORT_NOT_EVALUATED: "forecast with areas of unknown fire state — their effect was not evaluated";
   - WRITER_IDENTITY_MISSING: "forecast packet writer identity missing";
   - SUPPORT_WRITE_FAILED: "unknown-area mask write failed for the forecast packet".

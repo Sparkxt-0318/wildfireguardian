@@ -47,7 +47,9 @@ describe('supportGate (unit)', () => {
     expect(splitReasonCode(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`)).toEqual({ code: UNKNOWN_SUPPORT_NOT_EVALUATED, writer: 'ab12cd34' });
     expect(splitReasonCode('TIMEOUT')).toEqual({ code: 'TIMEOUT', writer: null });
     expect(reasonText(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`, 'en')).toBe('forecast with areas of unknown fire state — their effect was not evaluated (UNKNOWN_SUPPORT_NOT_EVALUATED; writer ab12cd34)');
-    expect(reasonText(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`, 'ko')).toContain('작성기 ab12cd34');
+    expect(reasonText(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`, 'ko')).toBe('산불 상태 미확인 구역이 있는 예측 자료 — 해당 구역의 영향은 평가하지 않음 (UNKNOWN_SUPPORT_NOT_EVALUATED; 생성 프로그램 ab12cd34)');
+    // one term for the area in every Korean label (Sofia)
+    for (const c of [UNKNOWN_SUPPORT_NOT_EVALUATED, SUPPORT_WRITE_FAILED]) expect(reasonText(c, 'ko')).toContain('산불 상태 미확인 구역');
     expect(attemptReasonText(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`, 'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN', 'en')).toContain('writer ab12cd34');
     expect(reasonText(WRITER_IDENTITY_MISSING, 'en')).toBe('forecast packet writer identity missing (WRITER_IDENTITY_MISSING)');
     expect(reasonText('TIMEOUT', 'en')).toBe('30 s compute budget exceeded (TIMEOUT)'); // unchanged

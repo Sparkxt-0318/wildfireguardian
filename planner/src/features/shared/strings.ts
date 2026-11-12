@@ -69,10 +69,10 @@ export const REASON_LABEL: Record<string, L10n> = {
   INPUT_REJECTED: { ko: '엔진이 입력을 거부', en: 'engine rejected the input' },
   AT_ISSUE_FAILURE: { ko: '출발 시점에 이미 한계 초과', en: 'already over a limit at departure' },
   DISCONNECTED: { ko: '도로망상 도달 불가 (화재와 무관)', en: 'unreachable in the road graph (not fire related)' },
-  // support-masked packets (F-9.3; staff only; Korean pending Sofia): unresolved until kit v2's outcome can be read
-  UNKNOWN_SUPPORT_NOT_EVALUATED: { ko: '산불 상태를 알 수 없는 구역이 있는 예측 자료 — 영향 여부를 평가하지 않음', en: 'forecast with areas of unknown fire state — their effect was not evaluated' },
-  WRITER_IDENTITY_MISSING: { ko: '예측 자료 작성기 식별값 없음', en: 'forecast packet writer identity missing' },
-  SUPPORT_WRITE_FAILED: { ko: '예측 자료의 미확인 구역 기록 실패', en: 'unknown-area mask write failed for the forecast packet' },
+  // support-masked packets (F-9.3; staff only; Korean by Sofia): unresolved until kit v2's outcome can be read
+  UNKNOWN_SUPPORT_NOT_EVALUATED: { ko: '산불 상태 미확인 구역이 있는 예측 자료 — 해당 구역의 영향은 평가하지 않음', en: 'forecast with areas of unknown fire state — their effect was not evaluated' },
+  WRITER_IDENTITY_MISSING: { ko: '예측 자료 생성 프로그램 식별값 없음', en: 'forecast packet writer identity missing' },
+  SUPPORT_WRITE_FAILED: { ko: '예측 자료의 산불 상태 미확인 구역 정보 기록 실패', en: 'unknown-area mask write failed for the forecast packet' },
 };
 
 export function reasonText(code: string | null | undefined, lang: Lang): string | null {
@@ -80,7 +80,7 @@ export function reasonText(code: string | null | undefined, lang: Lang): string 
   // "<CODE>@<sha8>": the packet writer's identity travels with the code (support-masked results)
   const { code: c, writer } = splitReasonCode(code);
   const l = REASON_LABEL[c];
-  const w = writer ? (lang === 'ko' ? `; 작성기 ${writer}` : `; writer ${writer}`) : '';
+  const w = writer ? (lang === 'ko' ? `; 생성 프로그램 ${writer}` : `; writer ${writer}`) : '';
   return l ? `${pick(l, lang)} (${c}${w})` : code;
 }
 
