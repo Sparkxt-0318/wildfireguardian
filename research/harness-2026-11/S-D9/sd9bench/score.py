@@ -29,7 +29,7 @@ if str(_FORECAST) not in sys.path:
 
 from wildfire import baselines as B  # noqa: E402
 
-from .entries import Entries  # noqa: E402
+from .entries import HINDSIGHT_NOTE, Entries  # noqa: E402
 
 SEED = 20261030
 DRAWS = 10000
@@ -223,6 +223,9 @@ def score(entries: Entries, *, references=("persistence", "dilation_best"), draw
                 core(sub, references=references, draws=draws, seed=seed) if mask.any() and sub.y.sum() else
                 dict(status="UNAVAILABLE_EMPTY_OR_NO_POSITIVES", entries=int(mask.sum()), positives=int(sub.y.sum())))
     result["meta"] = entries.meta
+    result["population"] = entries.population
+    if entries.population == "hindsight_restricted":
+        result["population_note"] = HINDSIGHT_NOTE
     result["area_crps"] = area_crps(entries)
     result["settings"] = dict(references=list(references), draws=draws, seed=seed,
                               horizon_edges_h=list(horizon_edges), band_edges_m=list(band_edges),

@@ -259,3 +259,54 @@ def test_meta_passthrough_and_validation(tmp_path):
     assert e.meta == {"model": {"F1": '{"n_traj": 1024}'}}
     with pytest.raises(ValueError, match="JSON"):
         load([fire_file(tmp_path, "Y", meta_model=np.array("not json"))])
+
+
+# --- scored population flag (A1 §4, revision 22) ---------------------------
+
+def test_population_defaults_to_unspecified(tmp_path):
+    e = load([fire_file(tmp_path, "A")])
+    assert e.population == "unspecified"
+    r = score(e, draws=50)
+    assert r["population"] == "unspecified" and "population_note" not in r
+
+
+def test_hindsight_restricted_flag_is_carried_and_noted(tmp_path):
+    files = [fire_file(tmp_path, n, seed=i, population=np.array("hindsight_restricted"))
+             for i, n in enumerate(("A", "B"))]
+    e = load(files)
+    assert e.population == "hindsight_restricted"
+    assert e.subset(e.y >= 0).population == "hindsight_restricted"
+    r = score(e, draws=50)
+    assert r["population"] == "hindsight_restricted"
+    assert r["population_note"].startswith("HINDSIGHT-RESTRICTED POPULATION")
+
+
+def test_declared_population_without_file_value(tmp_path):
+    e = load([fire_file(tmp_path, "A")], population="full_rectangle")
+    assert e.population == "full_rectangle"
+
+
+@pytest.mark.parametrize("files_pop,declared", [("full_rectangle", "hindsight_restricted"),
+                                                ("hindsight_restricted", "full_rectangle")])
+def test_declared_population_must_match_files(tmp_path, files_pop, declared):
+    f = fire_file(tmp_path, "A", population=np.array(files_pop))
+    with pytest.raises(ValueError, match="contradicts"):
+        load([f], population=declared)
+
+
+def test_population_must_agree_across_files(tmp_path):
+    a = fire_file(tmp_path, "A", population=np.array("full_rectangle"))
+    b = fire_file(tmp_path, "B", seed=3, population=np.array("hindsight_restricted"))
+    with pytest.raises(ValueError, match="population differs"):
+        load([a, b])
+    c = fire_file(tmp_path, "C", seed=4)  # no population at all
+    with pytest.raises(ValueError, match="population differs"):
+        load([a, c])
+
+
+@pytest.mark.parametrize("bad", [np.array("kriged"), np.array(["full_rectangle"]), np.array(1)])
+def test_population_value_is_validated(tmp_path, bad):
+    with pytest.raises(ValueError, match="population must be"):
+        load([fire_file(tmp_path, "A", population=bad)])
+    with pytest.raises(ValueError, match="population must be one of"):
+        load([fire_file(tmp_path, "B")], population="kriged")

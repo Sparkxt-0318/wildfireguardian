@@ -4,8 +4,8 @@
     result = score(load(paths))
 """
 
-from .entries import Entries, load
+from .entries import HINDSIGHT_NOTE, POPULATIONS, Entries, load
 from .score import score
 from .arrival import ArrivalEntries, load_arrival, score_arrival
 
-__all__ = ["ArrivalEntries", "Entries", "load", "load_arrival", "score", "score_arrival"]
+__all__ = ["ArrivalEntries", "Entries", "HINDSIGHT_NOTE", "POPULATIONS", "load", "load_arrival", "score", "score_arrival"]

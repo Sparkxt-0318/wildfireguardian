@@ -1,10 +1,10 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 15, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 17, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
-*How to read this log:* "#" numbers **change items**, in the order they were adopted, and the "(revision N)" tags in the text refer to these item numbers. The status line's "DRAFT revision N" counts **document versions**. The two numberings are independent. Item 12 is the hash-match clarification in §1.2 item 14.
+*How to read this log:* "#" numbers **change items**, in the order they were adopted, and the "(revision N)" tags in the text refer to these item numbers. The status line's "DRAFT revision N" counts **document versions**. The two numberings are independent. **Row order:** items 1–8 are listed oldest-first, and items after 8 are listed newest-first, directly below item 8. Item 12 is the hash-match clarification in §1.2 item 14.
 
 | # | change item (items 1–7: Iris assessment of 9348abb5, adopted by the orchestrator) | where | status |
 |---|---|---|---|
@@ -17,6 +17,8 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 22 | Scored-population flag. Kriged-label populations are **hindsight-restricted**: a cell has a valid burned state only if the final reconstruction gives it an arrival time, so every scored cell burns eventually. Stratum K and the forecast-v2 KR2025 results are flagged and never pooled or paired with perimeter populations; NIROPS parts, cohort R and H use full-grid perimeter populations; training and scoring paths may not take label validity from an arrival raster | §4.1, §1.1 K, harness `population` | Iris's side finding, checked from code and committed files (orchestrator request). **No part-c score exists**; nothing previously reported for R changes |
+| 21 | D2 loss or likelihood-procedure candidates admitted under the §3.1 recipe: `d2_nll_rebuilt` (mean-field Brier loss replaced by Bernoulli NLL) and `d2_bracket_rebuilt` (latent arrival-time augmentation within survey brackets). Elena's hypothesis and prediction P-D2 (tail, lowest-bin gap, Brier non-inferiority, plus the bracket-vs-NLL ordering) are recorded before any refit. The soft-risk-set arm is development-only. Also corrects §3.1's stale allowlist sha (801acdd8… → 7db3cc0e…, per item 20) | §3.1 | Orchestrator decision on Elena's (S-D2) request. **Declared before either D2 refit runs**; the wrapper shas are recorded in FREEZE.json before any run |
 | 20 | Correction after Hannah's FAIL. CA-KNF-007084_Devil (GOFER "Slater and Devil") had been kept in part c and is now excluded. GOFER↔NIROPS matching is redone systematically by location and dates (`cohort/gofer_match.py`). Pinned inputs are by commit and file hash and are never edited in place | §1.1, §1.2 | **Made after Hannah's finding.** COHORT_FINAL went from 13078990… to d5ae66f4…, the part-a allowlist from 801acdd8… to 7db3cc0e…, and part c swapped Devil for ID-SCF-022091_WolfFang. The systematic matching found no further b/c/d exposure. Nothing had been scored on part c |
 | 19 | Refit deviations required to run on rebuilt inputs (Marcus): verbatim command line, input-manifest and train-events patches, part-a grid and window rules | §3.1 | Frozen before any refit. The patch is pinned by sha once Marcus sends it |
 | 18 | Rebuilt-pipeline refits of d4_wind and logistic on the training pool: the confirmatory comparators for part c (orchestrator decision; Iris option b) | §3.1 | Recipe frozen here **before any refit runs**. Archive-trained models become labelled descriptive rows |
@@ -49,7 +51,7 @@ Exposure is defined by the S-D9 ledger (checkpoint 3e2eb2d), plus any amendment 
 | C2 | 2026 first-survey NIROPS | NIROPS | no (future release) | Base protocol primary; A1 secondary |
 | G | GOFER v0.2 fires absent from the ledger (Zenodo 14642378) | GOES-derived hourly perimeters | yes | Separate stratum |
 | F | FEDS CONUS fires absent from the ledger | VIIRS-derived 12-hourly perimeters | 2021 yes; 2019/20 scripted | Separate stratum |
-| K | Korean events absent from the ledger | kriged arrival reconstruction | not yet located | Separate stratum |
+| K | Korean events absent from the ledger | kriged arrival reconstruction | not yet located | Separate stratum; **hindsight-restricted population** (§4.1) |
 
 **Label strata are never pooled.** The 4 km band and every other rule fixed on R come from NIROPS. Applying them to G, F and K is a stated transfer assumption, not a validated equivalence. Because R is NIROPS, **only N (or C2) can carry a confirmatory A1 result**. G, F and K results are descriptive whatever their size.
 
@@ -178,7 +180,7 @@ Every predictor is declared by SHA-256 before the manifest.
 
 **Training data, identical for every refit and for every D1/D2 candidate.** It is the union of:
 - The 23 forecast-v2 US fit fires, rebuilt. They are already exposed as FIT.
-- The **part-a training pool** (`cohort/PART_A_ALLOWLIST_FINAL.csv`, sha 801acdd8…). An incident is used only if it has at least 2 surveys and a buildable grid.
+- The **part-a training pool** (`cohort/PART_A_ALLOWLIST_FINAL.csv`, sha 7db3cc0e…; corrected from the superseded 801acdd8… by item 21, following item 20). An incident is used only if it has at least 2 surveys and a buildable grid.
 - Intervals follow §2's rule (0 < Δ ≤ 48 h, timestamp-only), with all eligible intervals per fire. Build failures are logged, never replaced.
 - No US2024, KR2025, part b/c/d or H-test fire is used.
 
@@ -200,7 +202,7 @@ Every predictor is declared by SHA-256 before the manifest.
      - It passed a smoke test end to end on the forecast-v2 synthetic fixture.
    - Marcus confirmed these are not CLI-overridable: kernel 9 and dropout 0.0 are literals (pipeline.py:336), and weight_decay is `fit_mean_field`'s default of 1e-4 (survival.py:327).
    - The initial rate comes from the training-set prevalence, so it legitimately depends on the pool.
-3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed.**
+3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed**, except the loss and fitting-procedure replacements of the two named D2 candidates below (revision 21).
 4. **Part-a grid rule:**
    - EPSG:5070, 375 m cells, aligned to multiples of 375 m (the Choi reference-grid convention).
    - Extent = bounds of the union of all of the incident's NIROPS survey perimeters, plus 2 km.
@@ -218,6 +220,22 @@ Every predictor is declared by SHA-256 before the manifest.
 **`dilation_8h`** has no fitted weights, so it is unchanged.
 
 **Rate-mixture candidate** (development first, per Iris; added as a part-c comparator only if it performs in leave-one-fire-out development on R): `d4_wind_rebuilt` run at global rate multipliers m ∈ {1, 2, 4, 8, 16}, with mixture weights fit on the training data. Once weather covariates exist, a development check also tests whether the fast tail intervals are predictable from wind; if they are, one wind-dependent weight parameter is allowed. The final form is frozen by amendment before part c opens.
+
+**D2 candidates: loss or likelihood-procedure deviations (revision 21; declared before either refit runs).** Two named D2 candidates use **the identical recipe** above: the same training data, rebuilt inputs and input pins, Marcus's wrapper (264deaea…) and its hash guards, the same command line and hyperparameters, seed 0, and receipts. `d2_nll_rebuilt` **replaces only the training loss**. `d2_bracket_rebuilt` replaces the loss **and** the fitting procedure (an EM over latent arrival times), and nothing else. The replacement is injected in memory the same way as Marcus's wrapper, and `pipeline.py` and `survival.py` stay unchanged.
+- **`d2_nll_rebuilt`.** The mean-field model is trained with **Bernoulli negative log-likelihood** on the mean-field p(t2) in place of the Brier loss of `survival.fit_mean_field` (survival.py:334). It keeps the same weights and the same prevalence scaling. This is the same-regime NLL baseline Iris asked for.
+- **`d2_bracket_rebuilt`.** The same recipe plus **latent arrival-time augmentation within each survey bracket**. The E-step imputes each cell's arrival time inside (t_k, t_{k+1}] given the current model. The M-step maximizes the complete-data likelihood. It is fit under the same 3-epoch budget. **If it cannot finish within that budget, it is reported as not admitted, and the budget is not changed.**
+- **Code and freeze.** The code lives in `research/harness-2026-11/S-D2/refit/`. Each wrapper's sha256 is published for review and recorded in FREEZE.json **before it runs**. Neither candidate may change the training data, covariates, hyperparameters, architecture or seed.
+- **Admission to part c.** Both remain subject to §5.2: each must emit multi-observation cumulative marginals natively, demonstrated on R before its SHA freeze. Both are judged by §6.1, criteria 1–4 included.
+- **Soft-risk-set arm: development only.** It needs kriged arrival inputs, which exist only for the 23 fit fires, so it is **not a part-c candidate**.
+- **Hypothesis, recorded before any D2 refit (Elena, S-D2).** Ignoring within-bracket timing cuts the fitted spread rate by about 3–4×. **`d2_bracket_rebuilt`, not `d2_nll_rebuilt`, is therefore the arm predicted to shrink d4's near-zero tail without recalibration.** The prediction is fixed in the following wording, which Elena confirmed before any refit.
+  - **Prediction P-D2.** It applies in the 4 km band, relative to `d4_wind_rebuilt`, on the same cohort and the same intervals, with no recalibration of any arm. All three parts must hold:
+    - (a) **The tail shrinks:** fewer positives at p < 1e-5 **and** fewer at p < 1/1024 (§5).
+    - (b) **The band is not inflated to get there:** the lowest-bin calibration gap, |mean p − observed frequency| over p in [0, 1e-3), is smaller than `d4_wind_rebuilt`'s.
+    - (c) **Brier is not worse:** the whole-fire bootstrap 95% interval of the pooled band Brier difference (D2 − `d4_wind_rebuilt`; 10,000 draws, seed 20261030) does not lie entirely above zero.
+  - **Ordering (also a hypothesis, recorded now).** `d2_bracket_rebuilt` moves (a) and (b) more than `d2_nll_rebuilt` does. **If `d2_nll_rebuilt` matches `d2_bracket_rebuilt` on (a), that falsifies "within-bracket timing is the cause"** and points to the loss change alone.
+  - P-D2 is a stated scientific prediction. It does not change §6.1: admission and the decision criteria are unchanged.
+  - *Motivating evidence (development, part a, Elena's stream; **not verified by Hannah**).* It comes from covariate-free spatial fits on NIROPS part-a brackets: 42 fires with ≥ 20 surveys, from allowlist 7db3cc0e at 2d40d170, first 240 h. On one fire (CooksPeak), the fitted total spread rate was 0.018/h plug-in (first observation time), 0.026/h mean-field NLL, 0.065/h composite likelihood and 0.069/h MCEM. A 24-fire run is pending, and its result is evidence for the hypothesis, not a change to it.
+  - If P-D2 or the ordering fails, the failure is reported as stated, whatever the §6.1 outcome.
 
 **Who runs it.** Marcus (S-D1) runs the baseline refits, and Elena's D2 refit uses the identical training data and pipeline. Every refit writes a receipt with input hashes, code SHA, seed and wall time.
 
@@ -248,6 +266,39 @@ Every predictor is declared by SHA-256 before the manifest.
   - This secondary was added after a development finding on R.
 - **Horizon strata:** (0,12], (12,24], (24,36], (36,48] h, by interval duration and separately by lead time, with entry, positive, interval and fire counts.
 - **Domain stratum (requested by Elena, S-D2):** where an `in_domain` mask is supplied (the kriging domain), the same metrics are reported inside and outside it.
+
+### 4.1 Scored population: full grid vs hindsight-restricted (revision 22)
+
+**Finding, checked from code and committed files.**
+- *Loader.* `forecast/wildfire/data.py:477-492` takes the label-validity mask, `burned_area_valid`, from the valid mask of `arrival_time_hours.tif`. A cell has a known burned state only if it has a reconstructed arrival time.
+- *forecast-v2 KR2025.* `korean_samples` (`research/forecast-v2/scripts/score_cohorts.py:58-80`) scores `finite(arrival) & ~initial`. **Every scored Korean cell has a finite reconstructed arrival time, so every one burns eventually.** Prevalence in the committed files: KR2025 404 / 1,792 = **22.5%**; US2024 (cohort R) 8,520 / 1,705,079 = **0.50%**.
+- *forecast-v2 kriged training.* `kriged_samples` (`pipeline.py:253-288`) applies the same restriction, but it feeds only the `mixed_base` variant (`mixed=True`). `d4_wind` and `logistic` are fit on perimeter samples only (`pipeline.py:347-358, 533`).
+- *Raster extent.* For FishCreek, the archive arrival raster has 2,642 valid cells out of 7,519 (`forecast/demonstration/burn_state_coverage/summary.json`, source sha f69a283c…). That **equals** the number of cells in FishCreek's final NIROPS union on the same 103 × 73 rectangle (derived from R as in `derive/enclosure.py`).
+  - This is a count match, not a per-cell comparison. The raster is not in the repository.
+  - The Korean arrival rasters could not be inspected here.
+  - Daniel's rebuilt part-a `arrival_time_hours.tif` is defined as the stepwise first-mapped survey time (data-fetch README), so by definition it is empty outside the final mapped union. This was not opened here.
+- *Cohort R is not affected.* `perimeter_samples` (`pipeline.py:224-250`) scores `~initial` over the whole fixed rectangle, with labels from the NIROPS perimeter states. Arrival validity plays no part. The rectangle's extent is itself hindsight, which is already disclosed (§3.1 item 4). No number reported for R changes.
+
+**Rules.**
+1. A population is **hindsight-restricted** when the validity of its labels, or the set of cells it scores, comes from the final reconstruction: a finite arrival time, `arrival_valid` or `burned_area_valid` from an arrival raster. Otherwise it is **full-rectangle**: every cell of the grid that is unburned at cutoff is scored. NIROPS parts a–d, cohort R and stratum H (GOFER perimeters) are full-rectangle. Stratum K and the forecast-v2 KR2025 results are hindsight-restricted.
+2. The harness records the population (`sd9bench` `population`: `full_rectangle` | `hindsight_restricted`). Every hindsight-restricted result carries a note saying that its Brier, calibration, AP and prevalence are **not comparable** with full-rectangle results. **The two are never pooled, paired or used in one decision.** §6 decisions use full-rectangle populations only.
+3. **Training and part-c scoring paths for every A1 model** (the rebuilt refits, `d2_nll_rebuilt`, `d2_bracket_rebuilt`, D1 candidates) must take label validity from perimeter states over the full grid, as `perimeter_samples` does. They may not take it from an arrival raster. The receipt of any path that reads an arrival raster must state how that raster's validity is used. The D2 bracket E-step may impute arrival times **within survey brackets** for cells that are burned in the perimeter states. Cells never mapped as burned remain negatives over the full grid.
+4. Any forecast-v2 KR2025 number quoted in S-D9 reports is labelled hindsight-restricted and descriptive.
+5. **Definition, provisional until the cell-level check (Iris).** The working hypothesis is that "arrival no-data" means "outside the final footprint". It becomes the definition only once the arrival raster's valid mask has been compared **cell by cell** with the final perimeter union on every **exposed** fire that has both. Until then, only the FishCreek count match above stands. The check is requested from Daniel (data). No part b, c or d fire's raster is opened for it.
+6. **Repaired Korean stratum K-full (Iris; declared now, descriptive).** If rule 5 holds, a second Korean stratum is scored on the **full event rectangle**. Cells with no arrival value count as never burned, so the population no longer conditions on eventual burning. K-full is labelled `full_rectangle` but stays **descriptive**: its timing is kriged and the fires are exposed. It is never part of a §6 decision. *Availability:* the committed forecast-v2 KR2025 files hold predictions only on finite-arrival cells. K-full therefore needs the predictors re-run over the full rectangle, which needs the owner-only inputs. It is **UNAVAILABLE** for the current models until those inputs exist.
+
+**Training-label provenance of the predictors (revision 22; development fact, checked from code).** The same validity mask also governs **training** (Iris). A model trained on hindsight-restricted labels never saw a cell that stays unburned.
+
+| predictor | training label source | evidence |
+|---|---|---|
+| `c651_mc` (checkpoint c651f672…, run 20261010_categorical_balanced_benchmark) | **Hindsight-restricted kriged, interior only.** Targets are cells whose whole k × k neighbourhood has a finite reconstructed arrival time, so every training target, positive or negative, lies inside the final footprint at least k/2 cells from its edge | `forecast/wildfire/prepare.py:862-883` (`neighborhood_known = minimum_filter(finite, k) > 0`); label validity from `data.py:477-492`; training contract "boundary: unknown; complete interior patches only" (`train.py:371`) |
+| `d4_wind_seed0`, `d4_seed0`, `base`, `ellipse`, `burnout`, `burnout_spotting` (forecast-v2 final) | **Perimeter states, full crop**: score_mask = ~initial over the initial-extent crop + 10 cells | `pipeline.py:347-353` with `mixed=False` |
+| `mixed_base_seed0` | **Mixed**: perimeter states plus kriged windows (`finite & ~initial`, including Korean kriged-only fires) | `pipeline.py:354-358` (`mixed=True`), `kriged_samples` 253-288 |
+| frozen `logistic`, `dilation_best` / `dilation_8h` | **Perimeter states** (fit fires) | `pipeline.py:532-550` (`mixed=False`) |
+| `persistence` | none | — |
+| `d4_wind_rebuilt`, `logistic_rebuilt`, `d4_wind_recal`, `d2_nll_rebuilt`, `d2_bracket_rebuilt`, D1 candidates | **Perimeter states, full grid (required by rule 3)** | §3.1, §4.1 rule 3 |
+
+*Hypothesis only (Iris), not tested here.* A model trained without true far-field negatives has no reason to be calibrated on cells far from the front. This may bear on c651's tail behaviour. It does not explain d4_wind's tail, because d4_wind was trained on perimeter states (§4.1 table; `derive/LOGISTIC_DEV.md`).
 
 ## 5. Metrics
 
