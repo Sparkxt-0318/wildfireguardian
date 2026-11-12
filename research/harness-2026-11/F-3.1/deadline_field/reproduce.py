@@ -267,8 +267,10 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--limit-dests", type=int)
     ap.add_argument("--variants", default=",".join(VARIANTS))
+    ap.add_argument("--timing-only", action="store_true", help="skip the certificate check and the full-checker witness verification")
     a = ap.parse_args()
-    out = run(a.cache.resolve(), a.data_root, variants=tuple(a.variants.split(",")), limit_dests=a.limit_dests)
+    out = run(a.cache.resolve(), a.data_root, variants=tuple(a.variants.split(",")), limit_dests=a.limit_dests,
+              certify=not a.timing_only, verify=not a.timing_only)
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({k: out[k] for k in ("cache_file", "destination_specs", "timing_s", "pieces", "peak_rss_mib")}, default=str))
