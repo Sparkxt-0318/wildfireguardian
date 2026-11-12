@@ -27,6 +27,8 @@ import generate  # noqa: E402
 from run_panel import at_issue  # noqa: E402
 
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 from wfg_sipp.adapter import sweep_plan  # noqa: E402
 import derive_instance as DI  # noqa: E402
@@ -50,7 +52,7 @@ def main():
     for c in cases.korean_cases():
         graph = json.loads(Path(c["graph"]).read_text())
         base = json.loads(Path(c["request"]).read_text())
-        model = ContactModel.from_packet(c["packet"])
+        model = routable_contact_model(c["packet"])
         for dep in a.offsets:
             if dep > base["horizon"]:
                 continue

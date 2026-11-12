@@ -28,6 +28,7 @@ import derive_instance as DI  # noqa: E402
 import generate as G  # noqa: E402
 import p1_check as P  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance, prepared  # noqa: E402
 
 
@@ -64,8 +65,12 @@ def main():
         region = pk.parent.name
         start = name.split("_")[0]
         H = int(name.split("_h")[1].split("_")[0]) * 3600
-        variant = "kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name else "envelope"
-        entry = [i for i in instances if i["region"] == region and i["start_tag"] == start and i["horizon_s"] == H][0]
+        variant = ("kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name
+                   else "envelope_burnset" if "_envelope_burnset_" in name else "envelope")
+        # origins are the region's entry nodes (same for every start of a region and horizon); a synthetic start has no
+        # entry of its own, so use the region/horizon entry and record it (prow["origins_from"])
+        same = [i for i in instances if i["region"] == region and i["horizon_s"] == H]
+        entry = next((i for i in same if i["start_tag"] == start), same[0])
         if region not in graphs:
             g = json.loads((L / "graphs_interim" / region / "graph.json").read_text())
             graphs[region] = (g, prepared(g))
@@ -73,17 +78,17 @@ def main():
         hz_bytes = (pk / "HAZARD.json").read_bytes()
         hz = json.loads(hz_bytes)
         Hs = F(float(hz["valid_until"]))
-        model = ContactModel.from_packet(pk)
+        model = routable_contact_model(pk)
         A = {k: v for k, v in P.from_hazard(hz, Hs).items() if v}
         B = {k: v for k, v in P.from_raw(pk, Hs).items() if v}
         C = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in model.cell_intervals.items()) if v}
         d_hc = [k for k in set(A) | set(C) if A.get(k) != C.get(k)]
         float_end = sum(1 for k in d_hc if len(A.get(k, [])) == len(C.get(k, [])) and all(
             x0 == y0 and x1 >= y1 and x1 - y1 < F(1, 10**6) for (x0, x1), (y0, y1) in zip(A[k], C[k])))
-        prow = dict(packet=rel, region=region, start=start, horizon_s=H, variant=variant,
+        prow = dict(packet=rel, region=region, start=start, horizon_s=H, variant=variant, writer=P.writer_identity(hz),
                     hazard_sha256=hashlib.sha256(hz_bytes).hexdigest(), active_cells=len(C),
                     p1_raw_vs_contact=sum(B.get(k) != C.get(k) for k in set(B) | set(C)),
-                    p1_hazard_vs_contact=len(d_hc), p1_hazard_later_end_by_lt_1us=float_end)
+                    p1_hazard_vs_contact=len(d_hc), p1_hazard_later_end_by_lt_1us=float_end, origins_from=entry["start_tag"])
         o0 = entry["origins"][0]
 
         def req(o, dep):

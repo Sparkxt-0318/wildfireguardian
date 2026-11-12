@@ -1,0 +1,1172 @@
+{
+ "rule": "BINDING_RULE.md rev 2.2",
+ "missions": 20,
+ "fully_bound": 20,
+ "v1_unchanged": 20,
+ "v2_bound_accept": 20,
+ "generator_equals_consumer": 20,
+ "t7_structure_ok": 20,
+ "t7_o2_ok": 20,
+ "t1_pairs": 10,
+ "t1_ok": 10,
+ "t1_same_Q": 0,
+ "t11_pairs": 10,
+ "t11_ok": 10,
+ "t11_checkers_labels_match": 10,
+ "rows": [
+  {
+   "mission": "20220304T030000Z_FX1",
+   "region": "uljin_2022",
+   "claim": "ROUTE",
+   "T": 3119,
+   "I": "c09c98c98c941b00ab1d4b46d46df0d29e729f321016266101d3b7600f689deb",
+   "digests": {
+    "G": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "A": "ebb31f34bede616e2582ed42f648bb5bfde1a7c7f0dc74c4e884e645a6d401c2",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "8fd7996358f71bc58d84eee6c6d9bc22eec823bb6194c30306450743d468b2d0"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 3119",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 3119",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 7.21
+  },
+  {
+   "mission": "20220601T080000Z_FX1",
+   "region": "miryang_2022",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "I": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "ece467a4922c4cb61393ddbfc3c285cd113efcd20d427aa6039a425aeb497fd5",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "fc2dbad9c0b891b2b9cfcd9fa43d1b7b5d338da6352a92c176dce90ab4127934"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.91
+  },
+  {
+   "mission": "20230402T070000Z_FX1",
+   "region": "hongseong_2023",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "I": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "98cce14a8735e003f6fc3df81887302f9b80f41f6408c7f6f9927aa4cbafba14",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "fbd62708944342ba20584cfcf7174c3bc1ee03e2b72bf033ffce4d0ea53e8874"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.47
+  },
+  {
+   "mission": "20250323T010000Z_FX2",
+   "region": "uiseong_andong_2025",
+   "claim": "ROUTE",
+   "T": 2540,
+   "I": "987a3dd4b4f5a3bf2d4f15264569b2b54a50985785515315bfe497bd7b5b327c",
+   "digests": {
+    "G": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "A": "70d4d5fa664c02f7f3a88e17de98950404587eac45c6a8b86b7ee16c9bcb470f",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "8d259b7e6765efb2644f7d4637d49b3f21754bd82fb0e8184fb6426af5f0fc50"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 2540",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2540",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 15.86
+  },
+  {
+   "mission": "20250325T190000Z_FX2",
+   "region": "yeongdeok_2025",
+   "claim": "ROUTE",
+   "T": 2512,
+   "I": "1c195e4171e39fc6ec33bd3ec2c2fbf247b85aca90fb9a1a7518c5d0424e7cc2",
+   "digests": {
+    "G": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "A": "17b22514c59bc020b93bef358abb4446de0ec0cbd3a3eb01a01c62454cfbc6ad",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "d9224445381e8b77ed2af5b123fd5ddf920dbd06526ad710c2a8b11f8ade478d"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 2512",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2512",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 49.2
+  },
+  {
+   "mission": "20220304T060000Z_FL1",
+   "region": "uljin_2022",
+   "claim": "ROUTE",
+   "T": 2067,
+   "I": "3924065cae22f3f33c0a4d07b8cd1ec500b0f6df2b2f1329248d75cbf1eb4448",
+   "digests": {
+    "G": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "A": "47480a06b48cbec67b19cffc85b7e6e22ed7944f483ba51677bc7e00a8526e9d",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "3ca7d47d00cedee534a065d3e574156198fc3383d80e40838a58885b0de13c30"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 2067",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2067",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 2067 LABELS_MATCH 3924065cae22f3f3",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2067 LABELS_MATCH 3924065cae22f3f3",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 5.17
+  },
+  {
+   "mission": "20220601T020000Z_FW1",
+   "region": "miryang_2022",
+   "claim": "ROUTE",
+   "T": 1270,
+   "I": "44bd1b5fb4d5dc8d0a564f044c3d19021468e3e88bde2d349f36b60b82d8ae5b",
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "8db67f386d7a741c37fb13ead09f2a0c98517f20bf2e1523751ab82cb68e2543",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "994015c6a4f017e17c5b69b3dd4c01965ca277551ee833f68d17158f55741f08"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1270",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1270",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1270 LABELS_MATCH 44bd1b5fb4d5dc8d",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1270 LABELS_MATCH 44bd1b5fb4d5dc8d",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.78
+  },
+  {
+   "mission": "20230402T140000Z_FW2",
+   "region": "hongseong_2023",
+   "claim": "ROUTE",
+   "T": 1459,
+   "I": "a1acf09eac2f19e062a7c29474f2dc95f29e3e99040c91f24b71cf7dffb2cde7",
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "4fb1ea46a72d4239bbf902d447e9451e45f4e72ac651b13ed98827ba5308206f",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "0a82d0c27ebf8066d3dd69c8a36a9b1858321ff218f00944986309eb01d2ab64"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1459",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1459",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1459 LABELS_MATCH a1acf09eac2f19e0",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1459 LABELS_MATCH a1acf09eac2f19e0",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.63
+  },
+  {
+   "mission": "20250324T090000Z_FL2",
+   "region": "uiseong_andong_2025",
+   "claim": "ROUTE",
+   "T": 2143,
+   "I": "f79018bb3b82c9fbd9dbcf77cea6447d05012ec7fbc70e56eee3c650ef4d3ba4",
+   "digests": {
+    "G": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "A": "10f3e7661bd6eb6fa7cc6ba9158fb21870159faf7c2bb6dc601f72fbd5609098",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "2bd862fe15e71a10a7848a2156286229b80c5ad41d53091ffed82598d92388d6"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 2143",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2143",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 2143 LABELS_MATCH f79018bb3b82c9fb",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2143 LABELS_MATCH f79018bb3b82c9fb",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 13.93
+  },
+  {
+   "mission": "20250325T230000Z_FL2",
+   "region": "yeongdeok_2025",
+   "claim": "ROUTE",
+   "T": 1922,
+   "I": "f6e8fd84bbeb55d11c0336552553d82521977bb52b799d82528a6caae5f4eba4",
+   "digests": {
+    "G": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "A": "589948e97042098af3355cb3fdddfab4732d0cd15869c022d1c66adb60a62fbe",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "dffa965c23d43937cf3636795e465b68ad1e5ec2eb082989a163bf4bf81b8ebb"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1922",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1922",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1922 LABELS_MATCH f6e8fd84bbeb55d1",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1922 LABELS_MATCH f6e8fd84bbeb55d1",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 37.38
+  },
+  {
+   "mission": "20220304T120000Z_FW2",
+   "region": "uljin_2022",
+   "claim": "ROUTE",
+   "T": 1655,
+   "I": "3ef3e1692d6b48267ba56d75da16b6a3ae2bbc84454ab7c008ec4b04f3c590b1",
+   "digests": {
+    "G": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "A": "273a562052764e475badd309e016bba7e2b0fa942b84ab84c4038200497d6ebd",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "4bea25de7c2f52c8a8bf9928b7525852aaf1adee8c9e298ed8133ac1e966ce27"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1655",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1655",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1655 LABELS_MATCH 3ef3e1692d6b4826",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1655 LABELS_MATCH 3ef3e1692d6b4826",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 4.18
+  },
+  {
+   "mission": "20220601T080000Z_FD1",
+   "region": "miryang_2022",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "I": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "ece467a4922c4cb61393ddbfc3c285cd113efcd20d427aa6039a425aeb497fd5",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "f6477b2fca64c66043f5114eaf0964ee4cd0f0f24da8b78664b51d1e933acce7"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.94
+  },
+  {
+   "mission": "20230402T230000Z_FD1",
+   "region": "hongseong_2023",
+   "claim": "ROUTE",
+   "T": 531,
+   "I": "7f7efcc524a37cfc6d49932eda2cc2d6f5096c0037d900d6c00ce6473232f3af",
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "906f1bff8020317dcc36229d60a7142a4ad0a6005ce57474ff2b354978630e1e",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "0e6988599541e575dd7d0d5101af6d6736b9633816ac8b294ecbe7430e036456"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 531",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 531",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 531 LABELS_MATCH 7f7efcc524a37cfc",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 531 LABELS_MATCH 7f7efcc524a37cfc",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.46
+  },
+  {
+   "mission": "20250325T170000Z_FW1",
+   "region": "uiseong_andong_2025",
+   "claim": "ROUTE",
+   "T": 1064,
+   "I": "ce3efc64474b184c58a3de21c7fe6bb7c156f73a5bd82f0a038dd57a44e39802",
+   "digests": {
+    "G": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "A": "5e7ab5755af85a86cdabc4ca12056568b6b44f78f3dd556f19be067c3ebd93dd",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "7068e4e29b70d9c214b774f0d3482de1ef84269d60b0c3a6c8c966e1322f6d77"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1064",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1064",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1064 LABELS_MATCH ce3efc64474b184c",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1064 LABELS_MATCH ce3efc64474b184c",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 10.19
+  },
+  {
+   "mission": "20250326T080000Z_FW1",
+   "region": "yeongdeok_2025",
+   "claim": "ROUTE",
+   "T": 896,
+   "I": "ebed087a48c3e5e74314c40dd3a9a0b764d94d0a8caad005fc11224fa0d49bb7",
+   "digests": {
+    "G": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "A": "728821290d9e68bb748c7ed84ce76769bfa45a5d627848c6ababa92c9dce69ce",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "15b32544c0f316e4ec890c70bb8eec8f5fceea03e6bea73a5cbc3b29d07616eb"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 896",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 896",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 896 LABELS_MATCH ebed087a48c3e5e7",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 896 LABELS_MATCH ebed087a48c3e5e7",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 20.53
+  },
+  {
+   "mission": "20220304T030000Z_FD1",
+   "region": "uljin_2022",
+   "claim": "ROUTE",
+   "T": 1589,
+   "I": "36c1935dc559afc87ac3fa1102b127645ce9b1654ae998a61880976c300d39be",
+   "digests": {
+    "G": "b78d8bb332fb4b9d72e76b0efe3646fd2b28875b8f446f6bb8e839f98654ac69",
+    "A": "ebb31f34bede616e2582ed42f648bb5bfde1a7c7f0dc74c4e884e645a6d401c2",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "32e4619c2babb33cd032afceb78032f4721c7f369b0c2ee596339c6baf437929"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1589",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1589",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 6.85
+  },
+  {
+   "mission": "20220531T100000Z_FN1",
+   "region": "miryang_2022",
+   "claim": "ROUTE",
+   "T": 1142,
+   "I": "1b1fd2b7753275ce8641c577b3a4d48ca71f3ef2ffdd202f2e04ae419662725c",
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "bc0626eefcc9a17a04e7987fd4b3c293168fe42b72f3399d04d41dd3d5a27f2c",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "c4ccf5b58e72d660914eb00cf5bebd08c1dbeb87ca7eabef09ffb1b2ba2d2f98"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 1142",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1142",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 1142 LABELS_MATCH 1b1fd2b7753275ce",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 1142 LABELS_MATCH 1b1fd2b7753275ce",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 1.49
+  },
+  {
+   "mission": "20230402T070000Z_FN1",
+   "region": "hongseong_2023",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "I": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "98cce14a8735e003f6fc3df81887302f9b80f41f6408c7f6f9927aa4cbafba14",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "3e92c8e8f376a87c60b8a26d85c43dcabf1a9e429d9f9966cea118068b27d6de"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.5
+  },
+  {
+   "mission": "20250323T010000Z_FD1",
+   "region": "uiseong_andong_2025",
+   "claim": "ROUTE",
+   "T": 2460,
+   "I": "8ff8c498916fc0f370cd6bc1cad4ceda72bc0d9c691cc7e951225c925c3aecb5",
+   "digests": {
+    "G": "8c37e5b6440608bc07de71be89dd02fb4d75f7176b4aed9c54df80ecd3de1afc",
+    "A": "70d4d5fa664c02f7f3a88e17de98950404587eac45c6a8b86b7ee16c9bcb470f",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "5d6fb378e7963a2e861cc9ed34d6a96d56d460c3cb554c6ddb23eeb830188121"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT ROUTE 2460",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2460",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+     0
+    ],
+    "c": [
+     "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 10.93
+  },
+  {
+   "mission": "20250325T190000Z_FD1",
+   "region": "yeongdeok_2025",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "I": "504925bf20713f2408d5c40a43aa878dfa7dfd261b39602cfa09d335eac3bc1e",
+   "digests": {
+    "G": "f097e6c8d8bb4454696b23a5d5cf1483ec29ba33dea5c9877e7100c4933b14a9",
+    "A": "17b22514c59bc020b93bef358abb4446de0ec0cbd3a3eb01a01c62454cfbc6ad",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "0e540137fe95714e3a5c9480125f6bdcd6b2bbe673b72b85d5ed1e2223dd28a1"
+   },
+   "generator_equals_consumer": true,
+   "v1": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601",
+     0
+    ]
+   },
+   "v2": {
+    "py": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+     0
+    ],
+    "c": [
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+     0
+    ]
+   },
+   "v2_ok": true,
+   "v1_ok": true,
+   "t7_structure_diffs": [],
+   "t7_structure_ok": true,
+   "t7_o2_diffs": 0,
+   "t7_o2_ok": true,
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 48.1
+  }
+ ],
+ "t1": [
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FN1",
+   "expect_of": "hongseong_2023__20230402T070000Z_FX1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FX1",
+   "expect_of": "hongseong_2023__20230402T070000Z_FN1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FD1",
+   "expect_of": "miryang_2022__20220601T080000Z_FX1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FX1",
+   "expect_of": "miryang_2022__20220601T080000Z_FD1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "expect_of": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "expect_of": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FD1",
+   "expect_of": "uljin_2022__20220304T030000Z_FX1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FX1",
+   "expect_of": "uljin_2022__20220304T030000Z_FD1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FD1",
+   "expect_of": "yeongdeok_2025__20250325T190000Z_FX2",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FX2",
+   "expect_of": "yeongdeok_2025__20250325T190000Z_FD1",
+   "same_Q": false,
+   "py": [
+    "REJECT BIND_Q",
+    1
+   ],
+   "c": [
+    "REJECT bind_Q",
+    1
+   ],
+   "ok": true
+  }
+ ],
+ "t11": [
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FN1",
+   "labels_of": "hongseong_2023__20230402T070000Z_FX1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7b",
+   "detail": "2 O2 differences, first AC",
+   "ok": true
+  },
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FX1",
+   "labels_of": "hongseong_2023__20230402T070000Z_FN1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7b",
+   "detail": "2 O2 differences, first AC",
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FD1",
+   "labels_of": "miryang_2022__20220601T080000Z_FX1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first CLOCK",
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FX1",
+   "labels_of": "miryang_2022__20220601T080000Z_FD1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first CLOCK",
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "labels_of": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "py": [
+    "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "labels_of": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FD1",
+   "labels_of": "uljin_2022__20220304T030000Z_FX1",
+   "py": [
+    "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FX1",
+   "labels_of": "uljin_2022__20220304T030000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FD1",
+   "labels_of": "yeongdeok_2025__20250325T190000Z_FX2",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FX2",
+   "labels_of": "yeongdeok_2025__20250325T190000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  }
+ ]
+}

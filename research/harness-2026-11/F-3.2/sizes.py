@@ -6,6 +6,7 @@ HERE = Path(os.path.abspath(__file__)).parent
 sys.path.insert(0, str(HERE))
 import cases, generate as G
 from wfg_scenario_members.contact import ContactModel
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance
 
 ap = argparse.ArgumentParser(); ap.add_argument("--out", required=True); a = ap.parse_args()
@@ -13,7 +14,7 @@ out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
 rows = []
 for c in cases.korean_cases():
     g = json.loads(Path(c["graph"]).read_text()); r = json.loads(Path(c["request"]).read_text())
-    inst, _ = build_instance(g, r, ContactModel.from_packet(c["packet"]))
+    inst, _ = build_instance(g, r, routable_contact_model(c["packet"]))
     res = G.S.solve(inst)
     claim, T, legs = ("ROUTE", res["arrival"], res["legs"]) if res["status"] == "FOUND" else ("NO_ROUTE", inst.horizon + 1, [])
     R, A = G.reachable(inst, T)

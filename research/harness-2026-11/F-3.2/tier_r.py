@@ -32,6 +32,7 @@ import p1_check as P1  # noqa: E402
 import cases  # noqa: E402
 import unknown_support as U  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 
 KMH = {"R1.5": F(15, 10), "R8.2": F(82, 10)}
@@ -41,6 +42,7 @@ EVENT_DAYS = {"KFS_01": ("2025-03-21", "2025-04-01"), "KFS_02": ("2022-03-03", "
 
 
 def native_masks(packet):
+    P1.require_complete_packet_dir(packet)          # F-9.3 rule 2: refuse failed or unfinished writes
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         g = lambda k: a["mask__" + k].astype(bool)
@@ -184,7 +186,7 @@ def main():
     packets, rows = {}, []
     for case in cases.korean_cases():
         g = json.loads(Path(case["graph"]).read_text()); r = json.loads(Path(case["request"]).read_text())
-        model = ContactModel.from_packet(case["packet"])
+        model = routable_contact_model(case["packet"])
         meta = json.loads((Path(case["packet"]) / "NATIVE_METADATA.json").read_text())
         event = meta["construction"]["parent_forecast"]["event_id"]
         u_state, u_q, cur, pos = native_masks(case["packet"])

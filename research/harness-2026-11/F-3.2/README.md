@@ -213,3 +213,91 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   - The export's `contract__cell_duration_s` is asserted equal to T in every sample.
   - Command: `envelope_o2.py --leo <f40e2af worktree> --packet <packets_v31/...> --start <tag> --mode v31 --law
     envelope|scalar --tag a|b|c` (results `results/envelope_o2_v31_{a,b,c}.json`).
+
+## Routing cut 2 (Mira-verified only; ledgers 86, 96, 101–104)
+
+Everything in this section, except the waitable-rule measurement at the end, was verified by Mira at the commit named. Anything not verified stays on
+`thomas/routing-next` and is not part of this cut. That includes `xcheck/DOMINANCE_RULE.md`, a code-reading argument.
+
+**Packet guards (`p1_check.py`; ledger 96).**
+- `routable_contact_model` wraps every F-3.2 `ContactModel.from_packet` call. It refuses:
+  - the HAZARD-only marker;
+  - NaN or −inf births (+inf is valid);
+  - a packet directory with `SUPPORT_WRITE_FAILED` or no `BUILD_SUMMARY.json`.
+- `writer_identity` prints the packet writer.
+- Tests in `xcheck/test_raw_guard.py` and `test_tier_r_guard.py`: 18 passed, 1 skipped. The skipped test is the
+  end-to-end one; it passes when `WFG_REAL_PACKET` is set.
+
+**X1: HAZARD.json vs the router's ContactModel (`xcheck/x1_packets.py`, rules in `xcheck/PASS_RULES.md`; ledger 96).**
+- Certified v3 / v3.1 packets: 15/15 PASS, 2,592/2,592 instances equal.
+- v3.3 burnset negative control: 3/3 FAIL, as expected.
+- F-DYN v3.4 samples: 16/16 done. 12 PASS (2,088/2,088 instances equal) and 4 envelope packets REFUSED by the
+  HAZARD-only marker.
+- PASS_RULES was committed 3.5 minutes before the first results. Git shows the order of commits only; it cannot show
+  that no run happened earlier.
+
+**X2: third-party earliest-arrival cross-check (`xcheck/x2_thirdparty.py`; ledger 96).**
+- 2,009 instances: 1,101 ROUTE and 908 NO_ROUTE.
+- Four methods agree on every instance:
+  - `sipp.solve`;
+  - the certificate, checked by both checkers;
+  - a networkx 3.4.2 time-expanded graph;
+  - an exhaustive sweep.
+- Injected faults are detected: perturb 31, wait_admits 207, ignore_eb 285. Mira's re-run produced byte-identical
+  files.
+
+**F-DYN v3.4 burnset certificates (`results/fdyn_certs_v34_burnset.json`; ledgers 96 and 101).**
+- 696 rows: 108 ROUTE and 588 NO_ROUTE. Both checkers accept, and agree, on all 696.
+- Label: "sound relative to the final mapped burn set; burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176
+  cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only); single implementation, not independently checked".
+- It is a static final-footprint bound: no timing, and identical across starts. Report it as its own row, not as the
+  pessimistic edge of a leave-by band.
+- The raw run output is `results/fdyn_certs_v34_burnset.raw.json`. It differs from the labelled file only in
+  `variant` and `writer`.
+
+**Certificate binding, rev 2.2 (`BINDING_RULE.md`; ledgers 101–102).**
+- Format `WFGC 2` adds a BIND section with five digests:
+  - I: the instance bytes;
+  - G: the graph;
+  - A: the routed hazard, i.e. exactly what ContactModel reads, so it does not depend on the host;
+  - W: the packet writer;
+  - Q: the request projection.
+- Both checkers recompute I. With `--expect` they compare G, A, W and Q and print
+  `ACCEPT … LABELS_MATCH <I16>`.
+- **LABELS_MATCH is not "bound".** It checks only the labels the generator wrote. Example: a bundle relabelled with
+  another request's digests still gets LABELS_MATCH.
+- **Fully bound** requires all four of LABELS_MATCH, a structure check against the consumer's own graph and request,
+  and O2 (`compare_semantic`, 0 differences). The consumer runs
+  `verify_bound.py BUNDLE --graph … --packet … --request …`, which prints `FULLY_BOUND` or `NOT_BOUND <step>`.
+- Panel (`xcheck/results/binding_panel.json`): 20/20 FULLY_BOUND.
+  - Real swaps between requests are rejected 10/10.
+  - The relabel attack is refused 10/10: 8 at the structure check, 2 at O2.
+- Completeness (`xcheck/results/binding_completeness.json`): request fields 660/660, packet fields 437/437.
+- C SHA-256 (`checker_c/sha256.h`): matches the NIST vectors. Both checkers still pass the v1 suite (30 + 2).
+
+**G2c: kit-v2 stage-Z refusals (`xcheck/results/g2c_stage_z_refusals.json`, bundles in
+`xcheck/results/g2c_bundles/`; ledger 103).**
+- The four missions: Hongseong 0402T07 FN1/FX1 and Miryang 0601T08 FD1/FX1.
+- Each is an F-3.2 NO_ROUTE certificate. Both checkers accept it, and it is FULLY_BOUND.
+- Required wording: "relaxation refusal independently checked by two checkers; implication to the kit model by an
+  unverified dominance argument".
+
+**G2b fallback (`xcheck/g2b.py`; ledger 86).**
+- When a run folder has no published decision, the fallback passes only the keywords that the kit's decision module
+  accepts. Otherwise it returns NOT_APPLICABLE_NO_DECISION and never crashes.
+
+**Router regression 2: waiting at non-waitable nodes (`xcheck/test_router_nonwaitable.py`; ledger 104).**
+- Covers the 24 F-BASE (Marcus) F-DYN v3.3 failure rows. Fixture request and instance sha256 equal the recorded
+  ones on 24/24.
+- The router equals the exact answer; the shortcut reproduces its wrong answer.
+- With every node waitable, the router equals N1 equals the recorded answer, N2 equals the router, and arrivals are
+  monotone.
+- Mutation checks: a wait-anywhere router fails 14 rows.
+
+**Waitable rule (provenance; measured by Thomas, not verified by Mira).**
+- Waiting is permitted only at nodes flagged `waitable` in the supplied OSM-derived `graph.json`.
+- The rule that sets the flag is undocumented. The graph provenance says "no … wait-location field validation".
+- Measured on all 5 graphs: the flag equals "node is a graph dead end (exactly one distinct neighbour)", with 0
+  exceptions.
+- So every NO_ROUTE that depends on the non-waitable rule rests on that dead-end convention, not on field-validated
+  wait locations. The graph builder's intended rule is still to be confirmed.
