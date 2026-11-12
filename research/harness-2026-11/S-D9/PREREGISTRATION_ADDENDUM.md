@@ -96,11 +96,11 @@ Every predictor is declared by SHA-256 before the manifest.
   - All of the 1/2/4/8 h dilations.
 - **Later slots** must be declared before their first run. They include a perturbed-input physics ensemble (FARSITE, or ELMFIRE with its published inputs) and WildfireSpreadTS-trained learned baselines. **Any WildfireSpreadTS-trained baseline must list its training fires. A G, F or N fire that is in that training set is excluded from that baseline's comparison, and the exclusion is recorded in the ledger.**
 
-**Running predictors on G, F or N currently blocked.** Running any predictor on a new fire requires building its covariates. Daniel measured the hosts the covariate builders depend on (`forecast/wildfire/environment.py`):
+**Covariate rebuild (resolved).** Running any predictor on a new fire requires building its covariates. Daniel measured the hosts the covariate builders depend on (`forecast/wildfire/environment.py`):
 - **Refused:** archive-api.open-meteo.com, tds-proxy.nkn.uidaho.edu, lfps.usgs.gov, glad.geog.umd.edu and www.landfire.gov.
 - **Reachable:** copernicus-dem-30m.s3.amazonaws.com and zenodo.org.
 
-Until the user opens the refused hosts or supplies the covariates, **no untouched cohort can be scored**.
+**Update:** the user has since approved unrestricted network access for this environment, and Daniel is rebuilding the covariates (a pilot on part-a fires, §1.2). The covariates are rebuilt rather than taken from the owner archive; see the consistency check required in §1.2.
 
 ## 4. Scoring population and strata
 
@@ -139,7 +139,7 @@ Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselin
 
 The score is the RPS over observation-censored arrival bins, on **all** cells of the band (not only burned cells). It is the sum over observation times of the Brier score of the cumulative marginal, which is Iris's discrete right-censored CRPS. Implemented: `sd9bench/arrival.py`.
 
-**Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus) and the covariate hosts are blocked. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. **Every new D1/D2 candidate must emit multi-observation cumulative marginals natively** (revision 9), so the arrival score exists for the models it was designed for. The export must be demonstrated on R before the candidate's SHA freeze. A candidate without it is not admitted to part c. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
+**Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus), and the covariate hosts were blocked at that time. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. **Every new D1/D2 candidate must emit multi-observation cumulative marginals natively** (revision 9), so the arrival score exists for the models it was designed for. The export must be demonstrated on R before the candidate's SHA freeze. A candidate without it is not admitted to part c. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
 
 ## 6. Primary statistic and decision
 
@@ -218,5 +218,5 @@ Before any cohort score, the `tests/` suite in the harness version recorded in `
 
 ## 10. Open questions
 
-- **Q4.** Does the user want the refused covariate hosts or data.mendeley.com opened? Without them, A1 can be frozen but not executed on any untouched fire (§3).
+- **Q4 (resolved).** The user approved network access, and NIROPS and the covariate hosts are reachable.
 - **Q5.** What is the GOFER label definition (GOES fire-detection-derived perimeters at hourly cadence) relative to NIROPS? This needs Sofia's reading of the GOFER paper before the G cadence rule in §2 is frozen.
