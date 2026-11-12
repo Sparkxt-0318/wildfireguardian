@@ -326,7 +326,7 @@ English native review; UI/CSV wiring; F-3.1 values once Richard's run is verifie
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
 
 ## Owner decisions for the message kit (2026-11-12, via the orchestrator)
-- **English automated call dropped where the shelter has no English name.** This replaces the interim pointer ("The
+- **English automated call dropped where the shelter has no English name** (staff wording revised below). This replaces the interim pointer ("The
   shelter has no English name; it is named in the Korean message."), which is removed. For such a place the kit
   produces no English call text at all (`text.en.voice === null`). The decree report marks that output as "not
   produced" in English, and the Korean staff report states it too. No English call is ever produced without its
@@ -346,4 +346,20 @@ appears only for a result checked on the pessimistic instance) is not yet in pla
     before this change they got none ("not in registry"). The 258 의성–안동 place-scenarios are unchanged. Still no
     English contact line (no English name). Violations are unchanged for every place.
 - Mutations: with the English call not dropped, or with 영덕군 removed, 2 tests fail each time.
+- Suite 26 files / 450 tests; build:static OK.
+
+### Staff wording revised (Iris, Sofia) — delta after 634f02d
+- The staff line now says exactly what happens. The English call is not produced, and the Korean automated call is
+  unchanged. English-speaking residents here get no English automated call; in English, the shelter is named only in
+  the village-head script and the family call script, in Korean script. The test checks those claims for every one of
+  the 373 places. "Owner decision" is replaced by "a design decision of this tool" / "개발 측 결정" (Sofia: 소유자 reads
+  as a property owner; 운영책임자 is a defined role in 예규 361 제7조). Residents are "recipients", never "callers".
+- Kit summary `staffSummary(plans, lang)`: "[Staff] Places with no English automated call: 373 of 531 (…)". This
+  makes the gap visible as a property of the area's shelter naming (Iris).
+- Before/after comparison against Main (994abd7…) over every resident output, with an issuer, for 531 real and 600
+  synthetic places:
+  - 373 real (and 91 synthetic): only en.voice changes (now absent);
+  - 158 real (and 509 synthetic): every output is identical;
+  - violations are identical everywhere.
+  The removed interim sentence reaches no output (test).
 - Suite 26 files / 450 tests; build:static OK.

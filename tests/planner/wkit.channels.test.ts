@@ -53,6 +53,7 @@ import {
   checkIssuer,
   englishCallDropped,
   NO_EN_CALL_REPORT,
+  staffSummary,
   namedDestination,
   type ChannelSet,
   type Reply,
@@ -694,6 +695,11 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
         expect(s.violations.some((v) => v.startsWith('en.voice'))).toBe(false);
         expect(s.text.en.staff.decree).toContain(NO_EN_CALL_REPORT.en);
         expect(s.text.ko.staff.decree).toContain(NO_EN_CALL_REPORT.ko);
+        // what the staff line says is true (Iris): the Korean call is unchanged, and in English the shelter is named
+        // only in the village-head script and the family call script, in Korean script
+        expect(s.text.en.head.script).toContain(d!.ko);
+        expect(s.text.en.familyScript.join('\n')).toContain(d!.ko);
+        expect(s.text.en.familyText).not.toContain(d!.ko);
       } else {
         // no partial call: an English call that exists for a place with a named destination names it in English and
         // never carries Hangul, and no call ever points to "the Korean message"
@@ -709,6 +715,13 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     };
     for (const p of real) check(p, true);
     for (const p of syn) check(p, false);
+    // the removed interim sentence reaches no output anywhere
+    for (const p of [...real, ...syn]) expect(residentTexts(B(p, { nowIso: NOW, issuer: ISS })).join('\n')).not.toMatch(/named in the Korean message|no English name/);
+    // the kit summary shows the size of the gap (Iris)
+    expect(staffSummary(real, 'en')).toBe('[Staff] Places with no English automated call: 373 of 531 (the shelter has no English name; a design decision of this tool). The Korean automated call is unchanged at every place.');
+    expect(staffSummary(real, 'ko')).toContain('531곳 중 373곳');
+    // staff wording never uses "owner decision" / 소유자 / 운영책임자 (Iris, Sofia)
+    for (const l of ['ko', 'en'] as const) for (const t of [NO_EN_CALL_REPORT[l], staffSummary(real, l)]) expect(t).not.toMatch(/owner|소유자|운영책임자|callers/i);
     console.log('[W6] English automated calls not produced (shelter without an English name, 531 real):', dropped, '; reader notes on English heads:', readerNotes);
     expect(dropped).toBe(373);
   });
