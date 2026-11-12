@@ -32,3 +32,19 @@ make -C research/harness-2026-11/F-3.2/checker_c && bash research/harness-2026-1
 python3 research/harness-2026-11/F-3.2/run_panel.py --out /tmp/f32 --c-checker research/harness-2026-11/F-3.2/checker_c/wfgc_check
 python3 research/harness-2026-11/F-3.2/mutate.py --bundles /tmp/f32 --per-class 10 --c-checker research/harness-2026-11/F-3.2/checker_c/wfgc_check --out /tmp/f32-mut.json
 ```
+
+## O2 instance faithfulness (measured)
+
+`derive_instance.py` re-derives EB/WB/AC from the raw graph, request and `ContactModel.cell_intervals` with its own
+exact-rational grid geometry, examining every edge (no bounding-box prefilter) and importing nothing from `wfg_sipp`.
+`python3 check_instances.py` (PYTHONPATH as above): **0 differences on all 20 missions**; 0 geometry points outside the
+grid (the frozen `row*width+col` cell formula would alias such points). Sensitivity: moving a single activity-interval
+start by ±2 s on a road cell produced differences in 12/12 targeted trials (4 missions; only 2 had start-in-window
+targets). Untargeted perturbations mostly show no difference because present-fire intervals ([0, ≈3967 s)) outlast
+the 3600 s horizon and many cells carry no roads.
+
+Still trusted: `ContactModel` (packet arrays → per-cell activity intervals), graph and request JSON, the cut rule
+(interior grid lines only), and the integer-second clock.
+
+Observation: the panel's time dependence is thin. 4/20 missions have no blocked edge; in 6 more every blocked edge is
+blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely static cuts.
