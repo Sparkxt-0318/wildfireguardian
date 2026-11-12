@@ -53,7 +53,9 @@ Every predictor is declared by checkpoint or artifact SHA-256 before the cohort 
 
 - **Full population (as forecast-v2).** Initially unmapped cells inside the fixed event rectangle, on the intersection of all predictors' validity masks. Cells outside the endpoint union are mapped-extent negatives. Non-finite or out-of-range probabilities on declared-valid support fail the case.
 - **At-risk band (new).** `dist_m` is the Euclidean distance from the cell centre to the nearest cell centre in the cutoff mapped union, on the event's metric 375 m grid.
-  - The **primary population is B2**: dist ≤ 2,000 m.
+  - **Primary band rule (revision 1; this rule and threshold were committed before any band share was computed).** The candidate cumulative widths are 1, 2, 4, 8 and 16 km. The primary population is the band of the **smallest candidate width whose pooled share of positives on cohort R (US2024, already exposed) is at least 0.90**. If no candidate reaches 0.90, the primary population is the full domain. The selected width is then fixed for every later cohort. Per-fire and per-horizon shares on R are reported next to the choice, and the out-of-band positive count and share appear in the primary table of every cohort.
+  - The band is itself a dilation, so it favours `dilation_8h` (about 1.1 km in 24 h) near its own radius. All widths are shown side by side.
+  - Until the rule has been applied, the earlier draft value is superseded. That value was **B2**: dist ≤ 2,000 m.
   - Cumulative bands of ≤ 1, 2, 4 and 8 km, and annuli (0,1], (1,2], (2,4], (4,8] km, are secondary.
   - The band depends on the cutoff state only, never on the outcome.
   - Positives outside 8 km are counted and reported (spotting or long runs).
