@@ -169,3 +169,78 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   The builder asserts the monotonicity its label precedence relies on: cert ≤ free, and c651 ≤ present ≤ free. Labels
   use uncapped 1-second deadlines. "window" at 1 h means the scenario horizon and travel time bind, not that the place
   is safe.
+
+## F-DYN multi-hour deadline fields (SCENARIO, not what happened; Nora request #4 pending)
+
+* **Claim file and inputs.** The claim file is `results/FDYN_V31_recorded_starts.json` (commit `505b8d3`), built by
+  `deadline_field/fdyn_run.py` on Leo's MANIFEST_v3_1.
+  * Coverage: 24 packets = 6 recorded starts × {5 h, 8 h} × {kriged_mean, firms_early}.
+  * firms_early is a bracket-start, not a lower bound.
+  * Roads are limited to the recorded windows on the interim graphs.
+* **Witnesses.** Every exact per-(origin, shelter) deadline witness passes the unchanged full checker and the closed
+  replay: **6,288 of 6,288 PASS**. 2 are labelled `upper_bound` because dose could bind over their journey duration;
+  both still pass.
+* **Caveat.** Fire-set deadlines are few per packet: UA 0–10 of 84 origins, YD 0–2 of 90. **Most witnesses therefore
+  test the scenario window, not the fire.**
+
+## Burn-duration sensitivity of feasible-departure holes (Uiseong; rule committed before running)
+
+* **Setup.**
+  * The rule, `BURN_DURATION_SENSITIVITY_RULE.md`, was committed at `6cfab3e` before any number was computed.
+  * The summary is `results/BURN_DURATION_SENSITIVITY_uiseong.json`, built by `deadline_field/burn_sensitivity.py`
+    and its `--summary-from` option.
+  * Inputs: the 12 Uiseong v3.1 packets.
+  * Each burning period is scaled by f: drawn ignitions burn [b, b + f·T), present fire burns [0, f·R).
+    "never" = no cell clears within the horizon.
+  * The fields with f ≠ 1 are **contact-field counterfactuals**, not policy-checked.
+* **Baseline check.** f = 1 reproduces the v3.1 feasible-departure sets exactly: 1,008 of 1,008 (origin, packet)
+  unions are identical.
+
+| packet (Uiseong) | origins with a hole, f = 1 / 0.5 / 2 / never | contiguous deadline changed vs f = 1: 0.5 / 2 / never |
+|---|---|---|
+| 03-23 01Z 5 h firms_early | 3 / 3 / 1 / **0** | 1 / 8 / 23 |
+| 03-23 01Z 5 h kriged_mean | 3 / 3 / 2 / **0** | 3 / 2 / 23 |
+| 03-23 01Z 8 h firms_early | 3 / 3 / 3 / **0** | 1 / 9 / 25 |
+| 03-23 01Z 8 h kriged_mean | 3 / 3 / 3 / **0** | 3 / 10 / 24 |
+| 03-24 09Z 5 h firms_early | 2 / 2 / 1 / **0** | 1 / 7 / 10 |
+| 03-24 09Z 5 h kriged_mean | 2 / 2 / 2 / **0** | 2 / 9 / 14 |
+| 03-24 09Z 8 h firms_early | 2 / 2 / 2 / **0** | 7 / 6 / 14 |
+| 03-24 09Z 8 h kriged_mean | 2 / 2 / 3 / **0** | 8 / 6 / 14 |
+| 03-25 17Z 5 h firms_early | 27 / 27 / 25 / **0** | 7 / 8 / 20 |
+| 03-25 17Z 5 h kriged_mean | 27 / 27 / 24 / **0** | 5 / 2 / 9 |
+| 03-25 17Z 8 h firms_early | 27 / 27 / 27 / **0** | 3 / 6 / 23 |
+| 03-25 17Z 8 h kriged_mean | 28 / 27 / 27 / **0** | 2 / 2 / 9 |
+
+* **Holes under never-clears.** No hole survives never-clears in any packet. Under the committed rule, the holes are
+  burn-out under the placeholder burning-duration law. They are a model finding, never shown to residents, and the
+  merged rule (contiguous window only) stands. No hole needed classification by cause.
+* **Direction and size of the deadline changes.** They are monotone in the expected direction. Changes are in seconds,
+  f minus f = 1, over the origins that keep a deadline:
+
+  | f | origins | min | median | max |
+  |---|---|---|---|---|
+  | 0.5 (later) | 39 | +34 | +356 | +3,660 |
+  | 2 (earlier) | 73 | −18,916 | −1,420 | −2 |
+  | never (earlier) | 166 | −24,849 | −4,780 | −1 |
+
+* **Deadlines lost or gained.** Never-clears removes the contiguous deadline of 1 origin per 03-23 packet, and of 4
+  (kriged_mean) or 15 (firms_early) per 03-25 packet. In these origins a present-fire cell that would have burned out
+  stays burning. At f = 0.5, 2 firms_early origins at 03-25 gain one.
+* **What this means.** The contiguous deadline is sensitive to the placeholder burning duration: at f = 2 it moves
+  for 2–10 of 84 origins per packet. Deadlines that depend on burn-out are not robust to that law.
+
+## Unknown-support three-way rule at 1 h (all 6 caches)
+
+* **Files.** The summary is `results/UNKNOWN_THREEWAY_1h.json`, built by `deadline_field/threeway.py` and its
+  `--summary-from` option.
+* **Tiers.** A = all unknown blocked from 0; B(v) and R(v) as in `deadline_field/unknown.py`.
+* **Scope of "checked".** Pessimistic "checked" means contact-feasible only: the dose/peak precondition for
+  hypothetical unknown sources is not established.
+
+| tier | jobs unresolved (range over caches) | origins losing their deadline (per cache) |
+|---|---|---|
+| A | 27–60% | 24–56 |
+| B1.5 | 27–60% | 20–55 |
+| B8.2 | 27–60% | 22–56 |
+| R1.5 | 1–5% | 0–1 |
+| R8.2 | 3–21% | 0–5 |

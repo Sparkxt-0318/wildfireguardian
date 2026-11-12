@@ -66,16 +66,44 @@ def classify_never_hole(row):
             "union_only(per-destination prefixes; cannot happen for a union of prefixes)", "detail": kinds}
 
 
+def summarize(outs: list) -> dict:
+    """Committed summary: per packet and factor the counts of the rule, the origins with a hole, and every origin whose
+    contiguous deadline differs from f = 1 (both values). Never pooled across packets."""
+    pk = []
+    for d in outs:
+        base = d["per_origin"]["1"]
+        e = d.get("manifest_entry", {})
+        row = {"packet": "%s %s h%d %s" % (d["region"], d["start"], d["horizon_s"] // 3600, e.get("variant")),
+               "variant_label": "bracket-start, not a lower bound" if e.get("variant") == "firms_early" else None,
+               "counts": {f: {k: v for k, v in x.items() if k != "timing"} for f, x in d["summary"].items()},
+               "never_clears_holes": d["never_clears_holes"],
+               "holes": {f: sorted(o for o, r in d["per_origin"][f].items() if r["hole"]) for f in FACTORS},
+               "deadline_changes": {f: {o: [base[o]["contiguous_deadline_s"], r["contiguous_deadline_s"]]
+                                        for o, r in d["per_origin"][f].items()
+                                        if r["contiguous_deadline_s"] != base[o]["contiguous_deadline_s"]}
+                                    for f in FACTORS if f != "1"},
+               "wall_s": {f: round(x["timing"]["seconds"], 1) for f, x in d["summary"].items()}}
+        pk.append(row)
+    return {"what": "burn-duration sensitivity of feasible-departure holes, Uiseong F-DYN v3.1 packets (rule: "
+                    "BURN_DURATION_SENSITIVITY_RULE.md). SCENARIO, not what happened; f != 1 are contact-field "
+                    "counterfactuals (not policy-checked). deadline_changes: origin -> [f=1, f] contiguous deadline (s).",
+            "packets": pk}
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--graph", type=Path, required=True)
-    ap.add_argument("--packet", type=Path, required=True)
-    ap.add_argument("--instance-json", type=Path, required=True)
-    ap.add_argument("--region", required=True)
-    ap.add_argument("--start", required=True)
-    ap.add_argument("--horizon-s", type=int, required=True)
+    ap.add_argument("--summary-from", nargs="+", type=Path, help="write the committed summary from raw outputs")
+    ap.add_argument("--graph", type=Path)
+    ap.add_argument("--packet", type=Path)
+    ap.add_argument("--instance-json", type=Path)
+    ap.add_argument("--region")
+    ap.add_argument("--start")
+    ap.add_argument("--horizon-s", type=int)
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
+    if a.summary_from:
+        a.out.write_text(json.dumps(summarize([json.loads(f.read_text()) for f in a.summary_from]), indent=1))
+        return
     doc = json.loads(a.instance_json.read_text())
     cand = [i for i in doc["instances"] if i["region"] == a.region and i["horizon_s"] == a.horizon_s]
     inst = next((i for i in cand if i["start_tag"] == a.start), cand[0])
