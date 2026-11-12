@@ -5,6 +5,9 @@ B3.2  whole-state completeness: interrupt the bound model at tick k in {1, 2, 3,
       list; (a) right after the interruption every cache entry it holds equals the fresh model's entry for that key
       (no partial entry); (b) after replaying the same queries, every returned value is byte-identical to the fresh
       model's, and the whole reachable state (all attributes, recursively) equals the fresh model's except counters.
+      NOTE: road_bounds._REGISTRY is a PROCESS-WIDE coefficient cache (keyed by model identity), not a per-model one;
+      every RoadBoundModel built in a process shares it. A worker process builds exactly one model, so each probe model
+      here starts from a cleared _REGISTRY to reproduce that; without the clear, later models would see earlier work.
 B3.3  downstream: an LO solve interrupted by a StageCap, then LO and HI solves on the same model, equal the same solves
       on a fresh model.
 B3.4  a capped stage is never a refusal or a bound: a job whose LO is StageCap'd (LO would otherwise PROVE_INFEASIBLE)
