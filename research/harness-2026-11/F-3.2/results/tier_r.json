@@ -7,11 +7,21 @@
    "positive_prob": 80,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_02",
+   "a_available": true,
    "firms_detections_in_grid": 2342,
    "firms_cells": 1162,
    "U_state_with_firms": 17,
-   "b_available": true
+   "event": "KFS_02",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "miryang_2022/20220601T080000Z": {
    "U_state": 107,
@@ -20,11 +30,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_11",
+   "a_available": true,
    "firms_detections_in_grid": 72,
    "firms_cells": 48,
    "U_state_with_firms": 5,
-   "b_available": true
+   "event": "KFS_11",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "hongseong_2023/20230402T070000Z": {
    "U_state": 171,
@@ -33,11 +53,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_05",
+   "a_available": true,
    "firms_detections_in_grid": 191,
    "firms_cells": 110,
    "U_state_with_firms": 13,
-   "b_available": true
+   "event": "KFS_05",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2023_Republic_of_Korea.csv",
+     "viirs-jpss1_2023_Republic_of_Korea.csv",
+     "viirs-snpp_2023_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "uiseong_andong_2025/20250323T010000Z": {
    "U_state": 953,
@@ -46,11 +76,21 @@
    "positive_prob": 336,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 2030,
    "firms_cells": 1147,
    "U_state_with_firms": 74,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "yeongdeok_2025/20250325T190000Z": {
    "U_state": 2570,
@@ -59,11 +99,21 @@
    "positive_prob": 149,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 1313,
    "firms_cells": 805,
    "U_state_with_firms": 126,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "uljin_2022/20220304T060000Z": {
    "U_state": 1659,
@@ -72,11 +122,21 @@
    "positive_prob": 282,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_02",
+   "a_available": true,
    "firms_detections_in_grid": 2342,
    "firms_cells": 1162,
    "U_state_with_firms": 17,
-   "b_available": true
+   "event": "KFS_02",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "miryang_2022/20220601T020000Z": {
    "U_state": 107,
@@ -85,11 +145,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_11",
+   "a_available": true,
    "firms_detections_in_grid": 72,
    "firms_cells": 48,
    "U_state_with_firms": 5,
-   "b_available": true
+   "event": "KFS_11",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "hongseong_2023/20230402T140000Z": {
    "U_state": 171,
@@ -98,11 +168,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_05",
+   "a_available": true,
    "firms_detections_in_grid": 191,
    "firms_cells": 110,
    "U_state_with_firms": 13,
-   "b_available": true
+   "event": "KFS_05",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2023_Republic_of_Korea.csv",
+     "viirs-jpss1_2023_Republic_of_Korea.csv",
+     "viirs-snpp_2023_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "uiseong_andong_2025/20250324T090000Z": {
    "U_state": 953,
@@ -111,11 +191,21 @@
    "positive_prob": 440,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 2030,
    "firms_cells": 1147,
    "U_state_with_firms": 74,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "yeongdeok_2025/20250325T230000Z": {
    "U_state": 2570,
@@ -124,11 +214,21 @@
    "positive_prob": 26,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 1313,
    "firms_cells": 805,
    "U_state_with_firms": 126,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "uljin_2022/20220304T120000Z": {
    "U_state": 1659,
@@ -137,11 +237,21 @@
    "positive_prob": 329,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_02",
+   "a_available": true,
    "firms_detections_in_grid": 2342,
    "firms_cells": 1162,
    "U_state_with_firms": 17,
-   "b_available": true
+   "event": "KFS_02",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "hongseong_2023/20230402T230000Z": {
    "U_state": 171,
@@ -150,11 +260,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_05",
+   "a_available": true,
    "firms_detections_in_grid": 191,
    "firms_cells": 110,
    "U_state_with_firms": 13,
-   "b_available": true
+   "event": "KFS_05",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2023_Republic_of_Korea.csv",
+     "viirs-jpss1_2023_Republic_of_Korea.csv",
+     "viirs-snpp_2023_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   },
   "uiseong_andong_2025/20250325T170000Z": {
    "U_state": 953,
@@ -163,11 +283,21 @@
    "positive_prob": 511,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 2030,
    "firms_cells": 1147,
    "U_state_with_firms": 74,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "yeongdeok_2025/20250326T080000Z": {
    "U_state": 2570,
@@ -176,11 +306,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_01",
+   "a_available": true,
    "firms_detections_in_grid": 1313,
    "firms_cells": 805,
    "U_state_with_firms": 126,
-   "b_available": true
+   "event": "KFS_01",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis.csv",
+     "viirs-jpss1.csv",
+     "viirs-snpp.csv"
+    ],
+    "files_read": 9
+   }
   },
   "miryang_2022/20220531T100000Z": {
    "U_state": 107,
@@ -189,11 +329,21 @@
    "positive_prob": 0,
    "positive_prob_outside_footprint": 0,
    "positive_prob_in_U_state": 0,
-   "event": "KFS_11",
+   "a_available": true,
    "firms_detections_in_grid": 72,
    "firms_cells": 48,
    "U_state_with_firms": 5,
-   "b_available": true
+   "event": "KFS_11",
+   "b_available": true,
+   "firms_coverage": {
+    "covered": true,
+    "files_spanning": [
+     "modis_2022_Republic_of_Korea.csv",
+     "viirs-jpss1_2022_Republic_of_Korea.csv",
+     "viirs-snpp_2022_Republic_of_Korea.csv"
+    ],
+    "files_read": 9
+   }
   }
  },
  "rows": [
