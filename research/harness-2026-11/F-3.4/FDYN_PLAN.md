@@ -287,3 +287,25 @@ it:**
 
 **New open item: the LO wall-cap overrun on Uiseong** (246–273 s elapsed against about a 160 s cap). It adds to the
 Z overrun (21–23 s against a 6 s cap).
+
+## Amendment A4: Z-cap reproducibility sizing, committed before it runs (orchestrator decision 14:43 UTC)
+
+**Question.** With identical inputs, how often does the unmodified kit publish from Z (FEASIBLE), and how often does
+it go on to the EA bound and stop on the memory guard?
+
+**Requests.** Yeongdeok 0325T23 `firms_early`, origins …11753630207 (Z incumbent arrival 59) and …415158168 (arrival
+274).
+
+**Setup.** The **unmodified** request-window kit; controller guard 3,072 MiB; no `rss_limit_mb` in the request; budget
+900 s. **10 repetitions per request**, run sequentially (alternating the two requests) on a quiet host. Output
+`fdyn_zcap_r{01..10}`.
+
+**Reported per request (descriptive only, no pass/fail):**
+- counts of CHECKED_JOURNEY_FEASIBLE / FULL_OPTIMUM_PROVEN, memory-guard stop, and other outcomes;
+- per rep: the Z stage status and reason (`WALL_CLOCK_AFTER_CHECK` with an incumbent vs `WALL_CLOCK` without), Z
+  elapsed, wall time and family peak RSS.
+
+The 900 s / 3 GiB row from earlier (`fdyn_b900`) is reported beside these but not pooled.
+
+**Label.** Non-evaluated (a sizing of an evaluated-kit behaviour at an extended budget). One host only, so the rates
+are specific to this host.
