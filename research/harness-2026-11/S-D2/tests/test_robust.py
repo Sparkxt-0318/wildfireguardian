@@ -71,3 +71,11 @@ def test_scale_by_simulation_recovers_known_multiplier():
     shape = np.concatenate([[p.k0], p.k]) / 3.0
     _, m = R.fit_scale_by_simulation(p, obs, shape, n_sims=6, seed=1)
     assert 2.4 < m < 3.7
+
+
+def test_mcem_scale_recovers_multiplier_with_true_shape():
+    p = R.make_problem(4)
+    obs = S.observe_perimeter(p, every=12.0)
+    shape = np.concatenate([[p.k0], p.k]) / 2.5
+    _, m = R.mcem_scale(p, obs, shape, np.random.default_rng(0), iterations=12, sweeps=2, keep=1, average_last=6)
+    assert 2.0 < m < 3.1

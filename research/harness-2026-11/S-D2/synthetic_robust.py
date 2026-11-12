@@ -396,3 +396,35 @@ def observe_detections(problem: Problem, rng, *, every=12.0, q=0.0, left_open=Fa
     lo[problem.seeds] = hi[problem.seeds] = 0.0
     return dict(kind="perimeter", lo=lo, hi=hi, burned=seen, surveys=over,
                 missed_cells=int((burned & ~seen).sum()))
+
+
+# ------------------------------------------- rate_composite (A1 §3.2, item 23)
+
+def mcem_scale(problem: Problem, obs: dict, shape: np.ndarray, rng, *, iterations=30, sweeps=3, keep=2,
+               average_last=10, step=0.1):
+    """One-parameter latent-time EM: theta = m * shape with the shape fixed.
+
+    The E-step is the same Gibbs sampler as full MCEM. The M-step is closed form, since the
+    complete-data log-likelihood in m is N log m - m (shape . exposure) + const, so
+    m = N / (shape . mean exposure) over the kept samples. N is the number of arrival events."""
+    sampler = S.LatentSampler(problem, obs, step=step)
+    tau = sampler.initial()
+    m = 1.0
+    hist = []
+    for _ in range(iterations):
+        n_ev, expo = 0.0, 0.0
+        for s in range(sweeps):
+            tau = sampler.sweep(tau, m * shape, rng)
+            if s >= sweeps - keep:
+                ev, ex = S.sufficient_stats(problem, tau, sampler.src)
+                n_ev += len(ev)
+                expo += float(shape @ ex)
+        m = n_ev / expo
+        hist.append(m)
+    m = float(np.mean(hist[-average_last:]))
+    return m * shape, m
+
+
+def fit_rate_composite(problem: Problem, obs: dict, rng, **kw):
+    shape = fit_bracket_composite(problem, obs)
+    return mcem_scale(problem, obs, shape, rng, **kw)[0]
