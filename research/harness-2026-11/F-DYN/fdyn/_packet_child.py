@@ -120,6 +120,7 @@ def main():
         footprint = z['burnset_mask'].copy() if 'burnset_mask' in z.files else None
     S = times.shape[0]
     horizon = float(meta['horizon_s'])
+    noreentry = meta.get('transform') == 'no_reentry/1'          # NOREENTRY_RULE.md (absent: v3.5 path unchanged)
     calls = []
 
     def fdyn_draws(q, scenario_count, seed, horizon_s):
@@ -141,7 +142,8 @@ def main():
         # floor(ignition) + widened duration T+Q covers [exact ignition, exact ignition + T); consumed fraction scaled
         # so the emitted heat-release-rate density fuel*H*cf/T is unchanged (conservative for contact and radiation)
         burnset = meta.get('arrival_variant') == 'envelope_burnset'
-        Tp = horizon if burnset else T0 + Q       # PACKET_CONSISTENCY_RULE.md A: burn set on [0, H) under the scalar law
+        # PACKET_CONSISTENCY_RULE.md A (burn set on [0, H)) and NOREENTRY_RULE.md (born cells closed to H): T = H
+        Tp = horizon if (burnset or noreentry) else T0 + Q
         s['burning_duration_s'] = Tp
         s['consumed_fraction'] = cf0 * Tp / T0
         s['fdyn'] = {k: meta[k] for k in ('fdyn_version', 'label', 'plan_sha256', 'ignition_times_sha256',
@@ -168,6 +170,18 @@ def main():
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
                                           'fire arrived before that overpass. HAZARD-only; not for array-based routing '
                                           'or certification (PACKET_CONSISTENCY_RULE.md B)')
+        if noreentry:                             # NOREENTRY_RULE.md: own identity (settings digest, ids), labelled
+            s['source_law_version'] = 'wfg.fdyn.no-reentry-scalar/1'
+            s['fdyn']['transform'] = 'no_reentry/1'
+            s['fdyn']['no_reentry'] = ('no re-entry: a cell born at b is closed on [b, H), present fire on [0, H), '
+                                       'burned-out-at-start cells open (Richard PacketModel never); scalar law T = R = H '
+                                       '(NOREENTRY_RULE.md); default for person-facing outputs')
+            s['fdyn']['no_reentry_flux'] = "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears"
+            s['fdyn'].pop('envelope', None)
+            if meta.get('arrival_variant') == 'envelope':
+                s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
+                                          'fire arrived before that overpass; no re-entry from lo, scalar law, arrays '
+                                          'consistent with HAZARD (NOREENTRY_RULE.md)')
         s['fdyn']['duration_widening'] = {'export_cell_duration_s': T0, 'packet_burning_duration_s': Tp,
                                           'export_consumed_fraction': cf0,
                                           'packet_consumed_fraction': cf0 * Tp / T0}
@@ -184,7 +198,24 @@ def main():
 
     B.radiation_operator_identity = fdyn_radiation_identity
     envelope_checks = []
-    if hi_rel is not None:
+    nr_checks = []
+    if noreentry and footprint is None:          # NOREENTRY_RULE.md: births from the plan, T = R = H (burnset keeps its path)
+        orig_nr = B.construct
+
+        def noreentry_construct(forecast, *, cutoff_utc, epsg, settings):
+            built = orig_nr(forecast, cutoff_utc=cutoff_utc, epsg=epsg, settings=settings)
+            T = float(built['settings']['burning_duration_s'])
+            if T != horizon:
+                raise SystemExit('NOREENTRY_T_NOT_H')
+            again = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, b, T))
+            if not same_members(np, again, built['members']):
+                raise SystemExit('NOREENTRY_LOOP_DOES_NOT_REPRODUCE_WRITER')
+            built['remaining_s'], built['remaining_exact'] = horizon, False       # present fire closed to H
+            built['members'] = rebuild_members(B, np, built, epsg, lambda k, b: scalar_ext(B, np, b, T))
+            nr_checks.append(1)
+            return built
+        B.construct = noreentry_construct
+    if hi_rel is not None and not (noreentry and footprint is None):
         orig_construct = B.construct
 
         def envelope_construct(forecast, *, cutoff_utc, epsg, settings):
@@ -240,7 +271,9 @@ def main():
         raise SystemExit('DRAW_INJECTION_NOT_USED_EXACTLY_ONCE')
     if len(rad_calls) != 1:
         raise SystemExit('RADIATION_IDENTITY_INJECTION_NOT_USED')
-    if hi_rel is not None and len(envelope_checks) != 1:
+    if noreentry and footprint is None and len(nr_checks) != 1:
+        raise SystemExit('NOREENTRY_NOT_APPLIED_EXACTLY_ONCE')
+    if hi_rel is not None and not (noreentry and footprint is None) and len(envelope_checks) != 1:
         raise SystemExit('ENVELOPE_NOT_APPLIED_EXACTLY_ONCE')
     sub = times if win is None else times[:, win['r0']:win['r1'] + 1, win['c0']:win['c1'] + 1]
     with np.load(Path(out) / 'constructed_arrays.npz', allow_pickle=False) as z:
@@ -267,7 +300,8 @@ def main():
             rec.update(applied=True, support_writer=summ['support_writer'])
         meta['support'] = rec
     arrays = Path(out) / 'constructed_arrays.npz'
-    if variant == 'envelope':                    # PACKET_CONSISTENCY_RULE.md B: HAZARD-only, array path must refuse
+    hazard_only = variant == 'envelope' and not noreentry   # no-re-entry envelope is scalar-law (NOREENTRY_RULE.md)
+    if hazard_only:                              # PACKET_CONSISTENCY_RULE.md B: HAZARD-only, array path must refuse
         meta['arrays_sha256_as_written'] = sha(arrays)
         with np.load(arrays, allow_pickle=False) as z:
             arr = {k: z[k] for k in z.files}
@@ -278,7 +312,7 @@ def main():
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from fdyn import consistency                 # PACKET_CONSISTENCY_RULE.md C: builder self-check, every variant
     chk = consistency.check(out)
-    if variant == 'envelope':
+    if hazard_only:
         if not str(chk.get('array_path', '')).startswith('REFUSED'):
             raise SystemExit('HAZARD_ONLY_ARRAYS_NOT_REFUSED')
     elif not chk['consistent']:

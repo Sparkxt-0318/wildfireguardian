@@ -93,12 +93,14 @@ def main(argv=None):
     ap.add_argument('--kriged-toa', type=Path, default=None, help='published TOA for the synthetic present fire')
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--python', default=sys.executable)
+    ap.add_argument('--no-reentry', action='store_true',
+                    help='NOREENTRY_RULE.md: born cells closed to the horizon (scalar law T = R = H), own identity')
     ap.add_argument('--support-mask', type=Path, default=None,
                     help='F-9.3 SUPPORT_WIRING_RULE.md: npz with boolean "support" (north-up; export grid or packet grid)')
     ap.add_argument('--support-rule', default=None, help='supplied/1 (the only rule on this path)')
     ap.add_argument('--support-provenance', default=None, help='JSON provenance of the mask (required with a mask)')
     a = ap.parse_args(argv)
-    if a.support_mask is not None and a.arrival_variant == 'envelope':   # refuse before any work (correction 1)
+    if a.support_mask is not None and a.arrival_variant == 'envelope' and not a.no_reentry:   # correction 1 (per-cell only)
         raise SystemExit('SUPPORT_ENVELOPE_UNSUPPORTED: masks apply to scalar-law packets only')
     arrival = read_raster(a.arrival)
     sd = read_raster(a.sd) if a.sd else None
@@ -149,6 +151,8 @@ def main(argv=None):
     extra = {} if p['hi_rel'] is None else {'hi_rel': p['hi_rel']}
     if a.arrival_variant == 'envelope_burnset':          # ENVELOPE_BURNSET_RULE.md: static law on the burn set
         extra['burnset_mask'] = np.isfinite(arrival)
+    if a.no_reentry:                                       # NOREENTRY_RULE.md (absent: plan bytes as v3.5)
+        p['meta']['transform'] = 'no_reentry/1'
     np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']), **extra)
     cmd = [a.python, '-I', '-B', str(HERE / '_packet_child.py'), '--plan', str(plan_path), '--graph', str(graph),
            '--export-dir', str(export_dir), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
@@ -156,7 +160,7 @@ def main(argv=None):
     if (a.support_mask is None) != (a.support_rule is None) or (a.support_mask is None) != (a.support_provenance is None):
         raise SystemExit('SUPPORT_ARGS: --support-mask, --support-rule and --support-provenance go together')
     if a.support_mask is not None:                       # F-9.3 SUPPORT_WIRING_RULE.md
-        if a.arrival_variant == 'envelope':               # SUPPORT_WIRING_RULE.md correction 1
+        if a.arrival_variant == 'envelope' and not a.no_reentry:   # SUPPORT_WIRING_RULE.md correction 1 (per-cell law)
             raise SystemExit('SUPPORT_ENVELOPE_UNSUPPORTED: masks apply to scalar-law packets only')
         if a.support_rule != 'supplied/1':
             raise SystemExit(f'SUPPORT_RULE_UNKNOWN {a.support_rule!r} (F-DYN path: supplied/1 only)')
