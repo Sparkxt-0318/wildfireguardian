@@ -105,5 +105,7 @@
    "FX1"
   ]
  },
- "tier": "the frozen latest_inputs_try02 packets the kit-v2 Step 0 jobs read (input sha prefixes = Priya / g2c_stage_z_refusals.json)"
+ "tier": "the frozen latest_inputs_try02 packets the kit-v2 Step 0 jobs read (input sha prefixes = Priya / g2c_stage_z_refusals.json)",
+ "script": "xcheck/g2c_premises.py (reproduces the packets block exactly)",
+ "verified": "Mira ledger 107 (independent script; plus per-member flame phases 0 mismatches; negative control without row flip fails)"
 }

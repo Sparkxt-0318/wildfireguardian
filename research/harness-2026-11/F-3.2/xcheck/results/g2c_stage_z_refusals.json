@@ -100,5 +100,7 @@
    "t7_structure_diffs": 0,
    "t7_o2_diffs": 0
   }
- ]
+ ],
+ "scope_wording_w2prime": "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written dominance argument (DOMINANCE_RULE \u00a71, read against the kit's contact and mission code at f2cbcfc, byte-identical through Main aaaa02c6; reviewed by Mira as a document, the code reading itself not independently re-checked), conditional on both sides using the same packet members, flame law and grid cells; packet, members and grid checked",
+ "scope_wording_note": "W2-prime replaces the earlier W1 wording in \"scope\" (Mira ledgers 106-107; premises in g2c_premises.json, script xcheck/g2c_premises.py). Still open: the Step 0 run manifest showing which kit checker blobs the four jobs loaded (Priya)."
 }
