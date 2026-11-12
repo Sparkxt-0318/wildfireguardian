@@ -505,8 +505,14 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **R16.4 is close to Tier A.** At 16.4 km/h every unknown cell is blocked within the hour in 5 of 6 caches (YD
     03-26 08Z: 2,548 of 2,599 cells). In effect, R16.4 is Tier A with a ramp of up to 1 h.
 * **Addendum: B16.4 (Iris).** Tier B at 16.4 km/h blocks U_state from 0 and U_q from d / v. File
-  `results/RATE_ASSUMED_SENSITIVITY_1h_with_B16p4.json`; the A / R entries are unchanged from the verified file. Not yet
-  verified.
+  `results/RATE_ASSUMED_SENSITIVITY_1h_with_B16p4.json`; the A / R entries are unchanged from the verified file.
+  **VERIFIED: Nora request #12 addendum, PASS WITH NOTES, ledger row 57.**
+  * **Nora's checks.** Her B16.4 runs reproduce the file exactly. Her own tier-B start times equal mine. The nesting
+    A ≤ B16.4 ≤ B8.2 ≤ B1.5 ≤ optimistic and B16.4 ⊆ R16.4 hold with 0 violations.
+  * **Order.** The rule addition (dfd02ec, 15:41:17) came before the runs. It did **not** come before the code: the
+    tier was added in 41a2ae7 at 15:41:01, 16 s earlier.
+  * **Reporting.** In Yeongdeok, B16.4 is identical to Tier A, so it is reported as **"= A (YD)"**, not as a separate
+    bound.
 
   | cache | B16.4 removed / moved (median / max s) |
   |---|---|
