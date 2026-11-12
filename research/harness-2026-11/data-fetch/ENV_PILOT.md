@@ -39,7 +39,7 @@ the repo keeps only hashes, not the reference rasters.
 pixel values are therefore identical to the owner's, yet the raw file's hash differs. Re-encoding the rebuilt CC, slope and tree-cover arrays did
 **not** reproduce any committed hash with:
 - 792 GDAL 3.9.3 creation-option and tag variants (deflate, lzw, zstd, none; predictor 1, 2, 3; tiled or not; 128/256/512 blocks; z-levels; three tag sets);
-- 4 dtypes;
+- 5 dtypes (float32, float64, int16, int32, uint8);
 - rasterio 1.3.9 to 1.4.4 Linux wheels, covering GDAL 3.6.4, 3.8.4, 3.9.2, 3.9.3 and 3.10.3.
 
 The difference is outside the pixel values for CC and is not reproducible on Linux. The remaining candidate is the owner's macOS build at the
@@ -60,7 +60,7 @@ weeks per location. I computed the locations with the repo's own `o1280_location
 | KFS_01 | 48 / 35 / 4 / 120 | 10 / 5 / 10 |
 
 All 44 project events together come to about 10,700 weighted calls, which exceeds the free 10,000/day. Small part-a fires cost about 20–75 each, so a few dozen fit in one
-day's quota. **The quota is per IP and this egress IP was already exhausted by other users**, so feasibility depends on the reset and on
+day's quota. **The quota is per IP, and this egress IP was already exhausted at my first request (by whom is unknown)**, so feasibility depends on the reset and on
 shared use. The same FAQ also states that "historical … APIs require the Professional API Plan or higher", which conflicts with the free-tier
 terms; the user should check this before relying on the free archive. A retry once after 00:00 UTC is scheduled.
 
