@@ -17,7 +17,7 @@ work stays on the development branch `claude/s-d2-interval-censored-likelihood`.
 | Kriging SD calibration against NIROPS brackets | 6d125bd | Hannah | PASS WITH NOTES |
 | Synthetic known-kernel study (soft labels, MCEM, hourly arms) | c7f7df3 | Hannah | PASS WITH NOTES |
 | Block-CV standardized residuals of kriging variance | b8aeafb | Owen | PASS WITH NOTES |
-| NIROPS part-a bracket extraction (access and construction) | 4d09067 | Owen | PASS WITH NOTES |
+| NIROPS part-a bracket extraction (access and construction) | 4d09067; frozen file from 8667f5a | Owen | PASS WITH NOTES |
 | Robustness study (bracket width, misspecification, kriged inputs) | 4bb7933 | Owen | PASS WITH NOTES |
 | Composite shape + simulated scalar rate (negative result) | d68d790 | Owen | PASS WITH NOTES |
 
@@ -94,8 +94,10 @@ work stays on the development branch `claude/s-d2-interval-censored-likelihood`.
   * An independent extraction on two non-GOFER part-a fires (Bridge, Line), which matches cell for cell.
 * **Ledger.** Five of the 42 are GOFER fires: Bobcat, CZU, KNP, LNU-Meyers and Slater. **Per A1 item 25** they are
   H-dev, not H-test, and may be used in part-a development.
-* **One change from the verified file:** the docstring's allowlist sha is updated from 801acdd8 (superseded) to
-  7db3cc0e.
+* **Frozen file:** `nirops_brackets.py` is the 8667f5a version, which adds the `--source-ref` option that pins the
+  allowlist commit in the log. Owen ran exactly that file in his 8667f5a verification, and it reproduced the committed
+  access log. The only change from it is the docstring's allowlist sha, 801acdd8 (superseded) → 7db3cc0e. The
+  committed access log was produced by this version.
 
 ## 5. Robustness study (4bb7933)
 
