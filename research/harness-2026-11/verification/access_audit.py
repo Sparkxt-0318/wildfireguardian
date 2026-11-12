@@ -67,6 +67,14 @@ FTP2526 = re.compile(r'wildfire\.gov[^\s\'"]*?(?<!\d)(2025|2026)(?!\d)', re.I)
 WEBTOOLS = {'WebSearch', 'WebFetch'}
 
 
+def safe_host(u):
+    """Host of a URL-like string; never raises (urlparse rejects e.g. unbalanced '[' as an IPv6 literal)."""
+    try:
+        return urlparse(u).netloc.lower() or '<no-host>'
+    except ValueError:
+        return '<bad-url>'
+
+
 def norm_tokens(text):
     return [t for t in re.split(r'[^a-z0-9]+', text.lower()) if t]
 
@@ -162,7 +170,7 @@ def audit(paths, name_sets):
                     if is_net or WILDFIRE.search(text):
                         net_calls[tid] = True
                     for u in URL.findall(text):                       # hosts from EVERY tool input
-                        S[sess]['hosts'][urlparse(u).netloc.lower() or '<no-host>'] += 1
+                        S[sess]['hosts'][safe_host(u)] += 1
                 elif field == 'result':
                     for k, rx in FILES.items():
                         if re.search(rx, text):
