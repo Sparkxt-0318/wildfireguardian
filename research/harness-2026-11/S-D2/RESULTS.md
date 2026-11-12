@@ -511,3 +511,12 @@ verdicts stand as recorded. Environment sensitivity is under review by Owen.
     values are unadjusted across ~32 configurations.
 - The full pinned CV (E3, results/cv_part_a_pinned.json) is still the version of record. It includes the composite
   with the guard.
+- **Rate and state arms** (3ec5a8bc): **code-level check by Owen**; the numerical verdict waits for the pinned rerun.
+  - Causality is confirmed: each interval uses only that fire's earlier intervals, and mcem_state's EM uses other
+    folds only.
+  - The time-change shortcut is exact in law for this model.
+  - Internal check: m = 1 gives 0.066026 against the CV's 0.065977, consistent with Monte Carlo error.
+  - The rule timing was confirmed.
+  - Design note, which the rule declares: the online update treats an interval's cells as independent Bernoulli
+    observations, so the posterior over m concentrates faster than the evidence warrants. This does not change the
+    verdict that neither arm qualifies.
