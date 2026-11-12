@@ -1,0 +1,380 @@
+{
+ "command": "python cv_rate_arm.py --brackets /tmp/claude-0/-home-user-wildfireguardian/714aca3e-92f3-5774-9c7c-0355cdc04536/scratchpad/brackets_v2 --cv-ckpt /tmp/claude-0/-home-user-wildfireguardian/714aca3e-92f3-5774-9c7c-0355cdc04536/scratchpad/cv_ckpt --ckpt /tmp/claude-0/-home-user-wildfireguardian/714aca3e-92f3-5774-9c7c-0355cdc04536/scratchpad/rate_ckpt --out results/cv_rate_arm.json",
+ "rule": "RULE_rate_arm.md @ ba71e7ca + addendum",
+ "grid": [
+  0.0625,
+  0.125,
+  0.25,
+  0.5,
+  1.0,
+  2.0
+ ],
+ "prior": [
+  0.1,
+  0.1,
+  0.1,
+  0.1,
+  0.5,
+  0.1
+ ],
+ "sims": 512,
+ "pooled": {
+  "mcem_rate": {
+   "brier": 0.06857971441697303,
+   "brier_0-1km": 0.17986591410886668,
+   "brier_1-2km": 0.047315270559015965,
+   "brier_2-4km": 0.02315372813163908
+  },
+  "mcem_m1_512": {
+   "brier": 0.06602605145534103,
+   "brier_0-1km": 0.16892118437010387,
+   "brier_1-2km": 0.04763246361451724,
+   "brier_2-4km": 0.023259014042493913
+  },
+  "plugin": {
+   "brier": 0.05690829006350518,
+   "brier_0-1km": 0.1346654800165962,
+   "brier_1-2km": 0.04633122586924572,
+   "brier_2-4km": 0.022580845288909596
+  },
+  "mcem": {
+   "brier": 0.06597748213663163,
+   "brier_0-1km": 0.16875589510337963,
+   "brier_1-2km": 0.04760711136746674,
+   "brier_2-4km": 0.023257535987227452
+  },
+  "logistic_cf": {
+   "brier": 0.05664636501891034,
+   "brier_0-1km": 0.1333766758343642,
+   "brier_1-2km": 0.04625558645223815,
+   "brier_2-4km": 0.022744084988019612
+  },
+  "persistence": {
+   "brier": 0.0646171920892892,
+   "brier_0-1km": 0.16215200645425107,
+   "brier_1-2km": 0.04844701466814753,
+   "brier_2-4km": 0.02331328822702096
+  },
+  "dilation_8h": {
+   "brier": 0.34169331853882473,
+   "brier_0-1km": 0.8232927732281202,
+   "brier_1-2km": 0.3848665313469419,
+   "brier_2-4km": 0.06338227889128761
+  },
+  "mcem_state": {
+   "brier": 0.06046232471923381,
+   "brier_0-1km": 0.14665440360123772,
+   "brier_1-2km": 0.047448266779106484,
+   "brier_2-4km": 0.02319071098603036
+  }
+ },
+ "comparisons": {
+  "mcem_rate_minus_plugin": {
+   "point": 0.011671424353467864,
+   "ci95": [
+    0.006806950635762651,
+    0.01603316664585046
+   ],
+   "signflip_p": 0.00029997000299970003,
+   "better_fires": "3/25"
+  },
+  "mcem_rate_minus_logistic_cf": {
+   "point": 0.011933349398062707,
+   "ci95": [
+    0.007011692183788428,
+    0.01635909870475365
+   ],
+   "signflip_p": 0.00019998000199980003,
+   "better_fires": "4/25"
+  },
+  "mcem_rate_minus_mcem": {
+   "point": 0.0026022322803414236,
+   "ci95": [
+    -0.0023648816845021335,
+    0.007550491552954218
+   ],
+   "signflip_p": 0.32826717328267174,
+   "better_fires": "8/25"
+  },
+  "mcem_rate_minus_persistence": {
+   "point": 0.003962522327683832,
+   "ci95": [
+    -0.0030579895417400015,
+    0.009508243547302526
+   ],
+   "signflip_p": 0.2521747825217478,
+   "better_fires": "7/25"
+  },
+  "mcem_state_minus_plugin": {
+   "point": 0.003554034655728654,
+   "ci95": [
+    0.0016718110566692698,
+    0.0053457492661896314
+   ],
+   "signflip_p": 0.0018998100189981002,
+   "better_fires": "6/25"
+  },
+  "mcem_state_minus_logistic_cf": {
+   "point": 0.0038159597003234987,
+   "ci95": [
+    0.0017728840236770273,
+    0.005785470818647511
+   ],
+   "signflip_p": 0.0018998100189981002,
+   "better_fires": "7/25"
+  },
+  "mcem_state_minus_mcem": {
+   "point": -0.005515157417397787,
+   "ci95": [
+    -0.0070911110554439,
+    -0.0038856329537310355
+   ],
+   "signflip_p": 9.999000099990002e-05,
+   "better_fires": "23/25"
+  },
+  "mcem_state_minus_persistence": {
+   "point": -0.004154867370055378,
+   "ci95": [
+    -0.009491915611978465,
+    0.0008916475901706016
+   ],
+   "signflip_p": 0.148985101489851,
+   "better_fires": "15/25"
+  },
+  "mcem_rate_minus_mcem_state": {
+   "point": 0.008117389697739211,
+   "ci95": [
+    0.003514138563810079,
+    0.012659067344928762
+   ],
+   "signflip_p": 0.0035996400359964,
+   "better_fires": "6/25"
+  }
+ },
+ "qualifies_for_part_b_consideration": {
+  "mcem_rate": false,
+  "mcem_state": false
+ },
+ "multiplicity_note": "Two arms are each tested against two bars (four tests) with no multiplicity adjustment. Grid edges: 1/16 at the bottom, 2 at the top (simulations run to 2T). Weight piled at an edge means the result is a lower bound on what the idea can do.",
+ "state_weights_by_fold": {
+  "0": [
+   0.11500061874263186,
+   0.05663212202782973,
+   0.14306221316783685,
+   0.2093591087545907,
+   0.20052787141439696,
+   0.2754180658927139
+  ],
+  "1": [
+   0.13146346227419828,
+   0.0716862336730531,
+   0.11883149749081141,
+   0.235717514986755,
+   0.23467793981148155,
+   0.20762335176370073
+  ],
+  "2": [
+   0.11999629164850002,
+   0.0536238077260886,
+   0.1357914471118385,
+   0.22346057788125123,
+   0.20472222566643775,
+   0.2624056499658839
+  ],
+  "3": [
+   0.1251649824697636,
+   0.06094904374512185,
+   0.10661782013175275,
+   0.23457778889580358,
+   0.21366077979195636,
+   0.2590295849656019
+  ],
+  "4": [
+   0.1302431855684253,
+   0.025040042495621837,
+   0.13893369782746315,
+   0.20822416619812378,
+   0.23409297364448228,
+   0.2634659342658835
+  ]
+ },
+ "grid_edge_weights": {
+  "state_weight_bottom_top_by_fold": {
+   "0": [
+    0.11500061874263186,
+    0.2754180658927139
+   ],
+   "1": [
+    0.13146346227419828,
+    0.20762335176370073
+   ],
+   "2": [
+    0.11999629164850002,
+    0.2624056499658839
+   ],
+   "3": [
+    0.1251649824697636,
+    0.2590295849656019
+   ],
+   "4": [
+    0.1302431855684253,
+    0.2634659342658835
+   ]
+  },
+  "rate_weight_bottom_top_mean_over_intervals": [
+   0.016016668072689387,
+   0.33076979064064077
+  ],
+  "rate_intervals_with_over_half_weight_at_bottom": 0,
+  "rate_intervals_with_over_half_weight_at_top": 68,
+  "rate_intervals_total": 213
+ },
+ "first_vs_later_intervals": {
+  "first_interval": {
+   "mcem_rate": {
+    "brier": 0.11124660814496667,
+    "cells": 29117
+   },
+   "mcem": {
+    "brier": 0.11069441213423388,
+    "cells": 29117
+   },
+   "plugin": {
+    "brier": 0.11198031832303312,
+    "cells": 29117
+   },
+   "logistic_cf": {
+    "brier": 0.11322748599386946,
+    "cells": 29117
+   },
+   "persistence": {
+    "brier": 0.13744547858639283,
+    "cells": 29117
+   }
+  },
+  "later_intervals": {
+   "mcem_rate": {
+    "brier": 0.06491054830995184,
+    "cells": 338587
+   },
+   "mcem": {
+    "brier": 0.062132021883461286,
+    "cells": 338587
+   },
+   "plugin": {
+    "brier": 0.0521723366842181,
+    "cells": 338587
+   },
+   "logistic_cf": {
+    "brier": 0.05178063627141596,
+    "cells": 338587
+   },
+   "persistence": {
+    "brier": 0.058354278220959455,
+    "cells": 338587
+   }
+  }
+ },
+ "posterior_last_interval": {
+  "CA-ANF-003687_Bobcat": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  },
+  "CA-KNP-000122_KNPComplex": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  },
+  "ID-PAF-005464_Limepoint": {
+   "final_mean_m": 0.24999751804104023,
+   "final_w_m1": 0.0
+  },
+  "NV-HTF-030684_Slink": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 4.455681810928223e-53
+  },
+  "OR-UPF-000436_ArchieCreek": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 3.8748769555841415e-142
+  },
+  "CA-ANF-243334_Bridge": {
+   "final_mean_m": 0.25779173527232624,
+   "final_w_m1": 3.822014663972428e-105
+  },
+  "CA-SHF-000996_Shoe": {
+   "final_mean_m": 0.500013894351566,
+   "final_w_m1": 2.7788703132153073e-05
+  },
+  "ID-SCF-021130_MudLick": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  },
+  "OR-MAF-002502_Falls": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  },
+  "OR-WWF-000400_DoubleCreek": {
+   "final_mean_m": 2.0,
+   "final_w_m1": 0.0
+  },
+  "CA-BDF-012520_Line": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 1.8198674411809876e-133
+  },
+  "CA-TNF-00137_Mosquito": {
+   "final_mean_m": 2.0,
+   "final_w_m1": 1.7262865781790974e-173
+  },
+  "MT-KNF-000201_SouthYaak": {
+   "final_mean_m": 0.9999999999840451,
+   "final_w_m1": 0.9999999999680902
+  },
+  "OR-OCF-000772_WileyFlat": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 1.0274437580499226e-68
+  },
+  "WA-COA-021087_SummitTrail": {
+   "final_mean_m": 0.9999996783521661,
+   "final_w_m1": 0.9999993567043323
+  },
+  "CA-CZU-005205_CZULightning": {
+   "final_mean_m": 2.0,
+   "final_w_m1": 1.3444541595836726e-139
+  },
+  "ID-BOF-000714_Buck": {
+   "final_mean_m": 0.4999825382910027,
+   "final_w_m1": 2.3114438134934012e-14
+  },
+  "NM-GNF-000276_Johnson": {
+   "final_mean_m": 1.0342992273942488,
+   "final_w_m1": 0.9657007726057509
+  },
+  "OR-PRD-000404_RVLoneRock": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 6.669620725527461e-19
+  },
+  "WA-GPF-000813_WilliamsMine": {
+   "final_mean_m": 0.49999999999999994,
+   "final_w_m1": 1.1605352247777575e-74
+  },
+  "CA-KNF-007035_Slater": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 6.163740594801777e-266
+  },
+  "ID-IPF-000653_KootenaiRiverComplex_Russell": {
+   "final_mean_m": 0.25,
+   "final_w_m1": 3.549e-320
+  },
+  "NM-N4S-000034_CooksPeak": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  },
+  "OR-RSF-000209_Flat": {
+   "final_mean_m": 0.5,
+   "final_w_m1": 1.0407151078993768e-117
+  },
+  "WY-MRF-200752_Mullen": {
+   "final_mean_m": 1.0,
+   "final_w_m1": 1.0
+  }
+ }
+}
