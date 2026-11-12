@@ -30,7 +30,7 @@ TIERS = (("optimistic", None, None), ("A", "A", None), ("B1.5", "B", 1.5), ("B8.
 EXTRA_TIERS = {"R16.4": ("R16.4", "R", 16.4), "B16.4": ("B16.4", "B", 16.4)}   # rate-assumed sensitivity (RATE_ASSUMED_RULE.md)
 
 
-def run(cache_path: Path, data_root: Path, tiers=TIERS):
+def run(cache_path: Path, data_root: Path, tiers=TIERS, variant="cert"):
     doc = json.loads(cache_path.read_text())
     region, compact = doc["region_id"], doc["input_time"].replace("-", "").replace(":", "")
     gp = data_root / "graphs" / region / "graph.json"
@@ -53,7 +53,7 @@ def run(cache_path: Path, data_root: Path, tiers=TIERS):
         pm = base if tier is None else PacketModel(gp, pd, extra_blocks=extra_blocks(base.pk, base.g.grid, base.H, tier, v))
         nb = len(pm.extra_blocks)
         for spec in sorted(specs, key=str):
-            inst = pm.instance("cert", [{"node": spec[0], "dwell": spec[1], "window": list(spec[2])}], sorted(specs[spec]))
+            inst = pm.instance(variant, [{"node": spec[0], "dwell": spec[1], "window": list(spec[2])}], sorted(specs[spec]))
             fld = backward(inst)
             for o in specs[spec]:
                 feas[(name, spec, o)] = issue_set(fld, pm.nidx[o])
@@ -82,7 +82,7 @@ def run(cache_path: Path, data_root: Path, tiers=TIERS):
             m = [feas[(name, s, o)][-1][1] for s in sp if feas[(name, s, o)]]
             d[name] = max(m) if m else None
         widths[o] = d
-    return {"cache_file": str(cache_path.relative_to(ROOT)), "cells": cell_counts, "timing": out_t,
+    return {"variant": variant, "cache_file": str(cache_path.relative_to(ROOT)), "cells": cell_counts, "timing": out_t,
             "labels": {"%s|%s|%s" % k: v for k, v in sorted(lab.items(), key=str)}, "jobs": rows,
             "origin_deadlines": widths, "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0}
 
@@ -119,13 +119,15 @@ def main():
     ap.add_argument("cache", type=Path, nargs="?")
     ap.add_argument("--data-root", type=Path, default=ROOT / "data" / "routing")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--variant", default="cert", choices=["cert", "router"],
+                    help="contact rule: cert = router OR closed footprint (default); router = the kit's own rule only")
     ap.add_argument("--only-tiers", help="comma list of extra tiers to run with the optimistic field, e.g. R16.4")
     a = ap.parse_args()
     if a.summary_from:
         a.out.write_text(json.dumps(summarize([json.loads(f.read_text()) for f in a.summary_from]), indent=1))
         return
     tiers = TIERS if not a.only_tiers else (TIERS[0],) + tuple(EXTRA_TIERS[t] for t in a.only_tiers.split(","))
-    out = run(a.cache.resolve(), a.data_root, tiers)
+    out = run(a.cache.resolve(), a.data_root, tiers, a.variant)
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({k: out[k] for k in ("cache_file", "cells", "timing", "labels", "peak_rss_mib")}, indent=1))
 
