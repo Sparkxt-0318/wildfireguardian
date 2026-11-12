@@ -1,5 +1,8 @@
 # F-BASE results: 20 frozen panel missions (rules: DESIGN.md, frozen at 85747d3c)
 
+**Scope (applies to every count below):** contact relaxation (O2) only. Equality with the router's full-policy
+verdicts holds only under the dose and peak precondition that Richard checks per request.
+
 Command (host: this container, py3.12, single thread):
 
     python research/harness-2026-11/F-BASE/run_panel_fbase.py --bundles <F-3.2 run_panel output at a03f218> \
@@ -19,7 +22,33 @@ instance sha256 values equal F-3.2's recorded `instance_sha256`.
 
 - N2 failures are all `FW*` missions: 2023-04-02 FW2, 2022-06-01 FW1 (late), 2025-03-25 FW1, 2022-03-04 FW2, 2025-03-26 FW1.
 - N3 failures: the same five FW missions (early T: 968, 1032, 573, 1400, 776) plus 2025-03-25T19 FD1 (claims 2921).
-- Hypothesis, not checked: the FW missions are the ones whose instance carries acceptance windows and wait blocks that bind.
+
+### Which rule each failure trips (`mechanism.py`, `RESULTS_mechanism.json`)
+
+Ablation, comparing each naive solver with the exact solver on the same ablated instance: remove all blocked
+wait starts (`no_WB`), make every node waitable (`all_wait`), or widen acceptance windows to `[dep, H]` (`no_AC`).
+
+| failures | fixed by no_WB | fixed by all_wait | fixed by no_AC |
+|---|---|---|---|
+| N2, 5 missions | 0/5 | 0/5 | **5/5** |
+| N3, 6 missions | 0/6 | 0/6 | **6/6** |
+
+All 11 failures trip **one rule: the destination acceptance window.** Non-waitable nodes and blocked wait starts
+trip none of them on this panel.
+- In the five FW missions, the window opens later than the earliest possible arrival, at exactly the exact T
+  (`[1459, 3480]`, `[1270, …]`, `[1064, …]`, `[1655, …]`, `[896, …]`).
+  - N2 extends only the earliest departure of each state, so it misses the later admitted arrival into the window:
+    four false NO_ROUTE and one late T.
+  - N3 reports the earliest arrival, before the window opens.
+- 2025-03-25T19 FD1: the window `[0, 2861]` closes before N3's arrival at 2921, so N3 claims an unsound route.
+- N1 agrees 20/20 only because it lets an arrival wait at the destination until the window opens, which the
+  admission rule does not allow. Its agreement on this panel is not evidence that it is sound.
+
+## Frozen published independent rows (Main 2a751631, `research/routing/INDEPENDENT_ROWS.csv`)
+
+`compare_independent.py`, `RESULTS_independent.json`. Column meanings are as stated in INDEPENDENT_REPORT.v1.md.
+- RDA_CAND: 40/40 rows agree in verdict and arrival second (both repetitions of 15 routes and 5 refusals).
+- RDA_BASE: 26/26 resolved rows agree. The 14 unresolved rows (8 TIMEOUT, 6 centre-only refusals) have nothing to compare.
 
 ## Witnesses
 

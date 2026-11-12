@@ -1,0 +1,1260 @@
+{
+ "source": {
+  "file": "research/routing/INDEPENDENT_ROWS.csv",
+  "commit": "2a751631",
+  "sha256": "1a192a96b04a1e4bc007f9d65881f5e87d8dd025b6ec131b1153e9d2d5bee122"
+ },
+ "scope": "contact relaxation (O2); equality with full-policy verdicts only under the per-request dose/peak precondition",
+ "tally": {
+  "RDA_CAND": {
+   "rows": 40,
+   "resolved": 40,
+   "agree": 40
+  },
+  "RDA_BASE": {
+   "rows": 40,
+   "resolved": 26,
+   "agree": 26
+  }
+ },
+ "rows": [
+  {
+   "case_id": "20220304T030000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    3119
+   ],
+   "exact": [
+    "ROUTE",
+    3119
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    3119
+   ],
+   "exact": [
+    "ROUTE",
+    3119
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    3119
+   ],
+   "exact": [
+    "ROUTE",
+    3119
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    3119
+   ],
+   "exact": [
+    "ROUTE",
+    3119
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20220601T080000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20230402T070000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T070000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20230402T070000Z_FX1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20230402T070000Z_FX1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FX2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2540
+   ],
+   "exact": [
+    "ROUTE",
+    2540
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FX2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2540
+   ],
+   "exact": [
+    "ROUTE",
+    2540
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FX2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2540
+   ],
+   "exact": [
+    "ROUTE",
+    2540
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FX2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2540
+   ],
+   "exact": [
+    "ROUTE",
+    2540
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T190000Z_FX2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2512
+   ],
+   "exact": [
+    "ROUTE",
+    2512
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T190000Z_FX2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "ROUTE",
+    2512
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250325T190000Z_FX2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "ROUTE",
+    2512
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250325T190000Z_FX2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2512
+   ],
+   "exact": [
+    "ROUTE",
+    2512
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T060000Z_FL1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2067
+   ],
+   "exact": [
+    "ROUTE",
+    2067
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T060000Z_FL1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2067
+   ],
+   "exact": [
+    "ROUTE",
+    2067
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T060000Z_FL1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2067
+   ],
+   "exact": [
+    "ROUTE",
+    2067
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T060000Z_FL1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2067
+   ],
+   "exact": [
+    "ROUTE",
+    2067
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T020000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1270
+   ],
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T020000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1270
+   ],
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T020000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1270
+   ],
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T020000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1270
+   ],
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T140000Z_FW2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1459
+   ],
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T140000Z_FW2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1459
+   ],
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T140000Z_FW2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1459
+   ],
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T140000Z_FW2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1459
+   ],
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250324T090000Z_FL2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2143
+   ],
+   "exact": [
+    "ROUTE",
+    2143
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250324T090000Z_FL2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "ROUTE",
+    2143
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250324T090000Z_FL2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "TIMEOUT",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "ROUTE",
+    2143
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250324T090000Z_FL2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2143
+   ],
+   "exact": [
+    "ROUTE",
+    2143
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T230000Z_FL2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1922
+   ],
+   "exact": [
+    "ROUTE",
+    1922
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T230000Z_FL2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1922
+   ],
+   "exact": [
+    "ROUTE",
+    1922
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T230000Z_FL2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1922
+   ],
+   "exact": [
+    "ROUTE",
+    1922
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T230000Z_FL2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1922
+   ],
+   "exact": [
+    "ROUTE",
+    1922
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T120000Z_FW2",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1655
+   ],
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T120000Z_FW2",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1655
+   ],
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T120000Z_FW2",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1655
+   ],
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T120000Z_FW2",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1655
+   ],
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20220601T080000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220601T080000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20230402T230000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    531
+   ],
+   "exact": [
+    "ROUTE",
+    531
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T230000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    531
+   ],
+   "exact": [
+    "ROUTE",
+    531
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T230000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    531
+   ],
+   "exact": [
+    "ROUTE",
+    531
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T230000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    531
+   ],
+   "exact": [
+    "ROUTE",
+    531
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T170000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1064
+   ],
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T170000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1064
+   ],
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T170000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1064
+   ],
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T170000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1064
+   ],
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250326T080000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    896
+   ],
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250326T080000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    896
+   ],
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250326T080000Z_FW1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    896
+   ],
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250326T080000Z_FW1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    896
+   ],
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1589
+   ],
+   "exact": [
+    "ROUTE",
+    1589
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1589
+   ],
+   "exact": [
+    "ROUTE",
+    1589
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1589
+   ],
+   "exact": [
+    "ROUTE",
+    1589
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220304T030000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1589
+   ],
+   "exact": [
+    "ROUTE",
+    1589
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220531T100000Z_FN1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1142
+   ],
+   "exact": [
+    "ROUTE",
+    1142
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220531T100000Z_FN1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1142
+   ],
+   "exact": [
+    "ROUTE",
+    1142
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220531T100000Z_FN1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1142
+   ],
+   "exact": [
+    "ROUTE",
+    1142
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20220531T100000Z_FN1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    1142
+   ],
+   "exact": [
+    "ROUTE",
+    1142
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T070000Z_FN1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20230402T070000Z_FN1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T070000Z_FN1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20230402T070000Z_FN1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250323T010000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2460
+   ],
+   "exact": [
+    "ROUTE",
+    2460
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2460
+   ],
+   "exact": [
+    "ROUTE",
+    2460
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2460
+   ],
+   "exact": [
+    "ROUTE",
+    2460
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250323T010000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CHECKED_CENTRE_OPTIMUM",
+   "resolved": true,
+   "reference": [
+    "ROUTE",
+    2460
+   ],
+   "exact": [
+    "ROUTE",
+    2460
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T190000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "1",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  },
+  {
+   "case_id": "20250325T190000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "1",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T190000Z_FD1",
+   "arm": "RDA_CAND",
+   "rep": "2",
+   "state": "CERTIFIED_CENTRE_REFUSAL",
+   "resolved": true,
+   "reference": [
+    "NO_ROUTE",
+    null
+   ],
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": true
+  },
+  {
+   "case_id": "20250325T190000Z_FD1",
+   "arm": "RDA_BASE",
+   "rep": "2",
+   "state": "CENTRE_MODEL_REFUSAL_ONLY",
+   "resolved": false,
+   "reference": null,
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "agrees": null
+  }
+ ]
+}

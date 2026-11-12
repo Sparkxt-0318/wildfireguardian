@@ -1,0 +1,640 @@
+[
+ {
+  "solver": "n2",
+  "mission": "20230402T140000Z_FW2",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 39,
+  "nV": 915,
+  "AC": {
+   "221": [
+    [
+     1459,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    968
+   ],
+   "naive": [
+    "ROUTE",
+    968
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n2",
+  "mission": "20220601T020000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1294
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 78,
+  "nV": 1494,
+  "AC": {
+   "174": [
+    [
+     1270,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1294
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1294
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    1032
+   ],
+   "naive": [
+    "ROUTE",
+    1032
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n2",
+  "mission": "20250325T170000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ]
+  },
+  "n_WB_nodes": 28,
+  "n_waitable": 554,
+  "nV": 23158,
+  "AC": {
+   "23131": [
+    [
+     1064,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    573
+   ],
+   "naive": [
+    "ROUTE",
+    573
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n2",
+  "mission": "20220304T120000Z_FW2",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 337,
+  "nV": 9372,
+  "AC": {
+   "782": [
+    [
+     1655,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    1400
+   ],
+   "naive": [
+    "ROUTE",
+    1400
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n2",
+  "mission": "20250326T080000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ]
+  },
+  "n_WB_nodes": 4,
+  "n_waitable": 1527,
+  "nV": 56369,
+  "AC": {
+   "16337": [
+    [
+     896,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    776
+   ],
+   "naive": [
+    "ROUTE",
+    776
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20230402T140000Z_FW2",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "ROUTE",
+    968
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 39,
+  "nV": 915,
+  "AC": {
+   "221": [
+    [
+     1459,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "ROUTE",
+    968
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1459
+   ],
+   "naive": [
+    "ROUTE",
+    968
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    968
+   ],
+   "naive": [
+    "ROUTE",
+    968
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20220601T020000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1032
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 78,
+  "nV": 1494,
+  "AC": {
+   "174": [
+    [
+     1270,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1032
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1270
+   ],
+   "naive": [
+    "ROUTE",
+    1032
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    1032
+   ],
+   "naive": [
+    "ROUTE",
+    1032
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20250325T170000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "ROUTE",
+    573
+   ]
+  },
+  "n_WB_nodes": 28,
+  "n_waitable": 554,
+  "nV": 23158,
+  "AC": {
+   "23131": [
+    [
+     1064,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "ROUTE",
+    573
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1064
+   ],
+   "naive": [
+    "ROUTE",
+    573
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    573
+   ],
+   "naive": [
+    "ROUTE",
+    573
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20220304T120000Z_FW2",
+  "base": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "ROUTE",
+    1400
+   ]
+  },
+  "n_WB_nodes": 0,
+  "n_waitable": 337,
+  "nV": 9372,
+  "AC": {
+   "782": [
+    [
+     1655,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "ROUTE",
+    1400
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    1655
+   ],
+   "naive": [
+    "ROUTE",
+    1400
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    1400
+   ],
+   "naive": [
+    "ROUTE",
+    1400
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20250326T080000Z_FW1",
+  "base": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "ROUTE",
+    776
+   ]
+  },
+  "n_WB_nodes": 4,
+  "n_waitable": 1527,
+  "nV": 56369,
+  "AC": {
+   "16337": [
+    [
+     896,
+     3480
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "ROUTE",
+    776
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "ROUTE",
+    896
+   ],
+   "naive": [
+    "ROUTE",
+    776
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    776
+   ],
+   "naive": [
+    "ROUTE",
+    776
+   ],
+   "naive_correct": true
+  }
+ },
+ {
+  "solver": "n3",
+  "mission": "20250325T190000Z_FD1",
+  "base": {
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    2921
+   ]
+  },
+  "n_WB_nodes": 20,
+  "n_waitable": 1527,
+  "nV": 56369,
+  "AC": {
+   "10405": [
+    [
+     0,
+     2861
+    ]
+   ]
+  },
+  "no_WB": {
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    2921
+   ],
+   "naive_correct": false
+  },
+  "all_wait": {
+   "exact": [
+    "NO_ROUTE",
+    null
+   ],
+   "naive": [
+    "ROUTE",
+    2921
+   ],
+   "naive_correct": false
+  },
+  "no_AC": {
+   "exact": [
+    "ROUTE",
+    2921
+   ],
+   "naive": [
+    "ROUTE",
+    2921
+   ],
+   "naive_correct": true
+  }
+ }
+]
