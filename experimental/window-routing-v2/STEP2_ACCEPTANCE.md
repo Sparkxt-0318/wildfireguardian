@@ -266,3 +266,21 @@ Single runs, not quiet-host timings. The build times are indicative only, and G5
 
 Real-packet byte identity (test 4) passes 18/18 (`results/step2/DIST_IDENTITY.json`). Full suite on kit-v2-step2c:
 50/50; parent runner ok.
+
+### G1 comparison rule for Step 2 (Thomas 18:24 UTC), written before any panel result is read
+
+The panel started at 2026-11-12T18:23:42Z, and no row has been read.
+
+- **G1 identity** compares the v2 status **before the memory map** against the frozen kit: `certified_status_within_kit` when
+  the memory map applied, otherwise `authoritative_status`. Arrivals are compared the same way; the arrival of a mapped
+  journey is taken from `journey_outside_memory_budget`. The FL2 rule and the mechanical UNRESOLVED → certified exception
+  apply as in PLAN.
+- **Reported separately:** the count of memory-mapped statuses (OUTSIDE, NOT_PROVEN) and, per check, the
+  `resource_budget` verdict, peak and mechanism.
+- **Expected on the 1-hour panel on this host: 0 OUTSIDE and 0 NOT_PROVEN.** Every mission peaks at ≤ 1.6 GiB and the
+  cgroup mechanism works here.
+  - Any NOT_PROVEN means the mechanism failed on some job. That is a finding to report, not a G1 failure to explain away.
+- **Portability (to be stated wherever v2 statuses are quoted):** on a host with no usable upper-bound mechanism, every
+  success becomes CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN by design.
+- Thomas's note on the wrapper test: span (ii) fails closed if a later `rec[...]` assignment is added. Do not loosen
+  the comparison.
