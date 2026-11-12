@@ -22,6 +22,8 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 KIT = Path(__file__).resolve().parent.parent
 REPO = KIT.parents[3]
 CHANNELS = {"A": ("broadcast", "sms", "card"), "B": ("headline", "a4")}
@@ -121,9 +123,10 @@ pre {{ font: 22px/1.6 Pretendard, "Noto Sans KR", system-ui, sans-serif; white-s
     w.writerow(["slot", "group", "seq", "case", "channel", "handout_code", "exposure"])
     res = io.StringIO()
     rw = csv.writer(res, lineterminator="\n")
-    rw.writerow(["participant", "group", "age_band", "reads_phone_unaided", "seq", "case", "channel", "exposure", "repeat_used",
-                 "open_verbatim", "open_code_1", "open_code_2", "q1_time", "q1_seconds", "q2_answer", "q3_answer",
-                 "q4_verbatim", "q4_code_1", "q4_code_2", "notes"])
+    from score import COLUMNS  # one source for the column list (tools/score.py)
+
+    rw.writerow(COLUMNS)
+    blank = lambda **kw: [kw.get(c, "") for c in COLUMNS]  # noqa: E731
     ids = [c["case"] for c in cases]
     k = len(ids)
     for g, chs in CHANNELS.items():
@@ -140,8 +143,8 @@ pre {{ font: 22px/1.6 Pretendard, "Noto Sans KR", system-ui, sans-serif; white-s
                     exp = "first" if case not in seen else "later"
                     seen.add(case)
                     w.writerow([slot, g, seq, case, ch, code_of(case, ch), exp])
-                    rw.writerow([slot, g, "", "", seq, case, ch, exp, "", "", "", "", "", "", "", "", "", "", "", ""])
-            rw.writerow([slot, g, "", "", seq + 1, ids[0], chs[0], "end", "", "", "", "", "", "", "", "", "", "", "", "Q4 asked again at the end"])
+                    rw.writerow(blank(participant=slot, group=g, seq=seq, case=case, channel=ch, exposure=exp))
+            rw.writerow(blank(participant=slot, group=g, seq=seq + 1, case=ids[0], channel=chs[0], exposure="end", notes="Q4 asked again at the end"))
     out["SCHEDULE.csv"] = sched.getvalue().encode()
     out["results_template.csv"] = res.getvalue().encode()
     keys = io.StringIO()

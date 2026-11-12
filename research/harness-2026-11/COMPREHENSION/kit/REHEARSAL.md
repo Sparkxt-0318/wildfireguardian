@@ -72,3 +72,22 @@ The B01 reader saw 8 items: the 4 headline PNGs and the 4 one-page A4 PDFs. The 
     - Printing at 100 % on A4 is required; the facilitator should not shrink the page to fit.
 12. **Time per item.** The reader guessed 30–60 s per headline and 2–4 min per A4 sheet. That is a guess, not a measurement. Against the 30 s Q1 cut, an A4 first exposure may be slow by design of the page, not by misreading. The 30 s cut is the protocol's own stated cut, and Iris may want to look at it for the A4 channel.
 13. **Item 6 (C4 A4) mentions "실내 대피" as one alternative.** A reader could take this as "staying is OK". It is a STAY edge case for coders; see 7.
+
+## v2.3: the coder rehearsal repeated (same 12 A01 answers)
+
+Coder 1 (Clara, codes written first: `rehearsal/coder1_A01_v2.3.csv`) and a fresh coder-2 agent applied the v2.3 SCORING_SHEET to the same open answers. The reader answers were not redone, so the v2.3 closed questions have no answers here.
+
+- **Open answers: 9 of 12 identical code sets** (v2.2: 7 of 12).
+  - All 3 disagreements (items 3, 6, 9) are about whether "위급하면 119" earns EMERGENCY-SERVICE, a descriptive code with no target.
+- **Later-departure answers: 3 of 3 identical. Q4: 2 of 2 identical** (OFFICIAL).
+- **No disagreement on any miss code** (USABLE-LATER, STAY, TIME-INVENTED, AMBIGUOUS-TIME), and no miss code was given by either coder.
+  - The two v2.2 "critical misses" on "오전 10시 자료로는…" are gone under the rule "repeating the item's data time is never a miss".
+- **Doubts coder 2 raised, now settled in the rule text:**
+  - (a) the data-time exemption now covers AMBIGUOUS-TIME as well as TIME-INVENTED;
+  - (b) EMERGENCY-SERVICE in open answers = any mention of 119 or the fire service (this resolves the 3 disagreements);
+  - (c) Q4: the first-item answer is scored, the end answer is secondary.
+- Coder 2 also noted that word order ("이장이나 읍·면사무소 공식 지시를 따르고, 위급하면 119") is not stated precedence. The rule already says so (OFFICIAL-FOLLOW).
+
+Iris's readiness criterion is "no coder disagreement on any answer that would be a critical miss". It holds on these 12 answers.
+
+**This is still a procedure check, not evidence about people.** The rehearsal answers come from an AI agent, and the closed v2.3 questions were never put to a reader.

@@ -1,4 +1,4 @@
-# Comprehension pilot: session kit (PROTOCOL.md v2.2)
+# Comprehension pilot: session kit (PROTOCOL.md v2.3)
 
 **Status.** This kit gets the pilot ready to run. It contains no data from any person. The owner arranges participants, consent and any ethics review. Comprehension is **untested**. Nothing here shows that any output is fit for live use, and P-PROTO stays unpublished: the public card is shown offline from a file.
 
@@ -41,18 +41,41 @@ To regenerate, use `KIT_WRITE=1` for the vitest step and drop `--check` from the
 - PNG and PDF bytes carry renderer metadata, so they are not compared. They are pictures of the same captured page.
 - The card's GPX link is an object URL that changes on every render. A fixed placeholder (`blob:replay-gpx`) stands in for it.
 
-## Open points for the orchestrator, Iris and Sofia
+## Before the first participant (required)
 
-1. **Cases (PROTOCOL v2.2, orchestrator decision (a)).** Across the six booth caches (531 field origins), the replay has no gap, no partial and no staff later-window origin: horizon 354, none_checked 147, no_route 11, unresolved 19, gap 0, partial 0, later-window 0.
-   - C2 is therefore the first leave_by/none_checked origin, and C3 is dropped.
-   - The gap wording, the partial message and the staff later-window line are **untested** by this pilot, and may not be described as tested.
-   - C2's broadcast and SMS read like C1's; only its card states that later computed times have no checked road.
-   - Iris confirms the revised decision cells before the kit is final.
-2. **Q1 timing.** The protocol runs the timer "from the item shown to the answer", and it asks the open question first. The kit stops the timer at the first clock time the reader states as the leave-by time, even if it comes in the open answer. Otherwise the 30 s cut would include the open answer. This is the kit's reading of the protocol, and Iris should confirm it.
-3. **C5 is a "not checkable" origin.** By the fixed rule, the first unresolved origin is one more than 2 km from the road graph.
-   - Its staff headline carries that reason.
-   - Its resident outputs read like those of any other unresolved origin.
-4. **Coders.** An answer counts as a miss when either coder gives it a miss code. For Q4, both coders must code OFFICIAL. This is a kit rule, stated here before any session.
+- **Time a dry run with one staff member.** No timing has been measured; the rehearsal used AI agents, which cannot be timed.
+- Print the A4 sheets at 100 %. Never shrink them to fit.
+- Adapt the consent template. Ethics review and consent are the owner's responsibility.
+
+## What v2.3 settled (all decided before any person is tested)
+
+1. **Cases (v2.2).** C2 is the first leave_by/none_checked origin, and C3 is dropped. The replay has no gap, partial or later-window origin.
+   - The tally: 354 / 147 / 11 / 19 / 0 / 0 / 0.
+   - The gap wording, the partial message and the staff later-window line are **untested**.
+   - On the broadcast and SMS, C2 reads like C1.
+2. **Questions (orchestrator, on Iris and Sofia's advice):**
+   - one closed time question on all four cases;
+   - later-departure questions on C1 and C2, asked without naming any later time;
+   - the stay question in a less leading form, without "안전";
+   - the facilitator never says a time the participant's own item does not contain.
+3. **Coding (Iris):**
+   - repeating the item's data time is never a miss;
+   - OFFICIAL needs stated precedence, and OFFICIAL-FOLLOW is kept apart;
+   - EMERGENCY-SERVICE and SHELTER-MENTION are descriptive codes;
+   - AMBIGUOUS-TIME is resolved by the closed time question.
+4. **Targets:**
+   - Q4 is descriptive for group B, because the staff surfaces state no precedence;
+   - the A4 has no 30 s cut (a wrong time or no time is still a miss);
+   - Q2's zero-miss target covers C1 and C2.
+5. **Kit rules:**
+   - either-coder rule for misses; both coders must code OFFICIAL for group A's Q4;
+   - a time said without 오전/오후 is recorded as said;
+   - the timer stops at the first stated leave-by time, open or closed.
+6. **Mira N1.** The public-card item omits the "English" button and the "재현할 기록: <region> · <input time>" selector. On the real page, both sit between the question and the card at phone width. This is stated in PROTOCOL v2.3.
+7. **Coder rehearsal repeated under v2.3** (REHEARSAL.md):
+   - the open answers agree on 9 of 12 code sets;
+   - all three disagreements are on EMERGENCY-SERVICE (descriptive), and there are **none on any miss code**;
+   - the rule text was then tightened on the two points coder 2 raised.
 
 ## Limits (from the protocol)
 

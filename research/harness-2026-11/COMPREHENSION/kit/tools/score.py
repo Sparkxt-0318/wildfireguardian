@@ -1,12 +1,12 @@
 #!/usr/bin/env python3.12
-"""Scores a filled results sheet (results_template.csv) against the PRE-STATED targets of PROTOCOL.md v2.2.
+"""Scores a filled results sheet (results_template.csv) against the PRE-STATED targets of PROTOCOL.md v2.3.
 
-Every count is fixed by the protocol before any session; this script only applies it. Groups A and B are scored
-separately and never pooled. Every miss is listed verbatim with its case, channel, group and exposure order. No
-percentage is printed without its n/N.
-
-Conservative coding rule of this kit (stated before any session): an open answer counts as a miss when EITHER coder
-gives it a miss code; the coders' agreement is reported beside it, never resolved silently.
+Every count was fixed by the protocol before any session; this script only applies it.
+- Groups A and B are scored separately and never pooled.
+- Every miss is listed verbatim with its case, channel, group and exposure order.
+- No percentage is printed without its n/N.
+- Either-coder rule: an answer is a miss when EITHER coder gives it a miss code. For group A's Q4, both coders must
+  code OFFICIAL. Coder agreement is reported, never resolved silently.
 
     python3.12 score.py results.csv [--cases ../CASES.json] [--out RESULTS.md]
 
@@ -22,16 +22,21 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-CODES = {"USABLE-LATER", "STAY", "TIME-INVENTED", "OFFICIAL", "NEUTRAL"}
+OPEN_CODES = {"USABLE-LATER", "STAY", "SHELTER-MENTION", "TIME-INVENTED", "AMBIGUOUS-TIME", "OFFICIAL", "OFFICIAL-FOLLOW", "EMERGENCY-SERVICE", "NEUTRAL"}
+Q4_CODES = {"OFFICIAL", "EMERGENCY-SERVICE", "NOT-STATED", "MODEL-AUTHORITY", "NEUTRAL"}
 GROUPS = ("A", "B")
 CHANNELS = {"A": ("broadcast", "sms", "card"), "B": ("headline", "a4")}
-YES_NO = {"", "yes", "no", "unsure"}
+NO_CUT = {"a4"}  # v2.3: a full-page planning sheet is not a glance channel; seconds are reported with no cut
+LATER = {"", "yes", "no", "not_stated"}
+STAY_ANS = {"", "yes", "no", "unsure"}
 COLUMNS = [
     "participant", "group", "age_band", "reads_phone_unaided", "seq", "case", "channel", "exposure", "repeat_used",
-    "open_verbatim", "open_code_1", "open_code_2", "q1_time", "q1_seconds", "q2_answer", "q3_answer",
+    "open_verbatim", "open_code_1", "open_code_2", "q1_time", "q1_seconds",
+    "later_verbatim", "later_code_1", "later_code_2", "later_answer", "stay_answer",
     "q4_verbatim", "q4_code_1", "q4_code_2", "notes",
 ]
 CLOCK = re.compile(r"^(\d{1,2}):(\d{2})$")
+CUT_S = 30.0
 
 
 class SheetError(Exception):
@@ -46,11 +51,11 @@ class Row:
     def __getitem__(self, k: str) -> str:
         return self.d[k].strip()
 
-    def codes(self, prefix: str) -> tuple[set[str], set[str]]:
+    def codes(self, prefix: str, allowed: set[str]) -> tuple[set[str], set[str]]:
         out = []
         for k in (f"{prefix}_code_1", f"{prefix}_code_2"):
             v = {c.strip().upper() for c in self[k].split(";") if c.strip()}
-            bad = v - CODES
+            bad = v - allowed
             if bad:
                 raise SheetError(f"row {self.n}: unknown code(s) {sorted(bad)} in {k}")
             out.append(v)
@@ -86,12 +91,7 @@ def load(path: Path) -> list[Row]:
     return [x for x in rows if any(v.strip() for v in x.d.values())]
 
 
-def score(rows: list[Row], cases: dict[str, dict]) -> tuple[bool, str]:
-    leave = {c for c, v in cases.items() if v.get("leave_by_kst")}
-    gap = {c for c, v in cases.items() if v.get("q2_case")}
-    no_time = {c for c, v in cases.items() if not v.get("leave_by_kst")}
-    out: list[str] = []
-    ok = True
+def validate(rows: list[Row], cases: dict[str, dict]) -> None:
     for r in rows:
         if r["group"] not in GROUPS:
             raise SheetError(f"row {r.n}: group must be A or B")
@@ -101,14 +101,31 @@ def score(rows: list[Row], cases: dict[str, dict]) -> tuple[bool, str]:
             raise SheetError(f"row {r.n}: channel {r['channel']!r} is not a group {r['group']} channel")
         if r["exposure"] not in ("first", "later", "end"):
             raise SheetError(f"row {r.n}: exposure must be first, later or end")
-        for k in ("q2_answer", "q3_answer"):
-            if r[k].lower() not in YES_NO:
-                raise SheetError(f"row {r.n}: {k} must be yes, no, unsure or empty")
-        r.codes("open")
-        r.codes("q4")
-    out.append("# Comprehension pilot — scored results\n")
-    out.append("Scored by tools/score.py against the targets fixed in PROTOCOL.md v2.2 before any session. Groups are never pooled. "
-               "A pass allows paused wording work to resume; it supports no statement about comprehension in public material.\n")
+        if r["later_answer"].lower() not in LATER:
+            raise SheetError(f"row {r.n}: later_answer must be yes, no, not_stated or empty")
+        if r["stay_answer"].lower() not in STAY_ANS:
+            raise SheetError(f"row {r.n}: stay_answer must be yes, no, unsure or empty")
+        t = r["q1_time"].lower()
+        if t and t not in ("none", "unsure") and norm_clock(t) is None:
+            raise SheetError(f"row {r.n}: q1_time must be HH:MM, none, unsure or empty")
+        if r["q1_seconds"]:
+            try:
+                float(r["q1_seconds"])
+            except ValueError as e:
+                raise SheetError(f"row {r.n}: q1_seconds is not a number") from e
+        r.codes("open", OPEN_CODES)
+        r.codes("later", OPEN_CODES)
+        r.codes("q4", Q4_CODES)
+
+
+def score(rows: list[Row], cases: dict[str, dict]) -> tuple[bool, str]:
+    validate(rows, cases)
+    leave = sorted(c for c, v in cases.items() if v.get("leave_by_kst"))
+    no_time = {c for c, v in cases.items() if not v.get("leave_by_kst")}
+    out: list[str] = ["# Comprehension pilot: scored results\n",
+                      "Scored by tools/score.py against the targets fixed in PROTOCOL.md v2.3 before any session. Groups are never pooled. "
+                      "A pass allows paused wording work to resume; it supports no statement about comprehension in public material.\n"]
+    ok = True
     for g in GROUPS:
         gr = [r for r in rows if r["group"] == g]
         people = sorted({r["participant"] for r in gr})
@@ -119,25 +136,26 @@ def score(rows: list[Row], cases: dict[str, dict]) -> tuple[bool, str]:
             continue
         items = [r for r in gr if r["exposure"] != "end"]
         # ---- Q1: first exposure per leave-by case, pooled over channels
-        for c in sorted(leave):
+        for c in leave:
             want = cases[c]["leave_by_kst"]
             first = [r for r in items if r["case"] == c and r["exposure"] == "first"]
             if len({r["participant"] for r in first}) != len(first):
                 raise SheetError(f"group {g}: a participant has more than one first exposure of {c}")
-            misses = []
-            secs = []
-            for r in first:
+
+            def miss(r: Row) -> str | None:
                 t = norm_clock(r["q1_time"])
-                s = r["q1_seconds"]
-                sec = float(s) if s else None
-                if sec is not None:
-                    secs.append((r["channel"], sec))
+                sec = float(r["q1_seconds"]) if r["q1_seconds"] else None
                 if t is None:
-                    misses.append((r, "no time given" if not r["q1_time"] else f"not a clock time: {r['q1_time']!r}"))
-                elif t != want:
-                    misses.append((r, f"wrong time {t} (shown {want})"))
-                elif sec is None or sec > 30:
-                    misses.append((r, "correct time but no recorded seconds" if sec is None else f"correct time after {sec:g} s (> 30 s)"))
+                    return {"none": "said no time is given", "unsure": "unsure of the time", "": "no time given"}.get(r["q1_time"].lower(), "no time given")
+                if t != want:
+                    return f"wrong time {t} (shown {want})"
+                if r["channel"] in NO_CUT:
+                    return None
+                if sec is None:
+                    return "correct time but no recorded seconds"
+                return f"correct time after {sec:g} s (> {CUT_S:g} s)" if sec > CUT_S else None
+
+            misses = [(r, m) for r in first if (m := miss(r))]
             allow = allowed_q1(len(first))
             met = len(misses) <= allow and len(first) == n
             ok &= met
@@ -146,63 +164,85 @@ def score(rows: list[Row], cases: dict[str, dict]) -> tuple[bool, str]:
             for r, why in misses:
                 out.append(f"  - MISS: {why} — {r.where()} — open answer: “{r['open_verbatim']}”")
             for ch in CHANNELS[g]:
-                v = sorted(x for k, x in secs if k == ch)
+                v = sorted(float(r["q1_seconds"]) for r in first if r["channel"] == ch and r["q1_seconds"])
                 if v:
                     med = v[len(v) // 2] if len(v) % 2 else (v[len(v) // 2 - 1] + v[len(v) // 2]) / 2
-                    out.append(f"  - {ch}: first-exposure seconds median {med:g}, longest {v[-1]:g} (n = {len(v)}; descriptive, no target)")
+                    out.append(f"  - {ch}: first-exposure seconds median {med:g}, longest {v[-1]:g} (n = {len(v)}{'; no cut on this channel' if ch in NO_CUT else ''}; descriptive)")
             allx = [r for r in items if r["case"] == c]
-            allmiss = sum(1 for r in allx if norm_clock(r["q1_time"]) != want or not r["q1_seconds"] or float(r["q1_seconds"]) > 30)
-            out.append(f"  - all exposures (descriptive, no target): {allmiss} misses of {len(allx)}")
-        # ---- open-answer codes over every exposure
-        crit, q2m, q3m = [], [], []
+            out.append(f"  - all exposures (descriptive, no target): {sum(1 for r in allx if miss(r))} misses of {len(allx)}")
+        # ---- every exposure
+        crit, q2m, q3m, ambiguous, findings = [], [], [], [], []
         agree = disagree = 0
         for r in items:
-            c1, c2 = r.codes("open")
-            agree += c1 == c2
-            disagree += c1 != c2
-            both = c1 | c2
-            if r["case"] in no_time and "TIME-INVENTED" in both:
-                crit.append((r, f"TIME-INVENTED (coder 1: {sorted(c1)}, coder 2: {sorted(c2)})"))
+            o1, o2 = r.codes("open", OPEN_CODES)
+            l1, l2 = r.codes("later", OPEN_CODES)
+            for a, b in ((o1, o2), (l1, l2)):
+                if a or b:
+                    agree += a == b
+                    disagree += a != b
+            both = o1 | o2 | l1 | l2
+            if r["case"] in no_time:
+                if "TIME-INVENTED" in both:
+                    crit.append((r, f"TIME-INVENTED (coder 1: {sorted(o1)}, coder 2: {sorted(o2)})"))
+                if norm_clock(r["q1_time"]) is not None:
+                    crit.append((r, f"gave {norm_clock(r['q1_time'])} as the time to leave where none is shown (closed time question)"))
+                elif "AMBIGUOUS-TIME" in both:
+                    ambiguous.append(r)
+                if "STAY" in both:
+                    q3m.append((r, f"STAY (coder 1: {sorted(o1)}, coder 2: {sorted(o2)})"))
+                if r["stay_answer"].lower() == "yes":
+                    q3m.append((r, "closed stay question answered yes"))
             if "USABLE-LATER" in both:
-                q2m.append((r, f"USABLE-LATER (coder 1: {sorted(c1)}, coder 2: {sorted(c2)})"))
-            if r["case"] in gap and r["q2_answer"].lower() == "yes":
-                q2m.append((r, "closed Q2 answered yes"))
-            if r["case"] in no_time and "STAY" in both:
-                q3m.append((r, f"STAY (coder 1: {sorted(c1)}, coder 2: {sorted(c2)})"))
-            if r["case"] in no_time and r["q3_answer"].lower() == "yes":
-                q3m.append((r, "closed Q3 answered yes (safe to stay)"))
-        for name, lst, rule in (("Q1 critical (time invented where none is shown)", crit, "0 allowed"),
-                                ("Q2 (a later or next time read as usable)", q2m, "0 allowed, any exposure"),
-                                ("Q3 (read as safe or as stay)", q3m, "0 allowed, any exposure")):
+                q2m.append((r, f"USABLE-LATER (open: {sorted(o1)} / {sorted(o2)}; later: {sorted(l1)} / {sorted(l2)}) — later answer: “{r['later_verbatim']}”"))
+            if r["case"] not in no_time and r["later_answer"].lower() == "yes":
+                q2m.append((r, f"closed later-departure question answered yes — “{r['later_verbatim']}”"))
+            for code in ("SHELTER-MENTION", "EMERGENCY-SERVICE", "OFFICIAL-FOLLOW"):
+                if code in both:
+                    findings.append((r, code))
+        for name, lst, rule in (("Q1 critical (a time to leave given where none is shown)", crit, "0 allowed, any exposure"),
+                                ("Q2 (a later time read as usable; C1 and C2)", q2m, "0 allowed, any exposure"),
+                                ("Q3 (read as stay; C4 and C5)", q3m, "0 allowed, any exposure")):
             met = not lst
             ok &= met
             out.append(f"- **{name}**: {len(lst)} of {len(items)} exposures ({rule}) → **{'met' if met else 'NOT MET'}**")
             for r, why in lst:
                 out.append(f"  - MISS: {why} — {r.where()} — “{r['open_verbatim']}”")
-        unsure = sum(1 for r in items if r["q2_answer"].lower() == "unsure" or r["q3_answer"].lower() == "unsure")
-        out.append(f"- closed Q2/Q3 answered “unsure” (not a miss; reported): {unsure}")
+        out.append(f"- AMBIGUOUS-TIME open answers cleared by the closed time question (no time given there): {len(ambiguous)}")
+        ns = sum(1 for r in items if r["later_answer"].lower() == "not_stated")
+        un = sum(1 for r in items if r["stay_answer"].lower() == "unsure")
+        out.append(f"- later-departure answered “not stated” (correct, reported): {ns}; stay answered “unsure” (not a miss, reported): {un}")
+        if findings:
+            out.append("- descriptive codes (no target; wording findings if they recur):")
+            for r, code in findings:
+                out.append(f"  - {code} — {r.where()} — “{r['open_verbatim']}”")
         # ---- Q4: each participant's first item
-        q4 = []
         firsts = []
         for p in people:
             pr = sorted((r for r in items if r["participant"] == p), key=lambda r: int(r["seq"]))
-            if not pr:
-                continue
-            r = pr[0]
-            firsts.append(r)
-            c1, c2 = r.codes("q4")
-            if "OFFICIAL" not in c1 or "OFFICIAL" not in c2:
-                q4.append((r, f"not coded OFFICIAL by both coders (coder 1: {sorted(c1)}, coder 2: {sorted(c2)})"))
-        allow = allowed_q4(n)
-        met = len(q4) <= allow and len(firsts) == n
-        ok &= met
-        out.append(f"- **Q4 (official first; first item only)**: {len(q4)} misses of {len(firsts)} (allowed ≤ {allow}) → **{'met' if met else 'NOT MET'}**")
-        for r, why in q4:
-            out.append(f"  - MISS: {why} — {r.where()} — “{r['q4_verbatim']}”")
+            if pr:
+                firsts.append(pr[0])
+        if g == "A":
+            q4 = []
+            for r in firsts:
+                c1, c2 = r.codes("q4", Q4_CODES)
+                if "OFFICIAL" not in c1 or "OFFICIAL" not in c2:
+                    q4.append((r, f"not coded OFFICIAL by both coders (coder 1: {sorted(c1)}, coder 2: {sorted(c2)})"))
+            allow = allowed_q4(n)
+            met = len(q4) <= allow and len(firsts) == n
+            ok &= met
+            out.append(f"- **Q4 (official first; first item only)**: {len(q4)} misses of {len(firsts)} (allowed ≤ {allow}) → **{'met' if met else 'NOT MET'}**")
+            for r, why in q4:
+                out.append(f"  - MISS: {why} — {r.where()} — “{r['q4_verbatim']}”")
+        else:
+            out.append(f"- Q4 (first item; DESCRIPTIVE for group B, no target — the staff surfaces state no precedence): {len(firsts)} answers")
+            for r in firsts:
+                c1, c2 = r.codes("q4", Q4_CODES)
+                flag = " ⚑ MODEL-AUTHORITY" if "MODEL-AUTHORITY" in c1 | c2 else ""
+                out.append(f"  - coder 1 {sorted(c1)}, coder 2 {sorted(c2)}{flag} — {r.where()} — “{r['q4_verbatim']}”")
         end = [r for r in gr if r["exposure"] == "end"]
-        endok = sum(1 for r in end if {"OFFICIAL"} <= (r.codes("q4")[0] & r.codes("q4")[1]))
+        endok = sum(1 for r in end if "OFFICIAL" in r.codes("q4", Q4_CODES)[0] and "OFFICIAL" in r.codes("q4", Q4_CODES)[1])
         out.append(f"- Q4 asked again at the end (secondary, no target): {endok} of {len(end)} coded OFFICIAL by both coders")
-        out.append(f"- coder agreement on open answers: {agree} of {agree + disagree} identical code sets; {disagree} disagreements (listed in the sheet, not resolved here)")
+        out.append(f"- coder agreement on open and later answers: {agree} of {agree + disagree} identical code sets; {disagree} disagreements (in the sheet, not resolved here)")
     out.append(f"\n## Decision\n\n{'All targets met: the paused wording work may resume, scoped by these results. No public statement about comprehension is made.' if ok else 'A target was missed or a critical miss occurred: the failing wording is revised first, with Iris and Sofia, and re-tested on new participants before any new wording is added.'}\n")
     return ok, "\n".join(out) + "\n"
 

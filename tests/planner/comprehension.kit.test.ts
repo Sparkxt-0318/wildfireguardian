@@ -94,7 +94,9 @@ describe('comprehension kit items', () => {
       try {
         files[`items/${id}/card.ko.html`] = renderToStaticMarkup(createElement(Card, { card, lang: 'ko', example: false }));
         // the top of the page as a saved place shows it, in the page's fixed order: banner, official-orders slot,
-        // question, card (the language button, scenario picker, place list and footer are below or beside it)
+        // question, card. OMITTED (Mira N1, stated in PROTOCOL v2.3 and the kit README): the "English" button and the
+        // "재현할 기록: <region> · <input time>" scenario selector, which sit between the question and the card at phone
+        // width; the place list and footer below the card
         files[`items/${id}/page.ko.html`] =
           renderToStaticMarkup(createElement(Banner, { lang: 'ko' })) +
           renderToStaticMarkup(createElement(OfficialSlot, { lang: 'ko' })) +

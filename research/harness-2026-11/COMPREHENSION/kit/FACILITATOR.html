@@ -12,27 +12,31 @@ h1 { font-size: 22px; } h2 { font-size: 18px; border-top: 2px solid #111; paddin
 .note { color: #333; font-size: 13px; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; } td, th { border: 1px solid #999; padding: 4px 6px; vertical-align: top; text-align: left; }
 .badge { display: inline-block; border: 2px solid #111; padding: 2px 8px; font-weight: 700; }
+.rule { border: 2px solid #8A2B00; padding: 6px 10px; font-weight: 600; }
 </style>
 </head>
 <body>
 <p class="badge">계획 단계 자료 · 실제 상황 아님 · 이해도는 아직 검증되지 않음</p>
-<h1>진행자 대본 — 대피 안내 읽기 시험 (예비 시험, PROTOCOL v2.2)</h1>
+<h1>진행자 대본 — 대피 안내 읽기 시험 (예비 시험, PROTOCOL v2.3)</h1>
 <p class="note">이 대본은 한 사람씩 진행하는 시험에 씁니다. <b>회색 칸의 문장은 그대로 읽습니다.</b> 문장을 바꾸거나 덧붙이지 않습니다.
-안내문을 쓴 사람이 진행자를 맡지 않는 것이 좋습니다(소유자가 정할 수 있으면). 진행자는 답이 맞는지 틀린지 어떤 표시도 하지 않습니다.</p>
+안내문을 쓴 사람이 진행자를 맡지 않는 것이 좋습니다(프로젝트 책임자가 정할 수 있으면). 진행자는 답이 맞는지 틀린지 어떤 표시도 하지 않습니다.</p>
+<p class="rule">진행자는 참가자가 보고 있는 자료에 없는 시각을 말하지 않습니다. "안전"이라는 말도 먼저 꺼내지 않습니다.</p>
 
 <h2>0. 준비</h2>
 <ul>
+<li>첫 참가자를 만나기 전에, 담당자 한 사람과 이 대본 전체를 시간을 재며 한 번 해 봅니다(필수). 걸린 시간을 적어 둡니다.</li>
 <li>참가자 번호표(SCHEDULE.csv의 slot: A01…A12, B01…B08). 이름은 어디에도 적지 않습니다.</li>
 <li>이 참가자의 순서표(SCHEDULE.csv에서 그 slot의 줄들)와 결과 기록지(results_template.csv의 같은 slot 줄들).</li>
 <li>A 집단: 전화기(문자와 공개 화면 카드를 띄움 — <code>print/handouts/item-*.html</code>을 오프라인으로 엶), 마을 방송 녹음 파일(코드마다 하나, 모두에게 같은 파일), 스피커.</li>
-<li>B 집단: 계획 도구 상단 문구 인쇄물(<code>print/handouts/item-*.html</code>), A4 계획서 인쇄물(<code>items/&lt;case&gt;/a4.ko.pdf</code>, 뒷면에 자료 코드).</li>
+<li>B 집단: 계획 도구 상단 문구 인쇄물(<code>print/handouts/item-*.html</code>), A4 계획서 인쇄물(<code>items/&lt;case&gt;/a4.ko.pdf</code>를 <b>100% 크기로</b> 인쇄, 줄이지 않음, 뒷면에 자료 코드).</li>
 <li>초시계 하나(초 단위). 녹음기를 쓰려면 참가자 동의서에 녹음 동의가 있어야 합니다.</li>
 <li>참가자에게는 자료 코드(예: 자료-366)만 보입니다. 사례 번호(C1 등)는 진행자 열쇠표(FACILITATOR_KEY.csv)에만 있고, 참가자에게 보여 주거나 말하지 않습니다.</li>
 </ul>
 
 <h2>1. 시작 안내 (그대로 읽기)</h2>
+<p class="note">부르는 말은 하나만 씁니다. A 집단(주민)에게는 "어르신", B 집단(담당자)에게는 "선생님"이라고 합니다. 아래 [어르신/선생님] 자리에 그 하나를 넣어 읽습니다.</p>
 <div class="say">오늘 보실 자료는 2025년 산불 기록을 바탕으로 다시 만들어 본 것입니다. 실제 상황이 아닙니다. 지금 이 지역에 산불이 났거나 대피 명령이 있다는 뜻이 아닙니다.</div>
-<div class="say">저희는 이 안내문이 얼마나 알아보기 쉬운지 알아보려고 합니다. 어르신(선생님)을 시험하는 것이 아니고, 맞는 답이나 틀린 답은 없습니다. 안내문이 알아보기 어렵다면, 그것은 안내문을 고쳐야 한다는 뜻입니다.</div>
+<div class="say">저희는 이 안내문이 얼마나 알아보기 쉬운지 알아보려고 합니다. [어르신/선생님]을 시험하는 것이 아니고, 맞는 답이나 틀린 답은 없습니다. 안내문이 알아보기 어렵다면, 그것은 안내문을 고쳐야 한다는 뜻입니다.</div>
 <div class="say">제가 자료를 하나씩 보여 드리거나 들려 드리고, 몇 가지 여쭤보겠습니다. 저는 답을 듣고 맞다, 틀리다 말씀드리지 않습니다. 궁금하신 점은 끝난 뒤에 말씀드리겠습니다. 힘드시면 언제든지 쉬거나 그만두셔도 됩니다.</div>
 
 <h2>2. 자료 하나마다 (순서표의 순서대로)</h2>
@@ -41,47 +45,57 @@ table { border-collapse: collapse; width: 100%; font-size: 14px; } td, th { bord
 <tr><th>자료 종류</th><th>하는 일과 할 말</th><th>초시계 시작</th></tr>
 <tr><td>마을 방송 (A)</td><td><div class="say">이제 마을 방송 녹음을 들려 드리겠습니다.</div>녹음을 한 번 틉니다. 참가자가 다시 듣고 싶다고 하면 <b>한 번만</b> 더 틀고, 기록지 <code>repeat_used</code>에 yes를 적습니다. 먼저 다시 듣겠느냐고 묻지 않습니다.</td><td>녹음이 끝나는 순간 (다시 들은 경우에도 첫 녹음이 끝난 순간부터)</td></tr>
 <tr><td>가족 문자 (A)</td><td>전화기 화면을 건넵니다. <div class="say">이 문자를 읽어 보세요.</div></td><td>전화기를 건넨 순간</td></tr>
-<tr><td>공개 화면 카드 (A)</td><td>전화기 화면을 건넵니다. <div class="say">이 화면을 읽어 보세요.</div></td><td>전화기를 건넨 순간</td></tr>
+<tr><td>공개 화면 카드 (A)</td><td>전화기 화면을 건넵니다. "어디로" 접힌 부분은 펼치지 않습니다. <div class="say">이 화면을 읽어 보세요.</div></td><td>전화기를 건넨 순간</td></tr>
 <tr><td>상단 문구 / A4 계획서 (B)</td><td>인쇄물을 건넵니다. <div class="say">이 자료를 보세요.</div></td><td>인쇄물을 건넨 순간</td></tr>
 </table>
-<p><b>초시계 멈추기.</b> 참가자가 출발해야 하는 시각으로 <b>어떤 시각이든 처음 말하는 순간</b>(열린 질문에 답하면서 말해도 됨) 멈추고, 그 초를 <code>q1_seconds</code>에, 말한 시각을 <code>q1_time</code>에 적습니다(24시간제 HH:MM, 예: "오전 10시 50분" → 10:50). 오전·오후를 말하지 않으면 말한 그대로 적고("10시 반" → 10:30), 오전인지 오후인지 되묻지 않습니다. 시각을 말하지 않으면 Q1을 물은 뒤 답할 때 멈춥니다. "모르겠다"면 <code>q1_time</code>은 비워 두고 초는 그때까지 적습니다. 시각이 나오지 않는 자료(C4, C5)에서는 초시계를 쓰지 않습니다.</p>
+<p><b>초시계 멈추기 (모든 자료).</b> 참가자가 출발해야 하는 시각으로 <b>어떤 시각이든 처음 말하는 순간</b>(열린 질문에 답하면서 말해도 됨) 멈추고, 그 초를 <code>q1_seconds</code>에 적습니다. 시각을 말하지 않으면 ② 시각 질문에 답할 때 멈춥니다. 시각이 나오지 않는 자료(C4, C5)에서도 똑같이 재고 적습니다.</p>
 
 <p><b>① 열린 질문 먼저</b> — 들은 말을 <b>그대로</b> <code>open_verbatim</code>에 적습니다(요약하지 않음).</p>
 <table>
 <tr><th>사례 (열쇠표에서 확인)</th><th>묻는 말</th></tr>
-<tr><td>C1, C2 (시각이 나오는 자료)</td><td><div class="say">이 안내는 무엇을 알려 주나요?</div></td></tr>
-<tr><td>C2만 — 이어서</td><td><div class="say">[다음 계산 시각]에 출발하는 것에 대해서는 무엇이라고 하나요?</div><span class="note">[다음 계산 시각]은 C2의 next_computed_kst(CASES.json)인 10:40을 <b>"오전 10시 40분"</b>으로 읽습니다.</span></td></tr>
-<tr><td>C4, C5 (시각이 나오지 않는 자료)</td><td><div class="say">이 안내는 무엇을 하라고 하나요?</div></td></tr>
+<tr><td>C1, C2</td><td><div class="say">이 안내는 무엇을 알려 주나요?</div></td></tr>
+<tr><td>C4, C5</td><td><div class="say">이 안내는 무엇을 하라고 하나요?</div></td></tr>
 </table>
-<p><b>② 닫힌 질문</b> — 열린 질문에 대한 답이 끝난 뒤에만 묻습니다.</p>
-<table>
-<tr><th>질문</th><th>사례</th><th>묻는 말</th><th>적는 곳</th></tr>
-<tr><td>Q1</td><td>C1, C2</td><td><div class="say">몇 시까지 출발하라고 되어 있나요?</div><span class="note">열린 질문에서 이미 시각을 말했어도 그대로 한 번 묻습니다.</span></td><td>q1_time, q1_seconds</td></tr>
-<tr><td>Q2</td><td>C2</td><td><div class="say">만약 [다음 계산 시각]에 출발하면, 빠져나갈 수 있다고 되어 있나요?</div></td><td>q2_answer: yes / no / unsure</td></tr>
-<tr><td>Q3</td><td>C4, C5</td><td><div class="say">지금 있는 곳에 그대로 있어도 안전하다고 되어 있나요?</div></td><td>q3_answer: yes / no / unsure</td></tr>
-<tr><td>Q4</td><td><b>참가자의 첫 자료에서만</b></td><td><div class="say">이 안내와 다른 곳에서 온 지시가 서로 다르면, 누구의 지시를 먼저 따르라고 되어 있나요?</div></td><td>q4_verbatim (그대로)</td></tr>
-</table>
-<p><b>③ 다음으로.</b> 답이 무엇이든 같은 말만 합니다.</p>
+
+<p><b>② 시각 질문 — 모든 사례(C1, C2, C4, C5)에서 똑같이</b></p>
+<div class="say">이 안내에 출발해야 하는 시각이 나와 있습니까? 있으면 몇 시입니까?</div>
+<p class="note"><code>q1_time</code>에 적습니다: 말한 시각은 24시간제 HH:MM("오전 10시 50분" → 10:50). 오전·오후를 말하지 않으면 말한 그대로 적고("10시 반" → 10:30), 오전인지 오후인지 되묻지 않습니다. "나와 있지 않다"면 <code>none</code>, "모르겠다"면 <code>unsure</code>를 적습니다.</p>
+
+<p><b>③ 늦은 출발 질문 — C1, C2에서만</b> (시각을 직접 말하지 않습니다)</p>
+<div class="say">이 안내에 나온 시각보다 늦게 출발하는 것에 대해서는 뭐라고 합니까?</div>
+<p class="note">답을 그대로 <code>later_verbatim</code>에 적습니다. 이어서:</p>
+<div class="say">그 시각보다 늦게 출발해도 나갈 수 있다고 합니까?</div>
+<p class="note"><code>later_answer</code>: yes / no / not_stated(나와 있지 않다, 모르겠다).</p>
+
+<p><b>④ 머무르기 질문 — C4, C5에서만</b></p>
+<div class="say">이 안내는 지금 있는 곳에 그대로 있으라는 뜻인가요?</div>
+<p class="note"><code>stay_answer</code>: yes / no / unsure.</p>
+
+<p><b>⑤ 누구의 지시가 먼저인가 — 참가자의 첫 자료에서만</b></p>
+<div class="say">이 안내와 다른 곳에서 온 지시가 서로 다르면, 누구의 지시를 먼저 따르라고 되어 있나요?</div>
+<p class="note">답을 그대로 <code>q4_verbatim</code>에 적습니다.</p>
+
+<p><b>⑥ 다음으로.</b> 답이 무엇이든 같은 말만 합니다.</p>
 <div class="say">네, 감사합니다. 다음 자료로 넘어가겠습니다.</div>
-<p class="note">하지 않는 것: "맞아요", "좋아요", "다시 보세요", 고개 끄덕이기, 자료를 가리키기, 시각을 대신 읽어 주기. 참가자가 정답을 물으면: <span class="say" style="display:inline-block">끝난 뒤에 말씀드리겠습니다.</span></p>
+<p class="note">하지 않는 것: "맞아요", "좋아요", "다시 보세요", 고개 끄덕이기, 자료를 가리키기, 시각을 대신 읽어 주기, 자료에 없는 시각이나 "안전"이라는 말을 꺼내기. 참가자가 정답을 물으면: <span class="say" style="display:inline-block">끝난 뒤에 말씀드리겠습니다.</span></p>
 
 <h2>3. 쉬는 시간</h2>
 <p>A 집단은 순서표의 한 바퀴(사례마다 한 번)가 끝날 때마다 쉬겠느냐고 묻습니다. 쉬는 동안 자료 이야기는 하지 않습니다.</p>
 
-<h2>4. 마지막 질문 (Q4 다시, 보조)</h2>
+<h2>4. 마지막 질문 (보조)</h2>
 <p>모든 자료가 끝나면 자료를 치운 뒤 묻습니다. 답을 그대로 기록지의 <code>exposure = end</code> 줄 <code>q4_verbatim</code>에 적습니다.</p>
 <div class="say">오늘 보신 안내들과 다른 곳에서 온 지시가 서로 다르면, 누구의 지시를 먼저 따르시겠어요?</div>
 
 <h2>5. 마무리 안내 (그대로 읽기 — 반드시)</h2>
 <div class="say">오늘 보신 자료는 모두 2025년 기록을 다시 만든 것이고, 실제 상황이 아니었습니다. 자료에 나온 시각과 길은 지금과 아무 관계가 없습니다.</div>
-<div class="say">실제로 산불이 나면 시·군청과 읍·면사무소, 이장님의 공식 대피 지시와 재난문자를 먼저 따르십시오. 이 도구의 안내는 공식 지시를 대신하지 않습니다.</div>
+<div class="say">실제로 산불이 나면 시·군청의 공식 대피 명령과 재난문자, 읍·면사무소와 이장님의 안내를 먼저 따르십시오. 이 도구의 안내는 공식 명령을 대신하지 않습니다.</div>
 <div class="say">도와주셔서 감사합니다. 궁금하신 점이 있으면 지금 말씀해 주세요.</div>
 <p class="note">참가자가 마무리 뒤에 묻는 정답 질문에는 답해도 됩니다. 그 대화는 기록지에 적지 않습니다.</p>
 
 <h2>6. 기록 규칙</h2>
 <ul>
 <li>기록지에는 slot, 집단, 나이대(예: 65–69, 70–74, 75–79, 80+ / B는 비움 가능), 전화기로 한글을 혼자 읽을 수 있는지(yes/no)만 적습니다. 이름, 주소, 전화번호, 마을 이름은 적지 않습니다.</li>
-<li><code>open_code_1</code>, <code>open_code_2</code>, <code>q4_code_1</code>, <code>q4_code_2</code>는 진행자가 채우지 않습니다. 두 사람의 부호화자가 서로 보지 않고 따로 채웁니다(SCORING_SHEET.html).</li>
+<li><code>*_code_1</code>, <code>*_code_2</code> 칸은 진행자가 채우지 않습니다. 두 사람의 부호화자가 서로 보지 않고 따로 채웁니다(SCORING_SHEET.html).</li>
 <li>예정과 다르게 진행된 것(순서가 바뀜, 녹음이 끊김, 참가자가 중단함)은 <code>notes</code>에 그대로 적습니다. 중단한 참가자의 줄은 지우지 않습니다.</li>
 </ul>
 </body>

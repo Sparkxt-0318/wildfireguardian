@@ -1,4 +1,5 @@
-"""Tests of score.py on SYNTHETIC result rows (invented answers, no person). Run: python3.12 -m pytest -q tools/test_score.py"""
+"""Tests of score.py (PROTOCOL v2.3) on SYNTHETIC result rows (invented answers, no person).
+Run: python3.12 -m pytest -q tools/test_score.py"""
 from __future__ import annotations
 
 import csv
@@ -14,7 +15,7 @@ import score  # noqa: E402
 
 CASES = {
     "C1": {"case": "C1", "found": True, "leave_by_kst": "10:50"},
-    "C2": {"case": "C2", "found": True, "leave_by_kst": "10:30", "q2_case": True},
+    "C2": {"case": "C2", "found": True, "leave_by_kst": "10:30"},
     "C4": {"case": "C4", "found": True, "leave_by_kst": None},
 }
 
@@ -25,20 +26,18 @@ def row(**kw) -> dict[str, str]:
     return d
 
 
-def group_a(n: int, edit=None) -> list[dict[str, str]]:
-    """n synthetic participants, each with C1, C2, C4 first (channel rotating), all answers correct."""
+def group(g: str, n: int, edit=None) -> list[dict[str, str]]:
+    """n synthetic participants, each with C1, C2, C4 first (channel rotating), every answer correct."""
     rows = []
-    chs = score.CHANNELS["A"]
+    chs = score.CHANNELS[g]
     for p in range(n):
         for i, c in enumerate(("C1", "C2", "C4")):
-            r = row(participant=f"A{p + 1:02d}", group="A", seq=i + 1, case=c, channel=chs[(i + p) % 3], exposure="first",
-                    open_verbatim="(synthetic)", open_code_1="NEUTRAL", open_code_2="NEUTRAL")
+            r = row(participant=f"{g}{p + 1:02d}", group=g, seq=i + 1, case=c, channel=chs[(i + p) % len(chs)], exposure="first",
+                    open_verbatim="(synthetic)", open_code_1="NEUTRAL", open_code_2="NEUTRAL", q1_seconds="12")
             if CASES[c]["leave_by_kst"]:
-                r.update(q1_time=CASES[c]["leave_by_kst"], q1_seconds="12")
+                r.update(q1_time=CASES[c]["leave_by_kst"], later_verbatim="(synthetic)", later_code_1="NEUTRAL", later_code_2="NEUTRAL", later_answer="not_stated")
             else:
-                r.update(q3_answer="no")
-            if c == "C2":
-                r.update(q2_answer="no")
+                r.update(q1_time="none", stay_answer="no")
             if i == 0:
                 r.update(q4_verbatim="(synthetic)", q4_code_1="OFFICIAL", q4_code_2="OFFICIAL")
             rows.append(r)
@@ -61,64 +60,88 @@ def run(rows: list[dict[str, str]]) -> tuple[bool, str]:
 
 
 def test_clean_sheet_meets_every_target():
-    ok, text = run(group_a(8))
+    ok, text = run(group("A", 8) + group("B", 6))
     assert ok, text
     assert "Q1 C1** (first exposure, pooled over channels): 0 misses of 8 (allowed ≤ 1)" in text
 
 
-def test_q1_allowance_is_floor_point_two_n():
+def test_allowances():
     assert [score.allowed_q1(n) for n in (6, 9, 10, 12)] == [1, 1, 2, 2]
     assert [score.allowed_q4(n) for n in (6, 9, 10, 12)] == [0, 0, 1, 1]
 
-    def two_slow(rows):
-        for r in rows[:6]:
+
+def test_q1_cut_applies_except_a4():
+    def slow(rows):
+        for r in rows:
             if r["case"] == "C1":
-                r["q1_seconds"] = "31"
-    ok, text = run(group_a(8, two_slow))
-    assert not ok and "2 misses of 8 (allowed ≤ 1)" in text and "after 31 s" in text
-
-
-def test_one_coder_is_enough_for_a_miss():
-    def one(rows):
-        rows[2]["open_code_2"] = "STAY"  # C4 of participant 1
-    ok, text = run(group_a(6, one))
-    assert not ok and "Q3 (read as safe or as stay)**: 1 of" in text
-
-
-def test_time_invented_is_critical_and_closed_yes_counts():
-    def bad(rows):
-        rows[2]["open_code_1"] = "TIME-INVENTED"
-        rows[5]["q3_answer"] = "yes"
-        rows[4]["q2_answer"] = "yes"
-    ok, text = run(group_a(6, bad))
+                r["q1_seconds"] = "95"
+    ok, text = run(group("B", 6, slow))
+    # B channels rotate headline/a4: only headline first exposures miss on time
+    heads = sum(1 for r in group("B", 6) if r["case"] == "C1" and r["channel"] == "headline")
+    assert f"{heads} misses of 6" in text and "no cut on this channel" in text
     assert not ok
-    assert "Q1 critical (time invented where none is shown)**: 1 of" in text
-    assert "closed Q3 answered yes" in text and "closed Q2 answered yes" in text
 
 
-def test_unsure_is_reported_not_a_miss():
-    def unsure(rows):
-        rows[2]["q3_answer"] = "unsure"
-    ok, text = run(group_a(6, unsure))
-    assert ok and "answered “unsure” (not a miss; reported): 1" in text
+def test_no_time_on_a_leave_by_case_is_a_q1_miss_and_a_time_on_c4_is_critical():
+    def bad(rows):
+        rows[0]["q1_time"] = "none"          # C1: said no time is given
+        rows[2]["q1_time"] = "10:00"         # C4: gave a time to leave
+    ok, text = run(group("A", 6, bad))
+    assert not ok and "said no time is given" in text
+    assert "Q1 critical (a time to leave given where none is shown)**: 1 of" in text
 
 
-def test_q4_needs_official_from_both_coders():
-    def q4(rows):
-        rows[0]["q4_code_2"] = "NEUTRAL"
-    ok, text = run(group_a(6, q4))
+def test_repeating_the_data_time_is_not_a_miss_but_ambiguous_time_is_resolved_by_the_closed_answer():
+    def amb(rows):
+        rows[2]["open_code_2"] = "AMBIGUOUS-TIME"   # "오전 10시 자료로는…": closed answer says none → cleared
+    ok, text = run(group("A", 6, amb))
+    assert ok, text
+    assert "AMBIGUOUS-TIME open answers cleared by the closed time question (no time given there): 1" in text
+
+
+def test_either_coder_rule_and_closed_answers():
+    def one(rows):
+        rows[2]["open_code_2"] = "STAY"
+        rows[4]["later_code_1"] = "USABLE-LATER"
+        rows[3]["later_answer"] = "yes"
+        rows[5]["stay_answer"] = "yes"
+    ok, text = run(group("A", 6, one))
+    assert not ok
+    assert "Q3 (read as stay; C4 and C5)**: 2 of" in text
+    assert "Q2 (a later time read as usable; C1 and C2)**: 2 of" in text
+
+
+def test_not_stated_and_unsure_are_not_misses():
+    def ns(rows):
+        rows[2]["stay_answer"] = "unsure"
+    ok, text = run(group("A", 6, ns))
+    assert ok and "stay answered “unsure” (not a miss, reported): 1" in text
+
+
+def test_q4_scored_for_a_descriptive_for_b():
+    def a(rows):
+        rows[0]["q4_code_2"] = "EMERGENCY-SERVICE"
+    ok, text = run(group("A", 6, a))
     assert not ok and "Q4 (official first; first item only)**: 1 misses of 6 (allowed ≤ 0)" in text
 
+    def b(rows):
+        rows[0]["q4_code_1"] = rows[0]["q4_code_2"] = "MODEL-AUTHORITY"
+        rows[3]["q4_code_1"] = rows[3]["q4_code_2"] = "NOT-STATED"
+    ok, text = run(group("B", 6, b))
+    assert ok, text
+    assert "DESCRIPTIVE for group B" in text and "⚑ MODEL-AUTHORITY" in text
 
-def test_groups_are_never_pooled_and_malformed_is_refused():
-    rows = group_a(6)
-    rows[0]["group"] = "C"
-    try:
-        run(rows)
-    except score.SheetError as e:
-        assert "group must be A or B" in str(e)
-    else:
-        raise AssertionError("malformed group accepted")
+
+def test_malformed_sheet_is_refused():
+    for field, value, msg in (("group", "C", "group must be A or B"), ("later_answer", "maybe", "later_answer"), ("q1_time", "ten", "q1_time"), ("open_code_1", "SAFE", "unknown code")):
+        rows = group("A", 6)
+        rows[0][field] = value
+        try:
+            run(rows)
+        except score.SheetError as e:
+            assert msg in str(e)
+        else:
+            raise AssertionError(f"{field}={value} accepted")
 
 
 def test_template_from_build_print_has_the_columns():
@@ -126,10 +149,9 @@ def test_template_from_build_print_has_the_columns():
     with (kit / "results_template.csv").open(encoding="utf-8") as f:
         assert next(csv.reader(f)) == score.COLUMNS
     doc = json.loads((kit / "CASES.json").read_text(encoding="utf-8"))
-    assert all(c["case"] in {"C1", "C2", "C3", "C4", "C5"} for c in doc["cases"])
+    assert [c["case"] for c in doc["cases"]] == ["C1", "C2", "C4", "C5"]
 
 
 def test_cli_exit_code_on_empty_template_is_not_a_pass():
-    # the unfilled template has first exposures with no time: it must never score as a pass
     r = subprocess.run([sys.executable, str(HERE / "score.py"), str(HERE.parent / "results_template.csv")], capture_output=True, text=True)
     assert r.returncode == 1, r.stdout + r.stderr
