@@ -245,8 +245,12 @@ then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s)
     truths and brackets as the stored robustness rows.
   * Method: the composite kernel shape is rescaled by one multiplier, chosen by exact forward simulation from the
     known survey states so the simulated new-burn count matches the observed count.
-  * It **overshoots** the total rate: 1.086 (6 h), 1.177 (12 h), 1.367 (24 h), 1.293 (spotting), against MCEM's
-    1.03–1.10.
+  * **Verified: Owen, PASS WITH NOTES (d68d790).** It **overshoots** the total rate: about 1.08 (6 h), 1.18 (12 h),
+    1.37 (24 h), 1.30 (spotting), against MCEM's 1.03–1.10. Means vary by about ±0.01 on rerun: the estimator is not
+    bit-reproducible (per replicate up to ±0.06 in rate, probably composite-fit drift amplified by the bisection).
+    The win counts are reproduced exactly.
+  * The recovery test band (true 3 → m in 2.4–3.7) is loose. It would not catch a 15% bias, which is adequate only
+    for a negative result.
   * Its held-out NLL is no better than plain composite and beats MCEM in 0–1/8 per scenario. Its cost is 5–15 s
     versus MCEM's 30–55 s.
   * Reading (*hypothesis*): front speed depends on how rate is distributed across offsets, so matching burned-area
