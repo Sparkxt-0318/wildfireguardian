@@ -15,6 +15,15 @@ The table gives each forecast's excess mean RPS over the truth, with its z-score
 | over-dispersed | +0.00083 (z 13) | +0.00030 (z 14) | +0.00067 (z 18) |
 | climatology | +0.0254 (z 67) | +0.0020 (z 29) | +0.0050 (z 34) |
 
+**One-bin shifts in the stress patterns** (added at Iris's request, with the rule committed at eb03856b before they ran; all other numbers are unchanged by the rerun). Δ is the smallest step the pattern resolves.
+
+| forecast | one survey at 3 h (Δ = 3 h) | surveys at 2 h and 5 h (Δ = 2 h) |
+|---|---|---|
+| one bin earlier | +0.00226 (z 34), pass | +0.00224 (z 27), pass |
+| one bin later | +0.00444 (z 43), pass | +0.00324 (z 30), pass |
+
+With a single survey at 3 h, "one bin later" (t − 3 h = 0) is necessarily the same forecast as "never". So for that pattern the score cannot separate a 3 h-late forecast from "never", and that is the resolution limit of a one-survey design. With two early surveys, both one-bin shifts are separable from the truth and from each other.
+
 **Verdict: PASS.** The truth scores best in every censoring pattern, by at least 13 standard errors. The always-early forecast, the WiDS failure mode, is the worst by far.
 
 **Notes.**
