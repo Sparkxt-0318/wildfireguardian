@@ -52,7 +52,7 @@
   "host_independence": "the plain rebuild has different JSON bytes from the frozen packet and still verifies FULLY_BOUND (A ignores host paths and zip timestamps)"
  },
  "gap": {
-  "finding": "ContactModel.from_packet never reads  and has no  attribute; run_panel (getattr default) and fdyn_certs (constant) treated every packet as supported, so a ROUTE certificate could be issued on a masked packet across cells of unknown burned state (CERTIFICATE_SPEC 5.3 says no certificate)",
+  "finding": "ContactModel.from_packet never reads the npz support channel and has no supported attribute; run_panel (getattr default) and fdyn_certs (constant) treated every packet as supported, so a ROUTE certificate could be issued on a masked packet across cells of unknown burned state (CERTIFICATE_SPEC 5.3 says no certificate)",
   "affected_results": "none: every packet used so far has full support (panel 15/15, F-DYN v3.4 16/16, v3.1/v3.3 29/29)",
   "fix": "p1_check.require_full_support inside routable_contact_model (default on; refuses any unsupported entry or a missing/non-boolean support array); allow_unsupported=True only in tier_r.py and unknown_support.py, which decide unknown cells themselves",
   "tests": "xcheck/test_raw_guard.py Support (4) + MaskedPacket (real masked packet via WFG_MASKED_PACKET: refused by default, readable with the opt-out); all other suites unchanged"
