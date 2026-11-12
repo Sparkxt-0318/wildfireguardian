@@ -13,3 +13,5 @@ The script was run on 2026-11-12 on the inputs below:
 The script itself is `c847e3df…de40` (`python -I arrival_vs_union.py EVENTS_JSON ENV_ROOT NIROPS_SHP ARCHIVE_EXTRACTED OUT_CSV`, with `forecast/wildfire` importable beside it as `repo_forecast/wildfire`).
 
 **Result:** valid = union on 29 of 29 fires (`valid_not_union` = `union_not_valid` = 0, 159,522 cells in total). The regions, archive and events.json grids are identical on every fire. The NIROPS file was read per fire with an OGR where-filter, so only these exposed incidents were opened; none appears in the S-D9 cohort split.
+
+**Note from S-D9 (Victor):** for RedRock the final union here is 2,285 cells. The union derived from the forecast-v2 held-out record R (the last scored interval's unscored complement plus its positives) has 2,283. The likely cause is that R's last scored interval ends before the final survey, for example where a gap over 48 h leaves no consecutive interval. The other five cohort-R fires agree exactly. This check (arrival-valid vs the union of all surveys) is unaffected.
