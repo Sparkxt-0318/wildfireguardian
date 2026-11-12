@@ -204,3 +204,23 @@ def test_repo_relative_radiation_identity():
         child.repo_relative_radiation_identity({'module': '/usr/lib/heat.py', 'sha256': pin}, pin)
     with pytest.raises(SystemExit, match='RADIATION_MODULE_NOT_PINNED'):
         child.repo_relative_radiation_identity({'module': str(heat), 'sha256': '0' * 64}, '0' * 64)
+
+
+def test_noreentry2_b0_born_at_0():
+    """NOREENTRY2_RULE.md 1, 6.1, 6.2: C0 = export burned | arrival <= start (inclusive, integer ms); B0 = C0 minus
+    present fire minus cells already born at 0; a later /1 birth of a B0 cell is replaced by 0."""
+    from fdyn import build
+    start_h = 10.0
+    #             export-burned  present  arrival<=start(out)  arr==start  catch-up(born 0)  later birth  future  NaN
+    arrival = np.array([[np.nan, 9.0, 2.0, 10.0, 9.9, 12.0, 11.0, np.nan]])
+    export = np.array([[True, True, False, False, False, True, False, False]])
+    present = np.array([[False, True, False, False, False, False, False, False]])
+    times = np.array([[[np.inf, np.inf, np.inf, 0.0, 0.0, 7200.0, 3600.0, np.inf]]])
+    p = {'times': times.copy(), 'meta': {'plan_sha256': 'x', 'ignition_times_sha256': 'y'}}
+    added = build.add_b0(p, arrival, export, present, start_h)
+    assert p['times'][0, 0].tolist() == [0.0, np.inf, 0.0, 0.0, 0.0, 0.0, 3600.0, np.inf]
+    assert added == [{'export_burned_not_present': 2, 'variant_burned_out': 1, 'replaced_later_birth': 1, 'b0_total': 3}]
+    m = p['meta']
+    assert m['transform'] == 'no_reentry/2' and m['no_reentry2']['c0_cells'] == 6
+    assert m['no_reentry2']['base_plan'] == {'plan_sha256': 'x', 'ignition_times_sha256': 'y'}
+    assert m['ignition_times_sha256'] == ignitions.digest(p['times']) and m['plan_sha256'] != 'x'

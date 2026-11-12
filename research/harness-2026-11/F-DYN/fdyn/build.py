@@ -69,6 +69,37 @@ def read_raster(path: Path) -> np.ndarray:
     return a
 
 
+def add_b0(p, arrival, export_burned, present_fire, start_h):
+    """NOREENTRY2_RULE.md 1 and 6.1-6.3: C0 = export known-burned | (variant arrival or lo <= start, integer ms since
+    t0, inclusive), never from a dilated raster (only the variant's own --arrival is passed). Per member,
+    B0 = C0 minus present fire minus cells already born at 0; B0 cells get birth 0 (with T = R = H in the child:
+    active on [0, H)), replacing any later birth (6.2)."""
+    a_ms, fin = ignitions.to_ms(arrival)
+    c0 = np.asarray(export_burned, bool) | (fin & (a_ms <= ignitions.hour_ms(start_h)))
+    times = p['times']
+    if times.shape[1:] != c0.shape:
+        raise SystemExit('NOREENTRY2_GRID: B0 is defined on the full export grid only')
+    added = []
+    for k in range(times.shape[0]):
+        b0 = c0 & ~present_fire & (times[k] != 0.0)
+        later = b0 & np.isfinite(times[k])                       # 6.2: a later /1 birth replaced by 0
+        times[k][b0] = 0.0
+        added.append({'export_burned_not_present': int((b0 & export_burned).sum()),
+                      'variant_burned_out': int((b0 & ~export_burned).sum()),
+                      'replaced_later_birth': int(later.sum()), 'b0_total': int(b0.sum())})
+    m = p['meta']
+    base = {'plan_sha256': m['plan_sha256'], 'ignition_times_sha256': m['ignition_times_sha256']}
+    m['transform'] = 'no_reentry/2'
+    m['ignition_times_sha256'] = ignitions.digest(times)
+    m['no_reentry2'] = {'rule': 'NOREENTRY2_RULE.md', 'c0_cells': int(c0.sum()), 'added_at_0': added,
+                        'base_plan': base,
+                        'c0_definition': 'export known-burned | variant arrival (envelope: lo) <= start, integer ms since '
+                                         't0 2025-03-22T02:24Z, inclusive; never from a dilated raster'}
+    m.pop('plan_sha256')
+    m['plan_sha256'] = hashlib.sha256(json.dumps(m, sort_keys=True).encode()).hexdigest()
+    return added
+
+
 def recorded_window(region: str, start: str) -> dict:
     md = json.loads((INPUTS / 'packets' / region / start / 'NATIVE_METADATA.json').read_text())
     return md['regional']['window_rows_cols_north_up']
@@ -95,12 +126,17 @@ def main(argv=None):
     ap.add_argument('--python', default=sys.executable)
     ap.add_argument('--no-reentry', action='store_true',
                     help='NOREENTRY_RULE.md: born cells closed to the horizon (scalar law T = R = H), own identity')
+    ap.add_argument('--no-reentry2', action='store_true',
+                    help='NOREENTRY2_RULE.md: as --no-reentry, plus cells burned out before the start closed on [0, H)')
     ap.add_argument('--support-mask', type=Path, default=None,
                     help='F-9.3 SUPPORT_WIRING_RULE.md: npz with boolean "support" (north-up; export grid or packet grid)')
     ap.add_argument('--support-rule', default=None, help='supplied/1 (the only rule on this path)')
     ap.add_argument('--support-provenance', default=None, help='JSON provenance of the mask (required with a mask)')
     a = ap.parse_args(argv)
-    if a.support_mask is not None and a.arrival_variant == 'envelope' and not a.no_reentry:   # correction 1 (per-cell only)
+    if a.no_reentry and a.no_reentry2:
+        raise SystemExit('NOREENTRY_TRANSFORM: --no-reentry and --no-reentry2 are exclusive')
+    nr_any = a.no_reentry or a.no_reentry2
+    if a.support_mask is not None and a.arrival_variant == 'envelope' and not nr_any:   # correction 1 (per-cell only)
         raise SystemExit('SUPPORT_ENVELOPE_UNSUPPORTED: masks apply to scalar-law packets only')
     arrival = read_raster(a.arrival)
     sd = read_raster(a.sd) if a.sd else None
@@ -131,6 +167,9 @@ def main(argv=None):
         export_dir = a.synthetic_export_dir
     with np.load(export_dir / f'FORECAST_{a.start}.npz') as z:
         burned_at_start = z['source_burned_area_valid'] & (z['source_burned_area'] == 1)
+        export_burned = burned_at_start.copy()                       # NOREENTRY2_RULE.md 6.1 (C0, part a)
+        _iv = z['heat__initial_burning_valid'].astype(bool)
+        present_fire = (_iv & (z['heat__initial_active_burning_probability'] == 1) & export_burned) | (export_burned & ~_iv)
         if a.arrival_variant == 'envelope_burnset':   # PACKET_CONSISTENCY_RULE.md A: only present fire is skipped
             iv = z['heat__initial_burning_valid'].astype(bool)
             cur = (iv & (z['heat__initial_active_burning_probability'] == 1) & burned_at_start) | (burned_at_start & ~iv)
@@ -153,6 +192,8 @@ def main(argv=None):
         extra['burnset_mask'] = np.isfinite(arrival)
     if a.no_reentry:                                       # NOREENTRY_RULE.md (absent: plan bytes as v3.5)
         p['meta']['transform'] = 'no_reentry/1'
+    if a.no_reentry2:                                      # NOREENTRY2_RULE.md: /1 plus B0 born at 0
+        add_b0(p, arrival, export_burned, present_fire, start_h)
     np.savez_compressed(plan_path, times=p['times'], meta=json.dumps(p['meta']), **extra)
     cmd = [a.python, '-I', '-B', str(HERE / '_packet_child.py'), '--plan', str(plan_path), '--graph', str(graph),
            '--export-dir', str(export_dir), '--cutoff', start.strftime('%Y-%m-%dT%H:%M:%SZ'),
@@ -160,7 +201,7 @@ def main(argv=None):
     if (a.support_mask is None) != (a.support_rule is None) or (a.support_mask is None) != (a.support_provenance is None):
         raise SystemExit('SUPPORT_ARGS: --support-mask, --support-rule and --support-provenance go together')
     if a.support_mask is not None:                       # F-9.3 SUPPORT_WIRING_RULE.md
-        if a.arrival_variant == 'envelope' and not a.no_reentry:   # SUPPORT_WIRING_RULE.md correction 1 (per-cell law)
+        if a.arrival_variant == 'envelope' and not nr_any:   # SUPPORT_WIRING_RULE.md correction 1 (per-cell law)
             raise SystemExit('SUPPORT_ENVELOPE_UNSUPPORTED: masks apply to scalar-law packets only')
         if a.support_rule != 'supplied/1':
             raise SystemExit(f'SUPPORT_RULE_UNKNOWN {a.support_rule!r} (F-DYN path: supplied/1 only)')

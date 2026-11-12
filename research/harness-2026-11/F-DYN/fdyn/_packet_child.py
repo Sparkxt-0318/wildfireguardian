@@ -120,7 +120,10 @@ def main():
         footprint = z['burnset_mask'].copy() if 'burnset_mask' in z.files else None
     S = times.shape[0]
     horizon = float(meta['horizon_s'])
-    noreentry = meta.get('transform') == 'no_reentry/1'          # NOREENTRY_RULE.md (absent: v3.5 path unchanged)
+    transform = meta.get('transform')
+    if transform not in (None, 'no_reentry/1', 'no_reentry/2'):
+        raise SystemExit(f'TRANSFORM_UNKNOWN {transform!r}')
+    noreentry = transform is not None          # NOREENTRY_RULE.md / NOREENTRY2_RULE.md (absent: v3.5 path unchanged)
     calls = []
 
     def fdyn_draws(q, scenario_count, seed, horizon_s):
@@ -170,13 +173,27 @@ def main():
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
                                           'fire arrived before that overpass. HAZARD-only; not for array-based routing '
                                           'or certification (PACKET_CONSISTENCY_RULE.md B)')
-        if noreentry:                             # NOREENTRY_RULE.md: own identity (settings digest, ids), labelled
-            s['source_law_version'] = 'wfg.fdyn.no-reentry-scalar/1'
-            s['fdyn']['transform'] = 'no_reentry/1'
-            s['fdyn']['no_reentry'] = ('no re-entry: a cell born at b is closed on [b, H), present fire on [0, H), '
-                                       'burned-out-at-start cells open (Richard PacketModel never); scalar law T = R = H '
-                                       '(NOREENTRY_RULE.md); default for person-facing outputs')
-            s['fdyn']['no_reentry_flux'] = "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears"
+        if noreentry:                             # NOREENTRY_RULE.md / NOREENTRY2_RULE.md: own identity, labelled
+            s['fdyn']['transform'] = transform
+            if transform == 'no_reentry/1':
+                s['source_law_version'] = 'wfg.fdyn.no-reentry-scalar/1'
+                s['fdyn']['no_reentry'] = ('no re-entry: a cell born at b is closed on [b, H), present fire on [0, H), '
+                                           'burned-out-at-start cells open (Richard PacketModel never); scalar law T = R = H '
+                                           '(NOREENTRY_RULE.md); default for person-facing outputs')
+                s['fdyn']['no_reentry_flux'] = "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals Richard's never-clears"
+            else:
+                nr2 = meta['no_reentry2']
+                s['source_law_version'] = 'wfg.fdyn.no-reentry-scalar/2'
+                s['fdyn']['no_reentry'] = ('no re-entry including before the start: a cell born at b is closed on [b, H); '
+                                           'every cell burned at or before the start (C0 = export known-burned | variant '
+                                           'arrival <= start) is closed on [0, H); B0 (burned out at the start) born at 0; '
+                                           'scalar law T = R = H; blocking independent of the placeholder burn duration '
+                                           '(NOREENTRY2_RULE.md)')
+                s['fdyn']['no_reentry2'] = {'c0_cells': nr2['c0_cells'], 'added_at_0': nr2['added_at_0'],
+                                            'base_plan': nr2['base_plan']}
+                s['fdyn']['no_reentry_flux'] = ('burning intensity held to the horizon, including cells burned out before '
+                                                'the start; raises dose and peak vs reopening and vs no_reentry/1; contact '
+                                                "set equals Richard's closed-from-0 field")
             s['fdyn'].pop('envelope', None)
             if meta.get('arrival_variant') == 'envelope':
                 s['fdyn']['soundness'] = ('lo = FIRMS bracket-start, NOT A LOWER BOUND: not guaranteed conservative where '
