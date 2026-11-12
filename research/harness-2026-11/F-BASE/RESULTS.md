@@ -78,6 +78,26 @@ Host budget: 2e8 arcs (about 52 MiB per 10^6 arcs, 15 GiB host). Median of 3 fre
 - **Not run (size, not a failure):** 2025-03-25T19 FD1, 2025-03-25T19 FX2 and 2025-03-25T23 FL2 (4.03e8 nodes,
   4.51e8 arcs), and 2025-03-26T08 FW1 (3.69e8 nodes, 4.14e8 arcs). At the measured rate these need about 21–23 GiB.
 
+## Router search-only timing (rule 4 + dated like-for-like section; `run_router_timing.py`, `RESULTS_router_timing.json`)
+
+The router is F-3.2's code at a03f218, unchanged: packet load plus `frontend.build_instance` is timed as build, and
+`sipp.solve` is timed as search. The verdict uses F-3.2's own FOUND/EXHAUSTED mapping. Each mission runs in a fresh
+process, median of 3, on the same host as the F-BASE runs.
+
+- **Agreement:** the router reproduces the recorded verdict and arrival second on 20/20 missions, with results
+  consistent across repeats.
+- **Search time:** router 0.001–3.60 s per mission (5.27 s summed over the panel). The F-BASE exact baseline takes
+  0.003–3.26 s (14.53 s summed). The per-mission ratio exact/router has median 4.3 and ranges from 0.2 to 98: the
+  router is faster on 13 missions and slower on 7.
+- **Router build** (packet load and instance construction): 0.03–4.1 s per mission. **F-BASE parse** of the integer
+  INSTANCE block: 0.00–0.19 s. These differ in kind: the router builds from hazard packets, while F-BASE reads the
+  already-derived O2 integer instance.
+- **Router peak RSS:** 84–409 MiB, including the packet and contact model. F-BASE exact: 20–227 MiB.
+- **Caveats.** The two searches run on different representations of the same contact relaxation: SIPP's native
+  instance versus the O2 integer instance. All timings are host-specific. **No speed claim** is made beyond these
+  measured numbers, and no claim across hosts. Richard's F-3.1 field is not timed yet, because I don't have its
+  location and command.
+
 ## Verification
 
 Owen, eec16027 (covers 676fc721): **PASS WITH NOTES**. He reran all four commands and the tests, and every non-timing
