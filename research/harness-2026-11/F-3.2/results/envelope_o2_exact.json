@@ -1,0 +1,93 @@
+{
+ "packet": "research/harness-2026-11/F-DYN/_data/packets_v3/yeongdeok_2025/20250325T110000Z_h5_envelope_central_q300",
+ "h": "403/5",
+ "R": "4325491547270601/1099511627776",
+ "igniting_cells": 1655,
+ "present_cells": 97,
+ "export_burned": 2294,
+ "mode": "exact",
+ "active_cells_mine": 1752,
+ "active_cells_hazard": 1752,
+ "differing_cells": 1293,
+ "hazard_end_later_lt_1us": 95,
+ "other_differences": 1198,
+ "other_examples": [
+  {
+   "cell": 802,
+   "mine": [
+    [
+     "9600",
+     "30501473520376677/2199023255552"
+    ]
+   ],
+   "hazard": [
+    [
+     "9600",
+     "7625368380094169/549755813888"
+    ]
+   ]
+  },
+  {
+   "cell": 1039,
+   "mine": [
+    [
+     "2400",
+     "14668506080402277/2199023255552"
+    ]
+   ],
+   "hazard": [
+    [
+     "2400",
+     "3667126520100569/549755813888"
+    ]
+   ]
+  },
+  {
+   "cell": 1040,
+   "mine": [
+    [
+     "4800",
+     "18000"
+    ]
+   ],
+   "hazard": [
+    [
+     "5100",
+     "18000"
+    ]
+   ]
+  },
+  {
+   "cell": 1042,
+   "mine": [
+    [
+     "4800",
+     "18000"
+    ]
+   ],
+   "hazard": [
+    [
+     "5100",
+     "18000"
+    ]
+   ]
+  },
+  {
+   "cell": 1277,
+   "mine": [
+    [
+     "7800",
+     "26543231660383077/2199023255552"
+    ]
+   ],
+   "hazard": [
+    [
+     "7800",
+     "6635807915095769/549755813888"
+    ]
+   ]
+  }
+ ],
+ "integer_instances_equal": 0,
+ "integer_instances_compared": 10
+}

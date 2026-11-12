@@ -144,3 +144,27 @@ def compare(inst, derived):
             if a != b:
                 diffs.append((name, k, a, b))
     return diffs
+
+
+def compare_semantic(inst, derived):
+    """Like compare(), but EB_j is compared only on legal departures [dep, H − D_j] and WB on [dep, H − 1]: blocks on
+    departures that cannot be taken anyway (t + D_j > H) are not a difference (e.g. an activity set clipped at H)."""
+    dep, H = derived["dep"], derived["H"]
+    diffs = []
+    for j in range(inst.E):
+        lim = H - inst.D[j]
+        a = clip(merge(inst.edge_block.get(j, [])), dep, lim)
+        b = clip(derived["EB"].get(j, []), dep, lim)
+        if a != b:
+            diffs.append(("EB", j, a, b))
+    for n in range(inst.n_nodes):
+        if not inst.waitable[n]:
+            continue
+        a = clip(merge(inst.wait_block.get(n, [])), dep, H - 1)
+        b = clip(derived["WB"].get(n, []), dep, H - 1)
+        if a != b:
+            diffs.append(("WB", n, a, b))
+    for n in sorted(set(inst.accept) | set(derived["AC"])):
+        if merge(inst.accept.get(n, [])) != derived["AC"].get(n, []):
+            diffs.append(("AC", n, inst.accept.get(n), derived["AC"].get(n)))
+    return diffs
