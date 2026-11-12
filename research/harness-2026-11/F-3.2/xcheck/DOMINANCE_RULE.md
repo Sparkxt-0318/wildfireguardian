@@ -28,6 +28,12 @@ following hold. Each requirement is at least as strict as the relaxation `L(I)` 
 | A point outside the source domain, or unsupported cells ⇒ UNRESOLVED | none | the kit is stricter |
 | Radiation (peak, dose) | none | the kit is stricter |
 
+**Premises (Mira ledger 106, N1/N2).** §1 is conditional. "Equal" and "⊇" on the contact rows hold only if both sides
+use the same packet members, the same births and flame law (T, R), the same grid cells (grid alignment) and the same
+tier. These are checked per job by §2 (i)–(iii) and are not implied by §1. On the lattice row: D_j = travel_ticks·dt is
+read from the same graph edge on both sides (frontend.py:106 at f2cbcfc), and the departure and horizon come from the
+same request.
+
 **No kit rule found that could OPEN a route the relaxation closes.** If the run finds a kit-accepted journey that the
 relaxation blocks, this argument is refuted and the item fails.
 
@@ -61,6 +67,16 @@ relaxation blocks, this argument is refuted and the item fails.
 - Until Mira verifies, every job stays UNRESOLVED, and nothing in the planner or kit changes. A supplied refusal
   certificate must carry the bundle sha and both checkers' verdicts: the kit's `_valid_refusal_certificate` records
   declared fields only and does not re-verify.
+
+## Document review (Mira ledger 106)
+
+§1 PASS WITH NOTES as a document; the code reading itself is not independently re-checked. Code scope: the kit's
+`contact_first.py` and `mission_contract.py` are byte-identical from f2cbcfc through Main aaaa02c6, and
+`integration/kit/hybrid_checker.py` differs from the cited stack copy only in radiation-window caching and its schema
+string. For the four G2c missions, the premises are checked in `results/g2c_premises.json`:
+- grid alignment: every cell rectangle equal;
+- member set: equal and in the same order;
+- flame law (T, R): equal.
 
 ## Status (2026-11-12 ~15:55 UTC, orchestrator, superseding the scope above; the rule text above is unchanged)
 
