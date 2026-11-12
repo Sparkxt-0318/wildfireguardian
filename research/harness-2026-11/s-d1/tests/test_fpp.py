@@ -343,3 +343,35 @@ def test_speed_multiplier_scales_arrival_times_exactly_under_static_kernels():
         fin = np.isfinite(a1)
         assert np.array_equal(fin, np.isfinite(ac))
         assert np.allclose(ac[fin], a1[fin] / c, rtol=1e-12, atol=0)
+
+
+def test_cmc_frontier_restriction_matches_full_loop_reference():
+    """The frontier-restricted CMC loop must equal a direct full-grid evaluation on the same trajectories."""
+    from fpp import _cum_hazard, first_passage_cmc
+    rng = np.random.default_rng(11)
+    K = rng.uniform(0, 0.2, size=(2, 25, 14, 14))
+    K[:, 12] = 0
+    K[:, :, 3:5, :] = 0  # some cells unreachable from some offsets
+    init = np.zeros((14, 14), bool)
+    init[7, 7] = True
+    hs = [1.0, 2.5]
+    n = 30
+    out = first_passage_cmc(K, init, hs, n_samples=n, seed=4)
+    _, arr = first_passage(K, init, [max(hs)], n_samples=n, seed=4, keep_arrivals=n)  # same RNG stream
+    offs = stencil_offsets(5)
+    hi = np.zeros((len(hs), 14, 14))
+    for m in range(n):
+        a = arr[m]
+        for h, t in enumerate(hs):
+            for y in range(14):
+                for x in range(14):
+                    if init[y, x]:
+                        continue
+                    tot = 0.0
+                    for c, (dy, dx) in enumerate(offs):
+                        sy, sx = y + dy, x + dx
+                        if 0 <= sy < 14 and 0 <= sx < 14 and a[sy, sx] < t and K[:, c, y, x].any():
+                            tot += (_cum_hazard(K, c, y, x, t, 1.0) - _cum_hazard(K, c, y, x, a[sy, sx], 1.0))
+                    hi[h, y, x] += -math.expm1(-tot)
+    assert np.allclose(out["cmc_hi"], hi / n, rtol=1e-10, atol=1e-14)
+    assert np.allclose(out["plain"], np.stack([((arr <= t) & ~init).mean(axis=0) for t in hs]))

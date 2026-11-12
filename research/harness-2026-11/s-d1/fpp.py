@@ -334,11 +334,31 @@ def _fpp_cmc(K, offs, initial_flat, horizons, seg_len, n_samples, seed):
     arrival = np.empty(n)
     done = np.empty(n, dtype=np.bool_)
     parent = np.empty(n, dtype=np.int64)
+    stamp = np.full(n, -1, dtype=np.int64)
+    cand = np.empty(n, dtype=np.int64)
     for m in range(n_samples):
         _fpp_one(K, offs, initial_flat, hmax, seg_len, arrival, done, positive, parent)
-        for i in range(n):
-            if initial_flat[i]:
+        # Only cells with an in-neighbour burned before hmax can have a nonzero plain or conditional
+        # value; every other cell contributes exactly zero, so restricting the loop is exact.
+        nc = 0
+        for s in range(n):
+            if not arrival[s] < hmax:
                 continue
+            sy = s // W
+            sx = s - sy * W
+            for c in range(KK):
+                ty = sy - offs[c, 0]
+                tx = sx - offs[c, 1]
+                if ty < 0 or ty >= H or tx < 0 or tx >= W:
+                    continue
+                i = ty * W + tx
+                if stamp[i] == m or initial_flat[i] or not positive[c, ty, tx]:
+                    continue
+                stamp[i] = m
+                cand[nc] = i
+                nc += 1
+        for q in range(nc):
+            i = cand[q]
             ty = i // W
             tx = i - ty * W
             for h in range(nh):

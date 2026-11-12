@@ -11,12 +11,12 @@ chessboard distance d (cells) to B_{k-1}. A cell is beyond the hourly CA's reach
 steps when d > 4 ceil(g). The implied minimum mean advance d / g (cells/h) is also reported.
 
 Incidents used: ONLY the S-D9 D1 training pool, i.e. the part-a allowlist
-(research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST.csv at bba8d00d, branch
-claude/s-d9-forecast-benchmark; 586 incidents) plus the 23 forecast-v2 US fit fires
+(research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST_FINAL.csv at f91cf824, sha256 801acdd8...,
+branch claude/s-d9-forecast-benchmark; 489 incidents; supersedes the 586-incident PART_A_ALLOWLIST.csv) plus the 23 forecast-v2 US fit fires
 (research/forecast-v2/SPLIT.json "fit.us_perimeter_and_kriged"). Parts b-d and all held-out fires are
 never read. The two groups are reported separately.
 
-    python research/harness-2026-11/s-d1/nirops_cap.py --shp .../NIROPS_2020_2024_R1_R6.shp --allowlist PART_A_ALLOWLIST.csv
+    python research/harness-2026-11/s-d1/nirops_cap.py --shp .../NIROPS_2020_2024_R1_R6.shp --allowlist PART_A_ALLOWLIST_FINAL.csv
 """
 import argparse
 import json
@@ -39,7 +39,7 @@ def main():
     from scipy.ndimage import distance_transform_cdt
     ap = argparse.ArgumentParser()
     ap.add_argument("--shp", required=True)
-    ap.add_argument("--allowlist", required=True, help="S-D9 PART_A_ALLOWLIST.csv")
+    ap.add_argument("--allowlist", required=True, help="S-D9 PART_A_ALLOWLIST_FINAL.csv")
     ap.add_argument("--max-gap", type=float, default=48.0)
     ap.add_argument("--out", default=str(Path(__file__).with_name("RESULTS_nirops_cap.json")))
     args = ap.parse_args()
