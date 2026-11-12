@@ -46,7 +46,7 @@ cd research/harness-2026-11/S-D9 && ../../../V/bin/python -m pytest -q tests -p 
 
 The result is `45 passed` (24 at 29493b1, 34 at 8fe1e2b9, 39 at 07ab78f7). The full suite takes about 105 s on this container: 4 reproduction tests, 35 harness unit tests and 6 cohort-filter tests.
 
-`tests/test_reproduce_forecast_v2.py` recomputes the `heldout` block of `research/forecast-v2/RESULTS.json` from the committed per-fire entry files. It covers 1,705,079 entries, 8,520 positives and 6 fires. It compares **every** published field for all 16 predictors: pooled, per-fire, calibration bins, lowest bin, exact NLL, both BSS references, both paired-BSS intervals and the c651 Monte Carlo variance correction. It also compares all 30 paired whole-fire Brier intervals. Integers must match exactly; floats must agree within 1e-12 relative. All match.
+`tests/test_reproduce_forecast_v2.py` recomputes the `heldout` block of `research/forecast-v2/RESULTS.json` from the committed per-fire entry files. It covers 1,705,079 entries, 8,520 positives and 6 fires. It compares **every published score field** for all 16 predictors: pooled, per-fire, calibration bins, lowest bin, exact NLL, both BSS references, both paired-BSS intervals and the c651 Monte Carlo variance correction. It also compares all 30 paired whole-fire Brier intervals. Integers must match exactly; floats must agree within 1e-12 relative. All match. Not compared: the 7 metadata keys of `heldout` (`metric_status`, `assessment_status`, `unscored_outcomes`, `declared_fires`, `attempted_cases`, `case_outcome_counts`, `statistic_scope`). Hannah's mutation check made 338 random numeric mutations to the score leaves, and compare() caught all 338.
 
 ## Not done yet, and not verified
 

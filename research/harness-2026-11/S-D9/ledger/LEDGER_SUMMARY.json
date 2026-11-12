@@ -31,7 +31,6 @@
     "SCORED": 11,
     "SELECTED_ON": 1
   },
-  "repository_head": "df5aa8e16caf9a68692885b762dfdb9f99385d29",
   "schema": "wfg.s-d9.exposure-ledger/1",
   "sha256": {
     "EXPOSURE_LEDGER.csv": "e47d404f6bca15c09d50015616b00d5d862d256f7b26fed971acd07d71d0f3a2",

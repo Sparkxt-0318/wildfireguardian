@@ -217,8 +217,6 @@ def main() -> None:
     m548_plan = 324
     summary = {
         "schema": "wfg.s-d9.exposure-ledger/1",
-        "repository_head": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                                          capture_output=True, text=True).stdout.strip(),
         "fire_rows": len(rows),
         "overall_class_counts": counts,
         "untouched_fires_in_repository": [r["fire_id"] for r in rows if r["overall_class"] == "UNTOUCHED"],

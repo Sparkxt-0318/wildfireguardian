@@ -5,8 +5,8 @@
 | part | incidents | who may open the perimeters, and when |
 |---|---|---|
 | a | 586 (60 with ≥ 20 surveys) | D1/D2 training and development, now. Filter the shapefile by `cohort/PART_A_ALLOWLIST.csv`. Pilot fires: Blue2, MossMountain_Chalk, Homestead_Salmon33 |
-| b | 30 | Nobody, until A1 is frozen and the part-b manifest is verified. Then only the scoring pipeline (d4_wind/c651 decision) |
-| c | 30 | Nobody, until every D1/D2 candidate is frozen by SHA and the part-c manifest is verified |
+| b | 30 | Nobody. **Not run now** (A1 revision 11). It stays unscored until a later named candidate is declared by SHA in an amendment committed before the opening |
+| c | 30 | Nobody, until every D1/D2 candidate is frozen by SHA and the part-c manifest is verified. d4_wind, c651 and logistic are scored there as comparators |
 | d | 58 | Nobody; held back. Used only as ordered replacements under §1.2 points 5–6, before prediction |
 
 Building labels or covariates for a b, c or d fire counts as opening it. Any opening outside these rules must be recorded here by amendment, and the affected fire becomes INSPECTED in the exposure ledger.
