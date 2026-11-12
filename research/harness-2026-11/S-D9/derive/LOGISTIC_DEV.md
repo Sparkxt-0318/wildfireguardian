@@ -14,7 +14,7 @@
 ## Reading
 
 1. **d4_wind is not missing information. It is miscalibrated.** d4 ranks better than logistic (AP 0.056 against 0.044). A one-feature recalibration of d4's own output, which adds no information, removes the whole Brier deficit (−0.000029, interval spans 0).
-2. **The miscalibration is at the low end.** In the band, d4 gives p ≈ 1e-6 to 345,167 entries whose observed frequency is 0.38%, and they contain 1,310 positives. Its whole [0, 0.1) bin predicts 0.0022 against 0.0133 observed. Logistic's floor is about 1e-3, which is where it gains. This is the preprint's zero- and near-zero-probability-positives problem, seen on 6 fires.
+2. **The miscalibration is at the low end.** In the band, d4 gives p ≈ 1e-6 to 345,167 entries whose observed frequency is 0.38%, and they contain 1,310 positives. Its whole [0, 0.1) bin predicts 0.0022 against 0.0133 observed. Logistic never goes below 1e-4 in the band (1,877 entries in [1e-4, 1e-3), everything else ≥ 1e-3), which is where it gains. This is the preprint's zero- and near-zero-probability-positives problem, seen on 6 fires.
 3. **The frozen logistic's edge is mostly distance to the front plus horizon.** Its largest standardized coefficient is log1p(distance), at −1.57. A three-feature LOFO distance+hours logistic gets within +0.000124 of it. Wind, slope and biome add at most the remainder; that is unverified, because those covariates are not in git.
 4. **The hybrid does not beat recalibration alone** across fires. Adding distance features to d4's logit costs more out of fold than it gains. Under LOFO with 6 fires, the extra degrees of freedom do not transfer.
 
