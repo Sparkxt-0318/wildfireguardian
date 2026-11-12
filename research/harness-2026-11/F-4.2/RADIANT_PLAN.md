@@ -98,3 +98,26 @@ clearance-based policy variant is **not** approved; nothing here changes any pol
 - **Witness checks.** Every witness route is re-checked with the unchanged full checker (`verify_witnesses.py`) and
   for exact clearance > d*.
 - **Run order.** This runs after the F-DYN profile, which keeps priority on the quiet host.
+
+## 5. Refinements from Iris (11:19 UTC), written before computing
+
+**5a. Destination versus wait exposure.** The stationary seconds of 4a are split into DWELL (the required stay at the
+destination) and WAIT (waits along the route). For each mission and each case, report:
+
+- whether **the destination point itself** lies inside the 1.0 and the 2.5 kW/m² standoff at any second of the
+  required stay;
+- the number of such dwell seconds;
+- separately, the wait seconds inside the standoffs.
+
+Iris's destination-admissibility rule (no stay within the standoff of active fire) is evaluated as a count only. No
+policy is adopted.
+
+**5b. Three outcomes per mission and standoff in 4b.**
+
+1. A route with clearance > d* exists to the **same** destination.
+2. One exists only to **a different candidate destination**.
+3. None exists. The "none" is claimed only under the soundness rule of §4b.
+
+The frozen 1-hour requests each name exactly **one** destination, so outcome 2 cannot arise there; the panel is
+reported with outcomes 1 and 3. On F-DYN, each origin has **3** candidate destinations (`INSTANCE.json`), so the
+search runs once per candidate and outcome 2 is reported there.
