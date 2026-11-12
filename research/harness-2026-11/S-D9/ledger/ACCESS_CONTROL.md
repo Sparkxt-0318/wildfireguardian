@@ -28,3 +28,81 @@ Already disclosed (cohort R, US2024): Elena (S-D2) used R's NIROPS brackets to c
   - **Result:** of 28 GOFER fires, 11 are excluded (§1.3: 10; Caldor INSPECTED: 1) and 17 survive.
   - **H-dev (10, all forced by item 25):** Beckwourth Complex, Bobcat, CZU Lightning Complex, Glass, July Complex, KNP Complex, LNU Lightning Complex, Slater and Devil, Tamarack, Zogg.
   - **H-test (7, u order):** Windy, SCU Lightning Complex, Dolan, Walker, W-5 Cold Springs, Kincade, McFarland. H-test stays closed until the D1 candidate is frozen by SHA.
+- **2026-11-12, part-a pricing read (Daniel).** `parta_price.py` was run once at about 13:05 UTC. Its as-run copy is `parta_price_v1_AS_RUN.py`, sha256 87aeeadb…cdcade1, at daniel/data-fetch-3 ab065e85.
+  - **What it read.** The attribute columns `Incident_C` and `UTC` for **all** NIROPS shapefile records, without geometry. That includes incidents now in parts b, c and d.
+    - It filtered to PART_A_ALLOWLIST_FINAL (7db3cc0e…) in memory on the next line.
+    - Geometry was read only by fid, and only for allowlisted incidents.
+    - Per-survey UTC timestamps go beyond the fields the split declares (A1 §1.2): `Incident_C`, `surveys`, `project_status`, `shares_irwin_with_project_fire` and `year`. They describe survey cadence, not growth or outcome.
+  - **Status: disclosure only.** The b, c and d values were held in memory only. They were never printed, logged, written or summarised. Hannah checked this against the committed script and its stdout (verification ledger row 35). The committed output `parta_price.csv` holds exactly the 490 allowlisted IDs.
+    - *Caveat:* "as run" rests on Daniel's statement. The script lived in his scratchpad and was committed after the run, at 14:01Z.
+    - No incident's status changes.
+  - **The reader has been fixed** (ab065e85, `nirops_access/`). It reads `Incident_C` first, then the other columns by fid for allowlisted records only, and a test covers this.
+  - **Earlier builders used an OGR where-filter.** The v1 builder (`data-fetch/build_nirops_event.py` L62) and `arrival_vs_union.py` (L36) filtered with `Incident_C = '<id>'`. The driver evaluates that filter on every record, but only matching features reached Python. It was driver-internal, so nothing about non-allowlisted records was exposed. The ID-then-fid reader at ab065e85 replaces it. Daniel's README discloses this too.
+- **2026-11-12, pilot reads (Daniel), for completeness.**
+  - Round one, at 60a94974: Blue2, MossMountain_Chalk and Homestead_Salmon33.
+  - Round two: Blue2, Line and ThreeNine.
+  - All five distinct fires were part a when read, so there is no sealing effect. MossMountain_Chalk was dropped from training later by item 9; see "filters applied" above.
+- **2026-11-12, survey-timing and F5 disclosure (combined; Hannah's audit, verification ledger row 38: PASS WITH NOTES, conditional on the Q6 answers).**
+  - **(a) The original read.** At about 09:04Z Daniel ran an all-attribute read of every NIROPS shapefile record. It produced the incident tables below, with `first_utc`, `last_utc` and `days` for all 737 incidents, before the split existed. The printed output showed only 4 Electra rows (part a) and aggregates. Daniel's ACCESS_LOG is at daniel/data-fetch-3 982eb71c.
+  - **(b) Files carrying per-incident sealed timing or growth:**
+    - **F1** `data-fetch/nirops_incidents.csv`. Daniel, daniel/data-fetch. Two history blobs: **0cf39959** (sha 66581245…, with max_acres) and **3129ad59** (sha f2aae4b8…, the A1 pin). It holds first_utc, last_utc and days for all 737 incidents. It is now only in history.
+    - **F2** `data-fetch/nirops_incidents_v2.csv`. Daniel, 04fad9e1, on Main via #103 (sha 9cd9c260…). It holds first_utc, last_utc and days for all 737.
+    - **F3** `data-fetch/incident_metadata.csv`. Daniel, 259ef5b4, on Main (sha 5246ce8f…). It holds first, last and discovery_utc, points of origin, names and ICS-209 dates for 733 incidents, including b/c/d.
+    - **F4** `S-D9/cohort/GOFER_MATCH.csv`. Victor, fdc456b9, on Main (sha 451675c1…). It holds discovery_utc and GOFER first/last ignition times for 38 rows, 10 of them b/c/d.
+    - **F5** `camera-arrival/outputs/gofer_fires.csv` (sha 01be548a…) and `feasibility_daily_growth.csv` (sha 81e92528…). Owner session, 2026-11-11, 9ddee74a, on Main. They hold per-fire first/last perimeter time, final area and **daily area growth** for all 28 GOFER fires, including all 7 H-test fires.
+    - **Handling.** No pinned file is edited and no history is rewritten. Trimmed copies with the allowed fields only are at daniel/data-fetch-3 `allowed_fields/`.
+  - **(c) The pricing read.** `parta_price.py` read `Incident_C` and `UTC` for all records, in memory only. See the entry above (disclosure only, row 35).
+    - **Scope of the where-reads:** the v1 builder and `arrival_vs_union.py` OGR filters were evaluated inside the driver only. Nothing about non-allowlisted records reached Python.
+  - **(d) Who looked, and at what** (transcript-based declarations, collected by Hannah):
+    - **Victor:**
+      - F1's header and 2 FIT rows;
+      - one F3 row (Dixie, FIT);
+      - filt/meta rows for 2 part-a and 2 FIT incidents;
+      - GOFER `acres_official` and ignition hours for all 28 GOFER fires, including the 7 H-test fires, plus ignition rows for Kincade and Walker (09:49Z).
+    - **Daniel:**
+      - 08:50Z: the GOFER fire table, with ignition and acres for Kincade and Walker, first and last perimeter times for all 28, and Kincade's first 3 hourly fireProg rows;
+      - 09:02Z: a Mendeley PNG-zip **member listing**, showing names, zip timestamps and byte sizes, for 5 b/c/d incidents: CA-KNF-007022_HappyCampWest (b, **kept**), CA-ENF-027219_Fork (d, **kept**), Caldor, HappyCampEast and Devil. No PNG was opened;
+      - 14:53Z: F4 b/c/d rows **with discovery_utc** (at least Caldor, Dolan, LNU Hennessey and Walbridge, and McFarland; possibly all 10).
+    - **Owen:**
+      - 10:01Z: a gofer_cap rerun printing the per-fire beyond-cap share for H-test W-5 Cold Springs, Walker and Windy;
+      - 10:51Z: F4 rows including SmithRiverCx's discovery_utc.
+    - **Marcus:**
+      - nirops_cap run 1 (09:20–09:23Z, no allowlist) loaded the whole raw table, and he viewed pooled gap quantiles of 21.0, 24.0 and 31.4 h;
+      - a pooled, qualitative impression of b/c/d survey cadence.
+    - **Hannah:** during the audit, F5 H-test rows, SmithRiverCx's discovery date and COHORT_FINAL statuses.
+    - **No session used any of these values in a design choice, constant, candidate or scorer.** The code dependency grep covered all 96 branches, and constant provenance is in `derive/CONSTANT_PROVENANCE.md`.
+  - **(e) Reconciliation of A1 §1.2.**
+    - §1.2 says the split "uses only" five fields: `Incident_C`, `surveys`, `project_status`, `shares_irwin_with_project_fire` and `year`. That holds for **ordering and part assignment** (items 1–4, `select_cohort.py`).
+    - The **membership filters**, items 8–11 and §1.3 (`apply_filters.py`, `gofer_match.py`), by pre-registered design also read **point of origin, discovery date and the survey window (`first_utc`, `last_utc`)** for all parts.
+    - Item 8 (duplicates of opened incidents) uses the same 5 km plus survey-window-overlap test as item 10 (`apply_filters.py` L85), so it is timing-dependent too.
+    - Their thresholds (50 km, 30 days, 5 km) were unchanged after the runs; Hannah checked the threshold history.
+    - The field list in §1.2 was therefore **incomplete as written**. These rules decided membership only (counts from `cohort/COHORT_FINAL.csv`):
+      - §1.3 excluded 6 b/c/d incidents (b 2, c 3, d 1);
+      - item 10 removed 7 b/c/d duplicates (c 2, d 5) and 30 part-a copies;
+      - item 8 excluded 5 b/c/d incidents (b 2, d 3);
+      - item 9 dropped 66 part-a incidents;
+      - so the timing-dependent rules changed **18 b/c/d and 96 part-a** memberships;
+      - only §1.1 (the ledger, 9 b/c/d) used no timing.
+  - **(f) Tags.**
+    - **CA-SRF-000968_SmithRiverCx (part c, kept): INSPECTED (discovery date).** It is a name-only F4 row with its discovery_utc committed. It stays in c.
+    - The 9 other b/c/d rows of F4 are **INSPECTED (discovery date)**: SCULightning (b), LNULightningComplex_Hennessey and _Walbridge, Windy (c), Caldor, Dolan, McFarland, Devil, W5ColdSprings (d). All are excluded from b/c/d by the GOFER rule.
+    - **All 7 H-test fires are INSPECTED (per-fire growth and final size)**, via F5 and Victor's 09:49Z print.
+      - Also **per-fire beyond-cap share** for W-5 Cold Springs, Walker and Windy (Owen).
+      - Also **first hourly perimeter rows** for Kincade (Daniel).
+      - H stays descriptive.
+    - **CA-KNF-007022_HappyCampWest (b) and CA-ENF-027219_Fork (d): name-only listing, no tag.** Only file names, zip timestamps and byte sizes of their map PNGs were seen; no PNG was opened.
+  - **(g) Standing rule (from today).**
+    - No design choice, eligibility rule, constant or candidate may use any sealed incident's `last_utc`, `days`, or a cadence or span derived from them.
+    - Anything cadence-dependent that is not yet frozen (the stratum-G rule) is set from part a only, or stays as fiat.
+    - Every future split or filter names, in its field list, every field any of its rules reads.
+  - **(h) Safeguards before part c opens.**
+    - The trimmed copies are the only metadata inputs to any further run.
+    - The leak-bound measurement (`derive/LEAK_BOUND_PLAN.md`) is run on part a and reported **before part c opens**.
+    - Part-c results are also reported by tercile of survey span.
+    - Part d's metadata is exposed in the same way, so a clean replication needs a cohort collected after today (`clean_replication/`).
+    - **ID-only keying.** Two part-c fires are homonyms of exposed fit fires: ID-NCF-000448_Dixie vs CA-BTU-009205_Dixie, and WA-OWF-000346_CedarCreek vs OR-WIF-220180_CedarCreek. All joins and lookups key on `Incident_C` or IRWIN ID, **never on name**, and a test enforces this in the part-c manifest build.
+    - **Q6 result (outside-repository lookups):** every session answered NO, except Daniel with a limited YES:
+      - the PNG-zip names above;
+      - one WFIGS schema probe for Blue2 (part a);
+      - ICS-209 name searches for fit fires only.
+  - **Status and limitations wording.** Part c stays **confirmatory, with limitations**, conditional on the Q6 answers. Wording: *"Held-out parts b, c and d are sealed with respect to labels, perimeters and growth, but per-incident survey timing (first and last survey time, survey days), discovery dates, names and points of origin were readable before the split, and the pre-registered membership rules used discovery date, origin and survey window (18 b/c/d and 96 part-a membership changes). No model, constant or scorer used them. No other file in git history (all refs; text and compressed) carries per-incident values for a kept b/c/d incident, searched by identifier, IRWIN ID and name (verification row 38). Part d is equally exposed; a clean replication uses a cohort collected after 2026-11-12."*
