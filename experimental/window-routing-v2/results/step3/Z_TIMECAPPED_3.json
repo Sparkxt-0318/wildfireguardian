@@ -1,0 +1,224 @@
+[
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+  "kit": "V2",
+  "rep": "r1",
+  "z_status": "TIMEOUT",
+  "z_reason": "WORK_BUDGET_SWEEP",
+  "z_arrival": null,
+  "z_wall_s": 8.68,
+  "setup_units": 2573,
+  "sweep_units": 268508075,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 129385300,
+  "final": "FULL_MODEL_REFUSAL_PROVEN",
+  "stages": [
+   "Z",
+   "LO"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+  "kit": "V2",
+  "rep": "r2",
+  "z_status": "TIMEOUT",
+  "z_reason": "WORK_BUDGET_SWEEP",
+  "z_arrival": null,
+  "z_wall_s": 8.6,
+  "setup_units": 2573,
+  "sweep_units": 268508075,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 129385300,
+  "final": "FULL_MODEL_REFUSAL_PROVEN",
+  "stages": [
+   "Z",
+   "LO"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+  "kit": "FROZEN",
+  "rep": "r1",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK",
+  "z_arrival": null,
+  "z_wall_s": 6.07,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 129385300,
+  "final": "FULL_MODEL_REFUSAL_PROVEN",
+  "stages": [
+   "Z",
+   "LO"
+  ]
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+  "kit": "FROZEN",
+  "rep": "r2",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK",
+  "z_arrival": null,
+  "z_wall_s": 6.09,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 129385300,
+  "final": "FULL_MODEL_REFUSAL_PROVEN",
+  "stages": [
+   "Z",
+   "LO"
+  ]
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+  "kit": "V2",
+  "rep": "r1",
+  "z_status": "TIMEOUT",
+  "z_reason": "WORK_BUDGET_SWEEP",
+  "z_arrival": null,
+  "z_wall_s": 8.49,
+  "setup_units": 2573,
+  "sweep_units": 268508075,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 127034875,
+  "final": "UNRESOLVED",
+  "stages": [
+   "Z",
+   "LO",
+   "HI"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+  "kit": "V2",
+  "rep": "r2",
+  "z_status": "TIMEOUT",
+  "z_reason": "WORK_BUDGET_SWEEP",
+  "z_arrival": null,
+  "z_wall_s": 8.46,
+  "setup_units": 2573,
+  "sweep_units": 268508075,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 127034875,
+  "final": "UNRESOLVED",
+  "stages": [
+   "Z",
+   "LO",
+   "HI"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+  "kit": "FROZEN",
+  "rep": "r1",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK",
+  "z_arrival": null,
+  "z_wall_s": 6.07,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 127034875,
+  "final": "UNRESOLVED",
+  "stages": [
+   "Z",
+   "LO",
+   "HI"
+  ]
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+  "kit": "FROZEN",
+  "rep": "r2",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK",
+  "z_arrival": null,
+  "z_wall_s": 6.07,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 2573,
+  "sweep_units_at_old_6s": 127034875,
+  "final": "UNRESOLVED",
+  "stages": [
+   "Z",
+   "LO",
+   "HI"
+  ]
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+  "kit": "V2",
+  "rep": "r1",
+  "z_status": "CONDITIONAL_OPTIMUM",
+  "z_reason": "EXACT_CONTACT_SWEEP",
+  "z_arrival": 1922,
+  "z_wall_s": 7.73,
+  "setup_units": 1066,
+  "sweep_units": 215231775,
+  "setup_units_at_old_6s": 1066,
+  "sweep_units_at_old_6s": 204710825,
+  "final": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "stages": [
+   "Z"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+  "kit": "V2",
+  "rep": "r2",
+  "z_status": "CONDITIONAL_OPTIMUM",
+  "z_reason": "EXACT_CONTACT_SWEEP",
+  "z_arrival": 1922,
+  "z_wall_s": 7.67,
+  "setup_units": 1066,
+  "sweep_units": 215231775,
+  "setup_units_at_old_6s": 1066,
+  "sweep_units_at_old_6s": 204710825,
+  "final": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "stages": [
+   "Z"
+  ],
+  "z_outcome_at_old_cap": "TIMEOUT (would have been cut at the old 6 s count)"
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+  "kit": "FROZEN",
+  "rep": "r1",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK_AFTER_CHECK",
+  "z_arrival": null,
+  "z_wall_s": 7.54,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 1066,
+  "sweep_units_at_old_6s": 204710825,
+  "final": "CHECKED_JOURNEY_FEASIBLE",
+  "stages": [
+   "Z"
+  ]
+ },
+ {
+  "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+  "kit": "FROZEN",
+  "rep": "r2",
+  "z_status": "TIMEOUT",
+  "z_reason": "WALL_CLOCK_AFTER_CHECK",
+  "z_arrival": null,
+  "z_wall_s": 7.46,
+  "setup_units": null,
+  "sweep_units": null,
+  "setup_units_at_old_6s": 1066,
+  "sweep_units_at_old_6s": 204710825,
+  "final": "CHECKED_JOURNEY_FEASIBLE",
+  "stages": [
+   "Z"
+  ]
+ }
+]
