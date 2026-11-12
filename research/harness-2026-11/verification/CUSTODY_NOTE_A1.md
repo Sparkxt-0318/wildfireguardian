@@ -2,7 +2,7 @@
 
 Requested by the orchestrator on 2026-11-12 (16:02Z and 16:03Z), after an external review passed on by the owner. Iris reads it. Hannah wrote it.
 
-**Scope.** The full custody design belongs to CR1 (`S-D9/clean_replication/`). For A1, this note covers only the minimal procedure that is a **condition of opening part c**. It is not a condition of the stage-2 freeze.
+**Scope.** The full custody design belongs to CR1 (`S-D9/clean_replication/`). For A1, this note covers only the minimal procedure that is a **condition of opening part c, and equally of opening part b** (adopted by the orchestrator 16:08Z; aligned with the stage-2 amendment draft §12 on `claude/s-d9-stage2`). It is not a condition of the stage-2 freeze, and deleting existing copies is not a condition.
 
 ## 1. What exists today
 
@@ -47,9 +47,11 @@ What remains sealed: **labels, perimeters and growth of part-c fires, as built a
 3. **Workers get scores and receipts only.** They never receive label files, per-cell outputs or perimeter geometry for part c.
    - Per-fire tables are released after the decision is recorded, in the same way as CR1 §8.
 4. **Two independent runs, compared exactly.**
-   - A second custodian (Nora, as in CR1) reruns the scoring from the same frozen SHAs and the same recorded inputs, in her own environment.
-   - Their released-statistic hashes must match before any number is reported. A mismatch is reported as a mismatch, not resolved silently.
+   - A second custodian (Nora, as in CR1) reruns the scoring from the same frozen SHAs and the same recorded inputs. The two runs happen in separate fresh containers.
+   - The score records must be byte-identical before any number is reported. A mismatch stops reporting until it is resolved and logged. It is never resolved silently.
 5. **A no-touch declaration.** At opening, every worker session declares that it will not build, read or derive part-c labels until the decision is recorded. A breach moves the affected fires to an "exposed" stratum, in the same way as CR1 §1.6.
+
+6. **Audit before opening.** Every worker session runs `access_audit.py` on its own transcript, including subagents, and sends the output plus the transcript file's sha256 to the custodian. The custodian compares the results with the declarations (ledger rows 38 and 45).
 
 ## 3. What it cannot do
 
