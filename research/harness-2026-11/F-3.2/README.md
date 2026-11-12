@@ -154,13 +154,27 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
 
 `envelope_o2.py` was written from Leo's rule text, without reading `fdyn/ignitions.py` or `_packet_child.py`.
 
+> **Erratum (2026-11-12; Nora ledger row 34, confirmed by Mira and by this author).** Everything in this section
+> compares the rule against **HAZARD.json**: the per-cell intervals derived from the variant arrival files
+> (`variants/firms_early.npz`, `firms_constrained.npz`), and integer instances built from HAZARD.json intervals. It
+> never reads a packet's `constructed_arrays.npz` and never uses `ContactModel`. In the `envelope` packets (v3 and
+> v3.1) those two representations DISAGREE. ContactModel, which the router and the certificate pipeline use, reads
+> the raw arrays: birth + the raw burning duration T + Q (≈ 4,270 s). HAZARD.json ends a cell at hi_rel + T + Q,
+> often clipped at H. Cells differing beyond 1 µs: 794 / 198 / 794 on the v3 Yeongdeok, v3.1 (a) and v3.1 (c)
+> packets; for example cell 1040 is [5100, 18000) in HAZARD.json and [5100, ≈ 9370.6) in ContactModel.
+> So the results below show that **HAZARD.json implements the stated envelope rule** (v3 in binary64, v3.1 in integer
+> ms). They do **not** show that the hazard a router or certificate sees on an envelope packet is that rule: it is
+> not. No envelope packet was certified here. Sample (b), firms_early (scalar law), passes the same consistency check
+> (139 identical, 108 ends within 1 µs, 0 other), as do the certified kriged_mean and firms_early packets.
+> "The packets" below means their HAZARD.json.
+
 - **v3, Yeongdeok 20250325T110000Z h5 envelope.**
   - Rule evaluated in binary64 (`--mode float`): 820 cells differ from HAZARD.json. Every one has the same start and
     an end within 1.4e-12 s (97 HAZARD later, 723 earlier). There are 0 other differences, and 10/10 integer
     instances are equal.
   - Exact rationals (`--mode exact`), a NEGATIVE result: 791 cells differ by a whole 300 s quantum (482 births, 309
-    ends), plus 502 sub-µs end differences, and 0/10 integer instances are equal. So the v3 packets do NOT implement
-    the exact-rational law. This finding led to v3.1, whose integer-ms law the packets match (below).
+    ends), plus 502 sub-µs end differences, and 0/10 integer instances are equal. So the v3 HAZARD.json does NOT
+    implement the exact-rational law. This finding led to v3.1, whose integer-ms law HAZARD.json matches (below).
   - Float vs exact, no contradiction: the v3 writer evaluates the rule in binary64, so the float-mode derivation reproduces
     its integer instances (10/10), while the exact-rational reading of the SAME stated rule differs by a 300 s quantum at
     791 minute-boundary cells (0/10). That is, v3 implemented its rule in float, not as stated; v3.1 removes the gap.
