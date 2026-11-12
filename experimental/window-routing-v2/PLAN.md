@@ -357,8 +357,13 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
   - check it with both F-3.2 checkers (`check_py.py`, `checker_c/wfgc_check`) in fresh processes;
   - record the bundle sha, plus the graph, packet and request digests;
   - gate: X1 rules 0–2 plus G2b agreement;
-  - wording: "relaxation refusal independently checked by two checkers; implication to the kit model by an unverified
-    dominance argument" (`xcheck/DOMINANCE_RULE.md`, code reading only, NOT verified).
+  - wording (final; it replaces the original W1 sentence, as approved by Mira in ledgers 106–109 and recorded in
+    `g2c_stage_z_refusals.json`): "relaxation refusal independently checked by two checkers; implication to the kit's
+    whole-road model by a written dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code
+    at f2cbcfc, byte-identical through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and
+    the run records' kit identity, not per-run import hashes; reviewed by Mira as a document, the code reading itself
+    not independently re-checked), conditional on both sides using the same packet members, flame law and grid cells;
+    packet, members and grid checked"
 - **Stage LO/LO2 refusals (road_lower_bound_lattice_relaxation):**
   - no independent certificate format exists;
   - a fresh-process road_core rerun is re-execution only, labelled `REEXECUTED_ONLY`, never pooled;
