@@ -31,6 +31,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 23 | 2026-11-12 | PR #118 re-check (test-only CI wait) | Thomas | 53233ab | test wait raised to 90 s, fails early on .pv-error | diff vs 1d3e49f; pproto + full suite (own npm ci) | PASS (ready) |
 | 24 | 2026-11-12 | PR #122 scope check (research-scout docs) | Sofia | f912de9 | docs only, no private link, no attribution footer | diff scan (files, URL hosts, private hosts/paths/emails, personal data) + PR description | NOT READY (description footer) → READY after footer removal (same head) |
 | 25 | 2026-11-12 | FIRE 6.2 radiant screen (parts 1 and 3) | Priya | 79f3271 | 1-hour flux bounds < 1.0 so ceilings change nothing; C-11 view factor; standoffs and route counts | `python3 F-4.2/standoff.py` + own numeric integration and bisection | PASS WITH NOTES |
+| 26 | 2026-11-12 | FIRE 6.2 radiant 4a (time inside standoff, fractional dose) | Priya | 12c32af | per-route seconds q>=1, stationary, FD ranges; worst routes FX2/FW2/Hongseong FW2 | `standoff_route.py --part 4a` + own independent recomputation (FX2, FW2) | PASS WITH NOTES |
 
 ## Notes
 
@@ -179,3 +180,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Part 2 is not computed. Part 3 is exploratory and assumption-driven (disclosed).
 
 **24 update**: the #122 footer was removed through the API, and the head is unchanged at f912de9. The body has no claude.ai or session reference. READY.
+
+**26. Radiant 4a @ 12c32af**:
+- The JSON regenerates byte-identically (7.3 s).
+- Own code (raw-npz sources, own integer-second sampling, own C-11 view factor and FD): FX2 E100/H20/W3750 gives 617 s / 120 stationary / FD 26.244, identical. FW2 gives 603 s / FD 20.161, identical; stationary 46 vs 47 (the departure second's classification).
+- Case counts match the JSON.
+- Notes: "0-9 routes with q>=1" should be 1-9 (FX2 is ≥ 6 s in every case). The plan commit is only 62 s before the results commit, so it shows commit order, not computation order. FD (80 TDU, 4/3) and the nearest-source model are assumptions.
