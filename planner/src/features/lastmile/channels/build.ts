@@ -405,9 +405,18 @@ export function issueOrderByText(p: MessagePlan, v: IssueOrderBy | null | undefi
   if (p.kind !== 'leave_by' || !v.issueByS) return lang === 'ko' ? `${head}: 플래너 결과와 불일치 — 산출되지 않음` : `${head}: disagrees with the planner — not computed`;
   const { low, median, high } = v.issueByS;
   const H = p.input.scenario.horizonS;
-  const valid = (x: number) => Number.isInteger(x) && x <= v.leaveByS!;
+  // Mira N6: the field's leave-by is exact and the planner's is a sweep value, so the field may be later but never
+  // earlier; every issue-by must be no later than the leave-by the RESIDENTS are given (the planner's).
+  // Mira N7: issue-by = leave-by − latency, so a shorter latency gives a later time: low ≥ median ≥ high.
+  const valid = (x: number) => Number.isInteger(x) && x <= v.leaveByS! && x <= p.leaveByS!;
   if (!Number.isInteger(v.leaveByS) || v.leaveByS < 0 || v.leaveByS > H || ![low, median, high].every(valid)) {
     return lang === 'ko' ? `${head}: 입력값 범위 오류 — 산출되지 않음` : `${head}: input out of range — not computed`;
+  }
+  if (p.leaveByS === null || v.leaveByS < p.leaveByS) {
+    return lang === 'ko' ? `${head}: 플래너 결과와 불일치 — 산출되지 않음` : `${head}: disagrees with the planner — not computed`;
+  }
+  if (!(low >= median && median >= high)) {
+    return lang === 'ko' ? `${head}: 지연 가정 순서 오류 — 산출되지 않음` : `${head}: latency settings out of order — not computed`;
   }
   const show = (x: number) => (x < 0 ? (lang === 'ko' ? '이미 지남' : 'already past') : hmDay(p, x, lang));
   return lang === 'ko'

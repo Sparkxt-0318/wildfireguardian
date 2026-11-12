@@ -84,3 +84,24 @@ and (iii) `ContactModel.cell_intervals`: **identical on all 15 frozen packets** 
 rationals. Sensitivity: of 40 all-member HAZARD flag flips, the 10 that change the union are all detected (the other
 30 leave the union unchanged because another member row covers the same time); a 1 s shift of one raw interval is
 detected. This closes the O2 gap Nora noted (contact semantics now independently re-derived for the frozen panel).
+
+## Unknown-support three-way rule on the 20 missions (measured; `unknown_support.py`, `results/unknown_support.json`)
+
+Definitions: Iris / Leo (UNKNOWN = U_state ∪ U_q from the packet masks; optimistic = frozen instance; pessimistic
+Tier A = every UNKNOWN cell active on [0, H]; Tier B(v) = U_state on [0, H], U_q from d/v, v = 1.5 / 8.2 km/h).
+checked = ROUTE in the pessimistic instance; no_route = NO_ROUTE in the optimistic instance; else unresolved. Each of
+the 80 certificates (20 optimistic + 60 pessimistic) is accepted by both checkers; each label records its instance.
+
+| Tier | checked | no_route | unresolved |
+|---|---:|---:|---:|
+| A (all unknown blocked) | 5 | 5 | 10 |
+| B, v = 1.5 km/h | 7 | 5 | 8 |
+| B, v = 8.2 km/h | 5 | 5 | 10 |
+
+- All 5 no-route verdicts keep their status (they are optimistic-instance proofs, unchanged).
+- Of 15 routes, 5 stay checked under Tier A and B8.2, 7 under B1.5; one (20250324T090000Z_FL2) is checked only
+  with a later arrival (2,143 s → 2,580 s). The rest become unresolved: their pessimistic instance has no route.
+- Unknown is large: U_state is 1,659/3,596 cells at Uljin, 2,570/4,757 at Yeongdeok, 953/4,745 at Uiseong; both tiers
+  block U_state for the whole window, so tiers differ only through U_q.
+- NOT done: Iris §4 — U_state cells as possible radiation sources in the dose/peak precondition (contact only here);
+  the full-policy checker on the pessimistic witnesses; separating "origin cell itself unknown" from other causes.

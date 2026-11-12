@@ -38,6 +38,10 @@ or acts on them; comprehension is untested. Inputs are replayed planner results;
 - N2: any time on another KST date than the data date is marked ("다음날 …" / "(next day)", or the date).
 - N3: the destination-swap fault test now uses a named second destination and always runs.
 - N4: the Python euc_kr oracle fails the test if python3 is missing (no silent skip).
+- N6 (Mira, e28c4aff): the issue-by bound is the planner's leave-by (what residents are told) as well as the field's;
+  a field EARLIER than the planner's leave-by is "disagrees with the planner" (the field is exact, the planner a sweep
+  value, so the field may be later, never earlier).
+- N7: latency settings must satisfy issue_low ≥ issue_median ≥ issue_high (shorter latency → later issue-by).
 - N5: "withheld" means the violation list is non-empty; no consumer enforces it yet (not wired into UI/CSV). The
   enforcement claim applies only once wired, mirroring the kit's `outputOk`.
 

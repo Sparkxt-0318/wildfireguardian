@@ -29,7 +29,7 @@ const NOW = '2026-11-12T10:00:00Z';
 let real: MessagePlan[] = [];
 let syn: MessagePlan[] = [];
 const ORDER = { status: 'not_issued' as const, suppliedBy: '합성 읍사무소 담당자', suppliedAtIso: '2026-11-12T09:30:00Z', expiresAtIso: '2026-11-12T11:00:00Z' };
-const ISSUE = { leaveByS: 1800, issueByS: { low: 900, median: -60, high: 600 } };
+const ISSUE = { leaveByS: 1800, issueByS: { low: 900, median: 600, high: -60 } };
 const build = (p: MessagePlan) => buildChannels(p, { nowIso: NOW, orderStatus: ORDER, issueOrderBy: ISSUE });
 let realInputs: ReturnType<typeof loadBoothCaches>[number]['inputs'] = [];
 
@@ -164,7 +164,14 @@ describe('rules, one by one', () => {
     expect(T({ leaveByS: 99999, issueByS: { low: 600, median: 600, high: 600 } })).toContain('범위 오류');
     expect(T({ leaveByS: -5, issueByS: { low: -600, median: -600, high: -600 } })).toContain('범위 오류');
     expect(T({ leaveByS: 1800, issueByS: { low: 600.5, median: 600, high: 600 } })).toContain('범위 오류');
-    expect(T({ leaveByS: 1800, issueByS: { low: -600, median: 600, high: 1800 } })).toMatch(/이미 지남 .* \d\d:\d\d .* \d\d:\d\d/);
+    expect(T({ leaveByS: 1800, issueByS: { low: 1800, median: 600, high: -600 } })).toMatch(/\d\d:\d\d .* \d\d:\d\d .* 이미 지남/);
+    // Mira N6: a field later than the planner's leave-by must not push issue-by past the residents' leave-by
+    expect(p.leaveByS).toBe(1800);
+    expect(T({ leaveByS: 3000, issueByS: { low: 3000, median: 2700, high: 2400 } })).toContain('범위 오류');
+    expect(T({ leaveByS: 3000, issueByS: { low: 1800, median: 1500, high: 1200 } })).not.toMatch(/범위 오류|불일치/);
+    expect(T({ leaveByS: 1200, issueByS: { low: 600, median: 300, high: 0 } })).toContain('불일치');
+    // Mira N7: shorter latency → later issue-by; out-of-order settings are refused
+    expect(T({ leaveByS: 1800, issueByS: { low: 900, median: 1200, high: 1500 } })).toContain('순서 오류');
   });
 
   it('midnight crossing names the day (Mira N2): data 23:45 KST, leave-by after midnight', () => {
