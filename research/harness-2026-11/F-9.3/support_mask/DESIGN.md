@@ -138,3 +138,24 @@ packet grid.
   equality of the npz, and of B against A, is now also reported. It holds 15 of 15.
 - **Wrong assumption.** The note assumed some packets could not be rebuilt. In fact all 15 recorded packets have their
   export present here.
+
+## Proposed amendment A1 to the cross-environment flux rule: POST HOC, for the verifier to accept or reject
+
+- **Status: post hoc.** This is proposed **after** the run. The motivating case is the frozen writer's own rebuild of
+  Uiseong 03-24 09Z, which failed regression item 2 under the existing rule (README).
+  - The existing rule (relative ≤ 1e-9) **stays the rule of record**. That FAIL stays reported as a FAIL.
+  - Hannah decides whether A1 is acceptable.
+  - Committed before any re-evaluation (orchestrator, 2026-11-12).
+- **A1.** A flux entry passes if its relative difference ≤ 1e-9 **or** its absolute difference ≤ 1e-12 kW/m².
+  Ids, breakpoints, flame and support stay exact.
+- **Rationale.**
+  - A relative rule alone is unbounded near zero flux. The failing entries are at ≤ 5.9e-8 kW/m², with absolute
+    differences ≤ 4.4e-16 kW/m².
+  - 1e-12 kW/m² is the absolute tolerance the original F-9.3 regression rule used before it moved to relative 1e-9.
+- **Evaluation.**
+  - No packet is rebuilt for this. `amended_rule.py` re-reads the frozen-writer rebuilds (A) already produced by
+    `regress.py` in both environments, plus the stored frozen packets.
+  - It reports every packet under **both** rules, side by side, in `AMENDED_RULE_RESULTS.json`.
+- **Writer identity (orchestrator condition on keeping the scenario ids).** Every consumer that compares instances
+  must print the writer identity (`packet_writer_sha256`, and `support_writer` if present). `regress.py` and
+  `amended_rule.py` record it per packet. Downstream comparers (Richard, Thomas) are asked to do the same.
