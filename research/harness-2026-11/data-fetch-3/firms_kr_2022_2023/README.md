@@ -32,6 +32,6 @@ These are in the Choi et al. 2026 Zenodo archive (10.5281/zenodo.21788344): `pyt
 
 | Event | toa sha256 | std sha256 |
 |---|---|---|
-| KFS_02 | `31e13697…3f51` | `40ccb9e6…df2335` |
+| KFS_02 | `31e13697…3f51` | `40ccb9e6…7ee97` |
 | KFS_05 | `e1d53967…540f` | `5bc7184e…ff1df` |
 | KFS_11 | `a67b5eec…bf16` | `a4229523…a3d` |
