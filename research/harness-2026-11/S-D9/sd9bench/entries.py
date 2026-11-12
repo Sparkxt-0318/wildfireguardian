@@ -25,6 +25,16 @@ Optional arrays:
   area_samples_<name>      float  K x M simulated new-burn cell counts per
                                   interval; enables burned-area CRPS for that
                                   predictor
+  population               str    scalar, one of POPULATIONS (A1 §4, revision 22):
+                                  "full_rectangle"        every unburned-at-cutoff cell of the
+                                                          grid is scored (perimeter labels);
+                                  "hindsight_restricted"  only cells with a valid label state
+                                                          are scored, and that validity comes
+                                                          from the final reconstruction (e.g. a
+                                                          finite kriged arrival time), so every
+                                                          scored cell burns eventually.
+                                  Every file must carry the same value, or none does
+                                  ("unspecified").
 
 Every file must carry the same set of ``p_`` predictors. A file that breaks the
 contract raises ValueError; nothing is silently dropped or repaired.
@@ -36,6 +46,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import numpy as np
+
+POPULATIONS = ("full_rectangle", "hindsight_restricted")
+HINDSIGHT_NOTE = ("HINDSIGHT-RESTRICTED POPULATION: only cells that the final reconstruction marks as "
+                  "eventually burned are scored. Brier, calibration, AP and prevalence are not comparable "
+                  "with full-rectangle (perimeter) populations and must not be pooled or paired with them.")
 
 
 @dataclass
@@ -50,6 +65,7 @@ class Entries:
     meta: dict[str, dict[str, str]] = field(default_factory=dict)  # name -> fire -> JSON text
     area_samples: dict[str, dict[str, np.ndarray]] = field(default_factory=dict)  # name -> fire -> K x M
     area_observed: dict[str, np.ndarray] = field(default_factory=dict)            # fire -> K observed counts
+    population: str = "unspecified"   # see POPULATIONS; carried unchanged into subsets
 
     def subset(self, mask: np.ndarray) -> "Entries":
         return Entries(
@@ -57,6 +73,7 @@ class Entries:
             predictions={k: v[mask] for k, v in self.predictions.items()},
             dist_m=None if self.dist_m is None else self.dist_m[mask],
             in_domain=None if self.in_domain is None else self.in_domain[mask],
+            population=self.population,
         )
 
     def as_baselines_entries(self) -> dict:
@@ -69,8 +86,12 @@ def _check(cond: bool, path: Path, message: str) -> None:
         raise ValueError(f"{path.name}: {message}")
 
 
-def load(paths, predictors: list[str] | None = None) -> Entries:
-    """Concatenate per-fire files. ``predictors`` restricts and orders the predictors kept."""
+def load(paths, predictors: list[str] | None = None, population: str | None = None) -> Entries:
+    """Concatenate per-fire files. ``predictors`` restricts and orders the predictors kept.
+    ``population`` declares the scored population (see POPULATIONS). If the files carry
+    a ``population`` value, a declared value must match it."""
+    if population is not None and population not in POPULATIONS:
+        raise ValueError(f"population must be one of {POPULATIONS}, got {population!r}")
     paths = sorted(Path(p) for p in paths)
     if not paths:
         raise ValueError("no entry files given")
@@ -84,6 +105,7 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
     area_samples: dict[str, dict[str, np.ndarray]] = {}
     area_observed: dict[str, np.ndarray] = {}
     seen = set()
+    file_pops = []
     for path in paths:
         fire = path.stem
         _check(fire not in seen, path, "duplicate fire")
@@ -119,6 +141,13 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
                 _check(len(d) == n and bool(np.isfinite(d).all()) and bool((d >= 0).all()), path,
                        "dist_m must be finite, >= 0 and length N")
                 dists.append(d)
+            if "population" in z.files:
+                v = z["population"]
+                _check(v.ndim == 0 and v.dtype.kind == "U" and str(v) in POPULATIONS, path,
+                       f"population must be a scalar string in {POPULATIONS}")
+                file_pops.append(str(v))
+            else:
+                file_pops.append(None)
             file_has_dom = "in_domain" in z.files
             if have_dom is None:
                 have_dom = file_has_dom
@@ -150,6 +179,12 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
         intervals.append(interval)
         hours.append(k_hours[interval])
         ys.append(y.astype(np.float64))
+    if len(set(file_pops)) > 1:
+        raise ValueError(f"population differs between files or is missing in some: {sorted(map(str, set(file_pops)))}")
+    from_files = file_pops[0]
+    if population is not None and from_files is not None and population != from_files:
+        raise ValueError(f"declared population {population!r} contradicts files ({from_files!r})")
+    resolved = population or from_files or "unspecified"
     if predictors is not None:
         missing = [p for p in predictors if p not in names]
         if missing:
@@ -163,5 +198,5 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
         y=np.concatenate(ys), predictions={k: np.concatenate(preds[k]) for k in names},
         dist_m=np.concatenate(dists) if have_dist else None,
         in_domain=np.concatenate(doms) if have_dom else None, meta=meta,
-        area_samples=area_samples, area_observed=area_observed,
+        area_samples=area_samples, area_observed=area_observed, population=resolved,
     )

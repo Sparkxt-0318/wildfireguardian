@@ -33,6 +33,8 @@ def main(argv=None) -> None:
     ap.add_argument("--predictors", default=None, help="comma-separated subset; references must be included")
     ap.add_argument("--draws", type=int, default=10000)
     ap.add_argument("--seed", type=int, default=20261030)
+    ap.add_argument("--population", default=None, choices=["full_rectangle", "hindsight_restricted"],
+                    help="declare the scored population (A1 §4); must match any value stored in the files")
     ap.add_argument("--mc", action="append", default=[], metavar="NAME=N",
                     help="declare N Monte Carlo trajectories behind predictor NAME (repeatable)")
     args = ap.parse_args(argv)
@@ -40,7 +42,7 @@ def main(argv=None) -> None:
         raise SystemExit(f"refusing to overwrite {args.out}")
     names = args.predictors.split(",") if args.predictors else None
     mc = {k: int(v) for k, v in (x.split("=", 1) for x in args.mc)}
-    result = score(load(args.files, names), draws=args.draws, seed=args.seed, mc_trajectories=mc)
+    result = score(load(args.files, names, population=args.population), draws=args.draws, seed=args.seed, mc_trajectories=mc)
     args.out.write_text(json.dumps(_clean(result), indent=1, sort_keys=True, allow_nan=False) + "\n")
     print(f"wrote {args.out}: {result['entries']} entries, {result['positives']} positives, "
           f"{len(result['fires'])} fires")
