@@ -336,3 +336,29 @@ Downloaded PDFs and extracted text are in the scout session's scratchpad (`dl/`,
   - a finite hazard-free dwell on arrival;
   - a per-origin certificate;
   - an exact backward-set algorithm with absolute waiting windows.
+
+**Thomas, W-KIT message rules (2026-11-12).** Sources were opened unless marked snippet.
+
+Governing rule: 「재난문자방송 기준 및 운영규정」 (행안부예규 제361호, 2026-02-04; law.go.kr admRulSeq=2100000274384, plus annexes 별표1 and 별표2).
+
+- 제10조② requires the issuing agency's name in every message.
+- Length limits appear only as annex labels "90자" and "157자", which count characters, not bytes.
+- 별표1 sends a pre-evacuation advisory (사전대피 권고) as an 안전안내문자, which uses the normal notification sound. An evacuation order goes as a 긴급재난문자 at 40 dB or more.
+- 별표2 wildfire templates #153, #154 and #155 (advisory, order, order lifted) are each 90 characters and put [기관명] (agency name) last.
+
+Related releases:
+
+- 2025-08-27: messages must say 언제·어디로·어떻게 (when, where to, how); capacity to go from 90 to 157 characters in stages.
+- 2026-02-26: evacuation messages must go out as 위급재난문자 or 긴급재난문자.
+- 매일신문 2026-10-12: 157 characters applies to 안전안내문자 only; 위급 and 긴급 stay at 90.
+
+Research on message content:
+
+- NIST TN 1982 and TN 2008: five message elements; put the source first; for 90-character messages, order them source, guidance, hazard, location, time.
+- Mileti & Sorensen 1990: could not open.
+
+Not found:
+
+- Official guidance on village-broadcast (마을방송) length or repetition.
+- A real evacuation ARS script with key-press replies. The closest is the 진천 welfare ARS, which is not for evacuation.
+- Guidance on announcing or limiting shelter changes.
