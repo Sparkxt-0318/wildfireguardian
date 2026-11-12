@@ -50,7 +50,7 @@ The plan runs on **v3.1**: `MANIFEST_v3_1.json` (sha `1c2e73db…`) at `3f1fa15`
 23T23, 24T02 and 24T05 starts, not this plan's 0325T17 and 0325T23 starts; identity digests change. Each manifest
 command is run as an argv list. Every packet hash is recorded in `fdyn_prepare.log`.
 
-## Amendment A1 — 12 Nov 2026, written ~13:05 UTC, committed before the run it describes
+## Amendment A1 — 12 Nov 2026, committed 13:00:28 UTC (033e7f0) before the run it describes (run started ~13:01 UTC)
 
 **Deviation 1: the 900 s / 12,288 MiB controller-only repeat was stopped** at 12:59:06 UTC, after 1 of 12 rows
 (orchestrator decision). It cannot show search behaviour, for the reason below. The one completed row (Uiseong
