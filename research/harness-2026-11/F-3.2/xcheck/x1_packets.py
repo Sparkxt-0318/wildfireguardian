@@ -1,8 +1,10 @@
 """X1 (PASS_RULES.md): does the router's ContactModel see the same hazard as the packet's HAZARD.json?
 
-For each packet: (1) same active cell set on [0, H); (2) per cell, same interval count and starts, ends equal or within
-1 µs; (3) for EVERY origin of the INSTANCE.json entry and each departure, frontend.build_instance on HAZARD intervals
-equals the one on ContactModel intervals. Exit status 1 if any packet fails.
+For each packet: (0) the raw arrays are routable (p1_check.require_routable_arrays; a HAZARD-only packet is reported
+REFUSED, never read); (1) same active cell set on [0, H); (2) per cell, same interval count and starts, ends equal or
+within 1 µs; (3) for EVERY origin of the INSTANCE.json entry and each departure, frontend.build_instance on HAZARD
+intervals equals the one on ContactModel intervals; (4) the independent raw re-derivation p1_check.from_raw equals
+ContactModel exactly. Exit status 1 if any packet fails or is refused.
 
 Usage: python x1_packets.py --leo WORKTREE --packets REL... [--departures 0 7200] [--out FILE]
 """
@@ -13,6 +15,8 @@ import json
 import sys
 from fractions import Fraction as F
 from pathlib import Path
+
+import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
@@ -62,7 +66,16 @@ def main(argv=None):
         hz = json.loads((pk / "HAZARD.json").read_text())
         Hs = F(H)
         haz = {k: v for k, v in P.from_hazard(hz, Hs).items() if v}
-        con = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in ContactModel.from_packet(pk).cell_intervals.items()) if v}
+        try:
+            with np.load(pk / "constructed_arrays.npz", allow_pickle=False) as arr:
+                P.require_routable_arrays(arr, pk)
+            con = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in ContactModel.from_packet(pk).cell_intervals.items()) if v}
+            raw = {k: v for k, v in P.from_raw(pk, Hs).items() if v}
+        except Exception as e:                          # HAZARD-only packet: refused by design, reported, never read
+            row = dict(packet=rel, variant=variant, region=region, start=start, active_hazard=len(haz), REFUSED=str(e)[:200], PASS=False)
+            rows.append(row); print(json.dumps(row), flush=True)
+            continue
+        raw_vs_contact = sum(raw.get(k) != con.get(k) for k in set(raw) | set(con))
         c = classify(haz, con)
         if region not in graphs:
             g = json.loads((L / "graphs_interim" / region / "graph.json").read_text())
@@ -89,9 +102,10 @@ def main(argv=None):
                 n += 1; eq += same
                 if not same and len(bad) < 3:
                     bad.append([o["origin_id"], dep])
-        ok = c["only_hazard"] == c["only_contact"] == c["other"] == 0 and eq == n
+        ok = c["only_hazard"] == c["only_contact"] == c["other"] == 0 and eq == n and raw_vs_contact == 0
         row = dict(packet=rel, variant=variant, region=region, start=start, active_hazard=len(haz), active_contact=len(con),
                    **{k: v for k, v in c.items() if k != "examples"}, instances_equal=eq, instances_compared=n,
+                   raw_vs_contact=raw_vs_contact,
                    PASS=ok, examples=c["examples"], instance_mismatch_examples=bad)
         rows.append(row)
         print(json.dumps({k: v for k, v in row.items() if "examples" not in k}), flush=True)
