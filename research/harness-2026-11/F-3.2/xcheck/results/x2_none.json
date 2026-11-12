@@ -1,0 +1,15 @@
+{
+ "control": "none",
+ "seed": 20261112,
+ "instances": 2009,
+ "random": 2000,
+ "edge_cases": 9,
+ "networkx": "3.4.2",
+ "disagreements": 0,
+ "route": 1101,
+ "no_route": 908,
+ "PASS": true,
+ "DETECTED": null,
+ "disagreement_examples": [],
+ "disagreement_instances": []
+}
