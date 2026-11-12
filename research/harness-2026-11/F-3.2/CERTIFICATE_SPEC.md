@@ -116,7 +116,7 @@ Premises (not proved here): **P1** the flame activity that the full checker samp
 per-cell half-open intervals `ContactModel.cell_intervals` derives from the packet arrays (asserted and tested in
 `experimental/scenario-members`, "tested for equality on the frozen packets"; independently corroborated here only for
 the 15 route witnesses, all `CHECKED_ROUTE`); **P2** the instance re-derivation of O2 (checked: 0 differences, 20
-missions); **P3** the full checker's lattice and contact rules are the policy (they are the frozen definition).
+missions; it re-derives geometry and translation only — contact semantics come from the shared `ContactModel`); **P3** the full checker's lattice and contact rules are the policy (they are the frozen definition).
 
 **Integer seconds (Iris, point 4).** No lemma can remove this as a statement about continuous time: with a point
 occupancy at fraction 1/2 of a 10 s edge (its other cells inactive) and activity intervals leaving a safe gap `[5.2, 5.7)` at that cell, the

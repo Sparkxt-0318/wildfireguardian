@@ -1,8 +1,9 @@
 #!/bin/sh
 # Runs every tests/*.wfgc through the checker. Expected verdict = filename prefix
 # (accept_* -> ACCEPT, exit 0; reject_* -> REJECT, exit 1). Usage: run_tests.sh [checker]
-CHECK=${1:-./wfgc_check}
 DIR=$(dirname "$0")
+# default: the binary next to this tests/ directory, so the script works from any working directory (Nora C3 note)
+CHECK=${1:-"$DIR/../wfgc_check"}
 fail=0; n=0
 for f in "$DIR"/*.wfgc; do
   n=$((n+1))

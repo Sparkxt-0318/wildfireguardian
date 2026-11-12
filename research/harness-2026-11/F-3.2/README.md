@@ -43,7 +43,8 @@ start by ±2 s on a road cell produced differences in 12/12 targeted trials (4 m
 targets). Untargeted perturbations mostly show no difference because present-fire intervals ([0, ≈3967 s)) outlast
 the 3600 s horizon and many cells carry no roads.
 
-Still trusted: `ContactModel` (packet arrays → per-cell activity intervals), graph and request JSON, the cut rule
+Still trusted (Nora C5 note): O2 checks geometry and the integer translation only, NOT contact semantics —
+`ContactModel` (packet arrays → per-cell activity intervals) is shared by both derivations, graph and request JSON, the cut rule
 (interior grid lines only), and the integer-second clock.
 
 Observation: the panel's time dependence is thin. 4/20 missions have no blocked edge; in 6 more every blocked edge is
