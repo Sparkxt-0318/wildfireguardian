@@ -273,3 +273,25 @@ independent scalar-law checker **does not apply and was not run** on them. Never
   - The SYNTHETIC marker appears exactly on the synthetic starts.
   - The envelope law appears exactly on the envelope packets.
   - Ignitions: 353–6,425.
+
+## v3.1 quantization (QUANT_v3_1_RULE.md; orchestrator decision after Thomas's F-3.2 O2 finding)
+
+- **What changed.** Every floored time is now integer ms since t0. Timestamp-derived arrivals are exact; real-valued
+  ones are rounded to 1 ms, so a start can be at most 0.5 ms later than the real-valued arrival. Envelope ends are
+  now exactly conservative, which removes Thomas's note 4.
+- **Correction 1.** T = 3,970.4642815249267 s is real-valued. Comparisons against it are unambiguous.
+- **Schedule diff, all 488 manifest entries** (`DIFF_v3_v31.json`). Every change is +300 s:
+  - firms_early births: 102 cells per entry.
+  - envelope births: 102 cells per entry.
+  - envelope hi_rel: 17 cells per entry.
+  - These occur only at 20250323T230000Z (h8), 20250324T020000Z (h5, h8) and 20250324T050000Z (h5, h8), on the
+    same full-grid cells in both regions.
+  - kriged_mean and envelope_sound: no change.
+  - No cell enters or leaves the igniting set.
+  - The rule's estimate of 612 + 102 came from a rough count that ignored the burned-at-start rule.
+- **Packet diff** (`PACKET_DIFF_v3_v31.json`, all 10 v3 packets on disk):
+  - Constructed arrays and HAZARD channels, breakpoints, flux, flame and support are identical.
+  - Only the member id and identity digests differ, because the settings now carry the quantization version.
+- **Manifest.** `MANIFEST_v3_1.json` (wfg.fdyn.manifest/2) supersedes `MANIFEST_v3.json` (kept, listed as
+  superseded). Packets go to `_data/packets_v31/`.
+- **Acceptance.** Thomas's independent derivation must give integer equality on the boundary sample. Pending.
