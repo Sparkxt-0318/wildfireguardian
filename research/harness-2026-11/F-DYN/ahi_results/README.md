@@ -63,4 +63,17 @@ Pixel-level meaning only: **"some burned cell within about 2 km had fire by t_f"
   centre (EPSG:5179), VZA and shift.
 - `AHI_VALIDATION.json`: everything above.
 - `ahi_membership.json`: cell→pixel (nearest) and pixel→cells (within 2 km).
-- `ahi_bounded_{lo,hi}.npz`: routing envelopes, **NOT FOR TRAINING**.
+- `ahi_bounded_{lo,hi}.npz`: **WITHDRAWN** as an F-DYN variant (STARTS_RULE.md, withdrawal amendment). Kept only as
+  a record.
+
+## Finding: a pixel-level time cannot be used per cell (ahi_bounded withdrawn)
+
+The `ahi_bounded` variant set each cell of a firing pixel's 2 km buffered set to burn from t_prev to t_f(pixel) + T.
+The reach table (`REACH_rule_envelope_ahi_bounded.json`) shows the result is not conservative. It moves fire about a
+day early onto roads with no fire (Yeongdeok on 23–24 Mar: 70 road cells against 0). It also burns cells out before
+the fire really arrives (Uiseong 25 Mar 11Z: 0 road cells against 574 under `envelope`).
+
+An AHI first-fire time bounds only the **earliest** arrival in the pixel's set, not each cell's arrival. Treating it
+per cell moves the end of burning as well as the start. The earlier description of this use as "conservative" (in
+AHI_RULE.md and in the assessment) was mistaken. AHI stays in two uses only: minimum constraints over buffered sets,
+and pixel-level timing statements.

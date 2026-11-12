@@ -295,3 +295,13 @@ independent scalar-law checker **does not apply and was not run** on them. Never
 - **Manifest.** `MANIFEST_v3_1.json` (wfg.fdyn.manifest/2) supersedes `MANIFEST_v3.json` (kept, listed as
   superseded). Packets go to `_data/packets_v31/`.
 - **Acceptance.** Thomas's independent derivation must give integer equality on the boundary sample. Pending.
+
+## Final scoring set (orchestrator, 2026-11-12)
+
+- `kriged_mean`
+- `firms_early` and `envelope`: both labelled bracket-start, not a lower bound.
+- `envelope_sound`: the only sound bound.
+
+All four use the v3.1 convention. `envelope_ahi_bounded` was **withdrawn** after its reach table: it applied a
+pixel time per cell, which burned cells early and burned them out before arrival. See `STARTS_RULE.md` and
+`ahi_results/README.md`. No fifth variant is planned.

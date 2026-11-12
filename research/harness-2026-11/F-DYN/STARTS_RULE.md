@@ -80,3 +80,26 @@ The commit that adds this file is the rule commit.
 - **Status.** The build union is unchanged (all 64 rows were already built). **No `envelope_ahi_bounded` packet is
   built and no manifest entry is added** until the orchestrator decides to withdraw it or redefine it once, for this
   stated reason.
+
+## Amendment: `envelope_ahi_bounded` WITHDRAWN (orchestrator decision, option A; made after the reach table, before any deadline or packet)
+
+- **Withdrawn.** It is removed from the scoring set. No packet is built and it is not redefined. This supersedes the
+  amendment @c9c7428 and the earlier go-ahead for a fourth AHI variant.
+- **Made after computing the reach table, not deadlines.**
+- **Reason.** The variant applies a pixel-level time to every cell of a 2 km buffered set. Because burning ends at
+  hi + T, an earlier hi also ends burning early. It is therefore neither a bound nor a safe scenario.
+  - 9,863 cells have hi earlier than `firms_constrained`, by a median of 10.2 h (p90 32.8 h, max 48.8 h).
+  - 2,430 cells have lo at the left-censored window start (24 Mar 06:00–06:27 UTC). Their median FIRMS hi is
+    25 Mar 13:06.
+  - Yeongdeok road cells burn on 23–24 Mar: 70 against 0 under `envelope`, a day before any fire reached them.
+  - From 25 Mar 11 UTC on, road cells have burned out before the start. Uiseong 25 Mar 11Z: 0 road cells against
+    574 under `envelope`.
+- **Earlier assessments were mistaken.** AHI_RULE.md (§ "F-DYN variant") and Iris's assessment both called this use
+  "conservative". With a fixed burning duration it is not (Iris, 2026-11-12, recorded at her request).
+- **Final scoring set**, on the v3.1 convention:
+  - `kriged_mean`;
+  - `firms_early` and `envelope`, both labelled "bracket-start, not a lower bound";
+  - `envelope_sound`, the only sound bound.
+- **Valid uses of AHI timing:**
+  - Elena's minimum constraints over buffered pixel sets;
+  - pixel-level statements of the form "fire within about 2 km by t".
