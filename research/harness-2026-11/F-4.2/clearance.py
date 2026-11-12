@@ -151,8 +151,8 @@ class Instance:
         # departure t is bad iff [t + u0 tau, t + u1 tau] meets [birth, expiry): t in [birth - u1 tau, expiry - u0 tau)
         lo = self.SB[Sx] - u1 * tau; hi = self.SE[Sx] - u0 * tau
         out = {}
-        for e, a, b in zip(E.tolist(), np.floor(lo - 1e-9).tolist(), hi.tolist()):
-            # integer departures t with lo <= t < hi (outward: floor lo)
+        for e, a, b in zip(E.tolist(), lo.tolist(), hi.tolist()):
+            # integer departures t with lo <= t < hi, i.e. ceil(lo) .. ceil(hi)-1 (the u-interval is already outward)
             out.setdefault(e, []).append((a, b))
         for e in out:
             iv = sorted(out[e]); merged = [list(iv[0])]
@@ -342,6 +342,39 @@ class Instance:
                 best = (float(dm[j]), {'segment': lab, 'segment_time': [t0, t1], 'source_cell': s['cell'], 'source_kind': s['kind'],
                                        'source_active': [s['birth'], s['expiry']], 'members': s['members']})
         return best
+
+
+def export_blocks(region, case_id, r, packet=None, inputs=None):
+    """Blocked integer seconds at dilation r in the F-3.1 deadline-field format (Richard): closed inclusive intervals
+    clipped to [0, H].
+      B[j]          edge j (graph.json order): blocked departure seconds
+      W[node]       waitable node: blocked standing seconds (a wait [t, t+1] occupies the point)
+      dwell[node]   destination: blocked dwell START seconds t (standing [t, t + dwell] meets a dilated source)
+      issue[node]   origin: blocked issue seconds (standing at the instant t)
+    Same geometry and outward rounding as Instance.blocked / point_blocked; r = 0 is the closed-footprint contact."""
+    import hashlib
+    g, rq, src, hz = load(region, case_id, inputs=inputs, packet=packet)
+    I = Instance(g, rq, src, hz); H = int(rq['horizon'])
+    def clip(iv):
+        out = []
+        for a, b in iv:
+            a, b = max(0, int(a)), min(H, int(b))
+            if a <= b:
+                out.append([a, b])
+        return out
+    blk = I.blocked(r, max(r + 1.0, I.rcap))
+    B = [clip([(math.ceil(a), math.ceil(b) - 1) for a, b in blk.get(j, [])]) for j in range(len(I.edges))]
+    stand = lambda v: [(math.ceil(a), math.ceil(b) - 1) for a, b in I.point_blocked(v, r)]
+    W = {n['id']: clip(stand(n['id'])) for n in g['nodes'] if n.get('waitable', False)}
+    dwell = {}
+    for d in rq['destinations']:
+        dw = int(d['dwell'])
+        dwell[d['node']] = clip([(a - dw, b) for a, b in stand(d['node'])])   # [t, t+dw] meets [a, b]  <=>  t in [a-dw, b]
+    issue = {rq['position']['node']: clip(stand(rq['position']['node']))}
+    order = hashlib.sha256(json.dumps([e['id'] for e in g['edges']]).encode()).hexdigest()
+    return {'schema': 'wfg.harness.f42.dilation-blocks/1', 'region': region, 'case': case_id, 'r_m': r, 'H': H,
+            'B': B, 'W': W, 'dwell': dwell, 'issue': issue, 'edge_order_sha256': order,
+            'geometry': 'isotropic Euclidean dilation of closed cell rectangles; straight node segments; outward integer rounding; PAD_M=%g' % PAD_M}
 
 
 def contact_time_margin(I, route):

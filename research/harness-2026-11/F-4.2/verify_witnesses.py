@@ -97,9 +97,10 @@ def main():
     files = sorted(a.margins.glob('*.json'))
     if a.published:
         files += sorted((HERE / 'routes').glob('*.json'))
-    cache = {}
+    cache = {}; done = {}
     for f in files:
         w = json.loads(f.read_text()); m = w['mission']; region, case = m.split('__')
+        key = (m, json.dumps(w['legs'], sort_keys=True), w['arrival'])
         if m not in cache:
             cache[m] = C.Instance(*C.load(region, case))
         I = cache[m]
@@ -108,15 +109,19 @@ def main():
             r = I.route_clearance(w)[0] - 1e-6
         ok, dmin, pairs = exact_clearance_exceeds(I, w, r)
         cutoff = case.split('_')[0]
-        chk = subprocess.run([sys.executable, '-I', '-B', str(HERE / 'fixed_route_check.py'), '--kit', str(a.kit),
+        if key in done:                      # identical route already checked by the full checker
+            c = done[key]
+        else:
+          chk = subprocess.run([sys.executable, '-I', '-B', str(HERE / 'fixed_route_check.py'), '--kit', str(a.kit),
                               '--packet', str(REPO / 'data/routing/latest_inputs_try02/packets' / region / cutoff),
                               '--graph', str(REPO / 'data/routing/graphs' / region / 'graph.json'),
                               '--request', str(REPO / 'data/routing/latest_inputs_try02/requests' / region / (case + '.json')),
                               '--route', str(f), '--wall', '900'], capture_output=True, text=True)
-        try:
+          try:
             c = json.loads(chk.stdout.strip().splitlines()[-1])
-        except Exception:
+          except Exception:
             c = {'status': 'CHECK_FAILED', 'tail': (chk.stdout + chk.stderr)[-500:]}
+          done[key] = c
         row = {'file': f.name, 'mission': m, 'deadline': w.get('deadline', 'published'), 'arrival': w['arrival'], 'claimed_r_m': r,
                'exact_clearance_exceeds_claim': ok, 'exact_min_distance_m': dmin, 'exact_pairs': pairs,
                'full_checker_status': c.get('status'), 'full_checker_reason': c.get('reason'), 'full_checker_s': c.get('elapsed_s')}

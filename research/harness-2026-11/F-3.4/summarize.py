@@ -77,6 +77,33 @@ def phases(row):
     return out
 
 
+PHASE_TIMERS = {
+    'graph_preparation': ['routing.prepared.PreparedGraph.__init__', 'routing.prepared.PreparedGraph.snapshot'],
+    'hazard_validation': ['routing.validation.validate_hazard'],
+    'request_validation': ['routing.validation.validate_request', 'clock_scope.check_clock_scope'],
+    'bound_model': ['road_bounds.RoadBoundModel.__init__'],
+    'search': ['zsweep.contact_sweep', 'zsweep.EarliestArrivalBound.__init__', 'road_core.solve'],
+    'check_contact_setup': ['contact_first.ContactSources.from_case', 'hybrid_checker.prepare_mission'],
+    'check_contact': ['hybrid_checker.check_contact'],
+    'check_radiation_prep': ['hybrid_radiation.HybridRadiationBounds.from_case_for_window'],
+    'check_radiation': ['hybrid_radiation.HybridRadiationBounds.trajectory_bound'],
+    'check_adaptive_fallback': ['adaptive_checker.adaptive_bound'],
+    'publication': ['publication_v1_1.publish'],
+}
+
+
+def phase_memory(row):
+    """phase -> (process high-water at the end of the phase's last call, high-water increase during the phase), MiB."""
+    tm = ((row.get('phase_timers') or {}).get('timers') or {})
+    out = {}
+    for ph, names in PHASE_TIMERS.items():
+        recs = [tm[n] for n in names if n in tm and tm[n].get('calls')]
+        if recs:
+            out[ph] = (max(r.get('highwater_end_bytes', 0) for r in recs) / 2 ** 20,
+                       sum(r.get('highwater_increase_bytes', 0) for r in recs) / 2 ** 20)
+    return out
+
+
 def groups():
     return {'startup_imports': ['launch_interpreter', 'worker_imports', 'engine_imports_hash'],
             'input_binding': ['input_load_hash'],
@@ -96,6 +123,7 @@ def main():
     ap.add_argument('--json', type=Path)
     a = ap.parse_args()
     rows = [json.loads(l) for l in a.rows.read_text().splitlines() if l.strip()]
+    rows = [r for r in rows if not r.get('prime')]          # warm-mode priming runs are not measurements
     table = []
     for r in rows:
         p = phases(r)
@@ -125,6 +153,17 @@ def main():
                                   'wall_cv': (statistics.pstdev(w) / statistics.mean(w)) if len(w) > 1 else None,
                                   'groups_median_s': {g: statistics.median([sum(t[k] for k in ks) for t in ts]) for g, ks in G.items()}}
     summ['total_wall_s'] = total; summ['median_wall_s'] = statistics.median(walls)
+    cov = [1 - t['unattributed'] / t['complete_wall_s'] for t in table if t['complete_wall_s']]
+    summ['coverage'] = {'executions_with_at_least_95pct_attributed': sum(c >= 0.95 for c in cov), 'executions': len(cov),
+                        'min_attributed_share': min(cov), 'total_attributed_share': 1 - summ['phases']['unattributed']['sum_s'] / total}
+    mem = {}
+    for r in rows:
+        for ph, (hw, inc) in phase_memory(r).items():
+            mem.setdefault(ph, []).append((hw, inc))
+    summ['memory_mib'] = {ph: {'highwater_at_phase_end_median': statistics.median(x[0] for x in v), 'highwater_at_phase_end_max': max(x[0] for x in v),
+                               'highwater_increase_in_phase_median': statistics.median(x[1] for x in v), 'highwater_increase_in_phase_max': max(x[1] for x in v)}
+                          for ph, v in mem.items()}
+    summ['family_peak_rss_mib'] = {'median': statistics.median(r.get('family_peak_rss_mib') or 0 for r in rows), 'max': max(r.get('family_peak_rss_mib') or 0 for r in rows)}
     txt = json.dumps(summ, indent=1, sort_keys=True)
     if a.json:
         a.json.write_text(txt + '\n')
@@ -132,6 +171,9 @@ def main():
     for g, v in summ['groups'].items():
         print('%-34s %9.2f %6.1f%% %9.3f %8.2f' % (g, v['sum_s'], 100 * v['share_of_total'], v['median_s'], v['max_s']))
     print('%-34s %9.2f' % ('TOTAL complete wall', total))
+    print('coverage:', json.dumps(summ['coverage']))
+    for ph, v in summ['memory_mib'].items():
+        print('  mem %-26s hw_end med %7.1f max %7.1f MiB | increase med %6.1f max %7.1f' % (ph, v['highwater_at_phase_end_median'], v['highwater_at_phase_end_max'], v['highwater_increase_in_phase_median'], v['highwater_increase_in_phase_max']))
 
 
 if __name__ == '__main__':

@@ -15,7 +15,19 @@ import time
 
 T_INTERPRETER = time.perf_counter()   # first statement of the launched interpreter
 
-import functools, importlib.abc, importlib.machinery, json, os, pathlib, runpy, sys  # noqa: E402
+import functools, importlib.abc, importlib.machinery, json, os, pathlib, resource, runpy, sys  # noqa: E402
+
+_PAGE = os.sysconf('SC_PAGE_SIZE')
+
+
+def _rss():
+    """(current RSS bytes from /proc/self/statm, lifetime high-water bytes from getrusage)."""
+    try:
+        with open('/proc/self/statm') as f:
+            cur = int(f.read().split()[1]) * _PAGE
+    except OSError:
+        cur = None
+    return cur, resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
 
 TIMERS = {}           # name -> {'calls': n, 'total_s': s, 'first_start': t, 'last_end': t}
 IMPORT = {'top_level_s': 0.0, 'modules': 0, 'depth': 0, 'by_root': {}}
@@ -39,15 +51,21 @@ WRAP = {   # module name -> attribute paths to time
 
 
 def _timed(name, fn):
-    rec = TIMERS.setdefault(name, {'calls': 0, 'total_s': 0.0, 'first_start': None, 'last_end': None})
+    rec = TIMERS.setdefault(name, {'calls': 0, 'total_s': 0.0, 'first_start': None, 'last_end': None,
+                                   'max_rss_end_bytes': 0, 'highwater_end_bytes': 0, 'highwater_increase_bytes': 0})
 
     @functools.wraps(fn)
     def inner(*a, **k):
+        hw0 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
         t0 = time.perf_counter()
         try:
             return fn(*a, **k)
         finally:
             t1 = time.perf_counter()
+            cur, hw = _rss()
+            rec['max_rss_end_bytes'] = max(rec['max_rss_end_bytes'], cur or 0)
+            rec['highwater_end_bytes'] = max(rec['highwater_end_bytes'], hw)
+            rec['highwater_increase_bytes'] += max(0, hw - hw0)
             rec['calls'] += 1; rec['total_s'] += t1 - t0
             if rec['first_start'] is None:
                 rec['first_start'] = t0
@@ -121,7 +139,8 @@ def _write(folder, status):
            'timers': {k: dict(v, first_start_from_outer_s=None if v['first_start'] is None else v['first_start'] - origin,
                               last_end_from_outer_s=None if v['last_end'] is None else v['last_end'] - origin)
                       for k, v in TIMERS.items()},
-           'python': sys.version, 'pid': os.getpid()}
+           'python': sys.version, 'pid': os.getpid(),
+           'rss_at_exit_bytes': _rss()[0], 'highwater_at_exit_bytes': _rss()[1]}
     (folder / 'PHASE_TIMERS.json').write_text(json.dumps(out, indent=1, sort_keys=True) + '\n')
 
 

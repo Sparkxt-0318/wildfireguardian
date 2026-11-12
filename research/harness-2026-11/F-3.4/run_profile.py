@@ -59,7 +59,7 @@ def load(p):
     return json.loads(p.read_text()) if p.exists() else None
 
 
-def run_one(kit, inputs, region, case_id, out, budget, mode, python):
+def run_one(kit, inputs, region, case_id, out, budget, mode, python, cache_root=None):
     sys.path[:0] = [str(kit / 'runner'), str(kit / 'decision')]
     import wfg_controller as CTL
     import journey_decision_v2_1 as JD
@@ -69,8 +69,10 @@ def run_one(kit, inputs, region, case_id, out, budget, mode, python):
     job, graph, packet, request, req = build_job(kit, inputs, region, case_id, out, budget, worker, label)
     if mode == 'phase':
         job['env'] = {'WFG_PHASE_TARGET': str(target)}
+    if cache_root is not None:
+        job['preparation_mode'] = 'AUTHENTICATED_ARTIFACT'      # warm: the kit's authenticated prepared-graph store
     t0 = time.perf_counter()
-    rc = CTL.run_attempt(kit, job, python, {'f34': True})
+    rc = CTL.run_attempt(kit, job, python, {'f34': True}, private_cache_root=cache_root)
     harness_wall = time.perf_counter() - t0
     res = load(out / 'RESULT.json') or {}
     jobj = load(out / 'JOB.json')
@@ -92,7 +94,8 @@ def run_one(kit, inputs, region, case_id, out, budget, mode, python):
            'published_stage': (res.get('result') or {}).get('published_stage'),
            'worker_import_start_from_outer_s': (res.get('worker_import_start_monotonic') or 0) - (res.get('outer_start_monotonic') or 0),
            'checkpoints_from_outer_s': stages, 'worker_stages_s': res.get('stages'),
-           'preparation': {k: (res.get('preparation') or {}).get(k) for k in ('mode', 'prepare_s', 'total_s', 'identity_checks_s')},
+           'preparation': {k: (res.get('preparation') or {}).get(k) for k in ('mode', 'prepare_s', 'total_s', 'identity_checks_s', 'cache_hit', 'admission_reused', 'payload_bytes', 'store_lookup_s')},
+           'worker_highwater_rss_bytes': res.get('self_lifetime_highwater_RSS_bytes'),
            'rda_stages': [{k: s.get(k) for k in ('stage', 'elapsed_s', 'status', 'arrival', 'check_status', 'check_reason', 'check_elapsed_s', 'sweep_metrics')}
                           for s in res.get('rda_stages') or []],
            'earliest_arrival_bound': res.get('earliest_arrival_bound'),
@@ -116,6 +119,7 @@ def main():
     ap.add_argument('--mode', choices=['phase', 'plain'], default='phase')
     ap.add_argument('--only', default=None, help='comma-separated region__case_id filter')
     ap.add_argument('--python', default=sys.executable)
+    ap.add_argument('--warm', action='store_true', help='authenticated prepared-graph cache per region, primed by one unmeasured run per graph')
     a = ap.parse_args()
     kit = a.kit.resolve(); out = a.out.resolve()
     if out.exists():
@@ -126,13 +130,25 @@ def main():
         keep = set(a.only.split(','))
         todo = [m for m in todo if '%s__%s' % m in keep]
     rows_path = out / 'ROWS.jsonl'
+    caches = {}
+    if a.warm:
+        for region, case_id in todo:
+            if region in caches:
+                continue
+            caches[region] = out / 'cache' / region; caches[region].mkdir(parents=True, mode=0o700)
+            d = out / 'prime' / ('%s__%s' % (region, case_id)); d.parent.mkdir(parents=True, exist_ok=True)
+            row = run_one(kit, a.inputs.resolve(), region, case_id, d, a.budget, a.mode, a.python, caches[region])
+            row['rep'] = 0; row['prime'] = True
+            with rows_path.open('a') as f:
+                f.write(json.dumps(row, sort_keys=True) + '\n')
+            print('prime %s cache_hit=%s' % (region, row['preparation'].get('cache_hit')), flush=True)
     for rep in range(1, a.reps + 1):
         order = todo if rep % 2 else list(reversed(todo))   # alternate order between repetitions
         for region, case_id in order:
             d = out / ('r%d' % rep) / ('%s__%s' % (region, case_id))
             d.parent.mkdir(parents=True, exist_ok=True)
-            row = run_one(kit, a.inputs.resolve(), region, case_id, d, a.budget, a.mode, a.python)
-            row['rep'] = rep
+            row = run_one(kit, a.inputs.resolve(), region, case_id, d, a.budget, a.mode, a.python, caches.get(region))
+            row['rep'] = rep; row['warm'] = bool(a.warm)
             with rows_path.open('a') as f:
                 f.write(json.dumps(row, sort_keys=True) + '\n')
             print('%s r%d %-38s %-16s %-36s wall=%.2f' % (a.mode, rep, region + '/' + case_id, row['primary_status'],
