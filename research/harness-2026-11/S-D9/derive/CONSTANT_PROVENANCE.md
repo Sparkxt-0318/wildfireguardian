@@ -25,7 +25,7 @@
 
 | constant | value | where | set on | sealed timing? |
 |---|---|---|---|---|
-| eligibility | `surveys >= 20` | A1 §1.2 item 2; `select_cohort.py` | a priori. It uses the declared **count** field, not timing. | no (count only) ⚠ — see note 2 |
+| eligibility | `surveys >= 20` | A1 §1.2 item 2 (revision 3, 09:14:26Z); `select_cohort.py` | a priori. It uses the declared **count** field, not timing. | Hannah: confirmed from the record. No span or cadence analysis exists before revision 3; the only summary is the MANIFEST count ("180 have ≥ 20 surveys"). Off-record use is pending Daniel's declaration |
 | part sizes | 30 / 30; d floor 30 | A1 §1.2 items 4, 5, 12 | power calculation on **R** (`derive/POWER.json`) | no |
 | analysable minimum | ≥ 20 fires | A1 §6.1 item 6 | power calculation on R | no |
 | order | u = sha256 hash | A1 §1.2 item 3 | a priori | no |
@@ -38,10 +38,10 @@
 
 | constant | value | where | set on | sealed timing? |
 |---|---|---|---|---|
-| GOFER/FEDS sampling cadence | 12 h from each fire's first observation | A1 §2 | "to keep cadence comparable to NIROPS". **Q5 is still open.** | ⚠ **audit**: did any NIROPS cadence figure behind "12 h" come from b/c/d timing? Under the new rule (c), anything not yet frozen is set from part a only |
+| GOFER/FEDS sampling cadence | 12 h from each fire's first observation | A1 §2, first committed at 07ab78f7 (09:12Z) | **Fiat**, equal to FEDS's native cadence. **Q5 is still open.** | Hannah: confirmed from the record. No commit before 09:12Z contains a NIROPS cadence or span statistic. Off-record use is pending Daniel's declaration; mine says no. Under rule (c), the frozen G cadence is either kept as fiat or set from **part a only** |
 | H leads | 1, 2, 3, 6, 12 h | A1 §2.1 | a priori | no |
 | H reach | r = d_cheb / (4 × lead) | A1 §2.1 | the kernel geometry (4 cells/h) | no |
-| H tolerance | 4 × lead + 6 | A1 §2.1 | Marcus's label inspection of **all 28 GOFER fires** (disclosed; H descriptive) | GOFER labels, not NIROPS timing |
+| H tolerance | 4 × lead + 6 | A1 §2.1 | Marcus's label inspection of **all 28 GOFER fires** (disclosed; H descriptive) | GOFER labels, not NIROPS timing. Also note F5: `research/camera-arrival/outputs/gofer_fires.csv` and `feasibility_daily_growth.csv` (daily growth for all 28 GOFER fires, including H-test; on Main since 2026-11-11). Whether anyone used F5 is pending Marcus's declaration |
 | refit recipe | epochs 3, lr 0.003, hidden 16, kernel 9, etc. | A1 §3.1 | forecast-v2 RUN_PROTOCOL (fit fires) | no |
 | rate-mixture multipliers | 1, 2, 4, 8, 16 | A1 §3.1 | a priori, powers of 2 | no; weights fit on training data |
 | d2_bracket | sweeps 2, step 0.25 h | stage-2 queue | synthetic timing and step check | no |
@@ -54,5 +54,6 @@
 ## Notes
 
 1. **Arrival RPS bins** are each scored fire's own observation times, after the cutoff and within 48 h. Using a part-c fire's survey times at scoring is how the labels are defined. It is not a design choice made from leaked data. No constant here was set from sealed timing.
-2. **`surveys >= 20`.** `surveys` is a declared field and a count. Combined with `last_utc − first_utc`, it would give cadence. The threshold was written in A1 revision 3 before the split was generated. I know of no analysis of the survey-span distribution behind it. Hannah: please confirm no one computed b/c/d span or cadence before revision 3.
+2. **`surveys >= 20`.** `surveys` is a declared field and a count. Combined with `last_utc − first_utc`, it would give cadence. The threshold was written in A1 revision 3 before the split was generated. Hannah confirms from the record that no span or cadence analysis preceded it; off-record use is pending Daniel's declaration.
+4. **H-test final size (Victor, disclosed).** At 09:49:13Z, while building `gofer_match.py`, I printed the GOFER fire list. It holds `acres_official` (final size) and the ignition hour for all 28 GOFER fires, including the 7 H-test fires. With F5, the amendment records the H-test fires as **INSPECTED (final size)**. These values set no constant.
 3. **Membership filters.** §1.3 and items 9 and 10 **by design** read discovery date (b/c/d) and first_utc/last_utc (all parts). They decided **membership only**: exclusions, drops and duplicates (logged in `cohort/COHORT_FINAL.csv`). They set no constant and tuned no model. The amendment reconciles this with §1.2's statement that the split uses five fields: the **ordering and part assignment** (items 1–4) use those five fields; the **filters** (items 9–11, §1.3) use point of origin, discovery date and survey window, as items 9–11 themselves say. `cohort/GOFER_MATCH.csv` commits discovery_utc for 10 b/c/d incidents. It is a disclosed file.
