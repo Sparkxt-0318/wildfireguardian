@@ -833,7 +833,9 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
   });
 
   it('the contact number must have a Korean phone shape; times, dates, bare digits and emergency numbers are refused, and staff are told which field to fix', () => {
-    for (const ok of ['000-000-0000', '000-0000-0000', '1000-0000']) expect(phoneShaped(ok), ok).toBe(true);
+    for (const ok of ['000-000-0000', '000-0000-0000', '02-2000-0000', '054-200-0000', '031-2000-0000', '064-700-0000', '1588-0000', '1600-0000', '1800-0000']) expect(phoneShaped(ok), ok).toBe(true);
+    // tidy-up: personal safe numbers (050), VoIP (070), unassigned prefixes and non-representative 1XXX are refused too
+    for (const bad of ['050-0000-0000', '0505-000-0000', '070-0000-0000', '012-000-0000', '013-000-0000', '1000-0000', '1119-0000', '1004-0000', '054-000-0000', '054-123-0000', '02-0123-0000', '039-200-0000', '065-200-0000', '080-200-0000', '010-112-0000']) expect(phoneShaped(bad), bad).toBe(false);
     // mobile numbers are personal data, never an agency contact line (Mira note N1)
     for (const mob of ['010-0000-0000', '011-000-0000', '016-0000-0000', '017-000-0000', '018-0000-0000', '019-000-0000']) expect(phoneShaped(mob), mob).toBe(false);
     for (const bad of ['18-30', '1830', '2025-03-25', '112-0', '01-12', '112', '119', '1-1-2', '0000', '18:30', '000-0000-0000-0000', '000 000 0000', '1-000-0000', '+82-00-000-0000']) expect(phoneShaped(bad), bad).toBe(false);

@@ -311,6 +311,16 @@ Mira's two minor notes on 1334e47:
 
 Suite 23 files / 424 tests; build:static OK.
 
+## Phone-shape tidy-up (branch clara/phone-shape-tidy, after #140) (UNVERIFIED)
+Mira's optional note on #140 (orchestrator: last small PR). The contact number is now an allowlist of official shapes:
+- Seoul 02 or a regional area code (031–033, 041–044, 051–055, 061–064) with a local number starting 2–9;
+- 15XX / 16XX / 18XX representative numbers;
+- the all-zero placeholder used by drills and tests.
+
+Refused besides mobiles: 050 (personal safe numbers), 070 (VoIP, often personal), 012/013 and other unassigned
+prefixes, non-representative 1XXX, local numbers starting 0/1, and 080. The staff line names the accepted kinds and the
+refused ones. Suite and build in the checkpoint message.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
