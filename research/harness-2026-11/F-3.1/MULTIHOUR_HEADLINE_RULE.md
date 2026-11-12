@@ -58,3 +58,29 @@ windows.
 * R16.4 / B16.4 and lever A/B go to Nora first.
 * Then the headline runs: v3.5 packets × 4 variants × 6 starts × {5 h, 8 h}, no re-entry, with full-checker witnesses,
   bands and issue-by.
+
+## Amendment 2026-11-12: Iris's tightenings (orchestrator), committed before any headline run
+
+* **(a) Issue-order-by is on hold as a headline.**
+  * It stays a research row until kit-v2's 9,722-verdict gate passes and the bands exist. Section 3 is suspended
+    until then.
+  * When it is shown, it shows the **earliest** edge of the band, with the latency and mobilisation assumption beside
+    it.
+* **(b) Bands.**
+  * Each band is **"a range across named variants"**: kriged_mean, firms_early, envelope, envelope_burnset. It is
+    never called an interval and never presented as a confidence statement.
+  * **Every band includes at least one pessimistic variant.** That is envelope_burnset (sound relative to the final
+    mapped burn set). A band built only from optimistic variants is one-sided and is not reported as a band.
+  * Where envelope_burnset gives no route (for example Uiseong), the band's earliest edge is "no checked route under
+    envelope_burnset".
+* **(c) Assumption line.** Every multi-hour output, person-facing or not, carries: *"Assumes no fire outside mapped or
+  forecast cells; no conservative unknown-support tier exists at multi-hour."*
+* **(d) No re-entry vs clearing.**
+  * Per packet, report the count of verdicts that differ between the no-re-entry field and the clearing variant (as
+    built, fixed burning duration).
+  * The unit is (origin, destination, 30-min grid departure); the count gives feasible → infeasible and
+    infeasible → feasible separately.
+* **(e) Wording.** "Exact" means exact for the time-dependent **model**'s field, not for the fire. Every error or
+  difference statement is worded "relative to the time-dependent model".
+* **Harness rule (all cuts).** Before each cut, diff every README hunk that Main changed since my previous cut, so a
+  whole-file copy cannot revert a verified erratum.
