@@ -5,7 +5,7 @@
 - Owner decision (relayed by the orchestrator, 2026-11-12): collect a fresh set of fires for a clean replication.
 - The current A1 parts b and c proceed, but are described as **"labels, perimeters and growth sealed; survey-timing metadata exposed; membership rules used it"**. H is descriptive. Neither is presented as the clean confirmation.
 
-Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Draft 5 answers her re-review of draft 4 (15:30Z): a canonical_id rule that survives archive moves, and the Tier-1 scope conflict with two earlier registrations. Draft 6 records the owner's scope decision (relayed 12 Nov): no 2026 fire in any tier, and Tier 2 starts 2027-01-01. It also adds the 2026+ no-access rule and Hannah's conditions on the rehearsal fallback (15:40Z). Draft 7 records the orchestrator's Tier-1 position and the freeze precondition on access (15:47Z). Draft 8 adds Hannah's fixed access attempt and outcome rule (16:01Z) and records the disagreement over the access gate as open. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
+Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Draft 4 resolves Hannah's custodian protocol review (15:23Z): blocking items B1–B5 and her smaller fixes. Draft 5 answers her re-review of draft 4 (15:30Z): a canonical_id rule that survives archive moves, and the Tier-1 scope conflict with two earlier registrations. Draft 6 records the owner's scope decision (relayed 12 Nov): no 2026 fire in any tier, and Tier 2 starts 2027-01-01. It also adds the 2026+ no-access rule and Hannah's conditions on the rehearsal fallback (15:40Z). Draft 7 records the orchestrator's Tier-1 position and the freeze precondition on access (15:47Z). Draft 8 adds Hannah's fixed access attempt and outcome rule (16:01Z) and records the disagreement over the access gate as open. Draft 9 adds §9, a Korean prospective descriptive stratum (KR-P), at the orchestrator's request. Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
 - data availability (Daniel);
 - protocol review (Hannah).
 
@@ -288,6 +288,27 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
 - **What does not:** CR1 per-fire metadata and raw IDs are never committed before the decision. Afterwards, only hashes, the salt and derived statistics are committed.
 - **Committed at the freeze:** the builder's frozen QA rules, and Daniel's rehearsal match statistics against the Magstadt archive.
 
+## 9. Korean prospective stratum (KR-P; descriptive)
+Added at the orchestrator's request (16:02Z, from an external review passed on by the owner). The orchestrator has asked for no other new CR1 design work until the 2027 access route is settled.
+
+- **What it is.** A separate, prospective **descriptive** stratum: Korean fires discovered on or after **2027-01-01**.
+  - It is **never pooled** with Tier 2 and **never counts toward N**.
+  - It **carries no §6.1 decision**. Its label is "descriptive, not a replication".
+- **When it is declared.** This section, and the frozen KR-P rules below, are committed **before 2027-02-01**, ahead of the Korean spring fire season (February to May).
+  - Rules not frozen by then do not apply to the 2027 season, and KR-P starts with the 2028 spring season instead.
+- **Labels.** These are **satellite active-fire detections**, not IR perimeters, so the label type differs from R and from Tier 2. This is why the stratum is descriptive.
+  - Before the declaration date, the frozen rules fix:
+    - the detection product (for example, the VIIRS 375 m sensors used for A1 cohort K);
+    - the arrival-time reconstruction, which is A1 cohort K's kriged arrival method or a pinned successor;
+    - the hindsight-restricted scoring population (A1 §4.1).
+- **Event eligibility.** This is fixed before the declaration date from Korea Forest Service (KFS) incident records: a minimum burned area, and a minimum number of detection-days so that the event yields at least one scorable interval.
+- **No-look rule.** This is the same rule as §1 item 8, applied to Korea.
+  - From the declaration on, no session fetches, lists or reads any 2027-or-later Korean fire source before the KR-P listing. The sources include FIRMS KR, KFS reports and news.
+  - The only exception is the custodian, under the §3 protocol: ID-only listing, the salted hash, the sealed store, and the leak rule into "exposed".
+- **Snapshot and closing.** These are the same as Tier 2: 2028-01-31 and 2028-03-31. The extension year is the same.
+- **Reporting.** KR-P results are reported with the Tier-2 report, in a separate table. They are never in the abstract's confirmatory sentence.
+- **Training.** KR-P is scored with the Tier-2 frozen candidates exactly as frozen, plus the A1 Korean comparators (persistence, `dilation_8h`, and the KR logistic reference, if one is frozen by then). There is no Korean refit after the declaration.
+
 ## Open items
 | item | owner | status |
 |---|---|---|
@@ -303,6 +324,7 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
 | Tier-1 scope vs the blind test (US 2026) and `fresh_holdout` (US 2025) | owner | **decided** (12 Nov): no 2026 in any tier; Tier 2 from 2027-01-01 |
 | Tier 1 | orchestrator (owner informed) | **decided**: optional, 2025 only, descriptive, never a replication; exposed stratum; no ignorance declaration possible |
 | canonical_id rehearsal | Daniel / custodian | real dual-path fire or synthetic fixture, after the corrected-root rerun |
+| KR-P frozen rules (detection product, arrival method, eligibility thresholds) | Victor drafts; Hannah verifies | due **before 2027-02-01** |
 | access route for 2027 NIROPS-type IR | orchestrator / Hannah | outcome rule fixed (§2). **[OPEN]**: freeze gate = verified route (orchestrator) vs none (Hannah) vs documented route identified (proposed); corrected-root finder rerun pending (Hannah), then the owner check if needed |
 | Daniel: the source of A1's 2020–24 NIROPS data, and whether yearly editions exist | Daniel | requested (documentation and ACCESS_LOG only) |
 | latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | **done** (ledger rows 43 and 45); per-session declarations (Q7) collected |
