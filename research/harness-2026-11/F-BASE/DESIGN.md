@@ -54,3 +54,22 @@ For each naive baseline we report the disagreements on the 20 missions and on th
 ## Not in scope
 
 Full-policy obligations (radiation, peak, dose); fire-model or scenario construction; any change to router code.
+
+## Dated addition, 2026-11-12 (after the first panel run at 676fc721; Iris's critique, Sofia's search)
+
+Rules 1–5 above are unchanged and results under them stay reported as they are. Added, not replacing:
+
+- **Scope sentence, next to every count.** All agreement counts are for the **contact relaxation** (O2). Equality with
+  the router's full-policy verdicts holds only under the dose and peak precondition that Richard checks per request.
+- **F-BASE-TEN, a non-interval baseline** (`fbase_ten.py`). Explicit integer-tick time-expanded network (Cai, Kloks &
+  Wong 1997; Zeitz 2023; recommended by Sofia), one node per (state, second), arcs for legal moves only, searched by a
+  third-party routine (`scipy.sparse.csgraph.breadth_first_order`). Own tokenizer, no interval reasoning, no code
+  from `fbase.py`. It runs on every mission whose arc count fits the host memory budget; the others are listed with
+  their size. Same agreement rule (3); witnesses checked by `check_py.py`.
+- **References.** In addition to F-3.2's panel summary, compare with the frozen published arrival seconds (source to
+  be confirmed by Iris), and record the chain.
+- **More instances.** Leo's F-DYN packets and the pessimistic unknown-cell instances, through the same `.wfgc`
+  INSTANCE format, for all solvers incl. N1–N3 (the naive-baseline counts there measure what interval labels buy).
+- **Timing like for like.** Search time only for every solver (baseline, router, Richard's field), same host;
+  instance build/parse time reported once, separately. For F-BASE-TEN, graph construction is reported with search
+  (it is the method), and separately once instrumented.
