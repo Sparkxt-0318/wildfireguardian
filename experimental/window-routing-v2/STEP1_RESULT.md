@@ -36,3 +36,29 @@ no restart. Data: `results/step1/`.
 - **Step 0 recomputed:** 0 status differences and 0 reason differences (`results/step0/ROWS_REDECIDED.jsonl.gz`).
   This was expected, because Step 0's decision code is identical to the frozen kit's.
 - **Step 1 recomputed:** 0 status differences. The only reason difference is FX2 rep 2, which is the expected one.
+
+## Mira R14: PASS WITH NOTES (ledger 94), and the follow-ups
+
+Mira's own 1-rep panel with redecide:
+- 0 status differences; G1 20/20; G3 20/20; G5 1.006; G2 14/14; G2b 0 violations.
+- Rule b confirmed on a real deadline-stopped v2 folder of her own.
+
+**N1 (fixed).** `run_one` also imports `wfg_controller` by name, so the first kit's controller ran the other kit's
+jobs. It was harmless, because `runner/` is byte-identical between the kits. Even so, `g1_panel.py` now runs **each job
+in its own interpreter** (`tools/run_one_job.py`), so the controller **and** decision modules are always the job's own
+kit's. `redecide.py` is kept as a cross-check. A smoke run of 2 missions × 2 kits gives 0 status differences vs
+recorded.
+
+**N2 (fixed).** The progress hook's `/proc` read and file write are now exception-guarded (hook, final write and flush).
+An error is counted in `STATE.progress_hook.errors` and never propagates into `road_core` or `zsweep` control flow.
+Wording correction: the zsweep calls sit at a new per-16-second (sweep) and per-64-second (EA) modulus check placed
+beside the existing wall-cap check, **not** at a pre-existing bookkeeping statement.
+
+**N3.** The F-DYN replays need my run folders; they ran here (10/10).
+
+**N4.** Rule b needs `worker_failure = DeadlineStop`. A frozen-kit worker's deadline stop keeps LATE_RESULT; that is
+conservative, as Mira notes.
+
+**Kit after fixes.** Manifest `kit-v2-step1b`. Tests: builder 10/10; parent ok (only the provenance tests, on the 5
+overlay files); reasons 7/7 unit; progress 2/2. The N2 change alters no behaviour when no error occurs. It is
+exercised again by the Step 2 panel, which reports G1 against the frozen kit.

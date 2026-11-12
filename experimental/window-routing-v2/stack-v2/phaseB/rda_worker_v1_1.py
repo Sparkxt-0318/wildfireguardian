@@ -172,18 +172,33 @@ def main():
         tmp.write_text(json.dumps(p, default=str)); os.replace(tmp, FOLDER / 'SEARCH_PROGRESS.json')
         _PROG['last_write'] = time.perf_counter()
     def _prog_hook(where, info):
-        _PROG['payload'] = {'stage': _PROG['stage'], 'where': where, 'info': dict(info)}
-        _prog_write()
+        # _prog_hook guard (Mira R14 N2): a progress write can never change control flow (disk full, folder gone, /proc)
+        try:
+            _PROG['payload'] = {'stage': _PROG['stage'], 'where': where, 'info': dict(info)}
+            _prog_write()
+        except Exception as exc_:
+            _PROG['errors'] = _PROG.get('errors', 0) + 1; _PROG['last_error'] = repr(exc_)
     def _prog_stage(name):
         _PROG['stage'] = name
     def _prog_done(res_):
+        try:
+            _prog_done_inner(res_)
+        except Exception as exc_:
+            _PROG['errors'] = _PROG.get('errors', 0) + 1; _PROG['last_error'] = repr(exc_)
+    def _prog_done_inner(res_):
         m_ = (res_ or {}).get('metrics') or {}
         _PROG['payload'] = {'stage': _PROG['stage'], 'where': 'road_core.solve:returned', 'final': True,
                             'info': {'expansions': m_.get('expansions'), 'labels': m_.get('labels'),
                                      'status': (res_ or {}).get('status'), 'reason': (res_ or {}).get('reason')}}
         _prog_write(force=True)
     road_core.PROGRESS_HOOK = _prog_hook; zsweep.PROGRESS_HOOK = _prog_hook
-    _V2_PROG_FLUSH = lambda: _prog_write(force=True)
+    def _prog_flush():
+        try:
+            _prog_write(force=True)
+        except Exception as exc_:
+            _PROG['errors'] = _PROG.get('errors', 0) + 1; _PROG['last_error'] = repr(exc_)
+    _V2_PROG_FLUSH = _prog_flush
+    STATE['progress_hook'] = _PROG   # errors (if any) are reported in RESULT; payload is small
     phaseb = {m.__name__ + '.py': sha(m.__file__) for m in (road_core, road_bounds, zsweep, publication_v1_1)}
     phaseb['rda_worker_v1_1.py'] = sha(__file__)
     for n, h in (job.get('phaseB_sha256') or {}).items():

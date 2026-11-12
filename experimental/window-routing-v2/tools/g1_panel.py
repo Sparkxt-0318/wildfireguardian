@@ -34,7 +34,13 @@ def main():
             labels = ['FROZEN', 'V2'] if (rep + i) % 2 else ['V2', 'FROZEN']
             for lab in labels:
                 d = out / lab / ('r%d' % rep) / ('%s__%s' % (region, case_id)); d.parent.mkdir(parents=True, exist_ok=True)
-                row = RP.run_one(kits[lab], a.inputs.resolve(), region, case_id, d, a.budget, 'plain', sys.executable)
+                # Mira R14 N1: one fresh interpreter per job, so the controller and decision modules are the job's own kit's
+                import subprocess
+                pr = subprocess.run([sys.executable, '-B', str(Path(__file__).with_name('run_one_job.py')), str(kits[lab]),
+                                     str(a.inputs.resolve()), region, case_id, str(d), str(a.budget)], capture_output=True, text=True)
+                if pr.returncode != 0:
+                    raise SystemExit(pr.stderr[-3000:])
+                row = json.loads(pr.stdout.strip().splitlines()[-1])
                 row.update(rep=rep, kit_label=lab, kit_path=str(kits[lab]))
                 with (out / 'ROWS.jsonl').open('a') as f:
                     f.write(json.dumps(row, sort_keys=True, default=str) + '\n')
