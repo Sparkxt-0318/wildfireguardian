@@ -103,3 +103,19 @@ windows.
     deadline (`results/NOREENTRY_CHECK_v36.json`).
   * **Scope.** The headline set: v3.6 packets × 4 variants × 6 starts × {5 h, 8 h}. The headline runs use the v3.6
     no-re-entry packets directly; they are content-identical to the never arm, checked on UA 25T17 h5.
+
+## Amendment 2026-11-12, later: envelope_burnset as its own row (orchestrator, provisional; Iris may overrule)
+
+This supersedes (b) where they conflict. It is committed before any headline run.
+
+* **(1) Static footprint row.** envelope_burnset is reported as its **own row** beside every range, labelled *"static
+  final-footprint bound (no timing; identical across starts; single implementation)"*.
+  * It does **not** set the edge of the time-dependent leave-by range. Inside the footprint it reads "no route" at
+    every start, wherever the fire actually was (Leo: burn set ∪ present fire on [0, H) from t = 0).
+* **(2) Time-dependent range.** The range is across **kriged_mean, firms_early and envelope** (bracket-start, the
+  earliest-arrival timing variant). It is labelled *"range across named timing variants; none is a bound"*. The (b)
+  clause "a band of optimistic variants only is not reported" is suspended pending Iris's answer.
+* **(3) Required sentence on every multi-hour output.** *"Assumes no fire outside mapped or forecast cells; no
+  conservative unknown-support tier exists at multi-hour. The static final-footprint row shows whether the road
+  crosses the eventual burn area, not when it was safe to leave."*
+* **If Iris overrules,** her ruling is committed as a further dated amendment before any headline run.
