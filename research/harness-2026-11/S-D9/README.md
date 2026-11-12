@@ -37,6 +37,8 @@ The output contains:
   - Revision 2: `equal_fire` interval in every paired record, `positives_below_1_over_1024`, `horizon_scaled_band` (needs dist_m), `by_domain` (needs a bool `in_domain`), and `meta_<predictor>` JSON pass-through.
   - Lead-time design (`sd9bench.load_arrival`, `score_arrival`; contract in `sd9bench/arrival.py`): survey-censored arrival ranked probability score, Brier by lead-hour bin, and paired whole-fire RPS intervals.
 
+**Recalibrated probabilities are for scoring only.** A recalibrated predictor such as `d4_wind_recal` (A1 §3) must never feed the independent per-cell member draws used for routing. Lifting the low-probability floor everywhere would scatter isolated ignitions across the map.
+
 ## Correctness check (measured)
 
 ```sh
