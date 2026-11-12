@@ -140,3 +140,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
   - slices.py regenerates slices.json identically (20 rows). Full 33.5-2,857.8 KB; A (ROUTE) 4.54-57.36 KB; 5 forced COCERT ≈0.1 KB.
   - The README claim "best slice + certificate ≈0.5-1.5× full" is WRONG: the data gives 0.82-3.08× on the 15 non-forced rows, 6 above 1.5 (max: miryang FN1 3.08, uljin FX1 3.03). Slice-only gives 0.33-1.29, cert-only 0.24-0.99.
   - Ready after a one-line correction.
+
+**Addendum to 18-20 (orchestrator relay)**: all planner suites ran with real `npm ci` node_modules (not symlinked).
+- #117: diff = 4 files (channels/build.ts, wkit test, W-KIT DESIGN/RESULTS), with no W6 traces.
+- #118: no workflow in the tree sets WFG_BUILD_PUBLIC_VIEW.
+- #116: no envelope_o2/tier_r/fdyn files. The slices README has a second error: there are 15 non-forced rows (10 ROUTE + 5 NO_ROUTE), not 10.
+- The "legality cheap (≤ 57 KB), optimality ~1-3× full" reading is supported by the data.
