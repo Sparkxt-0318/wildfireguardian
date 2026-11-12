@@ -616,3 +616,55 @@ Sources were opened unless marked otherwise.
 - 예규 361, 별표1/2: message classes and standard texts.
 - Real 2025 messages from 의성, 청송, 안동 and 영양 (newstapa, heraldcorp, newsis, imaeil, etoday).
 - Card-line wording review for Clara.
+
+## Batch 7 (2026-11-12)
+
+Sources were opened unless marked otherwise.
+
+**Victor and Iris: close read of FireGraphNet and WiDS 2026**
+
+- FireGraphNet (arXiv 2610.19191v1):
+  - Sealed in-state test: 5 California fires, fire-disjoint and time-ordered.
+  - Out-of-state set: pre-registered, SHA256-frozen, evaluated once.
+  - The sealed in-state test was scored 5 times.
+  - Target is binary: does the cell newly burn in the next 12 h (H3 res-8 cells), scored by AP, Brier and ECE. No censoring.
+  - The pre-registration is in a reviewers-only Zenodo record, 10.5281/zenodo.23272584.
+- WiDS 2026 (Kaggle):
+  - Per-fire time to reach 5 km from an evacuation centroid; 95 hidden test rows.
+  - Score: 0.3·C-index + 0.7·(1 − weighted Brier at 24/48/72 h). Censored-before-horizon rows are excluded from the Brier term.
+  - Exploit: predicting 72 h = 1.0 won.
+  - No pre-registration.
+- Taggart et al., arXiv 2603.14835: theory for scores under fixed-horizon right-censoring.
+- Claim narrowed after Iris's comments: say "tested empirically for propriety" unless the score is shown to have Taggart's form; claim "pre-registered sealed" only once part c is scored; say "to our knowledge" with the search date.
+
+**Thomas, Richard and Iris: certificate novelty**
+
+- No certifier for time-dependent earliest-arrival routing was found.
+- Closest work:
+  - Dold et al., ICAPS 2025.
+  - Mugdan et al., ICAPS 2023.
+  - Demirović et al., CP 2024.
+  - Shen et al., arXiv 2305.08446: notes that MAPF lower bounds cannot be checked.
+  - Sidorov et al., AAAI 2024, doi:10.1609/aaai.v38i18.30068: human-interpretable proofs for static constrained shortest paths. Abstract read via mlanthology.
+- FormIDEAble (arXiv 2606.31572): synthesises evacuation strategies but produces no certificates.
+
+**Daniel and Leo: Korean road data**
+
+- 국가표준노드링크 MOCT_LINK: free, includes lanes, EPSG:5179; no width field.
+- OSM: in 영덕군, 12.5% of ways have a lanes tag and 4 have a width tag.
+- 도로명주소 ROAD_BT gives road width, but access needs an application.
+- NGII 1:5,000 road polygons: KOGL Type 1.
+- KTDB: access needs approval.
+- Licence caveats: ODbL and KOGL Type 1.
+
+**Priya: validation of radiation models**
+
+- No validation of solid-flame models was found at 50-400 m or at 1-2.5 kW/m².
+- Measured data:
+  - Morandini 2006: 7.8 / 2.2 / 1.0 kW/m² at 5 / 10 / 15 m.
+  - Cohen 2000: panels at 10-30 m; the model overestimates.
+  - Rossi 2010 (HAL): models overpredict, and more so at distance.
+  - Butler JFSP 2006: ±50% uncertainty.
+  - Frankman 2008: water-vapour attenuation of 9-16%.
+- Our own back-test against Morandini overpredicts about 2-3×.
+- Recommendations: a distance factor of about 1.5, a convective minimum distance, and labelling the far-distance rows as extrapolation.
