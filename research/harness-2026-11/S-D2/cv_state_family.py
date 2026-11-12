@@ -16,6 +16,8 @@ import sys
 import time
 from pathlib import Path
 
+import runenv
+
 import numpy as np
 
 import cv_baselines as CB
@@ -53,7 +55,7 @@ def run_fold(cv, k, kernel, a):
             ds.append(r["dist"])
             ns.append(int(r["pop"].sum()))
         tmp = fp.with_name(fp.name + ".tmp.npz")
-        np.savez_compressed(tmp, p_grid=np.concatenate(grids, 1), y=np.concatenate(ys), dist=np.concatenate(ds),
+        np.savez_compressed(tmp, env=json.dumps(runenv.info()), p_grid=np.concatenate(grids, 1), y=np.concatenate(ys), dist=np.concatenate(ds),
                             n=np.array(ns), seconds=time.time() - t0)
         tmp.replace(fp)
         print(f"{kernel} fold {k} fire {i} done {time.time() - t0:.0f}s", flush=True)
@@ -203,7 +205,7 @@ def aggregate(cv, a):
             split.setdefault(name, {})[m] = dict(brier=float(np.mean((pv - yv) ** 2)), cells=int(len(yv)))
     edges = {arm: {k: dict(bottom_1_16=w[0], top_8=w[-1]) for k, w in ws.items()}
              for arm, ws in info["state_weights"].items()}
-    out = dict(command="python cv_state_family.py " + " ".join(sys.argv[1:]), rule="RULE_state_family.md @ d0c7f0ad",
+    out = dict(command="python cv_state_family.py " + " ".join(sys.argv[1:]), rule="RULE_state_family.md @ d0c7f0ad", env=runenv.info(),
                grid=GRID.tolist(), sims=SIMS, tmax=TMAX, alpha_signflip=ALPHA,
                disclosure="round 2 on the same 25 fires; two earlier arms (mcem_rate, mcem_state) tried and failed",
                pooled=pooled, comparisons=comp, qualifies=qual,
@@ -229,6 +231,7 @@ def main(argv=None):
     ap.add_argument("--kernel", choices=["mcem", "plugin"], default=None)
     ap.add_argument("--out", type=Path, default=Path("results/cv_state_family.json"))
     a = ap.parse_args(argv)
+    runenv.require_pinned()
     a.ckpt.mkdir(parents=True, exist_ok=True)
     cv = json.loads(a.cv.read_text())
     if a.only_fold is not None:

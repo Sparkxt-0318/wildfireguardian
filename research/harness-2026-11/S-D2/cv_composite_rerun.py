@@ -17,6 +17,8 @@ import platform
 import sys
 from pathlib import Path
 
+import runenv
+
 import numpy as np
 import scipy
 
@@ -35,6 +37,7 @@ def main(argv=None):
     ap.add_argument("--only-fold", type=int, default=None)
     ap.add_argument("--out", type=Path, default=Path("results/cv_composite_rerun.json"))
     a = ap.parse_args(argv)
+    runenv.require_pinned()
     a.ckpt.mkdir(parents=True, exist_ok=True)
     cv = json.loads(a.cv.read_text())
     folds = cv["folds"]

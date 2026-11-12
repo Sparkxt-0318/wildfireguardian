@@ -34,6 +34,8 @@ import time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
+import runenv
+
 import numpy as np
 from scipy.ndimage import distance_transform_edt
 from scipy.optimize import minimize
@@ -335,7 +337,7 @@ def run_fold(args):
         if fp is not None:
             _ckpt_write(fp, dict(fire=f, scores=per_fire[f]))
         _beat(ckpt, fold, f"fire {i} scored")
-    out = dict(fold=fold, train=train, test=test, sims=sims, hours=hours,
+    out = dict(fold=fold, env=runenv.info(), train=train, test=test, sims=sims, hours=hours,
                thetas={k: v.tolist() for k, v in thetas.items()},
                fit_seconds=fit_s, total_seconds=time.time() - t0, per_fire=per_fire)
     if ckpt:                       # per-fold checkpoint: a container restart costs at most the running stage
@@ -358,6 +360,7 @@ def main(argv=None):
     ap.add_argument("--only-fold", type=int, default=None,
                     help="run just this fold (writes its checkpoint) and exit; needs --checkpoint-dir")
     a = ap.parse_args(argv)
+    runenv.require_pinned()
     fires = sorted(json.loads(a.fit.read_text())["eligible"])
     folds = [[f for i, f in enumerate(fires) if i % a.folds == k] for k in range(a.folds)]
     jobs = [(k, [f for f in fires if f not in folds[k]], folds[k], str(a.brackets), a.hours, a.sims,
@@ -398,7 +401,7 @@ def main(argv=None):
                                        mcem_better_fires=f"{int(sum(per_fire[f]['mcem']['brier'] < per_fire[f][n]['brier'] for f in fl))}/{len(fl)}")
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_text(json.dumps(dict(
-        command="python cv_part_a.py " + " ".join(argv or os.sys.argv[1:]), hours=a.hours, sims=a.sims, folds=folds,
+        command="python cv_part_a.py " + " ".join(argv or os.sys.argv[1:]), env=runenv.info(), hours=a.hours, sims=a.sims, folds=folds,
         band_m=BAND_M, wall_seconds=time.time() - t0, thetas={r["fold"]: r["thetas"] for r in res},
         fit_seconds={r["fold"]: r["fit_seconds"] for r in res}, pooled=pooled, brier_diff_vs_mcem=boot,
         per_fire=per_fire), indent=1))

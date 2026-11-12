@@ -469,9 +469,24 @@ from branch `daniel/data-fetch`.
   and 4.
   - Cause: under the run's numpy 2.1.3 / scipy 1.14.1, L-BFGS-B stopped with ABNORMAL_TERMINATION_IN_LNSRCH. The floor
     objective is about 10× worse than the optimum found in the pinned environment (numpy 1.26.4 / scipy 1.13.1).
-  - Invalid numbers: pooled 0.0627, the reach profile 3,546 / 37 / 0.7, the 19,264 burned cells below 1/1024,
+  - Invalid numbers: pooled 0.0627, the reach profile 3,546 / 37 / 0.7, ~~the 19,264 burned cells below 1/1024~~ (WITHDRAWN),
     MCEM − composite and composite − plug-in, and the composite band Brier.
   - Fix: `_lbfgs` now raises FitFailed on an all-at-floor solution, a non-finite objective or gradient, or a result
     worse than the start. Composite is being rerun in the pinned environment (`cv_composite_rerun.py`, same seeds).
   - The in-sample per-fire fits (real_bracket_fit.json) are not affected.
   - Pending Owen: MCEM and NLL also differ slightly between environments.
+
+## Run environments (2026-11-12): every run made today
+
+The pinned refit environment is `requirements-refit.txt` (sha256 1972d6e7…, harness/s-d1-next): Python 3.12.3,
+numpy 1.26.4, scipy 1.13.1, pandas 2.2.3, scikit-learn 1.5.2, torch 2.5.1. `check_refit_env.py` reports ok.
+**Every table produced outside it is marked UNPINNED until Owen confirms which numbers survive.**
+
+| Environment | Runs |
+|---|---|
+| **E1, UNPINNED:** `venv`, Python 3.13.18, numpy 2.1.3, scipy 1.14.1, pandas 2.2.3 | Synthetic studies (synthetic, robust, composite_scale, missed, rate_composite, shape_recovery, step_check); kriging-SD calibration and block CV; nirops_brackets; real_bracket_fit; displacement_diag (in-sample and fold); displacement_checks; lag1 / cutoff / reach_slope / lag_persistence_v2 / lag_null_probe (in-sample and fold); real_far_share; subset (no-GOFER); **cv_part_a (all folds and the aggregate)**; fold_kernel_fit; feature_ablation generator checks |
+| **E2, PARTLY PINNED:** `venv312`, Python 3.12.3, numpy 1.26.4, scipy 1.13.1, sklearn 1.5.2, torch 2.5.1, but pandas 3.0.6, pyproj 3.8.0, rasterio 1.4.4, no pyshp or shapely | refit tests and time_estep; preweather_unscored; **cv_baselines** (kernel p read from the E1 CV); **cv_rate_arm** (kernels from the E1 CV); state family (stopped at 21:13 UTC; 28 fire checkpoints set aside, NOT reused); composite rerun (stopped before any fold finished) |
+| **E3, PINNED** (`venv312` after installing the exact pins; check_refit_env ok at 21:13 UTC) | everything from 21:13 on |
+
+The verified results earlier today (Hannah and Owen) were run and rerun in E1 or in verifiers' own environments. Their
+verdicts stand as recorded. Environment sensitivity is under review by Owen.
