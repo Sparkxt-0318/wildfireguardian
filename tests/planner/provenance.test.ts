@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { deadlineHeadline } from '../../planner/src/domain/plan';
-import { parseProvenanceFile, provenanceText, staffProvenance, PROVENANCE_TAG, type ProvenanceFile } from '../../planner/src/features/provenance/model';
+import { parseProvenanceFile, provenanceText, staffProvenance, PROVENANCE_HELP, PROVENANCE_TAG, type ProvenanceFile } from '../../planner/src/features/provenance/model';
 import { FORBIDDEN } from '../../planner/src/features/lastmile/strings';
 import { clockTimes } from '../../planner/src/features/lastmile/checks';
 import { loadBoothCaches, type BoothCache } from './lastmile.cachedata';
@@ -96,7 +96,7 @@ describe('labels joined to the staff headline (531 real places)', () => {
 
 describe('surfaces', () => {
   const t = (k: string, v?: Record<string, string | number>) => translate('ko', k, v);
-  it('A4 sheet row carries the kind only (never a later value); CSV carries the kind and, for forecast-dependent only, both raw values', () => {
+  it('A4 sheet row carries the kind only (never a later value); CSV carries the kind only (no later value, raw seconds included)', () => {
     const sheetKinds: Record<string, number> = {};
     let csvForecast = 0;
     for (const b of booth) {
@@ -108,30 +108,23 @@ describe('surfaces', () => {
       }
     }
     expect(sheetKinds).toEqual({ window: 473, present_fire: 7, forecast_dependent: 21, unresolved_proven_no_route: 10, null: 20 });
-    // CSV: a forecast-dependent row has both raw values with forecast ≤ present-only; others leave them empty
+    // CSV: the kind only — no later value in any form (orchestrator): neither raw value appears anywhere in the file
     const b = booth.find((x) => Object.values(files.get(x.entry.path)!.records).some((r) => r.provenance === 'forecast_dependent'))!;
     const f = files.get(b.entry.path)!;
     const origins = b.inputs.map((i) => {
       const plan = b.plans[i.origin.id]!;
       const p = staffProvenance(deadlineHeadline(plan), i.origin.id, f, plan);
-      const r = f.records[i.origin.id];
       return {
         id: i.origin.id, name: 'x', categoryLabel: '마을', sourceTag: 'place=village', lon: 127, lat: 36, vulnerable: false,
-        deadlineProvenance: p.kind === 'none' ? null : { kind: p.kind, withForecastS: p.kind === 'forecast_dependent' ? r!.leave_by_with_forecast_s! : null, presentFireOnlyS: p.kind === 'forecast_dependent' ? r!.leave_by_present_fire_only_s! : null },
+        deadlineProvenance: p.kind === 'none' ? null : { kind: p.kind },
         plan: { bestVerdict: plan.bestVerdict, latestSafeDepartureS: plan.latestSafeDepartureS, contiguousSafeDepartureS: plan.contiguousSafeDepartureS, best: null },
       };
     });
     const csv = dispatchListCSV({ region: { id: 'r', nameKo: 'r', nameEn: 'r', fireYear: 2025 }, fireInputLabel: 'x', fireInputType: 'recorded', mock: false, scenario: { scenarioSetId: 's', inputTimeIso: b.entry.inputTime }, origins, selectedRoute: null, provenance: { checkpoint: 'x', packageVersion: '1', kit: 'v3', apiMode: 'cache', cacheApiMode: null, apiVersion: null, gitCommit: null, cacheCreatedAtIso: null, scenarioSetId: 's', scenarioIds: [] }, generatedAtIso: '2026-11-12T00:00:00Z' } as never);
-    for (const line of csv.slice(1).split('\r\n').slice(1).filter(Boolean)) {
-      const c = line.split(',');
-      const [tag, a, bb] = [c[12], c[13], c[14]];
-      if (tag === '예측 의존') {
-        csvForecast += 1;
-        expect(Number(a)).toBeLessThanOrEqual(Number(bb));
-      } else {
-        expect([a, bb]).toEqual(['', '']);
-      }
-    }
+    const lines = csv.slice(1).split('\r\n').filter(Boolean);
+    expect(lines[0]!.split(',').length).toBe(13);
+    for (const line of lines.slice(1)) if (line.endsWith(',예측 의존')) csvForecast += 1;
+    for (const r of Object.values(f.records)) if (r.provenance === 'forecast_dependent') expect(csv.includes(String(r.leave_by_present_fire_only_s))).toBe(false);
     expect(csvForecast).toBeGreaterThan(0);
   });
 
@@ -159,5 +152,33 @@ describe('surfaces', () => {
     const plan = b.plans[i.origin.id]!;
     expect(staffProvenance(deadlineHeadline(plan), i.origin.id, f, { ...plan, source: 'live' })).toEqual({ kind: 'not_established', why: 'file' });
     expect(staffProvenance(deadlineHeadline(plan), i.origin.id, f, { ...plan, mock: true })).toEqual({ kind: 'not_established', why: 'file' });
+  });
+});
+
+describe('fail closed on malformed records (Mira N1)', () => {
+  it('an unknown or malformed record is kept apart at parse time: that place is "not established", never a crash', () => {
+    const b = booth[0]!;
+    const r = JSON.parse(JSON.stringify(raw.get(b.entry.path))) as { records: Record<string, Record<string, unknown>> };
+    const ids = Object.keys(r.records);
+    r.records[ids[0]!]!.provenance = 'research_only';
+    r.records[ids[1]!]!.leave_by_s = '18:30';
+    r.records[ids[2]!] = { provenance: 'forecast_dependent', leave_by_s: 100, fire_free_leave_by_s: 200 } as never;
+    const f = parseProvenanceFile(r, { path: b.entry.path, sha256: b.entry.sha256 })!;
+    expect(f).not.toBeNull();
+    expect(f.invalid).toEqual(ids.slice(0, 3));
+    for (const id of ids.slice(0, 3)) {
+      expect(f.records[id]).toBeUndefined();
+      const p = staffProvenance({ kind: 'deadline', deadlineS: 0 }, id, f);
+      expect(p).toEqual({ kind: 'not_established', why: 'invalid_record' });
+      expect(provenanceText(p, 'ko')).toMatch(/근거 확인 안 됨/);
+      expect(staffProvenance({ kind: 'unresolved', deadlineS: null }, id, f)).toEqual({ kind: 'none' });
+    }
+    // an unknown kind can never reach the text table as itself
+    expect(provenanceText({ kind: 'research_only' } as never, 'en')).toBeNull();
+  });
+
+  it('the help sentence matches the data: the shown time is at or below the exact bound in every labelled real case', () => {
+    expect(PROVENANCE_HELP.en).toMatch(/at or before it/);
+    expect(PROVENANCE_HELP.ko).toMatch(/그 시각이거나 그보다 앞선/);
   });
 });

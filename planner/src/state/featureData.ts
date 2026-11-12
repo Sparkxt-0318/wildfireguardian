@@ -240,10 +240,8 @@ export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, 
 
 function exportProvenance(plan: OriginPlan | undefined, id: string, file: ProvenanceFile | null): ExportOrigin['deadlineProvenance'] {
   const p = staffProvenance(deadlineHeadline(plan), id, file, plan ?? null);
-  if (p.kind === 'none') return null;
-  const r = file?.records[id];
-  // CSV may carry both raw values (Iris), in seconds after the input time, only for a forecast-dependent label
-  return p.kind === 'forecast_dependent' && r ? { kind: p.kind, withForecastS: r.leave_by_with_forecast_s ?? null, presentFireOnlyS: r.leave_by_present_fire_only_s ?? null } : { kind: p.kind, withForecastS: null, presentFireOnlyS: null };
+  // the kind only: no later value in any form, raw seconds included (orchestrator decision)
+  return p.kind === 'none' ? null : { kind: p.kind };
 }
 
 function sheetProvenance(plan: OriginPlan | undefined, id: string, file: ProvenanceFile | null): PlanSheetScenario['deadlineProvenance'] {

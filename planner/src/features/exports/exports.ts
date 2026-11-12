@@ -502,7 +502,7 @@ export function routeToKML(
 export const CSV_BOM = '﻿';
 
 export const CSV_COLUMNS: Record<Lang, string[]> = {
-  ko: ['우선순위', '출발지', '구분', '출처 태그', '판정', '출발 마감 KST', '빈 구간 뒤 점검된 출발 KST (마감 아님)', '대피소', '도착 KST', '시나리오 입력 시각', 'API 모드', '비고', '마감 근거 (모델, 1시간 재현)', '예측 포함 마감 s', '현재 불만 마감 s (여유 시간 아님)'],
+  ko: ['우선순위', '출발지', '구분', '출처 태그', '판정', '출발 마감 KST', '빈 구간 뒤 점검된 출발 KST (마감 아님)', '대피소', '도착 KST', '시나리오 입력 시각', 'API 모드', '비고', '마감 근거 (모델 · 1시간 재현)'],
   en: [
     'Priority',
     'Origin',
@@ -516,9 +516,7 @@ export const CSV_COLUMNS: Record<Lang, string[]> = {
     'Scenario input time',
     'API mode',
     'Notes',
-    'Deadline set by (model, 1-hour replay)',
-    'Deadline with forecast (s)',
-    'Deadline with present fire only (s, not extra time)',
+    'Deadline set by (model · 1-hour replay)',
   ],
 };
 
@@ -641,9 +639,8 @@ export function dispatchListCSV(input: ExportInput, opts: { lang?: Lang } = {}):
         scenarioTime,
         apiModeLabel(input.provenance, lang),
         originNotes(input, o, lang),
+        // the kind only: no later value in any form, raw seconds included (orchestrator)
         o.deadlineProvenance ? PROVENANCE_TAG[o.deadlineProvenance.kind][lang] : '',
-        o.deadlineProvenance?.withForecastS ?? '',
-        o.deadlineProvenance?.presentFireOnlyS ?? '',
       ]),
     );
   });

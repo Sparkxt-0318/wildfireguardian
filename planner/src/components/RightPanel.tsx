@@ -3,7 +3,7 @@ import { StaticNote } from './demo/StaticDemo';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
 import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets, headlineDepartureS } from '../domain/plan';
 import { findCacheEntry } from '../api/cache';
-import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_TAG, staffProvenance } from '../features/provenance/model';
+import { provenanceText, PROVENANCE_FOOTER, PROVENANCE_HELP, PROVENANCE_TAG, staffProvenance } from '../features/provenance/model';
 import { useProvenanceFile } from '../features/provenance/load';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
@@ -618,7 +618,7 @@ function ProvenanceLine({ originId, plan }: { originId: string; plan: OriginPlan
   return (
     <div className="caveat provenance" data-testid="provenance" data-provenance={p.kind}>
       <span>
-        <strong>{PROVENANCE_TAG[p.kind as Exclude<typeof p.kind, 'none'>][lang]}</strong> — {text} <em>{PROVENANCE_FOOTER[lang]}</em>
+        <strong>{PROVENANCE_TAG[p.kind as Exclude<typeof p.kind, 'none'>][lang]}</strong> — {text} {p.kind === 'window' || p.kind === 'present_fire' || p.kind === 'forecast_dependent' ? PROVENANCE_HELP[lang] : ''} <em>{PROVENANCE_FOOTER[lang]}</em>
       </span>
     </div>
   );

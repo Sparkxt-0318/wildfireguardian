@@ -38,22 +38,44 @@ export interface ProvenanceFile {
   input_time: string;
   cache: { path: string; sha256: string };
   records: Record<string, ProvenanceRecord>;
+  /** origin ids whose record failed validation (filled by parseProvenanceFile) */
+  invalid?: string[];
 }
 
 /** Accepts only a planner provenance file for exactly this cache (path and sha256 from the cache index). */
+const KINDS: readonly ProvenanceKind[] = ['window', 'present_fire', 'forecast_dependent', 'no_checked_route', 'not_computed'];
+const intOrNull = (v: unknown) => v === null || (typeof v === 'number' && Number.isInteger(v) && v >= 0);
+
+/** A record the planner can trust the shape of (Mira N1): known kind, integer-second fields, pair present when needed. */
+export function validRecord(r: unknown): r is ProvenanceRecord {
+  if (!r || typeof r !== 'object') return false;
+  const x = r as Partial<ProvenanceRecord>;
+  if (!KINDS.includes(x.provenance as ProvenanceKind)) return false;
+  if (!intOrNull(x.leave_by_s) || !intOrNull(x.fire_free_leave_by_s)) return false;
+  if (x.provenance === 'forecast_dependent' && (!intOrNull(x.leave_by_with_forecast_s ?? null) || !intOrNull(x.leave_by_present_fire_only_s ?? null) || x.leave_by_with_forecast_s == null || x.leave_by_present_fire_only_s == null)) return false;
+  return true;
+}
+
+/**
+ * Accepts only a planner provenance file for exactly this cache (path and sha256 from the cache index). Records of an
+ * unknown or malformed shape are kept apart in `invalid` (fail closed: that place is "not established", never a crash).
+ */
 export function parseProvenanceFile(raw: unknown, cache: { path: string; sha256: string | null | undefined }): ProvenanceFile | null {
   if (!raw || typeof raw !== 'object') return null;
   const d = raw as Partial<ProvenanceFile>;
-  if (d.schema !== PROVENANCE_SCHEMA || !d.cache || !d.records || typeof d.records !== 'object') return null;
+  if (d.schema !== PROVENANCE_SCHEMA || !d.cache || !d.records || typeof d.records !== 'object' || Array.isArray(d.records)) return null;
   if (d.cache.path !== cache.path || !cache.sha256 || d.cache.sha256 !== cache.sha256) return null;
   if (typeof d.horizon_s !== 'number' || !d.source?.sha256) return null;
-  return d as ProvenanceFile;
+  const records: Record<string, ProvenanceRecord> = {};
+  const invalid: string[] = [];
+  for (const [id, r] of Object.entries(d.records)) (validRecord(r) ? (records[id] = r) : invalid.push(id));
+  return { ...(d as ProvenanceFile), records, invalid };
 }
 
 export type StaffProvenance =
   | { kind: 'window' | 'present_fire'; horizonS: number }
   | { kind: 'forecast_dependent'; laterMin: number; horizonS: number }
-  | { kind: 'not_established'; why: 'no_record_time' | 'after_exact' | 'file' }
+  | { kind: 'not_established'; why: 'no_record_time' | 'after_exact' | 'file' | 'invalid_record' }
   | { kind: 'not_computed' }
   | { kind: 'unresolved_proven_no_route' }
   | { kind: 'none' };
@@ -68,6 +90,7 @@ export interface HeadlineFacts {
 export function staffProvenance(h: HeadlineFacts, originId: string, file: ProvenanceFile | null | undefined, plan: { source?: string; mock?: boolean } | null = null): StaffProvenance {
   // the field was computed on the recorded cache: a live or MOCK result on screen is not what it describes
   if (plan && (plan.source === 'live' || plan.mock)) return h.kind === 'deadline' ? { kind: 'not_established', why: 'file' } : { kind: 'none' };
+  if (file?.invalid?.includes(originId)) return h.kind === 'deadline' ? { kind: 'not_established', why: 'invalid_record' } : { kind: 'none' };
   const r = file?.records[originId];
   if (h.kind === 'unresolved') return r && r.provenance === 'no_checked_route' ? { kind: 'unresolved_proven_no_route' } : { kind: 'none' };
   if (h.kind !== 'deadline' || h.deadlineS === null) return { kind: 'none' };
@@ -90,7 +113,7 @@ const H = (s: number) => Math.round(s / 3600);
 /** Staff text (Iris wording; Korean pending Sofia). Never contains a clock time. */
 export function provenanceText(p: StaffProvenance, lang: LmLang): string | null {
   const T: Record<string, LmText> = {
-    window: { ko: '시나리오 시간창({h}시간)이 정한 시각입니다. 산불과는 관계없는 시각입니다. {h}시간 시나리오 이후는 계산하지 않았습니다.', en: 'Set by the scenario window ({h} h); fire does not change it. Nothing after the {h}-hour scenario was computed.' },
+    window: { ko: '시나리오 시간창({h}시간)이 정한 시각입니다. 산불 상황에 따라 정해진 시각이 아닙니다. {h}시간 시나리오 이후는 계산하지 않았습니다.', en: 'Set by the scenario window ({h} h); fire does not change it. Nothing after the {h}-hour scenario was computed.' },
     present_fire: { ko: '현재 타고 있는 불이 정한 시각입니다(예측된 새 발화를 빼도 같습니다).', en: 'Set by fire already burning (the same without forecast new ignitions).' },
     forecast_dependent: {
       ko: '산불 예측에 따라 달라지는 시각입니다. 예측이 바뀔 때마다 다시 확인하십시오. 더 빨라질 수 있습니다. 예측된 새 발화를 빼면 모델 시각이 {n}분 늦어지지만, 이 차이는 여유 시간이 아니며 그 시각의 경로도 점검되지 않았습니다.',
@@ -103,7 +126,7 @@ export function provenanceText(p: StaffProvenance, lang: LmLang): string | null 
       en: 'The route check timed out; an exact later analysis finds no checked route at any departure in the model.',
     },
   };
-  if (p.kind === 'none') return null;
+  if (p.kind === 'none' || !T[p.kind]) return null;
   const t = T[p.kind]![lang];
   const h = 'horizonS' in p ? H(p.horizonS) : 1;
   if (p.kind === 'forecast_dependent' && p.laterMin === 0) {
@@ -112,6 +135,15 @@ export function provenanceText(p: StaffProvenance, lang: LmLang): string | null 
   }
   return t.replace('{h}', String(h)).replace('{n}', p.kind === 'forecast_dependent' ? String(p.laterMin) : '');
 }
+
+/**
+ * Mira N2: the shown time T is the last checked departure step, always below the model's exact latest departure, which
+ * is what the label describes (T < exact in all 501 real cases).
+ */
+export const PROVENANCE_HELP: LmText = {
+  ko: '이 표시는 모델이 계산한 정확한 마지막 출발 시각의 근거입니다. 화면의 출발 마감은 그 시각이거나 그보다 앞선, 마지막으로 점검한 출발 시각입니다.',
+  en: "This label describes the model's exact latest departure; the leave-by time shown is the last checked departure step at or before it.",
+};
 
 export const PROVENANCE_FOOTER: LmText = {
   ko: '1시간 재현을 기준으로 한 모델 근거 표시입니다. 실제 상황 판단에 사용할 수 없습니다. 이해도는 시험하지 않았습니다.',
