@@ -1,0 +1,189 @@
+{
+ "requests": [
+  {
+   "label": "KIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207",
+   "status": "CHECKED_JOURNEY_FEASIBLE",
+   "published": true,
+   "dose_upper_max_kj_m2": 0.00019347520540460603,
+   "peak_upper_max_kw_m2": 1.0918743534822473e-06,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "KIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "KIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168",
+   "status": "CHECKED_JOURNEY_FEASIBLE",
+   "published": true,
+   "dose_upper_max_kj_m2": 0.0017098106954534316,
+   "peak_upper_max_kw_m2": 6.2046187483736395e-06,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "KIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158323",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "uiseong_andong_2025__20250325T170000Z_firms_early__osm_node_415158324",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "uiseong_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324",
+   "status": null,
+   "published": false,
+   "a_linear_dose_binds": false,
+   "refusal_or_unresolved_reason": "NO_SOLVER_WITNESS"
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166",
+   "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "published": true,
+   "dose_upper_max_kj_m2": 4.912649528055379,
+   "peak_upper_max_kw_m2": 0.5434246050609135,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168",
+   "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "published": true,
+   "dose_upper_max_kj_m2": 0.0017098106954534316,
+   "peak_upper_max_kw_m2": 6.2046187483736395e-06,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207",
+   "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "published": true,
+   "dose_upper_max_kj_m2": 0.0001971045793094322,
+   "peak_upper_max_kw_m2": 1.1122889958975908e-06,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166",
+   "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "published": true,
+   "dose_upper_max_kj_m2": 4.915032360356484,
+   "peak_upper_max_kw_m2": 0.5434258890685397,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  },
+  {
+   "label": "TESTKIT",
+   "tag": "yeongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168",
+   "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+   "published": true,
+   "dose_upper_max_kj_m2": 0.0017339535545271428,
+   "peak_upper_max_kw_m2": 6.265651061974448e-06,
+   "a_linear_dose_binds": false,
+   "b_flux_ge_1": false,
+   "b_flux_ge_2p5": false,
+   "b_flux_ge_1_window0p5": false,
+   "b_flux_ge_2p5_window0p5": false
+  }
+ ],
+ "packets": {
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/fdyn/leo/research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300": {
+   "c_max_nonflame_road_cell_flux": 0.00885377032785536,
+   "units": "kW/m2",
+   "where": {
+    "member": "ffb1:20250325T230000Z:87818e79509504e5:0",
+    "interval": 2,
+    "cell": 13467
+   },
+   "road_cells": 1582,
+   "label": "cell-centre model flux; not an enclosure of road-segment flux"
+  },
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/fdyn/leo/research/harness-2026-11/F-DYN/_data/packets_v31/yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300": {
+   "c_max_nonflame_road_cell_flux": 0.008854125355539809,
+   "units": "kW/m2",
+   "where": {
+    "member": "ffb1:20250325T230000Z:469a4a9d3fba1672:0",
+    "interval": 2,
+    "cell": 13467
+   },
+   "road_cells": 1582,
+   "label": "cell-centre model flux; not an enclosure of road-segment flux"
+  },
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/fdyn/leo/research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300": {
+   "c_max_nonflame_road_cell_flux": 0.016017139851583772,
+   "units": "kW/m2",
+   "where": {
+    "member": "ffb1:20250325T170000Z:1c3a5d867702d497:0",
+    "interval": 13,
+    "cell": 8614
+   },
+   "road_cells": 1631,
+   "label": "cell-centre model flux; not an enclosure of road-segment flux"
+  },
+  "/tmp/claude-0/-home-user-wildfireguardian/a8e57cff-dd1e-5372-8b6a-c73e09beb008/scratchpad/fdyn/leo/research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300": {
+   "c_max_nonflame_road_cell_flux": 0.016022647692957456,
+   "units": "kW/m2",
+   "where": {
+    "member": "ffb1:20250325T170000Z:66c3f29ff50d885a:0",
+    "interval": 13,
+    "cell": 8614
+   },
+   "road_cells": 1631,
+   "label": "cell-centre model flux; not an enclosure of road-segment flux"
+  }
+ }
+}

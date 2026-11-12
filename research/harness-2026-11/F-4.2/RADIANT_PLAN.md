@@ -212,3 +212,42 @@ covered at all.
 - a distance safety factor of about 1.5;
 - a flag that rows with H < 3 m are likely conservative;
 - a convective minimum of 20–50 m.
+
+## F-DYN results for §2 and §3 (12 Nov, about 16:00 UTC; rules as fixed above; non-evaluated)
+
+**Data.** `results/fdyn/RADIANT_FDYN.json` (`radiant_fdyn.py`) and `results/fdyn/FDYN_CLEARANCE.jsonl`.
+
+**Routes.**
+- **KIT:** the 2 routes published by the unmodified kit at 900 s / 3,072 MiB. This is the kit figure.
+- **TESTKIT:** the 5 routes from the modified A3(b) test kit, labelled and never pooled.
+- No F-DYN request was refused on dose. The non-published requests are UNRESOLVED or AT_ISSUE_FAILURE (contact),
+  so §2(a)'s refusal clause counts 0.
+
+**§2(a) Linear dose binds (certified dose upper bound ≥ 100 kJ/m²).**
+- KIT **0/2**: maximum 0.0017 kJ/m².
+- TESTKIT **0/5**: maximum 4.92 kJ/m², on the 3,953 s route.
+
+**§2(b) Physiological flux reached (certified peak upper bound, an enclosure).**
+- KIT **0/2 at both 1.0 and 2.5 kW/m²**: maximum 6.2e-6 kW/m².
+- TESTKIT **0/5 at both thresholds**: maximum 0.543 kW/m², on the 3,953 s route.
+- Because the bound is an enclosure, these zeros are proofs of "never reached" under the kit's model. With window
+  factor 0.5 the counts are also 0.
+
+**§2(c) Packet-wide maximum cell-centre model flux** over cells containing a routed road segment, excluding cells
+flaming in that interval:
+- Uiseong 0325T17: 0.0160 kW/m² (kriged) and 0.0160 (firms);
+- Yeongdeok 0325T23: 0.0089 kW/m² (both variants).
+- This is cell-centre model flux, **not** an enclosure of road-segment flux.
+
+**§3 standoff counting rule on F-DYN.** A route counts as below a standoff iff its published clearance is strictly less
+than the standoff. The standoffs used are every one in the §3, §6 and §7 tables: 7.6 m to 3,125 m.
+- **KIT: 0/2 routes below any standoff.** Their clearances are 12,082 m and 5,118 m, both CROP-limited, so the
+  true clearance could be smaller if fire lies outside the packet domain.
+- **TESTKIT: 2/5 routes below every standoff in every case.** These are the 3,953 s route on both packets, with a
+  clearance of **4.4 m** below the smallest standoff (7.6 m). The other 3 are above all standoffs (CROP-limited).
+
+**What this is and is not.**
+- It is a sensitivity range under the stated flame assumptions, **not a count of unsafe routes**.
+- The flame-model validation statement (above) applies.
+- The 3,953 s route is certified contact-free and within the dose and peak limits by the kit's checker, yet passes
+  within metres of an active flaming cell. That is exactly the case the standoff screen is meant to show.
