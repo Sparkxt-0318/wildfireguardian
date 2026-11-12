@@ -60,13 +60,24 @@ blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely s
 
 ## Proof-carrying route slices (measured; `slices.py`, `results/slices.json`)
 
-Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,858 KB):
+Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (33–2,858 KB):
 - A, legality of the route only (corridor edges, their blocks, turns, waits, acceptance): **4.5–57 KB**.
 - Optimality: in the 5 routes whose arrival is forced by the destination opening (no state can complete before T),
-  the COCERT proof needs only the acceptance record (≈0.1 KB). Otherwise the best slice (forward or complement) plus
-  certificate is ≈0.5–1.5× the full instance, before any completeness authentication: optimality genuinely depends on
-  most of the reachable region. A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
-  a loose upper bound that alone exceeds the instance; a real multi-proof design is unmeasured.
+  the COCERT proof needs only the acceptance record (≈0.1 KB). For the other 15 (10 routes, 5 no-route) the best slice
+  (forward or complement) plus certificate is 0.82–3.08× the full instance (median 1.42×; 6 of 15 above 1.5×), before
+  any completeness authentication: on this panel an optimality or no-route proof is often LARGER than the instance
+  itself, because it depends on most of the reachable region. A per-node Merkle authentication estimate
+  (32 B × ⌈log2 nV⌉ per node, no sharing) is a loose upper bound that alone exceeds the instance; a real multi-proof
+  design is unmeasured.
+- **Consequence: a device can always verify route legality** (4.5–57 KB). It can verify optimality only where the
+  arrival is forced by the destination opening (5 of 20, ≈0.1 KB). Otherwise optimality and no-route proofs are
+  0.82–3.08× the instance before completeness authentication, whose loose upper bound alone exceeds the instance, so on
+  this panel they offer no saving over holding the whole instance.
+- Erratum (2026-11-12): the corrected range above was verified by Mira and committed in ae5351a. The #141 routing cut
+  (0685e03) carried an older README and silently restored the earlier, wrong draft figure "≈0.5–1.5×". Recomputed from
+  the unchanged `results/slices.json` (same sha256 at ae5351a, 0685e03 and Main): ratio = min over forward/complement of
+  (slice instance bytes + certificate bytes) / full instance bytes, over the 15 rows not forced by the destination
+  opening. The file's `best_optimality_total` field also adds the Merkle upper bound and is not this ratio.
 
 ## Departure-sweep cohort (reconstruction — NOT the November 106-request cohort or its 2 unproved claims)
 
