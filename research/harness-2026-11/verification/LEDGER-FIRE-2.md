@@ -61,6 +61,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 53 | 2026-11-12 | Pre-cut sign-off (b) derive_instance.compare_semantic | Thomas | d4564b38 | 7 mutations behave exactly at legal boundaries (H-D_j, H) | mutation tests | SIGN-OFF WITH NOTE |
 | 54 | 2026-11-12 | Pre-cut sign-off (c) unknown_support Augmented + certify_and_check | Thomas | d4564b38 | Augmented(empty) == base; with Tier A extras == hand-merged on 3 missions; 80/80 checker outputs match claim/T | equivalence tests | SIGN-OFF WITH NOTE |
 | 55 | 2026-11-12 | Pre-cut sign-off (d) envelope_o2_exact.json | Thomas | d4564b38 | own rerun: 1,293 = 502 sub-us + 791 quantum; 0/10 instances equal (negative result) | own rerun at Leo 7eb3691 | SIGN-OFF WITH NOTE |
+| 56 | 2026-11-12 | W-KIT W6 registry delta (시·군 keying, phone shape, no override) | Clara | 1334e47 | 81 names x 17 numbers x 3 en on 2 real places: 0 contact lines for any non-ok status; only 4 registry names render (as registry NFC string); time/date numbers refused; 424/424 | own probe + grep | PASS |
 
 ## Notes
 
@@ -316,4 +317,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - (c) does not compare the checker claim/T with generate's.
 - (d) the committed JSON predates --law/--tag (keys missing; values identical), so regenerate it for the cut; it must be presented as a negative result.
 - fdyn cocerts are built with legs=[] (sized only, never checked).
+
+**56.** Minor: mobile 010-type numbers accepted (personal-data concern); the test-only override is exported from a production module. Thomas's (a) evidence: panel bundles byte-identical 20/20.
 
