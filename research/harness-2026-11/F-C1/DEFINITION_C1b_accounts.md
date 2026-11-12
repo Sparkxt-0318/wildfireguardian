@@ -87,3 +87,21 @@ not computed. Cheongsong 파천면 is excluded because it has no coordinates.
    Nothing else changes. A case without a URL in that commit is not computed.
 3. Computation (`seebefore/c1b_accounts.py`, reading only `C1B_documented.json` and this table), then
    `RESULTS_C1b_accounts.md`. Results go to Iris and Hannah.
+
+## Amendment 1 (Iris, adopted before the URL commit and before any computation)
+
+1. **What S is.** A documented sighting is the time someone **reported** seeing fire or smoke. It is an **upper bound
+   on when the fire could first be seen** from that place: others may have seen it earlier without it being
+   recorded. The two simplifications pull in opposite directions:
+   - L is an upper bound on the deadline, which pushes M up.
+   - S is an upper bound on first sight, which pushes M down.
+
+   So a "less time than the route needed" call is robust to the deadline simplification but **not** to an earlier,
+   unrecorded sighting. The sign is stated as being **about the documented sighting**. The visibility row (§5:
+   possible, not possible, or certain by S) carries the separate question of whether the fire could have been seen
+   earlier.
+2. **Presentation.** No "k of n" figure. Each case is its own short description with its intervals. A tally is given
+   only in a sentence that names the cases.
+3. **Trip time.** trip_min is a **fire-free drive from the road entry point at the model speed**. It has no time to
+   get ready, reach the vehicle or help others, which matters most for the older residents this project is about.
+   That makes L later still, so it remains an upper bound.

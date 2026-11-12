@@ -291,6 +291,9 @@ def main():
             rows.append(m)
             if n % 20 == 0:
                 print(f'  {n}/{len(jobs)}', flush=True)
+    # deterministic row order (Hannah's note): key by set, then village/region, then observer/origin id
+    rows.sort(key=lambda m: (m['set'], str(m.get('village', m.get('region'))),
+                             str(m.get('observer', m.get('origin_id')))))
     a.out.write_text(json.dumps({'definition': 'DEFINITION_C1b.md @ dae181e + amendment 1 @ a285c67',
                                  'surface': smeta, 'sunset_kst': '03-25 18:50', 'rows': rows}, ensure_ascii=False,
                                 indent=1, default=lambda o: None if isinstance(o, float) and not np.isfinite(o) else o))
