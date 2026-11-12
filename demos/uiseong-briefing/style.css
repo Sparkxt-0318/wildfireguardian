@@ -1,0 +1,546 @@
+:root {
+  color-scheme: light;
+  --ink: #183638;
+  --mute: #536966;
+  --line: #d2dcd5;
+  --paper: #f5f6f0;
+  --forest: #153f3c;
+  --orange: #ad431b;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    15px/1.5 -apple-system,
+    BlinkMacSystemFont,
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    sans-serif;
+  word-break: keep-all;
+}
+.wrap {
+  max-width: 1490px;
+  margin: auto;
+  padding-inline: clamp(14px, 3vw, 46px);
+}
+header {
+  background: #102f32;
+  color: white;
+}
+.bar,
+.top,
+.action-row,
+.map-head,
+.forecast-row,
+.time-nav,
+.map-toolbar,
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bar,
+.top,
+.map-head,
+.forecast-row {
+  justify-content: space-between;
+}
+.bar {
+  height: 46px;
+}
+.bar b {
+  font-size: 18px;
+  letter-spacing: -0.04em;
+}
+.bar span {
+  font-size: 13px;
+  color: #c9dad4;
+}
+.top {
+  padding-block: 20px 14px;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #527063;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+h1 {
+  font-size: clamp(29px, 3vw, 42px);
+  letter-spacing: -0.065em;
+  line-height: 1.18;
+}
+h2 {
+  font-size: 21px;
+  letter-spacing: -0.045em;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+button,
+summary,
+input[type='checkbox'],
+input[type='range'] {
+  cursor: pointer;
+}
+button {
+  background: white;
+  border: 1px solid #a8b9ae;
+  color: #26453d;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 650;
+  padding: 6px 11px;
+}
+button:hover {
+  background: #edf3ec;
+}
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #a25c26;
+  outline-offset: 2px;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.primary,
+#start-example {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: white;
+}
+.mini {
+  font-size: 12px;
+  padding: 3px 7px;
+}
+.timeline,
+.map-card,
+.panel,
+.road-detail,
+.limits {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.time-nav {
+  padding: 9px 14px;
+}
+.slider-label {
+  flex: 1;
+  display: flex;
+}
+.slider-label input {
+  width: 100%;
+  accent-color: #1f6b63;
+}
+.time-nav output {
+  min-width: 46px;
+  color: var(--mute);
+  font-size: 13px;
+  text-align: right;
+}
+.clocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  background: #fafff7;
+}
+.clocks > div {
+  padding: 8px 15px;
+  border-right: 1px solid var(--line);
+}
+.clocks > div:last-child {
+  border: 0;
+}
+.clocks span,
+.clocks b {
+  display: block;
+}
+.clocks span,
+.clocks small,
+.hint,
+.source-line,
+.attribution,
+#reviewed-label,
+#forecast-status,
+#map-date {
+  color: var(--mute);
+  font-size: 13px;
+}
+.clocks b {
+  display: inline-block;
+  margin-right: 7px;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.custom-time {
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  padding: 4px 15px;
+}
+.custom-time[open] summary {
+  margin-bottom: 5px;
+}
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 31%);
+  gap: 14px;
+  margin-top: 14px;
+  align-items: start;
+}
+.map-card {
+  overflow: hidden;
+}
+.map-head {
+  padding: 12px 15px 2px;
+}
+.map-toolbar {
+  padding: 5px 12px 9px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.map-toolbar label {
+  white-space: nowrap;
+}
+.map-toolbar input {
+  accent-color: #286057;
+}
+.surface {
+  position: relative;
+  background: #f0f2e9;
+  border-block: 1px solid var(--line);
+}
+#map {
+  display: block;
+  width: 100%;
+  height: clamp(345px, 45vh, 535px);
+}
+.zoom {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: grid;
+  gap: 4px;
+}
+.zoom button {
+  padding: 4px 7px;
+}
+.legend {
+  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 6px 13px;
+  padding: 8px 13px;
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.diamond {
+  background: #7e325a;
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+}
+.line {
+  width: 21px;
+  border-top: 3px solid;
+}
+.hot {
+  color: #b74919;
+}
+.kept {
+  color: #15736e;
+}
+.gone,
+.watch {
+  border-top-style: dashed;
+}
+.gone {
+  color: #71798a;
+}
+.watch {
+  color: #504c9b;
+}
+.selected {
+  color: #172e40;
+}
+.forecast-row {
+  margin: 1px 12px 0;
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+}
+.forecast-row b {
+  font-size: 14px;
+}
+.source-line,
+.attribution {
+  padding: 2px 12px 6px;
+  font-size: 12px;
+}
+.attribution a {
+  color: inherit;
+}
+.panel {
+  padding: 14px;
+}
+aside {
+  display: grid;
+  gap: 12px;
+}
+.counts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 7px 0;
+  margin: 7px 0;
+  border-block: 1px solid var(--line);
+}
+.counts span,
+.counts strong {
+  display: block;
+}
+.counts span {
+  font-size: 12px;
+  color: var(--mute);
+}
+.counts strong {
+  font-size: 26px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.counts > div:first-child strong {
+  color: var(--orange);
+}
+.action-row {
+  flex-wrap: wrap;
+}
+.panel .action-row {
+  margin-top: 9px;
+}
+.panel button {
+  font-size: 13px;
+}
+.review-log {
+  background: #eef4ee;
+  padding: 7px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.stretches,
+.road-list {
+  display: grid;
+  gap: 4px;
+  max-height: 170px;
+  overflow: auto;
+  margin-top: 7px;
+}
+.stretches button,
+.road-list button {
+  text-align: left;
+}
+.stretches button[aria-pressed='true'] {
+  background: #edf0fa;
+  border-color: #686aa2;
+}
+.radio {
+  display: grid;
+  grid-template-columns: minmax(160px, 28%) 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+.editor label {
+  font-size: 13px;
+}
+.editor textarea {
+  width: 100%;
+  display: block;
+  padding: 8px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #b3c3b7;
+}
+.editor .hint {
+  margin-top: 6px;
+}
+.road-detail,
+.limits {
+  padding: 9px 14px;
+  margin: 8px 0;
+  color: var(--mute);
+  font-size: 14px;
+}
+.limits {
+  margin-bottom: 22px;
+}
+.limits p {
+  margin: 7px 0;
+}
+.keybox {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #65706e;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+[hidden],
+#paper {
+  display: none !important;
+}
+@media (max-width: 760px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .clocks > div {
+    padding: 6px;
+  }
+  .clocks b {
+    font-size: 18px;
+  }
+  .clocks small {
+    display: block;
+  }
+  .top {
+    flex-wrap: wrap;
+  }
+  .radio {
+    grid-template-columns: 1fr;
+  }
+  .time-nav {
+    gap: 5px;
+    padding: 8px;
+  }
+  .map-toolbar {
+    gap: 6px;
+  }
+  .bar span {
+    font-size: 11px;
+  }
+  #map {
+    height: 340px;
+  }
+}
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+@media print {
+  * {
+    print-color-adjust: exact;
+  }
+  body {
+    background: white;
+    font-size: 10pt;
+  }
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+  .bar {
+    height: 23px;
+  }
+  .top {
+    padding: 5px 0;
+  }
+  .top h1 {
+    font-size: 20pt;
+  }
+  .columns {
+    display: block;
+    margin-top: 5px;
+  }
+  .map-card,
+  .panel {
+    break-inside: avoid;
+  }
+  #map {
+    height: 85mm;
+  }
+  .map-toolbar,
+  .zoom,
+  button,
+  .time-nav,
+  .action-row,
+  .custom-time,
+  .limits,
+  .road-detail,
+  .radio,
+  .stretches,
+  .review-log {
+    display: none !important;
+  }
+  .clocks b {
+    font-size: 13pt;
+  }
+  .clocks > div {
+    padding: 4px 8px;
+  }
+  .clocks small {
+    font-size: 8pt;
+  }
+  aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .panel {
+    padding: 5px;
+  }
+  .counts {
+    margin: 2px 0;
+    padding: 1px 0;
+  }
+  .counts strong {
+    font-size: 15pt;
+  }
+  .map-head {
+    padding: 5px 10px;
+  }
+  .legend {
+    padding: 3px 10px;
+  }
+  .forecast-row {
+    padding: 3px 0;
+  }
+  h2 {
+    font-size: 12pt;
+  }
+  .hint,
+  .source-line,
+  .attribution,
+  .legend,
+  #forecast-status,
+  #reviewed-label {
+    font-size: 8pt;
+  }
+  #paper {
+    display: block !important;
+    white-space: pre-line;
+    padding: 6px 0;
+    font-size: 10pt;
+  }
+  .surface {
+    border: 0;
+  }
+}

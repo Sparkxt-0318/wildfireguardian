@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>의성 산불 변화 지도 | WildfireGuardian</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="data.js"></script>
+    <script defer src="core.js"></script>
+    <script defer src="map.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="wrap bar"><b>WildfireGuardian</b><span>과거 기록 재생 · 지휘부 훈련용</span></div>
+    </header>
+    <main class="wrap">
+      <div class="top">
+        <div>
+          <p class="eyebrow">경북 의성·안동　/　2025년 3월</p>
+          <h1>산불 변화 지도</h1>
+        </div>
+        <div class="action-row">
+          <button id="start-example">3월 24일 복귀 동선 보기</button
+          ><button id="print">한 장으로 인쇄</button>
+        </div>
+      </div>
+      <section aria-label="재생 시각" class="timeline">
+        <div class="time-nav">
+          <button id="prev" aria-label="이전 관측">‹ 이전</button
+          ><button id="play" aria-pressed="false">자동 재생</button
+          ><button id="next" aria-label="다음 관측">다음 ›</button
+          ><label class="slider-label"
+            ><span class="sr">관측 선택</span><input id="scrub" type="range" min="0" value="0" /></label
+          ><output id="frame-number"></output>
+        </div>
+        <div class="clocks">
+          <div>
+            <span>위성 관측 · 한국시간</span><b id="observation-time"></b><small id="sensor"></small>
+          </div>
+          <div>
+            <span>훈련 기준 시각</span><b id="review-time"></b
+            ><button class="mini" id="age-15">관측 15분 뒤 보기</button>
+          </div>
+          <div><span>관측 후 경과</span><b id="age"></b><small>당시 현장 수신 시각 미상</small></div>
+        </div>
+        <details class="custom-time">
+          <summary>다른 시각으로 이동</summary>
+          <label>한국시간 <input id="review-at" type="datetime-local" step="60" /></label>
+          <button id="apply-time">이동</button> <span id="time-error" role="status"></span>
+        </details>
+      </section>
+      <div class="columns">
+        <section class="map-card" aria-labelledby="map-title">
+          <div class="map-head">
+            <h2 id="map-title">열점과 도로</h2>
+            <span id="map-date"></span>
+          </div>
+          <div class="map-toolbar">
+            <label><input type="checkbox" id="show-watch" checked /> 가상 복귀 동선</label
+            ><label><input type="checkbox" id="show-forecast" checked /> 한 시간 예측</label
+            ><label><input type="checkbox" id="show-gone" checked /> 이번 관측에서 빠진 구간</label>
+          </div>
+          <div class="surface">
+            <svg id="map" role="img" aria-label="의성·안동 위성 열점, 도로 및 선택한 복귀 구간"></svg>
+            <div class="zoom">
+              <button id="zoom-in" aria-label="지도 확대">+</button
+              ><button id="zoom-out" aria-label="지도 축소">−</button
+              ><button id="zoom-reset">전체</button>
+            </div>
+          </div>
+          <div class="legend">
+            <span><i class="diamond"></i>위성 열점</span><span><i class="line hot"></i>새로 표시</span
+            ><span><i class="line kept"></i>계속 표시</span
+            ><span><i class="line gone"></i>이번에 빠짐</span
+            ><span><i class="line watch"></i>가상 복귀 동선</span
+            ><span><i class="line selected"></i>선택 구간</span>
+          </div>
+          <div class="forecast-row">
+            <div>
+              <b>새 연소 확률</b>
+              <p id="forecast-status"></p>
+            </div>
+            <button class="mini" id="forecast-jump">예측이 있는 시점 보기</button>
+          </div>
+          <div id="forecast-key" class="legend" hidden></div>
+          <p class="source-line">
+            열점은 위성 픽셀의 중심입니다. 도로 구간은 열점 중심에서 375 m 이내일 때 표시합니다. 통행
+            가능 여부는 현장 확인이 필요합니다.
+          </p>
+          <p class="attribution">
+            NASA FIRMS · ©
+            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors (ODbL)</a>
+          </p>
+        </section>
+        <aside>
+          <section class="panel" aria-labelledby="change-title">
+            <p class="eyebrow">지도 전체</p>
+            <h2 id="change-title">브리핑 이후 달라진 도로</h2>
+            <p id="reviewed-label"></p>
+            <div class="counts">
+              <div><strong id="new-count">0</strong><span>새로 표시</span></div>
+              <div><strong id="kept-count">0</strong><span>계속 표시</span></div>
+              <div><strong id="gone-count">0</strong><span>이번에 빠짐</span></div>
+            </div>
+            <p class="hint" id="change-context"></p>
+            <div class="action-row">
+              <button class="primary" id="mark-reviewed">현재 브리핑 검토 완료</button
+              ><button id="reset-baseline">직전 관측과 비교</button>
+            </div>
+            <div id="review-log" class="review-log" hidden></div>
+          </section>
+          <section class="panel" aria-labelledby="watch-title">
+            <p class="eyebrow">구조 지점 → 복귀 지점</p>
+            <h2 id="watch-title">복귀 동선 확인</h2>
+            <p id="watch-summary">
+              <strong id="watch-count">0</strong>개 도로 구간이 이번 열점 인근에 있습니다.
+            </p>
+            <p class="hint" id="watch-delta"></p>
+            <div id="stretch-list" class="stretches" aria-label="연속된 복귀 구간"></div>
+          </section>
+        </aside>
+      </div>
+      <section class="radio panel" aria-labelledby="radio-title">
+        <div>
+          <p class="eyebrow">지휘 담당자 검토용</p>
+          <h2 id="radio-title">무전 전 브리핑</h2>
+          <p class="hint" id="radio-context"></p>
+        </div>
+        <div class="editor">
+          <label for="radio-text">위치 · 변화 · 확인 요청</label
+          ><textarea id="radio-text" rows="3" spellcheck="false"></textarea>
+          <div class="action-row">
+            <button id="radio-locate">문안에 연결된 구간 보기</button
+            ><button id="radio-reset">초안 복원</button>
+          </div>
+          <p class="hint">
+            문안의 위치는 지도에서 선택합니다. 수정한 문안은 현재 화면에만 보관되며 무전으로 송신되지
+            않습니다.
+          </p>
+        </div>
+      </section>
+      <details class="road-detail">
+        <summary>지도 전체에서 새로 표시된 구간 보기</summary>
+        <div id="road-list" class="road-list"></div>
+      </details>
+      <details class="limits">
+        <summary>자료 범위와 해석</summary>
+        <p>
+          3월 23~26일 의성·안동 연구 구역에서 수록한 위성 관측입니다. 관측 사이의 화선, 풍향, 도로
+          재개통과 현장 전달 시각은 알 수 없습니다. 회색으로 바뀌거나 표시가 사라져도 화재가 진압되었다는
+          뜻은 아닙니다.
+        </p>
+        <p>
+          복귀 동선은 연구 도로망에서 정한 가상 경로입니다. 일방통행 정보가 없는 구간은 양방향으로
+          가정했습니다. 예측은 각 기준 시각 이후 한 시간의 모형 계산값입니다.
+        </p>
+      </details>
+      <div id="paper" aria-hidden="true"></div>
+      <noscript>재생하려면 브라우저에서 자바스크립트를 켜 주세요.</noscript>
+    </main>
+  </body>
+</html>
