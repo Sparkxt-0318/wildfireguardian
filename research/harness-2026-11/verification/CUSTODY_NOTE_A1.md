@@ -28,7 +28,7 @@ Victor holds only derived tables. Other sessions may hold repository checkouts, 
 **Already exposed, which this procedure cannot undo:**
 - per-incident survey timing, discovery dates, names and points of origin for all b, c and d incidents (F1–F4; row 38);
 - pooled survey cadence including b, c and d (Marcus);
-- whole-column reads of attributes such as DateUTC (Elena, Daniel);
+- whole-column reads of attributes such as DateUTC (Elena, Daniel; Marcus at 15:32Z, max and count only, ledger row 62);
 - the existing scratch copies listed above.
 
 What remains sealed: **labels, perimeters and growth of part-c fires, as built and scored.**
