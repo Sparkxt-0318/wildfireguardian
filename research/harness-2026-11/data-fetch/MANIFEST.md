@@ -115,3 +115,16 @@ Shallow clones exist only in my scratch space. Nothing is copied into this repo.
 
 Searches for certifying shortest-path checkers (LEDA-style) found nothing usable. The only hit,
 `shawncalvinsnelling/AXEZENT-Robust-Shortest-Path-Verifier` (MIT, new, unreviewed), is not recommended without review.
+
+## Incident metadata join for S-D9 (metadata only; no perimeters opened)
+
+`incident_metadata.csv` has 733 rows keyed by `Incident_C`: the 704 incidents of S-D9 `cohort/COHORT_SPLIT.csv` @ cffd66c3, plus the 23 forecast-v2
+fit fires and 6 held-out fires. `incident_metadata_join.py` regenerates it with
+`python3 incident_metadata_join.py COHORT_SPLIT.csv nirops_incidents.csv ics209-plus-wf_incidents_1999to2020.csv OUT.csv`.
+- **Primary source:** NIFC WFIGS Incident Locations (services3.arcgis.com, public ArcGIS FeatureServer), joined by IRWIN ID. It matched 724 of 733; the 9 unmatched are all part a.
+  `poo_lat`/`poo_lon` is the WFIGS point geometry (point of origin, EPSG:4326). `initial_lat`/`initial_lon` is the WFIGS InitialLatitude/Longitude
+  (initial report location), which can lie about 20 km from the point of origin and is blank for 45 rows. `discovery_utc` is FireDiscoveryDateTime.
+- **Cross-check:** ICS-209-PLUS (1999–2020 only), joined by POO state + 6-digit incident number + start year, keeping only unambiguous keys. It matched 149 incidents, all from 2020.
+  Its POO agrees with WFIGS (median 0.001 km); 4 rows are over 10 km apart (maximum 91 km), see `ics209_vs_wfigs_poo_km`.
+- For 13 incidents the WFIGS `discovery_utc` is later than the first NIROPS survey. These are left as published.
+- `first_utc`/`last_utc` come from `nirops_incidents.csv`. `max_acres` was removed from that file on 2026-11-12 at S-D9's request; git history keeps it.
