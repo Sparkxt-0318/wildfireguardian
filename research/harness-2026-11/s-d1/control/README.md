@@ -36,12 +36,12 @@ It has 273 SCORED case receipts plus their npz entry files.
 
 ## Claims
 
-- `RESULTS_identity.jsonl`: all 273 cases have `identity_mismatch == []` and `entries_match`. The receipt fields
+- `RESULTS_identity.jsonl` (Owen PASS WITH NOTES at 10ce6b93): all 273 cases have `identity_mismatch == []` and `entries_match`. The receipt fields
   compared are the full `score_cohorts.source_identity`: `initial_sha256`, `endpoint_sha256`,
   `environmental_snapshot_sha256`, `reference_mask_sha256`, `initial_age_sha256`, `residence_sha256`, `rectangle`,
   `reference_cells` and `weather_hour`. `entries_match` means the stored `y` equals the rebuilt endpoint at the stored
   (row, col), every stored cell is in the score mask, and none is initially burned.
-- `RESULTS_d4_wind.jsonl`: `sample_forecast(d4_wind_seed0)` compared with the stored `p_d4_wind_seed0` over all
+- `RESULTS_d4_wind.jsonl` (Owen PASS WITH NOTES; reproduces to 4.2e-7, not identical): `sample_forecast(d4_wind_seed0)` compared with the stored `p_d4_wind_seed0` over all
   1,705,079 stored cells. 471,597 cells (27.7%) are bit-identical in float32; max |Δ| = 4.2e-7; all cells valid.
 - c651_mc: run on a fixed subset, every 10th case in the script's case order. This was chosen after seeing 7
   Wapiti cases, all bit-identical. A full run would take about 10 h on this host, about 4.6× slower per case than
@@ -49,3 +49,7 @@ It has 273 SCORED case receipts plus their npz entry files.
 
 Runtimes on this host (x86-64, 4 cores): identity rebuild of 273 cases took 2 min 37 s wall. d4_wind stage took
 3 min 40 s wall (4 threads), of which 64 s is model time.
+
+Coverage in both directions (Owen's note): `check_case_coverage.py --results RESULTS_identity.jsonl --heldout HELDOUT`
+reports 273 rebuilt case_ids, all unique, equal to the 273 stored receipts, with none stored-not-rebuilt and none
+rebuilt-not-stored. The same holds for RESULTS_d4_wind.jsonl.
