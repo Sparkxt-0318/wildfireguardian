@@ -543,6 +543,21 @@ sweep?
 7. **Then, by decision:** Step 1b (support outcomes); Step 7 (constant radiation tier and option A, 1-hour); Step 8
    (tie-break); Step 9 (thresholded-dose labelled variant). Iris reads the Step 9 sourcing lines before code.
 
+**Step 3b (separate, later; NOT part of Step 3; orchestrator 20:02 UTC, from Iris's observation): cache
+`routing.core.edge_occupancies`.**
+- **Hypothesis**, measured once by cProfile under load: about 93% of the Uiseong F-DYN Z setup (about 18 s) is 11,011
+  calls to `core.edge_occupancies`, one per contact-candidate edge, at about 1.6 ms each in exact Fraction arithmetic.
+- **What:** a cache keyed on the edge and the fire field, if and only if a code reading shows the output depends on
+  nothing else (no request field, no clock).
+- **Acceptance:**
+  - byte-identical occupancy output for every key (old vs cached, on the 1-hour panel and the F-DYN packets);
+  - Z setup wall before and after, per mission;
+  - setup units unchanged; the setup unit counts calls, so a cache hit still counts as one unit, which keeps budgets
+    comparable. This is to be confirmed with Iris.
+- **Thomas reviews it,** because the occupancies sit under the contact certificates.
+- **Scope note:** if Step 6 (the interval-field solver for multi-hour) passes, the multi-hour solver no longer runs this
+  setup. This step then matters only for the dense one-hour path.
+
 **Steps 4 and 5 are CONDITIONAL, not deleted.** They are built only if Step 6 fails its acceptance, or if the dense
 path is still needed at multi-hour:
 - Step 4: dense per-forecast precompute of the bound model;
