@@ -185,7 +185,36 @@ Recorded so the design exists. **Nothing here is fetched or built.**
 **Time condition**, per variant:
 - the site and a `BUFFER_M` buffer are neither burning nor burned at the time (the `/2` closure);
 - the forecast arrival is later than the time plus `MARGIN_MIN`;
-- the site is outside Priya's radiant stand-off rows (requested; cited as is).
+- the site is outside Priya's radiant stand-off: no cell burning at that time within the stand-off distance. The
+  distance is measured from the edge of the burning cell rectangle, which is how her rows are defined.
+
+**Radiant stand-off rows (Priya, 22:45 UTC; cited as is).**
+- **Source.** F-4.2 `results/RADIANT_S7.json` key `standoff`, branch `claude/priya-f34-f42` @ eecfb0b. Plan:
+  RADIANT_PLAN.md §7a (e33256b), committed before the results; §7b fix at 5022ad1.
+- **Main rows.** Flame width 100 m, window 1.0. Each cell is the distance to 1.0 / to 2.5 kW/m², in metres.
+
+  | Flame | E (kW/m²) | H 1 m | H 2 m | H 5 m | H 10 m | H 20 m | H 30 m | H 40 m | H 50 m |
+  |---|---|---|---|---|---|---|---|---|---|
+  | surface | 76 (AS 3959) | 34.7 / 15.0 | 58.2 / 28.7 | 102.5 / 58.2 | 150.2 / 90.0 | | | | |
+  | crown | 112 (1200 K) | | | | 184.4 / 112.5 | 263.8 / 163.8 | 324.3 / 202.4 | 375.1 / 234.8 | 419.7 / 263.1 |
+  | crown | 118 | | | | 189.5 / 115.8 | 270.9 / 168.4 | 333.0 / 208.0 | 385.1 / 241.2 | 431.0 / 270.3 |
+
+- **Sensitivity rows** (measured-crown E 150 and 200, window 0.5, a 3,750 m front; up to about 2.7 km). These are
+  cited only as labelled sensitivities, never as main rows.
+- **What each row assumes:**
+  - a solid vertical planar flame;
+  - the receiver at flame-centre height;
+  - τ = 1, i.e. no smoke or air attenuation;
+  - radiation only, with no convection allowance;
+  - thresholds for an unprotected person from Purser / SFPE.
+- **Caveats that go with every citation** (Sofia's reading):
+  - measured fluxes exist only to about 15 m;
+  - the 50–400 m distances, the 1.0–2.5 kW/m² range and flames above about 25 m have not been validated;
+  - the model over-predicts with distance (back-test 2–3× high);
+  - it can under-predict with convection on slopes or in wind, with hotter flames, or with wider fronts;
+  - embers and smoke are not covered.
+- **Which row applies.** Which E/H row applies to a site is a fire-type choice the table does not make. It stays a
+  named parameter `STANDOFF_ROW` with no value until it is sourced.
 
 The same gates and label apply as in 3.1.
 
@@ -242,5 +271,5 @@ The same gates and label apply as in 3.1.
 | Richard | §1 text, latest-departure field for §2, §5 breakwater check | positions agreed; text to follow after his `/1` batch and waiting runs |
 | Sofia | 행안부 고립예상지역 (15139647) | answered 22:44: needs a service key, coverage unstated, addresses only, field undefined; column HELD pending an owner sample |
 | Daniel | 산림청 CSV (15069465), one file, after the road extract | in fetch plan (cca4e27a) |
-| Priya | radiant stand-off rows (D1 only) | requested via the orchestrator |
+| Priya | radiant stand-off rows (D1 only) | received 22:45; cited in §3.2 |
 | Iris | reading of this note before any build | read 860aebea; changes applied; §2 may proceed after Nora's /2 pass, D0 after these changes |
