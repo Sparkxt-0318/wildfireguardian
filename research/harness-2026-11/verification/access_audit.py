@@ -134,6 +134,8 @@ def audit(paths, name_sets):
                 rec = json.loads(line)
             except ValueError:
                 continue
+            if not isinstance(rec, dict):
+                continue
             sess = rec.get('sessionId') or stem
             ts = rec.get('timestamp', '')
             for field, tool, tid, text in blocks(rec):
@@ -160,7 +162,7 @@ def audit(paths, name_sets):
                     if is_net or WILDFIRE.search(text):
                         net_calls[tid] = True
                     for u in URL.findall(text):                       # hosts from EVERY tool input
-                        S[sess]['hosts'][urlparse(u).netloc.lower() or u[:30]] += 1
+                        S[sess]['hosts'][urlparse(u).netloc.lower() or '<no-host>'] += 1
                 elif field == 'result':
                     for k, rx in FILES.items():
                         if re.search(rx, text):
@@ -180,9 +182,19 @@ FTPURL = re.compile(r'(?:https?|ftp)://ftp\.wildfire\.gov(/[^\s\'"<>)\]\\,]*)', 
 STATUS = re.compile(r'\bHTTP/[\d.]+\s+(\d{3})\b|\bhttp_code[=:\s]+(\d{3})\b|\b(\d{3})\s+(?:Not Found|OK|Forbidden|Unauthorized|Moved)\b|^\s*([1-5]\d\d)\s*$', re.M)
 
 
+SAFE_ROOTS = {'public/incident_specific_data', 'public/incident_specific_maps', 'public/nirops', 'protected/incident_specific_data'}
+SAFE_GACCS = {'calif_n', 'calif_s', 'great_basin', 'n_rockies', 'pacific_nw', 'rocky_mtn', 'southwest', 'alaska',
+              'eastern', 'southern', 'national'}
+SAFE_YEAR = re.compile(r'(Z_)?20\d\d(_Incidents(_(Oregon|Washington|Idaho|Montana|California|Nevada|Utah|Arizona|NewMexico|Colorado|Wyoming|Alaska))?)?')
+
+
+def h12(x):
+    return hashlib.sha256(x.encode()).hexdigest()[:12]
+
+
 def ftp_detail(paths):
-    """Per session, every ftp.wildfire.gov URL in a tool INPUT, reduced to (root, gacc, year segment) plus the sha256 of
-    the remaining path (no folder or fire names printed), and the HTTP status codes found in the matching tool RESULT."""
+    """Per session, every ftp.wildfire.gov URL in a tool INPUT, reduced to (root, gacc, year segment), each printed in
+    clear ONLY when it equals a known layout token (else as h:<sha12>), plus the sha256 of the remaining path, and the HTTP status codes found in the matching tool RESULT."""
     rows = collections.Counter()
     for f in iter_files(paths):
         stem = os.path.splitext(os.path.basename(f))[0]
@@ -191,6 +203,8 @@ def ftp_detail(paths):
             try:
                 rec = json.loads(line)
             except ValueError:
+                continue
+            if not isinstance(rec, dict):
                 continue
             sess = rec.get('sessionId') or stem
             m = rec.get('message')
@@ -202,11 +216,17 @@ def ftp_detail(paths):
                 if b.get('type') == 'tool_use':
                     keys = []
                     for p in FTPURL.findall(json.dumps(b.get('input'), ensure_ascii=False)):
-                        seg = [s for s in p.split('/') if s]
-                        root = '/'.join(seg[:2]) if len(seg) >= 2 else '/'.join(seg)
+                        seg = [x for x in p.split('/') if x]
+                        root = '/'.join(seg[:2])
+                        if root not in SAFE_ROOTS:
+                            root = 'h:' + h12(root)
                         gacc = seg[2] if len(seg) > 2 else ''
-                        year = seg[3] if len(seg) > 3 and re.match(r'(Z_)?20\d\d', seg[3]) else ('' if len(seg) <= 3 else '<non-year>')
-                        rest = hashlib.sha256('/'.join(seg[4:]).encode()).hexdigest()[:12] if len(seg) > 4 else ''
+                        if gacc and gacc not in SAFE_GACCS:
+                            gacc = 'h:' + h12(gacc)
+                        year = seg[3] if len(seg) > 3 else ''
+                        if year and not SAFE_YEAR.fullmatch(year):
+                            year = 'h:' + h12(year)
+                        rest = h12('/'.join(seg[4:])) if len(seg) > 4 else ''
                         keys.append((sess, rec.get('timestamp', '')[:16], root, gacc, year, rest))
                     if keys:
                         pending[b.get('id')] = keys
