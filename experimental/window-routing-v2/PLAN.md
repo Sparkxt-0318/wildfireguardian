@@ -508,3 +508,29 @@ sweep?
   - The Uiseong window lies 99.7% inside the final burn set, and about 45% of burned cells lie outside the windows.
 - This holds until Daniel's full-export-grid graph is verified.
 - It applies equally to `FULL_MODEL_REFUSAL_PROVEN` and to any relaxation NO_ROUTE.
+
+## Amendment D (16:1x UTC): re-ordered plan (orchestrator decision, 16:14 UTC)
+
+**New order:**
+1. **Step 0:** done; verification pending (Mira, REQUEST 12).
+2. **Step 1:** reasons and stage metrics (acceptance committed, e26a0ff).
+3. **Step 2:** memory accounting. Kept: the checker's gates stay relevant to any solver.
+4. **Step 3:** work-unit budgets.
+5. **G6a:** the seeded 705-job reproduction (G6_RULE.md).
+6. **Step 6:** the interval-field solver as the multi-hour solver, with the frozen whole-road checker as verifier.
+   Sub-order:
+   - an earliest-arrival pass restricted to the field;
+   - measure field memory at 5 h;
+   - restate the exactness precondition in the **checker's own enclosure quantity** (Thomas reviews);
+   - then G2, G2b, G2c, plus multi-hour optimality against independent optima where they exist.
+   - The dense path stays the 1-hour solver until G6 shows the field reproduces it.
+7. **Then, by decision:** Step 1b (support outcomes); Step 7 (constant radiation tier and option A, 1-hour); Step 8
+   (tie-break); Step 9 (thresholded-dose labelled variant). Iris reads the Step 9 sourcing lines before code.
+
+**Steps 4 and 5 are CONDITIONAL, not deleted.** They are built only if Step 6 fails its acceptance, or if the dense
+path is still needed at multi-hour:
+- Step 4: dense per-forecast precompute of the bound model;
+- Step 5: EA bound memory.
+
+**Citation rule.** DESIGN_STEP6.md cites Richard's F-DYN router-field result (ac80919) as **unverified** until Nora has
+passed it.

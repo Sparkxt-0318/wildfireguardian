@@ -17,7 +17,8 @@ verifier, instead of the dense per-second sweep (EarliestArrivalBound + LO/HI A*
 - **Time before search:** the bound model plus EA take about 100–130 s per request.
 - **Uiseong search stalls.** With every memory gate at 12 GiB, the LO stage on Uiseong ran 246–273 s without finishing
   (cap ≈ 160 s). One call never returned.
-- **But those Uiseong requests are easy.** Richard's router-only field finds checked routes for all 4 of them:
+- **But those Uiseong requests look easy (Richard's result, NOT yet verified by Nora; cited as unverified until
+  then).** Richard's router-only field finds checked routes for all 4 of them:
   - …323 arrives at **372 s**;
   - …324 arrives at **52 s**;
   - both pass the unchanged full checker (ac80919, `results/FDYN_KIT_REQUESTS_router_field.json`).
@@ -85,7 +86,7 @@ and arrival.
 - **Labels throughout:** SCENARIO; road-limited graph (`graphs_interim`); the assumption line (no fire outside mapped
   or forecast cells); reporting rule R for every no-route.
 
-## 5. My recommendation (for the orchestrator)
+## 5. Recommendation: ADOPTED by the orchestrator, 16:14 UTC (see PLAN amendment D for the order)
 
 - **Yes: adopt the field as the multi-hour solver candidate for Step 6.** It is exact on contact, certified, and already
   reproduces the 1-hour routes. It finds the Uiseong routes the dense kit cannot.
