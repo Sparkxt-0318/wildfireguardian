@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import platform
+import resource
 import sys
 import time
 from collections import Counter, defaultdict
@@ -203,7 +204,9 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
                      "fixed_point_certificate_check": dict(certify_s),
                      "total_wall": time.perf_counter() - t_all},
         "pieces": dict(pieces),
-        "host": {"platform": platform.platform(), "python": platform.python_version(), "machine": platform.machine()},
+        "host": {"platform": platform.platform(), "python": platform.python_version(), "machine": platform.machine(),
+                 "cpu_count": __import__("os").cpu_count()},
+        "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0,
         "attempts": [{k: v for k, v in r.items()} for r in rows],
         "jobs": job_rows,
         "origins": per_origin,
@@ -222,7 +225,7 @@ def main():
     out = run(a.cache.resolve(), a.data_root, variants=tuple(a.variants.split(",")), limit_dests=a.limit_dests)
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_text(json.dumps(out, indent=1, default=str))
-    print(json.dumps({k: out[k] for k in ("cache_file", "destination_specs", "timing_s", "pieces")}, default=str))
+    print(json.dumps({k: out[k] for k in ("cache_file", "destination_specs", "timing_s", "pieces", "peak_rss_mib")}, default=str))
 
 
 if __name__ == "__main__":
