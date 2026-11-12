@@ -164,3 +164,60 @@ solver gate both at 12,288 MiB; non-evaluated; 1 repetition.
 with 0 rows. Its pass rule counts checked results. With the checker gate at 3 GiB, the 5 Yeongdeok requests would
 score 0 regardless of search, so "0 of 9 → search is the limit" would be a false conclusion. It is not rerun without
 the orchestrator's decision.
+
+## Amendment A3, committed before (a) or (b) starts (orchestrator decision 13:41 UTC)
+
+Both parts are **non-evaluated**.
+
+### (a) Fresh-process re-check of the Yeongdeok witness routes
+
+**Which checks.** A1 left 4 Yeongdeok requests whose LO/LO2/HI routes were discarded by the checker gate. Within each
+request, LO, LO2 and HI returned the same route (identical legs). That gives **3 distinct routes and 4
+(route, packet) checks**:
+- kriged …207: arrival 59, 18 legs;
+- kriged …168: arrival 274, 114 legs;
+- kriged …166 and firms …166: the same route, arrival 3953, 1669 legs, checked against each packet.
+
+My 13:40 message said "5 routes"; that was wrong — it is 4 checks.
+
+**How.** `F-4.2/fixed_route_check.py` with:
+- the unchanged kit checker (`HybridChecker` from the request-window kit queue, as the worker uses it);
+- the run's own `ORIGINAL_REQUEST.json`, graph and packet;
+- the route legs and destination taken from `RESULT.json rejected_witnesses`;
+- one fresh interpreter per check, wall 600 s.
+
+The output also records the checker's `process_lifetime_rss_mb` and `rss_gate_mb`.
+
+**"Would certify" means all three of:**
+1. checker status `CERTIFIED_ADMISSIBLE` (the status the worker publishes on);
+2. reason not `RSS_LIMIT`, not a wall cap, and not an adaptive-fallback RSS limit;
+3. the checker's own measured lifetime RSS ≤ 3,072 MiB, so its gate did not fire.
+
+**Other outcomes:**
+- If a check returns `UNRESOLVED` for any other reason, or is refused, that is reported as it is.
+- If the fresh process itself exceeds 3,072 MiB, the result is "gate fires even in a fresh process", not a certification.
+
+**Reported per check:** status, reason, contact and radiation status, the largest dose and peak upper-bound share of
+budget, elapsed time and lifetime RSS.
+
+### (b) Test copy of the kit with all three gates at 12 GiB, then A2 rerun as pre-registered
+
+**The test kit.**
+- A copy of the request-window kit at `scratchpad/window-kit-gate12k`, labelled TEST COPY. It is never the frozen
+  kit and never merged into it.
+- The only changes allowed are `RSS_LIMIT_MB = 3072 → 12288` in `routing_candidate/baseline/hybrid_checker.py`, and
+  the matching constant in `adaptive_checker.py` if it has its own. (It imports `RSS_LIMIT_MB` from
+  `hybrid_checker`, so likely nothing changes there.)
+- The full diff against the original kit is recorded in `results/fdyn/gate12k_kit.diff`.
+- If the worker's module-hash self-check rejects the edited module, that is reported, and nothing else is changed to
+  get around it.
+
+**The run.**
+- Same as A2: 450 s; controller guard 12,288 MiB; request `limits.rss_limit_mb = 12288`; the same 9 requests; 1 rep.
+- Output `fdyn_b450_gate12k`. Same pass rule as A2:
+  - **0 of 9** → "search is the limit";
+  - **≥ 3 of 9** → "precompute is the lever";
+  - **1–2** → inconclusive.
+- **Reported:** expansions per stage, check outcomes, wall, peak RSS.
+
+Run order: (a), then (b).
