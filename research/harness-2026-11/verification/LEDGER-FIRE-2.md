@@ -38,6 +38,9 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 30 | 2026-11-12 | W-KIT W6 redo (issuer report-only) | Clara | e69c3d1 | four FAIL points fixed; complete-and-not-withheld 0/0/0/0 → 299/299/0/440; withheld 2,124 → 0 | fresh `npm ci`; `-t W6`; full suite; build:static; own issuer probe (4 issuers × 531) | PASS WITH NOTES |
 | 31 | 2026-11-12 | PR #123 scope check (research-scout batch 5) | Sofia | bab9148 | docs only, no private link, no footer | diff vs base a1ce97f + body | READY |
 | 32 | 2026-11-12 | FIRE 6.2 radiant §7 (surface vs crown table; distance counts) | Priya | e33256b | 7a standoffs and counts; 7b 4/9/12 clearance, 3/5/7 stationary, FX2 643 s within 1 km | `radiant_s7.py` + own bisection + own per-second distance code | PASS WITH NOTE |
+| 33 | 2026-11-12 | F-3.2 W2 envelope O2 classifier (fire-next) | Thomas | b2d9eba (07d4a58) | float: 820 end-only ≤1.36e-12 s (97/723), 0 other, 10/10 | `envelope_o2.py --mode float` on own v3 packet (Leo 7eb3691) | PASS |
+| 34 | 2026-11-12 | F-3.2 W3 v3.1 acceptance, samples a/b/c | Thomas | 45a8975 | integer equality 0 mismatches; boundary 102/17, 102 (b), 482/309; 10/10 instances each | own packets at Leo f40e2af (MANIFEST_v3_1 cmds); `--mode v31` (+ `--law scalar` for b); negative control | PASS |
+| 35 | 2026-11-12 | PR #127 scope check (research-scout batch 6) | Sofia | 43e418b | docs only, no private link, no footer | diff + body | READY |
 
 ## Notes
 
@@ -224,3 +227,11 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - 4/9/12 is correct. FX2 1 km = 643 s (523 + 120 dwell), confirmed.
 - N1: the stationary 3/5/7 count includes departure-only routes; with real wait/dwell it is 2/4/5 (FW2 @0.5 km; Miryang FN1 @1 km; Hongseong FD1 + Miryang FN1 @2 km).
 - c49b3f8 (issue field for 4a/5a) resolves entry 28's note, but §7 is not yet split.
+
+**33-34. fire-next**:
+- W2 (b2d9eba) and W3 (45a8975): all 3 v3.1 packets were rebuilt by me at Leo f40e2af. a: 142 diff, all end-only; b: 216 single-interval and 31 merged equal; c: 820 end-only. 0 mismatches and 10/10 in each, identical to the committed JSONs.
+- Negative control: --law envelope on the firms_early packet gives 198 mismatches and 0/3 instances.
+- W1 is withdrawn (superseded by Clara's W6). W4 is pending.
+- Clara W6 05fec82 is acknowledged; per the orchestrator, verify once at the head with the agency guard and shelter-name change.
+
+**35. PR #127 @ 43e418b**: 1 file (LOG.md +33); public sources; aggregate statistics only; no footer. READY.
