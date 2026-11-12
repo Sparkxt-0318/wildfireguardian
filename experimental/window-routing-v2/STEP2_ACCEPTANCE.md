@@ -124,3 +124,34 @@ RoadBoundModel feeds the LO/LO2 refusals and `lower_bound_arrival`. Guards added
   its bound arrays.
 
 The prediction "Expected UNRESOLVED → certified changes on the 1-hour panel: 0 (peak ≤ 1.6 GiB)" stays as written.
+
+## cgroup v1 points (Thomas, 17:22 UTC) and the host probe, run before any Step 2 code
+
+Under-counting is the unsafe direction. The design is fixed as follows:
+1. **The parent moves itself** into a fresh child cgroup, forks, and moves itself back, so fork-time charges (page
+   tables, task struct) land in the child's cgroup. Mechanism name: `cgroup_v1_max_usage_parent_moved`.
+2. **Swap.** On this host swap is off (`/proc/swaps` is header-only), and `memory.memsw.max_usage_in_bytes` is present.
+   The gate reads **memsw** max_usage when present, otherwise max_usage with swap verified off. If swap is on and memsw
+   is absent, the result is `not_proven`. The swap state is recorded per run.
+3. **kmem.** Accounting is active here: `memory.kmem.max_usage_in_bytes` is non-zero (1.2–3.7 MiB) in the probe
+   cgroups. The kmem state is recorded per run. If kmem is ever not accounted, `within_budget: true` requires
+   max_usage ≤ gate − 64 MiB (a stated margin) and records "kmem not counted".
+4. **Freshness.** One new cgroup per check, never reused. The code asserts usage before fork ≤ 4 KiB, reads max_usage
+   after the child exits and before `force_empty` and rmdir, and records a failed rmdir without treating it as a
+   measurement failure.
+5. **use_hierarchy** is recorded. It is 1 here.
+6. **Page cache** needs no change; it can only over-count.
+7. **Portability.** Recorded per run: cgroup version, path, kmem state, swap state, mechanism. With no mechanism the
+   result is `not_proven`, never `within_budget: true`.
+
+**Probe on this host** (`tests/probe_cgroup_v1.py` → `results/step2/PROBE_CGROUP_V1.json`), all pass:
+
+| Test | Expected | Measured peak |
+|---|---|---|
+| (a) child allocates 512 MiB | ≥ 512 MiB | **514.5 MiB** |
+| (b) child only reads a 1 GiB parent array | far below 1 GiB | **3.5 MiB**: shared pages are not charged |
+| (c) child writes every page of the 1 GiB parent array (COW) | ≥ 1,024 MiB | **1,027.3 MiB** |
+| (d) child spikes 768 MiB and frees | the spike is seen | **773.0 MiB** |
+
+Every cgroup was fresh (usage 0 before fork) and every rmdir succeeded. memsw max equals max_usage throughout, as
+expected with swap off.
