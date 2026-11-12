@@ -1,25 +1,43 @@
-# W-KIT checkpoint 1 (measured; not fit for live use)
+# W-KIT checkpoint 2 (measured; not fit for live use; comprehension untested)
 
-Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts`.
-Run: `cd planner && npm ci && npx vitest run ../tests/planner/wkit.channels.test.ts` (13 tests). Full planner suite:
-`npx vitest run` → 22 files, 378 tests passed (this container, Node 22, Linux x86_64).
+Code: `planner/src/features/lastmile/channels/build.ts` · tests: `tests/planner/wkit.channels.test.ts` (17 tests).
+Run: `cd planner && npm ci && npx vitest run ../tests/planner/wkit.channels.test.ts`; full suite `npx vitest run` →
+22 files, 382 tests passed (this container, Node 22, Linux x86_64).
 
-Outputs per origin (ko source + en): 20 s head-script core with the five warning elements between a framing opener
-(not real / data / markers) and closer (official orders first); ARS voice call (1 leaving|heard, 2 needs help to
-leave — "passed to the 이장 and 읍·면사무소", 3 repeat); family text (≤ 90 B EUC-KR / ≤ 160 GSM-7) + 3-line call
-script; "no order yet" message (only for supplied status `not_issued`, ≤ 157 chars); staff data-age line and
-issue-order-by field (a time only for leave_by with a computed value). Staff transport-need list: no checked
-leave-by first, then leave-by ascending.
+## Claim boundary
+The outputs are well-formed and mutually consistent under the kit's rules. Nothing here shows that anyone understands
+or acts on them; comprehension is untested. Inputs are replayed planner results; nothing is fit for live use.
 
-Measured:
-- Six booth caches, 531 real origins (501 leave_by, 11 no_route, 19 unresolved): 0 violations; every head core
-  ≤ 20 s with all five elements (max 20.0 s ko, 16.0 s en); full script ≤ 32.7 s ko, 27.5 s en. Independent oracles
-  (Python euc_kr, NEVER/DEPART patterns, clock-time regex) agree.
-- 600 generated synthetic cases: cores ≤ 20 s with five elements in all; the only violations are 18 Korean full
-  scripts over the provisional 35 s cap (long names and/or MOCK/test markers) — withheld, fail closed.
-- Feasibility finding: the three mandatory framing sentences take ≈ 12.6 s, so a 20 s script *including* framing
-  is infeasible; the 20 s budget applies to the core (option 1, pending Iris).
+## Decisions applied (Iris + orchestrator, 2026-11-12)
+- Head script = fixed opener (not real / data / markers; live: data age) + ≤ 20 s core with the five elements
+  (source first, per NIST TN 1982 §5.3) + closer "공식 대피 명령이 우선합니다" in full. Exported only as one
+  inseparable `script`; both lengths reported, at 3.0 and at 2.5 syllables/s.
+- "No order yet" is a STAFF / village-head output only, produced only from an explicit status
+  `{status: not_issued, suppliedBy, suppliedAtIso, expiresAtIso}` valid at `nowIso`; absent/expired/unattributed →
+  not produced; never inferred. It carries the planning-only frame, the data age and who supplied the status.
+- Transport-need list (key 2): synthetic households only; held in practice by 읍·면사무소 staff and the 이장.
+  `topSection` (model no-route, then unresolved incl. origins without a plan, then partial — the planner's order) is
+  separate from `byDeadline` (leave-by ascending).
+- Issue-order-by: Richard's F-3.1 record `{leaveByS, issueByS:{low,median,high}}`; times only for a planner
+  `leave_by`; negative → "already past"; null leave-by shown only when the planner also says no-route (never a
+  time); absent → "not computed"; latencies labelled as assumptions.
+- Time wording centralised (`timeStyle`: `clock` default, `clock_and_minutes`) so a comprehension test can vary it.
+- Existing kit outputs unchanged: sha256 snapshot over all 531 real origins (test).
 
-Pending: Iris's assessment (20 s framing, list ordering, order-status input); Sofia's exact August 2025 rules (157
-unit, required order); Richard's issue-order-by fields (currently a generic `{offsetS}` input); English review.
-Not wired into the UI panel or CSV yet.
+## Measured
+- 531 real origins: 0 violations; every core ≤ 20 s with all five elements; full ≤ 35 s, at 3.0 syll/s.
+- At 2.5 syll/s the same scripts fit for only 197/531 cores (≤ 20 s) and 182/531 full scripts (≤ 35 s); the
+  same texts take up to 24 s core / 39 s full. Withholding at 2.5 would leave most villages without a script, so the
+  checks stay at the kit's 3.0 rate and the 2.5 figures are reported. Decision on the budget returned to Iris.
+- 600 synthetic cases: only violations are 18 Korean full scripts > 35 s (long names / markers) — withheld.
+
+## Source notes (Sofia, 2026-11-12)
+- 행정안전부예규 제361호 「재난문자방송 기준 및 운영규정」: limits are 90 / 157 CHARACTERS (annex labels), no byte
+  rule; agency name mandatory (제10조②). The kit's 90-byte EUC-KR limit is stricter than 90 characters and is kept.
+  Orders stay at 90 characters; 157 applies to 안전안내문자 only.
+- No official guidance found on 마을방송 length; the 20 s target is an assumption. No real evacuation ARS script
+  found; the key-press design is ours. "Do not reverse destinations" has no official basis found; it is our rule.
+
+## Pending
+English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
+appears only for a result checked on the pessimistic instance) is not yet in planner data.
