@@ -67,6 +67,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 59 | 2026-11-12 | PR #141 routing cut, frozen-cut check | Thomas | 0685e03 (f821a43) | 18 paths vs Main; F-3.2 equal to fire-next cedf961 except README + 2 exclusions; cedf961 fixes verified (CLOCK diff, exact ACCEPT rule 80/80 unchanged, envelope JSON keys only); C 30+2, guard 12/12, regression 6/6, router 105/105 | fresh worktree, diffs, probes | PASS |
 | 60 | 2026-11-12 | Kit staff provenance line | Clara | 4e65e55 | every kind forced on 1,131 places: resident outputs and other staff fields byte-identical, no clock time, no throw; violations unchanged on deadline places; 447/447 | own probe | PASS WITH NOTES |
 | 61 | 2026-11-12 | Kit provenance line N1 guard | Clara | 92c2e51 | timed kinds on no-time places: 0 lines in 1,020 forced cases; present on all 2,373 leave_by cases; violations and other outputs unchanged; 448/448 | own forced-kind probe | PASS |
+| 62 | 2026-11-12 | Kit provenance line: mismatch refused and reported | Clara | 60deae8 | 1,020/1,020 forced timed-on-no-time cases give the not-established line in ko and en, no deadline wording or clock time; violations and other outputs unchanged; 448/448 | own forced-kind probe | PASS |
 
 ## Notes
 
@@ -332,4 +333,3 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **60.** N1: a timed label forced onto a no-time plan is flagged only in ko (help sentence trips the DEPART scan), not in en. The real join never produces it; suggested a guard in staffProvenanceLine.
 
 **61.** Optional: unresolved_proven_no_route is not dropped when forced onto a leave_by place (the real join never does this).
-
