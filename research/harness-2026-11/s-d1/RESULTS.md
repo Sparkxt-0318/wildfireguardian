@@ -313,6 +313,16 @@ Waiting on Daniel's rebuilt inputs (weather after the 00:00 UTC Open-Meteo reset
 
 **Consequence.** One trajectory set (static kernels) serves every shared scenario: S-D4mix multipliers, a run/slow HMM or gust paths. Only a 1-D map per scenario is needed, with no new Dijkstra. This does not cover modulators that vary in space, or weather-driven kernel changes beyond a common factor.
 
+**D1's practical contribution (Iris).** The hourly rollout needs a fresh run per speed multiplier or run scenario. First passage serves all of them from one trajectory set, so mixture or run-state weights can be fit without re-simulation.
+
+**Scope.** This is exact on the S-D9 benchmark as defined, which repeats cutoff weather over each interval, so kernels are static within an interval. It is NOT exact with hourly-varying weather, which would need a re-simulation or an approximation.
+
+**Run-chain decision (Iris, accepted).**
+- The frozen A1 multiplier grid {1, 2, 4, 8, 16} stays the rate-mixture candidate.
+- A 2-state run chain would be a SEPARATE named candidate, developed on exposed data and part a only. It enters part c only if declared with its SHA before any part-c score.
+- The two are compared in development by the paired Brier difference in the band and tail bins (leave-one-fire-out) and by fitted-parameter count.
+- No wind anchoring of the run probability until Victor checks whether the fast intervals differ in wind.
+
 **Prior art** (Sofia; not yet read by me):
 - Migliorini & Smyth 2026 (AISTATS, arXiv 2510.12916), "Latent Interacting Particle Systems": each cell is a continuous-time Markov chain with neural neighbour-dependent rates, conditioned on observations by twisted SMC, on WildfireSpreadTS. It is the closest prior art to S-D1's continuous-time model and must be cited before any novelty wording.
 - Kenah & Robins 2007; Hajian et al. 2016; Ganguly et al. 2026 (see Sofia's briefs).
