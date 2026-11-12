@@ -33,15 +33,16 @@ spot = []
 for rf in sorted((HERE / 'routes').glob('*.json')):
     r = json.loads(rf.read_text()); region, case = r['mission'].split('__')
     I = C.Instance(*C.load(region, case)); pos = SR.positions(I, r); d = SR.nearest_active_distance(I, pos)
-    kinds = np.array([p[3] for p in pos]); stat = np.isin(kinds, ['WAIT', 'DWELL', 'ISSUE'])
+    kinds = np.array([p[3] for p in pos]); stat = np.isin(kinds, ['WAIT', 'DWELL']); issue = kinds == 'ISSUE'   # departure instant kept separate (Mira)
     for D in (500.0, 1000.0, 2000.0):
         inside = d < D
         spot.append(dict(mission=r['mission'], d_m=D, clearance_m=dict((m, c) for m, c, _ in clear)[r['mission']],
-                         seconds_inside=int(inside.sum()), moving_s=int((inside & ~stat).sum()), stationary_s=int((inside & stat).sum())))
+                         seconds_inside=int(inside.sum()), moving_s=int((inside & ~stat & ~issue).sum()), stationary_s=int((inside & stat).sum()),
+                         issue_s=int((inside & issue).sum())))
 print('7b  spotting distance (route side)')
 for D in (500.0, 1000.0, 2000.0):
     ss = [s for s in spot if s['d_m'] == D]
-    print('  d=%4.0f m: routes with clearance < d: %2d of %d | routes with stationary seconds inside d: %d | total s inside: moving %d, stationary %d'
+    print('  d=%4.0f m: routes with clearance < d: %2d of %d | routes with a real wait/dwell inside d: %d | total s inside: moving %d, stationary %d'
           % (D, sum(s['clearance_m'] < D for s in ss), len(ss), sum(s['stationary_s'] > 0 for s in ss),
              sum(s['moving_s'] for s in ss), sum(s['stationary_s'] for s in ss)))
     for s in ss:
