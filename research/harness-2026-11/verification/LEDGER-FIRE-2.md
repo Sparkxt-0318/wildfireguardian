@@ -22,6 +22,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 14 | 2026-11-12 | W-KIT W5 (재난문자 class limits) | Thomas | 477448d8 | kit SMS and family text fit 90 chars and their class | `npx vitest run wkit` | PASS |
 | 15 | 2026-11-12 | W-KIT W6 (draft-decree four-field check, issuer field) | Thomas | 66e3e62 | 0 decree passes without an issuer; with a synthetic issuer head 299 / voice 299 / family script 440 / family text 0; no agency invented | `npx vitest run wkit && npx vitest run` + probe with issuer over 531 | **FAIL** (issuer path only) |
 | 16 | 2026-11-12 | F-3.2 claim 11, F-DYN envelope O2 | Thomas | 66e3e62 | float semantics equals HAZARD (0 diffs), 10/10 instances; exact gives 1293 diffs, 0/10 | Leo 7eb3691 pipeline (variants, regrid, build per MANIFEST_v3, instance) + `envelope_o2.py --mode float/exact` | PASS WITH NOTES |
+| 17 | 2026-11-12 | PR #114 merge readiness (Priya verified subset) | Priya | dee56c7 | only verified F-3.4/F-4.2 work; harness identical to b6c94bb; † fix; 90 witnesses certified | diff checks + `verify_witnesses.py` on 12 more margin witnesses | PASS WITH NOTES |
 
 ## Notes
 
@@ -118,3 +119,10 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - exact mode: 1293 differences (482 start, 309 end at 300 s, 502 sub-µs); 0/10 equal.
 - Both modes match the committed results JSON.
 - Notes: the classifier only accepts the "HAZARD later" direction, which misfiles the 723 ulp-earlier ends; the message's "0 differences" is wrong; the exact sub-counts overlap, so they should be given as disjoint counts.
+
+**17. PR #114 @ dee56c7**:
+- 42 new files, all under F-3.4/ and F-4.2/; the largest blob is 266 KB.
+- The harness diff against b6c94bb is empty. F-4.2 code is identical to 0e6f7db; RESULTS.md carries only the agreed fixes; 3 unverified scripts were removed.
+- VERIFY.jsonl has 90 rows (75 margin + 15 published), all CERTIFIED_ADMISSIBLE. 12 more margin witnesses were re-run (one per remaining mission, including the FW1 1781 m, FX1 680 m and Uiseong FW1 1531 m trade-offs): 12/12 certified and exact_ok. 27/90 have now been re-run in total.
+- The description matches the ledger; "1 mm" holds (max 0.0004 m).
+- Notes: fixed_route_check.py is included but was never seen or run (not used by RESULTS). TABLE.md keeps the verified analyze_clearance's "≥6000 (cap)" wording.
