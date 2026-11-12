@@ -211,3 +211,17 @@ def test_mixed_base_dates_stop_the_run(tmp_path: Path) -> None:
     p = places_file(tmp_path, [place("x", (X0 + 5_000, Y0 + 5_000), (X0 + 5_010, Y0 + 5_000))])
     with pytest.raises(L.SanityError, match="mixes base dates"):
         L.run(shp, p, 50, fixture=False, source="2025-06-30")
+
+
+def test_committed_labels_are_the_delivered_run_and_are_in_places_geojson() -> None:
+    """labels.json is Daniel's run 3 as delivered (sha256 pinned), and apply_sigungu.py --check finds it applied."""
+    import hashlib
+    import subprocess
+
+    here = Path(__file__).parent
+    assert hashlib.sha256((here / "labels.json").read_bytes()).hexdigest() == "0896957b8c23f1abafcf0652bd3b57d2c1c6013e050d2fc1edbc8a231c5be52c"
+    doc = json.loads((here / "labels.json").read_text(encoding="utf-8"))
+    assert doc["fixture"] is False and doc["crs_epsg"] == 5186 and doc["base_dates"] == ["2025-06-30"]
+    assert all(m == doc["counts_by_margin"]["50m"] for m in doc["counts_by_margin"].values())
+    r = subprocess.run([sys.executable, str(here / "apply_sigungu.py"), str(here / "labels.json"), "--check"], capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout + r.stderr

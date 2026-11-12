@@ -5,7 +5,7 @@
  * templates never see wire formats. All times are seconds after the scenario's input time (UTC);
  * the wall clock shown is KST (UTC+9).
  */
-import type { Verdict } from '../../domain/types';
+import type { PlaceSigungu, Verdict } from '../../domain/types';
 
 /** Languages the templates are written in. Korean is the source text; see ./strings.ts LANGUAGES. */
 export type LmLang = 'ko' | 'en';
@@ -73,6 +73,8 @@ export interface LastMileInput {
     /** distance from the OSM point to its 진입 지점 (road entry node), m */
     entryDistanceM: number | null;
     sourceTag: string;
+    /** the place's 시·군 label (places.geojson); absent/null = not labelled: no issuer contact line (fails closed) */
+    sigungu?: PlaceSigungu | null;
   };
   /** null: no result at all (shown as unresolved, never safe) */
   plan: {

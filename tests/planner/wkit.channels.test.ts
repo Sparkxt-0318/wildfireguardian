@@ -30,6 +30,7 @@ function withTestRegistryOnly<T>(entries: readonly RegistryEntry[], fn: () => T)
 }
 import { buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { messagePlan, type MessagePlan } from '../../planner/src/features/lastmile/plan';
+import { parseSigungu } from '../../planner/src/data/staticData';
 import {
   buildChannels,
   checkChannels,
@@ -72,7 +73,19 @@ const TEST_REG: RegistryEntry[] = [
   { ko: '합성군', en: 'Hapseong County', source: 'synthetic test entry' },
   { ko: `${'가'.repeat(19)}과`, en: null, source: 'synthetic test entry (long name)' },
 ];
-const B = (p: MessagePlan, o: Parameters<typeof buildChannels>[1]) => withTestRegistryOnly(TEST_REG, () => buildChannels(p, o));
+/**
+ * TEST-ONLY place label for the W6 contact-line MECHANICS tests (budgets, SMS fit, decree report, replay mark, English
+ * names): the place is labelled as established in the supplied issuer's own 시·군, so the jurisdiction rule (fail closed,
+ * JURISDICTION/DESIGN.md) admits it and these tests keep testing what they tested. The jurisdiction rule itself is
+ * tested on the real labels in "jurisdiction (pre-registered pass rule)" below.
+ */
+function inIssuerCounty(p: MessagePlan, issuer: unknown): MessagePlan {
+  const ko = (issuer as { agency?: { ko?: unknown } } | null)?.agency?.ko;
+  if (typeof ko !== 'string') return p;
+  const sigungu = { ko: ko.normalize('NFC').trim(), status: 'established' as const, reason: null, source: 'TEST: labelled in the issuer\'s own 시·군' };
+  return { ...p, input: { ...p.input, origin: { ...p.input.origin, sigungu } } };
+}
+const B = (p: MessagePlan, o: Parameters<typeof buildChannels>[1]) => withTestRegistryOnly(TEST_REG, () => buildChannels(inIssuerCounty(p, o.issuer), o));
 const R = <T,>(fn: () => T): T => withTestRegistryOnly(TEST_REG, fn);
 let real: MessagePlan[] = [];
 let syn: MessagePlan[] = [];
@@ -324,7 +337,15 @@ describe('live data age and time wording', () => {
 
 describe('existing kit unchanged', () => {
   it('every field message of every real origin is byte-identical to the pre-W-KIT kit (sha256 snapshot)', () => {
-    const h = createHash('sha256').update(JSON.stringify(realInputs.map((i) => buildFieldMessages(i, null)))).digest('hex');
+    // buildFieldMessages echoes its input, which now carries the place's 시·군 label (jurisdiction cut): the snapshot is
+    // taken over the inputs without that one field, and the label is shown to change nothing else in the messages
+    const strip = (i: (typeof realInputs)[number]) => ({ ...i, origin: (({ sigungu: _s, ...o }) => o)(i.origin) });
+    expect(realInputs.every((i) => i.origin.sigungu?.status === 'established')).toBe(true);
+    for (const i of realInputs) {
+      const a = buildFieldMessages(strip(i) as never, null), b = buildFieldMessages(i, null);
+      expect(JSON.stringify([b.text, b.metrics, b.inserted, b.violations, b.kind, b.leaveByS])).toBe(JSON.stringify([a.text, a.metrics, a.inserted, a.violations, a.kind, a.leaveByS]));
+    }
+    const h = createHash('sha256').update(JSON.stringify(realInputs.map((i) => buildFieldMessages(strip(i) as never, null)))).digest('hex');
     expect(h).toBe('fc426e8ca7640ce68bd03688c00284e1b263eef637fea0493c44ac12eaf5805b');
   });
 });
@@ -926,7 +947,7 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
     expect(refused).toBeGreaterThan(2500);
   });
 
-  it('owner decision: 영덕군 is registered from a SECONDARY source (the 경상북도 contact table) and says so; with an issuer record supplied, the 273 영덕 place-scenarios gain a contact line', () => {
+  it('owner decision: 영덕군 is registered from a SECONDARY source (the 경상북도 contact table) and says so; with an issuer record supplied, the 영덕 place-scenarios IN 영덕군 gain a contact line (246 of 273; the 27 in 청송군/영양군 are withheld by the jurisdiction rule)', () => {
     const e = AGENCY_REGISTRY.find((x) => x.ko === '영덕군')!;
     expect(e).toBeDefined();
     expect(e.secondary).toBe(true);
@@ -937,7 +958,7 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
     for (const x of AGENCY_REGISTRY) if (x.ko !== '영덕군') expect(x.secondary).toBeUndefined();
     const before = AGENCY_REGISTRY.filter((x) => x.ko !== '영덕군');
     const iss = { agency: { ko: '영덕군' }, contact: '000-000-0000', forDrillOrReplay: true };
-    let n = 0, gained = 0, others = 0;
+    let n = 0, gained = 0, others = 0, withheld = 0;
     for (const pl of real) {
       if (!pl.input.region.id.startsWith('yeongdeok')) continue;
       n += 1;
@@ -945,6 +966,12 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
       const old = withTestRegistryOnly(before, () => buildChannels(pl, { nowIso: NOW, issuer: iss, draftDecreeCheck: true }));
       expect(old.decree!.ko.familyScript.contact).toBe('not_in_registry');
       expect(residentTexts(old).join('\n')).not.toContain('문의: 영덕군');
+      if (pl.input.origin.sigungu?.ko !== '영덕군') {
+        withheld += 1;
+        expect(now.decree!.ko.familyScript.contact).toBe('jurisdiction_mismatch');
+        expect(residentTexts(now).join('\n')).not.toContain('000-000-0000');
+        continue;
+      }
       if (now.decree!.ko.familyScript.contact === 'included') gained += 1;
       expect(now.text.ko.familyScript.join('\n')).toContain('문의: 영덕군 000-000-0000');
       // no English name: no English contact line (the field is reported, not filled)
@@ -954,7 +981,8 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
     for (const pl of real) if (!pl.input.region.id.startsWith('yeongdeok')) others += 1;
     console.log('[W6] 영덕 place-scenarios gaining a contact line with an issuer record (531 real):', gained, 'of', n, '; other regions:', others);
     expect(n).toBe(273);
-    expect(gained).toBe(273);
+    expect(gained).toBe(246);
+    expect(withheld).toBe(27);
   });
 
   it('no registry override is reachable from app code: no ChannelOptions field, and nothing under planner/src calls the test-only hook', () => {
@@ -968,5 +996,125 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
     // production code has no registry override at all; the substitution lives only in this test file's module mock
     expect(hits).toEqual([]);
     expect(() => withTestRegistryOnly([{ ko: 'x군', en: null, source: '' }], () => 0)).toThrow();
+  });
+});
+
+// ------------------------------------------------------------------------------------------------ jurisdiction
+
+describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT/JURISDICTION/DESIGN.md)', () => {
+  const drill = (ko: string) => ({ agency: { ko }, contact: '000-000-0000', forDrillOrReplay: true });
+  const withLabel = (p: MessagePlan, sigungu: unknown): MessagePlan => ({ ...p, input: { ...p.input, origin: { ...p.input.origin, sigungu: sigungu as never } } });
+  const resident = (s: ChannelSet) => residentTexts(s).join('\n');
+  const staffBoth = (s: ChannelSet) => [s.text.ko.staff.jurisdiction ?? '', s.text.en.staff.jurisdiction ?? ''];
+
+  it('item 5: every real origin carries exactly one label with a source; counts by region and county', () => {
+    const counts: Record<string, Record<string, number>> = {};
+    const seen = new Set<string>();
+    for (const i of realInputs) {
+      const g = i.origin.sigungu;
+      expect(g, i.origin.id).toBeTruthy();
+      expect(g!.source).toMatch(/^행정구역: BND_SIGUNGU_PG \(BASE_DATE 2025-06-30\)/);
+      expect(g!.status === 'established' ? g!.reason === null && !!g!.ko : g!.ko === null && !!g!.reason).toBe(true);
+      if (seen.has(`${i.region.id}/${i.origin.id}`)) continue;
+      seen.add(`${i.region.id}/${i.origin.id}`);
+      const k = g!.status === 'established' ? g!.ko! : g!.reason!;
+      (counts[i.region.id] ??= {})[k] = (counts[i.region.id]![k] ?? 0) + 1;
+    }
+    console.log('[JUR] origins by region and 시·군 (50 m):', JSON.stringify(counts));
+    expect(counts).toEqual({ uiseong_andong_2025: { 의성군: 48, 안동시: 38 }, yeongdeok_2025: { 영덕군: 82, 청송군: 4, 영양군: 5 } });
+  });
+
+  it('items 1-3 (531 real): no registered issuer renders a line outside its own established 시·군; every withheld line has a staff warning in both languages; correct-county coverage reported', () => {
+    const cross: string[] = [];
+    const report: Record<string, { correct: number; included: number; withheld: number }> = {};
+    for (const e of AGENCY_REGISTRY) {
+      const r = (report[e.ko] = { correct: 0, included: 0, withheld: 0 });
+      for (const pl of real) {
+        const s = buildChannels(pl, { nowIso: NOW, issuer: drill(e.ko), draftDecreeCheck: true });
+        const has = resident(s).includes('000-000-0000');
+        const g = pl.input.origin.sigungu;
+        const own = g?.status === 'established' && g.ko === e.ko;
+        if (own) r.correct += 1;
+        if (has) {
+          r.included += 1;
+          if (!own) cross.push(`${e.ko} @ ${pl.input.region.id}/${pl.input.origin.id} (${g?.ko ?? g?.reason})`);
+        } else if (!own) {
+          r.withheld += 1;
+          const [ko, en] = staffBoth(s);
+          expect(ko).toContain(`입력한 기관(${e.ko})이 이 장소가 속한 시·군(${g!.ko})과 다릅니다`);
+          expect(en).toContain(`The issuer (${e.ko}) is not this place's 시·군 (${g!.ko})`);
+          expect(s.text.ko.staff.decree).toContain(ko);
+          expect(s.text.en.staff.decree).toContain(en);
+          expect(s.decree!.ko.familyScript.contact).toBe('jurisdiction_mismatch');
+        }
+      }
+      // coverage: every place-scenario of the issuer's own county keeps its line (head may be over budget, family text may not fit, so count the family script)
+      expect(r.included).toBe(r.correct);
+    }
+    console.log('[JUR] per registered issuer over 531 real place-scenarios {correct-county, line rendered, withheld}:', JSON.stringify(report));
+    expect(cross).toEqual([]);
+    expect(report['영덕군']).toEqual({ correct: 246, included: 246, withheld: 285 });
+    expect(report['의성군']!.included).toBe(144);
+    // the two cross-county cases named in the design: 영덕군 on 의성–안동 and 의성군 on 영덕 are now 0 (from 258 and 273)
+    expect(real.filter((pl) => pl.input.region.id.startsWith('uiseong') && resident(buildChannels(pl, { nowIso: NOW, issuer: drill('영덕군') })).includes('000-000-0000')).length).toBe(0);
+    expect(real.filter((pl) => pl.input.region.id.startsWith('yeongdeok') && resident(buildChannels(pl, { nowIso: NOW, issuer: drill('의성군') })).includes('000-000-0000')).length).toBe(0);
+  });
+
+  it('item 2: no line where the label is not established, absent or malformed — each reason in plain words, both languages', () => {
+    const pl = real.find((x) => x.input.origin.sigungu?.ko === '의성군')!;
+    const cases: [unknown, RegExp, RegExp][] = [
+      [{ ko: null, status: 'not_established', reason: 'near_boundary', source: 's' }, /경계에서 50 m 안/, /within 50 m of a 시·군 boundary/],
+      [{ ko: null, status: 'not_established', reason: 'outside_all', source: 's' }, /어느 시·군 경계 안에도/, /inside no 시·군 boundary/],
+      [{ ko: null, status: 'not_established', reason: 'multiple', source: 's' }, /두 시·군 경계/, /more than one 시·군 boundary/],
+      [{ ko: null, status: 'not_established', reason: 'entry_differs', source: 's' }, /도로 진입 지점이 다른 시·군/, /road entry point lies in another 시·군/],
+      [null, /행정구역 자료 없음/, /no boundary label/],
+      [undefined, /행정구역 자료 없음/, /no boundary label/],
+    ];
+    for (const [label, ko, en] of cases) {
+      const s = buildChannels(withLabel(pl, label), { nowIso: NOW, issuer: drill('의성군'), draftDecreeCheck: true });
+      expect(resident(s)).not.toContain('000-000-0000');
+      expect(s.decree!.ko.familyScript.contact).toBe('jurisdiction_not_established');
+      expect(s.text.ko.staff.jurisdiction).toMatch(ko);
+      expect(s.text.en.staff.jurisdiction).toMatch(en);
+    }
+    // the parser never reads a malformed label as established
+    for (const bad of [{ ko: '의성군', status: 'established', reason: null }, { ko: '의성군 ', status: 'established', reason: null, source: 's' }, { ko: '의성군', status: 'established', reason: 'near_boundary', source: 's' }, { ko: '의성군', status: 'not_established', reason: 'near_boundary', source: 's' }, { ko: null, status: 'not_established', reason: 'other', source: 's' }, 'established'])
+      expect(parseSigungu(bad)).toBeNull();
+    expect(parseSigungu({ ko: '의성군', status: 'established', reason: null, source: 's' })).toEqual({ ko: '의성군', status: 'established', reason: null, source: 's' });
+  });
+
+  it('item 4: nothing else changes — no issuer: the label changes no output; matched: Main\'s output; withheld: exactly the no-issuer resident output and violations (531 real + 600 synthetic)', () => {
+    let matched = 0, withheld = 0;
+    for (const pl of [...real, ...syn]) {
+      const unlabelled = withLabel(pl, null);
+      const a = buildChannels(pl, { nowIso: NOW, draftDecreeCheck: true });
+      const b = buildChannels(unlabelled, { nowIso: NOW, draftDecreeCheck: true });
+      expect(JSON.stringify(a.text)).toBe(JSON.stringify(b.text));
+      expect(a.violations).toEqual(b.violations);
+      for (const ko of ['의성군', '영덕군']) {
+        const s = buildChannels(pl, { nowIso: NOW, issuer: drill(ko), draftDecreeCheck: true });
+        const g = pl.input.origin.sigungu;
+        if (g?.status === 'established' && g.ko === ko) {
+          matched += 1;
+          continue;
+        }
+        withheld += 1;
+        expect(residentTexts(s)).toEqual(residentTexts(a));
+        expect(s.violations).toEqual(a.violations);
+      }
+    }
+    console.log('[JUR] item 4: matched', matched, 'withheld', withheld);
+    expect(matched).toBe(144 + 246);
+    expect(withheld).toBe(2 * (531 + 600) - matched);
+  });
+
+  it('item 4 (matched = Main): with the label matching, the output equals the pre-jurisdiction kit (rule bypassed by labelling every place in the issuer\'s county)', () => {
+    for (const pl of real.filter((x) => x.input.origin.sigungu?.ko === '의성군').slice(0, 60)) {
+      const s = buildChannels(pl, { nowIso: NOW, issuer: drill('의성군'), draftDecreeCheck: true });
+      const t = buildChannels(withLabel(pl, { ko: '의성군', status: 'established', reason: null, source: 'other' }), { nowIso: NOW, issuer: drill('의성군'), draftDecreeCheck: true });
+      expect(JSON.stringify(s.text)).toBe(JSON.stringify(t.text));
+      expect(s.text.ko.staff.jurisdiction ?? null).toBeNull();
+      expect(resident(s)).toContain('문의: 의성군 000-000-0000');
+    }
   });
 });
