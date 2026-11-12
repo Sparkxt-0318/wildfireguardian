@@ -191,12 +191,14 @@ const AGENCY_WORDS_MAX = 8;
 export type IssuerCheck = 'none' | 'bad_name' | 'bad_number' | 'not_in_registry' | 'ok';
 
 /**
- * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC, mobile 01X-BBB(B)-CCCC, or a
- * representative number 1XXX-XXXX. Times, dates and bare digit runs ("18-30", "2025-03-25", "1830") never match.
- * Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
+ * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC or a representative number
+ * 1XXX-XXXX. Mobile numbers (010/011/016–019) are refused: they are personal data, and an official contact is a landline
+ * or a representative number (Mira note, orchestrator). Times, dates and bare digit runs ("18-30", "2025-03-25", "1830")
+ * never match. Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
  */
 export function phoneShaped(n: string): boolean {
   if (!/^(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})$/.test(n)) return false;
+  if (/^01[016789]-/.test(n)) return false;
   return !['112', '119', '110'].includes(n.replace(/-/g, ''));
 }
 
@@ -801,8 +803,8 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       if (checked.status === 'bad_number')
         extra.push(
           lang === 'ko'
-            ? '문의처 없음 — 고칠 항목: 연락처. 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나 긴급번호입니다.'
-            : 'No contact line — field to fix: contact number. It is not a phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX) or it is an emergency number.',
+            ? '문의처 없음 — 고칠 항목: 연락처. 기관 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나, 휴대전화 또는 긴급번호입니다.'
+            : 'No contact line — field to fix: contact number. It is not an agency phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX), or it is a mobile or emergency number.',
         );
       if (checked.status === 'ok' && iss && contact[lang].voice === 'included')
         extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);

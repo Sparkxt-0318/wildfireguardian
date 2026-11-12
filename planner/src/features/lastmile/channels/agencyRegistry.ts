@@ -33,24 +33,10 @@ export const AGENCY_REGISTRY: readonly RegistryEntry[] = [
   { ko: '영양군', en: null, source: '긴급재난문자, 2025-03-25 18:18 (imaeil 2025032518271151259; via Sofia). English: own site unreachable — none.' },
 ];
 
-let override: readonly RegistryEntry[] | null = null;
-
-/** The registry in force. App code always gets the committed one. */
-export function activeRegistry(): readonly RegistryEntry[] {
-  return override ?? AGENCY_REGISTRY;
-}
-
 /**
- * TEST ONLY: run `fn` with a synthetic registry. Not reachable from app code: a test asserts that nothing under
- * planner/src calls it. Every entry still needs a non-empty source.
+ * The registry in force: always the committed one. Production code cannot replace it; tests substitute it only
+ * through a module mock (tests/planner/wkit.channels.test.ts), so app code cannot reach a replacement.
  */
-export function withTestRegistryOnly<T>(entries: readonly RegistryEntry[], fn: () => T): T {
-  if (entries.some((e) => !e.source.trim())) throw new Error('registry entries need a source');
-  const prev = override;
-  override = entries;
-  try {
-    return fn();
-  } finally {
-    override = prev;
-  }
+export function activeRegistry(): readonly RegistryEntry[] {
+  return AGENCY_REGISTRY;
 }

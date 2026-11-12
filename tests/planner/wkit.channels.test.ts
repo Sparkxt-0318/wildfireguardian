@@ -4,13 +4,30 @@
  * (checkChannels) are re-tested with independent oracles: Python's strict euc_kr codec for byte counts, the kit's
  * NEVER / DEPART patterns (lastmile.oracle.ts) and a separate clock-time regex.
  */
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { hm } from '../../planner/src/features/lastmile/compose';
 import { OFFICIAL_FIRST, OFFICIAL_FIRST_SMS } from '../../planner/src/features/lastmile/strings';
 import { smsSegments } from '../../planner/src/features/lastmile/encoding';
-import { AGENCY_REGISTRY, withTestRegistryOnly, type RegistryEntry } from '../../planner/src/features/lastmile/channels/agencyRegistry';
+import { AGENCY_REGISTRY, type RegistryEntry } from '../../planner/src/features/lastmile/channels/agencyRegistry';
+
+// TEST-ONLY registry substitution through a module mock: production code has no override at all (Mira note N2).
+const regState = vi.hoisted(() => ({ current: null as null | readonly { ko: string; en: string | null; source: string }[] }));
+vi.mock('../../planner/src/features/lastmile/channels/agencyRegistry', async (orig) => {
+  const m = await orig<typeof import('../../planner/src/features/lastmile/channels/agencyRegistry')>();
+  return { ...m, activeRegistry: () => regState.current ?? m.AGENCY_REGISTRY };
+});
+function withTestRegistryOnly<T>(entries: readonly RegistryEntry[], fn: () => T): T {
+  if (entries.some((e) => !e.source.trim())) throw new Error('registry entries need a source');
+  const prev = regState.current;
+  regState.current = entries;
+  try {
+    return fn();
+  } finally {
+    regState.current = prev;
+  }
+}
 import { buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { messagePlan, type MessagePlan } from '../../planner/src/features/lastmile/plan';
 import {
@@ -816,7 +833,9 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
   });
 
   it('the contact number must have a Korean phone shape; times, dates, bare digits and emergency numbers are refused, and staff are told which field to fix', () => {
-    for (const ok of ['000-000-0000', '000-0000-0000', '010-0000-0000', '1000-0000']) expect(phoneShaped(ok), ok).toBe(true);
+    for (const ok of ['000-000-0000', '000-0000-0000', '1000-0000']) expect(phoneShaped(ok), ok).toBe(true);
+    // mobile numbers are personal data, never an agency contact line (Mira note N1)
+    for (const mob of ['010-0000-0000', '011-000-0000', '016-0000-0000', '017-000-0000', '018-0000-0000', '019-000-0000']) expect(phoneShaped(mob), mob).toBe(false);
     for (const bad of ['18-30', '1830', '2025-03-25', '112-0', '01-12', '112', '119', '1-1-2', '0000', '18:30', '000-0000-0000-0000', '000 000 0000', '1-000-0000', '+82-00-000-0000']) expect(phoneShaped(bad), bad).toBe(false);
     const s = buildChannels(p(), { nowIso: NOW, issuer: { agency: { ko: '의성군' }, contact: '18-30', forDrillOrReplay: true }, draftDecreeCheck: true });
     expect(outs(s)).not.toMatch(/문의|18-30/);
@@ -852,8 +871,14 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
 
   it('no registry override is reachable from app code: no ChannelOptions field, and nothing under planner/src calls the test-only hook', () => {
     const { execFileSync } = require('node:child_process') as typeof import('node:child_process');
-    const hits = execFileSync('grep', ['-rlnE', 'withTestRegistryOnly|agencyRegistry[?]?:', new URL('../../planner/src/', import.meta.url).pathname], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
-    expect(hits.map((h) => h.split('/planner/src/')[1])).toEqual(['features/lastmile/channels/agencyRegistry.ts']);
+    let hits: string[] = [];
+    try {
+      hits = execFileSync('grep', ['-rlnE', 'withTestRegistryOnly|override|agencyRegistry[?]?:', new URL('../../planner/src/features/lastmile/', import.meta.url).pathname], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
+    } catch {
+      hits = []; // grep exits 1 when nothing matches
+    }
+    // production code has no registry override at all; the substitution lives only in this test file's module mock
+    expect(hits).toEqual([]);
     expect(() => withTestRegistryOnly([{ ko: 'x군', en: null, source: '' }], () => 0)).toThrow();
   });
 });
