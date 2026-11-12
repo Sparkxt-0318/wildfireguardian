@@ -62,3 +62,11 @@ def test_fit_bracket_runs_two_epochs_with_d4_and_finite_loss():
                         validate_each_epoch=False, log=logs.append, sweeps=1, step=1.0)
     assert len(res["history"]) == 2
     assert all(np.isfinite(h["train_scaled_loss"]) for h in res["history"])
+
+
+def test_estep_stream_does_not_change_training_order():
+    # The training RNG consumes only order and D4 draws; the E-step has its own stream.
+    import inspect
+    src = inspect.getsource(B.fit_bracket)
+    assert "estep_rng" in src and "gibbs_sweep(Kn, tau, np.flatnonzero(latent), src, tgt, scored, sample.hours, step, estep_rng)" in src
+    assert "SeedSequence([seed, 0x5D2B])" in src

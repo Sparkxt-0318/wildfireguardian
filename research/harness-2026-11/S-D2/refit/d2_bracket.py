@@ -28,7 +28,21 @@ other scored cells are unburned through ``hours``):
 
   normalised by Σ_j w_j and the training prevalence, as ``fit_mean_field`` normalises Brier. eps = 1e-7 is additive.
 
-Latent times persist between epochs (warm start) in each sample's original frame. Label validity comes from the
+Fixed E-step protocol (A1 stage-2 amendment, Victor's items a-d):
+(a) exactly ``sweeps`` Gibbs sweeps per window visit per epoch; no adaptive or convergence-based count and no
+    burn-in beyond these sweeps;
+(b) initialisation: on a window's first visit, every latent cell starts at its bracket midpoint (hours / 2). On later
+    visits it starts from its last sampled times (warm start), kept in the sample's original frame;
+(c) the E-step draws from its own RNG stream, ``np.random.default_rng(np.random.SeedSequence([seed, 0x5D2B]))``,
+    separate from the training stream ``np.random.default_rng(seed)``, which controls interval order and D4 draws
+    exactly as in fit_mean_field. Changing the E-step therefore never changes the training order;
+(d) order per window visit: (1) ONE ``kernel_rates`` pass with the current parameters; (2) ``sweeps`` Gibbs sweeps,
+    all using those kernels, detached; (3) the M-step loss on the same kernels (with gradient); (4) the optimiser
+    update after each ``samples_per_step`` group. Kernels are therefore recomputed only on the next visit, after an
+    M-step update, never between sweeps.
+
+Recorded constraint: the E-step is valid only because the hazard is linear in the burned state, which holds for
+kernel-only variants without burnout/residence or spotting (d4_wind). ``fit_bracket`` refuses other variants. Label validity comes from the
 perimeter states (A1 §4.1 rule 3); arrival rasters are not used.
 """
 from __future__ import annotations
@@ -145,7 +159,8 @@ def fit_bracket(model, train, validation, *, epochs=8, learning_rate=3e-3, weigh
         raise ValueError("Fitting requires nonempty training samples and positive budgets")
     if getattr(model, "spotting_radius", 0) or getattr(model, "residence_hours", None) is not None:
         raise ValueError("d2_bracket supports kernel-only variants (no burnout/spotting), e.g. d4_wind")
-    rng = np.random.default_rng(seed)
+    rng = np.random.default_rng(seed)                                            # training stream, as fit_mean_field
+    estep_rng = np.random.default_rng(np.random.SeedSequence([seed, 0x5D2B]))      # separate E-step stream (c)
     torch.manual_seed(seed)
     positives = sum(float((s.endpoint & s.score_mask).sum()) for s in train)
     cells = sum(float(s.score_mask.sum()) for s in train)
@@ -197,7 +212,7 @@ def fit_bracket(model, train, validation, *, epochs=8, learning_rate=3e-3, weigh
                 e0 = time.perf_counter()
                 Kn = K.detach().numpy()
                 for _ in range(sweeps):
-                    tau = gibbs_sweep(Kn, tau, np.flatnonzero(latent), src, tgt, scored, sample.hours, step, rng)
+                    tau = gibbs_sweep(Kn, tau, np.flatnonzero(latent), src, tgt, scored, sample.hours, step, estep_rng)
                 estep_s += time.perf_counter() - e0
                 tau0[perm] = tau                                                          # back to original frame
                 ll, wsum = complete_loglik(K, tau, latent, scored, weight.reshape(-1).numpy(), sample.hours, src)
