@@ -26,6 +26,8 @@ Budgets: setup 2^12 and sweep 2^28, both extrapolated (STEP3_ACCEPTANCE, "Recali
 | G5 wall | **1.005** |
 | G5 memory | pass on all 20 |
 | kit_identity | V2 40/40, FROZEN 0 |
+| G2 | **28/28** published routes accepted by both frozen checkers in fresh processes (`results/step3/G2.jsonl`) |
+| G2b (Thomas's `xcheck/g2b.py` @ deeb7c2) | **40 runs, 0 violations** (38 PASS, 2 NOT_APPLICABLE_STATUS) (`results/step3/G2B.json`) |
 
 **The one status change is Yeongdeok 0325T23 FL2:** frozen CHECKED_JOURNEY_FEASIBLE@1922 (2/2), v2
 CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN@1922 (2/2). Both are inside the pre-stated FL2 rule.
@@ -51,7 +53,6 @@ budget ÷ its median 6 s equivalent = 1.90; sweep = 1.21.
 
 ## Pending
 
-- G2 and G2b on the published v2 routes (running).
 - The F-DYN set:
   - every stage stops within max(1 s, 5%) of its cap, with setup units and setup and sweep wall reported;
   - the A4 rerun, 10 reps × 2 requests at 900 s.
