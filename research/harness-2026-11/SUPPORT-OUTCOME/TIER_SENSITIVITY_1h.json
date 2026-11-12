@@ -7,6 +7,8 @@
   "R1.5_vs_recorded": 9,
   "A_vs_recorded": 34,
   "R8.2_direct_vs_downgrade_only": 0,
+  "excluded_R82": [],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "deadline": 85,
@@ -38,6 +40,8 @@
   "R1.5_vs_recorded": 3,
   "A_vs_recorded": 33,
   "R8.2_direct_vs_downgrade_only": 0,
+  "excluded_R82": [],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "deadline": 85,
@@ -65,6 +69,39 @@
   "R1.5_vs_recorded": 1,
   "A_vs_recorded": 24,
   "R8.2_direct_vs_downgrade_only": 5,
+  "excluded_R82": [
+   {
+    "origin": "osm:node/415160467",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415160362",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415160358",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415158334",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415160360",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   }
+  ],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "no_route": 7,
@@ -96,6 +133,33 @@
   "R1.5_vs_recorded": 3,
   "A_vs_recorded": 55,
   "R8.2_direct_vs_downgrade_only": 4,
+  "excluded_R82": [
+   {
+    "origin": "osm:node/415158320",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415160183",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415158259",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "research:yeongdeok_2025:20250325T190000Z_FD1:origin",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   }
+  ],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "deadline": 84,
@@ -127,6 +191,15 @@
   "R1.5_vs_recorded": 4,
   "A_vs_recorded": 57,
   "R8.2_direct_vs_downgrade_only": 1,
+  "excluded_R82": [
+   {
+    "origin": "research:yeongdeok_2025:20250325T230000Z_FL2:origin",
+    "recorded": "deadline:0",
+    "direct": "deadline:1200",
+    "downgrade_only": "deadline:0"
+   }
+  ],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "deadline": 91,
@@ -154,6 +227,21 @@
   "R1.5_vs_recorded": 2,
   "A_vs_recorded": 56,
   "R8.2_direct_vs_downgrade_only": 2,
+  "excluded_R82": [
+   {
+    "origin": "osm:node/415160178",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   },
+   {
+    "origin": "osm:node/415160314",
+    "recorded": "unresolved:-",
+    "direct": "no_route:-",
+    "downgrade_only": "unresolved:-"
+   }
+  ],
+  "upgrade_moves_with_rule": 0,
   "kinds": {
    "recorded": {
     "deadline": 89,
@@ -179,7 +267,21 @@
   "R8.2_vs_recorded": 134,
   "R1.5_vs_recorded": 22,
   "A_vs_recorded": 259,
-  "R8.2_direct_vs_downgrade_only": 12
+  "R8.2_direct_vs_downgrade_only": 12,
+  "upgrade_moves_with_rule": 0
  },
- "upgrade_attempts_direct_all_tiers": 988
+ "upgrade_attempts_direct_all_tiers": 988,
+ "upgrade_types_direct": {
+  "A|unresolved->checked(contact)": 2,
+  "A|unresolved->no_route": 194,
+  "B1.5|unresolved->checked(contact)": 2,
+  "B1.5|unresolved->no_route": 194,
+  "B8.2|unresolved->checked(contact)": 2,
+  "B8.2|unresolved->no_route": 194,
+  "R1.5|unresolved->checked(contact)": 8,
+  "R1.5|unresolved->no_route": 194,
+  "R8.2|unresolved->checked(contact)": 4,
+  "R8.2|unresolved->no_route": 194
+ },
+ "no_route_to_checked_by_raw_status": {}
 }

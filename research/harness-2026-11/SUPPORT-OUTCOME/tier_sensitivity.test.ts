@@ -37,6 +37,9 @@ function tierVerdict(recorded: Verdict, label: string, direct: boolean): Verdict
   return recorded === 'checked_route' && label !== 'checked(contact)' ? 'unresolved' : recorded;
 }
 const up = { n: 0 };
+/** would-be upgrades by tier, recorded verdict -> tier label, and by the recorded raw status (Iris) */
+const upTypes: Record<string, number> = {};
+const upRaw: Record<string, number> = {};
 
 function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<string, string>>, miss: { n: number }, direct = false): OriginPlan {
   if (!p.sweep?.length) return p;
@@ -45,7 +48,15 @@ function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<st
     const j = a.jobId ? jobs.get(a.jobId) : undefined;
     if (!j) { if (a.jobId) miss.n += 1; return a; }
     const v = tierVerdict(a.verdict, j[tier]!, direct);
-    if (direct && a.verdict !== 'checked_route' && v !== a.verdict) up.n += 1;
+    if (direct && a.verdict !== 'checked_route' && v !== a.verdict) {
+      up.n += 1;
+      const k = `${tier}|${a.verdict}->${j[tier]}`;
+      upTypes[k] = (upTypes[k] ?? 0) + 1;
+      if (a.verdict === 'model_no_route' && v === 'checked_route') {
+        const r = `${tier}|${a.rawStatus ?? '-'}|optimistic=${j.optimistic}`;
+        upRaw[r] = (upRaw[r] ?? 0) + 1;
+      }
+    }
     return { ...a, verdict: v };
   });
   const skipped = Object.fromEntries(p.sweep.filter((c) => c.skipped).map((c) => [c.offsetS, c.skipped!]));
@@ -53,6 +64,16 @@ function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<st
 }
 
 const key = (p: OriginPlan) => { const h = deadlineHeadline(p); return `${h.kind}:${h.deadlineS ?? '-'}`; };
+/**
+ * How much a headline claims: unresolved (nothing) < no_route (a refusal) and partial < deadline, and a later deadline
+ * claims more than an earlier one. An "upgrade move" is a headline that claims more than the recorded one.
+ */
+function rank(k: string): number {
+  const [kind, t] = k.split(':');
+  if (kind === 'unresolved') return 0;
+  if (kind === 'no_route') return 1;
+  return 2 + (t && t !== '-' ? Number(t) / 1e6 : 0) + (kind === 'deadline' ? 0.5 : 0);
+}
 
 it('tier sensitivity of the staff headline', () => {
   const out: Record<string, unknown> = {};
@@ -80,13 +101,19 @@ it('tier sensitivity of the staff headline', () => {
       'R1.5_vs_recorded': cnt(byTier['R1.5']!, recorded),
       'A_vs_recorded': cnt(byTier.A!, recorded),
       'R8.2_direct_vs_downgrade_only': cnt(byTier['R8.2_direct']!, byTier['R8.2']!),
+      // the headlines the downgrade-only rule keeps from moving (Iris: list them by place), and a check that with the
+      // rule on no headline moves in the upgrade direction in any tier
+      excluded_R82: ids.filter((i) => byTier['R8.2_direct']![i] !== byTier['R8.2']![i]).map((i) => ({ origin: i, recorded: recorded[i], direct: byTier['R8.2_direct']![i], downgrade_only: byTier['R8.2']![i] })),
+      upgrade_moves_with_rule: TIERS.reduce((n, t) => n + ids.filter((i) => rank(byTier[t]![i]!) > rank(recorded[i]!)).length, 0),
       kinds: { recorded: kinds(recorded), 'R1.5': kinds(byTier['R1.5']!), 'R8.2': kinds(byTier['R8.2']!), A: kinds(byTier.A!) },
     };
     out[c.entry.path] = row;
-    for (const k of ['origins', 'R8.2_vs_A', 'R8.2_vs_recorded', 'R1.5_vs_recorded', 'A_vs_recorded', 'R8.2_direct_vs_downgrade_only'] as const) tot[k] = (tot[k] ?? 0) + (row[k] as number);
+    for (const k of ['origins', 'R8.2_vs_A', 'R8.2_vs_recorded', 'R1.5_vs_recorded', 'A_vs_recorded', 'R8.2_direct_vs_downgrade_only', 'upgrade_moves_with_rule'] as const) tot[k] = (tot[k] ?? 0) + (row[k] as number);
   }
   out.total = tot;
   out.upgrade_attempts_direct_all_tiers = up.n;
+  out.upgrade_types_direct = Object.fromEntries(Object.entries(upTypes).sort());
+  out.no_route_to_checked_by_raw_status = Object.fromEntries(Object.entries(upRaw).sort());
   writeFileSync(process.env.TIER_OUT ?? '/dev/stdout', JSON.stringify(out, null, 1) + '\n');
   console.log('[tier sensitivity] total', JSON.stringify(tot), 'upgrade attempts (direct, all tiers):', up.n);
 }, 600_000);

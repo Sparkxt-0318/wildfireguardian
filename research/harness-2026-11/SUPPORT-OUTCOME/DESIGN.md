@@ -164,3 +164,36 @@ Recorded here after his answer (2026-11-12). The gated pass rule above is unchan
   - (3) one resident item in "what this does not check": "Where the fire map has no data, the model assumes fire
     cannot arrive faster than about 8 km an hour." Fallback: "…assumes a maximum fire speed; it could be wrong."
     Korean to Sofia.
+
+## Downgrade-only: reason and the would-be upgrades by type (Iris, 2026-11-12)
+- **Reason (Iris):** the tier results come from the contact-only deadline field, while the recorded results come from
+  the full kit with its checks. A weaker kind of evidence may withdraw a claim but must not create one. So a recorded
+  checked route may become unresolved, but a recorded unresolved or no-route is never changed by a tier.
+- The 988 would-be upgrades (direct mapping, all five tiers, six 1-h caches; TIER_SENSITIVITY_1h.json):
+
+  | Recorded → tier label | Count | Note |
+  |---|---|---|
+  | unresolved → no_route | **970** | 194 jobs per tier, the same in every tier |
+  | unresolved → checked(contact) | **18** | A 2, B1.5 2, B8.2 2, R1.5 8, R8.2 4 |
+  | model_no_route → checked(contact) | **0** | |
+
+  - The 194 unresolved → no_route jobs are infeasible even in the contact field's optimistic instance, yet the kit did
+    not resolve them. The contact field reads them as a refusal, but that is not a refusal certificate, so they stay
+    unresolved.
+  - Iris's evidence question asked: does the contact-only field call a run feasible where the kit's full rules
+    refused? At 1 h there is **no** such job (no recorded model_no_route becomes checked(contact) in any tier). So, on
+    these caches, the contact field does not overstate feasibility against a recorded refusal.
+- **Item 9 acceptance:** with the rule on, **0** headlines move in the upgrade direction, across all five tiers and six
+  caches (test value upgrade_moves_with_rule = 0). The 12 R8.2 headlines the rule keeps from moving, by place:
+  - 의성–안동 03-25 17Z: osm:node/415160467, 415160362, 415160358, 415158334, 415160360. Each is recorded unresolved;
+    direct mapping would show "no route".
+  - 영덕 03-25 19Z: osm:node/415158320, 415160183, 415158259, research:…_FD1. Each is unresolved; direct would show
+    "no route".
+  - 영덕 03-25 23Z: research:…_FL2. Recorded deadline 0 s; direct would give 1,200 s (a later time, i.e. an upgrade).
+  - 영덕 03-26 08Z: osm:node/415160178, 415160314. Each is unresolved; direct would show "no route".
+- Iris on the flag: it marks 246 of 539 places, which is too common to work as a per-place warning. So it LEADS with
+  the count in the staff summary ("the leave-by time at N of M places depends on the assumed maximum spread rate"),
+  and the per-place flag stays as a detail.
+- Orchestrator (b): provisional label "rate-assumed, 8.2 km/h (reported orally, method unpublished)". The resident
+  list item uses Iris's no-number fallback unless the owner wants a number. R16.4 / B16.4 are being run by Richard
+  (rules committed first: RATE_ASSUMED_RULE.md, 8a16dc2, and the "Addition 2026-11-12" for B16.4 at 41a2ae7).
