@@ -66,11 +66,20 @@ never retried silently and never dropped.
   - Add the variant's own label where it has one. For example, burnset rows keep the burn-set wording fixed by the
     orchestrator.
 
-## 5. Scope
+## 5. Scope (orchestrator, 2026-11-12 ~23:05 UTC: option (a))
 
-Decided by the orchestrator before the run starts. The options are listed with the measured cost per row
-(section 6).
+- **Starts:** Nora's two checked starts, Uiseong 20250324T090000Z and Yeongdeok 20250325T110000Z.
+- **Horizon and variants:** h5 × {kriged_mean, firms_early, envelope_burnset}. That is **6 packets**.
+- **Envelope packets:** the h5 envelope packet of each start is also run through the gates, to record its expected
+  REFUSED status. It produces no rows.
+- **Departures:** 0 and 7200 s. Every origin in the region's INSTANCE.json is used.
+- **Uncertified:** the other **360 certifiable packets** of MANIFEST_v3_7 no_reentry/2 (366 minus these 6). They carry
+  no F-3.2 certificate, and the record states this.
+- **Option (b):** the 6 recorded starts × h5/h8 × 3 variants = 36 packets. It runs only if a person-facing output
+  later needs it.
 
-## 6. Measured cost
+## 6. Measured cost (before the scope decision)
 
-Filled in from a timing run on one Nora sample packet (Uiseong 0324T09 h5 kriged_mean /2), before the scope decision.
+- Uiseong 0324T09 h5 kriged_mean /2: first row FULLY_BOUND, certify 11.8 s plus verify 3.4 s.
+- About 15 s per row. A packet has 168 rows at the two departures, so about 42 minutes.
+- All 366 certifiable packets would take about 250 h. That is why the scope is limited.
