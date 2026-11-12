@@ -1,0 +1,439 @@
+{
+ "reference": "forecast-v2 held-out NIROPS survey rows, six US 2024 fires",
+ "product": "Choi et al. 2026 PSwt-OK time of arrival and kriging SD (Zenodo 10.5281/zenodo.21788344)",
+ "per_event": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "survey_intervals": 52,
+   "cells_with_rows": 11649,
+   "cells_with_kriging": 3781,
+   "mapped_cells_with_kriging": 3744,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 46.228824615478516,
+   "bracket_width_hours_median_mapped": 23.633333333333326,
+   "mean_minus_bracket_mid_hours_median_mapped": 12.070686848958303,
+   "pit_histogram_10": [
+    476,
+    285,
+    426,
+    703,
+    908,
+    415,
+    146,
+    97,
+    103,
+    222
+   ],
+   "pit_mapped_histogram_10": [
+    476,
+    282,
+    426,
+    703,
+    908,
+    411,
+    143,
+    87,
+    98,
+    210
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.7437185929648241,
+     "mapped": 0.7441239316239316
+    },
+    "90": {
+     "all": 0.8883893149960328,
+     "mapped": 0.8891559829059829
+    }
+   },
+   "scale_only": {
+    "c": 1.864123586106819,
+    "b_hours": 0.0,
+    "nll": 10441.707019470821,
+    "nll_at_c1": 12691.234301314704
+   },
+   "scale_and_shift": {
+    "c": 1.8460934924782322,
+    "b_hours": -11.439085127510321,
+    "nll": 10407.179990090048,
+    "nll_at_c1": 12691.234301314704
+   },
+   "scale_profile": {
+    "c_grid_best": 1.8612441153722472,
+    "lr95": [
+     1.8258706362741886,
+     1.8973029020702208
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.4885510229609309
+  },
+  "ID-BOF-000904_Goat": {
+   "survey_intervals": 42,
+   "cells_with_rows": 4953,
+   "cells_with_kriging": 1051,
+   "mapped_cells_with_kriging": 438,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 96.34868621826172,
+   "bracket_width_hours_median_mapped": 26.73333333333335,
+   "mean_minus_bracket_mid_hours_median_mapped": 12.351969401041629,
+   "pit_histogram_10": [
+    40,
+    22,
+    53,
+    132,
+    204,
+    157,
+    107,
+    108,
+    105,
+    123
+   ],
+   "pit_mapped_histogram_10": [
+    38,
+    16,
+    43,
+    77,
+    114,
+    84,
+    23,
+    15,
+    10,
+    18
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.9019980970504282,
+     "mapped": 0.815068493150685
+    },
+    "90": {
+     "all": 0.9543292102759277,
+     "mapped": 0.91324200913242
+    }
+   },
+   "scale_only": {
+    "c": 1.3646692742797,
+    "b_hours": 0.0,
+    "nll": 1665.9962797639269,
+    "nll_at_c1": 1726.5373570046825
+   },
+   "scale_and_shift": {
+    "c": 1.4424617496812322,
+    "b_hours": 53.46935469626063,
+    "nll": 1602.0340463174944,
+    "nll_at_c1": 1726.5373570046825
+   },
+   "scale_profile": {
+    "c_grid_best": 1.3692098171321807,
+    "lr95": [
+     1.2926174197810953,
+     1.450340599346577
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.2683206464133836
+  },
+  "ID-BOF-001080_Lava": {
+   "survey_intervals": 47,
+   "cells_with_rows": 6526,
+   "cells_with_kriging": 2807,
+   "mapped_cells_with_kriging": 662,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 27.06287384033203,
+   "bracket_width_hours_median_mapped": 23.01666666666665,
+   "mean_minus_bracket_mid_hours_median_mapped": 2.1873372395833712,
+   "pit_histogram_10": [
+    90,
+    169,
+    217,
+    316,
+    418,
+    384,
+    311,
+    268,
+    265,
+    369
+   ],
+   "pit_mapped_histogram_10": [
+    55,
+    22,
+    29,
+    83,
+    183,
+    141,
+    52,
+    34,
+    20,
+    43
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.931599572497328,
+     "mapped": 0.8413897280966768
+    },
+    "90": {
+     "all": 0.9494121838261489,
+     "mapped": 0.8972809667673716
+    }
+   },
+   "scale_only": {
+    "c": 2.1768840756543257,
+    "b_hours": 0.0,
+    "nll": 2742.1296627658066,
+    "nll_at_c1": 3890.246818591663
+   },
+   "scale_and_shift": {
+    "c": 2.53378664081093,
+    "b_hours": 53.27013165358092,
+    "nll": 2332.0350468652236,
+    "nll_at_c1": 3890.246818591663
+   },
+   "scale_profile": {
+    "c_grid_best": 2.170051318223719,
+    "lr95": [
+     2.088350245408594,
+     2.2549487252331764
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.8211206818924581
+  },
+  "ID-SCF-240202_RedRock": {
+   "survey_intervals": 40,
+   "cells_with_rows": 7749,
+   "cells_with_kriging": 2222,
+   "mapped_cells_with_kriging": 962,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 58.424781799316406,
+   "bracket_width_hours_median_mapped": 23.950000000000045,
+   "mean_minus_bracket_mid_hours_median_mapped": 13.713037109375023,
+   "pit_histogram_10": [
+    93,
+    127,
+    246,
+    340,
+    329,
+    237,
+    200,
+    195,
+    201,
+    254
+   ],
+   "pit_mapped_histogram_10": [
+    81,
+    66,
+    111,
+    194,
+    199,
+    95,
+    49,
+    48,
+    38,
+    81
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.8753375337533753,
+     "mapped": 0.7453222453222453
+    },
+    "90": {
+     "all": 0.9383438343834384,
+     "mapped": 0.8773388773388774
+    }
+   },
+   "scale_only": {
+    "c": 2.2085364981284092,
+    "b_hours": 0.0,
+    "nll": 3607.883570296147,
+    "nll_at_c1": 4981.574651276197
+   },
+   "scale_and_shift": {
+    "c": 2.3194429639333327,
+    "b_hours": 56.669662025707034,
+    "nll": 3474.4367067211006,
+    "nll_at_c1": 4981.574651276197
+   },
+   "scale_profile": {
+    "c_grid_best": 2.2120927769239587,
+    "lr95": [
+     2.1288088695234584,
+     2.2986349426543606
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.414857440181373
+  },
+  "WA-SES-000173_Pioneer": {
+   "survey_intervals": 55,
+   "cells_with_rows": 5180,
+   "cells_with_kriging": 1048,
+   "mapped_cells_with_kriging": 956,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 74.49045181274414,
+   "bracket_width_hours_median_mapped": 24.5,
+   "mean_minus_bracket_mid_hours_median_mapped": 10.29779256184895,
+   "pit_histogram_10": [
+    28,
+    47,
+    82,
+    199,
+    285,
+    159,
+    82,
+    68,
+    44,
+    54
+   ],
+   "pit_mapped_histogram_10": [
+    27,
+    43,
+    75,
+    196,
+    274,
+    149,
+    66,
+    55,
+    30,
+    41
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.857824427480916,
+     "mapped": 0.8472803347280334
+    },
+    "90": {
+     "all": 0.9627862595419847,
+     "mapped": 0.9612970711297071
+    }
+   },
+   "scale_only": {
+    "c": 1.0684927637796777,
+    "b_hours": 0.0,
+    "nll": 2513.936077609651,
+    "nll_at_c1": 2518.343458680071
+   },
+   "scale_and_shift": {
+    "c": 1.067123615546565,
+    "b_hours": -2.196471846451449,
+    "nll": 2513.5034176463205,
+    "nll_at_c1": 2518.343458680071
+   },
+   "scale_profile": {
+    "c_grid_best": 1.0669318282376632,
+    "lr95": [
+     1.0267625132285731,
+     1.1086726593933895
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.32974649003767764
+  },
+  "WY-BTF-002416_FishCreek": {
+   "survey_intervals": 37,
+   "cells_with_rows": 7292,
+   "cells_with_kriging": 2415,
+   "mapped_cells_with_kriging": 1758,
+   "mapped_cells_without_kriging": 0,
+   "kriging_sd_hours_median": 87.20613861083984,
+   "bracket_width_hours_median_mapped": 24.75,
+   "mean_minus_bracket_mid_hours_median_mapped": 9.411377716064347,
+   "pit_histogram_10": [
+    72,
+    86,
+    144,
+    365,
+    778,
+    360,
+    216,
+    124,
+    111,
+    159
+   ],
+   "pit_mapped_histogram_10": [
+    33,
+    30,
+    69,
+    301,
+    721,
+    287,
+    133,
+    62,
+    28,
+    94
+   ],
+   "central_interval_hit_rate": {
+    "50": {
+     "all": 0.9175983436853002,
+     "mapped": 0.891353811149033
+    },
+    "90": {
+     "all": 0.9602484472049689,
+     "mapped": 0.9465301478953356
+    }
+   },
+   "scale_only": {
+    "c": 1.2233987089144525,
+    "b_hours": 0.0,
+    "nll": 5246.831450633901,
+    "nll_at_c1": 5335.288054237891
+   },
+   "scale_and_shift": {
+    "c": 1.222380679313558,
+    "b_hours": 13.46878411524747,
+    "nll": 5229.973340348857,
+    "nll_at_c1": 5335.288054237891
+   },
+   "scale_profile": {
+    "c_grid_best": 1.2203095340209902,
+    "lr95": [
+     1.1856868528308275,
+     1.25594321575479
+    ],
+    "at_edge": false
+   },
+   "bracket_over_sd_median_mapped": 0.28762396331174156
+  }
+ },
+ "across_fires_scale": {
+  "values": [
+   1.864123586106819,
+   1.3646692742797,
+   2.1768840756543257,
+   2.2085364981284092,
+   1.0684927637796777,
+   1.2233987089144525
+  ],
+  "min": 1.0684927637796777,
+  "max": 2.2085364981284092,
+  "geometric_mean": 1.5871949275871724
+ },
+ "pooled": {
+  "cells": 13324,
+  "mapped": 8520,
+  "scale_only": {
+   "c": 1.7471951291303967,
+   "b_hours": 0.0,
+   "nll": 26762.780137803456,
+   "nll_at_c1": 31143.22464110521
+  },
+  "scale_profile": {
+   "c_grid_best": 1.7403502942142053,
+   "lr95": [
+    1.723733032865747,
+    1.757127750540342
+   ],
+   "at_edge": false
+  },
+  "scale_and_shift": {
+   "c": 1.778421560810828,
+   "b_hours": 15.135929592211276,
+   "nll": 26586.97293625994,
+   "nll_at_c1": 31143.22464110521
+  },
+  "mapped_only_scale_and_shift": {
+   "c": 1.7622403501030663,
+   "b_hours": -8.174738272015304,
+   "nll": 24599.25836550675,
+   "nll_at_c1": 28757.9296097062
+  }
+ }
+}
