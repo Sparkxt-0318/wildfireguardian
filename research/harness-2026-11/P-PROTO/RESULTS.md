@@ -24,7 +24,9 @@ has not been made. Comprehension by older adults is untested; the tests show con
   and data age 40 px.
 
 ## Tests (`tests/planner/pproto.test.ts`, 10) — full planner suite 23 files / 395 tests pass
-- All 531 real + 600 synthetic origins: time only for leave_by, always with replay date + mark; nothing else timed;
+- All 531 real + 600 synthetic origins: a leave-by time only for leave_by, always with replay date + mark; no other card
+  shows a leave or deadline time (every card's data-age line shows the replay INPUT time, e.g. "자료: 2025-03-24 18:00
+  기록 (재현)" — that is the data time, not a violation; Mira note N1);
   no forbidden word (kit NEVER oracle); data age never "minutes old".
 - Examples: deterministic, one per state, leave_by first.
 - GPX/text hand-off: replay label in file name, metadata name and description; one waypoint; no geo:.
