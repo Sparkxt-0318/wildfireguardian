@@ -27,7 +27,7 @@ from deadline_field.unknown import extra_blocks, summary  # noqa: E402
 
 TIERS = (("optimistic", None, None), ("A", "A", None), ("B1.5", "B", 1.5), ("B8.2", "B", 8.2),
          ("R1.5", "R", 1.5), ("R8.2", "R", 8.2))
-EXTRA_TIERS = {"R16.4": ("R16.4", "R", 16.4)}   # rate-assumed sensitivity (RATE_ASSUMED_RULE.md)
+EXTRA_TIERS = {"R16.4": ("R16.4", "R", 16.4), "B16.4": ("B16.4", "B", 16.4)}   # rate-assumed sensitivity (RATE_ASSUMED_RULE.md)
 
 
 def run(cache_path: Path, data_root: Path, tiers=TIERS):
