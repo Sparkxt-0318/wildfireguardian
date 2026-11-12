@@ -1,4 +1,4 @@
-# Road-graph rebuild rule: Uiseong–Andong 2025 and Yeongdeok 2025 (DRAFT 1; extent to be filled in by Leo or Richard)
+# Road-graph rebuild rule: Uiseong–Andong 2025 and Yeongdeok 2025 (DRAFT 2, 15:35Z: updated in place from Leo's and Richard's answers; draft 1 is commit 584ccfab)
 
 Written 2026-11-12 before any OSM request. Execution waits until the 00:12 UTC weather launch on 13 Nov (orchestrator).
 
@@ -15,35 +15,52 @@ Written 2026-11-12 before any OSM request. Execution waits until the 00:12 UTC w
 - "allowed" means the node has at least one incoming and one outgoing road edge (api/regions.py GraphIndex.load).
 - Display roads are in planner/research-map/site/regions/<region>.osm.js, classified as major_road / minor_road / highway / path (track) / rail.
 
+## Facts from Leo (measured from data/routing/graphs/*/graph.json, which is in Leo's container and not in git) and Richard
+
+- **Export grid.** Both regions sit on the KFS_01 export grid: EPSG:5179, x 1,085,250–1,174,125, y 1,815,750–1,845,375, 237 × 79 cells of 375 m.
+  - The final burn set has 16,176 cells and touches all four edges of the grid.
+  - The writer requires graph grid == forecast grid.
+  - So "every exit road reaches outside the burn set" is IMPOSSIBLE on the current hazard grid. It needs a padded hazard grid, which is a contract change and the orchestrator's decision (Leo has flagged it).
+- **Current windows.**
+  - UA: x 1,093,875–1,121,250, y 1,815,750–1,840,125.
+  - YD: x 1,147,500–1,174,125, y 1,815,750–1,840,875.
+- **Recipe found in the files.**
+  - Nodes are OSM nodes at projected coordinates, NOT snapped.
+  - There is one edge per consecutive node pair of a way, in both directions, with ids w<way>:s<k>:f/r.
+  - travel_ticks = ceil(chord / 40 km/h), with dt = 1 s.
+  - segments = the chord split at 375 m cell boundaries, as {cell, start, end}, with a row-major cell index and row 0 at the south edge.
+  - Excluded: private and no-access ways, and unsupported conditional or restriction ways.
+  - A missing oneway tag is treated as two-way.
+  - U-turns are allowed only at dead ends.
+  - The forbidden_turns, waitable and mid_edge_reversal rules are not yet documented.
+- **Counts.**
+  - UA a30e1f05…: 23,158 nodes, 43,826 edges, 2,065 distinct source_way.
+  - YD 8a804b26…: 56,369 nodes, 111,924 edges, 3,849 distinct source_way.
+- **Schema needed by Richard's F-3.1:** revision, crs, grid, nodes, edges (travel_ticks, segments with a per-cell index), forbidden_turns, mid_edge_reversal and provenance, on the same grid metadata.
+
 ## Rule
 
-1. **Source.** The ohsome API (api.ohsome.org, HeiGIT), endpoint `/v1/elements/geometry`:
-   - `time=2025-03-21T23:59:59Z`;
-   - `filter=type:way and highway in (<classes>)`;
-   - `bbox=<extent>`;
-   - `properties=tags,metadata`.
+1. **Source.** The ohsome API (api.ohsome.org), `/v1/elements/geometry` with `time=2025-03-21T23:59:59Z`, `filter=type:way and highway=*`, the bbox below and `properties=tags,metadata`. Ways only; node IDs come from the geometry vertices via `/elements/geometry` with node references if available, otherwise see step 7.
+   - Licence: ODbL 1.0, "© OpenStreetMap contributors". The ohsome metadata and attribution are recorded before use.
+2. **Extent.** The export grid plus a margin of N km, for both regions, in one extract.
+   - N = 5 is suggested by Leo and still to be fixed by the orchestrator with the padding decision.
+   - With N = 5, the WGS84 bbox is about lon 128.3937–129.5035, lat 36.2774–36.6479. Without the margin it is lon 128.4499–129.4465, lat 36.3234–36.6024.
+3. **Highway classes.** Taken EMPIRICALLY: the highway tags of the owner's 2,065 + 3,849 source_way ids, looked up in the same snapshot.
+   - This needs Leo to commit or share the distinct source_way id lists.
+   - The class set found is then applied to the wider extent, with the same exclusions as in the owner's provenance.
+4. **Graph.** The owner's recipe as above, written to the same JSON schema and grid metadata as graph.json.
+5. **Acceptance, step 1 (before widening).** Rebuild the two CURRENT windows and compare with the owner's graphs:
+   - node id set equal;
+   - edge id set equal;
+   - travel_ticks equal.
 
-   Licence: OSM data under ODbL 1.0, "© OpenStreetMap contributors". The ohsome attribution and terms will be recorded from the API's own metadata response before use.
-2. **Extent, per region: TBD.** It will be supplied by Leo or Richard, and must be wide enough that every exit road reaches outside the final burn set. It must also contain the current node bbox above.
-3. **Highway classes kept.** Default, pending confirmation:
-   - motorway, trunk, primary, secondary and tertiary, with their `_link` variants;
-   - unclassified, residential, living_street and service.
-
-   track and path are kept only if Leo or Richard say the owner's graph used them. The display roads include track, but that does not show that the graph uses it.
-4. **Graph.** Built with osmnx (version pinned in the manifest), from the ohsome GeoJSON converted to nodes and edges with shared-vertex topology:
-   - a vertex is a node if it is shared by two or more ways, or is a way endpoint;
-   - edges are directed, following `oneway` tags;
-   - `simplify=True`;
-   - CRS EPSG:5179.
-5. **375 m gridding: TBD.** The meaning of "G2window-grid375" is undocumented. My proposal is to record the 375 m grid of the region's fire window, aligned to the region's arrival raster from the archive's data/regions/<region>/, and to tag each node with its cell. Nodes are not snapped, because 23k and 56k nodes far exceed the number of 375 m cells in the window.
-6. **Validation, inside the existing window (the node bbox above).**
-   - node count against 23,158 and 56,369;
-   - the share of "allowed" nodes;
-   - road length by class against the display roads in `<region>.osm.js`.
-
-   Pass criterion (proposed): node count within ±15%, and length per major class within ±10%. Byte identity is NOT claimed.
-7. **Artefacts.**
-   - the raw ohsome GeoJSON is uncommitted, or a release asset if large, with its sha256 in `roads/MANIFEST.json`;
-   - the derived graph (GraphML or npz) is committed only if under about 5 MB;
-   - the query, timestamp, ohsome metadata response and osmnx version all go in the manifest.
-8. **Verification.** Hannah verifies.
+   Any difference is stated, not hidden. This needs the owner graph.json files or their id lists; the planner fixtures already give the node ids and lon/lat.
+6. **Acceptance, step 2 (widened).** Inside each current window the widened graph equals the step-1 graph. Outside it, I report counts only.
+7. **Risk.** ohsome geometry output may not carry OSM node ids per vertex. If it does not, node identity has to come from the ohsome `/contributions` or `/elements` endpoints, or by matching the planner fixture lon/lat to 1e-6. This is tested in the tiny-bbox probe first.
+8. **Artefacts.**
+   - Raw extract: uncommitted (or a release asset), with its sha256 in `roads/MANIFEST.json`.
+   - Derived graphs: committed only if under about 5 MB, otherwise a release asset.
+   - Query, timestamp, ohsome metadata and code version go in the manifest.
+   - Status: EQUIVALENT, not byte-identical.
+   - Hannah verifies.
+9. **Timing.** Nothing is fetched before the 00:12 UTC weather launch on 13 Nov.
