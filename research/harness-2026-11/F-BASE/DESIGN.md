@@ -125,3 +125,39 @@ Rules 1–5 above are unchanged and results under them stay reported as they are
 - Scope sentence: contact relaxation only; full-policy equality only under the dose/peak precondition.
 - **A smoke run** on one packet with two requests, to check the plumbing, is allowed before the main run. Its
   outputs are discarded and not reported as results.
+
+## Dated addition, 2026-11-12 (d): static-snapshot baselines S1/S2 (rule fixed before any S1/S2 run)
+
+Approved by the orchestrator, 16:01 UTC, for the external review's dynamic benchmark. The F-DYN N1–N3 run under (c)
+is not altered. **None of N1–N3 is S1 or S2**: all of them use the full time-varying blocks.
+
+**Instances and requests.**
+- The same as rule (c): 24 packets, every 10th origin × {0, 7200}.
+- Each O2 instance is regenerated with Thomas's `build_instance` from the same request and packet. Its
+  `instance_sha256` must equal the one recorded by the (c) run, or the request is reported and skipped.
+
+**Hazard readings.**
+- **No re-entry (default).** This is Richard's definition (F-3.1 MULTIHOUR_HEADLINE_RULE.md @ 53def3b §1): a
+  cell-level closure, where every cell is closed from its birth b to the horizon, and edge blocks are derived after.
+- Implementation on the O2 instance: EB_j := [min EB_j, H] and WB_n := [min WB_n, H] (`fbase_static.no_reentry`).
+- Equivalence argument: under cell-level closure, each edge's blocked start set is the suffix [s_j, H], where s_j is
+  the first start that meets any of its cells at or after birth. Over the same chord pieces (and the union over
+  members), that is exactly the minimum of the as-built EB_j. Richard states the same in his message of 16:01 UTC.
+- The O2 instance uses the ROUTER rule. Richard's CERT adds the closed-footprint rule, so these numbers are for the
+  router-rule relaxation, as stated.
+- **Reopening (labelled variant).** The O2 blocks as built from ContactModel flame intervals.
+
+**Baselines** (`fbase_static.py`, 5f7b2249). All three share the same states, turns, durations, waitable set and
+acceptance windows.
+- S1: edge j is fully blocked iff dep ∈ EB_j; waiting at n is forbidden iff dep ∈ WB_n.
+- S2: edge j is fully blocked iff EB_j meets [dep, H]; waiting at n is forbidden iff WB_n meets [dep, H].
+- Each static instance is solved exactly. An S1 ROUTE witness is replayed on the true instance of the same reading.
+
+**Headline columns**, per region × horizon × variant × reading, with counts and rates:
+- (i) **S1 returns a route the exact field rejects**: the exact result is NO_ROUTE, or the S1 witness fails replay.
+  Denominator: all requests.
+- (ii) **S2 refuses a request the exact field resolves**: S2 gives NO_ROUTE while exact gives ROUTE. Denominator:
+  requests where exact gives ROUTE.
+- Also reported: exact verdict counts per reading; the S2 arrival delay (T_S2 − T_exact) where both route; and the
+  share of S1 routes that replay but arrive at a different T.
+- No pass/fail. Any change is a new dated section.
