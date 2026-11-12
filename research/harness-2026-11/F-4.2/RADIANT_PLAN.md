@@ -10,10 +10,22 @@ exploratory table did not have, and is reported beside the exploratory table.
 
 ## 1. One-hour panel (arithmetic, no computation)
 
-The packet model's largest peak-flux bound anywhere is 0.703 kW/m² (the packet builder's bound on omitted sources;
-Richard's maximum non-flame flux is 0.0156 kW/m²). Both are below 1.0 kW/m². So under the proposed rule (ceilings
-1.0 kW/m² vulnerable and 2.5 kW/m² general, radiant term zero below threshold, flame contact a no-go), no 1-hour
-verdict or deadline can change. The rule's only binding element would be contact, which is already a no-go.
+At a contact-free (non-flaming) position, the flux bounds **add**:
+
+- Richard's maximum in-domain non-flame flux is 0.0156 kW/m².
+- The packet builder's cap on omitted outside sources is 0.703 kW/m² (`cap_W_m2` 702.991, present in the 6 windowed
+  packets).
+- Together they bound flux at **≤ 0.0156 + 0.703 ≈ 0.72 kW/m² < 1.0**.
+
+So under the proposed rule (ceilings 1.0 kW/m² vulnerable and 2.5 kW/m² general, radiant term zero below threshold,
+flame contact a no-go), no 1-hour verdict or deadline can change.
+
+**The conclusion rests on two inputs.** The first is Richard's 0.0156 kW/m² non-flame figure, which Mira has not
+verified. Without it, the in-domain maximum *including* flaming cells (0.7019 kW/m²) plus the cap would be 1.40 > 1.0,
+and the argument would not close. The second is that flame contact is a no-go, so flaming cells never count as
+positions.
+
+(Corrected after Mira's REQUEST 5 review; earlier text presented the two bounds separately, each below 1.0.)
 
 ## 2. F-DYN counts (per packet; the 4 packets and 12 requests of `../F-3.4/FDYN_PLAN.md`)
 
