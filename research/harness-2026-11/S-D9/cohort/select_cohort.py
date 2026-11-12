@@ -14,7 +14,8 @@ import hashlib
 import json
 from pathlib import Path
 
-USED = ("forecast_v2_fit", "held_out")
+CLEAN_STATUS = "unused_in_repo_events"
+INPUT_SHA256 = "f2aae4b8891bcaa5489631185d19a50991ae059c056384f11d8b8f299922d9ca"
 MIN_SURVEYS = 20
 SIZES = (("b", 30), ("c", 30), ("a", 60))  # in rank order; the remainder is d
 
@@ -28,10 +29,12 @@ def main() -> None:
     ap.add_argument("--incidents", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     args = ap.parse_args()
+    digest = hashlib.sha256(args.incidents.read_bytes()).hexdigest()
+    if digest != INPUT_SHA256:
+        raise SystemExit(f"input sha256 {digest} != pinned {INPUT_SHA256}")
     rows = list(csv.DictReader(args.incidents.open()))
     statuses = sorted({r["project_status"] for r in rows})
-    clean = [r for r in rows if r["project_status"] not in USED and r["project_status"] == "unused"
-             and r["shares_irwin_with_project_fire"] == "False"]
+    clean = [r for r in rows if r["project_status"] == CLEAN_STATUS and r["shares_irwin_with_project_fire"] == "False"]
     eligible = sorted((r for r in clean if int(r["surveys"]) >= MIN_SURVEYS), key=lambda r: u_of(r["Incident_C"]))
     out, rank = [], 0
     for part, n in SIZES:
