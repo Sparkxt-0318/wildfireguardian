@@ -138,6 +138,75 @@ container. All 20 missions.
       with the same status.
 - **Conclusion:** no status or arrival gain, and slower. Dropped.
 
+## F-DYN 5-hour profile (multi-hour; plan FDYN_PLAN.md with amendments A1–A3)
+
+**Status.** 30/300/900 s and the 12 GiB repeats are verified PASS WITH NOTES (Mira, REQUEST 10 @ 73f29a7). A3(a) and
+A3(b) are pending verification.
+
+**Setup.** Host: this container. Packets: Leo `MANIFEST_v3_1.json`, sha
+`1c2e73db20db7b1caa309ebde42d20629054cd49c8f1f2cd9e4e81b0b9c89bbe`.
+- 2 starts: Uiseong 0325T17 and Yeongdeok 0325T23.
+- 2 variants: `kriged_mean`, and `firms_early` (**bracket-start, not a lower bound**). `envelope_sound` (withdrawn)
+  is not used.
+- 3 origins each, giving 12 requests. 1 repetition per row.
+- Data: `results/fdyn/` (`*_ROWS.jsonl.gz`, `*_STAGES.txt`).
+
+**The kit as frozen (3,072 MiB guard). This is the kit's own count.**
+- **30 s:** 12/12 UNRESOLVED. 10 are LATE_RESULT (6 with a Z timeout, 4 with no stage recorded). 2 are
+  STALE_OR_IDENTITY_MISMATCH at 33.0 s: the outer-deadline SIGKILL left no evidence, so these are not identity
+  faults.
+- **300 s:** 12/12 memory-guard stops at 36–44 s.
+- **900 s:** 10 memory-guard stops. **2 CHECKED_JOURNEY_FEASIBLE** (Yeongdeok firms …207 arrival 59, …168 arrival
+  274), both from a Z incumbent with no EA bound built (peak 2.3 GiB).
+- **Kit count at 5 h: at most 2 of 12 certified.** Multi-hour certified routing is not demonstrated.
+
+**Non-evaluated repeats (memory limits raised; labelled).**
+- **Controller guard only at 12 GiB, 300 s:**
+  - 1 FULL_OPTIMUM_PROVEN (firms …207, 59, from Z);
+  - 2 AT_ISSUE_FAILURE (Uiseong …334);
+  - 9 UNRESOLVED, with LO/HI stopped by the solver gate (`RSS_LIMIT`) at 0 expansions.
+- **The same at 900 s:** a PARTIAL run, 1/12 rows, stopped by decision (it could not show search).
+- **A1: controller and solver at 12 GiB, 300 s:**
+  - 2 FEASIBLE (Z), 2 AT_ISSUE;
+  - 4 Uiseong LATE_RESULT;
+  - 4 Yeongdeok where LO/LO2/HI return conditional optima (18–1,669 expansions), but every check is discarded by the
+    checker gate.
+- **A3(a), re-checked offline outside the kit (not published by the kit):** 4 witness checks covering 3 distinct
+  routes pass both the unchanged whole-road checker and the independent checker **as admissible routes**.
+  Optimality is not re-established. The two checkers agree on the verdict with very different margins (enclosure
+  dose ≤ 0.049 and peak ≤ 0.054 vs cell-binned ≤ 0.0123 and ≤ 0.0006).
+- **A3(b), MODIFIED test kit (checker constant edited), all three gates at 12 GiB, 450 s, on the 9:**
+  - 5/9 FULL_OPTIMUM_PROVEN, all Yeongdeok, at walls of 136–220 s;
+  - Uiseong 0/4: LATE_RESULT, with LO overrunning its wall cap (246–273 s vs about 160 s).
+  - The pre-registered reading "≥ 3/9 → precompute is the lever" is **not adopted**. The Yeongdeok results came from
+    lifting the checker gate, not from the extra time (see FDYN_PLAN.md, A3 results).
+
+**Findings about the frozen kit at multi-hour (the kit itself is unchanged).**
+1. **Three independent 3 GiB lifetime-peak gates:** controller guard, solver (`phaseB/road_core.py:751-757`) and
+   checker (`hybrid_checker.py:9`, applied in `_finish`). Each compares the process-lifetime `ru_maxrss`, so a
+   transient peak permanently disables later stages.
+   - Uiseong: the bound-model build peaks at 9.0–9.5 GiB; about 0.4 GiB stays resident after it, and about 2.1 GiB
+     during search.
+   - Yeongdeok: the EA bound holds 4.4 GiB through search.
+   - These are end-of-call snapshots.
+2. **The checker gate replaces a completed check result** with `RSS_LIMIT`, and RESULT.json does not persist the real
+   outcome.
+3. **The terminal reason reads SEARCH_TIMEOUT where the search returned conditional optima,** or was stopped on
+   memory. Multi-hour tables must take reasons from the per-stage records.
+4. **Wall caps are not enforced promptly on Uiseong:** Z ran 20–23 s against a 6 s cap; LO ran 246–273 s against
+   about a 160 s cap.
+5. **Reproducibility:** on Yeongdeok firms, whether a request is published from Z (feasible) or proceeds to EA (and,
+   under the frozen guard, is stopped) depends on whether Z holds a certified incumbent when its fixed 6 s wall cap
+   expires. That is machine timing, not budget. Not sized: 1 rep each.
+6. **Time before search:** bound model plus EA bound take about 100–130 s per request (Uiseong bound model 53–82 s;
+   EA bound 50–83 s).
+7. **Radiation cost at 5 h is unmeasured, not cheap.** Few routes reached a whole-road check.
+
+**Bounds and origin dependence (code reading, Iris tests a–b).**
+- The road bound model depends on the forecast and the window only.
+- The EA bound depends on the forecast and the destination set; the origin is one extra state.
+- In this set, the bound-model identity keys are equal across the 3 origins of each packet.
+
 ## Host findings (their own result; specific to THIS host, not to Linux in general)
 
 - **GNU time is required.** The kit's controller runs `/usr/bin/time -v`; without it every route check fails. The
