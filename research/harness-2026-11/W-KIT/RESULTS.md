@@ -342,6 +342,12 @@ appears only for a result checked on the pessimistic instance) is not yet in pla
   연락처(시군) (gb.go.kr/gbsafe/page/2406/5015.tc, research-scout LOG batch 8). The county's own site returned its
   web-firewall block page, and no sender tag was found. The entry says `secondary: true`, and its source text starts
   "SECONDARY SOURCE (owner decision…)". No English name.
+  - **KNOWN LIMITATION (Mira N1): the registry checks the issuer's NAME, not its jurisdiction.** A registered issuer
+    renders its contact line at any place, including one in another county. The same 영덕군 issuer renders
+    "문의: 영덕군 …" on all 258 의성–안동 place-scenarios, and 의성군 renders on 영덕 places. If staff supply the wrong
+    issuer, a resident message could name another county as its contact. This was already true before this change.
+    The fix (fail closed when the place's 시·군 is not established or differs from the issuer's) ships only together
+    with per-place 시·군 data from an official boundary dataset, in a later cut.
   - Coverage: with an issuer record supplied, **all 273 영덕 place-scenarios** (3 caches) gain a Korean contact line;
     before this change they got none ("not in registry"). The 258 의성–안동 place-scenarios are unchanged. Still no
     English contact line (no English name). Violations are unchanged for every place.
