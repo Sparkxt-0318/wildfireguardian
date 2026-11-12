@@ -64,3 +64,17 @@ Written 2026-11-12 before any OSM request. Execution waits until the 00:12 UTC w
    - Status: EQUIVALENT, not byte-identical.
    - Hannah verifies.
 9. **Timing.** Nothing is fetched before the 00:12 UTC weather launch on 13 Nov.
+
+## Contingency (orchestrator, 12 Nov 16:10Z; added before any OSM request)
+
+The full-export-grid graph gates every multi-hour count, so the routing reviewer has raised its priority. The plan is unchanged: probe right after the 00:12 UTC weather launch, then step 1.
+
+If ohsome cannot deliver the 2025-03-21T23:59:59Z snapshot with usable topology, the fallback is a CURRENT public extract: Geofabrik South Korea (`download.geofabrik.de`, ODbL). Both of these count as "cannot deliver":
+- way node ids are unrecoverable, so step-1 criteria 1–2 cannot be met even by coordinate matching;
+- the API refuses or truncates the export-grid + 5 km bbox.
+
+Every result built from the fallback carries an explicit label in its provenance, its file names and every report:
+
+`OSM CURRENT EXTRACT <Geofabrik file date>, NOT the 2025-03-21 snapshot: roads built or changed after the fire may be present`
+
+It is never presented as the historical graph, and step 1 is then reported as "not comparable (date mismatch)".
