@@ -1,5 +1,23 @@
 {
  "label": "DEVELOPMENT-ONLY on exposed cohort R, 4 km band",
+ "island_neighbour_check": {
+  "tail_island_cells": 590,
+  "with_any_neighbour_burned_at_cutoff": 0,
+  "with_3plus_neighbours_burned_at_cutoff": 0,
+  "cells_with_scored_neighbours": 590,
+  "neighbour_median_p_quantiles": {
+   "0.25": 2.1511122006920291e-10,
+   "0.5": 4.7944849201897455e-08,
+   "0.75": 9.834884622250684e-07
+  },
+  "neighbour_max_p_quantiles": {
+   "0.25": 1.3329968684416826e-08,
+   "0.5": 1.179645664706186e-06,
+   "0.75": 1.9367032564332476e-05
+  },
+  "share_neighbour_max_p_ge_0_1": 0.0,
+  "centre_p_median": 4.414466836522024e-08
+ },
  "tail_threshold": 1e-05,
  "enclosed_rule": ">= 6 of 8 neighbours in endpoint union",
  "tail": {

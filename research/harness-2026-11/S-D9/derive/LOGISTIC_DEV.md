@@ -64,3 +64,9 @@ Iris's competing explanation: the tail may come from structural zeros rather tha
 - The gating and labelling explanations cannot be separated without per-cell fuel, land-cover and covariate-missing flags. Those are requested from Daniel (rebuilt covariates for the 6 US2024 fires).
 
 **Consequence for A1, if gating or label filling is confirmed.** An enclosed-cell scoring rule changes the scoring population, so it would have to be pre-declared before the freeze. Example: report the band score with and without enclosed non-burnable cells. Nothing is changed yet.
+
+**Island neighbour check (Iris; added to `enclosure.py`).** This looks at the 590 tail island positives, cells with all 8 neighbours burned at the endpoint and d4 p < 1e-5:
+- **None** (0 of 590) has any neighbour inside the **cutoff** union. They are not next to the burning edge.
+- Their scored neighbours are also near zero: the median neighbour p across islands is 4.8e-8 (IQR 2.2e-10 to 9.8e-7), and the median of the neighbourhood maximum is 1.2e-6. **No island has a neighbour with p ≥ 0.1.** The centre's median p is 4.4e-8.
+
+**Reading (hypothesis).** These are interiors of **whole newly burned patches** that d4 rates near zero throughout. That is not a per-cell gate, which would show a near-zero centre among high-probability neighbours. It points back to **spread rates too low, or spotting or long runs** into patches some distance from the front, all still within reach (r < 0.25). Gating is not supported by this test. The fuel/land-cover split (Iris's part a) is still to be done for completeness. Label filling can still contribute to individual cells inside these patches.

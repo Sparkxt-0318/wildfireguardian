@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 10, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 11, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 16 | Pre-declared plan for a non-burnable secondary; provenance of the H tolerance rule; H disclosure note on every H result (Iris) | §4, §2.1 | Added. **The secondary was added after a development finding on R** (`derive/LOGISTIC_DEV.md`, follow-up 2) |
 | 15 | H refinements: Chebyshev reach, one-pixel tolerance, resolution labels per lead, H-dev open to D1 and D2, half-step comparator; Marcus's GOFER disclosure (Marcus, Iris) | §2.1 | Added before any H score |
 | 14 | Short-horizon stratum H for the D1 continuous-time claim (orchestrator) | §2.1 | Declared before any score on H. Membership is computed after the metadata filters run |
 | 13 | Recalibrated d4 is a part-c comparator that D1/D2 must beat (Iris) | §3, §6.1 | Added. Chosen after seeing the development-only R result (`derive/LOGISTIC_DEV.md`) |
@@ -120,7 +121,7 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
 **Strata (the D1-specific question).** Cells are split by the kernel's own geometry: **r = d_cheb / (4 × lead hours)**, where d_cheb is the chessboard distance in 375 m cells to the cutoff union (revision 15, per Marcus).
 - **r ≥ 1** (beyond the hourly cap on every path) is the stratum where D1 should help.
 - **r < 1** is the rest.
-- **One-pixel tolerance (revision 15, per Iris and Marcus).** Every r ≥ 1 result is reported twice: raw, and tolerant (d_cheb > 4 × lead + 6, one GOES pixel ≈ 2 km). **A D1 gain counts only if it is present under the tolerant definition.** Marcus's perimeter-only sizing: 8.9% of new cells raw vs 1.25% tolerant.
+- **One-pixel tolerance (revision 15, per Iris and Marcus).** *Provenance:* this rule came from Marcus's label-only inspection of all 28 GOFER fires (see the disclosure above). It is a fixed rule and is not tuned per fire or per lead. Every r ≥ 1 result is reported twice: raw, and tolerant (d_cheb > 4 × lead + 6, one GOES pixel ≈ 2 km). **A D1 gain counts only if it is present under the tolerant definition.** Marcus's perimeter-only sizing: 8.9% of new cells raw vs 1.25% tolerant.
 - **Label resolution per lead.** The ratio of pixel to reach is 2 km / (1.5 km/h × lead): 1.33 at 1 h, 0.67 at 2 h, 0.44 at 3 h, 0.22 at 6 h, 0.11 at 12 h. **The 1 h lead exceeds 1, so it is labelled "below label resolution" and not interpreted.**
 - Note: the R reach diagnostic (`derive/REACH.json`) used Euclidean distance ÷ 1.5 km/h. Euclidean distance is never smaller than chessboard distance, so its r is never smaller than the Chebyshev r, and its "0 tail positives beyond reach" holds a fortiori.
 These are reported by lead time, with entry, positive and fire counts. The primary H population is the r ≥ 1 cells within the horizon-scaled band (§4) plus the full domain. The 4 km NIROPS band is not used at hourly leads.
@@ -133,6 +134,8 @@ These are reported by lead time, with entry, positive and fire counts. The prima
 - Low-probability bins.
 - The share of positives with r ≥ 1.
 - Arrival RPS over the hourly leads, if D1 emits native cumulative marginals.
+
+**Disclosure on every H result.** Each H result carries this line: "All GOFER fires, including H-test, had aggregate label displacement statistics inspected by S-D1 before H was declared (s-d1 a902678); no model output was inspected." D1's design may not be set from per-fire or per-lead statistics of H-test fires. Per-fire displacement numbers used for tuning come from H-dev only.
 
 **Status: descriptive, not confirmatory.** The GOFER label definition (GOES-derived hourly perimeters) differs from NIROPS, and H-test will hold at most about 8 fires, below the §6.1 minimum of 20. A result on H can support or contradict D1's mechanism. It cannot carry a confirmatory accuracy claim.
 
@@ -173,6 +176,11 @@ Every predictor is declared by SHA-256 before the manifest.
   - **A horizon-scaled width** of max(1 km, 4 km × h / 24 h), anchored to the primary width at 24 h.
 
   The band is itself a dilation and favours dilation baselines near its radius. All widths are shown side by side.
+- **Non-burnable secondary (revision 16).** The band score is also reported **excluding cells classed non-burnable or covariate-missing**, with the count and share of positives removed, per fire.
+  - The class is defined **from covariates only** (fuel / land-cover code and validity flags), never from the endpoint or from enclosure, because enclosure uses the outcome.
+  - The exact code list is fixed in an amendment once Daniel's US2024 fuel layers exist, and **before** any untouched score.
+  - **The primary population is unchanged.**
+  - This secondary was added after a development finding on R.
 - **Horizon strata:** (0,12], (12,24], (24,36], (36,48] h, by interval duration and separately by lead time, with entry, positive, interval and fire counts.
 - **Domain stratum (requested by Elena, S-D2):** where an `in_domain` mask is supplied (the kriging domain), the same metrics are reported inside and outside it.
 
