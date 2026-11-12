@@ -63,3 +63,49 @@ to the new decision function:
 - **All tests above pass. Parent tests and the Step 0 tests pass unchanged.**
 - **F-DYN replay (records only, no new runs):** 0 status changes and every reason as in the table, reported per
   folder.
+
+## Amendment, committed before any Step 1 code (16:2x UTC)
+
+Reading the code before implementing showed two things that make the rule above imprecise. They are fixed here; no
+code or run exists yet.
+
+1. **Which module.** The **authoritative** decision is `decision/journey_decision_v2_1.py`. That is the one used by
+   the API path, `run_profile` and G1. The worker's in-process `decision/journey_decision.py` record is
+   **provisional**. Both get the same remapping, so the provisional and authoritative reasons agree.
+2. **Exact remapping rules.** They are applied as a final post-step in `decision_from_worker_record`.
+   - They touch only `unresolved_reason`, `unresolved_reason_text` and `unresolved_detail`.
+   - The frozen reason and detail are kept under `detail.frozen_reason` / `detail.frozen_detail`, with
+     `detail.evidence`.
+   - Status is asserted unchanged.
+   - They apply only if status is UNRESOLVED **and** no identity field is in state `MISMATCH` **and** route binding is
+     not mismatched. A genuine mismatch keeps the frozen reason.
+   - In order:
+     - **a. MEMORY_GUARD_STOP:** `receipt.memory_guard_triggered` is true.
+     - **b. DEADLINE_STOP_NO_EVIDENCE:** all three hold:
+       - `receipt.deadline_termination_requested` is true;
+       - the frozen reason is LATE_RESULT or STALE_OR_IDENTITY_MISMATCH;
+       - the worker left no search result: RESULT absent, or `worker_failure.type == DeadlineStop` with a synthetic
+         result.
+     - **c. CHECK_MEMORY_LIMIT_ON_FOUND_ROUTE:** the frozen reason is SEARCH_TIMEOUT, at least one search stage
+       returned a route (`arrival` not null), and every whole-road check of those routes ended
+       `RSS_LIMIT` or `RSS_LIMIT_AFTER_ADAPTIVE_FALLBACK`.
+     - **d. SEARCH_MEMORY_LIMIT:** the frozen reason is SEARCH_TIMEOUT, at least one search stage stopped with reason
+       `RSS_LIMIT`, and no stage returned a route.
+       - This replaces "every stage that ran stopped with RSS_LIMIT". The Z stage always stops on its own fixed wall
+         cap first, so that wording would never fire.
+     - Otherwise the frozen reason is kept.
+   - `module_version` gains the suffix `+kit-v2-step1`. The schema strings are unchanged.
+3. **Progress hook.**
+   - `road_core`, `zsweep.contact_sweep` and `zsweep.EarliestArrivalBound` call a module-level `PROGRESS_HOOK` when
+     set. They call it at points where they already do bookkeeping: the existing every-64-expansions RSS check, and
+     each sweep second.
+   - The worker installs a hook that writes `STAGE_PROGRESS.json` atomically, at most every 2 s.
+   - The worker flushes the hook on DeadlineStop.
+   - With the hook unset, behaviour is byte-identical to the parent. Tested.
+
+**Expected F-DYN replay** (records already on disk; rules above):
+- the 300 s / 3 GiB rows → MEMORY_GUARD_STOP (12/12);
+- A1 Yeongdeok kriged …207, …166 and …168, and firms …166 → CHECK_MEMORY_LIMIT_ON_FOUND_ROUTE (4);
+- the controller-only 12 GiB repeat's 9 rows with LO/HI RSS_LIMIT at 0 expansions → SEARCH_MEMORY_LIMIT, except
+  where a SEARCH_RESULT is missing;
+- A1 Uiseong at 300 s → DEADLINE_STOP_NO_EVIDENCE.
