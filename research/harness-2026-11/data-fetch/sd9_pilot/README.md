@@ -3,9 +3,9 @@
 These were built on 2026-11-12 with `build_nirops_event.py`. The allowlist is S-D9 `cohort/PART_A_ALLOWLIST_FINAL.csv` @ ff38bdcd
 (sha256 `801acdd8…391e`, 489 incidents). Only these incidents' NIROPS features were read, through an OGR attribute filter. No part b, c or d fire was opened.
 
-| Fire | Grid (EPSG:5070, 375 m) | Survey times | Intervals 0 < dt ≤ 48 h | Mapped cells at last survey | Window (UTC) |
+| Fire | Grid (EPSG:5070, 375 m) | Survey times | Intervals 0 < dt ≤ 48 h | Mapped cells at last survey | Window (UTC, start = floor_hour(first survey)) |
 |---|---|---|---|---|---|
-| NM-LNF-000227_Blue2 | 29×35 | 20 | 17 | 211 | 2024-05-18 00:00 to 06-16 07:00 |
+| NM-LNF-000227_Blue2 | 29×35 | 20 | 17 | 211 | 2024-05-19 17:00 to 06-16 07:00 |
 | CA-BDF-012520_Line | 50×72 | 40 | 35 | 1,275 | 2024-09-07 00:00 to 11-13 08:00 |
 | CA-SHF-001004_ThreeNine | 37×24 | 20 | 9 | 88 | 2023-08-19 00:00 to 11-09 05:00 |
 
@@ -33,3 +33,8 @@ Checks:
 - The label pipeline, rerun on the exposed Wapiti fire, reproduces all 52 committed held-out cases exactly (`forecast/runs/20261030_perimeter_trained/execution_v3/heldout/cases`): the same grid, `reference_cells`, `positives` and the identical `y` vector at every scored cell.
 - Two independent runs produced byte-identical outputs (27 of 27 files for Blue2).
 - Covariate values for Wapiti cannot be compared. The repo keeps only snapshot SHA-256s, and no covariate rasters or values exist for it.
+
+**Perimeter outputs (pipeline.py format).** `perimeters/PERIMETER_MANIFEST.json` and `perimeters/<id>/states.npz` were made with the repo's own
+`wildfire.survival.survey_states` and are identical to `labels/cumulative_masks.npz`. The `perimeters.geojson` files (2–30 MB) are not committed;
+`build_nirops_event.py` regenerates them byte-for-byte, and their sha256 is recorded in the manifest.
+Times follow the S-D9 A1 rule: `start_utc = t0_utc = floor_hour(first survey)` and `end_utc = ceil_hour(last survey)`.
