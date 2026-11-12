@@ -60,6 +60,19 @@ All 15 exact ROUTE witnesses replay in `fbase.replay`. Spliced into the bundle i
 Exact search 0.00–3.26 s, peak RSS 20–227 MiB; parse 0.00–0.19 s. Largest: 2025-03-25T19 FD1 (NO_ROUTE) 3.26 s / 227 MiB.
 Per-mission figures are in `RESULTS_panel.json`. Verdict and T were identical across the 3 repeats for every solver.
 
+## F-BASE-TEN: non-interval baseline (dated addition 2026-11-12; `run_panel_ten.py`, `RESULTS_panel_ten.json`)
+
+This baseline builds an explicit time-expanded network, one node per (state, second), and searches it with
+`scipy.sparse.csgraph.breadth_first_order` (scipy 1.13.1). It uses its own tokenizer and no interval code.
+Test: it equals the exact solver and brute force on 1,500 random instances, and its witnesses replay.
+Host budget: 2e8 arcs (about 52 MiB per 10^6 arcs, 15 GiB host). Median of 3 fresh processes; graph build is included in the time.
+
+- **16/16 run missions agree** in verdict and arrival second. All 12 route witnesses are `ACCEPT ROUTE T` under
+  `check_py.py`. Results were identical across repeats.
+- Sizes and cost of the missions that ran: 5.4e6–1.6e8 nodes, 0.5–16.9 s, peak RSS 0.36–9.4 GiB.
+- **Not run (size, not a failure):** 2025-03-25T19 FD1, 2025-03-25T19 FX2 and 2025-03-25T23 FL2 (4.03e8 nodes,
+  4.51e8 arcs), and 2025-03-26T08 FW1 (3.69e8 nodes, 4.14e8 arcs). At the measured rate these need about 21–23 GiB.
+
 ## Not done yet
 
 - Router (`run_panel.py` SIPP) and Richard's F-3.1 field timings under the same harness: no comparison claimed.
