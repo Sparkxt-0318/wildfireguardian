@@ -227,6 +227,8 @@ def score(entries: Entries, *, references=("persistence", "dilation_best"), draw
     if entries.population == "hindsight_restricted":
         result["population_note"] = HINDSIGHT_NOTE
     result["area_crps"] = area_crps(entries)
+    from .ensemble import area_ensemble_scores
+    result["area_ensemble"] = area_ensemble_scores(entries, horizon_edges=horizon_edges)
     result["settings"] = dict(references=list(references), draws=draws, seed=seed,
                               horizon_edges_h=list(horizon_edges), band_edges_m=list(band_edges),
                               cumulative_bands_m=list(cumulative_bands), low_p_edges=list(LOW_P_EDGES),
