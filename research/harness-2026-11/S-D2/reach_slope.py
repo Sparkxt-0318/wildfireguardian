@@ -14,6 +14,9 @@
    covariates. So the "modulation part" here is the non-length variation: between-fire kernel rates and the
    start-state geometry. It is NOT a weather or fuel effect. Both enter one regression and both slopes are reported. A third
    regression uses log interval length directly.
+   Between-fire / within-fire split (Iris): OLS of fire-mean log obs on fire-mean log sim (one point per distinct
+   fire in the sample), and pooled OLS of the deviations from fire means. A fire drawn k times in a bootstrap draw
+   is treated as one fire with k times its rows, so the between slope uses the distinct fires in that draw.
    Rows are non-stalled intervals. Observed reach is d_obs_m, which is positive by construction; rows with
    d_obs_m <= 0 are dropped and counted.
 
@@ -73,10 +76,19 @@ def main(argv=None):
         mpart = ls[idx] - lpart
         b2 = ols([lpart, mpart], yo[idx])
         b_len = ols([lh[idx]], yo[idx])[1]
-        return np.array([b_lead, b2[1], b2[2], b_len, g[1]])
+        # Between / within split (Iris). Fire means are taken over the resampled rows; a fire drawn twice counts twice.
+        fi = fires[idx]
+        keys, inv = np.unique(fi, return_inverse=True)
+        cnt = np.bincount(inv)
+        mo = np.bincount(inv, yo[idx]) / cnt
+        ms = np.bincount(inv, ls[idx]) / cnt
+        b_between = ols([ms], mo)[1]
+        b_within = ols([ls[idx] - ms[inv]], yo[idx] - mo[inv])[1]
+        return np.array([b_lead, b2[1], b2[2], b_len, g[1], b_between, b_within])
 
     names = ["slope_on_log_sim_lead", "slope_on_length_part", "slope_on_modulation_part",
-             "slope_on_log_hours_direct", "sim_lead_elasticity_in_hours"]
+             "slope_on_log_hours_direct", "sim_lead_elasticity_in_hours",
+             "between_fire_slope", "within_fire_slope"]
     est = fit(np.arange(len(yo)))
     uf = np.unique(fires); by = {f: np.flatnonzero(fires == f) for f in uf}
     rng = np.random.default_rng(a.seed)
