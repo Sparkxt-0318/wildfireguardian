@@ -97,3 +97,4 @@ to the orchestrator and Iris with the numbers, since such a large loss would nee
   - The orchestrator confirms the portal of origin with the owner. If it differs, only the source line changes.
 - **Base date.** 2025-06-30 is after the March 2025 fires. The labels assume no 시군구 boundary change between those dates; this is assumed, not checked.
 - **CRS.** Read from the .prj, as before. The rule's metres are those of the file's CRS. EPSG:5186 has scale factor 1.0 and 5179 has 0.9996, so the two differ by about 0.04 % in distance. The pass rule is unchanged.
+- **Edition (Sofia, 2026-11-12).** The data.go.kr 15125064 page lists the file as "…시군구경계_20250120" (기준일 2025-01-20), but the file used has BASE_DATE 2025-06-30. The V-World download was most likely a newer edition than the portal page describes. So the labels record the file's own BASE_DATE, not the portal's date, and the source line keeps "출처 확인 중". The Korean source line is Sofia's.
