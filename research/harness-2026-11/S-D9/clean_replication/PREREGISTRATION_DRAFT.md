@@ -93,9 +93,25 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - Tier 2 carries the confirmatory §6.1 decision. Tier 1 is reported alongside, labelled "unseen retrospective", and is never pooled with Tier 2.
 - Also reported: results by tercile of survey span, computed by the custodian after the decision.
 
-## 7. Power [OPEN: computation]
-- The A1 §6.3 power calculation on R is repeated at the observed R effect **and at half of it** (the six-fire effect is likely optimistic), for N = 20 and N = 30.
-- Both figures are stated here before the freeze.
+## 7. Power (provisional: computed from A1's committed `derive/POWER.json` per-fire R differences)
+- **Method.** As in A1 §6.3, R's 6 fires are resampled as the fire population, with entry-weighted pooled ΔBrier and a whole-fire percentile bootstrap. Power is the share of simulated cohorts whose 95% interval lies below 0.
+- **Comparison used.** The available proxy is `d4_wind_seed0` vs `persistence`; the eventual candidate's effect is unknown.
+- **Scenarios.** "Half" shifts every per-fire difference by half the R pooled effect toward 0. The code is in the scratch run, to be committed as `clean_replication/power_cr1.py` before the freeze.
+
+| effect | N = 20 | N = 30 | N = 45 | N = 60 | N = 90 |
+|---|---|---|---|---|---|
+| R effect (−2.0e-4) | 0.81 | 0.94 | – | – | – |
+| half of the R effect | 0.30 | 0.42 | 0.60 | 0.67 | 0.87 |
+
+- vs `dilation_8h`: power 1.0 in every case.
+- vs `logistic`: power 0, since the R effect has the wrong sign. A1's own finding stands.
+
+**Consequence for §5 [OPEN: decide before the freeze].**
+- N_target = 30 is adequate only if the true effect is close to R's.
+- At half of R's effect, about 90 analysable fires are needed for 0.8 power.
+- **Option A:** keep N_target = 30 and state in advance that a null at half-effect sizes is uninformative.
+- **Option B:** set N_target = 90. That is likely several seasons of NIROPS-type data for Tier 2.
+- The resampling of only 6 fires makes all of these figures rough.
 
 ## 8. Reporting
 - **What gets reported:**
@@ -113,7 +129,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 |---|---|---|
 | latest date held per source; whether NIROPS 2025+ exists; ID-only listing feasibility; release lag; expected Tier 1/Tier 2 counts; covariate coverage | Daniel | requested 2026-11-12 |
 | closing and snapshot dates; the extension rule (choose now) | orchestrator / owner | after availability |
-| power at the R effect and at half of it, N = 20 and 30 | Victor | after the source is fixed |
+| power at the R effect and at half of it | Victor | provisional table in §7; N_target choice (A or B) [OPEN] |
 | naming the second custodian | orchestrator | — |
 | access protocol review, custodian interface | Hannah | after draft 1 |
 | section-by-section design assessment | Iris | after draft 1 |
