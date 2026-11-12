@@ -16,7 +16,7 @@ done
 "$PY" - "$F" "$PY" <<'EOF'
 import json, subprocess, sys
 F, PY = sys.argv[1], sys.argv[2]
-m = json.load(open(F + '/MANIFEST_v3.json'))
+m = json.load(open(F + '/MANIFEST_v3_1.json'))   # v3.1 accepted (Leo 11:43Z; sha 1c2e73db...)
 want = {('uiseong_andong_2025', '20250325T170000Z'), ('yeongdeok_2025', '20250325T230000Z')}
 for e in m['entries']:
     if (e['region'], e['start']) in want and e['horizon_h'] == 5 and e['variant'] in ('kriged_mean', 'firms_early'):
@@ -27,4 +27,4 @@ for e in m['entries']:
         print('build', e['out'], flush=True)
         subprocess.run(cmd, check=True)
 EOF
-sha256sum $F/_data/packets_v3/*/*_h5_*/HAZARD.json $F/_data/packets_v3/*/*_h5_*/constructed_arrays.npz $F/_data/graphs_interim/*/graph.json
+sha256sum $F/MANIFEST_v3_1.json $F/_data/packets_v31/*/*_h5_*/HAZARD.json $F/_data/packets_v31/*/*_h5_*/constructed_arrays.npz $F/_data/graphs_interim/*/graph.json

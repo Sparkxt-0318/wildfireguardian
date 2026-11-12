@@ -30,7 +30,7 @@ def requests(leo, out):
     inst = json.loads((F / 'INSTANCE.json').read_text())['instances']
     jobs = []
     for region, start, variant in PACKETS:
-        pk = F / 'packets_v3' / region / ('%s_h%d_%s_central_q300' % (start, H_HOURS, variant))
+        pk = F / 'packets_v31' / region / ('%s_h%d_%s_central_q300' % (start, H_HOURS, variant))
         graph = F / 'graphs_interim' / region / 'graph.json'
         hz = json.loads((pk / 'HAZARD.json').read_text())
         I = next(i for i in inst if i['region'] == region and i['start_tag'] == start and i['horizon_s'] == H_HOURS * 3600)

@@ -42,3 +42,10 @@ margins.
 `firms_early` uses the FIRMS bracket start, which is **not a lower bound** on arrival. It stays in the fixed set,
 because timing results are unaffected. Every result on it is labelled **"firms bracket-start (not a lower bound)"** and
 is never described as early or conservative. Leo's sound envelope variant (`envelope_sound`) is not part of this plan.
+
+## Version update (Leo 11:43 UTC; orchestrator decision): F-DYN v3.1
+
+The plan runs on **v3.1**: `MANIFEST_v3_1.json` (sha `1c2e73db…`) at `3f1fa15`, with packets under
+`_data/packets_v31/`. The 4 packets and 12 requests are unchanged in definition. The v3.1 data changes touch only the
+23T23, 24T02 and 24T05 starts, not this plan's 0325T17 and 0325T23 starts; identity digests change. Each manifest
+command is run as an argv list. Every packet hash is recorded in `fdyn_prepare.log`.
