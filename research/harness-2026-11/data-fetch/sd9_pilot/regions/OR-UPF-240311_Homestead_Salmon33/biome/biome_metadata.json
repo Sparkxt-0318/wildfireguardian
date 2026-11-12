@@ -1,0 +1,32 @@
+{
+  "event_id": "OR-UPF-240311_Homestead_Salmon33",
+  "country": "US",
+  "epsg": 5070,
+  "height": 15,
+  "width": 15,
+  "pixel_size_m": 375,
+  "file": "regions/OR-UPF-240311_Homestead_Salmon33/biome/biome_class_375m.tif",
+  "sha256": "25ea9e2643dc2846f09c98905f6a98ab709042300e4f73e33eb0d7e17cc4b2c7",
+  "biome_codes": [
+    5
+  ],
+  "class_pixel_counts": {
+    "5": 225
+  },
+  "total_pixels": 225,
+  "valid_pixels": 225,
+  "missing_pixels": 0,
+  "valid_fraction": 1.0,
+  "valid_arrival_pixels": 7,
+  "biome_covered_arrival_pixels": 7,
+  "biome_missing_arrival_pixels": 0,
+  "conflicting_biome_pixels": 0,
+  "repaired_ecoregion_ids": [],
+  "retained_ecoregion_ids": [
+    352
+  ],
+  "exact_reference_grid": true,
+  "all_pixel_centres_checked": true,
+  "independent_projected_rasterization_disagreements": 0,
+  "passed": true
+}

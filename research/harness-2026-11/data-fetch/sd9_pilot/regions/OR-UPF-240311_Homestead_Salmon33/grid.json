@@ -1,0 +1,36 @@
+{
+ "id": "OR-UPF-240311_Homestead_Salmon33",
+ "name": "Homestead_Salmon33",
+ "country": "US",
+ "year": 2024,
+ "t0_utc": "2024-07-22T00:00:00+00:00",
+ "start_utc": "2024-07-22T00:00:00+00:00",
+ "end_utc": "2024-10-20T04:00:00+00:00",
+ "acquisition_window_basis": "NIROPS survey window: t0 (first survey - 24 h, floored to the day) to the last survey",
+ "rain_history_start_utc": "2024-06-22T00:00:00+00:00",
+ "arrival_path": "regions/OR-UPF-240311_Homestead_Salmon33/arrival_time_hours.tif",
+ "source_arrival_path": "NIROPS cumulative unions",
+ "width": 15,
+ "height": 15,
+ "epsg": 5070,
+ "transform": [
+  375.0,
+  0.0,
+  -2124375.0,
+  0.0,
+  -375.0,
+  2575500.0
+ ],
+ "bounds_wgs84": [
+  -122.72697767691263,
+  43.41801299071667,
+  -122.64054181207841,
+  43.48039341373629
+ ],
+ "resolution_m": [
+  375,
+  375
+ ],
+ "burned_label": "NIROPS cumulative mapped extent at cell centres",
+ "valid_arrival_pixels": 7
+}

@@ -490,6 +490,22 @@
       "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
       "fetched_utc": "2026-11-12",
       "notes": "Whole-US 2024 country archive. The subset for the 6 held-out 2024 fires is committed at small/firms/firms_us2024_heldout6.csv.gz (made by firms_filter_us2024.py)."
+    },
+    {
+      "name": "landfire_consume_loadings",
+      "streams": [
+        "S-D1",
+        "S-D2",
+        "S-D9"
+      ],
+      "url": "https://www.landfire.gov/sites/default/files/CSV/LF_ConsumeLoadings.csv",
+      "filename": "LF_ConsumeLoadings.csv",
+      "size": 3562778,
+      "md5": null,
+      "sha256": "1621b8e316fe1760a80e9bfcbdfe01efb4b7d03c948e27daf7ac63b1dbf74c73",
+      "licence": "LANDFIRE (USGS/USFS) public domain",
+      "fetched_utc": "2026-11-12",
+      "notes": "Fuel-loading lookup read (not downloaded) by forecast/wildfire/environment.py enrich-data from data/environment/sources/. rebuild_env.sh places it."
     }
   ]
 }

@@ -1,0 +1,36 @@
+{
+ "id": "OR-WIF-240214_MossMountain_Chalk",
+ "name": "MossMountain_Chalk",
+ "country": "US",
+ "year": 2024,
+ "t0_utc": "2024-07-23T00:00:00+00:00",
+ "start_utc": "2024-07-23T00:00:00+00:00",
+ "end_utc": "2024-10-15T04:00:00+00:00",
+ "acquisition_window_basis": "NIROPS survey window: t0 (first survey - 24 h, floored to the day) to the last survey",
+ "rain_history_start_utc": "2024-06-23T00:00:00+00:00",
+ "arrival_path": "regions/OR-WIF-240214_MossMountain_Chalk/arrival_time_hours.tif",
+ "source_arrival_path": "NIROPS cumulative unions",
+ "width": 37,
+ "height": 31,
+ "epsg": 5070,
+ "transform": [
+  375.0,
+  0.0,
+  -2094375.0,
+  0.0,
+  -375.0,
+  2618625.0
+ ],
+ "bounds_wgs84": [
+  -122.51637332965265,
+  43.81199176611229,
+  -122.30986987874908,
+  43.94634234310388
+ ],
+ "resolution_m": [
+  375,
+  375
+ ],
+ "burned_label": "NIROPS cumulative mapped extent at cell centres",
+ "valid_arrival_pixels": 181
+}
