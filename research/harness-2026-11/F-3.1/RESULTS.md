@@ -229,6 +229,17 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Stated limit.** The sensitivity covers the scalar-law v3.1 packets only, not the per-cell envelope packets
   (v3.3 envelope and envelope_burnset). Yeongdeok gets the never-clears arm only, on its packets with holes at f = 1
   (rule addition dated 2026-11-12).
+* **Sources (Sofia, literature check).**
+  * Flaming residence at a point is seconds to about a minute: 34–74 s for crown fire (Taylor et al. 2004), and
+    tr = 384/σ min for surface fuels (Andrews 2018).
+  * Smouldering lasts hours, but that is ground heat, not a road-blocking time.
+  * No published number was found for how long a road stays unsafe after the front passes.
+  * So reopening a cell within the horizon rests on an unsourced assumption. Since every hole vanishes under
+    never-clears, **the holes depend on that assumption and are not physically supported**.
+* **Dose-limit variation is a stated gap.** No HAZARD-based FED function exists that could be called beside the
+  unchanged checker. Priya's F-4.2 fractional dose uses an assumed flame model, not packet flux, and is not a library
+  function. A HAZARD-based FED integral would have to be written fresh and verified on its own. The FED limits 0.3 and
+  0.1 are **not** from F-4.2: RADIANT_PLAN.md has flux ceilings of 2.5 and 1.0 kW/m² and FD ≥ 1 (80 TDU).
 * **What this means.** The contiguous deadline is sensitive to the placeholder burning duration: at f = 2 it moves
   for 2–10 of 84 origins per packet. Deadlines that depend on burn-out are not robust to that law.
 
