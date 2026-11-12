@@ -1,7 +1,7 @@
 # `.wfgc` certificate bundle format, version 1
 
-ASCII text. Tokens are separated by any whitespace (space, tab, newline). Every non-keyword token is a decimal integer,
-optionally with a leading `-`, fitting in signed 64-bit. Keywords are exactly as written below, in exactly this order.
+ASCII text. Tokens are separated by runs of space, tab or LF (no CR or other control bytes). Every non-keyword token is a canonical decimal integer
+(`-?(0|[1-9][0-9]*)`, no `+`, no leading zeros, no `-0`), fitting in signed 64-bit. Keywords are exactly as written below, in exactly this order.
 Semantics are in `CERTIFICATE_SPEC.md`. An interval list `<m> lo_1 hi_1 ... lo_m hi_m` is valid only if
 `lo_k <= hi_k` and `hi_k + 1 < lo_{k+1}` (sorted, disjoint, non-adjacent).
 

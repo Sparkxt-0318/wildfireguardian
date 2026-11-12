@@ -14,6 +14,8 @@ class Reject(Exception):
 
 class Tokens:
     def __init__(self, text):
+        if any(not (32 <= ord(ch) < 127 or ch in "\t\n") for ch in text):
+            raise Reject("BAD_BYTE")
         self.t = text.split()
         self.i = 0
 
@@ -29,8 +31,8 @@ class Tokens:
     def int(self, lo=None, hi=None):
         w = self.word()
         body = w[1:] if w.startswith("-") else w
-        if not body.isdigit() or not body.isascii():
-            raise Reject("NOT_INTEGER")
+        if not body.isdigit() or not body.isascii() or (len(body) > 1 and body[0] == "0") or w == "-0":
+            raise Reject("NOT_INTEGER")  # canonical form only: no leading zeros, no "-0", no "+"
         v = int(w)
         if not -(1 << 63) <= v < (1 << 63):
             raise Reject("INT64_RANGE")
@@ -226,7 +228,7 @@ def main(argv):
         print("usage: check_py.py FILE", file=sys.stderr)
         return 2
     try:
-        text = sys.stdin.read() if argv[1] == "-" else open(argv[1], encoding="ascii").read()
+        text = sys.stdin.read() if argv[1] == "-" else open(argv[1], encoding="ascii", newline="").read()
     except (OSError, UnicodeDecodeError) as exc:
         print("REJECT IO:%s" % type(exc).__name__)
         return 2
