@@ -747,3 +747,39 @@ def first_passage_cmc_repaired(K, initial, horizon, *, n_samples, seed, threshol
                 estimate=est.reshape(shape), estimate_var=np.maximum(est2 - est ** 2, 0).reshape(shape),
                 flagged=flagged.reshape(shape), repairs=int(repairs),
                 seconds_pass1=t1 - t0, seconds_pass2=t2 - t1)
+
+
+# --------------------------------------------------------------------------------------
+# Shared run-state modulation as an exact time change
+# --------------------------------------------------------------------------------------
+
+def time_change_arrivals(arrivals, z_hourly):
+    """Arrival times under rates K * Z(t) from arrival times under K (static kernels), exactly.
+
+    If every edge rate is multiplied by a common nonnegative modulator Z(t) (here piecewise constant per
+    hour: Z(t) = z_hourly[floor(t)], the last value extending), each edge's integrated hazard becomes
+    K * G(t) with G(t) = int_0^t Z. First passage on the integrated-hazard clock is therefore the
+    unmodulated arrival time T in "G units": T_Z = G^{-1}(T). The map is applied pathwise (same clocks),
+    so one trajectory set serves every shared run scenario (global multipliers, run/slow day chains,
+    OU log-gust paths). Cells with G never reaching T get inf.
+    """
+    z = np.asarray(z_hourly, dtype=np.float64)
+    if z.ndim != 1 or not len(z) or (z < 0).any() or not np.isfinite(z).all():
+        raise ValueError("z_hourly must be a nonempty finite nonnegative 1-D array")
+    a = np.asarray(arrivals, dtype=np.float64)
+    G = np.concatenate([[0.0], np.cumsum(z)])  # G at integer hours 0..len(z)
+    out = np.full(a.shape, np.inf)
+    fin = np.isfinite(a)
+    T = a[fin]
+    res = np.empty_like(T)
+    within = T <= G[-1]
+    # inside the tabulated hours: find hour j with G[j] < T <= G[j+1] (z[j] > 0 there)
+    j = np.searchsorted(G, T[within], side="left") - 1
+    j = np.clip(j, 0, len(z) - 1)
+    res[within] = np.where(T[within] == 0, 0.0, j + (T[within] - G[j]) / np.where(z[j] > 0, z[j], np.inf))
+    # beyond the table the last value extends
+    beyond = ~within
+    last = z[-1]
+    res[beyond] = len(z) + (T[beyond] - G[-1]) / last if last > 0 else np.inf
+    out[fin] = res
+    return out

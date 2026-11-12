@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **28 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **29 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -291,6 +291,20 @@ It writes `REFIT_RECEIPT_<command>.json` (wrapper/pipeline/protocol shas, manife
 5. compute: the archive fit used 1,303 intervals and took 2,284 s.
 
 Waiting on Daniel's rebuilt inputs (weather after the 00:00 UTC Open-Meteo reset) and Victor's grid rule.
+
+## 10. Shared run state as an exact time change (from Sofia's fast-run brief)
+
+**Construction.** Sofia's recommendation 2 is Markov-modulated edge clocks `λ_e · Z(t)` with Z SHARED across edges, which makes runs spatially coherent. Z can be a run/slow day chain, an OU log-gust path or a global multiplier. Under first-passage this is an exact time change: with `G(t) = ∫₀ᵗ Z`, each edge's integrated hazard is `K · G(t)`, so `T_Z = G⁻¹(T)` pathwise, where T is the unmodulated arrival time.
+
+`fpp.time_change_arrivals(arrivals, z_hourly)` implements this for an hourly piecewise-constant Z, including stalled hours (Z = 0).
+
+**Test.** `test_shared_modulator_is_an_exact_time_change` covers stall and run hours. The time-changed static arrivals equal the time-dependent Dijkstra on `K · Z` to 1e-9, with the same clocks.
+
+**Consequence.** One trajectory set (static kernels) serves every shared scenario: S-D4mix multipliers, a run/slow HMM or gust paths. Only a 1-D map per scenario is needed, with no new Dijkstra. This does not cover modulators that vary in space, or weather-driven kernel changes beyond a common factor.
+
+**Prior art** (Sofia; not yet read by me):
+- Migliorini & Smyth 2026 (AISTATS, arXiv 2510.12916), "Latent Interacting Particle Systems": each cell is a continuous-time Markov chain with neural neighbour-dependent rates, conditioned on observations by twisted SMC, on WildfireSpreadTS. It is the closest prior art to S-D1's continuous-time model and must be cited before any novelty wording.
+- Kenah & Robins 2007; Hajian et al. 2016; Ganguly et al. 2026 (see Sofia's briefs).
 
 ## Blockers and dependencies
 

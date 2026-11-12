@@ -435,3 +435,24 @@ def test_cmc_frontier_loop_bitwise_equal_to_fullgrid_reference(k, S, seg, ign, s
         bh = _fpp_cmc_hash_fullgrid_reference(K, offs, init.ravel(), horizon, seg, 60, 77)
         for x, y in zip(ah, bh):
             assert np.array_equal(x, y)
+
+
+def test_shared_modulator_is_an_exact_time_change():
+    """Rates K*Z(t) with Z shared across edges: time-changed static arrivals == time-dependent Dijkstra
+    on K*Z per hour, pathwise with the same clocks (Sofia's shared run state / S-D4mix)."""
+    from fpp import time_change_arrivals
+    rng = np.random.default_rng(21)
+    K = rng.uniform(0, 0.25, size=(25, 12, 12))
+    K[12] = 0
+    init = np.zeros((12, 12), bool)
+    init[2, 9] = True
+    z = np.array([0.5, 0.0, 3.0, 1.0, 8.0, 0.2])  # includes a stalled hour and a run hour
+    horizon = 12.0
+    _, base = first_passage(K, init, [1e6], n_samples=30, seed=8, keep_arrivals=30)
+    _, direct = first_passage(K[None] * z[:, None, None, None], init, [horizon], n_samples=30, seed=8,
+                              keep_arrivals=30)
+    tc = time_change_arrivals(base, z)
+    tc = np.where(tc <= horizon, tc, np.inf)
+    fin = np.isfinite(direct)
+    assert np.array_equal(fin, np.isfinite(tc))
+    assert np.allclose(tc[fin], direct[fin], rtol=1e-9, atol=1e-9)
