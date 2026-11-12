@@ -27,9 +27,10 @@ from deadline_field.unknown import extra_blocks, summary  # noqa: E402
 
 TIERS = (("optimistic", None, None), ("A", "A", None), ("B1.5", "B", 1.5), ("B8.2", "B", 8.2),
          ("R1.5", "R", 1.5), ("R8.2", "R", 8.2))
+EXTRA_TIERS = {"R16.4": ("R16.4", "R", 16.4)}   # rate-assumed sensitivity (RATE_ASSUMED_RULE.md)
 
 
-def run(cache_path: Path, data_root: Path):
+def run(cache_path: Path, data_root: Path, tiers=TIERS):
     doc = json.loads(cache_path.read_text())
     region, compact = doc["region_id"], doc["input_time"].replace("-", "").replace(":", "")
     gp = data_root / "graphs" / region / "graph.json"
@@ -47,7 +48,7 @@ def run(cache_path: Path, data_root: Path):
     cell_counts = summary(base.pk)
     out_t = {}
     feas = {}
-    for name, tier, v in TIERS:
+    for name, tier, v in tiers:
         t0 = time.perf_counter()
         pm = base if tier is None else PacketModel(gp, pd, extra_blocks=extra_blocks(base.pk, base.g.grid, base.H, tier, v))
         nb = len(pm.extra_blocks)
@@ -64,7 +65,7 @@ def run(cache_path: Path, data_root: Path):
         spec = (j["dest"], j["dwell"], j["window"])
         opt = iv.contains(feas[("optimistic", spec, j["start"])], j["offset"])
         r = {"job": j["job"], "recorded": j["recorded"], "raw": j["raw"], "optimistic": opt}
-        for name in ("A", "B1.5", "B8.2", "R1.5", "R8.2"):
+        for name in [t[0] for t in tiers if t[0] != "optimistic"]:
             pes = iv.contains(feas[(name, spec, j["start"])], j["offset"])
             label = "checked(contact)" if pes else ("no_route" if not opt else "unresolved")
             r[name] = label
@@ -77,7 +78,7 @@ def run(cache_path: Path, data_root: Path):
     widths = {}
     for o, sp in origins.items():
         d = {}
-        for name, _, _ in TIERS:
+        for name, _, _ in tiers:
             m = [feas[(name, s, o)][-1][1] for s in sp if feas[(name, s, o)]]
             d[name] = max(m) if m else None
         widths[o] = d
@@ -118,11 +119,13 @@ def main():
     ap.add_argument("cache", type=Path, nargs="?")
     ap.add_argument("--data-root", type=Path, default=ROOT / "data" / "routing")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--only-tiers", help="comma list of extra tiers to run with the optimistic field, e.g. R16.4")
     a = ap.parse_args()
     if a.summary_from:
         a.out.write_text(json.dumps(summarize([json.loads(f.read_text()) for f in a.summary_from]), indent=1))
         return
-    out = run(a.cache.resolve(), a.data_root)
+    tiers = TIERS if not a.only_tiers else (TIERS[0],) + tuple(EXTRA_TIERS[t] for t in a.only_tiers.split(","))
+    out = run(a.cache.resolve(), a.data_root, tiers)
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({k: out[k] for k in ("cache_file", "cells", "timing", "labels", "peak_rss_mib")}, indent=1))
 
