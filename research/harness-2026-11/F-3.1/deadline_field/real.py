@@ -35,6 +35,8 @@ def load_packet(packet_dir, grid):
     'present_only' treats phases starting at 0 as present fire."""
     import numpy as np
     from pathlib import Path as _P
+    if (_P(packet_dir) / "SUPPORT_WRITE_FAILED").exists():     # F-9.3 support_mask: a failed write is refused
+        raise ValueError("packet %s carries SUPPORT_WRITE_FAILED; refused" % packet_dir)
     with np.load(_P(packet_dir) / "constructed_arrays.npz", allow_pickle=False) as z:
         ext = {k: np.array(z[k], dtype=float) for k in z.files if k.endswith("__extinction_breakpoint_s")}
     # Scalar law first: the unchanged reader verifies npz phases against the HAZARD flame bins. Only when that check

@@ -111,7 +111,10 @@ def run(graph: Path, packet: Path, instance: dict, *, verify=True, step=1800):
            ("PASS" if (c["full_policy_ok"] and c["closed_and_router_replay_clear"]) else "FAIL:" + ",".join(c["codes"]))] += 1
         wc["next_second_infeasible:" + str(c["next_second_infeasible"])] += 1
     diffs = [r["exact_cert"] - r["grid_cert"] for r in origins_out.values() if r["grid_cert"] is not None]
-    return {"schema": "wfg.f31.fdyn/1", "packet": str(packet), "graph": str(graph), "H": H,
+    bs = Path(packet) / "BUILD_SUMMARY.json"
+    bsd = json.loads(bs.read_text()) if bs.exists() else {}
+    writer = {k: bsd.get(k) for k in ("packet_writer_sha256", "support_writer")}   # F-9.3: part of the instance key
+    return {"schema": "wfg.f31.fdyn/1", "packet": str(packet), "graph": str(graph), "H": H, "writer_identity": writer,
             "label": "SCENARIO (F-DYN v3), not what happened; roads limited to the recorded windows",
             "precondition": pre, "destinations": len(specs), "origins": len(origins_out),
             "classes": dict(cls), "witness_checks": dict(wc), "pieces": dict(pieces),
