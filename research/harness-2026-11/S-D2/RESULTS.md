@@ -426,11 +426,13 @@ from branch `daniel/data-fetch`.
     [−0.117, 0.137].
   - **Detrended lag 1: FAIL (null bias).** The null detrended the values before permuting them. With about 8
     intervals per fire, that biases the detrended excess negative, by about −0.13 under iid data.
-  - **Owen's corrected null** (permute first, then detrend): rank +0.091 [−0.131, 0.293], log ratio +0.060
-    [−0.067, 0.204]. Neither is significant.
+  - **Corrected rerun** (45d83d1b, null permutes first and then detrends): **PASS WITH NOTES** (Owen). Detrended lag-1
+    excess (Pearson): rank +0.094 [−0.124, 0.293], p 0.115; log ratio +0.057 [−0.070, 0.198], p 0.206. Without
+    detached intervals: rank +0.083 [−0.172, 0.324], log ratio +0.035 [−0.135, 0.206]. Neither is significant. This
+    supersedes the FAIL on the detrended claim. Owen's independent corrected numbers agreed (+0.091/+0.060).
   - **The earlier "mostly trend" reading is WITHDRAWN.** The data cannot separate trend from state: undetermined.
-  - The fix is in `lag_persistence_v2.py`, with an iid null-calibration test in `test_lag_persistence.py` that fails
-    on the 6ae6dfea code. The corrected rerun follows.
+  - The fix is in `lag_persistence_v2.py` (827c74d0, **PASS**), with an iid null-calibration test in
+    `test_lag_persistence.py` that fails on the 6ae6dfea code.
   - Iris's restatement: within-fire persistence beyond each fire's average is present (the raw lags stand), and
     trend against state is undetermined. Fire age is not shown to suffice, though its marginal association stands as
     verified. The prequential test is unscheduled and undecided, and the fold-kernel sizing step decides it. The
@@ -438,4 +440,5 @@ from branch `daniel/data-fetch`.
     pure-noise calibration.
   - **Pure-noise calibration on the real structure** (`lag_null_probe.py`, 300 iid datasets on the same 25 fires,
     intervals and runs): the mean excess is +0.004, +0.006, −0.005 and −0.002 for lags 1, 2, 3 and detrended lag 1,
-    each with SE about 0.004. The corrected procedure is unbiased.
+    each with SE about 0.004. The corrected procedure is unbiased (1cee5ddc, **PASS**; Owen also checked the probe
+    detects the old bias: −0.122).
