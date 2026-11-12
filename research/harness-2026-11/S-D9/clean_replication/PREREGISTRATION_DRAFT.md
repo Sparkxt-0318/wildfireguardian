@@ -23,7 +23,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
   - a separately frozen new-candidate set, reported apart as "not a replication";
   - CR1 freezes before A1 part c is opened;
   - FEDS as a descriptive, non-pooled stratum.
-- **Scope: OWNER DECISION, 12 Nov 2026 (relayed by the orchestrator).**
+- **Scope: OWNER DECISION, 12 Nov 2026 (relayed by the orchestrator; ledger row 48).**
   - **No 2026 fire is in any CR1 tier.** US 2026 stays reserved for `forecast/documents/preregistration_blind_test.md`.
   - **Tier 2 (THE confirmation) starts 2027-01-01**, not at the freeze. This removes any overlap with late-2026 fires.
   - **Tier 1: [OPEN], orchestrator or owner.** The choice is between:
@@ -84,7 +84,7 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
 8. **No 2026+ US fire access before the Tier-2 listing.**
    - From this draft on, no session fetches, lists or reads any source of 2026-or-later US fires before the CR1 Tier-2 listing. The only exception is the custodian, under this protocol.
    - The sources covered include NIFC/NIROPS FTP folders and nightly deliveries, FEDS NRT, WFIGS, ICS-209, FIRMS US and news.
-   - **Prior 2026 exposure, recorded.** Sofia opened 32 public 2026 NIROPS nightly deliveries before this rule. Her 2026 material is **frozen in place**: kept as it is, not extended, and not copied further (ledger, Hannah). Two 2026 incident names and one flight comment from it reached one other session's transcript (Victor, Q7), and nothing was repeated or committed. A1 addendum §7 uses only the aggregate finding (no coverage field; estimated times). This is one reason 2026 is excluded from CR1.
+   - **Prior 2026 exposure, recorded.** Sofia opened 32 public 2026 NIROPS nightly deliveries before this rule. Her 2026 material is **frozen in place**: kept as it is, not extended, and not copied further (ledger row 46: the exposed set by hash, and receipts). Two 2026 incident names and one flight comment from it reached one other session's transcript (Victor, Q7; rows 43 and 45), and nothing was repeated or committed. A1 addendum §7 uses only the aggregate finding (no coverage field; estimated times). This is one reason 2026 is excluded from CR1.
 
 ## 2. Source, window and tiers
 
@@ -134,6 +134,10 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
 
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
   - If NIROPS yields too few fires, the fallback is a **longer window**, never another product.
+  - **Access status (ledger row 49).** The documented NIFC FTP layouts for 2020–24 are **not served today**: all 504 constructed URLs, and a documented GACC-year folder, returned 404. Documentation records a 2022 purge notice and an unconfirmed move from /public to /protected.
+    - The builder's rehearsal on exposed fires therefore uses IR files **already held**, for example Zenodo 15492982 (Dixie 2021, KMZ-derived, no flight times). Its acceptance criteria are stated for what those files can test.
+    - **2027 retrieval paths are unverified** until the custodian's Tier-2 listing.
+    - **[OPEN], orchestrator:** whether a confirmed access route (the method, any credential holder, and who may use it) is a **precondition of the freeze**, or is recorded at the Tier-2 listing. Candidate routes include an owner check of the FTP notices and the /protected terms, and the compiled release that supplied A1's 2020–24 NIROPS data, if a 2027 edition is issued. Changing the product is an owner decision, made **before** the freeze only.
   - Other perimeter products (FEDS, WFIGS, CWFIS and others) may be declared here as **separate descriptive strata**. They are never pooled.
 - **Two tiers, declared now and never pooled:**
   - **Tier 1 (only if kept), 2025 only, descriptive: "not a confirmation".** Fires discovered from the latest date held through 2025-12-31. 2026 is excluded by the owner's decision.
@@ -162,7 +166,7 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
        - **Fallback (accepted by Hannah, 15:40Z):** a synthetic fixture is used **only if** no exposed 2020–24 fire appears under both path forms in the custodian's constructed-URL run.
          - The fixture mirrors the real archive layouts: `Z_<y>_HISTORIC`, `Historic_archived NIROPS/<y>_fires/` and `GACC_Incidents/<y>/`.
          - The disclosure says which was used.
-         - The finder's root is currently 404 (ledger row 47), so whether real dual-path examples exist is unknown until Daniel supplies a working root.
+         - **Result: the synthetic fixture is used.** Finder v3 (custodian run, ledger row 49) tried 504 constructed URLs under both roots, and all returned 404: 29 NOT_FOUND, 0 FOUND. No exposed fire is available under a current or an archived path today, so condition (i) is met.
      - **Renamed, merged or complex folders:** the frozen rule maps every folder that resolves to the same incident (by the IRWIN ID in its IR files, read by the custodian after the freeze) to the canonical folder with the **lowest `u`**. The others are logged as aliases.
      - Two incidents that collide on `canonical_id` are both listed and resolved by IRWIN ID after the freeze.
    - **Outputs:**
@@ -282,14 +286,15 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
 | N_target | owner | **decided: 90** (12 Nov) |
 | extension, new-candidate set, freeze order, FEDS stratum | owner | orchestrator positions, no objection; awaiting confirmation |
 | snapshot and closing dates | owner | proposed in draft 3 |
-| Magstadt-equivalent series builder | Daniel | may start the rehearsal on exposed 2020–24 fires only |
+| Magstadt-equivalent series builder | Daniel | rehearsal on exposed 2020–24 fires, using IR files already held (FTP paths 404, row 49) |
 | buffer B for the same-ground rule | Iris / Hannah | B = 4 km in the text (draft 4); Iris to confirm |
 | power at the R effect and at half of it | Victor | provisional table in §7; `power_cr1.py` committed before the freeze |
 | second custodian | orchestrator | Nora |
 | access protocol review | Hannah | draft 4 re-reviewed (15:30Z): B1–B5 resolved. Two items remained: the Tier-1 scope (owner) and canonical_id stability (fixed in draft 5). She would pass it for freeze once the scope is decided |
 | Tier-1 scope vs the blind test (US 2026) and `fresh_holdout` (US 2025) | owner | **decided** (12 Nov): no 2026 in any tier; Tier 2 from 2027-01-01 |
 | **Tier 1: drop, or keep as 2025-only and descriptive** | orchestrator / owner | **[OPEN]** (Hannah leans to drop) |
-| canonical_id rehearsal: a real dual-path fire or the synthetic fixture | Daniel / custodian | after a working finder root (row 47) |
+| canonical_id rehearsal | Daniel / custodian | **synthetic fixture** (condition (i) met, row 49) |
+| access route for 2027 NIROPS-type IR: a freeze precondition, or recorded at listing | orchestrator / owner | **[OPEN]** |
 | latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | **done** (ledger rows 43 and 45); per-session declarations (Q7) collected |
 | owner-held salt and key storage; dedicated custodian environment | owner / orchestrator | to set up before the freeze |
 | the custodian named by amendment (the role definition in §1.2) | orchestrator | Hannah and Nora as first holders |
