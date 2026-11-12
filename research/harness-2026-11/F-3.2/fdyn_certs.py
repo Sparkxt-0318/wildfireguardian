@@ -65,7 +65,10 @@ def main():
         start = name.split("_")[0]
         H = int(name.split("_h")[1].split("_")[0]) * 3600
         variant = "kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name else "envelope"
-        entry = [i for i in instances if i["region"] == region and i["start_tag"] == start and i["horizon_s"] == H][0]
+        # origins are the region's entry nodes (same for every start of a region and horizon); a synthetic start has no
+        # entry of its own, so use the region/horizon entry and record it (prow["origins_from"])
+        same = [i for i in instances if i["region"] == region and i["horizon_s"] == H]
+        entry = next((i for i in same if i["start_tag"] == start), same[0])
         if region not in graphs:
             g = json.loads((L / "graphs_interim" / region / "graph.json").read_text())
             graphs[region] = (g, prepared(g))
@@ -83,7 +86,7 @@ def main():
         prow = dict(packet=rel, region=region, start=start, horizon_s=H, variant=variant,
                     hazard_sha256=hashlib.sha256(hz_bytes).hexdigest(), active_cells=len(C),
                     p1_raw_vs_contact=sum(B.get(k) != C.get(k) for k in set(B) | set(C)),
-                    p1_hazard_vs_contact=len(d_hc), p1_hazard_later_end_by_lt_1us=float_end)
+                    p1_hazard_vs_contact=len(d_hc), p1_hazard_later_end_by_lt_1us=float_end, origins_from=entry["start_tag"])
         o0 = entry["origins"][0]
 
         def req(o, dep):
