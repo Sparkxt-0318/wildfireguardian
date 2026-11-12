@@ -67,3 +67,24 @@ Correct-county coverage is REPORTED, not gated: the number of place-scenarios wh
 renders a line. It can only fall relative to today, through not-established places, and is reported exactly by
 region and reason. If it falls below 50 % of today's for any registered county, the cut is not shipped; it goes back
 to the orchestrator and Iris with the numbers, since such a large loss would need a decision.
+
+## Build tooling (ready before the real file; 2026-11-12)
+- `export_places.py` (standard library) writes `places_input.json`: one row per real origin, 177 in total
+  (86 의성–안동 + 91 영덕), with the id, the OSM point and the road-entry node, all WGS84. The 531 place-scenarios are
+  these origins across the six caches.
+- `label_sigungu.py` applies the rule above and writes `labels.json`. It records the sha256 of every source file and
+  reports counts at 0 / 25 / 50 / 100 m. It stops (exit 2) on a failed sanity check. A `--fixture` run skips the
+  sanity checks and is marked FIXTURE.
+- `test_label_sigungu.py` uses SYNTHETIC UTM-K boundary files (two adjacent 10 km squares) and covers:
+  - every reason, in order;
+  - margin sensitivity;
+  - margin 0 m on a point 10 m inside a boundary (mutation c);
+  - overlap;
+  - cp949 and utf-8 .dbf names;
+  - a geographic CRS refused;
+  - the 군위군 vintage check;
+  - the CLI exit codes;
+  - completeness of the real input list.
+  9 passed. Mutations: the entry check removed → 1 failed; the margin check removed → 3 failed.
+- Not yet run on real data: the 국토교통부 SHP is hosted on V-World, which these containers cannot reach. The owner
+  is downloading it.

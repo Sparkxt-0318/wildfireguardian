@@ -1,0 +1,2488 @@
+{
+ "schema": "wfg.wkit.sigungu_input/1",
+ "crs": "EPSG:4326",
+ "regions": [
+  "uiseong_andong_2025",
+  "yeongdeok_2025"
+ ],
+ "places": [
+  {
+   "id": "osm:way/1372113459",
+   "region": "uiseong_andong_2025",
+   "name": null,
+   "point": {
+    "lon": 128.6973838,
+    "lat": 36.3621446
+   },
+   "entry": {
+    "node": "osm:11256553472",
+    "lon": 128.6963874,
+    "lat": 36.3628585
+   }
+  },
+  {
+   "id": "osm:node/5344430780",
+   "region": "uiseong_andong_2025",
+   "name": "마지경로당",
+   "point": {
+    "lon": 128.7122205,
+    "lat": 36.5473451
+   },
+   "entry": {
+    "node": "osm:358865256",
+    "lon": 128.71221,
+    "lat": 36.54729
+   }
+  },
+  {
+   "id": "osm:node/5344420465",
+   "region": "uiseong_andong_2025",
+   "name": "용상3구경로당",
+   "point": {
+    "lon": 128.7672979,
+    "lat": 36.551173
+   },
+   "entry": {
+    "node": "osm:355842644",
+    "lon": 128.7759731,
+    "lat": 36.5430281
+   }
+  },
+  {
+   "id": "osm:way/1265051875",
+   "region": "uiseong_andong_2025",
+   "name": "의성장애인복지센터",
+   "point": {
+    "lon": 128.6801739,
+    "lat": 36.3595957
+   },
+   "entry": {
+    "node": "osm:9120108745",
+    "lon": 128.6810538,
+    "lat": 36.3591694
+   }
+  },
+  {
+   "id": "osm:way/1265051876",
+   "region": "uiseong_andong_2025",
+   "name": null,
+   "point": {
+    "lon": 128.6799198,
+    "lat": 36.359432
+   },
+   "entry": {
+    "node": "osm:11752194692",
+    "lon": 128.6795582,
+    "lat": 36.3585741
+   }
+  },
+  {
+   "id": "osm:node/415160356",
+   "region": "uiseong_andong_2025",
+   "name": "감계리",
+   "point": {
+    "lon": 128.79913,
+    "lat": 36.3641
+   },
+   "entry": {
+    "node": "osm:12099834983",
+    "lon": 128.796941,
+    "lat": 36.3642003
+   }
+  },
+  {
+   "id": "osm:node/415158550",
+   "region": "uiseong_andong_2025",
+   "name": "개곡리",
+   "point": {
+    "lon": 128.67543,
+    "lat": 36.53808
+   },
+   "entry": {
+    "node": "osm:4738448346",
+    "lon": 128.673262,
+    "lat": 36.5368498
+   }
+  },
+  {
+   "id": "osm:node/415158421",
+   "region": "uiseong_andong_2025",
+   "name": "검암리",
+   "point": {
+    "lon": 128.65667,
+    "lat": 36.53941
+   },
+   "entry": {
+    "node": "osm:359422891",
+    "lon": 128.6563629,
+    "lat": 36.5394456
+   }
+  },
+  {
+   "id": "osm:node/415160364",
+   "region": "uiseong_andong_2025",
+   "name": "고곡리",
+   "point": {
+    "lon": 128.83978,
+    "lat": 36.47744
+   },
+   "entry": {
+    "node": "osm:403802839",
+    "lon": 128.81549,
+    "lat": 36.47905
+   }
+  },
+  {
+   "id": "osm:node/415158418",
+   "region": "uiseong_andong_2025",
+   "name": "고상리",
+   "point": {
+    "lon": 128.61076,
+    "lat": 36.5101
+   },
+   "entry": {
+    "node": "osm:12368880073",
+    "lon": 128.6115022,
+    "lat": 36.5103062
+   }
+  },
+  {
+   "id": "osm:node/415158419",
+   "region": "uiseong_andong_2025",
+   "name": "고하리",
+   "point": {
+    "lon": 128.62724,
+    "lat": 36.52879
+   },
+   "entry": {
+    "node": "osm:359422260",
+    "lon": 128.6302,
+    "lat": 36.52735
+   }
+  },
+  {
+   "id": "osm:node/415160468",
+   "region": "uiseong_andong_2025",
+   "name": "관덕리",
+   "point": {
+    "lon": 128.69854,
+    "lat": 36.42935
+   },
+   "entry": {
+    "node": "osm:12616948834",
+    "lon": 128.6988634,
+    "lat": 36.4291491
+   }
+  },
+  {
+   "id": "osm:node/415160467",
+   "region": "uiseong_andong_2025",
+   "name": "광연리",
+   "point": {
+    "lon": 128.66737,
+    "lat": 36.44358
+   },
+   "entry": {
+    "node": "osm:12099940640",
+    "lon": 128.6736771,
+    "lat": 36.440651
+   }
+  },
+  {
+   "id": "osm:node/415158420",
+   "region": "uiseong_andong_2025",
+   "name": "광음리",
+   "point": {
+    "lon": 128.6672092,
+    "lat": 36.5084902
+   },
+   "entry": {
+    "node": "osm:403790720",
+    "lon": 128.66749,
+    "lat": 36.50849
+   }
+  },
+  {
+   "id": "osm:node/415160420",
+   "region": "uiseong_andong_2025",
+   "name": "괴산리",
+   "point": {
+    "lon": 128.60226,
+    "lat": 36.36565
+   },
+   "entry": {
+    "node": "osm:6956312755",
+    "lon": 128.606314,
+    "lat": 36.3605245
+   }
+  },
+  {
+   "id": "osm:node/415160471",
+   "region": "uiseong_andong_2025",
+   "name": "구계리",
+   "point": {
+    "lon": 128.74354,
+    "lat": 36.46841
+   },
+   "entry": {
+    "node": "osm:6667109284",
+    "lon": 128.7408554,
+    "lat": 36.4728172
+   }
+  },
+  {
+   "id": "osm:node/415158324",
+   "region": "uiseong_andong_2025",
+   "name": "구미리",
+   "point": {
+    "lon": 128.7644,
+    "lat": 36.52167
+   },
+   "entry": {
+    "node": "osm:368190526",
+    "lon": 128.76527,
+    "lat": 36.52132
+   }
+  },
+  {
+   "id": "osm:node/415160350",
+   "region": "uiseong_andong_2025",
+   "name": "구성리",
+   "point": {
+    "lon": 128.81338,
+    "lat": 36.38607
+   },
+   "entry": {
+    "node": "osm:437147827",
+    "lon": 128.81229,
+    "lat": 36.38605
+   }
+  },
+  {
+   "id": "osm:node/415160353",
+   "region": "uiseong_andong_2025",
+   "name": "구암리",
+   "point": {
+    "lon": 128.76704,
+    "lat": 36.36331
+   },
+   "entry": {
+    "node": "osm:12382057721",
+    "lon": 128.7635511,
+    "lat": 36.3623325
+   }
+  },
+  {
+   "id": "osm:node/415160464",
+   "region": "uiseong_andong_2025",
+   "name": "구천리",
+   "point": {
+    "lon": 128.67535,
+    "lat": 36.47978
+   },
+   "entry": {
+    "node": "osm:367857621",
+    "lon": 128.67567,
+    "lat": 36.48038
+   }
+  },
+  {
+   "id": "osm:node/415160457",
+   "region": "uiseong_andong_2025",
+   "name": "국곡리",
+   "point": {
+    "lon": 128.60354,
+    "lat": 36.48124
+   },
+   "entry": {
+    "node": "osm:365833608",
+    "lon": 128.60891,
+    "lat": 36.48398
+   }
+  },
+  {
+   "id": "osm:node/415160465",
+   "region": "uiseong_andong_2025",
+   "name": "귀미리",
+   "point": {
+    "lon": 128.68783,
+    "lat": 36.46538
+   },
+   "entry": {
+    "node": "osm:330188490",
+    "lon": 128.6877445,
+    "lat": 36.46536
+   }
+  },
+  {
+   "id": "osm:node/415160343",
+   "region": "uiseong_andong_2025",
+   "name": "금학리",
+   "point": {
+    "lon": 128.84776,
+    "lat": 36.36513
+   },
+   "entry": {
+    "node": "osm:437284090",
+    "lon": 128.84508,
+    "lat": 36.36438
+   }
+  },
+  {
+   "id": "osm:node/415160438",
+   "region": "uiseong_andong_2025",
+   "name": "기도리",
+   "point": {
+    "lon": 128.55241,
+    "lat": 36.38706
+   },
+   "entry": {
+    "node": "osm:365842937",
+    "lon": 128.5675,
+    "lat": 36.38961
+   }
+  },
+  {
+   "id": "osm:node/415158434",
+   "region": "uiseong_andong_2025",
+   "name": "단호리",
+   "point": {
+    "lon": 128.6143,
+    "lat": 36.54862
+   },
+   "entry": {
+    "node": "osm:359424715",
+    "lon": 128.6291454,
+    "lat": 36.552914
+   }
+  },
+  {
+   "id": "osm:node/415160439",
+   "region": "uiseong_andong_2025",
+   "name": "대사리",
+   "point": {
+    "lon": 128.57405,
+    "lat": 36.34284
+   },
+   "entry": {
+    "node": "osm:9851985061",
+    "lon": 128.5821527,
+    "lat": 36.3491516
+   }
+  },
+  {
+   "id": "osm:node/415160483",
+   "region": "uiseong_andong_2025",
+   "name": "도동리",
+   "point": {
+    "lon": 128.71777,
+    "lat": 36.34301
+   },
+   "entry": {
+    "node": "osm:9826873702",
+    "lon": 128.7178105,
+    "lat": 36.3430704
+   }
+  },
+  {
+   "id": "osm:node/415158537",
+   "region": "uiseong_andong_2025",
+   "name": "도로리",
+   "point": {
+    "lon": 128.74635,
+    "lat": 36.50879
+   },
+   "entry": {
+    "node": "osm:11714330505",
+    "lon": 128.7521522,
+    "lat": 36.505872
+   }
+  },
+  {
+   "id": "osm:node/415160421",
+   "region": "uiseong_andong_2025",
+   "name": "도옥리",
+   "point": {
+    "lon": 128.60089,
+    "lat": 36.3535
+   },
+   "entry": {
+    "node": "osm:6956293149",
+    "lon": 128.6028987,
+    "lat": 36.3477531
+   }
+  },
+  {
+   "id": "osm:node/415160361",
+   "region": "uiseong_andong_2025",
+   "name": "동변리",
+   "point": {
+    "lon": 128.79263,
+    "lat": 36.44008
+   },
+   "entry": {
+    "node": "osm:368196388",
+    "lon": 128.78834,
+    "lat": 36.43944
+   }
+  },
+  {
+   "id": "osm:node/415160440",
+   "region": "uiseong_andong_2025",
+   "name": "마전리",
+   "point": {
+    "lon": 128.56532,
+    "lat": 36.36243
+   },
+   "entry": {
+    "node": "osm:12374870531",
+    "lon": 128.5649507,
+    "lat": 36.3630183
+   }
+  },
+  {
+   "id": "osm:node/415160466",
+   "region": "uiseong_andong_2025",
+   "name": "망호리",
+   "point": {
+    "lon": 128.67965,
+    "lat": 36.45982
+   },
+   "entry": {
+    "node": "osm:12100026663",
+    "lon": 128.678602,
+    "lat": 36.4569553
+   }
+  },
+  {
+   "id": "osm:node/415160474",
+   "region": "uiseong_andong_2025",
+   "name": "명고리",
+   "point": {
+    "lon": 128.74687,
+    "lat": 36.38708
+   },
+   "entry": {
+    "node": "osm:6448945026",
+    "lon": 128.7507596,
+    "lat": 36.3865206
+   }
+  },
+  {
+   "id": "osm:node/415160460",
+   "region": "uiseong_andong_2025",
+   "name": "명진리",
+   "point": {
+    "lon": 128.63844,
+    "lat": 36.43444
+   },
+   "entry": {
+    "node": "osm:365837923",
+    "lon": 128.6374436,
+    "lat": 36.4309368
+   }
+  },
+  {
+   "id": "osm:node/415158553",
+   "region": "uiseong_andong_2025",
+   "name": "무릉리",
+   "point": {
+    "lon": 128.68858,
+    "lat": 36.5171
+   },
+   "entry": {
+    "node": "osm:8253514312",
+    "lon": 128.6879381,
+    "lat": 36.5196865
+   }
+  },
+  {
+   "id": "osm:node/415160424",
+   "region": "uiseong_andong_2025",
+   "name": "박곡리",
+   "point": {
+    "lon": 128.61967,
+    "lat": 36.38298
+   },
+   "entry": {
+    "node": "osm:365838918",
+    "lon": 128.62074,
+    "lat": 36.3814
+   }
+  },
+  {
+   "id": "osm:node/415160434",
+   "region": "uiseong_andong_2025",
+   "name": "방하리",
+   "point": {
+    "lon": 128.66258,
+    "lat": 36.39526
+   },
+   "entry": {
+    "node": "osm:9856969553",
+    "lon": 128.6636122,
+    "lat": 36.3955795
+   }
+  },
+  {
+   "id": "osm:node/415160475",
+   "region": "uiseong_andong_2025",
+   "name": "병방리",
+   "point": {
+    "lon": 128.7268,
+    "lat": 36.41897
+   },
+   "entry": {
+    "node": "osm:367859502",
+    "lon": 128.72644,
+    "lat": 36.41875
+   }
+  },
+  {
+   "id": "osm:node/415160415",
+   "region": "uiseong_andong_2025",
+   "name": "분토리",
+   "point": {
+    "lon": 128.64291,
+    "lat": 36.3346
+   },
+   "entry": {
+    "node": "osm:9841533898",
+    "lon": 128.6642184,
+    "lat": 36.3357852
+   }
+  },
+  {
+   "id": "osm:node/415160358",
+   "region": "uiseong_andong_2025",
+   "name": "사촌리",
+   "point": {
+    "lon": 128.7575,
+    "lat": 36.43753
+   },
+   "entry": {
+    "node": "osm:368194049",
+    "lon": 128.76199,
+    "lat": 36.43757
+   }
+  },
+  {
+   "id": "osm:node/415160437",
+   "region": "uiseong_andong_2025",
+   "name": "삼춘리",
+   "point": {
+    "lon": 128.55906,
+    "lat": 36.42983
+   },
+   "entry": {
+    "node": "osm:7348686439",
+    "lon": 128.5592114,
+    "lat": 36.4280753
+   }
+  },
+  {
+   "id": "osm:node/415160497",
+   "region": "uiseong_andong_2025",
+   "name": "상리리",
+   "point": {
+    "lon": 128.7427,
+    "lat": 36.34593
+   },
+   "entry": {
+    "node": "osm:7022888357",
+    "lon": 128.7457829,
+    "lat": 36.3447216
+   }
+  },
+  {
+   "id": "osm:node/415158432",
+   "region": "uiseong_andong_2025",
+   "name": "상아리",
+   "point": {
+    "lon": 128.58746,
+    "lat": 36.51918
+   },
+   "entry": {
+    "node": "osm:365517470",
+    "lon": 128.58615,
+    "lat": 36.51864
+   }
+  },
+  {
+   "id": "osm:node/415160478",
+   "region": "uiseong_andong_2025",
+   "name": "상화리",
+   "point": {
+    "lon": 128.7165,
+    "lat": 36.39835
+   },
+   "entry": {
+    "node": "osm:10806795079",
+    "lon": 128.7156496,
+    "lat": 36.3971795
+   }
+  },
+  {
+   "id": "osm:node/415160359",
+   "region": "uiseong_andong_2025",
+   "name": "서변리",
+   "point": {
+    "lon": 128.76864,
+    "lat": 36.43234
+   },
+   "entry": {
+    "node": "osm:368194220",
+    "lon": 128.77139,
+    "lat": 36.42935
+   }
+  },
+  {
+   "id": "osm:node/415160428",
+   "region": "uiseong_andong_2025",
+   "name": "석탑리",
+   "point": {
+    "lon": 128.64337,
+    "lat": 36.38281
+   },
+   "entry": {
+    "node": "osm:12372525445",
+    "lon": 128.6562793,
+    "lat": 36.3883386
+   }
+  },
+  {
+   "id": "osm:node/415160432",
+   "region": "uiseong_andong_2025",
+   "name": "세촌리",
+   "point": {
+    "lon": 128.6614,
+    "lat": 36.42581
+   },
+   "entry": {
+    "node": "osm:367855585",
+    "lon": 128.6659875,
+    "lat": 36.426428
+   }
+  },
+  {
+   "id": "osm:node/415160470",
+   "region": "uiseong_andong_2025",
+   "name": "송내리",
+   "point": {
+    "lon": 128.73448,
+    "lat": 36.43699
+   },
+   "entry": {
+    "node": "osm:330188668",
+    "lon": 128.73034,
+    "lat": 36.43392
+   }
+  },
+  {
+   "id": "osm:node/415160454",
+   "region": "uiseong_andong_2025",
+   "name": "송리리",
+   "point": {
+    "lon": 128.63638,
+    "lat": 36.49729
+   },
+   "entry": {
+    "node": "osm:365834506",
+    "lon": 128.63668,
+    "lat": 36.48974
+   }
+  },
+  {
+   "id": "osm:node/415160362",
+   "region": "uiseong_andong_2025",
+   "name": "신계리",
+   "point": {
+    "lon": 128.81866,
+    "lat": 36.43208
+   },
+   "entry": {
+    "node": "osm:368192159",
+    "lon": 128.821158,
+    "lat": 36.4321335
+   }
+  },
+  {
+   "id": "osm:node/415158335",
+   "region": "uiseong_andong_2025",
+   "name": "신덕리",
+   "point": {
+    "lon": 128.83085,
+    "lat": 36.51999
+   },
+   "entry": {
+    "node": "osm:403802891",
+    "lon": 128.83181,
+    "lat": 36.52171
+   }
+  },
+  {
+   "id": "osm:node/415158323",
+   "region": "uiseong_andong_2025",
+   "name": "신석리",
+   "point": {
+    "lon": 128.78442,
+    "lat": 36.52302
+   },
+   "entry": {
+    "node": "osm:368190140",
+    "lon": 128.78512,
+    "lat": 36.5233
+   }
+  },
+  {
+   "id": "osm:node/415160416",
+   "region": "uiseong_andong_2025",
+   "name": "신안리",
+   "point": {
+    "lon": 128.61166,
+    "lat": 36.34063
+   },
+   "entry": {
+    "node": "osm:9852303373",
+    "lon": 128.6106234,
+    "lat": 36.3435159
+   }
+  },
+  {
+   "id": "osm:node/415160429",
+   "region": "uiseong_andong_2025",
+   "name": "신월리",
+   "point": {
+    "lon": 128.63824,
+    "lat": 36.35874
+   },
+   "entry": {
+    "node": "osm:9851984737",
+    "lon": 128.631436,
+    "lat": 36.36095
+   }
+  },
+  {
+   "id": "osm:node/415160360",
+   "region": "uiseong_andong_2025",
+   "name": "신흥리",
+   "point": {
+    "lon": 128.7801,
+    "lat": 36.48693
+   },
+   "entry": {
+    "node": "osm:368191899",
+    "lon": 128.77778,
+    "lat": 36.49446
+   }
+  },
+  {
+   "id": "osm:node/415160451",
+   "region": "uiseong_andong_2025",
+   "name": "어담리",
+   "point": {
+    "lon": 128.56396,
+    "lat": 36.48366
+   },
+   "entry": {
+    "node": "osm:365847993",
+    "lon": 128.56372,
+    "lat": 36.48356
+   }
+  },
+  {
+   "id": "osm:node/415160476",
+   "region": "uiseong_andong_2025",
+   "name": "업리",
+   "point": {
+    "lon": 128.68951,
+    "lat": 36.39157
+   },
+   "entry": {
+    "node": "osm:4952662733",
+    "lon": 128.6909204,
+    "lat": 36.3914619
+   }
+  },
+  {
+   "id": "osm:node/415160473",
+   "region": "uiseong_andong_2025",
+   "name": "외하리",
+   "point": {
+    "lon": 128.72717,
+    "lat": 36.49753
+   },
+   "entry": {
+    "node": "osm:357861479",
+    "lon": 128.7279066,
+    "lat": 36.497876
+   }
+  },
+  {
+   "id": "osm:node/415160458",
+   "region": "uiseong_andong_2025",
+   "name": "용각리",
+   "point": {
+    "lon": 128.60078,
+    "lat": 36.45427
+   },
+   "entry": {
+    "node": "osm:10129507542",
+    "lon": 128.6007428,
+    "lat": 36.4555706
+   }
+  },
+  {
+   "id": "osm:node/415160449",
+   "region": "uiseong_andong_2025",
+   "name": "용봉리",
+   "point": {
+    "lon": 128.5496392,
+    "lat": 36.4528965
+   },
+   "entry": {
+    "node": "osm:365847169",
+    "lon": 128.54911,
+    "lat": 36.4524912
+   }
+  },
+  {
+   "id": "osm:node/415160456",
+   "region": "uiseong_andong_2025",
+   "name": "운산리",
+   "point": {
+    "lon": 128.65074,
+    "lat": 36.47405
+   },
+   "entry": {
+    "node": "osm:365842440",
+    "lon": 128.65054,
+    "lat": 36.47388
+   }
+  },
+  {
+   "id": "osm:node/415160430",
+   "region": "uiseong_andong_2025",
+   "name": "원당리",
+   "point": {
+    "lon": 128.67297,
+    "lat": 36.34518
+   },
+   "entry": {
+    "node": "osm:330187726",
+    "lon": 128.67092,
+    "lat": 36.34305
+   }
+  },
+  {
+   "id": "osm:node/415160463",
+   "region": "uiseong_andong_2025",
+   "name": "원리",
+   "point": {
+    "lon": 128.64497,
+    "lat": 36.45394
+   },
+   "entry": {
+    "node": "osm:365843898",
+    "lon": 128.6451383,
+    "lat": 36.4530643
+   }
+  },
+  {
+   "id": "osm:node/415158538",
+   "region": "uiseong_andong_2025",
+   "name": "원림리",
+   "point": {
+    "lon": 128.70472,
+    "lat": 36.50508
+   },
+   "entry": {
+    "node": "osm:11203812659",
+    "lon": 128.7081385,
+    "lat": 36.5046603
+   }
+  },
+  {
+   "id": "osm:node/415160455",
+   "region": "uiseong_andong_2025",
+   "name": "원호리",
+   "point": {
+    "lon": 128.67108,
+    "lat": 36.49403
+   },
+   "entry": {
+    "node": "osm:403790792",
+    "lon": 128.66706,
+    "lat": 36.4974
+   }
+  },
+  {
+   "id": "osm:node/415160355",
+   "region": "uiseong_andong_2025",
+   "name": "윤암리",
+   "point": {
+    "lon": 128.78334,
+    "lat": 36.39751
+   },
+   "entry": {
+    "node": "osm:368193286",
+    "lon": 128.77503,
+    "lat": 36.4021
+   }
+  },
+  {
+   "id": "osm:node/415158334",
+   "region": "uiseong_andong_2025",
+   "name": "이천리",
+   "point": {
+    "lon": 128.79942,
+    "lat": 36.52355
+   },
+   "entry": {
+    "node": "osm:403801786",
+    "lon": 128.80624,
+    "lat": 36.52724
+   }
+  },
+  {
+   "id": "osm:node/415158417",
+   "region": "uiseong_andong_2025",
+   "name": "인금리",
+   "point": {
+    "lon": 128.55241,
+    "lat": 36.52727
+   },
+   "entry": {
+    "node": "osm:365516269",
+    "lon": 128.55409,
+    "lat": 36.52808
+   }
+  },
+  {
+   "id": "osm:node/415160345",
+   "region": "uiseong_andong_2025",
+   "name": "입암리",
+   "point": {
+    "lon": 128.82409,
+    "lat": 36.4033
+   },
+   "entry": {
+    "node": "osm:368192564",
+    "lon": 128.82379,
+    "lat": 36.39942
+   }
+  },
+  {
+   "id": "osm:node/415160433",
+   "region": "uiseong_andong_2025",
+   "name": "장림리",
+   "point": {
+    "lon": 128.63055,
+    "lat": 36.41101
+   },
+   "entry": {
+    "node": "osm:365849398",
+    "lon": 128.63041,
+    "lat": 36.4117
+   }
+  },
+  {
+   "id": "osm:node/415160351",
+   "region": "uiseong_andong_2025",
+   "name": "정자리",
+   "point": {
+    "lon": 128.79931,
+    "lat": 36.39026
+   },
+   "entry": {
+    "node": "osm:11491076942",
+    "lon": 128.8018602,
+    "lat": 36.393979
+   }
+  },
+  {
+   "id": "osm:node/415160461",
+   "region": "uiseong_andong_2025",
+   "name": "조탑리",
+   "point": {
+    "lon": 128.62977,
+    "lat": 36.4766
+   },
+   "entry": {
+    "node": "osm:8488020028",
+    "lon": 128.6276824,
+    "lat": 36.4781425
+   }
+  },
+  {
+   "id": "osm:node/415160480",
+   "region": "uiseong_andong_2025",
+   "name": "중리리",
+   "point": {
+    "lon": 128.72708,
+    "lat": 36.37045
+   },
+   "entry": {
+    "node": "osm:4992614288",
+    "lon": 128.7278782,
+    "lat": 36.3702782
+   }
+  },
+  {
+   "id": "osm:node/415160435",
+   "region": "uiseong_andong_2025",
+   "name": "창길리",
+   "point": {
+    "lon": 128.59744,
+    "lat": 36.39479
+   },
+   "entry": {
+    "node": "osm:365846035",
+    "lon": 128.58969,
+    "lat": 36.39757
+   }
+  },
+  {
+   "id": "osm:node/415158338",
+   "region": "uiseong_andong_2025",
+   "name": "천전리",
+   "point": {
+    "lon": 128.84776,
+    "lat": 36.54166
+   },
+   "entry": {
+    "node": "osm:403802220",
+    "lon": 128.84649,
+    "lat": 36.54027
+   }
+  },
+  {
+   "id": "osm:node/415160431",
+   "region": "uiseong_andong_2025",
+   "name": "철파리",
+   "point": {
+    "lon": 128.67117,
+    "lat": 36.37326
+   },
+   "entry": {
+    "node": "osm:8704234864",
+    "lon": 128.6812387,
+    "lat": 36.3742269
+   }
+  },
+  {
+   "id": "osm:node/415160363",
+   "region": "uiseong_andong_2025",
+   "name": "추목리",
+   "point": {
+    "lon": 128.80592,
+    "lat": 36.4895
+   },
+   "entry": {
+    "node": "osm:403802802",
+    "lon": 128.81094,
+    "lat": 36.48903
+   }
+  },
+  {
+   "id": "osm:node/415160459",
+   "region": "uiseong_andong_2025",
+   "name": "평팔리",
+   "point": {
+    "lon": 128.61102,
+    "lat": 36.42987
+   },
+   "entry": {
+    "node": "osm:365845091",
+    "lon": 128.61648,
+    "lat": 36.42716
+   }
+  },
+  {
+   "id": "osm:node/415160436",
+   "region": "uiseong_andong_2025",
+   "name": "하령리",
+   "point": {
+    "lon": 128.56498,
+    "lat": 36.41495
+   },
+   "entry": {
+    "node": "osm:365846317",
+    "lon": 128.56636,
+    "lat": 36.41485
+   }
+  },
+  {
+   "id": "osm:node/415158416",
+   "region": "uiseong_andong_2025",
+   "name": "하아리",
+   "point": {
+    "lon": 128.57388,
+    "lat": 36.54606
+   },
+   "entry": {
+    "node": "osm:365517193",
+    "lon": 128.57141,
+    "lat": 36.54462
+   }
+  },
+  {
+   "id": "osm:node/415160477",
+   "region": "uiseong_andong_2025",
+   "name": "하화리",
+   "point": {
+    "lon": 128.68771,
+    "lat": 36.41073
+   },
+   "entry": {
+    "node": "osm:367855709",
+    "lon": 128.68914,
+    "lat": 36.41285
+   }
+  },
+  {
+   "id": "osm:node/415158533",
+   "region": "uiseong_andong_2025",
+   "name": "현내리",
+   "point": {
+    "lon": 128.72111,
+    "lat": 36.52373
+   },
+   "entry": {
+    "node": "osm:357859768",
+    "lon": 128.72004,
+    "lat": 36.52081
+   }
+  },
+  {
+   "id": "osm:node/415160399",
+   "region": "uiseong_andong_2025",
+   "name": "화신리",
+   "point": {
+    "lon": 128.55308,
+    "lat": 36.34033
+   },
+   "entry": {
+    "node": "osm:12374870528",
+    "lon": 128.564169,
+    "lat": 36.362874
+   }
+  },
+  {
+   "id": "osm:node/415160357",
+   "region": "uiseong_andong_2025",
+   "name": "황룡리",
+   "point": {
+    "lon": 128.75439,
+    "lat": 36.35432
+   },
+   "entry": {
+    "node": "osm:7022888285",
+    "lon": 128.7506269,
+    "lat": 36.3544519
+   }
+  },
+  {
+   "id": "osm:node/415160479",
+   "region": "uiseong_andong_2025",
+   "name": "후죽리",
+   "point": {
+    "lon": 128.69459,
+    "lat": 36.36515
+   },
+   "entry": {
+    "node": "osm:9828140114",
+    "lon": 128.6948057,
+    "lat": 36.3650073
+   }
+  },
+  {
+   "id": "osm:node/415160469",
+   "region": "uiseong_andong_2025",
+   "name": "후평리",
+   "point": {
+    "lon": 128.71023,
+    "lat": 36.44176
+   },
+   "entry": {
+    "node": "osm:330188613",
+    "lon": 128.7140915,
+    "lat": 36.4435055
+   }
+  },
+  {
+   "id": "osm:node/11753630207",
+   "region": "yeongdeok_2025",
+   "name": "괴시리전통마을",
+   "point": {
+    "lon": 129.4168239,
+    "lat": 36.5439219
+   },
+   "entry": {
+    "node": "osm:11753630202",
+    "lon": 129.4168982,
+    "lat": 36.5437342
+   }
+  },
+  {
+   "id": "osm:node/415160154",
+   "region": "yeongdeok_2025",
+   "name": "강구리",
+   "point": {
+    "lon": 129.3815606,
+    "lat": 36.359464
+   },
+   "entry": {
+    "node": "osm:4714351719",
+    "lon": 129.3821341,
+    "lat": 36.3595075
+   }
+  },
+  {
+   "id": "osm:node/415160201",
+   "region": "yeongdeok_2025",
+   "name": "경정리",
+   "point": {
+    "lon": 129.43316,
+    "lat": 36.48521
+   },
+   "entry": {
+    "node": "osm:11779897864",
+    "lon": 129.4339622,
+    "lat": 36.4852132
+   }
+  },
+  {
+   "id": "osm:node/415160204",
+   "region": "yeongdeok_2025",
+   "name": "고곡리",
+   "point": {
+    "lon": 129.40696,
+    "lat": 36.47849
+   },
+   "entry": {
+    "node": "osm:11877066511",
+    "lon": 129.4076078,
+    "lat": 36.4786403
+   }
+  },
+  {
+   "id": "osm:node/415158186",
+   "region": "yeongdeok_2025",
+   "name": "괴시리",
+   "point": {
+    "lon": 129.41789,
+    "lat": 36.54089
+   },
+   "entry": {
+    "node": "osm:11754891260",
+    "lon": 129.4177239,
+    "lat": 36.5408532
+   }
+  },
+  {
+   "id": "osm:node/415160206",
+   "region": "yeongdeok_2025",
+   "name": "구미리",
+   "point": {
+    "lon": 129.35356,
+    "lat": 36.43843
+   },
+   "entry": {
+    "node": "osm:11992071646",
+    "lon": 129.3549685,
+    "lat": 36.4380616
+   }
+  },
+  {
+   "id": "osm:node/415160155",
+   "region": "yeongdeok_2025",
+   "name": "금진리",
+   "point": {
+    "lon": 129.39802,
+    "lat": 36.3756
+   },
+   "entry": {
+    "node": "osm:11984959537",
+    "lon": 129.398025,
+    "lat": 36.3746792
+   }
+  },
+  {
+   "id": "osm:node/415160156",
+   "region": "yeongdeok_2025",
+   "name": "금호리",
+   "point": {
+    "lon": 129.38325,
+    "lat": 36.38515
+   },
+   "entry": {
+    "node": "osm:11665087247",
+    "lon": 129.3838722,
+    "lat": 36.3855688
+   }
+  },
+  {
+   "id": "osm:node/415160309",
+   "region": "yeongdeok_2025",
+   "name": "기사리",
+   "point": {
+    "lon": 129.17825,
+    "lat": 36.45455
+   },
+   "entry": {
+    "node": "osm:12136060226",
+    "lon": 129.1779693,
+    "lat": 36.4548284
+   }
+  },
+  {
+   "id": "osm:node/415160190",
+   "region": "yeongdeok_2025",
+   "name": "기암리",
+   "point": {
+    "lon": 129.38467,
+    "lat": 36.48165
+   },
+   "entry": {
+    "node": "osm:11897956200",
+    "lon": 129.3844577,
+    "lat": 36.4847956
+   }
+  },
+  {
+   "id": "osm:node/415160311",
+   "region": "yeongdeok_2025",
+   "name": "낙평리",
+   "point": {
+    "lon": 129.24009,
+    "lat": 36.45444
+   },
+   "entry": {
+    "node": "osm:12061373413",
+    "lon": 129.2353269,
+    "lat": 36.4516512
+   }
+  },
+  {
+   "id": "osm:node/415160164",
+   "region": "yeongdeok_2025",
+   "name": "남산리",
+   "point": {
+    "lon": 129.35783,
+    "lat": 36.4003
+   },
+   "entry": {
+    "node": "osm:11976273439",
+    "lon": 129.3577822,
+    "lat": 36.4038878
+   }
+  },
+  {
+   "id": "osm:node/415160162",
+   "region": "yeongdeok_2025",
+   "name": "남석리",
+   "point": {
+    "lon": 129.36607,
+    "lat": 36.40792
+   },
+   "entry": {
+    "node": "osm:4778527797",
+    "lon": 129.3661902,
+    "lat": 36.4079836
+   }
+  },
+  {
+   "id": "osm:node/415160150",
+   "region": "yeongdeok_2025",
+   "name": "남정리",
+   "point": {
+    "lon": 129.35763,
+    "lat": 36.34589
+   },
+   "entry": {
+    "node": "osm:12030520753",
+    "lon": 129.3590474,
+    "lat": 36.3467636
+   }
+  },
+  {
+   "id": "osm:node/415160143",
+   "region": "yeongdeok_2025",
+   "name": "남호리",
+   "point": {
+    "lon": 129.37373,
+    "lat": 36.33342
+   },
+   "entry": {
+    "node": "osm:12018756815",
+    "lon": 129.3734281,
+    "lat": 36.3333984
+   }
+  },
+  {
+   "id": "osm:node/415160319",
+   "region": "yeongdeok_2025",
+   "name": "내룡리",
+   "point": {
+    "lon": 129.20353,
+    "lat": 36.33595
+   },
+   "entry": {
+    "node": "osm:12192410255",
+    "lon": 129.204329,
+    "lat": 36.3365998
+   }
+  },
+  {
+   "id": "osm:node/415160193",
+   "region": "yeongdeok_2025",
+   "name": "노물리",
+   "point": {
+    "lon": 129.42793,
+    "lat": 36.45137
+   },
+   "entry": {
+    "node": "osm:11872368163",
+    "lon": 129.4286916,
+    "lat": 36.451621
+   }
+  },
+  {
+   "id": "osm:node/415160189",
+   "region": "yeongdeok_2025",
+   "name": "눌곡리",
+   "point": {
+    "lon": 129.2871228,
+    "lat": 36.4358793
+   },
+   "entry": {
+    "node": "osm:12048238191",
+    "lon": 129.2865305,
+    "lat": 36.4350445
+   }
+  },
+  {
+   "id": "osm:node/415160197",
+   "region": "yeongdeok_2025",
+   "name": "대곡리",
+   "point": {
+    "lon": 129.34082,
+    "lat": 36.48682
+   },
+   "entry": {
+    "node": "osm:11933741139",
+    "lon": 129.3416153,
+    "lat": 36.4844348
+   }
+  },
+  {
+   "id": "osm:node/415158166",
+   "region": "yeongdeok_2025",
+   "name": "대리",
+   "point": {
+    "lon": 129.28198,
+    "lat": 36.52956
+   },
+   "entry": {
+    "node": "osm:11830468892",
+    "lon": 129.281764,
+    "lat": 36.5202527
+   }
+  },
+  {
+   "id": "osm:node/415160159",
+   "region": "yeongdeok_2025",
+   "name": "대부리",
+   "point": {
+    "lon": 129.42083,
+    "lat": 36.40522
+   },
+   "entry": {
+    "node": "osm:11941582578",
+    "lon": 129.4221512,
+    "lat": 36.4063004
+   }
+  },
+  {
+   "id": "osm:node/415160168",
+   "region": "yeongdeok_2025",
+   "name": "대지리",
+   "point": {
+    "lon": 129.30111,
+    "lat": 36.40333
+   },
+   "entry": {
+    "node": "osm:437092431",
+    "lon": 129.300682,
+    "lat": 36.4031467
+   }
+  },
+  {
+   "id": "osm:node/415160205",
+   "region": "yeongdeok_2025",
+   "name": "대탄리",
+   "point": {
+    "lon": 129.42759,
+    "lat": 36.42976
+   },
+   "entry": {
+    "node": "osm:11924761538",
+    "lon": 129.4315198,
+    "lat": 36.4283667
+   }
+  },
+  {
+   "id": "osm:node/415160157",
+   "region": "yeongdeok_2025",
+   "name": "덕곡리",
+   "point": {
+    "lon": 129.38102,
+    "lat": 36.41901
+   },
+   "entry": {
+    "node": "osm:11955031393",
+    "lon": 129.3815627,
+    "lat": 36.4180294
+   }
+  },
+  {
+   "id": "osm:node/415160315",
+   "region": "yeongdeok_2025",
+   "name": "덕산리",
+   "point": {
+    "lon": 129.24363,
+    "lat": 36.37597
+   },
+   "entry": {
+    "node": "osm:6205150381",
+    "lon": 129.2443072,
+    "lat": 36.3779139
+   }
+  },
+  {
+   "id": "osm:node/415160183",
+   "region": "yeongdeok_2025",
+   "name": "도계리",
+   "point": {
+    "lon": 129.27563,
+    "lat": 36.49147
+   },
+   "entry": {
+    "node": "osm:11835349842",
+    "lon": 129.2772517,
+    "lat": 36.4932057
+   }
+  },
+  {
+   "id": "osm:node/415158184",
+   "region": "yeongdeok_2025",
+   "name": "도곡리",
+   "point": {
+    "lon": 129.40458,
+    "lat": 36.5171
+   },
+   "entry": {
+    "node": "osm:11769621820",
+    "lon": 129.4047955,
+    "lat": 36.5170169
+   }
+  },
+  {
+   "id": "osm:node/415160171",
+   "region": "yeongdeok_2025",
+   "name": "매일리",
+   "point": {
+    "lon": 129.2855578,
+    "lat": 36.3758995
+   },
+   "entry": {
+    "node": "osm:12044832004",
+    "lon": 129.2858,
+    "lat": 36.3768763
+   }
+  },
+  {
+   "id": "osm:node/415160192",
+   "region": "yeongdeok_2025",
+   "name": "매정리",
+   "point": {
+    "lon": 129.41424,
+    "lat": 36.45255
+   },
+   "entry": {
+    "node": "osm:11933421618",
+    "lon": 129.4141212,
+    "lat": 36.4523166
+   }
+  },
+  {
+   "id": "osm:node/415158181",
+   "region": "yeongdeok_2025",
+   "name": "묘곡리",
+   "point": {
+    "lon": 129.34367,
+    "lat": 36.52353
+   },
+   "entry": {
+    "node": "osm:5274434287",
+    "lon": 129.3430823,
+    "lat": 36.5230903
+   }
+  },
+  {
+   "id": "osm:node/415158183",
+   "region": "yeongdeok_2025",
+   "name": "벌영리",
+   "point": {
+    "lon": 129.38783,
+    "lat": 36.53177
+   },
+   "entry": {
+    "node": "osm:11769620931",
+    "lon": 129.3867781,
+    "lat": 36.5325918
+   }
+  },
+  {
+   "id": "osm:node/415160313",
+   "region": "yeongdeok_2025",
+   "name": "복곡리",
+   "point": {
+    "lon": 129.19302,
+    "lat": 36.47506
+   },
+   "entry": {
+    "node": "osm:12120707007",
+    "lon": 129.1930041,
+    "lat": 36.4746759
+   }
+  },
+  {
+   "id": "osm:node/415160317",
+   "region": "yeongdeok_2025",
+   "name": "봉산리",
+   "point": {
+    "lon": 129.23451,
+    "lat": 36.36138
+   },
+   "entry": {
+    "node": "osm:12068645188",
+    "lon": 129.2357398,
+    "lat": 36.3606991
+   }
+  },
+  {
+   "id": "osm:node/415158182",
+   "region": "yeongdeok_2025",
+   "name": "부곡리",
+   "point": {
+    "lon": 129.37077,
+    "lat": 36.51137
+   },
+   "entry": {
+    "node": "osm:11842157094",
+    "lon": 129.3715171,
+    "lat": 36.5106094
+   }
+  },
+  {
+   "id": "osm:node/415160132",
+   "region": "yeongdeok_2025",
+   "name": "사암리",
+   "point": {
+    "lon": 129.31764,
+    "lat": 36.33151
+   },
+   "entry": {
+    "node": "osm:12068995030",
+    "lon": 129.3174307,
+    "lat": 36.3289751
+   }
+  },
+  {
+   "id": "osm:node/415158212",
+   "region": "yeongdeok_2025",
+   "name": "사진리",
+   "point": {
+    "lon": 129.438,
+    "lat": 36.52995
+   },
+   "entry": {
+    "node": "osm:4677110474",
+    "lon": 129.4380988,
+    "lat": 36.5309878
+   }
+  },
+  {
+   "id": "osm:node/415160209",
+   "region": "yeongdeok_2025",
+   "name": "삼계리",
+   "point": {
+    "lon": 129.40422,
+    "lat": 36.43066
+   },
+   "entry": {
+    "node": "osm:11934332752",
+    "lon": 129.4042906,
+    "lat": 36.4301833
+   }
+  },
+  {
+   "id": "osm:node/415160153",
+   "region": "yeongdeok_2025",
+   "name": "삼사리",
+   "point": {
+    "lon": 129.38061,
+    "lat": 36.34623
+   },
+   "entry": {
+    "node": "osm:7216309633",
+    "lon": 129.3813318,
+    "lat": 36.3463905
+   }
+  },
+  {
+   "id": "osm:node/415158320",
+   "region": "yeongdeok_2025",
+   "name": "삼의리",
+   "point": {
+    "lon": 129.22668,
+    "lat": 36.53683
+   },
+   "entry": {
+    "node": "osm:12138978122",
+    "lon": 129.2225207,
+    "lat": 36.5362653
+   }
+  },
+  {
+   "id": "osm:node/415160187",
+   "region": "yeongdeok_2025",
+   "name": "삼화리",
+   "point": {
+    "lon": 129.3251,
+    "lat": 36.45579
+   },
+   "entry": {
+    "node": "osm:11993250216",
+    "lon": 129.3254776,
+    "lat": 36.4542633
+   }
+  },
+  {
+   "id": "osm:node/415160203",
+   "region": "yeongdeok_2025",
+   "name": "상원리",
+   "point": {
+    "lon": 129.40292,
+    "lat": 36.50044
+   },
+   "entry": {
+    "node": "osm:11842156254",
+    "lon": 129.4014571,
+    "lat": 36.5043268
+   }
+  },
+  {
+   "id": "osm:node/415160278",
+   "region": "yeongdeok_2025",
+   "name": "상의리",
+   "point": {
+    "lon": 129.16963,
+    "lat": 36.4044
+   },
+   "entry": {
+    "node": "osm:12309196829",
+    "lon": 129.161745,
+    "lat": 36.3719735
+   }
+  },
+  {
+   "id": "osm:node/415160163",
+   "region": "yeongdeok_2025",
+   "name": "상직리",
+   "point": {
+    "lon": 129.33648,
+    "lat": 36.39352
+   },
+   "entry": {
+    "node": "osm:4714300283",
+    "lon": 129.3360557,
+    "lat": 36.3964926
+   }
+  },
+  {
+   "id": "osm:node/415160200",
+   "region": "yeongdeok_2025",
+   "name": "석리",
+   "point": {
+    "lon": 129.42712,
+    "lat": 36.46656
+   },
+   "entry": {
+    "node": "osm:11872197463",
+    "lon": 129.4324096,
+    "lat": 36.4664013
+   }
+  },
+  {
+   "id": "osm:node/415158185",
+   "region": "yeongdeok_2025",
+   "name": "성내리",
+   "point": {
+    "lon": 129.41304,
+    "lat": 36.53287
+   },
+   "entry": {
+    "node": "osm:11762667083",
+    "lon": 129.4132184,
+    "lat": 36.5329136
+   }
+  },
+  {
+   "id": "osm:node/415160151",
+   "region": "yeongdeok_2025",
+   "name": "소월리",
+   "point": {
+    "lon": 129.37347,
+    "lat": 36.37728
+   },
+   "entry": {
+    "node": "osm:11985895718",
+    "lon": 129.3733684,
+    "lat": 36.377187
+   }
+  },
+  {
+   "id": "osm:node/415160185",
+   "region": "yeongdeok_2025",
+   "name": "속곡리",
+   "point": {
+    "lon": 129.2485545,
+    "lat": 36.4855463
+   },
+   "entry": {
+    "node": "osm:10258416038",
+    "lon": 129.2467596,
+    "lat": 36.4831905
+   }
+  },
+  {
+   "id": "osm:node/415160314",
+   "region": "yeongdeok_2025",
+   "name": "송천리",
+   "point": {
+    "lon": 129.2328,
+    "lat": 36.42712
+   },
+   "entry": {
+    "node": "osm:12056625899",
+    "lon": 129.2362292,
+    "lat": 36.4281942
+   }
+  },
+  {
+   "id": "osm:node/415160310",
+   "region": "yeongdeok_2025",
+   "name": "수암리",
+   "point": {
+    "lon": 129.21342,
+    "lat": 36.46813
+   },
+   "entry": {
+    "node": "osm:11707551937",
+    "lon": 129.2116751,
+    "lat": 36.4638914
+   }
+  },
+  {
+   "id": "osm:node/415158168",
+   "region": "yeongdeok_2025",
+   "name": "신기리",
+   "point": {
+    "lon": 129.31596,
+    "lat": 36.54928
+   },
+   "entry": {
+    "node": "osm:11784514940",
+    "lon": 129.3239987,
+    "lat": 36.5492571
+   }
+  },
+  {
+   "id": "osm:node/415160182",
+   "region": "yeongdeok_2025",
+   "name": "신안리",
+   "point": {
+    "lon": 129.27691,
+    "lat": 36.44993
+   },
+   "entry": {
+    "node": "osm:11707583440",
+    "lon": 129.2770562,
+    "lat": 36.4495115
+   }
+  },
+  {
+   "id": "osm:node/415160166",
+   "region": "yeongdeok_2025",
+   "name": "신애리",
+   "point": {
+    "lon": 129.34204,
+    "lat": 36.4274
+   },
+   "entry": {
+    "node": "osm:11993125567",
+    "lon": 129.343917,
+    "lat": 36.4271707
+   }
+  },
+  {
+   "id": "osm:node/415160167",
+   "region": "yeongdeok_2025",
+   "name": "신양리",
+   "point": {
+    "lon": 129.30015,
+    "lat": 36.42777
+   },
+   "entry": {
+    "node": "osm:12031458606",
+    "lon": 129.301037,
+    "lat": 36.426782
+   }
+  },
+  {
+   "id": "osm:node/415158259",
+   "region": "yeongdeok_2025",
+   "name": "신평리",
+   "point": {
+    "lon": 129.16658,
+    "lat": 36.54512
+   },
+   "entry": {
+    "node": "osm:8385797880",
+    "lon": 129.1601389,
+    "lat": 36.5421456
+   }
+  },
+  {
+   "id": "osm:node/415158187",
+   "region": "yeongdeok_2025",
+   "name": "연평리",
+   "point": {
+    "lon": 129.40887,
+    "lat": 36.54911
+   },
+   "entry": {
+    "node": "osm:11752039972",
+    "lon": 129.4088149,
+    "lat": 36.5495212
+   }
+  },
+  {
+   "id": "osm:node/415160194",
+   "region": "yeongdeok_2025",
+   "name": "오보리",
+   "point": {
+    "lon": 129.42442,
+    "lat": 36.43637
+   },
+   "entry": {
+    "node": "osm:11897956630",
+    "lon": 129.4277273,
+    "lat": 36.437651
+   }
+  },
+  {
+   "id": "osm:node/415160184",
+   "region": "yeongdeok_2025",
+   "name": "오천리",
+   "point": {
+    "lon": 129.32008,
+    "lat": 36.43676
+   },
+   "entry": {
+    "node": "osm:11999581504",
+    "lon": 129.3200688,
+    "lat": 36.4337431
+   }
+  },
+  {
+   "id": "osm:node/415160148",
+   "region": "yeongdeok_2025",
+   "name": "오포리",
+   "point": {
+    "lon": 129.36128,
+    "lat": 36.36844
+   },
+   "entry": {
+    "node": "osm:12001152638",
+    "lon": 129.3640149,
+    "lat": 36.3731095
+   }
+  },
+  {
+   "id": "osm:node/415160130",
+   "region": "yeongdeok_2025",
+   "name": "옥계리",
+   "point": {
+    "lon": 129.26101,
+    "lat": 36.33324
+   },
+   "entry": {
+    "node": "osm:12187916460",
+    "lon": 129.263327,
+    "lat": 36.3319863
+   }
+  },
+  {
+   "id": "osm:node/415160188",
+   "region": "yeongdeok_2025",
+   "name": "옥류리",
+   "point": {
+    "lon": 129.30363,
+    "lat": 36.47974
+   },
+   "entry": {
+    "node": "osm:11835584691",
+    "lon": 129.2988776,
+    "lat": 36.4783388
+   }
+  },
+  {
+   "id": "osm:node/415160173",
+   "region": "yeongdeok_2025",
+   "name": "옥산리",
+   "point": {
+    "lon": 129.28721,
+    "lat": 36.34453
+   },
+   "entry": {
+    "node": "osm:12125807886",
+    "lon": 129.2790598,
+    "lat": 36.3491915
+   }
+  },
+  {
+   "id": "osm:node/415160178",
+   "region": "yeongdeok_2025",
+   "name": "용덕리",
+   "point": {
+    "lon": 129.24844,
+    "lat": 36.41852
+   },
+   "entry": {
+    "node": "osm:12058544642",
+    "lon": 129.248921,
+    "lat": 36.4200955
+   }
+  },
+  {
+   "id": "osm:node/415160175",
+   "region": "yeongdeok_2025",
+   "name": "용전리",
+   "point": {
+    "lon": 129.24992,
+    "lat": 36.39648
+   },
+   "entry": {
+    "node": "osm:12045202531",
+    "lon": 129.2520883,
+    "lat": 36.3984719
+   }
+  },
+  {
+   "id": "osm:node/415160176",
+   "region": "yeongdeok_2025",
+   "name": "용평리",
+   "point": {
+    "lon": 129.28694,
+    "lat": 36.38974
+   },
+   "entry": {
+    "node": "osm:12031802432",
+    "lon": 129.2872295,
+    "lat": 36.3904838
+   }
+  },
+  {
+   "id": "osm:node/415160146",
+   "region": "yeongdeok_2025",
+   "name": "우곡리",
+   "point": {
+    "lon": 129.34034,
+    "lat": 36.33595
+   },
+   "entry": {
+    "node": "osm:12045201809",
+    "lon": 129.3414098,
+    "lat": 36.3395792
+   }
+  },
+  {
+   "id": "osm:node/415160158",
+   "region": "yeongdeok_2025",
+   "name": "우곡리",
+   "point": {
+    "lon": 129.37712,
+    "lat": 36.40453
+   },
+   "entry": {
+    "node": "osm:11970046767",
+    "lon": 129.376647,
+    "lat": 36.4043435
+   }
+  },
+  {
+   "id": "osm:node/415158176",
+   "region": "yeongdeok_2025",
+   "name": "원구리",
+   "point": {
+    "lon": 129.36833,
+    "lat": 36.54218
+   },
+   "entry": {
+    "node": "osm:11784514422",
+    "lon": 129.3664488,
+    "lat": 36.5421155
+   }
+  },
+  {
+   "id": "osm:node/415160312",
+   "region": "yeongdeok_2025",
+   "name": "원전리",
+   "point": {
+    "lon": 129.18904,
+    "lat": 36.486
+   },
+   "entry": {
+    "node": "osm:12120707374",
+    "lon": 129.1890802,
+    "lat": 36.4859901
+   }
+  },
+  {
+   "id": "osm:node/415160147",
+   "region": "yeongdeok_2025",
+   "name": "원직리",
+   "point": {
+    "lon": 129.36676,
+    "lat": 36.37878
+   },
+   "entry": {
+    "node": "osm:12001152710",
+    "lon": 129.3664422,
+    "lat": 36.378546
+   }
+  },
+  {
+   "id": "osm:node/415160181",
+   "region": "yeongdeok_2025",
+   "name": "율전리",
+   "point": {
+    "lon": 129.28198,
+    "lat": 36.46727
+   },
+   "entry": {
+    "node": "osm:11835569760",
+    "lon": 129.2827176,
+    "lat": 36.4670458
+   }
+  },
+  {
+   "id": "osm:node/415160177",
+   "region": "yeongdeok_2025",
+   "name": "인곡리",
+   "point": {
+    "lon": 129.27374,
+    "lat": 36.40837
+   },
+   "entry": {
+    "node": "osm:437251344",
+    "lon": 129.2735353,
+    "lat": 36.4084457
+   }
+  },
+  {
+   "id": "osm:node/415160196",
+   "region": "yeongdeok_2025",
+   "name": "조항리",
+   "point": {
+    "lon": 129.31077,
+    "lat": 36.50167
+   },
+   "entry": {
+    "node": "osm:11890615141",
+    "lon": 129.3111957,
+    "lat": 36.4992723
+   }
+  },
+  {
+   "id": "osm:node/415160316",
+   "region": "yeongdeok_2025",
+   "name": "주산지리",
+   "point": {
+    "lon": 129.18258,
+    "lat": 36.37419
+   },
+   "entry": {
+    "node": "osm:1868086697",
+    "lon": 129.1828597,
+    "lat": 36.3690949
+   }
+  },
+  {
+   "id": "osm:node/415160172",
+   "region": "yeongdeok_2025",
+   "name": "주응리",
+   "point": {
+    "lon": 129.2693,
+    "lat": 36.35655
+   },
+   "entry": {
+    "node": "osm:12125807704",
+    "lon": 129.2710865,
+    "lat": 36.3593137
+   }
+  },
+  {
+   "id": "osm:node/415160169",
+   "region": "yeongdeok_2025",
+   "name": "중화리",
+   "point": {
+    "lon": 129.33534,
+    "lat": 36.35878
+   },
+   "entry": {
+    "node": "osm:4322859821",
+    "lon": 129.3367802,
+    "lat": 36.3546235
+   }
+  },
+  {
+   "id": "osm:node/415160302",
+   "region": "yeongdeok_2025",
+   "name": "지품리",
+   "point": {
+    "lon": 129.16377,
+    "lat": 36.47684
+   },
+   "entry": {
+    "node": "osm:12120784223",
+    "lon": 129.1669798,
+    "lat": 36.4774453
+   }
+  },
+  {
+   "id": "osm:node/415160202",
+   "region": "yeongdeok_2025",
+   "name": "창포리",
+   "point": {
+    "lon": 129.42422,
+    "lat": 36.41605
+   },
+   "entry": {
+    "node": "osm:11941445480",
+    "lon": 129.4216876,
+    "lat": 36.4153736
+   }
+  },
+  {
+   "id": "osm:node/415160165",
+   "region": "yeongdeok_2025",
+   "name": "천전리",
+   "point": {
+    "lon": 129.3497,
+    "lat": 36.40991
+   },
+   "entry": {
+    "node": "osm:11976273415",
+    "lon": 129.3516054,
+    "lat": 36.4108901
+   }
+  },
+  {
+   "id": "osm:node/415158213",
+   "region": "yeongdeok_2025",
+   "name": "축산리",
+   "point": {
+    "lon": 129.43695,
+    "lat": 36.50456
+   },
+   "entry": {
+    "node": "osm:12144230037",
+    "lon": 129.4386335,
+    "lat": 36.5048554
+   }
+  },
+  {
+   "id": "osm:node/415160195",
+   "region": "yeongdeok_2025",
+   "name": "칠성리",
+   "point": {
+    "lon": 129.35081,
+    "lat": 36.49963
+   },
+   "entry": {
+    "node": "osm:11890614717",
+    "lon": 129.3494948,
+    "lat": 36.4976407
+   }
+  },
+  {
+   "id": "osm:node/415158318",
+   "region": "yeongdeok_2025",
+   "name": "택전리",
+   "point": {
+    "lon": 129.17926,
+    "lat": 36.53688
+   },
+   "entry": {
+    "node": "osm:8385800702",
+    "lon": 129.1702036,
+    "lat": 36.5317052
+   }
+  },
+  {
+   "id": "osm:node/415158321",
+   "region": "yeongdeok_2025",
+   "name": "포산리",
+   "point": {
+    "lon": 129.2111168,
+    "lat": 36.5057815
+   },
+   "entry": {
+    "node": "osm:12154357513",
+    "lon": 129.2113408,
+    "lat": 36.5056697
+   }
+  },
+  {
+   "id": "osm:node/415160160",
+   "region": "yeongdeok_2025",
+   "name": "하저리",
+   "point": {
+    "lon": 129.40077,
+    "lat": 36.40129
+   },
+   "entry": {
+    "node": "osm:11959426241",
+    "lon": 129.4005447,
+    "lat": 36.401282
+   }
+  },
+  {
+   "id": "osm:node/415160318",
+   "region": "yeongdeok_2025",
+   "name": "항리",
+   "point": {
+    "lon": 129.24078,
+    "lat": 36.32807
+   },
+   "entry": {
+    "node": "osm:437282643",
+    "lon": 129.2412903,
+    "lat": 36.3270245
+   }
+  },
+  {
+   "id": "osm:node/415160207",
+   "region": "yeongdeok_2025",
+   "name": "화개리",
+   "point": {
+    "lon": 129.36242,
+    "lat": 36.43006
+   },
+   "entry": {
+    "node": "osm:11992071347",
+    "lon": 129.3634163,
+    "lat": 36.4296313
+   }
+  },
+  {
+   "id": "osm:node/415158322",
+   "region": "yeongdeok_2025",
+   "name": "화매리",
+   "point": {
+    "lon": 129.18174,
+    "lat": 36.52138
+   },
+   "entry": {
+    "node": "osm:12154401907",
+    "lon": 129.1808218,
+    "lat": 36.5220819
+   }
+  },
+  {
+   "id": "osm:node/415160208",
+   "region": "yeongdeok_2025",
+   "name": "화수리",
+   "point": {
+    "lon": 129.38302,
+    "lat": 36.44019
+   },
+   "entry": {
+    "node": "osm:11934332793",
+    "lon": 129.3860493,
+    "lat": 36.4388892
+   }
+  },
+  {
+   "id": "osm:node/415160149",
+   "region": "yeongdeok_2025",
+   "name": "화전리",
+   "point": {
+    "lon": 129.3515,
+    "lat": 36.36657
+   },
+   "entry": {
+    "node": "osm:437253108",
+    "lon": 129.3524567,
+    "lat": 36.3671218
+   }
+  },
+  {
+   "id": "osm:node/415160199",
+   "region": "yeongdeok_2025",
+   "name": "화천리",
+   "point": {
+    "lon": 129.35852,
+    "lat": 36.46474
+   },
+   "entry": {
+    "node": "osm:11935180425",
+    "lon": 129.3576792,
+    "lat": 36.4643359
+   }
+  },
+  {
+   "id": "osm:node/415160303",
+   "region": "yeongdeok_2025",
+   "name": "황장리",
+   "point": {
+    "lon": 129.16911,
+    "lat": 36.49489
+   },
+   "entry": {
+    "node": "osm:11707575272",
+    "lon": 129.1688755,
+    "lat": 36.4942908
+   }
+  },
+  {
+   "id": "osm:node/415160170",
+   "region": "yeongdeok_2025",
+   "name": "흥기리",
+   "point": {
+    "lon": 129.31262,
+    "lat": 36.36908
+   },
+   "entry": {
+    "node": "osm:12045202307",
+    "lon": 129.3100084,
+    "lat": 36.3693318
+   }
+  }
+ ]
+}
