@@ -99,11 +99,55 @@ def summarize(d: dict) -> dict:
         if gr is not None or ex is not None:
             exact_vs_grid["differs" if ex != gr else "same"] += 1
         deadline_rows.append({"origin": oid, "kind": o["kind"], "recorded": rec, **{k: v for k, v in o.items() if k.startswith("field_")}})
+    # ---- Iris split: deadline classes against the fire-free control field (grid answers)
+    cls = Counter()
+    cls_match = Counter()
+    holes = Counter()
+    for oid, o in d["origins"].items():
+        rec = o["recorded_deadline"]
+        plan_last = max([r["offset"] for r in d["attempts"] if r["origin_id"] == oid], default=None)
+        ce, fr = o.get("field_deadline_grid_cert"), o.get("field_deadline_grid_free")
+        if rec is None and ce is None:
+            c = "no_checked_departure"
+        elif rec is not None and rec == plan_last and ce == plan_last:
+            c = "censored_at_last_offset"
+        elif ce == fr:
+            c = "window_set(same_as_fire_free)"
+        else:
+            c = "fire_set(differs_from_fire_free)"
+        cls[c] += 1
+        cls_match[c + (":match" if (ce == rec and o.get("field_deadline_grid_router") == rec) else ":MISMATCH")] += 1
+        holes["holes_cert" if o.get("holes_cert") else "no_holes_cert"] += 1
+    # ---- attempt cells changed by fire (cert vs free) and their agreement
+    fire_cells = Counter()
+    for r in d.get("jobs", []):
+        f = r.get("field")
+        if not f or "free" not in f:
+            continue
+        if f["free"]["feasible"] != f["cert"]["feasible"] or (f["cert"]["feasible"] and f["free"]["arrival"] != f["cert"]["arrival"]):
+            key = "fire_affected"
+        else:
+            key = "fire_free_identical"
+        v = r["verdict"]
+        ok = ((v == "checked_route" and f["cert"]["feasible"] and f["cert"]["arrival"] == r["arrival"]) or
+              (v == "model_no_route" and not f["router"]["feasible"]))
+        fire_cells[key + ":" + (v or "none") + (":match" if ok else (":unresolved_cell" if v not in ("checked_route", "model_no_route") else ":MISMATCH"))] += 1
+    # ---- witness checks
+    wc = Counter()
+    for v in d.get("deadline_witness_checks", []):
+        wc["deadline_witness:" + ("PASS" if v["full_policy_ok"] and v["closed_and_router_replay_clear"] else "FAIL")] += 1
+        wc["deadline_next_second_infeasible:" + str(v["next_second_infeasible"])] += 1
+    for r in d.get("jobs", []):
+        fc = (r.get("field") or {}).get("cert", {}).get("full_check")
+        if fc:
+            wc["job_witness:" + ("PASS" if fc["full_policy_ok"] and fc["closed_and_router_replay_clear"] else "FAIL")] += 1
     t = d["timing_s"]
     ours = t["prepare_packet_model"] + sum(t["fields"].values()) + sum(t["issue_and_witness"].values())
     ours_cert_only = t["prepare_packet_model"] + t["fields"].get("cert", 0) + t["issue_and_witness"].get("cert", 0)
     return {"cache_file": d["cache_file"], "destination_specs": d["destination_specs"], "jobs": n_jobs,
-            "attempts": dict(att), "jobs_all": dict(jobs), "job_mismatches": [{k: r.get(k) for k in ("job", "offset", "verdict", "raw_status", "arrival", "field")} for r in jm][:20], "deadlines": dict(dl), "exact_vs_grid_cert": dict(exact_vs_grid),
+            "attempts": dict(att), "jobs_all": dict(jobs), "job_mismatches": [{k: r.get(k) for k in ("job", "offset", "verdict", "raw_status", "arrival", "field")} for r in jm][:20], "deadlines": dict(dl), "deadline_classes": dict(cls), "deadline_class_match": dict(cls_match),
+            "feasible_set_holes": dict(holes), "fire_cells": dict(fire_cells), "witness_checks": dict(wc),
+            "piece_stats": d.get("piece_stats"), "peak_rss_mib": d.get("peak_rss_mib"), "timing_s": d["timing_s"], "exact_vs_grid_cert": dict(exact_vs_grid),
             "exact_uncapped_minus_grid_cert_s": {"n": len(gain), "n_positive": sum(g > 0 for g in gain),
                                                  "median": sorted(gain)[len(gain) // 2] if gain else None,
                                                  "max": max(gain) if gain else None},
