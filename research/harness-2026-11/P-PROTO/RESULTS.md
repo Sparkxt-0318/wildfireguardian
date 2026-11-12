@@ -119,3 +119,20 @@ vehicle and road cases). Korean wording by Sofia; English matched to it.
   with the later departure shown below it, labelled as a later checked window after a gap and not as the deadline. That
   is a change to the planner panel, outside this cut, raised with the orchestrator.
 - Suite 24 files / 403 tests; build:static OK; the default dist has 0 public-view files. Comprehension is untested.
+
+## jsdom page test under the Pages workflow's app base (2026-11-12)
+
+- Root cause of the red "Planner static demo" build on Main (2962b22) and on PRs #139, #140, #142 and #143: the
+  workflow sets `VITE_BASE_PATH=/wildfireguardian/`, so the page fetches `/wildfireguardian/cache/INDEX.json`. The
+  test's fake fetch served only root paths (`/cache/…`, `/data/…`), every request was a 404, `loadCacheIndex` treats a
+  missing index as "no replay data" (empty list, no error), and each of the 3 mounts waited its full 90 s with no card.
+  It is not runner speed: reproduced locally with `VITE_BASE_PATH=/wildfireguardian/` (4 failed, 275 s); with the
+  base unset the same file passes in 5 s.
+- Fix (test only): the fake fetch serves the repository files under the app's own `BASE_URL` (read from
+  `planner/src/config/paths`), and the mount stops at once with the paths it could not serve if the cache index is
+  missing, instead of waiting 90 s in silence. No assertion changed; no test skipped.
+- Measured: `pproto.test.ts` 14/14 under base unset, `/wildfireguardian/` and `./` (each about 6 s); full suite with
+  the workflow's environment 26 files / 446 tests; build:static OK. A wrong base now fails at once with
+  "the test's fetch could not serve the cache index".
+- Open, not changed here (page behaviour): with no cache index the page shows the banner and the official-orders slot,
+  no cards and no message. Raised with the orchestrator and Iris.
