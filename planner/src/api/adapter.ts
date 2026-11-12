@@ -2,6 +2,7 @@
  * Wire (contract v1.5) ⇄ internal model. This is the only module that knows the wire format;
  * if the contract changes, only src/api/* changes (ARCHITECTURE.md preamble).
  */
+import { supportGate } from './supportGate';
 import type {
   WireDispatchAttempt,
   WireDispatchOriginPlan,
@@ -216,7 +217,22 @@ export function adaptSnap(s: WireSnapInfo | null | undefined): SnapInfo | null {
   };
 }
 
-export function adaptAttempt(a: WireDispatchAttempt): Attempt {
+export function adaptAttempt(a: WireDispatchAttempt, jobGate: string | null = null): Attempt {
+  // a result on a support-masked packet is unresolved until the planner can read kit v2's unknown-support outcome
+  const gate = supportGate(a) ?? jobGate;
+  if (gate) {
+    return {
+      offsetS: Number(a.depart_offset_s),
+      destinationId: String(a.destination_id),
+      verdict: 'unresolved',
+      arrivalS: null,
+      computeS: num(a.compute_s),
+      jobId: str(a.route_check_job_id),
+      reasonCode: gate,
+      rawStatus: str(a.raw_status),
+      lowerBoundS: null,
+    };
+  }
   const verdict = adaptVerdict(a.verdict);
   return {
     offsetS: Number(a.depart_offset_s),
@@ -231,8 +247,8 @@ export function adaptAttempt(a: WireDispatchAttempt): Attempt {
   };
 }
 
-export function adaptOriginPlan(p: WireDispatchOriginPlan, offsetsS: number[], source: 'cache' | 'live', mock: boolean): OriginPlan {
-  const attempts = (p.attempts ?? []).map(adaptAttempt);
+export function adaptOriginPlan(p: WireDispatchOriginPlan, offsetsS: number[], source: 'cache' | 'live', mock: boolean, jobGate: string | null = null): OriginPlan {
+  const attempts = (p.attempts ?? []).map((a) => adaptAttempt(a, jobGate));
   const plan = planFromAttempts({ originId: p.origin_id, offsetsS, attempts, source, mock });
   plan.apiSnap = adaptSnap(p.snap);
   return plan;
@@ -261,11 +277,12 @@ export function adaptDispatchJob(job: WireDispatchPlanJob, source: 'cache' | 'li
   const req = (job.request ?? {}) as Partial<WireDispatchPlanRequest>;
   const offsets = Array.isArray(req.depart_offsets_s) ? [...new Set(req.depart_offsets_s.map(Number))].sort((a, b) => a - b) : [];
   const result = job.status === 'done' ? job.result : null;
+  const jobGate = result ? supportGate(result, result.provenance, job.provenance) : null;
   return {
     jobId: job.job_id,
     status: job.status,
     progress: { done: num(job.progress?.done) ?? 0, total: num(job.progress?.total) ?? 0 },
-    plans: (result?.plans ?? []).map((p) => adaptOriginPlan(p, offsets, source, mock)),
+    plans: (result?.plans ?? []).map((p) => adaptOriginPlan(p, offsets, source, mock, jobGate)),
     rejected: (result?.rejected_origins ?? []).map((r) => ({
       originId: r.origin_id,
       code: String(r.error?.code ?? 'REJECTED'),
@@ -334,7 +351,9 @@ function adaptFullPolicy(v: unknown): FullPolicyAssessment | null {
 export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
   const res = job.status === 'done' ? job.result : null;
   const req = (job.request ?? {}) as Record<string, unknown>;
-  const verdict: Verdict = res ? adaptVerdict(res.verdict) : 'unresolved';
+  // a result on a support-masked packet is unresolved until the planner can read kit v2's unknown-support outcome
+  const gate = res ? supportGate(res, res.provenance, job.provenance) : null;
+  const verdict: Verdict = gate ? 'unresolved' : res ? adaptVerdict(res.verdict) : 'unresolved';
   const route = res && verdict === 'checked_route' ? res.route : null;
   const coords = route?.geometry?.coordinates?.map((c) => [Number(c[0]), Number(c[1])] as [number, number]) ?? null;
   const times = route?.properties?.times_s?.map(Number) ?? null;
@@ -375,13 +394,13 @@ export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
     jobId: job.job_id,
     status: job.status,
     verdict,
-    reasonCode: res && verdict === 'unresolved' ? str(res.reason_code) : job.status === 'failed' ? str(job.error?.code) : null,
+    reasonCode: gate ?? (res && verdict === 'unresolved' ? str(res.reason_code) : job.status === 'failed' ? str(job.error?.code) : null),
     rawStatus: res ? str(res.raw_status) : null,
     rawReason: res ? str(res.raw_reason) : null,
     policy: adaptPolicy(res?.policy ?? req.policy),
     departureS: res ? num(res.departure_s) : null,
-    arrivalS: res ? num(res.arrival_s) : null,
-    lowerBoundS: res ? num(res.lower_bound_L_s) : null,
+    arrivalS: res && !gate ? num(res.arrival_s) : null,
+    lowerBoundS: res && !gate ? num(res.lower_bound_L_s) : null,
     dwellEndS: res ? num(res.dwell_end_s) : null,
     dwellS: num(req.dwell_s),
     destinationWindow: win ? [Number(win[0]), Number(win[1])] : null,
