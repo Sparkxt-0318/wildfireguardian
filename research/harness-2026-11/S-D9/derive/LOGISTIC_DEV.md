@@ -47,3 +47,20 @@ d4's kernel is 9×9 (forecast-v2 RUN_PROTOCOL `kernel_size` 9), so its reach is 
 - **Reading (hypothesis):** on this cohort, the hourly reach cap does **not** explain the tail. The cells are reachable many times over, yet d4 assigns them about 1e-6 to 1e-8. The cause is spread magnitude: rates too low, or probability decaying too fast with distance. That is consistent with Elena's plug-in bias (her synthetic fitted rate is about half of truth). Prediction: a D2 refit should shrink the tail without a recalibration layer. D1's continuous-time step is not the limiting factor here, unless it also changes rate magnitude.
 - **The recalibrated d4 is still about 2–4× too low in the tail** (about 0.0013–0.0016 against 0.003–0.006 observed), so recalibration only partly fixes it.
 - **Integration caution (Iris).** Recalibrated marginals must not feed the per-cell independent member draws used for routing. Lifting the floor everywhere would scatter isolated ignitions.
+
+## Follow-up 2: structural zeros? Enclosure of tail positives (`enclosure.py` → `ENCLOSURE.json`, about 5 s)
+
+Iris's competing explanation: the tail may come from structural zeros rather than slow rates, either input gating (non-burnable or missing covariates) or label filling (unburned islands inside a NIROPS polygon). The endpoint union is the cutoff union ∪ the interval's positives. A positive is "enclosed" if at least 6 of its 8 neighbours are in the endpoint union, and an "island" if all 8 are.
+
+| 4 km band, R | positives | enclosed (≥ 6/8) | island (8/8) |
+|---|---|---|---|
+| d4 tail (p < 1e-5) | 1,310 | 872 (**66.6%**) | 590 (**45.0%**) |
+| d4 non-tail | 6,869 | 3,443 (50.1%) | 1,889 (27.5%) |
+
+**Reading (hypothesis).**
+- Enclosed and island cells are clearly **over-represented** in the tail: 1.33× the enclosed share and 1.64× the island share.
+- 590 tail positives sit with every neighbour burned at the endpoint, yet d4 gives them about 1e-6. A merely slow kernel would not do that next to a fully burning neighbourhood. That points to **gating** (a covariate switching the cell off) or **label filling** (an unburnable cell counted as burned inside the mapped polygon).
+- A third of the tail positives (438) are not enclosed, so structural zeros are at most part of the story.
+- The gating and labelling explanations cannot be separated without per-cell fuel, land-cover and covariate-missing flags. Those are requested from Daniel (rebuilt covariates for the 6 US2024 fires).
+
+**Consequence for A1, if gating or label filling is confirmed.** An enclosed-cell scoring rule changes the scoring population, so it would have to be pre-declared before the freeze. Example: report the band score with and without enclosed non-burnable cells. Nothing is changed yet.

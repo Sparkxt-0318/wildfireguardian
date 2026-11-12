@@ -1,0 +1,81 @@
+{
+ "label": "DEVELOPMENT-ONLY on exposed cohort R, 4 km band",
+ "tail_threshold": 1e-05,
+ "enclosed_rule": ">= 6 of 8 neighbours in endpoint union",
+ "tail": {
+  "positives": 1310,
+  "enclosed": 872,
+  "island": 590,
+  "enclosed_share": 0.665648854961832,
+  "island_share": 0.45038167938931295
+ },
+ "nontail": {
+  "positives": 6869,
+  "enclosed": 3443,
+  "island": 1889,
+  "enclosed_share": 0.5012374435871306,
+  "island_share": 0.27500363953996215
+ },
+ "per_fire": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "tail": {
+    "positives": 695,
+    "enclosed": 499
+   },
+   "nontail": {
+    "positives": 2794,
+    "enclosed": 1487
+   }
+  },
+  "ID-BOF-000904_Goat": {
+   "tail": {
+    "positives": 4,
+    "enclosed": 0
+   },
+   "nontail": {
+    "positives": 434,
+    "enclosed": 114
+   }
+  },
+  "ID-BOF-001080_Lava": {
+   "tail": {
+    "positives": 113,
+    "enclosed": 103
+   },
+   "nontail": {
+    "positives": 522,
+    "enclosed": 333
+   }
+  },
+  "ID-SCF-240202_RedRock": {
+   "tail": {
+    "positives": 63,
+    "enclosed": 37
+   },
+   "nontail": {
+    "positives": 899,
+    "enclosed": 325
+   }
+  },
+  "WA-SES-000173_Pioneer": {
+   "tail": {
+    "positives": 67,
+    "enclosed": 11
+   },
+   "nontail": {
+    "positives": 889,
+    "enclosed": 471
+   }
+  },
+  "WY-BTF-002416_FishCreek": {
+   "tail": {
+    "positives": 368,
+    "enclosed": 222
+   },
+   "nontail": {
+    "positives": 1331,
+    "enclosed": 713
+   }
+  }
+ }
+}
