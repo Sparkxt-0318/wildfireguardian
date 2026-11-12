@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BANNER, cardFor, exampleIds, handoffFor, linkFor, OFFICIAL_SLOT, parseLink, REPLAY_MARK, validPlace, type PublicCard } from '../../planner/src/features/publicview/model';
+import { BANNER, cardFor, exampleIds, handoffFor, LEAVE_BY_WORDS, linkFor, OFFICIAL_SLOT, parseLink, REPLAY_MARK, validPlace, type PublicCard } from '../../planner/src/features/publicview/model';
 import { readSaved, writeSaved } from '../../planner/src/features/publicview/load';
 import { DARK, LIGHT, SIZE } from '../../planner/src/features/publicview/tokens';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
@@ -60,6 +60,46 @@ describe('cards over every real and synthetic origin', () => {
       for (const s of strings(c)) expect(NEVER.test(masked(i, s)), s).toBe(false);
     }
     expect(counts.leave_by! > 0 && counts.no_route! > 0 && counts.unresolved! > 0).toBe(true);
+  });
+
+  it('the leave-by sentence is true of the sweep it describes, for every real and synthetic origin (verifier note: "none after" was shown where the model found a later road after a gap)', () => {
+    const shown: Record<string, { real: number; syn: number }> = {};
+    const check = (i: LastMileInput, set: 'real' | 'syn') => {
+      const c = cardFor(i, () => null);
+      const p = messagePlan(i, null);
+      if (c.kind !== 'leave_by') return;
+      const T = p.leaveByS!;
+      // claims recomputed from the sweep itself, not from the plan's own classification
+      const requested = [...i.plan!.sweep].sort((a, b) => a.offsetS - b.offsetS).filter((x) => x.verdict !== 'window_closed');
+      const upTo = requested.filter((x) => x.offsetS <= T);
+      const later = requested.filter((x) => x.offsetS > T);
+      const which = (Object.keys(LEAVE_BY_WORDS) as (keyof typeof LEAVE_BY_WORDS)[]).find((k) => LEAVE_BY_WORDS[k].en === c.words.en);
+      expect(which, c.words.en).toBeDefined();
+      expect(c.words.ko).toBe(LEAVE_BY_WORDS[which!].ko);
+      shown[which!] = shown[which!] ?? { real: 0, syn: 0 };
+      shown[which!]![set] += 1;
+      // common claim: a checked road for every requested departure up to T
+      expect(upTo.length).toBeGreaterThan(0);
+      expect(upTo.every((x) => x.verdict === 'checked_route')).toBe(true);
+      if (which === 'horizon') expect(later.length, i.origin.id).toBe(0); // "later departures were not checked"
+      if (which === 'none_checked') {
+        // "none after": at least one later requested departure, and none of them has a checked road
+        expect(later.length, i.origin.id).toBeGreaterThan(0);
+        expect(later.every((x) => x.verdict !== 'checked_route'), i.origin.id).toBe(true);
+      }
+      if (which === 'gap') {
+        // "right after it, some departures have no checked road": the first requested departure after T has none
+        expect(later.length, i.origin.id).toBeGreaterThan(0);
+        expect(later[0]!.verdict, i.origin.id).not.toBe('checked_route');
+      }
+    };
+    for (const i of real) check(i, 'real');
+    for (const i of syn) check(i, 'syn');
+    // the generator must exercise all three sentences, or this property proves nothing about the gap case
+    expect(shown.horizon?.syn ?? 0).toBeGreaterThan(0);
+    expect(shown.none_checked?.syn ?? 0).toBeGreaterThan(0);
+    expect(shown.gap?.syn ?? 0).toBeGreaterThan(0);
+    console.log('[pproto] leave-by sentence shown (real / synthetic):', JSON.stringify(shown));
   });
 
   it('examples: one of each state, by a fixed rule', () => {

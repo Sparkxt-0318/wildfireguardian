@@ -117,20 +117,31 @@ export function handoffFor(p: MessagePlan, coords: (destinationId: string) => { 
   return { name, lat: c.lat, lon: c.lon, text, gpxFileName: `REPLAY-${ymd(iso(p))}-NOT-REAL-${p.destination.id.replace(/[^A-Za-z0-9]+/g, '_')}.gpx`, gpx };
 }
 
+/**
+ * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction). Each must be
+ * true of the sweep it describes (property test in tests/planner/pproto.test.ts):
+ * - horizon: no departure after T was requested (only window-closed times or none) — later ones were not checked;
+ * - none_checked: every requested departure after T has no checked road;
+ * - gap: the first requested departure after T has no checked road, yet a later one has one again. The sentence says
+ *   only the first part; it never mentions the later road, so it cannot be read as "leaving later is also fine".
+ */
+export const LEAVE_BY_WORDS: Record<'horizon' | 'none_checked' | 'gap', LmText> = {
+  horizon: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었습니다. 그 뒤 출발은 점검하지 않았습니다', en: 'Model: a checked road out by car existed for departures up to this time; later departures were not checked' },
+  none_checked: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이 없습니다', en: 'Model: a checked road out by car existed for departures up to this time; none after' },
+  gap: { ko: '모델 계산: 이 시각 출발까지는 차로 나가는 확인된 길이 계속 있었고, 바로 그 뒤 출발 중에는 확인된 길이 없는 때가 있습니다', en: 'Model: a checked road out by car existed for every departure up to this time; right after it, some departures have no checked road' },
+};
+
 export function cardFor(input: LastMileInput, coords: (destinationId: string) => { lat: number; lon: number } | null = () => null): PublicCard {
   const p = messagePlan(input, null);
   const base = { originId: input.origin.id, place: placeName(input), kind: p.kind, replayStamp: stamp(input), dataAge: age(input) };
-  if (p.kind === 'leave_by' && p.leaveByS !== null) {
+  if (p.kind === 'leave_by' && p.leaveByS !== null && p.after !== null) {
     const t = dayMarked(p, p.leaveByS);
     return {
       ...base,
       tone: 'leave',
       icon: 'clock',
       // Iris: descriptive mood — what the model found, not an instruction
-      words:
-        p.after === 'horizon'
-          ? { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었습니다. 그 뒤 출발은 점검하지 않았습니다', en: 'Model: a checked road out by car existed for departures up to this time; later departures were not checked' }
-          : { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이 없습니다', en: 'Model: a checked road out by car existed for departures up to this time; none after' },
+      words: LEAVE_BY_WORDS[p.after],
       time: t,
       guidance: { ko: '공식 대피 명령이 우선합니다. 차가 없으면 이장에게 바로 알리십시오.', en: 'Official evacuation orders come first. No car? Tell the village head now.' },
       handoff: handoffFor(p, coords),
