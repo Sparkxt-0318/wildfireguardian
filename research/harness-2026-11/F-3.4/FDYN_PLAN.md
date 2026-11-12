@@ -36,3 +36,9 @@ margins.
   bracket, ≤ +60/+300/+600 s trade-off, and crop/domain flag.
 - **Carried notes (Nora).** Roads are the clipped recorded windows, so 45% of burned cells have no modelled roads.
   Dose binds over 5–8 h. This is a scenario, not what happened.
+
+## Label correction (Leo, c79c510, received after the plan was fixed)
+
+`firms_early` uses the FIRMS bracket start, which is **not a lower bound** on arrival. It stays in the fixed set,
+because timing results are unaffected. Every result on it is labelled **"firms bracket-start (not a lower bound)"** and
+is never described as early or conservative. Leo's sound envelope variant (`envelope_sound`) is not part of this plan.
