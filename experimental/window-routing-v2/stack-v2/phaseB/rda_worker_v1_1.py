@@ -51,7 +51,7 @@ ALLOCATION = {'version': 'wfg.rda.allocation/2-window-check-first',
               'checks': 'each whole-road check gets all remaining time up to the deadline'}
 
 
-V2_STEP3 = {'Z_work_units': 268435456,   # kit-v2 Step 3: 2**28, results/step3/Z_CALIBRATION.json (extrapolated; None = calibration kit)
+V2_STEP3 = {'Z_setup_units': None, 'Z_sweep_units': None,   # kit-v2 Step 3 (B2 correction): None, None = calibration kit
             'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3
 
 
@@ -382,8 +382,8 @@ def main():
             t0 = time.perf_counter()
             try:
                 _prog_stage('Z')
-                _zw = V2_STEP3['Z_work_units']; _zwall = cap if _zw is None else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3
-                _zb = v2_work.Budget(units_cap=_zw, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3
+                _zw = {'setup': V2_STEP3['Z_setup_units'], 'sweep': V2_STEP3['Z_sweep_units']}; _zwall = cap if None in _zw.values() else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3
+                _zb = v2_work.Budget(group_caps={k: v for k, v in _zw.items() if v is not None}, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3
                 z = _v2_run('Z', ALLOCATION['Z_max_s'], lambda: zsweep.contact_sweep(graph, hazard, request, M, wall_s=_zwall, core=core,   # kit-v2 Step 3
                                          check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'), budget=_zb), bound_budget=False)   # kit-v2 Step 3
             except zsweep.SweepUnsupported as exc:
@@ -391,7 +391,7 @@ def main():
                 z = road_core.solve(graph, hazard, rq, prepared=pg, exposure=M.view('zero'), mode='zero')
                 z['z_method'] = 'road_core_zero_mode'; z['z_fallback_reason'] = str(exc)
             STATE['engine_binding']['actual_invocations'] += 1
-            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_units_cap': V2_STEP3['Z_work_units']})   # kit-v2 Step 3
+            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_caps': dict(_zw)})   # kit-v2 Step 3
             checkpoint('Z_RETURNED')
             if z.get('status') in ('AT_ISSUE_FAILURE', 'DISCONNECTED', 'INVALID_INPUT'):
                 candidates.append(('Z', 'zero', z, None, None, None)); done = True

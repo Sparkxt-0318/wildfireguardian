@@ -92,7 +92,7 @@ if what == 'z_count':
     out.update(status=r['status'], arrival=r.get('arrival'), legs=r.get('legs'), sweep_seconds=r['metrics'].get('sweep_seconds'),
                work=b.record(), parent_status=r0['status'], parent_arrival=r0.get('arrival'), parent_legs=r0.get('legs'))
 elif what == 'z_cap':
-    b = v2_work.Budget(units_cap=arg['cap']); r = z(b)
+    b = v2_work.Budget(units_cap=arg.get('cap'), group_caps=arg.get('group_caps')); r = z(b)
     out.update(status=r['status'], reason=r.get('reason'), arrival=r.get('arrival'), legs=r.get('legs'), work=b.record())
 elif what == 'bounds_interrupt':
     M2 = road_bounds.RoadBoundModel(graph, packet, active_window=(F(req['departure']), F(req['horizon'])))
@@ -143,7 +143,10 @@ class ZWork(unittest.TestCase):
 
     def test_unit_definitions(self):
         c = self.c; E = c['E']; bk = c['work']['by_kind']
-        self.assertGreater(bk.get('setup_contact', 0), 0, bk)
+        self.assertGreater(bk.get('setup_edge', 0), 0, bk)                 # one per contact-candidate edge
+        self.assertNotIn('setup_contact', bk)
+        self.assertEqual(c['work']['group_units'], {'setup': bk['setup_edge'] + bk.get('setup_wait', 0), 'sweep': bk['sweep']})
+        self.assertLessEqual(c['work']['first_tick_s']['setup'], c['work']['first_tick_s']['sweep'])
         self.assertEqual(bk['sweep'] % (E + 1), 0)
         self.assertIn(bk['sweep'] // (E + 1), (c['sweep_seconds'], c['sweep_seconds'] + 1))
         self.assertEqual(c['work']['units'], sum(bk.values()))
@@ -153,31 +156,40 @@ class ZWork(unittest.TestCase):
         self.assertEqual((c['status'], c['arrival'], c['legs']), (c['parent_status'], c['parent_arrival'], c['parent_legs']))
 
     def test_stop_inside_setup(self):
-        r = probe(*YD, 'z_cap', {'cap': 3})
-        self.assertEqual((r['status'], r['reason'], r['arrival'], r['legs']), ('TIMEOUT', 'WORK_BUDGET', None, []))
-        self.assertEqual(r['work']['units'], 4); self.assertNotIn('sweep', r['work']['by_kind'])
+        r = probe(*YD, 'z_cap', {'group_caps': {'setup': 3}})
+        self.assertEqual((r['status'], r['reason'], r['arrival'], r['legs']), ('TIMEOUT', 'WORK_BUDGET_SETUP', None, []))
+        self.assertEqual(r['work']['group_units']['setup'], 4); self.assertNotIn('sweep', r['work']['by_kind'])
+
+    def test_setup_tick_precedes_the_exact_call(self):
+        # setup cap 0: the very first candidate edge is refused before edge_occupancies runs (1 unit counted, no row)
+        r = probe(*YD, 'z_cap', {'group_caps': {'setup': 0}})
+        self.assertEqual((r['reason'], r['work']['by_kind']), ('WORK_BUDGET_SETUP', {'setup_edge': 1}))
 
     def test_stop_inside_sweep(self):
-        E = self.c['E']; setup = self.c['work']['units'] - self.c['work']['by_kind']['sweep']
+        E = self.c['E']; setup = self.c['work']['group_units']['setup']
         if self.c['work']['by_kind']['sweep'] < 4 * (E + 1):
             self.skipTest('Z sweeps fewer than 4 seconds on this mission')
-        r = probe(*YD, 'z_cap', {'cap': setup + 3 * (E + 1)})
-        self.assertEqual((r['status'], r['reason'], r['legs']), ('TIMEOUT', 'WORK_BUDGET', []))
-        self.assertEqual(r['work']['by_kind']['sweep'], 4 * (E + 1)); self.assertEqual(r['work']['units'], setup + 4 * (E + 1))
+        r = probe(*YD, 'z_cap', {'group_caps': {'sweep': 3 * (E + 1)}})
+        self.assertEqual((r['status'], r['reason'], r['legs']), ('TIMEOUT', 'WORK_BUDGET_SWEEP', []))
+        self.assertEqual(r['work']['by_kind']['sweep'], 4 * (E + 1)); self.assertEqual(r['work']['group_units']['setup'], setup)
+        # setup is unaffected by the sweep cap, and the generic cap still works
+        g = probe(*YD, 'z_cap', {'cap': setup + 3 * (E + 1)})
+        self.assertEqual(g['reason'], 'WORK_BUDGET')
 
 
 @unittest.skipIf(KIT is None, 'set WFG_V2_KIT')
 class Determinism(unittest.TestCase):
     def test_unit_count_identical_under_contention(self):
-        c = probe(*YD, 'z_count'); cap = c['work']['units'] // 2
-        a = probe(*YD, 'z_cap', {'cap': cap})
+        c = probe(*YD, 'z_count'); cap = c['work']['group_units']['sweep'] // 2
+        a = probe(*YD, 'z_cap', {'group_caps': {'sweep': cap}})
         busy = subprocess.Popen(['taskset', '-c', '0', sys.executable, '-c', 'while True: pass'])
         try:
-            b = probe(*YD, 'z_cap', {'cap': cap}, prefix=('taskset', '-c', '0'))
+            b = probe(*YD, 'z_cap', {'group_caps': {'sweep': cap}}, prefix=('taskset', '-c', '0'))
         finally:
             busy.kill(); busy.wait()
-        self.assertEqual(a, b)
-        self.assertEqual(a['work']['units'], cap + (a['work']['units'] - cap))
+        for r in (a, b):   # first_tick_s are wall times: they differ by design; everything else must not
+            r['work'].pop('first_tick_s')
+        self.assertEqual(a, b); self.assertEqual(a['reason'], 'WORK_BUDGET_SWEEP')
 
 
 @unittest.skipIf(KIT is None, 'set WFG_V2_KIT')

@@ -153,14 +153,14 @@ def _contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_m
     cand_rows = []
     for i in np.flatnonzero(cand):
         e = edges[i]; Dq = F(int(D[i])); row = None
+        if budget is not None:   # kit-v2 Step 3 (B2 correction): one setup unit per candidate edge, BEFORE its exact call
+            budget.tick(1, 'setup_edge')
         for o in core.edge_occupancies(e, 0, 1, 0, 1, graph, nodes):
             ivs = cells.get(o['cell'])
             if not ivs:
                 continue
             za, zb = F(o['start']), F(o['end'])
             for b, ee in ivs:
-                if budget is not None:   # kit-v2 Step 3: one unit per (candidate edge, occupancy, fire interval)
-                    budget.tick(1, 'setup_contact')
                 lo_t = max(dep, _ceil(b - Dq * zb))
                 hi_t = min(hor, _ceil(ee - Dq * za) - 1)
                 if lo_t <= hi_t:

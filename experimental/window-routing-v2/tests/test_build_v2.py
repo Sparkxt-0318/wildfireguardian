@@ -72,7 +72,7 @@ class BuildV2(unittest.TestCase):
 
 # Step 3: every added worker line carrying the Step 3 marker, exactly and in order (STEP3_ACCEPTANCE B).
 STEP3_WORKER_LINES = [
-    "V2_STEP3 = {'Z_work_units': 268435456,   # kit-v2 Step 3: 2**28, results/step3/Z_CALIBRATION.json (extrapolated; None = calibration kit)",
+    "V2_STEP3 = {'Z_setup_units': None, 'Z_sweep_units': None,   # kit-v2 Step 3 (B2 correction): None, None = calibration kit",
     "            'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3",
     "    import v2_work; _V2W = {'poisoned': False}   # kit-v2 Step 3",
     '    def _v2_run(name, cap_s, fn, bound_budget=True):   # kit-v2 Step 3: prompt cap checks + watchdog for one stage',
@@ -88,11 +88,11 @@ STEP3_WORKER_LINES = [
     '        finally:   # kit-v2 Step 3',
     '            if M is not None:   # kit-v2 Step 3',
     '                M.stage_budget = None   # kit-v2 Step 3',
-    "                _zw = V2_STEP3['Z_work_units']; _zwall = cap if _zw is None else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3",
-    '                _zb = v2_work.Budget(units_cap=_zw, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3',
+    "                _zw = {'setup': V2_STEP3['Z_setup_units'], 'sweep': V2_STEP3['Z_sweep_units']}; _zwall = cap if None in _zw.values() else max(0., remaining() - ALLOCATION['Z_reserve_s'])   # kit-v2 Step 3",
+    '                _zb = v2_work.Budget(group_caps={k: v for k, v in _zw.items() if v is not None}, deadline=time.perf_counter() + _zwall)   # kit-v2 Step 3',
     "                z = _v2_run('Z', ALLOCATION['Z_max_s'], lambda: zsweep.contact_sweep(graph, hazard, request, M, wall_s=_zwall, core=core,   # kit-v2 Step 3",
     "                                         check_route_mode=road_core.check_route_mode, zero_view=M.view('zero'), budget=_zb), bound_budget=False)   # kit-v2 Step 3",
-    "            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_units_cap': V2_STEP3['Z_work_units']})   # kit-v2 Step 3",
+    "            record('Z', 'zero', cap, t0, z, {'z_work': _zb.record(), 'z_work_caps': dict(_zw)})   # kit-v2 Step 3",
     "            done = done or _V2W['poisoned']   # kit-v2 Step 3: fail closed after a watchdog",
     "                EA = _v2_run('EA', max(0., deadline - ALLOCATION['HI_check_reserve_s'] - time.perf_counter()), lambda: zsweep.EarliestArrivalBound(graph, hazard, request, M, core, deadline=deadline - ALLOCATION['HI_check_reserve_s']), bound_budget=False)   # kit-v2 Step 3",
     '                if isinstance(EA, dict):   # kit-v2 Step 3: watchdog fired',

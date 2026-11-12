@@ -26,14 +26,27 @@ class WatchdogFired(BaseException):
 
 
 class Budget:
-    def __init__(self, units_cap=None, deadline=None, wall_reason='WALL_CLOCK'):
+    """group_caps (Step 3 correction, Iris 20:02): separate caps per group of kinds, e.g. {'setup': N, 'sweep': M};
+    a kind belongs to the group named by its prefix before '_' ('setup_edge' -> 'setup'). Exceeding a group cap raises
+    StageCap('WORK_BUDGET_' + GROUP). The first tick time of each group is recorded (setup wall = first sweep tick)."""
+    def __init__(self, units_cap=None, deadline=None, wall_reason='WALL_CLOCK', group_caps=None):
         self.units_cap = units_cap; self.deadline = deadline; self.wall_reason = wall_reason
+        self.group_caps = dict(group_caps or {}); self.group_units = {}; self.first_tick_s = {}
+        self.t0 = time.perf_counter()
         self.units = 0; self.stopped = None; self.by_kind = {}
 
     def tick(self, n=1, kind=None):
         self.units += n
         if kind is not None:
             self.by_kind[kind] = self.by_kind.get(kind, 0) + n
+            g = kind.split('_', 1)[0]
+            if g not in self.first_tick_s:
+                self.first_tick_s[g] = time.perf_counter() - self.t0
+            self.group_units[g] = self.group_units.get(g, 0) + n
+            cap = self.group_caps.get(g)
+            if cap is not None and self.group_units[g] > cap:
+                self.stopped = 'WORK_BUDGET_' + g.upper()
+                raise StageCap(self.stopped, self.units)
         if self.units_cap is not None and self.units > self.units_cap:
             self.stopped = 'WORK_BUDGET'
             raise StageCap('WORK_BUDGET', self.units)
@@ -42,7 +55,9 @@ class Budget:
             raise StageCap(self.wall_reason, self.units)
 
     def record(self):
-        return {'units': self.units, 'units_cap': self.units_cap, 'stopped': self.stopped, 'by_kind': dict(self.by_kind)}
+        return {'units': self.units, 'units_cap': self.units_cap, 'stopped': self.stopped, 'by_kind': dict(self.by_kind),
+                'group_units': dict(self.group_units), 'group_caps': dict(self.group_caps),
+                'first_tick_s': dict(self.first_tick_s)}
 
 
 def watchdog_threshold(cap_s):
