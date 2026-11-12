@@ -1,212 +1,183 @@
-# AIR-EXTRACT: open-ground candidates near places with no road escape (design note; DRAFT, plan only; scope pending the orchestrator)
+# AIR-EXTRACT: early action and air options for places with no road escape (design note; DRAFT, plan only)
 
 **Status.**
-- This is a skeleton. Leo and Richard write it together; the split is agreed (Richard: A, C's checker use, E; Leo: B, C margins, D).
-- **No code and no build** until Iris has assessed the finished note.
-- Person-facing wording waits until Clara's pause lifts.
-- Every threshold below is a **named parameter with no value** until a source is attached:
-  - Sofia gives the landing-zone numbers;
-  - Priya gives the radiant stand-off;
-  - Daniel gives the layers.
+- Plan only. **No build** until Iris has read this note.
+- Wording stays draft until Clara's pause lifts.
+- Leo and Richard write the note together:
+  - Richard: §1, §2's latest-departure field, and §5;
+  - Leo: §2's table form, §3 and §4.
+- Every threshold is either sourced, with the source named, or a **named parameter with no value**.
 
-**Iris's judgement (2026-11-12 22:36 UTC, on Sofia's note; the orchestrator decides).** DROP as a person-facing
-output.
-- **Why:**
-  - The conditions that close roads in a wind-driven fire also ground helicopters.
-  - There is no published numeric smoke limit.
-  - There are 0 registered sites in 의성, and registered sites are operating bases, not pickup points.
-  - A resident message mentioning a helicopter where there is no road route invites waiting.
-- **At most, a staff-only research row** for no-route and unresolved origins:
-  - distance to the nearest registered site;
-  - whether daylight and the published wind limits allowed flight at that time;
-  - "possible only if flyable";
-  - never a route, and never counted as resolving an origin;
-  - the smoke gate labelled unsourced;
-  - it must not delay the multi-hour gate or the benchmark.
+**Owner decision (option a, relayed by the orchestrator, 2026-11-12 22:39 UTC).**
+- **STAFF/AGENCY-ONLY.** Nothing in this note is person-facing, and nothing goes into any resident channel.
+- **Build order:**
+  1. the early-action list (§2), the main output, which needs no new data;
+  2. Iris's air row D0 (§3.1);
+  3. open-ground candidates D1 (§3.2), only as a later, labelled extension, if the owner asks again after seeing D0.
+- Boats are noted descriptively for coastal places (§4).
 
-**This note follows that ruling once the orchestrator gives it.** Until then, sections B–D are kept staff-only, and the
-smallest version (Iris's row) is listed first in D.
+**Iris's judgement (2026-11-12 22:36 UTC, verbatim):**
 
-**Owner direction (via the orchestrator, 2026-11-12 22:25 UTC).** Produce "air-extraction candidates" for places
-with no road escape. It comes after current work and must not displace `no_reentry/2`.
+> DROP as a person-facing output; at most a staff-only descriptive count, if the orchestrator wants it.
+>
+> Reasons: the conditions that close roads in a wind-driven fire are those that ground helicopters (Sofia's sources:
+> wind, smoke, night, the grounding after 26 March, and no report of residents evacuated by helicopter in March
+> 2025); no published numeric smoke limit, so the "flyable" gate has no source; 0 registered sites in 의성, and the
+> sites are operating bases, not pickup points; and a resident message mentioning a helicopter where there is no road
+> route invites waiting.
+>
+> If kept: a staff-only research row for no-route and unresolved origins giving distance to the nearest registered
+> site and whether daylight and the published wind limits allowed flight at that time. "Possible only if flyable",
+> never a route, never counted as resolving an origin, smoke gate labelled unsourced. It shouldn't delay the
+> multi-hour gate or the benchmark.
 
-**What this is not.**
-- A candidate is "open-ground candidate", never "safe to land" and never "landing zone".
-- Every table carries this line: "Whether a flight is feasible is the pilot's and the agency's decision; this table
-  lists open ground only."
+## 1. The "no road escape" set (Richard)
 
-## A. Which places have "no road escape" (Richard; Leo supplies the packets)
-
-**Draft definition.** A place is in the labelled set **NO_CHECKED_ROUTE** when it has no checked route under each of
-the three timing variants: kriged_mean, firms_early and envelope. envelope_burnset is reported as its own row
-(Richard, position 1 below).
-- Packets: `no_reentry/2` (MANIFEST_v3_7, once Nora passes it).
+**Inputs.**
+- Packets: `no_reentry/2` (MANIFEST_v3_7), once Nora passes it.
 - Router: Richard's full checker.
-- It is never reported as a bare "no route".
+- Departures: the 30-min grid, per region, start and horizon.
 
-**Split by cause.** Each place in the set gets exactly one label, in Richard's precedence (position 3 below):
-1. **at-issue.** The origin is in flame at the departure.
-2. **fire-limited.** Inside the loaded graph, every exit is blocked by fire under every variant.
-3. **road-limited.** The only exits leave the loaded graph. The graph is clipped: the c651 window, or the export grid
-   + 5 km under Daniel's rebuild. So the result says nothing about roads outside it, and these places are listed
-   separately, not as air candidates.
+**Definition.** A place is in **NO_CHECKED_ROUTE** at a departure time when **all three timing variants** give no
+checked route: kriged_mean, firms_early and envelope.
+- That is the intersection, with a per-variant table always shown alongside.
+- envelope_burnset is its own row and does not enter the intersection.
+- A place maps to its start node(s) as the caches record them. With several nodes, it qualifies only if none of them
+  has a route.
+- It is **never** reported as a bare "no route".
 
-**Sensitivity to waiting.**
-- Waiting is allowed only at graph dead-end nodes, as supplied in graph.json; the rule is undocumented and the owner
-  has been asked.
-- The set is also reported under "waiting nowhere" and under "waiting anywhere". Membership that changes between them
-  is flagged.
+**Cause label**, exactly one per place, in this precedence:
+1. **at-issue.** The origin point is in flame at the departure.
+2. **fire-limited.** Inside the loaded graph, every exit is blocked by fire.
+3. **road-limited.** There is no checked route here, but a route off the clipped graph is not excluded. These places
+   are listed separately as "graph window too small to decide", and they are not air candidates.
 
-**Departure grid.** As in Richard's headline: the 30-min grid, per region, start and horizon.
+**Dependence on the waiting rule.**
+- The supplied rule is that waiting is allowed only at graph dead-end nodes. It is undocumented, and the owner has
+  been asked.
+- "Waiting anywhere" can only remove places from the set, and "waiting nowhere" can only add them. Both are reported
+  as counts, and each place is flagged if its membership depends on the rule.
 
-**Richard's positions (2026-11-12 22:31 UTC; his full A and E text to follow, committed with credit).**
-1. **Quantifier.**
-   - NO_CHECKED_ROUTE needs **all three timing variants** to give no route: kriged_mean, firms_early and envelope. It
-     is their intersection.
-   - A per-variant table is always shown alongside.
-   - envelope_burnset is its own row and does not enter the intersection.
-2. **Place to origin.** A place maps to its start node(s) as the caches record them. A place with several nodes
-   qualifies only if all of them have no route.
-3. **Cause precedence:**
-   1. at-issue: the origin point is in flame at departure;
-   2. fire-limited within the loaded graph;
-   3. otherwise possibly road-limited. A route off the clipped graph is not excluded, so these places are **not air
-      candidates by default**. They are listed separately as "graph window too small to decide".
-4. **Waiting.**
-   - The headline uses the supplied rule: waiting only at dead ends.
-   - "Waiting anywhere" can only remove places, and "waiting nowhere" can only add them. Both are reported as counts.
-5. **E.** Without a sourced incident list, the note states that nothing is validated.
+## 2. EARLY-ACTION LIST (main output; no new data)
 
-## B. Candidate-site rule (Leo; layers from Daniel; values from Sofia)
+**What it gives.** For each place that is in the §1 set at some departure, the **latest departure time at which a
+checked road route still exists**, per timing variant.
+- **Shown as a range across variants, with the earliest edge first.** The earliest variant is the one staff should
+  plan to.
+- **Purpose.** Staff can prioritise early warning and assisted transport *before* the roads close.
 
-**Sources.** Sofia's note to Leo, Richard, Iris and the orchestrator (2026-11-12 22:35 UTC). Her research agents opened
-every source, and she re-checked the key figures herself. Unit conversions are her arithmetic.
+**Columns:**
+- the place;
+- the cause label (§1);
+- the latest checked-route departure under kriged_mean, firms_early and envelope;
+- the earliest of those;
+- the envelope_burnset row, which is static;
+- whether the result depends on the waiting rule;
+- the departure grid step.
 
-**B1. Registered sites first.** 산림청 산림항공본부_이착륙장 정보 (data.go.kr 15069465):
-- CSV, 627 rows, updated 2026-09-17, "이용허락범위 제한 없음";
-- coordinates, surface, obstacles, approach directions and safety area;
-- 경북 has 48 rows: 영덕 4, 청송 2, 영양 1, 안동 2-3 (string match), **의성 0**.
+**Source.** Richard's latest-departure field on the `/2` packets, the same checker as his headline. No new data is
+needed.
 
-These are forest-aviation operating sites, not resident pickup points. Each one carries that label.
+**Pre-season version.** The same list from the March 2025 replay, per region:
+- which places lost their last checked route;
+- how long before they were reached.
 
-**B2. Open-ground candidates** (only if the orchestrator keeps more than Iris's row). An open polygon or patch qualifies
-when it passes all three tests below. The values are sourced, but the choice of reference is not yet adopted.
+It is a planning list for next season, labelled "replay of March 2025; not a forecast".
+
+**Official link.** 행정안전부 고립예상지역대책 (data.go.kr 15139647; it has a field 헬기구조가능여부).
+- It is cross-referenced **only if Sofia confirms** that it is public, what it covers, and whether it has coordinates.
+- If it is public and has coordinates: a column "listed as an expected-isolation area (행안부)", with the
+  helicopter-rescue field quoted as is.
+
+## 3. AIR TABLE (secondary; staff-only)
+
+### 3.1 D0: registered-site row (Iris's row; built second)
+
+One research row per place in the §1 set, and per unresolved origin.
+
+**Distance to the nearest 산림청 registered landing site.**
+- Source: 산림청 산림항공본부_이착륙장 정보, data.go.kr 15069465.
+  - CSV, 627 rows, modified 2026-09-17, "이용허락범위 제한 없음".
+  - It is the only fetch item (Daniel's FETCH_PLAN, cca4e27a).
+  - The API variant 15134224 needs a service key, so it is excluded.
+- 경북 has 48 rows. **의성 has 0 registered sites**, and every 의성 row says so.
+- These are forest-aviation operating sites, **not pickup points**, and every row is labelled that way.
+
+**Flight gate at that time.** It is stated per row, from Sofia's sources:
+- **Daylight.** Night needs NVG and lit sites (119항공대 운영 규정, 소방청훈령 제478호, 제22조). PMS 510 prohibits
+  carrying passengers at night in a single-engine helicopter.
+- **Wind** under the published type limits:
+  - 40 kt (≈20.6 m/s) for Type 1-2;
+  - 30 kt for Type 3;
+  - with a 15 kt gust spread (NWCG PMS 510, May 2023, Exhibit 6.2).
+  - The 119 rule refers to "기종별 교범".
+  - The wind source at the time is to be named; nothing is computed until it is.
+- **Visibility** at least 3,200 m over land (119항공대 운영 규정 제21조).
+- **Smoke: UNSOURCED.** No published numeric limit was found.
+
+**Label on every row:** "possible only if flyable; flight feasibility is the pilot's and agency's decision". A row
+**never counts as resolving a place**.
+
+### 3.2 D1: open-ground candidates (later extension; only if the owner asks again after D0)
+
+Recorded so the design exists. **Nothing here is fetched or built.**
+
+**Site criteria.** Sourced values, the choice of reference not adopted:
 
 | Parameter | Value | Source |
 |---|---|---|
-| `CLEAR_MIN_M` (safety-circle diameter) | 27.4 m (Type 2) / 33.5 m (Type 1); "at least 1.5 × rotor diameter" | NWCG PMS 510 (May 2023), Exhibit 8.3 |
-| `SLOPE_MAX` | 6° (11%, "9:1"); Korean and ICAO heliport standards: 2% | PMS 510; 국토교통부고시 제2022-350호 제80조; ICAO Annex 14 Vol II |
-| Approach path | at least the safety-circle width, ideally about 91 m long, with no obstacle above about 1:8 | PMS 510 |
-| Improvised sites (Korea) | no size or slope given; "안전하다고 판단되는 장소" | 119항공대 운영 규정 (소방청훈령 제478호) |
+| Safety circle | 27.4 m (Type 2) / 33.5 m (Type 1); "at least 1.5 × rotor diameter" | PMS 510 Exhibit 8.3 |
+| Slope | ≤ 6° (11%). Korean and ICAO heliport standards: 2% | PMS 510; 국토교통부고시 제2022-350호 제80조; ICAO Annex 14 Vol II |
+| Approach path | ≥ safety-circle width, ideally about 91 m long, no obstacle above about 1:8 | PMS 510 |
+| Improvised sites (Korea) | no size or slope given | 119항공대 운영 규정 |
+| Canopy, "open enough" | **not published**: `TREE_MAX` stays a named parameter with no value | — |
 
-**Not published anywhere Sofia opened:**
-- a numeric smoke or visibility-in-smoke limit for landing;
-- canopy or "open enough" criteria beyond obstacle clearance;
-- capacity (people per trip).
+**Layers** (Daniel; not in any fetch plan):
+- Copernicus GLO-30. It is a DSM, so slope over clearings is biased.
+- ESA WorldCover v200, 10 m.
+- OSM open-ground polygons, from a CURRENT-2026 snapshot only. "Unmapped ≠ absent", and completeness is to be
+  measured.
 
-`TREE_MAX` therefore stays a named parameter with no value.
+**Time condition**, per variant:
+- the site and a `BUFFER_M` buffer are neither burning nor burned at the time (the `/2` closure);
+- the forecast arrival is later than the time plus `MARGIN_MIN`;
+- the site is outside Priya's radiant stand-off rows (requested; cited as is).
 
-**B3. Layers.** Daniel, 22:32 UTC. Design input only: nothing is fetched until the orchestrator approves a fetch plan.
-- **Slope: Copernicus GLO-30**, 2021 release.
-  - Public S3, no key; the host has been verified from our network.
-  - Tiles N36_E128 and N36_E129 are already fetched and hashed in data-fetch.
-  - Still needed: N36_E126, N35_E128 and possibly N37_E129.
-  - It is the owner's own terrain product.
-  - **GLO-30 is a DSM.** Slope over forest edges and small clearings is biased, so the threshold is stated as "slope
-    from a DSM".
-  - SRTM and NGII need accounts, so they are excluded.
-- **Tree cover: ESA WorldCover v200**, 2021.
-  - 10 m class map, class 10 = tree; CC BY 4.0. The host is not yet tested.
-  - It is the only product fine enough for a pitch-sized clearing.
-  - Optional cross-check: GLAD GEDI–Landsat canopy height 2019, for which a mirror is already found.
-  - LC100 (100 m) is too coarse for a site test.
-- **OSM polygons.**
-  - They come from the same osmium pass as the roads, so there are no extra requests.
-  - **The snapshot date is the issue.** The dated path is not working yet, and the fallback is a labelled **CURRENT
-    (2026)** Geofabrik extract, not the fire date.
-  - Completeness will be measured, not assumed. Example: OSM school polygons per 시군구 against an official count.
-  - "Unmapped ≠ absent."
+The same gates and label apply as in 3.1.
 
-**Output of B.** A static candidate set per region, with the source layer and vintage for each site. Nothing in B
-depends on fire.
+## 4. Boats (descriptive only)
 
-## C. Time condition (Leo: arrival margins from packets; Priya: stand-off)
+- **For coastal places in the §1 set, one note.** In March 2025, 울진해경 took 104 residents off 영덕 breakwaters
+  (경정3리, 석리 and others) by vessels and boats.
+  - Source: YTN 2025-03-26, via Sofia.
+  - Residents reported that 해경 arrived about 2 h after the call (kbmaeil 202503260913624).
+- Recorded as what worked in 2025. It is not modelled and is not a route.
 
-At departure time t, under a timing variant v, a candidate site is **open at t under v** when all three hold:
-1. no cell within `BUFFER_M` of the site is burning, or has burned, at t;
-2. the forecast arrival in that buffer is later than t + `MARGIN_MIN` under v;
-3. no cell burning at t is within the radiant stand-off `STANDOFF_M` (Priya's table, cited as is).
+## 5. What the March 2025 replay can and cannot validate (Richard and Leo)
 
-**Burned buffer cells.** Under `no_reentry/2`, "has burned" uses C0 ∪ born cells. That is the same closure as the
-routing packets, so a burned-out buffer cell counts as not open.
-
-**Ranges.** Results are reported per variant: the window over t is a **range across variants, not a point**.
-envelope_burnset is static, so it gives the most restrictive reading.
-
-**Flight gate (Sofia's sources; applies to the whole option, before any site).**
-- **Daylight only.** Night needs NVG and lit sites (119항공대 운영 규정 제22조). PMS 510 prohibits carrying
-  passengers at night in a single-engine helicopter.
-- **Wind** under the type limit: 40 kt (≈20.6 m/s) for Type 1-2, 30 kt for Type 3, with a 15 kt gust spread (PMS 510
-  Exhibit 6.2). The 119 rule refers wind to "기종별 교범".
-- **Visibility** at least 3,200 m over land (119항공대 운영 규정 제21조).
-- **Smoke: no published threshold.** It is a named, unsourced input.
-
-**March 2025 record (Sofia; press sources as cited in her note).** It is reported as context, not as a model input:
-- gusts of about 27 m/s on 25 Mar forced 4 helicopters down;
-- haze and smoke stopped flights on 23 and 25 Mar, and there were no night operations;
-- after the S-76 crash in 의성 at 12:51 on 26 Mar, all fire helicopters were grounded until about 15:30;
-- **no report of residents airlifted.** 104 residents were taken off 영덕 breakwaters by 해경 vessels.
-
-**NOT modelled, listed in every table:**
-- smoke and visibility (no published threshold);
-- wind at the site (only the published type limits, applied as a gate);
-- wires and obstacles (beyond the stated layers);
-- aircraft availability, range and turnaround, and the grounding after an accident;
-- crew procedures;
-- ground conditions (soft field, dust);
-- people's ability to reach the site;
-- capacity per trip.
-
-## D. Output: a planning table for staff and agencies (Leo)
-
-**D0. Minimal form (Iris's row; listed first).** Staff-only, one research row per no-route or unresolved origin:
-- the distance to the nearest **registered** 산림청 site (B1);
-- whether daylight and the published wind limit allowed flight at that time (C gate);
-- the smoke gate, labelled unsourced;
-- the label "possible only if flyable".
-
-It is never a route, and it is never counted as resolving an origin.
-
-**D1. Full form** (only if the orchestrator keeps it). One row per place in the A set:
-- the cause label;
-- the **nearest k open-ground candidates**, k to be fixed;
-- for each candidate:
-  - the distance from the place on foot (straight line and along roads/paths if the graph has them, both labelled);
-  - the source layer;
-  - the **time window per variant** in which C holds.
-
-Header line: "Open-ground candidates only. Whether a flight is feasible is the pilot's and the agency's decision."
-
-## E. What the March 2025 replay could check (Richard and Leo)
-
-- **Air extraction itself cannot be validated.** Sofia found no report of residents airlifted in March 2025.
-- **One check of the A set (Richard).** 영덕 residents taken off breakwaters by boat (경정3리, 석리 etc.; about
-  104 people; YTN 2025-03-26). Are those places in NO_CHECKED_ROUTE on the matching Yeongdeok starts, and with which
-  cause label?
-  - It needs a sourced mapping from each village to its origin node(s), and the incident time from the source.
+**Can be checked:**
+- **The §1 set against the breakwater rescues.** Are 경정3리, 석리 etc. in NO_CHECKED_ROUTE on the matching
+  Yeongdeok starts, and with which cause label?
+  - This needs a sourced mapping from each village to its origin node(s), and the incident time from the source.
   - Without both, nothing is validated.
-- **The C flight gate against the record.** Wind, haze and night closures and the 26 Mar grounding, at the reported
-  times.
+- **The §2 early-action times against reported evacuation-order and road-closure times,** where a source gives them.
+- **The §3.1 flight gate against the record:**
+  - 25 Mar: gusts about 27 m/s, 4 helicopters landed;
+  - 23 and 25 Mar: haze stopped flights;
+  - no night operations;
+  - 26 Mar 12:51 to about 15:30: national grounding after the 의성 crash.
 
-These are checks against reported events, not proof that a site is usable.
+**Cannot be validated:**
+- **Air extraction itself.** Sofia found no report of residents airlifted in March 2025.
+- Any landing-site suitability.
+- Smoke limits.
 
-## Inputs pending
+## Inputs
 
 | Who | What | Status |
 |---|---|---|
-| Richard | Split agreed (he: A, C's checker use, E; Leo: B, C margins, D); positions recorded in A; full A/E text | to follow, after his /1 batch and waiting runs |
-| Daniel | Korea tree-cover/DEM products, OSM open-ground polygons in the extracts | received 22:32 (B3); fetch plan only after approval |
-| Sofia | Sourced LZ size, slope, obstacle values, flight limits, registers, 2025 record | received 22:35 (B1, B2, C gate, E) |
-| Orchestrator | Keep, reduce to Iris's staff-only row (D0), or drop | pending |
-| Priya (via orchestrator) | Radiant stand-off table and its assumptions | asked |
-| Iris | Assessment of the finished note before any build | after the draft |
+| Richard | §1 text, latest-departure field for §2, §5 breakwater check | positions agreed; text to follow after his `/1` batch and waiting runs |
+| Sofia | 행안부 고립예상지역 (15139647): public? coverage? coordinates? | asked |
+| Daniel | 산림청 CSV (15069465), one file, after the road extract | in fetch plan (cca4e27a) |
+| Priya | radiant stand-off rows (D1 only) | requested via the orchestrator |
+| Iris | reading of this note before any build | sent |
