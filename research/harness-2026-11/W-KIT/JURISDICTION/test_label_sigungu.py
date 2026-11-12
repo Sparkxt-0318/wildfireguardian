@@ -225,3 +225,30 @@ def test_committed_labels_are_the_delivered_run_and_are_in_places_geojson() -> N
     assert all(m == doc["counts_by_margin"]["50m"] for m in doc["counts_by_margin"].values())
     r = subprocess.run([sys.executable, str(here / "apply_sigungu.py"), str(here / "labels.json"), "--check"], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
+
+
+def test_apply_refuses_a_place_that_moved_since_it_was_labelled(tmp_path: Path) -> None:
+    """Mira residual (ledger 95): an origin that keeps its id but moves must not get its old label."""
+    import shutil
+    import subprocess
+
+    here = Path(__file__).parent
+    repo = here.parents[3]
+    # a scratch copy of the repo layout apply_sigungu.py reads: the script, its pinned input, and the two place files
+    j = tmp_path / "research/harness-2026-11/W-KIT/JURISDICTION"
+    j.mkdir(parents=True)
+    for n in ("apply_sigungu.py", "places_input.json", "labels.json"):
+        shutil.copy(here / n, j / n)
+    for region in ("uiseong_andong_2025", "yeongdeok_2025"):
+        d = tmp_path / "planner/public/data/regions" / region
+        d.mkdir(parents=True)
+        shutil.copy(repo / "planner/public/data/regions" / region / "places.geojson", d / "places.geojson")
+    run = lambda: subprocess.run([sys.executable, str(j / "apply_sigungu.py"), str(j / "labels.json")], capture_output=True, text=True)  # noqa: E731
+    assert run().returncode == 0
+    p = tmp_path / "planner/public/data/regions/yeongdeok_2025/places.geojson"
+    fc = json.loads(p.read_text(encoding="utf-8"))
+    f = next(x for x in fc["features"] if x["properties"]["role"] == "origin")
+    f["geometry"]["coordinates"][0] += 0.01  # about 900 m east, same id
+    p.write_text(json.dumps(fc, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    r = run()
+    assert r.returncode != 0 and "moved or changed its road entry" in (r.stdout + r.stderr)

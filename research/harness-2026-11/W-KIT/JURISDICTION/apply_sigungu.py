@@ -4,7 +4,10 @@ Each origin of planner/public/data/regions/{uiseong_andong_2025,yeongdeok_2025}/
 `sigungu: {ko, status, reason, source}`. The run stops when:
   - the labels are a FIXTURE run;
   - their places_input sha256 does not match places_input.json;
-  - an origin has no label, or a label names a place that is not an origin.
+  - an origin has no label, or a label names a place that is not an origin;
+  - an origin's OSM point, road-entry node or entry coordinates differ from the ones that were labelled
+    (places_input.json, which is pinned by the labels' sha256). A place that keeps its id but moves is never given its
+    old label: re-export the places (export_places.py) and re-label them (label_sigungu.py).
 Nothing else in the files changes: same key order, compact separators, UTF-8.
 
 If planner/tools/extract_places.py regenerates the place files, the labels are gone. The issuer contact line then
@@ -32,6 +35,7 @@ def apply(labels_path: Path) -> dict[Path, str]:
     if doc.get("places_input_sha256") != pin:
         sys.exit(f"STOP: labels were made from places_input {doc.get('places_input_sha256')}, not {pin}")
     labels = doc["labels"]
+    labelled = {p["id"]: p for p in json.loads((HERE / "places_input.json").read_text(encoding="utf-8"))["places"]}
     out: dict[Path, str] = {}
     used: set[str] = set()
     for region in REGIONS:
@@ -45,6 +49,12 @@ def apply(labels_path: Path) -> dict[Path, str]:
             lab = labels.get(pr["id"])
             if lab is None:
                 sys.exit(f"STOP: origin {pr['id']} ({region}) has no label")
+            was = labelled.get(pr["id"])
+            lon, lat = f["geometry"]["coordinates"][:2]
+            e = pr.get("entry") or {}
+            now = {"point": {"lon": lon, "lat": lat}, "entry": {"node": e.get("node"), "lon": e.get("lon"), "lat": e.get("lat")} if e else None}
+            if was is None or was["point"] != now["point"] or was["entry"] != now["entry"]:
+                sys.exit(f"STOP: origin {pr['id']} ({region}) moved or changed its road entry since it was labelled: re-export and re-label")
             pr["sigungu"] = {"ko": lab["ko"], "status": lab["status"], "reason": lab["reason"], "source": lab["source"]}
             used.add(pr["id"])
         out[p] = json.dumps(fc, ensure_ascii=False, separators=(",", ":")) + "\n"

@@ -34,7 +34,7 @@ Counts are identical at 0, 25, 50 and 100 m. There are no outside_all, multiple,
   - **not established:** "문의처 없음 — 이 장소가 속한 시·군을 행정구역 경계로 확정하지 못했습니다(<reason>). 어느 기관도 문의처로 넣지 않습니다." / "No contact line — this place's 시·군 could not be established from the boundary file (<reason>). No issuer is named here."
 - An absent or malformed label is never read as established (`parseSigungu`).
 - The decree report carries the same staff line. The new contact statuses are `jurisdiction_mismatch` and `jurisdiction_not_established`.
-- If `planner/tools/extract_places.py` regenerates the place files, the labels are lost, and every contact line fails closed until `apply_sigungu.py` is run again. The tool's docstring says so (Mira N1). CI is the guard: with unlabelled place files, 8 tests in `npm test` fail (Mira's check).
+- If `planner/tools/extract_places.py` regenerates the place files, the labels are lost, and every contact line fails closed until `apply_sigungu.py` is run again. The tool's docstring says so (Mira N1). CI is the guard: with unlabelled place files, 8 tests in `npm test` fail (Mira's check). `apply_sigungu.py` also stops if an origin's point, road-entry node or entry coordinates differ from those that were labelled (Mira, ledger 95): a place that moves keeping its id is never given its old label. Tested, and the test fails with the check removed.
 
 ## Pass rule (tests in tests/planner/wkit.channels.test.ts, "jurisdiction"; tests/…/JURISDICTION/test_label_sigungu.py)
 
