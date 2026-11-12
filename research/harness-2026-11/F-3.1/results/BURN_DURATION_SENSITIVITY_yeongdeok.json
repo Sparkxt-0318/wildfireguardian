@@ -248,6 +248,41 @@
    }
   },
   {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 firms_early",
+   "variant_label": "bracket-start, not a lower bound",
+   "counts": {
+    "1": {
+     "origins": 90,
+     "origins_with_hole": 2,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    },
+    "never": {
+     "origins": 90,
+     "origins_with_hole": 0,
+     "contiguous_deadline_changed_vs_f1": 0,
+     "contiguous_deadline_appeared": 0,
+     "contiguous_deadline_disappeared": 0
+    }
+   },
+   "never_clears_holes": {},
+   "holes": {
+    "1": [
+     "osm:node/415160178",
+     "osm:node/415160314"
+    ],
+    "never": []
+   },
+   "deadline_changes": {
+    "never": {}
+   },
+   "wall_s": {
+    "1": 359.9,
+    "never": 367.7
+   }
+  },
+  {
    "packet": "yeongdeok_2025 20250326T080000Z h5 kriged_mean",
    "variant_label": null,
    "counts": {

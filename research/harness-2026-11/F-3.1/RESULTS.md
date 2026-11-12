@@ -248,6 +248,13 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **Not done.** The Oracle check on a small cut was not run; the nesting check covers the same direction.
   * **Why the label stays.** With f ≠ 1 the router ends are no longer bin-aligned, so these fields remain contact
     counterfactuals and are not policy-checked.
+* **Yeongdeok, never-clears arm only** (rule addition 2026-11-12, committed first at `b96c2d6`).
+  * Summary: `results/BURN_DURATION_SENSITIVITY_yeongdeok.json`.
+  * Packets: the 8 v3.1 packets with holes at f = 1 (03-25 19Z and 03-26 08Z × 5 h, 8 h × kriged_mean,
+    firms_early).
+  * Baseline: f = 1 reproduces the v3.1 unions, 720 of 720.
+  * Origins with a hole, f = 1 → never: 03-25 19Z 6 / 3 → **0**; 03-26 08Z 2 → **0**. No hole survives.
+  * Contiguous deadlines changed under never-clears: 03-25 19Z 4–7 per packet, of which 2–3 disappear; 03-26 08Z 0.
 * **Stated limit.** The sensitivity covers the scalar-law v3.1 packets only, not the per-cell envelope packets
   (v3.3 envelope and envelope_burnset). Yeongdeok gets the never-clears arm only, on its packets with holes at f = 1
   (rule addition dated 2026-11-12).
