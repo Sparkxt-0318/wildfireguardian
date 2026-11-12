@@ -128,3 +128,22 @@ def test_fixed_point_certificate_and_mutation():
             rejected += 1
     # flipping a second must always break the unique fixed point
     assert rejected == 400
+
+
+def test_export_cert_roundtrip():
+    """Exported certificate re-loads into a field that passes the closure check."""
+    from deadline_field.core import Field, check_fixed_point
+    from deadline_field.export import export_cert
+    for seed in range(50):
+        raw = random_instance(seed)
+        inst = Instance(**{k: (list(v) if isinstance(v, list) else v) for k, v in raw.items()})
+        fld = backward(inst)
+        cert, ci = export_cert(fld, origins=range(inst.n_nodes))
+        R = [[] for _ in inst.tail]
+        for k, v in cert["states"].items():
+            if not k.startswith("issue:"):
+                R[int(k)] = [tuple(p) for p in v["R"]]
+        G = [iv.normalize(R[j] + inst.A[j]) for j in range(len(R))]
+        check_fixed_point(Field(inst, R, G, {}))
+        for o in range(inst.n_nodes):
+            assert [tuple(p) for p in cert["states"]["issue:%d" % o]["R"]] == __import__("deadline_field.core", fromlist=["x"]).issue_core(fld, o)
