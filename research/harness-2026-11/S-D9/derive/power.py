@@ -27,6 +27,8 @@ BAND_M = 4000.0
 CANDIDATE = "d4_wind_seed0"
 REFERENCES = ("persistence", "dilation_8h")
 N_FIRES = 10
+SIZING_N = (10, 15, 20, 25, 30, 40, 60)
+TARGET_POWER = 0.80
 COHORTS = 2000
 BOOT = 2000
 SEED = 20261112
@@ -72,7 +74,24 @@ def main() -> None:
                    power_equal_fire_interval_below_zero=eq_below / COHORTS,
                    median_pooled_interval_half_width=float(np.median(halfw)))
         out["comparisons"][f"{CANDIDATE}__vs__{ref}"] = res
+    # Sizing (orchestrator request): power vs cohort size for the binding comparison, vs persistence.
+    ref = "persistence"
+    diff = np.array(sums[CANDIDATE]) - np.array(sums[ref])
+    sizing = {}
+    for n in SIZING_N:
+        below = 0
+        for _ in range(COHORTS):
+            idx = rng.integers(0, len(fires), n)
+            cd, cc = diff[idx], counts[idx]
+            b = rng.integers(0, n, size=(BOOT, n))
+            hi = np.quantile(cd[b].sum(1) / cc[b].sum(1), 0.975)
+            below += hi < 0
+        sizing[str(n)] = below / COHORTS
+    out["sizing_vs_persistence"] = dict(target_power=TARGET_POWER, power_by_n_fires=sizing,
+                                        smallest_n_reaching_target=next((int(k) for k, v in sizing.items()
+                                                                         if v >= TARGET_POWER), None))
     args.out.write_text(json.dumps(out, indent=1) + "\n")
+    print(json.dumps(out["sizing_vs_persistence"], indent=1))
     print(json.dumps(out["comparisons"], indent=1))
 
 

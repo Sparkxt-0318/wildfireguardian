@@ -54,5 +54,18 @@
    "power_equal_fire_interval_below_zero": 1.0,
    "median_pooled_interval_half_width": 0.02231567401319612
   }
+ },
+ "sizing_vs_persistence": {
+  "target_power": 0.8,
+  "power_by_n_fires": {
+   "10": 0.5385,
+   "15": 0.6805,
+   "20": 0.803,
+   "25": 0.884,
+   "30": 0.933,
+   "40": 0.9815,
+   "60": 0.9975
+  },
+  "smallest_n_reaching_target": 20
  }
 }

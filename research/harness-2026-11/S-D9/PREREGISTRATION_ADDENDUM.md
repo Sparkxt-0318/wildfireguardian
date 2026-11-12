@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 2, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 3, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -13,7 +13,8 @@
 | 5 | Power from R | §6.3 | Computed (`derive/POWER.json`): **limited** |
 | 6 | A common zero-probability floor | §5 | Added: count of positives with p < 1/1024 |
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
-| — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | Untouched work moves to GOFER/FEDS strata |
+| — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
+| 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
 
 ## 0. Relation to the existing protocol
 
@@ -30,7 +31,7 @@ Exposure is defined by the S-D9 ledger (checkpoint 3e2eb2d), plus any amendment 
 | id | cohort | label definition | reachable now | role |
 |---|---|---|---|---|
 | R | US2024: 6 NIROPS fires, 273 intervals | NIROPS IR mapped extent | yes (in git) | Descriptive regression reference; already exposed. Rules may be fixed on R. |
-| N | NIROPS 2020–24 fires absent from the ledger | NIROPS IR mapped extent | **no** (data.mendeley.com refused by network policy) | Preferred untouched cohort if access opens |
+| N | NIROPS 2020–24 fires absent from the ledger | NIROPS IR mapped extent | **yes** (Daniel, daniel/data-fetch) | **Primary untouched cohort**, split per §1.2 |
 | C2 | 2026 first-survey NIROPS | NIROPS | no (future release) | Base protocol primary; A1 secondary |
 | G | GOFER v0.2 fires absent from the ledger (Zenodo 14642378) | GOES-derived hourly perimeters | yes | Separate stratum |
 | F | FEDS CONUS fires absent from the ledger | VIIRS-derived 12-hourly perimeters | 2021 yes; 2019/20 scripted | Separate stratum |
@@ -46,15 +47,26 @@ Admission to any untouched cohort requires all of the following:
 - The manifest is committed, hashed and verified before any predictor runs.
 - The manifest builder attests that they have not viewed the fire's growth.
 
-### 1.2 Reservation split (revision 2)
+### 1.2 NIROPS cohort selection and four-part split (revision 3; committed before any assignment was generated)
 
-Each untouched cohort is split now, by rule, into two parts:
-- **Part a**: the d4_wind and c651 decision.
-- **Part b**: reserved for the D1/D2 methods comparison. It stays closed until every D1/D2 candidate is frozen by SHA.
+The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirops_incidents.csv` (branch daniel/data-fetch, 3129ad59 or later). It has 737 incidents from the Magstadt et al. NIROPS 2020–24 archive and uses **only** these fields: `Incident_C`, `surveys`, `project_status`, `shares_irwin_with_project_fire` and `year`. `max_acres` (final size) is an outcome and is **not used**.
 
-The rule: a fire goes to part a if the first hex digit of `sha256("S-D9|" + source + "|" + incident_id)` is 0–7, and to part b otherwise. `source` is one of `NIROPS`, `GOFER`, `FEDS` or `KFS`. `incident_id` is the publisher's identifier exactly as written in the manifest.
+1. **Clean pool.** Keep `project_status` not in {forecast_v2_fit, held_out, any other project use} and `shares_irwin_with_project_fire == False`. That leaves 704 incidents, per Daniel.
+2. **Eligible.** A clean incident is eligible if `surveys >= 20`, which keeps well-surveyed fires so that a fire contributes several intervals.
+3. **Order.** For each eligible incident, set `u = int(sha256("S-D9-A1|NIROPS|" + Incident_C).hexdigest()[:12], 16) / 16**12`, then sort ascending by `u`. This order is the fixed "seed".
+4. **Parts, by rank in that order:**
+   - **b**, ranks 1–30: the **d4_wind_seed0 / c651 confirmatory test set**.
+   - **c**, ranks 31–60: the **reserved D1/D2 methods confirmatory test set**. It stays closed until every D1/D2 candidate is frozen by SHA.
+   - **a**, ranks 61–120, plus every clean incident with `surveys < 20`: the **training and development pool** for D1/D2 refits.
+   - **d**, ranks 121 onward: held back for later work. It stays closed.
+5. **Sizing.** 30 per confirmatory set comes from §6.3. At R's effect against persistence, power reaches 0.80 at about 20 fires. 30 gives a buffer for attrition, at 0.93 if all 30 are analysable. **At least 20 analysable fires** are required in b (analysable means inputs built and at least one positive in the 4 km band); otherwise the decision is INCONCLUSIVE. Attrition is decided before any prediction runs on the fire:
+   - **Input-build failure** (no covariates, or a grid that cannot be aligned): the fire is replaced by the next d incident in `u` order. The replacement is logged.
+   - **No positive in the band:** this is known only after labels are built. It never triggers a replacement; it only reduces the analysable count.
+6. **Independence (§1.3)** is applied after assignment. An excluded b or c fire is replaced by the next d fire in `u` order, before any prediction runs.
+7. **Pilot.** The pipeline pilot uses the **first 3 part-a fires in `u` order** only. Pilot fires are training-pool fires; no b, c or d fire is ever a pilot.
+8. **Access control.** Whoever assigns the parts publishes the part list as a CSV. **No one opens the perimeters of b, c or d until the addendum is frozen and the manifest for that part is verified.** Training users filter the shapefile by the part-a allowlist. This is recorded in the ledger.
 
-**Each candidate runs once per part.** A rerun after a failure is allowed only for a recorded software failure, never because of a score.
+The covariates for these fires are **rebuilt** with `forecast/wildfire/environment.py` and will not reproduce the owner archive's hashes. Where the archive values are recoverable from committed files for an already-exposed fire, a rebuilt-vs-archive consistency check on that fire is reported before any b score.
 
 ### 1.3 Independence from fit fires (revision 3)
 
@@ -138,7 +150,7 @@ Superiority requires **all** of the following:
 1. The interval against `persistence` lies below 0.
 2. The interval against `dilation_8h` lies below 0.
 3. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than either baseline's.
-4. **At least 10 fires** have at least one positive in the band. Below 10, the result is descriptive and the decision is INCONCLUSIVE.
+4. **At least 20 analysable fires** in part b (§1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
 
 ### 6.2 Named secondaries
 
@@ -155,6 +167,14 @@ Method: 2,000 simulated 10-fire cohorts, resampling R's 6 fires, each analysed w
 |---|---|---|---|---|---|
 | d4_wind − persistence | −0.000200 | 5 of 6 (Lava against) | **0.54** | **0.44** | 0.000165 |
 | d4_wind − dilation_8h | −0.353 | 6 of 6 | 1.00 | 1.00 | 0.022 |
+
+**Sizing (orchestrator request).** Power against persistence by cohort size, from the same simulation:
+
+| fires | 10 | 15 | 20 | 25 | 30 | 40 | 60 |
+|---|---|---|---|---|---|---|---|
+| P(interval < 0) | 0.54 | 0.68 | **0.80** | 0.88 | 0.93 | 0.98 | 1.00 |
+
+The target power is 0.80, reached at 20 fires. Each confirmatory set has 30 fires, which buffers attrition, and requires at least 20 analysable fires.
 
 **Plain reading:**
 - At R's effect size, a 10-fire cohort detects an improvement over persistence only about half the time.
