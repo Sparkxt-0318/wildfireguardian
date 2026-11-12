@@ -205,3 +205,19 @@ Owen, F-3.1 field timing a2f39381: **PASS WITH NOTES**.
 
 - 140-request departure sweep; delta-debug smallest failing panel-derived instances (hand-built 2–3 node cases are in tests).
 - Second published baseline (Sofia).
+
+## 2026-11-12 19:3x UTC: DEFECT in the no_reentry reading of (d) S1/S2 and (e) S3 at departure 7200 (found by Nora)
+
+`fbase_static.no_reentry` closes EB_j := [min EB_j, H] on the AS-BUILT O2 instance. But `build_instance`
+(wfg_sipp/frontend.py lines 110-113) clips every edge block to [max(dep, ·), H] and DROPS it when the clipped interval is
+empty. So a cell whose flame interval ends before departure leaves no trace in EB, and the transform cannot close it.
+Under Richard's never-clears closure, that cell is closed from its birth to H. The (d) equivalence argument therefore
+holds only for dep = 0. Wait blocks are clipped at 0, not dep, so WB is not affected.
+
+- Confirmed in our own rows: at dep 7200 the no_reentry exact verdicts equal the reopening ones on all 216 requests
+  (210 ROUTE / 6 NO_ROUTE in both), whereas at dep 0 they differ on 10. Nora shows osm_node_415158323 at dep 7200
+  (UA 25T17 h5 kriged_mean): ROUTE 7459 here vs NO_ROUTE under the true NR instance.
+- **Status:** all no_reentry numbers at dep 7200 in RESULTS_fdyn_static.json and RESULTS_fdyn_s3.json are INVALID
+  (they are the reopening reading). The headline totals mix both departures and so are invalid for no_reentry.
+  The reopening reading and the dep-0 no_reentry rows are not affected by this defect, pending Nora's count.
+- **Fix:** not applied. It needs a new dated rule section before any re-run.
