@@ -40,10 +40,12 @@ def main():
     ap.add_argument('--arrival', type=Path, required=True)
     ap.add_argument('--arrival-variant', required=True)
     ap.add_argument('--kriged-toa', type=Path, required=True)
+    ap.add_argument('--arrival-hi', type=Path, default=None, help='envelope: bracket-end raster')
     ap.add_argument('--member-set', default='central')
     ap.add_argument('--out', type=Path, required=True)
     a = ap.parse_args()
     arrival = build.read_raster(a.arrival)
+    arrival_hi = build.read_raster(a.arrival_hi) if a.arrival_hi else None
     toa = build.read_raster(a.kriged_toa).astype(np.float64)
     origins = {}
     for i in json.loads(a.instance.read_text())['instances']:
@@ -70,8 +72,11 @@ def main():
             burned = pf['source_burned_area_valid'] & (pf['source_burned_area'] == 1)
             present = pf['heat__initial_active_burning_probability'] > 0
             for H in (5, 8):
-                t = ignitions.schedule(arrival, h, H * 3600.0, 300.0, ignitions.MEMBER_SETS[a.member_set],
-                                       burned, T)
+                if arrival_hi is None:
+                    t = ignitions.schedule(arrival, h, H * 3600.0, 300.0, ignitions.MEMBER_SETS[a.member_set],
+                                           burned, T)
+                else:
+                    t, _ = ignitions.envelope_schedule(arrival, arrival_hi, h, H * 3600.0, 300.0, burned, T)
                 ign = np.isfinite(t).any(axis=0)[::-1, :]               # north-up -> row 0 = south
                 flat = set(np.flatnonzero(ign.ravel()).tolist())
                 rr, cc = np.nonzero(ign)

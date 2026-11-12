@@ -1,0 +1,649 @@
+{
+ "criterion": ">=1 routed road cell ignites or burns within 8 h in any of kriged_mean, firms_early, envelope (STARTS_RULE.md @24bbad9)",
+ "built": [
+  [
+   "uiseong_andong_2025",
+   "20250323T010000Z",
+   "recorded"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T020000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T050000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T080000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T110000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T140000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T170000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T200000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250323T230000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T020000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T050000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T080000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T090000Z",
+   "recorded"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T110000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T140000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T170000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T200000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250324T230000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T020000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T050000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T080000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T110000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T140000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T170000Z",
+   "recorded"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T170000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T200000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250325T230000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250326T020000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250326T050000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250326T080000Z",
+   "rule"
+  ],
+  [
+   "uiseong_andong_2025",
+   "20250326T110000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T230000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T020000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T050000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T080000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T110000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T140000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T170000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T190000Z",
+   "recorded"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T200000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T230000Z",
+   "recorded"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250325T230000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T020000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T050000Z",
+   "rule"
+  ]
+ ],
+ "not_built": [
+  [
+   "uiseong_andong_2025",
+   "20250326T140000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T020000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T050000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T080000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T110000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T140000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T170000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T200000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250323T230000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T020000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T050000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T080000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T110000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T140000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T170000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250324T200000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T080000Z",
+   "recorded"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T080000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T110000Z",
+   "rule"
+  ],
+  [
+   "yeongdeok_2025",
+   "20250326T140000Z",
+   "rule"
+  ]
+ ],
+ "road_cells_8h": {
+  "uiseong_andong_2025/20250323T020000Z/rule": {
+   "kriged_mean": 50,
+   "firms_early": 31,
+   "envelope": 31
+  },
+  "uiseong_andong_2025/20250323T050000Z/rule": {
+   "kriged_mean": 35,
+   "firms_early": 22,
+   "envelope": 24
+  },
+  "uiseong_andong_2025/20250323T080000Z/rule": {
+   "kriged_mean": 29,
+   "firms_early": 18,
+   "envelope": 18
+  },
+  "uiseong_andong_2025/20250323T110000Z/rule": {
+   "kriged_mean": 24,
+   "firms_early": 22,
+   "envelope": 22
+  },
+  "uiseong_andong_2025/20250323T140000Z/rule": {
+   "kriged_mean": 25,
+   "firms_early": 21,
+   "envelope": 21
+  },
+  "uiseong_andong_2025/20250323T170000Z/rule": {
+   "kriged_mean": 28,
+   "firms_early": 23,
+   "envelope": 23
+  },
+  "uiseong_andong_2025/20250323T200000Z/rule": {
+   "kriged_mean": 33,
+   "firms_early": 30,
+   "envelope": 33
+  },
+  "uiseong_andong_2025/20250323T230000Z/rule": {
+   "kriged_mean": 33,
+   "firms_early": 44,
+   "envelope": 47
+  },
+  "uiseong_andong_2025/20250324T020000Z/rule": {
+   "kriged_mean": 32,
+   "firms_early": 43,
+   "envelope": 45
+  },
+  "uiseong_andong_2025/20250324T050000Z/rule": {
+   "kriged_mean": 40,
+   "firms_early": 42,
+   "envelope": 50
+  },
+  "uiseong_andong_2025/20250324T080000Z/rule": {
+   "kriged_mean": 45,
+   "firms_early": 37,
+   "envelope": 45
+  },
+  "uiseong_andong_2025/20250324T110000Z/rule": {
+   "kriged_mean": 49,
+   "firms_early": 51,
+   "envelope": 58
+  },
+  "uiseong_andong_2025/20250324T140000Z/rule": {
+   "kriged_mean": 60,
+   "firms_early": 60,
+   "envelope": 67
+  },
+  "uiseong_andong_2025/20250324T170000Z/rule": {
+   "kriged_mean": 66,
+   "firms_early": 64,
+   "envelope": 71
+  },
+  "uiseong_andong_2025/20250324T200000Z/rule": {
+   "kriged_mean": 85,
+   "firms_early": 77,
+   "envelope": 77
+  },
+  "uiseong_andong_2025/20250324T230000Z/rule": {
+   "kriged_mean": 94,
+   "firms_early": 109,
+   "envelope": 109
+  },
+  "uiseong_andong_2025/20250325T020000Z/rule": {
+   "kriged_mean": 139,
+   "firms_early": 153,
+   "envelope": 153
+  },
+  "uiseong_andong_2025/20250325T050000Z/rule": {
+   "kriged_mean": 170,
+   "firms_early": 209,
+   "envelope": 211
+  },
+  "uiseong_andong_2025/20250325T080000Z/rule": {
+   "kriged_mean": 244,
+   "firms_early": 253,
+   "envelope": 273
+  },
+  "uiseong_andong_2025/20250325T110000Z/rule": {
+   "kriged_mean": 560,
+   "firms_early": 556,
+   "envelope": 574
+  },
+  "uiseong_andong_2025/20250325T140000Z/rule": {
+   "kriged_mean": 538,
+   "firms_early": 503,
+   "envelope": 530
+  },
+  "uiseong_andong_2025/20250325T170000Z/rule": {
+   "kriged_mean": 364,
+   "firms_early": 341,
+   "envelope": 355
+  },
+  "uiseong_andong_2025/20250325T200000Z/rule": {
+   "kriged_mean": 29,
+   "firms_early": 21,
+   "envelope": 21
+  },
+  "uiseong_andong_2025/20250325T230000Z/rule": {
+   "kriged_mean": 19,
+   "firms_early": 15,
+   "envelope": 15
+  },
+  "uiseong_andong_2025/20250326T020000Z/rule": {
+   "kriged_mean": 22,
+   "firms_early": 22,
+   "envelope": 22
+  },
+  "uiseong_andong_2025/20250326T050000Z/rule": {
+   "kriged_mean": 20,
+   "firms_early": 20,
+   "envelope": 20
+  },
+  "uiseong_andong_2025/20250326T080000Z/rule": {
+   "kriged_mean": 10,
+   "firms_early": 10,
+   "envelope": 10
+  },
+  "uiseong_andong_2025/20250326T110000Z/rule": {
+   "kriged_mean": 1,
+   "firms_early": 1,
+   "envelope": 1
+  },
+  "uiseong_andong_2025/20250326T140000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "uiseong_andong_2025/20250323T010000Z/recorded": {
+   "kriged_mean": 55,
+   "firms_early": 36,
+   "envelope": 36
+  },
+  "uiseong_andong_2025/20250324T090000Z/recorded": {
+   "kriged_mean": 49,
+   "firms_early": 49,
+   "envelope": 57
+  },
+  "uiseong_andong_2025/20250325T170000Z/recorded": {
+   "kriged_mean": 364,
+   "firms_early": 341,
+   "envelope": 355
+  },
+  "yeongdeok_2025/20250323T020000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T050000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T080000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T110000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T140000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T170000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T200000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250323T230000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T020000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T050000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T080000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T110000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T140000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T170000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T200000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250324T230000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 64,
+   "envelope": 64
+  },
+  "yeongdeok_2025/20250325T020000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 64,
+   "envelope": 64
+  },
+  "yeongdeok_2025/20250325T050000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 178,
+   "envelope": 178
+  },
+  "yeongdeok_2025/20250325T080000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 114,
+   "envelope": 178
+  },
+  "yeongdeok_2025/20250325T110000Z/rule": {
+   "kriged_mean": 599,
+   "firms_early": 572,
+   "envelope": 636
+  },
+  "yeongdeok_2025/20250325T140000Z/rule": {
+   "kriged_mean": 660,
+   "firms_early": 492,
+   "envelope": 606
+  },
+  "yeongdeok_2025/20250325T170000Z/rule": {
+   "kriged_mean": 406,
+   "firms_early": 310,
+   "envelope": 378
+  },
+  "yeongdeok_2025/20250325T200000Z/rule": {
+   "kriged_mean": 76,
+   "firms_early": 51,
+   "envelope": 51
+  },
+  "yeongdeok_2025/20250325T230000Z/rule": {
+   "kriged_mean": 30,
+   "firms_early": 23,
+   "envelope": 23
+  },
+  "yeongdeok_2025/20250326T020000Z/rule": {
+   "kriged_mean": 12,
+   "firms_early": 12,
+   "envelope": 12
+  },
+  "yeongdeok_2025/20250326T050000Z/rule": {
+   "kriged_mean": 5,
+   "firms_early": 5,
+   "envelope": 5
+  },
+  "yeongdeok_2025/20250326T080000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250326T110000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250326T140000Z/rule": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  },
+  "yeongdeok_2025/20250325T190000Z/recorded": {
+   "kriged_mean": 100,
+   "firms_early": 63,
+   "envelope": 65
+  },
+  "yeongdeok_2025/20250325T230000Z/recorded": {
+   "kriged_mean": 30,
+   "firms_early": 23,
+   "envelope": 23
+  },
+  "yeongdeok_2025/20250326T080000Z/recorded": {
+   "kriged_mean": 0,
+   "firms_early": 0,
+   "envelope": 0
+  }
+ }
+}

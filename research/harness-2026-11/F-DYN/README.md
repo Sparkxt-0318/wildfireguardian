@@ -204,3 +204,22 @@ python3 -m pytest -q research/harness-2026-11/F-DYN/tests
   support. Flux differs by at most 1.1e-15 kW/m² (numpy 2.5 here vs the pinned 1.26.4). The identity differs only in
   the absolute radiation module path. The F-9.3 regression test will compare those fields exactly and flux within a
   stated tolerance, under the pinned numpy.
+
+## v3 scoring workload (built starts, manifest, verification sample)
+
+- **Built starts:** `BUILT_STARTS.json`, criterion in `STARTS_RULE.md` @24bbad9 (union of three variants, inputs only).
+  That gives 44 region-start rows. Two rule starts coincide with recorded inputs (Uiseong 03-25 17Z, Yeongdeok 03-25
+  23Z), leaving **42 unique region-starts**: Uiseong 31 (only 03-26 14Z not built) and Yeongdeok 11. Yeongdeok
+  starts before 03-24 23Z and after 03-26 05Z are not built: no fire reaches its routed roads within 8 h in any
+  variant.
+- **Manifest:** `MANIFEST_v3.json` lists **252 packets** (42 × {5 h, 8 h} × {kriged_mean, firms_early, envelope}) as
+  exact `build.py` commands. Packets are about 63 MB each at 5 h, so consumers build what they need.
+- **Reach tables:** `REACH_rule_{kriged_mean,firms_early,envelope}.json`, all 29 rule starts + 6 recorded, both
+  regions, both horizons.
+- **Verification sample:** `SAMPLE_v3.json`, from `fdyn/sample.py`: Yeongdeok 03-25 11Z (synthetic), Yeongdeok
+  03-25 23Z (recorded) and Uiseong 03-25 14Z (synthetic), at 5 h × 3 variants. All 9 are **OK**:
+  - Omitted analysis is `{window: None, outside_sources_possible: False}`, i.e. omitted dose 0.
+  - `valid_until` = 18000.
+  - The SYNTHETIC marker appears exactly on the synthetic starts.
+  - The envelope law appears exactly on the envelope packets.
+  - Ignitions: 353–6,425.
