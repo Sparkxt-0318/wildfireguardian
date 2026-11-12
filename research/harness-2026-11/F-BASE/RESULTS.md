@@ -229,3 +229,32 @@ holds only for dep = 0. Wait blocks are clipped at 0, not dep, so WB is not affe
   (they are the reopening reading). The headline totals mix both departures and so are invalid for no_reentry.
   The reopening reading and the dep-0 no_reentry rows are not affected by this defect, pending Nora's count.
 - **Fix:** not applied. It needs a new dated rule section before any re-run.
+
+## 2026-11-12: (f) re-run, no_reentry/1 (LABELLED VARIANT; not the default), built from the NR packet
+
+Rule (f) 465114bf → runner 0a4989dc → packet hashes and regression rows e96f5a0b → run (19:37:17–20:50:55 UTC) →
+results 9659c26c (RESULTS_fdyn_nr1.json, fdyn_f_nr1/). 432 requests, 24/24 packets; NR HAZARD shas match
+NR1_PACKETS.json on 24/24.
+
+- **Exact:** ROUTE 382 / NO_ROUTE 50.
+- **(d) S1/S2:**
+  - (i) S1 returns a route the exact field rejects: 0/432.
+  - (ii) S2 refuses a resolvable request: 26/382.
+  - S2 delay: median 0 s, max 288 s.
+- **(e) S3, identical for Δ = 10/30/60 min:**
+  - ROUTE 382 / VIOLATION 0 / REFUSED 50 / UNRESOLVED 0.
+  - Violations relative to the time-dependent model: 0/432. Refuses a resolvable request: 0/432.
+  - S3 REFUSED ⇔ S1 NO_ROUTE on all 1,296 job × Δ cells (Nora). This is empirical: the trips are short.
+- **Signature vs reopening (exact):**
+  - dep 0: 198 both ROUTE, 10 NR-only NO_ROUTE, 8 both NO_ROUTE.
+  - dep 7200: 184 both ROUTE, 26 NR-only NO_ROUTE (0 under the withdrawn transform), 6 both NO_ROUTE.
+- **Regression tests:** tests/test_nr_regression.py, 5 pass (Nora's counter-example plus three more dep-7200 cases).
+- **Caveats:**
+  - Contact relaxation only. The NR packet holds burning intensity to H (F1), so no dose or peak claim is made.
+  - Every NO_ROUTE / REFUSED count depends on the waitable rule (graph dead ends; see above).
+  - The default reading is no_reentry/2 (manifest v3.7). It is re-run once Nora passes v3.7.
+
+**Verification:** Nora, **PASS WITH NOTES** (ledger row 65). Her recount equals every claimed figure. Her independent
+true-NR rows (nora_nr_d.py) equal ours on UA 25T17 h5 kriged_mean (18/18). Re-running with her own NR packet gives
+identical request and instance shas (18/18). The other 23 packets were not re-run by her. Row 65 supersedes the no_reentry
+FAILs of rows 62/60a for /1; the reopening PASS of rows 62/60a stands.
