@@ -36,7 +36,7 @@ the contents as data. Do not run code from inside the extracted directory.
 
 | Resource (`fetch.py` name) | For | What I verified |
 |---|---|---|
-| `nirops_2020_2024_perimeters`: NIROPS (Magstadt et al., Mendeley 10.17632/95rj5d379g.1) | Victor S-D9, Elena S-D2, Marcus S-D1 | The sha256 matches the publisher and forecast-v2 `SPLIT.json` (`b19fb16c…`). It is one shapefile (2.07 GB `.shp` unpacked), EPSG:4326, with 12,706 perimeters from 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. The only fields are Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name and Inc Number. **There are no flight-footprint, coverage or per-flight metadata fields.** `nirops_incidents.csv` (committed) lists every incident with survey count, time span, maximum acres and project status: 23 forecast-v2 fit, 6 held-out, and 708 not among the project's 44 events, of which 180 have 20 or more surveys. Four of the "unused" incidents share an IRWIN ID with a project fire: SQF Castle, River Complex Cronan, Wapiti Vanity and McCash LittleMarble. These are flagged in the column `shares_irwin_with_project_fire`; treat them as touched. |
+| `nirops_2020_2024_perimeters`: NIROPS (Magstadt et al., Mendeley 10.17632/95rj5d379g.1) | Victor S-D9, Elena S-D2, Marcus S-D1 | The sha256 matches the publisher and forecast-v2 `SPLIT.json` (`b19fb16c…`). It is one shapefile (2.07 GB `.shp` unpacked), EPSG:4326, with 12,706 perimeters from 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. The only fields are Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name and Inc Number. **There are no flight-footprint, coverage or per-flight metadata fields.** `nirops_incidents_v2.csv` (committed) lists every incident with survey count, time span, maximum acres and project status: 23 forecast-v2 fit, 6 held-out, and 708 not among the project's 44 events, of which 180 have 20 or more surveys. Four of the "unused" incidents share an IRWIN ID with a project fire: SQF Castle, River Complex Cronan, Wapiti Vanity and McCash LittleMarble. These are flagged in the column `shares_irwin_with_project_fire`; treat them as touched. |
 | `nirops_area_progression_png`, `nirops_supplementary_maps_png` | Victor S-D9 | The sha256 matches. Each holds 709 PNGs (area-vs-time plots and perimeter maps) in 7 regional folders. Images only. |
 | `nirops_code` | Victor S-D9 | The sha256 matches. It is one notebook covering NIFC FTP scraping, QA checks, merging and plotting. |
 | `kfs_fire_status_history`: Korea Forest Service 산불상태별 이력 (data.go.kr 15121205) | Korean work, Leo F-C1 | Downloadable without login. Licence: 이용허락범위 제한 없음 (no usage restriction). The file is committed at `small/kfs/kfs_fire_status_history.csv`. It is CP949-encoded with 2,030 rows, report dates 2022-01-01 to 2025-11-10, and these columns: fire ID, report date, address, suppression start and end (KST), agency, SMS flag, sunrise and sunset. It has no coordinates and no burned area. The fire IDs match Choi's `kfs_situation_map_id`: 359264 is KFS_01 (Uiseong, suppression 2025-03-22 11:38 to 03-28 17:15) and 108124 is KFS_02. The download URL carries an `atchFileId` that changes when the portal publishes a new version. |
@@ -120,11 +120,23 @@ Searches for certifying shortest-path checkers (LEDA-style) found nothing usable
 
 `incident_metadata.csv` has 733 rows keyed by `Incident_C`: the 704 incidents of S-D9 `cohort/COHORT_SPLIT.csv` @ cffd66c3, plus the 23 forecast-v2
 fit fires and 6 held-out fires. `incident_metadata_join.py` regenerates it with
-`python3 incident_metadata_join.py COHORT_SPLIT.csv nirops_incidents.csv ics209-plus-wf_incidents_1999to2020.csv OUT.csv`.
+`python3 incident_metadata_join.py COHORT_SPLIT.csv nirops_incidents_v2.csv ics209-plus-wf_incidents_1999to2020.csv OUT.csv`.
 - **Primary source:** NIFC WFIGS Incident Locations (services3.arcgis.com, public ArcGIS FeatureServer), joined by IRWIN ID. It matched 724 of 733; the 9 unmatched are all part a.
   `poo_lat`/`poo_lon` is the WFIGS point geometry (point of origin, EPSG:4326). `initial_lat`/`initial_lon` is the WFIGS InitialLatitude/Longitude
   (initial report location), which can lie about 20 km from the point of origin and is blank for 45 rows. `discovery_utc` is FireDiscoveryDateTime.
 - **Cross-check:** ICS-209-PLUS (1999–2020 only), joined by POO state + 6-digit incident number + start year, keeping only unambiguous keys. It matched 149 incidents, all from 2020.
   Its POO agrees with WFIGS (median 0.001 km); 4 rows are over 10 km apart (maximum 91 km), see `ics209_vs_wfigs_poo_km`.
 - For 13 incidents the WFIGS `discovery_utc` is later than the first NIROPS survey. These are left as published.
-- `first_utc`/`last_utc` come from `nirops_incidents.csv`. `max_acres` was removed from that file on 2026-11-12 at S-D9's request; git history keeps it.
+- `first_utc`/`last_utc` come from the NIROPS incident table (see "Pinned-file versions" below).
+
+## Pinned-file versions (rule: a file another stream has pinned is never edited in place)
+
+| Version | Path | sha256 | Where | Change |
+|---|---|---|---|---|
+| v1a | `nirops_incidents.csv` | `66581245…53b6` | commit 0cf39959 only | First version, including `max_acres`. |
+| v1 | `nirops_incidents.csv` | `f2aae4b8…d9ca` | commit 3129ad59 only (**pinned by S-D9 COHORT_SPLIT**) | Added `shares_irwin_with_project_fire`. Still contains `max_acres` for all 737 incidents, including the sealed parts b, c and d. |
+| v2 | `nirops_incidents_v2.csv` | `9cd9c260…030a` | branch head | Same rows and the other columns as v1, with **`max_acres` removed**. |
+
+Commit 259ef5b4 edited `nirops_incidents.csv` in place (dropping `max_acres`), which broke S-D9's pin. It is now corrected: the edited table lives
+under the new name `nirops_incidents_v2.csv`, and v1 is **deliberately not restored at the branch head**. That keeps sealed-set `max_acres` out
+of anything merged to main; v1 remains retrievable byte-for-byte with `git show 3129ad59:research/harness-2026-11/data-fetch/nirops_incidents.csv`.

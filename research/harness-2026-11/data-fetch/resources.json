@@ -269,7 +269,7 @@
       "sha256": "b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
       "licence": "CC-BY-4.0 (Magstadt et al., Mendeley Data 10.17632/95rj5d379g.1)",
       "fetched_utc": "2026-11-12",
-      "notes": "One shapefile (.shp 2.07 GB unpacked), EPSG:4326, 12,706 perimeters, 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. Fields: Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name, Inc Number. No flight-footprint or coverage fields. Same sha256 as forecast-v2 SPLIT.json. Per-incident table: nirops_incidents.csv."
+      "notes": "One shapefile (.shp 2.07 GB unpacked), EPSG:4326, 12,706 perimeters, 737 incidents (692 IRWIN IDs), UTC 2020-05-12 to 2024-12-17. Fields: Incident_C, UTC, DateUTC, Acres, IRWINID, Inc Name, Inc Number. No flight-footprint or coverage fields. Same sha256 as forecast-v2 SPLIT.json. Per-incident table: nirops_incidents_v2.csv."
     },
     {
       "name": "nirops_area_progression_png",
