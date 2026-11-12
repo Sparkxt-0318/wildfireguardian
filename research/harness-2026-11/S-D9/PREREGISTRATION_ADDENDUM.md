@@ -193,6 +193,13 @@ Every predictor is declared by SHA-256 before the manifest.
    `pipeline.py final --variant d4_wind --seed 0 --epochs 3 --hidden 16 --lr 0.003 --samples-per-step 1 --threads 2 --n-samples 1024 --balance --max-fit-intervals-per-fire 0 --intervals-per-epoch 0`
    weight_decay 1e-4 and kernel 9 are internal. Marcus confirms they cannot be overridden from the CLI.
 2. **Input pins.** A reviewed copy of `pipeline.py` adds `--input-manifest PATH`: a JSON map of path → sha256 for every rebuilt file, written by `rebuild_env.sh`, including `baseline-terrain/<event>/elevation_m_375m.tif`. The map is passed to `Environment(input_sha256=…)`. The frozen original is untouched. The copy lives at `research/harness-2026-11/s-d1/refit/` and **its sha256 is recorded in FREEZE.json before any refit runs**.
+   - **Implemented as a wrapper, not a diff** (Marcus). `research/harness-2026-11/s-d1/refit/run_pipeline_rebuilt.py`, sha256 264deaeae7dc532bbfa27e55d35d3def7c01eb0c7f85cdf358ee529b866e1d1d, commit 6dcf3f9 on harness/s-d1-first-passage.
+     - It refuses to run unless pipeline.py hashes 88d376d2… and RUN_PROTOCOL.json hashes c2dce7f7….
+     - It loads pipeline.py unchanged and injects, in memory only, (a) an `Environment` subclass that passes `input_sha256` from `--input-manifest`, so every read still goes through the unmodified `_verify_path`, and (b) the `--train-events` list in place of `SPLIT["fit"]["us_perimeter_and_kriged"]`. SPLIT.json is untouched.
+     - It writes `REFIT_RECEIPT_<command>.json`.
+     - It passed a smoke test end to end on the forecast-v2 synthetic fixture.
+   - Marcus confirmed these are not CLI-overridable: kernel 9 and dropout 0.0 are literals (pipeline.py:336), and weight_decay is `fit_mean_field`'s default of 1e-4 (survival.py:327).
+   - The initial rate comes from the training-set prevalence, so it legitimately depends on the pool.
 3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed.**
 4. **Part-a grid rule:**
    - EPSG:5070, 375 m cells, aligned to multiples of 375 m (the Choi reference-grid convention).
