@@ -464,6 +464,10 @@ The score is the RPS over observation-censored arrival bins, on **all** cells of
   - (7) **climatology**: the pooled empirical P(T ≤ t), fit on an independent synthetic training sample.
 - **Size.** 200,000 cells per pattern, seed 20261112. Monte Carlo error is the standard error of the mean per-cell paired difference (forecast − truth).
 - **Pass rule (all must hold):** in every pattern, every forecast (2)–(7) has a mean RPS above the truth's by **more than 3 standard errors**.
+  - **One-bin shifts in the stress patterns (added after the first run at Iris's request, before these shifts were run).** With every lead ≤ 5 h, the ±12 h shifts collapse to "never" and near-"always-early". So for patterns (ii) and (iii) two further forecasts are scored: F_c(t + Δ) and F_c(max(t − Δ, 0)), with Δ = the smallest step the pattern resolves (3 h for (ii); 2 h, the first gap, for (iii)).
+    - If the excess is above the truth's by more than 3 SE, it passes.
+    - If |z| ≤ 3, it is reported as the **resolution limit** of the score under that censoring. That is a finding, not a failure.
+    - If the excess is below −3 SE (the shift beats the truth), it is a **failure**.
   - *Reported, not a pass condition:* the asymmetry between the shifted-earlier and shifted-later excesses. Iris proposed symmetry within error as a criterion. For a proper score the two excesses generally differ, because the hazard is not symmetric in time, so symmetry is reported as a diagnostic. A **negative** excess for either shift is a failure under the rule above.
 - **Climatology arrival baseline on real data.** It is a descriptive row: the pooled empirical P(first mapped by lead time t), fit on **part a only**. It is never a criterion object.
 
