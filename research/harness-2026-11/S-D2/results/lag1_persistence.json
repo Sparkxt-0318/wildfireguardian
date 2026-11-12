@@ -1,0 +1,77 @@
+{
+ "command": "python lag1_persistence.py --inputs results/displacement_mcem.json results/displacement_plugin.json --out results/lag1_persistence.json",
+ "results": {
+  "mcem": {
+   "pairs": 177,
+   "fires": 25,
+   "rank": {
+    "r": 0.4691764905371058,
+    "null_mean": 0.2843584228552901,
+    "null_sd": 0.05667264490808403,
+    "p_one_sided": 0.0006999300069993001,
+    "p_two_sided": 0.0015998400159984002
+   },
+   "log_ratio": {
+    "r": 0.6156560752761816,
+    "null_mean": 0.5011135987668212,
+    "null_sd": 0.03707767553768027,
+    "p_one_sided": 0.00039996000399960006,
+    "p_two_sided": 0.0018998100189981002
+   }
+  },
+  "mcem_no_detached": {
+   "pairs": 132,
+   "fires": 25,
+   "rank": {
+    "r": 0.46504517382826877,
+    "null_mean": 0.2636539417945545,
+    "null_sd": 0.06771529403819386,
+    "p_one_sided": 0.0012998700129987,
+    "p_two_sided": 0.0015998400159984002
+   },
+   "log_ratio": {
+    "r": 0.6783823933805422,
+    "null_mean": 0.5511405697620119,
+    "null_sd": 0.03805757905814075,
+    "p_one_sided": 9.999000099990002e-05,
+    "p_two_sided": 0.0004999500049995
+   }
+  },
+  "plugin": {
+   "pairs": 177,
+   "fires": 25,
+   "rank": {
+    "r": 0.5142086325142399,
+    "null_mean": 0.335012420097475,
+    "null_sd": 0.14606332344643858,
+    "p_one_sided": 0.1506849315068493,
+    "p_two_sided": 0.23047695230476953
+   },
+   "log_ratio": {
+    "r": 0.42552944540722104,
+    "null_mean": 0.2482401802433558,
+    "null_sd": 0.05119826124005274,
+    "p_one_sided": 0.0005999400059994001,
+    "p_two_sided": 0.0008999100089991
+   }
+  },
+  "plugin_no_detached": {
+   "pairs": 132,
+   "fires": 25,
+   "rank": {
+    "r": 0.4462621634848903,
+    "null_mean": 0.29935041149616015,
+    "null_sd": 0.16230725838134857,
+    "p_one_sided": 0.21737826217378262,
+    "p_two_sided": 0.38816118388161186
+   },
+   "log_ratio": {
+    "r": 0.529334539100196,
+    "null_mean": 0.3198378107869313,
+    "null_sd": 0.05386441181663636,
+    "p_one_sided": 9.999000099990002e-05,
+    "p_two_sided": 9.999000099990002e-05
+   }
+  }
+ }
+}
