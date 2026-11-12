@@ -85,3 +85,43 @@ Rules 1–5 above are unchanged and results under them stay reported as they are
 - **Consistency check, fixed now.** For each mission, the mission's departure second should be in F-3.1's feasible
   set exactly when the recorded SIPP result is ROUTE. Any mismatch is reported and explained (rule difference,
   destination choice, or a bug), never tolerated. No timing pass rule.
+
+## Dated addition, 2026-11-12 (c): F-DYN instances (sample and rules fixed before any packet is built)
+
+**Source.**
+- Leo's `MANIFEST_v3_3.json` (sha aaed2402…) on leo/f-c1-see-before-leave at 93731885 or later.
+- Requests come from Leo's `fdyn/requests.py` (20b29ce), and `INSTANCE.json` from `fdyn/instance.py`.
+- Each manifest `cmd` is run as an argv list.
+- Only the **kriged_mean** and **firms_early** variants are used (orchestrator). envelope and envelope_burnset are
+  excluded: their arrays currently do not match HAZARD (Thomas, Mira, Nora; fix pending), and envelope_burnset is
+  uninformative on Uiseong.
+- Each entry's `soundness` label is carried verbatim. kriged_mean is a scenario; firms_early is "bracket-start, NOT a
+  lower bound".
+
+**Sample, fixed now.**
+- Packets: the **6 recorded starts** (Uiseong 20250323T01, 20250324T09, 20250325T17; Yeongdeok 20250325T19,
+  20250325T23, 20250326T08) × horizons {5 h, 8 h} × {kriged_mean, firms_early}, which is 24 packets.
+- Requests per packet: origins sorted by `origin_id`, every 10th taken (index 0, 10, 20, …), × departures {0 s,
+  7200 s}. These are the departures Thomas used, and both are in `depart_offsets_s`. Each request keeps all its
+  destinations as written.
+- A packet that fails to build, or exceeds memory on this host (15 GiB), is listed with its reason, never replaced.
+
+**Pipeline per request.**
+1. Thomas's `frontend.build_instance` (F-3.2 code at a03f218, unchanged) builds the router's instance, then
+   `generate.certify` gives the SIPP claim, T and a .wfgc bundle.
+2. The bundle's INSTANCE block goes to F-BASE exact, N1, N2 and N3.
+3. The exact witness is spliced into the bundle and checked by `check_py.py`.
+4. **F-BASE-TEN is not run.** At 5–8 h the network has about 5e8–3e9 nodes, beyond this host. This is stated, not
+   attempted.
+
+**Rules.**
+- Agreement (rule 3): exact versus SIPP, identical verdict and arrival second. **Any disagreement is reported and
+  explained, never tolerated.**
+- Naive baselines (rule 5): counts per class (unsound ROUTE, false NO_ROUTE, late T, early T), per variant and
+  soundness label, and per horizon.
+- The `mechanism.py` ablation (no_WB, all_wait, no_AC) is applied to every naive failure, and is counterfactual as
+  before.
+- Cost: build, parse and search times reported, host-specific, with no speed claim.
+- Scope sentence: contact relaxation only; full-policy equality only under the dose/peak precondition.
+- **A smoke run** on one packet with two requests, to check the plumbing, is allowed before the main run. Its
+  outputs are discarded and not reported as results.
