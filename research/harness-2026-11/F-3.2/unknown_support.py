@@ -51,6 +51,7 @@ class Augmented:
 
 
 def masks(packet):
+    P1.require_complete_packet_dir(packet)          # F-9.3 rule 2: refuse failed or unfinished writes
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         m = {k: a["mask__" + k].astype(bool) for k in ("unknown_cumulative_state", "policy_assigned_zero", "known_burned",

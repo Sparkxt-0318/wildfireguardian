@@ -42,6 +42,7 @@ EVENT_DAYS = {"KFS_01": ("2025-03-21", "2025-04-01"), "KFS_02": ("2022-03-03", "
 
 
 def native_masks(packet):
+    P1.require_complete_packet_dir(packet)          # F-9.3 rule 2: refuse failed or unfinished writes
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         g = lambda k: a["mask__" + k].astype(bool)

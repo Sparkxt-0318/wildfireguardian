@@ -74,9 +74,20 @@ def require_routable_arrays(a, packet):
                              % (Path(packet).name, int(np.isnan(ign).sum()), int(np.isneginf(ign).sum())))
 
 
+def require_complete_packet_dir(packet):
+    """F-9.3 consumer rule 2 (support_mask README, on Main via #152): refuse a packet directory that carries
+    SUPPORT_WRITE_FAILED or has no BUILD_SUMMARY.json (an unfinished or failed write)."""
+    d = Path(packet)
+    if (d / "SUPPORT_WRITE_FAILED").exists():
+        raise ValueError("%s: SUPPORT_WRITE_FAILED present; the packet write did not complete" % d.name)
+    if not (d / "BUILD_SUMMARY.json").exists():
+        raise ValueError("%s: no BUILD_SUMMARY.json; the packet write is not known to have completed" % d.name)
+
+
 def routable_contact_model(packet, **kw):
     """ContactModel.from_packet behind require_routable_arrays. contact.py is hash-pinned (SOURCE_SHA256.json and frozen
     evidence bundles), so the HAZARD-only marker guard lives here: every F-3.2 reader goes through this wrapper."""
+    require_complete_packet_dir(packet)
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         require_routable_arrays(a, packet)
     return ContactModel.from_packet(packet, **kw)
@@ -86,6 +97,7 @@ def from_raw(packet, Hs):
     rep = json.loads((Path(packet) / "REPORT.json").read_text())
     asm = rep["native_metadata"]["construction"]["assumptions"]
     T, R = F(float(asm["burning_duration_s"])), F(float(asm["initial_remaining_s"]))
+    require_complete_packet_dir(packet)
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         require_routable_arrays(a, packet)
         ign, cur = a["ignition_time_s"], a["current_active"].astype(bool)
