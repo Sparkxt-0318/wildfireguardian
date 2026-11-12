@@ -45,13 +45,20 @@ def run(graph, packet, instance, *, arrivals=True):
     H = pm.H
     dests = sorted({(d["node"], d["dwell_s"]) for o in instance["origins"] for d in o["destinations"]})
     entries = sorted({o["entry_node"] for o in instance["origins"]})
-    feas, flds = {}, {}
-    for dn, dw in dests:
+    feas = {}
+    for dn, dw in dests:     # keep only the issue sets (memory); a field is rebuilt only if an arrival is needed
         fld = backward(pm.instance("cert", [{"node": dn, "dwell": dw, "window": [0, H]}], entries))
-        flds[(dn, dw)] = fld
         for e in entries:
             feas[(dn, dw, e)] = issue_set(fld, pm.nidx[e])
+        del fld
     t_field = time.perf_counter() - t0
+    _fc = {}
+
+    def field(k):
+        if k not in _fc:
+            _fc.clear()
+            _fc[k] = backward(pm.instance("cert", [{"node": k[0], "dwell": k[1], "window": [0, H]}], entries))
+        return _fc[k]
     if arrivals:
         soft, hard = resource.getrlimit(resource.RLIMIT_AS)
         resource.setrlimit(resource.RLIMIT_AS, (_vmsize() + CAP, hard))
@@ -62,7 +69,7 @@ def run(graph, packet, instance, *, arrivals=True):
             if not iv.contains(feas[k + (e,)], t):
                 continue
             try:
-                w = witness(flds[k], pm.nidx[e], t)
+                w = witness(field(k), pm.nidx[e], t)
             except MemoryError:
                 nc = True
                 continue
