@@ -25,7 +25,7 @@ before any run of this file. They are not tuned on estimator outputs.
   - Calibration uses calibration seeds 100-109, not the evaluation seeds, over the grid of rates in CAL_RATES. It
     picks the rate whose share is closest to 0.15 and records the calibration table.
   - No estimator is fitted during calibration.
-  - DESIGN REVISION, made before any estimator run (generator-only check, about 13:35 UTC). The first draft calibrated the
+  - DESIGN REVISION, made before any estimator run (generator-only check, about 13:20 UTC). The first draft calibrated the
     displacement_diag "detached" flag (the farthest new cell's 8-connected component has no cutoff-burned cell). On
     the synthetic baseline WITHOUT spotting, that flag is already 0.7-0.8 per interval. The reasons are the ~20
     background ignitions (k0 = 2e-5 over 64x64 cells and 240 h), which the fitters model through k0, and radius-2
