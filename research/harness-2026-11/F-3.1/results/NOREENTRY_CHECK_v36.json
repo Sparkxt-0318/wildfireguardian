@@ -1,0 +1,102 @@
+{
+ "what": "Leo's no-re-entry packets (MANIFEST_v3_6 @ 1fa85140, transform no_reentry/1) vs this field's never-clears arm on the matching v3.6 reopening packet; UA 03-25 17Z h5, 4 variants",
+ "per_variant": {
+  "kriged_mean": {
+   "H": 18000,
+   "noreentry_reader": {
+    "cells_checked": 6837,
+    "status": "HAZARD_FLAME_EQUALS_NPZ_PHASES"
+   },
+   "cells_with_member_set_difference": 0,
+   "cells_with_birth_difference": 0,
+   "noreentry_phases_ending_before_H": 0,
+   "edges_with_blocked_set_difference": {
+    "router": 0,
+    "closed": 2085
+   },
+   "edges": 43826,
+   "examples": {
+    "cell_diff": [],
+    "birth_diff": [],
+    "end_short": []
+   },
+   "cert_field_feasible_set_differences": {
+    "origin_dest_pairs": 2520,
+    "feasible_set_differences": 0
+   }
+  },
+  "firms_early": {
+   "H": 18000,
+   "noreentry_reader": {
+    "cells_checked": 6443,
+    "status": "HAZARD_FLAME_EQUALS_NPZ_PHASES"
+   },
+   "cells_with_member_set_difference": 0,
+   "cells_with_birth_difference": 0,
+   "noreentry_phases_ending_before_H": 0,
+   "edges_with_blocked_set_difference": {
+    "router": 0,
+    "closed": 2970
+   },
+   "edges": 43826,
+   "examples": {
+    "cell_diff": [],
+    "birth_diff": [],
+    "end_short": []
+   },
+   "cert_field_feasible_set_differences": {
+    "origin_dest_pairs": 2520,
+    "feasible_set_differences": 0
+   }
+  },
+  "envelope": {
+   "H": 18000,
+   "noreentry_reader": {
+    "cells_checked": 6813,
+    "status": "HAZARD_FLAME_EQUALS_NPZ_PHASES"
+   },
+   "cells_with_member_set_difference": 0,
+   "cells_with_birth_difference": 0,
+   "noreentry_phases_ending_before_H": 0,
+   "edges_with_blocked_set_difference": {
+    "router": 0,
+    "closed": 3254
+   },
+   "edges": 43826,
+   "examples": {
+    "cell_diff": [],
+    "birth_diff": [],
+    "end_short": []
+   },
+   "cert_field_feasible_set_differences": {
+    "origin_dest_pairs": 2520,
+    "feasible_set_differences": 0
+   }
+  },
+  "envelope_burnset": {
+   "H": 18000,
+   "noreentry_reader": {
+    "cells_checked": 16176,
+    "status": "HAZARD_FLAME_EQUALS_NPZ_PHASES"
+   },
+   "cells_with_member_set_difference": 0,
+   "cells_with_birth_difference": 0,
+   "noreentry_phases_ending_before_H": 0,
+   "edges_with_blocked_set_difference": {
+    "router": 0,
+    "closed": 43512
+   },
+   "edges": 43826,
+   "examples": {
+    "cell_diff": [],
+    "birth_diff": [],
+    "end_short": []
+   },
+   "cert_field_feasible_set_differences": {
+    "origin_dest_pairs": 2520,
+    "feasible_set_differences": 0
+   }
+  }
+ },
+ "note": "Cells, members and births are identical, no no-re-entry phase ends before H, router-rule edge blocks are identical. Closed-rule edge blocks differ on some edges: the packet's scalar law ends phases at b + H (exact expiry) while the never arm uses +infinity, so they differ only for occupancies at or after the horizon. No journey can use those (horizon), and the CERT feasible-departure sets are identical for every (origin, destination) pair in all 4 variants. That explanation is supported by the field equality, not checked edge by edge."
+}
