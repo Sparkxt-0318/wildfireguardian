@@ -77,13 +77,17 @@ def main() -> None:
     # Sizing (orchestrator request): power vs cohort size for the binding comparison, vs persistence.
     for ref in ("persistence", "logistic"):
         out["sizing_vs_" + ref] = sizing_for(ref, sums, counts, fires, rng)
+    out["sizing_vs_persistence_half_effect"] = sizing_for("persistence", sums, counts, fires, rng, effect_scale=0.5)
     args.out.write_text(json.dumps(out, indent=1) + "\n")
     print(json.dumps({k: v for k, v in out.items() if k.startswith("sizing")}, indent=1))
     print(json.dumps(out["comparisons"], indent=1))
 
 
-def sizing_for(ref, sums, counts, fires, rng):
+def sizing_for(ref, sums, counts, fires, rng, effect_scale=1.0):
     diff = np.array(sums[CANDIDATE]) - np.array(sums[ref])
+    # Scale the pooled effect while keeping the between-fire spread: shift each fire by (scale-1) * effect * count.
+    effect = diff.sum() / counts.sum()
+    diff = diff + (effect_scale - 1.0) * effect * counts
     sizing = {}
     for n in SIZING_N:
         below = 0

@@ -96,5 +96,18 @@
    "60": 0.0
   },
   "smallest_n_reaching_target": null
+ },
+ "sizing_vs_persistence_half_effect": {
+  "target_power": 0.8,
+  "power_by_n_fires": {
+   "10": 0.233,
+   "15": 0.2685,
+   "20": 0.325,
+   "25": 0.374,
+   "30": 0.422,
+   "40": 0.527,
+   "60": 0.694
+  },
+  "smallest_n_reaching_target": null
  }
 }
