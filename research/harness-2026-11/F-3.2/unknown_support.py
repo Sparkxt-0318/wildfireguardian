@@ -28,6 +28,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import p1_check as P1  # noqa: E402
 import cases  # noqa: E402
 import generate  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
@@ -50,6 +51,7 @@ class Augmented:
 
 def masks(packet):
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
+        P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         m = {k: a["mask__" + k].astype(bool) for k in ("unknown_cumulative_state", "policy_assigned_zero", "known_burned",
                                                          "positive_native_probability")}
         cur = a["current_active"].astype(bool)
