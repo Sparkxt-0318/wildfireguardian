@@ -82,3 +82,27 @@ Score B is directly comparable in kind to S-D9's cohort scores. It is not compar
 2. Iris: does Score A's persistence term for j ∈ S make the comparison meaningful, or should only Score B be reported?
 3. The audit's split and rule files (Zenodo 23876108, small) are fetched with the dataset.
 4. Rebuilding covariates for the 2018–2019 fires is the main cost. That is roughly 300 fires if the 607 are spread evenly over 4 years; the real count comes from the metadata. Daniel would price it after item 1.
+
+## 6. Labels-only replication of the published 2019 persistence AP (approved; tolerance fixed before the result is read)
+
+`external/wsts_persistence.py` streams the 74 test-year-2019 fires one at a time and reads only band 23 ("active fire"). It applies the WSTS test protocol:
+- the label is the next day's detections, binarised (finite means detected);
+- targets start at each fire's 6th day;
+- scenes are centre-cropped to a multiple of 32 pixels;
+- AP is pooled over all pixels of the year.
+
+Persistence predicts today's binarised map.
+
+**Tolerance, written before the run's output is read.** The run was started before this section was committed, and its output had not been looked at when this was written.
+- Published value: 0.105 (Table 2), given to 3 decimals and computed with the original dataset class. The repo notes a later bug fix that "leads to slightly higher performance".
+- **MATCH** if |AP − 0.105| ≤ 0.005.
+- **CLOSE** if 0.005 < |AP − 0.105| ≤ 0.020. The difference is then explained by a named protocol detail, such as the crop, the first-target day or the dataset-class fix, before anything is built on the adapter.
+- **MISMATCH** if |AP − 0.105| > 0.020. The adapter is not used until the mismatch is resolved.
+
+**Iris's conditions for the full model check, which is deferred.** It may run only when:
+1. the part-c prerequisites are frozen and their rebuild has finished;
+2. this replication is a MATCH, or a CLOSE that has been explained;
+3. Daniel's price fits in the quota left after part c;
+4. it is declared before any model runs on it, with a hash-selected fire subset, descriptive status, the scores to be reported, and a check that no fire overlaps a training fire.
+
+It also needs the orchestrator's separate approval. Daniel's price for all 74 fires is about 24,900 weighted Open-Meteo calls (three daily quotas) and about 50 GB of raw hourly weather. Cropping each grid to the fire's extent would cut this 5–20×.
