@@ -6,7 +6,7 @@ not measured is labelled as such.
 
 ## What was run
 
-* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. Inputs are the frozen routing inputs
+* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. Later commits up to `c8247d2` add opt-in modes and features that are inactive on these caches (origin = destination admission, a start-position guard, extra_blocks/present_only, the duration bound, timing-only). They are not just flags and docs. Inputs are the frozen routing inputs
   (`tools/fetch_routing_inputs.py`, SHA-verified) and the six committed `planner/cache` files (SHA as in `INDEX.json`).
 * **Host.** This Linux x86_64 container: 4 cores, Python 3.13.18. numpy was 2.x at process start, and 1.26.4 was
   installed into site-packages during the run. numpy is used only to read arrays; all contact arithmetic is exact
@@ -79,7 +79,12 @@ Class (`cert` field compared with the `free` control):
 | censored at the last planner offset (+50 min) | 355 | 355 |
 | no checked departure | 22 | 22 |
 
-As Iris predicted, the fire sets only **17 of 530** deadlines on this panel. The other 491 that have a deadline are
+At 1-second resolution (comparing the uncapped exact deadlines of the `cert` and `free` fields over all 530 origins),
+the fire moves **52** deadlines. 39 of these also differ at grid resolution; that count includes origins with no checked
+departure. The other **13** are fire-shortened only within a 10-minute step, so the grid table above counts them as
+window-set (Nora's note). 478 are identical at both resolutions.
+
+As Iris predicted, the fire sets only **17 of 530** deadlines on this panel (grid resolution, origins with a deadline). The other 491 that have a deadline are
 window-set or censored, which a fire-free search would also reproduce. Reproducing the fire-set ones is the
 non-trivial part: 16 of 16, and FX2 is resolved rather than contradicted.
 
