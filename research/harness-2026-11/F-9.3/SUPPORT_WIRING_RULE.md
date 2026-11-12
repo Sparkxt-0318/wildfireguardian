@@ -129,3 +129,23 @@ then, unknown cells in an envelope scenario are handled downstream under the thr
 **Existing suites unchanged:** F-9.3 `test_iface.py` (3), F-DYN `tests/` (24) and `support_mask/` (13): 40 of 40 pass.
 
 **Verifiers:** Hannah (wrapper use) and Nora (F-DYN packets).
+
+### Nora: PASS WITH NOTES, ledger row 42 (F-DYN side)
+
+- **Order.** Rule 15:34:43 → correction 15:36:37 → code 15:39:23 → acceptance 15:42:15.
+- **Tests.** test_support_wiring 5 of 5; F-DYN 24 of 24.
+- **Her own builds** of Yeongdeok 25T11Z h5 kriged_mean, with her own masks:
+  - **No mask:** HAZARD `6940f293`.
+  - **All-true mask:** all 4 files byte-identical to the no-mask build; `applied=false`.
+  - **20 × 50 block mask** (1,000 cells false): the self-check passes; ids, breakpoints, flame and flux equal the
+    unmasked build; HAZARD support equals her mask in every bin; `applied=true`.
+  - **`envelope` + mask:** `SUPPORT_ENVELOPE_UNSUPPORTED`, with no output.
+- **Note, a stated limitation.** Masked packets currently have **no independent check** and **cannot be read by
+  array-contract readers**.
+  - The replay `Packet`, the kit's `ffi_independent_checker` and Richard's `PacketModel` (d731b3a) all **refuse** a
+    packet with npz `support = false`, because their contracts require all-true support.
+  - That is safe, since they fail closed.
+  - The router itself reads HAZARD support: `UNSUPPORTED` routes, and withheld global claims.
+  - Richard's HAZARD-only path (0f96a26) was not tested.
+  - Until a reader that accepts support masks exists and is verified, results on masked packets are router-only.
+    They are labelled "single implementation, not independently checked".
