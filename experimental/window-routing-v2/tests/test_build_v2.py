@@ -71,8 +71,25 @@ class BuildV2(unittest.TestCase):
 
 
 # The declared Step 2 wrapper around the parent's checker call in whole_road (STEP2_ACCEPTANCE (a)), statement by statement.
+# Step 2: every added worker line carrying the Step 2 marker (besides the 4-line closure), exactly and in order.
+STEP2_WORKER_LINES = [
+    "    import v2_memory; v2_memory.REQUIRE_CHILD_FOR_CHECK = job.get('v2_check_isolation', True) is not False   # kit-v2 Step 2: no whole-road check in this process (amendment F: unless the labelled comparison arm)",
+    "    if job.get('v2_check_isolation', True) is False:   # kit-v2 Step 2 amendment F: baseline comparison arm, set only by the panel harness",
+    "        STATE['comparison_arm'] = 'no_check_isolation'   # kit-v2 Step 2",
+    '            import v2_memory, hybrid_checker as _v2_hc   # kit-v2 Step 2',
+    "            if job.get('v2_check_isolation', True) is False:   # kit-v2 Step 2 amendment F: comparison arm, in-process as the parent",
+    '                rec, _v2_child = _v2_check(), None   # kit-v2 Step 2',
+    "                _v2_budget = {'gate_mb': _v2_hc.RSS_LIMIT_MB, 'within_budget': 'not_proven', 'mechanism': None, 'comparison_arm': 'no_check_isolation'}   # kit-v2 Step 2",
+    '            else:   # kit-v2 Step 2',
+    '                rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)  # kit-v2 Step 2',
+    '            if rec is None:   # kit-v2 Step 2: interrupted check (MemoryError, crash, kill) stays UNRESOLVED',
+    "                rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}   # kit-v2 Step 2",
+    "            rec['resource_budget'] = _v2_budget; rec['check_child'] = _v2_child   # kit-v2 Step 2",
+    "        STATE['bound_model_dist'] = {'dist_sha256': M.dist_sha256, 'dist_block_rows': M.dist_block_rows}   # kit-v2 Step 2",
+]
+
 STEP2_WRAPPER = ['import v2_memory, hybrid_checker as _v2_hc',
-                 'rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)',
+                 "if job.get('v2_check_isolation', True) is False:\n    rec, _v2_child = (_v2_check(), None)\n    _v2_budget = {'gate_mb': _v2_hc.RSS_LIMIT_MB, 'within_budget': 'not_proven', 'mechanism': None, 'comparison_arm': 'no_check_isolation'}\nelse:\n    rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)",
                  "if rec is None:\n    rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}",
                  "rec['resource_budget'] = _v2_budget",
                  "rec['check_child'] = _v2_child"]
@@ -98,8 +115,9 @@ class Sealed(unittest.TestCase):
                  "                return checker['obj'].check(graph, original, res['legs'], res['destination'], deadline=deadline,",
                  '                                            wall_s=max(0., deadline - time.perf_counter()),',
                  "                                            expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)"]
-        step2 += [l for l in added if 'kit-v2 Step 2' in l and l not in step2]
-        self.assertEqual(len(step2), 4 + 7, step2)                     # the 4-line closure + 7 more marked Step 2 lines
+        marked = [l for l in added if 'kit-v2 Step 2' in l and l not in step2]
+        self.assertEqual(marked, STEP2_WORKER_LINES)                   # every marked Step 2 line, exactly and in order
+        step2 += marked
         added = [l for l in added if l not in step2]
         ident = [l for l in added if ('kit' in l.lower() or '_kid' in l) and 'Step 1' not in l and '_V2_PROG' not in l]
         self.assertEqual(len(ident), 3, ident)

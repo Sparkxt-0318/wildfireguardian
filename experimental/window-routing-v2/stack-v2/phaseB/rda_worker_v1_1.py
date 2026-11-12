@@ -226,7 +226,9 @@ def main():
         if _files != job.get('checker_sha256', {}) or not _files:
             raise ValueError('CHECKER_MODULE_HASH_MISMATCH')
         STATE['checker_module'] = {'module': job['checker_module'], 'path': _m.__file__, 'sha256': _files}
-    import v2_memory; v2_memory.REQUIRE_CHILD_FOR_CHECK = True   # kit-v2 Step 2: no whole-road check in this process
+    import v2_memory; v2_memory.REQUIRE_CHILD_FOR_CHECK = job.get('v2_check_isolation', True) is not False   # kit-v2 Step 2: no whole-road check in this process (amendment F: unless the labelled comparison arm)
+    if job.get('v2_check_isolation', True) is False:   # kit-v2 Step 2 amendment F: baseline comparison arm, set only by the panel harness
+        STATE['comparison_arm'] = 'no_check_isolation'   # kit-v2 Step 2
     from mission_contract import graph_digest
     gdig = graph_digest(graph)
     checker = {'obj': None}
@@ -250,7 +252,11 @@ def main():
                                             wall_s=max(0., deadline - time.perf_counter()),
                                             expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)
             import v2_memory, hybrid_checker as _v2_hc   # kit-v2 Step 2
-            rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)  # kit-v2 Step 2
+            if job.get('v2_check_isolation', True) is False:   # kit-v2 Step 2 amendment F: comparison arm, in-process as the parent
+                rec, _v2_child = _v2_check(), None   # kit-v2 Step 2
+                _v2_budget = {'gate_mb': _v2_hc.RSS_LIMIT_MB, 'within_budget': 'not_proven', 'mechanism': None, 'comparison_arm': 'no_check_isolation'}   # kit-v2 Step 2
+            else:   # kit-v2 Step 2
+                rec, _v2_child, _v2_budget = v2_memory.run_check_forked(_v2_check, _v2_hc.RSS_LIMIT_MB, deadline)  # kit-v2 Step 2
             if rec is None:   # kit-v2 Step 2: interrupted check (MemoryError, crash, kill) stays UNRESOLVED
                 rec = {'status': 'UNRESOLVED', 'reason': 'CHECK_CHILD_FAILED', 'check_child': _v2_child}   # kit-v2 Step 2
             rec['resource_budget'] = _v2_budget; rec['check_child'] = _v2_child   # kit-v2 Step 2
