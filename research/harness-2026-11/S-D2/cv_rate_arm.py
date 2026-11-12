@@ -204,18 +204,41 @@ def aggregate(cv, a):
             better_fires=f"{int((d < 0).sum())}/{len(fires)}")
     qual = {arm: all(comp[f"{arm}_minus_{r}"]["ci95"][1] < 0 and comp[f"{arm}_minus_{r}"]["signflip_p"] < 0.05
                      for r in ("plugin", "logistic_cf")) for arm in ("mcem_rate", "mcem_state")}
+    # Iris's reporting additions (no rule change)
+    first = {f: np.zeros(len(Y[f]), bool) for f in fires}
+    for f in fires:
+        first[f][: recs[f]["n_per_interval"][0]] = True
+    split = {}
+    for m in ("mcem_rate", "mcem", "plugin", "logistic_cf", "persistence"):
+        for name, sel in (("first_interval", True), ("later_intervals", False)):
+            pv = np.concatenate([P[m][f][first[f] == sel] for f in fires])
+            yv = np.concatenate([Y[f][first[f] == sel] for f in fires])
+            split.setdefault(name, {})[m] = dict(brier=float(np.mean((pv - yv) ** 2)), cells=int(len(yv)))
+    edge = dict(
+        state_weight_bottom_top_by_fold={k: [w[0], w[-1]] for k, w in state_w.items()},
+        rate_weight_bottom_top_mean_over_intervals=[
+            float(np.mean([w[0] for f in fires for w in recs[f]["w_before"]])),
+            float(np.mean([w[-1] for f in fires for w in recs[f]["w_before"]]))],
+        rate_intervals_with_over_half_weight_at_bottom=int(sum(w[0] > 0.5 for f in fires for w in recs[f]["w_before"])),
+        rate_intervals_with_over_half_weight_at_top=int(sum(w[-1] > 0.5 for f in fires for w in recs[f]["w_before"])),
+        rate_intervals_total=int(sum(len(recs[f]["w_before"]) for f in fires)))
+    note = ("Two arms are each tested against two bars (four tests) with no multiplicity adjustment. Grid edges: "
+            "1/16 at the bottom, 2 at the top (simulations run to 2T). Weight piled at an edge means the result is a "
+            "lower bound on what the idea can do.")
     post = {f: dict(final_mean_m=float(np.dot(recs[f]["w_before"][-1], GRID)),
                     final_w_m1=float(recs[f]["w_before"][-1][int(np.flatnonzero(GRID == 1.0)[0])]))
             for f in fires}
     out = dict(command="python cv_rate_arm.py " + " ".join(sys.argv[1:]), rule="RULE_rate_arm.md @ ba71e7ca + addendum",
                grid=GRID.tolist(), prior=PRIOR.tolist(), sims=SIMS, pooled=pooled, comparisons=comp,
-               qualifies_for_part_b_consideration=qual, state_weights_by_fold=state_w,
+               qualifies_for_part_b_consideration=qual, multiplicity_note=note, state_weights_by_fold=state_w,
+               grid_edge_weights=edge, first_vs_later_intervals=split,
                posterior_last_interval=post)
     a.out.write_text(json.dumps(out, indent=1))
     for m, r in sorted(pooled.items(), key=lambda kv: kv[1]["brier"]):
         print(f"{m:13s} {r['brier']:.4f}  " + "  ".join(f"{b} {r['brier_' + b]:.4f}" for b in ("0-1km", "1-2km", "2-4km")))
     print(json.dumps(comp, indent=1))
     print("QUALIFIES:", qual)
+    print(json.dumps(dict(edge=edge, first_vs_later=split), indent=1))
 
 
 def main(argv=None):

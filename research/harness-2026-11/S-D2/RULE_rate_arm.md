@@ -55,3 +55,10 @@ both are reported and neither is preferred on this evidence. The direct comparis
 reported with no decision attached.
 
 Implementation change: the checkpoints now store p_m for every grid value. Nothing else changes.
+
+## Reporting additions (Iris, about 19:56 UTC; no rule change, before any result)
+1. A multiplicity note beside the verdicts: two arms, each tested against two bars, with no adjustment.
+2. Mixture weight at the bottom (1/16) and top (2) grid points: for mcem_state, per fold; for mcem_rate, over
+   intervals. Weight piled at an edge means the result is a lower bound.
+3. mcem_rate on first intervals (prior only) reported separately from later intervals, with the comparators on the
+   same cells.
