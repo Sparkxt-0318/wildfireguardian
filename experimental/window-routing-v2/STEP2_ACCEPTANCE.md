@@ -229,3 +229,15 @@ solver gate are as already cleared, and proceed now.
 4. `bound_model_dist {dist_sha256, dist_block_rows}` is recorded per result in RESULT.
 5. Relevance (Thomas): outward bounds are sound for any sub-box count. Tightness decides LO infeasibility and
    `lower_bound_arrival`, so identity is required for G1.
+
+### Amendment E: chunked-build peak measured (kit-v2-step2b; `results/step2/BOUND_MODEL_TRANSIENT.json` → `chunked_amendment_E`)
+
+| Packet | Lifetime peak before → after | Stated beforehand | RSS after build | Build time before → after |
+|---|---|---|---|---|
+| Yeongdeok firms_early | 1,992 → **495 MiB** | ≤ 780 | 250 MiB | 7.1 → 4.8 s |
+| Yeongdeok kriged_mean | 2,381 → **501 MiB** | ≤ 780 | 256 MiB | 7.7 → 5.8 s |
+| Uiseong firms_early | 9,071 → **709 MiB** | ≤ 920 | 384 MiB | 31.2 → 26.5 s |
+| Uiseong kriged_mean | 9,618 → **728 MiB** | ≤ 920 | 391 MiB | 32.1 → 28.1 s |
+
+The hypothesis is confirmed: the peak now falls at 64–68% of the build, not 95%, and every value is within the stated bound.
+Single runs, not quiet-host timings. The build times are indicative only, and G5 is decided by the panel.

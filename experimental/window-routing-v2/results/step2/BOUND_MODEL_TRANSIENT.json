@@ -54,5 +54,67 @@
    "gx_mib_each": 2286.059280395508,
    "construct_s": 32.11594968999998
   }
- ]
+ ],
+ "chunked_amendment_E": {
+  "kit": "kit-v2-step2b",
+  "measured_utc": "2026-11-12 ~18:25-18:35",
+  "expected_before_measurement": {
+   "yeongdeok_mb_max": 780,
+   "uiseong_mb_max": 920
+  },
+  "rows": [
+   {
+    "packet": "yeongdeok_2025/20250325T230000Z_h5_firms_early_central_q300",
+    "base_mb": 184.140625,
+    "peak_sampled_mb": 495.328125,
+    "peak_at_frac": 0.6434389041578304,
+    "after_mb": 250.18359375,
+    "ru_maxrss_mb": 495.09765625,
+    "edges": 111924,
+    "full_pot": 513,
+    "P": 513,
+    "gx_mib_each": 438.0570373535156,
+    "construct_s": 4.7837782750000315
+   },
+   {
+    "packet": "yeongdeok_2025/20250325T230000Z_h5_kriged_mean_central_q300",
+    "base_mb": 184.171875,
+    "peak_sampled_mb": 501.12890625,
+    "peak_at_frac": 0.6415421900124344,
+    "after_mb": 255.6953125,
+    "ru_maxrss_mb": 500.7890625,
+    "edges": 111924,
+    "full_pot": 625,
+    "P": 625,
+    "gx_mib_each": 533.6952209472656,
+    "construct_s": 5.803021293000029
+   },
+   {
+    "packet": "uiseong_andong_2025/20250325T170000Z_h5_firms_early_central_q300",
+    "base_mb": 90.953125,
+    "peak_sampled_mb": 709.37890625,
+    "peak_at_frac": 0.6819334277073494,
+    "after_mb": 383.7109375,
+    "ru_maxrss_mb": 709.08203125,
+    "edges": 43826,
+    "full_pot": 6443,
+    "P": 6443,
+    "gx_mib_each": 2154.319137573242,
+    "construct_s": 26.476761393999823
+   },
+   {
+    "packet": "uiseong_andong_2025/20250325T170000Z_h5_kriged_mean_central_q300",
+    "base_mb": 90.984375,
+    "peak_sampled_mb": 728.015625,
+    "peak_at_frac": 0.6753327426955283,
+    "after_mb": 390.90234375,
+    "ru_maxrss_mb": 727.76953125,
+    "edges": 43826,
+    "full_pot": 6837,
+    "P": 6837,
+    "gx_mib_each": 2286.059280395508,
+    "construct_s": 28.05579544000011
+   }
+  ]
+ }
 }
