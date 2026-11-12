@@ -26,6 +26,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 18 | 2026-11-12 | PR #117 W-KIT merge readiness | Thomas | 656cab0 | tree = verified 477448d | per-file diff vs 477448d; standalone `npx vitest run`, `tsc -b` | PASS |
 | 19 | 2026-11-12 | PR #118 P-PROTO merge readiness | Thomas | 1d3e49f | 477448d + N1 wording | per-file diff; standalone tests; default build:static | PASS |
 | 20 | 2026-11-12 | PR #116 F-3.2 certificates merge readiness | Thomas | a03f218 | verified state + a03f218 notes; slices.py claims (never verified before) | diff vs 421637f; checker_c tests; `python3 F-3.2/slices.py` | **FAIL** (one README number) |
+| 21 | 2026-11-12 | P-PROTO checkpoint 2 (P5-P7) | Thomas | 75189d9 | descriptive ladder + hedged stamps; untrusted URL places; 320 px Chromium layout | `npx vitest run pproto && npx vitest run` (own npm ci) + probes | PASS WITH NOTES |
 
 ## Notes
 
@@ -146,3 +147,10 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - #118: no workflow in the tree sets WFG_BUILD_PUBLIC_VIEW.
 - #116: no envelope_o2/tier_r/fdyn files. The slices README has a second error: there are 15 non-forced rows (10 ROUTE + 5 NO_ROUTE), not 10.
 - The "legality cheap (≤ 57 KB), optimality ~1-3× full" reading is supported by the data.
+
+**21. P-PROTO cp2 @ 75189d9**:
+- pproto 17/17 (the layout test ran in Chromium, 4 cases); planner 405/405.
+- P6: parseLink requires an exact entryPaths match plus validPlace origin membership.
+- P5: stamps are hedged on all 1,131 cards.
+- N1: when after === 'gap', the card says "none after" although a later departure had a checked road (53 synthetic, 0 real). A false description; the wording needs fixing.
+- N2: the base commit 0a63683 carries the FAILED W6 decree code, so the follow-up PR must contain only the P-PROTO files.
