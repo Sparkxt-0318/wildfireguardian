@@ -37,17 +37,20 @@ def load_packet(packet_dir, grid):
     from pathlib import Path as _P
     with np.load(_P(packet_dir) / "constructed_arrays.npz", allow_pickle=False) as z:
         ext = {k: np.array(z[k], dtype=float) for k in z.files if k.endswith("__extinction_breakpoint_s")}
-    if not ext:
+    # Scalar law first: the unchanged reader verifies npz phases against the HAZARD flame bins. Only when that check
+    # fails AND the packet carries per-cell extinction arrays is the packet read as a per-cell law.
+    from tools.explain_deadlines.packet import PacketError
+    try:
         return Packet(packet_dir, grid), False
+    except PacketError:
+        if not ext:
+            raise
     orig = Packet.verify_consistency
     Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
     try:
         pk = Packet(packet_dir, grid)
     finally:
         Packet.verify_consistency = orig
-    # Per-cell laws: the HAZARD flame bins are authoritative (the npz does not represent every flame cell under these
-    # laws). Each member/cell's flame bins must form ONE contiguous run [bp_i, bp_j); the phase is [bp_i, bp_j), with a
-    # run reaching the last bin read as burning through the horizon (last bin is closed at H).
     big = pk.horizon + 10 ** 9
     pk.phases = []
     cells_all = set()
