@@ -91,13 +91,21 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 
 | regime | first-passage | hourly | **hourly + half-step** | m = 2 | m = 4 | m = 8 |
 |---|---:|---:|---:|---:|---:|---:|
-| R5 (c651 magnitude, 12 h) | 31.02 ± 0.42 | 24.12 | **30.92 (98.6%)** | 50.7% | 78.5% | 84.2% |
+| R5 (synthetic, scaled to one c651 snapshot, 12 h) | 31.02 ± 0.42 | 24.12 | **30.92 (≈97%; seeds 0.96–1.02)** | 50.7% | 78.5% | 84.2% |
 | R3 (Σ ≈ 0.6/h, 8 h) | 121.50 ± 0.62 | 82.15 | **114.28 (81.6%)** | 42.8% | 68.7% | 84.9% |
 | R2 (Σ = 1/h, 8 h) | 323.67 ± 1.42 | 152.90 | **269.71 (68.4%)** | 33.9% | 61.7% | 78.6% |
 
-**What it shows.** At c651-like rates the hourly vs continuous gap is almost entirely synchronous-update lag. A one-line correction removes it at 2× stencil cost.
+**What it shows.** In the synthetic slow regime R5, which is scaled to one c651 snapshot, the hourly vs continuous gap is almost entirely synchronous-update lag. A one-line correction removes most of it at 2× stencil cost.
 
-**Over-correction caveat.** The 98.6% partly reflects a lucky over-correction relative to m = 8. Per-cell L1 to first-passage is 0.0006 for half-step against 0.0007 for m = 8, i.e. similar, not better. In fast regimes 18–32% of the gap remains, so the sampler's role is fast regimes and tails.
+**Precision (Owen, Hannah).** The point value at seed 0 is 98.6%. With per-arm SE ≈ 0.4 on a gap of ≈ 6.9 cells, the share carries an MC SE of about ±8–9 pp. Owen's three fresh-seed reruns gave 0.970, 0.964 and 1.017, so read it as ≈97%.
+
+**Scope.**
+- R5 is a synthetic kernel scaled to the median adjacent-cell rate of ONE c651 snapshot (Fish Creek; `gate1.py` R5 comment). It is not the fitted model on real inputs.
+- The result is development-only and holds for slow regimes. In R3 the half-step arm closes 81.6% of the gap and in R2 68.4%, below m = 8 (84.9% and 78.6%).
+
+**Approximation caveat.** The half-step arm has no cascade within a step, and a cell ignited in a half-step then emits for a full step afterwards. It is a first-order approximation that degrades as rates rise.
+
+**Over-correction caveat.** The R5 value partly reflects a lucky over-correction relative to m = 8. Per-cell L1 to first-passage is 0.0006 for half-step against 0.0007 for m = 8, i.e. similar, not better. In fast regimes 18–32% of the gap remains, so the sampler's role is fast regimes and tails.
 
 **What it does not show (Iris).** Half-step makes the fitted model faster. Whether that is *more accurate* on real fires is untested. The no-refit test is the existing rollout ± half-step on US2024 through S-D9. It is blocked here because no US2024 inputs are available to me; I have asked Victor.
 

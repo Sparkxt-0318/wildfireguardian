@@ -11,8 +11,9 @@ chessboard distance d (cells) to B_{k-1}. A cell is beyond the hourly CA's reach
 steps when d > 4 ceil(g). The implied minimum mean advance d / g (cells/h) is also reported.
 
 Incidents used: ONLY the S-D9 D1 training pool, i.e. the part-a allowlist
-(research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST_FINAL.csv at f91cf824, sha256 801acdd8...,
-branch claude/s-d9-forecast-benchmark; 489 incidents; supersedes the 586-incident PART_A_ALLOWLIST.csv) plus the 23 forecast-v2 US fit fires
+(research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST_FINAL.csv at 2d40d170, sha256 7db3cc0e...,
+branch claude/s-d9-forecast-benchmark; 490 incidents incl. CA-KNF-007035_Slater; supersedes f91cf824/489 and
+the 586-incident PART_A_ALLOWLIST.csv) plus the 23 forecast-v2 US fit fires
 (research/forecast-v2/SPLIT.json "fit.us_perimeter_and_kriged"). Parts b-d and all held-out fires are
 never read. The two groups are reported separately.
 
