@@ -1,0 +1,8015 @@
+{
+ "what": "timing lever (A: depart 30/60/120 min earlier, same destinations) vs destination lever (B: same departure, any candidate destination); rule LEVER_RULE.md; model statements on scenarios; free-flow only",
+ "packets": [
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 81,
+      "A_only": 2,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "A_only": 2,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "A_only": 3
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 81,
+      "neither": 3
+     },
+     "60": {
+      "A_only": 83,
+      "neither": 1
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 83,
+      "neither": 1
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 81,
+      "A_only": 2,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "A_only": 3
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "A_only": 3
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 81,
+      "neither": 3
+     },
+     "60": {
+      "A_only": 83,
+      "neither": 1
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "28800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250323T010000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 1,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 80,
+      "neither": 2,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 80,
+      "neither": 1,
+      "A_only": 3
+     },
+     "120": {
+      "checked_at_ref": 80,
+      "neither": 1,
+      "A_only": 3
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 80,
+      "neither": 4
+     },
+     "60": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "120": {
+      "A_only": 83,
+      "neither": 1
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 76,
+      "neither": 3,
+      "both": 1,
+      "A_only": 4
+     },
+     "60": {
+      "checked_at_ref": 76,
+      "neither": 3,
+      "both": 1,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 76,
+      "neither": 2,
+      "A_only": 5,
+      "both": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 76,
+      "neither": 8
+     },
+     "60": {
+      "A_only": 81,
+      "neither": 3
+     },
+     "120": {
+      "A_only": 81,
+      "neither": 3
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 1,
+      "both": 1,
+      "A_only": 4
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 1,
+      "both": 1,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "both": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 78,
+      "neither": 6
+     },
+     "60": {
+      "A_only": 83,
+      "neither": 1
+     },
+     "120": {
+      "A_only": 83,
+      "neither": 1
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 1,
+      "both": 1,
+      "A_only": 4
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 1,
+      "both": 1,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "both": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 78,
+      "neither": 6
+     },
+     "60": {
+      "A_only": 83,
+      "neither": 1
+     },
+     "120": {
+      "A_only": 83,
+      "neither": 1
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "neither": 3
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "neither": 2,
+      "A_only": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "neither": 2
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "neither": 2
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "neither": 2
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "neither": 2
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 80,
+      "neither": 2,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 80,
+      "neither": 2,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 80,
+      "neither": 2,
+      "A_only": 2
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 74,
+      "neither": 4,
+      "A_only": 5,
+      "both": 1
+     },
+     "60": {
+      "checked_at_ref": 74,
+      "neither": 2,
+      "A_only": 7,
+      "both": 1
+     },
+     "120": {
+      "checked_at_ref": 74,
+      "neither": 2,
+      "A_only": 7,
+      "both": 1
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 74,
+      "neither": 10
+     },
+     "60": {
+      "A_only": 80,
+      "neither": 4
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "28800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 76,
+      "A_only": 5,
+      "neither": 2,
+      "both": 1
+     },
+     "60": {
+      "checked_at_ref": 76,
+      "A_only": 7,
+      "both": 1
+     },
+     "120": {
+      "checked_at_ref": 76,
+      "A_only": 7,
+      "both": 1
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 76,
+      "neither": 8
+     },
+     "60": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250324T090000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 77,
+      "neither": 2,
+      "both": 1,
+      "A_only": 4
+     },
+     "60": {
+      "checked_at_ref": 77,
+      "A_only": 6,
+      "both": 1
+     },
+     "120": {
+      "checked_at_ref": 77,
+      "A_only": 6,
+      "both": 1
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 77,
+      "neither": 7
+     },
+     "60": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 6
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 4,
+      "neither": 2
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 77,
+      "neither": 7
+     },
+     "60": {
+      "checked_at_ref": 77,
+      "neither": 4,
+      "A_only": 3
+     },
+     "120": {
+      "checked_at_ref": 77,
+      "A_only": 5,
+      "neither": 2
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 6
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 4,
+      "neither": 2
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "neither": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "60": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "120": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 79,
+      "neither": 5
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 4,
+      "A_only": 2
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 77,
+      "neither": 6,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 77,
+      "neither": 3,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 77,
+      "A_only": 6,
+      "neither": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 4,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "neither": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "60": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "120": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 79,
+      "neither": 5
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 82,
+      "neither": 2
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 75,
+      "neither": 9
+     },
+     "60": {
+      "checked_at_ref": 75,
+      "neither": 5,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 75,
+      "A_only": 8,
+      "neither": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 81,
+      "A_only": 1,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "A_only": 2,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "A_only": 3
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "60": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     },
+     "120": {
+      "checked_at_ref": 79,
+      "A_only": 5
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 79,
+      "neither": 5
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 81,
+      "neither": 3
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 6
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 4,
+      "neither": 2
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 77,
+      "neither": 7
+     },
+     "60": {
+      "checked_at_ref": 77,
+      "neither": 4,
+      "A_only": 3
+     },
+     "120": {
+      "checked_at_ref": 77,
+      "A_only": 5,
+      "neither": 2
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 6
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 4,
+      "neither": 2
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "neither": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "neither": 84
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "9000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "10800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "12600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "14400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    },
+    "28800": {
+     "30": {
+      "neither": 84
+     },
+     "60": {
+      "neither": 84
+     },
+     "120": {
+      "neither": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 4,
+      "A_only": 2
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "neither": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 77,
+      "neither": 6,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 77,
+      "neither": 3,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 77,
+      "A_only": 6,
+      "neither": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 4,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 5,
+      "neither": 1
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 83,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 83,
+      "A_only": 1
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 84
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "uiseong_andong_2025 20250325T170000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 75,
+      "neither": 9
+     },
+     "60": {
+      "checked_at_ref": 75,
+      "neither": 5,
+      "A_only": 4
+     },
+     "120": {
+      "checked_at_ref": 75,
+      "A_only": 8,
+      "neither": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "neither": 5,
+      "A_only": 1
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 81,
+      "A_only": 1,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 81,
+      "A_only": 2,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 81,
+      "A_only": 3
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 82,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 1,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 84
+     },
+     "60": {
+      "checked_at_ref": 84
+     },
+     "120": {
+      "checked_at_ref": 84
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 82,
+      "A_only": 2
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 78,
+      "A_only": 4,
+      "neither": 2
+     },
+     "60": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     },
+     "120": {
+      "checked_at_ref": 78,
+      "A_only": 6
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 78,
+      "neither": 6
+     },
+     "60": {
+      "A_only": 82,
+      "neither": 2
+     },
+     "120": {
+      "A_only": 84
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 89,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 89,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 89,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T190000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 89,
+      "neither": 1
+     },
+     "60": {
+      "checked_at_ref": 89,
+      "neither": 1
+     },
+     "120": {
+      "checked_at_ref": 89,
+      "A_only": 1
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250325T230000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "60": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     },
+     "120": {
+      "checked_at_ref": 88,
+      "A_only": 2
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 88,
+      "neither": 2
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h5 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 envelope",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed conservative); per-cell law, no independent check",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 envelope_burnset",
+   "soundness": "SOUND RELATIVE TO THE FINAL MAPPED BURN SET (fire never mapped is outside it): lo = ignition, no cell cleared within the horizon; single implementation, not independently checked (Nora PASS WITH NOTES, row 32)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "60": {
+      "checked_at_ref": 27,
+      "neither": 63
+     },
+     "120": {
+      "checked_at_ref": 27,
+      "neither": 63
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "60": {
+      "A_only": 27,
+      "neither": 63
+     },
+     "120": {
+      "A_only": 27,
+      "neither": 63
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 firms_early",
+   "soundness": "BRACKET-START, NOT A LOWER BOUND (not guaranteed early enough)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  },
+  {
+   "packet": "yeongdeok_2025 20250326T080000Z h8 kriged_mean",
+   "soundness": "kriged mean (not a bound; sd ~17 h; late for the coastal run)",
+   "primary_t_ref_150min": {
+    "30": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "60": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    },
+    "120": {
+     "counts": {
+      "checked_at_ref": 90
+     },
+     "gain_B_minus_A_s": {
+      "n": 0,
+      "median": null,
+      "min": null,
+      "max": null
+     }
+    }
+   },
+   "sensitivity_all_grid_departures_ge_120min": {
+    "7200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "9000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "10800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "12600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "14400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "16200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "18000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "19800": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "21600": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "23400": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "25200": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "27000": {
+     "30": {
+      "checked_at_ref": 90
+     },
+     "60": {
+      "checked_at_ref": 90
+     },
+     "120": {
+      "checked_at_ref": 90
+     }
+    },
+    "28800": {
+     "30": {
+      "A_only": 90
+     },
+     "60": {
+      "A_only": 90
+     },
+     "120": {
+      "A_only": 90
+     }
+    }
+   }
+  }
+ ]
+}

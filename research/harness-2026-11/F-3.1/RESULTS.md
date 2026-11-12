@@ -545,3 +545,31 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Consequence (orchestrator).** The kit-checker dominance review is dropped: no unresolved multi-hour request is a
   hidden refusal.
 * **Labels.** SCENARIO; road-limited graph (graphs_interim); assumes no fire outside mapped or forecast cells.
+
+## Timing lever vs destination lever (rule `LEVER_RULE.md`, committed first at 48d2be0; not yet verified)
+
+* **Label.** Model statements on scenarios (F-DYN, not what happened). Free-flow only: no traffic is modelled, so
+  any route effect is ~0 by construction. Roads are limited to graphs_interim.
+* **Files.** `results/LEVER_TIMING_VS_DESTINATION.json`, built by `deadline_field/lever.py --summary-from`.
+* **Setup.**
+  * 48 packets: v3.3 manifest, 6 starts × {5 h, 8 h} × 4 variants.
+  * CERT contact field, one field per destination of the region.
+  * Reference departure t_ref = 150 min after the start (2 h alert + 30 min door-to-door, an assumption).
+  * Lever A: depart 30 / 60 / 120 min earlier, same destinations. Lever B: same departure, any candidate destination.
+* **Results at t_ref, per packet, among place-starts not checked at t_ref.**
+  * **Lever B rescues none:** B-only = 0 and both = 0 in all 48 packets and at every shift.
+  * Lever A rescues 0–6 per packet. The largest counts are at UA 03-25 17Z: A rescues 1 / 1–2 / 4–6 of 6 at
+    30 / 60 / 120 min.
+  * Not every lever-A count rises with the shift. At UA 03-25 envelope it is 1 / 0 / 4 at 30 / 60 / 120 min, because
+    the feasible-departure sets have holes.
+  * Yeongdeok: every place is already checked at t_ref, except under envelope_burnset (63 of 90 neither).
+  * envelope_burnset in Uiseong: all 84 are neither (no route anywhere).
+* **Arrival gain where both rescue.** There are no "both" cases at t_ref, so it is not applicable.
+* **Sensitivity over all grid departures ≥ 120 min.**
+  * B-only = 0 everywhere.
+  * 18 "both" rescues, all at the last grid departure before the horizon (UA 03-24 09Z, H − 30 min), where lever A
+    also rescues. Their arrival gains were not computed (primary t_ref only).
+* **Not run.** The 1-h cache part of the rule (t_ref = 50 min, s = 30 min) has not been run yet; this is a gap.
+* **Reading (model statement).** On these scenarios the timing lever is the only one that rescues. Choosing another
+  shelter at the same departure never turns "no checked road" into "checked". This is consistent with free-flow
+  routing with no congestion.
