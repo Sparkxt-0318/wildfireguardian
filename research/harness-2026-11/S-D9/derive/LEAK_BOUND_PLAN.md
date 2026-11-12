@@ -54,3 +54,22 @@ Also reported, without bearing on the label:
 
 ## Not decided here
 None. Any change to this plan before the run is made by a committed revision of this file, with a reason.
+
+## Revision 1 (2026-11-12, before any implementation or fit): answers to Marcus's five questions
+These points were not fixed above. They are fixed here before code is committed.
+1. **Source of the times.** F1 and F2 use the **metadata** `first_utc`, `last_utc` and survey count, because that is the leaked field being bounded.
+   - They are read for part-a records only, with the allowlist-safe reader (`nirops_access.py`, ab065e85). The filter to PART_A_ALLOWLIST_FINAL is applied by ID before any attribute leaves the driver, and the read is logged in the ACCESS_LOG.
+   - **Check, not a substitute:** the same three values are computed from the pinned perimeter states (982eb71c `states.npz` times). The report gives the number of incidents where they differ and the largest difference.
+   - *Reason:* if the builder dropped surveys, the state times would understate `last_utc`, and the bound would understate the leak.
+2. **Arm R is NOT RUN** unless the orchestrator approves extra fold refits of `d4_wind_rebuilt`. That approval would itself be a further revision.
+   - A1 §3.1 refits once, with no folds, so no held-out-safe predictions exist.
+   - An in-sample recalibration is not substituted. Arm L is then the only primary arm.
+3. **Entries.**
+   - **Scoring** uses every cell of the held-out fires' intervals, unsubsampled: the 4 km band is primary and the full domain is secondary. The 0.05 negative subsample and its inverse weights are a training device only.
+   - The base and augmented fits use the **identical** subsample (same RNG draws).
+   - The A1 §3.1 crop, `crop_box(initial, 10)`, applies to both training and scoring, as in base training. The number of excluded new-burn cells is reported.
+4. **Cutoff.** The cutoff is the interval's **start** survey time t0 (the `cutoff` column), exact to the second, not floored.
+   - *Reason:* t0 is when the forecast is issued, and t1 is the target time. Using t1 would mix the leak with the horizon.
+5. **Timing.** The measurement starts after the part-a weather fetch and the `logistic_rebuilt` refit.
+   - The implementation and the fold-assignment hash are committed before any fit.
+
