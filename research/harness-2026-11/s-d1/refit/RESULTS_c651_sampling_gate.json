@@ -1,0 +1,551 @@
+{
+ "kernel_size": 9,
+ "contact_limit": 5000,
+ "no_contact_limit": 2000,
+ "totals_by_season_split": {
+  "test": {
+   "rows": 61965,
+   "positives": 11924,
+   "weight": 3505209.0,
+   "native_rows": 45391,
+   "native_positives": 10113,
+   "native_weight": 287415.0,
+   "events": 10,
+   "events_with_rows": 8
+  },
+  "train": {
+   "rows": 220752,
+   "positives": 73182,
+   "weight": 38221237.0,
+   "native_rows": 176077,
+   "native_positives": 70733,
+   "native_weight": 6471688.0,
+   "events": 27,
+   "events_with_rows": 22
+  },
+  "validation": {
+   "rows": 28341,
+   "positives": 7341,
+   "weight": 4883519.0,
+   "native_rows": 22264,
+   "native_positives": 7264,
+   "native_weight": 934485.0,
+   "events": 7,
+   "events_with_rows": 3
+  }
+ },
+ "verdict": {
+  "pre_filter_train_plus_validation": {
+   "rows": 249093,
+   "positives": 80523,
+   "weight": 43104756.0,
+   "native_rows": 198341,
+   "native_positives": 77997,
+   "native_weight": 7406173.0
+  },
+  "committed_train_plus_validation": {
+   "rows": 249085,
+   "positives": 80519,
+   "weight": 43104713.27800001
+  },
+  "rows_deficit": -8,
+  "positives_deficit": -4,
+  "weight_deficit": -42.72199998795986,
+  "committed_native": {
+   "rows": 198337,
+   "positives": 77993,
+   "weight": 7406169.0
+  },
+  "native_rows_deficit": -4,
+  "native_positives_deficit": -4,
+  "native_weight_deficit": -4.0,
+  "exact_match": false,
+  "consistent_upper_bound": true
+ },
+ "per_event": {
+  "KFS_01": {
+   "positives": 8443,
+   "contact_population": 40439,
+   "cold_population": 634015,
+   "rows": 15443,
+   "native_rows": 11724,
+   "native_positives": 6724,
+   "native_weight": 47163.0,
+   "weight": 682897.0,
+   "split": "test"
+  },
+  "KFS_02": {
+   "positives": 1071,
+   "contact_population": 21053,
+   "cold_population": 19361,
+   "rows": 8071,
+   "native_rows": 6039,
+   "native_positives": 1039,
+   "native_weight": 22092.0,
+   "weight": 41485.0,
+   "split": "train"
+  },
+  "KFS_03": {
+   "positives": 61,
+   "contact_population": 344,
+   "cold_population": 226,
+   "rows": 631,
+   "native_rows": 405,
+   "native_positives": 61,
+   "native_weight": 405.0,
+   "weight": 631.0,
+   "split": "train"
+  },
+  "KFS_04": {
+   "positives": 28,
+   "contact_population": 278,
+   "cold_population": 763,
+   "rows": 1069,
+   "native_rows": 306,
+   "native_positives": 28,
+   "native_weight": 306.0,
+   "weight": 1069.0,
+   "split": "test"
+  },
+  "KFS_05": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "validation"
+  },
+  "KFS_06": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "test"
+  },
+  "KFS_07": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "validation"
+  },
+  "KFS_09": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "train"
+  },
+  "KFS_11": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "train"
+  },
+  "KFS_12": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "train"
+  },
+  "KFS_13": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "test"
+  },
+  "KFS_14": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "train"
+  },
+  "KFS_15": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "train"
+  },
+  "KFS_16": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "validation"
+  },
+  "KFS_17": {
+   "positives": 0,
+   "contact_population": 0,
+   "cold_population": 0,
+   "rows": 0,
+   "native_rows": 0,
+   "native_positives": 0,
+   "native_weight": 0.0,
+   "weight": 0.0,
+   "split": "validation"
+  },
+  "CA-BTU-009205_Dixie": {
+   "positives": 16767,
+   "contact_population": 886329,
+   "cold_population": 9609903,
+   "rows": 23767,
+   "native_rows": 21510,
+   "native_positives": 16510,
+   "native_weight": 902839.0,
+   "weight": 10512999.0,
+   "split": "train"
+  },
+  "CA-KNF-006385_RiverComplex_RiverComplex": {
+   "positives": 2109,
+   "contact_population": 307696,
+   "cold_population": 755154,
+   "rows": 9109,
+   "native_rows": 7101,
+   "native_positives": 2101,
+   "native_weight": 309797.0,
+   "weight": 1064959.0,
+   "split": "train"
+  },
+  "CA-KNF-006454_Antelope": {
+   "positives": 1888,
+   "contact_population": 70309,
+   "cold_population": 988495,
+   "rows": 8888,
+   "native_rows": 6844,
+   "native_positives": 1844,
+   "native_weight": 72153.0,
+   "weight": 1060692.0,
+   "split": "train"
+  },
+  "CA-MNF-000753_AugustComplex": {
+   "positives": 20696,
+   "contact_population": 1715562,
+   "cold_population": 7789929,
+   "rows": 27696,
+   "native_rows": 25010,
+   "native_positives": 20010,
+   "native_weight": 1735572.0,
+   "weight": 9526187.0,
+   "split": "train"
+  },
+  "CA-PNF-001308_PNFNorthComplex": {
+   "positives": 6553,
+   "contact_population": 425950,
+   "cold_population": 3283596,
+   "rows": 13553,
+   "native_rows": 10432,
+   "native_positives": 5432,
+   "native_weight": 431382.0,
+   "weight": 3716099.0,
+   "split": "train"
+  },
+  "CA-SHF-001187_Monument": {
+   "positives": 3839,
+   "contact_population": 374018,
+   "cold_population": 1194814,
+   "rows": 10839,
+   "native_rows": 8826,
+   "native_positives": 3826,
+   "native_weight": 377844.0,
+   "weight": 1572671.0,
+   "split": "train"
+  },
+  "CA-SNF-001391_Creek": {
+   "positives": 7301,
+   "contact_population": 647182,
+   "cold_population": 1247979,
+   "rows": 14301,
+   "native_rows": 12165,
+   "native_positives": 7165,
+   "native_weight": 654347.0,
+   "weight": 1902462.0,
+   "split": "train"
+  },
+  "CA-SQF-002622_SQFComplex": {
+   "positives": 2181,
+   "contact_population": 181881,
+   "cold_population": 761703,
+   "rows": 9181,
+   "native_rows": 7170,
+   "native_positives": 2170,
+   "native_weight": 184051.0,
+   "weight": 945765.0,
+   "split": "train"
+  },
+  "CA-SRF-000651_McCash": {
+   "positives": 1057,
+   "contact_population": 177340,
+   "cold_population": 529544,
+   "rows": 8057,
+   "native_rows": 6054,
+   "native_positives": 1054,
+   "native_weight": 178394.0,
+   "weight": 707941.0,
+   "split": "train"
+  },
+  "CA-SRF-000656_RedSalmonComplex": {
+   "positives": 2251,
+   "contact_population": 382770,
+   "cold_population": 1835333,
+   "rows": 9251,
+   "native_rows": 7242,
+   "native_positives": 2242,
+   "native_weight": 385012.0,
+   "weight": 2220354.0,
+   "split": "train"
+  },
+  "CO-ARF-000636_CameronPeak": {
+   "positives": 3119,
+   "contact_population": 381433,
+   "cold_population": 2508524,
+   "rows": 10119,
+   "native_rows": 8010,
+   "native_positives": 3010,
+   "native_weight": 384443.0,
+   "weight": 2893076.0,
+   "split": "train"
+  },
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "positives": 993,
+   "contact_population": 74558,
+   "cold_population": 464189,
+   "rows": 7993,
+   "native_rows": 5988,
+   "native_positives": 988,
+   "native_weight": 75546.0,
+   "weight": 539740.0,
+   "split": "test"
+  },
+  "ID-BOF-000904_Goat": {
+   "positives": 151,
+   "contact_population": 34814,
+   "cold_population": 69505,
+   "rows": 7151,
+   "native_rows": 5145,
+   "native_positives": 145,
+   "native_weight": 34959.0,
+   "weight": 104470.0,
+   "split": "test"
+  },
+  "ID-BOF-001080_Lava": {
+   "positives": 1439,
+   "contact_population": 31425,
+   "cold_population": 1326012,
+   "rows": 8439,
+   "native_rows": 6367,
+   "native_positives": 1367,
+   "native_weight": 32792.0,
+   "weight": 1358876.0,
+   "split": "test"
+  },
+  "ID-SCF-022105_Moose": {
+   "positives": 1431,
+   "contact_population": 201362,
+   "cold_population": 366259,
+   "rows": 8431,
+   "native_rows": 6427,
+   "native_positives": 1427,
+   "native_weight": 202789.0,
+   "weight": 569052.0,
+   "split": "validation"
+  },
+  "ID-SCF-240202_RedRock": {
+   "positives": 404,
+   "contact_population": 55478,
+   "cold_population": 288569,
+   "rows": 7404,
+   "native_rows": 5397,
+   "native_positives": 397,
+   "native_weight": 55875.0,
+   "weight": 344451.0,
+   "split": "test"
+  },
+  "MT-BDF-006269_AlderCreek": {
+   "positives": 220,
+   "contact_population": 97548,
+   "cold_population": 86773,
+   "rows": 7220,
+   "native_rows": 5219,
+   "native_positives": 219,
+   "native_weight": 97767.0,
+   "weight": 184541.0,
+   "split": "train"
+  },
+  "MT-BDF-006272_TrailCreek": {
+   "positives": 862,
+   "contact_population": 303360,
+   "cold_population": 150245,
+   "rows": 7862,
+   "native_rows": 5860,
+   "native_positives": 860,
+   "native_weight": 304220.0,
+   "weight": 454467.0,
+   "split": "train"
+  },
+  "MT-LNF-000893_WestLolo": {
+   "positives": 213,
+   "contact_population": 39457,
+   "cold_population": 59442,
+   "rows": 7213,
+   "native_rows": 5213,
+   "native_positives": 213,
+   "native_weight": 39670.0,
+   "weight": 99112.0,
+   "split": "train"
+  },
+  "NM-SNF-000027_HermitsPeak": {
+   "positives": 4414,
+   "contact_population": 420751,
+   "cold_population": 2481950,
+   "rows": 11414,
+   "native_rows": 9355,
+   "native_positives": 4355,
+   "native_weight": 425106.0,
+   "weight": 2907115.0,
+   "split": "validation"
+  },
+  "OR-UMF-000659_GreenRidge": {
+   "positives": 249,
+   "contact_population": 44071,
+   "cold_population": 103928,
+   "rows": 7249,
+   "native_rows": 5244,
+   "native_positives": 244,
+   "native_weight": 44315.0,
+   "weight": 148248.0,
+   "split": "train"
+  },
+  "OR-UMP-000373_RoughPatchCpx": {
+   "positives": 301,
+   "contact_population": 79323,
+   "cold_population": 65501,
+   "rows": 7301,
+   "native_rows": 5300,
+   "native_positives": 300,
+   "native_weight": 79623.0,
+   "weight": 145125.0,
+   "split": "train"
+  },
+  "OR-UPF-000265_Jack": {
+   "positives": 118,
+   "contact_population": 10541,
+   "cold_population": 13590,
+   "rows": 7118,
+   "native_rows": 5118,
+   "native_positives": 118,
+   "native_weight": 10659.0,
+   "weight": 24249.0,
+   "split": "train"
+  },
+  "OR-UPF-000450_DevilsKnob": {
+   "positives": 509,
+   "contact_population": 58288,
+   "cold_population": 236347,
+   "rows": 7509,
+   "native_rows": 5508,
+   "native_positives": 508,
+   "native_weight": 58796.0,
+   "weight": 295144.0,
+   "split": "train"
+  },
+  "OR-WIF-220180_CedarCreek": {
+   "positives": 1496,
+   "contact_population": 305108,
+   "cold_population": 1100748,
+   "rows": 8496,
+   "native_rows": 6482,
+   "native_positives": 1482,
+   "native_weight": 306590.0,
+   "weight": 1407352.0,
+   "split": "validation"
+  },
+  "UT-ASF-100340_EastFork": {
+   "positives": 621,
+   "contact_population": 71264,
+   "cold_population": 239697,
+   "rows": 7621,
+   "native_rows": 5617,
+   "native_positives": 617,
+   "native_weight": 71881.0,
+   "weight": 311582.0,
+   "split": "train"
+  },
+  "WA-OWF-000453_SchneiderSprings": {
+   "positives": 1196,
+   "contact_population": 125236,
+   "cold_population": 267016,
+   "rows": 8196,
+   "native_rows": 6190,
+   "native_positives": 1190,
+   "native_weight": 126426.0,
+   "weight": 393448.0,
+   "split": "train"
+  },
+  "WA-SES-000173_Pioneer": {
+   "positives": 68,
+   "contact_population": 8154,
+   "cold_population": 48437,
+   "rows": 7068,
+   "native_rows": 5068,
+   "native_positives": 68,
+   "native_weight": 8222.0,
+   "weight": 56659.0,
+   "split": "test"
+  },
+  "WY-BTF-002416_FishCreek": {
+   "positives": 398,
+   "contact_population": 32156,
+   "cold_population": 384493,
+   "rows": 7398,
+   "native_rows": 5396,
+   "native_positives": 396,
+   "native_weight": 32552.0,
+   "weight": 417047.0,
+   "split": "test"
+  }
+ }
+}

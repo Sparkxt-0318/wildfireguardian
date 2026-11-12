@@ -1,0 +1,508 @@
+{
+ "source": "GOFER v0.2 GOFERC_fireProg (Zenodo 10.5281/zenodo.14642378, sha256 of GOFER.zip 96eca2e18529eb274ca94af9a730bcf1c9c6da597fb04a9b5cf9167aada451c2)",
+ "grid": "EPSG:3310, 375 m, cell-centre inclusion, cumulative",
+ "cap": "chessboard distance > 4 * gap_hours",
+ "pooled": {
+  "fires": 28,
+  "new_cells": 185278,
+  "share_beyond_cap": 0.08901758438670539,
+  "share_beyond_cap_plus_goes_pixel": 0.01248934034262028,
+  "share_d_gt_4_any_gap": 0.08901758438670539,
+  "gap_hours_values": [
+   1.0
+  ],
+  "share_beyond_cap_excluding_c651_catalogue_fires": 0.09610850692036724,
+  "fires_excluding_c651_catalogue": 18,
+  "per_fire_share_beyond_cap_median": 0.07488811885992919,
+  "per_fire_share_beyond_cap_min_max": [
+   0.006589785831960461,
+   0.2202852614896989
+  ],
+  "cells_per_hour_q50_q90_q99_max": [
+   2.0,
+   4.0,
+   12.0,
+   150.0
+  ],
+  "hourly_intervals": 4071,
+  "hourly_intervals_with_any_beyond_cap": 804
+ },
+ "per_fire": {
+  "Antelope": {
+   "year": 2021,
+   "perimeters": 942,
+   "in_c651_catalogue": true,
+   "new_cells": 4257,
+   "share_beyond_cap": 0.09090909090909091,
+   "share_d_gt_4": 0.09090909090909091,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    8.0,
+    10.0
+   ],
+   "hours_with_any_beyond_cap": 21,
+   "hourly_intervals": 115
+  },
+  "August Complex": {
+   "year": 2020,
+   "perimeters": 1465,
+   "in_c651_catalogue": true,
+   "new_cells": 30877,
+   "share_beyond_cap": 0.07581695112867183,
+   "share_d_gt_4": 0.07581695112867183,
+   "share_beyond_cap_plus_goes_pixel": 0.009489263853353629,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    10.0,
+    106.0
+   ],
+   "hours_with_any_beyond_cap": 138,
+   "hourly_intervals": 462
+  },
+  "Beckwourth Complex": {
+   "year": 2021,
+   "perimeters": 844,
+   "in_c651_catalogue": false,
+   "new_cells": 3937,
+   "share_beyond_cap": 0.08280416560833122,
+   "share_d_gt_4": 0.08280416560833122,
+   "share_beyond_cap_plus_goes_pixel": 0.007366014732029464,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    9.0,
+    18.0
+   ],
+   "hours_with_any_beyond_cap": 22,
+   "hourly_intervals": 72
+  },
+  "Bobcat": {
+   "year": 2020,
+   "perimeters": 433,
+   "in_c651_catalogue": false,
+   "new_cells": 4124,
+   "share_beyond_cap": 0.04267701260911736,
+   "share_d_gt_4": 0.04267701260911736,
+   "share_beyond_cap_plus_goes_pixel": 0.0021823472356935015,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    7.0,
+    14.0
+   ],
+   "hours_with_any_beyond_cap": 17,
+   "hourly_intervals": 132
+  },
+  "CZU Lightning Complex": {
+   "year": 2020,
+   "perimeters": 125,
+   "in_c651_catalogue": false,
+   "new_cells": 2017,
+   "share_beyond_cap": 0.13336638572136836,
+   "share_d_gt_4": 0.13336638572136836,
+   "share_beyond_cap_plus_goes_pixel": 0.014873574615765989,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    5.0,
+    37.0,
+    41.0
+   ],
+   "hours_with_any_beyond_cap": 11,
+   "hourly_intervals": 39
+  },
+  "Caldor": {
+   "year": 2021,
+   "perimeters": 620,
+   "in_c651_catalogue": false,
+   "new_cells": 7071,
+   "share_beyond_cap": 0.07580257389336728,
+   "share_d_gt_4": 0.07580257389336728,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    7.0,
+    10.0
+   ],
+   "hours_with_any_beyond_cap": 34,
+   "hourly_intervals": 188
+  },
+  "Creek": {
+   "year": 2020,
+   "perimeters": 1574,
+   "in_c651_catalogue": true,
+   "new_cells": 11481,
+   "share_beyond_cap": 0.07934848880759515,
+   "share_d_gt_4": 0.07934848880759515,
+   "share_beyond_cap_plus_goes_pixel": 0.01567807682257643,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    4.0,
+    20.0,
+    29.0
+   ],
+   "hours_with_any_beyond_cap": 41,
+   "hourly_intervals": 285
+  },
+  "Dixie": {
+   "year": 2021,
+   "perimeters": 1390,
+   "in_c651_catalogue": true,
+   "new_cells": 31242,
+   "share_beyond_cap": 0.08965495166762691,
+   "share_d_gt_4": 0.08965495166762691,
+   "share_beyond_cap_plus_goes_pixel": 0.011843031816144933,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    11.0,
+    37.0
+   ],
+   "hours_with_any_beyond_cap": 132,
+   "hourly_intervals": 563
+  },
+  "Dolan": {
+   "year": 2020,
+   "perimeters": 696,
+   "in_c651_catalogue": false,
+   "new_cells": 3556,
+   "share_beyond_cap": 0.05989876265466817,
+   "share_d_gt_4": 0.05989876265466817,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    4.0,
+    6.0,
+    9.0
+   ],
+   "hours_with_any_beyond_cap": 18,
+   "hourly_intervals": 133
+  },
+  "Glass": {
+   "year": 2020,
+   "perimeters": 189,
+   "in_c651_catalogue": false,
+   "new_cells": 2498,
+   "share_beyond_cap": 0.13610888710968774,
+   "share_d_gt_4": 0.13610888710968774,
+   "share_beyond_cap_plus_goes_pixel": 0.019615692554043235,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    5.0,
+    12.0,
+    15.0
+   ],
+   "hours_with_any_beyond_cap": 12,
+   "hourly_intervals": 44
+  },
+  "July Complex": {
+   "year": 2020,
+   "perimeters": 198,
+   "in_c651_catalogue": false,
+   "new_cells": 1214,
+   "share_beyond_cap": 0.06507413509060955,
+   "share_d_gt_4": 0.06507413509060955,
+   "share_beyond_cap_plus_goes_pixel": 0.01729818780889621,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    4.0,
+    92.0,
+    94.0
+   ],
+   "hours_with_any_beyond_cap": 7,
+   "hourly_intervals": 46
+  },
+  "KNP Complex": {
+   "year": 2021,
+   "perimeters": 633,
+   "in_c651_catalogue": false,
+   "new_cells": 2749,
+   "share_beyond_cap": 0.02328119316114951,
+   "share_d_gt_4": 0.02328119316114951,
+   "share_beyond_cap_plus_goes_pixel": 0.0065478355765733,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    6.0,
+    18.0
+   ],
+   "hours_with_any_beyond_cap": 10,
+   "hourly_intervals": 133
+  },
+  "Kincade": {
+   "year": 2019,
+   "perimeters": 134,
+   "in_c651_catalogue": false,
+   "new_cells": 2413,
+   "share_beyond_cap": 0.1226688769167012,
+   "share_d_gt_4": 0.1226688769167012,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    5.0,
+    8.0,
+    10.0
+   ],
+   "hours_with_any_beyond_cap": 14,
+   "hourly_intervals": 40
+  },
+  "LNU Lightning Complex": {
+   "year": 2020,
+   "perimeters": 270,
+   "in_c651_catalogue": false,
+   "new_cells": 10947,
+   "share_beyond_cap": 0.1794098839864803,
+   "share_d_gt_4": 0.1794098839864803,
+   "share_beyond_cap_plus_goes_pixel": 0.0534392984379282,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    7.0,
+    22.0,
+    150.0
+   ],
+   "hours_with_any_beyond_cap": 32,
+   "hourly_intervals": 113
+  },
+  "McCash": {
+   "year": 2021,
+   "perimeters": 1297,
+   "in_c651_catalogue": true,
+   "new_cells": 2875,
+   "share_beyond_cap": 0.02191304347826087,
+   "share_d_gt_4": 0.02191304347826087,
+   "share_beyond_cap_plus_goes_pixel": 0.0041739130434782605,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    7.519999999999527,
+    12.0
+   ],
+   "hours_with_any_beyond_cap": 12,
+   "hourly_intervals": 123
+  },
+  "McFarland": {
+   "year": 2021,
+   "perimeters": 637,
+   "in_c651_catalogue": false,
+   "new_cells": 4024,
+   "share_beyond_cap": 0.06187872763419483,
+   "share_d_gt_4": 0.06187872763419483,
+   "share_beyond_cap_plus_goes_pixel": 0.0007455268389662028,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    4.0,
+    7.0,
+    11.0
+   ],
+   "hours_with_any_beyond_cap": 17,
+   "hourly_intervals": 110
+  },
+  "Monument": {
+   "year": 2021,
+   "perimeters": 1168,
+   "in_c651_catalogue": true,
+   "new_cells": 6564,
+   "share_beyond_cap": 0.030469226081657527,
+   "share_d_gt_4": 0.030469226081657527,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    6.0,
+    10.0
+   ],
+   "hours_with_any_beyond_cap": 22,
+   "hourly_intervals": 206
+  },
+  "North Complex": {
+   "year": 2020,
+   "perimeters": 1075,
+   "in_c651_catalogue": true,
+   "new_cells": 9566,
+   "share_beyond_cap": 0.21179176249215972,
+   "share_d_gt_4": 0.21179176249215972,
+   "share_beyond_cap_plus_goes_pixel": 0.03888772736776082,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    7.0,
+    17.0,
+    31.0
+   ],
+   "hours_with_any_beyond_cap": 35,
+   "hourly_intervals": 153
+  },
+  "Red Salmon Complex": {
+   "year": 2020,
+   "perimeters": 1778,
+   "in_c651_catalogue": true,
+   "new_cells": 4090,
+   "share_beyond_cap": 0.022982885085574573,
+   "share_d_gt_4": 0.022982885085574573,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    5.0,
+    7.0
+   ],
+   "hours_with_any_beyond_cap": 18,
+   "hourly_intervals": 149
+  },
+  "River Complex": {
+   "year": 2021,
+   "perimeters": 1353,
+   "in_c651_catalogue": true,
+   "new_cells": 6630,
+   "share_beyond_cap": 0.06666666666666667,
+   "share_d_gt_4": 0.06666666666666667,
+   "share_beyond_cap_plus_goes_pixel": 0.011613876319758673,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    19.0,
+    56.0
+   ],
+   "hours_with_any_beyond_cap": 31,
+   "hourly_intervals": 204
+  },
+  "SCU Lightning Complex": {
+   "year": 2020,
+   "perimeters": 347,
+   "in_c651_catalogue": false,
+   "new_cells": 10846,
+   "share_beyond_cap": 0.05845472985432418,
+   "share_d_gt_4": 0.05845472985432418,
+   "share_beyond_cap_plus_goes_pixel": 0.006269592476489028,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    7.0,
+    80.0
+   ],
+   "hours_with_any_beyond_cap": 51,
+   "hourly_intervals": 154
+  },
+  "SQF Complex": {
+   "year": 2020,
+   "perimeters": 1152,
+   "in_c651_catalogue": true,
+   "new_cells": 5590,
+   "share_beyond_cap": 0.05330948121645796,
+   "share_d_gt_4": 0.05330948121645796,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    4.0,
+    7.0,
+    9.0
+   ],
+   "hours_with_any_beyond_cap": 26,
+   "hourly_intervals": 209
+  },
+  "Slater and Devil": {
+   "year": 2020,
+   "perimeters": 326,
+   "in_c651_catalogue": false,
+   "new_cells": 4960,
+   "share_beyond_cap": 0.14012096774193547,
+   "share_d_gt_4": 0.14012096774193547,
+   "share_beyond_cap_plus_goes_pixel": 0.019959677419354838,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    5.0,
+    19.0,
+    25.0
+   ],
+   "hours_with_any_beyond_cap": 24,
+   "hourly_intervals": 67
+  },
+  "Tamarack": {
+   "year": 2021,
+   "perimeters": 504,
+   "in_c651_catalogue": false,
+   "new_cells": 2660,
+   "share_beyond_cap": 0.05714285714285714,
+   "share_d_gt_4": 0.05714285714285714,
+   "share_beyond_cap_plus_goes_pixel": 0.0030075187969924814,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    7.0,
+    37.0
+   ],
+   "hours_with_any_beyond_cap": 16,
+   "hourly_intervals": 74
+  },
+  "W-5 Cold Springs": {
+   "year": 2020,
+   "perimeters": 264,
+   "in_c651_catalogue": false,
+   "new_cells": 2582,
+   "share_beyond_cap": 0.07397366382649109,
+   "share_d_gt_4": 0.07397366382649109,
+   "share_beyond_cap_plus_goes_pixel": 0.004647560030983733,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    4.0,
+    8.0,
+    14.0
+   ],
+   "hours_with_any_beyond_cap": 16,
+   "hourly_intervals": 64
+  },
+  "Walker": {
+   "year": 2019,
+   "perimeters": 193,
+   "in_c651_catalogue": false,
+   "new_cells": 1893,
+   "share_beyond_cap": 0.2202852614896989,
+   "share_d_gt_4": 0.2202852614896989,
+   "share_beyond_cap_plus_goes_pixel": 0.006339144215530904,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    6.0,
+    10.0,
+    12.0
+   ],
+   "hours_with_any_beyond_cap": 9,
+   "hourly_intervals": 27
+  },
+  "Windy": {
+   "year": 2021,
+   "perimeters": 623,
+   "in_c651_catalogue": false,
+   "new_cells": 3035,
+   "share_beyond_cap": 0.006589785831960461,
+   "share_d_gt_4": 0.006589785831960461,
+   "share_beyond_cap_plus_goes_pixel": 0.0,
+   "cells_per_hour_q50_q90_q99_max": [
+    1.0,
+    3.0,
+    4.0,
+    5.0
+   ],
+   "hours_with_any_beyond_cap": 5,
+   "hourly_intervals": 137
+  },
+  "Zogg": {
+   "year": 2020,
+   "perimeters": 71,
+   "in_c651_catalogue": false,
+   "new_cells": 1580,
+   "share_beyond_cap": 0.19556962025316454,
+   "share_d_gt_4": 0.19556962025316454,
+   "share_beyond_cap_plus_goes_pixel": 0.04240506329113924,
+   "cells_per_hour_q50_q90_q99_max": [
+    2.0,
+    7.0,
+    15.0,
+    16.0
+   ],
+   "hours_with_any_beyond_cap": 13,
+   "hourly_intervals": 29
+  }
+ }
+}

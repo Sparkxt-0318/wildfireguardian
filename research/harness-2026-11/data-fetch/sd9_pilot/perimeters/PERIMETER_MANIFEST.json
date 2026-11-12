@@ -1,0 +1,38 @@
+{
+ "shapefile_sha256": "a14f391ae0e2f75a1d218aed91ad03eb35bfc311a4909021f9fe1f6310fdf09b",
+ "created_utc": "2026-11-12T09:49:57.154020+00:00",
+ "script_sha256": "063acb240dd9f6b07727c728ae7e3010f9cfe3fa1438ad15b10222facf4b585c",
+ "events": {
+  "NM-LNF-000227_Blue2": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 17,
+   "growth_intervals_le_48h": 9,
+   "final_mapped_cells": 211,
+   "geojson_sha256": "258f5705a83903d31a2501c06c5c89d422887838f98d0f7227cb20b2a711ccd1",
+   "states_sha256": "fac7f5d1032b484a17c7c648f09da734bc2ccee2737458f02622ab0bafa1616b",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-BDF-012520_Line": {
+   "records": 40,
+   "distinct_times": 40,
+   "intervals_le_48h": 35,
+   "growth_intervals_le_48h": 14,
+   "final_mapped_cells": 1275,
+   "geojson_sha256": "5cb28064f4a6e7f8b40a87a247ad8d6c4fadd3bb28146fb7316a7300bb32ddcd",
+   "states_sha256": "7d43803d7b6587ca2acb01c4c66f5e4a3404c19edb533a0a0d2c8639bf53ca3a",
+   "survey_states_equals_builder_masks": true
+  },
+  "CA-SHF-001004_ThreeNine": {
+   "records": 20,
+   "distinct_times": 20,
+   "intervals_le_48h": 9,
+   "growth_intervals_le_48h": 6,
+   "final_mapped_cells": 88,
+   "geojson_sha256": "ac41db3972bbabac81f48f9d6fbc58e7d532ccf05681404032bc8bfe7770b8ff",
+   "states_sha256": "c6fea8220801ceabba43f8cb8766e53d4c976d8a7ef15c1c1db6e6523ea47546",
+   "survey_states_equals_builder_masks": true
+  }
+ },
+ "note": "written by research/harness-2026-11/data-fetch/build_nirops_event.py in the prepare_perimeters.py format"
+}

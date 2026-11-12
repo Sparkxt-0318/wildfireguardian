@@ -1,0 +1,41 @@
+{
+ "credits": "HPWREN (hpwren.ucsd.edu), UC San Diego",
+ "camera": "wilson-e-mobo-c",
+ "checks": [
+  {
+   "what": "GOFER-era list",
+   "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-e-mobo-c/2020/20200909/20200909_wilson-e-mobo-c_Q2.txt",
+   "status": 403
+  },
+  {
+   "what": "GOFER-era video HEAD",
+   "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-e-mobo-c/2020/20200909/Q2.mp4",
+   "status": 200,
+   "storage_class": "DEEP_ARCHIVE",
+   "bytes": "49529516"
+  },
+  {
+   "what": "recent list (positive control)",
+   "url": "https://cdn.hpwren.ucsd.edu/hpwren-cameras/wilson-e-mobo-c/2026/20261110/20261110_wilson-e-mobo-c_Q5.txt",
+   "status": 200,
+   "n_listed": 180,
+   "first": "2026-11-10T12:00:56-08:00",
+   "last": "2026-11-10T14:59:55-08:00",
+   "median_gap_s": 60
+  },
+  {
+   "what": "one recent JPEG (positive control)",
+   "url": "https://cdn.hpwren.ucsd.edu/MTA/wilson-e-mobo-c/large/20261110/Q5/1794346255.jpg",
+   "status": 200,
+   "bytes": 497852,
+   "is_jpeg": true,
+   "filename_epoch_pacific": "2026-11-10T13:30:55-08:00",
+   "last_modified": "Tue, 10 Nov 2026 21:31:03 GMT",
+   "resolution_wxh": [
+    3072,
+    2048
+   ],
+   "exif_datetime": "2026:11:10 21:30:56"
+  }
+ ]
+}

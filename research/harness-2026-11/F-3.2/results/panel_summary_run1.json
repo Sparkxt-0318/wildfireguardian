@@ -1,0 +1,722 @@
+[
+ {
+  "mission": "20220304T030000Z_FX1",
+  "region": "uljin_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 3119,
+  "instance_sha256": "c09c98c98c941b00ab1d4b46d46df0d29e729f321016266101d3b7600f689deb",
+  "generate_wall_s": 2.49,
+  "states": 12692,
+  "r_intervals": 38992,
+  "a_intervals": 39395,
+  "sipp_metrics": {
+   "pieces": 526,
+   "expansions": 512,
+   "goal_candidates": 1,
+   "successor_runs": 525
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    3119,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 1330295,
+  "bundle_sha256": "b0434b2572797abd0a3b0bebfbca7e388223aa9c44922ae353b3151a061bf38e",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 3119",
+   "wall_s": 0.293
+  }
+ },
+ {
+  "mission": "20220601T080000Z_FX1",
+  "region": "miryang_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "NO_ROUTE",
+  "T": 3601,
+  "instance_sha256": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+  "generate_wall_s": 0.187,
+  "states": 1302,
+  "r_intervals": 3791,
+  "a_intervals": 3845,
+  "sipp_metrics": {
+   "pieces": 8438,
+   "expansions": 8438,
+   "goal_candidates": 0,
+   "successor_runs": 12195
+  },
+  "recorded_sipp": [
+   [
+    "NO_ROUTE",
+    null,
+    "PROVEN_INFEASIBLE"
+   ]
+  ],
+  "bundle_bytes": 136843,
+  "bundle_sha256": "2a3333af4e633e88eb7dcd7ab4340f51db8c7ad45d60b13a862bc9b5a0ba94c7",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT NO_ROUTE 3601",
+   "wall_s": 0.036
+  }
+ },
+ {
+  "mission": "20230402T070000Z_FX1",
+  "region": "hongseong_2023",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "NO_ROUTE",
+  "T": 3601,
+  "instance_sha256": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+  "generate_wall_s": 0.041,
+  "states": 585,
+  "r_intervals": 1450,
+  "a_intervals": 1472,
+  "sipp_metrics": {
+   "pieces": 2030,
+   "expansions": 2030,
+   "goal_candidates": 0,
+   "successor_runs": 2225
+  },
+  "recorded_sipp": [
+   [
+    "NO_ROUTE",
+    null,
+    "PROVEN_INFEASIBLE"
+   ]
+  ],
+  "bundle_bytes": 61488,
+  "bundle_sha256": "5e964e568e1330d3e601e81c85fba7c1c9c095fea7771e49f9c542a98d4528cb",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT NO_ROUTE 3601",
+   "wall_s": 0.038
+  }
+ },
+ {
+  "mission": "20250323T010000Z_FX2",
+  "region": "uiseong_andong_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 2540,
+  "instance_sha256": "987a3dd4b4f5a3bf2d4f15264569b2b54a50985785515315bfe497bd7b5b327c",
+  "generate_wall_s": 4.765,
+  "states": 26548,
+  "r_intervals": 83539,
+  "a_intervals": 84255,
+  "sipp_metrics": {
+   "pieces": 347,
+   "expansions": 322,
+   "goal_candidates": 1,
+   "successor_runs": 346
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    2540,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 2928915,
+  "bundle_sha256": "082fab6385112d88c364e738905f4f05d0913f0f1db67215696bffa0b49c9016",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 2540",
+   "wall_s": 0.495
+  }
+ },
+ {
+  "mission": "20250325T190000Z_FX2",
+  "region": "yeongdeok_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 2512,
+  "instance_sha256": "1c195e4171e39fc6ec33bd3ec2c2fbf247b85aca90fb9a1a7518c5d0424e7cc2",
+  "generate_wall_s": 21.373,
+  "states": 78262,
+  "r_intervals": 119166,
+  "a_intervals": 119947,
+  "sipp_metrics": {
+   "pieces": 74597,
+   "expansions": 74338,
+   "goal_candidates": 1,
+   "successor_runs": 90559
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    2512,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 5851972,
+  "bundle_sha256": "5d98046b60eb3d62532965a7269f3543e894dab38029c4ba20a96256e15216c2",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 2512",
+   "wall_s": 1.181
+  }
+ },
+ {
+  "mission": "20220304T060000Z_FL1",
+  "region": "uljin_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 2067,
+  "instance_sha256": "3924065cae22f3f33c0a4d07b8cd1ec500b0f6df2b2f1329248d75cbf1eb4448",
+  "generate_wall_s": 1.024,
+  "states": 10410,
+  "r_intervals": 17045,
+  "a_intervals": 17175,
+  "sipp_metrics": {
+   "pieces": 1037,
+   "expansions": 960,
+   "goal_candidates": 1,
+   "successor_runs": 1037
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    2067,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 841279,
+  "bundle_sha256": "83a71223ef0012bc643142dc53ad09eb55b4e8eb0bffa1813894bce388714acc",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 2067",
+   "wall_s": 0.133
+  }
+ },
+ {
+  "mission": "20220601T020000Z_FW1",
+  "region": "miryang_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1270,
+  "instance_sha256": "44bd1b5fb4d5dc8d0a564f044c3d19021468e3e88bde2d349f36b60b82d8ae5b",
+  "generate_wall_s": 0.076,
+  "states": 2509,
+  "r_intervals": 2509,
+  "a_intervals": 2509,
+  "sipp_metrics": {
+   "pieces": 1785,
+   "expansions": 1769,
+   "goal_candidates": 1,
+   "successor_runs": 2202
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1270,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 135273,
+  "bundle_sha256": "0ed80ccd54c9f5316ffd3aac5d10d8b97395e432e5a60804c2221145483b4f8a",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1270",
+   "wall_s": 0.041
+  }
+ },
+ {
+  "mission": "20230402T140000Z_FW2",
+  "region": "hongseong_2023",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1459,
+  "instance_sha256": "a1acf09eac2f19e062a7c29474f2dc95f29e3e99040c91f24b71cf7dffb2cde7",
+  "generate_wall_s": 0.099,
+  "states": 1215,
+  "r_intervals": 6371,
+  "a_intervals": 6423,
+  "sipp_metrics": {
+   "pieces": 1119,
+   "expansions": 1084,
+   "goal_candidates": 2,
+   "successor_runs": 1122
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1459,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 173719,
+  "bundle_sha256": "8e091c1cade60b783301089ff96779ce8d7b986b0474f5b698d5c411b8402590",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1459",
+   "wall_s": 0.043
+  }
+ },
+ {
+  "mission": "20250324T090000Z_FL2",
+  "region": "uiseong_andong_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 2143,
+  "instance_sha256": "f79018bb3b82c9fbd9dbcf77cea6447d05012ec7fbc70e56eee3c650ef4d3ba4",
+  "generate_wall_s": 3.846,
+  "states": 23673,
+  "r_intervals": 71392,
+  "a_intervals": 71952,
+  "sipp_metrics": {
+   "pieces": 51612,
+   "expansions": 51332,
+   "goal_candidates": 1,
+   "successor_runs": 69073
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    2143,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 2584778,
+  "bundle_sha256": "1a0b6bf3bd86136e30509b51d9cabf43ce6169d90e694fbb46f864032dd99a32",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 2143",
+   "wall_s": 0.425
+  }
+ },
+ {
+  "mission": "20250325T230000Z_FL2",
+  "region": "yeongdeok_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1922,
+  "instance_sha256": "f6e8fd84bbeb55d11c0336552553d82521977bb52b799d82528a6caae5f4eba4",
+  "generate_wall_s": 11.208,
+  "states": 57476,
+  "r_intervals": 143550,
+  "a_intervals": 144953,
+  "sipp_metrics": {
+   "pieces": 733,
+   "expansions": 657,
+   "goal_candidates": 1,
+   "successor_runs": 732
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1922,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 6160003,
+  "bundle_sha256": "4f852a5a6dbfd5bab722cbc7f9cc1a91ea3fd88d4c0d5089ddf8c46a6eb14137",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1922",
+   "wall_s": 0.904
+  }
+ },
+ {
+  "mission": "20220304T120000Z_FW2",
+  "region": "uljin_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1655,
+  "instance_sha256": "3ef3e1692d6b48267ba56d75da16b6a3ae2bbc84454ab7c008ec4b04f3c590b1",
+  "generate_wall_s": 0.551,
+  "states": 3274,
+  "r_intervals": 8342,
+  "a_intervals": 8456,
+  "sipp_metrics": {
+   "pieces": 528,
+   "expansions": 515,
+   "goal_candidates": 1,
+   "successor_runs": 527
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1655,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 619831,
+  "bundle_sha256": "dbbc344551752a1a4d2165296807a7d0b38b8ec1807ce3bc5e7b3ccd41f16354",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1655",
+   "wall_s": 0.089
+  }
+ },
+ {
+  "mission": "20220601T080000Z_FD1",
+  "region": "miryang_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "NO_ROUTE",
+  "T": 3601,
+  "instance_sha256": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+  "generate_wall_s": 0.194,
+  "states": 1302,
+  "r_intervals": 3791,
+  "a_intervals": 3845,
+  "sipp_metrics": {
+   "pieces": 8438,
+   "expansions": 8438,
+   "goal_candidates": 0,
+   "successor_runs": 12195
+  },
+  "recorded_sipp": [
+   [
+    "NO_ROUTE",
+    null,
+    "PROVEN_INFEASIBLE"
+   ]
+  ],
+  "bundle_bytes": 138986,
+  "bundle_sha256": "931c58efb3056211979336185fc71d26de2c3aac88a943438b6b403411f66126",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT NO_ROUTE 3601",
+   "wall_s": 0.056
+  }
+ },
+ {
+  "mission": "20230402T230000Z_FD1",
+  "region": "hongseong_2023",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 531,
+  "instance_sha256": "7f7efcc524a37cfc6d49932eda2cc2d6f5096c0037d900d6c00ce6473232f3af",
+  "generate_wall_s": 0.029,
+  "states": 741,
+  "r_intervals": 1192,
+  "a_intervals": 1194,
+  "sipp_metrics": {
+   "pieces": 128,
+   "expansions": 119,
+   "goal_candidates": 1,
+   "successor_runs": 127
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    531,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 60363,
+  "bundle_sha256": "1e1b0e8d6ab26f5501c74d41c5f87e4991afc82a85f96a19d87582acbc8c2370",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 531",
+   "wall_s": 0.037
+  }
+ },
+ {
+  "mission": "20250325T170000Z_FW1",
+  "region": "uiseong_andong_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1064,
+  "instance_sha256": "ce3efc64474b184c58a3de21c7fe6bb7c156f73a5bd82f0a038dd57a44e39802",
+  "generate_wall_s": 2.162,
+  "states": 4814,
+  "r_intervals": 4814,
+  "a_intervals": 4814,
+  "sipp_metrics": {
+   "pieces": 1881,
+   "expansions": 1870,
+   "goal_candidates": 3,
+   "successor_runs": 2144
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1064,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 1205651,
+  "bundle_sha256": "8922921c35329fbe9eee39a07441b751f4fff5d350bd7debc7e7744606160f11",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1064",
+   "wall_s": 0.148
+  }
+ },
+ {
+  "mission": "20250326T080000Z_FW1",
+  "region": "yeongdeok_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 896,
+  "instance_sha256": "ebed087a48c3e5e74314c40dd3a9a0b764d94d0a8caad005fc11224fa0d49bb7",
+  "generate_wall_s": 1.628,
+  "states": 4454,
+  "r_intervals": 4454,
+  "a_intervals": 4454,
+  "sipp_metrics": {
+   "pieces": 1294,
+   "expansions": 1273,
+   "goal_candidates": 2,
+   "successor_runs": 1483
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    896,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 2941649,
+  "bundle_sha256": "a368050cef3e2f0cbf8d326eb6cec4ab1348261ef2ff23ed1305cb694f1a96e7",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 896",
+   "wall_s": 0.304
+  }
+ },
+ {
+  "mission": "20220304T030000Z_FD1",
+  "region": "uljin_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1589,
+  "instance_sha256": "36c1935dc559afc87ac3fa1102b127645ce9b1654ae998a61880976c300d39be",
+  "generate_wall_s": 2.329,
+  "states": 8909,
+  "r_intervals": 39552,
+  "a_intervals": 39989,
+  "sipp_metrics": {
+   "pieces": 229,
+   "expansions": 212,
+   "goal_candidates": 1,
+   "successor_runs": 228
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1589,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 1211857,
+  "bundle_sha256": "f2ae6afee200d5318dd8e3315db9e79d4f14182117efe9a61e32f6979ddc8d3d",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1589",
+   "wall_s": 0.186
+  }
+ },
+ {
+  "mission": "20220531T100000Z_FN1",
+  "region": "miryang_2022",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 1142,
+  "instance_sha256": "1b1fd2b7753275ce8641c577b3a4d48ca71f3ef2ffdd202f2e04ae419662725c",
+  "generate_wall_s": 0.404,
+  "states": 2997,
+  "r_intervals": 12947,
+  "a_intervals": 13150,
+  "sipp_metrics": {
+   "pieces": 275,
+   "expansions": 216,
+   "goal_candidates": 1,
+   "successor_runs": 278
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    1142,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 309044,
+  "bundle_sha256": "392accb05aa2f3de82c50d481e21033b70b266696d69f25b823d5c2b90113013",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1142",
+   "wall_s": 0.071
+  }
+ },
+ {
+  "mission": "20230402T070000Z_FN1",
+  "region": "hongseong_2023",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "NO_ROUTE",
+  "T": 3601,
+  "instance_sha256": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+  "generate_wall_s": 0.06,
+  "states": 585,
+  "r_intervals": 1450,
+  "a_intervals": 1472,
+  "sipp_metrics": {
+   "pieces": 2030,
+   "expansions": 2030,
+   "goal_candidates": 0,
+   "successor_runs": 2225
+  },
+  "recorded_sipp": [
+   [
+    "NO_ROUTE",
+    null,
+    "PROVEN_INFEASIBLE"
+   ]
+  ],
+  "bundle_bytes": 61488,
+  "bundle_sha256": "fd9462039ace1743b264c839f9ac9896b669cddcdfd48f33921ff315f1a1fc58",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT NO_ROUTE 3601",
+   "wall_s": 0.039
+  }
+ },
+ {
+  "mission": "20250323T010000Z_FD1",
+  "region": "uiseong_andong_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "ROUTE",
+  "T": 2460,
+  "instance_sha256": "8ff8c498916fc0f370cd6bc1cad4ceda72bc0d9c691cc7e951225c925c3aecb5",
+  "generate_wall_s": 1.466,
+  "states": 11037,
+  "r_intervals": 39079,
+  "a_intervals": 39334,
+  "sipp_metrics": {
+   "pieces": 444,
+   "expansions": 410,
+   "goal_candidates": 1,
+   "successor_runs": 443
+  },
+  "recorded_sipp": [
+   [
+    "ROUTE",
+    2460,
+    "CONDITIONAL_OPTIMUM"
+   ]
+  ],
+  "bundle_bytes": 1925754,
+  "bundle_sha256": "8e9f35dd9c0f2223358801b5981581e510689fb7ca9dfa027dc74cc915f52410",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT ROUTE 2460",
+   "wall_s": 0.303
+  }
+ },
+ {
+  "mission": "20250325T190000Z_FD1",
+  "region": "yeongdeok_2025",
+  "supported": true,
+  "at_issue": {
+   "origin_burning": [],
+   "dose_over_budget": {}
+  },
+  "claim": "NO_ROUTE",
+  "T": 3601,
+  "instance_sha256": "504925bf20713f2408d5c40a43aa878dfa7dfd261b39602cfa09d335eac3bc1e",
+  "generate_wall_s": 21.75,
+  "states": 88684,
+  "r_intervals": 177691,
+  "a_intervals": 179251,
+  "sipp_metrics": {
+   "pieces": 655774,
+   "expansions": 655774,
+   "goal_candidates": 0,
+   "successor_runs": 755076
+  },
+  "recorded_sipp": [
+   [
+    "NO_ROUTE",
+    null,
+    "PROVEN_INFEASIBLE"
+   ]
+  ],
+  "bundle_bytes": 6981522,
+  "bundle_sha256": "350faa24cc379ea58c5616a9f98a56fa377abe473a153ad44a9e18b4107b6199",
+  "check_py": {
+   "exit": 0,
+   "out": "ACCEPT NO_ROUTE 3601",
+   "wall_s": 1.245
+  }
+ }
+]

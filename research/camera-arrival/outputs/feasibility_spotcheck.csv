@@ -1,0 +1,10 @@
+# Camera data: HPWREN (hpwren.ucsd.edu), UC San Diego. Perimeters: GOFER v0.2, Liu et al., doi:10.5281/zenodo.14642378. DEM: AWS Terrain Tiles skadi 1-arcsec (SRTM/NED derived). Terrain line of sight only (not flame visibility); see FEASIBILITY.md.
+n,agreement,polar_vis,brute_vis,fire,site
+300,0.9966666666666667,0.12333333333333334,0.12,Bobcat,wilson
+300,0.9966666666666667,0.07666666666666666,0.08,Bobcat,chino
+300,1.0,0.03666666666666667,0.03666666666666667,Kincade,ihvy
+300,1.0,0.03,0.03,Glass,ihvy
+300,1.0,0.02,0.02,Bobcat,69bravo
+300,0.9933333333333333,0.006666666666666667,0.006666666666666667,Bobcat,dwpgm
+300,1.0,0.0033333333333333335,0.0033333333333333335,Bobcat,svct
+300,1.0,0.01,0.01,Bobcat,mlee

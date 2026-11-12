@@ -1,0 +1,100 @@
+{
+ "real_fishcreek_snapshot": {
+  "adjacent_ring1": {
+   "cells": 91,
+   "rate_q50_q90_q99_max": [
+    0.010655554798193393,
+    0.0191840757479823,
+    0.02255040479070753,
+    0.02355817581318127
+   ]
+  },
+  "ring2_to_4": {
+   "cells": 213,
+   "rate_q50_q90_q99_max": [
+    0.0008344586642176247,
+    0.004480873833133142,
+    0.009766339806869303,
+    0.01449741474537916
+   ]
+  }
+ },
+ "proxy_uniform_patches": {
+  "n_patches": 3024,
+  "total_q50_q90_q99_max": [
+   0.0749705096021529,
+   0.45027840830938454,
+   1.1897477788822468,
+   5.402103294851258
+  ],
+  "upwind_half_q50_q90_q99_max": [
+   0.04272294386919384,
+   0.4101340250868817,
+   1.1186736673702204,
+   5.148224659031257
+  ],
+  "share_total_above_0p043": 0.7476851851851852,
+  "share_total_above_1": 0.018187830687830687,
+  "top5": [
+   {
+    "temperature": 35,
+    "wind_speed": 5,
+    "wind_dir": 0.0,
+    "slope": 35,
+    "tree_cover": 0,
+    "biome": 12,
+    "total": 5.402103294851258,
+    "upwind_half": 5.148224659031257,
+    "max_single": 0.8401272892951965
+   },
+   {
+    "temperature": 35,
+    "wind_speed": 0,
+    "wind_dir": 0.0,
+    "slope": 35,
+    "tree_cover": 0,
+    "biome": 12,
+    "total": 4.161428511608392,
+    "upwind_half": 3.731205559335649,
+    "max_single": 0.504189133644104
+   },
+   {
+    "temperature": 35,
+    "wind_speed": 0,
+    "wind_dir": 1.5707963267948966,
+    "slope": 35,
+    "tree_cover": 0,
+    "biome": 12,
+    "total": 4.161428511608392,
+    "upwind_half": 3.7990925612393767,
+    "max_single": 0.504189133644104
+   },
+   {
+    "temperature": 35,
+    "wind_speed": 5,
+    "wind_dir": 0.0,
+    "slope": 15,
+    "tree_cover": 0,
+    "biome": 12,
+    "total": 4.084040231187828,
+    "upwind_half": 3.880603724392131,
+    "max_single": 0.6644585132598877
+   },
+   {
+    "temperature": 35,
+    "wind_speed": 10,
+    "wind_dir": 0.0,
+    "slope": 0,
+    "tree_cover": 0,
+    "biome": 12,
+    "total": 3.9016601901093964,
+    "upwind_half": 3.7425207105115987,
+    "max_single": 0.5906010270118713
+   }
+  ]
+ },
+ "toy_regimes_coefficient_sum_per_h": {
+  "slow": 0.043,
+  "fast": 1.0
+ }
+}
