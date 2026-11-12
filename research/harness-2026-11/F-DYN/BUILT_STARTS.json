@@ -1,5 +1,5 @@
 {
- "criterion": ">=1 routed road cell ignites or burns within 8 h in any of kriged_mean, firms_early, envelope, envelope_sound (STARTS_RULE.md @24bbad9; envelope_sound added by SOUND_ENVELOPE_RULE.md @c79c510+amendment 1)",
+ "criterion": ">=1 routed road cell ignites or burns within 8 h in any of kriged_mean, firms_early, envelope, envelope_sound (STARTS_RULE.md @24bbad9; envelope_sound added by SOUND_ENVELOPE_RULE.md @c79c510+amendment 1; envelope_ahi_bounded added by STARTS_RULE.md amendment @c9c7428)",
  "built": [
   [
    "uiseong_andong_2025",
@@ -430,385 +430,450 @@
    "kriged_mean": 50,
    "firms_early": 31,
    "envelope": 31,
-   "envelope_sound": 1246
+   "envelope_sound": 1246,
+   "envelope_ahi_bounded": 31
   },
   "uiseong_andong_2025/20250323T050000Z/rule": {
    "kriged_mean": 35,
    "firms_early": 22,
    "envelope": 24,
-   "envelope_sound": 1223
+   "envelope_sound": 1223,
+   "envelope_ahi_bounded": 24
   },
   "uiseong_andong_2025/20250323T080000Z/rule": {
    "kriged_mean": 29,
    "firms_early": 18,
    "envelope": 18,
-   "envelope_sound": 1205
+   "envelope_sound": 1205,
+   "envelope_ahi_bounded": 18
   },
   "uiseong_andong_2025/20250323T110000Z/rule": {
    "kriged_mean": 24,
    "firms_early": 22,
    "envelope": 22,
-   "envelope_sound": 1192
+   "envelope_sound": 1192,
+   "envelope_ahi_bounded": 22
   },
   "uiseong_andong_2025/20250323T140000Z/rule": {
    "kriged_mean": 25,
    "firms_early": 21,
    "envelope": 21,
-   "envelope_sound": 1184
+   "envelope_sound": 1184,
+   "envelope_ahi_bounded": 21
   },
   "uiseong_andong_2025/20250323T170000Z/rule": {
    "kriged_mean": 28,
    "firms_early": 23,
    "envelope": 23,
-   "envelope_sound": 1176
+   "envelope_sound": 1176,
+   "envelope_ahi_bounded": 23
   },
   "uiseong_andong_2025/20250323T200000Z/rule": {
    "kriged_mean": 33,
    "firms_early": 30,
    "envelope": 33,
-   "envelope_sound": 1168
+   "envelope_sound": 1168,
+   "envelope_ahi_bounded": 33
   },
   "uiseong_andong_2025/20250323T230000Z/rule": {
    "kriged_mean": 33,
    "firms_early": 44,
    "envelope": 47,
-   "envelope_sound": 1158
+   "envelope_sound": 1158,
+   "envelope_ahi_bounded": 414
   },
   "uiseong_andong_2025/20250324T020000Z/rule": {
    "kriged_mean": 32,
    "firms_early": 43,
    "envelope": 45,
-   "envelope_sound": 1145
+   "envelope_sound": 1145,
+   "envelope_ahi_bounded": 501
   },
   "uiseong_andong_2025/20250324T050000Z/rule": {
    "kriged_mean": 40,
    "firms_early": 42,
    "envelope": 50,
-   "envelope_sound": 1137
+   "envelope_sound": 1137,
+   "envelope_ahi_bounded": 493
   },
   "uiseong_andong_2025/20250324T080000Z/rule": {
    "kriged_mean": 45,
    "firms_early": 37,
    "envelope": 45,
-   "envelope_sound": 1128
+   "envelope_sound": 1128,
+   "envelope_ahi_bounded": 125
   },
   "uiseong_andong_2025/20250324T110000Z/rule": {
    "kriged_mean": 49,
    "firms_early": 51,
    "envelope": 58,
-   "envelope_sound": 1147
+   "envelope_sound": 1147,
+   "envelope_ahi_bounded": 1
   },
   "uiseong_andong_2025/20250324T140000Z/rule": {
    "kriged_mean": 60,
    "firms_early": 60,
    "envelope": 67,
-   "envelope_sound": 1132
+   "envelope_sound": 1132,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250324T170000Z/rule": {
    "kriged_mean": 66,
    "firms_early": 64,
    "envelope": 71,
-   "envelope_sound": 1113
+   "envelope_sound": 1113,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250324T200000Z/rule": {
    "kriged_mean": 85,
    "firms_early": 77,
    "envelope": 77,
-   "envelope_sound": 1098
+   "envelope_sound": 1098,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250324T230000Z/rule": {
    "kriged_mean": 94,
    "firms_early": 109,
    "envelope": 109,
-   "envelope_sound": 1110
+   "envelope_sound": 1110,
+   "envelope_ahi_bounded": 252
   },
   "uiseong_andong_2025/20250325T020000Z/rule": {
    "kriged_mean": 139,
    "firms_early": 153,
    "envelope": 153,
-   "envelope_sound": 1082
+   "envelope_sound": 1082,
+   "envelope_ahi_bounded": 454
   },
   "uiseong_andong_2025/20250325T050000Z/rule": {
    "kriged_mean": 170,
    "firms_early": 209,
    "envelope": 211,
-   "envelope_sound": 1052
+   "envelope_sound": 1052,
+   "envelope_ahi_bounded": 454
   },
   "uiseong_andong_2025/20250325T080000Z/rule": {
    "kriged_mean": 244,
    "firms_early": 253,
    "envelope": 273,
-   "envelope_sound": 1005
+   "envelope_sound": 1005,
+   "envelope_ahi_bounded": 234
   },
   "uiseong_andong_2025/20250325T110000Z/rule": {
    "kriged_mean": 560,
    "firms_early": 556,
    "envelope": 574,
-   "envelope_sound": 1071
+   "envelope_sound": 1071,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250325T140000Z/rule": {
    "kriged_mean": 538,
    "firms_early": 503,
    "envelope": 530,
-   "envelope_sound": 999
+   "envelope_sound": 999,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250325T170000Z/rule": {
    "kriged_mean": 364,
    "firms_early": 341,
    "envelope": 355,
-   "envelope_sound": 816
+   "envelope_sound": 816,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250325T200000Z/rule": {
    "kriged_mean": 29,
    "firms_early": 21,
    "envelope": 21,
-   "envelope_sound": 476
+   "envelope_sound": 476,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250325T230000Z/rule": {
    "kriged_mean": 19,
    "firms_early": 15,
    "envelope": 15,
-   "envelope_sound": 457
+   "envelope_sound": 457,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250326T020000Z/rule": {
    "kriged_mean": 22,
    "firms_early": 22,
    "envelope": 22,
-   "envelope_sound": 450
+   "envelope_sound": 450,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250326T050000Z/rule": {
    "kriged_mean": 20,
    "firms_early": 20,
    "envelope": 20,
-   "envelope_sound": 445
+   "envelope_sound": 445,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250326T080000Z/rule": {
    "kriged_mean": 10,
    "firms_early": 10,
    "envelope": 10,
-   "envelope_sound": 435
+   "envelope_sound": 435,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250326T110000Z/rule": {
    "kriged_mean": 1,
    "firms_early": 1,
    "envelope": 1,
-   "envelope_sound": 426
+   "envelope_sound": 426,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250326T140000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 425
+   "envelope_sound": 425,
+   "envelope_ahi_bounded": 0
   },
   "uiseong_andong_2025/20250323T010000Z/recorded": {
    "kriged_mean": 55,
    "firms_early": 36,
    "envelope": 36,
-   "envelope_sound": 1253
+   "envelope_sound": 1253,
+   "envelope_ahi_bounded": 36
   },
   "uiseong_andong_2025/20250324T090000Z/recorded": {
    "kriged_mean": 49,
    "firms_early": 49,
    "envelope": 57,
-   "envelope_sound": 1147
+   "envelope_sound": 1147,
+   "envelope_ahi_bounded": 9
   },
   "uiseong_andong_2025/20250325T170000Z/recorded": {
    "kriged_mean": 364,
    "firms_early": 341,
    "envelope": 355,
-   "envelope_sound": 816
+   "envelope_sound": 816,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T020000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T050000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T080000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T110000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T140000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T170000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T200000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250323T230000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 70
   },
   "yeongdeok_2025/20250324T020000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 70
   },
   "yeongdeok_2025/20250324T050000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 70
   },
   "yeongdeok_2025/20250324T080000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250324T110000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250324T140000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250324T170000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250324T200000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 757
+   "envelope_sound": 757,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250324T230000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 64,
    "envelope": 64,
-   "envelope_sound": 822
+   "envelope_sound": 822,
+   "envelope_ahi_bounded": 54
   },
   "yeongdeok_2025/20250325T020000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 64,
    "envelope": 64,
-   "envelope_sound": 822
+   "envelope_sound": 822,
+   "envelope_ahi_bounded": 233
   },
   "yeongdeok_2025/20250325T050000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 178,
    "envelope": 178,
-   "envelope_sound": 822
+   "envelope_sound": 822,
+   "envelope_ahi_bounded": 631
   },
   "yeongdeok_2025/20250325T080000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 114,
    "envelope": 178,
-   "envelope_sound": 822
+   "envelope_sound": 822,
+   "envelope_ahi_bounded": 636
   },
   "yeongdeok_2025/20250325T110000Z/rule": {
    "kriged_mean": 599,
    "firms_early": 572,
    "envelope": 636,
-   "envelope_sound": 1115
+   "envelope_sound": 1115,
+   "envelope_ahi_bounded": 449
   },
   "yeongdeok_2025/20250325T140000Z/rule": {
    "kriged_mean": 660,
    "firms_early": 492,
    "envelope": 606,
-   "envelope_sound": 1115
+   "envelope_sound": 1115,
+   "envelope_ahi_bounded": 6
   },
   "yeongdeok_2025/20250325T170000Z/rule": {
    "kriged_mean": 406,
    "firms_early": 310,
    "envelope": 378,
-   "envelope_sound": 830
+   "envelope_sound": 830,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250325T200000Z/rule": {
    "kriged_mean": 76,
    "firms_early": 51,
    "envelope": 51,
-   "envelope_sound": 492
+   "envelope_sound": 492,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250325T230000Z/rule": {
    "kriged_mean": 30,
    "firms_early": 23,
    "envelope": 23,
-   "envelope_sound": 441
+   "envelope_sound": 441,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T020000Z/rule": {
    "kriged_mean": 12,
    "firms_early": 12,
    "envelope": 12,
-   "envelope_sound": 421
+   "envelope_sound": 421,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T050000Z/rule": {
    "kriged_mean": 5,
    "firms_early": 5,
    "envelope": 5,
-   "envelope_sound": 414
+   "envelope_sound": 414,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T080000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 409
+   "envelope_sound": 409,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T110000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 409
+   "envelope_sound": 409,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T140000Z/rule": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 409
+   "envelope_sound": 409,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250325T190000Z/recorded": {
    "kriged_mean": 100,
    "firms_early": 63,
    "envelope": 65,
-   "envelope_sound": 516
+   "envelope_sound": 516,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250325T230000Z/recorded": {
    "kriged_mean": 30,
    "firms_early": 23,
    "envelope": 23,
-   "envelope_sound": 441
+   "envelope_sound": 441,
+   "envelope_ahi_bounded": 0
   },
   "yeongdeok_2025/20250326T080000Z/recorded": {
    "kriged_mean": 0,
    "firms_early": 0,
    "envelope": 0,
-   "envelope_sound": 409
+   "envelope_sound": 409,
+   "envelope_ahi_bounded": 0
   }
- }
+ },
+ "newly_built_with_envelope_ahi_bounded": 0
 }

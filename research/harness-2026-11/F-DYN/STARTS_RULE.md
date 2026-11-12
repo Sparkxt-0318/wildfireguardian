@@ -60,3 +60,23 @@ The commit that adds this file is the rule commit.
 - **Quantization.** The variant files carry no `timestamp_exact` mask. AHI scan times are not whole milliseconds in
   the stored hours (max 0.498 ms from an integer), so every cell is treated as real-valued and rounded to 1 ms, per
   QUANT_v3_1_RULE.md.
+
+### Finding after the reach computation (no packet built; decision requested)
+
+`REACH_rule_envelope_ahi_bounded.json` shows the variant is not usable as defined.
+
+- **What the rule does.** It applies t_f(pixel) as hi, and t_prev as lo, to **every** cell of a firing pixel's 2 km
+  buffered set. That is the per-cell use of a pixel-level time that AHI_RULE amendment 1 (minimum constraints only)
+  and SOUND_ENVELOPE_RULE.md §2 exclude.
+- **Effect on the grid.**
+  - 9,863 cells get hi earlier than `firms_constrained`, by a median of 10.2 h (p90 32.8 h, max 48.8 h).
+  - 2,430 cells get lo on 24 Mar 06:00–06:27 UTC, mostly from pixels already firing when the AHI window opens
+    (left-censored). Their median FIRMS-constrained hi is 25 Mar 13:06 UTC.
+- **Effect on road cells within 8 h.**
+  - Yeongdeok starts on 23–24 Mar: 70 road cells burn, where `envelope` has 0, a day before any fire reached the
+    area.
+  - From 25 Mar 11 UTC on: 0 road cells burn, where `envelope` has hundreds (Uiseong 25 Mar 11Z: 0 against 574).
+    Cells burn out before the start (end = hi + T), which is anti-conservative.
+- **Status.** The build union is unchanged (all 64 rows were already built). **No `envelope_ahi_bounded` packet is
+  built and no manifest entry is added** until the orchestrator decides to withdraw it or redefine it once, for this
+  stated reason.
