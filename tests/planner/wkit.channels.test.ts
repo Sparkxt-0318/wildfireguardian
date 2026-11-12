@@ -51,7 +51,8 @@ import {
   phoneShaped,
   agencyLike,
   checkIssuer,
-  VOICE_EN_SHELTER_POINTER,
+  englishCallDropped,
+  NO_EN_CALL_REPORT,
   namedDestination,
   type ChannelSet,
   type Reply,
@@ -88,7 +89,7 @@ beforeAll(() => {
 function residentTexts(s: ChannelSet): string[] {
   return (['ko', 'en'] as const).flatMap((l) => {
     const t = s.text[l];
-    return [t.head.script, t.voice, t.familyText, t.familyScript.join('\n')];
+    return [t.head.script, t.voice, t.familyText, t.familyScript.join('\n')].filter((x): x is string => x !== null);
   });
 }
 
@@ -399,7 +400,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       expect(R(() => validIssuer(iss as never))).toBeNull();
       const s = B(p, { nowIso: NOW, issuer: iss as never, draftDecreeCheck: true });
       expect(residentTexts(s).join('\n')).not.toMatch(/문의|Contact/);
-      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) expect(['not_supplied', 'not_in_registry']).toContain(s.decree![l][o].contact);
+      for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) expect(s.decree![l][o].produced === false ? ['no_output'] : ['not_supplied', 'not_in_registry']).toContain(s.decree![l][o].contact);
     }
   });
 
@@ -410,8 +411,8 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     for (const p of real) {
       const s = B(p, { nowIso: NOW, issuer: { agency: { ko: ISS.agency.ko }, contact: ISS.contact, forDrillOrReplay: true }, draftDecreeCheck: true });
       const en = s.text.en;
-      for (const t of [en.head.script, en.voice, en.familyText, en.familyScript.join('\n')]) expect(t).not.toContain(ISS.agency.ko);
-      for (const o of RESIDENT_OUTPUTS) expect(s.decree!.en[o].contact).toBe('no_english_name');
+      for (const t of [en.head.script, en.voice, en.familyText, en.familyScript.join('\n')]) if (t !== null) expect(t).not.toContain(ISS.agency.ko);
+      for (const o of RESIDENT_OUTPUTS) expect(s.decree!.en[o].contact).toBe(s.decree!.en[o].produced === false ? 'no_output' : 'no_english_name');
       expect(s.violations.filter((v) => v.startsWith('en.familyText'))).toEqual([]); // GSM-7 check kept, and passes
     }
   });
@@ -456,12 +457,15 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       const out: Record<string, Row> = {};
       const reasons: Record<string, number> = { not_applicable: 0, not_supplied: 0, does_not_fit: 0 };
       let withheld = 0;
+      const notProduced: Record<string, number> = {};
       for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) out[`${l}.${o}`] = { all: 0, allN: 0, app: 0, appN: 0 };
       for (const p of real) {
         const s = B(p, { nowIso: NOW, issuer: iss, draftDecreeCheck: true });
         const applicable = p.kind === 'leave_by';
         for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) {
           const r = s.decree![l][o];
+          // an output that is not produced at all (the English call, owner decision) is counted apart, not as a pass
+          if (r.produced === false) { notProduced[`${l}.${o}`] = (notProduced[`${l}.${o}`] ?? 0) + 1; continue; }
           const w = outputWithheld(s, l, o);
           withheld += +w;
           const ok = !w && r.missing.length === 0;
@@ -474,26 +478,30 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
           if (r.reasons.reason_timing === 'not_applicable') expect(applicable).toBe(false);
           for (const f of ['area_people', 'shelter', 'agency_contact'] as const) expect(r.reasons[f]).not.toBe('not_applicable');
           // the report agrees with an independent reading of the text for the agency field
-          const txt = o === 'head' ? s.text[l].head.script : o === 'familyScript' ? s.text[l].familyScript.join('\n') : s.text[l][o];
+          const txt = (o === 'head' ? s.text[l].head.script : o === 'familyScript' ? s.text[l].familyScript.join('\n') : s.text[l][o])!;
           const name = iss ? (l === 'ko' ? iss.agency.ko : iss.agency.en) : null;
           expect(r.present.includes('agency_contact')).toBe(!!name && txt.includes(name) && txt.includes(iss!.contact));
         }
       }
       const fmt = Object.fromEntries(Object.entries(out).map(([k, v]) => [k, `${v.all}/${v.allN} · ${v.app}/${v.appN}`]));
-      return { fmt, reasons, withheld };
+      return { fmt, reasons, withheld, notProduced };
     };
     const none = run(null);
     const withIss = run(ISS);
     console.log('[W6] no issuer', JSON.stringify(none));
     console.log('[W6] issuer', JSON.stringify(withIss));
     expect(none.withheld).toBe(0);
-    expect(Object.values(none.fmt).every((v) => v === '0/531 · 0/501')).toBe(true);
+    expect(Object.entries(none.fmt).every(([k, v]) => v === (k === 'en.voice' ? '0/158 · 0/128' : '0/531 · 0/501'))).toBe(true);
+    // owner decision: no English automated call at the 373 places whose shelter has no English name
+    expect(none.notProduced).toEqual({ 'en.voice': 373 });
+    expect(withIss.notProduced).toEqual({ 'en.voice': 373 });
     expect(withIss.withheld).toBe(0);
     expect(withIss.fmt).toEqual({
       'ko.head': '299/531 · 299/501', 'ko.voice': '299/531 · 299/501', 'ko.familyText': '0/531 · 0/501', 'ko.familyScript': '440/531 · 440/501',
       // owner decision (Korean shelter name in English when there is no English name): en head and family script
-      // 64 -> 431; the English automated voice call does not read Hangul (open with Iris) and stays at 64
-      'en.head': '431/531 · 431/501', 'en.voice': '64/531 · 64/501', 'en.familyText': '0/531 · 0/501', 'en.familyScript': '431/531 · 431/501',
+      // 64 -> 431. Owner decision: no English automated call where the shelter has no English name (373 places), so
+      // the English call is counted over the 158 places where it is produced (128 leave-by)
+      'en.head': '431/531 · 431/501', 'en.voice': '64/158 · 64/128', 'en.familyText': '0/531 · 0/501', 'en.familyScript': '431/531 · 431/501',
     });
     expect(DECREE_FIELDS.length).toBe(4);
   });
@@ -505,6 +513,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     const s = B(p, { nowIso: NOW, issuer: unmarked, draftDecreeCheck: true });
     expect(residentTexts(s).join('\n')).not.toContain(ISS.contact);
     for (const l of ['ko', 'en'] as const) for (const o of RESIDENT_OUTPUTS) {
+      if (s.decree![l][o].produced === false) { expect(s.decree![l][o].contact).toBe('no_output'); continue; }
       expect(s.decree![l][o].contact).toBe('replay_not_marked');
       expect(s.decree![l][o].reasons.agency_contact).toBe('not_supplied');
     }
@@ -536,7 +545,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
         expect(t.head.script.startsWith(frame)).toBe(true);
         expect(t.head.closer).toContain(OFFICIAL_FIRST[l]);
         const line = contactLine(R(() => validIssuer(ISS))!, l)!;
-        for (const [txt, first] of [[t.head.script, OFFICIAL_FIRST[l]], [t.voice, OFFICIAL_FIRST[l]], [t.familyScript.join('\n'), OFFICIAL_FIRST[l]]] as const) {
+        for (const [txt, first] of ([[t.head.script, OFFICIAL_FIRST[l]], [t.voice, OFFICIAL_FIRST[l]], [t.familyScript.join('\n'), OFFICIAL_FIRST[l]]] as const).filter((x): x is readonly [string, string] => x[0] !== null)) {
           expect(txt).toContain(first);
           if (txt.includes(line)) expect(txt.indexOf(line)).toBeGreaterThan(txt.indexOf(first));
         }
@@ -611,7 +620,7 @@ describe('W6 follow-up: agency-name guard (Mira N2) and Korean shelter names in 
         const left = ko ? t.split(ko).join('') : t;
         expect(left).not.toMatch(HANGUL);
       }
-      expect(en.voice).not.toMatch(HANGUL);
+      if (en.voice !== null) expect(en.voice).not.toMatch(HANGUL);
       expect(en.familyText).not.toMatch(HANGUL);
       if (ko && !s.destinationName!.en && en.familyScript.join('\n').includes(ko)) koNameShown += 1;
     }
@@ -667,26 +676,41 @@ describe('W6 confirmed answers (Iris / orchestrator): contact line last, voice i
     console.log('[W6] max ko head total over 531 real (opener+core+closer + contact):', max.toFixed(1), 's');
   });
 
-  it('voice interim: the English call never reads a Korean-only shelter name, points to the Korean message, reports "not supplied", and the staff report records the gap; the human-read head gets a reader note', () => {
-    let affected = 0, readerNotes = 0;
-    for (const p of real) {
+  it('owner decision: no English automated call at a place whose shelter has no English name (373 of 531 real); every English call that exists names its destination in English; the human-read head keeps the Korean name with a reader note', () => {
+    let dropped = 0, readerNotes = 0;
+    const HANGUL = /[ᄀ-ᇿ㄰-㆏가-힣]/;
+    const check = (p: MessagePlan, counted: boolean) => {
       const s = B(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
       const d = namedDestination(p);
       const koOnly = !!d && !d.en;
-      expect(s.text.en.voice.includes(VOICE_EN_SHELTER_POINTER)).toBe(koOnly);
+      expect(englishCallDropped(p)).toBe(koOnly);
+      // no English call output at all for those places: no text, a "not produced" report, no violation for it
+      expect(s.text.en.voice === null).toBe(koOnly);
+      expect(s.text.ko.voice).not.toBeNull();
       if (koOnly) {
-        affected += 1;
-        expect(s.text.en.voice).not.toContain(d!.ko);
-        expect(s.decree!.en.voice.reasons.shelter).toBe('not_supplied');
-        expect(s.text.en.staff.decree).toMatch(/Gap: the English automated voice call does not read the Korean shelter name/);
-        expect(s.text.ko.staff.decree).toMatch(/공백: 영어 자동 음성전화는/);
+        if (counted) dropped += 1;
+        expect(s.decree!.en.voice.produced).toBe(false);
+        expect(s.decree!.en.voice.contact).toBe('no_output');
+        expect(s.violations.some((v) => v.startsWith('en.voice'))).toBe(false);
+        expect(s.text.en.staff.decree).toContain(NO_EN_CALL_REPORT.en);
+        expect(s.text.ko.staff.decree).toContain(NO_EN_CALL_REPORT.ko);
+      } else {
+        // no partial call: an English call that exists for a place with a named destination names it in English and
+        // never carries Hangul, and no call ever points to "the Korean message"
+        const v = s.text.en.voice!;
+        if (d) expect(v).toContain(d.en);
+        expect(v).not.toMatch(HANGUL);
+        expect(v).not.toMatch(/Korean message|no English name/i);
+        expect(s.decree!.en.voice.produced).not.toBe(false);
       }
       const inHead = !!d && s.text.en.head.script.includes(d.ko) && !d.en;
       expect(!!s.text.en.staff.readerNote).toBe(inHead);
-      if (inHead) { readerNotes += 1; expect(s.text.en.staff.readerNote).toBe(`Reader: say the shelter name in Korean: ${d!.ko}`); }
-    }
-    console.log('[W6] English voice calls affected by the gap (Korean-only shelter, 531 real):', affected, '; reader notes on English heads:', readerNotes);
-    expect(affected).toBeGreaterThan(0);
+      if (inHead && counted) { readerNotes += 1; expect(s.text.en.staff.readerNote).toBe(`Reader: say the shelter name in Korean: ${d!.ko}`); }
+    };
+    for (const p of real) check(p, true);
+    for (const p of syn) check(p, false);
+    console.log('[W6] English automated calls not produced (shelter without an English name, 531 real):', dropped, '; reader notes on English heads:', readerNotes);
+    expect(dropped).toBe(373);
   });
 
   it('issuer form guard (Iris): agency names of the 2025 messages and standard agencies pass; adversarial names fail, including instructions ending in a valid suffix; form only', () => {
@@ -811,7 +835,8 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
   const outs = (s: ChannelSet) => residentTexts(s).join('\n');
 
   it('the committed registry holds issuing 시·군 only, each sourced and lint-clean (build-time self-test)', () => {
-    expect(AGENCY_REGISTRY.map((e) => e.ko)).toEqual(['의성군', '청송군', '안동시', '영양군']);
+    // 영덕군 added by owner decision (2026-11-12) from a secondary source, flagged in its entry
+    expect(AGENCY_REGISTRY.map((e) => e.ko)).toEqual(['의성군', '청송군', '안동시', '영양군', '영덕군']);
     for (const e of AGENCY_REGISTRY) {
       expect(e.ko).toMatch(/(시|군)$/);
       expect(e.source.trim().length).toBeGreaterThan(10);
@@ -826,7 +851,7 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
     const c = '000-000-0000';
     expect(validIssuer({ agency: { ko: ' 의성군\t' }, contact: c })).not.toBeNull();
     expect(validIssuer({ agency: { ko: '의성군'.normalize('NFD') }, contact: c })!.agency.ko).toBe('의성군');
-    for (const bad of ['의성군 지금 대피', '지금 대피 의성군', '의성군(버스 배차 완료)', '의성 군', '​의성군', '의성군​', '의‍성군', '의성郡', '경북 의성군', '의성군청', '안동시 안전재난과', '영덕군', '경상북도', '산림청']) {
+    for (const bad of ['의성군 지금 대피', '지금 대피 의성군', '의성군(버스 배차 완료)', '의성 군', '​의성군', '의성군​', '의‍성군', '의성郡', '경북 의성군', '의성군청', '안동시 안전재난과', '영덕군청', '경북 영덕군', '경상북도', '산림청']) {
       expect(validIssuer({ agency: { ko: bad }, contact: c }), bad).toBeNull();
       expect(outs(buildChannels(p(), { nowIso: NOW, issuer: { agency: { ko: bad }, contact: c, forDrillOrReplay: true } }))).not.toContain(c);
     }
@@ -869,6 +894,37 @@ describe('W6 delta after Mira PASS WITH NOTES @ 9695e26: 시·군 registry, phon
       expect(o.includes('Synthetic Office')).toBe(false);
     }
     expect(refused).toBeGreaterThan(2500);
+  });
+
+  it('owner decision: 영덕군 is registered from a SECONDARY source (the 경상북도 contact table) and says so; with an issuer record supplied, the 273 영덕 place-scenarios gain a contact line', () => {
+    const e = AGENCY_REGISTRY.find((x) => x.ko === '영덕군')!;
+    expect(e).toBeDefined();
+    expect(e.secondary).toBe(true);
+    expect(e.en).toBeNull();
+    expect(e.source).toMatch(/^SECONDARY SOURCE/);
+    expect(e.source).toContain('gb.go.kr/gbsafe/page/2406/5015.tc');
+    // every other entry is a primary source
+    for (const x of AGENCY_REGISTRY) if (x.ko !== '영덕군') expect(x.secondary).toBeUndefined();
+    const before = AGENCY_REGISTRY.filter((x) => x.ko !== '영덕군');
+    const iss = { agency: { ko: '영덕군' }, contact: '000-000-0000', forDrillOrReplay: true };
+    let n = 0, gained = 0, others = 0;
+    for (const pl of real) {
+      if (!pl.input.region.id.startsWith('yeongdeok')) continue;
+      n += 1;
+      const now = buildChannels(pl, { nowIso: NOW, issuer: iss, draftDecreeCheck: true });
+      const old = withTestRegistryOnly(before, () => buildChannels(pl, { nowIso: NOW, issuer: iss, draftDecreeCheck: true }));
+      expect(old.decree!.ko.familyScript.contact).toBe('not_in_registry');
+      expect(residentTexts(old).join('\n')).not.toContain('문의: 영덕군');
+      if (now.decree!.ko.familyScript.contact === 'included') gained += 1;
+      expect(now.text.ko.familyScript.join('\n')).toContain('문의: 영덕군 000-000-0000');
+      // no English name: no English contact line (the field is reported, not filled)
+      expect(residentTexts(now).filter((t) => /^[\x00-\x7F\n]*$/.test(t)).join('\n')).not.toContain('000-000-0000');
+      expect(now.violations).toEqual(old.violations);
+    }
+    for (const pl of real) if (!pl.input.region.id.startsWith('yeongdeok')) others += 1;
+    console.log('[W6] 영덕 place-scenarios gaining a contact line with an issuer record (531 real):', gained, 'of', n, '; other regions:', others);
+    expect(n).toBe(273);
+    expect(gained).toBe(273);
   });
 
   it('no registry override is reachable from app code: no ChannelOptions field, and nothing under planner/src calls the test-only hook', () => {
