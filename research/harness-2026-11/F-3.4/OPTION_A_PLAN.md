@@ -1,6 +1,6 @@
 # F-3.4 option A: two-tier radiation check — acceptance rule (written before anything is built or run)
 
-Written 12 Nov 2026, about 12:20 UTC, while the F-DYN profile runs. Nothing for option A exists yet: no kit, no test,
+Written 12 Nov 2026 (committed 12:12:00 UTC in 314656d; an earlier draft said "about 12:20", which was wrong), while the F-DYN profile runs. Nothing for option A exists yet: no kit, no test,
 no run. Option B (dyadic snapping) was negative (`results/option_b/`, `db2c516`, sent to Mira as REQUEST 9). If option
 A also fails this rule, the speed-up line stops and the phase profile is reported as the F-3.4 result.
 
