@@ -187,6 +187,8 @@ did not count. One setup unit cost about 10^4 sweep units.
    split of one 6 s.
    - **Setup unit:** 1 per contact-candidate edge examined, ticked **before** its `edge_occupancies` call, plus 1 per
      wait row. The old per-interval tick is removed.
+     - Mira N4, definitional: a "wait row" unit is ticked on **every** `nblock` call, including cache hits for a node
+       and length already computed. The count is deterministic either way.
    - **Sweep unit:** unchanged, (E + 1) per sweep second.
 2. **Reason codes when Z is cut:**
    - `WORK_BUDGET_SETUP`: cut during setup. Z returns `TIMEOUT` / `INCOMPLETE_CAP` with no route, no incumbent, no lower
