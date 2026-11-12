@@ -44,7 +44,8 @@ def _starts(e: F, l: F, b: F, x, H: int):
 class PacketModel:
     """Per (graph, packet): blocked start intervals of every edge, wait and issue point, per rule."""
 
-    def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None):
+    def __init__(self, graph_path, packet_dir, *, H: int | None = None, extra_blocks: dict | None = None,
+                 present_only: bool = False):
         """extra_blocks: {router cell: start second} adds a pseudo-phase [start, beyond H) to that cell under BOTH
         rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
@@ -56,11 +57,14 @@ class PacketModel:
         self.node_ids = list(self.g.node_xy)
         self.nidx = {n: i for i, n in enumerate(self.node_ids)}
         grid, H = self.g.grid, self.H
-        self.burning = set(self.pk.burning_cells)
+        self.present_only = present_only
+        self.burning = set(self.pk.present_cells) if present_only else set(self.pk.burning_cells)
         # phases per cell: router [b, x_router) (None = through horizon) and closed [b, x_exact)
         self.router_ph, self.closed_ph = {}, {}
         for s in range(self.pk.S):
             for c, (b, xe, xr, _k) in self.pk.phases[s].items():
+                if present_only and _k != "CURRENT":
+                    continue
                 self.router_ph.setdefault(c, []).append((b, None if xr >= H else xr, s))
                 self.closed_ph.setdefault(c, []).append((b, xe, s))
         self.extra_blocks = dict(extra_blocks or {})
