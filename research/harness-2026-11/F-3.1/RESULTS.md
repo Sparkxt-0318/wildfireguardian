@@ -490,7 +490,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Tier A moved shifts.** Median / max per cache: UA 03-23 100 / 100; UA 03-24 489 / 686; UA 03-25 —; YD 03-25 19Z
   107 / 107; YD 03-25 23Z and 03-26 08Z 107 / 673.
 * **Reading.**
-  * Doubling the assumed rate (8.2 → 16.4 km/h) removes 0–6 deadlines per cache and moves 19–56, typically by 15–37
+  * Doubling the assumed rate (8.2 → 16.4 km/h) removes 0–6 deadlines per cache and moves 19–56; the median shift per cache is 4–37
     minutes.
   * Tier A removes 24–56 per cache.
   * B16.4 (Iris) follows when its runs finish.
