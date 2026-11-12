@@ -1,0 +1,1 @@
+PASS 6 pages fetched in fixture; stderr lines: 6
