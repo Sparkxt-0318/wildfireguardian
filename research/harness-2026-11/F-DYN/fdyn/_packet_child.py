@@ -320,8 +320,20 @@ def main():
             Path(out, 'SUPPORT_WRITE_FAILED').write_text('consistency check failed after the support channel was applied; do not use this packet\n')
         raise SystemExit('PACKET_INCONSISTENT ' + json.dumps(chk.get('member_rows')))
     meta['packet_self_check'] = {k: chk.get(k) for k in ('consistent', 'array_path', 'member_rows')}
+    # writer identity, copied from the written packet (Richard's condition, NOREENTRY_RULE.md): BUILD_SUMMARY only
+    hz_id = json.loads((Path(out) / 'HAZARD.json').read_text())['provenance']['identity']
+    nm = json.loads((Path(out) / 'NATIVE_METADATA.json').read_text())
+    st = nm['settings']
+    here = Path(__file__).resolve().parent
+    writer_identity = {'packet_writer_sha256': hz_id['packet_writer_sha256'],
+                       'base_packet_writer_sha256': hz_id.get('base_packet_writer_sha256'),
+                       'support_writer': hz_id.get('support_writer'),
+                       'source_law_version': st.get('source_law_version') or nm['construction']['assumptions'].get('version'),
+                       'transform': st.get('fdyn', {}).get('transform', 'reopening'),
+                       'no_reentry_flux': st.get('fdyn', {}).get('no_reentry_flux'),
+                       'fdyn_builder_sha256': {n: sha(here / n) for n in ('build.py', '_packet_child.py')}}
     summ.update(region=a.region, event_id=a.event, cutoff=iso, graph_sha256=sha(a.graph), forecast_npz_sha256=sha(npz),
-                forecast_record_sha256=sha(recp), fdyn=meta, window=win, status='BUILT')
+                forecast_record_sha256=sha(recp), fdyn=meta, window=win, writer_identity=writer_identity, status='BUILT')
     with (Path(out) / 'BUILD_SUMMARY.json').open('x') as f:
         json.dump(summ, f, indent=1, default=str)
         f.write('\n')

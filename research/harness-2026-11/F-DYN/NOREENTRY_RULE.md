@@ -192,3 +192,18 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
     expires at b + H; the arm uses +∞. No journey can use those times.
 - **Feasible-departure sets.** Identical for all 2,520 (origin, destination) pairs in each variant.
 - **For Marcus.** A per-edge EB/WB comparison must be cut at H, or compare the feasible sets.
+
+### Correction: writer identity in BUILD_SUMMARY (Richard, 2026-11-12)
+
+- **What was wrong.** The builder did not write the writer identity into `BUILD_SUMMARY.json`. Only HAZARD, REPORT
+  and NATIVE_METADATA carried it, so Richard's condition ("writer identity in BUILD_SUMMARY") was **not met**, as I
+  had claimed.
+- **Fixed.** `_packet_child.py` now adds `BUILD_SUMMARY.writer_identity`:
+  - `packet_writer_sha256`, `base_packet_writer_sha256` and `support_writer`, copied from the written HAZARD identity;
+  - `source_law_version` and `transform` (`reopening` or `no_reentry/1`);
+  - `no_reentry_flux`;
+  - `fdyn_builder_sha256` of `build.py` and `_packet_child.py`.
+- **Packets unaffected.** The other packet files are unchanged. Rebuilt Yeongdeok 25T11Z h5 kriged_mean, reopening
+  and no-re-entry: HAZARD, REPORT, NATIVE_METADATA and npz sha256 are identical to the earlier builds (`6940f293`,
+  `509c3496`).
+- **Manifest unchanged.** `MANIFEST_v3_6` regenerates byte-identical.
