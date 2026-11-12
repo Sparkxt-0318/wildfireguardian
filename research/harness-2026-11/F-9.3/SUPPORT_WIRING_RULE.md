@@ -149,3 +149,24 @@ then, unknown cells in an envelope scenario are handled downstream under the thr
   - Richard's HAZARD-only path (0f96a26) was not tested.
   - Until a reader that accepts support masks exists and is verified, results on masked packets are router-only.
     They are labelled "single implementation, not independently checked".
+
+### Hannah: PASS WITH NOTES, ledger row 50 (wrapper side); notes handled
+
+- **Her checks.**
+  - Commit order verified.
+  - Default HAZARD is identical before and after the wiring in both of her environments (numpy 2.5.4 `6940f293`;
+    numpy 1.26.4 `5716c09e`).
+  - A forced child failure gives `SUPPORT_CONFLICT`, the failure marker, and no BUILD_SUMMARY.
+  - `build.py` refusals return rc 1 with no output directory.
+  - Tests: 5 + 16 + 24 pass.
+- **Note 1, environment-pinned hash.** Test 1's v3.5 hash is now a per-numpy-version table: 2.5 → `6940f293…`,
+  1.26 → `5716c09e` (prefix, hers). For an unrecorded numpy version that one assertion is skipped, and the skip is
+  printed. The all-true comparison does not depend on the environment and always runs.
+- **Note 2, interpreter.** The test now launches `build.py` with `sys.executable`, not a bare `python3`.
+- **Note 3, scope limit, now stated.** `support_args` assumes the **KFS_01 export grid (79 × 237) and
+  t0 = 2025-03-22T02:24Z**, the same constants as the F-9.3 adapters.
+  - For any other event it fails closed: the shape check runs first and raises `SUPPORT_SHAPE`.
+  - t0 is used only by the perimeter time check, and is never reached for another grid.
+  - Generalising both means deriving them from the scenario's export when a second event is wired.
+- **Note 4, failure marker.** The F-DYN child now also writes `SUPPORT_WRITE_FAILED` when the builder consistency
+  check fails after a mask was applied. Before this, only the missing BUILD_SUMMARY signalled it.

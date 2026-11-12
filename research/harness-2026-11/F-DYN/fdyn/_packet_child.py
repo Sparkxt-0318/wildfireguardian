@@ -282,6 +282,8 @@ def main():
         if not str(chk.get('array_path', '')).startswith('REFUSED'):
             raise SystemExit('HAZARD_ONLY_ARRAYS_NOT_REFUSED')
     elif not chk['consistent']:
+        if a.support_mask is not None and meta.get('support', {}).get('applied'):   # Hannah row 50 note 4
+            Path(out, 'SUPPORT_WRITE_FAILED').write_text('consistency check failed after the support channel was applied; do not use this packet\n')
         raise SystemExit('PACKET_INCONSISTENT ' + json.dumps(chk.get('member_rows')))
     meta['packet_self_check'] = {k: chk.get(k) for k in ('consistent', 'array_path', 'member_rows')}
     summ.update(region=a.region, event_id=a.event, cutoff=iso, graph_sha256=sha(a.graph), forecast_npz_sha256=sha(npz),
