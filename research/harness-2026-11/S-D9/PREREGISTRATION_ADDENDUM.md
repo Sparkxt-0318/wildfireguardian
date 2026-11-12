@@ -63,7 +63,7 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
    - **c**, ranks 31–60: the **reserved D1/D2 methods confirmatory test set**. It stays closed until every D1/D2 candidate is frozen by SHA.
    - **a**, ranks 61–120, plus every clean incident with `surveys < 20`: the **training and development pool** for D1/D2 refits.
    - **d**, ranks 121 onward: held back for later work. It stays closed.
-5. **Sizing.** 30 per confirmatory set comes from §6.3. At R's effect against persistence, power reaches 0.80 at about 20 fires. 30 gives a buffer for attrition, at 0.93 if all 30 are analysable. **At least 20 analysable fires** are required in b (analysable means inputs built and at least one positive in the 4 km band); otherwise the decision is INCONCLUSIVE. Attrition is decided before any prediction runs on the fire:
+5. **Sizing.** 30 per confirmatory set comes from §6.3. At R's effect against persistence, power reaches 0.80 at about 20 fires. 30 gives a buffer for attrition, at 0.93 if all 30 are analysable. **At least 20 analysable fires** are required in b, and likewise in c (analysable means inputs built and at least one positive in the 4 km band); otherwise the decision is INCONCLUSIVE. Attrition is decided before any prediction runs on the fire:
    - **Input-build failure** (no covariates, or a grid that cannot be aligned): the fire is replaced by the next d incident in `u` order. The replacement is logged.
    - **No positive in the band:** this is known only after labels are built. It never triggers a replacement; it only reduces the analysable count.
 6. **Independence (§1.3)** is applied after assignment. An excluded b or c fire is replaced by the next d fire in `u` order, before any prediction runs.
@@ -169,7 +169,7 @@ Superiority requires **all** of the following:
 3. **The interval against the frozen `logistic` lies below 0** (revision 9; applies to the A1 cohort decision only, not to the base protocol's 2026 rule).
 4. **For a D1/D2 candidate on part c:** the interval against `d4_wind_recal` lies below 0 (revision 13).
 5. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than that of persistence, `dilation_8h` or `logistic`.
-6. **At least 20 analysable fires** in part b (§1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
+6. **At least 20 analysable fires** in the part being scored (b or c; §1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
 
 ### 6.2 Named secondaries
 
