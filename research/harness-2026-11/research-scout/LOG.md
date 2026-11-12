@@ -583,3 +583,36 @@ Sources were opened unless marked otherwise.
   - JAXA P-Tree L2WLF (CSV every 10 min).
   - AWS noaa-gk2a-pds: L1B only.
   - The GK-2A fire product is available only from NMSC.
+
+## Batch 6 (2026-11-12)
+
+Sources were opened unless marked otherwise.
+
+**Victor: benchmark landscape**
+
+- FireGraphNet (arXiv 2610.19191) exists and already uses a sealed, pre-registered test, with a contact log and checksums. It scores binary 12 h outcomes only.
+- WiDS Datathon 2026: hidden test with censored survival scoring (C-index plus weighted Brier at 24/48/72 h), one time per fire. A constant prediction of 1.0 beat the leaderboard.
+- AFSeq: deterministic, per horizon.
+- arXiv 2603.26975: samples arrival times but does not score them with a proper score.
+- DailyWildfireCAN (2611.14207) exists; next day only.
+- New claim: censoring-aware proper scoring of per-cell arrival times, by horizon, on held-out fires, under a sealed test.
+
+**Richard: timing vs routing**
+
+- NIST TN 2252 (Camp Fire): 87% of deaths were at home; gaps from warning to burnover were 13-99 min; at least 2 of 4 exits were closed 68% of the time.
+- Blanchi et al. tables, via Haynes et al. (treesearch 60343): late evacuation accounted for 30.4% of 674 deaths.
+- Pedrógão: 30 deaths on a 400 m stretch of road.
+- Chen et al. (arXiv 2002.06198): routing changes moved lag from 1.5 h to 0.36 h on a saturated network.
+- Zhao & Wong: phased departure cut exposure by more than 90%.
+- WUI-NITY sensitivity study: losing exits added up to 51%.
+- Forrister et al. 2024 (Marshall Fire): delays vary by hours.
+- No study was found that formally separates timing effects from route effects.
+
+**Clara and Iris: law and real wording**
+
+- 재난안전법 제40조: current text, and the amended text (법률 제21834호, in force 2027-01-08) that makes evacuation-method guidance mandatory.
+- 산림재난방지법 제33조: the Forest Service may only request an evacuation order.
+- Draft 시행령 제49조②-⑦: the township head may issue orders.
+- 예규 361, 별표1/2: message classes and standard texts.
+- Real 2025 messages from 의성, 청송, 안동 and 영양 (newstapa, heraldcorp, newsis, imaeil, etoday).
+- Card-line wording review for Clara.
