@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 3, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 4, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 9 | Frozen logistic becomes an A1 decision criterion; power labelled rough; D1/D2 must emit native cumulative marginals (Iris re-assessment, orchestrator) | §5.2, §6 | Added. **This choice was made after seeing R results**, which is allowed because R is exposed |
 
 ## 0. Relation to the existing protocol
 
@@ -138,7 +139,7 @@ Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselin
 
 The score is the RPS over observation-censored arrival bins, on **all** cells of the band (not only burned cells). It is the sum over observation times of the Brier score of the cumulative marginal, which is Iris's discrete right-censored CRPS. Implemented: `sd9bench/arrival.py`.
 
-**Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus) and the covariate hosts are blocked. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. A D1/D2 predictor may carry it if its export is demonstrated on R before its own SHA freeze. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
+**Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus) and the covariate hosts are blocked. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. **Every new D1/D2 candidate must emit multi-observation cumulative marginals natively** (revision 9), so the arrival score exists for the models it was designed for. The export must be demonstrated on R before the candidate's SHA freeze. A candidate without it is not admitted to part c. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
 
 ## 6. Primary statistic and decision
 
@@ -148,14 +149,14 @@ The primary statistic is the **pooled paired Brier difference** in the 4 km band
 
 Superiority requires **all** of the following:
 1. The interval against `persistence` lies below 0.
-2. The interval against `dilation_8h` lies below 0.
-3. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than either baseline's.
-4. **At least 20 analysable fires** in part b (§1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
+2. The interval against `dilation_8h` lies below 0. Reported, but near-automatic inside the band (§6.3).
+3. **The interval against the frozen `logistic` lies below 0** (revision 9; applies to the A1 cohort decision only, not to the base protocol's 2026 rule).
+4. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than that of persistence, `dilation_8h` or `logistic`.
+5. **At least 20 analysable fires** in part b (§1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
 
 ### 6.2 Named secondaries
 
 - The **equal-fire mean** of per-fire Brier differences, with its own whole-fire interval (revision 4).
-- Paired Brier differences against `logistic`.
 - Per-fire and per-horizon paired Brier differences. These are tested, meaning an interval is reported, only in fire × horizon cells with **at least 10 positives**. Below that they are reported without an interval.
 - Skill ratios (BSS) are **descriptors, never test statistics**.
 
@@ -172,7 +173,12 @@ Method: 2,000 simulated 10-fire cohorts, resampling R's 6 fires, each analysed w
 
 | fires | 10 | 15 | 20 | 25 | 30 | 40 | 60 |
 |---|---|---|---|---|---|---|---|
-| P(interval < 0) | 0.54 | 0.68 | **0.80** | 0.88 | 0.93 | 0.98 | 1.00 |
+| P(interval < 0) vs persistence | 0.52 | 0.68 | **0.80** | 0.88 | 0.93 | 0.98 | 1.00 |
+| P(interval < 0) vs logistic | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+The current POWER.json reruns with logistic added. The persistence row's random stream changed, so its 10-fire value is 0.52 here and 0.54 in the earlier table.
+
+**Rough figure.** These powers come from resampling only 6 fires and are labelled rough. What they say is that a 10-fire cohort would probably be inconclusive for d4_wind against persistence at R's effect size.
 
 The target power is 0.80, reached at 20 fires. Each confirmatory set has 30 fires, which buffers attrition, and requires at least 20 analysable fires.
 
@@ -180,7 +186,11 @@ The target power is 0.80, reached at 20 fires. Each confirmatory set has 30 fire
 - At R's effect size, a 10-fire cohort detects an improvement over persistence only about half the time.
 - The dilation criterion is almost uninformative: dilation_8h over-predicts heavily inside the band.
 
-The decision rule is kept as the base protocol's. Logistic is added as a named secondary because it is the informative learned reference (in R it beats d4_wind on full-domain pooled Brier: 0.004859 against 0.004927).
+**Against logistic, the binding criterion (revision 9; measured on R in the 4 km band):**
+- d4_wind − logistic = **+0.000194** pooled and +0.000156 equal-fire. Only 2 of 6 fires favour d4_wind (Goat, Pioneer).
+- Simulated power for an interval below 0 is **0.00** at every cohort size from 10 to 60.
+
+**Expectation, stated before any run.** If the untouched cohort resembles R, the A1 d4_wind decision will **fail its logistic criterion**, and probably also its persistence criterion at small n. A failure is the expected, informative outcome. It is not a reason to change the rule.
 
 This power estimate treats 6 fires as the fire population, which is a strong assumption, so it is a scale estimate only.
 
