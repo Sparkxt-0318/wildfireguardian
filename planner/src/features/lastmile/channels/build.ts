@@ -19,7 +19,7 @@
  */
 import { FORBIDDEN, MODEL_NOT_LIVE, OFFICIAL_FIRST, OFFICIAL_FIRST_SMS, MODEL_NOT_LIVE_SMS, NOT_REAL, DEPARTURE_INSTRUCTION, RESIDENT_119_NOW } from '../strings';
 import { clockTimes, maskData } from '../checks';
-import { AGENCY_REGISTRY, type RegistryEntry } from './agencyRegistry';
+import { activeRegistry } from './agencyRegistry';
 import { eucKrBytes, gsm7Length, spokenSeconds, KO_SYLLABLES_PER_S, SMS_KO_MAX_BYTES, SMS_EN_MAX_GSM7 } from '../encoding';
 import { enSpokenTime, hm, koDate, koSpokenTime, enDate, kstParts, ymd } from '../compose';
 import type { MessagePlan } from '../plan';
@@ -91,8 +91,6 @@ export interface ChannelOptions {
    * English or romanised name); a Korean name is never put into an English output.
    */
   issuer?: IssuerInput | null;
-  /** registry of official issuing bodies (default: the committed AGENCY_REGISTRY); a name outside it renders no contact */
-  agencyRegistry?: readonly RegistryEntry[];
   /**
    * Report, per resident-facing output, which of the four fields of the DRAFT decree it carries (draft requirement, as
    * of the notice date 2026-11-04: 재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고 제2026-1391호,
@@ -139,8 +137,8 @@ const ONE_LINE = /^[^\r\n\t\u0000-\u001f\u007f]+$/;
  *   or a department ending (과/실/청/본부/센터/단/…), and contains no instruction / status / time word.
  * - English: every word is Capitalised (or of/and/the/for/&), the last one is an agency noun, and no word is an
  *   instruction / status / time word.
- * This checks FORM only; it cannot show the agency exists. When the caller supplies a registry of official agency
- * names (`agencyRegistry`), only names in it are accepted, which is the stronger check.
+ * This checks FORM only; it cannot show the agency exists. The committed registry (agencyRegistry.ts) decides what
+ * renders; this lint never admits a name.
  */
 const KO_PLACE_END = '(특별시|광역시|특별자치시|특별자치도|도|시|군|구|읍|면|동|리)';
 const KO_DEPT_END = '(과|실|청|본부|센터|단|국|팀|처|원|부|소|서|사무소|상황실|대|지원단|위원회)';
@@ -190,31 +188,45 @@ const AGENCY_NAME_MAX: Record<LmLang, number> = { ko: 25, en: 60 };
 const AGENCY_WORDS_MAX = 8;
 
 /** Why a supplied issuer is or is not used. */
-export type IssuerCheck = 'none' | 'invalid' | 'not_in_registry' | 'ok';
+export type IssuerCheck = 'none' | 'bad_name' | 'bad_number' | 'not_in_registry' | 'ok';
+
+/**
+ * A Korean phone number as an agency publishes it (hyphenated): landline 0AA-BBB(B)-CCCC, mobile 01X-BBB(B)-CCCC, or a
+ * representative number 1XXX-XXXX. Times, dates and bare digit runs ("18-30", "2025-03-25", "1830") never match.
+ * Emergency numbers are refused. The number is a supplied input: staff are told it is unverified.
+ */
+export function phoneShaped(n: string): boolean {
+  if (!/^(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})$/.test(n)) return false;
+  return !['112', '119', '110'].includes(n.replace(/-/g, ''));
+}
+
+/** The exact-match key: Unicode NFC and surrounding whitespace only (Iris); nothing that widens the match. */
+export function registryKey(s: string): string {
+  return s.normalize('NFC').trim();
+}
 
 /**
  * The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. ALLOWLIST: the Korean
- * name must exactly match a registry entry (orchestrator decision); the English name is used only when it equals that
- * entry's own published English name. The name-form lint (`agencyLike`) is secondary and never admits a name.
+ * name must exactly match an entry of the committed registry (orchestrator decision); the English name is used only
+ * when it equals that entry's own published English name. The name-form lint (`agencyLike`) never admits a name.
  */
-export function checkIssuer(raw: IssuerInput | null | undefined, registry: readonly RegistryEntry[] = AGENCY_REGISTRY): { status: IssuerCheck; issuer: Issuer | null; lint: boolean } {
-  if (!raw) return { status: 'none', issuer: null, lint: true };
-  if (typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return { status: 'invalid', issuer: null, lint: true };
-  const ko = raw.agency.ko.trim();
-  const contact = raw.contact.trim();
-  if (!ko || !ONE_LINE.test(ko)) return { status: 'invalid', issuer: null, lint: true };
-  // a contact number is digits with optional hyphens; emergency numbers are not an agency's contact line
-  if (!/^[0-9]+(-[0-9]+)*$/.test(contact) || contact.replace(/-/g, '').length < 3 || contact.replace(/-/g, '').length > 12) return { status: 'invalid', issuer: null, lint: true };
-  if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return { status: 'invalid', issuer: null, lint: true };
-  const entry = registry.find((e) => e.ko === ko);
-  if (!entry) return { status: 'not_in_registry', issuer: null, lint: agencyLike(ko, 'ko') };
-  const enRaw = typeof raw.agency.en === 'string' ? raw.agency.en.trim() : '';
-  const en = entry.en && enRaw === entry.en && gsm7Length(enRaw).nonGsm.length === 0 ? enRaw : null;
-  return { status: 'ok', issuer: { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true }, lint: agencyLike(ko, 'ko') && (!en || agencyLike(en, 'en')) };
+export function checkIssuer(raw: IssuerInput | null | undefined): { status: IssuerCheck; issuer: Issuer | null } {
+  const registry = activeRegistry();
+  if (!raw) return { status: 'none', issuer: null };
+  if (typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return { status: 'bad_name', issuer: null };
+  const ko = registryKey(raw.agency.ko);
+  if (!ko || !ONE_LINE.test(ko)) return { status: 'bad_name', issuer: null };
+  const entry = registry.find((e) => registryKey(e.ko) === ko);
+  if (!entry) return { status: 'not_in_registry', issuer: null };
+  const contact = raw.contact.normalize('NFC').trim();
+  if (!phoneShaped(contact)) return { status: 'bad_number', issuer: null };
+  const enRaw = typeof raw.agency.en === 'string' ? registryKey(raw.agency.en) : '';
+  const en = entry.en && enRaw === entry.en ? entry.en : null;
+  return { status: 'ok', issuer: { agency: { ko: entry.ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true } };
 }
 
-export function validIssuer(raw: IssuerInput | null | undefined, registry: readonly RegistryEntry[] = AGENCY_REGISTRY): Issuer | null {
-  return checkIssuer(raw, registry).issuer;
+export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {
+  return checkIssuer(raw).issuer;
 }
 
 /** The four fields of the draft decree (안 제49조② 1–4). */
@@ -729,7 +741,7 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
-  const checked = checkIssuer(opt.issuer, opt.agencyRegistry ?? AGENCY_REGISTRY);
+  const checked = checkIssuer(opt.issuer);
   const iss = checked.issuer;
   const contact = {} as Record<LmLang, Record<ResidentOutput, ContactStatus>>;
   for (const lang of ['ko', 'en'] as LmLang[]) {
@@ -781,13 +793,19 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       if (checked.status === 'not_in_registry')
         extra.push(
           lang === 'ko'
-            ? '문의처 없음: 입력한 기관명이 등록된 공식 기관 목록에 없습니다. 목록은 아직 일부만 담고 있으며, 기관을 추가하려면 공식 명칭과 출처가 필요합니다.'
-            : 'No contact line: the issuer is not in the registry of official issuing bodies. The registry is incomplete; adding a body needs its exact official name and a source.',
+            ? '문의처 없음 — 고칠 항목: 기관명. 입력한 기관명이 등록된 공식 발령 기관(시·군) 목록에 없습니다. 목록은 아직 일부만 담고 있으며, 기관을 추가하려면 공식 명칭과 출처가 필요합니다.'
+            : 'No contact line — field to fix: issuer name. It is not in the registry of official issuing bodies (시·군). The registry is incomplete; adding a body needs its exact official name and a source.',
         );
-      if (checked.status === 'invalid')
-        extra.push(lang === 'ko' ? '문의처 없음: 입력한 기관명 또는 연락처 형식이 올바르지 않습니다.' : 'No contact line: the supplied agency name or contact number is malformed.');
-      if (checked.status === 'ok' && !checked.lint)
-        extra.push(lang === 'ko' ? '주의: 등록 기관명이 기관명 형식 점검을 통과하지 못했습니다. 목록 항목을 확인하십시오.' : 'Warning: a registry name fails the agency-name form lint; check the registry entry.');
+      if (checked.status === 'bad_name')
+        extra.push(lang === 'ko' ? '문의처 없음 — 고칠 항목: 기관명 (비어 있거나 한 줄이 아닙니다).' : 'No contact line — field to fix: issuer name (empty or not a single line).');
+      if (checked.status === 'bad_number')
+        extra.push(
+          lang === 'ko'
+            ? '문의처 없음 — 고칠 항목: 연락처. 전화번호 형식(예: 0XX-XXX-XXXX, 1XXX-XXXX)이 아니거나 긴급번호입니다.'
+            : 'No contact line — field to fix: contact number. It is not a phone-number shape (e.g. 0XX-XXX-XXXX, 1XXX-XXXX) or it is an emergency number.',
+        );
+      if (checked.status === 'ok' && iss && contact[lang].voice === 'included')
+        extra.push(lang === 'ko' ? `문의처 번호 ${iss.contact}는 입력값이며 확인되지 않았습니다.` : `Contact number ${iss.contact} is a supplied input and is not verified.`);
       const nd = namedDestination(p);
       if (nd && !nd.en && !EN_VOICE_KOREAN_SHELTER)
         extra.push(

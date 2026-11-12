@@ -273,6 +273,32 @@ matches an entry of a committed registry of official issuing bodies**
     sourced bodies.
 - Suite 23 files / 419 tests; build:static OK.
 
+## W6 — registry delta after Mira's PASS WITH NOTES at 9695e26 (UNVERIFIED)
+- **Keyed on the issuing 시·군** (orchestrator, from Sofia's legal note). Under 재난안전법 제40조① only the
+  시장·군수·구청장 and the 지역통제단장 may order an evacuation, and the 2025 orders carried the county's tag.
+  - Registry: 의성군, 청송군, 안동시 (English "Andong City", from its own English site), 영양군. Four entries, each
+    sourced.
+  - Removed: 산림청 and 행정안전부 (not order issuers).
+  - Not added: 경상북도, 읍·면 offices (the draft 제49조⑥ is not in force), department names (only a secondary provincial
+    table so far), 영덕군 (no verbatim tag and no own-site source; its site was unreachable).
+- **Contact number (Mira N1, Iris 1):** a Korean phone shape is required: 0AA-BBB(B)-CCCC, 01X-…, or 1XXX-XXXX.
+  Times, dates and bare digits ("18-30", "2025-03-25", "1830") are refused, as are 112/119/110. A refused number gives
+  no contact line. Staff are told "field to fix: contact number", and an accepted number is labelled "supplied input,
+  not verified". Numbers never enter the registry.
+- **No override in app code (Mira N2):** `ChannelOptions.agencyRegistry` is removed. Tests use
+  `withTestRegistryOnly` (every entry needs a source), and a grep test asserts that nothing under planner/src calls it.
+- **Exact match (Iris 2):** Unicode NFC and surrounding whitespace only. These fail (test): extra text before or after,
+  NBSP inside, zero-width characters, ZWJ, the 郡 look-alike, "의성군청", "경북 의성군", and every unregistered body.
+- **Staff lines name the field to fix (Iris 5):** issuer name / contact number.
+- **Property (Iris 1):** 3,000 seeded fuzz pairs, with free text in BOTH the name and the number. Every pair that is
+  not registry name + phone shape renders no contact line, and the supplied English text never appears.
+- **Coverage, the practical cost of the rule (Iris 4):** the booth caches carry no issuer, so no real case supplies
+  one. By region: 의성군 and 안동시 are registered, so an issuer is available for 의성-안동 (3 caches, 258 place-scenarios).
+  영덕군 is not registered, so every 영덕 place-scenario (3 caches, 273) gets no contact line until 영덕군 is sourced.
+  Under Sofia's reading of the draft decree, this is a gap in the guidance as a whole for 영덕. It is reported, not
+  withheld.
+- Suite 23 files / 424 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
