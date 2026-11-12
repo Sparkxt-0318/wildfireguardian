@@ -348,7 +348,9 @@ This section supersedes the cut-2 section where they differ.
   - the members are equal and in the same order;
   - the flame law (T, R) is equal.
 - Mira also checked the per-member flame phases, with 0 mismatches, and ran a negative control.
-- The G2c wording that supersedes the cut-2 sentence (in `g2c_stage_z_refusals.json` and in Priya's PLAN):
+- The G2c wording that supersedes the cut-2 sentence (in `g2c_stage_z_refusals.json`; in Priya's PLAN on
+  `claude/priya-kit-v2` @ 699b067, and on Main only after Priya's next cut, until then Main's PLAN carries the W1
+  sentence):
   "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
   dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
   through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and the run records' kit
