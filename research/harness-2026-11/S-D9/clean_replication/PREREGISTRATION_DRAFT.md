@@ -14,7 +14,19 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 **The replication differs from A1 part c in one thing only: cleanliness.** It keeps the same label type, the same criteria and the same candidates, so a different result can be interpreted.
 
-## Timing, for the owner (provisional until Daniel's availability report)
+## Owner summary: schedule options (OWNER DECISION PENDING)
+1. **Option A, N_target = 30** (power 0.94 at the R effect, 0.42 at half of it).
+   - Tier 1 (NIROPS 2025 + 2026 to date) could likely reach 30 within weeks of the freeze. The pace is set by building the FTP perimeter series and by Open-Meteo's 5-day lag.
+   - Tier 2 (prospective) would complete after the 2027 season, around **Nov 2027**.
+2. **Option B, N_target about 90** (power about 0.87 at half the R effect; the rule in §5).
+   - Tier 1 may reach 90 from two seasons, if the FTP still holds 2025.
+   - Tier 2 needs one strong season, or two, so **about Nov 2027 to Nov 2028**.
+3. **Common to both.**
+   - Tier 2 is the confirmation, and its first fires are summer 2027.
+   - The extension rule adds one season.
+   - All dates assume about 100 analysable fires per season, an unverified extrapolation from 2020–24.
+
+## Timing, detail (provisional)
 - **Tier 1 (unseen retrospective).** It covers fires between the latest date we hold (NIROPS: 2024 season) and the freeze, that is, the 2025 season and 2026 to date, **if** a NIROPS-type product for those years is published.
   - If it is, Tier 1 could be listed, built and scored about **1–2 weeks after the freeze**. The custodian's covariate and weather fetch is the main cost.
   - Its weakness: these fires are public events, so a session could know of them from other routes. The declaration in §1 narrows this but cannot close it.
@@ -34,7 +46,27 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 5. **Every access is logged** with who, what, when and the hash.
 6. **Leak rule.** If a fire is read outside the protocol, by an unlogged read or a positive declaration, it moves to a named **"exposed" stratum**. That stratum is reported separately and never counted toward N. One leak therefore does not void the cohort.
 
-## 2. Source, window and tiers [OPEN: Daniel's availability report]
+## 2. Source, window and tiers
+
+**Availability (Daniel, 2026-11-12 15:11Z; from documentation and his own manifests, nothing fetched; items marked (u) are unverified).**
+
+| source | latest held by any session | 2025+ available? | ID-only listing | covariates (US pipeline) |
+|---|---|---|---|---|
+| **NIROPS / NIFC IR** (primary) | 2024-12-17 (Magstadt archive) | **yes**: nightly IR perimeters on the public NIFC FTP (`incident_specific_data/<GACC>/<year>_<fire>/IR`), lag about 1 day; FTP retention of past years (u) | a directory listing of fire folders, **names only** | yes: CONUS, Open-Meteo lag about 5 d, about 12.5 calls per fire |
+| FEDS | 2024 held; the archive lists 2012–2025 | yes: NRT OGC API (12-hourly), Zenodo 2025; 2026 (u) | fireID property only (u; `t` must be excluded) | yes (CONUS) |
+| WFIGS | not held as a cohort | yes, but one final or current perimeter, no progression | outFields=IrwinID,IncidentName, no geometry | yes |
+| CWFIS / NBAC, EFFIS, Australia | not held | yes (final polygons or daily hotspot perimeters) | an attribute table by ID | **no**: new grid and fuel sources needed |
+| Korea | **2025 already exposed** (FIRMS KR2025, Choi rasters, AHI, KFS to 2025-11-10) | FIRMS NRT only | – | own EPSG:5179 path |
+
+**Consequences fixed here.**
+- **The primary is NIROPS/NIFC IR, 2025 and later.** It is the same product family as the Magstadt archive that A1 uses.
+- Folder names are fire names, so the listing is run by the custodian and only salted hashes leave it (§3).
+- Building a Magstadt-equivalent perimeter series from the raw FTP files is **new engineering**. It is written by Daniel, rehearsed on exposed 2020–24 fires (the output must match the Magstadt archive), frozen by SHA, and run by the custodian.
+- Korea is excluded: 2025 is exposed.
+- Canada, the EU and Australia are not feasible without new fuel sources; they are not declared.
+- FEDS may be declared as a descriptive stratum [OPEN: owner].
+- **Expected volume.** The Magstadt archive averages about 147 incidents per season (737 over 2020–24). No part-a incident failed the ≥ 1 interval ≤ 48 h rule (Marcus, train-events build). The analysable count per season is therefore plausibly around 100, but it varies by year and is **unverified**. No CR1 count is taken before the freeze, since counting folders would be the listing itself.
+
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
   - If NIROPS yields too few fires, the fallback is a **longer window**, never another product.
   - Other perimeter products (FEDS, WFIGS, CWFIS and others) may be declared here as **separate descriptive strata**. They are never pooled.
