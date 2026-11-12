@@ -182,3 +182,34 @@ These are the sources on which a verdict or quoted number depends, ordered by pr
 9. AFSeq, arXiv 2610.38086; Gopakumar & Pannozzo, arXiv 2609.22191; arXiv 2603.26975 evaluation section (S-D9).
 10. Kuligowski et al., NIST TN 2103: the 81.4% cue figure (F-C1).
 11. Mission A numbers: LA County AAR PDF; FSRI Lahaina reports; Greenpeace Korea survey PDF (percentages); BAI audit (1 h 39 min, 41.8%); 행안부 2025-04-16 release (5 h / 8 h zones); Nocut KFS data (2 of 8 h forecast).
+
+## Batch 2 (2026-11-12, network open): sources read in full
+
+### F-3.2 certificates (Thomas): revised after reading the sources
+
+**Read:**
+
+- Zeitz, IPL 2023: https://publikationen.bibliothek.kit.edu/1000147976/148924256
+- Wimmer & von Mutius, TACAS 2020: https://home.cit.tum.de/~wimmers/papers/TA_Reachability_Certification.pdf
+- Wang & Abdulaziz: https://arxiv.org/pdf/2510.10189v2
+- SIPP-IP (Ali & Yakovlev, AAAI 2023): https://arxiv.org/pdf/2302.00776v1
+- Orda & Rom 1990: https://sites.cs.ucsb.edu/~suri/cs231/Rlist/ordaRom.pdf
+
+**What the sources show:**
+
+- **SIPP-IP Statement 1** already gives the counterexample: SIPP is incomplete when some states are non-waitable. Its fix is (vertex, waiting interval) labels with interval projection, proven complete and optimal under integer durations. Credit it.
+- **Zeitz:** SubsetSum chain whose final edge is passable only at τ = B, a window that cannot be waited out. Weakly or strongly NP-hard; pseudo-polynomial in integer ticks. The reduction transfers to mixed waitability.
+- **Orda & Rom:** under forbidden waiting, optimal paths may contain loops, or may need to be infinite. They cite Halpern 1977, where waiting is allowed only in set intervals; this is the closest model to ours.
+- **Wimmer:** the certificate is an admissible set (invariant, closed under monotone subsumption, covers the initial state, no state in F, with F a predicate on discrete states). It certifies unreachability only.
+- **Wang & Abdulaziz:** only the unsolvability direction is proved, about 18k lines of Isabelle, no experiments; optimality certificates are called "much harder".
+
+**Ideas:**
+
+1. Integer ticks, rounded conservatively.
+2. SIPP-IP labels, with subsumption by interval inclusion.
+3. A no-route certificate in Wimmer's admissible form.
+4. An optimality certificate: a witness plus unreachability of a discrete "goal-early" flag. This is the apparent contribution.
+5. Pareto subsumption on dose.
+6. An optional timed-automaton export for cross-checking with Muntac.
+
+**Downloaded material:** PDFs and extracted text are in the scout session's scratchpad `dl/` folder.
