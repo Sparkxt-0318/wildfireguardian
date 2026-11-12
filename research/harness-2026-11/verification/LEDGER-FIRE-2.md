@@ -54,6 +54,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 46 | 2026-11-12 | F-3.4 REQUEST 9 option B negative | Priya | db2c516 | snap10 20/20 +8.3%, snap6 19/20 +5.6% from rows; fresh Uljin FX1 3119 both, +22% wall; ADAPTIVE reason not reproduced (wall cap, host-dependent) | own recomputation + fresh base/snap10 runs | PASS WITH NOTES |
 | 47 | 2026-11-12 | PR #130 re-check (N1/N2 fixes) | Sofia | 31e8acf | quick check labelled unverified, not a back-test; its numbers reproduce (4-corner VF: 15.0/5.2/2.5 at E 76; 23.3/8.0/3.9 at E 118); log and body agree | diff + own VF | READY |
 | 48 | 2026-11-12 | F-3.2 W7 firms_early on v3.1 | Thomas | f5aef10 | own v3.1 build of Yeongdeok 0325T19: 180/180 py = c = claim/T, O2 0, 0 diffs vs his v3.1 and v3; arrays byte-identical to v3, only identity fields differ; his 864 all match v3 | own rebuild (Leo f40e2af) + fresh C checker + packet diff | PASS |
+| 49 | 2026-11-12 | W-KIT W6 registry-only issuer | Clara | 9695e26 | 105 adversarial names (mine + registry-name prefix/suffix, ZWSP/ZWJ/NBSP, NFD, look-alike, U+2028) x drill flag x 2 places: 0 non-registry contact lines or numbers; 419/419; build:static OK | own probe with default registry | PASS WITH NOTES |
 
 ## Notes
 
@@ -292,4 +293,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - 46: FL2 varies across runs and modes, not within the plain control.
 
 **47-48.** The staff-headline update (37fb457) was moved to Owen. Clara's dd97b42 was set aside by the orchestrator in favour of a registry-only guard, so I did not verify it. My HAZARD sha differs from Thomas's because the identity includes the absolute module path (known host difference).
+
+**49. 9695e26**:
+- N1: the contact number accepts time- or date-like strings ("18-30", "2025-03-25"), which render with 0 violations.
+- N2: a caller-supplied agencyRegistry replaces the committed registry, so any name renders. There is no app caller today.
+- smsSegments packing was not separately re-verified.
 
