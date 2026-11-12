@@ -50,3 +50,58 @@ def static_instance(inst: Instance, mode: str) -> Instance:
 def solve_static(inst: Instance, mode: str):
     """(claim, T, witness) on the static instance."""
     return solve_exact(static_instance(inst, mode))
+
+
+def snapshot(inst: Instance, s: int, t: int) -> Instance:
+    """S1 snapshot taken at second t, planning from state s at time t (rule (e) step 1)."""
+    i = copy.deepcopy(inst)
+    i.s0, i.dep = s, t
+    full = [(0, i.H)]
+    i.EB = {j: full for j, v in inst.EB.items() if v and _contains(v, t)}
+    i.WB = {n: full for n, v in inst.WB.items() if v and _contains(v, t)}
+    return i
+
+
+def solve_s3(inst: Instance, delta: int, max_replans: int = 10000):
+    """S3(delta) per DESIGN.md (e). Returns (outcome, T, executed_legs, n_plans); outcome in
+    ROUTE / VIOLATION / REFUSED / UNRESOLVED. Legality is checked against `inst` (the time-dependent model)."""
+    s, t = inst.s0, inst.dep
+    if inst.hd(s) in inst.AC and _contains(inst.AC[inst.hd(s)], t):
+        return "ROUTE", t, [], 0
+    executed, plans = [], 0
+    next_replan = t
+    while plans < max_replans:
+        claim, _, legs = solve_exact(snapshot(inst, s, t))
+        plans += 1
+        if claim != "ROUTE":
+            return "REFUSED", None, executed, plans
+        next_replan = t + delta
+        replanned = False
+        for kind, x, a, b in legs:
+            if a != t:
+                return "UNRESOLVED", None, executed, plans  # plan not contiguous with the vehicle (should not happen)
+            if kind == "E":
+                if inst.tail[x] != inst.hd(s) or (s, x) in inst.forbid or b != a + inst.D[x] or b > inst.H:
+                    return "UNRESOLVED", None, executed, plans
+                if _contains(inst.EB.get(x, []), a):
+                    executed.append((kind, x, a, b))
+                    return "VIOLATION", None, executed, plans
+                executed.append((kind, x, a, b))
+                s, t = x, b
+                if inst.head[x] in inst.AC and _contains(inst.AC[inst.head[x]], t):
+                    return "ROUTE", t, executed, plans
+                if t >= next_replan:
+                    replanned = True
+                    break
+            else:
+                n = x
+                if n != inst.hd(s) or n not in inst.waitable or b != a + 1 or b > inst.H:
+                    return "UNRESOLVED", None, executed, plans
+                if _contains(inst.WB.get(n, []), a):
+                    executed.append((kind, x, a, b))
+                    return "VIOLATION", None, executed, plans
+                executed.append((kind, x, a, b))
+                t = b
+        if not replanned:
+            return "UNRESOLVED", None, executed, plans  # plan ended without reaching an admitted goal
+    return "UNRESOLVED", None, executed, plans
