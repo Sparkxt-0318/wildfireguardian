@@ -1,4 +1,11 @@
-# Step 3 result: caps enforced promptly, Z on deterministic work budgets (in progress; G2/G2b and F-DYN pending)
+# Step 3 result: caps enforced promptly, Z on deterministic work budgets
+
+> **Known limit, stated in every Step 3 report (Iris, adopted by the orchestrator 23:43 UTC).** Work-unit counts are
+> identical on any machine. **Outcomes are deterministic only on hosts within about 1.9× of this reference host's
+> speed.** Beyond that the Z watchdog (16 s) can fire before Z's work budget does. The missions at risk are **Yeongdeok
+> 0325T19 FD1 and FX2**, whose budget-capped Z takes about 8.5 s here; FD1 would lose the LO stage that proves its
+> refusal. Each run's host-speed figure (Z sweep units per second) is recorded below. STAGE_CAP_WATCHDOG results are
+> reported apart from work-budget cuts. The fix is a separate later step (PLAN, "Step 3c").
 
 Kit `kit-v2-step3e`, branch `claude/priya-kit-v2-step3`, cut from the Step 1 tip with no Step 2 code.
 Budgets: setup 2^12 and sweep 2^28, both extrapolated (STEP3_ACCEPTANCE, "Recalibration after the B2 correction").
@@ -51,12 +58,27 @@ budget ÷ its median 6 s equivalent = 1.90; sweep = 1.21.
 - **Beside any v2-vs-frozen comparison:** Z's budgets are 1.90× (setup) and 1.21× (sweep) the median 6 s equivalents on
   this host.
 
+## Host-speed figure per run (Iris: recorded with every run; `tools/host_speed.py`, `results/step3/HOST_SPEED_G1.json`)
+
+The figure is Z sweep units per second of Z sweep wall, taken from each V2 run's own record.
+- **It is mission-specific**, because the cost per lattice state differs between graphs: 9.5–56.8 M units/s across the
+  panel (median 38.7 M). So two hosts are compared **per mission, never across missions**.
+- On this reference host, the at-risk missions ran at:
+  - yeongdeok_2025__20250325T190000Z_FD1: 55.9, 53.7 M units/s;
+  - yeongdeok_2025__20250325T190000Z_FX2: 56.0, 56.8 M units/s;
+- A host whose figure on these two missions is below about 1/1.9 of these values is outside the stated margin.
+- A fixed host-speed microbenchmark is part of the later Step 3c (Iris's preflight).
+
 ## Mira's verification (ledger 115, PASS WITH NOTES at 629ef31)
 
 - She re-ran the tests on her own kits: test_step3_work 15/15, test_step3_thomas 6 (+10 subtests), and builder +
   reasons 17 passed / 3 skipped.
-- **Second machine:** on all 20 calibration missions, every setup and sweep unit count equals all 3 of my runs
-  (FL2's full sweep is exactly 215,231,775). Unit determinism therefore holds across two machines.
+- **Second machine** (reworded per Mira, ledger 117):
+  - 17/17 completing missions: setup and sweep units are equal to all 3 of my runs.
+  - The 3 time-capped missions: setup units are equal (2,573 / 2,573 / 1,066), and FL2's full sweep, 215,231,775, equals
+    the uncapped count. My calibration runs' sweep counts on those 3 were cut at the 6 s wall, so they are not
+    comparable.
+- G2/G2b additions (89b2117): PASS as records, plus Mira's own G2 and G2b of her two FL2 runs (ledger 117).
 - FL2 end to end, 81 s, 2 runs per kit: FROZEN FEASIBLE@1922, V2 FULL_OPTIMUM_PROVEN@1922; no watchdog.
 - The panel summary, recomputed from the committed rows, is identical. `kit_identity` was not checked, because the run
   folders are not committed.
