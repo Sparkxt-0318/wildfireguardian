@@ -1,1 +1,1 @@
-PASS: fetched 32 URLs (ROOT + constructed + 1 group page), stderr lines 32
+PASS: fetched 218 constructed URLs (no index page), stderr lines 218
