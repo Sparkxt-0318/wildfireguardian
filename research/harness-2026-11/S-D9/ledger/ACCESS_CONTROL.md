@@ -42,3 +42,45 @@ Already disclosed (cohort R, US2024): Elena (S-D2) used R's NIROPS brackets to c
   - Round one, at 60a94974: Blue2, MossMountain_Chalk and Homestead_Salmon33.
   - Round two: Blue2, Line and ThreeNine.
   - All five distinct fires were part a when read, so there is no sealing effect. MossMountain_Chalk was dropped from training later by item 9; see "filters applied" above.
+- **2026-11-12, survey-timing and F5 disclosure (combined; Hannah's audit, verification ledger row 38: PASS WITH NOTES, conditional on the Q6 answers).**
+  - **(a) The original read.** At about 09:04Z Daniel ran an all-attribute read of every NIROPS shapefile record. It produced the incident tables below, with `first_utc`, `last_utc` and `days` for all 737 incidents, before the split existed. The printed output showed only 4 Electra rows (part a) and aggregates. Daniel's ACCESS_LOG is at daniel/data-fetch-3 982eb71c.
+  - **(b) Files carrying per-incident sealed timing or growth:**
+    - **F1** `data-fetch/nirops_incidents.csv`. Daniel, daniel/data-fetch (pinned 3129ad59, sha f2aae4b8…). It holds first_utc, last_utc, days and max_acres for all 737 incidents. It is now only in history.
+    - **F2** `data-fetch/nirops_incidents_v2.csv`. Daniel, 04fad9e1, on Main via #103 (sha 9cd9c260…). It holds first_utc, last_utc and days for all 737.
+    - **F3** `data-fetch/incident_metadata.csv`. Daniel, 259ef5b4, on Main (sha 5246ce8f…). It holds first, last and discovery_utc, points of origin, names and ICS-209 dates for 733 incidents, including b/c/d.
+    - **F4** `S-D9/cohort/GOFER_MATCH.csv`. Victor, fdc456b9, on Main (sha 451675c1…). It holds discovery_utc and GOFER first/last ignition times for 38 rows, 10 of them b/c/d.
+    - **F5** `camera-arrival/outputs/gofer_fires.csv` (sha 01be548a…) and `feasibility_daily_growth.csv` (sha 81e92528…). Owner session, 2026-11-11, 9ddee74a, on Main. They hold per-fire first/last perimeter time, final area and **daily area growth** for all 28 GOFER fires, including all 7 H-test fires.
+    - **Handling.** No pinned file is edited and no history is rewritten. Trimmed copies with the allowed fields only are at daniel/data-fetch-3 `allowed_fields/`.
+  - **(c) The pricing read.** `parta_price.py` read `Incident_C` and `UTC` for all records, in memory only. See the entry above (disclosure only, row 35).
+    - **Scope of the where-reads:** the v1 builder and `arrival_vs_union.py` OGR filters were evaluated inside the driver only. Nothing about non-allowlisted records reached Python.
+  - **(d) Who looked, and at what** (seven transcript-based declarations, collected by Hannah):
+    - Victor printed F1's header and 2 FIT rows, one F3 row (Dixie, FIT), filt/meta rows for 2 part-a and 2 FIT incidents, and GOFER `acres_official` and ignition hours for all 28 GOFER fires (09:49Z).
+    - Marcus formed a **pooled, qualitative** impression of b/c/d survey cadence.
+    - Hannah viewed F5 H-test rows and SmithRiverCx's discovery date during the audit.
+    - No session printed per-incident b/c/d timing values otherwise.
+    - No candidate, fit, scorer or design constant used F1–F5. The code dependency grep covered all 96 branches, and constant provenance is in `derive/CONSTANT_PROVENANCE.md`.
+  - **(e) Reconciliation of A1 §1.2.**
+    - §1.2 says the split "uses only" five fields: `Incident_C`, `surveys`, `project_status`, `shares_irwin_with_project_fire` and `year`. That holds for **ordering and part assignment** (items 1–4, `select_cohort.py`).
+    - The **membership filters**, items 8–11 and §1.3 (`apply_filters.py`, `gofer_match.py`), by pre-registered design also read **point of origin, discovery date and the survey window (`first_utc`, `last_utc`)** for all parts.
+    - Their thresholds (50 km, 30 days, 5 km) were unchanged after the runs; Hannah checked the threshold history.
+    - The field list in §1.2 was therefore **incomplete as written**. These rules decided membership only (counts from `cohort/COHORT_FINAL.csv`):
+      - §1.3 excluded 6 b/c/d incidents (b 2, c 3, d 1);
+      - item 10 removed 7 b/c/d duplicates (c 2, d 5) and 30 part-a copies;
+      - item 9 dropped 66 part-a incidents;
+      - so the timing-dependent rules changed **13** b/c/d memberships and **66** part-a ones;
+      - in addition, §1.1 (ledger, 9) and item 8 (opened duplicates, 5) excluded b/c/d incidents without timing.
+  - **(f) Tags.**
+    - **CA-SRF-000968_SmithRiverCx (part c, kept): INSPECTED (discovery date).** It is a name-only F4 row with its discovery_utc committed. It stays in c.
+    - The 9 other b/c/d rows of F4 are **INSPECTED (discovery date)**: SCULightning (b), LNULightningComplex_Hennessey and _Walbridge, Windy (c), Caldor, Dolan, McFarland, Devil, W5ColdSprings (d). All are excluded from b/c/d by the GOFER rule.
+    - **All 7 H-test fires are INSPECTED (per-fire growth and final size)**, via F5 and Victor's 09:49Z print. H stays descriptive.
+  - **(g) Standing rule (from today).**
+    - No design choice, eligibility rule, constant or candidate may use any sealed incident's `last_utc`, `days`, or a cadence or span derived from them.
+    - Anything cadence-dependent that is not yet frozen (the stratum-G rule) is set from part a only, or stays as fiat.
+    - Every future split or filter names, in its field list, every field any of its rules reads.
+  - **(h) Safeguards before part c opens.**
+    - The trimmed copies are the only metadata inputs to any further run.
+    - The leak-bound measurement (`derive/LEAK_BOUND_PLAN.md`) is run on part a and reported **before part c opens**.
+    - Part-c results are also reported by tercile of survey span.
+    - Part d's metadata is exposed in the same way, so a clean replication needs a cohort collected after today (`clean_replication/`).
+    - Every session has answered Q6, on outside-repository lookups.
+  - **Status and limitations wording.** Part c stays **confirmatory, with limitations**, conditional on the Q6 answers. Wording: *"Held-out parts b, c and d are sealed with respect to labels, perimeters and growth, but per-incident survey timing (first and last survey time, survey days), discovery dates, names and points of origin were readable before the split, and the pre-registered membership rules used discovery date, origin and survey window. No model, constant or scorer used them (audit, verification row 38). Part d is equally exposed; a clean replication uses a cohort collected after 2026-11-12."*
