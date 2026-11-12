@@ -73,3 +73,15 @@ Rules 1–5 above are unchanged and results under them stay reported as they are
 - **Timing like for like.** Search time only for every solver (baseline, router, Richard's field), same host;
   instance build/parse time reported once, separately. For F-BASE-TEN, graph construction is reported with search
   (it is the method), and separately once instrumented.
+
+## Dated addition, 2026-11-12 (b): Richard's F-3.1 field timing (rule fixed before the run)
+
+- **Command.** Richard's own, unchanged: branch `claude/f31-deadline-field` at 25352cad, run as
+  `python3 -m deadline_field.mission_timing --repeat 3` in `research/harness-2026-11/F-3.1`, on the same host as
+  the F-BASE runs. Report his `build_s` and the median of his `search_s` per mission.
+- **Not like for like.** One F-3.1 search returns the whole feasible departure set over [0, H] for the mission's
+  first destination. Its certificate rule is the router rule OR the closed whole-road rule, and it covers the contact
+  field only. Its time is therefore reported **beside** the single-departure searches, never as a ratio to them.
+- **Consistency check, fixed now.** For each mission, the mission's departure second should be in F-3.1's feasible
+  set exactly when the recorded SIPP result is ROUTE. Any mismatch is reported and explained (rule difference,
+  destination choice, or a bug), never tolerated. No timing pass rule.
