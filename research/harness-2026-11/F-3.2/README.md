@@ -156,7 +156,7 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   median 0.34 s (max 1.6 s). The 1-hour panel: C 0.015 s, Python 0.24 s (max 1.9 s).
 - **Soundness labels (manifest).** kriged_mean is "kriged mean (not a bound)". firms_early is "BRACKET-START, NOT A
   LOWER BOUND". So these certificates prove routes and no-routes in those hazards only, not against the real fire.
-- **firms_early on v3.1** (). The five packets were rebuilt from
+- **firms_early on v3.1** (`results/fdyn_certs_v31_firms_early.json`). The five packets were rebuilt from
   MANIFEST_v3_1.json (sha 1c2e73db…) argv lists at Leo f40e2af and certified at departures 0 and 7,200 s.
   - All 864 requests are accepted by both checkers (841 ROUTE, 23 NO_ROUTE), with no empty outputs, and O2
     first-origin diffs are 0.
