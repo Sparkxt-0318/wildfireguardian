@@ -79,7 +79,7 @@ def main():
         if "places" in r:
             print(r["region_start"][-24:], r["d_m"], "earlier", r["moves_earlier"], r["shift_s"], "before",
                   r["moves_before_start"], "none0", r["no_checked_route_at_d0"], "later", r["moves_later"],
-                  r.get("control_vs_kriged_mean", {}).get("places_differing", ""))
+                  (r.get("control_vs_kriged_mean") or {}).get("places_differing", ""))
         else:
             print(r)
 
