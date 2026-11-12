@@ -86,12 +86,42 @@ def run(cache_path: Path, data_root: Path):
             "origin_deadlines": widths, "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0}
 
 
+def summarize(outs: list) -> dict:
+    """Committed summary: per cache and tier, job label counts (recorded verdict -> tier label), origins losing their
+    deadline (optimistic has one, tier has none), and the deadline-width distribution optimistic - tier (seconds)."""
+    res = []
+    for d in outs:
+        tiers = {}
+        for name, _, _ in TIERS[1:]:
+            lab = Counter()
+            for r in d["jobs"]:
+                lab[r[name]] += 1
+            od = d["origin_deadlines"]
+            lost = sum(1 for x in od.values() if x["optimistic"] is not None and x[name] is None)
+            w = sorted(x["optimistic"] - x[name] for x in od.values() if x["optimistic"] is not None and x[name] is not None)
+            tiers[name] = {"job_labels": dict(lab), "jobs": len(d["jobs"]),
+                           "jobs_unresolved_frac": round(lab["unresolved"] / len(d["jobs"]), 4),
+                           "origins_with_optimistic_deadline": sum(1 for x in od.values() if x["optimistic"] is not None),
+                           "origins_losing_deadline": lost,
+                           "width_s": {"n": len(w), "n_positive": sum(x > 0 for x in w),
+                                       "median": w[len(w) // 2] if w else None, "max": w[-1] if w else None},
+                           "extra_blocked_cells": d["timing"][name]["extra_blocked_cells"]}
+        res.append({"cache_file": d["cache_file"], "cells": d["cells"], "tiers": tiers})
+    return {"what": "unknown-support three-way rule at 1 h (cert contact field). Pessimistic 'checked' = contact-feasible"
+                    " only: the dose/peak precondition for hypothetical unknown sources is NOT established.",
+            "caches": res}
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cache", type=Path)
+    ap.add_argument("--summary-from", nargs="+", type=Path, help="write the committed summary from raw outputs")
+    ap.add_argument("cache", type=Path, nargs="?")
     ap.add_argument("--data-root", type=Path, default=ROOT / "data" / "routing")
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
+    if a.summary_from:
+        a.out.write_text(json.dumps(summarize([json.loads(f.read_text()) for f in a.summary_from]), indent=1))
+        return
     out = run(a.cache.resolve(), a.data_root)
     a.out.write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps({k: out[k] for k in ("cache_file", "cells", "timing", "labels", "peak_rss_mib")}, indent=1))
