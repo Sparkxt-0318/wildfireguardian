@@ -128,7 +128,7 @@ Part c is not opened until **all** of the following hold:
 6. **Two runs, compared exactly.** Two independent scoring runs from the frozen SHAs, in separate fresh containers, are compared exactly (byte-identical score records) before any number is reported. A mismatch stops reporting until it is resolved and logged.
 
 7. **No-touch declaration at opening.** Every worker session declares that it will not build, read or derive part-b or part-c labels or perimeters until the decision is recorded. A breach moves the affected fires to an **"exposed" stratum**, which is reported separately.
-8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. *Conditional on Nora's independent check of the script (pending).*
+8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. *Conditional on Nora's independent check of the script.* The version currently cited is b9df4b5c, pending Nora's re-check after two fixes (coverage; a name leak and a crash). The final text cites the version Nora passes.
 
 The same conditions apply to opening part b. This text matches Hannah's `verification/CUSTODY_NOTE_A1.md`.
 
