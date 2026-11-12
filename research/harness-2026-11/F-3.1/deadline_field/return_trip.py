@@ -41,7 +41,7 @@ def run(graph, packet, instance):
     # one destination field at a time (memory): earliest outbound arrival per (origin, own destination)
     soft, hard = resource.getrlimit(resource.RLIMIT_AS)
     resource.setrlimit(resource.RLIMIT_AS, (_vmsize() + CAP, hard))
-    best, nc = {}, set()
+    best, nc, capped_dest = {}, set(), {}
     by_dest = {}
     for o in instance["origins"]:
         for d in o["destinations"]:
@@ -56,6 +56,7 @@ def run(graph, packet, instance):
                 w = witness(fld, pm.nidx[e], 0)
             except MemoryError:
                 nc.add(o["origin_id"])
+                capped_dest.setdefault(o["origin_id"], []).append(dn)
                 continue
             if w is not None:
                 cand = (w[0], dn, dw)
@@ -68,7 +69,11 @@ def run(graph, packet, instance):
         e, oid = o["entry_node"], o["origin_id"]
         b = best.get(oid)
         r = {"entry_node": e, "outbound_checked": b is not None or oid in nc,
-             "outbound_arrival_not_computed": b is None and oid in nc}
+             "outbound_arrival_not_computed": b is None and oid in nc,
+             # Nora row 64 note 2: a witness that hit the memory cap for one own destination while another succeeded
+             # makes the reported destination "earliest among the computed destinations" only
+             "outbound_partial_cap": b is not None and oid in nc,
+             "capped_destinations": capped_dest.get(oid, [])}
         if b:
             r.update(outbound_dest=b[1], arrival=b[0], dwell=b[2])
             need_return.setdefault(e, set()).add(b[1])

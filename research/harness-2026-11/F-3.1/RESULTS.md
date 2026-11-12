@@ -613,7 +613,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   shelter at the same departure never turns "no checked road" into "checked". This is consistent with free-flow
   routing with no congestion.
 
-## Return trips (rule `RETURN_TRIP_RULE.md`, committed first at 7e05a75; not yet verified)
+## Return trips (rule `RETURN_TRIP_RULE.md`, committed first at 7e05a75; VERIFIED WITH NOTES: Nora request #14, PASS WITH NOTES, ledger row 64)
 
 * **Label.** Model statements on scenarios (F-DYN v3.3, 5 h, kriged_mean and firms_early; not what happened). CERT
   contact field. Roads are limited to graphs_interim.
@@ -645,6 +645,24 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 * **Implementation note.** The YD runs (and the remaining runs after a memory kill) use the
   one-destination-field-at-a-time version of `return_trip.py`. The selection logic is unchanged: earliest arrival,
   ties to the lowest node id.
+
+* **Nora's checks (row 64).**
+  * UA 03-25 17Z h5 kriged_mean and firms_early, rerun with the current `return_trip.py`: counts and not-checked lists
+    identical to the committed file.
+  * All 34 `return_not_checked` cases (kriged_mean; Δ30: 4, Δ60: 14, Δ120: 16) are RELAXATION_INFEASIBLE by the kit's
+    independent checker.
+  * 3 of 8 sampled origins checked so far: every own-destination witness is INDEPENDENTLY_CERTIFIED_OPTIMAL and CLEAR,
+    and the claimed outbound destination is the argmin (259 / 52 / 4,283 s). The rest are still running.
+* **Notes from Nora, and what changed.**
+  * firms_early has 1 beyond_horizon at Δ60 as well (the file is right; my message said Δ120 only).
+  * **Partial memory caps.** If one own destination's witness hit the 2 GiB cap and another succeeded, the origin kept
+    the successful one as "earliest" without a flag. `return_trip.py` now records `outbound_partial_cap` and
+    `capped_destinations`. The committed runs predate this. Full caps (no outbound arrival at all) are recorded: 1
+    origin in YD 03-25 19Z, both variants. Partial caps in these runs are **not known**; the YD 03-25 19Z rows are to
+    be rerun with the flag.
+  * The start-tag fallback: `--start` with no INSTANCE match now raises (current code; the reviewed commit 7f657fb
+    still had the fallback).
+  * Reopening-law caveat as stated: these are research-variant packets (fixed burning duration, reopening).
 
 ## Spotting-distance envelope, 5 h (SCENARIO, not what happened; research variant: reopening packets as built; VERIFIED WITH NOTES: Nora request #17, PASS WITH NOTES, ledger row 61)
 
