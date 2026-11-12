@@ -272,6 +272,31 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
 * Real NIROPS fires sit at about 1.3× the crossing time (§3c), well inside the regime where MCEM is near unbiased.
   Fast runs in real data, however, are exactly the high-ratio case.
 
+## 3e. Displacement diagnostic on part a (Iris; unverified)
+
+`python displacement_diag.py --brackets B --sims 64` (411 s).
+
+* **Method.** For each survey interval, the farthest new-burn distance from the cutoff mapped extent (D_obs) is a
+  lower bound on displacement that does not depend on latent times. It is compared with the 95th percentile of the
+  same quantity (D_95) in 64 exact simulations of that fire's fitted MCEM kernel, started from the actual cutoff
+  state.
+* **Result** (206 intervals, 25 fires, first 240 h):
+  * **12.1% of intervals** (25, in 12 fires) have D_obs > D_95, against 5% if model reach were calibrated. They carry
+    **8.2% of new burn**.
+  * Their median ratio D_obs/D_95 is 1.63, and the largest are 2.4–3.2: KNP 5.3 km in 27 h; Line 5.0 km in 28 h;
+    Limepoint, Shoe, MudLick, SouthYaak.
+  * **The median ratio over all intervals is 0.33**: in a typical interval the fire got only a third as far as the
+    model's 95th percentile.
+  * No interval touched the grid edge (saturation flag 0).
+* **Reading (*hypothesis*):** one constant rate is **overdispersed in the wrong way**. It over-reaches on most
+  intervals and under-reaches on about 12%, which is the slow-day / run-day mixture (Sofia, Iris). It argues for a
+  run-state or frailty term on top of the corrected average rate, and for checking whether wind predicts the run
+  intervals (Victor).
+* **Caveats:**
+  * D_obs can include spot fires, new ignitions or mapping changes far from the front, not only frontal runs.
+  * No covariates; mapped extent, not flame arrival.
+  * 64 simulations give a coarse 95th percentile.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
