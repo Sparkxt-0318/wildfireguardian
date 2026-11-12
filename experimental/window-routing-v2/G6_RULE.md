@@ -77,7 +77,7 @@ For timeouts, a contradiction uses Richard's router-only field (`results/TIMEOUT
 
 ## G6a: required before the FIRST multi-hour v2 number is quoted
 
-**Sample.** Fixed by seed **20261112** with `tools/g6_select.py` (that selector is on `claude/priya-kit-v2`, not in this frozen cut, and is not yet verified); committed as `G6A_SAMPLE.json` with this rule.
+**Sample.** Fixed by seed **20261112** with `tools/g6_select.py`; committed as `G6A_SAMPLE.json` with this rule.
 
 | Stratum | Jobs | How chosen |
 |---|---|---|

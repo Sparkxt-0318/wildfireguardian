@@ -30,7 +30,9 @@ def shares(run, r):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('run', type=Path); ap.add_argument('--json', type=Path)
     a = ap.parse_args()
-    rows = [json.loads(l) for l in (a.run / 'ROWS.jsonl').read_text().splitlines() if l.strip()]
+    src = a.run / 'ROWS_REDECIDED.jsonl'   # own-module decisions (redecide.py) when present; else the recorded rows
+    rows = [json.loads(l) for l in (src if src.exists() else a.run / 'ROWS.jsonl').read_text().splitlines() if l.strip()]
+    print('rows from', src.name if src.exists() else 'ROWS.jsonl')
     for r in rows:
         r['dose_share'], r['peak_share'], r['kit_identity'] = shares(a.run, r)
     key = lambda r: '%s/%s' % (r['region'], r['case_id'])
@@ -57,6 +59,9 @@ def main():
         fp = med([r['family_peak_rss_mib'] for r in F]); vp = med([r['family_peak_rss_mib'] for r in V])
         tw['FROZEN'] += fw or 0; tw['V2'] += vw or 0
         g5m = vp is not None and vp <= 3072 and (fp is None or vp <= 1.10 * fp)
+        fr = sorted({str(r.get('unresolved_reason')) for r in F}); vr = sorted({str(r.get('unresolved_reason')) for r in V})
+        if fr != vr:
+            out.setdefault('reason_changes', []).append({'mission': m, 'frozen_reasons': fr, 'v2_reasons': vr})
         out['missions'].append({'mission': m, 'frozen': sorted(fs, key=str), 'v2': sorted(vs, key=str), 'g1': g1, 'g3': g3, 'shares': dd,
                                 'wall_frozen': fw, 'wall_v2': vw, 'peak_frozen': fp, 'peak_v2': vp, 'g5_memory': g5m})
         print('%-40s G1 %-4s G3 %-4s G5mem %-4s | F %s | V %s | wall %.1f/%.1f peak %.0f/%.0f' % (m, g1, g3, g5m, sorted(fs, key=str), sorted(vs, key=str),
@@ -72,6 +77,7 @@ def main():
     print('G1 failures %s | G3 failures %s | review %s | G5 wall ratio %.3f (%s) | G5 memory %s | kit_identity V2 %d/%d, FROZEN %d'
           % (out['g1_failures'], out['g3_failures'], out['review_changes'], out['g5_wall_ratio'] or -1, out['g5_wall'], out['g5_memory'],
              out['v2_rows_with_kit_identity'], out['v2_rows'], out['frozen_rows_with_kit_identity']))
+    print('reason changes:', out.get('reason_changes', []))
     if a.json:
         a.json.write_text(json.dumps(out, indent=1, default=str) + '\n')
 

@@ -1,0 +1,13 @@
+{
+  "candidate_id": "WFG-request-window-routing-v2-20261112",
+  "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+  },
+  "parent_candidate_id": "WFG-request-window-routing-20261029",
+  "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+  "status": "v2 development kit - NOT the frozen kit"
+}
