@@ -363,7 +363,7 @@ appears only for a result checked on the pessimistic instance) is not yet in pla
   (373 real + 91 synthetic). "Owner decision" is replaced by "a design decision of this tool" / "개발 측 결정" (Sofia: 소유자 reads
   as a property owner; 운영책임자 is a defined role in 예규 361 제7조). Residents are "recipients", never "callers".
   Korean lines as Sofia wrote them: "한국어 자동 음성전화는 (모든 장소에서) 그대로 만듭니다" (stating that it is produced), and
-  "영어 자료 가운데 대피장소 이름(한글)이 나오는 것은 이장 방송 대본과 가족 전화 대본뿐입니다."
+  "주민용 영어 자료 가운데 대피장소 이름(한글)이 나오는 것은 이장 방송 대본과 가족 전화 대본뿐입니다." ("주민용" / "resident materials" added for Mira N4: the staff reader note also carries the name)
 - Kit summary `staffSummary(plans, lang)`: "[Staff] Places with no English automated call: 373 of 531 (…)". This
   makes the gap visible as a property of the area's shelter naming (Iris).
 - Before/after comparison against Main (994abd7…) over every resident output, with an issuer, for 531 real and 600
