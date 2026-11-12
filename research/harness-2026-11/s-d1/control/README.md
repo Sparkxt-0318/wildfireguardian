@@ -43,9 +43,18 @@ It has 273 SCORED case receipts plus their npz entry files.
   (row, col), every stored cell is in the score mask, and none is initially burned.
 - `RESULTS_d4_wind.jsonl` (Owen PASS WITH NOTES; reproduces to 4.2e-7, not identical): `sample_forecast(d4_wind_seed0)` compared with the stored `p_d4_wind_seed0` over all
   1,705,079 stored cells. 471,597 cells (27.7%) are bit-identical in float32; max |Δ| = 4.2e-7; all cells valid.
-- c651_mc: run on a fixed subset, every 10th case in the script's case order. This was chosen after seeing 7
-  Wapiti cases, all bit-identical. A full run would take about 10 h on this host, about 4.6× slower per case than
-  the original host. Results will be in `RESULTS_c651_every10.jsonl`, plus the 7 early cases kept separately.
+- c651_mc (1024 trajectories, seed 0, batch 32, `pipeline.c651_monte_carlo` unchanged): **bit-identical** to the stored
+  `p_c651_mc`, max |Δ| = 0, on every cell of every case run.
+  - `RESULTS_c651_every10.jsonl` (b6db989f…): fixed subset, every 10th case in the script's case order (shards 0/20
+    and 10/20). 28 cases covering all six fires (Wapiti 6, Lava 5, Pioneer 5, Goat 4, RedRock 4, FishCreek 4);
+    175,773 cells, all bit-identical; all valid; all identity checks pass.
+  - The subset was chosen AFTER seeing the first 7 Wapiti cases of a full run, which were also all bit-identical
+    (`RESULTS_c651_first7_prior_to_subset.jsonl`, 5bb407e7…; 81,331 cells). That run was stopped because the full set
+    would take about 10 h here. One case appears in both files.
+  - Not run: the other 239 cases. The claim is for the 34 distinct cases run, not for the full 273.
+  - Cost on this host (x86-64, 2 processes × 2 threads at once): 6,768 s of model time for the 28 cases, against
+    1,698 s stored for the same cases on the original host (arm64, 2 threads), so about 4.0× slower per case here.
+    This is a host-specific end-to-end figure, including kernel evaluation.
 
 Runtimes on this host (x86-64, 4 cores): identity rebuild of 273 cases took 2 min 37 s wall. d4_wind stage took
 3 min 40 s wall (4 threads), of which 64 s is model time.
