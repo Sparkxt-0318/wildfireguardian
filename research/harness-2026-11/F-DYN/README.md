@@ -7,6 +7,44 @@
 > - Its kriging sd is 16.6–19.5 h (about 17 h median), and independent checks suggest even that is too small.
 > - Absolute arrival times are therefore not identified. The workload is a realistic moving fire for testing routing.
 
+## STATUS (read first)
+
+- **v1** (`3ced668`, 4 members, recorded window) and **v2-window** (`035681a`, packets under `packets_v2/`) are
+  **SUPERSEDED. Do not score on them.** The hazard is the recorded routing window, which omits most of the burning and
+  igniting fire. The writer's omitted-dose bound is 4,486–6,179 kJ/m² against the 100 kJ/m² limit (Nora's FAIL on v1;
+  same numbers for v2-window).
+- **v3** (current): the hazard is on the **full KFS_01 export grid**. The interim graph is the recorded roads
+  re-indexed onto that grid (`fdyn/regrid_graph.py`: same nodes, edges, ticks and turns; 0 cell mismatches over
+  167,316 segments). The writer reports `outside_sources_possible: false`, so **omitted dose = 0**.
+  - Radiation margin: reconstructed fire touches the grid edge in 5 cells; the nearest routed road node is 8.6 km
+    (Uiseong) / 9.0 km (Yeongdeok) from them.
+  - Roads outside the recorded windows are still absent. This is a road-limited interim until the OSM-built
+    un-clipped graph (blocked on the 2025-03-21 snapshot).
+- **Dose binds** on F-DYN (Nora): non-flame flux about 0.012 kW/m² over 18,000 s exceeds 100 kJ/m². Contact-only
+  reductions do not apply.
+- **Start rule** (fixed before computing): `STARTS_RULE.md`, commits `6042132` + `89d0222`. 29 starts every 3 h
+  (whole hours), both regions, 5 h and 8 h. Non-recorded starts use SYNTHETIC present-fire exports from the TOA
+  (`fdyn/synthetic_export.py`), marked in the record, the identity (`checkpoint_sha256 = SYNTHETIC-…`) and hence the
+  scenario ids. The generator reproduces the 6 recorded exports (test).
+- **Reach for every start:** `fdyn/reach_rule.py` writes `REACH_rule_<variant>.json` (kriged_mean and firms_early,
+  central, Q = 300).
+
+## Finding: the kriged mean bunches the Yeongdeok coastal run at the next satellite overpass
+
+- **Burst.** 2,983 of 10,955 footprint cells (27%) have kriged arrival in one hour, 2025-03-25 16:24–17:24 UTC.
+  There are 5,773 in the 3 h from 16:24.
+- **Detection gap.** FIRMS shows no VIIRS or MODIS detection in the grid between 05:06 UTC and 16:09 UTC on 25 March.
+  The 16:09 UTC NOAA-20 pass first-detects 579 cells.
+- **Reported timeline.** Documented accounts put the fire in Yeongdeok villages at about 18:00–21:00 KST, i.e.
+  09–12 UTC (Sofia; snippet-level sources).
+- **Reading (hypothesis):** for the coastal run the kriged mean is late by up to about 11 h. The defensible statement
+  is the detection bracket (05:06, 16:09] UTC.
+- **Effect.** With `firms_early`, fire reaches Yeongdeok roads and places from the 2025-03-24 23:00 UTC start
+  (8 h horizon) onward, about 6 h earlier than with `kriged_mean`. For example, the 03-25 08:00 UTC start at 5 h:
+  114 vs 0 road cells igniting, 13 vs 0 entry cells.
+- **Implication.** Workloads that matter for timing near the coastal run should use the bracket variants. The kriged
+  mean alone is not adequate there.
+
 ## Why
 
 The frozen 1-hour workload is close to routing around a static obstacle: 15 of 522 deadlines are set by the fire,
