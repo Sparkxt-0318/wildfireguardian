@@ -1,15 +1,13 @@
 {
- "scope": "X1 rules 0-4 (PASS_RULES.md) on 16 F-DYN v3.4 sample packets (Leo faa89c4); 15 completed here",
- "pending": [
-  "research/harness-2026-11/F-DYN/_data/packets_v34/yeongdeok_2025/20250325T230000Z_h8_envelope_burnset_central_q300: X1 did not finish within 2 runs (background limit, then a 3000 s cap); rerun in progress. Its fdyn_certs P1 fields are in fdyn_certs_v34_burnset.json (raw vs contact 0, HAZARD vs contact 0, first-origin integer instances equal, O2 0), which is NOT the full X1 rule 3 sweep."
- ],
+ "scope": "X1 rules 0-4 (PASS_RULES.md) on 16 F-DYN v3.4 sample packets (Leo faa89c4); all 16 completed",
+ "pending": [],
  "expected_beforehand": "burnset PASS, envelope REFUSED (per_cell_law_HAZARD_only marker), scalar (kriged_mean, firms_early) PASS",
  "summary": {
-  "PASS": 11,
+  "PASS": 12,
   "REFUSED": 4,
   "FAIL_other": 0,
-  "instances_equal": 1908,
-  "instances_compared": 1908
+  "instances_equal": 2088,
+  "instances_compared": 2088
  },
  "rows": [
   {
@@ -245,6 +243,28 @@
    "active_hazard": 676,
    "REFUSED": "20250325T230000Z_h8_envelope_central_q300: per_cell_law_HAZARD_only set; the per-cell law is in HAZARD.json only, the arrays are not a routable hazard",
    "PASS": false
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v34/yeongdeok_2025/20250325T230000Z_h8_envelope_burnset_central_q300",
+   "variant": "envelope_burnset",
+   "region": "yeongdeok_2025",
+   "start": "20250325T230000Z",
+   "writer": {
+    "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+   },
+   "active_hazard": 16176,
+   "active_contact": 16176,
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 16176,
+   "end_within_1us": 0,
+   "other": 0,
+   "instances_equal": 180,
+   "instances_compared": 180,
+   "raw_vs_contact": 0,
+   "origins_from": "20250325T230000Z",
+   "PASS": true
   }
- ]
+ ],
+ "run_note": "15 rows from the first run; the yeongdeok h8 envelope_burnset row from a separate rerun of the same x1_packets.py (the first run hit the background limit, a second attempt a 3000 s cap)"
 }
