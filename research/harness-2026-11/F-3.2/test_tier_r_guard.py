@@ -82,6 +82,23 @@ class Spatial(unittest.TestCase):
             self.assertTrue(TR.firms_coverage([t], KFS_02)["covered"])
 
 
+class EventArea(unittest.TestCase):
+    def test_a_file_outside_the_event_area_is_not_coverage(self):
+        # Mira W5 N1': a Fukuoka-only file lies inside KOREA_BBOX but not inside a Korean event's own area
+        uljin = (36.9, 37.3, 129.1, 129.5)
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t)
+            with open(d / "jp.csv", "w", newline="") as fh:
+                w = csv.DictWriter(fh, fieldnames=["latitude", "longitude", "acq_date"]); w.writeheader()
+                for x in ("2022-03-01", "2022-03-20"):
+                    w.writerow({"latitude": "33.6", "longitude": "130.4", "acq_date": x})
+            self.assertTrue(TR.firms_coverage([t], KFS_02)["covered"])              # the coarse default box
+            self.assertFalse(TR.firms_coverage([t], KFS_02, uljin)["covered"])      # the event's own area
+            with open(d / "jp.csv", "a", newline="") as fh:
+                csv.writer(fh).writerow(["37.0", "129.3", "2022-03-10"])
+            self.assertTrue(TR.firms_coverage([t], KFS_02, uljin)["covered"])
+
+
 class Labels(unittest.TestCase):
     def test_tier_r_without_coverage_is_never_checked_or_unresolved(self):
         for tier in ("R1.5", "R8.2"):

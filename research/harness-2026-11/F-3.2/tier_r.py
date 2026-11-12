@@ -123,9 +123,22 @@ def extras(model, graph, cells_block_all, cells_ignite, s0, H, v):
 KOREA_BBOX = (33.0, 39.0, 124.5, 131.0)
 
 
+def packet_bbox(packet):
+    """(lat0, lat1, lon0, lon1) of the packet grid's corners, in WGS84: the event's own area."""
+    from pyproj import Transformer
+    meta = json.loads((Path(packet) / "NATIVE_METADATA.json").read_text())
+    a, _, c, _, e, f = meta["affine_transform"]
+    H, W = meta["shape"]
+    tr = Transformer.from_crs(meta["crs"], "EPSG:4326", always_xy=True)
+    pts = [tr.transform(c + a * x, f + e * y) for x in (0, W) for y in (0, H)]
+    lons, lats = [p[0] for p in pts], [p[1] for p in pts]
+    return (min(lats), max(lats), min(lons), max(lons))
+
+
 def firms_coverage(firms_dirs, days, bbox=KOREA_BBOX):
     """Does the supplied FIRMS data cover the event window, here? True only if ONE file (a) has an acq_date span that
-    contains the event window and (b) has at least one detection inside `bbox` (any date). Each FIRMS export is one
+    contains the event window and (b) has at least one detection inside `bbox` (any date). tier_r passes the event's packet-grid bounds
+    (packet_bbox); KOREA_BBOX is only the default. Each FIRMS export is one
     contiguous period for one area, so such a file is evidence that a missing detection means no detection. Neither an
     empty file, one that ends before or starts after the window, a gap between two files, nor a file for another area
     (Mira W5 N1) counts: an empty FIRMS mask would then claim "no detections" where there is only missing data (the first
@@ -175,7 +188,8 @@ def main():
         u_state, u_q, cur, pos = native_masks(case["packet"])
         key = case["region"] + "/" + case["mission"].split("_")[0]
         toa = dict(x.split("=", 1) for x in a.toa)
-        cov = (firms_coverage(a.firms_dir, EVENT_DAYS[event]) if event in EVENT_DAYS
+        # the area condition uses the event's own packet grid (Mira W5 N1': the Korea box also holds northern Kyushu)
+        cov = (firms_coverage(a.firms_dir, EVENT_DAYS[event], packet_bbox(case["packet"])) if event in EVENT_DAYS
                else dict(covered=False, files_spanning=[], files_read=0))
         # step (a), the footprint share, needs the arrival raster only (reported, never used in a label)
         if event in toa:

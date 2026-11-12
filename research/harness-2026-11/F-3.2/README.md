@@ -132,9 +132,10 @@ by both checkers.
 - **U_state.** In every packet, 100% of U_state is outside the footprint, and no positive-probability cell is in U_state.
 - **Unresolved causes.** Tier A: U_state+U_q 6, U_state 2, U_q 2. R1.5: U_state 2, U_q 1. R8.2: U_state+U_q 4, U_state 1.
 - Contact relaxation only; the radiation precondition with U_state cells as sources is not computed.
-- **Coverage guard** (`tier_r.firms_coverage`, `tier_label`; tests `test_tier_r_guard.py`, 11/11). A Tier R
+- **Coverage guard** (`tier_r.firms_coverage`, `tier_label`; tests `test_tier_r_guard.py`, 12/12). A Tier R
   mission is labelled only if ONE supplied FIRMS file both spans the event window (the dates of its detections) and has
-  at least one detection inside the Republic of Korea box (`KOREA_BBOX`). Otherwise the mission is
+  at least one detection, at any date, inside the event's own packet-grid bounds (`packet_bbox`). A file for another
+  area, even one inside the coarse `KOREA_BBOX` default such as Fukuoka, does not count. Otherwise the mission is
   `not_labelled_no_firms`, never checked or unresolved; a no_route from the optimistic instance still stands, and Tier A
   needs no FIRMS. Coverage is judged from detection dates, not the export's nominal period, so an export whose first or
   last detection falls inside a quiet window is refused (conservative). The FIRMS step depends only on FIRMS and the
