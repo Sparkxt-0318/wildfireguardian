@@ -1,0 +1,807 @@
+{
+ "credit": "Camera data: HPWREN (hpwren.ucsd.edu), UC San Diego. Perimeters: GOFER v0.2, Liu et al., doi:10.5281/zenodo.14642378. DEM: AWS Terrain Tiles skadi 1-arcsec (SRTM/NED derived).",
+ "checks": {
+  "ihvy-n-mobo-c|2019-10-27": {
+   "camera": "ihvy-n-mobo-c",
+   "date": "2019-10-27",
+   "fire": "Kincade",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "ihvy-n-mobo-m|2019-10-27": {
+   "camera": "ihvy-n-mobo-m",
+   "date": "2019-10-27",
+   "fire": "Kincade",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "ihvy-axis|2019-10-27": {
+   "camera": "ihvy-axis",
+   "date": "2019-10-27",
+   "fire": "Kincade",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "69bravo-e-mobo-c|2020-09-18": {
+   "camera": "69bravo-e-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "50864736"
+    }
+   }
+  },
+  "69bravo-e-mobo-m|2020-09-18": {
+   "camera": "69bravo-e-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "72042300"
+    }
+   }
+  },
+  "69bravo-w-axis|2020-09-18": {
+   "camera": "69bravo-w-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "52116377"
+    }
+   }
+  },
+  "69bravo-e-axis|2020-09-18": {
+   "camera": "69bravo-e-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "58969277"
+    }
+   }
+  },
+  "chino-n-mobo-c|2020-09-18": {
+   "camera": "chino-n-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "chino-n-mobo-m|2020-09-18": {
+   "camera": "chino-n-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "chino-n-axis|2020-09-18": {
+   "camera": "chino-n-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "chino-s-axis|2020-09-18": {
+   "camera": "chino-s-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "dwpgm-e-mobo-c|2020-09-18": {
+   "camera": "dwpgm-e-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "47760041"
+    }
+   }
+  },
+  "dwpgm-e-mobo-m|2020-09-18": {
+   "camera": "dwpgm-e-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "64934072"
+    }
+   }
+  },
+  "dwpgm-n-axis|2020-09-18": {
+   "camera": "dwpgm-n-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "51043894"
+    }
+   }
+  },
+  "dwpgm-s-axis|2020-09-18": {
+   "camera": "dwpgm-s-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "55221165"
+    }
+   }
+  },
+  "mlee-n-axis|2020-09-18": {
+   "camera": "mlee-n-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "mlee-s-axis|2020-09-18": {
+   "camera": "mlee-s-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "svct-1-axis|2020-09-18": {
+   "camera": "svct-1-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "svct-2-axis|2020-09-18": {
+   "camera": "svct-2-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "wilson-n-mobo-c|2020-09-18": {
+   "camera": "wilson-n-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "38348603"
+    }
+   }
+  },
+  "wilson-n-mobo-m|2020-09-18": {
+   "camera": "wilson-n-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "58129385"
+    }
+   }
+  },
+  "wilson-e-mobo-c|2020-09-18": {
+   "camera": "wilson-e-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "48728601"
+    }
+   }
+  },
+  "wilson-e-mobo-m|2020-09-18": {
+   "camera": "wilson-e-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "69741507"
+    }
+   }
+  },
+  "wilson-s-mobo-c|2020-09-18": {
+   "camera": "wilson-s-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "58626777"
+    }
+   }
+  },
+  "wilson-s-mobo-m|2020-09-18": {
+   "camera": "wilson-s-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "57121128"
+    }
+   }
+  },
+  "wilson-w-mobo-c|2020-09-18": {
+   "camera": "wilson-w-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "44711440"
+    }
+   }
+  },
+  "wilson-w-mobo-m|2020-09-18": {
+   "camera": "wilson-w-mobo-m",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "61944360"
+    }
+   }
+  },
+  "wilson-e-axis|2020-09-18": {
+   "camera": "wilson-e-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "54346883"
+    }
+   }
+  },
+  "wilson-w-axis|2020-09-18": {
+   "camera": "wilson-w-axis",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "51000430"
+    }
+   }
+  },
+  "ihvy-e-mobo-c|2020-09-27": {
+   "camera": "ihvy-e-mobo-c",
+   "date": "2020-09-27",
+   "fire": "Glass",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "ihvy-e-mobo-m|2020-09-27": {
+   "camera": "ihvy-e-mobo-m",
+   "date": "2020-09-27",
+   "fire": "Glass",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "ihvy-axis|2020-09-27": {
+   "camera": "ihvy-axis",
+   "date": "2020-09-27",
+   "fire": "Glass",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "chino-n-mobo-c|2020-09-18|deep": {
+   "camera": "chino-n-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "1": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "2": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "3": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "4": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "5": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "6": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    },
+    "8": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "chino-n-mobo-c|2020-09-06|deep": {
+   "camera": "chino-n-mobo-c",
+   "date": "2020-09-06",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 403,
+     "video": false,
+     "video_storage_class": null,
+     "video_bytes": null
+    }
+   }
+  },
+  "wilson-e-mobo-c|2020-09-18|deep": {
+   "camera": "wilson-e-mobo-c",
+   "date": "2020-09-18",
+   "fire": "Bobcat",
+   "result": {
+    "1": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "51243558"
+    },
+    "2": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "60231649"
+    },
+    "3": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "42479163"
+    },
+    "4": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "42417254"
+    },
+    "5": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "54813591"
+    },
+    "6": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "55170446"
+    },
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "48728601"
+    },
+    "8": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "45622290"
+    }
+   }
+  },
+  "wilson-e-mobo-c|2020-09-06|deep": {
+   "camera": "wilson-e-mobo-c",
+   "date": "2020-09-06",
+   "fire": "Bobcat",
+   "result": {
+    "7": {
+     "list_status": 403,
+     "list": false,
+     "n_listed": 0,
+     "image_status": null,
+     "images": null,
+     "video_status": 200,
+     "video": true,
+     "video_storage_class": "DEEP_ARCHIVE",
+     "video_bytes": "52524783"
+    }
+   }
+  }
+ }
+}

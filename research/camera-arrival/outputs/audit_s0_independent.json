@@ -1,0 +1,219 @@
+{
+ "credits": "HPWREN (hpwren.ucsd.edu), UC San Diego; GOFER v0.2 Liu et al. doi:10.5281/zenodo.14642378; AWS skadi DEM",
+ "n_samples": 2500,
+ "seed": 20261111,
+ "k_refraction": 0.13,
+ "pairs": {
+  "Bobcat__wilson": {
+   "site_lat": 34.22451,
+   "site_lon": -118.05867,
+   "site_elev_listed": 1713.0,
+   "dem_at_site_m": 1733.5,
+   "agl_m": 50.0,
+   "z_cam_m": 1783.5,
+   "last_tUTC": "2020-09-24 20:00:00",
+   "last_farea_km2": 583.864,
+   "camera_inside_perimeter": false,
+   "dist_site_to_perimeter_km": 0.27,
+   "dist_median_to_samples_km": 19.67,
+   "bearing_to_centroid_deg": 45.6,
+   "dist_to_centroid_km": 17.0,
+   "bearing_range_of_samples_deg": [
+    8.0,
+    328.6
+   ],
+   "visible_any_dir_pct": 10.56,
+   "visible_any_dir_ci95": [
+    9.36,
+    11.76
+   ],
+   "visible_any_dir_noexcl_pct": 10.36,
+   "visible_any_dir_20m_pct": 15.68,
+   "cams": {
+    "wilson-e-mobo-c": {
+     "azimuth": 90.0,
+     "hfov": 90.0,
+     "in_fov_burn_pct": 54.24,
+     "in_fov_visible_ground_pct": 7.0,
+     "ci95": [
+      6.0,
+      8.0
+     ],
+     "in_fov_visible_20m_pct": 10.64,
+     "median_dist_visible_in_fov_km": 11.29
+    },
+    "wilson-n-mobo-c": {
+     "azimuth": 0.0,
+     "hfov": 90.0,
+     "in_fov_burn_pct": 44.84,
+     "in_fov_visible_ground_pct": 3.44,
+     "ci95": [
+      2.73,
+      4.15
+     ],
+     "in_fov_visible_20m_pct": 4.72,
+     "median_dist_visible_in_fov_km": 5.94
+    }
+   },
+   "union_wilson-e-mobo-c+wilson-n-mobo-c_ground_pct": 10.44
+  },
+  "Bobcat__chino": {
+   "site_lat": 33.91384,
+   "site_lon": -117.73829,
+   "site_elev_listed": 541.0,
+   "dem_at_site_m": 541.0,
+   "agl_m": 8.0,
+   "z_cam_m": 549.0,
+   "last_tUTC": "2020-09-24 20:00:00",
+   "last_farea_km2": 583.864,
+   "camera_inside_perimeter": false,
+   "dist_site_to_perimeter_km": 34.14,
+   "dist_median_to_samples_km": 49.26,
+   "bearing_to_centroid_deg": 339.5,
+   "dist_to_centroid_km": 49.5,
+   "bearing_range_of_samples_deg": [
+    320.0,
+    355.9
+   ],
+   "visible_any_dir_pct": 7.36,
+   "visible_any_dir_ci95": [
+    6.34,
+    8.38
+   ],
+   "visible_any_dir_noexcl_pct": 7.12,
+   "visible_any_dir_20m_pct": 10.48,
+   "cams": {
+    "chino-n-mobo-c": {
+     "azimuth": 0.0,
+     "hfov": 90.0,
+     "in_fov_burn_pct": 100.0,
+     "in_fov_visible_ground_pct": 7.36,
+     "ci95": [
+      6.34,
+      8.38
+     ],
+     "in_fov_visible_20m_pct": 10.48,
+     "median_dist_visible_in_fov_km": 44.22
+    }
+   }
+  },
+  "Kincade__ihvy": {
+   "site_lat": 38.45651,
+   "site_lon": -122.89894,
+   "site_elev_listed": 52.0,
+   "dem_at_site_m": 42.6,
+   "agl_m": 13.0,
+   "z_cam_m": 55.6,
+   "last_tUTC": "2019-10-29 18:00:00",
+   "last_farea_km2": 346.757,
+   "camera_inside_perimeter": false,
+   "dist_site_to_perimeter_km": 14.15,
+   "dist_median_to_samples_km": 28.85,
+   "bearing_to_centroid_deg": 24.6,
+   "dist_to_centroid_km": 27.6,
+   "bearing_range_of_samples_deg": [
+    5.8,
+    48.2
+   ],
+   "visible_any_dir_pct": 4.4,
+   "visible_any_dir_ci95": [
+    3.6,
+    5.2
+   ],
+   "visible_any_dir_noexcl_pct": 4.24,
+   "visible_any_dir_20m_pct": 7.12,
+   "cams": {
+    "ihvy-n-mobo-c": {
+     "azimuth": 0.0,
+     "hfov": 90.0,
+     "in_fov_burn_pct": 95.04,
+     "in_fov_visible_ground_pct": 4.4,
+     "ci95": [
+      3.6,
+      5.2
+     ],
+     "in_fov_visible_20m_pct": 7.08,
+     "median_dist_visible_in_fov_km": 33.09
+    }
+   }
+  },
+  "Glass__ihvy": {
+   "site_lat": 38.45651,
+   "site_lon": -122.89894,
+   "site_elev_listed": 52.0,
+   "dem_at_site_m": 42.6,
+   "agl_m": 13.0,
+   "z_cam_m": 55.6,
+   "last_tUTC": "2020-10-05 07:00:00",
+   "last_farea_km2": 352.521,
+   "camera_inside_perimeter": false,
+   "dist_site_to_perimeter_km": 20.01,
+   "dist_median_to_samples_km": 33.44,
+   "bearing_to_centroid_deg": 72.4,
+   "dist_to_centroid_km": 32.4,
+   "bearing_range_of_samples_deg": [
+    52.5,
+    91.6
+   ],
+   "visible_any_dir_pct": 4.04,
+   "visible_any_dir_ci95": [
+    3.27,
+    4.81
+   ],
+   "visible_any_dir_noexcl_pct": 3.88,
+   "visible_any_dir_20m_pct": 7.8,
+   "cams": {
+    "ihvy-e-mobo-c": {
+     "azimuth": 90.0,
+     "hfov": 90.0,
+     "in_fov_burn_pct": 100.0,
+     "in_fov_visible_ground_pct": 4.04,
+     "ci95": [
+      3.27,
+      4.81
+     ],
+     "in_fov_visible_20m_pct": 7.8,
+     "median_dist_visible_in_fov_km": 27.61
+    }
+   }
+  }
+ },
+ "gofer_time": {
+  "Bobcat": {
+   "first_tUTC": "2020-09-06 20:00:00",
+   "last_tUTC": "2020-09-24 20:00:00",
+   "tLocal_minus_tUTC_h": [
+    -7.0
+   ],
+   "tLocal_matches_zoneinfo": true,
+   "peak_pacific_date_end_of_hour": "2020-09-18",
+   "peak_km2_end_of_hour": 165.4,
+   "peak_pacific_date_midpoint": "2020-09-18",
+   "peak_km2_midpoint": 165.4
+  },
+  "Kincade": {
+   "first_tUTC": "2019-10-24 05:00:00",
+   "last_tUTC": "2019-10-29 18:00:00",
+   "tLocal_minus_tUTC_h": [
+    -7.0
+   ],
+   "tLocal_matches_zoneinfo": true,
+   "peak_pacific_date_end_of_hour": "2019-10-27",
+   "peak_km2_end_of_hour": 185.4,
+   "peak_pacific_date_midpoint": "2019-10-27",
+   "peak_km2_midpoint": 185.4
+  },
+  "Glass": {
+   "first_tUTC": "2020-09-27 11:00:00",
+   "last_tUTC": "2020-10-05 07:00:00",
+   "tLocal_minus_tUTC_h": [
+    -7.0
+   ],
+   "tLocal_matches_zoneinfo": true,
+   "peak_pacific_date_end_of_hour": "2020-09-28",
+   "peak_km2_end_of_hour": 179.6,
+   "peak_pacific_date_midpoint": "2020-09-27",
+   "peak_km2_midpoint": 149.2
+  }
+ }
+}

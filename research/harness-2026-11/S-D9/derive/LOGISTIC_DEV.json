@@ -1,0 +1,595 @@
+{
+ "label": "DEVELOPMENT-ONLY on exposed cohort R; LOFO fits; 4 km band; not a confirmatory result",
+ "band_m": 4000.0,
+ "entries": 596719,
+ "positives": 8179,
+ "pooled_brier": {
+  "logistic": 0.013312241226423941,
+  "d4_wind_seed0": 0.013506740009215073,
+  "persistence": 0.013706619028386895,
+  "lofo_dist": 0.013436466829957236,
+  "lofo_d4recal": 0.013282961584838708,
+  "lofo_hybrid": 0.013451844308318351
+ },
+ "pooled_average_precision": {
+  "logistic": 0.04427150107809303,
+  "d4_wind_seed0": 0.056130751535683726,
+  "persistence": 0.013706619028386895,
+  "lofo_dist": 0.03864002061481517,
+  "lofo_d4recal": 0.05016786504852484,
+  "lofo_hybrid": 0.048907556535923366
+ },
+ "lowest_bin": {
+  "logistic": {
+   "count": 595881,
+   "mean_prediction": 0.017928252654614663,
+   "observed_frequency": 0.013576536254722
+  },
+  "d4_wind_seed0": {
+   "count": 594788,
+   "mean_prediction": 0.002248060374037583,
+   "observed_frequency": 0.013345931659683787
+  },
+  "persistence": {
+   "count": 596719,
+   "mean_prediction": 0.0,
+   "observed_frequency": 0.013706619028386895
+  },
+  "lofo_dist": {
+   "count": 595669,
+   "mean_prediction": 0.013280368702406514,
+   "observed_frequency": 0.013638446855552329
+  },
+  "lofo_d4recal": {
+   "count": 591726,
+   "mean_prediction": 0.010645811443631886,
+   "observed_frequency": 0.013076998475645822
+  },
+  "lofo_hybrid": {
+   "count": 594715,
+   "mean_prediction": 0.012657661491355806,
+   "observed_frequency": 0.013574569331528548
+  }
+ },
+ "low_probability_bins": {
+  "logistic": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 1877,
+    "share": 0.0031455341626460695,
+    "positives": 27,
+    "mean_prediction": 0.000813643196821347,
+    "observed_frequency": 0.014384656366542355
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 320578,
+    "share": 0.5372344436828725,
+    "positives": 1127,
+    "mean_prediction": 0.005115025215151674,
+    "observed_frequency": 0.003515525082819158
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 273426,
+    "share": 0.45821567605522867,
+    "positives": 6936,
+    "mean_prediction": 0.033068593909800506,
+    "observed_frequency": 0.025367009721094555
+   }
+  ],
+  "d4_wind_seed0": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 345167,
+    "share": 0.5784414439627362,
+    "positives": 1310,
+    "mean_prediction": 6.644591671574421e-07,
+    "observed_frequency": 0.0037952643213285163
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 61115,
+    "share": 0.10241839123607595,
+    "positives": 624,
+    "mean_prediction": 4.085255693137951e-05,
+    "observed_frequency": 0.010210259347132456
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 77352,
+    "share": 0.12962885378209843,
+    "positives": 1291,
+    "mean_prediction": 0.00040216317635140725,
+    "observed_frequency": 0.016689936911779914
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 75119,
+    "share": 0.12588672390187006,
+    "positives": 2358,
+    "mean_prediction": 0.0037098713806581283,
+    "observed_frequency": 0.03139019422516274
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 36035,
+    "share": 0.060388558098535494,
+    "positives": 2355,
+    "mean_prediction": 0.02843355976406444,
+    "observed_frequency": 0.06535312890245594
+   }
+  ],
+  "persistence": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 596719,
+    "share": 1.0,
+    "positives": 8179,
+    "mean_prediction": 0.0,
+    "observed_frequency": 0.013706619028386895
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   }
+  ],
+  "lofo_dist": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 14734,
+    "share": 0.02469168905297133,
+    "positives": 26,
+    "mean_prediction": 0.0008778609426868893,
+    "observed_frequency": 0.0017646260350210397
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 375010,
+    "share": 0.6284532585689412,
+    "positives": 1923,
+    "mean_prediction": 0.003934629186636345,
+    "observed_frequency": 0.005127863256979814
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 205925,
+    "share": 0.34509543017735317,
+    "positives": 6175,
+    "mean_prediction": 0.03118729756068347,
+    "observed_frequency": 0.02998664562340658
+   }
+  ],
+  "lofo_d4recal": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 80533,
+    "share": 0.13495967113498983,
+    "positives": 561,
+    "mean_prediction": 0.0009925153672526747,
+    "observed_frequency": 0.006966088435796506
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 345366,
+    "share": 0.578774934265542,
+    "positives": 1731,
+    "mean_prediction": 0.0026000865420884047,
+    "observed_frequency": 0.0050120741474262084
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 165827,
+    "share": 0.27789797207730943,
+    "positives": 5446,
+    "mean_prediction": 0.03209062271842739,
+    "observed_frequency": 0.03284145525155734
+   }
+  ],
+  "lofo_hybrid": [
+   {
+    "lower": 0.0,
+    "upper": 1e-05,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 1e-05,
+    "upper": 0.0001,
+    "count": 0,
+    "share": 0.0,
+    "positives": 0,
+    "mean_prediction": null,
+    "observed_frequency": null
+   },
+   {
+    "lower": 0.0001,
+    "upper": 0.001,
+    "count": 29294,
+    "share": 0.04909178356982097,
+    "positives": 79,
+    "mean_prediction": 0.0008214744849712479,
+    "observed_frequency": 0.00269679797910835
+   },
+   {
+    "lower": 0.001,
+    "upper": 0.01,
+    "count": 372093,
+    "share": 0.6235648605122344,
+    "positives": 1871,
+    "mean_prediction": 0.0032808001158130015,
+    "observed_frequency": 0.005028312814269551
+   },
+   {
+    "lower": 0.01,
+    "upper": 0.1,
+    "count": 193328,
+    "share": 0.3239849912605431,
+    "positives": 6123,
+    "mean_prediction": 0.0324985212839098,
+    "observed_frequency": 0.03167156335347182
+   }
+  ]
+ },
+ "vs_logistic": {
+  "d4_wind_seed0__vs__logistic": {
+   "point": 0.00019449878279112793,
+   "interval": [
+    1.2220858780428922e-05,
+    0.0003270521858154284
+   ],
+   "fires_favouring": 2,
+   "equal_fire": 0.00015581664156999594,
+   "equal_fire_interval": [
+    -2.7495391955120047e-05,
+    0.0003195134645752196
+   ],
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.000364335246438957,
+    "ID-BOF-000904_Goat": -0.00017643547228597453,
+    "ID-BOF-001080_Lava": 0.0003830207545686308,
+    "ID-SCF-240202_RedRock": 0.00015774878284454514,
+    "WA-SES-000173_Pioneer": -8.620065875711916e-05,
+    "WY-BTF-002416_FishCreek": 0.0002924311966109327
+   }
+  },
+  "persistence__vs__logistic": {
+   "point": 0.0003943778019629506,
+   "interval": [
+    8.704605886732842e-05,
+    0.000666711426469569
+   ],
+   "fires_favouring": 2,
+   "equal_fire": 0.00031959410595049564,
+   "equal_fire_interval": [
+    0.00010229292339359733,
+    0.0005585822807051948
+   ],
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.0008699995101906293,
+    "ID-BOF-000904_Goat": 0.0003179709011206474,
+    "ID-BOF-001080_Lava": -1.0948635086534966e-05,
+    "ID-SCF-240202_RedRock": 0.00034148576794917413,
+    "WA-SES-000173_Pioneer": -1.19009292675848e-05,
+    "WY-BTF-002416_FishCreek": 0.0004109580207966431
+   }
+  },
+  "lofo_dist__vs__logistic": {
+   "point": 0.00012422560353328603,
+   "interval": [
+    -7.427248855433357e-05,
+    0.0003529420167489441
+   ],
+   "fires_favouring": 4,
+   "equal_fire": 9.783081275564099e-05,
+   "equal_fire_interval": [
+    -7.072087546168761e-05,
+    0.0003350593477157079
+   ],
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.00016827023720003044,
+    "ID-BOF-000904_Goat": -4.175128394338679e-07,
+    "ID-BOF-001080_Lava": -9.681514163971967e-05,
+    "ID-SCF-240202_RedRock": -6.396651100406262e-05,
+    "WA-SES-000173_Pioneer": -8.315547282359535e-05,
+    "WY-BTF-002416_FishCreek": 0.0006630692776406252
+   }
+  },
+  "lofo_d4recal__vs__logistic": {
+   "point": -2.927964158524191e-05,
+   "interval": [
+    -0.00012888455926250304,
+    0.00011660948127809022
+   ],
+   "fires_favouring": 5,
+   "equal_fire": -2.700505565706093e-05,
+   "equal_fire_interval": [
+    -0.00015832975146876124,
+    0.00014890356836346627
+   ],
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": -4.198239544444259e-05,
+    "ID-BOF-000904_Goat": -0.0002365134608680656,
+    "ID-BOF-001080_Lava": 0.00038749252349315233,
+    "ID-SCF-240202_RedRock": -9.965399442436028e-05,
+    "WA-SES-000173_Pioneer": -0.00010098094080664637,
+    "WY-BTF-002416_FishCreek": -7.039206589200598e-05
+   }
+  },
+  "lofo_hybrid__vs__logistic": {
+   "point": 0.0001396030818944059,
+   "interval": [
+    -7.222318510770594e-05,
+    0.0005211164249302389
+   ],
+   "fires_favouring": 3,
+   "equal_fire": 0.00012208724906664277,
+   "equal_fire_interval": [
+    -8.451598984145793e-05,
+    0.0004872266667497894
+   ],
+   "per_fire": {
+    "ID-BOF-000683_Wapiti_Wapiti": 8.05072836289722e-07,
+    "ID-BOF-000904_Goat": -0.00011085260023368411,
+    "ID-BOF-001080_Lava": -8.5108357805109e-05,
+    "ID-SCF-240202_RedRock": -0.00010054372680628123,
+    "WA-SES-000173_Pioneer": 2.5937035531551736e-05,
+    "WY-BTF-002416_FishCreek": 0.0010022860708770883
+   }
+  }
+ },
+ "frozen_logistic_standardized_coefficients": {
+  "coefficients": [
+   [
+    -1.5650213203879266,
+    -0.10587423778076302,
+    -0.01592825374499676,
+    0.0840838213260456,
+    0.11585525611779825,
+    -0.04958059790900619,
+    -0.17106837754006446,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.25716203078611266,
+    0.0,
+    0.0,
+    -0.17202383355764164,
+    0.0,
+    0.0,
+    0.0,
+    -0.1835580999631383,
+    -0.06976691616948158,
+    0.0
+   ]
+  ],
+  "intercept": [
+   -6.091565722195008
+  ],
+  "rows": 703848,
+  "positives": 108722,
+  "negative_fraction": 0.05,
+  "seed": 0,
+  "features": [
+   "log1p(distance)",
+   "distance/hours",
+   "alignment",
+   "alignment*speed",
+   "speed",
+   "directional_slope_degrees/45",
+   "log(hours)",
+   "biome=1",
+   "biome=2",
+   "biome=3",
+   "biome=4",
+   "biome=5",
+   "biome=6",
+   "biome=7",
+   "biome=8",
+   "biome=9",
+   "biome=10",
+   "biome=11",
+   "biome=12",
+   "biome=13",
+   "biome=14"
+  ],
+  "weighting": "negatives subsampled at the stated fraction and weighted by its inverse"
+ },
+ "lofo_standardized_coefficients": {
+  "lofo_dist": {
+   "ID-BOF-000683_Wapiti_Wapiti": [
+    -2.2765,
+    0.2923,
+    -0.0332
+   ],
+   "ID-BOF-000904_Goat": [
+    -1.8967,
+    -0.031,
+    -0.3027
+   ],
+   "ID-BOF-001080_Lava": [
+    -2.0124,
+    0.0681,
+    -0.2453
+   ],
+   "ID-SCF-240202_RedRock": [
+    -1.8562,
+    -0.0278,
+    -0.2869
+   ],
+   "WA-SES-000173_Pioneer": [
+    -1.9404,
+    -0.0122,
+    -0.3096
+   ],
+   "WY-BTF-002416_FishCreek": [
+    -1.9843,
+    0.1518,
+    -0.3938
+   ]
+  },
+  "lofo_d4recal": {
+   "ID-BOF-000683_Wapiti_Wapiti": [
+    1.2068
+   ],
+   "ID-BOF-000904_Goat": [
+    1.1865
+   ],
+   "ID-BOF-001080_Lava": [
+    1.2495
+   ],
+   "ID-SCF-240202_RedRock": [
+    1.1791
+   ],
+   "WA-SES-000173_Pioneer": [
+    1.2009
+   ],
+   "WY-BTF-002416_FishCreek": [
+    1.2583
+   ]
+  },
+  "lofo_hybrid": {
+   "ID-BOF-000683_Wapiti_Wapiti": [
+    0.4167,
+    -1.4004,
+    -0.4355,
+    -0.1356
+   ],
+   "ID-BOF-000904_Goat": [
+    0.586,
+    -0.8087,
+    -0.6777,
+    -0.4166
+   ],
+   "ID-BOF-001080_Lava": [
+    0.6244,
+    -0.8673,
+    -0.5753,
+    -0.3475
+   ],
+   "ID-SCF-240202_RedRock": [
+    0.5842,
+    -0.8259,
+    -0.5741,
+    -0.3849
+   ],
+   "WA-SES-000173_Pioneer": [
+    0.5903,
+    -0.83,
+    -0.6432,
+    -0.4196
+   ],
+   "WY-BTF-002416_FishCreek": [
+    0.7464,
+    -0.6765,
+    -0.5203,
+    -0.5326
+   ]
+  }
+ }
+}

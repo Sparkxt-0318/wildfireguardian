@@ -1,0 +1,113 @@
+{
+ "band_m": 4000.0,
+ "candidate": "d4_wind_seed0",
+ "n_fires": 10,
+ "cohorts": 2000,
+ "bootstrap_draws": 2000,
+ "seed": 20261112,
+ "r_fires": [
+  "ID-BOF-000683_Wapiti_Wapiti",
+  "ID-BOF-000904_Goat",
+  "ID-BOF-001080_Lava",
+  "ID-SCF-240202_RedRock",
+  "WA-SES-000173_Pioneer",
+  "WY-BTF-002416_FishCreek"
+ ],
+ "r_entries_in_band": [
+  169389,
+  54441,
+  75617,
+  90497,
+  104994,
+  101781
+ ],
+ "comparisons": {
+  "d4_wind_seed0__vs__persistence": {
+   "r_pooled_difference": -0.00019987901917182263,
+   "r_equal_fire_mean_difference": -0.00016377746438050035,
+   "r_per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": -0.0005056642637516724,
+    "ID-BOF-000904_Goat": -0.0004944063734066219,
+    "ID-BOF-001080_Lava": 0.0003939693896551658,
+    "ID-SCF-240202_RedRock": -0.00018373698510462902,
+    "WA-SES-000173_Pioneer": -7.429972948953436e-05,
+    "WY-BTF-002416_FishCreek": -0.00011852682418571044
+   },
+   "r_fires_favouring_candidate": 5,
+   "power_pooled_interval_below_zero": 0.5355,
+   "power_equal_fire_interval_below_zero": 0.436,
+   "median_pooled_interval_half_width": 0.0001647567259387183
+  },
+  "d4_wind_seed0__vs__dilation_8h": {
+   "r_pooled_difference": -0.3529773169757309,
+   "r_equal_fire_mean_difference": -0.34367695315498437,
+   "r_per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": -0.395850108117839,
+    "ID-BOF-000904_Goat": -0.2909005341080184,
+    "ID-BOF-001080_Lava": -0.3775898173249725,
+    "ID-SCF-240202_RedRock": -0.3040722636765972,
+    "WA-SES-000173_Pioneer": -0.332579014284607,
+    "WY-BTF-002416_FishCreek": -0.36106998141787217
+   },
+   "r_fires_favouring_candidate": 6,
+   "power_pooled_interval_below_zero": 1.0,
+   "power_equal_fire_interval_below_zero": 1.0,
+   "median_pooled_interval_half_width": 0.02231567401319612
+  },
+  "d4_wind_seed0__vs__logistic": {
+   "r_pooled_difference": 0.00019449878279112793,
+   "r_equal_fire_mean_difference": 0.00015581664156999532,
+   "r_per_fire_difference": {
+    "ID-BOF-000683_Wapiti_Wapiti": 0.000364335246438957,
+    "ID-BOF-000904_Goat": -0.00017643547228597453,
+    "ID-BOF-001080_Lava": 0.0003830207545686308,
+    "ID-SCF-240202_RedRock": 0.00015774878284454514,
+    "WA-SES-000173_Pioneer": -8.620065875711916e-05,
+    "WY-BTF-002416_FishCreek": 0.0002924311966109327
+   },
+   "r_fires_favouring_candidate": 2,
+   "power_pooled_interval_below_zero": 0.0,
+   "power_equal_fire_interval_below_zero": 0.0,
+   "median_pooled_interval_half_width": 0.00011996702125190238
+  }
+ },
+ "sizing_vs_persistence": {
+  "target_power": 0.8,
+  "power_by_n_fires": {
+   "10": 0.5195,
+   "15": 0.676,
+   "20": 0.803,
+   "25": 0.884,
+   "30": 0.925,
+   "40": 0.981,
+   "60": 0.997
+  },
+  "smallest_n_reaching_target": 20
+ },
+ "sizing_vs_logistic": {
+  "target_power": 0.8,
+  "power_by_n_fires": {
+   "10": 0.0,
+   "15": 0.0,
+   "20": 0.0,
+   "25": 0.0,
+   "30": 0.0,
+   "40": 0.0,
+   "60": 0.0
+  },
+  "smallest_n_reaching_target": null
+ },
+ "sizing_vs_persistence_half_effect": {
+  "target_power": 0.8,
+  "power_by_n_fires": {
+   "10": 0.233,
+   "15": 0.2685,
+   "20": 0.325,
+   "25": 0.374,
+   "30": 0.422,
+   "40": 0.527,
+   "60": 0.694
+  },
+  "smallest_n_reaching_target": null
+ }
+}

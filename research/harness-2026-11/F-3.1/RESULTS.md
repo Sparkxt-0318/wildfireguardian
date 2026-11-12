@@ -6,7 +6,7 @@ not measured is labelled as such.
 
 ## What was run
 
-* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. Later commits up to `c8247d2` add opt-in modes and features that are inactive on these caches (origin = destination admission, a start-position guard, extra_blocks/present_only, the duration bound, timing-only). They are not just flags and docs. Inputs are the frozen routing inputs
+* **Code and inputs.** Code at commit `70f70d7`, run from a clean worktree. The verified commit `c8247d2` also contains changes made after `70f70d7`. These are inactive on these caches: origin = destination admission (0 such jobs), a start-position scope guard, the per-journey dose duration bound in the precondition output, and the `--timing-only` flag. It also contains the opt-in packet modes `extra_blocks`/`present_only` in `real.py` and the `postprocess.py`/`export.py` helpers, which the reproduction does not use. The ablation, unknown-support and F-DYN modules present at `c8247d2` were removed from the frozen 1-hour cut (PR #133); on this working branch they are present for the follow-up claims below, with their own verification. Inputs are the frozen routing inputs
   (`tools/fetch_routing_inputs.py`, SHA-verified) and the six committed `planner/cache` files (SHA as in `INDEX.json`).
 * **Host.** This Linux x86_64 container: 4 cores, Python 3.13.18. numpy was 2.x at process start, and 1.26.4 was
   installed into site-packages during the run. numpy is used only to read arrays; all contact arithmetic is exact
