@@ -37,8 +37,27 @@ class SweepUnsupported(ValueError):
     pass
 
 
-def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mode, zero_view):
-    """Return a core-format result dict (status, legs, arrival, destination, per_member, metrics, provenance)."""
+def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mode, zero_view, budget=None):
+    """Return a core-format result dict (status, legs, arrival, destination, per_member, metrics, provenance).
+    kit-v2 Step 3: `budget` (v2_work.Budget) counts deterministic work units; it stops Z at its unit cap or the wall
+    deadline, checked at every unit, in setup and in the sweep."""
+    if budget is not None:   # kit-v2 Step 3
+        from v2_work import StageCap
+        try:
+            return _contact_sweep(graph, hazard, request, model, wall_s=wall_s, core=core, check_route_mode=check_route_mode,
+                                  zero_view=zero_view, budget=budget)
+        except StageCap as exc:
+            return {'status': 'TIMEOUT', 'reason': exc.reason, 'legs': [], 'arrival': None, 'destination': None,
+                    'per_member': {}, 'solver_status': 'INCOMPLETE_CAP', 'metrics': {'work': budget.record()},
+                    'hazard_version': hazard.get('version'),
+                    'provenance': {'solver': 'contact_sweep', 'model': 'EXACT_LATTICE_CONTACT_ONLY_SWEEP',
+                                   'physical_safety_claim': False, 'exposure_mode': 'zero'},
+                    'certificate_conditions': [], 'exposure_mode': 'zero', 'z_method': 'own_vectorised_time_expanded_sweep'}
+    return _contact_sweep(graph, hazard, request, model, wall_s=wall_s, core=core, check_route_mode=check_route_mode,
+                          zero_view=zero_view, budget=None)
+
+
+def _contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mode, zero_view, budget):
     t_start = time.perf_counter()
     stop = t_start + max(0.0, float(wall_s))
     metrics = {'sweep_seconds': 0, 'contact_edges': 0, 'contact_nodes': 0, 'states_reached': 0}
@@ -52,6 +71,8 @@ def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mo
                               'physical_safety_claim': False, 'exposure_mode': 'zero'},
                'certificate_conditions': [], 'exposure_mode': 'zero', 'z_method': 'own_vectorised_time_expanded_sweep'}
         out.update(extra)
+        if budget is not None:   # kit-v2 Step 3
+            out['metrics']['work'] = budget.record()
         return out
 
     dt = hazard['dt']
@@ -138,6 +159,8 @@ def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mo
                 continue
             za, zb = F(o['start']), F(o['end'])
             for b, ee in ivs:
+                if budget is not None:   # kit-v2 Step 3: one unit per (candidate edge, occupancy, fire interval)
+                    budget.tick(1, 'setup_contact')
                 lo_t = max(dep, _ceil(b - Dq * zb))
                 hi_t = min(hor, _ceil(ee - Dq * za) - 1)
                 if lo_t <= hi_t:
@@ -155,6 +178,8 @@ def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mo
     def nblock(ni, length):
         key = (ni, length)
         m = node_block.get(key)
+        if budget is not None:   # kit-v2 Step 3: one unit per waitable fire-node row
+            budget.tick(1, 'setup_wait')
         if m is None:
             c = core.node_cell(graph, nodes[node_list[ni]])
             m = np.zeros(T1, bool)
@@ -201,8 +226,10 @@ def contact_sweep(graph, hazard, request, model, *, wall_s, core, check_route_mo
     while t <= hor:
         if (t - dep) % 16 == 0 and PROGRESS_HOOK is not None:
             PROGRESS_HOOK('zsweep.contact_sweep', {'sweep_second': t, 'departure': dep, 'horizon': hor})
-        if (t - dep) % 16 == 0 and time.perf_counter() >= stop:
+        if time.perf_counter() >= stop:   # kit-v2 Step 3: every sweep second (was every 16)
             return finish('TIMEOUT', 'WALL_CLOCK', solver_status='INCOMPLETE_CAP')
+        if budget is not None:   # kit-v2 Step 3: (E + 1) lattice states per sweep second
+            budget.tick(E + 1, 'sweep')
         A = RA[t % L].copy(); Wt = RW[t % L].copy(); RA[t % L] = False; RW[t % L] = False
         act = A | Wt
         hist[t] = (np.packbits(A), np.packbits(Wt))
@@ -421,7 +448,7 @@ class EarliestArrivalBound:
         for t in range(hor, dep - 1, -1):
             if (hor - t) % 64 == 0 and PROGRESS_HOOK is not None:
                 PROGRESS_HOOK('zsweep.EarliestArrivalBound', {'backward_second': t, 'departure': dep, 'horizon': hor})
-            if deadline is not None and (hor - t) % 64 == 0 and time.perf_counter() >= deadline:
+            if deadline is not None and time.perf_counter() >= deadline:   # kit-v2 Step 3: every backward second (was 64)
                 raise TimeoutError('EA_BOUND_WALL_CAP')
             arr = t + D[sedge]
             v = np.full(sedge.size, INF, dtype=np.int16)
