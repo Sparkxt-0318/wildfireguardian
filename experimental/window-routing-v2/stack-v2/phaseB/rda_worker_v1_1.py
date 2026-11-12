@@ -356,7 +356,7 @@ def main():
         try:   # kit-v2 Step 3
             with v2_work.watchdog(name, v2_work.watchdog_threshold(cap_s)):   # kit-v2 Step 3
                 return fn()   # kit-v2 Step 3
-        except v2_work.StageCapWatchdog as exc:   # kit-v2 Step 3: killed, reported, never continued; fail closed after
+        except v2_work.WatchdogFired as exc:   # kit-v2 Step 3: killed, reported, never continued; fail closed after
             _V2W['poisoned'] = True; _V2W['stage'] = name; _V2W['threshold_s'] = exc.threshold_s   # kit-v2 Step 3
             STATE['stage_cap_watchdog'] = dict(_V2W)   # kit-v2 Step 3
             return {'status': 'TIMEOUT', 'reason': 'STAGE_CAP_WATCHDOG', 'legs': [], 'arrival': None, 'destination': None,   # kit-v2 Step 3

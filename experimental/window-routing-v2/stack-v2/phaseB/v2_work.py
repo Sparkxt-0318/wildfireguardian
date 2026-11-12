@@ -4,21 +4,22 @@ Budget(units_cap, deadline): tick(n) adds n units and raises StageCap('WORK_BUDG
 StageCap(wall_reason) once perf_counter() >= deadline. Units are counts of algorithmic items, never time, so for the
 same inputs the unit count at which a work budget stops is identical on any machine.
 
-watchdog(stage, threshold_s): a SIGALRM timer for one stage call; on expiry it raises StageCapWatchdog in the main
-thread. Asynchronous: the caller must fail closed afterwards (no later stage uses state the stage was mutating).
+watchdog(stage, threshold_s): a SIGALRM timer for one stage call; on expiry it raises WatchdogFired in the main
+thread. Best-effort: a long C call delays delivery until it returns. Asynchronous: the caller must fail
+closed afterwards (no later stage uses state the stage was mutating).
 """
 import signal, time
 from contextlib import contextmanager
 
 
-class StageCap(Exception):
+class StageCap(BaseException):   # Thomas 19:16 B3.1: no `except Exception` on the bound-model path may swallow it
     def __init__(self, reason, units=None):
         super().__init__(reason)
         self.reason = reason; self.units = units
 
 
-class StageCapWatchdog(BaseException):
-    """BaseException, so no `except Exception` inside a stage can swallow it."""
+class WatchdogFired(BaseException):
+    """Thomas 19:16 B5.1: BaseException, distinct from StageCap; caught only by the worker's stage driver."""
     def __init__(self, stage, threshold_s):
         super().__init__('STAGE_CAP_WATCHDOG')
         self.stage = stage; self.threshold_s = threshold_s
@@ -52,7 +53,9 @@ def watchdog_threshold(cap_s):
 @contextmanager
 def watchdog(stage, threshold_s):
     def fire(signum, frame):
-        raise StageCapWatchdog(stage, threshold_s)
+        raise WatchdogFired(stage, threshold_s)   # the handler only raises (no IO)
+    if signal.getitimer(signal.ITIMER_REAL)[0] > 0:   # Thomas B5.4: never more than one armed alarm
+        raise RuntimeError('WATCHDOG_ALREADY_ARMED')
     old = signal.signal(signal.SIGALRM, fire)
     signal.setitimer(signal.ITIMER_REAL, max(1e-3, float(threshold_s)))
     try:

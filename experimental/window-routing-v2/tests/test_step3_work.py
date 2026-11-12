@@ -44,14 +44,14 @@ class BudgetUnit(unittest.TestCase):
 
     def test_watchdog_kills_non_returning_stage(self):
         t0 = time.perf_counter()
-        with self.assertRaises(W.StageCapWatchdog):
+        with self.assertRaises(W.WatchdogFired):
             with W.watchdog('SYNTH', 0.5):
                 while True:          # a synthetic stage that never returns (pure Python loop)
                     pass
         self.assertLess(time.perf_counter() - t0, 0.5 + 1.0)
 
     def test_watchdog_not_swallowed_by_except_exception(self):
-        with self.assertRaises(W.StageCapWatchdog):
+        with self.assertRaises(W.WatchdogFired):
             with W.watchdog('SYNTH', 0.2):
                 try:
                     time.sleep(2)

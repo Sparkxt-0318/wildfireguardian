@@ -363,7 +363,7 @@ def solve(graph, hazard, request, *, prepared=None, exposure=None, mode="centre"
     try:
         return _solve_parent(graph, hazard, request, prepared=prepared, exposure=exposure, mode=mode,
                              arrival_bound=arrival_bound)
-    except Exception as exc:
+    except BaseException as exc:
         try:
             from v2_work import StageCap
         except ImportError:
