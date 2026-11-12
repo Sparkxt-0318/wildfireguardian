@@ -139,6 +139,7 @@ describe('staff headline == resident card time == kit time', () => {
 
   it('in every real and synthetic case; counts of cases whose staff time changes', () => {
     const changed = { real: 0, syn: 0 };
+    const changedBy = { gap: 0, partial: 0 };
     const kinds: Record<string, number> = {};
     for (const [set, xs] of [['real', real], ['syn', syn]] as const) {
       for (const i of xs) {
@@ -159,12 +160,19 @@ describe('staff headline == resident card time == kit time', () => {
         if (kit === null) expect(h.deadlineS).toBeNull();
         // what the staff headline was before this change: the latest checked departure
         const before = i.plan && i.plan.bestVerdict === 'checked_route' ? i.plan.latestSafeDepartureS : null;
-        if (before !== h.deadlineS) changed[set] += 1;
+        if (before !== h.deadlineS) {
+          changed[set] += 1;
+          if (set === 'syn') changedBy[h.kind === 'partial' ? 'partial' : 'gap'] += 1;
+          // every change is one of the two known causes: a later window after a gap, or no contiguous time at all
+          expect(h.kind === 'partial' || (h.kind === 'deadline' && h.laterWindowS !== null), i.origin.id).toBe(true);
+        }
       }
     }
     console.log('[staff headline] cases whose staff time changed (real / synthetic):', JSON.stringify(changed), JSON.stringify(kinds));
     expect(changed.real).toBe(0);
-    expect(changed.syn).toBeGreaterThan(0);
+    // pinned (Owen note 1 on #137): 131 synthetic cases change = 53 gap + 78 partial; the generator is seeded
+    expect(changed.syn).toBe(131);
+    expect(changedBy).toEqual({ gap: 53, partial: 78 });
   });
 });
 
