@@ -1,6 +1,6 @@
 # Pre-stated rule: wide-grid state family (round 2 against the same 25 part-a fires; Iris/orchestrator)
 
-**Timing.** Written at about 20:20 UTC on 2026-11-12, before any code for this family exists and before any run. The
+**Timing.** Written at about 20:18 UTC on 2026-11-12, before any code for this family exists and before any run. The
 git timestamp of this commit is the record. Already known when this was written (3ec5a8bc, unverified):
 - mcem_state 0.0605, mcem_rate 0.0686, plug-in 0.0569, logistic_cf 0.0566, persistence 0.0646, MCEM 0.0660;
 - the top grid edge (m = 2) was binding.
