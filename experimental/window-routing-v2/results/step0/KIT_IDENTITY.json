@@ -1,0 +1,9 @@
+{
+  "candidate_id": "WFG-request-window-routing-v2-20261112",
+  "overlay_sha256": {
+    "stack-v2/phaseB/rda_worker_v1_1.py": "02fa745666bb5f324c06023c0f1f0c4752cf379cbe52f2a8a76f9deda489ab9f"
+  },
+  "parent_candidate_id": "WFG-request-window-routing-20261029",
+  "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+  "status": "v2 development kit - NOT the frozen kit"
+}
