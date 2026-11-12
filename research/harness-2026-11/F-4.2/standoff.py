@@ -34,7 +34,8 @@ def flux(E, H, W, d):
     return E * 2 * f_corner(H, W / 2, d)          # two corner rectangles (heights 0..H, each half-width W/2)
 
 
-def standoff(E, H, W, q0):
+def standoff(E, H, W, q0, window=1.0):
+    E = E * window                                    # window factor multiplies the received flux
     if flux(E, H, W, 1e-6) < q0:
         return 0.0
     lo, hi = 1e-6, 1e6
@@ -53,19 +54,28 @@ def main():
     clear = [(json.loads(l)['mission'], json.loads(l)['published_clearance_m'], json.loads(l)['published_limit_label'])
              for l in a.clearance.read_text().splitlines() if l.strip()]
     rows = []
-    print('%6s %6s %7s | %10s %10s' % ('E', 'H', 'W', 'd(1.0)', 'd(2.5)'))
-    for W in (375.0, 3750.0):
-        for H in (5.0, 10.0, 20.0):
-            for E in (50.0, 100.0):
-                d1, d25 = standoff(E, H, W, 1.0), standoff(E, H, W, 2.5)
-                n1 = sum(c < d1 for _, c, _ in clear); n25 = sum(c < d25 for _, c, _ in clear)
-                rows.append({'E_kW_m2': E, 'H_m': H, 'W_m': W, 'standoff_1p0_m': d1, 'standoff_2p5_m': d25,
-                             'routes_clearance_below_1p0': n1, 'routes_clearance_below_2p5': n25})
-                print('%6.0f %6.0f %7.0f | %8.1f m %8.1f m   routes below: %d (1.0) %d (2.5) of %d' % (E, H, W, d1, d25, n1, n25, len(clear)))
+    print('%6s %6s %7s %6s | %10s %10s' % ('E', 'H', 'W', 'window', 'd(1.0)', 'd(2.5)'))
+    for window in (1.0, 0.5):
+        for W in (375.0, 3750.0):
+            for H in (5.0, 10.0, 20.0):
+                for E in (50.0, 100.0):
+                    d1, d25 = standoff(E, H, W, 1.0, window), standoff(E, H, W, 2.5, window)
+                    n1 = sum(c < d1 for _, c, _ in clear); n25 = sum(c < d25 for _, c, _ in clear)
+                    c1 = sum(c < d1 and lab == 'CROP' for _, c, lab in clear); c25 = sum(c < d25 and lab == 'CROP' for _, c, lab in clear)
+                    rows.append({'E_kW_m2': E, 'H_m': H, 'W_m': W, 'window': window, 'standoff_1p0_m': d1, 'standoff_2p5_m': d25,
+                                 'routes_below_1p0': n1, 'routes_below_2p5': n25, 'crop_limited_below_1p0': c1, 'crop_limited_below_2p5': c25})
+                    print('%6.0f %6.0f %7.0f %6.1f | %8.1f m %8.1f m   below: %d (1.0) %d (2.5) of %d; crop-limited among them %d / %d'
+                          % (E, H, W, window, d1, d25, n1, n25, len(clear), c1, c25))
+    for window in (1.0, 0.5):
+        rr = [r for r in rows if r['window'] == window]
+        print('window %.1f: routes below 1.0-standoff range %d-%d; below 2.5-standoff range %d-%d (of %d)'
+              % (window, min(r['routes_below_1p0'] for r in rr), max(r['routes_below_1p0'] for r in rr),
+                 min(r['routes_below_2p5'] for r in rr), max(r['routes_below_2p5'] for r in rr), len(clear)))
+    (HERE / 'results/STANDOFF.json').write_text(json.dumps({'plan': 'RADIANT_PLAN.md', 'rows': rows,
+        'clearances_m': {m: c for m, c, _ in clear}}, indent=1) + '\n')
     worst = max(rows, key=lambda r: r['standoff_1p0_m'])
     print('\nlargest standoff in the range: %.0f m (E=%g, H=%g, W=%g)' % (worst['standoff_1p0_m'], worst['E_kW_m2'], worst['H_m'], worst['W_m']))
     print('published clearances (m):', ', '.join('%.0f' % c for _, c, _ in sorted(clear, key=lambda x: x[1])))
-    print(json.dumps({'rows': rows}, indent=None)[:0])
 
 
 if __name__ == '__main__':
