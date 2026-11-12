@@ -53,3 +53,26 @@ def test_gaps_match_scorer_and_have_intervals(tmp_path):
     assert r["verdict"] in ("met", "not met")
     for ref in ("persistence", "dilation_8h", "logistic_rebuilt"):
         assert r["comparisons"][ref]["descriptive_bootstrap_95_interval_of_gap_difference"] is not None
+
+
+def test_perfectly_calibrated_candidate_is_met(tmp_path):
+    # Owen's fixture E: a constant equal to the band base rate (gap ~0, float noise ~1e-14).
+    rng = np.random.default_rng(2)
+    files = []
+    ys, ds = [], []
+    for f in range(4):
+        n = 500
+        y = (rng.random(n) < 0.05).astype(np.int8)
+        d = rng.random(n) * 6000
+        ys.append(y); ds.append(d)
+    band_rate = float(np.concatenate(ys)[np.concatenate(ds) <= 4000].mean())
+    for f in range(4):
+        n = 500
+        np.savez(os.path.join(tmp_path, f"f{f}.npz"), interval=rng.integers(0, 4, n), y=ys[f],
+                 hours=np.full(4, 12.0), dist_m=ds[f], population=np.array("full_rectangle"),
+                 p_persistence=np.zeros(n), p_dilation_8h=0.2 + rng.random(n) * 0.5,
+                 p_logistic_rebuilt=rng.random(n) * 0.09, p_d4_wind_recal=rng.random(n) * 0.09,
+                 p_cand=np.full(n, band_rate))
+    r = _run(tmp_path)
+    assert r["per_model"]["cand"]["gap"] < 1e-12
+    assert r["verdict"] == "met" and r["met"] is True

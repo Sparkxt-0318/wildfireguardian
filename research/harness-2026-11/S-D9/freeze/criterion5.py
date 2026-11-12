@@ -11,8 +11,11 @@ Descriptive only (no criterion role; orchestrator 16:40Z): the bin count beside 
 a whole-fire bootstrap 95% interval of Gap(cand) - Gap(ref), using the sd9bench resampling
 convention (default_rng(20261030).integers(0, n_fires, (10000, n_fires))).
 
-The point gaps are checked against the score_criteria.py output (--scores); any
-disagreement stops the report. Note for readers: each model's lowest bin holds
+The VERDICT is decided on the table's own numbers: the score_criteria.py output
+(--scores), cumulative_bands["4000"]...calibration[0]. This script's recomputation from
+the entries is a CHECK only: counts must match exactly, and gaps within an absolute 1e-12
+(float summation order differs, by about 1e-14). Any disagreement beyond that raises
+and stops the report. Note for readers: each model's lowest bin holds
 different cells, so this is not a like-for-like cell comparison.
 
 Usage (research/harness-2026-11/S-D9 on PYTHONPATH):
@@ -23,7 +26,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 from pathlib import Path
 
 import numpy as np
@@ -52,7 +54,27 @@ def _gap(count, sp, sy):
         return np.where(count > 0, np.abs(sy / count - sp / count), np.nan)
 
 
-def evaluate(entries, candidate: str, draws: int = DRAWS, seed: int = SEED) -> dict:
+GAP_ABS_TOL = 1e-12
+
+
+class CheckError(RuntimeError):
+    pass
+
+
+def table_gaps(scores: dict, names) -> dict:
+    """Count and gap per model from the score_criteria.py table (these decide the verdict)."""
+    models = scores["cumulative_bands"]["4000"]["models"]
+    out = {}
+    for m in names:
+        b = models[m]["pooled"]["calibration"][0]
+        if b["lower"] != 0.0 or abs(b["upper"] - UPPER) > 1e-12:
+            raise CheckError(f"unexpected lowest bin for {m}: {b['lower']}..{b['upper']}")
+        c = int(b["count"])
+        out[m] = dict(count=c, gap=None if c == 0 else float(abs(b["observed_frequency"] - b["mean_prediction"])))
+    return out
+
+
+def evaluate(entries, candidate: str, table: dict, draws: int = DRAWS, seed: int = SEED) -> dict:
     band = entries.dist_m <= BAND_M
     fires, fire_index = np.unique(entries.fire[band], return_inverse=True)
     y = entries.y[band].astype(float)
@@ -62,7 +84,14 @@ def evaluate(entries, candidate: str, draws: int = DRAWS, seed: int = SEED) -> d
     for m in (candidate,) + REFERENCES:
         c, sp, sy = _sums(fire_index, n, entries.predictions[m][band].astype(float), y)
         tc, tp, ty = c.sum(), sp.sum(), sy.sum()
-        per_model[m] = dict(count=int(tc), gap=None if tc == 0 else float(abs(ty / tc - tp / tc)))
+        own = dict(count=int(tc), gap=None if tc == 0 else float(abs(ty / tc - tp / tc)))
+        tab = table[m]
+        if own["count"] != tab["count"]:
+            raise CheckError(f"{m}: bin count {own['count']} != table {tab['count']}")
+        if (own["gap"] is None) != (tab["gap"] is None) or (
+                own["gap"] is not None and abs(own["gap"] - tab["gap"]) > GAP_ABS_TOL):
+            raise CheckError(f"{m}: recomputed gap {own['gap']} vs table {tab['gap']} beyond {GAP_ABS_TOL}")
+        per_model[m] = dict(count=tab["count"], gap=tab["gap"], recomputed_gap=own["gap"])
         boot[m] = _gap(c[sampled].sum(axis=1), sp[sampled].sum(axis=1), sy[sampled].sum(axis=1))
     cand = per_model[candidate]
     comparisons, bounds = {}, []
@@ -85,18 +114,8 @@ def evaluate(entries, candidate: str, draws: int = DRAWS, seed: int = SEED) -> d
         verdict = "met" if all(bounds) else "not met"
     return dict(criterion=5, candidate=candidate, band_m=BAND_M, bin=[0.0, UPPER], verdict=verdict,
                 met=verdict == "met", per_model=per_model, comparisons=comparisons, draws=draws, seed=seed,
+                verdict_source="score_criteria table (cumulative_bands 4000, calibration[0]); recomputation is a check only",
                 note="each model's lowest bin holds different cells; descriptive intervals have no criterion role")
-
-
-def _check_against_scores(result: dict, scores: dict) -> None:
-    models = scores["cumulative_bands"]["4000"]["models"]
-    for m, rec in result["per_model"].items():
-        b = models[m]["pooled"]["calibration"][0]
-        assert b["lower"] == 0.0 and abs(b["upper"] - UPPER) < 1e-12, (m, b)
-        assert int(b["count"]) == rec["count"], (m, b["count"], rec["count"])
-        if rec["gap"] is not None:
-            g = abs(b["observed_frequency"] - b["mean_prediction"])
-            assert math.isclose(g, rec["gap"], rel_tol=1e-9, abs_tol=1e-15), (m, g, rec["gap"])
 
 
 def main(argv=None) -> None:
@@ -111,8 +130,8 @@ def main(argv=None) -> None:
     entries = load(args.files, None, population=POPULATION)
     if entries.dist_m is None:
         raise SystemExit("dist_m is required for the 4 km band")
-    result = evaluate(entries, args.candidate)
-    _check_against_scores(result, json.loads(args.scores.read_text()))
+    table = table_gaps(json.loads(args.scores.read_text()), (args.candidate,) + REFERENCES)
+    result = evaluate(entries, args.candidate, table)
     args.out.write_text(json.dumps(result, indent=1, sort_keys=True, allow_nan=False) + "\n")
     print(f"criterion 5 for {args.candidate}: {result['verdict']}")
 
