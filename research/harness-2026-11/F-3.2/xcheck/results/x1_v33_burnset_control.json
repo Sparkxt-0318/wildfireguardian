@@ -1,0 +1,56 @@
+{
+ "note": "v3.3 (Leo 4463892) envelope_burnset negative control, recovered from the X1 log: the run was stopped at the 2 h background limit after these packets; X1 writes its results file only at the end.",
+ "rows": [
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250323T010000Z_h5_envelope_burnset_central_q300",
+   "variant": "envelope_burnset",
+   "region": "uiseong_andong_2025",
+   "start": "20250323T010000Z",
+   "active_hazard": 16176,
+   "active_contact": 15781,
+   "only_hazard": 395,
+   "only_contact": 0,
+   "identical": 0,
+   "end_within_1us": 0,
+   "other": 15781,
+   "instances_equal": 0,
+   "instances_compared": 168,
+   "raw_vs_contact": 0,
+   "PASS": false
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250324T090000Z_h5_envelope_burnset_central_q300",
+   "variant": "envelope_burnset",
+   "region": "uiseong_andong_2025",
+   "start": "20250324T090000Z",
+   "active_hazard": 16176,
+   "active_contact": 15144,
+   "only_hazard": 1032,
+   "only_contact": 0,
+   "identical": 0,
+   "end_within_1us": 0,
+   "other": 15144,
+   "instances_equal": 0,
+   "instances_compared": 168,
+   "raw_vs_contact": 0,
+   "PASS": false
+  },
+  {
+   "packet": "research/harness-2026-11/F-DYN/_data/packets_v31/uiseong_andong_2025/20250325T170000Z_h5_envelope_burnset_central_q300",
+   "variant": "envelope_burnset",
+   "region": "uiseong_andong_2025",
+   "start": "20250325T170000Z",
+   "active_hazard": 16176,
+   "active_contact": 13008,
+   "only_hazard": 3168,
+   "only_contact": 0,
+   "identical": 0,
+   "end_within_1us": 0,
+   "other": 13008,
+   "instances_equal": 0,
+   "instances_compared": 168,
+   "raw_vs_contact": 0,
+   "PASS": false
+  }
+ ]
+}

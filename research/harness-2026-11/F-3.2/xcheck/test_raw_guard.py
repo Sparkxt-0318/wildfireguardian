@@ -1,5 +1,5 @@
 """p1_check.require_routable_arrays / from_raw refuse HAZARD-only packets (Leo 588f74e) and never skip cells.
-Run: [WFG_REAL_PACKET=<real packet dir>] python research/harness-2026-11/F-3.2/test_raw_guard.py  (or pytest; the env var adds the end-to-end check)"""
+Run: [WFG_REAL_PACKET=<real packet dir>] python test_raw_guard.py  (or pytest; the env var adds the end-to-end check)"""
 import os
 import shutil
 import sys
@@ -9,10 +9,10 @@ from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import p1_check as P  # noqa: E402
 
-REAL = os.environ.get("WFG_REAL_PACKET")  # a real packet dir; argv is not used, so pytest and unittest both work
+REAL = os.environ.get("WFG_REAL_PACKET")  # a real ROUTABLE packet dir (not a HAZARD-only one, which from_raw refuses by design); argv is not used
 
 
 def npz(**arrs):
@@ -48,22 +48,45 @@ class Guard(unittest.TestCase):
         self._ok(ignition_time_s=np.array([[[0.0]]]), per_cell_law_HAZARD_only=np.array(False))
 
 
-@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real packet directory to run the end-to-end check")
+class PacketDir(unittest.TestCase):
+    def test_failed_or_unfinished_write_refused(self):
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t)
+            with self.assertRaises(ValueError):
+                P.require_complete_packet_dir(d)                       # no BUILD_SUMMARY.json
+            (d / "BUILD_SUMMARY.json").write_text("{}")
+            P.require_complete_packet_dir(d)                           # complete
+            (d / "SUPPORT_WRITE_FAILED").write_text("")
+            with self.assertRaises(ValueError):
+                P.require_complete_packet_dir(d)                       # failed support write
+
+
+@unittest.skipUnless(REAL, "set WFG_REAL_PACKET to a real routable (non-HAZARD-only) packet directory to run the end-to-end check")
 class EndToEnd(unittest.TestCase):
     def test_from_raw_refuses_marker_and_nan_but_reads_the_real_packet(self):
         n = len(P.from_raw(REAL, 18000))
         self.assertGreater(n, 0)
-        for mutate in ("marker", "nan"):
+        for mutate in ("marker", "nan", "failed_write", "no_summary"):
             with tempfile.TemporaryDirectory() as t:
                 d = Path(t) / "pk"; shutil.copytree(REAL, d)
                 z = dict(np.load(d / "constructed_arrays.npz"))
-                if mutate == "marker":
+                if mutate == "failed_write":
+                    (d / "SUPPORT_WRITE_FAILED").write_text("")
+                elif mutate == "no_summary":
+                    (d / "BUILD_SUMMARY.json").unlink()
+                elif mutate == "marker":
                     z["per_cell_law_HAZARD_only"] = np.array(True)
                 else:
                     z["ignition_time_s"] = z["ignition_time_s"].copy(); z["ignition_time_s"].flat[0] = np.nan
                 np.savez(d / "constructed_arrays.npz", **z)
                 with self.assertRaises(ValueError):
                     P.from_raw(d, 18000)
+                with self.assertRaises(ValueError):
+                    P.routable_contact_model(d)
+                if mutate == "marker":
+                    # Mira: ContactModel itself does not read the marker (contact.py is hash-pinned); the wrapper must
+                    from wfg_scenario_members.contact import ContactModel
+                    self.assertGreater(len(ContactModel.from_packet(d).cell_intervals), 0)
 
 
 if __name__ == "__main__":

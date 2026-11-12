@@ -32,6 +32,7 @@ import p1_check as P1  # noqa: E402
 import cases  # noqa: E402
 import generate  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 
 KMH = {"B1.5": F(15, 10), "B8.2": F(82, 10)}
@@ -50,6 +51,7 @@ class Augmented:
 
 
 def masks(packet):
+    P1.require_complete_packet_dir(packet)          # F-9.3 rule 2: refuse failed or unfinished writes
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         P1.require_routable_arrays(a, packet)          # refuse HAZARD-only packets loudly (Leo 588f74e)
         m = {k: a["mask__" + k].astype(bool) for k in ("unknown_cumulative_state", "policy_assigned_zero", "known_burned",
@@ -110,7 +112,7 @@ def main():
     rows, packets = [], {}
     for c in cases.korean_cases():
         g = json.loads(Path(c["graph"]).read_text()); r = json.loads(Path(c["request"]).read_text())
-        model = ContactModel.from_packet(c["packet"])
+        model = routable_contact_model(c["packet"])
         u_state, u_q, s0 = masks(c["packet"])
         if u_state.shape != (g["grid"]["height"], g["grid"]["width"]):
             raise RuntimeError("GRID_MISMATCH " + c["mission"])

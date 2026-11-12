@@ -19,6 +19,8 @@ import cases  # noqa: E402
 import generate  # noqa: E402
 
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
+
+from p1_check import routable_contact_model  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 
 RECORDED = HERE.parents[2] / "research/sipp-routing/native-panel-20261030/EXECUTIONS.jsonl"
@@ -65,7 +67,7 @@ def main():
             continue
         graph = json.loads(Path(c["graph"]).read_text())
         request = json.loads(Path(c["request"]).read_text())
-        model = ContactModel.from_packet(c["packet"])
+        model = routable_contact_model(c["packet"])
         row = dict(mission=c["mission"], region=c["region"], supported=getattr(model, "supported", True) is True)
         t0 = time.perf_counter()
         inst, pg = build_instance(graph, request, model)

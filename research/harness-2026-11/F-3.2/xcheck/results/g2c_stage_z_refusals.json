@@ -1,0 +1,104 @@
+{
+ "purpose": "G2c re-verification of the 4 stage-Z (contact_only_lattice_relaxation) FULL_MODEL_REFUSAL_PROVEN missions of the kit-v2 Step 0 panel (Priya)",
+ "inputs": "request, packet and graph shas match the prefixes Priya sent (e75116fa.., 10cd3f6a.., f5b1e3ea.., 69047e06..; HAZARD 025823f1.., ab6386b7..; graphs 861ca151.., 74e60a45..)",
+ "packet_p1": {
+  "hongseong_2023/20230402T070000Z": {
+   "active_cells": 6,
+   "hazard_vs_contact": 0,
+   "raw_vs_contact": 0,
+   "supported": true
+  },
+  "miryang_2022/20220601T080000Z": {
+   "active_cells": 5,
+   "hazard_vs_contact": 0,
+   "raw_vs_contact": 0,
+   "supported": true
+  }
+ },
+ "writer": "packet_writer_sha256 6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb (both packets)",
+ "status": "F32_BOTH_CHECKERS: each F-3.2 NO_ROUTE certificate (T = H+1) accepted by check_py and wfgc_check (fresh processes) with LABELS_MATCH, and FULLY_BOUND by verify_bound.py (R2+R3+T7a+T7b)",
+ "scope": "Proves: the integer-second F-3.2 contact relaxation of each request has no route. The step from there to the kit whole-road model having no route rests on the dominance argument (xcheck/DOMINANCE_RULE.md), which is from code reading only and NOT verified. Report as: relaxation refusal independently checked by two checkers; implication to the kit model by an unverified dominance argument.",
+ "source": "xcheck/results/binding_panel.json (bind_panel.py, rev 2.2); bundles outside git, identified by bundle_sha256",
+ "rows": [
+  {
+   "region": "hongseong_2023",
+   "mission": "20230402T070000Z_FN1",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "instance_sha256": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+   "bundle_sha256": "c2329d0d2301700d0ec2a3bcb73598f14a3d5e914a103c3db0934bf356f8ddc9",
+   "bundle_bytes": 61944,
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "98cce14a8735e003f6fc3df81887302f9b80f41f6408c7f6f9927aa4cbafba14",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "3e92c8e8f376a87c60b8a26d85c43dcabf1a9e429d9f9966cea118068b27d6de"
+   },
+   "check_py": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+   "check_c": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+   "verify_bound": "FULLY_BOUND",
+   "t7_structure_diffs": 0,
+   "t7_o2_diffs": 0
+  },
+  {
+   "region": "hongseong_2023",
+   "mission": "20230402T070000Z_FX1",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "instance_sha256": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+   "bundle_sha256": "bba73b5c02647c4298e86e9737cdc570cd5fb2b9bf9db67290eec7ce3449c6c7",
+   "bundle_bytes": 61943,
+   "digests": {
+    "G": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+    "A": "98cce14a8735e003f6fc3df81887302f9b80f41f6408c7f6f9927aa4cbafba14",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "fbd62708944342ba20584cfcf7174c3bc1ee03e2b72bf033ffce4d0ea53e8874"
+   },
+   "check_py": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+   "check_c": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+   "verify_bound": "FULLY_BOUND",
+   "t7_structure_diffs": 0,
+   "t7_o2_diffs": 0
+  },
+  {
+   "region": "miryang_2022",
+   "mission": "20220601T080000Z_FD1",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "instance_sha256": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+   "bundle_sha256": "04cc15abee754b1d13ae36aacedd14697d62b909f8b84314d00461fb981b7be8",
+   "bundle_bytes": 139440,
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "ece467a4922c4cb61393ddbfc3c285cd113efcd20d427aa6039a425aeb497fd5",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "f6477b2fca64c66043f5114eaf0964ee4cd0f0f24da8b78664b51d1e933acce7"
+   },
+   "check_py": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+   "check_c": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+   "verify_bound": "FULLY_BOUND",
+   "t7_structure_diffs": 0,
+   "t7_o2_diffs": 0
+  },
+  {
+   "region": "miryang_2022",
+   "mission": "20220601T080000Z_FX1",
+   "claim": "NO_ROUTE",
+   "T": 3601,
+   "instance_sha256": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+   "bundle_sha256": "2a94d8fb1fe31866f2f9b5df312b57ba218d890d77fb46c4e0e80176e9426949",
+   "bundle_bytes": 137294,
+   "digests": {
+    "G": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+    "A": "ece467a4922c4cb61393ddbfc3c285cd113efcd20d427aa6039a425aeb497fd5",
+    "W": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+    "Q": "fc2dbad9c0b891b2b9cfcd9fa43d1b7b5d338da6352a92c176dce90ab4127934"
+   },
+   "check_py": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+   "check_c": "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+   "verify_bound": "FULLY_BOUND",
+   "t7_structure_diffs": 0,
+   "t7_o2_diffs": 0
+  }
+ ]
+}
