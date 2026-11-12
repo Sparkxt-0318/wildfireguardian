@@ -358,3 +358,27 @@ its fixed 6 s cap:
 
 Every published result is individually certified, so this is a reproducibility issue, not a soundness one. The rates
 are for this host only. Non-evaluated.
+
+## External cross-reference: Richard's router-only field on the same 12 requests (16:11 UTC; not my computation)
+
+Source: Richard, F-3.1, ac80919, `results/FDYN_KIT_REQUESTS_router_field.json` (`deadline_field/kit_requests.py`).
+The packets are rebuilt from v3.1. The HAZARD sha differs from mine by one absolute path; the scenario ids match.
+
+**Outcome counts:**
+- **0 no-route.**
+- **2 at-issue:** Uiseong …334, both variants, as in my A1.
+- **10 feasible**, each with a field witness that passes the unchanged full checker.
+
+**Uiseong.** The 4 requests that the kit never resolved, in any of my runs (including every gate at 12 GiB and
+450 s), have checked routes:
+- …323 arrives at **372 s**;
+- …324 arrives at **52 s**;
+- the same for both variants.
+
+So the kit's Uiseong failure is the cost of its dense multi-hour machinery (bound model, EA, LO), **not** a hard search
+problem. This is now the headline fact of kit-v2's Step 6 design note.
+
+**Yeongdeok:**
+- …207 = 59 s and …168 = 274 s, the same as the kit;
+- …166: the field's greedy witness arrives at 4,356 s, against the modified kit's proven 3,953 s. Feasible, not
+  earliest, so consistent.
