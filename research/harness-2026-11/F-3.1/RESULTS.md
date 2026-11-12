@@ -414,7 +414,9 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
       differ only in provenance and identity: settings_digest, construction_id, the scenario and member ids derived
       from it, the interpretation text, and the embedded absolute path of the radiation module. The flame, flux and
       dose content is identical. The other 23 pairs were not rebuilt for this check.
-    * **Not recorded.** This batch predates the writer_identity field in fdyn_run output, so it is absent here.
+    * **Writer identity not available.** In 7 of the 24 outputs (written before fdyn_run recorded it) the
+      writer_identity key is absent. In the other 17 it is present, but both fields (packet_writer_sha256,
+      support_writer) are null, because the v3.4 BUILD_SUMMARY.json does not carry them.
 * **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
   is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
 
