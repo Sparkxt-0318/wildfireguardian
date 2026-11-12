@@ -95,6 +95,8 @@ Each row fixes the sentence the paper may write for one possible result.
 | O8 | **No headline** (neither admitted) | "No candidate met the admission rules, so there is no headline part-c decision. Secondary candidates are reported individually, without multiplicity adjustment." | Promoting a secondary result to headline. |
 | O9 | **Material leak bound** (§1; `LEAK_BOUND_PLAN.md`) | Whatever row applies, plus: "A part-a measurement found that survey-timing information could improve the reference model detectably. Criteria that depend on constants not shown independent of sealed survey timing are reported as descriptive." | Omitting the leak-bound result. |
 
+**Preprint wording (Wapiti).** Marcus's reconciliation note (1c3c4270) finds that the sign change is entirely due to the interval set: on the preprint's 25-interval cohort the BSS is +8.17%; on all 52 eligible intervals it is −44.5%; and the 24 common intervals have bit-identical predictions. It is **UNVERIFIED** until Owen passes it. Once he does, any text about the preprint's Wapiti figure says it is **"specific to its 25-interval August cohort"**, and no row of this table cites the preprint figure as evidence for any candidate.
+
 For **secondary candidates and comparator rows** (d4_wind vs logistic on part c, `c651_fullvalid_rebuilt` and others), the same sentences apply with "secondary, no multiplicity adjustment" added. A secondary success never becomes the headline.
 
 ## 10. A1 closed to new change items after the stage-2 freeze
@@ -117,6 +119,8 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
   - **If it is low (below 0.50 at 30 fires), part b is not opened.** It stays reserved, and this is reported.
   - The threshold is fixed here, before any estimate.
 - **Timing disclosure.** If the candidate is designed, or any of its choices are made, **after part-c results are seen**, the amendment says so explicitly and lists which choices came after.
+
+**Named scorer for every criterion pair (pin, not a criterion change).** Criteria 1–4 are computed by `freeze/score_criteria.py`, a thin wrapper over the frozen `sd9bench.score` with the references fixed to the four §6.1 objects. The frozen CLI cannot write criteria 3 and 4 (Owen, eb4d05f5). The same tool scores part a (development, in-sample) and part c. Owen's numpy-only scorer is the independent second run (see `STAGE2_PINS.md`).
 
 ## 12. Minimal custody procedure: a condition of opening part c (Iris; not the full custody design)
 Part c is not opened until **all** of the following hold:
