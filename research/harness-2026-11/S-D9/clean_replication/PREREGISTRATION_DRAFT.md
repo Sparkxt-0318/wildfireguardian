@@ -11,7 +11,7 @@ Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section 
 The A1 hold-out parts are sealed for labels, perimeters and growth. But per-incident survey timing was readable by every session before the split, and the cohort's own membership rules used discovery date and the survey window (ACCESS_CONTROL, combined amendment). GOFER/H fires had aggregate labels and final sizes inspected. A replication that can be called clean needs fires about which **no session has read anything, not even metadata**, until the predictors and the scorer are frozen.
 
 **The replication differs from A1 part c in two things: cleanliness and the label pipeline.** It keeps the same criteria and the same candidates, and the same IR interpretation as the labels.
-- **The difference in labels:** part c's labels went through the Magstadt compilation, with its time conversion, estimated times and ≥ 3-collection-day selection. CR1's labels come from the in-season harvest of the IR deliveries, built by the custodian's frozen builder, with free-text flight times flagged as estimated or missing and no compilation-stage selection.
+- **The difference in labels:** part c's labels went through the Magstadt compilation, with its time conversion, estimated times and ≥ 3-collection-day selection. CR1's labels come from the in-season harvest of the IR deliveries, built by the custodian's frozen builder, with free-text flight times flagged as estimated or missing and no compilation-stage selection. Harvested deliveries may also be **dissolved products that drop unburned interior islands** (Dixie August 2021 KMZ), which part c's labels keep (§2, harvest-route item 4).
 - **What this means:** a different result could come from either difference. The compiled-release cross-check (§2), where it exists, is the only within-study measure of the pipeline effect. Otherwise the pipeline difference is reported as a limitation.
 
 ## Decisions and proposed dates
@@ -208,11 +208,16 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
            - **Rule when a canary fires:** the custodian may look at **year-level folder names only** (for example a new `2027_…` spelling), **never incident names**.
            - The layout or pattern list is changed **only by a logged amendment** that states the old and new patterns. Deliveries already lost before the fix are E7.
         2. **Incident metadata under the harvest route (origin, discovery date, IRWIN ID).**
-           - **Source:** the public WFIGS / IRWIN incident-location records. The candidate fields are the incident's IRWIN ID, its point-of-origin coordinates and its fire discovery date-time. The exact field names are frozen from the source's published schema before the freeze; Daniel identifies them from documentation only.
+           - **Source and fields (Daniel, 18:22Z, from documentation and the existing `data-fetch/incident_metadata_join.py`; no records fetched):** the NIFC feature service `WFIGS_Incident_Locations/FeatureServer/0`.
+             - **IRWIN ID:** `IrwinID`, a braced GUID.
+             - **Discovery date-time:** `FireDiscoveryDateTime`, epoch milliseconds in UTC.
+             - **Point of origin:** the feature's point geometry, with outSR = 4326 (x = lon, y = lat). This is not `InitialLatitude`/`InitialLongitude`, which is the initially reported location.
+             - **Also used for the key match:** `UniqueFireIdentifier`.
            - **Who and when:** the custodian fetches them **once, at the snapshot (2028-01-31)**. It is filtered in memory to the IRWIN IDs found in the harvested deliveries, and lands in the sealed store. No worker sees it.
-           - **IRWIN ID:** it is read from the delivery's attribute table when present.
-           - **Rule when a delivery has no IRWIN ID:** match it to a WFIGS record by a frozen space-time rule. The match must be unique: the point of origin lies within B = 4 km of the first harvested perimeter, and the discovery date is within 3 days before that perimeter's flight date.
-             - With no unique match, the incident is **E8: no incident metadata**. It is counted, reported and never replaced.
+           - **IR deliveries carry no IRWIN ID** (Daniel: the delivery attribute tables and the Dixie KMZ have none; the Magstadt compilation added it by joining an IROC export). The match is therefore made in this fixed order, applied by the custodian at the snapshot:
+             1. **Key match (proposed, for Hannah and Iris):** the incident number in the leaf delivery folder, normalised by a frozen rule, is matched to `UniqueFireIdentifier`. It is accepted only if exactly one record matches.
+             2. **Space-time match:** a unique WFIGS record whose point of origin lies within B = 4 km of the first harvested perimeter, and whose `FireDiscoveryDateTime` is within 3 days before that perimeter's flight time.
+             3. Otherwise the incident is **E8: no incident metadata**. It is counted, reported and never replaced.
              - **Fixed note:** this matching is a rule, not a choice, and it is applied before any score exists.
         3. **Flight-time rule (fixed now).**
            - **Source:** the time is parsed from the delivery's free-text comment by the frozen builder rule, converted to UTC with the frozen per-region time-zone table.
@@ -221,10 +226,18 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
            - **Δ rule:** an interval with an estimated endpoint **counts** under 0 < Δ ≤ 48 h using those times. This is the primary rule.
            - **Pre-stated secondary:** the same analysis with every interval having an ESTIMATED endpoint dropped. It is reported beside the primary, with no decision role.
            - **Caveat:** this rule is untested on real free text until after the closing date (see the synthetic-fixture limits).
-        4. **Builder acceptance (Daniel), before the freeze.**
-           - The builder's acceptance criteria are stated: geometry, and time where testable.
-           - The **13 of 37 Dixie nights that fail** (all 31 Jul to 30 Aug 2021; built perimeters 1–4% smaller) are either brought within the criteria, or **explained**, with the explanation recorded. Daniel's working hypothesis is that the August KMZ layers are a different perimeter product.
-           - The freeze waits for this.
+        4. **Builder acceptance (Daniel, 18:22Z; daniel/data-fetch-3 76ec1daf, `ir_builder/README.md`). Done; recorded as PARTIAL.**
+           - **Criteria:**
+             - geometry: IoU ≥ 0.99 and |area error| ≤ 0.5% per survey, against interpreter-shapefile references;
+             - time, where testable: equal to the minute under the fixed rule in item 3. ESTIMATED surveys are reported separately and are excluded from the time criterion.
+           - **The 13 of 37 failing Dixie nights (31 Jul to 30 Aug 2021) are EXPLAINED, not fitted.** The diagnosis (`diag_dixie_holes.py`, `DIAG_DIXIE_HOLES.txt`) was done after the run.
+             - The built perimeter is **larger**: 3.6–70.9 km² built-only, against ≤ 1.5 km² archive-only. This corrects an earlier "smaller".
+             - The extra area is exactly the archive's **interior holes** (unburned islands). The August KMZ "HeatPerimeterDissolved" layers keep 1–5 interior rings, while the archive has 5–14.
+             - With interior rings removed on both sides, IoU is ≥ 0.9994 on all 37 nights.
+             - So the cause is the input product's dissolve, not the builder. Acceptance test 2 stays **PARTIAL (24/37)**, with no criterion or rule changed after the run.
+             - Expected to pass on interpreter shapefiles, which carry the islands, but **untested**: none are reachable.
+           - **Consequence for CR1 labels (added to the §0 pipeline difference).** If the 2027 harvested deliveries are dissolved products like the August KMZ, unburned islands inside the perimeter would be labelled burned. Part c's compiled labels keep them. This is a concrete label-pipeline difference, mostly affecting interior cells.
+             - Whether 2027 deliveries keep the islands cannot be known before harvest. The builder reports the interior-ring count per survey, and the result states the share of dissolved-type surveys.
         5. **Two independent harvest jobs (adopted).**
            - One job is run by the custodian and one by the second custodian (Nora), in **different environments**, at **different fixed UTC times** (for example about 06 and about 18 UTC).
            - The sealed store keeps the **union of files by sha256**.
@@ -466,9 +479,9 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | KR-P frozen rules (label source and minimum event count; also detection product, arrival method, eligibility) | Victor drafts; Hannah verifies | due **before 2027-01-01** |
 | access route for 2027 NIROPS-type IR | owner | **decided 12 Nov: in-season harvest (d') primary; compiled release a cross-check only.** Before the freeze: Hannah's and Iris's assessments of the harvest design (Hannah's a–g given); the frozen harvest script plus its synthetic-fixture rehearsal; and the owner-side setup (custodian environment through 2027, a daily job with missed-run alerting, and the two owner-held secrets), which the orchestrator walks the owner through |
 | frozen harvest script and synthetic-fixture rehearsal (including the canary, two-job union and totals-only log) | **Daniel** writes (acknowledged 16:32Z; after tonight's weather run and the road probe); Hannah reviews and verifies; Nora reads it as second custodian and runs the second job | MUST before the freeze; never run live before 2027-01-01 |
-| WFIGS/IRWIN field names, and the no-IRWIN space-time match rule (E8) | Daniel (documentation only) | MUST before the freeze |
+| WFIGS/IRWIN field names, and the no-IRWIN space-time match rule (E8) | Daniel (documentation only) | **done** (18:22Z, 76ec1daf): deliveries carry no IRWIN ID; key match on `UniqueFireIdentifier` proposed first, then the space-time match, else E8. Hannah and Iris to confirm the key-match step |
 | flight-time rule (midnight rule, ESTIMATED flag, Δ rule, secondary) | Victor (text); Daniel (builder code) | rule fixed in draft 13; code pending |
-| builder acceptance: criteria stated, and the 13/37 failing Dixie nights met or explained | Daniel | **MUST before the freeze** |
+| builder acceptance: criteria stated, and the 13/37 failing Dixie nights met or explained | Daniel | **done**: criteria stated; the 13 nights are explained (dissolved interior holes in the input product; ≥ 0.9994 IoU without holes); test stays PARTIAL 24/37 |
 | second harvest job (Nora, separate environment and time) | owner / orchestrator | to set up before 2027-01-01 |
 | custodian offline use of Sofia's 32 frozen 2026 deliveries to rehearse time parsing | owner | **PENDING (morning)** |
 | site terms for a daily automated listing and download | owner | **PENDING (morning)** |
