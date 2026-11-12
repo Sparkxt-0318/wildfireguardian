@@ -71,6 +71,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 63 | 2026-11-12 | W-KIT phone-shape allowlist tidy | Clara | ccbee1a | 35-number probe as intended; all-zero placeholder renders only for drill/replay issuers; 446/446 | own probe | PASS |
 | 64 | 2026-11-12 | PR #144 scope check (research-scout batch 8/8b) | Sofia | b750fa7 | docs only (LOG.md +76); no phone numbers, no private links, no personal data; suggestion labelled; no footer | diff + body | READY |
 | 65 | 2026-11-12 | envelope_burnset P1 (Thomas's flag; independent check) | Leo (via Thomas) | 4463892 | Uiseong 0323T01 h5: HAZARD 16,176 cells on [0,18000) vs ContactModel 15,781 cells, 0 full, ending at about 4,270 s (or 3,792 s for present fire); 395 cells missing; ContactModel == raw-array T/R law | own build from MANIFEST_v3_3 + p1_check | P1 FAIL CONFIRMED |
+| 66 | 2026-11-12 | F-3.4 REQUEST 10 F-DYN multi-hour profile | Priya | 73f29a7 | (1)-(4) reproduce from rows + STAGES; RSS gates confirmed in kit code (road_core.py:752-757, hybrid_checker.py:9/_finish), process-lifetime ru_maxrss vs 3,072 MiB | read rows/STAGES + fresh kit build | PASS WITH NOTES |
 
 ## Notes
 
@@ -340,4 +341,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **63.** Tiny: 00-000-0000 also counts as a placeholder; short call-centre numbers (031-120) and 080 toll-free are refused (conservative).
 
 **65.** The arrays do not implement the static burn-set law: do not certify until they do. Only 0323T01 was checked.
+
+**66.** N1: the 30 s rows are LATE_RESULT, not search TIMEOUT. N2: the g12k run also has 1 FULL_OPTIMUM_PROVEN (not claimed). N3: b900_g12k has 1 row. The optional spot run was not done.
 
