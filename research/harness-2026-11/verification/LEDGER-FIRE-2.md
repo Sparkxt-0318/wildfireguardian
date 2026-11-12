@@ -33,6 +33,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 25 | 2026-11-12 | FIRE 6.2 radiant screen (parts 1 and 3) | Priya | 79f3271 | 1-hour flux bounds < 1.0 so ceilings change nothing; C-11 view factor; standoffs and route counts | `python3 F-4.2/standoff.py` + own numeric integration and bisection | PASS WITH NOTES |
 | 26 | 2026-11-12 | FIRE 6.2 radiant 4a (time inside standoff, fractional dose) | Priya | 12c32af | per-route seconds q>=1, stationary, FD ranges; worst routes FX2/FW2/Hongseong FW2 | `standoff_route.py --part 4a` + own independent recomputation (FX2, FW2) | PASS WITH NOTES |
 | 27 | 2026-11-12 | P-PROTO follow-up (port of cp2 + gap wording) | Clara | b3df2a3 | only 6 P-PROTO files on Main; 90 s wait in mount(); 3-way leave-by sentence with sweep property test; 403/403; default build no public-view | fresh `npm ci`; `npx vitest run`; mutation (old 2-way mapping); `npm run build:static` | PASS |
+| 28 | 2026-11-12 | FIRE 6.2 radiant 5a (dwell / wait / moving split) | Priya | 49a50b3 | stationary split into dwell and wait; destination inside standoff during stay | `standoff_route.py --part 4a`; cross-check vs own 4a run | PASS WITH NOTE |
+| 29 | 2026-11-12 | FIRE 6.2 radiant §6 (literature flame set) | Priya | eda51f2 | reproduces Sofia's standoffs; route-count ranges W100/W3750 × window | `python3 F-4.2/standoff_lit.py` + own code | PASS |
 
 ## Notes
 
@@ -193,3 +195,12 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - 403/403 pass. The property test passes and fails under the old 2-way mapping (syn:gen:4:origin). It recomputes claims from the raw sweep and enforces generator coverage; counts 413/325/53 match my own.
 - The default build has 0 public-view files.
 - Notes N1 and N2 from entry 21 are resolved.
+
+**28. 5a @ 49a50b3**:
+- Regenerates identically. FX2 is dwell 120 / wait 0 / moving 497 = 617. FW2's wait 46 equals my own stationary count.
+- Note: the ISSUE second is in no split category (FW2 0+46+556 = 602 vs 603).
+
+**29. §6 @ eda51f2** (plan 9a63fbb, 22 s earlier):
+- The JSON regenerates identically.
+- Own code: 4-corner mid-height receiver; infinite face gives F = 1; closed form = numeric to 6 figures.
+- Sofia's 102.5/58.2, 263.8/163.8 and 434.9/273.1 m reproduce. All 8 count ranges match.
