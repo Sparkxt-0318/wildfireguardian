@@ -31,10 +31,26 @@ from wildfire import baselines as B  # noqa: E402
 
 from .entries import Entries  # noqa: E402
 
+SEED = 20261030
+DRAWS = 10000
 DEFAULT_HORIZON_EDGES_H = (0.0, 12.0, 24.0, 36.0, 48.0)
 DEFAULT_BAND_EDGES_M = (0.0, 1000.0, 2000.0, 4000.0, 8000.0)
 DEFAULT_CUMULATIVE_BANDS_M = (1000.0, 2000.0, 4000.0, 8000.0)
 LOW_P_EDGES = (0.0, 1e-5, 1e-4, 1e-3, 1e-2, 0.1)
+MC_FLOOR = 1.0 / 1024.0
+
+
+def equal_fire_interval(entries, candidate, reference, draws: int = DRAWS, seed: int = SEED) -> dict:
+    """Mean over fires of per-fire Brier differences (each fire weighted equally), whole-fire bootstrap."""
+    fires = np.unique(entries.fire)
+    per = np.array([np.mean((candidate[entries.fire == f] - entries.y[entries.fire == f]) ** 2)
+                    - np.mean((reference[entries.fire == f] - entries.y[entries.fire == f]) ** 2) for f in fires])
+    sampled = np.random.default_rng(seed).integers(0, len(fires), size=(draws, len(fires)))
+    values = per[sampled].mean(axis=1)
+    lo, hi = np.quantile(values, [0.025, 0.975])
+    return dict(point_difference=float(per.mean()), percentile_95_interval=[float(lo), float(hi)],
+                excludes_zero=bool(hi < 0 or lo > 0), draws=draws, seed=seed,
+                definition="mean over fires of (candidate - reference) per-fire Brier; negative favours candidate")
 
 
 def low_probability_bins(y: np.ndarray, p: np.ndarray, edges=LOW_P_EDGES) -> list[dict]:
@@ -47,8 +63,6 @@ def low_probability_bins(y: np.ndarray, p: np.ndarray, edges=LOW_P_EDGES) -> lis
                          positives=int(y[use].sum()), mean_prediction=float(p[use].mean()) if n else None,
                          observed_frequency=float(y[use].mean()) if n else None))
     return rows
-SEED = 20261030
-DRAWS = 10000
 
 
 def bss_intervals(entries: dict, scored: dict, references=("persistence", "dilation_best"),
@@ -99,6 +113,13 @@ def core(entries: Entries, references=("persistence", "dilation_best"), draws: i
         record["pooled"]["low_probability_bins"] = low_probability_bins(entries.y, p)
         record["pooled"]["zero_probability_positive_share"] = (
             float(((p == 0) & (entries.y == 1)).sum() / entries.y.sum()) if entries.y.sum() else None)
+        below = int(((p < MC_FLOOR) & (entries.y == 1)).sum())
+        record["pooled"]["positives_below_1_over_1024"] = below
+    for name in scored["models"]:
+        for ref in refs:
+            if ref != name:
+                scored["paired"][f"{name}__vs__{ref}"]["equal_fire"] = equal_fire_interval(
+                    entries, entries.predictions[name], entries.predictions[ref], draws=draws, seed=seed)
     scored["base_rate"] = pbar
     return scored
 
@@ -185,6 +206,23 @@ def score(entries: Entries, *, references=("persistence", "dilation_best"), draw
                 core(sub, references=references, draws=draws, seed=seed) if use.any() and sub.y.sum() else
                 dict(status="UNAVAILABLE_EMPTY_OR_NO_POSITIVES", entries=int(use.sum()), positives=int(sub.y.sum())))
         result["positives_beyond_last_band"] = int((entries.y[entries.dist_m > max(cumulative_bands)]).sum())
+        scaled = np.maximum(1000.0, 4000.0 * entries.hours / 24.0)
+        use = entries.dist_m <= scaled
+        sub = entries.subset(use)
+        result["horizon_scaled_band"] = dict(
+            rule="dist_m <= max(1 km, 4 km * hours / 24)", entries=int(use.sum()), positives=int(sub.y.sum()),
+            positives_outside=int(entries.y[~use].sum()),
+            scores=core(sub, references=references, draws=draws, seed=seed) if use.any() and sub.y.sum() else None)
+    if entries.in_domain is None:
+        result["by_domain"] = dict(status="UNAVAILABLE_NO_IN_DOMAIN")
+    else:
+        result["by_domain"] = {}
+        for label, mask in (("inside", entries.in_domain), ("outside", ~entries.in_domain)):
+            sub = entries.subset(mask)
+            result["by_domain"][label] = (
+                core(sub, references=references, draws=draws, seed=seed) if mask.any() and sub.y.sum() else
+                dict(status="UNAVAILABLE_EMPTY_OR_NO_POSITIVES", entries=int(mask.sum()), positives=int(sub.y.sum())))
+    result["meta"] = entries.meta
     result["area_crps"] = area_crps(entries)
     result["settings"] = dict(references=list(references), draws=draws, seed=seed,
                               horizon_edges_h=list(horizon_edges), band_edges_m=list(band_edges),

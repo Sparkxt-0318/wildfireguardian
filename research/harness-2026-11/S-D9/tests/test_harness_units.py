@@ -212,3 +212,50 @@ def test_arrival_contract_violations(tmp_path, over, msg):
     from sd9bench import load_arrival
     with pytest.raises(ValueError, match=msg):
         load_arrival([arrival_file(tmp_path, **over)])
+
+
+# --- revision 2 additions: equal-fire, 1/1024 floor, domain, scaled band, meta ---
+
+def test_equal_fire_interval_point(tmp_path):
+    e = load([fire_file(tmp_path, "A", seed=5), fire_file(tmp_path, "B", seed=6)])
+    r = score(e, draws=200)
+    eq = r["paired"]["model__vs__persistence"]["equal_fire"]
+    per = [np.mean((e.predictions["model"][e.fire == f] - e.y[e.fire == f]) ** 2)
+           - np.mean((0 - e.y[e.fire == f]) ** 2) for f in ("A", "B")]
+    assert eq["point_difference"] == pytest.approx(np.mean(per))
+    lo, hi = eq["percentile_95_interval"]
+    assert min(per) - 1e-12 <= lo <= hi <= max(per) + 1e-12
+
+
+def test_positives_below_mc_floor(tmp_path):
+    p = np.full(40, 0.5)
+    p[:10] = 1 / 2048
+    e = load([fire_file(tmp_path, p_model=p)])
+    r = score(e, draws=50)
+    assert r["models"]["model"]["pooled"]["positives_below_1_over_1024"] == int(e.y[:10].sum())
+    assert r["models"]["persistence"]["pooled"]["positives_below_1_over_1024"] == int(e.y.sum())
+
+
+def test_domain_stratum(tmp_path):
+    dom = np.arange(40) < 20
+    e = load([fire_file(tmp_path, in_domain=dom)])
+    r = score(e, draws=50)
+    if "entries" in r["by_domain"]["inside"]:
+        assert r["by_domain"]["inside"]["entries"] == 20
+    with pytest.raises(ValueError, match="in_domain"):
+        load([fire_file(tmp_path, "X", in_domain=np.zeros(40, int))])
+
+
+def test_horizon_scaled_band(tmp_path):
+    d = np.full(40, 1500.0)  # hours 6, 18, 30, 42 -> widths 1000, 3000, 5000, 7000 m
+    e = load([fire_file(tmp_path, dist_m=d)])
+    r = score(e, draws=50)["horizon_scaled_band"]
+    assert r["entries"] == 30
+    assert r["positives_outside"] == int(e.y[e.hours == 6.0].sum())
+
+
+def test_meta_passthrough_and_validation(tmp_path):
+    e = load([fire_file(tmp_path, meta_model=np.array('{"n_traj": 1024}'))])
+    assert e.meta == {"model": {"F1": '{"n_traj": 1024}'}}
+    with pytest.raises(ValueError, match="JSON"):
+        load([fire_file(tmp_path, "Y", meta_model=np.array("not json"))])

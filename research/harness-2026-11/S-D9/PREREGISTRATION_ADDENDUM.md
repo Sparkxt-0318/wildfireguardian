@@ -1,111 +1,192 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT, not frozen.** Nothing in this document is in force until Hannah has verified it, Iris has assessed it, and it has been committed together with the hashes in §9. No fire in any cohort defined below has been scored under this addendum.
+**Status: DRAFT revision 2, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+
+## Revision log
+
+| # | revision (Iris assessment of 9348abb5, adopted by the orchestrator) | where | status |
+|---|---|---|---|
+| 1 | Choose the primary band by a stated rule on R | §4 | Rule committed at 3eb31a38 before any share was computed. Applied: **4 km** (`derive/BAND_RULE.json`) |
+| 2 | Reserve untouched data for D1/D2 | §1.2 | Hash split, fixed now |
+| 3 | Independence from fit fires | §1.3 | Metadata exclusion rule, fixed now |
+| 4 | Equal-fire weighting as a named secondary | §6 | Added |
+| 5 | Power from R | §6.3 | Computed (`derive/POWER.json`): **limited** |
+| 6 | A common zero-probability floor | §5 | Added: count of positives with p < 1/1024 |
+| 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
+| — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | Untouched work moves to GOFER/FEDS strata |
 
 ## 0. Relation to the existing protocol
 
-This addendum **extends** `forecast/documents/preregistration_blind_test.md` (the "base protocol") and does not edit it. The base protocol stays byte-identical, and its 2026 primary rule, model identities and registry are unchanged.
-- **2026 prospective cohort.** The base protocol's primary decision governs. Every A1 statistic below is a **pre-declared secondary** analysis of that cohort.
-- **Retrospective untouched cohorts (C1, C3 below).** The base protocol does not cover them. For these, A1 defines the primary statistic, reusing the base protocol's conventions wherever one exists: the interval rule, scoring population, baselines, 10 equal-width bins, NLL floor, 10,000 whole-fire draws, seed 20261030, and "fail any criterion means no superiority claim".
+This addendum **extends** `forecast/documents/preregistration_blind_test.md` (the "base protocol") without editing it.
+- For the 2026 cohort, the base protocol's primary decision governs, and everything in A1 is a pre-declared secondary.
+- For retrospective untouched cohorts, which the base protocol does not cover, A1 defines the primary. It reuses the base conventions: interval rule, scoring population, baselines, 10 equal-width bins, NLL floor, whole-fire bootstrap with seed 20261030, and "fail any criterion means no superiority claim".
 
-## 1. Cohorts and exposure
+## 1. Cohorts, exposure, reservation and independence
 
-Exposure is defined by the S-D9 ledger (`ledger/`, checkpoint 3e2eb2d), extended by any later amendment committed **before** the cohort manifest.
+### 1.1 Cohorts
 
-| id | cohort | label | role |
-|---|---|---|---|
-| R | US2024: 6 NIROPS fires, 273 intervals | NIROPS mapped extent | Frozen descriptive regression reference. Already scored and inspected. Never confirmatory. D1/D2 may use it for selection, provided they declare that use. |
-| C1 | NIROPS 2020–2024 fires absent from the ledger | NIROPS mapped extent | Retrospective-untouched. **Primary A1 cohort.** |
-| C2 | 2026 first-survey NIROPS cohort | NIROPS mapped extent | Base protocol primary; A1 secondary |
-| C3 | Korean events absent from the ledger | Kriged arrival reconstruction | Separate stratum, never pooled with NIROPS |
-| C4 | GOFER (hourly), FEDS (12-hourly) | Their own perimeter definitions | One separate descriptive stratum per source, excluding any fire in the ledger or matching a ledger fire by incident |
+Exposure is defined by the S-D9 ledger (checkpoint 3e2eb2d), plus any amendment committed before a cohort manifest.
 
-A fire enters C1 or C3 only if all of the following hold:
-1. It is absent from the ledger.
-2. Its admission is decided from metadata only (incident ID, survey timestamps, grid, input availability), never from outcomes or model output.
-3. The cohort manifest listing it is committed, hashed and verified **before** any predictor runs on it.
+| id | cohort | label definition | reachable now | role |
+|---|---|---|---|---|
+| R | US2024: 6 NIROPS fires, 273 intervals | NIROPS IR mapped extent | yes (in git) | Descriptive regression reference; already exposed. Rules may be fixed on R. |
+| N | NIROPS 2020–24 fires absent from the ledger | NIROPS IR mapped extent | **no** (data.mendeley.com refused by network policy) | Preferred untouched cohort if access opens |
+| C2 | 2026 first-survey NIROPS | NIROPS | no (future release) | Base protocol primary; A1 secondary |
+| G | GOFER v0.2 fires absent from the ledger (Zenodo 14642378) | GOES-derived hourly perimeters | yes | Separate stratum |
+| F | FEDS CONUS fires absent from the ledger | VIIRS-derived 12-hourly perimeters | 2021 yes; 2019/20 scripted | Separate stratum |
+| K | Korean events absent from the ledger | kriged arrival reconstruction | not yet located | Separate stratum |
 
-The person or agent building the manifest attests that they have not viewed the fire's perimeter growth. The ledger's lower-bound caveat applies: exposures on local machines cannot be detected.
+**Label strata are never pooled.** The 4 km band and every other rule fixed on R come from NIROPS. Applying them to G, F and K is a stated transfer assumption, not a validated equivalence. Because R is NIROPS, **only N (or C2) can carry a confirmatory A1 result**. G, F and K results are descriptive whatever their size.
+
+Daniel's metadata name-match on Main gives the current untouched GOFER candidates (17 fires): Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth. Dixie, River, Antelope, August, North/PNF, Monument, Creek, SQF, McCash and Red Salmon are FIT fires. Caldor is INSPECTED. Membership becomes final only through the manifest procedure in §9, after §1.3 is applied.
+
+Admission to any untouched cohort requires all of the following:
+- The fire is absent from the ledger.
+- Admission is decided from metadata only.
+- The manifest is committed, hashed and verified before any predictor runs.
+- The manifest builder attests that they have not viewed the fire's growth.
+
+### 1.2 Reservation split (revision 2)
+
+Each untouched cohort is split now, by rule, into two parts:
+- **Part a**: the d4_wind and c651 decision.
+- **Part b**: reserved for the D1/D2 methods comparison. It stays closed until every D1/D2 candidate is frozen by SHA.
+
+The rule: a fire goes to part a if the first hex digit of `sha256("S-D9|" + source + "|" + incident_id)` is 0–7, and to part b otherwise. `source` is one of `NIROPS`, `GOFER`, `FEDS` or `KFS`. `incident_id` is the publisher's identifier exactly as written in the manifest.
+
+**Each candidate runs once per part.** A rerun after a failure is allowed only for a recorded software failure, never because of a score.
+
+### 1.3 Independence from fit fires (revision 3)
+
+A candidate fire is excluded if, by metadata alone (the publisher's ignition or first-perimeter centroid and start date, never growth), **both** of the following hold for any FIT or SELECTED_ON ledger fire:
+- Its centroid lies within **50 km** of that fire's catalog-rectangle centre.
+- Its start date falls within **30 days** of that fire's catalog active window.
+
+Exclusions are listed in the manifest with distance and dates. Daniel's FEDS↔ledger spatial matches (for example, FEDS 57413 Jack plus Devils Knob merged) are applied first as identity exclusions.
 
 ## 2. Intervals and lead times
 
-- **Consecutive intervals (as forecast-v2).** These are consecutive distinct survey times t1 < t2 with 0 < t2 − t1 ≤ 48 h, chosen from timestamps only. Cumulative unions are rasterized at cell centres. Weather at floor_hour(t1) is repeated over the interval.
-- **Lead-time design (new, secondary).** From each cutoff t1, forecast to every later survey t_j of the same fire with t_j − t1 ≤ 48 h. This gives true multi-horizon lead times from one cutoff state. On NIROPS, consecutive-interval "horizon" is survey cadence: in R, 272 of 273 intervals are longer than 12 h. Lead-time strata are therefore the multi-horizon analysis, and consecutive intervals are the comparison with forecast-v2.
+- **Consecutive intervals (as forecast-v2):** consecutive distinct observation times t1 < t2 with 0 < t2 − t1 ≤ 48 h, chosen from timestamps only. Weather at floor_hour(t1) is repeated over the interval.
+- **GOFER (hourly) and FEDS (12-hourly):** observation times are sampled to a fixed cadence before any scoring, fixed now at 12 h from each fire's first observation. This keeps the cadence comparable to NIROPS rather than chosen per fire.
+- **Lead-time design:** from each cutoff, forecast to every later observation time within 48 h.
+
+The 51 US2024 intervals longer than 48 h are excluded by the same frozen timestamp rule, so they are not scored. Their timestamps are not in git (they come from NIROPS). Recovering them is blocked by the same network refusal and is recorded as such.
 
 ## 3. Predictors
 
-Every predictor is declared by checkpoint or artifact SHA-256 before the cohort manifest is frozen.
-- **Models:**
-  - `d4_wind_seed0`, the base protocol primary.
-  - `c651_mc` with 1,024 trajectories, the integration default.
-  - Any D1/D2 variant frozen by SHA before the manifest.
-- **Baselines** (computed on identical cells):
-  - `persistence`: always zero for new burn.
-  - `dilation_8h`: the fixed training-selected rate of one cell per 8 h. It is never reselected.
+Every predictor is declared by SHA-256 before the manifest.
+- **Models:** `d4_wind_seed0` (the primary), `c651_mc` (1,024 trajectories), and D1/D2 variants frozen by SHA (part b only).
+- **Baselines on identical cells:**
+  - `persistence`.
+  - `dilation_8h`, fixed and never reselected.
   - Frozen `logistic`.
-  - All 1/2/4/8 h dilations, reported.
-- **Later slots** (declared before their first run on C1, otherwise excluded from C1):
-  - A FARSITE ensemble with stated weather perturbations.
-  - WildfireSpreadTS-trained learned baselines.
-  - Missing cases are reported as unavailable and never imputed.
+  - All of the 1/2/4/8 h dilations.
+- **Later slots** must be declared before their first run. They include a perturbed-input physics ensemble (FARSITE, or ELMFIRE with its published inputs) and WildfireSpreadTS-trained learned baselines. **Any WildfireSpreadTS-trained baseline must list its training fires. A G, F or N fire that is in that training set is excluded from that baseline's comparison, and the exclusion is recorded in the ledger.**
+
+**Running predictors on G, F or N currently blocked.** Running any predictor on a new fire requires building its covariates. Daniel measured the hosts the covariate builders depend on (`forecast/wildfire/environment.py`):
+- **Refused:** archive-api.open-meteo.com, tds-proxy.nkn.uidaho.edu, lfps.usgs.gov, glad.geog.umd.edu and www.landfire.gov.
+- **Reachable:** copernicus-dem-30m.s3.amazonaws.com and zenodo.org.
+
+Until the user opens the refused hosts or supplies the covariates, **no untouched cohort can be scored**.
 
 ## 4. Scoring population and strata
 
-- **Full population (as forecast-v2).** Initially unmapped cells inside the fixed event rectangle, on the intersection of all predictors' validity masks. Cells outside the endpoint union are mapped-extent negatives. Non-finite or out-of-range probabilities on declared-valid support fail the case.
-- **At-risk band (new).** `dist_m` is the Euclidean distance from the cell centre to the nearest cell centre in the cutoff mapped union, on the event's metric 375 m grid.
-  - **Primary band rule (revision 1; this rule and threshold were committed before any band share was computed).** The candidate cumulative widths are 1, 2, 4, 8 and 16 km. The primary population is the band of the **smallest candidate width whose pooled share of positives on cohort R (US2024, already exposed) is at least 0.90**. If no candidate reaches 0.90, the primary population is the full domain. The selected width is then fixed for every later cohort. Per-fire and per-horizon shares on R are reported next to the choice, and the out-of-band positive count and share appear in the primary table of every cohort.
-  - The band is itself a dilation, so it favours `dilation_8h` (about 1.1 km in 24 h) near its own radius. All widths are shown side by side.
-  - Until the rule has been applied, the earlier draft value is superseded. That value was **B2**: dist ≤ 2,000 m.
-  - Cumulative bands of ≤ 1, 2, 4 and 8 km, and annuli (0,1], (1,2], (2,4], (4,8] km, are secondary.
-  - The band depends on the cutoff state only, never on the outcome.
-  - Positives outside 8 km are counted and reported (spotting or long runs).
-- **Horizon strata.** (0,12], (12,24], (24,36], (36,48] h, by consecutive-interval duration and, separately, by lead time. Every stratum reports its entry, positive, interval and fire counts. A stratum with fewer than 3 fires is labelled descriptive and gets no interval.
+- **Full domain (as forecast-v2):** initially unmapped cells inside the fixed rectangle, on the intersection of the validity masks. Reported as a fixed secondary.
+- **Primary band (revision 1, applied):** `dist_m` ≤ **4,000 m**, where `dist_m` is the Euclidean distance between cell centres on the 375 m grid to the nearest cell of the cutoff mapped union. This was chosen by the rule committed at 3eb31a38: the smallest of 1/2/4/8/16 km holding at least 90% of R's positives.
+
+  R's pooled positive share within each width, measured:
+
+  | width | 1 km | 2 km | 4 km | 8 km | 16 km |
+  |---|---|---|---|---|---|
+  | share | 0.663 | 0.847 | **0.960** | 0.995 | 1.000 |
+
+  Per fire at 4 km, the share ranges from Wapiti 0.932 to Goat, Red Rock and Pioneer 1.000. Per horizon at 4 km, (12,24] h is 0.933. The R distances were derived from committed files with checks that passed (`derive/derive_dist.py`).
+- **Every primary table** carries the out-of-band positive count and share, per fire and per horizon.
+- **Secondary bands:**
+  - Cumulative widths of 1, 2, 8 and 16 km.
+  - Annuli (0,1], (1,2], (2,4], (4,8] km.
+  - **A horizon-scaled width** of max(1 km, 4 km × h / 24 h), anchored to the primary width at 24 h.
+
+  The band is itself a dilation and favours dilation baselines near its radius. All widths are shown side by side.
+- **Horizon strata:** (0,12], (12,24], (24,36], (36,48] h, by interval duration and separately by lead time, with entry, positive, interval and fire counts.
+- **Domain stratum (requested by Elena, S-D2):** where an `in_domain` mask is supplied (the kriging domain), the same metrics are reported inside and outside it.
 
 ## 5. Metrics
 
-Reported for every predictor, cohort, stratum and fire, computed by `sd9bench` (definitions identical to `forecast/wildfire/baselines.py`):
-- Brier.
-- BSS against persistence and against `dilation_8h`.
-- `base_rate_bss`, an in-sample uncertainty-term diagnostic and not a forecast.
-- AP and ROC AUC (unavailable for a single class).
-- Ten equal-width reliability bins, plus low-probability bins with edges 0, 1e-5, 1e-4, 1e-3, 1e-2, 0.1. These are reported by horizon stratum and include the count and share of entries in each bin.
-- ECE over the ten bins.
-- **Exact zero-probability positives**: the count and share of positives.
-- Clipped NLL with floor 1e-7, plus an exact-NLL infinity flag.
-- **Burned-area CRPS.** The exact ensemble CRPS of the per-interval new-burn cell count, computed only from stored trajectory area samples. There is no independence approximation from marginals. Without samples it is reported as unavailable.
-- **Arrival-time score (lead-time design).** For each cell and cutoff, the arrival survey bin is interval-censored to the survey grid (t1, t2], (t2, t3], …, plus "not by 48 h". The score is the **ranked probability score** over those bins, using each predictor's cumulative marginals at each survey time. This is the discrete, censoring-respecting analogue of arrival-time CRPS. NIROPS gives no arrival time within an interval, so no finer target is claimed.
+Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselines.py` where one exists:
+- Brier, BSS against persistence and against `dilation_8h`, and `base_rate_bss` (a diagnostic).
+- AP and ROC AUC.
+- Ten equal-width reliability bins, plus low-probability bins with edges 0, 1e-5, 1e-4, 1e-3, 1e-2 and 0.1, by stratum.
+- ECE.
+- Clipped NLL (floor 1e-7) and the exact-NLL flag.
+- **Zero-probability positives:** the exact count and share, plus **positives with p < 1/1024** (revision 6). 1/1024 is the resolution floor of a 1,024-trajectory MC model, which makes MC and mean-field models comparable.
+- **Burned-area CRPS** from stored trajectory area samples only. There is no independence approximation.
 
-## 6. Primary statistic and decision (C1)
+### 5.2 Arrival score (revision 7)
 
-**Primary:** the pooled B2 Brier difference, candidate minus reference, over consecutive intervals. The 95% percentile interval comes from 10,000 whole-fire bootstrap resamples, seed 20261030. The candidate is `d4_wind_seed0`. Any D1/D2 candidate is a separate pre-declared comparison, each with its own family.
+The score is the RPS over observation-censored arrival bins, on **all** cells of the band (not only burned cells). It is the sum over observation times of the Brier score of the cumulative marginal, which is Iris's discrete right-censored CRPS. Implemented: `sd9bench/arrival.py`.
 
-Superiority requires **all** of the following. Each criterion is reported separately.
+**Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus) and the covariate hosts are blocked. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. A D1/D2 predictor may carry it if its export is demonstrated on R before its own SHA freeze. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
+
+## 6. Primary statistic and decision
+
+### 6.1 Primary (cohort N part a, or C2 under the base protocol)
+
+The primary statistic is the **pooled paired Brier difference** in the 4 km band, `d4_wind_seed0` minus reference, over consecutive intervals. The interval is the 95% percentile interval from 10,000 whole-fire bootstrap draws, seed 20261030.
+
+Superiority requires **all** of the following:
 1. The interval against `persistence` lies below 0.
 2. The interval against `dilation_8h` lies below 0.
-3. The candidate's lowest fixed bin [0, 0.1) on B2 has an absolute calibration gap no larger than either baseline's.
-4. **At least 10 C1 fires** have at least one B2 positive. Below 10, every result is **descriptive** and the decision is INCONCLUSIVE, following the base protocol's minimum.
+3. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than either baseline's.
+4. **At least 10 fires** have at least one positive in the band. Below 10, the result is descriptive and the decision is INCONCLUSIVE.
 
-Per-fire and per-horizon BSS (Iris's per-fire, per-horizon emphasis) are reported for every fire and stratum with paired whole-fire intervals. They are not decision criteria. Multiple candidates are reported without multiplicity adjustment and are labelled as such. Only the `d4_wind_seed0` decision is confirmatory.
+### 6.2 Named secondaries
 
-## 7. Label heterogeneity
+- The **equal-fire mean** of per-fire Brier differences, with its own whole-fire interval (revision 4).
+- Paired Brier differences against `logistic`.
+- Per-fire and per-horizon paired Brier differences. These are tested, meaning an interval is reported, only in fire × horizon cells with **at least 10 positives**. Below that they are reported without an interval.
+- Skill ratios (BSS) are **descriptors, never test statistics**.
 
-NIROPS, kriged reconstruction, GOFER and FEDS each define burned-by-t differently, with different latency. They are **never pooled**, and each is scored and reported as its own stratum. NIROPS has no survey-coverage footprint (unless Daniel or Sofia find one). Outside-union negatives remain "not mapped", not "observed unburned", and this limitation travels with every C1 number.
+### 6.3 Power (revision 5; measured on R, `derive/POWER.json`)
+
+Method: 2,000 simulated 10-fire cohorts, resampling R's 6 fires, each analysed with the primary method.
+
+| comparison in 4 km band | R pooled difference | R fires favouring d4_wind | P(interval < 0), pooled | P(interval < 0), equal-fire | median half-width |
+|---|---|---|---|---|---|
+| d4_wind − persistence | −0.000200 | 5 of 6 (Lava against) | **0.54** | **0.44** | 0.000165 |
+| d4_wind − dilation_8h | −0.353 | 6 of 6 | 1.00 | 1.00 | 0.022 |
+
+**Plain reading:**
+- At R's effect size, a 10-fire cohort detects an improvement over persistence only about half the time.
+- The dilation criterion is almost uninformative: dilation_8h over-predicts heavily inside the band.
+
+The decision rule is kept as the base protocol's. Logistic is added as a named secondary because it is the informative learned reference (in R it beats d4_wind on full-domain pooled Brier: 0.004859 against 0.004927).
+
+This power estimate treats 6 fires as the fire population, which is a strong assumption, so it is a scale estimate only.
+
+## 7. Label heterogeneity and observation limits
+
+- No label source is ever pooled with another.
+- **NIROPS has no survey-coverage footprint.** Sofia checked 32 public 2026 nightly deliveries: none carried "Area Covered by IR Flight". Acquisition times are estimated for some records, with no per-record flag. Consequences:
+  - Outside-union cells are "not mapped", never "observed unburned".
+  - Every NIROPS interval carries a timestamp-uncertainty note.
+  - A ±2 h timing sensitivity, which shifts each observation time by ±2 h and re-applies the 48 h rule, is a secondary.
+- GOFER and FEDS sensitivity to observation gaps is reported per fire as a count of missing observations.
 
 ## 8. Correctness gate
 
-Before any cohort score, the harness must pass `tests/` (24 tests at 29493b1, including exact reproduction of the forecast-v2 held-out block). The harness version (git SHA) used for every score is recorded. A score from an unverified harness version is void.
+Before any cohort score, the `tests/` suite in the harness version recorded in `FREEZE.json` must pass, including the exact reproduction of the forecast-v2 held-out block. A score from an unverified harness version is void.
 
 ## 9. Freeze procedure (order matters)
 
-1. Hannah verifies the ledger (3e2eb2d) and the harness (29493b1).
-2. Iris assesses this addendum. Revisions are committed, then Hannah verifies.
-3. The addendum is frozen: commit its final bytes and record their SHA-256 in `FREEZE.json`, together with the ledger CSV hashes, the harness SHA and the predictor checkpoint SHAs.
-4. The C1, C3 and C4 manifests are built from metadata only, committed and hashed in `FREEZE.json` (amended by a new commit, never rewritten), and verified.
-5. Only then do predictors run and scores get computed. Every attempted case gets a receipt, and failed or unavailable cases are retained.
+1. Hannah verifies the ledger (3e2eb2d), the harness, the R derivations (`derive/`: dist_m checks, band rule, power) and this revision.
+2. Iris re-assesses this revision.
+3. Freeze: the final bytes, ledger CSV hashes, harness SHA and predictor SHAs go into `FREEZE.json`.
+4. Manifests for N, G, F and K are built from metadata only, with §1.2 and §1.3 applied, then committed and hashed into `FREEZE.json` (amended, never rewritten), and verified.
+5. Predictors run on part a only. Every case gets a receipt, and failed and unavailable cases are kept. Part b stays closed until D1/D2 are frozen.
 6. Hannah replays the scores from the frozen bundle in a fresh container.
 
-## 10. Open questions for review
+## 10. Open questions
 
-- **Q1 (Iris).** The B2 band is cutoff-dependent. Could it favour models that spread only locally, such as dilation? Mitigation: secondary 4 and 8 km bands, and reporting positives beyond 8 km.
-- **Q2.** The RPS arrival score needs cumulative marginals at every later survey time from one cutoff. Does c651_mc (sampled histories) or d4 (hourly marginals) emit these without code changes? The November note says both can, synthetically, but this is unverified.
-- **Q3.** C1's size is unknown until Daniel lists the NIROPS archive members. If it has fewer than 10 fires, A1's C1 result is descriptive by construction, and C2 (2026) remains the only confirmatory route.
+- **Q4.** Does the user want the refused covariate hosts or data.mendeley.com opened? Without them, A1 can be frozen but not executed on any untouched fire (§3).
+- **Q5.** What is the GOFER label definition (GOES fire-detection-derived perimeters at hourly cadence) relative to NIROPS? This needs Sofia's reading of the GOFER paper before the G cadence rule in §2 is frozen.

@@ -18,6 +18,10 @@ Optional arrays:
   dist_m                   float  distance from the cell centre to the nearest
                                   cell burned at cutoff (length N); enables
                                   at-risk band strata
+  in_domain                bool   (N) inside a declared domain (e.g. the kriging
+                                  domain); enables the domain stratum
+  meta_<name>              str    scalar JSON metadata for that predictor (sampler,
+                                  n_traj, seed, seconds, peak_rss); passed through
   area_samples_<name>      float  K x M simulated new-burn cell counts per
                                   interval; enables burned-area CRPS for that
                                   predictor
@@ -42,6 +46,8 @@ class Entries:
     y: np.ndarray               # float64, length N
     predictions: dict[str, np.ndarray]
     dist_m: np.ndarray | None = None
+    in_domain: np.ndarray | None = None
+    meta: dict[str, dict[str, str]] = field(default_factory=dict)  # name -> fire -> JSON text
     area_samples: dict[str, dict[str, np.ndarray]] = field(default_factory=dict)  # name -> fire -> K x M
     area_observed: dict[str, np.ndarray] = field(default_factory=dict)            # fire -> K observed counts
 
@@ -50,6 +56,7 @@ class Entries:
             fire=self.fire[mask], interval=self.interval[mask], hours=self.hours[mask], y=self.y[mask],
             predictions={k: v[mask] for k, v in self.predictions.items()},
             dist_m=None if self.dist_m is None else self.dist_m[mask],
+            in_domain=None if self.in_domain is None else self.in_domain[mask],
         )
 
     def as_baselines_entries(self) -> dict:
@@ -71,6 +78,9 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
     preds: dict[str, list[np.ndarray]] = {}
     names = None
     have_dist = None
+    have_dom = None
+    doms = []
+    meta: dict[str, dict[str, str]] = {}
     area_samples: dict[str, dict[str, np.ndarray]] = {}
     area_observed: dict[str, np.ndarray] = {}
     seen = set()
@@ -109,6 +119,24 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
                 _check(len(d) == n and bool(np.isfinite(d).all()) and bool((d >= 0).all()), path,
                        "dist_m must be finite, >= 0 and length N")
                 dists.append(d)
+            file_has_dom = "in_domain" in z.files
+            if have_dom is None:
+                have_dom = file_has_dom
+            _check(file_has_dom == have_dom, path, "in_domain present in some files only")
+            if file_has_dom:
+                dm = z["in_domain"]
+                _check(len(dm) == n and dm.dtype == np.bool_, path, "in_domain must be bool and length N")
+                doms.append(dm)
+            for key in z.files:
+                if key.startswith("meta_"):
+                    v = z[key]
+                    _check(v.ndim == 0 and v.dtype.kind == "U", path, f"{key} must be a scalar string")
+                    import json as _json
+                    try:
+                        _json.loads(str(v))
+                    except ValueError:
+                        _check(False, path, f"{key} must be JSON text")
+                    meta.setdefault(key[len("meta_"):], {})[fire] = str(v)
             observed = np.bincount(interval, weights=y.astype(np.float64), minlength=len(k_hours))
             area_observed[fire] = observed
             for key in z.files:
@@ -134,5 +162,6 @@ def load(paths, predictors: list[str] | None = None) -> Entries:
         fire=np.concatenate(fires), interval=np.concatenate(intervals), hours=np.concatenate(hours),
         y=np.concatenate(ys), predictions={k: np.concatenate(preds[k]) for k in names},
         dist_m=np.concatenate(dists) if have_dist else None,
+        in_domain=np.concatenate(doms) if have_dom else None, meta=meta,
         area_samples=area_samples, area_observed=area_observed,
     )
