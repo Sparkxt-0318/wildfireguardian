@@ -51,3 +51,17 @@ Finding by Mira, relayed by the orchestrator on 2026-11-12. Thomas confirmed it 
    - The builder self-check counts and the variant set are carried over.
    - The pinned v3.4 file is not edited.
 6. **Verification.** Nora re-verifies.
+
+## STATUS: acceptance (a)(b)(c) pass, 2026-11-12
+
+- **Unit test (c).** `test_repo_relative_radiation_identity` passes, along with the rest of `tests/` (24 tests).
+- **Packets built.** Yeongdeok 25T11Z h5, all 4 variants (`IDENTITY_CHECK.json`), from `MANIFEST_v3_5.json`
+  (28a27117). Each was built in two checkouts of that commit at different absolute paths: the main checkout and a
+  second worktree.
+  - **(a) Two checkouts:** sha256 identical for `HAZARD.json`, `REPORT.json`, `NATIVE_METADATA.json` and
+    `constructed_arrays.npz`, 4 of 4.
+  - **(b) Against v3.4:** the only JSON paths that differ are `radiation_operator/module` and the added
+    `radiation_operator/module_path_form`, in all three JSON files. The npz is byte-identical to v3.4, 4 of 4.
+- **Builder self-check** passed on every build: consistent for the scalar variants; for `envelope`, the arrays
+  refuse (HAZARD-only).
+- **Verification:** sent to Nora.
