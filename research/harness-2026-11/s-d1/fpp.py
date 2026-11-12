@@ -413,3 +413,207 @@ def first_passage_cmc(K, initial, horizons, *, n_samples, seed, seg_len=1.0):
                 cmc_hi=(hi1 / n).reshape(shape),
                 cmc_lo_var=(lo2 / n - lo_mean ** 2).reshape(shape),
                 gap_fraction=gap / (n * (~initial).sum()))
+
+
+# --------------------------------------------------------------------------------------
+# Exact local repair of the conditional estimator (hash clocks, two passes)
+# --------------------------------------------------------------------------------------
+
+@njit(cache=True)
+def _splitmix(x):
+    x = (x + np.uint64(0x9E3779B97F4A7C15)) & np.uint64(0xFFFFFFFFFFFFFFFF)
+    z = x
+    z = ((z ^ (z >> np.uint64(30))) * np.uint64(0xBF58476D1CE4E5B9)) & np.uint64(0xFFFFFFFFFFFFFFFF)
+    z = ((z ^ (z >> np.uint64(27))) * np.uint64(0x94D049BB133111EB)) & np.uint64(0xFFFFFFFFFFFFFFFF)
+    return z ^ (z >> np.uint64(31))
+
+
+@njit(cache=True)
+def _edge_clock(seed, m, s, t):
+    """Exp(1) clock of edge s -> t in trajectory m: a pure function, so re-runs reuse it exactly."""
+    h = _splitmix(np.uint64(seed) * np.uint64(0x100000001B3) + np.uint64(m))
+    h = _splitmix(h ^ np.uint64(s))
+    h = _splitmix(h ^ (np.uint64(t) << np.uint64(32)))
+    u = (np.float64(h >> np.uint64(11)) + 0.5) / 9007199254740992.0  # (0, 1)
+    return -math.log(u)
+
+
+@njit(cache=True)
+def _fpp_one_hash(K, offs, initial_flat, horizon, seg_len, arrival, done, positive, parent, seed, m, blocked):
+    """Time-dependent Dijkstra with hash clocks; cell ``blocked`` (or -1) can never burn."""
+    S, KK, H, W = K.shape
+    n = H * W
+    heap = [(0.0, np.int64(-1))]
+    heap.pop()
+    for idx in range(n):
+        done[idx] = False
+        parent[idx] = -1
+        if initial_flat[idx]:
+            arrival[idx] = 0.0
+            heapq.heappush(heap, (0.0, np.int64(idx)))
+        else:
+            arrival[idx] = np.inf
+    while len(heap) > 0:
+        t, s = heapq.heappop(heap)
+        if done[s] or t > arrival[s]:
+            continue
+        done[s] = True
+        sy = s // W
+        sx = s - sy * W
+        for c in range(KK):
+            ty = sy - offs[c, 0]
+            tx = sx - offs[c, 1]
+            if ty < 0 or ty >= H or tx < 0 or tx >= W:
+                continue
+            ti = ty * W + tx
+            if ti == blocked or done[ti] or not positive[c, ty, tx]:
+                continue
+            ta = _edge_arrival(K, c, ty, tx, t, _edge_clock(seed, m, s, ti), seg_len, horizon)
+            if ta < arrival[ti]:
+                arrival[ti] = ta
+                parent[ti] = s
+                heapq.heappush(heap, (ta, np.int64(ti)))
+
+
+@njit(cache=True)
+def _cond_terms(K, offs, positive, arrival, parent, i, t, seg_len, W, H, use_parent):
+    """(lo, hi) cumulative hazards of cell i at t from in-neighbour arrival times."""
+    KK = offs.shape[0]
+    ty = i // W
+    tx = i - ty * W
+    a_lo = 0.0
+    a_hi = 0.0
+    for c in range(KK):
+        if not positive[c, ty, tx]:
+            continue
+        sy = ty + offs[c, 0]
+        sx = tx + offs[c, 1]
+        if sy < 0 or sy >= H or sx < 0 or sx >= W:
+            continue
+        s = sy * W + sx
+        ts = arrival[s]
+        if ts >= t:
+            continue
+        contrib = _cum_hazard(K, c, ty, tx, t, seg_len) - _cum_hazard(K, c, ty, tx, ts, seg_len)
+        a_hi += contrib
+        if use_parent and arrival[i] < t and _is_descendant(s, i, parent, arrival):
+            continue
+        a_lo += contrib
+    return a_lo, a_hi
+
+
+@njit(cache=True)
+def _fpp_cmc_repair(K, offs, initial_flat, horizon, seg_len, n_samples, seed, flagged):
+    """Pass 2: exact conditional values for flagged cells, at one horizon.
+
+    Returns (exact_sum, exact_sq, repairs): sums over trajectories of the exact per-trajectory values
+    for flagged cells (lo where lo == hi, otherwise recomputed with the cell deleted), and the number of
+    (trajectory, cell) Dijkstra repairs performed.
+    """
+    S, KK, H, W = K.shape
+    n = H * W
+    positive = np.zeros((KK, H, W), dtype=np.bool_)
+    for j in range(S):
+        for c in range(KK):
+            for y in range(H):
+                for x in range(W):
+                    if K[j, c, y, x] > 0.0:
+                        positive[c, y, x] = True
+    exact1 = np.zeros(n)
+    exact2 = np.zeros(n)
+    arrival = np.empty(n)
+    done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
+    arr2 = np.empty(n)
+    done2 = np.empty(n, dtype=np.bool_)
+    parent2 = np.empty(n, dtype=np.int64)
+    repairs = 0
+    for m in range(n_samples):
+        _fpp_one_hash(K, offs, initial_flat, horizon, seg_len, arrival, done, positive, parent, seed, m, -1)
+        for i in range(n):
+            if not flagged[i]:
+                continue
+            a_lo, a_hi = _cond_terms(K, offs, positive, arrival, parent, i, horizon, seg_len, W, H, True)
+            if a_hi > a_lo:
+                _fpp_one_hash(K, offs, initial_flat, horizon, seg_len, arr2, done2, positive, parent2,
+                              seed, m, i)
+                a_ex, _ = _cond_terms(K, offs, positive, arr2, parent2, i, horizon, seg_len, W, H, False)
+                repairs += 1
+            else:
+                a_ex = a_lo
+            p = -math.expm1(-a_ex)
+            exact1[i] += p
+            exact2[i] += p * p
+    return exact1, exact2, repairs
+
+
+@njit(cache=True)
+def _fpp_cmc_hash(K, offs, initial_flat, horizon, seg_len, n_samples, seed):
+    """Pass 1 at one horizon with hash clocks: plain, lo, lo^2, hi sums (all cells)."""
+    S, KK, H, W = K.shape
+    n = H * W
+    positive = np.zeros((KK, H, W), dtype=np.bool_)
+    for j in range(S):
+        for c in range(KK):
+            for y in range(H):
+                for x in range(W):
+                    if K[j, c, y, x] > 0.0:
+                        positive[c, y, x] = True
+    plain = np.zeros(n)
+    lo1 = np.zeros(n)
+    lo2 = np.zeros(n)
+    hi1 = np.zeros(n)
+    arrival = np.empty(n)
+    done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
+    for m in range(n_samples):
+        _fpp_one_hash(K, offs, initial_flat, horizon, seg_len, arrival, done, positive, parent, seed, m, -1)
+        for i in range(n):
+            if initial_flat[i]:
+                continue
+            if arrival[i] <= horizon:
+                plain[i] += 1.0
+            a_lo, a_hi = _cond_terms(K, offs, positive, arrival, parent, i, horizon, seg_len, W, H, True)
+            if a_hi == 0.0:
+                continue
+            p_lo = -math.expm1(-a_lo)
+            lo1[i] += p_lo
+            lo2[i] += p_lo * p_lo
+            hi1[i] += -math.expm1(-a_hi)
+    return plain, lo1, lo2, hi1
+
+
+def first_passage_cmc_repaired(K, initial, horizon, *, n_samples, seed, threshold=0.05, seg_len=1.0):
+    """Conditional estimator at one horizon with exact local repair of cells whose bound gap is large.
+
+    Pass 1 (hash clocks) gives lo/hi means. A cell is flagged if (hi - lo) / lo > ``threshold``
+    (threshold fixed before use; 0.05 agreed with Iris). Pass 2 replays the SAME trajectories (hash
+    clocks are a pure function of (seed, trajectory, edge)) and, for flagged cells in trajectories where
+    the bounds differ, recomputes T^{-i} by Dijkstra with cell i deleted. The result is the exact
+    conditional estimator on flagged cells and the lower value (= exact where lo == hi) elsewhere.
+
+    Returns a dict of [H, W] arrays (``plain``, ``lo``, ``hi``, ``estimate``, ``estimate_var``,
+    ``flagged``) and scalars (``repairs``, ``seconds_pass1``, ``seconds_pass2``).
+    """
+    import time
+    K, initial, offs = _check(K, initial)
+    H, W = initial.shape
+    t0 = time.perf_counter()
+    plain, lo1, lo2, hi1 = _fpp_cmc_hash(K, offs, initial.ravel(), float(horizon), float(seg_len),
+                                         int(n_samples), int(seed))
+    t1 = time.perf_counter()
+    n = n_samples
+    lo, hi = lo1 / n, hi1 / n
+    with np.errstate(divide="ignore", invalid="ignore"):
+        flagged = (hi - lo) > threshold * lo
+    flagged &= ~initial.ravel()
+    ex1, ex2, repairs = _fpp_cmc_repair(K, offs, initial.ravel(), float(horizon), float(seg_len),
+                                        int(n_samples), int(seed), flagged)
+    t2 = time.perf_counter()
+    est = np.where(flagged, ex1 / n, lo)
+    est2 = np.where(flagged, ex2 / n, lo2 / n)
+    shape = (H, W)
+    return dict(plain=(plain / n).reshape(shape), lo=lo.reshape(shape), hi=hi.reshape(shape),
+                estimate=est.reshape(shape), estimate_var=np.maximum(est2 - est ** 2, 0).reshape(shape),
+                flagged=flagged.reshape(shape), repairs=int(repairs),
+                seconds_pass1=t1 - t0, seconds_pass2=t2 - t1)

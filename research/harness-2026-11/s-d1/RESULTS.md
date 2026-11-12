@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **16 passed** in 11 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **22 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -116,7 +116,7 @@ Mean new cells at T (± SE), and the share of the hourly → first-passage gap c
 | data | pairs | new 375 m cells | share beyond 4 cells per gap-hour | notes |
 |---|---:|---:|---:|---|
 | GOFER v0.2 hourly perimeters, 28 CA fires (`gofer_cap.py`) | 4,071 hourly | 185,278 | **8.9%** (1.25% with one GOES-pixel tolerance, d > 4g + 6) | per-fire median 7.5%, range 0.7–22%; 804 intervals with any |
-| NIROPS survey pairs, S-D9 PART_A_ALLOWLIST_FINAL (489) + 23 fit fires (`nirops_cap.py`) | 3,262 over 430 incidents (median gap 24 h) | 240,434 | 0.23% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
+| NIROPS survey pairs, S-D9 PART_A_ALLOWLIST_FINAL (2d40d170, 490) + 23 fit fires (`nirops_cap.py`) | 3,273 over 431 incidents (median gap 24 h) | 241,166 | 0.23% (part-a 0%; fit-23 0.47%) | the one binding pair: August Complex 2020-08-20, 14.5 h, max 98 cells (a complex merging units) |
 | VIIRS overpasses, Korea 2025 Gyeongbuk (`firms_korea_cap.py`) | 28 | 2,889 | 12.0% | 326 of 642 cells on 25 Mar 16:09 UTC beyond the 11-step reach, max 45 km in 10.7 h |
 
 - **GOFER:** all 28 fires were read before S-D9 set its GOFER membership rule. This is recorded in the S-D9 ledger as aggregate label-only inspection, and per-fire stats of H-test fires must not tune a candidate. GOFER boundaries come from ~2 km GOES pixels, hence the tolerance column.
@@ -182,20 +182,70 @@ The fair baseline is the hourly CA's own conditional estimator `Σ_k 1{unburned 
 |---|---|---:|---:|---|
 | c651 magnitude (Σ ≈ 0.25/h) | first-passage plain | 0.33 | 294 | — |
 | | **first-passage CMC** | **0.64** | 225 | **11.8 · 8.9 · 17.8 · 42.4 · 197** |
-| | hourly CA plain | 101* | 502 | — |
-| | hourly CA conditional | 72 | 551 | 8.8 · 33 · 62 · 141 · 557 |
+| | hourly CA plain | 101* (clean: 86) | 502 | — |
+| | hourly CA conditional | 72 | 551 | 8.8 · 33 · 62 · 141 · 557* |
 | fast (Σ ≈ 0.6/h) | first-passage plain | 0.53 | 225 | — |
 | | **first-passage CMC** | **1.2** | 225 | **1.8 · 2.7 · 3.0 · 8.2 · 82** |
 | | hourly CA plain | 64 | 502 | — |
 | | hourly CA conditional | 64 | 551 | 2.2 · 9.6 · 10.8 · 25 · 207 |
 
-\* This run overlapped a single-threaded perimeter-preparation job on a 4-core host. The first-passage plain timings match the earlier run (0.33 vs 0.35 and 0.53 vs 0.53 ms). The hourly-plain c651 arm did not (101 vs 81 ms), so its gain column is inflated by up to about 1.25×.
+\* This run overlapped a single-threaded perimeter-preparation job on a 4-core host.
+- **Clean reruns** of the hourly c651-magnitude arms on a quiet host: plain 86.0 and 86.7 ms/trajectory; conditional 80.2 and 95.8 ms/trajectory (run-to-run noise ≈ ±10%).
+- **Corrected gains.** The overlapped plain value (101 ms) was ≈ 17% inflated. Rescaled to the clean plain time, the hourly-conditional gains for that row are ≈ 7.5 · 28 · 53 · 120 · 474.
+- **Unaffected timings.** The first-passage plain timings match the earlier run (0.33 vs 0.35 and 0.53 vs 0.53 ms).
 
 **What this shows.**
 - **Iris was right.** Conditioning on its own gives large gains in the hourly model too; the gain is not specific to first-passage.
 - **Absolute cost.** First-passage CMC is about 100× cheaper per trajectory than either hourly arm, and uses less memory (225 vs 550 MiB).
 - **Loop restriction.** The first version looped over every cell per trajectory: 4.5 ms, with a net loss above p = 1e-4 in the fast regime. That earlier result is kept in git history at 1cd7748. Restricting the loop to cells with an in-neighbour burned before the horizon is exact; a brute-force equality test confirms it. It cut the cost about 7×.
 - **Bias bound.** The lower estimator's bias bound (hi − lo)/p has median 0. Its q99 is 0.02–0.03, and its max is 0.12 (c651) and 3.1 (fast, a single cell). Local repair remains needed for per-cell exactness in the fast regime.
+
+## 8a. Exact local repair (Iris item 4; threshold 0.05 fixed before use)
+
+`fpp.first_passage_cmc_repaired` works in two passes.
+
+1. **Pass 1** uses **hash clocks**: each edge's Exp(1) variable is a pure function of (seed, trajectory, source, target), via splitmix64. It computes lo and hi, and flags cells where (hi − lo)/lo > 0.05.
+2. **Pass 2** replays the identical trajectories. For flagged cells in trajectories where the bounds differ, it re-runs Dijkstra with the cell deleted, giving the exact `T^{−i}` of its in-neighbours. That is the exact conditional estimator.
+
+**Test.** `test_repaired_cmc_exact_where_bounds_differ` uses an analytic 3-cell network in which B's in-neighbour C is often B's descendant. The repaired estimate matches the closed form; lo is more than 5 SE low and hi more than 5 SE high.
+
+**Real size** (`repair_check.py` → `RESULTS_repair.json`; 160×160, 12 h, n = 1,000):
+
+| kernels | cells flagged / positive | repairs per trajectory | pass-2 extra (ms/trajectory) | lo error on flagged cells, median / max |
+|---|---|---:|---:|---|
+| c651 magnitude | 2 / 1,544 (0.13%) | 0.005 | 0.21 | 0.9% / 1.7% |
+| fast | 12 / 2,803 (0.43%) | 0.014 | 0.38 | 0% / 39% |
+
+**Notes.**
+- Flagged cells are tail cells, with median p 0.004 (c651) and 3e-4 (fast). So the repair matters exactly where the sampler is meant to earn its place, at about a third of the frontier CMC's cost.
+- The hash-clock pass 1 is not yet frontier-restricted: 6.4–6.8 ms/trajectory vs 0.64–1.2 ms for the frontier CMC. Restricting it the same way is mechanical.
+
+## 8b. Drop-in conditional estimator for the EXISTING rollout (standalone result, orchestrator decision 1)
+
+`cond_rollout.simulate_with_conditional` re-implements the trajectory loop of `wildfire.rollout.simulate` for:
+- a single non-Bayesian predictor;
+- whole-hour horizons;
+- repeated-current or hourly-forecast weather;
+- uncached transitions.
+
+It uses the **same** random streams (`wildfire.rollout._generator`), coverage envelopes and ignition rule, and additionally accumulates `Y_i(t) = Σ_{k≤t} 1{i unburned before k} · q_i(k)`. `E[Y] = P(newly burned by t)` exactly: Y is the compensator of the ignition indicator. The `q_i(k)` are already computed by the rollout, so it adds no model evaluations.
+
+Tests (`tests/test_cond_rollout.py`, 5 passed):
+- **Plain output bit-identical to `wildfire.rollout.simulate`.** Three settings, covering a partial final block, the `unknown` boundary and unknown cells in the coverage envelope. The frozen `c651_mc` output is reproduced exactly; the conditional output is extra.
+- **Unbiased against plain counting** on cells with enough hits (p > 0.05, n = 4,000): all |z| < 5 and mean z ≈ 0.
+- **Exact on an analytic hourly chain.** It includes a cell with P = 1.4e-4 < 1/n, which hit counting cannot resolve, and returns a non-zero estimate there.
+
+**Limitation (measured).** Y is not capped at 1, so the variance reduction is a small-p property. Median SE ratio (conditional / plain), 14×14 test case, 4 h:
+
+| p range | SE ratio |
+|---|---:|
+| 0.15–0.5 | 0.45 |
+| 0.5–0.9 | 0.86 |
+| > 0.9 | **4.2** (worse) |
+
+So use it for the tail bins; keep hit counting for high-probability cells, or choose by a fixed, pre-declared rule.
+
+**Proposal (accepted in principle by Iris and the orchestrator).** A new named predictor variant (for example `c651_mc_cond`), declared to S-D9 before any scored use, with `c651_mc` unchanged. It sharpens tail estimates; it does not fix calibration.
 
 ## 9. A1 §3.1 baseline refits on the rebuilt pipeline (prepared, not run)
 

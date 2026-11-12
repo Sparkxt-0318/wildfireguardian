@@ -4,24 +4,24 @@
  "cap": "chessboard distance > 4 * ceil(gap_hours)",
  "max_gap_h": 48.0,
  "incidents_allowed": {
-  "part_a": 489,
+  "part_a": 490,
   "fit23": 23
  },
  "all_pairs": {
-  "incidents": 430,
-  "pairs": 3262,
-  "new_cells": 240434,
-  "share_cells_beyond_cap": 0.002295848340916842,
+  "incidents": 431,
+  "pairs": 3273,
+  "new_cells": 241166,
+  "share_cells_beyond_cap": 0.002288879858686548,
   "pairs_with_any_beyond_cap": 1,
   "gap_h_q10_q50_q90": [
-   21.083333333333332,
+   21.086666666666666,
    24.016666666666666,
-   29.741666666666674
+   29.75
   ],
   "pair_max_rate_cells_per_h_q50_q90_q99_max": [
-   0.0837404047452896,
-   0.34782608695652173,
-   1.27850389321468,
+   0.08362369337979093,
+   0.34762503141492856,
+   1.2758711865643004,
    20.0
   ]
  },
@@ -44,20 +44,20 @@
   ]
  },
  "part_a": {
-  "incidents": 407,
-  "pairs": 2097,
-  "new_cells": 121889,
+  "incidents": 408,
+  "pairs": 2108,
+  "new_cells": 122621,
   "share_cells_beyond_cap": 0.0,
   "pairs_with_any_beyond_cap": 0,
   "gap_h_q10_q50_q90": [
-   20.95,
-   24.05,
-   31.170000000000034
+   20.973333333333333,
+   24.058333333333334,
+   31.96999999999998
   ],
   "pair_max_rate_cells_per_h_q50_q90_q99_max": [
-   0.08042895442359249,
-   0.3184150606793268,
-   1.2097928933174111,
+   0.08032128514056225,
+   0.3182179889076441,
+   1.2053081147040814,
    20.0
   ]
  },
@@ -625,6 +625,13 @@
    "beyond_cap": 0,
    "group": "fit23",
    "max_rate_cells_per_h": 1.154518950437318
+  },
+  "CA-KNF-007035_Slater": {
+   "pairs": 11,
+   "new_cells": 732,
+   "beyond_cap": 0,
+   "group": "part_a",
+   "max_rate_cells_per_h": 0.1762114537444934
   },
   "CA-KNF-007241_Fox": {
    "pairs": 4,

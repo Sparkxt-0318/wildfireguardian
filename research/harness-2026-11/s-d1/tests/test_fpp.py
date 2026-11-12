@@ -337,12 +337,15 @@ def test_speed_multiplier_scales_arrival_times_exactly_under_static_kernels():
     K[12] = 0
     init = np.zeros((12, 12), bool)
     init[6, 6] = True
-    _, a1 = first_passage(K, init, [50.0], n_samples=20, seed=5, keep_arrivals=20)
-    for c in (0.5, 2.0, 8.0):
-        _, ac = first_passage(c * K, init, [50.0 / c], n_samples=20, seed=5, keep_arrivals=20)
-        fin = np.isfinite(a1)
-        assert np.array_equal(fin, np.isfinite(ac))
-        assert np.allclose(ac[fin], a1[fin] / c, rtol=1e-12, atol=0)
+    for horizon in (50.0, 3.0):  # 3 h leaves cells unburned: exercises the inf branch (Owen)
+        _, a1 = first_passage(K, init, [horizon], n_samples=20, seed=5, keep_arrivals=20)
+        if horizon == 3.0:
+            assert (~np.isfinite(a1)).any() and np.isfinite(a1).sum() > 20
+        for c in (0.5, 2.0, 8.0):
+            _, ac = first_passage(c * K, init, [horizon / c], n_samples=20, seed=5, keep_arrivals=20)
+            fin = np.isfinite(a1)
+            assert np.array_equal(fin, np.isfinite(ac))
+            assert np.allclose(ac[fin], a1[fin] / c, rtol=1e-12, atol=0)
 
 
 def test_cmc_frontier_restriction_matches_full_loop_reference():
@@ -375,3 +378,28 @@ def test_cmc_frontier_restriction_matches_full_loop_reference():
                     hi[h, y, x] += -math.expm1(-tot)
     assert np.allclose(out["cmc_hi"], hi / n, rtol=1e-10, atol=1e-14)
     assert np.allclose(out["plain"], np.stack([((arr <= t) & ~init).mean(axis=0) for t in hs]))
+
+
+def test_repaired_cmc_exact_where_bounds_differ():
+    """A->B (a), A->C (c), B->C (b), C->B (d): C is often B's SPT descendant, so lo != hi for B.
+    Exact: P(T_B <= t) = 1 - exp(-a t) * P(E_ac + E_cb > t). The repaired estimate must match it;
+    lo must be low and hi high."""
+    from fpp import first_passage_cmc_repaired
+    a, c, b, d, t = 0.4, 0.3, 2.0, 1.5, 1.5
+    K = np.zeros((25, 1, 3))
+    K[channel(5, 0, -1), 0, 1] = a  # B <- A
+    K[channel(5, 0, 1), 0, 1] = d   # B <- C
+    K[channel(5, 0, -2), 0, 2] = c  # C <- A
+    K[channel(5, 0, -1), 0, 2] = b  # C <- B
+    init = np.array([[True, False, False]])
+    exact = 1 - math.exp(-a * t) * (1 - hypoexp_cdf(c, d, t))
+    n = 20000
+    out = first_passage_cmc_repaired(K, init, t, n_samples=n, seed=12, threshold=0.05)
+    assert out["flagged"][0, 1]
+    assert out["repairs"] > 0
+    est, se = out["estimate"][0, 1], math.sqrt(out["estimate_var"][0, 1] / n)
+    assert abs(est - exact) <= 5 * se, (est, exact, se)
+    assert out["lo"][0, 1] < exact - 5 * se
+    assert out["hi"][0, 1] > exact + 5 * se
+    p = out["plain"][0, 1]
+    assert abs(p - exact) <= 5 * math.sqrt(exact * (1 - exact) / n)

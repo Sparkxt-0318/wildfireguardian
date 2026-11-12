@@ -1,0 +1,46 @@
+{
+ "n": 1000,
+ "size": 160,
+ "horizon_h": 12.0,
+ "threshold": 0.05,
+ "results": {
+  "c651_magnitude_0p25": {
+   "cells_with_positive_estimate": 1544,
+   "cells_flagged": 2,
+   "share_flagged_of_positive": 0.0012953367875647669,
+   "repairs": 5,
+   "repairs_per_trajectory": 0.005,
+   "ms_per_traj_pass1": 6.383139991999997,
+   "ms_per_traj_pass2": 0.2139386700000614,
+   "flagged_p_q10_q50_q90": [
+    0.0012371745823876318,
+    0.0038012063028308738,
+    0.006365238023274116
+   ],
+   "lo_rel_error_on_flagged_q50_max": [
+    0.00871838370918089,
+    0.01743676741836178
+   ],
+   "peak_rss_mib": 252.28515625
+  },
+  "fast_0p6": {
+   "cells_with_positive_estimate": 2803,
+   "cells_flagged": 12,
+   "share_flagged_of_positive": 0.004281127363539065,
+   "repairs": 14,
+   "repairs_per_trajectory": 0.014,
+   "ms_per_traj_pass1": 6.842802906000543,
+   "ms_per_traj_pass2": 0.38130988699958834,
+   "flagged_p_q10_q50_q90": [
+    0.00010016111727680092,
+    0.000345159398567626,
+    0.0007321712343447552
+   ],
+   "lo_rel_error_on_flagged_q50_max": [
+    0.0,
+    0.3877666356907711
+   ],
+   "peak_rss_mib": 271.265625
+  }
+ }
+}
