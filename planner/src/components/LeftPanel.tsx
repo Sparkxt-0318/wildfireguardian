@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { kstClock, kstDate, kstDateTime } from '../domain/clock';
-import { sortByUrgency, summarize } from '../domain/plan';
-import type { OriginPlan, Place } from '../domain/types';
+import { deadlineHeadline, sortByUrgency, summarize } from '../domain/plan';
+import type { OriginPlan, Place, Verdict } from '../domain/types';
 import { sortDrawn, type RsgTag } from '../domain/zones';
 import { useLang, useT } from '../i18n';
 import { cancelBatch, selectOrigin, selectRegion, selectScenario, startBatch } from '../state/controller';
@@ -246,16 +246,16 @@ function OriginRow({ place, plan, selected, inputTime, rsg, index }: { place: Pl
     if (selected) ref.current?.scrollIntoView({ block: 'nearest' });
   }, [selected, index]);
   const it = inputTime;
-  const verdict = plan?.bestVerdict ?? 'unresolved';
+  // the same headline as the right panel, the kit and the public card: the contiguous time (Iris E)
+  const h = deadlineHeadline(plan);
+  // a place without a headline time is never shown green
+  const verdict: Verdict = h.kind === 'deadline' ? 'checked_route' : h.kind === 'no_route' ? 'model_no_route' : 'unresolved';
   let deadline: string;
-  if (verdict === 'checked_route' && plan?.latestSafeDepartureS !== null && plan?.latestSafeDepartureS !== undefined) {
-    deadline = t('list.deadline', { time: fmtKstClock(it, plan.latestSafeDepartureS) });
-  } else if (verdict === 'model_no_route') {
-    deadline = t('list.noDeparture');
-  } else {
-    deadline = t('list.unresolved');
-  }
-  const caveat = verdict === 'checked_route' && plan && plan.contiguousSafeDepartureS !== plan.latestSafeDepartureS;
+  if (h.kind === 'deadline' && h.deadlineS !== null) deadline = t('list.deadline', { time: fmtKstClock(it, h.deadlineS) });
+  else if (h.kind === 'partial') deadline = t('list.partial');
+  else if (h.kind === 'no_route') deadline = t('list.noDeparture');
+  else deadline = t('list.unresolved');
+  const laterWindowS = h.laterWindowS;
   const note = !place.checkable
     ? t('list.notCheckable')
     : plan?.note === 'rejected' && plan.rejectReason
@@ -281,13 +281,17 @@ function OriginRow({ place, plan, selected, inputTime, rsg, index }: { place: Pl
       <span className="name">{placeName(place, t, lang)}</span>
       <span className="right">
         <StatusChip verdict={verdict} label={deadline} />
-        {verdict === 'unresolved' && plan?.sweep.some((c) => c.verdict === 'model_no_route') ? (
+        {plan?.bestVerdict === 'unresolved' && plan.sweep.some((c) => c.verdict === 'model_no_route') ? (
           <span className="noroute-mark" data-testid="noroute-mark" title={t('list.partNoRoute')}>
             <VerdictIcon verdict="model_no_route" size={11} color="#FFFFFF" />
             {t('list.partNoRouteShort')}
           </span>
         ) : null}
-        {caveat ? <span className="caveat-mark" title={t('headline.caveat', { time: plan!.contiguousSafeDepartureS === null ? t('headline.none') : fmtKstClock(it, plan!.contiguousSafeDepartureS) })}>{t('list.caveatShort')}</span> : null}
+        {laterWindowS !== null ? (
+          <span className="caveat-mark" data-testid="later-window-mark" title={t('headline.laterWindow', { time: fmtKstClock(it, laterWindowS) })}>
+            {t('list.laterWindowShort')}
+          </span>
+        ) : null}
       </span>
       <span className="meta">
         <span>{categoryLabel(place, t)}</span>

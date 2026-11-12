@@ -1,0 +1,107 @@
+[
+ {
+  "packet": "uljin_2022/20220304T030000Z",
+  "active_cells": 1,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "miryang_2022/20220601T080000Z",
+  "active_cells": 5,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "hongseong_2023/20230402T070000Z",
+  "active_cells": 6,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "uiseong_andong_2025/20250323T010000Z",
+  "active_cells": 43,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "yeongdeok_2025/20250325T190000Z",
+  "active_cells": 247,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "uljin_2022/20220304T060000Z",
+  "active_cells": 31,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "miryang_2022/20220601T020000Z",
+  "active_cells": 2,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "hongseong_2023/20230402T140000Z",
+  "active_cells": 6,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "uiseong_andong_2025/20250324T090000Z",
+  "active_cells": 31,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "yeongdeok_2025/20250325T230000Z",
+  "active_cells": 49,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "uljin_2022/20220304T120000Z",
+  "active_cells": 22,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "hongseong_2023/20230402T230000Z",
+  "active_cells": 4,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "uiseong_andong_2025/20250325T170000Z",
+  "active_cells": 483,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "yeongdeok_2025/20250326T080000Z",
+  "active_cells": 12,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ },
+ {
+  "packet": "miryang_2022/20220531T100000Z",
+  "active_cells": 3,
+  "hazard_vs_raw": 0,
+  "hazard_vs_contact": 0,
+  "raw_vs_contact": 0
+ }
+]

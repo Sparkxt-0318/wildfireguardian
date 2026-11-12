@@ -1,0 +1,597 @@
+{
+ "schema": "wfg.f93.support-writer.amended-rule/1",
+ "status": "A1 is POST HOC and PROPOSED; the existing rule (relative 1e-9) is the rule of record",
+ "existing_rule": {
+  "flux_relative_max": 1e-09
+ },
+ "A1_rule": {
+  "flux_relative_max": 1e-09,
+  "or_flux_absolute_max_kW_m2": 1e-12
+ },
+ "runs": {
+  "numpy2.5.3_py3.13": {
+   "rows": [
+    {
+     "packet": "hongseong_2023/20230402T070000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 2592,
+     "flux_max_relative": 2.1429872559693852e-12,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "hongseong_2023/20230402T140000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 1296,
+     "flux_max_relative": 6.051413174911803e-12,
+     "flux_max_absolute_kW_m2": 1.1102230246251565e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "hongseong_2023/20230402T230000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 1296,
+     "flux_max_relative": 8.716435856741408e-12,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220531T100000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 4.225300649184619e-12,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220601T020000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 6.851666730235025e-12,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220601T080000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 4.4841393912051374e-12,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250323T010000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 99645,
+     "flux_max_relative": 3.572742658756924e-10,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250324T090000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 137605,
+     "flux_max_relative": 4.112770362590214e-09,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 14,
+     "entries_failing_A1": 0,
+     "existing_rule": "FAIL",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250325T170000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 104390,
+     "flux_max_relative": 5.3591867570655514e-11,
+     "flux_max_absolute_kW_m2": 8.881784197001252e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T030000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 28768,
+     "flux_max_relative": 7.453163403069778e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T060000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 32364,
+     "flux_max_relative": 1.4158564613850468e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T120000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 43152,
+     "flux_max_relative": 6.012410360609746e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250325T190000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 57084,
+     "flux_max_relative": 9.109868404819346e-11,
+     "flux_max_absolute_kW_m2": 1.1102230246251565e-15,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250325T230000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 23785,
+     "flux_max_relative": 2.724487091001264e-10,
+     "flux_max_absolute_kW_m2": 9.992007221626409e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250326T080000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 19028,
+     "flux_max_relative": 5.152009525220271e-10,
+     "flux_max_absolute_kW_m2": 7.771561172376096e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    }
+   ],
+   "existing_rule_pass": 14,
+   "A1_rule_pass": 15,
+   "packets": 15
+  },
+  "numpy1.26.4_py3.12": {
+   "rows": [
+    {
+     "packet": "hongseong_2023/20230402T070000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 2592,
+     "flux_max_relative": 2.595539053650266e-12,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "hongseong_2023/20230402T140000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 1296,
+     "flux_max_relative": 8.079645687844909e-12,
+     "flux_max_absolute_kW_m2": 3.3306690738754696e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "hongseong_2023/20230402T230000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 1296,
+     "flux_max_relative": 1.7433082780530224e-11,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220531T100000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 4.15213454539286e-12,
+     "flux_max_absolute_kW_m2": 1.1736488517155585e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220601T020000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 5.06860591961188e-12,
+     "flux_max_absolute_kW_m2": 1.1102230246251565e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "miryang_2022/20220601T080000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 748,
+     "flux_max_relative": 2.0211488198030826e-12,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250323T010000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 99645,
+     "flux_max_relative": 1.4587192965116793e-10,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250324T090000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 137605,
+     "flux_max_relative": 2.2625875757282012e-09,
+     "flux_max_absolute_kW_m2": 3.3306690738754696e-16,
+     "entries_failing_existing": 6,
+     "entries_failing_A1": 0,
+     "existing_rule": "FAIL",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uiseong_andong_2025/20250325T170000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 104390,
+     "flux_max_relative": 2.8824129817724723e-11,
+     "flux_max_absolute_kW_m2": 5.551115123125783e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T030000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 28768,
+     "flux_max_relative": 4.956125052592158e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T060000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 32364,
+     "flux_max_relative": 1.0374753801455635e-10,
+     "flux_max_absolute_kW_m2": 3.3306690738754696e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "uljin_2022/20220304T120000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 43152,
+     "flux_max_relative": 4.919080530708011e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250325T190000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 57084,
+     "flux_max_relative": 5.532127610571977e-11,
+     "flux_max_absolute_kW_m2": 5.551115123125783e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250325T230000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 23785,
+     "flux_max_relative": 1.1553004950049336e-10,
+     "flux_max_absolute_kW_m2": 4.440892098500626e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    },
+    {
+     "packet": "yeongdeok_2025/20250326T080000Z",
+     "writer_built": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "writer_stored": {
+      "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb",
+      "support_writer": null
+     },
+     "ids_breakpoints_flame_support_exact": true,
+     "flux_entries": 19028,
+     "flux_max_relative": 2.3147556835545516e-10,
+     "flux_max_absolute_kW_m2": 2.220446049250313e-16,
+     "entries_failing_existing": 0,
+     "entries_failing_A1": 0,
+     "existing_rule": "PASS",
+     "A1_rule": "PASS"
+    }
+   ],
+   "existing_rule_pass": 14,
+   "A1_rule_pass": 15,
+   "packets": 15
+  }
+ }
+}

@@ -2,6 +2,7 @@
  * Pure helpers of the plan sheet (unit-tested in tests/planner/features.plansheet.test.ts).
  */
 import type { Verdict } from '../../domain/types';
+import { headlineDepartureS } from '../../domain/plan';
 import { clockAt, formatExposure, kstClock } from '../shared/format';
 import { ALT_PLAN_TEXT, attemptReasonText, NOTE_LABEL, pick, RAW_STATUS_LABEL, VERDICT_LABEL, type Lang } from '../shared/strings';
 import { SHEET } from './strings';
@@ -126,10 +127,9 @@ export interface PartialCheckedItem {
   index: number;
   tag: string;
   scenarioSetId: string;
-  /** "18:30" — the departure deadline */
-  deadline: string;
-  /** "18:10" or null when even the first departure time is not a checked route */
-  contiguous: string | null;
+  /** "18:10" — the departure deadline (the contiguous time, Iris E), or null when even the first departure time
+   * computed has no checked route (no deadline) */
+  deadline: string | null;
 }
 
 /**
@@ -141,22 +141,18 @@ export function partialCheckedScenarios(sheet: Pick<PlanSheetData, 'scenarios'>)
   const out: PartialCheckedItem[] = [];
   sheet.scenarios.forEach((s, index) => {
     if (s.bestVerdict !== 'checked_route' || s.latestSafeDepartureS === null) return;
-    if (s.contiguousSafeDepartureS === s.latestSafeDepartureS) return;
+    const t = headlineDepartureS(s);
+    if (t !== null && t === s.latestSafeDepartureS) return;
     const base = { inputTimeIso: s.inputTimeIso, issuedAtIso: s.issuedAtIso ?? null };
-    out.push({
-      index,
-      tag: scenarioTag(index),
-      scenarioSetId: s.scenarioSetId,
-      deadline: clockAt(base, s.latestSafeDepartureS),
-      contiguous: s.contiguousSafeDepartureS === null ? null : clockAt(base, s.contiguousSafeDepartureS),
-    });
+    // the later checked departure after the gap is not printed (paper outlives the result; Iris): the panel shows it
+    out.push({ index, tag: scenarioTag(index), scenarioSetId: s.scenarioSetId, deadline: t === null ? null : clockAt(base, t) });
   });
   return out;
 }
 
 /** The caveat line of a partially checked scenario (ko/en). */
 export function partialCheckedText(item: PartialCheckedItem, lang: Lang): string {
-  return fill(pick(SHEET.altCaveat, lang), { tag: item.tag, deadline: item.deadline, time: item.contiguous ?? pick(SHEET.altNoneWord, lang) });
+  return item.deadline === null ? fill(pick(SHEET.altCaveatNone, lang), { tag: item.tag }) : fill(pick(SHEET.altCaveat, lang), { tag: item.tag, deadline: item.deadline });
 }
 
 export interface ExposureSummary {
@@ -190,16 +186,19 @@ export interface DeadlineCell {
   sub: string | null;
 }
 
-/** "18:50" + "연속 확인 기준 18:30" (or "동일"/"없음"); "—" when there is no checked departure. */
+/**
+ * The deadline cell: the staff headline time, which is the contiguous time (Iris E), the same as residents get.
+ * "—" when there is no checked departure, and also when the first departure time computed has no checked route
+ * (partial: no deadline). A later checked departure after a gap is NOT printed, only noted.
+ */
 export function deadlineCell(s: PlanSheetScenario, lang: Lang): DeadlineCell {
   const base = { inputTimeIso: s.inputTimeIso, issuedAtIso: s.issuedAtIso ?? null };
   if (s.bestVerdict !== 'checked_route' || s.latestSafeDepartureS === null) return { main: '—', sub: null };
-  const main = clockAt(base, s.latestSafeDepartureS);
-  let sub: string;
-  if (s.contiguousSafeDepartureS === null) sub = pick(SHEET.contiguousNone, lang);
-  else if (s.contiguousSafeDepartureS === s.latestSafeDepartureS) sub = pick(SHEET.contiguousSame, lang);
-  else sub = fill(pick(SHEET.contiguous, lang), { time: clockAt(base, s.contiguousSafeDepartureS) });
-  return { main, sub };
+  const t = headlineDepartureS(s);
+  if (t === null) return { main: '—', sub: pick(SHEET.contiguousNone, lang) };
+  // the main time IS the contiguous time (Iris E), so "same on contiguous basis" says nothing any more; the sub line
+  // is kept for the later-window note (and the provenance tag, which needs the room on the A4 page)
+  return { main: clockAt(base, t), sub: t === s.latestSafeDepartureS ? null : pick(SHEET.laterWindowNoted, lang) };
 }
 
 export function arrivalCell(s: PlanSheetScenario): string {

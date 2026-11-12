@@ -1,0 +1,36 @@
+{
+ "id": "CA-SHF-001004_ThreeNine",
+ "name": "ThreeNine",
+ "country": "US",
+ "year": 2023,
+ "t0_utc": "2023-08-20T06:00:00+00:00",
+ "start_utc": "2023-08-20T06:00:00+00:00",
+ "end_utc": "2023-11-09T05:00:00+00:00",
+ "acquisition_window_basis": "S-D9 A1: floor_hour(first NIROPS survey) to ceil_hour(last survey)",
+ "rain_history_start_utc": "2023-07-21T06:00:00+00:00",
+ "arrival_path": "regions/CA-SHF-001004_ThreeNine/arrival_time_hours.tif",
+ "source_arrival_path": "NIROPS cumulative unions",
+ "width": 24,
+ "height": 37,
+ "epsg": 5070,
+ "transform": [
+  375.0,
+  0.0,
+  -2284875.0,
+  0.0,
+  -375.0,
+  2297625.0
+ ],
+ "bounds_wgs84": [
+  -123.64643923081594,
+  40.559138553486335,
+  -123.49630683401902,
+  40.70082647798392
+ ],
+ "resolution_m": [
+  375,
+  375
+ ],
+ "burned_label": "NIROPS cumulative mapped extent at cell centres",
+ "valid_arrival_pixels": 88
+}

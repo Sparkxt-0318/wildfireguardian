@@ -97,10 +97,10 @@ describe('departure deadlines', () => {
     expect(p.latestSafeDepartureS).toBe(600);
     expect(p.contiguousSafeDepartureS).toBeNull();
   });
-  it('headline shows the deadline with a caveat when contiguous differs or is null', () => {
-    expect(deadlineHeadline(plan)).toEqual({ kind: 'deadline', deadlineS: 1200, caveat: { contiguousS: 0 } });
+  it('headline shows the contiguous time; a later checked departure after a gap is a labelled window, not the deadline (Iris E)', () => {
+    expect(deadlineHeadline(plan)).toEqual({ kind: 'deadline', deadlineS: 0, laterWindowS: 1200 });
     const all = planFromAttempts({ originId: 'o', offsetsS: [0, 600], attempts: [att(0, 'a', 'checked_route', 1), att(600, 'a', 'checked_route', 2)], source: 'live', mock: false });
-    expect(deadlineHeadline(all)).toEqual({ kind: 'deadline', deadlineS: 600, caveat: null });
+    expect(deadlineHeadline(all)).toEqual({ kind: 'deadline', deadlineS: 600, laterWindowS: null });
   });
   it('unresolved cells never count as safe', () => {
     const p = planFromAttempts({ originId: 'o', offsetsS: [0, 600], attempts: [att(0, 'a', 'unresolved'), att(600, 'a', 'unresolved')], source: 'live', mock: false });
@@ -185,7 +185,8 @@ describe('skips other than window_unsatisfiable', () => {
     expect(contiguousSafeDeparture(sweep)).toBeNull();
     const plan = planFromAttempts({ originId: 'o', offsetsS: [0, 600, 1200], attempts: [att(1200, 'a', 'checked_route', 2000)], source: 'cache', mock: false, skipped: { 0: 'window_unsatisfiable', 600: 'NODE_NOT_ALLOWED' } });
     expect(plan.windows.filter((x) => x.skipped).map((x) => [x.fromS, x.toS])).toEqual([[0, 0]]);
-    expect(deadlineHeadline(plan).caveat).toEqual({ contiguousS: null });
+    // no contiguous basis: no headline time at all (partial), the later checked departure shown as a window only
+    expect(deadlineHeadline(plan)).toEqual({ kind: 'partial', deadlineS: null, laterWindowS: 1200 });
   });
 });
 

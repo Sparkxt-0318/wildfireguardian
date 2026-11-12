@@ -2,6 +2,7 @@
  * One A4 portrait page (210 × 297 mm, 16 mm margins) of the 기관용 사전 대피계획서 for one origin.
  * Status is always icon + text; unresolved never reads as safe; only checked routes are drawn.
  */
+import { PROVENANCE_SHEET_TAG } from '../provenance/model';
 import { kstDateTime } from '../../domain/clock';
 import { clockAt, formatCoord, formatDistanceM, formatSeconds, kstStamp, sweepStepMin } from '../shared/format';
 import { FIXED_IDENTITY, LIMITATIONS, NOTE_LABEL, pick, VERDICT_LABEL, WINDOW_CLOSED_LABEL, type Lang } from '../shared/strings';
@@ -108,7 +109,12 @@ function ScenarioRows({ s, i, lang, drawnSheet }: { s: PlanSheetScenario; i: num
         </td>
         <td>
           <div className="wfgf-sheet__deadline wfgf-num">{dl.main}</div>
-          {dl.sub && <div className="wfgf-sheet__sub">{dl.sub}</div>}
+          {dl.sub || s.deadlineProvenance ? (
+            <div className="wfgf-sheet__sub" data-provenance={s.deadlineProvenance ?? undefined}>
+              {/* the provenance tag shares the sub line: the A4 page has no room for another line (print-fit test) */}
+              {[dl.sub, s.deadlineProvenance ? `${pick(SHEET.provenancePrefix, lang)} ${pick(PROVENANCE_SHEET_TAG[s.deadlineProvenance], lang)}` : null].filter(Boolean).join(' · ')}
+            </div>
+          ) : null}
         </td>
         <td>
           {checked && s.shelter ? (

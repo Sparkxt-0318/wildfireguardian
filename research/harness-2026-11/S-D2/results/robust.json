@@ -1,0 +1,6695 @@
+{
+ "command": "python run_robust.py --replicates 8 --workers 4 --out results/robust.json",
+ "replicates": 8,
+ "scenarios": [
+  "kriged_calibrated",
+  "kriged_correlated",
+  "kriged_miscal",
+  "perim_3h",
+  "perim_6h",
+  "perim_12h",
+  "perim_24h",
+  "perim_nonexp_12h",
+  "perim_spotting_12h"
+ ],
+ "mcem_short": {
+  "iterations": 30,
+  "sweeps": 3,
+  "keep": 2,
+  "average_last": 10
+ },
+ "mcem_long": {
+  "iterations": 60,
+  "sweeps": 6,
+  "keep": 5,
+  "average_last": 30
+ },
+ "wall_seconds": 1916.4989058971405,
+ "host": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+ "python": "3.13.18",
+ "numpy": "2.1.3",
+ "rows": [
+  {
+   "rel_l2": 0.36404874423588307,
+   "rel_l2_near": 0.36634812275279754,
+   "rel_l2_far": 0.3511115499417172,
+   "total_rate_ratio": 0.925423805703274,
+   "k0": 0.00022945277125838723,
+   "replicate": 0,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 13.38870542099994,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.038957599777723395,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.38047349386874424,
+   "rel_l2_near": 0.36370349968158794,
+   "rel_l2_far": 0.4620733202462776,
+   "total_rate_ratio": 0.8695081810559466,
+   "k0": 0.00019490808581869334,
+   "replicate": 0,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.034462576000350964,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05858498770138576,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.41844381233659245,
+   "rel_l2_near": 0.4278078059406331,
+   "rel_l2_far": 0.3625467535471052,
+   "total_rate_ratio": 0.8835171902241342,
+   "k0": 5.082665090852111e-05,
+   "replicate": 0,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 15.865788835999865,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04144154183289306,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4361815648341614,
+   "rel_l2_near": 0.42746545660995544,
+   "rel_l2_far": 0.4813774613565288,
+   "total_rate_ratio": 0.9808124917292373,
+   "k0": 4.4772773984494135e-05,
+   "replicate": 0,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 46.50222204699958,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04390784884130339,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4044738669500768,
+   "rel_l2_near": 0.3898289869451203,
+   "rel_l2_far": 0.4771609640345309,
+   "total_rate_ratio": 0.9829855592540117,
+   "k0": 4.94499563184792e-05,
+   "replicate": 0,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 198.4381116159998,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.042082496231581334,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.284347589050506,
+   "rel_l2_near": 0.23308769536936955,
+   "rel_l2_far": 0.47641677800142135,
+   "total_rate_ratio": 0.9689316059186297,
+   "k0": 0.0002259570611033488,
+   "replicate": 1,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 7.7754603949997545,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.035347726711677296,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.3042759370161303,
+   "rel_l2_near": 0.2632236295293364,
+   "rel_l2_far": 0.47003014436146523,
+   "total_rate_ratio": 0.9104341848034776,
+   "k0": 0.00017592528749064333,
+   "replicate": 1,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.06674943099960728,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04109226679466671,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.32529853518399915,
+   "rel_l2_near": 0.30769641862833097,
+   "rel_l2_far": 0.40890205027617926,
+   "total_rate_ratio": 0.9279211339009783,
+   "k0": 3.0910320835556494e-05,
+   "replicate": 1,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 18.857552036000016,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.017978474277862144,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5089717407907326,
+   "rel_l2_near": 0.4622635712980799,
+   "rel_l2_far": 0.7134190366723333,
+   "total_rate_ratio": 1.0861952062129816,
+   "k0": 1.834744743219638e-05,
+   "replicate": 1,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 58.708914699999696,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08600764510677061,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5198834209430041,
+   "rel_l2_near": 0.49554577835870484,
+   "rel_l2_far": 0.6375138857164093,
+   "total_rate_ratio": 1.0797578861423132,
+   "k0": 1.388787683885663e-05,
+   "replicate": 1,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 260.7277436639997,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05567713782176398,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.389774827210334,
+   "rel_l2_near": 0.2722648802484883,
+   "rel_l2_far": 0.7619089813506746,
+   "total_rate_ratio": 0.9584207940980433,
+   "k0": 0.00015615972047414742,
+   "replicate": 2,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 11.18238210699974,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03730666903937241,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.34127596412893446,
+   "rel_l2_near": 0.24909322361997985,
+   "rel_l2_far": 0.6451977885217896,
+   "total_rate_ratio": 0.9010640673261205,
+   "k0": 0.0001405323903592579,
+   "replicate": 2,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.04314292300023226,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03263246837264555,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.3580436859324704,
+   "rel_l2_near": 0.27872070712994074,
+   "rel_l2_far": 0.6375390214450439,
+   "total_rate_ratio": 0.9224139063614035,
+   "k0": 7.909530997801686e-06,
+   "replicate": 2,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 25.234243316000175,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02409018135819707,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.689444520043779,
+   "rel_l2_near": 0.5082356045715121,
+   "rel_l2_far": 1.2926552054593596,
+   "total_rate_ratio": 1.0532056589825216,
+   "k0": 8.486126181018008e-06,
+   "replicate": 2,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 37.79938076999997,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1509979747881216,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.6078873599443608,
+   "rel_l2_near": 0.44540461835061723,
+   "rel_l2_far": 1.1455784469118542,
+   "total_rate_ratio": 1.0512808586281015,
+   "k0": 8.15946283610499e-06,
+   "replicate": 2,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 171.8977543269998,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07719212751412163,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.37053340507029087,
+   "rel_l2_near": 0.30348265935319557,
+   "rel_l2_far": 0.621502660607656,
+   "total_rate_ratio": 0.9085363948579133,
+   "k0": 0.00016559381921079364,
+   "replicate": 3,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 12.313198563999777,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04322388271020294,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4035435195584137,
+   "rel_l2_near": 0.3325571702634221,
+   "rel_l2_far": 0.6713498340119739,
+   "total_rate_ratio": 0.861069382153503,
+   "k0": 0.0001344189384425274,
+   "replicate": 3,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.05129272700014553,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05470861073911992,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.3791135563737587,
+   "rel_l2_near": 0.3709593041623626,
+   "rel_l2_far": 0.4212146698273273,
+   "total_rate_ratio": 0.8771526793535643,
+   "k0": 2.885072790929674e-05,
+   "replicate": 3,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 20.581007092000164,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03665424679955054,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.642186781233915,
+   "rel_l2_near": 0.5887255533151238,
+   "rel_l2_far": 0.8803014890581217,
+   "total_rate_ratio": 1.021805702934624,
+   "k0": 2.521676474703491e-05,
+   "replicate": 3,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 38.06426658400005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08351002193369528,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.6213613839562722,
+   "rel_l2_near": 0.5859219052251973,
+   "rel_l2_far": 0.7885404046940838,
+   "total_rate_ratio": 1.0185188160548586,
+   "k0": 2.5115946203061323e-05,
+   "replicate": 3,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 161.2547485099999,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07806205814707612,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4094343366255476,
+   "rel_l2_near": 0.35731244453779787,
+   "rel_l2_far": 0.6227362613368015,
+   "total_rate_ratio": 0.9434826816537274,
+   "k0": 0.00017407329987439578,
+   "replicate": 4,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 6.825424023000323,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03725347001098678,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.43776025911947086,
+   "rel_l2_near": 0.38722678562205365,
+   "rel_l2_far": 0.6490778070367863,
+   "total_rate_ratio": 0.8843893990080324,
+   "k0": 0.00016628461356349138,
+   "replicate": 4,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.037644306999936816,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04885804713036235,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.4113572411155429,
+   "rel_l2_near": 0.378533243851873,
+   "rel_l2_far": 0.5586135226676161,
+   "total_rate_ratio": 0.9052032094179385,
+   "k0": 1.7867332282647375e-05,
+   "replicate": 4,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 19.294404894999843,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02480288775031747,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5268441847375761,
+   "rel_l2_near": 0.4578387624223802,
+   "rel_l2_far": 0.8073995543656338,
+   "total_rate_ratio": 1.0129146246117522,
+   "k0": 8.21493091483334e-06,
+   "replicate": 4,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 61.043790873000034,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07726202548206462,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.534106804563981,
+   "rel_l2_near": 0.4802215322181412,
+   "rel_l2_far": 0.7657534881567861,
+   "total_rate_ratio": 1.0113119455790738,
+   "k0": 8.793492838336991e-06,
+   "replicate": 4,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 149.44383826500007,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06645381458884536,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.4189455633273746,
+   "rel_l2_near": 0.3951430970692512,
+   "rel_l2_far": 0.5312865153255659,
+   "total_rate_ratio": 0.9614212345101364,
+   "k0": 0.0002958970871321988,
+   "replicate": 5,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 6.991758084000139,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05785497030562814,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.3815092073741369,
+   "rel_l2_near": 0.38591635611656844,
+   "rel_l2_far": 0.3562539902431871,
+   "total_rate_ratio": 0.907116917445282,
+   "k0": 0.0002476883640964688,
+   "replicate": 5,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.03618528700008028,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04987166079083849,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4020861786403788,
+   "rel_l2_near": 0.39796238050926813,
+   "rel_l2_far": 0.42408590863564505,
+   "total_rate_ratio": 0.9293677302613091,
+   "k0": 6.279862854525888e-05,
+   "replicate": 5,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 10.332947928000067,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.026451324096731454,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4576398419041526,
+   "rel_l2_near": 0.3917038550242801,
+   "rel_l2_far": 0.7196887782241913,
+   "total_rate_ratio": 1.0540068884293379,
+   "k0": 3.746536209099888e-05,
+   "replicate": 5,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 72.37103918899993,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03156823881193693,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.43513380228827553,
+   "rel_l2_near": 0.37488276094427975,
+   "rel_l2_far": 0.676908693658227,
+   "total_rate_ratio": 1.0556505136954188,
+   "k0": 3.83053510516976e-05,
+   "replicate": 5,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 204.56858898500013,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.019471476235509932,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.29527202927699514,
+   "rel_l2_near": 0.21746816027449326,
+   "rel_l2_far": 0.5540376626850133,
+   "total_rate_ratio": 0.921170966859212,
+   "k0": 0.0001155576231002049,
+   "replicate": 6,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 9.059739902000274,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.028043608858010494,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.3287736345438899,
+   "rel_l2_near": 0.25132261387986254,
+   "rel_l2_far": 0.5963279217810972,
+   "total_rate_ratio": 0.8686940003956517,
+   "k0": 0.00010737828092710329,
+   "replicate": 6,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.04942738299996563,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04510136529773101,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.35433387896693685,
+   "rel_l2_near": 0.31585291074713995,
+   "rel_l2_far": 0.5173267303015071,
+   "total_rate_ratio": 0.8970266718836618,
+   "k0": 9.314154374115171e-06,
+   "replicate": 6,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 22.970510433000072,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03250262358290312,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.5693030287689286,
+   "rel_l2_near": 0.5059257314491569,
+   "rel_l2_far": 0.8363721798033118,
+   "total_rate_ratio": 1.0050830494142358,
+   "k0": 8.364728559869892e-06,
+   "replicate": 6,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 30.660669020000114,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08391220813384725,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.5826046130794121,
+   "rel_l2_near": 0.5253088954471758,
+   "rel_l2_far": 0.8301405779756629,
+   "total_rate_ratio": 1.0088950956295488,
+   "k0": 8.017317643794458e-06,
+   "replicate": 6,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 118.47630424399995,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0819798879900695,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.4014495680321301,
+   "rel_l2_near": 0.3450629879574061,
+   "rel_l2_far": 0.6269405170967449,
+   "total_rate_ratio": 0.9219066923893915,
+   "k0": 3.8430229111828125e-05,
+   "replicate": 7,
+   "scenario": "kriged_calibrated",
+   "estimator": "hard_hourly",
+   "seconds": 7.461614077999911,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.030957033947350165,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4036545304805001,
+   "rel_l2_near": 0.34692256989574954,
+   "rel_l2_far": 0.6304921513904569,
+   "total_rate_ratio": 0.8700780504598964,
+   "k0": 3.080524569218241e-05,
+   "replicate": 7,
+   "scenario": "kriged_calibrated",
+   "estimator": "plugin",
+   "seconds": 0.03454884599977959,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05049500965598641,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.30920394358306347,
+   "rel_l2_near": 0.2593926386720546,
+   "rel_l2_far": 0.5016337554626105,
+   "total_rate_ratio": 0.8668071710014402,
+   "k0": 2.8964226528544444e-06,
+   "replicate": 7,
+   "scenario": "kriged_calibrated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 16.059473502999936,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02493366685130871,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5171380559944356,
+   "rel_l2_near": 0.49583506602105554,
+   "rel_l2_far": 0.6215406764973687,
+   "total_rate_ratio": 0.9641056609942736,
+   "k0": 1.9029634665265865e-06,
+   "replicate": 7,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem",
+   "seconds": 27.06449445399994,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.047341996376766726,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5210012730820522,
+   "rel_l2_near": 0.5039256447695336,
+   "rel_l2_far": 0.6065122662005777,
+   "total_rate_ratio": 0.9658533975443118,
+   "k0": 1.0271449127098459e-07,
+   "replicate": 7,
+   "scenario": "kriged_calibrated",
+   "estimator": "mcem_long",
+   "seconds": 105.65465511299999,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06127650863026579,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.42024253159990704,
+   "rel_l2_near": 0.4260215056348687,
+   "rel_l2_far": 0.3868613811777771,
+   "total_rate_ratio": 0.9258813732747708,
+   "k0": 0.00021578647343609744,
+   "replicate": 0,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 3.6299886260003404,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0406828479101673,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.39804671688503945,
+   "rel_l2_near": 0.41033948330226855,
+   "rel_l2_far": 0.322019281574557,
+   "total_rate_ratio": 0.8741641786786108,
+   "k0": 0.0001750526749326524,
+   "replicate": 0,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.026066738999816152,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.042197692388344255,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4522101253983282,
+   "rel_l2_near": 0.46278794009599117,
+   "rel_l2_far": 0.38881098691982685,
+   "total_rate_ratio": 0.8815475901362875,
+   "k0": 4.2104709130112665e-05,
+   "replicate": 0,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 7.319991876000131,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.040718237309325556,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.6081243949704729,
+   "rel_l2_near": 0.6002987751017335,
+   "rel_l2_far": 0.6495476763494621,
+   "total_rate_ratio": 0.9804443916552863,
+   "k0": 5.469284425398054e-05,
+   "replicate": 0,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 38.709131782999975,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06010372428076671,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4637179659897001,
+   "rel_l2_near": 0.481279936740547,
+   "rel_l2_far": 0.351577250178944,
+   "total_rate_ratio": 0.7970961599213165,
+   "k0": 0.0002853555497112231,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 3.371199759999854,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0663638157508446,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4808736231801368,
+   "rel_l2_near": 0.48533143684371344,
+   "rel_l2_far": 0.4555339850350219,
+   "total_rate_ratio": 0.7551505054756302,
+   "k0": 0.0002356016415991506,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.0177582110000003,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07833746754946036,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4134812906649602,
+   "rel_l2_near": 0.41901060287018044,
+   "rel_l2_far": 0.3815863979726738,
+   "total_rate_ratio": 0.7929100742012799,
+   "k0": 8.34050789612275e-05,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 3.747470784000143,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.046384467002002605,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4322252888493503,
+   "rel_l2_near": 0.44940573188328936,
+   "rel_l2_far": 0.3215192932712416,
+   "total_rate_ratio": 0.7309087878437239,
+   "k0": 4.478721035123519e-05,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 4.371178927000074,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06259434361459393,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.6267138911510122,
+   "rel_l2_near": 0.6414670906637041,
+   "rel_l2_far": 0.5382360953510423,
+   "total_rate_ratio": 0.9786754514594919,
+   "k0": 5.896387011269797e-05,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 33.36134046999996,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03925296956148738,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4543856825032863,
+   "rel_l2_near": 0.4366929570297469,
+   "rel_l2_far": 0.5415896627697144,
+   "total_rate_ratio": 0.8950162239194699,
+   "k0": 6.519085692305334e-05,
+   "replicate": 0,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 35.33292141699985,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03050640403515459,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.3964287549247142,
+   "rel_l2_near": 0.36492886414484355,
+   "rel_l2_far": 0.5378445529652507,
+   "total_rate_ratio": 0.9835500428085429,
+   "k0": 0.00029252139194500983,
+   "replicate": 0,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.012552972999856138,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05535089760078371,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.48230342120740266,
+   "rel_l2_near": 0.4781703748722982,
+   "rel_l2_far": 0.5044656977151202,
+   "total_rate_ratio": 0.9782986102726762,
+   "k0": 2.4950851756139022e-05,
+   "replicate": 0,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 3.098031627000182,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.030490391868197353,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.45275239314556176,
+   "rel_l2_near": 0.41552847550052563,
+   "rel_l2_far": 0.61890278431196,
+   "total_rate_ratio": 1.0336011163008265,
+   "k0": 9.12239316857206e-05,
+   "replicate": 0,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 12.678762480999922,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03913831846074345,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 0,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.07545826800014765,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.037278037434541,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.482590891187603,
+   "rel_l2_near": 0.46513675839347635,
+   "rel_l2_far": 0.5692300335363348,
+   "total_rate_ratio": 0.9763062361452435,
+   "k0": 4.710598651963513e-05,
+   "replicate": 0,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 27.232576253999923,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02792912413003057,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5228289509144594,
+   "rel_l2_near": 0.4733226948188519,
+   "rel_l2_far": 0.7382623928169939,
+   "total_rate_ratio": 1.0012259732235618,
+   "k0": 0.0005873352476511998,
+   "replicate": 0,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.0073244850000264705,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10652392162835778,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5251217938217821,
+   "rel_l2_near": 0.5368443683154266,
+   "rel_l2_far": 0.45516070588904306,
+   "total_rate_ratio": 0.9587855688368719,
+   "k0": 3.278777293089402e-05,
+   "replicate": 0,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 3.0030906769998182,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0699624692043681,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.6581268308501143,
+   "rel_l2_near": 0.6504712913413108,
+   "rel_l2_far": 0.6987992522087874,
+   "total_rate_ratio": 1.0371601240043753,
+   "k0": 7.010241276699283e-05,
+   "replicate": 0,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 25.5429396479999,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06137861322122129,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.749745303380187,
+   "rel_l2_near": 0.7469094493360432,
+   "rel_l2_far": 0.7651796591216747,
+   "total_rate_ratio": 1.0383465164981374,
+   "k0": 0.00010068390678021103,
+   "replicate": 0,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 4.6497845369999595,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08402378513143516,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.4337227049477404,
+   "rel_l2_near": 0.3949178150384955,
+   "rel_l2_far": 0.604367029714316,
+   "total_rate_ratio": 0.9900212691638519,
+   "k0": 4.854349064380922e-05,
+   "replicate": 0,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 27.03106434199981,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.034226307274187295,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.6850675812616446,
+   "rel_l2_near": 0.6123074219313992,
+   "rel_l2_far": 0.9946624803201447,
+   "total_rate_ratio": 0.9398153768203469,
+   "k0": 0.0016289386465824372,
+   "replicate": 0,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.0076584860003094946,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2807182319939123,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5419770643876236,
+   "rel_l2_near": 0.522918806967864,
+   "rel_l2_far": 0.6368241278473205,
+   "total_rate_ratio": 0.85656176275103,
+   "k0": 8.376429726117279e-06,
+   "replicate": 0,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 4.807239453999955,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.17024329680035288,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.748201274956266,
+   "rel_l2_near": 0.45350930752283575,
+   "rel_l2_far": 1.5845308252052275,
+   "total_rate_ratio": 0.9961905431261528,
+   "k0": 6.525968716464676e-05,
+   "replicate": 0,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 53.71053881399985,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.14274332933423972,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 1.0657094097339304,
+   "rel_l2_near": 1.0327574061851243,
+   "rel_l2_far": 1.2315347507900474,
+   "total_rate_ratio": 1.0112454547027514,
+   "k0": 7.497069886439956e-05,
+   "replicate": 0,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 21.884404992999862,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.17751639787920404,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5502229667976064,
+   "rel_l2_near": 0.5425064456679046,
+   "rel_l2_far": 0.5909295467075367,
+   "total_rate_ratio": 1.011711973502247,
+   "k0": 5.435860480169349e-05,
+   "replicate": 0,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 36.55011481800011,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07204125532492611,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.7676056507285094,
+   "rel_l2_near": 0.7963342953129293,
+   "rel_l2_far": 0.5845502409381012,
+   "total_rate_ratio": 0.6895343937926137,
+   "k0": 0.00348789954830727,
+   "replicate": 0,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.004530294000232971,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.5860898699918904,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.558183401217221,
+   "rel_l2_near": 0.5016566602132464,
+   "rel_l2_far": 0.8010056777511994,
+   "total_rate_ratio": 0.5833207841899067,
+   "k0": 1e-09,
+   "replicate": 0,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.2993654679999054,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.43606643867838324,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 1.1360119266276283,
+   "rel_l2_near": 1.182492733218619,
+   "rel_l2_far": 0.8347685545003022,
+   "total_rate_ratio": 0.9112545683285141,
+   "k0": 6.221256894894784e-05,
+   "replicate": 0,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 53.94542996000018,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2704144052601585,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 1.146658362438052,
+   "rel_l2_near": 1.1963811915664184,
+   "rel_l2_far": 0.8203723699117791,
+   "total_rate_ratio": 0.8899225714261577,
+   "k0": 6.633184870568724e-05,
+   "replicate": 0,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 54.72517297100012,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.23193058937745237,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5563001533614729,
+   "rel_l2_near": 0.484204388283218,
+   "rel_l2_far": 0.8501377128814823,
+   "total_rate_ratio": 0.9690960509427743,
+   "k0": 5.0378329755659076e-05,
+   "replicate": 0,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 30.993964559999768,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05375985972793318,
+   "crossing_hours": 6.721755123318484,
+   "burned": 775
+  },
+  {
+   "rel_l2": 0.5800468035062488,
+   "rel_l2_near": 0.4728497632227407,
+   "rel_l2_far": 0.9788987240515243,
+   "total_rate_ratio": 0.31679913131509374,
+   "k0": 3.4180790697699184e-05,
+   "replicate": 0,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.011040321000109543,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.4566463072814964,
+   "crossing_hours": 21.38622731713174,
+   "burned": 69
+  },
+  {
+   "rel_l2": 0.637146354007607,
+   "rel_l2_near": 0.546007523243511,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.27011771829543046,
+   "k0": 3.4169654823885e-05,
+   "replicate": 0,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 0.5787699880002037,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.479019933855768,
+   "crossing_hours": 21.38622731713174,
+   "burned": 69
+  },
+  {
+   "rel_l2": 0.6343491765974023,
+   "rel_l2_near": 0.5421457562487592,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.2672598381655922,
+   "k0": 1e-09,
+   "replicate": 0,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 3.1414340290002656,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.3839175305210558,
+   "crossing_hours": 21.38622731713174,
+   "burned": 69
+  },
+  {
+   "rel_l2": 0.5888855551253819,
+   "rel_l2_near": 0.4789391022309009,
+   "rel_l2_far": 0.9967769435254406,
+   "total_rate_ratio": 0.30936164035711083,
+   "k0": 1e-09,
+   "replicate": 0,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.6631811110000854,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.5277710927014336,
+   "crossing_hours": 21.38622731713174,
+   "burned": 69
+  },
+  {
+   "rel_l2": 0.6352578907778194,
+   "rel_l2_near": 0.5434266665978685,
+   "rel_l2_far": 0.999924425056352,
+   "total_rate_ratio": 0.2738398940023262,
+   "k0": 3.4144574463909226e-05,
+   "replicate": 0,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 1.6663505030001033,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.4752320621570494,
+   "crossing_hours": 21.38622731713174,
+   "burned": 69
+  },
+  {
+   "rel_l2": 0.6648617634048679,
+   "rel_l2_near": 0.6092665394508257,
+   "rel_l2_far": 0.9122909972722341,
+   "total_rate_ratio": 0.9216734549277088,
+   "k0": 0.0038091955775704863,
+   "replicate": 0,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.013004699999783043,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3902265636624982,
+   "crossing_hours": 6.175890825699611,
+   "burned": 1403
+  },
+  {
+   "rel_l2": 0.4610923190577336,
+   "rel_l2_near": 0.4507541233331945,
+   "rel_l2_far": 0.5143333436397344,
+   "total_rate_ratio": 0.9104149940685369,
+   "k0": 2.9919574688933254e-05,
+   "replicate": 0,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 3.5873771299998225,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09904155487361699,
+   "crossing_hours": 6.175890825699611,
+   "burned": 1403
+  },
+  {
+   "rel_l2": 1.2233040752141786,
+   "rel_l2_near": 0.7123059719138927,
+   "rel_l2_far": 2.6354133451179487,
+   "total_rate_ratio": 1.163022152163758,
+   "k0": 8.418881595721598e-05,
+   "replicate": 0,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 49.05389478999996,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.17125810645574147,
+   "crossing_hours": 6.175890825699611,
+   "burned": 1403
+  },
+  {
+   "rel_l2": 1.1172394931206944,
+   "rel_l2_near": 0.7123890033529008,
+   "rel_l2_far": 2.3084402262550237,
+   "total_rate_ratio": 1.1517176995958331,
+   "k0": 0.00017558020628476525,
+   "replicate": 0,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 23.904176720000123,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.133888682390213,
+   "crossing_hours": 6.175890825699611,
+   "burned": 1403
+  },
+  {
+   "rel_l2": 0.5102505686580175,
+   "rel_l2_near": 0.3230714608844483,
+   "rel_l2_far": 1.058137395594222,
+   "total_rate_ratio": 1.0998189452728473,
+   "k0": 0.00011439678030980419,
+   "replicate": 0,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 57.18172381500017,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03399132064859467,
+   "crossing_hours": 6.175890825699611,
+   "burned": 1403
+  },
+  {
+   "rel_l2": 0.2963473320776883,
+   "rel_l2_near": 0.2017374985359265,
+   "rel_l2_far": 0.5894295026647332,
+   "total_rate_ratio": 1.0855563284755376,
+   "k0": 0.00010772371267447022,
+   "replicate": 1,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 3.7770121459998336,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02392698657224379,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.2926524562678906,
+   "rel_l2_near": 0.2376139554929378,
+   "rel_l2_far": 0.49641363984954373,
+   "total_rate_ratio": 1.012584296568048,
+   "k0": 5.8356840646186324e-05,
+   "replicate": 1,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.0394346839998434,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.012780286676490338,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.2781478460030794,
+   "rel_l2_near": 0.2188192478961085,
+   "rel_l2_far": 0.4896897735959283,
+   "total_rate_ratio": 0.9986952288616912,
+   "k0": 6.629542991053411e-06,
+   "replicate": 1,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 12.416358473999935,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.015434714715625741,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.38328857116066095,
+   "rel_l2_near": 0.2729031795218983,
+   "rel_l2_far": 0.738884419256217,
+   "total_rate_ratio": 1.0935464838660296,
+   "k0": 1.4722249390243918e-05,
+   "replicate": 1,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 44.42047864099959,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03636625791988868,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5034056969176856,
+   "rel_l2_near": 0.5060997141029892,
+   "rel_l2_far": 0.48829789611386415,
+   "total_rate_ratio": 0.8645740038196436,
+   "k0": 0.00023956892341555797,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 2.092790235999928,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05869077769666342,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5270080508015774,
+   "rel_l2_near": 0.5368346274153404,
+   "rel_l2_far": 0.4691978232137472,
+   "total_rate_ratio": 0.809861933014378,
+   "k0": 0.00023984548471830765,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.0194826820002163,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07102671974439456,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.4113153510051304,
+   "rel_l2_near": 0.418036801940162,
+   "rel_l2_far": 0.3721163506744809,
+   "total_rate_ratio": 0.8576109700686976,
+   "k0": 6.365900575851223e-05,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 5.032542772999932,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03293411323677686,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.40235476956135535,
+   "rel_l2_near": 0.40772162007828455,
+   "rel_l2_far": 0.3714008402390172,
+   "total_rate_ratio": 0.7927695651383619,
+   "k0": 3.982418098380656e-05,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 4.980961842999932,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.046386941933671544,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.7485084377955088,
+   "rel_l2_near": 0.7454158106257797,
+   "rel_l2_far": 0.7653217434337454,
+   "total_rate_ratio": 1.1181182892926416,
+   "k0": 8.966790835135476e-06,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 45.610670795999795,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06583831447505739,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5470842816376954,
+   "rel_l2_near": 0.48489811084377793,
+   "rel_l2_far": 0.8079867386968395,
+   "total_rate_ratio": 1.0080226885270263,
+   "k0": 2.3181771238958047e-05,
+   "replicate": 1,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 48.60660700700009,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.042976140744920066,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.42747269999467014,
+   "rel_l2_near": 0.31402859793239984,
+   "rel_l2_far": 0.8038318486545792,
+   "total_rate_ratio": 1.070789368191933,
+   "k0": 0.0002494073092979632,
+   "replicate": 1,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.013810207999995328,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.043988314218766256,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.44256553657947184,
+   "rel_l2_near": 0.41177218790148884,
+   "rel_l2_far": 0.5837765268970943,
+   "total_rate_ratio": 1.079279516347831,
+   "k0": 8.366597311230629e-06,
+   "replicate": 1,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 2.6931476730001123,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03536974402607518,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5414185958972919,
+   "rel_l2_near": 0.4213064603603513,
+   "rel_l2_far": 0.9644527393413376,
+   "total_rate_ratio": 1.167394268543914,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 3.9139788609995776,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05729779194642637,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.09540164800000639,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.070437879178739,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.4083319804681169,
+   "rel_l2_near": 0.36005043990308944,
+   "rel_l2_far": 0.6091898792136707,
+   "total_rate_ratio": 1.0790852920478773,
+   "k0": 9.084927078917965e-06,
+   "replicate": 1,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 40.29475888099978,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.023476011476788017,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.6147188676070711,
+   "rel_l2_near": 0.4801808861814353,
+   "rel_l2_far": 1.0905908384711618,
+   "total_rate_ratio": 1.0415993323558028,
+   "k0": 0.0006048421993784077,
+   "replicate": 1,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.008412513999701332,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1122711565974206,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.44673123786172153,
+   "rel_l2_near": 0.4235758609273003,
+   "rel_l2_far": 0.5573043190409384,
+   "total_rate_ratio": 1.0459854789302176,
+   "k0": 8.409408865820348e-06,
+   "replicate": 1,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 4.142823975000283,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04227560294262123,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.6379742204971967,
+   "rel_l2_near": 0.43853984751255076,
+   "rel_l2_far": 1.2608582500087635,
+   "total_rate_ratio": 1.151932318248041,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 9.017895752000186,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10356226625018916,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.6777969111578014,
+   "rel_l2_near": 0.45693437307266366,
+   "rel_l2_far": 1.3564941942392235,
+   "total_rate_ratio": 1.1492550456828197,
+   "k0": 1.1717296870461123e-05,
+   "replicate": 1,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 5.748811996999848,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09670767103912681,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.42194153735699164,
+   "rel_l2_near": 0.3813288618909971,
+   "rel_l2_far": 0.5981263303400532,
+   "total_rate_ratio": 1.0768067064305906,
+   "k0": 9.929431747451898e-06,
+   "replicate": 1,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 38.043543477000185,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02353630325032663,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.7415606074365692,
+   "rel_l2_near": 0.6780414756263884,
+   "rel_l2_far": 1.0230692217216362,
+   "total_rate_ratio": 0.9458885853014017,
+   "k0": 0.0017721538394118526,
+   "replicate": 1,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.005583511000168073,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2942773451275329,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.4944819038078805,
+   "rel_l2_near": 0.42744206027276915,
+   "rel_l2_far": 0.7648533677436345,
+   "total_rate_ratio": 0.9341273492546449,
+   "k0": 8.500505961867463e-06,
+   "replicate": 1,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 5.411124727999777,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.17053277972938874,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 1.2491520731770327,
+   "rel_l2_near": 1.2767175638986086,
+   "rel_l2_far": 1.0848066502973883,
+   "total_rate_ratio": 1.1574467653790803,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 30.977732077999917,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2886155101479111,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 1.206623383847106,
+   "rel_l2_near": 1.2367862842372481,
+   "rel_l2_far": 1.0246578212850703,
+   "total_rate_ratio": 1.149368978883719,
+   "k0": 1.0225557554748028e-05,
+   "replicate": 1,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 38.895108961000005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.12894883647214694,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.6960491131496757,
+   "rel_l2_near": 0.6994222937829705,
+   "rel_l2_far": 0.6771650082834529,
+   "total_rate_ratio": 1.0819402084078162,
+   "k0": 9.826440628762041e-06,
+   "replicate": 1,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 55.338863132999904,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06715164531205797,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.8494779706686142,
+   "rel_l2_near": 0.8710616067029496,
+   "rel_l2_far": 0.7190498706058889,
+   "total_rate_ratio": 0.661319489831816,
+   "k0": 0.0043071715186862045,
+   "replicate": 1,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.0038450060001196107,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7077240518592212,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.49589248029620375,
+   "rel_l2_near": 0.3746979565517273,
+   "rel_l2_far": 0.9094889342249451,
+   "total_rate_ratio": 0.6688378913763429,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.2738893530004134,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.6902966242815842,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.7649073555877394,
+   "rel_l2_near": 0.6700861141807725,
+   "rel_l2_far": 1.155285007347368,
+   "total_rate_ratio": 1.120641265624521,
+   "k0": 3.085675425448205e-06,
+   "replicate": 1,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 66.83308999600013,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.18336719023115267,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 1.1988646324634828,
+   "rel_l2_near": 1.1141143205269157,
+   "rel_l2_far": 1.5865639859095946,
+   "total_rate_ratio": 1.06654735863301,
+   "k0": 2.6775867668512474e-06,
+   "replicate": 1,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 73.19554278700025,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2184126674174034,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.661164011600887,
+   "rel_l2_near": 0.3462744642157328,
+   "rel_l2_far": 1.478097942077278,
+   "total_rate_ratio": 1.104018255881775,
+   "k0": 1.0587141196339257e-05,
+   "replicate": 1,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 44.99012445800008,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.13498362660409002,
+   "crossing_hours": 6.699330767027187,
+   "burned": 946
+  },
+  {
+   "rel_l2": 0.5967149679256725,
+   "rel_l2_near": 0.5170289527779504,
+   "rel_l2_far": 0.9192350106903383,
+   "total_rate_ratio": 0.3413794401879362,
+   "k0": 6.8246978424141945e-06,
+   "replicate": 1,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.010513396999613178,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.3214804935562556,
+   "crossing_hours": 24.02209043039873,
+   "burned": 62
+  },
+  {
+   "rel_l2": 0.6210685180932753,
+   "rel_l2_near": 0.5432022802275477,
+   "rel_l2_far": 0.9408289976787473,
+   "total_rate_ratio": 0.30229043334488265,
+   "k0": 6.818012334585171e-06,
+   "replicate": 1,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 1.7133959069997218,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.3947674203017328,
+   "crossing_hours": 24.02209043039873,
+   "burned": 62
+  },
+  {
+   "rel_l2": 0.6667841778624594,
+   "rel_l2_near": 0.5972188983665896,
+   "rel_l2_far": 0.9638532169632698,
+   "total_rate_ratio": 0.3022775247024682,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 4.630607698999938,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.32282057539254705,
+   "crossing_hours": 24.02209043039873,
+   "burned": 62
+  },
+  {
+   "rel_l2": 0.6260844205155723,
+   "rel_l2_near": 0.5491815042606907,
+   "rel_l2_far": 0.9433420677954035,
+   "total_rate_ratio": 0.334916017638138,
+   "k0": 1e-09,
+   "replicate": 1,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.5972170740001275,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.4663943746077557,
+   "crossing_hours": 24.02209043039873,
+   "burned": 62
+  },
+  {
+   "rel_l2": 0.6268540787625049,
+   "rel_l2_near": 0.5472527332996308,
+   "rel_l2_far": 0.9527966379926195,
+   "total_rate_ratio": 0.30433662306036263,
+   "k0": 6.811113346737181e-06,
+   "replicate": 1,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 2.1260766239997793,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.3912678524150186,
+   "crossing_hours": 24.02209043039873,
+   "burned": 62
+  },
+  {
+   "rel_l2": 0.8104494845986584,
+   "rel_l2_near": 0.7496231966397611,
+   "rel_l2_far": 1.0860929520676441,
+   "total_rate_ratio": 0.8680019322233046,
+   "k0": 0.0036763264574083587,
+   "replicate": 1,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.009945348000201193,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.28953663210222835,
+   "crossing_hours": 6.740992183905526,
+   "burned": 1447
+  },
+  {
+   "rel_l2": 0.4386318037269382,
+   "rel_l2_near": 0.415675668459978,
+   "rel_l2_far": 0.5481226945011459,
+   "total_rate_ratio": 0.9409617984908569,
+   "k0": 2.045436858056467e-05,
+   "replicate": 1,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 7.177132299000277,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09313058552622167,
+   "crossing_hours": 6.740992183905526,
+   "burned": 1447
+  },
+  {
+   "rel_l2": 1.4228772130061635,
+   "rel_l2_near": 0.9165890148234888,
+   "rel_l2_far": 2.9239874558965084,
+   "total_rate_ratio": 1.156911725508599,
+   "k0": 4.860334484390134e-06,
+   "replicate": 1,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 36.01384404999999,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.30131078697333047,
+   "crossing_hours": 6.740992183905526,
+   "burned": 1447
+  },
+  {
+   "rel_l2": 1.3527180290284577,
+   "rel_l2_near": 0.852366142361557,
+   "rel_l2_far": 2.812124460688535,
+   "total_rate_ratio": 1.1465443358764136,
+   "k0": 7.219588734480421e-05,
+   "replicate": 1,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 24.229617832999793,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.20741696889603256,
+   "crossing_hours": 6.740992183905526,
+   "burned": 1447
+  },
+  {
+   "rel_l2": 0.5109335155108569,
+   "rel_l2_near": 0.297691922151599,
+   "rel_l2_far": 1.100448580656064,
+   "total_rate_ratio": 1.1156480841748364,
+   "k0": 2.750253440367136e-05,
+   "replicate": 1,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 73.90337868300003,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05125509142728513,
+   "crossing_hours": 6.740992183905526,
+   "burned": 1447
+  },
+  {
+   "rel_l2": 0.45840603361665433,
+   "rel_l2_near": 0.272412705760995,
+   "rel_l2_far": 0.9792663173224063,
+   "total_rate_ratio": 1.0780495135764552,
+   "k0": 4.700923623440178e-05,
+   "replicate": 2,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 9.910673162999956,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05345404761798411,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.4524202808034996,
+   "rel_l2_near": 0.3024066989107886,
+   "rel_l2_far": 0.9102163503878642,
+   "total_rate_ratio": 1.0080838006976633,
+   "k0": 2.346860414656987e-05,
+   "replicate": 2,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.028846079999766516,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05034211382795917,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.45668025491059855,
+   "rel_l2_near": 0.3258769733851962,
+   "rel_l2_far": 0.8789002522641618,
+   "total_rate_ratio": 0.9964613842084481,
+   "k0": 1.8276079080319742e-06,
+   "replicate": 2,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 18.72326348899969,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.051297603660460656,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.7041275780118735,
+   "rel_l2_near": 0.5758990894109589,
+   "rel_l2_far": 1.1832256969888018,
+   "total_rate_ratio": 1.144850925337432,
+   "k0": 7.697342700663751e-06,
+   "replicate": 2,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 43.15164363900021,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1116168252525811,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.4740090798906124,
+   "rel_l2_near": 0.4528610511753753,
+   "rel_l2_far": 0.5767750652931151,
+   "total_rate_ratio": 0.7559887437903262,
+   "k0": 0.0001945574374201252,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 5.951885202000085,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08300217731002935,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5276329120369722,
+   "rel_l2_near": 0.4978479325499038,
+   "rel_l2_far": 0.668328887134877,
+   "total_rate_ratio": 0.7149014608360886,
+   "k0": 0.00019474100663635998,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.024505580999630183,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10357723871988656,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5340001754630143,
+   "rel_l2_near": 0.48429105330023114,
+   "rel_l2_far": 0.7510084003547643,
+   "total_rate_ratio": 0.7540716754535951,
+   "k0": 7.063871677685548e-05,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 6.731388005000099,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07877284874609414,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5477376445875727,
+   "rel_l2_near": 0.5041721256762565,
+   "rel_l2_far": 0.7432887920006209,
+   "total_rate_ratio": 0.718489400636301,
+   "k0": 1.86707604888686e-05,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 10.977087170000232,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0848368372218542,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.6830131774129093,
+   "rel_l2_near": 0.5202031181007527,
+   "rel_l2_far": 1.243261782829416,
+   "total_rate_ratio": 1.0511180683417265,
+   "k0": 9.293495108375458e-06,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 32.410584996000125,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10749684826850237,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5222564507477039,
+   "rel_l2_near": 0.32158341874738394,
+   "rel_l2_far": 1.0980101113751024,
+   "total_rate_ratio": 0.8819023665911772,
+   "k0": 2.3328229717233663e-05,
+   "replicate": 2,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 39.58937666099973,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08084550962958392,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.4452167374087003,
+   "rel_l2_near": 0.28321692904259177,
+   "rel_l2_far": 0.9210405258959038,
+   "total_rate_ratio": 1.0500693121740636,
+   "k0": 9.426155160826525e-05,
+   "replicate": 2,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.03226873500034344,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04156310378676675,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.6023760173080541,
+   "rel_l2_near": 0.44978323490689864,
+   "rel_l2_far": 1.1168438023276368,
+   "total_rate_ratio": 1.0617170110645768,
+   "k0": 1.5568500853166504e-05,
+   "replicate": 2,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 7.799099580000075,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10619437598644588,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.47511324000979466,
+   "rel_l2_near": 0.2965959693197866,
+   "rel_l2_far": 0.9923072323196961,
+   "total_rate_ratio": 1.1279889197895006,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 7.1536298729997725,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.058967852439597124,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.08512286899986066,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.008273035018355,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5369218536763948,
+   "rel_l2_near": 0.38686637163310245,
+   "rel_l2_far": 1.0256423400566463,
+   "total_rate_ratio": 1.0638595831170183,
+   "k0": 7.737425474382586e-06,
+   "replicate": 2,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 27.17700710500003,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08184722758572649,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.571594025679105,
+   "rel_l2_near": 0.45622469775209584,
+   "rel_l2_far": 0.9899354151884692,
+   "total_rate_ratio": 1.008477709911486,
+   "k0": 0.0004311114183084361,
+   "replicate": 2,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.006172401000185346,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10543145290186873,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.638399490590235,
+   "rel_l2_near": 0.4989474062213855,
+   "rel_l2_far": 1.131951302794774,
+   "total_rate_ratio": 1.0377694479534754,
+   "k0": 7.790660707226902e-06,
+   "replicate": 2,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 3.505453339000269,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.16712318663113024,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.7355206336718281,
+   "rel_l2_near": 0.577722561522584,
+   "rel_l2_far": 1.2971542101228584,
+   "total_rate_ratio": 1.1050426246000864,
+   "k0": 1.6000953232731558e-05,
+   "replicate": 2,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 50.204976435999924,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.13314163261405731,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.738673318551463,
+   "rel_l2_near": 0.5465961475306812,
+   "rel_l2_far": 1.3804544247220887,
+   "total_rate_ratio": 1.111009049777107,
+   "k0": 6.117432793937302e-06,
+   "replicate": 2,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 5.010186450999754,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1328396023877092,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.5763723403838915,
+   "rel_l2_near": 0.39423069019752943,
+   "rel_l2_far": 1.142860007940644,
+   "total_rate_ratio": 1.0666038671788933,
+   "k0": 8.113686750634533e-06,
+   "replicate": 2,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 33.52020260500012,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0806758042607787,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.751180170573261,
+   "rel_l2_near": 0.6552209209827191,
+   "rel_l2_far": 1.1435703478678902,
+   "total_rate_ratio": 0.9486757064479763,
+   "k0": 0.0011430750874847073,
+   "replicate": 2,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.005341554000096949,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.24378918428380647,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.6330915300561186,
+   "rel_l2_near": 0.57373323444578,
+   "rel_l2_far": 0.8918764853920925,
+   "total_rate_ratio": 0.9390392448668552,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 3.0102358899998762,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.4968804677874328,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 1.016138470616786,
+   "rel_l2_near": 0.7569859698140803,
+   "rel_l2_far": 1.887851645905738,
+   "total_rate_ratio": 1.0695758925439847,
+   "k0": 8.525676201191294e-06,
+   "replicate": 2,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 63.401268117999734,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.27330603789010066,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 1.1835641133830355,
+   "rel_l2_near": 1.0115078831178348,
+   "rel_l2_far": 1.86586348326624,
+   "total_rate_ratio": 1.119485716046545,
+   "k0": 3.164128888212487e-06,
+   "replicate": 2,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 35.47127112299995,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.5194445039121498,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.694786713193989,
+   "rel_l2_near": 0.4862244362447574,
+   "rel_l2_far": 1.3563475543401216,
+   "total_rate_ratio": 1.081287335405692,
+   "k0": 8.466859977751723e-06,
+   "replicate": 2,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 27.3232822760001,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.16209671860542363,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.7774807289345379,
+   "rel_l2_near": 0.7897391239862035,
+   "rel_l2_far": 0.7061439298203035,
+   "total_rate_ratio": 0.6908480598803209,
+   "k0": 0.0027924942484917324,
+   "replicate": 2,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.0028066679997209576,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.533124175930872,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.6754598359278613,
+   "rel_l2_near": 0.6144396457647213,
+   "rel_l2_far": 0.943324039047556,
+   "total_rate_ratio": 0.6758887881698351,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.3187497630001417,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7326502332747977,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 1.2894541066848826,
+   "rel_l2_near": 0.795187007215304,
+   "rel_l2_far": 2.709061687204902,
+   "total_rate_ratio": 0.9081958396128642,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 57.340986289000284,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.8350196280844693,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 1.2268809505302762,
+   "rel_l2_near": 0.965873241384752,
+   "rel_l2_far": 2.158283861289051,
+   "total_rate_ratio": 0.9037991964989645,
+   "k0": 2.643310906331739e-06,
+   "replicate": 2,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 63.5988221800003,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.37164805189192274,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.669498076665187,
+   "rel_l2_near": 0.4956845043973194,
+   "rel_l2_far": 1.2505754174216535,
+   "total_rate_ratio": 1.048873449763074,
+   "k0": 1.1583232713089539e-05,
+   "replicate": 2,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 37.2878673350001,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.12278078245690915,
+   "crossing_hours": 6.537803462704952,
+   "burned": 683
+  },
+  {
+   "rel_l2": 0.609235617571727,
+   "rel_l2_near": 0.5451492926258371,
+   "rel_l2_far": 0.8824549303631606,
+   "total_rate_ratio": 0.3350185554061311,
+   "k0": 6.788367453093509e-06,
+   "replicate": 2,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.01599644799989619,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.2338529121060056,
+   "crossing_hours": 27.622760175893948,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.646568858477664,
+   "rel_l2_near": 0.5703269798801848,
+   "rel_l2_far": 0.9639342411938288,
+   "total_rate_ratio": 0.3061394690587065,
+   "k0": 6.781491101779497e-06,
+   "replicate": 2,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 1.3260776140000416,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.8455632571892568,
+   "crossing_hours": 27.622760175893948,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6646319499146466,
+   "rel_l2_near": 0.5896756316288301,
+   "rel_l2_far": 0.9796345930133491,
+   "total_rate_ratio": 0.2847419660169515,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 3.691116639000029,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3090474262145104,
+   "crossing_hours": 27.622760175893948,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6657486012863825,
+   "rel_l2_near": 0.6088005059249139,
+   "rel_l2_far": 0.9181955049261873,
+   "total_rate_ratio": 0.3332978170524485,
+   "k0": 1e-09,
+   "replicate": 2,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.7837351230000422,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.12258335571624723,
+   "crossing_hours": 27.622760175893948,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6494366547400976,
+   "rel_l2_near": 0.5752840903981169,
+   "rel_l2_far": 0.9602478233512823,
+   "total_rate_ratio": 0.30404474475344245,
+   "k0": 6.779192591973092e-06,
+   "replicate": 2,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 2.4880079879999357,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.8599836424844911,
+   "crossing_hours": 27.622760175893948,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.7705620817574553,
+   "rel_l2_near": 0.722866868014417,
+   "rel_l2_far": 0.9930609140363699,
+   "total_rate_ratio": 0.882163288402551,
+   "k0": 0.0027022114623611237,
+   "replicate": 2,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.00987110300002314,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.30083703618461355,
+   "crossing_hours": 6.42223091253134,
+   "burned": 1148
+  },
+  {
+   "rel_l2": 0.4396550616916682,
+   "rel_l2_near": 0.4127089578306247,
+   "rel_l2_far": 0.565532554061661,
+   "total_rate_ratio": 0.9243568229654366,
+   "k0": 2.755183683750946e-05,
+   "replicate": 2,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 5.4490347470000415,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10450403692223498,
+   "crossing_hours": 6.42223091253134,
+   "burned": 1148
+  },
+  {
+   "rel_l2": 1.414016494021034,
+   "rel_l2_near": 0.8638480445424543,
+   "rel_l2_far": 2.983855495711546,
+   "total_rate_ratio": 1.132141233443509,
+   "k0": 1.568576319274877e-05,
+   "replicate": 2,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 68.8963058700001,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3585761288294993,
+   "crossing_hours": 6.42223091253134,
+   "burned": 1148
+  },
+  {
+   "rel_l2": 1.1833874988649422,
+   "rel_l2_near": 0.7090529452863272,
+   "rel_l2_far": 2.5190424019706956,
+   "total_rate_ratio": 1.1148625672237558,
+   "k0": 5.8550945392632384e-05,
+   "replicate": 2,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 34.65872978199968,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19981629591107364,
+   "crossing_hours": 6.42223091253134,
+   "burned": 1148
+  },
+  {
+   "rel_l2": 0.5568602188654769,
+   "rel_l2_near": 0.4633152982579328,
+   "rel_l2_far": 0.9142380090304236,
+   "total_rate_ratio": 1.1011625688334525,
+   "k0": 6.967748374839946e-05,
+   "replicate": 2,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 47.947783114999766,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.032571006419650494,
+   "crossing_hours": 6.42223091253134,
+   "burned": 1148
+  },
+  {
+   "rel_l2": 0.36711419891210234,
+   "rel_l2_near": 0.2903074283495064,
+   "rel_l2_far": 0.6426099338235332,
+   "total_rate_ratio": 1.0469409143505692,
+   "k0": 0.00010158221459021138,
+   "replicate": 3,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 9.970097918000192,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.031741199321214886,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.3511937136746563,
+   "rel_l2_near": 0.32421512110095263,
+   "rel_l2_far": 0.4729905071723738,
+   "total_rate_ratio": 0.9798868190808719,
+   "k0": 8.5915808986962e-05,
+   "replicate": 3,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.03430948100003661,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.028505840683545447,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.3511649841277132,
+   "rel_l2_near": 0.3315708900685606,
+   "rel_l2_far": 0.44386284354612743,
+   "total_rate_ratio": 0.9505211183391764,
+   "k0": 1.2892197204314025e-05,
+   "replicate": 3,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 16.950645797000107,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.030908898093782167,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.3781195206284182,
+   "rel_l2_near": 0.32367295985297684,
+   "rel_l2_far": 0.5945375907181026,
+   "total_rate_ratio": 1.0761072130567226,
+   "k0": 2.4767320993079412e-05,
+   "replicate": 3,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 31.813094914999965,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.048693158765461764,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5101351778777432,
+   "rel_l2_near": 0.4971399972110667,
+   "rel_l2_far": 0.576497534652674,
+   "total_rate_ratio": 0.8393906635653563,
+   "k0": 0.00019818576001201385,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 3.3176665830001184,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0746943064401262,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5064761561493055,
+   "rel_l2_near": 0.5090884887032561,
+   "rel_l2_far": 0.49183606530099583,
+   "total_rate_ratio": 0.7949429524841548,
+   "k0": 0.0001510265897392682,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.018368483999893215,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07701352809289608,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.43366720333274555,
+   "rel_l2_near": 0.42743070111250375,
+   "rel_l2_far": 0.4665318659225728,
+   "total_rate_ratio": 0.8356663530658874,
+   "k0": 4.4899335862594746e-05,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 6.581915976000346,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04915489547235152,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.43158087632907877,
+   "rel_l2_near": 0.4226202321133298,
+   "rel_l2_far": 0.47794260008692036,
+   "total_rate_ratio": 0.7741208239516131,
+   "k0": 2.7541220444754894e-05,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 9.887795959999949,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06848607068948587,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5602837068974728,
+   "rel_l2_near": 0.4531686206234187,
+   "rel_l2_far": 0.9549632881642013,
+   "total_rate_ratio": 1.0227888188232828,
+   "k0": 2.4733422392273826e-05,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 30.363010335000126,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09367045630712623,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5401086735560757,
+   "rel_l2_near": 0.4278221597662193,
+   "rel_l2_far": 0.9436461712006206,
+   "total_rate_ratio": 0.9638774299272364,
+   "k0": 2.4830849207638086e-05,
+   "replicate": 3,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 31.736594487000275,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08657646031796506,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.504241072431199,
+   "rel_l2_near": 0.4251451440001164,
+   "rel_l2_far": 0.8119301549083504,
+   "total_rate_ratio": 1.018312359480892,
+   "k0": 0.00010239963601874812,
+   "replicate": 3,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.02634591800006092,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04439241613172307,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4030883487122613,
+   "rel_l2_near": 0.37472741682174676,
+   "rel_l2_far": 0.5329229034117878,
+   "total_rate_ratio": 1.021011126906478,
+   "k0": 7.833343782201606e-06,
+   "replicate": 3,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 6.006526442999984,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06285492839666551,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5626290481399051,
+   "rel_l2_near": 0.47137137425045905,
+   "rel_l2_far": 0.9145408198216947,
+   "total_rate_ratio": 1.0850251819375658,
+   "k0": 2.987623370712064e-05,
+   "replicate": 3,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 28.933689736999895,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06253382616598024,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 3,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.07667487700018683,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.030666452867898,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.47146612409225414,
+   "rel_l2_near": 0.42172823344065147,
+   "rel_l2_far": 0.6833898713482184,
+   "total_rate_ratio": 1.0214008309757925,
+   "k0": 2.3657361656808004e-05,
+   "replicate": 3,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 24.794047097000202,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06819798897206475,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5650875123803287,
+   "rel_l2_near": 0.4783161819266673,
+   "rel_l2_far": 0.9044869726207503,
+   "total_rate_ratio": 0.9777437893330716,
+   "k0": 0.00040842101524025167,
+   "replicate": 3,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.01069409399997312,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10360654619898035,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4630993176637498,
+   "rel_l2_near": 0.4508684694165692,
+   "rel_l2_far": 0.5253989762599274,
+   "total_rate_ratio": 0.9869256005260004,
+   "k0": 7.889202165763856e-06,
+   "replicate": 3,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 1.535423006000201,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07700287978802844,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.59712928052692,
+   "rel_l2_near": 0.48459219956031824,
+   "rel_l2_far": 1.0135072009588408,
+   "total_rate_ratio": 1.0568095532053279,
+   "k0": 2.9696441378664207e-05,
+   "replicate": 3,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 28.461304471000403,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09346343774730093,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.630415328272692,
+   "rel_l2_near": 0.483658425778434,
+   "rel_l2_far": 1.139358084287446,
+   "total_rate_ratio": 1.060712490640272,
+   "k0": 1.1540897993276504e-05,
+   "replicate": 3,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 4.734947084999931,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08330223450202556,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4137452009383474,
+   "rel_l2_near": 0.35762554990114886,
+   "rel_l2_far": 0.6400509748386699,
+   "total_rate_ratio": 1.016189076869249,
+   "k0": 2.3688125306111788e-05,
+   "replicate": 3,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 25.545551621999948,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.050555724280740844,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.6966151882224525,
+   "rel_l2_near": 0.6562378085982754,
+   "rel_l2_far": 0.8866797073845494,
+   "total_rate_ratio": 0.8738978917914345,
+   "k0": 0.0012934053430326197,
+   "replicate": 3,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.006211368000094808,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.27665489866200677,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4493853543256276,
+   "rel_l2_near": 0.38729909223668596,
+   "rel_l2_far": 0.6986572555921118,
+   "total_rate_ratio": 0.8691907917116548,
+   "k0": 7.942188237926334e-06,
+   "replicate": 3,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 1.1691011400002935,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.11095057619662807,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.787964236408338,
+   "rel_l2_near": 0.5196255740559044,
+   "rel_l2_far": 1.5980846343819524,
+   "total_rate_ratio": 1.004391993153368,
+   "k0": 1.963878575518384e-05,
+   "replicate": 3,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 53.40904611699989,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19467251667970853,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.7575654724901421,
+   "rel_l2_near": 0.604605525189419,
+   "rel_l2_far": 1.3121551194722476,
+   "total_rate_ratio": 1.0307471680883304,
+   "k0": 2.3892959920325e-05,
+   "replicate": 3,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 26.620057154999813,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.15907976799520407,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.4354681557757159,
+   "rel_l2_near": 0.31408425116296546,
+   "rel_l2_far": 0.8311815175301519,
+   "total_rate_ratio": 1.0186887697459672,
+   "k0": 2.325307644034455e-05,
+   "replicate": 3,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 36.56329426699995,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05682459182020683,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.8149325507701703,
+   "rel_l2_near": 0.8470136492767317,
+   "rel_l2_far": 0.608597129540864,
+   "total_rate_ratio": 0.6427417451704038,
+   "k0": 0.002694645269780753,
+   "replicate": 3,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.00310957600004258,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.5905070469435456,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5931499995057127,
+   "rel_l2_near": 0.5104248016687366,
+   "rel_l2_far": 0.9245345145621321,
+   "total_rate_ratio": 0.622818449582585,
+   "k0": 8.279267222731144e-06,
+   "replicate": 3,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 2.3814179519999925,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3847886704496797,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.723485867343125,
+   "rel_l2_near": 0.6579352095898034,
+   "rel_l2_far": 1.0110836569745756,
+   "total_rate_ratio": 0.9995715359903371,
+   "k0": 1.0466267184138944e-05,
+   "replicate": 3,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 52.72254247500041,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2913847924205304,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 1.2976783790583177,
+   "rel_l2_near": 1.3306662970649907,
+   "rel_l2_far": 1.0983248398603458,
+   "total_rate_ratio": 1.0672523964358116,
+   "k0": 9.71636241530108e-06,
+   "replicate": 3,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 57.96258883600012,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.6262129313945612,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.5932866688838958,
+   "rel_l2_near": 0.42287761352070247,
+   "rel_l2_far": 1.1427818196941875,
+   "total_rate_ratio": 1.0292937927225074,
+   "k0": 2.3985089248966536e-05,
+   "replicate": 3,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 31.34054687600019,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10362746071684059,
+   "crossing_hours": 6.480491997375253,
+   "burned": 668
+  },
+  {
+   "rel_l2": 0.6664549432196575,
+   "rel_l2_near": 0.631587922667413,
+   "rel_l2_far": 0.8327629778401164,
+   "total_rate_ratio": 0.3090997496371359,
+   "k0": 2.710993577885519e-05,
+   "replicate": 3,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.02197001000013188,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.1830495052521188,
+   "crossing_hours": 24.173862346155158,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6963924453170288,
+   "rel_l2_near": 0.6421387674839865,
+   "rel_l2_far": 0.9407595822220772,
+   "total_rate_ratio": 0.26384846280395213,
+   "k0": 2.7130117010473186e-05,
+   "replicate": 3,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 0.8039638459999878,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.0223017352647252,
+   "crossing_hours": 24.173862346155158,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.7048131527215444,
+   "rel_l2_near": 0.6488348588218691,
+   "rel_l2_far": 0.9561416410099117,
+   "total_rate_ratio": 0.2679400634111968,
+   "k0": 1e-09,
+   "replicate": 3,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 2.531628302000172,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.3444112526787011,
+   "crossing_hours": 24.173862346155158,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.7011206684285666,
+   "rel_l2_near": 0.6585004379175785,
+   "rel_l2_far": 0.9004461220209933,
+   "total_rate_ratio": 0.3175692185148622,
+   "k0": 1e-09,
+   "replicate": 3,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.5772578119999707,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.3499136522624715,
+   "crossing_hours": 24.173862346155158,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6873069828991155,
+   "rel_l2_near": 0.6385423332136305,
+   "rel_l2_far": 0.9102604375777507,
+   "total_rate_ratio": 0.2675730124674492,
+   "k0": 2.711740586634082e-05,
+   "replicate": 3,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 1.562302900999839,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.0666544783026595,
+   "crossing_hours": 24.173862346155158,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.8137184302661331,
+   "rel_l2_near": 0.7496779584787232,
+   "rel_l2_far": 1.1016823583550592,
+   "total_rate_ratio": 0.8484555889483523,
+   "k0": 0.0025103087133771635,
+   "replicate": 3,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.005367418999867368,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2674197353674934,
+   "crossing_hours": 5.813120590355307,
+   "burned": 989
+  },
+  {
+   "rel_l2": 0.6571192858437912,
+   "rel_l2_near": 0.5771750718025059,
+   "rel_l2_far": 0.9876266133513417,
+   "total_rate_ratio": 0.9250719404095715,
+   "k0": 3.5277859366125205e-05,
+   "replicate": 3,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 4.26045638100004,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.165289968630554,
+   "crossing_hours": 5.813120590355307,
+   "burned": 989
+  },
+  {
+   "rel_l2": 1.2868790140111925,
+   "rel_l2_near": 0.6549593903758107,
+   "rel_l2_far": 2.9010505459377476,
+   "total_rate_ratio": 1.1539440324890173,
+   "k0": 1.2950172781524275e-05,
+   "replicate": 3,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 55.84379413899978,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.21963921811257947,
+   "crossing_hours": 5.813120590355307,
+   "burned": 989
+  },
+  {
+   "rel_l2": 1.4657953295457808,
+   "rel_l2_near": 0.607236650880112,
+   "rel_l2_far": 3.457399691227806,
+   "total_rate_ratio": 1.1779880184692724,
+   "k0": 3.865545275580324e-05,
+   "replicate": 3,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 25.74614549500029,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.23862668461173264,
+   "crossing_hours": 5.813120590355307,
+   "burned": 989
+  },
+  {
+   "rel_l2": 0.7231316815506277,
+   "rel_l2_near": 0.5281707035336298,
+   "rel_l2_far": 1.3663354125548282,
+   "total_rate_ratio": 1.0856303804078187,
+   "k0": 5.489455881156067e-05,
+   "replicate": 3,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 43.68580046099987,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05233747985834958,
+   "crossing_hours": 5.813120590355307,
+   "burned": 989
+  },
+  {
+   "rel_l2": 0.5101693532993878,
+   "rel_l2_near": 0.46892009864584555,
+   "rel_l2_far": 0.6948120951146073,
+   "total_rate_ratio": 1.0837500813531729,
+   "k0": 7.824241907412465e-05,
+   "replicate": 4,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 3.334616422000181,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.047923263119755255,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5010878524860272,
+   "rel_l2_near": 0.47064021963595465,
+   "rel_l2_far": 0.643493070772055,
+   "total_rate_ratio": 1.0186321771664668,
+   "k0": 4.7033703136293176e-05,
+   "replicate": 4,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.026692133000324247,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.042188447786132954,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.43584721953574523,
+   "rel_l2_near": 0.399021501788571,
+   "rel_l2_far": 0.5994460334146972,
+   "total_rate_ratio": 0.9995887500366515,
+   "k0": 2.881687316279535e-06,
+   "replicate": 4,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 9.997315393999997,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06682482983607274,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5956175806829914,
+   "rel_l2_near": 0.5323903183534028,
+   "rel_l2_far": 0.8646780297465567,
+   "total_rate_ratio": 1.0991173267707302,
+   "k0": 8.507572329314602e-06,
+   "replicate": 4,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 32.728109098999994,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08261344186042185,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5996001709535181,
+   "rel_l2_near": 0.6328617045301498,
+   "rel_l2_far": 0.36563106242107435,
+   "total_rate_ratio": 0.7937708043661559,
+   "k0": 0.00019475000849474667,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 2.6853480309996485,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07802136000278237,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.629420999583171,
+   "rel_l2_near": 0.6695326096172151,
+   "rel_l2_far": 0.33035406760689906,
+   "total_rate_ratio": 0.7554506050316915,
+   "k0": 0.0001551065300954275,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.010416713999802596,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08626856203379418,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5005505584610338,
+   "rel_l2_near": 0.5157741359477345,
+   "rel_l2_far": 0.40658923977680284,
+   "total_rate_ratio": 0.7977950801080744,
+   "k0": 3.4675376335162756e-05,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 7.976425838000068,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.056116653054947285,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5195885135291861,
+   "rel_l2_near": 0.5235187095005449,
+   "rel_l2_far": 0.49738050789900123,
+   "total_rate_ratio": 0.7452538376912905,
+   "k0": 1.7664327687375304e-05,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 11.55191263200004,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07885650549786538,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.601234552294263,
+   "rel_l2_near": 0.5616566157071976,
+   "rel_l2_far": 0.7842414043872888,
+   "total_rate_ratio": 1.033014054044231,
+   "k0": 7.803725435868328e-06,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 34.4701058669998,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07448026807003805,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5903281843457626,
+   "rel_l2_near": 0.5662072140768751,
+   "rel_l2_far": 0.7086402980752007,
+   "total_rate_ratio": 0.9301632725777036,
+   "k0": 1.1061532533133376e-05,
+   "replicate": 4,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 37.39705281799979,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06846810696702521,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.4774093773327568,
+   "rel_l2_near": 0.4029759853168449,
+   "rel_l2_far": 0.7674151328344447,
+   "total_rate_ratio": 1.0292501387545039,
+   "k0": 0.00012631615053346112,
+   "replicate": 4,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.02033263099974647,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05016097381938245,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.6706518769569006,
+   "rel_l2_near": 0.6959304623103061,
+   "rel_l2_far": 0.5093755635635919,
+   "total_rate_ratio": 0.3806004307948141,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 0.26452436199997464,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.48905371795792574,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5303117310208265,
+   "rel_l2_near": 0.44681942718806966,
+   "rel_l2_far": 0.8547937181161899,
+   "total_rate_ratio": 1.1146444967244644,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 3.2509692009998616,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.172473951116753,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.08713370499981465,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.043708157828478,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5047407794861571,
+   "rel_l2_near": 0.42159208610899335,
+   "rel_l2_far": 0.8240669304986702,
+   "total_rate_ratio": 1.0331714353483568,
+   "k0": 7.833822365851561e-06,
+   "replicate": 4,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 29.487916927000242,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07971620105935973,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5262073341310807,
+   "rel_l2_near": 0.45067696124482237,
+   "rel_l2_far": 0.826664306920766,
+   "total_rate_ratio": 1.0098008095235151,
+   "k0": 0.0004037149797799973,
+   "replicate": 4,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.007301737000034336,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.09381094581602634,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.4683207003309473,
+   "rel_l2_near": 0.3960161336606698,
+   "rel_l2_far": 0.750741673642727,
+   "total_rate_ratio": 1.006885790725304,
+   "k0": 7.91396318114815e-06,
+   "replicate": 4,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 6.371016073000192,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10488653514664836,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.41168950034211105,
+   "rel_l2_near": 0.2581678553641621,
+   "rel_l2_far": 0.857917457216695,
+   "total_rate_ratio": 1.1191900148691587,
+   "k0": 4.463679935258922e-06,
+   "replicate": 4,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 55.43571116600015,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08050580133441798,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.43430609776499807,
+   "rel_l2_near": 0.26679721274015705,
+   "rel_l2_far": 0.9141151214334243,
+   "total_rate_ratio": 1.115882220917227,
+   "k0": 5.5744572675614334e-05,
+   "replicate": 4,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 5.55783497199991,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06554425170839329,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5563441949476745,
+   "rel_l2_near": 0.38627254176910497,
+   "rel_l2_far": 1.0921000640921439,
+   "total_rate_ratio": 1.0395062662701633,
+   "k0": 8.57696023922589e-06,
+   "replicate": 4,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 27.12303517400005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.12437805425348136,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.7740539986447879,
+   "rel_l2_near": 0.731957879633267,
+   "rel_l2_far": 0.9738666021984709,
+   "total_rate_ratio": 0.9084362556743117,
+   "k0": 0.001276554193495439,
+   "replicate": 4,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.004233877999922697,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2798202306393973,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.5204524516156948,
+   "rel_l2_near": 0.46780720673765597,
+   "rel_l2_far": 0.746652084502171,
+   "total_rate_ratio": 0.9021775981105937,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 2.297361271000227,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3925107927406972,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.8167834049861068,
+   "rel_l2_near": 0.7504119119535029,
+   "rel_l2_far": 1.1136278909502804,
+   "total_rate_ratio": 1.090084625760093,
+   "k0": 7.143262388688685e-06,
+   "replicate": 4,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 52.81458501799989,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.18590761052137328,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 1.232556982172184,
+   "rel_l2_near": 1.2615928100042622,
+   "rel_l2_far": 1.058411698595043,
+   "total_rate_ratio": 1.156755574264501,
+   "k0": 3.6421323605909683e-05,
+   "replicate": 4,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 26.575883974000135,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.23532091571158853,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.628425685562642,
+   "rel_l2_near": 0.49257013899468893,
+   "rel_l2_far": 1.1108133718221218,
+   "total_rate_ratio": 1.0490594341677,
+   "k0": 7.780688768401617e-06,
+   "replicate": 4,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 33.317862794999655,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.14141895741646815,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.8640166609133623,
+   "rel_l2_near": 0.886087916531931,
+   "rel_l2_far": 0.7305668723081762,
+   "total_rate_ratio": 0.6458488792099428,
+   "k0": 0.003182189902640197,
+   "replicate": 4,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.002772720000393747,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.6710935772904509,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.659447129284595,
+   "rel_l2_near": 0.6160453207710904,
+   "rel_l2_far": 0.8601409351859742,
+   "total_rate_ratio": 0.6720292547073247,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.21210883200001263,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7529729272574306,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 1.4945097323868979,
+   "rel_l2_near": 1.1940436467332542,
+   "rel_l2_far": 2.5853140360831164,
+   "total_rate_ratio": 0.9809903089069644,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 44.22074509599997,
+   "peak_mib": null,
+   "heldout_excess_nll": 1.6020457000478432,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 1.4369563474987366,
+   "rel_l2_near": 1.0631816820657345,
+   "rel_l2_far": 2.6856945776527104,
+   "total_rate_ratio": 0.9578737369530296,
+   "k0": 5.644447920387653e-06,
+   "replicate": 4,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 38.505787214000065,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7100695632562877,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.7736282825210237,
+   "rel_l2_near": 0.6793547016086119,
+   "rel_l2_far": 1.1632344423980898,
+   "total_rate_ratio": 1.156552882152287,
+   "k0": 9.99247753728361e-06,
+   "replicate": 4,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 43.05615158699993,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10458411140581392,
+   "crossing_hours": 6.179680388208782,
+   "burned": 701
+  },
+  {
+   "rel_l2": 0.6066513964950575,
+   "rel_l2_near": 0.506676189056069,
+   "rel_l2_far": 0.9905594031242413,
+   "total_rate_ratio": 0.33927250315382523,
+   "k0": 6.7656600368718685e-06,
+   "replicate": 4,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.009004121000089071,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.062961360937691,
+   "crossing_hours": 25.80569543263799,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6457717959861727,
+   "rel_l2_near": 0.5578517817195965,
+   "rel_l2_far": 0.9999998708606226,
+   "total_rate_ratio": 0.3042954125279006,
+   "k0": 6.767166805460664e-06,
+   "replicate": 4,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 0.8514311160001853,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.9828466040886772,
+   "crossing_hours": 25.80569543263799,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6507921622725283,
+   "rel_l2_near": 0.5647029261787185,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.28663221146945583,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 1.928204765999908,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.020090659036070768,
+   "crossing_hours": 25.80569543263799,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6250742246901687,
+   "rel_l2_near": 0.535918927450534,
+   "rel_l2_far": 0.9802800271809138,
+   "total_rate_ratio": 0.3376117785875745,
+   "k0": 1e-09,
+   "replicate": 4,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.6357032199998685,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.00312693902148542,
+   "crossing_hours": 25.80569543263799,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6677940972849542,
+   "rel_l2_near": 0.5876881274549417,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.3083435011999823,
+   "k0": 6.765530961207478e-06,
+   "replicate": 4,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 1.5012382400000206,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.9604774091800135,
+   "crossing_hours": 25.80569543263799,
+   "burned": 55
+  },
+  {
+   "rel_l2": 0.6856770448822659,
+   "rel_l2_near": 0.65041905512556,
+   "rel_l2_far": 0.8542084841339355,
+   "total_rate_ratio": 0.8813893783641255,
+   "k0": 0.003298164758721483,
+   "replicate": 4,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.00442835500007277,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.24814577434772778,
+   "crossing_hours": 6.349210710172148,
+   "burned": 1270
+  },
+  {
+   "rel_l2": 0.4411446078386485,
+   "rel_l2_near": 0.44521731254855823,
+   "rel_l2_far": 0.41799714963596685,
+   "total_rate_ratio": 0.9224908830448751,
+   "k0": 3.864013182395753e-05,
+   "replicate": 4,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 3.428907355999854,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03287783863719129,
+   "crossing_hours": 6.349210710172148,
+   "burned": 1270
+  },
+  {
+   "rel_l2": 1.4103191875056729,
+   "rel_l2_near": 0.861934873311528,
+   "rel_l2_far": 2.9755021181351133,
+   "total_rate_ratio": 1.166040771385023,
+   "k0": 8.108379270081257e-06,
+   "replicate": 4,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 48.90352592699992,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3789987750808246,
+   "crossing_hours": 6.349210710172148,
+   "burned": 1270
+  },
+  {
+   "rel_l2": 1.3956984357047795,
+   "rel_l2_near": 0.8470574210325876,
+   "rel_l2_far": 2.954089131545646,
+   "total_rate_ratio": 1.1597620542940759,
+   "k0": 8.145891856257083e-05,
+   "replicate": 4,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 29.571294291999948,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.20344117615700918,
+   "crossing_hours": 6.349210710172148,
+   "burned": 1270
+  },
+  {
+   "rel_l2": 0.6322272314944913,
+   "rel_l2_near": 0.59277131244304,
+   "rel_l2_far": 0.8160766143281651,
+   "total_rate_ratio": 1.0908975522193998,
+   "k0": 7.845702607475155e-05,
+   "replicate": 4,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 57.96536805799997,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.018065287655275597,
+   "crossing_hours": 6.349210710172148,
+   "burned": 1270
+  },
+  {
+   "rel_l2": 0.4028779180903035,
+   "rel_l2_near": 0.3100466713355897,
+   "rel_l2_far": 0.725883336483682,
+   "total_rate_ratio": 1.0806351647305485,
+   "k0": 0.0001919969258902998,
+   "replicate": 5,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 4.413908393999918,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05748528786244389,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.39209976128772184,
+   "rel_l2_near": 0.3307168096062124,
+   "rel_l2_far": 0.6310068791248619,
+   "total_rate_ratio": 1.0101516389936427,
+   "k0": 0.00014208063055078782,
+   "replicate": 5,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.016361035000045376,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04669548201069551,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.3073723938289861,
+   "rel_l2_near": 0.2366350441952736,
+   "rel_l2_far": 0.5536007829576184,
+   "total_rate_ratio": 1.010103326781624,
+   "k0": 3.8621847285875895e-05,
+   "replicate": 5,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 7.425843793999775,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.02701739275529169,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4524112824419323,
+   "rel_l2_near": 0.30159428493268653,
+   "rel_l2_far": 0.9116710351978308,
+   "total_rate_ratio": 1.0994449593039275,
+   "k0": 3.749517712595045e-05,
+   "replicate": 5,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 53.66750421100005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06236519397472717,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4282861432514715,
+   "rel_l2_near": 0.40808914781236444,
+   "rel_l2_far": 0.5258220365900381,
+   "total_rate_ratio": 0.8347809330155203,
+   "k0": 0.0003311187576053362,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 3.1898733449997962,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08340963704066162,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.40950591560199096,
+   "rel_l2_near": 0.4151746075147093,
+   "rel_l2_far": 0.3767508620655184,
+   "total_rate_ratio": 0.7861841929887979,
+   "k0": 0.00030561253036933946,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.017561630000273,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08219464057248871,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.3719738155934516,
+   "rel_l2_near": 0.3693489710403608,
+   "rel_l2_far": 0.3861143347392574,
+   "total_rate_ratio": 0.8315999026986274,
+   "k0": 0.0001040824884501537,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 5.434560671000327,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.045629764836861764,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.38521010034088843,
+   "rel_l2_near": 0.38658590996193354,
+   "rel_l2_far": 0.37754086206843546,
+   "total_rate_ratio": 0.7683657596441044,
+   "k0": 6.716349251594896e-05,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 5.364733246000014,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.057098284369625496,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4542482818809417,
+   "rel_l2_near": 0.2877542038223317,
+   "rel_l2_far": 0.9417643438650751,
+   "total_rate_ratio": 1.0356701821282595,
+   "k0": 3.628956920205313e-05,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 46.11243448000005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05415435741418717,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.459509352471219,
+   "rel_l2_near": 0.33068982802263663,
+   "rel_l2_far": 0.8785947202125647,
+   "total_rate_ratio": 0.9547418740216801,
+   "k0": 6.047305933070392e-05,
+   "replicate": 5,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 47.75360755199972,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0732260372058775,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4680329710334771,
+   "rel_l2_near": 0.3386243837472323,
+   "rel_l2_far": 0.8911410016949823,
+   "total_rate_ratio": 1.0208955238394786,
+   "k0": 0.00034616647711332895,
+   "replicate": 5,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.008290430999750242,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08165045436787999,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.67209278209432,
+   "rel_l2_near": 0.6956769414606567,
+   "rel_l2_far": 0.523450561371865,
+   "total_rate_ratio": 0.3897182948407038,
+   "k0": 1e-09,
+   "replicate": 5,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 0.06425266999985979,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.35738230052392383,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.5032749698018923,
+   "rel_l2_near": 0.30398378825775696,
+   "rel_l2_far": 1.0675082686124218,
+   "total_rate_ratio": 1.1133188040373714,
+   "k0": 2.9150631601585415e-05,
+   "replicate": 5,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 20.13745614299978,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04143833993420021,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 5,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.0782547329999943,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.064180383353651,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.40403217017311094,
+   "rel_l2_near": 0.3031478554934179,
+   "rel_l2_far": 0.7458376869530287,
+   "total_rate_ratio": 1.0443334590842446,
+   "k0": 3.5628416057298536e-05,
+   "replicate": 5,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 35.8791960679996,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04535712046902729,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.6228549790600866,
+   "rel_l2_near": 0.5275539002050408,
+   "rel_l2_far": 0.9959571082876985,
+   "total_rate_ratio": 0.96960994187375,
+   "k0": 0.0009297473574234595,
+   "replicate": 5,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.006988982000166288,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19296778429694905,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4591478462548265,
+   "rel_l2_near": 0.4373660919172657,
+   "rel_l2_far": 0.5642649052448225,
+   "total_rate_ratio": 1.012896538890822,
+   "k0": 1.723756756190224e-05,
+   "replicate": 5,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 2.764234962000046,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.057365625135310516,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.7726628238097597,
+   "rel_l2_near": 0.5871545084801404,
+   "rel_l2_far": 1.4095028570970145,
+   "total_rate_ratio": 1.0891712718535873,
+   "k0": 3.818968429104599e-05,
+   "replicate": 5,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 40.66629368799977,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07686154942807866,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.6283146849752793,
+   "rel_l2_near": 0.506419432384846,
+   "rel_l2_far": 1.0755368162511316,
+   "total_rate_ratio": 1.0832216184549373,
+   "k0": 7.06780473560337e-05,
+   "replicate": 5,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 5.350405519000105,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07010866935179205,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4764303154770761,
+   "rel_l2_near": 0.40444034771858056,
+   "rel_l2_far": 0.7591665402332328,
+   "total_rate_ratio": 1.0336267258927374,
+   "k0": 3.480186447925513e-05,
+   "replicate": 5,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 39.046788311,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0325461192122285,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.7871205539847377,
+   "rel_l2_near": 0.7342314748895278,
+   "rel_l2_far": 1.0309366153598631,
+   "total_rate_ratio": 0.852623554797657,
+   "k0": 0.002315182876159104,
+   "replicate": 5,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.004442525999820646,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.44559840887876856,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.4737830198555706,
+   "rel_l2_near": 0.40394171835619624,
+   "rel_l2_far": 0.749787318615978,
+   "total_rate_ratio": 0.884428651448425,
+   "k0": 1.7259459321896827e-05,
+   "replicate": 5,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 4.276822304000234,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.15628513744626105,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 1.061111168466909,
+   "rel_l2_near": 0.8563306695013236,
+   "rel_l2_far": 1.8135871540095314,
+   "total_rate_ratio": 0.990266477179743,
+   "k0": 4.155299655116795e-05,
+   "replicate": 5,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 43.10653120799998,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19186190137308934,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 1.1093785925939403,
+   "rel_l2_near": 0.9148964461353042,
+   "rel_l2_far": 1.8437842143133742,
+   "total_rate_ratio": 0.9928533503896407,
+   "k0": 3.534468926109717e-05,
+   "replicate": 5,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 15.366028510999968,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19795787890618755,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.7181462899951747,
+   "rel_l2_near": 0.62766415187913,
+   "rel_l2_far": 1.0893011806566135,
+   "total_rate_ratio": 1.032041009817783,
+   "k0": 3.49500707496269e-05,
+   "replicate": 5,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 50.55541773300001,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0689154453714309,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.8575371244368143,
+   "rel_l2_near": 0.8839741357594865,
+   "rel_l2_far": 0.6940697561203132,
+   "total_rate_ratio": 0.599975678602724,
+   "k0": 0.004634474613047683,
+   "replicate": 5,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.003999967999789078,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.8811542493714075,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.5344833003796625,
+   "rel_l2_near": 0.4582363338088066,
+   "rel_l2_far": 0.8382482668756054,
+   "total_rate_ratio": 0.6428291048897222,
+   "k0": 1.831078999668749e-05,
+   "replicate": 5,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 1.7680404769998859,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.29394403644937084,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.9947819207233196,
+   "rel_l2_near": 0.6710635932952105,
+   "rel_l2_far": 1.9900778066536937,
+   "total_rate_ratio": 0.9226237056103112,
+   "k0": 1.5193140413986382e-05,
+   "replicate": 5,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 19.328801354000007,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.26858856439316137,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 1.1301153772798047,
+   "rel_l2_near": 0.7312587118861176,
+   "rel_l2_far": 2.316716065676295,
+   "total_rate_ratio": 0.9104948706068252,
+   "k0": 1.0017967102265118e-05,
+   "replicate": 5,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 59.539117428999816,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3273191811350169,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.7527241712546018,
+   "rel_l2_near": 0.6355204530842781,
+   "rel_l2_far": 1.2095254063294292,
+   "total_rate_ratio": 1.0417266913286711,
+   "k0": 4.050510418858632e-05,
+   "replicate": 5,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 54.203837619000296,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0896745477782428,
+   "crossing_hours": 5.989247365339157,
+   "burned": 987
+  },
+  {
+   "rel_l2": 0.6272048398898762,
+   "rel_l2_near": 0.5613472389367566,
+   "rel_l2_far": 0.9080777866554587,
+   "total_rate_ratio": 0.29688836925039985,
+   "k0": 4.7773324056642216e-05,
+   "replicate": 5,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.021380528999998205,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.356289075497191,
+   "crossing_hours": 24.899055255502972,
+   "burned": 64
+  },
+  {
+   "rel_l2": 0.6569417373806516,
+   "rel_l2_near": 0.5730542667305295,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.27823480048098725,
+   "k0": 2.732416785093109e-05,
+   "replicate": 5,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 0.7404273810002451,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.2301884304068418,
+   "crossing_hours": 24.899055255502972,
+   "burned": 64
+  },
+  {
+   "rel_l2": 0.6596107639948602,
+   "rel_l2_near": 0.5810383602240025,
+   "rel_l2_far": 0.9859562210126426,
+   "total_rate_ratio": 0.25978922465602433,
+   "k0": 1e-09,
+   "replicate": 5,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 6.205834570999741,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.9214658793999693,
+   "crossing_hours": 24.899055255502972,
+   "burned": 64
+  },
+  {
+   "rel_l2": 0.6355626349240493,
+   "rel_l2_near": 0.5611887862682539,
+   "rel_l2_far": 0.9456643177068891,
+   "total_rate_ratio": 0.29711746523219906,
+   "k0": 1e-09,
+   "replicate": 5,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.6701072590003605,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.891034579174173,
+   "crossing_hours": 24.899055255502972,
+   "burned": 64
+  },
+  {
+   "rel_l2": 0.634344086935676,
+   "rel_l2_near": 0.542433675079493,
+   "rel_l2_far": 0.9991183144124236,
+   "total_rate_ratio": 0.2747948997569619,
+   "k0": 3.412261158996629e-05,
+   "replicate": 5,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 2.091322142000081,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.3442486931647082,
+   "crossing_hours": 24.899055255502972,
+   "burned": 64
+  },
+  {
+   "rel_l2": 0.7559543456645833,
+   "rel_l2_near": 0.7237906033500088,
+   "rel_l2_far": 0.9130519588894842,
+   "total_rate_ratio": 0.8449529035820129,
+   "k0": 0.004345324035758777,
+   "replicate": 5,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.0042923330001940485,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.38358943446950766,
+   "crossing_hours": 6.083130659092099,
+   "burned": 1556
+  },
+  {
+   "rel_l2": 0.4613238569187083,
+   "rel_l2_near": 0.40995520082926956,
+   "rel_l2_far": 0.6777784775657365,
+   "total_rate_ratio": 0.9272464910819894,
+   "k0": 3.114680156315968e-05,
+   "replicate": 5,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 4.822486947000016,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.13112220073491354,
+   "crossing_hours": 6.083130659092099,
+   "burned": 1556
+  },
+  {
+   "rel_l2": 1.6367001434058683,
+   "rel_l2_near": 0.9628441917756982,
+   "rel_l2_far": 3.5112724438605434,
+   "total_rate_ratio": 1.1178603471419133,
+   "k0": 6.521982151335853e-05,
+   "replicate": 5,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 44.13187884099989,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.25182334825627883,
+   "crossing_hours": 6.083130659092099,
+   "burned": 1556
+  },
+  {
+   "rel_l2": 1.521520483157721,
+   "rel_l2_near": 0.893148031917501,
+   "rel_l2_far": 3.2670962410585878,
+   "total_rate_ratio": 1.1061234783038691,
+   "k0": 0.0001183043886955428,
+   "replicate": 5,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 27.068442643999788,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.18700702899578925,
+   "crossing_hours": 6.083130659092099,
+   "burned": 1556
+  },
+  {
+   "rel_l2": 0.5375747837050258,
+   "rel_l2_near": 0.46598432764148484,
+   "rel_l2_far": 0.827516396570582,
+   "total_rate_ratio": 1.095979655546124,
+   "k0": 0.00011776434991992801,
+   "replicate": 5,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 65.50464882000006,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.006790081459006281,
+   "crossing_hours": 6.083130659092099,
+   "burned": 1556
+  },
+  {
+   "rel_l2": 0.40354469702803347,
+   "rel_l2_near": 0.3538860027570381,
+   "rel_l2_far": 0.6083248244295413,
+   "total_rate_ratio": 1.0599068710090425,
+   "k0": 3.818618373751583e-05,
+   "replicate": 6,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 11.918947177000064,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.04450920290722138,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.3666127432853177,
+   "rel_l2_near": 0.32881194836295635,
+   "rel_l2_far": 0.5284162908994119,
+   "total_rate_ratio": 1.0000252849950932,
+   "k0": 3.0453099408423944e-05,
+   "replicate": 6,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.04196726899999703,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05023494292919928,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.4381266042737523,
+   "rel_l2_near": 0.3567171353653476,
+   "rel_l2_far": 0.7405615017190946,
+   "total_rate_ratio": 0.9727410153405551,
+   "k0": 1.2411106932312182e-05,
+   "replicate": 6,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 11.166834777000076,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06202099638925018,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.8070543779448429,
+   "rel_l2_near": 0.7941246316723456,
+   "rel_l2_far": 0.874865166890414,
+   "total_rate_ratio": 1.0797346982968545,
+   "k0": 9.444903593556168e-06,
+   "replicate": 6,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 37.36434798399978,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.15052814877741794,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.47581214889174434,
+   "rel_l2_near": 0.4710935237601672,
+   "rel_l2_far": 0.5010109793601434,
+   "total_rate_ratio": 0.7452502061690159,
+   "k0": 0.00017308069364613827,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 5.634111224999742,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06574962773443227,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.46987437781295327,
+   "rel_l2_near": 0.45293846444542324,
+   "rel_l2_far": 0.5539680386854771,
+   "total_rate_ratio": 0.7047214136090135,
+   "k0": 0.00016569304825928065,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.027329403999829083,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0825516907386068,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.4119655477517699,
+   "rel_l2_near": 0.3920421145083899,
+   "rel_l2_far": 0.507899907368005,
+   "total_rate_ratio": 0.7487567072446003,
+   "k0": 4.017867265395367e-05,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 5.696862567000153,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0578102864629253,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.42513037741968873,
+   "rel_l2_near": 0.41064998735735575,
+   "rel_l2_far": 0.4974015564873647,
+   "total_rate_ratio": 0.6995336674932875,
+   "k0": 2.179690147300298e-05,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 8.711966376999953,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08079646421859632,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.6441335447060403,
+   "rel_l2_near": 0.4647983226300738,
+   "rel_l2_far": 1.2290196305969792,
+   "total_rate_ratio": 1.037147019714011,
+   "k0": 8.290704544453476e-06,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 28.30858662799983,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.20203750072492488,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.40431219462134504,
+   "rel_l2_near": 0.2895765517086526,
+   "rel_l2_far": 0.7759265315110276,
+   "total_rate_ratio": 0.9005922897655781,
+   "k0": 8.428996563674823e-06,
+   "replicate": 6,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 28.673263552000208,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06726166827149571,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.37609164291704295,
+   "rel_l2_near": 0.2624902986814376,
+   "rel_l2_far": 0.7355880502963249,
+   "total_rate_ratio": 0.9725935575079293,
+   "k0": 0.00013034367858797197,
+   "replicate": 6,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.024197633000312635,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.03431302892362087,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.37271835890684263,
+   "rel_l2_near": 0.32541203419224507,
+   "rel_l2_far": 0.5664447739743352,
+   "total_rate_ratio": 1.006451121910902,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 1.1434582500000943,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.14335580767365963,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.4023174284143845,
+   "rel_l2_near": 0.21322168672980465,
+   "rel_l2_far": 0.8961506075169478,
+   "total_rate_ratio": 1.0672639671624793,
+   "k0": 2.1088869827892326e-05,
+   "replicate": 6,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 27.7182937460002,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.0764988524383261,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.08933188999981212,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.030081299171938,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.3953754040310385,
+   "rel_l2_near": 0.32930334022543734,
+   "rel_l2_far": 0.648150500567408,
+   "total_rate_ratio": 1.0108163030571693,
+   "k0": 9.577270907161557e-06,
+   "replicate": 6,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 24.598378481000054,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05057278423566425,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.5838504336919073,
+   "rel_l2_near": 0.5182884253753154,
+   "rel_l2_far": 0.8596245095012939,
+   "total_rate_ratio": 0.9598193377544999,
+   "k0": 0.00026900048803183953,
+   "replicate": 6,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.008322123999732867,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06408299154462149,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.4625571802253806,
+   "rel_l2_near": 0.3774008708110691,
+   "rel_l2_far": 0.7797477944997686,
+   "total_rate_ratio": 0.9915751501131074,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 9.201341135999883,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3508182721886386,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.568382735709796,
+   "rel_l2_near": 0.36411409419647733,
+   "rel_l2_far": 1.1715014946872289,
+   "total_rate_ratio": 1.0546506597091485,
+   "k0": 1.2855749273800012e-05,
+   "replicate": 6,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 44.58445635199996,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.13090856504082504,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.5978453532063251,
+   "rel_l2_near": 0.5003283402260591,
+   "rel_l2_far": 0.9733360768658063,
+   "total_rate_ratio": 1.0779862838497858,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 2.4308522469996205,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2499950853965438,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.5827533530525454,
+   "rel_l2_near": 0.5324703283087298,
+   "rel_l2_far": 0.8053133756574458,
+   "total_rate_ratio": 1.0212339780070399,
+   "k0": 8.391943756079538e-06,
+   "replicate": 6,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 27.5641254140005,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.11556983005914434,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.832748707263641,
+   "rel_l2_near": 0.7911366005056515,
+   "rel_l2_far": 1.032343361391814,
+   "total_rate_ratio": 0.8548640817327885,
+   "k0": 0.0009232398856525202,
+   "replicate": 6,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.010147290000077192,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19856416417478506,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.6488898146675305,
+   "rel_l2_near": 0.5779239409221182,
+   "rel_l2_far": 0.9490434904525609,
+   "total_rate_ratio": 0.893185872916664,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 2.3909314749998885,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.5181607686978285,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.614490426960705,
+   "rel_l2_near": 0.5825853752132016,
+   "rel_l2_far": 0.7668135915829093,
+   "total_rate_ratio": 0.9889904979498054,
+   "k0": 1.2137249445135648e-08,
+   "replicate": 6,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 2.0934980550000546,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10126017296148992,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.7213255420404301,
+   "rel_l2_near": 0.5777412948807968,
+   "rel_l2_far": 1.2441394218009407,
+   "total_rate_ratio": 1.0497708516980473,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 10.196196213999883,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.29587233019923564,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.7039932429217535,
+   "rel_l2_near": 0.5968812929053389,
+   "rel_l2_far": 1.1239344167213678,
+   "total_rate_ratio": 1.0390309494965726,
+   "k0": 9.453682773898369e-06,
+   "replicate": 6,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 22.559821148000083,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.14892742202760134,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.8590665345688532,
+   "rel_l2_near": 0.8705363475828616,
+   "rel_l2_far": 0.7929099618964612,
+   "total_rate_ratio": 0.6387063390918729,
+   "k0": 0.002205323566569131,
+   "replicate": 6,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.0030049030001464416,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.4276289480481972,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.7923395142104942,
+   "rel_l2_near": 0.7817441561254285,
+   "rel_l2_far": 0.848340252670135,
+   "total_rate_ratio": 0.657537064363003,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.29275527499976306,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7272991961750432,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.7179039490025387,
+   "rel_l2_near": 0.47275925061180707,
+   "rel_l2_far": 1.4571836833436902,
+   "total_rate_ratio": 0.9838364519700761,
+   "k0": 8.12191413045336e-07,
+   "replicate": 6,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 72.22952979000002,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3437036904511048,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 1.4266711132952996,
+   "rel_l2_near": 1.442306535388248,
+   "rel_l2_far": 1.3372616634761294,
+   "total_rate_ratio": 1.0225709188971686,
+   "k0": 3.3038105526426144e-06,
+   "replicate": 6,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 73.93505242399988,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.5963462534823925,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.7137568179427307,
+   "rel_l2_near": 0.6340613266286743,
+   "rel_l2_far": 1.0493807853390247,
+   "total_rate_ratio": 0.9842759491752031,
+   "k0": 7.975521902059466e-06,
+   "replicate": 6,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 27.83700213300017,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1686827822007797,
+   "crossing_hours": 6.86245599438832,
+   "burned": 559
+  },
+  {
+   "rel_l2": 0.6939273328374511,
+   "rel_l2_near": 0.6629507791368787,
+   "rel_l2_far": 0.8444447221887503,
+   "total_rate_ratio": 0.2749079112515088,
+   "k0": 6.757438340297612e-06,
+   "replicate": 6,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.01811979199965208,
+   "peak_mib": null,
+   "heldout_excess_nll": -1.1835082416648497,
+   "crossing_hours": 28.47458334868773,
+   "burned": 41
+  },
+  {
+   "rel_l2": 0.6851011150906039,
+   "rel_l2_near": 0.6191317751304984,
+   "rel_l2_far": 0.9712651406293673,
+   "total_rate_ratio": 0.2666205721731744,
+   "k0": 6.750152600197533e-06,
+   "replicate": 6,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 1.3987776940002732,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.813512261099067,
+   "crossing_hours": 28.47458334868773,
+   "burned": 41
+  },
+  {
+   "rel_l2": 0.698396647930297,
+   "rel_l2_near": 0.6383448832287513,
+   "rel_l2_far": 0.964358336201961,
+   "total_rate_ratio": 0.2611925157276567,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 2.8885253690000354,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1729196131341526,
+   "crossing_hours": 28.47458334868773,
+   "burned": 41
+  },
+  {
+   "rel_l2": 0.6962865697811002,
+   "rel_l2_near": 0.6398290592557553,
+   "rel_l2_far": 0.9488840162689623,
+   "total_rate_ratio": 0.2823581947839864,
+   "k0": 1e-09,
+   "replicate": 6,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.3297995780003475,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.04054934409617861,
+   "crossing_hours": 28.47458334868773,
+   "burned": 41
+  },
+  {
+   "rel_l2": 0.6752182238890009,
+   "rel_l2_near": 0.6062437924311832,
+   "rel_l2_far": 0.9710052961778503,
+   "total_rate_ratio": 0.27234778133435067,
+   "k0": 6.743395580921252e-06,
+   "replicate": 6,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 1.1612678670003334,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.9162332767093391,
+   "crossing_hours": 28.47458334868773,
+   "burned": 41
+  },
+  {
+   "rel_l2": 0.7637349431604535,
+   "rel_l2_near": 0.6957965522945991,
+   "rel_l2_far": 1.0628054403250573,
+   "total_rate_ratio": 0.9097043132554978,
+   "k0": 0.002298305802649468,
+   "replicate": 6,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.004471874000046228,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1638438186803537,
+   "crossing_hours": 6.207836834304313,
+   "burned": 939
+  },
+  {
+   "rel_l2": 0.6327713598471104,
+   "rel_l2_near": 0.6395295462934137,
+   "rel_l2_far": 0.5941637849536756,
+   "total_rate_ratio": 0.924254498290505,
+   "k0": 1.741328340205371e-05,
+   "replicate": 6,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 4.404891313000007,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.11504306597530611,
+   "crossing_hours": 6.207836834304313,
+   "burned": 939
+  },
+  {
+   "rel_l2": 1.2465228972015578,
+   "rel_l2_near": 0.6485923251077297,
+   "rel_l2_far": 2.79219401094177,
+   "total_rate_ratio": 1.138413174018539,
+   "k0": 2.467605208621209e-06,
+   "replicate": 6,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 91.1364723759998,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2719974916359704,
+   "crossing_hours": 6.207836834304313,
+   "burned": 939
+  },
+  {
+   "rel_l2": 1.2873745455671248,
+   "rel_l2_near": 0.7202483252342933,
+   "rel_l2_far": 2.8159839412918415,
+   "total_rate_ratio": 1.1493727988174822,
+   "k0": 4.9231250781228185e-05,
+   "replicate": 6,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 41.4180901310001,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2056534848538183,
+   "crossing_hours": 6.207836834304313,
+   "burned": 939
+  },
+  {
+   "rel_l2": 0.6621440502958874,
+   "rel_l2_near": 0.5252393291826404,
+   "rel_l2_far": 1.1549769274485746,
+   "total_rate_ratio": 1.119707542426183,
+   "k0": 2.6939853200831973e-05,
+   "replicate": 6,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 39.7577791169997,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07050434948687778,
+   "crossing_hours": 6.207836834304313,
+   "burned": 939
+  },
+  {
+   "rel_l2": 0.4650745941710838,
+   "rel_l2_near": 0.4255827708297799,
+   "rel_l2_far": 0.64036458562292,
+   "total_rate_ratio": 0.9276201776033389,
+   "k0": 6.13660130112504e-05,
+   "replicate": 7,
+   "scenario": "kriged_correlated",
+   "estimator": "hard_hourly",
+   "seconds": 5.445646672999828,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05966473005054773,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4332144588795316,
+   "rel_l2_near": 0.40396981501815565,
+   "rel_l2_far": 0.5679374024965835,
+   "total_rate_ratio": 0.8747254734716986,
+   "k0": 4.612665526986704e-05,
+   "replicate": 7,
+   "scenario": "kriged_correlated",
+   "estimator": "plugin",
+   "seconds": 0.0303997499995603,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06293235665378072,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4051197706576952,
+   "rel_l2_near": 0.3333722877381614,
+   "rel_l2_far": 0.6752903126256872,
+   "total_rate_ratio": 0.8925466274979474,
+   "k0": 9.472169151552474e-06,
+   "replicate": 7,
+   "scenario": "kriged_correlated",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 26.66166809599963,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06622814110171271,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5559137556126047,
+   "rel_l2_near": 0.5213006648815657,
+   "rel_l2_far": 0.7172501495024989,
+   "total_rate_ratio": 0.9955947363230895,
+   "k0": 3.807992706029003e-07,
+   "replicate": 7,
+   "scenario": "kriged_correlated",
+   "estimator": "mcem",
+   "seconds": 47.22769997999967,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07430057169251203,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.45008816560090015,
+   "rel_l2_near": 0.39971704631985233,
+   "rel_l2_far": 0.6621150653161475,
+   "total_rate_ratio": 0.7609177323886409,
+   "k0": 0.00012432559563472546,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "hard_hourly",
+   "seconds": 9.567484809999769,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08364729213929545,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4895577598049806,
+   "rel_l2_near": 0.449623706403407,
+   "rel_l2_far": 0.66804510819935,
+   "total_rate_ratio": 0.7239999652692666,
+   "k0": 0.00011631924673340962,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "plugin",
+   "seconds": 0.043152346999704605,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.11536045560889807,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4442978039063565,
+   "rel_l2_near": 0.39315034759339157,
+   "rel_l2_far": 0.6583085583724236,
+   "total_rate_ratio": 0.7697391920010261,
+   "k0": 3.402953938965258e-05,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat",
+   "seconds": 16.504237530000864,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.07580132770215275,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.47496740612757393,
+   "rel_l2_near": 0.40971042668993524,
+   "rel_l2_far": 0.7373176564463554,
+   "total_rate_ratio": 0.7350255771070305,
+   "k0": 2.3295479605256595e-05,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "soft_risk_softfeat_recal",
+   "seconds": 18.948216516000684,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.10983822475072191,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6477247854989904,
+   "rel_l2_near": 0.5828770523675842,
+   "rel_l2_far": 0.9269177682566035,
+   "total_rate_ratio": 0.9549032700816208,
+   "k0": 1.0000000000000003e-09,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem_recal",
+   "seconds": 34.35487130999991,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3130174299201598,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.475993401691429,
+   "rel_l2_near": 0.42631588628801986,
+   "rel_l2_far": 0.6881195875540167,
+   "total_rate_ratio": 0.8605741463191159,
+   "k0": 3.8533909714716423e-07,
+   "replicate": 7,
+   "scenario": "kriged_miscal",
+   "estimator": "mcem",
+   "seconds": 34.794810266999775,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1122206681010054,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5225314509098832,
+   "rel_l2_near": 0.4860312828780688,
+   "rel_l2_far": 0.689812266892319,
+   "total_rate_ratio": 0.9700570798630963,
+   "k0": 6.081275552628619e-05,
+   "replicate": 7,
+   "scenario": "perim_3h",
+   "estimator": "plugin",
+   "seconds": 0.01745719099926646,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.05845278270741172,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.46139595565155883,
+   "rel_l2_near": 0.4036836850584014,
+   "rel_l2_far": 0.6985183046055168,
+   "total_rate_ratio": 0.9733632225183051,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_3h",
+   "estimator": "bracket_composite",
+   "seconds": 0.625354232999598,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1628292657889472,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6830988307714789,
+   "rel_l2_near": 0.6558573329720794,
+   "rel_l2_far": 0.8170473407811124,
+   "total_rate_ratio": 1.0398071159576445,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_nll",
+   "seconds": 4.362134597000477,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19406616016768563,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.9999999466964758,
+   "rel_l2_near": 0.9999999604580644,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 9.238093199852055e-08,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_3h",
+   "estimator": "meanfield_brier",
+   "seconds": 0.07799485200030176,
+   "peak_mib": null,
+   "heldout_excess_nll": 15.026532971094413,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5904494208933756,
+   "rel_l2_near": 0.5656028701874951,
+   "rel_l2_far": 0.7119487632812251,
+   "total_rate_ratio": 0.9683456395347327,
+   "k0": 7.620180828045863e-07,
+   "replicate": 7,
+   "scenario": "perim_3h",
+   "estimator": "mcem",
+   "seconds": 27.24381301899939,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1067685230681441,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.547928932459061,
+   "rel_l2_near": 0.4872869367540117,
+   "rel_l2_far": 0.8037840187869428,
+   "total_rate_ratio": 0.9455090130148883,
+   "k0": 0.00023645126835015586,
+   "replicate": 7,
+   "scenario": "perim_6h",
+   "estimator": "plugin",
+   "seconds": 0.014002432999404846,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.06961162669123233,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.46867483690315825,
+   "rel_l2_near": 0.3733203984009246,
+   "rel_l2_far": 0.8136116867660257,
+   "total_rate_ratio": 0.9589358496308862,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_6h",
+   "estimator": "bracket_composite",
+   "seconds": 7.947133219000534,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.26994874266645796,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6387722242719623,
+   "rel_l2_near": 0.5803613469078117,
+   "rel_l2_far": 0.8946120441684654,
+   "total_rate_ratio": 1.0318438155902743,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_nll",
+   "seconds": 6.0154057579993605,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.19682812200521527,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6573672040778042,
+   "rel_l2_near": 0.6030699346427063,
+   "rel_l2_far": 0.8995328682143194,
+   "total_rate_ratio": 1.0340227767790633,
+   "k0": 1.107431943030365e-06,
+   "replicate": 7,
+   "scenario": "perim_6h",
+   "estimator": "meanfield_brier",
+   "seconds": 4.232565890999467,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.13604711369858302,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.4711890646406015,
+   "rel_l2_near": 0.3409445996732206,
+   "rel_l2_far": 0.8970732754060152,
+   "total_rate_ratio": 0.9801901541422287,
+   "k0": 7.600163332113706e-07,
+   "replicate": 7,
+   "scenario": "perim_6h",
+   "estimator": "mcem",
+   "seconds": 21.663499295000292,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.08598612164272046,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.7453235978072359,
+   "rel_l2_near": 0.6786295182032898,
+   "rel_l2_far": 1.0386021617033692,
+   "total_rate_ratio": 0.9160741736286407,
+   "k0": 0.000676448460436796,
+   "replicate": 7,
+   "scenario": "perim_12h",
+   "estimator": "plugin",
+   "seconds": 0.005631013999845891,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.1592308234940214,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6081879013328804,
+   "rel_l2_near": 0.5622871374476773,
+   "rel_l2_far": 0.8160075470102409,
+   "total_rate_ratio": 0.8730759936424747,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_12h",
+   "estimator": "bracket_composite",
+   "seconds": 2.883269369000118,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.42532582353245196,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.7474665672871854,
+   "rel_l2_near": 0.6736343766237324,
+   "rel_l2_far": 1.0661748693436968,
+   "total_rate_ratio": 1.0130238410097652,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 26.803810321999663,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.43782511217736486,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.758622795630545,
+   "rel_l2_near": 0.7083749335862732,
+   "rel_l2_far": 0.9907560136431633,
+   "total_rate_ratio": 1.0230335889051756,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 10.208001711999714,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.42128930287118616,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.5690796671854299,
+   "rel_l2_near": 0.4915818656323852,
+   "rel_l2_far": 0.8812984855335212,
+   "total_rate_ratio": 0.999630703879818,
+   "k0": 3.796266721514391e-07,
+   "replicate": 7,
+   "scenario": "perim_12h",
+   "estimator": "mcem",
+   "seconds": 20.974055152999426,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.11460550938954972,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.7705200327474891,
+   "rel_l2_near": 0.778670641436627,
+   "rel_l2_far": 0.723974864510425,
+   "total_rate_ratio": 0.7538460276601874,
+   "k0": 0.0017689047424457103,
+   "replicate": 7,
+   "scenario": "perim_24h",
+   "estimator": "plugin",
+   "seconds": 0.0054130990001795,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.33968358336976534,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6534634492158241,
+   "rel_l2_near": 0.5983217552262878,
+   "rel_l2_far": 0.8984862016458184,
+   "total_rate_ratio": 0.649046702396262,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_24h",
+   "estimator": "bracket_composite",
+   "seconds": 0.26867331999983435,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.6431843395237382,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.8624176114011605,
+   "rel_l2_near": 0.8396152647342062,
+   "rel_l2_far": 0.978555560568873,
+   "total_rate_ratio": 1.0295838958067045,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_nll",
+   "seconds": 42.64191885299988,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.3909292573305767,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 1.4055025151117928,
+   "rel_l2_near": 1.3239212593736034,
+   "rel_l2_far": 1.7894494041239148,
+   "total_rate_ratio": 1.0185249222893766,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_24h",
+   "estimator": "meanfield_brier",
+   "seconds": 32.422001903999444,
+   "peak_mib": null,
+   "heldout_excess_nll": 1.2331591182833717,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6403694030343453,
+   "rel_l2_near": 0.5527092482137529,
+   "rel_l2_far": 0.9930941850841385,
+   "total_rate_ratio": 0.9878798720491182,
+   "k0": 1.1375541752040852e-06,
+   "replicate": 7,
+   "scenario": "perim_24h",
+   "estimator": "mcem",
+   "seconds": 22.275434779000534,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.16385340346621735,
+   "crossing_hours": 7.826373860503423,
+   "burned": 538
+  },
+  {
+   "rel_l2": 0.6132263211118186,
+   "rel_l2_near": 0.5754381157289657,
+   "rel_l2_far": 0.7896187533757194,
+   "total_rate_ratio": 0.3326979567073725,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "plugin",
+   "seconds": 0.0024868950004020007,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.37083273720707055,
+   "crossing_hours": 26.601779164189278,
+   "burned": 48
+  },
+  {
+   "rel_l2": 0.6515839281437235,
+   "rel_l2_near": 0.5756964190650286,
+   "rel_l2_far": 0.9683208641676235,
+   "total_rate_ratio": 0.31173672569504945,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "bracket_composite",
+   "seconds": 0.3945936879999863,
+   "peak_mib": null,
+   "heldout_excess_nll": 1.0908557975924653,
+   "crossing_hours": 26.601779164189278,
+   "burned": 48
+  },
+  {
+   "rel_l2": 0.6512351035451468,
+   "rel_l2_near": 0.5787025031453752,
+   "rel_l2_far": 0.9568540828049147,
+   "total_rate_ratio": 0.2942466435106132,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 3.6410034380005527,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.7255828674196234,
+   "crossing_hours": 26.601779164189278,
+   "burned": 48
+  },
+  {
+   "rel_l2": 0.632408265356676,
+   "rel_l2_near": 0.5613277166823171,
+   "rel_l2_far": 0.9313367159918104,
+   "total_rate_ratio": 0.32932575232932787,
+   "k0": 1e-09,
+   "replicate": 7,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 1.8120612900002016,
+   "peak_mib": null,
+   "heldout_excess_nll": -0.2784071462651063,
+   "crossing_hours": 26.601779164189278,
+   "burned": 48
+  },
+  {
+   "rel_l2": 0.619334978373159,
+   "rel_l2_near": 0.5212314124785062,
+   "rel_l2_far": 0.9999998708836442,
+   "total_rate_ratio": 0.3170160159103994,
+   "k0": 1.0000000000000003e-09,
+   "replicate": 7,
+   "scenario": "perim_nonexp_12h",
+   "estimator": "mcem",
+   "seconds": 1.1870215489998373,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.9058382021996119,
+   "crossing_hours": 26.601779164189278,
+   "burned": 48
+  },
+  {
+   "rel_l2": 0.723711779559856,
+   "rel_l2_near": 0.6987943362908086,
+   "rel_l2_far": 0.8479546210639468,
+   "total_rate_ratio": 0.8730800124148598,
+   "k0": 0.0027411103993132784,
+   "replicate": 7,
+   "scenario": "perim_spotting_12h",
+   "estimator": "plugin",
+   "seconds": 0.005070301999694493,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.23081312627487893,
+   "crossing_hours": 6.737971548989009,
+   "burned": 1153
+  },
+  {
+   "rel_l2": 0.4929984890994156,
+   "rel_l2_near": 0.4503459024201597,
+   "rel_l2_far": 0.6816955010011153,
+   "total_rate_ratio": 0.9242481228048032,
+   "k0": 2.747538750244856e-05,
+   "replicate": 7,
+   "scenario": "perim_spotting_12h",
+   "estimator": "bracket_composite",
+   "seconds": 3.409005997999884,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.2205592681340507,
+   "crossing_hours": 6.737971548989009,
+   "burned": 1153
+  },
+  {
+   "rel_l2": 1.126096579117681,
+   "rel_l2_near": 0.8390727858369702,
+   "rel_l2_far": 2.09175922108916,
+   "total_rate_ratio": 1.136578405725244,
+   "k0": 3.8108963750962365e-09,
+   "replicate": 7,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_nll",
+   "seconds": 35.15066755299995,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.41782892743287814,
+   "crossing_hours": 6.737971548989009,
+   "burned": 1153
+  },
+  {
+   "rel_l2": 1.2635135331968395,
+   "rel_l2_near": 0.8503917049912909,
+   "rel_l2_far": 2.5313026892981534,
+   "total_rate_ratio": 1.1653554394181522,
+   "k0": 9.967790390570478e-05,
+   "replicate": 7,
+   "scenario": "perim_spotting_12h",
+   "estimator": "meanfield_brier",
+   "seconds": 46.83335169699967,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.14525582731989006,
+   "crossing_hours": 6.737971548989009,
+   "burned": 1153
+  },
+  {
+   "rel_l2": 0.5897472391741059,
+   "rel_l2_near": 0.5004861228244462,
+   "rel_l2_far": 0.9401671509809705,
+   "total_rate_ratio": 1.0747564978888788,
+   "k0": 6.244530086205152e-05,
+   "replicate": 7,
+   "scenario": "perim_spotting_12h",
+   "estimator": "mcem",
+   "seconds": 48.01600939800028,
+   "peak_mib": null,
+   "heldout_excess_nll": 0.044287407679391766,
+   "crossing_hours": 6.737971548989009,
+   "burned": 1153
+  }
+ ],
+ "summary": {
+  "kriged_calibrated": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "hard_hourly": {
+     "total_rate_ratio": [
+      0.9386617719987909,
+      0.022416062991362607
+     ],
+     "rel_l2": [
+      0.3667257578536327,
+      0.05099215062571749
+     ],
+     "rel_l2_near": [
+      0.3112712559453499,
+      0.06527247141666141
+     ],
+     "rel_l2_far": [
+      0.5682426157931993,
+      0.12183344183321652
+     ],
+     "heldout_excess_nll": [
+      0.03861812017011895,
+      0.009072524276363547
+     ],
+     "seconds": [
+      9.374785321749982,
+      2.5776127653481256
+     ],
+     "mcem_better_nll": "1/8"
+    },
+    "plugin": {
+     "total_rate_ratio": [
+      0.8840442728309887,
+      0.019597363878996295
+     ],
+     "rel_l2": [
+      0.37265831826127754,
+      0.0445280111247655
+     ],
+     "rel_l2_near": [
+      0.3224957310760701,
+      0.059251270081486326
+     ],
+     "rel_l2_far": [
+      0.5601003696991292,
+      0.11531183259132444
+     ],
+     "heldout_excess_nll": [
+      0.047668052060342025,
+      0.008096826793598392
+     ],
+     "seconds": [
+      0.044181685000012294,
+      0.011227509651805412
+     ],
+     "mcem_better_nll": "3/8"
+    },
+    "soft_risk_softfeat": {
+     "total_rate_ratio": [
+      0.9011762115505537,
+      0.024097213094915214
+     ],
+     "rel_l2": [
+      0.3697351040165928,
+      0.040092758490614874
+     ],
+     "rel_l2_near": [
+      0.3421156762052004,
+      0.06018617635739329
+     ],
+     "rel_l2_far": [
+      0.4789828015203793,
+      0.09124843643778444
+     ],
+     "heldout_excess_nll": [
+      0.028606868318720446,
+      0.007659152533991003
+     ],
+     "seconds": [
+      18.649491004875017,
+      4.626665056029796
+     ],
+     "mcem_better_nll": "0/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0222661604136205,
+      0.040594901457031714
+     ],
+     "rel_l2": [
+      0.5434637147884601,
+      0.08681544605356505
+     ],
+     "rel_l2_near": [
+      0.47974920008894295,
+      0.05964498996125125
+     ],
+     "rel_l2_far": [
+      0.7940942976796062,
+      0.23831862188223385
+     ],
+     "heldout_excess_nll": [
+      0.0755634949343133,
+      0.037166209316632275
+     ],
+     "seconds": [
+      46.526847204624914,
+      16.0595766425269
+     ]
+    },
+    "mcem_long": {
+     "total_rate_ratio": [
+      1.0217817590659548,
+      0.038355437972271
+     ],
+     "rel_l2": [
+      0.5283065656009294,
+      0.07756494101503851
+     ],
+     "rel_l2_near": [
+      0.4751300152823462,
+      0.06997352025325017
+     ],
+     "rel_l2_far": [
+      0.7410135909185165,
+      0.1989320217575943
+     ],
+     "heldout_excess_nll": [
+      0.060274438394904206,
+      0.02114536981343295
+     ],
+     "seconds": [
+      171.30771809049992,
+      50.02743148598279
+     ],
+     "mcem_better_nll": "1/8"
+    }
+   }
+  },
+  "kriged_correlated": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "hard_hourly": {
+     "total_rate_ratio": [
+      1.0360425530466795,
+      0.06872292707522525
+     ],
+     "rel_l2": [
+      0.4154720823493951,
+      0.06560066438436289
+     ],
+     "rel_l2_near": [
+      0.3436143352311938,
+      0.09140485363611574
+     ],
+     "rel_l2_far": [
+      0.6584439970799001,
+      0.16492738491498998
+     ],
+     "heldout_excess_nll": [
+      0.04492344567019729,
+      0.01247656430875716
+     ],
+     "seconds": [
+      6.550111314875039,
+      3.467273338023439
+     ],
+     "mcem_better_nll": "0/8"
+    },
+    "plugin": {
+     "total_rate_ratio": [
+      0.9722817087065119,
+      0.06148216743407561
+     ],
+     "rel_l2": [
+      0.3984159979462105,
+      0.06451606031072772
+     ],
+     "rel_l2_near": [
+      0.3510892564287783,
+      0.07317254089560833
+     ],
+     "rel_l2_far": [
+      0.5715616777846564,
+      0.1702537665217774
+     ],
+     "heldout_excess_nll": [
+      0.04198464536951846,
+      0.015276372726051144
+     ],
+     "seconds": [
+      0.030509646374923705,
+      0.008129731364805097
+     ],
+     "mcem_better_nll": "0/8"
+    },
+    "soft_risk_softfeat": {
+     "total_rate_ratio": [
+      0.9627756301502977,
+      0.05042625948852474
+     ],
+     "rel_l2": [
+      0.39058364984198723,
+      0.0694948714200654
+     ],
+     "rel_l2_near": [
+      0.3331001275666513,
+      0.07941081045356914
+     ],
+     "rel_l2_far": [
+      0.5962703108803926,
+      0.16318323799954032
+     ],
+     "heldout_excess_nll": [
+      0.04505635173269018,
+      0.019532678843953474
+     ],
+     "seconds": [
+      13.832740212124918,
+      6.606358722174954
+     ],
+     "mcem_better_nll": "0/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.071105091826259,
+      0.055485603152689245
+     ],
+     "rel_l2": [
+      0.5605821326817246,
+      0.15179400996108075
+     ],
+     "rel_l2_near": [
+      0.49027298796594604,
+      0.17932602659039976
+     ],
+     "rel_l2_far": [
+      0.8168324705812355,
+      0.18604419384343127
+     ],
+     "heldout_excess_nll": [
+      0.07832341531547216,
+      0.03699718021652792
+     ],
+     "seconds": [
+      41.135251281499905,
+      7.432767779753102
+     ]
+    }
+   }
+  },
+  "kriged_miscal": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "hard_hourly": {
+     "total_rate_ratio": [
+      0.798971155879497,
+      0.04380453481064025
+     ],
+     "rel_l2": [
+      0.48813181867167194,
+      0.052261320517822424
+     ],
+     "rel_l2_near": [
+      0.48114276520656396,
+      0.07247190333236944
+     ],
+     "rel_l2_far": [
+      0.50596586124075,
+      0.10598646058895964
+     ],
+     "heldout_excess_nll": [
+      0.07419737426435441,
+      0.009559921518076909
+     ],
+     "seconds": [
+      4.476294898999868,
+      2.4653380097128204
+     ],
+     "mcem_better_nll": "5/8"
+    },
+    "plugin": {
+     "total_rate_ratio": [
+      0.7556516285886277,
+      0.03904463567271089
+     ],
+     "rel_l2": [
+      0.505043724371386,
+      0.06285223739258998
+     ],
+     "rel_l2_near": [
+      0.502046484186621,
+      0.07774950232463472
+     ],
+     "rel_l2_far": [
+      0.5017518546552358,
+      0.12330248095407736
+     ],
+     "heldout_excess_nll": [
+      0.08704128788255316,
+      0.014892161678209573
+     ],
+     "seconds": [
+      0.02232188162491866,
+      0.0098027883759073
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "soft_risk_softfeat": {
+     "total_rate_ratio": [
+      0.7985187443552235,
+      0.04013947964985095
+     ],
+     "rel_l2": [
+      0.4401564682723078,
+      0.05278030747627664
+     ],
+     "rel_l2_near": [
+      0.4273855910391192,
+      0.04927730760491404
+     ],
+     "rel_l2_far": [
+      0.4912693818976226,
+      0.14178004870992444
+     ],
+     "heldout_excess_nll": [
+      0.05532554456426403,
+      0.015534467129846106
+     ],
+     "seconds": [
+      7.2131755180002415,
+      3.9599050564023646
+     ],
+     "mcem_better_nll": "1/8"
+    },
+    "soft_risk_softfeat_recal": {
+     "total_rate_ratio": [
+      0.7455584274382141,
+      0.03103346767404759
+     ],
+     "rel_l2": [
+      0.4523493720930868,
+      0.05696606137690801
+     ],
+     "rel_l2_near": [
+      0.4392980929076162,
+      0.04950304406854225
+     ],
+     "rel_l2_far": [
+      0.5029740135623696,
+      0.16005706031109626
+     ],
+     "heldout_excess_nll": [
+      0.07361170903705183,
+      0.01956318768888647
+     ],
+     "seconds": [
+      9.34923158387511,
+      4.782070735802661
+     ],
+     "mcem_better_nll": "5/8"
+    },
+    "mcem_recal": {
+     "total_rate_ratio": [
+      1.028929394235658,
+      0.048726174813884186
+     ],
+     "rel_l2": [
+      0.6207325472046423,
+      0.08723430182429982
+     ],
+     "rel_l2_near": [
+      0.5321676043176053,
+      0.13707283983100182
+     ],
+     "rel_l2_far": [
+      0.922965757110544,
+      0.23596741861692574
+     ],
+     "heldout_excess_nll": [
+      0.11874351809268541,
+      0.0931083004004779
+     ],
+     "seconds": [
+      35.62395061024995,
+      6.647469549776858
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      0.9243612864561235,
+      0.049011741970665615
+     ],
+     "rel_l2": [
+      0.4992472776968146,
+      0.060860806518352566
+     ],
+     "rel_l2_near": [
+      0.410473265810414,
+      0.09251593105309984
+     ],
+     "rel_l2_far": [
+      0.8053142276743858,
+      0.17057821624192193
+     ],
+     "heldout_excess_nll": [
+      0.07026012440912843,
+      0.025311581700518795
+     ],
+     "seconds": [
+      37.98552922012493,
+      7.11262229630808
+     ]
+    }
+   }
+  },
+  "perim_3h": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      1.0144396728275549,
+      0.03663695665601015
+     ],
+     "rel_l2": [
+      0.4521780883690555,
+      0.050855674160540404
+     ],
+     "rel_l2_near": [
+      0.3596801857179419,
+      0.07556667201138324
+     ],
+     "rel_l2_far": [
+      0.7698254417677695,
+      0.12065769693849551
+     ],
+     "heldout_excess_nll": [
+      0.05123399644454185,
+      0.01451366094965857
+     ],
+     "seconds": [
+      0.019406964999916454,
+      0.007955783123874443
+     ],
+     "mcem_better_nll": "3/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.8613049168320359,
+      0.2961579600361815
+     ],
+     "rel_l2": [
+      0.5133990371771014,
+      0.11860932699030706
+     ],
+     "rel_l2_near": [
+      0.47939454219050526,
+      0.1411761542139616
+     ],
+     "rel_l2_far": [
+      0.6294747667333684,
+      0.2066643850931675
+     ],
+     "heldout_excess_nll": [
+      0.17344131652773004,
+      0.1650599255855047
+     ],
+     "seconds": [
+      2.711799354749985,
+      2.845974069408841
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      1.0936304838067208,
+      0.045857763113371294
+     ],
+     "rel_l2": [
+      0.518864529650142,
+      0.08420995376190096
+     ],
+     "rel_l2_near": [
+      0.40308556432235415,
+      0.1353120650271951
+     ],
+     "rel_l2_far": [
+      0.89071293885267,
+      0.13533580155989208
+     ],
+     "heldout_excess_nll": [
+      0.08780188658371402,
+      0.060364737158883554
+     ],
+     "seconds": [
+      13.518614329874936,
+      10.72911639698657
+     ],
+     "mcem_better_nll": "5/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      9.238093199852055e-08,
+      0.0
+     ],
+     "rel_l2": [
+      0.9999999466964758,
+      0.0
+     ],
+     "rel_l2_near": [
+      0.9999999604580644,
+      0.0
+     ],
+     "rel_l2_far": [
+      0.9999998708836442,
+      0.0
+     ],
+     "heldout_excess_nll": [
+      15.038894776993502,
+      0.02033996664640875
+     ],
+     "seconds": [
+      0.08317160525001555,
+      0.007168444490839905
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0246648474138043,
+      0.03904186922559825
+     ],
+     "rel_l2": [
+      0.4742385780010064,
+      0.06962553359006822
+     ],
+     "rel_l2_near": [
+      0.4066784944232079,
+      0.0831482660776778
+     ],
+     "rel_l2_far": [
+      0.7271820006819003,
+      0.1444596054329441
+     ],
+     "heldout_excess_nll": [
+      0.06048312262460065,
+      0.0287464124110189
+     ],
+     "seconds": [
+      29.588461728999903,
+      5.592830567811599
+     ]
+    }
+   }
+  },
+  "perim_6h": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      0.989223238373822,
+      0.03156280359070824
+     ],
+     "rel_l2": [
+      0.5693838794903874,
+      0.037107824626752994
+     ],
+     "rel_l2_near": [
+      0.48398133553228007,
+      0.027061380218041938
+     ],
+     "rel_l2_far": [
+      0.9011631953242596,
+      0.11714166924351452
+     ],
+     "heldout_excess_nll": [
+      0.10603830320943208,
+      0.039349641287315135
+     ],
+     "seconds": [
+      0.008652346249903076,
+      0.002548472883302851
+     ],
+     "mcem_better_nll": "5/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.9999699282008356,
+      0.03247358237262562
+     ],
+     "rel_l2": [
+      0.4915065504564752,
+      0.06376669809856877
+     ],
+     "rel_l2_near": [
+      0.4367924499588264,
+      0.05789835371804192
+     ],
+     "rel_l2_far": [
+      0.6972726705172533,
+      0.2196042985733031
+     ],
+     "heldout_excess_nll": [
+      0.14242291421290043,
+      0.11244368033720147
+     ],
+     "seconds": [
+      4.808814548375153,
+      2.722449998628403
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      1.0807250477600001,
+      0.04268123432102427
+     ],
+     "rel_l2": [
+      0.6275322812099611,
+      0.1101342510514945
+     ],
+     "rel_l2_near": [
+      0.4926404631106694,
+      0.13270023925071817
+     ],
+     "rel_l2_far": [
+      1.075481595808582,
+      0.2478685246373605
+     ],
+     "heldout_excess_nll": [
+      0.1095812484551632,
+      0.043354731856935544
+     ],
+     "seconds": [
+      32.49112290887496,
+      18.39949357682067
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      1.0838045003249186,
+      0.03993731186896887
+     ],
+     "rel_l2": [
+      0.6393080251733188,
+      0.09843218058827666
+     ],
+     "rel_l2_near": [
+      0.5138391644639488,
+      0.13563251872762128
+     ],
+     "rel_l2_far": [
+      1.0630009056418892,
+      0.2199118873587077
+     ],
+     "heldout_excess_nll": [
+      0.11482105165195111,
+      0.06064490962024408
+     ],
+     "seconds": [
+      4.714423587374824,
+      1.0504920725520244
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0280222554943443,
+      0.03370003330804063
+     ],
+     "rel_l2": [
+      0.4915623389681085,
+      0.07030267313301702
+     ],
+     "rel_l2_near": [
+      0.39902884181222587,
+      0.057866671582874216
+     ],
+     "rel_l2_far": [
+      0.8173821997778151,
+      0.2125310256157748
+     ],
+     "heldout_excess_nll": [
+      0.06843428302920102,
+      0.038919338879902135
+     ],
+     "seconds": [
+      29.942226280000114,
+      6.225207274526679
+     ]
+    }
+   }
+  },
+  "perim_12h": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      0.9050344532743196,
+      0.03991103200649102
+     ],
+     "rel_l2": [
+      0.7517088006492911,
+      0.04772115576689287
+     ],
+     "rel_l2_near": [
+      0.6922203875463147,
+      0.05677519426044884
+     ],
+     "rel_l2_far": [
+      1.015466312243467,
+      0.07198929053497716
+     ],
+     "heldout_excess_nll": [
+      0.27233166090677885,
+      0.08425827523071018
+     ],
+     "seconds": [
+      0.006156203375041969,
+      0.0019305124303037747
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.8939734080877928,
+      0.02988743446538504
+     ],
+     "rel_l2": [
+      0.5462811300061158,
+      0.07550838063609287
+     ],
+     "rel_l2_near": [
+      0.4904191496733433,
+      0.0787483031378179
+     ],
+     "rel_l2_far": [
+      0.7817127096445138,
+      0.10123198857984944
+     ],
+     "heldout_excess_nll": [
+      0.30511120536638014,
+      0.16920151238741257
+     ],
+     "seconds": [
+      3.280760703875046,
+      1.4297795340629766
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      1.038746329512749,
+      0.06112595514456231
+     ],
+     "rel_l2": [
+      0.880163452857416,
+      0.2089108646808458
+     ],
+     "rel_l2_near": [
+      0.7337250935728987,
+      0.25676728432256885
+     ],
+     "rel_l2_far": [
+      1.3644346577095905,
+      0.4081217675130957
+     ],
+     "heldout_excess_nll": [
+      0.22702402388565968,
+      0.10506186668859366
+     ],
+     "seconds": [
+      40.78962621624987,
+      19.916685111762263
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      1.0666575853723388,
+      0.06518651903546517
+     ],
+     "rel_l2": [
+      1.0044182864864142,
+      0.22080822250165033
+     ],
+     "rel_l2_near": [
+      0.9185328229170329,
+      0.26713715395135046
+     ],
+     "rel_l2_far": [
+      1.3214128153957658,
+      0.3484661064587843
+     ],
+     "heldout_excess_nll": [
+      0.26692874174336284,
+      0.13776251900981604
+     ],
+     "seconds": [
+      23.152119080374916,
+      10.829776511970534
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0391737980529494,
+      0.030445696968512202
+     ],
+     "rel_l2": [
+      0.6245214793227484,
+      0.09963163391922691
+     ],
+     "rel_l2_near": [
+      0.5313668595337676,
+      0.1160477921240815
+     ],
+     "rel_l2_far": [
+      0.9576213851993609,
+      0.25701051802482416
+     ],
+     "heldout_excess_nll": [
+      0.10399769315845808,
+      0.04266474764046041
+     ],
+     "seconds": [
+      35.397838915374905,
+      12.377789279857156
+     ]
+    }
+   }
+  },
+  "perim_24h": {
+   "replicates": 8,
+   "crossing_hours": 6.618567114866069,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      0.6653525766549852,
+      0.0462260614415132
+     ],
+     "rel_l2": [
+      0.8200796567210439,
+      0.04270931433019509
+     ],
+     "rel_l2_near": [
+      0.8404272145737149,
+      0.0450348808050042
+     ],
+     "rel_l2_far": [
+      0.6949828282175666,
+      0.06767459700748078
+     ],
+     "heldout_excess_nll": [
+      0.5921256878506688,
+      0.16794677801681135
+     ],
+     "seconds": [
+      0.0036852792500781106,
+      0.0009428695446579464
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.6465385049593728,
+      0.03095762158730356
+     ],
+     "rel_l2": [
+      0.6203023887546968,
+      0.094649613434118
+     ],
+     "rel_l2_near": [
+      0.5569458287662556,
+      0.12376446158799227
+     ],
+     "rel_l2_far": [
+      0.8779461027454207,
+      0.04862521108709497
+     ],
+     "heldout_excess_nll": [
+      0.5826503082612535,
+      0.18192327308786027
+     ],
+     "seconds": [
+      0.7268750549999936,
+      0.8484824654161465
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      0.9820871964812865,
+      0.07149049116150136
+     ],
+     "rel_l2": [
+      0.9979340587196615,
+      0.2871166004028103
+     ],
+     "rel_l2_near": [
+      0.8103978524473721,
+      0.2572019288275523
+     ],
+     "rel_l2_far": [
+      1.590166249084565,
+      0.7453677318969646
+     ],
+     "heldout_excess_nll": [
+      0.5231816535273746,
+      0.47940531105824363
+     ],
+     "seconds": [
+      51.15788047662511,
+      16.35285786512611
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      0.979623246467543,
+      0.07332879313511337
+     ],
+     "rel_l2": [
+      1.2836659597094704,
+      0.12635187630114578
+     ],
+     "rel_l2_near": [
+      1.1459629049070976,
+      0.22941695906747608
+     ],
+     "rel_l2_far": [
+      1.7240833459874774,
+      0.6375760274085225
+     ],
+     "heldout_excess_nll": [
+      0.539387294529801,
+      0.33634558536178727
+     ],
+     "seconds": [
+      56.735510718125,
+      14.88402237237152
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0402146180019263,
+      0.0640623947578974
+     ],
+     "rel_l2": [
+      0.6700909481580181,
+      0.07489572902477672
+     ],
+     "rel_l2_near": [
+      0.5313358374940362,
+      0.11543498872066872
+     ],
+     "rel_l2_far": [
+      1.1421034639031604,
+      0.18734857156297294
+     ],
+     "heldout_excess_nll": [
+      0.11774332179460334,
+      0.03835498519083698
+     ],
+     "seconds": [
+      36.498116168375134,
+      10.443275898917458
+     ]
+    }
+   }
+  },
+  "perim_nonexp_12h": {
+   "replicates": 8,
+   "crossing_hours": 25.35237534407048,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      0.31825795211367547,
+      0.023566113889002024
+     ],
+     "rel_l2": [
+      0.6241827778196887,
+      0.03782222979105923
+     ],
+     "rel_l2_near": [
+      0.5591285317690764,
+      0.06376677975752014
+     ],
+     "rel_l2_far": [
+      0.8932565385361637,
+      0.07030191153779695
+     ],
+     "heldout_excess_nll": [
+      -1.0533693948860672,
+      0.5881019386282071
+     ],
+     "seconds": [
+      0.013813939124986518,
+      0.006730541299004493
+     ],
+     "mcem_better_nll": "2/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.2879104492975104,
+      0.020063033128505235
+     ],
+     "rel_l2": [
+      0.6550718440620908,
+      0.024672576719184037
+     ],
+     "rel_l2_near": [
+      0.5784262241851104,
+      0.03491447439102376
+     ],
+     "rel_l2_far": [
+      0.9731385548149444,
+      0.024980951209207597
+     ],
+     "heldout_excess_nll": [
+      -0.8346679805767004,
+      0.815099351568073
+     ],
+     "seconds": [
+      0.9759296542500806,
+      0.4537905880269934
+     ],
+     "mcem_better_nll": "5/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      0.27800999845749486,
+      0.016053469934243635
+     ],
+     "rel_l2": [
+      0.6663266418548606,
+      0.024052068555265167
+     ],
+     "rel_l2_near": [
+      0.5925829772303619,
+      0.035728193941110466
+     ],
+     "rel_l2_far": [
+      0.9758497290966672,
+      0.01815857451328474
+     ],
+     "heldout_excess_nll": [
+      -0.0931218340234895,
+      0.5074074863689383
+     ],
+     "seconds": [
+      3.5822943516250803,
+      1.3369901129263015
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      0.31769473556195593,
+      0.02004833181828614
+     ],
+     "rel_l2": [
+      0.6463963675134872,
+      0.03844482059798926
+     ],
+     "rel_l2_near": [
+      0.574210754998868,
+      0.05869037763155884
+     ],
+     "rel_l2_far": [
+      0.945615714427075,
+      0.03123868785721599
+     ],
+     "heldout_excess_nll": [
+      -0.30354498679617326,
+      0.3315597333497025
+     ],
+     "seconds": [
+      1.6336328083751255,
+      0.1480318884844239
+     ],
+     "mcem_better_nll": "7/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      0.2902870590606593,
+      0.01991194271047439
+     ],
+     "rel_l2": [
+      0.649443374207791,
+      0.024729256838645457
+     ],
+     "rel_l2_near": [
+      0.5702628538691714,
+      0.03912208044426282
+     ],
+     "rel_l2_far": [
+      0.9741690845419458,
+      0.032437122429298935
+     ],
+     "heldout_excess_nll": [
+      -0.8885324015267084,
+      0.7618481809609938
+     ],
+     "seconds": [
+      1.7229484767499912,
+      0.47274216108719214
+     ]
+    }
+   }
+  },
+  "perim_spotting_12h": {
+   "replicates": 8,
+   "crossing_hours": 6.2785237722382305,
+   "estimators": {
+    "plugin": {
+     "total_rate_ratio": [
+      0.8786776090148016,
+      0.02679774034098939
+     ],
+     "rel_l2": [
+      0.7485837341617843,
+      0.05401331395929601
+     ],
+     "rel_l2_near": [
+      0.700029388705588,
+      0.04888644905697688
+     ],
+     "rel_l2_far": [
+      0.9713934657679665,
+      0.10338768689151348
+     ],
+     "heldout_excess_nll": [
+      0.2843015151361627,
+      0.07591567991187664
+     ],
+     "seconds": [
+      0.007056429249985285,
+      0.0033737336256502567
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "bracket_composite": {
+     "total_rate_ratio": [
+      0.9248806938945718,
+      0.008283114250613254
+     ],
+     "rel_l2": [
+      0.5030920980030018,
+      0.0895771116602778
+     ],
+     "rel_l2_near": [
+      0.47517022293971306,
+      0.08554243456203199
+     ],
+     "rel_l2_far": [
+      0.6234062648387972,
+      0.17028226422990717
+     ],
+     "heldout_excess_nll": [
+      0.12019606492926116,
+      0.05516589578869939
+     ],
+     "seconds": [
+      4.567411521374993,
+      1.2745958629901861
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "meanfield_nll": {
+     "total_rate_ratio": [
+      1.1456139802344503,
+      0.01691406573692578
+     ],
+     "rel_l2": [
+      1.3458394504354185,
+      0.1585570937400532
+     ],
+     "rel_l2_near": [
+      0.8075183247109465,
+      0.11996994650828009
+     ],
+     "rel_l2_far": [
+      2.851879329586292,
+      0.39701014935905493
+     ],
+     "heldout_excess_nll": [
+      0.29642909784713783,
+      0.08417056964856057
+     ],
+     "seconds": [
+      53.641297943249924,
+      18.63178815165852
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "meanfield_brier": {
+     "total_rate_ratio": [
+      1.1464657989998568,
+      0.024464451218457764
+     ],
+     "rel_l2": [
+      1.3234059185232925,
+      0.13763546232111454
+     ],
+     "rel_l2_near": [
+      0.7739862781320712,
+      0.10015978349272528
+     ],
+     "rel_l2_far": [
+      2.8331848479170363,
+      0.38885468394963174
+     ],
+     "heldout_excess_nll": [
+      0.19013826864194483,
+      0.0345362906732028
+     ],
+     "seconds": [
+      31.678731074249924,
+      8.53750245930536
+     ],
+     "mcem_better_nll": "8/8"
+    },
+    "mcem": {
+     "total_rate_ratio": [
+      1.0979501533461926,
+      0.014850479716546211
+     ],
+     "rel_l2": [
+      0.5903586611568112,
+      0.0766896450979763
+     ],
+     "rel_l2_near": [
+      0.46209130961490263,
+      0.10231318458079922
+     ],
+     "rel_l2_far": [
+      1.0222370608954785,
+      0.18602878264361092
+     ],
+     "heldout_excess_nll": [
+      0.03872525307930391,
+      0.02031928122018291
+     ],
+     "seconds": [
+      54.24531143337498,
+      11.560576831285598
+     ]
+    }
+   }
+  }
+ }
+}

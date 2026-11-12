@@ -65,5 +65,7 @@ jobs:
         run: python tools/verify_postmerge_preservation.py
       - name: Forecast and cross-track regression suites
         run: python -B -m pytest -q -p no:cacheprovider forecast/tests tests/postmerge
+      - name: Fetch frozen routing inputs (10.9 MB release archive, SHA-256 and per-file identity checked)
+        run: python tools/fetch_routing_inputs.py
       - name: Radiation, export, scenario, SIPP and truth suites
         run: python -B -m pytest -q -p no:cacheprovider experimental/flame-front-radiation/tests experimental/scenario-members/tests experimental/sipp-routing/tests experimental/synthetic-truth/tests

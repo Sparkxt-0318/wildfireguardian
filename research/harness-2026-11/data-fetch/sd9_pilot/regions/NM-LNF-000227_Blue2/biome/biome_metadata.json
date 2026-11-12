@@ -1,0 +1,34 @@
+{
+  "event_id": "NM-LNF-000227_Blue2",
+  "country": "US",
+  "epsg": 5070,
+  "height": 29,
+  "width": 35,
+  "pixel_size_m": 375,
+  "file": "regions/NM-LNF-000227_Blue2/biome/biome_class_375m.tif",
+  "sha256": "b7bdebf000dda6ecf34c7b96e631d56ba0536a3c3c7409be92966409680cec4c",
+  "biome_codes": [
+    5
+  ],
+  "class_pixel_counts": {
+    "5": 1015
+  },
+  "total_pixels": 1015,
+  "valid_pixels": 1015,
+  "missing_pixels": 0,
+  "valid_fraction": 1.0,
+  "valid_arrival_pixels": 211,
+  "biome_covered_arrival_pixels": 211,
+  "biome_missing_arrival_pixels": 0,
+  "conflicting_biome_pixels": 0,
+  "repaired_ecoregion_ids": [
+    428
+  ],
+  "retained_ecoregion_ids": [
+    346
+  ],
+  "exact_reference_grid": true,
+  "all_pixel_centres_checked": true,
+  "independent_projected_rasterization_disagreements": 0,
+  "passed": true
+}

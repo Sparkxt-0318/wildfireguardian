@@ -1,0 +1,589 @@
+{
+ "summary": {
+  "missions": 15,
+  "fire_limited": 7,
+  "crop_or_domain_limited": 8,
+  "published_clearance_under_600m": 7,
+  "later_route_with_much_larger_clearance": [
+   {
+    "mission": "miryang_2022__20220531T100000Z_FN1",
+    "earliest_m": 592.0815894947435,
+    "later_m": 832.7962859098334,
+    "extra_s": 148,
+    "deadline": "a0+300"
+   },
+   {
+    "mission": "uljin_2022__20220304T030000Z_FX1",
+    "earliest_m": 506.4893474072676,
+    "later_m": 680.0988354479664,
+    "extra_s": 140,
+    "deadline": "a0+300"
+   },
+   {
+    "mission": "uljin_2022__20220304T120000Z_FW2",
+    "earliest_m": 179.90219814237207,
+    "later_m": 411.86394262729397,
+    "extra_s": 19,
+    "deadline": "a0+60"
+   }
+  ],
+  "time_shift_contact_margin_finite": 1
+ },
+ "rows": [
+  {
+   "mission": "hongseong_2023__20230402T140000Z_FW2",
+   "published_arrival": 1459,
+   "published_clearance_m": 295.0417241196786,
+   "published_limit": "CROP/ORIGIN",
+   "domain_distance_m": 46.386387733975425,
+   "same_arrival_bracket_m": [
+    295.0417241196786,
+    295.166015625
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     295.0417241196786,
+     0
+    ],
+    "a0+300": [
+     295.0417241196786,
+     0
+    ],
+    "a0+600": [
+     295.0417241196786,
+     0
+    ],
+    "horizon": [
+     295.0417241196786,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "hongseong_2023__20230402T230000Z_FD1",
+   "published_arrival": 531,
+   "published_clearance_m": 857.5218448932283,
+   "published_limit": "CROP",
+   "domain_distance_m": 302.77110418397933,
+   "same_arrival_bracket_m": [
+    857.5218448932283,
+    857.666015625
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     857.5218448932283,
+     0
+    ],
+    "a0+300": [
+     857.5218448932283,
+     0
+    ],
+    "a0+600": [
+     857.5218448932283,
+     0
+    ],
+    "horizon": [
+     857.5218448932283,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "miryang_2022__20220531T100000Z_FN1",
+   "published_arrival": 1142,
+   "published_clearance_m": 592.0815894947435,
+   "published_limit": "CROP",
+   "domain_distance_m": 26.700556196505204,
+   "same_arrival_bracket_m": [
+    592.0815894947435,
+    592.529296875
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     592.0815894947435,
+     0
+    ],
+    "a0+300": [
+     832.7962859098334,
+     148
+    ],
+    "a0+600": [
+     832.7962859098334,
+     148
+    ],
+    "horizon": [
+     832.7962859098334,
+     148
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "miryang_2022__20220601T020000Z_FW1",
+   "published_arrival": 1270,
+   "published_clearance_m": 1610.4834026904457,
+   "published_limit": "CROP",
+   "domain_distance_m": 2.568269865354523,
+   "same_arrival_bracket_m": [
+    1780.25,
+    1781.25
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     1781.1166436370677,
+     0
+    ],
+    "a0+300": [
+     1781.1166436370677,
+     0
+    ],
+    "a0+600": [
+     1781.1166436370677,
+     0
+    ],
+    "horizon": [
+     1781.1166436370677,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "published_arrival": 2460,
+   "published_clearance_m": 3122.6818993557245,
+   "published_limit": "CROP",
+   "domain_distance_m": 1238.7018164726906,
+   "same_arrival_bracket_m": [
+    3122.6818993557245,
+    3123.046875
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     3122.6818993557245,
+     0
+    ],
+    "a0+300": [
+     3122.6818993557245,
+     0
+    ],
+    "a0+600": [
+     3122.6818993557245,
+     0
+    ],
+    "horizon": [
+     3122.6818993557245,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "published_arrival": 2540,
+   "published_clearance_m": 111.50923558470492,
+   "published_limit": "FIRE",
+   "domain_distance_m": 3462.435555899283,
+   "same_arrival_bracket_m": [
+    111.50923558470492,
+    112.060546875
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     111.50923558470492,
+     0
+    ],
+    "a0+300": [
+     111.50923558470492,
+     0
+    ],
+    "a0+600": [
+     111.50923558470492,
+     0
+    ],
+    "horizon": [
+     111.50923558470492,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025__20250324T090000Z_FL2",
+   "published_arrival": 2143,
+   "published_clearance_m": 287.049431740179,
+   "published_limit": "FIRE",
+   "domain_distance_m": 1266.4372582533397,
+   "same_arrival_bracket_m": [
+    287.049431740179,
+    287.109375
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     287.049431740179,
+     0
+    ],
+    "a0+300": [
+     287.049431740179,
+     0
+    ],
+    "a0+600": [
+     287.049431740179,
+     0
+    ],
+    "horizon": [
+     287.049431740179,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025__20250325T170000Z_FW1",
+   "published_arrival": 1064,
+   "published_clearance_m": 1490.6916425374734,
+   "published_limit": "FIRE",
+   "domain_distance_m": 8756.967473074794,
+   "same_arrival_bracket_m": [
+    1529.76171875,
+    1530.76171875
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     1530.7017377279699,
+     0
+    ],
+    "a0+300": [
+     1530.7017377279699,
+     0
+    ],
+    "a0+600": [
+     1530.7017377279699,
+     0
+    ],
+    "horizon": [
+     1530.7017377279699,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FD1",
+   "published_arrival": 1589,
+   "published_clearance_m": 3166.2325629810675,
+   "published_limit": "CROP",
+   "domain_distance_m": 2810.8996168992016,
+   "same_arrival_bracket_m": [
+    3166.2325629810675,
+    3166.259765625
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     3166.2325629810675,
+     0
+    ],
+    "a0+300": [
+     3166.2325629810675,
+     0
+    ],
+    "a0+600": [
+     3166.2325629810675,
+     0
+    ],
+    "horizon": [
+     3166.2325629810675,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FX1",
+   "published_arrival": 3119,
+   "published_clearance_m": 506.4893474072676,
+   "published_limit": "FIRE",
+   "domain_distance_m": 860.1051714580972,
+   "same_arrival_bracket_m": [
+    506.4893474072676,
+    506.8359375
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     506.4893474072676,
+     0
+    ],
+    "a0+300": [
+     680.0988354479664,
+     140
+    ],
+    "a0+600": [
+     680.0988354479664,
+     140
+    ],
+    "horizon": [
+     680.0988354479664,
+     140
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uljin_2022__20220304T060000Z_FL1",
+   "published_arrival": 2067,
+   "published_clearance_m": 1617.7881202065382,
+   "published_limit": "CROP",
+   "domain_distance_m": 914.9687868261244,
+   "same_arrival_bracket_m": [
+    1617.7881202065382,
+    1617.919921875
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     1622.3465889110932,
+     1
+    ],
+    "a0+300": [
+     1622.3465889110932,
+     1
+    ],
+    "a0+600": [
+     1622.3465889110932,
+     1
+    ],
+    "horizon": [
+     1622.3465889110932,
+     1
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "uljin_2022__20220304T120000Z_FW2",
+   "published_arrival": 1655,
+   "published_clearance_m": 179.90219814237207,
+   "published_limit": "FIRE",
+   "domain_distance_m": 5520.496333365794,
+   "same_arrival_bracket_m": [
+    179.90219814237207,
+    412.353515625
+   ],
+   "contact_time_margin_s": 2320.052785846918,
+   "best_within_600s": {
+    "a0+60": [
+     411.86394262729397,
+     19
+    ],
+    "a0+300": [
+     411.86394262729397,
+     19
+    ],
+    "a0+600": [
+     411.86394262729397,
+     19
+    ],
+    "horizon": [
+     411.86394262729397,
+     19
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+   "published_arrival": 2512,
+   "published_clearance_m": 503.65095589100383,
+   "published_limit": "FIRE",
+   "domain_distance_m": 3056.7628648888785,
+   "same_arrival_bracket_m": [
+    503.65095589100383,
+    503.90625
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     503.65095589100383,
+     0
+    ],
+    "a0+300": [
+     503.65095589100383,
+     0
+    ],
+    "a0+600": [
+     503.65095589100383,
+     0
+    ],
+    "horizon": [
+     503.65095589100383,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+   "published_arrival": 1922,
+   "published_clearance_m": 640.7793312730695,
+   "published_limit": "FIRE",
+   "domain_distance_m": 3668.198968840996,
+   "same_arrival_bracket_m": [
+    640.7793312730695,
+    640.869140625
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     640.7793312730695,
+     0
+    ],
+    "a0+300": [
+     640.7793312730695,
+     0
+    ],
+    "a0+600": [
+     640.7793312730695,
+     0
+    ],
+    "horizon": [
+     640.7793312730695,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  },
+  {
+   "mission": "yeongdeok_2025__20250326T080000Z_FW1",
+   "published_arrival": 896,
+   "published_clearance_m": 12870.783980097476,
+   "published_limit": "CROP",
+   "domain_distance_m": 11.860028135590255,
+   "same_arrival_bracket_m": [
+    12870.783980097476,
+    null
+   ],
+   "contact_time_margin_s": Infinity,
+   "best_within_600s": {
+    "a0+60": [
+     12870.783980097476,
+     0
+    ],
+    "a0+300": [
+     12870.783980097476,
+     0
+    ],
+    "a0+600": [
+     12870.783980097476,
+     0
+    ],
+    "horizon": [
+     12870.783980097476,
+     0
+    ]
+   },
+   "verified": {
+    "a0+0": "CERTIFIED_ADMISSIBLE",
+    "a0+60": "CERTIFIED_ADMISSIBLE",
+    "a0+300": "CERTIFIED_ADMISSIBLE",
+    "a0+600": "CERTIFIED_ADMISSIBLE",
+    "horizon": "CERTIFIED_ADMISSIBLE"
+   }
+  }
+ ]
+}

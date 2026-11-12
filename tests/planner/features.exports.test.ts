@@ -368,15 +368,16 @@ describe('dispatchListCSV', () => {
       '출처 태그',
       '판정',
       '출발 마감 KST',
-      '연속 확인 기준',
+      '빈 구간 뒤 점검된 출발 KST (마감 아님)',
       '대피소',
       '도착 KST',
       '시나리오 입력 시각',
       'API 모드',
       '비고',
+      '마감 근거 (모델 · 1시간 재현)',
     ]);
     expect(rows.length).toBe(1 + 5);
-    for (const r of rows) expect(r.length).toBe(12);
+    for (const r of rows) expect(r.length).toBe(13);
   });
 
   it('quotes per RFC 4180 and round-trips names with commas, quotes and newlines', () => {
@@ -411,9 +412,13 @@ describe('dispatchListCSV', () => {
     expect(noroute[11]).toContain('차량 대피 경로를 확인하지 못함');
     const late = byId['o:checked-late']!;
     expect(late[4]).toBe('확인된 경로');
-    expect(late[5]).toBe('2025-03-24 18:50');
-    expect(late[6]).toBe('2025-03-24 18:30');
-    expect(late[8]).toBe('2025-03-24 18:58');
+    // Iris E: the deadline is the contiguous time (18:30); the later checked departure after the gap (18:50) is in its
+    // own column, labelled not the deadline; shelter and arrival of the 18:50 route are not exported against 18:30
+    expect(late[5]).toBe('2025-03-24 18:30');
+    expect(late[6]).toBe('2025-03-24 18:50');
+    expect(late[7]).toBe('');
+    expect(late[8]).toBe('');
+    expect(late[11]).toContain('그 뒤 점검된 출발은 마감 아님');
     expect(late[9]).toBe('2025-03-24 18:00 KST');
     expect(late[10]).toBe('사전 계산 캐시 (MOCK)');
     expect(late[11]).toContain('MOCK');

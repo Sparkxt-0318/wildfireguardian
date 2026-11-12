@@ -15,6 +15,8 @@ import { TimeSlider } from './components/TimeSlider';
 import { MapView } from './map/MapView';
 import { closeDialog, initApp, openDialog } from './state/controller';
 import { buildExportInput, buildPlanSheets } from './state/featureData';
+import { findCacheEntry } from './api/cache';
+import { useProvenanceFile } from './features/provenance/load';
 import { useMockActive, useRegionEntry } from './state/selectors';
 import { DRAWN_SCENARIO, getState, useStore } from './state/store';
 
@@ -32,13 +34,18 @@ function Dialogs() {
   const drawn = useStore((s) => s.drawn);
   const region = useRegionEntry();
   const mock = useMockActive();
+  // deadline provenance of the recorded cache on screen (stream 3; staff outputs only)
+  const regionId = useStore((s) => s.regionId);
+  const cacheIndex = useStore((s) => s.cacheIndex);
+  const provEntry = useMemo(() => (regionId && scenarioId && scenarioId !== DRAWN_SCENARIO ? findCacheEntry(cacheIndex, regionId, scenarioId) : null), [cacheIndex, regionId, scenarioId]);
+  const provenance = useProvenanceFile(provEntry);
   const sheets = useMemo(
-    () => (dialogs.planSheet ? buildPlanSheets(getState(), t, lang) : []),
-    [dialogs.planSheet, plans, routes, travelOnly, scenarioId, drawn.zones, drawn.settings, drawn.submitted, t, lang],
+    () => (dialogs.planSheet ? buildPlanSheets(getState(), t, lang, provenance) : []),
+    [dialogs.planSheet, plans, routes, travelOnly, scenarioId, drawn.zones, drawn.settings, drawn.submitted, t, lang, provenance],
   );
   const exportInput = useMemo(
-    () => (dialogs.export ? buildExportInput(getState(), t, lang) : null),
-    [dialogs.export, plans, routes, travelOnly, scenarioId, selectedOriginId, drawn.zones, drawn.settings, drawn.submitted, t, lang],
+    () => (dialogs.export ? buildExportInput(getState(), t, lang, provenance) : null),
+    [dialogs.export, plans, routes, travelOnly, scenarioId, selectedOriginId, drawn.zones, drawn.settings, drawn.submitted, t, lang, provenance],
   );
   const label = fireInputBanner(scenarioId === DRAWN_SCENARIO ? { type: 'spread_zones' } : { type: 'recorded' }, region?.fireYear ?? null, lang);
   return (

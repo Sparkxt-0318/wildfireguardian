@@ -5,7 +5,8 @@
 import type { Feature, FeatureCollection, LineString, MultiPolygon, Polygon } from 'geojson';
 import { compactUtc, kstDateTime } from '../domain/clock';
 import { fireInputBanner } from '../domain/labels';
-import { haversineM, sortByUrgency } from '../domain/plan';
+import { deadlineHeadline, haversineM, headlineDepartureS, sortByUrgency } from '../domain/plan';
+import { staffProvenance, type ProvenanceFile } from '../features/provenance/model';
 import type { Attempt, CacheData, OriginPlan, Place, ProvenanceInfo, RouteDetail } from '../domain/types';
 import { rsgTags, sortDrawn, zonesFeatureCollection, zoneSummary, ZONE_KEYS, type RsgTag } from '../domain/zones';
 import type { Lang, TFunction } from '../i18n';
@@ -193,14 +194,20 @@ export interface RowSource {
   route: (jobId: string | null | undefined) => RouteDetail | null;
   travelOnly: (originId: string) => RouteDetail | null;
   hostFallback: string | null;
+  /** deadline provenance of this recorded scenario's cache (stream 3); null/undefined for drawn zones or absent */
+  provenance?: ProvenanceFile | null;
 }
 
 /** One plan-sheet scenario row of an origin (exported for tests). */
 export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, t: TFunction): PlanSheetScenario {
   const plan = src.plans[o.id];
-  const route = src.route(plan?.best?.jobId);
+  // the row follows the staff headline time (Iris E): the route checked at the contiguous time T, not the later
+  // departure after a gap; with no headline time (partial) no route is shown as the plan
+  const T = headlineDepartureS(plan);
+  const shown = !plan ? undefined : plan.bestVerdict !== 'checked_route' ? plan.best : T === null ? undefined : T === plan.latestSafeDepartureS ? plan.best : plan.sweep.find((c) => c.offsetS === T)?.best;
+  const route = src.route(shown?.jobId);
   const travel = src.travelOnly(o.id);
-  const dest = plan?.best ? byId.get(plan.best.destinationId) : null;
+  const dest = shown ? byId.get(shown.destinationId) : null;
   const compute = computeOf(plan, route);
   const reason = plan && plan.bestVerdict === 'unresolved' ? bestReason(plan) : null;
   return {
@@ -212,9 +219,9 @@ export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, 
     contiguousSafeDepartureS: plan?.contiguousSafeDepartureS ?? null,
     sweep: plan ? sweepCells(plan) : [],
     shelter: dest
-      ? { id: dest.id, name: dest.name, sourceTag: sourceTag(dest), lon: dest.lon, lat: dest.lat, arrivalS: plan?.best?.arrivalS ?? null, categoryLabel: categoryLabel(dest, t) }
+      ? { id: dest.id, name: dest.name, sourceTag: sourceTag(dest), lon: dest.lon, lat: dest.lat, arrivalS: shown?.arrivalS ?? null, categoryLabel: categoryLabel(dest, t) }
       : null,
-    departureS: plan?.latestSafeDepartureS ?? null,
+    departureS: plan?.bestVerdict === 'checked_route' ? T : (plan?.latestSafeDepartureS ?? null),
     route: routeFeature(route),
     travelOnlyRoute: travel?.coordinates && travel.coordinates.length > 1 ? { type: 'Feature', geometry: { type: 'LineString', coordinates: travel.coordinates }, properties: { policy: 'travel_only' } } : null,
     travelOnlyFullPolicyPass: travel?.fullPolicy?.pass ?? null,
@@ -227,7 +234,19 @@ export function scenarioRow(src: RowSource, o: Place, byId: Map<string, Place>, 
     reasonCode: reason?.code ?? null,
     rawStatus: reason?.rawStatus ?? null,
     note: plan?.note ?? null,
+    deadlineProvenance: src.provenance === undefined ? null : sheetProvenance(plan, o.id, src.provenance),
   };
+}
+
+function exportProvenance(plan: OriginPlan | undefined, id: string, file: ProvenanceFile | null): ExportOrigin['deadlineProvenance'] {
+  const p = staffProvenance(deadlineHeadline(plan), id, file, plan ?? null);
+  // the kind only: no later value in any form, raw seconds included (orchestrator decision)
+  return p.kind === 'none' ? null : { kind: p.kind };
+}
+
+function sheetProvenance(plan: OriginPlan | undefined, id: string, file: ProvenanceFile | null): PlanSheetScenario['deadlineProvenance'] {
+  const p = staffProvenance(deadlineHeadline(plan), id, file, plan ?? null);
+  return p.kind === 'none' ? null : p.kind;
 }
 
 function cacheRoute(routes: Record<string, RouteDetail>, cache: CacheData | null) {
@@ -239,7 +258,7 @@ function cacheRoute(routes: Record<string, RouteDetail>, cache: CacheData | null
  * drawn-zone result as its own row labelled with the issue time, plus — when the recorded results
  * of the same base input time were loaded before switching — that recorded row for comparison.
  */
-export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): PlanSheetData[] {
+export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang, provenance?: ProvenanceFile | null): PlanSheetData[] {
   const region = regionEntry(s);
   if (!region) return [];
   const drawn = s.scenarioId === DRAWN_SCENARIO;
@@ -289,6 +308,7 @@ export function buildPlanSheets(s: PlannerState, t: TFunction, lang: Lang): Plan
       route: routeOf,
       travelOnly: (id) => travelOnlyDetail(s, id),
       hostFallback: hostLabel(s.cache?.meta.computeHost ?? null, t),
+      provenance,
     });
   }
   // same order as the origin list (drawn: inside zones first, then urgency)
@@ -369,7 +389,7 @@ function exportRoute(s: PlannerState, t: TFunction, lang: Lang, d: RouteDetail, 
   };
 }
 
-export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): ExportInput | null {
+export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang, provenance?: ProvenanceFile | null): ExportInput | null {
   const region = regionEntry(s);
   const drawn = s.scenarioId === DRAWN_SCENARIO;
   const set = currentScenarioSet(s);
@@ -388,6 +408,7 @@ export function buildExportInput(s: PlannerState, t: TFunction, lang: Lang): Exp
       rsgLabel: rsgText(rsg.get(o.id), t),
       rsg: rsg.get(o.id) ?? null,
       urgencyRank: null,
+      deadlineProvenance: drawn || provenance === undefined ? null : exportProvenance(plan, o.id, provenance),
       plan: plan
         ? {
             bestVerdict: plan.bestVerdict,

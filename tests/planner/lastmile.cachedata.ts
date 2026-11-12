@@ -29,6 +29,9 @@ export interface BoothCache {
   cachedOrigins: number;
   /** research origins of the scenario (excluded from the inputs) */
   researchOrigins: number;
+  /** the planner's own plans per origin (as the app holds them), for tests that compare staff surfaces */
+  plans: Record<string, OriginPlan>;
+  places: ReturnType<typeof parsePlaces>;
 }
 
 export function loadBoothCaches(): BoothCache[] {
@@ -63,7 +66,7 @@ export function loadBoothCaches(): BoothCache[] {
       source: 'cache',
       generatedAtIso: FIXED_GENERATED_AT,
     });
-    out.push({ entry, inputs, cachedOrigins, researchOrigins });
+    out.push({ entry, inputs, cachedOrigins, researchOrigins, plans, places });
   }
   return out;
 }

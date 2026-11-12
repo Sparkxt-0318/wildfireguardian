@@ -14,7 +14,8 @@
  */
 import type { FeatureCollection } from 'geojson';
 import { compactUtc, parseUtc } from '../../domain/clock';
-import { compareUrgency, type UrgencyItem } from '../../domain/plan';
+import { compareUrgency, headlineDepartureS, type UrgencyItem } from '../../domain/plan';
+import { PROVENANCE_TAG } from '../provenance/model';
 import type { Verdict } from '../../domain/types';
 import { compareDrawn, type DrawnUrgencyItem } from '../../domain/zones';
 import { kstDateClock, kstStamp, slug } from '../shared/format';
@@ -501,7 +502,7 @@ export function routeToKML(
 export const CSV_BOM = '﻿';
 
 export const CSV_COLUMNS: Record<Lang, string[]> = {
-  ko: ['우선순위', '출발지', '구분', '출처 태그', '판정', '출발 마감 KST', '연속 확인 기준', '대피소', '도착 KST', '시나리오 입력 시각', 'API 모드', '비고'],
+  ko: ['우선순위', '출발지', '구분', '출처 태그', '판정', '출발 마감 KST', '빈 구간 뒤 점검된 출발 KST (마감 아님)', '대피소', '도착 KST', '시나리오 입력 시각', 'API 모드', '비고', '마감 근거 (모델 · 1시간 재현)'],
   en: [
     'Priority',
     'Origin',
@@ -509,12 +510,13 @@ export const CSV_COLUMNS: Record<Lang, string[]> = {
     'Source tag',
     'Verdict',
     'Depart by (KST)',
-    'Contiguous basis (KST)',
+    'Later checked departure after a gap (KST, not the deadline)',
     'Shelter',
     'Arrival (KST)',
     'Scenario input time',
     'API mode',
     'Notes',
+    'Deadline set by (model · 1-hour replay)',
   ],
 };
 
@@ -580,9 +582,15 @@ function originNotes(input: ExportInput, o: ExportOrigin, lang: Lang): string {
     if (r) notes.push(r);
   }
   if (v === 'checked_route' && o.plan) {
-    const { latestSafeDepartureS: l, contiguousSafeDepartureS: c } = o.plan;
-    if (c === null) notes.push(lang === 'en' ? 'first departure time not checked — no contiguous basis' : '첫 출발 시각부터 확인되지 않음 — 연속 확인 기준 없음');
-    else if (l !== null && c < l) notes.push(lang === 'en' ? 'some departures before the deadline are not checked routes' : '마감 이전 일부 출발 시각은 확인된 경로 아님');
+    const t = headlineDepartureS(o.plan);
+    const l = o.plan.latestSafeDepartureS;
+    if (t === null) notes.push(lang === 'en' ? 'first departure time computed has no checked route — no deadline' : '첫 계산 출발 시각에 확인된 경로 없음 — 출발 마감 없음');
+    else if (l !== null && t < l)
+      notes.push(
+        lang === 'en'
+          ? 'the departure right after the deadline has no checked route; a later checked departure is not the deadline; shelter and arrival of the route at the deadline are not in this export'
+          : '마감 바로 뒤 출발 시각은 확인된 경로 없음 · 그 뒤 점검된 출발은 마감 아님 · 마감 시각 경로의 대피소·도착은 이 파일에 없음',
+      );
   }
   const gap = entryDistance(o);
   if (o.entry && gap !== null && gap > 0) {
@@ -610,11 +618,13 @@ export function dispatchListCSV(input: ExportInput, opts: { lang?: Lang } = {}):
     const plan = o.plan;
     const v: Verdict = plan?.bestVerdict ?? 'unresolved';
     const checked = v === 'checked_route' && plan !== null;
-    const best = checked ? plan!.best : null;
+    // the deadline is the staff headline time (contiguous, Iris E); `best` belongs to the latest checked departure, so
+    // it is exported only when that IS the deadline (fail closed in a gap or partial case)
+    const t = checked ? headlineDepartureS(plan!) : null;
+    const later = checked && plan!.latestSafeDepartureS !== null && (t === null || plan!.latestSafeDepartureS > t) ? plan!.latestSafeDepartureS : null;
+    const best = checked && t !== null && later === null ? plan!.best : null;
     const unnamed = lang === 'en' ? 'Unnamed' : '이름 없음';
     const shelter = best ? `${best.shelter.name || best.shelter.displayName || unnamed} (${best.shelter.sourceTag})` : '';
-    let contiguous = '';
-    if (checked) contiguous = plan!.contiguousSafeDepartureS === null ? (lang === 'en' ? 'none' : '없음') : kstDateClock(base, plan!.contiguousSafeDepartureS);
     lines.push(
       csvRow([
         i + 1,
@@ -622,13 +632,15 @@ export function dispatchListCSV(input: ExportInput, opts: { lang?: Lang } = {}):
         o.categoryLabel,
         `${o.sourceTag} · ${o.id}`,
         pick(VERDICT_LABEL[v], lang),
-        checked ? kstDateClock(base, plan!.latestSafeDepartureS) : '',
-        contiguous,
+        checked ? (t === null ? (lang === 'en' ? 'none' : '없음') : kstDateClock(base, t)) : '',
+        later === null ? '' : kstDateClock(base, later),
         shelter,
         best ? kstDateClock(base, best.arrivalS) : '',
         scenarioTime,
         apiModeLabel(input.provenance, lang),
         originNotes(input, o, lang),
+        // the kind only: no later value in any form, raw seconds included (orchestrator)
+        o.deadlineProvenance ? PROVENANCE_TAG[o.deadlineProvenance.kind][lang] : '',
       ]),
     );
   });
