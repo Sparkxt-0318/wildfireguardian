@@ -50,6 +50,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 42 | 2026-11-12 | W-KIT W6 single checkpoint | Clara | 344657e | issuer guard passes 18/21 ko + 11/15 en instruction-shaped names, shown in 531/531 real drill sets with 0 violations; all else reproduces (1,131 sets), 415/415 | own adversarial names + e2e probe + independent property probes | FAIL |
 | 43 | 2026-11-12 | STAFF-HEADLINE (Iris E) | Clara | b45a94b | own sweep oracle = headline = kit = card in 1,131/1,131; changed syn 131 = 53 gap + 78 first-not-checked; 405/405; static smoke 119/119 | fresh npm ci, oracle, test-diff review, smoke | PASS WITH NOTES |
 | 44 | 2026-11-12 | Tier R guard notes delta | Thomas | c11eccd0 | 11/11; US file refused; real coverage unchanged; Fukuoka-only file still covers KFS_02 | tests + synthetic probes | PASS WITH NOTES |
+| 45 | 2026-11-12 | F-3.4 REQUEST 8 clean 1-hour profile | Priya | db2c516 | (a)-(e) reproduce from rows; radiation 30.9% by raw timers; search 38.1% stage basis vs 39.9% timers; fresh warm spot hit=True | summarize.py + own recomputation + fresh kit spot run | PASS WITH NOTES |
+| 46 | 2026-11-12 | F-3.4 REQUEST 9 option B negative | Priya | db2c516 | snap10 20/20 +8.3%, snap6 19/20 +5.6% from rows; fresh Uljin FX1 3119 both, +22% wall; ADAPTIVE reason not reproduced (wall cap, host-dependent) | own recomputation + fresh base/snap10 runs | PASS WITH NOTES |
 
 ## Notes
 
@@ -280,4 +282,10 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **43. STAFF-HEADLINE @ b45a94b**: N1: smoke regenerates 12 tracked screenshots; N2: visual styling not inspected.
 
 **44. c11eccd0**: suggested a packet-grid-bounds check instead of KOREA_BBOX; suggested regenerating tier_r.json or recording that it was produced at b2d9eba.
+
+**45-46. Priya @ db2c516**:
+- 45: warm 59.1 s excludes 5 prime runs (73.5 s with them); cold 81 s: 98/100 on time, 5 UNRESOLVED.
+- 46: ADAPTIVE reason comes from the hybrid wall cap (hybrid_radiation.py:182-184).
+- 46: snap10 FL2 has no shares (not completed); snap10 FX2 reason changes in one rep.
+- 46: FL2 varies across runs and modes, not within the plain control.
 
