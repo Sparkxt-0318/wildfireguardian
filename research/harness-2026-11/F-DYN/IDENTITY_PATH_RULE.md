@@ -65,3 +65,10 @@ Finding by Mira, relayed by the orchestrator on 2026-11-12. Thomas confirmed it 
 - **Builder self-check** passed on every build: consistent for the scalar variants; for `envelope`, the arrays
   refuse (HAZARD-only).
 - **Verification:** sent to Nora.
+- **Nora: PASS, ledger row 41** (2026-11-12).
+  - Order: rule 15:13:59 → code 15:14:57 → acceptance 15:18:47.
+  - Manifest sha `642ede3d` matches, and 24 of 24 tests pass.
+  - **Raw-sha match.** On her own host (numpy 2.5.4, against our 2.5.3) she built Yeongdeok 25T11Z h5 in all 4
+    variants. All four raw `HAZARD.json` sha256 equal ours: `6940f293…`, `8355a91a…`, `3ae1479a…`, `f8328493…`.
+  - **Against her v3.4 builds** at another absolute path: the npz is byte-identical, 4 of 4. The only JSON keys
+    that differ are `module` and `module_path_form`.
