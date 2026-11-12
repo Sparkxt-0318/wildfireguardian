@@ -33,7 +33,9 @@ wait starts (`no_WB`), make every node waitable (`all_wait`), or widen acceptanc
 | N2, 5 missions | 0/5 | 0/5 | **5/5** |
 | N3, 6 missions | 0/6 | 0/6 | **6/6** |
 
-All 11 failures trip **one rule: the destination acceptance window.** Non-waitable nodes and blocked wait starts
+All 11 failures trip **one rule: the destination acceptance window.** The ablation is counterfactual: widening AC
+changes the instance and its exact answer too (for example FW2 1459 → 968). It shows which rule the naive solvers
+violate, not that they would recover the original answers. Non-waitable nodes and blocked wait starts
 trip none of them on this panel.
 - In the five FW missions, the window opens later than the earliest possible arrival, at exactly the exact T
   (`[1459, 3480]`, `[1270, …]`, `[1064, …]`, `[1655, …]`, `[896, …]`).
@@ -42,12 +44,15 @@ trip none of them on this panel.
   - N3 reports the earliest arrival, before the window opens.
 - 2025-03-25T19 FD1: the window `[0, 2861]` closes before N3's arrival at 2921, so N3 claims an unsound route.
 - N1 agrees 20/20 only because it lets an arrival wait at the destination until the window opens, which the
-  admission rule does not allow. Its agreement on this panel is not evidence that it is sound.
+  admission rule does not allow. Its agreement on this panel is not evidence that it is sound: the panel has no case where waiting at a non-waitable
+  node matters.
 
 ## Frozen published independent rows (Main 2a751631, `research/routing/INDEPENDENT_ROWS.csv`)
 
 `compare_independent.py`, `RESULTS_independent.json`. Column meanings are as stated in INDEPENDENT_REPORT.v1.md.
-- RDA_CAND: 40/40 rows agree in verdict and arrival second (both repetitions of 15 routes and 5 refusals).
+- RDA_CAND: all 20 missions, both repetitions (40 rows), agree in verdict and arrival second (15 routes, 5 refusals).
+  These are the same 20 instances as the panel, so this is agreement with another arm's recorded results, not 40
+  independent instances.
 - RDA_BASE: 26/26 resolved rows agree. The 14 unresolved rows (8 TIMEOUT, 6 centre-only refusals) have nothing to compare.
 
 ## Witnesses
@@ -72,6 +77,13 @@ Host budget: 2e8 arcs (about 52 MiB per 10^6 arcs, 15 GiB host). Median of 3 fre
 - Sizes and cost of the missions that ran: 5.4e6–1.6e8 nodes, 0.5–16.9 s, peak RSS 0.36–9.4 GiB.
 - **Not run (size, not a failure):** 2025-03-25T19 FD1, 2025-03-25T19 FX2 and 2025-03-25T23 FL2 (4.03e8 nodes,
   4.51e8 arcs), and 2025-03-26T08 FW1 (3.69e8 nodes, 4.14e8 arcs). At the measured rate these need about 21–23 GiB.
+
+## Verification
+
+Owen, eec16027 (covers 676fc721): **PASS WITH NOTES**. He reran all four commands and the tests, and every non-timing
+field equals the committed outputs. His own brute-force time-expanded search, sharing no code, equals solve_exact and
+solve_ten on 4,300 random instances. His wording notes are applied above. No speed claim is made, and the C checker
+was not built.
 
 ## Not done yet
 
