@@ -76,6 +76,12 @@ frozen sweep agrees on every verdict and every arrival (0 disagreements, 0 unres
 certify 17.8 s, max C check 0.07 s, max bundle 7.1 MB. It reuses 5 graphs, 15 packets and 4 parent fires; departures
 of one request are not independent tests.
 
+Binding (Mira, claim 9 PASS WITH NOTES): the checkers certify the instance EMBEDDED in the bundle; nothing in a bundle
+binds it to the request (a bit flip in an EDGES line can yield another valid instance). Faithfulness is O2's job:
+`cohort.py` now runs `derive_instance.compare` per request (`o2_diffs`); Mira ran it on the 120 non-frozen departures,
+0 differences. `sweep_plan` and `build_instance` both live in `wfg_sipp`: the independent sweep is a separate search,
+not a separate package.
+
 ## P1 / contact semantics re-derived (measured; `p1_check.py`, `results/p1_flame_sets.json`)
 
 Per graph cell, the union flame-activity set on [0, H) from (i) HAZARD.json member flame rows (what the frozen full

@@ -29,6 +29,7 @@ from run_panel import at_issue  # noqa: E402
 from wfg_scenario_members.contact import ContactModel  # noqa: E402
 from wfg_sipp.frontend import build_instance  # noqa: E402
 from wfg_sipp.adapter import sweep_plan  # noqa: E402
+import derive_instance as DI  # noqa: E402
 
 
 def check(cmd, path):
@@ -64,6 +65,8 @@ def main():
             burning, over = at_issue(graph, req, model, pg)
             row["at_issue_refusal"] = bool(burning or over)
             t0 = time.perf_counter()
+            # O2 binding (Mira N1): certificate acceptance alone does not bind the embedded instance to the request
+            row["o2_diffs"] = len(DI.compare(inst, DI.derive(graph, req, model.cell_intervals)))
             claim, T, text, ih, st = generate.certify(inst)
             row.update(claim=claim, T=T, instance_sha256=ih, certify_s=round(time.perf_counter() - t0, 2),
                        states=st["states"], r_intervals=st["r_intervals"], bundle_bytes=len(text))

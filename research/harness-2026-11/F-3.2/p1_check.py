@@ -1,7 +1,7 @@
 """Premise P1 / stronger O2: are the per-cell flame-activity sets the same in three independent derivations?
 
- (i)   HAZARD.json — what the frozen full-policy checker samples: member row k is active on [bp_k, bp_{k+1}) (the last
-       row also at bp_last). Union over members.
+ (i)   HAZARD.json — what the frozen full-policy checker samples: member row k is active on [bp_k, bp_{k+1}); the frozen packets
+       have len(rows) = len(bps) − 1 with bp_last = H, so the comparison on [0, H) needs no closing point (Mira note). Union over members.
  (ii)  RAW — own re-derivation from constructed_arrays.npz and REPORT.json assumptions, without ContactModel:
        member s, cell with finite first-new ignition b: [b, b + T); present-fire cells: [0, R). Native north-up row r
        -> graph row (H_grid - 1 - r). Union over members.
