@@ -28,3 +28,17 @@ Already disclosed (cohort R, US2024): Elena (S-D2) used R's NIROPS brackets to c
   - **Result:** of 28 GOFER fires, 11 are excluded (§1.3: 10; Caldor INSPECTED: 1) and 17 survive.
   - **H-dev (10, all forced by item 25):** Beckwourth Complex, Bobcat, CZU Lightning Complex, Glass, July Complex, KNP Complex, LNU Lightning Complex, Slater and Devil, Tamarack, Zogg.
   - **H-test (7, u order):** Windy, SCU Lightning Complex, Dolan, Walker, W-5 Cold Springs, Kincade, McFarland. H-test stays closed until the D1 candidate is frozen by SHA.
+- **2026-11-12, part-a pricing read (Daniel).** `parta_price.py` was run once at about 13:05 UTC. Its as-run copy is `parta_price_v1_AS_RUN.py`, sha256 87aeeadb…cdcade1, at daniel/data-fetch-3 ab065e85.
+  - **What it read.** The attribute columns `Incident_C` and `UTC` for **all** NIROPS shapefile records, without geometry. That includes incidents now in parts b, c and d.
+    - It filtered to PART_A_ALLOWLIST_FINAL (7db3cc0e…) in memory on the next line.
+    - Geometry was read only by fid, and only for allowlisted incidents.
+    - Per-survey UTC timestamps go beyond the fields the split declares (A1 §1.2): `Incident_C`, `surveys`, `project_status`, `shares_irwin_with_project_fire` and `year`. They describe survey cadence, not growth or outcome.
+  - **Status: disclosure only.** The b, c and d values were held in memory only. They were never printed, logged, written or summarised. Hannah checked this against the committed script and its stdout (verification ledger row 35). The committed output `parta_price.csv` holds exactly the 490 allowlisted IDs.
+    - *Caveat:* "as run" rests on Daniel's statement. The script lived in his scratchpad and was committed after the run, at 14:01Z.
+    - No incident's status changes.
+  - **The reader has been fixed** (ab065e85, `nirops_access/`). It reads `Incident_C` first, then the other columns by fid for allowlisted records only, and a test covers this.
+  - **Earlier builders used an OGR where-filter.** The v1 builder (`data-fetch/build_nirops_event.py` L62) and `arrival_vs_union.py` (L36) filtered with `Incident_C = '<id>'`. The driver evaluates that filter on every record, but only matching features reached Python. It was driver-internal, so nothing about non-allowlisted records was exposed. The ID-then-fid reader at ab065e85 replaces it. Daniel's README discloses this too.
+- **2026-11-12, pilot reads (Daniel), for completeness.**
+  - Round one, at 60a94974: Blue2, MossMountain_Chalk and Homestead_Salmon33.
+  - Round two: Blue2, Line and ThreeNine.
+  - All six were part a when read, so there is no sealing effect.
