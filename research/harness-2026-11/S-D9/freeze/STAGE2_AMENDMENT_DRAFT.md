@@ -121,12 +121,16 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
 ## 12. Minimal custody procedure: a condition of opening part c (Iris; not the full custody design)
 Part c is not opened until **all** of the following hold:
 1. **Audit verdict delivered.** Done: Hannah's survey-timing audit, ledger row 38, and the disclosure text check, row 41.
-2. **Sealed files hashed.** The sha256 of every sealed part-c file (labels, perimeter states, manifests) is recorded in the stage-2 record before any scoring.
-3. **One custodian scores.** The scoring run is performed by one custodian, from the stage-2 SHAs, with the exact command logged.
-4. **Workers never see labels.** Worker sessions receive scores and receipts, never part-c label files.
-5. **Two runs, compared exactly.** Two independent scoring runs from the frozen SHAs, in separate fresh containers, are compared exactly (byte-identical score records) before any number is reported. A mismatch stops reporting until it is resolved and logged.
+2. **The custodian builds the labels.** Label files and perimeter states for part c (and part b) are built **only by the custodian**, from the frozen build script, with the command logged.
+3. **Sealed files hashed.** The sha256 of every sealed part-c file (labels, perimeter states, manifests) is recorded in the stage-2 record before any scoring.
+4. **One custodian scores.** The scoring run is performed by one custodian, from the stage-2 SHAs, with the exact command logged.
+5. **Workers never see labels.** Worker sessions receive scores and receipts, never part-c label files.
+6. **Two runs, compared exactly.** Two independent scoring runs from the frozen SHAs, in separate fresh containers, are compared exactly (byte-identical score records) before any number is reported. A mismatch stops reporting until it is resolved and logged.
 
-The same five conditions apply to opening part b.
+7. **No-touch declaration at opening.** Every worker session declares that it will not build, read or derive part-b or part-c labels or perimeters until the decision is recorded. A breach moves the affected fires to an **"exposed" stratum**, which is reported separately.
+8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. *Conditional on Nora's independent check of the script (pending).*
+
+The same conditions apply to opening part b. This text matches Hannah's `verification/CUSTODY_NOTE_A1.md`.
 
 ## 13. Out of scope
 - **c651_fullvalid_rebuilt** goes in a separate, later amendment, developed first on part a and using the 44 events fetched on 14 Nov. It does not block stage 2. If part c opens first, c651_fullvalid is not scored on part c.
