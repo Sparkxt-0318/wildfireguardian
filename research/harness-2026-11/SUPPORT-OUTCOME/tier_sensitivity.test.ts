@@ -44,6 +44,11 @@ const upRaw: Record<string, number> = {};
 const denom: Record<string, number> = {};
 const why: Record<string, Record<string, number>> = {};
 const seen = new Set<string>();
+/** reconciliation with Richard (Iris): his `recorded` per job vs the planner's verdict for the same attempt */
+const recon: Record<string, number> = {};
+const richardUnresolvedInfeasible = new Set<string>();
+const mineUnresolvedNoRoute = new Set<string>();
+const recheckOutcome: Record<string, number> = {};
 
 function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<string, string>>, miss: { n: number }, direct = false): OriginPlan {
   if (!p.sweep?.length) return p;
@@ -52,6 +57,20 @@ function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<st
     const j = a.jobId ? jobs.get(a.jobId) : undefined;
     if (!j) { if (a.jobId) miss.n += 1; return a; }
     const v = tierVerdict(a.verdict, j[tier]!, direct);
+    if (direct && tier === 'A' && a.jobId && !seen.has(`recon|${a.jobId}`)) {
+      seen.add(`recon|${a.jobId}`);
+      const k = `richard:${j.recorded}|planner:${a.verdict}${a.recheckOf ? '|recheck' : ''}`;
+      recon[k] = (recon[k] ?? 0) + 1;
+      if (j.recorded === 'unresolved' && String(j.optimistic) === 'false') richardUnresolvedInfeasible.add(a.jobId);
+      if (a.verdict === 'unresolved' && j.A === 'no_route') mineUnresolvedNoRoute.add(a.jobId);
+    }
+    // a re-check that replaced an original: what the original looked like in Richard's rows, and what the re-check gave
+    if (direct && tier === 'A' && a.recheckOf && !seen.has(`orig|${a.recheckOf}`)) {
+      seen.add(`orig|${a.recheckOf}`);
+      const o = jobs.get(a.recheckOf);
+      const k = o ? `original:${o.recorded}/${o.raw}/optimistic=${o.optimistic}|recheck:${a.verdict}` : 'original:not_in_rows';
+      recheckOutcome[k] = (recheckOutcome[k] ?? 0) + 1;
+    }
     if (direct && a.jobId && !seen.has(`${tier}|${a.jobId}`)) {
       seen.add(`${tier}|${a.jobId}`);
       denom[`${tier}|recorded:${a.verdict}`] = (denom[`${tier}|recorded:${a.verdict}`] ?? 0) + 1;
@@ -129,6 +148,11 @@ it('tier sensitivity of the staff headline', () => {
   out.no_route_to_checked_by_raw_status = Object.fromEntries(Object.entries(upRaw).sort());
   out.denominators_distinct_jobs = Object.fromEntries(Object.entries(denom).sort());
   out.why_unresolved_distinct_jobs = Object.fromEntries(Object.entries(why).sort());
+  out.reconciliation_richard_vs_planner = Object.fromEntries(Object.entries(recon).sort());
+  out.richard_unresolved_infeasible_jobs_seen_by_planner = richardUnresolvedInfeasible.size;
+  out.mine_unresolved_to_no_route = mineUnresolvedNoRoute.size;
+  out.mine_subset_of_richard = [...mineUnresolvedNoRoute].every((x) => richardUnresolvedInfeasible.has(x));
+  out.recheck_outcomes_of_replaced_originals = Object.fromEntries(Object.entries(recheckOutcome).sort());
   writeFileSync(process.env.TIER_OUT ?? '/dev/stdout', JSON.stringify(out, null, 1) + '\n');
   console.log('[tier sensitivity] total', JSON.stringify(tot), 'upgrade attempts (direct, all tiers):', up.n);
 }, 600_000);

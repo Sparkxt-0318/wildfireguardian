@@ -337,5 +337,21 @@
    "AT_ISSUE_FAILURE / -": 186,
    "TIMEOUT / UNRESOLVED": 8
   }
+ },
+ "reconciliation_richard_vs_planner": {
+  "richard:checked_route|planner:checked_route": 7588,
+  "richard:checked_route|planner:checked_route|recheck": 183,
+  "richard:model_no_route|planner:model_no_route": 1378,
+  "richard:model_no_route|planner:model_no_route|recheck": 90,
+  "richard:unresolved|planner:unresolved": 198,
+  "richard:unresolved|planner:unresolved|recheck": 6
+ },
+ "richard_unresolved_infeasible_jobs_seen_by_planner": 194,
+ "mine_unresolved_to_no_route": 194,
+ "mine_subset_of_richard": true,
+ "recheck_outcomes_of_replaced_originals": {
+  "original:unresolved/UNRESOLVED/optimistic=false|recheck:model_no_route": 90,
+  "original:unresolved/UNRESOLVED/optimistic=true|recheck:checked_route": 183,
+  "original:unresolved/UNRESOLVED/optimistic=true|recheck:unresolved": 6
  }
 }

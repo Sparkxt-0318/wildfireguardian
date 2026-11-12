@@ -220,3 +220,33 @@ It says nothing about longer horizons.
   start latest of the rate tiers (U_state is also delayed), so more timed-out searches are contact-feasible under it.
   This is consistent with the definitions, not an anomaly.
 - Until Thomas's check exists, all of these stay unresolved (downgrade-only, item 9).
+
+## Reconciliation with Richard's 284, and what re-checks show (2026-11-12)
+- Richard's rows hold **284** jobs recorded unresolved and infeasible in his field (optimistic = false): 186
+  AT_ISSUE_FAILURE (UA 96, YD 90) and 98 UNRESOLVED timeouts.
+- The planner uses **194** of them (186 AT_ISSUE + 8 timeouts). They are a **subset** of the 284 (test value
+  mine_subset_of_richard = true).
+- The other **90** are timed-out ORIGINALS that the planner does not use, because each was re-checked (precompute
+  --recheck-timeouts) and cache.ts replaces the original with its re-check. Overall, 279 attempts in the planner are
+  re-checks.
+- Job-by-job, Richard's `recorded` agrees with the planner's verdict for every job the planner uses: 7,771 / 1,468 /
+  204, with 0 disagreements (reconciliation_richard_vs_planner).
+- **What the re-checks returned**, for the originals they replaced, by the original's contact-field status:
+
+  | Original (timed out) | Re-check result | Jobs |
+  |---|---|---|
+  | Contact-infeasible (optimistic = false) | model_no_route (a kit refusal) | **90 of 90** |
+  | Contact-feasible | checked_route | 183 |
+  | Contact-feasible | unresolved | 6 |
+  | Contact-feasible | model_no_route | **0** |
+
+  This is evidence, not proof, for Iris's relaxation hypothesis: at 1 h, every timeout the contact field called
+  infeasible was later refused by the kit itself with a larger budget. It does not replace Thomas's per-job dominance
+  check, and it holds only for the field Richard's rows use.
+- **OPEN before any number goes to the owner (Iris):** which instance do Richard's per-job `optimistic` and tier labels
+  use? CERT (router OR closed footprint) or ROUTER-only? Richard says CERT is not a relaxation of the kit, so only
+  ROUTER-only infeasibility could support a refusal. If the rows are CERT, the 194 / 284 must be recounted under
+  ROUTER-only.
+- **AT_ISSUE (186):** Iris recommends a separate outcome label, counted separately in the staff summary. If the
+  orchestrator agrees, the wording is mine: descriptive, tied to the departure time shown, and saying that it comes
+  from the model's fire estimate at the origin point. Not drafted until decided.
