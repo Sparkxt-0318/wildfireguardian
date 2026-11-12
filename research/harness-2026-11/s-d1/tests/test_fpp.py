@@ -161,7 +161,6 @@ def test_seed_reproducible():
     assert np.array_equal(a, b)
 
 
-torch = pytest.importorskip("torch")
 
 
 def _forecast_module():
@@ -171,6 +170,7 @@ def _forecast_module():
 
 
 def test_offset_convention_and_rate_match_forecast_new_burn_probability():
+    torch = pytest.importorskip("torch")  # only the forecast-parity tests need torch
     new_burn_probability = _forecast_module()
     rng = np.random.default_rng(3)
     for k in (3, 5, 9):
@@ -188,6 +188,7 @@ def test_offset_convention_and_rate_match_forecast_new_burn_probability():
 
 
 def test_first_passage_single_source_direction_matches_forecast():
+    torch = pytest.importorskip("torch")  # only the forecast-parity tests need torch
     # Source at (5,5); only offset (dy,dx)=(+2,-1) nonzero everywhere: the forecast says
     # target (y,x) reads source (y+2, x-1), i.e. target = (3, 6).
     new_burn_probability = _forecast_module()
@@ -208,6 +209,7 @@ def test_first_passage_single_source_direction_matches_forecast():
 
 def test_reference_ca_matches_real_forecast_rollout_marginals():
     """Independent hourly CA == wildfire.rollout.simulate (stub predictor with fixed kernels)."""
+    torch = pytest.importorskip("torch")  # only the forecast-parity tests need torch
     sys.path.insert(0, str(REPO / "forecast"))
     from wildfire.models import new_burn_probability
     from wildfire.rollout import simulate
@@ -326,3 +328,18 @@ def test_half_step_ca_between_hourly_and_fine():
     half = cellular_automaton(K, init, [4.0], dt=1.0, n_samples=n, seed=2, half_step=True)[0].sum() / n
     fine = cellular_automaton(K, init, [4.0], dt=1 / 8, n_samples=n, seed=3)[0].sum() / n
     assert hourly < half
+
+
+def test_speed_multiplier_scales_arrival_times_exactly_under_static_kernels():
+    """S-D4mix: with K -> c K and static kernels, T(c) = T(1) / c pathwise (same Exp(1) clocks)."""
+    rng = np.random.default_rng(9)
+    K = rng.uniform(0, 0.2, size=(25, 12, 12))
+    K[12] = 0
+    init = np.zeros((12, 12), bool)
+    init[6, 6] = True
+    _, a1 = first_passage(K, init, [50.0], n_samples=20, seed=5, keep_arrivals=20)
+    for c in (0.5, 2.0, 8.0):
+        _, ac = first_passage(c * K, init, [50.0 / c], n_samples=20, seed=5, keep_arrivals=20)
+        fin = np.isfinite(a1)
+        assert np.array_equal(fin, np.isfinite(ac))
+        assert np.allclose(ac[fin], a1[fin] / c, rtol=1e-12, atol=0)
