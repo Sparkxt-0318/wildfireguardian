@@ -161,3 +161,5 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - #116 ae5351a: the sentence matches the data exactly. best_optimality_total includes the Merkle estimate and is not the quantity; min(slice+cert) is. 11/15 > 1.0.
 - #118 53233ab: tests-only diff; a timeout still fails (cards.length === 3); 10/10 and 375/375.
 - Thomas's frozen PRs #116, #117 and #118 are all ready from the verifier's side.
+
+**Status note (11:12)**: the user merged #117 @ 656cab0 and #118 @ 1d3e49f (both PASS heads). 53233ab (test-only, PASS as entry 23) is not in Main; it moves to Clara's P-PROTO follow-up cut. #116 @ ae5351a is PASS and ready. Planner-side work (P-PROTO follow-up, W6 fix, deadline provenance) moves from Thomas to Clara (session_017vgyRQa6PpBJqNz8Cpwxf8). Last PASS states: W-KIT 656cab0 = 477448d (in Main); P-PROTO cp2 75189d9 PASS WITH NOTES (open notes N1 gap wording, N2 scope).
