@@ -1,13 +1,20 @@
-# S-D9 pilot inputs (part a only): Blue2, MossMountain_Chalk, Homestead_Salmon33
+# S-D9 pilot inputs (part a only): Blue2, Line, ThreeNine
 
-These were built on 2026-11-12 with `build_nirops_event.py` and `rebuild_env.sh`. The allowlist was S-D9 `cohort/PART_A_ALLOWLIST.csv` @ bba8d00d (sha256 `956dfa09…5926`).
-Only these three incidents' NIROPS features were read, using an OGR attribute filter. No part b, c or d fire was opened.
+These were built on 2026-11-12 with `build_nirops_event.py`. The allowlist is S-D9 `cohort/PART_A_ALLOWLIST_FINAL.csv` @ ff38bdcd
+(sha256 `801acdd8…391e`, 489 incidents). Only these incidents' NIROPS features were read, through an OGR attribute filter. No part b, c or d fire was opened.
 
 | Fire | Grid (EPSG:5070, 375 m) | Survey times | Intervals 0 < dt ≤ 48 h | Mapped cells at last survey | Window (UTC) |
 |---|---|---|---|---|---|
 | NM-LNF-000227_Blue2 | 29×35 | 20 | 17 | 211 | 2024-05-18 00:00 to 06-16 07:00 |
-| OR-WIF-240214_MossMountain_Chalk | 31×37 | 65 | 57 | 181 | 2024-07-23 00:00 to 10-15 04:00 |
-| OR-UPF-240311_Homestead_Salmon33 | 15×15 | 69 | 61 | 7 | 2024-07-22 00:00 to 10-20 04:00 |
+| CA-BDF-012520_Line | 50×72 | 40 | 35 | 1,275 | 2024-09-07 00:00 to 11-13 08:00 |
+| CA-SHF-001004_ThreeNine | 37×24 | 20 | 9 | 88 | 2023-08-19 00:00 to 11-09 05:00 |
+
+**Replacements.** The S-D9 filters (`cohort/RUN_FILTERS.md` @ f91cf824) removed two of the original pilot fires:
+- MossMountain_Chalk (leakage filter);
+- Homestead_Salmon33 (duplicate of part-b ReynoldsButte).
+
+Their outputs were deleted from this folder and must not be used. The replacements are the next eligible, kept part-a incidents in `u` order: Line and ThreeNine.
+The builder now refuses Chalk against the final allowlist.
 
 Per fire, `regions/<id>/` contains:
 - `labels/cumulative_masks.npz`: cumulative survey unions at cell centres.
