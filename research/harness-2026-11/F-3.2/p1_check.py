@@ -37,6 +37,13 @@ def merge(ivs, lo, hi):
     return out
 
 
+def writer_identity(hz):
+    """The packet writer identity every packet comparison must print (orchestrator condition for F-9.3 masked packets,
+    which keep their v1 scenario ids): packet_writer_sha256, base_packet_writer_sha256 and support_writer if present."""
+    ident = (hz.get("provenance") or {}).get("identity") or {}
+    return {k: ident[k] for k in ("packet_writer_sha256", "base_packet_writer_sha256", "support_writer") if k in ident}
+
+
 def from_hazard(hz, Hs):
     out = {}
     for m in hz["members"]:

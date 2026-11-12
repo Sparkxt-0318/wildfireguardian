@@ -83,7 +83,7 @@ def main():
         d_hc = [k for k in set(A) | set(C) if A.get(k) != C.get(k)]
         float_end = sum(1 for k in d_hc if len(A.get(k, [])) == len(C.get(k, [])) and all(
             x0 == y0 and x1 >= y1 and x1 - y1 < F(1, 10**6) for (x0, x1), (y0, y1) in zip(A[k], C[k])))
-        prow = dict(packet=rel, region=region, start=start, horizon_s=H, variant=variant,
+        prow = dict(packet=rel, region=region, start=start, horizon_s=H, variant=variant, writer=P.writer_identity(hz),
                     hazard_sha256=hashlib.sha256(hz_bytes).hexdigest(), active_cells=len(C),
                     p1_raw_vs_contact=sum(B.get(k) != C.get(k) for k in set(B) | set(C)),
                     p1_hazard_vs_contact=len(d_hc), p1_hazard_later_end_by_lt_1us=float_end, origins_from=entry["start_tag"])

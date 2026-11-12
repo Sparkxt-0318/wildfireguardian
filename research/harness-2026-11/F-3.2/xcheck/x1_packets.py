@@ -72,7 +72,8 @@ def main(argv=None):
             con = {k: v for k, v in ((k, P.merge(v, F(0), Hs)) for k, v in ContactModel.from_packet(pk).cell_intervals.items()) if v}
             raw = {k: v for k, v in P.from_raw(pk, Hs).items() if v}
         except Exception as e:                          # HAZARD-only packet: refused by design, reported, never read
-            row = dict(packet=rel, variant=variant, region=region, start=start, active_hazard=len(haz), REFUSED=str(e)[:200], PASS=False)
+            row = dict(packet=rel, variant=variant, region=region, start=start, writer=P.writer_identity(hz),
+                       active_hazard=len(haz), REFUSED=str(e)[:200], PASS=False)
             rows.append(row); print(json.dumps(row), flush=True)
             continue
         raw_vs_contact = sum(raw.get(k) != con.get(k) for k in set(raw) | set(con))
@@ -106,7 +107,8 @@ def main(argv=None):
                 if not same and len(bad) < 3:
                     bad.append([o["origin_id"], dep])
         ok = c["only_hazard"] == c["only_contact"] == c["other"] == 0 and eq == n and raw_vs_contact == 0
-        row = dict(packet=rel, variant=variant, region=region, start=start, active_hazard=len(haz), active_contact=len(con),
+        row = dict(packet=rel, variant=variant, region=region, start=start, writer=P.writer_identity(hz),
+                   active_hazard=len(haz), active_contact=len(con),
                    **{k: v for k, v in c.items() if k != "examples"}, instances_equal=eq, instances_compared=n,
                    raw_vs_contact=raw_vs_contact, origins_from=entry["start_tag"],
                    PASS=ok, examples=c["examples"], instance_mismatch_examples=bad)
