@@ -250,3 +250,17 @@ It says nothing about longer horizons.
 - **AT_ISSUE (186):** Iris recommends a separate outcome label, counted separately in the staff summary. If the
   orchestrator agrees, the wording is mine: descriptive, tied to the departure time shown, and saying that it comes
   from the model's fire estimate at the origin point. Not drafted until decided.
+
+## Field and unit (closed, 2026-11-12; for Nora)
+- **Field:** Richard's per-job `optimistic` flag and tier labels in threeway_jobs/ (b927c21c) are against **CERT**
+  (router OR closed footprint). For all 284 rows recorded unresolved and infeasible (186 AT_ISSUE_FAILURE + 98
+  timeouts), **CERT and ROUTER-only give the same answer** (Richard). The CERT labels are not refusal-grade on their
+  own. ROUTER-only columns ("optimistic_router", "<tier>_router") are coming from Richard (`threeway --variant router`,
+  e772df1).
+- **Unit of every count in this note: distinct route-check jobs as the planner uses them**, i.e. the job ids of the
+  attempts in the planner's plans after cache.ts has replaced each timed-out original with its re-check. Each job is
+  counted once per tier. They are not origin × offset cells and not Richard's 9,722 rows (his rows include the 279
+  superseded originals). Headline counts (246 / 134 / 22 / 259 and the 12 exclusions) are per plan (origin), out of 539.
+- Iris: the cheapest way to settle the 8 remaining contact-infeasible timeouts is the same re-check with a larger
+  budget, which needs no dominance argument. That is a precompute / kit task, not a planner change; it is recorded here
+  as the suggested next step.
