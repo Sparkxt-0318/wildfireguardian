@@ -431,5 +431,11 @@ from branch `daniel/data-fetch`.
   - **The earlier "mostly trend" reading is WITHDRAWN.** The data cannot separate trend from state: undetermined.
   - The fix is in `lag_persistence_v2.py`, with an iid null-calibration test in `test_lag_persistence.py` that fails
     on the 6ae6dfea code. The corrected rerun follows.
-  - Iris's dropping of the prequential multiplier test and parking of the fold-kernel sizing were made under the
-    withdrawn reading. They are for her to revisit.
+  - Iris's restatement: within-fire persistence beyond each fire's average is present (the raw lags stand), and
+    trend against state is undetermined. Fire age is not shown to suffice, though its marginal association stands as
+    verified. The prequential test is unscheduled and undecided, and the fold-kernel sizing step decides it. The
+    fire-age/shrinkage fit must report the lag-1 persistence of its residuals, with the corrected null and its
+    pure-noise calibration.
+  - **Pure-noise calibration on the real structure** (`lag_null_probe.py`, 300 iid datasets on the same 25 fires,
+    intervals and runs): the mean excess is +0.004, +0.006, −0.005 and −0.002 for lags 1, 2, 3 and detrended lag 1,
+    each with SE about 0.004. The corrected procedure is unbiased.
