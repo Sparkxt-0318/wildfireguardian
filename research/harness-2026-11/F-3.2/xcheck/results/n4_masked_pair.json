@@ -1,0 +1,60 @@
+{
+ "purpose": "Mira ledger 101 N4: binding T9 on a real F-9.3 optimistic/masked pair (Leo build commands); plus the support gap it exposed",
+ "build": {
+  "code": "research/harness-2026-11/F-9.3/support_mask/build_packet_f93.py on Main (sha256 01a3012f...)",
+  "base": "yeongdeok_2025, cutoff 2025-03-25T19:00:00Z, window r0 12 r1 78 c0 166 c1 236",
+  "masked_rule": "c651_unknown/1",
+  "numpy": "2.5.4 (Leo: 2.5.3)"
+ },
+ "sha256": {
+  "plain": {
+   "HAZARD.json": "428ea226193ef38cd92aabbe45cef252e65b2a5ec34a17147bc2d5de6e12016f",
+   "REPORT.json": "65351e07f74a99d5af20f8a2ceaaee1e2697dbc0a6e1f8716a5e24e6511ad726",
+   "NATIVE_METADATA.json": "f0b8abf81b5983ac2ea7ed4b00851974b2211052d08a24078bc7b9a972fe8254",
+   "constructed_arrays.npz": "f93307eb1d5f4976b10463335e30330a9e65ad17aa0d605239f262659ca1575a"
+  },
+  "masked": {
+   "HAZARD.json": "5c5bad0b86a63bebcc7bec431ca0c655e6831d02bd63101d859812b9c4b83842",
+   "REPORT.json": "4e649c8e1fbf3950b17c1fedba0d1d507103fb4c640161db055b461f2bbd5700",
+   "NATIVE_METADATA.json": "e2843967c7c389f36d2fa39895707f4d16a67e290df59ecdf2d5a7c21834b3d7",
+   "constructed_arrays.npz": "1c39f2fd381b18dd2bbd147c0d6789f10fa16f7ba0875b7348f2762da6091625"
+  }
+ },
+ "matches_leo": {
+  "plain npz f93307eb": true,
+  "masked npz 1c39f2fd": true,
+  "json files": "differ (host paths / numpy patch level), as expected; A is defined to ignore them"
+ },
+ "plain_npz_equals_frozen_panel_packet": true,
+ "results": {
+  "A_differs": true,
+  "A_projection_equal_except_support": true,
+  "npz_keys_differing": [
+   "support"
+  ],
+  "unsupported_support_entries_masked": 11540,
+  "W": {
+   "plain": "6b922418 (frozen packets.py)",
+   "masked": "befd94bc (packets_f93.py), base 6b922418, support_writer present"
+  },
+  "verify_bound": {
+   "yeongdeok 0325T19 FD1 panel bundle": {
+    "frozen packet": "FULLY_BOUND NO_ROUTE 3601",
+    "plain rebuild": "FULLY_BOUND NO_ROUTE 3601",
+    "masked": "NOT_BOUND R2+R3 (both checkers REJECT BIND_A)"
+   },
+   "yeongdeok 0325T19 FX2 panel bundle": {
+    "frozen packet": "FULLY_BOUND ROUTE 2512",
+    "plain rebuild": "FULLY_BOUND ROUTE 2512",
+    "masked": "NOT_BOUND R2+R3 (both checkers REJECT BIND_A)"
+   }
+  },
+  "host_independence": "the plain rebuild has different JSON bytes from the frozen packet and still verifies FULLY_BOUND (A ignores host paths and zip timestamps)"
+ },
+ "gap": {
+  "finding": "ContactModel.from_packet never reads the npz support channel and has no supported attribute; run_panel (getattr default) and fdyn_certs (constant) treated every packet as supported, so a ROUTE certificate could be issued on a masked packet across cells of unknown burned state (CERTIFICATE_SPEC 5.3 says no certificate)",
+  "affected_results": "none: every packet used so far has full support (panel 15/15, F-DYN v3.4 16/16, v3.1/v3.3 29/29)",
+  "fix": "p1_check.require_full_support inside routable_contact_model (default on; refuses any unsupported entry or a missing/non-boolean support array); allow_unsupported=True only in tier_r.py and unknown_support.py, which decide unknown cells themselves",
+  "tests": "xcheck/test_raw_guard.py Support (4) + MaskedPacket (real masked packet via WFG_MASKED_PACKET: refused by default, readable with the opt-out); all other suites unchanged"
+ }
+}

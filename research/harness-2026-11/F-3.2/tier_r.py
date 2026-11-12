@@ -186,7 +186,7 @@ def main():
     packets, rows = {}, []
     for case in cases.korean_cases():
         g = json.loads(Path(case["graph"]).read_text()); r = json.loads(Path(case["request"]).read_text())
-        model = routable_contact_model(case["packet"])
+        model = routable_contact_model(case["packet"], allow_unsupported=True)  # decides unknown cells itself
         meta = json.loads((Path(case["packet"]) / "NATIVE_METADATA.json").read_text())
         event = meta["construction"]["parent_forecast"]["event_id"]
         u_state, u_q, cur, pos = native_masks(case["packet"])

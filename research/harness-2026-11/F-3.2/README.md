@@ -301,3 +301,59 @@ Everything in this section, except the waitable-rule measurement at the end, was
   exceptions.
 - So every NO_ROUTE that depends on the non-waitable rule rests on that dead-end convention, not on field-validated
   wait locations. The graph builder's intended rule is still to be confirmed.
+
+## Routing cut 3 (Mira-verified only; ledgers 106–111)
+
+This section supersedes the cut-2 section where they differ.
+
+**Support guard (CERTIFICATE_SPEC §5.3; `p1_check.require_full_support`; ledgers 108, 111).**
+- `ContactModel.from_packet` never reads the npz `support` channel. Before this fix, every F-3.2 certificate
+  generator treated a packet as fully supported. That included F-9.3 support-masked packets, which differ from their
+  optimistic twin only in `support`.
+- `routable_contact_model` now refuses any packet with an unsupported entry, or with a missing or non-boolean
+  `support` array. Only `tier_r.py` and `unknown_support.py`, which decide unknown cells themselves, opt out
+  (`allow_unsupported=True`).
+- No earlier result is affected: every packet used so far has full support (panel 15/15, F-DYN v3.4 16/16,
+  v3.1/v3.3 29/29).
+- `verify_bound.py` reports such a packet as `NOT_BOUND T7b: packet not routable/supported: …`, in both text and
+  `--json` output.
+- Tests are in `xcheck/test_raw_guard.py`:
+  - with no environment variables: 10 passed, 2 skipped;
+  - with `WFG_REAL_PACKET` and `WFG_MASKED_PACKET` set: 12 passed.
+- The cut-2 line "18 passed, 1 skipped" counted test_raw_guard and test_tier_r_guard together, before these
+  additions.
+
+**F-9.3 optimistic/masked pair (`xcheck/results/n4_masked_pair.json`; ledgers 108, 111).**
+- The pair is Yeongdeok 0325T19 with rule `c651_unknown/1`, built with Main's `build_packet_f93.py`.
+- The two packets differ only in `support` (11,540 unsupported entries). The binding digest A differs, and the
+  writer digest W differs.
+- A certificate bound to the plain packet:
+  - is FULLY_BOUND on the plain rebuild (different JSON bytes, same A);
+  - is NOT_BOUND against the masked packet (BIND_A on both checkers).
+- Not run: Tier R and unknown_support on masked packets.
+
+**Dominance argument, now in this cut as a reviewed document (`xcheck/DOMINANCE_RULE.md` §1; ledgers 106, 107,
+109).**
+- §1 argues that every journey the kit's whole-road check accepts is feasible in the F-3.2 contact relaxation. It is
+  conditional on both sides using the same packet members, flame law, grid cells and tier.
+- Mira reviewed it as a document. The code reading itself has not been independently re-checked.
+- The kit's contact and mission code is byte-identical from f2cbcfc through Main aaaa02c6.
+- §2–§3 (per-job checks for the 1-hour timeout jobs) are not run. They wait on the Richard/Clara count
+  reconciliation.
+
+**G2c premises and final wording (`xcheck/g2c_premises.py`, `xcheck/results/g2c_premises.json`; ledgers 107, 109,
+111).**
+- On both G2c packets (Hongseong 0402T07 and Miryang 0601T08):
+  - every grid cell rectangle is equal;
+  - the members are equal and in the same order;
+  - the flame law (T, R) is equal.
+- Mira also checked the per-member flame phases, with 0 mismatches, and ran a negative control.
+- The G2c wording that supersedes the cut-2 sentence (in `g2c_stage_z_refusals.json`; in Priya's PLAN on
+  `claude/priya-kit-v2` @ 699b067, and on Main only after Priya's next cut, until then Main's PLAN carries the W1
+  sentence):
+  "relaxation refusal independently checked by two checkers; implication to the kit's whole-road model by a written
+  dominance argument (DOMINANCE_RULE §1, read against the kit's contact and mission code at f2cbcfc, byte-identical
+  through Main aaaa02c6; the jobs' code identified via the kit-v2 manifest (b37e0c79) and the run records' kit
+  identity, not per-run import hashes; reviewed by Mira as a document, the code reading itself not independently
+  re-checked), conditional on both sides using the same packet members, flame law and grid cells; packet, members and
+  grid checked".

@@ -1,0 +1,111 @@
+{
+ "purpose": "DOMINANCE_RULE \u00a71 premises (Mira ledger 106 N1, \u00a72 (iii)) for the four G2c missions: the kit (ContactSources.from_case reads REPORT affine_transform, rows[0].request.incurred ids, assumptions, constructed_arrays ignition_time_s/current_active) and the relaxation (ContactModel + graph grid with south-up row flip) use the same grid cells, members and flame law",
+ "method": "grid: every graph cell (south-up row gr, col c) rectangle vs the REPORT affine rectangle of native row H-1-gr, exact rationals; members: ContactModel.ids vs REPORT incurred keys vs npz member axis; law: ContactModel T,R vs REPORT burning_duration_s, initial_remaining_s",
+ "packets": [
+  {
+   "region": "hongseong_2023",
+   "start": "20230402T070000Z",
+   "graph_sha256": "861ca1514c8f6c3ed37c17cc9d553c6b37e8a89900551fde4122494db3e077bc",
+   "report_sha256": "2239370c254b345056f2661fa5bd1e24f72e7554efc3fb5adb8684692c519a9d",
+   "npz_sha256": "a110392b9c08e98ccfdd5dd43f111b6c0edc65359229b083a8798987c5af417e",
+   "grid": {
+    "graph": {
+     "x0": 907500.0,
+     "y0": 1837875.0,
+     "resolution": 375.0,
+     "width": 18,
+     "height": 18
+    },
+    "packet_shape": [
+     4,
+     18,
+     18
+    ],
+    "report_affine": [
+     375.0,
+     0.0,
+     907500.0,
+     0.0,
+     -375.0,
+     1844625.0
+    ]
+   },
+   "grid_aligned": true,
+   "cells_checked": 324,
+   "cell_rectangle_mismatches": 0,
+   "members": {
+    "kit_ids_from_REPORT": 4,
+    "npz_members": 4,
+    "ContactModel_ids": 4,
+    "identical_ordered": true
+   },
+   "member_set_equal": true,
+   "law": {
+    "T_kit": "8731143290411877/2199023255552",
+    "T_model": "8731143290411877/2199023255552",
+    "R_kit": "7599424860511077/2199023255552",
+    "R_model": "7599424860511077/2199023255552"
+   },
+   "flame_law_equal": true
+  },
+  {
+   "region": "miryang_2022",
+   "start": "20220601T080000Z",
+   "graph_sha256": "74e60a452a82b07f91e35a1806f76536a3f2334ff68aab5157a398f2e39f69bb",
+   "report_sha256": "62f160bb7df38879ef51c281162ac478fd94e554a48b113ce87a2b50db87c5ab",
+   "npz_sha256": "92f0bc0f1afb4d9e70300229a3eb908a6a58aabb395762b5da112697b43034e2",
+   "grid": {
+    "graph": {
+     "x0": 1111125.0,
+     "y0": 1723500.0,
+     "resolution": 375.0,
+     "width": 11,
+     "height": 17
+    },
+    "packet_shape": [
+     4,
+     17,
+     11
+    ],
+    "report_affine": [
+     375.0,
+     0.0,
+     1111125.0,
+     0.0,
+     -375.0,
+     1729875.0
+    ]
+   },
+   "grid_aligned": true,
+   "cells_checked": 187,
+   "cell_rectangle_mismatches": 0,
+   "members": {
+    "kit_ids_from_REPORT": 4,
+    "npz_members": 4,
+    "ContactModel_ids": 4,
+    "identical_ordered": true
+   },
+   "member_set_equal": true,
+   "law": {
+    "T_kit": "8731143290411877/2199023255552",
+    "T_model": "8731143290411877/2199023255552",
+    "R_kit": "8636549991160677/2199023255552",
+    "R_model": "8636549991160677/2199023255552"
+   },
+   "flame_law_equal": true
+  }
+ ],
+ "missions": {
+  "hongseong_2023/20230402T070000Z": [
+   "FN1",
+   "FX1"
+  ],
+  "miryang_2022/20220601T080000Z": [
+   "FD1",
+   "FX1"
+  ]
+ },
+ "tier": "the frozen latest_inputs_try02 packets the kit-v2 Step 0 jobs read (input sha prefixes = Priya / g2c_stage_z_refusals.json)",
+ "script": "xcheck/g2c_premises.py (reproduces the packets block exactly)",
+ "verified": "Mira ledger 107 (independent script; plus per-member flame phases 0 mismatches; negative control without row flip fails)"
+}

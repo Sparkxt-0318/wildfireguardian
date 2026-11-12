@@ -84,12 +84,31 @@ def require_complete_packet_dir(packet):
         raise ValueError("%s: no BUILD_SUMMARY.json; the packet write is not known to have completed" % d.name)
 
 
-def routable_contact_model(packet, **kw):
-    """ContactModel.from_packet behind require_routable_arrays. contact.py is hash-pinned (SOURCE_SHA256.json and frozen
-    evidence bundles), so the HAZARD-only marker guard lives here: every F-3.2 reader goes through this wrapper."""
+def require_full_support(a, packet):
+    """CERTIFICATE_SPEC §5.3: unknown support => no certificate. ContactModel.from_packet never reads the npz `support`
+    channel (it has no `supported` attribute; run_panel's getattr default and fdyn_certs' constant made every packet
+    look supported). An F-9.3 support-masked packet (wfg.f93.support-writer/1, e.g. c651_unknown/1) keeps every flame
+    array of its optimistic twin and differs ONLY in `support`, so without this guard a ROUTE certificate could cross
+    cells whose burned state is unknown. Refuses a packet with any unsupported cell, or with no `support` key
+    (fail closed). Raises ValueError."""
+    if "support" not in a.files:
+        raise ValueError("%s: no `support` array; support unknown, no certificate (CERTIFICATE_SPEC 5.3)" % Path(packet).name)
+    sup = np.asarray(a["support"])
+    if sup.dtype != np.bool_ or not sup.all():
+        raise ValueError("%s: %d unsupported cell entries in `support`; unknown support, no certificate (CERTIFICATE_SPEC 5.3)"
+                         % (Path(packet).name, int(sup.size - np.count_nonzero(sup))))
+
+
+def routable_contact_model(packet, *, allow_unsupported=False, **kw):
+    """ContactModel.from_packet behind require_routable_arrays and require_full_support. contact.py is hash-pinned
+    (SOURCE_SHA256.json and frozen evidence bundles), so the guards live here: every F-3.2 reader goes through this
+    wrapper. allow_unsupported=True is ONLY for the unknown-support analyses (tier_r.py, unknown_support.py), which
+    decide unknown cells themselves; certificate generators and verify_bound keep the default."""
     require_complete_packet_dir(packet)
     with np.load(Path(packet) / "constructed_arrays.npz", allow_pickle=False) as a:
         require_routable_arrays(a, packet)
+        if not allow_unsupported:
+            require_full_support(a, packet)
     return ContactModel.from_packet(packet, **kw)
 
 
