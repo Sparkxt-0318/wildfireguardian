@@ -70,6 +70,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 62 | 2026-11-12 | Kit provenance line: mismatch refused and reported | Clara | 60deae8 | 1,020/1,020 forced timed-on-no-time cases give the not-established line in ko and en, no deadline wording or clock time; violations and other outputs unchanged; 448/448 | own forced-kind probe | PASS |
 | 63 | 2026-11-12 | W-KIT phone-shape allowlist tidy | Clara | ccbee1a | 35-number probe as intended; all-zero placeholder renders only for drill/replay issuers; 446/446 | own probe | PASS |
 | 64 | 2026-11-12 | PR #144 scope check (research-scout batch 8/8b) | Sofia | b750fa7 | docs only (LOG.md +76); no phone numbers, no private links, no personal data; suggestion labelled; no footer | diff + body | READY |
+| 65 | 2026-11-12 | envelope_burnset P1 (Thomas's flag; independent check) | Leo (via Thomas) | 4463892 | Uiseong 0323T01 h5: HAZARD 16,176 cells on [0,18000) vs ContactModel 15,781 cells, 0 full, ending at about 4,270 s (or 3,792 s for present fire); 395 cells missing; ContactModel == raw-array T/R law | own build from MANIFEST_v3_3 + p1_check | P1 FAIL CONFIRMED |
 
 ## Notes
 
@@ -337,3 +338,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **61.** Optional: unresolved_proven_no_route is not dropped when forced onto a leave_by place (the real join never does this).
 
 **63.** Tiny: 00-000-0000 also counts as a placeholder; short call-centre numbers (031-120) and 080 toll-free are refused (conservative).
+
+**65.** The arrays do not implement the static burn-set law: do not certify until they do. Only 0323T01 was checked.
+
