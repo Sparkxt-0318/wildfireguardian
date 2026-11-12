@@ -41,6 +41,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 33 | 2026-11-12 | F-3.2 W2 envelope O2 classifier (fire-next) | Thomas | b2d9eba (07d4a58) | float: 820 end-only ≤1.36e-12 s (97/723), 0 other, 10/10 | `envelope_o2.py --mode float` on own v3 packet (Leo 7eb3691) | PASS |
 | 34 | 2026-11-12 | F-3.2 W3 v3.1 acceptance, samples a/b/c | Thomas | 45a8975 | integer equality 0 mismatches; boundary 102/17, 102 (b), 482/309; 10/10 instances each | own packets at Leo f40e2af (MANIFEST_v3_1 cmds); `--mode v31` (+ `--law scalar` for b); negative control | PASS |
 | 35 | 2026-11-12 | PR #127 scope check (research-scout batch 6) | Sofia | 43e418b | docs only, no private link, no footer | diff + body | READY |
+| 36 | 2026-11-12 | P-PROTO next cut (step-aware sentences, one-trip, not-in-model) | Clara | 33f672d | 6 files on Main 4e2d150; exclusive/exhaustive sentence property; 403/403; 0 public-view in default dist | fresh npm ci; full suite; -t leave-by; build:static; probes (step, window_closed ≤ T); mutation none_checked→horizon | PASS |
 
 ## Notes
 
@@ -235,3 +236,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Clara W6 05fec82 is acknowledged; per the orchestrator, verify once at the head with the agency guard and shelter-name change.
 
 **35. PR #127 @ 43e418b**: 1 file (LOG.md +33); public sources; aggregate statistics only; no footer. READY.
+
+**36. P-PROTO next @ 33f672d (Clara)**:
+- 403/403; property counts match my own earlier counts; gap N shown 53/53; default dist has 0 public-view files.
+- Probes: step uniform in 501/501 real timed cards (2 synthetic without a step omit the clause); 0 timed cards with a window_closed cell at or before T.
+- Mutation none_checked→horizon is caught at real osm:node/415160449.
+- DOM order and ONE_TRIP rely on her passing tests; Iris's E is not in this cut.
