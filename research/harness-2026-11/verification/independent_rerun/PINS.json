@@ -1,22 +1,108 @@
 {
  "_note": "Independent part-a rerun (Owen). Every source is read from git at the stated commit and its sha256 checked. PENDING entries make the harness exit 3 (not yet runnable) until they are filled in by a committed edit of this file.",
  "sources": [
-  {"rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4", "path": "research/forecast-v2/scripts/pipeline.py", "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67", "why": "A1 3.1 frozen pipeline"},
-  {"rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4", "path": "research/forecast-v2/RUN_PROTOCOL.json", "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243", "why": "A1 3.1"},
-  {"rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4", "path": "forecast/wildfire/baselines.py", "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f", "why": "logistic_rebuilt (A1 3.1)"},
-  {"rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4", "path": "research/harness-2026-11/data-fetch/fetch.py", "sha256": "ef9d07a6e18eaee0fdff600e117161fbd88db6b47d2c44d59593344b80cf6396", "why": "raw NIROPS download"},
-  {"rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4", "path": "research/harness-2026-11/data-fetch/resources.json", "sha256": "daf138e545ae6ffa1454b02ca1f13460d43d06dfd088c327c5fdc36144935e12", "why": "NIROPS zip sha b19fb16c"},
-  {"rev": "39cd863b9ee158a693e97066ff1a3cc132726471", "path": "research/harness-2026-11/s-d1/refit/run_pipeline_rebuilt.py", "sha256": "264deaeae7dc532bbfa27e55d35d3def7c01eb0c7f85cdf358ee529b866e1d1d", "why": "refit wrapper (A1 3.1)"},
-  {"rev": "39cd863b9ee158a693e97066ff1a3cc132726471", "path": "research/harness-2026-11/s-d1/refit/check_refit_env.py", "sha256": "23ad5d2708f0777edd4dea84b2b682d85b72c108540ef4343fac780436ef0c19", "why": "environment preflight"},
-  {"rev": "adbfcda581122b52290f95e401bece2590ca7b29", "path": "research/harness-2026-11/data-fetch-3/nirops_access/nirops_access.py", "sha256": "08753d9669ccfedc48f50a0f6b3f42897f9a63e30ead8ea0e8c0183b80613a2b", "why": "allowlist-safe NIROPS reader"},
-  {"rev": "adbfcda581122b52290f95e401bece2590ca7b29", "path": "research/harness-2026-11/data-fetch-3/nirops_access/build_nirops_event_v2.py", "sha256": "daa76e4d54083b6b58d900834d38c85c40515abf726b039252b0c4e84e2c456c", "why": "part-a label builder (by fid)"},
-  {"rev": "adbfcda581122b52290f95e401bece2590ca7b29", "path": "research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST_FINAL.csv", "sha256": "7db3cc0ef084d4ed09624a0b2ad14ffebc90a94fe7efb94cab8dd2d4f09f85cd", "why": "part a, 490 incidents"},
-  {"rev": "adbfcda581122b52290f95e401bece2590ca7b29", "path": "research/harness-2026-11/data-fetch-3/parta_pool/PERIMETER_MANIFEST.json", "sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77", "why": "committed label hashes S1 compares against"},
-  {"rev": "2be7a712d177759c00f1a3bbb01e3c75dfdd56d6", "path": "research/harness-2026-11/s-d1/refit/score_parta.py", "sha256": "9a2f09c63c0639161283a4d7a605917fe529187c5ebf3b95f659ed4745a81635", "why": "part-a prediction command (Marcus); writes the entries.py npz contract"},
-  {"rev": "ea14f446d3aebc48f13615ffc8024ac2c1c1d90f", "path": "research/harness-2026-11/S-D9/sd9bench/score.py", "sha256": "1ac8d933561eef4809ef227c90855bca5eeec3afe1d5d6f490388b3c0e3035c2", "why": "frozen scorer (cross-check only)"},
-  {"rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d", "path": "research/harness-2026-11/S-D2/refit/d2_bracket.py", "sha256": "98d7d6c6370895aec738ea987e8dc79f78862c2a9c3e8c1ba6085de7ec421247", "why": "d2_bracket_rebuilt (STAGE2_PINS; final head PENDING)"},
-  {"rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d", "path": "research/harness-2026-11/S-D2/refit/run_d2_bracket.py", "sha256": "cc41cc3302967d8411292e497bfb786d3a167552e5d913f87ed94462086f2d85", "why": "d2_bracket_rebuilt wrapper"},
-  {"rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d", "path": "research/harness-2026-11/S-D2/refit/run_d2.py", "sha256": "e3c0843c60ff8a5f315a1095a6ac990936ed25c8682269dc8259ad4942a1b435", "why": "D2 shared wrapper"}
+  {
+   "rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4",
+   "path": "research/forecast-v2/scripts/pipeline.py",
+   "sha256": "88d376d219993e72832f21c86df5f90140dc894f876b3bb9cd37688520c92d67",
+   "why": "A1 3.1 frozen pipeline"
+  },
+  {
+   "rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4",
+   "path": "research/forecast-v2/RUN_PROTOCOL.json",
+   "sha256": "c2dce7f7724b1bda6d71391b690904067e6ad46c808276c34f72fd4a1b1e8243",
+   "why": "A1 3.1"
+  },
+  {
+   "rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4",
+   "path": "forecast/wildfire/baselines.py",
+   "sha256": "325abbe79ba7c22ed3eb60391a68d2becdbfd0aa4c6659debb94db6a34afbb1f",
+   "why": "logistic_rebuilt (A1 3.1)"
+  },
+  {
+   "rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4",
+   "path": "research/harness-2026-11/data-fetch/fetch.py",
+   "sha256": "ef9d07a6e18eaee0fdff600e117161fbd88db6b47d2c44d59593344b80cf6396",
+   "why": "raw NIROPS download"
+  },
+  {
+   "rev": "6babc5ec7b8d66f07e6d547ea827453f095e9ad4",
+   "path": "research/harness-2026-11/data-fetch/resources.json",
+   "sha256": "daf138e545ae6ffa1454b02ca1f13460d43d06dfd088c327c5fdc36144935e12",
+   "why": "NIROPS zip sha b19fb16c"
+  },
+  {
+   "rev": "39cd863b9ee158a693e97066ff1a3cc132726471",
+   "path": "research/harness-2026-11/s-d1/refit/run_pipeline_rebuilt.py",
+   "sha256": "264deaeae7dc532bbfa27e55d35d3def7c01eb0c7f85cdf358ee529b866e1d1d",
+   "why": "refit wrapper (A1 3.1)"
+  },
+  {
+   "rev": "39cd863b9ee158a693e97066ff1a3cc132726471",
+   "path": "research/harness-2026-11/s-d1/refit/check_refit_env.py",
+   "sha256": "23ad5d2708f0777edd4dea84b2b682d85b72c108540ef4343fac780436ef0c19",
+   "why": "environment preflight"
+  },
+  {
+   "rev": "adbfcda581122b52290f95e401bece2590ca7b29",
+   "path": "research/harness-2026-11/data-fetch-3/nirops_access/nirops_access.py",
+   "sha256": "08753d9669ccfedc48f50a0f6b3f42897f9a63e30ead8ea0e8c0183b80613a2b",
+   "why": "allowlist-safe NIROPS reader"
+  },
+  {
+   "rev": "adbfcda581122b52290f95e401bece2590ca7b29",
+   "path": "research/harness-2026-11/data-fetch-3/nirops_access/build_nirops_event_v2.py",
+   "sha256": "daa76e4d54083b6b58d900834d38c85c40515abf726b039252b0c4e84e2c456c",
+   "why": "part-a label builder (by fid)"
+  },
+  {
+   "rev": "adbfcda581122b52290f95e401bece2590ca7b29",
+   "path": "research/harness-2026-11/S-D9/cohort/PART_A_ALLOWLIST_FINAL.csv",
+   "sha256": "7db3cc0ef084d4ed09624a0b2ad14ffebc90a94fe7efb94cab8dd2d4f09f85cd",
+   "why": "part a, 490 incidents"
+  },
+  {
+   "rev": "adbfcda581122b52290f95e401bece2590ca7b29",
+   "path": "research/harness-2026-11/data-fetch-3/parta_pool/PERIMETER_MANIFEST.json",
+   "sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+   "why": "committed label hashes S1 compares against"
+  },
+  {
+   "rev": "2be7a712d177759c00f1a3bbb01e3c75dfdd56d6",
+   "path": "research/harness-2026-11/s-d1/refit/score_parta.py",
+   "sha256": "9a2f09c63c0639161283a4d7a605917fe529187c5ebf3b95f659ed4745a81635",
+   "why": "part-a prediction command (Marcus); writes the entries.py npz contract"
+  },
+  {
+   "rev": "ea14f446d3aebc48f13615ffc8024ac2c1c1d90f",
+   "path": "research/harness-2026-11/S-D9/sd9bench/score.py",
+   "sha256": "1ac8d933561eef4809ef227c90855bca5eeec3afe1d5d6f490388b3c0e3035c2",
+   "why": "frozen scorer (cross-check only)"
+  },
+  {
+   "rev": "826f5a5eaab185419a4d2e5b970e8ef6d92873e9",
+   "path": "research/harness-2026-11/S-D9/freeze/score_criteria.py",
+   "sha256": "edc44746065a838d9e8045ec50a05582569ece749c759c0233f442b8e4e63ade",
+   "why": "writer of record for the criterion table (Victor): frozen sd9bench.score with references persistence, dilation_8h, logistic_rebuilt, d4_wind_recal"
+  },
+  {
+   "rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d",
+   "path": "research/harness-2026-11/S-D2/refit/d2_bracket.py",
+   "sha256": "98d7d6c6370895aec738ea987e8dc79f78862c2a9c3e8c1ba6085de7ec421247",
+   "why": "d2_bracket_rebuilt (STAGE2_PINS; final head PENDING)"
+  },
+  {
+   "rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d",
+   "path": "research/harness-2026-11/S-D2/refit/run_d2_bracket.py",
+   "sha256": "cc41cc3302967d8411292e497bfb786d3a167552e5d913f87ed94462086f2d85",
+   "why": "d2_bracket_rebuilt wrapper"
+  },
+  {
+   "rev": "3d4ebb9086a4065820573c3ede1ad67bd1260f7d",
+   "path": "research/harness-2026-11/S-D2/refit/run_d2.py",
+   "sha256": "e3c0843c60ff8a5f315a1095a6ac990936ed25c8682269dc8259ad4942a1b435",
+   "why": "D2 shared wrapper"
+  }
  ],
  "raw": {
   "nirops_zip_sha256": "b19fb16ce2792d9a9c01f1768d09962566b0f3cada8d1f23a9851ab3fce75615",
@@ -29,7 +115,8 @@
   "d4_wind_recal_code": "Marcus writes it (owner of the d4_wind refit), Owen verifies; not committed yet",
   "parta_prediction_inputs": "score_parta.py is pinned above; still pending its real checkpoint, the final events list and Daniel's input manifest, and Victor's confirmation of the format (shared multi-model mask)",
   "d4_wind_recal_details": "Victor's proposal awaiting the orchestrator: 0.05 negative subsample with inverse weights, full grid, p clipped to [1e-6, 1-1e-6]",
-  "committed_parta_table": "PARTA_SCORES.json written by the sd9bench CLI (Victor, after the refits): commit, sha256 and env hash. Pairs per Victor: each admitted candidate minus persistence, dilation_8h, logistic_rebuilt and d4_wind_recal, plus d4_wind_rebuilt minus logistic_rebuilt. NOTE: the sd9bench CLI pairs only against persistence and dilation_best (score.score default references; the CLI has no option), so the dilation_8h, logistic_rebuilt and d4_wind_recal pairs need a writer change or come from s4_score.py",
-  "d2_bracket_final_head": "STAGE2_PINS: final head and Owen's verification"
+  "committed_parta_table": "PARTA_SCORES.json written by freeze/score_criteria.py (pinned above) after the refits and Marcus's merge step (one file per fire, all p_ columns on common support, y and dist_m asserted equal, population full_rectangle, a p_dilation_8h producer): commit, sha256 and env hash. s4_score.py is the independent second run (Victor: compared within 1e-9 on every reported pair; observed agreement 1e-12)",
+  "d2_bracket_final_head": "STAGE2_PINS: final head and Owen's verification",
+  "merge_step": "Marcus: merge of per-model score_parta.py outputs to one file per fire, plus the dilation_8h producer"
  }
 }
