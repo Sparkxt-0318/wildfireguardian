@@ -352,6 +352,9 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **No independent check yet.** The arrays still disagree with HAZARD, and the kit's independent checker reads the
     arrays. So no independent check of these witnesses is possible yet: only the full checker and the closed replay
     on HAZARD.
+  * **v3.4 (Nora row 37).** Leo's MANIFEST_v3_4 fix passes: the burnset arrays now equal HAZARD, and the HAZARD is
+    identical to v3.3's. The burnset field results above therefore carry over to v3.4. They have not been rerun, so
+    the packet hashes in the claim are v3.3's.
 * **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
   is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
 
