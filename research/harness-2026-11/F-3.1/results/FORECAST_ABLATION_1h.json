@@ -1,0 +1,681 @@
+{
+ "what": "forecast ablation at 1 h: c651 members as recorded vs present fire only (cert contact field); diff = c651 - present",
+ "planner": [
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250323T010000Z.json",
+   "new_ignitions_per_member": {
+    "0": 4,
+    "1": 4,
+    "2": 5,
+    "3": 4
+   },
+   "counts": {
+    "exact_differs": 8,
+    "exact_equal": 77,
+    "grid_differs": 5,
+    "both_no_route": 1
+   },
+   "differing": [
+    {
+     "origin_id": "osm:node/415160449",
+     "exact_c651": 905,
+     "grid_c651": 600,
+     "status_c651": "checked",
+     "exact_present": 1193,
+     "grid_present": 600,
+     "status_present": "checked",
+     "exact_diff_s": -288,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160438",
+     "exact_c651": 1563,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2090,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -527,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160424",
+     "exact_c651": 2061,
+     "grid_c651": 1800,
+     "status_c651": "checked",
+     "exact_present": 2688,
+     "grid_present": 2400,
+     "status_present": "checked",
+     "exact_diff_s": -627,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160440",
+     "exact_c651": 1848,
+     "grid_c651": 1800,
+     "status_c651": "checked",
+     "exact_present": 2053,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -205,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160435",
+     "exact_c651": 1502,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2027,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -525,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160476",
+     "exact_c651": 2175,
+     "grid_c651": 1800,
+     "status_c651": "checked",
+     "exact_present": 3040,
+     "grid_present": 3000,
+     "status_present": "checked",
+     "exact_diff_s": -865,
+     "grid_diff_s": -1200
+    },
+    {
+     "origin_id": "osm:node/415160436",
+     "exact_c651": 1549,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 1848,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -299,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160437",
+     "exact_c651": 1360,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 1659,
+     "grid_present": 1200,
+     "status_present": "checked",
+     "exact_diff_s": -299,
+     "grid_diff_s": 0
+    }
+   ]
+  },
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250324T090000Z.json",
+   "new_ignitions_per_member": {
+    "0": 4,
+    "1": 5,
+    "2": 9,
+    "3": 3
+   },
+   "counts": {
+    "exact_differs": 13,
+    "exact_equal": 72,
+    "grid_differs": 8
+   },
+   "differing": [
+    {
+     "origin_id": "osm:node/415160449",
+     "exact_c651": 905,
+     "grid_c651": 600,
+     "status_c651": "checked",
+     "exact_present": 1193,
+     "grid_present": 600,
+     "status_present": "checked",
+     "exact_diff_s": -288,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160438",
+     "exact_c651": 1563,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2090,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -527,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160440",
+     "exact_c651": 1848,
+     "grid_c651": 1800,
+     "status_c651": "checked",
+     "exact_present": 2053,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -205,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160424",
+     "exact_c651": 2672,
+     "grid_c651": 2400,
+     "status_c651": "checked",
+     "exact_present": 2688,
+     "grid_present": 2400,
+     "status_present": "checked",
+     "exact_diff_s": -16,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160428",
+     "exact_c651": 1073,
+     "grid_c651": 600,
+     "status_c651": "checked",
+     "exact_present": 2549,
+     "grid_present": 2400,
+     "status_present": "checked",
+     "exact_diff_s": -1476,
+     "grid_diff_s": -1800
+    },
+    {
+     "origin_id": "osm:node/415160434",
+     "exact_c651": 1208,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2684,
+     "grid_present": 2400,
+     "status_present": "checked",
+     "exact_diff_s": -1476,
+     "grid_diff_s": -1200
+    },
+    {
+     "origin_id": "osm:node/415160433",
+     "exact_c651": 1701,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2029,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -328,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160435",
+     "exact_c651": 1500,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 2027,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -527,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160436",
+     "exact_c651": 1549,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 1848,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -299,
+     "grid_diff_s": -600
+    },
+    {
+     "origin_id": "osm:node/415160437",
+     "exact_c651": 1360,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 1659,
+     "grid_present": 1200,
+     "status_present": "checked",
+     "exact_diff_s": -299,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160474",
+     "exact_c651": 2953,
+     "grid_c651": 2400,
+     "status_c651": "checked",
+     "exact_present": 2984,
+     "grid_present": 2400,
+     "status_present": "checked",
+     "exact_diff_s": -31,
+     "grid_diff_s": 0
+    },
+    {
+     "origin_id": "osm:node/415160361",
+     "exact_c651": 1767,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 3065,
+     "grid_present": 3000,
+     "status_present": "checked",
+     "exact_diff_s": -1298,
+     "grid_diff_s": -1800
+    },
+    {
+     "origin_id": "research:uiseong_andong_2025:20250324T090000Z_FL2:origin",
+     "exact_c651": 1337,
+     "grid_c651": 1200,
+     "status_c651": "checked",
+     "exact_present": 1864,
+     "grid_present": 1800,
+     "status_present": "checked",
+     "exact_diff_s": -527,
+     "grid_diff_s": -600
+    }
+   ]
+  },
+  {
+   "cache_file": "planner/cache/uiseong_andong_2025/20250325T170000Z.json",
+   "new_ignitions_per_member": {
+    "0": 3,
+    "1": 5,
+    "2": 5,
+    "3": 5
+   },
+   "counts": {
+    "both_no_route": 12,
+    "exact_equal": 73
+   },
+   "differing": []
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250325T190000Z.json",
+   "new_ignitions_per_member": {
+    "0": 2,
+    "1": 0,
+    "2": 2,
+    "3": 4
+   },
+   "counts": {
+    "exact_equal": 84,
+    "both_no_route": 7,
+    "exact_differs": 1
+   },
+   "differing": [
+    {
+     "origin_id": "osm:node/415160311",
+     "exact_c651": 3397,
+     "grid_c651": 3000,
+     "status_c651": "checked",
+     "exact_present": 3467,
+     "grid_present": 3000,
+     "status_present": "checked",
+     "exact_diff_s": -70,
+     "grid_diff_s": 0
+    }
+   ]
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250325T230000Z.json",
+   "new_ignitions_per_member": {
+    "0": 1,
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "counts": {
+    "exact_equal": 91
+   },
+   "differing": []
+  },
+  {
+   "cache_file": "planner/cache/yeongdeok_2025/20250326T080000Z.json",
+   "new_ignitions_per_member": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "counts": {
+    "exact_equal": 89,
+    "both_no_route": 2
+   },
+   "differing": []
+  }
+ ],
+ "missions": [
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FN1",
+   "departure": 0,
+   "latest_c651": null,
+   "arrival_at_dep_c651": null,
+   "latest_present": null,
+   "arrival_at_dep_present": null
+  },
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FX1",
+   "departure": 0,
+   "latest_c651": null,
+   "arrival_at_dep_c651": null,
+   "latest_present": null,
+   "arrival_at_dep_present": null
+  },
+  {
+   "mission": "hongseong_2023/20230402T140000Z_FW2",
+   "departure": 600,
+   "latest_c651": 3112,
+   "arrival_at_dep_c651": 1459,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.17208261271753142
+   },
+   "latest_present": 3112,
+   "arrival_at_dep_present": 1459,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.17208261271753142
+   }
+  },
+  {
+   "mission": "hongseong_2023/20230402T230000Z_FD1",
+   "departure": 0,
+   "latest_c651": 196,
+   "arrival_at_dep_c651": 531,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.020607449087063506
+   },
+   "latest_present": 196,
+   "arrival_at_dep_present": 531,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.020607449087063506
+   }
+  },
+  {
+   "mission": "miryang_2022/20220531T100000Z_FN1",
+   "departure": 0,
+   "latest_c651": 2338,
+   "arrival_at_dep_c651": 1142,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.04972589513714467
+   },
+   "latest_present": 2338,
+   "arrival_at_dep_present": 1142,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.04972589513714467
+   }
+  },
+  {
+   "mission": "miryang_2022/20220601T020000Z_FW1",
+   "departure": 300,
+   "latest_c651": 2748,
+   "arrival_at_dep_c651": 1270,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.01010049921433602
+   },
+   "latest_present": 2748,
+   "arrival_at_dep_present": 1270,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.01010049921433602
+   }
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FD1",
+   "departure": 600,
+   "latest_c651": null,
+   "arrival_at_dep_c651": null,
+   "latest_present": null,
+   "arrival_at_dep_present": null
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FX1",
+   "departure": 0,
+   "latest_c651": null,
+   "arrival_at_dep_c651": null,
+   "latest_present": null,
+   "arrival_at_dep_present": null
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FD1",
+   "departure": 600,
+   "latest_c651": 639,
+   "arrival_at_dep_c651": 2460,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.0065554044776602064
+   },
+   "latest_present": 639,
+   "arrival_at_dep_present": 2460,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.0065554044776602064
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FX2",
+   "departure": 600,
+   "latest_c651": 1540,
+   "arrival_at_dep_c651": 2540,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 85.39597198450184
+   },
+   "latest_present": 1540,
+   "arrival_at_dep_present": 2540,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 85.39597198450184
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250324T090000Z_FL2",
+   "departure": 0,
+   "latest_c651": 1337,
+   "arrival_at_dep_c651": 2143,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.11875546559395857
+   },
+   "latest_present": 1864,
+   "arrival_at_dep_present": 1616,
+   "witness_full_check_present": {
+    "full_policy_ok": false,
+    "full_status": "REJECTED_ROUTE",
+    "codes": [
+     "FLAME_CONTACT"
+    ],
+    "max_dose": 17.44745797633207
+   }
+  },
+  {
+   "mission": "uiseong_andong_2025/20250325T170000Z_FW1",
+   "departure": 0,
+   "latest_c651": 2907,
+   "arrival_at_dep_c651": 1064,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.2013048098518766
+   },
+   "latest_present": 2907,
+   "arrival_at_dep_present": 1064,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.2013048098518766
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FD1",
+   "departure": 0,
+   "latest_c651": 176,
+   "arrival_at_dep_c651": 1589,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.0008058491760889753
+   },
+   "latest_present": 176,
+   "arrival_at_dep_present": 1589,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.0008058491760889753
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FX1",
+   "departure": 0,
+   "latest_c651": 361,
+   "arrival_at_dep_c651": 3119,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.8676603202445452
+   },
+   "latest_present": 361,
+   "arrival_at_dep_present": 3119,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.8676603202445452
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T060000Z_FL1",
+   "departure": 0,
+   "latest_c651": 1413,
+   "arrival_at_dep_c651": 2067,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.035296873830627094
+   },
+   "latest_present": 1413,
+   "arrival_at_dep_present": 2067,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.035296873830627094
+   }
+  },
+  {
+   "mission": "uljin_2022/20220304T120000Z_FW2",
+   "departure": 600,
+   "latest_c651": 2680,
+   "arrival_at_dep_c651": 1655,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.2595092724734779
+   },
+   "latest_present": 2680,
+   "arrival_at_dep_present": 1655,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.2595092724734779
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FD1",
+   "departure": 0,
+   "latest_c651": null,
+   "arrival_at_dep_c651": null,
+   "latest_present": null,
+   "arrival_at_dep_present": null
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FX2",
+   "departure": 0,
+   "latest_c651": 968,
+   "arrival_at_dep_c651": 2512,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 31.803393090062556
+   },
+   "latest_present": 968,
+   "arrival_at_dep_present": 2512,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 31.803393090062556
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T230000Z_FL2",
+   "departure": 0,
+   "latest_c651": 1558,
+   "arrival_at_dep_c651": 1922,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.10455964681555957
+   },
+   "latest_present": 1558,
+   "arrival_at_dep_present": 1922,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.10455964681555957
+   }
+  },
+  {
+   "mission": "yeongdeok_2025/20250326T080000Z_FW1",
+   "departure": 300,
+   "latest_c651": 3004,
+   "arrival_at_dep_c651": 896,
+   "witness_full_check_c651": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.00012420028718359704
+   },
+   "latest_present": 3004,
+   "arrival_at_dep_present": 896,
+   "witness_full_check_present": {
+    "full_policy_ok": true,
+    "full_status": "CHECKED_ROUTE",
+    "codes": [],
+    "max_dose": 0.00012420028718359704
+   }
+  }
+ ]
+}
