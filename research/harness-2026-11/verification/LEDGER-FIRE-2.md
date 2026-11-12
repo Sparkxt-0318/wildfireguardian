@@ -126,3 +126,5 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - VERIFY.jsonl has 90 rows (75 margin + 15 published), all CERTIFIED_ADMISSIBLE. 12 more margin witnesses were re-run (one per remaining mission, including the FW1 1781 m, FX1 680 m and Uiseong FW1 1531 m trade-offs): 12/12 certified and exact_ok. 27/90 have now been re-run in total.
 - The description matches the ledger; "1 mm" holds (max 0.0004 m).
 - Notes: fixed_route_check.py is included but was never seen or run (not used by RESULTS). TABLE.md keeps the verified analyze_clearance's "≥6000 (cap)" wording.
+
+**Amendment to 17 (PR #114)**: the fixed_route_check.py note is withdrawn. verify_witnesses.py:115 runs it as a subprocess for every witness, so all 27 independent re-runs exercised it. It is unchanged since 0e6f7db and imports the kit's HybridChecker without re-implementation. The only remaining note is cosmetic (TABLE.md cap wording, stated in the PR description). The only content in #114 not verified by me is results/extended_b300_1rep, which is listed as not verified.
