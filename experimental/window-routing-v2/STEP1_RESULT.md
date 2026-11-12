@@ -62,3 +62,12 @@ conservative, as Mira notes.
 **Kit after fixes.** Manifest `kit-v2-step1b`. Tests: builder 10/10; parent ok (only the provenance tests, on the 5
 overlay files); reasons 7/7 unit; progress 2/2. The N2 change alters no behaviour when no error occurs. It is
 exercised again by the Step 2 panel, which reports G1 against the frozen kit.
+
+**Follow-up tests (orchestrator 17:42 UTC)** in `tests/test_step1_followups.py`, run on `kit-v2-step1b` plus the frozen kit; 2/2 pass in 138 s:
+- **N1:** one panel process drives frozen → v2 → frozen jobs through `run_one_job.py`. Each job reports the
+  `wfg_controller` and `journey_decision_v2_1` files it actually loaded, and each lies inside that job's own kit.
+- **N2:** as soon as the job folder appears, the progress temp path is turned into a directory. Root ignores file
+  modes, so this is the reliable obstruction, and every progress write fails.
+  - Result: no SEARCH_PROGRESS.json; `RESULT.progress_hook.errors > 0` with an IsADirectoryError.
+  - Authoritative status, arrival, primary status, reason and stage sequence all equal an unobstructed control run of
+    the same job (Yeongdeok 0325T19 FD1, 81 s).

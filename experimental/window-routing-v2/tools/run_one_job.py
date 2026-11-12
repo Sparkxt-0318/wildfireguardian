@@ -10,4 +10,6 @@ import run_profile as RP  # noqa: E402
 
 kit, inputs, region, case, out, budget = sys.argv[1:7]
 row = RP.run_one(Path(kit), Path(inputs), region, case, Path(out), float(budget), 'plain', sys.executable)
+# which controller and decision modules this job actually ran (checked by tests/test_step1_followups.py)
+row['module_files'] = {m: getattr(sys.modules.get(m), '__file__', None) for m in ('wfg_controller', 'journey_decision_v2_1')}
 print(json.dumps(row, sort_keys=True, default=str))
