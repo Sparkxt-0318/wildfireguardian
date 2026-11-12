@@ -724,7 +724,12 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
 * **Assumption line.** Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists
   at multi-hour.
 
-## Multi-hour `no_reentry/1` VARIANT run, 48 packet pairs (SCENARIO, not what happened; VARIANT, not the headline; not yet verified)
+## Multi-hour `no_reentry/1` VARIANT run, 48 packet pairs (SCENARIO, not what happened; VARIANT, not the headline; VERIFIED: Nora, PASS WITH NOTES, ledger row 67)
+
+**Nora's notes (row 67).**
+1. The HAZARD sha256 values in the summary are NOT the canonical v3.6 packet hashes. Example: Uiseong 25T17Z h5 kriged_mean `/1` is bc058bd7 here and e02e5135 canonically. The batch rewrites `--out` to an absolute scratch path, which enters provenance. Results are unaffected. Treat the summary's hashes as the hashes of these scratch builds only.
+2. The earlier-variant-later rows are the `/1` pre-start burn-out effect, as with spotting (row 61). They are expected to vanish under `/2` (acceptance 8). This is not shown yet.
+3. Nora re-ran 2 of the 48 pairs (Uiseong 25T17Z h5 kriged_mean and firms_early). Both reproduced exactly.
 
 **Label.** VARIANT (`no_reentry/1`): no re-entry after the start; cells burned out before the start stay open.
 - Rule: `MULTIHOUR_HEADLINE_RULE.md` with its amendment of 19:15 UTC. The headline is `no_reentry/2` (v3.7, Leo, with Nora).
