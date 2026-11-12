@@ -448,11 +448,16 @@ def test_shared_modulator_is_an_exact_time_change():
     init[2, 9] = True
     z = np.array([0.5, 0.0, 3.0, 1.0, 8.0, 0.2])  # includes a stalled hour and a run hour
     horizon = 12.0
-    _, base = first_passage(K, init, [1e6], n_samples=30, seed=8, keep_arrivals=30)
-    _, direct = first_passage(K[None] * z[:, None, None, None], init, [horizon], n_samples=30, seed=8,
-                              keep_arrivals=30)
-    tc = time_change_arrivals(base, z)
-    tc = np.where(tc <= horizon, tc, np.inf)
-    fin = np.isfinite(direct)
-    assert np.array_equal(fin, np.isfinite(tc))
-    assert np.allclose(tc[fin], direct[fin], rtol=1e-9, atol=1e-9)
+    # One trajectory per seed: first_passage draws clocks lazily from one stream, so two multi-trajectory
+    # runs that burn different numbers of cells desynchronise later trajectories (Owen). The identity is
+    # pathwise PER TRAJECTORY.
+    for z, horizon in ((z, horizon), (np.array([1.0, 2.0, 0.0]), 8.0), (np.array([2.0, 0, 0, 5, 1]), 3.5)):
+        for seed in range(15):
+            _, base = first_passage(K, init, [1e6], n_samples=1, seed=seed, keep_arrivals=1)
+            _, direct = first_passage(K[None] * z[:, None, None, None], init, [horizon], n_samples=1,
+                                      seed=seed, keep_arrivals=1)
+            tc = time_change_arrivals(base, z)
+            tc = np.where(tc <= horizon, tc, np.inf)
+            fin = np.isfinite(direct)
+            assert np.array_equal(fin, np.isfinite(tc))
+            assert np.allclose(tc[fin], direct[fin], rtol=1e-9, atol=1e-9)

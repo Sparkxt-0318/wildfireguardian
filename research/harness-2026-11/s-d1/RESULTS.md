@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **32 passed** in about 35 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **35 passed** in about 30 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -238,6 +238,10 @@ The hourly conditional estimator should cost the same as hourly plain: it reuses
 
 **Not covered:** Bayesian mixtures (`BayesianBurnModel`). A `c651_mc_cond` variant still has to be declared to S-D9, with its pilot rule, before scored use.
 
+**Added tests (Owen, dd1bc26).**
+- `test_plain_bit_identical_multi_cutoff_with_hourly_forecast`: 3 cutoffs, an hourly environmental forecast, a partial final block. It catches the "cutoff index dropped from the RNG stream" mutant, which the single-cutoff tests missed.
+- `test_cond_rollout_actually_calls_prepare_transition` counts prepare_transition calls. It catches the "cache never used" mutant.
+
 **Owen's independent probe.** 3 cutoffs, hourly `environmental_forecast` through an environment-dependent stub, a partial final block, zero/unknown boundary, 4 seeds. The plain output is bit-identical to `simulate` in 8/8 cases.
 
 `cond_rollout.simulate_with_conditional` re-implements the trajectory loop of `wildfire.rollout.simulate` for:
@@ -264,7 +268,8 @@ Tests (`tests/test_cond_rollout.py`, 5 passed):
 **Do not switch by a data-dependent rule (Iris).** Choosing per cell with the same trajectories biases the estimate near the threshold. The implemented fix is Iris's option (b):
 - `pilot_weights` sets a per-cell weight `w ∈ [0, 1]` from an **independent pilot run**, minimising the pilot-estimated Var(w·Y + (1−w)·hit).
 - `combined_estimate` forms `w·Y + (1−w)·hit` from the main run. It is unbiased because w is independent of the main run.
-- The clip to [0, 1] is applied only at the output stage and reported separately, because Y can exceed 1.
+- The clip to [0, 1] is applied only at the output stage and reported separately, because Y can exceed 1. The unclipped estimate is unbiased. The clipped one has a small bias on the cells that clipping touches (Owen).
+- The equal-total-trajectories table below has not been independently verified (Owen).
 
 Test `test_pilot_weighted_combination_unbiased_and_never_much_worse`: pilot 1,000 trajectories, main 4,000. Median SE ratio, combined / plain:
 
@@ -318,7 +323,11 @@ Waiting on Daniel's rebuilt inputs (weather after the 00:00 UTC Open-Meteo reset
 
 `fpp.time_change_arrivals(arrivals, z_hourly)` implements this for an hourly piecewise-constant Z, including stalled hours (Z = 0).
 
-**Test.** `test_shared_modulator_is_an_exact_time_change` covers stall and run hours. The time-changed static arrivals equal the time-dependent Dijkstra on `K · Z` to 1e-9, with the same clocks.
+**Test.** `test_shared_modulator_is_an_exact_time_change` covers stall and run hours. The identity is **pathwise per trajectory**, with one trajectory per seed: the time-changed static arrivals equal the time-dependent Dijkstra on `K · Z` to 1e-9.
+
+**Caveat (Owen).** `first_passage` draws clocks lazily from one stream. Two multi-trajectory runs that burn different numbers of cells therefore desynchronise later trajectories. So the identity does not mean that one multi-trajectory run reproduces another's clocks. For exact reuse in production, use the hash clocks of `first_passage_cmc_repaired`'s implementation, or keep the base arrivals and transform them.
+
+Owen verified time_change_arrivals against an independent analytic G⁻¹ (error 0.0) and the per-trajectory identity on 90/90 cases.
 
 **Consequence.** One trajectory set (static kernels) serves every shared scenario: S-D4mix multipliers, a run/slow HMM or gust paths. Only a 1-D map per scenario is needed, with no new Dijkstra. This does not cover modulators that vary in space, or weather-driven kernel changes beyond a common factor.
 

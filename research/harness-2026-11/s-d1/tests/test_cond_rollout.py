@@ -190,3 +190,66 @@ def test_cache_path_is_actually_taken_for_c651():
     prepared = prepare_transition(model, e[0], kw["feature_valid"][0], channel_names=kw["channel_names"],
                                   batch_size=4, boundary="zero")
     assert prepared is not None
+
+
+def env_stub(K_by_hour):
+    """Predictor whose kernel depends on the environment value (so hourly forecasts matter)."""
+    kerns = torch.tensor(K_by_hour)  # [T, KK, H, W]
+
+    class EnvStub(torch.nn.Module):
+        channel_names = ("x",)
+
+        def forward(self, states, environment, *, channel_names, burned_area_valid, feature_valid,
+                    dt_hours, boundary):
+            hour = int(round(float(environment[0, 0, 0, 0])))
+            return new_burn_probability(states, kerns[hour].expand(states.shape[0], -1, -1, -1),
+                                        dt_hours=dt_hours, burned_area_valid=burned_area_valid,
+                                        boundary=boundary)
+    return EnvStub()
+
+
+@pytest.mark.parametrize("seed", [0, 1])
+def test_plain_bit_identical_multi_cutoff_with_hourly_forecast(seed):
+    """Owen's mutant (cutoff index dropped from the RNG stream) must be caught: 3 cutoffs, an hourly
+    environmental forecast through an environment-dependent predictor, partial final block."""
+    rng = np.random.default_rng(40 + seed)
+    T, H, W = 3, 10, 11
+    K = rng.uniform(0, 0.3, size=(T, 25, H, W))
+    K[:, 12] = 0
+    init = np.zeros((3, 1, H, W))
+    init[0, 0, 5, 5] = init[1, 0, 2, 8] = init[2, 0, 7, 1] = 1
+    b = torch.tensor(init)
+    env = torch.zeros((3, 1, H, W), dtype=torch.float64)
+    forecast = torch.stack([torch.full((3, 1, H, W), float(k), dtype=torch.float64) for k in range(T)])
+    kw = dict(channel_names=("x",), burned_area_valid=torch.ones_like(b, dtype=torch.bool),
+              feature_valid=torch.ones_like(env, dtype=torch.bool), environmental_forecast=forecast,
+              forecast_valid=torch.ones_like(forecast, dtype=torch.bool))
+    common = dict(hours=[1.0, 3.0], n_samples=203, seed=seed, trajectory_batch_size=64, boundary="zero", **kw)
+    ref = simulate(env_stub(K), b, env, **common)
+    mine = simulate_with_conditional(env_stub(K), b, env, **common)
+    for r, m in zip(ref, mine):
+        assert torch.equal(torch.nan_to_num(r["details"].probability, nan=-1.0),
+                           torch.nan_to_num(m["probability"], nan=-1.0))
+    p = ref[-1]["details"].probability
+    assert not torch.equal(p[0], p[1])  # cutoffs genuinely differ
+
+
+def test_cond_rollout_actually_calls_prepare_transition(monkeypatch):
+    """Owen: the cache parametrisation cannot tell the paths apart; count the calls instead."""
+    import wildfire.rollout_cache as rc
+    calls = []
+    original = rc.prepare_transition
+
+    def counting(*args, **kwargs):
+        calls.append(kwargs.get("batch_size"))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(rc, "prepare_transition", counting)
+    model, b, e, kw = _c651_case()
+    simulate_with_conditional(model, b, e, hours=[2.0], n_samples=40, seed=1, trajectory_batch_size=16,
+                              boundary="zero", cache_environment_kernels=True, **kw)
+    assert sorted(set(calls)) == [1, 16]  # probe batch and trajectory batch, each prepared once
+    calls.clear()
+    simulate_with_conditional(model, b, e, hours=[2.0], n_samples=40, seed=1, trajectory_batch_size=16,
+                              boundary="zero", cache_environment_kernels=False, **kw)
+    assert calls == []
