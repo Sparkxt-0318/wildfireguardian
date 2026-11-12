@@ -59,6 +59,15 @@ export const OFFICIAL_SLOT: LmText = {
   en: 'Official evacuation orders, emergency texts and the village head or town office always come before this screen. This replay does not show the official orders of the time.',
 };
 export const QUESTION: LmText = { ko: '대피해야 하나요? 언제까지?', en: 'Do I need to leave, and by when?' };
+/**
+ * Shown when no replay data could be loaded (no cache index, an unreadable index, or a failed load) — one line for every
+ * cause (Iris): it says what this page holds, never anything about a fire or an order. Korean: Sofia ("여부" covers both
+ * directions without ever writing "명령이 없" or "안전", which a skimmer could half-read as "there is no order").
+ */
+export const NO_DATA: LmText = {
+  ko: '이 화면에는 불러온 재현 자료가 없습니다. 이 화면으로는 산불이나 공식 대피 명령 여부를 알 수 없습니다.',
+  en: 'No replay data is loaded on this page. This is not a statement about any fire or any official order.',
+};
 export const DEVICE_NOTE: LmText = {
   ko: '저장한 장소는 이 기기 안에만 남습니다. 이 화면은 자기 파일 말고는 아무 곳에도 연결하지 않습니다.',
   en: 'Saved places stay on this device. This page connects to nothing but its own files.',

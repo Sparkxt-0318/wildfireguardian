@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BANNER, cardFor, exampleIds, handoffFor, leaveByWords, linkFor, nextRequestedMin, NOT_IN_MODEL, OFFICIAL_SLOT, ONE_TRIP, parseLink, REPLAY_MARK, sweepStepMin, validPlace, type AfterWords, type PublicCard } from '../../planner/src/features/publicview/model';
+import { BANNER, cardFor, exampleIds, handoffFor, leaveByWords, linkFor, nextRequestedMin, NO_DATA, NOT_IN_MODEL, OFFICIAL_SLOT, ONE_TRIP, parseLink, REPLAY_MARK, sweepStepMin, validPlace, type AfterWords, type PublicCard } from '../../planner/src/features/publicview/model';
 import { readSaved, writeSaved } from '../../planner/src/features/publicview/load';
 import { DARK, LIGHT, SIZE } from '../../planner/src/features/publicview/tokens';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
@@ -240,7 +240,14 @@ describe('tokens: contrast, colour vision, sizes', () => {
 const req = createRequire(new URL('../../planner/package.json', import.meta.url));
 const { JSDOM } = req('jsdom') as { JSDOM: new (html?: string, opts?: Record<string, unknown>) => { window: Window & typeof globalThis } };
 
-async function mount(url: string): Promise<{ container: HTMLDivElement; urls: string[] }> {
+interface MountOpts {
+  /** replace the response for one app-relative path (e.g. "cache/INDEX.json"); undefined serves the repository file */
+  serve?: (rel: string) => Response | undefined;
+  /** the page is expected to show the no-data line: wait for it and return instead of throwing */
+  expectNoData?: boolean;
+}
+
+async function mount(url: string, opts: MountOpts = {}): Promise<{ container: HTMLDivElement; urls: string[] }> {
   const urls: string[] = [];
   const planner = new URL('../../planner/', import.meta.url);
   const dom = new JSDOM('<!doctype html><html lang="ko"><head></head><body></body></html>', { url, pretendToBeVisual: true });
@@ -261,6 +268,11 @@ async function mount(url: string): Promise<{ container: HTMLDivElement; urls: st
     const baseDir = new URL(BASE_URL, url).pathname; // "/", "/wildfireguardian/"; a relative "./" resolves against the page
     const rel = u.pathname.startsWith(baseDir) ? u.pathname.slice(baseDir.length) : null;
     const file = rel === null ? null : rel.startsWith('cache/') ? new URL(rel, planner) : new URL(`public/${rel}`, planner);
+    const replaced = rel === null ? undefined : opts.serve?.(rel);
+    if (replaced) {
+      if (!replaced.ok) missed.push(u.pathname);
+      return replaced;
+    }
     try {
       if (!file) throw new Error('outside the app base');
       return new Response(readFileSync(file), { status: 200, headers: { 'content-type': 'application/json' } });
@@ -282,11 +294,12 @@ async function mount(url: string): Promise<{ container: HTMLDivElement; urls: st
   // cache index as "no replay data" and shows no error, so stop early too if the index could not be served.
   const indexMissed = () => missed.some((p) => p.endsWith('/cache/INDEX.json'));
   const until = Date.now() + 90_000;
-  while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error') && !indexMissed()) {
+  while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('[data-pv="no-data"]') && !indexMissed()) {
     await React.act(async () => { await new Promise((r) => setTimeout(r, 100)); });
   }
-  const err = container.querySelector('.pv-error');
-  if (err) throw new Error(`page reported an error while loading the replay cache: ${err.textContent}`);
+  if (opts.expectNoData) return { container, urls };
+  const err = container.querySelector('[data-pv="no-data"]');
+  if (err) throw new Error(`page reported no replay data: ${err.textContent}`);
   if (indexMissed()) throw new Error(`the test's fetch could not serve the cache index (app base ${BASE_URL}); not served: ${missed.join(', ')}`);
   return { container, urls };
 }
@@ -395,4 +408,54 @@ describe('places by URL (Iris: both parameters untrusted)', () => {
       container.remove();
     }
   }, 300_000);
+});
+
+describe('no replay data on the page (Iris: one line for every cause; nothing about a fire or an order)', () => {
+  const json = (body: string, status = 200) => new Response(body, { status, headers: { 'content-type': 'application/json' } });
+  const causes: Array<[string, MountOpts['serve']]> = [
+    ['no cache index (404)', (rel) => (rel === 'cache/INDEX.json' ? json('not found', 404) : undefined)],
+    ['an unreadable cache index', (rel) => (rel === 'cache/INDEX.json' ? json('{ not json') : undefined)],
+    ['an index with no entries', (rel) => (rel === 'cache/INDEX.json' ? json('{"entries":[]}') : undefined)],
+    ['a cache file that fails to load (500)', (rel) => (rel.startsWith('cache/') && rel !== 'cache/INDEX.json' ? json('server error', 500) : undefined)],
+  ];
+  // strict, no exceptions (Iris, orchestrator): no "safe" / "no orders" wording in either language, negated or not
+  const FORBIDDEN = [/\bsafe(ly|ty)?\b/i, /\bno (official |evacuation )?orders?\b/i, /\ball clear\b/i, /안전/, /명령이?\s*없|명령은\s*없|대피하지 않아도/];
+  const warn = console.warn;
+  let warned: string[] = [];
+  beforeAll(() => { console.warn = (...a: unknown[]) => { warned.push(a.map(String).join(' ')); }; });
+  afterAll(() => { console.warn = warn; });
+
+  for (const [cause, serve] of causes) {
+    it(`${cause}: the no-data line in ko and en; no card, time, replay mark, destination, hand-off or question; no safe / no-orders wording; the cause goes to the console only`, async () => {
+      warned = [];
+      const { container } = await mount(`${ORIGIN}/public-view.html`, { serve, expectNoData: true });
+      const React = req('react') as { act: (fn: () => unknown) => Promise<void> };
+      for (const lang of ['ko', 'en'] as const) {
+        if (lang === 'en') await React.act(async () => { (container.querySelector('.pv-lang') as HTMLButtonElement).click(); });
+        const line = container.querySelector('[data-pv="no-data"]');
+        expect(line, `${cause} ${lang}`).not.toBeNull();
+        expect(line!.textContent).toBe(NO_DATA[lang]);
+        expect(container.querySelectorAll('[data-pv="no-data"]').length).toBe(1);
+        // banner and official-orders slot unchanged (the slot is fixed text and never empty)
+        expect(container.querySelector('[data-pv="banner"]')!.textContent).toBe(BANNER[lang]);
+        // Iris cond. 2: the official-orders slot is rendered, non-empty and unchanged, so it cannot read as "no orders"
+        expect(container.querySelector('[data-pv="official"]')!.textContent).toBe(OFFICIAL_SLOT[lang]);
+        expect(OFFICIAL_SLOT[lang].length).toBeGreaterThan(40);
+        for (const sel of ['card', 'time', 'time-stamp', 'stamp', 'age', 'words', 'one-trip', 'handoff']) expect(container.querySelector(`[data-pv="${sel}"]`), `${cause} ${lang} ${sel}`).toBeNull();
+        expect(container.querySelector('.pv-question')).toBeNull();
+        expect(container.querySelector('.pv-scenario')).toBeNull();
+        expect(container.querySelector('.pv-places')).toBeNull();
+        expect(container.querySelector('a[href^="geo:"]')).toBeNull();
+        const text = container.textContent ?? '';
+        // Iris cond. 3: no replay mark or replay date with nothing to refer to
+        expect(text).not.toContain(REPLAY_MARK[lang]);
+        expect(text).not.toMatch(/2025-\d{2}-\d{2}|\d{1,2}월\s*\d{1,2}일|March \d/);
+        expect(text).not.toMatch(/\b\d{1,2}:\d{2}\b/); // no clock time anywhere
+        for (const f of FORBIDDEN) expect(text, `${cause} ${lang} ${f}`).not.toMatch(f);
+        // the raw cause never reaches the page
+        expect(text).not.toMatch(/SyntaxError|JSON|500|404|server error|not found/i);
+      }
+      expect(warned.some((w) => w.startsWith('[public view]'))).toBe(true);
+    }, 120_000);
+  }
 });

@@ -136,3 +136,20 @@ vehicle and road cases). Korean wording by Sofia; English matched to it.
   "the test's fetch could not serve the cache index".
 - Open, not changed here (page behaviour): with no cache index the page shows the banner and the official-orders slot,
   no cards and no message. Raised with the orchestrator and Iris.
+
+## Empty page: one "no replay data" line (Iris; approved by the orchestrator, 2026-11-12)
+
+- Shown for every cause: no cache index, an unreadable index, an index with no entries, or a failed cache-file load.
+  EN (Iris): "No replay data is loaded on this page. This is not a statement about any fire or any official order."
+  KO (Sofia): "이 화면에는 불러온 재현 자료가 없습니다. 이 화면으로는 산불이나 공식 대피 명령 여부를 알 수 없습니다."
+  Iris's first draft ("…명령이 없다는 뜻이 아닙니다") was dropped: a skimmer can take in "명령이 없" and miss the negation.
+  The cause goes to the console for staff, never onto the page (before this change a failed load put the raw error
+  text on the page).
+- In that state: banner and official-orders slot unchanged (the slot is fixed text, never empty); no question,
+  record selector, place list, card, time, replay mark, destination or hand-off.
+- Tests: the 4 causes × ko/en. Exactly one no-data line with the exact text; none of the result elements; no clock
+  time; no replay mark or date; the official-orders slot rendered and unchanged; no "safe" / "no orders" wording in
+  either language, negated or not (strict: /명령이?\s*없/, /안전/, no exceptions; it catches Iris's first draft); no raw
+  error text. Against the old page all 4 fail.
+- Workflow environment, after merging Main (994abd7…, #149 and #150 in): 26 files / 453 tests; build:static OK; the
+  default dist has 0 public-view files.
