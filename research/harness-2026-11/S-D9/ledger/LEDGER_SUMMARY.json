@@ -1,0 +1,46 @@
+{
+  "evidence_first_commits": {
+    "forecast/data/environment/events.json": "89bc4c230fecd9c8e6cbe40f2dbab689b6af7fa1",
+    "forecast/documents/observed_combined_evaluation.md": "89bc4c230fecd9c8e6cbe40f2dbab689b6af7fa1",
+    "forecast/documents/observed_runtime_audit_20261013.json": "89bc4c230fecd9c8e6cbe40f2dbab689b6af7fa1",
+    "forecast/documents/preregistration_blind_test.md": "56fe02c301bf64cc20436d260ee19e2736286e6f",
+    "forecast/runs/20261010_categorical_balanced_benchmark/partition_verification.json": "0a19b0077fc82adcd96efd24f76c22ded6718078",
+    "forecast/runs/20261010_categorical_balanced_benchmark/protocol.json": "0a19b0077fc82adcd96efd24f76c22ded6718078",
+    "forecast/runs/20261030_perimeter_trained/execution_v3/heldout": "e9259dac0fcc1d93288fca2a9d2c6616788e57ed",
+    "forecast/runs/20261030_perimeter_trained/execution_v3/korean2025": "6a3265a01c73e477774f5426b3640f84c65d2028",
+    "research/forecast-v2/FARSITE_SCORES.json": "691cc162bf2c0295cecc257a558ae0d583f9018e",
+    "research/forecast-v2/PREASSESSMENT_KOREA2025_WINDOWS.json": "6887dc618253e6568c6cbbfd3c9a96f1d0d86b70",
+    "research/forecast-v2/PREASSESSMENT_US2024_TIMESTAMPS.json": "ea010ff622a0ed82c06825de65ffe4b194043408",
+    "research/forecast-v2/README.md": "71006535f0c9c88a2f86a5706b9abfacbf6b48c7",
+    "research/forecast-v2/SPLIT.json": "7eb120e9821130b5b0de7be0df886b66aec4ffe6",
+    "research/next-combined/caldor-rim-alignment-1e646b164/CALDOR_RIM_ALIGNMENT_AUDIT.md": "849fd9b5b6ef915197058819fcbf645b2d472f0a",
+    "research/november-20261111/README.md": "a47701e04905d86e76de4ae8e712ceaff8fae90d",
+    "research/routing/INDEPENDENT_REPORT.v1.md": "2a751631cf901a9556d111b6955746c08f83c2db",
+    "research/sipp-routing": "e8a492aeff71f13495652fcbe5a8d21a2a982627"
+  },
+  "fire_rows": 49,
+  "interval_rows": {
+    "FARSITE_stored": 30,
+    "KR2025_forecast_v2": 33,
+    "M548_observed_20261012": 28,
+    "US2024_forecast_v2": 273
+  },
+  "overall_class_counts": {
+    "FIT": 34,
+    "INSPECTED": 3,
+    "SCORED": 11,
+    "SELECTED_ON": 1
+  },
+  "schema": "wfg.s-d9.exposure-ledger/1",
+  "sha256": {
+    "EXPOSURE_LEDGER.csv": "e47d404f6bca15c09d50015616b00d5d862d256f7b26fed971acd07d71d0f3a2",
+    "INTERVAL_LEDGER.csv": "4d0d555fc4a95819485439c841700a9ca7965c10b48c44f6e0ed5d25114c860f"
+  },
+  "untouched_fires_in_repository": [],
+  "us2024_interval_accounting": {
+    "consecutive_survey_intervals_planned_by_m548": 324,
+    "not_scored_by_forecast_v2_gt_48h_or_outside_catalog_window": 51,
+    "note": "The 51 intervals over 48 h are counted, not enumerated: their survey timestamps are not in git (they come from the NIROPS archive). Only 32 can be derived as gaps between consecutive eligible intervals.",
+    "scored_forecast_v2_le_48h": 273
+  }
+}

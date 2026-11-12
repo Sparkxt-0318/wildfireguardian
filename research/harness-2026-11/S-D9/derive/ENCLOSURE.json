@@ -1,0 +1,99 @@
+{
+ "label": "DEVELOPMENT-ONLY on exposed cohort R, 4 km band",
+ "island_neighbour_check": {
+  "tail_island_cells": 590,
+  "with_any_neighbour_burned_at_cutoff": 0,
+  "with_3plus_neighbours_burned_at_cutoff": 0,
+  "cells_with_scored_neighbours": 590,
+  "neighbour_median_p_quantiles": {
+   "0.25": 2.1511122006920291e-10,
+   "0.5": 4.7944849201897455e-08,
+   "0.75": 9.834884622250684e-07
+  },
+  "neighbour_max_p_quantiles": {
+   "0.25": 1.3329968684416826e-08,
+   "0.5": 1.179645664706186e-06,
+   "0.75": 1.9367032564332476e-05
+  },
+  "share_neighbour_max_p_ge_0_1": 0.0,
+  "centre_p_median": 4.414466836522024e-08
+ },
+ "tail_threshold": 1e-05,
+ "enclosed_rule": ">= 6 of 8 neighbours in endpoint union",
+ "tail": {
+  "positives": 1310,
+  "enclosed": 872,
+  "island": 590,
+  "enclosed_share": 0.665648854961832,
+  "island_share": 0.45038167938931295
+ },
+ "nontail": {
+  "positives": 6869,
+  "enclosed": 3443,
+  "island": 1889,
+  "enclosed_share": 0.5012374435871306,
+  "island_share": 0.27500363953996215
+ },
+ "per_fire": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "tail": {
+    "positives": 695,
+    "enclosed": 499
+   },
+   "nontail": {
+    "positives": 2794,
+    "enclosed": 1487
+   }
+  },
+  "ID-BOF-000904_Goat": {
+   "tail": {
+    "positives": 4,
+    "enclosed": 0
+   },
+   "nontail": {
+    "positives": 434,
+    "enclosed": 114
+   }
+  },
+  "ID-BOF-001080_Lava": {
+   "tail": {
+    "positives": 113,
+    "enclosed": 103
+   },
+   "nontail": {
+    "positives": 522,
+    "enclosed": 333
+   }
+  },
+  "ID-SCF-240202_RedRock": {
+   "tail": {
+    "positives": 63,
+    "enclosed": 37
+   },
+   "nontail": {
+    "positives": 899,
+    "enclosed": 325
+   }
+  },
+  "WA-SES-000173_Pioneer": {
+   "tail": {
+    "positives": 67,
+    "enclosed": 11
+   },
+   "nontail": {
+    "positives": 889,
+    "enclosed": 471
+   }
+  },
+  "WY-BTF-002416_FishCreek": {
+   "tail": {
+    "positives": 368,
+    "enclosed": 222
+   },
+   "nontail": {
+    "positives": 1331,
+    "enclosed": 713
+   }
+  }
+ }
+}
