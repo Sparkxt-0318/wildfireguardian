@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BANNER, cardFor, exampleIds, handoffFor, OFFICIAL_SLOT, REPLAY_MARK, type PublicCard } from '../../planner/src/features/publicview/model';
+import { BANNER, cardFor, exampleIds, handoffFor, LEAVE_BY_WORDS, linkFor, OFFICIAL_SLOT, parseLink, REPLAY_MARK, validPlace, type PublicCard } from '../../planner/src/features/publicview/model';
 import { readSaved, writeSaved } from '../../planner/src/features/publicview/load';
 import { DARK, LIGHT, SIZE } from '../../planner/src/features/publicview/tokens';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
@@ -60,6 +60,46 @@ describe('cards over every real and synthetic origin', () => {
       for (const s of strings(c)) expect(NEVER.test(masked(i, s)), s).toBe(false);
     }
     expect(counts.leave_by! > 0 && counts.no_route! > 0 && counts.unresolved! > 0).toBe(true);
+  });
+
+  it('the leave-by sentence is true of the sweep it describes, for every real and synthetic origin (verifier note: "none after" was shown where the model found a later road after a gap)', () => {
+    const shown: Record<string, { real: number; syn: number }> = {};
+    const check = (i: LastMileInput, set: 'real' | 'syn') => {
+      const c = cardFor(i, () => null);
+      const p = messagePlan(i, null);
+      if (c.kind !== 'leave_by') return;
+      const T = p.leaveByS!;
+      // claims recomputed from the sweep itself, not from the plan's own classification
+      const requested = [...i.plan!.sweep].sort((a, b) => a.offsetS - b.offsetS).filter((x) => x.verdict !== 'window_closed');
+      const upTo = requested.filter((x) => x.offsetS <= T);
+      const later = requested.filter((x) => x.offsetS > T);
+      const which = (Object.keys(LEAVE_BY_WORDS) as (keyof typeof LEAVE_BY_WORDS)[]).find((k) => LEAVE_BY_WORDS[k].en === c.words.en);
+      expect(which, c.words.en).toBeDefined();
+      expect(c.words.ko).toBe(LEAVE_BY_WORDS[which!].ko);
+      shown[which!] = shown[which!] ?? { real: 0, syn: 0 };
+      shown[which!]![set] += 1;
+      // common claim: a checked road for every requested departure up to T
+      expect(upTo.length).toBeGreaterThan(0);
+      expect(upTo.every((x) => x.verdict === 'checked_route')).toBe(true);
+      if (which === 'horizon') expect(later.length, i.origin.id).toBe(0); // "later departures were not checked"
+      if (which === 'none_checked') {
+        // "none after": at least one later requested departure, and none of them has a checked road
+        expect(later.length, i.origin.id).toBeGreaterThan(0);
+        expect(later.every((x) => x.verdict !== 'checked_route'), i.origin.id).toBe(true);
+      }
+      if (which === 'gap') {
+        // "right after it, some departures have no checked road": the first requested departure after T has none
+        expect(later.length, i.origin.id).toBeGreaterThan(0);
+        expect(later[0]!.verdict, i.origin.id).not.toBe('checked_route');
+      }
+    };
+    for (const i of real) check(i, 'real');
+    for (const i of syn) check(i, 'syn');
+    // the generator must exercise all three sentences, or this property proves nothing about the gap case
+    expect(shown.horizon?.syn ?? 0).toBeGreaterThan(0);
+    expect(shown.none_checked?.syn ?? 0).toBeGreaterThan(0);
+    expect(shown.gap?.syn ?? 0).toBeGreaterThan(0);
+    console.log('[pproto] leave-by sentence shown (real / synthetic):', JSON.stringify(shown));
   });
 
   it('examples: one of each state, by a fixed rule', () => {
@@ -162,46 +202,52 @@ describe('tokens: contrast, colour vision, sizes', () => {
 const req = createRequire(new URL('../../planner/package.json', import.meta.url));
 const { JSDOM } = req('jsdom') as { JSDOM: new (html?: string, opts?: Record<string, unknown>) => { window: Window & typeof globalThis } };
 
-describe('the page in jsdom, fetch served from the repository files', () => {
+async function mount(url: string): Promise<{ container: HTMLDivElement; urls: string[] }> {
   const urls: string[] = [];
-  let container: HTMLDivElement;
   const planner = new URL('../../planner/', import.meta.url);
-  const ORIGIN = 'http://127.0.0.1';
+  const dom = new JSDOM('<!doctype html><html lang="ko"><head></head><body></body></html>', { url, pretendToBeVisual: true });
+  const w = dom.window as unknown as Record<string, unknown>;
+  const g = globalThis as unknown as Record<string, unknown>;
+  for (const k of ['window', 'document', 'navigator', 'location', 'localStorage', 'HTMLElement', 'HTMLDivElement', 'Element', 'Node', 'Text', 'SVGElement', 'Event', 'MouseEvent', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
+    Object.defineProperty(g, k, { value: k === 'window' ? dom.window : w[k], configurable: true, writable: true });
+  }
+  (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+  globalThis.fetch = (async (input: RequestInfo | URL) => {
+    const u = new URL(typeof input === 'string' ? input : input instanceof URL ? input.href : input.url, url);
+    urls.push(u.href);
+    const file = u.pathname.startsWith('/cache/') ? new URL(`cache/${u.pathname.slice(7)}`, planner) : new URL(`public${u.pathname}`, planner);
+    try {
+      return new Response(readFileSync(file), { status: 200, headers: { 'content-type': 'application/json' } });
+    } catch {
+      return new Response('not found', { status: 404 });
+    }
+  }) as typeof fetch;
+  const React = req('react') as { createElement: (t: unknown) => unknown; act: (fn: () => unknown) => Promise<void> };
+  const { createRoot } = req('react-dom/client') as { createRoot: (el: Element) => { render: (e: unknown) => void } };
+  const path = '../../planner/src/features/publicview/PublicView';
+  const { PublicView } = (await import(/* @vite-ignore */ path)) as { PublicView: unknown };
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  const root = createRoot(container);
+  await React.act(async () => { root.render(React.createElement(PublicView)); });
+  // a CI runner can take far longer than a workstation to parse the 25 MB cache in jsdom: wait up to 90 s, and stop
+  // early (with the page's own error text) if the page reports an error instead of cards
+  const until = Date.now() + 90_000;
+  while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error')) {
+    await React.act(async () => { await new Promise((r) => setTimeout(r, 100)); });
+  }
+  const err = container.querySelector('.pv-error');
+  if (err) throw new Error(`page reported an error while loading the replay cache: ${err.textContent}`);
+  return { container, urls };
+}
 
+const ORIGIN = 'http://127.0.0.1';
+
+describe('the page in jsdom, fetch served from the repository files', () => {
+  let container: HTMLDivElement;
+  let urls: string[] = [];
   beforeAll(async () => {
-    const dom = new JSDOM('<!doctype html><html lang="ko"><head></head><body></body></html>', { url: `${ORIGIN}/public-view.html`, pretendToBeVisual: true });
-    const w = dom.window as unknown as Record<string, unknown>;
-    const g = globalThis as unknown as Record<string, unknown>;
-    for (const k of ['window', 'document', 'navigator', 'location', 'localStorage', 'HTMLElement', 'HTMLDivElement', 'Element', 'Node', 'Text', 'SVGElement', 'Event', 'MouseEvent', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
-      Object.defineProperty(g, k, { value: k === 'window' ? dom.window : w[k], configurable: true, writable: true });
-    }
-    (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-    globalThis.fetch = (async (input: RequestInfo | URL) => {
-      const u = new URL(typeof input === 'string' ? input : input instanceof URL ? input.href : input.url, `${ORIGIN}/public-view.html`);
-      urls.push(u.href);
-      const file = u.pathname.startsWith('/cache/') ? new URL(`cache/${u.pathname.slice(7)}`, planner) : new URL(`public${u.pathname}`, planner);
-      try {
-        return new Response(readFileSync(file), { status: 200, headers: { 'content-type': 'application/json' } });
-      } catch {
-        return new Response('not found', { status: 404 });
-      }
-    }) as typeof fetch;
-    const React = req('react') as { createElement: (t: unknown) => unknown; act: (fn: () => unknown) => Promise<void> };
-    const { createRoot } = req('react-dom/client') as { createRoot: (el: Element) => { render: (e: unknown) => void } };
-    const path = '../../planner/src/features/publicview/PublicView';
-    const { PublicView } = (await import(/* @vite-ignore */ path)) as { PublicView: unknown };
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    const root = createRoot(container);
-    await React.act(async () => { root.render(React.createElement(PublicView)); });
-    // a CI runner can take far longer than a workstation to parse the 25 MB cache in jsdom: wait up to 90 s, and stop
-    // early (with the page's own error text) if the page reports an error instead of cards
-    const until = Date.now() + 90_000;
-    while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error')) {
-      await React.act(async () => { await new Promise((r) => setTimeout(r, 100)); });
-    }
-    const err = container.querySelector('.pv-error');
-    if (err) throw new Error(`page reported an error while loading the replay cache: ${err.textContent}`);
+    ({ container, urls } = await mount(`${ORIGIN}/public-view.html`));
   }, 180_000);
   afterAll(() => container?.remove());
 
@@ -240,4 +286,51 @@ describe('the page in jsdom, fetch served from the repository files', () => {
     for (const u of urls) expect(new URL(u).origin).toBe(ORIGIN);
     expect(container.innerHTML).not.toMatch(/geo:/i);
   });
+});
+
+describe('places by URL (Iris: both parameters untrusted)', () => {
+  const index = JSON.parse(readFileSync(new URL('../../planner/cache/INDEX.json', import.meta.url), 'utf8')) as { entries?: { path: string }[] } | { path: string }[];
+  const paths = (Array.isArray(index) ? index : index.entries ?? []).map((e) => e.path);
+
+  it('parseLink accepts only an exact cache index path and a plausible id; path-like, unknown and markup values give nulls', () => {
+    expect(paths.length).toBe(6);
+    const ok = parseLink(`?scenario=${encodeURIComponent(paths[0]!)}&place=osm%3Anode%2F1`, paths);
+    expect(ok).toEqual({ scenario: paths[0], place: 'osm:node/1' });
+    for (const bad of ['../../etc/passwd', `/${paths[0]}`, `${paths[0]}?x=1`, 'https://example.org/x.json', '<script>alert(1)</script>', '', paths[0]!.toUpperCase()]) {
+      expect(parseLink(`?scenario=${encodeURIComponent(bad)}&place=osm%3Anode%2F1`, paths).scenario).toBeNull();
+    }
+    for (const bad of ['<img src=x onerror=1>', '"quoted"', 'a'.repeat(200), 'x y']) {
+      expect(parseLink(`?scenario=${encodeURIComponent(paths[0]!)}&place=${encodeURIComponent(bad)}`, paths).place).toBeNull();
+    }
+    expect(validPlace('osm:node/does-not-exist', real)).toBeNull();
+    expect(validPlace(real[0]!.origin.id, real)).toBe(real[0]!.origin.id);
+    expect(linkFor(paths[0]!, real[0]!.origin.id)).toMatch(/^\?scenario=.*&place=/);
+  });
+
+  it('a shared link opens that place with the banner and the in-card replay date and mark', async () => {
+    const byPath = loadBoothCaches().find((c) => c.entry.path === paths[0]);
+    const target = byPath!.inputs.find((i) => messagePlan(i, null).kind === 'leave_by')!;
+    const { container, urls } = await mount(`${ORIGIN}/public-view.html${linkFor(paths[0]!, target.origin.id)}`);
+    const cards = [...container.querySelectorAll('article[data-pv="card"]')];
+    expect(cards.length).toBe(1);
+    expect(container.querySelector('[data-pv="banner"]')!.textContent).toBe(BANNER.ko);
+    expect(cards[0]!.querySelector('[data-pv="time-stamp"]')!.textContent).toContain(REPLAY_MARK.ko);
+    expect(container.textContent).not.toMatch(/예시 세 곳/);
+    for (const u of urls) expect(new URL(u).origin).toBe(ORIGIN);
+    container.remove();
+  }, 180_000);
+
+  it('hostile links fall back to the empty state (three labelled examples), fetch nothing they name, and render no markup from the URL', async () => {
+    for (const q of ['?scenario=..%2F..%2Fetc%2Fpasswd&place=x', `?scenario=${encodeURIComponent(paths[0]!)}&place=%3Cimg%20src%3Dx%20onerror%3D1%3E`, `?scenario=${encodeURIComponent(paths[0]!)}&place=osm%3Anode%2F0`]) {
+      const { container, urls } = await mount(`${ORIGIN}/public-view.html${q}`);
+      expect(container.querySelectorAll('article[data-pv="card"]').length).toBe(3);
+      expect(container.textContent).toMatch(/예시 세 곳/);
+      expect(container.innerHTML).not.toMatch(/onerror/);
+      for (const u of urls) {
+        expect(new URL(u).origin).toBe(ORIGIN);
+        expect(u).not.toMatch(/passwd/);
+      }
+      container.remove();
+    }
+  }, 300_000);
 });

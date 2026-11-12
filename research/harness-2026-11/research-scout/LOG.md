@@ -526,3 +526,93 @@ Sources were opened unless marked otherwise.
   - General occupants: at most 2.5 kW/m².
   - Older adults: at most 1.0 kW/m² and FED at most 0.1.
   - A segment with q_ext above 10 kW/m² is no-go.
+
+## Batch 5 (2026-11-12): orchestrator queue after PR #122
+
+Sources were opened unless marked otherwise.
+
+**(1) Priya: standoff table (flame height and emissive power)**
+
+- Butler 2014, IJWF 23:295, p. 296 (research.fs.usda.gov/download/treesearch/46999.pdf):
+  - Crown-fire irradiance up to 290 kW/m² with 25 m flames (ICFME).
+  - Lodgepole pine crown fire: 200-300 kW/m², flames up to 30 m.
+  - Longleaf pine surface fire: 100 kW/m² peak, 70 kW/m² mean, flames about 2 m.
+- Butler 2010 (ICFME): flames 18-25 m in a 14 m stand.
+- Kim 2009 (koreascience JAKO200911764895279): P. densiflora litter in the lab, flames 0.6-1.1 m. No Korean field measurements of crown-fire flames were found.
+- AS 3959-2009 App. B (Ballarat-hosted copy): ε 0.95, T 1090 K, E ≈ 76 kW/m², 100 m front, view factor maximised over flame angle, Fuss-Hamins transmissivity.
+- Tan et al. 2005 (MODSIM): 1200 K, E ≈ 112 kW/m².
+- Butler & Cohen 4×H rule: 1200 K, calibrated to 7 kW/m². Read only through Butler 2014.
+- Zárate 2008 and Rossi 2011: read only through Butler 2014 and abstracts.
+- Thomas crown flame-length formula (Alexander & Cruz 2012, corrigendum): L = 0.02665·I^0.667.
+- Recommended values:
+  - E: surface 76 kW/m²; crown 112-118 kW/m²; sensitivity case 150-200 kW/m².
+  - H: surface 1-5 m; torching 10-20 m; active crown 20-40 m.
+  - Model: solid-flame view factor.
+- Standoff distances at 2.5 / 1 kW/m² come out at about 58-435 m. The view-factor calculation was re-run and reproduces.
+
+**(2) Vehicle and road cases in the 2025 fires**
+
+- 매정리 care-home car on 국도7호선: set alight by embers within about 10 minutes; 3 dead.
+- Route 7 queue: falling embers set cars alight; cars drove the wrong way.
+- Patrol car in 지품면: burned, no deaths.
+- 지품 convoy on 34호선: drove through with fire on both sides; no deaths.
+- 영양 포산리/삼의리: car ran into a ditch in smoke; 3 dead.
+- 영양 삼의계곡: dozens of burned cars in ditches and against guardrails.
+- 청송: one death on the road.
+- 안동 광덕리: truck overturned into a 2 m drop; driver survived.
+- Uljin 2022: no vehicle deaths found.
+- 영덕 official list: 4 of 9 deaths in vehicles; 62 vehicles burned.
+- Our own count (not official): about 8 of 27 deaths were on roads or in vehicles.
+- No official tally of where deaths occurred was found.
+- Sources: nate 20250326n16920 (Yonhap), koreajoongangdaily 12354127, newsis 3113851, kbmaeil 202503260913471 and 202503260913565, segye 20250326520531, twig24 20250330500042, newsro 832886.
+
+**(3) Marcus F-BASE.** Already delivered and adopted: a time-expanded network, solved with scipy.sparse.csgraph.
+
+**(4) Himawari / GK-2A validation of spread**
+
+- No validation of a spread model against Himawari or GK-2A was found for Korea or Japan.
+- Liu Z. et al. 2026, RSASE 41:101868 (qzhang95.github.io): Himawari WLF product against 70 KFS fires; 20% missed; 78.6% detected within 60 min.
+- Chen et al. 2022, Remote Sens 14:2655.
+- Paugam et al. FCI-FireDyn (arXiv 2510.26677): template for arrival-time maps from geostationary data.
+- Abstract only:
+  - Yoo et al. 2024: rate-of-spread calibration against geostationary data (Creek Fire, US).
+  - Liu X. et al. 2018: Himawari-8 spread rate.
+  - Lee D. et al. 2026: 2-minute GK-2A, F1 0.80.
+  - Chae et al. 2025: raw GK-2A false-alarm ratio 96%.
+- Data for March 2025:
+  - JAXA P-Tree L2WLF (CSV every 10 min).
+  - AWS noaa-gk2a-pds: L1B only.
+  - The GK-2A fire product is available only from NMSC.
+
+## Batch 6 (2026-11-12)
+
+Sources were opened unless marked otherwise.
+
+**Victor: benchmark landscape**
+
+- FireGraphNet (arXiv 2610.19191) exists and already uses a sealed, pre-registered test, with a contact log and checksums. It scores binary 12 h outcomes only.
+- WiDS Datathon 2026: hidden test with censored survival scoring (C-index plus weighted Brier at 24/48/72 h), one time per fire. A constant prediction of 1.0 beat the leaderboard.
+- AFSeq: deterministic, per horizon.
+- arXiv 2603.26975: samples arrival times but does not score them with a proper score.
+- DailyWildfireCAN (2611.14207) exists; next day only.
+- New claim: censoring-aware proper scoring of per-cell arrival times, by horizon, on held-out fires, under a sealed test.
+
+**Richard: timing vs routing**
+
+- NIST TN 2252 (Camp Fire): 87% of deaths were at home; gaps from warning to burnover were 13-99 min; at least 2 of 4 exits were closed 68% of the time.
+- Blanchi et al. tables, via Haynes et al. (treesearch 60343): late evacuation accounted for 30.4% of 674 deaths.
+- Pedrógão: 30 deaths on a 400 m stretch of road.
+- Chen et al. (arXiv 2002.06198): routing changes moved lag from 1.5 h to 0.36 h on a saturated network.
+- Zhao & Wong: phased departure cut exposure by more than 90%.
+- WUI-NITY sensitivity study: losing exits added up to 51%.
+- Forrister et al. 2024 (Marshall Fire): delays vary by hours.
+- No study was found that formally separates timing effects from route effects.
+
+**Clara and Iris: law and real wording**
+
+- 재난안전법 제40조: current text, and the amended text (법률 제21834호, in force 2027-01-08) that makes evacuation-method guidance mandatory.
+- 산림재난방지법 제33조: the Forest Service may only request an evacuation order.
+- Draft 시행령 제49조②-⑦: the township head may issue orders.
+- 예규 361, 별표1/2: message classes and standard texts.
+- Real 2025 messages from 의성, 청송, 안동 and 영양 (newstapa, heraldcorp, newsis, imaeil, etoday).
+- Card-line wording review for Clara.
