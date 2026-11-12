@@ -73,6 +73,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 65 | 2026-11-12 | envelope_burnset P1 (Thomas's flag; independent check) | Leo (via Thomas) | 4463892 | Uiseong 0323T01 h5: HAZARD 16,176 cells on [0,18000) vs ContactModel 15,781 cells, 0 full, ending at about 4,270 s (or 3,792 s for present fire); 395 cells missing; ContactModel == raw-array T/R law | own build from MANIFEST_v3_3 + p1_check | P1 FAIL CONFIRMED |
 | 66 | 2026-11-12 | F-3.4 REQUEST 10 F-DYN multi-hour profile | Priya | 73f29a7 | (1)-(4) reproduce from rows + STAGES; RSS gates confirmed in kit code (road_core.py:752-757, hybrid_checker.py:9/_finish), process-lifetime ru_maxrss vs 3,072 MiB | read rows/STAGES + fresh kit build | PASS WITH NOTES |
 | 67 | 2026-11-12 | Envelope impact statement + erratum PR #145 | Thomas | ca4fbfa | merged envelope_o2.py never reads ContactModel/constructed_arrays; own X1 on v3 Yeongdeok 0325T11 envelope: 863 identical / 95 end<1us / 794 other (cell 1040 [5100,18000) vs [5100,9370.46)); certified kriged_mean control 0 other | grep + own X1 | CONFIRMED; #145 READY after one wording fix |
+| 68 | 2026-11-12 | Erratum PR #145 wording fix | Thomas | 5a2c628 | README only; header limits my confirmation to the v3 Yeongdeok packet; nothing else changed | diff | READY |
 
 ## Notes
 
@@ -349,4 +350,3 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Those verdicts verified that HAZARD.json implements the stated envelope rule (v3 binary64, v3.1 integer ms).
 - They did NOT verify what ContactModel or the router reads; on envelope packets the two disagree (794 cells on v3 Yeongdeok).
 - No envelope packet was certified. The #145 erratum's "confirmed by Mira" should be limited to the v3 Yeongdeok packet.
-
