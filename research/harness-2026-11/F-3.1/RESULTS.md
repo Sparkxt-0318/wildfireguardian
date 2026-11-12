@@ -405,7 +405,7 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
     on HAZARD.
   * **v3.4 (Nora row 37).** Leo's MANIFEST_v3_4 fix passes: the burnset arrays now equal HAZARD, and the HAZARD is
     identical to v3.3's.
-  * **v3.4 rerun (done).** All 24 envelope and envelope_burnset packets were rebuilt from MANIFEST_v3_4 (Leo
+  * **v3.4 rerun (VERIFIED: Nora request #16, PASS, ledger row 63).** All 24 envelope and envelope_burnset packets were rebuilt from MANIFEST_v3_4 (Leo
     faa89c4) and rerun through `fdyn_run` with full-checker witnesses (`results/FDYN_V34_RERUN_vs_V33.json`, built by
     `deadline_field/rerun_compare.py`; it lists both runs' HAZARD hashes per packet).
     * **Result.** 24 of 24 packets give the same classes, deadlines, pieces, witnesses and check rows as v3.3. The
@@ -414,6 +414,9 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
       differ only in provenance and identity: settings_digest, construction_id, the scenario and member ids derived
       from it, the interpretation text, and the embedded absolute path of the radiation module. The flame, flux and
       dose content is identical. The other 23 pairs were not rebuilt for this check.
+    * **Nora's check.** She rebuilt 2 pairs from MANIFEST_v3_3 and v3_4 (UA 25T17 h5 envelope, YD 25T19 h5
+      envelope_burnset) and ran fdyn_run on all 4: 0 keys differ, even before rounding, on her host. The flame, flux
+      and breakpoints are identical. For YD burnset the HAZARD diff is exactly the 6 identity and provenance paths.
     * **Writer identity not available.** In 7 of the 24 outputs (written before fdyn_run recorded it) the
       writer_identity key is absent. In the other 17 it is present, but both fields (packet_writer_sha256,
       support_writer) are null, because the v3.4 BUILD_SUMMARY.json does not carry them.
