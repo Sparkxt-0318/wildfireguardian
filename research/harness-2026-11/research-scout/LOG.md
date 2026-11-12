@@ -306,3 +306,33 @@ Each bullet gives the source, then the idea and the stream it serves. Every sour
 **Could not open:** patents.google.com and mdpi.com (DNS failed for the agents), NUREG/CR-7002 (403), ScienceDirect (Hajian 2016, 403), the original mois.go.kr press release, the full BAI report, the NARS PDF.
 
 Downloaded PDFs and extracted text are in the scout session's scratchpad (`dl/`, `dl2/`).
+
+### Follow-up requests (2026-11-12)
+
+**Marcus, P(T_x ≤ t) estimators.** All sources read except Juneja et al. (abstract only).
+
+- L'Ecuyer, Puchhammer & Ben Abdellah, arXiv 1906.04607: cut-set conditional Monte Carlo (CMC).
+  - Idea: use the in-edges of x as the cut, which gives a closed-form exponential race with the burn-window cap.
+- Botev, L'Ecuyer, Simard & Tuffin, GERAD G-2015-12: permutation Monte Carlo (PMC) and turnip; applicable when the spread is a CTMC.
+- Botev, L'Ecuyer & Tuffin, arXiv 1805.03326: generalized splitting for large networks.
+- Wan & Fu, WSC 2020: smoothed IPA for unbiased gradients.
+- Juneja, Karandikar & Shahabuddin, TOMACS 2007: path-mixture importance sampling for the tails (abstract only).
+- Berthet et al., arXiv 2002.08676: a relaxation is not needed here, because the exponential clocks already smooth the objective.
+- Lokhov, Mézard & Zdeborová, PRE 2015: dynamic message passing as a surrogate.
+- FSPro/FSim: scenario Monte Carlo of MTT runs only.
+- Conclusion: no fire-spread work using CMC, IS or splitting estimators was found.
+
+**Richard, latest-departure sets.**
+
+- Closest precedent: Brunelli & Viennot, arXiv 2211.12136 (read). It does a backward edge scan per destination and builds unions of start-time intervals under per-node waiting bounds.
+- Himmel et al., arXiv 1909.01152: per-node α/β waiting bounds; β = 0 models a no-wait node.
+- Casteigts et al., arXiv 1909.06437: hardness holds for paths only, not for walks.
+- Halpern 1977 and Sancho 1992: original model with absolute waiting windows (read through secondary summaries).
+- Delling, Pajor & Werneck (rRAPTOR, ALENEX 2012) and Witt (Trip-Based, ESA 2015): profile queries; both assume free waiting.
+- Thomas et al., any-start-time SIPP, arXiv 2610.03312: forward arrival-time functions with free waiting.
+- Kerimov et al., SI-RRT, arXiv 2412.19567: backward goal tree.
+- Li, Cova & Dennison 2019: no exact backward computation.
+- No precedent found for:
+  - a finite hazard-free dwell on arrival;
+  - a per-origin certificate;
+  - an exact backward-set algorithm with absolute waiting windows.
