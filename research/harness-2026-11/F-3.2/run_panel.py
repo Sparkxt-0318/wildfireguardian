@@ -76,6 +76,21 @@ def main():
         row["recorded_sipp"] = sorted(map(list, rec.get(c["mission"], set())), key=str)
         path = out / (c["region"] + "__" + c["mission"] + ".wfgc")
         path.write_text(text)
+        pk = Path(c["packet"])
+        hz = json.loads((pk / "HAZARD.json").read_text())
+        build = json.loads((pk / "BUILD_SUMMARY.json").read_text())
+        prov = {"schema": "wfg.cert.provenance/1", "bundle": path.name, "instance_sha256": ih,
+                "scope": "integer-second contact relaxation of the given hazard; see CERTIFICATE_SPEC.md section 5",
+                "inputs_sha256": {"graph": cases.sha(c["graph"]), "request": cases.sha(c["request"]),
+                                  **{n: cases.sha(pk / n) for n in ("HAZARD.json", "constructed_arrays.npz", "REPORT.json",
+                                                                    "NATIVE_METADATA.json", "BUILD_SUMMARY.json")}},
+                "hazard_extent": {"grid": hz["grid"], "dt": hz["dt"], "valid_from": hz["valid_from"],
+                                  "valid_until": hz["valid_until"], "members": len(hz["members"])},
+                "hazard_premises": {"model_supported": row["supported"],
+                                    "raw_input_summary": build.get("raw_input_summary"),
+                                    "max_flux_kW_m2": build.get("max_flux_kW_m2")}}
+        Path(str(path) + ".json").write_text(json.dumps(prov, indent=1) + "\n")
+        row["provenance"] = prov
         row["bundle_bytes"] = len(text)
         row["bundle_sha256"] = hashlib.sha256(text.encode()).hexdigest()
         row["check_py"] = run_checker([sys.executable, str(HERE / "check_py.py")], path)

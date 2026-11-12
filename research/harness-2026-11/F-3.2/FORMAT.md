@@ -22,6 +22,8 @@ END_INSTANCE
 CLAIM ROUTE <T>        or        CLAIM NO_ROUTE
 WITNESS <k> then k legs, each either  E <j> <start> <end>  or  W <n> <start> <end>
 CERT <T> <k> then k records: <s> <R interval list> <A interval list>   (strictly increasing s, 0 <= s <= nE)
+   -- or, complement form (format 1.1) --
+COCERT <T> <k> then k records: <s> <NR interval list> <NA interval list>
 END
 ```
 
@@ -39,6 +41,11 @@ Rules a checker must enforce (in addition to the C0–C4 conditions of the spec)
 - The certificate's instance identity is the SHA-256 of the exact bytes from the `I` of `INSTANCE` through the newline
   after `END_INSTANCE`. It is recorded beside the file (`.sha256` sidecar, and the run manifest) and compared with the
   instance independently re-derived from the frozen inputs. Checkers need not compute it.
+- `COCERT` (complement form): with `lim = min(H, T-1)`, the certificate sets are `R_s = [dep, lim] \ NR_s` and
+  `A_s = [dep, lim] \ NA_s` for listed states, and `R_s = A_s = [dep, lim]` (empty if `dep > lim`) for every unlisted
+  state `0 <= s <= nE`. `NR`, `NA` must lie in `[dep, lim]` and satisfy `NR_s ⊆ NA_s` (equivalent to `A_s ⊆ R_s`).
+  All of C0–C4 then apply to these `R`, `A` unchanged. Intended use: `NR`/`NA` = the exact backward field (points
+  that can still complete before `T`), so the size scales with states that can still reach a destination.
 - Anything else (unknown token, wrong count, trailing tokens after `END`, out-of-range ids) => reject.
 
 Checker output: exactly one line `ACCEPT <claim> <T>` with exit status 0, or `REJECT <reason>` with exit status 1

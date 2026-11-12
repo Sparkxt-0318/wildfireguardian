@@ -65,6 +65,12 @@ static int64_t *cert_s = NULL;
 static IList *cert_R = NULL, *cert_A = NULL;
 static int64_t *state_rec = NULL; /* size nE+1, index into cert arrays or -1 */
 
+/* COCERT (complement form, format 1.1): parsed NR/NA lists live in cert_R/cert_A until materialised. */
+static int cocert = 0;
+static int64_t *co_pool = NULL;
+static int64_t *co_s = NULL;
+static IList *co_R = NULL, *co_A = NULL;
+
 static int64_t *adj_off = NULL; /* size nV+1 */
 static int64_t *adj_edge = NULL; /* size nE */
 
@@ -415,7 +421,10 @@ static void parse(void)
         legs[i].b = read_int();
     }
 
-    expect_kw("CERT");
+    if (!next_tok(&s, &len)) rej("unexpected_eof");
+    if (tok_eq(s, len, "CERT")) cocert = 0;
+    else if (tok_eq(s, len, "COCERT")) cocert = 1;
+    else rej("bad_keyword");
     cert_T = read_int();
     n_cert = read_count(3);
     cert_s = (int64_t *)xalloc(n_cert, sizeof(int64_t));
@@ -493,6 +502,84 @@ static int64_t lim_T(void)
     /* min(H, T-1); T >= dep >= 0 so T-1 does not overflow */
     int64_t t1 = cert_T - 1;
     return t1 < H ? t1 : H;
+}
+
+/* Write [dep, lim] \ N into out (N already validated inside [dep, lim]); returns interval count. */
+static int64_t complement(const IList *N, int64_t lim, int64_t *out)
+{
+    int64_t i, k = 0, cur = dep; /* cur = first second not yet covered/emitted; cur <= lim + 1 */
+    if (dep > lim) return 0;
+    for (i = 0; i < N->n; i++) {
+        int64_t lo = N->v[2 * i], hi = N->v[2 * i + 1];
+        if (lo > cur) {
+            out[2 * k] = cur;
+            out[2 * k + 1] = lo - 1;
+            k++;
+        }
+        cur = hi + 1; /* hi <= lim <= H < INT64_MAX: no overflow */
+    }
+    if (cur <= lim) {
+        out[2 * k] = cur;
+        out[2 * k + 1] = lim;
+        k++;
+    }
+    return k;
+}
+
+static void within(const IList *N, int64_t lim)
+{
+    if (N->n > 0 && (dep > lim || N->v[0] < dep || N->v[2 * N->n - 1] > lim)) rej("cocert_bounds");
+}
+
+/* COCERT: validate NR, NA in [dep, lim], NR subset NA, then materialise R, A for every state 0..nE. */
+static void materialise_cocert(void)
+{
+    int64_t lim = lim_T(), r, st, need = 0, used = 0, nst = nE + 1;
+    for (r = 0; r < n_cert; r++) {
+        const IList *NR = &cert_R[r], *NA = &cert_A[r];
+        int64_t ir, ia = 0;
+        within(NR, lim);
+        within(NA, lim);
+        for (ir = 0; ir < NR->n; ir++) {
+            int64_t lo = NR->v[2 * ir], hi = NR->v[2 * ir + 1];
+            while (ia < NA->n && NA->v[2 * ia + 1] < lo) ia++;
+            if (ia >= NA->n || NA->v[2 * ia] > lo || NA->v[2 * ia + 1] < hi) rej("cocert_nr_not_subset_na");
+        }
+        /* complement of m intervals has at most m+1 intervals, 2 numbers each */
+        need += 2 * (NR->n + 1) + 2 * (NA->n + 1);
+    }
+    need += 4 * (nst - n_cert); /* unlisted: one interval each for R and A (bounded: nE <= tokens) */
+    co_pool = (int64_t *)xalloc(need, sizeof(int64_t));
+    co_s = (int64_t *)xalloc(nst, sizeof(int64_t));
+    co_R = (IList *)xalloc(nst, sizeof(IList));
+    co_A = (IList *)xalloc(nst, sizeof(IList));
+    r = 0;
+    for (st = 0; st < nst; st++) {
+        static const IList none = {NULL, 0};
+        const IList *NR = &none, *NA = &none;
+        if (r < n_cert && cert_s[r] == st) {
+            NR = &cert_R[r];
+            NA = &cert_A[r];
+            r++;
+        }
+        co_s[st] = st;
+        co_R[st].v = co_pool + used;
+        co_R[st].n = complement(NR, lim, co_pool + used);
+        used += 2 * co_R[st].n;
+        co_A[st].v = co_pool + used;
+        co_A[st].n = complement(NA, lim, co_pool + used);
+        used += 2 * co_A[st].n;
+    }
+    /* swap in the materialised certificate; old arrays stay reachable via globals below */
+    free(cert_s);
+    free(cert_R);
+    free(cert_A);
+    cert_s = co_s;
+    cert_R = co_R;
+    cert_A = co_A;
+    co_s = NULL;
+    co_R = co_A = NULL;
+    n_cert = nst;
 }
 
 /* C2: { t + D_j : t in R_s \ EB_j, t + D_j <= lim } subset of A_j, by linear merge. */
@@ -633,6 +720,7 @@ int main(int argc, char **argv)
 
     parse();
     check_claim();
+    if (cocert) materialise_cocert();
     build_index();
     check_c0();
     check_c1();

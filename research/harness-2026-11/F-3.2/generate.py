@@ -138,3 +138,83 @@ def certify(inst, *, deadline=None):
     stats = dict(states=len(R), r_intervals=sum(len(v) for v in R.values()),
                  a_intervals=sum(len(v) for v in A.values()), sipp_metrics=res["metrics"])
     return claim, T, text, ih, stats
+
+
+# ---------------------------------------------------------------- backward (co-reachable) certificate, COCERT form
+def prev_member(ivs, t):
+    """Largest x <= t in the normalised set, or None."""
+    best = None
+    for a, b in ivs:
+        if a > t:
+            break
+        best = min(b, t)
+    return best
+
+
+def coreachable(inst, T):
+    """Gr[s]: seconds t <= lim at which a NON-admitted point (s,t,0) can still reach a goal with arrival < T.
+    Ga[s] = Gr[s] ∪ (AC_hd(s) ∩ [dep, lim]) for admitted points. Exact least fixed point, computed backward."""
+    H, dep, E = inst.horizon, inst.departure, inst.E
+    lim = min(H, T - 1)
+    succ = inst.successors()
+    preds = [[] for _ in range(E + 1)]
+    for s in range(E + 1):
+        for j in succ[s]:
+            preds[j].append(s)
+    Gr, Ga = {}, {}
+    queue, pending = deque(), {}
+
+    def grow_ga(s, ivs):
+        new = minus(clip(normalise(ivs), dep, lim), Ga.get(s, []))
+        if new:
+            Ga[s] = union(Ga.get(s, []), new)
+            if s not in pending:
+                queue.append(s)
+            pending[s] = union(pending.get(s, []), new)
+
+    def grow_gr(s, ivs):
+        ivs = clip(normalise(ivs), dep, lim)
+        new = minus(ivs, Gr.get(s, []))
+        if not new:
+            return
+        node = inst.state_head(s)
+        if inst.waitable[node]:
+            wb = inst.wait_block.get(node, [])
+            ext = []
+            for lo, hi in new:      # t reaches t+1 by waiting iff t not in WB: extend each run downward
+                x = prev_member(wb, lo - 1)
+                ext.append((dep if x is None else max(dep, x + 1), hi))
+            new = minus(normalise(ext), Gr.get(s, []))
+        Gr[s] = union(Gr.get(s, []), new)
+        grow_ga(s, new)
+
+    for n, ac in inst.accept.items():
+        for s in range(E + 1):
+            if inst.state_head(s) == n:
+                grow_ga(s, ac)
+    while queue:
+        j = queue.popleft()
+        delta = pending.pop(j)
+        Dj = inst.D[j]
+        eb = inst.edge_block.get(j, [])
+        dep_times = []
+        for lo, hi in delta:
+            a, b = max(dep, lo - Dj), hi - Dj
+            if a <= b:
+                dep_times.extend(complement(eb, a, b))
+        if dep_times:
+            for s in preds[j]:
+                grow_gr(s, dep_times)
+    return Gr, Ga
+
+
+def cocert_bundle(inst, *, claim, T, legs):
+    """Bundle whose certificate lists, per state, the complements NR_s = Gr_s and NA_s = Ga_s (FORMAT.md, COCERT)."""
+    Gr, Ga = coreachable(inst, T)
+    text, ih = certificate_bundle(inst, claim=claim, T=T, legs=legs, R={}, A={})
+    head = text[:text.index("CERT ")]
+    states = sorted(set(Gr) | set(Ga))
+    out = [head.rstrip("\n"), "COCERT %d %d" % (T, len(states))]
+    out += ["%d %s %s" % (s, _ivl(Gr.get(s, [])), _ivl(Ga.get(s, []))) for s in states]
+    out.append("END")
+    return "\n".join(out) + "\n", ih, dict(co_states=len(states), co_intervals=sum(len(v) for v in Ga.values()))

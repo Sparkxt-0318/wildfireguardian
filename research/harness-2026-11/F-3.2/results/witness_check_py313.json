@@ -1,0 +1,137 @@
+[
+ {
+  "mission": "20220304T030000Z_FX1",
+  "arrival": 3119,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 3119,
+  "peak_budget": 10,
+  "max_peak": 0.00020459708449517276
+ },
+ {
+  "mission": "20250323T010000Z_FX2",
+  "arrival": 2540,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 2540,
+  "peak_budget": 10,
+  "max_peak": 0.002398543366207972
+ },
+ {
+  "mission": "20250325T190000Z_FX2",
+  "arrival": 2512,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 2512,
+  "peak_budget": 10,
+  "max_peak": 0.0007248508043583532
+ },
+ {
+  "mission": "20220304T060000Z_FL1",
+  "arrival": 2067,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 2067,
+  "peak_budget": 10,
+  "max_peak": 7.033411779800258e-05
+ },
+ {
+  "mission": "20220601T020000Z_FW1",
+  "arrival": 1270,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1270,
+  "peak_budget": 10,
+  "max_peak": 2.353714232366765e-05
+ },
+ {
+  "mission": "20230402T140000Z_FW2",
+  "arrival": 1459,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1459,
+  "peak_budget": 10,
+  "max_peak": 0.0028466045610247514
+ },
+ {
+  "mission": "20250324T090000Z_FL2",
+  "arrival": 2143,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 2143,
+  "peak_budget": 10,
+  "max_peak": 0.000697756368045391
+ },
+ {
+  "mission": "20250325T230000Z_FL2",
+  "arrival": 1922,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1922,
+  "peak_budget": 10,
+  "max_peak": 0.0004754150841856255
+ },
+ {
+  "mission": "20220304T120000Z_FW2",
+  "arrival": 1655,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1655,
+  "peak_budget": 10,
+  "max_peak": 0.0021579234151756737
+ },
+ {
+  "mission": "20230402T230000Z_FD1",
+  "arrival": 531,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 531,
+  "peak_budget": 10,
+  "max_peak": 8.628507291869333e-05
+ },
+ {
+  "mission": "20250325T170000Z_FW1",
+  "arrival": 1064,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1064,
+  "peak_budget": 10,
+  "max_peak": 0.00022289238812593697
+ },
+ {
+  "mission": "20250326T080000Z_FW1",
+  "arrival": 896,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 896,
+  "peak_budget": 10,
+  "max_peak": 2.1071777645687668e-07
+ },
+ {
+  "mission": "20220304T030000Z_FD1",
+  "arrival": 1589,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1589,
+  "peak_budget": 10,
+  "max_peak": 2.1015230663474395e-06
+ },
+ {
+  "mission": "20220531T100000Z_FN1",
+  "arrival": 1142,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 1142,
+  "peak_budget": 10,
+  "max_peak": 0.00026123935942401396
+ },
+ {
+  "mission": "20250323T010000Z_FD1",
+  "arrival": 2460,
+  "checker_status": "CHECKED_ROUTE",
+  "codes": [],
+  "checker_arrival": 2460,
+  "peak_budget": 10,
+  "max_peak": 1.1024878878476103e-05
+ }
+]

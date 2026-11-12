@@ -152,21 +152,31 @@ def check(text):
         if kind not in ("E", "W"):
             raise Reject("LEG_KIND")
         legs.append((kind, tk.int(), tk.int(), tk.int()))
-    tk.word("CERT")
+    form = tk.word()
+    if form not in ("CERT", "COCERT"):
+        raise Reject("EXPECTED_CERT")
     T = tk.int()
     if T != claimed_T:
         raise Reject("THRESHOLD_MISMATCH")
     R, A, prev = {}, {}, -1
+    lim = min(H, T - 1)
     for _ in range(tk.int(0)):
         s = tk.int(0, nE)
         if s <= prev:
             raise Reject("CERT_ORDER")
         R[s] = tk.ivl(); A[s] = tk.ivl(); prev = s
+        hi_bound = H if form == "CERT" else lim
         for ivs in (R[s], A[s]):
-            if ivs and (ivs[0][0] < dep or ivs[-1][1] > H):
+            if ivs and (ivs[0][0] < dep or ivs[-1][1] > hi_bound):
                 raise Reject("C0_BOUNDS")
-        if not subset(A[s], R[s]):
+        if form == "CERT" and not subset(A[s], R[s]):
             raise Reject("C0_A_NOT_IN_R")
+        if form == "COCERT" and not subset(R[s], A[s]):   # NR ⊆ NA  <=>  A ⊆ R
+            raise Reject("C0_A_NOT_IN_R")
+    if form == "COCERT":
+        full = [(dep, lim)] if dep <= lim else []
+        R = {s: subtract(full, R[s]) if s in R else list(full) for s in range(nE + 1)}
+        A = {s: subtract(full, A[s]) if s in A else list(full) for s in range(nE + 1)}
     tk.word("END")
     if tk.i != len(tk.t):
         raise Reject("TRAILING")

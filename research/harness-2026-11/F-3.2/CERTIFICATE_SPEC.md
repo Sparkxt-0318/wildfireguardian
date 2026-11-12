@@ -76,12 +76,50 @@ into an edge's safe interval that the earliest arrival cannot reach; at a waitab
 empty past `L_s`, the certificate degenerates to `R_s = [L_s, min(H,T-1)]`, i.e. the scalar label, so the interval-set
 form is a strict generalisation. (The repository's own SIPP equivalence note makes the same point about dominance.)
 
+## 3a. Complement (backward) form
+
+A backward field gives, per state, the seconds `Gr_s` from which a non-admitted point can still reach a goal before
+`T`, and `Ga_s = Gr_s ∪ (AC_hd(s) ∩ [dep, lim])` for admitted points. Its complement
+`R_s = [dep,lim] \ Gr_s`, `A_s = [dep,lim] \ Ga_s` is the *largest* set satisfying C2–C4, and it satisfies C1 exactly
+when the start cannot complete before `T`. So the same C0–C4 check verifies a backward certificate; only the encoding
+differs (`COCERT`, FORMAT.md). Soundness is the theorem of §3 unchanged, because the checker materialises `R`, `A` and
+checks C0–C4 on them. The exact forward set and the exact backward field are disjoint below `T` whenever the claim is
+true (a point in both would lie on a journey arriving before `T`); the generator tests this.
+
 ## 4. Checking cost
 
 For each (state, out-edge) pair the checker merges `R_s` against `EB_j` and tests inclusion in `A_j`; for each waitable
 state it scans `R_s` against `WB`. Cost `O(Σ_s |R_s|·outdeg(s) + Σ_j (|EB_j| + |A_j|)·indeg(j) + Σ_n |AC_n|·indeg(n))`,
 i.e. linear in (edges × intervals) for bounded degree. No priority queue, no heuristic, no search. All arithmetic is
 integer addition and comparison.
+
+## 4a. Relaxation refusal ⇒ full-policy refusal (justification and premises)
+
+Claim: if `L(I)` has no journey arriving before `T`, the full policy (frozen independent journey checker
+`experimental/synthetic-truth/src/wfg_synthetic_truth/frozen_checker.check_route`) admits none either, for the same
+graph, request and hazard. Argument: every journey the full checker accepts (i) has legs on the `dt = 1` lattice
+starting at the integer departure (`_shape`: "off lattice leg", contiguity), so all its departures are integer
+seconds; (ii) uses legal turns, declared waits and the exact edge durations (`_shape`); (iii) has no `FLAME_CONTACT`
+on any leg occupancy, node wait or dwell, and no `MISSING_SUPPORT` (`_charge`). By (i)–(ii) it is a lattice path of
+`L(I)`; by (iii), under premise P1 below, none of its EDGE departures lies in `EB`, no WAIT start in `WB`, and its
+arrival lies in `AC`. So it is a relaxed journey with the same arrival. Peak and dose only remove further journeys.
+
+Premises (not proved here): **P1** the flame activity that the full checker samples from `HAZARD.json` equals the
+per-cell half-open intervals `ContactModel.cell_intervals` derives from the packet arrays (asserted and tested in
+`experimental/scenario-members`, "tested for equality on the frozen packets"; independently corroborated here only for
+the 15 route witnesses, all `CHECKED_ROUTE`); **P2** the instance re-derivation of O2 (checked: 0 differences, 20
+missions); **P3** the full checker's lattice and contact rules are the policy (they are the frozen definition).
+
+**Integer seconds (Iris, point 4).** No lemma can remove this as a statement about continuous time: with a point
+occupancy at fraction 1/2 of a 10 s edge (its other cells inactive) and activity intervals leaving a safe gap `[5.2, 5.7)` at that cell, the
+departures `t ∈ [0.2, 0.7)` are safe and no integer departure is. So "no integer-second journey" does not imply "no
+real-time journey". It does not affect the implication above, because the full policy itself admits only
+integer-second departures (i); it is a boundary of the policy model, shared by every result on this lattice.
+
+**Hazard extent.** Every certificate is relative to the hazard it was given. Each bundle has a provenance sidecar
+(`*.wfgc.json`) with the sha256 of graph, request, `HAZARD.json`, packet arrays and build summary, the hazard grid
+extent and validity window, and the packet's unknown-state counts (e.g. Uljin 03Z: 1,659 of 3,596 cells with unknown
+burned state). Burning outside the packet domain or in cells the model treats as unsupported is outside the claim.
 
 ## 5. Scope boundary (what the certificate does NOT prove)
 
