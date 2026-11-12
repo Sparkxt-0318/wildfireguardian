@@ -1,0 +1,8 @@
+{
+  "sources": [
+    "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N40_00_W124_00_DEM/Copernicus_DSM_COG_10_N40_00_W124_00_DEM.tif"
+  ],
+  "fine_resolution_m": 31.25,
+  "halo_cells": 4,
+  "missing_pixels": 0
+}
