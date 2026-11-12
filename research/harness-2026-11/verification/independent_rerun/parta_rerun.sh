@@ -15,6 +15,8 @@ PY="${2:-python3}"
 mkdir -p "$WORK"; WORK="$(cd "$WORK" && pwd)"
 PINS="$HERE/PINS.json"
 log() { echo "[parta_rerun $(date -u +%H:%M:%SZ)] $*"; }
+log "NOTE: the part-a table is IN-SAMPLE and DEVELOPMENT-ONLY (the A1 3.1 refits train on all 490 part-a incidents)."
+log "Its value is that part c is later measured against these same rebuilt references and pipeline."
 pin() { "$PY" -I -c "import json,sys;print(json.load(open('$PINS'))$1)"; }
 
 # Make sure every pinned commit is present (a clean CI checkout may be shallow).
