@@ -15,7 +15,7 @@ if [ ! -x "$PY" ]; then
   uv venv -q -p 3.12 "$WS/.venv"
   uv pip install -q -p "$PY" numpy==1.26.4 pandas==2.2.3 scipy==1.13.1 rasterio==1.4.3 affine==3.0.1 \
     requests==2.34.2 pyproj==3.7.0 pyshp==2.3.1 shapely==2.0.6 pyogrio==0.10.0 geopandas==1.0.1
-  uv pip install -q -p "$PY" torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
+  uv pip install -q -p "$PY" torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu   # CPU-only; no PyPI extra index (it pulled cu124 + 2.7 GB nvidia wheels)
 fi
 rm -rf "$WS/wildfire"; cp -r "$REPO/forecast/wildfire" "$WS/"
 ENV=$WS/data/environment; mkdir -p "$ENV/sources" "$WS/dl"
