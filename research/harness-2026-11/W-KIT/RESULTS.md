@@ -299,6 +299,18 @@ matches an entry of a committed registry of official issuing bodies**
   withheld.
 - Suite 23 files / 424 tests; build:static OK.
 
+## W6 follow-up (branch clara/wkit-w6-followup, after PR #138 at 1334e47) (UNVERIFIED)
+Mira's two minor notes on 1334e47:
+- **Mobile numbers refused.** 010/011/016–019 numbers are personal data, and an official contact is a landline or a
+  representative number. A refused mobile gives no contact line, and staff see "field to fix: contact number … or it is
+  a mobile … number" (test over all six prefixes).
+- **The registry override is removed from production code.** `activeRegistry()` always returns the committed registry.
+  Tests substitute it only through a vitest module mock in `tests/planner/wkit.channels.test.ts` (`vi.hoisted` +
+  `vi.mock`). A grep test asserts that planner/src/features/lastmile contains no override, no test hook and no
+  registry option.
+
+Suite 23 files / 424 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
