@@ -456,7 +456,7 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | extension, new-candidate set, freeze order, FEDS stratum | owner | orchestrator positions, no objection; awaiting confirmation |
 | snapshot and closing dates | owner | **recomputed in draft 6** for the 2027-01-01 start |
 | Magstadt-equivalent series builder | Daniel | rehearsal on exposed 2020–24 fires, using IR files already held (FTP paths 404, row 49) |
-| buffer B for the same-ground rule | Iris / Hannah | B = 4 km in the text (draft 4); Iris to confirm |
+| buffer B for the same-ground rule | Iris / Hannah | **B = 4 km, confirmed by Iris** (18:19Z) |
 | power at the R effect and at half of it | Victor | provisional table in §7; `power_cr1.py` committed before the freeze |
 | second custodian | orchestrator | Nora |
 | access protocol review | Hannah | draft 9 checked: **PASS WITH NOTES** (ledger row 53), subject to the gate finding |
@@ -465,7 +465,7 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | canonical_id rehearsal | Daniel / custodian | **synthetic fixture** (no dual-path fire retrievable, rows 49 and 51) |
 | KR-P frozen rules (label source and minimum event count; also detection product, arrival method, eligibility) | Victor drafts; Hannah verifies | due **before 2027-01-01** |
 | access route for 2027 NIROPS-type IR | owner | **decided 12 Nov: in-season harvest (d') primary; compiled release a cross-check only.** Before the freeze: Hannah's and Iris's assessments of the harvest design (Hannah's a–g given); the frozen harvest script plus its synthetic-fixture rehearsal; and the owner-side setup (custodian environment through 2027, a daily job with missed-run alerting, and the two owner-held secrets), which the orchestrator walks the owner through |
-| frozen harvest script and synthetic-fixture rehearsal (including the canary, two-job union and totals-only log) | to be assigned (orchestrator) | MUST before the freeze; never run live before 2027-01-01 |
+| frozen harvest script and synthetic-fixture rehearsal (including the canary, two-job union and totals-only log) | **Daniel** writes (acknowledged 16:32Z; after tonight's weather run and the road probe); Hannah reviews and verifies; Nora reads it as second custodian and runs the second job | MUST before the freeze; never run live before 2027-01-01 |
 | WFIGS/IRWIN field names, and the no-IRWIN space-time match rule (E8) | Daniel (documentation only) | MUST before the freeze |
 | flight-time rule (midnight rule, ESTIMATED flag, Δ rule, secondary) | Victor (text); Daniel (builder code) | rule fixed in draft 13; code pending |
 | builder acceptance: criteria stated, and the 13/37 failing Dixie nights met or explained | Daniel | **MUST before the freeze** |
