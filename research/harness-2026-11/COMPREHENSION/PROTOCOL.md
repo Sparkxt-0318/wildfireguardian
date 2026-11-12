@@ -1,6 +1,6 @@
 # Comprehension test of the leave-by outputs — protocol (PLAN ONLY)
 
-Status: v2, after Iris's reading of v1 (bbbb640). Plan only: no recruitment, no publication, no data collected. The
+Status: v2.1, after Iris's readings of v1 (bbbb640) and v2 (ffd541c). Ready for the owner from Iris's side. Plan only: no recruitment, no publication, no data collected. The
 owner arranges participants, consent and any ethics review. Written 2026-11-12 after the orchestrator paused new
 wording until one comprehension test with real readers has run.
 
@@ -73,15 +73,21 @@ table"**, the best case: a miss counts, and a pass does not transfer to an outdo
 - **Otherwise:** NEUTRAL. Verbatim text is always kept.
 
 ## Pre-stated targets (fixed before any session, as counts)
-- **Q1** (per group × channel × leave-by case, first exposures and all exposures reported):
-  - allowed misses ≤ ⌊0.2·N⌋;
+- **Which count decides (fixed now, so no count can be picked afterwards):**
+  - **Q1** is decided on the **first exposure per group × leave-by case (C1, C2), pooled over channels.** Each
+    participant sees each case first exactly once, so N is the group size.
+  - The per-channel breakdown and the all-exposure counts are reported beside it as descriptive, with no target.
+  - **Q2 and Q3** are decided on **every exposure, open or closed**: zero misses allowed anywhere.
+  - **Q4** is decided on each participant's first item, so its count pools over cases and channels.
+- **Q1:**
+  - allowed misses ≤ ⌊0.2·N⌋ per group × case;
   - that is 1 miss at N = 6–9 and 2 misses at N = 10–12.
   - A miss is a wrong time, a correct time after more than 30 s, or "no time" where one is shown.
   - Report the median and the longest time per channel.
 - **Q1 critical miss:** TIME-INVENTED on C3–C5 (a time given where none is shown). 0 allowed.
-- **Q2:** 0 USABLE-LATER readings, open or closed.
-- **Q3:** 0 STAY readings, open or closed, and 0 "yes, safe to stay".
-- **Q4** (first item): misses ≤ ⌊0.1·N⌋, i.e. 0 at N ≤ 9 and 1 at N = 10–12.
+- **Q2:** 0 USABLE-LATER readings on any exposure, open or closed.
+- **Q3:** 0 STAY readings on any exposure, open or closed, and 0 "yes, safe to stay".
+- **Q4** (first item, pooled over cases and channels): misses ≤ ⌊0.1·N⌋, i.e. 0 at N ≤ 9 and 1 at N = 10–12.
 
 Every miss is reported verbatim with its case, channel, group and exposure order. No percentage without its n/N.
 
