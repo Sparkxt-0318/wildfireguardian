@@ -81,35 +81,54 @@ sets was withheld. This version addresses the verifier's four points:
 3. **English never carries Hangul.** English outputs use only a supplied English or romanised agency name (GSM-7
    printable ASCII, ≤ 60 characters). Without one, the English field is withheld (`no_english_name`) and never filled
    from the Korean name. The GSM-7 check on the English family text is unchanged and passes.
-4. **Metric:** the share of resident outputs that are four-field complete AND not withheld (531 real origins). Same
-   measuring code on both commits. Synthetic issuer 합성군 재난안전과 / Synthetic County Disaster Safety Division /
-   000-0000-0000:
+4. **Metrics (revised after Iris):** two shares of resident outputs that are four-field complete AND not withheld,
+   over the 531 real origins: overall (n = 531 per output), and among outputs where all four fields apply (the 501
+   leave-by places, n = 501). The measuring code is the same on both commits. Synthetic issuer 합성군 재난안전과 /
+   Synthetic County Disaster Safety Division / 000-0000-0000, marked for drill/replay use (every booth cache is a replay).
 
-   | output | no issuer (both) | 66e3e62 | this version |
+   | output | no issuer | 66e3e62 (overall · applicable) | this version (overall · applicable) |
    |---|---|---|---|
-   | ko head | 0 | 0 (299 complete, 531 withheld) | **299** (0 withheld) |
-   | ko voice | 0 | 0 (299 complete, 531 withheld) | **299** |
-   | ko family text | 0 | 0 | 0 (contact does not fit 90 bytes) |
-   | ko family script | 0 | 0 (440 complete, 531 withheld) | **440** |
-   | en head | 0 | 64* | 64 |
-   | en voice | 0 | 64* | 64 |
-   | en family text | 0 | 0 (531 withheld: Hangul, not GSM-7) | 0 |
-   | en family script | 0 | 64* | 64 |
+   | ko head | 0 · 0 | 0 · 0 (531 withheld) | **299/531 · 299/501** |
+   | ko voice | 0 · 0 | 0 · 0 (531 withheld) | **299/531 · 299/501** |
+   | ko family text | 0 · 0 | 0 · 0 | 0 · 0 |
+   | ko family script | 0 · 0 | 0 · 0 (531 withheld) | **440/531 · 440/501** |
+   | en head / voice / family script | 0 · 0 | 64* · 64* | 64/531 · 64/501 |
+   | en family text | 0 · 0 | 0 · 0 (531 withheld: Hangul, not GSM-7) | 0 · 0 |
 
    \* At 66e3e62 these counted the Hangul agency name inside English text as the field, which is the defect fixed here.
-   Now they count a supplied English name. With a Korean-only issuer the English rows are 0 and every English output
-   reports `no_english_name`. Withheld resident outputs with the issuer: 0 of 4,248, against 2,124 at 66e3e62.
+   Now they count a supplied English name. Withheld resident outputs: 2,124 at 66e3e62, 0 now, with or without an issuer.
 
-   What is still missing, and why (Korean, with the issuer): shelter in 1,086 of 2,124 outputs (the head drops its
-   optional destination block to stay within 20 s; varying or unnamed destinations are never named; the family text
-   has no room). Reason and timing are missing in 120, which are the 30 no-route/unresolved places × 4 outputs: by design
-   they carry no time. Area is missing in 24. English shelter is missing more often (1,923) because many destinations
-   have no English name and none is ever made up.
-5. **A report only (design change; sent to Iris).** `draftDecreeCheck` adds `set.decree[lang][output] = { present,
-   missing, contact }` and never a violation, so a missing decree field never withholds a message. Under a withholding
-   rule every no-route and unresolved message, and every message without a nameable shelter, would be suppressed. That
-   is a policy question for officials, not a template defect (test: with or without the check, identical outputs and
-   violations).
+   Every missing item now carries one reason (with the issuer, 8 outputs × 531):
+
+   | | not applicable | not supplied | does not fit |
+   |---|---|---|---|
+   | ko | timing 120 | area 24, shelter 364 | shelter 722, agency+contact 531 |
+   | en | timing 120 | area 72, shelter 1,856 | shelter 67, agency+contact 22 |
+   | total | 240 | 2,316 | 1,342 |
+
+   - "Not applicable" is the 30 no-route/unresolved places × 4 outputs, which have no checked time.
+   - "Does not fit" covers three cases: the head drops its optional shelter block to stay within 20 s; the 90-byte
+     Korean family text has no room for a shelter or a contact (it never carries a destination, by design); and the
+     English family text runs over 160 GSM-7 characters for 22 places.
+   - English shelter and area are mostly "not supplied", because many names have no English form and none is ever made
+     up.
+
+   Why the family text is 0 in every column, and that this is intended: it is a 90-byte / 160-character relay. Per
+   Sofia's reading of the draft (DESIGN.md), the four items are owed by the guidance as a whole, and the voice call and
+   family script carry them.
+5. **Report only (Iris agreed).** `draftDecreeCheck` adds `set.decree[lang][output] = { present, missing, reasons,
+   contact }` and a staff text, `staff.decree` (Korean and English, 5 lines). The staff text says the check is against
+   a draft requirement as of the notice date and that officials decide whether an incomplete notice is sent. The check
+   adds no violation, so resident outputs are identical with and without it (test). The staff text passes the kit's
+   word scans.
+6. **Iris's conditions:**
+   - The contact line never displaces "official orders first". Over every real and synthetic set, opener + core +
+     closer stay contiguous and in order, the line comes after them, and every output keeps the official-first text
+     (property test).
+   - In replay, mock or test-data outputs, the contact is rendered only for an issuer marked `forDrillOrReplay`;
+     otherwise it is reported as not supplied (test). Live data needs no mark.
+   - Committed fixtures use only all-zero placeholder numbers, or numbers the validator refuses (test reads the test
+     source).
 
 Agency and contact are supplied inputs, validated by `validIssuer`: one line; Korean ≤ 40 characters; contact digits
 and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplied, and nothing is invented or defaulted

@@ -421,6 +421,11 @@ Synthetic fixtures and generated cases (`lastmile.fixture.ts`, `lastmile.cacheda
 - Carriers differ in how they count and split Korean messages; the 90/2,000-byte limits follow the
   common EUC-KR convention.
 
+**Draft decree items (W-KIT W6).** With `draftDecreeCheck`, the channel outputs report which of the four items of
+draft 제49조② (notice of 2026-11-04) each resident message carries, and give a reason for each missing item. This is a
+draft requirement as of that date. The report never withholds a message, and the kit does not decide whether an
+incomplete notice may be sent: that is for officials. Details: research/harness-2026-11/W-KIT/DESIGN.md.
+
 ## 11. Examples from the booth caches
 
 Every block below is the kit's output for a real origin of a booth cache (`planner/cache/…`, the

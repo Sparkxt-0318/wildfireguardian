@@ -103,12 +103,18 @@ export interface ChannelOptions {
 export interface IssuerInput {
   agency: { ko: string; en?: string | null };
   contact: string;
+  /**
+   * Explicitly marked by whoever supplied it as usable in drills and replays. A replay, mock or test-data message
+   * renders the contact line ONLY with this mark: a real agency number in a replay of a 2025 event invites real calls.
+   */
+  forDrillOrReplay?: boolean;
 }
 
 /** A supplied issuer that passed validation; `en` null = no usable English name (the English field is withheld). */
 export interface Issuer {
   agency: { ko: string; en: string | null };
   contact: string;
+  forDrillOrReplay: boolean;
 }
 
 /** Longest agency name accepted (characters): Korean 40; English 60 (romanised names run longer). */
@@ -135,7 +141,7 @@ export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null 
   if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return null;
   const enRaw = typeof raw.agency.en === 'string' ? raw.agency.en.trim() : '';
   const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 ? enRaw : null;
-  return { agency: { ko, en }, contact };
+  return { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true };
 }
 
 /** The four fields of the draft decree (안 제49조② 1–4). */
@@ -144,12 +150,58 @@ export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_tim
 export type ResidentOutput = 'head' | 'voice' | 'familyText' | 'familyScript';
 export const RESIDENT_OUTPUTS: readonly ResidentOutput[] = ['head', 'voice', 'familyText', 'familyScript'];
 /** Why an output has no agency/contact field. */
-export type ContactStatus = 'included' | 'not_supplied' | 'no_english_name' | 'over_length';
+export type ContactStatus = 'included' | 'not_supplied' | 'no_english_name' | 'replay_not_marked' | 'over_length';
+/**
+ * Why a decree field is missing (Iris): not_applicable = no checked departure time, so no timing can be given;
+ * not_supplied = the input lacks it (no issuer, no English name, no drill/replay mark, no nameable place or shelter);
+ * does_not_fit = it exists but the output's length budget left it out.
+ */
+export type MissingReason = 'not_applicable' | 'not_supplied' | 'does_not_fit';
 
 export interface DecreeReport {
   present: DecreeField[];
   missing: DecreeField[];
+  /** one reason per missing field */
+  reasons: Partial<Record<DecreeField, MissingReason>>;
   contact: ContactStatus;
+}
+
+const ASCII = /^[\x20-\x7E]+$/;
+
+/** Why `field` is missing from an output (the field is known to be missing). */
+function missingReason(p: MessagePlan, field: DecreeField, lang: LmLang, contact: ContactStatus): MissingReason {
+  if (field === 'reason_timing') return p.kind === 'leave_by' && p.leaveByS !== null ? 'does_not_fit' : 'not_applicable';
+  if (field === 'agency_contact') return contact === 'over_length' ? 'does_not_fit' : 'not_supplied';
+  const name = field === 'area_people' ? p.input.origin.name?.[lang] : namedDestination(p)?.[lang];
+  // English outputs never carry a non-ASCII name: such a name counts as not supplied in English
+  return name && (lang === 'ko' || ASCII.test(name)) ? 'does_not_fit' : 'not_supplied';
+}
+
+const FIELD_LABEL: Record<LmLang, Record<DecreeField, string>> = {
+  ko: { area_people: '대피 대상 지역·대상자', reason_timing: '대피 사유·시기', shelter: '대피장소 명칭·위치', agency_contact: '안내 기관 명칭·문의 연락처' },
+  en: { area_people: 'area and people', reason_timing: 'reason and timing', shelter: 'shelter name and location', agency_contact: 'issuing agency and contact number' },
+};
+const REASON_LABEL: Record<LmLang, Record<MissingReason, string>> = {
+  ko: { not_applicable: '해당 없음(확인된 출발 시각 없음)', not_supplied: '입력 없음', does_not_fit: '길이 제한으로 빠짐' },
+  en: { not_applicable: 'not applicable (no checked departure time)', not_supplied: 'not supplied', does_not_fit: 'does not fit (length)' },
+};
+const OUTPUT_LABEL: Record<LmLang, Record<ResidentOutput, string>> = {
+  ko: { head: '이장 방송', voice: '자동 음성전화', familyText: '가족 문자', familyScript: '가족 전화 대본' },
+  en: { head: 'village head', voice: 'voice call', familyText: 'family text', familyScript: 'family call script' },
+};
+
+/** Staff-only text of the decree report: always shown when the check is on, never silent. */
+export function decreeReportText(r: Record<ResidentOutput, DecreeReport>, lang: LmLang): string {
+  const head =
+    lang === 'ko'
+      ? '[직원용] 입법예고안(2026-11-04 공고) 제49조② 네 항목 점검 — 초안 기준이며, 항목이 빠진 안내를 보낼지는 담당 기관이 정합니다.'
+      : '[Staff] Four items of draft Article 49(2) of the disaster management enforcement decree (notice of 2026-11-04) — a draft requirement as of that date; whether a notice missing an item may be sent is for officials to decide.';
+  const lines = RESIDENT_OUTPUTS.map((o) => {
+    const x = r[o];
+    const body = x.missing.length === 0 ? (lang === 'ko' ? '네 항목 모두 있음' : 'all four present') : x.missing.map((f) => `${FIELD_LABEL[lang][f]}: ${REASON_LABEL[lang][x.reasons[f]!]}`).join('; ');
+    return `${OUTPUT_LABEL[lang][o]} — ${body}`;
+  });
+  return [head, ...lines].join('\n');
 }
 
 /** Which of the four fields a resident-facing text carries (by content, not by template). */
@@ -231,7 +283,7 @@ export interface ChannelTexts {
   familyText: string;
   familyScript: [string, string, string];
   /** staff / village-head only (never resident-facing) */
-  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null };
+  staff: { dataAge: string; issueOrderBy: string; noOrder: string | null; decree?: string | null };
 }
 
 export interface ChannelSet {
@@ -581,9 +633,10 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
   for (const lang of ['ko', 'en'] as LmLang[]) {
     const t = text[lang];
     const line = iss ? contactLine(iss, lang) : null;
-    const base: ContactStatus = !iss ? 'not_supplied' : line === null ? 'no_english_name' : 'included';
+    const nonLive = p.input.replay || p.input.mock || p.input.testData;
+    const base: ContactStatus = !iss ? 'not_supplied' : nonLive && !iss.forDrillOrReplay ? 'replay_not_marked' : line === null ? 'no_english_name' : 'included';
     const c: Record<ResidentOutput, ContactStatus> = { head: base, voice: base, familyText: base, familyScript: base };
-    if (iss && line !== null) {
+    if (iss && line !== null && base === 'included') {
       const h = t.head;
       const sec = contactSeconds(line, iss, lang);
       if (sec <= HEAD_CONTACT_MAX_S) {
@@ -610,11 +663,16 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       const r = {} as Record<ResidentOutput, DecreeReport>;
       for (const o of RESIDENT_OUTPUTS) {
         const present = decreeFields(p, texts[o], lang, iss);
-        r[o] = { present, missing: DECREE_FIELDS.filter((f) => !present.includes(f)), contact: contact[lang][o] };
+        const missing = DECREE_FIELDS.filter((f) => !present.includes(f));
+        const reasons: Partial<Record<DecreeField, MissingReason>> = {};
+        for (const f of missing) reasons[f] = missingReason(p, f, lang, contact[lang][o]);
+        r[o] = { present, missing, reasons, contact: contact[lang][o] };
       }
       decree[lang] = r;
+      t.staff.decree = decreeReportText(r, lang);
     }
     set.decree = decree;
+    set.violations = checkChannels(p, set);
   }
   return set;
 }
@@ -651,6 +709,7 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       ['familyScript', t.familyScript.join('\n')],
       ['staff', `${t.staff.dataAge}\n${t.staff.issueOrderBy}`],
       ...(t.staff.noOrder !== null ? ([['staff.noOrder', t.staff.noOrder]] as [string, string][]) : []),
+      ...(t.staff.decree ? ([['staff.decree', t.staff.decree]] as [string, string][]) : []),
     ];
     for (const [name, s] of outs) {
       const id = `${lang}.${name}`;
@@ -662,9 +721,9 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
         const extra = clockTimes(maskData(s, names)).filter((c) => c !== dataHm);
         if (extra.length) v.push(`${id}: clock time ${extra.join(',')} without a checked window`);
       }
-      if (name !== 'staff' && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
+      if (name !== 'staff' && name !== 'staff.decree' && !s.includes(OFFICIAL_FIRST[lang]) && !s.includes(OFFICIAL_FIRST_SMS[lang])) v.push(`${id}: missing official-orders-first`);
       const markerInstead = lang === 'ko' && name === 'familyText' && (p.input.mock || p.input.testData) && /MOCK|시험자료/.test(s);
-      if (p.input.replay && name !== 'staff' && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
+      if (p.input.replay && name !== 'staff' && name !== 'staff.decree' && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
       const allowed = [set.destinationName?.[lang], p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
