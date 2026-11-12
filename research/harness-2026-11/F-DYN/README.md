@@ -357,3 +357,27 @@ pixel time per cell, which burned cells early and burned them out before arrival
 - **Still valid:** readers that take phases from HAZARD flame bins, such as Richard's field.
 - **Not affected:** `kriged_mean` and `firms_early`, which use the scalar law and pass.
 - **Fix:** proposed to the orchestrator; a new manifest version will follow.
+
+## Packet consistency fix: v3.4 (PACKET_CONSISTENCY_RULE.md @1572bf7; code @588f74e)
+
+- `envelope_burnset` is now **one scalar law in HAZARD and in the arrays**:
+  - birth 0 on the burn set minus present fire;
+  - T = R = H.
+
+  Its HAZARD is **bitwise identical** to the version Nora passed (row 32): breakpoints, flame, flux and support.
+- `envelope` is **HAZARD-only**. Its arrays carry NaN births and a `per_cell_law_HAZARD_only` marker, so array
+  readers refuse it (`REFUSE_CHECK.json`):
+  - ContactModel and the replay Packet check refuse it.
+  - F-3.2 `p1_check.from_raw` accepted it silently. It was reported to Thomas, who has since made it raise on
+    `thomas/routing-next`.
+- The builder self-check runs on every build.
+- **v3.4 samples** (`CONSISTENCY_v34_samples.json`, 16 packets, 4 region-starts × 4 variants):
+
+  | Variant | Packets as required | Cell-bin mismatches |
+  |---|---:|---:|
+  | kriged_mean | 4/4 | 0 |
+  | firms_early | 4/4 | 0 |
+  | envelope_burnset | 4/4 | 0 (16,176 = 16,176 cells) |
+  | envelope | 4/4 refused | n/a (HAZARD-only) |
+- **Older manifests** (v3–v3.3): their `envelope` and `envelope_burnset` / footprint / sound packets have arrays that
+  are inconsistent with HAZARD. They are valid only for readers that take phases from HAZARD.
