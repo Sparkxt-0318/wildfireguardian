@@ -29,7 +29,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 21 | 2026-11-12 | P-PROTO checkpoint 2 (P5-P7) | Thomas | 75189d9 | descriptive ladder + hedged stamps; untrusted URL places; 320 px Chromium layout | `npx vitest run pproto && npx vitest run` (own npm ci) + probes | PASS WITH NOTES |
 | 22 | 2026-11-12 | PR #116 re-check (README slices sentence) | Thomas | ae5351a | 15 non-forced, 0.82-3.08×, median 1.42×, 6 >1.5 | diff vs a03f218; recompute from results/slices.json | PASS (ready) |
 | 23 | 2026-11-12 | PR #118 re-check (test-only CI wait) | Thomas | 53233ab | test wait raised to 90 s, fails early on .pv-error | diff vs 1d3e49f; pproto + full suite (own npm ci) | PASS (ready) |
-| 24 | 2026-11-12 | PR #122 scope check (research-scout docs) | Sofia | f912de9 | docs only, no private link, no attribution footer | diff scan (files, URL hosts, private hosts/paths/emails, personal data) + PR description | NOT READY (description footer) |
+| 24 | 2026-11-12 | PR #122 scope check (research-scout docs) | Sofia | f912de9 | docs only, no private link, no attribution footer | diff scan (files, URL hosts, private hosts/paths/emails, personal data) + PR description | NOT READY (description footer) → READY after footer removal (same head) |
 | 25 | 2026-11-12 | FIRE 6.2 radiant screen (parts 1 and 3) | Priya | 79f3271 | 1-hour flux bounds < 1.0 so ceilings change nothing; C-11 view factor; standoffs and route counts | `python3 F-4.2/standoff.py` + own numeric integration and bisection | PASS WITH NOTES |
 
 ## Notes
@@ -177,3 +177,5 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Part 1: 0.703 = omitted-source peak cap (packets); the in-domain max_flux is 0.7019 including flame.
 - The argument needs the SUM, non-flame 0.0156 + cap 0.703 ≈ 0.72 < 1.0. The 0.0156 figure (Richard's) was not verified by me.
 - Part 2 is not computed. Part 3 is exploratory and assumption-driven (disclosed).
+
+**24 update**: the #122 footer was removed through the API, and the head is unchanged at f912de9. The body has no claude.ai or session reference. READY.
