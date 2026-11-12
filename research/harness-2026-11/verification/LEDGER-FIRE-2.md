@@ -65,6 +65,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 57 | 2026-11-12 | PROV-FLAGS delta (fail-closed parse, help sentence, CSV kind only, Sofia wording) | Clara | a79c515 | 10 malformed-record probes fail closed, no throw; bad files refused; no code outside model.ts reads later values; counts unchanged; cross 0/30; 417/417 | own probes + grep | PASS |
 | 58 | 2026-11-12 | W-KIT W6 follow-up (mobile refused, override removed) | Clara | 7de2050 | 010/011/016-019 refused, landlines and 1XXX kept; no override under src (vi.mock in the test only); 424/424 | own prefix probe + grep | PASS |
 | 59 | 2026-11-12 | PR #141 routing cut, frozen-cut check | Thomas | 0685e03 (f821a43) | 18 paths vs Main; F-3.2 equal to fire-next cedf961 except README + 2 exclusions; cedf961 fixes verified (CLOCK diff, exact ACCEPT rule 80/80 unchanged, envelope JSON keys only); C 30+2, guard 12/12, regression 6/6, router 105/105 | fresh worktree, diffs, probes | PASS |
+| 60 | 2026-11-12 | Kit staff provenance line | Clara | 4e65e55 | every kind forced on 1,131 places: resident outputs and other staff fields byte-identical, no clock time, no throw; violations unchanged on deadline places; 447/447 | own probe | PASS WITH NOTES |
 
 ## Notes
 
@@ -326,4 +327,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **58.** Optional: 050 (personal safe numbers), 070 (VoIP) and unassigned 012/013 still pass the phone shape. W-KIT PR #138 is frozen at 1334e47 (entry 56).
 
 **59.** The PR body should drop the "not yet verified" line and add this row when marked ready. hypothesis 6.170.13 was installed in the verification venv to run the property tests.
+
+**60.** N1: a timed label forced onto a no-time plan is flagged only in ko (help sentence trips the DEPART scan), not in en. The real join never produces it; suggested a guard in staffProvenanceLine.
 
