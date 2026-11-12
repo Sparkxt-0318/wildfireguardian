@@ -62,9 +62,15 @@ Consequences:
     `z = (obs − pred)/kriging SD` is computed for each held-out cell. Kriging uses `choi_kriging.py`, my port of the
     published algorithm; the downloaded code is not executed. This is P-OK without GOES points, with detections
     selected by the raster mask.
-  * Result, pooled over 12,905 cells: z SD 1.08, and 10.2% of |z| exceed 1.645 (nominal 10%). In aggregate the
-    variance is about right, **but the shape is not Gaussian**: the robust SD (MAD) is 0.36, and 7.8% of |z| exceed
-    1.96 (nominal 5%). The core is too narrow and the tails too heavy.
+  * **Verified: Owen, PASS WITH NOTES (b8aeafb).** All z values use the **block-CV kriging SD of the port** (median
+    116–326 h), **not** the product SD raster (27–96 h) on which c = 1.75 was measured.
+  * Result, all 6 fires, 12,905 cells: z SD 1.08; |z| > 1.645 in 10.2% (nominal 10%); |z| > 1.96 in 7.8% (nominal 5%);
+    robust SD (MAD) 0.36.
+  * Result, only the 3 fires that replicate Choi's CV (Wapiti, Goat, Lava; 6,951 cells; Owen's pooling): |z| > 1.96
+    in 5.4%, |z| > 1.645 in 6.8%.
+  * So **the core is too narrow** on every fire except Pioneer (robust SD 0.10–0.46; Pioneer 1.05), which is robust.
+    **"Heavy tails" holds only when the poorly replicated fires are included** (Pioneer alone has 25% of |z| above
+    1.96), so it is not established.
   * Per-fire z SD runs from 0.74 to 1.44.
   * Replication of Choi's published P-OK CV is close for Goat (r 0.857 vs 0.853, MAE 108 vs 108 h) and rough for
     Wapiti and Lava. It is poor for Pioneer, FishCreek and RedRock, probably because the mask selection admits
