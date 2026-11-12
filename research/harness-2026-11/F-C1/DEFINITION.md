@@ -81,7 +81,13 @@ Consequence: the sign of the gap can be decided only in these cases:
 | (b) | a fire-set deadline (`fire_or_limits`) and t_vis > D + 10 min | **negative** (t_vis > 3600 s is enough) |
 | (c) | t_vis known inside the hour and D a genuine bound | computed |
 
-Every `grid_end` or `window` case where the fire is not visible at t = 0 is **indeterminate**. The 21 no-route cases
+*(Corrected after Nora's verification.)* The true deadline is ≥ D in every class, so **any** case with a known
+t_vis ≤ D has gap ≥ 0, whatever its class. `compute.gap_class` already does this (class `nonneg`). A `grid_end` or
+`window` case is indeterminate only when t_vis > D in some member or lies beyond the horizon.
+
+For a fire-set case, "true deadline in [D, D + 10 min)" assumes no feasible departure second between the checked
+10-minute grid points. Nora checked that all 15 later grid departures are `model_no_route`. Before a gap is called
+negative, Richard's exact 1-s deadline field must confirm that the latest feasible second is < t_vis. The 21 no-route cases
 are reported separately: there is no leave-by, and visibility is moot for the deadline.
 
 ## Visibility model (the major decision)
