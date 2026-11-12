@@ -267,6 +267,17 @@ Test `test_pilot_weighted_combination_unbiased_and_never_much_worse`: pilot 1,00
 
 So the combination is never worse than plain counting, and it removes Y's high-p penalty.
 
+**At equal total trajectories, counting the pilot (Iris).** Total 5,000 trajectories; plain counting uses all 5,000. Median SE ratio, combined / plain:
+
+| pilot share (pilot + main) | p 0.15–0.5 | p 0.5–0.9 | p > 0.9 |
+|---|---:|---:|---:|
+| 5% (250 + 4,750) | 0.43 | 0.60 | 0.93 |
+| 10% (500 + 4,500) | 0.44 | 0.62 | 0.94 |
+| 20% (1,000 + 4,000) | 0.47 | 0.66 | 0.99 |
+
+- **Proposed fixed rule** before any scored use: pilot = 5% of the trajectory budget, minimum 64 trajectories, with an independent seed stream.
+- The test case had no cells with 0 < p ≤ 0.15. The tail gain there is the larger effect measured in §8 for the first-passage analogue, and it still has to be measured for this combination on a real case.
+
 **Proposal (accepted in principle by Iris and the orchestrator).** A new named predictor variant (for example `c651_mc_cond`), declared to S-D9 before any scored use, with `c651_mc` unchanged. It sharpens tail estimates; it does not fix calibration.
 
 ## 9. A1 §3.1 baseline refits on the rebuilt pipeline (prepared, not run)
