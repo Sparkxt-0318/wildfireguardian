@@ -27,3 +27,16 @@ pinned wrappers keep their bytes and their A1 sha256 values.
 
 Install: `python3.12 -m venv V && V/bin/pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu && V/bin/pip install -r requirements-refit.txt`
 (`--index-url`, not `--extra-index-url`).
+
+## Known property of the training data (Elena, UNVERIFIED; relayed by the orchestrator 2026-11-12)
+
+On part a (490 events, 3,773 intervals ≤ 48 h, the same interval count as `TRAIN_EVENTS_preweather.json`; 122,640
+new-burn cells), Elena's `refit/preweather_unscored.py` at b7cdc48f on claude/s-d2-next finds:
+- 12,384 new-burn cells (10.1%) lie outside `crop_box(initial, MARGIN 10)`;
+- `pipeline.cropped` drops them in every arm, so they never enter training;
+- they are concentrated in 97 intervals (2.6%).
+
+The largest reach events are therefore absent from training for d4_wind_rebuilt, logistic_rebuilt and the D2 arms
+alike. This is a property of the frozen recipe's crop, not of a wrapper. Victor decides whether it is declared under
+A1 item 22. Before weather, unscored-inside-crop is 0. The non-finite-kernel count follows once the weather pins
+exist. Not verified by me.
