@@ -259,9 +259,9 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
   - **Gate before the recipe is frozen.** Row sampling depends only on the arrival rasters, the seed and the limits. Marcus re-runs it on the Choi rasters with the candidate limits, and it must reproduce the committed totals in `forecast/documents/categorical_balance_training_20261009.json`: train row count 158,561, population weight sum 34,481,268.6405 and positive weight 64,420.
     - If it matches, the limits are recovered and recorded here by amendment before any training.
     - If not, the owner's `metadata.json` is required, and the arm waits.
-  - *Dependencies (Daniel to confirm).*
-    - prepare.py samples cell-hours across each event's **full** window. That needs hourly rebuilt weather for every hour of all 25 events, far more than the cutoff hours the perimeter pipeline needs.
-    - KFS_02 and KFS_03 need rebuilt covariates on the Korean grids (EPSG:5179).
+  - *Dependencies (Daniel: feasible).*
+    - **Weather.** The repo's weather stage already fetches every hour of each event's window, so sampling the full window adds no requests. The cost depends on the number of O1280 nodes times days. For the 25 events it is about 5,860 weighted Open-Meteo calls with the slim rebuild, or about 7,980 with the full one. The free-tier limits are 10,000 calls a day and 5,000 an hour, so this takes **one daily quota** spread over at least 2 h, or 1–2 days if the earlier limit was shared by IP. (events.json gives KFS_02 a 194 h window.)
+    - **Korea.** KFS_02 and KFS_03 on EPSG:5179 need no new code. `environment.py` branches on country, and the global DEM, land cover, biome and weather sources apply, while the US-only stages skip. This has not yet been run on KR; Daniel runs a non-weather smoke test first.
   - *Runner and cost.* Marcus runs it with a pinned in-memory wrapper. The unchanged-recipe comparator is the same wrapper with the injection switched off, so the two arms share every other byte. Each arm takes hours on CPU.
 - *The one change.* `forecast/wildfire/prepare.py` admits a target only if its whole k × k neighbourhood has a finite arrival time (lines 862–883), and label validity comes from the arrival raster (`data.py:477-492`). In the arm, **cells with no arrival value inside the event rectangle are known unburned for the whole event**, and the neighbourhood rule requires only that the window lie inside the rectangle.
   - The basis is §4.1 rule 5, which is verified cell for cell on 29 exposed US fires.
