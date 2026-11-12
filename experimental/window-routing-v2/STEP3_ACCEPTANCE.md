@@ -216,3 +216,25 @@ did not count. One setup unit cost about 10^4 sweep units.
    the orchestrator.
 
 The 2^28 budget committed at 7ebd84d is **superseded** and is not used for any G1 or F-DYN run.
+
+## Recalibration after the B2 correction (quiet host, 2026-11-12T20:11:38Z onward; kit-v2-step3d; 3 runs × 20 missions; `results/step3/Z_CALIBRATION_V2.json`)
+
+| Budget | Raw (median rate × 6 s) | Budget | Ratio | Basis | Safeguard |
+|---|---|---|---|---|---|
+| Setup | 2,153.6 units | **2^12 = 4,096** | 1.90 | EXTRAPOLATED (0 missions' setup ran ≥ 6 s; 16 missions have setup units > 0) | largest 1-hour setup 2,573 (Yeongdeok 0325T19) fits; not raised |
+| Sweep | 221,648,345 units | **2^28 = 268,435,456** | 1.21 | EXTRAPOLATED (0 sweeps ran ≥ 6 s under the 6 s Z cap) | largest completing sweep 93,965,088 (Uiseong 0324T09 FL2) fits; not raised |
+
+- **Unit-count spread over the three runs:** max/min ≤ 1.25 on every mission for both units. Units are deterministic
+  except on the three time-capped missions.
+- **Wall-time spread (reported, not part of the rule):** setup wall up to 1.45 (Hongseong 0230 FD1, on a 0.025 s setup),
+  and sweep wall up to 1.98 (Miryang 0602 FW1, 0.19 s) and 1.72 (Yeongdeok 0325T23 FL2).
+- **Setup cost per unit on 1-hour edges:** about 1.1 ms (Uiseong 0325T17 FW1: 2,090 units in 2.39 s) and about 1.5 ms
+  (Yeongdeok 0325T19: 2,573 units in 3.87 s). So 4,096 setup units is about 4.5–6.2 s at 1-hour rates on this host.
+- **Expected at multi-hour (from the earlier instrumentation, not yet re-measured):** Uiseong F-DYN has about 11,011
+  candidate edges, more than 4,096, so its setup is cut with `WORK_BUDGET_SETUP`. The F-DYN runs report setup units and
+  setup and sweep wall separately.
+- **The 3 time-capped missions** (Yeongdeok 0325T19 FD1, FX2 and 0325T23 FL2):
+  - at their own 6 s they had setup 2,573 / 2,573 / 1,066 units and sweep 129.4 M / 127.0 M / 204.7 M units;
+  - under the budgets their setup completes, and their sweep gets up to 268.4 M units, i.e. 2.07×, 2.11× and 1.31× the
+    sweep units they reached at the old cap;
+  - outcomes at the old cap and under the budgets are both reported from the G1 run.

@@ -51,7 +51,7 @@ ALLOCATION = {'version': 'wfg.rda.allocation/2-window-check-first',
               'checks': 'each whole-road check gets all remaining time up to the deadline'}
 
 
-V2_STEP3 = {'Z_setup_units': None, 'Z_sweep_units': None,   # kit-v2 Step 3 (B2 correction): None, None = calibration kit
+V2_STEP3 = {'Z_setup_units': 4096, 'Z_sweep_units': 268435456,   # kit-v2 Step 3: 2**12 / 2**28, results/step3/Z_CALIBRATION_V2.json (both extrapolated)
             'watchdog': 'max(1.5 x cap, cap + 10 s); after it fires no later stage uses the bound model or EA'}   # kit-v2 Step 3
 
 

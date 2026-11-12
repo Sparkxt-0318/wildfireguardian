@@ -1,0 +1,625 @@
+{
+ "rule": "STEP3_ACCEPTANCE correction to B2 (Iris 20:02)",
+ "missions": [
+  {
+   "mission": "hongseong_2023__20230402T070000Z_FN1",
+   "runs": 3,
+   "setup_units": 8,
+   "sweep_units": 6507007,
+   "setup_wall_s": 0.024093259999062866,
+   "sweep_wall_s": 0.175996235000639,
+   "z_wall_s": 0.20008949499970186,
+   "setup_units_all": [
+    8,
+    8,
+    8
+   ],
+   "sweep_units_all": [
+    6507007,
+    6507007,
+    6507007
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0748727776746712,
+   "spread_sweep_wall": 1.0356600927847244,
+   "z_capped_at_6s": false,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T070000Z_FX1",
+   "runs": 3,
+   "setup_units": 8,
+   "sweep_units": 6507007,
+   "setup_wall_s": 0.024955382001280668,
+   "sweep_wall_s": 0.17629215699889755,
+   "z_wall_s": 0.20124753900017822,
+   "setup_units_all": [
+    8,
+    8,
+    8
+   ],
+   "sweep_units_all": [
+    6507007,
+    6507007,
+    6507007
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.230817708895553,
+   "spread_sweep_wall": 1.0749850835275787,
+   "z_capped_at_6s": false,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T140000Z_FW2",
+   "runs": 3,
+   "setup_units": 36,
+   "sweep_units": 1554020,
+   "setup_wall_s": 0.03094784799941408,
+   "sweep_wall_s": 0.13025517999994918,
+   "z_wall_s": 0.16034860699983255,
+   "setup_units_all": [
+    36,
+    36,
+    36
+   ],
+   "sweep_units_all": [
+    1554020,
+    1554020,
+    1554020
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.229976532103562,
+   "spread_sweep_wall": 1.2019166440967275,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "hongseong_2023__20230402T230000Z_FD1",
+   "runs": 3,
+   "setup_units": 13,
+   "sweep_units": 961324,
+   "setup_wall_s": 0.024931915000706795,
+   "sweep_wall_s": 0.08967326399942976,
+   "z_wall_s": 0.1213219740002387,
+   "setup_units_all": [
+    13,
+    13,
+    13
+   ],
+   "sweep_units_all": [
+    961324,
+    961324,
+    961324
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.4454877050237218,
+   "spread_sweep_wall": 1.1536614816972628,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220531T100000Z_FN1",
+   "runs": 3,
+   "setup_units": 0,
+   "sweep_units": 3561588,
+   "setup_wall_s": 0.035965520999525324,
+   "sweep_wall_s": 0.18638374599868257,
+   "z_wall_s": 0.22307586900024035,
+   "setup_units_all": [
+    0,
+    0,
+    0
+   ],
+   "sweep_units_all": [
+    3561588,
+    3561588,
+    3561588
+   ],
+   "spread_setup": null,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0430964373138598,
+   "spread_sweep_wall": 1.1188546549676808,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T020000Z_FW1",
+   "runs": 3,
+   "setup_units": 0,
+   "sweep_units": 3025636,
+   "setup_wall_s": 0.04377022900007432,
+   "sweep_wall_s": 0.19209792699984973,
+   "z_wall_s": 0.23586815599992406,
+   "setup_units_all": [
+    0,
+    0,
+    0
+   ],
+   "sweep_units_all": [
+    3025636,
+    3025636,
+    3025636
+   ],
+   "spread_setup": null,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.1064344219178373,
+   "spread_sweep_wall": 1.976762762502927,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T080000Z_FD1",
+   "runs": 3,
+   "setup_units": 196,
+   "sweep_units": 9351116,
+   "setup_wall_s": 0.08175005300108751,
+   "sweep_wall_s": 0.2633204649991967,
+   "z_wall_s": 0.3450705180002842,
+   "setup_units_all": [
+    196,
+    196,
+    196
+   ],
+   "sweep_units_all": [
+    9351116,
+    9351116,
+    9351116
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.063338926779001,
+   "spread_sweep_wall": 1.379043924112422,
+   "z_capped_at_6s": false,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "miryang_2022__20220601T080000Z_FX1",
+   "runs": 3,
+   "setup_units": 196,
+   "sweep_units": 11220716,
+   "setup_wall_s": 0.08201578900116147,
+   "sweep_wall_s": 0.28123107699866523,
+   "z_wall_s": 0.3568686129983689,
+   "setup_units_all": [
+    196,
+    196,
+    196
+   ],
+   "sweep_units_all": [
+    11220716,
+    11220716,
+    11220716
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.1532576100905196,
+   "spread_sweep_wall": 1.034029241123306,
+   "z_capped_at_6s": false,
+   "status": [
+    "PROVEN_INFEASIBLE"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP_EXHAUSTED"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "runs": 3,
+   "setup_units": 123,
+   "sweep_units": 81562047,
+   "setup_wall_s": 0.8188110219998634,
+   "sweep_wall_s": 1.9421066920003796,
+   "z_wall_s": 2.7555758680009603,
+   "setup_units_all": [
+    123,
+    123,
+    123
+   ],
+   "sweep_units_all": [
+    81562047,
+    81562047,
+    81562047
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0100390097623213,
+   "spread_sweep_wall": 1.053765003330952,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "runs": 3,
+   "setup_units": 123,
+   "sweep_units": 85068207,
+   "setup_wall_s": 0.9170789609997883,
+   "sweep_wall_s": 2.127390613000898,
+   "z_wall_s": 3.0393669629993383,
+   "setup_units_all": [
+    123,
+    123,
+    123
+   ],
+   "sweep_units_all": [
+    85068207,
+    85068207,
+    85068207
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0583767684552887,
+   "spread_sweep_wall": 1.135210443217848,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250324T090000Z_FL2",
+   "runs": 3,
+   "setup_units": 280,
+   "sweep_units": 93965088,
+   "setup_wall_s": 0.9703167389998271,
+   "sweep_wall_s": 2.53968242800147,
+   "z_wall_s": 3.523223849000715,
+   "setup_units_all": [
+    280,
+    280,
+    280
+   ],
+   "sweep_units_all": [
+    93965088,
+    93965088,
+    93965088
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0374253693799147,
+   "spread_sweep_wall": 1.0687543232022816,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025__20250325T170000Z_FW1",
+   "runs": 3,
+   "setup_units": 2090,
+   "sweep_units": 46675755,
+   "setup_wall_s": 2.385960880001221,
+   "sweep_wall_s": 1.5095407309981965,
+   "z_wall_s": 3.959286458999486,
+   "setup_units_all": [
+    2090,
+    2090,
+    2090
+   ],
+   "sweep_units_all": [
+    46675755,
+    46675755,
+    46675755
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0738804256326058,
+   "spread_sweep_wall": 1.091370615885484,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FD1",
+   "runs": 3,
+   "setup_units": 0,
+   "sweep_units": 30066900,
+   "setup_wall_s": 0.35575270099980116,
+   "sweep_wall_s": 0.8020446259997698,
+   "z_wall_s": 1.2024545080003008,
+   "setup_units_all": [
+    0,
+    0,
+    0
+   ],
+   "sweep_units_all": [
+    30066900,
+    30066900,
+    30066900
+   ],
+   "spread_setup": null,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.3815321941517151,
+   "spread_sweep_wall": 1.1389030693487485,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T030000Z_FX1",
+   "runs": 3,
+   "setup_units": 0,
+   "sweep_units": 58999200,
+   "setup_wall_s": 0.3446678910004266,
+   "sweep_wall_s": 1.773032429999148,
+   "z_wall_s": 2.0883425430001807,
+   "setup_units_all": [
+    0,
+    0,
+    0
+   ],
+   "sweep_units_all": [
+    58999200,
+    58999200,
+    58999200
+   ],
+   "spread_setup": null,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.1731964017242293,
+   "spread_sweep_wall": 1.100481362054925,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T060000Z_FL1",
+   "runs": 3,
+   "setup_units": 142,
+   "sweep_units": 39105880,
+   "setup_wall_s": 0.4239131690010254,
+   "sweep_wall_s": 1.3190050190005422,
+   "z_wall_s": 1.7540935340002761,
+   "setup_units_all": [
+    142,
+    142,
+    142
+   ],
+   "sweep_units_all": [
+    39105880,
+    39105880,
+    39105880
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0471838652544683,
+   "spread_sweep_wall": 1.104545731232153,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "uljin_2022__20220304T120000Z_FW2",
+   "runs": 3,
+   "setup_units": 21,
+   "sweep_units": 19968960,
+   "setup_wall_s": 0.32513949399981357,
+   "sweep_wall_s": 0.5666418950022489,
+   "z_wall_s": 0.8781823870012886,
+   "setup_units_all": [
+    21,
+    21,
+    21
+   ],
+   "sweep_units_all": [
+    19968960,
+    19968960,
+    19968960
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0889050916733718,
+   "spread_sweep_wall": 1.1381970464999456,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T190000Z_FD1",
+   "runs": 3,
+   "setup_units": 2573,
+   "sweep_units": 129385300,
+   "setup_wall_s": 3.87198930500017,
+   "sweep_wall_s": 2.187139539999407,
+   "z_wall_s": 6.059128844999577,
+   "setup_units_all": [
+    2573,
+    2573,
+    2573
+   ],
+   "sweep_units_all": [
+    129385300,
+    129721075,
+    105881050
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.2251585623678647,
+   "spread_setup_wall": 1.0909006113403636,
+   "spread_sweep_wall": 1.1534066632352098,
+   "z_capped_at_6s": true,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T190000Z_FX2",
+   "runs": 3,
+   "setup_units": 2573,
+   "sweep_units": 127034875,
+   "setup_wall_s": 3.8385845289994904,
+   "sweep_wall_s": 2.270691990999694,
+   "z_wall_s": 6.06052270300097,
+   "setup_units_all": [
+    2573,
+    2573,
+    2573
+   ],
+   "sweep_units_all": [
+    132519200,
+    116066225,
+    127034875
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.14175506268081,
+   "spread_setup_wall": 1.0643905990351992,
+   "spread_sweep_wall": 1.1178963677888616,
+   "z_capped_at_6s": true,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250325T230000Z_FL2",
+   "runs": 3,
+   "setup_units": 1066,
+   "sweep_units": 204710825,
+   "setup_wall_s": 2.783962973000598,
+   "sweep_wall_s": 3.2679393390008045,
+   "z_wall_s": 6.051902312001403,
+   "setup_units_all": [
+    1066,
+    1066,
+    1066
+   ],
+   "sweep_units_all": [
+    204710825,
+    193966025,
+    215231775
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.1096364685516444,
+   "spread_setup_wall": 1.1100836779387941,
+   "spread_sweep_wall": 1.721691888114186,
+   "z_capped_at_6s": true,
+   "status": [
+    "TIMEOUT"
+   ],
+   "reason": [
+    "WALL_CLOCK",
+    "WALL_CLOCK_AFTER_CHECK"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025__20250326T080000Z_FW1",
+   "runs": 3,
+   "setup_units": 194,
+   "sweep_units": 66819225,
+   "setup_wall_s": 2.1826521729999513,
+   "sweep_wall_s": 1.591264450999006,
+   "z_wall_s": 3.773916623998957,
+   "setup_units_all": [
+    194,
+    194,
+    194
+   ],
+   "sweep_units_all": [
+    66819225,
+    66819225,
+    66819225
+   ],
+   "spread_setup": 1.0,
+   "spread_sweep": 1.0,
+   "spread_setup_wall": 1.0403183177691444,
+   "spread_sweep_wall": 1.117892538597428,
+   "z_capped_at_6s": false,
+   "status": [
+    "CONDITIONAL_OPTIMUM"
+   ],
+   "reason": [
+    "EXACT_CONTACT_SWEEP"
+   ]
+  }
+ ],
+ "setup": {
+  "raw": 2153.6449538343095,
+  "power_of_two": 4096,
+  "how": "EXTRAPOLATED: median of setup_units / setup_wall_s x 6 over 16 missions (0 ran >= 6 s)",
+  "largest_1h_setup_units": 2573,
+  "final": 4096,
+  "raised_by_safeguard": false,
+  "ratio_final_to_raw": 1.9018919496027225
+ },
+ "sweep": {
+  "raw": 221648345.1324669,
+  "power_of_two": 268435456,
+  "how": "EXTRAPOLATED: median of sweep_units / sweep_wall_s x 6 over 20 missions (0 ran >= 6 s)",
+  "largest_completing_sweep_units": 93965088,
+  "final": 268435456,
+  "raised_by_safeguard": false,
+  "ratio_final_to_raw": 1.2110871201838707
+ },
+ "spread_over_1_25": []
+}
