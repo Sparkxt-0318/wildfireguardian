@@ -39,6 +39,19 @@ def build(reproduce_paths, ablation_path):
             rec["provenance"] = lab
             c[lab] += 1
             out.append(rec)
+    # origins requested in the cache but without any route-check job (rejected/failed requests): explicit not_computed
+    root = Path(__file__).resolve().parents[4]
+    have = {(r["cache"], r["origin_id"]) for r in out}
+    for cache in sorted({r["cache"] for r in out}):
+        doc = json.loads((root / cache).read_text())
+        for req in doc.get("requests") or []:
+            for o in req.get("origins") or []:
+                if (cache, o["id"]) not in have:
+                    have.add((cache, o["id"]))
+                    out.append({"cache": cache, "origin_id": o["id"], "kind": "dispatch", "leave_by_s": None,
+                                "fire_free_leave_by_s": None, "provenance": "not_computed",
+                                "note": "requested in the cache but no route-check job exists for it; never render as safe"})
+                    c["not_computed"] += 1
     return {"schema": "wfg.f31.deadline_provenance/1",
             "time_base": "integer seconds after the cache input_time (UTC); exact 1-second latest departure, uncapped by the planner grid",
             "rule": "cert field (router rule OR closed whole-road rule); full policy on these packets (checked precondition)",
@@ -46,7 +59,7 @@ def build(reproduce_paths, ablation_path):
                        "present_fire": "leave_by earlier than fire-free, unchanged when forecast new ignitions are removed: set by fire already burning",
                        "forecast_dependent": "leave_by changes when forecast new ignitions are removed; both values given",
                        "no_checked_route": "no departure second in [0,H] has a checked route (proven within the model)",
-                       "not_computed": "origin absent from the ablation run"},
+                       "not_computed": "no field result: origin absent from the ablation run, or requested in the cache without any route-check job"},
             "counts": dict(c), "records": out}
 
 
