@@ -1041,8 +1041,8 @@ describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT
         } else if (!own) {
           r.withheld += 1;
           const [ko, en] = staffBoth(s);
-          expect(ko).toBe(`문의처 없음 — 입력한 기관(${e.ko})은 행정구역 경계 자료(2025-06-30 기준)상 이 장소의 시·군(${g!.ko})과 다릅니다. 이 장소의 문의처는 ${g!.ko}에서 정합니다. 기관명을 잘못 입력한 경우에만 고치십시오. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다.`);
-          expect(en).toBe(`No contact line — the issuer entered (${e.ko}) is not the 시·군 this place lies in (${g!.ko}), by the boundary file dated 2025-06-30. The contact for this place is for ${g!.ko} to set. Correct the issuer name only if it was entered wrongly. Residents get the same message without the contact line.`);
+          expect(ko).toBe(`문의처 없음 — 입력한 기관(${e.ko})이 행정구역 경계 자료(2025-06-30 기준)로는 이 장소의 시·군(${g!.ko})과 다릅니다. 이 장소의 문의처는 ${g!.ko}에 확인하십시오. 기관명을 잘못 입력했을 때만 고치십시오. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다.`);
+          expect(en).toBe(`No contact line — the issuer entered (${e.ko}) is not the 시·군 this place lies in (${g!.ko}), by the boundary file dated 2025-06-30. Check this place's contact with ${g!.ko}. Correct the issuer name only if it was entered wrongly. Residents get the same message without the contact line.`);
           // never an instruction to "fix" a correct entry, never a status code
           expect(ko + en).not.toMatch(/고칠 항목|field to fix|not_established|near_boundary|outside_all|entry_differs/);
           expect(s.text.ko.staff.decree).toContain(ko);
@@ -1078,8 +1078,8 @@ describe('jurisdiction (pre-registered pass rule, research/harness-2026-11/W-KIT
       expect(s.decree!.ko.familyScript.contact).toBe('jurisdiction_not_established');
       expect(s.text.ko.staff.jurisdiction).toMatch(ko);
       expect(s.text.en.staff.jurisdiction).toMatch(en);
-      expect(s.text.ko.staff.jurisdiction).toMatch(/^문의처 없음 — 행정구역 경계 자료로 이 장소의 시·군을 확인하지 못했습니다\(.+\)\. 어느 기관도 문의처로 넣지 않았습니다\. 담당 시·군을 직접 확인하십시오\. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다\.$/);
-      expect(s.text.en.staff.jurisdiction).toMatch(/^No contact line — this place's 시·군 could not be read from the boundary file \(.+\)\. No issuer is named here\. Check which 시·군 is responsible\. Residents get the same message without the contact line\.$/);
+      expect(s.text.ko.staff.jurisdiction).toMatch(/^문의처 없음 — 행정구역 경계 자료(\(\d{4}-\d{2}-\d{2} 기준\))?로 이 장소의 시·군을 확인하지 못했습니다\(.+\)\. 문의처를 넣지 않았습니다\. 담당 시·군을 직접 확인하십시오\. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다\.$/);
+      expect(s.text.en.staff.jurisdiction).toMatch(/^No contact line — this place's 시·군 could not be read from the boundary file( dated \d{4}-\d{2}-\d{2})? \(.+\)\. No contact line was added\. Check which 시·군 is responsible\. Residents get the same message without the contact line\.$/);
       expect(s.text.ko.staff.jurisdiction! + s.text.en.staff.jurisdiction!).not.toMatch(/확정|not_established|near_boundary|outside_all|entry_differs|multiple\b/);
     }
     // the parser never reads a malformed label as established
