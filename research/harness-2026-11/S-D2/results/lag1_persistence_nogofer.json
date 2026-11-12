@@ -1,0 +1,41 @@
+{
+ "command": "python lag1_persistence.py --inputs results/displacement_mcem_nogofer.json --out results/lag1_persistence_nogofer.json",
+ "results": {
+  "mcem": {
+   "pairs": 149,
+   "fires": 21,
+   "rank": {
+    "r": 0.4485890441497297,
+    "null_mean": 0.2294276630887061,
+    "null_sd": 0.06598452695802415,
+    "p_one_sided": 0.0004999500049995,
+    "p_two_sided": 0.0008999100089991
+   },
+   "log_ratio": {
+    "r": 0.5495389974852584,
+    "null_mean": 0.4199020659482123,
+    "null_sd": 0.046820378557621126,
+    "p_one_sided": 0.0027997200279972004,
+    "p_two_sided": 0.0053994600539946005
+   }
+  },
+  "mcem_no_detached": {
+   "pairs": 111,
+   "fires": 21,
+   "rank": {
+    "r": 0.46198079428100397,
+    "null_mean": 0.207449709382828,
+    "null_sd": 0.07547338593423603,
+    "p_one_sided": 0.00029997000299970003,
+    "p_two_sided": 0.00039996000399960006
+   },
+   "log_ratio": {
+    "r": 0.6026696816776207,
+    "null_mean": 0.42907744372508533,
+    "null_sd": 0.05236534833745297,
+    "p_one_sided": 0.00039996000399960006,
+    "p_two_sided": 0.0004999500049995
+   }
+  }
+ }
+}
