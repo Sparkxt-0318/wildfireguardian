@@ -26,7 +26,7 @@ FILES = ('HAZARD.json', 'REPORT.json', 'NATIVE_METADATA.json', 'constructed_arra
 # Default-build HAZARD sha256 of v3.5 YD 25T11Z h5 kriged_mean, per numpy minor version (flux bytes are numpy-build
 # dependent; Hannah row 50 note 1). Unknown versions: that one assertion is skipped and the run reports it.
 V35_KRIGED_HAZARD = {'2.5': '6940f2939318126437b6109853033ab0b1534dd288f3775c6c0352ed44646f2f',   # Leo, Nora row 41, Hannah
-                     '1.26': '5716c09e'}                                                         # Hannah row 50 (prefix)
+                     '1.26': '5716c09e70b285ce10db54bc87ec37c89987d124ae7010438a02870dfe5d4326'}  # Hannah rows 50, 52
 
 
 def sha(p):

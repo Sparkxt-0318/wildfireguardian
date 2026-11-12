@@ -170,3 +170,9 @@ then, unknown cells in an envelope scenario are handled downstream under the thr
   - Generalising both means deriving them from the scenario's export when a second event is wired.
 - **Note 4, failure marker.** The F-DYN child now also writes `SUPPORT_WRITE_FAILED` when the builder consistency
   check fails after a mask was applied. Before this, only the missing BUILD_SUMMARY signalled it.
+
+### Hannah: PASS, ledger row 52 (@5e965d77)
+
+- Row-50 notes 1–4 are closed.
+- test_support_wiring passes 5 of 5 under both numpy 1.26.4 and 2.5.4; F-DYN 24 of 24.
+- The 1.26 entry in test 1's hash table is now her full-length hash, `5716c09e70b285ce…5d4326`.
