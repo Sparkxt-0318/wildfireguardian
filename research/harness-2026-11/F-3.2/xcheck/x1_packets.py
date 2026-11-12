@@ -81,7 +81,10 @@ def main(argv=None):
             g = json.loads((L / "graphs_interim" / region / "graph.json").read_text())
             graphs[region] = (g, prepared(g))
         g, pg = graphs[region]
-        entry = [i for i in instances if i["region"] == region and i["start_tag"] == start and i["horizon_s"] == H][0]
+        # origins are the region's graph entry nodes (the same for every start of a region and horizon); a synthetic
+        # start has no entry of its own, so fall back to the region/horizon entry and record which one was used
+        same = [i for i in instances if i["region"] == region and i["horizon_s"] == H]
+        entry = next((i for i in same if i["start_tag"] == start), same[0])
 
         class HzModel:
             cell_intervals = haz
@@ -105,7 +108,7 @@ def main(argv=None):
         ok = c["only_hazard"] == c["only_contact"] == c["other"] == 0 and eq == n and raw_vs_contact == 0
         row = dict(packet=rel, variant=variant, region=region, start=start, active_hazard=len(haz), active_contact=len(con),
                    **{k: v for k, v in c.items() if k != "examples"}, instances_equal=eq, instances_compared=n,
-                   raw_vs_contact=raw_vs_contact,
+                   raw_vs_contact=raw_vs_contact, origins_from=entry["start_tag"],
                    PASS=ok, examples=c["examples"], instance_mismatch_examples=bad)
         rows.append(row)
         print(json.dumps({k: v for k, v in row.items() if "examples" not in k}), flush=True)
