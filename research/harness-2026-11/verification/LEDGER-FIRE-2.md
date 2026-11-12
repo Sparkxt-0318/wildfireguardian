@@ -32,6 +32,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 24 | 2026-11-12 | PR #122 scope check (research-scout docs) | Sofia | f912de9 | docs only, no private link, no attribution footer | diff scan (files, URL hosts, private hosts/paths/emails, personal data) + PR description | NOT READY (description footer) → READY after footer removal (same head) |
 | 25 | 2026-11-12 | FIRE 6.2 radiant screen (parts 1 and 3) | Priya | 79f3271 | 1-hour flux bounds < 1.0 so ceilings change nothing; C-11 view factor; standoffs and route counts | `python3 F-4.2/standoff.py` + own numeric integration and bisection | PASS WITH NOTES |
 | 26 | 2026-11-12 | FIRE 6.2 radiant 4a (time inside standoff, fractional dose) | Priya | 12c32af | per-route seconds q>=1, stationary, FD ranges; worst routes FX2/FW2/Hongseong FW2 | `standoff_route.py --part 4a` + own independent recomputation (FX2, FW2) | PASS WITH NOTES |
+| 27 | 2026-11-12 | P-PROTO follow-up (port of cp2 + gap wording) | Clara | b3df2a3 | only 6 P-PROTO files on Main; 90 s wait in mount(); 3-way leave-by sentence with sweep property test; 403/403; default build no public-view | fresh `npm ci`; `npx vitest run`; mutation (old 2-way mapping); `npm run build:static` | PASS |
 
 ## Notes
 
@@ -186,3 +187,9 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Own code (raw-npz sources, own integer-second sampling, own C-11 view factor and FD): FX2 E100/H20/W3750 gives 617 s / 120 stationary / FD 26.244, identical. FW2 gives 603 s / FD 20.161, identical; stationary 46 vs 47 (the departure second's classification).
 - Case counts match the JSON.
 - Notes: "0-9 routes with q>=1" should be 1-9 (FX2 is ≥ 6 s in every case). The plan commit is only 62 s before the results commit, so it shows commit order, not computation order. FD (80 TDU, 4/3) and the nearest-source model are assumptions.
+
+**27. P-PROTO follow-up @ b3df2a3 (Clara)**:
+- The diff vs Main is exactly the 6 P-PROTO files. Vs 75189d9, page code changed only in LEAVE_BY_WORDS and the after!==null guard; no assertion was removed.
+- 403/403 pass. The property test passes and fails under the old 2-way mapping (syn:gen:4:origin). It recomputes claims from the raw sweep and enforces generator coverage; counts 413/325/53 match my own.
+- The default build has 0 public-view files.
+- Notes N1 and N2 from entry 21 are resolved.
