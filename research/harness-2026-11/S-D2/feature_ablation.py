@@ -39,7 +39,7 @@ before any run of this file. They are not tuned on estimator outputs.
   therefore also run on a "contiguous" world, identified by the ``_contig`` suffix. It has the same truth kernel and
   seeds, but with the background rate k0 calibrated generator-only on seeds 100-109. The grid is K0_GRID, and the
   value chosen is the one whose mean detached flag is closest to 0.15.
-  - Generator-only calibration table (run about 13:27 UTC, before any fit). Mean detached flag by k0:
+  - Generator-only calibration table (run about 13:25 UTC, before any fit). Mean detached flag by k0:
     2e-5: 0.82; 5e-6: 0.55; 1e-6: 0.28; 2e-7: 0.19; 1e-12: 0.15.
     The rule therefore picks k0 = 1e-12, effectively no background ignitions. The code recomputes this table and
     records it.

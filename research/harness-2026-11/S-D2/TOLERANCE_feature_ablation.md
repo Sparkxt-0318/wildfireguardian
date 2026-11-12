@@ -37,7 +37,7 @@ of real data, absent from the synthetic world, makes the difference?
 **Scope.** Synthetic only. MCEM at a 0.1 h step (the 0.25 h step is bounded by 8b0fde65). This explains the gap
 between the NLL and bracket part-c arms; by itself it does not change any accuracy number.
 
-## Addendum (about 13:28 UTC, 2026-11-12, before any estimator run): contiguous baseline (Iris)
+## Addendum (about 13:26 UTC, 2026-11-12, before any estimator run): contiguous baseline (Iris)
 
 The synthetic baseline's detached flag is 0.7–0.8 per interval, against about 0.15 on real part a, mainly because
 of background ignitions. Every feature arm is therefore also run on a **contiguous baseline**:
