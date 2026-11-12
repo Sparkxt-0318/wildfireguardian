@@ -24,7 +24,50 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from tools.explain_deadlines.geometry import ceil_q, chord_pieces, clip_closed, exact, floor_q  # noqa: E402
-from tools.explain_deadlines.packet import Packet  # noqa: E402
+from tools.explain_deadlines.packet import Packet, round_up_sum  # noqa: E402
+
+
+def load_packet(packet_dir, grid):
+    """Packet reader. Scalar law: the unchanged replay-tool reader (phases from the npz, verified against HAZARD bins).
+    Per-cell laws (F-DYN envelope variants; constructed_arrays.npz carries member<s>__extinction_breakpoint_s): phases
+    are read from the HAZARD flame bins directly (one contiguous run per member and cell, asserted), because the npz
+    does not represent every flame cell under these laws. Closed and router rules then use the same bin-aligned phase.
+    'present_only' treats phases starting at 0 as present fire."""
+    import numpy as np
+    from pathlib import Path as _P
+    with np.load(_P(packet_dir) / "constructed_arrays.npz", allow_pickle=False) as z:
+        ext = {k: np.array(z[k], dtype=float) for k in z.files if k.endswith("__extinction_breakpoint_s")}
+    if not ext:
+        return Packet(packet_dir, grid), False
+    orig = Packet.verify_consistency
+    Packet.verify_consistency = lambda self: {"status": "DEFERRED"}
+    try:
+        pk = Packet(packet_dir, grid)
+    finally:
+        Packet.verify_consistency = orig
+    # Per-cell laws: the HAZARD flame bins are authoritative (the npz does not represent every flame cell under these
+    # laws). Each member/cell's flame bins must form ONE contiguous run [bp_i, bp_j); the phase is [bp_i, bp_j), with a
+    # run reaching the last bin read as burning through the horizon (last bin is closed at H).
+    big = pk.horizon + 10 ** 9
+    pk.phases = []
+    cells_all = set()
+    for s_ in range(pk.S):
+        bp = pk.breakpoints[s_]
+        ph = {}
+        for c, bins in pk.flame_bins[s_].items():
+            bins = sorted(bins)
+            if bins != list(range(bins[0], bins[-1] + 1)):
+                raise ValueError("per-cell law: flame bins of cell %d member %d are not one contiguous run" % (c, s_))
+            b = bp[bins[0]]
+            x = big if bins[-1] == len(bp) - 2 else bp[bins[-1] + 1]
+            ph[c] = (b, x, x, "CURRENT" if b == 0 else "FUTURE")
+            cells_all.add(c)
+        pk.phases.append(ph)
+    pk.burning_cells = sorted(cells_all)
+    pk.present_cells = sorted({c for ph in pk.phases for c, v in ph.items() if v[3] == "CURRENT"})
+    pk.consistency = {"status": "PHASES_FROM_HAZARD_FLAME_BINS (per-cell law)", "cells": len(cells_all)}
+    pk.per_cell_law = True
+    return pk, True
 from tools.explain_deadlines.roads import RoadGraph  # noqa: E402
 
 from . import intervals as iv  # noqa: E402
@@ -50,7 +93,7 @@ class PacketModel:
         rules (pessimistic unknown-support instances); None = the frozen packet exactly."""
         self.raw = json.loads(Path(graph_path).read_text())
         self.g = RoadGraph(self.raw)
-        self.pk = Packet(packet_dir, self.g.grid)
+        self.pk, self.per_cell_law = load_packet(packet_dir, self.g.grid)
         self.H = int(self.pk.horizon) if H is None else H
         if F(self.H) != self.pk.horizon:
             raise ValueError("non-integer horizon")
