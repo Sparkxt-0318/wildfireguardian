@@ -113,3 +113,18 @@ All 9,722 jobs × 2 kits:
 - run detached, checkpointed per cache;
 - at the parallelism the host allows without disturbing G1/G5 timing runs (paused during them);
 - same rule as above.
+
+## Cross-reference column (Richard, 16:15 UTC)
+
+**Source.** `claude/f31-deadline-field` @ 5389803e, `research/harness-2026-11/F-3.1/results/JOBS_1h_crossref.json`
+(sha256 prefix e3e1acaea8ad7949). 9,722 rows, one per job.
+
+**Fields:**
+- from the cache: recorded verdict, raw_status, reason_code, recheck_of, recorded arrival and route_sha256;
+- from Richard's field: router and cert feasibility and earliest arrival.
+
+**Use.** It is reported beside each G6 job as context and as the timeout-direction source. It does **not** replace the
+cache record, which stays the reference.
+- Compare by **arrival** only. Richard's legs_sha256 uses his own canonicalisation and is not comparable to the kit's
+  route_sha256.
+- It is cited as Richard's (Nora row 25), not as verified by me.
