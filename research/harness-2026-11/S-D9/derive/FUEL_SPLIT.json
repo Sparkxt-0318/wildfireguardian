@@ -60,5 +60,67 @@
    "186": 207,
    "188": 152
   }
+ },
+ "per_fire": {
+  "ID-BOF-000683_Wapiti_Wapiti": {
+   "tail": {
+    "positives": 695,
+    "nonburnable": 134
+   },
+   "nontail": {
+    "positives": 2794,
+    "nonburnable": 437
+   }
+  },
+  "ID-BOF-000904_Goat": {
+   "tail": {
+    "positives": 4,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 434,
+    "nonburnable": 0
+   }
+  },
+  "ID-BOF-001080_Lava": {
+   "tail": {
+    "positives": 113,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 522,
+    "nonburnable": 0
+   }
+  },
+  "ID-SCF-240202_RedRock": {
+   "tail": {
+    "positives": 63,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 899,
+    "nonburnable": 7
+   }
+  },
+  "WA-SES-000173_Pioneer": {
+   "tail": {
+    "positives": 67,
+    "nonburnable": 7
+   },
+   "nontail": {
+    "positives": 889,
+    "nonburnable": 43
+   }
+  },
+  "WY-BTF-002416_FishCreek": {
+   "tail": {
+    "positives": 368,
+    "nonburnable": 0
+   },
+   "nontail": {
+    "positives": 1331,
+    "nonburnable": 0
+   }
+  }
  }
 }

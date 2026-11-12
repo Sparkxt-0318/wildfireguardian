@@ -100,3 +100,5 @@ These use Daniel's **rebuilt** static layers (daniel/data-fetch 7d430806, LANDFI
 - About 89% of tail positives are on ordinary burnable fuel.
 - Taken with the island-neighbour test (follow-up 2) and geometric decay (follow-up 3), **structural zeros explain at most about a tenth of the tail.** The rest is d4's single-speed decay meeting real fast runs.
 - The A1 non-burnable secondary (revision 16) can now use FBFM40 91–99 as its covariate-defined class. It removes about 11% of tail positives and about 7% of other positives in R. That code list is to be fixed by amendment before any untouched score.
+
+**Per fire** (non-burnable positives / positives): Wapiti tail 134/695 (19.3%) vs other 437/2,794 (15.6%); Goat 0/4 vs 0/434; Lava 0/113 vs 0/522; Red Rock 0/63 vs 7/899; Pioneer 7/67 vs 43/889; Fish Creek 0/368 vs 0/1,331. The pooled excess comes almost entirely from Wapiti, which has much non-burnable ground in general. **Within each fire, the tail and non-tail positives have similar non-burnable shares**, so this is not a tail-specific mechanism.

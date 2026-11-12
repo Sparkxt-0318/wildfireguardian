@@ -20,6 +20,7 @@ ap.add_argument("--static", required=True, type=Path)
 ap.add_argument("--out", required=True, type=Path)
 a = ap.parse_args()
 groups = {"tail": [], "nontail": []}
+per_fire = {}
 valid = {"tail": [], "nontail": []}
 for path in sorted(a.dist.glob("*.npz")):
     z = np.load(path, allow_pickle=False)
@@ -28,8 +29,12 @@ for path in sorted(a.dist.glob("*.npz")):
     allv = s["all_static_valid"]
     m = (z["y"] == 1) & (z["dist_m"] <= 4000)
     r, c, p = z["row"][m], z["col"][m], z["p_d4_wind_seed0"][m]
+    per_fire[path.stem] = {}
     for name, use in (("tail", p < 1e-5), ("nontail", p >= 1e-5)):
         groups[name].append(fb[r[use], c[use]])
+        codes = fb[r[use], c[use]]
+        per_fire[path.stem][name] = dict(positives=int(codes.size),
+                                         nonburnable=int(((codes >= 91) & (codes <= 99)).sum()))
         valid[name].append(allv[r[use], c[use]])
 
 
@@ -52,7 +57,10 @@ for name in groups:
                      all_static_valid_share=float(v.mean()),
                      family_shares={u: float(np.mean([f == u for f in fams])) for u in uniq},
                      top_codes={int(k): int(n) for k, n in zip(*np.unique(codes, return_counts=True))})
+out["per_fire"] = per_fire
 a.out.write_text(json.dumps(out, indent=1) + "\n")
+for f, v in per_fire.items():
+    print(f[:22], {k: (x["nonburnable"], x["positives"]) for k, x in v.items()})
 for name in groups:
     print(name, {k: out[name][k] for k in ("positives", "nonburnable_share", "all_static_valid_share")})
     print("  ", out[name]["family_shares"])
