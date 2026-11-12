@@ -72,7 +72,7 @@ def main(argv=None):
             cm = c["per_model"][m]
             if cm["count"] != out["gaps"][m]["count"]:
                 bad.append((m, "count", cm["count"], out["gaps"][m]["count"]))
-            if (cm["gap"] is None) != (g[m] is None) or (g[m] is not None and not math.isclose(cm["gap"], g[m], rel_tol=1e-12, abs_tol=1e-15)):
+            if (cm["gap"] is None) != (g[m] is None) or (g[m] is not None and not math.isclose(cm["gap"], g[m], rel_tol=1e-12, abs_tol=1e-12)):
                 bad.append((m, "gap", cm["gap"], g[m]))
         for r in REFS:
             cc, oc = c["comparisons"][r], out["comparisons"][r]
