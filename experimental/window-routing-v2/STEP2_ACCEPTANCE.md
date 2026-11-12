@@ -380,3 +380,15 @@ These replace the corresponding text above where they differ.
   - V2 ÷ V2_NOISO summed-median wall is reported beside G5, as **the isolation cost the owner decided on**.
   - The harness PSS sampler's own CPU seconds are reported per arm, to show that the 10 ms sampler does not inflate
     the arms differently: V2 has one more process in its family during a check.
+- **M2-model clarifications (Mira, ledger 119), before the panel:**
+  1. M2-model is an **accounting-consistency bound, not a cost bound**. Its right-hand side, the per-check cgroup peak,
+     is produced by the isolation itself, so it rises when the check child uses more memory. It catches isolation
+     adding more to the family than the child's own charged memory plus 64 MiB (duplicated parent structures, leaked
+     processes or mappings). It does **not** catch a check child that is too expensive. **The cost bound fixed before
+     the data remains M1 per run.**
+  2. **Not evaluable** (reported per mission as "M2-model not evaluable (reason)", never counted as a pass, and never
+     replaced by another bound after the panel):
+     - (a) no per-check cgroup peak (spawn fallback, or a cgroup without peak accounting);
+     - (b) a V2 rep in which no check ran.
+     - Note: the cgroup peak charges file pages the child faults in (npz reads), and PSS counts those file pages too, so
+       both sides measure comparable things and the slack does not need to cover file pages.
