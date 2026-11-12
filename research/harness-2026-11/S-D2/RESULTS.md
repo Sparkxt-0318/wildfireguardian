@@ -242,7 +242,7 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
   * MCEM carries about 3% synthetic upward bias.
   * Nothing here is scored against held-out perimeters.
 
-## 3d. rate_composite (A1 §3.2 item 23, step 1; unverified)
+## 3d. rate_composite (A1 §3.2 item 23, step 1; verified: Owen, PASS WITH NOTES, 7a160ee)
 
 `python run_rate_composite.py --workers 4 --out results/rate_composite.json` (1,077 s).
 
@@ -263,7 +263,14 @@ mean-field 0.588, with an identical access log and a 0-cell bracket difference o
 * **Verdict by the agreed rule:** `rate_composite` is **not** the refit candidate, and the full method stays. Full
   MCEM wins on held-out likelihood and shape in every cell. Cost is the same (about 31–158 s each), since both share
   the E-step.
-* **New limit on the full method:** in the fast regime with 24 h brackets (about 12× the crossing time), **MCEM is
+* **Owen's notes.**
+  * Every condition reproduces.
+  * The conclusion rests on the **slow regime alone**, where all three conditions fail by wide margins.
+  * The fast regime is nearly uninformative as designed, because the grid burns out within 48 h. Its cells,
+    including MCEM's 0.58, are **not evidence about either estimator's tail behaviour**: the rate is unidentified on a
+    saturated grid. A non-saturating test is pending (Iris).
+  * The fast/12 h rate margin is thin and MC-sensitive (0.033 vs 0.042 on rerun; limit 0.05).
+* **Observed, but see Owen's note (2):** in the fast regime with 24 h brackets (about 12× the crossing time), **MCEM is
   itself biased low (0.58)**, and `rate_composite` is less wrong on rate there (0.71). With 12 h brackets MCEM gives
   0.92.
 * Reading (*hypothesis*): when brackets span many crossing times and the grid saturates, the brackets carry little
