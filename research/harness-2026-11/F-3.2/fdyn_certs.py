@@ -64,7 +64,7 @@ def main():
         region = pk.parent.name
         start = name.split("_")[0]
         H = int(name.split("_h")[1].split("_")[0]) * 3600
-        variant = "kriged_mean" if "_kriged_mean_" in name else "firms_early" if "_firms_early_" in name else "envelope"
+        variant = name.split("_h%d_" % (H // 3600), 1)[1].rsplit("_central_", 1)[0]   # e.g. envelope_burnset
         entry = [i for i in instances if i["region"] == region and i["start_tag"] == start and i["horizon_s"] == H][0]
         if region not in graphs:
             g = json.loads((L / "graphs_interim" / region / "graph.json").read_text())
