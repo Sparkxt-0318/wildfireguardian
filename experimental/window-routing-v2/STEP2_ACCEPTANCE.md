@@ -80,3 +80,47 @@ Because the solver and checker gates compare **process-lifetime** peaks:
   - also reported at the 3,072 MiB default, where the controller guard is still expected to stop most requests
     (D1 reporting).
 - **All Step 0/1 tests and parent tests:** pass, with the provenance tests differing only on the overlay files.
+
+## Thomas's review (17:21 UTC), folded in before any code
+
+**1. Checker gate: an asymmetric rule.**
+- Private memory is the right quantity, but a sampled `smaps_rollup` value is a **lower** bound on the private peak.
+- Therefore:
+  - **sampled private > gate ⇒ outside budget.** This is sound.
+  - **`within_budget: true` needs an UPPER-bound measure:**
+    - **(a) a cgroup memory peak** for the check child; or
+    - **(b) the spawn fallback** (the spawned child's lifetime `ru_maxrss`, an overestimate).
+  - If neither is available, the result is **`within_budget: "not_proven"`**: its own reported row, in neither pool.
+- **Host fact (checked 17:2x UTC).** This container has **cgroup v1**, not v2: no `cgroup.controllers` at the root.
+  - The memory hierarchy at
+    `/sys/fs/cgroup/memory/process_api/<id>/claude-code-bash` **allows creating a child cgroup** (mkdir/rmdir
+    tested), which has `memory.max_usage_in_bytes`.
+  - Plan for (a): the check child moves itself into a fresh child memory cgroup before allocating, and
+    `memory.max_usage_in_bytes` is read at the end.
+  - That peak covers pages first touched by the child, including COW copies (`move_charge_at_immigrate` = 0, so pages
+    shared with the parent stay charged to the parent). It also includes the page cache of files the child reads,
+    which only **overestimates** and is safe.
+  - The mechanism is recorded per result: `cgroup_v1_max_usage`, `spawn_ru_maxrss`, or `fork_sampled_private`
+    (outside-budget only).
+  - Where neither (a) nor (b) is available, the result is `not_proven`.
+- **New test:** a forked check that spikes above the gate and frees between two sample points. The fork-sampled path
+  alone must **not** mark it `within_budget: true`.
+- **G5 decides** between fork + cgroup and spawn, on cost.
+
+**2. Reporting rule.** `CHECKED_JOURNEY_OUTSIDE_MEMORY_BUDGET` is accepted, with Thomas's conditions. Any table that
+says "within budget" counts **only** `within_budget: true`; `not_proven` never counts.
+
+**3. The spawned bound-model build is certificate-relevant (correction).** My earlier "I believe not" is withdrawn:
+RoadBoundModel feeds the LO/LO2 refusals and `lower_bound_arrival`. Guards added:
+- **(a) Code identity.** The parent records the sha256 of every module file the build imports (road_bounds,
+  radiation_bounds, hybrid_radiation, zsweep, and their imports). The child recomputes them and refuses on any
+  mismatch.
+- **(b) Hash at the source.**
+  - The child hashes each array **before** `numpy.save`, and the parent verifies after load.
+  - The pickled state is sha-checked too, written to a 0700 private temporary directory, and deleted after load.
+- **(c) Determinism environment.** The thread environment (OMP / MKL / OPENBLAS_NUM_THREADS) and any seed are passed
+  explicitly. The byte-identity test runs with the **production** thread settings.
+- **Recorded per result:** mechanism = spawned build, and the array sha256s, so a later re-check can tie a refusal to
+  its bound arrays.
+
+The prediction "Expected UNRESOLVED → certified changes on the 1-hour panel: 0 (peak ≤ 1.6 GiB)" stays as written.
