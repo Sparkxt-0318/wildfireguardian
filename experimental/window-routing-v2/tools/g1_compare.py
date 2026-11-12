@@ -41,7 +41,9 @@ def main():
     tw = {'FROZEN': 0.0, 'V2': 0.0}
     for m in sorted({key(r) for r in rows}):
         F = [r for r in rows if key(r) == m and r['kit_label'] == 'FROZEN']; V = [r for r in rows if key(r) == m and r['kit_label'] == 'V2']
-        fs = {(r['authoritative_status'], r['arrival_s']) for r in F}; vs = {(r['authoritative_status'], r['arrival_s']) for r in V}
+        # Step 2 G1 rule (Thomas 18:24): compare the status and arrival BEFORE the memory map; mapped counts reported apart
+        pre = lambda r: (r.get('pre_memory_status', r['authoritative_status']), r.get('pre_memory_arrival_s', r['arrival_s']))
+        fs = {pre(r) for r in F}; vs = {pre(r) for r in V}
         g1 = (vs <= FL2_OK) if m == FL2 else (fs == vs)
         if not g1:
             out['g1_failures'].append(m)
@@ -66,6 +68,24 @@ def main():
                                 'wall_frozen': fw, 'wall_v2': vw, 'peak_frozen': fp, 'peak_v2': vp, 'g5_memory': g5m})
         print('%-40s G1 %-4s G3 %-4s G5mem %-4s | F %s | V %s | wall %.1f/%.1f peak %.0f/%.0f' % (m, g1, g3, g5m, sorted(fs, key=str), sorted(vs, key=str),
               fw or -1, vw or -1, fp or -1, vp or -1))
+    out['memory_mapped'] = [{'mission': key(r), 'rep': r['rep'], 'status': r['authoritative_status'],
+                             'certified_status_within_kit': r.get('pre_memory_status')}
+                            for r in rows if r['kit_label'] == 'V2' and r.get('memory_mapped')]
+    out['memory_mapped_counts'] = {s_: sum(1 for x in out['memory_mapped'] if x['status'] == s_)
+                                   for s_ in ('CHECKED_JOURNEY_OUTSIDE_MEMORY_BUDGET', 'CHECKED_JOURNEY_MEMORY_BUDGET_NOT_PROVEN')}
+    budgets = []
+    for r in rows:
+        if r['kit_label'] != 'V2':
+            continue
+        res = a.run / 'V2' / ('r%d' % r['rep']) / ('%s__%s' % (r['region'], r['case_id'])) / 'RESULT.json'
+        wr = (json.loads(res.read_text()).get('whole_road_check') or {}) if res.exists() else {}
+        rb = wr.get('resource_budget')
+        if rb:
+            budgets.append({'mission': key(r), 'rep': r['rep'], 'within_budget': rb.get('within_budget'), 'peak_mb': rb.get('peak_mb'),
+                            'sampled_private_peak_mb': rb.get('sampled_private_peak_mb'), 'mechanism': rb.get('mechanism')})
+    out['published_check_budgets'] = budgets
+    print('memory-mapped (expected 0/0):', out['memory_mapped_counts'], '| check budgets: %d, within True %d, max peak %s MiB'
+          % (len(budgets), sum(1 for b in budgets if b['within_budget'] is True), max((b['peak_mb'] or 0 for b in budgets), default=None)))
     out['sum_median_wall'] = tw; out['g5_wall_ratio'] = tw['V2'] / tw['FROZEN'] if tw['FROZEN'] else None
     out['g5_wall'] = out['g5_wall_ratio'] is not None and out['g5_wall_ratio'] <= 1.10
     out['g5_memory'] = all(x['g5_memory'] for x in out['missions'])
