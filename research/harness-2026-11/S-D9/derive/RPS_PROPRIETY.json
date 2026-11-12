@@ -1,0 +1,237 @@
+{
+ "rule": "A1 amendment 1 (revision 30), committed at 6954c37a before this run",
+ "seed": 20261112,
+ "se_multiplier": 3.0,
+ "interval_files": [
+  "CA-BDF-012520_Line.csv",
+  "CA-SHF-001004_ThreeNine.csv",
+  "NM-LNF-000227_Blue2.csv"
+ ],
+ "results": {
+  "real_part_a_gaps": {
+   "cells": 200000,
+   "patterns": 61,
+   "share_never_mapped": 0.738465,
+   "mean_rps": {
+    "truth": 0.23856018547132754,
+    "always_early": 1.089185,
+    "never": 0.35345,
+    "shifted_earlier": 0.24203594553874114,
+    "shifted_later": 0.24610204647787187,
+    "overdispersed": 0.23938809422513455,
+    "climatology": 0.2639296139244762
+   },
+   "excess_over_truth": {
+    "always_early": {
+     "mean": 0.8506248145286724,
+     "se": 0.0021075357142059377,
+     "z": 403.61110314525075,
+     "status": "pass",
+     "passed": true
+    },
+    "never": {
+     "mean": 0.11488981452867243,
+     "se": 0.000912851376689951,
+     "z": 125.85818180531115,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_earlier": {
+     "mean": 0.003475760067413526,
+     "se": 0.0001209767592832622,
+     "z": 28.73080819825215,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_later": {
+     "mean": 0.007541861006544254,
+     "se": 0.00019509878776026814,
+     "z": 38.6566266921734,
+     "status": "pass",
+     "passed": true
+    },
+    "overdispersed": {
+     "mean": 0.0008279087538069695,
+     "se": 6.38092149170905e-05,
+     "z": 12.974752234182786,
+     "status": "pass",
+     "passed": true
+    },
+    "climatology": {
+     "mean": 0.025369428453148716,
+     "se": 0.00037815231726220244,
+     "z": 67.08785665210698,
+     "status": "pass",
+     "passed": true
+    }
+   },
+   "shift_asymmetry_diagnostic": {
+    "earlier": 0.003475760067413526,
+    "later": 0.007541861006544254,
+    "ratio_earlier_to_later": 0.46086238720092104
+   },
+   "passed": true
+  },
+  "stress_one_early": {
+   "cells": 200000,
+   "patterns": 1,
+   "share_never_mapped": 0.95106,
+   "mean_rps": {
+    "truth": 0.04450093832458525,
+    "always_early": 0.95106,
+    "never": 0.04894,
+    "shifted_earlier": 0.06447669660083864,
+    "shifted_later": 0.04894,
+    "overdispersed": 0.04479678262194827,
+    "climatology": 0.04654505279999999,
+    "one_bin_earlier": 0.04675582778032669,
+    "one_bin_later": 0.04894
+   },
+   "excess_over_truth": {
+    "always_early": {
+     "mean": 0.906559061675415,
+     "se": 0.0008845520682813825,
+     "z": 1024.8792515253404,
+     "status": "pass",
+     "passed": true
+    },
+    "never": {
+     "mean": 0.004439061675414759,
+     "se": 0.00010280129690567604,
+     "z": 43.18098904421178,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_earlier": {
+     "mean": 0.01997575827625341,
+     "se": 0.00018856362566272886,
+     "z": 105.93643501521714,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_later": {
+     "mean": 0.004439061675414759,
+     "se": 0.00010280129690567604,
+     "z": 43.18098904421178,
+     "status": "pass",
+     "passed": true
+    },
+    "overdispersed": {
+     "mean": 0.00029584429736302854,
+     "se": 2.1696502530127537e-05,
+     "z": 13.635575455178651,
+     "status": "pass",
+     "passed": true
+    },
+    "climatology": {
+     "mean": 0.0020441144754147554,
+     "se": 7.101483913273958e-05,
+     "z": 28.784328745629285,
+     "status": "pass",
+     "passed": true
+    },
+    "one_bin_earlier": {
+     "mean": 0.0022548894557414406,
+     "se": 6.719397015744156e-05,
+     "z": 33.55791376008934,
+     "status": "pass",
+     "passed": true
+    },
+    "one_bin_later": {
+     "mean": 0.004439061675414759,
+     "se": 0.00010280129690567604,
+     "z": 43.18098904421178,
+     "status": "pass",
+     "passed": true
+    }
+   },
+   "shift_asymmetry_diagnostic": {
+    "earlier": 0.01997575827625341,
+    "later": 0.004439061675414759,
+    "ratio_earlier_to_later": 4.499995660543958
+   },
+   "passed": true
+  },
+  "stress_two_early": {
+   "cells": 200000,
+   "patterns": 1,
+   "share_never_mapped": 0.9249,
+   "mean_rps": {
+    "truth": 0.09730274609916385,
+    "always_early": 1.89089,
+    "never": 0.10911,
+    "shifted_earlier": 0.13631773540164052,
+    "shifted_later": 0.10911,
+    "overdispersed": 0.09797518891408155,
+    "climatology": 0.10231346922500001,
+    "one_bin_earlier": 0.09954113822721512,
+    "one_bin_later": 0.10054408629551209
+   },
+   "excess_over_truth": {
+    "always_early": {
+     "mean": 1.793587253900836,
+     "se": 0.0016431248301689366,
+     "z": 1091.5709025688752,
+     "status": "pass",
+     "passed": true
+    },
+    "never": {
+     "mean": 0.01180725390083615,
+     "se": 0.00022136936541915895,
+     "z": 53.33734357723493,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_earlier": {
+     "mean": 0.039014989302476655,
+     "se": 0.0003323599331701745,
+     "z": 117.3877637124817,
+     "status": "pass",
+     "passed": true
+    },
+    "shifted_later": {
+     "mean": 0.01180725390083615,
+     "se": 0.00022136936541915895,
+     "z": 53.33734357723493,
+     "status": "pass",
+     "passed": true
+    },
+    "overdispersed": {
+     "mean": 0.0006724428149177044,
+     "se": 3.8332636782001306e-05,
+     "z": 17.542305235663907,
+     "status": "pass",
+     "passed": true
+    },
+    "climatology": {
+     "mean": 0.005010723125836138,
+     "se": 0.00014714689213103093,
+     "z": 34.05252433992425,
+     "status": "pass",
+     "passed": true
+    },
+    "one_bin_earlier": {
+     "mean": 0.002238392128051249,
+     "se": 8.155612938976292e-05,
+     "z": 27.446031889936847,
+     "status": "pass",
+     "passed": true
+    },
+    "one_bin_later": {
+     "mean": 0.0032413401963482537,
+     "se": 0.00010701770852698725,
+     "z": 30.287886378457326,
+     "status": "pass",
+     "passed": true
+    }
+   },
+   "shift_asymmetry_diagnostic": {
+    "earlier": 0.039014989302476655,
+    "later": 0.01180725390083615,
+    "ratio_earlier_to_later": 3.30432373438787
+   },
+   "passed": true
+  }
+ },
+ "passed": true
+}

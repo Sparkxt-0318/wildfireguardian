@@ -1,5 +1,6 @@
 """Write FREEZE.json, stage 1 (A1 §9): the frozen identity of A1, the harness, the cohorts and every
-pinned external file. It refuses on any pin mismatch. The output depends only on file contents and
+pinned external file. It refuses on any pin mismatch, and on uncommitted changes under S-D9 other than FREEZE.json itself
+(amendment 1; --allow-dirty is for dry runs only). The output depends only on file contents and
 pinned git objects, so it is identical whenever it is re-run at the commit that contains it (no HEAD
 or working-tree field is recorded).
 
@@ -88,11 +89,20 @@ def git(*args) -> bytes:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--amends", type=Path, default=None,
+                    help="write an amendment record that references this existing FREEZE file (never rewrite it)")
+    ap.add_argument("--amendment-label", default=None)
+    ap.add_argument("--allow-dirty", action="store_true", help="dry run on a modified tree (never for a freeze)")
     args = ap.parse_args()
+    dirty = git("status", "--porcelain", "--", str(HERE)).decode().split("\n")
+    dirty = [ln for ln in dirty if ln.strip() and not ln.rstrip().rsplit("/", 1)[-1].startswith("FREEZE")]
+    if dirty and not args.allow_dirty:
+        raise SystemExit("refusing: uncommitted changes under S-D9 (other than FREEZE.json); commit first or pass "
+                         "--allow-dirty for a dry run:\n" + "\n".join(dirty))
     local = {}
     for pattern in LOCAL_GLOBS:
         for f in sorted(HERE.glob(pattern)):
-            if f.is_file() and f.name != "FREEZE.json":
+            if f.is_file() and not f.name.startswith("FREEZE"):
                 local[str(f.relative_to(HERE))] = sha(f.read_bytes())
     external = []
     for label, commit, path, prefix in EXTERNAL:
@@ -114,6 +124,12 @@ def main() -> None:
                                                    "W-5 Cold Springs", "Kincade", "McFarland"],
                     note="no perimeter of a sealed incident has been opened (ledger/ACCESS_CONTROL.md)"),
     )
+    if args.amends is not None:
+        base = args.amends.read_bytes()
+        out = dict(schema="S-D9 FREEZE amendment", amendment=args.amendment_label,
+                   amends=dict(path=args.amends.name, sha256=sha(base)),
+                   note="The amended FREEZE file is kept unchanged; this record supersedes it for the files it lists.",
+                   **{k: v for k, v in out.items() if k != "schema"})
     args.out.write_text(json.dumps(out, indent=1, sort_keys=False) + "\n")
     print(f"wrote {args.out}: {len(local)} local files, {len(external)} external pins, A1 {out['a1_sha256'][:12]}")
 

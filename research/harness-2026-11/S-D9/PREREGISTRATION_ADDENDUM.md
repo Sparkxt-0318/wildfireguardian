@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 23, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 24 (amendment 1 to the revision-23 freeze candidate), not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,6 +17,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 30 | **Amendment 1.** Erratum: item 14's shared-raster count is corrected from 47 to 44. `freeze/make_freeze.py` refuses a dirty tree again. The §5.2 arrival RPS must pass a synthetic censoring propriety test before any candidate's marginals are scored with it for admission. A climatology arrival baseline is added as a descriptive row | §5.2 | Iris (adopted), orchestrator decision. Written **after** the revision-23 freeze candidate and **before** the test ran and before any marginals exist |
 | 29 | Iris's re-assessment fixes. §6.1 names each criterion's object on part c (`logistic_rebuilt`; `d4_wind_recal` on `d4_wind_rebuilt`). §9 step 5 now says part c, not b, waits for the D1/D2 freeze. The §3.1 rationale is updated for item 14, with the fate of the archive rows fixed. **Headline candidate on part c = `d2_bracket_rebuilt`**, with fallback `d2_nll_rebuilt` and all others secondary, with no multiplicity adjustment. A descriptive capture-share companion to the warning-zone secondary. `d4_wind_rebuilt` added to H. Smooth NLL detail and the d2_nll wrapper pin. Owen's softening of the fast-regime note | §3, §3.1, §3.2, §2.1, §6.1, §6.2, §9 | Iris re-assessment of revision 22 (e6761b19); headline choice by the orchestrator. **All made before any part b, c or d access** |
 | 28 | Warning-zone size at fixed miss levels (conformal risk control) becomes a named **secondary** on part c for every predictor, calibrated on cohort R only, with feasible-fold reporting. The cohort-R evidence that zone size and Brier rank d4_wind and logistic in opposite orders is recorded as development evidence; c651's uninformative result is added to its limitations | §6.2, §4.1 | Orchestrator decision on Iris's proposal, **before the freeze and before any part-c opening**. Never a decision criterion |
 | 27 | Joint-forecast verification (§5.3: rank histograms, spread-skill and burned-area CRPS by horizon from trajectory area samples) and a conformal-risk-control warning-zone analysis (§5.4), both **development-only**, declared before any use | §5.3, §5.4 | Orchestrator request (SMOKE direction document). The CRC procedure and α values were committed **before** the cohort-R run |
@@ -108,7 +109,7 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
      - slope_degrees: identical mask; 3,232 of 3,796 cells bit-identical; max |Δ| = 5.7e-6°, i.e. float32 rounding. The median and the 95th percentile |Δ| are ≤ 5.7e-6° (thresholds 1.0° and 3.0°). **PASS.**
      - tree_cover_percent: identical mask, all 3,796 cells identical, max |Δ| = 0. **PASS.**
      - The earlier byte difference was **GeoTIFF encoding, not values**.
-     - All 47 shared rasters have identical masks and identical or float32-close values. The archive alone also holds canopy_height_2019 (GLAD) and the original weather.
+     - All **44** shared rasters have identical masks and identical or float32-close values: 13 identical bytes, 22 identical values with a different encoding, and 9 float rounding (max |Δ| < 1e-4). Another 22 archive rasters are not in the rebuild: 21 weather files and the GLAD canopy height. *Erratum (amendment 1):* the frozen revision 23 said "47", which was a counting error confirmed by Daniel; his table at 4c643033 has 66 rows. The archive alone also holds canopy_height_2019 (GLAD) and the original weather.
      - **Temperature and wind are still PENDING**, until the rebuilt AlderCreek weather exists (Open-Meteo, day 2); they are then compared with the archive weather.
      - Item 14 as a whole passes only when those channels pass. Until then the fallback stands. If they pass, the archive-trained rows (`d4_wind_seed0`, `c651_mc`, `logistic`) can be promoted from descriptive **by amendment before part c opens**, as §3.1 allows. The rebuilt refits stay the confirmatory comparators either way.
    - **Labels.** The rebuilt label pipeline reproduced all 52 committed Wapiti held-out cases exactly (grid, reference_cells, positives, y). This was reported by Daniel at 60a94974 and is not yet verified by Hannah.
@@ -445,6 +446,31 @@ Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselin
 The score is the RPS over observation-censored arrival bins, on **all** cells of the band (not only burned cells). It is the sum over observation times of the Brier score of the cumulative marginal, which is Iris's discrete right-censored CRPS. Implemented: `sd9bench/arrival.py`.
 
 **Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus), and the covariate hosts were blocked at that time. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. **Every new D1/D2 candidate must emit multi-observation cumulative marginals natively** (revision 9), so the arrival score exists for the models it was designed for. The export must be demonstrated on R before the candidate's SHA freeze. A candidate without it is not admitted to part c. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
+
+**Propriety gate for the arrival RPS (amendment 1, revision 30).** In WiDS 2026 a censored, horizon-weighted Brier was won by a constant forecast. **Before any candidate's marginals are scored with the §5.2 RPS for admission, the synthetic propriety test below is run and verified by Hannah. If it fails, the RPS is not used for admission until it is replaced by amendment.** The rule is fixed here before the test runs. Code: `derive/rps_propriety.py`, using the unchanged `sd9bench.arrival.rps`.
+- **Truth.** Each cell has its own never-burn probability π_c ~ Beta(6, 4) (mean 0.6, so most cells never burn) and, if it burns, an exponential arrival with rate λ_c ~ LogNormal(log(1/30 h), 0.8). True CDF: F_c(t) = (1 − π_c)(1 − e^(−λ_c t)).
+- **Censoring patterns.** Each pattern gives the observation times later than the cutoff, within 48 h (§2).
+  - (i) **Real part-a survey gaps**: every cutoff of the three part-a pilot fires (Line, ThreeNine, Blue2; `labels/intervals.csv` at daniel/data-fetch 9ab223cf).
+  - (ii) **Sparse stress, one early survey**: a single observation at 3 h.
+  - (iii) **Sparse stress, two early surveys**: observations at 2 h and 5 h.
+  - Under every pattern, cells not burned by the last observation fall in the "not mapped by the last lead" category, and never-burning cells are included.
+- **Forecasts scored, as CDFs at the observation times:**
+  - (1) truth;
+  - (2) always-early, F ≡ 1 (the analogue of the constant 1.0);
+  - (3) never, F ≡ 0;
+  - (4) shifted earlier, F_c(t + 12 h);
+  - (5) shifted later, F_c(max(t − 12 h, 0));
+  - (6) over-dispersed: the truth's rate mixed over λ_c·e^Z with Z ~ N(0, 1), by 16-point Gauss–Hermite quadrature, with π_c unchanged;
+  - (7) **climatology**: the pooled empirical P(T ≤ t), fit on an independent synthetic training sample.
+- **Size.** 200,000 cells per pattern, seed 20261112. Monte Carlo error is the standard error of the mean per-cell paired difference (forecast − truth).
+- **Pass rule (all must hold):** in every pattern, every forecast (2)–(7) has a mean RPS above the truth's by **more than 3 standard errors**.
+  - **One-bin shifts in the stress patterns (added after the first run at Iris's request, before these shifts were run).** With every lead ≤ 5 h, the ±12 h shifts collapse to "never" and near-"always-early". So for patterns (ii) and (iii) two further forecasts are scored: F_c(t + Δ) and F_c(max(t − Δ, 0)), with Δ = the smallest step the pattern resolves (3 h for (ii); 2 h, the first gap, for (iii)).
+    - If the excess is above the truth's by more than 3 SE, it passes.
+    - If |z| ≤ 3, it is reported as the **resolution limit** of the score under that censoring. That is a finding, not a failure.
+    - If the excess is below −3 SE (the shift beats the truth), it is a **failure**.
+  - *Reported, not a pass condition:* the asymmetry between the shifted-earlier and shifted-later excesses. Iris proposed symmetry within error as a criterion. For a proper score the two excesses generally differ, because the hazard is not symmetric in time, so symmetry is reported as a diagnostic. A **negative** excess for either shift is a failure under the rule above.
+- **Resolution limit, carried into every admission result (Iris; orchestrator).** With a single survey inside the lead range, the RPS cannot tell a one-bin-late forecast from "never", as the test shows. **Every D1/D2 admission result reports how many scored fires, and how many cell-cutoff entries, have only one survey inside the lead range.**
+- **Climatology arrival baseline on real data.** It is a descriptive row: the pooled empirical P(first mapped by lead time t), fit on **part a only**. It is never a criterion object.
 
 ### 5.3 Joint-forecast verification (revision 27; development-only, descriptive)
 
