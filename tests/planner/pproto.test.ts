@@ -194,8 +194,15 @@ describe('the page in jsdom, fetch served from the repository files', () => {
     document.body.appendChild(container);
     const root = createRoot(container);
     await React.act(async () => { root.render(React.createElement(PublicView)); });
-    for (let i = 0; i < 300 && !container.querySelector('[data-pv="card"]'); i++) await React.act(async () => { await new Promise((r) => setTimeout(r, 50)); });
-  }, 120_000);
+    // a CI runner can take far longer than a workstation to parse the 25 MB cache in jsdom: wait up to 90 s, and stop
+    // early (with the page's own error text) if the page reports an error instead of cards
+    const until = Date.now() + 90_000;
+    while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error')) {
+      await React.act(async () => { await new Promise((r) => setTimeout(r, 100)); });
+    }
+    const err = container.querySelector('.pv-error');
+    if (err) throw new Error(`page reported an error while loading the replay cache: ${err.textContent}`);
+  }, 180_000);
   afterAll(() => container?.remove());
 
   it('order: replay banner first, official-orders slot second, every card after both', () => {
