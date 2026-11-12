@@ -84,6 +84,31 @@ export interface ChannelOptions {
   orderStatus?: OrderStatusInput | null;
   issueOrderBy?: IssueOrderBy | null;
   timeStyle?: TimeStyle;
+  /** issuing agency and its contact number — SUPPLIED by the issuer, never invented or defaulted */
+  issuer?: { agency: string; contact: string } | null;
+  /**
+   * Apply the four-field check of the DRAFT decree (재난 및 안전관리 기본법 시행령 일부개정령안 안 제49조②, 행정안전부공고
+   * 제2026-1391호, notice of 2026-11-04, https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332; draft requirement, as of
+   * that notice): resident-facing outputs missing a field are withheld (a violation is recorded).
+   */
+  draftDecreeCheck?: boolean;
+}
+
+/** The four fields of the draft decree (안 제49조② 1–4). */
+export type DecreeField = 'area_people' | 'reason_timing' | 'shelter' | 'agency_contact';
+export const DECREE_FIELDS: readonly DecreeField[] = ['area_people', 'reason_timing', 'shelter', 'agency_contact'];
+
+/** Which of the four fields a resident-facing text carries (by content, not by template). */
+export function decreeFields(p: MessagePlan, text: string, lang: LmLang, issuer: ChannelOptions['issuer']): DecreeField[] {
+  const out: DecreeField[] = [];
+  const v = p.input.origin.name?.[lang];
+  if (v && text.includes(v)) out.push('area_people');
+  const hazard = lang === 'ko' ? text.includes('산불') : /wildfire/i.test(text);
+  if (hazard && p.kind === 'leave_by' && p.leaveByS !== null && DEPARTURE_INSTRUCTION[lang].test(text)) out.push('reason_timing');
+  const d = namedDestination(p)?.[lang];
+  if (d && text.includes(d)) out.push('shelter');
+  if (issuer && issuer.agency.trim() && issuer.contact.trim() && text.includes(issuer.agency) && text.includes(issuer.contact)) out.push('agency_contact');
+  return out;
 }
 
 export type Element = 'source' | 'hazard' | 'location' | 'time' | 'guidance';
@@ -460,8 +485,35 @@ export function buildChannels(p: MessagePlan, opt: ChannelOptions): ChannelSet {
       staff: { dataAge: dataAge(p, opt.nowIso, lang), issueOrderBy: issueOrderByText(p, opt.issueOrderBy, lang), noOrder: noOrder(p, lang, opt) },
     };
   }
+  const iss = opt.issuer && opt.issuer.agency.trim() && opt.issuer.contact.trim() ? opt.issuer : null;
+  if (iss) {
+    for (const lang of ['ko', 'en'] as LmLang[]) {
+      const t = text[lang];
+      const line = lang === 'ko' ? `문의: ${iss.agency} ${iss.contact}` : `Contact: ${iss.agency} ${iss.contact}`;
+      const h = t.head;
+      h.closer = `${h.closer}\n${line}`;
+      h.script = [h.opener, h.core, h.closer].join('\n');
+      h.fullS = spokenSeconds(h.script, lang);
+      h.fullSlowS = h.fullS * (lang === 'ko' ? 3.0 / SLOW_SYLLABLES_PER_S : 1);
+      t.voice = `${t.voice}\n${line}`;
+      t.familyScript = [t.familyScript[0], t.familyScript[1], `${t.familyScript[2]} ${line}`];
+      const withIssuer = `${t.familyText}\n[${iss.agency} ${iss.contact}]`;
+      const fits = lang === 'ko' ? eucKrBytes(withIssuer).bytes <= SMS_KO_MAX_BYTES : gsm7Length(withIssuer).chars <= SMS_EN_MAX_GSM7;
+      if (fits) t.familyText = withIssuer; // otherwise the field stays missing and the decree check withholds it
+    }
+  }
   const set: ChannelSet = { originId: p.input.origin.id, kind: p.kind, destinationName: namedDestination(p), text, violations: [] };
   set.violations = checkChannels(p, set);
+  if (opt.draftDecreeCheck) {
+    for (const lang of ['ko', 'en'] as LmLang[]) {
+      const t = text[lang];
+      for (const [name, s] of [['head', t.head.script], ['voice', t.voice], ['familyText', t.familyText], ['familyScript', t.familyScript.join('\n')]] as [string, string][]) {
+        const have = decreeFields(p, s, lang, iss);
+        const missing = DECREE_FIELDS.filter((f) => !have.includes(f));
+        if (missing.length) set.violations.push(`${lang}.${name}: draft decree (2026-11-04 notice) fields missing: ${missing.join(',')}`);
+      }
+    }
+  }
   return set;
 }
 

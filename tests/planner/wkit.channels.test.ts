@@ -17,6 +17,8 @@ import {
   HEAD_FULL_MAX_S,
   orderNotIssued,
   CBS_CHAR_LIMIT,
+  DECREE_FIELDS,
+  decreeFields,
   cbsChars,
   cbsClassFor,
   transportNeedList,
@@ -261,6 +263,40 @@ describe('재난문자 character limits per message class (행안부예규 361)'
     expect(maxFam).toBeLessThanOrEqual(90);
     expect(cbsClassFor('leave_by')).toBe('safety_guidance');
     expect(cbsClassFor('no_route')).toBe('urgent');
+  });
+});
+
+describe('draft decree four-field check (안 제49조②, notice 2026-11-04; draft requirement)', () => {
+  const ISS = { agency: '합성군 재난안전과', contact: '000-0000-0000' }; // SYNTHETIC issuer
+  const shares = (iss: typeof ISS | null) => {
+    const pass: Record<string, number> = { head: 0, voice: 0, familyText: 0, familyScript: 0 };
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: iss });
+      const outs: [string, string][] = [['head', s.text.ko.head.script], ['voice', s.text.ko.voice], ['familyText', s.text.ko.familyText], ['familyScript', s.text.ko.familyScript.join('\n')]];
+      for (const [k, t] of outs) pass[k]! += Number(DECREE_FIELDS.every((f) => decreeFields(p, t, 'ko', iss).includes(f)));
+    }
+    return pass;
+  };
+
+  it('measured share passing all four fields (531 real origins, Korean): 0 without an issuer; head 299, voice 299, family script 440, family text 0 with one', () => {
+    expect(shares(null)).toEqual({ head: 0, voice: 0, familyText: 0, familyScript: 0 });
+    expect(shares(ISS)).toEqual({ head: 299, voice: 299, familyText: 0, familyScript: 440 });
+  });
+
+  it('agency and contact are never invented: without a supplied issuer no output names any agency line; a blank issuer counts as none', () => {
+    const p = real.find((x) => x.kind === 'leave_by')!;
+    for (const iss of [null, { agency: '', contact: '' }, { agency: '  ', contact: '1' }]) {
+      const t = buildChannels(p, { nowIso: NOW, issuer: iss }).text;
+      expect([t.ko.head.script, t.ko.voice, t.ko.familyText, ...t.ko.familyScript].join('\n')).not.toMatch(/문의:/);
+    }
+  });
+
+  it('with the check on, every output missing a field is withheld (a violation names the missing fields)', () => {
+    const p = real.find((x) => x.kind !== 'leave_by')!;
+    const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+    expect(s.violations.some((v) => /draft decree .* fields missing: .*reason_timing/.test(v))).toBe(true);
+    const plain = buildChannels(p, { nowIso: NOW, issuer: ISS });
+    expect(plain.violations.some((v) => /draft decree/.test(v))).toBe(false);
   });
 });
 

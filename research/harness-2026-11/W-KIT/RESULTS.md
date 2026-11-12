@@ -58,6 +58,17 @@ no_route/unresolved → 긴급). The kit's older 90-BYTE EUC-KR rule is stricter
 kept; a test asserts every kit SMS and family text fits 90 characters and its own class. None of these is a 재난문자;
 if sent as one, the agency name is mandatory and goes last (제10조②).
 
+## Draft decree four-field check (draft requirement, as of the 2026-11-04 notice)
+Source (Sofia): 재난 및 안전관리 기본법 시행령 일부개정령안 입법예고, 행정안전부공고 제2026-1391호, 2026-11-04,
+https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332 — 안 제49조②: 1. 대피 대상 지역 및 대피 대상자; 2. 대피의 사유 및 대피가
+필요한 시기; 3. 대피장소의 명칭ㆍ위치; 4. 안내를 실시하는 기관의 명칭 및 문의 연락처. Implemented as an opt-in check
+(`draftDecreeCheck`); agency and contact are a supplied input (`issuer`), never invented or defaulted, appended last.
+Measured over 531 real origins (Korean): passing all four fields — before (no issuer) 0 of every output; after (synthetic
+issuer) head 299, voice 299, family 3-line script 440, family text 0. Missing: shelter 1,086 of 2,124 outputs (head drops
+its optional destination block within 20 s; varying/unnamed destinations are never named; the 90-byte family text has no
+room); reason+timing 120 (= the 30 no-route/unresolved places × 4 outputs, which by design carry no time — under the
+draft, messages for them would all be withheld: a policy question, not a template defect).
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
