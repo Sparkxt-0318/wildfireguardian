@@ -16784,7 +16784,7 @@
   }
  ],
  "relabel_note": "Run with fdyn_certs.py before commit 1d74b739 (writer) and before the variant fix: the run labelled these packets variant=envelope. Post-processed only: variant set to envelope_burnset (from the packet name) and writer read from the same HAZARD.json bytes, whose sha256 matched the recorded hazard_sha256 for every packet. No certificate, checker verdict or count was changed.",
- "label": "envelope_burnset: sound relative to the final mapped burn set; single implementation, not independently checked",
+ "label": "envelope_burnset: sound relative to the final mapped burn set = kriged footprint + FIRMS + buffered AHI (16,176 cells; 4,940 AHI-buffer-only); single implementation, not independently checked",
  "summary": {
   "rows": 696,
   "ROUTE": 108,
@@ -16792,5 +16792,5 @@
   "both_checkers_accept_and_agree": 696,
   "disagree": 0
  },
- "semantics": "Static final-footprint bound (no timing; identical across starts). Per Leo (ENVELOPE_BURNSET_RULE.md, 2026-11-12): the burn set is the final mapped burn set of the whole event on the shared 79x237 375 m export grid (finite kriged TOA, FIRMS and AHI buffers): 16,176 of 18,723 cells, about 2,275 km2, burning on [0, H) with births 0. NO_ROUTE here means no route avoiding that whole footprint from t = 0. It is not the pessimistic edge of a leave-by band, and it says nothing outside the mapped burn set. Report it as its own row."
+ "semantics": "Static final-footprint bound (no timing; identical across starts). Per Leo (ENVELOPE_BURNSET_RULE.md, 2026-11-12): the burn set is the final mapped burn set of the whole event on the shared 79x237 375 m export grid (finite kriged TOA, FIRMS and AHI buffers): 16,176 of 18,723 cells, about 2,275 km2, burning on [0, H) with births 0. NO_ROUTE here means no route avoiding that whole footprint from t = 0. It is not the pessimistic edge of a leave-by band, and it says nothing outside the mapped burn set. Report it as its own row. Composition (Leo, from variants/envelope_sound_counts.json): burn set = kriged footprint (finite TOA, 10,955 cells, about 1,540 km2) + buffered firing-AHI pixels only (4,940 cells, about 695 km2, 31 %) + FIRMS-detected cells outside both (281). It is broader than the mapped perimeter, so \"sound relative to the final mapped burn set\" means relative to this union, not the perimeter alone."
 }
