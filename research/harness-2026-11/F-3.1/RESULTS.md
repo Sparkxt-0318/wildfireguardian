@@ -723,3 +723,57 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
   these counts, not merged with them.
 * **Assumption line.** Assumes no fire outside mapped or forecast cells; no conservative unknown-support tier exists
   at multi-hour.
+
+## Multi-hour `no_reentry/1` VARIANT run, 48 packet pairs (SCENARIO, not what happened; VARIANT, not the headline; not yet verified)
+
+**Label.** VARIANT (`no_reentry/1`): no re-entry after the start; cells burned out before the start stay open.
+- Rule: `MULTIHOUR_HEADLINE_RULE.md` with its amendment of 19:15 UTC. The headline is `no_reentry/2` (v3.7, Leo, with Nora).
+- Graphs are road-limited to the recorded windows.
+- **Assumption:** no fire outside mapped or forecast cells; no conservative unknown-support tier exists at multi-hour.
+- **Waiting rule:** waiting is allowed only at graph dead-end nodes (as supplied in graph.json; rule undocumented).
+- CERT = router OR closed footprint. ROUTER = router rule only. Refusal-grade statements come only from ROUTER.
+- "Exact" is relative to the time-dependent model.
+- firms_early and envelope: bracket-start, not a lower bound.
+- envelope_burnset is its own static row. Burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only).
+
+**Coverage.** 48 pairs: v3.6 `no_reentry/1` + reopening × 4 variants × 6 recorded starts × {5 h, 8 h}.
+- Runner: `deadline_field/headline.py`; batch: `batch/headline_batch.py`.
+- Leo's code at 046a6f31, MANIFEST_v3_6.
+- 0 build or run failures.
+- Every packet's BUILD_SUMMARY writer_identity.transform = `no_reentry/1`.
+- Summary: `results/HEADLINE_NR1_VARIANT_summary.json`, per place, packet and variant. The raw per-pair outputs stay in scratch.
+
+| check (totals over 48 pairs) | result |
+|---|---|
+| CERT leave-by witnesses, full checker on the `/1` packet | 9,058 / 9,058 PASS |
+| same witnesses on the reopening packet | 9,058 / 9,058 PASS |
+| next second infeasible | 9,058 / 9,058 |
+| exactness precondition met (full policy = contact) | 9,036; 22 not met (still full-checker PASS) |
+| acceptance 7: budget-code (PEAK/DOSE) differences, `/1` vs reopening | 0 of 9,058 requests |
+| verdict differences on the 30-min grid (175,392 units) | 14,954, all "no re-entry infeasible / reopening feasible"; none the other way |
+| non-prefix feasible sets | 0 |
+| no-route place rows: origin point in flame at departure | 950 |
+| no-route place rows: fire-limited within loaded graph | 98 |
+| no-route place rows: possibly road-limited (ROAD-LIMITED) | 32 |
+
+**Earlier-arrival variant with a LATER leave-by than kriged_mean.**
+- This is the count the 19:15 amendment requires: 166 (place, field, variant) rows over 45 (region, start, horizon, place).
+- Every such row has a kriged_mean leave-by; none comes from kriged_mean having no route.
+- Shift: median 10,065 s, maximum 20,888 s, minimum 2 s.
+- CERT rows by start:
+  - Uiseong 23T01Z: 56;
+  - Uiseong 24T09Z: 15;
+  - Yeongdeok 25T19Z: 6;
+  - Yeongdeok 25T23Z: 4;
+  - Uiseong 25T17Z: 2.
+- CERT and ROUTER give identical counts.
+
+| | U h5 | U h8 | YD h5 | YD h8 |
+|---|---|---|---|---|
+| firms_early (CERT = ROUTER) | 21 | 19 | 2 | 3 |
+| envelope (CERT = ROUTER) | 17 | 16 | 2 | 3 |
+
+- **Nesting, measured on the rasters.** firms_early arrival is ≤ kriged_mean on all 10,955 cells (2,364 earlier, 8,591 equal, 0 later). So firms_early vs kriged_mean is a nested pair, and every firms_early row above breaks monotonicity under `/1`.
+- **Expected cause, not yet shown:** pre-start burn-out. Under `/1`, a cell whose earlier arrival puts its burn-out before the start is open from 0. Under kriged_mean the same cell is still burning or not yet burned.
+- **The test** is acceptance 8 on `/2` (`NOREENTRY2_ACCEPTANCE_RULE.md`). If the rows disappear there, the cause is confirmed. Any row that remains is listed and explained.
+- envelope (lo = firms_early, hi = firms_constrained) is not pointwise nested with kriged_mean by construction. Its rows are reported, not tested.
