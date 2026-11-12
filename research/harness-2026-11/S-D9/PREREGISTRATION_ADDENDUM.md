@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 20, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 23, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,7 +17,10 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
-| 27 | Joint-forecast verification (§5.3: rank histograms, spread-skill and burned-area CRPS by horizon from trajectory area samples) and a conformal-risk-control warning-zone analysis (§5.4), both **development-only**, declared before any use (item 26 is in PR #115) | §5.3, §5.4 | Orchestrator request (SMOKE direction document). The CRC procedure and α values were committed **before** the cohort-R run |
+| 29 | Iris's re-assessment fixes. §6.1 names each criterion's object on part c (`logistic_rebuilt`; `d4_wind_recal` on `d4_wind_rebuilt`). §9 step 5 now says part c, not b, waits for the D1/D2 freeze. The §3.1 rationale is updated for item 14, with the fate of the archive rows fixed. **Headline candidate on part c = `d2_bracket_rebuilt`**, with fallback `d2_nll_rebuilt` and all others secondary, with no multiplicity adjustment. A descriptive capture-share companion to the warning-zone secondary. `d4_wind_rebuilt` added to H. Smooth NLL detail and the d2_nll wrapper pin. Owen's softening of the fast-regime note | §3, §3.1, §3.2, §2.1, §6.1, §6.2, §9 | Iris re-assessment of revision 22 (e6761b19); headline choice by the orchestrator. **All made before any part b, c or d access** |
+| 28 | Warning-zone size at fixed miss levels (conformal risk control) becomes a named **secondary** on part c for every predictor, calibrated on cohort R only, with feasible-fold reporting. The cohort-R evidence that zone size and Brier rank d4_wind and logistic in opposite orders is recorded as development evidence; c651's uninformative result is added to its limitations | §6.2, §4.1 | Orchestrator decision on Iris's proposal, **before the freeze and before any part-c opening**. Never a decision criterion |
+| 27 | Joint-forecast verification (§5.3: rank histograms, spread-skill and burned-area CRPS by horizon from trajectory area samples) and a conformal-risk-control warning-zone analysis (§5.4), both **development-only**, declared before any use | §5.3, §5.4 | Orchestrator request (SMOKE direction document). The CRC procedure and α values were committed **before** the cohort-R run |
+| 26 | c651 arm: the trainer is corrected to `MultiscaleSearch`, candidate stage only (c651 was not a finalist, so there is no 4,096-epoch extension); the wrapper is pinned; the full 44-event catalog is kept | §3.2 | Correction from Marcus's reading of the search code, made before any run |
 | 25 | GOFER fires matched to a kept part-a incident are assigned to **H-dev, never H-test** (forced H-dev set F: 12 GOFER fires, 10 of them H survivors, since Creek and River Complex are FIT fires); H-test is drawn only from the other survivors. Elena's real-bracket comparison must state its 42 → 25 filter before results | §2.1 | **Correction made after Owen's finding** (5 GOFER fires among Elena's 42 part-a fits). Decided by a rule on committed metadata (GOFER_MATCH.csv, COHORT_FINAL.csv), not by results. H membership was not yet computed, and nothing was scored on H |
 | 24 | §4.1 rule 5 resolved for US kriged rasters: the arrival-valid set equals the final NIROPS union cell for cell on all 29 exposed US fires (Daniel); Korea stays an assumption | §4.1 rule 5 | Result received after the rule was written; no threshold was set. No b/c/d or H-test fire was opened |
 | 23 | Two development-first candidates (Iris), declared before any refit: `c651_fullvalid_rebuilt` (the c651 recipe with full-rectangle label validity, the one change) and `rate_composite` (composite-likelihood kernel shape plus a bracket-likelihood rate), which is compared with the full latent-time method on Elena's synthetic harness first. Owen's synthetic findings recorded beside P-D2 as development evidence; Iris's ranking of SMOKE experiments | §3.2, §3.1 | Orchestrator decision. **Declared before any refit.** Admission to part c only by amendment before part c opens |
@@ -101,6 +104,13 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
      - temperature and wind: not yet built (Open-Meteo limit).
      - The only archive-derived values are the frozen logistic's pooled feature scaler statistics. They are not per-channel values, so they do not satisfy the cell-wise check.
      - **Consequence under the fallback below: decisions for archive-trained models on rebuilt inputs are descriptive**, unless the owner supplies archive values for one fit fire.
+   - **Update: the owner supplied archive values** (the owner archive, sha256 b9e000e8…dd65, matched by Daniel). On the cell-level check for AlderCreek (Daniel, daniel/data-fetch-3 4c6430332d1213808b0a4a70120828b128e6d27a: `archive_vs_rebuild/cmp_region.py` sha256 9857fe46…717c and `AlderCreek_archive_vs_rebuild.csv` sha256 28ac46d8…ede6, derived statistics only; slope median |Δ| 0, p95 1.9e-6°; not yet verified by Hannah):
+     - slope_degrees: identical mask; 3,232 of 3,796 cells bit-identical; max |Δ| = 5.7e-6°, i.e. float32 rounding. The median and the 95th percentile |Δ| are ≤ 5.7e-6° (thresholds 1.0° and 3.0°). **PASS.**
+     - tree_cover_percent: identical mask, all 3,796 cells identical, max |Δ| = 0. **PASS.**
+     - The earlier byte difference was **GeoTIFF encoding, not values**.
+     - All 47 shared rasters have identical masks and identical or float32-close values. The archive alone also holds canopy_height_2019 (GLAD) and the original weather.
+     - **Temperature and wind are still PENDING**, until the rebuilt AlderCreek weather exists (Open-Meteo, day 2); they are then compared with the archive weather.
+     - Item 14 as a whole passes only when those channels pass. Until then the fallback stands. If they pass, the archive-trained rows (`d4_wind_seed0`, `c651_mc`, `logistic`) can be promoted from descriptive **by amendment before part c opens**, as §3.1 allows. The rebuilt refits stay the confirmatory comparators either way.
    - **Labels.** The rebuilt label pipeline reproduced all 52 committed Wapiti held-out cases exactly (grid, reference_cells, positives, y). This was reported by Daniel at 60a94974 and is not yet verified by Hannah.
    - **Fallback.** Untouched fires have no archive values, so the rebuilt source is used whatever the outcome. On a failure, or if no archive values are recoverable (check UNAVAILABLE), every decision on rebuilt inputs for a model trained on archive covariates is **descriptive, not confirmatory**, until the check passes (revision 11). The failing channels are reported.
 
@@ -138,7 +148,10 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
     - *The rule.* Let **F** be the GOFER fires that `cohort/GOFER_MATCH.csv` (sha256 451675c1…) lists with status MATCH or UNDETERMINED against an incident **kept in part a** in `cohort/COHORT_FINAL.csv` (sha256 d5ae66f4…). The rule covers every part-a use, not only Elena's 42.
     - *The set F.* Bobcat; CZU Lightning Complex; Creek (via Bullfrog); Glass; July Complex (Allen, Caldwell); KNP Complex; LNU Lightning Complex (Meyers); Slater and Devil; Tamarack; Zogg; Beckwourth Complex (UNDETERMINED, treated as matched); River Complex (UNDETERMINED, name-only via Kootenai). Creek and River Complex are FIT fires and are removed from H by §1.3 in any case.
     - *Assignment.* Every survivor in F goes to **H-dev**. The remaining survivors are ordered by u. With **n = the number of GOFER survivors after §1.3**, H-dev also takes the first max(0, ⌊n/2⌋ − |F ∩ survivors|) of them, and **H-test is the rest**. H-test therefore contains no fire in F by construction.
-    - *Status.* Membership has not yet been computed. It is computed from metadata only, after this rule is committed, and logged in the ledger.
+    - *Membership, computed after this rule was committed* (`cohort/h_membership.py` → `cohort/H_MEMBERSHIP.csv`, sha256 255fae5d…; metadata only; logged in `ledger/ACCESS_CONTROL.md`).
+      - n = 17 survivors of 28; 11 are excluded (10 by §1.3, plus Caldor as INSPECTED).
+      - **H-dev (10, all in F):** Beckwourth Complex, Bobcat, CZU Lightning Complex, Glass, July Complex, KNP Complex, LNU Lightning Complex, Slater and Devil, Tamarack, Zogg.
+      - **H-test (7):** Windy, SCU Lightning Complex, Dolan, Walker, W-5 Cold Springs, Kincade, McFarland. Because |F ∩ survivors| = 10 > ⌊17/2⌋, H-dev takes no further fires.
     - *Consequence, stated now.* With about 17 survivors and F holding 10 of them, H-test will hold about 7 fires. It remains descriptive (see "Status" below).
 - Korean 2025 overpass detections (including the 25 March KFS_01 run) are **exposed** (KR2025 was scored by forecast-v2) and are reported **descriptively only**, never as H-test.
 
@@ -152,7 +165,7 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
 - Note: the R reach diagnostic (`derive/REACH.json`) used Euclidean distance ÷ 1.5 km/h. Euclidean distance is never smaller than chessboard distance, so its r is never smaller than the Chebyshev r, and its "0 tail positives beyond reach" holds a fortiori.
 These are reported by lead time, with entry, positive and fire counts. The primary H population is the r ≥ 1 cells within the horizon-scaled band (§4) plus the full domain. The 4 km NIROPS band is not used at hourly leads.
 
-**Predictors.** The D1 candidate (SHA-frozen) and `d4_wind_seed0`, both on **rebuilt covariates** for every H fire. Also the **half-step-corrected hourly scheme** (Marcus's, SHA-frozen), which shows whether a simple correction matches first-passage at short leads. Also `d4_wind_recal`, `persistence` and `dilation_8h`; `logistic` too if its covariates can be built.
+**Predictors.** The D1 candidate (SHA-frozen), **`d4_wind_rebuilt`** (revision 29), and `d4_wind_seed0` as an archive-trained descriptive row, all on **rebuilt covariates** for every H fire. Also the **half-step-corrected hourly scheme** (Marcus's, SHA-frozen), which shows whether a simple correction matches first-passage at short leads. Also `d4_wind_recal`, `persistence` and `dilation_8h`; `logistic` too if its covariates can be built.
 
 **Metrics.**
 - Brier and paired Brier difference (D1 minus d4_wind, and D1 minus d4_wind_recal), with whole-fire bootstrap intervals (10,000 draws, seed 20261030).
@@ -169,7 +182,7 @@ These are reported by lead time, with entry, positive and fire counts. The prima
 
 Every predictor is declared by SHA-256 before the manifest.
 - **Models:** `d4_wind_seed0`, `c651_mc` (1,024 trajectories), and D1/D2 variants frozen by SHA. D1/D2 run on part c only.
-- **`d4_wind_recal`** (revision 13): d4_wind_seed0 followed by a one-feature logistic recalibration on logit(p), **fit on part a only** and frozen by SHA before part c opens. It is a part-c comparator, so that a D1/D2 candidate cannot win merely by being better calibrated. Its marginals are for scoring only and are never used for the routing member draws.
+- **`d4_wind_recal`** (revision 13). *Superseded by §3.1 (revision 29):* the part-c comparator is the one-feature logistic recalibration of **`d4_wind_rebuilt`** on logit(p), fit on the §3.1 training data and frozen by SHA before part c opens. The original definition, on d4_wind_seed0, now applies only to a descriptive row. Its marginals are for scoring only and are never used for the routing member draws.
 - **Baselines on identical cells:**
   - `persistence`.
   - `dilation_8h`, fixed and never reselected.
@@ -185,9 +198,11 @@ Every predictor is declared by SHA-256 before the manifest.
 
 ### 3.1 Rebuilt-pipeline refits (revision 18; recipe frozen before any refit runs)
 
-**Why.** Slope and tree cover cannot be checked against the archive (§1.2 item 14), so any model trained on archive covariates and scored on rebuilt inputs is descriptive. To give part c a confirmatory comparison, **every model scored on part c is trained and scored on one input pipeline**: rebuilt covariates from `rebuild_env.sh` (daniel/data-fetch; its exact commit is pinned in FREEZE.json).
+**Why.** When this was written, slope and tree cover could not be checked against the archive (§1.2 item 14). *Current status (revision 29):* the owner-archive check now passes for slope and tree cover on AlderCreek, and **temperature and wind are pending** until the rebuilt weather exists. The one-pipeline rule stands either way. Untouched fires have only rebuilt inputs, so comparators trained on the same pipeline are the clean comparison. To give part c a confirmatory comparison, **every model scored on part c is trained and scored on one input pipeline**: rebuilt covariates from `rebuild_env.sh` (daniel/data-fetch; its exact commit is pinned in FREEZE.json).
 - The archive-trained `d4_wind_seed0`, `c651_mc` and `logistic` stay as **labelled descriptive rows**.
-- If the owner supplies archive values and item 14 passes, they can be promoted by amendment before part c opens.
+- **What happens to the archive-trained rows, fixed now (revision 29):**
+  - *If item 14 passes on all channels before part c opens:* they may be promoted by amendment to **named secondaries** on part c, reported beside the rebuilt comparators. They never replace the §6.1 criterion objects.
+  - *If the weather check fails, or has not run when part c opens:* they stay descriptive rows. The failing or missing channels are reported.
 
 **Training data, identical for every refit and for every D1/D2 candidate.** It is the union of:
 - The 23 forecast-v2 US fit fires, rebuilt. They are already exposed as FIT.
@@ -233,9 +248,9 @@ Every predictor is declared by SHA-256 before the manifest.
 **Rate-mixture candidate** (development first, per Iris; added as a part-c comparator only if it performs in leave-one-fire-out development on R): `d4_wind_rebuilt` run at global rate multipliers m ∈ {1, 2, 4, 8, 16}, with mixture weights fit on the training data. Once weather covariates exist, a development check also tests whether the fast tail intervals are predictable from wind; if they are, one wind-dependent weight parameter is allowed. The final form is frozen by amendment before part c opens.
 
 **D2 candidates: loss or likelihood-procedure deviations (revision 21; declared before either refit runs).** Two named D2 candidates use **the identical recipe** above: the same training data, rebuilt inputs and input pins, Marcus's wrapper (264deaea…) and its hash guards, the same command line and hyperparameters, seed 0, and receipts. `d2_nll_rebuilt` **replaces only the training loss**. `d2_bracket_rebuilt` replaces the loss **and** the fitting procedure (an EM over latent arrival times), and nothing else. The replacement is injected in memory the same way as Marcus's wrapper, and `pipeline.py` and `survival.py` stay unchanged.
-- **`d2_nll_rebuilt`.** The mean-field model is trained with **Bernoulli negative log-likelihood** on the mean-field p(t2) in place of the Brier loss of `survival.fit_mean_field` (survival.py:334). It keeps the same weights and the same prevalence scaling. This is the same-regime NLL baseline Iris asked for.
+- **`d2_nll_rebuilt`.** The mean-field model is trained with a **smooth Bernoulli negative log-likelihood**, −[y·log(p + ε) + (1 − y)·log(1 − p + ε)] with **additive ε = 1e-7, not a clamp** (a clamp, as in `survival.clipped_nll`, would zero the gradient for p < 1e-7, exactly the tail P-D2(a) is about), on the mean-field p(t2) in place of the Brier loss of `survival.fit_mean_field` (survival.py:334). It keeps the same weights and the same prevalence scaling. This is the same-regime NLL baseline Iris asked for.
 - **`d2_bracket_rebuilt`.** The same recipe plus **latent arrival-time augmentation within each survey bracket**. The E-step imputes each cell's arrival time inside (t_k, t_{k+1}] given the current model. The M-step maximizes the complete-data likelihood. It is fit under the same 3-epoch budget. **If it cannot finish within that budget, it is reported as not admitted, and the budget is not changed.**
-- **Code and freeze.** The code lives in `research/harness-2026-11/S-D2/refit/`. Each wrapper's sha256 is published for review and recorded in FREEZE.json **before it runs**. Neither candidate may change the training data, covariates, hyperparameters, architecture or seed.
+- **Code and freeze.** The code lives in `research/harness-2026-11/S-D2/refit/`. Each wrapper's sha256 is published for review and recorded in FREEZE.json **before it runs**. `d2_nll_rebuilt`: `run_d2.py` sha256 e3c0843c…b435 at claude/s-d2-next 10b022850bd9b86f0047ca34e0d3a2c820ba2d4f, pinned in FREEZE.json stage 1. `d2_bracket_rebuilt` is not yet implemented; its E-step cost is timed first (Iris). Neither candidate may change the training data, covariates, hyperparameters, architecture or seed.
 - **Admission to part c.** Both remain subject to §5.2: each must emit multi-observation cumulative marginals natively, demonstrated on R before its SHA freeze. Both are judged by §6.1, criteria 1–4 included.
 - **Soft-risk-set arm: development only.** It needs kriged arrival inputs, which exist only for the 23 fit fires, so it is **not a part-c candidate**.
 - **Hypothesis, recorded before any D2 refit (Elena, S-D2).** Ignoring within-bracket timing cuts the fitted spread rate by about 3–4×. **`d2_bracket_rebuilt`, not `d2_nll_rebuilt`, is therefore the arm predicted to shrink d4's near-zero tail without recalibration.** The prediction is fixed in the following wording, which Elena confirmed before any refit.
@@ -248,7 +263,9 @@ Every predictor is declared by SHA-256 before the manifest.
   - *Motivating evidence (development, part a, Elena's stream; **not verified by Hannah**).* It comes from covariate-free spatial fits on NIROPS part-a brackets: 42 fires with ≥ 20 surveys, from allowlist 7db3cc0e at 2d40d170, first 240 h. On one fire (CooksPeak), the fitted total spread rate was 0.018/h plug-in (first observation time), 0.026/h mean-field NLL, 0.065/h composite likelihood and 0.069/h MCEM. A 24-fire run is pending, and its result is evidence for the hypothesis, not a change to it.
   - If P-D2 or the ordering fails, the failure is reported as stated, whatever the §6.1 outcome.
   - *Development evidence on synthetic data (Owen, S-D2 verification; recorded beside the hypothesis, **not a revision of it**; not verified by Hannah).* The full latent-time method recovers the total rate with a small upward bias (ratio 1.025–1.040) and wins on held-out likelihood when given perimeter brackets. It is **worse than the composite likelihood on kernel shape** at 12–24 h brackets, and worse than simple arms on kriged inputs. (Elena confirmed this description.)
-  - *Real-data part-a estimator agreement (Elena with Owen; 25 fires; **unverified**).* Fitted rates relative to MCEM: plug-in 0.454, mean-field NLL 0.587, composite 0.967. **This is agreement between estimators, not accuracy against truth** (Iris): real fires have no known rate.
+  - *Real-data part-a estimator agreement (Elena, S-D2 8667f5a; 25 part-a fires; **Owen: PASS WITH NOTES** after an independent rerun with an identical access log; not verified by Hannah).* Fitted total rates relative to MCEM, in Owen's figures: plug-in 0.455 (25/25 fires below), mean-field NLL 0.588 (25/25 below), composite 0.967. The 21-fire set without the GOFER-overlap fires agrees.
+    - **Wording, as Owen requires:** "plug-in is about 0.45 of the bracket-likelihood rate." The reference is MCEM, **not truth**: MCEM ran 2.5–4% high on synthetic data at narrow brackets.
+    - **The strong statement:** the two bracket-likelihood estimators (MCEM and composite) agree within about 3%, while plug-in and mean-field fall far below on 25 of 25 fires. This is agreement between estimators, not accuracy (Iris).
 
 ### 3.2 Development-first candidates (revision 23; declared before any refit runs)
 
@@ -280,7 +297,14 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
       - *Smoke test passed (non-weather), Daniel.* For KFS_02 and KFS_03 on EPSG:5179, the terrain, land-cover and biome stages ran with rc 0, and every output is on the exact events.json grid. Pin: `research/harness-2026-11/data-fetch-3/kr_smoke/` at daniel/data-fetch-3 3b2c2fbb920a255052fa5c08eeb2d0bdc7a6bb16, with `kr_check.py` sha256 d3683886…8760. Victor re-checked the script and two raster hashes.
       - 10 of the 1,937 arrival-valid cells on KFS_02 have no biome value, because they fall on coastal sea, and are masked. KFS_03 has 0 such cells. In the refit these become environment-filter rejections, reported per event.
       - The KFS_02 window is 194 h, from events.json, which prepare.py uses. Marcus's earlier 360 h came from catalog.csv.
-  - **Trainer (decision, revision 23).** c651 was not trained by `forecast/wildfire/train.py`. It came out of the categorical-balanced kernel **search** (`runs/20261010_categorical_balanced_benchmark/protocol.json`), whose current equivalent is `wildfire.search` `MixedSearch`, and that trains every candidate before selecting. **Both arms restrict the search, by an in-memory injection, to the single candidate `mixed_3_5_7_9_02_lr0.1_warmup_cosine`, keeping its validation best-epoch rule** (Marcus's option b).
+  - **Trainer (decision, revision 23).** c651 was not trained by `forecast/wildfire/train.py`. It came out of the categorical-balanced kernel **search** (`runs/20261010_categorical_balanced_benchmark/protocol.json`), whose current equivalent is **`wildfire.search` `MultiscaleSearch`**, and that trains every candidate before selecting. *Correction (revision 26):* earlier wording said `MixedSearch`. With learning rates 0.01, 0.05 and 0.1, MultiscaleSearch's plan generates exactly the benchmark's 276 candidates, and c651's configuration is field-identical to `protocol.json` (Marcus). **Both arms restrict the search to the single candidate `mixed_3_5_7_9_02_lr0.1_warmup_cosine`, candidate stage only:** a 512-epoch fit with the validation best epoch. c651's best epoch was 5. c651 was **not** a finalist (`finalist_selection.json` lists `mixed_3_5_7_9_01` for the mixed family), so there is **no 4,096-epoch finalist extension** (Marcus's option b).
+    - *Wrapper, pinned (revision 26).* `research/harness-2026-11/s-d1/refit/run_c651_recipe.py`, sha256 3e99f479…c065f, with smoke test `smoke_c651_recipe.py`, sha256 56f7fbee…99a0, at harness/s-d1-first-passage 81dc7c2ea76046d835f45805439630dc407842fd. Victor re-checked both hashes.
+      - The `prepare` stage carries the validity injection, on or off.
+      - The `candidate` stage mirrors MultiscaleSearch's candidate loop for that one candidate, using its own setup, native k = 9 cohort, balance, normalisation, global rate and `fit_candidate`. `fit_candidate` reseeds per candidate, so the restriction does not change that candidate's training.
+      - Pins checked by the wrapper: prepare.py e2c70433…, train.py 9c8a6215…, data.py 8fb447ab…, search.py 136442fa…, plus the receipt lists every `forecast/wildfire/*.py`.
+      - Commands, for arm X ∈ {on, off}: `run_c651_recipe.py --fullvalid X -- prepare --output-dir P_X --data-root <rebuilt root> --kernel-size 9 --contact-negatives-per-event 5000 --no-contact-negatives-per-event 2000 --seed 7` (default split policy and split seed), then `run_c651_recipe.py --fullvalid X -- candidate --cache P_X --output C_X --epochs 512 --finalist-epochs 4096 --learning-rates 0.01 0.05 0.1 --schedules constant warmup_cosine --seed 7 --device cpu --threads N`.
+      - The smoke test, on a synthetic three-partition fixture, PASSES in both arms and asserts that the arm changes the cache.
+    - *Catalog (decision, revision 26).* prepare.py iterates the whole events.json catalog, 44 events. **The full catalog is kept**, because restricting it would be a recipe change and could alter the sampled rows. So the rebuilt data root must hold all 44 events. The 10 test events (KFS_01/04/06/13 and the six US2024 fires) are exposed fires, already scored by forecast-v2, so reading them leaks nothing sealed. The extra weather is to be priced by Daniel.
     - *Why.* The arm exists to isolate label validity. Re-running the whole search would add a second change, a possibly different selected configuration, and would cost many candidates × 512 epochs per arm.
     - *Limitation, stated now.* Under full-rectangle validity a different configuration might be selected. That is not tested.
   - **Code version.** "The c651 recipe" means **the recipe as implemented by the current refactored code**: prepare.py e2c70433…, train.py 9c8a6215… and data.py 8fb447ab…, plus the `wildfire.search` path, all sha-checked by the wrapper. The archived trainer files differ. For example, the pre-refactor `wildfire_burned_area_hourly/probability_model/train.py` had sha256 23d8a25e…, recorded in c651's `protocol.json` (`training_source_sha256`) and in `refactor_20261010.json` (`before_maintained_source_sha256`). No file with that hash is in the working tree.
@@ -311,6 +335,17 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 
   If all three hold in both regimes, **`rate_composite` is the rate candidate refit on the training pool**, under the §3.1 recipe and the §4.1 rule 3 label rule. Otherwise the full method stays the rate candidate.
 - `rate_composite` does not replace `d2_bracket_rebuilt` as a D2 candidate. P-D2 and its ordering stand as recorded.
+- **Step 1 result (Elena, S-D2 commit 7a160eef on claude/s-d2-next, `results/rate_composite.json`; run under the rule and regimes fixed at 45644c89, seeds 0–4; **Owen: PASS WITH NOTES**; not verified by Hannah).**
+  - **`rate_composite` is NOT the rate candidate. The full latent-time method stays.** The rule fails in every regime and bracket length:
+    - slow, 12 h: rate advantage 0.078 > 0.05; log-likelihood 0.155 > tolerance 0.117; shape 0.116 > 0.059.
+    - slow, 24 h: all three fail (0.117; 0.395 > 0.180; 0.292 > 0.180).
+    - fast, 12 h: the rate condition holds (0.033), but log-likelihood (0.383 > 0.117) and shape (0.652 > 0.056) fail.
+    - fast, 24 h: the rate condition holds (−0.191), but log-likelihood (0.574 > 0.216) and shape (0.200 > 0.066) fail.
+  - The cost is about equal, because the E-step is shared.
+  - *Fast regime: uninformative as designed (Owen, PASS WITH NOTES on 7a160eef; development evidence beside P-D2, not a revision of it).*
+    - The verdict rests on the slow regime, where all three conditions fail by wide margins. The fast-regime grid burns out within 48 h, so the fast cells, including MCEM's total-rate ratio of 0.58 at 24 h brackets (0.92 at 12 h), are **not** evidence about either estimator's tail behaviour.
+    - MCEM's rate is **unidentified on a saturated grid and untested on a non-saturating grid**. Iris has asked for a non-saturating fast arm, which Elena runs after the part-a CV.
+    - Owen's rerun: rate advantage 0.078 / 0.109 / 0.042 / −0.194 (slow 12 h, slow 24 h, fast 12 h, fast 24 h); MCEM ratios 1.050 / 1.065 / 0.923 / 0.577. The fast-12 h rate margin is thin and Monte-Carlo-sensitive, but the verdict is unchanged.
 
 **Iris's ranking of SMOKE experiments (planning order, not a decision rule).**
 1. The full-rectangle validity arm.
@@ -392,6 +427,8 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 
 *Hypothesis only (Iris), not tested here.* A model trained without true far-field negatives has no reason to be calibrated on cells far from the front. This may bear on c651's tail behaviour. It does not explain d4_wind's tail, because d4_wind was trained on perimeter states (§4.1 table; `derive/LOGISTIC_DEV.md`).
 
+**Statement of c651's limitations (revision 28).** c651_mc was trained only on interior patches of final kriged footprints (table above). On full-rectangle perimeter labels (cohort R, development) it is worse than d4_wind, the logistic and persistence on Brier, with the deficit off the final footprint (`derive/C651_DEV.md`). It is **uninformative for warning zones** at α = 0.2: conformal risk control finds no threshold below the whole domain, because its exact Monte Carlo zeros cover about 10% of positives (`derive/CRC_DEV.md`). It is a descriptive comparator only.
+
 ## 5. Metrics
 
 Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselines.py` where one exists:
@@ -445,14 +482,19 @@ These cover the burned area of an interval as a joint (trajectory-level) quantit
 
 ### 6.1 Primary (cohort N: part c for each SHA-frozen D1/D2 candidate; part b for a later named candidate; C2 under the base protocol)
 
-The primary statistic is the **pooled paired Brier difference** in the 4 km band, candidate minus reference, over consecutive intervals. The candidate is the SHA-frozen model declared for that part. On part c, `d4_wind_seed0` and `c651_mc` are scored as comparators and named secondaries, not as the decision candidate. Earlier drafts named `d4_wind_seed0` as the candidate on part b, and that is superseded by revision 11. The interval is the 95% percentile interval from 10,000 whole-fire bootstrap draws, seed 20261030.
+The primary statistic is the **pooled paired Brier difference** in the 4 km band, candidate minus reference, over consecutive intervals. The candidate is the SHA-frozen model declared for that part. **The objects each criterion uses on part c, by exact name (revision 29):** `persistence`; `dilation_8h`; **`logistic_rebuilt`** (§3.1); and **`d4_wind_recal`**, meaning the recalibration of `d4_wind_rebuilt` (§3.1). The archive-trained `logistic`, `d4_wind_seed0` and `c651_mc` are **descriptive rows** on part c, never criterion references, unless they are promoted by amendment under §3.1. Earlier drafts named `d4_wind_seed0` as the candidate on part b, and that is superseded by revision 11. The interval is the 95% percentile interval from 10,000 whole-fire bootstrap draws, seed 20261030.
+
+**Headline candidate (revision 29; chosen before any part b, c or d access).** Several candidates may be scored on part c, each tested alone against the criteria below.
+- **The headline §6.1 decision is that of `d2_bracket_rebuilt`**, because P-D2 names it as the arm predicted to change the outcome.
+- Every other candidate admitted to part c (`d2_nll_rebuilt`, any D1 candidate, `c651_fullvalid_rebuilt` and a rate-mixture form, if admitted by amendment) is **secondary**. Each has its own §6.1 verdict reported, with **no multiplicity adjustment**, and this is stated with every result.
+- **Fallback, fixed now.** If `d2_bracket_rebuilt` is not admitted under the existing admission rules (the 3-epoch budget; §5.2 native marginals; SHA frozen before it runs), the headline is `d2_nll_rebuilt`. If neither is admitted, there is **no headline**, and that is reported as the result.
 
 Superiority requires **all** of the following:
 1. The interval against `persistence` lies below 0.
 2. The interval against `dilation_8h` lies below 0. Reported, but near-automatic inside the band (§6.3).
-3. **The interval against the frozen `logistic` lies below 0** (revision 9; applies to the A1 cohort decision only, not to the base protocol's 2026 rule).
-4. **For a D1/D2 candidate on part c:** the interval against `d4_wind_recal` lies below 0 (revision 13).
-5. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than that of persistence, `dilation_8h` or `logistic`.
+3. **The interval against `logistic_rebuilt` lies below 0** (revision 9; object named in revision 29; applies to the A1 cohort decision only, not to the base protocol's 2026 rule).
+4. **For a D1/D2 candidate on part c:** the interval against `d4_wind_recal` (on `d4_wind_rebuilt`, §3.1) lies below 0 (revision 13).
+5. The lowest fixed bin [0, 0.1) in the band has an absolute calibration gap no larger than that of persistence, `dilation_8h` or `logistic_rebuilt`.
 6. **At least 20 analysable fires** in the part being scored (b or c; §1.2), meaning fires with inputs built and at least one positive in the band. Below 20, the result is descriptive and the decision is INCONCLUSIVE. This replaces the base protocol's 10, following the power calculation in §6.3.
 
 ### 6.2 Named secondaries
@@ -460,6 +502,30 @@ Superiority requires **all** of the following:
 - The **equal-fire mean** of per-fire Brier differences, with its own whole-fire interval (revision 4).
 - Per-fire and per-horizon paired Brier differences. These are tested, meaning an interval is reported, only in fire × horizon cells with **at least 10 positives**. Below that they are reported without an interval.
 - Skill ratios (BSS) are **descriptors, never test statistics**.
+- **Warning-zone size at fixed miss levels (revision 28; secondary, never a decision criterion).**
+  - **Procedure.** Conformal risk control with the fire as the exchangeable unit (the same procedure as the development analysis of §5.4, code `sd9bench/crc.py`):
+    - The zone for threshold t is {scored cells with p ≥ t}.
+    - A fire's loss is its FNR(t) = #positives with p < t ÷ #positives, pooled over its intervals and scored cells.
+    - On n calibration fires, t̂ = max{t ∈ {0} ∪ calibration positives' p : n/(n+1) · mean FNR(t) + 1/(n+1) ≤ α}.
+    - If no t > 0 qualifies, the predictor is **infeasible** at that α, and the result is stated as infeasible, not as a zone.
+  - **Calibration set, fixed now: cohort R only** (the 6 exposed US2024 fires, n = 6).
+    - The predictions are made by the **same frozen model on the same rebuilt inputs** as on part c.
+    - Part a is excluded from calibration: every rebuilt model is trained on part a, so its part-a predictions are in-sample, and an in-sample FNR would understate the held-out FNR.
+    - R is out-of-sample for every A1 model, since §3.1 excludes US2024 from training.
+  - **α ∈ {0.2, 0.3}.**
+    - At n = 6, a non-trivial zone needs mean calibration FNR ≤ (α·7 − 1)/6: 0.067 at α = 0.2 and 0.183 at α = 0.3.
+    - α = 0.1 is reported as **infeasible** for every predictor, by arithmetic.
+  - **Reported on part c, per predictor and per α:**
+    - t̂ and feasibility;
+    - the held-out FNR, pooled over part-c positives and as the mean over part-c fires;
+    - the zone share of scored cells and the zone's mean cells per interval.
+    - Full rectangle is primary, with the 4 km band as a secondary.
+    - With a single calibration on R, there are no folds on part c. Feasibility is a single yes or no per predictor and α, and an infeasible predictor gets no zone or FNR average.
+  - **What it is not.** The guarantee is a marginal expectation over exchangeable fires. R (NIROPS 2024) and part c (NIROPS 2020–2024) are assumed exchangeable, and that assumption is stated, not tested.
+  - **Descriptive companion, with no guarantee (revision 29, Iris).** For each predictor on part c, the **share of scored cells that must be flagged, in descending p, to capture 80% and 90% of positives**, per fire and pooled, full rectangle and 4 km band. It is reported whatever the CRC feasibility, so the secondary still says something when n = 6 makes CRC infeasible.
+  - **Development evidence, recorded beside it and not a claim (cohort R, leave one fire out, 6 fires, no guarantee; `derive/CRC_DEV.md`).**
+    - At α = 0.2, full rectangle, d4_wind_seed0 needs a zone of **29%** of scored cells and the logistic **38%**, while pooled Brier puts the logistic slightly ahead. **Zone size and Brier rank the perimeter-trained model and the logistic in opposite orders.**
+    - c651_mc is **uninformative** on this measure at α = 0.2: infeasible in every fold, because its exact Monte Carlo zeros cover about 10% of positives.
 
 ### 6.3 Power (revision 5; measured on R, `derive/POWER.json`)
 
@@ -516,7 +582,7 @@ Before any cohort score, the `tests/` suite in the harness version recorded in `
 2. Iris re-assesses this revision.
 3. Freeze: the final bytes, ledger CSV hashes, harness SHA and predictor SHAs go into `FREEZE.json`.
 4. Manifests for N, G, F and K are built from metadata only, with §1.2 and §1.3 applied, then committed and hashed into `FREEZE.json` (amended, never rewritten), and verified.
-5. Predictors run on part a only. Every case gets a receipt, and failed and unavailable cases are kept. Part b stays closed until D1/D2 are frozen.
+5. Predictors run on part a only. Every case gets a receipt, and failed and unavailable cases are kept. **Part c stays closed until each D1/D2 candidate scored on it is frozen by SHA and FREEZE.json stage 2 is verified** (§6.1). **Part b stays closed until a later named candidate is declared by amendment** (§1.2). Part d stays held back (revision 29).
 6. Hannah replays the scores from the frozen bundle in a fresh container.
 
 ## 10. Open questions
