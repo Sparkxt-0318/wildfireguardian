@@ -27,8 +27,10 @@ after the `no_reentry/1` variant batch is written up.
   - on `/1` + `extra_blocks = {c ∈ B0: 0}` (closed and router rules from 0 to the horizon).
 
   Equal is defined after 9-significant-digit rounding, as rerun_compare. Issue sets are compared on the 30-min grid.
-- **6c Witnesses.** Every `/2` witness is checked by `full_check` on the `/2` packet and on `/1` + extra_blocks. The
-  contact verdicts must agree.
+- **6c Witnesses.** Every `/2` CERT leave-by witness is checked by `full_check` on the `/2` HAZARD and on the `/1`
+  HAZARD. The full checker reads HAZARD, so it cannot see `extra_blocks`; the `/1` + extra_blocks side of the comparison
+  is therefore 6b's field (issue sets), not a checker replay. Pass: every witness is contact-clear on `/2` (and,
+  necessarily, on `/1`, where B0 is open). Full-policy outcomes on both are counted for 7.
 - **6d Counts.** My |B0| per member, split into export_burned_not_present and variant_burned_out, must equal the plan
   meta `no_reentry2.added_at_0`.
 - **Reported only, not pass/fail.**
