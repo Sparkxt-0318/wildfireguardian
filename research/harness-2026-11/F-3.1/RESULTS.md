@@ -294,6 +294,21 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 | R1.5 | 1–5% | 0–1 |
 | R8.2 | 3–21% | 0–5 |
 
+* **Which field each label uses (Iris, Clara).**
+  * The `optimistic` flag and every tier label in this section and in `results/threeway_jobs/` are against the
+    **CERT** field (router OR closed footprint).
+  * A CERT "no_route" alone does **not** support a refusal: the closed rule can block an edge-time the kit's router
+    allows.
+* **Recorded-unresolved jobs with no route.** 284 job rows: 186 at-issue (the router's own at-issue rule) and 98 kit
+  timeouts.
+  * The 98 timeouts are infeasible in the **ROUTER-only** field, and CERT agrees on all 284.
+  * 90 of the 98 are originals that the planner replaced with re-checks. All 90 re-checked to kit model_no_route
+    (Clara), which is independent agreement. The other 8 remain unresolved in the planner.
+  * Promotion to kit refusals is held pending Thomas's review of the whole-road checker. The ROUTER-only NO_ROUTE
+    certificates are exported by `deadline_field/export_timeouts.py`.
+* **ROUTER-only columns.** These will be added next to the CERT labels (`threeway --variant router`). From now on,
+  every tier and horizon reports both by default.
+
 ## Issue-order-by on F-DYN v3.1 (post-processing; SCENARIO; latency settings are assumptions)
 
 * **Files.** `results/ISSUE_ORDER_BY_FDYN_v31.json`, built by `deadline_field/fdyn_issue_by.py`.
