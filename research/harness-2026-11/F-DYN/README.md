@@ -338,7 +338,10 @@ pixel time per cell, which burned cells early and burned them out before arrival
   | Uiseong-Andong | 1,656 | 1,646 | **99.4%** |
   | Yeongdeok | 1,590 | 1,115 | **70.1%** |
 
-  The interim graph is the recorded roads, regridded, and lies mostly inside the fire area.
+  The unit is a 375 m road cell, and "blocked" means inside the burn set for the whole window. The Uiseong road
+  graph window lies 99.7% inside the final burn set, so this is not a share of roads burning at once: that is 0–9%
+  at any instant under the timing scenarios. See "How to read the blocked road share" in
+  ENVELOPE_FOOTPRINT_RULE.md.
 - **Still to come from Richard's field:** origins with a checked route, and origins with an unchanged deadline.
 - **Manifest.** `MANIFEST_v3_2.json` (wfg.fdyn.manifest/3) has `envelope_footprint` in place of `envelope_sound`.
   The other three variants' entries are identical to v3.1. `MANIFEST_v3_1.json` is not edited and is listed as

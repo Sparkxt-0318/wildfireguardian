@@ -63,3 +63,37 @@ address point 2 at all.
    `MANIFEST_v3_1.json` is not edited.
 5. Send to Nora as a delta, with a request to run the pixel-versus-cell argument once against every remaining
    assumption. Richard holds until she passes; then Richard scores and Thomas certifies.
+
+## How to read the blocked road share (definition; added after the owner's question; no rule change)
+
+- **Unit.** A *road cell* is a 375 m cell of the KFS_01 grid crossed by at least one segment of a routed edge in the
+  region's road graph. A road cell is *blocked* under `envelope_footprint` when it lies in the flame mask. Under the
+  static law the flame mask is the final mapped burn set (∪ present fire) for the whole window [0, H). The routing
+  packet blocks any edge with a segment in a flame cell. It is a count of cells, not of edges or of kilometres.
+- **Uiseong-Andong**: 1,646 of 1,656 road cells (99.4%).
+  - Edges: 43,512 of 43,826 directed edges touch the burn set.
+  - Nodes: 22,995 of 23,158 lie in it.
+- **Yeongdeok**: 1,115 of 1,590 road cells (70.1%).
+  - Edges: 76,541 of 111,924 directed edges touch the burn set.
+- **Why it is so high: graph extent.** The road graph is the c651 replay's recorded road set, a window around the
+  fire: 73 × 65 cells for Uiseong and 73 × 65 for Yeongdeok. 4,729 of Uiseong's 4,745 window cells (99.7%) lie in
+  the final burn set. For Yeongdeok it is 3,508 of 4,757 (73.7%).
+- **Origins and destinations.**
+  - Uiseong: all 84 origin entry nodes and all 30 destination nodes lie in the burn set.
+  - Yeongdeok: 62 of 90 origins and 100 of 151 destinations.
+- **Comparison: road cells burning at one instant** (`REACH_footprint_context.json`; packet law = birth to birth +
+  T + Q, plus export present fire). Values are min / median / max over all starts.
+
+  | Region | Instant | kriged_mean | firms_early |
+  |---|---|---|---|
+  | Uiseong | start | 0 / 0.3% / 6.2% | 0 / 0.3% / 8.6% |
+  | Uiseong | +5 h | 0 / 0.4% / 8.3% | 0 / 0.4% / 6.2% |
+  | Yeongdeok | start | 0 / 0 / 21.8% | 0 / 0 / 24.2% |
+  | Yeongdeok | +5 h | 0 / 0 / 3.5% | 0 / 0 / 7.2% |
+
+- **What the number says.** Nearly the whole Uiseong road window lies inside the area that eventually burned. A
+  bound that makes every eventually-burned cell hazardous for the whole window, because these data cannot say *when*
+  each cell burned, therefore blocks almost all of it.
+- **What it does not say.** It does **not** say that 99% of the real roads were burning or impassable at any moment
+  in March 2025: at any one instant the timing scenarios burn 0–9% of Uiseong road cells. It says nothing about roads
+  outside the graph window.
