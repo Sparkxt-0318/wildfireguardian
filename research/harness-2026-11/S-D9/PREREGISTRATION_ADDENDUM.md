@@ -4,7 +4,9 @@
 
 ## Revision log
 
-| # | revision (Iris assessment of 9348abb5, adopted by the orchestrator) | where | status |
+*How to read this log:* "#" numbers **change items**, in the order they were adopted, and the "(revision N)" tags in the text refer to these item numbers. The status line's "DRAFT revision N" counts **document versions**. The two numberings are independent. Item 12 is the hash-match clarification in §1.2 item 14.
+
+| # | change item (items 1–7: Iris assessment of 9348abb5, adopted by the orchestrator) | where | status |
 |---|---|---|---|
 | 1 | Choose the primary band by a stated rule on R | §4 | Rule committed at 3eb31a38 before any share was computed. Applied: **4 km** (`derive/BAND_RULE.json`) |
 | 2 | Reserve untouched data for D1/D2 | §1.2 | Hash split, fixed now |
@@ -23,6 +25,7 @@
 | 15 | H refinements: Chebyshev reach, one-pixel tolerance, resolution labels per lead, H-dev open to D1 and D2, half-step comparator; Marcus's GOFER disclosure (Marcus, Iris) | §2.1 | Added before any H score |
 | 14 | Short-horizon stratum H for the D1 continuous-time claim (orchestrator) | §2.1 | Declared before any score on H. Membership is computed after the metadata filters run |
 | 13 | Recalibrated d4 is a part-c comparator that D1/D2 must beat (Iris) | §3, §6.1 | Added. Chosen after seeing the development-only R result (`derive/LOGISTIC_DEV.md`) |
+| 12 | How a covariate channel passes the archive check: a byte-identical hash counts as a pass. Written after Daniel's first hash report; no threshold changed | §1.2 item 14 | Added and disclosed |
 | 11 | Part b NOT run now, kept for a later named candidate; covariate check gains tail bounds, and failure makes results descriptive (orchestrator and Iris) | §1.2 items 4 and 14, §6.1 | Added |
 | 10 | Iris fast pass on §1.2: a-vs-c leakage filter, cross-part duplicates, d floor, half-effect power, per-part comparability, check tolerance | §1.2 items 9–13, §6.3 | Added; the split itself is unchanged |
 | 9 | Frozen logistic becomes an A1 decision criterion; power labelled rough; D1/D2 must emit native cumulative marginals (Iris re-assessment, orchestrator) | §5.2, §6 | Added. **This choice was made after seeing R results**, which is allowed because R is exposed |
@@ -50,7 +53,7 @@ Exposure is defined by the S-D9 ledger (checkpoint 3e2eb2d), plus any amendment 
 
 **Label strata are never pooled.** The 4 km band and every other rule fixed on R come from NIROPS. Applying them to G, F and K is a stated transfer assumption, not a validated equivalence. Because R is NIROPS, **only N (or C2) can carry a confirmatory A1 result**. G, F and K results are descriptive whatever their size.
 
-Daniel's metadata name-match on Main gives the current untouched GOFER candidates (17 fires): Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth. Dixie, River, Antelope, August, North/PNF, Monument, Creek, SQF, McCash and Red Salmon are FIT fires. Caldor is INSPECTED. Membership becomes final only through the manifest procedure in §9, after §1.3 is applied.
+**Correction (Hannah, A1 note; same root cause as the Devil miss).** None of the GOFER fires is untouched. All 28 had their aggregate label statistics inspected by S-D1 before stratum H was declared (ledger, ACCESS_CONTROL.md). The G stratum and stratum H are therefore **INSPECTED (aggregate label)** and descriptive only, and every NIROPS incident matching a GOFER fire (`cohort/GOFER_MATCH.csv`) is excluded from parts b, c and d. The list below, kept for the record, is GOFER fires with **no forecast fit or score** in the project. It is not a list of untouched fires. Daniel's metadata name match gave 17: Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth. Dixie, River, Antelope, August, North/PNF, Monument, Creek, SQF, McCash and Red Salmon are FIT fires. Caldor is INSPECTED. Membership becomes final only through the manifest procedure in §9, after §1.3 is applied.
 
 Admission to any untouched cohort requires all of the following:
 - The fire is absent from the ledger.
@@ -119,7 +122,7 @@ The 51 US2024 intervals longer than 48 h are excluded by the same frozen timesta
 
 **Fires.**
 - **Disclosure (revision 15).** Before this rule existed, at the orchestrator's request, Marcus (S-D1) ran a perimeter-only descriptive analysis on all 28 GOFER fires (s-d1 branch a902678, `gofer_cap.py`, `RESULTS_gofer_cap.json`). It computed per-fire shares of new cells beyond 4 cells/h and distance quantiles. No model, forecast, score or covariate was used. Every H fire, including future H-test members, therefore has its **label displacement statistics inspected (aggregate, label-only)**. This is recorded in the ledger. It does not change membership, because H is descriptive. Per-fire beyond-cap shares for H-test fires must not be used to tune a D1 candidate.
-- These are the GOFER v0.2 fires (Zenodo 14642378) with no project use. Daniel's name match lists 17: Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth.
+- These are the GOFER v0.2 fires (Zenodo 14642378) with no forecast fit or score in the project. They are **not untouched**: all 28 GOFER fires had aggregate label statistics inspected by S-D1 (see the disclosure above). Daniel's name match lists 17: Kincade, Walker, Bobcat, CZU, Dolan, Glass, July, KNP, LNU, McFarland, SCU, Slater & Devil, Tamarack, W-5 Cold Springs, Windy, Zogg and Beckwourth.
 - They are filtered by §1.3, using point of origin and discovery date against every FIT or SELECTED_ON fire. Caldor 2021 (INSPECTED) is also excluded. Exclusions are logged.
 - The survivors are ordered by `u = sha256("S-D9-A1|GOFER|" + GOFER fire name)` (same construction as §1.2).
   - The **first ⌊n/2⌋ form H-dev**: open to **both D1 and D2** for development (revision 15). Each use is logged in the ledger.
@@ -282,7 +285,7 @@ Method: 2,000 simulated 10-fire cohorts, resampling R's 6 fires, each analysed w
 
 | comparison in 4 km band | R pooled difference | R fires favouring d4_wind | P(interval < 0), pooled | P(interval < 0), equal-fire | median half-width |
 |---|---|---|---|---|---|
-| d4_wind − persistence | −0.000200 | 5 of 6 (Lava against) | **0.54** | **0.44** | 0.000165 |
+| d4_wind − persistence | −0.000200 | 5 of 6 (Lava against) | **0.54** (10-fire comparison run: 0.5355) | **0.44** | 0.000165 |
 | d4_wind − dilation_8h | −0.353 | 6 of 6 | 1.00 | 1.00 | 0.022 |
 
 **Sizing (orchestrator request).** Power against persistence by cohort size, from the same simulation:
@@ -292,7 +295,7 @@ Method: 2,000 simulated 10-fire cohorts, resampling R's 6 fires, each analysed w
 | P(interval < 0) vs persistence | 0.52 | 0.68 | **0.80** | 0.88 | 0.93 | 0.98 | 1.00 |
 | P(interval < 0) vs logistic | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
-The current POWER.json reruns with logistic added. The persistence row's random stream changed, so its 10-fire value is 0.52 here and 0.54 in the earlier table.
+The current POWER.json reruns with logistic added. Two 10-fire figures exist: **0.54** (0.5355) is the 10-fire comparison run in the table above, and **0.52** (0.5195) is the sizing run here, whose random stream differs. Both are rough Monte Carlo figures. The sizing row is the one used for cohort size (0.80 at 20 fires).
 
 **At half R's effect** (the same between-fire spread, with each fire shifted toward zero), power against persistence is 0.23 at 10 fires, 0.33 at 20, **0.42 at 30**, 0.53 at 40 and 0.69 at 60. **Plainly: if the true effect is half what R shows, 30 fires will more likely than not be inconclusive against persistence.**
 
