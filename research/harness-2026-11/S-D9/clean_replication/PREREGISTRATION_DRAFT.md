@@ -1,11 +1,11 @@
 # Clean-replication cohort (CR1): pre-registration DRAFT
 
-**Status: DRAFT 2, not frozen. Nothing has been fetched, listed or read for this cohort.**
+**Status: DRAFT 3, not frozen. Nothing has been fetched, listed or read for this cohort.**
 - It is a new document, not an edit to A1.
 - Owner decision (relayed by the orchestrator, 2026-11-12): collect a fresh set of fires for a clean replication.
 - The current A1 parts b and c proceed, but are described as **"labels, perimeters and growth sealed; survey-timing metadata exposed; membership rules used it"**. H is descriptive. Neither is presented as the clean confirmation.
 
-Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Items marked **OWNER DECISION PENDING** are the orchestrator's provisional positions, which go to the owner with Daniel's availability table. Open items are marked **[OPEN]**:
+Draft 1 added Iris's design input (15:06Z). Draft 2 adds her section-by-section assessment (15:09Z), adopted by the orchestrator. Draft 3 records the owner's decision on N_target (12 Nov). Items marked **orchestrator position, presented to the owner 12 Nov, no objection** are not owner decisions until the owner confirms them. Open items are marked **[OPEN]**:
 - data availability (Daniel);
 - protocol review (Hannah).
 
@@ -14,17 +14,25 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 **The replication differs from A1 part c in one thing only: cleanliness.** It keeps the same label type, the same criteria and the same candidates, so a different result can be interpreted.
 
-## Owner summary: schedule options (OWNER DECISION PENDING)
-1. **Option A, N_target = 30** (power 0.94 at the R effect, 0.42 at half of it).
-   - Tier 1 (NIROPS 2025 + 2026 to date) could likely reach 30 within weeks of the freeze. The pace is set by building the FTP perimeter series and by Open-Meteo's 5-day lag.
-   - Tier 2 (prospective) would complete after the 2027 season, around **Nov 2027**.
-2. **Option B, N_target about 90** (power about 0.87 at half the R effect; the rule in §5).
-   - Tier 1 may reach 90 from two seasons, if the FTP still holds 2025.
-   - Tier 2 needs one strong season, or two, so **about Nov 2027 to Nov 2028**.
-3. **Common to both.**
-   - Tier 2 is the confirmation, and its first fires are summer 2027.
-   - The extension rule adds one season.
-   - All dates assume about 100 analysable fires per season, an unverified extrapolation from 2020–24.
+## Decisions and proposed dates
+- **N_target = 90 analysable fires: OWNER DECISION, 12 Nov 2026.** This is the §5 rule (power ≥ 0.80 at half the R effect).
+  - Achieved power at N = 90: about **0.87 at half the R effect**, and about 1.0 at the R effect.
+  - These figures are rough, because only 6 R fires are resampled (§7).
+- **Orchestrator positions, presented to the owner 12 Nov, no objection (not yet confirmed):**
+  - extension once, by one season, Tier 2 only;
+  - a separately frozen new-candidate set, reported apart as "not a replication";
+  - CR1 freezes before A1 part c is opened;
+  - FEDS as a descriptive, non-pooled stratum.
+- **Proposed dates (for confirmation).** Tier 1 dates are relative to the freeze date F, which is set by A1 stage 2 and is before part c opens.
+
+| tier | discovery window | snapshot ("data as of") | closing |
+|---|---|---|---|
+| Tier 1, unseen retrospective | 2024-12-18 to F | F + 14 days | F + 60 days |
+| Tier 2, prospective (THE confirmation) | F + 1 day to 2027-12-31 | 2028-01-31 | 2028-03-31 |
+| Tier 2 extension (once, if < 90 analysable at closing) | to 2028-12-31 | 2029-01-31 | 2029-03-31 |
+
+- **Why these dates.** NIFC IR lags about a day and Open-Meteo about 5 days. The 31 Jan snapshot leaves a month for late uploads and revisions. The closing date leaves the custodian two months to build inputs and score.
+- **The NIROPS-type series builder.** Daniel may write and rehearse it now, on **exposed 2020–24 fires only**. There is no CR1 listing or fetch before the freeze.
 
 ## Timing, detail (provisional)
 - **Tier 1 (unseen retrospective).** It covers fires between the latest date we hold (NIROPS: 2024 season) and the freeze, that is, the 2025 season and 2026 to date, **if** a NIROPS-type product for those years is published.
@@ -64,7 +72,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - Building a Magstadt-equivalent perimeter series from the raw FTP files is **new engineering**. It is written by Daniel, rehearsed on exposed 2020–24 fires (the output must match the Magstadt archive), frozen by SHA, and run by the custodian.
 - Korea is excluded: 2025 is exposed.
 - Canada, the EU and Australia are not feasible without new fuel sources; they are not declared.
-- FEDS may be declared as a descriptive stratum [OPEN: owner].
+- **FEDS is a descriptive, non-pooled stratum** (orchestrator position, presented to the owner 12 Nov, no objection). It follows the same protocol, with its own ID-only reader.
 - **Expected volume.** The Magstadt archive averages about 147 incidents per season (737 over 2020–24). No part-a incident failed the ≥ 1 interval ≤ 48 h rule (Marcus, train-events build). The analysable count per season is therefore plausibly around 100, but it varies by year and is **unverified**. No CR1 count is taken before the freeze, since counting folders would be the listing itself.
 
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
@@ -93,7 +101,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
    - The salt is generated by the custodian and never released until the decision is recorded.
 2. **Optional pre-freeze existence flag.** If a pre-freeze filter is ever forced, the only permitted field is a binary "a perimeter product exists for this ID". It is computed by the reader, and only the filtered hash list is released: no counts, dates or sizes. Survey count is **not** permitted, because it tracks duration and therefore outcome.
 3. **Split fields, complete:** `source` and `id_hash`. The order is ascending `u = sha256("S-D9-CR1|" + id_hash)`.
-4. **Freeze before any further read.** `CR1_FREEZE.json` is verified by Hannah. **Order (OWNER DECISION PENDING): CR1 freezes BEFORE A1 part c is opened.** It holds:
+4. **Freeze before any further read.** `CR1_FREEZE.json` is verified by Hannah. **Order (orchestrator position, presented to the owner 12 Nov, no objection): CR1 freezes BEFORE A1 part c is opened.** It holds:
    - the predictors (A1 stage-2 candidates and comparators, by SHA);
    - the scorer (sd9bench SHA);
    - the covariate and weather rebuild script (SHA);
@@ -113,7 +121,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 ## 4. Training data and predictors
 - **Replication set.** The A1 stage-2 candidates and comparators, unchanged: no refit, no retuning. **The headline stays A1's headline.**
-- **New candidates (OWNER DECISION PENDING: allowed).** A separate set of new candidates may be frozen by SHA at the CR1 freeze. Each is scored and reported **apart, labelled "not a replication"**. This keeps the only clean data from being spent solely on candidates already known to fail, without amending the replication set.
+- **New candidates (orchestrator position, presented to the owner 12 Nov, no objection: allowed).** A separate set of new candidates may be frozen by SHA at the CR1 freeze. Each is scored and reported **apart, labelled "not a replication"**. This keeps the only clean data from being spent solely on candidates already known to fail, without amending the replication set.
 - A candidate not frozen at CR1's freeze is not scored.
 
 ## 5. Eligibility, independence, analysability, stopping (custodian, post-freeze)
@@ -139,11 +147,11 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - **Stopping rule.**
   - The custodian walks the `u` order and evaluates eligibility fire by fire.
   - It stops at **N_target analysable fires**, or at the closing date, whichever comes first.
-    - **N_target is set from §7:** the smallest N giving power ≥ 0.80 at **half** the R effect, with **30 as the minimum**. The power achieved at the chosen N is stated.
+    - **N_target = 90** (owner decision, 12 Nov 2026). This is the smallest tabulated N giving power ≥ 0.80 at **half** the R effect (achieved about 0.87).
     - Stopping early only saves the custodian's cost, so more analysable fires are better when the cost is acceptable.
   - The stopping rule and E6 depend on **labels, never on any model output**. That mirrors A1 for comparability.
   - The **count of fires walked** before stopping is reported.
-- **Underpowered outcome, fixed now.** If fewer than 20 analysable fires exist at the closing date, the result is reported as **underpowered and descriptive**. **Extension rule (OWNER DECISION PENDING): extend the closing date once, by one season, for Tier 2 only.** No other extension is decided afterwards.
+- **Underpowered outcome, fixed now.** If fewer than 20 analysable fires exist at the closing date, the result is reported as **underpowered and descriptive**. **Extension rule (orchestrator position, presented to the owner 12 Nov, no objection): extend the closing date once, by one season, for Tier 2 only** (dates in the table above). No other extension is decided afterwards.
 
 ## 6. Scoring and decision
 - A1 §4–§6 apply unchanged: population, 4 km band, criteria 1–6, the whole-fire bootstrap (seed 20261030) and the secondaries.
@@ -168,9 +176,7 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 - vs `dilation_8h`: power 1.0 in every case.
 - vs `logistic`: power 0, since the R effect has the wrong sign. A1's own finding stands.
 
-**Consequence for §5.**
-- By the §5 rule (power ≥ 0.80 at half the R effect, minimum 30), **N_target ≈ 90**.
-- Whether that is one season or several depends on Daniel's per-season counts. If the owner instead accepts a lower target, the power achieved at that N is stated in advance, and a null at half-effect sizes is declared uninformative. [OWNER DECISION PENDING]
+**Consequence for §5.** N_target = 90, decided by the owner on 12 Nov 2026. Achieved power is about 0.87 at half the R effect.
 - The resampling of only 6 fires makes all of these figures rough.
 
 ## 8. Reporting
@@ -190,7 +196,10 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 | item | owner | status |
 |---|---|---|
 | latest date held per source; whether NIROPS 2025+ exists; ID-only listing feasibility; release lag; expected Tier 1/Tier 2 counts; covariate coverage | Daniel | requested 2026-11-12 |
-| closing and snapshot dates; N_target; extension rule, new-candidate set and freeze order (provisional positions above) | orchestrator / owner | OWNER DECISION PENDING, with the availability table |
+| N_target | owner | **decided: 90** (12 Nov) |
+| extension, new-candidate set, freeze order, FEDS stratum | owner | orchestrator positions, no objection; awaiting confirmation |
+| snapshot and closing dates | owner | proposed in draft 3 |
+| Magstadt-equivalent series builder | Daniel | may start the rehearsal on exposed 2020–24 fires only |
 | buffer B for the same-ground rule | Iris / Hannah | proposed 2 km |
 | power at the R effect and at half of it | Victor | provisional table in §7; `power_cr1.py` committed before the freeze |
 | second custodian | orchestrator | Nora |
