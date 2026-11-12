@@ -120,3 +120,14 @@ address point 2 at all.
   used.
 - **Manifest.** `MANIFEST_v3_3.json` (wfg.fdyn.manifest/4). `MANIFEST_v3_2.json` (sha d4dcf43b…) is kept and listed
   as superseded.
+
+## STATUS 2026-11-12: per-cell-law packets are INCONSISTENT (Thomas P1; Mira; Nora row 34). Do not certify or route on their arrays.
+
+- **Affected:** `envelope` (bracket-start) and `envelope_burnset` packets, in every manifest so far (v3, v3.1, v3.2, v3.3).
+- **What is wrong:** `HAZARD.json` follows the stated per-cell law. `constructed_arrays.npz` and `REPORT` still carry
+  the writer's scalar law. So array readers (ContactModel, frontend.build_instance, certificates, F-BASE) are
+  **under-blocked**: cells clear after T + Q, and export-burned cells are missing.
+- **Root cause:** the per-cell override in `fdyn/_packet_child.py` rebuilt the HAZARD members but not the arrays.
+- **Still valid:** readers that take phases from HAZARD flame bins, such as Richard's field.
+- **Not affected:** `kriged_mean` and `firms_early`, which use the scalar law and pass.
+- **Fix:** proposed to the orchestrator; a new manifest version will follow.
