@@ -64,6 +64,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 56 | 2026-11-12 | W-KIT W6 registry delta (시·군 keying, phone shape, no override) | Clara | 1334e47 | 81 names x 17 numbers x 3 en on 2 real places: 0 contact lines for any non-ok status; only 4 registry names render (as registry NFC string); time/date numbers refused; 424/424 | own probe + grep | PASS |
 | 57 | 2026-11-12 | PROV-FLAGS delta (fail-closed parse, help sentence, CSV kind only, Sofia wording) | Clara | a79c515 | 10 malformed-record probes fail closed, no throw; bad files refused; no code outside model.ts reads later values; counts unchanged; cross 0/30; 417/417 | own probes + grep | PASS |
 | 58 | 2026-11-12 | W-KIT W6 follow-up (mobile refused, override removed) | Clara | 7de2050 | 010/011/016-019 refused, landlines and 1XXX kept; no override under src (vi.mock in the test only); 424/424 | own prefix probe + grep | PASS |
+| 59 | 2026-11-12 | PR #141 routing cut, frozen-cut check | Thomas | 0685e03 (f821a43) | 18 paths vs Main; F-3.2 equal to fire-next cedf961 except README + 2 exclusions; cedf961 fixes verified (CLOCK diff, exact ACCEPT rule 80/80 unchanged, envelope JSON keys only); C 30+2, guard 12/12, regression 6/6, router 105/105 | fresh worktree, diffs, probes | PASS |
 
 ## Notes
 
@@ -323,4 +324,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **56.** Minor: mobile 010-type numbers accepted (personal-data concern); the test-only override is exported from a production module. Thomas's (a) evidence: panel bundles byte-identical 20/20.
 
 **58.** Optional: 050 (personal safe numbers), 070 (VoIP) and unassigned 012/013 still pass the phone shape. W-KIT PR #138 is frozen at 1334e47 (entry 56).
+
+**59.** The PR body should drop the "not yet verified" line and add this row when marked ready. hypothesis 6.170.13 was installed in the verification venv to run the property tests.
 
