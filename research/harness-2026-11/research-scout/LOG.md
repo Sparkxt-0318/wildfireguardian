@@ -444,3 +444,85 @@ Sources were opened unless marked otherwise.
 - Lloyd-Smith 2005: gamma frailty.
 - Bardo 2024: interval-censored K-point frailty.
 - Recommendation: a day-level latent run state.
+
+## Batch 4 (2026-11-12): orchestrator queue items 1-5
+
+Sources were opened unless marked otherwise.
+
+**(1) F-BASE (Marcus): second exact baseline**
+
+- Recommended: an integer-tick time-expanded network (TEN) sweep with states (incoming edge, t), built implicitly.
+- Citations:
+  - Cai, Kloks & Wong 1997 (abstract only).
+  - Zeitz 2023: time-expanded Bellman-Ford.
+  - Himmel et al. 2020 (arXiv 1909.01152). Code: fpt.akt.tu-berlin.de/temporalwalks/temporal-walks.zip.
+  - Brunelli & Viennot 2023.
+- Constrained shortest-path solvers for the dose resource:
+  - WC-BA*/WC-EBBA*: bitbucket s-ahmadi/biobj (AGPL-3.0).
+  - ERCA*: github wonderren/public_erca.
+  - BiPulse: github ncabrera10/BP.
+- KaTCH handles FIFO networks only, so it is not suitable here.
+
+**(2) Victor: WildfireSpreadTS (NeurIPS 2023 PDF, read)**
+
+- Fig. 1 (p.2): the task is the next-day binarized active-fire map at 375 m.
+- §5.2 (p.7-8): 12-fold year permutations; testing starts from the day-6 target.
+- Metric (p.8): test-set AP.
+- Table 5 (p.9): persistence 0.193±0.065; logistic regression 0.279-0.288; Res18 U-Net 0.328-0.344; ConvLSTM 0.292-0.310; UTAE 0.321-0.372.
+- Table 2 (p.4): persistence by test year.
+- Table 1 (p.4): 35-49% of images per year contain no detections.
+- WSTS+ best result: 0.478.
+- The LIPS model (arXiv 2510.12916) cannot be compared: it uses a different subset and particle BCE as its metric.
+- Label noise: "Unobserved but Burning" annotations (Matey, de Callafon & Altintas; zenodo 23876108) flag 1,732 fire-days whose empty maps are unreliable.
+- Verification practice:
+  - Allaire 2020: Brier score, BSS, binary rank histogram, fixed evaluation domain.
+  - Dayan 2026: conformal risk control (CRC) caveats.
+  - Fractions skill score (FSS) and its random-forecast reference.
+  - Fair CRPS.
+  - Tools: properscoring, xskillscore, scores.
+
+**(3) Operational integration in Korea**
+
+- KFS spread-prediction system: uses peak gust, with 27.6 m/s as the worst case; output is a "산불확산 예측도" (spread-prediction map).
+- 2026 updates: effective-wind logic and an AI engine with 5 m terrain.
+- The system's user guide (NIFoS report no. 1201) is not online.
+- KFS notifies 지자체 of the 5 h/8 h zones; these are tied to Ready-Set-Go (korea.kr 156786777, 2026-10-28). The transmission channel is undocumented.
+- The new agency is 한국산림재난안전기술공단: launched 2026-04-14, runs drone fire-line teams.
+- safetydata.go.kr Open API: membership and approval required; licence 공공누리 type 3.
+- data.go.kr: 14 wildfire APIs, none giving live spread prediction.
+- Evidence on how officials use or trust decision tools:
+  - WFDSS (Noble & Paveglio 2020).
+  - Rapp et al. 2020.
+  - AFDRS live trial 2017-18: correct 56% vs 43%.
+  - AFAC on Spark/Phoenix.
+  - NOAA Hazardous Weather Testbed.
+- A shadow-mode trial design was proposed.
+
+**(4) Primary timing records for the 2025 fire**
+
+- None published at village level.
+- 경북소방본부 「맵백서」 (map white paper): announced, not published.
+- 산림청 상황도 (situation maps) and 상황보고 (situation reports): not public.
+- A list of freedom-of-information requests was sent to the orchestrator.
+
+**(5) Radiant heat**
+
+- ISO 13571:2007 §8.2 (read through DSTU ISO 13571:2012):
+  - 2.5 kW/m² can be tolerated for 30 min or longer.
+  - Time to pain: t = 4.2q^-1.9 min.
+  - Time to second-degree burn: t = 6.9q^-1.56 min.
+  - FED 0.3.
+  - The 4/q^1.33 form is not in ISO.
+- Purser (SFPE Handbook, ch. 2-6):
+  - t = 1.33/q^1.33 min.
+  - TDU thresholds: pain 80-100, second-degree 240-730.
+  - Tolerance at 10 kW/m²: 4 s.
+- NCC Spec 43: refuges for vulnerable occupants at most 1 kW/m².
+- Vehicle evidence:
+  - Bushfire CRC Mogo tests: toxic air became untenable after 10.2 min on average, 1.5 min when grass burned under the car.
+  - MTDC 1997: windows blocked about half the radiant heat; tempered glass breaks at ΔT 4 °C.
+- Recommended limits (q_occ = flux reaching occupants, q_ext = flux outside the car):
+  - q_occ = τ·q_ext.
+  - General occupants: at most 2.5 kW/m².
+  - Older adults: at most 1.0 kW/m² and FED at most 0.1.
+  - A segment with q_ext above 10 kW/m² is no-go.
