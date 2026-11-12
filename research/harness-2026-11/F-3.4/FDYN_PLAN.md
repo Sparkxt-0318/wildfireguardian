@@ -359,7 +359,7 @@ its fixed 6 s cap:
 Every published result is individually certified, so this is a reproducibility issue, not a soundness one. The rates
 are for this host only. Non-evaluated.
 
-## External cross-reference: Richard's router-only field on the same 12 requests (16:11 UTC; not my computation)
+## External cross-reference: Richard's router-only field on the same 12 requests (16:11 UTC; not my computation; UNVERIFIED until Nora passes ac80919)
 
 Source: Richard, F-3.1, ac80919, `results/FDYN_KIT_REQUESTS_router_field.json` (`deadline_field/kit_requests.py`).
 The packets are rebuilt from v3.1. The HAZARD sha differs from mine by one absolute path; the scenario ids match.
