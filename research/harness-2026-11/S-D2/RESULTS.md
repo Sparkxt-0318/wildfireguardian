@@ -447,3 +447,10 @@ from branch `daniel/data-fetch`.
     intervals and runs): the mean excess is +0.004, +0.006, −0.005 and −0.002 for lags 1, 2, 3 and detrended lag 1,
     each with SE about 0.004. The corrected procedure is unbiased (1cee5ddc, **PASS**; Owen also checked the probe
     detects the old bias: −0.122).
+- **Pre-weather new-burn cells outside the training crop** (`refit/preweather_unscored.py`, b7cdc48f): **PASS** (Owen,
+  who reran the script and reimplemented it independently).
+  - On the part-a pool, 12,384 of 122,640 new-burn cells (10.1%) lie outside `crop_box(initial)` with MARGIN 10.
+  - They fall in 97 of 3,773 intervals, from 67 fires; the top 5 fires hold 62% of them.
+  - pipeline.cropped drops these cells in both D2 arms. No new-burn cell inside the crop is unscored.
+  - This is pre-weather: `available_at` and kernel finiteness are not applied. Development evidence only, for Victor's
+    item-22 decision.
