@@ -1,6 +1,6 @@
 # F-3.2 certificate-to-request binding: rule (written before any code)
 
-Status: rule only, revision 2 (Mira GO with changes, ledger 99). Implementation follows; Mira verifies.
+Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follows; Mira verifies.
 
 ## The gap today
 
@@ -19,17 +19,25 @@ Status: rule only, revision 2 (Mira GO with changes, ledger 99). Implementation 
 - The fields are fixed, in this order:
   1. `I`: SHA-256 of the exact bytes from the `I` of `INSTANCE` through the newline after `END_INSTANCE`.
   2. `G`: SHA-256 of the graph file bytes.
-  3. `A`: the **routed-hazard digest**: SHA-256 of the canonical bytes (R6) of exactly what the router's
-     `ContactModel.from_packet` reads (`contact.py:88-96`):
-     - from `constructed_arrays.npz`: `ignition_time_s` and `current_active`, each as `name`, `dtype.str`,
-       `shape` and C-order data bytes;
-     - from `REPORT.json`: `native_metadata.construction.assumptions.burning_duration_s`,
-       `...initial_remaining_s`, and the member ids (`rows[0].request.incurred` keys, in order).
+  3. `A`: the **routed-hazard digest**: SHA-256 of the canonical bytes (R6) of exactly what the routing path and its
+     guards read (rev 2.1, Mira ledger 100):
+     - from `constructed_arrays.npz`, these four keys, each as `name`, `present`, `dtype.str`, `shape` and C-order
+       data bytes:
+       - `ignition_time_s` and `current_active`: read by `ContactModel.from_packet`, `contact.py:88-96`;
+       - `support`: read by the Tier A/R unknown-support certificates. F-9.3 masked and optimistic packets differ
+         only here;
+       - `per_cell_law_HAZARD_only`: the routability marker read by `p1_check.require_routable_arrays`.
 
-     Raw file bytes are NOT used. The `.npz` zip entries carry write timestamps, and `REPORT.json` and
-     `HAZARD.json` embed an absolute module path (Mira ledger 74). A consumer that rebuilds the same packet
-     elsewhere would get a false REJECT. `HAZARD.json` is not bound: the router does not read it. X1/P1 is
-     what ties it to the arrays.
+       A key missing from the `.npz` enters as `{name, present: false}`. Absence is bound explicitly, never skipped.
+     - from `REPORT.json`: `native_metadata.construction.assumptions.burning_duration_s`, `...initial_remaining_s`,
+       and the member ids (`rows[0].request.incurred` keys, in order).
+
+     Raw file bytes are NOT used:
+     - the `.npz` zip entries carry write timestamps;
+     - `REPORT.json` and `HAZARD.json` embed an absolute module path (Mira ledger 74).
+
+     So a consumer that rebuilt the same packet elsewhere would get a false REJECT. `HAZARD.json` is not bound: the
+     router does not read it, and X1/P1 ties it to the arrays.
   4. `W`: `packet_writer_sha256` from `HAZARD.json` `provenance.identity`.
      - All-zero means "the packet declares none".
      - It is compared as an exact value. All-zero matches only a consumer whose own packet also declares none.
@@ -103,7 +111,7 @@ Status: rule only, revision 2 (Mira GO with changes, ledger 99). Implementation 
   - `build_instance` refuses the mutated request.
 
   Any field that changes the instance without changing `Q` fails the test.
-- **T9 routed-hazard completeness.** Same as T8, for the packet:
+- **T9 routed-hazard completeness.** Same as T8, for the packet. It also requires that adding or removing `support` or the marker key changes `A`, and that the F-9.3 masked/optimistic pair has different `A`.
   - perturbing one element of each array in `constructed_arrays.npz`, and each scalar of `REPORT.json`, must change
     `A`, or leave the instance bytes identical, or be refused;
   - rewriting the `.npz` with a different zip timestamp, or editing an absolute path in `REPORT.json`, must leave
