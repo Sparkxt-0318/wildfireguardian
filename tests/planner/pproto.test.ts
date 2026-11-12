@@ -250,13 +250,22 @@ async function mount(url: string): Promise<{ container: HTMLDivElement; urls: st
     Object.defineProperty(g, k, { value: k === 'window' ? dom.window : w[k], configurable: true, writable: true });
   }
   (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+  // The page fetches under the app base it was built with (config/paths.ts): "/" locally, "/wildfireguardian/" in the
+  // Pages workflow (VITE_BASE_PATH). Serve the repository files under that same base, read from the app's own module.
+  const pathsModule = '../../planner/src/config/paths';
+  const { BASE_URL } = (await import(/* @vite-ignore */ pathsModule)) as { BASE_URL: string };
+  const missed: string[] = [];
   globalThis.fetch = (async (input: RequestInfo | URL) => {
     const u = new URL(typeof input === 'string' ? input : input instanceof URL ? input.href : input.url, url);
     urls.push(u.href);
-    const file = u.pathname.startsWith('/cache/') ? new URL(`cache/${u.pathname.slice(7)}`, planner) : new URL(`public${u.pathname}`, planner);
+    const baseDir = new URL(BASE_URL, url).pathname; // "/", "/wildfireguardian/"; a relative "./" resolves against the page
+    const rel = u.pathname.startsWith(baseDir) ? u.pathname.slice(baseDir.length) : null;
+    const file = rel === null ? null : rel.startsWith('cache/') ? new URL(rel, planner) : new URL(`public/${rel}`, planner);
     try {
+      if (!file) throw new Error('outside the app base');
       return new Response(readFileSync(file), { status: 200, headers: { 'content-type': 'application/json' } });
     } catch {
+      missed.push(u.pathname);
       return new Response('not found', { status: 404 });
     }
   }) as typeof fetch;
@@ -269,13 +278,16 @@ async function mount(url: string): Promise<{ container: HTMLDivElement; urls: st
   const root = createRoot(container);
   await React.act(async () => { root.render(React.createElement(PublicView)); });
   // a CI runner can take far longer than a workstation to parse the 25 MB cache in jsdom: wait up to 90 s, and stop
-  // early (with the page's own error text) if the page reports an error instead of cards
+  // early (with the page's own error text) if the page reports an error instead of cards. The page treats a missing
+  // cache index as "no replay data" and shows no error, so stop early too if the index could not be served.
+  const indexMissed = () => missed.some((p) => p.endsWith('/cache/INDEX.json'));
   const until = Date.now() + 90_000;
-  while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error')) {
+  while (Date.now() < until && !container.querySelector('[data-pv="card"]') && !container.querySelector('.pv-error') && !indexMissed()) {
     await React.act(async () => { await new Promise((r) => setTimeout(r, 100)); });
   }
   const err = container.querySelector('.pv-error');
   if (err) throw new Error(`page reported an error while loading the replay cache: ${err.textContent}`);
+  if (indexMissed()) throw new Error(`the test's fetch could not serve the cache index (app base ${BASE_URL}); not served: ${missed.join(', ')}`);
   return { container, urls };
 }
 
