@@ -421,10 +421,15 @@ from branch `daniel/data-fetch`.
     comes from 64 simulations and is quantised to the cell size.
   - **No-GOFER subset** (b7cb892f): **PASS** (Owen). Dropping the 4 GOFER-matched (H-dev) fires, which use NIROPS brackets
     like all the others, leaves every main result in place.
-- **Persistence, lags 1–3 and detrended** (6ae6dfea, unverified). Iris's reading:
-  - The excess over the within-fire shuffle is explained by a within-fire trend. Lag 1 is +0.186 [0.023, 0.359].
-    After a linear trend is removed it is −0.036 [−0.256, 0.162].
-  - Wording: **"no evidence of a state beyond trend"**, not "no state". With about 8 intervals per fire, there is
-    little power after detrending.
-  - Fire age as a cutoff covariate is the model to test. The prequential multiplier test is dropped. One-step
-    sizing on fold kernels stays, parked until the CV is done.
+- **Persistence, lags 1–3 and detrended** (6ae6dfea). Owen's verdict is **SPLIT**.
+  - **Raw lags 1–3: PASS.** Rank excess: lag 1 +0.186 [0.023, 0.359], lag 2 +0.153 [0.014, 0.298], lag 3 +0.020
+    [−0.117, 0.137].
+  - **Detrended lag 1: FAIL (null bias).** The null detrended the values before permuting them. With about 8
+    intervals per fire, that biases the detrended excess negative, by about −0.13 under iid data.
+  - **Owen's corrected null** (permute first, then detrend): rank +0.091 [−0.131, 0.293], log ratio +0.060
+    [−0.067, 0.204]. Neither is significant.
+  - **The earlier "mostly trend" reading is WITHDRAWN.** The data cannot separate trend from state: undetermined.
+  - The fix is in `lag_persistence_v2.py`, with an iid null-calibration test in `test_lag_persistence.py` that fails
+    on the 6ae6dfea code. The corrected rerun follows.
+  - Iris's dropping of the prequential multiplier test and parking of the fold-kernel sizing were made under the
+    withdrawn reading. They are for her to revisit.

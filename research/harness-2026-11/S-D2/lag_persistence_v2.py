@@ -1,7 +1,9 @@
 """Iris's follow-up to the lag-1 persistence check (lag1_persistence.py), covering her points 1 and 3.
 
 * Lags 1, 2 and 3. Pairs lie within runs of time-contiguous, non-stalled intervals of one fire (next.a == this.b).
-* Lag 1 after removing a within-fire linear trend in interval index. This separates "trend" from "state":
+* Lag 1 after removing a within-fire linear trend in interval index. The null permutes the raw values and then
+  detrends them, so it carries the same detrending-induced negative correlation (fixed after Owen's FAIL on
+  6ae6dfea, where the null detrended first). This separates "trend" from "state":
   if the excess is mostly trend, fire age as a cutoff covariate is the cheaper model.
 * Pearson and Spearman, pooled over pairs.
 * Null: values permuted within each fire (the pair positions stay fixed).
@@ -75,9 +77,14 @@ def stat(per, fires, metric, lag, det, spearman, rng=None):
     xs, ys = [], []
     for f in fires:
         s = per[f]
-        v = detrend(s[metric], s["index"]) if det else s[metric]
+        v = s[metric]
         if rng is not None:
+            # Null: permute the RAW values within the fire, THEN detrend (Owen's fix). Detrending first and then
+            # permuting removes the negative lag-1 correlation that detrending a short series induces in the
+            # observed statistic, which biases the detrended excess negative (about -0.13 under iid data).
             v = v[rng.permutation(len(v))]
+        if det:
+            v = detrend(v, s["index"])
         p = pairs_for(s, lag)
         xs.append(v[p])
         ys.append(v[p + lag])
