@@ -31,6 +31,9 @@ Access: a session can read only the transcripts in its own container. The owner 
 from every session (for example, each session copies its own .jsonl and subagents/ into a shared, owner-held
 location). Results are evidence for comparison with the declarations, not proof of absence: a model can know a name
 from training without any tool call, and short or common names give false positives.
+--ftp-detail lists every ftp.wildfire.gov URL written in a tool INPUT (root/gacc/year segment, rest hashed) and the
+HTTP status codes found in the matching tool RESULT. URLs that a script constructs internally (for example the
+custodian finder's 504 constructed URLs) do not appear in tool inputs; they are visible only in that script's own logs.
 Give common-word names their own hash list (for example --names us2026_common=...) and judge them separately
 from distinctive names and full incident IDs.
 """
@@ -154,12 +157,63 @@ def audit(paths, name_sets):
     return S
 
 
+FTPURL = re.compile(r'(?:https?|ftp)://ftp\.wildfire\.gov(/[^\s\'"<>)\]\\,]*)', re.I)
+STATUS = re.compile(r'\bHTTP/[\d.]+\s+(\d{3})\b|\bhttp_code[=:\s]+(\d{3})\b|\b(\d{3})\s+(?:Not Found|OK|Forbidden|Unauthorized|Moved)\b|^\s*([1-5]\d\d)\s*$', re.M)
+
+
+def ftp_detail(paths):
+    """Per session, every ftp.wildfire.gov URL in a tool INPUT, reduced to (root, gacc, year segment) plus the sha256 of
+    the remaining path (no folder or fire names printed), and the HTTP status codes found in the matching tool RESULT."""
+    rows = collections.Counter()
+    for f in iter_files(paths):
+        stem = os.path.splitext(os.path.basename(f))[0]
+        pending = {}
+        for line in open(f, encoding='utf-8', errors='replace'):
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                continue
+            sess = rec.get('sessionId') or stem
+            m = rec.get('message')
+            if not isinstance(m, dict) or not isinstance(m.get('content'), list):
+                continue
+            for b in m['content']:
+                if not isinstance(b, dict):
+                    continue
+                if b.get('type') == 'tool_use':
+                    keys = []
+                    for p in FTPURL.findall(json.dumps(b.get('input'), ensure_ascii=False)):
+                        seg = [s for s in p.split('/') if s]
+                        root = '/'.join(seg[:2]) if len(seg) >= 2 else '/'.join(seg)
+                        gacc = seg[2] if len(seg) > 2 else ''
+                        year = seg[3] if len(seg) > 3 and re.match(r'(Z_)?20\d\d', seg[3]) else ('' if len(seg) <= 3 else '<non-year>')
+                        rest = hashlib.sha256('/'.join(seg[4:]).encode()).hexdigest()[:12] if len(seg) > 4 else ''
+                        keys.append((sess, rec.get('timestamp', '')[:16], root, gacc, year, rest))
+                    if keys:
+                        pending[b.get('id')] = keys
+                elif b.get('type') == 'tool_result' and b.get('tool_use_id') in pending:
+                    cc = b.get('content')
+                    if isinstance(cc, list):
+                        cc = ' '.join(x.get('text', '') for x in cc if isinstance(x, dict))
+                    codes = sorted({next(g for g in t if g) for t in STATUS.findall(str(cc))}) or ['-']
+                    for k in pending.pop(b.get('tool_use_id')):
+                        rows[k + (','.join(codes),)] += 1
+    print('session\tminute_utc\troot\tgacc\tyear_segment\trest_sha12\tstatus_codes_in_result\tn')
+    for k, n in sorted(rows.items()):
+        print('\t'.join(k) + f'\t{n}')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('paths', nargs='*')
     ap.add_argument('--names', action='append', default=[], help='LABEL=hash_list.txt (sha256 per line)')
     ap.add_argument('--make-hashes', help='plain name list -> sha256 list on stdout (custodian only)')
+    ap.add_argument('--ftp-detail', action='store_true',
+                    help='list ftp.wildfire.gov requests as root/gacc/year + hashed rest + status codes (no names)')
     a = ap.parse_args()
+    if a.ftp_detail:
+        ftp_detail(a.paths)
+        return
     if a.make_hashes:
         for line in open(a.make_hashes, encoding='utf-8'):
             if line.strip():
