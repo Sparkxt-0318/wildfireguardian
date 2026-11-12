@@ -238,7 +238,8 @@ Every predictor is declared by SHA-256 before the manifest.
   - P-D2 is a stated scientific prediction. It does not change §6.1: admission and the decision criteria are unchanged.
   - *Motivating evidence (development, part a, Elena's stream; **not verified by Hannah**).* It comes from covariate-free spatial fits on NIROPS part-a brackets: 42 fires with ≥ 20 surveys, from allowlist 7db3cc0e at 2d40d170, first 240 h. On one fire (CooksPeak), the fitted total spread rate was 0.018/h plug-in (first observation time), 0.026/h mean-field NLL, 0.065/h composite likelihood and 0.069/h MCEM. A 24-fire run is pending, and its result is evidence for the hypothesis, not a change to it.
   - If P-D2 or the ordering fails, the failure is reported as stated, whatever the §6.1 outcome.
-  - *Development evidence on synthetic data (Owen, S-D2 verification; recorded beside the hypothesis, **not a revision of it**; not verified by Hannah).* The full latent-time method recovers the total rate with a small upward bias (ratio 1.025–1.040) and wins on held-out likelihood when given perimeter brackets. It is **worse than the composite likelihood on kernel shape** at 12–24 h brackets, and worse than simple arms on kriged inputs.
+  - *Development evidence on synthetic data (Owen, S-D2 verification; recorded beside the hypothesis, **not a revision of it**; not verified by Hannah).* The full latent-time method recovers the total rate with a small upward bias (ratio 1.025–1.040) and wins on held-out likelihood when given perimeter brackets. It is **worse than the composite likelihood on kernel shape** at 12–24 h brackets, and worse than simple arms on kriged inputs. (Elena confirmed this description.)
+  - *Real-data part-a estimator agreement (Elena with Owen; 25 fires; **unverified**).* Fitted rates relative to MCEM: plug-in 0.454, mean-field NLL 0.587, composite 0.967. **This is agreement between estimators, not accuracy against truth** (Iris): real fires have no known rate.
 
 ### 3.2 Development-first candidates (revision 23; declared before any refit runs)
 
@@ -272,7 +273,14 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 **(2) Cheap rate candidate, `rate_composite`.**
 - *Definition.* The kernel shape is fit by the **composite (independent-bracket) likelihood**. Then **one scalar rate, or a small grid of rates** (at most the §3.1 rate-mixture grid m ∈ {1, 2, 4, 8, 16}), is fit by the bracket likelihood with the shape held fixed.
 - *Step 1, synthetic, before any refit.* On Elena's synthetic harness, it is compared with the full latent-time method (`d2_bracket_rebuilt`'s estimator) on rate recovery (ratio to truth), held-out likelihood, kernel-shape error, wall time and peak memory, with brackets of 12–24 h and perimeter-type inputs.
-- *Matching rule.* Marcus's amendments were adopted before step 1 runs, and Elena's agreement is pending. The design uses ≥ 5 seeds per regime, paired by seed, in **at least a slow-run and a fast-run synthetic regime**. The fast-run regime is where the tail lives. **All three conditions must hold in both regimes:**
+- *Scale fit, clarified (Elena).* The scale is fit by the **bracket likelihood** with the shape held fixed. That means a one-parameter latent-time EM, or the grid m ∈ {1, 2, 4, 8, 16}. Its E-step costs as much as the full method's, and only the M-step is cheaper, so **the expected cost advantage is modest**.
+- *Regimes, fixed before step 1 (Elena).* Seeds 0–4 are used in both regimes.
+  - **Slow:** the verified Markov setting (crossing time ≈ 6.6 h), with 12 h and 24 h brackets.
+  - **Fast:** the same kernel × 4 (crossing time ≈ 1.7 h), with 12 h and 24 h brackets.
+- *Disclosure of a pre-threshold run (Elena, S-D2 commit d68d790f, `results/composite_scale.md`).* Before this rule existed, a **different** estimator was run at Iris's request: composite shape plus a **moment-matched** scalar scale, with m chosen so that exact forward simulation matches the observed new-burn count. That is not the bracket likelihood.
+  - Over 8 replicates, its rate ratios were 1.086, 1.177 and 1.367 at 6, 12 and 24 h, and 1.293 with spotting, against 1.03–1.10 for MCEM. Its held-out NLL beat MCEM in 0–1 of 8 replicates.
+  - That estimator is **excluded**. It is labelled exploratory and pre-threshold, and it does not inform the thresholds below.
+- *Matching rule.* Marcus's amendments were adopted, and Elena agreed before step 1 runs. The design uses ≥ 5 seeds per regime, paired by seed, in **at least a slow-run and a fast-run synthetic regime**. The fast-run regime is where the tail lives. **All three conditions must hold in both regimes:**
   - **Rate:** the error is |log(r̂ / r)|. The full method's mean advantage over seeds, as a difference of these errors, is ≤ 0.05.
   - **Likelihood:** the mean paired held-out log-likelihood difference (full − composite) is < 2 × SD(paired differences) / √seeds.
   - **Shape:** the composite's kernel-shape error is no worse than the full method's, within the same paired 2-SE tolerance.
