@@ -211,6 +211,13 @@ then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s)
   survey. Twenty-five fires qualify (≥ 100 arrivals, grid ≤ 140, initial burned cells present); the 17 exclusions are
   listed with reasons in the JSON. Survey gaps are about 24 h.
 
+**Verified: Owen, PASS WITH NOTES (8667f5a).** His independent rerun gives plug-in 0.455, composite 0.967 and
+mean-field 0.588, with an identical access log and a 0-cell bracket difference on 2 fires.
+* The reference is MCEM, not truth, so the safe wording is **"plug-in is about 0.45 of the bracket-likelihood
+  rate"**.
+* The strong statement: the two bracket-likelihood estimators agree within about 3%, while plug-in and mean-field fall
+  far below on 25/25 fires.
+
 **Total spread rate relative to MCEM:**
 
 | Estimator | Geometric mean | Range | Fires below MCEM |
