@@ -1,5 +1,8 @@
 # F-C1 on the 2025 planner cache: short negative result
 
+**Verification.** Hannah: PASS WITH NOTES at 0f7db4b. Her rerun's SUMMARY is identical to `SUMMARY_v2.json`; her
+notes are applied.
+
 **Quantity.** Line of sight to modelled burning cells versus the planner's leave-by time, on the recorded 2025 replay
 (522 cases, 174 places).
 
@@ -28,6 +31,12 @@ Per setting (flames):
 - **The 10 pessimistic negatives are all fire-set deadlines** (`fire_or_limits`, D = 1200–1800 s) at Uiseong
   03-23 01Z and 03-24 09Z. Fire is 1.3–4.6 km away. In every one of them the optimistic setting sees flames at the
   input time, so all 10 are **indeterminate**: the sign depends on the observer and flame-height assumptions.
+
+**Smoke, per setting.**
+
+- **Pessimistic:** 1 negative and 1 mixed, both at Uiseong 03-24 09Z, `osm:node/415160433`.
+- **Optimistic:** sees smoke at the input time there, so the robust smoke class is still indeterminate (robust
+  negatives remain 0).
 
 **Fire-set deadlines (15):**
 

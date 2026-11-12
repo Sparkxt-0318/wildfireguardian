@@ -117,7 +117,11 @@ def tvis(fs, hreq_by_key, dist_by_key, height, cap=None):
 
 
 def gap_class(cs, tv_members, horizon):
-    """Gap class for one case and one channel/threshold (DEFINITION.md)."""
+    """Gap class for one case and one channel/threshold (DEFINITION.md).
+
+    `horizon` is not used: a member's t_vis of None means "not visible within the 1 h scenario horizon", and that is
+    treated as later than any fire-set upper bound D + 600 s. This holds here because every fire-set D + 600 is at
+    most 2400 s, which is less than the 3600 s horizon (Hannah's note)."""
     L, by = cs['latest_s'], cs['deadline_set_by']
     known = [t for t in tv_members if t is not None]
     t_min = min(known) if known else None                # earliest member
