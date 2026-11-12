@@ -35,4 +35,4 @@ Design: DESIGN.md on branch clara/support-outcome. This cut ships only the reade
 - With every result of a real cache marked masked: 0 checked routes, 0 no-routes, 0 leave-by times, and every reason
   carries the writer (test).
 - Mutations: the gate off → 5 of 8 tests fail; the writer hidden → 5 fail; the marker ignored → 2 fail.
-- Suite (workflow environment) 27 files / 458; build:static OK; tsc clean.
+- Suite (workflow environment) 27 files / 462; build:static OK; tsc clean.
