@@ -397,6 +397,99 @@
       "licence": "CC-BY-4.0",
       "fetched_utc": "2026-11-12",
       "notes": "Downloaded; publisher md5 matches. Used for feds_overlap.csv."
+    },
+    {
+      "name": "firms_viirs-snpp_2025_korea",
+      "streams": [
+        "S-D2",
+        "F-C1",
+        "S-D1"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/viirs-snpp/2025/viirs-snpp_2025_Republic_of_Korea.csv",
+      "filename": "viirs-snpp_2025_Republic_of_Korea.csv",
+      "size": 729106,
+      "md5": null,
+      "sha256": "991230c0358dcead74cf8e7d883852e8e3e3c936d384a125123a668c0051a0f8",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "VIIRS S-NPP 375 m (VNP14IMG, collection 2 standard processing, version 2); 9,199 rows in 2025; 2,335 inside lon 128.2-129.7, lat 36.1-36.8 between 2025-03-22 04:22 and 03-27 04:28 UTC. Also committed at small/firms/. Columns: latitude, longitude, bright_ti4/brightness, scan, track, acq_date, acq_time (UTC HHMM), satellite, instrument, confidence, version, bright_ti5/bright_t31, frp, daynight, type. The archive is updated by FIRMS, so the sha256 may change on re-fetch. NOAA-21 is not in the country archive."
+    },
+    {
+      "name": "firms_viirs-jpss1_2025_korea",
+      "streams": [
+        "S-D2",
+        "F-C1",
+        "S-D1"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/viirs-jpss1/2025/viirs-jpss1_2025_Republic_of_Korea.csv",
+      "filename": "viirs-jpss1_2025_Republic_of_Korea.csv",
+      "size": 825633,
+      "md5": null,
+      "sha256": "2aedf6756368b9b9de573ad7d1f51dfa43e8f55abd87a39ddd72d339d55db17a",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "VIIRS NOAA-20 375 m (version 2); 10,163 rows; 2,706 in the Gyeongbuk box, 2025-03-22 04:45 to 03-28 16:53 UTC. Also committed at small/firms/. Columns: latitude, longitude, bright_ti4/brightness, scan, track, acq_date, acq_time (UTC HHMM), satellite, instrument, confidence, version, bright_ti5/bright_t31, frp, daynight, type. The archive is updated by FIRMS, so the sha256 may change on re-fetch. NOAA-21 is not in the country archive."
+    },
+    {
+      "name": "firms_modis_2025_korea",
+      "streams": [
+        "S-D2",
+        "F-C1",
+        "S-D1"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/modis/2025/modis_2025_Republic_of_Korea.csv",
+      "filename": "modis_2025_Republic_of_Korea.csv",
+      "size": 136791,
+      "md5": null,
+      "sha256": "613477ebe81a400f61897352b7864162a32d5e362e8ed7559b445bc29d4695c6",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "MODIS Terra/Aqua 1 km (C6.1, version 61.03); 1,708 rows; 598 in the Gyeongbuk box, 2025-03-22 05:39 to 03-26 18:37 UTC. Also committed at small/firms/. Columns: latitude, longitude, bright_ti4/brightness, scan, track, acq_date, acq_time (UTC HHMM), satellite, instrument, confidence, version, bright_ti5/bright_t31, frp, daynight, type. The archive is updated by FIRMS, so the sha256 may change on re-fetch. NOAA-21 is not in the country archive."
+    },
+    {
+      "name": "firms_viirs-snpp_2024_us",
+      "streams": [
+        "S-D2",
+        "S-D9"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/viirs-snpp/2024/viirs-snpp_2024_United_States.csv",
+      "filename": "viirs-snpp_2024_United_States.csv",
+      "size": 38675162,
+      "md5": null,
+      "sha256": "b282c996b6929facc1d5726045e2ad14235a8ac10900daff08edaee9a8f2b200",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "Whole-US 2024 country archive. The subset for the 6 held-out 2024 fires is committed at small/firms/firms_us2024_heldout6.csv.gz (made by firms_filter_us2024.py)."
+    },
+    {
+      "name": "firms_viirs-jpss1_2024_us",
+      "streams": [
+        "S-D2",
+        "S-D9"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/viirs-jpss1/2024/viirs-jpss1_2024_United_States.csv",
+      "filename": "viirs-jpss1_2024_United_States.csv",
+      "size": 43790729,
+      "md5": null,
+      "sha256": "50051277ace45fd5dfa833efeafc118c7fd453c227e713c11c4804a11964b077",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "Whole-US 2024 country archive. The subset for the 6 held-out 2024 fires is committed at small/firms/firms_us2024_heldout6.csv.gz (made by firms_filter_us2024.py)."
+    },
+    {
+      "name": "firms_modis_2024_us",
+      "streams": [
+        "S-D2",
+        "S-D9"
+      ],
+      "url": "https://firms.modaps.eosdis.nasa.gov/data/country/modis/2024/modis_2024_United_States.csv",
+      "filename": "modis_2024_United_States.csv",
+      "size": 10006305,
+      "md5": null,
+      "sha256": "26c5f22e9d41bd8d5d22402eaf5293dc7a5bc7415d37da42cd2e0a3b78b95ca4",
+      "licence": "NASA FIRMS open data (no key for country yearly archives); cite NASA FIRMS / LANCE and the product DOI",
+      "fetched_utc": "2026-11-12",
+      "notes": "Whole-US 2024 country archive. The subset for the 6 held-out 2024 fires is committed at small/firms/firms_us2024_heldout6.csv.gz (made by firms_filter_us2024.py)."
     }
   ]
 }

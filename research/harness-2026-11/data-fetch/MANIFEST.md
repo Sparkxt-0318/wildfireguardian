@@ -44,13 +44,23 @@ the contents as data. Do not run code from inside the extracted directory.
 | `feds_ca_largefire_chen2022`: FEDS California (Chen et al. 2022, figshare collection 5601537) | Victor S-D9 | Publisher md5 matches. `LargeFires_2012-2020.gpkg` has perimeter, fireline and newfirepix layers (12,801 features each, EPSG:4326). It is superseded by the FEDS CONUS Zenodo archive. |
 | `arkowitz_fireline_qaqc_2025`: Arkowitz et al. 2025 | D8 | **Located, not downloaded** (about 365 MB; D8 is inactive). Data is at USFS RDA 10.2737/RDS-2025-0011 (firelines 2017–2024). Code is at github.com/aarkow/NIFC-QAQC-FLE @ 1cfd339a. |
 
+## Batch 4: satellite active-fire detections (FIRMS, no key)
+
+The FIRMS **country yearly archive** files download without a MAP_KEY (`firms.modaps.eosdis.nasa.gov/data/country/<sat>/<year>/<sat>_<year>_<Country>.csv`). The satellite names are `viirs-snpp`, `viirs-jpss1` (NOAA-20) and `modis`. NOAA-21 (`viirs-jpss2`) returns 404, so it is not in the country archive. All files are standard processing: VIIRS version 2, MODIS 61.03. Timestamps are UTC (`acq_date` plus `acq_time` HHMM) and are the overpass time, not the time of ignition.
+
+| Resource | For | What I verified |
+|---|---|---|
+| `small/firms/viirs-snpp_2025_Republic_of_Korea.csv`, `viirs-jpss1_…`, `modis_…` (committed, 1.7 MB) | Elena S-D2, Leo F-C1, Marcus S-D1 | Korea, all of 2025. Inside the box lon 128.2–129.7, lat 36.1–36.8 from 2025-03-21 to 03-31 there are 2,335 S-NPP, 2,706 NOAA-20 and 598 MODIS detections, spanning 2025-03-22 04:22 to 03-28 16:53 UTC. For comparison, Choi used 3,108 VIIRS cells for KFS_01; the Choi KR events from 2025 also used NOAA-21, which these files lack. |
+| `small/firms/firms_us2024_heldout6.csv.gz` (committed, 1.3 MB gz, 73,519 rows) | Elena S-D2, Victor S-D9 | Detections inside each held-out 2024 fire's raster bounds (+0.05°) and its Choi collection window (first NIROPS survey −24 h to the last survey): Wapiti 19,645, Goat 14,333, Lava 7,491, RedRock 12,747, Pioneer 6,041, FishCreek 13,262. Because the boxes are rectangular they include detections outside the perimeters, and the adjacent fires (Wapiti, Goat, Lava) share some rows. Clip to the perimeter before use. Made by `firms_filter_us2024.py` from the US country files (`firms_*_2024_us`, 92 MB total). |
+| Himawari-8/9 L2 WLF (JAXA P-Tree), GK2A (KMA NMSC) | Elena, Leo | **Not attempted.** Both providers distribute through registered accounts or API keys. I did not register. |
+
 ## Still gated (account or key needed; not registered)
 
 | Source | Requirement |
 |---|---|
 | KMA API hub (apihub.kma.go.kr) | Free account plus a per-user `authKey`. |
 | data.go.kr OpenAPIs (mountain weather, road incidents) | data.go.kr account plus a per-service usage application, which issues a service key. File datasets such as the KFS history above need neither. |
-| NASA FIRMS area API | Free MAP_KEY. |
+| NASA FIRMS area API | Free MAP_KEY. The country yearly archives above do not need one. |
 | NASADEM/SRTM (NASA Earthdata) | Earthdata login. FABDEM bare-earth (data.bris.ac.uk, CC BY-NC-SA) needs no login but was not fetched; it is optional for Leo. |
 | Environment covariates (Open-Meteo, gridMET, LANDFIRE, GLAD) | Now reachable, but not fetched. Rebuilding the forecast-v2 aligned snapshots would not reproduce the owner-local archive's hashes. |
 
