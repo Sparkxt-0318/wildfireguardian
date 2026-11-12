@@ -337,3 +337,46 @@ against baseline. It is not a second product.
 checkpointed per job, restarts logged.
 
 The comparison row in every report is labelled "**baseline comparison: same kit without check isolation**".
+
+### Amendment F, changes from Mira's review (ledger 116, GO WITH CHANGES), adopted before any code
+
+These replace the corresponding text above where they differ.
+
+- **R2, M1 per run.** **Every rep** of every V2 mission has a family-PSS peak ≤ 3,072 MiB (max over reps, not the
+  median), because the guard and the product act per run.
+- **R1, M2:**
+  - **(a)** The 50% AND 300 MiB tripwire stays, but it is labelled everywhere as **"post-hoc tripwire (set after 2
+    diagnostics on panel missions); passing it is not evidence of an acceptable cost"**.
+    - M2 is reported **primarily as the per-mission table**: V2, V2_NOISO and FROZEN PSS peaks, in MiB and as ratios.
+    - Uljin 0304T12 FW2 and Yeongdeok 0326T08 FW1 are flagged as **"seen before the tripwire was set"**.
+  - **(b) The cost bound fixed before the data is M1 per run (R2).**
+  - **(c) A relative bound from a stated model, fixed now and never changed after the panel.**
+    - Model: isolation adds to the family at most the check child's own memory plus its page tables. That memory is
+      what the per-check cgroup peak charges, since pages shared with the parent stay charged to the parent.
+    - **M2-model:** per mission, median V2 PSS peak − median V2_NOISO PSS peak ≤ (largest per-check cgroup peak in that
+      mission's V2 reps) + 64 MiB. The 64 MiB slack covers page tables and sampling granularity, stated now.
+    - A breach means isolation costs more than the check's own memory, which is a finding.
+- **R3, guard sampling-error rules (PSS sampler), each with its own test:**
+  - A pid that vanishes between listing and reading (`FileNotFoundError` / `ProcessLookupError`): skipped, counted in
+    `pss_vanished_pids`.
+  - A **live** pid whose `smaps_rollup` is unreadable (`PermissionError` / other `OSError` while the pid exists): that
+    **whole sample** uses the `ps` RSS sum, counted in `pss_fallback_samples`, and the receipt records the counts. It
+    never silently mixes PSS and RSS within one sample.
+  - No `smaps_rollup` on the kernel (non-Linux, or a Linux kernel before 4.14): the whole job uses RSS, with
+    `guard_measure: rss_fallback_no_smaps_rollup`, and every sample is counted as a fallback.
+  - The receipt reports `pss_samples`, `pss_fallback_samples` and `pss_vanished_pids`.
+- **R4, co-tenancy, stated in F1.**
+  - PSS divides a page among **all** processes that map it, including processes outside the job family (another job
+    mapping the same npz, or shared libraries). So a job's family PSS falls when co-tenants share its pages.
+  - The panel runs alone on the host. Any multi-tenant report must say so.
+  - **M3(a) is revised:** the parent holding the touched 1 GiB array is itself in the measured family, together with
+    its forked child, exactly as a worker and its forked check are. The guard is 1,536 MiB: the RSS sum would trip, and
+    PSS must not.
+- **R5, M3(d):** controller PSS peak ≤ harness PSS maximum **and** ≥ 0.95 × the harness maximum. A controller reading
+  above the harness is a bug and fails.
+- **R6, isolation does not change verdicts, stated directly:** per mission, including FL2, V2's pre-memory-map status
+  and arrival set equals V2_NOISO's. This is reported beside M4 (V2_NOISO = FROZEN) and G1 (V2 = FROZEN).
+- **R7, wall:**
+  - V2 ÷ V2_NOISO summed-median wall is reported beside G5, as **the isolation cost the owner decided on**.
+  - The harness PSS sampler's own CPU seconds are reported per arm, to show that the 10 ms sampler does not inflate
+    the arms differently: V2 has one more process in its family during a check.
