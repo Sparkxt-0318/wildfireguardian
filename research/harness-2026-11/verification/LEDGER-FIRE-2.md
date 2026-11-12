@@ -27,6 +27,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 19 | 2026-11-12 | PR #118 P-PROTO merge readiness | Thomas | 1d3e49f | 477448d + N1 wording | per-file diff; standalone tests; default build:static | PASS |
 | 20 | 2026-11-12 | PR #116 F-3.2 certificates merge readiness | Thomas | a03f218 | verified state + a03f218 notes; slices.py claims (never verified before) | diff vs 421637f; checker_c tests; `python3 F-3.2/slices.py` | **FAIL** (one README number) |
 | 21 | 2026-11-12 | P-PROTO checkpoint 2 (P5-P7) | Thomas | 75189d9 | descriptive ladder + hedged stamps; untrusted URL places; 320 px Chromium layout | `npx vitest run pproto && npx vitest run` (own npm ci) + probes | PASS WITH NOTES |
+| 22 | 2026-11-12 | PR #116 re-check (README slices sentence) | Thomas | ae5351a | 15 non-forced, 0.82-3.08×, median 1.42×, 6 >1.5 | diff vs a03f218; recompute from results/slices.json | PASS (ready) |
+| 23 | 2026-11-12 | PR #118 re-check (test-only CI wait) | Thomas | 53233ab | test wait raised to 90 s, fails early on .pv-error | diff vs 1d3e49f; pproto + full suite (own npm ci) | PASS (ready) |
 
 ## Notes
 
@@ -154,3 +156,8 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - P5: stamps are hedged on all 1,131 cards.
 - N1: when after === 'gap', the card says "none after" although a later departure had a checked road (53 synthetic, 0 real). A false description; the wording needs fixing.
 - N2: the base commit 0a63683 carries the FAILED W6 decree code, so the follow-up PR must contain only the P-PROTO files.
+
+**22-23.**
+- #116 ae5351a: the sentence matches the data exactly. best_optimality_total includes the Merkle estimate and is not the quantity; min(slice+cert) is. 11/15 > 1.0.
+- #118 53233ab: tests-only diff; a timeout still fails (cards.length === 3); 10/10 and 375/375.
+- Thomas's frozen PRs #116, #117 and #118 are all ready from the verifier's side.
