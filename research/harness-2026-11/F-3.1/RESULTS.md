@@ -180,6 +180,10 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Witnesses.** Every exact per-(origin, shelter) deadline witness passes the unchanged full checker and the closed
   replay: **6,288 of 6,288 PASS**. 2 are labelled `upper_bound` because dose could bind over their journey duration;
   both still pass.
+* **Caveat on the `exact` / `upper_bound` label (Priya, Thomas).** The exactness precondition (journey duration ≤
+  (dose − incurred) / max non-flame flux) uses the cell-binned **packet** flux, not a bound on the whole-road
+  checker's enclosure. So the label is a **predictor**, not a proof of full-policy exactness. The witness verdicts
+  themselves (6,288/6,288 PASS by the unchanged checker) do not depend on it.
 * **Caveat.** Fire-set deadlines are few per packet: UA 0–10 of 84 origins, YD 0–2 of 90. **Most witnesses therefore
   test the scenario window, not the fire.**
 * **Verifier notes (Nora, request #4).**
