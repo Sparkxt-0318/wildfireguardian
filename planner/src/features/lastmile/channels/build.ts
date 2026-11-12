@@ -258,17 +258,23 @@ const SIGUNGU_REASON_TEXT: Record<SigunguReason | 'none', LmText> = {
   none: { ko: '행정구역 자료 없음', en: 'no boundary label for this place' },
 };
 
-/** Staff line for a withheld contact line (DRAFT wording, to Iris and Sofia). */
+/** Staff line for a withheld contact line (substance by Iris; Korean pending Sofia's final check). */
 export function jurisdictionStaffLine(j: JurisdictionCheck, iss: Issuer, sigungu: PlaceSigungu | null | undefined, lang: LmLang): string | null {
   if (j === 'ok') return null;
-  if (j === 'mismatch')
+  // Iris: the line states where the 시·군 comes from (a boundary file with a base date), never that the entry is wrong
+  // (영덕군 staff producing messages for a 청송군 place entered the right name), and tells staff what residents get
+  const resident = lang === 'ko' ? ' 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다.' : ' Residents get the same message without the contact line.';
+  if (j === 'mismatch') {
+    const date = /BASE_DATE (\d{4}-\d{2}-\d{2})/.exec(sigungu!.source)?.[1] ?? null;
+    const y = sigungu!.ko;
     return lang === 'ko'
-      ? `문의처 없음 — 고칠 항목: 기관명. 입력한 기관(${iss.agency.ko})이 이 장소가 속한 시·군(${sigungu!.ko})과 다릅니다.`
-      : `No contact line — field to fix: issuer name. The issuer (${iss.agency.ko}) is not this place's 시·군 (${sigungu!.ko}).`;
+      ? `문의처 없음 — 입력한 기관(${iss.agency.ko})은 행정구역 경계 자료${date ? `(${date} 기준)` : ''}상 이 장소의 시·군(${y})과 다릅니다. 이 장소의 문의처는 ${y}에서 정합니다. 기관명을 잘못 입력한 경우에만 고치십시오.${resident}`
+      : `No contact line — the issuer entered (${iss.agency.ko}) is not the 시·군 this place lies in (${y}), by the boundary file${date ? ` dated ${date}` : ''}. The contact for this place is for ${y} to set. Correct the issuer name only if it was entered wrongly.${resident}`;
+  }
   const why = SIGUNGU_REASON_TEXT[sigungu && sigungu.status === 'not_established' && sigungu.reason ? sigungu.reason : 'none'][lang];
   return lang === 'ko'
-    ? `문의처 없음 — 이 장소가 속한 시·군을 행정구역 경계로 확정하지 못했습니다(${why}). 어느 기관도 문의처로 넣지 않습니다.`
-    : `No contact line — this place's 시·군 could not be established from the boundary file (${why}). No issuer is named here.`;
+    ? `문의처 없음 — 행정구역 경계 자료로 이 장소의 시·군을 확인하지 못했습니다(${why}). 어느 기관도 문의처로 넣지 않았습니다. 담당 시·군을 직접 확인하십시오.${resident}`
+    : `No contact line — this place's 시·군 could not be read from the boundary file (${why}). No issuer is named here. Check which 시·군 is responsible.${resident}`;
 }
 
 export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {

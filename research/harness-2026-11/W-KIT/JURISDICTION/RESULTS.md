@@ -40,9 +40,11 @@ Counts are identical at 0, 25, 50 and 100 m. There are no outside_all, multiple,
 
 `buildChannels` renders a registered issuer's contact line only when the place's `sigungu` is established **and** names the issuer's own 시·군.
 - Otherwise there is no line.
-- A staff line in both languages names the problem. It is DRAFT wording, waiting for Iris and Sofia:
-  - **mismatch:** "문의처 없음 — 고칠 항목: 기관명. 입력한 기관(X)이 이 장소가 속한 시·군(Y)과 다릅니다." / "No contact line — field to fix: issuer name. The issuer (X) is not this place's 시·군 (Y)."
-  - **not established:** "문의처 없음 — 이 장소가 속한 시·군을 행정구역 경계로 확정하지 못했습니다(<reason>). 어느 기관도 문의처로 넣지 않습니다." / "No contact line — this place's 시·군 could not be established from the boundary file (<reason>). No issuer is named here."
+- A staff line in both languages says what happened. Substance is Iris's (2026-11-12); the final Korean is Sofia's.
+  - **mismatch:** "문의처 없음 — 입력한 기관(X)은 행정구역 경계 자료(2025-06-30 기준)상 이 장소의 시·군(Y)과 다릅니다. 이 장소의 문의처는 Y에서 정합니다. 기관명을 잘못 입력한 경우에만 고치십시오. 주민에게는 문의처 줄만 빠지고 나머지는 그대로인 안내가 나갑니다." / "No contact line — the issuer entered (X) is not the 시·군 this place lies in (Y), by the boundary file dated 2025-06-30. The contact for this place is for Y to set. Correct the issuer name only if it was entered wrongly. Residents get the same message without the contact line."
+  - **not established:** "문의처 없음 — 행정구역 경계 자료로 이 장소의 시·군을 확인하지 못했습니다(<사유>). 어느 기관도 문의처로 넣지 않았습니다. 담당 시·군을 직접 확인하십시오. 주민에게는 …" / "No contact line — this place's 시·군 could not be read from the boundary file (<reason>). No issuer is named here. Check which 시·군 is responsible. Residents get …"
+  - The date comes from the label's own source line (BASE_DATE). <reason> is always a plain phrase, never a status code.
+  - The lines never tell staff to "fix" a correct entry: 영덕군 staff writing for the 27 place-scenarios in 청송군/영양군 entered the right name.
 - An absent or malformed label is never read as established (`parseSigungu`).
 - The decree report carries the same staff line. The new contact statuses are `jurisdiction_mismatch` and `jurisdiction_not_established`.
 - If `planner/tools/extract_places.py` regenerates the place files, the labels are lost, and every contact line fails closed until `apply_sigungu.py` is run again. The tool's docstring says so (Mira N1). CI is the guard: with unlabelled place files, 8 tests in `npm test` fail (Mira's check). `apply_sigungu.py` also stops if an origin's point, road-entry node or entry coordinates differ from those that were labelled (Mira, ledger 95): a place that moves keeping its id is never given its old label. Tested, and the test fails with the check removed.
