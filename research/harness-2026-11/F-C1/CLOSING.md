@@ -15,21 +15,26 @@ conclusion is about the data, not the method.
 | 2 | Satellite brackets: 6 documented villages, plus the unselected set of 174 planner places | `DEFINITION_C1b.md` @dae181e + amendment @a285c67; `RESULTS_C1b.md`; `C1B_documented.json` regenerated with committed code (99b9972) | Hannah PASS WITH NOTES (0207925); notes 1–3 closed (99b9972) | **Documented villages:** all indeterminate (9 bracketed points); both 강구 halls not bracketed. **Unselected set:** see below. | The FIRMS arrival brackets at village scale are 4–6.5 h wide. The bracket start is not a lower bound (non-detection is not absence of fire). AHI cannot narrow a 500 m footprint (one 2 km pixel). |
 | 3 | Documented accounts: a sighting and an arrival at the same place | `DEFINITION_C1b_accounts.md` @0674f70 + amendment 1 @02c312d + sources @2ba8a85; code @0b2244d; `RESULTS_C1b_accounts.md` @345a8c7 | Hannah PASS (345a8c7); Iris accepted | **None of the 3 eligible cases can answer.** C1 (지품) has a sighting but no arrival; C2 (매정리) an arrival but no sighting; C3 (신덕리) a sighting with the arrival only implied. | Sources were read in full by Sofia. No published account gives both a timed sighting and a timed arrival for the same place. |
 
-**Unselected set** (analysis 2, all planner places, observer = the OSM place point), reported whatever it shows:
+**Unselected set** (analysis 2, all 174 planner places, observer = the OSM place point), reported in full:
 
-- **First 87 places** (`_data/C1B_places_0_87.json`):
+- **Files.** `C1B_places_0_87.json` (sha256 b803d506…) and `C1B_places_87_174.json` (sha256 ea1eaa5f…), from
+  `seebefore/c1b.py --places-only --places-slice 0:87` and `87:174`.
+- **Order.** Places are sorted by (region, origin_id). Slice 0:87 is 84 Uiseong-Andong places and 3 Yeongdeok;
+  slice 87:174 is 87 Yeongdeok places.
+- The first slice ran with c1b.py before the row-sort change (02c312d), which affects output order only.
 
-  | Flame | Smoke | Places |
-  |---|---|---:|
-  | indeterminate | indeterminate | 49 |
-  | not bracketed | not bracketed | 15 |
-  | indeterminate | non-negative, not robust to the leave-by simplification | 12 |
-  | non-negative, not robust to the leave-by simplification | non-negative, not robust to the leave-by simplification | 11 |
+| Flame | Smoke | Places 0–87 | Places 87–174 | **All 174** |
+|---|---|---:|---:|---:|
+| indeterminate | indeterminate | 49 | 46 | **95** |
+| not bracketed | not bracketed | 15 | 41 | **56** |
+| indeterminate | non-negative, not robust to the leave-by simplification | 12 | 0 | **12** |
+| non-negative, not robust to the leave-by simplification | non-negative, not robust to the leave-by simplification | 11 | 0 | **11** |
 
-  - **No negative sign.**
-  - A non-negative sign is **not robust**, because the preliminary leave-by (arrival minus the fastest fire-free
-    trip) is an upper bound on the true deadline (amendment 1.3).
-- **Places 87–174:** running. They are added to this table when the run finishes, whatever they show.
+- **No place has a negative sign**, for flames or smoke.
+- **Non-negative signs (23 places, all in the first slice) are not robust.** The preliminary leave-by (arrival
+  minus the fastest fire-free trip) is an upper bound on the true deadline (amendment 1.3).
+- **Not bracketed** (56 places) means no FIRMS detection within 500 m of the place plus its entry cell. That
+  covers 41 of the 87 Yeongdeok places in the second slice.
 
 **Notes from the analyses that stand on their own:**
 
