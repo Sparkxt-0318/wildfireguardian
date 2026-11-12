@@ -333,3 +333,28 @@ at about 0.55 × remaining).
 against an inferred cap of about 157 s, which was still running when the parent deadline stopped the process
 (FAILURE.json `DeadlineStop`). This is a reliability defect, separate from being slow: a stage that neither returns
 nor stops at its cap.
+
+## A4 result: Z-cap reproducibility (unmodified kit, 900 s, guard 3,072 MiB, 10 reps per request; this host)
+
+Data: `results/fdyn/ZCAP_A4.txt` and `fdyn_zcap_r*_ROWS.jsonl.gz`.
+
+| Request (Yeongdeok firms) | FULL_OPTIMUM_PROVEN | FEASIBLE | Memory-guard stop |
+|---|---|---|---|
+| …11753630207 (arrival 59) | 8 | 1 | 1 |
+| …415158168 (arrival 274) | 0 | 8 | 2 |
+
+**How the outcome is decided.** Every non-stopped run is published from Z, and the outcome depends on what Z holds at
+its fixed 6 s cap:
+- **…207:** Z finishes inside its 6 s cap in 8/10, with CONDITIONAL_OPTIMUM after 5.3–5.9 s, so the result is
+  proven. Once (6.21 s), Z hits the cap holding a certified incumbent, so the result is feasible only.
+- **…168:** Z always hits the cap (6.18–6.67 s). In 8/10 it holds a certified incumbent (feasible).
+- **In all 3 guard stops,** Z returned (25.9–28.7 s after start) without a certified incumbent. There is no
+  ROAD_CHECK_RETURNED checkpoint, so the worker went on to the EA bound and the guard stopped it at 39–41 s with
+  3.08–3.11 GiB.
+
+**Outcome class depends on machine timing.** With identical inputs, the outcome class varies across runs:
+- …207: proven / feasible / unresolved = 8 / 1 / 1;
+- …168: feasible / unresolved = 8 / 2.
+
+Every published result is individually certified, so this is a reproducibility issue, not a soundness one. The rates
+are for this host only. Non-evaluated.
