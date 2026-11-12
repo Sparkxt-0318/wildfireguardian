@@ -1,0 +1,189 @@
+{
+  "schema": "name, streams, url, filename, size (bytes), md5 (publisher, where given), sha256 (copy downloaded and opened by the data fetcher; null = not downloaded), licence, fetched_utc, notes",
+  "resources": [
+    {
+      "name": "glo30_N36_E128",
+      "streams": [
+        "F-C1"
+      ],
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N36_00_E128_00_DEM/Copernicus_DSM_COG_10_N36_00_E128_00_DEM.tif",
+      "filename": "Copernicus_DSM_COG_10_N36_00_E128_00_DEM.tif",
+      "size": 48490284,
+      "md5": null,
+      "sha256": "8af5b10b27529358db96d8b019c8c5fee09426dcc48a831fe5f16514febd47f8",
+      "licence": "Copernicus DEM GLO-30 licence: free use and redistribution with attribution '(c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved'",
+      "fetched_utc": "2026-11-12",
+      "notes": "COG, EPSG:4326, 3600x3600, 1 arc-second, float32 elevation (m, EGM2008), no nodata set. Covers lon 128-129 E, lat 36-37 N (Uiseong, Andong, Cheongsong). Verified min/max 17.7 / 1436.4 m."
+    },
+    {
+      "name": "glo30_N36_E129",
+      "streams": [
+        "F-C1"
+      ],
+      "url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N36_00_E129_00_DEM/Copernicus_DSM_COG_10_N36_00_E129_00_DEM.tif",
+      "filename": "Copernicus_DSM_COG_10_N36_00_E129_00_DEM.tif",
+      "size": 21247924,
+      "md5": null,
+      "sha256": "1ece0425f75768c8e557c49cd4dd3988f55b4eaa8b28a831ab21b8bbe5fe61a8",
+      "licence": "Copernicus DEM GLO-30 licence (as above)",
+      "fetched_utc": "2026-11-12",
+      "notes": "Covers lon 129-130 E, lat 36-37 N (Yeongyang, Yeongdeok, coast). Verified min/max -6.2 / 1216.5 m; sea included."
+    },
+    {
+      "name": "gofer_v0.2",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/14642378/files/GOFER.zip/content",
+      "filename": "GOFER.zip",
+      "size": 75711678,
+      "md5": "8d495af1e4a0ed77df35b5a15d5ebb04",
+      "sha256": "96eca2e18529eb274ca94af9a730bcf1c9c6da597fb04a9b5cf9167aada451c2",
+      "licence": "CC-BY-4.0 (Zenodo 10.5281/zenodo.14642378); cite Liu et al. 2024 ESSD 16:1395",
+      "fetched_utc": "2026-11-12",
+      "notes": "GOFER v0.2. GOFER_Combined/East/West shapefiles (fireProg, cfireLine, rfireLine, fireIg) + summary/scaleVal CSV + fireData.csv. GOFERC_fireProg.shp: EPSG:4326, 20,301 hourly polygons, 28 fires, first step 2019-09-04 22:00 UTC (Walker), last 2021-10-07 02:00 UTC (KNP Complex). Zip contains __MACOSX/ junk; exclude when unzipping. Older v0.1 record: 10.5281/zenodo.8327264 (not fetched)."
+    },
+    {
+      "name": "toa_kriging_choi2026",
+      "streams": [
+        "S-D9",
+        "S-D2"
+      ],
+      "url": "https://zenodo.org/api/records/21788344/files/wildfire_toa_dataset_and_code.zip/content",
+      "filename": "wildfire_toa_dataset_and_code.zip",
+      "size": 1522020,
+      "md5": "2d11e334ec0ad9c508d52861abc309a7",
+      "sha256": "612edf5f879d8fe874ae20e9d49d0be5de477e6f8c3101b434f1642d5b19ebad",
+      "licence": "Derived products CC-BY-4.0, code MIT (Zenodo 10.5281/zenodo.21788344; Choi, Seo, Cha 2026, Remote Sensing 18:3321)",
+      "fetched_utc": "2026-11-12",
+      "notes": "rasters_us/: 29 US fires x {_toa,_std}, EPSG:5070, 375 m, nodata -1, values = hours since t0_utc GeoTIFF tag. rasters_kr/: 15 Korean fires, EPSG:5179, NaN nodata, hours since KFS ignition. results/ CSV+JSON, code/. Same code already vendored under routing-review/*/sources/zenodo_21788344/extracted/code."
+    },
+    {
+      "name": "toa_kriging_choi2026_readme",
+      "streams": [
+        "S-D9",
+        "S-D2"
+      ],
+      "url": "https://zenodo.org/api/records/21788344/files/README.md/content",
+      "filename": "toa_README.md",
+      "size": 6938,
+      "md5": "93b916e090b11108d3ff4c8de3c4b40a",
+      "sha256": "7c0c3adbbc16fce210174e249934350e89effe07d6cfa2cb26d02bc8723c3fb2",
+      "licence": "CC-BY-4.0",
+      "fetched_utc": "2026-11-12",
+      "notes": "Saved under a different name from the Zenodo key README.md."
+    },
+    {
+      "name": "airborne_ir_rim_2013",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/15492982/files/RimFire_2013_perimeters.zip/content",
+      "filename": "RimFire_2013_perimeters.zip",
+      "size": 2048183,
+      "md5": "5414a05a379fb0a9d66fd929d013221a",
+      "sha256": "30c8f14b46fd1251ec87801a91663de152aeed7a922b2d8fe97357cff1c1aa6d",
+      "licence": "CC-BY-4.0 (Hatchett 2025, Zenodo 10.5281/zenodo.15492982)",
+      "fetched_utc": "2026-11-12",
+      "notes": "33 shapefiles, EPSG:4326, 2013-08-20 01:30 PDT to 2013-09-26; filenames carry local time and layer type (Heat Perimeter, Growth, ...). Pre-2020, so outside the 2020-2024 NIROPS window asked for."
+    },
+    {
+      "name": "airborne_ir_dixie_2021",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/15492982/files/DixieFire_2021_perimeters.zip/content",
+      "filename": "DixieFire_2021_perimeters.zip",
+      "size": 25726783,
+      "md5": "098c12989f93d3c5f3f4c9edb3832bab",
+      "sha256": "84afb94741b691e7efe74e6b04eb4a89d6311cb7395ef6a6b094705cd30606db",
+      "licence": "CC-BY-4.0 (Hatchett 2025, Zenodo 10.5281/zenodo.15492982)",
+      "fetched_utc": "2026-11-12",
+      "notes": "41 shapefiles, EPSG:4326, 2021-07-15 to 2021-09-27; mixes HeatPerimeter, IntenseHeat, ScatteredHeat layers; names inconsistent (KMZ/kmz, '(#2)'). Dixie overlaps GOFER and the Choi US set."
+    },
+    {
+      "name": "feds_conus_2021_lf_perimeter",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/22921773/files/feds_2021_lf_perimeter.fgb/content",
+      "filename": "feds_2021_lf_perimeter.fgb",
+      "size": 432141080,
+      "md5": "489e4a6dd0efa12c42d14da25d9ec87f",
+      "sha256": "9b222c2a97103afcd3d2a77078aa2207a2f323bb6e73fc05201a4997cd4e6eb0",
+      "licence": "CC-BY-4.0 (FEDS CONUS Archive 2012-2025, Zenodo 10.5281/zenodo.22921773; supersedes Chen et al. 2022 California archive)",
+      "fetched_utc": "2026-11-12",
+      "notes": "FlatGeobuf, EPSG:9311 (US National Atlas Equal Area), 62,760 12-hourly perimeters, 1,645 fireIDs, t 2021-01-01 to 2021-12-31 (00:00/12:00 UTC steps). Fields: fireID, mergeid, t, t_st, t_ed, farea (km2), fperim, flinelen, n_pixels, n_newpixels, meanFRP, isactive, isdead, primarykey. Large-fire (>4 km2) post-processed product."
+    },
+    {
+      "name": "feds_conus_2019_lf_perimeter",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/22921773/files/feds_2019_lf_perimeter.fgb/content",
+      "filename": "feds_2019_lf_perimeter.fgb",
+      "size": 445386296,
+      "md5": "3b921e9a28d045ffcf3015f893ed5831",
+      "sha256": null,
+      "licence": "CC-BY-4.0",
+      "fetched_utc": null,
+      "notes": "Not downloaded; same format as 2021. Size approximate; md5 is listed in the Zenodo record API. Same pattern for any year 2012-2025 and for _lf_fireline / _lf_newfirepix."
+    },
+    {
+      "name": "feds_conus_2020_lf_perimeter",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/22921773/files/feds_2020_lf_perimeter.fgb/content",
+      "filename": "feds_2020_lf_perimeter.fgb",
+      "size": 418436008,
+      "md5": "3ad4b0842915dfff5b0e8ea00176bb44",
+      "sha256": null,
+      "licence": "CC-BY-4.0",
+      "fetched_utc": null,
+      "notes": "Not downloaded; same format as 2021."
+    },
+    {
+      "name": "feds_mtbs_readme",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/20187963/files/readme.md/content",
+      "filename": "feds_mtbs_readme.md",
+      "size": 6144,
+      "md5": "62202ca0c71524b094903d921ccfc689",
+      "sha256": "8744ef7c35bf6c66007f090b5926c9102aea2b0400b259e7abc1ccf1cc0ed638",
+      "licence": "CC-BY-4.0",
+      "fetched_utc": "2026-11-12",
+      "notes": "Readme of FEDS-MTBS (MTBS-constrained FEDS, 2012-2024, 368 MB zip + 280 MB geojson, not downloaded)."
+    },
+    {
+      "name": "wildfirespreadts_docs",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/8006177/files/WildfireSpreadTS_Documentation.pdf/content",
+      "filename": "WildfireSpreadTS_Documentation.pdf",
+      "size": 7841847,
+      "md5": "1abb9a9975a0dae1dbd0324a782d00dc",
+      "sha256": null,
+      "licence": "CC-BY-4.0 (Gerard et al. 2023, Zenodo 10.5281/zenodo.8006177)",
+      "fetched_utc": null,
+      "notes": "Documentation only; not yet downloaded."
+    },
+    {
+      "name": "wildfirespreadts_full",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/8006177/files/WildfireSpreadTS.zip/content",
+      "filename": "WildfireSpreadTS.zip",
+      "size": 48359369821,
+      "md5": "dc1a04e63ccc70037b277d585b8fe761",
+      "sha256": null,
+      "licence": "CC-BY-4.0",
+      "fetched_utc": null,
+      "notes": "48.4 GB. Scripted only, not mirrored or downloaded; a session's disk allowance (~29 GB free here) cannot hold it. Daily 375 m multi-band GeoTIFFs, 2018-2021 US fires."
+    }
+  ]
+}
