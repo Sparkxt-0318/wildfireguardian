@@ -33,7 +33,7 @@ export const SHEET = {
   contiguous: { ko: '연속 확인 기준 {time}', en: 'contiguous basis {time}' },
   contiguousSame: { ko: '연속 확인 기준 동일', en: 'same on contiguous basis' },
   contiguousNone: { ko: '첫 계산 출발 시각에 확인된 경로 없음 — 출발 마감 없음', en: 'the first departure time computed has no checked route — no deadline' },
-  laterWindowNoted: { ko: '그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님 (화면 참고)', en: 'a later checked departure follows a gap — not the deadline (see the panel)' },
+  laterWindowNoted: { ko: '그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님, 계획에 넣지 말 것 (화면 참고)', en: 'a later checked departure follows a gap — not the deadline; do not plan on it (see the panel)' },
   sweepLabel: { ko: '출발 시각별 판정 ({step}분 간격)', en: 'Verdict by departure time (every {step} min)' },
   sweepLabelNoStep: { ko: '출발 시각별 판정', en: 'Verdict by departure time' },
   noShelter: { ko: '—', en: '—' },

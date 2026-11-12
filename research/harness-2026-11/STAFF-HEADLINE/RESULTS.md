@@ -1,5 +1,7 @@
 # Staff headline = resident time (Iris E) — UNVERIFIED
 
+Iris adopted the design; her five additions are at the end (second commit).
+
 Approved by the orchestrator after Iris's review of the P-PROTO gap fix. Before this change, every staff surface took
 `latestSafeDepartureS` as the deadline. In a gap case (a requested departure with no checked route between the first
 departure and a later checked one), that is LATER than the contiguous time residents get from the message kit and the
@@ -65,3 +67,31 @@ Suite 25 files / 405 tests; build:static OK.
   attempts. 0 real rows are affected.
 - Comprehension untested: whether staff read "not the deadline" as intended. Hypothesis (Iris): "later" may be read
   as permission.
+
+## Iris's additions (second commit)
+1. **Urgency.** "No leave-by time" (partial) places sort above every timed checked place. This was already the planner
+   rule (no contiguous time ranks first among checked places); a test over all real and synthetic checked places now
+   asserts it. The urgency code is unchanged, so real reorderings are **0** by construction.
+2. **Partial chip.** Uses the planner's existing unresolved treatment (grey, the same StatusChip), not a new visual
+   state. The single function returns the kind as well as the time. A test checks that headline kind partial ⇔ kit
+   partial ⇔ card kind partial.
+3. **The later-window line** now ends "… — 출발 마감이 아니며 계획에 넣지 마십시오 (불타는 시간을 고정값으로 가정한 모델
+   결과)" / "… not the deadline; do not plan on it (a model result under a fixed burn-duration assumption)". It is set
+   in the plain caveat style; neither L nor the line is bold. The A4 note reads "… 마감 아님, 계획에 넣지 말 것 (화면
+   참고)", still without the time.
+4. **CSV change recorded.** The README states the column change, dated, and the CSV description string names the new
+   columns. Measured on the real set (501 checked places): T = L everywhere, so the deadline, shelter and arrival
+   columns are unchanged. The renamed column is now empty where it used to repeat the deadline. That column is the
+   only change; it is not "unchanged apart from the header". There is no CSV schema version to bump.
+5. **Property scope.** One test checks that T is equal on every surface:
+   - panel headline and origin chip (one function: `deadlineHeadline`; the chip itself is not render-tested);
+   - default timeline selection (`defaultOffsetS`);
+   - drawn route departure and A4 deadline cell (`scenarioRow` → `deadlineCell`);
+   - CSV deadline column (`dispatchListCSV`);
+   - resident card and kit.
+
+   It runs over 531 real and 600 synthetic places. A second test checks that L (as HH:MM, spoken Korean and spoken
+   English) appears in no resident card and no kit message in all 53 synthetic gap cases.
+- **Explanation block:** on the real set T = L, so the shown deadline passed to `matchesShown` is unchanged
+  (asserted). On a gap case the block is hidden because T ≠ the explained L.
+- Suite 25 files / 409 tests; build:static OK.

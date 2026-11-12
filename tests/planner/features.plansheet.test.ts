@@ -267,7 +267,7 @@ describe('sheet helpers', () => {
   it('the deadline is the contiguous time (Iris E); a later checked departure after a gap is noted, never printed as a time', () => {
     const d = deadlineCell(scenario(0, {}), 'ko');
     expect(d.main).toBe('18:20');
-    expect(d.sub).toBe('그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님 (화면 참고)');
+    expect(d.sub).toBe('그 뒤 빈 구간 다음에 다시 확인된 출발이 있음 — 마감 아님, 계획에 넣지 말 것 (화면 참고)');
     expect(d.sub).not.toMatch(/18:30/);
     expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: 1800 }), 'ko')).toEqual({ main: '18:30', sub: '연속 확인 기준 동일' });
     expect(deadlineCell(scenario(0, { contiguousSafeDepartureS: null }), 'ko')).toEqual({ main: '—', sub: '첫 계산 출발 시각에 확인된 경로 없음 — 출발 마감 없음' });

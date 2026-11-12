@@ -24,9 +24,16 @@ contract is [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
   toward a deadline.
 - Per departure time: checked if any candidate shelter is checked; model_no_route only if every
   attempted shelter is model_no_route; otherwise unresolved.
-- **출발 마감** = the latest departure offset with a checked route. When an earlier offset is not
-  checked (the contract's `latest_contiguous_checked_depart_offset_s` differs or is null) the
-  headline adds "앞선 출발 시각 중 확인되지 않은 구간이 있습니다 (연속 확인 기준 HH:MM | 없음)".
+- **출발 마감** = the contiguous time (the contract's `latest_contiguous_checked_depart_offset_s`): every requested
+  departure time up to it has a checked route. This is the time residents get from the message kit and the replay
+  card. CHANGED 2026-11-12: it was the latest offset with a checked route. When a later checked departure follows a
+  gap with no checked route, the panel shows it below the headline as "… — 출발 마감이 아니며 계획에 넣지
+  마십시오". The A4 sheet only notes that it exists, without the time. When the first departure time computed has no
+  checked route, there is no 출발 마감 ("출발 마감 없음", grey).
+- **CSV column change (2026-11-12):** "출발 마감 KST" now holds the contiguous time. The former "연속 확인 기준" column
+  is now "빈 구간 뒤 점검된 출발 KST (마감 아님)". It holds the later checked departure only when there is one after a
+  gap, and is otherwise empty. On the six booth caches the deadline column and every other column are unchanged; the
+  renamed column is empty where it used to repeat the deadline.
   The urgency list sorts model_no_route first, then unresolved, then checked origins by the
   contiguous deadline ascending (contract `latest_contiguous_checked_depart_offset_s`, as the API
   sorts): a checked origin whose earliest departure time has no checked route ranks first among

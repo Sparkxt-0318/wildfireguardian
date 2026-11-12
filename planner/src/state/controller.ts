@@ -139,7 +139,7 @@ function syncSubmittedApi(): void {
  * The departure selected when an origin opens: the staff headline time (the contiguous time, Iris E), never a later
  * departure after a gap. Without a headline time (partial), the first departure computed, whose evidence explains why.
  */
-function defaultOffsetS(plan: OriginPlan | undefined): number | null {
+export function defaultOffsetS(plan: OriginPlan | undefined): number | null {
   if (!plan || plan.bestVerdict !== 'checked_route') return plan?.latestSafeDepartureS ?? null;
   return headlineDepartureS(plan) ?? plan.sweep.filter((c) => c.attempts.length).sort((a, b) => a.offsetS - b.offsetS)[0]?.offsetS ?? null;
 }
