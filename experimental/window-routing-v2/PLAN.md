@@ -341,7 +341,31 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
   Checked: none of my F-3.4, F-4.2 or F-DYN reports calls a kit refusal "independently checked". The F-3.4 profile
   tables say "refusal proven", which is the kit's status name, and a footnote is now added there.
 - **Step 0 G2b rerun with Thomas's fallback fix** (`thomas/routing-next` @ deeb7c2), with no manual exclusion:
-  **40 run folders, 38 PASS, 2 NOT_APPLICABLE_STATUS, 0 violations** (`results/step0/G2B_all39.json`).
+  **40 run folders, 38 PASS, 2 NOT_APPLICABLE_STATUS, 0 violations** (`results/step0/G2B_all40.json`).
+
+**G2c review (Thomas, 16:08 UTC); these conditions replace the G2c text above where they differ.**
+- **Status.** The kit's internal `FULL_MODEL_REFUSAL_PROVEN` stays unchanged, so G1 identity holds. The mapping happens
+  only at the reporting layer, via a field `refusal_reverification`:
+  - `F32_BOTH_CHECKERS`;
+  - `REEXECUTED_ONLY`;
+  - `NONE`, which is published as `MODEL_REFUSAL_UNVERIFIED`.
+- **There is no bundle to re-verify today.** The refusal dict from `rda_worker_v1_1.consider()` carries no proof
+  object, and `_valid_refusal_certificate` checks three declared fields only. G2c therefore needs an emitted proof
+  object first.
+- **Stage Z refusals (contact_only_lattice_relaxation):**
+  - emit an F-3.2 NO_ROUTE certificate (T = H + 1, C0–C4) for the same request;
+  - check it with both F-3.2 checkers (`check_py.py`, `checker_c/wfgc_check`) in fresh processes;
+  - record the bundle sha, plus the graph, packet and request digests;
+  - gate: X1 rules 0–2 plus G2b agreement;
+  - wording: "relaxation refusal independently checked by two checkers; implication to the kit model by an unverified
+    dominance argument" (`xcheck/DOMINANCE_RULE.md`, code reading only, NOT verified).
+- **Stage LO/LO2 refusals (road_lower_bound_lattice_relaxation):**
+  - no independent certificate format exists;
+  - a fresh-process road_core rerun is re-execution only, labelled `REEXECUTED_ONLY`, never pooled;
+  - a certificate format is scoped separately by Thomas if the counts matter.
+- **Count (Step 0 panel, v2, 2 reps).** Of 10 FULL_MODEL_REFUSAL_PROVEN results, **8 are stage Z** (Hongseong
+  0700 FN1, FX1; Miryang 0601T08 FD1, FX1; 2 reps each) and **2 are stage LO** (Yeongdeok 0325T19 FD1, 2 reps). In
+  missions: **4 of 5 refusal missions are Z, 1 is LO**.
 
 **G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
 - v2 must reproduce all **9,722** recorded one-hour route-check verdicts, not only the 20-mission panel.
@@ -385,6 +409,28 @@ sweep?
   coefficient over every road box and every non-contact time, computed once per packet. Prove it is an upper bound
   under the checker's model before use.
 - Flame contact is never decided by this tier.
+- **Admissibility conditions (Thomas, 16:08 UTC).** A proof note is required before any code, and Thomas reviews it.
+  1. **Bound the checker's per-source upper `hi`,** not the true flux. In `hybrid_radiation._coefficients`,
+     hi_i = min(radial whole-source, 8×8 tiled, analytic, density/2), and hi = 0 for non-potential sources.
+  2. **Windowed-mode trap.** Sources outside the request window get hi_i = outward(density/2), not the radial value.
+     Either take the bound as the maximum of the checker's own `_coefficients` output, or prove that out-of-window
+     sources have zero activity at every integrated time. This needs a reading of `RadiationBounds.trajectory_bound`
+     first.
+  3. **Composition.** Bound = max over road boxes b and times t of Σ_{i active at t} hi_i(b), over all members, with
+     outward rounding.
+     - The dose test uses bound × (horizon − departure), or a duration proven to cover the integration interval,
+       including waits and dwell.
+     - The peak test uses the checker's own comparison (strict or not).
+  4. **No exclusion of contact times in version 1.**
+  5. **Bind the bound to the packet sha and the checker settings version** (wfg.radiation.hybrid/1 plus the settings
+     dict), and recompute it on any change.
+  6. **Tests before use:**
+     - (a) every request on which the tier fires also passes the full checker's radiation acceptance; any
+       disagreement means the tier is unsound;
+     - (b) a scaled-up control stops the tier firing;
+     - (c) the firing rate is reported, and the tier is not worth its risk if it rarely fires.
+  - Still to read before the note: `trajectory_bound` integration, how incurred dose enters, and the order of contact
+    vs radiation in the checker.
 
 **Step 8 (new): arrival ties broken by clearance (labelled behaviour change).**
 - Among routes with the **same** arrival, prefer the larger clearance (the F-4.2 dilation r*).
