@@ -143,12 +143,22 @@ def fit_meanfield(fires):
     return _lbfgs(f, len(fires[0][0].k) + 1)
 
 
-def fit_mcem(fires, rng, iterations=30, sweeps=3, keep=2, average_last=10):
+def fit_mcem(fires, rng, iterations=30, sweeps=3, keep=2, average_last=10, ckpt=None):
+    """MCEM. With ``ckpt`` (a file path), the full chain state (iteration, theta, history, latent times and the RNG
+    bit-generator state) is saved after every iteration and restored on restart, so a resumed run is bit-identical
+    to an uninterrupted one."""
+    import pickle
     samplers = [S.LatentSampler(p, o) for p, o in fires]
-    taus = [s.initial() for s in samplers]
-    theta = pooled_complete([S.sufficient_stats(p, t, s.src) for (p, _), t, s in zip(fires, taus, samplers)])
-    hist = []
-    for _ in range(iterations):
+    start = 0
+    if ckpt is not None and Path(ckpt).exists():
+        st = pickle.loads(Path(ckpt).read_bytes())
+        start, theta, hist, taus = st["it"], st["theta"], st["hist"], st["taus"]
+        rng.bit_generator.state = st["rng"]
+    else:
+        taus = [s.initial() for s in samplers]
+        theta = pooled_complete([S.sufficient_stats(p, t, s.src) for (p, _), t, s in zip(fires, taus, samplers)])
+        hist = []
+    for it in range(start, iterations):
         kept = [[] for _ in range(keep)]
         for j, ((p, _), s) in enumerate(zip(fires, samplers)):
             for sw in range(sweeps):
@@ -158,6 +168,11 @@ def fit_mcem(fires, rng, iterations=30, sweeps=3, keep=2, average_last=10):
         combined = [(np.concatenate([x[0] for x in k]), np.sum([x[1] for x in k], axis=0)) for k in kept]
         theta = S.fit_complete(combined, x0=theta)
         hist.append(theta.copy())
+        if ckpt is not None:
+            tmp = Path(str(ckpt) + ".tmp")
+            tmp.write_bytes(pickle.dumps(dict(it=it + 1, theta=theta, hist=hist, taus=taus,
+                                              rng=rng.bit_generator.state)))
+            tmp.replace(ckpt)
     return np.mean(hist[-average_last:], axis=0)
 
 
@@ -277,9 +292,21 @@ def run_fold(args):
     else:
         _beat(ckpt, fold, "fit start")
         fires = [F.load_fire(Path(bdir) / f"{f}.npz", hours, 0) for f in train]
-        thetas = {"plugin": fit_plugin(fires), "composite": fit_composite(fires),
-                  "meanfield_nll": fit_meanfield(fires),
-                  "mcem": fit_mcem(fires, np.random.default_rng(424242 + fold))}
+        fitters = {"plugin": lambda: fit_plugin(fires), "composite": lambda: fit_composite(fires),
+                   "meanfield_nll": lambda: fit_meanfield(fires),
+                   "mcem": lambda: fit_mcem(fires, np.random.default_rng(424242 + fold),
+                                            ckpt=Path(ckpt) / f"fold{fold}.mcem_state.pkl" if ckpt else None)}
+        thetas = {}
+        for name, fn in fitters.items():       # each estimator's theta is checkpointed on its own
+            ep = Path(ckpt) / f"fold{fold}.theta_{name}.json" if ckpt else None
+            if ep is not None and ep.exists() and all(json.loads(ep.read_text())[k] == v for k, v in key.items()):
+                thetas[name] = np.asarray(json.loads(ep.read_text())["theta"])
+                _beat(ckpt, fold, f"{name} loaded from checkpoint")
+                continue
+            thetas[name] = fn()
+            if ep is not None:
+                _ckpt_write(ep, dict(key, theta=thetas[name].tolist()))
+            _beat(ckpt, fold, f"{name} fitted")
         fit_s = time.time() - t0
         if tp is not None:
             _ckpt_write(tp, dict(key, thetas={k: v.tolist() for k, v in thetas.items()}, fit_seconds=fit_s))
