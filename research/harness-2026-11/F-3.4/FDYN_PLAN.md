@@ -128,3 +128,39 @@ This aligns with Iris and the orchestrator (12:58–12:59 UTC). Run (i) is the A
 - **Cache-saving report.** If a bound cache is ever evaluated, the saving is reported separately for the road bound
   model (keyed by forecast and window) and for the EA bound (keyed by forecast and destination set). A regression
   test would check that cached arrays equal freshly built ones (Iris).
+
+## A1 result and deviation 3 — 12 Nov 2026, 13:40 UTC
+
+**Data.** `results/fdyn/fdyn_b300_g12k_rss12k_{ROWS.jsonl.gz,STAGES.txt}`. Run (i): 300 s; controller guard and
+solver gate both at 12,288 MiB; non-evaluated; 1 repetition.
+
+**Outcomes (12 requests).**
+- **2 CHECKED_JOURNEY_FEASIBLE:** Yeongdeok firms …207 (arrival 59 s) and …168 (arrival 274 s). Both come from a Z
+  incumbent with a completed check; the EA bound was not built and the peak was 2.3 GiB.
+- **2 AT_ISSUE_FAILURE:** Uiseong origin …334, in both variants.
+- **4 Uiseong UNRESOLVED/LATE_RESULT** at about 300 s.
+  - Time to the stage checkpoints: bound model at 72–90 s, then Z at 93–112 s (Z overran its 6 s cap: 21–23 s),
+    then the EA bound at 149–167 s.
+  - The search did not return before the deadline, so there are no per-stage expansions.
+  - These are **time-limited**; memory was not the limit (peak 9.0–9.5 GiB, transient in the bound model).
+- **4 Yeongdeok UNRESOLVED/SEARCH_TIMEOUT.** The search succeeds, but every route check is discarded on memory:
+  - the per-stage records give LO, LO2 and HI all `CONDITIONAL_OPTIMUM`;
+  - labels/expansions are 33/18 (kriged …207, arrival 59), 130/114 (kriged …168, arrival 274) and 1963/1669 (both
+    …166 requests, arrival 3953);
+  - each whole-road check of those routes returns `UNRESOLVED / RSS_LIMIT`.
+
+**Third gate (not covered by A1 or A2).** `routing_candidate/baseline/hybrid_checker.py:9` fixes `RSS_LIMIT_MB = 3072`.
+- At the end of the check (`_finish`, :31-35) it compares the process-lifetime `ru_maxrss` with 3,072 MiB. If above,
+  it replaces the completed check result with `UNRESOLVED / RSS_LIMIT` and keeps the original only as a secondary
+  result. The adaptive fallback does the same (`adaptive_checker.py:185-186`).
+- This gate is a module constant, not a request field. The EA bound holds 4.4 GiB, so on Yeongdeok every route check
+  is discarded whatever the request says.
+- The kit's terminal decision still reads `SEARCH_TIMEOUT` ("the search stopped at a cap"), although the search
+  stages returned conditional optima. This is the same reporting defect as before, now covering the checker gate.
+- The secondary (pre-gate) check outcome is not written to RESULT.json, so whether those routes would have certified
+  is unknown from the outputs.
+
+**Deviation 3: run (ii), the A2 450 s counterfactual, was STOPPED** at 13:40:12 UTC, about 40 s after it started,
+with 0 rows. Its pass rule counts checked results. With the checker gate at 3 GiB, the 5 Yeongdeok requests would
+score 0 regardless of search, so "0 of 9 → search is the limit" would be a false conclusion. It is not rerun without
+the orchestrator's decision.

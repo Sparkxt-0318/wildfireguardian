@@ -1,0 +1,5 @@
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323 UNRESOLVED/SEARCH_TIMEOUT            arr=None wall=151.9 peak=9766
+    BM 61.8s EA 54.1s | mem end/hw GiB: BM 0.40/9.54 EA 2.07/9.54 solve 2.09/9.54
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+    LO   cap  415.9 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0
+    HI   cap  749.0 status TIMEOUT            reason RSS_LIMIT                labels 1 exp 0

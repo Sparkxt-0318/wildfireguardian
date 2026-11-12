@@ -1,0 +1,10 @@
+2026-11-12T12:08:48Z fdyn_prepare rc=0
+2026-11-12T12:15:37Z fdyn_b30 rc=0
+2026-11-12T12:23:54Z fdyn_b300 rc=0
+2026-11-12T12:32:34Z fdyn_b900 rc=0
+2026-11-12T12:55:49Z fdyn_b300_g12k rc=0
+2026-11-12T12:59:06Z fdyn_b900_g12k STOPPED by orchestrator decision (cannot show search; solver lifetime-RSS gate) after 1 completed row
+2026-11-12T13:00:42Z fdyn_b300_g12k_rss12k started (amendment A1, 033e7f0)
+2026-11-12T13:39:22Z fdyn_b300_g12k_rss12k rc=0
+2026-11-12T13:39:34Z fdyn_b450_g12k_rss12k started (A2, a770036)
+2026-11-12T13:40:12Z fdyn_b450_g12k_rss12k STOPPED by Priya: third lifetime-RSS gate (hybrid_checker RSS_LIMIT_MB=3072, not request-settable) would make A2's count 0/9 for a reason unrelated to search; awaiting orchestrator

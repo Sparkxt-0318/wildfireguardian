@@ -1,0 +1,25 @@
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323 UNRESOLVED/LATE_RESULT               arr=None wall=30.4 peak=689
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM 0.58/0.67 EA 0.00/0.00 solve 0.00/0.00
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324 UNRESOLVED/LATE_RESULT               arr=None wall=30.5 peak=690
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM 0.58/0.67 EA 0.00/0.00 solve 0.00/0.00
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158334 UNRESOLVED/LATE_RESULT               arr=None wall=30.3 peak=684
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM 0.58/0.67 EA 0.00/0.00 solve 0.00/0.00
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158323 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=33.0 peak=682
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158324 UNRESOLVED/LATE_RESULT               arr=None wall=30.3 peak=666
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM 0.57/0.65 EA 0.00/0.00 solve 0.00/0.00
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158334 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=33.0 peak=682
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+gdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207 UNRESOLVED/LATE_RESULT               arr=None wall=30.5 peak=2732
+    BM 10.6s EA 0.0s | mem end/hw GiB: BM 0.59/2.67 EA 0.00/0.00 solve 0.00/0.00
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166 UNRESOLVED/LATE_RESULT               arr=None wall=30.4 peak=2732
+    BM 11.0s EA 0.0s | mem end/hw GiB: BM 0.59/2.67 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    3.9 status TIMEOUT            reason WALL_CLOCK               labels None exp None
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168 UNRESOLVED/LATE_RESULT               arr=None wall=30.5 peak=2711
+    BM 9.9s EA 0.0s | mem end/hw GiB: BM 0.59/2.67 EA 0.00/0.00 solve 0.78/2.67
+gdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207 UNRESOLVED/LATE_RESULT               arr=None wall=30.9 peak=2344
+    BM 9.1s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.67/2.29
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166 UNRESOLVED/LATE_RESULT               arr=None wall=30.6 peak=2345
+    BM 9.4s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.77/2.29
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 UNRESOLVED/LATE_RESULT               arr=None wall=30.6 peak=2345
+    BM 8.9s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.77/2.29

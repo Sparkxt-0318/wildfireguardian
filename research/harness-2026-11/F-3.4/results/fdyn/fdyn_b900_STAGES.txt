@@ -1,0 +1,26 @@
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158323 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=37.6 peak=3142
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158324 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=40.7 peak=3089
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_kriged_mean__osm_node_415158334 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=38.1 peak=3080
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158323 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=40.5 peak=3094
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158324 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=38.0 peak=3100
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+_andong_2025__20250325T170000Z_firms_early__osm_node_415158334 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=41.0 peak=3100
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+gdeok_2025__20250325T230000Z_kriged_mean__osm_node_11753630207 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=45.9 peak=3074
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158166 UNRESOLVED/STALE_OR_IDENTITY_MISMATCH arr=None wall=42.0 peak=3095
+    BM 0.0s EA 0.0s | mem end/hw GiB: BM - EA - solve -
+ongdeok_2025__20250325T230000Z_kriged_mean__osm_node_415158168 UNRESOLVED/LATE_RESULT               arr=None wall=47.1 peak=3107
+    BM 11.6s EA 0.0s | mem end/hw GiB: BM 0.59/2.67 EA 4.45/4.45 solve 0.00/0.00
+gdeok_2025__20250325T230000Z_firms_early__osm_node_11753630207 CHECKED_JOURNEY_FEASIBLE/            arr=59 wall=39.9 peak=2345
+    BM 9.6s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK_AFTER_CHECK   labels None exp None
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158166 UNRESOLVED/LATE_RESULT               arr=None wall=39.9 peak=3090
+    BM 8.2s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 4.44/4.44 solve 0.00/0.00
+ongdeok_2025__20250325T230000Z_firms_early__osm_node_415158168 CHECKED_JOURNEY_FEASIBLE/            arr=274 wall=40.7 peak=2345
+    BM 9.6s EA 0.0s | mem end/hw GiB: BM 0.59/2.29 EA 0.00/0.00 solve 0.00/0.00
+    Z    cap    6.0 status TIMEOUT            reason WALL_CLOCK_AFTER_CHECK   labels None exp None
