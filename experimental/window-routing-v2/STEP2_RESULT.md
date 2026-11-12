@@ -66,3 +66,47 @@ Options, for the orchestrator or owner:
 
 My recommendation: F1 first, as a measured diagnostic. If it brings PSS within +10%, combine it with F3 for the
 controller measure, as an amendment written before any rerun. Otherwise F4 goes to the owner, with the numbers above.
+
+## Post hoc diagnostics (orchestrator 18:54 UTC). Measured, single runs, not kit changes
+
+**F1: `gc.freeze()` before the fork.** This was a diagnostic copy, `kit-v2-step2c-f1diag`; the overlay is unchanged. It
+barely helps:
+
+| Mission | Frozen PSS-sum | v2 PSS-sum | v2 + gc.freeze PSS-sum | v2 + gc.freeze RSS-sum |
+|---|---|---|---|---|
+| Uljin 0304T12 FW2 | 182 | 224 | **222** | 314 |
+| Yeongdeok 0326T08 FW1 | 654 | 903 | **852** | 1,172 |
+
+So the real copy-on-write growth is mostly not from the collector. Hypothesis: reference-count writes, plus checker
+work in the child. Not extended to the 12 missions, because it does not help enough.
+
+**(i) Controller guard on a large parent.**
+- Setup: F-DYN Yeongdeok kriged_mean …415158166, 300 s, guard 12,288 MiB, request `rss_limit_mb` 12,288, kit-v2-step2c.
+  The family was sampled every 10 ms (`tools/family_pss.py --fdyn`; trace `results/step2/FDYN_YD166_FAMILY_TRACE.json`).
+- Outcome: **CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN**. The check was `within_budget: true`, with a cgroup peak of 523 MiB.
+  This was one of the A1 requests whose check the frozen-kit lifetime gate discarded. It is a diagnostic only, not the
+  F-DYN acceptance run.
+- Family memory:
+  - **during the check:** RSS-sum (the controller's measure) **9,352 MiB**, PSS-sum **5,083 MiB**. The controller
+    recorded 9,335 MiB;
+  - **outside the check:** RSS-sum 4,843 MiB, PSS-sum 4,826 MiB, with the EarliestArrivalBound resident.
+- **Answer.**
+  - At 3,072 MiB the guard trips on this request with or without the fork: the parent alone is 4.8 GiB before any check.
+  - But during a check the controller's reading nearly doubles (+4.3 GiB of double-counted parent pages). So **any
+    guard between about 5.1 and 9.4 GiB would stop this job on pages that exist once.** That is a correctness risk of
+    the fork design under an RSS-sum guard, as the orchestrator suspected. At 12,288 MiB it does not trip.
+
+**(ii) Fork-early / fork-server (design note, estimate only, not measured).** A check server forked before the bound
+model and EA exist would hold only the pre-search footprint, shared with the parent.
+- Under PSS this removes the big-page COW. The F-DYN case would be about 5.1 → about 4.8 GiB plus the check's own peak.
+- Under the controller's RSS-sum, the server's whole resident set is counted again for the **entire** job, not only
+  during checks. That is the pre-search footprint: graph, packet and imports, of the order of the parent's RSS at
+  admission.
+  - The 1-hour panel would therefore still be well above +10% family RSS.
+  - The F-DYN check-time reading would fall from 9.35 GiB to roughly 4.8 + admission RSS + check peak.
+- Promising only together with a PSS or cgroup family measure (F3). For Thomas to read; nothing is built.
+
+## Not merged into this step's claims
+
+The panel used the v2 worktree's `research/harness-2026-11/F-3.4/run_profile.py`. It differs from the main branch's
+copy only by the F-DYN `paths=` and `memory_guard_mib` parameters (default 3,072), so it is identical for the panel.
