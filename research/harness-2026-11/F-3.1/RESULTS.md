@@ -356,6 +356,9 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 
 ## F-DYN v3.3 envelope variants (SCENARIO, not what happened; VERIFIED: Nora request #6, PASS WITH NOTES, ledger row 36)
 
+*Wherever envelope_burnset is quoted in this file:* "burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only)". It is a static final-footprint bound: no timing,
+identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
+
 * **Files and inputs.**
   * Claim: `results/FDYN_V33_envelope_report.json`, built by `deadline_field/fdyn_v33_report.py` from 24 runs of
     `deadline_field/fdyn_run.py`.
@@ -411,7 +414,8 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * Yeongdeok: 76,541 of 111,924 (68.39%).
 
   Every burn-set cell burns from t = 0 and never clears. Both regions share one 237 × 79 grid and the same
-  16,176-cell burn set: the 2025 fire spread from Uiseong into Yeongdeok. In Uiseong, therefore, no origin has a
+  16,176-cell burn set: the 2025 fire spread from Uiseong into Yeongdeok. The burn set is quoted as
+  "burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only)". In Uiseong, therefore, no origin has a
   route under this envelope. **For Uiseong routing the variant is uninformative, not a finding about the fire.**
 * **envelope vs kriged_mean is not ordered.** At YD 03-25 19Z 5 h, origin osm:node/415160165 is feasible from 0 under
   envelope ([0, 17706]) but only from 6,071 s under kriged_mean. Envelope deadlines are therefore not a bound on
