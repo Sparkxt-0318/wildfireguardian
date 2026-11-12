@@ -1,0 +1,156 @@
+{
+ "seed": 20261112,
+ "per_class": 8,
+ "summary": {
+  "CONTROL_unmutated|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "NO_ROUTE": 5,
+    "ROUTE": 15
+   }
+  },
+  "M1_delete_reachable_point|py": {
+   "runs": 160,
+   "ok": 160,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 159,
+    "C3_WAIT_CLOSURE": 1
+   }
+  },
+  "M2_delete_admitted_point|py": {
+   "runs": 160,
+   "ok": 160,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 160
+   }
+  },
+  "M3_inject_goal|py": {
+   "runs": 29,
+   "ok": 29,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 29
+   }
+  },
+  "M4_no_route_threshold_H|py": {
+   "runs": 5,
+   "ok": 5,
+   "reasons": {
+    "THRESHOLD_MISMATCH": 5
+   }
+  },
+  "M7_trailing_token|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "TRAILING": 20
+   }
+  },
+  "M7_truncated|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "EOF": 20
+   }
+  },
+  "M4_shift_threshold|py": {
+   "runs": 30,
+   "ok": 30,
+   "reasons": {
+    "W_GOAL": 30
+   }
+  },
+  "M4_route_to_no_route|py": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 15
+   }
+  },
+  "M5_witness_edit|py": {
+   "runs": 120,
+   "ok": 112,
+   "reasons": {
+    "W_EDGE_TIME": 32,
+    "W_EDGE_LEGALITY": 21,
+    "W_WAIT_LEGALITY": 29,
+    "W_CONTIGUITY": 27,
+    "W_WAIT_TIME": 3,
+    "ROUTE": 8
+   }
+  },
+  "M5_witness_drop_last|py": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "W_GOAL": 15
+   }
+  }
+ },
+ "failures": [
+  {
+   "bundle": "miryang_2022__20220601T020000Z_FW1.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1270",
+   "ok": false
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250325T170000Z_FW1.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1064",
+   "ok": false
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250325T170000Z_FW1.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1064",
+   "ok": false
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250325T170000Z_FW1.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1064",
+   "ok": false
+  },
+  {
+   "bundle": "uljin_2022__20220304T120000Z_FW2.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1655",
+   "ok": false
+  },
+  {
+   "bundle": "uljin_2022__20220304T120000Z_FW2.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1655",
+   "ok": false
+  },
+  {
+   "bundle": "uljin_2022__20220304T120000Z_FW2.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 1655",
+   "ok": false
+  },
+  {
+   "bundle": "yeongdeok_2025__20250326T080000Z_FW1.wfgc",
+   "mutation": "M5_witness_edit",
+   "checker": "py",
+   "exit": 0,
+   "out": "ACCEPT ROUTE 896",
+   "ok": false
+  }
+ ]
+}
