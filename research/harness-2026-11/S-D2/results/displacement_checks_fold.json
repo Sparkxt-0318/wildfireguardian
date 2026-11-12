@@ -1,0 +1,118 @@
+{
+ "displacement_fold_mcem": {
+  "estimator": "mcem",
+  "intervals": 206,
+  "histogram_10_random_ties": [
+   80,
+   31,
+   16,
+   10,
+   19,
+   24,
+   13,
+   9,
+   3,
+   1
+  ],
+  "low_tail": {
+   "share": 0.3155339805825243,
+   "ci95": [
+    0.2341413067800403,
+    0.4010152284263959
+   ]
+  },
+  "top_tail": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "top_tail_without_detached": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "detached_intervals": 31,
+  "low_rank_observed_reach_cells": {
+   "median": 2.0,
+   "share_at_most_1_cell": 0.18461538461538463
+  },
+  "covariates": {
+   "hours_median_low": 24.416666666666657,
+   "hours_median_rest": 24.01666666666668,
+   "night_fraction_mean_low": 0.49610697442269686,
+   "night_fraction_mean_rest": 0.4981199068572081,
+   "low_share_by_hours": {
+    "0-20h": 0.23809523809523808,
+    "20-26h": 0.29545454545454547,
+    "26-1000h": 0.39622641509433965
+   },
+   "low_share_by_night": {
+    "0-0.4": 0.35714285714285715,
+    "0.4-0.6": 0.32432432432432434,
+    "0.6-1.01": 0.0
+   }
+  }
+ },
+ "displacement_fold_plugin": {
+  "estimator": "plugin",
+  "intervals": 206,
+  "histogram_10_random_ties": [
+   206,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "low_tail": {
+   "share": 1.0,
+   "ci95": [
+    1.0,
+    1.0
+   ]
+  },
+  "top_tail": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "top_tail_without_detached": {
+   "share": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "detached_intervals": 31,
+  "low_rank_observed_reach_cells": {
+   "median": 4.123105625617661,
+   "share_at_most_1_cell": 0.06310679611650485
+  },
+  "covariates": {
+   "hours_median_low": 24.191666666666663,
+   "hours_median_rest": NaN,
+   "night_fraction_mean_low": 0.49748475827350314,
+   "night_fraction_mean_rest": NaN,
+   "low_share_by_hours": {
+    "0-20h": 1.0,
+    "20-26h": 1.0,
+    "26-1000h": 1.0
+   },
+   "low_share_by_night": {
+    "0-0.4": 1.0,
+    "0.4-0.6": 1.0,
+    "0.6-1.01": 1.0
+   }
+  }
+ }
+}

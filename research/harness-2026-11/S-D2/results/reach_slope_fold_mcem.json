@@ -1,0 +1,96 @@
+{
+ "command": "python reach_slope.py --input results/displacement_fold_mcem.json --out results/reach_slope_fold_mcem.json",
+ "estimator": "mcem",
+ "intervals": 206,
+ "fires": 25,
+ "dropped_nonpositive_obs": 0,
+ "confounding": {
+  "rho_age_lead": -0.1558554106160287,
+  "lead_within_age_tercile": [
+   {
+    "n": 69,
+    "rho": -0.588887677123132
+   },
+   {
+    "n": 68,
+    "rho": -0.27219614769603967
+   },
+   {
+    "n": 69,
+    "rho": -0.23675677881356302
+   }
+  ],
+  "age_within_lead_tercile": [
+   {
+    "n": 68,
+    "rho": -0.2948134330600315
+   },
+   {
+    "n": 69,
+    "rho": -0.30013250198425756
+   },
+   {
+    "n": 69,
+    "rho": -0.21493928699783837
+   }
+  ]
+ },
+ "slopes": {
+  "slope_on_log_sim_lead": {
+   "estimate": 0.3693871997381009,
+   "ci95": [
+    0.24300615820674895,
+    0.5023702367196206
+   ]
+  },
+  "slope_on_length_part": {
+   "estimate": 0.27947792356739004,
+   "ci95": [
+    -0.1502414417386338,
+    0.8059631158132516
+   ]
+  },
+  "slope_on_modulation_part": {
+   "estimate": 0.3793296522874071,
+   "ci95": [
+    0.23244270990930246,
+    0.5447034930759299
+   ]
+  },
+  "slope_on_log_hours_direct": {
+   "estimate": 0.3104864365595052,
+   "ci95": [
+    -0.15330847096693212,
+    0.9369408196000267
+   ]
+  },
+  "sim_lead_elasticity_in_hours": {
+   "estimate": 1.1109515649619397,
+   "ci95": [
+    0.869305393241432,
+    1.3459712187951471
+   ]
+  },
+  "between_fire_slope": {
+   "estimate": 0.3441683870684083,
+   "ci95": [
+    0.19544426716540575,
+    0.48488481129322586
+   ]
+  },
+  "within_fire_slope": {
+   "estimate": 0.4810893119055272,
+   "ci95": [
+    0.17676764961187366,
+    0.8781358263989096
+   ]
+  }
+ },
+ "sd": {
+  "log_sim_lead": 1.0725298102242133,
+  "modulation_part": 1.0177329338553815,
+  "log_obs": 0.8892345551486374
+ },
+ "boot": 10000,
+ "seed": 20261112
+}
