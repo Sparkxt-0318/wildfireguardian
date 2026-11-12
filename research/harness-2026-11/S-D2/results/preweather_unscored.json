@@ -1,0 +1,18 @@
+{
+ "command": "python preweather_unscored.py --perimeters /tmp/claude-0/-home-user-wildfireguardian/714aca3e-92f3-5774-9c7c-0355cdc04536/scratchpad/parta_pool_982eb71c/parta_pool/perimeters --out ../results/preweather_unscored.json",
+ "manifest_sha256": "08f96b450cfe9c72420b1d38ffe677aa50a5399cff0d82c0333e555edf842e77",
+ "margin": 10,
+ "events": 490,
+ "totals": {
+  "intervals": 3773,
+  "new": 122640,
+  "unscored_in_crop": 0,
+  "outside_crop": 12384
+ },
+ "share_outside_crop": 0.10097847358121331,
+ "share_unscored_in_crop": 0.0,
+ "intervals_with_any_outside": 97,
+ "per_interval_outside_share_median": 0.0,
+ "per_interval_outside_share_p90": 0.0,
+ "note": "pre-weather: Environment.available_at and kernel finiteness not applied"
+}
