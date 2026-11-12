@@ -45,6 +45,11 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 37 | 2026-11-12 | F-3.2 W4: Tier R all events + F-DYN certificate batch | Thomas | b2d9eba | Tier R 20/20 identical, tier_r.json byte-identical, 80/80 accepted; F-DYN 3 packets / 528 rows py = c = claim/T, 0 diffs, all 69 NORUN rows ACCEPT by both | own rerun (Choi TOA, FIRMS 2022/23/25; packets rebuilt from MANIFEST_v3 at Leo 7eb3691) | PASS WITH NOTES |
 | 38 | 2026-11-12 | F-3.2 W5: Tier R FIRMS-coverage guard | Thomas | cc850f5 (at 25597ac) | 10/10; 3 mutations caught; labels equal the old ones whenever covered; all 4 events covered on all-events data; 2025-only refuses KFS_02/05/11 | tests + mutation + real-data coverage + synthetic wrong-region file | PASS WITH NOTES |
 | 39 | 2026-11-12 | sipp acceptance-window regression test (W6R) | Thomas | 25597ac | 6/6 on identity-checked inputs, 6 skip without data; my widening mutation reproduces naive 968/1032/573/1400/776 and FD1 2921; sipp suite 98 passed | pytest + own mutation script | PASS WITH NOTES |
+| 40 | 2026-11-12 | PR #128 CI fetch step | Thomas | a8e945c | 1 file +2: one step in next-tracks before SIPP suites; SHA-256 pinned, per-file identity, unsafe members refused; fresh fetch 132 files 1.2 s; junk archive refused, nothing extracted | diff + fresh run + negative control | READY |
+| 41 | 2026-11-12 | PR #130 scope check (research-scout batch 7) | Sofia | 712aaadd | docs only, public citations, no private link, no footer | diff + body | READY WITH NOTES |
+| 42 | 2026-11-12 | W-KIT W6 single checkpoint | Clara | 344657e | issuer guard passes 18/21 ko + 11/15 en instruction-shaped names, shown in 531/531 real drill sets with 0 violations; all else reproduces (1,131 sets), 415/415 | own adversarial names + e2e probe + independent property probes | FAIL |
+| 43 | 2026-11-12 | STAFF-HEADLINE (Iris E) | Clara | b45a94b | own sweep oracle = headline = kit = card in 1,131/1,131; changed syn 131 = 53 gap + 78 first-not-checked; 405/405; static smoke 119/119 | fresh npm ci, oracle, test-diff review, smoke | PASS WITH NOTES |
+| 44 | 2026-11-12 | Tier R guard notes delta | Thomas | c11eccd0 | 11/11; US file refused; real coverage unchanged; Fukuoka-only file still covers KFS_02 | tests + synthetic probes | PASS WITH NOTES |
 
 ## Notes
 
@@ -263,3 +268,16 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - The widening must use the request horizon: with H = the window end (2861), FD1 stays EXHAUSTED.
 - N1: CI never runs this test with data. verified-window-routing.yml:69 runs the tests without fetching; reproduce-linux.yml:92 fetches but runs only tests/api.
 - test_sipp_property.py was excluded because hypothesis is missing from my venv (not this change).
+
+**40-41.** #128: the CI run was still queued when checked; the PR body carries the footer (flagged). #130: the body says nothing was run, but the log cites "our own back-test against Morandini"; the body's 15 m wording differs from the log's 50-400 m.
+
+**42. W6 @ 344657e (FAIL)**:
+- Passing examples: 구조대 도착 예정 본부, 버스 배차 완료 상황실, 대피 불필요 상황실, 지금 바로 대피 동, 여섯시 출발 상황실, Transport provided Agency, No need to evacuate Office, All clear Division.
+- Cause: single-syllable suffixes, a narrow blocklist, Korean numerals not caught, and 구조대/119구조 removed as compounds. Kit NEVER/DEPART catch 4/22.
+- Suggested an allowlist or a structural rule.
+- PASS parts: contact last; English voice has no Hangul and the pointer appears in 373/373; readerNote iff Hangul name; no Hangul outside the shelter name; smsSegments boundaries (minor: escape and surrogate splits at the 153/67 boundary not modelled); metrics.
+
+**43. STAFF-HEADLINE @ b45a94b**: N1: smoke regenerates 12 tracked screenshots; N2: visual styling not inspected.
+
+**44. c11eccd0**: suggested a packet-grid-bounds check instead of KOREA_BBOX; suggested regenerating tier_r.json or recording that it was produced at b2d9eba.
+
