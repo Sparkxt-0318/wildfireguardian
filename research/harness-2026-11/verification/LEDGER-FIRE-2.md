@@ -35,6 +35,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 27 | 2026-11-12 | P-PROTO follow-up (port of cp2 + gap wording) | Clara | b3df2a3 | only 6 P-PROTO files on Main; 90 s wait in mount(); 3-way leave-by sentence with sweep property test; 403/403; default build no public-view | fresh `npm ci`; `npx vitest run`; mutation (old 2-way mapping); `npm run build:static` | PASS |
 | 28 | 2026-11-12 | FIRE 6.2 radiant 5a (dwell / wait / moving split) | Priya | 49a50b3 | stationary split into dwell and wait; destination inside standoff during stay | `standoff_route.py --part 4a`; cross-check vs own 4a run | PASS WITH NOTE |
 | 29 | 2026-11-12 | FIRE 6.2 radiant §6 (literature flame set) | Priya | eda51f2 | reproduces Sofia's standoffs; route-count ranges W100/W3750 × window | `python3 F-4.2/standoff_lit.py` + own code | PASS |
+| 30 | 2026-11-12 | W-KIT W6 redo (issuer report-only) | Clara | e69c3d1 | four FAIL points fixed; complete-and-not-withheld 0/0/0/0 → 299/299/0/440; withheld 2,124 → 0 | fresh `npm ci`; `-t W6`; full suite; build:static; own issuer probe (4 issuers × 531) | PASS WITH NOTES |
+| 31 | 2026-11-12 | PR #123 scope check (research-scout batch 5) | Sofia | bab9148 | docs only, no private link, no footer | diff vs base a1ce97f + body | READY |
 
 ## Notes
 
@@ -204,3 +206,14 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - The JSON regenerates identically.
 - Own code: 4-corner mid-height receiver; infinite face gives F = 1; closed form = numeric to 6 figures.
 - Sofia's 102.5/58.2, 263.8/163.8 and 434.9/273.1 m reproduce. All 8 count ranges match.
+
+**30. W6 redo @ e69c3d1 (Clara)**:
+- 3 files vs Main; W6 tests 8/8; planner 403/403; build OK.
+- With 4 issuers, the violation lists equal the no-issuer run in 531/531 sets (the old FAIL is fixed). The ko head keeps its contact in 531/531.
+- ko familyText 0/531 is expected: base texts use 73-87 of 90 bytes and a contact needs ≥ 20.
+- Notes:
+  - Head + contact reaches 39.7 s (old total cap 35 s); a policy change for Iris.
+  - The agency string is never checked (whole issuer lines masked): "지금 출발하십시오 18:30 안전합니다" shows on a no-route voice text with 0 violations. Suggested guard: clock or departure patterns and an agency suffix.
+  - The decree check is report-only (pending Iris).
+
+**31. PR #123 @ bab9148**: 1 file (LOG.md +57); no URLs or private references; event-level news facts only; no footer. READY.
