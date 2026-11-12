@@ -80,6 +80,7 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 72 | 2026-11-12 | P-PROTO empty public page (one no-data line) | Clara | eccec7f | 18/18; mutation (old PublicView) fails all 4 new tests; 453/453; build OK; 0 public-view files and no no-data strings in dist; wording regexes pass the shipped ko/en and catch the earlier draft | fresh npm ci, mutation, dist grep, independent regex check | PASS |
 | 73 | 2026-11-12 | PR #151 raw-array guard | Thomas | 53fab56 | own v3.4 envelope packet (marker set, all births NaN): from_raw, tier_r.native_masks, unknown_support.masks raise; ContactModel raises on NaN; v3/v3.1/panel packets accepted; no other F-3.2 array reader; tests OK; panel P1 file byte-identical | own build at Leo faa89c4 + grep + tests | PASS |
 | 74 | 2026-11-12 | v3.4 HAZARD.json host dependence (orchestrator question) | Leo (build.py) | faa89c4 | same packet built from two checkout paths: arrays byte-identical; HAZARD differs only in /provenance/identity/radiation_operator/module (absolute path); manifest pins no HAZARD sha | own two-path rebuild + structural diff | FINDING (reproducibility) |
+| 75 | 2026-11-12 | W-KIT owner decisions (no English call without an English shelter name; 영덕군 registered, secondary) | Clara | 634f02d | en.voice null iff Korean-only shelter (373/531 real, 91/600 syn, 0 mismatches); 667 remaining en calls clean; 영덕 273/273 gain ko contact, no en contact, violations unchanged; both mutations caught; 450/450; tsc clean | own probes + mutations | PASS WITH NOTES |
 
 ## Notes
 
@@ -362,4 +363,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 **73.** Note: ContactModel does not check the marker (safe today because v3.4 envelope births are all NaN). The end-to-end test skip message should ask for a routable packet.
 
 **74.** Suggest writing the radiation module path repo-relative, or excluding it from the identity, so HAZARD hashes match across hosts.
+
+**75.** N1 (pre-existing): the registry checks the issuer's name, not its jurisdiction; a 영덕군 issuer also renders on 258 non-영덕 place-scenarios. Suggested a staff warning or refusal.
 
