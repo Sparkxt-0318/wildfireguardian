@@ -1,10 +1,10 @@
 # F-3.4 phase profile of the frozen 20-mission routing workload (interim)
 
 Status: **measured; verified PASS WITH NOTES by Mira (12 Nov, @ b6c94bb)**, from 3+1 fresh runs plus the committed
-rows. Data: `results/primary_b81_3rep/` (primary) and
-`results/extended_b300_1rep/` (extended budget, one repetition). A clean rerun meeting Iris's acceptance criteria is
-queued: five cold and five warm repetitions, per-phase memory, and the 30 s budget plus an uninstrumented control.
-It will be added as `results/clean_*`.
+rows. Data: `results/primary_b81_3rep/` (primary) and `results/extended_b300_1rep/` (extended budget, one
+repetition). The clean rerun is below (§ Clean rerun), **verified PASS WITH NOTES by Mira (REQUEST 8, @ db2c516)**.
+Option B is a verified negative (§ Option B, REQUEST 9). Option A's acceptance rule is fixed in `OPTION_A_PLAN.md`
+(314656d) before any build. The F-DYN multi-hour profile is in progress.
 
 ## What was measured
 
@@ -81,11 +81,62 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
   bound is at most 0.33 of budget and the peak at most 0.0005 of budget. Same-forecast request pairs share 0 road
   edges, so a per-forecast cache of route checks would not be reused across them.
 - **On the large graphs, search dominates** (Yeongdeok 25–67 s), and Yeongdeok FX2 does not resolve at 81 s here.
-- Next step, approved by the orchestrator and Iris, test-first, as an opt-in kit only:
-  - A: a certified two-tier enclosure. The existing outward binary64 radial tier decides when it can, guarded at half
-    the budget; the exact tier runs otherwise. It requires zero nesting violations over the 80 executions and a
-    property test.
-  - B: dyadic outward snapping of receiver boxes, so that corners repeat and stay exact.
+- Speed-up options tested after this profile (opt-in kits only, frozen kit untouched):
+  - A: a certified two-tier enclosure. Acceptance rule written before any build: `OPTION_A_PLAN.md`.
+  - B: dyadic outward snapping of receiver boxes. **Negative** (below): identical verdicts, but slower.
+
+## Clean rerun (verified PASS WITH NOTES, Mira REQUEST 8 @ db2c516)
+
+Data: `results/clean_cold81_5rep`, `clean_warm81_5rep`, `clean_cold30_2rep`, `clean_plain81_2rep`. Host: this
+container. All 20 missions.
+
+- **Cold, 81 s, 5 reps (100 executions).** Shares of wall time:
+  - search 38.1%;
+  - radiation enclosure 30.9%;
+  - admission and models 18.1%;
+  - start-up 0.8%.
+  - Coverage: 95/100 executions have ≥ 95% of wall attributed (minimum 74.9%).
+  - **Search basis:** 38.1% sums the worker's own stage elapsed times (Z, LO, LO2, HI) plus the earliest-arrival
+    bound. Summing the function timers instead (contact sweep, EA bound, `road_core.solve`) gives 864.6 s = 39.9%
+    (Mira).
+  - **Outcomes:** 98/100 executions on time. 5 UNRESOLVED, all Yeongdeok 0325T19 FX2 (5/5 reps).
+- **Warm (the kit's authenticated prepared-graph cache), 81 s, 5 reps.**
+  - cache_hit on 100/100 measured runs.
+  - Graph preparation totals 188.3 s cold vs 59.1 s warm. The warm figure excludes the 5 unmeasured prime runs; with
+    them it is 73.5 s.
+  - Median per-mission warm/cold wall ratio 0.963.
+- **Instrumentation control (uninstrumented, 2 reps).** Median per-mission plain/instrumented wall ratio 1.038
+  (1.031 against cold reps 1–2 only). Plain is not faster, so the overhead is below run-to-run noise.
+- **30 s budget, 2 reps: 32 of 40 executions resolve on this host.** Unresolved in both reps:
+  - Uljin 0304T03 FX1;
+  - Yeongdeok 0325T19 FD1;
+  - Yeongdeok 0325T19 FX2;
+  - Yeongdeok 0325T23 FL2.
+- **Per-phase memory (high-water increase).** Radiation check median +31 MiB. Maxima: search +957 MiB, bound model
+  +736 MiB, graph preparation +404 MiB.
+
+## Option B: dyadic snapping (negative; verified PASS WITH NOTES, Mira REQUEST 9 @ db2c516)
+
+- **Method.** `fastrad/build_snap_kit.py` snaps each radiation receiver box outward to a 2^-k m grid before the
+  exact-rational analytic call, asserting containment. Compared uninstrumented with the plain control
+  (`fastrad/snap_compare.py`).
+- **Data:** `results/option_b/`.
+- **Results.**
+  - **snap10, 2 reps:** status and arrival identical on 20/20 missions. Sum of median walls 448.6 → 486.0 s (+8.3%).
+  - **snap6, 1 rep:** 19/20 identical. The difference is Yeongdeok 0325T23 FL2 (UNRESOLVED → FEASIBLE 1922).
+    FL2 varies across runs and modes (cap-sensitive): the plain control is UNRESOLVED in 2/2 reps, while the
+    instrumented cold runs give FEASIBLE 1922 in 5/5. snap6 wall +5.6%.
+  - **Certified bounds.** Dose and peak upper shares are unchanged to 4 decimals for every pair where both runs
+    completed the check. Exception: snap10 FL2 has no shares at all (CHECK_STARTED_NOT_COMPLETED in both reps), while
+    the base has 0.00183 (dose) and 0.000055 (peak).
+  - **Reasons.**
+    - On this host, Hongseong FW2, Miryang FN1 and Uljin FX1 certify via the adaptive fallback under snap10
+      (COMPLETE_CONTACT_AND_ADAPTIVE_RADIATION). This is **host-speed dependent**, not a property of snapping: the
+      hybrid tier has a wall cap (`hybrid_radiation.py:182-184`), and the slowdown pushes it past the cap. On Mira's
+      host, snap10 Uljin FX1 kept COMPLETE_CONTACT_AND_RADIATION (3119 s; 24.1 → 29.5 s, +22%).
+    - snap10 also changes Yeongdeok FX2's unresolved reason in one rep (NO_SOLVER_WITNESS → NO_CERTIFIED_WITNESS),
+      with the same status.
+- **Conclusion:** no status or arrival gain, and slower. Dropped.
 
 ## Host findings (their own result; specific to THIS host, not to Linux in general)
 
@@ -93,7 +144,7 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
   container image lacked it (`apt-get install time`). `make api-tools` only warns about this.
 - **The evaluated 30 s budget does not transfer to this host.** Here, at 30 s, Uljin FX1 times out (wall 30.17 s, still
   inside the whole-road check) although it reproduces the recorded route, arrival 3,119 s, in about 33 s. The full
-  30 s run is queued. Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
+  full 30 s run is in § Clean rerun (32/40 resolve). Mira's container (also x86-64 Linux, Python 3.12.3) is about 2.0× slower than the Mac, and
   there Uljin FX1 completes at 30 s in 24.3 s. Host speed, not the OS, decides this, and the speed-equivalence factor
   (2.7× here) must be measured on each host.
 - **Cross-host packet bytes differ.** Rebuilt packets match the frozen ones exactly in arrays, flame sets, breakpoints
@@ -104,9 +155,7 @@ Per mission, median of 3 repetitions (seconds; CV is that of complete wall):
 
 - Mira verified this profile on 3 missions plus a plain-mode control, and recomputed the committed 60 rows. She did
   not rerun all 60 executions.
-- Per-phase memory is not in this run; the harness gained memory capture afterwards. Warm-cache timings are not in
-  this run either. Both come from the clean rerun.
-- The instrumentation overhead control in the plain runs so far was contended; a clean control is queued.
+- Per-phase memory and warm-cache timings are not in the primary run; they come from the clean rerun above.
 - Shares on the evaluated macOS host and budget may differ.
 - cProfile shares are inflated by profiling overhead and indicate only where time goes.
 
