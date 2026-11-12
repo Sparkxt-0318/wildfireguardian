@@ -108,3 +108,36 @@ def test_conditional_exact_on_hourly_chain_and_resolves_below_1_over_n():
         assert abs(est - e) <= 5 * se + 1e-12, (j, est, e, se)
     assert exact3 < 1.0 / n  # far below the 1/n resolution of hit counting
     assert float(out["conditional"][0, 0, 3]) > 0
+
+
+def test_pilot_weighted_combination_unbiased_and_never_much_worse():
+    """Iris option (b): weights from an independent pilot; combination unbiased and, per cell, about as
+    good as the better of hit counting and Y (including p > 0.9 where Y alone was ~4x worse)."""
+    from cond_rollout import combined_estimate, pilot_weights
+    rng = np.random.default_rng(2)
+    K = rng.uniform(0, 0.15, size=(49, 14, 14))
+    K[24] = 0
+    init = np.zeros((14, 14), bool)
+    init[6:8, 6:8] = True
+    b, env, kw = inputs(init)
+    pilot = simulate_with_conditional(stub(K), b, env, hours=[4.0], n_samples=1000, seed=101,
+                                      trajectory_batch_size=500, boundary="zero", **kw)[0]
+    main = simulate_with_conditional(stub(K), b, env, hours=[4.0], n_samples=4000, seed=202,
+                                     trajectory_batch_size=500, boundary="zero", **kw)[0]
+    w = pilot_weights(pilot["moments"])
+    est, se, clipped = combined_estimate(main["moments"], w)
+    n = 4000
+    p = main["probability"][0].numpy()
+    e = est[0].numpy()
+    s = se[0].numpy()
+    sp = np.sqrt(p * (1 - p) / n)
+    sy = main["conditional_se"][0].numpy()
+    m = (p > 0.05) & (p < 0.95)
+    z = (e[m] - p[m]) / np.sqrt(sp[m] ** 2 + s[m] ** 2)
+    assert np.all(np.abs(z) < 5) and abs(z.mean()) < 0.5
+    hi = p > 0.9
+    assert np.median(s[hi] / np.minimum(sp[hi], sy[hi])) < 1.3
+    lo = (p > 0.0) & (p < 0.5)
+    assert lo.sum() >= 5
+    assert np.median(s[lo] / sp[lo]) < 1.0
+    assert float(clipped.min()) >= 0 and float(clipped.max()) <= 1

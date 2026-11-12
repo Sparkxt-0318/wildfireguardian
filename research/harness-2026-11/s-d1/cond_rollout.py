@@ -64,6 +64,7 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
     counts = torch.zeros((nh, *initial.shape), dtype=torch.int64)
     cond1 = torch.zeros((nh, *initial.shape), dtype=torch.float64)
     cond2 = torch.zeros((nh, *initial.shape), dtype=torch.float64)
+    cross = torch.zeros((nh, *initial.shape), dtype=torch.float64)
     coverage = torch.zeros((nh, *initial.shape), dtype=torch.bool)
 
     for cutoff in range(initial.shape[0]):
@@ -115,8 +116,10 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
                     index = requested[k + 1]
                     counts[index, cutoff] += ((states[:size] == 1) & ~observed_burns).sum(dim=0)
                     y = torch.where(observed_burns, 0.0, Y[:size])
+                    hit = ((states[:size] == 1) & ~observed_burns).to(torch.float64)
                     cond1[index, cutoff] += y.sum(dim=0)
                     cond2[index, cutoff] += (y * y).sum(dim=0)
+                    cross[index, cutoff] += (hit * y).sum(dim=0)
 
     out = []
     for index in range(nh):
@@ -125,8 +128,46 @@ def simulate_with_conditional(predictor, burned_area, environmental_data, *, cha
         mean = cond1[index] / n_samples
         var = (cond2[index] / n_samples - mean * mean).clamp_min(0)
         se = torch.sqrt(var / n_samples)
-        out.append(dict(probability=p.masked_fill(~valid, torch.nan),
+        moments = dict(n=n_samples, sum_hit=counts[index].reshape(shape).to(torch.float64),
+                       sum_y=cond1[index].reshape(shape), sum_y2=cond2[index].reshape(shape),
+                       sum_hit_y=cross[index].reshape(shape))
+        out.append(dict(moments=moments, probability=p.masked_fill(~valid, torch.nan),
                         conditional=mean.reshape(shape).to(initial.dtype).masked_fill(~valid, torch.nan),
                         conditional_se=se.reshape(shape).to(initial.dtype).masked_fill(~valid, torch.nan),
                         valid=valid))
     return out
+
+
+def _second_moments(m):
+    n = m["n"]
+    pI = m["sum_hit"] / n
+    mY = m["sum_y"] / n
+    vI = pI * (1 - pI)
+    vY = (m["sum_y2"] / n - mY * mY).clamp_min(0)
+    cIY = m["sum_hit_y"] / n - pI * mY
+    return pI, mY, vI, vY, cIY
+
+
+def pilot_weights(pilot_moments):
+    """Per-cell weight w in [0, 1] for w*Y + (1 - w)*hit, minimising the pilot-estimated variance.
+
+    Computed from an INDEPENDENT pilot run only, so the main-run combination stays unbiased (Iris).
+    Cells with no pilot variance in either estimator get w = 1: Y is then deterministic in the pilot.
+    """
+    _, _, vI, vY, cIY = _second_moments(pilot_moments)
+    denom = vI + vY - 2 * cIY
+    w = torch.where(denom > 0, (vI - cIY) / denom.clamp_min(1e-300), torch.ones_like(denom))
+    return w.clamp(0.0, 1.0)
+
+
+def combined_estimate(main_moments, w):
+    """Unbiased combination from the main run with pilot weights ``w``: (estimate, se, estimate_clipped).
+
+    The unclipped estimate is the unbiased one; clipping to [0, 1] is applied only at the output stage,
+    because Y (and hence the combination) can exceed 1 in a single trajectory.
+    """
+    n = main_moments["n"]
+    pI, mY, vI, vY, cIY = _second_moments(main_moments)
+    est = w * mY + (1 - w) * pI
+    var = (w * w * vY + (1 - w) ** 2 * vI + 2 * w * (1 - w) * cIY).clamp_min(0)
+    return est, torch.sqrt(var / n), est.clamp(0.0, 1.0)

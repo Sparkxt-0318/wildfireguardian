@@ -428,3 +428,10 @@ def test_cmc_frontier_loop_bitwise_equal_to_fullgrid_reference(k, S, seg, ign, s
     for x, y in zip(a, b):
         assert np.array_equal(x, y)
     assert a[0].sum() > 0  # something burned
+    # the hash-clock pass 1 of the repaired estimator: frontier version bitwise equal to its full-grid one
+    from fpp import _fpp_cmc_hash, _fpp_cmc_hash_fullgrid_reference
+    for horizon in (1.5, 3.0):
+        ah = _fpp_cmc_hash(K, offs, init.ravel(), horizon, seg, 60, 77)
+        bh = _fpp_cmc_hash_fullgrid_reference(K, offs, init.ravel(), horizon, seg, 60, 77)
+        for x, y in zip(ah, bh):
+            assert np.array_equal(x, y)

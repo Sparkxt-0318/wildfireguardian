@@ -44,7 +44,7 @@ Within-hour relay is therefore already inside the kernels. Rolling the model out
 - `cellular_automaton`: an independent re-implementation of the recursion for any dt, with options `half_step` and `return_cmc`;
 - `first_passage_cmc`: the conditional estimator (§6).
 
-`python -m pytest research/harness-2026-11/s-d1/tests -q` → **27 passed** in about 25 s (py3.13, torch 2.15, numba 0.68). They cover:
+`python -m pytest research/harness-2026-11/s-d1/tests -q` → **28 passed** in about 20 s (py3.13, torch 2.15, numba 0.68). They cover:
 
 - analytic single-edge, competing-source, two-hop hypoexponential and piecewise-constant time-varying cases;
 - an arrival-field consistency check;
@@ -215,14 +215,19 @@ The hourly conditional estimator should cost the same as hourly plain: it reuses
 
 **Real size** (`repair_check.py` → `RESULTS_repair.json`; 160×160, 12 h, n = 1,000):
 
-| kernels | cells flagged / positive | repairs per trajectory | pass-2 extra (ms/trajectory) | lo error on flagged cells, median / max |
-|---|---|---:|---:|---|
-| c651 magnitude | 2 / 1,544 (0.13%) | 0.005 | 0.21 | 0.9% / 1.7% |
-| fast | 12 / 2,803 (0.43%) | 0.014 | 0.38 | 0% / 39% |
+| kernels | cells flagged / positive | repairs per trajectory | pass 1 (ms/trajectory) | pass 2 (ms/trajectory) | lo error on flagged cells, median / max |
+|---|---|---:|---:|---:|---|
+| c651 magnitude | 2 / 1,544 (0.13%) | 0.005 | 0.72 | 0.23 | 0.9% / 1.7% |
+| fast | 12 / 2,803 (0.43%) | 0.014 | 1.24 | 0.43 | 0% / 39% |
 
 **Notes.**
-- Flagged cells are tail cells, with median p 0.004 (c651) and 3e-4 (fast). So the repair matters exactly where the sampler is meant to earn its place, at about a third of the frontier CMC's cost.
-- The hash-clock pass 1 is not yet frontier-restricted: 6.4–6.8 ms/trajectory vs 0.64–1.2 ms for the frontier CMC. Restricting it the same way is mechanical.
+- Pass 1 (hash clocks) is now frontier-restricted, bitwise-tested against its full-grid version. It went from 6.4–6.8 to 0.72–1.24 ms.
+- Pass 2 replays every trajectory and repairs the flagged cells.
+- **Sampler cost on this host:**
+  - plain first-passage: 0.33 / 0.53 ms (c651 / fast);
+  - CMC without repair: 0.64 / 1.2 ms;
+  - CMC with exact repair: 0.95 / 1.67 ms.
+- Flagged cells are tail cells, with median p 0.004 (c651) and 3e-4 (fast). So the repair matters exactly where the sampler is meant to earn its place.
 
 ## 8b. Drop-in conditional estimator for the EXISTING rollout (standalone result, orchestrator decision 1)
 
@@ -247,7 +252,20 @@ Tests (`tests/test_cond_rollout.py`, 5 passed):
 | 0.5–0.9 | 0.86 |
 | > 0.9 | **4.2** (worse) |
 
-So use it for the tail bins; keep hit counting for high-probability cells, or choose by a fixed, pre-declared rule.
+**Do not switch by a data-dependent rule (Iris).** Choosing per cell with the same trajectories biases the estimate near the threshold. The implemented fix is Iris's option (b):
+- `pilot_weights` sets a per-cell weight `w ∈ [0, 1]` from an **independent pilot run**, minimising the pilot-estimated Var(w·Y + (1−w)·hit).
+- `combined_estimate` forms `w·Y + (1−w)·hit` from the main run. It is unbiased because w is independent of the main run.
+- The clip to [0, 1] is applied only at the output stage and reported separately, because Y can exceed 1.
+
+Test `test_pilot_weighted_combination_unbiased_and_never_much_worse`: pilot 1,000 trajectories, main 4,000. Median SE ratio, combined / plain:
+
+| p range | combined / plain | Y alone / plain | median w |
+|---|---:|---:|---:|
+| 0.15–0.5 | 0.42 | 0.46 | 0.84 |
+| 0.5–0.9 | 0.59 | 0.86 | 0.56 |
+| > 0.9 | 0.91 | 4.31 | 0.09 |
+
+So the combination is never worse than plain counting, and it removes Y's high-p penalty.
 
 **Proposal (accepted in principle by Iris and the orchestrator).** A new named predictor variant (for example `c651_mc_cond`), declared to S-D9 before any scored use, with `c651_mc` unchanged. It sharpens tail estimates; it does not fix calibration.
 

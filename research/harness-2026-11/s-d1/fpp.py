@@ -623,7 +623,63 @@ def _fpp_cmc_repair(K, offs, initial_flat, horizon, seg_len, n_samples, seed, fl
 
 @njit(cache=True)
 def _fpp_cmc_hash(K, offs, initial_flat, horizon, seg_len, n_samples, seed):
-    """Pass 1 at one horizon with hash clocks: plain, lo, lo^2, hi sums (all cells)."""
+    """Pass 1 at one horizon with hash clocks: plain, lo, lo^2, hi sums. Only cells with an in-neighbour
+    burned before the horizon are visited (every other cell contributes exactly zero)."""
+    S, KK, H, W = K.shape
+    n = H * W
+    positive = np.zeros((KK, H, W), dtype=np.bool_)
+    for j in range(S):
+        for c in range(KK):
+            for y in range(H):
+                for x in range(W):
+                    if K[j, c, y, x] > 0.0:
+                        positive[c, y, x] = True
+    plain = np.zeros(n)
+    lo1 = np.zeros(n)
+    lo2 = np.zeros(n)
+    hi1 = np.zeros(n)
+    arrival = np.empty(n)
+    done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
+    stamp = np.full(n, -1, dtype=np.int64)
+    cand = np.empty(n, dtype=np.int64)
+    for m in range(n_samples):
+        _fpp_one_hash(K, offs, initial_flat, horizon, seg_len, arrival, done, positive, parent, seed, m, -1)
+        nc = 0
+        for s in range(n):
+            if not arrival[s] < horizon:
+                continue
+            sy = s // W
+            sx = s - sy * W
+            for c in range(KK):
+                ty = sy - offs[c, 0]
+                tx = sx - offs[c, 1]
+                if ty < 0 or ty >= H or tx < 0 or tx >= W:
+                    continue
+                j = ty * W + tx
+                if stamp[j] == m or initial_flat[j] or not positive[c, ty, tx]:
+                    continue
+                stamp[j] = m
+                cand[nc] = j
+                nc += 1
+        for q in range(nc):
+            i = cand[q]
+            if arrival[i] <= horizon:
+                plain[i] += 1.0
+            a_lo, a_hi = _cond_terms(K, offs, positive, arrival, parent, i, horizon, seg_len, W, H, True)
+            if a_hi == 0.0:
+                continue
+            p_lo = -math.expm1(-a_lo)
+            lo1[i] += p_lo
+            lo2[i] += p_lo * p_lo
+            hi1[i] += -math.expm1(-a_hi)
+    return plain, lo1, lo2, hi1
+
+
+
+@njit(cache=True)
+def _fpp_cmc_hash_fullgrid_reference(K, offs, initial_flat, horizon, seg_len, n_samples, seed):
+    """REFERENCE ONLY (tests): original full-grid pass 1, kept to check the frontier version bitwise."""
     S, KK, H, W = K.shape
     n = H * W
     positive = np.zeros((KK, H, W), dtype=np.bool_)
