@@ -59,11 +59,14 @@ def model():
     return road_bounds.RoadBoundModel(graph, packet, active_window=win)
 
 class TickAt(v2_work.Budget):
-    """Raise StageCap at the k-th tick (ticks, not units); k=None counts only."""
-    def __init__(self, k):
-        super().__init__(); self.k = k; self.ticks = 0
+    """Raise StageCap at the k-th tick (ticks, not units); k=None counts only. With snap_at, record the container
+    sizes of the whole reachable model state AT the given tick numbers (before that tick's chunk runs)."""
+    def __init__(self, k, model=None, snap_at=()):
+        super().__init__(); self.k = k; self.ticks = 0; self.model = model; self.snap_at = set(snap_at); self.snaps = {}
     def tick(self, n=1, kind=None):
         self.ticks += 1; self.units += n
+        if self.ticks in self.snap_at:
+            self.snaps[self.ticks] = sizes(state(self.model))
         if self.k is not None and self.ticks == self.k:
             raise v2_work.StageCap('WORK_BUDGET', self.units)
 
@@ -111,12 +114,17 @@ def walk(x, path, out, seen):
     out[path] = ('v', repr(x))
 def state(M):
     out = {}; walk(M, 'M', out, set()); return out
+def sizes(st):
+    """Container sizes only (dict/list/tuple lengths and array shapes): what a chunk would grow if it had run."""
+    return {p: (v[0], v[1]) if v[0] in ('dict', 'list', 'tuple') else (v[0], v[2]) if v[0] == 'nd' else (v[0],) for p, v in st.items()}
 
 if what == 'completeness':
     fresh = model(); ref_vals = queries(fresh); ref_state = state(fresh)
     cnt = model(); cnt.stage_budget = TickAt(None); queries(cnt); total = cnt.stage_budget.ticks
+    K = sorted({1, 2, 3, 5, total})
+    snap = model(); snap.stage_budget = TickAt(None, snap, K); queries(snap); snaps = snap.stage_budget.snaps
     res = {'total_ticks': total, 'cases': []}
-    for k in sorted({1, 2, 3, 5, total}):
+    for k in K:
         M = model(); M.stage_budget = TickAt(k); stopped = None
         try:
             queries(M)
@@ -124,13 +132,16 @@ if what == 'completeness':
             stopped = exc.reason
         M.stage_budget = None
         mid = state(M)
+        # Thomas 19:36: nothing of the chunk whose tick raised reached ANY reachable cache (ivkernel, hybrid_radiation,
+        # adaptive, road_bounds): the state's container sizes equal those of an uninterrupted run AT tick k
+        grew = sorted(p for p in set(sizes(mid)) | set(snaps[k]) if sizes(mid).get(p) != snaps[k].get(p))
         partial = [p for p, v in mid.items() if p in ref_state and ref_state[p] != v and v[0] != 'dict' and not p.startswith('M.n_override')]
         # entries present right after the interruption must equal the fresh model's (dict sizes may be smaller)
         missing_in_ref = [p for p in mid if p not in ref_state]
         vals = queries(M)
         after = state(M)
         diff = sorted(p for p in set(after) | set(ref_state) if after.get(p) != ref_state.get(p))
-        res['cases'].append({'k': k, 'stopped': stopped, 'partial_entries': partial[:5], 'n_partial': len(partial),
+        res['cases'].append({'k': k, 'stopped': stopped, 'n_grown_vs_tick_k': len(grew), 'grown': grew[:5], 'partial_entries': partial[:5], 'n_partial': len(partial),
                              'paths_not_in_fresh': missing_in_ref[:5], 'n_paths_not_in_fresh': len(missing_in_ref),
                              'values_identical': enc(vals) == enc(ref_vals), 'state_diff': diff[:5], 'n_state_diff': len(diff),
                              'n_state_paths': len(after)})
@@ -166,6 +177,7 @@ class WholeStateCompleteness(unittest.TestCase):
                 with self.subTest(mission=case, k=c['k']):
                     self.assertEqual(c['stopped'], 'WORK_BUDGET')
                     self.assertEqual(c['n_partial'], 0, c)              # no partial entry right after the interruption
+                    self.assertEqual(c['n_grown_vs_tick_k'], 0, c)      # nothing from the chunk whose tick raised
                     self.assertEqual(c['n_paths_not_in_fresh'], 0, c)   # nothing the fresh model would not hold
                     self.assertTrue(c['values_identical'], c)           # replayed answers byte-identical
                     self.assertEqual(c['n_state_diff'], 0, c)           # whole reachable state identical (counters excluded)
