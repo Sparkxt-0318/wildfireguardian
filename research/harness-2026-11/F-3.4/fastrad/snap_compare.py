@@ -22,6 +22,9 @@ def load(d):
         rad = wr.get('adaptive_fallback') or wr.get('radiation') or {}
         req = json.loads((REPO / 'data/routing/latest_inputs_try02/requests' / r['region'] / (r['case_id'] + '.json')).read_text())
         pm = rad.get('per_member') or []
+        if isinstance(pm, dict):          # adaptive fallback stores {member_id: bounds}; hybrid stores [{id, ...}]
+            pm = [dict(v, id=k) for k, v in pm.items()]
+        r['check_reason'] = wr.get('reason')
         r['dose_upper_share'] = max((m['dose_upper_kj_m2'] / req['budgets']['dose'][m['id']] for m in pm), default=None)
         r['peak_upper_share'] = max((m['peak_upper_kw_m2'] / req['budgets']['peak'] for m in pm), default=None)
     return rows
@@ -46,7 +49,8 @@ def main():
         row = {'mission': m, 'identical_status_and_arrival': same, 'base': sorted(bv, key=str), 'snap': sorted(sv, key=str),
                'base_wall_s': med(b, 'complete_wall_s'), 'snap_wall_s': med(s, 'complete_wall_s'),
                'dose_upper_share_base': med(b, 'dose_upper_share'), 'dose_upper_share_snap': med(s, 'dose_upper_share'),
-               'peak_upper_share_base': med(b, 'peak_upper_share'), 'peak_upper_share_snap': med(s, 'peak_upper_share')}
+               'peak_upper_share_base': med(b, 'peak_upper_share'), 'peak_upper_share_snap': med(s, 'peak_upper_share'),
+               'check_reason_base': sorted({str(r.get('check_reason')) for r in b}), 'check_reason_snap': sorted({str(r.get('check_reason')) for r in s})}
         out.append(row)
         f = lambda x: '   -  ' if x is None else '%6.4f' % x
         print('%-44s %-5s wall %7.2f -> %7.2f s | dose share %s -> %s | peak share %s -> %s'

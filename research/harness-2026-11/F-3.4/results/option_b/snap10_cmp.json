@@ -1,0 +1,567 @@
+{
+ "mismatches": 0,
+ "rows": [
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FN1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "base_wall_s": 0.5380578909998803,
+   "snap_wall_s": 0.8137016900000162,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "hongseong_2023/20230402T070000Z_FX1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "base_wall_s": 0.6326663885001835,
+   "snap_wall_s": 0.823033482000028,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "hongseong_2023/20230402T140000Z_FW2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1459
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1459
+    ]
+   ],
+   "base_wall_s": 30.25270035899939,
+   "snap_wall_s": 31.561614882999493,
+   "dose_upper_share_base": 0.0018167219493279497,
+   "dose_upper_share_snap": 0.0018167219493424303,
+   "peak_upper_share_base": 9.075742073842137e-05,
+   "peak_upper_share_snap": 9.075742073860413e-05,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_ADAPTIVE_RADIATION"
+   ]
+  },
+  {
+   "mission": "hongseong_2023/20230402T230000Z_FD1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     531
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     531
+    ]
+   ],
+   "base_wall_s": 18.614107807001346,
+   "snap_wall_s": 22.52174740099963,
+   "dose_upper_share_base": 0.00021175939635510372,
+   "dose_upper_share_snap": 0.00021176048318682892,
+   "peak_upper_share_base": 9.906653522583497e-06,
+   "peak_upper_share_snap": 9.906677125969232e-06,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "miryang_2022/20220531T100000Z_FN1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1142
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1142
+    ]
+   ],
+   "base_wall_s": 28.15873297750113,
+   "snap_wall_s": 31.623031850999723,
+   "dose_upper_share_base": 0.3289484982865944,
+   "dose_upper_share_snap": 0.3289484982921667,
+   "peak_upper_share_base": 2.4010786709460135e-05,
+   "peak_upper_share_snap": 2.401078670957497e-05,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_ADAPTIVE_RADIATION"
+   ]
+  },
+  {
+   "mission": "miryang_2022/20220601T020000Z_FW1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1270
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1270
+    ]
+   ],
+   "base_wall_s": 15.608793543999127,
+   "snap_wall_s": 19.507818111500455,
+   "dose_upper_share_base": 0.0001042781360107457,
+   "dose_upper_share_snap": 0.00010427867844720776,
+   "peak_upper_share_base": 2.6718326422558954e-06,
+   "peak_upper_share_snap": 2.6718404235509142e-06,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FD1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "base_wall_s": 1.0131686749991786,
+   "snap_wall_s": 0.9911057154995433,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "miryang_2022/20220601T080000Z_FX1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "base_wall_s": 0.9029473494992999,
+   "snap_wall_s": 0.9753967485003159,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FD1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2460
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2460
+    ]
+   ],
+   "base_wall_s": 13.656792485000551,
+   "snap_wall_s": 16.74147485750018,
+   "dose_upper_share_base": 7.364855815762876e-05,
+   "dose_upper_share_snap": 7.364855815762876e-05,
+   "peak_upper_share_base": 1.3415241463496066e-06,
+   "peak_upper_share_snap": 1.3415241463496066e-06,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025/20250323T010000Z_FX2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2540
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2540
+    ]
+   ],
+   "base_wall_s": 14.591286870000658,
+   "snap_wall_s": 15.318218370000068,
+   "dose_upper_share_base": 0.3019100653940069,
+   "dose_upper_share_snap": 0.3019100653940069,
+   "peak_upper_share_base": 0.0004993611710937017,
+   "peak_upper_share_snap": 0.0004993611710937017,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025/20250324T090000Z_FL2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2143
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2143
+    ]
+   ],
+   "base_wall_s": 15.516739276999942,
+   "snap_wall_s": 16.54601549200015,
+   "dose_upper_share_base": 0.000963136429553979,
+   "dose_upper_share_snap": 0.000963136429553979,
+   "peak_upper_share_base": 7.789107245657532e-05,
+   "peak_upper_share_snap": 7.789107245657532e-05,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uiseong_andong_2025/20250325T170000Z_FW1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1064
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1064
+    ]
+   ],
+   "base_wall_s": 17.59608697299973,
+   "snap_wall_s": 21.495781273999455,
+   "dose_upper_share_base": 0.002531080132433629,
+   "dose_upper_share_snap": 0.002531080132433629,
+   "peak_upper_share_base": 3.4786897875987775e-05,
+   "peak_upper_share_snap": 3.4786897875987775e-05,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FD1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1589
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1589
+    ]
+   ],
+   "base_wall_s": 18.18923589449969,
+   "snap_wall_s": 23.086375150000094,
+   "dose_upper_share_base": 8.532599890878386e-06,
+   "dose_upper_share_snap": 8.53264343467924e-06,
+   "peak_upper_share_base": 2.071651006326782e-07,
+   "peak_upper_share_snap": 2.0716571396514045e-07,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uljin_2022/20220304T030000Z_FX1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     3119
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     3119
+    ]
+   ],
+   "base_wall_s": 33.82872328499889,
+   "snap_wall_s": 38.11390646449945,
+   "dose_upper_share_base": 0.31269412902542953,
+   "dose_upper_share_snap": 0.3126941858743536,
+   "peak_upper_share_base": 2.4888481683953225e-05,
+   "peak_upper_share_snap": 2.4888481683991945e-05,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_ADAPTIVE_RADIATION"
+   ]
+  },
+  {
+   "mission": "uljin_2022/20220304T060000Z_FL1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2067
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     2067
+    ]
+   ],
+   "base_wall_s": 8.625793312499809,
+   "snap_wall_s": 8.183443024000553,
+   "dose_upper_share_base": 0.00042449563025189824,
+   "dose_upper_share_snap": 0.00042449563025189824,
+   "peak_upper_share_base": 7.783531030459555e-06,
+   "peak_upper_share_snap": 7.783531030459555e-06,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "uljin_2022/20220304T120000Z_FW2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1655
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     1655
+    ]
+   ],
+   "base_wall_s": 8.747577765499955,
+   "snap_wall_s": 8.036362101999657,
+   "dose_upper_share_base": 0.0029573730623518096,
+   "dose_upper_share_snap": 0.0029573730623518096,
+   "peak_upper_share_base": 0.000257005252861869,
+   "peak_upper_share_snap": 0.000257005252861869,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FD1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "FULL_MODEL_REFUSAL_PROVEN",
+     null
+    ]
+   ],
+   "base_wall_s": 38.65418033750029,
+   "snap_wall_s": 44.8111313039999,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T190000Z_FX2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "base_wall_s": 81.37249314449946,
+   "snap_wall_s": 80.44984387250042,
+   "dose_upper_share_base": null,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": null,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "NO_SOLVER_WITNESS"
+   ],
+   "check_reason_snap": [
+    "NO_CERTIFIED_WITNESS",
+    "NO_SOLVER_WITNESS"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025/20250325T230000Z_FL2",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "snap": [
+    [
+     "UNRESOLVED",
+     null
+    ]
+   ],
+   "base_wall_s": 81.41886007600078,
+   "snap_wall_s": 81.34574689000056,
+   "dose_upper_share_base": 0.0018317870532689085,
+   "dose_upper_share_snap": null,
+   "peak_upper_share_base": 5.5077835066998286e-05,
+   "peak_upper_share_snap": null,
+   "check_reason_base": [
+    "CHECK_STARTED_NOT_COMPLETED",
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "CHECK_STARTED_NOT_COMPLETED"
+   ]
+  },
+  {
+   "mission": "yeongdeok_2025/20250326T080000Z_FW1",
+   "identical_status_and_arrival": true,
+   "base": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     896
+    ]
+   ],
+   "snap": [
+    [
+     "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+     896
+    ]
+   ],
+   "base_wall_s": 20.712542242999007,
+   "snap_wall_s": 23.075774820999868,
+   "dose_upper_share_base": 1.2438104243694181e-06,
+   "dose_upper_share_snap": 1.2438104243694181e-06,
+   "peak_upper_share_base": 2.0860207637771055e-08,
+   "peak_upper_share_snap": 2.0860207637771055e-08,
+   "check_reason_base": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ],
+   "check_reason_snap": [
+    "COMPLETE_CONTACT_AND_RADIATION"
+   ]
+  }
+ ]
+}
