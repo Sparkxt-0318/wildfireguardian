@@ -363,3 +363,36 @@ def fit_composite_then_scale(problem: Problem, obs: dict, **kw):
     shape = fit_bracket_composite(problem, obs)
     theta, _ = fit_scale_by_simulation(problem, obs, shape, **kw)
     return theta
+
+
+# ----------------------------------------------------- missed detections (Iris)
+
+def observe_detections(problem: Problem, rng, *, every=12.0, q=0.0, left_open=False):
+    """Overpass detections with miss probability q per overpass after arrival.
+
+    A burned cell is first detected at the first overpass at or after its arrival whose
+    independent detection draw succeeds (probability 1 - q each time). Cells never detected
+    by T look unburned (censored), as in real active-fire data. Bracket of a detected cell:
+    hard ``(previous overpass, first detection]`` (``left_open=False``), which is wrong when
+    earlier overpasses missed it, or left-open ``(0, first detection]``."""
+    over = np.arange(0.0, problem.T + 1e-9, every)
+    if over[-1] < problem.T:
+        over = np.append(over, problem.T)
+    tau = problem.tau
+    burned = np.isfinite(tau) & (tau <= problem.T)
+    det = np.full(problem.cells, np.nan)
+    k0 = np.searchsorted(over, tau, side="left")
+    for i in np.flatnonzero(burned):
+        for k in range(int(k0[i]), len(over)):
+            if rng.uniform() >= q:
+                det[i] = over[k]
+                break
+    seen = np.isfinite(det)
+    seen[problem.seeds] = True
+    det[problem.seeds] = 0.0
+    kk = np.searchsorted(over, det, side="left")
+    lo = np.where(seen, 0.0 if left_open else over[np.clip(kk - 1, 0, None)], np.nan)
+    hi = np.where(seen, det, np.nan)
+    lo[problem.seeds] = hi[problem.seeds] = 0.0
+    return dict(kind="perimeter", lo=lo, hi=hi, burned=seen, surveys=over,
+                missed_cells=int((burned & ~seen).sum()))
