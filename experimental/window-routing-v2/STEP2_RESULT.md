@@ -15,7 +15,8 @@ Kit `kit-v2-step2c` (manifest `6a39762c…`, branch commit 90659b3 + the compare
 | G3 (shares within 1e-4) | **20/20** |
 | G5 wall (summed median) | **0.893** including Yeongdeok 0325T23 FL2; **0.996 excluding it** (339.8 → 338.3 s) — pass either way |
 | G5 memory (per mission ≤ +10% and ≤ 3,072 MiB) | **FAIL on 12 of 20 missions.** Everything is ≤ 3,072 MiB (largest 1,138 MiB), but +40% to +78% on every mission that runs a whole-road check |
-| G2 / G2b | running (below) |
+| G2 | **28/28** published routes accepted by both frozen checkers, each in a fresh process (`results/step2/G2.jsonl`) |
+| G2b (Thomas's `xcheck/g2b.py` @ deeb7c2) | **40 runs, 0 violations** (38 PASS, 2 NOT_APPLICABLE_STATUS) (`results/step2/G2B.json`) |
 
 **G5 memory failures** (median family peak, frozen → v2, MiB):
 - Hongseong: 84 → 123 and 69 → 109.
