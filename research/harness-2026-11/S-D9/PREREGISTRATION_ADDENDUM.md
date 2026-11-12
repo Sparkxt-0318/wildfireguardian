@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 6, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 7, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -77,6 +77,8 @@ The source is Daniel's metadata table `research/harness-2026-11/data-fetch/nirop
 14. **Rebuilt-vs-archive covariate check** (fixed before any run), on one already-exposed fire where archive values are recoverable from committed files. It compares the rebuilt covariates with the archive covariates cell by cell inside the rectangle:
    - Pass requires a median absolute difference of ≤ 1.0 K for temperature, ≤ 1.0 m/s for each wind component, ≤ 1.0° for slope and ≤ 5 percentage points for tree cover, and at least 95% agreement on biome class.
    - Pass **also** requires tail bounds (revision 11): the 95th percentile of |difference| must be ≤ 3.0 K, ≤ 3.0 m/s per wind component, ≤ 3.0° and ≤ 15 percentage points respectively.
+   - **How a channel passes (clarification, revision 12).** A channel whose rebuilt file is **byte-identical** to the archive file hash pinned in committed evidence (for example, FIT_COVERAGE.json) has a difference of 0 and passes. A channel whose hashes differ and whose archive values are not recoverable is **UNAVAILABLE**, and the fallback applies to it. *Disclosure:* this clarification was written after Daniel reported that 16 of 35 AlderCreek covariate files hash-match and that slope and tree cover differ. It adds no tolerance and changes no threshold. It only states how a hash match counts.
+   - **Labels.** The rebuilt label pipeline reproduced all 52 committed Wapiti held-out cases exactly (grid, reference_cells, positives, y). This was reported by Daniel at 60a94974 and is not yet verified by Hannah.
    - **Fallback.** Untouched fires have no archive values, so the rebuilt source is used whatever the outcome. On a failure, or if no archive values are recoverable (check UNAVAILABLE), every decision on rebuilt inputs for a model trained on archive covariates is **descriptive, not confirmatory**, until the check passes (revision 11). The failing channels are reported.
 
 The covariates for these fires are **rebuilt** with `forecast/wildfire/environment.py` and will not reproduce the owner archive's hashes. Where the archive values are recoverable from committed files for an already-exposed fire, a rebuilt-vs-archive consistency check on that fire is reported before any b score.

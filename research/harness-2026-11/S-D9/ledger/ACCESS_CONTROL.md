@@ -12,3 +12,8 @@
 Building labels or covariates for a b, c or d fire counts as opening it. Any opening outside these rules must be recorded here by amendment, and the affected fire becomes INSPECTED in the exposure ledger.
 
 Already disclosed (cohort R, US2024): Elena (S-D2) used R's NIROPS brackets to calibrate kriging SD (claude/s-d2-interval-censored-likelihood 6d125bd). R is a descriptive reference, so this needs disclosure only.
+
+## Amendments
+
+- **2026-11-12, pilot.** Daniel built inputs for the 3 pilot fires (part a: Blue2, MossMountain_Chalk, Homestead_Salmon33) on daniel/data-fetch at 60a94974. The builder refuses incidents not on `PART_A_ALLOWLIST.csv` at bba8d00d, and nothing from b, c or d was opened. The build ran before the §1.2 item 9 leakage filter, which I had asked to come first. If a pilot fire is later dropped by that filter, it leaves the training pool, and nothing outside part a was exposed.
+- **2026-11-12, max_acres disclosure (Daniel).** `nirops_incidents.csv` at daniel/data-fetch 0cf39959 (committed before the split existed) carries `max_acres` (final mapped acres) for all 737 incidents, including those now in b, c and d. That is an outcome summary (final size), not growth or timing. The split rule never reads it (`select_cohort.py`). The S-D9 stream viewed only the first two rows of that file, both forecast-v2 fit fires. The column is in git history permanently. Anyone who has looked at max_acres for a b, c or d incident must record it here, and that incident then counts as INSPECTED (final size only).
