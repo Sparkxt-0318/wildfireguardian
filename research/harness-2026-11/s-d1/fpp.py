@@ -94,14 +94,19 @@ def _edge_arrival(K, c, ty, tx, t0, e, seg_len, horizon):
 
 
 @njit(cache=True)
-def _fpp_one(K, offs, initial_flat, horizon, seg_len, arrival, done, positive):
-    """One trajectory of time-dependent Dijkstra; fills ``arrival`` (inf = not burned by horizon)."""
+def _fpp_one(K, offs, initial_flat, horizon, seg_len, arrival, done, positive, parent):
+    """One trajectory of time-dependent Dijkstra.
+
+    Fills ``arrival`` (inf = not burned by horizon) and ``parent`` (shortest-path-tree predecessor,
+    -1 for initially burned or unreached cells).
+    """
     S, KK, H, W = K.shape
     n = H * W
     heap = [(0.0, np.int64(-1))]
     heap.pop()
     for idx in range(n):
         done[idx] = False
+        parent[idx] = -1
         if initial_flat[idx]:
             arrival[idx] = 0.0
             heapq.heappush(heap, (0.0, np.int64(idx)))
@@ -126,6 +131,7 @@ def _fpp_one(K, offs, initial_flat, horizon, seg_len, arrival, done, positive):
             ta = _edge_arrival(K, c, ty, tx, t, e, seg_len, horizon)
             if ta < arrival[ti]:
                 arrival[ti] = ta
+                parent[ti] = s
                 heapq.heappush(heap, (ta, np.int64(ti)))
 
 
@@ -147,8 +153,9 @@ def _fpp_counts(K, offs, initial_flat, horizons, seg_len, n_samples, seed, keep)
     kept = np.empty((keep, n), dtype=np.float64)
     arrival = np.empty(n, dtype=np.float64)
     done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
     for m in range(n_samples):
-        _fpp_one(K, offs, initial_flat, hmax, seg_len, arrival, done, positive)
+        _fpp_one(K, offs, initial_flat, hmax, seg_len, arrival, done, positive, parent)
         if m < keep:
             kept[m, :] = arrival
         for idx in range(n):
@@ -235,3 +242,126 @@ def cellular_automaton(K, initial, horizons, *, dt, n_samples, seed, seg_len=1.0
                 counts[record[step + 1]] += new.sum(axis=0)
                 totals[record[step + 1], start:start + size] = new.sum(axis=(1, 2))
     return (counts, totals) if return_totals else counts
+
+
+# --------------------------------------------------------------------------------------
+# Conditional Monte Carlo (cut on the in-edges of each cell)
+# --------------------------------------------------------------------------------------
+
+@njit(cache=True)
+def _cum_hazard(K, c, ty, tx, u, seg_len):
+    """int_0^u K[seg(v), c, ty, tx] dv."""
+    S = K.shape[0]
+    total = 0.0
+    j = 0
+    start = 0.0
+    while start < u:
+        end = np.inf if j == S - 1 else (j + 1) * seg_len
+        stop = u if u < end else end
+        total += K[j, c, ty, tx] * (stop - start)
+        start = end
+        j += 1
+    return total
+
+
+@njit(cache=True)
+def _is_descendant(s, i, parent, arrival):
+    """True if cell i lies on the shortest-path-tree ancestor chain of cell s."""
+    p = s
+    ti = arrival[i]
+    while p != -1 and arrival[p] > ti:
+        p = parent[p]
+    return p == i
+
+
+@njit(cache=True)
+def _fpp_cmc(K, offs, initial_flat, horizons, seg_len, n_samples, seed):
+    """Per-trajectory plain indicators and conditional estimators, accumulated as sums and squares.
+
+    For cell i and horizon t the conditional estimator is
+        P(T_i <= t | T^{-i}) = 1 - exp(-sum_s [Lambda_si(t) - Lambda_si(T_s^{-i})]^+),
+    exact because a first passage to i never passes through i and E_si is independent of T^{-i}.
+    From one Dijkstra, T_s^{-i} = T_s for every in-neighbour s that is not a descendant of i in the
+    shortest-path tree. Descendants have T_s^{-i} >= T_s > T_i: dropping them gives the lower bound
+    ``lo``; using their full-graph T_s gives the upper bound ``hi``. If T_i >= t, every descendant has
+    T_s > t and contributes nothing, so lo == hi exactly on the cells not burned by t.
+    """
+    S, KK, H, W = K.shape
+    n = H * W
+    np.random.seed(seed)
+    positive = np.zeros((KK, H, W), dtype=np.bool_)
+    for j in range(S):
+        for c in range(KK):
+            for y in range(H):
+                for x in range(W):
+                    if K[j, c, y, x] > 0.0:
+                        positive[c, y, x] = True
+    nh = horizons.shape[0]
+    hmax = horizons.max()
+    plain = np.zeros((nh, n))
+    lo1 = np.zeros((nh, n))
+    lo2 = np.zeros((nh, n))
+    hi1 = np.zeros((nh, n))
+    gap_cells = np.zeros(nh, dtype=np.int64)
+    arrival = np.empty(n)
+    done = np.empty(n, dtype=np.bool_)
+    parent = np.empty(n, dtype=np.int64)
+    for m in range(n_samples):
+        _fpp_one(K, offs, initial_flat, hmax, seg_len, arrival, done, positive, parent)
+        for i in range(n):
+            if initial_flat[i]:
+                continue
+            ty = i // W
+            tx = i - ty * W
+            for h in range(nh):
+                t = horizons[h]
+                if arrival[i] <= t:
+                    plain[h, i] += 1.0
+                a_lo = 0.0
+                a_hi = 0.0
+                for c in range(KK):
+                    if not positive[c, ty, tx]:
+                        continue
+                    sy = ty + offs[c, 0]
+                    sx = tx + offs[c, 1]
+                    if sy < 0 or sy >= H or sx < 0 or sx >= W:
+                        continue
+                    s = sy * W + sx
+                    ts = arrival[s]
+                    if ts >= t:
+                        continue
+                    contrib = _cum_hazard(K, c, ty, tx, t, seg_len) - _cum_hazard(K, c, ty, tx, ts, seg_len)
+                    a_hi += contrib
+                    if arrival[i] < t and _is_descendant(s, i, parent, arrival):
+                        continue
+                    a_lo += contrib
+                p_lo = -math.expm1(-a_lo)
+                p_hi = -math.expm1(-a_hi)
+                lo1[h, i] += p_lo
+                lo2[h, i] += p_lo * p_lo
+                hi1[h, i] += p_hi
+                if p_hi > p_lo:
+                    gap_cells[h] += 1
+    return plain, lo1, lo2, hi1, gap_cells
+
+
+def first_passage_cmc(K, initial, horizons, *, n_samples, seed, seg_len=1.0):
+    """Plain and conditional Monte Carlo burn-probability estimates from the same trajectories.
+
+    Returns a dict of [len(horizons), H, W] arrays: ``plain`` (mean indicator), ``cmc_lo`` and
+    ``cmc_hi`` (means of the lower/upper conditional estimators), ``cmc_lo_var`` (per-trajectory
+    variance of the lower estimator), and ``gap_fraction`` [len(horizons)]: share of (trajectory,
+    cell) pairs where the bounds differ.
+    """
+    K, initial, offs = _check(K, initial)
+    horizons = np.asarray(horizons, dtype=np.float64)
+    H, W = initial.shape
+    plain, lo1, lo2, hi1, gap = _fpp_cmc(K, offs, initial.ravel(), horizons, float(seg_len),
+                                         int(n_samples), int(seed))
+    n = n_samples
+    shape = (len(horizons), H, W)
+    lo_mean = lo1 / n
+    return dict(plain=(plain / n).reshape(shape), cmc_lo=lo_mean.reshape(shape),
+                cmc_hi=(hi1 / n).reshape(shape),
+                cmc_lo_var=(lo2 / n - lo_mean ** 2).reshape(shape),
+                gap_fraction=gap / (n * (~initial).sum()))

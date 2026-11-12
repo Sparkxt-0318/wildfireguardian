@@ -204,3 +204,96 @@ def test_first_passage_single_source_direction_matches_forecast():
     assert c[0, 3, 6] > 150
     burned = {tuple(v) for v in np.argwhere(c[0] > 0).tolist()}
     assert burned <= {(3, 6), (1, 7)}  # only along the (-2, +1) ray, inside the grid
+
+
+def test_reference_ca_matches_real_forecast_rollout_marginals():
+    """Independent hourly CA == wildfire.rollout.simulate (stub predictor with fixed kernels)."""
+    sys.path.insert(0, str(REPO / "forecast"))
+    from wildfire.models import new_burn_probability
+    from wildfire.rollout import simulate
+    rng = np.random.default_rng(5)
+    H = W = 14
+    K = rng.uniform(0, 0.12, size=(49, H, W))
+    K[24] = 0
+    init = np.zeros((H, W), bool)
+    init[6:8, 6:8] = True
+    kern = torch.tensor(K)
+
+    class Stub(torch.nn.Module):
+        channel_names = ("x",)
+
+        def forward(self, states, environment, *, channel_names, burned_area_valid,
+                    feature_valid, dt_hours, boundary):
+            return new_burn_probability(states, kern.expand(states.shape[0], -1, -1, -1),
+                                        dt_hours=dt_hours, burned_area_valid=burned_area_valid,
+                                        boundary=boundary)
+
+    n = 2000
+    b = torch.tensor(init, dtype=torch.float64)[None]
+    env = torch.zeros((1, H, W), dtype=torch.float64)
+    out = simulate(Stub(), b, env, channel_names=("x",),
+                   burned_area_valid=torch.ones_like(b, dtype=torch.bool),
+                   feature_valid=torch.ones_like(env, dtype=torch.bool), hours=[1.0, 3.0],
+                   n_samples=n, seed=3, trajectory_batch_size=500, boundary="zero")
+    ca = cellular_automaton(K, init, [1.0, 3.0], dt=1.0, n_samples=n, seed=4)
+    for i in range(2):
+        p_ref = out[i]["details"].probability[0].numpy()
+        p_ref = np.where(init, 0, p_ref)
+        p_ca = ca[i] / n
+        se = np.sqrt((p_ref * (1 - p_ref) + p_ca * (1 - p_ca)) / n) + 1e-9
+        assert np.all(np.abs(p_ref - p_ca) <= 5 * se + 1e-9)
+    # and the hourly recursion is clearly below first passage at 3 h on this case
+    fp, _ = first_passage(K, init, [3.0], n_samples=n, seed=5)
+    assert fp[0].sum() / n > ca[1].sum() / n * 1.05
+
+
+def hypoexp_cdf_general(rates, t):
+    from scipy.linalg import expm
+    k = len(rates)
+    Q = np.zeros((k + 1, k + 1))
+    for j, r in enumerate(rates):
+        Q[j, j] = -r
+        Q[j, j + 1] = r
+    return expm(Q * t)[0, k]
+
+
+def test_cmc_exact_on_chain_including_tail():
+    from fpp import first_passage_cmc
+    rates = [0.8, 0.5, 0.3, 0.2]
+    links = [((0, j + 1), (0, j), r) for j, r in enumerate(rates)]
+    K = chain_kernel(1, 5, links)
+    init = np.array([[True, False, False, False, False]])
+    t = 0.6
+    n = 20000
+    out = first_passage_cmc(K, init, [t], n_samples=n, seed=21)
+    for j in range(1, 5):
+        exact = hypoexp_cdf_general(rates[:j], t)
+        est = out["cmc_lo"][0, 0, j]
+        se = math.sqrt(max(out["cmc_lo_var"][0, 0, j], 1e-300) / n)
+        assert abs(est - exact) <= 5 * se + 1e-15, (j, est, exact, se)
+        assert abs(out["cmc_hi"][0, 0, j] - exact) <= 5 * se + 0.02 * exact
+    # far tail (exact ~1e-4 at cell 4): CMC relative SE is several times below plain MC's
+    exact4 = hypoexp_cdf_general(rates, t)
+    assert exact4 < 1e-3
+    rel_cmc = math.sqrt(out["cmc_lo_var"][0, 0, 4] / n) / exact4
+    rel_plain = math.sqrt(exact4 * (1 - exact4) / n) / exact4
+    assert rel_cmc < rel_plain / 3
+
+
+def test_cmc_matches_plain_on_random_grid_and_gap_only_on_burned():
+    from fpp import first_passage_cmc
+    rng = np.random.default_rng(7)
+    K = rng.uniform(0, 0.15, size=(2, 25, 10, 10))
+    K[:, 12] = 0
+    init = np.zeros((10, 10), bool)
+    init[5, 5] = True
+    n = 20000
+    out = first_passage_cmc(K, init, [1.5, 3.0], n_samples=n, seed=22)
+    p = out["plain"]
+    se = np.sqrt((p * (1 - p)) / n) + 1e-9
+    # lower estimator: equal to plain within MC error (its bias is confined to burned cells)
+    assert np.all(np.abs(out["cmc_lo"] - p) <= 5 * se + 0.005)
+    # upper estimator is a pointwise upper bound of the exact conditional estimator
+    assert np.all(out["cmc_lo"] <= out["cmc_hi"] + 1e-12)
+    assert out["cmc_hi"].mean() >= p.mean() - 5 * se.mean()
+    assert np.all(out["gap_fraction"] < 0.5)
