@@ -199,5 +199,21 @@
   "max_kmh": 3747.349807067217,
   "note": "dominated by simultaneous detections on separate fronts; not used for the decision"
  },
- "decision": "not refuted by these detections (not a proof: unseen arrivals between overpasses, cloud/smoke)"
+ "decision": "not refuted; low power (max per-detection lower bound 1.48 km/h is below the documented 12-h mean ~4.25 km/h)",
+ "documented_interval_check": {
+  "interval": "KFS 25 Mar 14:00 -> 26 Mar 02:00 KST (05:00 -> 17:00 UTC)",
+  "overpasses": [
+   "2025-03-25 05:06",
+   "2025-03-25 17:26"
+  ],
+  "gap_h": 12.33,
+  "max_new_detection_distance_from_prior_extent_km": 49.25,
+  "implied_mean_kmh": 3.99
+ },
+ "context_consecutive_overpasses": {
+  "max_rate_gap_ge_3h_kmh": 7.01,
+  "at": "2025-03-25 05:58 -> 12:25 UTC, 45.23 km in 6.45 h",
+  "short_gap_note": "gaps <= 0.4 h reach 47 km/h, confounded by sensor swath coverage"
+ },
+ "wording": "uninformative about 8.2 km/h (low power), not contradicted"
 }

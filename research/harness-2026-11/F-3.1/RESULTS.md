@@ -411,3 +411,31 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * Dose upper_bound in some variant (two placeholder dependencies): 1 origin, YD 03-25 19Z 5 h.
 * **Not included.** The forecast-dependent flag on F-DYN needs present-only F-DYN fields, which were not run.
   envelope_sound is withdrawn.
+
+## Rate-assumed tier: test of 8.2 km/h against the detections (rule `RATE_ASSUMED_RULE.md`, committed first at 8a16dc2)
+
+* **Tier label.** "rate-assumed, 8.2 km/h (reported orally, method unpublished; documented 12-h mean ≈4.25 km/h incl.
+  spotting)". Never "bounded".
+* **Files.** `results/RATE_REFUTATION_8p2.json`, built by `deadline_field/rate_refute.py`.
+* **Data.** 5,114 FIRMS detections: 2025-03-21 to 03-29, in grid, type 0, inside the final kriged footprint; 44
+  overpasses. Brackets follow `firms_early`.
+* **Test of record: per-detection minimum implied rate.** The orchestrator accepted it.
+  * r_j = slowest spread from any earlier-bracketed detection that explains detection j.
+  * n = 5,091; p50 0.03, p90 0.10, p99 0.23, **max 1.48 km/h**.
+  * 0 detections exceed 8.2.
+* **Result: uninformative about 8.2 km/h (low power), not contradicted.** This is not support. The test's largest
+  lower bound (1.48) is below the documented written 12-h mean. Its power is low because intermediate overpasses chain
+  each detection to a nearby earlier one.
+* **Documented interval, checked directly in the detections.** KFS: fire-line 51 km in ≤ 12 h, 25 Mar 14:00 → 26 Mar
+  02:00 KST.
+  * Nearest overpasses: 25 Mar 05:06 and 17:26 UTC, a 12.33 h gap.
+  * The new detections in that interval lie up to **49.25 km** from the extent detected by 05:06. The farthest is at
+    36.4918 N, 129.4389 E (Yeongdeok coast) at 17:26 UTC.
+  * Implied mean **3.99 km/h**. The detections reproduce the documented ≈4 km/h.
+* **Context only, not decisive: front advance between consecutive overpasses.** This is the maximum distance of the
+  new detections from the cumulative earlier extent, divided by the gap.
+  * Over gaps of ≥ 3 h, the largest is **7.0 km/h**: 45.2 km in 6.45 h, 25 Mar 05:58 → 12:25 UTC.
+  * Short gaps (≤ 0.4 h) give up to 47 km/h. These are confounded by different sensor swaths covering different
+    areas, not spread.
+* **Literal all-pairs statistic.** Max 3,747 km/h. It is dominated by simultaneous detections on separate fronts and
+  is not decisive.
