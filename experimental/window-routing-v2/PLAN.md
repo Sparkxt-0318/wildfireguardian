@@ -3,6 +3,8 @@
 **Owner decision** relayed by the orchestrator, 12 Nov 2026, 15:05 UTC.
 - **Lead:** Priya. **Certificates and checkers:** Thomas, who reviews every step that touches them, before code: steps 2(c), 4 and 5, and option A.
 - **Verification:** Mira. **Assessment of each step:** Iris.
+- **Approval:** approved by the orchestrator (15:08 UTC; D1 decided as proposed). Thomas reviewed steps 2(c), 5 and 7
+  and G2 at 15:09 UTC; his conditions are folded in below, including G2b.
 - **Revisions:** revised 15:1x UTC after Iris's assessment (adopt; steps 1↔2 swapped; G1 exception made mechanical;
   G5 added; steps 3–5 tightened).
 - **Branch:** `claude/priya-kit-v2`, off `Main` @ 8fdce35. **Location:** `experimental/window-routing-v2/`.
@@ -55,6 +57,16 @@ uninstrumented, against a fresh 2-rep run of the frozen kit interleaved on the s
 both of the following, **unchanged**. Both must accept: whole-road CERTIFIED_ADMISSIBLE; independent ok with no codes.
 - the frozen kit's whole-road checker (`adaptive_checker`, sha `1da95550…`, with the hashes of the files it loads);
 - the routing package's independent checker (`routing.independent` after `validate_*`).
+
+**G2b. Optimality and no-route claims (Thomas).** G2 checks fixed routes only; the whole-road checker makes no
+global claim. So every request is also run through the F-3.2 contact relaxation, which is a certified lower bound on
+the full policy (script by Thomas, in F-3.2). It is run only on packets that pass X1; envelope packets are excluded.
+- (a) Every v2 FEASIBLE or OPTIMUM_PROVEN arrival A must satisfy **A ≥ T_relax**, the relaxation's certified optimum
+  for the same request.
+- (b) If the relaxation certifies NO_ROUTE, v2 must not publish a route.
+- (c) If v2 claims a full-policy no-route while the relaxation has a route, it is listed. This is not a
+  contradiction, because the relaxation is weaker.
+- These are necessary conditions, not a proof of optimality. A failure of (a) or (b) fails the step.
 
 **G3. Bounds.**
 - Certified dose and peak upper-bound shares on the 1-hour panel must be identical to the frozen kit's (within 1e-4
@@ -127,9 +139,27 @@ A step that fixes multi-hour while slowing the 1-hour kit beyond this is not acc
   - If a memory limit is reached **after** a check has completed, the completed result is kept and the memory event is
     recorded beside it.
   - A check **interrupted** by a memory limit stays UNRESOLVED (fail-closed is unchanged for incomplete checks).
-  - This touches certificate semantics, so it needs Thomas's sign-off.
+  - This touches certificate semantics, so it needed Thomas's sign-off. **Signed off (15:09 UTC) with conditions:**
+    - **(i) Only the RSS replacement changes.** `RSS_LIMIT` (in `hybrid_checker._finish`) and
+      `RSS_LIMIT_AFTER_ADAPTIVE_FALLBACK` change. The following stay exactly as they are, and still replace a completed
+      result:
+      - `WALL_CAP_AFTER_CHECK` and `WALL_CAP_DURING_FINALIZATION` (time is part of the deployment claim);
+      - `AUTHORITY_CHANGED_DURING_ADAPTIVE_FALLBACK` (a correctness gate).
+    - **(ii) A kept result carries `resource_budget {gate_mb, peak_mb (the check's own), within_budget: false}`.**
+      - It is reported as "certified, outside the declared memory budget".
+      - It is counted separately and never pooled with within-budget results.
+      - Either the decision layer reads `within_budget`, or a distinct status is used. No within-budget count may
+        include it.
+    - **(iii) (a) + (b) are the main fix.** With the check in its own child process, the child's peak is the check's
+      memory, so (c) matters only for checks that genuinely need more than 3 GiB. Each kept result records which
+      mechanism kept it.
+    - **(iv) Tests:**
+      - completed-then-over-budget keeps the result with `within_budget: false`;
+      - an interrupted check (MemoryError or an exception) stays UNRESOLVED;
+      - an authority change still replaces;
+      - a wall cap still replaces.
 
-**Decision D1 (Iris agrees with the proposal; the orchestrator's answer is pending).**
+**Decision D1 (decided by the orchestrator, 15:08 UTC).**
 - The controller guard (3,072 MiB) already samples **current** family RSS. The F-DYN stops at 300 s were genuine: the
   Yeongdeok EA bound is 4.4 GiB resident.
 - So v2 either keeps a 3 GiB deployment budget (then Yeongdeok needs step 5 first) or declares a larger budget as an
@@ -208,8 +238,14 @@ and it costs 53–82 s on Uiseong.
 - G1–G3.
 - The bound values are equal to the frozen implementation's at every state queried by the search, on every F-DYN and
   1-hour request.
-- **Full-array equality (Iris)** on every instance small enough to hold both implementations. A difference at a state
-  one request does not query can be a queried state on another.
+- **Whole-function equality (Thomas, supersedes the line above).** The compact representation, decompressed or
+  looked up, equals the frozen arrays **bit-for-bit at every (time, state) in the frozen domain**, on every F-DYN and
+  1-hour request. The query set changes with steps 3 and 6, so queried-state equality is not enough.
+- Any state outside a stored window or band returns an explicitly conservative value: a valid lower bound, such as 0
+  or the static road-distance bound. This has a test.
+- **No dtype narrowing that rounds.** Narrow only where the integer range provably fits, with max/min asserted at
+  build time. Never use float32 for float64.
+- A property test on random (time, state) pairs, plus the full-array comparison as the regression test.
 - Resident memory is reported.
 
 ### Step 6: Uiseong search
@@ -232,6 +268,22 @@ declared before running). The design follows from what that run shows:
 - Thomas reviews the argument.
 
 If it fails, it is recorded as a negative and dropped.
+
+`fastrad/TWO_TIER_ARGUMENT.md` must contain Thomas's four points:
+1. **Each tier is individually a sound enclosure of the true coefficient.** This is the frozen kit's existing
+   assumption; the argument cites where it is established. The cheap ⊇ exact property test is about fidelity, not
+   soundness.
+2. **Monotonicity.**
+   - Per box, A's enclosure is either the full intersection or a superset of it.
+   - So A's upper bounds are ≥ the frozen kit's, and A's lower bounds are ≤ the frozen kit's.
+   - Therefore CERTIFIED under A implies CERTIFIED under the frozen kit, and DEFINITE_REJECT under A implies
+     DEFINITE_REJECT under the frozen kit.
+   - A can only lose decisions, never create them.
+3. **Aggregation.** Dose is a sum and peak is a max of per-box bounds, so mixing cheap and exact boxes still gives a
+   valid bound.
+4. **The half-budget guard and the exact fallback do not affect point 2.**
+
+Thomas reviews the argument.
 
 ## 3. What will not be done
 
