@@ -352,3 +352,24 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **envelope vs kriged_mean is not ordered.** At YD 03-25 19Z 5 h, origin osm:node/415160165 is feasible from 0 under
   envelope ([0, 17706]) but only from 6,071 s under kriged_mean. Envelope deadlines are therefore not a bound on
   kriged_mean deadlines in either direction. This is consistent with the bracket-start label.
+
+## Deadline ladder per place and start (F-DYN; SCENARIO; not yet verified)
+
+* **What it shows.** For every place, start and horizon, the contiguous deadline under each variant, with its label:
+  * envelope_burnset: sound relative to the final mapped burn set (fire never mapped is outside it); single
+    implementation, not independently checked;
+  * firms_early: bracket-start, not a lower bound;
+  * kriged_mean: central scenario;
+  * envelope: bracket-start, not a lower bound.
+* **Files.** `results/DEADLINE_LADDER_FDYN.json`, built by `deadline_field/ladder.py`.
+* **The variants are not nested,** so the ladder is a list, not an interval. Spread = max − min over the variants that
+  give a deadline:
+  * **Uiseong:** median spread 0 s. Origins with spread > 30 min, per start: 03-23 2; 03-24 0–1; 03-25 5–6. Max spread
+    up to 22,480 s at 8 h. Burnset gives no deadline anywhere.
+  * **Yeongdeok:** median 0 s. Origins with spread > 30 min: 03-25 19Z 2; the other starts 0, with max 96 s. 27 of 90
+    origins have a deadline in all four variants (those outside the burn set's road cut).
+* **Flags per origin.**
+  * Hole in some variant: UA 2–28, YD 0–6 per start.
+  * Dose upper_bound in some variant (two placeholder dependencies): 1 origin, YD 03-25 19Z 5 h.
+* **Not included.** The forecast-dependent flag on F-DYN needs present-only F-DYN fields, which were not run.
+  envelope_sound is withdrawn.
