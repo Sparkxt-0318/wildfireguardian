@@ -404,8 +404,17 @@ identical across starts. See MULTIHOUR_HEADLINE_RULE.md.
     arrays. So no independent check of these witnesses is possible yet: only the full checker and the closed replay
     on HAZARD.
   * **v3.4 (Nora row 37).** Leo's MANIFEST_v3_4 fix passes: the burnset arrays now equal HAZARD, and the HAZARD is
-    identical to v3.3's. The burnset field results above therefore carry over to v3.4. They have not been rerun, so
-    the packet hashes in the claim are v3.3's.
+    identical to v3.3's.
+  * **v3.4 rerun (done).** All 24 envelope and envelope_burnset packets were rebuilt from MANIFEST_v3_4 (Leo
+    faa89c4) and rerun through `fdyn_run` with full-checker witnesses (`results/FDYN_V34_RERUN_vs_V33.json`, built by
+    `deadline_field/rerun_compare.py`; it lists both runs' HAZARD hashes per packet).
+    * **Result.** 24 of 24 packets give the same classes, deadlines, pieces, witnesses and check rows as v3.3. The
+      only differences are in the last float digits (equal at 9 significant digits) and in file paths.
+    * **Why the HAZARD hashes differ.** On a rebuilt YD 25T19 h5 envelope_burnset pair, the two HAZARD.json files
+      differ only in provenance and identity: settings_digest, construction_id, the scenario and member ids derived
+      from it, the interpretation text, and the embedded absolute path of the radiation module. The flame, flux and
+      dose content is identical. The other 23 pairs were not rebuilt for this check.
+    * **Not recorded.** This batch predates the writer_identity field in fdyn_run output, so it is absent here.
 * **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
   is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
 
