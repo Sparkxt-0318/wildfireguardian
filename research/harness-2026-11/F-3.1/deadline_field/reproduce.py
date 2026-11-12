@@ -23,10 +23,10 @@ ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.explain_deadlines.plans import CacheModel  # noqa: E402
+from tools.explain_deadlines.plans import CacheModel, reconstruct_legs  # noqa: E402
 
 from deadline_field import intervals as iv  # noqa: E402
-from deadline_field.core import backward, issue_core, issue_set, witness  # noqa: E402
+from deadline_field.core import backward, check_fixed_point, issue_core, issue_set, witness  # noqa: E402
 from deadline_field.real import PacketModel  # noqa: E402
 
 VARIANTS = ("router", "cert")
@@ -40,7 +40,7 @@ def sha256(p):
     return h.hexdigest()
 
 
-def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=None):
+def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=None, certify=True):
     t_all = time.perf_counter()
     doc = json.loads(cache_path.read_text())
     region, input_time = doc["region_id"], doc["input_time"]
@@ -72,9 +72,28 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
                              "limits": (q["limits"]["peak_kw_m2"], q["limits"]["dose_kj_m2"]),
                              "lower_bound": res.get("lower_bound_L_s"), "kind": plan.kind,
                              "recorded_compute_s": res.get("compute_s")})
+    # ---------------- every route-check job of the file (also originals replaced by re-checks, research checks)
+    job_rows = []
+    for key, job in sorted((doc.get("route_checks") or {}).items()):
+        q = job["request"]
+        res = job.get("result") or {}
+        rec_edges = None
+        if res.get("verdict") == "checked_route":
+            try:
+                rl = reconstruct_legs(job)
+                rec_edges = [(l["kind"], l.get("edge") or l.get("node"), int(l["start"]), int(l["end"])) for l in rl["legs"]]
+            except Exception as exc:  # recorded but not rebuildable: reported, not hidden
+                rec_edges = "unrebuildable: %s" % exc
+        job_rows.append({"job": key, "offset": int(q["depart_offset_s"]), "verdict": res.get("verdict"),
+                         "arrival": res.get("arrival_s"), "raw_status": res.get("raw_status"),
+                         "start": q["start"]["node_id"], "dest": q["destination"]["node_id"], "dwell": q["dwell_s"],
+                         "window": tuple(q["destination_window"]), "incurred": q.get("incurred_dose_kj_m2", 0) or 0,
+                         "limits": (q["limits"]["peak_kw_m2"], q["limits"]["dose_kj_m2"]),
+                         "recheck_of": job.get("recheck_of"), "recorded_compute_s": res.get("compute_s"),
+                         "recorded_legs": rec_edges})
     # ---------------- precondition per distinct (limits, incurred)
     pre = {}
-    for r in rows:
+    for r in rows + job_rows:
         if r["job"] is None:
             continue
         k = (r["limits"], r["incurred"])
@@ -83,7 +102,7 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
             pre[k] = (ok, det)
     # ---------------- one backward field per (destination spec, variant)
     specs = defaultdict(set)
-    for r in rows:
+    for r in rows + job_rows:
         if r["job"] is not None:
             specs[(r["dest"], r["dwell"], r["window"])].add(r["start"])
     spec_list = sorted(specs, key=str)
@@ -91,6 +110,7 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
         spec_list = spec_list[:limit_dests]
     out_attempts = []
     field_s = Counter()
+    certify_s = Counter()
     witness_s = Counter()
     pieces = Counter()
     issue_sets = {}
@@ -104,13 +124,17 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
             fld = backward(inst)
             field_s[var] += time.perf_counter() - t1
             pieces[var] += fld.stats["pieces"]
+            if certify:
+                t3 = time.perf_counter()
+                check_fixed_point(fld)
+                certify_s[var] += time.perf_counter() - t3
             t2 = time.perf_counter()
             for o in origins:
                 oi = pm.nidx[o]
                 core = issue_core(fld, oi)
                 feas = issue_set(fld, oi)
                 issue_sets[(var, spec, o)] = (core, feas, inst.IB.get(oi, []))
-            for r in rows:
+            for r in rows + job_rows:
                 if r["job"] is None or (r["dest"], r["dwell"], r["window"]) != spec:
                     continue
                 core, feas, ib = issue_sets[(var, spec, r["start"])]
@@ -153,6 +177,18 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
                     if m and (best is None or max(m) > best):
                         best = max(m)
             o["field_deadline_exact_" + var] = best
+            unc = None
+            sets = {}
+            for spec in dests:
+                for st in starts:
+                    key = (var, spec, st)
+                    if key in issue_sets:
+                        feas = issue_sets[key][1]
+                        sets["%s|%s|%s" % (st, spec[0], spec[2])] = feas
+                        if feas and (unc is None or feas[-1][1] > unc):
+                            unc = feas[-1][1]
+            o["field_deadline_exact_uncapped_" + var] = unc
+            o["feasible_departures_" + var] = sets
         per_origin[oid] = o
     out = {
         "schema": "wfg.f31.reproduce/1",
@@ -164,10 +200,12 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
         "precondition": {str(k): {"ok": v[0], **v[1]} for k, v in pre.items()},
         "destination_specs": len(spec_list),
         "timing_s": {"prepare_packet_model": t_prep, "fields": dict(field_s), "issue_and_witness": dict(witness_s),
+                     "fixed_point_certificate_check": dict(certify_s),
                      "total_wall": time.perf_counter() - t_all},
         "pieces": dict(pieces),
         "host": {"platform": platform.platform(), "python": platform.python_version(), "machine": platform.machine()},
         "attempts": [{k: v for k, v in r.items()} for r in rows],
+        "jobs": job_rows,
         "origins": per_origin,
     }
     return out

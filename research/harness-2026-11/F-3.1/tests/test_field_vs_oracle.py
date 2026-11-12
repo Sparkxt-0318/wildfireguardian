@@ -105,3 +105,26 @@ def test_field_equals_oracle(seed):
 def test_dense_seeds():
     for seed in range(1500):
         check_seed(seed)
+
+
+def test_fixed_point_certificate_and_mutation():
+    """check_fixed_point accepts every computed field and rejects a field with one second added or removed."""
+    from deadline_field.core import check_fixed_point
+    rejected = 0
+    for seed in range(400):
+        raw = random_instance(seed)
+        inst = Instance(**{k: (list(v) if isinstance(v, list) else v) for k, v in raw.items()})
+        fld = backward(inst)
+        check_fixed_point(fld)
+        rnd = random.Random(seed)
+        s = rnd.randrange(len(inst.tail))
+        t = rnd.randint(0, inst.H)
+        S = iv.to_set(fld.R[s]) ^ {t}           # flip one second
+        fld.R[s] = iv.from_set(S)
+        fld.G[s] = iv.normalize(fld.R[s] + inst.A[s])
+        try:
+            check_fixed_point(fld)
+        except AssertionError:
+            rejected += 1
+    # flipping a second must always break the unique fixed point
+    assert rejected == 400

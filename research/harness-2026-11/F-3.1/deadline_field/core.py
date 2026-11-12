@@ -69,7 +69,7 @@ def _wait_close(piece, Wv, Rs):
     wait-blocked. Returns the extended piece [lo', hi] (lo' >= 0)."""
     lo, hi = piece
     w = iv.max_below(Wv, lo)           # largest wait-blocked second < lo
-    lo2 = 0 if w is None else w + 1
+    lo2 = 0 if w is None else max(w + 1, 0)
     return (min(lo, lo2), hi)
 
 
@@ -212,3 +212,33 @@ def witness(fld: Field, o: int, t: int):
                     parent[key] = (st, ("WAIT", node, time, time + 1))
                     heapq.heappush(heap, (time + 1 + h[node], time + 1, s, seq, key)); seq += 1
     raise AssertionError("field says feasible but no witness found (field/witness inconsistency)")
+
+
+def check_fixed_point(fld: Field):
+    """Certificate check, independent of the solving order: for every edge state s, R[s] must EQUAL the right-hand
+    side of the set equation evaluated on the stored sets. The time-expanded graph is acyclic (every move takes
+    >= 1 s), so the equation has exactly one solution (induction on t from H downwards); equality therefore proves
+    that R is that solution, given the masks B, W, A. Returns the number of states checked; raises on mismatch."""
+    inst = fld.inst
+    E = len(inst.tail)
+    for s in range(E):
+        hv = inst.head[s]
+        rhs = []
+        for j in inst.out[hv]:
+            if (s, j) in inst.forbidden:
+                continue
+            for lo, hi in fld.G[j]:
+                a, b = max(lo - inst.D[j], 0), hi - inst.D[j]
+                if a <= b:
+                    rhs.extend(iv.subtract((a, b), inst.B[j]))
+        if inst.waitable[hv]:
+            for lo, hi in fld.R[s]:
+                a, b = max(lo - 1, 0), hi - 1
+                if a <= b:
+                    rhs.extend(iv.subtract((a, b), inst.W[hv]))
+        rhs = iv.normalize(rhs)
+        if rhs != fld.R[s]:
+            raise AssertionError("fixed point violated at state %d: R=%r rhs=%r" % (s, fld.R[s][:4], rhs[:4]))
+        if fld.G[s] != iv.normalize(fld.R[s] + inst.A[s]):
+            raise AssertionError("G != R u A at state %d" % s)
+    return E
