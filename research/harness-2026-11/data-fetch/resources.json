@@ -184,6 +184,76 @@
       "licence": "CC-BY-4.0",
       "fetched_utc": null,
       "notes": "48.4 GB. Scripted only, not mirrored or downloaded; a session's disk allowance (~29 GB free here) cannot hold it. Daily 375 m multi-band GeoTIFFs, 2018-2021 US fires."
+    },
+    {
+      "name": "choi2026_kfs01_committed",
+      "streams": [
+        "F-C1"
+      ],
+      "url": null,
+      "filename": "small/choi2026_kfs01/KFS_01_pswt_ok_{toa,std}.tif",
+      "size": 75021,
+      "md5": null,
+      "sha256": "toa fe81f945ddb9dd68f9de27b5865ca12d1a345934540934b723bd66b7d01fa953; std 40305f9fecf5fffb77797ec0c8d1e22ad514ddf214dc654ba1188f23d3d77ecf",
+      "licence": "CC-BY-4.0 (Choi et al. 2026, Zenodo 10.5281/zenodo.21788344)",
+      "fetched_utc": "2026-11-12",
+      "notes": "Committed in git; extracted from toa_kriging_choi2026 rasters_kr/. TOA identical to repo regions/KFS_01/arrival_time_hours.tif."
+    },
+    {
+      "name": "firebench_caldor_2021",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/23383592/files/v2026.3.zip/content",
+      "filename": "firebench_caldor_v2026.3.zip",
+      "size": 697419120,
+      "md5": "b1628aeb1491a848f5661ccdeecb0473",
+      "sha256": null,
+      "licence": "Apache-2.0 (Costes & Kochanski, Zenodo 23383592)",
+      "fetched_utc": null,
+      "notes": "Not downloaded. Caldor 2021 observations incl. NIROPS IR perimeters, MTBS/RAVG severity, LANDFIRE canopy, Synoptic stations. Caldor is the routing engineering-panel fire."
+    },
+    {
+      "name": "ca_daily_fire_growth",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/6621450/files/California_spread_2012_2021.zip/content",
+      "filename": "California_spread_2012_2021.zip",
+      "size": 10777622,
+      "md5": "0a9e31be413144e4ee2dd2c5a1b3944e",
+      "sha256": null,
+      "licence": "CC-BY-4.0 (Zenodo 6621450)",
+      "fetched_utc": null,
+      "notes": "Not downloaded. VIIRS-derived daily fire expansion and rate of spread, California 2012-2021."
+    },
+    {
+      "name": "day_of_burning",
+      "streams": [
+        "S-D9"
+      ],
+      "url": "https://zenodo.org/api/records/11046212/files/Biogeography_DailyFireProgressionDataset.csv/content",
+      "filename": "Biogeography_DailyFireProgressionDataset.csv",
+      "size": 13089653,
+      "md5": "79c1966e8bf7f4eafc502fd016c299bf",
+      "sha256": null,
+      "licence": "CC0-1.0 (Zenodo 11046212)",
+      "fetched_utc": null,
+      "notes": "Not downloaded. North American daily progression attributes (no polygons)."
+    },
+    {
+      "name": "firelines_hold_matey2026",
+      "streams": [
+        "D8"
+      ],
+      "url": "https://zenodo.org/api/records/24148495/files/when_do_firelines_hold_zenodo_v1.0.0.zip/content",
+      "filename": "when_do_firelines_hold_zenodo_v1.0.0.zip",
+      "size": 1253163293,
+      "md5": "f337cce9a91d0b4fdefca3a9d83e275e",
+      "sha256": null,
+      "licence": "CC-BY-4.0 (Zenodo 24148495)",
+      "fetched_utc": null,
+      "notes": "Not downloaded. 304,143 fireline units, 381 fires 2020-2024, NIFC firelines linked to NIROPS timing. Not the Arkowitz 2025 dataset."
     }
   ]
 }
