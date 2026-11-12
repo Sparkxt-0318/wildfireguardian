@@ -143,10 +143,11 @@ The snapshot and closing dates were recomputed for the 2027-01-01 start. They ar
       - **Product:** NIROPS-type NIFC IR perimeters.
       - **Access attempt:** at the Tier-2 snapshot (2028-01-31), the custodian first tries the frozen root and template list. It then tries any NIFC-announced successor location for the same product, identified from NIFC documentation. Every attempt is logged.
       - **Outcome rule:** if no 2027 IR deliveries are retrievable by the closing date (2028-03-31), Tier 2 is reported as **"source unavailable; no confirmation"**. The frozen extension is taken only if the product reappears for 2028. **There is never a product switch.** FEDS and other products stay separate descriptive strata, as already declared.
-    - **Freeze gate on access: [OPEN], orchestrator, to settle with Hannah.**
-      - *Orchestrator (15:47Z):* a confirmed, recorded access route to the 2027 source is a precondition of the freeze.
-      - *Hannah (16:01Z):* that cannot be a precondition. Retrieval can't be verified now without breaking §1 item 8, because 2026 is the only season known to be served. Past seasons are not served (ledger rows 49 and 51: 0 of 980 year folders for 2015–2024 answer), so no surrogate check exists either.
-      - *Proposed reconciliation (Victor):* the gate is a **documented route identified**, not verified retrieval. It means a documentation-only finding, with no fire data read: NIFC's current FTP notices and the terms for /protected (an owner check), or a successor or compiled release of the same product (Daniel's provenance answer). The route is named in the freeze, and the outcome rule above covers its failure.
+    - **Freeze gate on access (orchestrator ruling, 16:02Z): a DOCUMENTED route identified.**
+      - CR1 does not freeze until a route to 2027 NIROPS-type IR deliveries is identified **from documentation only**, with no fire data read, and recorded here. The method, any credential holder and the permitted users are written down.
+      - Acceptable sources: the owner's browser check of the ftp.wildfire.gov notices and the terms for /protected; or Daniel's answer, from documentation and the ACCESS_LOG only, on the publisher of the compiled release that supplied A1's 2020–24 NIROPS data.
+      - Retrieval itself is not verified before the freeze, because that would break §1 item 8. The outcome rule above covers failure.
+      - **Recorded route:** *pending.*
   - Other perimeter products (FEDS, WFIGS, CWFIS and others) may be declared here as **separate descriptive strata**. They are never pooled.
 - **Two tiers, declared now and never pooled:**
   - **Tier 1 (only if kept), 2025 only, descriptive: "not a confirmation".** Fires discovered from the latest date held through 2025-12-31. 2026 is excluded by the owner's decision.
@@ -294,14 +295,15 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 - **What it is.** A separate, prospective **descriptive** stratum: Korean fires discovered on or after **2027-01-01**.
   - It is **never pooled** with Tier 2 and **never counts toward N**.
   - It **carries no §6.1 decision**. Its label is "descriptive, not a replication".
-- **When it is declared.** This section, and the frozen KR-P rules below, are committed **before 2027-02-01**, ahead of the Korean spring fire season (February to May).
-  - Rules not frozen by then do not apply to the 2027 season, and KR-P starts with the 2028 spring season instead.
+- **When it is declared.** This section, and the frozen KR-P rules below, are committed **before 2027-01-01**: before the window opens and ahead of the Korean spring fire season. At minimum the frozen rules fix the **label source** and the **minimum event count**.
+  - Rules not frozen by then do not apply to the 2027 season, and KR-P starts with the 2028 season instead.
+- **No claim follows from KR-P.** It supports no confirmatory, superiority or generalisation claim. It is reported for description only.
 - **Labels.** These are **satellite active-fire detections**, not IR perimeters, so the label type differs from R and from Tier 2. This is why the stratum is descriptive.
   - Before the declaration date, the frozen rules fix:
     - the detection product (for example, the VIIRS 375 m sensors used for A1 cohort K);
     - the arrival-time reconstruction, which is A1 cohort K's kriged arrival method or a pinned successor;
     - the hindsight-restricted scoring population (A1 §4.1).
-- **Event eligibility.** This is fixed before the declaration date from Korea Forest Service (KFS) incident records: a minimum burned area, and a minimum number of detection-days so that the event yields at least one scorable interval.
+- **Event eligibility and minimum count.** Fixed before the declaration date from Korea Forest Service (KFS) incident records: a minimum burned area, a minimum number of detection-days so that the event yields at least one scorable interval, and the **minimum number of eligible events** below which KR-P is reported only as a count.
 - **No-look rule.** This is the same rule as §1 item 8, applied to Korea.
   - From the declaration on, no session fetches, lists or reads any 2027-or-later Korean fire source before the KR-P listing. The sources include FIRMS KR, KFS reports and news.
   - The only exception is the custodian, under the §3 protocol: ID-only listing, the salted hash, the sealed store, and the leak rule into "exposed".
@@ -324,8 +326,8 @@ Added at the orchestrator's request (16:02Z, from an external review passed on b
 | Tier-1 scope vs the blind test (US 2026) and `fresh_holdout` (US 2025) | owner | **decided** (12 Nov): no 2026 in any tier; Tier 2 from 2027-01-01 |
 | Tier 1 | orchestrator (owner informed) | **decided**: optional, 2025 only, descriptive, never a replication; exposed stratum; no ignorance declaration possible |
 | canonical_id rehearsal | Daniel / custodian | real dual-path fire or synthetic fixture, after the corrected-root rerun |
-| KR-P frozen rules (detection product, arrival method, eligibility thresholds) | Victor drafts; Hannah verifies | due **before 2027-02-01** |
-| access route for 2027 NIROPS-type IR | orchestrator / Hannah | outcome rule fixed (§2). **[OPEN]**: freeze gate = verified route (orchestrator) vs none (Hannah) vs documented route identified (proposed); corrected-root finder rerun pending (Hannah), then the owner check if needed |
+| KR-P frozen rules (label source and minimum event count; also detection product, arrival method, eligibility) | Victor drafts; Hannah verifies | due **before 2027-01-01** |
+| access route for 2027 NIROPS-type IR | owner / Daniel | outcome rule fixed (§2). **Freeze gate: documented route identified (ruling C, 16:02Z), pending**: the owner's server look or Daniel's provenance answer; corrected-root finder rerun pending (Hannah), then the owner check if needed |
 | Daniel: the source of A1's 2020–24 NIROPS data, and whether yearly editions exist | Daniel | requested (documentation and ACCESS_LOG only) |
 | latest date held per source: 2025+ US fire check across committed and scratch files (B5) | Hannah | **done** (ledger rows 43 and 45); per-session declarations (Q7) collected |
 | owner-held salt and key storage; dedicated custodian environment | owner / orchestrator | to set up before the freeze |
