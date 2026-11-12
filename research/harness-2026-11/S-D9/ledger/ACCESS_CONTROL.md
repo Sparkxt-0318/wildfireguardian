@@ -41,4 +41,4 @@ Already disclosed (cohort R, US2024): Elena (S-D2) used R's NIROPS brackets to c
 - **2026-11-12, pilot reads (Daniel), for completeness.**
   - Round one, at 60a94974: Blue2, MossMountain_Chalk and Homestead_Salmon33.
   - Round two: Blue2, Line and ThreeNine.
-  - All six were part a when read, so there is no sealing effect.
+  - All five distinct fires were part a when read, so there is no sealing effect. MossMountain_Chalk was dropped from training later by item 9; see "filters applied" above.
