@@ -2,8 +2,10 @@
 
 Pre-season village evacuation planner for 지자체 safety staff, 산림청 / fire departments and care
 facility managers. For every village and care facility of a region it shows, per recorded fire
-scenario, **the latest departure time that still has a checked vehicle route to a shelter**
-("출발 마감 HH:MM"), with the evidence behind it: the route, per-scenario heat exposure, compute
+scenario, **the latest departure time up to which every departure time computed has a checked vehicle
+route to a shelter** ("출발 마감 HH:MM", the contiguous time, the same as residents get from the message kit). A
+later checked departure after a gap with no checked route is shown below it as a labelled window, never as the
+deadline. The headline comes with the evidence behind it: the route, per-scenario heat exposure, compute
 time and full provenance.
 
 > **사전 계획 보조 도구입니다. 실시간 대피 지휘·운영용이 아닙니다.**

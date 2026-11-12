@@ -242,24 +242,54 @@ export function unresolvedPlan(
 }
 
 /**
- * Headline for the selected origin. `caveat` is set when the contiguous deadline differs from the
- * deadline or is null: earlier departures include offsets without a checked route.
+ * The staff headline for the selected origin (Iris E). The headline time is the CONTIGUOUS time: every requested
+ * departure up to it has a checked route. That is the time residents get from the kit and the public card, so staff
+ * never hold a later time than residents. `laterWindowS` is the latest checked departure when it lies after a gap with
+ * no checked route: shown below the headline, labelled as a later checked window and NOT as the deadline.
+ * - deadline: checked_route with a consistent contiguous time;
+ * - partial: checked somewhere but not at the first requested departure (no contiguous time): no headline time;
+ * - no_route / unresolved: as before (never a time, never safe).
+ * Fail closed: a contiguous time that the sweep does not bear out (a requested cell up to it is not a checked route,
+ * or it is after the latest) gives `partial`.
  */
 export interface DeadlineHeadline {
-  kind: 'deadline' | 'no_route' | 'unresolved';
+  kind: 'deadline' | 'partial' | 'no_route' | 'unresolved';
   deadlineS: number | null;
-  caveat: { contiguousS: number | null } | null;
+  laterWindowS: number | null;
 }
 
-export function deadlineHeadline(plan: OriginPlan | null | undefined): DeadlineHeadline {
-  if (!plan || plan.bestVerdict === 'unresolved' || plan.latestSafeDepartureS === null) {
-    if (plan && plan.bestVerdict === 'model_no_route') return { kind: 'no_route', deadlineS: null, caveat: null };
-    return { kind: 'unresolved', deadlineS: null, caveat: null };
+/** A sweep cell as any staff surface holds it: planner cells (skipped) or sheet / kit cells ('window_closed'). */
+export interface HeadlineCell {
+  offsetS: number;
+  verdict: string;
+  skipped?: SkipReason;
+}
+export type HeadlinePlan = Pick<OriginPlan, 'bestVerdict' | 'latestSafeDepartureS' | 'contiguousSafeDepartureS'> & { sweep?: readonly HeadlineCell[] };
+
+/** The headline time (contiguous, sweep-consistent) or null. */
+export function headlineDepartureS(plan: HeadlinePlan | null | undefined): number | null {
+  if (!plan || plan.bestVerdict !== 'checked_route') return null;
+  const c = plan.contiguousSafeDepartureS;
+  const l = plan.latestSafeDepartureS;
+  if (c === null || l === null || c > l) return null;
+  // a sweep that is present must bear the time out (an empty one carries no detail and is not checked)
+  if (plan.sweep && plan.sweep.length) {
+    const upTo = plan.sweep.filter((x) => !isWindowSkip(x) && x.verdict !== 'window_closed' && x.offsetS <= c).sort((a, b) => a.offsetS - b.offsetS);
+    if (!upTo.length || upTo.some((x) => x.verdict !== 'checked_route') || upTo[upTo.length - 1]!.offsetS !== c) return null;
   }
-  if (plan.bestVerdict === 'model_no_route') return { kind: 'no_route', deadlineS: null, caveat: null };
-  const contiguous = plan.contiguousSafeDepartureS;
-  const caveat = contiguous === null || contiguous !== plan.latestSafeDepartureS ? { contiguousS: contiguous } : null;
-  return { kind: 'deadline', deadlineS: plan.latestSafeDepartureS, caveat };
+  return c;
+}
+
+export function deadlineHeadline(plan: HeadlinePlan | null | undefined): DeadlineHeadline {
+  if (!plan || plan.bestVerdict === 'unresolved' || plan.latestSafeDepartureS === null) {
+    if (plan && plan.bestVerdict === 'model_no_route') return { kind: 'no_route', deadlineS: null, laterWindowS: null };
+    return { kind: 'unresolved', deadlineS: null, laterWindowS: null };
+  }
+  if (plan.bestVerdict === 'model_no_route') return { kind: 'no_route', deadlineS: null, laterWindowS: null };
+  const t = headlineDepartureS(plan);
+  const l = plan.latestSafeDepartureS;
+  if (t === null) return { kind: 'partial', deadlineS: null, laterWindowS: l };
+  return { kind: 'deadline', deadlineS: t, laterWindowS: l > t ? l : null };
 }
 
 const VERDICT_RANK: Record<Verdict, number> = { model_no_route: 0, unresolved: 1, checked_route: 2 };

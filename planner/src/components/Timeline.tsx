@@ -2,6 +2,7 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 import { formatElapsed, formatOffsetMinutes, formatRelative, kstClock } from '../domain/clock';
 import type { OriginPlan, Place, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
+import { deadlineHeadline } from '../domain/plan';
 import { useLang, useT } from '../i18n';
 import type { CellProgress } from '../state/store';
 import { placeName, unresolvedReasonText } from './format';
@@ -46,6 +47,7 @@ export function Timeline({
   const [tip, setTip] = useState<TipState | null>(null);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const cells = plan.sweep;
+  const headline = deadlineHeadline(plan);
   const showEvery = cells.length > 12 ? 2 : 1;
 
   const show = (cell: SweepCell, el: HTMLElement) => {
@@ -130,8 +132,8 @@ export function Timeline({
       </div>
       <div className="tl-labels" aria-hidden="true">
         {cells.map((c, i) => (
-          <span key={c.offsetS} className={c.offsetS === plan.latestSafeDepartureS ? 'deadline' : ''}>
-            {i % showEvery === 0 || c.offsetS === plan.latestSafeDepartureS ? kstClock(inputTime, c.offsetS) : ''}
+          <span key={c.offsetS} className={c.offsetS === headline.deadlineS ? 'deadline' : c.offsetS === headline.laterWindowS ? 'later-window' : ''}>
+            {i % showEvery === 0 || c.offsetS === headline.deadlineS || c.offsetS === headline.laterWindowS ? kstClock(inputTime, c.offsetS) : ''}
           </span>
         ))}
       </div>

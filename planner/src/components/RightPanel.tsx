@@ -1,7 +1,7 @@
 import { CONFIG, STATIC_DEMO } from '../config/env';
 import { StaticNote } from './demo/StaticDemo';
 import { formatElapsed, formatRelative, kstClock } from '../domain/clock';
-import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets } from '../domain/plan';
+import { DEFAULT_DWELL_S, deadlineHeadline, gridOffsets, headlineDepartureS } from '../domain/plan';
 import type { Attempt, OriginPlan, Place, RouteDetail, SweepCell } from '../domain/types';
 import { secondsSinceIssue } from '../domain/zones';
 import { FieldMessagesEntry } from '../features/lastmile/FieldMessagesEntry';
@@ -79,10 +79,27 @@ function Headline({ place, plan, inputTime, issuedAt = null, computing = false }
         </div>
         <div className="h-sub">{t('headline.deadlineSub')}</div>
         {issuedAt ? <div className="h-sub tnum">{t('drawn.headline.rel', { rel: formatRelative(secondsSinceIssue(inputTime, issuedAt, h.deadlineS)), m: Math.round(h.deadlineS / 60) })}</div> : null}
-        {h.caveat ? (
-          <div className="caveat" data-testid="caveat">
+        {h.laterWindowS !== null ? (
+          <div className="caveat" data-testid="later-window">
             <UnresolvedIcon size={14} color="#6E6E73" style={{ flex: '0 0 auto', marginTop: 1 }} />
-            <span>{t('headline.caveat', { time: h.caveat.contiguousS === null ? t('headline.none') : kstClock(inputTime, h.caveat.contiguousS) })}</span>
+            <span>{t('headline.laterWindow', { time: kstClock(inputTime, h.laterWindowS) })}</span>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+  if (h.kind === 'partial') {
+    // checked somewhere, but not at the first departure computed: no leave-by time (same as the kit and the card)
+    return (
+      <div className="headline unresolved" data-testid="headline">
+        <div className="h-main">
+          <UnresolvedIcon size={22} color="#6E6E73" />
+          {t('headline.partial')}
+        </div>
+        <div className="h-sub">{t('headline.partialSub')}</div>
+        {h.laterWindowS !== null ? (
+          <div className="caveat" data-testid="later-window">
+            <span>{t('headline.laterWindow', { time: kstClock(inputTime, h.laterWindowS) })}</span>
           </div>
         ) : null}
       </div>
@@ -664,7 +681,7 @@ function OriginDetail({ place, inputTime, issuedAt, drawn }: { place: Place; inp
         <span className="small-note">{t('rsg.outside')}</span>
       ) : null}
       <Headline place={place} plan={plan} inputTime={inputTime} issuedAt={issuedAt} computing={Boolean(progress)} />
-      {!drawn ? <ExplainBlock regionId={regionId} inputTime={inputTime} originId={place.id} lang={lang} shown={plan ? { bestVerdict: plan.bestVerdict, deadlineS: plan.latestSafeDepartureS, bestDestinationId: plan.best?.destinationId ?? null, bestJobId: plan.best?.jobId ?? null } : null} /> : null}
+      {!drawn ? <ExplainBlock regionId={regionId} inputTime={inputTime} originId={place.id} lang={lang} shown={plan ? { bestVerdict: plan.bestVerdict, deadlineS: plan.bestVerdict === 'checked_route' ? headlineDepartureS(plan) : plan.latestSafeDepartureS, bestDestinationId: plan.best?.destinationId ?? null, bestJobId: plan.best?.jobId ?? null } : null} /> : null}
       {drawn && notComputed && !progress ? <Recompute place={place} drawn /> : null}
       {plan && plan.sweep.length ? (
         <div className="section">

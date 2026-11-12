@@ -10,6 +10,7 @@ import { selectScenario, setClock, setPlaying } from '../state/controller';
 import { useClockBase, useCurrentScenarioSet, useHorizon, useRoute, useScenarioSets, useSelectedPlan, useShownAttempt } from '../state/selectors';
 import { DRAWN_SCENARIO, getState, useStore } from '../state/store';
 import { secondsSinceIssue } from '../domain/zones';
+import { deadlineHeadline } from '../domain/plan';
 import { kstDateTime } from '../domain/clock';
 import { ChevronIcon, PauseIcon, PlayIcon } from './Icons';
 
@@ -25,6 +26,7 @@ export function TimeSlider() {
   const playing = useStore((s) => s.playing);
   const scenarioId = useStore((s) => s.scenarioId);
   const plan = useSelectedPlan();
+  const headline = deadlineHeadline(plan);
   const { attempt } = useShownAttempt();
   const route = useRoute(attempt?.jobId);
   const clock = useClockBase();
@@ -126,8 +128,13 @@ export function TimeSlider() {
                   <i />
                 </span>
               ))}
-            {plan?.latestSafeDepartureS !== null && plan?.latestSafeDepartureS !== undefined ? (
-              <span className="tick deadline" style={{ left: pct(plan.latestSafeDepartureS) }}>
+            {headline.deadlineS !== null ? (
+              <span className="tick deadline" style={{ left: pct(headline.deadlineS) }}>
+                <i />
+              </span>
+            ) : null}
+            {headline.laterWindowS !== null ? (
+              <span className="tick later-window" style={{ left: pct(headline.laterWindowS) }}>
                 <i />
               </span>
             ) : null}
