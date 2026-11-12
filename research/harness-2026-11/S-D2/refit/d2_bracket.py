@@ -41,6 +41,12 @@ Fixed E-step protocol (A1 stage-2 amendment, Victor's items a-d):
     update after each ``samples_per_step`` group. Kernels are therefore recomputed only on the next visit, after an
     M-step update, never between sweeps.
 
+Unscored endpoint-burned cells (Victor's finding 1, option a). Every cell newly mapped by the endpoint is
+latent, including cells outside ``score_mask`` and cells whose kernels are non-finite. Such cells contribute no own
+event term and no exposure term: their Gibbs conditional is uniform within the bracket times their effect on
+scored targets. They do act as sources, as predicted sources do in ``fit_mean_field``, so both fitters see the
+same source field near mask edges.
+
 Recorded constraint: the E-step is valid only because the hazard is linear in the burned state, which holds for
 kernel-only variants without burnout/residence or spotting (d4_wind). ``fit_bracket`` refuses other variants. Label validity comes from the
 perimeter states (A1 §4.1 rule 3); arrival rasters are not used.
@@ -92,17 +98,23 @@ def complete_loglik(K: torch.Tensor, tau: np.ndarray, latent: np.ndarray, scored
 
 def gibbs_sweep(K: np.ndarray, tau: np.ndarray, latent_idx: np.ndarray, src: np.ndarray, tgt: np.ndarray,
                 scored: np.ndarray, hours: float, step: float, rng) -> np.ndarray:
-    """One random-order sweep; K [D, N] numpy (finite, >= 0); tau [N] float (inf = unburned)."""
+    """One random-order sweep; K [D, N] numpy (finite, >= 0); tau [N] float (inf = unburned).
+
+    A latent cell that is not scored has no own term (uniform within its bracket); only its effect on scored
+    targets enters its conditional."""
     x_all = np.arange(step / 2, hours, step)
     for i in rng.permutation(latent_idx):
         x = x_all
-        s = src[:, i]
-        ok = s >= 0
-        ts = tau[s[ok]]
-        kk = K[ok, i]
-        lam = EPS + (ts[None, :] < x[:, None]) @ kk
-        Lam = np.clip(x[:, None] - ts[None, :], 0, None) @ kk
-        logf = np.log(lam) - Lam
+        if scored[i]:
+            s = src[:, i]
+            ok = s >= 0
+            ts = tau[s[ok]]
+            kk = K[ok, i]
+            lam = EPS + (ts[None, :] < x[:, None]) @ kk
+            Lam = np.clip(x[:, None] - ts[None, :], 0, None) @ kk
+            logf = np.log(lam) - Lam
+        else:
+            logf = np.zeros(len(x))
         t = tgt[:, i]
         for d in np.flatnonzero(t >= 0):
             m = t[d]
@@ -138,7 +150,7 @@ class WindowState:
             H, W = sample.initial.shape
             t = np.full(H * W, np.inf)
             t[sample.initial.ravel()] = 0.0
-            new = (sample.endpoint & sample.score_mask & ~sample.initial).ravel()
+            new = (sample.endpoint & ~sample.initial).ravel()          # all endpoint-burned cells (finding 1)
             t[new] = 0.5 * sample.hours
             self.tau[idx] = t
         return self.tau[idx]
@@ -205,14 +217,16 @@ def fit_bracket(model, train, validation, *, epochs=8, learning_rate=3e-3, weigh
                 src = source_index(h2, w2, offs)
                 tgt = source_index(h2, w2, -offs)                                         # tgt[δ, i] = i - δ
                 scored = t["mask"].reshape(-1).numpy() & valid
-                latent = (sample.endpoint.ravel() & scored & ~sample.initial.ravel())
-                if not latent.any() and not scored.any():
+                latent_all = sample.endpoint.ravel() & ~sample.initial.ravel()          # sampled (finding 1)
+                latent = latent_all & scored                                             # own event terms
+                if not latent_all.any() and not scored.any():
                     skipped.append(dict(event=sample.event_id, cutoff=sample.t1, reason="no_scored_cells"))
                     continue
                 e0 = time.perf_counter()
                 Kn = K.detach().numpy()
                 for _ in range(sweeps):
-                    tau = gibbs_sweep(Kn, tau, np.flatnonzero(latent), src, tgt, scored, sample.hours, step, estep_rng)
+                    tau = gibbs_sweep(Kn, tau, np.flatnonzero(latent_all), src, tgt, scored, sample.hours, step,
+                                      estep_rng)
                 estep_s += time.perf_counter() - e0
                 tau0[perm] = tau                                                          # back to original frame
                 ll, wsum = complete_loglik(K, tau, latent, scored, weight.reshape(-1).numpy(), sample.hours, src)

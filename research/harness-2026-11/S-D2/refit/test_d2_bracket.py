@@ -68,5 +68,34 @@ def test_estep_stream_does_not_change_training_order():
     # The training RNG consumes only order and D4 draws; the E-step has its own stream.
     import inspect
     src = inspect.getsource(B.fit_bracket)
-    assert "estep_rng" in src and "gibbs_sweep(Kn, tau, np.flatnonzero(latent), src, tgt, scored, sample.hours, step, estep_rng)" in src
+    assert "estep_rng" in src and "estep_rng)" in src and "gibbs_sweep(Kn, tau, np.flatnonzero(latent_all)" in src
     assert "SeedSequence([seed, 0x5D2B])" in src
+
+
+def test_unscored_endpoint_cells_are_latent_sources_without_own_terms():
+    from wildfire.survival import PerimeterSample
+    rng = np.random.default_rng(1)
+    s = _sample(rng)
+    mask = s.score_mask.copy()
+    mask[15:25, 25] = False                       # an endpoint-burned column outside score_mask
+    s2 = PerimeterSample(s.event_id, s.t1, s.hours, s.environment, s.initial, s.endpoint, mask,
+                         s.label_weight, s.initial_age_hours)
+    st = B.WindowState()
+    tau = st.get(0, s2)
+    H, W = s2.initial.shape
+    cell = 20 * W + 25
+    assert np.isfinite(tau[cell]) and 0 < tau[cell] <= s2.hours      # latent, not forced to "never"
+    # Gibbs: an unscored latent cell with no scored targets has a flat conditional (uniform in its bracket).
+    D = 25
+    offs = B.offsets(D)
+    src = B.source_index(H, W, offs)
+    tgt = B.source_index(H, W, -offs)
+    K = np.zeros((D, H * W))
+    scored = mask.ravel().copy()
+    draws = []
+    for k in range(400):
+        t2 = tau.copy()
+        t2 = B.gibbs_sweep(K, t2, np.array([cell]), src, tgt, np.zeros_like(scored), s2.hours, 1.0,
+                           np.random.default_rng(k))
+        draws.append(t2[cell])
+    assert 0 < min(draws) and max(draws) <= s2.hours and abs(np.mean(draws) - s2.hours / 2) < 1.5
