@@ -81,3 +81,30 @@ comprehension testing; any deployment.
   With the old two-way wording the test fails (first failure: `syn:gen:4:origin`).
 - Planner suite: 24 files, 403 tests pass. `npm run build:static` passes; the default build ships no public-view file.
 - Pending: Iris's review of the gap wording and Sofia's check of the Korean. Comprehension is untested.
+
+## Next cut (branch clara/pproto-next, on the frozen b3df2a3 / PR #124) — UNVERIFIED
+Iris's notes on the gap fix, and two items the orchestrator approved from her ranking (based on Sofia's March 2025
+vehicle and road cases):
+- **Checked step stated.** The leave-by sentences say "at each departure time checked up to this time (every N
+  minutes)". N is the sweep's own uniform step (`sweepStepMin`): 10 in all 531 real places, 5–30 in synthetic cases.
+  The clause is left out when the step is not uniform. The gap sentence is now exact ("the next departure time
+  checked has none"). It still never mentions the later road. The Korean follows Sofia's corrections: present tense,
+  "출발 시각마다", no "출발 중에는". "언제 출발하든" is replaced by the stated step because only the grid is checked.
+- **"No checked road" keeps both meanings** (model no-route and unresolved) and is never "no road" or "closed" (test).
+  An unresolved later departure always renders as none_checked or gap, never as "not checked" (horizon). Later
+  requested departures by sentence and verdict:
+  - real: none_checked 221 no-route + 2 unresolved;
+  - synthetic: none_checked 388 no-route + 96 unresolved; gap 98 no-route + 65 unresolved + 88 checked.
+- **One outbound trip.** Every card that shows a time carries `ONE_TRIP` ("This result covers one trip out only. It says
+  nothing about going back." / "이 결과는 한 번 밖으로 나가는 길만 확인한 것입니다. 돌아오는 길은 확인하지 않았습니다.").
+  It sits directly after the time line inside the same card, so a crop keeps it. It never appears without a time (test).
+  The 320 px Chromium layout check covers it.
+- **Time first.** In every card the time line comes before the status words and any hand-off, in DOM order (test). A
+  hand-off never appears without a time.
+- **What this does not include**, a plain list on the page: smoke, narrow roads, queues of cars, embers setting cars
+  alight, the way back.
+- **Resident/staff split for the gap case.** The public card shows the contiguous time and never the later checked
+  departure. Staff see the later one: the planner's own panel shows `latestSafeDepartureS` as its deadline. This split is
+  deliberate: information is kept off the resident card, not lost.
+- Suite 24 files / 403 tests; build:static OK; the default dist has 0 public-view files. Wording is pending Iris and
+  Sofia. Comprehension is untested.

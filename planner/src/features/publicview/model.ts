@@ -28,6 +28,8 @@ export interface PublicCard {
   words: LmText;
   /** leave-by clock time with the day marked when it crosses midnight; null unless kind is leave_by */
   time: LmText | null;
+  /** fixed one-outbound-trip line (Iris): non-null exactly when `time` is */
+  oneTrip: LmText | null;
   /** replay date + mark, shown next to the time and in every card */
   replayStamp: LmText;
   /** data age: the replay date and input time (never minutes for a replay) */
@@ -117,19 +119,58 @@ export function handoffFor(p: MessagePlan, coords: (destinationId: string) => { 
   return { name, lat: c.lat, lon: c.lon, text, gpxFileName: `REPLAY-${ymd(iso(p))}-NOT-REAL-${p.destination.id.replace(/[^A-Za-z0-9]+/g, '_')}.gpx`, gpx };
 }
 
-/**
- * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction). Each must be
- * true of the sweep it describes (property test in tests/planner/pproto.test.ts):
- * - horizon: no departure after T was requested (only window-closed times or none) — later ones were not checked;
- * - none_checked: every requested departure after T has no checked road;
- * - gap: the first requested departure after T has no checked road, yet a later one has one again. The sentence says
- *   only the first part; it never mentions the later road, so it cannot be read as "leaving later is also fine".
- */
-export const LEAVE_BY_WORDS: Record<'horizon' | 'none_checked' | 'gap', LmText> = {
-  horizon: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었습니다. 그 뒤 출발은 점검하지 않았습니다', en: 'Model: a checked road out by car existed for departures up to this time; later departures were not checked' },
-  none_checked: { ko: '모델 계산: 이 시각 출발까지 차로 나가는 확인된 길이 있었고, 그 뒤 출발에는 확인된 길이 없습니다', en: 'Model: a checked road out by car existed for departures up to this time; none after' },
-  gap: { ko: '모델 계산: 이 시각 출발까지는 차로 나가는 확인된 길이 계속 있었고, 바로 그 뒤 출발 중에는 확인된 길이 없는 때가 있습니다', en: 'Model: a checked road out by car existed for every departure up to this time; right after it, some departures have no checked road' },
+/** Iris: on every card that shows a time — the result covers one outbound trip and says nothing about going back. */
+export const ONE_TRIP: LmText = {
+  ko: '이 결과는 한 번 밖으로 나가는 길만 확인한 것입니다. 돌아오는 길은 확인하지 않았습니다.',
+  en: 'This result covers one trip out only. It says nothing about going back.',
 };
+
+/** What the model does not include, in plain words (Iris, from Sofia's March 2025 cases). */
+export const NOT_IN_MODEL: { title: LmText; items: LmText[] } = {
+  title: { ko: '이 계산에 들어 있지 않은 것', en: 'What this calculation does not include' },
+  items: [
+    { ko: '연기', en: 'smoke' },
+    { ko: '좁은 길', en: 'narrow roads' },
+    { ko: '차량 정체(줄지어 늘어선 차)', en: 'queues of cars' },
+    { ko: '불티로 차에 불이 붙는 일', en: 'embers setting cars alight' },
+    { ko: '돌아오는 길', en: 'the way back' },
+  ],
+};
+
+/** The uniform step between the departure times in the sweep (minutes), or null when there is none. */
+export function sweepStepMin(input: LastMileInput): number | null {
+  const o = [...new Set((input.plan?.sweep ?? []).map((c) => c.offsetS))].sort((a, b) => a - b);
+  if (o.length < 2) return null;
+  const d = new Set(o.slice(1).map((v, i) => v - o[i]!));
+  if (d.size !== 1) return null;
+  const s = [...d][0]!;
+  return s > 0 && s % 60 === 0 ? s / 60 : null;
+}
+
+export type AfterWords = 'horizon' | 'none_checked' | 'gap';
+
+/**
+ * The descriptive leave-by sentence, one per AfterKind (Iris: what the model found, not an instruction). "Checked" is
+ * stated as checked: only the departure times in the sweep, every `stepMin` minutes (omitted when the step is not
+ * uniform). "No checked road" covers both a model no-route and an unresolved check, never "no road" or "closed". Each
+ * must be true of the sweep it describes (property test in tests/planner/pproto.test.ts):
+ * - horizon: no departure after T was requested (only window-closed times or none) — later ones were not checked;
+ * - none_checked: no requested departure after T has a checked road;
+ * - gap: the next requested departure after T has no checked road (a later one has one again; never mentioned, so the
+ *   sentence cannot be read as "leaving later is also fine").
+ */
+export function leaveByWords(after: AfterWords, stepMin: number | null): LmText {
+  const koStep = stepMin ? `${stepMin}분 간격으로 ` : '';
+  const enStep = stepMin ? ` (every ${stepMin} minutes)` : '';
+  const ko = `모델 계산: 이 시각까지 ${koStep}확인한 출발 시각마다 차로 나가는 확인된 길이 있습니다.`;
+  const en = `Model: at each departure time checked up to this time${enStep}, there is a checked road out by car.`;
+  const tail: Record<AfterWords, LmText> = {
+    horizon: { ko: '그 뒤 출발은 확인하지 않았습니다.', en: 'Later departures were not checked.' },
+    none_checked: { ko: '그 뒤에 확인한 출발 시각에는 확인된 길이 없습니다.', en: 'None of the later departure times checked has one.' },
+    gap: { ko: '바로 다음에 확인한 출발 시각에는 확인된 길이 없습니다.', en: 'The next departure time checked has none.' },
+  };
+  return { ko: `${ko} ${tail[after].ko}`, en: `${en} ${tail[after].en}` };
+}
 
 export function cardFor(input: LastMileInput, coords: (destinationId: string) => { lat: number; lon: number } | null = () => null): PublicCard {
   const p = messagePlan(input, null);
@@ -141,8 +182,9 @@ export function cardFor(input: LastMileInput, coords: (destinationId: string) =>
       tone: 'leave',
       icon: 'clock',
       // Iris: descriptive mood — what the model found, not an instruction
-      words: LEAVE_BY_WORDS[p.after],
+      words: leaveByWords(p.after, sweepStepMin(input)),
       time: t,
+      oneTrip: ONE_TRIP,
       guidance: { ko: '공식 대피 명령이 우선합니다. 차가 없으면 이장에게 바로 알리십시오.', en: 'Official evacuation orders come first. No car? Tell the village head now.' },
       handoff: handoffFor(p, coords),
     };
@@ -154,6 +196,7 @@ export function cardFor(input: LastMileInput, coords: (destinationId: string) =>
       icon: 'stop',
       words: { ko: '모델 계산: 차로 나가는 확인된 길 없음', en: 'Model: no checked road out by car' },
       time: null,
+      oneTrip: null,
       guidance: { ko: '이장과 읍·면사무소의 공식 지시를 따르십시오. 위급하면 119에 신고하십시오.', en: 'Follow official instructions of the village head and town office. In an emergency, report to 119.' },
       handoff: null,
     };
@@ -164,6 +207,7 @@ export function cardFor(input: LastMileInput, coords: (destinationId: string) =>
     icon: 'question',
     words: { ko: '확인하지 못함 — 길이 있다는 뜻도, 없다는 뜻도 아닙니다', en: 'Not checked — this means neither that a road exists nor that none does' },
     time: null,
+    oneTrip: null,
     guidance: { ko: '공식 대피 안내를 따르십시오.', en: 'Follow official evacuation guidance.' },
     handoff: null,
   };
