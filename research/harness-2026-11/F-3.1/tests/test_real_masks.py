@@ -69,9 +69,11 @@ def test_masks_equal_direct_contact(packet_dir):
     pm = PacketModel(DATA / "graphs" / region / "graph.json", packet_dir)
     rnd = random.Random(20261112)
     H = pm.H
-    touching = [j for j in range(len(pm.g.u)) if pm.B["router"][j] or pm.B["closed"][j]]
-    # also edges near fire whose masks are empty must be clear at probes
-    cand = touching if FULL else rnd.sample(touching, min(150, len(touching)))
+    # every edge whose bounding box touches a burning cell, INCLUDING those whose masks came out empty (these must
+    # then be clear at every probe second)
+    touching = list(pm.touching_edges)
+    empty = [j for j in touching if not pm.B["router"][j] and not pm.B["closed"][j]]
+    cand = touching if FULL else rnd.sample(touching, min(150, len(touching))) + rnd.sample(empty, min(50, len(empty)))
     checked = 0
     for j in cand:
         for rule in ("router", "closed"):

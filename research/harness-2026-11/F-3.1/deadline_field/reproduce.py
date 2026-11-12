@@ -78,6 +78,9 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
     job_rows = []
     for key, job in sorted((doc.get("route_checks") or {}).items()):
         q = job["request"]
+        # scope guard: the field models a start at a plain node with no incoming edge and no edge fraction
+        if set(q["start"]) != {"node_id"} or q.get("incoming_edge") not in (None,) or set(q["destination"]) != {"node_id"}:
+            raise ValueError("unsupported start/destination position in job %s: %r" % (key, q["start"]))
         res = job.get("result") or {}
         rec_edges = None
         if res.get("verdict") == "checked_route":

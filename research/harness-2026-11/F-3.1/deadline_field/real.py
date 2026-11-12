@@ -64,12 +64,14 @@ class PacketModel:
         E = len(self.g.u)
         self.B = {"router": [[] for _ in range(E)], "closed": [[] for _ in range(E)]}
         self.edges_touching = 0
+        self.touching_edges = []
         for j in range(E):
             p0, p1 = self.g.xy(self.g.u[j]), self.g.xy(self.g.v[j])
             cells = set(grid.cells_touching_box(min(p0[0], p1[0]), max(p0[0], p1[0]), min(p0[1], p1[1]), max(p0[1], p1[1])))
             if not (cells & self.burning):
                 continue
             self.edges_touching += 1
+            self.touching_edges.append(j)
             Dq = F(self.g.ticks[j])
             pieces, points = chord_pieces(grid, p0, p1)
             rb = []
@@ -163,5 +165,11 @@ class PacketModel:
         support = all(all(r) for m in hazard["members"] for r in m["support"])
         dose_bound = F(mx_nf) * self.H + F(incurred)
         ok = support and F(mx) <= F(peak_limit) and dose_bound <= F(dose_limit)
+        # per-journey sufficient condition: a contact-free journey of total duration (departure to end of dwell)
+        # at most this many seconds cannot exceed the dose limit; peak needs max non-flame flux <= peak limit.
+        budget = F(dose_limit) - F(incurred)
+        max_exact_duration_s = None if mx_nf == 0 else float(budget / F(mx_nf))
+        peak_ok = F(mx_nf) <= F(peak_limit)
         return ok, {"max_flux": mx, "max_nonflame_flux": mx_nf, "dose_bound": float(dose_bound),
-                    "support_all": support, "peak_limit": peak_limit, "dose_limit": dose_limit}
+                    "support_all": support, "peak_limit": peak_limit, "dose_limit": dose_limit,
+                    "peak_cannot_bind_off_flame": peak_ok, "max_exact_journey_duration_s": max_exact_duration_s}
