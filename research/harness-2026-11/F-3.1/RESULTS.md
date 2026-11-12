@@ -317,13 +317,17 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **Nesting.** Over all 9,722 jobs × 5 tiers: no_route iff optimistic is infeasible, and the nesting
     A ⊆ B8.2 ⊆ B1.5, R8.2 ⊆ R1.5, A ⊆ R8.2, B ⊆ R holds with 0 violations.
   * **Spot check.** 3 tier-A unresolved jobs were checked: their optimistic witnesses cross 12–20 A-blocked cells.
-* **ROUTER-only columns (added; not yet verified).**
+* **ROUTER-only columns (VERIFIED: Nora request #15, PASS, ledger row 59, at 666dee26).**
   * `results/threeway_jobs/*.json` now carry `optimistic_router` and `<tier>_router` (from `threeway --variant
     router`, e772df1), plus `origin_deadlines_router`.
   * **On all 9,722 one-hour jobs, the ROUTER-only labels equal the CERT labels**: the optimistic field and every tier
     (A, B1.5, B8.2, R1.5, R8.2). So at 1 h the closed-footprint rule changes no three-way label. The CERT labels above
     are refusal-grade only through this equality, and only for these 1-h caches.
   * From now on, every tier and horizon reports both by default.
+  * **Nora's checks.** 9,722/9,722 jobs keep every CERT key and value (only router keys added); her own `--variant
+    router` run on UA 23T01Z reproduces the committed columns (0 diffs). Router and CERT feasible sets over the whole
+    [0, H] are identical on 254/254 (UA 23T01Z) and 253/253 (UA 25T17Z) (spec, origin) pairs, optimistic field, so the
+    equality there is not an artefact of sampled departures. Pessimistic tiers and Yeongdeok were not checked this way.
 
 ## Issue-order-by on F-DYN v3.1 (post-processing; SCENARIO; latency settings are assumptions; VERIFIED: Nora request #9, PASS, ledger row 44)
 
