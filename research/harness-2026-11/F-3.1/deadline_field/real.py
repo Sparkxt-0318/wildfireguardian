@@ -119,7 +119,8 @@ class PacketModel:
         return out
 
     def rules(self, variant: str):
-        return ("router",) if variant == "router" else ("router", "closed")
+        """router: router rule only; cert: router OR closed footprint; free: no fire at all (control)."""
+        return {"router": ("router",), "cert": ("router", "closed"), "free": ()}[variant]
 
     def instance(self, variant: str, destinations, origins=()) -> Instance:
         """destinations: [{"node": id, "dwell": int, "window": [open, close]}]; origins: node ids (issue checks)."""

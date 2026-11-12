@@ -29,8 +29,9 @@ from tools.explain_deadlines.plans import CacheModel, reconstruct_legs  # noqa: 
 from deadline_field import intervals as iv  # noqa: E402
 from deadline_field.core import backward, check_fixed_point, issue_core, issue_set, witness  # noqa: E402
 from deadline_field.real import PacketModel  # noqa: E402
+from deadline_field.verify import full_check  # noqa: E402
 
-VARIANTS = ("router", "cert")
+VARIANTS = ("router", "cert", "free")
 
 
 def sha256(p):
@@ -41,7 +42,7 @@ def sha256(p):
     return h.hexdigest()
 
 
-def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=None, certify=True):
+def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=None, certify=True, verify=True):
     t_all = time.perf_counter()
     doc = json.loads(cache_path.read_text())
     region, input_time = doc["region_id"], doc["input_time"]
@@ -112,6 +113,13 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
     out_attempts = []
     field_s = Counter()
     certify_s = Counter()
+    verify_s = Counter()
+    verified = []
+    piece_stats = Counter()
+    limits_of = {}
+    for r in rows + job_rows:
+        if r["job"] is not None:
+            limits_of.setdefault((r["start"], r["dest"], r["dwell"], r["window"]), (r["limits"], r["incurred"]))
     witness_s = Counter()
     pieces = Counter()
     issue_sets = {}
@@ -125,6 +133,10 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
             fld = backward(inst)
             field_s[var] += time.perf_counter() - t1
             pieces[var] += fld.stats["pieces"]
+            multi = [len(x) for x in fld.R if len(x) > 1]
+            piece_stats[var + ":states_nonempty"] += sum(1 for x in fld.R if x)
+            piece_stats[var + ":states_multi_interval"] += len(multi)
+            piece_stats[var + ":max_intervals_per_state"] = max(piece_stats[var + ":max_intervals_per_state"], max(multi, default=1))
             if certify:
                 t3 = time.perf_counter()
                 check_fixed_point(fld)
@@ -149,6 +161,31 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
                                                     for k, x, a, b in w[1]],
                 }
             witness_s[var] += time.perf_counter() - t2
+            if var == "cert" and verify:
+                t4 = time.perf_counter()
+                for o in origins:
+                    core, feas, ib = issue_sets[(var, spec, o)]
+                    if not feas:
+                        continue
+                    ld = feas[-1][1]
+                    w = witness(fld, pm.nidx[o], ld)
+                    (lim, inc) = limits_of[(o, dnode, dwell, window)]
+                    legs = [(k, (pm.g.edge_ids[x] if k == "EDGE" else pm.node_ids[x]), a, b) for k, x, a, b in w[1]]
+                    chk = full_check(pm, hazard, origin=o, legs=legs, dest=dnode, dwell=dwell, window=window,
+                                     departure=ld, incurred=inc, peak=lim[0], dose=lim[1])
+                    verified.append({"what": "exact_deadline", "origin": o, "dest": dnode, "window": window,
+                                     "deadline_s": ld, "arrival": w[0], "next_second_infeasible": not iv.contains(feas, ld + 1),
+                                     **chk})
+                for r in rows + job_rows:
+                    if r["job"] is None or (r["dest"], r["dwell"], r["window"]) != spec:
+                        continue
+                    f = r["field"]["cert"]
+                    if not f["feasible"]:
+                        continue
+                    chk = full_check(pm, hazard, origin=r["start"], legs=f["legs"], dest=dnode, dwell=dwell, window=window,
+                                     departure=int(r["offset"]), incurred=r["incurred"], peak=r["limits"][0], dose=r["limits"][1])
+                    f["full_check"] = chk
+                verify_s[var] += time.perf_counter() - t4
     # ---------------- per-origin deadlines (planner rule) on the recorded grid, and exact
     per_origin = {}
     by_origin = defaultdict(list)
@@ -189,6 +226,10 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
                         if feas and (unc is None or feas[-1][1] > unc):
                             unc = feas[-1][1]
             o["field_deadline_exact_uncapped_" + var] = unc
+            union = iv.normalize([p for v_ in sets.values() for p in v_])
+            within = iv.subtract_all(union, [(last + 1, 10 ** 9)])
+            o["holes_" + var] = (len(within) > 1) or (bool(within) and within[0][0] > 0)
+            o["union_feasible_" + var] = within
             o["feasible_departures_" + var] = sets
         per_origin[oid] = o
     out = {
@@ -202,8 +243,10 @@ def run(cache_path: Path, data_root: Path, *, variants=VARIANTS, limit_dests=Non
         "destination_specs": len(spec_list),
         "timing_s": {"prepare_packet_model": t_prep, "fields": dict(field_s), "issue_and_witness": dict(witness_s),
                      "fixed_point_certificate_check": dict(certify_s),
+                     "witness_full_checker": dict(verify_s),
                      "total_wall": time.perf_counter() - t_all},
-        "pieces": dict(pieces),
+        "pieces": dict(pieces), "piece_stats": dict(piece_stats),
+        "deadline_witness_checks": verified,
         "host": {"platform": platform.platform(), "python": platform.python_version(), "machine": platform.machine(),
                  "cpu_count": __import__("os").cpu_count()},
         "peak_rss_mib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0,
