@@ -1,0 +1,199 @@
+{
+ "plan": "WAPITI_PLAN.md @ 117932f2",
+ "label": "DEVELOPMENT-ONLY; exposed Wapiti (cohort R)",
+ "m_inputs_verified": 100,
+ "M_totals": {
+  "n": 275961,
+  "positives": 2525,
+  "brier_c651": 0.008402493098340243,
+  "brier_zero": 0.009149843637325563,
+  "diff_c651_minus_zero": -0.0007473505389853207,
+  "bss_vs_zero": 0.08167905033224876,
+  "c651_better": true
+ },
+ "M_reproduces_victor": true,
+ "S_file_sha256": "5a8058068965de251d0716e9da37f7278d93272cda12514f92f7356196069563",
+ "S_persistence_equals_zero_on_mask": true,
+ "S_grid_record": {
+  "width": 105,
+  "height": 111,
+  "epsg": 5070,
+  "transform": [
+   375.0,
+   0.0,
+   -1536375.0,
+   0.0,
+   -375.0,
+   2533500.0
+  ]
+ },
+ "M_affines": [
+  [
+   375.0,
+   0.0,
+   -1536375.0,
+   0.0,
+   -375.0,
+   2533500.0
+  ]
+ ],
+ "S_affine": [
+  375.0,
+  0.0,
+  -1536375.0,
+  0.0,
+  -375.0,
+  2533500.0
+ ],
+ "cell_aligned": true,
+ "S_to_M_offset_rowcol": [
+  0,
+  0
+ ],
+ "intervals": {
+  "S": 52,
+  "M": 25,
+  "matched": 24,
+  "M_unmatched": [
+   "(datetime.datetime(2024, 8, 2, 3, 48, tzinfo=datetime.timezone.utc), datetime.datetime(2024, 8, 5, 6, 37, tzinfo=datetime.timezone.utc))"
+  ]
+ },
+ "S_cells_in_matched_intervals_outside_M_mask": 0,
+ "steps": {
+  "A0_S_as_stored": {
+   "n": 494121,
+   "positives": 3744,
+   "brier_c651": 0.010949225432485013,
+   "brier_zero": 0.007577091441165221,
+   "diff_c651_minus_zero": 0.003372133991319792,
+   "bss_vs_zero": -0.44504332797140145,
+   "c651_better": false
+  },
+  "A1_interval_set": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "A2_mask": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "A3_labels": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "A4_predictions": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "A5_full_M_mask_matched_intervals": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "A6_full_M_set": {
+   "n": 275961,
+   "positives": 2525,
+   "brier_c651": 0.008402493098340243,
+   "brier_zero": 0.009149843637325563,
+   "diff_c651_minus_zero": -0.0007473505389853207,
+   "bss_vs_zero": 0.08167905033224876,
+   "c651_better": true
+  }
+ },
+ "single_factor_from_A1": {
+  "mask_alone": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  },
+  "labels_alone": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true,
+   "cells_relabelled": 264307,
+   "labels_changed": 0
+  },
+  "predictions_alone": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true,
+   "cells_repredicted": 264307
+  },
+  "interval_set_alone": {
+   "n": 264307,
+   "positives": 2520,
+   "brier_c651": 0.008756706749783082,
+   "brier_zero": 0.009534367232044554,
+   "diff_c651_minus_zero": -0.0007776604822614715,
+   "bss_vs_zero": 0.08156393217662017,
+   "c651_better": true
+  }
+ },
+ "sign_by_step": [
+  [
+   "A0_S_as_stored",
+   false
+  ],
+  [
+   "A1_interval_set",
+   true
+  ],
+  [
+   "A2_mask",
+   true
+  ],
+  [
+   "A3_labels",
+   true
+  ],
+  [
+   "A4_predictions",
+   true
+  ],
+  [
+   "A5_full_M_mask_matched_intervals",
+   true
+  ],
+  [
+   "A6_full_M_set",
+   true
+  ]
+ ],
+ "first_flip": "A1_interval_set"
+}
