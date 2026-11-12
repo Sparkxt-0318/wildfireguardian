@@ -98,7 +98,7 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
 ## 10. A1 closed to new change items after the stage-2 freeze
 - A1 has **30 change items** in its revision log as of this draft. Once stage 2 is frozen and verified, **A1 accepts no new change items**.
 - **One stated exception:** the amendment that names the part-b candidate by SHA (§11).
-- Also allowed: errata that change no rule, number or membership, each logged as an erratum, and the separately named `c651_fullvalid_rebuilt` amendment (§8), which is part-a development and an admission under existing rules.
+- Also allowed: errata that change no rule, number or membership, each logged as an erratum, and the separately named `c651_fullvalid_rebuilt` amendment (§13), which is part-a development and an admission under existing rules.
 - **Later ideas go to CR1** (`clean_replication/`), before its freeze. Part b is reserved (§11) and takes no other idea.
 - A proposal that needs an A1 change after the freeze is recorded as "not adopted: A1 closed" and is redirected to one of these two places.
 
@@ -126,6 +126,6 @@ Part c is not opened until **all** of the following hold:
 
 The same five conditions apply to opening part b.
 
-## 8. Out of scope
+## 13. Out of scope
 - **c651_fullvalid_rebuilt** goes in a separate, later amendment, developed first on part a and using the 44 events fetched on 14 Nov. It does not block stage 2. If part c opens first, c651_fullvalid is not scored on part c.
 - **CR1** has its own preregistration.
