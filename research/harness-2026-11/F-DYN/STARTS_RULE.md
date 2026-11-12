@@ -23,3 +23,18 @@ Decided by the orchestrator, 2026-11-12, option (a). This file is committed befo
     recorded starts.
 
 The commit that adds this file is the rule commit.
+
+## Build criterion and scoring set (fixed before any deadline is computed; orchestrator/Iris decision 2026-11-12)
+
+- **Scoring set:** {`kriged_mean`, `firms_early`, `envelope`} × built starts × {5 h, 8 h}.
+  - `envelope` = each cell burning from its bracket start until its bracket end plus the burning duration (the F-9.3
+    interval member).
+  - Bracket start = `firms_early`. Bracket end = `firms_constrained`, i.e. min(kriged, first detection).
+  - Cells without a detection have a zero-width bracket at the kriged mean.
+- **Built starts:** a rule start (or recorded start) is **built** for a region when at least one routed road cell
+  ignites or burns within the **8 h** horizon in **any** of the three variants (the union). This is computed from the
+  fire inputs and the road cells only, never from routing results. Starts below the criterion appear in every results
+  table as "no fire reaches the routed network in the horizon", without a packet. No start is excluded for any other
+  reason.
+- **Comparison rows:** per-village differences between `kriged_mean` and `firms_early` deadlines are reported as a
+  result (how much the timing source matters).
