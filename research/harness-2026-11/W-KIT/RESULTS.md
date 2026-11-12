@@ -182,7 +182,7 @@ and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplie
   and the core stays within 20 s (test over every real and synthetic set). Every staff report gives the total for its
   message, e.g. "이장 방송 길이: 기본 32.0초(한도 35초) + 문의 7.7초(한도 10초) = 39.7초". Measured maximum over the
   531 real Korean heads: **39.7 s**. Neither budget has been tested with people.
-- **Shelter name in English voice (INTERIM, reported to the owner; may change).**
+- **Shelter name in English voice (INTERIM; SUPERSEDED 2026-11-12 by the owner decision below — kept for the record).**
   - Human-read English head script: keeps the Hangul shelter name. The English staff output gets a reader note
     ("Reader: say the shelter name in Korean: …"). 373 heads on the real set.
   - English automated voice call: does not read the name. It says "The shelter has no English name; it is named in the
@@ -324,3 +324,52 @@ refused ones. Suite and build in the checkpoint message.
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.
+
+## Owner decisions for the message kit (2026-11-12, via the orchestrator)
+- **English automated call dropped where the shelter has no English name** (staff wording revised below). This replaces the interim pointer ("The
+  shelter has no English name; it is named in the Korean message."), which is removed. For such a place the kit
+  produces no English call text at all (`text.en.voice === null`). The decree report marks that output as "not
+  produced" in English, and the Korean staff report states it too. No English call is ever produced without its
+  destination: every English call that exists names its shelter in English and carries no Hangul, checked over the
+  531 real and 600 synthetic cases.
+  - Measured over the 531 real place-scenarios: **373 lose the English automated call.** These are every place
+    whose shelter has no English name. **English-only callers at those places get no automated call, by owner
+    decision.**
+  - The human-read English script keeps the Korean shelter name with the reader note, as before (373 reader notes).
+  - Pass metric for the English call is now counted over the 158 places where it is produced: 64/158 complete with an
+    issuer (64/128 among leave-by places). Every other output is unchanged.
+- **Issuer registry: 영덕군 added from a SECONDARY source.** The source is the 경상북도 table 재난대책기관
+  연락처(시군) (gb.go.kr/gbsafe/page/2406/5015.tc, research-scout LOG batch 8). The county's own site returned its
+  web-firewall block page, and no sender tag was found. The entry says `secondary: true`, and its source text starts
+  "SECONDARY SOURCE (owner decision…)". No English name.
+  - **KNOWN LIMITATION (Mira N1): the registry checks the issuer's NAME, not its jurisdiction.** A registered issuer
+    renders its contact line at any place, including one in another county. The same 영덕군 issuer renders
+    "문의: 영덕군 …" on all 258 의성–안동 place-scenarios, and 의성군 renders on 영덕 places. If staff supply the wrong
+    issuer, a resident message could name another county as its contact. This was already true before this change.
+    The fix (fail closed when the place's 시·군 is not established or differs from the issuer's) ships only together
+    with per-place 시·군 data from an official boundary dataset, in a later cut.
+  - Coverage: with an issuer record supplied, **all 273 영덕 place-scenarios** (3 caches) gain a Korean contact line;
+    before this change they got none ("not in registry"). The 258 의성–안동 place-scenarios are unchanged. Still no
+    English contact line (no English name). Violations are unchanged for every place.
+- Mutations: with the English call not dropped, or with 영덕군 removed, 2 tests fail each time.
+- Suite 26 files / 450 tests; build:static OK.
+
+### Staff wording revised (Iris, Sofia) — delta after 634f02d
+- The staff line now says exactly what happens. The English call is not produced, and the Korean automated call is
+  unchanged. English-speaking residents here get no English automated call; in English, the shelter is named only in
+  the village-head script and the family call script, in Korean script. The test checks the shelter-name claims at
+  every one of the 373 places. It also checks, directly, that the Korean call is unchanged (Mira N1): it is produced at
+  every dropped place, and it is identical to the call built for the same place with an English shelter name added
+  (373 real + 91 synthetic). "Owner decision" is replaced by "a design decision of this tool" / "개발 측 결정" (Sofia: 소유자 reads
+  as a property owner; 운영책임자 is a defined role in 예규 361 제7조). Residents are "recipients", never "callers".
+  Korean lines as Sofia wrote them: "한국어 자동 음성전화는 (모든 장소에서) 그대로 만듭니다" (stating that it is produced), and
+  "주민용 영어 자료 가운데 대피장소 이름(한글)이 나오는 것은 이장 방송 대본과 가족 전화 대본뿐입니다." ("주민용" / "resident materials" added for Mira N4: the staff reader note also carries the name)
+- Kit summary `staffSummary(plans, lang)`: "[Staff] Places with no English automated call: 373 of 531 (…)". This
+  makes the gap visible as a property of the area's shelter naming (Iris).
+- Before/after comparison against Main (994abd7…) over every resident output, with an issuer, for 531 real and 600
+  synthetic places:
+  - 373 real (and 91 synthetic): only en.voice changes (now absent);
+  - 158 real (and 509 synthetic): every output is identical;
+  - violations are identical everywhere.
+  The removed interim sentence reaches no output (test).
+- Suite 26 files / 450 tests; build:static OK.
