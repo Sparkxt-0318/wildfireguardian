@@ -152,7 +152,9 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   regenerated and re-checked, and both checkers accept with the same claim and T (`results/fdyn_recheck69.txt`).
   `fdyn_certs.run` now retries once and records `NORUN exit=…` instead of an empty string.
 - **Sizes.** Instance plus certificate has a median of ≈ 1.25 MB, about the 1-hour panel's median bundle (1.21 MB).
-  Forward certificates: median 27–28 kB, p90 272 kB, max 3.2 MB. COCERT: median 63–65 kB, max 3.5 MB.
+  Forward certificates: median 27–28 kB, p90 272 kB, max 3.2 MB. COCERT: median 63–65 kB, max 3.5 MB. The COCERT
+  bundles in this batch were built with `legs=[]` and only SIZED, never checked: a checker rejects a ROUTE cocert
+  without a witness. Checked COCERTs are those of the 20-mission panel (claim 8).
 - **Times.** Median certify time is 0.21 s, max 29 s on one request. Checks: C median 0.014 s (max 0.19 s), Python
   median 0.34 s (max 1.6 s). The 1-hour panel: C 0.015 s, Python 0.24 s (max 1.9 s).
 - **Soundness labels (manifest).** kriged_mean is "kriged mean (not a bound)". firms_early is "BRACKET-START, NOT A
@@ -174,8 +176,9 @@ certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1
   - Rule evaluated in binary64 (`--mode float`): 820 cells differ from HAZARD.json. Every one has the same start and
     an end within 1.4e-12 s (97 HAZARD later, 723 earlier). There are 0 other differences, and 10/10 integer
     instances are equal.
-  - Exact rationals (`--mode exact`): 791 cells differ by a 300 s quantum (482 births, 309 ends), plus 502 sub-µs end
-    differences. This was the finding behind v3.1.
+  - Exact rationals (`--mode exact`), a NEGATIVE result: 791 cells differ by a whole 300 s quantum (482 births, 309
+    ends), plus 502 sub-µs end differences, and 0/10 integer instances are equal. So the v3 packets do NOT implement
+    the exact-rational law. This finding led to v3.1, whose integer-ms law the packets match (below).
   - An earlier version of the classifier counted only HAZARD-later ends and so reported "0 differences" for the float
     mode. Corrected.
 - **v3.1 (`--mode v31`, QUANT_v3_1_RULE.md @ f40e2af).** Packets were built with Leo's manifest commands at f40e2af,

@@ -6,6 +6,7 @@
  "present_cells": 97,
  "export_burned": 2294,
  "mode": "float",
+ "law": "envelope",
  "active_cells_mine": 1752,
  "active_cells_hazard": 1752,
  "differing_cells": 820,
@@ -15,6 +16,7 @@
  "end_within_1us_max_abs_s": 1.3642420526593924e-12,
  "other_differences": 0,
  "other_examples": [],
+ "origins_from_instance": "yeongdeok_2025 20250325T190000Z",
  "integer_instances_equal": 10,
  "integer_instances_compared": 10
 }

@@ -6,6 +6,7 @@
  "present_cells": 97,
  "export_burned": 2294,
  "mode": "exact",
+ "law": "envelope",
  "active_cells_mine": 1752,
  "active_cells_hazard": 1752,
  "differing_cells": 1293,
@@ -91,6 +92,7 @@
    ]
   }
  ],
+ "origins_from_instance": "yeongdeok_2025 20250325T190000Z",
  "integer_instances_equal": 0,
  "integer_instances_compared": 10
 }

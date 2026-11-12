@@ -94,7 +94,8 @@ def certify_and_check(inst, path, c_checker):
     path.write_text(text)
     py = subprocess.run([sys.executable, str(HERE / "check_py.py"), str(path)], capture_output=True, text=True).stdout.strip()
     cc = subprocess.run([c_checker, str(path)], capture_output=True, text=True).stdout.strip()
-    ok = py.startswith("ACCEPT") and cc.startswith("ACCEPT")
+    # both checkers must accept AND agree with the generator's claim and threshold (Mira, sign-off (c))
+    ok = py == cc == "ACCEPT %s %s" % (claim, T)
     return dict(claim=claim, T=T, instance_sha256=ih, py=py, c=cc, accepted=ok, blocked_edges=len(inst.edge_block))
 
 

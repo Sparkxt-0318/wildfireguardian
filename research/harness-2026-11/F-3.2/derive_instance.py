@@ -151,6 +151,9 @@ def compare_semantic(inst, derived):
     departures that cannot be taken anyway (t + D_j > H) are not a difference (e.g. an activity set clipped at H)."""
     dep, H = derived["dep"], derived["H"]
     diffs = []
+    # the derivation must be of THIS request (Mira: a wrong derived horizon would otherwise go unnoticed), as in compare()
+    if (inst.departure, inst.horizon) != (dep, H):
+        diffs.append(("CLOCK", None, (inst.departure, inst.horizon), (dep, H)))
     for j in range(inst.E):
         lim = H - inst.D[j]
         a = clip(merge(inst.edge_block.get(j, [])), dep, lim)
