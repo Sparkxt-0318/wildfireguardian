@@ -327,3 +327,78 @@ Thomas reviews the argument.
 ## 4. First actions after approval
 
 Step 0 only. Then G1/G2 on the scaffold, then Mira.
+
+## Amendment B (16:0x UTC): refusal re-verification and the external review §12.4 (orchestrator, 15:52 and 16:00 UTC)
+
+Rule-first, as for every step. Where I disagree or need a fact, it is marked **[open]**.
+
+**G2c. Refusal certificates (Thomas reviews).**
+- Every refusal certificate behind a v2 `FULL_MODEL_REFUSAL_PROVEN` is re-verified by **both** checkers in fresh
+  processes, with the bundle sha256 recorded per run.
+- A refusal that was not re-verified is published under a weaker, distinct status: `MODEL_REFUSAL_UNVERIFIED`. It is
+  never pooled with re-verified refusals.
+- Until G2c exists, every report of a kit refusal says "accepted on declared certificate fields, not re-verified".
+  Checked: none of my F-3.4, F-4.2 or F-DYN reports calls a kit refusal "independently checked". The F-3.4 profile
+  tables say "refusal proven", which is the kit's status name, and a footnote is now added there.
+- **Step 0 G2b rerun with Thomas's fallback fix** (`thomas/routing-next` @ deeb7c2), with no manual exclusion:
+  **40 run folders, 38 PASS, 2 NOT_APPLICABLE_STATUS, 0 violations** (`results/step0/G2B_all39.json`).
+
+**G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
+- v2 must reproduce all **9,722** recorded one-hour route-check verdicts, not only the 20-mission panel.
+- **Pass rule:** identical verdicts on every record.
+- **Exceptions are mechanical, listed beforehand,** and of the FL2 type only: a record whose frozen verdict itself
+  varies across the recorded repetitions, judged against the frozen set.
+- The expected exception list is produced from the records before v2 runs.
+- **[open]** The location and format of the 9,722 records are needed from the orchestrator or Richard.
+
+**Step 6 design question (with Richard; short design note before any build).** Should v2's multi-hour solver be
+Richard's interval deadline field, with the unchanged frozen checker as verifier, instead of the dense per-second
+sweep?
+- **Fact check of the reviewer's figure (measured here).** The EarliestArrivalBound stores `C` as int16 over
+  (horizon + 1) × (edges + 1) (`zsweep.py:434`). Its recorded `bytes`:
+  - Uiseong–Andong 5 h: **1,577,947,308 B = 1,505 MiB**;
+  - Yeongdeok 5 h: **4,029,747,700 B = 3,843 MiB**.
+  These equal the reviewer's 1,505 and 3,843 MiB exactly.
+- **Is it the binding array?**
+  - **Yeongdeok: yes.** EA is resident at 4.4 GiB through search, and 3.84 GiB of that is this array. It exceeds the
+    3,072 MiB guard on its own.
+  - **Uiseong: no.** The binding peak there is the **transient** RoadBoundModel build (9.0–9.5 GiB, 0.40 GiB
+    resident after). The EA array (1.5 GiB) fits.
+
+**Step 7 extension: constant-time first radiation tier (Thomas reviews admissibility).**
+- If (non-flame flux bound × journey duration + incurred dose) is below the dose budget, and the flux bound is below
+  the peak limit, then radiation is decided with no geometry. Otherwise fall through to option A, then to the exact
+  tier.
+- **[open, disagreement on the bound used].** The F-3.1 figure of 0.0156 kW/m² is the packet's **cell-binned** flux
+  (Nora's scope note). It does **not** bound the whole-road checker's continuous enclosure, which is the quantity the
+  checker certifies. Using it there would be unsound.
+- **Proposal:** use a bound **of the checker's own enclosure**, e.g. the per-packet maximum of the radial-tier upper
+  coefficient over every road box and every non-contact time, computed once per packet. Prove it is an upper bound
+  under the checker's model before use.
+- Flame contact is never decided by this tier.
+
+**Step 8 (new): arrival ties broken by clearance (labelled behaviour change).**
+- Among routes with the **same** arrival, prefer the larger clearance (the F-4.2 dilation r*).
+- It is **outside G1's identity set**. Every changed route is listed, with old/new clearance and identical arrival and
+  status.
+- G2 and G2b apply to every changed route.
+- Reviewer's figure: 2 of 15 one-hour missions gain clearance at no arrival cost. To be reproduced from F-4.2 data
+  before the build.
+
+**Reporting rules (apply to every table from now on).**
+- **(E) Domain-limited clearance.** Where the packet edge sets the clearance, the clearance is labelled
+  **domain-limited (lower bound within the packet)**.
+  - In F-4.2 these are already labelled CROP: 8 of the 15 one-hour routes, and the F-DYN short routes.
+  - The word "domain-limited" is added to the labels in the next F-4.2 commit.
+- **(F) Budgets in work units.** Every budget is stated in work units (labels, expansions, sweep states) **and** in
+  seconds, with the host named.
+
+**(G) No-re-entry default for person-facing multi-hour outputs.**
+- A burned cell is closed for the rest of the horizon. The reopening model ([b, b + T) activity) stays a labelled
+  research variant.
+- Scout-suggested occupant limits (1.0 kW/m², distance factor 1.5) never enter an operational output.
+- **[open, interaction with G1].** The kit's search and checker read activity from the packet. No-re-entry is
+  therefore best realised as a **packet-level** transform: expiry set to the horizon for every ignited cell, written
+  by the packet writer with its own identity (Leo).
+- v2 code stays unchanged under it, and G1 still compares like with like on the frozen packets.
+- No-re-entry results are reported as their own line.
