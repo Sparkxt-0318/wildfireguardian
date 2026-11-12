@@ -546,7 +546,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   hidden refusal.
 * **Labels.** SCENARIO; road-limited graph (graphs_interim); assumes no fire outside mapped or forecast cells.
 
-## Timing lever vs destination lever (rule `LEVER_RULE.md`, committed first at 48d2be0; not yet verified)
+## Timing lever vs destination lever (rule `LEVER_RULE.md`, committed first at 48d2be0; VERIFIED: Nora request #13, PASS WITH NOTES, ledger row 58)
 
 * **Label.** Model statements on scenarios (F-DYN, not what happened). Free-flow only: no traffic is modelled, so
   any route effect is ~0 by construction. Roads are limited to graphs_interim.
@@ -557,7 +557,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * Reference departure t_ref = 150 min after the start (2 h alert + 30 min door-to-door, an assumption).
   * Lever A: depart 30 / 60 / 120 min earlier, same destinations. Lever B: same departure, any candidate destination.
 * **Results at t_ref, per packet, among place-starts not checked at t_ref.**
-  * **Lever B rescues none:** B-only = 0 and both = 0 in all 48 packets and at every shift.
+  * **Lever B rescues none (free-flow only):** B-only = 0 and both = 0 in all 48 packets and at every shift.
   * Lever A rescues 0–6 per packet. The largest counts are at UA 03-25 17Z: A rescues 1 / 1–2 / 4–6 of 6 at
     30 / 60 / 120 min.
   * Not every lever-A count rises with the shift. At UA 03-25 envelope it is 1 / 0 / 4 at 30 / 60 / 120 min, because
@@ -570,6 +570,18 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * 18 "both" rescues, all at the last grid departure before the horizon (UA 03-24 09Z, H − 30 min), where lever A
     also rescues. Their arrival gains were not computed (primary t_ref only).
 * **Not run.** The 1-h cache part of the rule (t_ref = 50 min, s = 30 min) has not been run yet; this is a gap.
+* **Verifier notes (Nora, request #13).**
+  * **Reproduction.** She re-ran 5 of the 48 packets; all are identical, including the sensitivity grid and the
+    1 / 0 / 4 case.
+  * **B = 0, checked independently.** Thomas's SIPP router (the router rule, which is weaker than CERT) finds
+    NO_ROUTE from all 6 unchecked UA 25T17 kriged origins to all 30 destinations at 9,000 s.
+  * **Lever A.** SIPP finds a route exactly for my A rescues and NO_ROUTE for every "neither". All 8 A-rescue
+    witnesses are INDEPENDENTLY_CERTIFIED_OPTIMAL and CLEAR.
+  * **Counting.** The "18 both" in the sensitivity are 1 origin × 3 shifts × 6 packets, i.e. **6 distinct cases**.
+  * **Label.** "Free-flow only" applies to every lever-B number.
+  * **Code fix.** `lever.py`, `return_trip.py`, `fdyn_run.py` and `burn_sensitivity.py` fell back silently to the
+    first INSTANCE entry when `--start` matched no start tag. They now raise. The fallback never fired: INSTANCE.json
+    holds exactly the 6 recorded starts used here.
 * **Reading (model statement).** On these scenarios the timing lever is the only one that rescues. Choosing another
   shelter at the same departure never turns "no checked road" into "checked". This is consistent with free-flow
   routing with no congestion.

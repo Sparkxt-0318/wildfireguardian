@@ -107,7 +107,9 @@ def main():
         return
     doc = json.loads(a.instance_json.read_text())
     cand = [i for i in doc["instances"] if i["region"] == a.region and i["horizon_s"] == a.horizon_s]
-    inst = next((i for i in cand if i["start_tag"] == a.start), cand[0])
+    inst = next((i for i in cand if i["start_tag"] == a.start), None)
+    if inst is None:
+        raise SystemExit("no INSTANCE entry for region %s, start %s, horizon %s s" % (a.region, a.start, a.horizon_s))
     facs = tuple(a.factors.split(","))
     assert "1" in facs and set(facs) <= set(FACTORS)
     res, tim = {}, {}

@@ -139,7 +139,9 @@ def main():
     a = ap.parse_args()
     doc = json.loads(a.instance_json.read_text())
     cand = [i for i in doc["instances"] if i["region"] == a.region and i["horizon_s"] == a.horizon_s]
-    inst = next((i for i in cand if i["start_tag"] == a.start), cand[0])
+    inst = next((i for i in cand if i["start_tag"] == a.start), None)
+    if inst is None:
+        raise SystemExit("no INSTANCE entry for region %s, start %s, horizon %s s" % (a.region, a.start, a.horizon_s))
     out = run(a.graph, a.packet, inst, verify=not a.no_verify)
     out["instance_entry"] = {"region": inst["region"], "start_tag": inst["start_tag"], "horizon_s": inst["horizon_s"]}
     a.out.write_text(json.dumps(out, indent=1, default=str))
