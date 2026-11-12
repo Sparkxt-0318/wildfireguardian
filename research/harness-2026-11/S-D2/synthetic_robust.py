@@ -283,3 +283,83 @@ def timed(fn, *a, memory=False, **kw):
 
 MCEM_SHORT = dict(iterations=30, sweeps=3, keep=2, average_last=10)
 MCEM_LONG = dict(iterations=60, sweeps=6, keep=5, average_last=30)
+
+
+# ------------------------------------------------- composite shape + scalar rate (Iris)
+
+def _simulate_window(problem: Problem, burned0: np.ndarray, length: float, rates: np.ndarray, k0: float, rng):
+    """Exact Markov forward simulation over one survey window from a known burned set.
+
+    Sources burned at the window start act through memoryless exponential delays, so
+    first passage with Exp(k_d) delays from the window start is exact. Returns the
+    number of newly burned cells by the window end."""
+    n, offs = problem.n, problem.offs
+    tau = np.full(n * n, INF)
+    heap = [(0.0, int(i)) for i in np.flatnonzero(burned0)]
+    tau[burned0] = 0.0
+    if k0 > 0:
+        bg = rng.exponential(1.0 / k0, size=n * n)
+        for i in np.flatnonzero((bg <= length) & ~burned0):
+            tau[i] = bg[i]
+            heap.append((bg[i], int(i)))
+    heapq.heapify(heap)
+    done = np.zeros(n * n, bool)
+    ok_rate = rates > 0
+    while heap:
+        t, j = heapq.heappop(heap)
+        if done[j] or t > length:
+            continue
+        done[j] = True
+        r, c = divmod(j, n)
+        tr, tc = r + offs[ok_rate, 0], c + offs[ok_rate, 1]
+        inside = (tr >= 0) & (tr < n) & (tc >= 0) & (tc < n)
+        tgt = tr[inside] * n + tc[inside]
+        cand = t + rng.exponential(1.0 / rates[ok_rate][inside])
+        better = (cand < tau[tgt]) & ~done[tgt] & (cand <= length)
+        for i, v in zip(tgt[better], cand[better]):
+            if v < tau[i]:
+                tau[i] = v
+                heapq.heappush(heap, (v, int(i)))
+    return int((done & ~burned0).sum())
+
+
+def fit_scale_by_simulation(problem: Problem, obs: dict, shape_theta: np.ndarray, *, n_sims=8, seed=0,
+                            lo=0.1, hi=20.0, iters=14):
+    """Scalar multiplier m on a fixed kernel shape, by matching total new-burn counts.
+
+    For every survey window the exact state at its start is known (perimeter states); the
+    expected number of new cells under m * shape is estimated by exact simulation with common
+    random numbers, and m is found by bisection on log m so that the simulated total equals
+    the observed total (method of moments; the count is increasing in m)."""
+    surveys = obs["surveys"]
+    hi_t = np.where(obs["burned"], obs["hi"], INF)
+    windows = []
+    for a, b in zip(surveys[:-1], surveys[1:]):
+        start = hi_t <= a
+        if start.any():
+            windows.append((start, float(b - a), int(((hi_t > a) & (hi_t <= b)).sum())))
+    target = sum(w[2] for w in windows)
+
+    def expected(m):
+        rng = np.random.default_rng(seed)          # common random numbers across m
+        tot = 0.0
+        for _ in range(n_sims):
+            for start, length, _ in windows:
+                tot += _simulate_window(problem, start, length, m * shape_theta[1:], m * shape_theta[0], rng)
+        return tot / n_sims
+
+    a, b = np.log(lo), np.log(hi)
+    for _ in range(iters):
+        mid = 0.5 * (a + b)
+        if expected(np.exp(mid)) < target:
+            a = mid
+        else:
+            b = mid
+    m = float(np.exp(0.5 * (a + b)))
+    return m * shape_theta, m
+
+
+def fit_composite_then_scale(problem: Problem, obs: dict, **kw):
+    shape = fit_bracket_composite(problem, obs)
+    theta, _ = fit_scale_by_simulation(problem, obs, shape, **kw)
+    return theta

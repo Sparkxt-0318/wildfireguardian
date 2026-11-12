@@ -62,3 +62,12 @@ def test_correlated_error_has_stated_scale_and_spatial_correlation():
     obs2 = R.observe_kriged_robust(p, np.random.default_rng(3), sd_choices=(2.0,), true_factor=1.75)
     z2 = (obs2["tau_hat"] - p.tau)[b] / 2.0
     assert 1.5 < z2.std() < 2.0
+
+
+def test_scale_by_simulation_recovers_known_multiplier():
+    # Truth is Markov; give the correct shape scaled by 1/3 and expect m ~ 3.
+    p = R.make_problem(5)
+    obs = S.observe_perimeter(p, every=12.0)
+    shape = np.concatenate([[p.k0], p.k]) / 3.0
+    _, m = R.fit_scale_by_simulation(p, obs, shape, n_sims=6, seed=1)
+    assert 2.4 < m < 3.7

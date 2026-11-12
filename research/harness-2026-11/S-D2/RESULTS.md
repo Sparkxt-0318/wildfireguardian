@@ -151,11 +151,92 @@ Not verified: real-data refit. Also not verified: correlated (kriging-smoothed) 
 synthetic generator, VIIRS-style one-sided brackets, environmental covariates, and more MCEM Monte Carlo samples (which
 should cut the variance in finding 2; *hypothesis*).
 
+## 3b. Robustness study (round 2; synthetic)
+
+`python run_robust.py --replicates 8 --workers 4` (1,916 s); memory: `--replicates 1 --memory`
+(`results/robust_memory.json`). Tables are in `results/robust.md`. **Verified: Owen, PASS WITH NOTES (4bb7933)**, on
+replicates 0–3 for 3/12/24 h brackets.
+
+**Bracket width against cell-crossing time** (Markov truth, median crossing time 6.6 h; mean of 8 replicates):
+
+| Bracket | Plug-in Σk̂/Σk | Composite | Mean-field NLL | MCEM | MCEM beats plug-in on held-out NLL |
+|---|---:|---:|---:|---:|---:|
+| 3 h | 1.014 | 0.861 | 1.094 | 1.025 | 3/8 |
+| 6 h | 0.989 | 1.000 | 1.081 | 1.028 | 5/8 |
+| 12 h | 0.905 | 0.894 | 1.039 | 1.039 | 8/8 |
+| 24 h | 0.665 | 0.647 | 0.982 | 1.040 | 8/8 |
+
+* **What MCEM recovers.** It recovers the total rate *nearly* unbiasedly. Its ratios run 1.025–1.040, a small,
+  consistent **upward** bias of 2–3 SE (Owen), which errs toward a fast model. It wins on held-out NLL. It does
+  **not** win on kernel shape: at 12 h and 24 h the composite has lower rel-L2 (0.546 vs 0.625, 0.620 vs 0.670). Wide
+  brackets identify the rate, not the shape.
+* **Mean-field fits.** They get the rate roughly right but the shape badly wrong (rel-L2 0.88–1.28 at 12–24 h), so
+  their held-out NLL is poor. `meanfield_brier` at 3 h converged to the floor (rate 0, NLL 15.0), an optimizer failure
+  that is reported, not hidden.
+* **Kriged inputs** (calibrated, correlated, or with the SD understated 1.75×): MCEM is *worse* than the simple arms
+  on held-out NLL (calibrated: 0.0756 vs soft risk set 0.0286; 0/8). With the SD understated, every arm is biased low;
+  only MCEM given the corrected SD is not (1.03). **The perimeter result does not carry over to kriged inputs**, which
+  confirms dropping the kriged arms.
+* **Longer MCEM** (60×6 sweeps): held-out NLL 0.060 ± 0.021 vs 0.076 ± 0.037. Variance falls, but it still does not
+  beat hard labels at small calibrated error.
+* **Spotting outside the fitted kernel:** MCEM is best (NLL 0.039, rate 1.10, absorbing the spotting).
+  **Non-exponential delays:** every estimator gives about 0.3; the Markov kernel is misspecified, so this is not a
+  bias measure.
+* **Cost:**
+  * Wall time per fit (8 replicates, 4 workers): plug-in < 0.1 s, composite 1–5 s, mean field 4–57 s, MCEM about
+    30–55 s, long MCEM about 170 s.
+  * Peak Python heap (`tracemalloc`): plug-in 1.8 MiB, mean field ≤ 1.6, hard hourly 6.4, composite ≤ 9.7, MCEM 12,
+    soft risk set 61.
+* "Deterministic" estimators are deterministic **up to optimizer tolerance** (plug-in ≤ 2e-5; composite held-out NLL up
+  to 0.018 across builds).
+
+## 3c. Real raw brackets, covariate-free (NIROPS part a)
+
+`python nirops_brackets.py --shp <NIROPS> --allowlist PART_A_ALLOWLIST_FINAL.csv --source-ref <commit> --out B` (93 s),
+then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s).
+
+* **Data and access.**
+  * S-D9 part a only: allowlist sha256 7db3cc0e at 2d40d170, rule surveys ≥ 20, giving 42 incidents. Each incident is
+    read through an `Incident_C` attribute filter; the use is logged.
+  * Perimeters are rasterized on a 375 m EPSG:5070 grid with the cell-centre rule and a cumulative union.
+  * **No arrival raster is read**, which is A1 §4.1 rule 3. Every cell of the full grid is at risk, and never-mapped
+    cells are censored negatives.
+* **Fit.** The homogeneous spatial hazard (5×5 kernel plus background) is fit over the first 240 h after the first
+  survey. Twenty-five fires qualify (≥ 100 arrivals, grid ≤ 140, initial burned cells present); the 17 exclusions are
+  listed with reasons in the JSON. Survey gaps are about 24 h.
+
+**Total spread rate relative to MCEM:**
+
+| Estimator | Geometric mean | Range | Fires below MCEM |
+|---|---:|---:|---:|
+| Plug-in (first observation time; Ganguly-style) | **0.454** | 0.08–0.85 | 25/25 |
+| Mean-field endpoint NLL (forecast-v2 regime, NLL loss) | **0.587** | 0.26–0.88 | 25/25 |
+| Independent-bracket composite | 0.967 | 0.84–1.07 | 18/25 |
+
+* The median MCEM total rate is 0.055/h, a crossing time of about 18 h, against about 24 h brackets. That is the
+  synthetic regime (brackets 1–2× the crossing time) where composite and MCEM agree on the rate, and they do here.
+* **Reading (hypothesis, not a forecast result):**
+  * Treating survey brackets as exact times cuts the fitted spread rate about 2.2× on real NIROPS fires (up to 12×).
+  * The mean-field endpoint fit, the existing perimeter regime, is also low on every fire. This fits the registered
+    P-D2 ordering, under which `d2_bracket_rebuilt`, not `d2_nll_rebuilt`, should move the near-zero tail.
+* **Not shown:**
+  * The model has no covariates and a constant rate, so day-to-day variability (Sofia: run days vs slow days) is
+    folded into one rate.
+  * MCEM carries about 3% synthetic upward bias.
+  * Nothing here is scored against held-out perimeters.
+
 ## 4. Ideas and gaps
 
 * *Hypothesis:* given §1, the raw-bracket arm (NIROPS survey pairs, VIIRS overpasses) is better founded than any
   kriged-label arm. The kriged SD is both large and miscalibrated, and the synthetic study shows the bracket
   likelihood's gain is largest exactly when the observation is coarse.
+* **Next, from Iris:** fit the kernel shape with the composite, then fit one scalar rate multiplier by exact forward
+  simulation from the known survey states (`synthetic_robust.fit_scale_by_simulation`, tested). Compare it with MCEM
+  on rate, NLL, shape, time and memory before choosing the `d2_bracket` implementation.
+* **Shared fire-day frailty** (Sofia): a random rate multiplier per fire-day, possibly a gamma with closed-form
+  integration, to absorb run days. It is not yet tested.
+* **Refit arms:** a full-rectangle label-validity arm (same loss as today) runs separately from the likelihood change
+  (Iris), so the two effects are not mixed.
 * A cheap middle ground is the fixed-q soft risk set. It is one pass with no sampling, and its q should be recalibrated
   (c ≈ 1.75) or built from brackets.
 * Persistence wins Brier at a 0.5% base rate, so no change in training likelihood alone is expected to pass the
