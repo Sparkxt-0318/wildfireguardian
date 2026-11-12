@@ -1,0 +1,203 @@
+{
+ "rule": "RATE_ASSUMED_RULE.md section 2",
+ "filters": {
+  "rows_total": 21070,
+  "in_time_window": 6852,
+  "in_grid": 5603,
+  "type0": 5586,
+  "in_final_footprint": 5114
+ },
+ "firms_sha256": {
+  "viirs-snpp": "991230c0358dcead74cf8e7d883852e8e3e3c936d384a125123a668c0051a0f8",
+  "viirs-jpss1": "2aedf6756368b9b9de573ad7d1f51dfa43e8f55abd87a39ddd72d339d55db17a",
+  "modis": "613477ebe81a400f61897352b7864162a32d5e362e8ed7559b445bc29d4695c6"
+ },
+ "overpasses_with_detection": 44,
+ "detections_without_earlier_source": 23,
+ "primary_r_j_kmh": {
+  "n": 5091,
+  "p50": 0.02913366038102483,
+  "p90": 0.10111133662971766,
+  "p99": 0.2324355435174819,
+  "max": 1.4845039172363526,
+  "n_gt_8.2": 0,
+  "n_gt_16.4": 0
+ },
+ "top10": [
+  {
+   "rate_kmh": 1.485,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36872,
+    "lon": 128.66437,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36806,
+    "lon": 128.65808,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.569
+  },
+  {
+   "rate_kmh": 1.393,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.37069,
+    "lon": 128.60791,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.37006,
+    "lon": 128.60201,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.534
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.37008,
+    "lon": 128.63956,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36616,
+    "lon": 128.64009,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36416,
+    "lon": 128.6588,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36806,
+    "lon": 128.65808,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36616,
+    "lon": 128.64009,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36224,
+    "lon": 128.64061,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36224,
+    "lon": 128.64061,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36616,
+    "lon": 128.64009,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36551,
+    "lon": 128.63396,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36943,
+    "lon": 128.63345,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.36943,
+    "lon": 128.63345,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.36551,
+    "lon": 128.63396,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.3668,
+    "lon": 128.64618,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.37071,
+    "lon": 128.64557,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  },
+  {
+   "rate_kmh": 1.141,
+   "j": {
+    "time": "2025-03-22 04:45:00",
+    "lat": 36.37071,
+    "lon": 128.64557,
+    "src": "viirs-jpss1"
+   },
+   "i": {
+    "time": "2025-03-22 04:45:00",
+    "bracket_start_h_since_0321": 28.367,
+    "lat": 36.3668,
+    "lon": 128.64618,
+    "src": "viirs-jpss1"
+   },
+   "dist_km": 0.437
+  }
+ ],
+ "secondary_all_pairs": {
+  "max_kmh": 3747.349807067217,
+  "note": "dominated by simultaneous detections on separate fronts; not used for the decision"
+ },
+ "decision": "not refuted by these detections (not a proof: unseen arrivals between overpasses, cloud/smoke)"
+}
