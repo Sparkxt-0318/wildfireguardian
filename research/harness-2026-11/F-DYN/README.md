@@ -205,6 +205,18 @@ python3 -m pytest -q research/harness-2026-11/F-DYN/tests
   the absolute radiation module path. The F-9.3 regression test will compare those fields exactly and flux within a
   stated tolerance, under the pinned numpy.
 
+## Envelope variant: reduced checking (orchestrator conditions)
+
+Every result on `envelope` packets is labelled **"single implementation, not independently checked"**. The kit's
+independent scalar-law checker **does not apply and was not run** on them. Never report it as passed.
+
+- **Claims rest on the other variants.** `kriged_mean` and `firms_early` go through the unchanged writer and the
+  independent checker; they carry the claims, and the envelope is reported beside them.
+- **Substitute independent check (requested).** Thomas's O2 re-derives the integer instance independently. It would
+  be extended to per-cell burning intervals, re-deriving the blocked intervals from the raw bracket arrays.
+- **What exists.** A self-check in `_packet_child.py` proves the re-implemented member loop reproduces the unchanged
+  writer exactly with scalar ends. The containment check shows each cell's interval covers [lo, hi + T).
+
 ## v3 scoring workload (built starts, manifest, verification sample)
 
 - **Built starts:** `BUILT_STARTS.json`, criterion in `STARTS_RULE.md` @24bbad9 (union of three variants, inputs only).

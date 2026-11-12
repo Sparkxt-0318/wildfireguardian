@@ -97,8 +97,19 @@ ArrivalScenario {
   - **F-DYN now** (`_packet_child.py`, option B): the envelope HAZARD is assembled with the writer's own member loop
     and per-cell ends. A self-check proves that loop reproduces the writer exactly with scalar ends. The packets declare
     `source_law_version = wfg.fdyn.envelope-per-cell/1`, and the kit's independent checker is not applicable to them.
-  - **Proper home (option C):** a per-cell law in the writer and the independent checker, with the scalar law as the
-    special case.
+  - **Proper home (option C).** A per-cell law in the writer and in the independent checker, with the scalar law as
+    the special case. What option C would change:
+    1. **Writer.** `bridge.construct` takes an optional per-cell end array `extinction_s[S, H, W]`, defaulting to
+       `round_up_sum(ignition, T)`. Breakpoints and active sets use it unchanged otherwise. `constructed_arrays.npz`
+       already stores `member<k>__extinction_breakpoint_s`. The assumptions gain
+       `burning_law: scalar | per_cell` and the per-cell array's SHA-256.
+    2. **Independent checker** (`kit/runner/ffi_independent_checker.py`). Today it recomputes activity from the
+       scalar `burning_duration_s` and `initial_remaining_s`. It would read per-cell ends from
+       `constructed_arrays.npz` when `burning_law = per_cell`, and recompute flux from the same active sets.
+    3. **Regression.** Every existing packet (scalar law) must stay byte-identical, the 20 missions' verdicts
+       unchanged.
+    Until option C exists, option B packets carry "single implementation, not independently checked" (see the
+    F-DYN README), and Thomas's O2 re-derivation is the substitute independent check.
 - **Perimeter sequences** (Iris's question):
   - For the **first polygon** P_1 (time t_1, issued at t_0): `lo = t_0` (issue time); present-fire cells are kept as
     recorded.
