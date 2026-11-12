@@ -367,6 +367,22 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
   0700 FN1, FX1; Miryang 0601T08 FD1, FX1; 2 reps each) and **2 are stage LO** (Yeongdeok 0325T19 FD1, 2 reps). In
   missions: **4 of 5 refusal missions are Z, 1 is LO**.
 
+**G2c result for the 4 stage-Z refusal missions (Thomas, 19:14 UTC; `thomas/routing-next` @ 8d3c58c7). NOT yet
+verified by Mira.**
+- All 4 are F-3.2 NO_ROUTE certificates with T = 3601. Each is accepted by `check_py` and `wfgc_check` in fresh
+  processes, and each is FULLY_BOUND under binding rule 2.2 (R2, R3, T7a, T7b).
+- Bundles (`xcheck/results/g2c_bundles/*.v2.wfgc`; record `xcheck/results/g2c_stage_z_refusals.json`):
+  - Hongseong 0700 FN1: I 3848b22fb146eb98, 61,944 B;
+  - Hongseong 0700 FX1: I 1c21b2d5b7a5c1e3, 61,943 B;
+  - Miryang 0601T08 FD1: I 1b4026fd5f770959, 139,440 B;
+  - Miryang 0601T08 FX1: I 136d908351445370, 137,294 B.
+- Input digests match the request, HAZARD and graph prefixes I sent. The packet gate P1 (X1 rules 1, 2 and 4) passes;
+  rule 3 is covered by T7b.
+- So `refusal_reverification = F32_BOTH_CHECKERS` for these 4 missions, with the required wording: "relaxation refusal
+  independently checked by two checkers; implication to the kit model by an unverified dominance argument"
+  (`xcheck/DOMINANCE_RULE.md`, code reading only).
+- Yeongdeok 0325T19 FD1 (stage LO) stays `REEXECUTED_ONLY`.
+
 **G6. Full one-hour verdict reproduction (before any multi-hour v2 number is quoted).**
 - v2 must reproduce all **9,722** recorded one-hour route-check verdicts, not only the 20-mission panel.
 - **Pass rule:** identical verdicts on every record.
