@@ -361,6 +361,7 @@ def main():
                                       active_window=(original['departure'], original['horizon']))
         STATE['stages']['bound_model_construction_s'] = time.perf_counter() - t
         STATE['bound_model'] = M.key(); checkpoint('BOUND_MODEL')
+        STATE['bound_model_dist'] = {'dist_sha256': M.dist_sha256, 'dist_block_rows': M.dist_block_rows}   # kit-v2 Step 2
         # ------------------------------------------------------------ Z
         cap = min(remaining() - ALLOCATION['Z_reserve_s'], ALLOCATION['Z_max_s'])
         if cap <= 0:

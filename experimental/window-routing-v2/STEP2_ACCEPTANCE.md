@@ -205,3 +205,27 @@ expression followed by a row-wise `min`.
 
 Code for this amendment waits for Thomas's review. The check-isolation code (fork + cgroup v1) and the current-RSS
 solver gate are as already cleared, and proceed now.
+
+### Amendment E accepted by Thomas (17:55 UTC), with conditions, all adopted
+
+1. Chunk over **edges only**; the full source axis is in every block. The literal expression and dtypes are kept,
+   including the integer 0 in `np.maximum(0, …)`.
+2. **Expected peak, stated before the measurement** (written 18:2x UTC, before any chunked build was measured).
+   - The chunked build's lifetime peak on the 4 F-DYN packets, sampled at 2 ms with `tools/bm_mem.py`, is expected to be
+     at most **post-build RSS + 5 blocks of 64 MiB + 200 MiB**. A block's live temporaries are gx, gy and up to three
+     intermediates; 200 MiB covers the other transients earlier in the build.
+   - Concretely:
+     - **Uiseong ≤ 400 + 320 + 200 ≈ 920 MiB** (it was 9,071 and 9,618 MiB);
+     - **Yeongdeok ≤ 260 + 320 + 200 ≈ 780 MiB** (it was 1,992 and 2,381 MiB).
+   - If the Uiseong peak does not fall to that order, the transient is elsewhere. Then E is **not** the fix, the
+     spawned build with guards 3(a)–(c) comes back, and no trial edits are made in the certificate path.
+3. **Test 4** (`tests/test_step2_dist.py`):
+   - function level: random shapes, rows 1 / 3 / 64 / cap / E / > E, E = 0, E not a multiple of the block, and
+     exact-zero distances with no −0.0;
+   - model level, using the parent's synthetic fixture: dist, n_default and identity at 1 row, the cap, unchunked and 2
+     rows; the full_pot = 0 (inf) branch; no edges, which behaves as the parent does;
+   - real packets, each in its own process: the 1-hour Yeongdeok and Uiseong packets and the 4 F-DYN packets, at 1 row,
+     the cap and unchunked, against the parent build.
+4. `bound_model_dist {dist_sha256, dist_block_rows}` is recorded per result in RESULT.
+5. Relevance (Thomas): outward bounds are sound for any sub-box count. Tightness decides LO infeasibility and
+   `lower_bound_arrival`, so identity is required for G1.

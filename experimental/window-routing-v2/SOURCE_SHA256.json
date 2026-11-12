@@ -1,7 +1,8 @@
 {
   "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
   "stack-v2/decision/journey_decision_v2_1.py": "c5fb2a5b68fbaf60494cdd4ba8346d37c2b37d4543896b6b224d82a3aced6b07",
-  "stack-v2/phaseB/rda_worker_v1_1.py": "180eeba87e24c366c31158e491b1e8fa37b578bcd6b551c8c18b1d4ea93be295",
+  "stack-v2/phaseB/rda_worker_v1_1.py": "8b9608be4f45e95169468b08f0ece5aee481a46e6d9bb4cc4986cd2f8fb3ef98",
+  "stack-v2/phaseB/road_bounds.py": "725ca2a6df770a2c7b2f2e9be19e9a364a4a7475d64a185755d15aade56193d5",
   "stack-v2/phaseB/road_core.py": "a413751e42496c7f1b7a0c7481343e7f89a2736954a11571db029aea18fddd1b",
   "stack-v2/phaseB/v2_memory.py": "ae50215bda903db2d362950ffa77c70ac0180ed896e824ae3353394d09cf8a1e",
   "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153",
