@@ -179,3 +179,16 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
      × 1.6–2.6). Exposure results stay F1-labelled until the count exists.
   4. **Coverage.** Byte identity of the reopening path was checked on Yeongdeok 25T11Z only. Nora's Uiseong sample
      covered consistency and derivation.
+
+### Richard: no-re-entry packets equal his never-clears arm (claude/f31-deadline-field, results/NOREENTRY_CHECK_v36.json)
+
+- **Setup.** `MANIFEST_v3_6` @1fa85140; Uiseong 25T17Z h5, all 4 variants. Our `no_reentry/1` packet against
+  `PacketModel(reopening packet, duration_factor="never")`.
+- **Reader.** The no-re-entry packets load through the unchanged scalar reader (HAZARD_FLAME_EQUALS_NPZ_PHASES).
+- **Cells.** 0 member-set differences, 0 birth differences, 0 phases ending before H.
+- **Edge blocks.**
+  - ROUTER rule: identical on all 43,826 edges.
+  - CLOSED rule: they differ on 2,085 / 2,970 / 3,254 / 43,512 edges, **only at or after the horizon**. The scalar law
+    expires at b + H; the arm uses +∞. No journey can use those times.
+- **Feasible-departure sets.** Identical for all 2,520 (origin, destination) pairs in each variant.
+- **For Marcus.** A per-edge EB/WB comparison must be cut at H, or compare the feasible sets.
