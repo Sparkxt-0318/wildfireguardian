@@ -104,3 +104,55 @@ a power of two". **Interpretation, for Iris to confirm before the calibration ru
 The Step 2 memory changes are kept separate on purpose. The F-DYN runs here use the A4 settings (controller and
 request gates as recorded for A4), so they do not depend on the Step 2 decision. If the owner adopts F4 + F3, Step 3 is
 rebased onto it and G1 is re-run.
+
+## Amendments before any calibration result is read (19:3x UTC; the calibration run started 19:2x and has not been read)
+
+### Iris (19:16 UTC): calibration interpretation accepted, plus a safeguard and measurement details
+
+- **Three runs per mission.** For each mission, take the per-mission **median** of the three 6.0 s unit counts (or
+  completion counts) and report the spread.
+  - **Pre-stated spread factor: 1.25.** If a mission's three counts differ by more than ×1.25 (max/min), the note says so.
+  - The 1-rep run already started counts as run 1. Two more V2-only reps follow.
+- **"Units at 6.0 s"** is the count at the first clock check at or after 6.0 s of Z wall. The clock is read once per
+  unit tick in setup (one perf_counter per contact item or wait row) and once per sweep second. The cost of that reading
+  is measured: Z wall with counting vs the frozen Z wall, per mission, on the same panel.
+- **Fallback extrapolation:** if fewer than 5 missions run past 6 s, the budget is the median over all 20 of
+  units ÷ Z wall × 6. A budget obtained this way is **labelled "extrapolated"**.
+- **Safeguard.** After calibration, every 1-hour mission whose Z completed within 6 s (uncapped total units) must also
+  complete within the budget. If any would be cut, the budget is raised to the next power of two that cuts none, and
+  both numbers and the reason are recorded. G6 later confirms it on the full set. The same check confirms that **no
+  1-hour mission's setup alone exceeds the budget.**
+- **Stated behaviour change at multi-hour:** a Uiseong F-DYN Z run that today spends 20–23 s in setup is cut **during
+  setup**, deterministically. Z then returns `TIMEOUT` / `WORK_BUDGET` / `INCOMPLETE_CAP`, with no route, no incumbent,
+  no lower bound and no refusal. Later stages run as today, and EA / LO do not depend on Z's result except through its
+  incumbent and bound.
+- Wall time and peak memory are reported beside unit counts on every run.
+
+### Thomas (19:16 UTC): B3 / B5 accepted with conditions, all adopted
+
+B3:
+1. `StageCap` subclasses **BaseException**. The bound-model call path (road_bounds, adaptive_checker, ivkernel,
+   hybrid_radiation, radiation_bounds) is grepped for bare `except:`, `except BaseException` and `except Exception`,
+   and the findings are listed in the result.
+2. **Whole-state completeness test.**
+   - Take an attribute inventory of RoadBoundModel and of every object it reaches that holds a cache.
+   - Interrupt at every k-th tick, k ∈ {1, 2, 3, 5, last}, then resume with the same queries.
+   - Every returned value must be byte-identical to an uninterrupted model's. Counters may differ; no cache may hold a
+     partial entry (every entry equals the fresh model's entry for that key).
+3. **Downstream test:** an interrupted LO solve, then LO2-mode and HI-mode solves on the same model, compared with the
+   same solves on a fresh model (status, arrival, legs, per-member values).
+4. **A capped stage is never a refusal or a bound.** A job-level test forces a StageCap in LO and asserts: no refusal
+   certificate, nothing from LO in `lower_bounds`, and any returned incumbent goes only to the whole-road check.
+
+B5:
+1. The watchdog exception is renamed **`WatchdogFired`** (BaseException, distinct from StageCap). It is caught only
+   by the stage driver `_v2_run`.
+2. **Alarm scope.** The alarm is armed only around search-stage calls (Z, EA, LO, LO2, HI solve or build). Whole-road
+   checks run in `consider()` after the stage returns, with the alarm disarmed.
+   - **Test:** an instrumented launcher records `signal.getitimer(ITIMER_REAL)` at every `HybridChecker.check` entry,
+     and every reading must be 0.
+3. The interrupted stage's own outputs (partial incumbent, lower bound, refusal flag) are discarded. Only candidates
+   whose whole-road check completed before the firing survive.
+4. The alarm is cancelled in `finally`. A **second arming while one is active raises** (never two alarms). The handler
+   only raises (no IO). The watchdog is **best-effort**: a long C call delays delivery until it returns.
+5. Any firing is a finding, reported per mission with the stage, elapsed time and what was discarded.
