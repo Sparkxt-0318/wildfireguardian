@@ -70,7 +70,7 @@ def score_fire(path, hours, theta, seed):
     rows = CB.fire_cells(path, hours)
     eps = 1.0 / (SIMS + 1)
     logw = np.log(PRIOR)
-    out = dict(p_mix=[], p_m1=[], y=[], dist=[], w_before=[])
+    out = dict(p_mix=[], p_m1=[], p_grid=[], y=[], dist=[], w_before=[])
     rng = np.random.default_rng(seed)
     for r in rows:
         start = r["start"].ravel()
@@ -85,12 +85,16 @@ def score_fire(path, hours, theta, seed):
         out["w_before"].append(w.tolist())
         out["p_mix"].append(w @ pm)
         out["p_m1"].append(pm[GRID == 1.0][0])
+        out["p_grid"].append(pm.astype(np.float32))
         out["y"].append(r["y"])
         out["dist"].append(r["dist"])
         pc = np.clip(pm, eps, 1 - eps)          # update with THIS interval only after forecasting it
         y = r["y"].astype(bool)
         logw = logw + np.where(y[None, :], np.log(pc), np.log1p(-pc)).sum(1)
-    return {k: (np.concatenate(v).tolist() if k != "w_before" else v) for k, v in out.items()}
+    res = {k: (np.concatenate(v).tolist() if k not in ("w_before", "p_grid") else v) for k, v in out.items()}
+    res["p_grid"] = np.concatenate(out["p_grid"], axis=1).tolist() if out["p_grid"] else []
+    res["n_per_interval"] = [int(r["pop"].sum()) for r in rows]
+    return res
 
 
 def run_fold(cv, k, a):
@@ -144,6 +148,33 @@ def aggregate(cv, a):
             P.setdefault("logistic_cf", {})[f] = CB.predict_logistic(lg, CB.feats(cells[f]))
             P.setdefault("persistence", {})[f] = np.zeros(len(Y[f]))
             P.setdefault("dilation_8h", {})[f] = CB.preds_baselines(cells[f], 8)
+    # quiet/active-per-interval arm: grid weights fitted by EM on OTHER folds' intervals only
+    grid_p = {f: np.asarray(recs[f]["p_grid"], dtype=np.float64) for f in fires}
+    eps = 1.0 / (SIMS + 1)
+    state_w = {}
+    for k, fs in enumerate(folds):
+        other = [f for f in fires if f not in fs]
+        L = []                                    # per-interval log-likelihood under each grid value
+        for f in other:
+            pc = np.clip(grid_p[f], eps, 1 - eps)
+            y = Y[f].astype(bool)
+            ll = np.where(y[None, :], np.log(pc), np.log1p(-pc))
+            edges = np.cumsum([0] + recs[f]["n_per_interval"])
+            L += [ll[:, a:b].sum(1) for a, b in zip(edges[:-1], edges[1:])]
+        L = np.array(L)                           # [intervals, grid]
+        pi = np.full(len(GRID), 1.0 / len(GRID))
+        for _ in range(500):
+            lw = L + np.log(pi)[None, :]
+            r = np.exp(lw - lw.max(1, keepdims=True))
+            r /= r.sum(1, keepdims=True)
+            new = r.mean(0)
+            if np.abs(new - pi).max() < 1e-10:
+                pi = new
+                break
+            pi = new
+        state_w[k] = pi.tolist()
+        for f in fs:
+            P.setdefault("mcem_state", {})[f] = pi @ grid_p[f]
     D = {f: np.asarray(recs[f]["dist"]) for f in fires}
     ally = np.concatenate([Y[f] for f in fires])
     alld = np.concatenate([D[f] for f in fires])
@@ -163,21 +194,23 @@ def aggregate(cv, a):
     rng = np.random.default_rng(20261112)
     draws = rng.integers(0, len(fires), size=(10_000, len(fires)))
     comp = {}
-    for ref in ("plugin", "logistic_cf", "mcem", "persistence"):
-        d = err["mcem_rate"] - err[ref]
+    for arm, ref in [(a_, r_) for a_ in ("mcem_rate", "mcem_state")
+                     for r_ in ("plugin", "logistic_cf", "mcem", "persistence")] + [("mcem_rate", "mcem_state")]:
+        d = err[arm] - err[ref]
         bs = d[draws].sum(1) / n[draws].sum(1)
-        comp[f"mcem_rate_minus_{ref}"] = dict(
+        comp[f"{arm}_minus_{ref}"] = dict(
             point=float(d.sum() / n.sum()), ci95=[float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))],
             signflip_p=signflip_p(d, np.random.default_rng(20261112)),
             better_fires=f"{int((d < 0).sum())}/{len(fires)}")
-    qual = all(comp[f"mcem_rate_minus_{r}"]["ci95"][1] < 0 and comp[f"mcem_rate_minus_{r}"]["signflip_p"] < 0.05
-               for r in ("plugin", "logistic_cf"))
+    qual = {arm: all(comp[f"{arm}_minus_{r}"]["ci95"][1] < 0 and comp[f"{arm}_minus_{r}"]["signflip_p"] < 0.05
+                     for r in ("plugin", "logistic_cf")) for arm in ("mcem_rate", "mcem_state")}
     post = {f: dict(final_mean_m=float(np.dot(recs[f]["w_before"][-1], GRID)),
                     final_w_m1=float(recs[f]["w_before"][-1][int(np.flatnonzero(GRID == 1.0)[0])]))
             for f in fires}
-    out = dict(command="python cv_rate_arm.py " + " ".join(sys.argv[1:]), rule="RULE_rate_arm.md @ ba71e7ca",
+    out = dict(command="python cv_rate_arm.py " + " ".join(sys.argv[1:]), rule="RULE_rate_arm.md @ ba71e7ca + addendum",
                grid=GRID.tolist(), prior=PRIOR.tolist(), sims=SIMS, pooled=pooled, comparisons=comp,
-               qualifies_for_part_b_consideration=bool(qual), posterior_last_interval=post)
+               qualifies_for_part_b_consideration=qual, state_weights_by_fold=state_w,
+               posterior_last_interval=post)
     a.out.write_text(json.dumps(out, indent=1))
     for m, r in sorted(pooled.items(), key=lambda kv: kv[1]["brier"]):
         print(f"{m:13s} {r['brier']:.4f}  " + "  ".join(f"{b} {r['brier_' + b]:.4f}" for b in ("0-1km", "1-2km", "2-4km")))

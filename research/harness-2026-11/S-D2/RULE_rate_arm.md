@@ -32,3 +32,26 @@ Also reported, with no decision attached: mcem_rate vs MCEM (the gain from per-f
 
 **Scope.** Covariate-free, homogeneous kernel, part-a development data (25 fires, including 4 H-dev). Not the neural
 refit. Unverified until Owen.
+
+## Addendum (about 19:55 UTC, before any result; the first launch ran about 3 min and was stopped with 0 fires finished)
+
+**Iris's conditions, as already met above:**
+1. The multiplier uses only the held-out fire's EARLIER intervals. It is never fitted on the whole held-out fire.
+2. logistic_cf is a required bar.
+
+**Added arm "mcem_state" (quiet/active per interval; Iris).** It uses the same simulations and grid.
+- Each interval's rate state is drawn independently from a mixture over the grid. No per-fire memory and no online
+  update.
+- The mixture weights for fold k are fitted ONLY on the intervals of fires in the other four folds. They are the
+  maximum-likelihood weights of the mixture predictive Σ π_m p_m, Bernoulli on scored cells with p clipped as above,
+  found by EM over the grid. These other-fold intervals come from this same run (their p_m use other-fold kernels),
+  so no held-out-fire information is used.
+- Forecast: p = Σ π_m p_m.
+- Same rule as for mcem_rate: it must beat BOTH plug-in and logistic_cf, each with the bootstrap interval below 0
+  AND sign-flip p < 0.05.
+
+Both arms are reported. Each is judged on its own, with no selection between them before reporting. If both qualify,
+both are reported and neither is preferred on this evidence. The direct comparison mcem_rate vs mcem_state is
+reported with no decision attached.
+
+Implementation change: the checkpoints now store p_m for every grid value. Nothing else changes.
