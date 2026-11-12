@@ -23,6 +23,9 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 15 | 2026-11-12 | W-KIT W6 (draft-decree four-field check, issuer field) | Thomas | 66e3e62 | 0 decree passes without an issuer; with a synthetic issuer head 299 / voice 299 / family script 440 / family text 0; no agency invented | `npx vitest run wkit && npx vitest run` + probe with issuer over 531 | **FAIL** (issuer path only) |
 | 16 | 2026-11-12 | F-3.2 claim 11, F-DYN envelope O2 | Thomas | 66e3e62 | float semantics equals HAZARD (0 diffs), 10/10 instances; exact gives 1293 diffs, 0/10 | Leo 7eb3691 pipeline (variants, regrid, build per MANIFEST_v3, instance) + `envelope_o2.py --mode float/exact` | PASS WITH NOTES |
 | 17 | 2026-11-12 | PR #114 merge readiness (Priya verified subset) | Priya | dee56c7 | only verified F-3.4/F-4.2 work; harness identical to b6c94bb; † fix; 90 witnesses certified | diff checks + `verify_witnesses.py` on 12 more margin witnesses | PASS WITH NOTES |
+| 18 | 2026-11-12 | PR #117 W-KIT merge readiness | Thomas | 656cab0 | tree = verified 477448d | per-file diff vs 477448d; standalone `npx vitest run`, `tsc -b` | PASS |
+| 19 | 2026-11-12 | PR #118 P-PROTO merge readiness | Thomas | 1d3e49f | 477448d + N1 wording | per-file diff; standalone tests; default build:static | PASS |
+| 20 | 2026-11-12 | PR #116 F-3.2 certificates merge readiness | Thomas | a03f218 | verified state + a03f218 notes; slices.py claims (never verified before) | diff vs 421637f; checker_c tests; `python3 F-3.2/slices.py` | **FAIL** (one README number) |
 
 ## Notes
 
@@ -128,3 +131,12 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - Notes: fixed_route_check.py is included but was never seen or run (not used by RESULTS). TABLE.md keeps the verified analyze_clearance's "≥6000 (cap)" wording.
 
 **Amendment to 17 (PR #114)**: the fixed_route_check.py note is withdrawn. verify_witnesses.py:115 runs it as a subprocess for every witness, so all 27 independent re-runs exercised it. It is unchanged since 0e6f7db and imports the kit's HybridChecker without re-implementation. The only remaining note is cosmetic (TABLE.md cap wording, stated in the PR description). The only content in #114 not verified by me is results/extended_b300_1rep, which is listed as not verified.
+
+**18-20. Thomas's frozen PRs**:
+- #117: every file byte-identical to 477448d. Standalone on Main: 385/385, tsc OK.
+- #118: only the N1 RESULTS wording changed. Standalone 375/375. The default static build has 0 public-view files.
+- #116:
+  - c207c1e equals 421637f minus unknown_support.py. a03f218 (o2_diffs, binding caveat, docstring) is correct. checker_c tests: 30+2 pass.
+  - slices.py regenerates slices.json identically (20 rows). Full 33.5-2,857.8 KB; A (ROUTE) 4.54-57.36 KB; 5 forced COCERT ≈0.1 KB.
+  - The README claim "best slice + certificate ≈0.5-1.5× full" is WRONG: the data gives 0.82-3.08× on the 15 non-forced rows, 6 above 1.5 (max: miryang FN1 3.08, uljin FX1 3.03). Slice-only gives 0.33-1.29, cert-only 0.24-0.99.
+  - Ready after a one-line correction.
