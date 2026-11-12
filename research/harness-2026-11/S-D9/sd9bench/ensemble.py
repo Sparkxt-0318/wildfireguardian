@@ -6,8 +6,11 @@ and the observed new-burn count per interval is derived from ``y`` (Entries.area
 
 Metrics
   rank histogram   rank of the observed count among the M simulated counts, ties broken
-                   uniformly at random (seeded), pooled over intervals and coarsened to
-                   ``bins`` equal-width bins of the normalised rank (rank / M in [0, 1]).
+                   uniformly at random (seeded). The integer rank r in 0..M is mapped to bin
+                   floor((r + 0.5) / (M + 1) * bins). Expected bin counts are computed exactly
+                   from the M + 1 equally likely ranks of each interval, so the test is unbiased
+                   for any M (Hannah's note: r / M binning put rank M in the last bin and biased
+                   small-M ensembles).
                    Flat = calibrated; U = under-dispersed (over-confident); hump =
                    over-dispersed; slope = biased.
   flatness         chi-square statistic against the uniform histogram and its p-value
@@ -30,7 +33,7 @@ RANK_SEED = 20261030
 
 
 def ranks(samples: np.ndarray, observed: np.ndarray, rng: np.random.Generator) -> np.ndarray:
-    """Normalised ranks in [0, 1] for K intervals. samples: K x M, observed: K."""
+    """Integer ranks in 0..M for K intervals (ties broken uniformly). samples: K x M, observed: K."""
     samples = np.asarray(samples, dtype=np.float64)
     observed = np.asarray(observed, dtype=np.float64)
     if samples.ndim != 2 or samples.shape[0] != observed.shape[0] or samples.shape[1] < 1:
@@ -38,22 +41,36 @@ def ranks(samples: np.ndarray, observed: np.ndarray, rng: np.random.Generator) -
     below = (samples < observed[:, None]).sum(1)
     ties = (samples == observed[:, None]).sum(1)
     r = below + np.floor(rng.random(len(observed)) * (ties + 1))
-    return r / samples.shape[1]
+    return r.astype(np.int64)
 
 
-def rank_histogram(norm_ranks: np.ndarray, bins: int = 10) -> dict:
-    norm_ranks = np.asarray(norm_ranks, dtype=np.float64)
-    n = len(norm_ranks)
-    idx = np.minimum((norm_ranks * bins).astype(int), bins - 1)
-    counts = np.bincount(idx, minlength=bins)
-    expected = n / bins
-    chi2 = float(((counts - expected) ** 2 / expected).sum()) if n else None
+def _bin(r, m, bins):
+    return np.minimum(np.floor((np.asarray(r) + 0.5) / (np.asarray(m) + 1) * bins).astype(int), bins - 1)
+
+
+def rank_histogram(r: np.ndarray, m, bins: int = 10) -> dict:
+    """Histogram of integer ranks r (0..m) with exact expected bin probabilities.
+
+    m is the ensemble size, a scalar or one per interval."""
+    r = np.asarray(r, dtype=np.int64)
+    n = len(r)
+    m = np.broadcast_to(np.asarray(m, dtype=np.int64), r.shape)
+    counts = np.bincount(_bin(r, m, bins), minlength=bins)
+    expected = np.zeros(bins)
+    for mv in np.unique(m):
+        k = int((m == mv).sum())
+        expected += k * np.bincount(_bin(np.arange(mv + 1), mv, bins), minlength=bins) / (mv + 1)
+    ok = expected > 0
+    chi2 = float(((counts[ok] - expected[ok]) ** 2 / expected[ok]).sum()) if n else None
+    dof = int(ok.sum()) - 1
     freq = counts / n if n else np.zeros(bins)
+    exp_freq = expected / n if n else np.zeros(bins)
     return dict(n=n, bins=bins, counts=counts.tolist(), frequency=freq.tolist(),
-                chi2=chi2, chi2_p=float(stats.chi2.sf(chi2, bins - 1)) if n else None,
-                reliability_index=float(np.abs(freq - 1 / bins).sum()) if n else None,
+                expected_frequency=exp_freq.tolist(),
+                chi2=chi2, chi2_p=float(stats.chi2.sf(chi2, dof)) if n and dof > 0 else None,
+                reliability_index=float(np.abs(freq - exp_freq).sum()) if n else None,
                 outer_share=float((counts[0] + counts[-1]) / n) if n else None,
-                expected_outer_share=2 / bins)
+                expected_outer_share=float(exp_freq[0] + exp_freq[-1]) if n else None)
 
 
 def spread_skill(samples: np.ndarray, observed: np.ndarray) -> dict:
@@ -76,7 +93,7 @@ def area_ensemble_scores(entries: Entries, horizon_edges=(0.0, 12.0, 24.0, 36.0,
             out[name] = dict(status="UNAVAILABLE_NO_AREA_SAMPLES")
             continue
         rng = np.random.default_rng(seed)
-        all_r, all_s, all_o, all_h, all_c = [], [], [], [], []
+        all_r, all_m, all_s, all_o, all_h, all_c = [], [], [], [], [], []
         for fire in sorted(per_fire):
             s = per_fire[fire]
             o = entries.area_observed[fire]
@@ -86,15 +103,17 @@ def area_ensemble_scores(entries: Entries, horizon_edges=(0.0, 12.0, 24.0, 36.0,
                 hk = entries.hours[m & (entries.interval == k)]
                 hours[k] = hk[0] if len(hk) else np.nan
             all_r.append(ranks(s, o, rng))
+            all_m.append(np.full(len(o), s.shape[1]))
             all_s.append(s)
             all_o.append(o)
             all_h.append(hours)
             all_c.append(np.array([crps_ensemble(s[k], o[k]) for k in range(len(o))]))
         widths = {x.shape[1] for x in all_s}
-        r, o, h, c = (np.concatenate(v) for v in (all_r, all_o, all_h, all_c))
+        r, mm, o, h, c = (np.concatenate(v) for v in (all_r, all_m, all_o, all_h, all_c))
         rec = dict(status="SCORED", unit="new-burn cells", intervals=int(len(o)), trajectories=sorted(widths),
-                   rank_histogram=rank_histogram(r, bins), mean_crps=float(c.mean()),
-                   tie_break_seed=seed)
+                   rank_histogram=rank_histogram(r, mm, bins), mean_crps=float(c.mean()),
+                   tie_break_seed=seed,
+                   intervals_without_entries_not_in_any_horizon=int(np.isnan(h).sum()))
         if len(widths) == 1:
             rec["spread_skill"] = spread_skill(np.concatenate(all_s), o)
         rec["by_horizon"] = []
@@ -102,6 +121,6 @@ def area_ensemble_scores(entries: Entries, horizon_edges=(0.0, 12.0, 24.0, 36.0,
             use = (h > lo) & (h <= hi) if lo > 0 else (h >= lo) & (h <= hi)
             rec["by_horizon"].append(dict(lower=lo, upper=hi, intervals=int(use.sum()),
                                           mean_crps=float(c[use].mean()) if use.any() else None,
-                                          rank_histogram=rank_histogram(r[use], bins) if use.any() else None))
+                                          rank_histogram=rank_histogram(r[use], mm[use], bins) if use.any() else None))
         out[name] = rec
     return out

@@ -17,11 +17,15 @@ def _ranks(obs_scale, ens_scale, n=4000, m=50, seed=1, bias=0.0):
     return ranks(ens, obs, np.random.default_rng(2)), ens, obs
 
 
+def _hist(r, m=50, bins=10):
+    return rank_histogram(r, m, bins)
+
+
 # --- rank histogram ---------------------------------------------------------
 
 def test_calibrated_ensemble_gives_flat_histogram():
     r, ens, obs = _ranks(1.0, 1.0)
-    h = rank_histogram(r)
+    h = _hist(r)
     assert h["chi2_p"] > 0.001
     assert abs(h["outer_share"] - 0.2) < 0.03
     assert 0.8 < spread_skill(ens, obs)["ratio"] < 1.2
@@ -29,7 +33,7 @@ def test_calibrated_ensemble_gives_flat_histogram():
 
 def test_overconfident_ensemble_gives_u_shape():
     r, ens, obs = _ranks(2.0, 1.0)
-    h = rank_histogram(r)
+    h = _hist(r)
     f = h["frequency"]
     assert h["chi2_p"] < 1e-6
     assert f[0] > 2 * f[5] and f[-1] > 2 * f[5]
@@ -39,21 +43,40 @@ def test_overconfident_ensemble_gives_u_shape():
 
 def test_overdispersed_ensemble_gives_hump():
     r, _, _ = _ranks(0.5, 1.0)
-    f = rank_histogram(r)["frequency"]
+    f = _hist(r)["frequency"]
     assert f[4] + f[5] > 2 * (f[0] + f[-1])
 
 
 def test_biased_ensemble_gives_slope():
     r, _, _ = _ranks(1.0, 1.0, bias=1.0)
-    f = rank_histogram(r)["frequency"]
+    f = _hist(r)["frequency"]
     assert f[-1] > 3 * f[0]
 
 
 def test_ties_are_broken_uniformly():
     ens = np.zeros((20000, 9))          # every sample ties with the observation
     r = ranks(ens, np.zeros(20000), np.random.default_rng(0))
-    h = rank_histogram(r, bins=10)
+    h = rank_histogram(r, 9, bins=10)
     assert h["chi2_p"] > 0.001
+
+
+@pytest.mark.parametrize("m", [4, 9, 19, 20, 100])
+def test_exact_expected_bins_make_small_m_calibrated_ensembles_flat(m):
+    # Hannah's note: with r/M binning a calibrated small-M ensemble was not flat.
+    rng = np.random.default_rng(m)
+    obs = rng.normal(0, 1, 20000)
+    ens = rng.normal(0, 1, (20000, m))
+    h = rank_histogram(ranks(ens, obs, np.random.default_rng(1)), m, bins=10)
+    assert h["chi2_p"] > 0.001
+    assert h["reliability_index"] < 0.03
+    assert sum(h["expected_frequency"]) == pytest.approx(1.0)
+
+
+def test_expected_bins_are_exact_for_uniform_ranks():
+    m = 4                                    # 5 ranks into 10 bins: half the bins are empty by construction
+    h = rank_histogram(np.arange(m + 1).repeat(100), m, bins=10)
+    assert h["reliability_index"] == pytest.approx(0.0)
+    assert h["chi2"] == pytest.approx(0.0)
 
 
 def test_ranks_validate_shapes():
