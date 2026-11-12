@@ -466,7 +466,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Literal all-pairs statistic.** Max 3,747 km/h. It is dominated by simultaneous detections on separate fronts and
   is not decisive.
 
-## Rate-assumed tier sensitivity at 1 h (rule `RATE_ASSUMED_RULE.md` §1, committed first at 8a16dc2; not yet verified)
+## Rate-assumed tier sensitivity at 1 h (rule `RATE_ASSUMED_RULE.md` §1, committed first at 8a16dc2; VERIFIED part 1: Nora request #12, PASS WITH NOTES, ledger row 53)
 
 * **Files.** `results/RATE_ASSUMED_SENSITIVITY_1h.json`, built by `deadline_field/rate_sensitivity.py`.
   * A, R1.5 and R8.2 come from the verified three-way runs (Nora row 43).
@@ -494,6 +494,16 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
     minutes.
   * Tier A removes 24–56 per cache.
   * B16.4 (Iris) follows when its runs finish.
+* **Verifier notes (Nora, request #12 part 1).**
+  * **Reproduction.** She reran R16.4 on all 6 caches; the summary is identical, and the recomputed optimistic field
+    equals the base one (6 of 6).
+  * **Nesting.** A ≤ R16.4 ≤ R8.2 ≤ R1.5 ≤ optimistic, per origin and per job: 0 violations.
+  * **Masks.** Her own ceil(d / v) start times from the npz masks equal mine at every rate.
+  * **Counts.** Her independent recount matches the claim.
+  * **"Median" is the upper median.** With 2 moved origins (YD 03-26 08Z R1.5) it equals the maximum (1,588 s); the
+    lower median there is 231 s.
+  * **R16.4 is close to Tier A.** At 16.4 km/h every unknown cell is blocked within the hour in 5 of 6 caches (YD
+    03-26 08Z: 2,548 of 2,599 cells). In effect, R16.4 is Tier A with a ramp of up to 1 h.
 * **One-hour tool only.** At 8.2 km/h a rate bound reaches 41 km in 5 h. These tiers are not extended to 5 h or 8 h
   (MULTIHOUR_HEADLINE_RULE §4).
 
