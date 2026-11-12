@@ -1,0 +1,10 @@
+{
+ "build_log_sha256": "88f49ecc5ea94df6a9a21fe2c94e93204fdf96a6487b4a4b04a1410d7d087260",
+ "fit23": 23,
+ "part_a_built": 490,
+ "part_a_kept": 490,
+ "dropped": [],
+ "total": 513,
+ "list_sha256": "bbedca82b10ff0d7737feac78f7997bb57e26f3af6028eb10516d4cb7c42b55b",
+ "intervals_le_48h_part_a": 3773
+}
