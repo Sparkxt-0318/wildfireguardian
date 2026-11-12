@@ -14,3 +14,11 @@ Clara will fix the script. The final labels are then re-run by Daniel with the f
 - `labels_PREVIEW_wrong_source_line.json` is a byte copy of the run output (sha256 bac2ce3e…2c09).
 
 The boundary file itself is private and is not committed. Its member sha256 values are recorded inside the JSON.
+
+## Run 2 (final, as delivered): `labels_run2_script_92757b2e.json`
+
+- Script: clara/wkit-jurisdiction 92757b2e (`label_sigungu.py` sha256 534fee03…5d06). All 12 tests pass.
+- Run with `--margin 50`, `--archive-sha256 bafb7ef2…5b41` and Clara's `--source` string. The source string's wording is still awaiting Sofia's check and the owner's confirmation.
+- Output: sha256 8eaa76b67587b1e9627659676c58b8426197af35b0e9615926f58f91c095a202, 66,584 bytes. It reads EPSG:5186 (KGD2002 / Central Belt 2010) from the file, and its base date is 2025-06-30.
+- Counts are identical to run 1: 177 of 177 established at 0, 25, 50 and 100 m. 의성군 48, 안동시 38, 영덕군 82, 청송군 4, 영양군 5.
+- Clara commits this file as delivered. The preview above is superseded.
