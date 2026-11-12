@@ -63,11 +63,9 @@ blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely s
 Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,858 KB):
 - A, legality of the route only (corridor edges, their blocks, turns, waits, acceptance): **4.5–57 KB**.
 - Optimality: in the 5 routes whose arrival is forced by the destination opening (no state can complete before T),
-  the COCERT proof needs only the acceptance record (≈0.1 KB). For the other 15 (10 routes, 5 no-route) the best slice
-  (forward or complement) plus certificate is 0.82–3.08× the full instance (median 1.42×; 6 of 15 above 1.5×), before
-  any completeness authentication: on this panel an optimality or no-route proof is often LARGER than the instance
-  itself, because it depends on most of the reachable region. (Corrected after verification; an earlier draft said
-  ≈0.5–1.5×.) A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
+  the COCERT proof needs only the acceptance record (≈0.1 KB). Otherwise the best slice (forward or complement) plus
+  certificate is ≈0.5–1.5× the full instance, before any completeness authentication: optimality genuinely depends on
+  most of the reachable region. A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
   a loose upper bound that alone exceeds the instance; a real multi-proof design is unmeasured.
 
 ## Departure-sweep cohort (reconstruction — NOT the November 106-request cohort or its 2 unproved claims)
@@ -92,3 +90,97 @@ and (iii) `ContactModel.cell_intervals`: **identical on all 15 frozen packets** 
 rationals. Sensitivity: of 40 all-member HAZARD flag flips, the 10 that change the union are all detected (the other
 30 leave the union unchanged because another member row covers the same time); a 1 s shift of one raw interval is
 detected. This closes the O2 gap Nora noted (contact semantics now independently re-derived for the frozen panel).
+
+## Tier R, all events (measured; `tier_r.py`, `results/tier_r.json`; verified: Mira W4 @ b2d9eba, guard W5 @ c11eccd0 / d4564b38)
+
+`unknown_support.py` is included only as a library for `tier_r.py` (`Augmented`, `certify_and_check`). Its own
+`main` (the earlier Tier B experiment) is superseded by Tier R, and its results are not part of this tree.
+
+Tier R(v) (Iris): U_state is not present fire; an unknown cell is blocked from d/v, with d measured from present fire
+∪ positive-probability cells; U_state cells with a FIRMS detection are blocked on [0, H]. FIRMS and TOA for all four
+events (KFS_01/02/05/11; Daniel's files, hashes matched). Every certificate (20 optimistic + 60 pessimistic) is accepted
+by both checkers.
+
+| Tier | checked | no_route | unresolved |
+|---|---:|---:|---:|
+| A | 5 | 5 | 10 |
+| R, v = 1.5 km/h | 12 | 5 | 3 |
+| R, v = 8.2 km/h | 10 | 5 | 5 |
+
+- **Change from the first run (2025 FIRMS only: R1.5 14/5/1, R8.2 11/5/4).** Three labels went from checked to
+  unresolved: Uljin 20220304T060000Z_FL1 (R1.5), and Hongseong 20230402T230000Z_FD1 (R1.5 and R8.2). In each case
+  U_state cells with FIRMS detections (17 at Uljin, 13 at Hongseong) are now blocked on [0, H]. The first run had no
+  FIRMS for those events, so its three checked labels there were not justified.
+- **U_state.** In every packet, 100% of U_state is outside the footprint, and no positive-probability cell is in U_state.
+- **Unresolved causes.** Tier A: U_state+U_q 6, U_state 2, U_q 2. R1.5: U_state 2, U_q 1. R8.2: U_state+U_q 4, U_state 1.
+- Contact relaxation only; the radiation precondition with U_state cells as sources is not computed.
+- **Coverage guard** (`tier_r.firms_coverage`, `tier_label`; tests `test_tier_r_guard.py`, 12/12). A Tier R
+  mission is labelled only if ONE supplied FIRMS file both spans the event window (the dates of its detections) and has
+  at least one detection, at any date, inside the event's own packet-grid bounds (`packet_bbox`). A file for another
+  area, even one inside the coarse `KOREA_BBOX` default such as Fukuoka, does not count. Otherwise the mission is
+  `not_labelled_no_firms`, never checked or unresolved; a no_route from the optimistic instance still stands, and Tier A
+  needs no FIRMS. Coverage is judged from detection dates, not the export's nominal period, so an export whose first or
+  last detection falls inside a quiet window is refused (conservative). The FIRMS step depends only on FIRMS and the
+  footprint step only on the TOA raster. With the all-events FIRMS every event is covered, so the table above is
+  unchanged (Mira enumerated all 24 covered input combinations: identical labels). With the first run's 2025-only files,
+  KFS_02, KFS_05 and KFS_11 would now be refused rather than mislabelled.
+
+## F-DYN certificates (measured; `fdyn_certs.py`, `results/fdyn_certs.json`; verified: Mira W4 @ b2d9eba, v3.1 firms_early W7 @ f5aef10)
+
+The run covers 10 v3 packets: 5 kriged_mean and 5 firms_early, 5 h, central member, at Uiseong and Yeongdeok. It
+certifies every origin at departures 0 and 7,200 s, for 1,728 requests in all (1,680 ROUTE, 48 NO_ROUTE).
+- **Checkers.** The C checker accepts 1,728/1,728. The Python checker accepted 1,659 in the batch. For the other 69 it
+  printed nothing: the checker failed to run, and the batch did not record its exit status or stderr. Each of the 69 was
+  regenerated and re-checked, and both checkers accept with the same claim and T (`results/fdyn_recheck69.txt`).
+  `fdyn_certs.run` now retries once and records `NORUN exit=…` instead of an empty string.
+- **Sizes.** Instance plus certificate has a median of ≈ 1.25 MB, about the 1-hour panel's median bundle (1.21 MB).
+  Forward certificates: median 27–28 kB, p90 272 kB, max 3.2 MB. COCERT: median 63–65 kB, max 3.5 MB. The COCERT
+  bundles in this batch were built with `legs=[]` and only SIZED, never checked: a checker rejects a ROUTE cocert
+  without a witness. Checked COCERTs are those of the 20-mission panel (claim 8).
+- **Times.** Median certify time is 0.21 s, max 29 s on one request. Checks: C median 0.014 s (max 0.19 s), Python
+  median 0.34 s (max 1.6 s). The 1-hour panel: C 0.015 s, Python 0.24 s (max 1.9 s).
+- **Soundness labels (manifest).** kriged_mean is "kriged mean (not a bound)". firms_early is "BRACKET-START, NOT A
+  LOWER BOUND". So these certificates prove routes and no-routes in those hazards only, not against the real fire.
+- **firms_early on v3.1** (`results/fdyn_certs_v31_firms_early.json`). The five packets were rebuilt from
+  MANIFEST_v3_1.json (sha 1c2e73db…) argv lists at Leo f40e2af and certified at departures 0 and 7,200 s.
+  - All 864 requests are accepted by both checkers (841 ROUTE, 23 NO_ROUTE), with no empty outputs, and O2
+    first-origin diffs are 0.
+  - Claim and T are identical to the v3 rows for all 864. That is expected: per-cell flame starts are identical to v3
+    in all five packets (HAZARD differs only in identity digests, as in Leo's PACKET_DIFF_v3_v31.json). The +300 s
+    birth shifts of v3.1 fall at other starts, such as acceptance sample (b).
+  - kriged_mean is unchanged by v3.1 according to Leo's diff.
+
+## Envelope O2 and the v3.1 acceptance check (measured; `envelope_o2.py`; verified: Mira W2 @ 07d4a58, W3 @ 45a8975, exact-mode sign-off @ d4564b38)
+
+`envelope_o2.py` was written from Leo's rule text, without reading `fdyn/ignitions.py` or `_packet_child.py`.
+
+- **v3, Yeongdeok 20250325T110000Z h5 envelope.**
+  - Rule evaluated in binary64 (`--mode float`): 820 cells differ from HAZARD.json. Every one has the same start and
+    an end within 1.4e-12 s (97 HAZARD later, 723 earlier). There are 0 other differences, and 10/10 integer
+    instances are equal.
+  - Exact rationals (`--mode exact`), a NEGATIVE result: 791 cells differ by a whole 300 s quantum (482 births, 309
+    ends), plus 502 sub-µs end differences, and 0/10 integer instances are equal. So the v3 packets do NOT implement
+    the exact-rational law. This finding led to v3.1, whose integer-ms law the packets match (below).
+  - An earlier version of the classifier counted only HAZARD-later ends and so reported "0 differences" for the float
+    mode. Corrected.
+- **v3.1 (`--mode v31`, QUANT_v3_1_RULE.md @ f40e2af).** Packets were built with Leo's manifest commands at f40e2af,
+  after re-running `variants.py` there to get the `timestamp_exact` mask.
+
+  | sample | active cells | single-interval cells: start equal / hi_rel equal | merged or clipped equal | boundary cells (birth / end) | integer instances equal |
+  |---|---:|---:|---:|---:|---:|
+  | (a) Uiseong 20250324T020000Z h5 envelope | 275 | 142 / 142 | 133 | 102 / 17 | 10 / 10 |
+  | (b) Uiseong 20250324T020000Z h5 firms_early (scalar law) | 247 | 216 / 216 | 31 | 102 / — | 10 / 10 |
+  | (c) Yeongdeok 20250325T110000Z h5 envelope | 1,752 | 820 / 820 | 932 | 482 / 309 | 10 / 10 |
+
+  - There are 0 mismatches.
+  - The largest end residue is 1.4e-12 s, the binary64 form of the same integer end.
+  - Timestamp-exact cells were recovered to within 2.4e-8 ms of an integer.
+  - A "boundary" cell is one whose rel_ms is an exact positive multiple of 300,000. At (c), these are exactly the
+    cells v3 got wrong under the exact rule.
+  - (b) uses Leo's scalar-law text (2026-11-12): central member, p/q = 1/1, shift 0; birth t = floor_div(max(rel, 0),
+    300000)·300 s; kept iff finite, not export-burned, rel > −T·1000 and t < H; interval [t, t + T + Q). That is the
+    envelope law with hi = lo (`--law scalar`). Its 102 boundary births match the 102 births Leo's v3→v3.1 diff moves
+    by +300 s at that start.
+  - The export's `contract__cell_duration_s` is asserted equal to T in every sample.
+  - Command: `envelope_o2.py --leo <f40e2af worktree> --packet <packets_v31/...> --start <tag> --mode v31 --law
+    envelope|scalar --tag a|b|c` (results `results/envelope_o2_v31_{a,b,c}.json`).
