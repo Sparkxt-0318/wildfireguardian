@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 18, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 20, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,6 +17,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 27 | Joint-forecast verification (§5.3: rank histograms, spread-skill and burned-area CRPS by horizon from trajectory area samples) and a conformal-risk-control warning-zone analysis (§5.4), both **development-only**, declared before any use (item 26 is in PR #115) | §5.3, §5.4 | Orchestrator request (SMOKE direction document). The CRC procedure and α values were committed **before** the cohort-R run |
 | 25 | GOFER fires matched to a kept part-a incident are assigned to **H-dev, never H-test** (forced H-dev set F: 12 GOFER fires, 10 of them H survivors, since Creek and River Complex are FIT fires); H-test is drawn only from the other survivors. Elena's real-bracket comparison must state its 42 → 25 filter before results | §2.1 | **Correction made after Owen's finding** (5 GOFER fires among Elena's 42 part-a fits). Decided by a rule on committed metadata (GOFER_MATCH.csv, COHORT_FINAL.csv), not by results. H membership was not yet computed, and nothing was scored on H |
 | 24 | §4.1 rule 5 resolved for US kriged rasters: the arrival-valid set equals the final NIROPS union cell for cell on all 29 exposed US fires (Daniel); Korea stays an assumption | §4.1 rule 5 | Result received after the rule was written; no threshold was set. No b/c/d or H-test fire was opened |
 | 23 | Two development-first candidates (Iris), declared before any refit: `c651_fullvalid_rebuilt` (the c651 recipe with full-rectangle label validity, the one change) and `rate_composite` (composite-likelihood kernel shape plus a bracket-likelihood rate), which is compared with the full latent-time method on Elena's synthetic harness first. Owen's synthetic findings recorded beside P-D2 as development evidence; Iris's ranking of SMOKE experiments | §3.2, §3.1 | Orchestrator decision. **Declared before any refit.** Admission to part c only by amendment before part c opens |
@@ -407,6 +408,38 @@ Computed by `sd9bench`, with definitions identical to `forecast/wildfire/baselin
 The score is the RPS over observation-censored arrival bins, on **all** cells of the band (not only burned cells). It is the sum over observation times of the Brier score of the cumulative marginal, which is Iris's discrete right-censored CRPS. Implemented: `sd9bench/arrival.py`.
 
 **Revision 7 outcome:** the multi-observation cumulative-marginal export could not be run on R. The model inputs are owner-only (confirmed by Daniel and Marcus), and the covariate hosts were blocked at that time. The arrival RPS is therefore **declared UNAVAILABLE for `d4_wind_seed0` and `c651_mc`** in this addendum. It cannot be added for them after freeze. **Every new D1/D2 candidate must emit multi-observation cumulative marginals natively** (revision 9), so the arrival score exists for the models it was designed for. The export must be demonstrated on R before the candidate's SHA freeze. A candidate without it is not admitted to part c. An interval-censored variant that does not penalize mass inside a true bracket is a secondary, used only where brackets exist.
+
+### 5.3 Joint-forecast verification (revision 27; development-only, descriptive)
+
+These cover the burned area of an interval as a joint (trajectory-level) quantity, which per-cell marginals cannot verify. Code: `sd9bench/ensemble.py`, with tests in `tests/test_ensemble_crc.py` on synthetic ensembles: a calibrated ensemble gives a flat histogram, an over-confident one a U shape, an over-dispersed one a hump and a biased one a slope.
+- **Input.** `area_samples_<name>`, a K × M array of simulated new-burn cell counts per interval (the existing entry contract). Only predictors that emit trajectories have it, such as an MC model or Marcus's sampler, which gives trajectory samples for any shared speed scenario. Mean-field models are UNAVAILABLE.
+- **Metrics, per predictor, pooled and by horizon (0–12, 12–24, 24–36 and 36–48 h):**
+  - **Rank histogram** of the observed count among the M samples. Ties are broken uniformly at random, with seed 20261030. The integer rank r ∈ 0..M goes to bin ⌊(r + 0.5)/(M + 1) · 10⌋. It is summarised by a χ² statistic against the **exact expected bin frequencies** under calibration (all M + 1 ranks equally likely), the reliability index Σ|f_b − expected_b| and the outer-bin share beside its expected value. *Correction before any use (Hannah):* the first version binned r/M and compared with 1/10, which biased small-M ensembles. Intervals with no entries, which carry no horizon, are counted and reported. The χ² p-value is **descriptive**, because intervals within a fire are dependent.
+  - **Spread-skill:** the MSE of the ensemble mean divided by (1 + 1/M) × the mean ensemble variance. It is 1 if calibrated; above 1 means over-confident.
+  - **Burned-area CRPS:** the exact empirical-ensemble CRPS (already in §5), now also by horizon.
+- **Reliability by horizon** for cell probabilities is already reported (`by_horizon`: a ten-bin calibration table per horizon stratum).
+- **Status.** None of these is a §6 criterion. They are reported for every predictor that has area samples, on whatever cohort is scored, and never used to select a model on a sealed fire.
+
+### 5.4 Conformal risk control for warning zones (revision 27; development-only, exposed data only)
+
+**Question.** If an operational warning zone is the set of cells with forecast p ≥ t, how large must it be to keep the expected share of missed new-burn cells (the FNR) at or below α, and does that hold on a held-out fire?
+
+**Procedure.** Fixed before any data; code in `sd9bench/crc.py`, tested on synthetic exchangeable fires.
+- **Unit.** The unit is the fire, which is the exchangeable unit. A fire's loss is its FNR, pooled over its intervals and scored cells: FNR_f(t) = #positives with p < t ÷ #positives. The loss lies in [0, 1] and is non-decreasing in t.
+- **Calibration (conformal risk control, B = 1).** On n calibration fires, t̂ = max{t : n/(n+1) · mean FNR(t) + 1/(n+1) ≤ α}, searched over 0 and every calibration positive's p. If no t > 0 qualifies, then t̂ = 0: the zone is the whole scored domain, and the result is reported as **uninformative**.
+  - *Arithmetic, before data.* A non-trivial zone needs mean FNR ≤ (α(n+1) − 1)/n.
+  - With **n = 5** (leave one fire out on cohort R's 6 fires), α = 0.1 is **infeasible**, giving t̂ = 0. α = 0.2 needs mean calibration FNR ≤ 0.04, and α = 0.3 needs ≤ 0.16.
+- **Analysis.**
+  - *Cohort.* Cohort R only: 6 exposed US2024 fires, full rectangle, all scored entries. The 4 km band is a secondary. Leave-one-fire-out.
+  - *α.* α ∈ {0.1, 0.2, 0.3}; **0.2 is primary**.
+  - *Predictors.* `d4_wind_seed0`, `logistic`, `c651_mc` and `dilation_8h`.
+  - *Reported per held-out fire.* t̂, whether it is feasible, the held-out FNR, the zone's mean cells per interval, the zone's share of scored cells, and precision.
+  - *Reported in aggregate.* The mean held-out FNR, to compare with α, and the mean zone share.
+- **What it is not.**
+  - The guarantee is in expectation over exchangeable fires, and **6 fires cannot verify it**.
+  - Intervals within a fire are not exchangeable units, and are not used as such.
+  - Cohort R is exposed, so this is **development only**. It is never applied to part b, c or d, or to H-test, without an amendment committed before the opening.
+- **Interpretation (stated now).** For each predictor and α, the result is the zone area needed for the bound. **A predictor whose zone is smaller at the same α is more useful for warnings**, whatever its Brier.
 
 ## 6. Primary statistic and decision
 
