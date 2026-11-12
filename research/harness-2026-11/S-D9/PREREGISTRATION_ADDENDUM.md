@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 13, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 14, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -15,6 +15,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 19 | Refit deviations required to run on rebuilt inputs (Marcus): verbatim command line, input-manifest and train-events patches, part-a grid and window rules | §3.1 | Frozen before any refit. The patch is pinned by sha once Marcus sends it |
 | 18 | Rebuilt-pipeline refits of d4_wind and logistic on the training pool: the confirmatory comparators for part c (orchestrator decision; Iris option b) | §3.1 | Recipe frozen here **before any refit runs**. Archive-trained models become labelled descriptive rows |
 | 17 | Filters applied (`cohort/RUN_FILTERS.md`). The script now enforces §1.1 ledger exclusion by incident ID, including NIROPS incidents matching GOFER fires. Clarification: an incident that is an item-10 duplicate of an opened incident counts as opened | §1.2 items 8–12 | Clarification written after the first filter run showed Caldor and a pilot sibling in test parts. Only metadata was viewed |
 | 16 | Pre-declared plan for a non-burnable secondary; provenance of the H tolerance rule; H disclosure note on every H result (Iris) | §4, §2.1 | Added. **The secondary was added after a development finding on R** (`derive/LOGISTIC_DEV.md`, follow-up 2) |
@@ -182,6 +183,20 @@ Every predictor is declared by SHA-256 before the manifest.
 - Hyperparameters: the `fitting` block of `research/forecast-v2/RUN_PROTOCOL.json` (sha256 c2dce7f7…8243). That is epochs 3, seed 0, hidden_channels 16, kernel_size 9, learning_rate 0.003, weight_decay 1e-4, samples_per_step 1, training crop = cutoff initial extent + 10 cells with zero exterior, biome emphasis training-only inverse-sqrt, threads 2. Variant d4_wind: prior free, frame wind, d4 true.
 - There is **no development-fold selection**: the variant is fixed, so nothing is selected. There is one seed.
 - The checkpoint SHA is recorded in FREEZE.json before part c opens.
+
+**Required deviations, frozen before any refit (revision 19, from Marcus's reading of `pipeline.py`).**
+1. **Command line, verbatim** as `run_campaign.py` built it. CLI defaults differ (samples-per-step defaults to 4, and `--balance` is off by default):
+   `pipeline.py final --variant d4_wind --seed 0 --epochs 3 --hidden 16 --lr 0.003 --samples-per-step 1 --threads 2 --n-samples 1024 --balance --max-fit-intervals-per-fire 0 --intervals-per-epoch 0`
+   weight_decay 1e-4 and kernel 9 are internal. Marcus confirms they cannot be overridden from the CLI.
+2. **Input pins.** A reviewed copy of `pipeline.py` adds `--input-manifest PATH`: a JSON map of path → sha256 for every rebuilt file, written by `rebuild_env.sh`, including `baseline-terrain/<event>/elevation_m_375m.tif`. The map is passed to `Environment(input_sha256=…)`. The frozen original is untouched. The copy lives at `research/harness-2026-11/s-d1/refit/` and **its sha256 is recorded in FREEZE.json before any refit runs**.
+3. **Training events.** The same copy adds `--train-events FILE` (the fit-23 fires ∪ eligible part-a incidents) in place of the hard-coded SPLIT fit list. The list is recorded in each result.json. **No other code change is allowed.**
+4. **Part-a grid rule:**
+   - EPSG:5070, 375 m cells, aligned to multiples of 375 m (the Choi reference-grid convention).
+   - Extent = bounds of the union of all of the incident's NIROPS survey perimeters, plus 2 km.
+   - This is the rule in Daniel's builder, which reproduces the archived Moose, GreenRidge, Dixie and CameronPeak grids exactly.
+   - *Disclosure:* the extent uses the final union of perimeters (hindsight), as forecast-v2's archive rectangles did. It does not establish prospective landscape detection.
+5. **Part-a time window.** start_utc = floor_hour(first survey UTC) and end_utc = ceil_hour(last survey UTC), written to `events.json` entries by the builder. Intervals that `Environment.available_at()` skips, for example missing cutoff weather, are **logged with their reason** and never replaced.
+6. **Determinism.** One run with seed 0. The torch version differs from the archive host (2.5.1 there), so bitwise equality with the archive pipeline is not expected or claimed.
 
 **`logistic_rebuilt`** uses `forecast/wildfire/baselines.py` (sha256 325abbe7…afbb1f):
 - Features: `hand_features` with an elevation-gradient directional slope and the same 14 biome codes (the feature list in `forecast/runs/20261030_perimeter_trained/execution_v3/baselines/logistic.json`).
