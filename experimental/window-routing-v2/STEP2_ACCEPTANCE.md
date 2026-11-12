@@ -155,3 +155,11 @@ Under-counting is the unsafe direction. The design is fixed as follows:
 
 Every cgroup was fresh (usage 0 before fork) and every rmdir succeeded. memsw max equals max_usage throughout, as
 expected with swap off.
+
+**Thomas cleared the mechanism (17:24 UTC).** Two test additions, no change of design:
+- Test (d) is also run through the **full gate**, at a gate of 512 MiB, below the 773 MiB spike. It must assert
+  `within_budget: false`, showing that the decision path uses the cgroup peak.
+- The code **asserts** that the parent is back in its original cgroup after each fork, comparing `/proc/self/cgroup`
+  before and after. A failed move-back raises, so it cannot silently charge later parent work to a check.
+
+(Thomas did not verify PROBE_CGROUP_V1.json itself. Mira verifies it with Step 2.)
