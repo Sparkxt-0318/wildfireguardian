@@ -52,6 +52,8 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 44 | 2026-11-12 | Tier R guard notes delta | Thomas | c11eccd0 | 11/11; US file refused; real coverage unchanged; Fukuoka-only file still covers KFS_02 | tests + synthetic probes | PASS WITH NOTES |
 | 45 | 2026-11-12 | F-3.4 REQUEST 8 clean 1-hour profile | Priya | db2c516 | (a)-(e) reproduce from rows; radiation 30.9% by raw timers; search 38.1% stage basis vs 39.9% timers; fresh warm spot hit=True | summarize.py + own recomputation + fresh kit spot run | PASS WITH NOTES |
 | 46 | 2026-11-12 | F-3.4 REQUEST 9 option B negative | Priya | db2c516 | snap10 20/20 +8.3%, snap6 19/20 +5.6% from rows; fresh Uljin FX1 3119 both, +22% wall; ADAPTIVE reason not reproduced (wall cap, host-dependent) | own recomputation + fresh base/snap10 runs | PASS WITH NOTES |
+| 47 | 2026-11-12 | PR #130 re-check (N1/N2 fixes) | Sofia | 31e8acf | quick check labelled unverified, not a back-test; its numbers reproduce (4-corner VF: 15.0/5.2/2.5 at E 76; 23.3/8.0/3.9 at E 118); log and body agree | diff + own VF | READY |
+| 48 | 2026-11-12 | F-3.2 W7 firms_early on v3.1 | Thomas | f5aef10 | own v3.1 build of Yeongdeok 0325T19: 180/180 py = c = claim/T, O2 0, 0 diffs vs his v3.1 and v3; arrays byte-identical to v3, only identity fields differ; his 864 all match v3 | own rebuild (Leo f40e2af) + fresh C checker + packet diff | PASS |
 
 ## Notes
 
@@ -288,4 +290,6 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - 46: ADAPTIVE reason comes from the hybrid wall cap (hybrid_radiation.py:182-184).
 - 46: snap10 FL2 has no shares (not completed); snap10 FX2 reason changes in one rep.
 - 46: FL2 varies across runs and modes, not within the plain control.
+
+**47-48.** The staff-headline update (37fb457) was moved to Owen. Clara's dd97b42 was set aside by the orchestrator in favour of a registry-only guard, so I did not verify it. My HAZARD sha differs from Thomas's because the identity includes the absolute module path (known host difference).
 
