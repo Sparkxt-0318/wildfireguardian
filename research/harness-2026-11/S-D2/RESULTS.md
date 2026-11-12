@@ -144,7 +144,8 @@ Findings (synthetic, conditional on this generator):
    kriged soft-hourly arm with a hard risk set (total_rate_ratio 0.530, held-out excess NLL 0.195; the worst kriged
    arm in results/synthetic.json). The finding concerns that variant only, not "soft labels" in general: the soft
    risk set with soft source features (soft_risk_softfeat, 0.033) has the best NLL after the oracle. The supported
-   path is the bracket likelihood on survey perimeters. It replaces the hard label by `P(t<tau<=t+1)` but keeps the hard risk
+   path is the bracket likelihood on survey perimeters. The variant replaces the hard label by `P(t<tau<=t+1)` but keeps
+   the hard risk
    set, so all probability mass after the kriged mean falls on rows that do not exist. The total rate is halved
    (0.53), and the held-out NLL is the worst of all estimators. MCEM beats it in 16/16 replicates. The corrected version
    is a soft risk set with soft source features, i.e. a fixed-q expected complete-data likelihood. It has the best
