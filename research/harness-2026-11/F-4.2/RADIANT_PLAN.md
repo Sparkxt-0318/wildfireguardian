@@ -246,6 +246,16 @@ than the standoff. The standoffs used are every one in the §3, §6 and §7 tabl
 - **TESTKIT: 2/5 routes below every standoff in every case.** These are the 3,953 s route on both packets, with a
   clearance of **4.4 m** below the smallest standoff (7.6 m). The other 3 are above all standoffs (CROP-limited).
 
+**Correction (Mira, REQUEST 12 N1, ledger 84). The 3,953 s route's "4.4 m" understates its exposure.**
+- The limiting segment is `w545751967:s46:f` (12.8 m), traversed over [3948, 3950] s.
+- CURRENT cell 5173 is active on [0, 3948.10) s.
+- The segment **enters that cell's rectangle (0.0 m)** and lies inside it from t ≈ 3948.94 s to 3950 s, on both packets.
+- So the route drives through the footprint of the limiting cell **about 0.84 s after its modelled burnout (R_max)**.
+- The 4.4 m figure applies only to the 0.1 s active window before burnout.
+- **The real margin is sub-second in time and 0 m in space,** and it rests entirely on the modelled burnout time. That
+  is the quantity the burnset P1 issue (ledger 65) concerns.
+- Any quotation of this route must state it this way. "Spatial margin about 4 m" is withdrawn.
+
 **What this is and is not.**
 - It is a sensitivity range under the stated flame assumptions, **not a count of unsafe routes**.
 - The flame-model validation statement (above) applies.

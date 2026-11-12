@@ -21,14 +21,26 @@ was published.
 | TESTKIT | firms …166 | 3953 | **4.4 m** | FIRE | 8,039 m | not computed: `search(0)` found no route (witness-search limitation; NOT_FOUND_WITNESS_SEARCH) |
 | TESTKIT | kriged …166 | 3953 | **4.4 m** | FIRE | 8,039 m | not computed (same) |
 
+**Correction (Mira, REQUEST 12 N1, ledger 84). The 3,953 s route's "4.4 m" understates its exposure.**
+- The limiting segment is `w545751967:s46:f` (12.8 m), traversed over [3948, 3950] s.
+- CURRENT cell 5173 is active on [0, 3948.10) s.
+- The segment **enters that cell's rectangle (0.0 m)** and lies inside it from t ≈ 3948.94 s to 3950 s, on both packets.
+- So the route drives through the footprint of the limiting cell **about 0.84 s after its modelled burnout (R_max)**.
+- The 4.4 m figure applies only to the 0.1 s active window before burnout.
+- **The real margin is sub-second in time and 0 m in space,** and it rests entirely on the modelled burnout time. That
+  is the quantity the burnset P1 issue (ledger 65) concerns.
+- Any quotation of this route must state it this way. "Spatial margin about 4 m" is withdrawn.
+
 **Reading.**
 - **The short routes are crop-limited.** Their clearance is at least the stated value within the packet domain; a
   fire outside the domain could be nearer.
 - **Extra travel time buys no margin** on these routes: +60 to +600 s gives the same r_lo.
 - **The long 3,953 s route passes 4.4 m from an active flaming cell rectangle,** on both packets. It is certified
-  contact-free by the kit's checker, but its spatial margin is about 4 m.
+  contact-free by the kit's checker, but see the correction above: it enters a cell footprint 0.84 s after that cell's modelled burnout.
 - **The clearance search's witness stage did not find a route there**, although the kit did. That is a limitation of
   `clearance.search` on long multi-hour routes, not a result about margins.
+
+**Published routes** (Mira N2): now committed in `published_routes/`, one file per route, with its request and its graph/packet paths, so r* can be recomputed from the repo.
 
 **Verification.** All 20 margin witness routes (`margin_routes.tgz`; 4 deadlines × 5 routes with a0) were re-checked:
 - **the unchanged frozen whole-road checker:** 20/20 CERTIFIED_ADMISSIBLE;
