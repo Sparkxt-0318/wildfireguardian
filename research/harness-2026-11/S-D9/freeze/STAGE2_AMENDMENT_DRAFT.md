@@ -72,11 +72,13 @@
 ## 7. Wording updates to A1
 - **Line ~113:** "Open-Meteo, day 2" becomes "Open-Meteo, the 13 Nov 00:12 UTC fetch" for the AlderCreek weather.
 
-## 9. Outcome-to-claim table (written before part c opens; changes no criterion)
-Each row fixes the sentence the paper may write for one possible part-c result.
+## 9. Outcome-to-claim table, parts c and b (written before part c opens; changes no criterion)
+Each row fixes the sentence the paper may write for one possible result.
+- The rows apply to **part c** (headline candidate) and, word for word, to **part b** (the one combined candidate of §11). For part b, "headline" means that candidate.
+- **Neither part c nor part b is the clean confirmation.** Both carry the same exposure label, and the clean confirmation is **CR1 Tier 2** (fires from 2027-01-01). Every b or c sentence ends: "This test set is not the clean confirmation; that is CR1 Tier 2." 
 - "Superior" means **all six** §6.1 criteria pass for that candidate, on ≥ 20 analysable fires.
 - The headline is `d2_bracket_rebuilt`. If it is not admitted, the headline is `d2_nll_rebuilt`. If neither is admitted, there is none (§6.1, revision 29).
-- Every part-c sentence carries the survey-timing limitation (§1): "labels, perimeters and growth sealed; survey-timing metadata exposed before the split; membership rules used it".
+- Every part-b and part-c sentence carries the survey-timing limitation (§1; b's membership changes are among the 18): "labels, perimeters and growth sealed; survey-timing metadata exposed before the split; membership rules used it".
 - Any other admitted candidate is **secondary**, with its own verdict and **no multiplicity adjustment**. Any statement about it says so.
 
 | # | part-c outcome (headline candidate) | what the paper may write | what it may not write |
@@ -95,11 +97,34 @@ For **secondary candidates and comparator rows** (d4_wind vs logistic on part c,
 
 ## 10. A1 closed to new change items after the stage-2 freeze
 - A1 has **30 change items** in its revision log as of this draft. Once stage 2 is frozen and verified, **A1 accepts no new change items**.
-- Allowed afterwards: errata that change no rule, number or membership, each logged as an erratum. Separate amendments already named in §8 (`c651_fullvalid_rebuilt`).
-- **Later ideas go to:**
-  - **part b**, by its own amendment naming a candidate by SHA before part b opens (A1 §1.2 item 4, §9 step 5); or
-  - **CR1** (`clean_replication/`), before its freeze.
+- **One stated exception:** the amendment that names the part-b candidate by SHA (§11).
+- Also allowed: errata that change no rule, number or membership, each logged as an erratum, and the separately named `c651_fullvalid_rebuilt` amendment (§8), which is part-a development and an admission under existing rules.
+- **Later ideas go to CR1** (`clean_replication/`), before its freeze. Part b is reserved (§11) and takes no other idea.
 - A proposal that needs an A1 change after the freeze is recorded as "not adopted: A1 closed" and is redirected to one of these two places.
+
+## 11. Part b: reserved for ONE combined candidate (Iris's conditions, adopted 16:03Z)
+- **Consistent with A1 as frozen.** A1 §1.2 item 4 reads: "a confirmatory test set held for a later named candidate… opened only when a named candidate is declared by SHA in an amendment committed before the opening". §9 step 5 and §6.1 say the same. This section adds a reservation and removes nothing.
+- **The reservation.** Part b (ranks 1–30) is reserved for exactly **one** candidate, developed on part a: the combination of the bracket likelihood (`d2_bracket`) and the rate-mixture form.
+  - Recalibration is applied **or** not applied, decided in the declaration. It is one object, never two arms on b.
+  - The candidate is declared by commit hash in the excepted amendment (§10), committed before part b opens.
+  - The part-c headline (`d2_bracket_rebuilt`; fallback `d2_nll_rebuilt`) is unchanged.
+- **Same criteria.** §6.1 criteria 1–6 apply, including the ≥ 20 analysable-fire rule. Outcome sentences follow §9.
+- **Same exposure label as c.** b's membership is among the 18 b/c/d changes made by timing-dependent rules. **b is not the clean confirmation**; that is CR1 Tier 2.
+- **Power before b is spent.**
+  - Before the declaration, the power of the combined candidate against `logistic_rebuilt` is estimated on **part a only**, using the §6.3 method on part-a folds.
+  - **If it is low (below 0.50 at 30 fires), part b is not opened.** It stays reserved, and this is reported.
+  - The threshold is fixed here, before any estimate.
+- **Timing disclosure.** If the candidate is designed, or any of its choices are made, **after part-c results are seen**, the amendment says so explicitly and lists which choices came after.
+
+## 12. Minimal custody procedure: a condition of opening part c (Iris; not the full custody design)
+Part c is not opened until **all** of the following hold:
+1. **Audit verdict delivered.** Done: Hannah's survey-timing audit, ledger row 38, and the disclosure text check, row 41.
+2. **Sealed files hashed.** The sha256 of every sealed part-c file (labels, perimeter states, manifests) is recorded in the stage-2 record before any scoring.
+3. **One custodian scores.** The scoring run is performed by one custodian, from the stage-2 SHAs, with the exact command logged.
+4. **Workers never see labels.** Worker sessions receive scores and receipts, never part-c label files.
+5. **Two runs, compared exactly.** Two independent scoring runs from the frozen SHAs, in separate fresh containers, are compared exactly (byte-identical score records) before any number is reported. A mismatch stops reporting until it is resolved and logged.
+
+The same five conditions apply to opening part b.
 
 ## 8. Out of scope
 - **c651_fullvalid_rebuilt** goes in a separate, later amendment, developed first on part a and using the 44 events fetched on 14 Nov. It does not block stage 2. If part c opens first, c651_fullvalid is not scored on part c.
