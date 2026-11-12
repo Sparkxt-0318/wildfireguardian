@@ -104,6 +104,14 @@ on any leg occupancy, node wait or dwell, and no `MISSING_SUPPORT` (`_charge`). 
 `L(I)`; by (iii), under premise P1 below, none of its EDGE departures lies in `EB`, no WAIT start in `WB`, and its
 arrival lies in `AC`. So it is a relaxed journey with the same arrival. Peak and dose only remove further journeys.
 
+**Asymmetry (ROUTE vs NO_ROUTE).** The implication runs one way. A relaxation `NO_ROUTE` certificate implies
+full-policy no-route (above). A relaxation `ROUTE` certificate implies only a *lower bound*: no full-policy journey
+arrives before `T`. Whether the witness is a full-policy route is a separate check (here: the frozen journey checker,
+15/15 `CHECKED_ROUTE` on the 1-hour panel, where peak and dose are far from binding). On multi-hour horizons dose
+binds (orchestrator relay: non-flame flux over 5 h ≈ 223 kJ/m² against a 100 kJ/m² limit), so a relaxation route
+there can fail the full policy and the full-policy optimum can be later than `T` or not exist; the certificate then
+proves only the bound.
+
 Premises (not proved here): **P1** the flame activity that the full checker samples from `HAZARD.json` equals the
 per-cell half-open intervals `ContactModel.cell_intervals` derives from the packet arrays (asserted and tested in
 `experimental/scenario-members`, "tested for equality on the frozen packets"; independently corroborated here only for

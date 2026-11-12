@@ -56,3 +56,13 @@ blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely s
 - COCERT mutation test: 482 runs, 0 failures; C4 is the first failing condition in 31 (`results/mutation_cocert_run1.json`).
 - C checker extended to COCERT from the spec only; 30 unit tests pass (normal + sanitizer); check_py agrees on all 30.
 - Python 3.12.3 + numpy 1.26.4 (pinned): panel bundles byte-identical to 3.13 (20/20), both checkers accept 20/20, mutation 1,526 runs / 0 failures (`results/panel_summary_py312.json`, `results/mutation_py312.json`).
+
+## Proof-carrying route slices (measured; `slices.py`, `results/slices.json`)
+
+Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,858 KB):
+- A, legality of the route only (corridor edges, their blocks, turns, waits, acceptance): **4.5–57 KB**.
+- Optimality: in the 5 routes whose arrival is forced by the destination opening (no state can complete before T),
+  the COCERT proof needs only the acceptance record (≈0.1 KB). Otherwise the best slice (forward or complement) plus
+  certificate is ≈0.5–1.5× the full instance, before any completeness authentication: optimality genuinely depends on
+  most of the reachable region. A per-node Merkle authentication estimate (32 B × ⌈log2 nV⌉ per node, no sharing) is
+  a loose upper bound that alone exceeds the instance; a real multi-proof design is unmeasured.
