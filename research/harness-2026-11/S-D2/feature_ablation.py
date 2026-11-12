@@ -34,6 +34,18 @@ before any run of this file. They are not tuned on estimator outputs.
     because every burned cell keeps emitting. The grid was moved down to 2.5e-7 to 1.6e-5 and then refined between
     8e-6 and 1.6e-5 (8e-6 gave 0.08 and 1.6e-5 gave 0.25), again before any estimator run.
 
+* CONTIGUOUS BASELINE (Iris, declared before any estimator run). On the synthetic baseline the detached flag is
+  0.7-0.8 per interval, against about 0.15 on real part a, mainly because of background ignitions. Every arm is
+  therefore also run on a "contiguous" world, identified by the ``_contig`` suffix. It has the same truth kernel and
+  seeds, but with the background rate k0 calibrated generator-only on seeds 100-109. The grid is K0_GRID, and the
+  value chosen is the one whose mean detached flag is closest to 0.15.
+  - Generator-only calibration table (run about 13:27 UTC, before any fit). Mean detached flag by k0:
+    2e-5: 0.82; 5e-6: 0.55; 1e-6: 0.28; 2e-7: 0.19; 1e-12: 0.15.
+    The rule therefore picks k0 = 1e-12, effectively no background ignitions. The code recomputes this table and
+    records it.
+  - The spotting rate of the ``detached_contig`` arm is recalibrated on the contiguous baseline, with the same
+    target and grid.
+
     python feature_ablation.py --workers 4 --out results/feature_ablation.json
 """
 from __future__ import annotations
@@ -55,7 +67,11 @@ import synthetic as S
 import synthetic_robust as R
 from synthetic import INF
 
-ARMS = ["baseline", "state_error", "time_varying", "barriers", "detached"]
+FEATURES = ["baseline", "state_error", "time_varying", "barriers", "detached"]
+ARMS = FEATURES + [f + "_contig" for f in FEATURES]
+K0_BASE = 2e-5
+K0_GRID = [2e-5, 5e-6, 1e-6, 2e-7, 1e-12]
+DETACHED_FLAG_TARGET = 0.15
 P_SHIFT = 0.20
 TV_SIGMA, TV_QUIET_P, TV_QUIET_M = 1.0, 0.2, 0.05
 BARRIER_FRAC, BARRIER_SIGMA = 0.15, 3.0
@@ -118,15 +134,15 @@ def spot_interval_share(tau, via_spot, T, every=X.EVERY):
     return float(np.mean(flags)) if flags else 0.0
 
 
-def base_problem(seed):
-    """Same truth and seeds as run_shape_recovery.make (without simulating)."""
+def base_problem(seed, k0=K0_BASE):
+    """Same truth and seeds as run_shape_recovery.make (without simulating); k0 may be changed."""
     cfg = X.KERNELS["low_far"]
     rng = np.random.default_rng(seed)
     offs = S.offsets(2)
     k = S.true_kernel(offs, scale=cfg["scale"], length=cfg["length"])
     n, c = X.N, X.N // 2
     seeds = np.unique([int(rng.integers(c - 6, c + 7)) * n + int(rng.integers(c - 6, c + 7)) for _ in range(6)])
-    return S.Problem(n=n, offs=offs, k=k, k0=2e-5, T=X.T, seeds=seeds), rng
+    return S.Problem(n=n, offs=offs, k=k, k0=k0, T=X.T, seeds=seeds), rng
 
 
 def detached_share(p, every=X.EVERY):
@@ -146,8 +162,8 @@ def detached_share(p, every=X.EVERY):
     return float(np.mean(flags)) if flags else 0.0
 
 
-def generate(arm, seed, spot_rate=None):
-    p, rng = base_problem(seed)
+def generate(arm, seed, spot_rate=None, k0=K0_BASE):
+    p, rng = base_problem(seed, k0)
     info = {}
     if arm in ("baseline", "state_error"):
         p.tau = R.simulate_fpp(p, rng)  # identical to run_shape_recovery for baseline
@@ -203,18 +219,29 @@ def generate(arm, seed, spot_rate=None):
     return p, obs, info
 
 
-def calibrate():
+def calibrate_k0():
+    table = []
+    for k0 in K0_GRID:
+        sh = [generate("baseline", s, k0=k0)[2]["detached_share"] for s in CAL_SEEDS]
+        table.append(dict(k0=k0, detached_flag_mean=float(np.mean(sh))))
+    best = min(table, key=lambda x: abs(x["detached_flag_mean"] - DETACHED_FLAG_TARGET))
+    return best["k0"], table
+
+
+def calibrate(k0=K0_BASE):
     table = []
     for r in CAL_RATES:
-        shares = [generate("detached", s, spot_rate=r)[2]["spot_interval_share"] for s in CAL_SEEDS]
+        shares = [generate("detached", s, spot_rate=r, k0=k0)[2]["spot_interval_share"] for s in CAL_SEEDS]
         table.append(dict(rate=r, share_mean=float(np.mean(shares))))
     best = min(table, key=lambda x: abs(x["share_mean"] - DETACHED_TARGET))
     return best["rate"], table
 
 
 def job(args):
-    arm, seed, spot_rate = args
-    p, obs, info = generate(arm, seed, spot_rate)
+    arm, seed, spot_rate, k0 = args
+    feature = arm.replace("_contig", "")
+    p, obs, info = generate(feature, seed, spot_rate, k0)
+    info["k0_true"] = k0
     point = np.where(obs["burned"], obs["hi"], S.INF)
     point[p.seeds] = 0.0
     src, _ = S._neighbour_table(p.n, p.offs)
@@ -253,8 +280,15 @@ def main(argv=None):
     ap.add_argument("--out", type=Path, default=Path("results/feature_ablation.json"))
     a = ap.parse_args(argv)
     t0 = time.time()
-    spot_rate, cal = (calibrate() if "detached" in a.arms else (None, None))
-    jobs = [(arm, s, spot_rate) for arm in a.arms for s in range(a.seeds)]
+    k0c, k0_table = calibrate_k0() if any(x.endswith("_contig") for x in a.arms) else (None, None)
+    spot = {}
+    cal = {}
+    if "detached" in a.arms:
+        spot["detached"], cal["detached"] = calibrate(K0_BASE)
+    if "detached_contig" in a.arms:
+        spot["detached_contig"], cal["detached_contig"] = calibrate(k0c)
+    jobs = [(arm, s, spot.get(arm), k0c if arm.endswith("_contig") else K0_BASE)
+            for arm in a.arms for s in range(a.seeds)]
     with ProcessPoolExecutor(a.workers) as pool:
         rows = [r for rs in pool.map(job, jobs) for r in rs]
     true_share = X.far_share(np.concatenate([[0.0], base_problem(0)[0].k]), S.offsets(2))
@@ -267,11 +301,12 @@ def main(argv=None):
         summary[arm]["detached_share_mean"] = float(np.mean([r["detached_share"] for r in rows
                                                              if r["arm"] == arm and r["estimator"] == "mcem"]))
     out = dict(command="python feature_ablation.py " + " ".join(argv or sys.argv[1:]), true_far_share=true_share,
-               spot_rate=spot_rate, calibration=cal, wall_seconds=time.time() - t0, summary=summary,
+               spot_rate=spot, calibration=cal, k0_contig=k0c, k0_calibration=k0_table, wall_seconds=time.time() - t0, summary=summary,
                verdicts=verdicts(summary, true_share), rows=rows)
     a.out.parent.mkdir(parents=True, exist_ok=True)
     a.out.write_text(json.dumps(out, indent=1))
-    print(json.dumps(dict(summary=summary, verdicts=out["verdicts"], calibration=cal), indent=1))
+    print(json.dumps(dict(summary=summary, verdicts=out["verdicts"], calibration=cal, k0_contig=k0c,
+                          k0_calibration=k0_table), indent=1))
 
 
 if __name__ == "__main__":

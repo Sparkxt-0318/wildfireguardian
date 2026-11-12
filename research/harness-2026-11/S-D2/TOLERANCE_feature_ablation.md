@@ -36,3 +36,19 @@ of real data, absent from the synthetic world, makes the difference?
 
 **Scope.** Synthetic only. MCEM at a 0.1 h step (the 0.25 h step is bounded by 8b0fde65). This explains the gap
 between the NLL and bracket part-c arms; by itself it does not change any accuracy number.
+
+## Addendum (about 13:28 UTC, 2026-11-12, before any estimator run): contiguous baseline (Iris)
+
+The synthetic baseline's detached flag is 0.7–0.8 per interval, against about 0.15 on real part a, mainly because
+of background ignitions. Every feature arm is therefore also run on a **contiguous baseline**:
+- the same truth kernel and seeds;
+- the background rate k0 calibrated generator-only on seeds 100–109, so that the mean detached flag is closest to
+  0.15. The grid is 2e-5, 5e-6, 1e-6, 2e-7 and 1e-12. The generator-only table gives 0.82, 0.55, 0.28, 0.19 and
+  0.15, so k0 = 1e-12 is chosen.
+
+That makes 10 arms in total: 5 on the original baseline and 5 with the `_contig` suffix. The same pass rule applies
+to each arm.
+
+**Additional reading, declared now.** If NLL's far share on `baseline_contig` alone is above 0.40 while MCEM is within
+tolerance, then **contiguity itself** is reported as "the cause". In that case the four feature arms are read relative
+to the contiguous baseline.
