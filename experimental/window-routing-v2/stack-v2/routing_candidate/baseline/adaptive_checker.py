@@ -184,7 +184,7 @@ class HybridChecker(_BaseChecker):
             out = {'status': 'UNRESOLVED', 'reason': 'AUTHORITY_CHANGED_DURING_ADAPTIVE_FALLBACK', 'checked_result': out, 'checked_result_is_secondary': True}
         else:   # kit-v2 Step 2: memory no longer replaces a completed result; the check's own memory is re-sampled
             from hybrid_checker import _v2_sample, _v2_budget
-            out['resource_budget'] = _v2_budget(_v2_sample())
+            out['checker_sampled_budget'] = _v2_budget(_v2_sample())
         if time.perf_counter() >= stop:
             out = {'status': 'UNRESOLVED', 'reason': 'WALL_CAP_AFTER_ADAPTIVE_FALLBACK', 'checked_result': out, 'checked_result_is_secondary': True}
         out['elapsed_s'] = time.perf_counter() - started

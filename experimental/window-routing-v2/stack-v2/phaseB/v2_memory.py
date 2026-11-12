@@ -52,6 +52,8 @@ class PrivateSampler:
         return v
 
 
+IN_CHECK_CHILD = False            # True only inside run_check_forked's child (Thomas 18:12, point 2)
+REQUIRE_CHILD_FOR_CHECK = False   # set by the v2 worker: a HybridChecker.check in the parent raises (point 3)
 SAMPLER = PrivateSampler()   # the check child's sampler (fresh per fork: the child starts from the parent's copy)
 
 
@@ -129,6 +131,16 @@ def _recv_all(fd, t_end):
     return (pickle.loads(body) if len(body) == n else None), False
 
 
+def _abandon_setup(cg, base, me, r, w):
+    for f in (lambda: os.close(r), lambda: os.close(w),
+              lambda: cg is not None and _write(os.path.join(base, 'cgroup.procs'), me),
+              lambda: cg is not None and os.rmdir(cg)):
+        try:
+            f()
+        except OSError:
+            pass
+
+
 def _abandon(pid, cg, base, me, w):
     """Parent interrupted mid-check: kill and reap the child, make sure the parent is back out, drop the cgroup."""
     for f in (lambda: os.kill(pid, signal.SIGKILL), lambda: os.waitpid(pid, 0),
@@ -176,10 +188,19 @@ def run_check_forked(fn, gate_mb, deadline, grace_s=2.0, use_cgroup=True):
     me = str(os.getpid())
     if cg is not None:
         _write(os.path.join(cg, 'cgroup.procs'), me)          # parent in: fork-time charges land in the check cgroup
-    pid = os.fork()
+    try:
+        pid = os.fork()
+    except OSError as exc:                                     # no child: no check result, never a parent-side verdict
+        _abandon_setup(cg, base, me, r, w)
+        return None, {'pid': None, 'exit_code': None, 'signal': None, 'killed_after_deadline': False,
+                      'error': 'FORK_FAILED: %r' % exc}, {
+            'gate_mb': gate_mb, 'peak_mb': None, 'sampled_private_peak_mb': None, 'within_budget': 'not_proven',
+            'mechanism': None, 'host': hs, 'cgroup': None, 'note': 'fork failed; the check did not run'}
     if pid == 0:                                               # ---------------- check child
         code = 0
         try:
+            global IN_CHECK_CHILD
+            IN_CHECK_CHILD = True
             os.close(r)
             signal.signal(signal.SIGTERM, signal.SIG_DFL)      # never run the worker's publication handlers here
             SAMPLER.max_mb = None; SAMPLER.samples = 0

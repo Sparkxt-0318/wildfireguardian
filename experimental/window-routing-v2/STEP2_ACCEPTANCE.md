@@ -241,3 +241,28 @@ solver gate are as already cleared, and proceed now.
 
 The hypothesis is confirmed: the peak now falls at 64–68% of the build, not 95%, and every value is within the stated bound.
 Single runs, not quiet-host timings. The build times are indicative only, and G5 is decided by the panel.
+
+### Thomas's checker review (18:12 UTC): three points, fixed before the panel (kit-v2-step2c)
+
+1. **One verdict.** The checker no longer writes `resource_budget`. Its own record is `checker_sampled_budget`
+   `{sampled_private_peak_mb, sample_is_check_own, over_gate_from_sample}`; the worker's wrapper alone writes
+   `resource_budget`, which is the field the decision reads.
+   - Test: a real job (Uljin 0304T12 FW2) whose RESULT text contains exactly one `"within_budget"`, which is True with
+     `cgroup_v1_max_usage_parent_moved`.
+2. **No parent-side outside claim.**
+   - The checker claims "over from sample" only when `v2_memory.IN_CHECK_CHILD`, which is set in `run_check_forked`'s
+     child, whose sampler is reset at fork. Anywhere else nothing is claimed, and the verdict comes only from the wrapper.
+   - Fork failure: no check runs, the check is UNRESOLVED `CHECK_CHILD_FAILED`, and the budget is `not_proven`.
+     Nothing is left behind (the cgroup is removed and the parent is back).
+   - cgroup setup failure: the check is forked without a cgroup, so the verdict is the child's own sample (False only if
+     over) or `not_proven`.
+   - All of this is tested.
+3. **Call sites.**
+   - The only integration whole-road check is in `whole_road` (`_v2_check`).
+   - `rda_worker` lines 374 (`road_core.check_route_mode`, inside the Z sweep) and 464 (`core.check_route`, the
+     centre-mode path) are the search/routing package's own route checks, not `HybridChecker`.
+   - The worker sets `v2_memory.REQUIRE_CHILD_FOR_CHECK = True`, so `HybridChecker.check` in the worker process raises
+     `V2_WHOLE_ROAD_CHECK_IN_PARENT_PROCESS`. Tested both in the parent (raises) and in the child (runs).
+
+Real-packet byte identity (test 4) passes 18/18 (`results/step2/DIST_IDENTITY.json`). Full suite on kit-v2-step2c:
+50/50; parent runner ok.

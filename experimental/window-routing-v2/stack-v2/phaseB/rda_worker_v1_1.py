@@ -226,6 +226,7 @@ def main():
         if _files != job.get('checker_sha256', {}) or not _files:
             raise ValueError('CHECKER_MODULE_HASH_MISMATCH')
         STATE['checker_module'] = {'module': job['checker_module'], 'path': _m.__file__, 'sha256': _files}
+    import v2_memory; v2_memory.REQUIRE_CHILD_FOR_CHECK = True   # kit-v2 Step 2: no whole-road check in this process
     from mission_contract import graph_digest
     gdig = graph_digest(graph)
     checker = {'obj': None}

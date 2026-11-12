@@ -21,9 +21,16 @@ def _v2_sample():
         _V2M.SAMPLER.sample();return _V2M.SAMPLER.max_mb
     return None
 def _v2_budget(sampled):
-    over=sampled is not None and sampled>RSS_LIMIT_MB
-    return {'gate_mb':RSS_LIMIT_MB,'peak_mb':None,'sampled_private_peak_mb':sampled,'within_budget':False if over else 'not_proven',
-            'mechanism':'fork_sampled_private' if over else None,'set_by':'checker default (no upper-bound measure)'}
+    # Thomas 18:12 point 2: "outside" is claimed from the sample ONLY inside run_check_forked's child (whose sampler was
+    # reset at fork); anywhere else the sample includes memory that is not the check's, so the default is not_proven.
+    # Point 1: this is the checker's own record, named apart; the worker's wrapper alone writes resource_budget.
+    in_child=_V2M is not None and _V2M.IN_CHECK_CHILD
+    over=in_child and sampled is not None and sampled>RSS_LIMIT_MB
+    return {'gate_mb':RSS_LIMIT_MB,'sampled_private_peak_mb':sampled,'sample_is_check_own':in_child,
+            'over_gate_from_sample':over,'note':'checker-side sample only; the verdict is resource_budget, set by the caller'}
+def _v2_require_child():
+    if _V2M is not None and _V2M.REQUIRE_CHILD_FOR_CHECK and not _V2M.IN_CHECK_CHILD:
+        raise RuntimeError('V2_WHOLE_ROAD_CHECK_IN_PARENT_PROCESS')
 def file_sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def settings_digest(settings):
     return hashlib.sha256(json.dumps(dict(settings),sort_keys=True,separators=(',',':'),allow_nan=False,default=lambda v:{'type':type(v).__name__,'repr':repr(v)}).encode()).hexdigest()
@@ -49,7 +56,7 @@ class HybridChecker:
             result={'status':'UNRESOLVED','reason':'WALL_CAP_AFTER_CHECK',
                     'checked_result':checked,'checked_result_is_secondary':True}
         result.update({'schema':self.schema,'elapsed_s':time.perf_counter()-started,'timing_s':times,
-          'process_lifetime_rss_mb':measured,'rss_gate_mb':RSS_LIMIT_MB,'rss_gate_scope':'kit-v2 Step 2: lifetime RSS reported only; the gate is resource_budget (the check own memory)','resource_budget':_v2_budget(sampled),
+          'process_lifetime_rss_mb':measured,'rss_gate_mb':RSS_LIMIT_MB,'rss_gate_scope':'kit-v2 Step 2: lifetime RSS reported only; the gate is resource_budget (the check own memory)','checker_sampled_budget':_v2_budget(sampled),
           'source_identity':self._source_identity,'graph_identity':self._graph_identity,'settings_identity':self._settings_identity,'cache_work':dict(self._cache_report),'constructor_wall_s':self._constructor_wall_s,'constructor_cost_scope':'API constructor precedes check call; panel driver must charge cold construction inside the shared primary budget','cache_epoch':'owned immutable source/geometry/settings plus exact radiation window; changed window creates a fresh radiation object/kernel',
           'fixed_path_only':True,'global_optimality_or_infeasibility_claim':False,'physical_validation':False})
         # Metadata finalization is charged before the final primary cap gate.
@@ -57,11 +64,12 @@ class HybridChecker:
         if finished>=deadline and result['status']!='UNRESOLVED':
             result={'schema':self.schema,'status':'UNRESOLVED','reason':'WALL_CAP_DURING_FINALIZATION',
               'checked_result':result,'checked_result_is_secondary':True,'elapsed_s':finished-started,
-              'timing_s':times,'process_lifetime_rss_mb':measured,'rss_gate_mb':RSS_LIMIT_MB,'resource_budget':_v2_budget(sampled),
+              'timing_s':times,'process_lifetime_rss_mb':measured,'rss_gate_mb':RSS_LIMIT_MB,'checker_sampled_budget':_v2_budget(sampled),
               'fixed_path_only':True,'global_optimality_or_infeasibility_claim':False,'physical_validation':False}
         return result
 
     def check(self,graph,request,legs,destination,*,wall_s=30,deadline=None,expected_graph_revision=None,expected_graph_sha256=None):
+        _v2_require_child()  # kit-v2 Step 2
         started=time.perf_counter();times={};limit=float(q(wall_s))
         if not math.isfinite(limit) or limit<0:raise ValueError('nonnegative finite wall cap')
         stop=started+limit

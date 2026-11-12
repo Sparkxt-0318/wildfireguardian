@@ -99,7 +99,7 @@ class Sealed(unittest.TestCase):
                  '                                            wall_s=max(0., deadline - time.perf_counter()),',
                  "                                            expected_graph_revision=graph['revision'], expected_graph_sha256=gdig)"]
         step2 += [l for l in added if 'kit-v2 Step 2' in l and l not in step2]
-        self.assertEqual(len(step2), 4 + 6, step2)                     # the 4-line closure + 6 more marked Step 2 lines
+        self.assertEqual(len(step2), 4 + 7, step2)                     # the 4-line closure + 7 more marked Step 2 lines
         added = [l for l in added if l not in step2]
         ident = [l for l in added if ('kit' in l.lower() or '_kid' in l) and 'Step 1' not in l and '_V2_PROG' not in l]
         self.assertEqual(len(ident), 3, ident)

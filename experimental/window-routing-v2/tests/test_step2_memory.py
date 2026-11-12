@@ -104,6 +104,24 @@ class Mechanism(unittest.TestCase):
         p, c, b = self.run_fn(boom, 512)
         self.assertIsNone(p); self.assertEqual(c['exit_code'], 3); self.assertIn('MemoryError', c['error'])
 
+    def test_fork_failure_is_not_proven_never_false(self):
+        real = os.fork
+        def boom():
+            raise OSError(11, 'synthetic EAGAIN')
+        os.fork = boom
+        try:
+            p, c, b = self.run_fn(lambda: {'ok': 1}, 1)
+        finally:
+            os.fork = real
+        self.assertIsNone(p); self.assertIn('FORK_FAILED', c['error']); self.assertEqual(b['within_budget'], 'not_proven')
+        base = VM.host_state()['cgroup_path']
+        self.assertFalse([d for d in os.listdir(base) if d.startswith('wfgv2_check_%d_' % os.getpid())])
+        self.assertEqual(Path('/proc/self/cgroup').read_text().count('wfgv2_check'), 0)
+
+    def test_cgroup_setup_failure_falls_back_to_child_sample(self):
+        p, c, b = self.run_fn(lambda: {'ok': 1}, 3072, use_cgroup=False)
+        self.assertEqual(p, {'ok': 1}); self.assertEqual(b['within_budget'], 'not_proven'); self.assertIsNone(b['cgroup'])
+
     def test_payload_types_preserved(self):
         from fractions import Fraction
         p, c, b = self.run_fn(lambda: {'f': Fraction(1, 3), 'n': None, 'x': [1.5]}, 512)
@@ -127,10 +145,34 @@ import tempfile
 from pathlib import Path
 d = Path(tempfile.mkdtemp()); packet(d); g, r, legs, dest = mission()
 out = {}
+def keys_named(x, name):
+    if isinstance(x, dict):
+        return sum((k == name) + keys_named(v, name) for k, v in x.items())
+    if isinstance(x, (list, tuple)):
+        return sum(keys_named(v, name) for v in x)
+    return 0
 if case == 'over_budget_kept':
     H.RSS_LIMIT_MB = 1                                       # any real check is over a 1 MiB gate
     c = H.HybridChecker(d); res = c.check(g, r, legs, dest, wall_s=30)
-    out = {'status': res['status'], 'reason': res.get('reason'), 'rb': res.get('resource_budget')}
+    out = {'status': res['status'], 'reason': res.get('reason'), 'rb': res.get('resource_budget'),
+           'cs': res.get('checker_sampled_budget'), 'n_resource_budget': keys_named(res, 'resource_budget')}
+elif case == 'over_budget_kept_in_child':
+    import v2_memory as VM
+    H.RSS_LIMIT_MB = 1
+    c = H.HybridChecker(d)
+    res, child, budget = VM.run_check_forked(lambda: c.check(g, r, legs, dest, wall_s=30), 1, time.perf_counter() + 60)
+    out = {'status': res['status'], 'reason': res.get('reason'), 'cs': res.get('checker_sampled_budget'),
+           'budget': {k: budget[k] for k in ('within_budget', 'mechanism')}, 'n_resource_budget': keys_named(res, 'resource_budget')}
+elif case == 'parent_check_refused':
+    import v2_memory as VM
+    VM.REQUIRE_CHILD_FOR_CHECK = True
+    c = H.HybridChecker(d)
+    try:
+        c.check(g, r, legs, dest, wall_s=30); out = {'parent': 'ran'}
+    except RuntimeError as exc:
+        out = {'parent': str(exc)}
+    res, child, budget = VM.run_check_forked(lambda: c.check(g, r, legs, dest, wall_s=30), 3072, time.perf_counter() + 60)
+    out.update(child_status=res and res['status'], within=budget['within_budget'])
 elif case == 'wall_cap_after_check':
     c = H.HybridChecker(d); t = time.perf_counter()
     res = c._finish({'status': 'CERTIFIED_ADMISSIBLE', 'reason': 'X'}, t, t - 1, {})
@@ -153,7 +195,8 @@ elif case in ('authority_changed', 'wall_cap_after_adaptive', 'adaptive_over_bud
         return {'status': 'CERTIFIED_RADIATION'}
     A.adaptive_bound = fake_adaptive
     res = A.HybridChecker.check(c, g, r, legs, dest, wall_s=2 if case == 'wall_cap_after_adaptive' else 30)
-    out = {'status': res['status'], 'reason': res.get('reason'), 'rb': res.get('resource_budget')}
+    out = {'status': res['status'], 'reason': res.get('reason'), 'rb': res.get('resource_budget'),
+           'cs': res.get('checker_sampled_budget')}
 print(json.dumps(out, default=str))
 '''
 
@@ -167,16 +210,25 @@ class CheckerGate(unittest.TestCase):
         return json.loads(p.stdout.strip().splitlines()[-1])
 
     def test_completed_then_over_budget_keeps_result(self):
+        # outside a forked check child (Thomas 18:12 point 2): the result is kept, and NO outside claim is made from a
+        # sample that is not the check's own; the checker never writes resource_budget (point 1)
         v2 = self.probe(KIT, 'over_budget_kept')
         self.assertNotEqual(v2['status'], 'UNRESOLVED', v2)
-        self.assertIs(v2['rb']['within_budget'], False); self.assertEqual(v2['rb']['mechanism'], 'fork_sampled_private')
+        self.assertIsNone(v2['rb']); self.assertEqual(v2['n_resource_budget'], 0)
+        self.assertIs(v2['cs']['sample_is_check_own'], False); self.assertIs(v2['cs']['over_gate_from_sample'], False)
+        # inside run_check_forked's child: kept, the checker's own sample says over, and the wrapper's verdict is False
+        c = self.probe(KIT, 'over_budget_kept_in_child')
+        self.assertNotEqual(c['status'], 'UNRESOLVED', c); self.assertEqual(c['n_resource_budget'], 0)
+        self.assertIs(c['cs']['sample_is_check_own'], True); self.assertIs(c['cs']['over_gate_from_sample'], True)
+        self.assertIs(c['budget']['within_budget'], False)
         if FROZEN is not None:                                # control: the frozen checker replaces it
             fz = self.probe(FROZEN, 'over_budget_kept')
             self.assertEqual((fz['status'], fz['reason']), ('UNRESOLVED', 'RSS_LIMIT'))
 
     def test_adaptive_over_budget_keeps_result(self):
         v2 = self.probe(KIT, 'adaptive_over_budget_kept')
-        self.assertEqual(v2['status'], 'CERTIFIED_ADMISSIBLE', v2); self.assertIs(v2['rb']['within_budget'], False)
+        self.assertEqual(v2['status'], 'CERTIFIED_ADMISSIBLE', v2); self.assertIsNone(v2['rb'])
+        self.assertIs(v2['cs']['over_gate_from_sample'], False)        # parent process: never an outside claim
         if FROZEN is not None:
             fz = self.probe(FROZEN, 'adaptive_over_budget_kept')
             self.assertEqual(fz['reason'], 'RSS_LIMIT_AFTER_ADAPTIVE_FALLBACK')
@@ -185,6 +237,11 @@ class CheckerGate(unittest.TestCase):
         self.assertEqual(self.probe(KIT, 'wall_cap_after_check'), {'status': 'UNRESOLVED', 'reason': 'WALL_CAP_AFTER_CHECK'})
         v2 = self.probe(KIT, 'wall_cap_after_adaptive')
         self.assertEqual((v2['status'], v2['reason']), ('UNRESOLVED', 'WALL_CAP_AFTER_ADAPTIVE_FALLBACK'))
+
+    def test_whole_road_check_refused_in_parent_when_required(self):
+        v2 = self.probe(KIT, 'parent_check_refused')
+        self.assertEqual(v2['parent'], 'V2_WHOLE_ROAD_CHECK_IN_PARENT_PROCESS')
+        self.assertNotEqual(v2['child_status'], None); self.assertIs(v2['within'], True)
 
     def test_authority_change_still_replaces(self):
         v2 = self.probe(KIT, 'authority_changed')
@@ -217,6 +274,27 @@ class DecisionMapping(unittest.TestCase):
     def test_non_success_untouched(self):
         d = {'authoritative_status': 'UNRESOLVED', 'journey': None}
         self.assertIs(self.JD._v2_memory_budget(d, {}), d)
+
+
+@unittest.skipIf(KIT is None, 'set WFG_V2_KIT')
+class ResultHasOneVerdict(unittest.TestCase):
+    def test_one_within_budget_field_and_it_is_true(self):
+        # Thomas 18:12 point 1, on a real job that publishes a checked journey (Uljin 0304T12 FW2, ~7 s)
+        out = Path(tempfile.mkdtemp(prefix='v2rb_')) / 'job'
+        p = subprocess.run([sys.executable, '-B', str(V2 / 'tools/run_one_job.py'), str(KIT), str(REPO / 'data/routing'),
+                            'uljin_2022', '20220304T120000Z_FW2', str(out), '81'], capture_output=True, text=True)
+        self.assertEqual(p.returncode, 0, p.stderr[-3000:])
+        row = json.loads(p.stdout.strip().splitlines()[-1])
+        text = (out / 'RESULT.json').read_text(); res = json.loads(text)
+        wr = res['whole_road_check']
+        self.assertEqual(text.count('"within_budget"'), 1, 'exactly one within_budget field in RESULT')
+        self.assertIs(wr['resource_budget']['within_budget'], True, wr['resource_budget'])
+        self.assertEqual(wr['resource_budget']['mechanism'], 'cgroup_v1_max_usage_parent_moved')
+        self.assertNotIn('within_budget', json.dumps(wr.get('checker_sampled_budget')))
+        self.assertEqual(row['authoritative_status'], 'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN', row)
+        self.assertEqual(wr['check_child']['exit_code'], 0)
+        self.assertNotEqual(wr['check_child']['pid'], os.getpid())
+        self.assertIn('dist_sha256', res['bound_model_dist'])
 
 
 SOLVE_PROBE = r'''
