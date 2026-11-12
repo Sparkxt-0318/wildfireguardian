@@ -69,3 +69,25 @@ to H also radiates to H.
 ## Verification
 
 Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
+
+## Orchestrator decision (2026-11-12, after the draft): approach approved; F1 accepted with conditions
+
+- **Approved:**
+  - the scalar law with T = R = H;
+  - its own identity;
+  - `MANIFEST_v3_6`;
+  - the acceptance tests as listed.
+- **F1 accepted as the conservative reading, provided it is labelled.**
+  - **The label.** "burning intensity held to the horizon; raises dose and peak vs reopening; contact set equals
+    Richard's never-clears".
+  - **Where it goes:** in the packet identity, as `fdyn.no_reentry_flux` in the settings, and therefore in
+    HAZARD / REPORT / NATIVE_METADATA. It also goes in the README.
+- **No hand-assembled HAZARD-only contact-only packet.**
+- **Acceptance additions:**
+  6. **Exact match to Richard's field.** The contact/flame sets equal Richard's no-re-entry field exactly. Where his
+     `PacketModel(duration_factor="never")` is importable, compare against its phases on the same v3.5 packet: every
+     cell's phase start equals the no-re-entry packet's first flame bin, and no flame bin ends before H.
+  7. **Verdict-change count.** Count the requests (F-DYN `requests.py`, the same INSTANCE requests) whose dose or
+     peak verdict differs between the reopening and no-re-entry packets. It is expected to be about 0, since flux is
+     far below the limits. It is **reported, not asserted**.
+- **Start condition.** Code starts only after Richard and Marcus confirm the definition (§1).
