@@ -16791,5 +16791,6 @@
   "NO_ROUTE": 588,
   "both_checkers_accept_and_agree": 696,
   "disagree": 0
- }
+ },
+ "semantics": "Static final-footprint bound (no timing; identical across starts). Per Leo (ENVELOPE_BURNSET_RULE.md, 2026-11-12): the burn set is the final mapped burn set of the whole event on the shared 79x237 375 m export grid (finite kriged TOA, FIRMS and AHI buffers): 16,176 of 18,723 cells, about 2,275 km2, burning on [0, H) with births 0. NO_ROUTE here means no route avoiding that whole footprint from t = 0. It is not the pessimistic edge of a leave-by band, and it says nothing outside the mapped burn set. Report it as its own row."
 }
