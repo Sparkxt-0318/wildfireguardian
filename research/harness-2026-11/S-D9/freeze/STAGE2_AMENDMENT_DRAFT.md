@@ -134,7 +134,7 @@ Part c is not opened until **all** of the following hold:
 6. **Two runs, compared exactly.** Two independent scoring runs from the frozen SHAs, in separate fresh containers, are compared exactly (byte-identical score records) before any number is reported. A mismatch stops reporting until it is resolved and logged.
 
 7. **No-touch declaration at opening.** Every worker session declares that it will not build, read or derive part-b or part-c labels or perimeters until the decision is recorded. A breach moves the affected fires to an **"exposed" stratum**, which is reported separately.
-8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. *Conditional on Nora's independent check of the script.* The version currently cited is b9df4b5c, pending Nora's re-check after two fixes (coverage; a name leak and a crash). The final text cites the version Nora passes.
+8. **Access audit before opening.** Every worker session runs `verification/access_audit.py` on its own transcript and its subagents' transcripts, and sends the output and the transcript sha256 to the custodian. The script is `verification/access_audit.py` at commit **8156141c** on claude/verification-ledger, sha256 `e18338fb190dbddcb58bd4ae0c9374365ead6d59343d389540ad384230f69bf8`. Nora passed it (her row 52, 8e1e09c6), and it is Hannah's ledger row 59 (f52f2ea9). Earlier heads (4844e7fb, 72a07bf1, a4094fa7) are superseded and are not cited; a4094fa7 had a GOFER pattern regression.
 
 The same conditions apply to opening part b. This text matches Hannah's `verification/CUSTODY_NOTE_A1.md`.
 
