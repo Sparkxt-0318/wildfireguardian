@@ -659,12 +659,22 @@ Sources were opened unless marked otherwise.
 
 **Priya: validation of radiation models**
 
-- No validation of solid-flame models was found at 50-400 m or at 1-2.5 kW/m².
+- No independent comparison of a solid-flame model with measured flux was found beyond about 15 m.
+  - Quantitative measured flux at a distance stops at 15 m (Morandini 2006).
+  - Crown-fire wall panels at 10-30 m were reported only qualitatively (Cohen 2000).
+  - Nothing was found at 50-400 m or at 1-2.5 kW/m².
 - Measured data:
-  - Morandini 2006: 7.8 / 2.2 / 1.0 kW/m² at 5 / 10 / 15 m.
-  - Cohen 2000: panels at 10-30 m; the model overestimates.
-  - Rossi 2010 (HAL): models overpredict, and more so at distance.
-  - Butler JFSP 2006: ±50% uncertainty.
-  - Frankman 2008: water-vapour attenuation of 9-16%.
-- Our own back-test against Morandini overpredicts about 2-3×.
-- Recommendations: a distance factor of about 1.5, a convective minimum distance, and labelling the far-distance rows as extrapolation.
+  - Morandini 2006: 7.8 / 2.2 / 1.0 kW/m² at 5 / 10 / 15 m from a 2.5 m shrub fire. Read only as cited in Butler 2014; the original FSJ paper was not opened.
+  - Cohen 2000: panels at 10-30 m from about 20 m crown flames, with no flux numbers. The model predicted about 30 m with no ignition, but panels at 10 m ignited only on flame contact and panels at 30 m never scorched, so the model overestimates.
+  - Rossi 2010 (HAL): models overpredict, and more so at distance. Parameters were fitted to the same data.
+  - Butler JFSP 2006: about ±50% uncertainty.
+  - Frankman 2008: water vapour attenuates flux by 9-16%.
+- Scout's own quick check, **unverified and indicative only**:
+  - Method: one-off view-factor calculation run in the scout session on 2026-11-12. It was not saved as a script and has not been reviewed.
+  - Model: vertical rectangular flame, H = 2.5 m, W = 10 m, τ = 1, receiver at flame-centre height, point-to-rectangle view factor (four corner sub-rectangles).
+  - Result: 15.0 / 5.2 / 2.5 kW/m² at 5 / 10 / 15 m with E = 76, and 23.3 / 8.0 / 3.9 with E = 118. That is about 2-3× above the Morandini values, and more so at distance.
+  - Limitation: Morandini's flame height and front width were not available, so this is not a back-test.
+- Recommendations:
+  - A distance factor of about 1.5.
+  - A convective minimum distance.
+  - Label rows beyond about 15 m (and all rows at 50-400 m or 1-2.5 kW/m²) as extrapolation.
