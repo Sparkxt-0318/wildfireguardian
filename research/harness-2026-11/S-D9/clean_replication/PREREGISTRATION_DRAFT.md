@@ -14,13 +14,24 @@ The A1 hold-out parts are sealed for labels, perimeters and growth. But per-inci
 
 **The replication differs from A1 part c in one thing only: cleanliness.** It keeps the same label type, the same criteria and the same candidates, so a different result can be interpreted.
 
+## Timing, for the owner (provisional until Daniel's availability report)
+- **Tier 1 (unseen retrospective).** It covers fires between the latest date we hold (NIROPS: 2024 season) and the freeze, that is, the 2025 season and 2026 to date, **if** a NIROPS-type product for those years is published.
+  - If it is, Tier 1 could be listed, built and scored about **1–2 weeks after the freeze**. The custodian's covariate and weather fetch is the main cost.
+  - Its weakness: these fires are public events, so a session could know of them from other routes. The declaration in §1 narrows this but cannot close it.
+- **Tier 2 (prospective, THE confirmation).** It covers only fires that start after the freeze. The main US season is about June–October, so the first realistic Tier-2 fires are **summer 2027**.
+  - Scoring follows the product's release lag [OPEN: Daniel].
+  - With N_target = 30, Tier 2 plausibly completes in **late 2027 or early 2028**, if one season yields 30 analysable NIROPS-type fires.
+  - With N_target = 90, it likely needs **2–3 seasons, to about 2029–2030**.
+  - Daniel's per-season counts turn this from plausible into a date.
+
 ## 1. Principles
 1. **Nothing is read before the freeze except salted ID hashes.** Non-custodian sessions never see a raw incident ID, because IDs can carry names and dates.
 2. **One custodian, one second custodian.**
    - Hannah is the only session that reads any CR1 byte beyond the hashed ID list, and only after the freeze.
-   - A second verifier, named before the freeze, independently reruns the frozen scorer on the sealed data. The two hashes of the released statistics must match.
+   - A second verifier, **Nora** (no forecast-side involvement; named by the orchestrator 2026-11-12), independently reruns the frozen scorer on the sealed data. The two hashes of the released statistics must match.
 3. **Complete rules, written first.** Every rule that touches a CR1 fire's data, however mechanical, names its fields here. Nothing outside these lists is read for any purpose.
-4. **Every access is logged** with who, what, when and the hash. An unlogged read removes the "clean" label from the affected fires.
+4. **Outside-repository declaration.** Before the ID listing, and again before the decision, every session signs a declaration in `clean_replication/DECLARATIONS.md`. It states that the session has not looked up, searched for or read anything about any fire in the cohort's source and window **outside the repository**: news, agency pages, other datasets or search engines. A positive declaration excludes the named fires, and the count is reported.
+5. **Every access is logged** with who, what, when and the hash. An unlogged read removes the "clean" label from the affected fires.
 
 ## 2. Source, window and tiers [OPEN: Daniel's availability report]
 - **Primary product: NIROPS-type IR perimeters**, the same label type as R and A1 part c.
