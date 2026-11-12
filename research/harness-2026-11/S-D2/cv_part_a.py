@@ -243,7 +243,13 @@ def metrics(pv, yv, dv):
 # ------------------------------------------------------------------ folds
 
 def run_fold(args):
-    fold, train, test, bdir, hours, sims = args
+    fold, train, test, bdir, hours, sims, ckpt = args
+    if ckpt:
+        cp = Path(ckpt) / f"fold{fold}.json"
+        if cp.exists():
+            r = json.loads(cp.read_text())
+            if r["train"] == train and r["test"] == test and r["sims"] == sims and r["hours"] == hours:
+                return r
     t0 = time.time()
     fires = [F.load_fire(Path(bdir) / f"{f}.npz", hours, 0) for f in train]
     thetas = {"plugin": fit_plugin(fires), "composite": fit_composite(fires), "meanfield_nll": fit_meanfield(fires),
@@ -253,8 +259,15 @@ def run_fold(args):
     for i, f in enumerate(test):
         sc = score_fire(str(Path(bdir) / f"{f}.npz"), hours, thetas, sims, 77_000 + 31 * fold + i)
         per_fire[f] = {k: dict(p=v["p"].tolist(), y=v["y"].tolist(), dist=v["dist"].tolist()) for k, v in sc.items()}
-    return dict(fold=fold, train=train, test=test, thetas={k: v.tolist() for k, v in thetas.items()},
-                fit_seconds=fit_s, total_seconds=time.time() - t0, per_fire=per_fire)
+    out = dict(fold=fold, train=train, test=test, sims=sims, hours=hours,
+               thetas={k: v.tolist() for k, v in thetas.items()},
+               fit_seconds=fit_s, total_seconds=time.time() - t0, per_fire=per_fire)
+    if ckpt:                       # per-fold checkpoint: a container restart costs at most the running folds
+        Path(ckpt).mkdir(parents=True, exist_ok=True)
+        tmp = Path(ckpt) / f"fold{fold}.json.tmp"
+        tmp.write_text(json.dumps(out))
+        tmp.replace(Path(ckpt) / f"fold{fold}.json")
+    return out
 
 
 def main(argv=None):
@@ -266,10 +279,13 @@ def main(argv=None):
     ap.add_argument("--folds", type=int, default=5)
     ap.add_argument("--workers", type=int, default=min(4, os.cpu_count() or 1))
     ap.add_argument("--out", type=Path, default=Path("results/cv_part_a.json"))
+    ap.add_argument("--checkpoint-dir", type=Path, default=None,
+                    help="write each finished fold here and reuse it on rerun (same train/test/sims/hours)")
     a = ap.parse_args(argv)
     fires = sorted(json.loads(a.fit.read_text())["eligible"])
     folds = [[f for i, f in enumerate(fires) if i % a.folds == k] for k in range(a.folds)]
-    jobs = [(k, [f for f in fires if f not in folds[k]], folds[k], str(a.brackets), a.hours, a.sims)
+    jobs = [(k, [f for f in fires if f not in folds[k]], folds[k], str(a.brackets), a.hours, a.sims,
+             str(a.checkpoint_dir) if a.checkpoint_dir else None)
             for k in range(a.folds)]
     t0 = time.time()
     with ProcessPoolExecutor(a.workers) as pool:
