@@ -132,25 +132,24 @@ class PacketModel:
         for n in self.node_ids:
             if g.waitable[n]:
                 W[self.nidx[n]] = iv.normalize([p for r in rules for p in self.point_blocks(n, F(1), r)])
-        A = [[] for _ in range(E)]
-        by_node = {}
+        acc = {}
         for d in destinations:
-            by_node.setdefault(d["node"], []).append(d)
-        for j in range(E):
-            for d in by_node.get(g.v[j], ()):
-                dwell = exact(d["dwell"])
-                op, cl = exact(d["window"][0]), exact(d["window"][1])
-                lo, hi = max(ceil_q(op), 0), floor_q(min(cl, F(H)) - dwell)
-                if lo > hi:
-                    continue
-                blocked = iv.normalize([p for r in rules for p in self.point_blocks(d["node"], dwell, r)])
-                A[j] = iv.normalize(A[j] + iv.subtract((lo, hi), blocked))
+            dwell = exact(d["dwell"])
+            op, cl = exact(d["window"][0]), exact(d["window"][1])
+            lo, hi = max(ceil_q(op), 0), floor_q(min(cl, F(H)) - dwell)
+            if lo > hi:
+                continue
+            blocked = iv.normalize([p for r in rules for p in self.point_blocks(d["node"], dwell, r)])
+            n = self.nidx[d["node"]]
+            acc[n] = iv.normalize(acc.get(n, []) + iv.subtract((lo, hi), blocked))
+        # acceptance on arrival over any edge into the node, and at the initial label (origin = destination)
+        A = [list(acc.get(self.nidx[g.v[j]], [])) for j in range(E)]
         IB = {self.nidx[o]: iv.normalize([p for r in rules for p in self.point_blocks(o, F(0), r)]) for o in origins}
         forbidden = set(g.forbidden)
         return Instance(H=H, n_nodes=len(self.node_ids), tail=[self.nidx[u] for u in g.u],
                         head=[self.nidx[v] for v in g.v], D=list(g.ticks),
                         waitable=[g.waitable[n] for n in self.node_ids], forbidden=forbidden,
-                        B=B, W=W, A=A, IB=IB)
+                        B=B, W=W, A=A, IB=IB, AN=acc)
 
     # ----------------------------------------------------------------------------------------- precondition
     def full_policy_reduces_to_contact(self, hazard: dict, *, peak_limit=10.0, dose_limit=100.0, incurred=0.0):

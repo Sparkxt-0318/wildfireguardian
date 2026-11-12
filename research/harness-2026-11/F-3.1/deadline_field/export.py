@@ -50,3 +50,60 @@ def export_cert(fld, origins=(), *, threshold=None, labels=None) -> tuple:
     if labels:
         cert["labels"] = labels
     return cert, ci
+
+
+# ------------------------------------------------------------------------------------- Thomas's .wfgc (F-3.2 FORMAT.md)
+def _ivl(ivs):
+    return "%d %s" % (len(ivs), " ".join("%d %d" % p for p in ivs)) if ivs else "0"
+
+
+def _clip(ivs, lo, hi):
+    return [(max(a, lo), min(b, hi)) for a, b in ivs if b >= lo and a <= hi]
+
+
+def wfgc_instance_text(inst, origin: int, dep: int) -> str:
+    """INSTANCE ... END_INSTANCE block (FORMAT.md v1). Sentinel state nE = issue state at ``origin``; turn rules
+    are not applied at issue. EB/WB clipped to [dep, H]; AC per destination node (opening, horizon, dwell-clear),
+    the per-node acceptance ``inst.AN``."""
+    E, H = len(inst.tail), inst.H
+    lines = ["INSTANCE", "V %d E %d" % (inst.n_nodes, E), "DEP %d HOR %d ORIGIN %d START %d" % (dep, H, origin, E), "EDGES"]
+    lines += ["%d %d %d" % (inst.tail[j], inst.head[j], inst.D[j]) for j in range(E)]
+    wt = [v for v in range(inst.n_nodes) if inst.waitable[v]]
+    lines.append("WAITABLE %d%s" % (len(wt), "".join(" %d" % v for v in wt)))
+    fb = sorted(inst.forbidden)
+    lines.append("FORBID %d%s" % (len(fb), "".join(" %d %d" % p for p in fb)))
+    eb = [(j, _clip(inst.B[j], dep, H)) for j in range(E)]
+    eb = [(j, x) for j, x in eb if x]
+    lines.append("EB %d" % len(eb)); lines += ["%d %s" % (j, _ivl(x)) for j, x in eb]
+    wb = [(v, _clip(inst.W[v], dep, H)) for v in range(inst.n_nodes) if inst.waitable[v]]
+    wb = [(v, x) for v, x in wb if x]
+    lines.append("WB %d" % len(wb)); lines += ["%d %s" % (v, _ivl(x)) for v, x in wb]
+    ac = {n: a for n, a in inst.AN.items() if a}
+    acl = [(n, _clip(ac[n], dep, H)) for n in sorted(ac)]
+    lines.append("AC %d" % len(acl)); lines += ["%d %s" % (n, _ivl(x)) for n, x in acl]
+    lines.append("END_INSTANCE")
+    return "\n".join(lines) + "\n"
+
+
+def wfgc_no_route(fld, origin: int, dep: int) -> tuple:
+    """NO_ROUTE bundle from the exact backward field (complement = forward invariant, T = H + 1).
+    Valid iff dep is not a feasible departure; issue-point refusal is outside the instance (frontend)."""
+    inst = fld.inst
+    E, H = len(inst.tail), inst.H
+    core = issue_core(fld, origin)
+    if iv.contains(core, dep):
+        raise ValueError("departure is feasible in the field; no NO_ROUTE certificate")
+    full = [(dep, H)]
+    recs = []
+    for s in range(E):
+        Rp = iv.subtract((dep, H), fld.R[s])
+        Ap = iv.subtract((dep, H), fld.G[s])
+        if Rp:
+            recs.append("%d %s %s" % (s, _ivl(Rp), _ivl(Ap)))
+    # sentinel: not-admitted completion set (waits never re-admit) vs the admitted initial label at dep
+    Rp = iv.subtract((dep, H), issue_core(fld, origin, initial_admission=False))
+    Ap = [(dep, dep)]
+    recs.append("%d %s %s" % (E, _ivl(Rp), _ivl(Ap)))
+    inst_text = wfgc_instance_text(inst, origin, dep)
+    text = "WFGC 1\n" + inst_text + "CLAIM NO_ROUTE\nWITNESS 0\nCERT %d %d\n" % (H + 1, len(recs)) + "\n".join(recs) + "\nEND\n"
+    return text, hashlib.sha256(inst_text.encode()).hexdigest()

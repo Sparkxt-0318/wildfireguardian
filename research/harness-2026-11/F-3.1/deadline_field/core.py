@@ -33,6 +33,7 @@ class Instance:
     W: list = None                                     # per node
     A: list = None                                     # per edge
     IB: dict = field(default_factory=dict)             # per origin node
+    AN: dict = field(default_factory=dict)             # per node: acceptance at the INITIAL label (origin = shelter)
 
     def __post_init__(self):
         E = len(self.tail)
@@ -54,6 +55,8 @@ class Instance:
         # acceptance needs arrival <= H; edges also need start >= 0
         self.A = [[p for p in iv.normalize(a) if p[1] >= 0] for a in self.A]
         self.A = [[(max(lo, 0), min(hi, self.H)) for lo, hi in a if lo <= self.H and hi >= 0] for a in self.A]
+        self.AN = {int(n): [(max(lo, 0), min(hi, self.H)) for lo, hi in iv.normalize(a) if lo <= self.H and hi >= 0]
+                   for n, a in self.AN.items()}
 
 
 @dataclass
@@ -117,7 +120,7 @@ def backward(inst: Instance, *, pieces_cap: int | None = None) -> Field:
                               "pieces": sum(len(r) for r in R)})
 
 
-def issue_core(fld: Field, o: int):
+def issue_core(fld: Field, o: int, *, initial_admission: bool = True):
     """Seconds t at which standing at origin o (no incoming edge, admission false after the issue) a completion
     exists, before the issue-point check."""
     inst = fld.inst
@@ -130,7 +133,9 @@ def issue_core(fld: Field, o: int):
     X = iv.normalize(X)
     if inst.waitable[o]:
         X = iv.normalize([_wait_close(p, inst.W[o], X) for p in X])
-    return X
+    # the initial label is admitted: an origin that is itself a destination accepts at the departure second
+    # (router: initial node arrival creates an admission event). Waiting does not re-admit, so AN is not wait-closed.
+    return iv.normalize(X + inst.AN.get(o, [])) if initial_admission else X
 
 
 def issue_set(fld: Field, o: int):
@@ -177,6 +182,8 @@ def witness(fld: Field, o: int, t: int):
     h = fld.stats["h"]
     ISSUE = -1
     # state = (edge state or ISSUE, time, admitted): a WAIT keeps the edge state but clears admission
+    if iv.contains(inst.AN.get(o, []), t):
+        return t, []
     start = (ISSUE, t, False)
     heap = [(t + h[o], t, ISSUE, 0, start)]
     parent = {start: None}

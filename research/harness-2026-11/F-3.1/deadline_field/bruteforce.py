@@ -28,6 +28,7 @@ class Oracle:
         self.W = [_set(w) for w in r["W"]]
         self.A = [{a for a in _set(x) if 0 <= a <= self.H} for x in r["A"]]
         self.IB = {o: _set(x) for o, x in r.get("IB", {}).items()}
+        self.AN = {n: {a for a in _set(x) if 0 <= a <= self.H} for n, x in r.get("AN", {}).items()}
         self.out = {}
         for j, u in enumerate(self.tail):
             self.out.setdefault(u, []).append(j)
@@ -37,6 +38,8 @@ class Oracle:
         every reachable time-expanded state; no pruning, no dominance)."""
         if t in self.IB.get(o, set()):
             return None
+        if t in self.AN.get(o, set()):       # initial label is admitted: origin that is a destination
+            return t
         start = ("issue", None, t)
         seen = {start}
         heap = [(t, 0, start)]

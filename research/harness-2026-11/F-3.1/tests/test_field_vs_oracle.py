@@ -41,20 +41,20 @@ def random_instance(seed: int, *, max_nodes=7, H=None):
             if head[i] == tail[j] and rnd.random() < 0.25:
                 forbidden.add((i, j))
     dests = rnd.sample(range(n), rnd.randint(1, min(3, n)))
-    A = [[] for _ in range(m)]
-    for j in range(m):
-        if head[j] in dests:
-            # opening window [open, close - dwell] with dwell-blocked sub-intervals removed
-            dwell = rnd.randint(0, 4)
-            op = rnd.randint(0, H // 2); cl = rnd.randint(op, H + 2)
-            hi_ = min(cl, H) - dwell
-            base = [(op, hi_)] if op <= hi_ else []
-            block = rand_ivs(1)
-            A[j] = iv.subtract_all(iv.normalize(base), iv.normalize(block))
+    AN = {}
+    for dnode in dests:
+        # opening window [open, close - dwell] with dwell-blocked sub-intervals removed (per destination node)
+        dwell = rnd.randint(0, 4)
+        op = rnd.randint(0, H // 2); cl = rnd.randint(op, H + 2)
+        hi_ = min(cl, H) - dwell
+        base = [(op, hi_)] if op <= hi_ else []
+        block = rand_ivs(1)
+        AN[dnode] = iv.subtract_all(iv.normalize(base), iv.normalize(block))
+    A = [list(AN.get(head[j], [])) for j in range(m)]
     origins = list(range(n))
     IB = {o: (rand_ivs(1) if rnd.random() < 0.3 else []) for o in origins}
     raw = dict(H=H, n_nodes=n, tail=tail, head=head, D=D, waitable=waitable, forbidden=forbidden,
-               B=B, W=W, A=A, IB=IB)
+               B=B, W=W, A=A, IB=IB, AN=AN)
     return raw
 
 
@@ -83,6 +83,9 @@ def replay_witness(raw, o, t, w):
     W = [iv.to_set(iv.normalize(x)) for x in raw["W"]]
     A = [iv.to_set(iv.normalize(x)) for x in raw["A"]]
     assert t not in iv.to_set(iv.normalize(raw["IB"].get(o, [])))
+    if not legs:
+        assert arr == t and t in iv.to_set(iv.normalize(raw["AN"].get(o, [])))
+        return
     node, inc, now, admitted = o, None, t, False
     for kind, x, a, b in legs:
         assert a == now
