@@ -40,6 +40,10 @@ const up = { n: 0 };
 /** would-be upgrades by tier, recorded verdict -> tier label, and by the recorded raw status (Iris) */
 const upTypes: Record<string, number> = {};
 const upRaw: Record<string, number> = {};
+/** Iris: denominators, and why the kit left the would-be upgrades unresolved (recorded reason code / raw status) */
+const denom: Record<string, number> = {};
+const why: Record<string, Record<string, number>> = {};
+const seen = new Set<string>();
 
 function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<string, string>>, miss: { n: number }, direct = false): OriginPlan {
   if (!p.sweep?.length) return p;
@@ -48,6 +52,15 @@ function rebuild(p: OriginPlan, tier: string | null, jobs: Map<string, Record<st
     const j = a.jobId ? jobs.get(a.jobId) : undefined;
     if (!j) { if (a.jobId) miss.n += 1; return a; }
     const v = tierVerdict(a.verdict, j[tier]!, direct);
+    if (direct && a.jobId && !seen.has(`${tier}|${a.jobId}`)) {
+      seen.add(`${tier}|${a.jobId}`);
+      denom[`${tier}|recorded:${a.verdict}`] = (denom[`${tier}|recorded:${a.verdict}`] ?? 0) + 1;
+      if (a.verdict === 'unresolved' && j[tier] !== 'unresolved') {
+        const w = `${tier}|unresolved->${j[tier]}`;
+        const r = `${a.reasonCode ?? '-'} / ${a.rawStatus ?? '-'}`;
+        (why[w] ??= {})[r] = (why[w]![r] ?? 0) + 1;
+      }
+    }
     if (direct && a.verdict !== 'checked_route' && v !== a.verdict) {
       up.n += 1;
       const k = `${tier}|${a.verdict}->${j[tier]}`;
@@ -114,6 +127,8 @@ it('tier sensitivity of the staff headline', () => {
   out.upgrade_attempts_direct_all_tiers = up.n;
   out.upgrade_types_direct = Object.fromEntries(Object.entries(upTypes).sort());
   out.no_route_to_checked_by_raw_status = Object.fromEntries(Object.entries(upRaw).sort());
+  out.denominators_distinct_jobs = Object.fromEntries(Object.entries(denom).sort());
+  out.why_unresolved_distinct_jobs = Object.fromEntries(Object.entries(why).sort());
   writeFileSync(process.env.TIER_OUT ?? '/dev/stdout', JSON.stringify(out, null, 1) + '\n');
   console.log('[tier sensitivity] total', JSON.stringify(tot), 'upgrade attempts (direct, all tiers):', up.n);
 }, 600_000);

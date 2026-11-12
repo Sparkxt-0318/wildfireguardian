@@ -283,5 +283,59 @@
   "R8.2|unresolved->checked(contact)": 4,
   "R8.2|unresolved->no_route": 194
  },
- "no_route_to_checked_by_raw_status": {}
+ "no_route_to_checked_by_raw_status": {},
+ "denominators_distinct_jobs": {
+  "A|recorded:checked_route": 7771,
+  "A|recorded:model_no_route": 1468,
+  "A|recorded:unresolved": 204,
+  "B1.5|recorded:checked_route": 7771,
+  "B1.5|recorded:model_no_route": 1468,
+  "B1.5|recorded:unresolved": 204,
+  "B8.2|recorded:checked_route": 7771,
+  "B8.2|recorded:model_no_route": 1468,
+  "B8.2|recorded:unresolved": 204,
+  "R1.5|recorded:checked_route": 7771,
+  "R1.5|recorded:model_no_route": 1468,
+  "R1.5|recorded:unresolved": 204,
+  "R8.2|recorded:checked_route": 7771,
+  "R8.2|recorded:model_no_route": 1468,
+  "R8.2|recorded:unresolved": 204
+ },
+ "why_unresolved_distinct_jobs": {
+  "A|unresolved->checked(contact)": {
+   "TIMEOUT / UNRESOLVED": 2
+  },
+  "A|unresolved->no_route": {
+   "AT_ISSUE_FAILURE / -": 186,
+   "TIMEOUT / UNRESOLVED": 8
+  },
+  "B1.5|unresolved->checked(contact)": {
+   "TIMEOUT / UNRESOLVED": 2
+  },
+  "B1.5|unresolved->no_route": {
+   "AT_ISSUE_FAILURE / -": 186,
+   "TIMEOUT / UNRESOLVED": 8
+  },
+  "B8.2|unresolved->checked(contact)": {
+   "TIMEOUT / UNRESOLVED": 2
+  },
+  "B8.2|unresolved->no_route": {
+   "AT_ISSUE_FAILURE / -": 186,
+   "TIMEOUT / UNRESOLVED": 8
+  },
+  "R1.5|unresolved->checked(contact)": {
+   "TIMEOUT / UNRESOLVED": 8
+  },
+  "R1.5|unresolved->no_route": {
+   "AT_ISSUE_FAILURE / -": 186,
+   "TIMEOUT / UNRESOLVED": 8
+  },
+  "R8.2|unresolved->checked(contact)": {
+   "TIMEOUT / UNRESOLVED": 4
+  },
+  "R8.2|unresolved->no_route": {
+   "AT_ISSUE_FAILURE / -": 186,
+   "TIMEOUT / UNRESOLVED": 8
+  }
+ }
 }

@@ -197,3 +197,26 @@ Recorded here after his answer (2026-11-12). The gated pass rule above is unchan
 - Orchestrator (b): provisional label "rate-assumed, 8.2 km/h (reported orally, method unpublished)". The resident
   list item uses Iris's no-number fallback unless the owner wants a number. R16.4 / B16.4 are being run by Richard
   (rules committed first: RATE_ASSUMED_RULE.md, 8a16dc2, and the "Addition 2026-11-12" for B16.4 at 41a2ae7).
+
+## Denominators and why the kit left the would-be upgrades unresolved (Iris follow-up, 2026-11-12)
+Scope: 1 h, the six booth caches only, distinct route-check jobs, Richard's rows b927c21c (not yet verified by Nora).
+It says nothing about longer horizons.
+- Denominators (per tier, the same in every tier): recorded checked_route **7,771**, model_no_route **1,468**,
+  unresolved **204**.
+  - So "model_no_route → checked(contact) = 0" is **0 of 1,468** in each of the five tiers: at 1 h, on these caches,
+    the contact field never calls feasible a run that the kit's full rules refused.
+- The 194 unresolved → tier no_route (the same jobs in every tier), by recorded reason code / raw status:
+  - **186 AT_ISSUE_FAILURE.** This is the kit's own pass-through status: the mission is already violated at issue time
+    under the supplied members, so there is no journey. The planner shows it as "already over a limit at departure".
+    They are not undecided searches, so they are not candidates for a refusal; the contact field's "no route" only
+    restates them. They stay as recorded.
+  - **8 TIMEOUT** (raw UNRESOLVED). These are the only true candidates for Iris's relaxation hypothesis, i.e. a contact
+    "no route" that might be promoted to a refusal once Thomas's dominance check (permissive-tier blocked set ⊆ kit
+    blocked set at every step, plus independent reachability) exists. The possible gain is at most 8 jobs at 1 h, not
+    194.
+- The 18 unresolved → checked(contact) (A 2, B1.5 2, B8.2 2, R1.5 8, R8.2 4): **all TIMEOUT** (raw UNRESOLVED), i.e.
+  the compute budget, not a rule difference. They are candidates for kit v2's declared larger budget (PLAN D1: 12,288
+  MiB), where any result must carry the non-default-budget label and is never pooled. R1.5 has 8 because its blocks
+  start latest of the rate tiers (U_state is also delayed), so more timed-out searches are contact-feasible under it.
+  This is consistent with the definitions, not an anomaly.
+- Until Thomas's check exists, all of these stay unresolved (downgrade-only, item 9).
