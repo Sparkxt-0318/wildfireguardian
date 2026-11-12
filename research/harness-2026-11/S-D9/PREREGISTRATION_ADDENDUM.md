@@ -1,6 +1,6 @@
 # Pre-registration addendum A1: multi-fire, multi-horizon benchmark (S-D9)
 
-**Status: DRAFT revision 17, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
+**Status: DRAFT revision 18, not frozen.** Nothing here is in force until Hannah has verified it, Iris has re-assessed it, and it is committed with the hashes in §9. No fire in any untouched cohort below has been scored. The only scores computed so far are on cohort R, which is already exposed. They were computed to apply rules that are stated in this document before the computation, and each one is labelled.
 
 ## Revision log
 
@@ -17,6 +17,7 @@
 | 7 | Run the RPS export on R before freezing | §5.2 | **Not runnable here**, so RPS is declared unavailable for the current models |
 | — | Network reality: NIROPS 2020–24 is unreachable (data.mendeley.com blocked) | §1 | **Superseded**: the user approved network access, and Daniel fetched the full archive (737 incidents) |
 | 8 | Four-part NIROPS split (orchestrator), sized from power | §1.2, §6.3 | Rule committed before any assignment was generated |
+| 23 | Two development-first candidates (Iris), declared before any refit: `c651_fullvalid_rebuilt` (the c651 recipe with full-rectangle label validity, the one change) and `rate_composite` (composite-likelihood kernel shape plus a bracket-likelihood rate), which is compared with the full latent-time method on Elena's synthetic harness first. Owen's synthetic findings recorded beside P-D2 as development evidence; Iris's ranking of SMOKE experiments | §3.2, §3.1 | Orchestrator decision. **Declared before any refit.** Admission to part c only by amendment before part c opens |
 | 22 | Scored-population flag. Kriged-label populations are **hindsight-restricted**: a cell has a valid burned state only if the final reconstruction gives it an arrival time, so every scored cell burns eventually. Stratum K and the forecast-v2 KR2025 results are flagged and never pooled or paired with perimeter populations; NIROPS parts, cohort R and H use full-grid perimeter populations; training and scoring paths may not take label validity from an arrival raster | §4.1, §1.1 K, harness `population` | Iris's side finding, checked from code and committed files (orchestrator request). **No part-c score exists**; nothing previously reported for R changes |
 | 21 | D2 loss or likelihood-procedure candidates admitted under the §3.1 recipe: `d2_nll_rebuilt` (mean-field Brier loss replaced by Bernoulli NLL) and `d2_bracket_rebuilt` (latent arrival-time augmentation within survey brackets). Elena's hypothesis and prediction P-D2 (tail, lowest-bin gap, Brier non-inferiority, plus the bracket-vs-NLL ordering) are recorded before any refit. The soft-risk-set arm is development-only. Also corrects §3.1's stale allowlist sha (801acdd8… → 7db3cc0e…, per item 20) | §3.1 | Orchestrator decision on Elena's (S-D2) request. **Declared before either D2 refit runs**; the wrapper shas are recorded in FREEZE.json before any run |
 | 20 | Correction after Hannah's FAIL. CA-KNF-007084_Devil (GOFER "Slater and Devil") had been kept in part c and is now excluded. GOFER↔NIROPS matching is redone systematically by location and dates (`cohort/gofer_match.py`). Pinned inputs are by commit and file hash and are never edited in place | §1.1, §1.2 | **Made after Hannah's finding.** COHORT_FINAL went from 13078990… to d5ae66f4…, the part-a allowlist from 801acdd8… to 7db3cc0e…, and part c swapped Devil for ID-SCF-022091_WolfFang. The systematic matching found no further b/c/d exposure. Nothing had been scored on part c |
@@ -236,6 +237,37 @@ Every predictor is declared by SHA-256 before the manifest.
   - P-D2 is a stated scientific prediction. It does not change §6.1: admission and the decision criteria are unchanged.
   - *Motivating evidence (development, part a, Elena's stream; **not verified by Hannah**).* It comes from covariate-free spatial fits on NIROPS part-a brackets: 42 fires with ≥ 20 surveys, from allowlist 7db3cc0e at 2d40d170, first 240 h. On one fire (CooksPeak), the fitted total spread rate was 0.018/h plug-in (first observation time), 0.026/h mean-field NLL, 0.065/h composite likelihood and 0.069/h MCEM. A 24-fire run is pending, and its result is evidence for the hypothesis, not a change to it.
   - If P-D2 or the ordering fails, the failure is reported as stated, whatever the §6.1 outcome.
+  - *Development evidence on synthetic data (Owen, S-D2 verification; recorded beside the hypothesis, **not a revision of it**; not verified by Hannah).* The full latent-time method recovers the total rate with a small upward bias (ratio 1.025–1.040) and wins on held-out likelihood when given perimeter brackets. It is **worse than the composite likelihood on kernel shape** at 12–24 h brackets, and worse than simple arms on kriged inputs.
+
+### 3.2 Development-first candidates (revision 23; declared before any refit runs)
+
+These two candidates are developed **first on the training pool (fit-23 ∪ part a) and on exposed data (cohort R, H-dev)**. Each enters part c **only by an amendment committed before part c opens**, with its SHA, its receipts and the §5.2 native marginals demonstrated on R. Until then each is development-only and never part of a §6 decision.
+
+**(1) Full-rectangle validity arm, `c651_fullvalid_rebuilt`.** It isolates the "never saw a cell that stays unburned" defect (§4.1 provenance table).
+- *Which models it changes.*
+  - c651 is the only scored model trained on hindsight-restricted labels. The arm is therefore defined as a **refit of the c651 recipe** with exactly one change.
+  - `d4_wind`, `d4_wind_rebuilt`, `logistic` and `logistic_rebuilt` already train on perimeter states over the full crop. **For them the arm changes nothing**, and no new d4 or logistic model is created.
+- *Recipe.* c651's recorded candidate configuration is kept: `forecast/runs/20261010_categorical_balanced_benchmark/candidate_selection.json`, candidate `mixed_3_5_7_9_02_lr0.1_warmup_cosine`, which is kernel sizes 3/5/7/9 mixed with nonnegative mixing, CNN branches, hidden 64, depth 1, dropout 0.15, learning rate 0.1, weight decay 0.01, warmup-cosine with a 4,096 horizon, 32 warm-up epochs, minimum factor 0.01 and restart period 512, and 512 epochs. Its training events and splits, its sampling limits and its validation-based best-epoch rule are also kept. It is run on the §3.1 rebuilt covariates plus the Choi kriged arrival rasters, and the seed is recorded.
+- *The one change.* `forecast/wildfire/prepare.py` admits a target only if its whole k × k neighbourhood has a finite arrival time (lines 862–883), and label validity comes from the arrival raster (`data.py:477-492`). In the arm, **cells with no arrival value inside the event rectangle are known unburned for the whole event**, and the neighbourhood rule requires only that the window lie inside the rectangle.
+  - The basis is §4.1 rule 5, which is verified cell for cell on 29 exposed US fires.
+  - For Korean kriged-only training fires it is an **assumption** (no perimeters exist), and that is disclosed.
+  - The change is injected in memory, with prepare.py and train.py unchanged and their shas pinned. The wrapper sha goes in FREEZE.json before the run.
+- *Comparison (development).* `c651_fullvalid_rebuilt` against a refit of the unchanged c651 recipe on the same rebuilt inputs, scored on cohort R (full rectangle) with the `C651_DEV` decomposition: full domain, 4 km band, off and on the final footprint, and tail against the 1/1024 floor.
+- *Hypothesis, recorded now (Iris).* The off-footprint Brier excess largely disappears, and the on-footprint score is not materially worse.
+
+**(2) Cheap rate candidate, `rate_composite`.**
+- *Definition.* The kernel shape is fit by the **composite (independent-bracket) likelihood**. Then **one scalar rate, or a small grid of rates** (at most the §3.1 rate-mixture grid m ∈ {1, 2, 4, 8, 16}), is fit by the bracket likelihood with the shape held fixed.
+- *Step 1, synthetic, before any refit.* On Elena's synthetic harness, it is compared with the full latent-time method (`d2_bracket_rebuilt`'s estimator) on rate recovery (ratio to truth), held-out likelihood, kernel-shape error, wall time and peak memory, with brackets of 12–24 h and perimeter-type inputs.
+- *Matching rule.* The full method is not reliably better than `rate_composite` if its rate-ratio advantage is within 0.05, the held-out likelihood is not better by more than its seed-to-seed spread, and the shape error is no worse. If so, **`rate_composite` is the rate candidate refit on the training pool**, under the §3.1 recipe and the §4.1 rule 3 label rule. Otherwise the full method stays the rate candidate.
+  - These thresholds are proposed here for agreement with Elena and Marcus before step 1 runs.
+- `rate_composite` does not replace `d2_bracket_rebuilt` as a D2 candidate. P-D2 and its ordering stand as recorded.
+
+**Iris's ranking of SMOKE experiments (planning order, not a decision rule).**
+1. The full-rectangle validity arm.
+2. The rate fit, cheap version first.
+3. The rate-mixture and recalibration comparators.
+4. The half-step correction on real data.
+5. The first-passage sampler, on the hourly stratum H only.
 
 **Who runs it.** Marcus (S-D1) runs the baseline refits, and Elena's D2 refit uses the identical training data and pipeline. Every refit writes a receipt with input hashes, code SHA, seed and wall time.
 
