@@ -1,0 +1,356 @@
+{
+ "box": [
+  128.2,
+  36.1,
+  129.7,
+  36.8
+ ],
+ "overpasses": 30,
+ "detections": 4999,
+ "cells_ever_detected": 2911,
+ "pairs": 28,
+ "new_cells": 2889,
+ "share_new_cells_beyond_cap": 0.11976462443752163,
+ "short_gap_le_3h": {
+  "pairs": 18,
+  "new_cells": 1882,
+  "beyond_cap": 20
+ },
+ "jump_envelope_km": {
+  "note": "distance of each newly detected 375 m cell to all earlier detections; an UPPER envelope on advance per overpass gap (omissions inflate it), not measured spotting or spread rate",
+  "gap_le_0p5h": {
+   "new_cells": 673,
+   "d_km_q50_q90_q95_q99_max": [
+    0.375,
+    0.375,
+    0.75,
+    3.375,
+    12.0
+   ],
+   "share_d_gt_0p5km": 0.08023774145616643,
+   "share_d_gt_1km": 0.03714710252600297,
+   "share_d_gt_2km": 0.0237741456166419
+  },
+  "gap_0p5_to_3h": {
+   "new_cells": 1209,
+   "d_km_q50_q90_q95_q99_max": [
+    0.375,
+    0.75,
+    1.125,
+    2.25,
+    5.625
+   ],
+   "share_d_gt_0p5km": 0.2109181141439206,
+   "share_d_gt_1km": 0.07361455748552523,
+   "share_d_gt_2km": 0.01240694789081886
+  },
+  "gap_3_to_13h": {
+   "new_cells": 961,
+   "d_km_q50_q90_q95_q99_max": [
+    8.25,
+    39.375,
+    42.75,
+    44.625,
+    45.375
+   ],
+   "share_d_gt_0p5km": 0.8574401664932362,
+   "share_d_gt_1km": 0.8074921956295525,
+   "share_d_gt_2km": 0.6909469302809573
+  },
+  "all": {
+   "new_cells": 2889,
+   "d_km_q50_q90_q95_q99_max": [
+    0.375,
+    19.125,
+    35.25,
+    43.875,
+    45.375
+   ],
+   "share_d_gt_0p5km": 0.4039460020768432,
+   "share_d_gt_1km": 0.31429560401523016,
+   "share_d_gt_2km": 0.24091381100726894
+  }
+ },
+ "per_overpass": [
+  {
+   "satellite": "N20",
+   "t": "2025-03-22 04:45:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 16,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 4.0,
+   "max_rate_cells_per_h": 10.434782608695652
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-22 16:43:00",
+   "gap_h": 11.966666666666667,
+   "new_cells": 124,
+   "beyond_cap": 0,
+   "d_q50": 19.0,
+   "d_max": 39.0,
+   "max_rate_cells_per_h": 3.2590529247910864
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-22 17:06:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 120,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 3.0,
+   "max_rate_cells_per_h": 7.826086956521738
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-22 18:23:00",
+   "gap_h": 1.2833333333333334,
+   "new_cells": 33,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 1.5584415584415583
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-23 04:03:00",
+   "gap_h": 9.666666666666666,
+   "new_cells": 25,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 1.0,
+   "max_rate_cells_per_h": 0.10344827586206898
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-23 04:26:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 26,
+   "beyond_cap": 1,
+   "d_q50": 1.0,
+   "d_max": 32.0,
+   "max_rate_cells_per_h": 83.47826086956522
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-24 03:44:00",
+   "gap_h": 23.3,
+   "new_cells": 45,
+   "beyond_cap": 0,
+   "d_q50": 2.0,
+   "d_max": 6.0,
+   "max_rate_cells_per_h": 0.2575107296137339
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-24 04:07:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 65,
+   "beyond_cap": 2,
+   "d_q50": 1.0,
+   "d_max": 23.0,
+   "max_rate_cells_per_h": 59.99999999999999
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-24 05:25:00",
+   "gap_h": 1.3,
+   "new_cells": 31,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 1.5384615384615383
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-24 16:28:00",
+   "gap_h": 11.05,
+   "new_cells": 114,
+   "beyond_cap": 0,
+   "d_q50": 4.0,
+   "d_max": 15.0,
+   "max_rate_cells_per_h": 1.3574660633484161
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-24 17:45:00",
+   "gap_h": 1.2833333333333334,
+   "new_cells": 137,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 3.0,
+   "max_rate_cells_per_h": 2.3376623376623376
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-24 18:08:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 13,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 1.0,
+   "max_rate_cells_per_h": 2.608695652173913
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-25 03:25:00",
+   "gap_h": 9.283333333333333,
+   "new_cells": 12,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 0.21543985637342908
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-25 03:48:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 34,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 5.217391304347826
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-25 05:06:00",
+   "gap_h": 1.3,
+   "new_cells": 67,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 6.0,
+   "max_rate_cells_per_h": 4.615384615384615
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-25 05:29:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 43,
+   "beyond_cap": 14,
+   "d_q50": 2.0,
+   "d_max": 11.0,
+   "max_rate_cells_per_h": 28.695652173913043
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-25 16:09:00",
+   "gap_h": 10.666666666666666,
+   "new_cells": 642,
+   "beyond_cap": 326,
+   "d_q50": 45.0,
+   "d_max": 121.0,
+   "max_rate_cells_per_h": 11.34375
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-25 17:26:00",
+   "gap_h": 1.2833333333333334,
+   "new_cells": 872,
+   "beyond_cap": 3,
+   "d_q50": 1.0,
+   "d_max": 15.0,
+   "max_rate_cells_per_h": 11.688311688311687
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-25 17:49:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 196,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 1.0,
+   "max_rate_cells_per_h": 2.608695652173913
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-26 03:29:00",
+   "gap_h": 9.666666666666666,
+   "new_cells": 31,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 0.20689655172413796
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-26 04:47:00",
+   "gap_h": 1.2833333333333334,
+   "new_cells": 69,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 1.5584415584415583
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-26 05:10:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 45,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 1.0,
+   "max_rate_cells_per_h": 2.608695652173913
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-26 17:07:00",
+   "gap_h": 11.95,
+   "new_cells": 9,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 0.1673640167364017
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-26 17:08:00",
+   "gap_h": 0.016666666666666666,
+   "new_cells": 52,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 120.0
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-26 17:30:00",
+   "gap_h": 0.36666666666666664,
+   "new_cells": 61,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 3.0,
+   "max_rate_cells_per_h": 8.181818181818182
+  },
+  {
+   "satellite": "N",
+   "t": "2025-03-27 04:28:00",
+   "gap_h": 10.966666666666667,
+   "new_cells": 4,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 0.182370820668693
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-27 04:51:00",
+   "gap_h": 0.38333333333333336,
+   "new_cells": 2,
+   "beyond_cap": 0,
+   "d_q50": 1.5,
+   "d_max": 2.0,
+   "max_rate_cells_per_h": 5.217391304347826
+  },
+  {
+   "satellite": "N20",
+   "t": "2025-03-28 16:53:00",
+   "gap_h": 36.03333333333333,
+   "new_cells": 1,
+   "beyond_cap": 0,
+   "d_q50": 1.0,
+   "d_max": 1.0,
+   "max_rate_cells_per_h": 0.02775208140610546
+  }
+ ]
+}

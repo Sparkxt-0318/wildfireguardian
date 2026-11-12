@@ -1,0 +1,283 @@
+{
+ "fires": [
+  "ID-BOF-000683_Wapiti_Wapiti",
+  "ID-BOF-000904_Goat",
+  "ID-BOF-001080_Lava",
+  "ID-SCF-240202_RedRock",
+  "WA-SES-000173_Pioneer",
+  "WY-BTF-002416_FishCreek"
+ ],
+ "band_m": 4000.0,
+ "predictors": {
+  "p_d4_wind_seed0": {
+   "intervals": 273,
+   "intervals_with_slope": 273,
+   "log10_slope_per_cell_q10_q50_q90": [
+    -1.1521076874799503,
+    -1.0638762896982823,
+    -0.7786431654056195
+   ],
+   "per_cell_factor_q10_q50_q90": [
+    0.0704518355227352,
+    0.08632244052387973,
+    0.16647799417315579
+   ],
+   "tail_positives": 1310,
+   "nontail_positives": 6869,
+   "intervals_with_tail": 53,
+   "tail_share_top_intervals": {
+    "top1": 0.29923664122137406,
+    "top3": 0.48931297709923666,
+    "top5": 0.6343511450381679,
+    "top10": 0.7938931297709924
+   },
+   "nontail_share_top_intervals": {
+    "top1": 0.05182704906099869,
+    "top3": 0.13597321298587858,
+    "top5": 0.2083272674333964,
+    "top10": 0.31722230310088806
+   },
+   "apparent_speed_m_per_h_median_with_tail": 88.78546720571518,
+   "apparent_speed_m_per_h_median_without_tail": 22.616086629685647,
+   "hours_median_with_tail": 24.433333333333334,
+   "hours_median_without_tail": 23.9,
+   "top10_tail_intervals": [
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 18,
+     "hours": 19.233333333333334,
+     "positives": 748,
+     "tail_positives": 392,
+     "nontail_positives": 356,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 207.26020865383848
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 17,
+     "hours": 12.766666666666667,
+     "positives": 358,
+     "tail_positives": 135,
+     "nontail_positives": 223,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 312.24318640539116
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 28,
+     "hours": 19.916666666666668,
+     "positives": 224,
+     "tail_positives": 114,
+     "nontail_positives": 110,
+     "max_pos_dist_m": 3537.742924521226,
+     "apparent_speed_m_per_h": 177.6272598085971
+    },
+    {
+     "fire": "ID-BOF-001080_Lava",
+     "interval": 30,
+     "hours": 23.016666666666666,
+     "positives": 419,
+     "tail_positives": 113,
+     "nontail_positives": 306,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 173.1920932559954
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 20,
+     "hours": 18.083333333333332,
+     "positives": 127,
+     "tail_positives": 77,
+     "nontail_positives": 50,
+     "max_pos_dist_m": 3915.1149408414567,
+     "apparent_speed_m_per_h": 216.504052028099
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 14,
+     "hours": 24.5,
+     "positives": 137,
+     "tail_positives": 64,
+     "nontail_positives": 73,
+     "max_pos_dist_m": 3915.1149408414567,
+     "apparent_speed_m_per_h": 159.80060983026354
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 21,
+     "hours": 30.833333333333332,
+     "positives": 87,
+     "tail_positives": 40,
+     "nontail_positives": 47,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 129.2855571819079
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 23,
+     "hours": 32.833333333333336,
+     "positives": 152,
+     "tail_positives": 39,
+     "nontail_positives": 113,
+     "max_pos_dist_m": 3000.0,
+     "apparent_speed_m_per_h": 91.37055837563452
+    },
+    {
+     "fire": "ID-SCF-240202_RedRock",
+     "interval": 31,
+     "hours": 29.45,
+     "positives": 172,
+     "tail_positives": 38,
+     "nontail_positives": 134,
+     "max_pos_dist_m": 3181.9805153394636,
+     "apparent_speed_m_per_h": 108.04687658198519
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 22,
+     "hours": 21.416666666666668,
+     "positives": 259,
+     "tail_positives": 28,
+     "nontail_positives": 231,
+     "max_pos_dist_m": 3204.001404494074,
+     "apparent_speed_m_per_h": 149.60317841995675
+    }
+   ]
+  },
+  "p_c651_mc": {
+   "intervals": 273,
+   "intervals_with_slope": 273,
+   "log10_slope_per_cell_q10_q50_q90": [
+    -1.60967190450866,
+    -1.4504291156859912,
+    -0.7777151207785182
+   ],
+   "per_cell_factor_q10_q50_q90": [
+    0.02456564069864746,
+    0.035446298000244035,
+    0.16683412165511013
+   ],
+   "tail_positives": 571,
+   "nontail_positives": 7608,
+   "intervals_with_tail": 23,
+   "tail_share_top_intervals": {
+    "top1": 0.2714535901926445,
+    "top3": 0.5901926444833625,
+    "top5": 0.7355516637478109,
+    "top10": 0.9001751313485113
+   },
+   "nontail_share_top_intervals": {
+    "top1": 0.08123028391167192,
+    "top3": 0.1691640378548896,
+    "top5": 0.2372502628811777,
+    "top10": 0.35107781282860145
+   },
+   "apparent_speed_m_per_h_median_with_tail": 132.97872340425533,
+   "apparent_speed_m_per_h_median_without_tail": 28.388868532121162,
+   "hours_median_with_tail": 24.0,
+   "hours_median_without_tail": 23.983333333333334,
+   "top10_tail_intervals": [
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 17,
+     "hours": 12.766666666666667,
+     "positives": 358,
+     "tail_positives": 155,
+     "nontail_positives": 203,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 312.24318640539116
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 18,
+     "hours": 19.233333333333334,
+     "positives": 748,
+     "tail_positives": 130,
+     "nontail_positives": 618,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 207.26020865383848
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 20,
+     "hours": 18.083333333333332,
+     "positives": 127,
+     "tail_positives": 52,
+     "nontail_positives": 75,
+     "max_pos_dist_m": 3915.1149408414567,
+     "apparent_speed_m_per_h": 216.504052028099
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 14,
+     "hours": 24.5,
+     "positives": 137,
+     "tail_positives": 50,
+     "nontail_positives": 87,
+     "max_pos_dist_m": 3915.1149408414567,
+     "apparent_speed_m_per_h": 159.80060983026354
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 28,
+     "hours": 19.916666666666668,
+     "positives": 224,
+     "tail_positives": 33,
+     "nontail_positives": 191,
+     "max_pos_dist_m": 3537.742924521226,
+     "apparent_speed_m_per_h": 177.6272598085971
+    },
+    {
+     "fire": "ID-BOF-001080_Lava",
+     "interval": 30,
+     "hours": 23.016666666666666,
+     "positives": 419,
+     "tail_positives": 22,
+     "nontail_positives": 397,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 173.1920932559954
+    },
+    {
+     "fire": "WY-BTF-002416_FishCreek",
+     "interval": 21,
+     "hours": 30.833333333333332,
+     "positives": 87,
+     "tail_positives": 20,
+     "nontail_positives": 67,
+     "max_pos_dist_m": 3986.3046797754937,
+     "apparent_speed_m_per_h": 129.2855571819079
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 13,
+     "hours": 27.75,
+     "positives": 112,
+     "tail_positives": 19,
+     "nontail_positives": 93,
+     "max_pos_dist_m": 3915.1149408414567,
+     "apparent_speed_m_per_h": 141.08522309338582
+    },
+    {
+     "fire": "ID-SCF-240202_RedRock",
+     "interval": 31,
+     "hours": 29.45,
+     "positives": 172,
+     "tail_positives": 18,
+     "nontail_positives": 154,
+     "max_pos_dist_m": 3181.9805153394636,
+     "apparent_speed_m_per_h": 108.04687658198519
+    },
+    {
+     "fire": "ID-BOF-000683_Wapiti_Wapiti",
+     "interval": 27,
+     "hours": 28.2,
+     "positives": 286,
+     "tail_positives": 15,
+     "nontail_positives": 271,
+     "max_pos_dist_m": 3750.0,
+     "apparent_speed_m_per_h": 132.97872340425533
+    }
+   ]
+  }
+ }
+}
