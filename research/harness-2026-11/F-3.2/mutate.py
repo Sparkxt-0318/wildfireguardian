@@ -64,8 +64,9 @@ class Bundle:
         self.idx = {}
         for k, line in enumerate(L):
             w = line.split(" ", 1)[0]
-            if w in ("WAITABLE", "FORBID", "EB", "WB", "AC", "END_INSTANCE", "CLAIM", "WITNESS", "CERT", "END"):
-                self.idx.setdefault(w, k)
+            if w in ("WAITABLE", "FORBID", "EB", "WB", "AC", "END_INSTANCE", "CLAIM", "WITNESS", "CERT", "COCERT", "END"):
+                self.idx.setdefault("CERT" if w == "COCERT" else w, k)
+        self.co = L[self.idx["CERT"]].startswith("COCERT")
         self.tables = {}
         for key in ("EB", "WB", "AC"):
             k0 = self.idx[key]; n = int(L[k0].split()[1])
@@ -97,7 +98,29 @@ class Bundle:
         return self.with_line(k, "%d %s %s" % (s, ivl_fmt(R), ivl_fmt(A)))
 
 
+def co_mutations(b, rng, per_class):
+    """COCERT bundles: listed sets are NR (= Gr) and NA (= Ga); removing a co-reachable point must be rejected."""
+    states = sorted(b.cert)
+    gr = [s for s in states if b.cert[s][1]]
+    for _ in range(min(per_class, len(gr) * 3)):
+        s = rng.choice(gr); _, NR, NA = b.cert[s]
+        a, c = rng.choice(NR); t = rng.choice([a, c, rng.randint(a, c)])
+        yield "C1_co_drop_coreachable_point", b.with_cert(s, remove_point(NR, t), remove_point(NA, t))
+    acc = [(s, t) for s in states for (a, c) in b.cert[s][2] for t in (a, c) if not contains(b.cert[s][1], t)]
+    for s, t in rng.sample(acc, min(per_class, len(acc))):
+        _, NR, NA = b.cert[s]
+        yield "C2_co_drop_goal_point", b.with_cert(s, NR, remove_point(NA, t))
+    kt = b.idx["CERT"]; M = list(b.L)
+    M[kt + 1:kt + 1 + len(states)] = [b.L[b.cert[s][0]] for s in states if s != states[-1]]
+    M[kt] = "COCERT %d %d" % (b.T, len(states) - 1)
+    yield "C3_co_drop_last_record", "\n".join(M) + "\n"
+    yield "M7_trailing_token", "\n".join(b.L) + "\n0\n"
+
+
 def mutations(b, rng, per_class):
+    if b.co:
+        yield from co_mutations(b, rng, per_class)
+        return
     lim = min(b.H, b.T - 1)
     states = sorted(b.cert)
     # M1: delete one reachable point from R (and A)

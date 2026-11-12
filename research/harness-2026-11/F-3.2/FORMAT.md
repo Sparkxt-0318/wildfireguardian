@@ -22,8 +22,8 @@ END_INSTANCE
 CLAIM ROUTE <T>        or        CLAIM NO_ROUTE
 WITNESS <k> then k legs, each either  E <j> <start> <end>  or  W <n> <start> <end>
 CERT <T> <k> then k records: <s> <R interval list> <A interval list>   (strictly increasing s, 0 <= s <= nE)
-   -- or, complement form (format 1.1) --
-COCERT <T> <k> then k records: <s> <NR interval list> <NA interval list>
+   -- or, complement form --
+COCERT <T> <k> then k records: <s> <NR interval list> <NA interval list>   (same ordering/range rules as CERT)
 END
 ```
 
@@ -31,7 +31,8 @@ Rules a checker must enforce (in addition to the C0–C4 conditions of the spec)
 
 - `0 <= dep <= H`, `0 <= origin < nV`, `0 <= s0 <= nE`; if `s0 < nE` then `head[s0] = origin`.
 - State `s` has head node `hd(s) = head[s]` for `s < nE` and `hd(nE) = origin`.
-- `CLAIM NO_ROUTE` requires `WITNESS 0` and `CERT` threshold `T = H + 1`.
+- `CLAIM NO_ROUTE` requires `WITNESS 0` and certificate (`CERT` or `COCERT`) threshold `T = H + 1`; `CLAIM ROUTE <T>`
+  requires the certificate threshold to equal `T`. The header stays `WFGC 1` for both certificate forms.
 - `CLAIM ROUTE <T>` requires `dep <= T <= H`, certificate threshold equal to `T`, and a witness that is a legal lattice
   path: leg 1 starts at `dep` in state `s0`; legs are contiguous in time (`start_k = end_{k-1}`); `E j a b` needs
   `tail[j] = hd(current state)`, `(current state, j)` not forbidden, `a` not in `EB_j`, `b = a + D_j <= H`, then the

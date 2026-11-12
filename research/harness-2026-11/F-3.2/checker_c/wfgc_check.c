@@ -1,5 +1,5 @@
 /*
- * wfgc_check.c -- independent checker for F-3.2 `.wfgc` certificate bundles (format version 1).
+ * wfgc_check.c -- independent checker for F-3.2 `.wfgc` certificate bundles (format 1, plus 1.1 COCERT).
  *
  * Written only from CERTIFICATE_SPEC.md and FORMAT.md. C99, integer arithmetic only (int64_t).
  *

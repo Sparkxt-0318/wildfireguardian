@@ -1,0 +1,81 @@
+{
+ "seed": 20261112,
+ "per_class": 10,
+ "summary": {
+  "CONTROL_unmutated|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "NO_ROUTE": 5,
+    "ROUTE": 15
+   }
+  },
+  "CONTROL_unmutated|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "NO_ROUTE": 5,
+    "ROUTE": 15
+   }
+  },
+  "C1_co_drop_coreachable_point|py": {
+   "runs": 150,
+   "ok": 150,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 150
+   }
+  },
+  "C1_co_drop_coreachable_point|c": {
+   "runs": 150,
+   "ok": 150,
+   "reasons": {
+    "c2_edge_closure": 150
+   }
+  },
+  "C2_co_drop_goal_point|py": {
+   "runs": 31,
+   "ok": 31,
+   "reasons": {
+    "C4_GOAL_REACHED": 31
+   }
+  },
+  "C2_co_drop_goal_point|c": {
+   "runs": 31,
+   "ok": 31,
+   "reasons": {
+    "c4_goal_in_certificate": 31
+   }
+  },
+  "C3_co_drop_last_record|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 15,
+    "RANGE": 5
+   }
+  },
+  "C3_co_drop_last_record|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "c2_edge_closure": 15,
+    "bad_count": 5
+   }
+  },
+  "M7_trailing_token|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "TRAILING": 20
+   }
+  },
+  "M7_trailing_token|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "trailing_tokens": 20
+   }
+  }
+ },
+ "failures": []
+}

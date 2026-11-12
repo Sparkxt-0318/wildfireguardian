@@ -48,3 +48,11 @@ Still trusted: `ContactModel` (packet arrays → per-cell activity intervals), g
 
 Observation: the panel's time dependence is thin. 4/20 missions have no blocked edge; in 6 more every blocked edge is
 blocked for the whole [dep, H] window; both Miryang NO_ROUTE claims are purely static cuts.
+
+## Checkpoint 4 (measured)
+
+- (d) Frozen full-policy journey checker (`witness_check.py`): 15/15 SIPP witnesses `CHECKED_ROUTE`, same arrival, max peak ≤ 0.003 vs budget 10 (`results/witness_check_py313.json`).
+- Backward/complement certificates (`COCERT`, `sizes.py`): accepted by both checkers on all 20 (C ≤ 56 ms); forward and backward exact sets disjoint below T on all 20; certificate part 1.1–30× smaller than forward (largest NO_ROUTE 4.1 MB → 0.82 MB); gzip -9 of the instance alone is up to 0.85 MB and dominates (`results/sizes_py313.json`). In 5 route missions no state can complete before T (optimality forced by the destination opening).
+- COCERT mutation test: 482 runs, 0 failures; C4 is the first failing condition in 31 (`results/mutation_cocert_run1.json`).
+- C checker extended to COCERT from the spec only; 30 unit tests pass (normal + sanitizer); check_py agrees on all 30.
+- Python 3.12.3 + numpy 1.26.4 (pinned): panel bundles byte-identical to 3.13 (20/20), both checkers accept 20/20, mutation 1,526 runs / 0 failures (`results/panel_summary_py312.json`, `results/mutation_py312.json`).
