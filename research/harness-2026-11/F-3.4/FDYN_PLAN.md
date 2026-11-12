@@ -309,3 +309,27 @@ The 900 s / 3 GiB row from earlier (`fdyn_b900`) is reported beside these but no
 
 **Label.** Non-evaluated (a sizing of an evaluated-kit behaviour at an extended budget). One host only, so the rates
 are specific to this host.
+
+### Notes on the A3 results (Mira REQUEST 11, PASS WITH NOTES, @7e88cfc)
+
+**The reading was rejected on evidence from before the test, not after it.** "The gate, not the time, changed them"
+is shown by the **A1 rows**, from a run made before A3 (300 s; solver gate 12 GiB; checker gate 3,072 MiB):
+- On kriged …207, kriged …166, kriged …168 and firms …166, LO already returned CONDITIONAL_OPTIMUM with the same
+  elapsed times (32.4–73.9 s in A1 vs 32.6–73.3 s in A3b).
+- It used the same expansions (18 / 114 / 1,669).
+- Walls were 162–260 s, under 300 s.
+- Only the checks failed (UNRESOLVED / RSS_LIMIT).
+So not adopting the pre-registered reading is demonstrable from earlier data.
+
+**N1.** Of the 5 proven in A3b, **4 were UNRESOLVED and 1 was feasible-only in A1**. Firms …168 was
+CHECKED_JOURNEY_FEASIBLE from a Z incumbent, arrival 274, and is upgraded to FULL_OPTIMUM_PROVEN by LO here. It is in
+the 9 because the 9 come from the controller-only repeat.
+
+**N2.** The Uiseong LO cap (≈ 160–165 s) is **inferred** from the 0.55 × remaining rule, not recorded, because no
+SEARCH_RESULT is written on a deadline stop. The inference matches the recorded Yeongdeok LO caps (186.0 and 189.1 s
+at about 0.55 × remaining).
+
+**Uiseong kriged …324 never returned from LO.** Its phase timers show a single `road_core.solve` call of 285.6 s,
+against an inferred cap of about 157 s, which was still running when the parent deadline stopped the process
+(FAILURE.json `DeadlineStop`). This is a reliability defect, separate from being slow: a stage that neither returns
+nor stops at its cap.

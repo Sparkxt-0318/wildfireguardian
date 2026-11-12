@@ -141,7 +141,7 @@ container. All 20 missions.
 ## F-DYN 5-hour profile (multi-hour; plan FDYN_PLAN.md with amendments A1–A3)
 
 **Status.** 30/300/900 s and the 12 GiB repeats are verified PASS WITH NOTES (Mira, REQUEST 10 @ 73f29a7). A3(a) and
-A3(b) are pending verification.
+A3(b) are verified PASS WITH NOTES (Mira, REQUEST 11 @ 7e88cfc).
 
 **Setup.** Host: this container. Packets: Leo `MANIFEST_v3_1.json`, sha
 `1c2e73db20db7b1caa309ebde42d20629054cd49c8f1f2cd9e4e81b0b9c89bbe`.
@@ -178,8 +178,13 @@ A3(b) are pending verification.
 - **A3(b), MODIFIED test kit (checker constant edited), all three gates at 12 GiB, 450 s, on the 9:**
   - 5/9 FULL_OPTIMUM_PROVEN, all Yeongdeok, at walls of 136–220 s;
   - Uiseong 0/4: LATE_RESULT, with LO overrunning its wall cap (246–273 s vs about 160 s).
-  - The pre-registered reading "≥ 3/9 → precompute is the lever" is **not adopted**. The Yeongdeok results came from
-    lifting the checker gate, not from the extra time (see FDYN_PLAN.md, A3 results).
+  - Of the 5 proven, 4 were UNRESOLVED and 1 (firms …168) was feasible-only in A1.
+  - Uiseong's LO cap of about 160 s is **inferred** from the 0.55 × remaining rule, not recorded.
+  - Uiseong kriged …324 never returned from LO: one `road_core.solve` call of 285.6 s was still running when the
+    deadline stopped it.
+  - The pre-registered reading "≥ 3/9 → precompute is the lever" is **not adopted**. The A1 rows, from a run made
+    before A3, already show LO returning the same conditional optima with the same expansions, under 300 s; only the
+    checks failed. The checker gate, not the extra time, changed the outcome (FDYN_PLAN.md, A3 notes).
 
 **Findings about the frozen kit at multi-hour (the kit itself is unchanged).**
 1. **Three independent 3 GiB lifetime-peak gates:** controller guard, solver (`phaseB/road_core.py:751-757`) and
