@@ -454,3 +454,12 @@ from branch `daniel/data-fetch`.
   - pipeline.cropped drops these cells in both D2 arms. No new-burn cell inside the crop is unscored.
   - This is pre-weather: `available_at` and kernel finiteness are not applied. Development evidence only, for Victor's
     item-22 decision.
+- **Leave-fire-out (fold-kernel) diagnostics** (c31aa70a and earlier; unverified).
+  - Detrended lag-1 persistence: rank +0.172 [0.001, 0.340], p 0.012. Lags 2–3 are near zero.
+  - Iris's wording: **"undetermined, leaning to state"**. This is weak, unadjusted evidence for a short-memory state.
+  - **The displacement-tail measure is retired as a guide (Iris)** and kept as a descriptive row only. Plug-in
+    over-reaches in every fold interval yet wins on Brier, and MCEM has better tails with no skill over persistence.
+  - Reach slopes are unchanged from in-sample: 0.369 overall, 0.344 between fires.
+  - Reporting rule for the rate arms: if both fail, the wording is "these two forms did not help", not "state does
+    not matter". Neither arm has a one-interval memory. A lag-1 arm is to be proposed afterwards, with its own rule
+    fixed first.
