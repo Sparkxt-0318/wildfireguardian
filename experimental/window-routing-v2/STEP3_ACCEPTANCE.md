@@ -173,3 +173,46 @@ B5:
     longer (about 12.7, 12.7 and 7.5 s at this host's rate) and may return a different Z outcome than today.
   - G1 compares final status and arrival, with the FL2 rule for 0325T23 FL2; any Z-stage change is listed per mission.
 - Run 1 was interleaved with the frozen kit (`CAL_RUN1_PANEL_ROWS.jsonl.gz`); runs 2–3 were V2 only.
+
+## Correction to §B2 (Iris 20:02 UTC, option (b)), written before code and before recalibrating
+
+**Why.** Measured with instrumentation only, on kit-v2-step3c: Uiseong F-DYN Z setup is 35,165 units in 18.1 s, and
+Yeongdeok F-DYN is 5,537 units in 5.0 s. Both were under load. So setup is never cut by a 2^28 budget, and the note
+"Uiseong Z is cut in setup" was **false** and is withdrawn. cProfile: 93% of the Uiseong setup is in 11,011 calls to
+`core.edge_occupancies` (exact Fractions, about 1.6 ms each), one per contact-candidate edge, which the old setup unit
+did not count. One setup unit cost about 10^4 sweep units.
+
+**Correction.**
+1. **Two budgets.** Z has a **setup budget** and a **sweep budget**, each calibrated to a 6 s equivalent; there is no
+   split of one 6 s.
+   - **Setup unit:** 1 per contact-candidate edge examined, ticked **before** its `edge_occupancies` call, plus 1 per
+     wait row. The old per-interval tick is removed.
+   - **Sweep unit:** unchanged, (E + 1) per sweep second.
+2. **Reason codes when Z is cut:**
+   - `WORK_BUDGET_SETUP`: cut during setup. Z returns `TIMEOUT` / `INCOMPLETE_CAP` with no route, no incumbent, no lower
+     bound and no refusal.
+   - `WORK_BUDGET_SWEEP`: cut during the sweep. It returns the same, because Z returns as soon as a route is found, so a
+     cut sweep has none.
+3. **Calibration (same rule and safeguard, per budget), on a quiet host, 3 runs per mission, with the spread reported:**
+   - The calibration kit has both caps None and keeps the parent's 6 s Z wall cap. It records setup units, setup wall
+     (Z start to first sweep tick), sweep units and sweep wall (Z wall − setup wall).
+   - **Setup budget** = median over the 20 missions of (setup units ÷ setup wall × 6), rounded up to a power of two.
+     It is **labelled extrapolated** unless at least 5 missions' setup itself runs ≥ 6 s.
+   - **Sweep budget** = median over the 20 missions of (sweep units ÷ sweep wall × 6), rounded up to a power of two.
+     It is **labelled extrapolated** unless at least 5 missions' sweep itself runs ≥ 6 s; under the 6 s Z cap none can.
+   - **Safeguard:** every 1-hour mission whose setup completes must fit within the setup budget. Every mission whose Z
+     completes within 6 s must have sweep units within the sweep budget. If not, the budget goes to the next power of
+     two, with both numbers recorded.
+4. **Stated consequence:** Z's total work can reach about twice the old 6 s cap, more after rounding. This is the rule's
+   consequence, not tuning.
+5. **Reporting:**
+   - Every multi-hour run reports setup units, setup wall and sweep wall separately, so that a multi-hour setup budget
+     costing much more than 6 s of wall is visible.
+   - The panel report states **two** ratios: each budget ÷ its median 6 s equivalent.
+   - The 3 time-capped missions are listed with their units at their own 6 s, the budgets, and Z's outcome under the
+     old cap and the new budgets. Both outcomes come from one run: Z's units are deterministic, so if a run's units are
+     ≤ that mission's 6 s count the outcome is the same, otherwise the old cap would have cut it.
+6. **Not in Step 3** (Iris): caching `edge_occupancies` by edge and fire field is a candidate next experiment, passed to
+   the orchestrator.
+
+The 2^28 budget committed at 7ebd84d is **superseded** and is not used for any G1 or F-DYN run.
