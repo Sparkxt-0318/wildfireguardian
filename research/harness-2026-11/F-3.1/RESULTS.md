@@ -255,6 +255,12 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * Baseline: f = 1 reproduces the v3.1 unions, 720 of 720.
   * Origins with a hole, f = 1 → never: 03-25 19Z 6 / 3 → **0**; 03-26 08Z 2 → **0**. No hole survives.
   * Contiguous deadlines changed under never-clears: 03-25 19Z 4–7 per packet, of which 2–3 disappear; 03-26 08Z 0.
+  * **VERIFIED: Nora request #7, PASS WITH NOTES, ledger row 40.**
+    * Order: the rule came before the claim, and the claim sha matches.
+    * Nora re-ran YD 25T19Z h5 kriged_mean (1 of 8 packets) and got identical results.
+    * Her f = 1 unions equal her own fdyn_run unions (90 of 90).
+    * Every never-clears union is [0, x] or empty, never ⊆ f = 1 for every origin, and every change is negative or a
+      removal.
 * **Stated limit.** The sensitivity covers the scalar-law v3.1 packets only, not the per-cell envelope packets
   (v3.3 envelope and envelope_burnset). Yeongdeok gets the never-clears arm only, on its packets with holes at f = 1
   (rule addition dated 2026-11-12).
