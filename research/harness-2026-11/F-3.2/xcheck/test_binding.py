@@ -82,7 +82,7 @@ class Binding(unittest.TestCase):
             if want[0] == "ACCEPT":
                 for name in ("py", "c"):
                     toks = r[name][0].split()
-                    self.assertEqual(toks[-2:], ["BOUND", I[:16]], (name, src))
+                    self.assertEqual(toks[-2:], ["LABELS_MATCH", I[:16]], (name, src))
                 self.assertEqual(r["py"][0], r["c"][0])
 
     # T5: v2 without --expect -> ACCEPT ... UNBOUND (both); v1 output unchanged

@@ -1,6 +1,6 @@
 # F-3.2 certificate-to-request binding: rule (written before any code)
 
-Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follows; Mira verifies.
+Status: revision 2.2 (Mira ledgers 99-101). Implemented; see xcheck/results/binding_*.json. Implementation follows; Mira verifies.
 
 ## The gap today
 
@@ -62,7 +62,9 @@ Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follow
 - The consumer supplies them as `--expect G=<hex>,A=<hex>,W=<hex>,Q=<hex>`.
 - The checker rejects on any difference (`REJECT BIND_<field>`), on a missing BIND section, or on a version-1
   bundle (`REJECT BIND_MISSING`).
-- ACCEPT is printed only after R2, R3 and C0–C4 pass: `ACCEPT <claim> <T> BOUND <first 16 hex of I>`.
+- ACCEPT is printed only after R2, R3 and C0–C4 pass: `ACCEPT <claim> <T> LABELS_MATCH <first 16 hex of I>`.
+  (Rev 2.2: renamed from `BOUND`, Mira ledger 101 N1. The checker can only compare the labels the generator
+  wrote with the consumer's digests. It cannot tell whether those labels are true. See R5.)
 - Without `--expect`, a version-2 bundle that passes prints `ACCEPT <claim> <T> UNBOUND`. No report counts it as
   bound.
 
@@ -71,15 +73,25 @@ Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follow
 - With `--expect` they REJECT (R3).
 - Committed v1 results are not re-certified silently.
 
-**R5. What binding does and does not prove.**
-- It proves: this certificate was issued for an instance whose bytes hash to `I`, under a graph, routed hazard,
-  writer and request projection equal to the consumer's own.
-- It does NOT prove that `I` is the correct translation of those inputs. That is obligation O2.
+**R5. What binding does and does not prove (rev 2.2).**
+- R2 proves that the BIND section names the instance actually in the file: `I` matches its bytes.
+- R3 proves only that the generator's LABELS `G A W Q` equal the consumer's digests. It catches honest mix-ups:
+  a bundle moved to another request, a stale packet, the wrong graph.
+- R3 does NOT catch a wrong or dishonest generator. Mira (ledger 101) relabelled the FN1 bundle with FX1's
+  `G A W Q`, and both checkers printed `LABELS_MATCH`.
+- What ties the instance to the consumer's inputs is T7: the consumer re-derives from its OWN graph, packet and
+  request, and compares against the instance in the bundle. In Mira's relabel case only T7 caught it (O2: 2
+  differences).
+- So `LABELS_MATCH` is never quoted as "bound" on its own.
 - O2 today is a semantic comparison, not a sha: `derive_instance.compare_semantic`, 0 differences required. T7
   uses exactly that, against the instance **parsed from the bound bundle's own bytes** (the bytes hashed into
   `I`), not against the solver's in-memory object.
-- **Fully bound** = R2 + R3 + O2 (`compare_semantic` with 0 differences on the parsed bundle instance). Each step
-  is reported separately.
+- **Fully bound** = R2 + R3 + T7(a) + T7(b). Each step is reported separately.
+  - T7(a) is the structure check against the consumer's graph and request: V, E, tail/head/D per edge, WAITABLE,
+    FORBID, ORIGIN, START, DEP, HOR. O2 never re-derives any of these.
+  - T7(b) is O2: `compare_semantic`, 0 differences.
+  - Consumers run `verify_bound.py`: bundle plus their own graph, packet and request → both checkers with
+    `--expect`, then T7(a) and T7(b). It prints `FULLY_BOUND` only when every step passes.
 
 **R6. Canonical bytes.**
 - RFC 8785 (JCS) over a JSON value built only from integers, strings, arrays and objects. There are no floats.
@@ -101,7 +113,7 @@ Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follow
   bundle with `--expect` → `REJECT BIND_MISSING`.
 - **T5 unbound.** A valid v2 bundle without `--expect` → `ACCEPT … UNBOUND`, and the harness counts it as unbound.
 - **T6 positive.** For every case in the existing mutation suite (30 file tests + 2 extra), the v2 form with correct
-  `--expect` → the same ACCEPT/REJECT as today, plus `BOUND`.
+  `--expect` → the same ACCEPT/REJECT as today, plus `LABELS_MATCH`.
 - **T7 O2 tie.** On the frozen 20-request panel, `compare_semantic` on the instance parsed from each bound bundle →
   0 differences.
 - **T8 request-projection completeness.** For every field of every panel request, each top-level field and each
@@ -118,6 +130,10 @@ Status: rule only, revision 2.1 (Mira GO, ledgers 99-100). Implementation follow
     `A` unchanged.
 - **T10 C SHA-256.** The NIST short vectors; multi-block messages; lengths 55, 56, 63, 64 and 65 bytes; the
   one-million-`a` vector. Every committed v2 bundle's `I` is also cross-checked against Python `hashlib`.
+
+- **T11 relabel (rev 2.2).** For every panel pair sharing graph and packet: rewrite bundle X's G A W Q with Y's
+  digests (I unchanged), then run `verify_bound.py` with Y's inputs. Both checkers print `LABELS_MATCH`, by
+  design. `verify_bound` must NOT print `FULLY_BOUND`.
 
 ## Order of work
 

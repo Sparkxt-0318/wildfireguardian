@@ -8,7 +8,7 @@
  *   ACCEPT ROUTE <T>     exit 0
  *   ACCEPT NO_ROUTE <T>  exit 0   (T = H + 1)
  *   Format 2 (BINDING_RULE.md): the BIND section's I digest is recomputed over the instance bytes and must match;
- *   with --expect, G A W Q must match too and the line ends " BOUND <first 16 hex of I>"; without it, " UNBOUND".
+ *   with --expect, the G A W Q labels must match too and the line ends " LABELS_MATCH <first 16 hex of I>"; without it, " UNBOUND".
  *   A format-1 bundle given --expect is rejected (bind_missing).
  *   REJECT <reason>      exit 1   (certificate / format rejected)
  *   REJECT <reason>      exit 2   (unreadable input, usage error, resource exhaustion)
@@ -820,7 +820,7 @@ int main(int argc, char **argv)
     if (g_version == 2) {
         if (have_expect) {
             int i;
-            printf(" BOUND ");
+            printf(" LABELS_MATCH ");
             for (i = 0; i < 8; i++) printf("%02x", inst_d[i]);
         } else {
             printf(" UNBOUND");

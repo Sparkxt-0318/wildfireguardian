@@ -1,6 +1,7 @@
 {
- "rule": "BINDING_RULE.md rev 2.1",
+ "rule": "BINDING_RULE.md rev 2.2",
  "missions": 20,
+ "fully_bound": 20,
  "v1_unchanged": 20,
  "v2_bound_accept": 20,
  "generator_equals_consumer": 20,
@@ -9,6 +10,9 @@
  "t1_pairs": 10,
  "t1_ok": 10,
  "t1_same_Q": 0,
+ "t11_pairs": 10,
+ "t11_ok": 10,
+ "t11_checkers_labels_match": 10,
  "rows": [
   {
    "mission": "20220304T030000Z_FX1",
@@ -35,11 +39,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 3119 BOUND c09c98c98c941b00",
+     "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 3119 BOUND c09c98c98c941b00",
+     "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
      0
     ]
    },
@@ -49,7 +53,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 6.49
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 7.21
   },
   {
    "mission": "20220601T080000Z_FX1",
@@ -76,11 +81,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT NO_ROUTE 3601 BOUND 136d908351445370",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
      0
     ],
     "c": [
-     "ACCEPT NO_ROUTE 3601 BOUND 136d908351445370",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
      0
     ]
    },
@@ -90,7 +95,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.7
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.91
   },
   {
    "mission": "20230402T070000Z_FX1",
@@ -117,11 +123,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT NO_ROUTE 3601 BOUND 1c21b2d5b7a5c1e3",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
      0
     ],
     "c": [
-     "ACCEPT NO_ROUTE 3601 BOUND 1c21b2d5b7a5c1e3",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
      0
     ]
    },
@@ -131,7 +137,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.35
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.47
   },
   {
    "mission": "20250323T010000Z_FX2",
@@ -158,11 +165,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 2540 BOUND 987a3dd4b4f5a3bf",
+     "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 2540 BOUND 987a3dd4b4f5a3bf",
+     "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
      0
     ]
    },
@@ -172,7 +179,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 12.09
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 15.86
   },
   {
    "mission": "20250325T190000Z_FX2",
@@ -199,11 +207,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 2512 BOUND 1c195e4171e39fc6",
+     "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 2512 BOUND 1c195e4171e39fc6",
+     "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
      0
     ]
    },
@@ -213,7 +221,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 37.75
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 49.2
   },
   {
    "mission": "20220304T060000Z_FL1",
@@ -240,11 +249,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 2067 BOUND 3924065cae22f3f3",
+     "ACCEPT ROUTE 2067 LABELS_MATCH 3924065cae22f3f3",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 2067 BOUND 3924065cae22f3f3",
+     "ACCEPT ROUTE 2067 LABELS_MATCH 3924065cae22f3f3",
      0
     ]
    },
@@ -254,7 +263,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 3.13
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 5.17
   },
   {
    "mission": "20220601T020000Z_FW1",
@@ -281,11 +291,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1270 BOUND 44bd1b5fb4d5dc8d",
+     "ACCEPT ROUTE 1270 LABELS_MATCH 44bd1b5fb4d5dc8d",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1270 BOUND 44bd1b5fb4d5dc8d",
+     "ACCEPT ROUTE 1270 LABELS_MATCH 44bd1b5fb4d5dc8d",
      0
     ]
    },
@@ -295,7 +305,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.6
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.78
   },
   {
    "mission": "20230402T140000Z_FW2",
@@ -322,11 +333,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1459 BOUND a1acf09eac2f19e0",
+     "ACCEPT ROUTE 1459 LABELS_MATCH a1acf09eac2f19e0",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1459 BOUND a1acf09eac2f19e0",
+     "ACCEPT ROUTE 1459 LABELS_MATCH a1acf09eac2f19e0",
      0
     ]
    },
@@ -336,7 +347,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.44
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.63
   },
   {
    "mission": "20250324T090000Z_FL2",
@@ -363,11 +375,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 2143 BOUND f79018bb3b82c9fb",
+     "ACCEPT ROUTE 2143 LABELS_MATCH f79018bb3b82c9fb",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 2143 BOUND f79018bb3b82c9fb",
+     "ACCEPT ROUTE 2143 LABELS_MATCH f79018bb3b82c9fb",
      0
     ]
    },
@@ -377,7 +389,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 10.52
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 13.93
   },
   {
    "mission": "20250325T230000Z_FL2",
@@ -404,11 +417,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1922 BOUND f6e8fd84bbeb55d1",
+     "ACCEPT ROUTE 1922 LABELS_MATCH f6e8fd84bbeb55d1",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1922 BOUND f6e8fd84bbeb55d1",
+     "ACCEPT ROUTE 1922 LABELS_MATCH f6e8fd84bbeb55d1",
      0
     ]
    },
@@ -418,7 +431,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 26.5
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 37.38
   },
   {
    "mission": "20220304T120000Z_FW2",
@@ -445,11 +459,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1655 BOUND 3ef3e1692d6b4826",
+     "ACCEPT ROUTE 1655 LABELS_MATCH 3ef3e1692d6b4826",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1655 BOUND 3ef3e1692d6b4826",
+     "ACCEPT ROUTE 1655 LABELS_MATCH 3ef3e1692d6b4826",
      0
     ]
    },
@@ -459,7 +473,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 2.42
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 4.18
   },
   {
    "mission": "20220601T080000Z_FD1",
@@ -486,11 +501,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT NO_ROUTE 3601 BOUND 1b4026fd5f770959",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
      0
     ],
     "c": [
-     "ACCEPT NO_ROUTE 3601 BOUND 1b4026fd5f770959",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
      0
     ]
    },
@@ -500,7 +515,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.65
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.94
   },
   {
    "mission": "20230402T230000Z_FD1",
@@ -527,11 +543,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 531 BOUND 7f7efcc524a37cfc",
+     "ACCEPT ROUTE 531 LABELS_MATCH 7f7efcc524a37cfc",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 531 BOUND 7f7efcc524a37cfc",
+     "ACCEPT ROUTE 531 LABELS_MATCH 7f7efcc524a37cfc",
      0
     ]
    },
@@ -541,7 +557,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.26
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.46
   },
   {
    "mission": "20250325T170000Z_FW1",
@@ -568,11 +585,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1064 BOUND ce3efc64474b184c",
+     "ACCEPT ROUTE 1064 LABELS_MATCH ce3efc64474b184c",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1064 BOUND ce3efc64474b184c",
+     "ACCEPT ROUTE 1064 LABELS_MATCH ce3efc64474b184c",
      0
     ]
    },
@@ -582,7 +599,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 6.53
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 10.19
   },
   {
    "mission": "20250326T080000Z_FW1",
@@ -609,11 +627,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 896 BOUND ebed087a48c3e5e7",
+     "ACCEPT ROUTE 896 LABELS_MATCH ebed087a48c3e5e7",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 896 BOUND ebed087a48c3e5e7",
+     "ACCEPT ROUTE 896 LABELS_MATCH ebed087a48c3e5e7",
      0
     ]
    },
@@ -623,7 +641,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 11.85
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 20.53
   },
   {
    "mission": "20220304T030000Z_FD1",
@@ -650,11 +669,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1589 BOUND 36c1935dc559afc8",
+     "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1589 BOUND 36c1935dc559afc8",
+     "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
      0
     ]
    },
@@ -664,7 +683,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 5.68
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 6.85
   },
   {
    "mission": "20220531T100000Z_FN1",
@@ -691,11 +711,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 1142 BOUND 1b1fd2b7753275ce",
+     "ACCEPT ROUTE 1142 LABELS_MATCH 1b1fd2b7753275ce",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 1142 BOUND 1b1fd2b7753275ce",
+     "ACCEPT ROUTE 1142 LABELS_MATCH 1b1fd2b7753275ce",
      0
     ]
    },
@@ -705,7 +725,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 1.07
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 1.49
   },
   {
    "mission": "20230402T070000Z_FN1",
@@ -732,11 +753,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT NO_ROUTE 3601 BOUND 3848b22fb146eb98",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
      0
     ],
     "c": [
-     "ACCEPT NO_ROUTE 3601 BOUND 3848b22fb146eb98",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
      0
     ]
    },
@@ -746,7 +767,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 0.37
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 0.5
   },
   {
    "mission": "20250323T010000Z_FD1",
@@ -773,11 +795,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT ROUTE 2460 BOUND 8ff8c498916fc0f3",
+     "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
      0
     ],
     "c": [
-     "ACCEPT ROUTE 2460 BOUND 8ff8c498916fc0f3",
+     "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
      0
     ]
    },
@@ -787,7 +809,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 6.78
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 10.93
   },
   {
    "mission": "20250325T190000Z_FD1",
@@ -814,11 +837,11 @@
    },
    "v2": {
     "py": [
-     "ACCEPT NO_ROUTE 3601 BOUND 504925bf20713f24",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
      0
     ],
     "c": [
-     "ACCEPT NO_ROUTE 3601 BOUND 504925bf20713f24",
+     "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
      0
     ]
    },
@@ -828,7 +851,8 @@
    "t7_structure_ok": true,
    "t7_o2_diffs": 0,
    "t7_o2_ok": true,
-   "wall_s": 37.8
+   "verify_bound": "FULLY_BOUND",
+   "wall_s": 48.1
   }
  ],
  "t1": [
@@ -970,6 +994,178 @@
     "REJECT bind_Q",
     1
    ],
+   "ok": true
+  }
+ ],
+ "t11": [
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FN1",
+   "labels_of": "hongseong_2023__20230402T070000Z_FX1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 3848b22fb146eb98",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7b",
+   "detail": "2 O2 differences, first AC",
+   "ok": true
+  },
+  {
+   "bundle": "hongseong_2023__20230402T070000Z_FX1",
+   "labels_of": "hongseong_2023__20230402T070000Z_FN1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1c21b2d5b7a5c1e3",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7b",
+   "detail": "2 O2 differences, first AC",
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FD1",
+   "labels_of": "miryang_2022__20220601T080000Z_FX1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 1b4026fd5f770959",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first CLOCK",
+   "ok": true
+  },
+  {
+   "bundle": "miryang_2022__20220601T080000Z_FX1",
+   "labels_of": "miryang_2022__20220601T080000Z_FD1",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 136d908351445370",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first CLOCK",
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "labels_of": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "py": [
+    "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2460 LABELS_MATCH 8ff8c498916fc0f3",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uiseong_andong_2025__20250323T010000Z_FX2",
+   "labels_of": "uiseong_andong_2025__20250323T010000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2540 LABELS_MATCH 987a3dd4b4f5a3bf",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FD1",
+   "labels_of": "uljin_2022__20220304T030000Z_FX1",
+   "py": [
+    "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 1589 LABELS_MATCH 36c1935dc559afc8",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "uljin_2022__20220304T030000Z_FX1",
+   "labels_of": "uljin_2022__20220304T030000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 3119 LABELS_MATCH c09c98c98c941b00",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FD1",
+   "labels_of": "yeongdeok_2025__20250325T190000Z_FX2",
+   "py": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+    0
+   ],
+   "c": [
+    "ACCEPT NO_ROUTE 3601 LABELS_MATCH 504925bf20713f24",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
+   "ok": true
+  },
+  {
+   "bundle": "yeongdeok_2025__20250325T190000Z_FX2",
+   "labels_of": "yeongdeok_2025__20250325T190000Z_FD1",
+   "py": [
+    "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+    0
+   ],
+   "c": [
+    "ACCEPT ROUTE 2512 LABELS_MATCH 1c195e4171e39fc6",
+    0
+   ],
+   "checkers_labels_match": true,
+   "verify_bound": "NOT_BOUND",
+   "step": "T7a",
+   "detail": "1 structure differences, first ORIGIN",
    "ok": true
   }
  ]

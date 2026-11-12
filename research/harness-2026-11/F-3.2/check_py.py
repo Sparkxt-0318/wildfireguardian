@@ -3,7 +3,7 @@
 Standard library only; imports nothing from the solver, the generator or wfg_sipp.
 Usage: check_py.py FILE [--expect G=<hex>,A=<hex>,W=<hex>,Q=<hex>]
 Format 2 (BINDING_RULE.md): the BIND section's I digest is recomputed over the instance bytes and must match; with
---expect, G A W Q must match too and the line ends " BOUND <first 16 hex of I>"; without it " UNBOUND". A format-1
+--expect, the G A W Q labels must match too and the line ends " LABELS_MATCH <first 16 hex of I>"; without it " UNBOUND". A format-1
 bundle given --expect is rejected (BIND_MISSING).
 """
 from __future__ import annotations
@@ -307,7 +307,7 @@ def main(argv):
     if bind is None:
         print("ACCEPT %s %d" % (claim, T))
     elif bind["bound"]:
-        print("ACCEPT %s %d BOUND %s" % (claim, T, bind["I"][:16]))
+        print("ACCEPT %s %d LABELS_MATCH %s" % (claim, T, bind["I"][:16]))
     else:
         print("ACCEPT %s %d UNBOUND" % (claim, T))
     return 0
