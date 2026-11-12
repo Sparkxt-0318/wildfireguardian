@@ -217,8 +217,14 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       chunkSizeWarningLimit: 1700,
       sourcemap: false,
-      // P-PROTO: a second page (replay-only public prototype); built in the repo, not published anywhere
-      rollupOptions: { input: { main: resolve(here, 'index.html'), publicView: resolve(here, 'public-view.html') } },
+      // P-PROTO (replay-only public prototype) is built ONLY with WFG_BUILD_PUBLIC_VIEW=1, so the default static build
+      // (and the GitHub Pages deploy of Main) never ships it: publishing it is the owner's decision, not yet made.
+      rollupOptions: {
+        input: {
+          main: resolve(here, 'index.html'),
+          ...(process.env.WFG_BUILD_PUBLIC_VIEW === '1' ? { publicView: resolve(here, 'public-view.html') } : {}),
+        } as Record<string, string>,
+      },
     },
     test: {
       dir: resolve(here, '../tests/planner'),

@@ -1,5 +1,11 @@
 # P-PROTO checkpoint 1 — built in the repo only; NOT published or deployed anywhere
 
+**Not shipped by default.** The page is built only with `WFG_BUILD_PUBLIC_VIEW=1 npm run build:static`. The default
+static build — the one `.github/workflows/planner-pages.yml` deploys to GitHub Pages on a push to Main — contains no
+`public-view.html` and no public-view assets (verified: default build 0 files, flagged build 1 page; both pass
+`scripts/check_static_dist.mjs`). A merge to Main therefore does not publish it. The Vercel project documented in the
+repo serves `planner/research-map/site` only.
+
 Replay-only public prototype: `planner/public-view.html` → `planner/src/features/publicview/` (model.ts pure,
 load.ts, PublicView.tsx, tokens.ts). Built as a second page of the static build (`npm run build:static`; same CSP as
 the planner: `connect-src 'self'`; the existing static checks pass). Publishing to any URL is the user's decision and
