@@ -9,8 +9,8 @@ Input: Claude Code transcript files (*.jsonl), or directories containing them.
 - Subagent transcripts live under <session-uuid>/subagents/*.jsonl.
 - The owner collects them; see "Access" below.
 
-Output: one TSV row per session (sessionId from the records, else the file stem), with counts and the first UTC time
-for each category below. Fire names are never printed: name matching uses hash lists only.
+Output: one TSV row per session (sessionId from the records, else the file stem), with counts and the EARLIEST UTC time
+for each category below (earliest timestamp across all files, not the first in file order). Fire names are never printed: name matching uses hash lists only.
 
 Categories:
   F1..F5    tool calls whose INPUT names the file (an access attempt), and tool results that contain its path
@@ -53,9 +53,9 @@ FILES = {
     'F5': r'camera-arrival/outputs/(gofer_fires\.csv|feasibility_daily_growth\.csv)',
 }
 NIROPS = re.compile(r'NIROPS_2020_2024|\.shp\b|\.dbf\b', re.I)
-READ = re.compile(r'read_dataframe|read_info|pyogrio|fiona|ogr\.|ogrinfo|gpd\.read_file|geopandas|unzip|read_file\(', re.I)
+READ = re.compile(r'read_dataframe|read_info|pyogrio|fiona|ogr\.|ogrinfo|gpd\.read_file|geopandas|unzip|read_file\(|dbfread|shapefile\.Reader|struct\.unpack|open\([^)]*[\'"]rb[\'"]|dbf\.py|\.dbf[\'"]?\s*\)', re.I)
 FILTERED = re.compile(r"where\s*=|fids\s*=|columns\s*=\s*\[\s*['\"]Incident_C['\"]\s*\]|nirops_access", re.I)
-GOFER = re.compile(r'GOFER[^\s\'"]*\.zip|fireProg|fireLine|GOFERC_fireIg', re.I)
+GOFER = re.compile(r'(?i:GOFER[^\s\'"]*\.zip)|GOFERC_fireIg|\bfireProg\b|\bfireLine\b')   # filenames are case-sensitive: 'fireline intensity' is not a hit
 NETCMD = re.compile(r'\b(curl|wget|rsync|scp|lftp|sftp|aria2c)\b|git\s+clone|requests\.(get|post|head|Session)|urlopen'
                     r'|urllib\.request|urllib3|http\.client|httpx|aiohttp|ftplib|fsspec|/vsicurl|smart_open|boto3|gsutil'
                     r'|read_(csv|json|parquet|table|file|dataframe)\(\s*[\'"](?:https?|ftp|s3|gs)://|fetch\.py|remote_zip\.py'
@@ -132,7 +132,8 @@ def audit(paths, name_sets):
 
     def hit(sess, key, ts, n=1):
         S[sess]['counts'][key] += n
-        S[sess]['first'].setdefault(key, ts)
+        if ts and (key not in S[sess]['first'] or ts < S[sess]['first'][key]):   # earliest time, not file order
+            S[sess]['first'][key] = ts
 
     for f in iter_files(paths):
         stem = os.path.splitext(os.path.basename(f))[0]
