@@ -278,7 +278,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **What this means.** The contiguous deadline is sensitive to the placeholder burning duration: at f = 2 it moves
   for 2–10 of 84 origins per packet. Deadlines that depend on burn-out are not robust to that law.
 
-## Unknown-support three-way rule at 1 h (all 6 caches)
+## Unknown-support three-way rule at 1 h (all 6 caches; VERIFIED: Nora request #8, PASS WITH NOTES, ledger row 43)
 
 * **Files.** The summary is `results/UNKNOWN_THREEWAY_1h.json`, built by `deadline_field/threeway.py` and its
   `--summary-from` option.
@@ -306,10 +306,17 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
     (Clara), which is independent agreement. The other 8 remain unresolved in the planner.
   * Promotion to kit refusals is held pending Thomas's review of the whole-road checker. The ROUTER-only NO_ROUTE
     certificates are exported by `deadline_field/export_timeouts.py`.
+* **Verifier notes (Nora, request #8).**
+  * **Rerun.** UA 23T01 re-run (1 of 6 caches): all 1,523 per-job rows and the summary are identical.
+  * **Masks.** Her own masks from the npz equal `unknown.masks` (953 / 629 / 364), and the R8.2 start times are
+    identical for all 513 cells.
+  * **Nesting.** Over all 9,722 jobs × 5 tiers: no_route iff optimistic is infeasible, and the nesting
+    A ⊆ B8.2 ⊆ B1.5, R8.2 ⊆ R1.5, A ⊆ R8.2, B ⊆ R holds with 0 violations.
+  * **Spot check.** 3 tier-A unresolved jobs were checked: their optimistic witnesses cross 12–20 A-blocked cells.
 * **ROUTER-only columns.** These will be added next to the CERT labels (`threeway --variant router`). From now on,
   every tier and horizon reports both by default.
 
-## Issue-order-by on F-DYN v3.1 (post-processing; SCENARIO; latency settings are assumptions)
+## Issue-order-by on F-DYN v3.1 (post-processing; SCENARIO; latency settings are assumptions; VERIFIED: Nora request #9, PASS, ledger row 44)
 
 * **Files.** `results/ISSUE_ORDER_BY_FDYN_v31.json`, built by `deadline_field/fdyn_issue_by.py`.
 * **Definitions.**
@@ -427,7 +434,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Not included.** The forecast-dependent flag on F-DYN needs present-only F-DYN fields, which were not run.
   envelope_sound is withdrawn.
 
-## Rate-assumed tier: test of 8.2 km/h against the detections (rule `RATE_ASSUMED_RULE.md`, committed first at 8a16dc2)
+## Rate-assumed tier: test of 8.2 km/h against the detections (rule `RATE_ASSUMED_RULE.md`, committed first at 8a16dc2; VERIFIED: Nora request #10, PASS WITH NOTES, ledger row 45)
 
 * **Tier label.** "rate-assumed, 8.2 km/h (reported orally, method unpublished; documented 12-h mean ≈4.25 km/h incl.
   spotting)". Never "bounded".
