@@ -1,0 +1,173 @@
+{
+ "seed": 20261112,
+ "per_class": 10,
+ "summary": {
+  "CONTROL_unmutated|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "NO_ROUTE": 5,
+    "ROUTE": 15
+   }
+  },
+  "CONTROL_unmutated|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "NO_ROUTE": 5,
+    "ROUTE": 15
+   }
+  },
+  "M1_delete_reachable_point|py": {
+   "runs": 200,
+   "ok": 200,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 199,
+    "C3_WAIT_CLOSURE": 1
+   }
+  },
+  "M1_delete_reachable_point|c": {
+   "runs": 200,
+   "ok": 200,
+   "reasons": {
+    "c2_edge_closure": 200
+   }
+  },
+  "M2_delete_admitted_point|py": {
+   "runs": 200,
+   "ok": 200,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 200
+   }
+  },
+  "M2_delete_admitted_point|c": {
+   "runs": 200,
+   "ok": 200,
+   "reasons": {
+    "c2_edge_closure": 200
+   }
+  },
+  "M3_inject_goal|py": {
+   "runs": 29,
+   "ok": 29,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 29
+   }
+  },
+  "M3_inject_goal|c": {
+   "runs": 29,
+   "ok": 29,
+   "reasons": {
+    "c2_edge_closure": 29
+   }
+  },
+  "M4_no_route_threshold_H|py": {
+   "runs": 5,
+   "ok": 5,
+   "reasons": {
+    "THRESHOLD_MISMATCH": 5
+   }
+  },
+  "M4_no_route_threshold_H|c": {
+   "runs": 5,
+   "ok": 5,
+   "reasons": {
+    "cert_threshold_mismatch": 5
+   }
+  },
+  "M7_trailing_token|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "TRAILING": 20
+   }
+  },
+  "M7_trailing_token|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "trailing_tokens": 20
+   }
+  },
+  "M7_truncated|py": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "EOF": 20
+   }
+  },
+  "M7_truncated|c": {
+   "runs": 20,
+   "ok": 20,
+   "reasons": {
+    "unexpected_eof": 20
+   }
+  },
+  "M4_shift_threshold|py": {
+   "runs": 30,
+   "ok": 30,
+   "reasons": {
+    "W_GOAL": 30
+   }
+  },
+  "M4_shift_threshold|c": {
+   "runs": 30,
+   "ok": 30,
+   "reasons": {
+    "witness_arrival_not_T": 15,
+    "c2_edge_closure": 15
+   }
+  },
+  "M4_route_to_no_route|py": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "C2_EDGE_CLOSURE": 15
+   }
+  },
+  "M4_route_to_no_route|c": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "c2_edge_closure": 15
+   }
+  },
+  "M5_witness_edit|py": {
+   "runs": 141,
+   "ok": 141,
+   "reasons": {
+    "W_EDGE_LEGALITY": 36,
+    "W_EDGE_TIME": 34,
+    "W_CONTIGUITY": 33,
+    "W_WAIT_LEGALITY": 34,
+    "W_WAIT_TIME": 4
+   }
+  },
+  "M5_witness_edit|c": {
+   "runs": 141,
+   "ok": 141,
+   "reasons": {
+    "witness_edge_not_incident": 26,
+    "witness_duration": 38,
+    "witness_not_contiguous": 33,
+    "witness_wait_wrong_node": 34,
+    "witness_forbidden_turn": 10
+   }
+  },
+  "M5_witness_drop_last|py": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "W_GOAL": 15
+   }
+  },
+  "M5_witness_drop_last|c": {
+   "runs": 15,
+   "ok": 15,
+   "reasons": {
+    "witness_arrival_not_T": 15
+   }
+  }
+ },
+ "failures": []
+}
