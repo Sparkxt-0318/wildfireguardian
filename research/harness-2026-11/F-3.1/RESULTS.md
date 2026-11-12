@@ -496,3 +496,20 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * B16.4 (Iris) follows when its runs finish.
 * **One-hour tool only.** At 8.2 km/h a rate bound reaches 41 km in 5 h. These tiers are not extended to 5 h or 8 h
   (MULTIHOUR_HEADLINE_RULE §4).
+
+## ROUTER-only field on Priya's 12 F-DYN kit requests (VERIFIED: Nora request #11, PASS, ledger row 50)
+
+* **Files.** `results/FDYN_KIT_REQUESTS_router_field.json` (ac80919), built by `deadline_field/kit_requests.py`.
+* **Inputs.** 5 h, v3.1 packets rebuilt from MANIFEST_v3_1. The HAZARD sha differs between hosts only by an embedded
+  absolute module path (fixed in v3.5); the content-hash scenario ids match.
+* **Counts.** 0 NO_ROUTE, 2 AT_ISSUE, 10 FEASIBLE.
+  * Every feasible witness passes the unchanged checker and the closed replay.
+  * That includes the 4 Uiseong requests the kit never resolved (arrivals 372 s and 52 s).
+* **Nora's independent checks.**
+  * The kit's ffi_independent_checker calls 8 witnesses INDEPENDENTLY_CERTIFIED_OPTIMAL and CLEAR.
+  * …166 is valid and CLEAR but NOT_OPTIMAL: the greedy witness is feasible, not earliest (4,356 s vs the kit's
+    3,953 s).
+  * The 2 at-issue requests are RELAXATION_INFEASIBLE, with the origin's cell in flame in bin [0, 300).
+* **Consequence (orchestrator).** The kit-checker dominance review is dropped: no unresolved multi-hour request is a
+  hidden refusal.
+* **Labels.** SCENARIO; road-limited graph (graphs_interim); assumes no fire outside mapped or forecast cells.
