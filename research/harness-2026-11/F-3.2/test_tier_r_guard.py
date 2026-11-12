@@ -67,6 +67,21 @@ class Coverage(unittest.TestCase):
             self.assertFalse(TR.firms_coverage([Path(t) / "a", Path(t) / "b"], KFS_02)["covered"])
 
 
+class Spatial(unittest.TestCase):
+    def test_a_file_for_another_area_is_not_coverage(self):
+        # Mira W5 N1: a US-only file spanning the window must not cover a Korean event
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t); d.mkdir(exist_ok=True)
+            with open(d / "us.csv", "w", newline="") as fh:
+                w = csv.DictWriter(fh, fieldnames=["latitude", "longitude", "acq_date"]); w.writeheader()
+                for x in ("2022-03-01", "2022-03-20"):
+                    w.writerow({"latitude": "40.0", "longitude": "-120.0", "acq_date": x})
+            self.assertFalse(TR.firms_coverage([t], KFS_02)["covered"])
+            with open(d / "us.csv", "a", newline="") as fh:
+                csv.writer(fh).writerow(["37.0", "129.3", "2022-03-10"])   # one detection in Korea
+            self.assertTrue(TR.firms_coverage([t], KFS_02)["covered"])
+
+
 class Labels(unittest.TestCase):
     def test_tier_r_without_coverage_is_never_checked_or_unresolved(self):
         for tier in ("R1.5", "R8.2"):

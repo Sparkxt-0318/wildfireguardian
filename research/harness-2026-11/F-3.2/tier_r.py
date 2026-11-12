@@ -119,21 +119,31 @@ def extras(model, graph, cells_block_all, cells_ignite, s0, H, v):
     return out
 
 
-def firms_coverage(firms_dirs, days):
-    """Does the supplied FIRMS data cover the event window? True only if ONE file's acq_date span (any location)
-    reaches from on-or-before the window's first day to on-or-after its last. Each FIRMS export is one contiguous
-    period, so a single file spanning the window is evidence that a missing detection means no detection. Neither an
-    empty file, nor one that ends before or starts after the window, nor a gap between two files counts: an empty
-    FIRMS mask would then claim "no detections" where there is only missing data (the first Tier R run did exactly this
-    for 2022/23)."""
+# Republic of Korea, generous lat/lon box (mainland, Jeju, Ulleungdo): a FIRMS file must have detections here to count
+KOREA_BBOX = (33.0, 39.0, 124.5, 131.0)
+
+
+def firms_coverage(firms_dirs, days, bbox=KOREA_BBOX):
+    """Does the supplied FIRMS data cover the event window, here? True only if ONE file (a) has an acq_date span that
+    contains the event window and (b) has at least one detection inside `bbox` (any date). Each FIRMS export is one
+    contiguous period for one area, so such a file is evidence that a missing detection means no detection. Neither an
+    empty file, one that ends before or starts after the window, a gap between two files, nor a file for another area
+    (Mira W5 N1) counts: an empty FIRMS mask would then claim "no detections" where there is only missing data (the first
+    Tier R run did exactly this for 2022/23). The span is that of the detections, not the export's nominal period, so a
+    file whose first or last detection falls inside the window does not count even if the export covered it
+    (conservative: the event is then refused, never mislabelled)."""
+    la0, la1, lo0, lo1 = bbox
     spans = []
     for d in firms_dirs:
         for p in sorted(Path(d).glob("*.csv")):
             with open(p, newline="") as fh:
-                dates = [row["acq_date"] for row in csv.DictReader(fh) if row.get("acq_date")]
-            if dates:
-                spans.append((p.name, min(dates), max(dates)))
-    hit = [n for n, f, l in spans if f <= days[0] and l >= days[1]]
+                rows = [row for row in csv.DictReader(fh) if row.get("acq_date")]
+            if not rows:
+                continue
+            here = sum(1 for row in rows if la0 <= float(row["latitude"]) <= la1 and lo0 <= float(row["longitude"]) <= lo1)
+            dates = [row["acq_date"] for row in rows]
+            spans.append((p.name, min(dates), max(dates), here))
+    hit = [n for n, f, l, here in spans if f <= days[0] and l >= days[1] and here > 0]
     return dict(covered=bool(hit), files_spanning=hit, files_read=len(spans))
 
 
@@ -165,21 +175,26 @@ def main():
         u_state, u_q, cur, pos = native_masks(case["packet"])
         key = case["region"] + "/" + case["mission"].split("_")[0]
         toa = dict(x.split("=", 1) for x in a.toa)
-        cov = firms_coverage(a.firms_dir, EVENT_DAYS[event]) if event in EVENT_DAYS else dict(covered=False, first=None, last=None, rows=0)
-        if event in EVENT_DAYS and event in toa and cov["covered"]:
+        cov = (firms_coverage(a.firms_dir, EVENT_DAYS[event]) if event in EVENT_DAYS
+               else dict(covered=False, files_spanning=[], files_read=0))
+        # step (a), the footprint share, needs the arrival raster only (reported, never used in a label)
+        if event in toa:
             info = footprint_share(case["packet"], toa[event])
-            hit, ndet = np.zeros_like(u_state), 0
+            info["a_available"] = True
+        else:
+            info = dict(U_state=int(u_state.sum()), positive_prob=int(pos.sum()),
+                        positive_prob_in_U_state=int((pos & u_state).sum()), a_available=False)
+        # step (b), FIRMS-detected U_state cells, needs FIRMS coverage only; Tier R labels depend on it (tier_label)
+        hit = np.zeros_like(u_state)
+        if cov["covered"]:
+            ndet = 0
             for fd in a.firms_dir:
                 h1, n1 = firms_cells(case["packet"], fd, EVENT_DAYS[event])
                 hit |= h1; ndet += n1
-            info.update(event=event, firms_detections_in_grid=ndet, firms_cells=int(hit.sum()),
-                        U_state_with_firms=int((hit & u_state).sum()), b_available=True)
+            info.update(firms_detections_in_grid=ndet, firms_cells=int(hit.sum()), U_state_with_firms=int((hit & u_state).sum()))
         else:
-            hit = np.zeros_like(u_state)
-            info = dict(event=event, U_state=int(u_state.sum()), positive_prob=int(pos.sum()),
-                        positive_prob_in_U_state=int((pos & u_state).sum()), b_available=False,
-                        note="no arrival raster or FIRMS coverage for this event here: (a)/(b) not computed")
-        info["firms_coverage"] = cov
+            info["note"] = "no FIRMS coverage for this event: (b) not computed; Tier R not labelled"
+        info.update(event=event, b_available=cov["covered"], firms_coverage=cov)
         packets[key] = info
         H = int(F(r["horizon"]))
         unknown = u_state | u_q
@@ -197,7 +212,7 @@ def main():
             inst, _ = build_instance(g, r, U.Augmented(model, ex))
             res = U.certify_and_check(inst, out / ("%s__%s.wfgc" % (case["mission"], tier)), a.c_checker)
             res["extra_cells"] = len(ex)
-            label = tier_label(tier, res["claim"], res["accepted"], opt_no_route, info["b_available"])
+            label = tier_label(tier, res["claim"], res["accepted"], opt_no_route, cov["covered"])
             cause = None
             if label == "unresolved":
                 causes = []
