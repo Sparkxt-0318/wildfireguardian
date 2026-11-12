@@ -294,6 +294,13 @@ independent scalar-law checker **does not apply and was not run** on them. Never
   - Only the member id and identity digests differ, because the settings now carry the quantization version.
 - **Manifest.** `MANIFEST_v3_1.json` (wfg.fdyn.manifest/2) supersedes `MANIFEST_v3.json` (kept, listed as
   superseded). Packets go to `_data/packets_v31/`.
+- **Nora: PASS** (ledger row 26), on the delta from her v3 PASS:
+  - The commit order holds and 19/19 tests pass.
+  - Her diff is byte-identical to `DIFF_v3_v31.json`.
+  - On Uiseong 24T02Z h5 firms_early, v3.1 equals the exact-rational schedule on all 170 timestamp-exact cells.
+  - Exact end containment holds, with T = 3,970.4642815249267 s: 0 violations in 228 cells.
+  - **Correction to her v3 verdict** (row 27): her v3 end-containment check used a mistyped T, 0.18 ms short. Under v3,
+    boundary-cell ends could miss by up to about 0.18 ms. v3.1 fixes this.
 - **Acceptance: PASS** (Thomas, fire-next @45a8975, `results/envelope_o2_v31_{a,b,c}.json`; Mira still to verify).
   Thomas derived the schedules from the rule text only and built the packets at f40e2af. Integer equality held with
   0 mismatches:
