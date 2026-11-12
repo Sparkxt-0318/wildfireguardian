@@ -242,6 +242,24 @@ then `python real_bracket_fit.py --brackets B --hours 240 --workers 4` (2,071 s)
   * Reading (*hypothesis*): front speed depends on how rate is distributed across offsets, so matching burned-area
     counts with a misallocated shape over-corrects the total. Rate and shape are not separable this way.
   * MCEM stays the `d2_bracket` reference. A cheaper exact alternative would need a joint (shape + scale) fit.
+* **Missed detections** (Iris's arm).
+  * Run: `python run_missed.py --replicates 4` (`results/missed.md`). Overpasses come every 12 h, and each overpass
+    after arrival misses with probability q. A cell never detected by T looks unburned. Fits are MCEM.
+  * Total rate ratio, hard lower bound vs left-open `(0, t_detect]`:
+
+    | q | Hard | Left-open | Never-detected cells |
+    |---:|---:|---:|---:|
+    | 0 | 1.046 | 0.900 | 0 |
+    | 0.2 | 0.839 | 0.668 | 76 |
+    | 0.4 | 0.622 | 0.460 | 189 |
+
+  * Held-out NLL is worse for left-open at every q.
+  * Reading (*hypothesis*): missed detections bias the rate **down**, as Iris expected. But the bias comes mainly from
+    the late upper bound (detection after arrival) and from never-detected cells counted as unburned, not from the
+    lower bound. Opening the lower bound discards information and makes things worse.
+  * Active-fire brackets therefore need an explicit detection-probability model: P(detect | burning at overpass) < 1
+    for both the first-detection time and the never-detected cells. Left-opening alone is not enough. NIROPS mapped
+    extents are less affected, but a lagging perimeter acts the same way.
 * **Shared fire-day frailty** (Sofia): a random rate multiplier per fire-day, possibly a gamma with closed-form
   integration, to absorb run days. It is not yet tested.
 * **Refit arms:** a full-rectangle label-validity arm (same loss as today) runs separately from the likelihood change
