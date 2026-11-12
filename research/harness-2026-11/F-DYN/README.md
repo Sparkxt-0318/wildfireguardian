@@ -294,7 +294,15 @@ independent scalar-law checker **does not apply and was not run** on them. Never
   - Only the member id and identity digests differ, because the settings now carry the quantization version.
 - **Manifest.** `MANIFEST_v3_1.json` (wfg.fdyn.manifest/2) supersedes `MANIFEST_v3.json` (kept, listed as
   superseded). Packets go to `_data/packets_v31/`.
-- **Acceptance.** Thomas's independent derivation must give integer equality on the boundary sample. Pending.
+- **Acceptance: PASS** (Thomas, fire-next @45a8975, `results/envelope_o2_v31_{a,b,c}.json`; Mira still to verify).
+  Thomas derived the schedules from the rule text only and built the packets at f40e2af. Integer equality held with
+  0 mismatches:
+
+  | Sample | Active cells | Boundary cells (birth / end) | Integer instances |
+  |---|---:|---:|---:|
+  | Uiseong 24T02Z h5 envelope | 275 | 102 / 17 | 10/10 |
+  | Uiseong 24T02Z h5 firms_early (scalar law) | 247 | 102 / — | 10/10 |
+  | Yeongdeok 25T11Z h5 envelope | 1,752 | 482 / 309 | 10/10 |
 
 ## Final scoring set (orchestrator, 2026-11-12)
 
