@@ -1,0 +1,1402 @@
+[
+ {
+  "run": "hongseong_2023__20230402T070000Z_FN1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "hongseong_2023__20230402T070000Z_FX1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "hongseong_2023__20230402T140000Z_FW2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1459",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1459,
+  "relax_instance_sha256": "a1acf09eac2f19e062a7c29474f2dc95f29e3e99040c91f24b71cf7dffb2cde7",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "hongseong_2023__20230402T230000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "531",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 4,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 531,
+  "relax_instance_sha256": "7f7efcc524a37cfc6d49932eda2cc2d6f5096c0037d900d6c00ce6473232f3af",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220531T100000Z_FN1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1142",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 3,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1142,
+  "relax_instance_sha256": "1b1fd2b7753275ce8641c577b3a4d48ca71f3ef2ffdd202f2e04ae419662725c",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220601T020000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1270",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 2,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1270,
+  "relax_instance_sha256": "44bd1b5fb4d5dc8d0a564f044c3d19021468e3e88bde2d349f36b60b82d8ae5b",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220601T080000Z_FD1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 5,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "miryang_2022__20220601T080000Z_FX1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 5,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "uiseong_andong_2025__20250323T010000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2460",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 43,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2460,
+  "relax_instance_sha256": "8ff8c498916fc0f370cd6bc1cad4ceda72bc0d9c691cc7e951225c925c3aecb5",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250323T010000Z_FX2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2540",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 43,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2540,
+  "relax_instance_sha256": "987a3dd4b4f5a3bf2d4f15264569b2b54a50985785515315bfe497bd7b5b327c",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250324T090000Z_FL2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2143",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 31,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2143,
+  "relax_instance_sha256": "f79018bb3b82c9fbd9dbcf77cea6447d05012ec7fbc70e56eee3c650ef4d3ba4",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250325T170000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1064",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 483,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1064,
+  "relax_instance_sha256": "ce3efc64474b184c58a3de21c7fe6bb7c156f73a5bd82f0a038dd57a44e39802",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T030000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1589",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 1,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1589,
+  "relax_instance_sha256": "36c1935dc559afc87ac3fa1102b127645ce9b1654ae998a61880976c300d39be",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T030000Z_FX1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "3119",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 1,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 3119,
+  "relax_instance_sha256": "c09c98c98c941b00ab1d4b46d46df0d29e729f321016266101d3b7600f689deb",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T060000Z_FL1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2067",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 31,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2067,
+  "relax_instance_sha256": "3924065cae22f3f33c0a4d07b8cd1ec500b0f6df2b2f1329248d75cbf1eb4448",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T120000Z_FW2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1655",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 22,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1655,
+  "relax_instance_sha256": "3ef3e1692d6b48267ba56d75da16b6a3ae2bbc84454ab7c008ec4b04f3c590b1",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T190000Z_FD1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 247,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "504925bf20713f2408d5c40a43aa878dfa7dfd261b39602cfa09d335eac3bc1e",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T190000Z_FX2",
+  "status": "UNRESOLVED",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 247,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2512,
+  "relax_instance_sha256": "1c195e4171e39fc6ec33bd3ec2c2fbf247b85aca90fb9a1a7518c5d0424e7cc2",
+  "relax_checkers_accept": true,
+  "verdict": "NOT_APPLICABLE_STATUS",
+  "note": "status UNRESOLVED makes no route or refusal claim"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T230000Z_FL2",
+  "status": "CHECKED_JOURNEY_FEASIBLE",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1922",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 49,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1922,
+  "relax_instance_sha256": "f6e8fd84bbeb55d11c0336552553d82521977bb52b799d82528a6caae5f4eba4",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "yeongdeok_2025__20250326T080000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "896",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 12,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 896,
+  "relax_instance_sha256": "ebed087a48c3e5e74314c40dd3a9a0b764d94d0a8caad005fc11224fa0d49bb7",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "hongseong_2023__20230402T070000Z_FN1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "3848b22fb146eb9830ed0171e6ebf758e64d67397401bb53bf94980a6f0c9807",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "hongseong_2023__20230402T070000Z_FX1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "1c21b2d5b7a5c1e3206d1c87932f6e5c76ce47c7a3215af3f40b5e30b2d67491",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "hongseong_2023__20230402T140000Z_FW2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1459",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 6,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1459,
+  "relax_instance_sha256": "a1acf09eac2f19e062a7c29474f2dc95f29e3e99040c91f24b71cf7dffb2cde7",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "hongseong_2023__20230402T230000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "531",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 4,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 531,
+  "relax_instance_sha256": "7f7efcc524a37cfc6d49932eda2cc2d6f5096c0037d900d6c00ce6473232f3af",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220531T100000Z_FN1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1142",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 3,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1142,
+  "relax_instance_sha256": "1b1fd2b7753275ce8641c577b3a4d48ca71f3ef2ffdd202f2e04ae419662725c",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220601T020000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1270",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 2,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1270,
+  "relax_instance_sha256": "44bd1b5fb4d5dc8d0a564f044c3d19021468e3e88bde2d349f36b60b82d8ae5b",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "miryang_2022__20220601T080000Z_FD1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 5,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "1b4026fd5f770959885621ea9143c70fa966d926c02fe673603373d22f139273",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "miryang_2022__20220601T080000Z_FX1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 5,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "136d908351445370e7f2ad6e0479a123f4d05af41692b4bb7256f2433be96b50",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "uiseong_andong_2025__20250323T010000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2460",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 43,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2460,
+  "relax_instance_sha256": "8ff8c498916fc0f370cd6bc1cad4ceda72bc0d9c691cc7e951225c925c3aecb5",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250323T010000Z_FX2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2540",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 43,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2540,
+  "relax_instance_sha256": "987a3dd4b4f5a3bf2d4f15264569b2b54a50985785515315bfe497bd7b5b327c",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250324T090000Z_FL2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2143",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 31,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2143,
+  "relax_instance_sha256": "f79018bb3b82c9fbd9dbcf77cea6447d05012ec7fbc70e56eee3c650ef4d3ba4",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uiseong_andong_2025__20250325T170000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1064",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 483,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1064,
+  "relax_instance_sha256": "ce3efc64474b184c58a3de21c7fe6bb7c156f73a5bd82f0a038dd57a44e39802",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T030000Z_FD1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1589",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 1,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1589,
+  "relax_instance_sha256": "36c1935dc559afc87ac3fa1102b127645ce9b1654ae998a61880976c300d39be",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T030000Z_FX1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "3119",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 1,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 3119,
+  "relax_instance_sha256": "c09c98c98c941b00ab1d4b46d46df0d29e729f321016266101d3b7600f689deb",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T060000Z_FL1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "2067",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 31,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2067,
+  "relax_instance_sha256": "3924065cae22f3f33c0a4d07b8cd1ec500b0f6df2b2f1329248d75cbf1eb4448",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "uljin_2022__20220304T120000Z_FW2",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1655",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 22,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1655,
+  "relax_instance_sha256": "3ef3e1692d6b48267ba56d75da16b6a3ae2bbc84454ab7c008ec4b04f3c590b1",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T190000Z_FD1",
+  "status": "FULL_MODEL_REFUSAL_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 247,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "NO_ROUTE",
+  "relax_T": 3601,
+  "relax_instance_sha256": "504925bf20713f2408d5c40a43aa878dfa7dfd261b39602cfa09d335eac3bc1e",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "refusal consistent with relaxation NO_ROUTE"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T190000Z_FX2",
+  "status": "UNRESOLVED",
+  "decision_source": "decision/journey_decision.py",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": null,
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 247,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 2512,
+  "relax_instance_sha256": "1c195e4171e39fc6ec33bd3ec2c2fbf247b85aca90fb9a1a7518c5d0424e7cc2",
+  "relax_checkers_accept": true,
+  "verdict": "NOT_APPLICABLE_STATUS",
+  "note": "status UNRESOLVED makes no route or refusal claim"
+ },
+ {
+  "run": "yeongdeok_2025__20250325T230000Z_FL2",
+  "status": "CHECKED_JOURNEY_FEASIBLE",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "1922",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 49,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 1922,
+  "relax_instance_sha256": "f6e8fd84bbeb55d11c0336552553d82521977bb52b799d82528a6caae5f4eba4",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ },
+ {
+  "run": "yeongdeok_2025__20250326T080000Z_FW1",
+  "status": "CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN",
+  "decision_source": "RESULT.decision",
+  "kit_identity": {
+   "candidate_id": "WFG-request-window-routing-v2-20261112",
+   "overlay_sha256": {
+    "stack-v2/decision/journey_decision.py": "1833565bae31aa63d5fafc5b2643c3eb63b615cdfa1df90984a9468dba854819",
+    "stack-v2/decision/journey_decision_v2_1.py": "da27c459e9f6cf3dce384ea9ea0d86361c68091ed68dea5ba522f969946f36d7",
+    "stack-v2/phaseB/rda_worker_v1_1.py": "66e0527b8fb1e84ff30fea201a24f9860c21030c97e8028b7eb329d44684a484",
+    "stack-v2/phaseB/road_core.py": "3b93cb385e478426313fd8f6b9d133acc40e0d147e756656a6d67336d18006ea",
+    "stack-v2/phaseB/zsweep.py": "8531acdf969c790aeed824f9850ac9404936622763b11e5375e19581ab815153"
+   },
+   "parent_candidate_id": "WFG-request-window-routing-20261029",
+   "parent_manifest_sha256": "b6770404eff990962a169e22e73cbc5a0647e4fc5f4fdd981f91ccb765d97f39",
+   "status": "v2 development kit - NOT the frozen kit"
+  },
+  "arrival": "896",
+  "writer": {
+   "packet_writer_sha256": "6b922418b50ae761bcfcdff372fe08346730eca121630a20454f4cd05c4fc5bb"
+  },
+  "packet_gate": {
+   "only_hazard": 0,
+   "only_contact": 0,
+   "identical": 12,
+   "end_within_1us": 0,
+   "other": 0
+  },
+  "relax_claim": "ROUTE",
+  "relax_T": 896,
+  "relax_instance_sha256": "ebed087a48c3e5e74314c40dd3a9a0b764d94d0a8caad005fc11224fa0d49bb7",
+  "relax_checkers_accept": true,
+  "verdict": "PASS",
+  "note": "attains the relaxation optimum"
+ }
+]
