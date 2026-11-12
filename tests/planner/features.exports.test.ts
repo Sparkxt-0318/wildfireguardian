@@ -374,9 +374,10 @@ describe('dispatchListCSV', () => {
       '시나리오 입력 시각',
       'API 모드',
       '비고',
+      '마감 근거 (모델 · 1시간 재현)',
     ]);
     expect(rows.length).toBe(1 + 5);
-    for (const r of rows) expect(r.length).toBe(12);
+    for (const r of rows) expect(r.length).toBe(13);
   });
 
   it('quotes per RFC 4180 and round-trips names with commas, quotes and newlines', () => {

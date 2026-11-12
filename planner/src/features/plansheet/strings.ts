@@ -77,6 +77,7 @@ export const SHEET = {
     en: '{tag}: the first departure time computed has no checked route, so there is no deadline. Prepare a separate alternative plan.',
   },
   altNoneWord: { ko: '없음', en: 'none' },
+  provenancePrefix: { ko: '근거', en: 'set by' },
   basisTitle: { ko: '근거와 한계', en: 'Basis and limitations' },
   pCheckpoint: { ko: '예측 체크포인트', en: 'Forecast checkpoint' },
   pPackage: { ko: '경로 패키지 · 키트', en: 'Routing package · kit' },
