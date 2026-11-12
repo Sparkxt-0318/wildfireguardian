@@ -134,6 +134,49 @@ Agency and contact are supplied inputs, validated by `validIssuer`: one line; Ko
 and hyphens, 3–12 digits, not 110/112/119. Anything else counts as not supplied, and nothing is invented or defaulted
 (test). Without an issuer, every output is as before (the existing W-KIT tests pass unchanged). Comprehension is untested.
 
+## W6 follow-up — owner decision on shelter names in English, agency-name guard (UNVERIFIED)
+- **Owner decision (via the orchestrator):** where a shelter has no English name, English messages show its Korean
+  (Hangul) name, with everything else in English. Never romanised. Applies to the shelter-name field only. Agency names,
+  place names and all other English text keep the no-Hangul rule. A new check withholds any English resident output
+  with Hangul anywhere other than the plan's own shelter name (test with a planted name).
+  - Village-head script and family call script (read by a person): the Korean name is shown. Shown in 373 English
+    family scripts over the 531 real places.
+  - English automated voice call: the Korean name is NOT read, because a TTS voice cannot be relied on to pronounce
+    Hangul. Its behaviour is unchanged, and the shelter field is reported missing there. How to handle it is open with
+    Iris: (a) keep the name with a staff note, (b) leave it out, or (c) leave it to the TTS engine.
+  - Family text (SMS): unchanged. It never names a destination, so no SMS gains Hangul. Segment counting is now done in
+    the encoding the text needs (`smsSegments`): GSM-7 160/153, or UCS-2 70/67 as soon as one Hangul character
+    appears. Measured: all 531 English family texts are GSM-7 in 1 segment, so **0 messages change segment count**.
+  - Metric (complete AND not withheld; overall · applicable), English, synthetic issuer:
+
+    | output | before | after |
+    |---|---|---|
+    | head | 64/531 · 64/501 | **431/531 · 431/501** |
+    | family script | 64 · 64 | **431 · 431** |
+    | voice | 64 · 64 | 64 · 64 (pending Iris) |
+    | family text | 0 · 0 | 0 · 0 |
+
+    Korean is unchanged (299 / 299 / 0 / 440). Withheld: 0. Missing-field reasons with the issuer: not applicable 240,
+    not supplied 824 (was 2,316), does not fit 2,088 (was 1,342). Shelter names that were "not supplied" in English now
+    exist and are subject to the length budgets.
+- **Agency-name guard (Mira N2).** Whole contact lines are masked before the kit's scans, so the name itself is now
+  checked at input (`agencyLike`). Refused: a clock time, a departure instruction, a sentence ending, or a kit-forbidden
+  word outside a standard agency compound (재난안전, 안전총괄, 119구조, 구조대, …; en "safety", "rescue"). The name must end
+  in an agency suffix (과/실/청/본부/센터/단/군/시/구/읍/면/동/…; Division/Office/County/Unit/…). Mira's probe "지금
+  출발하십시오 18:30 안전합니다" is refused (test).
+- **Channel, limit and unit of each W-KIT message (Iris), before any count:**
+
+  | output | channel | limit | unit | source |
+  |---|---|---|---|---|
+  | head | village broadcast read aloud by the 이장 | core ≤ 20 s, opener+core+closer ≤ 35 s, contact line ≤ 10 s | spoken seconds at the kit's assumed rate | W-KIT DESIGN; the 10 s budget is pending Iris (Mira N1) |
+  | voice | automated voice call (ARS) | none in the kit | — | W-KIT DESIGN |
+  | family text | personal SMS sent by a family member: not a 재난문자, not cell broadcast | ko ≤ 90 bytes EUC-KR; en ≤ 160 GSM-7 (1 segment) | bytes / septets | kit rule (LASTMILE §4) |
+  | family script | phone call by a person | none | — | W-KIT DESIGN |
+
+  The 90 / 157-character classes (행안부예규 361) apply only to an official 재난문자 by cell broadcast. W5 already
+  asserts that every kit SMS also fits 90 characters and its own class. None of these outputs is a 재난문자.
+- Suite 23 files / 411 tests; build:static OK.
+
 ## Pending
 English native review; UI/CSV wiring; F-3.1 values once Richard's run is verified; the unknown-support rule (a time
 appears only for a result checked on the pessimistic instance) is not yet in planner data.

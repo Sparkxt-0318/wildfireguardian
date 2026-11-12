@@ -130,17 +130,43 @@ export const HEAD_CONTACT_MAX_S = 10;
 const ONE_LINE = /^[^\r\n\t\u0000-\u001f\u007f]+$/;
 const EN_NAME = /^[A-Za-z0-9 .,'()&/-]+$/;
 
+/** Agency-name endings accepted (Mira N2): an agency name is a name, not a sentence. */
+const AGENCY_SUFFIX: Record<LmLang, RegExp> = {
+  ko: /(과|실|청|본부|센터|단|군|시|구|읍|면|동|소|국|대|팀|처|원|부|사무소|상황실)$/,
+  en: /\b(Division|Office|Center|Centre|Department|County|City|Headquarters|Team|Bureau|Unit|Agency|Service|Station|Section)$/i,
+};
+/** Standard agency-name compounds that contain a kit-forbidden word; removed before the word check of a name. */
+const AGENCY_COMPOUNDS: Record<LmLang, string[]> = {
+  ko: ['재난안전', '안전재난', '안전관리', '안전총괄', '안전정책', '시민안전', '안전건설', '안전도시', '구조구급', '119구조', '구조대'],
+  en: ['safety', 'rescue'],
+};
+
+/**
+ * A supplied agency name must look like a name (Mira N2): whole contact lines are masked before the kit's scans, so the
+ * name itself is checked here. Refused: a clock time, a departure instruction, a sentence ending, a kit-forbidden word
+ * outside a standard agency compound, or a name that does not end in an agency suffix.
+ */
+export function agencyLike(name: string, lang: LmLang): boolean {
+  if (/\d{1,2}\s*[:시]\s*\d{0,2}/.test(name) || clockTimes(name).length) return false;
+  if (DEPARTURE_INSTRUCTION.ko.test(name) || DEPARTURE_INSTRUCTION.en.test(name)) return false;
+  if (/(니다|시오|세요|요|라)\s*[.!?]?$|[.!?]\s*$/.test(name)) return false;
+  let rest = name.toLowerCase();
+  for (const c of AGENCY_COMPOUNDS[lang]) rest = rest.split(c.toLowerCase()).join(' ');
+  if (FORBIDDEN[lang].some((w) => rest.includes(w.toLowerCase()))) return false;
+  return AGENCY_SUFFIX[lang].test(name.trim());
+}
+
 /** The supplied issuer if usable, else null. Never fills in, guesses or transliterates anything. */
 export function validIssuer(raw: IssuerInput | null | undefined): Issuer | null {
   if (!raw || typeof raw !== 'object' || !raw.agency || typeof raw.agency.ko !== 'string' || typeof raw.contact !== 'string') return null;
   const ko = raw.agency.ko.trim();
   const contact = raw.contact.trim();
-  if (!ko || ko.length > AGENCY_MAX_CHARS || !ONE_LINE.test(ko)) return null;
+  if (!ko || ko.length > AGENCY_MAX_CHARS || !ONE_LINE.test(ko) || !agencyLike(ko, 'ko')) return null;
   // a contact number is digits with optional hyphens; emergency numbers are not an agency's contact line
   if (!/^[0-9]+(-[0-9]+)*$/.test(contact) || contact.replace(/-/g, '').length < 3 || contact.replace(/-/g, '').length > 12) return null;
   if (['112', '119', '110'].includes(contact.replace(/-/g, ''))) return null;
   const enRaw = typeof raw.agency.en === 'string' ? raw.agency.en.trim() : '';
-  const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 ? enRaw : null;
+  const en = enRaw && enRaw.length <= AGENCY_EN_MAX_CHARS && EN_NAME.test(enRaw) && gsm7Length(enRaw).nonGsm.length === 0 && agencyLike(enRaw, 'en') ? enRaw : null;
   return { agency: { ko, en }, contact, forDrillOrReplay: raw.forDrillOrReplay === true };
 }
 
@@ -172,8 +198,12 @@ const ASCII = /^[\x20-\x7E]+$/;
 function missingReason(p: MessagePlan, field: DecreeField, lang: LmLang, contact: ContactStatus): MissingReason {
   if (field === 'reason_timing') return p.kind === 'leave_by' && p.leaveByS !== null ? 'does_not_fit' : 'not_applicable';
   if (field === 'agency_contact') return contact === 'over_length' ? 'does_not_fit' : 'not_supplied';
-  const name = field === 'area_people' ? p.input.origin.name?.[lang] : namedDestination(p)?.[lang];
-  // English outputs never carry a non-ASCII name: such a name counts as not supplied in English
+  if (field === 'shelter') {
+    // a shelter with only a Korean name is shown in Hangul in English (owner decision), so it is supplied
+    return namedDestination(p) ? 'does_not_fit' : 'not_supplied';
+  }
+  const name = p.input.origin.name?.[lang];
+  // English outputs never carry a non-ASCII place name: such a name counts as not supplied in English
   return name && (lang === 'ko' || ASCII.test(name)) ? 'does_not_fit' : 'not_supplied';
 }
 
@@ -211,7 +241,8 @@ export function decreeFields(p: MessagePlan, text: string, lang: LmLang, issuer:
   if (v && text.includes(v)) out.push('area_people');
   const hazard = lang === 'ko' ? text.includes('산불') : /wildfire/i.test(text);
   if (hazard && p.kind === 'leave_by' && p.leaveByS !== null && DEPARTURE_INSTRUCTION[lang].test(text)) out.push('reason_timing');
-  const d = namedDestination(p)?.[lang];
+  const nd = namedDestination(p);
+  const d = nd ? (lang === 'ko' ? nd.ko : nd.en || nd.ko) : null;
   if (d && text.includes(d)) out.push('shelter');
   const a = issuer?.agency[lang];
   if (issuer && a && text.includes(a) && text.includes(issuer.contact)) out.push('agency_contact');
@@ -379,7 +410,7 @@ function framing(p: MessagePlan, lang: LmLang): { opener: string; closer: string
   return { opener: o.join('\n'), closer: OFFICIAL_FIRST.en };
 }
 
-function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
+function headCoreBlocks(p: MessagePlan, lang: LmLang, koShelterInEn = true): TaggedBlock[] {
   const v = villageName(p, lang);
   const dest = namedDestination(p);
   const facility = p.input.origin.kind === 'facility';
@@ -403,7 +434,9 @@ function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
   const b: TaggedBlock[] = [{ text: `${who} Wildfire evacuation notice${v && /^[\x20-\x7E]+$/.test(v) ? ` for ${v}` : ' for this village'}.`, short: `${who} Wildfire evacuation notice for this place.`, elements: ['source', 'location', 'hazard'] }];
   if (p.kind === 'leave_by' && p.leaveByS !== null) {
     b.push({ text: `Leave by car by ${spokenLeaveBy(p, 'en')}.`, elements: ['time', 'guidance'] });
-    if (dest && dest.en) b.push({ text: `Go toward ${dest.en}.`, elements: ['location'], optional: true });
+    // OWNER DECISION: no English name => the Korean (Hangul) shelter name, never a romanisation
+    const en = dest ? dest.en || (koShelterInEn ? dest.ko : '') : '';
+    if (en) b.push({ text: `Go toward ${en}.`, elements: ['location'], optional: true });
     b.push({ text: facility ? 'Short of cars? Tell the town office.' : 'No car? Tell the village head.', elements: ['guidance'] });
   } else if (p.kind === 'no_route') {
     b.push({ text: `Data from ${enSpokenTime(iso(p))} shows no checked road out.`, elements: ['time'] });
@@ -415,9 +448,9 @@ function headCoreBlocks(p: MessagePlan, lang: LmLang): TaggedBlock[] {
   return b;
 }
 
-export function headScript(p: MessagePlan, lang: LmLang): HeadScript {
+export function headScript(p: MessagePlan, lang: LmLang, koShelterInEn = true): HeadScript {
   const { opener, closer } = framing(p, lang);
-  const blocks = assemble(headCoreBlocks(p, lang), lang, HEAD_CORE_MAX_S);
+  const blocks = assemble(headCoreBlocks(p, lang, koShelterInEn), lang, HEAD_CORE_MAX_S);
   const core = blocks.map((b) => b.text).join('\n');
   const elements = ELEMENTS.filter((e) => blocks.some((b) => b.elements.includes(e)));
   const script = [opener, core, closer].join('\n');
@@ -439,8 +472,15 @@ export function replyCode(kind: MessagePlan['kind'], key: string): ReplyCode {
   return 'unknown';
 }
 
+/**
+ * English automated voice call: a Korean shelter name is NOT read (a TTS voice cannot be relied on to pronounce
+ * Hangul); how it should be handled is open with Iris, so the call keeps its earlier behaviour and the shelter field
+ * is reported as missing.
+ */
+export const EN_VOICE_KOREAN_SHELTER = false;
+
 function voice(p: MessagePlan, lang: LmLang): string {
-  const h = headScript(p, lang);
+  const h = headScript(p, lang, EN_VOICE_KOREAN_SHELTER);
   const leave = p.kind === 'leave_by';
   if (lang === 'ko') {
     return [
@@ -505,7 +545,7 @@ function familyScript(p: MessagePlan, lang: LmLang): [string, string, string] {
   const l1 = `[Name], this is a wildfire evacuation notice for ${v && /^[\x20-\x7E]+$/.test(v) ? v : 'your village'}. ${replay ? 'It is a replay of records, not a real emergency, ' : ''}from a computer forecast, not live.`;
   const l2 =
     p.kind === 'leave_by' && p.leaveByS !== null
-      ? `Leave by car by ${spokenLeaveBy(p, 'en')}${dest && dest.en ? `, toward ${dest.en}` : ''}.`
+      ? `Leave by car by ${spokenLeaveBy(p, 'en')}${dest ? `, toward ${dest.en || dest.ko}` : ''}.`
       : p.kind === 'no_route'
         ? `Data from ${enSpokenTime(iso(p))} shows no checked road out by car.`
         : `Data from ${enSpokenTime(iso(p))} could not check a road out.`;
@@ -726,12 +766,18 @@ export function checkChannels(p: MessagePlan, set: ChannelSet): string[] {
       if (p.input.replay && name !== 'staff' && name !== 'staff.decree' && !markerInstead && !(lang === 'ko' ? /재현/.test(s) : /replay/i.test(s))) v.push(`${id}: missing replay note`);
       // destination consistency: only the plan's own destination, and only when it may be named. The allowed name
       // and the origin's name are masked first (a destination name may be a substring of the allowed one).
-      const allowed = [set.destinationName?.[lang], p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
+      const allowed = [set.destinationName?.[lang], ...(lang === 'en' ? [set.destinationName?.ko] : []), p.input.origin.name?.[lang], ...issuerLines(iss)].filter((n): n is string => !!n).sort((a, b) => b.length - a.length);
       const rest = maskData(s, allowed);
       const dests = Object.values(p.input.destinations)
-        .flatMap((d) => (d.name ? [d.name[lang]] : []))
+        .flatMap((d) => (d.name ? (lang === 'en' ? [d.name.en, d.name.ko] : [d.name[lang]]) : []))
         .filter((n): n is string => !!n && n.length > 1);
       for (const d of new Set(dests)) if (rest.includes(d)) v.push(`${id}: names destination "${d}" the plan does not allow`);
+      // English resident outputs carry Hangul only as the plan's own shelter name (owner decision), nowhere else
+      if (lang === 'en' && !name.startsWith('staff')) {
+        const ko = set.destinationName?.ko;
+        const left = ko ? s.split(ko).join('') : s;
+        if (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/.test(left)) v.push(`${id}: Hangul outside the shelter name`);
+      }
     }
     if (t.head.coreS > HEAD_CORE_MAX_S) v.push(`${lang}.head.core: ${t.head.coreS.toFixed(1)} s > ${HEAD_CORE_MAX_S} s`);
     if (t.head.fullS > HEAD_FULL_MAX_S) v.push(`${lang}.head: ${t.head.fullS.toFixed(1)} s > ${HEAD_FULL_MAX_S} s`);

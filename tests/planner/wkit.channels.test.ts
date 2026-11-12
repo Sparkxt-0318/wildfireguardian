@@ -9,6 +9,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { hm } from '../../planner/src/features/lastmile/compose';
 import { OFFICIAL_FIRST, OFFICIAL_FIRST_SMS } from '../../planner/src/features/lastmile/strings';
+import { smsSegments } from '../../planner/src/features/lastmile/encoding';
 import { buildFieldMessages } from '../../planner/src/features/lastmile/messages';
 import { messagePlan, type MessagePlan } from '../../planner/src/features/lastmile/plan';
 import {
@@ -29,6 +30,7 @@ import {
   DECREE_FIELDS,
   RESIDENT_OUTPUTS,
   HEAD_CONTACT_MAX_S,
+  namedDestination,
   type ChannelSet,
   type Reply,
 } from '../../planner/src/features/lastmile/channels/build';
@@ -336,7 +338,8 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
 
   it('the scan still catches the same word in generated text, even when the agency name is exactly that word', () => {
     const p = real.find((x) => x.kind === 'leave_by')!;
-    for (const iss of [ISS, { agency: { ko: '안전', en: 'Safe' }, contact: '000-0000-0000', forDrillOrReplay: true }]) {
+    for (const iss of [ISS, { agency: { ko: '재난안전과', en: 'Safety Division' }, contact: '000-0000-0000', forDrillOrReplay: true }]) {
+      expect(validIssuer(iss)).not.toBeNull();
       const set = buildChannels(p, { nowIso: NOW, issuer: iss });
       expect(set.violations).toEqual([]);
       set.text.ko.voice = `${set.text.ko.voice}\n이제 안전합니다.`;
@@ -370,6 +373,7 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
 
   it('English outputs never carry Hangul: no English name => the English field is withheld, not filled; a Hangul "English" name is refused', () => {
     expect(validIssuer({ agency: { ko: '합성군', en: '합성군' }, contact: '000-0000-0000' })!.agency.en).toBeNull();
+    expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong County' }, contact: '000-0000-0000' })!.agency.en).toBe('Hapseong County');
     expect(validIssuer({ agency: { ko: '합성군', en: 'Hapseong-gun Café' }, contact: '000-0000-0000' })!.agency.en).toBeNull(); // é: not GSM-7 basic
     for (const p of real) {
       const s = buildChannels(p, { nowIso: NOW, issuer: { agency: { ko: ISS.agency.ko }, contact: ISS.contact, forDrillOrReplay: true }, draftDecreeCheck: true });
@@ -455,7 +459,9 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
     expect(withIss.withheld).toBe(0);
     expect(withIss.fmt).toEqual({
       'ko.head': '299/531 · 299/501', 'ko.voice': '299/531 · 299/501', 'ko.familyText': '0/531 · 0/501', 'ko.familyScript': '440/531 · 440/501',
-      'en.head': '64/531 · 64/501', 'en.voice': '64/531 · 64/501', 'en.familyText': '0/531 · 0/501', 'en.familyScript': '64/531 · 64/501',
+      // owner decision (Korean shelter name in English when there is no English name): en head and family script
+      // 64 -> 431; the English automated voice call does not read Hangul (open with Iris) and stays at 64
+      'en.head': '431/531 · 431/501', 'en.voice': '64/531 · 64/501', 'en.familyText': '0/531 · 0/501', 'en.familyScript': '431/531 · 431/501',
     });
     expect(DECREE_FIELDS.length).toBe(4);
   });
@@ -537,5 +543,70 @@ describe('W6: draft decree four-field report (안 제49조②, notice 2026-11-04
       expect(a.decree).toBeUndefined();
     }
     expect(HANGUL.test('Contact')).toBe(false);
+  });
+});
+
+describe('W6 follow-up: agency-name guard (Mira N2) and Korean shelter names in English (owner decision)', () => {
+  const ISS = { agency: { ko: '합성군 재난안전과', en: 'Synthetic County Disaster Safety Division' }, contact: '000-0000-0000', forDrillOrReplay: true };
+  const HANGUL = /[ᄀ-ᇿ㄰-㆏가-힣]/;
+
+  it('an agency name must be a name: clock times, departure instructions, sentences and loose forbidden words are refused', () => {
+    for (const bad of ['지금 출발하십시오 18:30 안전합니다', '합성군 18:30 재난과', '18시 합성군청', '17시까지 출발 합성군청', '안전합니다', '합성군청입니다', '합성군 안심센터', '합성군 구출과', '합성군']) {
+      // '합성군' itself ends in 군 (a county) and is accepted; everything else is refused
+      if (bad === '합성군') expect(validIssuer({ agency: { ko: bad }, contact: '000-0000-0000' })).not.toBeNull();
+      else expect(validIssuer({ agency: { ko: bad }, contact: '000-0000-0000' }), bad).toBeNull();
+    }
+    for (const bad of ['Leave now 18:30 you are safe', 'Safe Haven Office.', 'Hapseong County, depart by 6', 'We will send a bus Office']) {
+      expect(validIssuer({ agency: { ko: '합성군 재난안전과', en: bad }, contact: '000-0000-0000' })!.agency.en, bad).toBeNull();
+    }
+    for (const ok of ['합성군 재난안전과', '합성군 산림과', '합성군 119구조대', '합성읍 행정복지센터', '합성군청', '합성시 안전총괄과']) {
+      expect(validIssuer({ agency: { ko: ok }, contact: '000-0000-0000' }), ok).not.toBeNull();
+    }
+    for (const ok of ['Synthetic County Disaster Safety Division', 'Hapseong County Office', 'Synthetic Rescue Unit']) {
+      expect(validIssuer({ agency: { ko: '합성군청', en: ok }, contact: '000-0000-0000' })!.agency.en, ok).toBe(ok);
+    }
+  });
+
+  it('English outputs carry Hangul only as the plan\'s own shelter name (head and family script), never in the voice call or family text; nothing withheld', () => {
+    let koNameShown = 0;
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS, draftDecreeCheck: true });
+      expect(s.violations).toEqual([]);
+      const en = s.text.en;
+      const ko = s.destinationName?.ko;
+      for (const t of [en.head.script, en.familyScript.join('\n')]) {
+        const left = ko ? t.split(ko).join('') : t;
+        expect(left).not.toMatch(HANGUL);
+      }
+      expect(en.voice).not.toMatch(HANGUL);
+      expect(en.familyText).not.toMatch(HANGUL);
+      if (ko && !s.destinationName!.en && en.familyScript.join('\n').includes(ko)) koNameShown += 1;
+    }
+    expect(koNameShown).toBeGreaterThan(0);
+    console.log('[W6] English family scripts showing a Korean-only shelter name:', koNameShown);
+  });
+
+  it('a Korean name anywhere else in an English output is a violation (the guard is live)', () => {
+    const p = real.find((x) => x.kind === 'leave_by' && namedDestination(x))!;
+    const s = buildChannels(p, { nowIso: NOW });
+    s.text.en.familyScript = [s.text.en.familyScript[0], `${s.text.en.familyScript[1]} 마을회관`, s.text.en.familyScript[2]];
+    expect(checkChannels(p, s)).toContain('en.familyScript: Hangul outside the shelter name');
+  });
+
+  it('SMS segments are counted in the encoding the text needs (GSM-7 160/153, UCS-2 70/67); no family text changes segment count', () => {
+    expect(smsSegments('a'.repeat(160))).toEqual({ encoding: 'gsm7', units: 160, segments: 1 });
+    expect(smsSegments('a'.repeat(161))).toEqual({ encoding: 'gsm7', units: 161, segments: 2 });
+    expect(smsSegments('{'.repeat(80)).units).toBe(160);
+    expect(smsSegments(`${'a'.repeat(69)}가`)).toEqual({ encoding: 'ucs2', units: 70, segments: 1 });
+    expect(smsSegments(`${'a'.repeat(70)}가`)).toEqual({ encoding: 'ucs2', units: 71, segments: 2 });
+    expect(smsSegments('가'.repeat(135)).segments).toBe(3);
+    // the family text never names a destination, so the owner decision adds no Hangul to any SMS
+    const seg: Record<string, number> = {};
+    for (const p of real) {
+      const s = buildChannels(p, { nowIso: NOW, issuer: ISS });
+      const m = smsSegments(s.text.en.familyText);
+      seg[`${m.encoding}:${m.segments}`] = (seg[`${m.encoding}:${m.segments}`] ?? 0) + 1;
+    }
+    expect(seg).toEqual({ 'gsm7:1': 531 });
   });
 });

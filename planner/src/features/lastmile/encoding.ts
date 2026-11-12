@@ -120,6 +120,18 @@ export function gsm7Length(text: string): Gsm7Count {
   return { chars, nonGsm: [...new Set(bad)] };
 }
 
+/**
+ * SMS segments in the encoding the text actually needs: GSM-7 if every character is in the default alphabet or its
+ * extension table (160 septets in one segment, 153 per segment when concatenated), else UCS-2 (70 UTF-16 code units in
+ * one segment, 67 when concatenated). One Hangul character switches the whole message to UCS-2.
+ */
+export function smsSegments(text: string): { encoding: 'gsm7' | 'ucs2'; units: number; segments: number } {
+  const g = gsm7Length(text);
+  if (g.nonGsm.length === 0) return { encoding: 'gsm7', units: g.chars, segments: g.chars <= 160 ? 1 : Math.ceil(g.chars / 153) };
+  const u = text.length; // UTF-16 code units
+  return { encoding: 'ucs2', units: u, segments: u <= 70 ? 1 : Math.ceil(u / 67) };
+}
+
 // ---------------------------------------------------------------- spoken length
 
 const SINO = ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
