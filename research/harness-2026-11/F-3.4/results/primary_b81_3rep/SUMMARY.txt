@@ -1,0 +1,22 @@
+group                                  sum_s   share    median      max
+startup_imports                        10.23    0.8%     0.152     0.32
+input_binding                          21.83    1.7%     0.195     1.36
+per_forecast_admission_and_models     238.21   18.3%     2.101    13.55
+request_validation                      1.32    0.1%     0.005     0.15
+search                                496.79   38.1%     1.606    67.44
+route_check_contact                    32.34    2.5%     0.218     2.11
+route_check_radiation_exposure        408.51   31.3%     1.241    28.84
+publication_and_exit                   61.72    4.7%     0.735     4.29
+unattributed                           33.03    2.5%     0.189    20.24
+TOTAL complete wall                  1303.98
+coverage: {"executions_with_at_least_95pct_attributed": 59, "executions": 60, "min_attributed_share": 0.7517393593803701, "total_attributed_share": 0.9746698961807492}
+  mem graph_preparation          hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem hazard_validation          hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem request_validation         hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem bound_model                hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem search                     hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem check_contact_setup        hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem check_contact              hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem check_radiation_prep       hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem check_radiation            hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
+  mem publication                hw_end med     0.0 max     0.0 MiB | increase med    0.0 max     0.0
