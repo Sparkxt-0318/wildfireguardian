@@ -421,3 +421,10 @@ from branch `daniel/data-fetch`.
     comes from 64 simulations and is quantised to the cell size.
   - **No-GOFER subset** (b7cb892f): **PASS** (Owen). Dropping the 4 GOFER-matched (H-dev) fires, which use NIROPS brackets
     like all the others, leaves every main result in place.
+- **Persistence, lags 1–3 and detrended** (6ae6dfea, unverified). Iris's reading:
+  - The excess over the within-fire shuffle is explained by a within-fire trend. Lag 1 is +0.186 [0.023, 0.359].
+    After a linear trend is removed it is −0.036 [−0.256, 0.162].
+  - Wording: **"no evidence of a state beyond trend"**, not "no state". With about 8 intervals per fire, there is
+    little power after detrending.
+  - Fire age as a cutoff covariate is the model to test. The prequential multiplier test is dropped. One-step
+    sizing on fold kernels stays, parked until the CV is done.
