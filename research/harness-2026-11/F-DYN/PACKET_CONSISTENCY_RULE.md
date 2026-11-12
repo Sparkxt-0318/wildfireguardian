@@ -92,4 +92,7 @@ Thomas runs X1. For `envelope`, X1 is expected to fail by design: its arrays are
 - **Fix implemented** at 588f74e and faa89c4 (`MANIFEST_v3_4.json`).
 - **Nora: PASS WITH NOTES, ledger row 37**
   (2026-11-12). Details are under STATUS in `ENVELOPE_BURNSET_RULE.md`.
-- **Thomas X1:** running on the 16 v3.4 samples.
+- **Thomas:**
+  - his 16 v3.4 samples are content-identical to these (D1 and D2, 16 of 16);
+  - X1 is running.
+- **Nora rows 38–39:** `p1_check.from_raw` fix on routing-next verified.

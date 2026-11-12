@@ -148,11 +148,20 @@ address point 2 at all.
   - `RoadExposure` and `RadiationBounds`;
   - `contact_first` and `event_reference` (by code read).
 - **Her notes:**
-  - F-3.2 `p1_check.from_raw` **on Main** still accepts the NaN arrays silently. Thomas's fix is on `routing-next`
-    and has not been verified by Nora.
+  - F-3.2 `p1_check.from_raw` **on Main** still accepts the NaN arrays silently.
+  - **Update (Nora, ledger rows 38–39):** Thomas's fix on `routing-next` (b55acfc0, d6e607aa) is now verified. It
+    refuses the v3.4 `envelope` packet and accepts `envelope_burnset` and `kriged_mean`.
   - `api/*` and `journey_decision*` were not probed individually.
   - `envelope` results stay HAZARD-reader-only.
 - **Scope.** Row 34's scope limit is lifted for `envelope_burnset` **at v3.4 only**. The v3–v3.3 entries keep the
   "arrays inconsistent with HAZARD" label (`MANIFEST_v3_4.json` `older_manifests`).
+- **Cross-host content check (Thomas).** His 16 v3.4 builds at faa89c4 match the digests here exactly, 16 of 16:
+  - D1 = sha256 of (breakpoints, flame);
+  - D2 = the same plus flux and support.
+
+  The raw HAZARD sha256 differs only because `radiation_operator.module` holds an absolute path.
+- **Same packet for every h5 start.** The three h5 `envelope_burnset` samples are content-identical by construction:
+  burn set ∪ present fire on [0, H), with present fire inside the burn set, on one grid. Thomas counts them as one
+  hazard.
 - **The v3.4 manifest labels are not edited.** They still cite row 32, because the manifest file is pinned by builds
   in progress (Thomas X1, Richard). Row 37 is recorded here, and the next manifest version will carry it.
