@@ -85,3 +85,24 @@ any content, and v1 and masked packets would be told apart for no reason.
 5. **Perimeter sequence, horizon > t_n, with in-domain no-polygon cells:** refused with `SUPPORT_TIME_DEPENDENT`.
 6. **Envelope rule with a mask:** apply, then the NaN rewrite, then the builder self-check reports the array path
    REFUSED, and the HAZARD support equals the mask.
+
+## Correction 1 (before any test ran; found while writing test 6)
+
+**What was wrong.** §3 and test 6 assumed a mask can be applied to the per-cell `envelope` variant before its
+NaN-array rewrite. It cannot:
+- `envelope` arrays as written by the frozen writer carry the scalar law, while its HAZARD carries per-cell ends.
+  They are inconsistent by design (PACKET_CONSISTENCY_RULE.md B), which is why they are NaN'd.
+- The verified wrapper's `apply_support` runs the array-law check and would refuse them (`PACKET_INCONSISTENT`).
+- The merged wrapper is not modified.
+
+**Corrected rule:**
+- A support mask is applied only to **scalar-law** packets: the sampled rule (`*_sampled`), `kriged_mean`,
+  `firms_early` and `envelope_burnset`.
+- A mask requested with the per-cell `envelope` variant or rule is refused **before any build**:
+  - F-DYN `build.py`: `SUPPORT_ENVELOPE_UNSUPPORTED`;
+  - `ArrivalScenario.validate`: `SUPPORT_NOT_WIRED`.
+- Test 6 becomes: a mask with the `envelope` rule is refused before building, and no output directory is created.
+- Test 4 uses the `sampled` rule.
+
+**Effect.** A per-cell envelope with unknown cells needs a writer path that can express both, e.g. option C. Until
+then, unknown cells in an envelope scenario are handled downstream under the three-way rule, as before.
