@@ -161,3 +161,32 @@ acceptance windows.
 - Also reported: exact verdict counts per reading; the S2 arrival delay (T_S2 − T_exact) where both route; and the
   share of S1 routes that replay but arrive at a different T.
 - No pass/fail. Any change is a new dated section.
+
+## Dated addition, 2026-11-12 (e): S3, a re-planning snapshot baseline (rule fixed before any S3 run)
+
+Approved by the orchestrator, 16:16 UTC. Verifier: Nora. Requests, instances, hazard readings (no re-entry default,
+reopening labelled) and sha checks are exactly as in (d).
+
+**S3(Δ), Δ ∈ {10 min, 30 min, 60 min}** (`fbase_static.solve_s3`). The vehicle re-plans on a refreshed S1 snapshot.
+1. **Initial plan.** At (s0, dep), plan on the S1 snapshot taken at the current second t: edge j fully blocked iff
+   t ∈ EB_j; waiting at n forbidden iff t ∈ WB_n. Plan from the current state s and time t, using the same exact
+   solver as S1/S2. Next re-plan time = t + Δ.
+2. **Execution.** Execute the plan's legs in order against the **time-dependent model** (the true instance of the
+   same reading).
+   - A leg that is illegal there is a **VIOLATION**: an EDGE departing at a ∈ EB_j, or a WAIT starting at a ∈ WB_n.
+     The job ends there.
+3. **Re-planning.** Re-plan at the first completed EDGE leg whose arrival is at or after the next re-plan time.
+   - The vehicle is at an admitted state there, so the start-goal semantics are exact.
+   - It plans again from (current state, current second) on a fresh S1 snapshot, and the re-plan time advances by Δ.
+4. **Outcomes.**
+   - The goal is reached when an executed EDGE arrival lands in AC of its head (ROUTE, with that T).
+   - A snapshot plan that returns NO_ROUTE at any re-plan ends the job as REFUSED.
+   - Unresolved after 10,000 re-plans, or a planner exception, is counted separately as UNRESOLVED.
+
+**Columns**, per region × horizon × variant × reading × Δ. Rates are over **all jobs**; unresolved jobs are counted
+separately and excluded from no rate's numerator silently.
+- (i) The share of jobs where S3 enters a blocked edge or wait: a VIOLATION, **relative to the time-dependent model**.
+- (ii) The share of jobs where S3 REFUSES while exact gives ROUTE.
+- Also: the share where S3 reaches the goal legally, and its T minus the exact T.
+- Wording in all text: "relative to the time-dependent model".
+- Tests: S3 with Δ ≥ H matches executing S1's single plan; every legal S3 ROUTE replays on the true instance.
