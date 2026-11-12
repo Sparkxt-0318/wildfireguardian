@@ -110,6 +110,55 @@ Richard's own command, unchanged: `claude/f31-deadline-field` at 25352cad, `pyth
   theirs and no ratio is formed. Answering every departure second with the router would take up to H + 1
   single-departure searches.
 
+## F-DYN v3.3 multi-hour instances (dated rule (c); `run_fdyn.py`, `summarize_fdyn.py`, `RESULTS_fdyn.json`, `fdyn_c/`)
+
+**Scope:** contact relaxation only; full-policy equality only under the per-request dose and peak precondition.
+
+**Sample** (fixed before any packet was built):
+- 24 packets: Leo MANIFEST_v3_3 (aaed2402…), the 6 recorded starts × {5 h, 8 h} × {kriged_mean, firms_early}. All 24
+  built.
+- The kriged_mean and firms_early entries are identical in content in v3.4.
+- Requests come from Leo's `fdyn/requests.py` (20b29ce; round-trip tests at ba69e8d): every 10th origin × departures
+  {0, 7200}, which gives 432 requests.
+- Soundness labels, carried verbatim: kriged_mean is "kriged mean (not a bound …)"; firms_early is "bracket-start, NOT
+  a lower bound".
+
+**Agreement:**
+- Exact equals SIPP (Thomas's build_instance + certify, F-3.2 at a03f218) in verdict and arrival second on **432/432**
+  requests, with 0 unresolved.
+- 418 ROUTE and 14 NO_ROUTE.
+- All 418 exact witnesses replay and are `ACCEPT ROUTE T` under check_py.
+
+**Naive baselines**, per region × horizon × variant (out of 54 requests each):
+
+| region, h, variant | N1 unsound ROUTE | N2 false NO_ROUTE | N2 late T | N3 |
+|---|---|---|---|---|
+| Uiseong h5 firms_early | 2 | 2 | 0 | 0 |
+| Uiseong h5 kriged_mean | 2 | 1 | 0 | 0 |
+| Uiseong h8 firms_early | 2 | 2 | 0 | 0 |
+| Uiseong h8 kriged_mean | 2 | 1 | 0 | 0 |
+| Yeongdeok h5 firms_early | 1 | 0 | 1 | 0 |
+| Yeongdeok h5 kriged_mean | 2 | 0 | 1 | 0 |
+| Yeongdeok h8 firms_early | 1 | 0 | 1 | 0 |
+| Yeongdeok h8 kriged_mean | 2 | 0 | 1 | 0 |
+
+- **The 24 failures are only 7 distinct (start, origin, departure, baseline) cases.** The same request fails under
+  both horizons and, mostly, both variants.
+- N3 never fails, because these requests have destination window [0, H].
+
+**Mechanism** (ablation, counterfactual as before; instances regenerated, sha equal to the (c) record for all 24):
+- **All 24 failures are fixed by `all_wait` alone**, while no_WB fixes 0 and no_AC fixes 0. On the multi-hour
+  instances the rule the naive solvers break is **waiting at non-waitable nodes**.
+- N1 waits where waiting is forbidden, so it is unsound. N2 keeps only the earliest label at a non-waitable node, so
+  it misses a later departure.
+- This is the opposite of the 1 h panel, where every failure came from the acceptance window.
+- So **N1's 20/20 on the panel was not soundness**: on F-DYN it returns 14 unsound routes out of 432.
+
+**Not run:** F-BASE-TEN, which at 5–8 h is beyond this host, as declared.
+
+**Cost on this host:** exact search median 0.03 s (max 3.4 s); SIPP certify median 0.24 s (max 32.5 s); build median
+4.4 s (max 24.5 s). Host-specific.
+
 ## Verification
 
 Owen, eec16027 (covers 676fc721): **PASS WITH NOTES**. He reran all four commands and the tests, and every non-timing
