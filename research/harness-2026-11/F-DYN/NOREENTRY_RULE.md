@@ -91,3 +91,20 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
      peak verdict differs between the reopening and no-re-entry packets. It is expected to be about 0, since flux is
      far below the limits. It is **reported, not asserted**.
 - **Start condition.** Code starts only after Richard and Marcus confirm the definition (§1).
+
+## Richard's confirmation (2026-11-12)
+
+- **Q1, the definition: confirmed.** It is exactly his `PacketModel(duration_factor="never")`:
+  - each packet phase keeps its birth, and both ends are set to 10^12;
+  - present fire is [0, ∞), and an ignition at b is [b, ∞);
+  - burned-out-at-start cells are not phases, so they are not blocked.
+  - Births are aligned to 300 s bins, so acceptance 3/6 must agree exactly. Richard will also check our packet cell by
+    cell against his arm on the v3.5 reopening packet.
+- **Q2, flux: F1 accepted for his headline exposure columns.** His label: "exposure: no re-entry, burning intensity
+  held to the horizon (F1, conservative)". Both his label and the orchestrator's go into the README; the identity
+  gets the orchestrator's.
+  - **His conditions:**
+    - the builder self-check passes;
+    - the writer identity is in BUILD_SUMMARY.
+  - He does not need a contact-only flux copy.
+- **Still waiting on Marcus** (S1/S2 benchmark).
