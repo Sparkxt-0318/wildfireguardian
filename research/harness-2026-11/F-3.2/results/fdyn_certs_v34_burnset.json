@@ -16784,7 +16784,7 @@
   }
  ],
  "relabel_note": "Run with fdyn_certs.py before commit 1d74b739 (writer) and before the variant fix: the run labelled these packets variant=envelope. Post-processed only: variant set to envelope_burnset (from the packet name) and writer read from the same HAZARD.json bytes, whose sha256 matched the recorded hazard_sha256 for every packet. No certificate, checker verdict or count was changed.",
- "label": "envelope_burnset: sound relative to the final mapped burn set = kriged footprint + FIRMS + buffered AHI (16,176 cells; 4,940 AHI-buffer-only); single implementation, not independently checked",
+ "label": "envelope_burnset: sound relative to the final mapped burn set; burn set = kriged footprint ∪ FIRMS ∪ buffered AHI (16,176 cells; 10,955 kriged, 4,940 AHI-buffer-only, 281 FIRMS-only); single implementation, not independently checked",
  "summary": {
   "rows": 696,
   "ROUTE": 108,
