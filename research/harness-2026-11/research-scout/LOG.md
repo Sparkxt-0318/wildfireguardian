@@ -678,3 +678,45 @@ Sources were opened unless marked otherwise.
   - A distance factor of about 1.5.
   - A convective minimum distance.
   - Label rows beyond about 15 m (and all rows at 50-400 m or 1-2.5 kW/m²) as extrapolation.
+
+## Batch 8 (2026-11-12): Clara, W-KIT issuer registry and wording
+
+Sources were opened unless marked otherwise. No phone numbers are recorded.
+
+**Departments**
+
+- 경상북도, own organisation chart (gb.go.kr page/link.do?mn=10560&pageNo=10215): 안전행정실, with 안전기획관, 안전정책과, 사회재난과, 자연재난과 and 위기관리대응센터. 소방본부 has 재난대응과.
+- 안동시, own organisation chart (andong.go.kr mId=0308020000): 행정안전국 안전재난과; forestry is 산림과.
+- Four counties, from the 경상북도 table 재난대책기관 연락처(시군) (gb.go.kr/gbsafe/page/2406/5015.tc), a secondary source:
+  - 의성군: 안전건설과
+  - 청송군: 안전정책과
+  - 영양군: 건설안전과
+  - 영덕군: 안전재난과
+- Not opened: uiseong.go.kr (connection reset). cs.go.kr, yyg.go.kr and yd.go.kr each returned the site's own web-firewall block page.
+
+**Official English names**
+
+- 경상북도: "Gyeongsangbuk-do" (gb.go.kr/eng/main.do).
+- 안동시: "Andong City" (andong.go.kr/en/main.do).
+- The other four counties: none found.
+
+**읍면 office naming**
+
+- 안동시 writes "○○면행정복지센터" with no space, e.g. 일직면 subsite csc/iljik.
+- The other four counties: not confirmed.
+
+**Legal note**
+
+- Current 재난안전법 제40조①: only the 시장·군수·구청장 and the 지역통제단장 may order an evacuation.
+- Draft 시행령 제49조⑥: would add the 읍면동장. It is not in force.
+- The 2025 text was tagged [의성군] (newstapa Z7eDJ).
+- 예규 361 제10조② requires the issuing agency's name in every text.
+
+**Possible registry sources**
+
+- 예규 361 제8조: lists 사용기관; central bodies were seen, but the text was cut off before any local bodies.
+- 행정표준코드 (code.go.kr): the site is script-driven, so the list could not be reached.
+
+**Clara's wording requests**
+
+- Card lines (leave-by, one-trip, not-checked list) and staff provenance labels reviewed. Feedback was sent by message; no file was produced.
