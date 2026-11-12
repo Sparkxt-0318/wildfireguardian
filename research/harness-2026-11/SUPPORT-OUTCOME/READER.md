@@ -27,12 +27,40 @@ Design: DESIGN.md on branch clara/support-outcome. This cut ships only the reade
   - WRITER_IDENTITY_MISSING: "forecast packet writer identity missing";
   - SUPPORT_WRITE_FAILED: "unknown-area mask write failed for the forecast packet".
 
+## Wire shape (pinned; Mira N2)
+- Leo's masked packet (research/harness-2026-11/F-9.3/support_mask/packets_f93.py, stamp()) writes
+  `provenance.identity = { packet_writer_sha256: <wrapper>, base_packet_writer_sha256: <frozen writer>,
+  support_writer: { version, rule, support_mask_sha256, unsupported_cells, cells, provenance } }`, plus
+  `provenance.support_semantics` (HAZARD) and `support_channel` (REPORT, NATIVE_METADATA).
+  - The writer hash is a SIBLING of support_writer, not inside it.
+- How the API passes this through to a planner result is not fixed yet. So the reader walks every nested object of the
+  attempt, the result and both provenances (depth ≤ 6) and treats as masked any of `support`, `support_writer`,
+  `support_semantics` or `support_channel` with a value other than null / undefined / false, or an
+  `unknown_support_involved` other than "none".
+- The writer is a 64-hex `packet_writer_sha256` beside such a key, or inside a support / support_writer block.
+- Kit v2 (Priya, Step 1b) will add `support: {…, packet_writer_sha256}` per attempt; the reader handles both shapes.
+
+## Fixes after Mira FAIL (ledger 80, at 8efdebb)
+- FAIL 1: a gated route check now carries no exposure (so no "contact: no" flags), no full-policy grade, no
+  within-budget flag and no dwell end, besides no geometry, arrival or lower bound.
+- FAIL 2: any non-null / non-false mask value is masked (true, a string, an array, a number, {}).
+- N1: the panel and timeline (components/format.ts reasonText, i18n) split "<CODE>@sha8" and show the label and
+  "writer <sha8>" / "생성 프로그램 <sha8>". i18n keys were added for the three codes and the writer.
+- N2: Leo's identity shape is read (sibling hash; identity nested under provenance).
+- N3: markers match case-insensitively and anywhere in the walked objects, including inside a support block.
+
 ## Measured
-- Gate (orchestrator): unmasked results are byte-identical to Main. A dump of `cacheToModel` for all six caches, every
-  attempt's staff reason text in ko and en, and every message-kit output and violation for 531 real + 600 synthetic
-  places: 14,373,120 bytes, sha256 eb38f40d34631aa0… on both Main 994abd7… and this branch.
+- Gate (orchestrator): unmasked results are byte-identical to Main. The comparison is against the branch's real base,
+  **Main 6babc5e** (the earlier note said 994abd7, which was wrong; Mira). The dump covers:
+  - `cacheToModel` for all six caches, including route and travel-only details;
+  - every attempt's and travel-only reason text in ko and en, through BOTH shared/strings attemptReasonText and
+    components/format.ts unresolvedReasonText;
+  - every message-kit output and violation for 531 real + 600 synthetic places.
+
+  14,588,046 bytes, sha256 447e1eedd85c1a6f… on both.
 - The six booth caches carry 0 masked results today, so nothing visible changes.
 - With every result of a real cache marked masked: 0 checked routes, 0 no-routes, 0 leave-by times, and every reason
   carries the writer (test).
-- Mutations: the gate off → 5 of 8 tests fail; the writer hidden → 5 fail; the marker ignored → 2 fail.
-- Suite (workflow environment) 27 files / 462; build:static OK; tsc clean.
+- Mutations (13 tests): the gate off → 8 fail; the writer hidden → 6 fail; the marker ignored → 3 fail; the full-policy
+  grade kept on a gated route → 1 fails; the sibling writer not read → 1 fails.
+- Suite (workflow environment) 27 files / 467; build:static OK; tsc clean.

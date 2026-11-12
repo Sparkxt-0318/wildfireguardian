@@ -380,7 +380,8 @@ export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
   const s = job.snap;
   const snapStart = adaptSnap(s?.start);
   const snapDest = adaptSnap(s?.destination);
-  const exposure: Exposure[] = (res?.exposure ?? []).map((e, i) => ({
+  // a gated (masked) result carries no exposure, full-policy grade, budget flag or dwell end (Mira FAIL 1)
+  const exposure: Exposure[] = (gate ? [] : res?.exposure ?? []).map((e, i) => ({
     scenarioId: String(e.scenario_id),
     member: memberOf(String(e.scenario_id), i),
     peakKwM2: Number(e.peak_kw_m2),
@@ -401,7 +402,7 @@ export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
     departureS: res ? num(res.departure_s) : null,
     arrivalS: res && !gate ? num(res.arrival_s) : null,
     lowerBoundS: res && !gate ? num(res.lower_bound_L_s) : null,
-    dwellEndS: res ? num(res.dwell_end_s) : null,
+    dwellEndS: res && !gate ? num(res.dwell_end_s) : null,
     dwellS: num(req.dwell_s),
     destinationWindow: win ? [Number(win[0]), Number(win[1])] : null,
     departOffsetS: num(req.depart_offset_s),
@@ -411,7 +412,7 @@ export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
     segmentCount: num(route?.properties?.segment_count),
     exposure,
     computeS: res ? num(res.compute_s) : null,
-    withinBudget: res && typeof res.within_budget === 'boolean' ? res.within_budget : null,
+    withinBudget: res && !gate && typeof res.within_budget === 'boolean' ? res.within_budget : null,
     limits: res?.limits
       ? {
           peakKwM2: Number(res.limits.peak_kw_m2),
@@ -423,7 +424,7 @@ export function adaptRouteJob(job: WireRouteCheckJob): RouteDetail {
     assumptions: res?.assumptions && typeof res.assumptions === 'object' ? res.assumptions : null,
     provenance: adaptProvenance(res?.provenance ?? job.provenance),
     snap: snapStart && snapDest ? { start: snapStart, destination: snapDest } : null,
-    fullPolicy: adaptFullPolicy(res?.full_policy_assessment),
+    fullPolicy: gate ? null : adaptFullPolicy(res?.full_policy_assessment),
     spec,
     error: job.error ? { code: String(job.error.code), message: String(job.error.message) } : null,
     mock: isMockRouteJob(job),

@@ -11,6 +11,8 @@ import { cacheToModel, parseCacheIndex } from '../../planner/src/api/cache';
 import { splitReasonCode, supportGate, SUPPORT_WRITE_FAILED, UNKNOWN_SUPPORT_NOT_EVALUATED, WRITER_IDENTITY_MISSING } from '../../planner/src/api/supportGate';
 import { deadlineHeadline, headlineDepartureS } from '../../planner/src/domain/plan';
 import { attemptReasonText, reasonText } from '../../planner/src/features/shared/strings';
+import { unresolvedReasonText } from '../../planner/src/components/format';
+import { translate } from '../../planner/src/i18n';
 
 const SHA = 'ab12cd34'.padEnd(64, '0');
 const BASE = 'ff00ee11'.padEnd(64, '1');
@@ -142,4 +144,77 @@ describe('the six booth caches', () => {
       }
     }
   }, 120_000);
+});
+
+describe('Mira FAIL 80 fixes: no pass / no-contact on a gated route; any non-null mask value; Leo\'s identity shape; markers; panel labels', () => {
+  const rcJob = (res: Record<string, unknown>) => ({
+    job_id: 'rc_2', status: 'done',
+    request: { start: { node_id: '1' }, destination: { node_id: '2' }, depart_offset_s: 0, dwell_s: 600 },
+    result: {
+      verdict: 'checked_route', arrival_s: 900, departure_s: 0, dwell_end_s: 1500, within_budget: true, lower_bound_L_s: 800,
+      route: { geometry: { coordinates: [[129, 36], [129.01, 36.01]] }, properties: { times_s: [0, 900], length_m: 1500 } },
+      exposure: [{ scenario_id: 's:0', peak_kw_m2: 0.1, dose_kj_m2: 1, contact: false }, { scenario_id: 's:1', peak_kw_m2: 0.2, dose_kj_m2: 2, contact: false }],
+      full_policy_assessment: { passes_full_centre_and_contact: true },
+      ...res,
+    },
+  }) as unknown as Parameters<typeof adaptRouteJob>[0];
+
+  it('FAIL 1: a masked route check carries no exposure ("contact: no"), no full-policy pass, no budget flag and no dwell end', () => {
+    const plain = adaptRouteJob(rcJob({}));
+    expect(plain.exposure.length).toBe(2);
+    expect(plain.fullPolicy?.pass).toBe(true);
+    expect(plain.withinBudget).toBe(true);
+    expect(plain.dwellEndS).toBe(1500);
+    const m = adaptRouteJob(rcJob({ provenance: { support_writer: SUPPORT_WRITER } }));
+    expect(m.verdict).toBe('unresolved');
+    expect(m.exposure).toEqual([]);
+    expect(m.fullPolicy).toBeNull();
+    expect(m.withinBudget).toBeNull();
+    expect(m.dwellEndS).toBeNull();
+    expect(m.coordinates).toBeNull();
+    expect(m.arrivalS).toBeNull();
+    expect(m.lowerBoundS).toBeNull();
+  });
+
+  it('FAIL 2: any mask value other than null / undefined / false is masked (fail closed)', () => {
+    for (const v of [true, 'c651_unknown/1', ['x'], 1, {}]) {
+      expect(supportGate({ support: v }), JSON.stringify(v)).toBe(WRITER_IDENTITY_MISSING);
+      expect(supportGate({ support_writer: v }), JSON.stringify(v)).toBe(WRITER_IDENTITY_MISSING);
+    }
+    expect(supportGate({ support_semantics: 'support = ~(U_state | U_q)' })).toBe(WRITER_IDENTITY_MISSING);
+    expect(supportGate({ support_channel: 'x' })).toBe(WRITER_IDENTITY_MISSING);
+    for (const v of [null, undefined, false]) expect(supportGate({ support: v, support_writer: v })).toBeNull();
+  });
+
+  it("N2: Leo's real identity shape (packets_f93.py stamp(): packet_writer_sha256 beside support_writer, nested under provenance.identity)", () => {
+    const identity = { packet_writer_sha256: SHA, base_packet_writer_sha256: BASE, support_writer: { version: 'wfg.f93.support-writer/1', rule: 'c651_unknown/1', support_mask_sha256: '7'.repeat(64), unsupported_cells: 2885, cells: 4757 } };
+    expect(supportGate(identity)).toBe(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`);
+    expect(supportGate({ identity })).toBe(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`);
+    expect(supportGate({ provenance: { identity, support_semantics: 'x' } })).toBe(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`);
+    // the frozen writer's identity alone (no support_writer) is not masked
+    expect(supportGate({ provenance: { identity: { packet_writer_sha256: SHA } } })).toBeNull();
+    // through the route-check adapter, at the result's provenance
+    const r = adaptRouteJob(rcJob({ provenance: { identity } }));
+    expect(r.verdict).toBe('unresolved');
+    expect(r.reasonCode).toBe(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`);
+  });
+
+  it('N3: markers match case-insensitively and inside a support block', () => {
+    expect(supportGate({ notes: ['support_write_failed'] })).toBe(SUPPORT_WRITE_FAILED);
+    expect(supportGate({ notes: [' Support_Write_Failed '] })).toBe(SUPPORT_WRITE_FAILED);
+    expect(supportGate({ support: { ...SUPPORT, status: 'SUPPORT_WRITE_FAILED' } })).toBe(SUPPORT_WRITE_FAILED);
+    expect(supportGate({ provenance: { identity: { support_writer: { markers: ['SUPPORT_WRITE_FAILED'] } } } })).toBe(SUPPORT_WRITE_FAILED);
+  });
+
+  it('N1: the panel and timeline (components/format.ts, i18n) show the label AND the writer in ko and en, never the bare code', () => {
+    for (const lang of ['ko', 'en'] as const) {
+      const t = (k: string, v?: Record<string, string | number>) => translate(lang, k, v);
+      const txt = unresolvedReasonText(`${UNKNOWN_SUPPORT_NOT_EVALUATED}@ab12cd34`, 'CHECKED_JOURNEY_FULL_OPTIMUM_PROVEN', t)!;
+      expect(txt).toBe(lang === 'ko'
+        ? 'UNKNOWN_SUPPORT_NOT_EVALUATED · 산불 상태 미확인 구역이 있는 예측 자료 — 해당 구역의 영향은 평가하지 않음 · 생성 프로그램 ab12cd34'
+        : 'UNKNOWN_SUPPORT_NOT_EVALUATED · forecast with areas of unknown fire state — their effect was not evaluated · writer ab12cd34');
+      for (const c of [WRITER_IDENTITY_MISSING, SUPPORT_WRITE_FAILED]) expect(unresolvedReasonText(c, null, t)).not.toBe(c);
+      expect(unresolvedReasonText('TIMEOUT', null, t)).toBe(lang === 'ko' ? 'TIMEOUT · 30초 예산 초과' : 'TIMEOUT · 30 s budget exceeded'); // unchanged
+    }
+  });
 });
