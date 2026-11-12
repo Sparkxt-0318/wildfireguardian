@@ -75,3 +75,12 @@ Bytes a verifier needs, in `.wfgc` record syntax, vs the full instance (34–2,8
 frozen sweep agrees on every verdict and every arrival (0 disagreements, 0 unresolved, 0 at-issue refusals). Max
 certify 17.8 s, max C check 0.07 s, max bundle 7.1 MB. It reuses 5 graphs, 15 packets and 4 parent fires; departures
 of one request are not independent tests.
+
+## P1 / contact semantics re-derived (measured; `p1_check.py`, `results/p1_flame_sets.json`)
+
+Per graph cell, the union flame-activity set on [0, H) from (i) HAZARD.json member flame rows (what the frozen full
+checker samples), (ii) an own re-derivation from `constructed_arrays.npz` + REPORT assumptions (no `ContactModel`),
+and (iii) `ContactModel.cell_intervals`: **identical on all 15 frozen packets** (1–483 active cells each), exact
+rationals. Sensitivity: of 40 all-member HAZARD flag flips, the 10 that change the union are all detected (the other
+30 leave the union unchanged because another member row covers the same time); a 1 s shift of one raw interval is
+detected. This closes the O2 gap Nora noted (contact semantics now independently re-derived for the frozen panel).

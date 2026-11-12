@@ -115,7 +115,9 @@ proves only the bound.
 Premises (not proved here): **P1** the flame activity that the full checker samples from `HAZARD.json` equals the
 per-cell half-open intervals `ContactModel.cell_intervals` derives from the packet arrays (asserted and tested in
 `experimental/scenario-members`, "tested for equality on the frozen packets"; independently corroborated here only for
-the 15 route witnesses, all `CHECKED_ROUTE`); **P2** the instance re-derivation of O2 (checked: 0 differences, 20
+the 15 route witnesses, all `CHECKED_ROUTE`; and, since `p1_check.py`, checked exactly: on all 15 frozen packets the
+union flame sets from HAZARD.json, from an own re-derivation of the raw packet arrays and from `ContactModel` are
+identical per cell on [0, H)); **P2** the instance re-derivation of O2 (checked: 0 differences, 20
 missions; it re-derives geometry and translation only — contact semantics come from the shared `ContactModel`); **P3** the full checker's lattice and contact rules are the policy (they are the frozen definition).
 
 **Integer seconds (Iris, point 4).** No lemma can remove this as a statement about continuous time: with a point
