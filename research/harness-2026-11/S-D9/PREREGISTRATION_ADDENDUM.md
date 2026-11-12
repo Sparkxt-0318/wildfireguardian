@@ -318,6 +318,14 @@ These two candidates are developed **first on the training pool (fit-23 ∪ part
 
   If all three hold in both regimes, **`rate_composite` is the rate candidate refit on the training pool**, under the §3.1 recipe and the §4.1 rule 3 label rule. Otherwise the full method stays the rate candidate.
 - `rate_composite` does not replace `d2_bracket_rebuilt` as a D2 candidate. P-D2 and its ordering stand as recorded.
+- **Step 1 result (Elena, S-D2 commit 7a160eef on claude/s-d2-next, `results/rate_composite.json`; run under the rule and regimes fixed at 45644c89, seeds 0–4; Owen's verification pending, not verified by Hannah).**
+  - **`rate_composite` is NOT the rate candidate. The full latent-time method stays.** The rule fails in every regime and bracket length:
+    - slow, 12 h: rate advantage 0.078 > 0.05; log-likelihood 0.155 > tolerance 0.117; shape 0.116 > 0.059.
+    - slow, 24 h: all three fail (0.117; 0.395 > 0.180; 0.292 > 0.180).
+    - fast, 12 h: the rate condition holds (0.033), but log-likelihood (0.383 > 0.117) and shape (0.652 > 0.056) fail.
+    - fast, 24 h: the rate condition holds (−0.191), but log-likelihood (0.574 > 0.216) and shape (0.200 > 0.066) fail.
+  - The cost is about equal, because the E-step is shared.
+  - *New limit on the full method (development evidence, recorded beside P-D2 and not a revision of it).* In the fast regime (crossing time ≈ 2 h) with **24 h** brackets, MCEM's total-rate ratio is **0.58**, against 0.71 for rate_composite. With 12 h brackets it is 0.92. So the small upward bias seen at slow spread (1.025–1.040) does **not** hold when a bracket spans about 12 crossing times. Real NIROPS bracket medians are about 1.3 crossing times, inside the good regime, but real fast-run days are the high-ratio case. This is a stated risk for P-D2(a) on fast-run intervals.
 
 **Iris's ranking of SMOKE experiments (planning order, not a decision rule).**
 1. The full-rectangle validity arm.
