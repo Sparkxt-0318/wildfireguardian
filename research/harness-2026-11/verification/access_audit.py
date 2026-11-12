@@ -16,7 +16,7 @@ Categories:
   F1..F5    tool calls whose INPUT names the file (an access attempt), and tool results that contain its path
   nirops    tool calls reading the raw NIROPS shapefile/dbf (pyogrio/fiona/ogr/geopandas/unzip). An unfiltered read is
             one with no where=, no fids= and no Incident_C-only column list
-  gofer     tool calls reading raw GOFER files (GOFER zip, fireProg, fireLine, GOFERC_fireIg)
+  gofer     tool calls naming raw GOFER files (GOFER zip, or the case-sensitive substrings fireProg/fireLine/fireIg)
   wildfire_gov  every occurrence of 'wildfire.gov' in an input, result or text, whatever the year
   web/net   WebSearch/WebFetch/agent web calls; curl/wget/rsync/scp/lftp/git clone; requests/urllib/urllib3/http.client/
             httpx/aiohttp/ftplib/fsspec//vsicurl; read_*('http…'); fetch.py and remote_zip.py. Hosts MENTIONED in any URL (http, https, ftp, s3, gs)
@@ -36,6 +36,8 @@ Access: a session can read only the transcripts in its own container. The owner 
 from every session (for example, each session copies its own .jsonl and subagents/ into a shared, owner-held
 location). Results are evidence for comparison with the declarations, not proof of absence: a model can know a name
 from training without any tool call, and short or common names give false positives.
+Limit: a raw file handed to an opaque script (for example `python3 parse.py x.dbf`) is not counted as a nirops/gofer
+read; it shows only as a mention of the file name in the input.
 --ftp-detail lists every ftp.wildfire.gov URL written in a tool INPUT (root/gacc/year segment, rest hashed) and the
 HTTP status codes found in the matching tool RESULT. URLs that a script constructs internally (for example the
 custodian finder's 504 constructed URLs) do not appear in tool inputs; they are visible only in that script's own logs.
@@ -55,7 +57,7 @@ FILES = {
 NIROPS = re.compile(r'NIROPS_2020_2024|\.shp\b|\.dbf\b', re.I)
 READ = re.compile(r'read_dataframe|read_info|pyogrio|fiona|ogr\.|ogrinfo|gpd\.read_file|geopandas|unzip|read_file\(|dbfread|shapefile\.Reader|struct\.unpack|open\([^)]*[\'"]rb[\'"]|dbf\.py|\.dbf[\'"]?\s*\)', re.I)
 FILTERED = re.compile(r"where\s*=|fids\s*=|columns\s*=\s*\[\s*['\"]Incident_C['\"]\s*\]|nirops_access", re.I)
-GOFER = re.compile(r'(?i:GOFER[^\s\'"]*\.zip)|GOFERC_fireIg|\bfireProg\b|\bfireLine\b')   # filenames are case-sensitive: 'fireline intensity' is not a hit
+GOFER = re.compile(r'(?i:GOFER[^\s\'"]*\.zip)|fireProg|fireLine|fireIg')   # case-sensitive substrings, no \b: real files are GOFERC_fireProg, GOFERW_cfireLine, GOFERE_rfireLine, GOFERW_fireIg; 'fireline'/'FireLine' text is not a hit
 NETCMD = re.compile(r'\b(curl|wget|rsync|scp|lftp|sftp|aria2c)\b|git\s+clone|requests\.(get|post|head|Session)|urlopen'
                     r'|urllib\.request|urllib3|http\.client|httpx|aiohttp|ftplib|fsspec|/vsicurl|smart_open|boto3|gsutil'
                     r'|read_(csv|json|parquet|table|file|dataframe)\(\s*[\'"](?:https?|ftp|s3|gs)://|fetch\.py|remote_zip\.py'
@@ -246,6 +248,9 @@ def ftp_detail(paths):
                     codes = sorted({next(g for g in t if g) for t in STATUS.findall(str(cc))}) or ['-']
                     for k in pending.pop(b.get('tool_use_id')):
                         rows[k + (','.join(codes),)] += 1
+        for keys in pending.values():           # input with no matching result (killed/truncated call)
+            for k in keys:
+                rows[k + ('no-result',)] += 1
     print('session\tminute_utc\troot\tgacc\tyear_segment\trest_sha12\tstatus_codes_in_result\tn')
     for k, n in sorted(rows.items()):
         print('\t'.join(k) + f'\t{n}')
