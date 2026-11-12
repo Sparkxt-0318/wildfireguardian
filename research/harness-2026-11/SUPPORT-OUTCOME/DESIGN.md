@@ -71,3 +71,28 @@ On a fixture set covering every row of the mapping table, plus, once Richard's T
    hidden; (c) a non-default budget pooled into a default count.
 7. Counts reported, not gated: by region and Tier (A / R, Richard), the number of results that move from checked_route
    or model_no_route to unresolved.
+
+## Richard's three-way tiers (F-3.1, deadline_field/unknown.py and threeway.py; branch claude/f31-deadline-field)
+Recorded here after his answer (2026-11-12). The gated pass rule above is unchanged.
+- Masks: U_state = mask__unknown_cumulative_state. U_q = mask__policy_assigned_zero & ~mask__known_burned & ~U_state.
+  Unknown cells are added as blocks [start, beyond H) under both the router rule and the closed-footprint rule.
+- Tiers:
+  - Tier A: every unknown cell is blocked from t = 0. The most pessimistic tier.
+  - Tier B(v), v ∈ {1.5, 8.2} km/h: U_state is blocked from 0, and U_q from d/v.
+  - Tier R(v): U_state and U_q are both blocked from d/v, with d measured from present fire ∪ positive-probability
+    cells.
+  - Optimistic: the frozen packet.
+- Per-job label under a tier:
+  - checked(contact) if the departure is feasible in the tier field;
+  - no_route if it is infeasible even optimistically;
+  - unresolved if it is feasible optimistically but not under the tier.
+- **Caveat carried into the presentation:** a "checked" result under a pessimistic tier is contact-only. The dose and
+  peak preconditions for hypothetical unknown sources are NOT established. The planner must never present a tier's
+  "checked(contact)" as a whole-road-certified route. It stays labelled "contact-only under tier <X>" in staff
+  outputs, and it is never shown to residents as a route.
+- Where: the summary is research/harness-2026-11/F-3.1/results/UNKNOWN_THREEWAY_1h.json (b0ca8bc), per cache and tier.
+  The per-job rows come from `python3 -m deadline_field.threeway <cache.json>`, with transition keys
+  "tier|recorded|label".
+- **OPEN (orchestrator / Iris):** which tier the planner presents as its headline. That is a policy choice; Tier A
+  is the most conservative. The design reports every tier in staff, and pools none. F-DYN tiers do not exist yet
+  (Leo's masked F-DYN packets).
