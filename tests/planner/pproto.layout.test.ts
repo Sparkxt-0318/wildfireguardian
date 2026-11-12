@@ -101,7 +101,7 @@ describe('320 px layout in Chromium (Iris)', () => {
           const cards = [...document.querySelectorAll('article[data-pv="card"]')];
           for (const [i, c] of cards.entries()) {
             const cb = c.getBoundingClientRect();
-            for (const sel of ['[data-pv="stamp"]', '[data-pv="time"]', '[data-pv="time-stamp"]', '[data-pv="age"]']) {
+            for (const sel of ['[data-pv="stamp"]', '[data-pv="time"]', '[data-pv="time-stamp"]', '[data-pv="one-trip"]', '[data-pv="words"]', '[data-pv="age"]']) {
               const e = c.querySelector(sel);
               if (!e) continue;
               const b = e.getBoundingClientRect();

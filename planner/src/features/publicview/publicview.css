@@ -21,3 +21,5 @@
 .pv-places label { display: block; min-height: 44px; }
 .pv-footer { color: var(--pv-muted); margin-top: 24px; }
 @media (max-width: 480px) { .pv-places ul { columns: 1; } }
+.pv-onetrip { font-size: var(--pv-words); margin: 4px 0; }
+.pv-notin ul { margin: 4px 0 12px; padding-left: 1.2em; }

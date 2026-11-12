@@ -81,3 +81,41 @@ comprehension testing; any deployment.
   With the old two-way wording the test fails (first failure: `syn:gen:4:origin`).
 - Planner suite: 24 files, 403 tests pass. `npm run build:static` passes; the default build ships no public-view file.
 - Pending: Iris's review of the gap wording and Sofia's check of the Korean. Comprehension is untested.
+
+## Next cut (branch clara/pproto-next, on Main after #124) — UNVERIFIED
+Iris's notes on the gap fix, and two items the orchestrator approved from her ranking (based on Sofia's March 2025
+vehicle and road cases). Korean wording by Sofia; English matched to it.
+- **Computed step stated.** Shared first sentence: "모델 계산: 이 시각까지 10분 간격으로 계산한 출발 시각마다 차로
+  나갈 수 있는 확인된 길이 있습니다." / "Model: at each departure time computed up to this time (every 10 minutes),
+  there is a checked road out by car." The step is the sweep's own uniform step (`sweepStepMin`): 10 in all 531 real
+  places, 5–30 in synthetic cases. The clause is left out when the step is not uniform.
+- **Second sentence, matched to what was computed** (Sofia's a/b/c):
+  - horizon: "그 뒤 출발은 확인하지 않았습니다." / "Later departures were not checked." (no later departure was
+    requested)
+  - none_checked: "그 뒤의 출발 시각은 계산한 시각 모두 확인된 길이 없습니다." / "Every later departure time computed has
+    no checked road."
+  - gap: "바로 다음 계산 시각(10분 뒤)에 출발하면 확인된 길이 없습니다." / "Leaving at the next computed time (10
+    minutes later) has no checked road." The "(N분 뒤)" clause appears only when N is the step and the next requested
+    departure's distance from T (test). Shown in 53 of 53 synthetic gap cases. The later checked road is never
+    mentioned. Sofia's optional disclaimer "그 뒤 시각이 안전하다는 뜻은 아닙니다" was not used, because it contains the
+    kit-forbidden word 안전.
+- Property test (Iris): the three sentences are mutually exclusive and exhaustive (exactly one matches every timed
+  card). Each clause is recomputed from the sweep. "No checked road" keeps both meanings (model no-route and
+  unresolved) and never becomes "no road" or "closed". An unresolved later departure never renders as horizon. Later
+  requested departures by sentence and verdict:
+  - real: none_checked 221 no-route + 2 unresolved;
+  - synthetic: none_checked 388 no-route + 96 unresolved; gap 98 no-route + 65 unresolved + 88 checked.
+- **One trip.** Every card that shows a time carries `ONE_TRIP`: "이 결과는 한 번 빠져나가는 길만 확인한 것입니다.
+  돌아오는 길은 확인하지 않았습니다." / "This result checks one trip out only. The way back was not checked." It sits
+  directly after the time line inside the same card, so a crop keeps it. It never appears without a time. The 320 px
+  Chromium layout check covers it and the status words.
+- **Time first.** In every card the time line comes before the status words and any hand-off, in DOM order. Every timed
+  card carries the replay date and mark beside the time (test).
+- **Not included in this calculation** (계산에 넣지 않은 것): 연기(시야) · 좁은 길 · 차량 정체 · 불티로 인한 차량 화재 · 돌아오는
+  길. Each item is worded as not included, with no size or likelihood.
+- **Resident/staff split — OPEN (Iris E).** The public card shows the contiguous time. The planner's staff panel shows
+  `latestSafeDepartureS` as its deadline (ExplainBlock `deadlineS`). In a gap case that is LATER than the resident time,
+  by construction: all 53 synthetic gap cases, 0 real. Iris recommends that the staff headline equal the resident time,
+  with the later departure shown below it, labelled as a later checked window after a gap and not as the deadline. That
+  is a change to the planner panel, outside this cut, raised with the orchestrator.
+- Suite 24 files / 403 tests; build:static OK; the default dist has 0 public-view files. Comprehension is untested.

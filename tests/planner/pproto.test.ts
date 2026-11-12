@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { BANNER, cardFor, exampleIds, handoffFor, LEAVE_BY_WORDS, linkFor, OFFICIAL_SLOT, parseLink, REPLAY_MARK, validPlace, type PublicCard } from '../../planner/src/features/publicview/model';
+import { BANNER, cardFor, exampleIds, handoffFor, leaveByWords, linkFor, nextRequestedMin, NOT_IN_MODEL, OFFICIAL_SLOT, ONE_TRIP, parseLink, REPLAY_MARK, sweepStepMin, validPlace, type AfterWords, type PublicCard } from '../../planner/src/features/publicview/model';
 import { readSaved, writeSaved } from '../../planner/src/features/publicview/load';
 import { DARK, LIGHT, SIZE } from '../../planner/src/features/publicview/tokens';
 import { messagePlan } from '../../planner/src/features/lastmile/plan';
@@ -24,7 +24,7 @@ beforeAll(() => {
 }, 300_000);
 
 const strings = (c: PublicCard) =>
-  [c.words, c.time, c.replayStamp, c.dataAge, c.guidance, c.handoff?.text].flatMap((t) => (t ? [t.ko, t.en] : []));
+  [c.words, c.time, c.oneTrip, c.replayStamp, c.dataAge, c.guidance, c.handoff?.text].flatMap((t) => (t ? [t.ko, t.en] : []));
 
 function masked(i: LastMileInput, s: string): string {
   const names = [i.origin.name, i.origin.display, ...Object.values(i.destinations).flatMap((d) => [d.name, d.display])]
@@ -47,11 +47,13 @@ describe('cards over every real and synthetic origin', () => {
       expect(['leave', 'stop', 'unknown']).toContain(c.tone);
       if (k === 'leave_by') {
         expect(c.time).not.toBeNull();
+        expect(c.oneTrip).toEqual(ONE_TRIP);
         expect(c.replayStamp.ko).toContain(REPLAY_MARK.ko);
         expect(c.replayStamp.en).toContain(REPLAY_MARK.en);
         expect(c.replayStamp.ko).toMatch(/^\d{4}-\d{2}-\d{2} /);
       } else {
         expect(c.time).toBeNull();
+        expect(c.oneTrip).toBeNull();
         expect(c.handoff).toBeNull();
         for (const s of [c.words, c.guidance]) expect(`${s.ko} ${s.en}`).not.toMatch(/\d{1,2}:\d{2}/);
       }
@@ -64,6 +66,8 @@ describe('cards over every real and synthetic origin', () => {
 
   it('the leave-by sentence is true of the sweep it describes, for every real and synthetic origin (verifier note: "none after" was shown where the model found a later road after a gap)', () => {
     const shown: Record<string, { real: number; syn: number }> = {};
+    const laterVerdicts: Record<string, number> = {};
+    const gapNext = { shown: 0, omitted: 0 };
     const check = (i: LastMileInput, set: 'real' | 'syn') => {
       const c = cardFor(i, () => null);
       const p = messagePlan(i, null);
@@ -73,9 +77,31 @@ describe('cards over every real and synthetic origin', () => {
       const requested = [...i.plan!.sweep].sort((a, b) => a.offsetS - b.offsetS).filter((x) => x.verdict !== 'window_closed');
       const upTo = requested.filter((x) => x.offsetS <= T);
       const later = requested.filter((x) => x.offsetS > T);
-      const which = (Object.keys(LEAVE_BY_WORDS) as (keyof typeof LEAVE_BY_WORDS)[]).find((k) => LEAVE_BY_WORDS[k].en === c.words.en);
-      expect(which, c.words.en).toBeDefined();
-      expect(c.words.ko).toBe(LEAVE_BY_WORDS[which!].ko);
+      const step = sweepStepMin(i);
+      const nextMin = nextRequestedMin(i, p.leaveByS!);
+      // Iris: the three sentences are mutually exclusive and exhaustive — every timed card matches exactly one
+      const matches = (['horizon', 'none_checked', 'gap'] as AfterWords[]).filter((k) => leaveByWords(k, step, nextMin).en === c.words.en);
+      expect(matches.length, c.words.en).toBe(1);
+      const which = matches[0]!;
+      expect(c.words.ko).toBe(leaveByWords(which, step, nextMin).ko);
+      // Iris note 1: the stated step is the sweep's own uniform step (recomputed here), or no step is stated
+      const offs = [...new Set(i.plan!.sweep.map((x) => x.offsetS))].sort((a, b) => a - b);
+      const diffs = new Set(offs.slice(1).map((v, k) => v - offs[k]!));
+      if (step !== null) {
+        expect(diffs.size).toBe(1);
+        expect([...diffs][0]).toBe(step * 60);
+        expect(c.words.en).toContain(`(every ${step} minutes)`);
+        expect(c.words.ko).toContain(`${step}분 간격으로`);
+      } else {
+        expect(c.words.en).not.toMatch(/every \d+ minutes/);
+        expect(c.words.ko).not.toMatch(/분 간격/);
+      }
+      if (set === 'real') expect(step).toBe(10);
+      // Iris note 2: "no checked road" never drifts to "no road" / "closed"
+      expect(c.words.en).not.toMatch(/\bno road\b|closed/i);
+      expect(c.words.ko).not.toMatch(/길이 없습니다(?<!확인된 길이 없습니다)|막혔|통제/);
+      // one-trip line on every timed card
+      expect(c.oneTrip).toEqual(ONE_TRIP);
       shown[which!] = shown[which!] ?? { real: 0, syn: 0 };
       shown[which!]![set] += 1;
       // common claim: a checked road for every requested departure up to T
@@ -88,10 +114,17 @@ describe('cards over every real and synthetic origin', () => {
         expect(later.every((x) => x.verdict !== 'checked_route'), i.origin.id).toBe(true);
       }
       if (which === 'gap') {
-        // "right after it, some departures have no checked road": the first requested departure after T has none
+        // "leaving at the next computed time (N minutes later) has no checked road": the first requested departure
+        // after T has none, and when N is shown it is that departure's distance from T
         expect(later.length, i.origin.id).toBeGreaterThan(0);
         expect(later[0]!.verdict, i.origin.id).not.toBe('checked_route');
+        const m = c.words.en.match(/\((\d+) minutes later\)/);
+        if (m) expect(later[0]!.offsetS - T).toBe(Number(m[1]) * 60);
+        gapNext[m ? 'shown' : 'omitted'] += 1;
       }
+      // an unresolved later departure is "no checked road" (none_checked / gap), never "not checked" (horizon)
+      for (const x of later) laterVerdicts[`${set}:${which}:${x.verdict}`] = (laterVerdicts[`${set}:${which}:${x.verdict}`] ?? 0) + 1;
+      if (later.some((x) => x.verdict === 'unresolved')) expect(which).not.toBe('horizon');
     };
     for (const i of real) check(i, 'real');
     for (const i of syn) check(i, 'syn');
@@ -99,7 +132,12 @@ describe('cards over every real and synthetic origin', () => {
     expect(shown.horizon?.syn ?? 0).toBeGreaterThan(0);
     expect(shown.none_checked?.syn ?? 0).toBeGreaterThan(0);
     expect(shown.gap?.syn ?? 0).toBeGreaterThan(0);
+    // both meanings of "no checked road" after T are exercised: an unresolved later departure and a model no-route one
+    expect(Object.keys(laterVerdicts).some((k) => k.startsWith('syn:') && k.endsWith(':unresolved') && !k.includes('horizon'))).toBe(true);
+    expect(Object.keys(laterVerdicts).some((k) => k.endsWith(':model_no_route'))).toBe(true);
     console.log('[pproto] leave-by sentence shown (real / synthetic):', JSON.stringify(shown));
+    console.log('[pproto] later requested departures by sentence and verdict:', JSON.stringify(laterVerdicts));
+    console.log('[pproto] gap sentences with the next time shown / omitted:', JSON.stringify(gapNext));
   });
 
   it('examples: one of each state, by a fixed rule', () => {
@@ -270,15 +308,27 @@ describe('the page in jsdom, fetch served from the repository files', () => {
       if (!time) {
         expect(c.getAttribute('data-kind')).not.toBe('leave_by');
         expect(c.querySelector('[data-pv="handoff"]')).toBeNull();
+        expect(c.querySelector('[data-pv="one-trip"]')).toBeNull();
         continue;
       }
       timed++;
+      // the one-trip line is inside the same card, right after the time line (a crop keeps it)
+      const trip = c.querySelector('[data-pv="one-trip"]')!;
+      expect(trip.textContent).toBe(ONE_TRIP.ko);
+      expect(time.parentElement!.nextElementSibling).toBe(trip);
+      // time first: before the status words and any hand-off, in DOM order
+      const order = (a: Element, b: Element) => a.compareDocumentPosition(b) & 4; // b follows a
+      expect(order(time, c.querySelector('[data-pv="words"]')!)).toBeTruthy();
+      const h = c.querySelector('[data-pv="handoff"]');
+      if (h) expect(order(time, h)).toBeTruthy();
       const beside = time.parentElement!.querySelector('[data-pv="time-stamp"]')!;
       expect(beside.textContent).toMatch(/^\d{4}-\d{2}-\d{2} /);
       expect(beside.textContent).toContain(REPLAY_MARK.ko);
     }
     expect(timed).toBeGreaterThanOrEqual(1);
     expect(cards.length).toBe(3); // examples: one per state
+    const notIn = container.querySelector('[data-pv="not-in-model"]')!;
+    for (const x of NOT_IN_MODEL.items) expect(notIn.textContent).toContain(x.ko);
   });
 
   it('no request leaves the page origin; no geo: link anywhere', () => {

@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CacheEntry } from '../../domain/types';
 import { coordsOf, loadEntries, loadScenario, readSaved, writeSaved, type ReplayScenario } from './load';
-import { BANNER, cardFor, DEVICE_NOTE, exampleIds, linkFor, OFFICIAL_SLOT, parseLink, pick, QUESTION, validPlace, type PublicCard } from './model';
+import { BANNER, cardFor, DEVICE_NOTE, exampleIds, linkFor, NOT_IN_MODEL, OFFICIAL_SLOT, parseLink, pick, QUESTION, validPlace, type PublicCard } from './model';
 import type { LmLang } from '../lastmile/types';
 
 const ICON: Record<PublicCard['icon'], string> = { clock: '⏱', stop: '⛔', question: '?' };
@@ -36,12 +36,7 @@ export function Card({ card, lang, example }: { card: PublicCard; lang: LmLang; 
         {pick(card.replayStamp, lang)}
       </div>
       <h2 className="pv-place">{pick(card.place, lang)}</h2>
-      <p className="pv-status">
-        <span className="pv-icon" aria-hidden="true">
-          {ICON[card.icon]}
-        </span>{' '}
-        <span data-pv="words">{pick(card.words, lang)}</span>
-      </p>
+      {/* Iris: the card leads with the time (never the route); the one-trip line sits with the time so a crop keeps it */}
       {card.time ? (
         <p className="pv-timeline">
           <span className="pv-time" data-pv="time">
@@ -52,6 +47,17 @@ export function Card({ card, lang, example }: { card: PublicCard; lang: LmLang; 
           </span>
         </p>
       ) : null}
+      {card.oneTrip ? (
+        <p className="pv-onetrip" data-pv="one-trip">
+          {pick(card.oneTrip, lang)}
+        </p>
+      ) : null}
+      <p className="pv-status">
+        <span className="pv-icon" aria-hidden="true">
+          {ICON[card.icon]}
+        </span>{' '}
+        <span data-pv="words">{pick(card.words, lang)}</span>
+      </p>
       <p className="pv-age" data-pv="age">
         {pick(card.dataAge, lang)}
       </p>
@@ -163,6 +169,14 @@ export function PublicView() {
           </ul>
         </section>
       ) : null}
+      <section className="pv-notin" data-pv="not-in-model">
+        <h2>{pick(NOT_IN_MODEL.title, lang)}</h2>
+        <ul>
+          {NOT_IN_MODEL.items.map((x) => (
+            <li key={x.en}>{pick(x, lang)}</li>
+          ))}
+        </ul>
+      </section>
       <footer className="pv-footer">{pick(DEVICE_NOTE, lang)}</footer>
     </div>
   );
