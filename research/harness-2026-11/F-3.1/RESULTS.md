@@ -315,7 +315,7 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   last feasible interval. For the origins with a hole, it is not the resident-facing contiguous deadline. Both are
   in the file: `union_cert` holds every interval.
 
-## F-DYN v3.3 envelope variants (SCENARIO, not what happened; not yet verified)
+## F-DYN v3.3 envelope variants (SCENARIO, not what happened; VERIFIED: Nora request #6, PASS WITH NOTES, ledger row 36)
 
 * **Files and inputs.**
   * Claim: `results/FDYN_V33_envelope_report.json`, built by `deadline_field/fdyn_v33_report.py` from 24 runs of
@@ -344,6 +344,14 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
   * **What the passes mean.** Each pass is against HAZARD.json, the representation the field uses. Only
     `check_route` is independent of my code. Burnset will be rerun on Leo's MANIFEST_v3_4 (arrays equal HAZARD)
     once Nora passes it.
+* **Verifier notes (Nora, request #6).**
+  * **Blocked roads.** Nora rebuilt YD 25T19 h5 burnset: HAZARD has one bin [0, 18000], and the flame cells equal
+    the burn set she derived from the raw inputs. Her own recount of blocked roads matches both regions exactly.
+  * **Field.** Her fdyn_run on that packet matches report row 13 exactly.
+  * **Not checked.** The envelope upper_bound witness was not looked at, and the other 23 packets were not re-run.
+  * **No independent check yet.** The arrays still disagree with HAZARD, and the kit's independent checker reads the
+    arrays. So no independent check of these witnesses is possible yet: only the full checker and the closed replay
+    on HAZARD.
 * **Counts.** Origins with a checked route at the start (contiguous deadline), and origins whose contiguous deadline
   is unchanged against kriged_mean (v3.1, same start and horizon). Summed over the 3 starts per region:
 
