@@ -573,3 +573,36 @@ artefact of the horizon, not a finding about the fire. It becomes meaningful onl
 * **Reading (model statement).** On these scenarios the timing lever is the only one that rescues. Choosing another
   shelter at the same departure never turns "no checked road" into "checked". This is consistent with free-flow
   routing with no congestion.
+
+## Return trips (rule `RETURN_TRIP_RULE.md`, committed first at 7e05a75; not yet verified)
+
+* **Label.** Model statements on scenarios (F-DYN v3.3, 5 h, kriged_mean and firms_early; not what happened). CERT
+  contact field. Roads are limited to graphs_interim.
+* **Files.** `results/RETURN_TRIPS_FDYN.json`, built by `deadline_field/return_trip.py --summary-from`.
+* **Setup.**
+  * Outbound at the start to the own destination with the earliest arrival (exact witness).
+  * Return from that destination to the entry node, departing at arrival + dwell + Δ.
+* **Important caveat: these packets reopen burned cells.** The runs use the as-built packets with the fixed
+  burning-duration reopening. A return that becomes checked at a longer delay does so because the fire burned out
+  under the placeholder law. Under the **no-re-entry** default of the multi-hour headline rule such returns would not
+  reopen. These counts are therefore a research row, never person-facing.
+
+| start | variant | outbound not checked | return not checked at Δ = 30 / 60 / 120 min | beyond horizon (120 min) |
+|---|---|---:|---|---:|
+| UA 03-23 01Z | both | 0 | 0 / 0 / 0 | 0 |
+| UA 03-24 09Z | both | 0 | 0 / 0 / 0 | 0 |
+| UA 03-25 17Z | kriged_mean | 9 | 4 / 14 / 16 | 0 |
+| UA 03-25 17Z | firms_early | 12 | 11 / 11 / 0 | 1 |
+| YD 03-25 19Z | kriged_mean | 4 (+1 not computed) | 0 / 1 / 1 | 0 |
+| YD 03-25 19Z | firms_early | 3 (+1 not computed) | 0 / 1 / 1 | 0 |
+| YD 03-25 23Z | both | 0 | 0 / 0 / 0 | 0 |
+| YD 03-26 08Z | both | 2 | 0 / 0 / 0 | 0 |
+
+* **Reading the table.**
+  * "Outbound not checked" = no checked route at the start.
+  * "Not computed" = the exact earliest-arrival witness exceeded its 2 GiB memory cap.
+  * UA 03-25 17Z firms_early drops from 11 to 0 at 120 min. That is reopening under the placeholder law, which is
+    the caveat above in action.
+* **Implementation note.** The YD runs (and the remaining runs after a memory kill) use the
+  one-destination-field-at-a-time version of `return_trip.py`. The selection logic is unchanged: earliest arrival,
+  ties to the lowest node id.
