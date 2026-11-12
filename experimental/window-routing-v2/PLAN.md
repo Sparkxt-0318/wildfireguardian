@@ -349,7 +349,16 @@ Rule-first, as for every step. Where I disagree or need a fact, it is marked **[
 - **Exceptions are mechanical, listed beforehand,** and of the FL2 type only: a record whose frozen verdict itself
   varies across the recorded repetitions, judged against the frozen set.
 - The expected exception list is produced from the records before v2 runs.
-- **[open]** The location and format of the 9,722 records are needed from the orchestrator or Richard.
+- **Source of record (orchestrator, 16:07 UTC).** The planner's six committed caches (Clara, `planner/cache/…`).
+  - Unit: one route-check job. 9,722 jobs: 7,771 checked routes, 1,468 model no-route, 204 unresolved (distinct
+    after re-checks) and 297 timeout originals.
+  - Per-job rows reproduced from them: Richard's `results/threeway_jobs` on `claude/f31-deadline-field` (Nora rows
+    25 and 43).
+- **"Reproduce" (Iris's definition, fixed before any run):**
+  - a route has identical legs and arrival;
+  - a refusal stays an identical refusal;
+  - a timeout may resolve, but never into a contradiction of a recorded route or refusal.
+- **Pending:** the row format from Richard and the cache schema from Clara, before the G6 runner is written.
 
 **Step 6 design question (with Richard; short design note before any build).** Should v2's multi-hour solver be
 Richard's interval deadline field, with the unchanged frozen checker as verifier, instead of the dense per-second
@@ -369,7 +378,7 @@ sweep?
 - If (non-flame flux bound × journey duration + incurred dose) is below the dose budget, and the flux bound is below
   the peak limit, then radiation is decided with no geometry. Otherwise fall through to option A, then to the exact
   tier.
-- **[open, disagreement on the bound used].** The F-3.1 figure of 0.0156 kW/m² is the packet's **cell-binned** flux
+- **Decided (orchestrator, 16:07 UTC): the cell-binned 0.0156 is NOT used.** The F-3.1 figure of 0.0156 kW/m² is the packet's **cell-binned** flux
   (Nora's scope note). It does **not** bound the whole-road checker's continuous enclosure, which is the quantity the
   checker certifies. Using it there would be unsound.
 - **Proposal:** use a bound **of the checker's own enclosure**, e.g. the per-packet maximum of the radial-tier upper
@@ -397,8 +406,8 @@ sweep?
 - A burned cell is closed for the rest of the horizon. The reopening model ([b, b + T) activity) stays a labelled
   research variant.
 - Scout-suggested occupant limits (1.0 kW/m², distance factor 1.5) never enter an operational output.
-- **[open, interaction with G1].** The kit's search and checker read activity from the packet. No-re-entry is
-  therefore best realised as a **packet-level** transform: expiry set to the horizon for every ignited cell, written
+- **Decided (orchestrator, 16:07 UTC; Leo assigned).** The kit's search and checker read activity from the packet.
+  No-re-entry is therefore realised as a **packet-level** transform: expiry set to the horizon for every ignited cell, written
   by the packet writer with its own identity (Leo).
 - v2 code stays unchanged under it, and G1 still compares like with like on the frozen packets.
 - No-re-entry results are reported as their own line.
