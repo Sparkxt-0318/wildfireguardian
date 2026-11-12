@@ -56,6 +56,11 @@ The last PASS for a stream is the checkpoint it returns to after a failure.
 | 48 | 2026-11-12 | F-3.2 W7 firms_early on v3.1 | Thomas | f5aef10 | own v3.1 build of Yeongdeok 0325T19: 180/180 py = c = claim/T, O2 0, 0 diffs vs his v3.1 and v3; arrays byte-identical to v3, only identity fields differ; his 864 all match v3 | own rebuild (Leo f40e2af) + fresh C checker + packet diff | PASS |
 | 49 | 2026-11-12 | W-KIT W6 registry-only issuer | Clara | 9695e26 | 105 adversarial names (mine + registry-name prefix/suffix, ZWSP/ZWJ/NBSP, NFD, look-alike, U+2028) x drill flag x 2 places: 0 non-registry contact lines or numbers; 419/419; build:static OK | own probe with default registry | PASS WITH NOTES |
 | 50 | 2026-11-12 | PROV-FLAGS deadline provenance (staff only) | Clara | 79ad132 | split_provenance byte-identical, tampered source refused; own join 473/7/21 + 10 proven-no-route + 9 + 11; cross-cache 0/30 accepted; 415/415; static smoke 119/119 | fresh npm ci, own join probe, cross-file + tamper + bad-kind probes, smoke | PASS WITH NOTES |
+| 51 | 2026-11-12 | Tier R coverage = packet grid + tier_r.json regenerated | Thomas | d4564b38 | 12/12; Fukuoka/US files cover no event under packet bboxes; regenerated tier_r.json equals my b2d9eba reproduction in all 20 x 4 tiers | tests + real bboxes + JSON diff | PASS |
+| 52 | 2026-11-12 | Pre-cut sign-off (a) coreachable sentinel skip | Thomas | d4564b38 | preds(E)=0 and never enqueued on all 20; same output with/without skip; forced origin-accept: no-skip IndexError, skip gives cert+cocert ACCEPT by both | structural check + forced case | SIGN-OFF |
+| 53 | 2026-11-12 | Pre-cut sign-off (b) derive_instance.compare_semantic | Thomas | d4564b38 | 7 mutations behave exactly at legal boundaries (H-D_j, H) | mutation tests | SIGN-OFF WITH NOTE |
+| 54 | 2026-11-12 | Pre-cut sign-off (c) unknown_support Augmented + certify_and_check | Thomas | d4564b38 | Augmented(empty) == base; with Tier A extras == hand-merged on 3 missions; 80/80 checker outputs match claim/T | equivalence tests | SIGN-OFF WITH NOTE |
+| 55 | 2026-11-12 | Pre-cut sign-off (d) envelope_o2_exact.json | Thomas | d4564b38 | own rerun: 1,293 = 502 sub-us + 791 quantum; 0/10 instances equal (negative result) | own rerun at Leo 7eb3691 | SIGN-OFF WITH NOTE |
 
 ## Notes
 
@@ -305,4 +310,10 @@ No time is ever rendered after the planner's leave-by. N7 example withdrawn: iss
 - N2: T < exact leave_by_s in 501/501, so the label describes the exact bound after T.
 - N3 (design call): the CSV gives the present-fire-only value as raw seconds.
 - N4: visuals not inspected.
+
+**51-55. Pre-cut** (d4564b38):
+- (b) does not assert that the derived dep/H equal the instance's.
+- (c) does not compare the checker claim/T with generate's.
+- (d) the committed JSON predates --law/--tag (keys missing; values identical), so regenerate it for the cut; it must be presented as a negative result.
+- fdyn cocerts are built with legs=[] (sized only, never checked).
 
