@@ -108,3 +108,38 @@ Nora verifies. Richard and Marcus confirm the definition (§1, §3) before code.
     - the writer identity is in BUILD_SUMMARY.
   - He does not need a contact-only flux copy.
 - **Still waiting on Marcus** (S1/S2 benchmark).
+
+## STATUS (2026-11-12): acceptance 1–6 pass; 7 not run (blocked as stated below)
+
+**Code and manifest.**
+- Code at 86f73d17: `fdyn/build.py --no-reentry`, `fdyn/_packet_child.py`, `fdyn/manifest.py`.
+- `MANIFEST_v3_6.json`, `wfg.fdyn.manifest/7`: 976 entries. They are the 488 v3.5 entries verbatim (transform
+  `reopening`) plus 488 `no_reentry/1`.
+
+**Results** (`NOREENTRY_CHECK.json`, `fdyn/noreentry_check.py`; Yeongdeok 25T11Z h5, all 4 variants, numpy 2.5.3):
+
+1. **No transform.** The reopening build of kriged_mean has HAZARD `6940f293…` = v3.5.
+2. **Self-check and identity.** The builder self-check is consistent on all 4. The identity carries
+   `transform no_reentry/1`, `source_law_version wfg.fdyn.no-reentry-scalar/1` and the F1 label. The scenario ids
+   differ from the reopening packet's.
+3. **Own derivation.** Flame in every bin equals {cells with reopening birth b ≤ l}: 0 mismatches on all 4.
+4. **Flux, reported.**
+   - Max flux 0.701 → 0.702 kW/m² for kriged_mean, firms_early and envelope; burnset 0.703, unchanged.
+   - Integrated flux × 2.30 (kriged_mean), × 2.58 (firms_early), × 1.57 (envelope); burnset unchanged. Burnset
+     content is identical by construction; its identity is new.
+5. **Array path.** The array law is consistent on all 4, including `envelope`, which is now scalar-law and not
+   refused.
+6. **Richard's reader.** `deadline_field.real.load_packet` @13d89793 was run on both packets of each variant:
+   - 0 cell-set differences;
+   - 0 birth differences;
+   - 0 no-re-entry phases ending before H.
+
+**Acceptance 7 (dose/peak verdict-change count): not run.**
+- `fdyn/noreentry_verdicts.py` used `routing-package`'s solver.
+- Its validator rejects these packets (`EVIDENCE_CLASS`: RESEARCH_CONSTRUCTION needs fixture or mentor evidence).
+- Its graph validation takes 190 s per call on the full-grid graph.
+- So it is the wrong tool for these packets. The count needs the research router / full checker that Richard's
+  headline pipeline already runs on both packets.
+- **Proposal:** Richard reports the count from his full-checker witnesses on the reopening and no-re-entry packets of
+  each run. Orchestrator to decide.
+- Peak cannot flip: max flux 0.70 kW/m² against the 10 kW/m² budget. Dose can, because the integrated flux rises.
