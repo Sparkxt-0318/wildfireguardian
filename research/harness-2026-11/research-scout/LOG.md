@@ -720,3 +720,37 @@ Sources were opened unless marked otherwise. No phone numbers are recorded.
 **Clara's wording requests**
 
 - Card lines (leave-by, one-trip, not-checked list) and staff provenance labels reviewed. Feedback was sent by message; no file was produced.
+
+## Batch 8b (2026-11-12): burn duration (Richard, Priya) and road-network extent (Leo)
+
+All sources below were opened.
+
+**Flaming at a point**
+
+- Crown fire: ICFME, Taylor et al. 2004 (frames.gov/catalog/5262).
+  - Video observations at the surface: mean 34 s.
+  - Thermocouples: 74 s at the surface, 31 s below the canopy.
+- Surface fire: Anderson 1969 INT-RP-69, p.15: tr in minutes = 8·d, with d in inches.
+- Rothermel form: Andrews 2018 GTR-371 §4.2: tr = 384/σ minutes. It "does not include the indefinite trailing edge".
+
+**Smouldering**
+
+- Frandsen (firedoc.nist.gov E3cyXYQBWEcjUZEY6N3s): soil above 300 °C for up to 12 h.
+
+**Post-front road reopening**
+
+- No published rule found.
+- WUI-NITY (AJEM 2022) has no rule either.
+- Suggestion: block time ≈ (cell + ROS·tr)/ROS. Reopening is a sensitivity input; test "never reopen".
+
+**Network extent**
+
+- No study I opened uses a fixed km buffer. Networks end at exits or low-fuel safe ground, and those nodes are the sinks.
+  - Dennison 2007 WUIVAC: farmland, a lake, the desert edge.
+  - Li 2019: the three highway egress nodes.
+  - SUMO Paradise / Mill Valley: arterial exits grouped as one destination zone (TAZ); in the follow-up, the Hwy 101 segment ends.
+  - Robertson & Singh 2019: safe locality centres weighted by capacity.
+- Cova 2021: refuge or shelter as the option when evacuation time exceeds lead time.
+- OSMnx graph_from_polygon adds no real buffer: it buffers 0.5 km only for intersection counts, then truncates back to the polygon.
+- Not opened: Intini 2019, Beloglazov 2016.
+- Suggestion for Leo: extend the network per road to safe ground or a named destination, make those nodes sinks, and add refuge nodes where no exit works.
