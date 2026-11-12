@@ -393,3 +393,54 @@ New anchors (VERIFIED):
 - 21:00 and 21:06: county-wide power and communications cut (hankyung, newsis 3113851).
 
 Official spread timeline: KFS gives only two points for the fire head, Uiseong at 14:00 and Yeongdeok at 02:00, giving 8.2 km/h. No intermediate head positions were published.
+
+## Batch 3 (2026-11-12): orchestrator priorities 1-4
+
+Sources were opened unless marked otherwise.
+
+**(1) Thomas, W-KIT gap fill**
+
+- Draft amendment to the 재난안전법 시행령 (decree under the disaster safety act), 행정안전부공고 제2026-1391호, published for comment 2026-11-04 (https://opinion.lawmaking.go.kr/gcom/ogLmPp/89332).
+  - 안 제49조② requires an evacuation notice to state four things: the target area and people; the reason and timing; the shelter's name and location; and the issuing agency with a contact number.
+  - ⑤ defines the duties of the 주민대피지원단 (resident evacuation support team).
+  - ⑥ lets the 읍·면·동장 (township head) issue evacuation orders.
+- MOIS 2026-10-29 (nttId=130603): from 10-30, all 안전안내문자 (routine safety notices) can be 157 characters; 위급 and 긴급 texts stay at 90.
+- No newer 예규 (administrative rule) than 361. No 157-character wildfire standard text exists.
+- 2025-08-27 release PDF (nttId=120066): three-layer chain, 문자 → 마을 예·경보시설 → 인편지원 (text → village warning equipment → in-person help). Family members living elsewhere can opt in to voice calls.
+- 「재난정보전달 길라잡이」 (the planned alert-delivery guidebook): not published.
+- Voice calls in practice:
+  - Gyeongbuk AI Call (nate 20260331n00068): residents confirm arrival by calling the shelter's 안심번호.
+  - 김포 (inews24 2024968): call placed within 3 minutes; up to 4 retries within 5 minutes.
+- forest.go.kr: connection reset, so the 마을방송문안(예시).hwp (village-broadcast script examples) could not be opened.
+
+**(2) Leo, timed resident accounts.** See the messages to Leo.
+
+- 답곡1리: smoke at about 16:00; village hit at 18:04 (weekly.khan 202508040600001).
+- 추목리: 기룡산 summit flames at dusk; village burning within 5 minutes (imaeil 2025032717090280264).
+- 포산리: fire arrival about 19:00-19:15 (kbmaeil 202503260913626).
+- 달기약수터: fire arrival about 20:00-20:30 (imaeil 2025032714072208935).
+- 일직면 원리: "산 너머에서 연기가 넘어오는 게 잘 보이지 않아" (smoke coming over the ridge was hard to see) (imaeil 2025033016362383518).
+- Correction: the 석리 (coast) 이장 account is the one at 18:30-19:00. It is not from 지품면.
+
+**(3) P1-P5 prototype**
+
+- Watch Duty: wording taken from the app bundle, including "Grandma's" as a place name and "Updated {timeAgo}".
+- Genasys: "NORMAL" as the empty state.
+- NSW Hazards Near Me: three levels.
+- 안전디딤돌: parents campaign; setup takes 4 steps; 140k users have set an extra region.
+- 국민안전24: ambiguous empty state.
+- NIA 2025 digital-divide survey: people aged 65+ score 71.8% overall and 56.2% on skills.
+- Busan study: β=.340 for understanding information, β=.205 for access through people.
+- Eight first-screen recommendations went to the orchestrator.
+
+**(4) Fast runs**
+
+- Balch 2024 (Science): the maximum-growth day accounts for 38% of area burned.
+- Balik 2024: about 3% of fire-days account for 16-55% of area.
+- Wang 2017: two spread modes; gridding smooths the extremes away.
+- Cruz & Alexander: rate of spread is about 10% of wind speed, which reproduces Uiseong's 8.2 km/h.
+- Masoudian 2021: Ornstein-Uhlenbeck (OU) wind in Spark.
+- Migliorini & Smyth 2026 (arXiv 2510.12916): close prior art for S-D1.
+- Lloyd-Smith 2005: gamma frailty.
+- Bardo 2024: interval-censored K-point frailty.
+- Recommendation: a day-level latent run state.
